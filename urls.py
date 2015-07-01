@@ -9,6 +9,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.shortcuts import redirect
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf.urls.i18n import i18n_patterns
 
 from jetson.apps.utils.decorators import login_required
 from jetson.apps.location.models import Address
@@ -227,7 +228,7 @@ sitemaps = {
     'contextitems': ContextItemSitemap,
 }
 
-urlpatterns = patterns('',
+urlpatterns = i18n_patterns('',
     # root
     url(r'^$', 'ccb.apps.site_specific.views.splash_page', name="splash_page"),
 
@@ -280,16 +281,17 @@ urlpatterns += patterns('django.views.static',
 urlpatterns += staticfiles_urlpatterns()
 
 ### HELPERS (system urls not visible directly for the users) ###
-urlpatterns += patterns('',
+urlpatterns += patterns(
+    '',  # no views specified
     # ajax lookups
     url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),
     url(r'^helper/country_lookup/$', 'jetson.apps.utils.views.jquery_autocomplete_lookup', country_lookup, name="country_lookup"),
     url(r'^helper/country/(?P<country_code>[A-Z]{2})/$', 'jetson.apps.i18n.views.json_country_name', name="json_country_lookup"),
     url(r'^helper/%s_lookup/$' % URL_ID_INSTITUTION, 'jetson.apps.utils.views.jquery_autocomplete_lookup', institution_lookup, name="institution_lookup"),
     url(r'^helper/%s_lookup/$' % URL_ID_PERSON, 'jetson.apps.utils.views.jquery_autocomplete_lookup', person_lookup, name="person_lookup"),
-    
+
     # helper for getting related objects from given contenttype
-    url(r'^helper/objects_to_select/(?P<app_name>[^/]+)/(?P<model_name>[^/]+)/(?P<obj_pk>[^/]+)/(?P<field_name>[^/]+)/of/(?P<content_type_id>[0-9]+)/$', 'base_libs.views.views.json_objects_to_select'),    
+    url(r'^helper/objects_to_select/(?P<app_name>[^/]+)/(?P<model_name>[^/]+)/(?P<obj_pk>[^/]+)/(?P<field_name>[^/]+)/of/(?P<content_type_id>[0-9]+)/$', 'base_libs.views.views.json_objects_to_select'),
     #url(r'^helper/userrating/(?P<content_type_id>[0-9]+)/(?P<object_id>[0-9]+)/(?P<score>[0-9]+)/$', 'jetson.apps.rating.views.json_set_userrating'),
     #url(r'^helper/rating/(?P<content_type_id>[0-9]+)/(?P<object_id>[0-9]+)/(?P<points>[1-5])/$', 'jetson.apps.ratings.views.json_set_rating'),
     url(r'^helper/favorite/(?P<content_type_id>[0-9]+)/(?P<object_id>[0-9]+)/$', 'ccb.apps.favorites.views.json_set_favorite'),
@@ -302,13 +304,13 @@ urlpatterns += patterns('',
     url(r'^helper/tmpimage/(?P<width>\d+)x(?P<height>\d+)/$', 'jetson.apps.utils.images.image_view', {'mod_function': None}),
 
     url(r'^helper/popup-window/(?P<window_type>[^/]+)/$', 'ccb.apps.site_specific.views.popup_window'),
-    url(r'^helper/individual-relation/(?P<action>edit|invite|accept|cancel|deny|block|unblock|remove)/(?P<username>[^/]+)/$', 'jetson.apps.individual_relations.views.manage_individual_relationship'),        
-    url(r'^helper/%s-membership/(?P<action>edit|request|cancel|remove|accept-%s|deny-%s)/(?P<slug>[^/]+)/$' % (URL_ID_PERSONGROUP, URL_ID_PERSONGROUP, URL_ID_PERSONGROUP), 'ccb.apps.groups_networks.views.manage_group_membership'),        
-    url(r'^helper/%s-membership/(?P<action>accept-user|deny-user|remove-user|cancel-user)/(?P<slug>[^/]+)/(?P<username>[^/]+)/$' % URL_ID_PERSONGROUP, 'ccb.apps.groups_networks.views.manage_group_membership'),        
-    url(r'^helper/edit-%s-member/(?P<slug>[^/]+)/(?P<user_id>[0-9]+)/$' % URL_ID_PERSONGROUP, 'ccb.apps.groups_networks.views.edit_group_member'),        
+    url(r'^helper/individual-relation/(?P<action>edit|invite|accept|cancel|deny|block|unblock|remove)/(?P<username>[^/]+)/$', 'jetson.apps.individual_relations.views.manage_individual_relationship'),
+    url(r'^helper/%s-membership/(?P<action>edit|request|cancel|remove|accept-%s|deny-%s)/(?P<slug>[^/]+)/$' % (URL_ID_PERSONGROUP, URL_ID_PERSONGROUP, URL_ID_PERSONGROUP), 'ccb.apps.groups_networks.views.manage_group_membership'),
+    url(r'^helper/%s-membership/(?P<action>accept-user|deny-user|remove-user|cancel-user)/(?P<slug>[^/]+)/(?P<username>[^/]+)/$' % URL_ID_PERSONGROUP, 'ccb.apps.groups_networks.views.manage_group_membership'),
+    url(r'^helper/edit-%s-member/(?P<slug>[^/]+)/(?P<user_id>[0-9]+)/$' % URL_ID_PERSONGROUP, 'ccb.apps.groups_networks.views.edit_group_member'),
 
     url(r'^helper/edit-(?P<object_type>%s|%s|%s|%s|%s|%s)-profile/(?P<slug>[^/]+)/$' % (URL_ID_JOB_OFFER, URL_ID_EVENT, URL_ID_DOCUMENT, URL_ID_PERSONGROUP, URL_ID_INSTITUTION, URL_ID_PERSON), 'ccb.apps.site_specific.views.edit_profile'),
-    
+
     url(
         r'^helper/edit-(?P<object_type>%s|%s|%s|%s|%s|%s)-profile/'
         r'(?P<slug>[^/]+)/(?P<section_name>'
@@ -339,20 +341,18 @@ urlpatterns += patterns('',
     url(r'^helper/(?P<object_type>%s|%s|%s|%s)-profile/(?P<slug>[^/]+)/contact/(?P<index>[^/]+)/$' % (URL_ID_JOB_OFFER, URL_ID_EVENT, URL_ID_INSTITUTION, URL_ID_PERSON,), 'ccb.apps.site_specific.views.show_contact'),
 
     url(r'^helper/autocomplete/(?P<app>[^/]+)/(?P<qs_function>[^/]+)/(?P<display_attr>[^/]+)/(?P<add_display_attr>[^/]+)/$', 'base_libs.views.ajax_autocomplete'),
-    
+
     url(r'^helper/accounts/%s_attrs/(?P<institution_id>[0-9]+)/$' % URL_ID_INSTITUTION, _project_name + '.apps.institutions.ajax.json_get_institution_attrs'),
-        
+
     url(r'^helper/%s/%s_attrs/(?P<institution_id>[0-9]+)/$' % (URL_ID_EVENT, URL_ID_INSTITUTION), _project_name + '.apps.events.ajax.json_get_institution_attrs'),
-    
+
     url(r'^helper/%s/%s_attrs/(?P<institution_id>[0-9]+)/$' % (URL_ID_JOB_OFFER, URL_ID_INSTITUTION), _project_name + '.apps.marketplace.ajax.json_get_institution_attrs'),
-    
+
     url(r'^helper/site-visitors/$', "ccb.apps.site_specific.views.site_visitors"),
-    
-    url(r'^recrop/', include('jetson.apps.image_mods.urls')),
-    
 )
 
-urlpatterns += patterns('',
+urlpatterns += i18n_patterns('',
+    url(r'^recrop/', include('jetson.apps.image_mods.urls')),
     url(r'^%s/$' % URL_ID_INSTITUTIONS, _project_name + '.apps.institutions.views.institution_list', dict(list_filter=_institution_list_filter, **institution_list_info)),
     url(r'^%s/(?P<show>favorites|memos|own-%s)/$' % (URL_ID_INSTITUTIONS, URL_ID_INSTITUTIONS), _project_name + '.apps.institutions.views.institution_list', dict(list_filter=_institution_list_filter, **institution_list_info)),
     url(r'^%s/add/$' % URL_ID_INSTITUTIONS, _project_name + '.apps.institutions.views.add_institution'),
@@ -876,6 +876,6 @@ urlpatterns += patterns('',
 )
 
 if 'rosetta' in settings.INSTALLED_APPS:
-    urlpatterns += patterns('',
+    urlpatterns += i18n_patterns('',
         url(r'^rosetta/', include('rosetta.urls')),
     )
