@@ -7,7 +7,6 @@ import vobject
 from datetime import datetime, date
 
 from django.db import models
-from django.db.models.loading import cache
 from django.db.models.base import ModelBase
 from django.db.models.fields import FieldDoesNotExist
 from django.utils.translation import ugettext_lazy as _
@@ -17,6 +16,7 @@ from django.utils.encoding import force_unicode
 from django.template.defaultfilters import slugify
 from django.conf import settings
 from django.utils.timezone import now as tz_now
+from django.apps import apps
 
 from base_libs.models.models import UrlMixin
 from base_libs.models.models import CreationModificationDateMixin
@@ -761,57 +761,3 @@ class InstitutionalContactBase(models.Model):
                 break
         output = v.serialize(get_utf8buffer())
         return output
-        
-### Person modification
-
-def extend_people_app(sender, *args, **kwargs):
-    """
-    Modify the people app if it's installed:
-    - add institution field to IndividualContact
-    - change the method get_additional_search_data for Person
-    """
-    # if people app is registered before institutions app, this function will be called while initiating InstitutionalContact
-    # if people app is registered after institutions app, this function will be called for each model registered after Institution initiation until people app gets registered.
-    if hasattr(cache, "app_models") and "people" in cache.app_models and "institutions" in cache.app_models:
-        people_app = cache.app_models["people"]
-        Person = people_app.get("person", None)
-        IndividualContact = people_app.get("individualcontact", None)
-        institutions_app = cache.app_models["institutions"]
-        Institution = institutions_app.get("institution", None)
-        # if people app is installed
-        if Person and IndividualContact and Institution:
-            # add institution field to IndividualContact
-            institution = models.ForeignKey(
-                Institution,
-                verbose_name=_("Institution"),
-                blank=True,
-                null=True,
-                )
-            institution.south_field_triple = lambda: (
-                "django.db.models.fields.related.ForeignKey",
-                ["orm['institutions.institution']"],
-                {
-                    'blank': repr(institution.blank),
-                    'null': repr(institution.null),
-                    })
-            IndividualContact.add_to_class(
-                "institution",
-                institution,
-                )
-            # modify get_additional_search_data() to recieve institution as well
-            def wrapped(func):
-                def get_additional_search_data(self):
-                    search_data = func(self)
-                    contacts = self.get_contacts()
-                    if contacts:
-                        for contact in contacts:
-                            if contact.institution:
-                                search_data.append(contact.institution.get_title())
-                    return search_data
-                return get_additional_search_data
-            Person.get_additional_search_data = wrapped(Person.get_additional_search_data)
-            
-            # modification should be done just once, so disconnecting
-            models.signals.class_prepared.disconnect(extend_people_app)
-
-models.signals.class_prepared.connect(extend_people_app)
