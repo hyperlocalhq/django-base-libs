@@ -80,7 +80,6 @@ INSTALLED_APPS = [
     "tagging",
     "tagging_autocomplete",
     "rosetta",
-    "south",
     # "debug_toolbar",
     # "memcache_toolbar",
     "pipeline",
