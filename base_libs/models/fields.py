@@ -205,14 +205,6 @@ class MultilingualCharField(models.Field):
         # generate language specific fields dynamically
         if not cls._meta.abstract:
             for language in settings.LANGUAGES:
-                try: # if that's south data migration
-                    from south.hacks import hacks
-                except ImportError:
-                    pass
-                else: # related multilingual fields will be added by south itself
-                    if getattr(hacks, "old_app_models", False):
-                        continue
-
                 try: # the field shouldn't be already added (for south)
                     cls._meta.get_field(_language_field_name(name, language[0]))
                 except models.FieldDoesNotExist:
@@ -309,14 +301,6 @@ class MultilingualTextField(models.Field):
         if not cls._meta.abstract:
             for language in settings.LANGUAGES:
                 
-                try: # if that's south data migration
-                    from south.hacks import hacks
-                except ImportError:
-                    pass
-                else: # related multilingual fields will be added by south itself
-                    if getattr(hacks, "old_app_models", False):
-                        continue
-                        
                 try: # the field shouldn't be already added (for south)
                     cls._meta.get_field(_language_field_name(name, language[0]))
                 except models.FieldDoesNotExist:
@@ -660,54 +644,3 @@ class PositionField(models.IntegerField):
         queryset.update(**updates)
         setattr(instance, self.get_cache_name(), (updated, None))
 
-    def south_field_triple(self):
-        from south.modelsinspector import introspector
-        field_class = "django.db.models.fields.IntegerField"
-        args, kwargs = introspector(self)
-        return (field_class, args, kwargs)
-
-try:
-    from south.modelsinspector import add_introspection_rules
-except ImportError:
-    pass
-else:
-    add_introspection_rules(
-        [],
-        ["^base_libs\.models\.fields\.ExtendedTextField"],
-    )
-    add_introspection_rules(
-        [],
-        ["^base_libs\.models\.fields\.PlainTextField"],
-    )
-    add_introspection_rules(
-        [],
-        ["^base_libs\.models\.fields\.PlainTextModelField"],
-    )
-    add_introspection_rules(
-        [],
-        ["^base_libs\.models\.fields\.MultilingualCharField"],
-    )
-    add_introspection_rules(
-        [],
-        ["^base_libs\.models\.fields\.MultilingualTextField"],
-    )
-    add_introspection_rules(
-        [],
-        ["^base_libs\.models\.fields\.MultilingualPlainTextField"],
-    )
-    add_introspection_rules(
-        [],
-        ["^base_libs\.models\.fields\.URLField"],
-    )
-    add_introspection_rules(
-        [],
-        ["^base_libs\.models\.fields\.MultilingualURLField"],
-    )
-    add_introspection_rules(
-        [],
-        ["^base_libs\.models\.fields\.TemplatePathField"],
-    )
-    add_introspection_rules(
-        [],
-        ["^base_libs\.models\.fields\.PositionField"],
-    )
