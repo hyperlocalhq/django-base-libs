@@ -45,27 +45,3 @@ if "tagging_autocomplete" in settings.INSTALLED_APPS:
         '%s/jquery.bgiframe.min.js' % _js_base_url,
         '%s/jquery.autocomplete.js' % _js_base_url,
         )
-    
-    
-    ### create correct south migrations ###
-    
-    from south.modelsinspector import add_introspection_rules
-    
-    try:
-        from tagging_autocomplete.models import TagAutocompleteField
-    except ImportError:
-        pass
-    else:
-        rules = [
-            (
-                (TagAutocompleteField, ),
-                [],
-                {
-                    "blank": ["blank", {"default": True}],
-                    "max_length": ["max_length", {"default": 255}],
-                },
-            ),
-        ]
-    
-        add_introspection_rules(rules, ["^tagging_autocomplete\.models",])
-
