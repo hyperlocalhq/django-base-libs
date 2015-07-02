@@ -7,8 +7,8 @@ from django.contrib.admin import helpers
 from django.contrib.admin import util
 from django.contrib.admin import options
 from django.contrib.admin import validation
-from django.contrib.admin.validation import (check_isseq, get_field, check_isdict, check_formfield)
-from django.contrib.admin.options import HORIZONTAL, VERTICAL
+from django.contrib.admin.validation import (check_isseq, get_field, check_isdict)
+from django.contrib.admin.options import HORIZONTAL, VERTICAL, ModelAdmin
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.forms.formsets import all_valid
@@ -28,6 +28,28 @@ from base_libs.models.base_libs_settings import MARKUP_HTML_WYSIWYG
 from base_libs.models.base_libs_settings import MARKUP_RAW_HTML
 from base_libs.models.fields import ExtendedTextField
 from base_libs.widgets import TreeSelectWidget, TreeSelectMultipleWidget
+
+### Back-port from Django 1.5
+### TODO check if backport was removed for safety reasons
+
+def check_formfield(cls, model, opts, label, field):
+    if getattr(cls.form, 'base_fields', None):
+        try:
+            cls.form.base_fields[field]
+        except KeyError:
+            raise ImproperlyConfigured("'%s.%s' refers to field '%s' that "
+                "is missing from the form." % (cls.__name__, label, field))
+    else:
+        get_form_is_overridden = hasattr(cls, 'get_form') and cls.get_form != ModelAdmin.get_form
+        if not get_form_is_overridden:
+            fields = fields_for_model(model)
+            try:
+                fields[field]
+            except KeyError:
+                raise ImproperlyConfigured("'%s.%s' refers to field '%s' that "
+                    "is missing from the form." % (cls.__name__, label, field))
+
+
 
 ### Guerilla patches for nested fieldsets
 
@@ -221,7 +243,7 @@ class Fieldset(object):
 
     def __iter__(self):
         for field in self.fields:
-            if (len(field)==2 and isinstance(field[1], dict)):
+            if len(field)==2 and isinstance(field[1], dict):
                 # nested fieldset
                 yield Fieldset(self.form,
                     name=field[0],
@@ -249,7 +271,7 @@ class InlineFieldset(Fieldset):
         for field in self.fields:
             if fk and fk.name == field:
                 continue
-            if (len(field)==2 and isinstance(field[1], dict)):
+            if len(field)==2 and isinstance(field[1], dict):
                 # nested fieldset
                 yield Fieldset(self.form,
                     name=field[0],
@@ -457,7 +479,7 @@ class ExtendedModelAdmin(admin.ModelAdmin):
     
     # overwritten
     @options.csrf_protect_m
-    @transaction.commit_on_success
+    @transaction.atomic
     def add_view(self, request, form_url='', extra_context=None):
         """
         The 'add' admin view for this model.
@@ -571,7 +593,7 @@ class ExtendedModelAdmin(admin.ModelAdmin):
     
     # overwritten    
     @options.csrf_protect_m
-    @transaction.commit_on_success
+    @transaction.atomic
     def change_view(self, request, object_id, form_url='', extra_context=None):
         """
         overwritten change_view. The default behaviour is extended by

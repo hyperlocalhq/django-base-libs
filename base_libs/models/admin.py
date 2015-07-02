@@ -48,12 +48,12 @@ def get_admin_lang_section(heading, field_list, default_expanded=True):
     for lang_code, lang_verbose in settings.LANGUAGES:
         
         if len(settings.LANGUAGES) > 1:
-            if heading:
+            if heading is not None:
                 section = string_concat(heading, " (", lang_verbose, ")")
             else:
                 section = lang_verbose
         else:
-            if heading:
+            if heading is not None:
                 section = heading
             else:
                 section = None
@@ -151,7 +151,7 @@ def ObjectRelationMixinAdminOptions(
             return field
             
     def get_content_object_display(self, obj):
-        " this method is just used for display in the admin"
+        """this method is just used for display in the admin"""
         co = getattr(obj, content_object_field)
         if not co:
             return "-------"
@@ -502,7 +502,6 @@ class HierarchyMixinAdminForm(forms.ModelForm):
 class ContentBaseMixinAdminOptions(PublishingMixinAdminOptions):
     save_on_top = True
     list_display = ('get_id', 'title', 'author', 'status', 'published_from', 'published_till')
-    list_display_links = ('title',)
     list_filter =  ('sites', 'creation_date', 'modified_date', 'creator', 'modifier')
     
     fieldsets = get_admin_lang_section(

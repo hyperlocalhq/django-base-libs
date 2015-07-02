@@ -166,14 +166,14 @@ class CreationModificationMixin(
         abstract = True
 
 class PublishingMixinDraftManager(models.Manager):
-    def get_query_set(self):        
+    def get_queryset(self):
         return super(
             PublishingMixinDraftManager,
             self,
-            ).get_query_set().filter(status__exact=STATUS_CODE_DRAFT)
+            ).get_queryset().filter(status__exact=STATUS_CODE_DRAFT)
 
 class PublishingMixinPublishedManager(models.Manager):
-    def get_query_set(self):
+    def get_queryset(self):
         conditions = []
         now = tz_now()
         conditions.append(models.Q(
@@ -195,7 +195,7 @@ class PublishingMixinPublishedManager(models.Manager):
         return super(
             PublishingMixinPublishedManager,
             self,
-            ).get_query_set().filter(
+            ).get_queryset().filter(
                 reduce(operator.or_, conditions),
                 ).filter(status__exact=STATUS_CODE_PUBLISHED)
 
@@ -283,7 +283,8 @@ class ViewsMixin(BaseModel):
           * modification dates are not changed
         """
         from django.db import connection
-        self.views = self.views + 1
+
+        self.views += 1
         model_opts = type(self)._meta
         cursor = connection.cursor()
         cursor.execute("UPDATE %s SET views=%%s WHERE %s=%%s" % (
@@ -343,14 +344,8 @@ class CommentsMixin(BaseModel):
     class Meta:
         abstract = True
         
-def ObjectRelationMixin(
-        prefix=None, 
-        prefix_verbose=None, 
-        add_related_name=False,
-        limit_content_type_choices_to={},
-        limit_object_choices_to={},
-        is_required=False,
-        ):
+def ObjectRelationMixin(prefix=None, prefix_verbose=None, add_related_name=False, limit_content_type_choices_to=None,
+                        limit_object_choices_to=None, is_required=False):
     """
     returns a mixin class for generic foreign keys using 
     "Content type - object Id" with dynamic field names. 
@@ -374,6 +369,10 @@ def ObjectRelationMixin(
     <<prefix>>_content_object : Field name for the "content object"
     
     """
+    if not limit_object_choices_to:
+        limit_object_choices_to = {}
+    if not limit_content_type_choices_to:
+        limit_content_type_choices_to = {}
     if prefix:
         p = "%s_" % prefix
     else:
@@ -433,8 +432,8 @@ def ObjectRelationMixin(
     return klass
 
 class SingleSiteMixinManager(models.Manager):
-    def get_query_set(self):
-        return super(SingleSiteMixinManager, self).get_query_set().filter(
+    def get_queryset(self):
+        return super(SingleSiteMixinManager, self).get_queryset().filter(
             models.Q(site=None) | models.Q(site=Site.objects.get_current())
             )
 
@@ -452,7 +451,7 @@ class SingleSiteMixin(BaseModel):
     site_objects = SingleSiteMixinManager()
     
     def get_site(self):
-        "used for display in the admin"
+        """used for display in the admin"""
         if not self.site:
             return _("All")
         return self.site.name
@@ -462,8 +461,8 @@ class SingleSiteMixin(BaseModel):
         abstract = True
 
 class MultiSiteMixinManager(models.Manager):
-    def get_query_set(self):
-        return super(MultiSiteMixinManager, self).get_query_set().filter(
+    def get_queryset(self):
+        return super(MultiSiteMixinManager, self).get_queryset().filter(
             sites=Site.objects.get_current(),
             )
 
@@ -598,7 +597,7 @@ class MultiSiteContainerMixin(ObjectRelationMixin(), UrlMixin):
     container = MultiSiteContainerMixinManager()
     
     def get_sites(self):
-        "used for display in the admin"
+        """used for display in the admin"""
         if len(self.sites.all()) == 0:
             return _("All")
         sites = ""
@@ -644,7 +643,7 @@ class HierarchyMixinManager(models.Manager):
     A manager for HierarchyMixin abstract class below.
     """
     def get_roots(self):
-        roots = self.get_query_set().filter(parent__isnull=True)
+        roots = self.get_queryset().filter(parent__isnull=True)
         if roots.count() > 0:
             return roots
         else:
@@ -665,7 +664,7 @@ class HierarchyMixinManager(models.Manager):
         counter = 0
         for item in self.order_by('path'):
             item.sort_order = counter
-            counter = counter + 1
+            counter += 1
             item.save()
 
 def _sort_order_coding(sort_order):
@@ -734,6 +733,7 @@ class HierarchyMixin(BaseModel):
         if not parent:
             return self
         else:
+            root = None
             while parent:
                 root = parent
                 parent = parent.parent
@@ -1000,14 +1000,14 @@ def MultilingualSlugMixin(
     return klass    
 
 class ContentBaseMixinDraftManager(PublishingMixinDraftManager):
-    def get_query_set(self):
-        return super(ContentBaseMixinDraftManager, self).get_query_set().filter(
+    def get_queryset(self):
+        return super(ContentBaseMixinDraftManager, self).get_queryset().filter(
             sites=Site.objects.get_current(),
             )
 
 class ContentBaseMixinPublishedManager(PublishingMixinPublishedManager):
-    def get_query_set(self):
-        return super(ContentBaseMixinPublishedManager, self).get_query_set().filter(
+    def get_queryset(self):
+        return super(ContentBaseMixinPublishedManager, self).get_queryset().filter(
             sites=Site.objects.get_current(),
             )
         

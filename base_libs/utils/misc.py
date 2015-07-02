@@ -25,7 +25,7 @@ def get_or_404(model, **fields):
     except model.DoesNotExist:
         msg = ""
         for (key, value) in fields.items():
-            msg = msg + "%s '%s', " % (key, value)
+            msg += "%s '%s', " % (key, value)
         msg = msg.strip(", ") 
         raise Http404, "%s with %s cannot be found" %\
          (force_unicode(model._meta.verbose_name), msg)
@@ -140,7 +140,7 @@ def html_to_plain_text(html):
     coded_entity_pattern = re.compile(r'&#[^;];')
     whitespace_pattern = re.compile(r'\s+')
     line_break_pattern = re.compile(r'<br[^>]+>\s*', re.I)
-    new_line_pattern = re.compile(r'<\/(?:p|h1|h2|h3|h4|h5|h6|ul|ol|li|dl)>\s*', re.I)
+    new_line_pattern = re.compile(r'</(?:p|h1|h2|h3|h4|h5|h6|ul|ol|li|dl)>\s*', re.I)
     link_pattern = re.compile(
         r'<a [^>]*?href=(["\'])([^\1]+?)\1[^>]*?>(.+?)</a>',
         re.I,
@@ -211,7 +211,9 @@ class XChoiceList(list):
     """ List of choices.
     Takes a function, queryset or list as a parameter and returns the list only when iterating,
     """
-    def __init__(self, sequence=None, null_choice_text="-"*9):
+
+    def __init__(self, sequence=None, null_choice_text="-" * 9):
+        super(XChoiceList, self).__init__()
         self.sequence = sequence
         self.null_choice_text = null_choice_text
     def __iter__(self):

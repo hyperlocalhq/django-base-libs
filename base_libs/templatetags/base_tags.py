@@ -42,6 +42,7 @@ class IncludeSelectNode(template.Node):
                 if settings.TEMPLATE_DEBUG:
                     raise
         # the first case (see below)
+        t = None
         if self.case == 0:
             try:
                 t = select_template(param_list)
@@ -682,7 +683,7 @@ def try_to_include(parser, token):
 ### FILTERS ### 
 
 def dayssince(value):
-    "Returns number of days between today and value."
+    """Returns number of days between today and value."""
     today = datetime.date.today()
     diff  = today - value
     if diff.days > 1:
@@ -950,9 +951,7 @@ def cssclass(value, arg):
     attrs['class'] = arg
     rendered = str(value)
 
-    if orig:
-        attrs['class']
-    else:
+    if not orig:
         del attrs['class']
 
     return rendered

@@ -2,7 +2,7 @@
 
 import re
 
-email_pat = re.compile('^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$', re.I)
+email_pat = re.compile('^([a-zA-Z0-9_\.\-])+@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$', re.I)
 
 
 def is_valid_email(addr):

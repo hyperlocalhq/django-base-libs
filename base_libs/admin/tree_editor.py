@@ -69,8 +69,8 @@ class ChangeList(main.ChangeList):
         self.user = request.user
         super(ChangeList, self).__init__(request, *args, **kwargs)
 
-    def get_query_set(self, *args, **kwargs):
-        return super(ChangeList, self).get_query_set(*args, **kwargs).order_by('tree_id', 'lft')
+    def get_queryset(self, *args, **kwargs):
+        return super(ChangeList, self).get_queryset(*args, **kwargs).order_by('tree_id', 'lft')
 
     #def get_results(self, request):
     #    clauses = [Q(
@@ -121,7 +121,7 @@ class TreeEditor(admin.ModelAdmin):
             ]
 
     def get_urls(self):
-        from django.utils.functional import update_wrapper
+        from functools import update_wrapper
         from django.conf.urls import patterns, url
 
         def wrap(view):
@@ -129,7 +129,7 @@ class TreeEditor(admin.ModelAdmin):
                 return self.admin_site.admin_view(view)(*args, **kwargs)
             return update_wrapper(wrapper, view)
 
-        info = self.model._meta.app_label, self.model._meta.module_name
+        info = self.model._meta.app_label, self.model._meta.model_name
 
         urlpatterns = patterns(
             '',
@@ -145,9 +145,9 @@ class TreeEditor(admin.ModelAdmin):
         return urlpatterns
 
     @csrf_protect_m
-    @transaction.commit_on_success
+    @transaction.atomic
     def move_view(self, request, object_id, extra_context=None):
-        "The 'move node' admin view for this model."
+        """The 'move node' admin view for this model."""
 
         opts = self.model._meta
         app_label = opts.app_label

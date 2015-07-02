@@ -54,8 +54,6 @@ class HttpErrorResponse(object):
         return ""
     def readlines(self):
         return []
-    def readlines(self):
-        return []
     def geturl(self):
         return self.url
     def headers(self):
@@ -70,7 +68,7 @@ class HttpErrorResponse(object):
         pass
 
 class Connection(object):
-    "Creates a connection to a server"
+    """Creates a connection to a server"""
     protocol = 'http://'
     protocol_pattern = re.compile(r"^\S+://")
     def __init__(self, url, timeout=30, encoding="utf-8"):
@@ -85,7 +83,11 @@ class Connection(object):
     def __del__(self):
         if hasattr(self, "response") and self.response:
             self.response.close()
-    def send_request(self, headers={}, values={}):
+    def send_request(self, headers=None, values=None):
+        if not values:
+            values = {}
+        if not headers:
+            headers = {}
         socket.setdefaulttimeout(self.timeout)
         data = None
         encoded_values = {}
@@ -117,18 +119,20 @@ class Connection(object):
         return self.response
 
 class SSLConnection(Connection):
-    "Creates a connection to a server via SSL"
+    """Creates a connection to a server via SSL"""
     protocol = 'https://'
 
 class AuthSSLConnection(SSLConnection):
-    "Creates a connection to authenticated server via SSL (Only Basic authentication)"
+    """Creates a connection to authenticated server via SSL (Only Basic authentication)"""
     def __init__(self, url, username="", password="", timeout=30):
         super(AuthSSLConnection, self).__init__(url, timeout)
         self.username = username
         self.password = password
         self.base64string = base64.encodestring(
             '%s:%s' % (self.username, self.password))[:-1]
-    def send_request(self, headers={}, values=None):
+    def send_request(self, headers=None, values=None):
+        if not headers:
+            headers = {}
         socket.setdefaulttimeout(self.timeout)
         data = None
         if values:

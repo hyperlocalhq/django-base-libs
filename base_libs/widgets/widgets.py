@@ -6,7 +6,7 @@ from copy import deepcopy
 
 from django import forms
 from django.utils.html import escape, conditional_escape
-from django.utils.encoding import StrAndUnicode, force_unicode
+from django.utils.encoding import force_unicode
 from django.utils.safestring import mark_safe
 from django.forms.util import flatatt
 from django.forms.widgets import Widget
@@ -92,9 +92,13 @@ class AutocompleteWidget(Widget):
         if (self.AutocompleteManager) {
             self.AutocompleteManager.register("#%s", %s, %s);
         }"""
-        
-    def __init__(self, app, qs_function, display_attr, add_display_attr=None, options={}, attrs={},):
-        
+
+    def __init__(self, app, qs_function, display_attr, add_display_attr=None, options=None, attrs=None):
+        super(AutocompleteWidget, self).__init__()
+        if not attrs:
+            attrs = {}
+        if not options:
+            options = {}
         self.app = app
         self.qs_function = qs_function
         self.display_attr = display_attr
@@ -282,8 +286,12 @@ class AutocompleteMultipleWidget(AutocompleteWidget):
     
 
 class SelectToAutocompleteWidget(AutocompleteWidget):
-    def __init__(self, app, qs_function, display_attr, add_display_attr=None, options={}, attrs={}):
-        
+    def __init__(self, app, qs_function, display_attr, add_display_attr=None, options=None, attrs=None):
+        super(SelectToAutocompleteWidget, self).__init__(app, qs_function, display_attr)
+        if not attrs:
+            attrs = {}
+        if not options:
+            options = {}
         self.app = app
         self.qs_function = qs_function
         self.display_attr = display_attr
@@ -455,7 +463,9 @@ class TreeSelectWidget(forms.Select):
     """
     Widget to select from tree structures
     """
-    def __init__(self, model, attrs={}, choices=()):
+    def __init__(self, model, attrs=None, choices=()):
+        if not attrs:
+            attrs = {}
         self.model = model
         super(TreeSelectWidget, self).__init__(attrs, choices)
     
@@ -490,7 +500,9 @@ class TreeSelectMultipleWidget(forms.SelectMultiple):
     """
     Widget to select from tree structures
     """
-    def __init__(self, model, attrs={}, choices=()):
+    def __init__(self, model, attrs=None, choices=()):
+        if not attrs:
+            attrs = {}
         self.model = model
         super(TreeSelectMultipleWidget, self).__init__(attrs, choices)
     
