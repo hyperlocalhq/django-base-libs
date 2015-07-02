@@ -125,13 +125,13 @@ class EventManager(models.Manager):
     """
     for comments, see institutions.InstitutionManager
     """
-    def get_query_set(self):
+    def get_queryset(self):
         return ExtendedQuerySet(self.model)
     
     def _get_title_fields(self, prefix=''):
         language = get_current_language()
         if language and language != 'en':
-            return ["%stitle_%s" % (prefix, language), "%stitle" % (prefix)]
+            return ["%stitle_%s" % (prefix, language), "%stitle" % prefix]
         else:
             return ["%stitle" % prefix]
         
@@ -682,8 +682,7 @@ class ComplexEventBase(EventBase, OpeningHoursMixin):
         
     def get_contacts(self):
         if self.get_postal_address() or self.get_phones() or self.get_urls() or self.get_ims() or self.get_emails():
-            l = []
-            l.append(self)
+            l = [self]
             return l
         if self.venue:
             return self.venue.get_contacts()

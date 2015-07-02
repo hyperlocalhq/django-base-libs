@@ -39,7 +39,7 @@ class JsonResponse(HttpResponse):
         self["Content-Type"] = "text/javascript; charset=UTF-8"
 
     def serialize(self):
-        return(json.dumps(self.original_obj, ensure_ascii=False, cls=ExtendedJSONEncoder))
+        return json.dumps(self.original_obj, ensure_ascii=False, cls=ExtendedJSONEncoder)
 
 def json_lookup(request, queryset, field=False, limit=10, login_required=False):
     """
@@ -51,7 +51,7 @@ def json_lookup(request, queryset, field=False, limit=10, login_required=False):
     if request.GET:
         search = request.GET['q']
         obj_list = []
-        if (field): 
+        if field:
             lookup = {
                 '%s__istartswith' % field: search,
             }
@@ -80,7 +80,7 @@ def jquery_autocomplete_lookup(request, queryset, field=False, limit=10, login_r
     obj_list = []
     if request.GET:
         search = request.GET['q']
-        if (field): 
+        if field:
             lookup = {
                 '%s__istartswith' % field: search,
             }
@@ -300,7 +300,7 @@ def object_list(request, queryset,
                 #key = '%s_%s_%s' % (obj.content_type_id, obj.object_id, request.LANGUAGE_CODE)
                 key = '%s_%s' % (obj.content_type_id, obj.object_id)
                 queryset_index_dict[key] = index
-                index = index + 1
+                index += 1
         else:
             ct = ContentType.objects.get_for_model(queryset.model)
             fields_to_select = [queryset.model._meta.pk.name] + queryset.query.extra_select.keys() + queryset.query.aggregate_select.keys()
@@ -308,7 +308,7 @@ def object_list(request, queryset,
                 #key = '%s_%s_%s' % (ct.pk, pk, request.LANGUAGE_CODE)
                 key = '%s_%s' % (ct.pk, d[queryset.model._meta.pk.name])
                 queryset_index_dict[key] = index
-                index = index + 1
+                index += 1
 
         if extra_context.get('source_list', None):
            request.httpstate['source_list'] = extra_context['source_list']
@@ -884,10 +884,9 @@ def get_abc_list(queryset, filter_field, selected = None):
     help function:
     returns an alphabet list used for filtering
     """
-    abc_list = []
+    abc_list = [("", _("All"), queryset.count(), selected is None)]
     # we need a "key" as first column, because we have to check 
     # for "All" in the tamplates
-    abc_list.append(("", _("All"), queryset.count(), selected is None))
     abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     the_09_filter = models.Q()
     
@@ -945,10 +944,9 @@ def get_year_list(queryset, filter_field, selected = None):
     help function:
     returns a list of years contained in a queryset
     """
-    year_list = []
-    year_list.append(("all", _("All"), len(queryset), selected is None))
-    year_list.append(("latest", _("Topical"), len(queryset), selected == "latest"))
-    
+    year_list = [("all", _("All"), len(queryset), selected is None),
+                 ("latest", _("Topical"), len(queryset), selected == "latest")]
+
     # first, we determine the smallest and largest year
     qs = queryset.order_by(filter_field)
     if len(qs) > 0:

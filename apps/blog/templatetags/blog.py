@@ -141,7 +141,7 @@ def markdown2html(value, arg=None):
 
     def clean(s):
         # remove images
-        s = re.sub(r'\!\[[^\]]*\]\([^\)]+\)(\s+\n)?', r'', s)
+        s = re.sub(r'!\[[^\]]*\]\([^\)]+\)(\s+\n)?', r'', s)
         # remove links
         s = re.sub(r'\[([^\]]+)\]\([^\)]+\)?', r'\1', s)
         # remove header chars

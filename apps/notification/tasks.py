@@ -25,7 +25,7 @@ def get_notification_setting(user, notice_type, medium):
     try:
         return NoticeSetting.objects.get(user=user, notice_type=notice_type, medium=medium)
     except NoticeSetting.DoesNotExist:
-        if (NOTICE_MEDIA_DEFAULTS[medium] <= notice_type.default):
+        if NOTICE_MEDIA_DEFAULTS[medium] <= notice_type.default:
             frequency = "immediately"
         else:
             frequency = "never"
@@ -34,15 +34,17 @@ def get_notification_setting(user, notice_type, medium):
         return setting
 
 @task
-def send_to_user(user_id, sysname, extra_context={}, on_site=True,
-    instance_ct=None, instance_id=None, sender_id=None, sender_name="", sender_email=""):
+def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct=None, instance_id=None, sender_id=None,
+                 sender_name="", sender_email=""):
     """
     Creates a new notice and/or
     sends notification by email or saves notification to a digest.
     
     Called by notification.send()
     """
-    
+    if not extra_context:
+        extra_context = {}
+
     ContentType = models.get_model("contenttypes", "ContentType")
     Site = models.get_model("sites", "Site")
     User = models.get_model("auth", "User")

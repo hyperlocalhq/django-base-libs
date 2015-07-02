@@ -133,7 +133,7 @@ ForumContainer.objects.model = ForumContainer
         
 class ForumManager(TreeManager):
     def get_roots(self, container, status):
-        return self.get_query_set().filter(
+        return self.get_queryset().filter(
                    container=container, 
                    parent__isnull=True,
                    status=status,
@@ -221,8 +221,8 @@ class Forum(MPTTModel, CreationModificationMixin, UrlMixin, SlugMixin()):
             for word in self.title.split(' '):
                 if len(short_title) + len(word) < 32:
                     if len(short_title) != 0:
-                        short_title = short_title + " "
-                    short_title = short_title + word
+                        short_title += " "
+                    short_title += word
                 else:
                     break
             self.short_title = short_title
@@ -313,7 +313,7 @@ class Forum(MPTTModel, CreationModificationMixin, UrlMixin, SlugMixin()):
     def get_nof_views(self):
         count = 0
         for thread in self.get_threads():
-            count = count + thread.views
+            count += thread.views
         return count
     
     def get_latest_post(self):

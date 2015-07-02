@@ -23,7 +23,7 @@ class Vocabulary(SlugMixin(), SysnameMixin()):
     title = MultilingualCharField(_('title'), max_length=255)
     body = MultilingualTextField(_('body'), blank=True)
     image = FileBrowseField(_('Image'), max_length=255, extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True)
-    hierarchy = models.BooleanField(_("Will the terms of this vocabulary be used in hierarchical structure?"))
+    hierarchy = models.BooleanField(_("Will the terms of this vocabulary be used in hierarchical structure?"), default=False)
     
     class Meta:
         ordering = ['title']

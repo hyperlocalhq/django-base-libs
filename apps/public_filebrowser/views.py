@@ -38,7 +38,7 @@ filter_re = []
 for exp in EXCLUDE:
    filter_re.append(re.compile(exp))
 for k,v in VERSIONS.iteritems():
-    exp = (r'_%s.(%s)') % (k, '|'.join(EXTENSION_LIST))
+    exp = r'_%s.(%s)' % (k, '|'.join(EXTENSION_LIST))
     filter_re.append(re.compile(exp))
 
 def get_user_breadcrumbs(user, path):
@@ -277,7 +277,7 @@ def _check_file(request):
     import json
     
     folder = request.POST.get('folder')
-    fb_uploadurl_re = re.compile(r'^(\/(%s))?(%s)' % (
+    fb_uploadurl_re = re.compile(r'^(/(%s))?(%s)' % (
         "|".join(dict(settings.LANGUAGES).keys()),
         reverse("pfb_upload"),
         ))
@@ -308,7 +308,7 @@ def _upload_file(request):
     from django.core.files.move import file_move_safe
     if request.method == 'POST':
         folder = request.POST.get('folder')
-        fb_uploadurl_re = re.compile(r'^(\/(%s))?(%s)' % (
+        fb_uploadurl_re = re.compile(r'^(/(%s))?(%s)' % (
             "|".join(dict(settings.LANGUAGES).keys()),
             reverse("pfb_upload"),
             ))

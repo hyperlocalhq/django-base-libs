@@ -118,7 +118,7 @@ class ExtendedLogEntry(ObjectRelationMixin()):
         return self.action_flag == A_DELETION
 
     def get_edited_object(self):
-        "Returns the edited object represented by this log entry"
+        """Returns the edited object represented by this log entry"""
         return self.content_object
 
     def get_admin_url(self):

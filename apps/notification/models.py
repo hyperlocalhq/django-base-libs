@@ -11,12 +11,13 @@ from django.utils.safestring import mark_safe
 from django.utils.encoding import smart_unicode, force_unicode
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.sites.models import Site
-from django.contrib.auth.models import User, SiteProfileNotAvailable
+from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext, get_language, activate
 from django.db.models.query import QuerySet
 from django.utils.timezone import now as tz_now
+from django.apps import apps
 
 from base_libs.middleware import get_current_language
 from base_libs.utils.misc import html_to_plain_text
@@ -29,10 +30,13 @@ from base_libs.models.fields import MultilingualPlainTextField
 from base_libs.models.fields import PlainTextModelField # for south to work
 
 from jetson.apps.people.functions import get_user_language
-
-EmailTemplate = models.get_model("mailing", "EmailTemplate")
+from jetson.apps.mailing.models import EmailTemplate
 
 verbose_name = _("Notification")
+
+class SiteProfileNotAvailable(Exception):
+    pass
+
 
 class NoticeTypeCategory(models.Model):
     title = MultilingualCharField(_('display'), max_length=50)
@@ -126,7 +130,7 @@ DIGEST_FREQUENCY = (
 class Digest(CreationDateMixin):
     user = models.ForeignKey(User, verbose_name=_('user'))
     frequency = models.CharField(_('frequency'), max_length=15, choices=DIGEST_FREQUENCY)
-    is_sent = models.BooleanField(_('sent?'))
+    is_sent = models.BooleanField(_('sent?'), default=False)
     
     class Meta:
         verbose_name = _("digest")
@@ -267,8 +271,8 @@ def create_notice_type(sysname, display, description, default=2, display_de="", 
         nt.description_de=description_de
         nt.save()
 
-def send(recipients, sysname, extra_context={}, on_site=True,
-    instance=None, sender=None, sender_name="", sender_email=""):
+def send(recipients, sysname, extra_context=None, on_site=True, instance=None, sender=None, sender_name="",
+         sender_email=""):
     """
     This is intended to be how other apps create new notices.
 
@@ -277,6 +281,8 @@ def send(recipients, sysname, extra_context={}, on_site=True,
         'foo': 'bar',
     )
     """
+    if not extra_context:
+        extra_context = {}
     from tasks import send_to_user
     
     # preparing recipients

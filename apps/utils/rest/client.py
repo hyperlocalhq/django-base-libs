@@ -7,11 +7,11 @@ http://www.infectmac.com/2008/08/restful-python.html
 """
 
 class WebApiOpener(urllib.FancyURLopener):  
-    ''''' 
-    Provides a way for HTTP Basic authentication to take place without 
-    prompting the user for a username and password like FancyURLopener 
-    would. 
-    '''  
+    """
+    Provides a way for HTTP Basic authentication to take place without
+    prompting the user for a username and password like FancyURLopener
+    would.
+    """
     def __init__(self, username, password):  
         urllib.FancyURLopener.__init__(self,{})  
         self.username = username  
@@ -21,42 +21,42 @@ class WebApiOpener(urllib.FancyURLopener):
         return (self.username,self.password)  
   
 def webcall(**apiargs):  
-    ''''' 
-    Decorator that is used to create a python function that communicates with 
-    a RESTful web service. The function it generates will be able to to do HTTP 
-    basic authorization. The generated function only accepts a keyword  
-    arguments. The following are reserved arguments: 
-        auth_username, string optional, only needed if web service needs  
-        basic HTTP auth 
-        auth_password, string optional, only needed if web service needs 
-        basic HTTP auth 
-    All other arguments will be used to first replace variables within the url 
-    and the remaining arguments will be passed as part of the parameter string. 
-    Take a look at the documentation below and the examples to get an idea of  
-    how to define variables within the url string.  
-     
-    webcall Arguments: apiargs, keyword list of arguments 
-        apiargs['url'], string, The url of the web service. Specify variables  
-        for within the url like this: {var_name=default_value} or {var_name}.  
-        These will be filled in when the user actually calls the decorated  
-        function. 
-         
-        apiargs['method'], string optional, Defaults to GET if not defined. If 
-        it is defined to something besides GET it will use POST.  
-         
-    Example: 
-        #Here we define a call to twitter: 
-        @webcall(url='http://twitter.com/statuses/friends_timeline.{format=json}', method='GET') 
-        def friends_timeline(): pass 
-         
-        #returns a a json string for this specific twitter call 
-        friends_timeline(auth_username='bob', auth_password='password') 
-         
-        #Looking at the twitter documentation we see that this takes in other 
-        #parameters like since, since_id, count, page. 
-        #we will also get the RSS formatted response and limit it to two 
-        friends_timeline(auth_username='bob', auth_password='password', count=2, format='rss') 
-    '''  
+    """
+    Decorator that is used to create a python function that communicates with
+    a RESTful web service. The function it generates will be able to to do HTTP
+    basic authorization. The generated function only accepts a keyword
+    arguments. The following are reserved arguments:
+        auth_username, string optional, only needed if web service needs
+        basic HTTP auth
+        auth_password, string optional, only needed if web service needs
+        basic HTTP auth
+    All other arguments will be used to first replace variables within the url
+    and the remaining arguments will be passed as part of the parameter string.
+    Take a look at the documentation below and the examples to get an idea of
+    how to define variables within the url string.
+
+    webcall Arguments: apiargs, keyword list of arguments
+        apiargs['url'], string, The url of the web service. Specify variables
+        for within the url like this: {var_name=default_value} or {var_name}.
+        These will be filled in when the user actually calls the decorated
+        function.
+
+        apiargs['method'], string optional, Defaults to GET if not defined. If
+        it is defined to something besides GET it will use POST.
+
+    Example:
+        #Here we define a call to twitter:
+        @webcall(url='http://twitter.com/statuses/friends_timeline.{format=json}', method='GET')
+        def friends_timeline(): pass
+
+        #returns a a json string for this specific twitter call
+        friends_timeline(auth_username='bob', auth_password='password')
+
+        #Looking at the twitter documentation we see that this takes in other
+        #parameters like since, since_id, count, page.
+        #we will also get the RSS formatted response and limit it to two
+        friends_timeline(auth_username='bob', auth_password='password', count=2, format='rss')
+    """
     method = apiargs.get('method','GET')  
     patter_obj = re.compile("\{[^\}]+\}")  
     def dec(fn):  
@@ -77,9 +77,9 @@ def webcall(**apiargs):
             return url  
           
         def new(**kwargs):  
-            ''''' 
-            auth_username and auth_password are reserved 
-            '''  
+            """
+            auth_username and auth_password are reserved
+            """
             opener = WebApiOpener(kwargs.get('auth_username',''),  
                 kwargs.get('auth_password',''))  
             if kwargs.has_key('auth_username'): del(kwargs['auth_username'])  

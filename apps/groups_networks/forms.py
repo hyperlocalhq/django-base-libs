@@ -11,6 +11,7 @@ from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
 from django.db import models
 from django.conf import settings
+from django.apps import apps
 
 from base_libs.forms import dynamicforms
 from base_libs.forms.fields import ImageField
@@ -18,12 +19,17 @@ from base_libs.forms.fields import ImageField
 image_mods = models.get_app("image_mods")
 
 from base_libs.middleware import get_current_user
-from jetson.apps.groups_networks.models import PersonGroup, GroupMembership, URL_ID_PERSONGROUP, URL_ID_PERSONGROUPS
-from jetson.apps.location.models import Address
-from jetson.apps.optionset.models import IndividualLocationType, InstitutionalLocationType, PhoneType
 from base_libs.utils.misc import get_related_queryset,get_unique_value, XChoiceList
 from base_libs.utils.crypt import cryptString
 from jetson.apps.mailing.views import Recipient, send_email_using_template
+from jetson.apps.location.models import Address
+from jetson.apps.optionset.models import IndividualLocationType, InstitutionalLocationType, PhoneType
+
+groups_networks_models = apps.get_app("groups_networks")
+PersonGroup = groups_networks_models.PersonGroup
+GroupMembership = groups_networks_models.GroupMembership
+URL_ID_PERSONGROUP = groups_networks_models.URL_ID_PERSONGROUP
+URL_ID_PERSONGROUPS = groups_networks_models.URL_ID_PERSONGROUPS
 
 Person = models.get_model("people", "Person")
 Institution = models.get_model("institutions", "Institution")
@@ -240,10 +246,11 @@ class GroupAddingForm: # Namespace
                     required=False
                     )
     
+    @staticmethod
     def submit_step(current_step, form_steps, form_step_data):
         return form_step_data
-    submit_step = staticmethod(submit_step)
-    
+
+    @staticmethod
     def save_data(form_steps, form_step_data):
         user = get_current_user()
         group = PersonGroup(
@@ -319,8 +326,6 @@ class GroupAddingForm: # Namespace
         # this is used for redirection to the events details page
         form_steps['success_url'] = '%s/%s/' % (URL_ID_PERSONGROUP, group.slug)
         return form_step_data
-    
-    save_data = staticmethod(save_data)
 
 ADD_GROUP_FORM_STEPS = {
     0: {
@@ -732,6 +737,7 @@ class Invitation: # Namespace
                     self.fields['p%d_position' % index].required = False
                     self.fields['p%d_email' % index].required = False
             
+    @staticmethod
     def submit_step(current_step, form_steps, form_step_data):
         if current_step == 0:
             for i in range(1,6):
@@ -750,8 +756,8 @@ class Invitation: # Namespace
                         form_step_data[current_step]["p%d_first_name" % i] = p.user.first_name
                         form_step_data[current_step]["p%d_last_name" % i] = p.user.last_name
         return form_step_data
-    submit_step = staticmethod(submit_step)
-    
+
+    @staticmethod
     def save_data(form_steps, form_step_data):
         existing_additional_contacts = []
         new_additional_contacts = []
@@ -898,7 +904,6 @@ class Invitation: # Namespace
                 )
         
         return form_step_data
-    save_data = staticmethod(save_data)
 
 INVITATION_FORM_STEPS = {
     0: {

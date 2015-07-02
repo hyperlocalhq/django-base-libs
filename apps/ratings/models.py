@@ -38,6 +38,7 @@ class Rating(ObjectRelationMixin(is_required=True)):
             postfix,
             )
 
+    @staticmethod
     def get_object_rating(obj_to_rate):
         ct = ContentType.objects.get_for_model(obj_to_rate)
         cursor = connection.cursor()
@@ -48,8 +49,7 @@ class Rating(ObjectRelationMixin(is_required=True)):
             'average_points_rounded': int(round(average_points or 0)),
             'rating_count': int(rating_count or 0),
         }
-    get_object_rating = staticmethod(get_object_rating)
-    
+
     def get_log_message(self, language=None, action=None):
         """
         Gets a message for a specific action which will be logged for history """

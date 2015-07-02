@@ -230,9 +230,7 @@ def get_blog_params(request, post_slug=None, **kwargs):
     if post_slug:
         current_post = get_or_404(Post, slug=post_slug)
  
-    extra_context = {}
-    extra_context['container'] = container
-    extra_context['object'] = obj
+    extra_context = {'container': container, 'object': obj}
     if obj:
         extra_context['object_change_permission'] = u"%s.%s" % (
             obj._meta.app_label,
@@ -283,8 +281,7 @@ def handle_request(request, year=None, month=None, day=None, post_slug=None, tag
     """
     if not extra_context:
         extra_context = {}
-    request.current_page
-    
+
     template_object_name='post'
         
     # first of all, get blog parameters from the url parts...
@@ -545,7 +542,7 @@ def blog_post_comment(request,
             
             post_comment(request, template_name=template_name, use_ajax=use_ajax)
             if not use_ajax:
-                redirect_to = redirect_to + "#comments"
+                redirect_to += "#comments"
                 return HttpResponseRedirect(redirect_to)
             else:
                 return HttpResponse("reload")
@@ -556,7 +553,7 @@ def blog_post_comment(request,
         #cancel
         else:
             if not use_ajax:
-                redirect_to = redirect_to + "#comments"
+                redirect_to += "#comments"
                 return HttpResponseRedirect(redirect_to)
             
     from django.template import Template

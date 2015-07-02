@@ -36,9 +36,8 @@ class EmailTemplateWidget(template.Node):
         on_change_function = template.resolve_variable(self.on_change_function, context)
         email_templates = EmailTemplate.objects.all()
         
-        html = ['<select onchange="%s">' % on_change_function]
-        html.append('<option selected="selected" value="">-------</option>')
-        html.append('<option value="*">%s</option>' % _("No Template"))  
+        html = ['<select onchange="%s">' % on_change_function, '<option selected="selected" value="">-------</option>',
+                '<option value="*">%s</option>' % _("No Template")]
         for email_template in email_templates:
             html.append('<option value="%s">%s</option>' % (email_template.slug, email_template.name))        
         html.append('</select>')

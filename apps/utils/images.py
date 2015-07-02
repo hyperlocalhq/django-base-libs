@@ -209,7 +209,9 @@ def save_jpg_image(uploaded_image, path_original="", path_normal="",
         os.remove(tmp_path)
     return image
 
-def image_view(request, width, height, filename="", mod_function=crop_to_square, mod_args=None, mod_kwargs={}):
+def image_view(request, width, height, filename="", mod_function=crop_to_square, mod_args=None, mod_kwargs=None):
+    if not mod_kwargs:
+        mod_kwargs = {}
     if not mod_args:
         mod_args = []
     if filename:

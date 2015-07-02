@@ -11,6 +11,7 @@ from django.db import models
 from django.contrib.auth import authenticate, login
 from django.views.decorators.cache import never_cache
 from django.conf import settings
+from django.apps import apps
 
 from base_libs.utils.misc import get_installed
 
@@ -22,12 +23,14 @@ Institution, URL_ID_INSTITUTION, URL_ID_INSTITUTIONS = (
     app.Institution, app.URL_ID_INSTITUTION, app.URL_ID_INSTITUTIONS,
     )
 
-from jetson.apps.groups_networks.models import PersonGroup
+PersonGroup = apps.get_model("groups_networks", "PersonGroup")
 
 ADD_INSTITUTION_FORM_STEPS = get_installed("institutions.forms.ADD_INSTITUTION_FORM_STEPS")
 
 def add_institution(request):
-    return show_form_step(request, ADD_INSTITUTION_FORM_STEPS, extra_context={});
+    return show_form_step(request, ADD_INSTITUTION_FORM_STEPS, extra_context={})
+
+
 add_institution = login_required(add_institution)
 
 def _institution_list_filter(request, queryset, show):
@@ -121,10 +124,8 @@ def institution_list(
                 institutionalcontact__postal_address__geoposition__latitude__gte=-90,
                 ).distinct()
                 
-        extra_context = {}
-        extra_context['abc_list'] = abc_list
-        extra_context['show'] = ("", "/%s" % show)[bool(show)]
-        extra_context['source_list'] = URL_ID_INSTITUTIONS
+        extra_context = {'abc_list': abc_list, 'show': ("", "/%s" % show)[bool(show)],
+                         'source_list': URL_ID_INSTITUTIONS}
         if request.is_ajax():
             extra_context['base_template'] = "base_ajax.html"
 

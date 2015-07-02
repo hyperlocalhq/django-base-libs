@@ -358,7 +358,7 @@ def gallery_post_comment(
             
             post_comment(request, template_name=template_name, use_ajax=use_ajax)
             if not use_ajax:
-                redirect_to = redirect_to + "#comments"
+                redirect_to += "#comments"
                 return HttpResponseRedirect(redirect_to)
             else:
                 return HttpResponse("reload")
@@ -370,7 +370,7 @@ def gallery_post_comment(
         #cancel
         else:
             if not use_ajax:
-                redirect_to = redirect_to + "#comments"
+                redirect_to += "#comments"
                 return HttpResponseRedirect(redirect_to)
             
     from django.template import Template

@@ -277,7 +277,7 @@ def do_generic_mail(
     user = get_current_user()
     
     rec_list = []
-    if recipients_list != None:
+    if recipients_list is not None:
         for item in recipients_list:
             rec_list.append((item.id, item.display_name))
     
@@ -415,7 +415,7 @@ def do_generic_mail(
                     else:
                         for recipient in recipients:
                             
-                            if recipient.name != None:
+                            if recipient.name is not None:
                                 recipient_email = '%s <%s>' % (recipient.name, recipient.email)
                             else:
                                 recipient_email = recipient.email
@@ -659,7 +659,7 @@ def send_email_using_template(
     )
     for recipient in recipients:
         
-        if recipient.name != None:
+        if recipient.name is not None:
             recipient_email = '%s <%s>' % (recipient.name, recipient.email)
         else:
             recipient_email = recipient.email

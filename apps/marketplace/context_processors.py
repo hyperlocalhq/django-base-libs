@@ -1,12 +1,12 @@
 # -*- coding: UTF-8 -*-
-from django.conf import settings
+from django.apps import apps
 
-from jetson.apps.marketplace.models import URL_ID_JOB_OFFER, URL_ID_JOB_OFFERS
+marketplace_models = apps.get_app("marketplace")
 
 def marketplace(request=None):
     d = {
-        'URL_ID_JOB_OFFER': URL_ID_JOB_OFFER,
-        'URL_ID_JOB_OFFERS': URL_ID_JOB_OFFERS,
+        'URL_ID_JOB_OFFER': marketplace_models.URL_ID_JOB_OFFER,
+        'URL_ID_JOB_OFFERS': marketplace_models.URL_ID_JOB_OFFERS,
         }
     return d
 

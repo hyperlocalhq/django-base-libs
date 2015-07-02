@@ -375,7 +375,7 @@ class EventForm: # namespace
         
         def __init__(self, *args, **kwargs):
             initial_label = kwargs.get("initial", {}).get("label", None)
-            if (initial_label and isinstance(initial_label, models.Model)):
+            if initial_label and isinstance(initial_label, models.Model):
                 kwargs['initial']['label'] = force_unicode(initial_label.pk)
             dynamicforms.Form.__init__(self, *args, **kwargs)
             
@@ -669,11 +669,11 @@ class EventForm: # namespace
             widget=TagAutocomplete,
             )
 
+    @staticmethod
     def submit_step(current_step, form_steps, form_step_data):
         return form_step_data
-    
-    submit_step = staticmethod(submit_step)
-    
+
+    @staticmethod
     def save_data(form_steps, form_step_data):
         step_main_data = form_step_data['step_main_data']
         step_event_profile = form_step_data['step_event_profile']
@@ -842,8 +842,6 @@ class EventForm: # namespace
         form_steps['success_url'] = event.get_url()
         
         return form_step_data
-    
-    save_data = staticmethod(save_data)
 
 ADD_EVENT_FORM_STEPS = {
     'step_main_data': {

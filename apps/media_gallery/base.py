@@ -36,8 +36,6 @@ image_mods = models.get_app("image_mods")
 verbose_name = _("Media Gallery")
 
 
-URL_ID_PORTFOLIO = getattr(settings, "URL_ID_PORTFOLIO", "portfolio")
-
 VIDEO_SPLASH_URL = getattr(
     settings,
     "VIDEO_SPLASH_PATH",
@@ -114,7 +112,7 @@ class MediaGalleryManager(models.Manager):
             **kwargs
         )
 
-    def get_query_set(self):
+    def get_queryset(self):
         q = ExtendedQuerySet(self.model)
         gallery_db_table = self.model._meta.db_table
         ct = ContentType.objects.get_for_model(self.model)

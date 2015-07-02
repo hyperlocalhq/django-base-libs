@@ -125,6 +125,10 @@ class DoGetFaqCategoryList:
 
         {% get_faq_category_children in 1 for 12 %}
     """
+
+    def __init__(self):
+        pass
+
     def __call__(self, parser, token):
 
         tokens = token.contents.split()
@@ -188,6 +192,10 @@ class DoGetFaqList:
 
         {% get_faqs for 12 as faqs %}
     """
+
+    def __init__(self):
+        pass
+
     def __call__(self, parser, token):
 
         tokens = token.contents.split()

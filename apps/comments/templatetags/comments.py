@@ -270,12 +270,12 @@ class DoCommentForm:
                     # VALIDATION ##############################################
                     if 2 < len(args.split('|')) > 9:
                         raise template.TemplateSyntaxError, "Incorrect number of '%s' options in %r tag. Use between 2 and 8." % (option, tokens[0])
-                    if re.match('^scale:\d+\-\d+\:$', args.split('|')[0]):
+                    if re.match('^scale:\d+\-\d+:$', args.split('|')[0]):
                         raise template.TemplateSyntaxError, "Invalid 'scale' in %r tag's '%s' options" % (tokens[0], option)
                     # VALIDATION ENDS #########################################
                     kwargs[option] = True
                     kwargs['rating_options'] = args
-                elif option in ('is_public'):
+                elif option in ('is_public',):
                     kwargs[option] = (args == 'true')
                 else:
                     raise template.TemplateSyntaxError, "%r tag got invalid parameter '%s'" % (tokens[0], option)

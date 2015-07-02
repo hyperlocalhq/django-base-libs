@@ -29,7 +29,18 @@ SERVER_EMAIL = "jetsonadmin@studio38.de"
 EXTERNAL_LIBS_PATH = os.path.join(JETSON_PATH, "jetson", "externals", "libs")
 EXTERNAL_APPS_PATH = os.path.join(JETSON_PATH, "jetson", "externals", "apps")
 BASE_LIBS_PATH = os.path.join(JETSON_PATH, "base_libs")
-sys.path = ["", EXTERNAL_LIBS_PATH, EXTERNAL_APPS_PATH, BASE_LIBS_PATH, JETSON_PATH, PROJECT_PATH] + sys.path
+TAGGING_PATH = os.path.join(JETSON_PATH, "tagging")
+FILEBROWSER_PATH = os.path.join(JETSON_PATH, "filebrowser")
+sys.path = [
+    "",
+    EXTERNAL_LIBS_PATH,
+    EXTERNAL_APPS_PATH,
+    BASE_LIBS_PATH,
+    TAGGING_PATH,
+    FILEBROWSER_PATH,
+    JETSON_PATH,
+    PROJECT_PATH,
+] + sys.path
 
 from jetson.apps.utils.utils import get_git_changeset
 

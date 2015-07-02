@@ -39,8 +39,6 @@ from mptt.models import MPTTModel
 from mptt.managers import TreeManager
 from mptt.fields import TreeForeignKey, TreeManyToManyField
 
-Person = models.get_model("people", "Person")
-Institution = models.get_model("institutions", "Institution")
 
 verbose_name = _("Resources")
 
@@ -129,13 +127,13 @@ class DocumentManager(models.Manager):
     """
     for comments, see institutions.InstitutionManager
     """
-    def get_query_set(self):
+    def get_queryset(self):
         return ExtendedQuerySet(self.model)
     
     def _get_title_fields(self, prefix=''):
         language = get_current_language()
         if language and language != 'en':
-            return ["%stitle_%s" % (prefix, language), "%stitle" % (prefix)]
+            return ["%stitle_%s" % (prefix, language), "%stitle" % prefix]
         else:
             return ["%stitle" % prefix]
         
@@ -170,9 +168,9 @@ class DocumentBase(CreationModificationDateMixin, UrlMixin):
     medium = models.ForeignKey(Medium, verbose_name=_("Medium"), blank=True, null=True, related_name="medium_documents")
     url_link = URLField(_("URL"), blank=True)
     document_file = FileBrowseField(_('Document file'), max_length=255, blank=True)
-    authors = models.ManyToManyField(Person, verbose_name=_("Authors"), blank=True, related_name="author_documents")
+    authors = models.ManyToManyField("people.Person", verbose_name=_("Authors"), blank=True, related_name="author_documents")
     authors_plain = PlainTextModelField(_("External authors"), help_text=_("Comma-separated list"), blank=True, max_length=255)
-    publisher = models.ForeignKey(Institution, verbose_name=_("Publisher"), blank=True, null=True)
+    publisher = models.ForeignKey("institutions.Institution", verbose_name=_("Publisher"), blank=True, null=True)
     published_yyyy = models.IntegerField(_("Year of Publishing"), blank=True, null=True, choices=YEAR_OF_PUBLISHING_CHOICES)
     published_mm = models.SmallIntegerField(_("Month of Publishing"), blank=True, null=True, choices=MONTH_CHOICES)
     published_dd = models.SmallIntegerField(_("Day of Publishing"), blank=True, null=True, choices=DAY_CHOICES)

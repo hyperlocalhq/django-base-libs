@@ -594,10 +594,11 @@ class InstitutionForm: # Namespace
                     required=False
                     )
     
+    @staticmethod
     def submit_step(current_step, form_steps, form_step_data):
         return form_step_data
-    submit_step = staticmethod(submit_step)
-    
+
+    @staticmethod
     def save_data(form_steps, form_step_data):
         
         user = get_current_user()
@@ -636,10 +637,10 @@ class InstitutionForm: # Namespace
                     form_step_data[2].get('%s_%s' % (d, f), None)
                     )
 
-        institution.exceptions_en = form_step_data[2].get('exceptions_en', '');
-        institution.exceptions_de = form_step_data[2].get('exceptions_de', '');
-        institution.is_appointment_based = form_step_data[2].get('is_appointment_based', False);
-                
+        institution.exceptions_en = form_step_data[2].get('exceptions_en', '')
+        institution.exceptions_de = form_step_data[2].get('exceptions_de', '')
+        institution.is_appointment_based = form_step_data[2].get('is_appointment_based', False)
+
         # payment
         institution.is_card_visa_ok = form_step_data[2].get('is_card_visa_ok', None) 
         institution.is_card_mastercard_ok = form_step_data[2].get('is_card_mastercard_ok', None) 
@@ -759,8 +760,6 @@ class InstitutionForm: # Namespace
         # this is used for redirection to the institution details page
         form_steps['success_url'] = institution.get_url()
         return form_step_data
-    
-    save_data = staticmethod(save_data)
 
 ADD_INSTITUTION_FORM_STEPS = {
     0: {

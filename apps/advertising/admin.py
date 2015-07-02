@@ -44,19 +44,18 @@ class AdBaseAdmin(ExtendedModelAdmin):
         current_month = date.today().replace(day=1)
         current_month_minus_1 = current_month - timedelta(days=1)
         current_month_minus_2 = current_month_minus_1.replace(day=1) - timedelta(days=1)
-        impressions_by_month = []
-        impressions_by_month.append(date_filter(current_month_minus_2, "F") + (": <strong>%d</strong>" % obj.adimpression_set.filter(
-            impression_date__year=current_month_minus_2.year,
-            impression_date__month=current_month_minus_2.month,
-        ).count()))
-        impressions_by_month.append(date_filter(current_month_minus_1, "F") + (": <strong>%d</strong>" % obj.adimpression_set.filter(
-            impression_date__year=current_month_minus_1.year,
-            impression_date__month=current_month_minus_1.month,
-        ).count()))
-        impressions_by_month.append(date_filter(current_month, "F") + (": <strong>%d</strong>" % obj.adimpression_set.filter(
-            impression_date__year=current_month.year,
-            impression_date__month=current_month.month,
-        ).count()))
+        impressions_by_month = [
+            date_filter(current_month_minus_2, "F") + (": <strong>%d</strong>" % obj.adimpression_set.filter(
+                impression_date__year=current_month_minus_2.year,
+                impression_date__month=current_month_minus_2.month,
+            ).count()),
+            date_filter(current_month_minus_1, "F") + (": <strong>%d</strong>" % obj.adimpression_set.filter(
+                impression_date__year=current_month_minus_1.year,
+                impression_date__month=current_month_minus_1.month,
+            ).count()), date_filter(current_month, "F") + (": <strong>%d</strong>" % obj.adimpression_set.filter(
+                impression_date__year=current_month.year,
+                impression_date__month=current_month.month,
+            ).count())]
         return "<br />".join(impressions_by_month)
     get_impressions.short_description = _('Impressions')
     get_impressions.allow_tags = True
@@ -65,19 +64,16 @@ class AdBaseAdmin(ExtendedModelAdmin):
         current_month = date.today().replace(day=1)
         current_month_minus_1 = current_month - timedelta(days=1)
         current_month_minus_2 = current_month_minus_1.replace(day=1) - timedelta(days=1)
-        clicks_by_month = []
-        clicks_by_month.append(date_filter(current_month_minus_2, "F") + (": <strong>%d</strong>" % obj.adclick_set.filter(
+        clicks_by_month = [date_filter(current_month_minus_2, "F") + (": <strong>%d</strong>" % obj.adclick_set.filter(
             click_date__year=current_month_minus_2.year,
             click_date__month=current_month_minus_2.month,
-        ).count()))
-        clicks_by_month.append(date_filter(current_month_minus_1, "F") + (": <strong>%d</strong>" % obj.adclick_set.filter(
+        ).count()), date_filter(current_month_minus_1, "F") + (": <strong>%d</strong>" % obj.adclick_set.filter(
             click_date__year=current_month_minus_1.year,
             click_date__month=current_month_minus_1.month,
-        ).count()))
-        clicks_by_month.append(date_filter(current_month, "F") + (": <strong>%d</strong>" % obj.adclick_set.filter(
+        ).count()), date_filter(current_month, "F") + (": <strong>%d</strong>" % obj.adclick_set.filter(
             click_date__year=current_month.year,
             click_date__month=current_month.month,
-        ).count()))
+        ).count())]
         return "<br />".join(clicks_by_month)
     get_clicks.short_description = _('Clicks')
     get_clicks.allow_tags = True

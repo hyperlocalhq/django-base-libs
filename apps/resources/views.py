@@ -7,10 +7,13 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
 from django.views.decorators.cache import never_cache
 from django.conf import settings
+from django.apps import apps
 
 from jetson.apps.utils.decorators import login_required
 from jetson.apps.utils.views import object_list, object_detail, get_abc_list, filter_abc, get_year_list, filter_year
-from jetson.apps.resources.models import Document, URL_ID_DOCUMENT, URL_ID_DOCUMENTS
+Document = apps.get_model("resources", "Document")
+URL_ID_DOCUMENT = apps.get_app("resources").URL_ID_DOCUMENT
+URL_ID_DOCUMENTS = apps.get_app("resources").URL_ID_DOCUMENTS
 
 def _document_list_filter(request, queryset, show):
     return queryset.filter(
@@ -77,10 +80,7 @@ def document_list(
         if abc_filter:
             queryset = filter_abc(queryset, "title", abc_filter)
 
-        extra_context = {}
-        extra_context['abc_list'] = abc_list
-        extra_context['show'] = ("", "/%s" % show)[bool(show)]
-        extra_context['source_list'] = URL_ID_DOCUMENTS
+        extra_context = {'abc_list': abc_list, 'show': ("", "/%s" % show)[bool(show)], 'source_list': URL_ID_DOCUMENTS}
         if request.is_ajax():
             extra_context['base_template'] = "base_ajax.html"
         kwargs['extra_context'] = extra_context  

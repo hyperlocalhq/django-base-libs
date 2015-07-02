@@ -17,7 +17,7 @@ from jetson.apps.memos.models import MemoCollection, Memo, MEMO_TOKEN_NAME, MEMO
 from jetson.apps.httpstate import settings as httpstate_settings
 
 def json_set_memo(request, content_type_id, object_id):
-    "Sets the object as a memo in a memo collection of the current client"
+    """Sets the object as a memo in a memo collection of the current client"""
     content_type = ContentType.objects.get(id=content_type_id)
     collection = MemoCollection.objects.get_updated(
         token=request.COOKIES.get(MEMO_TOKEN_NAME, None),

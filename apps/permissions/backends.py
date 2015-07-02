@@ -58,7 +58,7 @@ class RowLevelPermissionsBackend(ModelBackend):
         return user_obj._perm_cache
         
     def has_perm(self, user_obj, perm, obj=None):
-        "Returns True if the user has the specified permission."
+        """Returns True if the user has the specified permission."""
         if isinstance(user_obj, AnonymousUser):
             return False
         if obj and getattr(obj, "row_level_permissions", False):
@@ -70,7 +70,7 @@ class RowLevelPermissionsBackend(ModelBackend):
         return perm in user_obj.get_all_permissions(obj)
 
     def has_module_perms(self, user_obj, app_label):
-        "Returns True if the user has any permissions in the given app label."
+        """Returns True if the user has any permissions in the given app label."""
         if not user_obj.is_active:
             return False
         if user_obj.is_superuser:
@@ -98,7 +98,7 @@ class RowLevelPermissionsBackend(ModelBackend):
                 )
         except RowLevelPermission.DoesNotExist:
             perms = self.check_per_object_group_permissions(user_obj, permission, obj)
-            if perms!=None:
+            if perms is not None:
                 return perms
             else:
                 return self.check_group_row_level_permissions(user_obj, permission, obj)
@@ -203,4 +203,4 @@ class RowLevelPermissionsBackend(ModelBackend):
             quote_name('owner_content_type_id'))
         cursor.execute(sql, [user_obj.id, app_label, False, ContentType.objects.get_for_model(Group).id])
         count = int(cursor.fetchone()[0])
-        return (count>0)
+        return count>0

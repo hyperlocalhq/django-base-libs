@@ -33,7 +33,7 @@ def url_to_path(value):
     Returns a PATH relative to MEDIA_ROOT.
     """
 
-    mediaurl_re = re.compile(r'^(%s)' % (MEDIA_URL))
+    mediaurl_re = re.compile(r'^(%s)' % MEDIA_URL)
     value = mediaurl_re.sub('', value)
     return value
 
@@ -46,7 +46,7 @@ def path_to_url(value):
     Return an URL relative to MEDIA_ROOT.
     """
 
-    mediaroot_re = re.compile(r'^(%s)' % (MEDIA_ROOT))
+    mediaroot_re = re.compile(r'^(%s)' % MEDIA_ROOT)
     value = mediaroot_re.sub('', value)
     return url_join(MEDIA_URL, value)
 
@@ -58,9 +58,9 @@ def dir_from_url(value):
     an URL relative to MEDIA_URL.
     """
 
-    mediaurl_re = re.compile(r'^(%s)' % (MEDIA_URL))
+    mediaurl_re = re.compile(r'^(%s)' % MEDIA_URL)
     value = mediaurl_re.sub('', value)
-    directory_re = re.compile(r'^(%s)' % (DIRECTORY))
+    directory_re = re.compile(r'^(%s)' % DIRECTORY)
     value = directory_re.sub('', value)
     return os.path.split(value)[0]
 
@@ -203,31 +203,20 @@ def get_settings_var():
     Get settings variables used for FileBrowser listing.
     """
 
-    settings_var = {}
+    settings_var = {'DEBUG': DEBUG, 'MEDIA_ROOT': MEDIA_ROOT, 'MEDIA_URL': MEDIA_URL, 'DIRECTORY': DIRECTORY,
+                    'URL_FILEBROWSER_MEDIA': URL_FILEBROWSER_MEDIA, 'PATH_FILEBROWSER_MEDIA': PATH_FILEBROWSER_MEDIA,
+                    'URL_TINYMCE': URL_TINYMCE, 'PATH_TINYMCE': PATH_TINYMCE, 'EXTENSIONS': EXTENSIONS,
+                    'SELECT_FORMATS': SELECT_FORMATS, 'VERSIONS_BASEDIR': VERSIONS_BASEDIR, 'VERSIONS': VERSIONS,
+                    'ADMIN_VERSIONS': ADMIN_VERSIONS, 'ADMIN_THUMBNAIL': ADMIN_THUMBNAIL,
+                    'PREVIEW_VERSION': PREVIEW_VERSION, 'MAX_UPLOAD_SIZE': MAX_UPLOAD_SIZE,
+                    'CONVERT_FILENAME': CONVERT_FILENAME}
     # Main
-    settings_var['DEBUG'] = DEBUG
-    settings_var['MEDIA_ROOT'] = MEDIA_ROOT
-    settings_var['MEDIA_URL'] = MEDIA_URL
-    settings_var['DIRECTORY'] = DIRECTORY
     # FileBrowser
-    settings_var['URL_FILEBROWSER_MEDIA'] = URL_FILEBROWSER_MEDIA
-    settings_var['PATH_FILEBROWSER_MEDIA'] = PATH_FILEBROWSER_MEDIA
     # TinyMCE
-    settings_var['URL_TINYMCE'] = URL_TINYMCE
-    settings_var['PATH_TINYMCE'] = PATH_TINYMCE
     # Extensions/Formats (for FileBrowseField)
-    settings_var['EXTENSIONS'] = EXTENSIONS
-    settings_var['SELECT_FORMATS'] = SELECT_FORMATS
     # Versions
-    settings_var['VERSIONS_BASEDIR'] = VERSIONS_BASEDIR
-    settings_var['VERSIONS'] = VERSIONS
-    settings_var['ADMIN_VERSIONS'] = ADMIN_VERSIONS
-    settings_var['ADMIN_THUMBNAIL'] = ADMIN_THUMBNAIL
-    settings_var['PREVIEW_VERSION'] = PREVIEW_VERSION
     # FileBrowser Options
-    settings_var['MAX_UPLOAD_SIZE'] = MAX_UPLOAD_SIZE
     # Convert Filenames
-    settings_var['CONVERT_FILENAME'] = CONVERT_FILENAME
     return settings_var
 
 

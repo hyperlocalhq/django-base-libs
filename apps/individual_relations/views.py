@@ -25,7 +25,7 @@ from jetson.apps.mailing.views import send_email_using_template, Recipient
 Person = models.get_model("people", "Person")
 
 def json_manage_individual_relation(request, username):
-    "Sets the object as a favorite for the current user"
+    """Sets the object as a favorite for the current user"""
     json_str = "false"
     try:
         to_user = User.objects.get(username=username)

@@ -23,7 +23,7 @@ from jetson.apps.utils.views import object_detail
 Person = models.get_model("people", "Person")
 
 def json_change_message(request):
-    "changes or deletes a message given by primary key"
+    """changes or deletes a message given by primary key"""
     result = {}
     
     data = {
@@ -75,7 +75,7 @@ json_change_message = never_cache(json_change_message)
 
 
 def messages_list(request, box=None, **kwargs):
-    "Displays the list of personal messages in inbox, sent messages, drafts, deleted maeeages, etc."
+    """Displays the list of personal messages in inbox, sent messages, drafts, deleted maeeages, etc."""
     person = get_object_or_404(Person, user=request.user)
     if box is None:
         return HttpResponseRedirect(reverse("messages_list") + "inbox/")

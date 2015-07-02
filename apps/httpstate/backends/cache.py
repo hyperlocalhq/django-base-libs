@@ -7,6 +7,11 @@ class HttpStateStore(HttpStateBase):
     """
     A cache-based httpstate store.
     """
+
+    @classmethod
+    def clear_expired(cls):
+        pass
+
     def __init__(self, httpstate_key=None):
         self._cache = cache
         super(HttpStateStore, self).__init__(httpstate_key)

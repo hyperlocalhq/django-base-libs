@@ -5,6 +5,10 @@ class EmailBackend:
     """
     Authenticate against email and password or email only (from hash)
     """
+
+    def __init__(self):
+        pass
+
     supports_object_permissions = False
     supports_anonymous_user = False
     supports_inactive_user = False
@@ -16,7 +20,7 @@ class EmailBackend:
         except User.DoesNotExist:
             pass
         else:
-            if password != None:
+            if password is not None:
                 if not check_password(password, user.password):
                     user = None
         return user

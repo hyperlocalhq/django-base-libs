@@ -16,13 +16,12 @@ from django.utils.functional import lazy
 from django.template.defaultfilters import slugify
 from django.conf import settings
 from django.utils.timezone import now as tz_now
+from django.apps import AppConfig
 
 from base_libs.middleware import get_current_language
 from base_libs.middleware import get_current_user
 from base_libs.utils.misc import get_website_url
 from base_libs.utils.misc import get_translation
-from base_libs.utils.misc import get_unique_value
-from base_libs.utils.misc import get_related_queryset
 from base_libs.models.query import ExtendedQuerySet
 from base_libs.models.models import UrlMixin
 from base_libs.models.models import ObjectRelationMixin
@@ -44,9 +43,6 @@ from jetson.apps.image_mods.models import FileManager
 from mptt.models import MPTTModel
 from mptt.managers import TreeManager
 from mptt.fields import TreeForeignKey, TreeManyToManyField
-
-Person = models.get_model("people", "Person")
-Institution = models.get_model("institutions", "Institution")
 
 verbose_name = _("Groups & Networks")
 
@@ -159,7 +155,7 @@ class GroupType(MPTTModel, SlugMixin()):
 
 class PersonGroupManager(models.Manager):
     
-    def get_query_set(self):
+    def get_queryset(self):
         """
         we need an extended queryset for advanced order_by options
         """
@@ -228,7 +224,7 @@ class PersonGroupBase(CreationModificationDateMixin, PersonGroupObjectRelation, 
     description = MultilingualTextField(_("Description"), blank=True)
     group_type = TreeForeignKey(GroupType, verbose_name=_("Group Type"), related_name="type_groups")
 
-    organizing_institution = models.ForeignKey(Institution, verbose_name=_("Organizing institution"), blank=True, null=True)
+    organizing_institution = models.ForeignKey("institutions.Institution", verbose_name=_("Organizing institution"), blank=True, null=True)
 
     access_type = models.CharField(_("Access Type"), max_length=10, choices=ACCESS_TYPE_CHOICES, default="secret")
 
@@ -341,13 +337,8 @@ class PersonGroupBase(CreationModificationDateMixin, PersonGroupObjectRelation, 
         """
         Returns the default owners of this object for permission manipulation
         """
-        allowed_groups = []
-        allowed_groups.append(
-            self.perobjectgroup_set.get(sysname__startswith="owners")
-            )
-        allowed_groups.append(
-            self.perobjectgroup_set.get(sysname__startswith="moderators")
-            )
+        allowed_groups = [self.perobjectgroup_set.get(sysname__startswith="owners"),
+                          self.perobjectgroup_set.get(sysname__startswith="moderators")]
         return allowed_groups
         
     def get_context_categories(self):
@@ -601,8 +592,7 @@ class PersonGroupBase(CreationModificationDateMixin, PersonGroupObjectRelation, 
         return bool(
             self.get_unconfirmed().filter(user=user)
             )
-        return False
-        
+
     def is_member_request_acceptable(self, user=None):
         current_user = get_current_user()
         return bool(
@@ -817,249 +807,3 @@ class GroupMembershipBase(models.Model):
             is_active = is_active and self.confirmer
         self.activation = is_active and (self.activation or tz_now()) or None
     _set_activation.alters_data = True
-
-### Additional methods to Person model
-def add_methods_to_person():
-    def get_groups(self):
-        """
-        PersonGroups where the person is a member
-        """
-        PersonGroup = models.get_model("groups_networks", "PersonGroup")
-        if not hasattr(self, "_groups_cache"):
-            self._groups_cache = PersonGroup.objects.filter(
-                groupmembership__user=self.user,
-                )
-        return self._groups_cache
-    def get_my_groups(self):
-        """
-        PersonGroups where the person is "owner"
-        """
-        PersonGroup = models.get_model("groups_networks", "PersonGroup")
-        if not hasattr(self, "_my_groups_cache"):
-            self._my_groups_cache = PersonGroup.objects.filter(
-                groupmembership__user=self.user,
-                groupmembership__role="owners",
-                )
-        return self._my_groups_cache
-    def get_institutions(self, clear_cache=False):
-        """
-        Institutions for which a PersonGroup is created and
-        where the person is a member.
-        """
-        if not hasattr(self, "_institutions_cache") or clear_cache:
-            institution_ids = map(
-                (lambda el: el['object_id']),
-                self.get_groups().filter(
-                    group_type__slug="institutional",
-                    ).values("object_id")
-                )
-            self._institutions_cache = Institution.objects.filter(
-                pk__in=institution_ids,
-                )
-        return self._institutions_cache
-    def get_all_group_invitations(self):
-        qs = Person.objects.filter(
-            user__groupmembership__activation__isnull=True,
-            ).extra(
-                select={
-                    'person_group_id':
-                        'groups_networks_groupmembership.person_group_id',
-                    'person_group_title':
-                        'groups_networks_groupmembership.title',                        
-                    'membership_id':
-                        'groups_networks_groupmembership.id',
-                    'membership_role':
-                        'groups_networks_groupmembership.role',
-                    'membership_title_en':
-                        'groups_networks_groupmembership.title_en',
-                    'membership_title_de':
-                        'groups_networks_groupmembership.title_de',
-                    'membership_inviter_id':
-                        'groups_networks_groupmembership.inviter_id',
-                    'membership_is_accepted':
-                        'groups_networks_groupmembership.is_accepted',
-                    'membership_is_blocked':
-                        'groups_networks_groupmembership.is_blocked',
-                    'membership_confirmer_id':
-                        'groups_networks_groupmembership.confirmer_id',
-                    'membership_timestamp':
-                        'groups_networks_groupmembership.timestamp',
-                    'membership_activation':
-                        'groups_networks_groupmembership.activation',
-                    },
-                ).select_related().distinct().order_by('-membership_timestamp')
-        return qs
-    def get_my_groups_invitations(self):
-        my_groups_id_list = [item.id for item in self.get_my_groups()]
-        qs = self.get_all_group_invitations()
-        qs = qs.filter(
-            user__groupmembership__person_group__id__in=my_groups_id_list,
-            user__groupmembership__inviter=self.user,
-        )
-        return qs
-
-    def get_my_groups_requests(self):
-        my_groups_id_list = [item.id for item in self.get_my_groups()]
-        qs = self.get_all_group_invitations()
-        qs = qs.filter(
-            user__groupmembership__person_group__id__in=my_groups_id_list,
-            user__groupmembership__inviter__isnull=True,
-        )
-        return qs
-    
-    def get_other_groups(self):
-        PersonGroup = models.get_model("groups_networks", "PersonGroup")
-        qs = PersonGroup.objects.filter(
-                groupmembership__activation__isnull=True,
-             ).extra(
-                select={
-                    'membership_id':
-                        'groups_networks_groupmembership.id',
-                    'membership_role':
-                        'groups_networks_groupmembership.role',
-                    'membership_title_en':
-                        'groups_networks_groupmembership.title_en',
-                    'membership_title_de':
-                        'groups_networks_groupmembership.title_de',
-                    'membership_inviter_id':
-                        'groups_networks_groupmembership.inviter_id',
-                    'membership_is_accepted':
-                        'groups_networks_groupmembership.is_accepted',
-                    'membership_is_blocked':
-                        'groups_networks_groupmembership.is_blocked',
-                    'membership_confirmer_id':
-                        'groups_networks_groupmembership.confirmer_id',
-                    'membership_timestamp':
-                        'groups_networks_groupmembership.timestamp',
-                    'membership_activation':
-                        'groups_networks_groupmembership.activation',
-                    },
-                ).select_related().distinct().order_by('-membership_timestamp')
-        return qs
-
-    def get_other_groups_invitations(self):
-        qs = self.get_other_groups()
-        qs = qs.filter(
-               groupmembership__user=self.user,
-            ).exclude(
-               groupmembership__inviter__isnull=True,                      
-        )
-        return qs
-
-    def get_other_groups_requests(self):
-        qs = self.get_other_groups()
-        qs = qs.filter(
-            groupmembership__user=self.user,
-            groupmembership__inviter__isnull=True, 
-        )
-        return qs
-
-    Person.get_groups = get_groups
-    Person.get_my_groups = get_my_groups
-    Person.get_institutions = get_institutions
-    Person.get_all_group_invitations = get_all_group_invitations
-    Person.get_my_groups_invitations = get_my_groups_invitations
-    Person.get_my_groups_requests = get_my_groups_requests
-    Person.get_other_groups = get_other_groups
-    Person.get_other_groups_invitations = get_other_groups_invitations
-    Person.get_other_groups_requests = get_other_groups_requests
-
-### Additional methods to Institution model
-def add_methods_to_institution():
-    def create_default_group(self):
-        PersonGroup = models.get_model("groups_networks", "PersonGroup")
-        group = PersonGroup(
-            title=self.title,
-            slug=get_unique_value(PersonGroup, self.slug),
-            group_type=get_related_queryset(PersonGroup, "group_type").get(
-                slug='institutional',
-                ),
-            access_type="secret",
-            )
-        group.content_object = self
-        group.save()
-        return group
-    create_default_group.alters_data = True
-
-    def get_groups(self):
-        PersonGroup = models.get_model("groups_networks", "PersonGroup")
-        if not hasattr(self, "_groups_cache"):
-            ct = ContentType.objects.get_for_model(self)
-            self._groups_cache = list(PersonGroup.objects.filter(
-                content_type__pk=ct.id,
-                object_id=self.id,
-                ))
-        return self._groups_cache
-    def get_representatives(self):
-        """
-        Returns the default owners of this object for permission manipulation
-        """
-        groups = self.get_groups()
-        if not groups:
-            groups = [self.create_default_group()]
-        allowed_groups = []
-        for person_group in groups:
-            allowed_groups.append(
-                person_group.perobjectgroup_set.get(sysname__startswith="owners")
-                )
-            allowed_groups.append(
-                person_group.perobjectgroup_set.get(sysname__startswith="moderators")
-                )
-        return allowed_groups
-    def _get_related_group(self):
-        groups = self.get_groups()
-        if groups:
-            return groups[0]
-        else:
-            return None
-        
-    def is_contactable(self, user=None):
-        if not hasattr(self, "_is_contactable_cache"):
-            user = get_current_user(user)
-            group = self._get_related_group()
-            contact_dict = self.get_primary_contact()
-            self._is_contactable_cache = not(
-                group
-                and group.get_owners().filter(user=user)
-                ) and contact_dict.get("email0_address", False)
-        return self._is_contactable_cache
-    def is_email_displayed(self, user=None):
-        if not hasattr(self, "_is_email_displayed_cache"):
-            user = get_current_user(user)
-            #group = self._get_related_group()
-            self._is_email_displayed_cache = False
-        return self._is_email_displayed_cache
-        
-    def is_phone_displayed(self, user=None):
-        if not hasattr(self, "_is_phone_displayed_cache"):
-            user = get_current_user(user)
-            group = self._get_related_group()
-            self._is_phone_displayed_cache = True
-        return self._is_phone_displayed_cache
-        
-    def is_fax_displayed(self, user=None):
-        if not hasattr(self, "_is_fax_displayed_cache"):
-            user = get_current_user(user)
-            group = self._get_related_group()
-            self._is_fax_displayed_cache = True
-        return self._is_fax_displayed_cache
-        
-    def is_mobile_displayed(self, user=None):
-        if not hasattr(self, "_is_mobile_displayed_cache"):
-            user = get_current_user(user)
-            group = self._get_related_group()
-            self._is_mobile_displayed_cache = True
-        return self._is_mobile_displayed_cache
-
-    Institution.create_default_group = create_default_group
-    Institution.get_groups = get_groups
-    Institution.get_representatives = get_representatives
-    Institution._get_related_group = _get_related_group
-    Institution.is_contactable = is_contactable
-    Institution.is_email_displayed = is_email_displayed
-    Institution.is_phone_displayed = is_phone_displayed
-    Institution.is_fax_displayed = is_fax_displayed
-    Institution.is_mobile_displayed = is_mobile_displayed
-
-add_methods_to_person()
-add_methods_to_institution()

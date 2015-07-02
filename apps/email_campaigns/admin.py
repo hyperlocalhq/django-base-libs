@@ -30,7 +30,8 @@ from jetson.apps.history.default_settings import A_CUSTOM1, AS_PUBLIC
 class InfoSubscriptionAdminForm(forms.ModelForm):
     class Meta:
         model = InfoSubscription
-        
+        exclude = ()
+
     def clean(self, *args, **kwargs):
         cleaned = super(InfoSubscriptionAdminForm, self).clean(*args, **kwargs)
         if not cleaned.get("subscriber", None) and not cleaned.get("email", ""):
@@ -123,7 +124,7 @@ class MailingAdmin(ExtendedModelAdmin):
                 return self.admin_site.admin_view(view)(*args, **kwargs)
             return update_wrapper(wrapper, view)
 
-        info = self.model._meta.app_label, self.model._meta.module_name
+        info = self.model._meta.app_label, self.model._meta.model_name
         
         urls = patterns('',
             url(r'^(.+)/send/$',

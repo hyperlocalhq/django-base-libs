@@ -74,7 +74,7 @@ class RowLevelPermissionManager(models.Manager):
         ret_dict = {}
         content_type = ContentType.objects.get_for_model(model_instance)
         if change:
-            change_str = "change_%s" % (content_type.model)
+            change_str = "change_%s" % content_type.model
             ret_dict[change_str] = self.create_row_level_permission(
                 model_instance,
                 owner,
@@ -82,7 +82,7 @@ class RowLevelPermissionManager(models.Manager):
                 negative=negChange,
                 )
         if delete:
-            delete_str = "delete_%s" % (content_type.model)
+            delete_str = "delete_%s" % content_type.model
             ret_dict[delete_str] = self.create_row_level_permission(
                 model_instance,
                 owner,
@@ -131,7 +131,7 @@ class RowLevelPermission(ObjectRelationMixin(is_required=True), RowLevelPermissi
     This uses generic relations to minimize the number of tables, and connects to the
     permissions table using a many to one relation.
     """
-    negative = models.BooleanField()
+    negative = models.BooleanField(default=False)
     permission = models.ForeignKey(Permission)
     objects = RowLevelPermissionManager()
 
@@ -195,9 +195,8 @@ def add_functionality_to_models(sender, **kwargs):
 ### Additional methods to the User model
 def add_methods_to_user():
     def get_group_permissions(self):
-        "Returns a list of permission strings that this user has through his/her groups."
+        """Returns a list of permission strings that this user has through his/her groups."""
         if not hasattr(self, '_group_perm_cache'):
-            import sets
             cursor = connection.cursor()
             # The SQL below works out to the following, after DB quoting:
             # cursor.execute("""
@@ -223,13 +222,12 @@ def add_methods_to_user():
                 quote_name('id'), quote_name('content_type_id'),
                 quote_name('user_id'),)
             cursor.execute(sql, [self.id])
-            self._group_perm_cache = sets.Set(["%s.%s" % (row[0], row[1]) for row in cursor.fetchall()])
+            self._group_perm_cache = set(["%s.%s" % (row[0], row[1]) for row in cursor.fetchall()])
         return self._group_perm_cache
     
     def get_all_permissions(self):
         if not hasattr(self, '_perm_cache'):
-            import sets
-            self._perm_cache = sets.Set(["%s.%s" % (p.content_type.app_label, p.codename) for p in self.user_permissions.select_related()])
+            self._perm_cache = set(["%s.%s" % (p.content_type.app_label, p.codename) for p in self.user_permissions.select_related()])
             self._perm_cache.update(self.get_group_permissions())
         return self._perm_cache
     
@@ -252,7 +250,7 @@ def add_methods_to_user():
                 )
         except RowLevelPermission.DoesNotExist:
             perms = self.check_per_object_group_permissions(permission, obj)
-            if perms!=None:
+            if perms is not None:
                 return perms
             else:
                 return self.check_group_row_level_permissions(permission, obj)
@@ -315,7 +313,7 @@ def add_methods_to_user():
         return not row[0]
     
     def has_perm(self, perm, obj=None):
-        "Returns True if the user has the specified permission."
+        """Returns True if the user has the specified permission."""
         if not self.is_active:
             return False
         if self.is_superuser:
@@ -379,7 +377,7 @@ def add_methods_to_user():
         return count > 0
     
     def has_module_perms(self, app_label):
-        "Returns True if the user has any permissions in the given app label."
+        """Returns True if the user has any permissions in the given app label."""
         if not self.is_active:
             return False
         if self.is_superuser:
@@ -431,7 +429,7 @@ def add_methods_to_user():
             quote_name('owner_content_type_id'))
         cursor.execute(sql, [self.id, app_label, False, ContentType.objects.get_for_model(Group).id])
         count = int(cursor.fetchone()[0])
-        return (count>0)
+        return count>0
         
     User.contains_permission = contains_permission
     User.contains_row_level_perm = contains_row_level_perm

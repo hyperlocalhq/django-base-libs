@@ -180,7 +180,7 @@ class InstitutionType(MPTTModel, SlugMixin()):
 
 
 class InstitutionManager(models.Manager):
-    def get_query_set(self):
+    def get_queryset(self):
         return ExtendedQuerySet(self.model)
     
     """
@@ -393,7 +393,7 @@ class InstitutionBase(CreationModificationDateMixin, UrlMixin, OpeningHoursMixin
         return self.context_categories.all()
         
     def get_primary_contact(self):
-        "returns a dictionary containing primary contact information"
+        """returns a dictionary containing primary contact information"""
         contact_dict = {}
         primary_contact = self.institutionalcontact_set.filter(is_primary=True)
         if primary_contact:
@@ -682,24 +682,6 @@ class InstitutionalContactBase(models.Model):
                 )
         return self._ims_cache
 
-        if not hasattr(self, '_emails_cache'):
-            if self.institution.is_email_displayed():
-                self._emails_cache = [{
-                    "type": getattr(self, "email%d_type" % pos),
-                    "address": getattr(self, "email%d_address" % pos),
-                    "address_protected": getattr(self, "email%d_address" % pos).replace("@", " %s " % _("(at)")).replace(".", " %s " % _("(dot)")),
-                    "is_default": getattr(self, "is_email%d_default" % pos),
-                    "is_on_hold": getattr(self, "is_email%d_on_hold" % pos),
-                } for pos in range(3)
-                if getattr(self, "email%d_address" % pos) and not getattr(self, "is_email%d_on_hold" % pos)
-                ]
-                self._emails_cache.sort(
-                    lambda p1, p2: cmp(p2['is_default'], p1['is_default'])
-                    )
-            else:
-                self._emails_cache = []
-        return self._emails_cache
-    
     def get_emails(self):
         if not hasattr(self, '_emails_cache'):
             self._emails_cache = [{
@@ -726,7 +708,7 @@ class InstitutionalContactBase(models.Model):
         v.n.charset_param = 'utf-8'
         v.n.value = vobject.vcard.Name(family=self.institution.title, given="")
         v.add('fn')
-        v.fn.value = "%s" % (self.institution.title)
+        v.fn.value = "%s" % self.institution.title
         v.add('email')
         v.email.value = self.email0_address
         
@@ -790,14 +772,14 @@ def extend_people_app(sender, *args, **kwargs):
     """
     # if people app is registered before institutions app, this function will be called while initiating InstitutionalContact
     # if people app is registered after institutions app, this function will be called for each model registered after Institution initiation until people app gets registered.
-    if "people" in cache.app_models and "institutions" in cache.app_models:
+    if hasattr(cache, "app_models") and "people" in cache.app_models and "institutions" in cache.app_models:
         people_app = cache.app_models["people"]
         Person = people_app.get("person", None)
         IndividualContact = people_app.get("individualcontact", None)
         institutions_app = cache.app_models["institutions"]
         Institution = institutions_app.get("institution", None)
         # if people app is installed
-        if (Person and IndividualContact and Institution):
+        if Person and IndividualContact and Institution:
             # add institution field to IndividualContact
             institution = models.ForeignKey(
                 Institution,

@@ -16,7 +16,13 @@ from django.contrib.admin.util import get_model_from_relation
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
-from django.contrib.admin.forms import ERROR_MESSAGE
+from django.contrib.admin.checks import BaseModelAdminChecks
+from django.contrib.admin.forms import AdminAuthenticationForm
+try:
+    from django.contrib.admin.forms import ERROR_MESSAGE
+except ImportError:
+    ERROR_MESSAGE = AdminAuthenticationForm.error_messages['invalid_login']
+
 from django.contrib.admin.sites import site
 
 def patch_admin():
@@ -235,6 +241,25 @@ def patch_admin():
             context_instance=template.RequestContext(request)
         )
     AdminSite.app_index = adminsite_app_index
+
+    def new_admin_check(self, cls, model, **kwargs):
+        errors = []
+        errors.extend(self._check_raw_id_fields(cls, model))
+        errors.extend(self._check_fields(cls, model))
+        ### disable fieldset check due to nested fieldsets
+        # errors.extend(self._check_fieldsets(cls, model))
+        errors.extend(self._check_exclude(cls, model))
+        errors.extend(self._check_form(cls, model))
+        errors.extend(self._check_filter_vertical(cls, model))
+        errors.extend(self._check_filter_horizontal(cls, model))
+        errors.extend(self._check_radio_fields(cls, model))
+        errors.extend(self._check_prepopulated_fields(cls, model))
+        errors.extend(self._check_view_on_site_url(cls, model))
+        errors.extend(self._check_ordering(cls, model))
+        errors.extend(self._check_readonly_fields(cls, model))
+        return errors
+
+    BaseModelAdminChecks.check = new_admin_check
 
     class AdminAuthenticationForm(AuthenticationForm):
         """

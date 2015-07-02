@@ -28,12 +28,12 @@ class GMap(CMSPlugin):
         return u"%s (%s, %s %s)" % (self.get_title(), self.address, self.zipcode, self.city,)
     
     def get_title(self):
-        if self.title == None:
+        if self.title is None:
             return _("Map")
         return self.title
     
     def get_content(self):
-        if self.content == None:
+        if self.content is None:
             return ""
         return self.content
     

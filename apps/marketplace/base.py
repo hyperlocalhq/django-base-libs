@@ -16,6 +16,7 @@ from django.utils.functional import lazy
 from django.utils.encoding import force_unicode
 from django.utils.text import capfirst
 from django.utils.timezone import now as tz_now
+from django.apps import apps
 
 from base_libs.models.models import UrlMixin
 from base_libs.models.models import SlugMixin
@@ -23,6 +24,7 @@ from base_libs.models.models import CreationModificationMixin
 from base_libs.models.models import PublishingMixin
 from base_libs.utils.misc import get_unique_value
 from base_libs.utils.misc import get_website_url
+from base_libs.utils.misc import is_installed
 from base_libs.middleware import get_current_language, get_current_user
 from base_libs.models.query import ExtendedQuerySet
 from base_libs.models.fields import URLField
@@ -39,9 +41,6 @@ from jetson.apps.location.models import Address
 from jetson.apps.i18n.models import Language
 from jetson.apps.optionset.models import PhoneType, EmailType, URLType, IMType
 from jetson.apps.utils.models import MONTH_CHOICES
-
-Person = models.get_model("people", "Person")
-Institution = models.get_model("institutions", "Institution")
 
 verbose_name = _("Marketplace")
 
@@ -117,7 +116,7 @@ class JobOfferManager(models.Manager):
     """
     for comments, see institutions.InstitutionManager
     """
-    def get_query_set(self):
+    def get_queryset(self):
         return ExtendedQuerySet(self.model)
     
     def get_sort_order_mapper(self):
@@ -172,9 +171,9 @@ class JobOfferBase(CreationModificationMixin, PublishingMixin, UrlMixin):
         blank=True,
         )
     
-    if Institution:
+    if is_installed("institutions.models"):
         offering_institution = models.ForeignKey(
-            Institution,
+            "institutions.Institution",
             verbose_name=_("Organizing institution"),
             blank=True,
             null=True,
@@ -189,9 +188,9 @@ class JobOfferBase(CreationModificationMixin, PublishingMixin, UrlMixin):
         
     offering_institution_title = models.CharField(_("Organizer"), blank=True, max_length=255)
     
-    if Person:
+    if apps.is_installed("people"):
         contact_person = models.ForeignKey(
-            Person,
+            "people.Person",
             verbose_name=_("Organizing person"),
             blank=True,
             null=True,
@@ -328,8 +327,7 @@ class JobOfferBase(CreationModificationMixin, PublishingMixin, UrlMixin):
         
     def get_contacts(self):
         if self.get_postal_address() or self.get_phones() or self.get_urls() or self.get_ims() or self.get_emails():
-            l = []
-            l.append(self)
+            l = [self]
             return l
         return None
         

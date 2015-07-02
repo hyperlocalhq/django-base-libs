@@ -22,6 +22,7 @@ class Post_Inline(ExtendedStackedInline):
 class BlogAdminForm(MultiSiteContainerMixinAdminForm):
     class Meta:
         model = Blog
+        exclude = ()
 
 class BlogOptions(MultiSiteContainerMixinAdminOptions):
     save_on_top = True

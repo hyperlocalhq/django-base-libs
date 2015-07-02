@@ -44,7 +44,7 @@ class CommentManager(models.Manager):
         'pa,ra') and target (something like 'lcom.eventtimes:5157'). Used to
         validate that submitted form options have not been tampered-with.
         """
-        import md5
+        from hashlib import md5
         return md5.new(options + photo_options + rating_options + target + settings.SECRET_KEY).hexdigest()
 
     def get_rating_options(self, rating_string):
@@ -105,9 +105,9 @@ class Comment(ObjectRelationMixin(is_required=True), UrlMixin):
     # functions (summaries). We need this because people are allowed to post
     # multiple reviews on the same thing, but the system will only use the
     # latest one (with valid_rating=True) in tallying the reviews.
-    valid_rating = models.BooleanField(_('is valid rating'))
+    valid_rating = models.BooleanField(_('is valid rating'), default=False)
     submit_date = models.DateTimeField(_('date/time submitted'), auto_now_add=True)
-    is_public = models.BooleanField(_('is public'))
+    is_public = models.BooleanField(_('is public'), default=False)
     ip_address = models.IPAddressField(_('IP address'), blank=True, null=True)
     is_removed = models.BooleanField(_('is removed'), default=False, help_text=_('Check this box if the comment is inappropriate. A "This comment has been removed" message will be displayed instead.'))
     is_spam = models.BooleanField(_('is spam'), default=False, help_text=_('Check this box if the comment should be marked as spam. The comment will not be displayed in this case.'))
@@ -157,7 +157,7 @@ class Comment(ObjectRelationMixin(is_required=True), UrlMixin):
         return "/comments/delete/%s/" % self.id
 
     def _fill_karma_cache(self):
-        "Helper function that populates good/bad karma caches"
+        """Helper function that populates good/bad karma caches"""
         good, bad = 0, 0
         for k in self.karmascore_set:
             if k.score == -1:
@@ -340,9 +340,10 @@ class UserRatingManager(models.Manager):
         if self.can_rate(comment, user, rate_index):
             f = self.model(None, user.id, comment.id, None, rate_index)
             # do the rating itself!!!
+            rating = None
             exec "rating = comment.rating" + str(rate_index)
             if rating:
-                rating = rating + 1
+                rating += 1
             else:
                 rating = 1
             

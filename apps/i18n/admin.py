@@ -44,7 +44,7 @@ class CountryOptions(admin.ModelAdmin):
 class AreaOptions(admin.ModelAdmin):
     save_on_top = True
     list_display = ('country', 'name', 'alt_name', 'abbrev', 'reg_area')
-    search_fieldsets = ('name')
+    search_fieldsets = ('name',)
 
 class PhoneOptions(admin.ModelAdmin):
     save_on_top = True
@@ -61,7 +61,7 @@ class NationalityOptions(admin.ModelAdmin):
 class TimeZoneOptions(admin.ModelAdmin):
     save_on_top = True
     list_display = ('country', 'zone')
-    search_fieldsets = ('country')
+    search_fieldsets = ('country',)
     ordering = ['country', 'zone']
 
 admin.site.register(Language, LanguageOptions)

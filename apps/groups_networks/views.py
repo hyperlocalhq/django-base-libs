@@ -26,7 +26,7 @@ from jetson.apps.mailing.views import do_generic_mail, send_email_using_template
 from jetson.apps.memos.models import Memo, MEMO_TOKEN_NAME
 
 Person = models.get_model("people", "Person")
-Institution = models.get_model("institution", "Institution")
+Institution = models.get_model("institutions", "Institution")
 
 app = models.get_app("groups_networks")
 PersonGroup, GroupMembership, URL_ID_PERSONGROUP, URL_ID_PERSONGROUPS = (
@@ -35,7 +35,7 @@ PersonGroup, GroupMembership, URL_ID_PERSONGROUP, URL_ID_PERSONGROUPS = (
     )
 
 def json_manage_ss_membership(request, slug):
-    "Sets the object as a favorite for the current user"
+    """Sets the object as a favorite for the current user"""
     json_str = "false"
     person_group = None
     try:
@@ -415,11 +415,9 @@ def persongroup_list(request, criterion="", slug="", show="", **kwargs):
         if abc_filter:
             queryset = filter_abc(queryset, "title", abc_filter)
 
-        extra_context = {}
-        extra_context['abc_list'] = abc_list
-        extra_context['show'] = ("", "/%s" % show)[bool(show)]
-        extra_context['source_list'] = URL_ID_PERSONGROUPS        
-        kwargs['extra_context'] = extra_context  
+        extra_context = {'abc_list': abc_list, 'show': ("", "/%s" % show)[bool(show)],
+                         'source_list': URL_ID_PERSONGROUPS}
+        kwargs['extra_context'] = extra_context
         kwargs['httpstate_prefix'] = URL_ID_PERSONGROUPS  
         kwargs['queryset'] = queryset  
         return object_list(request, **kwargs)
@@ -611,7 +609,9 @@ def invite_institution_members(request, slug, **kwargs):
         extra_context={
             'object': institution,
             'user': request.user,
-            });
+            })
+
+
 invite_institution_members = login_required(never_cache(invite_institution_members))
 
 @never_cache
@@ -667,5 +667,7 @@ def edit_group_member(request, slug, user_id):
         )
 
 def add_group(request):
-    return show_form_step(request, ADD_GROUP_FORM_STEPS, extra_context={});
+    return show_form_step(request, ADD_GROUP_FORM_STEPS, extra_context={})
+
+
 add_group = login_required(never_cache(add_group))

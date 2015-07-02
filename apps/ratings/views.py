@@ -12,7 +12,7 @@ from base_libs.utils.misc import ExtendedJSONEncoder
 Rating = models.get_model("ratings", "Rating")
 
 def json_set_rating(request, content_type_id, object_id, points):
-    "Sets the rating to the object"
+    """Sets the rating to the object"""
     json_str = "false"
     if request.user.has_perm("ratings.can_rate"):
         content_type = ContentType.objects.get(id=content_type_id)

@@ -12,7 +12,7 @@ from base_libs.utils.misc import ExtendedJSONEncoder
 Recommendation = models.get_model("recommendations", "Recommendation")
 
 def json_set_recommendation(request, content_type_id, object_id):
-    "Sets the object as a recommendation for the current user"
+    """Sets the object as a recommendation for the current user"""
     json_str = "false"
     if request.user.is_authenticated():
         content_type = ContentType.objects.get(id=content_type_id)

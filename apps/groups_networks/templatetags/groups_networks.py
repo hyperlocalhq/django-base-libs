@@ -76,43 +76,6 @@ class ObjectAddingGroupMembership(template.Node):
         c.pop()
         return output
         
-        '''
-        elif ct.model == "institution":
-            
-            memberships = GroupMembership.objects.filter(
-                    user=context['request'].user,
-                    person_group__place=obj_to_add,
-                    )
-            is_not_contact = not memberships
-            
-            """
-            RS15112007 added:
-            If the group of people has property "by invitation" and not property
-            "by confirmation", a user cannot share the group. 
-
-            if user already has contact to an institutional group of people,
-            (user is member of the group), get the role: if the role is 
-            "owners", the user cannot leave the group. An "owner" cannot
-            remove itself from the group of people.
-            """  
-            
-            if is_not_contact:
-                person_group = obj_to_add.sharedspace_set.get()
-                if person_group.is_by_invitation:
-                    if not person_group.is_by_confirmation:
-                        return ''
-            else:
-                if memberships[0].role == "owners":
-                    return '' 
-                
-            c = context
-            c.update({
-                'object': obj_to_add,
-                #'counter': self.counter,
-                'is_not_contact': is_not_contact
-            })
-            return loader.render_to_string(template_path or "groups_networks/relationship.html", c)
-        '''
 
 register.tag('adding_group_membership', do_adding_group_membership)
 

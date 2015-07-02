@@ -6,10 +6,9 @@ from django.conf import settings
 
 from base_libs.middleware import get_current_language
 
-from jetson.apps.flatpages.views import flatpage
-
 class FlatpageMiddleware(object):
     def process_request(self, request):
+        from jetson.apps.flatpages.views import flatpage
         if (
             request.path.startswith(settings.JETSON_MEDIA_URL)
             or request.path.startswith(settings.MEDIA_URL)

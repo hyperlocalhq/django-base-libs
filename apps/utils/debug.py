@@ -8,20 +8,24 @@ class Debugger(object):
     A class for debugging system processes. Saves messages to LogEntry
     instances for the superadmin.
     """
+    @staticmethod
     def _get_user():
         return User.objects.filter(is_superuser=True)[0]
-    _get_user = staticmethod(_get_user)
+
+    @staticmethod
     def log(message=""):
         Debugger._get_user().logentry_set.create(
             change_message=force_unicode(message),
             action_flag=0,
             )
     alert = log
-    log = staticmethod(log)
     alert = staticmethod(alert)
+
+    @staticmethod
     def clear():
         Debugger._get_user().logentry_set.filter(action_flag=0).delete()
-    clear = staticmethod(clear)
+
+    @staticmethod
     def list_out():
         entries = Debugger._get_user().logentry_set.filter(
             action_flag=0,
@@ -31,5 +35,4 @@ class Debugger(object):
                 smart_str(el.action_time),
                 smart_str(el.change_message),
                 )
-    list_out = staticmethod(list_out)
 

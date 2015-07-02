@@ -4,6 +4,7 @@ from django.db import connection
 from django.contrib.contenttypes.models import ContentType
 from django.utils.encoding import force_unicode
 from django.utils.translation import ugettext_lazy as _
+from django.apps import apps
 
 from tagging.fields import TagField
 from tagging.models import Tag
@@ -18,26 +19,24 @@ from base_libs.models.models import MultiSiteContainerMixin
 from base_libs.models.models import PublishingMixin
 from base_libs.models import ExtendedTextField
 
-RowLevelPermission = models.get_model("permissions", "RowLevelPermission")
-
-Comment = models.get_model("comments", "Comment")
 
 verbose_name = _("Blog")
 
 class Blog(MultiSiteContainerMixin, CreationModificationDateMixin):
-    """ 
-    This is the container for blog posts 
+    """
+    This is the container for blog posts
     """
     title = models.CharField(_("title"), blank=True, max_length=255)
     row_level_permissions = True
-    
+
     def __unicode__(self):
         sites_str = ", ".join([str(item.name) for item in self.sites.all()])
         if sites_str != "":
             sites_str = u" (%s)" % sites_str
         return force_unicode(self.title) + sites_str
-    
+
     def save(self, *args, **kwargs):
+        RowLevelPermission = apps.get_model("permissions", "RowLevelPermission")
         content_object = self.content_object
         is_new = not self.id
         # get the title from content object (if there is one)
@@ -46,7 +45,7 @@ class Blog(MultiSiteContainerMixin, CreationModificationDateMixin):
                 self.title = force_unicode(_("Blog for %s") % force_unicode(content_object))
             else:
                 self.title = force_unicode(_("Blog"))
-            
+
         super(Blog, self).save(*args, **kwargs)
         if is_new:
             if hasattr(content_object, "get_representatives"):
@@ -57,7 +56,7 @@ class Blog(MultiSiteContainerMixin, CreationModificationDateMixin):
                     RowLevelPermission.objects.create_row_level_permission(self, owner, "delete_blog_posts")
                     RowLevelPermission.objects.create_row_level_permission(self, owner, "moderate_blog_comments")
     save.alters_data = True
-    
+
     class Meta(MultiSiteContainerMixin.Meta):
         verbose_name = _("blog")
         verbose_name_plural = _("blogs")
@@ -67,11 +66,11 @@ class Blog(MultiSiteContainerMixin, CreationModificationDateMixin):
             ("change_blog_posts", "Can change posts"),
             ("delete_blog_posts", "Can delete posts"),
             ("moderate_blog_comments", "Can moderate blog comments"),
-            )
+        )
 
     @staticmethod
     def autocomplete_search_fields():
-        return ("id__iexact", "title__icontains",)
+        return ("id__iexact", "title__icontains")
 
 
 # QUICK HACK: Without the following the Blog.objects.model will be MultiSiteContainerMixin and won't work correctly
@@ -116,6 +115,7 @@ class Post(CreationModificationMixin, PublishingMixin, ViewsMixin, UrlMixin, Slu
         return "%s/%s/" % (self.published_from.strftime("%Y/%m/%d").lower(), self.slug)
     
     def delete_comments(self):
+        Comment = apps.get_model("comments", "Comment")
         table = Comment._meta.db_table
         ctype = ContentType.objects.get_for_model(Post)
         query = """DELETE FROM %s WHERE object_id = %s AND content_type_id = %%s""" % (table, self.id)
@@ -124,6 +124,7 @@ class Post(CreationModificationMixin, PublishingMixin, ViewsMixin, UrlMixin, Slu
     delete_comments.alters_data = True
                 
     def delete_comment(self, id):
+        Comment = apps.get_model("comments", "Comment")
         table = Comment._meta.db_table
         query = """DELETE FROM %s WHERE id = %s""" % (table, id)
         cursor = connection.cursor()

@@ -63,7 +63,7 @@ FaqContainer.objects.model = FaqContainer
         
 class FaqCategoryManager(TreeManager):
     def get_roots(self, container):
-        return self.get_query_set().filter(
+        return self.get_queryset().filter(
                    container=container, 
                    parent__isnull=True
         )
@@ -131,7 +131,7 @@ class FaqCategory(MPTTModel, CreationModificationMixin, UrlMixin, SlugMixin()):
                 for word in getattr(self, 'title_%s' % language).split(' '):
                     if len(short_title) + len(word) < 32:
                         if len(short_title) != 0:
-                            short_title = short_title + " "
+                            short_title += " "
                         short_title = short_title + word
                     else:
                         break

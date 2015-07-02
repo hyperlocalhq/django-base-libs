@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
-import md5, re
+import re
+from hashlib import md5
 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -14,7 +15,7 @@ from jetson.apps.configuration.models import SiteSettings
 
 @never_cache
 def subscribe_for_info(request, *arguments, **keywords):
-    "Displays the info subscription form and handles the subscription action"
+    """Displays the info subscription form and handles the subscription action"""
     site_settings = SiteSettings.objects.get_current()
     if request.method=="POST":
         form = InfoSubscriptionForm(request.POST)
