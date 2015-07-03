@@ -224,7 +224,7 @@
                                                                     {% for location in event.production.in_program_of.all %}
                                                                         <a class="black block" href="{{ location.get_url_path }}" data-latitude="{{ location.latitude|stringformat:"%f" }}" data-longitude="{{ location.longitude|stringformat:"%f" }}">
                                                                             <strong>{{ location.title }}</strong><br />
-                                                                            {% if not stages or not stages.0.street_address %}
+                                                                            {% if not stages and not stages.0.street_address and not event.location_title and not event.street_address and not event.production.location_title and not event.production.street_address and not locations and not locations.0.street_address %}
                                                                                 {% if location.street_address %}{{ location.street_address }}<br />{% endif %}
                                                                                 {% if location.street_address2 %}{{ location.street_address2 }}<br />{% endif %}
                                                                                 {% if location.city %}{{ location.postal_code }} {{ location.city }}<br />{% endif %}
@@ -240,7 +240,7 @@
                                                                 {% if event.location_title %}
                                                                     <p data-latitude="{{ event.latitude|stringformat:"%f" }}" data-longitude="{{ event.longitude|stringformat:"%f" }}">
                                                                         <strong>{{ event.location_title }}</strong><br />
-                                                                        {% if not stages or not stages.0.street_address %}
+                                                                        {% if not stages and not stages.0.street_address %}
                                                                             {% if event.street_address %}{{ event.street_address }}<br />{% endif %}
                                                                             {% if event.street_address2 %}{{ event.street_address2 }}<br />{% endif %}
                                                                             {% if event.city %}{{ event.postal_code }} {{ event.city }}<br />{% endif %}
@@ -249,7 +249,7 @@
                                                                 {% elif event.production.location_title %}
                                                                     <p data-latitude="{{ event.production.latitude|stringformat:"%f" }}" data-longitude="{{ event.production.longitude|stringformat:"%f" }}">
                                                                         <strong>{{ event.production.location_title }}</strong><br />
-                                                                        {% if not stages or not stages.0.street_address %}
+                                                                        {% if not stages and not stages.0.street_address %}
                                                                             {% if event.production.street_address %}{{ event.production.street_address }}<br />{% endif %}
                                                                             {% if event.production.street_address2 %}{{ event.production.street_address2 }}<br />{% endif %}
                                                                             {% if event.production.city %}{{ event.production.postal_code }} {{ event.production.city }}<br />{% endif %}
