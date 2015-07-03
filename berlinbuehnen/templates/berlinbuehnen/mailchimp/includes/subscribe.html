@@ -82,9 +82,9 @@
         
             if (resp.result == "success") {
             
-                jQuery("#mce-choose_newsletter").selectbox('detach');
-                jQuery("#mce-choose_newsletter").val(0);
-                jQuery("#mce-choose_newsletter").selectbox('attach');
+                var $select = jQuery("#mce-choose_newsletter");
+                $select.selectbox('change', "0", "{% trans 'Please choose a newsletter' %}");
+                jQuery('option', $select).removeAttr('selected');
 
                 $('#mc-embedded-subscribe-button').css('display', 'none');
                 $('#mce-choose_newsletter-wrapper').css('display', 'none');
