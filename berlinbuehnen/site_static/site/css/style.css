@@ -2122,14 +2122,19 @@ span.pin a { position: absolute !important; top: 6px; right: 6px; cursor: pointe
 
 #mc_embed_signup { background: black; color: white; padding: 10px 20px 20px; margin-top: 20px; }
 #mc_embed_signup h3 { text-transform: uppercase; font-size: 1em; text-align: center; padding: 5px 0; }
-#mc_embed_signup input { width: 100% !important; height: 30px; padding: 5px 10px; margin: 10px auto; display: block; background: white; font-size: 1em; color: black; }
+#mc_embed_signup input { width: 100% !important; height: 40px; padding: 5px 10px; margin: 10px auto; display: block; background: white; font-size: 1em; color: black; }
 #mc_embed_signup input:hover { background: white; }
 #mc_embed_signup input:focus { box-shadow: none; }
 #mc_embed_signup div.mce_inline_error { width: 100%; margin: 2px auto 1em !important; background: #aa0000 !important; font-size: 1em; }
-#mc_embed_signup #mc-embedded-subscribe { width: auto !important; border: none; text-transform: uppercase; background: #4583c8; color: white; font-weight: 700; padding: 5px 40px; }
+#mc_embed_signup #mc-embedded-subscribe-button { width: 180px; height: 30px; border: none; text-transform: uppercase; background: #4583c8; color: white; font-size: 1em; font-weight: 700; padding: 5px 0; margin: 10px auto; display: block; text-align: center; }
+#mc_embed_signup #mc-embedded-subscribe { display: none; }
 #mc_embed_signup #mce-success-response { padding: 10px 0; font-size: 1em; }
 #mc_embed_signup #mc-embedded-ok { width: 100%; display: none; text-align: center; }
 #mc_embed_signup #mc-embedded-ok span { background: #4583c8; height: 30px; padding: 5px 40px; font-weight: 700; color: white; text-transform: uppercase; cursor: pointer; font-size: 1em; display: inline-block; margin: 10px auto; }
+#mc_embed_signup .sbSelector { color: white !important; background: #575654; }
+#mc_embed_signup .sbToggle { background: none; line-height: 1.375em; z-index: 9; opacity: 1; }
+#mc_embed_signup .sbToggle:before { content: "\f107"; color: white; width: 40px; height: 40px; position: absolute; top: 9px; left: 10px; display: inline-block; font: normal normal normal 14px/1 FontAwesome; font-size: inherit; text-rendering: auto; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; padding-right: 10px; vertical-align: bottom; font-weight: 400; font-size: 1.375em; }
+#mc_embed_signup .sbOptions li:first-of-type { display: none; }
 
 .top-widget-button { border: none; width: 33px; height: 33px; color: white; background: black; padding: 0; }
 .top-widget-button:before { font-size: 1.7em; width: 33px; height: 33px; line-height: 33px; text-align: center; padding: 0; margin: 0; }
