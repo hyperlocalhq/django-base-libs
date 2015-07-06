@@ -23,7 +23,7 @@ from jetson.apps.utils.decorators import login_required
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 
 from models import Location, Image as LocationImage
-from models import Service, AccessibilityOption
+from models import Service, AccessibilityOption, LocationCategory, District
 
 from forms.locations import LOCATION_FORM_STEPS
 from forms.gallery import ImageFileForm, ImageDeletionForm
@@ -32,13 +32,21 @@ from jetson.apps.image_mods.models import FileManager
 from filebrowser.models import FileDescription
 
 class LocationFilterForm(forms.Form):
-    services = forms.ModelMultipleChoiceField(
+    #services = forms.ModelMultipleChoiceField(
+    #    required=False,
+    #    queryset=Service.objects.all(),
+    #)
+    #accessibility = forms.ModelMultipleChoiceField(
+    #    required=False,
+    #    queryset=AccessibilityOption.objects.all(),
+    #)
+    categories = forms.ModelMultipleChoiceField(
         required=False,
-        queryset=Service.objects.all(),
+        queryset=LocationCategory.objects.all(),
     )
-    accessibility = forms.ModelMultipleChoiceField(
+    districts = forms.ModelMultipleChoiceField(
         required=False,
-        queryset=AccessibilityOption.objects.all(),
+        queryset=District.objects.all(),
     )
 
 
@@ -50,35 +58,51 @@ def location_list(request, year=None, month=None, day=None):
     facets = {
         'selected': {},
         'categories': {
-            'services': Service.objects.all(),
-            'accessibility': AccessibilityOption.objects.all(),
+    #        'services': Service.objects.all(),
+    #        'accessibility': AccessibilityOption.objects.all(),
+            'categories': LocationCategory.objects.all(),
+            'districts': District.objects.all(),
         },
     }
             
     abc_list = get_abc_list(qs, "title_%s" % request.LANGUAGE_CODE)
     
     if form.is_valid():
-        cats = form.cleaned_data['services']
-        if cats:
-            facets['selected']['services'] = cats
-            qs = qs.filter(
-                services__in=cats,
-            ).distinct()
-            #for cat in cats:
-            #    qs = qs.filter(
-            #        services=cat,
-            #    ).distinct()
+        #cats = form.cleaned_data['services']
+        #if cats:
+        #    facets['selected']['services'] = cats
+        #    qs = qs.filter(
+        #        services__in=cats,
+        #    ).distinct()
+        #    #for cat in cats:
+        #    #    qs = qs.filter(
+        #    #        services=cat,
+        #    #    ).distinct()
                 
-        cats = form.cleaned_data['accessibility']
+        #cats = form.cleaned_data['accessibility']
+        #if cats:
+        #    facets['selected']['accessibility'] = cats
+        #    qs = qs.filter(
+        #        accessibility_options__in=cats,
+        #    ).distinct()
+        #    #for cat in cats:
+        #    #    qs = qs.filter(
+        #    #        accessibility_options=cat,
+        #    #    ).distinct()
+            
+        cats = form.cleaned_data['categories']
         if cats:
-            facets['selected']['accessibility'] = cats
+            facets['selected']['categories'] = cats
             qs = qs.filter(
-                accessibility_options__in=cats,
+                categories__in=cats,
             ).distinct()
-            #for cat in cats:
-            #    qs = qs.filter(
-            #        accessibility_options=cat,
-            #    ).distinct()
+            
+        cats = form.cleaned_data['districts']
+        if cats:
+            facets['selected']['districts'] = cats
+            qs = qs.filter(
+                districts__in=cats,
+            ).distinct()
 
     abc_filter = request.GET.get('abc', None)
     if abc_filter:
