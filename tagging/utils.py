@@ -10,12 +10,6 @@ from django.db.models.query import QuerySet
 from django.utils.encoding import force_unicode
 from django.utils.translation import ugettext as _
 
-# Python 2.3 compatibility
-try:
-    set
-except NameError:
-    from sets import Set as set
-
 def parse_tag_input(input):
     """
     Parses tag input, with multiple word input being activated and
