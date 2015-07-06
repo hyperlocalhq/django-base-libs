@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-03 17:01+0200\n"
-"PO-Revision-Date: 2015-07-03 17:07+0053\n"
+"POT-Creation-Date: 2015-07-06 18:00+0200\n"
+"PO-Revision-Date: 2015-07-06 18:02+0053\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1493,13 +1493,11 @@ msgstr "Kategorien"
 #: .\berlinbuehnen\apps\locations\forms\locations.py:564
 #: .\berlinbuehnen\templates\berlinbuehnen\festivals\includes\sidebar.html.py:120
 #: .\berlinbuehnen\templates\berlinbuehnen\locations\includes\sidebar.html.py:134
-#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_locations.html.py:32
 msgid "Service"
 msgstr "Service"
 
 #: .\berlinbuehnen\apps\locations\admin.py:149
 #: .\berlinbuehnen\apps\locations\forms\locations.py:569
-#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_locations.html.py:37
 msgid "Accessibility"
 msgstr "Barrierefreiheit"
 
@@ -1546,6 +1544,7 @@ msgstr "Reihenfolge"
 
 #: .\berlinbuehnen\apps\locations\models.py:53
 #: .\berlinbuehnen\apps\locations\forms\locations.py:224
+#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_locations.html.py:37
 msgid "Districts"
 msgstr "Bezirke"
 
@@ -3835,6 +3834,7 @@ msgstr "Newsletter"
 
 #: .\berlinbuehnen\templates\berlinbuehnen\mailchimp\includes\subscribe.html.py:10
 #: .\berlinbuehnen\templates\berlinbuehnen\mailchimp\includes\subscribe.html.py:15
+#: .\berlinbuehnen\templates\berlinbuehnen\mailchimp\includes\subscribe.html.py:86
 msgid "Please choose a newsletter"
 msgstr "Bitte Newsletter auswählen"
 
@@ -4168,9 +4168,9 @@ msgstr "Abends"
 #: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_events.html.py:96
 #: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_events.html.py:166
 #: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_events.html.py:185
-#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_locations.html.py:45
-#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_locations.html.py:69
-#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_locations.html.py:87
+#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_locations.html.py:58
+#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_locations.html.py:82
+#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_locations.html.py:100
 msgid "filter by"
 msgstr "Filter"
 
@@ -4180,18 +4180,22 @@ msgid "All"
 msgstr "Alle"
 
 #: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_events.html.py:252
-#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_locations.html.py:117
+#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_locations.html.py:169
 msgid "Current selection"
 msgstr "Aktuelle Auswahl"
 
 #: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_events.html.py:296
-#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_locations.html.py:134
+#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_locations.html.py:199
 msgid "Reset filter"
 msgstr "Filter zurücksetzen"
 
 #: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_locations.html.py:27
 msgid "A - Z"
 msgstr "A - Z"
+
+#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_locations.html.py:32
+msgid "Genres"
+msgstr "Gattungen"
 
 #: .\berlinbuehnen\templates\berlinbuehnen\utils\gallery_upload_scripts.html.py:6
 msgid "Upload file"
