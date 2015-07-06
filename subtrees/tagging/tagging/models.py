@@ -85,7 +85,7 @@ class TagManager(models.Manager):
         model_table = qn(model._meta.db_table)
         model_pk = '%s.%s' % (model_table, qn(model._meta.pk.column))
         query = """
-        SELECT DISTINCT %(tag)s.id, %(tag)s.*%(count_sql)s
+        SELECT DISTINCT %(tag)s.id, %(tag)s.name%(count_sql)s
         FROM
             %(tag)s
             INNER JOIN %(tagged_item)s
@@ -99,7 +99,7 @@ class TagManager(models.Manager):
         %%s
         ORDER BY %(tag)s.name ASC""" % {
             'tag': qn(self.model._meta.db_table),
-            'count_sql': counts and (', COUNT(%s) AS counter' % model_pk) or '',
+            'count_sql': counts and (', COUNT(%s)' % model_pk) or '',
             'tagged_item': qn(TaggedItem._meta.db_table),
             'model': model_table,
             'model_pk': model_pk,
@@ -111,16 +111,13 @@ class TagManager(models.Manager):
             min_count_sql = 'HAVING COUNT(%s) >= %%s' % model_pk
             params.append(min_count)
 
-        tags = Tag.objects.raw(query % (extra_joins, extra_criteria, min_count_sql), params)
-        return tags
-
         cursor = connection.cursor()
         cursor.execute(query % (extra_joins, extra_criteria, min_count_sql), params)
         tags = []
         for row in cursor.fetchall():
-            t = self.model(*row[:3])
+            t = self.model(*row[:2])
             if counts:
-                t.count = row[3]
+                t.count = row[2]
             tags.append(t)
         return tags
 
@@ -166,12 +163,15 @@ class TagManager(models.Manager):
         """
 
         if getattr(queryset.query, 'get_compiler', None):
-            # Django 1.2+
             compiler = queryset.query.get_compiler(using='default')
+            if getattr(compiler, 'compile', None):
+                # Django 1.7+
+                where, params = compiler.compile(queryset.query.where)
+            else:
+                # Django 1.2+
+                where, params = queryset.query.where.as_sql(
+                    compiler.quote_name_unless_alias, compiler.connection)
             extra_joins = ' '.join(compiler.get_from_clause()[0][1:])
-            where, params = queryset.query.where.as_sql(
-                compiler.quote_name_unless_alias, compiler.connection
-            )
         else:
             # Django pre-1.2
             extra_joins = ' '.join(queryset.query.get_from_clause()[0][1:])

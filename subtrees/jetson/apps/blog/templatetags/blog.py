@@ -2,6 +2,9 @@
 import re
 from django.db import models
 from django import template
+from django.apps import apps
+from django.template import TemplateSyntaxError
+
 from base_libs.utils.misc import truncwords
 from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
 
@@ -17,8 +20,8 @@ class TagCloudForBlogNode(template.Node):
         self.kwargs = kwargs
 
     def render(self, context):
-        Post = models.get_model("blog", "Post")
-        Tag = models.get_model("tagging", "Tag")
+        Post = apps.get_model("blog", "Post")
+        Tag = apps.get_model("tagging", "Tag")
         self.kwargs['filters'] = {
             'blog': template.resolve_variable(self.blog, context),
             'status': STATUS_CODE_PUBLISHED,
@@ -63,6 +66,7 @@ def do_tag_cloud_for_blog(parser, token):
        {% tag_cloud_for_blog blog as blog_tags with steps=9 min_count=3 distribution=log %}
 
     """
+    from tagging.utils import LINEAR, LOGARITHMIC
     bits = token.contents.split()
     len_bits = len(bits)
     if len_bits != 4 and len_bits not in range(6, 9):
