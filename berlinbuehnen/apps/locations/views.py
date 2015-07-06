@@ -7,6 +7,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.views.decorators.cache import never_cache
+from django.db import models
 from django.http import HttpResponse
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render, redirect
@@ -101,8 +102,10 @@ def location_list(request, year=None, month=None, day=None):
         if cats:
             facets['selected']['districts'] = cats
             qs = qs.filter(
-                districts__in=cats,
+                models.Q(districts__in=cats) |
+                models.Q(stage__district__in=cats)
             ).distinct()
+                
 
     abc_filter = request.GET.get('abc', None)
     if abc_filter:
