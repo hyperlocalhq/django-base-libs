@@ -17,11 +17,6 @@ oTinyMCEConfig.template_templates = [
         description: "CCB Header"
     },
     {
-        title: "ICB Header",
-        src:  window.settings.STATIC_URL+"site/tiny_mce-templates/newsletter_ICB_header.html",
-        description: "ICB Header"
-    },
-    {
         title: "Image & Text Line",
         src:  window.settings.STATIC_URL+"site/tiny_mce-templates/newsletter_row.html",
         description: "one Row"
