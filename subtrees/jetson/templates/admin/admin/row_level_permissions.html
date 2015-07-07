@@ -1,21 +1,21 @@
 {% extends "admin/change_form.html" %}
-{% load i18n admin_modify adminmedia auth_extended row_level_permission %}
+{% load i18n admin_modify auth_extended row_level_permission %}
 
 {% block bodyclass %}{{ opts.app_label }}-{{ opts.object_name.lower }} change-form{% endblock %}
 
 {% block javascripts %}
     {{ block.super }}
-    <script type="text/javascript" src="{% admin_media_prefix %}js/collapse.min.js"></script>
-    <script type="text/javascript" src="{% admin_media_prefix %}js/inlines.min.js"></script>
+{#    <script type="text/javascript" src="{{ STATIC_URL }}grappelli/js/collapse.min.js"></script>#}
+{#    <script type="text/javascript" src="{{ STATIC_URL }}grappelli/js/inlines.min.js"></script>#}
 {% endblock %}
 
 {% block breadcrumbs %}
-<div id="breadcrumbs">
-     <a href="../../../../">{% trans "Home" %}</a> &rsaquo;
-     <a href="../../">{{ opts.verbose_name_plural|capfirst|escape }}</a> &rsaquo;
-     <a href="../">{{ original|truncatewords:"18"|escape }}</a> &rsaquo; 
-     {{ title|escape }}
-</div>
+    <ul class="grp-horizontal-list">
+        <li><a href="../../../../">{% trans "Home" %}</a></li>
+        <li><a href="../../">{{ opts.verbose_name_plural|capfirst|escape }}</a></li>
+        <li><a href="../">{{ original|truncatewords:"18"|escape }}</a></li>
+        <li>{{ title|escape }}</li>
+    </ul>
 {% endblock %}
 
 {% block content_title %}<h1>{% blocktrans %}Change Access to {{ original }}{% endblocktrans %}</h1>{% endblock %}
