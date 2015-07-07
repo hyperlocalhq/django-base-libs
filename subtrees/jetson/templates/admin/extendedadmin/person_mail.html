@@ -11,7 +11,7 @@
 </style>
 <script type="text/javascript" src="/jsi18n/"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
-{{ media|cut:'<script type="text/javascript" src="/admin-media/js/actions.js"></script>' }}
+{{ media }}
 <script type="text/javascript" src="{{ STATIC_URL }}admin/js/core.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}admin/js/admin/RelatedObjectLookups.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}admin/js/SelectBox.js"></script>
@@ -22,7 +22,7 @@
 
 {% block coltype %}colMS{% endblock %}
 
-{% block bodyclass %}change-form{% endblock %}
+{% block bodyclass %}grp-change-form{% endblock %}
 
 {% block breadcrumbs %}
     <ul class="breadcrumbs">
@@ -71,7 +71,7 @@
                             <ul class="errorlist"><li>{{ form.sender_email.errors|join:", "}}</li></ul>
                         {% endif %}
 
-                        {% if form.sender_email.help_text %}<p class="help">{{ form.sender_email.help_text }}</p>{% endif %}
+                        {% if form.sender_email.help_text %}<p class="grp-help">{{ form.sender_email.help_text }}</p>{% endif %}
                     </div>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                             <ul class="errorlist"><li>{{ form.tester_email.errors|join:", "}}</li></ul>
                         {% endif %}
 
-                        {% if form.tester_email.help_text %}<p class="help">{{ form.tester_email.help_text }}</p>{% endif %}
+                        {% if form.tester_email.help_text %}<p class="grp-help">{{ form.tester_email.help_text }}</p>{% endif %}
                     </div>
                 </div>
             </div>
@@ -103,7 +103,7 @@
                                 <ul class="errorlist"><li>{{ form.recipients_email_list.errors|join:", "}}</li></ul>
                             {% endif %}
 
-                            {% if form.recipients_email_list.help_text %}<p class="help">{{ form.recipients_email_list.help_text }}</p>{% endif %}
+                            {% if form.recipients_email_list.help_text %}<p class="grp-help">{{ form.recipients_email_list.help_text }}</p>{% endif %}
                         </div>
                     </div>
                 </div>
@@ -121,7 +121,7 @@
                                 <ul class="errorlist"><li>{{ form.recipients_email_input.errors|join:", "}}</li></ul>
                             {% endif %}
 
-                            {% if form.recipients_email_input.help_text %}<p class="help">{{ form.recipients_email_input.help_text }}</p>{% endif %}
+                            {% if form.recipients_email_input.help_text %}<p class="grp-help">{{ form.recipients_email_input.help_text }}</p>{% endif %}
                         </div>
                     </div>
                 </div>
@@ -139,7 +139,7 @@
                                 <ul class="errorlist"><li>{{ form.subject.errors|join:", "}}</li></ul>
                             {% endif %}
 
-                            {% if form.subject.help_text %}<p class="help">{{ form.subject.help_text }}</p>{% endif %}
+                            {% if form.subject.help_text %}<p class="grp-help">{{ form.subject.help_text }}</p>{% endif %}
                         </div>
                     </div>
                 </div>
@@ -155,7 +155,7 @@
                                 <ul class="errorlist"><li>{{ form.body.errors|join:", "}}</li></ul>
                             {% endif %}
 
-                            {% if form.body.help_text %}<p class="help">{{ form.body.help_text }}</p>{% endif %}
+                            {% if form.body.help_text %}<p class="grp-help">{{ form.body.help_text }}</p>{% endif %}
                         </div>
                     </div>
                 </div>
@@ -174,7 +174,7 @@
                                 <ul class="errorlist"><li>{{ form.subject_de.errors|join:", "}}</li></ul>
                             {% endif %}
 
-                            {% if form.subject_de.help_text %}<p class="help">{{ form.subject_de.help_text }}</p>{% endif %}
+                            {% if form.subject_de.help_text %}<p class="grp-help">{{ form.subject_de.help_text }}</p>{% endif %}
                         </div>
                     </div>
                 </div>
@@ -190,7 +190,7 @@
                                 <ul class="errorlist"><li>{{ form.body_de.errors|join:", "}}</li></ul>
                             {% endif %}
 
-                            {% if form.body_de.help_text %}<p class="help">{{ form.body_de.help_text }}</p>{% endif %}
+                            {% if form.body_de.help_text %}<p class="grp-help">{{ form.body_de.help_text }}</p>{% endif %}
                         </div>
                     </div>
                 </div>
@@ -233,7 +233,7 @@ addEvent(window, "load", function(e) {
 
         function initRTE() {
             toggleMarkup = function() {
-                if ($('#id_is_rte').attr("checked")) {
+                if ($(this).prop('checked')) {
                     setTinyMce('id_body');
                     setTinyMce('id_body_de');
                 } else {
