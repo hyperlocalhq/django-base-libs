@@ -1218,6 +1218,12 @@ div.tagsinput {
   p[id*="error"].help-block strong {
     color: $bootstrap_red;   
   }
+  .video {
+    .info {
+        margin-left:0;
+        margin-right:0;
+    }
+  }
 }
 
 #form-meta {
