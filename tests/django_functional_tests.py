@@ -12224,6 +12224,8 @@ def suite():
         ('/de/person/zweimaleins/', 200),
     )
 
+    from random import sample
+    sitemap_sample_urls = sample(sitemap_urls, 100)
     url_lists = (
         localized_constant_urls,
         localized_slug_urls,
@@ -12233,7 +12235,8 @@ def suite():
         non_localized_static_pages,
         admin_urls,
         sitemap,
-        sitemap_urls,
+        # sitemap_urls,
+        sitemap_sample_urls,
     )
 
     suite = unittest.TestSuite()
