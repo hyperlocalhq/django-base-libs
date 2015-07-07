@@ -215,6 +215,18 @@
             display: none;
         }
         
+        a.location-link {
+            color: black;
+            cursor: default;
+            &:hover {
+                color: black;
+            }
+            
+            #article_detail.details & {
+                cursor: pointer;
+            }
+        }
+        
         img.logo {
             width: 74px;
             display: block;
