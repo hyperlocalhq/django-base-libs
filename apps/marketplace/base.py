@@ -188,7 +188,7 @@ class JobOfferBase(CreationModificationMixin, PublishingMixin, UrlMixin):
         
     offering_institution_title = models.CharField(_("Organizer"), blank=True, max_length=255)
     
-    if apps.is_installed("people"):
+    if is_installed("people.models"):
         contact_person = models.ForeignKey(
             "people.Person",
             verbose_name=_("Organizing person"),
