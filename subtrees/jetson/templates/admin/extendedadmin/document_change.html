@@ -67,20 +67,18 @@
 
 <!-- OBJECT TOOLS -->
 {% block object-tools %}
-    {% if change %}
-        {% if not is_popup %}
-            <ul class="tools">
-                <li><a href="history/" class="historylink">{% trans "History" %}</a></li>
-                {% if original.row_level_permissions %}
-                    {% if_has_perm "auth.change_rowlevelpermission" original %}
-                        <li><a href="permissions/" class="rowlevelpermissions">{% trans "Permissions" %}</a></li>
-                    {% end_if_has_perm %}
-                {% endif %}
-                {% if original.get_url_path %}
-                    <li><a href="{{ original.get_url_path }}" class="viewsitelink">{% trans "View on site" %}</a></li>
-                {% endif%}
-            </ul>
-        {% endif %}
+    {% if change and not is_popup %}
+        <ul class="grp-object-tools">
+            <li><a href="history/" class="historylink">{% trans "History" %}</a></li>
+            {% if original.row_level_permissions %}
+                {% if_has_perm "auth.change_rowlevelpermission" original %}
+                    <li><a href="permissions/" class="rowlevelpermissions">{% trans "Permissions" %}</a></li>
+                {% end_if_has_perm %}
+            {% endif %}
+            {% if original.get_url_path %}
+                <li><a href="{{ original.get_url_path }}" class="viewsitelink">{% trans "View on site" %}</a></li>
+            {% endif%}
+        </ul>
     {% endif %}
 {% endblock %}
 
