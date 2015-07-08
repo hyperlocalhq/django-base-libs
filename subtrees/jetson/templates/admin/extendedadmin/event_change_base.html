@@ -1,26 +1,26 @@
 {% extends "admin/change_form.html" %}
 
 <!-- LOADING -->
-{% load base_tags i18n auth_extended adminmedia extended_admin compressed_jetson %}
+{% load base_tags i18n auth_extended extended_admin compressed_jetson %}
 
 
 <!-- JAVASCRIPTS -->
 {% block javascripts %}
     {{ block.super }}
-    <script type="text/javascript" src="{% admin_media_prefix %}js/SelectBox.js"></script>
-    <script type="text/javascript" src="{% admin_media_prefix %}js/SelectFilter2.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/SelectBox.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/SelectFilter2.js"></script>
     
     <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.dimensions.js"></script>
     <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.bgiframe.min.js"></script>
     <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.autocomplete.js"></script>
     <script type="text/javascript" src="{{ jetson_media_url }}js/admin/autocomplete.js"></script>
-    <script type="text/javascript" src="{% admin_media_prefix %}js/urlify.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/urlify.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}filebrowser/js/AddFileBrowser.js"></script>
     <script type="text/javascript" src="{{ jetson_media_url }}js/admin/jquery.grp_timepicker.js"></script>
     {% compressed_jetson_js "admin_event_change" %}
     
-    <script type="text/javascript" src="{% admin_media_prefix %}js/collapse.min.js"></script>
-    <script type="text/javascript" src="{% admin_media_prefix %}js/inlines.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/collapse.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/inlines.min.js"></script>
     <!--
     <script type="text/javascript" charset="utf-8">
         (function($) {
@@ -52,12 +52,12 @@
 <!-- BREADCRUMBS -->
 {% block breadcrumbs %}
     {% if not is_popup %}
-        <div id="breadcrumbs">
-             <a href="../../../">{% trans "Home" %}</a> &rsaquo;
-             <a href="../../">{{ "Events"|app_verbose_name }}</a> &rsaquo; 
-             <a href="../">{% trans "Events" %}</a> &rsaquo; 
-             {% if original %}{{ original|truncatewords:"18" }}{% else %}{% trans "Add" %} {% trans "Event" %}{% endif %}
-        </div>
+        <ul id="breadcrumbs">
+            <li><a href="../../../">{% trans "Home" %}</a></li>
+            <li><a href="../../">{{ "Events"|app_verbose_name }}</a></li>
+            <li><a href="../">{% trans "Events" %}</a></li>
+            <li>{% if original %}{{ original|truncatewords:"18" }}{% else %}{% trans "Add" %} {% trans "Event" %}{% endif %}</li>
+        </ul>
     {% endif %}
 {% endblock %}
 
@@ -270,11 +270,11 @@
                                         if (typeof SelectFilter != "undefined"){
                                             row.find(".selectfilter").each(function(index, value){
                                               var namearr = value.name.split('-');
-                                              SelectFilter.init(value.id, namearr[namearr.length-1], false, "{% admin_media_prefix %}");
+                                              SelectFilter.init(value.id, namearr[namearr.length-1], false, "{{ STATIC_URL }}admin/");
                                             });
                                             row.find(".selectfilterstacked").each(function(index, value){
                                               var namearr = value.name.split('-');
-                                              SelectFilter.init(value.id, namearr[namearr.length-1], true, "{% admin_media_prefix %}");
+                                              SelectFilter.init(value.id, namearr[namearr.length-1], true, "{{ STATIC_URL }}admin/");
                                             });
                                         }
                                     }

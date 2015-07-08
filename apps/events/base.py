@@ -311,7 +311,12 @@ class EventBase(CreationModificationMixin, UrlMixin):
     
     def get_start_date_string(self):
         start_date = self.get_start_date()
-        return capfirst(dateformat.format(start_date, DATETIME_FORMAT))
+        if not start_date:
+            return ""
+        date_format = get_format('DATE_FORMAT')
+        datetime_format = get_format('DATETIME_FORMAT')
+        time_format = get_format('TIME_FORMAT')
+        return capfirst(dateformat.format(start_date, datetime_format))
     get_start_date_string.short_description = _("Start Date")
     get_start_date_string.admin_order_field = 'start'
     
@@ -325,19 +330,30 @@ class EventBase(CreationModificationMixin, UrlMixin):
     
     def get_end_date_string(self):
         end_date = self.get_end_date()
-        return capfirst(dateformat.format(end_date, DATETIME_FORMAT))
+        if not end_date:
+            return ""
+        date_format = get_format('DATE_FORMAT')
+        datetime_format = get_format('DATETIME_FORMAT')
+        time_format = get_format('TIME_FORMAT')
+        return capfirst(dateformat.format(end_date, datetime_format))
     get_end_date_string.short_description = _("End Date")
     get_end_date_string.admin_order_field = 'end'
     
     def get_start_time_string(self):
         start_date = self.get_start_date()
-        return capfirst(dateformat.format(start_date, TIME_FORMAT))
+        date_format = get_format('DATE_FORMAT')
+        datetime_format = get_format('DATETIME_FORMAT')
+        time_format = get_format('TIME_FORMAT')
+        return capfirst(dateformat.format(start_date, time_format))
     get_start_time_string.short_description = _("Start Time")
     get_start_time_string.admin_order_field = 'start_hh'
-    
+
     def get_end_time_string(self):
         end_date = self.get_end_date()
-        return capfirst(dateformat.format(end_date, TIME_FORMAT))
+        date_format = get_format('DATE_FORMAT')
+        datetime_format = get_format('DATETIME_FORMAT')
+        time_format = get_format('TIME_FORMAT')
+        return capfirst(dateformat.format(end_date, time_format))
     get_end_time_string.short_description = _("End Time")
     get_end_time_string.admin_order_field = 'end_hh'
     

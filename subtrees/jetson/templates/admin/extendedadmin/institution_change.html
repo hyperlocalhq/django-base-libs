@@ -1,7 +1,7 @@
 {% extends "admin/change_form.html" %}
 
 <!-- LOADING -->
-{% load base_tags i18n auth_extended extended_admin adminmedia compressed_jetson %}
+{% load base_tags i18n auth_extended extended_admin compressed_jetson %}
 
 <!-- STYLES -->
 {% block extrastyle %}
@@ -18,11 +18,11 @@
 <!-- JAVASCRIPTS -->
 {% block javascripts %}
     {{ block.super }}
-    <script type="text/javascript" src="{% admin_media_prefix %}js/core.js"></script>
-    <script type="text/javascript" src="{% admin_media_prefix %}js/admin/RelatedObjectLookups.js"></script>
-    <script type="text/javascript" src="{% admin_media_prefix %}js/SelectBox.js"></script>
-    <script type="text/javascript" src="{% admin_media_prefix %}js/SelectFilter2.js"></script>
-    <script type="text/javascript" src="{% admin_media_prefix %}js/admin/DateTimeShortcuts.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/core.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/admin/RelatedObjectLookups.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/SelectBox.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/SelectFilter2.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/admin/DateTimeShortcuts.js"></script>
     
     <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.bgiframe.min.js"></script>
     <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.autocomplete.js"></script>
@@ -30,10 +30,10 @@
     <script type="text/javascript" src="{{ STATIC_URL }}filebrowser/js/AddFileBrowser.js"></script>
     {% compressed_jetson_js "admin_institution_change" %}
     <script type="text/javascript" src="{{ jetson_media_url }}js/admin/URLField.js"></script>
-    <script type="text/javascript" src="{% admin_media_prefix %}js/urlify.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/urlify.js"></script>
 
-    <script type="text/javascript" src="{% admin_media_prefix %}js/collapse.min.js"></script>
-    <script type="text/javascript" src="{% admin_media_prefix %}js/inlines.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/collapse.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/inlines.min.js"></script>
     <script type="text/javascript" charset="utf-8">
         (function($) {
             $(document).ready(function() {
@@ -145,7 +145,7 @@
                                     {{ form.institution_types }}
                                     {{ form.institution_types.errors }}
                                     <script type="text/javascript">
-                                    addEvent(window, "load", (function(event) { SelectFilter.init("id_institution_types", "{% trans "Types" %}", 0, "{% admin_media_prefix %}"); }));
+                                    addEvent(window, "load", (function(event) { SelectFilter.init("id_institution_types", "{% trans "Types" %}", 0, "{{ STATIC_URL }}admin/"); }));
                                     </script>
                                     <p class="help">{% trans 'Hold down "Control", or "Command" on a Mac, to select more than one.' %}</p>
                                 </div>

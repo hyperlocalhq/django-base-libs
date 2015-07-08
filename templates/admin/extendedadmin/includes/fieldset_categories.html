@@ -20,7 +20,7 @@
             </div>
         </div>
         <script type="text/javascript">
-        addEvent(window, "load", function(e) {SelectFilter.init("id_creative_sectors", "user permissions", 0, "{% admin_media_prefix %}"); });
+        addEvent(window, "load", function(e) {SelectFilter.init("id_creative_sectors", "user permissions", 0, "{{ STATIC_URL }}admin/"); });
         </script>
     {% endif %}
     {% if form.job_sectors %}
@@ -35,7 +35,7 @@
             </div>
         </div>
         <script type="text/javascript">
-        addEvent(window, "load", function(e) { SelectFilter.init("id_job_sectors", "{% trans "Job sectors" %}", 0, "{% admin_media_prefix %}"); });
+        addEvent(window, "load", function(e) { SelectFilter.init("id_job_sectors", "{% trans "Job sectors" %}", 0, "{{ STATIC_URL }}admin/"); });
         </script>
     {% endif %}
     {% if form.context_categories %}
@@ -50,7 +50,7 @@
             </div>
         </div>
         <script type="text/javascript">
-        addEvent(window, "load", function(e) { SelectFilter.init("id_context_categories", "{% trans "Context categories" %}", 0, "{% admin_media_prefix %}"); });
+        addEvent(window, "load", function(e) { SelectFilter.init("id_context_categories", "{% trans "Context categories" %}", 0, "{{ STATIC_URL }}admin/"); });
         </script>
     {% endif %}
     {% if form.tags %}
