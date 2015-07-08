@@ -10,6 +10,7 @@ from django.shortcuts import get_object_or_404, render_to_response
 from django.core.exceptions import PermissionDenied
 from django.views.decorators.cache import never_cache
 from django.conf import settings
+from django.utils.encoding import force_text
 
 from base_libs.admin import ExtendedStackedInline
 from base_libs.admin import ExtendedModelAdmin
@@ -274,6 +275,7 @@ class EventOptions(ExtendedModelAdmin):
 
         ModelForm = self.get_form(request)
         formsets = []
+        inline_instances = self.get_inline_instances(request)
         if request.method == 'POST':
             form = ModelForm(request.POST, request.FILES)
             if form.is_valid():
@@ -326,14 +328,14 @@ class EventOptions(ExtendedModelAdmin):
         media = self.media + adminForm.media
 
         inline_admin_formsets = []
-        for inline, formset in zip(self.inline_instances, formsets):
+        for inline, formset in zip(inline_instances, formsets):
             fieldsets = list(inline.get_fieldsets(request))
             inline_admin_formset = helpers.InlineAdminFormSet(inline, formset, fieldsets)
             inline_admin_formsets.append(inline_admin_formset)
             media = media + inline_admin_formset.media
 
         context = {
-            'title': _('Add %s') % force_unicode(opts.verbose_name),
+            'title': _('Add %s') % force_text(opts.verbose_name),
             'adminform': adminForm,
             'form': form, # form added
             'is_popup': request.REQUEST.has_key('_popup'),
@@ -367,13 +369,14 @@ class EventOptions(ExtendedModelAdmin):
             raise PermissionDenied
 
         if obj is None:
-            raise Http404(_('%(name)s object with primary key %(key)r does not exist.') % {'name': force_unicode(opts.verbose_name), 'key': escape(object_id)})
+            raise Http404(_('%(name)s object with primary key %(key)r does not exist.') % {'name': force_text(opts.verbose_name), 'key': escape(object_id)})
 
         if request.method == 'POST' and request.POST.has_key("_saveasnew"):
             return self.add_view(request, form_url='../add/')
 
         ModelForm = self.get_form(request, obj)
         formsets = []
+        inline_instances = self.get_inline_instances(request)
         if request.method == 'POST':
             form = ModelForm(request.POST, request.FILES, instance=obj)
             if form.is_valid():
@@ -417,14 +420,14 @@ class EventOptions(ExtendedModelAdmin):
         media = self.media + adminForm.media
 
         inline_admin_formsets = []
-        for inline, formset in zip(self.inline_instances, formsets):
+        for inline, formset in zip(inline_instances, formsets):
             fieldsets = list(inline.get_fieldsets(request, obj))
             inline_admin_formset = helpers.InlineAdminFormSet(inline, formset, fieldsets)
             inline_admin_formsets.append(inline_admin_formset)
             media = media + inline_admin_formset.media
 
         context = {
-            'title': _('Change %s') % force_unicode(opts.verbose_name),
+            'title': _('Change %s') % force_text(opts.verbose_name),
             'adminform': adminForm,
             'form': form, # form added
             'object_id': object_id,
