@@ -50,8 +50,8 @@
 {% endblock %}
 
 <!-- COLTYPE/BODYCLASS -->
-{% block bodyclass %}change-form document{% endblock %}
-{% block content-class %}content-flexible{% endblock %}
+{% block bodyclass %}grp-change-form document{% endblock %}
+{% block content-class %}grp-content-flexible{% endblock %}
 
 <!-- BREADCRUMBS -->
 {% block breadcrumbs %}
@@ -84,227 +84,223 @@
 
 <!-- CONTENT -->
 {% block content %}
-    <div id="content-main" class="container-flexible">
-        <div class="form-container">
-            <form action="" method="post" id="document_form">
-                <div>
-                    <!-- Popup Hidden Field -->
-                    {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
-                    
-                    <!-- Errors -->
-                    {% if form.errors %}
-                        <p class="errornote">
-                        {% blocktrans count form.errors.items|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
-                        </p>
-                        {{ form.non_field_errors }}
-                    {% endif %}
-                    
-                    <!-- Fieldsets -->
-                    <fieldset class="grp-module aligned collapse open">
-                    <h2 class="collapse-handler">{% trans "Document" %}</h2>
-                        {{ form.user_id }}
-                        {% if form.title_de %}
-                            <div class="med row{% if form.title_de.errors %} errors{% endif %}">
-                                <div>
-                                    <div class="column span-4"><label for="id_title_de"{% if form.title_de.field.required %} class="required"{% endif %}>{% trans "Title (German)" %}:</label></div>
-                                    <div class="column span-flexible">
-                                        {{ form.title_de }}
-                                        {{ form.title_de.errors }}
-                                    </div>
-                                </div>
-                            </div>
-                        {% endif %}
-                        {% if form.title_en %}
-                            <div class="med row{% if form.title_en.errors %} errors{% endif %}">
-                                <div>
-                                    <div class="column span-4"><label for="id_title_en"{% if form.title_en.field.required %} class="required"{% endif %}>{% trans "Title (English)" %}:</label></div>
-                                    <div class="column span-flexible">
-                                        {{ form.title_en }}
-                                        {{ form.title_en.errors }}
-                                    </div>
-                                </div>
-                            </div>
-                        {% endif %}
-                        <div class="med row{% if form.slug.errors %} errors{% endif %}">
-                            <div>
-                                <div class="column span-4"><label for="id_slug"{% if form.slug.field.required %} class="required"{% endif %}>{% trans "Slug for URIs" %}:</label></div>
-                                <div class="column span-flexible">
-                                    {{ form.slug }}
-                                    {{ form.slug.errors }}
-                                </div>
+    <form action="" method="post" id="document_form">
+        <div>
+            <!-- Popup Hidden Field -->
+            {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
+
+            <!-- Errors -->
+            {% if form.errors %}
+                <p class="errornote">
+                {% blocktrans count form.errors.items|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+                </p>
+                {{ form.non_field_errors }}
+            {% endif %}
+
+            <!-- Fieldsets -->
+            <fieldset class="grp-module aligned collapse open">
+            <h2 class="collapse-handler">{% trans "Document" %}</h2>
+                {{ form.user_id }}
+                {% if form.title_de %}
+                    <div class="med row{% if form.title_de.errors %} errors{% endif %}">
+                        <div>
+                            <div class="column span-4"><label for="id_title_de"{% if form.title_de.field.required %} class="required"{% endif %}>{% trans "Title (German)" %}:</label></div>
+                            <div class="column span-flexible">
+                                {{ form.title_de }}
+                                {{ form.title_de.errors }}
                             </div>
                         </div>
-                        <div class="med row{% if form.document_type.errors %} errors{% endif %}">
-                            <div>
-                                <div class="column span-4"><label for="id_D_type"{% if form.D_type.field.required %} class="required"{% endif %}>{% trans "Document Type" %}:</label></div>
-                                <div class="column span-flexible">
-                                    {{ form.document_type }}
-                                    {{ form.document_type.errors }}
-                                </div>
+                    </div>
+                {% endif %}
+                {% if form.title_en %}
+                    <div class="med row{% if form.title_en.errors %} errors{% endif %}">
+                        <div>
+                            <div class="column span-4"><label for="id_title_en"{% if form.title_en.field.required %} class="required"{% endif %}>{% trans "Title (English)" %}:</label></div>
+                            <div class="column span-flexible">
+                                {{ form.title_en }}
+                                {{ form.title_en.errors }}
                             </div>
                         </div>
-                        <div class="med row{% if form.url_link.errors %} errors{% endif %}">
-                            <div>
-                                <div class="column span-4"><label for="id_url_link"{% if form.url_link.field.required %} class="required"{% endif %}>{% trans "URL" %}:</label></div>
-                                <div class="column span-flexible">
-                                    {{ form.url_link }}
-                                    {{ form.url_link.errors }}
-                                </div>
-                            </div>
+                    </div>
+                {% endif %}
+                <div class="med row{% if form.slug.errors %} errors{% endif %}">
+                    <div>
+                        <div class="column span-4"><label for="id_slug"{% if form.slug.field.required %} class="required"{% endif %}>{% trans "Slug for URIs" %}:</label></div>
+                        <div class="column span-flexible">
+                            {{ form.slug }}
+                            {{ form.slug.errors }}
                         </div>
-                        <div class="med img row{% if form.document_file.errors %} errors{% endif %}">
-                            <div>
-                                <div class="column span-4"><label for="id_document_file"{% if form.document_file.field.required %} class="required"{% endif %}>{% trans "Document File" %}:</label></div>
-                                <div class="column span-flexible">
-                                    {{ form.document_file }}
-                                    {{ form.document_file.errors }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="med row{% if form.medium.errors %} errors{% endif %}">
-                            <div>
-                                <div class="column span-4"><label for="id_medium"{% if form.medium.field.required %} class="required"{% endif %}>{% trans "Medium" %}:</label></div>
-                                <div class="column span-flexible">
-                                    {{ form.medium }}
-                                    {{ form.medium.errors }}
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                    {% include "extendedadmin/includes/fieldset_details.html" %}
-                    <fieldset class="grp-module aligned collapse closed">
-                        <h2 class="collapse-handler">{% trans "Additional Info" %}</h2>
-                        <div class="row{% if form.authors.errors %} errors{% endif %}">
-                            <div>
-                                <div class="column span-4"><label for="id_authors"{% if form.authors.field.required %} class="required"{% endif %}>{% trans "Authors" %}:</label></div>
-                                <div class="column span-flexible">
-                                    {{ form.authors }}
-                                    {{ form.authors.errors }}
-                                    <p class="help">{% trans 'Hold down "Control", or "Command" on a Mac, to select more than one.' %}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <script type="text/javascript">
-                        addEvent(window, "load", function(e) { SelectFilter.init("id_authors", "{% trans "Authors" %}", 0, "{{ jetson_media_url }}"); });
-                        </script>
-                        <div class="row{% if form.authors_plain.errors %} errors{% endif %}">
-                            <div>
-                                <div class="column span-4"><label for="id_authors_plain"{% if form.authors_plain.field.required %} class="required"{% endif %}>{% trans "External authors" %}:</label></div>
-                                <div class="column span-flexible">
-                                    {{ form.authors_plain }}
-                                    {{ form.authors_plain.errors }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row{% if form.publisher.errors %} errors{% endif %}">
-                            <div>
-                                <div class="column span-4"><label for="id_publisher"{% if form.publisher.field.required %} class="required"{% endif %}>{% trans "Publisher" %}:</label></div>
-                                <div class="column span-flexible">
-                                    {{ form.publisher }}
-                                    {{ form.publisher.errors }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row{% if form.published_mm.errors or form.published_dd.errors or form.published_yyyy.errors %} errors{% endif %}">
-                            <div>
-                                <div class="column span-4"><label for="id_published_yyyy"{% if form.published_yyyy.field.required %} class="required"{% endif %}>{% trans "Published" %}:</label></div>
-                                <div class="column span-flexible">
-                                    <span class="inline-fields">{{ form.published_dd }}</span>
-                                    <span class="inline-fields">{{ form.published_mm }}</span>
-                                    <span class="inline-fields">{{ form.published_yyyy }}</span>
-                                    {{ form.published_dd.errors }}
-                                    {{ form.published_mm.errors }}
-                                    {{ form.published_yyyy.errors }}
-                                </div>
-                            </div>
-                            
-                        </div>
-                        <div class="med row{% if form.isbn10.errors %} errors{% endif %}">
-                            <div>
-                                <div class="column span-4"><label for="id_isbn10"{% if form.isbn10.field.required %} class="required"{% endif %}>{% trans "ISBN 10" %}:</label></div>
-                                <div class="column span-flexible">
-                                    {{ form.isbn10 }}
-                                    {{ form.isbn10.errors }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="med row{% if form.isbn13.errors %} errors{% endif %}">
-                            <div>
-                                <div class="column span-4"><label for="id_isbn13"{% if form.isbn13.field.required %} class="required"{% endif %}>{% trans "ISBN 13" %}:</label></div>
-                                <div class="column span-flexible">
-                                    {{ form.isbn13 }}
-                                    {{ form.isbn13.errors }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="low row{% if form.pages.errors %} errors{% endif %}">
-                            <div>
-                                <div class="column span-4"><label for="id_pages"{% if form.pages.field.required %} class="required"{% endif %}>{% trans "Pages" %}:</label></div>
-                                <div class="column span-flexible">
-                                    {{ form.pages }}
-                                    {{ form.pages.errors }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="low row{% if form.file_size.errors %} errors{% endif %}">
-                            <div>
-                                <div class="column span-4"><label for="id_file_size"{% if form.file_size.field.required %} class="required"{% endif %}>{% trans "File size" %}:</label></div>
-                                <div class="column span-flexible">
-                                    {{ form.file_size }}
-                                    {{ form.file_size.errors }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="low row{% if form.playing_time.errors %} errors{% endif %}">
-                            <div>
-                                <div class="column span-4"><label for="id_playing_time"{% if form.playing_time.field.required %} class="required"{% endif %}>{% trans "Playing time" %}:</label></div>
-                                <div class="column span-flexible">
-                                    {{ form.playing_time }}
-                                    {{ form.playing_time.errors }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="low row{% if form.languages.errors %} errors{% endif %}">
-                            <div>
-                                <div class="column span-4"><label for="id_languages"{% if form.languages.field.required %} class="required"{% endif %}>{% trans "Languages" %}:</label></div>
-                                <div class="column span-flexible">
-                                    {{ form.languages }}
-                                    {{ form.languages.errors }}
-                                    <p class="help">{% trans 'Hold down "Control", or "Command" on a Mac, to select more than one.' %}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                    {% include "extendedadmin/includes/fieldset_categories.html" %}
-                    {% include "extendedadmin/includes/fieldset_status.html" %}
-                    <!-- Submit-Row -->
-                    <footer class="grp-module grp-submit-row grp-fixed-footer">
-                        <header style="display: none">
-                            <h1>Submit options</h1>
-                        </header>
-                        <ul>
-                            <li class="grp-float-left"><a class="grp-button grp-delete-link" href="delete/">Delete</a></li>
-                            <li><input type="submit" value="{% trans 'Save' %}" class="grp-button grp-default" name="_save" /></li>
-                            <li><input type="submit" value="{% trans 'Save and add another' %}" class="grp-button" name="_addanother" /></li>
-                            <li><input type="submit" value="{% trans 'Save and continue editing' %}" class="grp-button" name="_continue" /></li>
-                        </ul>
-                    </footer>
+                    </div>
                 </div>
-            </form>
-            <script type="text/javascript">
-            //<![CDATA[
-            document.getElementById("id_title_de").focus();
-            document.getElementById("id_title_de").onkeyup = function() {
-                var e = document.getElementById("id_slug");
-                if(!e._changed) {
-                    e.value = URLify(document.getElementById("id_title_de").value, 255);
-                }
-            };
-            document.getElementById("id_slug").onchange = function() {
-                this._changed = true;
-            };
-            //]]>
-            </script>
+                <div class="med row{% if form.document_type.errors %} errors{% endif %}">
+                    <div>
+                        <div class="column span-4"><label for="id_D_type"{% if form.D_type.field.required %} class="required"{% endif %}>{% trans "Document Type" %}:</label></div>
+                        <div class="column span-flexible">
+                            {{ form.document_type }}
+                            {{ form.document_type.errors }}
+                        </div>
+                    </div>
+                </div>
+                <div class="med row{% if form.url_link.errors %} errors{% endif %}">
+                    <div>
+                        <div class="column span-4"><label for="id_url_link"{% if form.url_link.field.required %} class="required"{% endif %}>{% trans "URL" %}:</label></div>
+                        <div class="column span-flexible">
+                            {{ form.url_link }}
+                            {{ form.url_link.errors }}
+                        </div>
+                    </div>
+                </div>
+                <div class="med img row{% if form.document_file.errors %} errors{% endif %}">
+                    <div>
+                        <div class="column span-4"><label for="id_document_file"{% if form.document_file.field.required %} class="required"{% endif %}>{% trans "Document File" %}:</label></div>
+                        <div class="column span-flexible">
+                            {{ form.document_file }}
+                            {{ form.document_file.errors }}
+                        </div>
+                    </div>
+                </div>
+                <div class="med row{% if form.medium.errors %} errors{% endif %}">
+                    <div>
+                        <div class="column span-4"><label for="id_medium"{% if form.medium.field.required %} class="required"{% endif %}>{% trans "Medium" %}:</label></div>
+                        <div class="column span-flexible">
+                            {{ form.medium }}
+                            {{ form.medium.errors }}
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            {% include "extendedadmin/includes/fieldset_details.html" %}
+            <fieldset class="grp-module aligned collapse closed">
+                <h2 class="collapse-handler">{% trans "Additional Info" %}</h2>
+                <div class="row{% if form.authors.errors %} errors{% endif %}">
+                    <div>
+                        <div class="column span-4"><label for="id_authors"{% if form.authors.field.required %} class="required"{% endif %}>{% trans "Authors" %}:</label></div>
+                        <div class="column span-flexible">
+                            {{ form.authors }}
+                            {{ form.authors.errors }}
+                            <p class="help">{% trans 'Hold down "Control", or "Command" on a Mac, to select more than one.' %}</p>
+                        </div>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                addEvent(window, "load", function(e) { SelectFilter.init("id_authors", "{% trans "Authors" %}", 0, "{{ jetson_media_url }}"); });
+                </script>
+                <div class="row{% if form.authors_plain.errors %} errors{% endif %}">
+                    <div>
+                        <div class="column span-4"><label for="id_authors_plain"{% if form.authors_plain.field.required %} class="required"{% endif %}>{% trans "External authors" %}:</label></div>
+                        <div class="column span-flexible">
+                            {{ form.authors_plain }}
+                            {{ form.authors_plain.errors }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row{% if form.publisher.errors %} errors{% endif %}">
+                    <div>
+                        <div class="column span-4"><label for="id_publisher"{% if form.publisher.field.required %} class="required"{% endif %}>{% trans "Publisher" %}:</label></div>
+                        <div class="column span-flexible">
+                            {{ form.publisher }}
+                            {{ form.publisher.errors }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row{% if form.published_mm.errors or form.published_dd.errors or form.published_yyyy.errors %} errors{% endif %}">
+                    <div>
+                        <div class="column span-4"><label for="id_published_yyyy"{% if form.published_yyyy.field.required %} class="required"{% endif %}>{% trans "Published" %}:</label></div>
+                        <div class="column span-flexible">
+                            <span class="inline-fields">{{ form.published_dd }}</span>
+                            <span class="inline-fields">{{ form.published_mm }}</span>
+                            <span class="inline-fields">{{ form.published_yyyy }}</span>
+                            {{ form.published_dd.errors }}
+                            {{ form.published_mm.errors }}
+                            {{ form.published_yyyy.errors }}
+                        </div>
+                    </div>
+
+                </div>
+                <div class="med row{% if form.isbn10.errors %} errors{% endif %}">
+                    <div>
+                        <div class="column span-4"><label for="id_isbn10"{% if form.isbn10.field.required %} class="required"{% endif %}>{% trans "ISBN 10" %}:</label></div>
+                        <div class="column span-flexible">
+                            {{ form.isbn10 }}
+                            {{ form.isbn10.errors }}
+                        </div>
+                    </div>
+                </div>
+                <div class="med row{% if form.isbn13.errors %} errors{% endif %}">
+                    <div>
+                        <div class="column span-4"><label for="id_isbn13"{% if form.isbn13.field.required %} class="required"{% endif %}>{% trans "ISBN 13" %}:</label></div>
+                        <div class="column span-flexible">
+                            {{ form.isbn13 }}
+                            {{ form.isbn13.errors }}
+                        </div>
+                    </div>
+                </div>
+                <div class="low row{% if form.pages.errors %} errors{% endif %}">
+                    <div>
+                        <div class="column span-4"><label for="id_pages"{% if form.pages.field.required %} class="required"{% endif %}>{% trans "Pages" %}:</label></div>
+                        <div class="column span-flexible">
+                            {{ form.pages }}
+                            {{ form.pages.errors }}
+                        </div>
+                    </div>
+                </div>
+                <div class="low row{% if form.file_size.errors %} errors{% endif %}">
+                    <div>
+                        <div class="column span-4"><label for="id_file_size"{% if form.file_size.field.required %} class="required"{% endif %}>{% trans "File size" %}:</label></div>
+                        <div class="column span-flexible">
+                            {{ form.file_size }}
+                            {{ form.file_size.errors }}
+                        </div>
+                    </div>
+                </div>
+                <div class="low row{% if form.playing_time.errors %} errors{% endif %}">
+                    <div>
+                        <div class="column span-4"><label for="id_playing_time"{% if form.playing_time.field.required %} class="required"{% endif %}>{% trans "Playing time" %}:</label></div>
+                        <div class="column span-flexible">
+                            {{ form.playing_time }}
+                            {{ form.playing_time.errors }}
+                        </div>
+                    </div>
+                </div>
+                <div class="low row{% if form.languages.errors %} errors{% endif %}">
+                    <div>
+                        <div class="column span-4"><label for="id_languages"{% if form.languages.field.required %} class="required"{% endif %}>{% trans "Languages" %}:</label></div>
+                        <div class="column span-flexible">
+                            {{ form.languages }}
+                            {{ form.languages.errors }}
+                            <p class="help">{% trans 'Hold down "Control", or "Command" on a Mac, to select more than one.' %}</p>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            {% include "extendedadmin/includes/fieldset_categories.html" %}
+            {% include "extendedadmin/includes/fieldset_status.html" %}
+            <!-- Submit-Row -->
+            <footer class="grp-module grp-submit-row grp-fixed-footer">
+                <header style="display: none">
+                    <h1>Submit options</h1>
+                </header>
+                <ul>
+                    <li class="grp-float-left"><a class="grp-button grp-delete-link" href="delete/">Delete</a></li>
+                    <li><input type="submit" value="{% trans 'Save' %}" class="grp-button grp-default" name="_save" /></li>
+                    <li><input type="submit" value="{% trans 'Save and add another' %}" class="grp-button" name="_addanother" /></li>
+                    <li><input type="submit" value="{% trans 'Save and continue editing' %}" class="grp-button" name="_continue" /></li>
+                </ul>
+            </footer>
         </div>
-    </div>
+    </form>
+    <script type="text/javascript">
+    //<![CDATA[
+    document.getElementById("id_title_de").focus();
+    document.getElementById("id_title_de").onkeyup = function() {
+        var e = document.getElementById("id_slug");
+        if(!e._changed) {
+            e.value = URLify(document.getElementById("id_title_de").value, 255);
+        }
+    };
+    document.getElementById("id_slug").onchange = function() {
+        this._changed = true;
+    };
+    //]]>
+    </script>
 {% endblock %}
