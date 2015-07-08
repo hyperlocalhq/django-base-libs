@@ -114,7 +114,6 @@ INSTALLED_APPS = [
     #"jetson.apps.rating",
     "jetson.apps.mailing",
     "jetson.apps.contact_form",
-    "jetson.apps.email_campaigns",
     "jetson.apps.configuration",
     "jetson.apps.bookmarks",
     "jetson.apps.profanity_filter",
@@ -288,10 +287,6 @@ ADMIN_APP_INDEX = (
                 }),
             ('messaging', {
                 'models':("InternalMessage",),
-                }),
-            ('email_campaigns', {
-                'models':("Campaign", "MailingList", "Mailing", "InfoSubscription",),
-                'icon': 'transmit',
                 }),
             ('mailchimp', {
                 'models':("Settings", "MList", "Subscription", "Campaign",),

@@ -74,14 +74,6 @@ if is_installed("mailing.models"):
             url(r'^institutions/institution/send-email/(?P<email_template_slug>[^/]+)/', 'institution_send_mail', name="admin_institution_send_mail"),
             )
 
-    # extendedadmin for email campaigns
-    if is_installed("email_campaigns.models"):
-        urlpatterns += patterns(path_in_installed_app('extendedadmin.views'),
-            # infosubscription mails in admin
-            url(r'^email_campaigns/infosubscription/send-email/$', 'infosubscription_send_mail', name="admin_infosubscription_send_mail"),
-            url(r'^email_campaigns/infosubscription/send-email/(?P<email_template_slug>[^/]+)', 'infosubscription_send_mail', name="admin_infosubscription_send_mail"),
-            )
-
 # history
 urlpatterns += patterns(path_in_installed_app('history.views'),
     # history views
