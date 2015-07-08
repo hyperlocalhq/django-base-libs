@@ -4,6 +4,7 @@ from django.contrib.auth.models import User, Group, Permission
 from django.utils.translation import ugettext_lazy as _
 from django import forms
 from django.forms.formsets import BaseFormSet
+from django.utils.functional import cached_property
 
 from base_libs.forms import dynamicforms
 from base_libs.forms.fields import ObjectChoiceField
@@ -28,10 +29,10 @@ def get_owners(obj_instance=None, obj_ct=None):
             owner_content_type__model="perobjectgroup",
             content_type=obj_ct,
             object_id=obj_instance.pk,
-            ).values_list("owner_object_id", flat=True))
+        ).values_list("owner_object_id", flat=True))
         qs = PerObjectGroup.objects.filter(
             pk__in=pks,
-            ).order_by("title")
+        ).order_by("title")
         if qs:
             perm_owners.append(qs)
     return perm_owners
@@ -41,7 +42,7 @@ PERMISSION_STATUS_CHOICES = (
     ('inherited', _("Inherited")),
     ('allowed', _("Allowed")),
     ('disallowed', _("Disallowed")),
-    )
+)
 
 def _get_permission_codename(action, opts):
     return u'%s_%s' % (action, opts.object_name.lower())
@@ -53,12 +54,14 @@ def _get_all_permissions(opts):
         perms.append((_get_permission_codename(action, opts), u'Can %s %s' % (action, opts.verbose_name_raw)))
     return perms + list(opts.permissions)
 
+
 class RLPForm(dynamicforms.Form):
     owner = ObjectChoiceField(
         label=_("Owner"),
         required=True,
         default_text=_("Select an option"),
         )
+
     def __init__(self, obj_instance, *args, **kwargs):
         super(RLPForm, self).__init__(*args, **kwargs)
         self.obj_instance = obj_instance
@@ -85,7 +88,7 @@ class RLPForm(dynamicforms.Form):
                 required=False,
                 choices=PERMISSION_STATUS_CHOICES,
                 initial=initial,
-                )
+            )
 
 class BaseRLPFormSet(BaseFormSet):
     def __init__(self, *args, **kwargs):
@@ -94,20 +97,22 @@ class BaseRLPFormSet(BaseFormSet):
             for rlp_owner in RowLevelPermission.objects.filter(
                 content_type=ContentType.objects.get_for_model(self.obj_instance),
                 object_id=self.obj_instance.pk,
-                ).values_list("owner_content_type", "owner_object_id").distinct():
+            ).values_list("owner_content_type", "owner_object_id").distinct():
                 owner = ContentType.objects.get(
                     pk=rlp_owner[0],
-                    ).get_object_for_this_type(pk=rlp_owner[1])
+                ).get_object_for_this_type(pk=rlp_owner[1])
                 kwargs['initial'].append({
                     'owner': owner
-                    })
+                })
         super(BaseRLPFormSet, self).__init__(*args, **kwargs)
-    
-    def _construct_forms(self):
+
+    @cached_property
+    def forms(self):
         # instantiate all the forms and put them in self.forms
-        self.forms = []
+        forms = []
         for i in xrange(self.total_form_count()):
-            self.forms.append(self._construct_form(i, obj_instance=self.obj_instance))
+            forms.append(self._construct_form(i, obj_instance=self.obj_instance))
+        return forms
 
     def _get_empty_form(self, **kwargs):
         defaults = {
@@ -154,7 +159,7 @@ class BaseRLPFormSet(BaseFormSet):
                         owner_object_id=owner.pk,
                         content_type=ct,
                         object_id=obj_instance.pk,
-                        ).delete()
+                    ).delete()
                 else:
                     for perm in _get_all_permissions(self.obj_instance._meta):
                         perm_name = perm[0]
@@ -165,7 +170,7 @@ class BaseRLPFormSet(BaseFormSet):
                                 owner_object_id=owner.pk,
                                 content_type=ct,
                                 object_id=obj_instance.pk,
-                                ).delete()
+                            ).delete()
                         else:
                             p = Permission.objects.get(codename=perm_name) 
                             rlp, created = RowLevelPermission.objects.get_or_create(
@@ -174,7 +179,7 @@ class BaseRLPFormSet(BaseFormSet):
                                 owner_object_id=owner.pk,
                                 content_type=ct,
                                 object_id=obj_instance.pk
-                                )
+                            )
                             rlp.negative = (cleaned[perm_name] == "disallowed")
                             rlp.save()
 
