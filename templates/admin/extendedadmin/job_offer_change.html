@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block fieldset_job_offer %}
-    <fieldset class="module aligned collapse open">
+    <fieldset class="grp-module aligned collapse open">
         <h2>{% trans "Job Offer" %}</h2>
         {{ form.user_id }}
         <div class="row{% if form.position.errors %} errors{% endif %}">
@@ -62,7 +62,7 @@
 {% endblock %}
 
 {% block fieldset_additional_info %}
-    <fieldset class="module aligned collapse closed">
+    <fieldset class="grp-module aligned collapse closed">
         <h2 class="collapse-handler">{% trans "Additional Info" %}</h2>
         <div class="row{% if form.additional_info.errors %} errors{% endif %}">
             <div>

@@ -97,7 +97,7 @@
                     
                     <!-- Fieldsets -->
                     {% block fieldset_event %}
-                        <fieldset class="module aligned collapse open">
+                        <fieldset class="grp-module aligned collapse open">
                             <h2>{% trans "Event" %}</h2>
                             {{ form.user_id }}
                             {% if form.title_en %}
@@ -158,7 +158,7 @@
                                 <div class="items">
                                     {% if inline_admin_form.form.non_field_errors %}{{ inline_admin_form.form.non_field_errors }}{% endif %}
                                     {% for inline_admin_form in inline_admin_formset %}
-                                        <div class="module collapse{% if forloop.first %} open{% else %} closed{% endif %}{% if inline_admin_form.original or inline_admin_form.show_url %} has_original{% endif %}{% if forloop.last %} empty-form{% endif %}" id="eventtime_set{% if forloop.last %}-empty{% else %}{{ forloop.counter0 }}{% endif %}">
+                                        <div class="grp-module collapse{% if forloop.first %} open{% else %} closed{% endif %}{% if inline_admin_form.original or inline_admin_form.show_url %} has_original{% endif %}{% if forloop.last %} empty-form{% endif %}" id="eventtime_set{% if forloop.last %}-empty{% else %}{{ forloop.counter0 }}{% endif %}">
                                             <h3 class="collapse-handler">{% trans "Event Time" %} #{{ forloop.counter }}&nbsp;&nbsp;{% if inline_admin_form.original %}{{ inline_admin_form.original }}{% endif %}</h3>
                                             <ul class="tools">
                                                 {% if inline_admin_form.formset.can_delete %}
@@ -170,7 +170,7 @@
                                                 {% endif %}
                                             </ul>
                                             {% if inline_admin_form.non_field_errors %}{{ inline_admin_form.non_field_errors }}{% endif %}
-                                            <fieldset class="module aligned">
+                                            <fieldset class="grp-module aligned">
                                                 <div class="row{% if inline_admin_form.form.label.errors %} errors{% endif %}">
                                                     <div>
                                                         <div class="column span-4"><label for="id_eventtime_set-{{ forloop.counter0 }}-label"{% if inline_admin_form.form.label.field.required %} class="required"{% endif %}>{% trans "Label" %}:</label></div>
@@ -238,7 +238,7 @@
                                         </div>
                                     {% endfor %}
                                 </div>
-                                <div class="module add-item">
+                                <div class="grp-module add-item">
                                     <a class="add-handler" href="javascript://">{% trans "Add Event Time" %}</a>
                                     <ul class="tools">
                                         <li class="add-handler-container"><a title="{% trans "Add Event Time" %}" class="icon add-handler" href="javascript://"> </a></li>
@@ -249,7 +249,7 @@
                             (function($) {
                                 $(document).ready(function() {
                                     var updateInlineLabel = function(row) {
-                                        $("#{{ inline_admin_formset.formset.prefix }}-group div.items div.module").find("h3:first").each(function(i) {
+                                        $("#{{ inline_admin_formset.formset.prefix }}-group div.items div.grp-module").find("h3:first").each(function(i) {
                                             $(this).html($(this).html().replace(/(#\d+)/g, "#" + ++i));
                                         });
                                     }
@@ -318,7 +318,7 @@
                     {% endblock %}
                     
                     {% block fieldset_location %}
-                        <fieldset class="module aligned collapse closed">
+                        <fieldset class="grp-module aligned collapse closed">
                             <h2 class="collapse-handler">{% trans "Location" %}</h2>
                             {% if form.venue %}
                                 <div class="row{% if form.venue.errors %} errors{% endif %}">
@@ -351,7 +351,7 @@
                                     </div>
                                 </div>
                             {% endif %}
-                            <fieldset class="module aligned nested">
+                            <fieldset class="grp-module aligned nested">
                                 <h2>{% trans "Address" %}</h2>
                                 <div class="map-settings">
                                     <div class="row{% if form.street_address.errors %} errors{% endif %}">
@@ -448,7 +448,7 @@
                                 </div>
                                 <div style="clear: both;"></div>
                             </fieldset>
-                            <fieldset class="module aligned phone nested">
+                            <fieldset class="grp-module aligned phone nested">
                                 <h2>{% trans "Phones" %}</h2>
                                 <div class="phone-fields">
                                     <div class="row">
@@ -583,7 +583,7 @@
                                     </div>
                                 </div>
                             </fieldset>
-                            <fieldset class="module aligned e-mail nested">
+                            <fieldset class="grp-module aligned e-mail nested">
                                 <h2>{% trans "E-mail Addresses" %}</h2>
                                 <div class="row">
                                     <div>
@@ -666,7 +666,7 @@
                                     </div>
                                 </div>
                             </fieldset>
-                            <fieldset class="module aligned websites nested">
+                            <fieldset class="grp-module aligned websites nested">
                                 <h2>{% trans "Websites" %}</h2>
                                 <div class="row">
                                     <div>
@@ -749,7 +749,7 @@
                                     </div>
                                 </div>
                             </fieldset>
-                            <fieldset class="module aligned messengers nested">
+                            <fieldset class="grp-module aligned messengers nested">
                                 <h2>{% trans "Instant Messengers" %}</h2>
                                 <div class="row">
                                     <div>
@@ -840,7 +840,7 @@
                     {% endblock %}
                     
                     {% block fieldset_organizer %}
-                        <fieldset class="module aligned collapse closed">
+                        <fieldset class="grp-module aligned collapse closed">
                             <h2 class="collapse-handler">{% trans "Organizer" %}</h2>
                             {% if form.organizing_institution %}
                                 <div class="row{% if form.organizing_institution.errors %} errors{% endif %}">
@@ -888,10 +888,10 @@
                     {% endblock %}
                     
                     {% block fieldset_additional_info %}
-                        <fieldset class="module aligned collapse closed">
+                        <fieldset class="grp-module aligned collapse closed">
                             <h2 class="collapse-handler">{% trans "Additional Info" %}</h2>
                             {% if form.additional_info_en %}
-                                <fieldset class="module aligned nested multilingual multilingual-set-12 multilingual-language-en">
+                                <fieldset class="grp-module aligned nested multilingual multilingual-set-12 multilingual-language-en">
                                     <h2>{% trans "Additional info (English)" %}</h2>
                                     <div class="row{% if form.additional_info_en.errors %} errors{% endif %}">
                                         <div>
@@ -907,7 +907,7 @@
                                 </fieldset>
                             {% endif %}
                             {% if form.additional_info_de %}
-                                <fieldset class="module aligned nested multilingual multilingual-set-12 multilingual-language-de">
+                                <fieldset class="grp-module aligned nested multilingual multilingual-set-12 multilingual-language-de">
                                     <h2>{% trans "Additional info (German)" %}</h2>
                                     <div class="row{% if form.additional_info_de.errors %} errors{% endif %}">
                                         <div>
@@ -940,14 +940,17 @@
                     {% endblock %}
         
                     <!-- Submit-Row -->
-                    <div class="module footer">
-                        <ul class="submit-row">
-                            <li class="left delete-link-container"><a href="delete/" class="delete-link">Delete</a></li>
-                            <li class="submit-button-container"><input type="submit" value="{% trans 'Save' %}" class="default" name="_save" /></li>
-                            <li class="submit-button-container"><input type="submit" value="{% trans 'Save and add another' %}" name="_addanother" /></li>
-                            <li class="submit-button-container"><input type="submit" value="{% trans 'Save and continue editing' %}" name="_continue" /></li>
+                    <footer class="grp-module grp-submit-row grp-fixed-footer">
+                        <header style="display: none">
+                            <h1>Submit options</h1>
+                        </header>
+                        <ul>
+                            <li class="grp-float-left"><a class="grp-button grp-delete-link" href="delete/">Delete</a></li>
+                            <li><input type="submit" value="{% trans 'Save' %}" class="grp-button grp-default" name="_save" /></li>
+                            <li><input type="submit" value="{% trans 'Save and add another' %}" class="grp-button" name="_addanother" /></li>
+                            <li><input type="submit" value="{% trans 'Save and continue editing' %}" class="grp-button" name="_continue" /></li>
                         </ul>
-                    </div>
+                    </footer>
                 </div>
             </form>
             <script type="text/javascript">

@@ -1,5 +1,5 @@
 {% load i18n %}
-<fieldset class="module aligned collapse closed">
+<fieldset class="grp-module aligned collapse closed">
     <h2 class="collapse-handler">{% trans "Opening hours" %}</h2>
     <div class="row is_appointment_based{% if form.is_appointment_based.errors %} errors{% endif %}">
         <div>
@@ -11,8 +11,8 @@
         </div>
     </div>
     <div class="group nested">
-        <table summary="{% trans "Opening hours" %}" class="working-hours module table">
-            <thead class="module thead">
+        <table summary="{% trans "Opening hours" %}" class="working-hours grp-module table">
+            <thead class="grp-module thead">
                 <tr class="tr">
                     <th class="th span-4">&nbsp;</th>
                     <th class="th span-3">{% trans "Monday" %}</th>
@@ -25,7 +25,7 @@
                     <th class="th span-flexible">&nbsp;</th>
                 </tr>
             </thead>
-            <tbody class="module tbody">
+            <tbody class="grp-module tbody">
                 <tr class="tr">
                     <td class="label td span-4"><label>{% trans "Opens" %}:</label></td>
                     <td class="td span-3{% if form.mon_open.errors %} errors{% endif %}">{{ form.mon_open.errors }}
@@ -113,7 +113,7 @@
         </table>
     </div>
     {% if form.exceptions_en %}
-        <fieldset class="module aligned collapse closed multilingual multilingual-set-1 multilingual-language-en">
+        <fieldset class="grp-module aligned collapse closed multilingual multilingual-set-1 multilingual-language-en">
             <h2 class="collapse-handler">{% trans "Exceptions for working hours" %} (English)</h2>
             <div class="row{% if form.exception_en.errors %} errors{% endif %}">
                 <div>
@@ -129,7 +129,7 @@
         </fieldset>
     {% endif %}
     {% if form.exceptions_de %}
-        <fieldset class="module aligned collapse closed multilingual multilingual-set-1 multilingual-language-de">
+        <fieldset class="grp-module aligned collapse closed multilingual multilingual-set-1 multilingual-language-de">
             <h2 class="collapse-handler">{% trans "Exceptions for working hours" %} (Deutsch)</h2>
             <div class="row{% if form.exceptions_de.errors %} errors{% endif %}">
                 <div>

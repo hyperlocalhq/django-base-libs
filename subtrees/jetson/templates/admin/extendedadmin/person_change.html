@@ -93,7 +93,7 @@
                     {% endif %}
                     
                     <!-- Fieldsets -->
-                    <fieldset class="module aligned collapse open">
+                    <fieldset class="grp-module aligned collapse open">
                         <h2>{% trans "Person" %}</h2>
                         {{ form.user_id }}
                         <div class="row{% if form.prefix.errors %} errors{% endif %}">
@@ -160,7 +160,7 @@
                             </div>
                         </div>
                     </fieldset>
-                    <fieldset class="module aligned collapse closed">
+                    <fieldset class="grp-module aligned collapse closed">
                         <h2 class="collapse-handler">{% trans "User Account" %}</h2>
                         <div class="row{% if form.username.errors %} errors{% endif %}">
                             <div>
@@ -237,7 +237,7 @@
                             {% endwith %}
                         {% endwith %}
                         </div>
-                        <div class="module add-item">
+                        <div class="grp-module add-item">
                             <a class="add-handler" href="javascript://">{% trans "Add Contact" %}</a>
                             <ul class="tools">
                                 <li class="add-handler-container"><a title="{% trans "Add Contact" %}" class="icon add-handler" href="javascript://"> </a></li>
@@ -249,7 +249,7 @@
                     
                     {% include "extendedadmin/includes/fieldset_categories.html" %}
                     
-                    <fieldset class="module aligned collapse closed">
+                    <fieldset class="grp-module aligned collapse closed">
                         <h2 class="collapse-handler">{% trans "Personal Information" %}</h2>
                         <div class="row gender{% if form.gender.errors %} errors{% endif %}">
                             <div>
@@ -321,7 +321,7 @@
                         <script type="text/javascript">
                         addEvent(window, "load", function(e) { SelectFilter.init("id_spoken_languages", "{% trans "Spoken languages" %}", 0, "{{ jetson_media_url }}"); });
                         </script>
-                        <fieldset class="module aligned nested">
+                        <fieldset class="grp-module aligned nested">
                             <h2>{% trans "Preferences" %}</h2>
                             <div class="row{% if form.preferred_language.errors %} errors{% endif %}">
                                 <div>
@@ -342,7 +342,7 @@
                                 </div>
                             </div>
                         </fieldset>
-                        <fieldset class="module aligned nested ceckbox-list collapse closed">
+                        <fieldset class="grp-module aligned nested ceckbox-list collapse closed">
                             <h2 class="collapse-handler">{% trans "Privacy Settings" %}</h2>
                             <div class="row{% if form.display_birthday.errors or form.display_email.errors %} errors{% endif %}">
                                 <div class="cell">
@@ -420,15 +420,17 @@
                         </fieldset>
                     </fieldset>
                     {% include "extendedadmin/includes/fieldset_status.html" %}
-                    <!-- Submit-Row -->
-                    <div class="module footer">
-                        <ul class="submit-row">
-                            <li class="left delete-link-container"><a href="delete/" class="delete-link">Delete</a></li>
-                            <li class="submit-button-container"><input type="submit" value="{% trans 'Save' %}" class="default" name="_save" /></li>
-                            <li class="submit-button-container"><input type="submit" value="{% trans 'Save and add another' %}" name="_addanother" /></li>
-                            <li class="submit-button-container"><input type="submit" value="{% trans 'Save and continue editing' %}" name="_continue" /></li>
+                    <footer class="grp-module grp-submit-row grp-fixed-footer">
+                        <header style="display: none">
+                            <h1>Submit options</h1>
+                        </header>
+                        <ul>
+                            <li class="grp-float-left"><a class="grp-button grp-delete-link" href="delete/">Delete</a></li>
+                            <li><input type="submit" value="{% trans 'Save' %}" class="grp-button grp-default" name="_save" /></li>
+                            <li><input type="submit" value="{% trans 'Save and add another' %}" class="grp-button" name="_addanother" /></li>
+                            <li><input type="submit" value="{% trans 'Save and continue editing' %}" class="grp-button" name="_continue" /></li>
                         </ul>
-                    </div>
+                    </footer>
                 </div>
             </form>
         </div>
