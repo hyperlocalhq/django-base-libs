@@ -9,6 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404, render_to_response
 from django.core.exceptions import PermissionDenied
 from django.conf import settings
+from django.utils.encoding import force_text
 
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin import ExtendedStackedInline
@@ -31,7 +32,7 @@ def add_form_fields(form, modelform):
         setattr(form, field_name, field)
         form.fields[field_name] = field
 
-class JobTypeOptions(admin.ModelAdmin):
+class JobTypeAdmin(admin.ModelAdmin):
     save_on_top = True
     list_filter = ('is_internship',)
     list_display = ['title', 'is_internship', 'sort_order']
@@ -40,7 +41,7 @@ class JobTypeOptions(admin.ModelAdmin):
     fieldsets += [(None, {'fields': ('slug', 'is_internship', 'sort_order')}),]
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
 
-class JobSectorOptions(admin.ModelAdmin):
+class JobSectorAdmin(admin.ModelAdmin):
     save_on_top = True
     list_display = ['title', 'sort_order']
 
@@ -48,7 +49,7 @@ class JobSectorOptions(admin.ModelAdmin):
     fieldsets += [(None, {'fields': ('slug', 'sort_order')}),]
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
 
-class JobQualificationOptions(admin.ModelAdmin):
+class JobQualificationAdmin(admin.ModelAdmin):
     save_on_top = True
     list_display = ['title', 'sort_order']
 
@@ -204,7 +205,7 @@ class JobOfferForm(forms.ModelForm):
         '''
         
 
-class JobOfferOptions(ExtendedModelAdmin):
+class JobOfferAdmin(ExtendedModelAdmin):
     form = JobOfferForm
     change_form_template = "extendedadmin/job_offer_change.html"
     class Media:
@@ -229,6 +230,7 @@ class JobOfferOptions(ExtendedModelAdmin):
 
         ModelForm = self.get_form(request)
         formsets = []
+        inline_instances = self.get_inline_instances(request)
         if request.method == 'POST':
             form = ModelForm(request.POST, request.FILES)
             if form.is_valid():
@@ -281,14 +283,14 @@ class JobOfferOptions(ExtendedModelAdmin):
         media = self.media + adminForm.media
 
         inline_admin_formsets = []
-        for inline, formset in zip(self.inline_instances, formsets):
+        for inline, formset in zip(inline_instances, formsets):
             fieldsets = list(inline.get_fieldsets(request))
             inline_admin_formset = helpers.InlineAdminFormSet(inline, formset, fieldsets)
             inline_admin_formsets.append(inline_admin_formset)
             media = media + inline_admin_formset.media
 
         context = {
-            'title': _('Add %s') % force_unicode(opts.verbose_name),
+            'title': _('Add %s') % force_text(opts.verbose_name),
             'adminform': adminForm,
             'form': form, # form added
             'is_popup': request.REQUEST.has_key('_popup'),
@@ -296,7 +298,6 @@ class JobOfferOptions(ExtendedModelAdmin):
             'media': mark_safe(media),
             'inline_admin_formsets': inline_admin_formsets,
             'errors': helpers.AdminErrorList(form, formsets),
-            'root_path': self.admin_site.root_path,
             'app_label': opts.app_label,
         }
         context.update(extra_context or {})
@@ -322,13 +323,14 @@ class JobOfferOptions(ExtendedModelAdmin):
             raise PermissionDenied
 
         if obj is None:
-            raise Http404(_('%(name)s object with primary key %(key)r does not exist.') % {'name': force_unicode(opts.verbose_name), 'key': escape(object_id)})
+            raise Http404(_('%(name)s object with primary key %(key)r does not exist.') % {'name': force_text(opts.verbose_name), 'key': escape(object_id)})
 
         if request.method == 'POST' and request.POST.has_key("_saveasnew"):
             return self.add_view(request, form_url='../add/')
 
         ModelForm = self.get_form(request, obj)
         formsets = []
+        inline_instances = self.get_inline_instances(request)
         if request.method == 'POST':
             form = ModelForm(request.POST, request.FILES, instance=obj)
             if form.is_valid():
@@ -372,14 +374,14 @@ class JobOfferOptions(ExtendedModelAdmin):
         media = self.media + adminForm.media
 
         inline_admin_formsets = []
-        for inline, formset in zip(self.inline_instances, formsets):
+        for inline, formset in zip(inline_instances, formsets):
             fieldsets = list(inline.get_fieldsets(request, obj))
             inline_admin_formset = helpers.InlineAdminFormSet(inline, formset, fieldsets)
             inline_admin_formsets.append(inline_admin_formset)
             media = media + inline_admin_formset.media
 
         context = {
-            'title': _('Change %s') % force_unicode(opts.verbose_name),
+            'title': _('Change %s') % force_text(opts.verbose_name),
             'adminform': adminForm,
             'form': form, # form added
             'object_id': object_id,
@@ -388,7 +390,6 @@ class JobOfferOptions(ExtendedModelAdmin):
             'media': mark_safe(media),
             'inline_admin_formsets': inline_admin_formsets,
             'errors': helpers.AdminErrorList(form, formsets),
-            'root_path': self.admin_site.root_path,
             'app_label': opts.app_label,
         }
         context.update(extra_context or {})
@@ -399,7 +400,7 @@ class JobOfferOptions(ExtendedModelAdmin):
         Given a ModelForm return an unsaved instance. ``change`` is True if
         the object is being changed, and False if it's being added.
         """
-        job_offer = super(JobOfferOptions, self).save_form(request, form, change)
+        job_offer = super(JobOfferAdmin, self).save_form(request, form, change)
         job_offer.save() # to ensure that creation date is saved
         Address.objects.set_for(
             job_offer,
@@ -419,8 +420,8 @@ class JobOfferOptions(ExtendedModelAdmin):
             )
         return job_offer
 
-admin.site.register(JobType, JobTypeOptions)
-admin.site.register(JobQualification, JobQualificationOptions)
-admin.site.register(JobSector, JobSectorOptions)
-admin.site.register(JobOffer, JobOfferOptions)
+admin.site.register(JobType, JobTypeAdmin)
+admin.site.register(JobQualification, JobQualificationAdmin)
+admin.site.register(JobSector, JobSectorAdmin)
+admin.site.register(JobOffer, JobOfferAdmin)
 
