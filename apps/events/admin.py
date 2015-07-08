@@ -279,6 +279,7 @@ class EventAdmin(ExtendedModelAdmin):
 
         ModelForm = self.get_form(request)
         formsets = []
+        inline_instances = self.get_inline_instances(request)
         if request.method == 'POST':
             form = ModelForm(request.POST, request.FILES)
             if form.is_valid():
@@ -331,7 +332,7 @@ class EventAdmin(ExtendedModelAdmin):
         media = self.media + adminForm.media
 
         inline_admin_formsets = []
-        for inline, formset in zip(self.inline_instances, formsets):
+        for inline, formset in zip(inline_instances, formsets):
             fieldsets = list(inline.get_fieldsets(request))
             inline_admin_formset = helpers.InlineAdminFormSet(inline, formset, fieldsets)
             inline_admin_formsets.append(inline_admin_formset)
@@ -346,7 +347,6 @@ class EventAdmin(ExtendedModelAdmin):
             'media': mark_safe(media),
             'inline_admin_formsets': inline_admin_formsets,
             'errors': helpers.AdminErrorList(form, formsets),
-            'root_path': self.admin_site.root_path,
             'app_label': opts.app_label,
         }
         context.update(extra_context or {})
@@ -379,6 +379,7 @@ class EventAdmin(ExtendedModelAdmin):
 
         ModelForm = self.get_form(request, obj)
         formsets = []
+        inline_instances = self.get_inline_instances(request)
         if request.method == 'POST':
             form = ModelForm(request.POST, request.FILES, instance=obj)
             if form.is_valid():
@@ -422,7 +423,7 @@ class EventAdmin(ExtendedModelAdmin):
         media = self.media + adminForm.media
 
         inline_admin_formsets = []
-        for inline, formset in zip(self.inline_instances, formsets):
+        for inline, formset in zip(inline_instances, formsets):
             fieldsets = list(inline.get_fieldsets(request, obj))
             inline_admin_formset = helpers.InlineAdminFormSet(inline, formset, fieldsets)
             inline_admin_formsets.append(inline_admin_formset)
@@ -438,7 +439,6 @@ class EventAdmin(ExtendedModelAdmin):
             'media': mark_safe(media),
             'inline_admin_formsets': inline_admin_formsets,
             'errors': helpers.AdminErrorList(form, formsets),
-            'root_path': self.admin_site.root_path,
             'app_label': opts.app_label,
         }
         context.update(extra_context or {})
