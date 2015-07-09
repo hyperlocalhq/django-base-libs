@@ -207,7 +207,7 @@ class NoticeManager(models.Manager):
         """
         return self.filter(user=user, unseen=True).count()
 
-class Notice(models.Model, UrlMixin):
+class Notice(UrlMixin):
 
     user = models.ForeignKey(User, verbose_name=_('user'))
     message = models.TextField(_('message'))
