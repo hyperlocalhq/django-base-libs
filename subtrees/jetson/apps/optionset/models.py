@@ -87,6 +87,16 @@ class PhoneType(SlugMixin()):
     def get_title(self):
         return self.title
 
+def get_default_phonetype_for_phone():
+    return PhoneType.objects.get(slug='phone').id
+
+def get_default_phonetype_for_fax():
+    return PhoneType.objects.get(slug='fax').id
+
+def get_default_phonetype_for_mobile():
+    return PhoneType.objects.get(slug='mobile').id
+
+
 class EmailType(SlugMixin()):
     title = MultilingualCharField(_('title'), max_length=255)    
     sort_order = models.IntegerField(_("Sort order"), default=0)

@@ -41,6 +41,9 @@ from jetson.apps.optionset.models import PhoneType
 from jetson.apps.optionset.models import EmailType
 from jetson.apps.optionset.models import URLType
 from jetson.apps.optionset.models import IMType
+from jetson.apps.optionset.models import get_default_phonetype_for_phone
+from jetson.apps.optionset.models import get_default_phonetype_for_fax
+from jetson.apps.optionset.models import get_default_phonetype_for_mobile
 from jetson.apps.i18n.models import Nationality
 from jetson.apps.i18n.models import Language
 from jetson.apps.i18n.models import TimeZone
@@ -91,15 +94,6 @@ class PersonCreator(ModelBase):
         return model
 
 ### Person class ###
-
-class DefaultPhoneType(object):
-    def __init__(self, slug):
-        self.slug = slug
-    def __call__(self):
-        try:
-            return PhoneType.objects.get(slug=self.slug).id
-        except:
-            return None
 
 def get_default_url_type():
     try:
@@ -727,21 +721,27 @@ class IndividualContactBase(models.Model):
     
     # PHONES
 
-    phone0_type = models.ForeignKey(PhoneType, verbose_name=_("Phone Type"), blank=True, null=True, related_name='individual_contacts0', default=DefaultPhoneType("phone"))
+    phone0_type = models.ForeignKey(PhoneType, verbose_name=_("Phone Type"), blank=True, null=True,
+                                    related_name='individual_contacts0',
+                                    default=get_default_phonetype_for_phone)
     phone0_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
     phone0_area = models.CharField(_("Area Code"), max_length=6, blank=True, default="30")
     phone0_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
     is_phone0_default = models.BooleanField(_("Default?"), default=True)
     is_phone0_on_hold = models.BooleanField(_("Default?"), default=False)
 
-    phone1_type = models.ForeignKey(PhoneType, verbose_name=_("Phone Type"), blank=True, null=True, related_name='individual_contacts1', default=DefaultPhoneType("fax"))
+    phone1_type = models.ForeignKey(PhoneType, verbose_name=_("Phone Type"), blank=True, null=True,
+                                    related_name='individual_contacts1',
+                                    default=get_default_phonetype_for_fax)
     phone1_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
     phone1_area = models.CharField(_("Area Code"), max_length=6, blank=True, default="30")
     phone1_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
     is_phone1_default = models.BooleanField(_("Default?"), default=False)
     is_phone1_on_hold = models.BooleanField(_("Default?"), default=False)
 
-    phone2_type = models.ForeignKey(PhoneType, verbose_name=_("Phone Type"), blank=True, null=True, related_name='individual_contacts2', default=DefaultPhoneType("mobile"))
+    phone2_type = models.ForeignKey(PhoneType, verbose_name=_("Phone Type"), blank=True, null=True,
+                                    related_name='individual_contacts2',
+                                    default=get_default_phonetype_for_mobile)
     phone2_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
     phone2_area = models.CharField(_("Area Code"), max_length=6, blank=True)
     phone2_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
