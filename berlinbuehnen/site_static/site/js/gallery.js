@@ -43,8 +43,23 @@
         $('.video', $main).each(function() {
             
             var $this = $(this);
+            
             var $embed = $($this.children()[0]);
             var $player = $('<div/>');
+            
+            // checking for edge-cdn.net player and setting width and height
+            var $script = $('script', $this);
+            if ($script.length && $embed.height() == 0) {
+                var src = $script.attr('src').toLowerCase();
+                if (src.indexOf('edge-cdn.net') >= 0) {
+                    var width = src.split('width=', 2);
+                    width = width[1].split('&', 2);
+                    var height= src.split('height=', 2);
+                    height = height[1].split('&', 2);
+                    $embed.width(width[0]);
+                    $embed.height(height[0]);
+                }
+            }
             
             $player.data("width", $embed.width());
             $player.data("height", $embed.height());

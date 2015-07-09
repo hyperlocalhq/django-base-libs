@@ -4,13 +4,15 @@
         <h4 class="accordion-item-head open">{% trans "Venue" %}</h4>
         <div class="accordion-item-content">
             {% if location.logo %}
-                <img src="{{ MEDIA_URL }}{{ location.logo|modified_path:"list_logo" }}" class="logo" alt="{{ location.title|escape }}"/>
+                <a class="location-link" href="{{ location.get_url_path }}"><img src="{{ MEDIA_URL }}{{ location.logo|modified_path:"list_logo" }}" class="logo" alt="{{ location.title|escape }}"/></a> 
             {% endif %}
             <p data-latitude="{{ location.latitude|stringformat:"%f" }}" data-longitude="{{ location.longitude|stringformat:"%f" }}">
+                <a class="location-link" href="{{ location.get_url_path }}">
                 <strong>{{ location.title }}</strong><br />
                 {% if location.street_address %}{{ location.street_address }}<br />{% endif %}
                 {% if location.street_address2 %}{{ location.street_address2 }}<br />{% endif %}
                 {% if location.city %}{{ location.postal_code }} {{ location.city }}<br />{% endif %}
+                </a>
             </p>
             {% if location.phone_number or location.fax_number or location.email or location.website %}
                 <dl>

@@ -148,7 +148,7 @@
                                     <h2>{% if article.short_title %}{{ article.short_title }}{% else %}{{ article.title }}{% endif %}</h2>
                                     <p>
                                         {% if article.description %}
-                                            {{ article.get_rendered_description|wordwrap:30|striptags|truncatewords:"25" }}
+                                            {{ article.get_rendered_description|striptags }}
                                         {% else %}
                                             {{ article.get_rendered_content|striptags|wordwrap:30|truncatewords:"25" }}
                                         {% endif %}
@@ -169,7 +169,7 @@
                                     <h2>{% if article.short_title %}{{ article.short_title }}{% else %}{{ article.title }}{% endif %}</h2>
                                     <p>
                                         {% if article.description %}
-                                            {{ article.get_rendered_description|wordwrap:30|striptags|truncatewords:"25" }}
+                                            {{ article.get_rendered_description|striptags }}
                                         {% else %}
                                             {{ article.get_rendered_content|striptags|wordwrap:30|truncatewords:"25" }}
                                         {% endif %}
