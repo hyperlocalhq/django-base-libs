@@ -17,6 +17,8 @@ from base_libs.utils.misc import strip_html as strip_html_base
 
 from filebrowser.models import FileDescription
 
+from jetson.apps.image_mods.models import FileManager
+
 from berlinbuehnen.apps.locations.api.resources.v1 import LocationResource
 from berlinbuehnen.apps.locations.api.resources.v1 import StageResource
 
@@ -70,8 +72,8 @@ def strip_html(text):
 
 class BaseMetaForModelResource(object):
     allowed_methods = ['get']
-    #authentication = ApiKeyAuthentication()
-    #authorization = ReadOnlyAuthorization()
+    authentication = ApiKeyAuthentication()
+    authorization = ReadOnlyAuthorization()
     serializer = Serializer(formats=['json', 'xml'])
     cache = SimpleCache(timeout=10)
     max_limit = 50
@@ -150,11 +152,18 @@ class ProductionImageResource(ModelResource):
                 get_website_url(),
                 settings.MEDIA_URL[1:],
                 bundle.obj.path.path,
+            ))
+            list_image_path = FileManager.modified_path(bundle.obj.path.path, "list_image")
+            if list_image_path:
+                bundle.data['list_image_url'] = "".join((
+                    get_website_url(),
+                    settings.MEDIA_URL[1:],
+                    list_image_path,
                 ))
             try:
                 file_description = FileDescription.objects.filter(
                     file_path=bundle.obj.path,
-                    ).order_by("pk")[0]
+                ).order_by("pk")[0]
             except:
                 pass
             else:
@@ -182,11 +191,11 @@ class ProductionPDFResource(ModelResource):
                 get_website_url(),
                 settings.MEDIA_URL[1:],
                 bundle.obj.path.path,
-                ))
+            ))
             try:
                 file_description = FileDescription.objects.filter(
                     file_path=bundle.obj.path,
-                    ).order_by("pk")[0]
+                ).order_by("pk")[0]
             except:
                 pass
             else:
@@ -318,11 +327,18 @@ class EventImageResource(ModelResource):
                 get_website_url(),
                 settings.MEDIA_URL[1:],
                 bundle.obj.path.path,
+            ))
+            list_image_path = FileManager.modified_path(bundle.obj.path.path, "list_image")
+            if list_image_path:
+                bundle.data['list_image_url'] = "".join((
+                    get_website_url(),
+                    settings.MEDIA_URL[1:],
+                    list_image_path,
                 ))
             try:
                 file_description = FileDescription.objects.filter(
                     file_path=bundle.obj.path,
-                    ).order_by("pk")[0]
+                ).order_by("pk")[0]
             except:
                 pass
             else:
@@ -350,11 +366,11 @@ class EventPDFResource(ModelResource):
                 get_website_url(),
                 settings.MEDIA_URL[1:],
                 bundle.obj.path.path,
-                ))
+            ))
             try:
                 file_description = FileDescription.objects.filter(
                     file_path=bundle.obj.path,
-                    ).order_by("pk")[0]
+                ).order_by("pk")[0]
             except:
                 pass
             else:
@@ -461,6 +477,7 @@ class EventResource(ModelResource):
             'subtitles_text_de', 'subtitles_text_en',
             'age_text_de', 'age_text_en',
             'free_entrance', 'price_from', 'price_till', 'tickets_website',
+            'event_status', 'ticket_status',
         ]
 
     def dehydrate(self, bundle):

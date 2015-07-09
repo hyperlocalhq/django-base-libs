@@ -48,8 +48,8 @@ def strip_html(text):
 
 class BaseMetaForModelResource(object):
     allowed_methods = ['get']
-    #authentication = ApiKeyAuthentication()
-    #authorization = ReadOnlyAuthorization()
+    authentication = ApiKeyAuthentication()
+    authorization = ReadOnlyAuthorization()
     serializer = Serializer(formats=['json', 'xml'])
     cache = SimpleCache(timeout=10)
     max_limit = 100
