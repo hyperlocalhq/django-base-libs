@@ -118,7 +118,6 @@ INSTALLED_APPS = (
     "jetson.apps.mailing",
     "jetson.apps.messaging",
     "jetson.apps.contact_form",
-    "jetson.apps.email_campaigns",
     "jetson.apps.configuration",
     "jetson.apps.ratings",
     "jetson.apps.favorites",

@@ -1,5 +1,5 @@
-{% load i18n adminmedia %}
-<fieldset class="module aligned cats collapse closed">
+{% load i18n %}
+<fieldset class="grp-module aligned cats collapse closed">
     <h2 class="collapse-handler">
     {% if form.tags %}
         {{ _("Categories & tags")|force_escape }}
@@ -18,7 +18,7 @@
         </div>
     </div>
     <script type="text/javascript">
-    addEvent(window, "load", function(e) { SelectFilter.init("id_context_categories", "{% trans "Context categories" %}", 0, "{% admin_media_prefix %}"); });
+    addEvent(window, "load", function(e) { SelectFilter.init("id_context_categories", "{% trans "Context categories" %}", 0, "{{ STATIC_URL }}admin/"); });
     </script>
     {% if form.tags %}
         <div class="row">

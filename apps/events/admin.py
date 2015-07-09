@@ -10,6 +10,7 @@ from django.shortcuts import get_object_or_404, render_to_response
 from django.core.exceptions import PermissionDenied
 from django.views.decorators.cache import never_cache
 from django.conf import settings
+from django.utils.encoding import force_text
 
 from base_libs.admin import ExtendedStackedInline
 from base_libs.admin import ExtendedModelAdmin
@@ -31,7 +32,7 @@ EventType = models.get_model("events", "EventType")
 EventTimeLabel = models.get_model("events", "EventTimeLabel")
 EventTime = models.get_model("events", "EventTime")
 
-class EventTypeOptions(TreeEditor):
+class EventTypeAdmin(TreeEditor):
         
     save_on_top = True
     list_display = ['actions_column', 'indented_short_title']
@@ -64,7 +65,7 @@ GeopositionForm = modelform_factory(
     #formfield_callback=formfield_for_dbfield,
     )
 
-class EventTimeLabelOptions(ExtendedModelAdmin):
+class EventTimeLabelAdmin(ExtendedModelAdmin):
     save_on_top = True
     fieldsets = get_admin_lang_section(_("Title"), ['title'])
     fieldsets += [(None, {'fields': ('slug', 'sort_order')}),]
@@ -217,21 +218,25 @@ class EventForm(forms.ModelForm):
             + " autocomplete"
             ).strip()
         '''
-        
+
+
 class EventTime_Inline(ExtendedStackedInline):
     model = EventTime
     extra = 1
     verbose_name = _("Time")
     verbose_name_plural = _("Times")
 
-class EventOptions(ExtendedModelAdmin):
+
+class EventAdmin(ExtendedModelAdmin):
     form = EventForm
     inlines = [EventTime_Inline]
     change_form_template = "extendedadmin/event_change.html"
+
     class Media:
         js = (
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-            )
+        )
+
     save_on_top = True
     list_display = ['title', 'get_venue_display', 'get_start_date_string', 'get_end_date_string', 'event_type', 'status', 'is_featured', 'importance', 'creation_date']
     list_editable = ['status', 'is_featured', 'importance']
@@ -262,7 +267,6 @@ class EventOptions(ExtendedModelAdmin):
     get_venue_display.allow_tags = True
     get_venue_display.short_description = _("Venue")
 
-
     #@never_cache # doesn't work for class methods with django r11611
     @transaction.atomic
     def add_view(self, request, form_url='', extra_context=None):
@@ -275,6 +279,7 @@ class EventOptions(ExtendedModelAdmin):
 
         ModelForm = self.get_form(request)
         formsets = []
+        inline_instances = self.get_inline_instances(request)
         if request.method == 'POST':
             form = ModelForm(request.POST, request.FILES)
             if form.is_valid():
@@ -327,14 +332,14 @@ class EventOptions(ExtendedModelAdmin):
         media = self.media + adminForm.media
 
         inline_admin_formsets = []
-        for inline, formset in zip(self.inline_instances, formsets):
+        for inline, formset in zip(inline_instances, formsets):
             fieldsets = list(inline.get_fieldsets(request))
             inline_admin_formset = helpers.InlineAdminFormSet(inline, formset, fieldsets)
             inline_admin_formsets.append(inline_admin_formset)
             media = media + inline_admin_formset.media
 
         context = {
-            'title': _('Add %s') % force_unicode(opts.verbose_name),
+            'title': _('Add %s') % force_text(opts.verbose_name),
             'adminform': adminForm,
             'form': form, # form added
             'is_popup': request.REQUEST.has_key('_popup'),
@@ -342,7 +347,6 @@ class EventOptions(ExtendedModelAdmin):
             'media': mark_safe(media),
             'inline_admin_formsets': inline_admin_formsets,
             'errors': helpers.AdminErrorList(form, formsets),
-            'root_path': self.admin_site.root_path,
             'app_label': opts.app_label,
         }
         context.update(extra_context or {})
@@ -368,13 +372,14 @@ class EventOptions(ExtendedModelAdmin):
             raise PermissionDenied
 
         if obj is None:
-            raise Http404(_('%(name)s object with primary key %(key)r does not exist.') % {'name': force_unicode(opts.verbose_name), 'key': escape(object_id)})
+            raise Http404(_('%(name)s object with primary key %(key)r does not exist.') % {'name': force_text(opts.verbose_name), 'key': escape(object_id)})
 
         if request.method == 'POST' and request.POST.has_key("_saveasnew"):
             return self.add_view(request, form_url='../add/')
 
         ModelForm = self.get_form(request, obj)
         formsets = []
+        inline_instances = self.get_inline_instances(request)
         if request.method == 'POST':
             form = ModelForm(request.POST, request.FILES, instance=obj)
             if form.is_valid():
@@ -418,14 +423,14 @@ class EventOptions(ExtendedModelAdmin):
         media = self.media + adminForm.media
 
         inline_admin_formsets = []
-        for inline, formset in zip(self.inline_instances, formsets):
+        for inline, formset in zip(inline_instances, formsets):
             fieldsets = list(inline.get_fieldsets(request, obj))
             inline_admin_formset = helpers.InlineAdminFormSet(inline, formset, fieldsets)
             inline_admin_formsets.append(inline_admin_formset)
             media = media + inline_admin_formset.media
 
         context = {
-            'title': _('Change %s') % force_unicode(opts.verbose_name),
+            'title': _('Change %s') % force_text(opts.verbose_name),
             'adminform': adminForm,
             'form': form, # form added
             'object_id': object_id,
@@ -434,7 +439,6 @@ class EventOptions(ExtendedModelAdmin):
             'media': mark_safe(media),
             'inline_admin_formsets': inline_admin_formsets,
             'errors': helpers.AdminErrorList(form, formsets),
-            'root_path': self.admin_site.root_path,
             'app_label': opts.app_label,
         }
         context.update(extra_context or {})
@@ -445,7 +449,7 @@ class EventOptions(ExtendedModelAdmin):
         Given a ModelForm return an unsaved instance. ``change`` is True if
         the object is being changed, and False if it's being added.
         """
-        event = super(EventOptions, self).save_form(request, form, change)
+        event = super(EventAdmin, self).save_form(request, form, change)
         event.save() # to ensure that creation date is saved
         if "country" in form.cleaned_data:
             Address.objects.set_for(
@@ -466,7 +470,7 @@ class EventOptions(ExtendedModelAdmin):
                 )
         return event
 
-admin.site.register(EventType, EventTypeOptions)
-admin.site.register(EventTimeLabel, EventTimeLabelOptions)
-admin.site.register(Event, EventOptions)
+admin.site.register(EventType, EventTypeAdmin)
+admin.site.register(EventTimeLabel, EventTimeLabelAdmin)
+admin.site.register(Event, EventAdmin)
 

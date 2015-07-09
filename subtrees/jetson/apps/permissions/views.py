@@ -8,6 +8,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.views.decorators.cache import never_cache
 from django.utils.translation import ugettext as _
 from django.forms.formsets import formset_factory
+from django.apps import apps
 
 from base_libs.views import access_denied
 
@@ -20,7 +21,7 @@ def manage_row_level_permissions(request, app_label, model_name, object_id):
     """
     Displays a list of row level permisisons for the model instance
     """
-    model = models.get_model(app_label, model_name)
+    model = apps.get_model(app_label, model_name)
     
     content_type = ContentType.objects.get_for_model(model)
     obj_instance = get_object_or_404(model, pk=object_id)

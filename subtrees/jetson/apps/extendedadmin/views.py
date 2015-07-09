@@ -27,12 +27,9 @@ from django.contrib import messages
 from jetson.apps.location.models import Address
 from jetson.apps.mailing.recipient import Recipient
 from jetson.apps.mailing.views import do_generic_mail
-from jetson.apps.mailing.models import EmailTemplate
-from jetson.apps.i18n.models import Language
-from jetson.apps.email_campaigns.models import InfoSubscription
 
 from base_libs.utils.misc import get_installed
-from base_libs.utils.misc import get_related_queryset, ExtendedJSONEncoder
+from base_libs.utils.misc import ExtendedJSONEncoder
 
 def person_add(request):
     return person_change(request, object_id=None)
@@ -311,37 +308,6 @@ def json_institutional_contacts(request, object_id):
     else:
         return HttpResponse('false', content_type='text/javascript; charset=utf-8')
 #json_institutional_contacts = staff_member_required(never_cache(json_institutional_contacts))
-
-def infosubscription_send_mail(request, email_template_slug=None):
-    """
-    opens the generic mail form to send a template based email to selected recipients
-    
-    email_template_slug:    The slug of the email template to use...
-    """
-    # set up the recipients! recipient_list contains instances of class Recipient
-    recipients_list = []
-    for item in InfoSubscription.objects.all():
-        recipients_list.append(
-            Recipient(
-                user=item.subscriber,
-                name=item.subscriber_name,
-                email=item.email,
-                display_name="%s (%s)" % (item.subscriber_name, item.email),
-                )
-            )
-            
-    return do_generic_mail(
-        request,
-        template_name = 'extendedadmin/infosubscriber_mail.html', 
-        redirect_to= '/admin/email_campaigns/infosubscription/',
-        recipients_list=recipients_list,
-        display_recipients_list=True,
-        display_recipients_input=True,
-        display_en = True,
-        display_de = True,
-        email_template_slug=email_template_slug,
-        )
-infosubscription_send_mail = staff_member_required(never_cache(infosubscription_send_mail))
 
 def user_send_mail(request, email_template_slug=None):
     """

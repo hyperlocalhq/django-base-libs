@@ -1,10 +1,10 @@
 {% load i18n %}
 
-<fieldset class="module aligned collapse closed">
+<fieldset class="grp-module aligned collapse closed">
     <h2 class="collapse-handler">{% trans "Details" %}</h2>
 
     {% if form.description_en %}
-        <fieldset class="module aligned nested multilingual multilingual-set-15 multilingual-language-en">
+        <fieldset class="grp-module aligned nested multilingual multilingual-set-15 multilingual-language-en">
             <h2>{% trans "Description" %} (English)</h2>
             <div class="row description_en{% if form.description_en.errors %} errors{% endif %}">
                 <div>
@@ -20,7 +20,7 @@
         </fieldset>
     {% endif %}
     {% if form.description_de %}
-        <fieldset class="module aligned nested multilingual multilingual-set-15 multilingual-language-de">
+        <fieldset class="grp-module aligned nested multilingual multilingual-set-15 multilingual-language-de">
             <h2 class="collapse-handler">{% trans "Description" %} (Deutsch)</h2>
             <div class="row description_de{% if form.description_de.errors %} errors{% endif %}">
                 <div>
