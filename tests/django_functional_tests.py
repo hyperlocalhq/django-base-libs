@@ -341,12 +341,14 @@ class Urls:
     non_localized_constant_urls  = ( # most should redirect, i.e. return 301
         ('/', 302),
         ('/account/', 302),
+        ('/blog/', 302),
         ('/compatibility/', 302),
         ('/contact/', 302),
         ('/contact/alldone/', 302),
         ('/creative-sector/', 302),
         ('/dashboard/', 302),
         ('/documents/', 302),
+        ('/events/', 302),
         ('/events/add/', 302),
         ('/facebook/', 302),
         ('/facebook/data-exchange/', 302),
@@ -355,10 +357,12 @@ class Urls:
         ('/facebook/link/register/', 302),
         ('/facebook/manage/', 302),
         ('/facebook/pages/', 302),
+        ('/faqs/', 302),
         ('/gmap/', 302),
         ('/groups/', 302),
         ('/groups/add/', 302),
         ('/groups/invitations/', 302),
+        ('/help/', 302),
         ('/helper/bookmark/', 200),
         ('/helper/country_lookup/', 200),
         ('/helper/institution_lookup/', 302), # login required
@@ -369,6 +373,7 @@ class Urls:
         ('/institutions/add/', 302),
         ('/invite/', 302),
         ('/invite/done/', 302),
+        ('/jobs/', 302),
         ('/jobs/add/', 302),
         ('/jobs/create-berlin-jobboard/', 302),
         ('/jobs/talent-in-berlin/', 302),
@@ -405,12 +410,14 @@ class Urls:
         ('/notification/feed/', 302),
         ('/notification/mark_all_seen/', 302),
         ('/notification/settings/', 302),
+        ('/partner/', 200),
         ('/password_change/', 302),
         ('/password_change/done/', 302),
         ('/password_reset/', 302),
         ('/password_reset/complete/', 302),
         ('/password_reset/done/', 302),
         ('/people/', 302),
+        ('/portfolios/', 302),
         # ('/recrop/', 200), # TODO rethink this test, /recrop/ requires URL parameters
         ('/register/', 302),
         ('/register/alldone/', 302),
@@ -441,12 +448,14 @@ class Urls:
     localized_constant_urls = ( # most should work, i.e. return 200
         ('/de/', 200),
         ('/de/account/', 200),
+        ('/de/blog/', 200),
         ('/de/compatibility/', 200),
         ('/de/contact/', 200),
         ('/de/contact/alldone/', 200),
         ('/de/creative-sector/', 302), # login required
         ('/de/dashboard/', 302), # login required
         ('/de/documents/', 200),
+        ('/de/events/', 200), # FIXME currently failing with FieldDoesNotExist: additional_info_markup_type
         ('/de/events/add/', 302), # login required
         ('/de/facebook/', 302), # login required
         ('/de/facebook/data-exchange/', 302), # login required
@@ -455,10 +464,12 @@ class Urls:
         ('/de/facebook/link/register/', 302), # login required
         ('/de/facebook/manage/', 302), # login required
         ('/de/facebook/pages/', 302), # login required
+        ('/de/faqs/', 200),
         ('/de/gmap/', 200),
         ('/de/groups/', 200),
         ('/de/groups/add/', 302), # login required
         ('/de/groups/invitations/', 302), # login required
+        ('/de/help/', 200),
         # ('/de/helper/blank_doc/', 200), # included in PATHS_NO_REDIRECTION
         # ('/de/helper/bookmark/', 200), # included in PATHS_NO_REDIRECTION
         # ('/de/helper/country_lookup/', 200), # included in PATHS_NO_REDIRECTION
@@ -470,6 +481,7 @@ class Urls:
         ('/de/institutions/add/', 302), # login required
         ('/de/invite/', 302), # login required
         ('/de/invite/done/', 200),
+        ('/de/jobs/', 200),
         ('/de/jobs/add/', 302), # login required
         ('/de/jobs/create-berlin-jobboard/', 200),
         ('/de/jobs/talent-in-berlin/', 200),
@@ -505,12 +517,14 @@ class Urls:
         ('/de/notification/', 302), # login required
         ('/de/notification/mark_all_seen/', 302), # login required
         ('/de/notification/settings/', 302), # login required
+        ('/de/partner/', 200), # FIXME currently returning 404
         ('/de/password_change/', 302), # login required
         ('/de/password_change/done/', 200), # FIXME currently returning 302
         ('/de/password_reset/', 200),
         ('/de/password_reset/complete/', 200),
         ('/de/password_reset/done/', 200),
         ('/de/people/', 200),
+        ('/de/portfolios/', 200),
         # ('/de/recrop/', 200), # included in PATHS_NO_REDIRECTION
         ('/de/register/', 200),
         ('/de/register/alldone/', 302), # login required
@@ -12230,7 +12244,7 @@ def suite():
         Urls.non_localized_slug_urls,
         Urls.non_localized_static_pages,
         Urls.admin_urls,
-        Urls.sitemap,
+        # Urls.sitemap,
         # Urls.sitemap_urls, # takes one hour and a half to test 10,000+ URLs
         sitemap_sample_urls, # small sample of 100 URLs from sitemap_urls
         Urls.failing_production_urls,
