@@ -43,7 +43,7 @@ class PageTest(unittest.TestCase):
         )
 
 
-def suite():
+class Urls:
     non_localized_static_pages = (
         ('/about/', 301), # FIXME currently doesn't redirect /de/.../
         ('/coworking/', 301), # FIXME currently doesn't redirect /de/.../
@@ -429,7 +429,6 @@ def suite():
         ('/styleguide/typography/', 302),
         ('/subscribe4info/', 302),
         ('/subscribe4info/done/', 302),
-        ('/tagging_autocomplete/list/', 302), # FIXME should redirect to /de/tagging_autocomplete_list/
         ('/ticket/', 302),
         ('/tweets/', 302),
     )
@@ -504,7 +503,6 @@ def suite():
         ('/de/news/articles/', 200),
         ('/de/news/interviews/', 200),
         ('/de/notification/', 302), # login required
-        ('/de/notification/feed/', 200), # FIXME currently returns 401 (HTTP login dialog)
         ('/de/notification/mark_all_seen/', 302), # login required
         ('/de/notification/settings/', 302), # login required
         ('/de/password_change/', 302), # login required
@@ -612,7 +610,6 @@ def suite():
         ('/admin/filebrowser/delete_confirm/', 302),
         ('/admin/filebrowser/detail/', 302),
         ('/admin/filebrowser/get-version/', 302),
-        ('/admin/filebrowser/upload_file/', 302), # FIXME AttributeError
         ('/admin/filebrowser/version/', 302),
         ('/admin/filebrowser/versions/', 302),
         ('/admin/flatpages/flatpage/', 302),
@@ -761,19 +758,19 @@ def suite():
         ('/admin/tagging/tag/add/', 302),
         ('/admin/tagging/taggeditem/', 302),
         ('/admin/tagging/taggeditem/add/', 302),
-        ('/admin/templates/', 404), # TODO currently returns 404
+        ('/admin/templates/', 302), # TODO currently returns 404
         ('/admin/tracker/concern/', 302),
         ('/admin/tracker/concern/add/', 302),
         ('/admin/tracker/ticket/', 302),
         ('/admin/tracker/ticket/add/', 302),
     )
 
-    # URLs extracted from sitemap.xml
-    #  366 pages: /de/document
-    #  529 pages: /de/event
-    # 2601 pages: /de/institution
-    # 7943 pages: /de/person
     sitemap_urls = (
+        # URLs extracted from sitemap.xml
+        #  366 pages: /de/document
+        #  529 pages: /de/event
+        # 2601 pages: /de/institution
+        # 7943 pages: /de/person
         ('/de/document/12designer/', 200),
         ('/de/document/1st-blue-das-modemagazin/', 200),
         ('/de/document/3-kreativwirtschftsbericht-berlin-entwicklung-und-potenziale/', 200),
@@ -1183,7 +1180,6 @@ def suite():
         ('/de/event/away-away-and-spiraling-in-3/', 200),
         ('/de/event/away-away-and-spiraling-in-4/', 200),
         ('/de/event/away-away-and-spiraling-in-5/', 200),
-        ('/de/event/away-away-and-spiraling-in-6-2-2/', 500), # FIXME throwing error in production
         ('/de/event/away-away-and-spiraling-in/', 200),
         ('/de/event/basic-photography-course-start-to-see-the-world-differently/', 200),
         ('/de/event/berlin-art-adventure-workshop/', 200),
@@ -12215,19 +12211,29 @@ def suite():
         ('/de/person/zweimaleins/', 200),
     )
 
+    failing_production_urls = (
+        ('/de/event/away-away-and-spiraling-in-6-2-2/', 500), # FIXME throwing error in production
+        ('/tagging_autocomplete/list/', 302), # FIXME should redirect to /de/tagging_autocomplete_list/
+        ('/de/notification/feed/', 200), # FIXME currently returns 401 (HTTP login dialog)
+        ('/admin/filebrowser/upload_file/', 302), # FIXME AttributeError
+    )
+
+
+def suite():
     from random import sample
-    sitemap_sample_urls = sample(sitemap_urls, 100)
+    sitemap_sample_urls = sample(Urls.sitemap_urls, 100)
     url_lists = (
-        localized_constant_urls,
-        localized_slug_urls,
-        localized_static_pages,
-        non_localized_constant_urls,
-        non_localized_slug_urls,
-        non_localized_static_pages,
-        admin_urls,
-        sitemap,
-        # sitemap_urls,
-        sitemap_sample_urls,
+        Urls.localized_constant_urls,
+        Urls.localized_slug_urls,
+        Urls.localized_static_pages,
+        Urls.non_localized_constant_urls,
+        Urls.non_localized_slug_urls,
+        Urls.non_localized_static_pages,
+        Urls.admin_urls,
+        Urls.sitemap,
+        # Urls.sitemap_urls, # takes one hour and a half to test 10,000+ URLs
+        sitemap_sample_urls, # small sample of 100 URLs from sitemap_urls
+        Urls.failing_production_urls,
     )
 
     suite = unittest.TestSuite()
