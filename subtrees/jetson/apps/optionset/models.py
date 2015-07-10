@@ -88,13 +88,29 @@ class PhoneType(SlugMixin()):
         return self.title
 
 def get_default_phonetype_for_phone():
-    return PhoneType.objects.get(slug='phone').id
+    retval = None
+    try:
+        retval = PhoneType.objects.get(slug='phone').id
+    except (PhoneType.DoesNotExist, PhoneType.MultipleObjectsReturned):
+        pass
+    return retval
+
 
 def get_default_phonetype_for_fax():
-    return PhoneType.objects.get(slug='fax').id
+    retval = None
+    try:
+        retval = PhoneType.objects.get(slug='fax').id
+    except (PhoneType.DoesNotExist, PhoneType.MultipleObjectsReturned):
+        pass
+    return retval
 
 def get_default_phonetype_for_mobile():
-    return PhoneType.objects.get(slug='mobile').id
+    retval = None
+    try:
+        retval = PhoneType.objects.get(slug='mobile').id
+    except (PhoneType.DoesNotExist, PhoneType.MultipleObjectsReturned):
+        pass
+    return retval
 
 
 class EmailType(SlugMixin()):
