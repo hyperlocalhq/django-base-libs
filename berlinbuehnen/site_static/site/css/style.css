@@ -1845,6 +1845,7 @@ top: 0;*/ width: 110px; height: 100%; display: block; background-image: url(../i
 .content-accordion .accordion-item .accordion-item-head:after { font: normal normal normal 14px/1 FontAwesome; content: "\f107"; font-size: 1.75em; position: absolute; top: 1px; right: 10px; color: #222; }
 .content-accordion .accordion-item .accordion-item-head.open:after { content: "\f106"; top: 0; }
 .content-accordion .accordion-item .accordion-item-content { margin-bottom: 16px; }
+.content-accordion .accordion-item p:first-child { margin-top: 16px; }
 
 .sidebar-accordion .accordion-item { position: relative; }
 .sidebar-accordion .accordion-item .accordion-item-head { font-weight: 400; font-size: 0.875em; text-transform: uppercase; padding: 4px 0 4px 8px; background: black; color: white; }
@@ -2155,6 +2156,8 @@ span.pin a { position: absolute !important; top: 6px; right: 6px; cursor: pointe
 html { height: 100%; }
 
 .nobr { display: inline-block; }
+
+.print { display: none; }
 
 body { height: 100%; position: relative; background-color: white; overflow-y: scroll; overflow-x: hidden; margin: 0 !important; }
 
