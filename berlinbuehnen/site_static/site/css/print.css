@@ -26,7 +26,7 @@ body > .container { padding-left: 0; padding-right: 0; margin-left: -30px; margi
 h1.bottom-line { margin-left: 0 !important; margin-right: 0 !important; }
 
 .grid { margin-left: -20px; margin-right: -20px; }
-.grid .grid-item { page-break-inside: avoid; padding-left: 10px; padding-right: 10px; padding-bottom: 30px; }
+.grid .grid-item { page-break-inside: avoid; padding-left: 10px; padding-right: 10px; padding-bottom: 30px; width: 100% !important; }
 .grid .grid-item .grid-item-image { display: none; }
 
 #body .list { margin-left: -10px !important; margin-right: -10px !important; }
@@ -69,6 +69,7 @@ body.safari .list-item-head-date .list-item-head-date-icons { top: 21px !importa
 .accordion .accordion-item .accordion-item-content-wrapper { height: auto !important; }
 .accordion .accordion-item p, .accordion .accordion-item a.block, .accordion .accordion-item h5, .accordion .accordion-item dl, .accordion .accordion-item ul, .accordion .accordion-item img.logo { margin-left: 0; margin-right: 0; }
 .accordion .accordion-item a.more-dates, .accordion .accordion-item a.less-dates { display: none !important; }
+#body .accordion .accordion-item ul.list { margin-left: inherit !important; margin-right: inherit !important; }
 .accordion .accordion-item ul.dates li { border-bottom: none; margin-left: -17px; }
 .accordion.sidebar-accordion .accordion-item .accordion-item-head { font-size: 1em; font-weight: 700; border-bottom: 1px solid black; }
 
