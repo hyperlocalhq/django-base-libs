@@ -43,7 +43,7 @@ class PageTest(unittest.TestCase):
         )
 
 
-def suite():
+class Urls:
     non_localized_static_pages = (
         ('/about/', 301), # FIXME currently doesn't redirect /de/.../
         ('/coworking/', 301), # FIXME currently doesn't redirect /de/.../
@@ -341,12 +341,14 @@ def suite():
     non_localized_constant_urls  = ( # most should redirect, i.e. return 301
         ('/', 302),
         ('/account/', 302),
+        ('/blog/', 302),
         ('/compatibility/', 302),
         ('/contact/', 302),
         ('/contact/alldone/', 302),
         ('/creative-sector/', 302),
         ('/dashboard/', 302),
         ('/documents/', 302),
+        ('/events/', 302),
         ('/events/add/', 302),
         ('/facebook/', 302),
         ('/facebook/data-exchange/', 302),
@@ -355,10 +357,12 @@ def suite():
         ('/facebook/link/register/', 302),
         ('/facebook/manage/', 302),
         ('/facebook/pages/', 302),
+        ('/faqs/', 302),
         ('/gmap/', 302),
         ('/groups/', 302),
         ('/groups/add/', 302),
         ('/groups/invitations/', 302),
+        ('/help/', 302),
         ('/helper/bookmark/', 200),
         ('/helper/country_lookup/', 200),
         ('/helper/institution_lookup/', 302), # login required
@@ -369,6 +373,7 @@ def suite():
         ('/institutions/add/', 302),
         ('/invite/', 302),
         ('/invite/done/', 302),
+        ('/jobs/', 302),
         ('/jobs/add/', 302),
         ('/jobs/create-berlin-jobboard/', 302),
         ('/jobs/talent-in-berlin/', 302),
@@ -405,12 +410,14 @@ def suite():
         ('/notification/feed/', 302),
         ('/notification/mark_all_seen/', 302),
         ('/notification/settings/', 302),
+        ('/partner/', 200),
         ('/password_change/', 302),
         ('/password_change/done/', 302),
         ('/password_reset/', 302),
         ('/password_reset/complete/', 302),
         ('/password_reset/done/', 302),
         ('/people/', 302),
+        ('/portfolios/', 302),
         # ('/recrop/', 200), # TODO rethink this test, /recrop/ requires URL parameters
         ('/register/', 302),
         ('/register/alldone/', 302),
@@ -429,7 +436,6 @@ def suite():
         ('/styleguide/typography/', 302),
         ('/subscribe4info/', 302),
         ('/subscribe4info/done/', 302),
-        ('/tagging_autocomplete/list/', 302), # FIXME should redirect to /de/tagging_autocomplete_list/
         ('/ticket/', 302),
         ('/tweets/', 302),
     )
@@ -442,12 +448,14 @@ def suite():
     localized_constant_urls = ( # most should work, i.e. return 200
         ('/de/', 200),
         ('/de/account/', 200),
+        ('/de/blog/', 200),
         ('/de/compatibility/', 200),
         ('/de/contact/', 200),
         ('/de/contact/alldone/', 200),
         ('/de/creative-sector/', 302), # login required
         ('/de/dashboard/', 302), # login required
         ('/de/documents/', 200),
+        ('/de/events/', 200), # FIXME currently failing with FieldDoesNotExist: additional_info_markup_type
         ('/de/events/add/', 302), # login required
         ('/de/facebook/', 302), # login required
         ('/de/facebook/data-exchange/', 302), # login required
@@ -456,10 +464,12 @@ def suite():
         ('/de/facebook/link/register/', 302), # login required
         ('/de/facebook/manage/', 302), # login required
         ('/de/facebook/pages/', 302), # login required
+        ('/de/faqs/', 200),
         ('/de/gmap/', 200),
         ('/de/groups/', 200),
         ('/de/groups/add/', 302), # login required
         ('/de/groups/invitations/', 302), # login required
+        ('/de/help/', 200),
         # ('/de/helper/blank_doc/', 200), # included in PATHS_NO_REDIRECTION
         # ('/de/helper/bookmark/', 200), # included in PATHS_NO_REDIRECTION
         # ('/de/helper/country_lookup/', 200), # included in PATHS_NO_REDIRECTION
@@ -471,6 +481,7 @@ def suite():
         ('/de/institutions/add/', 302), # login required
         ('/de/invite/', 302), # login required
         ('/de/invite/done/', 200),
+        ('/de/jobs/', 200),
         ('/de/jobs/add/', 302), # login required
         ('/de/jobs/create-berlin-jobboard/', 200),
         ('/de/jobs/talent-in-berlin/', 200),
@@ -504,15 +515,16 @@ def suite():
         ('/de/news/articles/', 200),
         ('/de/news/interviews/', 200),
         ('/de/notification/', 302), # login required
-        ('/de/notification/feed/', 200), # FIXME currently returns 401 (HTTP login dialog)
         ('/de/notification/mark_all_seen/', 302), # login required
         ('/de/notification/settings/', 302), # login required
+        ('/de/partner/', 200), # FIXME currently returning 404
         ('/de/password_change/', 302), # login required
         ('/de/password_change/done/', 200), # FIXME currently returning 302
         ('/de/password_reset/', 200),
         ('/de/password_reset/complete/', 200),
         ('/de/password_reset/done/', 200),
         ('/de/people/', 200),
+        ('/de/portfolios/', 200),
         # ('/de/recrop/', 200), # included in PATHS_NO_REDIRECTION
         ('/de/register/', 200),
         ('/de/register/alldone/', 302), # login required
@@ -612,7 +624,6 @@ def suite():
         ('/admin/filebrowser/delete_confirm/', 302),
         ('/admin/filebrowser/detail/', 302),
         ('/admin/filebrowser/get-version/', 302),
-        ('/admin/filebrowser/upload_file/', 302), # FIXME AttributeError
         ('/admin/filebrowser/version/', 302),
         ('/admin/filebrowser/versions/', 302),
         ('/admin/flatpages/flatpage/', 302),
@@ -761,19 +772,19 @@ def suite():
         ('/admin/tagging/tag/add/', 302),
         ('/admin/tagging/taggeditem/', 302),
         ('/admin/tagging/taggeditem/add/', 302),
-        ('/admin/templates/', 404), # TODO currently returns 404
+        ('/admin/templates/', 302), # TODO currently returns 404
         ('/admin/tracker/concern/', 302),
         ('/admin/tracker/concern/add/', 302),
         ('/admin/tracker/ticket/', 302),
         ('/admin/tracker/ticket/add/', 302),
     )
 
-    # URLs extracted from sitemap.xml
-    #  366 pages: /de/document
-    #  529 pages: /de/event
-    # 2601 pages: /de/institution
-    # 7943 pages: /de/person
     sitemap_urls = (
+        # URLs extracted from sitemap.xml
+        #  366 pages: /de/document
+        #  529 pages: /de/event
+        # 2601 pages: /de/institution
+        # 7943 pages: /de/person
         ('/de/document/12designer/', 200),
         ('/de/document/1st-blue-das-modemagazin/', 200),
         ('/de/document/3-kreativwirtschftsbericht-berlin-entwicklung-und-potenziale/', 200),
@@ -1183,7 +1194,6 @@ def suite():
         ('/de/event/away-away-and-spiraling-in-3/', 200),
         ('/de/event/away-away-and-spiraling-in-4/', 200),
         ('/de/event/away-away-and-spiraling-in-5/', 200),
-        ('/de/event/away-away-and-spiraling-in-6-2-2/', 500), # FIXME throwing error in production
         ('/de/event/away-away-and-spiraling-in/', 200),
         ('/de/event/basic-photography-course-start-to-see-the-world-differently/', 200),
         ('/de/event/berlin-art-adventure-workshop/', 200),
@@ -12215,19 +12225,29 @@ def suite():
         ('/de/person/zweimaleins/', 200),
     )
 
+    failing_production_urls = (
+        ('/de/event/away-away-and-spiraling-in-6-2-2/', 500), # FIXME throwing error in production
+        ('/tagging_autocomplete/list/', 302), # FIXME should redirect to /de/tagging_autocomplete_list/
+        ('/de/notification/feed/', 200), # FIXME currently returns 401 (HTTP login dialog)
+        ('/admin/filebrowser/upload_file/', 302), # FIXME AttributeError
+    )
+
+
+def suite():
     from random import sample
-    sitemap_sample_urls = sample(sitemap_urls, 100)
+    sitemap_sample_urls = sample(Urls.sitemap_urls, 100)
     url_lists = (
-        localized_constant_urls,
-        localized_slug_urls,
-        localized_static_pages,
-        non_localized_constant_urls,
-        non_localized_slug_urls,
-        non_localized_static_pages,
-        admin_urls,
-        sitemap,
-        # sitemap_urls,
-        sitemap_sample_urls,
+        Urls.localized_constant_urls,
+        Urls.localized_slug_urls,
+        Urls.localized_static_pages,
+        Urls.non_localized_constant_urls,
+        Urls.non_localized_slug_urls,
+        Urls.non_localized_static_pages,
+        Urls.admin_urls,
+        # Urls.sitemap,
+        # Urls.sitemap_urls, # takes one hour and a half to test 10,000+ URLs
+        sitemap_sample_urls, # small sample of 100 URLs from sitemap_urls
+        Urls.failing_production_urls,
     )
 
     suite = unittest.TestSuite()
