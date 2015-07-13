@@ -1,49 +1,68 @@
 {% load i18n %}
-<fieldset class="grp-module aligned collapse closed">
-    <h2 class="collapse-handler">{% if form.is_featured %}
+<fieldset class="grp-module grp-aligned grp-collapse grp-closed">
+    <h2 class="grp-collapse-handler">{% if form.is_featured %}
             {{ _("Status & Featured")|force_escape }}
         {% else %}
             {% trans "Status" %}
         {% endif %}
     </h2>
     {% if form.completeness %}
-        <div class="row{% if form.completeness.errors %} errors{% endif %}">
-            <div>
-                <div class="column span-4"><label for="id_completeness"{% if form.completeness.field.required %} class="required"{% endif %}>{% trans "Completeness" %} (%):</label></div>
-                <div class="column span-flexible">
+        <div class="grp-row grp-cells-1{% if form.completeness.errors %} errors{% endif %}">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    <label{% if form.completeness.field.required %} class="required"{% endif %}>{{ form.completeness.label }}</label>
+                </div>
+                <div class="c-2">
                     {{ form.completeness }}
-                    {{ form.completeness.errors }}
+                    {% if form.completeness.errors %}
+                        <ul class="errorlist"><li>{{ form.completeness.errors|join:", "}}</li></ul>
+                    {% endif %}
+
+                    {% if form.completeness.help_text %}<p class="grp-help">{{ form.completeness.help_text }}</p>{% endif %}
                 </div>
             </div>
         </div>
     {% endif %}
-    <div class="row{% if form.status.errors %} errors{% endif %}">
-        <div>
-            <div class="column span-4"><label for="id_status"{% if form.status.field.required %} class="required"{% endif %}>{% trans "Status" %}:</label></div>
-            <div class="column span-flexible">
+    <div class="grp-row grp-cells-1{% if form.status.errors %} errors{% endif %}">
+        <div class="l-2c-fluid l-d-4">
+            <div class="c-1">
+                <label{% if form.status.field.required %} class="required"{% endif %}>{{ form.status.label }}</label>
+            </div>
+            <div class="c-2">
                 {{ form.status }}
-                {{ form.status.errors }}
+                {% if form.status.errors %}
+                    <ul class="errorlist"><li>{{ form.status.errors|join:", "}}</li></ul>
+                {% endif %}
+
+                {% if form.status.help_text %}<p class="grp-help">{{ form.status.help_text }}</p>{% endif %}
             </div>
         </div>
     </div>
     {% if form.is_featured %}
-        <div class="row{% if form.is_featured.errors %} errors{% endif %}">
-            <div>
-                <div class="column span-4">&nbsp;</div>
-                <div class="column span-flexible">
-                    {{ form.is_featured }}<label for="id_is_featured" class="vCheckboxLabel{% if form.is_featured.field.required %} required{% endif %}">{% trans "Featured?" %}</label>
-                    {{ form.is_featured.errors }}
+        <div class="grp-row">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    &nbsp;
+                </div>
+                <div class="c-2">
+                    {{ form.is_featured }}<label class="vCheckboxLabel" for="id_is_featured">{{ form.is_featured.label }}</label>
                 </div>
             </div>
         </div>
     {% endif %}
     {% if form.importance %}
-        <div class="row{% if form.importance.errors %} errors{% endif %}">
-            <div>
-                <div class="column span-4"><label for="id_importance"{% if form.importance.field.required %} class="required"{% endif %}>{% trans "Importance" %}:</label></div>
-                <div class="column span-flexible">
+        <div class="grp-row grp-cells-1{% if form.importance.errors %} errors{% endif %}">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    <label{% if form.importance.field.required %} class="required"{% endif %}>{{ form.importance.label }}</label>
+                </div>
+                <div class="c-2">
                     {{ form.importance }}
-                    {{ form.importance.errors }}
+                    {% if form.importance.errors %}
+                        <ul class="errorlist"><li>{{ form.importance.errors|join:", "}}</li></ul>
+                    {% endif %}
+
+                    {% if form.importance.help_text %}<p class="grp-help">{{ form.importance.help_text }}</p>{% endif %}
                 </div>
             </div>
         </div>

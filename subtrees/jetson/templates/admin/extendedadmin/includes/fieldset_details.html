@@ -1,47 +1,63 @@
 {% load i18n %}
 
-<fieldset class="grp-module aligned collapse closed">
-    <h2 class="collapse-handler">{% trans "Details" %}</h2>
+<fieldset class="grp-module grp-aligned grp-collapse grp-closed">
+    <h2 class="grp-collapse-handler">{% trans "Details" %}</h2>
 
     {% if form.description_en %}
-        <fieldset class="grp-module aligned nested multilingual multilingual-set-15 multilingual-language-en">
+        <fieldset class="grp-module grp-aligned nested multilingual multilingual-set-15 multilingual-language-en">
             <h2>{% trans "Description" %} (English)</h2>
-            <div class="row description_en{% if form.description_en.errors %} errors{% endif %}">
-                <div>
-                    <div class="column span-4"><label for="id_description_en"{% if form.description_en.field.required %} class="required"{% endif %}>{% trans "Description" %}:</label></div>
-                    <div class="column span-flexible">
+            <div class="grp-row grp-cells-1{% if form.description_en.errors %} errors{% endif %}">
+                <div class="l-2c-fluid l-d-4">
+                    <div class="c-1">
+                        <label{% if form.description_en.field.required %} class="required"{% endif %}>{{ form.description_en.label }}</label>
+                    </div>
+                    <div class="c-2">
                         {{ form.description_en_markup_type }}
-                        {% if form.description_en_markup_type.help_text %}<p class="help">{{ form.description_en_markup_type.help_text|safe }}</p>{% endif %}
                         <p>{{ form.description_en }}</p>
-                        {{ form.description_en.errors }}
+                        {% if form.description_en.errors %}
+                            <ul class="errorlist"><li>{{ form.description_en.errors|join:", "}}</li></ul>
+                        {% endif %}
+
+                        {% if form.description_en.help_text %}<p class="grp-help">{{ form.description_en.help_text }}</p>{% endif %}
                     </div>
                 </div>
             </div>
         </fieldset>
     {% endif %}
     {% if form.description_de %}
-        <fieldset class="grp-module aligned nested multilingual multilingual-set-15 multilingual-language-de">
+        <fieldset class="grp-module grp-aligned nested multilingual multilingual-set-15 multilingual-language-de">
             <h2 class="collapse-handler">{% trans "Description" %} (Deutsch)</h2>
-            <div class="row description_de{% if form.description_de.errors %} errors{% endif %}">
-                <div>
-                    <div class="column span-4"><label for="id_description_de"{% if form.description_de.field.required %} class="required"{% endif %}>{% trans "Description" %}:</label></div>
-                    <div class="column span-flexible">
+            <div class="grp-row grp-cells-1{% if form.description_de.errors %} errors{% endif %}">
+                <div class="l-2c-fluid l-d-4">
+                    <div class="c-1">
+                        <label{% if form.description_de.field.required %} class="required"{% endif %}>{{ form.description_de.label }}</label>
+                    </div>
+                    <div class="c-2">
                         {{ form.description_de_markup_type }}
-                        {% if form.description_de_markup_type.help_text %}<p class="help">{{ form.description_de_markup_type.help_text|safe }}</p>{% endif %}
                         <p>{{ form.description_de }}</p>
-                        {{ form.description_de.errors }}
+                        {% if form.description_de.errors %}
+                            <ul class="errorlist"><li>{{ form.description_de.errors|join:", "}}</li></ul>
+                        {% endif %}
+
+                        {% if form.description_de.help_text %}<p class="grp-help">{{ form.description_de.help_text }}</p>{% endif %}
                     </div>
                 </div>
             </div>
         </fieldset>
     {% endif %}
     
-    <div class="row{% if form.image.errors %} errors{% endif %}">
-        <div>
-            <div class="column span-4"><label for="id_image"{% if form.image.field.required %} class="required"{% endif %}>{% trans "Image" %}:</label></div>
-            <div class="column span-flexible">
+    <div class="grp-row grp-cells-1{% if form.image.errors %} errors{% endif %}">
+        <div class="l-2c-fluid l-d-4">
+            <div class="c-1">
+                <label{% if form.image.field.required %} class="required"{% endif %}>{{ form.image.label }}</label>
+            </div>
+            <div class="c-2">
                 {{ form.image }}
-                {{ form.image.errors }}
+                {% if form.image.errors %}
+                    <ul class="errorlist"><li>{{ form.image.errors|join:", "}}</li></ul>
+                {% endif %}
+
+                {% if form.image.help_text %}<p class="grp-help">{{ form.image.help_text }}</p>{% endif %}
             </div>
         </div>
     </div>
