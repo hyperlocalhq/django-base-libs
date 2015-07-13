@@ -819,6 +819,8 @@ MAILING_CONTENT_TYPE_CHOICES = (
 
 ROSETTA_STORAGE_CLASS = "rosetta.storage.SessionRosettaStorage"
 
+USE_TZ = True
+
 ### LOCAL SETTINGS ###
 
 try:
