@@ -12097,27 +12097,27 @@ class Urls:
 def suite():
     suite = unittest.TestSuite()
     from random import sample
-    sample_urls = sample(Urls.urls_which_should_return_200, 10)
-    url_lists_by_expected_status_code = (
-        (200, Urls.urls_which_should_return_200_but_dont),
-        (301, Urls.urls_which_should_return_301_but_dont),
-        (302, Urls.urls_which_should_return_302_but_dont),
-        (200, Urls.urls_which_should_return_200) if FULL_TESTS else (200, sample_urls),
-        (302, Urls.urls_which_should_return_302),
-        (302, Urls.urls_which_should_return_302_when_anonymous),
-        (403, Urls.urls_which_should_return_403_when_anonymous),
-        (404, Urls.urls_which_should_return_404),
-        (500, Urls.urls_which_should_return_500),
+    if FULL_TESTS:
+        normal_urls = Urls.urls_which_should_return_200
+    else:
+        normal_urls = sample(Urls.urls_which_should_return_200, 100)
+    url_lists_by_expected_title = (
+        ('Creative City Berlin', Urls.urls_which_should_return_200_but_dont),
+        ('Creative City Berlin', Urls.urls_which_should_return_301_but_dont),
+        ('Creative City Berlin', Urls.urls_which_should_return_302_but_dont),
+        ('Creative City Berlin', normal_urls),
+        ('Creative City Berlin', Urls.urls_which_should_return_302),
+        ('Creative City Berlin', Urls.urls_which_should_return_302_when_anonymous),
+        ('Creative City Berlin', Urls.urls_which_should_return_403_when_anonymous),
+        ('Creative City Berlin', Urls.urls_which_should_return_404),
+        ('Creative City Berlin', Urls.urls_which_should_return_500),
+        ('Django site admin', Urls.admin_urls),
     )
-    for expected_status_code, url_list in url_lists_by_expected_status_code:
+    for expected_title, url_list in url_lists_by_expected_title:
         suite.addTests(
-            TitleTest(url_path, 'Creative City Berlin')
+            TitleTest(url_path, expected_title)
             for url_path in url_list
         )
-    suite.addTests(
-        TitleTest(url_path, 'Django site admin')
-        for url_path in Urls.admin_urls
-    )
     return suite
 
 
