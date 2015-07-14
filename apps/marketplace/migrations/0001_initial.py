@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+import jetson.apps.optionset.models
 from django.conf import settings
 import base_libs.models.fields
 import tagging_autocomplete.models
@@ -10,7 +11,11 @@ import tagging_autocomplete.models
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('people', '0001_initial'),
+        ('location', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('optionset', '0001_initial'),
+        ('institutions', '0001_initial'),
     ]
 
     operations = [
@@ -75,6 +80,14 @@ class Migration(migrations.Migration):
                 ('is_commercial', models.BooleanField(default=False, verbose_name='One has to pay to get information about the job')),
                 ('talent_in_berlin', models.BooleanField(default=False, verbose_name='Export to www.talent-in-berlin.de')),
                 ('author', models.ForeignKey(related_name='joboffer_author', blank=True, to=settings.AUTH_USER_MODEL, help_text='If you do not select an author, you will be the author!', null=True, verbose_name='author')),
+                ('contact_person', models.ForeignKey(related_name='jobs_posted', verbose_name='Organizing person', blank=True, to='people.Person', null=True)),
+                ('creator', models.ForeignKey(related_name='joboffer_creator', editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='creator')),
+                ('email0_type', models.ForeignKey(related_name='job_offers0', verbose_name='Email Type', blank=True, to='optionset.EmailType', null=True)),
+                ('email1_type', models.ForeignKey(related_name='job_offers1', verbose_name='Email Type', blank=True, to='optionset.EmailType', null=True)),
+                ('email2_type', models.ForeignKey(related_name='job_offers2', verbose_name='Email Type', blank=True, to='optionset.EmailType', null=True)),
+                ('im0_type', models.ForeignKey(related_name='job_offers0', verbose_name='IM Type', blank=True, to='optionset.IMType', null=True)),
+                ('im1_type', models.ForeignKey(related_name='job_offers1', verbose_name='IM Type', blank=True, to='optionset.IMType', null=True)),
+                ('im2_type', models.ForeignKey(related_name='job_offers2', verbose_name='IM Type', blank=True, to='optionset.IMType', null=True)),
             ],
             options={
                 'ordering': ['position', 'creation_date'],
@@ -135,5 +148,77 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': 'job types',
             },
             bases=(models.Model,),
+        ),
+        migrations.AddField(
+            model_name='joboffer',
+            name='job_sectors',
+            field=models.ManyToManyField(related_name='job_sector_joboffers', verbose_name='Job sectors', to='marketplace.JobSector', blank=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='joboffer',
+            name='job_type',
+            field=models.ForeignKey(verbose_name='Job type', to='marketplace.JobType'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='joboffer',
+            name='modifier',
+            field=models.ForeignKey(related_name='joboffer_modifier', editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='modifier'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='joboffer',
+            name='offering_institution',
+            field=models.ForeignKey(verbose_name='Organizing institution', blank=True, to='institutions.Institution', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='joboffer',
+            name='phone0_type',
+            field=models.ForeignKey(related_name='job_offers0', default=jetson.apps.optionset.models.get_default_phonetype_for_phone, blank=True, to='optionset.PhoneType', null=True, verbose_name='Phone Type'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='joboffer',
+            name='phone1_type',
+            field=models.ForeignKey(related_name='job_offers1', default=jetson.apps.optionset.models.get_default_phonetype_for_fax, blank=True, to='optionset.PhoneType', null=True, verbose_name='Phone Type'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='joboffer',
+            name='phone2_type',
+            field=models.ForeignKey(related_name='job_offers2', default=jetson.apps.optionset.models.get_default_phonetype_for_mobile, blank=True, to='optionset.PhoneType', null=True, verbose_name='Phone Type'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='joboffer',
+            name='postal_address',
+            field=models.ForeignKey(related_name='address_job_offers', verbose_name='Postal Address', blank=True, to='location.Address', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='joboffer',
+            name='qualifications',
+            field=models.ManyToManyField(related_name='joboffers', verbose_name='Qualifications', to='marketplace.JobQualification', blank=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='joboffer',
+            name='url0_type',
+            field=models.ForeignKey(related_name='job_offers0', verbose_name='URL Type', blank=True, to='optionset.URLType', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='joboffer',
+            name='url1_type',
+            field=models.ForeignKey(related_name='job_offers1', verbose_name='URL Type', blank=True, to='optionset.URLType', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='joboffer',
+            name='url2_type',
+            field=models.ForeignKey(related_name='job_offers2', verbose_name='URL Type', blank=True, to='optionset.URLType', null=True),
+            preserve_default=True,
         ),
     ]

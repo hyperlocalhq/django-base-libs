@@ -137,7 +137,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='mediafile',
             name='gallery',
-            field=models.ForeignKey(default=0, verbose_name='Media Gallery', to='media_gallery.MediaGallery'),
+            field=models.ForeignKey(verbose_name='Media Gallery', to='media_gallery.MediaGallery'),
             preserve_default=True,
         ),
         migrations.AddField(

@@ -3,15 +3,19 @@ from __future__ import unicode_literals
 
 from django.db import models, migrations
 import mptt.fields
-import base_libs.models.fields
 import filebrowser.fields
+from django.conf import settings
+import base_libs.models.fields
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
         ('structure', '0001_initial'),
+        ('institutions', '0001_initial'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('contenttypes', '0001_initial'),
+        ('i18n', '0001_initial'),
     ]
 
     operations = [
@@ -28,6 +32,8 @@ class Migration(migrations.Migration):
                 ('activation', models.DateTimeField(verbose_name='Activated', null=True, editable=False)),
                 ('title_de', models.CharField(max_length=255, verbose_name='Title', blank=True)),
                 ('title_en', models.CharField(max_length=255, verbose_name='Title', blank=True)),
+                ('confirmer', models.ForeignKey(related_name='group_confirmer', verbose_name='Confirmer', blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+                ('inviter', models.ForeignKey(related_name='group_inviter', verbose_name='Inviter', blank=True, to=settings.AUTH_USER_MODEL, null=True)),
             ],
             options={
                 'abstract': False,
@@ -49,6 +55,7 @@ class Migration(migrations.Migration):
                 ('rght', models.PositiveIntegerField(editable=False, db_index=True)),
                 ('tree_id', models.PositiveIntegerField(editable=False, db_index=True)),
                 ('level', models.PositiveIntegerField(editable=False, db_index=True)),
+                ('parent', mptt.fields.TreeForeignKey(related_name='child_set', blank=True, to='groups_networks.GroupType', null=True)),
             ],
             options={
                 'ordering': ['tree_id', 'lft'],
@@ -81,6 +88,8 @@ class Migration(migrations.Migration):
                 ('context_categories', mptt.fields.TreeManyToManyField(to='structure.ContextCategory', verbose_name='Context categories', blank=True)),
                 ('creative_sectors', mptt.fields.TreeManyToManyField(related_name='creative_sectors_groups', verbose_name='Creative sectors', to='structure.Term', blank=True)),
                 ('group_type', mptt.fields.TreeForeignKey(related_name='type_groups', verbose_name='Group Type', to='groups_networks.GroupType')),
+                ('organizing_institution', models.ForeignKey(verbose_name='Organizing institution', blank=True, to='institutions.Institution', null=True)),
+                ('preferred_language', models.ForeignKey(verbose_name='Preferred Language', blank=True, to='i18n.Language', null=True)),
             ],
             options={
                 'abstract': False,
@@ -89,5 +98,17 @@ class Migration(migrations.Migration):
                 'permissions': (('can_invite', 'Can invite users'), ('can_confirm', 'Can confirm memberships'), ('can_change_members', 'Can change members'), ('can_see_members', 'Can see members'), ('can_see_roles', 'Can see roles of each member')),
             },
             bases=(models.Model,),
+        ),
+        migrations.AddField(
+            model_name='groupmembership',
+            name='person_group',
+            field=models.ForeignKey(verbose_name='Group of People', to='groups_networks.PersonGroup'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='groupmembership',
+            name='user',
+            field=models.ForeignKey(verbose_name='User', to=settings.AUTH_USER_MODEL),
+            preserve_default=True,
         ),
     ]

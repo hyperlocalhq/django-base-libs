@@ -46,7 +46,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='slide',
             name='slideshow',
-            field=models.ForeignKey(default=0, verbose_name='Slideshow', to='slideshows.Slideshow'),
+            field=models.ForeignKey(verbose_name='Slideshow', to='slideshows.Slideshow'),
             preserve_default=True,
         ),
     ]

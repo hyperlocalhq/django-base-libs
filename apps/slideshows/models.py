@@ -24,7 +24,7 @@ class Slideshow(SysnameMixin()):
         return self.sysname
 
 class Slide(models.Model):
-    slideshow = models.ForeignKey(Slideshow, verbose_name=_("Slideshow"), default=0)
+    slideshow = models.ForeignKey(Slideshow, verbose_name=_("Slideshow"))
     path = FileBrowseField(_('File path'), max_length=255, blank=True, help_text=_("A path to a locally stored image or video."))
     link = models.CharField(_('Link'), max_length=255, blank=True)
     alt = MultilingualCharField(_("Alternative text"), max_length=100, blank=True)
