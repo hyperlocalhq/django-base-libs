@@ -44,34 +44,60 @@ class PageTest(unittest.TestCase):
 
 
 class Urls:
-    non_localized_static_pages = (
-        ('/about/', 301), # FIXME currently doesn't redirect /de/.../
-        ('/coworking/', 301), # FIXME currently doesn't redirect /de/.../
-        ('/creative-sector/advertising-and-pr/location/', 301),
-        ('/creative-sector/architecture/location/', 301),
-        ('/creative-sector/design/location/', 301),
-        ('/creative-sector/events/location/', 301),
-        ('/creative-sector/fashion-and-textile/location/', 301),
-        ('/creative-sector/film-and-broadcast/location/', 301),
-        ('/creative-sector/fine-art/location/', 301),
-        ('/creative-sector/games-and-interactive/location/', 301),
-        ('/creative-sector/literature-and-publishing/location/', 301),
-        ('/creative-sector/music/location/', 301),
-        ('/creative-sector/photography/location/', 301),
-        ('/creative-sector/theatre-and-dance/location/', 301),
-        ('/education/', 301), # FIXME currently doesn't redirect /de/.../
-        ('/imprint/', 301), # FIXME currently doesn't redirect /de/.../
-        ('/KKI/', 301), # FIXME currently doesn't redirect /de/.../
-        ('/kreativarbeiten/orientierungsberatung/', 301), # FIXME currently doesn't redirect /de/.../
-        ('/kreativarbeiten/ueber-uns/', 301), # FIXME currently doesn't redirect /de/.../
-        ('/location/', 301), # FIXME currently doesn't redirect /de/.../
-        ('/privacy/', 301), # FIXME currently doesn't redirect /de/.../
-        ('/spread-the-word/', 301), # FIXME currently doesn't redirect /de/.../
-        ('/terms-of-use/', 301), # FIXME currently doesn't redirect /de/.../
+    urls_which_should_return_200_but_dont = (
+        ('/de/events/', 200), # FIXME currently failing with FieldDoesNotExist: additional_info_markup_type
+        ('/de/notification/feed/', 200), # FIXME currently returns 401 (HTTP login dialog)
+        ('/de/partner/', 200), # FIXME currently returning 404
+        ('/de/password_change/done/', 200), # FIXME currently returning 302
     )
 
-    localized_static_pages = (
+    urls_which_should_return_301_but_dont = (
+        ('/about/', 301), # FIXME currently doesn't redirect to /de/.../
+        ('/coworking/', 301), # FIXME currently doesn't redirect to /de/.../
+        ('/creative-sector/advertising-and-pr/location/', 301), # FIXME currently doesn't redirect to /de/.../
+        ('/creative-sector/architecture/location/', 301), # FIXME currently doesn't redirect to /de/.../
+        ('/creative-sector/design/location/', 301), # FIXME currently doesn't redirect to /de/.../
+        ('/creative-sector/events/location/', 301), # FIXME currently doesn't redirect to /de/.../
+        ('/creative-sector/fashion-and-textile/location/', 301), # FIXME currently doesn't redirect to /de/.../
+        ('/creative-sector/film-and-broadcast/location/', 301), # FIXME currently doesn't redirect to /de/.../
+        ('/creative-sector/fine-art/location/', 301), # FIXME currently doesn't redirect to /de/.../
+        ('/creative-sector/games-and-interactive/location/', 301), # FIXME currently doesn't redirect to /de/.../
+        ('/creative-sector/literature-and-publishing/location/', 301), # FIXME currently doesn't redirect to /de/.../
+        ('/creative-sector/music/location/', 301), # FIXME currently doesn't redirect to /de/.../
+        ('/creative-sector/photography/location/', 301), # FIXME currently doesn't redirect to /de/.../
+        ('/creative-sector/theatre-and-dance/location/', 301), # FIXME currently doesn't redirect to /de/.../
+        ('/education/', 301), # FIXME currently doesn't redirect to /de/.../
+        ('/imprint/', 301), # FIXME currently doesn't redirect to /de/.../
+        ('/KKI/', 301), # FIXME currently doesn't redirect to /de/.../
+        ('/kreativarbeiten/orientierungsberatung/', 301), # FIXME currently doesn't redirect to /de/.../
+        ('/kreativarbeiten/ueber-uns/', 301), # FIXME currently doesn't redirect to /de/.../
+        ('/location/', 301), # FIXME currently doesn't redirect to /de/.../
+        ('/privacy/', 301), # FIXME currently doesn't redirect to /de/.../
+        ('/spread-the-word/', 301), # FIXME currently doesn't redirect to /de/.../
+        ('/terms-of-use/', 301), # FIXME currently doesn't redirect to /de/.../
+    )
+
+    urls_which_should_return_302_but_dont = (
+        ('/admin/filebrowser/upload_file/', 302), # FIXME AttributeError
+        ('/admin/templates/', 302), # TODO currently returns 404
+        ('/tagging_autocomplete/list/', 302), # FIXME currently returns 404 instead of redirecting to /de/.../
+    )
+
+    urls_which_should_return_200 = (
+        # ('/recrop/', 200), # TODO rethink this test, /recrop/ requires URL parameters
+        # ('/de/helper/blank_doc/', 200), # included in PATHS_NO_REDIRECTION
+        # ('/de/helper/bookmark/', 200), # included in PATHS_NO_REDIRECTION
+        # ('/de/helper/country_lookup/', 200), # included in PATHS_NO_REDIRECTION
+        # ('/de/helper/site-visitors/', 200), # included in PATHS_NO_REDIRECTION
+        # ('/de/recrop/', 200), # included in PATHS_NO_REDIRECTION
+        # ('/de/tagging_autocomplete/list', 200), # included in PATHS_NO_REDIRECTION
+        ('/de/', 200),
         ('/de/about/', 200),
+        ('/de/account/', 200),
+        ('/de/blog/', 200),
+        ('/de/compatibility/', 200),
+        ('/de/contact/', 200),
+        ('/de/contact/alldone/', 200),
         ('/de/coworking/', 200),
         ('/de/creative-sector/advertising-and-pr/location/', 200),
         ('/de/creative-sector/architecture/location/', 200),
@@ -85,706 +111,6 @@ class Urls:
         ('/de/creative-sector/music/location/', 200),
         ('/de/creative-sector/photography/location/', 200),
         ('/de/creative-sector/theatre-and-dance/location/', 200),
-        ('/de/education/', 200),
-        ('/de/imprint/', 200),
-        ('/de/KKI/', 200),
-        ('/de/kreativarbeiten/orientierungsberatung/', 200),
-        ('/de/kreativarbeiten/ueber-uns/', 200),
-        ('/de/location/', 200),
-        ('/de/privacy/', 200),
-        ('/de/spread-the-word/', 200),
-        ('/de/terms-of-use/', 200),
-    )
-
-    non_localized_slug_urls = ( # most should redirect, i.e. return 301
-        # /contact/(?P<slug>[-\w]+)/
-        # /contact/(?P<slug>[-\w]+)/alldone/
-        # /creative-sector/(?P<creative_sector_slug>[^/]+)/
-        # /(event|document|group|institution|person)/(?P<slug>[^/]+)/post/
-        # /document/(?P<slug>[^/]+)/
-        # /document/(?P<slug>[^/]+)/network/
-        # /document/(?P<slug>[^/]+)/reviews/
-        # /event/(?P<slug>[^/]+)/
-        ('/event/workshop-booking-tour-rockpop/', 302),
-        # /(event|document|group|institution|person)/(?P<slug>[^/]+)/post/
-        ('/event/workshop-booking-tour-rockpop/post/', 302),
-        # /event/(?P<slug>[^/]+)/claim/
-        ('/event/workshop-booking-tour-rockpop/claim/', 302),
-        # /event/(?P<slug>[^/]+)/delete/
-        ('/event/workshop-booking-tour-rockpop/delete/', 302),
-        # /event/(?P<slug>[^/]+)/map/
-        ('/event/workshop-booking-tour-rockpop/map/', 302),
-        # /event/(?P<slug>[^/]+)/network/
-        ('/event/workshop-booking-tour-rockpop/network/', 302),
-        # /event/(?P<slug>[^/]+)/portfolio/
-        ('/event/workshop-booking-tour-rockpop/portfolio/', 302),
-        # /event/(?P<slug>[^/]+)/portfolio/album/add/
-        ('/event/workshop-booking-tour-rockpop/portfolio/album/add/', 302),
-        # /event/(?P<slug>[^/]+)/portfolio/manage/
-        ('/event/workshop-booking-tour-rockpop/portfolio/manage/', 302),
-        # /event/(?P<slug>[^/]+)/portfolio/section/add/
-        ('/event/workshop-booking-tour-rockpop/portfolio/section/add/', 302),
-        # /event/(?P<slug>[^/]+)/portfolio/settings/
-        ('/event/workshop-booking-tour-rockpop/portfolio/settings/', 302),
-        # /event/(?P<slug>[^/]+)/portfolio/settings/delete-landing-page-image/
-        ('/event/workshop-booking-tour-rockpop/portfolio/settings/delete-landing-page-image/', 302),
-        # /event/(?P<slug>[^/]+)/reviews/
-        ('/event/workshop-booking-tour-rockpop/reviews/', 302),
-        # /(event|document|group|institution|person)/(?P<slug>[^/]+)/post/
-        # /group/(?P<slug>[^/]+)/
-        # /group/(?P<slug>[^/]+)/events/
-        # /group/(?P<slug>[^/]+)/members/invite/
-        # /group/(?P<slug>[^/]+)/projects/
-        # /(event|document|group|institution|person)/(?P<slug>[^/]+)/post/
-        ('/institution/a_s_theater_film_ltd/post/', 302),
-        # /institution/(?P<slug>[^/]+)/
-        ('/institution/a_s_theater_film_ltd/', 302),
-        # /institution/(?P<slug>[^/]+)/jobs/
-        ('/institution/a_s_theater_film_ltd/jobs/', 302),
-        # /institution/(?P<slug>[^/]+)/map/
-        ('/institution/a_s_theater_film_ltd/map/', 302),
-        # /institution/(?P<slug>[^/]+)/message/
-        ('/institution/a_s_theater_film_ltd/message/', 302),
-        # /institution/(?P<slug>[^/]+)/message/alldone/
-        ('/institution/a_s_theater_film_ltd/message/alldone/', 302),
-        # /institution/(?P<slug>[^/]+)/network/
-        ('/institution/a_s_theater_film_ltd/network/', 302),
-        # /institution/(?P<slug>[^/]+)/network/groups/
-        ('/institution/a_s_theater_film_ltd/network/groups/', 302),
-        # /institution/(?P<slug>[^/]+)/network/partners/
-        ('/institution/a_s_theater_film_ltd/network/partners/', 302),
-        # /institution/(?P<slug>[^/]+)/network/staff/
-        ('/institution/a_s_theater_film_ltd/network/staff/', 302),
-        # /institution/(?P<slug>[^/]+)/portfolio/
-        ('/institution/a_s_theater_film_ltd/portfolio/', 302),
-        # /institution/(?P<slug>[^/]+)/portfolio/album/add/
-        ('/institution/a_s_theater_film_ltd/portfolio/album/add/', 302),
-        # /institution/(?P<slug>[^/]+)/portfolio/fb-sync/
-        ('/institution/a_s_theater_film_ltd/portfolio/fb-sync/', 302),
-        # /institution/(?P<slug>[^/]+)/portfolio/manage/
-        ('/institution/a_s_theater_film_ltd/portfolio/manage/', 302),
-        # /institution/(?P<slug>[^/]+)/portfolio/section/add/
-        ('/institution/a_s_theater_film_ltd/portfolio/section/add/', 302),
-        # /institution/(?P<slug>[^/]+)/portfolio/settings/
-        ('/institution/a_s_theater_film_ltd/portfolio/settings/', 302),
-        # /institution/(?P<slug>[^/]+)/portfolio/settings/delete-landing-page-image/
-        ('/institution/a_s_theater_film_ltd/portfolio/settings/delete-landing-page-image/', 302),
-        # /institution/(?P<slug>[^/]+)/projects/
-        ('/institution/a_s_theater_film_ltd/projects/', 302),
-        # /institution/(?P<slug>[^/]+)/reviews/
-        ('/institution/a_s_theater_film_ltd/reviews/', 302),
-        # /job/(?P<slug>[^/]+)/delete/
-        ('/job/7654237/delete/', 302),
-        # /news/creative-sector/(?P<creative_sector_slug>[^/]+)/
-        # /news/creative-sector/(?P<creative_sector_slug>[^/]+)/features/
-        # /(event|document|group|institution|person)/(?P<slug>[^/]+)/post/
-        ('/person/aidas_bendoraitis/post/', 302),
-        # /person/(?P<slug>[^/]+)/
-        ('/person/aidas_bendoraitis/', 302),
-        # /person/(?P<slug>[^/]+)/jobs/
-        ('/person/aidas_bendoraitis/jobs/', 302),
-        # /person/(?P<slug>[^/]+)/map/
-        ('/person/aidas_bendoraitis/map/', 302),
-        # /person/(?P<slug>[^/]+)/message/
-        ('/person/aidas_bendoraitis/message/', 302),
-        # /person/(?P<slug>[^/]+)/message/alldone/
-        ('/person/aidas_bendoraitis/message/alldone/', 302),
-        # /person/(?P<slug>[^/]+)/network/
-        ('/person/aidas_bendoraitis/network/', 302),
-        # /person/(?P<slug>[^/]+)/network/groups/
-        ('/person/aidas_bendoraitis/network/groups/', 302),
-        # /person/(?P<slug>[^/]+)/network/institution_contacts/
-        ('/person/aidas_bendoraitis/network/institution_contacts/', 302),
-        # /person/(?P<slug>[^/]+)/network/person_contacts/
-        ('/person/aidas_bendoraitis/network/person_contacts/', 302),
-        # /person/(?P<slug>[^/]+)/portfolio/
-        ('/person/aidas_bendoraitis/portfolio/', 302),
-        # /person/(?P<slug>[^/]+)/portfolio/album/add/
-        ('/person/aidas_bendoraitis/portfolio/album/add/', 302),
-        # /person/(?P<slug>[^/]+)/portfolio/fb-sync/
-        ('/person/aidas_bendoraitis/portfolio/fb-sync/', 302),
-        # /person/(?P<slug>[^/]+)/portfolio/manage/
-        ('/person/aidas_bendoraitis/portfolio/manage/', 302),
-        # /person/(?P<slug>[^/]+)/portfolio/section/add/
-        ('/person/aidas_bendoraitis/portfolio/section/add/', 302),
-        # /person/(?P<slug>[^/]+)/portfolio/settings/
-        ('/person/aidas_bendoraitis/portfolio/settings/', 302),
-        # /person/(?P<slug>[^/]+)/portfolio/settings/delete-landing-page-image/
-        ('/person/aidas_bendoraitis/portfolio/settings/delete-landing-page-image/', 302),
-        # /person/(?P<slug>[^/]+)/projects/
-        ('/person/aidas_bendoraitis/projects/', 302),
-        # /person/(?P<slug>[^/]+)/reviews/
-        ('/person/aidas_bendoraitis/reviews/', 302),
-    )
-
-    localized_slug_urls = (
-        # /contact/(?P<slug>[-\w]+)/
-        # /contact/(?P<slug>[-\w]+)/alldone/
-        # /creative-sector/(?P<creative_sector_slug>[^/]+)/
-        # /(event|document|group|institution|person)/(?P<slug>[^/]+)/post/
-        # /document/(?P<slug>[^/]+)/
-        # /document/(?P<slug>[^/]+)/network/
-        # /document/(?P<slug>[^/]+)/reviews/
-        # /event/(?P<slug>[^/]+)/
-        ('/de/event/workshop-booking-tour-rockpop/', 200),
-        # /(event|document|group|institution|person)/(?P<slug>[^/]+)/post/
-        ('/de/event/workshop-booking-tour-rockpop/post/', 302), # login required
-        # /event/(?P<slug>[^/]+)/claim/
-        ('/de/event/workshop-booking-tour-rockpop/claim/', 302), # login required
-        # /event/(?P<slug>[^/]+)/delete/
-        ('/de/event/workshop-booking-tour-rockpop/delete/', 302), # login required
-        # /event/(?P<slug>[^/]+)/map/
-        ('/de/event/workshop-booking-tour-rockpop/map/', 200),
-        # /event/(?P<slug>[^/]+)/network/
-        ('/de/event/workshop-booking-tour-rockpop/network/', 200),
-        # /event/(?P<slug>[^/]+)/portfolio/
-        ('/de/event/workshop-booking-tour-rockpop/portfolio/', 200),
-        # /event/(?P<slug>[^/]+)/portfolio/album/add/
-        ('/de/event/workshop-booking-tour-rockpop/portfolio/album/add/', 403), # access denied
-        # /event/(?P<slug>[^/]+)/portfolio/manage/
-        ('/de/event/workshop-booking-tour-rockpop/portfolio/manage/', 403), # access denied
-        # /event/(?P<slug>[^/]+)/portfolio/section/add/
-        ('/de/event/workshop-booking-tour-rockpop/portfolio/section/add/', 403), # access denied
-        # /event/(?P<slug>[^/]+)/portfolio/settings/
-        ('/de/event/workshop-booking-tour-rockpop/portfolio/settings/', 403), # access denied
-        # /event/(?P<slug>[^/]+)/portfolio/settings/delete-landing-page-image/
-        ('/de/event/workshop-booking-tour-rockpop/portfolio/settings/delete-landing-page-image/', 403), # access denied
-        # /event/(?P<slug>[^/]+)/reviews/
-        ('/de/event/workshop-booking-tour-rockpop/reviews/', 200),
-        # /(event|document|group|institution|person)/(?P<slug>[^/]+)/post/
-        # /group/(?P<slug>[^/]+)/
-        # /group/(?P<slug>[^/]+)/events/
-        # /group/(?P<slug>[^/]+)/members/invite/
-        # /group/(?P<slug>[^/]+)/projects/
-        # /(event|document|group|institution|person)/(?P<slug>[^/]+)/post/
-        ('/de/institution/a_s_theater_film_ltd/post/', 302), # login required
-        # /institution/(?P<slug>[^/]+)/
-        ('/de/institution/a_s_theater_film_ltd/', 200),
-        # /institution/(?P<slug>[^/]+)/jobs/
-        ('/de/institution/a_s_theater_film_ltd/jobs/', 200),
-        # /institution/(?P<slug>[^/]+)/map/
-        ('/de/institution/a_s_theater_film_ltd/map/', 200),
-        # /institution/(?P<slug>[^/]+)/message/
-        ('/de/institution/a_s_theater_film_ltd/message/', 302), # login required
-        # /institution/(?P<slug>[^/]+)/message/alldone/
-        ('/de/institution/a_s_theater_film_ltd/message/alldone/', 200),
-        # /institution/(?P<slug>[^/]+)/network/
-        ('/de/institution/a_s_theater_film_ltd/network/', 200),
-        # /institution/(?P<slug>[^/]+)/network/groups/
-        ('/de/institution/a_s_theater_film_ltd/network/groups/', 200),
-        # /institution/(?P<slug>[^/]+)/network/partners/
-        ('/de/institution/a_s_theater_film_ltd/network/partners/', 404), # page not found
-        # /institution/(?P<slug>[^/]+)/network/staff/
-        ('/de/institution/a_s_theater_film_ltd/network/staff/', 200),
-        # /institution/(?P<slug>[^/]+)/portfolio/
-        ('/de/institution/a_s_theater_film_ltd/portfolio/', 200),
-        # /institution/(?P<slug>[^/]+)/portfolio/album/add/
-        ('/de/institution/a_s_theater_film_ltd/portfolio/album/add/', 403), # access denied
-        # /institution/(?P<slug>[^/]+)/portfolio/fb-sync/
-        ('/de/institution/a_s_theater_film_ltd/portfolio/fb-sync/', 302), # login required
-        # /institution/(?P<slug>[^/]+)/portfolio/manage/
-        ('/de/institution/a_s_theater_film_ltd/portfolio/manage/', 403), # access denied
-        # /institution/(?P<slug>[^/]+)/portfolio/section/add/
-        ('/de/institution/a_s_theater_film_ltd/portfolio/section/add/', 403), # access denied
-        # /institution/(?P<slug>[^/]+)/portfolio/settings/
-        ('/de/institution/a_s_theater_film_ltd/portfolio/settings/', 403), # access denied
-        # /institution/(?P<slug>[^/]+)/portfolio/settings/delete-landing-page-image/
-        ('/de/institution/a_s_theater_film_ltd/portfolio/settings/delete-landing-page-image/', 403), # access denied
-        # /institution/(?P<slug>[^/]+)/projects/
-        ('/de/institution/a_s_theater_film_ltd/projects/', 200),
-        # /institution/(?P<slug>[^/]+)/reviews/
-        ('/de/institution/a_s_theater_film_ltd/reviews/', 200),
-        # /job/(?P<slug>[^/]+)/delete/
-        ('/de/job/7654237/delete/', 302), # login required
-        # /news/creative-sector/(?P<creative_sector_slug>[^/]+)/
-        # /news/creative-sector/(?P<creative_sector_slug>[^/]+)/features/
-        # /(event|document|group|institution|person)/(?P<slug>[^/]+)/post/
-        ('/de/person/aidas_bendoraitis/post/', 302), # login required
-        # /person/(?P<slug>[^/]+)/
-        ('/de/person/aidas_bendoraitis/', 200),
-        # /person/(?P<slug>[^/]+)/jobs/
-        ('/de/person/aidas_bendoraitis/jobs/', 200),
-        # /person/(?P<slug>[^/]+)/map/
-        ('/de/person/aidas_bendoraitis/map/', 200),
-        # /person/(?P<slug>[^/]+)/message/
-        ('/de/person/aidas_bendoraitis/message/', 302), # login required
-        # /person/(?P<slug>[^/]+)/message/alldone/
-        ('/de/person/aidas_bendoraitis/message/alldone/', 200),
-        # /person/(?P<slug>[^/]+)/network/
-        ('/de/person/aidas_bendoraitis/network/', 200),
-        # /person/(?P<slug>[^/]+)/network/groups/
-        ('/de/person/aidas_bendoraitis/network/groups/', 200),
-        # /person/(?P<slug>[^/]+)/network/institution_contacts/
-        ('/de/person/aidas_bendoraitis/network/institution_contacts/', 200),
-        # /person/(?P<slug>[^/]+)/network/person_contacts/
-        ('/de/person/aidas_bendoraitis/network/person_contacts/', 200),
-        # /person/(?P<slug>[^/]+)/portfolio/
-        ('/de/person/aidas_bendoraitis/portfolio/', 302), # login required
-        # /person/(?P<slug>[^/]+)/portfolio/album/add/
-        ('/de/person/aidas_bendoraitis/portfolio/album/add/', 403), # access denied
-        # /person/(?P<slug>[^/]+)/portfolio/fb-sync/
-        ('/de/person/aidas_bendoraitis/portfolio/fb-sync/', 302), # login required
-        # /person/(?P<slug>[^/]+)/portfolio/manage/
-        ('/de/person/aidas_bendoraitis/portfolio/manage/', 403), # access denied
-        # /person/(?P<slug>[^/]+)/portfolio/section/add/
-        ('/de/person/aidas_bendoraitis/portfolio/section/add/', 403), # access denied
-        # /person/(?P<slug>[^/]+)/portfolio/settings/
-        ('/de/person/aidas_bendoraitis/portfolio/settings/', 403), # access denied
-        # /person/(?P<slug>[^/]+)/portfolio/settings/delete-landing-page-image/
-        ('/de/person/aidas_bendoraitis/portfolio/settings/delete-landing-page-image/', 403), # access denied
-        # /person/(?P<slug>[^/]+)/projects/
-        ('/de/person/aidas_bendoraitis/projects/', 200),
-        # /person/(?P<slug>[^/]+)/reviews/
-        ('/de/person/aidas_bendoraitis/reviews/', 200),
-    )
-
-    non_localized_constant_urls  = ( # most should redirect, i.e. return 301
-        ('/', 302),
-        ('/account/', 302),
-        ('/blog/', 302),
-        ('/compatibility/', 302),
-        ('/contact/', 302),
-        ('/contact/alldone/', 302),
-        ('/creative-sector/', 302),
-        ('/dashboard/', 302),
-        ('/documents/', 302),
-        ('/events/', 302),
-        ('/events/add/', 302),
-        ('/facebook/', 302),
-        ('/facebook/data-exchange/', 302),
-        ('/facebook/link/', 302),
-        ('/facebook/link/login/', 302),
-        ('/facebook/link/register/', 302),
-        ('/facebook/manage/', 302),
-        ('/facebook/pages/', 302),
-        ('/faqs/', 302),
-        ('/gmap/', 302),
-        ('/groups/', 302),
-        ('/groups/add/', 302),
-        ('/groups/invitations/', 302),
-        ('/help/', 302),
-        ('/helper/bookmark/', 200),
-        ('/helper/country_lookup/', 200),
-        ('/helper/institution_lookup/', 302), # login required
-        ('/helper/person_lookup/', 302), # login required
-        ('/helper/site-visitors/', 200),
-        ('/i18n/setlang/', 302),
-        ('/institutions/', 302),
-        ('/institutions/add/', 302),
-        ('/invite/', 302),
-        ('/invite/done/', 302),
-        ('/jobs/', 302),
-        ('/jobs/add/', 302),
-        ('/jobs/create-berlin-jobboard/', 302),
-        ('/jobs/talent-in-berlin/', 302),
-        ('/jsi18n/', 302),
-        ('/jssettings/', 302),
-        ('/kreativarbeiten/', 302),
-        ('/kreativarbeiten/best-practice/', 302),
-        ('/kreativarbeiten/blog/', 302),
-        ('/kreativarbeiten/blog/all/', 302),
-        ('/kreativarbeiten/blog/drafts/', 302),
-        ('/kreativarbeiten/contact/', 302),
-        ('/kreativarbeiten/contact/done/', 302),
-        ('/kreativarbeiten/newsfeed/', 302),
-        ('/kreativarbeiten/tweets/', 302),
-        ('/lists/', 302),
-        ('/livestream/', 302),
-        ('/login', 302),
-        ('/logout', 302),
-        ('/map/', 302),
-        ('/map/object-list/', 302),
-        ('/my-messages/json/', 302),
-        ('/my-messages/new/', 302),
-        ('/my-profile/', 302),
-        ('/my-profile/bookmarks/', 302),
-        ('/my-profile/delete/', 302),
-        ('/my-profile/delete/done/', 302),
-        ('/my-profile/favorites/', 302),
-        ('/my-profile/memos/', 302),
-        ('/my-profile/privacy/', 302),
-        ('/news/', 302),
-        ('/news/articles/', 302),
-        ('/news/interviews/', 302),
-        ('/notification/', 302),
-        ('/notification/feed/', 302),
-        ('/notification/mark_all_seen/', 302),
-        ('/notification/settings/', 302),
-        ('/partner/', 200),
-        ('/password_change/', 302),
-        ('/password_change/done/', 302),
-        ('/password_reset/', 302),
-        ('/password_reset/complete/', 302),
-        ('/password_reset/done/', 302),
-        ('/people/', 302),
-        ('/portfolios/', 302),
-        # ('/recrop/', 200), # TODO rethink this test, /recrop/ requires URL parameters
-        ('/register/', 302),
-        ('/register/alldone/', 302),
-        ('/register/done/', 302),
-        ('/rosetta/', 302),
-        ('/rosetta/download/', 302),
-        ('/rosetta/pick/', 302),
-        ('/search/', 302),
-        ('/search/full/', 302),
-        ('/simplesearch/', 302),
-        ('/styleguide/', 302),
-        ('/styleguide/colors/', 302),
-        ('/styleguide/forms/', 302),
-        ('/styleguide/grid/', 302),
-        ('/styleguide/images/', 302),
-        ('/styleguide/typography/', 302),
-        ('/subscribe4info/', 302),
-        ('/subscribe4info/done/', 302),
-        ('/ticket/', 302),
-        ('/tweets/', 302),
-    )
-
-    sitemap = (
-        ('/de/sitemap.xml', 200),
-        ('/sitemap.xml', 302),
-    )
-
-    localized_constant_urls = ( # most should work, i.e. return 200
-        ('/de/', 200),
-        ('/de/account/', 200),
-        ('/de/blog/', 200),
-        ('/de/compatibility/', 200),
-        ('/de/contact/', 200),
-        ('/de/contact/alldone/', 200),
-        ('/de/creative-sector/', 302), # login required
-        ('/de/dashboard/', 302), # login required
-        ('/de/documents/', 200),
-        ('/de/events/', 200), # FIXME currently failing with FieldDoesNotExist: additional_info_markup_type
-        ('/de/events/add/', 302), # login required
-        ('/de/facebook/', 302), # login required
-        ('/de/facebook/data-exchange/', 302), # login required
-        ('/de/facebook/link/', 302), # login required
-        ('/de/facebook/link/login/', 302), # login required
-        ('/de/facebook/link/register/', 302), # login required
-        ('/de/facebook/manage/', 302), # login required
-        ('/de/facebook/pages/', 302), # login required
-        ('/de/faqs/', 200),
-        ('/de/gmap/', 200),
-        ('/de/groups/', 200),
-        ('/de/groups/add/', 302), # login required
-        ('/de/groups/invitations/', 302), # login required
-        ('/de/help/', 200),
-        # ('/de/helper/blank_doc/', 200), # included in PATHS_NO_REDIRECTION
-        # ('/de/helper/bookmark/', 200), # included in PATHS_NO_REDIRECTION
-        # ('/de/helper/country_lookup/', 200), # included in PATHS_NO_REDIRECTION
-        # ('/de/helper/institution_lookup/', 302), # included in PATHS_NO_REDIRECTION
-        # ('/de/helper/person_lookup/', 302), # included in PATHS_NO_REDIRECTION
-        # ('/de/helper/site-visitors/', 200), # included in PATHS_NO_REDIRECTION
-        ('/de/i18n/setlang/', 302), # login required
-        ('/de/institutions/', 200),
-        ('/de/institutions/add/', 302), # login required
-        ('/de/invite/', 302), # login required
-        ('/de/invite/done/', 200),
-        ('/de/jobs/', 200),
-        ('/de/jobs/add/', 302), # login required
-        ('/de/jobs/create-berlin-jobboard/', 200),
-        ('/de/jobs/talent-in-berlin/', 200),
-        ('/de/jsi18n/', 200),
-        ('/de/jssettings/', 200),
-        ('/de/kreativarbeiten/', 302), # redirects to /de/kreativarbeiten/blog/
-        ('/de/kreativarbeiten/best-practice/', 200),
-        ('/de/kreativarbeiten/blog/', 200),
-        ('/de/kreativarbeiten/blog/all/', 200),
-        ('/de/kreativarbeiten/blog/drafts/', 403), # TODO currently returns 403, should probably redirect to login page
-        ('/de/kreativarbeiten/contact/', 200),
-        ('/de/kreativarbeiten/contact/done/', 200),
-        ('/de/kreativarbeiten/newsfeed/', 200),
-        ('/de/kreativarbeiten/tweets/', 200),
-        ('/de/lists/', 200),
-        ('/de/livestream/', 200),
-        ('/de/login', 200),
-        ('/de/logout', 302), # login required
-        ('/de/map/', 200),
-        ('/de/map/object-list/', 403), # used by Ajax. Returns access denied if accessed directly or when given wrong query params.
-        ('/de/my-messages/json/', 200),
-        ('/de/my-messages/new/', 302), # login required
-        ('/de/my-profile/', 302), # login required
-        ('/de/my-profile/bookmarks/', 200),
-        ('/de/my-profile/delete/', 302), # login required
-        ('/de/my-profile/delete/done/', 200),
-        ('/de/my-profile/favorites/', 200),
-        ('/de/my-profile/memos/', 200),
-        ('/de/my-profile/privacy/', 302), # login required
-        ('/de/news/', 200),
-        ('/de/news/articles/', 200),
-        ('/de/news/interviews/', 200),
-        ('/de/notification/', 302), # login required
-        ('/de/notification/mark_all_seen/', 302), # login required
-        ('/de/notification/settings/', 302), # login required
-        ('/de/partner/', 200), # FIXME currently returning 404
-        ('/de/password_change/', 302), # login required
-        ('/de/password_change/done/', 200), # FIXME currently returning 302
-        ('/de/password_reset/', 200),
-        ('/de/password_reset/complete/', 200),
-        ('/de/password_reset/done/', 200),
-        ('/de/people/', 200),
-        ('/de/portfolios/', 200),
-        # ('/de/recrop/', 200), # included in PATHS_NO_REDIRECTION
-        ('/de/register/', 200),
-        ('/de/register/alldone/', 302), # login required
-        ('/de/register/done/', 200),
-        ('/de/rosetta/', 302), # login required
-        ('/de/rosetta/download/', 302), # login required
-        ('/de/rosetta/pick/', 302), # login required
-        ('/de/search/', 200),
-        ('/de/search/full/', 200),
-        ('/de/simplesearch/', 200),
-        ('/de/styleguide/', 200),
-        ('/de/styleguide/colors/', 200),
-        ('/de/styleguide/forms/', 200),
-        ('/de/styleguide/grid/', 200),
-        ('/de/styleguide/images/', 200),
-        ('/de/styleguide/typography/', 200),
-        ('/de/subscribe4info/', 200),
-        ('/de/subscribe4info/done/', 200),
-        # ('/de/tagging_autocomplete/list', 200), # included in PATHS_NO_REDIRECTION
-        ('/de/ticket/', 200),
-        ('/de/tweets/', 200),
-    )
-
-    admin_urls = ( # most should work, i.e. return 200
-        ('/admin/', 302),
-        ('/admin/articles/article/', 302),
-        ('/admin/articles/article/add/', 302),
-        ('/admin/articles/articlecontentprovider/', 302),
-        ('/admin/articles/articlecontentprovider/add/', 302),
-        ('/admin/articles/articletype/', 302),
-        ('/admin/articles/articletype/add/', 302),
-        ('/admin/auth/group/', 302),
-        ('/admin/auth/group/add/', 302),
-        ('/admin/auth/user/', 302),
-        ('/admin/auth/user/add/', 302),
-        ('/admin/auth/user/send-email/', 302),
-        ('/admin/blocks/infoblock/', 302),
-        ('/admin/blocks/infoblock/add/', 302),
-        ('/admin/blog/blog/', 302),
-        ('/admin/blog/blog/add/', 302),
-        ('/admin/blog/post/', 302),
-        ('/admin/blog/post/add/', 302),
-        ('/admin/bookmarks/bookmark/', 302),
-        ('/admin/bookmarks/bookmark/add/', 302),
-        ('/admin/comments/comment/', 302),
-        ('/admin/comments/comment/add/', 302),
-        ('/admin/comments/moderatordeletion/', 302),
-        ('/admin/comments/moderatordeletion/add/', 302),
-        ('/admin/comments/moderatordeletionreason/', 302),
-        ('/admin/comments/moderatordeletionreason/add/', 302),
-        ('/admin/configuration/sitesettings/', 302),
-        ('/admin/configuration/sitesettings/add/', 302),
-        ('/admin/contact_form/contactformcategory/', 302),
-        ('/admin/contact_form/contactformcategory/add/', 302),
-        ('/admin/djcelery/crontabschedule/', 302),
-        ('/admin/djcelery/crontabschedule/add/', 302),
-        ('/admin/djcelery/intervalschedule/', 302),
-        ('/admin/djcelery/intervalschedule/add/', 302),
-        ('/admin/djcelery/periodictask/', 302),
-        ('/admin/djcelery/periodictask/add/', 302),
-        ('/admin/djcelery/taskstate/', 302),
-        ('/admin/djcelery/taskstate/add/', 302),
-        ('/admin/djcelery/workerstate/', 302),
-        ('/admin/djcelery/workerstate/add/', 302),
-        ('/admin/doc/', 302),
-        ('/admin/doc/bookmarklets/', 302),
-        ('/admin/doc/filters/', 302),
-        ('/admin/doc/models/', 302),
-        ('/admin/doc/tags/', 302),
-        ('/admin/doc/views/', 302),
-        ('/admin/events/event/', 302),
-        ('/admin/events/event/add/', 302),
-        ('/admin/events/eventtimelabel/', 302),
-        ('/admin/events/eventtimelabel/add/', 302),
-        ('/admin/events/eventtype/', 302),
-        ('/admin/events/eventtype/add/', 302),
-        ('/admin/external_services/articleimportsource/', 302),
-        ('/admin/external_services/articleimportsource/add/', 302),
-        ('/admin/external_services/objectmapper/', 302),
-        ('/admin/external_services/objectmapper/add/', 302),
-        ('/admin/external_services/service/', 302),
-        ('/admin/external_services/service/add/', 302),
-        ('/admin/external_services/serviceactionlog/', 302),
-        ('/admin/external_services/serviceactionlog/add/', 302),
-        ('/admin/facebook_app/facebookappsettings/', 302),
-        ('/admin/facebook_app/facebookappsettings/add/', 302),
-        ('/admin/faqs/faqcategory/', 302),
-        ('/admin/faqs/faqcategory/add/', 302),
-        ('/admin/faqs/faqcontainer/', 302),
-        ('/admin/faqs/faqcontainer/add/', 302),
-        ('/admin/favorites/favorite/', 302),
-        ('/admin/favorites/favorite/add/', 302),
-        ('/admin/filebrowser/adjust-version/', 302),
-        ('/admin/filebrowser/browse/', 302),
-        ('/admin/filebrowser/delete-version/', 302),
-        ('/admin/filebrowser/delete/', 302),
-        ('/admin/filebrowser/delete_confirm/', 302),
-        ('/admin/filebrowser/detail/', 302),
-        ('/admin/filebrowser/get-version/', 302),
-        ('/admin/filebrowser/version/', 302),
-        ('/admin/filebrowser/versions/', 302),
-        ('/admin/flatpages/flatpage/', 302),
-        ('/admin/flatpages/flatpage/add/', 302),
-        ('/admin/groups_networks/grouptype/', 302),
-        ('/admin/groups_networks/grouptype/add/', 302),
-        ('/admin/groups_networks/persongroup/', 302),
-        ('/admin/groups_networks/persongroup/add/', 302),
-        ('/admin/i18n/area/', 302),
-        ('/admin/i18n/area/add/', 302),
-        ('/admin/i18n/country/', 302),
-        ('/admin/i18n/country/add/', 302),
-        ('/admin/i18n/countrylanguage/', 302),
-        ('/admin/i18n/countrylanguage/add/', 302),
-        ('/admin/i18n/language/', 302),
-        ('/admin/i18n/language/add/', 302),
-        ('/admin/i18n/nationality/', 302),
-        ('/admin/i18n/nationality/add/', 302),
-        ('/admin/i18n/phone/', 302),
-        ('/admin/i18n/phone/add/', 302),
-        ('/admin/i18n/timezone/', 302),
-        ('/admin/i18n/timezone/add/', 302),
-        ('/admin/image_mods/imagecropping/', 302),
-        ('/admin/image_mods/imagecropping/add/', 302),
-        ('/admin/image_mods/imagemodification/', 302),
-        ('/admin/image_mods/imagemodification/add/', 302),
-        ('/admin/image_mods/imagemodificationgroup/', 302),
-        ('/admin/image_mods/imagemodificationgroup/add/', 302),
-        ('/admin/individual_relations/individualrelation/', 302),
-        ('/admin/individual_relations/individualrelation/add/', 302),
-        ('/admin/individual_relations/individualrelationtype/', 302),
-        ('/admin/individual_relations/individualrelationtype/add/', 302),
-        ('/admin/institutions/institution/', 302),
-        ('/admin/institutions/institution/add/', 302),
-        ('/admin/institutions/institution/send-email/', 302),
-        ('/admin/institutions/institutiontype/', 302),
-        ('/admin/institutions/institutiontype/add/', 302),
-        ('/admin/institutions/legalform/', 302),
-        ('/admin/institutions/legalform/add/', 302),
-        ('/admin/jsi18n/', 302),
-        ('/admin/location/address/', 302),
-        ('/admin/location/address/add/', 302),
-        ('/admin/logout/', 302),
-        ('/admin/mailchimp/campaign/', 302),
-        ('/admin/mailchimp/campaign/add/', 302),
-        ('/admin/mailchimp/mlist/', 302),
-        ('/admin/mailchimp/mlist/add/', 302),
-        ('/admin/mailchimp/settings/', 302),
-        ('/admin/mailchimp/settings/add/', 302),
-        ('/admin/mailchimp/subscription/', 302),
-        ('/admin/mailchimp/subscription/add/', 302),
-        ('/admin/mailing/emailmessage/', 302),
-        ('/admin/mailing/emailmessage/add/', 302),
-        ('/admin/mailing/emailtemplate/', 302),
-        ('/admin/mailing/emailtemplate/add/', 302),
-        ('/admin/mailing/emailtemplateplaceholder/', 302),
-        ('/admin/mailing/emailtemplateplaceholder/add/', 302),
-        ('/admin/marketplace/joboffer/', 302),
-        ('/admin/marketplace/joboffer/add/', 302),
-        ('/admin/marketplace/jobqualification/', 302),
-        ('/admin/marketplace/jobqualification/add/', 302),
-        ('/admin/marketplace/jobsector/', 302),
-        ('/admin/marketplace/jobsector/add/', 302),
-        ('/admin/marketplace/jobtype/', 302),
-        ('/admin/marketplace/jobtype/add/', 302),
-        ('/admin/media_gallery/mediagallery/', 302),
-        ('/admin/media_gallery/mediagallery/add/', 302),
-        ('/admin/media_gallery/portfoliosettings/', 302),
-        ('/admin/media_gallery/portfoliosettings/add/', 302),
-        ('/admin/media_gallery/section/', 302),
-        ('/admin/media_gallery/section/add/', 302),
-        ('/admin/memos/memocollection/', 302),
-        ('/admin/memos/memocollection/add/', 302),
-        ('/admin/messaging/internalmessage/', 302),
-        ('/admin/messaging/internalmessage/add/', 302),
-        ('/admin/navigation/navigationlink/', 302),
-        ('/admin/navigation/navigationlink/add/', 302),
-        ('/admin/notification/digest/', 302),
-        ('/admin/notification/digest/add/', 302),
-        ('/admin/notification/notice/', 302),
-        ('/admin/notification/notice/add/', 302),
-        ('/admin/notification/noticeemailtemplate/', 302),
-        ('/admin/notification/noticeemailtemplate/add/', 302),
-        ('/admin/notification/noticesetting/', 302),
-        ('/admin/notification/noticesetting/add/', 302),
-        ('/admin/notification/noticetype/', 302),
-        ('/admin/notification/noticetype/add/', 302),
-        ('/admin/notification/noticetypecategory/', 302),
-        ('/admin/notification/noticetypecategory/add/', 302),
-        ('/admin/optionset/emailtype/', 302),
-        ('/admin/optionset/emailtype/add/', 302),
-        ('/admin/optionset/imtype/', 302),
-        ('/admin/optionset/imtype/add/', 302),
-        ('/admin/optionset/individuallocationtype/', 302),
-        ('/admin/optionset/individuallocationtype/add/', 302),
-        ('/admin/optionset/institutionallocationtype/', 302),
-        ('/admin/optionset/institutionallocationtype/add/', 302),
-        ('/admin/optionset/phonetype/', 302),
-        ('/admin/optionset/phonetype/add/', 302),
-        ('/admin/optionset/prefix/', 302),
-        ('/admin/optionset/prefix/add/', 302),
-        ('/admin/optionset/salutation/', 302),
-        ('/admin/optionset/salutation/add/', 302),
-        ('/admin/optionset/urltype/', 302),
-        ('/admin/optionset/urltype/add/', 302),
-        ('/admin/password_change/', 302),
-        ('/admin/password_change/done/', 302),
-        ('/admin/people/individualtype/', 302),
-        ('/admin/people/individualtype/add/', 302),
-        ('/admin/people/person/', 302),
-        ('/admin/people/person/add/', 302),
-        ('/admin/people/person/send-email/', 302),
-        ('/admin/permissions/perobjectgroup/', 302),
-        ('/admin/permissions/perobjectgroup/add/', 302),
-        ('/admin/permissions/rowlevelpermission/', 302),
-        ('/admin/permissions/rowlevelpermission/add/', 302),
-        ('/admin/profanity_filter/swearingcase/', 302),
-        ('/admin/profanity_filter/swearingcase/add/', 302),
-        ('/admin/profanity_filter/swearword/', 302),
-        ('/admin/profanity_filter/swearword/add/', 302),
-        ('/admin/redirects/redirect/', 302),
-        ('/admin/redirects/redirect/add/', 302),
-        ('/admin/resources/document/', 302),
-        ('/admin/resources/document/add/', 302),
-        ('/admin/resources/documenttype/', 302),
-        ('/admin/resources/documenttype/add/', 302),
-        ('/admin/resources/medium/', 302),
-        ('/admin/resources/medium/add/', 302),
-        ('/admin/site_specific/claimrequest/', 302),
-        ('/admin/site_specific/claimrequest/add/', 302),
-        ('/admin/site_specific/contextitem/', 302),
-        ('/admin/site_specific/contextitem/add/', 302),
-        ('/admin/site_specific/visit/', 302),
-        ('/admin/site_specific/visit/add/', 302),
-        ('/admin/sites/site/', 302),
-        ('/admin/sites/site/add/', 302),
-        ('/admin/slideshows/slideshow/', 302),
-        ('/admin/slideshows/slideshow/add/', 302),
-        ('/admin/structure/contextcategory/', 302),
-        ('/admin/structure/contextcategory/add/', 302),
-        ('/admin/structure/term/', 302),
-        ('/admin/structure/term/add/', 302),
-        ('/admin/structure/vocabulary/', 302),
-        ('/admin/structure/vocabulary/add/', 302),
-        ('/admin/tagging/tag/', 302),
-        ('/admin/tagging/tag/add/', 302),
-        ('/admin/tagging/taggeditem/', 302),
-        ('/admin/tagging/taggeditem/add/', 302),
-        ('/admin/templates/', 302), # TODO currently returns 404
-        ('/admin/tracker/concern/', 302),
-        ('/admin/tracker/concern/add/', 302),
-        ('/admin/tracker/ticket/', 302),
-        ('/admin/tracker/ticket/add/', 302),
-    )
-
-    sitemap_urls = (
-        # URLs extracted from sitemap.xml
-        #  366 pages: /de/document
-        #  529 pages: /de/event
-        # 2601 pages: /de/institution
-        # 7943 pages: /de/person
         ('/de/document/12designer/', 200),
         ('/de/document/1st-blue-das-modemagazin/', 200),
         ('/de/document/3-kreativwirtschftsbericht-berlin-entwicklung-und-potenziale/', 200),
@@ -1151,6 +477,8 @@ class Urls:
         ('/de/document/zuschuss-zu-gruendungs-und-unternehmensberatung/', 200),
         ('/de/document/zwischenfinanzierung-von-filmproduktionen/', 200),
         ('/de/document/zwischenfinanzierungsdarlehen-fuer-tv-auftragsproduktionen/', 200),
+        ('/de/documents/', 200),
+        ('/de/education/', 200),
         ('/de/event/12-games/', 200),
         ('/de/event/15-fotomarathon-berlin/', 200),
         ('/de/event/2015-release-of-creative-cloud-berlin/', 200),
@@ -1652,6 +980,11 @@ class Urls:
         ('/de/event/wordpress-in-16-stunden-carsten-borchert-2/', 200),
         ('/de/event/wordpress-websites-selbst-aufbauen-und-pflegen-2/', 200),
         ('/de/event/wordpress/', 200),
+        ('/de/event/workshop-booking-tour-rockpop/', 200),
+        ('/de/event/workshop-booking-tour-rockpop/map/', 200),
+        ('/de/event/workshop-booking-tour-rockpop/network/', 200),
+        ('/de/event/workshop-booking-tour-rockpop/portfolio/', 200),
+        ('/de/event/workshop-booking-tour-rockpop/reviews/', 200),
         ('/de/event/workshop-corporate-design-management/', 200),
         ('/de/event/workshop-der-musikverlag-als-karrierestart-fur-songwriter-3/', 200),
         ('/de/event/workshop-diy-produktion-tipps-tricks-tools-fur-die-erstellung-eines-demos/', 200),
@@ -1679,6 +1012,11 @@ class Urls:
         ('/de/event/zeughausmesse-3/', 200),
         ('/de/event/zine-design-library-as-machine/', 200),
         ('/de/event/zukunft-erinnern/', 200),
+        ('/de/faqs/', 200),
+        ('/de/gmap/', 200),
+        ('/de/groups/', 200),
+        ('/de/help/', 200),
+        ('/de/imprint/', 200),
         ('/de/institution/-fotografie-/', 200),
         ('/de/institution/100-berlin-festival/', 200),
         ('/de/institution/1000heads/', 200),
@@ -1710,6 +1048,16 @@ class Urls:
         ('/de/institution/a_graphic_practice/', 200),
         ('/de/institution/a_maze/', 200),
         ('/de/institution/a_s_theater_film_ltd/', 200),
+        ('/de/institution/a_s_theater_film_ltd/', 200),
+        ('/de/institution/a_s_theater_film_ltd/jobs/', 200),
+        ('/de/institution/a_s_theater_film_ltd/map/', 200),
+        ('/de/institution/a_s_theater_film_ltd/message/alldone/', 200),
+        ('/de/institution/a_s_theater_film_ltd/network/', 200),
+        ('/de/institution/a_s_theater_film_ltd/network/groups/', 200),
+        ('/de/institution/a_s_theater_film_ltd/network/staff/', 200),
+        ('/de/institution/a_s_theater_film_ltd/portfolio/', 200),
+        ('/de/institution/a_s_theater_film_ltd/projects/', 200),
+        ('/de/institution/a_s_theater_film_ltd/reviews/', 200),
         ('/de/institution/a_vitamin_kreativagentur_gmbh/', 200),
         ('/de/institution/aadk_aktuelle_architektur_der_kultur/', 200),
         ('/de/institution/ab_tanzbau/', 200),
@@ -4280,6 +3628,40 @@ class Urls:
         ('/de/institution/zweigstelle-berlin/', 200),
         ('/de/institution/zweiradmuseum/', 200),
         ('/de/institution/zwo9_objects_gmbh_ig/', 200),
+        ('/de/institutions/', 200),
+        ('/de/invite/done/', 200),
+        ('/de/jobs/', 200),
+        ('/de/jobs/create-berlin-jobboard/', 200),
+        ('/de/jobs/talent-in-berlin/', 200),
+        ('/de/jsi18n/', 200),
+        ('/de/jssettings/', 200),
+        ('/de/KKI/', 200),
+        ('/de/kreativarbeiten/best-practice/', 200),
+        ('/de/kreativarbeiten/blog/', 200),
+        ('/de/kreativarbeiten/blog/all/', 200),
+        ('/de/kreativarbeiten/contact/', 200),
+        ('/de/kreativarbeiten/contact/done/', 200),
+        ('/de/kreativarbeiten/newsfeed/', 200),
+        ('/de/kreativarbeiten/orientierungsberatung/', 200),
+        ('/de/kreativarbeiten/tweets/', 200),
+        ('/de/kreativarbeiten/ueber-uns/', 200),
+        ('/de/lists/', 200),
+        ('/de/livestream/', 200),
+        ('/de/location/', 200),
+        ('/de/login', 200),
+        ('/de/map/', 200),
+        ('/de/my-messages/json/', 200),
+        ('/de/my-profile/bookmarks/', 200),
+        ('/de/my-profile/delete/done/', 200),
+        ('/de/my-profile/favorites/', 200),
+        ('/de/my-profile/memos/', 200),
+        ('/de/news/', 200),
+        ('/de/news/articles/', 200),
+        ('/de/news/interviews/', 200),
+        ('/de/password_reset/', 200),
+        ('/de/password_reset/complete/', 200),
+        ('/de/password_reset/done/', 200),
+        ('/de/people/', 200),
         ('/de/person/5mm/', 200),
         ('/de/person/a-peters/', 200),
         ('/de/person/a-station/', 200),
@@ -4420,6 +3802,16 @@ class Urls:
         ('/de/person/aidaj/', 200),
         ('/de/person/aidas/', 200),
         ('/de/person/aidas_bendoraitis/', 200),
+        ('/de/person/aidas_bendoraitis/', 200),
+        ('/de/person/aidas_bendoraitis/jobs/', 200),
+        ('/de/person/aidas_bendoraitis/map/', 200),
+        ('/de/person/aidas_bendoraitis/message/alldone/', 200),
+        ('/de/person/aidas_bendoraitis/network/', 200),
+        ('/de/person/aidas_bendoraitis/network/groups/', 200),
+        ('/de/person/aidas_bendoraitis/network/institution_contacts/', 200),
+        ('/de/person/aidas_bendoraitis/network/person_contacts/', 200),
+        ('/de/person/aidas_bendoraitis/projects/', 200),
+        ('/de/person/aidas_bendoraitis/reviews/', 200),
         ('/de/person/aidgol/', 200),
         ('/de/person/aikorhose/', 200),
         ('/de/person/AileenPhoenix/', 200),
@@ -5798,7 +5190,7 @@ class Urls:
         ('/de/person/congaz_berlin/', 200),
         ('/de/person/connie/', 200),
         ('/de/person/conniedevine/', 200),
-        ('/de/person/conor/', 200), # TODO failed in tests with 'ProgrammingError: (2014, "Commands out of sync; you can't run this command now")'
+        ('/de/person/conor/', 200),
         ('/de/person/conradinio/', 200),
         ('/de/person/constance_klemenz/', 200),
         ('/de/person/constanzaontiver/', 200),
@@ -12223,37 +11615,524 @@ class Urls:
         ('/de/person/ZUUMEO/', 200),
         ('/de/person/zuziajus/', 200),
         ('/de/person/zweimaleins/', 200),
+        ('/de/portfolios/', 200),
+        ('/de/privacy/', 200),
+        ('/de/register/', 200),
+        ('/de/register/done/', 200),
+        ('/de/search/', 200),
+        ('/de/search/full/', 200),
+        ('/de/simplesearch/', 200),
+        ('/de/sitemap.xml', 200),
+        ('/de/spread-the-word/', 200),
+        ('/de/styleguide/', 200),
+        ('/de/styleguide/colors/', 200),
+        ('/de/styleguide/forms/', 200),
+        ('/de/styleguide/grid/', 200),
+        ('/de/styleguide/images/', 200),
+        ('/de/styleguide/typography/', 200),
+        ('/de/subscribe4info/', 200),
+        ('/de/subscribe4info/done/', 200),
+        ('/de/terms-of-use/', 200),
+        ('/de/ticket/', 200),
+        ('/de/tweets/', 200),
+        ('/helper/bookmark/', 200),
+        ('/helper/country_lookup/', 200),
+        ('/helper/site-visitors/', 200),
+        ('/partner/', 200),
     )
 
-    failing_production_urls = (
+    urls_which_should_return_302 = (
+        # ('/de/helper/institution_lookup/', 302), # included in PATHS_NO_REDIRECTION
+        # ('/de/helper/person_lookup/', 302), # included in PATHS_NO_REDIRECTION
+        ('/', 302),
+        ('/account/', 302),
+        ('/admin/', 302),
+        ('/admin/articles/article/', 302),
+        ('/admin/articles/article/add/', 302),
+        ('/admin/articles/articlecontentprovider/', 302),
+        ('/admin/articles/articlecontentprovider/add/', 302),
+        ('/admin/articles/articletype/', 302),
+        ('/admin/articles/articletype/add/', 302),
+        ('/admin/auth/group/', 302),
+        ('/admin/auth/group/add/', 302),
+        ('/admin/auth/user/', 302),
+        ('/admin/auth/user/add/', 302),
+        ('/admin/auth/user/send-email/', 302),
+        ('/admin/blocks/infoblock/', 302),
+        ('/admin/blocks/infoblock/add/', 302),
+        ('/admin/blog/blog/', 302),
+        ('/admin/blog/blog/add/', 302),
+        ('/admin/blog/post/', 302),
+        ('/admin/blog/post/add/', 302),
+        ('/admin/bookmarks/bookmark/', 302),
+        ('/admin/bookmarks/bookmark/add/', 302),
+        ('/admin/comments/comment/', 302),
+        ('/admin/comments/comment/add/', 302),
+        ('/admin/comments/moderatordeletion/', 302),
+        ('/admin/comments/moderatordeletion/add/', 302),
+        ('/admin/comments/moderatordeletionreason/', 302),
+        ('/admin/comments/moderatordeletionreason/add/', 302),
+        ('/admin/configuration/sitesettings/', 302),
+        ('/admin/configuration/sitesettings/add/', 302),
+        ('/admin/contact_form/contactformcategory/', 302),
+        ('/admin/contact_form/contactformcategory/add/', 302),
+        ('/admin/djcelery/crontabschedule/', 302),
+        ('/admin/djcelery/crontabschedule/add/', 302),
+        ('/admin/djcelery/intervalschedule/', 302),
+        ('/admin/djcelery/intervalschedule/add/', 302),
+        ('/admin/djcelery/periodictask/', 302),
+        ('/admin/djcelery/periodictask/add/', 302),
+        ('/admin/djcelery/taskstate/', 302),
+        ('/admin/djcelery/taskstate/add/', 302),
+        ('/admin/djcelery/workerstate/', 302),
+        ('/admin/djcelery/workerstate/add/', 302),
+        ('/admin/doc/', 302),
+        ('/admin/doc/bookmarklets/', 302),
+        ('/admin/doc/filters/', 302),
+        ('/admin/doc/models/', 302),
+        ('/admin/doc/tags/', 302),
+        ('/admin/doc/views/', 302),
+        ('/admin/events/event/', 302),
+        ('/admin/events/event/add/', 302),
+        ('/admin/events/eventtimelabel/', 302),
+        ('/admin/events/eventtimelabel/add/', 302),
+        ('/admin/events/eventtype/', 302),
+        ('/admin/events/eventtype/add/', 302),
+        ('/admin/external_services/articleimportsource/', 302),
+        ('/admin/external_services/articleimportsource/add/', 302),
+        ('/admin/external_services/objectmapper/', 302),
+        ('/admin/external_services/objectmapper/add/', 302),
+        ('/admin/external_services/service/', 302),
+        ('/admin/external_services/service/add/', 302),
+        ('/admin/external_services/serviceactionlog/', 302),
+        ('/admin/external_services/serviceactionlog/add/', 302),
+        ('/admin/facebook_app/facebookappsettings/', 302),
+        ('/admin/facebook_app/facebookappsettings/add/', 302),
+        ('/admin/faqs/faqcategory/', 302),
+        ('/admin/faqs/faqcategory/add/', 302),
+        ('/admin/faqs/faqcontainer/', 302),
+        ('/admin/faqs/faqcontainer/add/', 302),
+        ('/admin/favorites/favorite/', 302),
+        ('/admin/favorites/favorite/add/', 302),
+        ('/admin/filebrowser/adjust-version/', 302),
+        ('/admin/filebrowser/browse/', 302),
+        ('/admin/filebrowser/delete-version/', 302),
+        ('/admin/filebrowser/delete/', 302),
+        ('/admin/filebrowser/delete_confirm/', 302),
+        ('/admin/filebrowser/detail/', 302),
+        ('/admin/filebrowser/get-version/', 302),
+        ('/admin/filebrowser/version/', 302),
+        ('/admin/filebrowser/versions/', 302),
+        ('/admin/flatpages/flatpage/', 302),
+        ('/admin/flatpages/flatpage/add/', 302),
+        ('/admin/groups_networks/grouptype/', 302),
+        ('/admin/groups_networks/grouptype/add/', 302),
+        ('/admin/groups_networks/persongroup/', 302),
+        ('/admin/groups_networks/persongroup/add/', 302),
+        ('/admin/i18n/area/', 302),
+        ('/admin/i18n/area/add/', 302),
+        ('/admin/i18n/country/', 302),
+        ('/admin/i18n/country/add/', 302),
+        ('/admin/i18n/countrylanguage/', 302),
+        ('/admin/i18n/countrylanguage/add/', 302),
+        ('/admin/i18n/language/', 302),
+        ('/admin/i18n/language/add/', 302),
+        ('/admin/i18n/nationality/', 302),
+        ('/admin/i18n/nationality/add/', 302),
+        ('/admin/i18n/phone/', 302),
+        ('/admin/i18n/phone/add/', 302),
+        ('/admin/i18n/timezone/', 302),
+        ('/admin/i18n/timezone/add/', 302),
+        ('/admin/image_mods/imagecropping/', 302),
+        ('/admin/image_mods/imagecropping/add/', 302),
+        ('/admin/image_mods/imagemodification/', 302),
+        ('/admin/image_mods/imagemodification/add/', 302),
+        ('/admin/image_mods/imagemodificationgroup/', 302),
+        ('/admin/image_mods/imagemodificationgroup/add/', 302),
+        ('/admin/individual_relations/individualrelation/', 302),
+        ('/admin/individual_relations/individualrelation/add/', 302),
+        ('/admin/individual_relations/individualrelationtype/', 302),
+        ('/admin/individual_relations/individualrelationtype/add/', 302),
+        ('/admin/institutions/institution/', 302),
+        ('/admin/institutions/institution/add/', 302),
+        ('/admin/institutions/institution/send-email/', 302),
+        ('/admin/institutions/institutiontype/', 302),
+        ('/admin/institutions/institutiontype/add/', 302),
+        ('/admin/institutions/legalform/', 302),
+        ('/admin/institutions/legalform/add/', 302),
+        ('/admin/jsi18n/', 302),
+        ('/admin/location/address/', 302),
+        ('/admin/location/address/add/', 302),
+        ('/admin/logout/', 302),
+        ('/admin/mailchimp/campaign/', 302),
+        ('/admin/mailchimp/campaign/add/', 302),
+        ('/admin/mailchimp/mlist/', 302),
+        ('/admin/mailchimp/mlist/add/', 302),
+        ('/admin/mailchimp/settings/', 302),
+        ('/admin/mailchimp/settings/add/', 302),
+        ('/admin/mailchimp/subscription/', 302),
+        ('/admin/mailchimp/subscription/add/', 302),
+        ('/admin/mailing/emailmessage/', 302),
+        ('/admin/mailing/emailmessage/add/', 302),
+        ('/admin/mailing/emailtemplate/', 302),
+        ('/admin/mailing/emailtemplate/add/', 302),
+        ('/admin/mailing/emailtemplateplaceholder/', 302),
+        ('/admin/mailing/emailtemplateplaceholder/add/', 302),
+        ('/admin/marketplace/joboffer/', 302),
+        ('/admin/marketplace/joboffer/add/', 302),
+        ('/admin/marketplace/jobqualification/', 302),
+        ('/admin/marketplace/jobqualification/add/', 302),
+        ('/admin/marketplace/jobsector/', 302),
+        ('/admin/marketplace/jobsector/add/', 302),
+        ('/admin/marketplace/jobtype/', 302),
+        ('/admin/marketplace/jobtype/add/', 302),
+        ('/admin/media_gallery/mediagallery/', 302),
+        ('/admin/media_gallery/mediagallery/add/', 302),
+        ('/admin/media_gallery/portfoliosettings/', 302),
+        ('/admin/media_gallery/portfoliosettings/add/', 302),
+        ('/admin/media_gallery/section/', 302),
+        ('/admin/media_gallery/section/add/', 302),
+        ('/admin/memos/memocollection/', 302),
+        ('/admin/memos/memocollection/add/', 302),
+        ('/admin/messaging/internalmessage/', 302),
+        ('/admin/messaging/internalmessage/add/', 302),
+        ('/admin/navigation/navigationlink/', 302),
+        ('/admin/navigation/navigationlink/add/', 302),
+        ('/admin/notification/digest/', 302),
+        ('/admin/notification/digest/add/', 302),
+        ('/admin/notification/notice/', 302),
+        ('/admin/notification/notice/add/', 302),
+        ('/admin/notification/noticeemailtemplate/', 302),
+        ('/admin/notification/noticeemailtemplate/add/', 302),
+        ('/admin/notification/noticesetting/', 302),
+        ('/admin/notification/noticesetting/add/', 302),
+        ('/admin/notification/noticetype/', 302),
+        ('/admin/notification/noticetype/add/', 302),
+        ('/admin/notification/noticetypecategory/', 302),
+        ('/admin/notification/noticetypecategory/add/', 302),
+        ('/admin/optionset/emailtype/', 302),
+        ('/admin/optionset/emailtype/add/', 302),
+        ('/admin/optionset/imtype/', 302),
+        ('/admin/optionset/imtype/add/', 302),
+        ('/admin/optionset/individuallocationtype/', 302),
+        ('/admin/optionset/individuallocationtype/add/', 302),
+        ('/admin/optionset/institutionallocationtype/', 302),
+        ('/admin/optionset/institutionallocationtype/add/', 302),
+        ('/admin/optionset/phonetype/', 302),
+        ('/admin/optionset/phonetype/add/', 302),
+        ('/admin/optionset/prefix/', 302),
+        ('/admin/optionset/prefix/add/', 302),
+        ('/admin/optionset/salutation/', 302),
+        ('/admin/optionset/salutation/add/', 302),
+        ('/admin/optionset/urltype/', 302),
+        ('/admin/optionset/urltype/add/', 302),
+        ('/admin/password_change/', 302),
+        ('/admin/password_change/done/', 302),
+        ('/admin/people/individualtype/', 302),
+        ('/admin/people/individualtype/add/', 302),
+        ('/admin/people/person/', 302),
+        ('/admin/people/person/add/', 302),
+        ('/admin/people/person/send-email/', 302),
+        ('/admin/permissions/perobjectgroup/', 302),
+        ('/admin/permissions/perobjectgroup/add/', 302),
+        ('/admin/permissions/rowlevelpermission/', 302),
+        ('/admin/permissions/rowlevelpermission/add/', 302),
+        ('/admin/profanity_filter/swearingcase/', 302),
+        ('/admin/profanity_filter/swearingcase/add/', 302),
+        ('/admin/profanity_filter/swearword/', 302),
+        ('/admin/profanity_filter/swearword/add/', 302),
+        ('/admin/redirects/redirect/', 302),
+        ('/admin/redirects/redirect/add/', 302),
+        ('/admin/resources/document/', 302),
+        ('/admin/resources/document/add/', 302),
+        ('/admin/resources/documenttype/', 302),
+        ('/admin/resources/documenttype/add/', 302),
+        ('/admin/resources/medium/', 302),
+        ('/admin/resources/medium/add/', 302),
+        ('/admin/site_specific/claimrequest/', 302),
+        ('/admin/site_specific/claimrequest/add/', 302),
+        ('/admin/site_specific/contextitem/', 302),
+        ('/admin/site_specific/contextitem/add/', 302),
+        ('/admin/site_specific/visit/', 302),
+        ('/admin/site_specific/visit/add/', 302),
+        ('/admin/sites/site/', 302),
+        ('/admin/sites/site/add/', 302),
+        ('/admin/slideshows/slideshow/', 302),
+        ('/admin/slideshows/slideshow/add/', 302),
+        ('/admin/structure/contextcategory/', 302),
+        ('/admin/structure/contextcategory/add/', 302),
+        ('/admin/structure/term/', 302),
+        ('/admin/structure/term/add/', 302),
+        ('/admin/structure/vocabulary/', 302),
+        ('/admin/structure/vocabulary/add/', 302),
+        ('/admin/tagging/tag/', 302),
+        ('/admin/tagging/tag/add/', 302),
+        ('/admin/tagging/taggeditem/', 302),
+        ('/admin/tagging/taggeditem/add/', 302),
+        ('/admin/tracker/concern/', 302),
+        ('/admin/tracker/concern/add/', 302),
+        ('/admin/tracker/ticket/', 302),
+        ('/admin/tracker/ticket/add/', 302),
+        ('/blog/', 302),
+        ('/compatibility/', 302),
+        ('/contact/', 302),
+        ('/contact/alldone/', 302),
+        ('/creative-sector/', 302),
+        ('/dashboard/', 302),
+        ('/de/creative-sector/', 302), # login required
+        ('/de/dashboard/', 302), # login required
+        ('/de/event/workshop-booking-tour-rockpop/claim/', 302), # login required
+        ('/de/event/workshop-booking-tour-rockpop/delete/', 302), # login required
+        ('/de/event/workshop-booking-tour-rockpop/post/', 302), # login required
+        ('/de/events/add/', 302), # login required
+        ('/de/facebook/', 302), # login required
+        ('/de/facebook/data-exchange/', 302), # login required
+        ('/de/facebook/link/', 302), # login required
+        ('/de/facebook/link/login/', 302), # login required
+        ('/de/facebook/link/register/', 302), # login required
+        ('/de/facebook/manage/', 302), # login required
+        ('/de/facebook/pages/', 302), # login required
+        ('/de/groups/add/', 302), # login required
+        ('/de/groups/invitations/', 302), # login required
+        ('/de/i18n/setlang/', 302), # login required
+        ('/de/institution/a_s_theater_film_ltd/message/', 302), # login required
+        ('/de/institution/a_s_theater_film_ltd/portfolio/fb-sync/', 302), # login required
+        ('/de/institution/a_s_theater_film_ltd/post/', 302), # login required
+        ('/de/institutions/add/', 302), # login required
+        ('/de/invite/', 302), # login required
+        ('/de/job/7654237/delete/', 302), # login required
+        ('/de/jobs/add/', 302), # login required
+        ('/de/kreativarbeiten/', 302), # redirects to /de/kreativarbeiten/blog/
+        ('/de/logout', 302), # login required
+        ('/de/my-messages/new/', 302), # login required
+        ('/de/my-profile/', 302), # login required
+        ('/de/my-profile/delete/', 302), # login required
+        ('/de/my-profile/privacy/', 302), # login required
+        ('/de/notification/', 302), # login required
+        ('/de/notification/mark_all_seen/', 302), # login required
+        ('/de/notification/settings/', 302), # login required
+        ('/de/password_change/', 302), # login required
+        ('/de/person/aidas_bendoraitis/message/', 302), # login required
+        ('/de/person/aidas_bendoraitis/portfolio/', 302), # login required
+        ('/de/person/aidas_bendoraitis/portfolio/fb-sync/', 302), # login required
+        ('/de/person/aidas_bendoraitis/post/', 302), # login required
+        ('/de/register/alldone/', 302), # login required
+        ('/de/rosetta/', 302), # login required
+        ('/de/rosetta/download/', 302), # login required
+        ('/de/rosetta/pick/', 302), # login required
+        ('/documents/', 302),
+        ('/event/workshop-booking-tour-rockpop/', 302),
+        ('/event/workshop-booking-tour-rockpop/claim/', 302),
+        ('/event/workshop-booking-tour-rockpop/delete/', 302),
+        ('/event/workshop-booking-tour-rockpop/map/', 302),
+        ('/event/workshop-booking-tour-rockpop/network/', 302),
+        ('/event/workshop-booking-tour-rockpop/portfolio/', 302),
+        ('/event/workshop-booking-tour-rockpop/portfolio/album/add/', 302),
+        ('/event/workshop-booking-tour-rockpop/portfolio/manage/', 302),
+        ('/event/workshop-booking-tour-rockpop/portfolio/section/add/', 302),
+        ('/event/workshop-booking-tour-rockpop/portfolio/settings/', 302),
+        ('/event/workshop-booking-tour-rockpop/portfolio/settings/delete-landing-page-image/', 302),
+        ('/event/workshop-booking-tour-rockpop/post/', 302),
+        ('/event/workshop-booking-tour-rockpop/reviews/', 302),
+        ('/events/', 302),
+        ('/events/add/', 302),
+        ('/facebook/', 302),
+        ('/facebook/data-exchange/', 302),
+        ('/facebook/link/', 302),
+        ('/facebook/link/login/', 302),
+        ('/facebook/link/register/', 302),
+        ('/facebook/manage/', 302),
+        ('/facebook/pages/', 302),
+        ('/faqs/', 302),
+        ('/gmap/', 302),
+        ('/groups/', 302),
+        ('/groups/add/', 302),
+        ('/groups/invitations/', 302),
+        ('/help/', 302),
+        ('/helper/institution_lookup/', 302), # login required
+        ('/helper/person_lookup/', 302), # login required
+        ('/i18n/setlang/', 302),
+        ('/institution/a_s_theater_film_ltd/', 302),
+        ('/institution/a_s_theater_film_ltd/jobs/', 302),
+        ('/institution/a_s_theater_film_ltd/map/', 302),
+        ('/institution/a_s_theater_film_ltd/message/', 302),
+        ('/institution/a_s_theater_film_ltd/message/alldone/', 302),
+        ('/institution/a_s_theater_film_ltd/network/', 302),
+        ('/institution/a_s_theater_film_ltd/network/groups/', 302),
+        ('/institution/a_s_theater_film_ltd/network/partners/', 302),
+        ('/institution/a_s_theater_film_ltd/network/staff/', 302),
+        ('/institution/a_s_theater_film_ltd/portfolio/', 302),
+        ('/institution/a_s_theater_film_ltd/portfolio/album/add/', 302),
+        ('/institution/a_s_theater_film_ltd/portfolio/fb-sync/', 302),
+        ('/institution/a_s_theater_film_ltd/portfolio/manage/', 302),
+        ('/institution/a_s_theater_film_ltd/portfolio/section/add/', 302),
+        ('/institution/a_s_theater_film_ltd/portfolio/settings/', 302),
+        ('/institution/a_s_theater_film_ltd/portfolio/settings/delete-landing-page-image/', 302),
+        ('/institution/a_s_theater_film_ltd/post/', 302),
+        ('/institution/a_s_theater_film_ltd/projects/', 302),
+        ('/institution/a_s_theater_film_ltd/reviews/', 302),
+        ('/institutions/', 302),
+        ('/institutions/add/', 302),
+        ('/invite/', 302),
+        ('/invite/done/', 302),
+        ('/job/7654237/delete/', 302),
+        ('/jobs/', 302),
+        ('/jobs/add/', 302),
+        ('/jobs/create-berlin-jobboard/', 302),
+        ('/jobs/talent-in-berlin/', 302),
+        ('/jsi18n/', 302),
+        ('/jssettings/', 302),
+        ('/kreativarbeiten/', 302),
+        ('/kreativarbeiten/best-practice/', 302),
+        ('/kreativarbeiten/blog/', 302),
+        ('/kreativarbeiten/blog/all/', 302),
+        ('/kreativarbeiten/blog/drafts/', 302),
+        ('/kreativarbeiten/contact/', 302),
+        ('/kreativarbeiten/contact/done/', 302),
+        ('/kreativarbeiten/newsfeed/', 302),
+        ('/kreativarbeiten/tweets/', 302),
+        ('/lists/', 302),
+        ('/livestream/', 302),
+        ('/login', 302),
+        ('/logout', 302),
+        ('/map/', 302),
+        ('/map/object-list/', 302),
+        ('/my-messages/json/', 302),
+        ('/my-messages/new/', 302),
+        ('/my-profile/', 302),
+        ('/my-profile/bookmarks/', 302),
+        ('/my-profile/delete/', 302),
+        ('/my-profile/delete/done/', 302),
+        ('/my-profile/favorites/', 302),
+        ('/my-profile/memos/', 302),
+        ('/my-profile/privacy/', 302),
+        ('/news/', 302),
+        ('/news/articles/', 302),
+        ('/news/interviews/', 302),
+        ('/notification/', 302),
+        ('/notification/feed/', 302),
+        ('/notification/mark_all_seen/', 302),
+        ('/notification/settings/', 302),
+        ('/password_change/', 302),
+        ('/password_change/done/', 302),
+        ('/password_reset/', 302),
+        ('/password_reset/complete/', 302),
+        ('/password_reset/done/', 302),
+        ('/people/', 302),
+        ('/person/aidas_bendoraitis/', 302),
+        ('/person/aidas_bendoraitis/jobs/', 302),
+        ('/person/aidas_bendoraitis/map/', 302),
+        ('/person/aidas_bendoraitis/message/', 302),
+        ('/person/aidas_bendoraitis/message/alldone/', 302),
+        ('/person/aidas_bendoraitis/network/', 302),
+        ('/person/aidas_bendoraitis/network/groups/', 302),
+        ('/person/aidas_bendoraitis/network/institution_contacts/', 302),
+        ('/person/aidas_bendoraitis/network/person_contacts/', 302),
+        ('/person/aidas_bendoraitis/portfolio/', 302),
+        ('/person/aidas_bendoraitis/portfolio/album/add/', 302),
+        ('/person/aidas_bendoraitis/portfolio/fb-sync/', 302),
+        ('/person/aidas_bendoraitis/portfolio/manage/', 302),
+        ('/person/aidas_bendoraitis/portfolio/section/add/', 302),
+        ('/person/aidas_bendoraitis/portfolio/settings/', 302),
+        ('/person/aidas_bendoraitis/portfolio/settings/delete-landing-page-image/', 302),
+        ('/person/aidas_bendoraitis/post/', 302),
+        ('/person/aidas_bendoraitis/projects/', 302),
+        ('/person/aidas_bendoraitis/reviews/', 302),
+        ('/portfolios/', 302),
+        ('/register/', 302),
+        ('/register/alldone/', 302),
+        ('/register/done/', 302),
+        ('/rosetta/', 302),
+        ('/rosetta/download/', 302),
+        ('/rosetta/pick/', 302),
+        ('/search/', 302),
+        ('/search/full/', 302),
+        ('/simplesearch/', 302),
+        ('/sitemap.xml', 302),
+        ('/styleguide/', 302),
+        ('/styleguide/colors/', 302),
+        ('/styleguide/forms/', 302),
+        ('/styleguide/grid/', 302),
+        ('/styleguide/images/', 302),
+        ('/styleguide/typography/', 302),
+        ('/subscribe4info/', 302),
+        ('/subscribe4info/done/', 302),
+        ('/ticket/', 302),
+        ('/tweets/', 302),
+    )
+
+    urls_which_should_return_403_when_anonymous = (
+        ('/de/event/workshop-booking-tour-rockpop/portfolio/album/add/', 403), # access denied
+        ('/de/event/workshop-booking-tour-rockpop/portfolio/manage/', 403), # access denied
+        ('/de/event/workshop-booking-tour-rockpop/portfolio/section/add/', 403), # access denied
+        ('/de/event/workshop-booking-tour-rockpop/portfolio/settings/', 403), # access denied
+        ('/de/event/workshop-booking-tour-rockpop/portfolio/settings/delete-landing-page-image/', 403), # access denied
+        ('/de/institution/a_s_theater_film_ltd/portfolio/album/add/', 403), # access denied
+        ('/de/institution/a_s_theater_film_ltd/portfolio/manage/', 403), # access denied
+        ('/de/institution/a_s_theater_film_ltd/portfolio/section/add/', 403), # access denied
+        ('/de/institution/a_s_theater_film_ltd/portfolio/settings/', 403), # access denied
+        ('/de/institution/a_s_theater_film_ltd/portfolio/settings/delete-landing-page-image/', 403), # access denied
+        ('/de/kreativarbeiten/blog/drafts/', 403), # TODO currently returns 403, should probably redirect to login page
+        ('/de/map/object-list/', 403), # used by Ajax. Returns access denied if accessed directly or when given wrong query params.
+        ('/de/person/aidas_bendoraitis/portfolio/album/add/', 403), # access denied
+        ('/de/person/aidas_bendoraitis/portfolio/manage/', 403), # access denied
+        ('/de/person/aidas_bendoraitis/portfolio/section/add/', 403), # access denied
+        ('/de/person/aidas_bendoraitis/portfolio/settings/', 403), # access denied
+        ('/de/person/aidas_bendoraitis/portfolio/settings/delete-landing-page-image/', 403), # access denied
+    )
+
+    urls_which_should_return_200_when_authenticated = (
+        ('/de/event/workshop-booking-tour-rockpop/portfolio/album/add/', 200), # access denied
+        ('/de/event/workshop-booking-tour-rockpop/portfolio/manage/', 200), # access denied
+        ('/de/event/workshop-booking-tour-rockpop/portfolio/section/add/', 200), # access denied
+        ('/de/event/workshop-booking-tour-rockpop/portfolio/settings/', 200), # access denied
+        ('/de/event/workshop-booking-tour-rockpop/portfolio/settings/delete-landing-page-image/', 200), # access denied
+        ('/de/institution/a_s_theater_film_ltd/portfolio/album/add/', 200), # access denied
+        ('/de/institution/a_s_theater_film_ltd/portfolio/manage/', 200), # access denied
+        ('/de/institution/a_s_theater_film_ltd/portfolio/section/add/', 200), # access denied
+        ('/de/institution/a_s_theater_film_ltd/portfolio/settings/', 200), # access denied
+        ('/de/institution/a_s_theater_film_ltd/portfolio/settings/delete-landing-page-image/', 200), # access denied
+        ('/de/kreativarbeiten/blog/drafts/', 200), # TODO currently returns 403, should probably redirect to login page
+        ('/de/person/aidas_bendoraitis/portfolio/album/add/', 200), # access denied
+        ('/de/person/aidas_bendoraitis/portfolio/manage/', 200), # access denied
+        ('/de/person/aidas_bendoraitis/portfolio/section/add/', 200), # access denied
+        ('/de/person/aidas_bendoraitis/portfolio/settings/', 200), # access denied
+        ('/de/person/aidas_bendoraitis/portfolio/settings/delete-landing-page-image/', 200), # access denied
+    )
+
+    urls_which_should_return_200_when_authenticated_but_dont = (
+        ('/de/map/object-list/', 200), # used by Ajax. Returns access denied if accessed directly or when given wrong query params.
+    )
+
+    urls_which_should_return_404 = (
+        ('/de/institution/a_s_theater_film_ltd/network/partners/', 404), # page not found
+    )
+
+    urls_which_should_return_500 = (
         ('/de/event/away-away-and-spiraling-in-6-2-2/', 500), # FIXME throwing error in production
-        ('/tagging_autocomplete/list/', 302), # FIXME should redirect to /de/tagging_autocomplete_list/
-        ('/de/notification/feed/', 200), # FIXME currently returns 401 (HTTP login dialog)
-        ('/admin/filebrowser/upload_file/', 302), # FIXME AttributeError
     )
 
 
 def suite():
     from random import sample
-    sitemap_sample_urls = sample(Urls.sitemap_urls, 100)
     url_lists = (
-        Urls.localized_constant_urls,
-        Urls.localized_slug_urls,
-        Urls.localized_static_pages,
-        Urls.non_localized_constant_urls,
-        Urls.non_localized_slug_urls,
-        Urls.non_localized_static_pages,
-        Urls.admin_urls,
-        # Urls.sitemap,
-        # Urls.sitemap_urls, # takes one hour and a half to test 10,000+ URLs
-        sitemap_sample_urls, # small sample of 100 URLs from sitemap_urls
-        Urls.failing_production_urls,
+        Urls.urls_which_should_return_200_but_dont,
+        Urls.urls_which_should_return_301_but_dont,
+        Urls.urls_which_should_return_302_but_dont,
+        # Urls.urls_which_should_return_200,
+        sample(Urls.urls_which_should_return_200, 100),
+        Urls.urls_which_should_return_302,
+        Urls.urls_which_should_return_403_when_anonymous,
+        Urls.urls_which_should_return_404,
+        Urls.urls_which_should_return_500,
     )
 
     suite = unittest.TestSuite()
     for url_list in url_lists:
         suite.addTests(
-            PageTest(url_path, expected_status_code) for url_path, expected_status_code in url_list
+            PageTest(url_path, expected_status_code)
+            for url_path, expected_status_code
+            in url_list
         )
     return suite
 
@@ -12264,5 +12143,5 @@ if __name__ == '__main__':
     os.environ["DJANGO_SETTINGS_MODULE"] = "settings"
     import django
     django.setup()
-    unittest.TextTestRunner().run(suite())
+    unittest.TextTestRunner(verbosity=1).run(suite())
 
