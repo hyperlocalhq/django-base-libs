@@ -7,6 +7,8 @@ import unittest
 from django.test.utils import setup_test_environment
 from django.test import Client
 
+FULL_TESTS = False # will test more than 11,000 URLs if set to True, taking more than one hour
+
 class PageTest(unittest.TestCase):
     def __init__(self, url_path='', expected_status_code=200):
         super(PageTest, self).__init__()
@@ -11892,47 +11894,6 @@ class Urls:
         '/contact/alldone/',
         '/creative-sector/',
         '/dashboard/',
-        '/de/creative-sector/',  # login required
-        '/de/dashboard/',  # login required
-        '/de/event/workshop-booking-tour-rockpop/claim/',  # login required
-        '/de/event/workshop-booking-tour-rockpop/delete/',  # login required
-        '/de/event/workshop-booking-tour-rockpop/post/',  # login required
-        '/de/events/add/',  # login required
-        '/de/facebook/',  # login required
-        '/de/facebook/data-exchange/',  # login required
-        '/de/facebook/link/',  # login required
-        '/de/facebook/link/login/',  # login required
-        '/de/facebook/link/register/',  # login required
-        '/de/facebook/manage/',  # login required
-        '/de/facebook/pages/',  # login required
-        '/de/groups/add/',  # login required
-        '/de/groups/invitations/',  # login required
-        '/de/i18n/setlang/',  # login required
-        '/de/institution/a_s_theater_film_ltd/message/',  # login required
-        '/de/institution/a_s_theater_film_ltd/portfolio/fb-sync/',  # login required
-        '/de/institution/a_s_theater_film_ltd/post/',  # login required
-        '/de/institutions/add/',  # login required
-        '/de/invite/',  # login required
-        '/de/job/7654237/delete/',  # login required
-        '/de/jobs/add/',  # login required
-        '/de/kreativarbeiten/',  # redirects to /de/kreativarbeiten/blog/
-        '/de/logout',  # login required
-        '/de/my-messages/new/',  # login required
-        '/de/my-profile/',  # login required
-        '/de/my-profile/delete/',  # login required
-        '/de/my-profile/privacy/',  # login required
-        '/de/notification/',  # login required
-        '/de/notification/mark_all_seen/',  # login required
-        '/de/notification/settings/',  # login required
-        '/de/password_change/',  # login required
-        '/de/person/aidas_bendoraitis/message/',  # login required
-        '/de/person/aidas_bendoraitis/portfolio/',  # login required
-        '/de/person/aidas_bendoraitis/portfolio/fb-sync/',  # login required
-        '/de/person/aidas_bendoraitis/post/',  # login required
-        '/de/register/alldone/',  # login required
-        '/de/rosetta/',  # login required
-        '/de/rosetta/download/',  # login required
-        '/de/rosetta/pick/',  # login required
         '/documents/',
         '/event/workshop-booking-tour-rockpop/',
         '/event/workshop-booking-tour-rockpop/claim/',
@@ -11962,8 +11923,6 @@ class Urls:
         '/groups/add/',
         '/groups/invitations/',
         '/help/',
-        '/helper/institution_lookup/',  # login required
-        '/helper/person_lookup/',  # login required
         '/i18n/setlang/',
         '/institution/a_s_theater_film_ltd/',
         '/institution/a_s_theater_film_ltd/jobs/',
@@ -12074,6 +12033,51 @@ class Urls:
         '/tweets/',
     )
 
+    urls_which_should_return_302_when_anonymous = (
+        '/de/creative-sector/',  # login required
+        '/de/dashboard/',  # login required
+        '/de/event/workshop-booking-tour-rockpop/claim/',  # login required
+        '/de/event/workshop-booking-tour-rockpop/delete/',  # login required
+        '/de/event/workshop-booking-tour-rockpop/post/',  # login required
+        '/de/events/add/',  # login required
+        '/de/facebook/',  # login required
+        '/de/facebook/data-exchange/',  # login required
+        '/de/facebook/link/',  # login required
+        '/de/facebook/link/login/',  # login required
+        '/de/facebook/link/register/',  # login required
+        '/de/facebook/manage/',  # login required
+        '/de/facebook/pages/',  # login required
+        '/de/groups/add/',  # login required
+        '/de/groups/invitations/',  # login required
+        '/de/i18n/setlang/',  # login required
+        '/de/institution/a_s_theater_film_ltd/message/',  # login required
+        '/de/institution/a_s_theater_film_ltd/portfolio/fb-sync/',  # login required
+        '/de/institution/a_s_theater_film_ltd/post/',  # login required
+        '/de/institutions/add/',  # login required
+        '/de/invite/',  # login required
+        '/de/job/7654237/delete/',  # login required
+        '/de/jobs/add/',  # login required
+        '/de/kreativarbeiten/',  # redirects to /de/kreativarbeiten/blog/
+        '/de/logout',  # login required
+        '/de/my-messages/new/',  # login required
+        '/de/my-profile/',  # login required
+        '/de/my-profile/delete/',  # login required
+        '/de/my-profile/privacy/',  # login required
+        '/de/notification/',  # login required
+        '/de/notification/mark_all_seen/',  # login required
+        '/de/notification/settings/',  # login required
+        '/de/password_change/',  # login required
+        '/de/person/aidas_bendoraitis/message/',  # login required
+        '/de/person/aidas_bendoraitis/portfolio/',  # login required
+        '/de/person/aidas_bendoraitis/portfolio/fb-sync/',  # login required
+        '/de/person/aidas_bendoraitis/post/',  # login required
+        '/de/register/alldone/',  # login required
+        '/de/rosetta/',  # login required
+        '/de/rosetta/download/',  # login required
+        '/de/rosetta/pick/',  # login required
+        '/helper/institution_lookup/',  # login required
+        '/helper/person_lookup/',  # login required
+    )
     urls_which_should_return_403_when_anonymous = (
         '/de/event/workshop-booking-tour-rockpop/portfolio/album/add/', # access denied
         '/de/event/workshop-booking-tour-rockpop/portfolio/manage/', # access denied
@@ -12111,9 +12115,9 @@ def suite():
         (200, Urls.urls_which_should_return_200_but_dont),
         (301, Urls.urls_which_should_return_301_but_dont),
         (302, Urls.urls_which_should_return_302_but_dont),
-        # (200, Urls.urls_which_should_return_200),
-        (200, sample_urls),
+        (200, Urls.urls_which_should_return_200) if FULL_TESTS else (200, sample_urls),
         (302, Urls.urls_which_should_return_302),
+        (302, Urls.urls_which_should_return_302_when_anonymous),
         (403, Urls.urls_which_should_return_403_when_anonymous),
         (404, Urls.urls_which_should_return_404),
         (500, Urls.urls_which_should_return_500),
@@ -12124,12 +12128,10 @@ def suite():
             for url_path in url_list
         )
     authenticated_url_lists_by_expected_status_code = (
-        # (200, Urls.urls_which_should_return_200),
-        (200, sample_urls),
+        (200, Urls.urls_which_should_return_200) if FULL_TESTS else (200, sample_urls),
         (302, Urls.urls_which_should_return_302),
+        (200, Urls.urls_which_should_return_302_when_anonymous),
         (200, Urls.urls_which_should_return_403_when_anonymous),
-        (404, Urls.urls_which_should_return_404),
-        (500, Urls.urls_which_should_return_500),
     )
     for expected_status_code, url_list in authenticated_url_lists_by_expected_status_code:
         suite.addTests(
