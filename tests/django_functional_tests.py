@@ -43,6 +43,12 @@ class PageTest(unittest.TestCase):
         )
 
 
+class AuthenticatedPageTest(PageTest):
+    def setUp(self):
+        super(AuthenticatedPageTest, self).setUp()
+        self.client.login(username='admin', password='admin')
+
+
 class Urls:
     urls_which_should_return_200_but_dont = (
         ('/de/events/', 200), # FIXME currently failing with FieldDoesNotExist: additional_info_markup_type
@@ -12134,6 +12140,16 @@ def suite():
             for url_path, expected_status_code
             in url_list
         )
+    suite.addTests(
+        AuthenticatedPageTest(url_path, expected_status_code)
+        for url_path, expected_status_code
+        in Urls.urls_which_should_return_200_when_authenticated
+    )
+    suite.addTests(
+        AuthenticatedPageTest(url_path, expected_status_code)
+        for url_path, expected_status_code
+        in Urls.urls_which_should_return_200_when_authenticated_but_dont
+    )
     return suite
 
 
