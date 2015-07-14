@@ -9,8 +9,8 @@ import base_libs.models.fields
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('structure', '0001_initial'),
         ('sites', '0001_initial'),
-        ('structure', '__first__'),
         ('contenttypes', '0001_initial'),
         ('articles', '0001_initial'),
     ]

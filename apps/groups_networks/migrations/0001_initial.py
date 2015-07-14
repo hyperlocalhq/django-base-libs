@@ -3,14 +3,14 @@ from __future__ import unicode_literals
 
 from django.db import models, migrations
 import mptt.fields
-import filebrowser.fields
 import base_libs.models.fields
+import filebrowser.fields
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('structure', '__first__'),
+        ('structure', '0001_initial'),
         ('contenttypes', '0001_initial'),
     ]
 
@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('role', models.CharField(default=b'members', max_length=30, verbose_name='Role', choices=[(b'owners', 'Owner'), (b'moderators', 'Moderator'), (b'members', 'Member')])),
-                ('title', base_libs.models.fields.MultilingualCharField(verbose_name='Title', max_length=255, null=True, editable=False, blank=True)),
+                ('title', models.CharField(verbose_name='Title', max_length=255, null=True, editable=False, blank=True)),
                 ('is_accepted', models.BooleanField(default=False, verbose_name='Accepted by user')),
                 ('is_blocked', models.BooleanField(default=False, verbose_name='Blocked')),
                 ('is_contact_person', models.BooleanField(default=False, verbose_name='Contact Person')),
@@ -42,7 +42,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
                 ('sort_order', models.IntegerField(default=0, verbose_name='sort order', editable=False, blank=True)),
-                ('title', base_libs.models.fields.MultilingualCharField(verbose_name='title', max_length=255, null=True, editable=False)),
+                ('title', models.CharField(verbose_name='title', max_length=255, null=True, editable=False)),
                 ('title_de', models.CharField(max_length=255, verbose_name='title')),
                 ('title_en', models.CharField(max_length=255, verbose_name='title', blank=True)),
                 ('lft', models.PositiveIntegerField(editable=False, db_index=True)),
@@ -67,7 +67,7 @@ class Migration(migrations.Migration):
                 ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
                 ('title', models.CharField(max_length=255, verbose_name='Title')),
                 ('title2', models.CharField(max_length=255, verbose_name='Title 2', blank=True)),
-                ('description', base_libs.models.fields.MultilingualTextField(default=b'', verbose_name='Description', null=True, editable=False, blank=True)),
+                ('description', models.TextField(default=b'', verbose_name='Description', null=True, editable=False, blank=True)),
                 ('access_type', models.CharField(default=b'secret', max_length=10, verbose_name='Access Type', choices=[(b'public', 'Public'), (b'private', 'Private'), (b'secret', 'Secret')])),
                 ('is_by_invitation', models.BooleanField(default=False, verbose_name='Membership by Invitation')),
                 ('is_by_confirmation', models.BooleanField(default=False, verbose_name='Membership by Confirmation')),

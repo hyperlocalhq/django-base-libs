@@ -12,9 +12,9 @@ import base_libs.models.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('optionset', '__first__'),
-        ('location', '__first__'),
-        ('structure', '__first__'),
+        ('structure', '0001_initial'),
+        ('optionset', '0001_initial'),
+        ('location', '0001_initial'),
     ]
 
     operations = [
@@ -53,11 +53,11 @@ class Migration(migrations.Migration):
                 ('sun_break_close', models.TimeField(null=True, verbose_name='Break Starts on Sunday', blank=True)),
                 ('sun_break_open', models.TimeField(null=True, verbose_name='Break Ends on Sunday', blank=True)),
                 ('sun_close', models.TimeField(null=True, verbose_name='Closes on Sunday', blank=True)),
-                ('exceptions', base_libs.models.fields.MultilingualTextField(default=b'', verbose_name='Exceptions for working hours', null=True, editable=False, blank=True)),
+                ('exceptions', models.TextField(default=b'', verbose_name='Exceptions for working hours', null=True, editable=False, blank=True)),
                 ('title', models.CharField(max_length=255, verbose_name='Title')),
                 ('title2', models.CharField(max_length=255, verbose_name='Title (second line)', blank=True)),
                 ('slug', models.CharField(max_length=255, verbose_name='Slug')),
-                ('description', base_libs.models.fields.MultilingualTextField(default=b'', verbose_name='Description', null=True, editable=False, blank=True)),
+                ('description', models.TextField(default=b'', verbose_name='Description', null=True, editable=False, blank=True)),
                 ('image', filebrowser.fields.FileBrowseField(max_length=255, verbose_name='Image', blank=True)),
                 ('status', models.CharField(default=b'draft', max_length=20, verbose_name='Status', blank=True, choices=[(b'draft', 'Draft'), (b'published', 'Published'), (b'published_commercial', 'Published-Commercial'), (b'not_listed', 'Not Listed'), (b'import', 'Imported'), (b'event_location', 'Event Location')])),
                 ('access', models.CharField(max_length=255, verbose_name='Access', blank=True)),
@@ -186,7 +186,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
                 ('sort_order', models.IntegerField(default=0, verbose_name='sort order', editable=False, blank=True)),
-                ('title', base_libs.models.fields.MultilingualCharField(verbose_name='title', max_length=255, null=True, editable=False)),
+                ('title', models.CharField(verbose_name='title', max_length=255, null=True, editable=False)),
                 ('title_de', models.CharField(max_length=255, verbose_name='title')),
                 ('title_en', models.CharField(max_length=255, verbose_name='title', blank=True)),
                 ('lft', models.PositiveIntegerField(editable=False, db_index=True)),
@@ -209,7 +209,7 @@ class Migration(migrations.Migration):
                 ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
                 ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
                 ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
-                ('title', base_libs.models.fields.MultilingualCharField(verbose_name='title', max_length=200, null=True, editable=False)),
+                ('title', models.CharField(verbose_name='title', max_length=200, null=True, editable=False)),
                 ('sort_order', models.IntegerField(default=0, verbose_name='Sort Order')),
                 ('title_de', models.CharField(max_length=200, verbose_name='title')),
                 ('title_en', models.CharField(max_length=200, verbose_name='title', blank=True)),

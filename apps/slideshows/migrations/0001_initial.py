@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('path', filebrowser.fields.FileBrowseField(help_text='A path to a locally stored image or video.', max_length=255, verbose_name='File path', blank=True)),
                 ('link', models.CharField(max_length=255, verbose_name='Link', blank=True)),
-                ('alt', base_libs.models.fields.MultilingualCharField(verbose_name='Alternative text', max_length=100, null=True, editable=False, blank=True)),
+                ('alt', models.CharField(verbose_name='Alternative text', max_length=100, null=True, editable=False, blank=True)),
                 ('sort_order', base_libs.models.fields.PositionField(default=None, verbose_name='Sort order')),
                 ('alt_de', models.CharField(max_length=100, verbose_name='Alternative text', blank=True)),
                 ('alt_en', models.CharField(max_length=100, verbose_name='Alternative text', blank=True)),

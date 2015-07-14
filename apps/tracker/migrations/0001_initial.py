@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
                 ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
                 ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
-                ('title', base_libs.models.fields.MultilingualCharField(verbose_name='title', max_length=200, null=True, editable=False)),
+                ('title', models.CharField(verbose_name='title', max_length=200, null=True, editable=False)),
                 ('sort_order', models.IntegerField(default=0, verbose_name='Sort Order')),
                 ('title_de', models.CharField(max_length=200, verbose_name='title')),
                 ('title_en', models.CharField(max_length=200, verbose_name='title', blank=True)),

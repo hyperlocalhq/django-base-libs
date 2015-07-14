@@ -11,8 +11,8 @@ import base_libs.models.fields
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('structure', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('structure', '__first__'),
         ('contenttypes', '0001_initial'),
     ]
 
@@ -53,8 +53,8 @@ class Migration(migrations.Migration):
                 ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
                 ('object_id', models.CharField(default=b'', help_text='Please select the related object.', max_length=255, verbose_name='Related object')),
                 ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
-                ('title', base_libs.models.fields.MultilingualCharField(verbose_name='Title', max_length=255, null=True, editable=False, blank=True)),
-                ('description', base_libs.models.fields.MultilingualTextField(default=b'', verbose_name='Description', null=True, editable=False, blank=True)),
+                ('title', models.CharField(verbose_name='Title', max_length=255, null=True, editable=False, blank=True)),
+                ('description', models.TextField(default=b'', verbose_name='Description', null=True, editable=False, blank=True)),
                 ('status', models.CharField(max_length=20, blank=True)),
                 ('additional_search_data', models.TextField(null=True, blank=True)),
                 ('title_de', models.CharField(max_length=255, verbose_name='Title', blank=True)),

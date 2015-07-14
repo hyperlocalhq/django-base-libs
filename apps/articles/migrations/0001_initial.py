@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('sites', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('structure', '__first__'),
+        ('structure', '0001_initial'),
     ]
 
     operations = [
@@ -73,7 +73,7 @@ class Migration(migrations.Migration):
                 ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
                 ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
                 ('sort_order', models.IntegerField(default=0, verbose_name='sort order', editable=False, blank=True)),
-                ('title', base_libs.models.fields.MultilingualCharField(verbose_name='title', max_length=512, null=True, editable=False)),
+                ('title', models.CharField(verbose_name='title', max_length=512, null=True, editable=False)),
                 ('lft', models.PositiveIntegerField(editable=False, db_index=True)),
                 ('rght', models.PositiveIntegerField(editable=False, db_index=True)),
                 ('tree_id', models.PositiveIntegerField(editable=False, db_index=True)),

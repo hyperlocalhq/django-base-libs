@@ -10,10 +10,10 @@ import base_libs.models.fields
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('structure', '0001_initial'),
         ('institutions', '0001_initial'),
-        ('structure', '__first__'),
         ('people', '0001_initial'),
-        ('i18n', '__first__'),
+        ('i18n', '0001_initial'),
     ]
 
     operations = [
@@ -23,9 +23,9 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
                 ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
-                ('title', base_libs.models.fields.MultilingualCharField(verbose_name='Title', max_length=255, null=True, editable=False)),
+                ('title', models.CharField(verbose_name='Title', max_length=255, null=True, editable=False)),
                 ('slug', models.CharField(max_length=255, verbose_name='Slug')),
-                ('description', base_libs.models.fields.MultilingualTextField(default=b'', verbose_name='Description', null=True, editable=False, blank=True)),
+                ('description', models.TextField(default=b'', verbose_name='Description', null=True, editable=False, blank=True)),
                 ('url_link', base_libs.models.fields.URLField(verbose_name='URL', blank=True)),
                 ('document_file', filebrowser.fields.FileBrowseField(max_length=255, verbose_name='Document file', blank=True)),
                 ('authors_plain', base_libs.models.fields.PlainTextModelField(help_text='Comma-separated list', max_length=255, verbose_name='External authors', blank=True)),
@@ -64,7 +64,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
                 ('sort_order', models.IntegerField(default=0, verbose_name='sort order', editable=False, blank=True)),
-                ('title', base_libs.models.fields.MultilingualCharField(verbose_name='title', max_length=255, null=True, editable=False)),
+                ('title', models.CharField(verbose_name='title', max_length=255, null=True, editable=False)),
                 ('title_de', models.CharField(max_length=255, verbose_name='title')),
                 ('title_en', models.CharField(max_length=255, verbose_name='title', blank=True)),
                 ('lft', models.PositiveIntegerField(editable=False, db_index=True)),
@@ -87,7 +87,7 @@ class Migration(migrations.Migration):
                 ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
                 ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
                 ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
-                ('title', base_libs.models.fields.MultilingualCharField(verbose_name='Title', max_length=200, null=True, editable=False)),
+                ('title', models.CharField(verbose_name='Title', max_length=200, null=True, editable=False)),
                 ('sort_order', models.IntegerField(default=0, verbose_name='Sort Order')),
                 ('title_de', models.CharField(max_length=200, verbose_name='Title')),
                 ('title_en', models.CharField(max_length=200, verbose_name='Title', blank=True)),

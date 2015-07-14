@@ -2,23 +2,23 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+import filebrowser.fields
+import jetson.apps.optionset.models
 import mptt.fields
 import jetson.apps.people.base
-import filebrowser.fields
 from django.conf import settings
 import base_libs.models.fields
-import jetson.apps.optionset.models
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('optionset', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('i18n', '__first__'),
+        ('structure', '0001_initial'),
         ('institutions', '0001_initial'),
-        ('optionset', '__first__'),
-        ('location', '__first__'),
-        ('structure', '__first__'),
+        ('location', '0001_initial'),
+        ('i18n', '0001_initial'),
     ]
 
     operations = [
@@ -103,7 +103,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
                 ('sort_order', models.IntegerField(default=0, verbose_name='sort order', editable=False, blank=True)),
-                ('title', base_libs.models.fields.MultilingualCharField(verbose_name='title', max_length=255, null=True, editable=False)),
+                ('title', models.CharField(verbose_name='title', max_length=255, null=True, editable=False)),
                 ('title_de', models.CharField(max_length=255, verbose_name='title')),
                 ('title_en', models.CharField(max_length=255, verbose_name='title', blank=True)),
                 ('lft', models.PositiveIntegerField(editable=False, db_index=True)),
@@ -135,7 +135,7 @@ class Migration(migrations.Migration):
                 ('degree', models.CharField(max_length=200, verbose_name='Academic Degree', blank=True)),
                 ('occupation', models.CharField(max_length=200, verbose_name='Current Occupation', blank=True)),
                 ('interests', models.CharField(max_length=200, verbose_name='Interests', blank=True)),
-                ('description', base_libs.models.fields.MultilingualTextField(default=b'', verbose_name='Description', null=True, editable=False, blank=True)),
+                ('description', models.TextField(default=b'', verbose_name='Description', null=True, editable=False, blank=True)),
                 ('image', filebrowser.fields.FileBrowseField(max_length=255, verbose_name='Image', blank=True)),
                 ('status', models.CharField(default=b'unconfirmed', max_length=20, verbose_name='Status', blank=True, choices=[(b'unconfirmed', 'Unconfirmed'), (b'published', 'Published'), (b'not_listed', 'Not Listed'), (b'import', 'Imported')])),
                 ('display_birthday', models.BooleanField(default=True, verbose_name='Display birthday to public')),

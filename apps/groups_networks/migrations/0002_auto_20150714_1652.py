@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('institutions', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('i18n', '__first__'),
+        ('i18n', '0001_initial'),
         ('groups_networks', '0001_initial'),
     ]
 

@@ -9,12 +9,12 @@ import jetson.apps.optionset.models
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('optionset', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('marketplace', '0001_initial'),
         ('institutions', '0001_initial'),
+        ('location', '0001_initial'),
         ('people', '0001_initial'),
-        ('optionset', '__first__'),
-        ('location', '__first__'),
     ]
 
     operations = [

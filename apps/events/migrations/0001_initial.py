@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models, migrations
 import mptt.fields
+import jetson.apps.optionset.models
 import filebrowser.fields
 from django.conf import settings
 import base_libs.models.fields
@@ -12,9 +13,12 @@ import tagging_autocomplete.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('optionset', '__first__'),
+        ('people', '0001_initial'),
+        ('location', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('structure', '__first__'),
+        ('structure', '0001_initial'),
+        ('institutions', '0001_initial'),
+        ('optionset', '0001_initial'),
     ]
 
     operations = [
@@ -53,10 +57,10 @@ class Migration(migrations.Migration):
                 ('sun_break_close', models.TimeField(null=True, verbose_name='Break Starts on Sunday', blank=True)),
                 ('sun_break_open', models.TimeField(null=True, verbose_name='Break Ends on Sunday', blank=True)),
                 ('sun_close', models.TimeField(null=True, verbose_name='Closes on Sunday', blank=True)),
-                ('exceptions', base_libs.models.fields.MultilingualTextField(default=b'', verbose_name='Exceptions for working hours', null=True, editable=False, blank=True)),
-                ('title', base_libs.models.fields.MultilingualCharField(verbose_name='Title', max_length=255, null=True, editable=False)),
+                ('exceptions', models.TextField(default=b'', verbose_name='Exceptions for working hours', null=True, editable=False, blank=True)),
+                ('title', models.CharField(verbose_name='Title', max_length=255, null=True, editable=False)),
                 ('slug', models.CharField(max_length=255, verbose_name='Slug for URIs')),
-                ('description', base_libs.models.fields.MultilingualTextField(default=b'', verbose_name='Description', null=True, editable=False, blank=True)),
+                ('description', models.TextField(default=b'', verbose_name='Description', null=True, editable=False, blank=True)),
                 ('image', filebrowser.fields.FileBrowseField(max_length=200, verbose_name='Image', blank=True)),
                 ('start', models.DateTimeField(verbose_name='Start', null=True, editable=False, blank=True)),
                 ('end', models.DateTimeField(verbose_name='End', null=True, editable=False, blank=True)),
@@ -64,7 +68,7 @@ class Migration(migrations.Migration):
                 ('venue_title', models.CharField(max_length=255, verbose_name='Title', blank=True)),
                 ('organizer_title', models.TextField(null=True, verbose_name='Organizer', blank=True)),
                 ('organizer_url_link', base_libs.models.fields.URLField(null=True, verbose_name='Organizer URL', blank=True)),
-                ('additional_info', base_libs.models.fields.MultilingualTextField(default=b'', verbose_name='Additional Info', null=True, editable=False, blank=True)),
+                ('additional_info', models.TextField(default=b'', verbose_name='Additional Info', null=True, editable=False, blank=True)),
                 ('phone0_country', models.CharField(default=b'49', max_length=4, verbose_name='Country Code', blank=True)),
                 ('phone0_area', models.CharField(default=b'30', max_length=6, verbose_name='Area Code', blank=True)),
                 ('phone0_number', models.CharField(max_length=25, verbose_name='Subscriber Number and Extension', blank=True)),
@@ -108,7 +112,7 @@ class Migration(migrations.Migration):
                 ('is_email2_default', models.BooleanField(default=False, verbose_name='Default?')),
                 ('is_email2_on_hold', models.BooleanField(default=False, verbose_name='On Hold?')),
                 ('tags', tagging_autocomplete.models.TagAutocompleteField(default=b'', help_text='Separate different tags by comma', max_length=255, verbose_name='tags', blank=True)),
-                ('fees', base_libs.models.fields.MultilingualTextField(default=b'', verbose_name='Fees', null=True, editable=False, blank=True)),
+                ('fees', models.TextField(default=b'', verbose_name='Fees', null=True, editable=False, blank=True)),
                 ('is_featured', models.BooleanField(default=False, verbose_name='Featured')),
                 ('importance', models.IntegerField(default=0, verbose_name='Importance')),
                 ('fees_de', base_libs.models.fields.ExtendedTextField(default=b'', null=True, verbose_name='Eintrittskosten', blank=True)),
@@ -177,7 +181,7 @@ class Migration(migrations.Migration):
                 ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
                 ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
                 ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
-                ('title', base_libs.models.fields.MultilingualCharField(verbose_name='title', max_length=200, null=True, editable=False)),
+                ('title', models.CharField(verbose_name='title', max_length=200, null=True, editable=False)),
                 ('sort_order', models.IntegerField(default=0, verbose_name='Sort Order')),
                 ('title_de', models.CharField(max_length=200, verbose_name='title')),
                 ('title_en', models.CharField(max_length=200, verbose_name='title', blank=True)),
@@ -195,7 +199,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
                 ('sort_order', models.IntegerField(default=0, verbose_name='sort order', editable=False, blank=True)),
-                ('title', base_libs.models.fields.MultilingualCharField(verbose_name='title', max_length=255, null=True, editable=False)),
+                ('title', models.CharField(verbose_name='title', max_length=255, null=True, editable=False)),
                 ('title_de', models.CharField(max_length=255, verbose_name='title')),
                 ('title_en', models.CharField(max_length=255, verbose_name='title', blank=True)),
                 ('lft', models.PositiveIntegerField(editable=False, db_index=True)),
@@ -245,6 +249,72 @@ class Migration(migrations.Migration):
             model_name='event',
             name='modifier',
             field=models.ForeignKey(related_name='event_modifier', editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='modifier'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='event',
+            name='organizing_institution',
+            field=models.ForeignKey(verbose_name='Organizing institution', blank=True, to='institutions.Institution', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='event',
+            name='organizing_person',
+            field=models.ForeignKey(related_name='events_organized', verbose_name='Organizing person', blank=True, to='people.Person', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='event',
+            name='phone0_type',
+            field=models.ForeignKey(related_name='events0', default=jetson.apps.optionset.models.get_default_phonetype_for_phone, blank=True, to='optionset.PhoneType', null=True, verbose_name='Phone Type'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='event',
+            name='phone1_type',
+            field=models.ForeignKey(related_name='events1', default=jetson.apps.optionset.models.get_default_phonetype_for_fax, blank=True, to='optionset.PhoneType', null=True, verbose_name='Phone Type'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='event',
+            name='phone2_type',
+            field=models.ForeignKey(related_name='events2', default=jetson.apps.optionset.models.get_default_phonetype_for_mobile, blank=True, to='optionset.PhoneType', null=True, verbose_name='Phone Type'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='event',
+            name='postal_address',
+            field=models.ForeignKey(related_name='address_events', verbose_name='Postal Address', blank=True, to='location.Address', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='event',
+            name='related_events',
+            field=models.ManyToManyField(related_name='related_events_rel_+', to='events.Event', blank=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='event',
+            name='url0_type',
+            field=models.ForeignKey(related_name='events0', verbose_name='URL Type', blank=True, to='optionset.URLType', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='event',
+            name='url1_type',
+            field=models.ForeignKey(related_name='events1', verbose_name='URL Type', blank=True, to='optionset.URLType', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='event',
+            name='url2_type',
+            field=models.ForeignKey(related_name='events2', verbose_name='URL Type', blank=True, to='optionset.URLType', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='event',
+            name='venue',
+            field=models.ForeignKey(related_name='events_happened', verbose_name='Venue', blank=True, to='institutions.Institution', null=True),
             preserve_default=True,
         ),
     ]

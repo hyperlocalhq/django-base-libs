@@ -274,6 +274,11 @@ class MultilingualCharField(models.Field):
         # override with proxy
         setattr(cls, name, MultilingualProxy(self))
 
+    def deconstruct(self):
+       name, path, args, kwargs = super(MultilingualCharField, self).deconstruct()
+       path = "django.db.models.CharField"
+       return name, path, args, kwargs
+
 
 class MultilingualTextField(models.Field):
 
@@ -430,6 +435,11 @@ class MultilingualTextField(models.Field):
             return get_rendered
         cls.add_to_class("get_rendered_%s" % name, get_rendered_wrapper(name))
         cls.add_to_class("rendered_%s" % name, property(get_rendered_wrapper(name)))
+
+    def deconstruct(self):
+       name, path, args, kwargs = super(MultilingualTextField, self).deconstruct()
+       path = "django.db.models.TextField"
+       return name, path, args, kwargs
 
 
 class MultilingualPlainTextField(MultilingualTextField):
