@@ -284,14 +284,14 @@
             <div id="individualcontact_set-group" class="grp-group grp-ollapse grp-close">
                 <h2>{% trans "Contacts" %}</h2>
                 <ul class="grp-tools">
-                    <li class="open-handler-container"><a href="javascript://" class="icon open-handler" title="{% trans 'Open All Items' %}"></a></li>
-                    <li class="close-handler-container"><a href="javascript://" class="icon close-handler" title="{% trans 'Close All Items' %}"></a></li>
-                    <li class="add-handler-container"><a href="javascript://" class="icon add-handler" title="{% trans 'Add Item' %}"> </a></li>
+                    <li class="grp-open-handler-container"><a href="javascript://" class="grp-icon grp-open-handler" title="{% trans 'Open All Items' %}"></a></li>
+                    <li class="grp-close-handler-container"><a href="javascript://" class="grp-icon grp-close-handler" title="{% trans 'Close All Items' %}"></a></li>
+                    <li class="grp-add-handler-container"><a href="javascript://" class="grp-icon grp-add-handler" title="{% trans 'Add Item' %}"> </a></li>
                 </ul>
                 {{ contact_formset.management_form }}
                 {{ contact_formset.non_form_errors }}
                 <!-- container -->
-                <div id="contact_container" class="items">
+                <div id="contact_container" class="grp-items">
                 {% for contact_form in contact_formset.forms %}
                     {% with forloop.counter0 as prefix %}
                         {% with forloop.counter as counter %}
@@ -308,9 +308,9 @@
                 {% endwith %}
                 </div>
                 <div class="grp-module grp-add-item">
-                    <a class="add-handler" href="javascript://">{% trans "Add Contact" %}</a>
-                    <ul class="tools">
-                        <li class="add-handler-container"><a title="{% trans "Add Contact" %}" class="icon add-handler" href="javascript://"> </a></li>
+                    <a class="grp-add-handler" href="javascript://">{% trans "Add Contact" %}</a>
+                    <ul class="grp-tools">
+                        <li class="grp-add-handler-container"><a title="{% trans "Add Contact" %}" class="grp-icon grp-add-handler" href="javascript://"> </a></li>
                     </ul><br clear="all">
                 </div>
             </div>
