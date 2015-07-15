@@ -45,7 +45,6 @@ comments
 compress_jetson
 configuration
 contact_form
-email_campaigns
 extendedadmin
 flatpages
 history
@@ -65,7 +64,6 @@ permissions
 profanity_filter
 structure
 utils
-kombu.transport.django
 mptt
 picklefield
 pipeline
