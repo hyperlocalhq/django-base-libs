@@ -302,20 +302,17 @@ class Urls:
     urls_which_should_return_200 = (
          # '/recrop/', # TODO rethink this test, /recrop/ requires URL parameters
         '/de/',
-        '/de/about/',
         '/de/account/',
         '/de/blog/',
         '/de/compatibility/',
         '/de/contact/',
         '/de/contact/alldone/',
-        '/de/coworking/',
         '/de/creative-sector/advertising-and-pr/location/',
         '/de/creative-sector/architecture/location/',
         '/de/creative-sector/design/location/',
         '/de/creative-sector/events/location/',
         '/de/creative-sector/fashion-and-textile/location/',
         '/de/creative-sector/film-and-broadcast/location/',
-        '/de/creative-sector/fine-art/location/',
         '/de/creative-sector/games-and-interactive/location/',
         '/de/creative-sector/literature-and-publishing/location/',
         '/de/creative-sector/music/location/',
@@ -555,7 +552,6 @@ class Urls:
         '/de/document/kulturfoerderung-datenbank/',
         '/de/document/kulturforderpunkt-berlin/',
         '/de/document/kulturkuri/',
-        '/de/document/kulturmarken/',
         '/de/document/kulturportal-deutschland/',
         '/de/document/kunst-in-die-oeffentlichkeit-katharina-knie/',
         '/de/document/kunstaspekte/',
@@ -653,7 +649,6 @@ class Urls:
         '/de/document/theaterzusammenhang-ev/',
         '/de/document/tip-berlin/',
         '/de/document/tour/',
-        '/de/document/tourneefoerderung-jazz-populaere-musik-weltmusik/',
         '/de/document/trendwatchingcom/',
         '/de/document/twnetworkde/',
         '/de/document/ubersetzungsforderung-fur-belletristik-aus-mittel-und-osteuropa/',
@@ -1174,7 +1169,6 @@ class Urls:
         '/de/event/weiterbildung-fur-kreative-7/',
         '/de/event/weiterbildung-fur-kreative/',
         '/de/event/weltenbauer-award-preisverleihung/',
-        '/de/event/wie-fange-ich-an-von-antragstellung-bis-crowdfunding-2/',
         '/de/event/wie-gro-ist-dein-co2-fussabdruck/',
         '/de/event/wie-umgehen-mit-der-gema-2/',
         '/de/event/wie-umgehen-mit-der-gema-3/',
@@ -1364,7 +1358,6 @@ class Urls:
         '/de/institution/anna_kase_druckwerkstatt/',
         '/de/institution/anne-ludecke-grafikdesign/',
         '/de/institution/annette_van_den_bergh_coaching/',
-        '/de/institution/annetteerlenwein_architekten/',
         '/de/institution/anyna_2/',
         '/de/institution/apartment_blue_factory/',
         '/de/institution/apeiron-films/',
@@ -1423,7 +1416,6 @@ class Urls:
         '/de/institution/atelier-die-konkurrenz/',
         '/de/institution/atelier-flora/',
         '/de/institution/atelier-galeria-pinella/',
-        '/de/institution/atelier-vauk-ogawa/',
         '/de/institution/atelier/',
         '/de/institution/atelier_bohin/',
         '/de/institution/atelier_fur_physisches_theater/',
@@ -1446,7 +1438,6 @@ class Urls:
         '/de/institution/augenblick_mal_2015/',
         '/de/institution/augenblick_raum_fur_kreative/',
         '/de/institution/aurelia_paumelle/',
-        '/de/institution/autorencentrum/',
         '/de/institution/autorenwerk/',
         '/de/institution/auvosde/',
         '/de/institution/av_visionen/',
@@ -1735,7 +1726,6 @@ class Urls:
         '/de/institution/claim/',
         '/de/institution/clear_canvas/',
         '/de/institution/clipped/',
-        '/de/institution/club-commission/',
         '/de/institution/club_berliner_wirtschaftsjournalisten_cbwj/',
         '/de/institution/clubcommission_berlin_ev/',
         '/de/institution/cluboffice/',
@@ -1999,7 +1989,6 @@ class Urls:
         '/de/institution/edelmut_design/',
         '/de/institution/eden/',
         '/de/institution/edenspiekermann_ag/',
-        '/de/institution/ehealth_medidate/',
         '/de/institution/ehrliche_arbeit_freies_kulturburo/',
         '/de/institution/ehrliche_arbeit_freies_kulturburo_2/',
         '/de/institution/eine_zeitung/',
@@ -2328,7 +2317,6 @@ class Urls:
         '/de/institution/himmel_jord/',
         '/de/institution/hk2_rechtsanwalte/',
         '/de/institution/hl_studios/',
-        '/de/institution/hobbyshop-wilhelm-ruether/',
         '/de/institution/hochschule-fuer-film-und-fernsehen-konrad-wolf/',
         '/de/institution/hochschule-fuer-musik-hanns-eisler-berlin/',
         '/de/institution/hochschule_der_popularen_kunste/',
@@ -2437,12 +2425,10 @@ class Urls:
         '/de/institution/internationale-modeschule-esmod/',
         '/de/institution/internationale_filmfestspiele_berlin/',
         '/de/institution/internationale_klavierschule/',
-        '/de/institution/internationale_medienhilfe_imh/',
         '/de/institution/internationale_sommerschule_bauhaus_denkmal_bundesschule_bernau_2/',
         '/de/institution/internationales_forum/',
         '/de/institution/internet_gesellschaft_collaboratory/',
         '/de/institution/interzentral/',
-        '/de/institution/intituto_universitario_nacional_del_arte/',
         '/de/institution/intraprenor/',
         '/de/institution/investitionsbank-berlin/',
         '/de/institution/invitr0/',
@@ -2883,7 +2869,6 @@ class Urls:
         '/de/institution/modecenter-berlin/',
         '/de/institution/modeinformation/',
         '/de/institution/modepioniere_2/',
-        '/de/institution/moderatorenpool_deutschland/',
         '/de/institution/moderatorenpool_deutschland_2/',
         '/de/institution/modulor/',
         '/de/institution/mondolibro_italienische_buchhandlung_2/',
@@ -3342,7 +3327,6 @@ class Urls:
         '/de/institution/sound_studies_master_of_arts/',
         '/de/institution/sourcefabric_2/',
         '/de/institution/spacemark/',
-        '/de/institution/spandovia-sacra-museum-der-ev-kirchengemeinde-st-nikolai-spandau/',
         '/de/institution/spath-und-nagel/',
         '/de/institution/spectacolo_events_design_gmbh/',
         '/de/institution/spectrum_concerts_berlin/',
@@ -3854,7 +3838,6 @@ class Urls:
         '/de/kreativarbeiten/newsfeed/',
         '/de/kreativarbeiten/orientierungsberatung/',
         '/de/kreativarbeiten/tweets/',
-        '/de/kreativarbeiten/ueber-uns/',
         '/de/lists/',
         '/de/livestream/',
         '/de/location/',
@@ -3864,7 +3847,6 @@ class Urls:
         '/de/my-profile/bookmarks/',
         '/de/my-profile/delete/done/',
         '/de/my-profile/favorites/',
-        '/de/my-profile/memos/',
         '/de/news/',
         '/de/news/articles/',
         '/de/news/interviews/',
@@ -3988,7 +3970,6 @@ class Urls:
         '/de/person/agarobak/',
         '/de/person/Agartha/',
         '/de/person/agathamagma/',
-        '/de/person/agawilk/',
         '/de/person/agentur-buchheim/',
         '/de/person/Agentur_LOOP/',
         '/de/person/AggiC93/',
@@ -4074,7 +4055,6 @@ class Urls:
         '/de/person/alessandra_tecla_gerevini/',
         '/de/person/Alessandroiannelli/',
         '/de/person/Alessio/',
-        '/de/person/alessiolerma/',
         '/de/person/alessivanessa/',
         '/de/person/ALEX-TV/',
         '/de/person/ALEX/',
@@ -4182,7 +4162,6 @@ class Urls:
         '/de/person/amlie/',
         '/de/person/amoreira/',
         '/de/person/amorph/',
-        '/de/person/AMPION/',
         '/de/person/AMROT/',
         '/de/person/ams/',
         '/de/person/Amso/',
@@ -5220,7 +5199,6 @@ class Urls:
         '/de/person/chrbartsch/',
         '/de/person/chris-menage/',
         '/de/person/chris_eales/',
-        '/de/person/chris_troise/',
         '/de/person/chris_wohlrab/',
         '/de/person/chrisbehrens/',
         '/de/person/chrisbleuel/',
@@ -5944,7 +5922,6 @@ class Urls:
         '/de/person/ecortes/',
         '/de/person/Ecsta/',
         '/de/person/ecuacion_grafica_del_ser/',
-        '/de/person/ed-piper/',
         '/de/person/edamiani/',
         '/de/person/eddesign/',
         '/de/person/eddiebaker/',
@@ -7286,7 +7263,6 @@ class Urls:
         '/de/person/jandriu/',
         '/de/person/jane/',
         '/de/person/janetowl/',
-        '/de/person/janetwielgoss/',
         '/de/person/Janidala/',
         '/de/person/Janina-Meyer/',
         '/de/person/janina_moebius/',
@@ -7357,7 +7333,6 @@ class Urls:
         '/de/person/jennygraser/',
         '/de/person/JennyGrimm/',
         '/de/person/JennyN/',
-        '/de/person/Jens/',
         '/de/person/jens030/',
         '/de/person/Jens_Disselhoff/',
         '/de/person/jens_wernscheid/',
@@ -7579,7 +7554,6 @@ class Urls:
         '/de/person/juliadekam/',
         '/de/person/juliahoeger/',
         '/de/person/JuliaJaeger/',
-        '/de/person/juliakny/',
         '/de/person/Julian84/',
         '/de/person/julian_laidig/',
         '/de/person/Juliana123/',
@@ -9183,7 +9157,6 @@ class Urls:
         '/de/person/moviemiento_2/',
         '/de/person/mp_sh/',
         '/de/person/mpaxjobs/',
-        '/de/person/mpmbln/',
         '/de/person/mpoehls/',
         '/de/person/mpr79/',
         '/de/person/mprosinska/',
@@ -9584,7 +9557,6 @@ class Urls:
         '/de/person/overart/',
         '/de/person/ovestfashion/',
         '/de/person/ovoovoovo/',
-        '/de/person/owicke/',
         '/de/person/oxygenstudios/',
         '/de/person/oxymoron/',
         '/de/person/oxyydo/',
@@ -11325,7 +11297,6 @@ class Urls:
         '/de/person/Tuuum-Art/',
         '/de/person/TV-Victor/',
         '/de/person/tvakad/',
-        '/de/person/tvmedia/',
         '/de/person/TVSBEN/',
         '/de/person/TVSMILES/',
         '/de/person/tvw/',
@@ -11491,7 +11462,6 @@ class Urls:
         '/de/person/victoria-reinsch/',
         '/de/person/VictoriaSimon/',
         '/de/person/VictorKoitchev/',
-        '/de/person/victorlandeta/',
         '/de/person/videofactory/',
         '/de/person/ViditStudio/',
         '/de/person/vielzunett/',
@@ -11876,7 +11846,6 @@ class Urls:
         '/event/workshop-booking-tour-rockpop/portfolio/settings/delete-landing-page-image/',
         '/event/workshop-booking-tour-rockpop/post/',
         '/event/workshop-booking-tour-rockpop/reviews/',
-        '/events/',
         '/events/add/',
         '/facebook/',
         '/facebook/data-exchange/',
@@ -11886,7 +11855,6 @@ class Urls:
         '/facebook/manage/',
         '/facebook/pages/',
         '/faqs/',
-        '/gmap/',
         '/groups/',
         '/groups/add/',
         '/groups/invitations/',
@@ -11899,7 +11867,6 @@ class Urls:
         '/institution/a_s_theater_film_ltd/message/alldone/',
         '/institution/a_s_theater_film_ltd/network/',
         '/institution/a_s_theater_film_ltd/network/groups/',
-        '/institution/a_s_theater_film_ltd/network/partners/',
         '/institution/a_s_theater_film_ltd/network/staff/',
         '/institution/a_s_theater_film_ltd/portfolio/',
         '/institution/a_s_theater_film_ltd/portfolio/album/add/',
@@ -11918,10 +11885,6 @@ class Urls:
         '/job/7654237/delete/',
         '/jobs/',
         '/jobs/add/',
-        '/jobs/create-berlin-jobboard/',
-        '/jobs/talent-in-berlin/',
-        '/jsi18n/',
-        '/jssettings/',
         '/kreativarbeiten/',
         '/kreativarbeiten/best-practice/',
         '/kreativarbeiten/blog/',
@@ -11929,15 +11892,12 @@ class Urls:
         '/kreativarbeiten/blog/drafts/',
         '/kreativarbeiten/contact/',
         '/kreativarbeiten/contact/done/',
-        '/kreativarbeiten/newsfeed/',
-        '/kreativarbeiten/tweets/',
         '/lists/',
         '/livestream/',
         '/login',
         '/logout',
         '/map/',
         '/map/object-list/',
-        '/my-messages/json/',
         '/my-messages/new/',
         '/my-profile/',
         '/my-profile/bookmarks/',
@@ -11950,7 +11910,6 @@ class Urls:
         '/news/articles/',
         '/news/interviews/',
         '/notification/',
-        '/notification/feed/',
         '/notification/mark_all_seen/',
         '/notification/settings/',
         '/password_change/',
@@ -12074,25 +12033,66 @@ class Urls:
         '/de/event/away-away-and-spiraling-in-6-2-2/', # FIXME throwing error in production
     )
 
-    urls_with_unexpected_titles = (
-        ('/admin/filebrowser/upload_file/', 'Django site admin'), # FIXME AttributeError
-        ('/admin/templates/', 'Django site admin'), # FIXME current title is 'Creative City Berlin - login'
-        ('/de/gmap/', 'Creative City Berlin'), # FIXME current title is 'Multipurpose Google Maps View'
-        ('/de/jobs/create-berlin-jobboard/', 'Creative City Berlin'), # FIXME current title is 'Job Board'
-        ('/admin/filebrowser/get-version/', 'Django site admin'), # FIXME empty title
-        ('/de/jobs/talent-in-berlin/', 'Creative City Berlin'), # FIXME empty title
-        ('/de/jsi18n/', 'Creative City Berlin'), # FIXME empty title
-        ('/de/jssettings/', 'Creative City Berlin'), # FIXME empty title
-        ('/de/kreativarbeiten/newsfeed/', 'Creative City Berlin'), # FIXME empty title
-        ('/de/kreativarbeiten/tweets/', 'Creative City Berlin'), # FIXME empty title
-        ('/de/my-messages/json/', 'Creative City Berlin'), # FIXME empty title
-        ('/de/notification/feed/', 'Creative City Berlin'), # FIXME empty title
-        ('/de/tweets/', 'Creative City Berlin'), # FIXME empty title
-        ('/helper/bookmark/', 'Creative City Berlin'), # FIXME empty title
-        ('/helper/country_lookup/', 'Creative City Berlin'), # FIXME empty title
-        ('/helper/site-visitors/', 'Creative City Berlin'), # FIXME empty title
-        ('/tagging_autocomplete/list', 'Creative City Berlin'), # FIXME empty title
-    )
+    urls_with_non_standard_titles = (
+        '/admin/filebrowser/get-version/', # FIXME empty title
+        '/admin/filebrowser/upload_file/', # FIXME AttributeError
+        '/admin/templates/', # FIXME current title is 'Creative City Berlin - login'
+        '/de/about/',
+        '/de/coworking/',
+        '/de/creative-sector/fine-art/location/',
+        '/de/document/kulturmarken/',
+        '/de/document/tourneefoerderung-jazz-populaere-musik-weltmusik/',
+        '/de/event/wie-fange-ich-an-von-antragstellung-bis-crowdfunding-2/',
+        '/de/gmap/', # FIXME current title is 'Multipurpose Google Maps View'
+        '/de/institution/annetteerlenwein_architekten/',
+        '/de/institution/atelier-vauk-ogawa/',
+        '/de/institution/autorencentrum/',
+        '/de/institution/club-commission/',
+        '/de/institution/ehealth_medidate/',
+        '/de/institution/hobbyshop-wilhelm-ruether/',
+        '/de/institution/internationale_medienhilfe_imh/',
+        '/de/institution/intituto_universitario_nacional_del_arte/',
+        '/de/institution/moderatorenpool_deutschland/',
+        '/de/institution/spandovia-sacra-museum-der-ev-kirchengemeinde-st-nikolai-spandau/',
+        '/de/jobs/create-berlin-jobboard/', # FIXME current title is 'Job Board'
+        '/de/jobs/talent-in-berlin/', # FIXME empty title
+        '/de/jsi18n/', # FIXME empty title
+        '/de/jssettings/', # FIXME empty title
+        '/de/kreativarbeiten/newsfeed/', # FIXME empty title
+        '/de/kreativarbeiten/tweets/', # FIXME empty title
+        '/de/kreativarbeiten/ueber-uns/',
+        '/de/my-messages/json/', # FIXME empty title
+        '/de/my-profile/memos/',
+        '/de/notification/feed/', # FIXME empty title
+        '/de/person/agawilk/',
+        '/de/person/alessiolerma/',
+        '/de/person/AMPION/',
+        '/de/person/chris_troise/',
+        '/de/person/ed-piper/',
+        '/de/person/janetwielgoss/',
+        '/de/person/Jens/',
+        '/de/person/juliakny/',
+        '/de/person/mpmbln/',
+        '/de/person/owicke/',
+        '/de/person/tvmedia/',
+        '/de/person/victorlandeta/',
+        '/de/tweets/', # FIXME empty title
+        '/events/',
+        '/gmap/',
+        '/helper/bookmark/', # FIXME empty title
+        '/helper/country_lookup/', # FIXME empty title
+        '/helper/site-visitors/', # FIXME empty title
+        '/institution/a_s_theater_film_ltd/network/partners/',
+        '/jobs/create-berlin-jobboard/',
+        '/jobs/talent-in-berlin/',
+        '/jsi18n/',
+        '/jssettings/',
+        '/kreativarbeiten/newsfeed/',
+        '/kreativarbeiten/tweets/',
+        '/my-messages/json/',
+        '/notification/feed/',
+        '/tagging_autocomplete/list', # FIXME empty title
+)
 
 def suite():
     suite = unittest.TestSuite()
