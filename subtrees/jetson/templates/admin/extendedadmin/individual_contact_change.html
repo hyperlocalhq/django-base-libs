@@ -127,361 +127,361 @@
     </fieldset>
     <fieldset class="grp-module grp-aligned phone grp-collapse grp-open grp-tabular">
         <h4 class="grp-collapse-handler">{% trans "Phones" %}</h4>
-        <table class="phone-fields grp-module grp-table">
-            <thead class="grp-module grp-thead">
-                <tr class="grp-tr">
-                    <th class="grp-th">
+        <div class="phone-fields grp-module grp-table">
+            <div class="grp-module grp-thead">
+                <div class="grp-tr">
+                    <div class="grp-th">
                         <a href="../../../optionset/phonetype/add/" id="add_id_individualcontact_set-{{ prefix }}-phone0_type" onclick="return showAddAnotherPopup(this);">{% trans "Type not listed?" %}</a>
-                    </th>
+                    </div>
 
-                    <th class="grp-th">
+                    <div class="grp-th">
                         {% trans "Country" %}
-                    </th>
+                    </div>
 
-                    <th class="grp-th">
+                    <div class="grp-th">
                         {% trans "Area" %} {% ifequal LANGUAGE_CODE "de" %}<br/>{% endifequal %}{% trans "w/o (0)" %}
-                    </th>
+                    </div>
 
-                    <th class="grp-th">
+                    <div class="grp-th">
                         {% ifequal LANGUAGE_CODE "de" %}{% trans "Number" %} <br/>{% endifequal %}{% trans "plus extension" %}
-                    </th>
+                    </div>
 
-                    <th class="grp-th">
+                    <div class="grp-th">
                         {% trans "Default" %}
-                    </th>
+                    </div>
 
-                    <th class="grp-th">
+                    <div class="grp-th">
                         {% trans "On hold" %}
-                    </th>
-                </tr>
-            </thead>
-            <tbody class="grp-tbody grp-module">
-                <tr class="grp-tr{% if contact_form.phone0_type.errors or contact_form.phone0_country.errors or contact_form.phone0_area.errors or contact_form.phone0_number.errors or contact_form.is_phone0_default.errors or contact_form.is_phone0_on_hold.errors %} errors{% endif %}">
-                    <td class="grp-td">
+                    </div>
+                </div>
+            </div>
+            <div class="grp-tbody grp-module">
+                <div class="grp-tr{% if contact_form.phone0_type.errors or contact_form.phone0_country.errors or contact_form.phone0_area.errors or contact_form.phone0_number.errors or contact_form.is_phone0_default.errors or contact_form.is_phone0_on_hold.errors %} errors{% endif %}">
+                    <div class="grp-td">
                         {{ contact_form.phone0_type }}
                         {{ contact_form.phone0_type.errors }}
-                    </td>
+                    </div>
 
-                    <td class="grp-td">
+                    <div class="grp-td">
                         + {{ contact_form.phone0_country }}
                         {{ contact_form.phone0_country.errors }}
-                    </td>
+                    </div>
 
-                    <td class="grp-td">
+                    <div class="grp-td">
                         {{ contact_form.phone0_area }}
                         {{ contact_form.phone0_area.errors }}
-                    </td>
+                    </div>
 
-                    <td class="grp-td">
+                    <div class="grp-td">
                         {{ contact_form.phone0_number }}
                         {{ contact_form.phone0_number.errors }}
-                    </td>
+                    </div>
 
-                    <td class="grp-td">
+                    <div class="grp-td">
                         {{ contact_form.is_phone0_default }}
                         {{ contact_form.is_phone0_default.errors }}
-                    </td>
+                    </div>
 
-                    <td class="grp-td">
+                    <div class="grp-td">
                         {{ contact_form.is_phone0_on_hold }}
                         {{ contact_form.is_phone0_on_hold.errors }}
-                    </td>
-                </tr>
-                <tr class="grp-tr{% if contact_form.phone1_type.errors or contact_form.phone1_country.errors or contact_form.phone1_area.errors or contact_form.phone1_number.errors or contact_form.is_phone1_default.errors or contact_form.is_phone1_on_hold.errors %} errors{% endif %}">
-                    <td class="grp-td">
+                    </div>
+                </div>
+                <div class="grp-tr{% if contact_form.phone1_type.errors or contact_form.phone1_country.errors or contact_form.phone1_area.errors or contact_form.phone1_number.errors or contact_form.is_phone1_default.errors or contact_form.is_phone1_on_hold.errors %} errors{% endif %}">
+                    <div class="grp-td">
                         {{ contact_form.phone1_type }}
                         {{ contact_form.phone1_type.errors }}
-                    </td>
+                    </div>
 
-                    <td class="grp-td">
+                    <div class="grp-td">
                         + {{ contact_form.phone1_country }}
                         {{ contact_form.phone1_country.errors }}
-                    </td>
+                    </div>
 
-                    <td class="grp-td">
+                    <div class="grp-td">
                         {{ contact_form.phone1_area }}
                         {{ contact_form.phone1_area.errors }}
-                    </td>
+                    </div>
 
-                    <td class="grp-td">
+                    <div class="grp-td">
                         {{ contact_form.phone1_number }}
                         {{ contact_form.phone1_number.errors }}
-                    </td>
+                    </div>
 
-                    <td class="grp-td">
+                    <div class="grp-td">
                         {{ contact_form.is_phone1_default }}
                         {{ contact_form.is_phone1_default.errors }}
-                    </td>
+                    </div>
 
-                    <td class="grp-td">
+                    <div class="grp-td">
                         {{ contact_form.is_phone1_on_hold }}
                         {{ contact_form.is_phone1_on_hold.errors }}
-                    </td>
-                </tr>
-                <tr class="grp-tr{% if contact_form.phone2_type.errors or contact_form.phone2_country.errors or contact_form.phone2_area.errors or contact_form.phone2_number.errors or contact_form.is_phone2_default.errors or contact_form.is_phone2_on_hold.errors %} errors{% endif %}">
-                    <td class="grp-td">
+                    </div>
+                </div>
+                <div class="grp-tr{% if contact_form.phone2_type.errors or contact_form.phone2_country.errors or contact_form.phone2_area.errors or contact_form.phone2_number.errors or contact_form.is_phone2_default.errors or contact_form.is_phone2_on_hold.errors %} errors{% endif %}">
+                    <div class="grp-td">
                         {{ contact_form.phone2_type }}
                         {{ contact_form.phone2_type.errors }}
-                    </td>
+                    </div>
 
-                    <td class="grp-td">
+                    <div class="grp-td">
                         + {{ contact_form.phone2_country }}
                         {{ contact_form.phone2_country.errors }}
-                    </td>
+                    </div>
 
-                    <td class="grp-td">
+                    <div class="grp-td">
                         {{ contact_form.phone2_area }}
                         {{ contact_form.phone2_area.errors }}
-                    </td>
+                    </div>
 
-                    <td class="grp-td">
+                    <div class="grp-td">
                         {{ contact_form.phone2_number }}
                         {{ contact_form.phone2_number.errors }}
-                    </td>
+                    </div>
 
-                    <td class="grp-td">
+                    <div class="grp-td">
                         {{ contact_form.is_phone2_default }}
                         {{ contact_form.is_phone2_default.errors }}
-                    </td>
+                    </div>
 
-                    <td class="grp-td">
+                    <div class="grp-td">
                         {{ contact_form.is_phone2_on_hold }}
                         {{ contact_form.is_phone2_on_hold.errors }}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </fieldset>
     <fieldset class="grp-module grp-aligned e-mail grp-collapse grp-open grp-tabular">
         <h4 class="grp-collapse-handler">{% trans "E-mail Addresses" %}</h4>
-        <table class="grp-module grp-table">
-            <thead class="grp-module grp-thead">
-                <tr class="grp-tr">
-                    <th class="grp-th">
+        <div class="grp-module grp-table">
+            <div class="grp-module grp-thead">
+                <div class="grp-tr">
+                    <div class="grp-th">
                         <a href="../../../optionset/emailtype/add/" id="add_id_individualcontact_set-{{ prefix }}-email0_type" onclick="return showAddAnotherPopup(this);">{% trans "Type not listed?" %}</a>
-                    </th>
-                    <th class="grp-th">
+                    </div>
+                    <div class="grp-th">
                         {% trans "Email Address" %}
-                    </th>
-                    <th class="grp-th">
+                    </div>
+                    <div class="grp-th">
                         {% trans "Default" %}
-                    </th>
-                    <th class="grp-th">
+                    </div>
+                    <div class="grp-th">
                         {% trans "On hold" %}
-                    </th>
-                </tr>
-            </thead>
-            <tbody class="grp-module grp-tbody">
-                <tr class="grp-tr{% if contact_form.email0_type.errors or contact_form.email0_address.errors or contact_form.is_email0_default.errors or contact_form.is_email0_on_hold.errors %} errors{% endif %}">
-                    <td class="grp-td">
+                    </div>
+                </div>
+            </div>
+            <div class="grp-module grp-tbody">
+                <div class="grp-tr{% if contact_form.email0_type.errors or contact_form.email0_address.errors or contact_form.is_email0_default.errors or contact_form.is_email0_on_hold.errors %} errors{% endif %}">
+                    <div class="grp-td">
                         {{ contact_form.email0_type }}
                         {{ contact_form.email0_type.errors }}
-                    </td>
-                    <td class="grp-td">
+                    </div>
+                    <div class="grp-td">
                         {{ contact_form.email0_address }}
                         {{ contact_form.email0_address.errors }}
-                    </td>
-                    <td class="grp-td">
+                    </div>
+                    <div class="grp-td">
                         {{ contact_form.is_email0_default }}
                         {{ contact_form.is_email0_default.errors }}
-                    </td>
-                    <td class="grp-td">
+                    </div>
+                    <div class="grp-td">
                         {{ contact_form.is_email0_on_hold }}
                         {{ contact_form.is_email0_on_hold.errors }}
-                    </td>
-                </tr>
-                <tr class="grp-tr{% if contact_form.email1_type.errors or contact_form.email1_address.errors or contact_form.is_email1_default.errors or contact_form.is_email1_on_hold.errors %} errors{% endif %}">
-                    <td class="grp-td">
+                    </div>
+                </div>
+                <div class="grp-tr{% if contact_form.email1_type.errors or contact_form.email1_address.errors or contact_form.is_email1_default.errors or contact_form.is_email1_on_hold.errors %} errors{% endif %}">
+                    <div class="grp-td">
                         {{ contact_form.email1_type }}
                         {{ contact_form.email1_type.errors }}
-                    </td>
-                    <td class="grp-td">
+                    </div>
+                    <div class="grp-td">
                         {{ contact_form.email1_address }}
                         {{ contact_form.email1_address.errors }}
-                    </td>
-                    <td class="grp-td">
+                    </div>
+                    <div class="grp-td">
                         {{ contact_form.is_email1_default }}
                         {{ contact_form.is_email1_default.errors }}
-                    </td>
-                    <td class="grp-td">
+                    </div>
+                    <div class="grp-td">
                         {{ contact_form.is_email1_on_hold }}
                         {{ contact_form.is_email1_on_hold.errors }}
-                    </td>
-                </tr>
-                <tr class="grp-tr{% if contact_form.email2_type.errors or contact_form.email2_address.errors or contact_form.is_email2_default.errors or contact_form.is_email2_on_hold.errors %} errors{% endif %}">
-                    <td class="grp-td">
+                    </div>
+                </div>
+                <div class="grp-tr{% if contact_form.email2_type.errors or contact_form.email2_address.errors or contact_form.is_email2_default.errors or contact_form.is_email2_on_hold.errors %} errors{% endif %}">
+                    <div class="grp-td">
                         {{ contact_form.email2_type }}
                         {{ contact_form.email2_type.errors }}
-                    </td>
-                    <td class="grp-td">
+                    </div>
+                    <div class="grp-td">
                         {{ contact_form.email2_address }}
                         {{ contact_form.email2_address.errors }}
-                    </td>
-                    <td class="grp-td">
+                    </div>
+                    <div class="grp-td">
                         {{ contact_form.is_email2_default }}
                         {{ contact_form.is_email2_default.errors }}
-                    </td>
-                    <td class="grp-td">
+                    </div>
+                    <div class="grp-td">
                         {{ contact_form.is_email2_on_hold }}
                         {{ contact_form.is_email2_on_hold.errors }}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </fieldset>
     <fieldset class="grp-module grp-aligned websites grp-collapse grp-open grp-tabular">
         <h4 class="grp-collapse-handler">{% trans "Websites" %}</h4>
-        <table class="grp-module grp-table">
-            <thead class="grp-module grp-thead">
-                <tr class="grp-tr">
-                    <th class="grp-th">
+        <div class="grp-module grp-table">
+            <div class="grp-module grp-thead">
+                <div class="grp-tr">
+                    <div class="grp-th">
                         <a href="../../../optionset/urltype/add/" id="add_id_individualcontact_set-{{ prefix }}-url0_type" onclick="return showAddAnotherPopup(this);">{% trans "Type not listed?" %}</a>
-                    </th>
-                    <th class="grp-th">
+                    </div>
+                    <div class="grp-th">
                         {% trans "Website" %}
-                    </th>
-                    <th class="grp-th">
+                    </div>
+                    <div class="grp-th">
                         {% trans "Default" %}
-                    </th>
-                    <th class="grp-th">
+                    </div>
+                    <div class="grp-th">
                         {% trans "On hold" %}
-                    </th>
-                </tr>
-            </thead>
-            <tbody class="grp-module grp-tbody">
-                <tr class="grp-tr{% if contact_form.url0_type.errors or contact_form.url0_link.errors or contact_form.is_url0_default.errors or contact_form.is_url0_on_hold.errors %} errors{% endif %}">
-                    <td class="grp-td">
+                    </div>
+                </div>
+            </div>
+            <div class="grp-module grp-tbody">
+                <div class="grp-tr{% if contact_form.url0_type.errors or contact_form.url0_link.errors or contact_form.is_url0_default.errors or contact_form.is_url0_on_hold.errors %} errors{% endif %}">
+                    <div class="grp-td">
                         {{ contact_form.url0_type }}
                         {{ contact_form.url0_type.errors }}
-                    </td>
-                    <td class="grp-td">
+                    </div>
+                    <div class="grp-td">
                         {{ contact_form.url0_link }}
                         {{ contact_form.url0_link.errors }}
-                    </td>
-                    <td class="grp-td">
+                    </div>
+                    <div class="grp-td">
                         {{ contact_form.is_url0_default }}
                         {{ contact_form.is_url0_default.errors }}
-                    </td>
-                    <td class="grp-td">
+                    </div>
+                    <div class="grp-td">
                         {{ contact_form.is_url0_on_hold }}
                         {{ contact_form.is_url0_on_hold.errors }}
-                    </td>
-                </tr>
-                <tr class="grp-tr{% if contact_form.url1_type.errors or contact_form.url1_link.errors or contact_form.is_url1_default.errors or contact_form.is_url1_on_hold.errors %} errors{% endif %}">
-                    <td class="grp-td">
+                    </div>
+                </div>
+                <div class="grp-tr{% if contact_form.url1_type.errors or contact_form.url1_link.errors or contact_form.is_url1_default.errors or contact_form.is_url1_on_hold.errors %} errors{% endif %}">
+                    <div class="grp-td">
                         {{ contact_form.url1_type }}
                         {{ contact_form.url1_type.errors }}
-                    </td>
-                    <td class="grp-td">
+                    </div>
+                    <div class="grp-td">
                         {{ contact_form.url1_link }}
                         {{ contact_form.url1_link.errors }}
-                    </td>
-                    <td class="grp-td">
+                    </div>
+                    <div class="grp-td">
                         {{ contact_form.is_url1_default }}
                         {{ contact_form.is_url1_default.errors }}
-                    </td>
-                    <td class="grp-td">
+                    </div>
+                    <div class="grp-td">
                         {{ contact_form.is_url1_on_hold }}
                         {{ contact_form.is_url1_on_hold.errors }}
-                    </td>
-                </tr>
-                <tr class="grp-tr{% if contact_form.url2_type.errors or contact_form.url2_link.errors or contact_form.is_url2_default.errors or contact_form.is_url2_on_hold.errors %} errors{% endif %}">
-                    <td class="grp-td">
+                    </div>
+                </div>
+                <div class="grp-tr{% if contact_form.url2_type.errors or contact_form.url2_link.errors or contact_form.is_url2_default.errors or contact_form.is_url2_on_hold.errors %} errors{% endif %}">
+                    <div class="grp-td">
                         {{ contact_form.url2_type }}
                         {{ contact_form.url2_type.errors }}
-                    </td>
-                    <td class="grp-td">
+                    </div>
+                    <div class="grp-td">
                         {{ contact_form.url2_link }}
                         {{ contact_form.url2_link.errors }}
-                    </td>
-                    <td class="grp-td">
+                    </div>
+                    <div class="grp-td">
                         {{ contact_form.is_url2_default }}
                         {{ contact_form.is_url2_default.errors }}
-                    </td>
-                    <td class="grp-td">
+                    </div>
+                    <div class="grp-td">
                         {{ contact_form.is_url2_on_hold }}
                         {{ contact_form.is_url2_on_hold.errors }}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </fieldset>
     <fieldset class="grp-module grp-aligned messengers grp-collapse grp-open grp-tabular">
         <h4 class="grp-collapse-handler">{% trans "Instant Messengers" %}</h4>
-        <table class="grp-module grp-table">
-            <thead class="grp-module grp-thead">
-                <tr class="grp-tr">
-                    <th class="grp-th">
+        <div class="grp-module grp-table">
+            <div class="grp-module grp-thead">
+                <div class="grp-tr">
+                    <div class="grp-th">
                         <a href="../../../optionset/imtype/add/" id="add_id_individualcontact_set-{{ prefix }}-im0_type" onclick="return showAddAnotherPopup(this);">{% trans "Type not listed?" %}</a>
-                    </th>
-                    <th class="grp-th">
+                    </div>
+                    <div class="grp-th">
                         <div>{% trans "Instant Messenger" %}</div>
-                    </th>
-                    <th class="grp-th">
+                    </div>
+                    <div class="grp-th">
                         <div>{% trans "Default" %}</div>
-                    </th>
-                    <th class="grp-th">
+                    </div>
+                    <div class="grp-th">
                         <div>{% trans "On hold" %}</div>
-                    </th>
-                </tr>
-            </thead>
-            <tbody class="grp-module grp-tbody">
-                <tr class="grp-tr{% if contact_form.im0_type.errors or contact_form.im0_address.errors or contact_form.is_im0_default.errors or contact_form.is_im0_on_hold.errors %} errors{% endif %}">
-                    <td class="grp-td">
+                    </div>
+                </div>
+            </div>
+            <div class="grp-module grp-tbody">
+                <div class="grp-tr{% if contact_form.im0_type.errors or contact_form.im0_address.errors or contact_form.is_im0_default.errors or contact_form.is_im0_on_hold.errors %} errors{% endif %}">
+                    <div class="grp-td">
                         {{ contact_form.im0_type }}
                         {{ contact_form.im0_type.errors }}
-                    </td>
-                    <td class="grp-td">
+                    </div>
+                    <div class="grp-td">
                         {{ contact_form.im0_address }}
                         {{ contact_form.im0_address.errors }}
-                    </td>
-                    <td class="grp-td">
+                    </div>
+                    <div class="grp-td">
                         {{ contact_form.is_im0_default }}
                         {{ contact_form.is_im0_default.errors }}
-                    </td>
-                    <td class="grp-td">
+                    </div>
+                    <div class="grp-td">
                         {{ contact_form.is_im0_on_hold }}
                         {{ contact_form.is_im0_on_hold.errors }}
-                    </td>
-                </tr>
-                <tr class="grp-tr{% if contact_form.im1_type.errors or contact_form.im1_address.errors or contact_form.is_im1_default.errors or contact_form.is_im1_on_hold.errors %} errors{% endif %}">
-                    <td class="grp-td">
+                    </div>
+                </div>
+                <div class="grp-tr{% if contact_form.im1_type.errors or contact_form.im1_address.errors or contact_form.is_im1_default.errors or contact_form.is_im1_on_hold.errors %} errors{% endif %}">
+                    <div class="grp-td">
                         {{ contact_form.im1_type }}
                         {{ contact_form.im1_type.errors }}
-                    </td>
-                    <td class="grp-td">
+                    </div>
+                    <div class="grp-td">
                         {{ contact_form.im1_address }}
                         {{ contact_form.im1_address.errors }}
-                    </td>
-                    <td class="grp-td">
+                    </div>
+                    <div class="grp-td">
                         {{ contact_form.is_im1_default }}
                         {{ contact_form.is_im1_default.errors }}
-                    </td>
-                    <td class="grp-td">
+                    </div>
+                    <div class="grp-td">
                         {{ contact_form.is_im1_on_hold }}
                         {{ contact_form.is_im1_on_hold.errors }}
-                    </td>
-                </tr>
-                <tr class="grp-tr{% if contact_form.im2_type.errors or contact_form.im2_address.errors or contact_form.is_im2_default.errors or contact_form.is_im2_on_hold.errors %} errors{% endif %}">
-                    <td class="grp-td">
+                    </div>
+                </div>
+                <div class="grp-tr{% if contact_form.im2_type.errors or contact_form.im2_address.errors or contact_form.is_im2_default.errors or contact_form.is_im2_on_hold.errors %} errors{% endif %}">
+                    <div class="grp-td">
                         {{ contact_form.im2_type }}
                         {{ contact_form.im2_type.errors }}
-                    </td>
-                    <td class="grp-td">
+                    </div>
+                    <div class="grp-td">
                         {{ contact_form.im2_address }}
                         {{ contact_form.im2_address.errors }}
-                    </td>
-                    <td class="grp-td">
+                    </div>
+                    <div class="grp-td">
                         {{ contact_form.is_im2_default }}
                         {{ contact_form.is_im2_default.errors }}
-                    </td>
-                    <td class="grp-td">
+                    </div>
+                    <div class="grp-td">
                         {{ contact_form.is_im2_on_hold }}
                         {{ contact_form.is_im2_on_hold.errors }}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </fieldset>
     <fieldset class="grp-module grp-aligned grp-collapse grp-open">
         <h4 class="grp-collapse-handler">{% trans "Address" %}</h4>
