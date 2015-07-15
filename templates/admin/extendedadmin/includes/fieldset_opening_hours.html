@@ -64,107 +64,107 @@
             </div>
         </div>
     </div>
-    <div class="grp-group nested">
-        <table summary="{% trans "Opening hours" %}" class="working-hours grp-module grp-table">
-            <thead class="grp-module grp-thead">
-                <tr class="grp-tr">
-                    <th class="grp-th span-4">&nbsp;</th>
-                    <th class="grp-th span-3">{% trans "Monday" %}</th>
-                    <th class="grp-th span-3">{% trans "Tuesday" %}</th>
-                    <th class="grp-th span-3">{% trans "Wednesday" %}</th>
-                    <th class="grp-th span-3">{% trans "Thursday" %}</th>
-                    <th class="grp-th span-3">{% trans "Friday" %}</th>
-                    <th class="grp-th span-3">{% trans "Saturday" %}</th>
-                    <th class="grp-th span-3">{% trans "Sunday" %}</th>
-                    <th class="grp-th span-flexible">&nbsp;</th>
-                </tr>
-            </thead>
-            <tbody class="grp-module grp-tbody">
-                <tr class="grp-tr">
-                    <td class="label grp-td span-4"><label>{% trans "Opens" %}:</label></td>
-                    <td class="grp-td span-3{% if form.mon_open.errors %} errors{% endif %}">{{ form.mon_open.errors }}
-                    {{ form.mon_open }}</td>
-                    <td class="grp-td span-3{% if form.tue_open.errors %} errors{% endif %}">{{ form.tue_open.errors }}
-                    {{ form.tue_open }}</td>
-                    <td class="grp-td span-3{% if form.wed_open.errors %} errors{% endif %}">{{ form.wed_open.errors }}
-                    {{ form.wed_open }}</td>
-                    <td class="grp-td span-3{% if form.thu_open.errors %} errors{% endif %}">{{ form.thu_open.errors }}
-                    {{ form.thu_open }}</td>
-                    <td class="grp-td span-3{% if form.fri_open.errors %} errors{% endif %}">{{ form.fri_open.errors }}
-                    {{ form.fri_open }}</td>
-                    <td class="grp-td span-3{% if form.sat_open.errors %} errors{% endif %}">{{ form.sat_open.errors }}
-                    {{ form.sat_open }}</td>
-                    <td class="grp-td span-3{% if form.sun_open.errors %} errors{% endif %}">{{ form.sun_open.errors }}
-                    {{ form.sun_open }}</td>
-                    <td class="grp-td span-flexible">&nbsp;</td>
-                </tr>
-                <tr id="break_start_row" class="grp-tr">
-                    <td class="label grp-td span-4"><label>{% trans "Break starts" %}:</label></td>
-                    <td class="grp-td span-3{% if form.mon_break_close.errors %} errors{% endif %}">{{ form.mon_break_close.errors }}
-                    {{ form.mon_break_close }}</td>
-                    <td class="grp-td span-3{% if form.tue_break_close.errors %} errors{% endif %}">{{ form.tue_break_close.errors }}
-                    {{ form.tue_break_close }}</td>
-                    <td class="grp-td span-3{% if form.wed_break_close.errors %} errors{% endif %}">{{ form.wed_break_close.errors }}
-                    {{ form.wed_break_close }}</td>
-                    <td class="grp-td span-3{% if form.thu_break_close.errors %} errors{% endif %}">{{ form.thu_break_close.errors }}
-                    {{ form.thu_break_close }}</td>
-                    <td class="grp-td span-3{% if form.fri_break_close.errors %} errors{% endif %}">{{ form.fri_break_close.errors }}
-                    {{ form.fri_break_close }}</td>
-                    <td class="grp-td span-3{% if form.sat_break_close.errors %} errors{% endif %}">{{ form.sat_break_close.errors }}
-                    {{ form.sat_break_close }}</td>
-                    <td class="grp-td span-3{% if form.sun_break_close.errors %} errors{% endif %}">{{ form.sun_break_close.errors }}
-                    {{ form.sun_break_close }}</td>
-                    <td class="grp-td span-flexible">&nbsp;</td>
-                </tr>
-                <tr id="break_end_row" class="grp-tr">
-                    <td class="label grp-td span-4"><label>{% trans "Break ends" %}:</label></td>
-                    <td class="grp-td span-3{% if form.mon_break_open.errors %} errors{% endif %}">{{ form.mon_break_open.errors }}
-                    {{ form.mon_break_open }}</td>
-                    <td class="grp-td span-3{% if form.tue_break_open.errors %} errors{% endif %}">{{ form.tue_break_open.errors }}
-                    {{ form.tue_break_open }}</td>
-                    <td class="grp-td span-3{% if form.wed_break_open.errors %} errors{% endif %}">{{ form.wed_break_open.errors }}
-                    {{ form.wed_break_open }}</td>
-                    <td class="grp-td span-3{% if form.thu_break_open.errors %} errors{% endif %}">{{ form.thu_break_open.errors }}
-                    {{ form.thu_break_open }}</td>
-                    <td class="grp-td span-3{% if form.fri_break_open.errors %} errors{% endif %}">{{ form.fri_break_open.errors }}
-                    {{ form.fri_break_open }}</td>
-                    <td class="grp-td span-3{% if form.sat_break_open.errors %} errors{% endif %}">{{ form.sat_break_open.errors }}
-                    {{ form.sat_break_open }}</td>
-                    <td class="grp-td span-3{% if form.sun_break_open.errors %} errors{% endif %}">{{ form.sun_break_open.errors }}
-                    {{ form.sun_break_open }}</td>
-                    <td class="grp-td span-flexible">&nbsp;</td>
-                </tr>
-                <tr class="grp-tr">
-                    <td class="label td span-4"><label>{% trans "Closes" %}:</label></td>
-                    <td class="grp-td span-3{% if form.mon_close.errors %} errors{% endif %}">{{ form.mon_close.errors }}
-                    {{ form.mon_close }}</td>
-                    <td class="grp-td span-3{% if form.tue_close.errors %} errors{% endif %}">{{ form.tue_close.errors }}
-                    {{ form.tue_close }}</td>
-                    <td class="grp-td span-3{% if form.wed_close.errors %} errors{% endif %}">{{ form.wed_close.errors }}
-                    {{ form.wed_close }}</td>
-                    <td class="grp-td span-3{% if form.thu_close.errors %} errors{% endif %}">{{ form.thu_close.errors }}
-                    {{ form.thu_close }}</td>
-                    <td class="grp-td span-3{% if form.fri_close.errors %} errors{% endif %}">{{ form.fri_close.errors }}
-                    {{ form.fri_close }}</td>
-                    <td class="grp-td span-3{% if form.sat_close.errors %} errors{% endif %}">{{ form.sat_close.errors }}
-                    {{ form.sat_close }}</td>
-                    <td class="grp-td span-3{% if form.sun_close.errors %} errors{% endif %}">{{ form.sun_close.errors }}
-                    {{ form.sun_close }}</td>
-                    <td class="grp-td span-flexible">&nbsp;</td>
-                </tr>
-                <tr class="last grp-tr">
-                    <td class="grp-td span-4">&nbsp;</td>
-                    <td class="grp-td span-3 row"><input type="checkbox" id="id_closed_on_mon" onclick="OpeningHoursManager.modifyDay('mon')" class="vCheckboxField" /><label for="id_closed_on_mon" class="vCheckboxLabel"> {% trans "Closed" %}</label></td>
-                    <td class="grp-td span-3 row"><input type="checkbox" id="id_closed_on_tue" onclick="OpeningHoursManager.modifyDay('tue')" class="vCheckboxField" /><label for="id_closed_on_tue" class="vCheckboxLabel"> {% trans "Closed" %}</label></td>
-                    <td class="grp-td span-3 row"><input type="checkbox" id="id_closed_on_wed" onclick="OpeningHoursManager.modifyDay('wed')" class="vCheckboxField" /><label for="id_closed_on_wed" class="vCheckboxLabel"> {% trans "Closed" %}</label></td>
-                    <td class="grp-td span-3 row"><input type="checkbox" id="id_closed_on_thu" onclick="OpeningHoursManager.modifyDay('thu')" class="vCheckboxField" /><label for="id_closed_on_thu" class="vCheckboxLabel"> {% trans "Closed" %}</label></td>
-                    <td class="grp-td span-3 row"><input type="checkbox" id="id_closed_on_fri" onclick="OpeningHoursManager.modifyDay('fri')" class="vCheckboxField" /><label for="id_closed_on_fri" class="vCheckboxLabel"> {% trans "Closed" %}</label></td>
-                    <td class="grp-td span-3 row"><input type="checkbox" id="id_closed_on_sat" onclick="OpeningHoursManager.modifyDay('sat')" class="vCheckboxField" /><label for="id_closed_on_sat" class="vCheckboxLabel"> {% trans "Closed" %}</label></td>
-                    <td class="grp-td span-3 row"><input type="checkbox" id="id_closed_on_sun" onclick="OpeningHoursManager.modifyDay('sun')" class="vCheckboxField" /><label for="id_closed_on_sun" class="vCheckboxLabel"> {% trans "Closed" %}</label></td>
-                    <td class="grp-td span-flexible">&nbsp;</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="grp-tabular grp-module">
+        <div summary="{% trans "Opening hours" %}" class="working-hours grp-module grp-table">
+            <div class="grp-module grp-thead">
+                <div class="grp-tr">
+                    <div class="grp-th">&nbsp;</div>
+                    <div class="grp-th">{% trans "Monday" %}</div>
+                    <div class="grp-th">{% trans "Tuesday" %}</div>
+                    <div class="grp-th">{% trans "Wednesday" %}</div>
+                    <div class="grp-th">{% trans "Thursday" %}</div>
+                    <div class="grp-th">{% trans "Friday" %}</div>
+                    <div class="grp-th">{% trans "Saturday" %}</div>
+                    <div class="grp-th">{% trans "Sunday" %}</div>
+                    <div class="grp-th">&nbsp;</div>
+                </div>
+            </div>
+            <div class="grp-module grp-tbody">
+                <div class="grp-tr">
+                    <div class="label grp-td span-4"><label>{% trans "Opens" %}:</label></div>
+                    <div class="grp-td span-3{% if form.mon_open.errors %} errors{% endif %}">{{ form.mon_open.errors }}
+                    {{ form.mon_open }}</div>
+                    <div class="grp-td span-3{% if form.tue_open.errors %} errors{% endif %}">{{ form.tue_open.errors }}
+                    {{ form.tue_open }}</div>
+                    <div class="grp-td span-3{% if form.wed_open.errors %} errors{% endif %}">{{ form.wed_open.errors }}
+                    {{ form.wed_open }}</div>
+                    <div class="grp-td span-3{% if form.thu_open.errors %} errors{% endif %}">{{ form.thu_open.errors }}
+                    {{ form.thu_open }}</div>
+                    <div class="grp-td span-3{% if form.fri_open.errors %} errors{% endif %}">{{ form.fri_open.errors }}
+                    {{ form.fri_open }}</div>
+                    <div class="grp-td span-3{% if form.sat_open.errors %} errors{% endif %}">{{ form.sat_open.errors }}
+                    {{ form.sat_open }}</div>
+                    <div class="grp-td span-3{% if form.sun_open.errors %} errors{% endif %}">{{ form.sun_open.errors }}
+                    {{ form.sun_open }}</div>
+                    <div class="grp-td span-flexible">&nbsp;</div>
+                </div>
+                <div id="break_start_row" class="grp-tr">
+                    <div class="label grp-td span-4"><label>{% trans "Break starts" %}:</label></div>
+                    <div class="grp-td span-3{% if form.mon_break_close.errors %} errors{% endif %}">{{ form.mon_break_close.errors }}
+                    {{ form.mon_break_close }}</div>
+                    <div class="grp-td span-3{% if form.tue_break_close.errors %} errors{% endif %}">{{ form.tue_break_close.errors }}
+                    {{ form.tue_break_close }}</div>
+                    <div class="grp-td span-3{% if form.wed_break_close.errors %} errors{% endif %}">{{ form.wed_break_close.errors }}
+                    {{ form.wed_break_close }}</div>
+                    <div class="grp-td span-3{% if form.thu_break_close.errors %} errors{% endif %}">{{ form.thu_break_close.errors }}
+                    {{ form.thu_break_close }}</div>
+                    <div class="grp-td span-3{% if form.fri_break_close.errors %} errors{% endif %}">{{ form.fri_break_close.errors }}
+                    {{ form.fri_break_close }}</div>
+                    <div class="grp-td span-3{% if form.sat_break_close.errors %} errors{% endif %}">{{ form.sat_break_close.errors }}
+                    {{ form.sat_break_close }}</div>
+                    <div class="grp-td span-3{% if form.sun_break_close.errors %} errors{% endif %}">{{ form.sun_break_close.errors }}
+                    {{ form.sun_break_close }}</div>
+                    <div class="grp-td span-flexible">&nbsp;</div>
+                </div>
+                <div id="break_end_row" class="grp-tr">
+                    <div class="label grp-td span-4"><label>{% trans "Break ends" %}:</label></div>
+                    <div class="grp-td span-3{% if form.mon_break_open.errors %} errors{% endif %}">{{ form.mon_break_open.errors }}
+                    {{ form.mon_break_open }}</div>
+                    <div class="grp-td span-3{% if form.tue_break_open.errors %} errors{% endif %}">{{ form.tue_break_open.errors }}
+                    {{ form.tue_break_open }}</div>
+                    <div class="grp-td span-3{% if form.wed_break_open.errors %} errors{% endif %}">{{ form.wed_break_open.errors }}
+                    {{ form.wed_break_open }}</div>
+                    <div class="grp-td span-3{% if form.thu_break_open.errors %} errors{% endif %}">{{ form.thu_break_open.errors }}
+                    {{ form.thu_break_open }}</div>
+                    <div class="grp-td span-3{% if form.fri_break_open.errors %} errors{% endif %}">{{ form.fri_break_open.errors }}
+                    {{ form.fri_break_open }}</div>
+                    <div class="grp-td span-3{% if form.sat_break_open.errors %} errors{% endif %}">{{ form.sat_break_open.errors }}
+                    {{ form.sat_break_open }}</div>
+                    <div class="grp-td span-3{% if form.sun_break_open.errors %} errors{% endif %}">{{ form.sun_break_open.errors }}
+                    {{ form.sun_break_open }}</div>
+                    <div class="grp-td span-flexible">&nbsp;</div>
+                </div>
+                <div class="grp-tr">
+                    <div class="label grp-td span-4"><label>{% trans "Closes" %}:</label></div>
+                    <div class="grp-td span-3{% if form.mon_close.errors %} errors{% endif %}">{{ form.mon_close.errors }}
+                    {{ form.mon_close }}</div>
+                    <div class="grp-td span-3{% if form.tue_close.errors %} errors{% endif %}">{{ form.tue_close.errors }}
+                    {{ form.tue_close }}</div>
+                    <div class="grp-td span-3{% if form.wed_close.errors %} errors{% endif %}">{{ form.wed_close.errors }}
+                    {{ form.wed_close }}</div>
+                    <div class="grp-td span-3{% if form.thu_close.errors %} errors{% endif %}">{{ form.thu_close.errors }}
+                    {{ form.thu_close }}</div>
+                    <div class="grp-td span-3{% if form.fri_close.errors %} errors{% endif %}">{{ form.fri_close.errors }}
+                    {{ form.fri_close }}</div>
+                    <div class="grp-td span-3{% if form.sat_close.errors %} errors{% endif %}">{{ form.sat_close.errors }}
+                    {{ form.sat_close }}</div>
+                    <div class="grp-td span-3{% if form.sun_close.errors %} errors{% endif %}">{{ form.sun_close.errors }}
+                    {{ form.sun_close }}</div>
+                    <div class="grp-td span-flexible">&nbsp;</div>
+                </div>
+                <div class="last grp-tr">
+                    <div class="grp-td span-4">&nbsp;</div>
+                    <div class="grp-td span-3 row"><input type="checkbox" id="id_closed_on_mon" onclick="OpeningHoursManager.modifyDay('mon')" class="vCheckboxField" /><label for="id_closed_on_mon" class="vCheckboxLabel"> {% trans "Closed" %}</label></div>
+                    <div class="grp-td span-3 row"><input type="checkbox" id="id_closed_on_tue" onclick="OpeningHoursManager.modifyDay('tue')" class="vCheckboxField" /><label for="id_closed_on_tue" class="vCheckboxLabel"> {% trans "Closed" %}</label></div>
+                    <div class="grp-td span-3 row"><input type="checkbox" id="id_closed_on_wed" onclick="OpeningHoursManager.modifyDay('wed')" class="vCheckboxField" /><label for="id_closed_on_wed" class="vCheckboxLabel"> {% trans "Closed" %}</label></div>
+                    <div class="grp-td span-3 row"><input type="checkbox" id="id_closed_on_thu" onclick="OpeningHoursManager.modifyDay('thu')" class="vCheckboxField" /><label for="id_closed_on_thu" class="vCheckboxLabel"> {% trans "Closed" %}</label></div>
+                    <div class="grp-td span-3 row"><input type="checkbox" id="id_closed_on_fri" onclick="OpeningHoursManager.modifyDay('fri')" class="vCheckboxField" /><label for="id_closed_on_fri" class="vCheckboxLabel"> {% trans "Closed" %}</label></div>
+                    <div class="grp-td span-3 row"><input type="checkbox" id="id_closed_on_sat" onclick="OpeningHoursManager.modifyDay('sat')" class="vCheckboxField" /><label for="id_closed_on_sat" class="vCheckboxLabel"> {% trans "Closed" %}</label></div>
+                    <div class="grp-td span-3 row"><input type="checkbox" id="id_closed_on_sun" onclick="OpeningHoursManager.modifyDay('sun')" class="vCheckboxField" /><label for="id_closed_on_sun" class="vCheckboxLabel"> {% trans "Closed" %}</label></div>
+                    <div class="grp-td span-flexible">&nbsp;</div>
+                </div>
+            </div>
+        </div>
     </div>
     {% if form.exceptions_en %}
         <fieldset class="grp-module aligned collapse closed multilingual multilingual-set-1 multilingual-language-en nested">
