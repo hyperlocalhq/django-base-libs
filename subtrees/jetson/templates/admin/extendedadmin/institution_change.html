@@ -241,11 +241,13 @@
                     {% endwith %}
                 {% endwith %}
                 </div>
-                <div class="grp-module grp-add-item">
-                    <a class="grp-add-handler" href="javascript://">{% trans "Add Contact" %}</a>
-                    <ul class="grp-tools">
-                        <li class="grp-add-handler-container"><a title="{% trans "Add Contact" %}" class="grp-icon grp-add-handler" href="javascript://"> </a></li>
-                    </ul><br clear="all">
+                <div class="grp-module grp-transparent grp-dynamic-form">
+                    <div class="grp-row">
+                        <a class="grp-add-handler" href="javascript://"><strong>{% trans "Add Contact" %}</strong></a>
+                        <ul class="grp-tools">
+                            <li><a title="{% trans "Add Contact" %}" class="grp-icon grp-add-handler" href="javascript://"> </a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
