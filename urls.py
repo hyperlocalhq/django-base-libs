@@ -278,7 +278,8 @@ urlpatterns += patterns('django.views.static',
             },
         name="admin_media_url"
         ),
-    )
+    ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 urlpatterns += staticfiles_urlpatterns()
 
 ### HELPERS (system urls not visible directly for the users) ###
@@ -293,14 +294,11 @@ urlpatterns += patterns(
 
     # helper for getting related objects from given contenttype
     url(r'^helper/objects_to_select/(?P<app_name>[^/]+)/(?P<model_name>[^/]+)/(?P<obj_pk>[^/]+)/(?P<field_name>[^/]+)/of/(?P<content_type_id>[0-9]+)/$', 'base_libs.views.views.json_objects_to_select'),
-    #url(r'^helper/userrating/(?P<content_type_id>[0-9]+)/(?P<object_id>[0-9]+)/(?P<score>[0-9]+)/$', 'jetson.apps.rating.views.json_set_userrating'),
-    #url(r'^helper/rating/(?P<content_type_id>[0-9]+)/(?P<object_id>[0-9]+)/(?P<points>[1-5])/$', 'jetson.apps.ratings.views.json_set_rating'),
     url(r'^helper/favorite/(?P<content_type_id>[0-9]+)/(?P<object_id>[0-9]+)/$', 'ccb.apps.favorites.views.json_set_favorite'),
     url(r'^helper/individual_relation/(?P<username>[^/]+)/$', 'jetson.apps.individual_relations.views.json_manage_individual_relation'),
     url(r'^helper/memo/(?P<content_type_id>[0-9]+)/(?P<object_id>[0-9]+)/$', 'jetson.apps.memos.views.json_set_memo'),
     url(r'^helper/bookmark/$', 'jetson.apps.bookmarks.views.json_manage_bookmark'),
     # ajax lookups for review ratings
-    #url(r'^helper/reviews/(?P<rate_index>[0-9])/(?P<object_id>[0-9]+)/$', 'ccb.apps.site_specific.views.json_review_add_rating'),
     url(r'^helper/tmpimage/(?P<filename>[^/]+)/(?P<width>\d+)x(?P<height>\d+)/$', 'jetson.apps.utils.images.image_view', {'mod_function': None}),
     url(r'^helper/tmpimage/(?P<width>\d+)x(?P<height>\d+)/$', 'jetson.apps.utils.images.image_view', {'mod_function': None}),
 
@@ -784,7 +782,6 @@ urlpatterns += i18n_patterns('',
     
     # latest object feeds
     url(r'^(?P<ot_url_part>%s|%s|%s|%s|%s)/latest_published/feeds/(?P<feed_type>.*)/$'  % (URL_ID_DOCUMENTS, URL_ID_EVENTS, URL_ID_PERSONGROUPS, URL_ID_INSTITUTIONS, URL_ID_PEOPLE), 'jetson.apps.utils.views.feed', latest_published_objects_feeds),    
-    #url(r'^latest_published_objects/feeds/(?P<feed_type>.*)/(?P<language>.*)/$', 'jetson.apps.utils.views.feed', latest_published_objects_feeds),
 
     # sitemaps
     url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
@@ -795,8 +792,8 @@ urlpatterns += i18n_patterns('',
 
     # style guide
     url(r'^styleguide/', include('jetson.apps.styleguide.urls')),
-    
-	# blog! (must be placed after admin urls!!!!!!)
+
+    # blog! (must be placed after admin urls!!!!!!)
     url(r'^(?P<object_url_part>([^/]+/[^/]+/)?)(?P<url_identifier>blog)/', include('jetson.apps.blog.urls'),
        {
        'only_for_this_site': True,
@@ -855,8 +852,8 @@ urlpatterns += i18n_patterns('',
         'number_of_tweets': settings.TWITTER_NUMBER_OF_TWEETS,
         }),
 
-    url(r'^cms/', include('cms.urls')),
-) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    url(r'^', include('cms.urls')),
+)
 
 if 'rosetta' in settings.INSTALLED_APPS:
     urlpatterns += i18n_patterns('',
