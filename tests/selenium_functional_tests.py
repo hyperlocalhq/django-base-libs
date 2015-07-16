@@ -12100,12 +12100,12 @@ def suite():
     if FULL_TESTS:
         normal_urls = Urls.urls_which_should_return_200
     else:
-        normal_urls = sample(Urls.urls_which_should_return_200, 100)
+        normal_urls = sample(Urls.urls_which_should_return_200, 10)
     url_lists_by_expected_title = (
+        ('Creative City Berlin', normal_urls),
         ('Creative City Berlin', Urls.urls_which_should_return_200_but_dont),
         ('Creative City Berlin', Urls.urls_which_should_return_301_but_dont),
         ('Creative City Berlin', Urls.urls_which_should_return_302_but_dont),
-        ('Creative City Berlin', normal_urls),
         ('Creative City Berlin', Urls.urls_which_should_return_302),
         ('Creative City Berlin', Urls.urls_which_should_return_302_when_anonymous),
         ('Creative City Berlin', Urls.urls_which_should_return_403_when_anonymous),
