@@ -9,6 +9,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.shortcuts import redirect
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
 
 from jetson.apps.utils.decorators import login_required
@@ -691,7 +692,6 @@ urlpatterns += i18n_patterns('',
     url(r'^%s/(?P<slug>[^/]+)/$' % URL_ID_PERSONGROUP, object_detail, group_details_info),
     url(
         r'^%s/(?P<slug>[^/]+)/(?P<section>admins|moderators|members|unconfirmed|invited)/$' % URL_ID_PERSONGROUP, 'ccb.apps.groups_networks.views.view_persongroup_members',
-        #dict(context_processors=(prev_next_processor,),),
         ),
     url(
         r'^%s/(?P<slug>[^/]+)/members/invite/$' % URL_ID_PERSONGROUP,
@@ -789,9 +789,6 @@ urlpatterns += i18n_patterns('',
     # sitemaps
     url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
 
-    # jovoto stuff
-    #url(r'^logo_contest/ideas/', include(_project_name + '.apps.external_services.jovoto.urls')),
-
     url(r'^portfolios/((?P<show>favorites|memos|featured)/)?$', 'ccb.apps.media_gallery.views.gallery_list', gallery_list_info),
     url(r'^portfolios/feeds/(?P<feed_type>.*)/$', 'jetson.apps.utils.views.feed', latest_media_galleries),
 
@@ -852,28 +849,14 @@ urlpatterns += i18n_patterns('',
        'include' : [None],
        }
     ),
-    
-    # forum (must be placed after admin urls!!!!!!)
-    #url(r'^(?P<object_url_part>([^/]+/[^/]+/)?)(?P<url_identifier>forum)/', include('jetson.apps.forum.urls'),
-    #   {
-    #   'only_for_this_site' : False,
-    #   'include' : [None, URL_ID_PERSON],
-    #  }
-    #),
-    
-    # forum (must be placed after admin urls!!!!!!)
-    #url(r'^(?P<object_url_part>([^/]+/[^/]+/)?)(?P<url_identifier>forum)/', include('jetson.apps.forum.urls'),
-    #   {
-    #   'only_for_this_site' : False,
-    #   'include' : [None, URL_ID_PERSON],
-    #  }
-    #),
-    
+
     (r'^tweets/$', 'ccb.apps.twitter.views.latest_tweets', {
         'twitter_username': settings.TWITTER_USERNAME,
         'number_of_tweets': settings.TWITTER_NUMBER_OF_TWEETS,
         }),
-)
+
+    url(r'^cms/', include('cms.urls')),
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if 'rosetta' in settings.INSTALLED_APPS:
     urlpatterns += i18n_patterns('',
