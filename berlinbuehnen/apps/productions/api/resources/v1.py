@@ -132,7 +132,7 @@ class ProductionLiveStreamResource(ModelResource):
 
 class ProductionImageResource(ModelResource):
     class Meta(BaseMetaForModelResource):
-        queryset = ProductionImage.objects.all()
+        queryset = ProductionImage.objects.exclude(copyright_restrictions="protected")
         resource_name = 'production_image'
         fields = [
             'id',
@@ -307,7 +307,7 @@ class EventLiveStreamResource(ModelResource):
 
 class EventImageResource(ModelResource):
     class Meta(BaseMetaForModelResource):
-        queryset = EventImage.objects.all()
+        queryset = EventImage.objects.exclude(copyright_restrictions="protected")
         resource_name = 'event_image'
         fields = [
             'id',
@@ -456,7 +456,7 @@ class EventResource(ModelResource):
 
     videos = fields.ToManyField(EventVideoResource, "eventvideo_set", full=True)
     live_streams = fields.ToManyField(EventLiveStreamResource, "eventlivestream_set", full=True)
-    images = fields.ToManyField(EventImageResource, "eventimage_set", full=True)
+    images = fields.ToManyField(EventImageResource, attribute=(lambda bundle: bundle.obj.eventimage_set.exclude(copyright_restrictions="protected")), full=True, null=True, blank=True)
     pdfs = fields.ToManyField(EventPDFResource, "eventpdf_set", full=True)
 
     sponsors = fields.ToManyField(SponsorResource, "sponsors", full=True)
@@ -535,7 +535,7 @@ class ProductionResource(ModelResource):
 
     videos = fields.ToManyField(ProductionVideoResource, "productionvideo_set", full=True)
     live_streams = fields.ToManyField(ProductionLiveStreamResource, "productionlivestream_set", full=True)
-    images = fields.ToManyField(ProductionImageResource, "productionimage_set", full=True)
+    images = fields.ToManyField(EventImageResource, attribute=(lambda bundle: bundle.obj.productionimage_set.exclude(copyright_restrictions="protected")), full=True, null=True, blank=True)
     pdfs = fields.ToManyField(ProductionPDFResource, "productionpdf_set", full=True)
     social_media = fields.ToManyField(ProductionSocialMediaChannelResource, "productionsocialmediachannel_set", full=True)
 
