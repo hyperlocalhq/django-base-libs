@@ -38,6 +38,7 @@
 {% block stylesheet %}
     <link href="{{ STATIC_URL }}site/css/bootstrap/bootstrap.css" rel="stylesheet" media="screen, print" type="text/css" />
     <link href="{{ STATIC_URL }}site/css/style.css" rel="stylesheet" media="screen, print" type="text/css" />
+    <link href="{{ STATIC_URL }}site/css/print.css" rel="stylesheet" media="print" type="text/css" />
 {% endblock %}
 
 {% render_block "css" %}
@@ -101,6 +102,7 @@
 
 
 <body class="{% block bodyclass %}{% endblock %} lang_{{ LANGUAGE_CODE }}">
+    <img src="{{ STATIC_URL }}site/img/logo.png" alt="Berlin Bühnen" class="print" />
     <!--
         {% if request.is_phone %}This is phone.{% endif %}
         {% if request.is_tablet %}This is tablet.{% endif %}
@@ -128,13 +130,13 @@
                 <div class="content">
                     <div class="container">
                         <div class="row">
-                            <div class="col-xs-6 col-sm-3 col-md-2">
+                            <div id="footer-links" class="col-xs-6 col-sm-3 col-md-2">
                                 <h3>{% trans "Links" %}</h3>
                                 <ul class="navigation">
                                     {% show_menu_below_id "meta" 0 0 1 1 %}
                                 </ul>
                             </div>
-                            <div class="col-xs-6 col-sm-3 col-md-2">
+                            <div id="footer-social" class="col-xs-6 col-sm-3 col-md-2">
                                 <h3>{% trans "Follow us" %}</h3>
                                 <ul class="social_links">
                                     <li><a class="fawesome facebook" href="https://www.facebook.com/pages/berlin-buehnende/440174332664851" target="_blank"><span class="sr-only">Facebook</span></a></li>
@@ -145,14 +147,18 @@
                             <div class="clearfix visible-xs"></div>
                             <div class="col-xs-12 col-sm-6 col-md-3">
                                 <p>Ein Service von Kulturprojekte Berlin GmbH <br class="hidden-xs hidden-md" />gemeinsam mit den Berliner Bühnen</p>
-                                <a href="http://www.kulturprojekte-berlin.de" target="_blank"><img src="{{ STATIC_URL }}site/img/logos/kpb.gif" height="40"/></a>
+                                <a href="http://www.kulturprojekte-berlin.de" target="_blank" class="no-print"><img src="{{ STATIC_URL }}site/img/logos/kpb.gif" height="40"/></a>
+                                <img class="print" src="{{ STATIC_URL }}site/img/logos/kpb_black.gif" height="40"/>
                             </div>
                             <div class="clearfix visible-sm"></div>
-                            <div class="col-xs-12 col-md-5">
+                            <div id="footer-sponsors" class="col-xs-12 col-md-5">
                                 <p>Gefördert durch:</p>
-                                <a href="http://www.berlin.de/sen/wirtschaft/gruenden-und-foerdern/europaeische-strukturfonds" target="_blank"><img src="{{ STATIC_URL }}site/img/logos/efre.gif" height="60"/></a>
-                                <a href="http://www.berlin.de/rbmskzl/kultur" target="_blank"><img src="{{ STATIC_URL }}site/img/logos/berlin.gif" height="70"/></a>
-                                <a href="http://www.berlin.de/sen/wirtschaft/gruenden-und-foerdern/europaeische-strukturfonds" target="_blank"><img src="{{ STATIC_URL }}site/img/logos/eu.gif" height="70"/></a>
+                                <a href="http://www.berlin.de/sen/wirtschaft/gruenden-und-foerdern/europaeische-strukturfonds" target="_blank" class="no-print"><img src="{{ STATIC_URL }}site/img/logos/efre.gif" height="60"/></a>
+                                <img class="print" src="{{ STATIC_URL }}site/img/logos/efre_black.gif" height="60"/>
+                                <a href="http://www.berlin.de/rbmskzl/kultur" target="_blank" class="no-print"><img src="{{ STATIC_URL }}site/img/logos/berlin.gif" height="70"/></a>
+                                <img class="print" src="{{ STATIC_URL }}site/img/logos/berlin_black.gif" height="70"/>
+                                <a href="http://www.berlin.de/sen/wirtschaft/gruenden-und-foerdern/europaeische-strukturfonds" target="_blank" class="no-print"><img src="{{ STATIC_URL }}site/img/logos/eu.gif" height="70"/></a>
+                                <img class="print" src="{{ STATIC_URL }}site/img/logos/eu_black.gif" height="70"/>
                             </div>
                         </div>
                     </div>

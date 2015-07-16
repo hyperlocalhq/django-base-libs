@@ -71,8 +71,8 @@
         <div id="event" class="content details">
             <div class="container main-container">
                 <div class="row">
-                    <div class="col-xs-12">
-                        <a class="fawesome back uc" href="{% url 'event_list' %}{% remove_from_query "page" %}">{% trans "back to overview" %}</a>
+                    <div class="col-xs-12 print-padding">
+                        <a class="fawesome back uc no-print" href="{% url 'event_list' %}{% remove_from_query "page" %}">{% trans "back to overview" %}</a>
                         <article>
                             
                             <!-- headlines -->
@@ -114,7 +114,7 @@
                                             </li>
                                     {% endif %}
                                 </ul>
-                                <div class="header-icons">
+                                <div class="header-icons no-print">
                                     {% if request.user.is_authenticated %}
                                         {% adding2favorites for event using "favorites/includes/favorite_detail.html" %}
                                     {% endif %}
@@ -173,7 +173,7 @@
                                                     {% endif %}
                                                     {% if event.production.website %}
                                                         <dt>{% trans "Web" %}</dt>
-                                                        <dd><a href="{{ event.production.website }}" target="_blank">{{ event.production.website|humanize_url:200 }}</a></dd>
+                                                        <dd><a href="{{ event.production.website }}" target="_blank" class="no-print">{{ event.production.website|humanize_url:200 }}</a><a href="{{ event.production.website }}" target="_blank" class="print">{{ event.production.website }}</a></dd>
                                                     {% endif %}
                                                 </dl>
                                             {% endif %}
@@ -399,7 +399,7 @@
                                                                             {% endif %}
                                                                             {% if location.tickets_website %}
                                                                                 <dt class="width_50">{% trans "Web" %}</dt>
-                                                                                <dd><a href="{{ location.tickets_website }}">{{ location.tickets_website|humanize_url:30 }}</a></dd>
+                                                                                <dd><a href="{{ location.tickets_website }}" class="no-print">{{ location.tickets_website|humanize_url:30 }}</a><a href="{{ location.tickets_website }}" class="print">{{ location.tickets_website }}</a></dd>
                                                                             {% endif %}
                                                                         </dl>
                                                                     {% endif %}
@@ -410,7 +410,7 @@
                                                 {% endwith %}
                                                 {% with locations=event.ev_or_prod_play_locations stages=event.ev_or_prod_play_stages %}
                                                     {% if event.production.in_program_of.exists or event.location_title or event.production.location_title or locations|length > 0 or stages|length > 0 %}
-                                                        <div class="accordion-item">
+                                                        <div class="accordion-item no-print">
                                                             <h4 class="accordion-item-head">{% trans "Public transport" %}</h4>
                                                             <div class="accordion-item-content">
                                                                 {% if not stages or not stages.0.street_address %}
@@ -474,7 +474,7 @@
                                                     <div class="accordion-item">
                                                         <h4 class="accordion-item-head">{% trans "Educational offer" %}</h4>
                                                         <div class="accordion-item-content">
-                                                            <p><a href="{{ event.production.edu_offer_website }}">{{ event.production.edu_offer_website|humanize_url:30 }}</a></p>
+                                                            <p><a href="{{ event.production.edu_offer_website }}" class="no-print">{{ event.production.edu_offer_website|humanize_url:30 }}</a><a href="{{ event.production.edu_offer_website }}" class="print">{{ event.production.edu_offer_website }}</a></p>
                                                         </div>
                                                     </div>
                                                 {% endif %}

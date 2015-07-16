@@ -31,7 +31,7 @@
                     {% endif %}
                     {% if location.website %}
                         <dt class="width_50">{% trans "Web" %}</dt>
-                        <dd><a href="{{ location.website }}" target="_blank">{{ location.website|humanize_url:30 }}</a></dd>
+                        <dd><a href="{{ location.website }}" target="_blank" class="no-print">{{ location.website|humanize_url:30 }}</a><a href="{{ location.website }}" target="_blank" class="print">{{ location.website }}</a></dd>
                     {% endif %}
                 </dl>
             {% endif %}
@@ -118,14 +118,14 @@
                         {% endif %}
                         {% if location.tickets_website %}
                             <dt class="width_50">{% trans "Web" %}</dt>
-                            <dd><a href="{{ location.tickets_website }}">{{ location.tickets_website|humanize_url:30 }}</a></dd>
+                            <dd><a href="{{ location.tickets_website }}" class="no-print">{{ location.tickets_website|humanize_url:30 }}</a><a href="{{ location.tickets_website }}" class="print">{{ location.tickets_website }}</a></dd>
                         {% endif %}
                     </dl>
                 {% endif %}
             </div>
         </div>
     {% endif %}
-    <div class="accordion-item">
+    <div class="accordion-item no-print">
         <h4 class="accordion-item-head">{% trans "Public transport" %}</h4>
         <div class="accordion-item-content">
             {% bvg address=location.street_address address_2=location.street_address2 postal_code=location.postal_code city=location.city %}
@@ -177,7 +177,7 @@
                         {% endif %}
                         {% if location.press_website %}
                             <dt class="width_50">{% trans "Web" %}</dt>
-                            <dd><a href="{{ location.press_website }}" target="_blank">{{ location.press_website|humanize_url:30 }}</a></dd>
+                            <dd><a href="{{ location.press_website }}" target="_blank" class="no-print">{{ location.press_website|humanize_url:30 }}</a><a href="{{ location.press_website }}" target="_blank" class="print">{{ location.press_website }}</a></dd>
                         {% endif %}
                     </dl>
             </div>
