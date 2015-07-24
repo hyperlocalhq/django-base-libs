@@ -27,9 +27,10 @@ class ArticleOptions(ExtendedModelAdmin):
             )
     save_on_top = True
     
-    list_display = ['id', 'title', 'author', 'status', 'published_from', 'published_till', 'views', 'article_type', 'language']
+    list_display = ['id', 'title', 'author', 'published_from', 'published_till', 'views', 'article_type', 'language', 'newsletter', 'status']
     list_display_links = ['title']
-    list_filter = ('published_from', 'published_till', 'status', 'is_featured', 'article_type', 'language')
+    list_filter = ('published_from', 'published_till', 'is_featured', 'article_type', 'language', 'newsletter', 'status')
+    list_editable = ('newsletter', 'status')
     search_fields = ('title', 'description', 'content', 'author__username')
     
     fieldsets = []

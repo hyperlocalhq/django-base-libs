@@ -132,7 +132,7 @@ class CampaignAdmin(ExtendedModelAdmin):
     list_display = ('subject', 'get_mailinglist_with_link', 'get_preview_link', 'status',)
     list_filter = ('mailinglist',)
     fieldsets = [(None, {'fields': ('sender_name', 'sender_email', 'mailinglist', 'template', 'status',)}),]
-    fieldsets += [(_("Content"), {'fields': ['subject', 'body_html']})]
+    fieldsets += [(_("Content"), {'fields': ['subject', 'image', 'body_html']})]
     inlines = (MailingContentBlockInline,)
     radio_fields = {
         'status': admin.HORIZONTAL,

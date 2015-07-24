@@ -5,6 +5,8 @@ from django.utils.translation import ugettext_lazy as _
 from jetson.apps.articles.base import *
 from jetson.apps.articles.base import ArticleManager as ArticleManagerBase
 
+from base_libs.models.settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
+
 from cms.models import CMSPlugin
 
 class ArticleType(ArticleTypeBase):
@@ -60,10 +62,18 @@ class ArticleManager(ArticleManagerBase):
             models.Q(language__in=(None, u'')) | models.Q(language=lang_code)
         )
 
+    def for_newsletter(self):
+        return self.filter(
+            status=STATUS_CODE_PUBLISHED,
+            newsletter=True
+        )
+
 
 class Article(ArticleBase):
     category = TreeForeignKey("articles.ArticleCategory", verbose_name=_("Category"), blank=True, null=True)
     short_title = models.CharField(_('short title'), max_length=255, blank=True, default="")
+    
+    newsletter = models.BooleanField(_("Show in newsletter"))
 
     objects = ArticleManager()
 
