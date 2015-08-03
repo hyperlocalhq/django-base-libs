@@ -50,7 +50,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
         fields = [
             'in_program_of', 'ensembles', 'play_locations', 'play_stages', 'organizers', 'in_cooperation_with',
             'location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
-            'categories', 'show_among_others',
+            'categories', 'show_among_others', 'no_overwriting',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -82,6 +82,9 @@ class BasicInfoForm(autocomplete_light.ModelForm):
 
         self.fields['latitude'].widget = forms.HiddenInput()
         self.fields['longitude'].widget = forms.HiddenInput()
+
+        if self.instance and not self.instance.import_source:
+            self.fields['no_overwriting'].widget = forms.HiddenInput()
 
         self.helper = FormHelper()
         self.helper.form_action = ""
@@ -199,11 +202,25 @@ class BasicInfoForm(autocomplete_light.ModelForm):
             layout.Row(
                 layout.Div(
                     "show_among_others",
-                    css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12 tree"
+                    css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
                 ),
             ),
             css_class="fieldset-categories",
         ))
+        if self.instance and self.instance.import_source:
+            layout_blocks.append(layout.Fieldset(
+                _('Import settings'),
+                layout.Row(
+                    layout.Div(
+                        "no_overwriting",
+                        css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+                    ),
+                ),
+                css_class="fieldset-categories",
+            ))
+        else:
+            layout_blocks.append("no_overwriting")
+
 
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
@@ -1050,7 +1067,7 @@ def load_data(instance=None):
         fields = [
             'ensembles', 'organizers', 'in_cooperation_with',
             'location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
-            'show_among_others',
+            'show_among_others', 'no_overwriting',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -1162,7 +1179,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         fields = [
             'ensembles', 'organizers', 'in_cooperation_with',
             'location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
-            'show_among_others',
+            'show_among_others', 'no_overwriting'
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
