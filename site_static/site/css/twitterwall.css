@@ -26,10 +26,10 @@ body {
 
 a {
   text-decoration: none;
-  color: #e53433;
+  color: #E53433;
   outline: none; }
   a:hover {
-    color: #47a9ac; }
+    color: #47A9AC; }
 
 br {
   line-height: 18px; }
@@ -42,11 +42,11 @@ ol, ul, li {
 
 ::selection {
   color: #fff;
-  background: #47a9ac; }
+  background: #47A9AC; }
 
 ::-moz-selection {
   color: #fff;
-  background: #47a9ac; }
+  background: #47A9AC; }
 
 .clearfix:before,
 .clearfix:after {
@@ -61,7 +61,7 @@ ol, ul, li {
   zoom: 1; }
 
 #frame {
-  border: 25px solid #47a9ac;
+  border: 25px solid #47A9AC;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -70,7 +70,7 @@ ol, ul, li {
 
 #top_frame_border {
   height: 25px;
-  background: #47a9ac;
+  background: #47A9AC;
   position: fixed;
   top: 0;
   left: 0;
@@ -78,7 +78,7 @@ ol, ul, li {
 
 #bottom_frame_border {
   height: 25px;
-  background: #47a9ac;
+  background: #47A9AC;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -115,18 +115,22 @@ b {
     float: right;
     margin-right: 50px; }
   #header h1 {
-    color: #e53433;
-    font-size: 70px;
+    color: #E53433;
+    font-size: 54px;
     font-weight: 400;
     text-transform: uppercase;
-    line-height: 64px; }
+    line-height: 54px; }
   #header h2 {
-    color: #e53433;
-    font-size: 42px;
+    color: #E53433;
+    font-size: 37px;
     text-transform: uppercase;
     font-weight: 400;
-    line-height: 42px;
-    margin-top: 15px; }
+    line-height: 37px;
+    margin-top: 5px; }
+  #header p {
+    font-size: 17px;
+    margin-top: 3px;
+    color: #E53433; }
 
 #container {
   margin-top: 50px; }
@@ -159,17 +163,17 @@ b {
 
 .tweet {
   cursor: pointer;
-  border-top: 2px solid #e53433;
+  border-top: 2px solid #E53433;
   font-family: Georgia, "Times New Roman", Times, serif;
   position: relative;
   display: block;
   padding: 20px;
   padding-top: 60px; }
   .tweet:last-child {
-    border-bottom: 2px solid #e53433; }
+    border-bottom: 2px solid #E53433; }
   .tweet:hover {
     background-color: black;
-    background-color: #47a9ac; }
+    background-color: #47A9AC; }
     .tweet:hover .tweet-text a {
       color: #fff; }
   .tweet .tweet-text {
@@ -177,7 +181,7 @@ b {
     display: inline-block; }
     .tweet .tweet-text a {
       font-weight: 200;
-      color: #47a9ac; }
+      color: #47A9AC; }
       .tweet .tweet-text a:hover {
         color: #fff; }
     .tweet .tweet-text small {
@@ -185,7 +189,7 @@ b {
   .tweet .tweet-header {
     padding-right: 75px;
     font-family: "Oswald", Arial, sans-serif;
-    color: #e53433;
+    color: #E53433;
     line-height: 15px;
     margin-bottom: 15px;
     position: relative; }
@@ -197,7 +201,7 @@ b {
       padding-right: 5px;
       padding-bottom: 3px; }
     .tweet .tweet-header a {
-      color: #e53433; }
+      color: #E53433; }
     .tweet .tweet-header img {
       right: 0px;
       bottom: -5px;
@@ -225,7 +229,7 @@ b {
     display: block;
     position: fixed;
     color: #fff;
-    background: #47a9ac;
+    background: #47A9AC;
     left: 50px;
     bottom: 50px;
     padding: 10px; }

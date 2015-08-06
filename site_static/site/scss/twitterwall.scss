@@ -135,18 +135,23 @@ b {
   }
   h1 {
     color: $red;
-    font-size: 70px;
+    font-size: 54px;
     font-weight: 400;
     text-transform: uppercase;
-    line-height: 64px;
+    line-height: 54px;
   }
   h2 {
     color: $red;
-    font-size: 42px;
+    font-size: 37px;
     text-transform: uppercase;
     font-weight: 400;
-    line-height: 42px;
-    margin-top: 15px;
+    line-height: 37px;
+    margin-top: 5px;
+  }
+  p {
+    font-size: 17px;
+    margin-top: 3px;
+    color: $red;
   }
 }
 
