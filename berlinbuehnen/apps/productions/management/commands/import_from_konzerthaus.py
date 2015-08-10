@@ -15,8 +15,8 @@ SILENT, NORMAL, VERBOSE, VERY_VERBOSE = 0, 1, 2, 3
 
 class Command(NoArgsCommand, ImportFromHeimatBase):
     option_list = NoArgsCommand.option_list + (
-        make_option('--skip-images', action='store_true', dest='skip_images', default=False,
-            help='Tells Django to NOT download images.'),
+        make_option("--skip-images", action="store_true", dest="skip_images", default=False,
+            help="Tells Django to NOT download images."),
     )
     help = "Imports productions and events from Konzerthaus Berlin"
 
@@ -39,29 +39,30 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
 
         Service = models.get_model("external_services", "Service")
         ObjectMapper = models.get_model("external_services", "ObjectMapper")
+        Person = models.get_model("people", "Person")
 
         self.in_program_of = Location.objects.get(title_de=u"Konzerthaus Berlin")
 
         self.service, created = Service.objects.get_or_create(
             sysname="konzerthaus_berlin_prods",
             defaults={
-                'url': self.IMPORT_URL,
-                'title': "Konzerthaus Berlin Productions",
+                "url": self.IMPORT_URL,
+                "title": "Konzerthaus Berlin Productions",
             },
         )
 
         self.stats = {
-            'prods_added': 0,
-            'prods_updated': 0,
-            'prods_skipped': 0,
-            'events_added': 0,
-            'events_updated': 0,
-            'events_skipped': 0,
+            "prods_added": 0,
+            "prods_updated": 0,
+            "prods_skipped": 0,
+            "events_added": 0,
+            "events_updated": 0,
+            "events_skipped": 0,
         }
 
         with open(os.path.join(settings.PROJECT_PATH, "berlinbuehnen", "data", "Homepage-Konzerthaus.txt"), "rb") as f:
-            all_file_data = force_unicode(f.read().decode('latin1'))
-            all_file_data = re.compile(r'(\r\n|\r|\r)').sub('\n', all_file_data)
+            all_file_data = force_unicode(f.read().decode("latin1"))
+            all_file_data = re.compile(r"(\r\n|\r|\r)").sub("\n", all_file_data)
             for record in all_file_data.split("<-EOFIELD<-EOFILE"):
 
                 production_dict = {}
@@ -92,8 +93,8 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
                     prod = mapper.content_object
                     if not prod or prod.status == "trashed":
                         # if exhibition was deleted after import,
-                        # don't import it again
-                        self.stats['prods_skipped'] += 1
+                        # don"t import it again
+                        self.stats["prods_skipped"] += 1
                         continue
 
                 prod.title_de = prod.title_en = production_dict["Veranstaltungs-Titel"]
@@ -101,20 +102,34 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
                 prod.description_de = prod.description_en = production_dict["Beschreibung"]
                 prod.slug = get_unique_value(Production, slugify(prod.title_de), instance_pk=prod.pk)
 
-                production_dict[u"Veröffentlichung Internet"]
-                production_dict["Status"]
-                production_dict["Projekt"]
-                production_dict["Werke-Sonderveranstaltungen"]
-                production_dict["Werke"]
-                production_dict["Mitwirkende"]
-                production_dict["Label"]
-                production_dict["Reihe"]
-                production_dict["Kategorie"]
-                production_dict["Abo"]
-                production_dict["Sponsor"]
-                production_dict["KHO-ProdPlan"]
+                if production_dict[u"Veröffentlichung Internet"] == "JA":
+                    prod.status = "published"
+                else:
+                    prod.status = "draft"
 
-                organizer, organizer_url, organizer_phone = production_dict["Veranstalter"].split('#')
+                if production_dict["Status"] == "Fest gebucht":
+                    prod.ticket_status = "sold_out"
+
+                # production_dict["Projekt"] skipped
+
+                prod.concert_program_de = production_dict["Werke-Sonderveranstaltungen"]
+                if production_dict["Werke-Sonderveranstaltungen"] and production_dict["Werke"]:
+                    prod.concert_program_de += "\n"
+                prod.concert_program_de += production_dict["Werke"]
+
+                prod.other_characteristics_de = production_dict["Label"]
+
+                # production_dict["Reihe"] skipped
+
+                production_dict["Kategorie"]
+
+                # production_dict["Abo"] skipped
+
+                prod.credits_de = production_dict["Sponsor"]
+
+                # production_dict["KHO-ProdPlan"] skipped
+
+                organizer, organizer_url, organizer_phone = production_dict["Veranstalter"].split("#")
                 prod.organizers = organizer
 
                 prod.tickets_website = production_dict["Ticketlink"]
@@ -123,6 +138,30 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
                 prod.save()
 
                 prod.in_program_of.add(self.in_program_of)
+
+                prod.productioninvolvement_set.all().delete()
+                position = 1
+                for line in production_dict["Mitwirkende"].split("\n"):
+                    first_and_last_name, subcategory, category = line.split("#")
+                    if " " in first_and_last_name:
+                        first_name, last_name = first_and_last_name.rsplit(" ", 1)
+                    else:
+                        first_name = ""
+                        last_name = first_and_last_name
+
+                    role_de = subcategory or category
+
+                    p, created = Person.objects.get_first_or_create(
+                        first_name=first_name,
+                        last_name=last_name,
+                    )
+                    prod.productioninvolvement_set.create(
+                        person=p,
+                        involvement_role_de=role_de,
+                        imported_sort_order=position,
+                    )
+                    position += 1
+
 
                 try:
                     stage = Stage.objects.get(location=self.in_program_of, title_de=production_dict["Raum"])
@@ -140,9 +179,9 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
                     )
                     mapper.content_object = prod
                     mapper.save()
-                    self.stats['prods_added'] += 1
+                    self.stats["prods_added"] += 1
                 else:
-                    self.stats['prods_updated'] += 1
+                    self.stats["prods_updated"] += 1
 
                 # save event
                 event_mapper = None
@@ -160,7 +199,7 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
                     event = event_mapper.content_object
                     if not event:
                         # skip deleted events
-                        self.stats['events_skipped'] += 1
+                        self.stats["events_skipped"] += 1
                         continue
 
                 event.production = prod
@@ -170,9 +209,9 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
                 event.start_time = time(*map(int, start_time_str.split(".")))
 
                 if production_dict["Ausverkauft"] == "JA":
-                    event.ticket_status = 'sold_out'
+                    event.ticket_status = "sold_out"
                 else:
-                    event.ticket_status = 'tickets_@_box_office'
+                    event.ticket_status = "tickets_@_box_office"
 
                 event.save()
 
@@ -183,16 +222,16 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
                     )
                     event_mapper.content_object = event
                     event_mapper.save()
-                    self.stats['events_added'] += 1
+                    self.stats["events_added"] += 1
                 else:
-                    self.stats['events_updated'] += 1
+                    self.stats["events_updated"] += 1
 
         if self.verbosity >= NORMAL:
-            print u"Productions added: %d" % self.stats['prods_added']
-            print u"Productions updated: %d" % self.stats['prods_updated']
-            print u"Productions skipped: %d" % self.stats['prods_skipped']
-            print u"Events added: %d" % self.stats['events_added']
-            print u"Events updated: %d" % self.stats['events_updated']
-            print u"Events skipped: %d" % self.stats['events_skipped']
+            print u"Productions added: %d" % self.stats["prods_added"]
+            print u"Productions updated: %d" % self.stats["prods_updated"]
+            print u"Productions skipped: %d" % self.stats["prods_skipped"]
+            print u"Events added: %d" % self.stats["events_added"]
+            print u"Events updated: %d" % self.stats["events_updated"]
+            print u"Events skipped: %d" % self.stats["events_skipped"]
             print
 
