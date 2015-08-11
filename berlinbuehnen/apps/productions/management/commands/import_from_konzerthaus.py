@@ -107,9 +107,6 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
                 else:
                     prod.status = "draft"
 
-                if production_dict["Status"] == "Fest gebucht":
-                    prod.ticket_status = "sold_out"
-
                 # production_dict["Projekt"] skipped
 
                 prod.concert_program_de = production_dict["Werke-Sonderveranstaltungen"]
@@ -121,7 +118,10 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
 
                 # production_dict["Reihe"] skipped
 
-                production_dict["Kategorie"]
+                if production_dict["Label"] and production_dict["Kategorie"]:
+                    prod.other_characteristics_de += "\n"
+
+                prod.other_characteristics_de += production_dict["Kategorie"]
 
                 # production_dict["Abo"] skipped
 
@@ -140,28 +140,28 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
                 prod.in_program_of.add(self.in_program_of)
 
                 prod.productioninvolvement_set.all().delete()
-                position = 1
-                for line in production_dict["Mitwirkende"].split("\n"):
-                    first_and_last_name, subcategory, category = line.split("#")
-                    if " " in first_and_last_name:
-                        first_name, last_name = first_and_last_name.rsplit(" ", 1)
-                    else:
-                        first_name = ""
-                        last_name = first_and_last_name
+                if production_dict["Mitwirkende"]:
+                    position = 1
+                    for line in production_dict["Mitwirkende"].split("\n"):
+                        first_and_last_name, subcategory, category = line.split("#")
+                        if " " in first_and_last_name:
+                            first_name, last_name = first_and_last_name.rsplit(" ", 1)
+                        else:
+                            first_name = ""
+                            last_name = first_and_last_name
 
-                    role_de = subcategory or category
+                        role_de = subcategory or category
 
-                    p, created = Person.objects.get_first_or_create(
-                        first_name=first_name,
-                        last_name=last_name,
-                    )
-                    prod.productioninvolvement_set.create(
-                        person=p,
-                        involvement_role_de=role_de,
-                        imported_sort_order=position,
-                    )
-                    position += 1
-
+                        p, created = Person.objects.get_first_or_create(
+                            first_name=first_name,
+                            last_name=last_name,
+                        )
+                        prod.productioninvolvement_set.create(
+                            person=p,
+                            involvement_role_de=role_de,
+                            imported_sort_order=position,
+                        )
+                        position += 1
 
                 try:
                     stage = Stage.objects.get(location=self.in_program_of, title_de=production_dict["Raum"])
