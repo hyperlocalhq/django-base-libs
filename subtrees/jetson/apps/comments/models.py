@@ -45,7 +45,7 @@ class CommentManager(models.Manager):
         validate that submitted form options have not been tampered-with.
         """
         from hashlib import md5
-        return md5.new(options + photo_options + rating_options + target + settings.SECRET_KEY).hexdigest()
+        return md5(options + photo_options + rating_options + target + settings.SECRET_KEY).hexdigest()
 
     def get_rating_options(self, rating_string):
         """

@@ -9,6 +9,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.shortcuts import redirect
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
 
 from jetson.apps.utils.decorators import login_required
@@ -277,7 +278,8 @@ urlpatterns += patterns('django.views.static',
             },
         name="admin_media_url"
         ),
-    )
+    ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 urlpatterns += staticfiles_urlpatterns()
 
 ### HELPERS (system urls not visible directly for the users) ###
@@ -292,14 +294,11 @@ urlpatterns += patterns(
 
     # helper for getting related objects from given contenttype
     url(r'^helper/objects_to_select/(?P<app_name>[^/]+)/(?P<model_name>[^/]+)/(?P<obj_pk>[^/]+)/(?P<field_name>[^/]+)/of/(?P<content_type_id>[0-9]+)/$', 'base_libs.views.views.json_objects_to_select'),
-    #url(r'^helper/userrating/(?P<content_type_id>[0-9]+)/(?P<object_id>[0-9]+)/(?P<score>[0-9]+)/$', 'jetson.apps.rating.views.json_set_userrating'),
-    #url(r'^helper/rating/(?P<content_type_id>[0-9]+)/(?P<object_id>[0-9]+)/(?P<points>[1-5])/$', 'jetson.apps.ratings.views.json_set_rating'),
     url(r'^helper/favorite/(?P<content_type_id>[0-9]+)/(?P<object_id>[0-9]+)/$', 'ccb.apps.favorites.views.json_set_favorite'),
     url(r'^helper/individual_relation/(?P<username>[^/]+)/$', 'jetson.apps.individual_relations.views.json_manage_individual_relation'),
     url(r'^helper/memo/(?P<content_type_id>[0-9]+)/(?P<object_id>[0-9]+)/$', 'jetson.apps.memos.views.json_set_memo'),
     url(r'^helper/bookmark/$', 'jetson.apps.bookmarks.views.json_manage_bookmark'),
     # ajax lookups for review ratings
-    #url(r'^helper/reviews/(?P<rate_index>[0-9])/(?P<object_id>[0-9]+)/$', 'ccb.apps.site_specific.views.json_review_add_rating'),
     url(r'^helper/tmpimage/(?P<filename>[^/]+)/(?P<width>\d+)x(?P<height>\d+)/$', 'jetson.apps.utils.images.image_view', {'mod_function': None}),
     url(r'^helper/tmpimage/(?P<width>\d+)x(?P<height>\d+)/$', 'jetson.apps.utils.images.image_view', {'mod_function': None}),
 
@@ -691,7 +690,6 @@ urlpatterns += i18n_patterns('',
     url(r'^%s/(?P<slug>[^/]+)/$' % URL_ID_PERSONGROUP, object_detail, group_details_info),
     url(
         r'^%s/(?P<slug>[^/]+)/(?P<section>admins|moderators|members|unconfirmed|invited)/$' % URL_ID_PERSONGROUP, 'ccb.apps.groups_networks.views.view_persongroup_members',
-        #dict(context_processors=(prev_next_processor,),),
         ),
     url(
         r'^%s/(?P<slug>[^/]+)/members/invite/$' % URL_ID_PERSONGROUP,
@@ -784,13 +782,9 @@ urlpatterns += i18n_patterns('',
     
     # latest object feeds
     url(r'^(?P<ot_url_part>%s|%s|%s|%s|%s)/latest_published/feeds/(?P<feed_type>.*)/$'  % (URL_ID_DOCUMENTS, URL_ID_EVENTS, URL_ID_PERSONGROUPS, URL_ID_INSTITUTIONS, URL_ID_PEOPLE), 'jetson.apps.utils.views.feed', latest_published_objects_feeds),    
-    #url(r'^latest_published_objects/feeds/(?P<feed_type>.*)/(?P<language>.*)/$', 'jetson.apps.utils.views.feed', latest_published_objects_feeds),
 
     # sitemaps
     url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
-
-    # jovoto stuff
-    #url(r'^logo_contest/ideas/', include(_project_name + '.apps.external_services.jovoto.urls')),
 
     url(r'^portfolios/((?P<show>favorites|memos|featured)/)?$', 'ccb.apps.media_gallery.views.gallery_list', gallery_list_info),
     url(r'^portfolios/feeds/(?P<feed_type>.*)/$', 'jetson.apps.utils.views.feed', latest_media_galleries),
@@ -798,8 +792,8 @@ urlpatterns += i18n_patterns('',
 
     # style guide
     url(r'^styleguide/', include('jetson.apps.styleguide.urls')),
-    
-	# blog! (must be placed after admin urls!!!!!!)
+
+    # blog! (must be placed after admin urls!!!!!!)
     url(r'^(?P<object_url_part>([^/]+/[^/]+/)?)(?P<url_identifier>blog)/', include('jetson.apps.blog.urls'),
        {
        'only_for_this_site': True,
@@ -852,27 +846,13 @@ urlpatterns += i18n_patterns('',
        'include' : [None],
        }
     ),
-    
-    # forum (must be placed after admin urls!!!!!!)
-    #url(r'^(?P<object_url_part>([^/]+/[^/]+/)?)(?P<url_identifier>forum)/', include('jetson.apps.forum.urls'),
-    #   {
-    #   'only_for_this_site' : False,
-    #   'include' : [None, URL_ID_PERSON],
-    #  }
-    #),
-    
-    # forum (must be placed after admin urls!!!!!!)
-    #url(r'^(?P<object_url_part>([^/]+/[^/]+/)?)(?P<url_identifier>forum)/', include('jetson.apps.forum.urls'),
-    #   {
-    #   'only_for_this_site' : False,
-    #   'include' : [None, URL_ID_PERSON],
-    #  }
-    #),
-    
+
     (r'^tweets/$', 'ccb.apps.twitter.views.latest_tweets', {
         'twitter_username': settings.TWITTER_USERNAME,
         'number_of_tweets': settings.TWITTER_NUMBER_OF_TWEETS,
         }),
+
+    url(r'^', include('cms.urls')),
 )
 
 if 'rosetta' in settings.INSTALLED_APPS:

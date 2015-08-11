@@ -3,6 +3,11 @@
 import os
 from datetime import timedelta
 
+gettext = lambda s: s
+
+SITE_ID = 1
+
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 JETSON_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "subtrees"))
 PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
@@ -30,10 +35,12 @@ DEFAULT_FROM_EMAIL = "contact@creative-city-berlin.de"
 
 ### DIRS AND URLS ###
 
-TEMPLATESADMIN_TEMPLATE_DIRS = TEMPLATE_DIRS = [
+TEMPLATE_DIRS = [
     os.path.join(PROJECT_PATH, "ccb", "templates", "ccb"),
     os.path.join(PROJECT_PATH, "ccb", "templates", "admin"),
     ] + TEMPLATE_DIRS
+
+TEMPLATESADMIN_TEMPLATE_DIRS = TEMPLATE_DIRS
 
 MEDIA_ROOT = os.path.join(PROJECT_PATH, "ccb", "media")
 STATIC_ROOT = os.path.join(PROJECT_PATH, "ccb", "static")
@@ -90,12 +97,18 @@ INSTALLED_APPS = [
     "djcelery",
     "kombu.transport.django",
     "captcha",
-    #"chronograph",
-    
+
+    ### django-cms ###
+    'cms',  # django CMS itself
+    'treebeard',  # utilities for implementing a tree
+    'menus',  # helper for model independent hierarchical website navigation
+    'sekizai',  # for javascript and css management
+    'djangocms_admin_style',  # for the admin skin. You **must** add 'djangocms_admin_style' in the list **before** 'django.contrib.admin'.
+    'reversion',
+
     ### jetson apps ###
     "jetson.apps.image_mods", 
     "jetson.apps.httpstate", 
-    # "jetson.apps.templatesadmin",
     "jetson.apps.i18n",
     "jetson.apps.location",
     "jetson.apps.utils",
@@ -146,18 +159,23 @@ MIDDLEWARE_CLASSES = [
     "johnny.middleware.LocalStoreClearMiddleware",
     "johnny.middleware.QueryCacheMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     "jetson.apps.httpstate.middleware.HttpStateMiddleware",
     "django.middleware.locale.LocaleMiddleware",
-    #"base_libs.middleware.multilingual.MultilingualURLMiddleware",
     "django.middleware.common.CommonMiddleware",
     "babeldjango.middleware.LocaleMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     "django.contrib.messages.middleware.MessageMiddleware",
     "jetson.apps.flatpages.middleware.FlatpageMiddleware",
     "base_libs.middleware.threadlocals.ThreadLocalsMiddleware",
     "django.contrib.admindocs.middleware.XViewMiddleware",
     "jetson.apps.utils.middleware.generic.AdminScriptUpdateMiddleware",
     "django.contrib.redirects.middleware.RedirectFallbackMiddleware",
+    'cms.middleware.user.CurrentUserMiddleware',
+    'cms.middleware.page.CurrentPageMiddleware',
+    'cms.middleware.toolbar.ToolbarMiddleware',
+    'cms.middleware.language.LanguageCookieMiddleware',
     # "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 #if not DEVELOPMENT_MODE:
@@ -165,7 +183,15 @@ MIDDLEWARE_CLASSES = [
 #    MIDDLEWARE_CLASSES.append("django.middleware.cache.FetchFromCacheMiddleware")
 
 
-TEMPLATE_CONTEXT_PROCESSORS += [
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.contrib.messages.context_processors.messages',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.request',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'sekizai.context_processors.sekizai',
+    'cms.context_processors.cms_settings',
     "jetson.apps.configuration.context_processors.configuration",
     "ccb.apps.media_gallery.context_processors.media_gallery",
     "ccb.apps.people.context_processors.people",
@@ -176,7 +202,7 @@ TEMPLATE_CONTEXT_PROCESSORS += [
     "ccb.apps.marketplace.context_processors.marketplace",
     "ccb.apps.site_specific.context_processors.site_specific",
     "ccb.apps.facebook_app.context_processors.facebook",
-    ]
+)
 
 SECRET_KEY = "*z-g$creativeberlinio@_qt9efb5dge+(64aeq4$!gk+62nsyqlgqpf8l6"
 
@@ -756,6 +782,13 @@ RECAPTCHA_USE_SSL = False
 ### DJANGO CRISPY FORMS ###
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+### DJANGO CMS ###
+
+CMS_TEMPLATES = (
+    ('template_1.html', 'Template One'),
+    ('template_2.html', 'Template Two'),
+)
 
 ### LOCAL SETTINGS ###
 
