@@ -22,7 +22,7 @@ else:
         import Image
 
 
-class FileListing():
+class FileListing:
     """
     The FileListing represents a group of FileObjects/FileDirObjects.
     
@@ -43,8 +43,7 @@ class FileListing():
     _results_listing_total = None
     _results_walk_total = None
     _results_listing_filtered = None
-    _results_walk_total = None
-    
+
     def __init__(self, path, filter_func=None, sorting_by=None, sorting_order=None, site=None):
         self.path = path
         self.filter_func = filter_func
@@ -57,13 +56,13 @@ class FileListing():
 
     _is_folder_stored = None
     def _is_folder(self):
-        if self._is_folder_stored == None:
+        if self._is_folder_stored is None:
             self._is_folder_stored = self.site.storage.isdir(self.path)
         return self._is_folder_stored
     is_folder = property(_is_folder)
 
     def listing(self):
-        "List all files for path"
+        """List all files for path"""
         if self.is_folder:
             dirs, files = self.site.storage.listdir(self.path)
             return (f for f in dirs + files)
@@ -90,7 +89,7 @@ class FileListing():
 
     
     def walk(self):
-        "Walk all files for path"
+        """Walk all files for path"""
         filelisting = []
         if self.is_folder:
             self._walk(self.path, filelisting)
@@ -100,8 +99,8 @@ class FileListing():
     _fileobjects_total = None
     
     def files_listing_total(self):
-        "Returns FileObjects for all files in listing"
-        if self._fileobjects_total == None:
+        """Returns FileObjects for all files in listing"""
+        if self._fileobjects_total is None:
             self._fileobjects_total = []
             for item in self.listing():
                 fileobject = FileObject(os.path.join(self.path, item), site=self.site)
@@ -118,7 +117,7 @@ class FileListing():
         return files
     
     def files_walk_total(self):
-        "Returns FileObjects for all files in walk"
+        """Returns FileObjects for all files in walk"""
         files = []
         for item in self.walk():
             fileobject = FileObject(os.path.join(self.site.directory, item), site=self.site)
@@ -131,7 +130,7 @@ class FileListing():
         return files
     
     def files_listing_filtered(self):
-        "Returns FileObjects for filtered files in listing"
+        """Returns FileObjects for filtered files in listing"""
         if self.filter_func:
             listing = filter(self.filter_func, self.files_listing_total())
         else:
@@ -140,7 +139,7 @@ class FileListing():
         return listing
     
     def files_walk_filtered(self):
-        "Returns FileObjects for filtered files in walk"
+        """Returns FileObjects for filtered files in walk"""
         if self.filter_func:
             listing = filter(self.filter_func, self.files_walk_total())
         else:
@@ -149,31 +148,31 @@ class FileListing():
         return listing
     
     def results_listing_total(self):
-        "Counter: all files"
+        """Counter: all files"""
         if self._results_listing_total != None:
             return self._results_listing_total
         return len(self.files_listing_total())
     
     def results_walk_total(self):
-        "Counter: all files"
+        """Counter: all files"""
         if self._results_walk_total != None:
             return self._results_walk_total
         return len(self.files_walk_total())
     
     def results_listing_filtered(self):
-        "Counter: filtered files"
+        """Counter: filtered files"""
         if self._results_listing_filtered != None:
             return self._results_listing_filtered
         return len(self.files_listing_filtered())
     
     def results_walk_filtered(self):
-        "Counter: filtered files"
+        """Counter: filtered files"""
         if self._results_walk_filtered != None:
             return self._results_walk_filtered
         return len(self.files_walk_filtered())
 
 
-class FileObject():
+class FileObject:
     """
     The FileObject represents a file (or directory) on the server.
     
@@ -221,7 +220,7 @@ class FileObject():
     # GENERAL ATTRIBUTES
     _filetype_stored = None
     def _filetype(self):
-        if self._filetype_stored != None:
+        if self._filetype_stored is not None:
             return self._filetype_stored
         if self.is_folder:
             self._filetype_stored = 'Folder'
@@ -232,7 +231,7 @@ class FileObject():
     
     _filesize_stored = None
     def _filesize(self):
-        if self._filesize_stored != None:
+        if self._filesize_stored is not None:
             return self._filesize_stored
         if self.exists():
             self._filesize_stored = self.site.storage.size(self.path)
@@ -242,7 +241,7 @@ class FileObject():
     
     _date_stored = None
     def _date(self):
-        if self._date_stored != None:
+        if self._date_stored is not None:
             return self._date_stored
         if self.exists():
             self._date_stored = time.mktime(self.site.storage.modified_time(self.path).timetuple())
@@ -258,14 +257,14 @@ class FileObject():
 
     _exists_stored = None
     def exists(self):
-        if self._exists_stored == None:
+        if self._exists_stored is None:
             self._exists_stored = self.site.storage.exists(self.path)
         return self._exists_stored
     
     # PATH/URL ATTRIBUTES
     
     def _path_relative_directory(self):
-        "path relative to DIRECTORY"
+        """path relative to DIRECTORY"""
         return path_strip(self.path, self.site.directory)
     path_relative_directory = property(_path_relative_directory)
     
@@ -279,7 +278,7 @@ class FileObject():
     def _dimensions(self):
         if self.filetype != 'Image':
             return None
-        if self._dimensions_stored != None:
+        if self._dimensions_stored is not None:
             return self._dimensions_stored
         try:
             im = Image.open(self.site.storage.open(self.path))
@@ -328,7 +327,7 @@ class FileObject():
     
     _is_folder_stored = None
     def _is_folder(self):
-        if self._is_folder_stored == None:
+        if self._is_folder_stored is None:
             self._is_folder_stored = self.site.storage.isdir(self.path)
         return self._is_folder_stored
     is_folder = property(_is_folder)

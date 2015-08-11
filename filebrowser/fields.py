@@ -25,7 +25,9 @@ class FileBrowseWidget(Input):
     class Media:
         js = (os.path.join(URL_FILEBROWSER_MEDIA, 'js/AddFileBrowser.js'), )
     
-    def __init__(self, attrs={}):
+    def __init__(self, attrs=None):
+        if not attrs:
+            attrs = {}
         super(FileBrowseWidget, self).__init__(attrs)
         self.site = attrs.get('filebrowser_site', None)
         self.directory = attrs.get('directory', '')
@@ -94,8 +96,8 @@ class FileBrowseField(CharField):
         self.directory = kwargs.pop('directory', '')
         self.extensions = kwargs.pop('extensions', '')
         self.format = kwargs.pop('format', '')
-        return super(FileBrowseField, self).__init__(*args, **kwargs)
-    
+        super(FileBrowseField, self).__init__(*args, **kwargs)
+
     def to_python(self, value):
         if not value or isinstance(value, FileObject):
             return value
@@ -113,11 +115,8 @@ class FileBrowseField(CharField):
         return value.path
     
     def formfield(self, **kwargs):
-        attrs = {}
-        attrs["filebrowser_site"] = self.site
-        attrs["directory"] = self.directory
-        attrs["extensions"] = self.extensions
-        attrs["format"] = self.format
+        attrs = {"filebrowser_site": self.site, "directory": self.directory, "extensions": self.extensions,
+                 "format": self.format}
         defaults = {
             'form_class': FileBrowseFormField,
             'widget': FileBrowseWidget(attrs=attrs),
@@ -127,12 +126,4 @@ class FileBrowseField(CharField):
             'format': self.format
         }
         return super(FileBrowseField, self).formfield(**defaults)
-
-
-try:
-    from south.modelsinspector import add_introspection_rules
-    add_introspection_rules([], ["^filebrowser\.fields\.FileBrowseField"])
-except:
-    pass
-
 

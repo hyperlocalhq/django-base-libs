@@ -199,7 +199,7 @@ class FileBrowserSite(object):
         for exp in EXCLUDE:
            filter_re.append(re.compile(exp))
         for k,v in VERSIONS.iteritems():
-            exp = (r'_%s(%s)') % (k, '|'.join(EXTENSION_LIST))
+            exp = r'_%s(%s)' % (k, '|'.join(EXTENSION_LIST))
             filter_re.append(re.compile(exp))
 
         def filter_browse(item):
@@ -228,6 +228,7 @@ class FileBrowserSite(object):
         
         # If we do a search, precompile the search pattern now
         do_search = query.get("q")
+        re_q = None
         if do_search:
             re_q = re.compile(query.get("q").lower(), re.M)
         
