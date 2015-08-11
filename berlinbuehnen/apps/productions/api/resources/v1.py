@@ -517,6 +517,17 @@ class EventResource(ModelResource):
         bundle.data['other_characteristics_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_other_characteristics_de()))
         bundle.data['other_characteristics_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_other_characteristics_en()))
 
+        if bundle.obj.location_title:
+            bundle.data['custom_location'] = {
+                'location_title': bundle.obj.location_title,
+                "street_address": bundle.obj.street_address,
+                "street_address2": bundle.obj.street_address2,
+                "postal_code": bundle.obj.postal_code,
+                "city": bundle.obj.city,
+                "latitude": bundle.obj.latitude,
+                "longitude": bundle.obj.longitude,
+            }
+
         return bundle
 
 
@@ -611,6 +622,17 @@ class ProductionResource(ModelResource):
         bundle.data['remarks_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_remarks_en()))
         bundle.data['price_information_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_price_information_de()))
         bundle.data['price_information_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_price_information_en()))
+
+        if bundle.obj.location_title:
+            bundle.data['custom_location'] = {
+                'location_title': bundle.obj.location_title,
+                "street_address": bundle.obj.street_address,
+                "street_address2": bundle.obj.street_address2,
+                "postal_code": bundle.obj.postal_code,
+                "city": bundle.obj.city,
+                "latitude": bundle.obj.latitude,
+                "longitude": bundle.obj.longitude,
+            }
 
         return bundle
 
