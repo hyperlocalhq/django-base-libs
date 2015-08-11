@@ -10,9 +10,9 @@
         
         table, td {border-collapse:collapse; border:none; outline:none;}
         img {vertical-align:top; border-style:none;}
-        h1 {padding:0; margin:36px 0 18px; font-size:16px; font-weight:600; font-family:Arial, sans-serif;}
+        h1 {padding:36px 0 18px; margin:0; font-size:16px; font-weight:600; font-family:Arial, sans-serif;}
         p {padding:0; margin:0; font-family:Arial, sans-serif;}
-        .intro p {margin:18px 0;}
+        .intro p {padding:18px 0;}
         a, a .yshortcuts {color:#0075be; text-decoration:none; font-family:Arial, sans-serif;}
         td {font-family:Arial, sans-serif;}
         
@@ -44,9 +44,9 @@
         </table>
         
         <!-- intro -->
-        <table class="intro" width="552" cellpadding="0" cellspacing="0" border="0" style="margin:0 24px;">
+        <table class="intro" width="600" cellpadding="0" cellspacing="0" border="0">
             <tr>
-                <td>
+                <td style="padding:0 24px;">
                     {{ campaign.get_rendered_body_html }}
                 </td>
             </tr>
@@ -57,7 +57,10 @@
         {% endfor %}
         
         <!-- footer -->
-        <table width="600" cellpadding="0" cellspacing="0" border="0" style="margin-top:36px;">
+        <table width="600" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <td height="36">&nbsp;</td>
+            </tr>
             <tr>
                 <td height="48" align="center" bgcolor="#0075be;" style="background:#0075be;"><a href="https://www.facebook.com/pages/berlin-buehnende/440174332664851"><img src="http://www.berlin-buehnen.de/media/newsletter/fb.gif" width="30" height="48" border="0" alt="Facebook" /></a><a href="https://twitter.com/#!/berlinbuehnen"><img src="http://www.berlin-buehnen.de/media/newsletter/twitter.gif" width="41" height="48" border="0" alt="Twitter" /></a><a href="https://instagram.com/berlinbuehnen"><img src="http://www.berlin-buehnen.de/media/newsletter/instagram.gif" width="41" height="48" border="0" alt="Instagram" /></a></td>
             </tr>
@@ -66,14 +69,14 @@
                     <tr>
                         <td height="48" align="center" valign="middle" style="font-size:12px; color:#ccc;"><a href="*|UNSUB|*" style="color:#ccc; margin:0 5px;">Newsletter abbestellen</a>|<a href="*|UPDATE_PROFILE|*" style="color:#ccc; margin:0 5px;">Anmeldung bearbeiten</a></td>
                     </tr>
-                </table><table cellpadding="0" cellspacing="0" border="0" style="font-size:10px; margin-bottom:32px;">
+                </table><table cellpadding="0" cellspacing="0" border="0" style="font-size:10px;">
                     <tr>
                         <td width="270" style="padding:16px 24px 16px 48px; color:#fff;">Ein Service von Kulturprojekte Berlin GmbH<br/>gemeinsam mit den Berliner Bühnen</td>
                         <td valign="top" style="padding:16px 0; color:#fff;">Gefördert durch:</td>
                     </tr>
                     <tr>
-                        <td valign="top" style="padding:0 24px 0 48px;"><a href="http://www.kulturprojekte-berlin.de/"><img src="http://www.berlin-buehnen.de/media/newsletter/kpb.gif" width="88" height="39" border="0" alt="Kulturprojekte Berlin" /></a></td>
-                        <td valign="top"><a href="http://www.berlin.de/sen/wirtschaft/gruenden-und-foerdern/europaeische-strukturfonds" style="padding:0 16px 0 0;"><img src="http://www.berlin-buehnen.de/media/newsletter/efre.gif" width="50" height="43" border="0" alt="EFRE" /></a><a href="http://www.berlin.de/rbmskzl/kultur" style="padding:0 16px;"><img src="http://www.berlin-buehnen.de/media/newsletter/berlin.gif" width="52" height="43" border="0" alt="Berlin" /></a><a href="http://www.berlin.de/sen/wirtschaft/gruenden-und-foerdern/europaeische-strukturfonds" style="padding:0 0 0 16px;"><img src="http://www.berlin-buehnen.de/media/newsletter/euro.gif" width="53" height="43" border="0" alt="Europäische Union" /></a></td>
+                        <td valign="top" style="padding:0 24px 32px 48px;"><a href="http://www.kulturprojekte-berlin.de/"><img src="http://www.berlin-buehnen.de/media/newsletter/kpb.gif" width="88" height="39" border="0" alt="Kulturprojekte Berlin" /></a></td>
+                        <td valign="top" style="padding-bottom:32px;"><a href="http://www.berlin.de/sen/wirtschaft/gruenden-und-foerdern/europaeische-strukturfonds" style="padding:0 16px 0 0;"><img src="http://www.berlin-buehnen.de/media/newsletter/efre.gif" width="50" height="43" border="0" alt="EFRE" /></a><a href="http://www.berlin.de/rbmskzl/kultur" style="padding:0 16px;"><img src="http://www.berlin-buehnen.de/media/newsletter/berlin.gif" width="52" height="43" border="0" alt="Berlin" /></a><a href="http://www.berlin.de/sen/wirtschaft/gruenden-und-foerdern/europaeische-strukturfonds" style="padding:0 0 0 16px;"><img src="http://www.berlin-buehnen.de/media/newsletter/euro.gif" width="53" height="43" border="0" alt="Europäische Union" /></a></td>
                     </tr>
                 </table></td>
             </tr>
