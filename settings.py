@@ -193,6 +193,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'sekizai.context_processors.sekizai',
     'cms.context_processors.cms_settings',
     "jetson.apps.configuration.context_processors.configuration",
+    "jetson.apps.utils.context_processors.general",
     "ccb.apps.media_gallery.context_processors.media_gallery",
     "ccb.apps.people.context_processors.people",
     "ccb.apps.institutions.context_processors.institutions",
@@ -423,6 +424,7 @@ FILEBROWSER_VERSIONS = {
     'nt': {'verbose_name': 'News Thumbnail (75px)', 'width': 163, 'height': 100, 'opts': 'crop upscale'},
 }
 FILEBROWSER_ADMIN_VERSIONS = ['nd', 'nt']
+FILEBROWSER_MEDIA_URL = UPLOADS_URL = "/media/"
 
 
 ### SEARCH ###
