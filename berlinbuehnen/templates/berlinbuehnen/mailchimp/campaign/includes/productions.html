@@ -15,7 +15,7 @@
                     <tr>
                         <td style="padding:16px 24px 0;"><table width="552" cellpadding="0" cellspacing="0" border="0">
                             <tr>
-                                <td valign="top" style="{% if not forloop.last %}border-bottom:1px solid #000 !important; {% endif %} padding-bottom:8px;"><table width="552" height="148" border="0" cellpadding="0" cellspacing="0">
+                                <td valign="top" style="{% if not forloop.last %}border-bottom:1px solid #000 !important; padding-bottom:8px; {% else %} padding-bottom:16px; {% endif %}"><table width="552" height="148" border="0" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td width="230" valign="top"><a href="{{ production.get_url }}"><img src="http://www.berlin-buehnen.de/media/{{ event.first_image.path|modified_path:"newsletter_production" }}" width="216" style="padding-right:16px;" border="0" /></a></td>
                                         <td width="322" height="100%" valign="top" style="position:relative;"><table width="322" border="0" cellpadding="0" cellspacing="0">
