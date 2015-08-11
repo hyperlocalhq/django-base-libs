@@ -475,7 +475,7 @@ class FileBrowserSite(object):
             folder = request.GET.get('folder', '')
 
             if request.is_ajax(): # Advanced (AJAX) submission
-                filedata = ContentFile(request.raw_post_data)
+                filedata = ContentFile(request.body)
             else: # Basic (iframe) submission
                 if len(request.FILES) != 1:
                     raise Http404('Invalid request! Multiple files included.')
