@@ -1,13 +1,17 @@
 {% load i18n image_modifications babel base_tags %}
         <!-- news -->
-        <table width="552" border="0" cellpadding="0" cellspacing="0" style="margin:36px 24px 0;">
+        <table width="600" border="0" cellpadding="0" cellspacing="0">
             <tr>
-                <td valign="top" style="font-weight:600; text-transform:uppercase; border-bottom:4px solid #000 !important;">AUS DER REDAKTION</td>
+                <td style="padding:36px 24px 0;"><table width="552" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td valign="top" style="font-weight:600; text-transform:uppercase; border-bottom:4px solid #000 !important;">AUS DER REDAKTION</td>
+                    </tr>
+                </table></td>
             </tr>
             <tr>
             {% get_objects for_newsletter articles.Article 3 as newest_objects %}
             {% if newest_objects.count %}
-                <td><table width="552" cellpadding="0" cellspacing="0" border="0" style="margin-top:16px;">
+                <td style="padding:16px 24px 0;"><table width="552" cellpadding="0" cellspacing="0" border="0">
                     <tr>
                         <td width="189" style="padding-right:16px;" valign="top"><table width="173" cellpadding="0" cellspacing="0">
                             {% with newest_objects.0 as article %}
