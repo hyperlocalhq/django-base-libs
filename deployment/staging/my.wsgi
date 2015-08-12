@@ -1,8 +1,10 @@
 #!/usr/local/www/apache24/data/ccb.jetsonproject.org/bin/python
 # -*- coding: utf-8 -*-
 import os
-import sys
+import signal
 import site
+import sys
+import time
 
 django_path = os.path.abspath(
     os.path.join(
@@ -20,5 +22,15 @@ project_path = os.path.abspath(
 sys.path += [project_path]
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 
+import newrelic.agent
+newrelic.agent.initialize('/usr/local/www/apache24/data/ccb.jetsonproject.org/newrelic.ini', 'staging')
+
 from django.core.wsgi import get_wsgi_application
-application = get_wsgi_application()
+try:
+    application = get_wsgi_application()
+    application = newrelic.agent.wsgi_application()(application)
+except Exception:
+    if 'mod_wsgi' in sys.modules:
+        os.kill(os.getpid(), signal.SIGINT)
+        time.sleep(2.5)
+    raise
