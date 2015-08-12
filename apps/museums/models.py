@@ -177,6 +177,8 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     has_audioguide_for_children = models.BooleanField(_("Audioguide for children"), blank=True)
     has_audioguide_for_learning_difficulties = models.BooleanField(_("Audioguide for people with learning difficulties"), blank=True)
 
+    participates_in_langenacht = models.BooleanField(_("Participates in Lange Nacht"), default=False)
+
     search_keywords = MultilingualPlainTextField(_("Search keywords"), blank=True)
 
     favorites_count = models.PositiveIntegerField(_("Favorites count"), editable=False, default=0)
