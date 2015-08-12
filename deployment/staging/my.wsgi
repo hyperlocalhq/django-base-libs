@@ -5,8 +5,10 @@ import sys
 import site
 
 django_path = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), 
-'../lib/python2.7/site-packages/'),
+    os.path.join(
+        os.path.dirname(__file__),
+        '../lib/python2.7/site-packages/'
+    ),
 )
 
 site.addsitedir(django_path)
