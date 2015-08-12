@@ -1,12 +1,14 @@
 #!/usr/local/www/apache24/data/creative-city-berlin.de/bin/python
-
 # -*- coding: utf-8 -*-
 import os
 import sys
 import site
 
 django_path = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '../lib/python2.7/site-packages/'),
+    os.path.join(
+        os.path.dirname(__file__),
+        '../lib/python2.7/site-packages/'
+    ),
 )
 
 site.addsitedir(django_path)
