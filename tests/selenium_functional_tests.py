@@ -15,7 +15,8 @@ class TitleTest(unittest.TestCase):
     def setUp(self):
         self.browser = webdriver.PhantomJS()
         self.browser.implicitly_wait(3)
-        self.base_url = 'http://127.0.0.1:8000'
+        # self.base_url = 'http://127.0.0.1:8000'
+        self.base_url = 'http://demo:demo@ccb.jetsonproject.org'
 
     def tearDown(self):
         self.browser.quit()
