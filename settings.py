@@ -104,9 +104,11 @@ INSTALLED_APPS = [
     'menus',  # helper for model independent hierarchical website navigation
     'sekizai',  # for javascript and css management
     'djangocms_admin_style',  # for the admin skin. You **must** add 'djangocms_admin_style' in the list **before** 'django.contrib.admin'.
+    'djangocms_text_ckeditor',
     'reversion',
 
     ### django-cms plug-ins ###
+    'djangocms_style',
     'djangocms_column',
     'djangocms_file',
     'djangocms_flash',
