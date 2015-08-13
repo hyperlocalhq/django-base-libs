@@ -215,6 +215,9 @@ ADMIN_APP_INDEX = (
     {
         'title': _('Content'),
         'apps': (
+            ('cms', {
+                'models': ('Page',),
+            }),
             ('events', {
                 'models':("EventType", "EventTimeLabel","Event",),
                 'icon': 'date',
