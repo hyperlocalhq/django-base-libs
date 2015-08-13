@@ -106,6 +106,17 @@ INSTALLED_APPS = [
     'djangocms_admin_style',  # for the admin skin. You **must** add 'djangocms_admin_style' in the list **before** 'django.contrib.admin'.
     'reversion',
 
+    ### django-cms plug-ins ###
+    'djangocms_column',
+    'djangocms_file',
+    'djangocms_flash',
+    'djangocms_googlemap',
+    'djangocms_inherit',
+    'djangocms_link',
+    'djangocms_picture',
+    'djangocms_teaser',
+    'djangocms_video',
+
     ### jetson apps ###
     "jetson.apps.image_mods", 
     "jetson.apps.httpstate", 
