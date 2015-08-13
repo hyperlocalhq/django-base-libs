@@ -790,10 +790,32 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 ### DJANGO CMS ###
 
+execfile(os.path.join(JETSON_PATH, "jetson/settings/cms.py"), globals(), locals())
+
 CMS_TEMPLATES = (
     ('template_1.html', 'Template One'),
     ('template_2.html', 'Template Two'),
 )
+
+CMS_LANGUAGES = {
+    1: [
+        {
+            'code': 'de',
+            'hide_untranslated': True,
+            'name': u'Deutsch',
+            'public': True,
+            'redirect_on_fallback': False,
+        },
+        {
+            'code': 'en',
+            'hide_untranslated': True,
+            'name': u'English',
+            'public': True,
+            'redirect_on_fallback': False,
+        },
+    ]
+}
+
 
 ### LOCAL SETTINGS ###
 
