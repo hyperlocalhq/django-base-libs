@@ -30,7 +30,16 @@ class TitleTest(unittest.TestCase):
     def runTest(self):
         self.browser.get(self.base_url + self.url_path)
         self.assertIn(self.title, self.browser.title)
-        self.browser.save_screenshot('phantom_js_screenshot.png')
+        self.saveScreenshot()
+
+    def saveScreenshot(self):
+        import os
+        filename = '/tmp/phantomjs_screenshots/{0}.png'.format(self.url_path.strip('/'))
+        print filename
+        directory = os.path.dirname(filename)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+        self.browser.save_screenshot(filename)
 
 class Urls:
     urls_which_should_return_200_but_dont = (
