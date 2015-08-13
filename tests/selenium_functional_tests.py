@@ -153,7 +153,6 @@ class Urls:
         '/admin/filebrowser/delete/',
         '/admin/filebrowser/delete_confirm/',
         '/admin/filebrowser/detail/',
-        '/admin/filebrowser/get-version/',
         '/admin/filebrowser/version/',
         '/admin/filebrowser/versions/',
         '/admin/flatpages/flatpage/',
@@ -11957,7 +11956,7 @@ class Urls:
         '/news/articles/',
         '/news/interviews/',
         '/notification/',
-        '/notification/feed/',
+        # '/notification/feed/',
         '/notification/mark_all_seen/',
         '/notification/settings/',
         '/password_change/',
@@ -11995,7 +11994,6 @@ class Urls:
         '/search/',
         '/search/full/',
         '/simplesearch/',
-        '/sitemap.xml',
         '/styleguide/',
         '/styleguide/colors/',
         '/styleguide/forms/',
@@ -12005,7 +12003,6 @@ class Urls:
         '/subscribe4info/',
         '/subscribe4info/done/',
         '/ticket/',
-        '/tweets/',
     )
     urls_which_should_return_302_when_anonymous = (
         '/admin/templates/', # TODO currently returns 404
@@ -12117,6 +12114,7 @@ class Urls:
         '/de/person/ed-piper/',
         '/de/person/janetwielgoss/',
         '/de/person/Jens/',
+        '/tweets/', # FIXME empty title
         '/de/person/juliakny/',
         '/de/person/mpmbln/',
         '/de/person/owicke/',
@@ -12131,7 +12129,9 @@ class Urls:
         '/institution/a_s_theater_film_ltd/network/partners/',
         '/jobs/create-berlin-jobboard/',
         '/jobs/talent-in-berlin/',
+        '/sitemap.xml', # empty title
         '/jsi18n/',
+        '/admin/filebrowser/get-version/', # FIXME empty title
         '/jssettings/',
         '/kreativarbeiten/newsfeed/',
         '/kreativarbeiten/tweets/',
