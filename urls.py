@@ -852,7 +852,7 @@ urlpatterns += i18n_patterns('',
         'number_of_tweets': settings.TWITTER_NUMBER_OF_TWEETS,
         }),
 
-    url(r'^', include('cms.urls')),
+    url(r'^relaunch2015/', include('cms.urls')),
 )
 
 if 'rosetta' in settings.INSTALLED_APPS:
