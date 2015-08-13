@@ -12,6 +12,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
 
+from cms.sitemaps import CMSSitemap
+
 from jetson.apps.utils.decorators import login_required
 from jetson.apps.location.models import Address
 from jetson.apps.utils.views import object_detail
@@ -852,6 +854,9 @@ urlpatterns += i18n_patterns('',
         'number_of_tweets': settings.TWITTER_NUMBER_OF_TWEETS,
         }),
 
+    url(r'^select2/', include('django_select2.urls')),
+    url(r'^relaunch2015/sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap',
+        {'sitemaps': {'cmspages': CMSSitemap}}),
     url(r'^relaunch2015/', include('cms.urls')),
 )
 

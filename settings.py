@@ -56,8 +56,8 @@ FILE_UPLOAD_PERMISSIONS = 0777
 ### LANGUAGES ###
 
 LANGUAGES = (
-    ('de', "Deutsch"),
-    ('en', "English"),
+    ('en', gettext('en')),
+    ('de', gettext('de')),
 )
 
 LANGUAGE_CODE = "de"
@@ -793,29 +793,37 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 execfile(os.path.join(JETSON_PATH, "jetson/settings/cms.py"), globals(), locals())
 
 CMS_TEMPLATES = (
-    ('template_1.html', 'Template One'),
-    ('template_2.html', 'Template Two'),
+    ('page.html', 'Page'),
+    ('feature.html', 'Page with Feature')
 )
 
 CMS_LANGUAGES = {
+    'default': {
+        'public': True,
+        'hide_untranslated': False,
+        'redirect_on_fallback': True,
+    },
     1: [
         {
-            'code': 'de',
-            'hide_untranslated': True,
-            'name': u'Deutsch',
             'public': True,
-            'redirect_on_fallback': False,
+            'code': 'de',
+            'hide_untranslated': False,
+            'name': gettext('de'),
+            'redirect_on_fallback': True,
         },
         {
-            'code': 'en',
-            'hide_untranslated': True,
-            'name': u'English',
             'public': True,
-            'redirect_on_fallback': False,
+            'code': 'en',
+            'hide_untranslated': False,
+            'name': gettext('en'),
+            'redirect_on_fallback': True,
         },
-    ]
+    ],
 }
 
+CMS_PERMISSION = True
+
+CMS_PLACEHOLDER_CONF = {}
 
 ### LOCAL SETTINGS ###
 
