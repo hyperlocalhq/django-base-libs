@@ -179,6 +179,14 @@ strong {
 .fawesome.down:before {
     content: "\f107";
 }
+.fawesome.down.after {
+    &:after {
+        content: "\f107";
+    }
+    &:before {
+        content: none;
+    }
+}
 .fawesome.tickets:before {
     content: "\f02c";
 }

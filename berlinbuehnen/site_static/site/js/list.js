@@ -35,11 +35,17 @@
         me.$main = $main;
         me.$body = $('body');
         me.autoload = $main.hasClass('list-autoload');
+        me.additional = $main.hasClass('additional-list');
+        me.loading = false;
         
         me.reinitByFilter();
         
         $(window).resize(function() {me.onResize();});
         me.$main.data('list', me);
+        
+        if (me.additional) {
+            me.loadAdditional();   
+        }
     }
     
     /**
@@ -285,9 +291,79 @@
         
         if (this.me) var me = this.me;
         
-        $('.pagination').removeClass('item').hide();
+        $('.pagination', me.$main).removeClass('item').hide();
         me.initListItems(true);
         //lazyload_images();
+    }
+    
+    /**
+     * Handles the loading of a event list in a detail page
+     *
+     * @param   page    the event page to be loaded (paginated)
+     */
+    List.prototype.loadAdditional = function(page) {
+        
+        if (this.me) var me = this.me;
+        
+        if (me.loading) return;
+        me.loading = true;
+        
+        if (typeof page == "undefined") {
+            page = "";
+        }
+        
+        var url = location.href.split("?");
+        url = url[0].split('#');
+        $.get(url[0]+"events/"+page, function(data) {me.onAdditionalItems(data);});
+            
+    }
+    
+    /**
+     * Additional items got loaded.
+     *
+     * @param   data  the loaded data
+     */
+    List.prototype.onAdditionalItems = function(data) {
+        
+        if (this.me) var me = this.me;
+        
+        var $html = $('<div>'+data+'</div>');
+        
+        me.$main.append($html);
+        
+        var $next = $('.additional-list-more', me.$main);
+        $next.off();
+        
+        var $pagination = $('.pagination', $html);
+        
+        if ($pagination.length) {
+            
+            $pagination.removeClass('item').hide();
+            
+            var $next_page = $('.next_page', $pagination);
+            if ($next_page.length) {
+                $next.click(function() {me.loadAdditional($next_page.attr('href'));});
+                $next.css('display', 'block');
+            } else {
+                $next.css('display', 'none');
+            }
+            
+        } else {
+            $next.css('display', 'none');
+        }
+        
+        if (me.$first_item.length) {
+            me.initListItems(true);
+        } else {
+            
+            if ($('.empty-container', $html).length) {
+                me.$main.css('display', 'none');
+            } else {
+                me.reinitByFilter();
+            }
+        }
+        
+        me.loading = false;
     }
     
     /**

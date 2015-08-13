@@ -109,6 +109,7 @@ class Festival(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
     organizers = models.ManyToManyField("locations.Location", verbose_name=_("Organizers"), blank=True)
 
     newsletter = models.BooleanField(_("Show in newsletter"))
+    featured = models.BooleanField(_("Featured in overview"), default=False)
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 
     objects = FestivalManager()
@@ -131,6 +132,12 @@ class Festival(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
             return ""
         else:
             return path
+
+    def get_social_media(self):
+        return self.socialmediachannel_set.all()
+
+    def get_pdfs(self):
+        return self.festivalpdf_set.all()
 
     def set_owner(self, user):
         ContentType = models.get_model("contenttypes", "ContentType")
@@ -243,3 +250,27 @@ class SocialMediaChannel(models.Model):
             return u"googleplus"
         return social
 
+class FestivalPDF(CreationModificationDateMixin):
+    festival = models.ForeignKey(Festival, verbose_name=_("Festival"))
+    path = FileBrowseField(_('File path'), max_length=255, directory="festivals/", extensions=['.pdf'], help_text=_("A path to a locally stored PDF file."))
+    sort_order = PositionField(_("Sort order"), collection="festival")
+
+    class Meta:
+        ordering = ["sort_order", "creation_date"]
+        verbose_name = _("PDF")
+        verbose_name_plural = _("PDFs")
+
+    def __unicode__(self):
+        if self.path:
+            return self.path.path
+        return "Missing file (id=%s)" % self.pk
+
+    def get_token(self):
+        if self.pk:
+            return int(self.pk) + TOKENIZATION_SUMMAND
+        else:
+            return None
+
+    @staticmethod
+    def token_to_pk(token):
+        return int(token) - TOKENIZATION_SUMMAND

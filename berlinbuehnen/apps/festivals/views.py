@@ -23,6 +23,7 @@ from jetson.apps.utils.decorators import login_required
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 
 from .models import Festival, Image as FestivalImage
+from berlinbuehnen.apps.productions.models import Event
 
 from .forms.festivals import FESTIVAL_FORM_STEPS
 from .forms.gallery import ImageFileForm, ImageDeletionForm
@@ -35,7 +36,9 @@ class FestivalFilterForm(forms.Form):
 
 
 def festival_list(request, year=None, month=None, day=None):
+
     qs = Festival.objects.filter(status="published")
+    qs = qs.filter(end__gte=datetime.today())
 
     form = FestivalFilterForm(data=request.REQUEST)
     
@@ -70,6 +73,8 @@ def festival_list(request, year=None, month=None, day=None):
 
     #qs = qs.prefetch_related("season_set", "mediafile_set", "categories", "accessibility_options").defer("tags")
     
+    qs = qs.order_by('start', 'title_%s' % request.LANGUAGE_CODE)
+    
     extra_context = {}
     extra_context['form'] = form
     extra_context['abc_list'] = abc_list
@@ -103,6 +108,40 @@ def festival_detail(request, slug):
         context_processors=(prev_next_processor,),
     )
 
+def festival_events(request, slug):
+
+    if "preview" in request.REQUEST:
+        qs = Festival.objects.all()
+        obj = get_object_or_404(qs, slug=slug)
+        if not request.user.has_perm("festivals.change_festival", obj):
+            return access_denied(request)
+    else:
+        qs = Festival.objects.filter(status="published")
+        obj = get_object_or_404(qs, slug=slug)
+        
+        
+    qs = Event.objects.filter(production__status="published")
+
+    # exclude the parts of multipart productions
+    qs = qs.filter(production__part=None)
+    
+    qs = qs.filter(production__festivals=obj, start_date__gte = obj.start, start_date__lte = obj.end)
+    
+    qs = qs.order_by('start_date', 'start_time', 'production__title_%s' % request.LANGUAGE_CODE)
+    
+    extra_context = {}
+
+    return object_list(
+        request,
+        queryset=qs,
+        template_name="events/event_list_ajax.html",
+        paginate_by=25,
+        extra_context=extra_context,
+        httpstate_prefix="event_list",
+        context_processors=(prev_next_processor,),
+    )
+    
+    
 
 @never_cache
 @login_required

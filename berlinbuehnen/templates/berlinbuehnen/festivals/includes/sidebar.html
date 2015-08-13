@@ -1,63 +1,112 @@
 {% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites %}
 <div class="accordion sidebar-accordion">
-    <div class="accordion-item">
-        <h4 class="accordion-item-head open">{% trans "Venue" %}</h4>
-        <div class="accordion-item-content">
-            {% if festival.logo %}
-                <img src="{{ MEDIA_URL }}{{ festival.logo|modified_path:"list_logo" }}" class="logo" alt="{{ festival.title|escape }}"/>
-            {% endif %}
-            <p data-latitude="{{ festival.latitude|stringformat:"%f" }}" data-longitude="{{ festival.longitude|stringformat:"%f" }}">
-                <strong>{{ festival.title }}</strong><br />
-                {% if festival.street_address %}{{ festival.street_address }}<br />{% endif %}
-                {% if festival.street_address2 %}{{ festival.street_address2 }}<br />{% endif %}
-                {% if festival.city %}{{ festival.postal_code }} {{ festival.city }}<br />{% endif %}
-            </p>
-            {% if festival.phone_number or festival.fax_number or festival.email or festival.website %}
-                <dl>
-                    <dd class="headline">{% trans "Contact" %}</dd>
-                    {% if festival.phone_number %}
-                        <dt class="width_50">{% trans "Phone" %}</dt>
-                        <dd><a class="phone" href="tel:{% if festival.phone_country %}+{{ festival.phone_country }}{% endif %}{{ festival.phone_area }}{{ festival.phone_number }}">{% if festival.phone_country %}+{{ festival.phone_country }}-{% endif %}{{ festival.phone_area }}-{{ festival.phone_number }}</a></dd>
-                    {% endif %}
-                    {% if festival.fax_number %}
-                        <dt class="width_50">{% trans "Fax" %}</dt>
-                        <dd>{% if festival.fax_country %}+{{ festival.fax_country }}-{% endif %}{{ festival.fax_area }}-{{ festival.fax_number }}</dd>
-                    {% endif %}
-                    {% if festival.email %}
-                        <dt class="width_50">{% trans "Mail" %}</dt>
-                        <dd><a href="mailto:{{ festival.email }}">{{ festival.email }}</a></dd>
-                    {% endif %}
-                    {% if festival.website %}
-                        <dt class="width_50">{% trans "Web" %}</dt>
-                        <dd><a href="{{ festival.website }}" target="_blank">{{ festival.website|humanize_url:30 }}</a></dd>
-                    {% endif %}
-                </dl>
-            {% endif %}
-            {% if festival.get_social_media %}
-                <ul class="social_link_list">
-                    {% for social in festival.get_social_media %}
-                        <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank"><span class="sr-only">{{ social.channel_type }}</span></a></li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        </div>
-    </div>
-    {% if festival.stage_set.exists %}
+    {% if festival.organizers %}
         <div class="accordion-item">
-            <h4 class="accordion-item-head">{% trans "Stages" %}</h4>
+            <h4 class="accordion-item-head open">{% trans "Festival Organizer" %}</h4>
             <div class="accordion-item-content">
-                {% for stage in festival.stage_set.all %}
-                    <p class="margin" data-latitude="{{ stage.latitude|stringformat:"%f" }}" data-longitude="{{ stage.longitude|stringformat:"%f" }}">
-                        <strong>{{ stage.title }}</strong><br />
-                        {% if stage.street_address %}{{ stage.street_address }}<br />{% endif %}
-                        {% if stage.street_address2 %}{{ stage.street_address2 }}<br />{% endif %}
-                        {% if stage.city %}{{ stage.postal_code }} {{ stage.city }}<br />{% endif %}
+                {% if festival.logo %}
+                    <img src="{{ MEDIA_URL }}{{ festival.logo|modified_path:"list_logo" }}" class="logo" alt="{{ festival.title|escape }}"/>
+                {% endif %}
+                {% for location in festival.organizers.all %}
+                    <p data-latitude="{{ location.latitude|stringformat:"%f" }}" data-longitude="{{ location.longitude|stringformat:"%f" }}">
+                        <strong>{{ location.title }}</strong><br />
+                        {% if location.street_address %}{{ location.street_address }}<br />{% endif %}
+                        {% if location.street_address2 %}{{ location.street_address2 }}<br />{% endif %}
+                        {% if location.city %}{{ location.postal_code }} {{ location.city }}<br />{% endif %}
                     </p>
-
-                    {% if stage.description %}
-                        {{ stage.get_rendered_description }}
+                    {% if location.phone_number or location.fax_number or location.email or location.website %}
+                        <dl>
+                            <dd class="headline">{% trans "Contact" %}</dd>
+                            {% if location.phone_number %}
+                                <dt class="width_50">{% trans "Phone" %}</dt>
+                                <dd><a class="phone" href="tel:{% if location.phone_country %}+{{ location.phone_country }}{% endif %}{{ location.phone_area }}{{ location.phone_number }}">{% if location.phone_country %}+{{ location.phone_country }}-{% endif %}{{ location.phone_area }}-{{ location.phone_number }}</a></dd>
+                            {% endif %}
+                            {% if location.fax_number %}
+                                <dt class="width_50">{% trans "Fax" %}</dt>
+                                <dd>{% if location.fax_country %}+{{ location.fax_country }}-{% endif %}{{ location.fax_area }}-{{ location.fax_number }}</dd>
+                            {% endif %}
+                            {% if festival.email %}
+                                <dt class="width_50">{% trans "Mail" %}</dt>
+                                <dd><a href="mailto:{{ location.email }}">{{ location.email }}</a></dd>
+                            {% endif %}
+                            {% if location.website %}
+                                <dt class="width_50">{% trans "Web" %}</dt>
+                                <dd><a href="{{ location.website }}" target="_blank">{{ location.website|humanize_url:30 }}</a></dd>
+                            {% endif %}
+                        </dl>
                     {% endif %}
                 {% endfor %}
+                {% if festival.phone_number or festival.fax_number or festival.email or festival.website %}
+                    <dl>
+                        <dd class="headline">{% trans "Festival Contact" %}</dd>
+                        {% if festival.phone_number %}
+                            <dt class="width_50">{% trans "Phone" %}</dt>
+                            <dd><a class="phone" href="tel:{% if festival.phone_country %}+{{ festival.phone_country }}{% endif %}{{ festival.phone_area }}{{ festival.phone_number }}">{% if festival.phone_country %}+{{ festival.phone_country }}-{% endif %}{{ festival.phone_area }}-{{ festival.phone_number }}</a></dd>
+                        {% endif %}
+                        {% if festival.fax_number %}
+                            <dt class="width_50">{% trans "Fax" %}</dt>
+                            <dd>{% if festival.fax_country %}+{{ festival.fax_country }}-{% endif %}{{ festival.fax_area }}-{{ festival.fax_number }}</dd>
+                        {% endif %}
+                        {% if festival.email %}
+                            <dt class="width_50">{% trans "Mail" %}</dt>
+                            <dd><a href="mailto:{{ festival.email }}">{{ festival.email }}</a></dd>
+                        {% endif %}
+                        {% if festival.website %}
+                            <dt class="width_50">{% trans "Web" %}</dt>
+                            <dd><a href="{{ festival.website }}" target="_blank">{{ festival.website|humanize_url:30 }}</a></dd>
+                        {% endif %}
+                    </dl>
+                {% endif %}
+                {% if festival.get_social_media %}
+                    <ul class="social_link_list">
+                        {% for social in festival.get_social_media %}
+                            <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank"><span class="sr-only">{{ social.channel_type }}</span></a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
+        <div class="accordion-item">
+            <h4 class="accordion-item-head open">{% trans "Venue" %}</h4>
+            <div class="accordion-item-content">
+                {% if festival.logo %}
+                    <img src="{{ MEDIA_URL }}{{ festival.logo|modified_path:"list_logo" }}" class="logo" alt="{{ festival.title|escape }}"/>
+                {% endif %}
+                <p data-latitude="{{ festival.latitude|stringformat:"%f" }}" data-longitude="{{ festival.longitude|stringformat:"%f" }}">
+                    <strong>{{ festival.title }}</strong><br />
+                    {% if festival.street_address %}{{ festival.street_address }}<br />{% endif %}
+                    {% if festival.street_address2 %}{{ festival.street_address2 }}<br />{% endif %}
+                    {% if festival.city %}{{ festival.postal_code }} {{ festival.city }}<br />{% endif %}
+                </p>
+                {% if festival.phone_number or festival.fax_number or festival.email or festival.website %}
+                    <dl>
+                        <dd class="headline">{% trans "Contact" %}</dd>
+                        {% if festival.phone_number %}
+                            <dt class="width_50">{% trans "Phone" %}</dt>
+                            <dd><a class="phone" href="tel:{% if festival.phone_country %}+{{ festival.phone_country }}{% endif %}{{ festival.phone_area }}{{ festival.phone_number }}">{% if festival.phone_country %}+{{ festival.phone_country }}-{% endif %}{{ festival.phone_area }}-{{ festival.phone_number }}</a></dd>
+                        {% endif %}
+                        {% if festival.fax_number %}
+                            <dt class="width_50">{% trans "Fax" %}</dt>
+                            <dd>{% if festival.fax_country %}+{{ festival.fax_country }}-{% endif %}{{ festival.fax_area }}-{{ festival.fax_number }}</dd>
+                        {% endif %}
+                        {% if festival.email %}
+                            <dt class="width_50">{% trans "Mail" %}</dt>
+                            <dd><a href="mailto:{{ festival.email }}">{{ festival.email }}</a></dd>
+                        {% endif %}
+                        {% if festival.website %}
+                            <dt class="width_50">{% trans "Web" %}</dt>
+                            <dd><a href="{{ festival.website }}" target="_blank">{{ festival.website|humanize_url:30 }}</a></dd>
+                        {% endif %}
+                    </dl>
+                {% endif %}
+                {% if festival.get_social_media %}
+                    <ul class="social_link_list">
+                        {% for social in festival.get_social_media %}
+                            <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank"><span class="sr-only">{{ social.channel_type }}</span></a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             </div>
         </div>
     {% endif %}
@@ -115,30 +164,6 @@
             </div>
         </div>
     {% endif %}
-    {% if festival.services.all %}
-        <div class="accordion-item">
-            <h4 class="accordion-item-head">{% trans "Service" %}</h4>
-            <div class="accordion-item-content">
-                <ul class="list">
-                    {% for cat in festival.services.all %}
-                        <li>{{ cat.title }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-    {% endif %}
-    {% if festival.accessibility_options.exists %}
-        <div class="accordion-item">
-            <h4 class="accordion-item-head">{% trans "Accessibility Options" %}</h4>
-            <div class="accordion-item-content">
-                <ul class="list">
-                    {% for cat in festival.accessibility_options.all %}
-                        <li>{{ cat.title }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-    {% endif %}
     {% if festival.press_contact_name or festival.press_phone_number or festival.press_fax_number or festival.press_email or festival.press_website %}
         <div class="accordion-item">
             <h4 class="accordion-item-head">{% trans "Press" %}</h4>
@@ -164,6 +189,26 @@
                             <dd><a href="{{ festival.press_website }}" target="_blank">{{ festival.press_website|humanize_url:30 }}</a></dd>
                         {% endif %}
                     </dl>
+            </div>
+        </div>
+    {% endif %}
+    {% if festival.get_pdfs %}
+        <div class="accordion-item">
+            <h4 class="accordion-item-head">{% trans "Publications" %}</h4>
+            <div class="accordion-item-content">
+                <p>
+                    {% for pdf in festival.get_pdfs %}
+                        {% with pdf.path|file_description as file_desc %}
+                            {% if file_desc.title %}
+                                <a class="pdf" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank">{{ file_desc.title }}</a>
+                            {% elif file_desc.filename %}
+                                <a class="pdf" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank">{{ file_desc.filename }}</a>
+                            {% else %}
+                                <a class="pdf" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank">{{ pdf.path }}</a>
+                            {% endif %}
+                        {% endwith %}
+                    {% endfor %}
+                </p>
             </div>
         </div>
     {% endif %}

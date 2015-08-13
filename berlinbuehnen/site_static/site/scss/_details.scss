@@ -90,6 +90,16 @@
                             content: none;
                         }
                     }
+                    &.comma {
+                        dd {
+                            &:after {
+                                content: ", ";
+                            }
+                            &:last-child:after {
+                                content: none;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -145,6 +155,9 @@
             margin-right: -10px;
         }
         dl.listing {
+            word-wrap: break-word;
+            word-break: break-all;
+            
             p {
                 display: inline;
                 padding-right: 5px;
