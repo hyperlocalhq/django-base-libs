@@ -61,11 +61,9 @@ class AuthenticatedPageTest(PageTest):
 class Urls:
     urls_which_should_return_200_but_dont = (
         '/de/events/', # FIXME currently failing with FieldDoesNotExist: additional_info_markup_type
-        '/de/notification/feed/', # FIXME currently returns 401 (HTTP login dialog)
         '/de/partner/', # FIXME currently returning 404
         '/de/password_change/done/', # FIXME currently returning 302
     )
-
     urls_which_should_return_301_but_dont = (
         '/about/', # FIXME currently doesn't redirect to /de/.../
         '/coworking/', # FIXME currently doesn't redirect to /de/.../
@@ -91,21 +89,14 @@ class Urls:
         '/spread-the-word/', # FIXME currently doesn't redirect to /de/.../
         '/terms-of-use/', # FIXME currently doesn't redirect to /de/.../
     )
-
     urls_which_should_return_302_but_dont = (
         '/admin/filebrowser/upload_file/', # FIXME AttributeError
-        '/admin/templates/', # TODO currently returns 404
-        '/tagging_autocomplete/list/', # FIXME currently returns 404 instead of redirecting to /de/.../
+        '/de/rosetta/',  # login required
+        '/de/rosetta/download/',  # login required
+        '/de/rosetta/pick/',  # login required
     )
-
     urls_which_should_return_200 = (
          # '/recrop/', # TODO rethink this test, /recrop/ requires URL parameters
-         # '/de/helper/blank_doc/', # included in PATHS_NO_REDIRECTION
-         # '/de/helper/bookmark/', # included in PATHS_NO_REDIRECTION
-         # '/de/helper/country_lookup/', # included in PATHS_NO_REDIRECTION
-         # '/de/helper/site-visitors/', # included in PATHS_NO_REDIRECTION
-         # '/de/recrop/', # included in PATHS_NO_REDIRECTION
-         # '/de/tagging_autocomplete/list', # included in PATHS_NO_REDIRECTION
         '/de/',
         '/de/about/',
         '/de/account/',
@@ -11655,7 +11646,6 @@ class Urls:
         '/helper/site-visitors/',
         '/partner/',
     )
-
     urls_which_should_return_302 = (
          # '/de/helper/institution_lookup/',  # included in PATHS_NO_REDIRECTION
          # '/de/helper/person_lookup/',  # included in PATHS_NO_REDIRECTION
@@ -12032,8 +12022,8 @@ class Urls:
         '/ticket/',
         '/tweets/',
     )
-
     urls_which_should_return_302_when_anonymous = (
+        '/admin/templates/', # TODO currently returns 404
         '/de/creative-sector/',  # login required
         '/de/dashboard/',  # login required
         '/de/event/workshop-booking-tour-rockpop/claim/',  # login required
@@ -12072,11 +12062,11 @@ class Urls:
         '/de/person/aidas_bendoraitis/portfolio/fb-sync/',  # login required
         '/de/person/aidas_bendoraitis/post/',  # login required
         '/de/register/alldone/',  # login required
-        '/de/rosetta/',  # login required
-        '/de/rosetta/download/',  # login required
-        '/de/rosetta/pick/',  # login required
         '/helper/institution_lookup/',  # login required
         '/helper/person_lookup/',  # login required
+    )
+    urls_which_should_return_401 = (
+        '/de/notification/feed/',
     )
     urls_which_should_return_403_when_anonymous = (
         '/de/event/workshop-booking-tour-rockpop/portfolio/album/add/', # access denied
@@ -12097,11 +12087,10 @@ class Urls:
         '/de/person/aidas_bendoraitis/portfolio/settings/', # access denied
         '/de/person/aidas_bendoraitis/portfolio/settings/delete-landing-page-image/', # access denied
     )
-
     urls_which_should_return_404 = (
         '/de/institution/a_s_theater_film_ltd/network/partners/', # page not found
+        '/tagging_autocomplete/list/', # FIXME currently returns 404 instead of redirecting to /de/.../
     )
-
     urls_which_should_return_500 = (
         '/de/event/away-away-and-spiraling-in-6-2-2/', # FIXME throwing error in production
     )
@@ -12118,6 +12107,7 @@ def suite():
         (200, Urls.urls_which_should_return_200) if FULL_TESTS else (200, sample_urls),
         (302, Urls.urls_which_should_return_302),
         (302, Urls.urls_which_should_return_302_when_anonymous),
+        (401, Urls.urls_which_should_return_401),
         (403, Urls.urls_which_should_return_403_when_anonymous),
         (404, Urls.urls_which_should_return_404),
         (500, Urls.urls_which_should_return_500),
@@ -12132,6 +12122,7 @@ def suite():
         (302, Urls.urls_which_should_return_302),
         (200, Urls.urls_which_should_return_302_when_anonymous),
         (200, Urls.urls_which_should_return_403_when_anonymous),
+        (401, Urls.urls_which_should_return_401),
     )
     for expected_status_code, url_list in authenticated_url_lists_by_expected_status_code:
         suite.addTests(
