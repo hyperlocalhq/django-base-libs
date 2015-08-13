@@ -13,7 +13,7 @@ class TitleTest(unittest.TestCase):
         self.title = title
 
     def setUp(self):
-        self.browser = webdriver.Firefox()
+        self.browser = webdriver.PhantomJS()
         self.browser.implicitly_wait(3)
         self.base_url = 'http://127.0.0.1:8000'
 
@@ -28,8 +28,8 @@ class TitleTest(unittest.TestCase):
 
     def runTest(self):
         self.browser.get(self.base_url + self.url_path)
-
         self.assertIn(self.title, self.browser.title)
+        self.browser.save_screenshot('phantom_js_screenshot.png')
 
 class Urls:
     urls_which_should_return_200_but_dont = (
