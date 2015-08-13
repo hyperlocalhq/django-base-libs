@@ -172,7 +172,7 @@ MIDDLEWARE_CLASSES = [
     "johnny.middleware.LocalStoreClearMiddleware",
     "johnny.middleware.QueryCacheMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     "jetson.apps.httpstate.middleware.HttpStateMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
