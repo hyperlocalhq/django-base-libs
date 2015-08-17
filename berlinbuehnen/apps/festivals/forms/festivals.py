@@ -716,14 +716,14 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             fields += [
                 'title_%s' % lang_code,
                 'subtitle_%s' % lang_code,
-                # 'description_%s' % lang_code,
+                'description_%s' % lang_code,
                 'tickets_calling_prices_%s' % lang_code,
             ]
         for fname in fields:
             setattr(instance, fname, form_step_data[current_step][fname])
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
-            # setattr(instance, 'description_%s_markup_type' % lang_code, 'pt')
+            setattr(instance, 'description_%s_markup_type' % lang_code, 'pt')
             setattr(instance, 'tickets_calling_prices_%s_markup_type' % lang_code, 'pt')
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:

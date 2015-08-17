@@ -46,9 +46,9 @@ class BasicInfoForm(autocomplete_light.ModelForm):
 
     class Meta:
         model = Production
-        autocomplete_fields = ('in_program_of', 'play_locations', 'play_stages')
+        autocomplete_fields = ('in_program_of', 'play_locations', 'play_stages', 'festivals', )
         fields = [
-            'in_program_of', 'ensembles', 'play_locations', 'play_stages', 'organizers', 'in_cooperation_with',
+            'festivals', 'in_program_of', 'ensembles', 'play_locations', 'play_stages', 'organizers', 'in_cooperation_with',
             'location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
             'categories', 'show_among_others', 'no_overwriting',
         ]
@@ -73,6 +73,8 @@ class BasicInfoForm(autocomplete_light.ModelForm):
                 'website_%s' % lang_code,
             ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
+
+        self.fields['festivals'].label = _("Belongs to festival")
 
         self.fields['play_locations'].help_text = _('Choose only when differs from the "In the programm of".')
 
@@ -184,6 +186,17 @@ class BasicInfoForm(autocomplete_light.ModelForm):
             ),
             css_class="fieldset-where hidden",
         ))
+        
+        layout_blocks.append(layout.Fieldset(
+            _('Festivals'),
+            layout.Row(
+                layout.Div(
+                    "festivals",
+                    css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+                ),
+            ),
+            css_class="fieldset-categories",
+        ))
 
         layout_blocks.append(layout.Fieldset(
             _('Categories<span class="asteriskField">*</span>'),
@@ -251,9 +264,9 @@ class BasicInfoForm(autocomplete_light.ModelForm):
 class DescriptionForm(autocomplete_light.ModelForm):
     class Meta:
         model = Production
-        autocomplete_fields = ('festivals', 'related_productions',)
+        autocomplete_fields = ('related_productions',)
         fields = [
-            'festivals', 'language_and_subtitles', 'related_productions',
+            'language_and_subtitles', 'related_productions',
             'free_entrance', 'price_from', 'price_till', 'tickets_website',
             'characteristics', 'age_from', 'age_till', 'edu_offer_website',
         ]
@@ -290,8 +303,6 @@ class DescriptionForm(autocomplete_light.ModelForm):
                 'other_characteristics_%s' % lang_code,
             ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
-
-        self.fields['festivals'].label = _("Belongs to festival")
 
         self.fields['characteristics'].widget = forms.CheckboxSelectMultiple()
         self.fields['characteristics'].help_text = u""
@@ -432,7 +443,6 @@ class DescriptionForm(autocomplete_light.ModelForm):
         ))
         fieldset_content.append(layout.Row(
             layout.Div(
-                'festivals',
                 'language_and_subtitles',
                 'related_productions',
                 css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12",
@@ -1080,6 +1090,7 @@ def load_data(instance=None):
         for fname in fields:
             form_step_data['basic'][fname] = getattr(instance, fname)
 
+        form_step_data['basic']['festivals'] = instance.festivals.all()
         form_step_data['basic']['in_program_of'] = instance.in_program_of.all()
         form_step_data['basic']['play_locations'] = instance.play_locations.all()
         form_step_data['basic']['play_stages'] = instance.play_stages.all()
@@ -1107,7 +1118,6 @@ def load_data(instance=None):
         for fname in fields:
             form_step_data['description'][fname] = getattr(instance, fname)
 
-        form_step_data['description']['festivals'] = instance.festivals.all()
         form_step_data['description']['related_productions'] = instance.related_productions.all()
         form_step_data['description']['characteristics'] = instance.characteristics.all()
 
@@ -1197,6 +1207,10 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
 
         instance.save()
 
+        instance.festivals.clear()
+        for cat in form_step_data['basic']['festivals']:
+            instance.festivals.add(cat)
+
         instance.in_program_of.clear()
         for cat in form_step_data['basic']['in_program_of']:
             instance.in_program_of.add(cat)
@@ -1264,10 +1278,6 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             setattr(instance, 'other_characteristics_%s_markup_type' % lang_code, 'pt')
 
         instance.save()
-
-        instance.festivals.clear()
-        for cat in form_step_data['description']['festivals']:
-            instance.festivals.add(cat)
 
         instance.related_productions.clear()
         for cat in form_step_data['description']['related_productions']:
