@@ -588,14 +588,15 @@ def culturebase_export_productions(request, location_slug):
     production_nodes = []
     for prod in Production.objects.filter(
         models.Q(in_program_of=location) |
-        models.Q(play_locations=location)
+        models.Q(play_locations=location),
+        status="published",
     ).distinct():
 
         prod_image_nodes = []
         for image in prod.productionimage_set.all():
             try:
                 file_description = FileDescription.objects.filter(
-                    file_path=mf.path,
+                    file_path=image.path.path,
                 ).order_by("pk")[0]
             except:
                  author = ""
@@ -606,14 +607,23 @@ def culturebase_export_productions(request, location_slug):
                  image_title = file_description.title
                  copyright = file_description.copyright_limitations
 
-            prod_image_nodes.append(
-                E.erBild(
-                    E.bildUrl(get_website_url()[:-1] + settings.MEDIA_URL + FileManager.modified_path(image.path.path, "list_image_url")),
-                    E.bildUrheber(CDATA(author)),
-                    E.bildCopyright(CDATA(copyright)),
-                    E.bildUntertitel(CDATA(image_title)),
+            list_image_url = ""
+            list_image_path = FileManager.modified_path(image.path.path, "list_image")
+            if list_image_path:
+                list_image_url = "".join((
+                    get_website_url(),
+                    settings.MEDIA_URL[1:],
+                    list_image_path,
+                ))
+
+                prod_image_nodes.append(
+                    E.erBild(
+                        E.bildUrl(list_image_url),
+                        E.bildUrheber(CDATA(author)),
+                        E.bildCopyright(CDATA(copyright)),
+                        E.bildUntertitel(CDATA(image_title)),
+                    )
                 )
-            )
 
         event_nodes = []
         for event in prod.event_set.all():
@@ -641,9 +651,14 @@ def culturebase_export_productions(request, location_slug):
                     E.vkpreis(price_range)
                 ),
             ))
-
-        first_date = prod.event_set.order_by("start_date")[0].start_date.strftime('%Y-%m-%d')
-        last_date = prod.event_set.order_by("-start_date")[0].start_date.strftime('%Y-%m-%d')
+        try:
+            first_date = prod.event_set.order_by("start_date")[0].start_date.strftime('%Y-%m-%d')
+        except:
+            first_date = ""
+        try:
+            last_date = prod.event_set.order_by("-start_date")[0].start_date.strftime('%Y-%m-%d')
+        except:
+            last_date = ""
         persons = '\n'.join([
             u'%s - %s' % (involvement.person, involvement.get_function()) for involvement in prod.productioninvolvement_set.all()
         ])
