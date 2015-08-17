@@ -607,14 +607,23 @@ def culturebase_export_productions(request, location_slug):
                  image_title = file_description.title
                  copyright = file_description.copyright_limitations
 
-            prod_image_nodes.append(
-                E.erBild(
-                    E.bildUrl(get_website_url()[:-1] + settings.MEDIA_URL + FileManager.modified_path(image.path.path, "list_image_url")),
-                    E.bildUrheber(CDATA(author)),
-                    E.bildCopyright(CDATA(copyright)),
-                    E.bildUntertitel(CDATA(image_title)),
+            list_image_url = ""
+            list_image_path = FileManager.modified_path(image.path.path, "list_image")
+            if list_image_path:
+                list_image_url = "".join((
+                    get_website_url(),
+                    settings.MEDIA_URL[1:],
+                    list_image_path,
+                ))
+
+                prod_image_nodes.append(
+                    E.erBild(
+                        E.bildUrl(list_image_url),
+                        E.bildUrheber(CDATA(author)),
+                        E.bildCopyright(CDATA(copyright)),
+                        E.bildUntertitel(CDATA(image_title)),
+                    )
                 )
-            )
 
         event_nodes = []
         for event in prod.event_set.all():
