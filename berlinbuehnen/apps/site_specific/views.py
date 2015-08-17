@@ -588,14 +588,15 @@ def culturebase_export_productions(request, location_slug):
     production_nodes = []
     for prod in Production.objects.filter(
         models.Q(in_program_of=location) |
-        models.Q(play_locations=location)
+        models.Q(play_locations=location),
+        status="published",
     ).distinct():
 
         prod_image_nodes = []
         for image in prod.productionimage_set.all():
             try:
                 file_description = FileDescription.objects.filter(
-                    file_path=mf.path,
+                    file_path=image.path.path,
                 ).order_by("pk")[0]
             except:
                  author = ""
@@ -641,9 +642,14 @@ def culturebase_export_productions(request, location_slug):
                     E.vkpreis(price_range)
                 ),
             ))
-
-        first_date = prod.event_set.order_by("start_date")[0].start_date.strftime('%Y-%m-%d')
-        last_date = prod.event_set.order_by("-start_date")[0].start_date.strftime('%Y-%m-%d')
+        try:
+            first_date = prod.event_set.order_by("start_date")[0].start_date.strftime('%Y-%m-%d')
+        except:
+            first_date = ""
+        try:
+            last_date = prod.event_set.order_by("-start_date")[0].start_date.strftime('%Y-%m-%d')
+        except:
+            last_date = ""
         persons = '\n'.join([
             u'%s - %s' % (involvement.person, involvement.get_function()) for involvement in prod.productioninvolvement_set.all()
         ])
