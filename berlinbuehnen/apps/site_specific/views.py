@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 from django.db import models
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.cache import never_cache
 from django.contrib.admin.views.decorators import staff_member_required
 from django.conf import settings
@@ -528,3 +528,167 @@ def user_favorites(request, user_token, **kwargs):
 #     return render(request, "favorites/favorite_workshops.html", {
 #         'favorites': favorites,
 #     })
+
+def culturebase_export_productions(request, location_slug):
+    from lxml.etree import tostring
+    from lxml.builder import E
+    from lxml.etree import CDATA
+    from base_libs.utils.misc import get_website_url
+    from jetson.apps.image_mods.models import FileManager
+    from filebrowser.models import FileDescription
+    location = get_object_or_404(Location, slug=location_slug)
+
+    CATEGORY_MAPPER = {
+        7002: 74,  # Ausstellung
+        6999: 25,  # Ballett
+        6995: 35,  # Blues
+        6988: 36,  # Chanson
+        7009: 56,  # Comedy
+        6994: 37,  # Country
+        7003: 68,  # Diskussion
+        7001: 38,  # Elektro
+        7010: 76,  # Film
+        6993: 39,  # Folk
+        6986: 77,  # Fotografie
+        6992: 40,  # Funk
+        6987: 78,  # Fuhrung
+        6991: 41,  # HipHop
+        6990: 42,  # Jazz
+        7008: 57,  # Kabarett
+        7022: 8,  # Kinder/Jugend
+        7013: 43,  # Klassik
+        #7017: 14,  # Komödie
+        7019: 69,  # Konferenz
+        6998: 17,  # Konzertante Vorstellung
+        7020: 15,  # Lesung
+        7000: 14,  # Liederabend
+        7014: 18,  # Musical
+        7018: 79,  # Neue Medien
+        6996: 45,  # Neue Musik
+        7024: 20,  # Oper
+        7015: 22,  # Operette
+        7012: 80,  # Party
+        7016: 32,  # Performance
+        7006: 46,  # Pop
+        7007: 66,  # Puppentheater
+        7026: 52,  # Revue
+        7005: 47,  # Rock
+        7028: 16,  # Schauspiel
+        7025: 53,  # Show
+        7023: 5,  # Sonstige Musik
+        6989: 48,  # Soul
+        7011: 49,  # Special
+        6997: 27,  # Tanztheater
+        7027: 54,  # Variete
+        7021: 70,  # Vortrag
+        7004: 82,  # Workshop
+    }
+    REVERSE_CATEGORY_MAPPER = dict(zip(CATEGORY_MAPPER.values(), CATEGORY_MAPPER.keys()))
+
+    production_nodes = []
+    for prod in Production.objects.filter(
+        models.Q(in_program_of=location) |
+        models.Q(play_locations=location)
+    ).distinct():
+
+        prod_image_nodes = []
+        for image in prod.productionimage_set.all():
+            try:
+                file_description = FileDescription.objects.filter(
+                    file_path=mf.path,
+                ).order_by("pk")[0]
+            except:
+                 author = ""
+                 image_title = ""
+                 copyright = ""
+            else:
+                 author = file_description.author
+                 image_title = file_description.title
+                 copyright = file_description.copyright_limitations
+
+            prod_image_nodes.append(
+                E.erBild(
+                    E.bildUrl(get_website_url()[:-1] + settings.MEDIA_URL + FileManager.modified_path(image.path.path, "list_image_url")),
+                    E.bildUrheber(CDATA(author)),
+                    E.bildCopyright(CDATA(copyright)),
+                    E.bildUntertitel(CDATA(image_title)),
+                )
+            )
+
+        event_nodes = []
+        for event in prod.event_set.all():
+            persons = '\n'.join([
+                u'%s - %s' % (involvement.person, involvement.get_function()) for involvement in event.eventinvolvement_set.all()
+            ])
+            if event.price_from:
+                price_range = "%s - %s" % (event.price_from, event.price_till)
+            else:
+                price_range = ""
+            event_nodes.append(E.event(
+                E.eventId(str(event.pk)),
+                E.eventBezeichnung(CDATA(""), alwaysEmpty="1"),
+                E.erWerbezeile(CDATA(event.get_rendered_teaser())),
+                E.eventPersonen(CDATA(persons)),
+                E.eventOrtId("", alwaysEmpty="1"),
+                E.eventOrt(CDATA(event.city)),
+                E.eventDatum(event.start_date.strftime('%d.%m.%Y')),
+                E.eventZeit(event.start_time.strftime('%H:%M')),
+                E.eventLink(CDATA(event.get_url())),
+                E.eventStrasse(CDATA(event.street_address)),
+                E.eventPlz(str(event.postal_code)),
+                E.eventVenue(CDATA(event.location_title)),
+                E.platzkategorie(
+                    E.vkpreis(price_range)
+                ),
+            ))
+
+        first_date = prod.event_set.order_by("start_date")[0].start_date.strftime('%Y-%m-%d')
+        last_date = prod.event_set.order_by("-start_date")[0].start_date.strftime('%Y-%m-%d')
+        persons = '\n'.join([
+            u'%s - %s' % (involvement.person, involvement.get_function()) for involvement in prod.productioninvolvement_set.all()
+        ])
+        categories = ','.join([
+            str(REVERSE_CATEGORY_MAPPER[cat.pk]) for cat in prod.categories.all() if REVERSE_CATEGORY_MAPPER.get(cat.pk, False)
+        ])
+        production_nodes.append(E.eventReihe(
+            E.erId(str(prod.pk)),
+            E.erName(CDATA(prod.title)),
+            E.erLink(CDATA(prod.get_url())),
+            E.erBeschreibung(CDATA(prod.get_rendered_description())),
+            E.erInhalt(CDATA(prod.get_rendered_contents())),
+            E.erWerbezeile(CDATA(prod.get_rendered_teaser())),
+            E.erPersons(CDATA(persons)),
+            E.erKoproduktion(CDATA(""), alwaysEmpty="1"),
+            E.erKritik(CDATA(""), alwaysEmpty="1"),
+            E.erSondermerkmal(CDATA(prod.get_rendered_remarks())),
+            E.erWerkinfo(CDATA(prod.get_rendered_work_info())),
+            E.erAltersangabe(CDATA(prod.age_text)),
+            E.erLocation(CDATA(location.title)),
+            E.erStrasse(CDATA(location.street_address)),
+            E.erPlz(CDATA(location.postal_code)),
+            E.erStadt(CDATA(location.city)),
+            E.erBegin(first_date),
+            E.erEnde(last_date),
+            E.erSpieldauer(CDATA(prod.duration_text)),
+            E.erSchlagworte(CDATA(""), alwaysEmpty="1"),
+            E.erKategorie(CDATA(categories)),
+            *prod_image_nodes + event_nodes
+        ))
+
+    return HttpResponse(
+        tostring(
+            E.detaildEventList(
+                xmlns="",
+                *production_nodes
+            ),
+            pretty_print=True,
+            xml_declaration=True,
+            encoding='UTF-8'
+        ).replace(  # a hack to add the namespace attributes without modifying the tags of the XML
+            'xmlns=""',
+            'xmlns="http://export.culturebase.org/schema/event/standardExport" '
+            'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
+            'xsi:schemaLocation="http://export.culturebase.org/schema/event/standardExport http://export.culturebase.org/schema/event/standardExport.xsd"'
+        ),
+        content_type="text/xml"
+    )

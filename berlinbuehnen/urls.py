@@ -72,6 +72,7 @@ urlpatterns += i18n_patterns('',
 urlpatterns += i18n_patterns('',
     url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
     url(r'^api/', include(v1_api.urls)),
+    url(r'^culturebase-export/locations/(?P<location_slug>[^/]+)/productions/$', 'berlinbuehnen.apps.site_specific.views.culturebase_export_productions', name="culturebase_export_productions"),
 
     url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),
     url(r'^helper/autocomplete/(?P<app>[^/]+)/(?P<qs_function>[^/]+)/(?P<display_attr>[^/]+)/(?P<add_display_attr>[^/]+)/$', 'base_libs.views.ajax_autocomplete'),
