@@ -57,6 +57,7 @@
         
         if (this.me) var me = this.me;
         
+        me.$items = $('.grid-item', me.$main);
         me.initGridItems();
         if (me.autoload) me.initAutoscroll();
         lazyload_images();
@@ -201,6 +202,7 @@
         if (this.me) var me = this.me;
         
         $('.pagination').removeClass('item').hide();
+        me.$items = $('.grid-item', me.$main);
         me.initGridItems();
         lazyload_images();
     }
