@@ -225,6 +225,7 @@ INSTALLED_APPS = (
     "berlinbuehnen.apps.multiparts",
     "berlinbuehnen.apps.slideshows",
     "berlinbuehnen.apps.twitter",
+    "berlinbuehnen.apps.advertising",
     "berlinbuehnen.apps.site_specific",
 )
 
