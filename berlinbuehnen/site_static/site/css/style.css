@@ -1757,6 +1757,7 @@ select { visibility: hidden; }
 .details dl dt.empty:after { content: none; padding-right: 0; }
 .details dl dd { display: inline; float: none; }
 .details dl dd.series:before { content: ", "; }
+.details dl dd.spacer { display: block !important; height: 5px; }
 .details a.phone { color: black; cursor: default; }
 .details a.phone:hover, .details a.phone:focus { color: black; }
 .details a.pdf { color: black; display: block; margin-bottom: 5px; overflow: hidden; }
