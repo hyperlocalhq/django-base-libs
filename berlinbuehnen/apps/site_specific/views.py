@@ -34,6 +34,7 @@ ContentType = models.get_model("contenttypes", "ContentType")
 User = models.get_model("auth", "User")
 Location = models.get_model("locations", "Location")
 Production = models.get_model("productions", "Production")
+Festival = models.get_model("festivals", "Festival")
 Parent = models.get_model("multiparts", "Parent")
 
 # from forms import ExhibitionFilterForm, EventFilterForm, WorkshopFilterForm, ShopFilterForm
@@ -44,10 +45,12 @@ def dashboard(request):
     owned_locations = Location.objects.accessible_to(request.user).order_by("-modified_date", "-creation_date")[:3]
     owned_productions = Production.objects.accessible_to(request.user).filter(status__in=('published', 'draft', 'expired', 'not_listed', 'import')).order_by("-modified_date", "-creation_date")[:3]
     owned_multiparts = Parent.objects.accessible_to(request.user).order_by("-modified_date", "-creation_date")[:3]
+    owned_festivals = Festival.objects.accessible_to(request.user).filter(status__in=('published', 'draft', 'expired', 'not_listed', 'import')).order_by("-modified_date", "-creation_date")[:3]
     context = {
         'owned_locations': owned_locations,
         'owned_productions': owned_productions,
         'owned_multiparts': owned_multiparts,
+        'owned_festivals': owned_festivals,
     }
     return render(request, "accounts/dashboard.html", context)
 
@@ -141,6 +144,53 @@ def dashboard_productions(request):
         'sort_by': sort_by,
     }
     return render(request, "accounts/dashboard_productions.html", context)
+
+
+@never_cache
+@login_required
+def dashboard_festivals(request):
+    owned_festival_qs = Festival.objects.accessible_to(request.user)
+
+    status = request.REQUEST.get('status', 'published')
+    if status in ('published', 'draft', 'expired', 'not_listed', 'import'):
+        owned_festival_qs = owned_festival_qs.filter(status=status)
+
+    q = request.REQUEST.get('q', '')
+    if q:
+        owned_festival_qs = owned_festival_qs.filter(
+            models.Q(title_de__icontains=q) | models.Q(title_en__icontains=q) |
+            models.Q(prefix_de__icontains=q) | models.Q(prefix_en__icontains=q) |
+            models.Q(subtitle_de__icontains=q) | models.Q(subtitle_en__icontains=q) |
+            models.Q(original_de__icontains=q) | models.Q(original_en__icontains=q)
+        )
+
+    sort_by = request.REQUEST.get('sort_by', 'date')
+    if sort_by == 'title':
+        owned_festival_qs = owned_festival_qs.order_by("title_de")
+    elif sort_by == '-title':
+        owned_festival_qs = owned_festival_qs.order_by("-title_de")
+    elif sort_by == '-date':
+        owned_festival_qs = owned_festival_qs.order_by("modified_date", "creation_date")
+    else:
+        owned_festival_qs = owned_festival_qs.order_by("-modified_date", "-creation_date")
+
+    paginator = Paginator(owned_festival_qs, 50)
+    page_number = request.GET.get('page', 1)
+    try:
+        page = paginator.page(page_number)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        page = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        page = paginator.page(paginator.num_pages)
+    context = {
+        'page': page,
+        'q': q,
+        'status': status,
+        'sort_by': sort_by,
+    }
+    return render(request, "accounts/dashboard_festivals.html", context)
 
 
 @never_cache

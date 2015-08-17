@@ -37,6 +37,18 @@ TOKENIZATION_SUMMAND = 56436  # used to hide the ids of media files
 
 
 class FestivalManager(models.Manager):
+    def accessible_to(self, user):
+        from jetson.apps.permissions.models import PerObjectGroup
+        if user.has_perm("festivals.change_production"):
+            return self.get_query_set().exclude(status="trashed")
+        ids = PerObjectGroup.objects.filter(
+            content_type__app_label="festivals",
+            content_type__model="festival",
+            sysname__startswith="owners",
+            users=user,
+        ).values_list("object_id", flat=True)
+        return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
+        
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
         if user.has_perm("festivals.change_festival"):
@@ -97,6 +109,9 @@ class Festival(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
     press_phone_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
     press_phone_area = models.CharField(_("Area Code"), max_length=6, blank=True)
     press_phone_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
+    press_mobile_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
+    press_mobile_area = models.CharField(_("Area Code"), max_length=6, blank=True)
+    press_mobile_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
     press_fax_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
     press_fax_area = models.CharField(_("Area Code"), max_length=6, blank=True)
     press_fax_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
