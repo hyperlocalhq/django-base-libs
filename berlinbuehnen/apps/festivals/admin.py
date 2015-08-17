@@ -13,6 +13,7 @@ from filebrowser.settings import URL_FILEBROWSER_MEDIA
 from .models import Festival
 from .models import Image
 from .models import SocialMediaChannel
+from .models import FestivalPDF
 
 
 class ImageInline(ExtendedStackedInline):
@@ -29,14 +30,20 @@ class SocialMediaChannelInline(ExtendedStackedInline):
     inline_classes = ('grp-collapse grp-open',)
 
 
+class FestivalPDFInline(ExtendedStackedInline):
+    model = FestivalPDF
+    extra = 0
+    inline_classes = ('grp-collapse grp-open',)
+
+
 class FestivalAdmin(ExtendedModelAdmin):
     class Media:
         js = (
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
         )
-    list_display = ('title', 'start', 'end', 'get_organizers', 'get_owners_list', 'creation_date', 'modified_date', 'newsletter', 'status')
-    list_editable = ('newsletter', 'status', )
-    list_filter = ('start', 'creation_date', 'modified_date', 'newsletter', 'status')
+    list_display = ('title', 'start', 'end', 'get_organizers', 'get_owners_list', 'creation_date', 'modified_date', 'featured', 'newsletter', 'status')
+    list_editable = ('featured', 'newsletter', 'status', )
+    list_filter = ('start', 'creation_date', 'modified_date', 'featured', 'newsletter', 'status')
     date_hierarchy = 'start'
     search_fields = ('title_de', 'title_en')
 
@@ -56,10 +63,10 @@ class FestivalAdmin(ExtendedModelAdmin):
        ('sun_open', 'sun_break_close', 'sun_break_open', 'sun_close'),
        get_admin_lang_section(_("Exceptions"), ['exceptions',]),
     )}),]
-    fieldsets += [(_("Press Contact"), {'fields': ('press_contact_name', 'press_email', 'press_website', (_("Phone"), {'fields': ('press_phone_country', 'press_phone_area', 'press_phone_number')}), (_("Fax"), {'fields': ('press_fax_country', 'press_fax_area', 'press_fax_number')}))}),]
+    fieldsets += [(_("Press Contact"), {'fields': ('press_contact_name', 'press_email', 'press_website', (_("Phone"), {'fields': ('press_phone_country', 'press_phone_area', 'press_phone_number')}), (_("Mobile"), {'fields': ('press_mobile_country', 'press_mobile_area', 'press_mobile_number')}), (_("Fax"), {'fields': ('press_fax_country', 'press_fax_area', 'press_fax_number')}))}),]
     fieldsets += [(_("Status"), {'fields': ('newsletter', 'status',)}),]
 
-    inlines = [ImageInline, SocialMediaChannelInline]
+    inlines = [ImageInline, SocialMediaChannelInline, FestivalPDFInline]
 
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
     filter_horizontal = ('organizers', )

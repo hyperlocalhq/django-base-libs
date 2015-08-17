@@ -17,6 +17,7 @@
                 <li><a href="/{{ LANGUAGE_CODE }}/dashboard/productions/">{% trans "Productions" %}</a></li>
                 <li><a href="/{{ LANGUAGE_CODE }}/dashboard/multiparts/">{% trans "Multipart Productions" %}</a></li>
                 <li><a href="/{{ LANGUAGE_CODE }}/dashboard/locations/">{% trans "Theaters" %}</a></li>
+                <li><a href="/{{ LANGUAGE_CODE }}/dashboard/festivals/">{% trans "Festivals" %}</a></li>
                 <li class="divider"></li>
                 <li><a href="/{{ LANGUAGE_CODE }}/logout/">{% trans "Logout" %}</a></li>
               </ul>
@@ -69,6 +70,7 @@
           <li{% if "/whats-on/" in request.path or "/productions/" in request.path or "/spielplan/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/productions/">{% trans "Productions" %}</a></li>
           <li{% if "/mehrteiler/" in request.path or "/multipart/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/multiparts/">{% trans "Multipart Productions" %}</a></li>
           <li{% if "/stages-and-companies/" in request.path or "/locations/" in request.path or "/buehnen-und-ensembles/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/locations/">{% trans "Theaters" %}</a></li>
+          <li{% if "/festivals/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/festivals/">{% trans "Festivals" %}</a></li>
         </ul>
 
         {% comment %}

@@ -19,13 +19,14 @@
 {% block js %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/accordion.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/gallery.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/slider.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/list.js"></script>
+    <!--<script type="text/javascript" src="{{ STATIC_URL }}site/js/slider.js"></script>-->
 {% endblock %}
 
 {% block content %}
     {% with object as festival %}
         <div id="festival" class="content details">
-            <div class="container">
+            <div class="container main-container">
                 <div class="row">
                     <div class="col-xs-12">
                         <a class="fawesome back uc" href="{% url 'festival_list' %}">{% trans "back to overview" %}</a>
@@ -33,6 +34,23 @@
                             
                             <!-- headlines -->
                             <header>
+                                <ul class="header-top">
+                                    {% if festival.start %}
+                                        <li><time>{{ festival.start|date:"j. F Y" }}</time>{% if festival.end %} &nbsp;–&nbsp; <time>{{ festival.end|date:"j. F Y" }}</time>{% endif %}</li>
+                                    {% endif %}
+                                    {% if festival.organizers.all %}
+                                            <li>
+                                                <dl class="comma">
+                                                    <dt>{% trans "Organizer" %}</dt>
+                                                    {% for location in festival.organizers.all %}
+                                                        <dd>
+                                                            {{ location.title }}
+                                                        </dd>
+                                                    {% endfor %}
+                                                </dl>
+                                            </li>
+                                    {% endif %}
+                                </ul>
                                 <h1>{{ festival.title }}
                                     {% if_has_perm "festivals.change_festival" object %}
                                         {% if not request.is_mobile %}
@@ -62,6 +80,14 @@
                                             <div class="description">
                                                 {{ festival.get_rendered_description }}
                                             </div>
+                                            {% if festival.website %}
+                                                <dl class="listing">
+                                                    {% if festival.website %}
+                                                        <dt>{% trans "Web" %}</dt>
+                                                        <dd><a href="{{ festival.website }}" target="_blank" class="no-print">{{ festival.website|humanize_url:80 }}</a><a href="{{ festival.website }}" target="_blank" class="print">{{ festival.website }}</a></dd>
+                                                    {% endif %}
+                                                </dl>
+                                            {% endif %}
                                         </div>
                                         
                                         <!-- main sidebar -->
@@ -79,6 +105,12 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-xs-12 full">
+                                            
+                                            <!-- Program -->
+                                            <div class="additional-list list row">
+                                                <h4 class="additional-list-head">{% trans "Festival Programme" %}</h4>
+                                                <a class="additional-list-more fawesome down after" href="javascript:void(0);">{% trans 'more' %}</a>
+                                            </div>
                                             
                                             <!-- Gallery -->
                                             {% if festival.image_set.exists %}

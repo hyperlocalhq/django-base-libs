@@ -1209,6 +1209,11 @@ div.tagsinput {
       width:100%;
     }
   }
+  .fieldset-pdf {
+    .info {
+        margin: 0;    
+    }
+  }
   .alert {
     &.alert-error {
         color: $bootstrap_red;   

@@ -37,6 +37,18 @@ TOKENIZATION_SUMMAND = 56436  # used to hide the ids of media files
 
 
 class FestivalManager(models.Manager):
+    def accessible_to(self, user):
+        from jetson.apps.permissions.models import PerObjectGroup
+        if user.has_perm("festivals.change_production"):
+            return self.get_query_set().exclude(status="trashed")
+        ids = PerObjectGroup.objects.filter(
+            content_type__app_label="festivals",
+            content_type__model="festival",
+            sysname__startswith="owners",
+            users=user,
+        ).values_list("object_id", flat=True)
+        return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
+        
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
         if user.has_perm("festivals.change_festival"):
@@ -97,6 +109,9 @@ class Festival(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
     press_phone_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
     press_phone_area = models.CharField(_("Area Code"), max_length=6, blank=True)
     press_phone_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
+    press_mobile_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
+    press_mobile_area = models.CharField(_("Area Code"), max_length=6, blank=True)
+    press_mobile_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
     press_fax_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
     press_fax_area = models.CharField(_("Area Code"), max_length=6, blank=True)
     press_fax_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
@@ -109,6 +124,7 @@ class Festival(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
     organizers = models.ManyToManyField("locations.Location", verbose_name=_("Organizers"), blank=True)
 
     newsletter = models.BooleanField(_("Show in newsletter"))
+    featured = models.BooleanField(_("Featured in overview"), default=False)
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 
     objects = FestivalManager()
@@ -131,6 +147,12 @@ class Festival(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
             return ""
         else:
             return path
+
+    def get_social_media(self):
+        return self.socialmediachannel_set.all()
+
+    def get_pdfs(self):
+        return self.festivalpdf_set.all()
 
     def set_owner(self, user):
         ContentType = models.get_model("contenttypes", "ContentType")
@@ -243,3 +265,27 @@ class SocialMediaChannel(models.Model):
             return u"googleplus"
         return social
 
+class FestivalPDF(CreationModificationDateMixin):
+    festival = models.ForeignKey(Festival, verbose_name=_("Festival"))
+    path = FileBrowseField(_('File path'), max_length=255, directory="festivals/", extensions=['.pdf'], help_text=_("A path to a locally stored PDF file."))
+    sort_order = PositionField(_("Sort order"), collection="festival")
+
+    class Meta:
+        ordering = ["sort_order", "creation_date"]
+        verbose_name = _("PDF")
+        verbose_name_plural = _("PDFs")
+
+    def __unicode__(self):
+        if self.path:
+            return self.path.path
+        return "Missing file (id=%s)" % self.pk
+
+    def get_token(self):
+        if self.pk:
+            return int(self.pk) + TOKENIZATION_SUMMAND
+        else:
+            return None
+
+    @staticmethod
+    def token_to_pk(token):
+        return int(token) - TOKENIZATION_SUMMAND

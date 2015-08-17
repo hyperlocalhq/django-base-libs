@@ -68,6 +68,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
             'sun_open', 'sun_break_close', 'sun_break_open', 'sun_close',
             'press_contact_name', 'press_email', 'press_website',
             'press_phone_country', 'press_phone_area', 'press_phone_number',
+            'press_mobile_country', 'press_mobile_area', 'press_mobile_number',
             'press_fax_country', 'press_fax_area', 'press_fax_number',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
@@ -513,6 +514,26 @@ class BasicInfoForm(autocomplete_light.ModelForm):
                      css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
                 ),
                 layout.Div(
+                    layout.HTML('{% load i18n %}<div><label class="with">{% trans "Mobile" %}</label></div>'),
+                    layout.Row(
+                        layout.Div(
+                            'press_mobile_country', css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                        ),
+                        layout.Div(
+                            'press_mobile_area',  css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                        ),
+                        layout.Div(
+                            'press_mobile_number', css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                        ),
+                        css_class="row-xs"
+                    ),
+                     css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                ),
+                css_class="row-md"
+            ),
+
+            layout.Row(
+                layout.Div(
                     layout.HTML('{% load i18n %}<div><label class="with">{% trans "Fax" %}</label></div>'),
                     layout.Row(
                         layout.Div(
@@ -637,6 +658,7 @@ def load_data(instance=None):
             'sun_open', 'sun_break_close', 'sun_break_open', 'sun_close',
             'press_contact_name', 'press_email', 'press_website',
             'press_phone_country', 'press_phone_area', 'press_phone_number',
+            'press_mobile_country', 'press_mobile_area', 'press_mobile_number',
             'press_fax_country', 'press_fax_area', 'press_fax_number',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
@@ -687,6 +709,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             'sun_open', 'sun_break_close', 'sun_break_open', 'sun_close',
             'press_contact_name', 'press_email', 'press_website',
             'press_phone_country', 'press_phone_area', 'press_phone_number',
+            'press_mobile_country', 'press_mobile_area', 'press_mobile_number',
             'press_fax_country', 'press_fax_area', 'press_fax_number',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
