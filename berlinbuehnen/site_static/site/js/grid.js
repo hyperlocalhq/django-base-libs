@@ -23,8 +23,8 @@
         this.me = me;
         
         me.$main = $main;
-        me.$items = $('.grid-item', me.$main);
-        me.$featured = $('.grid-item.featured', me.$main)
+        me.$items = $('.grid-item:visible', me.$main);
+        me.$featured = $('.grid-item.featured:visible', me.$main)
         me.autoload = $main.hasClass('grid-autoload');
         me.mazery = $main.hasClass('mazery-grid');
         
@@ -57,7 +57,7 @@
         
         if (this.me) var me = this.me;
         
-        me.$items = $('.grid-item', me.$main);
+        me.$items = $('.grid-item:visible', me.$main);
         me.initGridItems();
         if (me.autoload) me.initAutoscroll();
         lazyload_images();
@@ -202,7 +202,7 @@
         if (this.me) var me = this.me;
         
         $('.pagination').removeClass('item').hide();
-        me.$items = $('.grid-item', me.$main);
+        me.$items = $('.grid-item:visible', me.$main);
         me.initGridItems();
         lazyload_images();
     }

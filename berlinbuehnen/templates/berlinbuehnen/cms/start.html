@@ -208,15 +208,13 @@
                 
                 <!-- Ads -->
                 <div class="col-xs-12 col-sm-6 col-md-4 ads">
-                    <h1 class="bottom-line">{% trans "Ad" %}</h1>
-                    {% infoblock "start_page_ad" %}
-                    {% comment %}
-                    <div class="row">
-                        <div class="col-xs-12">
-                            {% infoblock "start_page_ad" %}
-                        </div>
-                    </div>
-                    {% endcomment %}
+
+                    {% load advertising_tags %}
+                    {% if "start_page"|not_empty_ad_zone %}
+                        <h1 class="bottom-line">{% trans "Ad" %}</h1>
+                        {% random_zone_ad "start_page" %}
+                    {% endif %}
+                    {#% infoblock "start_page_ad" %#}
                     {% subscribe %}
                 </div>
                 

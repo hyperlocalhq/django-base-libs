@@ -8,7 +8,7 @@
 from datetime import datetime
 from django import template
 from django.template.loader import render_to_string
-from museumsportal.apps.advertising.models import AdBase, AdImpression
+from berlinbuehnen.apps.advertising.models import AdBase, AdImpression
 
 register = template.Library()
 
