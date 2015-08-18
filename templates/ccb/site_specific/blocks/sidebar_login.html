@@ -4,6 +4,7 @@
     <div class="hidable">
         <form method="post" action="/{{ LANGUAGE_CODE }}/login/" class="uniForm">
             <!--{{ request.session.set_test_cookie }}-->
+            {% csrf_token %}
             <div class="ctrlHolder">
                 <label for="id_sidebar_email">{% trans 'Email or Username' %}</label>
                 <input id="id_sidebar_email" type="text" class="form_text textInput" name="email_or_username" maxlength="75" />
