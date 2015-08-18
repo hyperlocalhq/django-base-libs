@@ -794,8 +794,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 execfile(os.path.join(JETSON_PATH, "jetson/settings/cms.py"), globals(), locals())
 
 CMS_TEMPLATES = (
-    ('page.html', 'Page'),
-    ('feature.html', 'Page with Feature')
+    ('cms/page.html', 'Page'),
+    ('cms/feature.html', 'Page with Feature')
 )
 
 CMS_LANGUAGES = {
