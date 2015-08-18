@@ -18,6 +18,7 @@ from django.utils.safestring import mark_safe
 from django.template.defaultfilters import escape
 from django.db.models.fields import NOT_PROVIDED
 from django.utils.translation import string_concat
+import six
 
 try:
     from django.utils.timezone import now as tz_now
@@ -849,10 +850,11 @@ def SlugMixin(
                         getattr(self, fname, "")
                         for fname in prepopulate_from
                         ]) or slug_field.default
-                slug_proposal = better_slugify(slug_proposal).replace(
-                    "-",
-                    separator,
-                    )[:slug_field.max_length-5]
+                if isinstance(slug_proposal, six.string_types):
+                    slug_proposal = better_slugify(slug_proposal).replace(
+                        "-",
+                        separator,
+                        )[:slug_field.max_length-5]
                 slug = slug_proposal
                 if slug_field.unique or unique_for:
                     qs = type(self)
