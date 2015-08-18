@@ -124,16 +124,12 @@ msgid "Copyright limitations"
 msgstr ""
 
 #: subtrees/filebrowser/filebrowser/models.py:24
-#, fuzzy
-#| msgid "File Information"
 msgid "File description"
-msgstr "Informationen zur Datei"
+msgstr "Datei Beschreibung"
 
 #: subtrees/filebrowser/filebrowser/models.py:25
-#, fuzzy
-#| msgid "File Information"
 msgid "File descriptions"
-msgstr "Informationen zur Datei"
+msgstr "Datei Beschreibungen"
 
 #: subtrees/filebrowser/filebrowser/settings.py:123
 #: subtrees/filebrowser/filebrowser/templates/filebrowser/include/tableheader.html:21
@@ -449,17 +445,13 @@ msgid "{file} is too large, maximum file size is {sizeLimit}."
 msgstr "{file} ist zu groß. Die maximal zulässige Dateigröße ist {sizeLimit}."
 
 #: subtrees/filebrowser/filebrowser/templates/filebrowser/upload.html:68
-#, fuzzy, python-brace-format
-#| msgid "{file} is too small, minimum file size is {minSizeLimit}."
 msgid "{file} is too small, minimum file size is {minSizeLimit}."
 msgstr ""
 "{file} ist zu klein. Die minimal erforderliche Dateigröße ist {sizeLimit}."
 
 #: subtrees/filebrowser/filebrowser/templates/filebrowser/upload.html:69
-#, fuzzy, python-brace-format
-#| msgid "{file} is empty, please select files again without it."
 msgid "{file} is empty, please select files again without it."
-msgstr "{File} ist leer."
+msgstr ""
 
 #: subtrees/filebrowser/filebrowser/templates/filebrowser/upload.html:70
 msgid ""

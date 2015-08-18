@@ -314,22 +314,20 @@ msgid "Organizing person"
 msgstr "Veranstalter (Person)"
 
 #: apps/events/admin.py:130
-#, fuzzy
 msgid "Please enter a letter to display a list of available people"
 msgstr ""
 "Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl "
-"der verfügbaren Veranstaltungsorte angezeigt zu bekommen."
+"der verfügbaren Personen angezeigt zu bekommen."
 
 #: apps/events/admin.py:150
 msgid "Related events"
 msgstr "Verwandte Veranstaltungen"
 
 #: apps/events/admin.py:151
-#, fuzzy
 msgid "Please enter a letter to display a list of available events"
 msgstr ""
 "Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl "
-"der verfügbaren Veranstaltungsorte angezeigt zu bekommen."
+"der verfügbaren Veranstaltungen angezeigt zu bekommen."
 
 #: apps/events/admin.py:175 apps/events/forms.py:153
 #: apps/marketplace/forms.py:130 apps/people/forms.py:400
@@ -340,31 +338,26 @@ msgid "Country"
 msgstr "Land"
 
 #: apps/events/admin.py:176
-#, fuzzy
 msgid "Please enter a letter to display a list of available countries"
 msgstr ""
 "Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl "
-"der verfügbaren Veranstaltungsorte angezeigt zu bekommen."
+"der verfügbaren Ländern angezeigt zu bekommen."
 
 #: apps/events/admin.py:226
-#, fuzzy
 msgid "Time"
-msgstr "Titel"
+msgstr "Zeit"
 
 #: apps/events/admin.py:227
-#, fuzzy
 msgid "Times"
-msgstr "Titel"
+msgstr "Zeiten"
 
 #: apps/events/admin.py:252
-#, fuzzy
 msgid "Publish selected events"
-msgstr "Verwandte Veranstaltungen"
+msgstr ""
 
 #: apps/events/admin.py:342 subtrees/base_libs/base_libs/admin/options.py:583
-#, fuzzy, python-format
 msgid "Add %s"
-msgstr "Hinzufügen"
+msgstr "%s hinzufügen"
 
 #: apps/events/admin.py:375
 #: subtrees/base_libs/base_libs/admin/tree_editor.py:161
@@ -373,9 +366,8 @@ msgid "%(name)s object with primary key %(key)r does not exist."
 msgstr ""
 
 #: apps/events/admin.py:433
-#, fuzzy, python-format
 msgid "Change %s"
-msgstr "%s geändert."
+msgstr "%s ändern"
 
 #: apps/events/base.py:66 apps/search/search_indexes.py:160
 #: apps/site_specific/feeds.py:92 settings.py:754
@@ -413,19 +405,16 @@ msgid "Published"
 msgstr "Veröffentlicht"
 
 #: apps/events/base.py:73
-#, fuzzy
 msgid "Not Listed"
-msgstr "Neue Listen"
+msgstr "Nicht gelistet"
 
 #: apps/events/base.py:74
-#, fuzzy
 msgid "Imported"
-msgstr "Import"
+msgstr "Importiert"
 
 #: apps/events/base.py:75
-#, fuzzy
 msgid "Expired"
-msgstr "Bewertungsdatum"
+msgstr "Abgelaufen"
 
 #: apps/events/base.py:116 apps/events/base.py:411 apps/faqs/models.py:29
 #: apps/faqs/models.py:86 apps/tracker/models.py:37
@@ -439,29 +428,24 @@ msgid "Sort Order"
 msgstr "Sortierreihenfolge"
 
 #: apps/events/base.py:124
-#, fuzzy
 msgid "Event-time Label"
-msgstr "Label"
+msgstr ""
 
 #: apps/events/base.py:125 apps/events/management.py:113
-#, fuzzy
 msgid "Event-time Labels"
-msgstr "Termin Zeiten"
+msgstr ""
 
 #: apps/events/base.py:146
-#, fuzzy
 msgid "Creation date"
 msgstr "Erstellungsdatum"
 
 #: apps/events/base.py:151
-#, fuzzy
 msgid "Start date"
 msgstr "Beginn Tag"
 
 #: apps/events/base.py:156
-#, fuzzy
 msgid "Alphabetical"
-msgstr "Alphabetisch (A-Z)"
+msgstr "Alphabetisch"
 
 #: apps/events/base.py:230 subtrees/base_libs/base_libs/models/models.py:810
 #: subtrees/base_libs/base_libs/models/models.py:908
@@ -501,9 +485,8 @@ msgid "event"
 msgstr "Veranstaltung"
 
 #: apps/events/base.py:246 apps/events/base.py:589
-#, fuzzy
 msgid "events"
-msgstr "Veranstaltung"
+msgstr "Veranstaltungen"
 
 #: apps/events/base.py:304 apps/events/base.py:315
 msgid "Start Date"
@@ -514,14 +497,12 @@ msgid "End Date"
 msgstr "Ende Tag"
 
 #: apps/events/base.py:343
-#, fuzzy
 msgid "Start Time"
 msgstr "Beginn Minute"
 
 #: apps/events/base.py:352
-#, fuzzy
 msgid "End Time"
-msgstr "Termin Zeiten"
+msgstr "Ende Minute"
 
 #: apps/events/base.py:399 apps/faqs/models.py:74 apps/faqs/models.py:227
 #: subtrees/base_libs/base_libs/models/models.py:690
@@ -529,14 +510,12 @@ msgid "sort order"
 msgstr "Sortierreihenfolge"
 
 #: apps/events/base.py:416
-#, fuzzy
 msgid "event type"
 msgstr "Art der Veranstaltung"
 
 #: apps/events/base.py:417
-#, fuzzy
 msgid "event types"
-msgstr "Art der Veranstaltung"
+msgstr "Veranstaltungsarten"
 
 #: apps/events/base.py:440 templates/ccb/events/profile/identity.html:11
 msgid "Event type"
@@ -703,33 +682,29 @@ msgid "End Day"
 msgstr "Ende Tag"
 
 #: apps/events/base.py:803
-#, fuzzy
 msgid "End Hour"
-msgstr "Ende Stunden"
+msgstr "Ende Stunde"
 
 #: apps/events/base.py:804
-#, fuzzy
 msgid "End Minute"
-msgstr "Ende Minuten"
+msgstr "Ende Minute"
 
 #: apps/events/base.py:807
 msgid "All Day Event"
 msgstr "Ganztägiger Event"
 
 #: apps/events/base.py:811 apps/events/base.py:893
-#, fuzzy
 msgid "event time"
-msgstr "Terminzeiten"
+msgstr "Veranstaltungzeit"
 
 #: apps/events/base.py:812 apps/events/base.py:894
 #: templates/ccb/events/profile/event_times_form.html:6
 msgid "event times"
-msgstr "Terminzeiten"
+msgstr "Veranstaltungzeiten"
 
 #: apps/events/base.py:885
-#, fuzzy
 msgid "Label"
-msgstr "Label"
+msgstr ""
 
 #: apps/events/forms.py:46 apps/marketplace/forms.py:37
 #: apps/site_specific/forms.py:49 apps/site_specific/forms.py:119
@@ -1183,76 +1158,64 @@ msgid "Featured events only"
 msgstr "Nur gefeaturte Events"
 
 #: apps/events/management.py:35
-#, fuzzy
 msgid "Object Types"
-msgstr "Objekt-Typ"
+msgstr "Objekt-Typen"
 
 #: apps/events/management.py:64
 msgid "Biennial"
 msgstr ""
 
 #: apps/events/management.py:65
-#, fuzzy
 msgid "Competition"
-msgstr "Institution"
+msgstr ""
 
 #: apps/events/management.py:66
-#, fuzzy
 msgid "Concert"
-msgstr "Thema"
+msgstr ""
 
 #: apps/events/management.py:67
-#, fuzzy
 msgid "Conference"
-msgstr "Einstellungen"
+msgstr ""
 
 #: apps/events/management.py:68
-#, fuzzy
 msgid "Convention"
-msgstr "Sammlung"
+msgstr ""
 
 #: apps/events/management.py:69
-#, fuzzy
 msgid "Exhibition"
-msgstr "Anmeldung"
+msgstr ""
 
 #: apps/events/management.py:70
-#, fuzzy
 msgid "Lecture"
-msgstr "Featured"
+msgstr ""
 
 #: apps/events/management.py:71
-#, fuzzy
 msgid "Meeting"
-msgstr "Einstellungen"
+msgstr ""
 
 #: apps/events/management.py:72
-#, fuzzy
 msgid "Opening"
-msgstr "Geöffnet von"
+msgstr ""
 
 #: apps/events/management.py:73
 msgid "Performance"
 msgstr ""
 
 #: apps/events/management.py:74
-#, fuzzy
 msgid "Reading"
-msgstr "Titel"
+msgstr ""
 
 #: apps/events/management.py:75
-#, fuzzy
 msgid "Reception"
-msgstr "Abschnitt"
+msgstr ""
 
 #: apps/events/management.py:76
 msgid "Symposium"
 msgstr ""
 
 #: apps/events/management.py:77
-#, fuzzy
 msgid "Trade Show"
-msgstr "Speichern und zeigen"
+msgstr ""
 
 #: apps/events/management.py:78
 msgid "Workshop"
@@ -1263,24 +1226,20 @@ msgid "Festival"
 msgstr ""
 
 #: apps/events/management.py:122
-#, fuzzy
 msgid "Application Submission"
-msgstr "Applicationen"
+msgstr ""
 
 #: apps/events/management.py:123
-#, fuzzy
 msgid "Application Deadline"
-msgstr "Applicationen"
+msgstr ""
 
 #: apps/events/management.py:124
-#, fuzzy
 msgid "Vernissage"
-msgstr "Nachricht"
+msgstr ""
 
 #: apps/events/management.py:125
-#, fuzzy
 msgid "Finissage"
-msgstr "Nachricht"
+msgstr ""
 
 #: apps/events/models.py:22
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:10
@@ -1296,9 +1255,8 @@ msgid "Featured"
 msgstr "Featured"
 
 #: apps/events/models.py:25
-#, fuzzy
 msgid "Importance"
-msgstr "Import"
+msgstr ""
 
 #: apps/events/views.py:198 apps/events/views.py:204
 msgid "Naughty hacker!"
@@ -1510,21 +1468,18 @@ msgid "FAQ"
 msgstr "FAQ"
 
 #: apps/faqs/models.py:58
-#, fuzzy
 msgid "FAQ Container"
-msgstr "Fehlermeldung"
+msgstr ""
 
 #: apps/faqs/models.py:59
-#, fuzzy
 msgid "FAQ Containers"
-msgstr "Fehlermeldung"
+msgstr ""
 
 #: apps/faqs/models.py:72
 msgid "container"
-msgstr "Fehlermeldung"
+msgstr ""
 
 #: apps/faqs/models.py:88 subtrees/base_libs/base_libs/models/models.py:1026
-#, fuzzy
 msgid "short title"
 msgstr "Kurztitel"
 
@@ -1533,9 +1488,8 @@ msgid "a short title to be displayed in page breadcrumbs and headline."
 msgstr "Ein kurzer Titel, der in Breadcrumbs und Überschrift angezeigt wird"
 
 #: apps/faqs/models.py:96
-#, fuzzy
 msgid "format for child categories"
-msgstr "Geschäftsfelder"
+msgstr ""
 
 #: apps/faqs/models.py:98
 #, python-format
@@ -1607,7 +1561,6 @@ msgid "favorites"
 msgstr "Favoriten"
 
 #: apps/groups_networks/admin.py:33
-#, fuzzy
 msgid "Main"
 msgstr "Hauptinformation"
 
@@ -1629,19 +1582,16 @@ msgid "Details"
 msgstr "Details"
 
 #: apps/institutions/admin.py:41 apps/people/admin.py:40
-#, fuzzy
 msgid "Mailing List"
 msgstr "Mailinglisten"
 
 #: apps/institutions/admin.py:47
-#, fuzzy
 msgid "Contact Email"
-msgstr "Kontaktdaten"
+msgstr "Kontakt E-Mail"
 
 #: apps/institutions/admin.py:48
-#, fuzzy
 msgid "Owner Email"
-msgstr "Absender (E-Mail)"
+msgstr ""
 
 #: apps/institutions/admin.py:50
 msgid "Email type"
@@ -1653,14 +1603,12 @@ msgid "Successfully subscribed %(count)d %(items)s."
 msgstr ""
 
 #: apps/institutions/admin.py:116 apps/people/admin.py:87
-#, fuzzy
 msgid "Subscribe to a mailing list"
-msgstr "Mailinglisten anzeigen"
+msgstr ""
 
 #: apps/institutions/admin.py:135 apps/people/admin.py:106
-#, fuzzy
 msgid "Subscribe to mailing list"
-msgstr "Mailinglisten anzeigen"
+msgstr ""
 
 #: apps/institutions/admin.py:156
 msgid "Publish selected institutions as non-commercial"
@@ -1672,9 +1620,8 @@ msgstr "Die ausgewählten Institutionen als kommerziell veröffentlichen "
 
 #: apps/institutions/forms.py:21 apps/people/forms.py:1993
 #: apps/resources/forms.py:23
-#, fuzzy
 msgid "Business Category"
-msgstr "Geschäftsfeld"
+msgstr ""
 
 #: apps/institutions/forms.py:27 apps/people/forms.py:475
 #: apps/people/forms.py:484 apps/people/forms.py:493 apps/people/forms.py:502
@@ -1798,14 +1745,12 @@ msgid "Cover"
 msgstr "Titelbild"
 
 #: apps/media_gallery/feeds.py:25
-#, fuzzy, python-format
 msgid "%(site)s projects"
-msgstr "%(site)s  News"
+msgstr ""
 
 #: apps/media_gallery/feeds.py:31
-#, fuzzy
 msgid "Latest projects"
-msgstr "Letzte Posts"
+msgstr ""
 
 #: apps/media_gallery/forms.py:14 apps/media_gallery/models.py:41
 #: templates/ccb/media_gallery/portfolio_settings.html:10
@@ -2852,14 +2797,12 @@ msgid "IP Address"
 msgstr "IP-Adresse"
 
 #: apps/site_specific/models.py:399
-#, fuzzy
 msgid "User Agent"
-msgstr "Benutzerkonto"
+msgstr ""
 
 #: apps/site_specific/models.py:400
-#, fuzzy
 msgid "Session ID"
-msgstr "Zugriffsrechte"
+msgstr ""
 
 #: apps/site_specific/models.py:408
 #, python-format
@@ -3004,9 +2947,8 @@ msgid "Concerns"
 msgstr "Thema"
 
 #: apps/tracker/forms.py:55
-#, fuzzy
 msgid "Client Info"
-msgstr "Mehr Informationen"
+msgstr ""
 
 #: apps/tracker/models.py:19
 msgid "Tracker"
@@ -3037,9 +2979,8 @@ msgid "Someday"
 msgstr "Irgendwann"
 
 #: apps/tracker/models.py:48
-#, fuzzy
 msgid "Concern"
-msgstr "Thema"
+msgstr ""
 
 #: apps/tracker/models.py:54
 msgid "submitted Date"
@@ -3067,9 +3008,8 @@ msgid "modifier"
 msgstr "Zuletzt bearbeitet von"
 
 #: apps/tracker/models.py:67
-#, fuzzy
 msgid "client info"
-msgstr "Kontaktinformation"
+msgstr ""
 
 #: apps/tracker/models.py:69 apps/tracker/models.py:118
 msgid "priority"
@@ -3105,10 +3045,8 @@ msgid "%s ago"
 msgstr "Vor %s"
 
 #: settings.py:59
-#, fuzzy
-#| msgid "Deny"
 msgid "en"
-msgstr "Abweisen"
+msgstr ""
 
 #: settings.py:60 settings.py:812
 msgid "de"
@@ -3158,14 +3096,12 @@ msgid "Connect"
 msgstr "Connect"
 
 #: settings.py:751
-#, fuzzy
 msgid "Image and text"
-msgstr "Nachricht (Nur-Text)"
+msgstr ""
 
 #: settings.py:752
-#, fuzzy
 msgid "Text only"
-msgstr "Text"
+msgstr "Nur Text"
 
 #: subtrees/base_libs/base_libs/admin/tree_editor.py:172
 #: subtrees/base_libs/base_libs/admin/tree_editor.py:282
@@ -3174,10 +3110,8 @@ msgid "%s has been moved to a new position."
 msgstr ""
 
 #: subtrees/base_libs/base_libs/admin/tree_editor.py:181
-#, fuzzy, python-format
-#| msgid "Move"
 msgid "Move: %s"
-msgstr "Mobiltelefon"
+msgstr ""
 
 #: subtrees/base_libs/base_libs/admin/tree_editor.py:286
 msgid "Did not understand moving instruction."
@@ -3195,10 +3129,8 @@ msgstr "Bitte ein gültiges Datum eingeben."
 
 #: subtrees/base_libs/base_libs/forms/fields.py:210
 #: subtrees/base_libs/base_libs/forms/fields.py:235
-#, fuzzy, python-format
-#| msgid "Please enter a valid e-mail address"
 msgid "\"%(email)s\" is not a valid e-mail address"
-msgstr "Bitte ein gültiges Datum eingeben."
+msgstr ""
 
 #: subtrees/base_libs/base_libs/forms/fields.py:220
 msgid "Please enter at least one valid e-mail address"
@@ -3324,18 +3256,14 @@ msgstr "Veröffentlichungsdatum"
 
 #: subtrees/base_libs/base_libs/models/admin.py:133
 #: subtrees/base_libs/base_libs/models/models.py:417
-#, fuzzy
-#| msgid "related object's URL"
 msgid "Related object"
-msgstr "Bezugnehmende URL"
+msgstr ""
 
 #: subtrees/base_libs/base_libs/models/admin.py:172
 #: subtrees/base_libs/base_libs/models/models.py:389
 #: subtrees/base_libs/base_libs/models/models.py:392
-#, fuzzy
-#| msgid "Content object ID combo"
 msgid "Content Object"
-msgstr "Content-Objekt-ID-Combo"
+msgstr ""
 
 #: subtrees/base_libs/base_libs/models/admin.py:221
 msgid "If you provide an object ID, you must specify a content type."
@@ -3374,8 +3302,6 @@ msgid ""
 msgstr ""
 
 #: subtrees/base_libs/base_libs/models/admin.py:532
-#, fuzzy
-#| msgid "Published"
 msgid "Publish"
 msgstr "Veröffentlicht"
 
@@ -3386,8 +3312,6 @@ msgstr "Meine Einstellungen"
 #: subtrees/base_libs/base_libs/models/admin.py:551
 #: subtrees/base_libs/base_libs/models/admin.py:560
 #: subtrees/base_libs/base_libs/models/models.py:1050
-#, fuzzy
-#| msgid "Keyword(s)"
 msgid "Keywords"
 msgstr "Stichworte"
 
@@ -3409,10 +3333,8 @@ msgid "SEO"
 msgstr ""
 
 #: subtrees/base_libs/base_libs/models/admin.py:560
-#, fuzzy
-#| msgid "image title"
 msgid "Page title"
-msgstr "Bildtitel"
+msgstr "Seitentitel"
 
 #: subtrees/base_libs/base_libs/models/base_libs_settings.py:13
 msgid "HTML WYSIWYG"
@@ -3512,10 +3434,8 @@ msgid "Related object's type (model)"
 msgstr "Typ des bezugnehmenden Objekts (Model)"
 
 #: subtrees/base_libs/base_libs/models/models.py:393
-#, fuzzy
-#| msgid "Related object's type (model)"
 msgid "'s type (model)"
-msgstr "Typ des bezugnehmenden Objekts (Model)"
+msgstr " Typ (Model)"
 
 #: subtrees/base_libs/base_libs/models/models.py:412
 msgid "Please select the type (model) for the relation, you want to build."
@@ -3581,16 +3501,12 @@ msgid "content"
 msgstr "Content"
 
 #: subtrees/base_libs/base_libs/models/models.py:1050
-#, fuzzy
-#| msgid "Separate tags with commas."
 msgid "Separate keywords by comma."
 msgstr "Stichwort durch Kommas trennen."
 
 #: subtrees/base_libs/base_libs/models/models.py:1098
-#, fuzzy
-#| msgid "image title"
 msgid "page title"
-msgstr "Bildtitel"
+msgstr "Seitentitel"
 
 #: subtrees/base_libs/base_libs/models/models.py:1107
 msgid "Opens on Monday"
@@ -3774,9 +3690,8 @@ msgid "Sunday"
 msgstr "Sonntag"
 
 #: subtrees/base_libs/base_libs/models/models.py:1232
-#, fuzzy
 msgid "Fee Label"
-msgstr "Label"
+msgstr ""
 
 #: subtrees/base_libs/base_libs/models/models.py:1238
 msgid "Fee Amount"
@@ -3787,14 +3702,11 @@ msgid "Registration Required"
 msgstr "Registrierung erforderlich"
 
 #: subtrees/tagging/tagging/admin.py:11
-#, fuzzy, python-format
-#| msgid "Name (A-Z)"
+
 msgid "Name (%s)"
-msgstr "Name (A-Z)"
+msgstr "Name (%s)"
 
 #: subtrees/tagging/tagging/fields.py:22
-#, fuzzy
-#| msgid "Separate tags with commas"
 msgid "Separate different tags by comma"
 msgstr "Stichwort durch Kommas trennen."
 
@@ -3808,10 +3720,8 @@ msgid "Multiple tags were given."
 msgstr ""
 
 #: subtrees/tagging/tagging/forms.py:23
-#, fuzzy, python-format
-#| msgid "Passwords must be at least 3 characters long"
 msgid "A tag may be no more than %s characters long."
-msgstr "Passwörter müssen mindestens 3 Zeichen lang sein"
+msgstr ""
 
 #: subtrees/tagging/tagging/forms.py:39
 #, python-format
@@ -3830,8 +3740,6 @@ msgstr ""
 
 #: subtrees/tagging/tagging/models.py:470
 #: subtrees/tagging/tagging/models.py:485
-#, fuzzy
-#| msgid "tags"
 msgid "tag"
 msgstr "Stichworte"
 
@@ -3844,16 +3752,12 @@ msgid "object id"
 msgstr "Betreff"
 
 #: subtrees/tagging/tagging/models.py:495
-#, fuzzy
-#| msgid "mapped item"
 msgid "tagged item"
-msgstr "Kontext Objekt"
+msgstr ""
 
 #: subtrees/tagging/tagging/models.py:496
-#, fuzzy
-#| msgid "mapped items"
 msgid "tagged items"
-msgstr "Kontext Objekte"
+msgstr ""
 
 #: subtrees/tagging/tagging/templatetags/tagging_tags.py:19
 #, python-format
@@ -3979,14 +3883,12 @@ msgid "Translations"
 msgstr "Übersetzungen"
 
 #: templates/admin/admin/includes/navigation.html:9
-#, fuzzy
 msgid "Mint Statistics"
-msgstr "Statistik"
+msgstr ""
 
 #: templates/admin/admin/includes/navigation.html:10
-#, fuzzy
 msgid "Piwik Statistics"
-msgstr "Statistik"
+msgstr ""
 
 #: templates/admin/admin/institutions/institution/mailchimp_subscribe_selected.html:9
 #: templates/admin/admin/people/person/mailchimp_subscribe_selected.html:9
@@ -4049,9 +3951,8 @@ msgstr "Home"
 
 #: templates/admin/admin/institutions/institution/mailchimp_subscribe_selected.html:12
 #: templates/admin/admin/people/person/mailchimp_subscribe_selected.html:12
-#, fuzzy
 msgid "Delete multiple objects"
-msgstr "Verwandte Events löschen"
+msgstr "Mehrere Veranstaltungen löschen"
 
 #: templates/admin/admin/institutions/institution/mailchimp_subscribe_selected.html:21
 #: templates/admin/admin/people/person/mailchimp_subscribe_selected.html:21
@@ -4064,9 +3965,8 @@ msgstr ""
 
 #: templates/admin/admin/institutions/institution/mailchimp_subscribe_selected.html:33
 #: templates/admin/admin/people/person/mailchimp_subscribe_selected.html:33
-#, fuzzy
 msgid "Select a mailing list to subscribe to:"
-msgstr "Ich möchte %s abonnieren."
+msgstr ""
 
 #: templates/admin/admin/institutions/institution/mailchimp_subscribe_selected.html:60
 #: templates/admin/admin/people/person/mailchimp_subscribe_selected.html:52
@@ -4172,9 +4072,8 @@ msgstr "Abbrechen"
 
 #: templates/admin/admin/institutions/institution/mailchimp_subscribe_selected.html:61
 #: templates/admin/admin/people/person/mailchimp_subscribe_selected.html:53
-#, fuzzy
 msgid "Subscribe"
-msgstr "Empfänger"
+msgstr ""
 
 #: templates/admin/extendedadmin/includes/fieldset_categories.html:5
 msgid "Categories & tags"
@@ -4259,10 +4158,8 @@ msgid "Job Offer"
 msgstr "Jobangebot"
 
 #: templates/admin/extendedadmin/job_offer_change.html:29
-#, fuzzy
-#| msgid "Qualification"
 msgid "Qualifications"
-msgstr "Qualifikation"
+msgstr "Qualifikationen"
 
 #: templates/admin/extendedadmin/job_offer_change.html:38
 #: templates/ccb/marketplace/emails/new_job_offer.html:143
@@ -5468,7 +5365,6 @@ msgstr "Direkt zur Hauptnavigation (Enter drücken)"
 
 #: templates/ccb/base.html:82
 #: templates/ccb/site_specific/kreativarbeiten_base.html:106
-#, fuzzy
 msgid "Skip to content navigation (Press Enter)"
 msgstr "Direkt zur Contentnavigation (Enter drücken)"
 
@@ -6394,7 +6290,6 @@ msgid "Linked Institution"
 msgstr "Verbundene Institution"
 
 #: templates/ccb/facebook_app/manage_pages.html:19
-#, fuzzy, python-format
 msgid ""
 "Institution <a href=\"%(institution_url)s\">\"%(institution_title)s\"</a> is "
 "linked to facebook page <a href=\"%(fb_page_url)s\">\"%(fb_page_name)s\"</a>."
@@ -6465,7 +6360,6 @@ msgstr "Alle Projekte"
 #: templates/ccb/media_gallery/create_update_gallery.html:11
 #: templates/ccb/media_gallery/manage_galleries.html:15
 #: templates/ccb/media_gallery/manage_gallery.html:11
-#, fuzzy
 msgid "Sync with Facebook"
 msgstr "Synchronisieren mit Facebook"
 
@@ -7343,9 +7237,8 @@ msgid "Crop and save"
 msgstr "Bildausschnitt festlegen"
 
 #: templates/ccb/index.html:80
-#, fuzzy
 msgid "Kreativ Arbeiten"
-msgstr "Creative City Berlin"
+msgstr "Kreativ Arbeiten"
 
 #: templates/ccb/index.html:96
 msgid "Jobboard"
@@ -7356,10 +7249,8 @@ msgid "Twitter Updates"
 msgstr "Twitter Updates"
 
 #: templates/ccb/index.html:201
-#, fuzzy
-#| msgid "Interests"
 msgid "Interviews"
-msgstr "Interessen"
+msgstr ""
 
 #: templates/ccb/individual_relations/confirm_invitation_to_contacts.html:31
 #, python-format
@@ -7464,7 +7355,6 @@ msgid "PAYMENT"
 msgstr "Akzeptierte Zahlungsmethoden"
 
 #: templates/ccb/institutions/add_institution_confirm.html:374
-#, fuzzy
 msgid "Institution Type"
 msgstr "Institutions-Typ"
 
@@ -7694,16 +7584,10 @@ msgstr ""
 "\"open_new_window(event)\">Kulturmanagement.net</a> veröffentlichen."
 
 #: templates/ccb/marketplace/add_job_offer_confirm.html:178
-#, fuzzy
-#| msgid ""
-#| "Send to <a href=\"http://www.creativeset.net/\" onclick="
-#| "\"open_new_window(event)\">Creativeset.net</a>."
 msgid ""
 "Send to <a href=\"https://www.talent-berlin.de/jobs/\" onclick="
 "\"open_new_window(event)\">talent-in-berlin.de</a>."
 msgstr ""
-"Auch bei <a href=\"http://www.creativeset.net/\" onclick="
-"\"open_new_window(event)\">Creativeset.net</a> veröffentlichen."
 
 #: templates/ccb/marketplace/add_job_offer_main_data.html:28
 msgid "Job"
@@ -7948,9 +7832,8 @@ msgid "Change"
 msgstr "Ändern"
 
 #: templates/ccb/media_gallery/gallery_list.html:5
-#, fuzzy
 msgid "Creative City Berlin Portfolios"
-msgstr "Creative City Berlin Blog"
+msgstr ""
 
 #: templates/ccb/media_gallery/gallery_list.html:41
 #: templates/ccb/media_gallery/gallery_list.html:87
@@ -8701,9 +8584,8 @@ msgstr ""
 
 #: templates/ccb/site_specific/kreativarbeiten_contact_form.html:7
 #: templates/ccb/site_specific/kreativarbeiten_contact_form.html:11
-#, fuzzy
 msgid "Contact Dirk Kiefer"
-msgstr "Kontaktinformation"
+msgstr ""
 
 #: templates/ccb/site_specific/lists/details_base.html:12
 #: templates/ccb/site_specific/lists/list_list.html:12
