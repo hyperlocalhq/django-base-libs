@@ -169,8 +169,6 @@ INSTALLED_APPS = [
     ]
 
 MIDDLEWARE_CLASSES = [
-    "johnny.middleware.LocalStoreClearMiddleware",
-    "johnny.middleware.QueryCacheMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     'django.middleware.csrf.CsrfViewMiddleware',
     "jetson.apps.httpstate.middleware.HttpStateMiddleware",
@@ -408,26 +406,16 @@ ADMIN_APP_INDEX = (
 
 ### CACHING ###
 
-if not DEVELOPMENT_MODE:
+if not DEVELOPMENT_MODE and False:
     CACHES = {
-        'default' : dict(
-            BACKEND = 'johnny.backends.memcached.MemcachedCache',
-            LOCATION = ['127.0.0.1:11211'],
-            #BACKEND = 'johnny.backends.locmem.LocMemCache',
-            JOHNNY_CACHE = True,
-        )
+       'default': {
+           'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+           'LOCATION': '127.0.0.1:11211',
+           'KEY_PREFIX': "ccb_production_",
+           'TIMEOUT': 300,
+           'MAX_ENTRIES': 400,
+       }
     }
-    JOHNNY_MIDDLEWARE_KEY_PREFIX='jc_ccb'
-    
-    #CACHES = {
-    #    'default': {
-    #        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-    #        'LOCATION': '127.0.0.1:11211',
-    #        'KEY_PREFIX': "ccb_production_",
-    #        'TIMEOUT': 300,
-    #        'MAX_ENTRIES': 400,
-    #    }
-    #}
 
 
 ### FILEBROWSER ###
