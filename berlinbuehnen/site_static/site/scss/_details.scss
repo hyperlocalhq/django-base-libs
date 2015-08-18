@@ -232,6 +232,10 @@
                     content: ", ";
                 }
             }
+            &.spacer {
+                display: block !important;
+                height: 5px;
+            }
         }
     }
     a.phone {

@@ -39,6 +39,12 @@
                 {% if festival.phone_number or festival.fax_number or festival.email or festival.website %}
                     <dl>
                         <dd class="headline">{% trans "Festival Contact" %}</dd>
+                        {% comment %}
+                            {% if festival.street_address %}<dd>{{ festival.street_address }}</dd>{% endif %}
+                            {% if festival.street_address2 %}<dd>{{ festival.street_address2 }}</dd>{% endif %}
+                            {% if festival.city %}<dd>{{ festival.postal_code }} {{ festival.city }}</dd>{% endif %}
+                            {% if festival.street_address or festival.street_address2 or festival.city %}<dd class="spacer"></dd>{% endif %}
+                        {% endcomment %}
                         {% if festival.phone_number %}
                             <dt class="width_50">{% trans "Phone" %}</dt>
                             <dd><a class="phone" href="tel:{% if festival.phone_country %}+{{ festival.phone_country }}{% endif %}{{ festival.phone_area }}{{ festival.phone_number }}">{% if festival.phone_country %}+{{ festival.phone_country }}-{% endif %}{{ festival.phone_area }}-{{ festival.phone_number }}</a></dd>
@@ -175,6 +181,10 @@
                         {% if festival.press_phone_number %}
                             <dt class="width_50">{% trans "Phone" %}</dt>
                             <dd><a class="phone" href="tel:{% if festival.press_phone_country %}+{{ festival.press_phone_country }}{% endif %}{{ festival.press_phone_area }}{{ festival.press_phone_number }}">{% if festival.press_phone_country %}+{{ festival.press_phone_country }}-{% endif %}{{ festival.press_phone_area }}-{{ festival.press_phone_number }}</a></dd>
+                        {% endif %}
+                        {% if festival.press_mobile_number %}
+                            <dt class="width_50">{% trans "Mobile" %}</dt>
+                            <dd><a class="phone" href="tel:{% if festival.press_mobile_country %}+{{ festival.press_mobile_country }}{% endif %}{{ festival.press_mobile_area }}{{ festival.press_mobile_number }}">{% if festival.press_mobile_country %}+{{ festival.press_mobile_country }}-{% endif %}{{ festival.press_mobile_area }}-{{ festival.press_mobile_number }}</a></dd>
                         {% endif %}
                         {% if festival.press_fax_number %}
                             <dt class="width_50">{% trans "Fax" %}</dt>
