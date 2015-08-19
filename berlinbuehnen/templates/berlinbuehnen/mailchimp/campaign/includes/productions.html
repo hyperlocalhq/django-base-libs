@@ -2,56 +2,90 @@
         <!-- events -->
         <table width="600" border="0" cellpadding="0" cellspacing="0">
             <tr>
-                <td style="padding:16px 24px 0;"><table width="552" cellpadding="0" cellspacing="0" border="0">
+                <td width="100%" height="32">&nbsp;</td>
+            </tr>
+            <tr>
+                <td style="padding:0 24px;"><table width="552" cellpadding="0" cellspacing="0" border="0">
                     <tr>
-                        <td valign="top" style="font-weight:600; text-transform:uppercase; border-bottom:4px solid #000 !important;">AUS DEM SPIELPLAN</td>      
+                        <td valign="top" style="font-weight:600; text-transform:uppercase;">AUS DEM SPIELPLAN</td>      
+                    </tr>
+                    <tr>
+                        <td width="552" height="20"><img src="http://www.berlin-buehnen.de/media/newsletter/underline_big.gif" width="552" height="20"/></td>
                     </tr>
                 </table></td>
             </tr>
             
             {% get_objects for_newsletter productions.Production 4 as newest_objects %}
             {% for production in newest_objects %}
-                {% with event=production.get_nearest_occurrence %}
+                {% with event=production.get_nearest_occurrence %}      
                     <tr>
-                        <td style="padding:16px 24px 0;"><table width="552" cellpadding="0" cellspacing="0" border="0">
+                        <td style="padding:0 24px;"><table width="552" cellpadding="0" cellspacing="0" border="0">
                             <tr>
-                                <td valign="top" style="{% if not forloop.last %}border-bottom:1px solid #000 !important; padding-bottom:8px; {% else %} padding-bottom:16px; {% endif %}"><table width="552" height="148" border="0" cellpadding="0" cellspacing="0">
+                                <td valign="top"><table width="552" height="148" border="0" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td width="230" valign="top"><a href="{{ production.get_url }}"><img src="http://www.berlin-buehnen.de/media/{{ event.first_image.path|modified_path:"newsletter_production" }}" width="216" style="padding-right:16px;" border="0" /></a></td>
-                                        <td width="322" height="100%" valign="top" style="position:relative;"><table width="322" border="0" cellpadding="0" cellspacing="0">
+                                        <td width="322" height="100%" valign="top" style="position:relative;"><table width="322" height="100%" cellpadding="0" cellspacing="0" style="height:100%">
                                             <tr>
-                                                <td width="322" colspan="2"><a href="{{ production.get_url }}" style="color:#000; font-size:22px; font-weight:600; text-decoration:none; display:block; line-height:100%; margin-top:-2px; padding-bottom:10px;">{{ event.start_date|date:"D, j.n." }}</a></td>
+                                                <td width="322" valign="top"><table width="322" border="0" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td width="322" colspan="2"><a href="{{ production.get_url }}" style="color:#000; font-size:22px; font-weight:600; text-decoration:none; display:block; line-height:100%; margin-top:-2px;">{{ event.start_date|date:"D, j.n." }}</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="322" height="10" colspan="2"><img src="http://www.berlin-buehnen.de/media/space.gif" width="322" height="10"/></td>
+                                                    </tr>
+                                                    {% with locations=event.ev_or_prod_play_locations stages=event.ev_or_prod_play_stages %}
+                                                        <tr>
+                                                            <td width="322" colspan="2"><a href="{{ production.get_url }}" style="color:#000; font-size:12px; font-weight:300; text-transform:uppercase; text-decoration:none; display:block; line-height:120%;">{% if event.location_title %}{{ event.location_title }}{% elif production.location_title %}{{ production.location_title }}{% elif production.in_program_of.count %}{% for location in production.in_program_of.all %}{{ location.title }}{% if not forloop.last %}, {% endif %}{% endfor %}{% elif locations.count %}{% for location in locations %}{{ location.title }}{% if not forloop.last %}, {% endif %}{% endfor %}{% elif stages.count %}{% for location in stages %}{{ location.title }}{% if not forloop.last %}, {% endif %}{% endfor %}{% endif %}</a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="322" height="8" colspan="2"><img src="http://www.berlin-buehnen.de/media/space.gif" width="322" height="8"/></td>
+                                                        </tr>
+                                                    {% endwith %}
+                                                    {% if production.ensembles %}
+                                                        <tr>
+                                                            <td width="322" colspan="2"><a href="{{ production.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;">{{ production.ensembles }}</a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="322" height="9" colspan="2"><img src="http://www.berlin-buehnen.de/media/space.gif" width="322" height="9"/></td>
+                                                        </tr>
+                                                    {% endif %}
+                                                    <tr>
+                                                        <td width="322" colspan="2"><a href="{{ production.get_url }}" style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:110%;">{% if production.prefix %}{{ production.prefix }} {% endif %}{{ production.title }}</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="322" height="4" colspan="2"><img src="http://www.berlin-buehnen.de/media/space.gif" width="322" height="4"/></td>
+                                                    </tr>
+                                                    {% if production.subtitle %}
+                                                        <tr>
+                                                            <td width="322" colspan="2"><a href="{{ production.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;">{{ production.subtitle }}</a></td>
+                                                        </tr>
+                                                    {% elif event.ev_or_prod_subtitles_text %}
+                                                        <tr>
+                                                            <td width="322" colspan="2"><a href="{{ production.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;">{{ event.ev_or_prod_subtitles_text|disarm_user_input }}</a></td>
+                                                        </tr>
+                                                    {% endif %}
+                                                    <tr>
+                                                        <td width="100%" height="16">&nbsp;</td>
+                                                    </tr>
+                                                </table></td>
                                             </tr>
-                                            {% with locations=event.ev_or_prod_play_locations stages=event.ev_or_prod_play_stages %}
-                                                <tr>
-                                                    <td width="322" colspan="2"><a href="{{ production.get_url }}" style="color:#000; font-size:12px; font-weight:300; text-transform:uppercase; text-decoration:none; display:block; line-height:120%; padding-bottom:8px;">{% if event.location_title %}{{ event.location_title }}{% elif production.location_title %}{{ production.location_title }}{% elif production.in_program_of.count %}{% for location in production.in_program_of.all %}{{ location.title }}{% if not forloop.last %}, {% endif %}{% endfor %}{% elif locations.count %}{% for location in locations %}{{ location.title }}{% if not forloop.last %}, {% endif %}{% endfor %}{% elif stages.count %}{% for location in stages %}{{ location.title }}{% if not forloop.last %}, {% endif %}{% endfor %}{% endif %}</a></td>
-                                                </tr>
-                                            {% endwith %}
-                                            {% if production.ensembles %}
-                                                <tr>
-                                                    <td width="322" colspan="2"><a href="{{ production.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%; padding-bottom:9px;">{{ production.ensembles }}</a></td>
-                                                </tr>
-                                            {% endif %}
                                             <tr>
-                                                <td width="322" colspan="2"><a href="{{ production.get_url }}" style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:110%; padding-bottom:4px;">{% if production.prefix %}{{ production.prefix }} {% endif %}{{ production.title }}</a></td>
-                                            </tr>
-                                            {% if production.subtitle %}
-                                                <tr>
-                                                    <td width="322" colspan="2"><a href="{{ production.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;">{{ production.subtitle }}</a></td>
-                                                </tr>
-                                            {% elif event.ev_or_prod_subtitles_text %}
-                                                <tr>
-                                                    <td width="322" colspan="2"><a href="{{ production.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;">{{ event.ev_or_prod_subtitles_text|disarm_user_input }}</a></td>
-                                                </tr>
-                                            {% endif %}
-                                            <tr>
-                                                <td width="296" height="22" valign="bottom"><a href="{{ production.get_url }}" style="position:absolute; bottom:0; font-size:10px; font-weight:600; text-decoration:none; padding-top:10px; display:block;">MEHR ZU DIESER PRODUKTION<img src="http://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11"/></a></td>
-                                                <td width="26" valign="bottom"><a href="{% if event.ev_or_prod_tickets_website %}{{ event.ev_or_prod_tickets_website }}{% else %}{{ production.get_url }}{% endif %}" style="position:absolute; bottom:0; height:13px; padding-top:8px; padding-left:10px; display:block;"><img src="http://www.berlin-buehnen.de/media/newsletter/tickets.gif" border="0" width="16" height="13"/></a></td>
+                                                <td valign="bottom"><table width="322" cellpadding="0" cellspacing="0" style="position:absolute; bottom:0px;">
+                                                    <tr>
+                                                        <td width="296" height="22" valign="bottom"><a href="{{ production.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; float:left;">MEHR ZU DIESER PRODUKTION</a><a href="{{ production.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; float:left;"><img src="http://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11"/></a></td>
+                                                        <td width="26" valign="bottom"><a href="{% if event.ev_or_prod_tickets_website %}{{ event.ev_or_prod_tickets_website }}{% else %}{{ production.get_url }}{% endif %}" style="height:13px; padding-top:8px; padding-left:10px; display:block;"><img src="http://www.berlin-buehnen.de/media/newsletter/tickets.gif" border="0" width="16" height="13"/></a></td>
+                                                    </tr>
+                                                </table></td>
                                             </tr>
                                         </table></td>
                                     </tr>
                                 </table></td>
                             </tr>
+                            {% if not forloop.last %}
+                                <tr>
+                                    <td width="552" height="25"><img src="http://www.berlin-buehnen.de/media/newsletter/underline_small.gif" width="552" height="25"/></td>
+                                </tr>
+                            {% endif %}
                         </table></td>
                     </tr>
                 {% endwith %}
@@ -59,9 +93,15 @@
             <tr>
                 <td style="padding:0 24px;"><table width="552" cellpadding="0" cellspacing="0" border="0">
                     <tr>
-                        <td style="width:552px; background:#000; text-align:center; margin-top:8px;" align="center">
-                            <a href="http://www.berlin-buehnen.de/de/spielplan/" style="width:552px; height:32px; background:#000; color:#fff; font-weight:600; text-decoration:none; display:block; text-align:center; line-height:32px;" >ZUM SPIELPLAN<img src="http://www.berlin-buehnen.de/media/newsletter/arrow_right_black.gif" width="20" height="32" border="0" /></a>
-                        </td>      
+                        <td width="552" height="8"><img src="http://www.berlin-buehnen.de/media/space.gif" width="552" height="8"/></td>
+                    </tr>
+                    <tr>
+                        <td width="552" height="32" style="background:#000;"><table width="552" height="32">
+                            <tr>
+                                <td width="60%" height="32" align="right" valign="center"><a href="http://www.berlin-buehnen.de/de/spielplan/" style="width:100%; height:32px; background:#000; color:#fff; font-weight:600; text-decoration:none; display:block; text-align:right; line-height:32px;">ZUM SPIELPLAN</a></td>
+                                <td width="40%" height="32" align="left" valign="center"><a href="http://www.berlin-buehnen.de/de/spielplan/" style="width:100%; height:32px; background:#000; color:#fff; font-weight:600; text-decoration:none; display:block; text-align:left; line-height:32px;"><img src="http://www.berlin-buehnen.de/media/newsletter/arrow_right_black.gif" width="20" height="32" border="0" /></a></td>
+                            </tr>
+                        </table></td>      
                     </tr>
                 </table></td>
             </tr>
