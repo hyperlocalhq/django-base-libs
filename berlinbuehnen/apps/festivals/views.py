@@ -516,6 +516,7 @@ def create_update_pdf(request, slug, mediafile_token="", **kwargs):
 
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 setattr(file_description, 'title_%s' % lang_code, cleaned['title_%s' % lang_code])
+                setattr(file_description, 'description_%s' % lang_code, cleaned['description_%s' % lang_code])
 
             file_description.save()
 

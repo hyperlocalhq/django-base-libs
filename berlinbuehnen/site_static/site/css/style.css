@@ -1763,10 +1763,14 @@ select { visibility: hidden; }
 .details a.pdf { color: black; display: block; margin-bottom: 5px; overflow: hidden; }
 .details a.pdf:hover { color: black; }
 .details a.pdf:before { content: ""; width: 25px; height: 25px; display: block; margin: 0 7px 0 0; background: url(../img/pdf_small.png) no-repeat 0 0; float: left; }
+.details a.publication { color: black; }
+.details a.publication:hover { color: black; }
 .details a.tickets { color: black; }
 .details a.tickets:hover { color: black; }
 .details a.tickets.tickets-link { margin-top: 5px; display: inline-block; }
 .details a.tickets.tickets-link:before { padding-right: 5px; }
+.details a.button { display: inline-block; height: 30px; color: white; text-transform: uppercase; background: #4583c8; padding: 5px 40px; font-weight: 700; font-size: 1em; }
+.details a.button:hover { color: white; }
 
 #location.details header h1 { margin-right: 30px; }
 #location.details header .header-icons { top: 9px; }
@@ -1853,6 +1857,9 @@ top: 0;*/ width: 110px; height: 100%; display: block; background-image: url(../i
 .content-accordion .accordion-item .accordion-item-head:after { font: normal normal normal 14px/1 FontAwesome; content: "\f107"; font-size: 1.75em; position: absolute; top: 1px; right: 10px; color: #222; }
 .content-accordion .accordion-item .accordion-item-head.open:after { content: "\f106"; top: 0; }
 .content-accordion .accordion-item .accordion-item-content { margin-bottom: 16px; }
+.content-accordion .accordion-item .accordion-item-content .publication { margin: 10px 0 40px; }
+.content-accordion .accordion-item .accordion-item-content .publication p { margin: 0; }
+.content-accordion .accordion-item .accordion-item-content .publication .button { margin-top: 5px; }
 .content-accordion .accordion-item p:first-child { margin-top: 16px; }
 
 .sidebar-accordion .accordion-item { position: relative; }

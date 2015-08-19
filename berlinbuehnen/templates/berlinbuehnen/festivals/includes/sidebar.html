@@ -202,24 +202,4 @@
             </div>
         </div>
     {% endif %}
-    {% if festival.get_pdfs %}
-        <div class="accordion-item">
-            <h4 class="accordion-item-head">{% trans "Publications" %}</h4>
-            <div class="accordion-item-content">
-                <p>
-                    {% for pdf in festival.get_pdfs %}
-                        {% with pdf.path|file_description as file_desc %}
-                            {% if file_desc.title %}
-                                <a class="pdf" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank">{{ file_desc.title }}</a>
-                            {% elif file_desc.filename %}
-                                <a class="pdf" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank">{{ file_desc.filename }}</a>
-                            {% else %}
-                                <a class="pdf" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank">{{ pdf.path }}</a>
-                            {% endif %}
-                        {% endwith %}
-                    {% endfor %}
-                </p>
-            </div>
-        </div>
-    {% endif %}
 </div>
