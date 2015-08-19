@@ -88,6 +88,8 @@ urlpatterns += i18n_patterns('',
 
     url(r'^jssettings/$', 'jetson.apps.utils.views.direct_to_js_template', {'template_name': 'settings.js'}, name="jssettings"),
 
+    url(r'^ads/', include('berlinbuehnen.apps.advertising.urls')),
+
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),
 
