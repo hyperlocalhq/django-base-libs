@@ -118,9 +118,9 @@
                                                                         {% if file_desc.title %}
                                                                             <a class="publication" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank"><strong>{{ file_desc.title }}</strong></a>
                                                                         {% elif file_desc.filename %}
-                                                                            <a href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank"><strong>{{ file_desc.filename }}</strong></a>
+                                                                            <a class="publication" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank"><strong>{{ file_desc.filename }}</strong></a>
                                                                         {% else %}
-                                                                            <a href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank"><strong>{{ pdf.path }}</strong></a>
+                                                                            <a class="publication" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank"><strong>{{ pdf.path }}</strong></a>
                                                                         {% endif %}<br/>
                                                                         {% if file_desc.description %}
                                                                             {{ file_desc.description|urlize|linebreaks }}
