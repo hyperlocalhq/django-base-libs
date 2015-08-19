@@ -10,15 +10,12 @@
                         <td valign="top" style="font-weight:600; text-transform:uppercase;">FESTIVALS</td>
                     </tr>
                     <tr>
-                        <td width="100%" height="4" bgcolor="#000000"><img src="http://www.berlin-buehnen.de/media/space.gif" width="1" height="4"/></td>
+                        <td width="552" height="20"><img src="http://www.berlin-buehnen.de/media/newsletter/underline_big.gif" width="552" height="20"/></td>
                     </tr>
                 </table></td>
             </tr>
             {% get_objects for_newsletter festivals.Festival 4 as newest_objects %}
             {% if newest_objects.count %}
-                    <tr>
-                        <td height="16">&nbsp;</td>
-                    </tr>
                     <tr>
                         <td style="padding:0 24px;"><table width="552" cellpadding="0" cellspacing="0" border="0">
                             <tr>
@@ -36,21 +33,21 @@
                                             <td><a href="{{ festival.get_url }}" style="color:#000; font-size:22px; font-weight:600; text-decoration:none; display:block; line-height:100%;">{{ festival.start|date:"j.n." }} {% if festival.permanent %}{% trans "until further notice" %}{% else %}{% if festival.end %}– {{ festival.end|date:"j.n." }}{% endif %}{% endif %}</a></td>
                                         </tr>
                                         <tr>
-                                            <td height="10"><img src="http://www.berlin-buehnen.de/media/space.gif" width="1" height="10"/></td>
+                                            <td height="10"><img src="http://www.berlin-buehnen.de/media/space.gif" width="268" height="10"/></td>
                                         </tr>
                                         {% if festival.organizers.count %}
                                             <tr>
                                                 <td><a href="{{ festival.get_url }}" style="color:#000; font-size:12px; font-weight:300; text-transform:uppercase; text-decoration:none; display:block; line-height:120%;">VERANSTALTER: {% for org in festival.organizers.all %}{{ org.title }}{% if not forloop.last %}, {% endif %}{% endfor %}</a></td>
                                             </tr>
                                             <tr>
-                                                <td height="8"><img src="http://www.berlin-buehnen.de/media/space.gif" width="1" height="8"/></td>
+                                                <td height="8"><img src="http://www.berlin-buehnen.de/media/space.gif" width="268" height="8"/></td>
                                             </tr>
                                         {% endif %}
                                         <tr>
                                             <td><a href="{{ festival.get_url }}" style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:110%;">{{ festival.title }}</a></td>
                                         </tr>
                                         <tr>
-                                            <td height="4"><img src="http://www.berlin-buehnen.de/media/space.gif" width="1" height="4"/></td>
+                                            <td height="4"><img src="http://www.berlin-buehnen.de/media/space.gif" width="268" height="4"/></td>
                                         </tr>
                                         {% if festival.subtitle %}
                                             <tr>
@@ -75,21 +72,21 @@
                                                 <td><a href="{{ festival.get_url }}" style="color:#000; font-size:22px; font-weight:600; text-decoration:none; display:block; line-height:100%;">{{ festival.start|date:"j.n." }} {% if festival.permanent %}{% trans "until further notice" %}{% else %}{% if festival.end %}– {{ festival.end|date:"j.n." }}{% endif %}{% endif %}</a></td>
                                             </tr>
                                             <tr>
-                                                <td height="10"><img src="http://www.berlin-buehnen.de/media/space.gif" width="1" height="10"/></td>
+                                                <td height="10"><img src="http://www.berlin-buehnen.de/media/space.gif" width="268" height="10"/></td>
                                             </tr>
                                             {% if festival.organizers.count %}
                                                 <tr>
                                                     <td><a href="{{ festival.get_url }}" style="color:#000; font-size:12px; font-weight:300; text-transform:uppercase; text-decoration:none; display:block; line-height:120%;">VERANSTALTER: {% for org in festival.organizers.all %}{{ org.title }}{% if not forloop.last %}, {% endif %}{% endfor %}</a></td>
                                                 </tr>
                                                 <tr>
-                                                    <td height="8"><img src="http://www.berlin-buehnen.de/media/space.gif" width="1" height="8"/></td>
+                                                    <td height="8"><img src="http://www.berlin-buehnen.de/media/space.gif" width="268" height="8"/></td>
                                                 </tr>
                                             {% endif %}
                                             <tr>
                                                 <td><a href="{{ festival.get_url }}" style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:110%;">{{ festival.title }}</a></td>
                                             </tr>
                                             <tr>
-                                                <td height="4"><img src="http://www.berlin-buehnen.de/media/space.gif" width="1" height="4"/></td>
+                                                <td height="4"><img src="http://www.berlin-buehnen.de/media/space.gif" width="268" height="4"/></td>
                                             </tr>
                                             {% if festival.subtitle %}
                                                 <tr>
@@ -117,17 +114,14 @@
                             </tr>
                             {% if newest_objects.count > 2 %}
                                 <tr>
-                                    <td height="4" bgcolor="#000000"><img src="http://www.berlin-buehnen.de/media/space.gif" width="1" height="4"/></td>
-                                    <td height="4"><img src="http://www.berlin-buehnen.de/media/space.gif" width="1" height="4"/></td>
-                                    <td height="4" {% if newest_objects.count >= 2 %}bgcolor="#000000"{% endif %}><img src="http://www.berlin-buehnen.de/media/space.gif" width="1" height="4"/></td>
+                                    <td width="268" height="25"><img src="http://www.berlin-buehnen.de/media/newsletter/underline_big_short.gif" width="268" height="25"/></td>
+                                    <td height="25">&nbsp;</td>
+                                    <td width="268" height="25"><img src="http://www.berlin-buehnen.de/media/newsletter/underline_big_short.gif" width="268" height="25"/></td>
                                 </tr>
                             {% endif %}
                         </table></td>
                     </tr>
                 {% if newest_objects.count > 2 %}
-                    <tr>
-                        <td height="16">&nbsp;</td>
-                    </tr>
                     <tr>
                         <td style="padding:0 24px;"><table width="552" cellpadding="0" cellspacing="0" border="0">
                             <tr>
@@ -145,21 +139,21 @@
                                             <td><a href="{{ festival.get_url }}" style="color:#000; font-size:22px; font-weight:600; text-decoration:none; display:block; line-height:100%;">{{ festival.start|date:"j.n." }} {% if festival.permanent %}{% trans "until further notice" %}{% else %}{% if festival.end %}– {{ festival.end|date:"j.n." }}{% endif %}{% endif %}</a></td>
                                         </tr>
                                         <tr>
-                                            <td height="10"><img src="http://www.berlin-buehnen.de/media/space.gif" width="1" height="10"/></td>
+                                            <td height="10"><img src="http://www.berlin-buehnen.de/media/space.gif" width="268" height="10"/></td>
                                         </tr>
                                         {% if festival.organizers.count %}
                                             <tr>
                                                 <td><a href="{{ festival.get_url }}" style="color:#000; font-size:12px; font-weight:300; text-transform:uppercase; text-decoration:none; display:block; line-height:120%;">VERANSTALTER: {% for org in festival.organizers.all %}{{ org.title }}{% if not forloop.last %}, {% endif %}{% endfor %}</a></td>
                                             </tr>
                                             <tr>
-                                                <td height="8"><img src="http://www.berlin-buehnen.de/media/space.gif" width="1" height="8"/></td>
+                                                <td height="8"><img src="http://www.berlin-buehnen.de/media/space.gif" width="268" height="8"/></td>
                                             </tr>
                                         {% endif %}
                                         <tr>
                                             <td><a href="{{ festival.get_url }}" style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:110%;">{{ festival.title }}</a></td>
                                         </tr>
                                         <tr>
-                                            <td height="4"><img src="http://www.berlin-buehnen.de/media/space.gif" width="1" height="4"/></td>
+                                            <td height="4"><img src="http://www.berlin-buehnen.de/media/space.gif" width="268" height="4"/></td>
                                         </tr>
                                         {% if festival.subtitle %}
                                             <tr>
@@ -184,21 +178,21 @@
                                                 <td><a href="{{ festival.get_url }}" style="color:#000; font-size:22px; font-weight:600; text-decoration:none; display:block; line-height:100%;">{{ festival.start|date:"j.n." }} {% if festival.permanent %}{% trans "until further notice" %}{% else %}{% if festival.end %}– {{ festival.end|date:"j.n." }}{% endif %}{% endif %}</a></td>
                                             </tr>
                                             <tr>
-                                                <td height="10"><img src="http://www.berlin-buehnen.de/media/space.gif" width="1" height="10"/></td>
+                                                <td height="10"><img src="http://www.berlin-buehnen.de/media/space.gif" width="268" height="10"/></td>
                                             </tr>
                                             {% if festival.organizers.count %}
                                                 <tr>
                                                     <td><a href="{{ festival.get_url }}" style="color:#000; font-size:12px; font-weight:300; text-transform:uppercase; text-decoration:none; display:block; line-height:120%;">VERANSTALTER: {% for org in festival.organizers.all %}{{ org.title }}{% if not forloop.last %}, {% endif %}{% endfor %}</a></td>
                                                 </tr>
                                                 <tr>
-                                                    <td height="8"><img src="http://www.berlin-buehnen.de/media/space.gif" width="1" height="8"/></td>
+                                                    <td height="8"><img src="http://www.berlin-buehnen.de/media/space.gif" width="268" height="8"/></td>
                                                 </tr>
                                             {% endif %}
                                             <tr>
                                                 <td><a href="{{ festival.get_url }}" style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:110%;">{{ festival.title }}</a></td>
                                             </tr>
                                             <tr>
-                                                <td height="4"><img src="http://www.berlin-buehnen.de/media/space.gif" width="1" height="4"/></td>
+                                                <td height="4"><img src="http://www.berlin-buehnen.de/media/space.gif" width="268" height="4"/></td>
                                             </tr>
                                             {% if festival.subtitle %}
                                                 <tr>
