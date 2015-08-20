@@ -89,7 +89,8 @@ class MListAdminForm(forms.ModelForm):
         
 class MListAdmin(admin.ModelAdmin):
     form = MListAdminForm
-    list_display = ('title', 'get_mailchimp_list', 'get_count_with_link', 'last_sync', 'is_public')
+    list_display = ('id', 'title', 'get_mailchimp_list', 'get_count_with_link', 'last_sync', 'is_public')
+    list_display_links = ('id', 'title')
     list_filter = ('is_public',)
     fieldsets = [(None, {'fields': ('site', 'mailchimp_list')}),]
     fieldsets += get_admin_lang_section(_("Title"), ['title'])
