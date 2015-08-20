@@ -382,9 +382,6 @@ class MailingContentBlock(models.Model):
     content = ExtendedTextField(_("Content"), blank=True)
     sort_order = PositionField(_("Sort order"))
     
-    formfield_overrides = {
-    models.TextField: {'widget': forms.Textarea(attrs={'class': 'ckeditor'})}, }
-
     def __unicode__(self):
         return self.get_content_type_display()
     
