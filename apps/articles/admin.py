@@ -43,10 +43,15 @@ class ArticleForm(forms.ModelForm):
 
 class ArticleOptions(ExtendedModelAdmin):
     form = ArticleForm    
+
     class Media:
         js = (
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-            )
+        )
+
+    formfield_overrides = {
+        models.TextField: {'widget': forms.Textarea(attrs={'class': 'ckeditor'})}, }
+
     save_on_top = True
     
     list_display = ['id', 'title', 'author', 'status', 'published_from', 'published_till', 'views', 'article_type', 'language']
