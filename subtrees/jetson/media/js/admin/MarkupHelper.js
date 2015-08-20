@@ -1,10 +1,15 @@
 (function($) {
     $(document).ready(function() {
-        function setTinyMce(sId) {
-            tinyMCE.execCommand("mceAddControl", true, sId);
+        function setCkEditor(sId) {
+            CKEDITOR.replace(sId);
+            //$('#' + sId).addClass('ckeditor');
         }
-        function unsetTinyMce(sId) {
-            tinyMCE.execCommand("mceRemoveControl", true, sId);
+        function unsetCkEditor(sId) {
+            var ckInstance = CKEDITOR.instances[sId];
+            if (ckInstance) {
+                ckInstance.destroy();
+            }
+            //$('#' + sId).removeClass('ckeditor');
         }
     
         function initRTE() {
@@ -14,9 +19,9 @@
                 var token = $(this).attr("id").match(/(.*?)_markup_type/g);
                 var sId = RegExp.$1;
                 if (sMarkupType == 'hw') {
-                    setTinyMce(sId);
+                    setCkEditor(sId);
                 } else {
-                    unsetTinyMce(sId);
+                    unsetCkEditor(sId);
                 }
             };
             $('.markupType').each(toggleMarkup).change(toggleMarkup);
