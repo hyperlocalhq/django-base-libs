@@ -2,14 +2,12 @@
     $(document).ready(function() {
         function setCkEditor(sId) {
             CKEDITOR.replace(sId);
-            //$('#' + sId).addClass('ckeditor');
         }
         function unsetCkEditor(sId) {
             var ckInstance = CKEDITOR.instances[sId];
             if (ckInstance) {
                 ckInstance.destroy();
             }
-            //$('#' + sId).removeClass('ckeditor');
         }
     
         function initRTE() {
