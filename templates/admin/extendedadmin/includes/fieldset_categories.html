@@ -25,27 +25,7 @@
             </div>
         </div>
         <script type="text/javascript">
-            addEvent(window, "load", function(e) {SelectFilter.init("id_creative_sectors", "user permissions", 0, "{{ STATIC_URL }}admin/"); });
-        </script>
-    {% endif %}
-    {% if form.job_sectors %}
-        <div class="grp-row grp-cells-1{% if form.job_sectors.errors %} errors{% endif %}">
-            <div class="l-2c-fluid l-d-4">
-                <div class="c-1">
-                    <label{% if form.job_sectors.field.required %} class="required"{% endif %}>{{ form.job_sectors.label }}</label>
-                </div>
-                <div class="c-2">
-                    {{ form.job_sectors }}
-                    {% if form.job_sectors.errors %}
-                        <ul class="errorlist"><li>{{ form.job_sectors.errors|join:", "}}</li></ul>
-                    {% endif %}
-
-                    {% if form.job_sectors.help_text %}<p class="grp-help">{{ form.job_sectors.help_text }}</p>{% endif %}
-                </div>
-            </div>
-        </div>
-        <script type="text/javascript">
-            addEvent(window, "load", function(e) { SelectFilter.init("id_job_sectors", "{% trans "Job sectors" %}", 0, "{{ STATIC_URL }}admin/"); });
+            addEvent(window, "load", function(e) {SelectFilter.init("id_creative_sectors", "{% trans "Creative sectors" %}", 0, "{{ STATIC_URL }}admin/"); });
         </script>
     {% endif %}
     {% if form.context_categories %}

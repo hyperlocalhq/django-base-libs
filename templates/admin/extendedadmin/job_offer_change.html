@@ -3,58 +3,94 @@
 {% load i18n %}
 
 {% block fieldset_job_offer %}
-    <fieldset class="grp-module aligned collapse open">
+    <fieldset class="grp-module grp-aligned grp-collapse grp-open">
         <h2>{% trans "Job Offer" %}</h2>
         {{ form.user_id }}
-        <div class="row{% if form.position.errors %} errors{% endif %}">
-            <div>
-                <div class="column span-4"><label for="id_position"{% if form.position.field.required %} class="required"{% endif %}>{% trans "Position" %}:</label></div>
-                <div class="column span-flexible">
+        <div class="grp-row grp-cells-1{% if form.position.errors %} errors{% endif %}">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    <label{% if form.position.field.required %} class="required"{% endif %}>{{ form.position.label }}</label>
+                </div>
+                <div class="c-2">
                     {{ form.position }}
-                    {{ form.position.errors }}
+                    {% if form.position.errors %}
+                        <ul class="errorlist"><li>{{ form.position.errors|join:", "}}</li></ul>
+                    {% endif %}
+
+                    {% if form.position.help_text %}<p class="grp-help">{{ form.position.help_text }}</p>{% endif %}
                 </div>
             </div>
         </div>
-        <div class="row{% if form.job_type.errors %} errors{% endif %}">
-            <div>
-                <div class="column span-4"><label for="id_job_type"{% if form.job_type.field.required %} class="required"{% endif %}>{% trans "Job Type" %}:</label></div>
-                <div class="column span-flexible">
+        <div class="grp-row grp-cells-1{% if form.job_type.errors %} errors{% endif %}">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    <label{% if form.job_type.field.required %} class="required"{% endif %}>{{ form.job_type.label }}</label>
+                </div>
+                <div class="c-2">
                     {{ form.job_type }}
-                    {{ form.job_type.errors }}
+                    {% if form.job_type.errors %}
+                        <ul class="errorlist"><li>{{ form.job_type.errors|join:", "}}</li></ul>
+                    {% endif %}
+
+                    {% if form.job_type.help_text %}<p class="grp-help">{{ form.job_type.help_text }}</p>{% endif %}
                 </div>
             </div>
         </div>
-        <div class="row{% if form.qualifications.errors %} errors{% endif %}">
-            <div>
-                <div class="column span-4"><label for="id_qualifications"{% if form.qualifications.field.required %} class="required"{% endif %}>{% trans "Qualifications" %}:</label></div>
-                <div class="column span-flexible">
+        <div class="grp-row grp-cells-1{% if form.qualifications.errors %} errors{% endif %}">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    <label{% if form.qualifications.field.required %} class="required"{% endif %}>{{ form.qualifications.label }}</label>
+                </div>
+                <div class="c-2">
                     {{ form.qualifications }}
-                    {{ form.qualifications.errors }}
+                    {% if form.qualifications.errors %}
+                        <ul class="errorlist"><li>{{ form.qualifications.errors|join:", "}}</li></ul>
+                    {% endif %}
+
+                    {% if form.qualifications.help_text %}<p class="grp-help">{{ form.qualifications.help_text }}</p>{% endif %}
                 </div>
             </div>
         </div>
-        <div class="row{% if form.job_sectors.errors %} errors{% endif %}">
-            <div>
-                <div class="column span-4"><label for="id_job_sectors"{% if form.job_sectors.field.required %} class="required"{% endif %}>{% trans "Job Sectors" %}:</label></div>
-                <div class="column span-flexible">
+        <script type="text/javascript">
+            addEvent(window, "load", function(e) { SelectFilter.init("id_qualifications", "{% trans "Qualifications" %}", 0, "{{ STATIC_URL }}admin/"); });
+        </script>
+
+        <div class="grp-row grp-cells-1{% if form.job_sectors.errors %} errors{% endif %}">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    <label{% if form.job_sectors.field.required %} class="required"{% endif %}>{{ form.job_sectors.label }}</label>
+                </div>
+                <div class="c-2">
                     {{ form.job_sectors }}
-                    {{ form.job_sectors.errors }}
+                    {% if form.job_sectors.errors %}
+                        <ul class="errorlist"><li>{{ form.job_sectors.errors|join:", "}}</li></ul>
+                    {% endif %}
+
+                    {% if form.job_sectors.help_text %}<p class="grp-help">{{ form.job_sectors.help_text }}</p>{% endif %}
                 </div>
             </div>
         </div>
-        <div class="row checkbox-row">
-            <div>
-                <div class="column span-4">&nbsp;</div>
-                <div class="column span-flexible">
-                    {{ form.is_commercial }}<label for="id_is_commercial" class="vCheckboxLabel">{{ form.is_commercial.label }}</label>
+        <script type="text/javascript">
+            addEvent(window, "load", function(e) { SelectFilter.init("id_job_sectors", "{% trans "Job sectors" %}", 0, "{{ STATIC_URL }}admin/"); });
+        </script>
+
+        <div class="grp-row">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    &nbsp;
+                </div>
+                <div class="c-2">
+                    {{ form.is_commercial }}<label class="vCheckboxLabel" for="id_is_commercial">{{ form.is_commercial.label }}</label>
                 </div>
             </div>
         </div>
-        <div class="row checkbox-row">
-            <div>
-                <div class="column span-4">&nbsp;</div>
-                <div class="column span-flexible">
-                    {{ form.talent_in_berlin }}<label for="id_talent_in_berlin" class="vCheckboxLabel">{{ form.talent_in_berlin.label }}</label>
+        <div class="grp-row">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    &nbsp;
+                </div>
+                <div class="c-2">
+                    {{ form.talent_in_berlin }}<label class="vCheckboxLabel" for="id_talent_in_berlin">{{ form.talent_in_berlin.label }}</label>
                 </div>
             </div>
         </div>
@@ -62,16 +98,20 @@
 {% endblock %}
 
 {% block fieldset_additional_info %}
-    <fieldset class="grp-module aligned collapse closed">
-        <h2 class="collapse-handler">{% trans "Additional Info" %}</h2>
-        <div class="row{% if form.additional_info.errors %} errors{% endif %}">
-            <div>
-                <div class="column span-4"><label for="id_additional_info"{% if form.additional_info.field.required %} class="required"{% endif %}>{% trans "Additional info" %}:</label></div>
-                <div class="column span-flexible">
-                    {{ form.additional_info_markup_type }}
-                    {% if form.additional_info_markup_type.help_text %}<span class="help">{{ form.additional_info_markup_type.help_text|safe }}</span>{% endif %}
-                    <p>{{ form.additional_info }}</p>
-                    {{ form.additional_info.errors }}
+    <fieldset class="grp-module grp-aligned grp-collapse grp-closed">
+        <h2 class="grp-collapse-handler">{% trans "Additional Info" %}</h2>
+        <div class="grp-row grp-cells-1{% if form.additional_info.errors %} errors{% endif %}">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    <label{% if form.additional_info.field.required %} class="required"{% endif %}>{{ form.additional_info.label }}</label>
+                </div>
+                <div class="c-2">
+                    {{ form.additional_info }}
+                    {% if form.additional_info.errors %}
+                        <ul class="errorlist"><li>{{ form.additional_info.errors|join:", "}}</li></ul>
+                    {% endif %}
+
+                    {% if form.additional_info.help_text %}<p class="grp-help">{{ form.additional_info.help_text }}</p>{% endif %}
                 </div>
             </div>
         </div>

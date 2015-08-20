@@ -1,18 +1,24 @@
 {% load i18n %}
-<fieldset class="grp-module aligned collapse closed">
-    <h2 class="collapse-handler">{% trans "Fees & Opening Hours" %}</h2>
+<fieldset class="grp-module grp-aligned grp-collapse grp-closed">
+    <h2 class="grp-collapse-handler">{% trans "Fees & Opening Hours" %}</h2>
     
     {% if form.fees_en %}
-        <fieldset class="grp-module aligned nested collapse opened multilingual multilingual-set-9 multilingual-language-en">
+        <fieldset class="grp-module grp-aligned nested grp-collapse grp-opened multilingual multilingual-set-9 multilingual-language-en">
             <h2>{% trans "Fees (English)" %}</h2>
-            <div class="row{% if form.fees_en.errors %} errors{% endif %}">
-                <div>
-                    <div class="column span-4"><label for="id_fees_en"{% if form.fees_en.field.required %} class="required"{% endif %}>{% trans "Fees" %}:</label></div>
-                    <div class="column span-flexible">
+            <div class="grp-row grp-cells-1{% if form.fees_en.errors %} errors{% endif %}">
+                <div class="l-2c-fluid l-d-4">
+                    <div class="c-1">
+                        <label{% if form.fees_en.field.required %} class="required"{% endif %}>{{ form.fees_en.label }}</label>
+                    </div>
+                    <div class="c-2">
                         {{ form.fees_en_markup_type }}
-                        {% if form.fees_en_markup_type.help_text %}<span class="help">{{ form.fees_en_markup_type.help_text|safe }}</span>{% endif %}
+                        <p class="grp-help markup-type-help">{% trans "You can select an appropriate markup type here." %}</p>
                         <p>{{ form.fees_en }}</p>
-                        {{ form.fees_en.errors }}
+                        {% if form.fees_en.errors %}
+                            <ul class="errorlist"><li>{{ form.fees_en.errors|join:", "}}</li></ul>
+                        {% endif %}
+
+                        {% if form.fees_en.help_text %}<p class="grp-help">{{ form.fees_en.help_text }}</p>{% endif %}
                     </div>
                 </div>
             </div>
@@ -21,14 +27,20 @@
     {% if form.fees_de %}
         <fieldset class="grp-module aligned nested collapse opened multilingual multilingual-set-9 multilingual-language-de">
             <h2>{% trans "Fees (German)" %}</h2>
-            <div class="row{% if form.fees_de.errors %} errors{% endif %}">
-                <div>
-                    <div class="column span-4"><label for="id_fees_de"{% if form.fees_de.field.required %} class="required"{% endif %}>{% trans "Fees" %}:</label></div>
-                    <div class="column span-flexible">
+            <div class="grp-row grp-cells-1{% if form.fees_de.errors %} errors{% endif %}">
+                <div class="l-2c-fluid l-d-4">
+                    <div class="c-1">
+                        <label{% if form.fees_de.field.required %} class="required"{% endif %}>{{ form.fees_de.label }}</label>
+                    </div>
+                    <div class="c-2">
                         {{ form.fees_de_markup_type }}
-                        {% if form.fees_de_markup_type.help_text %}<span class="help">{{ form.fees_de_markup_type.help_text|safe }}</span>{% endif %}
+                        <p class="grp-help markup-type-help">{% trans "You can select an appropriate markup type here." %}</p>
                         <p>{{ form.fees_de }}</p>
-                        {{ form.fees_de.errors }}
+                        {% if form.fees_de.errors %}
+                            <ul class="errorlist"><li>{{ form.fees_de.errors|join:", "}}</li></ul>
+                        {% endif %}
+
+                        {% if form.fees_de.help_text %}<p class="grp-help">{{ form.fees_de.help_text }}</p>{% endif %}
                     </div>
                 </div>
             </div>
@@ -167,32 +179,44 @@
         </div>
     </div>
     {% if form.exceptions_en %}
-        <fieldset class="grp-module aligned collapse closed multilingual multilingual-set-1 multilingual-language-en nested">
-            <h2 class="collapse-handler">{% trans "Exceptions for working hours" %} (English)</h2>
-            <div class="row{% if form.exception_en.errors %} errors{% endif %}">
-                <div>
-                    <div class="column span-4"><label for="id_exceptions_en"{% if form.exceptions_en.field.required %} class="required"{% endif %}>{% trans "Exceptions" %}:</label></div>
-                    <div class="column span-flexible">
+        <fieldset class="grp-module grp-aligned grp-collapse grp-closed multilingual multilingual-set-1 multilingual-language-en nested">
+            <h2 class="grp-collapse-handler">{% trans "Exceptions for working hours" %} (English)</h2>
+            <div class="grp-row grp-cells-1{% if form.exceptions_en.errors %} errors{% endif %}">
+                <div class="l-2c-fluid l-d-4">
+                    <div class="c-1">
+                        <label{% if form.exceptions_en.field.required %} class="required"{% endif %}>{{ form.exceptions_en.label }}</label>
+                    </div>
+                    <div class="c-2">
                         {{ form.exceptions_en_markup_type }}
-                        {% if form.exceptions_en_markup_type.help_text %}<span class="help">{{ form.exceptions_en_markup_type.help_text|safe }}</span>{% endif %}
+                        <p class="grp-help markup-type-help">{% trans "You can select an appropriate markup type here." %}</p>
                         <p>{{ form.exceptions_en }}</p>
-                        {{ form.exceptions_en.errors }}
+                        {% if form.exceptions_en.errors %}
+                            <ul class="errorlist"><li>{{ form.exceptions_en.errors|join:", "}}</li></ul>
+                        {% endif %}
+
+                        {% if form.exceptions_en.help_text %}<p class="grp-help">{{ form.exceptions_en.help_text }}</p>{% endif %}
                     </div>
                 </div>
             </div>
         </fieldset>
     {% endif %}
     {% if form.exceptions_de %}
-        <fieldset class="grp-module aligned collapse closed multilingual multilingual-set-1 multilingual-language-de nested">
-            <h2 class="collapse-handler">{% trans "Exceptions for working hours" %} (Deutsch)</h2>
-            <div class="row{% if form.exceptions_de.errors %} errors{% endif %}">
-                <div>
-                    <div class="column span-4"><label for="id_exceptions_de"{% if form.exceptions_de.field.required %} class="required"{% endif %}>{% trans "Exceptions" %}:</label></div>
-                    <div class="column span-flexible">
+        <fieldset class="grp-module grp-aligned grp-collapse grp-closed multilingual multilingual-set-1 multilingual-language-de nested">
+            <h2 class="grp-collapse-handler">{% trans "Exceptions for working hours" %} (Deutsch)</h2>
+            <div class="grp-row grp-cells-1{% if form.exceptions_de.errors %} errors{% endif %}">
+                <div class="l-2c-fluid l-d-4">
+                    <div class="c-1">
+                        <label{% if form.exceptions_de.field.required %} class="required"{% endif %}>{{ form.exceptions_de.label }}</label>
+                    </div>
+                    <div class="c-2">
                         {{ form.exceptions_de_markup_type }}
-                        {% if form.exceptions_de_markup_type.help_text %}<span class="help">{{ form.exceptions_de_markup_type.help_text|safe }}</span>{% endif %}
+                        <p class="grp-help markup-type-help">{% trans "You can select an appropriate markup type here." %}</p>
                         <p>{{ form.exceptions_de }}</p>
-                        {{ form.exceptions_de.errors }}
+                        {% if form.exceptions_de.errors %}
+                            <ul class="errorlist"><li>{{ form.exceptions_de.errors|join:", "}}</li></ul>
+                        {% endif %}
+
+                        {% if form.exceptions_de.help_text %}<p class="grp-help">{{ form.exceptions_de.help_text }}</p>{% endif %}
                     </div>
                 </div>
             </div>

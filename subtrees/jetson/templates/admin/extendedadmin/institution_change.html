@@ -226,20 +226,14 @@
                 {{ contact_formset.non_form_errors }}
                 <!-- container -->
                 <div id="contact_container" class="grp-items">
-                {% for contact_form in contact_formset.forms %}
-                    {% with forloop.counter0 as prefix %}
-                        {% with forloop.counter as counter %}
-                            {% include "extendedadmin/institutional_contact_change.html" %}
+                    {% for contact_form in contact_formset.forms %}
+                        {% with prefix=forloop.counter0 counter=forloop.counter %}
+                            {% include "extendedadmin/includes/institutional_contact_change.html" %}
                         {% endwith %}
+                    {% endfor %}
+                    {% with contact_form=contact_formset.empty_form prefix="__prefix__" counter=0 %}
+                        {% include "extendedadmin/includes/institutional_contact_change.html" %}
                     {% endwith %}
-                {% endfor %}
-                {% with contact_formset.empty_form as contact_form %}
-                    {% with "__prefix__" as prefix %}
-                        {% with 0 as counter %}
-                            {% include "extendedadmin/institutional_contact_change.html" %}
-                        {% endwith %}
-                    {% endwith %}
-                {% endwith %}
                 </div>
                 <div class="grp-module grp-transparent grp-dynamic-form">
                     <div class="grp-row">

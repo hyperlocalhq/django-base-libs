@@ -27,6 +27,8 @@
     <script type="text/javascript" src="{{ jetson_media_url }}js/admin/change_form.js"></script>
     
     <script type="text/javascript" src="{{ STATIC_URL }}admin/js/collapse.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/inlines.min.js"></script>
+    <!--
     <script type="text/javascript" charset="utf-8">
         (function($) {
             $(document).ready(function() {
@@ -47,6 +49,7 @@
             });
         })(django.jQuery);
     </script>
+    -->
 {% endblock %}
 
 <!-- COLTYPE/BODYCLASS -->
@@ -98,180 +101,294 @@
             {% endif %}
 
             <!-- Fieldsets -->
-            <fieldset class="grp-module aligned collapse open">
-            <h2 class="collapse-handler">{% trans "Document" %}</h2>
+            {% if form.title_en %}
+                <fieldset class="grp-module grp-aligned grp-collapse grp-open multilingual multilingual-set-15 multilingual-language-en">
+                    <h2 class="grp-collapse-handler">{% trans "Document" %} (English)</h2>
+                    <div class="grp-row grp-cells-1{% if form.title_en.errors %} errors{% endif %}">
+                        <div class="l-2c-fluid l-d-4">
+                            <div class="c-1">
+                                <label{% if form.title_en.field.required %} class="required"{% endif %}>{{ form.title_en.label }}</label>
+                            </div>
+                            <div class="c-2">
+                                <p>{{ form.title_en }}</p>
+                                {% if form.title_en.errors %}
+                                    <ul class="errorlist"><li>{{ form.title_en.errors|join:", "}}</li></ul>
+                                {% endif %}
+
+                                {% if form.title_en.help_text %}<p class="grp-help">{{ form.title_en.help_text }}</p>{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            {% endif %}
+            {% if form.title_de %}
+                <fieldset class="grp-module grp-aligned grp-collapse grp-open multilingual multilingual-set-15 multilingual-language-de">
+                    <h2 class="grp-collapse-handler">{% trans "Document" %} (Deutsch)</h2>
+                    <div class="grp-row grp-cells-1{% if form.title_de.errors %} errors{% endif %}">
+                        <div class="l-2c-fluid l-d-4">
+                            <div class="c-1">
+                                <label{% if form.title_de.field.required %} class="required"{% endif %}>{{ form.title_de.label }}</label>
+                            </div>
+                            <div class="c-2">
+                                <p>{{ form.title_de }}</p>
+                                {% if form.title_de.errors %}
+                                    <ul class="errorlist"><li>{{ form.title_de.errors|join:", "}}</li></ul>
+                                {% endif %}
+
+                                {% if form.title_de.help_text %}<p class="grp-help">{{ form.title_de.help_text }}</p>{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            {% endif %}
+
+
+            <fieldset class="grp-module grp-aligned">
                 {{ form.user_id }}
-                {% if form.title_de %}
-                    <div class="med row{% if form.title_de.errors %} errors{% endif %}">
-                        <div>
-                            <div class="column span-4"><label for="id_title_de"{% if form.title_de.field.required %} class="required"{% endif %}>{% trans "Title (German)" %}:</label></div>
-                            <div class="column span-flexible">
-                                {{ form.title_de }}
-                                {{ form.title_de.errors }}
-                            </div>
+                <div class="grp-row grp-cells-1{% if form.slug.errors %} errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label{% if form.slug.field.required %} class="required"{% endif %}>{{ form.slug.label }}</label>
                         </div>
-                    </div>
-                {% endif %}
-                {% if form.title_en %}
-                    <div class="med row{% if form.title_en.errors %} errors{% endif %}">
-                        <div>
-                            <div class="column span-4"><label for="id_title_en"{% if form.title_en.field.required %} class="required"{% endif %}>{% trans "Title (English)" %}:</label></div>
-                            <div class="column span-flexible">
-                                {{ form.title_en }}
-                                {{ form.title_en.errors }}
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
-                <div class="med row{% if form.slug.errors %} errors{% endif %}">
-                    <div>
-                        <div class="column span-4"><label for="id_slug"{% if form.slug.field.required %} class="required"{% endif %}>{% trans "Slug for URIs" %}:</label></div>
-                        <div class="column span-flexible">
-                            {{ form.slug }}
-                            {{ form.slug.errors }}
+                        <div class="c-2">
+                            <p>{{ form.slug }}</p>
+                            {% if form.slug.errors %}
+                                <ul class="errorlist"><li>{{ form.slug.errors|join:", "}}</li></ul>
+                            {% endif %}
+    
+                            {% if form.slug.help_text %}<p class="grp-help">{{ form.slug.help_text }}</p>{% endif %}
                         </div>
                     </div>
                 </div>
-                <div class="med row{% if form.document_type.errors %} errors{% endif %}">
-                    <div>
-                        <div class="column span-4"><label for="id_D_type"{% if form.D_type.field.required %} class="required"{% endif %}>{% trans "Document Type" %}:</label></div>
-                        <div class="column span-flexible">
-                            {{ form.document_type }}
-                            {{ form.document_type.errors }}
+                <div class="grp-row grp-cells-1{% if form.document_type.errors %} errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label{% if form.document_type.field.required %} class="required"{% endif %}>{{ form.document_type.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            <p>{{ form.document_type }}</p>
+                            {% if form.document_type.errors %}
+                                <ul class="errorlist"><li>{{ form.document_type.errors|join:", "}}</li></ul>
+                            {% endif %}
+    
+                            {% if form.document_type.help_text %}<p class="grp-help">{{ form.document_type.help_text }}</p>{% endif %}
                         </div>
                     </div>
                 </div>
-                <div class="med row{% if form.url_link.errors %} errors{% endif %}">
-                    <div>
-                        <div class="column span-4"><label for="id_url_link"{% if form.url_link.field.required %} class="required"{% endif %}>{% trans "URL" %}:</label></div>
-                        <div class="column span-flexible">
-                            {{ form.url_link }}
-                            {{ form.url_link.errors }}
+                <div class="grp-row grp-cells-1{% if form.url_link.errors %} errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label{% if form.url_link.field.required %} class="required"{% endif %}>{{ form.url_link.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            <p>{{ form.url_link }}</p>
+                            {% if form.url_link.errors %}
+                                <ul class="errorlist"><li>{{ form.url_link.errors|join:", "}}</li></ul>
+                            {% endif %}
+    
+                            {% if form.url_link.help_text %}<p class="grp-help">{{ form.url_link.help_text }}</p>{% endif %}
                         </div>
                     </div>
                 </div>
-                <div class="med img row{% if form.document_file.errors %} errors{% endif %}">
-                    <div>
-                        <div class="column span-4"><label for="id_document_file"{% if form.document_file.field.required %} class="required"{% endif %}>{% trans "Document File" %}:</label></div>
-                        <div class="column span-flexible">
-                            {{ form.document_file }}
-                            {{ form.document_file.errors }}
+                <div class="grp-row grp-cells-1{% if form.document_file.errors %} errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label{% if form.document_file.field.required %} class="required"{% endif %}>{{ form.document_file.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            <p>{{ form.document_file }}</p>
+                            {% if form.document_file.errors %}
+                                <ul class="errorlist"><li>{{ form.document_file.errors|join:", "}}</li></ul>
+                            {% endif %}
+    
+                            {% if form.document_file.help_text %}<p class="grp-help">{{ form.document_file.help_text }}</p>{% endif %}
                         </div>
                     </div>
                 </div>
-                <div class="med row{% if form.medium.errors %} errors{% endif %}">
-                    <div>
-                        <div class="column span-4"><label for="id_medium"{% if form.medium.field.required %} class="required"{% endif %}>{% trans "Medium" %}:</label></div>
-                        <div class="column span-flexible">
-                            {{ form.medium }}
-                            {{ form.medium.errors }}
+                <div class="grp-row grp-cells-1{% if form.medium.errors %} errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label{% if form.medium.field.required %} class="required"{% endif %}>{{ form.medium.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            <p>{{ form.medium }}</p>
+                            {% if form.medium.errors %}
+                                <ul class="errorlist"><li>{{ form.medium.errors|join:", "}}</li></ul>
+                            {% endif %}
+    
+                            {% if form.medium.help_text %}<p class="grp-help">{{ form.medium.help_text }}</p>{% endif %}
                         </div>
                     </div>
                 </div>
             </fieldset>
+
             {% include "extendedadmin/includes/fieldset_details.html" %}
-            <fieldset class="grp-module aligned collapse closed">
-                <h2 class="collapse-handler">{% trans "Additional Info" %}</h2>
-                <div class="row{% if form.authors.errors %} errors{% endif %}">
-                    <div>
-                        <div class="column span-4"><label for="id_authors"{% if form.authors.field.required %} class="required"{% endif %}>{% trans "Authors" %}:</label></div>
-                        <div class="column span-flexible">
+
+            <fieldset class="grp-module grp-aligned grp-collapse grp-closed">
+                <h2 class="grp-collapse-handler">{% trans "Additional Info" %}</h2>
+                <div class="grp-row grp-cells-1{% if form.authors.errors %} errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label{% if form.authors.field.required %} class="required"{% endif %}>{{ form.authors.label }}</label>
+                        </div>
+                        <div class="c-2">
                             {{ form.authors }}
-                            {{ form.authors.errors }}
-                            <p class="help">{% trans 'Hold down "Control", or "Command" on a Mac, to select more than one.' %}</p>
+                            <a href="../../../people/person/add/" class="add-another" id="add_id_authors" onclick="return showAddAnotherPopup(this);"> <img src="{{ jetson_media_url }}img/admin/icon_addlink.gif" width="10" height="10" alt="{% trans "Add Another" %}"/></a>
+                            {% if form.authors.errors %}
+                                <ul class="errorlist"><li>{{ form.authors.errors|join:", "}}</li></ul>
+                            {% endif %}
+            
+                            {% if form.authors.help_text %}<p class="grp-help">{{ form.authors.help_text }}</p>{% endif %}
                         </div>
                     </div>
                 </div>
                 <script type="text/javascript">
-                addEvent(window, "load", function(e) { SelectFilter.init("id_authors", "{% trans "Authors" %}", 0, "{{ jetson_media_url }}"); });
+                    addEvent(window, "load", function(e) { SelectFilter.init("id_authors", "{% trans "Authors" %}", 0, "{{ STATIC_URL }}admin/"); });
                 </script>
-                <div class="row{% if form.authors_plain.errors %} errors{% endif %}">
-                    <div>
-                        <div class="column span-4"><label for="id_authors_plain"{% if form.authors_plain.field.required %} class="required"{% endif %}>{% trans "External authors" %}:</label></div>
-                        <div class="column span-flexible">
-                            {{ form.authors_plain }}
-                            {{ form.authors_plain.errors }}
+                <div class="grp-row grp-cells-1{% if form.authors_plain.errors %} errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label{% if form.authors_plain.field.required %} class="required"{% endif %}>{{ form.authors_plain.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            <p>{{ form.authors_plain }}</p>
+                            {% if form.authors_plain.errors %}
+                                <ul class="errorlist"><li>{{ form.authors_plain.errors|join:", "}}</li></ul>
+                            {% endif %}
+    
+                            {% if form.authors_plain.help_text %}<p class="grp-help">{{ form.authors_plain.help_text }}</p>{% endif %}
                         </div>
                     </div>
                 </div>
-                <div class="row{% if form.publisher.errors %} errors{% endif %}">
-                    <div>
-                        <div class="column span-4"><label for="id_publisher"{% if form.publisher.field.required %} class="required"{% endif %}>{% trans "Publisher" %}:</label></div>
-                        <div class="column span-flexible">
-                            {{ form.publisher }}
-                            {{ form.publisher.errors }}
+                <div class="grp-row grp-cells-1{% if form.publisher.errors %} errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label{% if form.publisher.field.required %} class="required"{% endif %}>{{ form.publisher.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            <p>{{ form.publisher }}</p>
+                            {% if form.publisher.errors %}
+                                <ul class="errorlist"><li>{{ form.publisher.errors|join:", "}}</li></ul>
+                            {% endif %}
+    
+                            {% if form.publisher.help_text %}<p class="grp-help">{{ form.publisher.help_text }}</p>{% endif %}
                         </div>
                     </div>
                 </div>
-                <div class="row{% if form.published_mm.errors or form.published_dd.errors or form.published_yyyy.errors %} errors{% endif %}">
-                    <div>
-                        <div class="column span-4"><label for="id_published_yyyy"{% if form.published_yyyy.field.required %} class="required"{% endif %}>{% trans "Published" %}:</label></div>
-                        <div class="column span-flexible">
-                            <span class="inline-fields">{{ form.published_dd }}</span>
-                            <span class="inline-fields">{{ form.published_mm }}</span>
-                            <span class="inline-fields">{{ form.published_yyyy }}</span>
-                            {{ form.published_dd.errors }}
-                            {{ form.published_mm.errors }}
-                            {{ form.published_yyyy.errors }}
+                <div class="grp-row grp-cells-1{% if form.published_mm.errors or form.published_dd.errors or form.published_yyyy.errors %} errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label{% if form.published_yyyy.field.required %} class="required"{% endif %}>{% trans "Published" %}</label>
                         </div>
-                    </div>
-
-                </div>
-                <div class="med row{% if form.isbn10.errors %} errors{% endif %}">
-                    <div>
-                        <div class="column span-4"><label for="id_isbn10"{% if form.isbn10.field.required %} class="required"{% endif %}>{% trans "ISBN 10" %}:</label></div>
-                        <div class="column span-flexible">
-                            {{ form.isbn10 }}
-                            {{ form.isbn10.errors }}
-                        </div>
-                    </div>
-                </div>
-                <div class="med row{% if form.isbn13.errors %} errors{% endif %}">
-                    <div>
-                        <div class="column span-4"><label for="id_isbn13"{% if form.isbn13.field.required %} class="required"{% endif %}>{% trans "ISBN 13" %}:</label></div>
-                        <div class="column span-flexible">
-                            {{ form.isbn13 }}
-                            {{ form.isbn13.errors }}
+                        <div class="c-2">
+                            <p>
+                                <span class="inline-fields">{{ form.published_dd }}</span>
+                                <span class="inline-fields">{{ form.published_mm }}</span>
+                                <span class="inline-fields">{{ form.published_yyyy }}</span>
+                            </p>
+                            {% if form.published_dd.errors or form.published_mm.errors or form.published_yyyy.errors %}
+                                <ul class="errorlist"><li>
+                                    {{ form.published_dd.errors|join:", "}}
+                                    {{ form.published_mm.errors|join:", "}}
+                                    {{ form.published_yyyy.errors|join:", "}}
+                                </li></ul>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
-                <div class="low row{% if form.pages.errors %} errors{% endif %}">
-                    <div>
-                        <div class="column span-4"><label for="id_pages"{% if form.pages.field.required %} class="required"{% endif %}>{% trans "Pages" %}:</label></div>
-                        <div class="column span-flexible">
-                            {{ form.pages }}
-                            {{ form.pages.errors }}
+                <div class="grp-row grp-cells-1{% if form.isbn10.errors %} errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label{% if form.isbn10.field.required %} class="required"{% endif %}>{{ form.isbn10.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            <p>{{ form.isbn10 }}</p>
+                            {% if form.isbn10.errors %}
+                                <ul class="errorlist"><li>{{ form.isbn10.errors|join:", "}}</li></ul>
+                            {% endif %}
+    
+                            {% if form.isbn10.help_text %}<p class="grp-help">{{ form.isbn10.help_text }}</p>{% endif %}
                         </div>
                     </div>
                 </div>
-                <div class="low row{% if form.file_size.errors %} errors{% endif %}">
-                    <div>
-                        <div class="column span-4"><label for="id_file_size"{% if form.file_size.field.required %} class="required"{% endif %}>{% trans "File size" %}:</label></div>
-                        <div class="column span-flexible">
-                            {{ form.file_size }}
-                            {{ form.file_size.errors }}
+                <div class="grp-row grp-cells-1{% if form.isbn13.errors %} errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label{% if form.isbn13.field.required %} class="required"{% endif %}>{{ form.isbn13.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            <p>{{ form.isbn13 }}</p>
+                            {% if form.isbn13.errors %}
+                                <ul class="errorlist"><li>{{ form.isbn13.errors|join:", "}}</li></ul>
+                            {% endif %}
+    
+                            {% if form.isbn13.help_text %}<p class="grp-help">{{ form.isbn13.help_text }}</p>{% endif %}
                         </div>
                     </div>
                 </div>
-                <div class="low row{% if form.playing_time.errors %} errors{% endif %}">
-                    <div>
-                        <div class="column span-4"><label for="id_playing_time"{% if form.playing_time.field.required %} class="required"{% endif %}>{% trans "Playing time" %}:</label></div>
-                        <div class="column span-flexible">
-                            {{ form.playing_time }}
-                            {{ form.playing_time.errors }}
+                <div class="grp-row grp-cells-1{% if form.pages.errors %} errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label{% if form.pages.field.required %} class="required"{% endif %}>{{ form.pages.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            <p>{{ form.pages }}</p>
+                            {% if form.pages.errors %}
+                                <ul class="errorlist"><li>{{ form.pages.errors|join:", "}}</li></ul>
+                            {% endif %}
+    
+                            {% if form.pages.help_text %}<p class="grp-help">{{ form.pages.help_text }}</p>{% endif %}
                         </div>
                     </div>
                 </div>
-                <div class="low row{% if form.languages.errors %} errors{% endif %}">
-                    <div>
-                        <div class="column span-4"><label for="id_languages"{% if form.languages.field.required %} class="required"{% endif %}>{% trans "Languages" %}:</label></div>
-                        <div class="column span-flexible">
+                <div class="grp-row grp-cells-1{% if form.file_size.errors %} errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label{% if form.file_size.field.required %} class="required"{% endif %}>{{ form.file_size.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            <p>{{ form.file_size }}</p>
+                            {% if form.file_size.errors %}
+                                <ul class="errorlist"><li>{{ form.file_size.errors|join:", "}}</li></ul>
+                            {% endif %}
+    
+                            {% if form.file_size.help_text %}<p class="grp-help">{{ form.file_size.help_text }}</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="grp-row grp-cells-1{% if form.playing_time.errors %} errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label{% if form.playing_time.field.required %} class="required"{% endif %}>{{ form.playing_time.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            <p>{{ form.playing_time }}</p>
+                            {% if form.playing_time.errors %}
+                                <ul class="errorlist"><li>{{ form.playing_time.errors|join:", "}}</li></ul>
+                            {% endif %}
+    
+                            {% if form.playing_time.help_text %}<p class="grp-help">{{ form.playing_time.help_text }}</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="grp-row grp-cells-1{% if form.languages.errors %} errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label{% if form.languages.field.required %} class="required"{% endif %}>{{ form.languages.label }}</label>
+                        </div>
+                        <div class="c-2">
                             {{ form.languages }}
-                            {{ form.languages.errors }}
-                            <p class="help">{% trans 'Hold down "Control", or "Command" on a Mac, to select more than one.' %}</p>
+                            {% if form.languages.errors %}
+                                <ul class="errorlist"><li>{{ form.languages.errors|join:", "}}</li></ul>
+                            {% endif %}
+            
+                            {% if form.languages.help_text %}<p class="grp-help">{{ form.languages.help_text }}</p>{% endif %}
                         </div>
                     </div>
                 </div>
+                <script type="text/javascript">
+                    addEvent(window, "load", function(e) { SelectFilter.init("id_languages", "{% trans "Authors" %}", 0, "{{ STATIC_URL }}admin/"); });
+                </script>
             </fieldset>
             {% include "extendedadmin/includes/fieldset_categories.html" %}
             {% include "extendedadmin/includes/fieldset_status.html" %}
@@ -291,6 +408,15 @@
     </form>
     <script type="text/javascript">
     //<![CDATA[
+    {% if form.title_en %}
+    document.getElementById("id_title_en").focus();
+    document.getElementById("id_title_en").onkeyup = function() {
+        var e = document.getElementById("id_slug");
+        if(!e._changed) {
+            e.value = URLify(document.getElementById("id_title_en").value, 255);
+        }
+    };
+    {% else %}
     document.getElementById("id_title_de").focus();
     document.getElementById("id_title_de").onkeyup = function() {
         var e = document.getElementById("id_slug");
@@ -298,6 +424,7 @@
             e.value = URLify(document.getElementById("id_title_de").value, 255);
         }
     };
+    {% endif %}
     document.getElementById("id_slug").onchange = function() {
         this._changed = true;
     };

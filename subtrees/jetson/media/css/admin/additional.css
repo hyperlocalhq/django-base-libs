@@ -45,6 +45,7 @@ input[type="text"], input[type="password"], input[type="submit"], input[type="re
 
 /*** ROW ***/
 
+/*
 .row {
     overflow: hidden;
 }
@@ -56,6 +57,7 @@ input[type="text"], input[type="password"], input[type="submit"], input[type="re
     clear: both;
     visibility: hidden;
 }
+*/
 
 /*** TICKET ***/
 
@@ -211,7 +213,7 @@ input[type="text"], input[type="password"], input[type="submit"], input[type="re
 	margin-right: 10px;
 }
 
-.module .delete-contact label
+.grp-module .delete-contact label
 {
 	margin: 3px 0 0 10px;
 }
@@ -502,22 +504,23 @@ form .aligned .privacy-settings ul li
 
 /*** NESTED FIELDSETS ***/
 
-fieldset.collapse.closed fieldset {
+fieldset.grp-collapse.grp-closed fieldset {
     display: none!important;
 }
 
-fieldset fieldset.collapse.closed h2.collapse-toggle {
+fieldset fieldset.grp-collapse.grp-closed h2.grp-collapse-toggle {
     background-color:#E0F0F5;
-    background-image:url(/admin-media/img/icons/icon_fieldset_collapse-closed.png);
     background-position:0 100%;
 }
 
-fieldset.collapse.closed h2.collapse-toggle:hover,
-fieldset.collapse.open h2.collapse-toggle {
+fieldset.grp-collapse.grp-closed h2.grp-collapse-toggle:hover,
+fieldset.grp-collapse.grp-open h2.grp-collapse-toggle {
     background-position:0 0;
 }
 
-fieldset.module.nested {
+fieldset.grp-module.nested {
+	min-width: auto !important;
+	width: auto !important;
     margin: 5px;
     border:1px solid #BDBDBD;
     -moz-border-radius:4px 4px 4px 4px;
@@ -528,15 +531,15 @@ div.nested {
     background: #fff;
 }
 
-fieldset.module.nested > :first-child {
+fieldset.grp-module.nested > :first-child {
     border-top: none;
 }
 
-fieldset.module h2 + fieldset.module.nested {
+fieldset.grp-module h2 + fieldset.grp-module.nested {
     border:1px solid #BDBDBD !important;
 }
 
-.module.closed fieldset {
+.grp-module.grp-closed fieldset {
     display: none!important;
 }
 
@@ -685,7 +688,7 @@ a.open-link:hover, a.open-link:active {
     width:278px;
 }
 
-.row .ac_input {
+.grp-row .ac_input {
     width:758px !important;
 }
 
@@ -912,4 +915,17 @@ body#tinymce {
 
 .clearfix {
     clear: both;
+}
+
+.selector select[multiple=multiple] {
+	overflow: auto;
+}
+
+.markup-type-help {
+	margin-bottom: 8px !important;
+}
+
+#gmap {
+	width:916px;
+	height:300px;
 }

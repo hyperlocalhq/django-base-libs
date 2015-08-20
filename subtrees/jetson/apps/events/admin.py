@@ -221,7 +221,7 @@ class EventForm(forms.ModelForm):
         
 class EventTime_Inline(ExtendedStackedInline):
     model = EventTime
-    extra = 1
+    extra = 0
     verbose_name = _("Time")
     verbose_name_plural = _("Times")
 

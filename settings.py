@@ -56,8 +56,8 @@ FILE_UPLOAD_PERMISSIONS = 0777
 ### LANGUAGES ###
 
 LANGUAGES = (
-    ('en', gettext('en')),
-    ('de', gettext('de')),
+    ('en', gettext('English')),
+    ('de', gettext('German')),
 )
 
 LANGUAGE_CODE = "de"
