@@ -377,6 +377,9 @@ def _formfield_for_dbfield(cls, instance, db_field, **kwargs):
 class ExtendedStackedInline(admin.StackedInline):
     classes = ("grp-collapse grp-closed",)
 
+    formfield_overrides = {
+        models.TextField: {'widget': forms.Textarea(attrs={'class': 'ckeditor'})}, }
+
     # default allowed markup types for TextFields in the Admin ...
     allowed_markup_admin = [
         MARKUP_PLAIN_TEXT, 
@@ -397,6 +400,9 @@ class ExtendedStackedInline(admin.StackedInline):
 class ExtendedTabularInline(admin.TabularInline):
     classes = ("grp-collapse grp-closed",)
     
+    formfield_overrides = {
+        models.TextField: {'widget': forms.Textarea(attrs={'class': 'ckeditor'})}, }
+
     # default allowed markup types for TextFields in the Admin ...
     allowed_markup_admin = [
         MARKUP_PLAIN_TEXT, 
@@ -422,6 +428,9 @@ class ExtendedModelAdmin(admin.ModelAdmin):
     # additional save buttons
     additional_buttons = []
     
+    formfield_overrides = {
+        models.TextField: {'widget': forms.Textarea(attrs={'class': 'ckeditor'})}, }
+
     # default allowed markup types for TextFields in the Admin ...
     allowed_markup_admin = [
         MARKUP_PLAIN_TEXT, 
