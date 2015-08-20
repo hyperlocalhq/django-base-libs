@@ -2,6 +2,7 @@
 import re
 from mailsnake import MailSnake
 
+from django import forms
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
@@ -381,6 +382,9 @@ class MailingContentBlock(models.Model):
     content = ExtendedTextField(_("Content"), blank=True)
     sort_order = PositionField(_("Sort order"))
     
+    formfield_overrides = {
+    models.TextField: {'widget': forms.Textarea(attrs={'class': 'ckeditor'})}, }
+
     def __unicode__(self):
         return self.get_content_type_display()
     
