@@ -24,11 +24,13 @@ STAGING_DOMAIN = "test.creative-city-berlin.de"
 
 MANAGERS = ADMINS = (
     ("Creative City Berlin", "webmaster@creative-city-berlin.de"),
-    )
+    # ('Aidas Bendoraitis', 'bendoraitis@studio38.de'),
+    ('Tiago Henriques', 'henriques@studio38.de'),
+)
 
 CONTENT_ADMINS = (
     ("Creative City Berlin", "ccb-contact@kulturprojekte-berlin.de"),
-    )
+)
 
 DEFAULT_FROM_EMAIL = "contact@creative-city-berlin.de"
 

@@ -21,7 +21,8 @@ class FaqContainerAdminForm(MultiSiteContainerMixinAdminForm):
 class FaqContainerOptions(MultiSiteContainerMixinAdminOptions):
     save_on_top = True
     search_fields = ['title']
-    list_display = ('title', 'get_sites', 'get_content_object_display', 'sysname')
+    list_display = ('id', 'title', 'get_sites', 'get_content_object_display', 'sysname')
+    list_display_link = ('id', 'title')
     list_filter =  ("creation_date", "modified_date",)
 
     fieldsets = get_admin_lang_section(_('Title'), ['title'])
