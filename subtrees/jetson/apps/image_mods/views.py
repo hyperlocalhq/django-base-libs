@@ -22,7 +22,8 @@ from django.conf import settings
 from base_libs.views import access_denied
 
 from filebrowser.settings import MEDIA_URL
-from filebrowser.functions import get_path, get_file, get_settings_var, get_breadcrumbs
+from filebrowser.decorators import get_path, get_file
+from filebrowser.sites import get_settings_var, get_breadcrumbs
 from filebrowser.settings import MEDIA_ROOT, DIRECTORY
 from filebrowser.templatetags.fb_tags import get_query_string
 from filebrowser.base import FileObject
