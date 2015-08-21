@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<fieldset class="grp-module grp-aligned grp-collapse grp-open{% if make_nested %} nested{% endif %}">
+<fieldset class="contact_fieldset grp-module grp-aligned grp-collapse grp-open{% if make_nested %} nested{% endif %}">
     <h4 class="grp-collapse-handler">{% trans "Address" %}</h4>
     {{ contact_form.postal_address_id }}
     <div class="grp-row grp-cells-1{% if contact_form.street_address.errors %} errors{% endif %}">
@@ -189,15 +189,13 @@
     <fieldset class="grp-module grp-collapse grp-open">
         <h2 class="grp-collapse-handler">{% trans "Map" %}</h2>
         <div class="grp-row grp-cells-1">
-            <div id="dyn_set_map">
-                <div id="gmap-wrapper">
-                    <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
-                </div>
+            <div class="gmap-wrapper">
+                <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
             </div>
             <div class="grp-submit-row">
                 <ul>
-                    <li><input id="dyn_locate_geo" type="button" class="grp-button" value="{% trans "Relocate on map" %}" /></li>
-                    <li><input id="dyn_remove_geo" type="button" class="grp-button" value="{% trans "Remove from map" %}" /></li>
+                    <li><input class="dyn_locate_geo grp-button" type="button" value="{% trans "Relocate on map" %}" /></li>
+                    <li><input class="dyn_remove_geo grp-button" type="button" value="{% trans "Remove from map" %}" /></li>
                 </ul>
             </div>
         </div>

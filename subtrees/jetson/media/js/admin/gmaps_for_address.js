@@ -2,40 +2,46 @@
 
 (function($, undefined) {
     var gettext = window.gettext || function(val) {return val;};
-    var oMap, oMarker;
-    var $oGmapLocations;
-    var aGmapsSearchResults;
+    var aMaps = {}, aMarkers = {};
+    var $oGmapLocations = {};
+    var aGmapsSearchResults = {};
 
-    function setMarkerDraggable(oMarker, fCallback, oParams) {
+    function setMarkerDraggable(nIndex, oMarker, fCallback, oParams) {
         oMarker.setDraggable(true);
         google.maps.event.addListener(oMarker, "dragend", function() {
             var oPoint = oMarker.getPosition();
-            fCallback(oPoint.lat(), oPoint.lng(), oParams);
+            fCallback(nIndex, oPoint.lat(), oPoint.lng(), oParams);
         });
     }
 
-    function recognizeLocation(sAddress, fCallback) {
+    function recognizeLocation(nIndex, sAddress, fCallback) {
         var oGeocoder = new google.maps.Geocoder();
         oGeocoder.geocode(
             {address: sAddress},
             function(results, status) {
                 if (status === google.maps.GeocoderStatus.OK) {
-                    fCallback(results);
+                    fCallback(nIndex, results);
                 } else {
-                    fCallback(false);
+                    fCallback(nIndex, false);
                 }
             }
         );
     }
 
     var GMapManager = self.GMapManager = {
+        init_all: function() {
+            var oSelf = self.GMapManager;
+            $('.gmap-wrapper:visible').each(function(nIndex, el) {
+                oSelf.init(nIndex);
+            });
+        },
         init: function(nIndex) {
             var oSelf = self.GMapManager;
-            var $oDynMapContainer = $("#gmap-wrapper").removeClass("hidden");
+            var $oDynMapContainer = $('.gmap-wrapper:eq(' + nIndex + ')');
             if ($oDynMapContainer.length) {
-                $("#dyn_locate_geo").click(oSelf.recognizeLocation);
-                $("#dyn_remove_geo").click(oSelf.removeGeoPos);
-                var $oGmap = $('<div id="gmap">').prependTo($oDynMapContainer);
+                $('.dyn_locate_geo:eq(' + nIndex + ')').click(function() {oSelf.recognizeLocation(nIndex);});
+                $('.dyn_remove_geo:eq(' + nIndex + ')').click(function() {oSelf.removeGeoPos(nIndex);});
+                var $oGmap = $('<div class="gmap">').prependTo($oDynMapContainer);
                 var oOptions = {
                     mapTypeControl: false,
                     zoomControl: true,
@@ -49,152 +55,135 @@
                     },
                     disableDoubleClickZoom: true
                 };
-                oMap = new google.maps.Map($oGmap.get(0), oOptions);
-                google.maps.event.addListener(oMap, 'dblclick', function(event) {
-                    $("#id_latitude").val(event.latLng.lat());
-                    $("#id_longitude").val(event.latLng.lng());
-                    oSelf.adjustGeoposition();
+                aMaps[nIndex] = new google.maps.Map($oGmap.get(0), oOptions);
+                google.maps.event.addListener(aMaps[nIndex], 'dblclick', function(event) {
+                    $('[id$="latitude"]:eq(' + nIndex + ')').val(event.latLng.lat());
+                    $('[id$="longitude"]:eq(' + nIndex + ')').val(event.latLng.lng());
+                    oSelf.adjustGeoposition(nIndex);
                 });
-                $oGmapLocations = $('<ul id="gmap_locations">').appendTo($oDynMapContainer).hide();
-                oSelf.adjustGeoposition();
-                // $("#id_street_address").blur(oSelf.recognizeLocation);
-                // $("#id_street_address2").blur(oSelf.recognizeLocation);
-                // $("#id_postal_code").blur(oSelf.recognizeLocation);
-                // $("#id_city").blur(oSelf.recognizeLocation);
-                // $("#id_country").change(oSelf.recognizeLocation);
+                $oGmapLocations[nIndex] = $('<ul class="gmap_locations">').appendTo($oDynMapContainer).hide();
+                oSelf.adjustGeoposition(nIndex);
             }
         },
-        recognizeLocation: function() {
+        recognizeLocation: function(nIndex) {
             var oSelf = self.GMapManager;
             recognizeLocation(
-                oSelf.getAddress4search(),
+                nIndex,
+                oSelf.getAddress4search(nIndex),
                 oSelf.autocompleteAddress
             );
         },
-        removeGeoPos: function() {
-            $("#id_latitude").val("");
-            $("#id_longitude").val("");
-            if (oMarker) {
-                oMarker.setMap(null);
+        removeGeoPos: function(nIndex) {
+            $('[id$="latitude"]:eq(' + nIndex + ')').val("");
+            $('[id$="longitude"]:eq(' + nIndex + ')').val("");
+            if (aMarkers[nIndex]) {
+                aMarkers[nIndex].setMap(null);
             }
         },
-        getAddress4search: function() {
+        getAddress4search: function(nIndex) {
             var aFullAddress = [];
             aFullAddress.push(
-                $("#id_street_address").val() +
-                " " + $("#id_street_address2").val()
+                $('[id$="street_address"]:eq(' + nIndex + ')').val() +
+                ' ' + $('[id$="street_address2"]:eq(' + nIndex + ')').val()
             );
-            aFullAddress.push($("#id_city").val());
+            aFullAddress.push($('[id$="city"]:eq(' + nIndex + ')').val());
             aFullAddress.push("Germany");
-            aFullAddress.push($("#id_postal_code").val());
+            aFullAddress.push($('[id$="postal_code"]:eq(' + nIndex + ')').val());
             return aFullAddress.join(", ");
         },
-        adjustGeoposition: function() {
+        adjustGeoposition: function(nIndex) {
             var oSelf = self.GMapManager;
-            var $oLat = $("#id_latitude");
-            var $oLng = $("#id_longitude");
+            var $oLat = $('[id$="latitude"]:eq(' + nIndex + ')');
+            var $oLng = $('[id$="longitude"]:eq(' + nIndex + ')');
             if ($oLat.val() && $oLng.val()) {
-                oSelf.markGeoposition($oLat.val(), $oLng.val());
+                oSelf.markGeoposition(nIndex, $oLat.val(), $oLng.val());
             }
         },
-        drawMarker: function(oPoint) {
-            var oImage = new google.maps.MarkerImage(
-                window.settings.STATIC_URL + "site/img/gmap/markers_1-10.png",
-                // marker size
-                new google.maps.Size(20, 34),
-                // origin
-                new google.maps.Point(0, 340),
-                // anchor
-                new google.maps.Point(10, 34)
-            );
-            var oShadow = new google.maps.MarkerImage(
-                window.settings.STATIC_URL + "site/img/gmap/marker_shadow.png",
-                // The shadow image is larger in the horizontal dimension
-                // while the position and offset are the same as for the main image.
-                new google.maps.Size(37, 34),
-                new google.maps.Point(0, 0),
-                new google.maps.Point(8, 25)
-            );
-
-            oMarker = new google.maps.Marker({
+        drawMarker: function(nIndex, oPoint) {
+            aMarkers[nIndex] = new google.maps.Marker({
                 position: oPoint,
-                map: oMap,
-                shadow: oShadow,
-                icon: oImage
+                map: aMaps[nIndex]
             });
         },
-        markGeoposition: function(iLat, iLong) {
+        markGeoposition: function(nIndex, iLat, iLong) {
             var oSelf = self.GMapManager;
             var oPoint = new google.maps.LatLng(iLat, iLong);
-            if (oMarker) {
-                oMarker.setMap(null);
-                oMarker = null;
+            if (aMarkers[nIndex]) {
+                aMarkers[nIndex].setMap(null);
+                aMarkers[nIndex] = null;
             }
-            oSelf.drawMarker(oPoint);
+            oSelf.drawMarker(nIndex, oPoint);
 
-            oMap.panTo(oPoint, 15);
-
+            aMaps[nIndex].panTo(oPoint, 15);
 
             setMarkerDraggable(
-                oMarker,
+                nIndex,
+                aMarkers[nIndex],
                 oSelf.correctGeoposition,
                 {bNoSuggest: true}
             );
         },
-        correctGeoposition: function(iLat, iLng) {
+        correctGeoposition: function(nIndex, iLat, iLng) {
             iLat = Math.round(iLat * 1000000) / 1000000;
             iLng = Math.round(iLng * 1000000) / 1000000;
 
-            $("#id_latitude").val(iLat);
-            $("#id_longitude").val(iLng);
+            $('[id$="latitude"]:eq(' + nIndex + ')').val(iLat);
+            $('[id$="longitude"]:eq(' + nIndex + ')').val(iLng);
         },
-        autocompleteAddress: function(oResults) {
-            aGmapsSearchResults = oResults;
+        autocompleteAddress: function(nIndex, oResults) {
+            aGmapsSearchResults[nIndex] = oResults;
 
-            $oGmapLocations.html("");
+            $oGmapLocations[nIndex].html("");
             var i, iLen = oResults.length;
-            function choose_location() {
-                var oResult = aGmapsSearchResults[$(this).data("gmap_index")];
+            function choose_location(nIndex, nChoiceIndex) {
+
+                var oResult = aGmapsSearchResults[nIndex][nChoiceIndex];
                 var aAddressComponents = oResult.address_components;
-                GMapManager.extractFromXAL(aAddressComponents);
+                GMapManager.extractFromXAL(nIndex, aAddressComponents);
                 var oPoint = oResult.geometry.location;
                 var bSuggesting = GMapManager.correctGeoposition(
+                    nIndex,
                     oPoint.lat(),
                     oPoint.lng(),
                     {}
                 );
                 if (!bSuggesting) {
                     GMapManager.markGeoposition(
+                        nIndex,
                         oPoint.lat(),
                         oPoint.lng()
                     );
                 }
-                $oGmapLocations.hide();
-                return false;
+                $oGmapLocations[nIndex].hide();
             }
-            if (aGmapsSearchResults) {
+            if (aGmapsSearchResults[nIndex]) {
                 if (iLen > 1) {
                     for (i=0; i<iLen; i++) {
-                        $('<a href="">' + oResults[i].formatted_address + '</a>').data("gmap_index", i).click(choose_location).appendTo($('<li>').appendTo($oGmapLocations));
+                        $('<a href="">' + oResults[i].formatted_address + '</a>').data('gmap_index', i).click(function(e) {
+                            e.preventDefault();
+                            choose_location(nIndex, $(this).data('gmap_index'));
+                        }).appendTo($('<li>').appendTo($oGmapLocations[nIndex]));
                     }
                     $('<a href="">' + gettext("None of the listed") + '</a>').click(function() {
-                        $oGmapLocations.hide();
+                        $oGmapLocations[nIndex].hide();
                         return false;
-                    }).appendTo($('<li>').appendTo($oGmapLocations));
-                    $oGmapLocations.show();
+                    }).appendTo($('<li>').appendTo($oGmapLocations[nIndex]));
+                    $oGmapLocations[nIndex].show();
                 } else {
-                    $oGmapLocations.hide();
-                    var oResult = aGmapsSearchResults[0];
+                    $oGmapLocations[nIndex].hide();
+                    var oResult = aGmapsSearchResults[nIndex][0];
                     var aAddressComponents = oResult.address_components;
-                    GMapManager.extractFromXAL(aAddressComponents);
+                    GMapManager.extractFromXAL(nIndex, aAddressComponents);
                     var oPoint = oResult.geometry.location;
                     var bSuggesting = GMapManager.correctGeoposition(
+                        nIndex,
                         oPoint.lat(),
                         oPoint.lng(),
                         {}
                     );
                     if (!bSuggesting) {
                         GMapManager.markGeoposition(
+                            nIndex,
                             oPoint.lat(),
                             oPoint.lng()
                         );
@@ -202,14 +191,14 @@
                 }
             }
         },
-        extractFromXAL: function(aAddressComponents) {
+        extractFromXAL: function(nIndex, aAddressComponents) {
             var i, iLen=aAddressComponents.length;
             var sStreetName, sStreetNumber;
             for (i=0; i<iLen; i++) {
                 var oObj = aAddressComponents[i];
                 switch (oObj.types[0]) {
                     case "locality":
-                        document.getElementById("id_city").value = oObj.long_name;
+                        $('[id$="city"]:eq(' + nIndex + ')').val(oObj.long_name);
                         break;
                     case "street_number":
                         sStreetNumber = oObj.long_name;
@@ -218,7 +207,7 @@
                         sStreetName = oObj.long_name;
                         break;
                     case "postal_code":
-                        document.getElementById("id_postal_code").value = oObj.long_name;
+                        $('[id$="postal_code"]:eq(' + nIndex + ')').val(oObj.long_name);
                         break;
                     case "country":
                         //document.getElementById("id_country").value = oObj.short_name;
@@ -230,17 +219,17 @@
                 if (sStreetNumber) {
                     sStreetAddress += " " + sStreetNumber;
                 }
-                var $oStreetAddress = $("#id_street_address");
+                var $oStreetAddress = $('[id$="street_address"]:eq(' + nIndex + ')');
                 $oStreetAddress.val(sStreetAddress);
             }
         },
         destruct: function() {
-            //self.GMapManager = null;
+            self.GMapManager = null;
         }
     };
 
     $(document).ready(function(){
-        self.GMapManager.init();
+        self.GMapManager.init_all();
     });
 
     $(window).unload(function() {
