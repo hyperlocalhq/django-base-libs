@@ -16,8 +16,8 @@ from base_libs.admin import ExtendedStackedInline
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.forms.fields import AutocompleteModelChoiceField
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
-
+import filebrowser.settings as filebrowser_settings
+URL_FILEBROWSER_MEDIA = getattr(filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/')
 Address = models.get_model("location", "Address")
 Locality = models.get_model("location", "Locality")
 Geoposition = models.get_model("location", "Geoposition")

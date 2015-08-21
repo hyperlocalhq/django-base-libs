@@ -11,8 +11,8 @@ from django.contrib.admin import helpers
 from django.contrib.admin.util import model_ngettext
 from django.utils.encoding import force_unicode
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
-
+import filebrowser.settings as filebrowser_settings
+URL_FILEBROWSER_MEDIA = getattr(filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/')
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin.tree_editor import TreeEditor

@@ -11,8 +11,8 @@ from base_libs.models import PublishingMixinAdminOptions
 from base_libs.utils.misc import get_installed
 from base_libs.admin.tree_editor import TreeEditor
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
-
+import filebrowser.settings as filebrowser_settings
+URL_FILEBROWSER_MEDIA = getattr(filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/')
 ArticleType = models.get_model("articles", "ArticleType")
 Article = models.get_model("articles", "Article")
 

@@ -8,7 +8,8 @@ from base_libs.models.admin import get_admin_lang_section
 from base_libs.models.admin import ContentBaseMixinAdminOptions
 from base_libs.models.admin import PublishingMixinAdminOptions
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
+import filebrowser.settings as filebrowser_settings
+URL_FILEBROWSER_MEDIA = getattr(filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/')
 
 FlatPage = models.get_model("flatpages", "FlatPage")
 

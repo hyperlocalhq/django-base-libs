@@ -21,8 +21,8 @@ from base_libs.utils.misc import get_related_queryset
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin.tree_editor import TreeEditor
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
-
+import filebrowser.settings as filebrowser_settings
+URL_FILEBROWSER_MEDIA = getattr(filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/')
 Address = models.get_model("location", "Address")
 Locality = models.get_model("location", "Locality")
 Geoposition = models.get_model("location", "Geoposition")

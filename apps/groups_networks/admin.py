@@ -3,8 +3,8 @@ from django.contrib import admin
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
-
+import filebrowser.settings as filebrowser_settings
+URL_FILEBROWSER_MEDIA = getattr(filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/')
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin.tree_editor import TreeEditor
 from base_libs.admin import ExtendedStackedInline
