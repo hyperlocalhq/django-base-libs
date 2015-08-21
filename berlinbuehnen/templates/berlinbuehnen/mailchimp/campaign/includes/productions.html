@@ -72,7 +72,12 @@
                                             <tr>
                                                 <td valign="bottom"><table width="322" cellpadding="0" cellspacing="0" style="position:absolute; bottom:0px;">
                                                     <tr>
-                                                        <td width="296" height="22" valign="bottom"><a href="{{ production.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; float:left;">MEHR ZU DIESER PRODUKTION</a><a href="{{ production.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; float:left;"><img src="http://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11"/></a></td>
+                                                        <td width="296" height="22" valign="bottom"><table cellpadding="0" cellspacing="0" border="0">
+															<tr>
+																<td><a href="{{ production.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none;">MEHR ZU DIESER PRODUKTION</a></td>
+																<td><a href="{{ production.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none;"><img src="http://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11"/></a></td>
+															</tr>
+														</table></td>
                                                         <td width="26" valign="bottom"><a href="{% if event.ev_or_prod_tickets_website %}{{ event.ev_or_prod_tickets_website }}{% else %}{{ production.get_url }}{% endif %}" style="height:13px; padding-top:8px; padding-left:10px; display:block;"><img src="http://www.berlin-buehnen.de/media/newsletter/tickets.gif" border="0" width="16" height="13"/></a></td>
                                                     </tr>
                                                 </table></td>
