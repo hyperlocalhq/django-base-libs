@@ -2,7 +2,7 @@
         <!-- locations -->
         <table width="600" border="0" cellpadding="0" cellspacing="0">
             <tr>
-                <td width="100%" height="32">&nbsp;</td>
+                <td width="100%" height="32" style="font-size:12px;">&nbsp;</td>
             </tr>
             <tr>
                 <td style="padding:0 24px;"><table width="552" cellpadding="0" cellspacing="0" border="0">
@@ -26,7 +26,7 @@
                                                 <td width="268"><a href="{{ location.get_url }}"><img src="http://www.berlin-buehnen.de/media/{{ location.first_image.path|modified_path:"newsletter_location" }}" width="268" border="0"/></a></td>
                                             </tr>
                                             <tr>
-                                                <td height="16">&nbsp;</td>
+                                                <td height="16" style="font-size:12px;">&nbsp;</td>
                                             </tr>
                                         {% endif %}
                                         <tr>
@@ -57,7 +57,7 @@
                                                     <td width="268"><a href="{{ location.get_url }}"><img src="http://www.berlin-buehnen.de/media/{{ location.first_image.path|modified_path:"newsletter_location" }}" width="268" border="0"/></a></td>
                                                 </tr>
                                                 <tr>
-                                                    <td height="16">&nbsp;</td>
+                                                    <td height="16" style="font-size:12px;">&nbsp;</td>
                                                 </tr>
                                             {% endif %}
                                             <tr>
@@ -84,18 +84,28 @@
                                 {% endif %}
                             </tr>
                             <tr>
-                                <td height="16">&nbsp;</td>
-                                <td height="16">&nbsp;</td>
-                                <td height="16">&nbsp;</td>
+                                <td height="16" style="font-size:12px;">&nbsp;</td>
+                                <td height="16" style="font-size:12px;">&nbsp;</td>
+                                <td height="16" style="font-size:12px;">&nbsp;</td>
                             </tr>
                             <tr>
                                 {% with newest_objects.0 as location %}
-                                    <td valign="bottom"><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none;">ZUR BÜHNE</a><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none;"><img src="http://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11" style="display:inline;"/></a></td>
+                                    <td valign="bottom"><table cellpadding="0" cellspacing="0" border="0">
+                                        <tr>
+                                            <td><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none;">ZUR BÜHNE</a></td>
+                                            <td><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none;"><img src="http://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11" style="display:inline;"/></a></td>
+                                        </tr>
+                                    </table></td>
                                 {% endwith %}
                                 <td>&nbsp;</td>
                                 {% if newest_objects.count >= 2 %}
                                     {% with newest_objects.1 as location %}
-                                        <td valign="bottom"><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none;">ZUR BÜHNE</a><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none;"><img src="http://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11" style="display:inline;"/></a></td>
+                                        <td valign="bottom"><table cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                <td><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none;">ZUR BÜHNE</a></td>
+                                                <td><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none;"><img src="http://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11" style="display:inline;"/></a></td>
+                                            </tr>
+                                        </table></td>
                                     {% endwith %}
                                 {% else %}
                                     <td width="268">&nbsp;</td>
@@ -104,7 +114,7 @@
                             {% if newest_objects.count > 2 %}
                                 <tr>
                                     <td width="268" height="28"><img src="http://www.berlin-buehnen.de/media/newsletter/underline_big_short.gif" width="268" height="28"/></td>
-                                    <td height="25">&nbsp;</td>
+                                    <td height="25" style="font-size:12px;">&nbsp;</td>
                                     <td width="268" height="28"><img src="http://www.berlin-buehnen.de/media/newsletter/underline_big_short.gif" width="268" height="28"/></td>
                                 </tr>
                             {% endif %}
@@ -121,7 +131,7 @@
                                                 <td width="268"><a href="{{ location.get_url }}"><img src="http://www.berlin-buehnen.de/media/{{ location.first_image.path|modified_path:"newsletter_location" }}" width="268" border="0"/></a></td>
                                             </tr>
                                             <tr>
-                                                <td height="16">&nbsp;</td>
+                                                <td height="16" style="font-size:12px;">&nbsp;</td>
                                             </tr>
                                         {% endif %}
                                         <tr>
@@ -152,7 +162,7 @@
                                                     <td width="268"><a href="{{ location.get_url }}"><img src="http://www.berlin-buehnen.de/media/{{ location.first_image.path|modified_path:"newsletter_location" }}" width="268" border="0"/></a></td>
                                                 </tr>
                                                 <tr>
-                                                    <td height="16">&nbsp;</td>
+                                                    <td height="16" style="font-size:12px;">&nbsp;</td>
                                                 </tr>
                                             {% endif %}
                                             <tr>
@@ -179,18 +189,28 @@
                                 {% endif %}
                             </tr>
                             <tr>
-                                <td height="16">&nbsp;</td>
-                                <td height="16">&nbsp;</td>
-                                <td height="16">&nbsp;</td>
+                                <td height="16" style="font-size:12px;">&nbsp;</td>
+                                <td height="16" style="font-size:12px;">&nbsp;</td>
+                                <td height="16" style="font-size:12px;">&nbsp;</td>
                             </tr>
                             <tr>
                                 {% with newest_objects.2 as location %}
-                                    <td valign="bottom"><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none;">ZUR BÜHNE</a><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none;"><img src="http://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11" style="display:inline;"/></a></td>
+                                    <td valign="bottom"><table cellpadding="0" cellspacing="0" border="0">
+                                        <tr>
+                                            <td><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none;">ZUR BÜHNE</a></td>
+                                            <td><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none;"><img src="http://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11" style="display:inline;"/></a></td>
+                                        </tr>
+                                    </table></td>
                                 {% endwith %}
                                 <td>&nbsp;</td>
                                 {% if newest_objects.count == 4 %}
                                     {% with newest_objects.3 as location %}
-                                        <td valign="bottom"><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none;">ZUR BÜHNE</a><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none;"><img src="http://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11" style="display:inline;"/></a></td>
+                                        <td valign="bottom"><table cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                <td><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none;">ZUR BÜHNE</a></td>
+                                                <td><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none;"><img src="http://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11" style="display:inline;"/></a></td>
+                                            </tr>
+                                        </table></td>
                                     {% endwith %}
                                 {% else %}
                                     <td width="268">&nbsp;</td>

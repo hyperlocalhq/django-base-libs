@@ -2,7 +2,7 @@
         <!-- events -->
         <table width="600" border="0" cellpadding="0" cellspacing="0">
             <tr>
-                <td width="100%" height="32">&nbsp;</td>
+                <td width="100%" height="32" style="font-size:12px;">&nbsp;</td>
             </tr>
             <tr>
                 <td style="padding:0 24px;"><table width="552" cellpadding="0" cellspacing="0" border="0">
@@ -23,10 +23,8 @@
                             <tr>
                                 <td valign="top"><table width="552" height="148" border="0" cellpadding="0" cellspacing="0">
                                     <tr>
-                                        <td width="230" valign="top"><a href="{{ production.get_url }}"><img src="http://www.berlin-buehnen.de/media/{{ event.first_image.path|modified_path:"newsletter_production" }}" width="216" style="padding-right:16px;" border="0" /></a></td>
-                                        <td width="322" height="100%" valign="top" style="position:relative;"><table width="322" height="100%" cellpadding="0" cellspacing="0" style="height:100%">
-                                            <tr>
-                                                <td width="322" valign="top"><table width="322" border="0" cellpadding="0" cellspacing="0">
+                                        <td width="230" valign="top" rowspan="2"><a href="{{ production.get_url }}"><img src="http://www.berlin-buehnen.de/media/{{ event.first_image.path|modified_path:"newsletter_production" }}" width="216" style="padding-right:16px;" border="0" /></a></td>
+                                        <td width="322" valign="top"><table width="322" cellpadding="0" cellspacing="0">
                                                     <tr>
                                                         <td width="322" colspan="2"><a href="{{ production.get_url }}" style="color:#000; font-size:22px; font-weight:600; text-decoration:none; display:block; line-height:100%; margin-top:-2px;">{{ event.start_date|date:"D, j.n." }}</a></td>
                                                     </tr>
@@ -65,12 +63,12 @@
                                                         </tr>
                                                     {% endif %}
                                                     <tr>
-                                                        <td width="100%" height="16">&nbsp;</td>
+                                                        <td width="100%" height="16" style="font-size:12px;">&nbsp;</td>
                                                     </tr>
-                                                </table></td>
-                                            </tr>
-                                            <tr>
-                                                <td valign="bottom"><table width="322" cellpadding="0" cellspacing="0" style="position:absolute; bottom:0px;">
+                                        </table></td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="bottom"><table width="322" cellpadding="0" cellspacing="0">
                                                     <tr>
                                                         <td width="296" height="22" valign="bottom"><table cellpadding="0" cellspacing="0" border="0">
 															<tr>
@@ -80,8 +78,6 @@
 														</table></td>
                                                         <td width="26" valign="bottom"><a href="{% if event.ev_or_prod_tickets_website %}{{ event.ev_or_prod_tickets_website }}{% else %}{{ production.get_url }}{% endif %}" style="height:13px; padding-top:8px; padding-left:10px; display:block;"><img src="http://www.berlin-buehnen.de/media/newsletter/tickets.gif" border="0" width="16" height="13"/></a></td>
                                                     </tr>
-                                                </table></td>
-                                            </tr>
                                         </table></td>
                                     </tr>
                                 </table></td>
