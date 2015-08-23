@@ -105,7 +105,42 @@ h1.bottom-line {
     margin-right: -10px !important;
     
     &.print-small {
-        zoom: 0.5;
+        font-size: 0.5em;
+        .list-item {
+            padding-top: 0px;
+        }
+        .list-headline {
+            padding-top: 10px !important;
+            padding-bottom: 5px !important;
+        }
+        .list-item-head {
+            height: 30px !important;
+            .list-item-head-date {
+                
+                > .row {
+                    height: 25px;
+                    overflow: hidden;
+                }
+                
+                .list-item-head-date-day {
+                    top: 0px !important;
+                }
+                .list-item-head-date-month {
+                    top: 15px !important;
+                }
+                .list-item-head-date-type {
+                    top: 0px !important;
+                }
+                .list-item-head-date-time {
+                    top: -2px !important;
+                    position: relative !important;
+                }
+            }
+        }
+        .list-item-body {
+            height: auto !important;
+            padding-bottom: 10px;
+        }
     }
     
     .list {
