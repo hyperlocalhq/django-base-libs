@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% load url from future %}
-{% load i18n image_modifications base_tags tagging_tags favorites auth_extended %}
+{% load i18n image_modifications base_tags tagging_tags favorites auth_extended festival_tags %}
 {% block title %}{% trans "Festivals" %} – {% endblock %}
 {% block bodyclass %}festival-list no-transition{% endblock %}
 
 {% block js %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/grid.js" defer="defer"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/month_slider.js" defer="defer"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.min.js" defer="defer"></script>
 {% endblock %}
 
@@ -15,6 +16,7 @@
             <div class="row">
                 
                 <h1 class="bottom-line">{% trans "Festivals" %}</h1>
+                {% month_slider id='main_monthslider' %}
                 
                 <div class="col-xs-12">
                     
@@ -22,7 +24,7 @@
                     {% if object_list %}
                         <div id="main_list" class="grid festival-grid mazery-grid row">
                             {% for festival in object_list %}
-                                <div class="grid-item {% if festival.featured %} featured {% endif %} col-xs-12 col-sm-6 col-md-4">
+                                <div class="grid-item {% if festival.featured %} featured {% endif %} col-xs-12 col-sm-6 col-md-4" data-start="{{ festival.start|date:"U" }}" {% if festival.end %}data-end="{{ festival.end|date:"U" }}"{% else %}data-end="{{ festival.start|date:"U" }}"{% endif %}>
                                     <div class="row">
                                         <a href="{{ festival.get_url_path }}">
                                             {% if festival.first_image %}

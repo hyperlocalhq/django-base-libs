@@ -23,8 +23,8 @@
         this.me = me;
         
         me.$main = $main;
-        me.$items = $('.grid-item:visible', me.$main);
-        me.$featured = $('.grid-item.featured:visible', me.$main)
+        me.$items = $('.grid-item', me.$main);
+        me.$featured = $('.grid-item.featured', me.$main)
         me.autoload = $main.hasClass('grid-autoload');
         me.mazery = $main.hasClass('mazery-grid');
         
@@ -57,7 +57,8 @@
         
         if (this.me) var me = this.me;
         
-        me.$items = $('.grid-item:visible', me.$main);
+        me.$items = $('.grid-item', me.$main);
+        me.$featured = $('.grid-item.featured', me.$main)
         me.initGridItems();
         if (me.autoload) me.initAutoscroll();
         lazyload_images();
@@ -120,8 +121,10 @@
             
             
             me.$featured.each(function() {
-               
+                
                 var $item = $(this);
+               
+                if ($item.css('display') == "none") return true;
                 
                 $item.css('left', lefts[0]+'px');
                 $item.css('top', '0px');
@@ -141,6 +144,7 @@
             me.$items.each(function() {
                
                 var $item = $(this);
+                if ($item.css('display') == "none") return true;
                 
                 if (!featured_found && $item.hasClass('featured')) {
                     featured_found = true;

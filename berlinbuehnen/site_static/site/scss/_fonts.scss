@@ -187,6 +187,12 @@ strong {
         content: none;
     }
 }
+.fawesome.prev:after {
+    content: "\f100";
+}
+.fawesome.next:before {
+    content: "\f101";
+}
 .fawesome.tickets:before {
     content: "\f02c";
 }
