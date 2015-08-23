@@ -28,6 +28,8 @@
         me.autoload = $main.hasClass('grid-autoload');
         me.mazery = $main.hasClass('mazery-grid');
         
+        $('.ad_banner', me.$main).removeClass('clearfix');
+        
         me.initGridItems();
         if (me.autoload) me.initAutoscroll();
         
@@ -75,15 +77,33 @@
         $('.clearfix', me.$main).remove();
         
         if (!me.mazery) {
+            
             $element = null;
+            var counter_sm = 0;
+            var counter_md = 0;
+            var counter_lg = 0;            
+            
             me.$items.each(function(index, element) {
                 
-                var counter = index+1;
                 $element = $(element);
                 
-                if (counter % 4 == 0) $element.after('<div class="clearfix visible-lg"></div>');
-                if (counter % 3 == 0) $element.after('<div class="clearfix visible-md"></div>');
-                if (counter % 2 == 0) $element.after('<div class="clearfix visible-sm"></div>');
+                if ($element.hasClass('ad-lg')) {
+                    counter_lg++;
+                } else if ($element.hasClass('ad-md')) {
+                    counter_md++;
+                } else if ($element.hasClass('ad-sm')) {
+                    counter_sm++;
+                } else if ($element.hasClass('ad-xs')) {
+                    
+                } else {
+                    counter_sm++;
+                    counter_md++;
+                    counter_lg++;
+                }              
+                
+                if (counter_lg % 4 == 0) $element.after('<div class="clearfix visible-lg"></div>');
+                if (counter_md % 3 == 0) $element.after('<div class="clearfix visible-md"></div>');
+                if (counter_sm % 2 == 0) $element.after('<div class="clearfix visible-sm"></div>');
                 
             });
             

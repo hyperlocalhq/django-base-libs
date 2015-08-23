@@ -70,14 +70,14 @@
 
                                 {% if locations_ad_html %}
                                     {% if forloop.counter == 1 %}
-                                        <div class="grid-item visible-xs col-xs-12">{{ locations_ad_html }}</div>
-                                        <div class="grid-item visible-sm col-sm-6">{{ locations_ad_html }}</div>
+                                        <div class="grid-item visible-xs col-xs-12 ad-xs">{{ locations_ad_html }}</div>
+                                        <div class="grid-item visible-sm col-sm-6 ad-sm">{{ locations_ad_html }}</div>
                                     {% endif %}
                                     {% if forloop.counter == 2 %}
-                                        <div class="grid-item visible-md col-md-4">{{ locations_ad_html }}</div>
+                                        <div class="grid-item visible-md col-md-4 ad-md">{{ locations_ad_html }}</div>
                                     {% endif %}
                                     {% if forloop.counter == 3 %}
-                                        <div class="grid-item visible-lg col-lg-3">{{ locations_ad_html }}</div>
+                                        <div class="grid-item visible-lg col-lg-3 ad-lg">{{ locations_ad_html }}</div>
                                     {% endif %}
                                 {% endif %}
 
