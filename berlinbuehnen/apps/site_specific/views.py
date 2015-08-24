@@ -600,11 +600,13 @@ def culturebase_export_productions(request, location_slug):
                 ).order_by("pk")[0]
             except:
                  author = ""
-                 image_title = ""
+                 image_title_de = ""
+                 image_title_en = ""
                  copyright = ""
             else:
                  author = file_description.author
-                 image_title = file_description.title
+                 image_title_de = file_description.title_de
+                 image_title_en = file_description.title_en
                  copyright = file_description.copyright_limitations
 
             list_image_url = ""
@@ -621,7 +623,8 @@ def culturebase_export_productions(request, location_slug):
                         E.bildUrl(list_image_url),
                         E.bildUrheber(CDATA(author)),
                         E.bildCopyright(CDATA(copyright)),
-                        E.bildUntertitel(CDATA(image_title)),
+                        E.bildUntertitel(CDATA(image_title_de)),
+                        E.bildUntertitelEn(CDATA(image_title_en)),
                     )
                 )
 
@@ -637,7 +640,8 @@ def culturebase_export_productions(request, location_slug):
             event_nodes.append(E.event(
                 E.eventId(str(event.pk)),
                 E.eventBezeichnung(CDATA(""), alwaysEmpty="1"),
-                E.erWerbezeile(CDATA(event.get_rendered_teaser())),
+                E.erWerbezeile(CDATA(event.get_rendered_teaser_de())),
+                E.erWerbezeileEn(CDATA(event.get_rendered_teaser_en())),
                 E.eventPersonen(CDATA(persons)),
                 E.eventOrtId("", alwaysEmpty="1"),
                 E.eventOrt(CDATA(event.city)),
@@ -650,6 +654,7 @@ def culturebase_export_productions(request, location_slug):
                 E.platzkategorie(
                     E.vkpreis(price_range)
                 ),
+                E.eventTicketsWebseite(CDATA(event.tickets_website)),
             ))
         try:
             first_date = prod.event_set.order_by("start_date")[0].start_date.strftime('%Y-%m-%d')
@@ -667,16 +672,22 @@ def culturebase_export_productions(request, location_slug):
         ])
         production_nodes.append(E.eventReihe(
             E.erId(str(prod.pk)),
-            E.erName(CDATA(prod.title)),
+            E.erName(CDATA(prod.title_de)),
+            E.erNameEn(CDATA(prod.title_en)),
             E.erLink(CDATA(prod.get_url())),
-            E.erBeschreibung(CDATA(prod.get_rendered_description())),
-            E.erInhalt(CDATA(prod.get_rendered_contents())),
-            E.erWerbezeile(CDATA(prod.get_rendered_teaser())),
+            E.erBeschreibung(CDATA(prod.get_rendered_description_de())),
+            E.erBeschreibungEn(CDATA(prod.get_rendered_description_en())),
+            E.erInhalt(CDATA(prod.get_rendered_contents_de())),
+            E.erInhaltEn(CDATA(prod.get_rendered_contents_en())),
+            E.erWerbezeile(CDATA(prod.get_rendered_teaser_de())),
+            E.erWerbezeileEn(CDATA(prod.get_rendered_teaser_en())),
             E.erPersons(CDATA(persons)),
             E.erKoproduktion(CDATA(""), alwaysEmpty="1"),
             E.erKritik(CDATA(""), alwaysEmpty="1"),
-            E.erSondermerkmal(CDATA(prod.get_rendered_remarks())),
-            E.erWerkinfo(CDATA(prod.get_rendered_work_info())),
+            E.erSondermerkmal(CDATA(prod.get_rendered_remarks_de())),
+            E.erSondermerkmalEn(CDATA(prod.get_rendered_remarks_en())),
+            E.erWerkinfo(CDATA(prod.get_rendered_work_info_de())),
+            E.erWerkinfoEn(CDATA(prod.get_rendered_work_info_en())),
             E.erAltersangabe(CDATA(prod.age_text)),
             E.erLocation(CDATA(location.title)),
             E.erStrasse(CDATA(location.street_address)),
@@ -684,9 +695,11 @@ def culturebase_export_productions(request, location_slug):
             E.erStadt(CDATA(location.city)),
             E.erBegin(first_date),
             E.erEnde(last_date),
-            E.erSpieldauer(CDATA(prod.duration_text)),
+            E.erSpieldauer(CDATA(prod.duration_text_de)),
+            E.erSpieldauerEn(CDATA(prod.duration_text_en)),
             E.erSchlagworte(CDATA(""), alwaysEmpty="1"),
             E.erKategorie(CDATA(categories)),
+            E.erTicketsWebseite(CDATA(prod.tickets_website)),
             *prod_image_nodes + event_nodes
         ))
 
