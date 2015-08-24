@@ -30,6 +30,16 @@ h1.bottom-line { margin-left: 0 !important; margin-right: 0 !important; }
 .grid .grid-item .grid-item-image { display: none; }
 
 #body .list { margin-left: -10px !important; margin-right: -10px !important; }
+#body .list.print-small { font-size: 0.5em; }
+#body .list.print-small .list-item { padding-top: 0px; }
+#body .list.print-small .list-headline { padding-top: 10px !important; padding-bottom: 5px !important; }
+#body .list.print-small .list-item-head { height: 30px !important; }
+#body .list.print-small .list-item-head .list-item-head-date > .row { height: 25px; overflow: hidden; }
+#body .list.print-small .list-item-head .list-item-head-date .list-item-head-date-day { top: 0px !important; }
+#body .list.print-small .list-item-head .list-item-head-date .list-item-head-date-month { top: 15px !important; }
+#body .list.print-small .list-item-head .list-item-head-date .list-item-head-date-type { top: 0px !important; }
+#body .list.print-small .list-item-head .list-item-head-date .list-item-head-date-time { top: -2px !important; position: relative !important; }
+#body .list.print-small .list-item-body { height: auto !important; padding-bottom: 10px; }
 #body .list .list { margin-left: 0px !important; margin-right: 0px !important; }
 #body .list .list-item { page-break-inside: avoid; padding-top: 19px; border-top: 1px solid black; }
 #body .list .list-item .list-item-head { max-width: none; width: 100%; height: 50px; border-bottom: 1px solid #ccc; }

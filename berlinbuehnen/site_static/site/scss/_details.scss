@@ -263,6 +263,12 @@
             float: left;
         }
     }
+    a.publication {
+        color: black;
+        &:hover {
+            color: black;
+        }
+    }
     a.tickets {
         color: black;
         &:hover {
@@ -274,6 +280,19 @@
             &:before {
                 padding-right: 5px;
             }
+        }
+    }
+    a.button {
+        display: inline-block;
+        height: 30px;
+        color: white;
+        text-transform: uppercase;
+        background: $blue;
+        padding: 5px 40px;
+        font-weight: $bold;
+        font-size: 1em;
+        &:hover {
+            color: white;
         }
     }
     

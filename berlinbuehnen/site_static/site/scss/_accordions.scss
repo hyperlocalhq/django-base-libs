@@ -42,6 +42,15 @@
         }
         .accordion-item-content {
             margin-bottom: 16px;
+            .publication {
+                margin: 10px 0 40px;
+                p {
+                    margin: 0;
+                }
+                .button {
+                    margin-top: 5px;
+                }
+            }
         }
         p:first-child {
             margin-top: 16px;

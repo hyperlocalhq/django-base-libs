@@ -239,6 +239,11 @@ class PDFForm(forms.Form):
                 required=False,
                 max_length=255,
             )
+            self.fields['description_%s' % lang_code] = forms.CharField(
+                label=_('Description <span class="lang">%s</span>') % lang_code.upper(),
+                required=False,
+                widget=forms.Textarea(),
+            )
 
         self.fields['title_%s' % settings.LANGUAGE_CODE].required = True
 
@@ -259,6 +264,13 @@ class PDFForm(forms.Form):
             css_class="row-md",
             *[layout.Div(
                 layout.Field('title_%s' % lang_code),
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
+                layout.Field('description_%s' % lang_code),
                 css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
             ) for lang_code, lang_name in FRONTEND_LANGUAGES]
         ))

@@ -36,7 +36,7 @@
                             <header>
                                 <ul class="header-top">
                                     {% if festival.start %}
-                                        <li><time>{{ festival.start|date:"j. F Y" }}</time>{% if festival.end %} &nbsp;–&nbsp; <time>{{ festival.end|date:"j. F Y" }}</time>{% endif %}</li>
+                                        <li><time>{% if not festival.end or festival.start|date:"Y" != festival.end|date:"Y" %}{{ festival.start|date:"j. F Y" }}{% else %}{% if festival.start|date:"F" != festival.end|date:"F" %}{{ festival.start|date:"j. F" }}{% else %}{{ festival.start|date:"j." }}{% endif %}{% endif %}</time>{% if festival.end %} &nbsp;–&nbsp; <time>{{ festival.end|date:"j. F Y" }}</time>{% endif %}</li>
                                     {% endif %}
                                     {% if festival.organizers.all %}
                                             <li>
@@ -80,6 +80,7 @@
                                             <div class="description">
                                                 {{ festival.get_rendered_description }}
                                             </div>
+                                            {% comment %}
                                             {% if festival.website %}
                                                 <dl class="listing">
                                                     {% if festival.website %}
@@ -88,6 +89,7 @@
                                                     {% endif %}
                                                 </dl>
                                             {% endif %}
+                                            {% endcomment %}
                                         </div>
                                         
                                         <!-- main sidebar -->
@@ -105,6 +107,32 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-xs-12 full">
+                                            <div class="accordion accordion-autoclose content-accordion">
+                                                {% if festival.get_pdfs %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Publications" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            {% for pdf in festival.get_pdfs %}
+                                                                <div class="publication">
+                                                                    {% with pdf.path|file_description as file_desc %}
+                                                                        {% if file_desc.title %}
+                                                                            <a class="publication" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank"><strong>{{ file_desc.title }}</strong></a>
+                                                                        {% elif file_desc.filename %}
+                                                                            <a class="publication" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank"><strong>{{ file_desc.filename }}</strong></a>
+                                                                        {% else %}
+                                                                            <a class="publication" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank"><strong>{{ pdf.path }}</strong></a>
+                                                                        {% endif %}<br/>
+                                                                        {% if file_desc.description %}
+                                                                            {{ file_desc.description|urlize|linebreaks }}
+                                                                        {% endif %}
+                                                                        <a class="button" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank">{% trans "download" %}</a>
+                                                                    {% endwith %}
+                                                                </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
                                             
                                             <!-- Program -->
                                             <div class="additional-list list row">

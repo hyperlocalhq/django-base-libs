@@ -26,7 +26,7 @@
      * The object has to have a transparent image included with the class "date-slider-links"
      * and an unique usemap attribute.
      *
-     * @param   $main   the jQuery object of the gallery wrapper
+     * @param   $main   the jQuery object of the slider
      */
     function DateSlider($main) {
         
