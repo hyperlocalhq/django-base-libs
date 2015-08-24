@@ -132,7 +132,7 @@
     
     {% ifequal archive "details" %}
         <span class="b-sep"><span>::</span></span> <a href="{{ container.get_url }}{{ post.published_from|date:"Y" }}/">{{ post.published_from|date:"Y" }}</a>
-        <span class="b-sep"><span>::</span></span> <a href="{{ container.get_url }}{{ post.published_from|date:"Y" }}/{{ post.published_from|date:"m" }}/">{{ post.published_from|datefmt:"MMM" }} </a>
+        <span class="b-sep"><span>::</span></span> <a href="{{ container.get_url }}{{ post.published_from|date:"Y" }}/{{ post.published_from|date:"m" }}/">{{ post.published_from|date:"m" }} </a>
         <span class="b-sep"><span>::</span></span> <a href="{{ container.get_url }}{{ post.published_from|date:"Y" }}/{{ post.published_from|date:"m" }}/{{ post.published_from|date:"d"}}/">{{ post.published_from|date:"d" }}</a>
         <span class="b-sep"><span>::</span></span> <span>{{ post.title|truncatewords:"5" }}</span>
     {% endifequal %}

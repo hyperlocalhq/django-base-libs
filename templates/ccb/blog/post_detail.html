@@ -1,1 +1,141 @@
-{% load base_tags comments i18n babel auth_extended blog nav_menu image_modifications %}<div class="toolbox clearfix">    <div class="entry-controls">        <a class="rss" href="{{ container.get_url }}{% if type %}{{ type.sysname }}/{% endif %}feeds/rss/"><span><span>RSS</span></span></a>        <a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07"><span><span>Share</span></span></a>    </div>    <div class="newer-older">        {% if post.get_newer_published %}            <a class="newer" href="{{ post.get_newer_published.get_url_path }}">                <span class="hidden">Newer</span>            </a>        {% else %}            <span class="newer">                <span class="hidden">Newer</span>            </span>        {% endif %}        {% if post.get_older_published %}            <a class="older" href="{{ post.get_older_published.get_url_path }}">                <span class="hidden">Older</span>            </a>        {% else %}            <span class="older">                <span class="hidden">Older</span>            </span>        {% endif %}    </div></div><div class="entry-details clearfix">    <div class="headline">        <div class="blog-info">            <span class="date">{{ post.published_from|datefmt:"long" }}</span>             {% comment %}            | {% blocktrans with post.author as author %}by <b>{{ author }}</b>{% endblocktrans %}            {% endcomment %}            {% get_comment_list for blog.post post.id as comment_list %} <span> |</span>            <a href="{{ post.get_url }}#comments">			                {% if not comment_list|length %}                    {% trans "No comments" %}                {% else %}                    {% blocktrans count comment_list|length as counter %}1 comment{% plural %}{{ counter }} comments{% endblocktrans %}                    {% comment %}<!--                     <span>|</span>                    {% get_comment_latest for blog.post post.id as comment_latest %}                    {% blocktrans with comment_latest.submit_date|datefmt:"long" as latest_date %}Latest comment from {{ latest_date }}{% endblocktrans %}                     -->{% endcomment %}                {% endif %}            </a>        </div>        <h3>            {{ post.title }}        </h3>    </div>                       {{ post.get_rendered_body|disarm_user_input }}            {% if post.tags %}        <div class="post-meta">            <span>{% trans "Tags" %}: </span>            {% for tag in post.get_tags %}                {% if not forloop.first %}|{% endif %}                <a href="{{ container.get_url }}tag/{{ tag.slug }}/">{{ tag.name }} </a>            {% endfor %}        </div>    {% endif %}	    <ul class="toolbar right">        {% if_has_perm "blog.change_blog_posts" post.blog %}            <li id="editPost_{{post.slug }}" class="editPost"><a title="{% trans "edit" %}" href="{{ post.get_url }}edit/"><span><span>{% trans "edit" %}</span></span></a></li>        {% end_if_has_perm %}             {% if_has_perm "blog.delete_blog_posts" post.blog %}            <li id="deletePost_{{ post.slug }}" class="deletePost"><a title="{% trans "delete" %}" href="{{ post.get_url }}delete/"><span><span>{% trans "delete" %}</span></span></a></li>	  	        {% end_if_has_perm %}    </ul></div>{% load comments %}{% get_comment_list for blog.post post.id as comment_list %}{% if not post.closed or comment_list %}    <div id="comments">        <div>            {% if comment_list %}                <p class="comment-count">                     {% blocktrans count comment_list|length as counter %}1 comment{% plural %}{{ counter }} comments{% endblocktrans %}                </p>            {% else %}                <p class="comment-count">{% trans "No comments" %}</p>            {% endif %}            {% if post.enable_comment_form %}                <a class="post-comment" href="#last">{% trans "Post a comment" %}</a>            {% endif %}        </div>                                                        {% for comment in comment_list %}            <div class="comment" id="c{{ comment.pk }}">                <div class="comment-author">                    {% if comment.user.get_profile.image %}                        <img class="left" src="{{ UPLOADS_URL }}{{ comment.user.get_profile.image|modified_path:"at" }}" alt="{{ comment.user.get_profile.get_title|escape }}" />                    {% else %}                        {% if comment.user %}                            <img class="left" src="{{ STATIC_URL }}site/img/website/placeholder/person_s.png" alt="{{ comment.user.get_profile.get_title|escape }}" />                        {% else %}                            <img class="left" src="{{ STATIC_URL }}site/img/website/placeholder/person_s.png" alt="{{ comment.name|escape }}" />                        {% endif %}                    {% endif %}                    <p>                        {% if comment.user %}                            <a href='{{ comment.user.get_profile.get_url_path }}'>                                {{ comment.user.get_profile.get_title|escape }}                            </a><br />                        {% else %}                            <span class="no_link">                                {{ comment.name }}                            </span><br />                        {% endif %}                        {{ comment.submit_date|datefmt:"long" }}                   </p>                </div>                <div class="comment-text">{{ comment.get_comment|disarm_user_input }}                    {% if_has_perm "blog.moderate_blog_comments" post.blog %}                        <ul class="toolbar">                            {% if not comment.is_removed %}                                <li id="refuseComment_{{ comment.id }}" class="refuseComment"><a class="refuseComment_but" href="{{ post.get_url }}comment/{{ comment.id }}/refuse/"><span><span>{% trans "Refuse" %}</span></span></a></li>                                <li id="markAsSpamComment_{{ comment.id }}" class="markAsSpamComment"><a class="markAsSpamComment_but" href="{{ post.get_url }}comment/{{ comment.id }}/mark_as_spam/"><span><span>{% trans "Mark as Spam" %}</span></span></a></li>		                       			                            {% else %}	                                <li id="acceptComment_{{ comment.id }}" class="acceptComment"><a class="acceptComment_but" href="{{ post.get_url }}comment/{{ comment.id }}/accept/"><span><span>{% trans "Accept" %}</span></span></a></li>                            {% endif %}                        </ul>                    {% end_if_has_perm %}                </div>            </div>            {% endfor %}        {% if post.enable_comment_form %}            <div id="id_dyn_add_comment" class="comment-form">                {% comment_form using "blog/comments/form_embedded.html" for blog.post post.id %}            </div>        {% endif %}    </div>{% endif %}
+{% load base_tags comments i18n babel auth_extended blog nav_menu image_modifications %}
+
+
+<div class="toolbox clearfix">
+    <div class="entry-controls">
+        <a class="rss" href="{{ container.get_url }}{% if type %}{{ type.sysname }}/{% endif %}feeds/rss/"><span><span>RSS</span></span></a>
+        <a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07"><span><span>Share</span></span></a>
+    </div>
+    <div class="newer-older">
+        {% if post.get_newer_published %}
+            <a class="newer" href="{{ post.get_newer_published.get_url_path }}">
+                <span class="hidden">Newer</span>
+            </a>
+        {% else %}
+            <span class="newer">
+                <span class="hidden">Newer</span>
+            </span>
+        {% endif %}
+        {% if post.get_older_published %}{% comment %}{% endcomment %}
+            <a class="older" href="{{ post.get_older_published.get_url_path }}">
+                <span class="hidden">Older</span>
+            </a>
+        {% else %}
+            <span class="older">
+                <span class="hidden">Older</span>
+            </span>
+        {% endif %}
+    </div>
+</div>
+<div class="entry-details clearfix">
+    <div class="headline">
+        <div class="blog-info">
+            <span class="date">{{ post.published_from }}</span>
+            {% comment %}
+            | {% blocktrans with post.author as author %}by <b>{{ author }}</b>{% endblocktrans %}
+            {% endcomment %}
+            {% get_comment_list for blog.post post.id as comment_list %} <span> |</span>
+            <a href="{{ post.get_url }}#comments">
+                {% if not comment_list|length %}
+                    {% trans "No comments" %}
+                {% else %}
+                    {% blocktrans count comment_list|length as counter %}1 comment{% plural %}{{ counter }} comments{% endblocktrans %}
+                    {% comment %}<!--
+                    <span>|</span>
+                    {% get_comment_latest for blog.post post.id as comment_latest %}
+                    {% blocktrans with comment_latest.submit_date|datefmt:"long" as latest_date %}Latest comment from {{ latest_date }}{% endblocktrans %}
+                     -->{% endcomment %}
+                {% endif %}
+            </a>
+        </div>
+        <h3>
+            {{ post.title }}
+        </h3>
+    </div>
+
+    {{ post.get_rendered_body|disarm_user_input }}
+
+    {% if post.tags %}
+        <div class="post-meta">
+            <span>{% trans "Tags" %}: </span>
+            {% for tag in post.get_tags %}
+                {% if not forloop.first %}|{% endif %}
+                <a href="{{ container.get_url }}tag/{{ tag.slug }}/">{{ tag.name }} </a>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <ul class="toolbar right">
+        {% if_has_perm "blog.change_blog_posts" post.blog %}
+            <li id="editPost_{{post.slug }}" class="editPost"><a title="{% trans "edit" %}" href="{{ post.get_url }}edit/"><span><span>{% trans "edit" %}</span></span></a></li>
+        {% end_if_has_perm %}
+
+        {% if_has_perm "blog.delete_blog_posts" post.blog %}
+            <li id="deletePost_{{ post.slug }}" class="deletePost"><a title="{% trans "delete" %}" href="{{ post.get_url }}delete/"><span><span>{% trans "delete" %}</span></span></a></li>
+        {% end_if_has_perm %}
+    </ul>
+</div>
+
+{% load comments %}
+{% get_comment_list for blog.post post.id as comment_list %}
+{% if not post.closed or comment_list %}
+    <div id="comments">
+        <div>
+            {% if comment_list %}
+                <p class="comment-count">
+                     {% blocktrans count comment_list|length as counter %}1 comment{% plural %}{{ counter }} comments{% endblocktrans %}
+                </p>
+            {% else %}
+                <p class="comment-count">{% trans "No comments" %}</p>
+            {% endif %}
+            {% if post.enable_comment_form %}
+                <a class="post-comment" href="#last">{% trans "Post a comment" %}</a>
+            {% endif %}
+        </div>
+
+        {% for comment in comment_list %}
+            <div class="comment" id="c{{ comment.pk }}">
+                <div class="comment-author">
+                    {% if comment.user.get_profile.image %}
+                        <img class="left" src="{{ UPLOADS_URL }}{{ comment.user.get_profile.image|modified_path:"at" }}" alt="{{ comment.user.get_profile.get_title|escape }}" />
+                    {% else %}
+                        {% if comment.user %}
+                            <img class="left" src="{{ STATIC_URL }}site/img/website/placeholder/person_s.png" alt="{{ comment.user.get_profile.get_title|escape }}" />
+                        {% else %}
+                            <img class="left" src="{{ STATIC_URL }}site/img/website/placeholder/person_s.png" alt="{{ comment.name|escape }}" />
+                        {% endif %}
+                    {% endif %}
+                    <p>
+                        {% if comment.user %}
+                            <a href='{{ comment.user.get_profile.get_url_path }}'>
+                                {{ comment.user.get_profile.get_title|escape }}
+                            </a><br />
+                        {% else %}
+                            <span class="no_link">
+                                {{ comment.name }}
+                            </span><br />
+                        {% endif %}
+                        {{ comment.submit_date|datefmt:"long" }}
+                   </p>
+                </div>
+                <div class="comment-text">{{ comment.get_comment|disarm_user_input }}
+                    {% if_has_perm "blog.moderate_blog_comments" post.blog %}
+                        <ul class="toolbar">
+                            {% if not comment.is_removed %}
+                                <li id="refuseComment_{{ comment.id }}" class="refuseComment"><a class="refuseComment_but" href="{{ post.get_url }}comment/{{ comment.id }}/refuse/"><span><span>{% trans "Refuse" %}</span></span></a></li>
+                                <li id="markAsSpamComment_{{ comment.id }}" class="markAsSpamComment"><a class="markAsSpamComment_but" href="{{ post.get_url }}comment/{{ comment.id }}/mark_as_spam/"><span><span>{% trans "Mark as Spam" %}</span></span></a></li>
+                            {% else %}
+                                <li id="acceptComment_{{ comment.id }}" class="acceptComment"><a class="acceptComment_but" href="{{ post.get_url }}comment/{{ comment.id }}/accept/"><span><span>{% trans "Accept" %}</span></span></a></li>
+                            {% endif %}
+                        </ul>
+                    {% end_if_has_perm %}
+                </div>
+            </div>
+
+        {% endfor %}
+        {% if post.enable_comment_form %}
+            <div id="id_dyn_add_comment" class="comment-form">
+                {% comment_form using "blog/comments/form_embedded.html" for blog.post post.id %}
+            </div>
+        {% endif %}
+    </div>
+{% endif %}

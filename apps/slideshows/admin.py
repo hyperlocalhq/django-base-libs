@@ -12,8 +12,8 @@ from base_libs.models.admin import get_admin_lang_section
 from base_libs.middleware import get_current_language
 from base_libs.admin import ExtendedModelAdmin
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
-
+import filebrowser.settings as filebrowser_settings
+URL_FILEBROWSER_MEDIA = getattr(filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/')
 Slideshow = models.get_model("slideshows", "Slideshow")
 Slide = models.get_model("slideshows", "Slide")
 

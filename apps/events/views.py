@@ -69,7 +69,7 @@ def event_list(request, criterion="", slug="", show="", start_date=None, end_dat
             "exceptions", "exceptions_de", "exceptions_en",
             "exceptions_de_markup_type", "exceptions_en_markup_type",
             "additional_info", "additional_info_de", "additional_info_en",
-            "additional_info_markup_type", "additional_info_de_markup_type", "additional_info_en_markup_type",
+            "additional_info_de_markup_type", "additional_info_en_markup_type",
             )
     if show=="favorites":
         Person = models.get_model("people", "Person")

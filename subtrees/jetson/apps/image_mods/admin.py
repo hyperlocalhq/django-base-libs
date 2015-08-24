@@ -7,7 +7,9 @@ from django.conf import settings
 ImageModificationGroup = models.get_model("image_mods", "ImageModificationGroup")
 ImageModification = models.get_model("image_mods", "ImageModification")
 ImageCropping = models.get_model("image_mods", "ImageCropping")
-from filebrowser.settings import *
+
+import filebrowser.settings as filebrowser_settings
+URL_FILEBROWSER_MEDIA = getattr(filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/')
 
 class ImageModificationOptions(admin.ModelAdmin):
     class Media:
