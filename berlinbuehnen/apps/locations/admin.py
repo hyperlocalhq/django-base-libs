@@ -15,14 +15,14 @@ from base_libs.admin.tree_editor import TreeEditor
 
 from filebrowser.settings import URL_FILEBROWSER_MEDIA
 
-from models import District
-from models import Service
-from models import AccessibilityOption
-from models import Location
-from models import Stage
-from models import Image
-from models import SocialMediaChannel
-from models import LocationCategory
+from .models import District
+from .models import Service
+from .models import AccessibilityOption
+from .models import Location
+from .models import Stage
+from .models import Image
+from .models import SocialMediaChannel
+from .models import LocationCategory
 
 
 class LocationCategoryAdmin(TreeEditor, ExtendedModelAdmin):
@@ -116,6 +116,7 @@ class OwnersForm(forms.Form):
         queryset=User.objects.filter(is_active=True),
         required=False,
     )
+
 
 class LocationAdmin(ExtendedModelAdmin):
     class Media:

@@ -4,34 +4,38 @@ from django.contrib import admin
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.db import models
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.models import User
+from django.conf.urls import patterns, include, url
+from django import forms
 
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.admin import ExtendedStackedInline
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin.tree_editor import TreeEditor
 
-from models import LanguageAndSubtitles
-from models import ProductionCategory
-from models import ProductionCharacteristics
-from models import Production
-from models import ProductionSocialMediaChannel
-from models import ProductionVideo
-from models import ProductionLiveStream
-from models import ProductionImage
-from models import ProductionPDF
-from models import ProductionLeadership
-from models import ProductionAuthorship
-from models import ProductionInvolvement
-from models import EventCharacteristics
-from models import Event
-from models import EventSocialMediaChannel
-from models import EventVideo
-from models import EventLiveStream
-from models import EventImage
-from models import EventPDF
-from models import EventLeadership
-from models import EventAuthorship
-from models import EventInvolvement
+from .models import LanguageAndSubtitles
+from .models import ProductionCategory
+from .models import ProductionCharacteristics
+from .models import Production
+from .models import ProductionSocialMediaChannel
+from .models import ProductionVideo
+from .models import ProductionLiveStream
+from .models import ProductionImage
+from .models import ProductionPDF
+from .models import ProductionLeadership
+from .models import ProductionAuthorship
+from .models import ProductionInvolvement
+from .models import EventCharacteristics
+from .models import Event
+from .models import EventSocialMediaChannel
+from .models import EventVideo
+from .models import EventLiveStream
+from .models import EventImage
+from .models import EventPDF
+from .models import EventLeadership
+from .models import EventAuthorship
+from .models import EventInvolvement
 
 
 class LanguageAndSubtitlesAdmin(ExtendedModelAdmin):
@@ -129,6 +133,14 @@ class ProductionInvolvementInline(ExtendedStackedInline):
     inline_classes = ('grp-collapse grp-open',)
 
 
+class OwnersForm(forms.Form):
+    users = forms.ModelMultipleChoiceField(
+        label=_("Users"),
+        queryset=User.objects.filter(is_active=True),
+        required=False,
+    )
+
+
 class ProductionAdmin(ExtendedModelAdmin):
     list_display = ('title_de', 'get_locations', 'get_import_source', 'get_external_id', 'get_owners_list', 'creation_date', 'modified_date', 'show_among_others', 'no_overwriting', 'newsletter', 'status')
     list_editable = ('show_among_others', 'no_overwriting', 'newsletter', 'status')
@@ -183,13 +195,55 @@ class ProductionAdmin(ExtendedModelAdmin):
 
     def get_owners_list(self, obj):
         owners_list = []
+        manage_owners_link = '<a href="%s/owners/"><span>%s</span></a>' % (obj.pk, ugettext('Manage owners'))
         for o in obj.get_owners():
             owners_list.append('<a href="/admin/auth/user/%s/">%s</a>' % (o.pk, o.username))
         if owners_list:
-            return '<br />'.join(owners_list)
-        return ''
+            return '<br />'.join(owners_list) + '<br />' +  manage_owners_link
+        return manage_owners_link
     get_owners_list.allow_tags = True
     get_owners_list.short_description = _("Owners")
+
+    def owners_view(self, request, production_id):
+        from base_libs.views.views import access_denied
+        production = get_object_or_404(Production, pk=production_id)
+
+        if not request.user.has_perm('productions.change_production', production):
+            return access_denied(request)
+
+        if request.method == "POST":
+            form = OwnersForm(request.POST)
+            if form.is_valid():
+                existing_owners = set(production.get_owners())
+                changed_owners = set(form.cleaned_data['users'])
+
+                removed_owners = existing_owners - changed_owners
+                new_owners = changed_owners - existing_owners
+
+                for u in removed_owners:
+                    production.remove_owner(u)
+
+                for u in new_owners:
+                    production.set_owner(u)
+                return redirect('../../?id__exact=%d' % production.pk)
+        else:
+            form = OwnersForm(initial={
+                'users': production.get_owners()
+            })
+
+        return render(request, 'admin/productions/production/owners.html', {
+            'location': production,
+            'original': production,
+            'app_label': Production._meta.app_label,
+            'opts': Production._meta,
+            'form': form,
+            'title': ugettext('The owners of %(production)s') % {'production': production},
+        })
+
+    def get_urls(self):
+        urls = super(ProductionAdmin, self).get_urls()
+        return patterns('', url(r'^(?P<production_id>\d+)/owners/$', self.owners_view)) + urls
+
 
 admin.site.register(Production, ProductionAdmin)
 
