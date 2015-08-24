@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="grp-tbody grp-module">
-            <div class="grp-tr{% if contact_form.phone0_type.errors or contact_form.phone0_country.errors or contact_form.phone0_area.errors or contact_form.phone0_number.errors or contact_form.is_phone0_default.errors or contact_form.is_phone0_on_hold.errors %} errors{% endif %}">
+            <div class="grp-tr{% if contact_form.phone0_type.errors or contact_form.phone0_country.errors or contact_form.phone0_area.errors or contact_form.phone0_number.errors or contact_form.is_phone0_default.errors or contact_form.is_phone0_on_hold.errors %} grp-errors{% endif %}">
                 <div class="grp-td">
                     {{ contact_form.phone0_type }}
                     {{ contact_form.phone0_type.errors }}
@@ -62,7 +62,7 @@
                     {{ contact_form.is_phone0_on_hold.errors }}
                 </div>
             </div>
-            <div class="grp-tr{% if contact_form.phone1_type.errors or contact_form.phone1_country.errors or contact_form.phone1_area.errors or contact_form.phone1_number.errors or contact_form.is_phone1_default.errors or contact_form.is_phone1_on_hold.errors %} errors{% endif %}">
+            <div class="grp-tr{% if contact_form.phone1_type.errors or contact_form.phone1_country.errors or contact_form.phone1_area.errors or contact_form.phone1_number.errors or contact_form.is_phone1_default.errors or contact_form.is_phone1_on_hold.errors %} grp-errors{% endif %}">
                 <div class="grp-td">
                     {{ contact_form.phone1_type }}
                     {{ contact_form.phone1_type.errors }}
@@ -93,7 +93,7 @@
                     {{ contact_form.is_phone1_on_hold.errors }}
                 </div>
             </div>
-            <div class="grp-tr{% if contact_form.phone2_type.errors or contact_form.phone2_country.errors or contact_form.phone2_area.errors or contact_form.phone2_number.errors or contact_form.is_phone2_default.errors or contact_form.is_phone2_on_hold.errors %} errors{% endif %}">
+            <div class="grp-tr{% if contact_form.phone2_type.errors or contact_form.phone2_country.errors or contact_form.phone2_area.errors or contact_form.phone2_number.errors or contact_form.is_phone2_default.errors or contact_form.is_phone2_on_hold.errors %} grp-errors{% endif %}">
                 <div class="grp-td">
                     {{ contact_form.phone2_type }}
                     {{ contact_form.phone2_type.errors }}

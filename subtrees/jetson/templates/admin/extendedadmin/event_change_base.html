@@ -98,7 +98,7 @@
                 {% if form.title_en %}
                     <fieldset class="grp-module grp-aligned grp-collapse grp-open multilingual multilingual-set-15 multilingual-language-en">
                         <h2 class="grp-collapse-handler">{% trans "Event" %} (English)</h2>
-                        <div class="grp-row grp-cells-1{% if form.title_en.errors %} errors{% endif %}">
+                        <div class="grp-row grp-cells-1{% if form.title_en.errors %} grp-errors{% endif %}">
                             <div class="l-2c-fluid l-d-4">
                                 <div class="c-1">
                                     <label{% if form.title_en.field.required %} class="required"{% endif %}>{{ form.title_en.label }}</label>
@@ -118,7 +118,7 @@
                 {% if form.title_de %}
                     <fieldset class="grp-module grp-aligned grp-collapse grp-open multilingual multilingual-set-15 multilingual-language-de">
                         <h2 class="grp-collapse-handler">{% trans "Event" %} (Deutsch)</h2>
-                        <div class="grp-row grp-cells-1{% if form.title_de.errors %} errors{% endif %}">
+                        <div class="grp-row grp-cells-1{% if form.title_de.errors %} grp-errors{% endif %}">
                             <div class="l-2c-fluid l-d-4">
                                 <div class="c-1">
                                     <label{% if form.title_de.field.required %} class="required"{% endif %}>{{ form.title_de.label }}</label>
@@ -138,7 +138,7 @@
 
                 <fieldset class="grp-module grp-aligned">
                     {{ form.user_id }}
-                    <div class="grp-row grp-cells-1{% if form.slug.errors %} errors{% endif %}">
+                    <div class="grp-row grp-cells-1{% if form.slug.errors %} grp-errors{% endif %}">
                         <div class="l-2c-fluid l-d-4">
                             <div class="c-1">
                                 <label{% if form.slug.field.required %} class="required"{% endif %}>{{ form.slug.label }}</label>
@@ -153,7 +153,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="grp-row grp-cells-1{% if form.event_type.errors %} errors{% endif %}">
+                    <div class="grp-row grp-cells-1{% if form.event_type.errors %} grp-errors{% endif %}">
                         <div class="l-2c-fluid l-d-4">
                             <div class="c-1">
                                 <label{% if form.event_type.field.required %} class="required"{% endif %}>{{ form.event_type.label }}</label>
@@ -281,7 +281,7 @@
                 <fieldset class="grp-module grp-aligned grp-collapse grp-closed">
                     <h2 class="grp-collapse-handler">{% trans "Location" %}</h2>
                     {% if form.venue %}
-                        <div class="grp-row grp-cells-1{% if form.venue.errors %} errors{% endif %}">
+                        <div class="grp-row grp-cells-1{% if form.venue.errors %} grp-errors{% endif %}">
                             <div class="l-2c-fluid l-d-4">
                                 <div class="c-1">
                                     <label{% if form.venue.field.required %} class="required"{% endif %}>{{ form.venue.label }}</label>
@@ -296,7 +296,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="grp-row grp-cells-1{% if form.venue_title.errors %} errors{% endif %}">
+                        <div class="grp-row grp-cells-1{% if form.venue_title.errors %} grp-errors{% endif %}">
                             <div class="l-2c-fluid l-d-4">
                                 <div class="c-1">
                                     <label{% if form.venue_title.field.required %} class="required"{% endif %}>{{ form.venue_title.label }}</label>
@@ -312,7 +312,7 @@
                             </div>
                         </div>
                     {% else %}
-                        <div class="grp-row grp-cells-1{% if form.slug.errors %} errors{% endif %}">
+                        <div class="grp-row grp-cells-1{% if form.slug.errors %} grp-errors{% endif %}">
                             <div class="l-2c-fluid l-d-4">
                                 <div class="c-1">
                                     <label{% if form.slug.field.required %} class="required"{% endif %}>{{ form.slug.label }}</label>
@@ -347,7 +347,7 @@
                 <fieldset class="grp-module grp-aligned grp-collapse closed">
                     <h2 class="collapse-handler">{% trans "Organizer" %}</h2>
                     {% if form.organizing_institution %}
-                        <div class="grp-row grp-cells-1{% if form.organizing_institution.errors %} errors{% endif %}">
+                        <div class="grp-row grp-cells-1{% if form.organizing_institution.errors %} grp-errors{% endif %}">
                             <div class="l-2c-fluid l-d-4">
                                 <div class="c-1">
                                     <label{% if form.organizing_institution.field.required %} class="required"{% endif %}>{{ form.organizing_institution.label }}</label>
@@ -363,7 +363,7 @@
                             </div>
                         </div>
                     {% endif %}
-                    <div class="grp-row grp-cells-1{% if form.organizer_title.errors %} errors{% endif %}">
+                    <div class="grp-row grp-cells-1{% if form.organizer_title.errors %} grp-errors{% endif %}">
                         <div class="l-2c-fluid l-d-4">
                             <div class="c-1">
                                 <label{% if form.organizer_title.field.required %} class="required"{% endif %}>{{ form.organizer_title.label }}</label>
@@ -378,7 +378,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="grp-row grp-cells-1{% if form.organizer_url_link.errors %} errors{% endif %}">
+                    <div class="grp-row grp-cells-1{% if form.organizer_url_link.errors %} grp-errors{% endif %}">
                         <div class="l-2c-fluid l-d-4">
                             <div class="c-1">
                                 <label{% if form.organizer_url_link.field.required %} class="required"{% endif %}>{{ form.organizer_url_link.label }}</label>
@@ -394,7 +394,7 @@
                         </div>
                     </div>
                     {% if form.organizing_person %}
-                        <div class="grp-row grp-cells-1{% if form.organizing_person.errors %} errors{% endif %}">
+                        <div class="grp-row grp-cells-1{% if form.organizing_person.errors %} grp-errors{% endif %}">
                             <div class="l-2c-fluid l-d-4">
                                 <div class="c-1">
                                     <label{% if form.organizing_person.field.required %} class="required"{% endif %}>{{ form.organizing_person.label }}</label>
@@ -419,7 +419,7 @@
                     {% if form.additional_info_en %}
                         <fieldset class="grp-module grp-aligned nested multilingual multilingual-set-12 multilingual-language-en">
                             <h2 class="grp-collapse-handler">{% trans "Additional info (English)" %}</h2>
-                            <div class="grp-row grp-cells-1{% if form.additional_info_en.errors %} errors{% endif %}">
+                            <div class="grp-row grp-cells-1{% if form.additional_info_en.errors %} grp-errors{% endif %}">
                                 <div class="l-2c-fluid l-d-4">
                                     <div class="c-1">
                                         <label{% if form.additional_info_en.field.required %} class="required"{% endif %}>{{ form.additional_info_en.label }}</label>
@@ -441,7 +441,7 @@
                     {% if form.additional_info_de %}
                         <fieldset class="grp-module grp-aligned nested multilingual multilingual-set-12 multilingual-language-de">
                             <h2 class="grp-collapse-handler">{% trans "Additional info (German)" %}</h2>
-                            <div class="grp-row grp-cells-1{% if form.additional_info_de.errors %} errors{% endif %}">
+                            <div class="grp-row grp-cells-1{% if form.additional_info_de.errors %} grp-errors{% endif %}">
                                 <div class="l-2c-fluid l-d-4">
                                     <div class="c-1">
                                         <label{% if form.additional_info_de.field.required %} class="required"{% endif %}>{{ form.additional_info_de.label }}</label>
@@ -460,7 +460,7 @@
                             </div>
                         </fieldset>
                     {% endif %}
-                    <div class="grp-row grp-cells-1{% if form.related_events.errors %} errors{% endif %}">
+                    <div class="grp-row grp-cells-1{% if form.related_events.errors %} grp-errors{% endif %}">
                         <div class="l-2c-fluid l-d-4">
                             <div class="c-1">
                                 <label{% if form.related_events.field.required %} class="required"{% endif %}>{{ form.related_events.label }}</label>

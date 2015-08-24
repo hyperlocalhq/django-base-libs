@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="grp-module grp-tbody">
-            <div class="grp-tr{% if contact_form.im0_type.errors or contact_form.im0_address.errors or contact_form.is_im0_default.errors or contact_form.is_im0_on_hold.errors %} errors{% endif %}">
+            <div class="grp-tr{% if contact_form.im0_type.errors or contact_form.im0_address.errors or contact_form.is_im0_default.errors or contact_form.is_im0_on_hold.errors %} grp-errors{% endif %}">
                 <div class="grp-td">
                     {{ contact_form.im0_type }}
                     {{ contact_form.im0_type.errors }}
@@ -38,7 +38,7 @@
                     {{ contact_form.is_im0_on_hold.errors }}
                 </div>
             </div>
-            <div class="grp-tr{% if contact_form.im1_type.errors or contact_form.im1_address.errors or contact_form.is_im1_default.errors or contact_form.is_im1_on_hold.errors %} errors{% endif %}">
+            <div class="grp-tr{% if contact_form.im1_type.errors or contact_form.im1_address.errors or contact_form.is_im1_default.errors or contact_form.is_im1_on_hold.errors %} grp-errors{% endif %}">
                 <div class="grp-td">
                     {{ contact_form.im1_type }}
                     {{ contact_form.im1_type.errors }}
@@ -56,7 +56,7 @@
                     {{ contact_form.is_im1_on_hold.errors }}
                 </div>
             </div>
-            <div class="grp-tr{% if contact_form.im2_type.errors or contact_form.im2_address.errors or contact_form.is_im2_default.errors or contact_form.is_im2_on_hold.errors %} errors{% endif %}">
+            <div class="grp-tr{% if contact_form.im2_type.errors or contact_form.im2_address.errors or contact_form.is_im2_default.errors or contact_form.is_im2_on_hold.errors %} grp-errors{% endif %}">
                 <div class="grp-td">
                     {{ contact_form.im2_type }}
                     {{ contact_form.im2_type.errors }}

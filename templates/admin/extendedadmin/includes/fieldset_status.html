@@ -7,7 +7,7 @@
         {% endif %}
     </h2>
     {% if form.completeness %}
-        <div class="grp-row grp-cells-1{% if form.completeness.errors %} errors{% endif %}">
+        <div class="grp-row grp-cells-1{% if form.completeness.errors %} grp-errors{% endif %}">
             <div class="l-2c-fluid l-d-4">
                 <div class="c-1">
                     <label{% if form.completeness.field.required %} class="required"{% endif %}>{{ form.completeness.label }}</label>
@@ -23,7 +23,7 @@
             </div>
         </div>
     {% endif %}
-    <div class="grp-row grp-cells-1{% if form.status.errors %} errors{% endif %}">
+    <div class="grp-row grp-cells-1{% if form.status.errors %} grp-errors{% endif %}">
         <div class="l-2c-fluid l-d-4">
             <div class="c-1">
                 <label{% if form.status.field.required %} class="required"{% endif %}>{{ form.status.label }}</label>
@@ -51,7 +51,7 @@
         </div>
     {% endif %}
     {% if form.importance %}
-        <div class="grp-row grp-cells-1{% if form.importance.errors %} errors{% endif %}">
+        <div class="grp-row grp-cells-1{% if form.importance.errors %} grp-errors{% endif %}">
             <div class="l-2c-fluid l-d-4">
                 <div class="c-1">
                     <label{% if form.importance.field.required %} class="required"{% endif %}>{{ form.importance.label }}</label>

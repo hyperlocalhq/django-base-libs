@@ -77,7 +77,7 @@
 
 <!-- CONTENT -->
 {% block content %}
-    <form action="" method="post" id="person_form">
+    <form action="" method="post" id="person_form">{% csrf_token %}
         <div>
             <!-- Popup Hidden Field -->
             {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
@@ -94,7 +94,7 @@
             <fieldset class="grp-module grp-aligned grp-collapse grp-open">
                 <h2 class="grp-collapse-handler">{% trans "Person" %}</h2>
                 {{ form.user_id }}
-                <div class="grp-row grp-cells-1{% if form.prefix.errors %} errors{% endif %}">
+                <div class="grp-row grp-cells-1{% if form.prefix.errors %} grp-errors{% endif %}">
                     <div class="l-2c-fluid l-d-4">
                         <div class="c-1">
                             <label{% if form.prefix.field.required %} class="required"{% endif %}>{{ form.prefix.label }}</label>
@@ -109,7 +109,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="grp-row grp-cells-1{% if form.first_name.errors %} errors{% endif %}">
+                <div class="grp-row grp-cells-1{% if form.first_name.errors %} grp-errors{% endif %}">
                     <div class="l-2c-fluid l-d-4">
                         <div class="c-1">
                             <label{% if form.first_name.field.required %} class="required"{% endif %}>{{ form.first_name.label }}</label>
@@ -124,7 +124,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="grp-row grp-cells-1{% if form.last_name.errors %} errors{% endif %}">
+                <div class="grp-row grp-cells-1{% if form.last_name.errors %} grp-errors{% endif %}">
                     <div class="l-2c-fluid l-d-4">
                         <div class="c-1">
                             <label{% if form.last_name.field.required %} class="required"{% endif %}>{{ form.last_name.label }}</label>
@@ -139,7 +139,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="grp-row grp-cells-1{% if form.salutation.errors %} errors{% endif %}">
+                <div class="grp-row grp-cells-1{% if form.salutation.errors %} grp-errors{% endif %}">
                     <div class="l-2c-fluid l-d-4">
                         <div class="c-1">
                             <label{% if form.salutation.field.required %} class="required"{% endif %}>{{ form.salutation.label }}</label>
@@ -154,7 +154,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="grp-row grp-cells-1{% if form.nickname.errors %} errors{% endif %}">
+                <div class="grp-row grp-cells-1{% if form.nickname.errors %} grp-errors{% endif %}">
                     <div class="l-2c-fluid l-d-4">
                         <div class="c-1">
                             <label{% if form.nickname.field.required %} class="required"{% endif %}>{{ form.nickname.label }}</label>
@@ -169,7 +169,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="grp-row grp-cells-1{% if form.birthname.errors %} errors{% endif %}">
+                <div class="grp-row grp-cells-1{% if form.birthname.errors %} grp-errors{% endif %}">
                     <div class="l-2c-fluid l-d-4">
                         <div class="c-1">
                             <label{% if form.birthname.field.required %} class="required"{% endif %}>{{ form.birthname.label }}</label>
@@ -184,7 +184,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="grp-row grp-cells-1{% if form.individual_type.errors %} errors{% endif %}">
+                <div class="grp-row grp-cells-1{% if form.individual_type.errors %} grp-errors{% endif %}">
                     <div class="l-2c-fluid l-d-4">
                         <div class="c-1">
                             <label{% if form.individual_type.field.required %} class="required"{% endif %}>{{ form.individual_type.label }}</label>
@@ -202,7 +202,7 @@
             </fieldset>
             <fieldset class="grp-module grp-aligned grp-collapse grp-closed">
                 <h2 class="grp-collapse-handler">{% trans "User Account" %}</h2>
-                <div class="grp-row grp-cells-1{% if form.username.errors %} errors{% endif %}">
+                <div class="grp-row grp-cells-1{% if form.username.errors %} grp-errors{% endif %}">
                     <div class="l-2c-fluid l-d-4">
                         <div class="c-1">
                             <label{% if form.username.field.required %} class="required"{% endif %}>{{ form.username.label }}</label>
@@ -217,7 +217,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="grp-row grp-cells-1{% if form.email.errors %} errors{% endif %}">
+                <div class="grp-row grp-cells-1{% if form.email.errors %} grp-errors{% endif %}">
                     <div class="l-2c-fluid l-d-4">
                         <div class="c-1">
                             <label{% if form.email.field.required %} class="required"{% endif %}>{{ form.email.label }}</label>
@@ -233,7 +233,7 @@
                     </div>
                 </div>
                 {% if change %}
-                    <div class="grp-row grp-cells-1{% if form.old_password.errors %} errors{% endif %}">
+                    <div class="grp-row grp-cells-1{% if form.old_password.errors %} grp-errors{% endif %}">
                         <div class="l-2c-fluid l-d-4">
                             <div class="c-1">
                                 <label{% if form.old_password.field.required %} class="required"{% endif %}>{{ form.old_password.label }}</label>
@@ -249,7 +249,7 @@
                         </div>
                     </div>
                 {% endif %}
-                <div class="grp-row grp-cells-1{% if form.new_password.errors %} errors{% endif %}">
+                <div class="grp-row grp-cells-1{% if form.new_password.errors %} grp-errors{% endif %}">
                     <div class="l-2c-fluid l-d-4">
                         <div class="c-1">
                             <label{% if form.new_password.field.required %} class="required"{% endif %}>{{ form.new_password.label }}</label>
@@ -264,7 +264,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="grp-row grp-cells-1{% if form.new_password_confirm.errors %} errors{% endif %}">
+                <div class="grp-row grp-cells-1{% if form.new_password_confirm.errors %} grp-errors{% endif %}">
                     <div class="l-2c-fluid l-d-4">
                         <div class="c-1">
                             <label{% if form.new_password_confirm.field.required %} class="required"{% endif %}>{{ form.new_password_confirm.label }}</label>
@@ -317,7 +317,7 @@
 
             <fieldset class="grp-module grp-aligned grp-collapse grp-closed">
                 <h2 class="grp-collapse-handler">{% trans "Personal Information" %}</h2>
-                <div class="grp-row grp-cells-1{% if form.gender.errors %} errors{% endif %}">
+                <div class="grp-row grp-cells-1{% if form.gender.errors %} grp-errors{% endif %}">
                     <div class="l-2c-fluid l-d-4">
                         <div class="c-1">
                             <label{% if form.gender.field.required %} class="required"{% endif %}>{{ form.gender.label }}</label>
@@ -332,7 +332,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="grp-row grp-cells-1{% if form.birthday_dd.errors or form.birthday_mm.errors or form.birthday_yyyy.errors %} errors{% endif %}">
+                <div class="grp-row grp-cells-1{% if form.birthday_dd.errors or form.birthday_mm.errors or form.birthday_yyyy.errors %} grp-errors{% endif %}">
                     <div class="l-2c-fluid l-d-4">
                         <div class="c-1">
                             <label{% if form.birthday_dd.field.required or form.birthday_mm.field.required or form.birthday_yyyy.field.required %} class="required"{% endif %}>{% trans "Birthday" %}</label>
@@ -359,7 +359,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="grp-row grp-cells-1{% if form.nationality.errors %} errors{% endif %}">
+                <div class="grp-row grp-cells-1{% if form.nationality.errors %} grp-errors{% endif %}">
                     <div class="l-2c-fluid l-d-4">
                         <div class="c-1">
                             <label{% if form.nationality.field.required %} class="required"{% endif %}>{{ form.nationality.label }}</label>
@@ -374,7 +374,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="grp-row grp-cells-1{% if form.degree.errors %} errors{% endif %}">
+                <div class="grp-row grp-cells-1{% if form.degree.errors %} grp-errors{% endif %}">
                     <div class="l-2c-fluid l-d-4">
                         <div class="c-1">
                             <label{% if form.degree.field.required %} class="required"{% endif %}>{{ form.degree.label }}</label>
@@ -389,7 +389,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="grp-row grp-cells-1{% if form.occupation.errors %} errors{% endif %}">
+                <div class="grp-row grp-cells-1{% if form.occupation.errors %} grp-errors{% endif %}">
                     <div class="l-2c-fluid l-d-4">
                         <div class="c-1">
                             <label{% if form.occupation.field.required %} class="required"{% endif %}>{{ form.occupation.label }}</label>
@@ -404,7 +404,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="grp-row grp-cells-1{% if form.interests.errors %} errors{% endif %}">
+                <div class="grp-row grp-cells-1{% if form.interests.errors %} grp-errors{% endif %}">
                     <div class="l-2c-fluid l-d-4">
                         <div class="c-1">
                             <label{% if form.interests.field.required %} class="required"{% endif %}>{{ form.interests.label }}</label>
@@ -419,7 +419,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="grp-row grp-cells-1{% if form.spoken_languages.errors %} errors{% endif %}">
+                <div class="grp-row grp-cells-1{% if form.spoken_languages.errors %} grp-errors{% endif %}">
                     <div class="l-2c-fluid l-d-4">
                         <div class="c-1">
                             <label{% if form.spoken_languages.field.required %} class="required"{% endif %}>{{ form.spoken_languages.label }}</label>
@@ -439,7 +439,7 @@
                 </script>
                 <fieldset class="grp-module grp-aligned nested">
                     <h2>{% trans "Preferences" %}</h2>
-                    <div class="grp-row grp-cells-1{% if form.preferred_language.errors %} errors{% endif %}">
+                    <div class="grp-row grp-cells-1{% if form.preferred_language.errors %} grp-errors{% endif %}">
                         <div class="l-2c-fluid l-d-4">
                             <div class="c-1">
                                 <label{% if form.preferred_language.field.required %} class="required"{% endif %}>{{ form.preferred_language.label }}</label>
@@ -454,7 +454,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="grp-row grp-cells-1{% if form.timezone.errors %} errors{% endif %}">
+                    <div class="grp-row grp-cells-1{% if form.timezone.errors %} grp-errors{% endif %}">
                         <div class="l-2c-fluid l-d-4">
                             <div class="c-1">
                                 <label{% if form.timezone.field.required %} class="required"{% endif %}>{{ form.timezone.label }}</label>

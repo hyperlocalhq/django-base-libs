@@ -6,7 +6,7 @@
     {% if form.description_en %}
         <fieldset class="grp-module grp-aligned nested multilingual multilingual-set-15 multilingual-language-en">
             <h2 class="grp-collapse-handler">{% trans "Description" %} (English)</h2>
-            <div class="grp-row grp-cells-1{% if form.description_en.errors %} errors{% endif %}">
+            <div class="grp-row grp-cells-1{% if form.description_en.errors %} grp-errors{% endif %}">
                 <div class="l-2c-fluid l-d-4">
                     <div class="c-1">
                         <label{% if form.description_en.field.required %} class="required"{% endif %}>{{ form.description_en.label }}</label>
@@ -28,7 +28,7 @@
     {% if form.description_de %}
         <fieldset class="grp-module grp-aligned nested multilingual multilingual-set-15 multilingual-language-de">
             <h2 class="grp-collapse-handler">{% trans "Description" %} (Deutsch)</h2>
-            <div class="grp-row grp-cells-1{% if form.description_de.errors %} errors{% endif %}">
+            <div class="grp-row grp-cells-1{% if form.description_de.errors %} grp-errors{% endif %}">
                 <div class="l-2c-fluid l-d-4">
                     <div class="c-1">
                         <label{% if form.description_de.field.required %} class="required"{% endif %}>{{ form.description_de.label }}</label>
@@ -48,7 +48,7 @@
         </fieldset>
     {% endif %}
     
-    <div class="grp-row grp-cells-1{% if form.image.errors %} errors{% endif %}">
+    <div class="grp-row grp-cells-1{% if form.image.errors %} grp-errors{% endif %}">
         <div class="l-2c-fluid l-d-4">
             <div class="c-1">
                 <label{% if form.image.field.required %} class="required"{% endif %}>{{ form.image.label }}</label>

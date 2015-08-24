@@ -14,7 +14,7 @@
     {% if inline_admin_form.non_field_errors %}{{ inline_admin_form.non_field_errors }}{% endif %}
 
     <fieldset class="grp-module grp-aligned">
-        <div class="grp-row grp-cells-1{% if event_time_form.label.errors %} errors{% endif %}">
+        <div class="grp-row grp-cells-1{% if event_time_form.label.errors %} grp-errors{% endif %}">
             <div class="l-2c-fluid l-d-4">
                 <div class="c-1">
                     <label{% if event_time_form.label.field.required %} class="required"{% endif %} for="{{ event_time_form.label.auto_id }}">{{ event_time_form.label.label }}</label>
@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-        <div class="is_all_day grp-row grp-cells-1{% if event_time_form.is_all_day.errors %} errors{% endif %}">
+        <div class="is_all_day grp-row grp-cells-1{% if event_time_form.is_all_day.errors %} grp-errors{% endif %}">
             <div class="l-2c-fluid l-d-4">
                 <div class="c-1">
                     &nbsp;
@@ -43,7 +43,7 @@
                 </div>
             </div>
         </div>
-        <div class="availability grp-row grp-cells-1{% if event_time_form.start_mm.errors or event_time_form.start_dd.errors or event_time_form.start_yyyy.errors %} errors{% endif %}">
+        <div class="availability grp-row grp-cells-1{% if event_time_form.start_mm.errors or event_time_form.start_dd.errors or event_time_form.start_yyyy.errors %} grp-errors{% endif %}">
             <div class="l-2c-fluid l-d-4">
                 <div class="c-1">
                     <label{% if event_time_form.label.field.required %} class="required"{% endif %} for="{{ event_time_form.start_yyyy.auto_id }}">{% trans "Start" %}</label>
@@ -71,7 +71,7 @@
             </div>
         </div>
 
-        <div class="availability grp-row grp-cells-1{% if event_time_form.end_mm.errors or event_time_form.end_dd.errors or event_time_form.end_yyyy.errors %} errors{% endif %}">
+        <div class="availability grp-row grp-cells-1{% if event_time_form.end_mm.errors or event_time_form.end_dd.errors or event_time_form.end_yyyy.errors %} grp-errors{% endif %}">
             <div class="l-2c-fluid l-d-4">
                 <div class="c-1">
                     <label{% if event_time_form.label.field.required %} class="required"{% endif %} for="{{ event_time_form.end_yyyy.auto_id }}">{% trans "End" %}</label>

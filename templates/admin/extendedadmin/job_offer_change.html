@@ -6,7 +6,7 @@
     <fieldset class="grp-module grp-aligned grp-collapse grp-open">
         <h2>{% trans "Job Offer" %}</h2>
         {{ form.user_id }}
-        <div class="grp-row grp-cells-1{% if form.position.errors %} errors{% endif %}">
+        <div class="grp-row grp-cells-1{% if form.position.errors %} grp-errors{% endif %}">
             <div class="l-2c-fluid l-d-4">
                 <div class="c-1">
                     <label{% if form.position.field.required %} class="required"{% endif %}>{{ form.position.label }}</label>
@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <div class="grp-row grp-cells-1{% if form.job_type.errors %} errors{% endif %}">
+        <div class="grp-row grp-cells-1{% if form.job_type.errors %} grp-errors{% endif %}">
             <div class="l-2c-fluid l-d-4">
                 <div class="c-1">
                     <label{% if form.job_type.field.required %} class="required"{% endif %}>{{ form.job_type.label }}</label>
@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <div class="grp-row grp-cells-1{% if form.qualifications.errors %} errors{% endif %}">
+        <div class="grp-row grp-cells-1{% if form.qualifications.errors %} grp-errors{% endif %}">
             <div class="l-2c-fluid l-d-4">
                 <div class="c-1">
                     <label{% if form.qualifications.field.required %} class="required"{% endif %}>{{ form.qualifications.label }}</label>
@@ -55,7 +55,7 @@
             addEvent(window, "load", function(e) { SelectFilter.init("id_qualifications", "{% trans "Qualifications" %}", 0, "{{ STATIC_URL }}admin/"); });
         </script>
 
-        <div class="grp-row grp-cells-1{% if form.job_sectors.errors %} errors{% endif %}">
+        <div class="grp-row grp-cells-1{% if form.job_sectors.errors %} grp-errors{% endif %}">
             <div class="l-2c-fluid l-d-4">
                 <div class="c-1">
                     <label{% if form.job_sectors.field.required %} class="required"{% endif %}>{{ form.job_sectors.label }}</label>
@@ -100,7 +100,7 @@
 {% block fieldset_additional_info %}
     <fieldset class="grp-module grp-aligned grp-collapse grp-closed">
         <h2 class="grp-collapse-handler">{% trans "Additional Info" %}</h2>
-        <div class="grp-row grp-cells-1{% if form.additional_info.errors %} errors{% endif %}">
+        <div class="grp-row grp-cells-1{% if form.additional_info.errors %} grp-errors{% endif %}">
             <div class="l-2c-fluid l-d-4">
                 <div class="c-1">
                     <label{% if form.additional_info.field.required %} class="required"{% endif %}>{{ form.additional_info.label }}</label>

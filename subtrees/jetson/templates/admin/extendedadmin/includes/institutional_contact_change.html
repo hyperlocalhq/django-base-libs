@@ -16,7 +16,7 @@
     </ul>
     {% if contact_form.form.non_field_errors %}{{ contact_form.form.non_field_errors }}{% endif %}
     <fieldset class="grp-module grp-aligned">
-        <div class="grp-row grp-cells-1{% if contact_form.location_type.errors %} errors{% endif %}">
+        <div class="grp-row grp-cells-1{% if contact_form.location_type.errors %} grp-errors{% endif %}">
             <div class="l-2c-fluid l-d-4">
                 <div class="c-1">
                     <label{% if contact_form.location_type.field.required %} class="required"{% endif %} for="id_institutionalcontact_set-{{ prefix }}-location_type">{{ contact_form.location_type.label }}</label>
@@ -31,7 +31,7 @@
                 </div>
             </div>
         </div>
-        <div class="grp-row grp-cells-1{% if contact_form.is_primary.errors %} errors{% endif %}">
+        <div class="grp-row grp-cells-1{% if contact_form.is_primary.errors %} grp-errors{% endif %}">
             <div class="l-2c-fluid l-d-4">
                 <div class="c-1">
                     &nbsp;
@@ -45,7 +45,7 @@
                 </div>
             </div>
         </div>
-        <div class="grp-row grp-cells-1{% if contact_form.is_billing_address.errors %} errors{% endif %}">
+        <div class="grp-row grp-cells-1{% if contact_form.is_billing_address.errors %} grp-errors{% endif %}">
             <div class="l-2c-fluid l-d-4">
                 <div class="c-1">
                     &nbsp;
@@ -59,7 +59,7 @@
                 </div>
             </div>
         </div>
-        <div class="grp-row grp-cells-1{% if contact_form.is_shipping_address.errors %} errors{% endif %}">
+        <div class="grp-row grp-cells-1{% if contact_form.is_shipping_address.errors %} grp-errors{% endif %}">
             <div class="l-2c-fluid l-d-4">
                 <div class="c-1">
                     &nbsp;
@@ -73,7 +73,7 @@
                 </div>
             </div>
         </div>
-        <div class="grp-row grp-cells-1{% if contact_form.location_title.errors %} errors{% endif %}">
+        <div class="grp-row grp-cells-1{% if contact_form.location_title.errors %} grp-errors{% endif %}">
             <div class="l-2c-fluid l-d-4">
                 <div class="c-1">
                     <label{% if contact_form.location_title.field.required %} class="required"{% endif %} for="id_institutionalcontact_set-{{ prefix }}-location_title">{{ contact_form.location_title.label }}</label>
@@ -98,7 +98,7 @@
 
     <fieldset class="grp-module grp-aligned availability collapse closed">
         <h4 class="grp-collapse-handler">{% trans "Availability" %}</h4>
-        <div class="grp-row grp-cells-1{% if contact_form.is_temporary.errors %} errors{% endif %}">
+        <div class="grp-row grp-cells-1{% if contact_form.is_temporary.errors %} grp-errors{% endif %}">
             <div class="l-2c-fluid l-d-4">
                 <div class="c-1">
                     &nbsp;
@@ -112,7 +112,7 @@
                 </div>
             </div>
         </div>
-        <div class="grp-row grp-cells-1{% if contact_form.validity_start_dd.errors or contact_form.validity_start_mm.errors or contact_form.validity_start_yyyy.errors %} errors{% endif %}">
+        <div class="grp-row grp-cells-1{% if contact_form.validity_start_dd.errors or contact_form.validity_start_mm.errors or contact_form.validity_start_yyyy.errors %} grp-errors{% endif %}">
             <div class="l-2c-fluid l-d-4">
                 <div class="c-1">
                     <label{% if contact_form.validity_start_dd.field.required or contact_form.validity_start_mm.field.required or contact_form.validity_start_yyyy.field.required %} class="required"{% endif %}>{% trans "From" %}</label>
@@ -139,7 +139,7 @@
                 </div>
             </div>
         </div>
-        <div class="grp-row grp-cells-1{% if contact_form.validity_end_dd.errors or contact_form.validity_end_mm.errors or contact_form.validity_end_yyyy.errors %} errors{% endif %}">
+        <div class="grp-row grp-cells-1{% if contact_form.validity_end_dd.errors or contact_form.validity_end_mm.errors or contact_form.validity_end_yyyy.errors %} grp-errors{% endif %}">
             <div class="l-2c-fluid l-d-4">
                 <div class="c-1">
                     <label{% if contact_form.validity_end_dd.field.required or contact_form.validity_end_mm.field.required or contact_form.validity_end_yyyy.field.required %} class="required"{% endif %}>{% trans "Till" %}</label>

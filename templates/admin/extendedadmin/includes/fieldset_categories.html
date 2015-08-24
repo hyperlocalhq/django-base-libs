@@ -8,7 +8,7 @@
         {% endif %}
     </h2>
     {% if form.creative_sectors %}
-        <div class="grp-row grp-cells-1{% if form.creative_sectors.errors %} errors{% endif %}">
+        <div class="grp-row grp-cells-1{% if form.creative_sectors.errors %} grp-errors{% endif %}">
             <div class="l-2c-fluid l-d-4">
                 <div class="c-1">
                     <label{% if form.creative_sectors.field.required %} class="required"{% endif %}>{{ form.creative_sectors.label }}</label>
@@ -29,7 +29,7 @@
         </script>
     {% endif %}
     {% if form.context_categories %}
-        <div class="grp-row grp-cells-1{% if form.context_categories.errors %} errors{% endif %}">
+        <div class="grp-row grp-cells-1{% if form.context_categories.errors %} grp-errors{% endif %}">
             <div class="l-2c-fluid l-d-4">
                 <div class="c-1">
                     <label{% if form.context_categories.field.required %} class="required"{% endif %}>{{ form.context_categories.label }}</label>
@@ -50,7 +50,7 @@
         </script>
     {% endif %}
     {% if form.tags %}
-        <div class="grp-row grp-cells-1{% if form.tags.errors %} errors{% endif %}">
+        <div class="grp-row grp-cells-1{% if form.tags.errors %} grp-errors{% endif %}">
             <div class="l-2c-fluid l-d-4">
                 <div class="c-1">
                     <label{% if form.tags.field.required %} class="required"{% endif %}>{{ form.tags.label }}</label>

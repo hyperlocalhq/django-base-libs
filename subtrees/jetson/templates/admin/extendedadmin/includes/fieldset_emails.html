@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="grp-module grp-tbody">
-            <div class="grp-tr{% if contact_form.email0_type.errors or contact_form.email0_address.errors or contact_form.is_email0_default.errors or contact_form.is_email0_on_hold.errors %} errors{% endif %}">
+            <div class="grp-tr{% if contact_form.email0_type.errors or contact_form.email0_address.errors or contact_form.is_email0_default.errors or contact_form.is_email0_on_hold.errors %} grp-errors{% endif %}">
                 <div class="grp-td">
                     {{ contact_form.email0_type }}
                     {{ contact_form.email0_type.errors }}
@@ -38,7 +38,7 @@
                     {{ contact_form.is_email0_on_hold.errors }}
                 </div>
             </div>
-            <div class="grp-tr{% if contact_form.email1_type.errors or contact_form.email1_address.errors or contact_form.is_email1_default.errors or contact_form.is_email1_on_hold.errors %} errors{% endif %}">
+            <div class="grp-tr{% if contact_form.email1_type.errors or contact_form.email1_address.errors or contact_form.is_email1_default.errors or contact_form.is_email1_on_hold.errors %} grp-errors{% endif %}">
                 <div class="grp-td">
                     {{ contact_form.email1_type }}
                     {{ contact_form.email1_type.errors }}
@@ -56,7 +56,7 @@
                     {{ contact_form.is_email1_on_hold.errors }}
                 </div>
             </div>
-            <div class="grp-tr{% if contact_form.email2_type.errors or contact_form.email2_address.errors or contact_form.is_email2_default.errors or contact_form.is_email2_on_hold.errors %} errors{% endif %}">
+            <div class="grp-tr{% if contact_form.email2_type.errors or contact_form.email2_address.errors or contact_form.is_email2_default.errors or contact_form.is_email2_on_hold.errors %} grp-errors{% endif %}">
                 <div class="grp-td">
                     {{ contact_form.email2_type }}
                     {{ contact_form.email2_type.errors }}
