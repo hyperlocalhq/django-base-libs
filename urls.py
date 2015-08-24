@@ -750,7 +750,10 @@ urlpatterns += i18n_patterns('',
     url(r'^password_reset/done/$', 'django.contrib.auth.views.password_reset_done', {'template_name': 'accounts/password_reset_done.html'}, name="password_reset_done"),
     url(r'^password_reset/complete/$', 'django.contrib.auth.views.password_reset_complete', {'template_name': 'accounts/password_reset_complete.html'}),
     url(r'^password_change/$', 'django.contrib.auth.views.password_change', {'template_name': 'accounts/password_change_form.html'}),
-    url(r'^password_change/done/$', 'django.contrib.auth.views.password_change_done', {'template_name': 'accounts/password_change_done.html'}),
+    url(r'^password_change/done/$',
+        'django.contrib.auth.views.password_change_done',
+        {'template_name': 'accounts/password_change_done.html'},
+        name='password_change_done'),
     url(r'^facebook/', include('ccb.apps.facebook_app.urls')),
 
     # articles
