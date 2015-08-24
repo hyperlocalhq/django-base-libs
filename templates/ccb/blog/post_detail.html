@@ -30,7 +30,7 @@
 <div class="entry-details clearfix">
     <div class="headline">
         <div class="blog-info">
-            <span class="date">{{ post.published_from|datefmt:"long" }}</span>
+            <span class="date">{{ post.published_from }}</span>
             {% comment %}
             | {% blocktrans with post.author as author %}by <b>{{ author }}</b>{% endblocktrans %}
             {% endcomment %}
@@ -139,5 +139,3 @@
         {% endif %}
     </div>
 {% endif %}
-
-
