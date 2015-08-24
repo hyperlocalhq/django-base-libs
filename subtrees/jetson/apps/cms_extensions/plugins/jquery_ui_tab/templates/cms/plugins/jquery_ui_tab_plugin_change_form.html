@@ -1,11 +1,11 @@
 {% extends "admin/cms/page/plugin_change_form.html" %}
 
 <!-- LOADING -->
-{% load i18n adminmedia %}
+{% load i18n admin_static %}
 
 {% block javascripts %}
     {{ block.super }}
-	<script type="text/javascript" src="{% admin_media_prefix %}tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+	<script type="text/javascript" src="{% static 'tinymce/jscripts/tiny_mce/tiny_mce.js' %}"></script>
 
     <script type="text/javascript" src="{{ jetson_media_url }}tinymce_setup/tinymce_setup_base.js"></script>
     {% block tinymce_setup %}
