@@ -231,12 +231,6 @@ class EventAdmin(ExtendedModelAdmin):
     form = EventForm
     inlines = [EventTime_Inline]
     change_form_template = "extendedadmin/event_change.html"
-
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-        )
-
     save_on_top = True
     list_display = ['title', 'get_venue_display', 'get_start_date_string', 'get_end_date_string', 'event_type', 'status', 'is_featured', 'importance', 'creation_date']
     list_editable = ['status', 'is_featured', 'importance']

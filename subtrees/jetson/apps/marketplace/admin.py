@@ -208,10 +208,6 @@ class JobOfferForm(forms.ModelForm):
 class JobOfferAdmin(ExtendedModelAdmin):
     form = JobOfferForm
     change_form_template = "extendedadmin/job_offer_change.html"
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-            )
     save_on_top = True
     list_display = ['position', 'job_type', 'status', 'creation_date']
     list_filter = ('creation_date', 'job_type', 'status')
