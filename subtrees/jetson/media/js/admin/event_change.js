@@ -338,7 +338,7 @@
         get_contact_details: function(sValue) {
             if (sValue) {
                 $.get(
-                    "/admin/institutions/institution/" + sValue + "/json/",
+                    '/' + settings.lang + '/admin/institutions/institution/' + sValue + '/json/',
                     ContactPrepopulationManager.prepopulate,
                     "json"
                 );

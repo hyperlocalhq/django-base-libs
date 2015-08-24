@@ -212,7 +212,7 @@ var ContactPrepopulationManager = {
     get_contact_details: function(iIndex, sValue) {
         if (sValue) {
             $j.get(
-                "/admin/institutions/institution/" + sValue + "/json/",
+                '/' + settings.lang + '/admin/institutions/institution/' + sValue + '/json/',
                 new Function("sData", "ContactPrepopulationManager.prepopulate("+iIndex+", sData)")
             );
         }
