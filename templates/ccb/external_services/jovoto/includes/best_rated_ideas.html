@@ -37,7 +37,7 @@ Usage in any template:
               	{% if idea.rating %}
 		        	{% with idea.rating as rating %}
 		        	{% with idea.ext_id as ext_id %}
-		        		<p>{% include "external_services/jovoto/profile/starrating.html" %}</p></br>
+		        		<p>{% include "external_services/jovoto/profile/starrating.html" %}</p><br/>
 		        	{% endwith %}
 		        	{% endwith %}
 		        {% endif %}
