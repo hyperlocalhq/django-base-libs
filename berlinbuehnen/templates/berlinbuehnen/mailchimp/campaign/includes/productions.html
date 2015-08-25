@@ -29,14 +29,14 @@
                                                         <td width="322" colspan="2"><a href="{{ production.get_url }}" style="color:#000; font-size:22px; font-weight:600; text-decoration:none; display:block; line-height:100%; margin-top:-2px;">{{ event.start_date|date:"D, j.n." }}</a></td>
                                                     </tr>
                                                     <tr>
-                                                        <td width="322" height="10" colspan="2" style="font-size:1px;"><img src="http://www.berlin-buehnen.de/media/space.gif" width="322" height="10"/></td>
+                                                        <td width="322" height="10" colspan="2" style="font-size:1px;">&nbsp;</td>
                                                     </tr>
                                                     {% with locations=event.ev_or_prod_play_locations stages=event.ev_or_prod_play_stages %}
                                                         <tr>
                                                             <td width="322" colspan="2"><a href="{{ production.get_url }}" style="color:#000; font-size:12px; font-weight:300; text-transform:uppercase; text-decoration:none; display:block; line-height:120%;">{% if event.location_title %}{{ event.location_title }}{% elif production.location_title %}{{ production.location_title }}{% elif production.in_program_of.count %}{% for location in production.in_program_of.all %}{{ location.title }}{% if not forloop.last %}, {% endif %}{% endfor %}{% elif locations.count %}{% for location in locations %}{{ location.title }}{% if not forloop.last %}, {% endif %}{% endfor %}{% elif stages.count %}{% for location in stages %}{{ location.title }}{% if not forloop.last %}, {% endif %}{% endfor %}{% endif %}</a></td>
                                                         </tr>
                                                         <tr>
-                                                            <td width="322" height="8" colspan="2" style="font-size:1px;"><img src="http://www.berlin-buehnen.de/media/space.gif" width="322" height="8"/></td>
+                                                            <td width="322" height="8" colspan="2" style="font-size:1px;">&nbsp;</td>
                                                         </tr>
                                                     {% endwith %}
                                                     {% if production.ensembles %}
@@ -44,14 +44,14 @@
                                                             <td width="322" colspan="2"><a href="{{ production.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;">{{ production.ensembles }}</a></td>
                                                         </tr>
                                                         <tr>
-                                                            <td width="322" height="9" colspan="2" style="font-size:1px;"><img src="http://www.berlin-buehnen.de/media/space.gif" width="322" height="9"/></td>
+                                                            <td width="322" height="9" colspan="2" style="font-size:1px;">&nbsp;</td>
                                                         </tr>
                                                     {% endif %}
                                                     <tr>
                                                         <td width="322" colspan="2"><a href="{{ production.get_url }}" style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:110%;">{% if production.prefix %}{{ production.prefix }} {% endif %}{{ production.title }}</a></td>
                                                     </tr>
                                                     <tr>
-                                                        <td width="322" height="4" colspan="2" style="font-size:1px;"><img src="http://www.berlin-buehnen.de/media/space.gif" width="322" height="4"/></td>
+                                                        <td width="322" height="4" colspan="2" style="font-size:1px;">&nbsp;</td>
                                                     </tr>
                                                     {% if production.subtitle %}
                                                         <tr>
@@ -94,7 +94,7 @@
             <tr>
                 <td style="padding:0 24px;"><table width="552" cellpadding="0" cellspacing="0" border="0">
                     <tr>
-                        <td width="552" height="8" style="font-size:1px;"><img src="http://www.berlin-buehnen.de/media/space.gif" width="552" height="8"/></td>
+                        <td width="552" height="8" style="font-size:1px;">&nbsp;</td>
                     </tr>
                     <tr>
                         <td width="552" height="32" style="background:#000;"><table width="552" height="32">
