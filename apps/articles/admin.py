@@ -68,11 +68,24 @@ class ArticleOptions(ExtendedModelAdmin):
     fieldsets += [(None, {'fields': ('slug', 'sites', 'is_featured',), }), ]
     fieldsets += [(_('Import'), {'fields': ('content_provider', 'external_url', 'is_excerpt')}), ]
     fieldsets += PublishingMixinAdminOptions.fieldsets
-    fieldsets += [(_('Additional Content'), {
-        'classes': ("collapse closed",),
-        'fields': ['image', (_("Description"), {'fields': ['image_title', 'image_description']})],
-    }),
-                  ]
+    fieldsets += [(
+        _('Additional Content'),
+        {
+            'classes': ("collapse closed",),
+            'fields': [
+                'image',
+                (
+                    _("Description"),
+                    {
+                        'fields': [
+                            'image_title',
+                            'image_description'
+                        ]
+                    }
+                )
+            ],
+        }
+    )]
 
     prepopulated_fields = {"slug": ("title",), }
 

@@ -39,11 +39,13 @@ def json_set_favorite(request, content_type_id, object_id):
         if not is_created:
             favorite.delete()
         result = favorite.__dict__
-        result = dict([
-                          (item[0], item[1])
-                          for item in result.items()
-                          if not item[0].startswith("_")
-                          ])
+        result = dict(
+            [
+                (item[0], item[1])
+                for item in result.items()
+                if not item[0].startswith("_")
+            ]
+        )
         result['action'] = is_created and "added" or "removed"
         result['count'] = get_favorites_count(instance)
         json_data = json.dumps(
