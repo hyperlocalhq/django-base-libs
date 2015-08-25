@@ -14,23 +14,23 @@
 
 {% block content %}
     <div class="faq">
-        <di v class="list-item collapsed">
-            <div>
-                <div class="visibility_toggler">
-                    <a class="txt no-img" href="#">
-                        <span class="block block left">01.</span>
-                        <span class="quest">Wo muss ich den Antrag auf Befreiung von der Umsatzsteuer stellen?</span>
-                    </a>
-                    <a href="#"><span>Expand</span></a>
-                </div>
-                <div class="txt hidable">
-                    Über die Befreiung von der Umsatzsteuer entscheidet das jeweils zuständige Finanzamt, dort ist auch
-                    der Antrag einzureichen. Für diesen Antrag beim Finanzamt werden von der Kulturverwaltung
-                    Bescheinigungen ausgestellt. Das für Sie zuständige Finanzamt finden Sie unter:
-                    <a href="//www.berlin.de/sen/finanzen/steuern/finanzaemter/">
-                        www.berlin.de/sen/finanzen/steuern/finanzaemter/</a>
-                </div>
+    <div class="list-item collapsed">
+        <div>
+            <div class="visibility_toggler">
+                <a class="txt no-img" href="#">
+                    <span class="block block left">01.</span>
+                    <span class="quest">Wo muss ich den Antrag auf Befreiung von der Umsatzsteuer stellen?</span>
+                </a>
+                <a href="#"><span>Expand</span></a>
             </div>
+            <div class="txt hidable">
+                Über die Befreiung von der Umsatzsteuer entscheidet das jeweils zuständige Finanzamt, dort ist auch
+                der Antrag einzureichen. Für diesen Antrag beim Finanzamt werden von der Kulturverwaltung
+                Bescheinigungen ausgestellt. Das für Sie zuständige Finanzamt finden Sie unter:
+                <a href="//www.berlin.de/sen/finanzen/steuern/finanzaemter/">
+                    www.berlin.de/sen/finanzen/steuern/finanzaemter/</a>
+            </div>
+        </div>
     </div>
     <div class="list-item collapsed">
         <div>
@@ -174,14 +174,13 @@
             </div>
         </div>
     </div>
-    </div>
 {% endblock %}
 
 {% block breadcrumbs %}
     <div class="breadcrumbs">
         <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span><a
-        href="/creative-sector/games-and-interactive/faq/general-questions/">{% trans "Overview" %}</a>
+        <span class="b-sep"><span>::</span></span>
+        <a href="/creative-sector/games-and-interactive/faq/general-questions/">{% trans "Overview" %}</a>
         <span class="b-sep"><span>::</span></span><span>{{ flatpage.get_title|escape }}</span>
     </div>
 {% endblock %}
