@@ -16,7 +16,7 @@
 	        <input type="hidden" name="goto_next" value="{% if goto_next %}{{ goto_next }}{% else %}/{% endif %}" />
    	        <input id="id_delete" class="primaryAction" type="submit" name="delete" value="{% filter upper %}{% trans 'Delete' %}{% endfilter %}" />
    	        <input id="id_cancel" class="secondaryAction" type="submit" name="cancel" value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}" />
-	    </p>
+	    </div>
 	</form>
 {% endblock %}
 
