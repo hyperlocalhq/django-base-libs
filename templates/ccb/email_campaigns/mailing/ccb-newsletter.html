@@ -28,8 +28,8 @@
            style="width:532px;color: #d6d6d6; background-color: #fff; margin: 0 auto; font-family:Arial,Helvetica,sans-serif;">
         <tr>
             <td colspan="2" class="headline"
-                style="padding: 0 10px;vertical-align: top;border-bottom: 1px solid #C7CFD5;padding-top: 18px;">
-                <h2 style="margin: 0;padding: 0;padding-bottom: 7px; color: #FA9C19;font-weight: bold;text-transform: uppercase;font-size: 30px;line-height: 0.96em;">
+                style="vertical-align: top;border-bottom: 1px solid #C7CFD5;padding: 18px 10px 0;">
+                <h2 style="margin: 0;padding: 0 0 7px;color: #FA9C19;font-weight: bold;text-transform: uppercase;font-size: 30px;line-height: 0.96em;">
                     Creative City Berlin</h2>
 
                 <h2 style="margin: 0;padding: 0;padding-bottom: 7px; color: #6994A6;font-weight: bold;text-transform: uppercase;font-size: 30px;line-height: 0.96em;padding-bottom: 55px;">{{ mailing.subject }} &ndash;
@@ -41,7 +41,7 @@
         <table cellpadding="28" cellspacing="0" style="width:532px; background-color: #fff; margin: 0 auto;">
             <tr>
                 <td colspan="2" class="headline"
-                    style="padding: 0 10px;vertical-align: top;border-bottom: 1px solid #C7CFD5;padding-top: 18px;">
+                    style="vertical-align: top;border-bottom: 1px solid #C7CFD5;padding: 18px 10px 0;">
                     {{ mailing.body_html|mailhtml }}
                 </td>
             </tr>
@@ -51,17 +51,17 @@
         <table cellpadding="28" cellspacing="0" style="width:532px; background-color: #fff; margin: 0 auto;">
             <tr>
                 <td class="img_row"
-                    style="margin: 0;padding: 0;padding-left: 10px; padding-right: 10px; height: 100%; width: 164px;vertical-align: top;border-bottom: 1px solid #C7CFD5;padding-top: 18px;font-family:Arial,Helvetica,sans-serif;">
+                    style="margin: 0;height: 100%; width: 164px;vertical-align: top;border-bottom: 1px solid #C7CFD5;padding: 18px 10px 0;font-family:Arial,Helvetica,sans-serif;">
                     {% if block.image %}{% if block.link %}<a href="{{ block.link }}">{% endif %}<img
                         style="width: 154px; margin-bottom: 18px; border: 0;"
                         src="{{ website_url }}{{ UPLOADS_URL|slice:'1:' }}{{ block.image|modified_path:"gd" }}"
                         alt=""/>{% if block.link %}</a>{% endif %}{% endif %}</td>
                 <td class="text_row"
-                    style="margin: 0;padding: 0;padding-right: 10px;vertical-align: top;border-bottom: 1px solid #C7CFD5;padding-top: 18px;">
+                    style="margin: 0;vertical-align: top;border-bottom: 1px solid #C7CFD5;padding: 18px 10px 0 0;">
                     <h4 style="margin: 0;padding: 0;color: #6D6D6D;font-weight: bold;text-transform: uppercase;font-size: 15px;line-height: 1.2em;">{{ block.topic }}</h4>
 
                     <h3{% if block.link %}><a href="{{ block.link }}"{% endif %}
-                                              style="margin: 0;padding: 0;font-size: 21px;line-height: 1.28em;margin-bottom: 9px;color: #6994A6;text-transform: uppercase;text-decoration:none;">
+                                              style="padding: 0;font-size: 21px;line-height: 1.28em;margin: 0 0 9px;color: #6994A6;text-transform: uppercase;text-decoration:none;">
                         {{ block.title }}{% if block.link %}</a>{% endif %}</h3>
                     {{ block.text|mailhtml }}
                 </td>
