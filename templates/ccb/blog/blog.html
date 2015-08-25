@@ -3,14 +3,14 @@
 {% load base_tags i18n auth_extended babel blog compressed %}
 
 {% comment %}<!--
-	This is the main template rendered by the handle_request view in the
-	blog application. To minimize code, this is the "main template".
-	 
-	context vars used:
-	
-	base_template	A "base template" used for template inheritance.
-    object       	The object related to the blog (or None)
-    container    	The blog container (defined by the rel. object)
+    This is the main template rendered by the handle_request view in the
+    blog application. To minimize code, this is the "main template".
+     
+    context vars used:
+    
+    base_template   A "base template" used for template inheritance.
+    object          The object related to the blog (or None)
+    container       The blog container (defined by the rel. object)
 -->{% endcomment %}
 
 {% ifequal archive "details" %}

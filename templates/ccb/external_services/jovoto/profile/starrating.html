@@ -1,9 +1,9 @@
 {% load base_tags i18n %}
 
 {% comment %}<!--
- 	currently, rating from jovoto goes from 0 to 10. we display "quarters" here.
- 	As 5-star rating is displayed in "quarter steps", we need 5*4 steps, that is 10*2.
- 	The 2 must be used in "rating|truncated_multiply:2" below (mind the 2!). The rest is simple.
+    currently, rating from jovoto goes from 0 to 10. we display "quarters" here.
+    As 5-star rating is displayed in "quarter steps", we need 5*4 steps, that is 10*2.
+    The 2 must be used in "rating|truncated_multiply:2" below (mind the 2!). The rest is simple.
 -->{% endcomment %}
 
 <noscript><p>{% blocktrans %}Rating: {{ rating }}{% endblocktrans %}</p></noscript>

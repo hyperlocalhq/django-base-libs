@@ -5,11 +5,11 @@
     {{ block.super }}
 
     {% comment %}<!--.
-    	In this section, the possible actions are displayed 
+        In this section, the possible actions are displayed 
     -->{% endcomment %}
 
     {% comment %}<!--.
-    	PERMISSIONS ARE CURRENTLY DISABLED!!! TODO: ADD AN APPROPRIATE MECHANISM TO CHECK FOR PERMISSIONS
+        PERMISSIONS ARE CURRENTLY DISABLED!!! TODO: ADD AN APPROPRIATE MECHANISM TO CHECK FOR PERMISSIONS
     -->{% endcomment %}
     <div>
         <ul>
@@ -72,12 +72,12 @@
             {% comment %}<!--<a href="{{ reply.get_url }}">{{ reply.subject }}</a>-->{% endcomment %}
 
             {% comment %}<!--
-				Permission checking TODO!!!!
-			-->{% endcomment %}
+                Permission checking TODO!!!!
+            -->{% endcomment %}
 
             {% comment %}<!--
-				Display some statistics and description of the current reply
-			-->{% endcomment %}
+                Display some statistics and description of the current reply
+            -->{% endcomment %}
             <div>
                 {% with reply.creator.get_profile.image as image %}
                     {% if image %}

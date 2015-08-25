@@ -15,8 +15,8 @@
                 {% blocktrans count comment_list|length as counter %}1 comment{% plural %}{{ counter }} comments
                 {% endblocktrans %}
                 {% comment %}<!-- 
-				<span>|</span>
-				{% get_comment_latest for blog.post post.id as comment_latest %}
+                <span>|</span>
+                {% get_comment_latest for blog.post post.id as comment_latest %}
                 {% blocktrans with comment_latest.submit_date|datefmt:"long" as latest_date %}Latest comment from {{ latest_date }}{% endblocktrans %}
                  -->{% endcomment %}
             {% endif %}

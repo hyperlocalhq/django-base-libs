@@ -1,26 +1,26 @@
 {% autoescape off %}<?xml version="1.0" encoding="UTF-8"?>
-	{% spaceless %}
-		<idea>
-			<name>{{ idea.name }}</name>
-			<description>{{ idea.description }}</description>
-			<updated_at>{{ idea.updated_at|date:"Y-m-d H:i:s" }}</updated_at>
-			<pubDate>{{ idea.pubdate|date:"Y-m-d H:i:s" }}</pubDate>
-			<link>{{ idea.link }}</link>
-			<author>
-				<username>{{ idea.author_username }}</username>
-				<city>{{ idea.author_city }}</city>
-				<country>{{ idea.author_country }}</country>
-				<icon>{{ idea.author_icon }}</icon>
-			</author>
-			{% for media in idea.media %}
-				<media>
-					<type>{{ media.type }}</type>
-					<thumb>{{ media.thumb }}</thumb>
-					<medium>{{ media.medium }}</medium>
-					<big>{{ media.big }}</big>
-					<path>{{ media.path }}</path>
-				</media>
-			{% endfor %}
-		</idea>
-	{% endspaceless %}
+    {% spaceless %}
+        <idea>
+            <name>{{ idea.name }}</name>
+            <description>{{ idea.description }}</description>
+            <updated_at>{{ idea.updated_at|date:"Y-m-d H:i:s" }}</updated_at>
+            <pubDate>{{ idea.pubdate|date:"Y-m-d H:i:s" }}</pubDate>
+            <link>{{ idea.link }}</link>
+            <author>
+                <username>{{ idea.author_username }}</username>
+                <city>{{ idea.author_city }}</city>
+                <country>{{ idea.author_country }}</country>
+                <icon>{{ idea.author_icon }}</icon>
+            </author>
+            {% for media in idea.media %}
+                <media>
+                    <type>{{ media.type }}</type>
+                    <thumb>{{ media.thumb }}</thumb>
+                    <medium>{{ media.medium }}</medium>
+                    <big>{{ media.big }}</big>
+                    <path>{{ media.path }}</path>
+                </media>
+            {% endfor %}
+        </idea>
+    {% endspaceless %}
 {% endautoescape %}

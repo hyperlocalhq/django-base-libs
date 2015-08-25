@@ -6,10 +6,10 @@
 {% block sidebar-c %}
     {% if object.content_object.image %}
         <span class="avatar">
-	<span class="corners">
-		<img alt="{{ object.title }}" src="{{ object.content_object.image }}"/>
-		<span class="frame"></span>
-	</span>		
+    <span class="corners">
+        <img alt="{{ object.title }}" src="{{ object.content_object.image }}"/>
+        <span class="frame"></span>
+    </span>     
 </span>
     {% else %}
         {% if object.is_person %}
@@ -17,14 +17,14 @@
                 <span class="corners">
                     <img alt="{{ object.title }}" src="{{ STATIC_URL }}site/img/website/person_logo_placeholder.png"/>
                     <span class="frame"></span>
-                </span>		
+                </span>     
             </span>
         {% else %}
             <span class="avatar">
                 <span class="corners">
                     <img alt="{{ object.title }}" src="{{ STATIC_URL }}site/img/website/group_logo_placeholder.png"/>
                     <span class="frame"></span>
-                </span>		
+                </span>     
             </span>
         {% endif %}
     {% endif %}

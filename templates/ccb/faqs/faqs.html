@@ -4,19 +4,19 @@
 {% load base_tags i18n infoblocks faqs nav_menu %}
 
 {% comment %}<!--
-	This is the main template rendered by the handle_request view in the
-	faqs application. To minimize code, this is the "main template".
-	 
-	context vars used:
-	
-	base_template	A "base template" used for template inheritance.
-    object       	The object related to the faqs (or None)
-    container    	The faqs container (defined by the rel. object)
+    This is the main template rendered by the handle_request view in the
+    faqs application. To minimize code, this is the "main template".
+     
+    context vars used:
+    
+    base_template   A "base template" used for template inheritance.
+    object          The object related to the faqs (or None)
+    container       The faqs container (defined by the rel. object)
     root_category   The "root category": Children of that faq category should be 
-                 	displayed (or None)
+                    displayed (or None)
     category_path   The "Path" from the current category through all its parents.
-                 	We need that for the breadcrumbs.
-    category_list	List of faq categories
+                    We need that for the breadcrumbs.
+    category_list   List of faq categories
 -->{% endcomment %}
 
 {% block extrahead %}
@@ -79,9 +79,9 @@
                     {% endif %}
 
                     {% comment %}<!--
-		        		CARSTEN HEIN FROM KULTURPROJEKTE WANTS THE CATEGORY DESCRIPTION	HERE, BUT
-		        		ONLY, IF THERE IS NO ROOT_CATEGORY (THAT IS THE "FAQS OVERVIEW PAGE")
-		        	-->{% endcomment %}
+                        CARSTEN HEIN FROM KULTURPROJEKTE WANTS THE CATEGORY DESCRIPTION HERE, BUT
+                        ONLY, IF THERE IS NO ROOT_CATEGORY (THAT IS THE "FAQS OVERVIEW PAGE")
+                    -->{% endcomment %}
                     {% if not root_category %}
                         {{ child0_category.description|safe }}
                     {% endif %}
@@ -99,8 +99,8 @@
                     {% comment %}<!-- RECURSE THE CATEGORIES -->{% endcomment %}
 
                     {% comment %}<!--
-			        	CARSTEN HEIN FROM KULTURPROJEKTE WANTS, THAT CHILDREN ARE NOT DISPLAYED AT THE OVERVIEW PAGE
-		        	-->{% endcomment %}
+                        CARSTEN HEIN FROM KULTURPROJEKTE WANTS, THAT CHILDREN ARE NOT DISPLAYED AT THE OVERVIEW PAGE
+                    -->{% endcomment %}
 
                     {% if root_category %}
                         {% get_faq_category_children in container.id for child0_category.id using "faqs/faqs_list_level_0.html" %}

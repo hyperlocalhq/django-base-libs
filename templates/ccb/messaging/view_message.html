@@ -3,7 +3,7 @@
 
 {% block details %}
     {% comment %}<!--
-    	HERE THE CONTENT BEGINS
+        HERE THE CONTENT BEGINS
     -->{% endcomment %}
     <div class="message">
         <div class="message-head">
@@ -88,9 +88,9 @@
                 {% endif %}
 
                 {% comment %}<!--
-	            	DELETIMG MESSAGES IS NOT ALLOWED FOR SENT MESSAGES!
-	            	(IF I AM NOT THE RECEIVER) OR IT IS A DRAFT 
-	            -->{% endcomment %}
+                    DELETIMG MESSAGES IS NOT ALLOWED FOR SENT MESSAGES!
+                    (IF I AM NOT THE RECEIVER) OR IT IS A DRAFT 
+                -->{% endcomment %}
                 {% ifequal message.sender request.user %}
                     {% ifequal message.recipient request.user %}
                         <li>
@@ -112,7 +112,7 @@
         </div>
     </div>
     {% comment %}
-    	HERE THE CONTENT ENDS
+        HERE THE CONTENT ENDS
     {% endcomment %}
 
 {% endblock %}

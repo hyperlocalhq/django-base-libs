@@ -27,8 +27,8 @@
                 </h4>
 
                 {% comment %}<!--
-		        	If the forum_child has no children, display some statistics here
-		        -->{% endcomment %}
+                    If the forum_child has no children, display some statistics here
+                -->{% endcomment %}
                 {% if not forum_child_children %}
 
                     {% trans "Views" %}:  {{ forum_child.get_nof_views }} |

@@ -36,7 +36,7 @@
                         <input class="button_bad" onclick="BookmarkManager.toggleDeleting({{ forloop.counter }}, 1)"
                                type="button" value="{% filter upper %}{% trans 'delete' %}{% endfilter %}"/>
                     </span>
-					<span class="buttons" id="delete_functions_{{ forloop.counter }}" style="display: none">
+                    <span class="buttons" id="delete_functions_{{ forloop.counter }}" style="display: none">
                         <input class="button_good" onclick="BookmarkManager.toggleDeleting({{ forloop.counter }}, 0)"
                                type="button" value="{% filter upper %}{% trans 'cancel' %}{% endfilter %}"/>
                         <input class="button_bad"

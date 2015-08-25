@@ -107,7 +107,7 @@
                     {% for email in contact.get_emails %}
                         {% if forloop.first %} {% trans "E-Mail" %} {% endif %}
                             <dl>{% if email.type %}<dt>{{ email.type }}:</dt>{% endif %}<dd><a class="email" href="{{ "mailto:"|encode_string }}{{ email.address|encode_string }}">{{ email.address|encode_string }}</a></dd>
-                        {% if forloop.last %} </dl> {% endif %}	  	    	
+                        {% if forloop.last %} </dl> {% endif %}             
                     {% endfor %}
              {% endcomment %}
                             {% for ims in contact.get_ims %}
