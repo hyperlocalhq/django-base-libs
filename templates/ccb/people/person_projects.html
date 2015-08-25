@@ -61,7 +61,7 @@
                                 <dl> {% endif %}
                         {% if phone.type %}
                             <dt>{{ phone.type }}:</dt>{% endif %}
-                        <dd>+{{ phone.country }}-{{ phone.area }}-{{ phone.number }}</span></dd>
+                        <dd>+{{ phone.country }}-{{ phone.area }}-{{ phone.number }}</dd>
                         {% if forloop.last %} </dl> {% endif %}
 
                             {% if phone.type %}
