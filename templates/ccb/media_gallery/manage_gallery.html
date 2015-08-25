@@ -162,9 +162,9 @@
                     return
                 }
                 set_work_in_progress();
-                mediafiles = [];
+                var mediafiles = [];
                 $(".mediafile").each(function () {
-                    mediafile_token = $(this).attr("id").replace(/mediafile_/, "");
+                    var mediafile_token = $(this).attr("id").replace(/mediafile_/, "");
                     mediafiles.push(mediafile_token);
                 });
                 $.post(

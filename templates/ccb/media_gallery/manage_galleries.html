@@ -159,12 +159,12 @@
                     return
                 }
                 set_work_in_progress();
-                sections = [];
+                var sections = [];
                 $(".section").each(function () {
-                    section_token = $(this).attr("id").replace(/section_/, "");
-                    galleries = [];
+                    var section_token = $(this).attr("id").replace(/section_/, "");
+                    var galleries = [];
                     $(this).find(".gallery").each(function () {
-                        gallery_token = $(this).attr("id").replace(/gallery_/, "");
+                        var gallery_token = $(this).attr("id").replace(/gallery_/, "");
                         galleries.push(gallery_token)
                     });
                     sections.push([section_token, galleries.join(",")].join(":"));
