@@ -3,68 +3,64 @@
 
 {% block details %}
     <div class="network">
-    <div class="content_facts">
+        <div class="content_facts">
 
-    <div class="column_01">
-        <h6 class="subline">{% trans "Contacts to Persons" %}</h6>
+            <div class="column_01">
+                <h6 class="subline">{% trans "Contacts to Persons" %}</h6>
 
-        <div class="network-content">
-            {% for contact_person in object.get_individual_relations|slice:":3" %}
-                {% if not forloop.last %}
-                    <div class="not_last">
-                {% else %}
-                    <div class="last">
-                {% endif %}
-            {% with contact_person.to_user.get_profile as person %}
-                {% if person.image %}
-                    <img class="left" src="{{ UPLOADS_URL }}{{ person.image|modified_path:"at" }}"
-                         alt="{{ person.get_title|escape }}"/>
-                {% else %}
-                    <img class="left" alt="{{ person.get_title|escape }}"
-                         src="{{ STATIC_URL }}site/img/website/placeholder/person_s.png"/>
-                {% endif %}
-                <h6>
-                    {{ person.get_title|escape }}
-                </h6>
-                <span>
-                                        {{ person.individual_type.get_title|escape }}
-                                    </span>
-            {% endwith %}
-            </div>
-            {% endfor %}
-            <div class="cleaner"></div>
-            <a class="more" href="{{ request.path }}{{ URL_ID_PERSON }}_contacts/">{% trans "more..." %}</a>
-            </div>
-
-            <h6 class="subline">{% trans "Groups" %}</h6>
-
-            <div class="network-content">
-                {% for group in object.get_groups|slice:":3" %}
-                    {% if not forloop.last %}
-                        <div class="not_last">
-                    {% else %}
-                        <div class="last">
-                    {% endif %}
-                {% if group.image %}
-                    <img class="left" src="{{ group.image }}" alt="{{ group.get_title|escape }}"/>
-                {% else %}
-                    <img class="left" alt="{{ group.get_title|escape }}"
-                         src="{{ STATIC_URL }}site/img/website/placeholder/group_sml.png"/>
-                {% endif %}
-
-                <h6>
-                    {{ group.get_title|escape }}
-                </h6>
-                <span>
-                                    {% if group.get_object_types %}
-                                        {% for object_type in group.get_object_types %}{% if not forloop.first %},
-                                        {% endif %}{{ object_type.get_title|escape }}{% endfor %}
-                                    {% endif %}
-                                </span>
+                <div class="network-content">
+                    {% for contact_person in object.get_individual_relations|slice:":3" %}
+                        <div class="{% if not forloop.last %}not_{% endif %}last">
+                            {% with contact_person.to_user.get_profile as person %}
+                                {% if person.image %}
+                                    <img class="left"
+                                         src="{{ UPLOADS_URL }}{{ person.image|modified_path:"at" }}"
+                                         alt="{{ person.get_title|escape }}"/>
+                                {% else %}
+                                    <img class="left"
+                                         alt="{{ person.get_title|escape }}"
+                                         src="{{ STATIC_URL }}site/img/website/placeholder/person_s.png"/>
+                                {% endif %}
+                                <h6>
+                                    {{ person.get_title|escape }}
+                                </h6>
+                                <span>
+                                {{ person.individual_type.get_title|escape }}
+                            </span>
+                            {% endwith %}
+                        </div>
+                    {% endfor %}
+                    <div class="cleaner"></div>
+                    <a class="more" href="{{ request.path }}{{ URL_ID_PERSON }}_contacts/">{% trans "more..." %}</a>
                 </div>
-                {% endfor %}
-                <div class="cleaner"></div>
-                <a class="more" href="{{ request.path }}{{ URL_ID_PERSONGROUPS }}/">{% trans "more..." %}</a>
+
+                <h6 class="subline">{% trans "Groups" %}</h6>
+
+                <div class="network-content">
+                    {% for group in object.get_groups|slice:":3" %}
+                        <div class="{% if not forloop.last %}not_{% endif %}last">
+                            {% if group.image %}
+                                <img class="left" src="{{ group.image }}" alt="{{ group.get_title|escape }}"/>
+                            {% else %}
+                                <img class="left" alt="{{ group.get_title|escape }}"
+                                     src="{{ STATIC_URL }}site/img/website/placeholder/group_sml.png"/>
+                            {% endif %}
+
+                            <h6>
+                                {{ group.get_title|escape }}
+                            </h6>
+                            <span>
+                                {% if group.get_object_types %}
+                                    {% for object_type in group.get_object_types %}
+                                        {% if not forloop.first %},{% endif %}
+                                        {{ object_type.get_title|escape }}
+                                    {% endfor %}
+                                {% endif %}
+                            </span>
+                        </div>
+                    {% endfor %}
+                    <div class="cleaner"></div>
+                    <a class="more" href="{{ request.path }}{{ URL_ID_PERSONGROUPS }}/">{% trans "more..." %}</a>
 
                 </div>
             </div>
@@ -72,39 +68,30 @@
                 <div class="subline"><h6>{% trans "Institutional Contacts" %}</h6></div>
                 <div class="network-content">
                     {% for contact_institution in object.get_institutions|slice:":3" %}
-                        {% if not forloop.last %}
-                            <div class="not_last">
-                        {% else %}
-                            <div class="last">
-                        {% endif %}
+                        <div class="{% if not forloop.last %}not_{% endif %}last">
+                            {% with contact_institution as institution %}
+                                {% if institution.image %}
+                                    <img class="left" src="{{ UPLOADS_URL }}{{ institution.image|modified_path:"at" }}"
+                                         alt="{{ institution.get_title|escape }}"/>
+                                {% else %}
+                                    <img class="left" alt="{{ institution.get_title|escape }}"
+                                         src="{{ STATIC_URL }}site/img/website/placeholder/inst_sml.png"/>
+                                {% endif %}
 
-                    {% with contact_institution as institution %}
-                        {% if institution.image %}
-                            <img class="left" src="{{ UPLOADS_URL }}{{ institution.image|modified_path:"at" }}"
-                                 alt="{{ institution.get_title|escape }}"/>
-                        {% else %}
-                            <img class="left" alt="{{ institution.get_title|escape }}"
-                                 src="{{ STATIC_URL }}site/img/website/placeholder/inst_sml.png"/>
-                        {% endif %}
-
-                        <h6>
-                            {{ institution.get_title|escape }}
-                        </h6>
-                        {% if institution.get_institution_types %}
-                            {% for institution_type in institution.get_institution_types %}{% if not forloop.first %},
-                            {% endif %}
-                                <span>
-                                    {{ institution_type.get_title|escape }}
-                                </span>
-                            {% endfor %}
-                        {% endif %}
-                    {% endwith %}
-                    {% if not forloop.last %}
+                                <h6>
+                                    {{ institution.get_title|escape }}
+                                </h6>
+                                {% if institution.get_institution_types %}
+                                    {% for institution_type in institution.get_institution_types %}
+                                        {% if not forloop.first %},
+                                        {% endif %}
+                                        <span>
+                                        {{ institution_type.get_title|escape }}
+                                    </span>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endwith %}
                         </div>
-                    {% else %}
-                        </div>
-                    {% endif %}
-
                     {% endfor %}
                     <div class="cleaner"></div>
                     <a class="more"
@@ -120,6 +107,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    </div>
     </div>
 
 {% endblock %}
