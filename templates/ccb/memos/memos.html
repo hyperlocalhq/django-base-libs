@@ -2,16 +2,16 @@
 {% load i18n base_tags nav_menu %}
 
 {% block extrahead %}
-<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js" defer="defer"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/individual_relations.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/groups_networks.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js" defer="defer"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/individual_relations.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/groups_networks.js"></script>
 {% endblock %}
 
 {% block title %}{% filter upper %}{% trans "Memos" %}{% endfilter %}{% endblock %}
 
 
 {% block headline %}
-	<h1>{% trans "Memos" %}</h1>
+    <h1>{% trans "Memos" %}</h1>
 {% endblock %}
 
 {% block content %}
@@ -34,8 +34,8 @@
             {% endif %}
             {% if memo.content_object.is_job_offer %}
                 {% include_parsed "marketplace/lists/job_offer.html" with memo.content_object as job_offer %}
-            {% endif %}            
-        {% endfor %}        
+            {% endif %}
+        {% endfor %}
     {% else %}
         <div class="go-back">
             <a href="javascript:window.history.back()">{% trans "Go back" %}</a>

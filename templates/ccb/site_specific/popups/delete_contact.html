@@ -1,10 +1,14 @@
 {% load i18n %}
 <div id="popup_content">
     <form action="" method="post" class="uniForm">
-        <p class="disclaimer">{% blocktrans with contact.postal_address as postal_address %}Do you really want to delete the contact "{{ postal_address }}"?{% endblocktrans %}</p>
+        <p class="disclaimer">{% blocktrans with contact.postal_address as postal_address %}Do you really want to delete
+            the contact "{{ postal_address }}"?{% endblocktrans %}</p>
+
         <div class="buttonHolder">
-            <input class="primaryAction" type="submit" value="{% filter upper %}{% trans "Delete" %}{% endfilter %}" />
-            <input class="secondaryAction" name="cancel" type="button" value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" onclick="{% if object %}redirect('{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/#file_{{ file.filename }}'){% endif %}" />
+            <input class="primaryAction" type="submit" value="{% filter upper %}{% trans "Delete" %}{% endfilter %}"/>
+            <input class="secondaryAction" name="cancel" type="button"
+                   value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" onclick="{% if object %}redirect('
+                {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/#file_{{ file.filename }}'){% endif %}"/>
         </div>
     </form>
 </div>

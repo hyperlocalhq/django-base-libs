@@ -2,18 +2,19 @@
 {% load i18n base_tags auth_extended nav_menu %}
 
 {% block extrahead %}
-    <link rel="alternate" type="application/rss+xml" title="{% trans "Creative City Berlin Portfolios" %}" href="/{{ LANGUAGE_CODE }}/portfolios/feeds/rss/" />
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
- 	<script type="text/javascript" src="{{ jetson_media_url }}js/jquery/starrating/jquery.MetaData.js"></script>
-	<script type="text/javascript" src="{{ jetson_media_url }}js/jquery/starrating/jquery.rating.js"></script>
+    <link rel="alternate" type="application/rss+xml" title="{% trans "Creative City Berlin Portfolios" %}"
+          href="/{{ LANGUAGE_CODE }}/portfolios/feeds/rss/"/>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/starrating/jquery.MetaData.js"></script>
+    <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/starrating/jquery.rating.js"></script>
 {% endblock %}
 
 {% block title %}{% trans "Portfolios" %}{% endblock %}
 
 {% block headline %}
-	<h1>{% trans "Portfolios" %}</h1>
+    <h1>{% trans "Portfolios" %}</h1>
     <hr class="hidden"/>
-{% endblock %}			
+{% endblock %}
 
 {% block content %}
     {% block tabs %}
@@ -21,7 +22,7 @@
             {% children_of "portfolios" using "navigation/children_in_tabs.html" %}
         </div>
     {% endblock %}
-    
+
     {% if object_list %}
         <div class="sorting-and-pagination clearfix under-tabs">
             <div class="inner_col1">
@@ -39,10 +40,18 @@
                     <form action="" class="to_show secondaryForm">
                         <div class="ctrlHolder paginate_by">
                             <label>{% trans "Show items per page" %}: <select class="page_count">
-                                <option value="15"{% ifequal results_per_page 5 %} selected="selected"{% endifequal %} >15</option>
-                                <option value="60"{% ifequal results_per_page 10 %} selected="selected"{% endifequal %} >60</option>
-                                <option value="90"{% ifequal results_per_page 20 %} selected="selected"{% endifequal %}>90</option>
-                                <option value="180"{% ifequal results_per_page 50 %} selected="selected"{% endifequal %}>180</option>
+                                <option value="15"{% ifequal results_per_page 5 %} selected="selected"{% endifequal %} >
+                                    15
+                                </option>
+                                <option value="60"{% ifequal results_per_page 10 %}
+                                        selected="selected"{% endifequal %} >60
+                                </option>
+                                <option value="90"{% ifequal results_per_page 20 %} selected="selected"{% endifequal %}>
+                                    90
+                                </option>
+                                <option value="180"{% ifequal results_per_page 50 %}
+                                        selected="selected"{% endifequal %}>180
+                                </option>
                             </select></label>
                         </div>
                     </form>
@@ -53,21 +62,22 @@
             <div id="object_list">
                 {% for object in object_list %}
                     {% if forloop.first %}
-                    <div class="row">
+                        <div class="row">
                     {% endif %}
-                        <div class="list-item {{ extra_css_classes|default:"" }}" onclick="redirect('{{ object.content_object.get_url_path }}portfolio/')">
-                            {% include_parsed "media_gallery/lists/gallery_item.html" with forloop.counter as counter %}
-                        </div>
-                    {% if not forloop.last %}
-                        {% if forloop.counter|divisibleby:"3" %}
-                            {% if not forloop.first %}</div>
+                <div class="list-item {{ extra_css_classes|default:"" }}"
+                     onclick="redirect('{{ object.content_object.get_url_path }}portfolio/')">
+                    {% include_parsed "media_gallery/lists/gallery_item.html" with forloop.counter as counter %}
+                </div>
+                {% if not forloop.last %}
+                    {% if forloop.counter|divisibleby:"3" %}
+                        {% if not forloop.first %}</div>
                             <div class="row">{% endif %}
-                        {% endif %}
-                    {% else %}
-                    </div>
                     {% endif %}
-                 {% endfor %}
-             </div>
+                {% else %}
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
         </div>
         <div class="sorting-and-pagination clearfix">
             <div class="inner_col1">
@@ -85,14 +95,22 @@
                     <form action="" class="to_show secondaryForm">
                         <div class="ctrlHolder paginate_by">
                             <label>{% trans "Show items per page" %}: <select class="page_count">
-                                <option value="15"{% ifequal results_per_page 5 %} selected="selected"{% endifequal %} >15</option>
-                                <option value="60"{% ifequal results_per_page 10 %} selected="selected"{% endifequal %} >60</option>
-                                <option value="90"{% ifequal results_per_page 20 %} selected="selected"{% endifequal %}>90</option>
-                                <option value="180"{% ifequal results_per_page 50 %} selected="selected"{% endifequal %}>180</option>
+                                <option value="15"{% ifequal results_per_page 5 %} selected="selected"{% endifequal %} >
+                                    15
+                                </option>
+                                <option value="60"{% ifequal results_per_page 10 %}
+                                        selected="selected"{% endifequal %} >60
+                                </option>
+                                <option value="90"{% ifequal results_per_page 20 %} selected="selected"{% endifequal %}>
+                                    90
+                                </option>
+                                <option value="180"{% ifequal results_per_page 50 %}
+                                        selected="selected"{% endifequal %}>180
+                                </option>
                             </select></label>
                         </div>
                     </form>
-                 </div>
+                </div>
             </div>
         </div>
     {% else %}
@@ -102,5 +120,5 @@
 
 
 {% block extrabody %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
 {% endblock %}

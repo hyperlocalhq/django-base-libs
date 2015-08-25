@@ -2,7 +2,7 @@
 
 <h6 class="section-header">{% trans "Categories" %}</h6>
 <div class="section-details">
-    
+
     {% if object.job_sectors.count %}
         <dl>
             <dt>
@@ -15,9 +15,10 @@
                 {% endwith %}
             </dt>
             {% for cat in object.job_sectors.all %}
-                {% if forloop.first %}<dd>{% endif %}
-                    {{ cat.title|escape }}{% if not forloop.last %}, {% endif %}
-                {% if forloop.last %}</dd>{% endif %}  
+                {% if forloop.first %}
+                    <dd>{% endif %}
+            {{ cat.title|escape }}{% if not forloop.last %}, {% endif %}
+            {% if forloop.last %}</dd>{% endif %}
             {% endfor %}
         </dl>
     {% endif %}

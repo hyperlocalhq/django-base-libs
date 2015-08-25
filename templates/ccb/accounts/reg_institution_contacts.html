@@ -36,17 +36,17 @@
             <h3>{% trans "Address" %} - {% trans "Institution" %}</h3>
             {{ form.location_type|as_uni_field }}
             {{ form.location_title|as_uni_field }}
-            
+
             {% include "uni_form/includes/postal_address.html" %}
 
-            {% include "uni_form/includes/phone.html" %} 
-            {% include "uni_form/includes/fax.html" %} 
-            {% include "uni_form/includes/mobile.html" %} 
+            {% include "uni_form/includes/phone.html" %}
+            {% include "uni_form/includes/fax.html" %}
+            {% include "uni_form/includes/mobile.html" %}
 
-            {% include "uni_form/includes/emails.html" %} 
-            {% include "uni_form/includes/websites.html" %} 
+            {% include "uni_form/includes/emails.html" %}
+            {% include "uni_form/includes/websites.html" %}
             {% include "uni_form/includes/ims.html" %}
-            
+
             {% include "utils/step_buttons_reg.html" %}
         </fieldset>
     </form>

@@ -2,7 +2,7 @@
 {% load i18n base_tags babel nav_menu individual_relations groups_networks %}
 
 {% block extrahead %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/individual_relations.js"></script>
 {% endblock %}
 
@@ -10,56 +10,61 @@
 {% block title %}{% trans "People" %}{% endblock %}
 
 {% block headline %}
-	<h1>{% trans "People" %}</h1>
+    <h1>{% trans "People" %}</h1>
 {% endblock %}
 
 {% block content %}
-	<div class="invitation list">
-	    {% block tabs %}
-	        <div id="tabs">
-	            {% children_of "people" using "navigation/children_in_tabs.html" %}
-	        </div>
-	    {% endblock %}
-		{% comment %}<!--
+    <div class="invitation list">
+        {% block tabs %}
+            <div id="tabs">
+                {% children_of "people" using "navigation/children_in_tabs.html" %}
+            </div>
+        {% endblock %}
+        {% comment %}<!--
 	    	THE PAGINATION HEADER IS DIEFFERENT, SO WE CANNOT USE
 	    	{% include "utils/sorting_view_pagination_header.html" %}
 		-->{% endcomment %}
-		<div>
+        <div>
             {% include_parsed "utils/includes/sorting_and_pagination.html" with "under-tabs" as css_class %}
             <div class="invitation-status">
-                <a href="/{{ URL_ID_PEOPLE }}/requests/?by-status={{ active_status_filter }}" {% ifequal active_link "requests" %}class="active"{% endifequal %}>{% trans "Sent invitations " %}</a>
-                | <a href="/{{ URL_ID_PEOPLE }}/requested/?by-status={{ active_status_filter }}" {% ifequal active_link "requested" %}class="active"{% endifequal %}>{% trans "Requests to confirm" %}</a>
+                <a href="/{{ URL_ID_PEOPLE }}/requests/?by-status={{ active_status_filter }}"
+                   {% ifequal active_link "requests" %}class="active"{% endifequal %}>{% trans "Sent invitations " %}</a>
+                | <a href="/{{ URL_ID_PEOPLE }}/requested/?by-status={{ active_status_filter }}"
+                     {% ifequal active_link "requested" %}class="active"{% endifequal %}>{% trans "Requests to confirm" %}</a>
             </div>
         </div>
-	
+
         <div>
-        	<div class="left">{% include "utils/abc_filters.html" %}</div>
+            <div class="left">{% include "utils/abc_filters.html" %}</div>
             <div class="right">
                 <span>
                 {% comment %}
                     A LITTLE BIT HACKISH, BUT WORKS AS A QUICK SOLUTION
                 {% endcomment %}
-                <a href="{{ request.path }}?by-status=pending" {% ifequal active_status_filter "pending" %}class="active"{% endifequal %}>{% trans "Pending" %}</a> 
-                | <a href="{{ request.path }}?by-status=denied" {% ifequal active_status_filter "denied" %}class="active"{% endifequal %}>{% trans "Denied" %}</a>
+                <a href="{{ request.path }}?by-status=pending"
+                   {% ifequal active_status_filter "pending" %}class="active"{% endifequal %}>{% trans "Pending" %}</a>
+                | <a href="{{ request.path }}?by-status=denied"
+                     {% ifequal active_status_filter "denied" %}class="active"{% endifequal %}>{% trans "Denied" %}</a>
                 </span>
             </div>
         </div>
-	    
-	    {% if object_list %}
-	        <div id="object_list"> 
+
+        {% if object_list %}
+            <div id="object_list">
                 {% for person in object_list %}
                     {% include_parsed "individual_relations/lists/person_invitation.html" %}
                 {% endfor %}
-			</div>
-			
-			{% include "utils/includes/sorting_and_pagination.html" %}
-		
-		{% else %}
-	    
-	        <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>
-	    
-	    {% endif %}<div class="cleaner"></div>
-	</div>
+            </div>
+
+            {% include "utils/includes/sorting_and_pagination.html" %}
+
+        {% else %}
+
+            <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>
+
+        {% endif %}
+        <div class="cleaner"></div>
+    </div>
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -81,5 +86,5 @@
 {% endblock %}
 
 {% block extrabody %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
 {% endblock %}

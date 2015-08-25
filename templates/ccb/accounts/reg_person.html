@@ -27,12 +27,13 @@
     <form action="" method="post" class="uniForm">
         <fieldset class="inlineLabels">
             <h3>{% trans "Name" %}</h3>
+
             <div class="ctrlHolder">
                 {{ form.prefix.error_tag }}
                 {{ form.first_name.error_tag }}
                 <label for="id_first_name">
                     <strong>
-                        {{ form.prefix.label }} / 
+                        {{ form.prefix.label }} /
                         {{ form.first_name.label }}*
                     </strong>
                 </label>
@@ -43,12 +44,12 @@
             <div class="ctrlHolder">
                 {{ form.birthday_dd.error_tag }}
                 {{ form.birthday_mm.error_tag }}
-                {{ form.birthday_yyyy.error_tag }}                            
+                {{ form.birthday_yyyy.error_tag }}
                 {{ form.birthday_yyyy.label_tag }}
                 {{ form.birthday_dd|with_class }}
                 {{ form.birthday_mm|with_class }}
                 {{ form.birthday_yyyy|with_class }}
-            </div>    
+            </div>
 
             <h3>{% trans "Login" %}</h3>
             {{ form.login_email|as_uni_field }}
@@ -58,6 +59,7 @@
             {{ form.username|as_uni_field }}
 
             <h3>{% trans "Privacy Protection" %}</h3>
+
             <p class="disclaimer">
                 {% trans "Here you can specify personal data to be displayed in your profile to the public." %}
             </p>
@@ -72,12 +74,14 @@
             {{ form.display_im|as_uni_field }}
 
             <h3>{% trans "Confirmation" %}</h3>
+
             <div class="ctrlHolder">
-                {{ form.privacy_policy.error_tag }}                        
+                {{ form.privacy_policy.error_tag }}
                 {{ form.privacy_policy|with_class }}
                 <label for="id_privacy_policy">
                     {% if form.privacy_policy.required %}<strong>{% endif %}
-                    {% blocktrans %}I accept <a href="/privacy/" onclick="open_new_window(event)">the privacy policy</a>.{% endblocktrans %}
+                    {% blocktrans %}I accept <a href="/privacy/" onclick="open_new_window(event)">the privacy policy</a>
+                        .{% endblocktrans %}
                     {% if form.privacy_policy.required %}*</strong>{% endif %}
                 </label>
             </div>
@@ -86,11 +90,13 @@
                 {{ form.terms_of_use|with_class }}
                 <label for="id_terms_of_use">
                     {% if form.terms_of_use.required %}<strong>{% endif %}
-                    {% blocktrans %}I accept <a href="/terms-of-use/" onclick="open_new_window(event)">the terms of use</a>.{% endblocktrans %}
+                    {% blocktrans %}I accept
+                        <a href="/terms-of-use/" onclick="open_new_window(event)">the terms of use</a>
+                        .{% endblocktrans %}
                     {% if form.terms_of_use.required %}*</strong>{% endif %}
                 </label>
             </div>
-            
+
             {% include "utils/step_buttons_reg.html" %}
         </fieldset>
     </form>

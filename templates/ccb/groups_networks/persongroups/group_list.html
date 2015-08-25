@@ -4,15 +4,15 @@
 {% load i18n base_tags nav_menu auth_extended %}
 
 {% block extrahead %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/groups_networks.js"></script>
 {% endblock %}
 
 {% block title %}{% trans "Groups" %}{% endblock %}
 
 {% block headline %}
-	<h1>{% trans "Groups" %}</h1>
-{% endblock %}			
+    <h1>{% trans "Groups" %}</h1>
+{% endblock %}
 
 {% block content %}
     {% block tabs %}
@@ -22,15 +22,15 @@
     {% endblock %}
 
     {% if object_list %}
-    
+
         {% include "utils/includes/sorting_and_pagination.html" %}
-        
+
         {% for persongroup in object_list %}
             {% include_parsed "groups_networks/lists/persongroup.html" %}
         {% endfor %}
-        
+
         {% include "utils/includes/sorting_and_pagination.html" %}
-     
+
     {% else %}
         <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>
     {% endif %}

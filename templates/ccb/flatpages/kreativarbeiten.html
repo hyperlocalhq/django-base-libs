@@ -6,11 +6,11 @@
 {% block sidebar-a %}&nbsp;{% endblock %}
 
 {% block content %}
-	<h3 class="flatpage-title">{{ flatpage.get_title }}</h3>
+    <h3 class="flatpage-title">{{ flatpage.get_title }}</h3>
     {{ flatpage.get_content }}
 {% endblock %}
 
 {% block breadcrumbs_details %}
-    <span class="b-sep"><span>::</span></span> <span>{{ flatpage.get_title }}</span> 
+    <span class="b-sep"><span>::</span></span> <span>{{ flatpage.get_title }}</span>
 {% endblock %}
 

@@ -5,7 +5,8 @@
 {% block head_title %}{% trans "Notification" %}{% endblock %}
 
 {% block extra_head %}
-    <link rel="alternate" type="application/atom+xml" title="Notices Feed" href="{% url 'notification_feed_for_user' %}" />
+    <link rel="alternate" type="application/atom+xml" title="Notices Feed"
+          href="{% url 'notification_feed_for_user' %}"/>
 {% endblock %}
 
 {% block title %}{% trans "Notification" %}{% endblock %}
@@ -18,16 +19,17 @@
     {% if notices %}
         <div>
             <div>
-            {% comment %}<!--<input id="id_choose_all"  type="checkbox" />
+                {% comment %}<!--<input id="id_choose_all"  type="checkbox" />
             <select id="id_action" name="sender" size="1">
                 <option selected="selected" value="none">{% trans "Action..." %}</option>
                 <option value="delete">{% trans "delete" %}</option>
             </select>-->{% endcomment %}
             </div>
-            <a class="mark_all right" href="{% url 'notification_mark_all_seen' %}">{% trans "Mark all unseen notices seen" %}</a>
+            <a class="mark_all right"
+               href="{% url 'notification_mark_all_seen' %}">{% trans "Mark all unseen notices seen" %}</a>
         </div>
         {% regroup notices by added.date as notices_by_date %}
-        
+
         {% for date in notices_by_date %}
             {% comment %}<!--
             <div class="subline">
@@ -36,16 +38,17 @@
             -->{% endcomment %}
             {% for notice in date.list %}
                 <div class="list-notices">
-                    <div>
-                        {% if notice.is_unseen %}
-                            <div class="unread">
-                        {% else %}
-                            <div class="read">
-                        {% endif %}
-                            <h5 class="notice_time">{{ notice.notice_type.get_display }}</h5>
-                            <div class="notice_time txt">{{ date.grouper|datefmt }}, {{ notice.added|timefmt }}</div>
-                            
-                            </div>
+                <div>
+                    {% if notice.is_unseen %}
+                        <div class="unread">
+                    {% else %}
+                        <div class="read">
+                    {% endif %}
+                    <h5 class="notice_time">{{ notice.notice_type.get_display }}</h5>
+
+                    <div class="notice_time txt">{{ date.grouper|datefmt }}, {{ notice.added|timefmt }}</div>
+
+                    </div>
                     </div>
                     <div>
                         <div class="notice_message">{{ notice.message|safe }}</div>
@@ -53,7 +56,7 @@
                 </div>
             {% endfor %}
         {% endfor %}
-        
+
     {% else %}
         <p class="nothing">{% trans "No notices" %}</p>
     {% endif %}

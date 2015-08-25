@@ -7,25 +7,25 @@
 
 {% block details %}
 
-	<div class="docdetail">
-    <div id="dyn_avatar" class="dyn_section">
-        {% include "resources/documents/profile/avatar.html" %}
-    </div>
+    <div class="docdetail">
+        <div id="dyn_avatar" class="dyn_section">
+            {% include "resources/documents/profile/avatar.html" %}
+        </div>
 
-    <div id="dyn_description" class="dyn_section">
-    	<p><strong>{{ object.get_title }}</strong></p>
-        {% include "resources/documents/profile/description.html" %}
-    </div>
-        
-    <hr />
-    <div id="dyn_details" class="dyn_section">
-        {% include "resources/documents/profile/details.html" %}
-    </div>
-    
-    <hr />
-    <div id="dyn_categories" class="dyn_section">
-        {% include "resources/documents/profile/categories.html" %}
-    </div>
+        <div id="dyn_description" class="dyn_section">
+            <p><strong>{{ object.get_title }}</strong></p>
+            {% include "resources/documents/profile/description.html" %}
+        </div>
+
+        <hr/>
+        <div id="dyn_details" class="dyn_section">
+            {% include "resources/documents/profile/details.html" %}
+        </div>
+
+        <hr/>
+        <div id="dyn_categories" class="dyn_section">
+            {% include "resources/documents/profile/categories.html" %}
+        </div>
     </div>
 {% endblock %}
 
@@ -41,6 +41,6 @@
     {{ block.super }}
     {% if_has_perm "resources.change_document" object %}
         {% compressed_js "document_details" %}
-    {% end_if_has_perm %}    
+    {% end_if_has_perm %}
 {% endblock %}
 

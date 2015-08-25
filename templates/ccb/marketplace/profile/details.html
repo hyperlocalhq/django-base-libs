@@ -2,7 +2,7 @@
 
 <h6 class="section-header">{% trans "Details" %}</h6>
 <div class="section-details">
-    
+
     <dl>
         <dt>{% trans "Position" %}</dt>
         <dd>{{ object.position }}</dd>
@@ -20,7 +20,9 @@
             * Middle or senior
             * Junior, middle or senior
             -->{% endcomment %}
-            <dd>{% for q in object.qualifications.all %}{% if not forloop.first and not forloop.last %}, {% endif %}{% if forloop.last and not forloop.first %} {% trans "or" %} {% endif %}{% if forloop.first %}{{ q.title|capfirst }}{% else %}{{ q.title|lower }}{% endif %}{% endfor %}</dd>
+            <dd>{% for q in object.qualifications.all %}{% if not forloop.first and not forloop.last %}, {% endif %}
+                {% if forloop.last and not forloop.first %} {% trans "or" %} {% endif %}{% if forloop.first %}
+                {{ q.title|capfirst }}{% else %}{{ q.title|lower }}{% endif %}{% endfor %}</dd>
         </dl>
     {% endif %}
     <dl>

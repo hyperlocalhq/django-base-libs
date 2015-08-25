@@ -4,7 +4,7 @@
     {% trans "contact data" %}
 </h6>
 <div class="section-details">
-    
+
     {% with object.postal_address as address %}
         {% if object.offering_institution_title or object.offering_institution or address.street_address or address.postal_code or address.country %}
             <div class="adr">
@@ -23,28 +23,29 @@
                 <dl>
                     <dt>{% trans "Address" %}</dt>
                     <dd>
-                            
-                        <span class="summary hidden">{{ object.get_title|escape }}<br /> </span>
+
+                        <span class="summary hidden">{{ object.get_title|escape }}<br/> </span>
             
                         <span class="location">
                             {% if address.street_address %}
-                                  <span class="street-address">{{ address.street_address|escape }}, </span>
-                            {% endif %}								
+                                <span class="street-address">{{ address.street_address|escape }}, </span>
+                            {% endif %}
                             {% if address.street_address2 %}
                                 <span class="street-address">{{ address.street_address2|escape }}, </span>
-                            {% endif %}								
+                            {% endif %}
                             {% if address.street_address3 %}
                                 <span class="street-address">{{ address.street_address3|escape }}, </span>
-                            {% endif %}								
-                            {% if address.postal_code or address.city %}	
-                                  <span class="postal-code">{{ address.postal_code|escape }} </span> 
-                                  <span class="locality">{{ address.city|escape }}, </span>
-                            {% endif %}								
+                            {% endif %}
+                            {% if address.postal_code or address.city %}
+                                <span class="postal-code">{{ address.postal_code|escape }} </span>
+                                <span class="locality">{{ address.city|escape }}, </span>
+                            {% endif %}
                             {% if address.country %}
-                                  <span class="country-name">{{ address.country.get_name }}</span>
+                                <span class="country-name">{{ address.country.get_name }}</span>
                             {% endif %}
                             {% if address.get_geoposition.latitude and address.get_geoposition.longitude %}
-                                <br /><span class="map-link"><a href="{{ object.get_url_path }}map/">({% trans "Show on the map" %})</a></span>
+                                <br/><span class="map-link"><a
+                                href="{{ object.get_url_path }}map/">({% trans "Show on the map" %})</a></span>
                             {% endif %}
                         </span>
                     </dd>
@@ -55,11 +56,11 @@
             <dl>
                 <dt>{% trans "Contact Person" %}</dt>
                 <dd>
-                {% if object.contact_person %}
-                    <a href="{{ object.contact_person.get_url }}">{{ object.contact_person.get_title }}</a>
-                {% else %}
-                    {{ object.contact_person_name }}
-                {% endif %}
+                    {% if object.contact_person %}
+                        <a href="{{ object.contact_person.get_url }}">{{ object.contact_person.get_title }}</a>
+                    {% else %}
+                        {{ object.contact_person_name }}
+                    {% endif %}
                 </dd>
             </dl>
         {% endif %}
@@ -69,12 +70,12 @@
                     {% if forloop.first %}
                         <dl>
                     {% endif %}
-                        <dd class="tel">
-                        <span class="type">{% trans "E-mail" %}</span>: 
-                        <span class="value"><a href="mailto:{{ email.address }}">{{ email.address }}</a></span></dd>
-                    {% if forloop.last %}
-                        </dl>
-                    {% endif %}
+                <dd class="tel">
+                    <span class="type">{% trans "E-mail" %}</span>:
+                    <span class="value"><a href="mailto:{{ email.address }}">{{ email.address }}</a></span></dd>
+                {% if forloop.last %}
+                    </dl>
+                {% endif %}
                 {% endfor %}
             {% else %}
                 <dl>
@@ -91,15 +92,15 @@
                 {% if forloop.first %}
                     <dl>
                 {% endif %}
-                    <dd class="tel">
-                    {% if phone.type %}
-                    <span class="type">{{ phone.type }}</span>: 
-                    {% endif %}
-                    <span class="value">+{{ phone.country }}-{{ phone.area }}-{{ phone.number }}</span></dd>
-                {% if forloop.last %}
-                    </dl>
+            <dd class="tel">
+                {% if phone.type %}
+                    <span class="type">{{ phone.type }}</span>:
                 {% endif %}
-        
+                <span class="value">+{{ phone.country }}-{{ phone.area }}-{{ phone.number }}</span></dd>
+            {% if forloop.last %}
+                </dl>
+            {% endif %}
+
             {% endfor %}
         {% endif %}
         {% if object.get_urls %}
@@ -107,25 +108,27 @@
                 {% if forloop.first %}
                     <dl>
                 {% endif %}
-                
-                {% with url.link|slice:":40" as sliced %}
-                    {% if url.type %}
-                        <dt>{{ url.type }}</dt>
-                        <dd>
-                            <a class="url link-{{ url.type.slug }}" href="{{ url.link|escape }}" onclick="open_new_window(event)">
-                                {{ sliced }}{% ifnotequal url.link sliced %}...{% endifnotequal %}</a>
-                            {% if object.is_commercial %}(€){% endif %}
-                        </dd>
-                    {% else %}
-                        <dd>
-                            <a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">{{ sliced }}{% ifnotequal url.link sliced %}...{% endifnotequal %}</a>
-                            {% if object.is_commercial %}(€){% endif %}
-                        </dd>
-                    {% endif %}
-                {% endwith %}
-                {% if forloop.last %}
-                    </dl>
+
+            {% with url.link|slice:":40" as sliced %}
+                {% if url.type %}
+                    <dt>{{ url.type }}</dt>
+                    <dd>
+                        <a class="url link-{{ url.type.slug }}" href="{{ url.link|escape }}"
+                           onclick="open_new_window(event)">
+                            {{ sliced }}{% ifnotequal url.link sliced %}...{% endifnotequal %}</a>
+                        {% if object.is_commercial %}(€){% endif %}
+                    </dd>
+                {% else %}
+                    <dd>
+                        <a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">
+                            {{ sliced }}{% ifnotequal url.link sliced %}...{% endifnotequal %}</a>
+                        {% if object.is_commercial %}(€){% endif %}
+                    </dd>
                 {% endif %}
+            {% endwith %}
+            {% if forloop.last %}
+                </dl>
+            {% endif %}
             {% endfor %}
         {% endif %}
         {% if object.get_ims %}

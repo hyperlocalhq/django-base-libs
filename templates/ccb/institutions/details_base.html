@@ -10,13 +10,13 @@
 {% endblock %}
 
 {% block meta_description %}
-	<meta name="description" content="{{ object.get_description|striptags|truncatewords:100 }}..." />
+    <meta name="description" content="{{ object.get_description|striptags|truncatewords:100 }}..."/>
 {% endblock %}
 
 {% block bodyclass %}object-details{% endblock %}
 
 {% block headline %}
-	<h1>
+    <h1>
         {{ object.title }}
     </h1>
     <h2 class="smaller">
@@ -37,7 +37,8 @@
                 {% with object as institution %}
                     {% include "institutions/controls.html" %}
                 {% endwith %}
-                <a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07"><span><span></span></span></a>
+                <a class="addthis_button"
+                   href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07"><span><span></span></span></a>
             {% endblock %}
             {% block additional_controls %}
             {% endblock %}

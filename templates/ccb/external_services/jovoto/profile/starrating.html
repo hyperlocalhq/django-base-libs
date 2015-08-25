@@ -10,7 +10,8 @@
 <div class="to_show">
     {% with rating|truncated_multiply:2 as split_rating %}
         {% for i in "xxxxxxxxxxxxxxxxxxxx" %}
-            <input name="star{{ ext_id }}" type="radio" class="star {split:4}" disabled="disabled"{% ifequal split_rating forloop.counter %} checked="checked"{% endifequal %}/>
+            <input name="star{{ ext_id }}" type="radio" class="star {split:4}" disabled="disabled"
+                {% ifequal split_rating forloop.counter %} checked="checked"{% endifequal %}/>
         {% endfor %}
     {% endwith %}
 </div>

@@ -1,7 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>{{ request.path }}</title>
     <script type="text/javascript">
         /* <![CDATA[ */
@@ -10,7 +11,7 @@
         //    document.domain = domain_bits.slice(-2).join(".");
         //}
         //"{{ cookie_domain }}";
-        window.onload = function() {
+        window.onload = function () {
             if (window != parent) {
                 parent.ProfileManager.section_loaded(document.body.innerHTML{% if not form %}, true{% endif %});
             }

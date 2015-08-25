@@ -1,6 +1,6 @@
 {% load i18n base_tags auth_extended %}
 
 {% if object.get_description %}
-    {{ object.get_description|disarm_user_input }} 
+    {{ object.get_description|disarm_user_input }}
 {% endif %}
 

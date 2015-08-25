@@ -3,45 +3,47 @@
 
 
 {% block details %}
-<div class="first-item">
-    {% if form %}
-        <form action="" method="post" class="uniForm">
-            <fieldset class="inlineLabels">
-                <h3>
-                    {% trans "Write a message to" %} {{ object.get_title|escape }}
-                </h3>
-                {{ form.subject|as_uni_field }}
-                {{ form.body|as_uni_field }}
-                {{ form.prevent_spam }}
-                {% if form.prevent_spam.errors %}
-                    <li>
-                        <p class="error">
-                            {{ form.prevent_spam.errors|join:", "}}
-                        </p>
-                    </li>
-                {% endif %}
-                    
-                {% if form.sender_name %}
-                    {{ form.sender_name|as_uni_field }}
-                {% endif %}
-                {% if form.sender_email %}
-                    {{ form.sender_email|as_uni_field }}
-                {% endif %}
-                <div class="buttonHolder">
-                    <input class="primaryAction" type="submit" value="{% filter upper %}{% trans "Send message" %}{% endfilter %}" id="id_submit"/>
+    <div class="first-item">
+        {% if form %}
+            <form action="" method="post" class="uniForm">
+                <fieldset class="inlineLabels">
+                    <h3>
+                        {% trans "Write a message to" %} {{ object.get_title|escape }}
+                    </h3>
+                    {{ form.subject|as_uni_field }}
+                    {{ form.body|as_uni_field }}
+                    {{ form.prevent_spam }}
+                    {% if form.prevent_spam.errors %}
+                        <li>
+                            <p class="error">
+                                {{ form.prevent_spam.errors|join:", " }}
+                            </p>
+                        </li>
+                    {% endif %}
+
+                    {% if form.sender_name %}
+                        {{ form.sender_name|as_uni_field }}
+                    {% endif %}
+                    {% if form.sender_email %}
+                        {{ form.sender_email|as_uni_field }}
+                    {% endif %}
+                    <div class="buttonHolder">
+                        <input class="primaryAction" type="submit"
+                               value="{% filter upper %}{% trans "Send message" %}{% endfilter %}" id="id_submit"/>
+                    </div>
+                </fieldset>
+            </form>
+        {% else %}
+            <form action="{{ object.get_url_path }}" method="get" class="uniForm">
+                <div id="okMsg">
+                    <p>{% trans "Your message has been sent." %}</p>
                 </div>
-            </fieldset>
-        </form>
-    {% else %}
-        <form action="{{ object.get_url_path }}" method="get" class="uniForm">
-            <div id="okMsg">
-                <p>{% trans "Your message has been sent." %}</p>
-            </div>
-            <div class="buttonHolder">
-                <input class="primaryAction" type="submit" value="{% filter upper %}{% trans "back" %}{% endfilter %}"/>
-            </div>
-        </form>
-    {% endif %}
-</div>
+                <div class="buttonHolder">
+                    <input class="primaryAction" type="submit"
+                           value="{% filter upper %}{% trans "back" %}{% endfilter %}"/>
+                </div>
+            </form>
+        {% endif %}
+    </div>
 {% endblock %}
 

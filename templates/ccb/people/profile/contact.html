@@ -4,97 +4,102 @@
     <div class="adr">
         {% if object.is_address_displayed %}
             <dl>
-            {% if contact.location_title %}
-                <dt><span class="type">{{ contact.location_title }}</span></dt>
-            {% endif %}
-            <dd>
-                {% if contact.institution_id %}
-                    {% ifequal contact.institution.status.sysname "draft" %}
-                        {{ contact.institution.get_title|escape }}
-                    {% else %}
-                        <a class="org" href="{{ contact.institution.get_url_path }}">{{ contact.institution.get_title|escape }}</a>
-                    {% endifequal %}
-                    <br />
+                {% if contact.location_title %}
+                    <dt><span class="type">{{ contact.location_title }}</span></dt>
                 {% endif %}
-                <span class="fn hidden">{{ object.get_title|escape }}<br /> </span>
-        
-                {% with contact.postal_address as address %}
-                    {% if address.street_address %}
-                          <span class="street-address">{{ address.street_address|escape }}, </span>
-                    {% endif %}								
-                    {% if address.street_address2 %}
-                        <span class="street-address">{{ address.street_address2|escape }}, </span>
-                    {% endif %}								
-                    {% if address.street_address3 %}
-                        <span class="street-address">{{ address.street_address3|escape }}, </span>
-                    {% endif %}								
-                    {% if address.postal_code %}	
-                          <span class="postal-code">{{ address.postal_code|escape }} </span> 
-                          <span class="locality">{{ address.city|escape }}, </span>
-                    {% endif %}								
-                    {% if address.country %}
-                          <span class="country-name">{{ address.country.get_name }}</span>
+                <dd>
+                    {% if contact.institution_id %}
+                        {% ifequal contact.institution.status.sysname "draft" %}
+                            {{ contact.institution.get_title|escape }}
+                        {% else %}
+                            <a class="org"
+                               href="{{ contact.institution.get_url_path }}">{{ contact.institution.get_title|escape }}</a>
+                        {% endifequal %}
+                        <br/>
                     {% endif %}
-                {% endwith %}  
-            </dd>
+                    <span class="fn hidden">{{ object.get_title|escape }}<br/> </span>
+
+                    {% with contact.postal_address as address %}
+                        {% if address.street_address %}
+                            <span class="street-address">{{ address.street_address|escape }}, </span>
+                        {% endif %}
+                        {% if address.street_address2 %}
+                            <span class="street-address">{{ address.street_address2|escape }}, </span>
+                        {% endif %}
+                        {% if address.street_address3 %}
+                            <span class="street-address">{{ address.street_address3|escape }}, </span>
+                        {% endif %}
+                        {% if address.postal_code %}
+                            <span class="postal-code">{{ address.postal_code|escape }} </span>
+                            <span class="locality">{{ address.city|escape }}, </span>
+                        {% endif %}
+                        {% if address.country %}
+                            <span class="country-name">{{ address.country.get_name }}</span>
+                        {% endif %}
+                    {% endwith %}
+                </dd>
             </dl>
         {% else %}
             <dl>
-            {% if contact.location_title %}
-                <dt><span class="type">{{ contact.location_title }}</span></dt>
-            {% else %}
-                <dt><span class="type">{{ contact.location_type }}</span></dt>        
-            {% endif %}
-            <dd>
-                {% if contact.institution_id %}
-                    {% ifequal contact.institution.status.sysname "draft" %}
-                        {{ contact.institution.get_title|escape }}
-                    {% else %}
-                        <a class="org" href="{{ contact.institution.get_url_path }}">{{ contact.institution.get_title|escape }}</a>
-                    {% endifequal %}
-                    <br />
+                {% if contact.location_title %}
+                    <dt><span class="type">{{ contact.location_title }}</span></dt>
+                {% else %}
+                    <dt><span class="type">{{ contact.location_type }}</span></dt>
                 {% endif %}
-            </dd>
+                <dd>
+                    {% if contact.institution_id %}
+                        {% ifequal contact.institution.status.sysname "draft" %}
+                            {{ contact.institution.get_title|escape }}
+                        {% else %}
+                            <a class="org"
+                               href="{{ contact.institution.get_url_path }}">{{ contact.institution.get_title|escape }}</a>
+                        {% endifequal %}
+                        <br/>
+                    {% endif %}
+                </dd>
             </dl>
         {% endif %}
-        
-        
+
+
         {% if contact.get_phones %}
             {% for phone in contact.get_phones %}
                 {% if forloop.first %}
                     <dl>
                 {% endif %}
-                    <dd class="tel">
-                    {% if phone.type %}
-                    <abbr class="type" title="{% ifequal phone.type.slug "mobile" %}Cell{% else %}{% endifequal %}">{{ phone.type }}</abbr>: 
-                    {% endif %}
-                    <span class="value">+{{ phone.country }}-{{ phone.area }}-{{ phone.number }}</span></dd>
-                {% if forloop.last %}
-                    </dl>
+            <dd class="tel">
+                {% if phone.type %}
+                    <abbr class="type"
+                          title="{% ifequal phone.type.slug "mobile" %}Cell{% else %}{% endifequal %}">{{ phone.type }}</abbr>
+                    :
                 {% endif %}
-        
+                <span class="value">+{{ phone.country }}-{{ phone.area }}-{{ phone.number }}</span></dd>
+            {% if forloop.last %}
+                </dl>
+            {% endif %}
+
             {% endfor %}
         {% endif %}
-        
+
         {% for url in contact.get_urls %}
             {% if forloop.first %}
                 <dl>
             {% endif %}
-                {% if url.type %}<dd><span class="type">{{ url.type }}: </span> 
-                    <a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">
+        {% if url.type %}
+            <dd><span class="type">{{ url.type }}: </span>
+                <a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">
                     {{ url.link }}</a></dd>
-                {% else %}
-                    <dd><a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">{{ url.link}}</a></dd>
-                {% endif %}
-            {% if forloop.last %}
-                </dl>
-            {% endif %}
+        {% else %}
+            <dd><a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">{{ url.link }}</a></dd>
+        {% endif %}
+        {% if forloop.last %}
+            </dl>
+        {% endif %}
         {% endfor %}
         {% if contact.get_ims %}
             <dl>
-            {% for im in contact.get_ims %}
-                <dd><span class="type">{{ im.type }}: </span>{{ im.address }}</dd>
-            {% endfor %}
+                {% for im in contact.get_ims %}
+                    <dd><span class="type">{{ im.type }}: </span>{{ im.address }}</dd>
+                {% endfor %}
             </dl>
         {% endif %}
     </div>

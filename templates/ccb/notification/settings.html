@@ -5,18 +5,19 @@
 {% block head_title %}{% trans "Notices" %}{% endblock %}
 
 {% block extra_head %}
-    <link rel="alternate" type="application/atom+xml" title="Notices Feed" href="{% url 'notification_feed_for_user' %}" />
+    <link rel="alternate" type="application/atom+xml" title="Notices Feed"
+          href="{% url 'notification_feed_for_user' %}"/>
 {% endblock %}
 
 {% block title %}{% trans "Notification Settings" %}{% endblock %}
 
 {% block headline %}
     <h1>
-    {% trans "My Profile" %}
-   </h1>
+        {% trans "My Profile" %}
+    </h1>
     <h2 class="sub">
-    {% trans "Notification Settings" %}
-   </h2>
+        {% trans "Notification Settings" %}
+    </h2>
 {% endblock %}
 
 {% block content %}
@@ -25,7 +26,8 @@
             {% blocktrans with user.email as email %}The chosen notices will be sent to {{ email }}.{% endblocktrans %}
         </p>
         {% if user.is_staff %}
-            <p class="disclaimer">{% blocktrans %}Settings marked with "(Staff)" are only visible to staff members.{% endblocktrans %}</p>
+            <p class="disclaimer">{% blocktrans %}Settings marked with "(Staff)" are only visible to staff
+                members.{% endblocktrans %}</p>
         {% endif %}
     </div>
     <form method="POST" action="" class="uniForm">
@@ -33,24 +35,24 @@
         {% for group in notice_settings_rows %}
             <fieldset class="inlineLabels">
                 <h3>
-                {{ group.grouper|default:_("Unspecified") }}
+                    {{ group.grouper|default:_("Unspecified") }}
                 </h3>
                 {% for row in group.list %}
                     <div class="ctrlHolder noLabel">
                         {% for cell in row.cells %}
                             <ul>
                                 <li>
-                                <label for="id_{{ cell.1.prefix }}-{{ cell.1.frequency.name }}">
-                                    <strong>{{ row.notice_type.get_display }}</strong>
-                                    {% if not row.notice_type.is_public %}
-                                        ({% trans "Staff" %})
-                                    {% endif %}
-                                </label>
-                                {{ cell.1.frequency }}
+                                    <label for="id_{{ cell.1.prefix }}-{{ cell.1.frequency.name }}">
+                                        <strong>{{ row.notice_type.get_display }}</strong>
+                                        {% if not row.notice_type.is_public %}
+                                            ({% trans "Staff" %})
+                                        {% endif %}
+                                    </label>
+                                    {{ cell.1.frequency }}
                                 </li>
                             </ul>
                             <div class="formHint">
-                            {{ row.notice_type.get_description }}
+                                {{ row.notice_type.get_description }}
                             </div>
                         {% endfor %}
                     </div>
@@ -58,7 +60,7 @@
             </fieldset>
         {% endfor %}
         <div class="buttonHolder">
-            <input type="submit" value="{% trans "Change" %}" class="primaryAction" />
+            <input type="submit" value="{% trans "Change" %}" class="primaryAction"/>
         </div>
     </form>
 {% endblock %}

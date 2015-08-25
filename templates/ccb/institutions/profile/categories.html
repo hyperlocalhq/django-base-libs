@@ -3,8 +3,8 @@
 <h6 class="section-header">
     {% trans "Categories" %}
 </h6>
-<div class="section-details">        
-    
+<div class="section-details">
+
     {% if object.get_creative_sectors %}
         <dl>
             <dt>
@@ -17,27 +17,29 @@
                 {% endwith %}
             </dt>
             {% for cat in object.get_creative_sectors %}
-                {% if forloop.first %}<dd>{% endif %}
-                    {{ cat.get_title|escape }}{% if not forloop.last %}, {% endif %}
-                {% if forloop.last %}</dd>{% endif %}  
+                {% if forloop.first %}
+                    <dd>{% endif %}
+            {{ cat.get_title|escape }}{% if not forloop.last %}, {% endif %}
+            {% if forloop.last %}</dd>{% endif %}
             {% endfor %}
         </dl>
     {% endif %}
     {% if object.get_context_categories %}
         <dl>
             <dt>
-            {% with object.get_context_categories|length as context_categories_count %}
-                {% ifequal context_categories_count 1 %}
-                    {% trans "Context Category" %}
-                {% else %}
-                    {% trans "Context Categories" %}
-                {% endifequal %}
-            {% endwith %}
+                {% with object.get_context_categories|length as context_categories_count %}
+                    {% ifequal context_categories_count 1 %}
+                        {% trans "Context Category" %}
+                    {% else %}
+                        {% trans "Context Categories" %}
+                    {% endifequal %}
+                {% endwith %}
             </dt>
             {% for cat in object.get_context_categories %}
-                {% if forloop.first %}<dd>{% endif %}
-                {{ cat.get_title|escape }}{% if not forloop.last %}, {% endif %}
-                {% if forloop.last %}</dd>{% endif %}
+                {% if forloop.first %}
+                    <dd>{% endif %}
+            {{ cat.get_title|escape }}{% if not forloop.last %}, {% endif %}
+            {% if forloop.last %}</dd>{% endif %}
             {% endfor %}
         </dl>
     {% endif %}

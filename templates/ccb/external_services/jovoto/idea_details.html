@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block extrahead %}
-{{ block.super }}
+    {{ block.super }}
 {% endblock %}
 
 {% block details %}
@@ -18,11 +18,11 @@
     </div>
     {% if idea_details.description %}
         <div class="cats">
-            <h6 class="subline">{%trans "description" %}</h6>
+            <h6 class="subline">{% trans "description" %}</h6>
             {% include "external_services/jovoto/profile/description.html" %}
         </div>
     {% endif %}
-    
+
     <div class="cats">
         {% include "external_services/jovoto/profile/comments.html" %}
     </div>
@@ -31,14 +31,14 @@
 {% block breadcrumbs %}
     <div>
         <div class="breadcrumbs">
-            <a href="/">{% trans "Overview" %}</a> | 
-            <a href="/logo_contest/">{% trans "Logo Contest" %}</a> :: 
+            <a href="/">{% trans "Overview" %}</a> |
+            <a href="/logo_contest/">{% trans "Logo Contest" %}</a> ::
             <a href="/logo_contest/ideas/">{% trans "Ideas" %}</a> ::
             <a class="active" href="#">{{ object.name|escape }}</a>
         </div>
         <div class="counting_of right">
             {% include "site_specific/count_of.html" %}
         </div>
-    </div>                                                           
+    </div>
 {% endblock %}
 

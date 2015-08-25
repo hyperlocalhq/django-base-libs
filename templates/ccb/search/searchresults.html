@@ -3,7 +3,7 @@
 
 
 {% block extrahead %}
-    <meta name="robots" content="noindex" />
+    <meta name="robots" content="noindex"/>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js" defer="defer"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/individual_relations.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/groups_networks.js"></script>
@@ -13,14 +13,14 @@
 
 
 {% block headline %}
-	<h1>{% trans "search results" %}</h1>
-{% endblock %}			
+    <h1>{% trans "search results" %}</h1>
+{% endblock %}
 
 
 {% block content %}
     <div class="search-browse">
         {% if object_list %}
-             {% include_parsed "utils/includes/sorting_and_pagination.html" with "under-tabs" as css_class %}
+            {% include_parsed "utils/includes/sorting_and_pagination.html" with "under-tabs" as css_class %}
             <div id="object_list">
                 {% include "site_specific/context_item_list.html" %}
             </div>
@@ -33,5 +33,5 @@
 
 
 {% block extrabody %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
 {% endblock %}

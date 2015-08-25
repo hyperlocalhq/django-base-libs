@@ -13,13 +13,20 @@
 {% endblock %}
 
 {% block object_col2 %}
-    <div class="location">{% if job_offer.offering_institution %}{{ job_offer.offering_institution.get_title }}{% else %}{{ job_offer.offering_institution_title }}{% endif %}</div>
-    <br />
+    <div class="location">
+        {% if job_offer.offering_institution %}{{ job_offer.offering_institution.get_title }}{% else %}
+            {{ job_offer.offering_institution_title }}{% endif %}</div>
+    <br/>
     {% if job_offer.get_urls %}
-    <div><a href="{{ job_offer.get_urls.0.link }}"{% if job_offer.get_urls.0.type %} class="link-{{ job_offer.get_urls.0.type.slug }}"{% endif %}>{% with job_offer.get_urls.0.link|slice:":30" as sliced %}{{ sliced }}{% ifnotequal job_offer.get_urls.0.link sliced %}...{% endifnotequal %}{% endwith %}</a></div>
-    <br />
+        <div><a href="{{ job_offer.get_urls.0.link }}"{% if job_offer.get_urls.0.type %}
+                class="link-{{ job_offer.get_urls.0.type.slug }}"{% endif %}>
+            {% with job_offer.get_urls.0.link|slice:":30" as sliced %}{{ sliced }}
+                {% ifnotequal job_offer.get_urls.0.link sliced %}...{% endifnotequal %}{% endwith %}</a></div>
+        <br/>
     {% endif %}
-    <div class="job-sectors hidable">{% for sector in job_offer.job_sectors.all %}{{ sector.title }}{% if not forloop.last %}, {% endif %}{% endfor %}</div>
+    <div class="job-sectors hidable">
+        {% for sector in job_offer.job_sectors.all %}{{ sector.title }}{% if not forloop.last %},
+        {% endif %}{% endfor %}</div>
 {% endblock %}
 
 {% block object_controls %}

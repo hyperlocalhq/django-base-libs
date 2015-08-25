@@ -7,14 +7,15 @@
     </h1>
     <h2 class="sub">
         {% trans "Delete Profile" %}
-   </h2>
+    </h2>
 {% endblock %}
 
 {% block content %}
     <div class="suggest">
         {% if deleted_institutions %}
             {% for inst in deleted_institutions %}
-                <p>{% blocktrans with inst.get_title as title  %}Your institutional profile "{{ title }}" was successfully deleted{% endblocktrans %}</p>
+                <p>{% blocktrans with inst.get_title as title %}Your institutional profile "{{ title }}" was
+                    successfully deleted{% endblocktrans %}</p>
             {% endfor %}
         {% endif %}
         <div class="to_hide">
@@ -26,16 +27,19 @@
             <fieldset class="inlineLabels">
                 <h3>{{ form.profiles.label }}</h3>
                 {{ form.profiles|as_uni_field }}
-                {% if form.profiles.errors %}<p class="error" id="id_profiles_error_container">{{ form.profiles.errors|join:"<br />"|safe }}</p>{% endif %}
+                {% if form.profiles.errors %}<p class="error"
+                                                id="id_profiles_error_container">{{ form.profiles.errors|join:"<br />"|safe }}</p>{% endif %}
                 {{ form.non_field_errors }}
                 <div class="cleaner"></div>
-                
+
                 <h3>{% trans "Additional Options" %}</h3>
                 {{ form.delete_events|as_uni_field }}
                 {{ form.delete_job_offers|as_uni_field }}
                 <div class="buttonHolder">
-                    <input type="button" class="secondaryAction" onclick="history.go(-1)" value="{% filter upper %}{% trans "Back" %}{% endfilter %}"/>
-                    <input class="primaryAction" id="delete_profile" type="submit" value="{% filter upper %}{% trans "Delete" %}{% endfilter %}" />
+                    <input type="button" class="secondaryAction" onclick="history.go(-1)"
+                           value="{% filter upper %}{% trans "Back" %}{% endfilter %}"/>
+                    <input class="primaryAction" id="delete_profile" type="submit"
+                           value="{% filter upper %}{% trans "Delete" %}{% endfilter %}"/>
                 </div>
             </fieldset>
         </form>

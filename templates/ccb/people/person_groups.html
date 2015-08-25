@@ -2,20 +2,20 @@
 {% load i18n base_tags nav_menu auth_extended %}
 
 {% block details %}
-    <div class="network_details">        
+    <div class="network_details">
         <div class="person">
             {% if object_list %}
-            
+
                 {% include "utils/includes/sorting_and_pagination.html" %}
-            
+
                 <div id="object_list">
                     {% for persongroup in object_list %}
                         {% include_parsed "groups_networks/lists/persongroup.html" %}
                     {% endfor %}
                 </div>
-                
+
                 {% include "utils/includes/sorting_and_pagination.html" %}
-       	
+
             {% else %}
                 <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>
             {% endif %}
@@ -33,5 +33,5 @@
 {% endblock %}
 
 {% block extrabody %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
 {% endblock %}

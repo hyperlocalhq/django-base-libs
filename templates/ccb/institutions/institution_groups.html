@@ -4,20 +4,20 @@
 
 {% block details %}
     <div class="network_details">
-   
-	    <div class="person">  
+
+        <div class="person">
             {% if object_list %}
-            
+
                 {% include "utils/includes/sorting_and_pagination.html" %}
-            
+
                 <div id="object_list">
                     {% for persongroup in object_list %}
                         {% include_parsed "groups_networks/lists/persongroup.html" %}
                     {% endfor %}
                 </div>
-         
+
                 {% include "utils/includes/sorting_and_pagination.html" %}
-         
+
             {% else %}
                 <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>
             {% endif %}
@@ -32,11 +32,12 @@
             <a href="#" class="collapse_all">{% trans "hide details" %}</a>
         </div>
         <div class="breadcrumbs">
-            <a href="{{ object.get_url_path }}network/">{% trans "Network" %}</a> :: <a class="active" href="#">{% trans "Groups" %}</a>
+            <a href="{{ object.get_url_path }}network/">{% trans "Network" %}</a> :: <a class="active"
+                                                                                        href="#">{% trans "Groups" %}</a>
         </div>
     </div>
 {% endblock %}
 
 {% block extrabody %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
 {% endblock %}

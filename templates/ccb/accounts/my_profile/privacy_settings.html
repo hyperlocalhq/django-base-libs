@@ -7,7 +7,7 @@
     </h1>
     <h2 class="sub">
         {% trans "Privacy Settings" %}
-   </h2>
+    </h2>
 {% endblock %}
 
 {% block content %}
@@ -15,26 +15,29 @@
         <p>
             {% trans "Here you can specify personal data to be displayed in your profile to the public." %}
         </p>
+
         <form action="." method="post" class="uniForm">{% csrf_token %}
             <fieldset class="inlineLabels">
                 <h3>{% trans "Global" %}</h3>
                 {{ form.display_profile|as_uni_field }}
                 {{ form.display_username|as_uni_field }}
-                
+
                 <h3>{% trans "Profile" %}</h3>
                 {{ form.display_birthday|as_uni_field }}
                 {{ form.allow_search_engine_indexing|as_uni_field }}
-                
+
                 <h3>{% trans "Contact" %}</h3>
                 {{ form.display_address|as_uni_field }}
                 {{ form.display_phone|as_uni_field }}
                 {{ form.display_fax|as_uni_field }}
                 {{ form.display_mobile|as_uni_field }}
                 {{ form.display_im|as_uni_field }}
-                
+
                 <div class="buttonHolder">
-                    <input type="button" class="secondaryAction" onclick="history.go(-1)" value="{% filter upper %}{% trans "Back" %}{% endfilter %}"/>
-                    <input class="primaryAction" type="submit" value="{% filter upper %}{% trans "Confirm" %}{% endfilter %}" />
+                    <input type="button" class="secondaryAction" onclick="history.go(-1)"
+                           value="{% filter upper %}{% trans "Back" %}{% endfilter %}"/>
+                    <input class="primaryAction" type="submit"
+                           value="{% filter upper %}{% trans "Confirm" %}{% endfilter %}"/>
                 </div>
             </fieldset>
         </form>

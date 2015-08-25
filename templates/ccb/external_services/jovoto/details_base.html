@@ -8,17 +8,17 @@
 {% block title %}{{ object.name|escape }}{% endblock %}
 
 {% block extrahead %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/jovoto.js"></script>
- 	<script type="text/javascript" src="{{ jetson_media_url }}js/jquery/starrating/jquery.MetaData.js"></script>
-	<script type="text/javascript" src="{{ jetson_media_url }}js/jquery/starrating/jquery.rating.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/jovoto.js"></script>
+    <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/starrating/jquery.MetaData.js"></script>
+    <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/starrating/jquery.rating.js"></script>
 {% endblock %}
 
 
 {% block headline %}
-	<h1>creative city berlin</h1>
-	<h2 class="sub">Logo Contest</h2>
-{% endblock %}			
+    <h1>creative city berlin</h1>
+    <h2 class="sub">Logo Contest</h2>
+{% endblock %}
 
 {% block formstart %}
 {% endblock %}
@@ -27,15 +27,15 @@
 {% endblock %}
 
 {% block content %}
-        
-        {% comment %}
+
+    {% comment %}
         {% block tabs %}
             <div id="tabs">
                 {% children_of "external" using "navigation/children_in_tabs.html" %}
             </div>
         {% endblock %}
         {% endcomment %}
-        
-        {% block details %}
-        {% endblock %}
+
+    {% block details %}
+    {% endblock %}
 {% endblock %}logo-contest

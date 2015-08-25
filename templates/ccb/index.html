@@ -8,19 +8,21 @@
             overflow: hidden;
             position: relative;
             width: 583px;
-        }    
+        }
+
         .scrollable .items {
             clear: both;
             position: absolute;
             width: 20000em;
         }
+
         .items div {
             float: left;
             width: 583px;
         }
     </style>
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery/jquery.tools.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery/jquery.tools.min.js"></script>
 {% endblock %}
 
 {% block title %}{% trans "Welcome" %}{% endblock %}
@@ -41,44 +43,46 @@
     {% else %}
         {% slideshow "start_page_de" %}
     {% endif %}
-    
+
     {% infoblock "startpage_header" %}
     {% include_parsed "media_gallery/includes/random_featured_galleries.html" %}
-    
+
 {% endblock %}
 
 {% block sidebar-a %}
-    <div class="sidebar-box sidebar-box-fixed nav_expanded" id="answers_{{ LANGUAGE_CODE }}">                   
+    <div class="sidebar-box sidebar-box-fixed nav_expanded" id="answers_{{ LANGUAGE_CODE }}">
         <h5><b>{% trans "Welcome" %}</b></h5>
+
         <div class="hidable">
             {% children_of "start_page_overview" %}
         </div>
     </div>
-    
+
     <div id="dyn_rotating_banner">
         {% infoblock "partners" using "blocks/uncollapsible_infoblock.html" %}
     </div>
-    
+
 {% endblock %}
 
 {% block sidebar-b %}
     {% if request.user.is_authenticated %}
         {% include "site_specific/blocks/sidebar_account_index.html" %}
-     {% else %}
+    {% else %}
         {% include "site_specific/blocks/sidebar_login.html" %}
     {% endif %}
-	{% comment %}<!--
+    {% comment %}<!--
     <div class="sidebar-box navi_add_portfolio_image_{{ LANGUAGE_CODE }}">
         <a href="{% if request.user.is_authenticated %}{{ request.user.get_profile.get_url_path }}portfolio/{% else %}/login/{% endif %}">
             <img src="{{ STATIC_URL }}site/kreativarbeiten/ccb_teaser_kreative_arbeiten.jpg" alt="{% trans "Create your online portfolio!" %}" />
         </a>
     </div>
  	-->{% endcomment %}
- 	<div class="sidebar-box">
- 	    <a href="/kreativarbeiten/blog/">
- 	        <img src="{{ UPLOADS_URL }}kreativarbeiten/ccb_teaser_kreative_arbeiten.jpg" alt="{% trans "Kreativ Arbeiten" %}" />
- 	    </a>
- 	</div>
+    <div class="sidebar-box">
+        <a href="/kreativarbeiten/blog/">
+            <img src="{{ UPLOADS_URL }}kreativarbeiten/ccb_teaser_kreative_arbeiten.jpg"
+                 alt="{% trans "Kreativ Arbeiten" %}"/>
+        </a>
+    </div>
 {% endblock %}
 
 {% block extra_content %}
@@ -89,23 +93,26 @@
                     <div class="col1_content clearfix">
                         {% get_latest_published_objects marketplace.JobOffer 5 as latest_job_offers %}
                         {% if latest_job_offers.count %}
-                            <div class="sidebar-box latest_job_offers_{{ LANGUAGE_CODE }} nav_expanded" id="cat_latest_job_offers">
+                            <div class="sidebar-box latest_job_offers_{{ LANGUAGE_CODE }} nav_expanded"
+                                 id="cat_latest_job_offers">
                                 <h5>
                                     <a href="#Collapse-Expand" class="open_but">
                                         <b>{% trans "Jobboard" %}</b>
                                         <span class="pic"></span>
                                     </a>
                                 </h5>
+
                                 <div class="sector-select hidable">
                                     {% for job_offer in latest_job_offers %}
-                                        {% if forloop.first %}<ul>{% endif %}
-                                        <li><a href="{{ job_offer.get_url_path }}">{{ job_offer }}</a></li>
-                                        {% if forloop.last %}</ul>{% endif %}
+                                        {% if forloop.first %}
+                                            <ul>{% endif %}
+                                    <li><a href="{{ job_offer.get_url_path }}">{{ job_offer }}</a></li>
+                                    {% if forloop.last %}</ul>{% endif %}
                                     {% endfor %}
                                 </div>
                             </div>
                         {% endif %}
-                        
+
                         <div class="sidebar-box nav_collapsed" id="cat_newsletter_subscription">
                             <h5>
                                 <a href="#Collapse-Expand" class="open_but">
@@ -113,18 +120,19 @@
                                     <span class="pic"></span>
                                 </a>
                             </h5>
+
                             <div id="newsletter_subscription" class="hidable">
                             </div>
                             <script type="text/javascript">
-                            (function($, undefined) {
-                                $(function() {
-                                    $("#newsletter_subscription").load("/" + settings.lang + "/subscribe4info/ #newsletter");
-                                });
-                            }(jQuery));
+                                (function ($, undefined) {
+                                    $(function () {
+                                        $("#newsletter_subscription").load("/" + settings.lang + "/subscribe4info/ #newsletter");
+                                    });
+                                }(jQuery));
                             </script>
                         </div>
-                        
-        
+
+
                         <div class="sidebar-box nav_expanded" id="cat_twitter_updates">
                             <h5>
                                 <a href="#Collapse-Expand" class="open_but">
@@ -132,17 +140,25 @@
                                     <span class="pic"></span>
                                 </a>
                             </h5>
+
                             <div class="sector-select hidable">
                                 <ul id="tweets">
-                                    <li><a href="http://www.twitter.com/CREATIVEBERLIN" onclick="open_new_window(event)"><img src="http://twitter-badges.s3.amazonaws.com/follow_us-b.png" alt="Follow CREATIVEBERLIN on Twitter"/></a></li>
+                                    <li><a href="http://www.twitter.com/CREATIVEBERLIN"
+                                           onclick="open_new_window(event)"><img
+                                        src="http://twitter-badges.s3.amazonaws.com/follow_us-b.png"
+                                        alt="Follow CREATIVEBERLIN on Twitter"/></a></li>
                                 </ul>
                             </div>
                         </div>
                         <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/twitter.js"></script>
-                        
+
                         <!--<fb:fan profile_id="126868757758" connections="6" width="184" height="300" show_faces="true" stream="false" css="http://http://192.168.0.70:8000/media/0/css/screen/facebook.css?1"></fb:fan>-->
-                        <iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2Fwwwcreative-city-berlinde%2F126868757758%3Fref%3Dts&amp;width=184&amp;colorscheme=light&amp;show_faces=true&amp;stream=false&amp;header=false&amp;height=280" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:184px; height:280px; margin-bottom: 16px;" allowTransparency="true"></iframe>
-                        
+                        <iframe
+                            src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2Fwwwcreative-city-berlinde%2F126868757758%3Fref%3Dts&amp;width=184&amp;colorscheme=light&amp;show_faces=true&amp;stream=false&amp;header=false&amp;height=280"
+                            scrolling="no" frameborder="0"
+                            style="border:none; overflow:hidden; width:184px; height:280px; margin-bottom: 16px;"
+                            allowTransparency="true"></iframe>
+
                     </div>
                 </div>
                 <div class="col4">
@@ -159,7 +175,7 @@
                             <div class="news-overview content-box">
                                 <h3 class="news_hl">
                                     <a href="/news/articles/">
-                                    {% trans "News" %}
+                                        {% trans "News" %}
                                     </a>
                                     <a href="/news/feeds/rss/" class="rss" title="{% trans "Subscribe to RSS Feed" %}">
                                         <span>RSS feed</span>
@@ -174,17 +190,18 @@
                             {% for article in article_list %}
                                 <div class="news-details" onclick="redirect('{{ article.get_url_path }}')">
                                     <div class="date">{{ article.published_from|datefmt:"long" }}</div>
-                                    <h5><a href="{{ article.get_url_path }}">{{ article.get_title }} 
+                                    <h5><a href="{{ article.get_url_path }}">{{ article.get_title }}
                                     </a></h5>
-                                    
+
                                     {% if article.get_description %}
                                         {% parse article.get_rendered_description as description %}
                                     {% else %}
                                         {% parse article.get_rendered_content as description %}
                                     {% endif %}
-                                    
+
                                     {% if article.image %}
-                                        <img class="left" src="{{ UPLOADS_URL }}{{ article.image|modified_path:"nd" }}" alt="{{ article.get_title|escape }}" />
+                                        <img class="left" src="{{ UPLOADS_URL }}{{ article.image|modified_path:"nd" }}"
+                                             alt="{{ article.get_title|escape }}"/>
                                     {% endif %}
                                     <p>
                                         {{ description|wordwrap:30|striptags|truncatewords:"20" }}
@@ -197,7 +214,7 @@
                             <div class="news-overview content-box">
                                 <h3 class="news_hl">
                                     <a href="/news/interviews/">
-                                    {% trans "Interviews" %}
+                                        {% trans "Interviews" %}
                                     </a>
                                     <a href="/news/feeds/rss/" class="rss" title="{% trans "Subscribe to RSS Feed" %}">
                                         <span>RSS feed</span>
@@ -212,17 +229,18 @@
                             {% for article in article_list %}
                                 <div class="news-details" onclick="redirect('{{ article.get_url_path }}')">
                                     <div class="date">{{ article.published_from|datefmt:"long" }}</div>
-                                    <h5><a href="{{ article.get_url_path }}">{{ article.get_title }} 
+                                    <h5><a href="{{ article.get_url_path }}">{{ article.get_title }}
                                     </a></h5>
-                                    
+
                                     {% if article.get_description %}
                                         {% parse article.get_rendered_description as description %}
                                     {% else %}
                                         {% parse article.get_rendered_content as description %}
                                     {% endif %}
-                                    
+
                                     {% if article.image %}
-                                        <img class="left" src="{{ UPLOADS_URL }}{{ article.image|modified_path:"nd" }}" alt="{{ article.get_title|escape }}" />
+                                        <img class="left" src="{{ UPLOADS_URL }}{{ article.image|modified_path:"nd" }}"
+                                             alt="{{ article.get_title|escape }}"/>
                                     {% endif %}
                                     <p>
                                         {{ description|wordwrap:30|striptags|truncatewords:"20" }}

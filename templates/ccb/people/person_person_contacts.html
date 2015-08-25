@@ -3,20 +3,20 @@
 
 {% block details %}
     {% include "site_specific/count_of.html" %}
-    <div class="network_details">    
+    <div class="network_details">
         <div class="person">
             {% if object_list %}
-            
+
                 {% include "utils/includes/sorting_and_pagination.html" %}
-            
+
                 <div id="object_list">
                     {% for person in object_list %}
                         {% include_parsed "people/lists/person.html" with "vcard" as extra_css_classes %}
                     {% endfor %}
                 </div>
-                
+
                 {% include "utils/includes/sorting_and_pagination.html" %}
-            
+
             {% else %}
                 <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>
             {% endif %}
@@ -34,5 +34,5 @@
 {% endblock %}
 
 {% block extrabody %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
 {% endblock %}

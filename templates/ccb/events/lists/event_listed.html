@@ -1,11 +1,16 @@
 <tr class="list-item {{ extra_css_classes }} {% if forloop.counter|divisibleby:"2" %}even{% else %}odd{% endif %}">
     <td class="datetime">
-    {% for time in event.eventtime_set.all %}
-        {% include "events/includes/event_time.html" %}
-        {% if not forloop.last %}<br />{% endif %}
-    {% endfor %}
-    {% if event.event_type %}<br/><div class="object-type">{{ event.event_type }}</div>{% endif %}
+        {% for time in event.eventtime_set.all %}
+            {% include "events/includes/event_time.html" %}
+            {% if not forloop.last %}<br/>{% endif %}
+        {% endfor %}
+        {% if event.event_type %}<br/>
+            <div class="object-type">{{ event.event_type }}</div>{% endif %}
     </td>
-    <td><h5><a class="summary" href="{{ event.get_url_path }}">{{ event.get_title|escape }}</a></h5><div class="location">{% if event.venue %}{{ event.venue.title }}{% else %}{{ event.venue_title }}{% endif %}</div></td>
+    <td><h5><a class="summary" href="{{ event.get_url_path }}">{{ event.get_title|escape }}</a></h5>
+
+        <div class="location">
+            {% if event.venue %}{{ event.venue.title }}{% else %}{{ event.venue_title }}{% endif %}</div>
+    </td>
     <td class="controls">{% include "events/controls.html" %}</td>
 </tr>

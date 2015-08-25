@@ -4,40 +4,42 @@
 {% block title %}{% trans 'Feedback' %}{% endblock %}
 
 {% block headline %}
-	<h1>{% trans "FEEDBACK" %}</h1>
-{% endblock %}			
+    <h1>{% trans "FEEDBACK" %}</h1>
+{% endblock %}
 
 
 {% block content %}
-<div class="suggest">
-	<form action="" method="post" class="uniForm">
-    	<p class="disclaimer">{% trans "We are constantly working to improve and expand this website with regard to both usability and content. If you have a suggestion, we are happy to hear about it." %}</p>
-        
-    	<fieldset class="inlineLabels">
-            <h3>{% trans "Write Feedback" %}</h3>
-            {{ form.concern|as_uni_field }}
-            {% if not request.user.is_authenticated %}
-                {{ form.submitter_name|as_uni_field }}
-                {{ form.submitter_email|as_uni_field }}
-            {% endif %}	 
-            {{ form.description|as_uni_field }}
-            {{ form.client_info|as_uni_field }}
-            
-            {{ form.captcha|as_uni_field }}
-            
-            {% comment %}<!--
+    <div class="suggest">
+        <form action="" method="post" class="uniForm">
+            <p class="disclaimer">{% trans "We are constantly working to improve and expand this website with regard to both usability and content. If you have a suggestion, we are happy to hear about it." %}</p>
+
+            <fieldset class="inlineLabels">
+                <h3>{% trans "Write Feedback" %}</h3>
+                {{ form.concern|as_uni_field }}
+                {% if not request.user.is_authenticated %}
+                    {{ form.submitter_name|as_uni_field }}
+                    {{ form.submitter_email|as_uni_field }}
+                {% endif %}
+                {{ form.description|as_uni_field }}
+                {{ form.client_info|as_uni_field }}
+
+                {{ form.captcha|as_uni_field }}
+
+                {% comment %}<!--
             {{ form.prevent_spam }}
             {{ form.prevent_spam.error_tag }}
             -->{% endcomment %}
-            
-            <div class="buttonHolder">
-                <input type="hidden" class="form_hidden" name="post_data" value="{{ post_data }}"/>
-                <input type="hidden" class="form_hidden" name="goto_next" value="{% if goto_next %}{{ goto_next }}{% else %}/{% endif %}"/>
-                <input class="primaryAction" id="id_submit" type="submit" value="{% filter upper %}{% trans 'Submit' %}{% endfilter %}"/>
-            </div>
-        </fieldset>
-    </form>
-</div>
+
+                <div class="buttonHolder">
+                    <input type="hidden" class="form_hidden" name="post_data" value="{{ post_data }}"/>
+                    <input type="hidden" class="form_hidden" name="goto_next"
+                           value="{% if goto_next %}{{ goto_next }}{% else %}/{% endif %}"/>
+                    <input class="primaryAction" id="id_submit" type="submit"
+                           value="{% filter upper %}{% trans 'Submit' %}{% endfilter %}"/>
+                </div>
+            </fieldset>
+        </form>
+    </div>
 {% endblock %}
 
 {% block breadcrumbs %}

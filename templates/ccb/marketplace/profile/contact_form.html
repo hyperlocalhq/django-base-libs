@@ -1,7 +1,9 @@
 {% load i18n base_tags auth_extended uni_form_tags uni_form_field %}
 <div class="profile_infos">
     <h5 class="edit_subline">{% trans "edit contact data" %}</h5>
-    <form action="/helper/edit-{{ URL_ID_JOB_OFFER }}-profile/{{ object.get_secure_id }}/contact/" method="post" target="hidden_iframe" class="uniForm">
+
+    <form action="/helper/edit-{{ URL_ID_JOB_OFFER }}-profile/{{ object.get_secure_id }}/contact/" method="post"
+          target="hidden_iframe" class="uniForm">
         {{ form.latitude }}
         {{ form.longitude }}
         {{ form.district }}
@@ -9,41 +11,47 @@
             <div id="block_institution_select">
                 <h3>{% trans "Institution/Company" %}</h3>
                 {{ form.offering_institution|as_uni_field }}
-                <p class="disclaimer"><a id="link_enter_institution" href="#block_institution_title_input">{% trans "Not listed? Enter manually" %}</a></p>
+                <p class="disclaimer"><a id="link_enter_institution"
+                                         href="#block_institution_title_input">{% trans "Not listed? Enter manually" %}</a>
+                </p>
             </div>
             <div id="block_institution_title_input" class="to_hide">
                 <h3>{% trans "Institution/Company" %}</h3>
                 {{ form.offering_institution_title|as_uni_field }}
-                <p class="disclaimer"><a class="right" id="link_select_institution" href="#block_institution_select">{% trans "Back to selection" %}</a></p>
+                <p class="disclaimer"><a class="right" id="link_select_institution"
+                                         href="#block_institution_select">{% trans "Back to selection" %}</a></p>
             </div>
-        
+
             <h3>{% trans "Contact person" %}</h3>
             {{ form.contact_person_ind|as_uni_field }}
             {{ form.contact_person_name|as_uni_field }}
-            
+
             <h3>{% trans "Address" %}</h3>
             {{ form.street_address|as_uni_field }}
             {{ form.street_address2|as_uni_field }}
-            {% include "uni_form/includes/postal_code_city.html" %} 
+            {% include "uni_form/includes/postal_code_city.html" %}
             {{ form.country|as_uni_field }}
-            
+
             <div id="dyn_set_map" class="buttonHolder">
-                <input id="dyn_locate_geo" type="button" class="primaryAction" value="{% filter upper %}{% trans "Locate on map" %}{% endfilter %}" />
-                <input id="dyn_remove_geo" type="button" class="secondaryAction" value="{% filter upper %}{% trans "Remove from map" %}{% endfilter %}" />
+                <input id="dyn_locate_geo" type="button" class="primaryAction"
+                       value="{% filter upper %}{% trans "Locate on map" %}{% endfilter %}"/>
+                <input id="dyn_remove_geo" type="button" class="secondaryAction"
+                       value="{% filter upper %}{% trans "Remove from map" %}{% endfilter %}"/>
                 <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
-            </div>       
+            </div>
 
-            {% include "uni_form/includes/phone.html" %} 
-            {% include "uni_form/includes/fax.html" %} 
-            {% include "uni_form/includes/mobile.html" %} 
+            {% include "uni_form/includes/phone.html" %}
+            {% include "uni_form/includes/fax.html" %}
+            {% include "uni_form/includes/mobile.html" %}
 
-            {% include "uni_form/includes/emails.html" %} 
-            {% include "uni_form/includes/websites.html" %} 
+            {% include "uni_form/includes/emails.html" %}
+            {% include "uni_form/includes/websites.html" %}
             {% include "uni_form/includes/ims.html" %}
-            
+
             <div class="buttonHolder">
-                <input type="submit" class="primaryAction" value="{% filter upper %}{% trans "Save" %}{% endfilter %}" />
-                <input type="button" class="secondaryAction" value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel" />
+                <input type="submit" class="primaryAction" value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
+                <input type="button" class="secondaryAction"
+                       value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel"/>
             </div>
         </fieldset>
     </form>

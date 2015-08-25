@@ -7,25 +7,28 @@
             <div class="preview">
                 <div class="comment-author">
                     {% if comment.user.get_profile.image %}
-                        <img src="{{ UPLOADS_URL }}{{ comment.user.get_profile.image|modified_path:"at" }}" alt="{{ comment.user.get_profile.get_title|escape }}" />
+                        <img src="{{ UPLOADS_URL }}{{ comment.user.get_profile.image|modified_path:"at" }}"
+                             alt="{{ comment.user.get_profile.get_title|escape }}"/>
                     {% else %}
                         {% if comment.user %}
-                            <img src="{{ STATIC_URL }}site/img/website/placeholder/person_s.png" alt="{{ comment.user.get_profile.get_title|escape }}" />
+                            <img src="{{ STATIC_URL }}site/img/website/placeholder/person_s.png"
+                                 alt="{{ comment.user.get_profile.get_title|escape }}"/>
                         {% else %}
-                            <img src="{{ STATIC_URL }}site/img/website/placeholder/person_s.png" alt="{{ comment.name|escape }}" />
+                            <img src="{{ STATIC_URL }}site/img/website/placeholder/person_s.png"
+                                 alt="{{ comment.name|escape }}"/>
                         {% endif %}
                     {% endif %}
                     <div>
                         {% if comment.user %}
                             <a href='{{ comment.user.get_profile.get_url_path }}'>
                                 {{ comment.user.get_profile.get_title|escape }}
-                            </a><br />
+                            </a><br/>
                         {% else %}
                             <span class="no_link">
                                 {{ comment.name }}
-                            </span><br />
+                            </span><br/>
                         {% endif %}
-                         {{ comment.submit_date|datefmt:"long" }}
+                        {{ comment.submit_date|datefmt:"long" }}
                     </div>
                 </div>
                 <div class="comment-text">
@@ -34,28 +37,33 @@
                     </div>
                 </div>
                 <div class="buttonHolder">
-                    <input type="submit" id="but_post" class="primaryAction" name="post" value='{% filter upper %}{% trans "Post public comment" %}{% endfilter %}' />
+                    <input type="submit" id="but_post" class="primaryAction" name="post"
+                           value='{% filter upper %}{% trans "Post public comment" %}{% endfilter %}'/>
                 </div>
             </div>
         {% endif %}
-    
+
         {% if not request.user.is_authenticated %}
             {{ comment_form.name|as_uni_field }}
             {{ comment_form.email|as_uni_field }}
             {{ comment_form.url_link|as_uni_field }}
         {% endif %}
         {{ comment_form.comment|as_uni_field }}
-        
+
         {{ comment_form.prevent_spam }}
         <p class="disclaimer"><span id="last">*{% trans "required fields" %}</span></p>
+
         <div class="buttonHolder">
-            <input type="hidden" class="form_hidden" name="goto_next" value="{% if goto_next %}{{ goto_next }}{% else %}{{ request.get_full_path }}{% endif %}" />
-            <input type="hidden" class="form_hidden" name="options" value="{{ options }}" />
-            <input type="hidden" class="form_hidden" name="target" value="{{ target }}" />
-            <input type="hidden" class="form_hidden" name="gonzo" value="{{ hash }}" />
-            <input type="submit" id="but_preview" class="primaryAction" name="preview" value="{% filter upper %}{% trans "Preview" %}{% endfilter %}"/>
+            <input type="hidden" class="form_hidden" name="goto_next"
+                   value="{% if goto_next %}{{ goto_next }}{% else %}{{ request.get_full_path }}{% endif %}"/>
+            <input type="hidden" class="form_hidden" name="options" value="{{ options }}"/>
+            <input type="hidden" class="form_hidden" name="target" value="{{ target }}"/>
+            <input type="hidden" class="form_hidden" name="gonzo" value="{{ hash }}"/>
+            <input type="submit" id="but_preview" class="primaryAction" name="preview"
+                   value="{% filter upper %}{% trans "Preview" %}{% endfilter %}"/>
             {% if comment_form.is_valid %}
-                <input type="button" id="but_cancel" class="secondaryAction" value='{% filter upper %}{% trans "Cancel" %}{% endfilter %}' />
+                <input type="button" id="but_cancel" class="secondaryAction"
+                       value='{% filter upper %}{% trans "Cancel" %}{% endfilter %}'/>
             {% endif %}
         </div>
     </fieldset>

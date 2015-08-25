@@ -24,9 +24,10 @@
 
 {% block content %}
     <form action="" class="uniForm" method="post">
-        {% include "site_specific/categories/categories.html" %} 
+        {% include "site_specific/categories/categories.html" %}
         <p class="disclaimer">
-            {% blocktrans %}Is some category missing? You can <a href="/ticket/new-category/">suggest it here</a>.{% endblocktrans %}
+            {% blocktrans %}Is some category missing? You can <a href="/ticket/new-category/">suggest it here</a>
+                .{% endblocktrans %}
         </p>
         {% include "utils/step_buttons_reg.html" %}
     </form>

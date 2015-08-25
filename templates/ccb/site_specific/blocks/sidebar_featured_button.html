@@ -2,15 +2,15 @@
 <div class="sidebar-box nav_expanded dynamic_button" id="dynamic_but_{{ LANGUAGE_CODE }}">
     {% if request.user.is_authenticated %}
         {% if object.is_contact_addable %}
-        <h5 id="featured_add_to_contacts">
-            <a href="#" >
+            <h5 id="featured_add_to_contacts">
+                <a href="#">
                 <span class="pic">
                     <b>
                         {% trans "Add to contacts" %}
                     </b>
                 </span>
-            </a>
-        </h5>
+                </a>
+            </h5>
         {% else %}
             {% if object.is_membership_requestable %}
                 <h5 id="featured_join_group">
@@ -38,27 +38,27 @@
                 {% else %}
                 {% endif %}
                 -->{% endcomment %}
-                    {% if object.are_members_invitable %}
-                        <h5 id="featured_invite_members">
-                            <a href="{{ object.get_url_path }}members/invite/" >
+                {% if object.are_members_invitable %}
+                    <h5 id="featured_invite_members">
+                        <a href="{{ object.get_url_path }}members/invite/">
                             <span class="pic">
                                 <b>
                                     {% trans "Invite Members" %}
                                 </b>
                             </span>
-                            </a>
-                        </h5>
-                    {% else %}
-                        <h5 id="featured_invite_contacts">
-                            <a href="/invite/">
+                        </a>
+                    </h5>
+                {% else %}
+                    <h5 id="featured_invite_contacts">
+                        <a href="/invite/">
                             <span class="pic">
                                 <b>
                                     {% trans "Invite Contacts" %}
                                 </b>
                             </span>
-                            </a>
-                        </h5>
-                    {% endif %}
+                        </a>
+                    </h5>
+                {% endif %}
             {% endif %}
         {% endif %}
     {% else %}

@@ -6,8 +6,8 @@
     <script type="text/javascript">
         // preloading portfolio images
         {% for f in list_of_files %}
-        var oImg_{{ forloop.counter0 }} = new Image();
-        oImg_{{ forloop.counter0 }}.src = "{{ UPLOADS_URL }}{{ f.path|modified_path:"gd" }}";
+            var oImg_{{ forloop.counter0 }} = new Image();
+            oImg_{{ forloop.counter0 }}.src = "{{ UPLOADS_URL }}{{ f.path|modified_path:"gd" }}";
         {% endfor %}
     </script>
 {% endblock %}
@@ -23,28 +23,31 @@
             <div id="object_list">
                 {% for item in published_gallery_list %}
                     {% if forloop.first %}
-                    <div class="row">
+                        <div class="row">
                     {% endif %}
-                        <div class="list-item {{ extra_css_classes|default:"" }}" onclick="redirect('{{ object.content_object.get_url_path }}portfolio/')">
-                            {% include_parsed "media_gallery/lists/landing_page_gallery_item.html" with forloop.counter as counter and item as object %}
-                        </div>
-                    {% if not forloop.last %}
-                        {% if forloop.counter|divisibleby:"3" %}
-                            {% if not forloop.first %}</div><div class="row">{% endif %}
-                        {% endif %}
-                    {% else %}
-                    </div>
+                <div class="list-item {{ extra_css_classes|default:"" }}"
+                     onclick="redirect('{{ object.content_object.get_url_path }}portfolio/')">
+                    {% include_parsed "media_gallery/lists/landing_page_gallery_item.html" with forloop.counter as counter and item as object %}
+                </div>
+                {% if not forloop.last %}
+                    {% if forloop.counter|divisibleby:"3" %}
+                        {% if not forloop.first %}</div>
+                            <div class="row">{% endif %}
                     {% endif %}
+                {% else %}
+                </div>
+                {% endif %}
                     <hr class="hidden"/>
-                 {% endfor %}
-             </div>
+                {% endfor %}
+            </div>
         </div>
     {% endif %}
     {% if portfolio_settings.landing_page == "custom_image" and 1 == 0 %}
         {% if portfolio_settings.landing_page_image %}
             <p>
                 <a href="{{ object.get_url_path }}portfolio/album/{{ published_gallery_list.0.get_token }}/">
-                    <img alt="" src="{{ UPLOADS_URL }}{{ portfolio_settings.landing_page_image.path|modified_path:"gd" }}" />
+                    <img alt=""
+                         src="{{ UPLOADS_URL }}{{ portfolio_settings.landing_page_image.path|modified_path:"gd" }}"/>
                 </a>
             </p>
         {% else %}

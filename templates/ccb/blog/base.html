@@ -4,7 +4,7 @@
 {% block title %}Blog{% endblock %}
 
 {% block extrahead %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
 {% endblock %}
 
 {% block headline %}
@@ -22,7 +22,7 @@
     {% if not object %}
         {% infoblock "blog_intro" using "blocks/highlighted_infoblock.html" %}
     {% endif %}
-    
+
     {% block details %}
     {% endblock %}
 {% endblock %}

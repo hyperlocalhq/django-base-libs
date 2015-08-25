@@ -1,14 +1,14 @@
 {% extends "base.html" %}
-{% load i18n base_tags nav_menu auth_extended %}     
+{% load i18n base_tags nav_menu auth_extended %}
 
 {% block title %}{{ object.get_title|escape }}{% endblock %}
 
 {% block headline %}
-	<h1>{{ object.get_title }}</h1>
-{% endblock %}			
+    <h1>{{ object.get_title }}</h1>
+{% endblock %}
 
 {% block meta_description %}
-	<meta name="description" content="{{ object.get_description|striptags|truncatewords:100 }}..." />
+    <meta name="description" content="{{ object.get_description|striptags|truncatewords:100 }}..."/>
 {% endblock %}
 
 {% block bodyclass %}object-details{% endblock %}
@@ -25,10 +25,11 @@
             {% with object as document %}
                 {% include "resources/documents/controls.html" %}
             {% endwith %}
-            <a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07">Share</a>
+            <a class="addthis_button"
+               href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07">Share</a>
         </div>
     </div>
-    
+
     {% block details %}
     {% endblock %}
 {% endblock %}
@@ -37,7 +38,8 @@
     <div class="breadcrumbs">
         <a href="/">{% trans "Home" %}</a>
         <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_DOCUMENTS }}/">{% trans "Infolinks" %}</a>
-        <span class="b-sep"><span>::</span></span><a href="{{ object.get_url_path }}">{{ object.get_title|truncatewords:5 }}</a>
+        <span class="b-sep"><span>::</span></span><a
+        href="{{ object.get_url_path }}">{{ object.get_title|truncatewords:5 }}</a>
         {% block breadcrumbs_details %}
         {% endblock %}
     </div>

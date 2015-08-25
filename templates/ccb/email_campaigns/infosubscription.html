@@ -4,7 +4,7 @@
 {% block title %}{% trans "Newsletter" %}{% endblock %}
 
 {% block headline %}
-	<h1>{% trans "Newsletter" %}</h1>
+    <h1>{% trans "Newsletter" %}</h1>
 {% endblock %}
 
 {% block sidebar-a %}
@@ -17,11 +17,13 @@
             {{ form.prevent_spam.error_tag }}
             <fieldset class="inlineLabels">
                 <h3>{% trans "newsletter registration" %}</h3>
+
                 <p class="disclaimer">{% trans "Receive the latest and greatest news about CreativeCityBerlin with subscribing to our Newsletter. Of course you can unsubscribe later at any point." %}</p>
                 {{ form.name|as_uni_field }}
                 {{ form.email|as_uni_field }}
                 <div class="buttonHolder">
-                    <input type="submit" class="primaryAction" value="{% filter upper %}{% trans "Send" %}{% endfilter %}" id="send_but" />
+                    <input type="submit" class="primaryAction"
+                           value="{% filter upper %}{% trans "Send" %}{% endfilter %}" id="send_but"/>
                 </div>
             </fieldset>
         </form>

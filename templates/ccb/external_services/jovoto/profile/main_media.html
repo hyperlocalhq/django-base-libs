@@ -2,26 +2,27 @@
 {% if idea_details %}
     <div>
         <h3>
-            {{ object.name|escape }} 	
+            {{ object.name|escape }}
         </h3>
         {% if object.rating %}
             {% with object.rating as rating %}
-            {% with object.ext_id as ext_id %}
-                {% include "external_services/jovoto/profile/starrating.html" %}
-            {% endwith %}
+                {% with object.ext_id as ext_id %}
+                    {% include "external_services/jovoto/profile/starrating.html" %}
+                {% endwith %}
             {% endwith %}
         {% endif %}
         <p>{% trans "uploaded by:" %} {{ idea_details.author_username }} {% trans "on" %}: {{ idea_details.pubdate|datefmt:"long" }}</p>
-        
+
         {% if idea_details.media.0.media_medium %}
-            <img class="contest-big" style="width: 510px;" src="{{ jovoto_root_dir }}{{ idea_details.media.0.media_path }}" alt="{{ idea_details.name }}" />
+            <img class="contest-big" style="width: 510px;"
+                 src="{{ jovoto_root_dir }}{{ idea_details.media.0.media_path }}" alt="{{ idea_details.name }}"/>
         {% endif %}
     </div>
     {% if not idea_details.media|length_is:"1" %}
         <div class="additional_media overflow">
             {% for media in idea_details.media %}
                 {% if media.media_thumb %}
-                    <img name="Jovoto" class="contest-small" src="{{ jovoto_root_dir }}{{ media.media_thumb }}" alt="" />
+                    <img name="Jovoto" class="contest-small" src="{{ jovoto_root_dir }}{{ media.media_thumb }}" alt=""/>
                 {% endif %}
             {% endfor %}
         </div>
@@ -30,5 +31,5 @@
         {% trans "Vote for this idea on" %}: <a href="{{ idea_details.link|escape }}" onclick="open_new_window(event)">www.Jovoto.com</a>
     </div>
 {% else %}
-<p>Logo is not any longer provided by Jovoto.com</p>
+    <p>Logo is not any longer provided by Jovoto.com</p>
 {% endif %}

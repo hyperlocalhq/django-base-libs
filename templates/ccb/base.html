@@ -1,312 +1,322 @@
 {% block doctype %}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">{% endblock %}
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">{% endblock %}
 {% load i18n base_tags nav_menu browsing account_specific memos bookmarks messaging infoblocks cache compressed compressed_jetson %}
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{{ LANGUAGE_CODE }}" lang="{{ LANGUAGE_CODE }}" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{{ LANGUAGE_CODE }}" lang="{{ LANGUAGE_CODE }}"
+      xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml">
 <head>
 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     {% block meta_tags %}
         {% block meta_keywords %}
             {% include "utils/includes/meta_keywords.html" %}
         {% endblock %}
-        
+
         {% block meta_description %}
             {% include "utils/includes/meta_description.html" %}
         {% endblock %}
-        
+
         {{ site_settings.get_meta_author|safe }}
         {{ site_settings.get_meta_copyright|safe }}
-        <meta name="robots" content="index,follow" />
-        <meta name="language" content="{{ LANGUAGE_CODE }}" />
-        
+        <meta name="robots" content="index,follow"/>
+        <meta name="language" content="{{ LANGUAGE_CODE }}"/>
+
         {% block open_graph %}
             <meta property="og:title" content="Creative City Berlin"/>
             <meta property="og:type" content="website"/>
-            <meta property="og:image" content="http://www.creative-city-berlin.de{{ STATIC_URL }}site/img/website/c_logo.png"/>
+            <meta property="og:image"
+                  content="http://www.creative-city-berlin.de{{ STATIC_URL }}site/img/website/c_logo.png"/>
             <meta property="og:url" content="http://www.creative-city-berlin.de/"/>
             <meta property="og:site_name" content="Creative City Berlin"/>
-            <meta property="og:description" content="{% trans "Portal for the cultural sector and the creative industries" %}"/>
+            <meta property="og:description"
+                  content="{% trans "Portal for the cultural sector and the creative industries" %}"/>
         {% endblock %}
     {% endblock %}
-    
-    
-    <link rel="icon" href="{{ STATIC_URL }}site/img/website/favicon.ico" type="image/x-icon" />
-    <link rel="shortcut icon" href="{{ STATIC_URL }}site/img/website/favicon.ico" type="image/x-icon" />
-    <link rel="apple-touch-icon" href="{{ STATIC_URL }}site/img/website/apple-touch-icon.png" />
-    <link rel="canonical" href="http://{{ site_settings.site.domain }}/{{ LANGUAGE_CODE }}{{ request.path }}" />
+
+
+    <link rel="icon" href="{{ STATIC_URL }}site/img/website/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="{{ STATIC_URL }}site/img/website/favicon.ico" type="image/x-icon"/>
+    <link rel="apple-touch-icon" href="{{ STATIC_URL }}site/img/website/apple-touch-icon.png"/>
+    <link rel="canonical" href="http://{{ site_settings.site.domain }}/{{ LANGUAGE_CODE }}{{ request.path }}"/>
     <title>{{ site_settings.site.name }} - {% block title %}{% endblock %}</title>
-    
+
     {% block stylesheet %}
         {% compressed_css "screen" %}
-	{% endblock %}
+    {% endblock %}
     {% if "MSIE"|in_list:request.META.HTTP_USER_AGENT %}
         {% compressed_css "screen_ie" %}
     {% endif %}
     {% compressed_css "print" %}
-    
+
     <script type="text/javascript" src="{{ JQUERY_URL }}"></script>
     <script type="text/javascript" src="{{ JQUERY_UI_URL }}"></script>
     {% compressed_jetson_js "jquery_plugins" %}
     <script type="text/javascript" src="/{{ LANGUAGE_CODE }}/jssettings/"></script>
     <script type="text/javascript" src="/{{ LANGUAGE_CODE }}/jsi18n/"></script>
     <script type="text/javascript">
-    (function($, undefined) {
-        {% if not request.user.is_authenticated %}
-            $(document).ready(function() {
-                $(".login-required a").click(function() {
-                    var sGotoNext = $(this).attr("href").replace(/.+goto_next=/, "");
-                    self.open_popup(
-                        gettext("Login"),
-                        584, 460,
-                        "/" + settings.lang + "/login/?goto_next=" + sGotoNext,
-                        false,
-                        false
-                    );
-                    return false;
+        (function ($, undefined) {
+            {% if not request.user.is_authenticated %}
+                $(document).ready(function () {
+                    $(".login-required a").click(function () {
+                        var sGotoNext = $(this).attr("href").replace(/.+goto_next=/, "");
+                        self.open_popup(
+                            gettext("Login"),
+                            584, 460,
+                            "/" + settings.lang + "/login/?goto_next=" + sGotoNext,
+                            false,
+                            false
+                        );
+                        return false;
+                    });
                 });
-            });
-        {% endif %}
-    }(jQuery));
+            {% endif %}
+        }(jQuery));
     </script>
     {% compressed_js "common" %}
-    
+
     {{ site_settings.extra_head|safe }}
     {% block extrahead %}{% endblock %}
 </head>
 <body class="body lang-{{ LANGUAGE_CODE }} {% block bodyclass %}{% endblock %}">
 {% spaceless %}
 
-<ul id="skiplinks">
-    <li><a href="#nav">{% trans "Skip to main navigation (Press Enter)" %}</a></li>
-    <li><a href="#content_navigation">{% trans "Skip to content navigation (Press Enter)" %}</a></li>
-    <li><a href="#user_navigation">{% trans "Skip to user navigation (Press Enter)" %}</a></li>
-    <li><a href="#content">{% trans "Skip to main content (Press Enter)" %}</a></li>
-</ul>
+    <ul id="skiplinks">
+        <li><a href="#nav">{% trans "Skip to main navigation (Press Enter)" %}</a></li>
+        <li><a href="#content_navigation">{% trans "Skip to content navigation (Press Enter)" %}</a></li>
+        <li><a href="#user_navigation">{% trans "Skip to user navigation (Press Enter)" %}</a></li>
+        <li><a href="#content">{% trans "Skip to main content (Press Enter)" %}</a></li>
+    </ul>
 
-<div id="topnav" class="clearfix">
-    <div class="page_margins">
-        <div class="page">
-            <div id="top">  
-                <h1 class="hidden">{{ site_settings.site.name }}</h1>
-            </div>
-            
-            <h4 class="hidden">{% trans "Main Navigaton" %}</h4>
-            
-            {% block main_navi %}
-                {% cache 6000 main_navi request.user LANGUAGE_CODE request.path %}
-                    {% filter remove_empty_lists %}
-                        <div id="nav" class="hlist">
-                            <div class="col1">
-                                <div class="col1_content clearfix">
-                                    {% children_of "global_datasets" using "navigation/multilevel.html" %}
+    <div id="topnav" class="clearfix">
+        <div class="page_margins">
+            <div class="page">
+                <div id="top">
+                    <h1 class="hidden">{{ site_settings.site.name }}</h1>
+                </div>
+
+                <h4 class="hidden">{% trans "Main Navigaton" %}</h4>
+
+                {% block main_navi %}
+                    {% cache 6000 main_navi request.user LANGUAGE_CODE request.path %}
+                        {% filter remove_empty_lists %}
+                            <div id="nav" class="hlist">
+                                <div class="col1">
+                                    <div class="col1_content clearfix">
+                                        {% children_of "global_datasets" using "navigation/multilevel.html" %}
+                                    </div>
+                                </div>
+                                <div class="col2">
+                                    <div class="col2_content clearfix">
+                                        {% children_of "additional_links" using "navigation/multilevel.html" %}
+                                        {% if LANGUAGE_CODE == "en" %}
+                                            <a class="language_selection lang_de" href="/de{{ request.path }}"><span
+                                                class="hidden">DE</span></a>
+                                        {% else %}
+                                            <a class="language_selection lang_en" href="/en{{ request.path }}"><span
+                                                class="hidden">EN</span></a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col3">
+                                    <div class="col3_content clearfix">
+                                        {% children_of "objects_by_type" using "navigation/multilevel.html" %}
+                                    </div>
+                                    <div class="ie_clearing">&nbsp;</div>
                                 </div>
                             </div>
-                            <div class="col2">
-                                <div class="col2_content clearfix">
-                                    {% children_of "additional_links" using "navigation/multilevel.html" %}
-                                    {% if LANGUAGE_CODE == "en" %}
-                                        <a class="language_selection lang_de" href="/de{{ request.path }}"><span class="hidden">DE</span></a>
-                                    {% else %}
-                                        <a class="language_selection lang_en" href="/en{{ request.path }}"><span class="hidden">EN</span></a>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            <div class="col3">
-                                <div class="col3_content clearfix">
-                                    {% children_of "objects_by_type" using "navigation/multilevel.html" %}
-                                </div>
-                                <div class="ie_clearing">&nbsp;</div>
-                            </div>
-                        </div>
-                    {% endfilter %}
-                {% endcache %}
-            {% endblock %}
-        </div>
-    </div>
-    <div class="ie_clearing">&nbsp;</div>
-</div>
-<div id="header" class="clearfix">
-    <div class="page_margins">
-        <div class="page">
-            <div class="col1">
-                <div class="col1_content clearfix">
-                    <a href="/" id="logo" style="padding-top:1px;">
-                        <img title="{% trans "Welcome Page" %}" src="{{ STATIC_URL }}site/img/website/c_logo.png" alt="{{ site_settings.site.name }}"/>
-                    </a>
-                </div>
-            </div>
-            <div class="col2">
-                <div class="col2_content clearfix">
-                    <form action="/{{ LANGUAGE_CODE }}/search/" id="search" class="uniForm" method="get">
-                        <div class="ctrlHolder" style="border-bottom:none;">
-                            <input class="searchbox" type="text" id="id_search" name="q" size="30" value="{{ form.quick_search_text.data|default:"" }}" maxlength="80" />
-                            <input class="searchbutton" type="image" alt="{% trans "Search" %}" src="{{ STATIC_URL }}site/img/website/buttons/search.png" />
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="col3">
-                <div class="col3_content clearfix">
-                    {% block headline %}
-                        <h1>{% trans "Creative City Berlin" %}</h1>
-                    {% endblock %}
-                </div>
-                <div class="ie_clearing">&nbsp;</div>
+                        {% endfilter %}
+                    {% endcache %}
+                {% endblock %}
             </div>
         </div>
+        <div class="ie_clearing">&nbsp;</div>
     </div>
-</div>
-
-<div class="page_margins clearfix">
-    <div class="page">
-        <div id="main">
-            {% block site %}
-            <div class="col1">
-                <div class="col1_content clearfix">
-                    <h4 class="hidden" id="content_navigation">{% trans "Content Navigaton" %}</h4>
-                    {% block sidebar-a %}
-                        {% if creative_sector %}
-                            <div class="sidebar-box creative_sectors_{{ LANGUAGE_CODE }}" id="cat_creative_sectors">
-                                <h5>
-                                    <b>{% trans "Creative Sector" %}</b>
-                                </h5>
-                                <div class="sector-select hidable">
-                                    {% cache 6000 sector_select LANGUAGE_CODE creative_sector request.path %}
-                                        <ul>
-                                            {% if creative_sector %}
-                                                {% ifequal creative_sector.sysname "architecture" %}
-                                                    <li>
-                                                        {% creative_sectors_under "" using "site_specific/creative_sectors/creative_sectors.html" %}
-                                    
-                                                    </li>
-                                                    <li>
-                                                        {% children_of "architecture" %}
-                                                    </li>
-                                                {% endifequal %}
-        
-                                                {% ifequal creative_sector.sysname "advertising_and_pr" %}
-                                                    <li>
-                                                        {% creative_sectors_under "" using "site_specific/creative_sectors/creative_sectors.html" %}
-                                                    </li>
-                                                    <li>
-                                                        {% children_of "advertising_and_pr" %}
-                                                    </li>
-                                                {% endifequal %}
-        
-                                                {% ifequal creative_sector.sysname "design" %}
-                                                    <li>
-                                                        {% creative_sectors_under "" using "site_specific/creative_sectors/creative_sectors.html" %}
-                                    
-                                                    </li>
-                                                    <li>
-                                                         {% children_of "design" %}
-                                                    </li>
-                                                {% endifequal %}
-        
-                                                {% ifequal creative_sector.sysname "film_and_broadcast" %}
-                                                    <li>
-                                                        {% creative_sectors_under "" using "site_specific/creative_sectors/creative_sectors.html" %}
-                                    
-                                                    </li>
-                                                    <li>
-                                                        {% children_of "film_and_broadcast" %}
-                                                    </li>
-                                                {% endifequal %}
-        
-                                                {% ifequal creative_sector.sysname "games_and_interactive" %}
-                                                    <li>
-                                                        {% creative_sectors_under "" using "site_specific/creative_sectors/creative_sectors.html" %}
-                                    
-                                                    </li>
-                                                    <li>
-                                                        {% include "site_specific/creative_sectors/creative_sector_links.html" %}
-                                                    </li>
-                                                {% endifequal %}
-        
-                                                {% ifequal creative_sector.sysname "art" %}
-                                                    <li>
-                                                        {% creative_sectors_under "" using "site_specific/creative_sectors/creative_sectors.html" %}
-                                                    </li>
-                                                    <li>
-                                                        {% children_of "art" %}
-                                                    </li>
-                                                {% endifequal %}
-        
-                                                {% ifequal creative_sector.sysname "literature_and_publishing" %}
-                                                    <li>
-                                                        {% creative_sectors_under "" using "site_specific/creative_sectors/creative_sectors.html" %}
-                                    
-                                                    </li>
-                                                    <li>
-                                                        {% children_of "literature_and_publishing" %}
-                                                    </li>
-                                                {% endifequal %}
-        
-                                                {% ifequal creative_sector.sysname "fashion_and_textile" %}
-                                                    <li>
-                                                        {% creative_sectors_under "" using "site_specific/creative_sectors/creative_sectors.html" %}
-                                    
-                                                    </li>
-                                                    <li>
-                                                        {% children_of "fashion_and_textile" %}
-                                                    </li>
-                                                {% endifequal %}
-        
-                                                {% ifequal creative_sector.sysname "music" %}
-                                                    <li>
-                                                        {% creative_sectors_under "" using "site_specific/creative_sectors/creative_sectors.html" %}
-                                    
-                                                    </li>
-                                                    <li>
-                                                       {% children_of "music" %}
-                                                    </li>
-                                                {% endifequal %}
-        
-                                                {% ifequal creative_sector.sysname "photography" %}
-                                                    <li>
-                                                        {% creative_sectors_under "" using "site_specific/creative_sectors/creative_sectors.html" %}
-                                    
-                                                    </li>
-                                                    <li>
-                                                        {% children_of "photography" %}
-                                                    </li>
-                                                {% endifequal %}
-        
-                                                {% ifequal creative_sector.sysname "theatre_and_dance" %}
-                                                    <li>
-                                                        {% creative_sectors_under "" using "site_specific/creative_sectors/creative_sectors.html" %}
-                                    
-                                                    </li>
-                                                    <li>
-                                                        {% children_of "theatre_and_dance" %}
-                                                    </li>
-                                                {% endifequal %}
-        
-                                                {% ifequal creative_sector.sysname "events" %}
-                                                    <li>
-                                                        {% creative_sectors_under "" using "site_specific/creative_sectors/creative_sectors.html" %}
-                                    
-                                                    </li>
-                                                    <li>
-                                                        {% children_of "event_2" %}
-                                                    </li>
-                                                {% endifequal %}
-        
-                                            {% else %}    
-                                                <li>
-                                                   {% children_of "all_sectors" using "navigation/cs_links.html" %}
-                                                </li>
-                                            {% endif %}
-                                        </ul>
-                                    {% endcache %}
-                                </div>
+    <div id="header" class="clearfix">
+        <div class="page_margins">
+            <div class="page">
+                <div class="col1">
+                    <div class="col1_content clearfix">
+                        <a href="/" id="logo" style="padding-top:1px;">
+                            <img title="{% trans "Welcome Page" %}" src="{{ STATIC_URL }}site/img/website/c_logo.png"
+                                 alt="{{ site_settings.site.name }}"/>
+                        </a>
+                    </div>
+                </div>
+                <div class="col2">
+                    <div class="col2_content clearfix">
+                        <form action="/{{ LANGUAGE_CODE }}/search/" id="search" class="uniForm" method="get">
+                            <div class="ctrlHolder" style="border-bottom:none;">
+                                <input class="searchbox" type="text" id="id_search" name="q" size="30"
+                                       value="{{ form.quick_search_text.data|default:"" }}" maxlength="80"/>
+                                <input class="searchbutton" type="image" alt="{% trans "Search" %}"
+                                       src="{{ STATIC_URL }}site/img/website/buttons/search.png"/>
                             </div>
-                        {% else %}
-                            &nbsp;
-                        {% endif %}
-                        
-                        {% comment %}<!--
+                        </form>
+                    </div>
+                </div>
+                <div class="col3">
+                    <div class="col3_content clearfix">
+                        {% block headline %}
+                            <h1>{% trans "Creative City Berlin" %}</h1>
+                        {% endblock %}
+                    </div>
+                    <div class="ie_clearing">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page_margins clearfix">
+        <div class="page">
+            <div id="main">
+                {% block site %}
+                    <div class="col1">
+                        <div class="col1_content clearfix">
+                            <h4 class="hidden" id="content_navigation">{% trans "Content Navigaton" %}</h4>
+                            {% block sidebar-a %}
+                                {% if creative_sector %}
+                                    <div class="sidebar-box creative_sectors_{{ LANGUAGE_CODE }}"
+                                         id="cat_creative_sectors">
+                                        <h5>
+                                            <b>{% trans "Creative Sector" %}</b>
+                                        </h5>
+
+                                        <div class="sector-select hidable">
+                                            {% cache 6000 sector_select LANGUAGE_CODE creative_sector request.path %}
+                                                <ul>
+                                                    {% if creative_sector %}
+                                                        {% ifequal creative_sector.sysname "architecture" %}
+                                                            <li>
+                                                                {% creative_sectors_under "" using "site_specific/creative_sectors/creative_sectors.html" %}
+
+                                                            </li>
+                                                            <li>
+                                                                {% children_of "architecture" %}
+                                                            </li>
+                                                        {% endifequal %}
+
+                                                        {% ifequal creative_sector.sysname "advertising_and_pr" %}
+                                                            <li>
+                                                                {% creative_sectors_under "" using "site_specific/creative_sectors/creative_sectors.html" %}
+                                                            </li>
+                                                            <li>
+                                                                {% children_of "advertising_and_pr" %}
+                                                            </li>
+                                                        {% endifequal %}
+
+                                                        {% ifequal creative_sector.sysname "design" %}
+                                                            <li>
+                                                                {% creative_sectors_under "" using "site_specific/creative_sectors/creative_sectors.html" %}
+
+                                                            </li>
+                                                            <li>
+                                                                {% children_of "design" %}
+                                                            </li>
+                                                        {% endifequal %}
+
+                                                        {% ifequal creative_sector.sysname "film_and_broadcast" %}
+                                                            <li>
+                                                                {% creative_sectors_under "" using "site_specific/creative_sectors/creative_sectors.html" %}
+
+                                                            </li>
+                                                            <li>
+                                                                {% children_of "film_and_broadcast" %}
+                                                            </li>
+                                                        {% endifequal %}
+
+                                                        {% ifequal creative_sector.sysname "games_and_interactive" %}
+                                                            <li>
+                                                                {% creative_sectors_under "" using "site_specific/creative_sectors/creative_sectors.html" %}
+
+                                                            </li>
+                                                            <li>
+                                                                {% include "site_specific/creative_sectors/creative_sector_links.html" %}
+                                                            </li>
+                                                        {% endifequal %}
+
+                                                        {% ifequal creative_sector.sysname "art" %}
+                                                            <li>
+                                                                {% creative_sectors_under "" using "site_specific/creative_sectors/creative_sectors.html" %}
+                                                            </li>
+                                                            <li>
+                                                                {% children_of "art" %}
+                                                            </li>
+                                                        {% endifequal %}
+
+                                                        {% ifequal creative_sector.sysname "literature_and_publishing" %}
+                                                            <li>
+                                                                {% creative_sectors_under "" using "site_specific/creative_sectors/creative_sectors.html" %}
+
+                                                            </li>
+                                                            <li>
+                                                                {% children_of "literature_and_publishing" %}
+                                                            </li>
+                                                        {% endifequal %}
+
+                                                        {% ifequal creative_sector.sysname "fashion_and_textile" %}
+                                                            <li>
+                                                                {% creative_sectors_under "" using "site_specific/creative_sectors/creative_sectors.html" %}
+
+                                                            </li>
+                                                            <li>
+                                                                {% children_of "fashion_and_textile" %}
+                                                            </li>
+                                                        {% endifequal %}
+
+                                                        {% ifequal creative_sector.sysname "music" %}
+                                                            <li>
+                                                                {% creative_sectors_under "" using "site_specific/creative_sectors/creative_sectors.html" %}
+
+                                                            </li>
+                                                            <li>
+                                                                {% children_of "music" %}
+                                                            </li>
+                                                        {% endifequal %}
+
+                                                        {% ifequal creative_sector.sysname "photography" %}
+                                                            <li>
+                                                                {% creative_sectors_under "" using "site_specific/creative_sectors/creative_sectors.html" %}
+
+                                                            </li>
+                                                            <li>
+                                                                {% children_of "photography" %}
+                                                            </li>
+                                                        {% endifequal %}
+
+                                                        {% ifequal creative_sector.sysname "theatre_and_dance" %}
+                                                            <li>
+                                                                {% creative_sectors_under "" using "site_specific/creative_sectors/creative_sectors.html" %}
+
+                                                            </li>
+                                                            <li>
+                                                                {% children_of "theatre_and_dance" %}
+                                                            </li>
+                                                        {% endifequal %}
+
+                                                        {% ifequal creative_sector.sysname "events" %}
+                                                            <li>
+                                                                {% creative_sectors_under "" using "site_specific/creative_sectors/creative_sectors.html" %}
+
+                                                            </li>
+                                                            <li>
+                                                                {% children_of "event_2" %}
+                                                            </li>
+                                                        {% endifequal %}
+
+                                                    {% else %}
+                                                        <li>
+                                                            {% children_of "all_sectors" using "navigation/cs_links.html" %}
+                                                        </li>
+                                                    {% endif %}
+                                                </ul>
+                                            {% endcache %}
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    &nbsp;
+                                {% endif %}
+
+                                {% comment %}<!--
                         <div class="sidebar-box data_search_{{ LANGUAGE_CODE }} nav_collapsed" id="cat_data_search">
                             <h5><a href="#" class="open_but">
                                 <b>{% trans "Extended Search" %}</b>
@@ -336,14 +346,14 @@
                         
                         {% infoblock "social_profiles" using "blocks/transparent_sidebar_infoblock.html" %}
                         -->{% endcomment %}
-                    {% endblock %}
-                </div>
-            </div>
-            <div class="col2">
-                <div class="col2_content clearfix">
-                    <h4 class="hidden" id="user_navigation">{% trans "User Navigaton" %}</h4>
-                    {% block sidebar-b %}
-                        {% comment %}<!--
+                            {% endblock %}
+                        </div>
+                    </div>
+                    <div class="col2">
+                        <div class="col2_content clearfix">
+                            <h4 class="hidden" id="user_navigation">{% trans "User Navigaton" %}</h4>
+                            {% block sidebar-b %}
+                                {% comment %}<!--
                         <ul class="toolbar">
                             <li class="memos">
                                 <a href="/my-profile/memos/" title="{% trans "Memos" %}">
@@ -381,127 +391,147 @@
                         
                         {% include "site_specific/blocks/sidebar_featured_button.html" %}
                         -->{% endcomment %}
-                        
-                        {% if request.user.is_authenticated %}
-                            {% include "site_specific/blocks/sidebar_account.html" %}
-                            {% include "site_specific/blocks/sidebar_activities.html" %}
-                            {% include "site_specific/blocks/sidebar_settings.html" %}
-                        {% else %}
-                            {% include "site_specific/blocks/sidebar_login.html" %}
-                        {% endif %}
-                        
-                        {% comment %}<!--
+
+                                {% if request.user.is_authenticated %}
+                                    {% include "site_specific/blocks/sidebar_account.html" %}
+                                    {% include "site_specific/blocks/sidebar_activities.html" %}
+                                    {% include "site_specific/blocks/sidebar_settings.html" %}
+                                {% else %}
+                                    {% include "site_specific/blocks/sidebar_login.html" %}
+                                {% endif %}
+
+                                {% comment %}<!--
                         {% include "site_specific/blocks/sidebar_statistics.html" %}
                         -->{% endcomment %}
-                        
-                        <div id="site_visitors"></div>
-                        
-                    {% endblock %}
 
-                </div>
-            </div>
-            <div class="col3">
-                <div class="col3_content clearfix">
-                    {% block content %}
-                    {% endblock %}
-                </div>
-                <div class="ie_clearing">&nbsp;</div>
-            </div>
-            {% endblock %}
-        </div>
-    </div>
-</div>
+                                <div id="site_visitors"></div>
 
-{% block extra_content %}
-{% endblock %}
+                            {% endblock %}
 
-<div id="breadcrumbs" class="clearfix">
-    <div class="page_margins">
-        <div class="page">
-            {% block breadcrumbs %}
-                <div class="breadcrumbs">
-                    <a href="/">{% trans "Home" %}</a>
-                    <span class="b-sep"><span>::</span></span>
-                    {% if creative_sector %}
-                        <span>{{ creative_sector.get_title }}</span>
-                    {% endif %}
-                    {% block breadcrumbs_details %}{% endblock %}
-                </div>
-            {% endblock %}
-        </div>
-    </div>
-</div>
-
-<div id="footer" class="clearfix">
-    <div class="page_margins">
-        <div class="page">
-            {% block footer %}
-            
-                <div class="col1">
-                    <div class="col1_content clearfix">
-                        <h5>{% trans "Follow us on" %}</h5>
-                        <p>
-                            <a href="http://www.facebook.com/pages/wwwcreative-city-berlinde/126868757758?ref=ts"><img src="{{ STATIC_URL }}site/img/website/facebook.png" alt="facebook" title="facebook" /></a>&nbsp;&nbsp;
-                            <a href="http://twitter.com/CREATIVEBERLIN"><img src="{{ STATIC_URL }}site/img/website/twitter.png" alt="twitter" title="twitter" /></a>&nbsp;&nbsp;
-                            <a href="http://www.myspace.com/creativecityberlin"><img src="{{ STATIC_URL }}site/img/website/myspace.png" alt="myspace" title="myspace" /></a>
-                        </p>
-                        <h5>{% trans "Bookmark / Share" %}</h5>
-                        <p><a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07"><img src="{{ STATIC_URL }}site/img/website/addthis.png" alt="addthis" /></a></p>
-                        <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pub=xa-4ad8ac114ae54f07"></script>
-                    </div>
-                </div>
-                <div class="col2">
-                    <div class="col2_content clearfix">
-                        <h5>{% trans "Presented by" %}</h5>
-                        <div id="sponsor_kulturprojekte">
-                            <a title="Kulturprojekte Berlin" href="http://www.kulturprojekte-berlin.de/" onclick="open_new_window(event)">
-                                <strong>Kulturprojekte Berlin</strong>
-                            </a>
                         </div>
                     </div>
-                </div>
-                <div class="col3">
-                    <div class="col3_content clearfix">
-                        <div class="sponsors">
-                            <h5>{% trans "Sponsored by" %}</h5>
-                            <ul>
-                                <li id="sponsor_eu">
-                                    <a title="EU" href="http://europa.eu/legislation_summaries/agriculture/general_framework/g24234_de.htm" onclick="open_new_window(event)">
-                                        <strong>EU</strong>
-                                    </a>
-                                </li>
-                                <li id="sponsor_efre">
-                                    <a title="EFRE" href="http://www.berlin.de/sen/strukturfonds/ab2007/efre/efre.html" onclick="open_new_window(event)">
-                                        <strong>Kulturprojekte Berlin</strong>
-                                    </a>
-                                </li>
-                                <li id="sponsor_projektzukunft">
-                                    <a title="Projektzukunft" href="http://www.projektzukunft.berlin.de/" onclick="open_new_window(event)">
-                                        <strong>Projektzukunft</strong>
-                                    </a>
-                                </li>
-                                <li id="sponsor_beberlin">
-                                    <a title="Be-Berlin" href="http://www.berlin.de/sen/kultur/index.de.php" onclick="open_new_window(event)">
-                                        <strong>Be-Berlin</strong>
-                                    </a>
-                                </li>
-                            </ul>
+                    <div class="col3">
+                        <div class="col3_content clearfix">
+                            {% block content %}
+                            {% endblock %}
                         </div>
-                        
-                        <h5>{% trans "Links" %}</h5>
-                        {% children_of "additional_menu" %}
+                        <div class="ie_clearing">&nbsp;</div>
                     </div>
-                </div>
-            {% endblock %}
+                {% endblock %}
+            </div>
         </div>
     </div>
-</div>
+
+    {% block extra_content %}
+    {% endblock %}
+
+    <div id="breadcrumbs" class="clearfix">
+        <div class="page_margins">
+            <div class="page">
+                {% block breadcrumbs %}
+                    <div class="breadcrumbs">
+                        <a href="/">{% trans "Home" %}</a>
+                        <span class="b-sep"><span>::</span></span>
+                        {% if creative_sector %}
+                            <span>{{ creative_sector.get_title }}</span>
+                        {% endif %}
+                        {% block breadcrumbs_details %}{% endblock %}
+                    </div>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <div id="footer" class="clearfix">
+        <div class="page_margins">
+            <div class="page">
+                {% block footer %}
+
+                    <div class="col1">
+                        <div class="col1_content clearfix">
+                            <h5>{% trans "Follow us on" %}</h5>
+
+                            <p>
+                                <a href="http://www.facebook.com/pages/wwwcreative-city-berlinde/126868757758?ref=ts"><img
+                                    src="{{ STATIC_URL }}site/img/website/facebook.png" alt="facebook"
+                                    title="facebook"/></a>&nbsp;&nbsp;
+                                <a href="http://twitter.com/CREATIVEBERLIN"><img
+                                    src="{{ STATIC_URL }}site/img/website/twitter.png" alt="twitter"
+                                    title="twitter"/></a>&nbsp;&nbsp;
+                                <a href="http://www.myspace.com/creativecityberlin"><img
+                                    src="{{ STATIC_URL }}site/img/website/myspace.png" alt="myspace"
+                                    title="myspace"/></a>
+                            </p>
+                            <h5>{% trans "Bookmark / Share" %}</h5>
+
+                            <p><a class="addthis_button"
+                                  href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07"><img
+                                src="{{ STATIC_URL }}site/img/website/addthis.png" alt="addthis"/></a></p>
+                            <script type="text/javascript"
+                                    src="http://s7.addthis.com/js/250/addthis_widget.js#pub=xa-4ad8ac114ae54f07"></script>
+                        </div>
+                    </div>
+                    <div class="col2">
+                        <div class="col2_content clearfix">
+                            <h5>{% trans "Presented by" %}</h5>
+
+                            <div id="sponsor_kulturprojekte">
+                                <a title="Kulturprojekte Berlin" href="http://www.kulturprojekte-berlin.de/"
+                                   onclick="open_new_window(event)">
+                                    <strong>Kulturprojekte Berlin</strong>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col3">
+                        <div class="col3_content clearfix">
+                            <div class="sponsors">
+                                <h5>{% trans "Sponsored by" %}</h5>
+                                <ul>
+                                    <li id="sponsor_eu">
+                                        <a title="EU"
+                                           href="http://europa.eu/legislation_summaries/agriculture/general_framework/g24234_de.htm"
+                                           onclick="open_new_window(event)">
+                                            <strong>EU</strong>
+                                        </a>
+                                    </li>
+                                    <li id="sponsor_efre">
+                                        <a title="EFRE"
+                                           href="http://www.berlin.de/sen/strukturfonds/ab2007/efre/efre.html"
+                                           onclick="open_new_window(event)">
+                                            <strong>Kulturprojekte Berlin</strong>
+                                        </a>
+                                    </li>
+                                    <li id="sponsor_projektzukunft">
+                                        <a title="Projektzukunft" href="http://www.projektzukunft.berlin.de/"
+                                           onclick="open_new_window(event)">
+                                            <strong>Projektzukunft</strong>
+                                        </a>
+                                    </li>
+                                    <li id="sponsor_beberlin">
+                                        <a title="Be-Berlin" href="http://www.berlin.de/sen/kultur/index.de.php"
+                                           onclick="open_new_window(event)">
+                                            <strong>Be-Berlin</strong>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <h5>{% trans "Links" %}</h5>
+                            {% children_of "additional_menu" %}
+                        </div>
+                    </div>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
 {% endspaceless %}
 {{ site_settings.extra_body|safe }}
 
 {% block facebook_scripts %}
     <div id="fb-root"></div>
-    <script type="text/javascript" src="http://connect.facebook.net/{% if LANGUAGE_CODE == "en" %}en_US{% else %}de_DE{% endif %}/all.js"></script>
+    <script type="text/javascript"
+            src="http://connect.facebook.net/{% if LANGUAGE_CODE == "en" %}en_US{% else %}de_DE{% endif %}/all.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/facebook_login.js"></script>
 {% endblock %}
 

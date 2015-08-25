@@ -28,8 +28,9 @@
             {{ form.institution_name|as_uni_field }}
             {{ form.institution_name2|as_uni_field }}
             {{ form.legal_form|as_uni_field }}
-            
+
             <h3>{% trans "Contact Person" %} - {% trans "Administrator " %}</h3>
+
             <div class="ctrlHolder">
                 {{ form.prefix.error_tag }}
                 <label for="id_prefix">
@@ -51,21 +52,23 @@
             {{ form.individual_type|as_uni_field }}
             {{ form.occupation|as_uni_field }}
             {{ form.nationality|as_uni_field }}
-            
+
             <h3>Login - {% trans "Administrator " %}</h3>
             {{ form.login_email|as_uni_field }}
             {{ form.login_email_confirm|as_uni_field }}
             {{ form.password|as_uni_field }}
             {{ form.password_confirm|as_uni_field }}
             {{ form.username|as_uni_field }}
-            
+
             <h3>{% trans "Confirmation" %}</h3>
+
             <div class="ctrlHolder">
                 {{ form.privacy_policy.error_tag }}
                 {{ form.privacy_policy|with_class }}
                 <label for="id_privacy_policy">
                     {% if form.privacy_policy.required %}<strong>{% endif %}
-                    {% blocktrans %}I accept <a href="/privacy/" onclick="open_new_window(event)">the privacy policy</a>.{% endblocktrans %}
+                    {% blocktrans %}I accept <a href="/privacy/" onclick="open_new_window(event)">the privacy policy</a>
+                        .{% endblocktrans %}
                     {% if form.privacy_policy.required %}*</strong>{% endif %}
                 </label>
             </div>
@@ -74,11 +77,13 @@
                 {{ form.terms_of_use|with_class }}
                 <label for="id_terms_of_use">
                     {% if form.terms_of_use.required %}<strong>{% endif %}
-                    {% blocktrans %}I accept <a href="/terms-of-use/" onclick="open_new_window(event)">the terms of use</a>.{% endblocktrans %}
+                    {% blocktrans %}I accept
+                        <a href="/terms-of-use/" onclick="open_new_window(event)">the terms of use</a>
+                        .{% endblocktrans %}
                     {% if form.terms_of_use.required %}*</strong>{% endif %}
                 </label>
             </div>
-            
+
         </fieldset>
         {% include "utils/step_buttons_reg.html" %}
     </form>

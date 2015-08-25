@@ -25,6 +25,7 @@
     <form action="" method="post" class="uniForm">
         <fieldset class="inlineLabels">
             <h3>{% trans "Contact Person" %} - {% trans "Administrator" %}</h3>
+
             <div class="ctrlHolder">
                 {{ form.p0_prefix.error_tag }}
                 {{ form.p0_first_name.error_tag }}
@@ -40,19 +41,20 @@
             <ul>
                 <li>
                     <label for="id_p0_phone_number" class="label_with_labelspan">{% trans "Phone" %}</label>
-                    <div class="phone">{% trans "Country Code" %}<br />{% trans "without" %} "00"
+
+                    <div class="phone">{% trans "Country Code" %}<br/>{% trans "without" %} "00"
                         <span class="phone_label">
                             {{ form.p0_phone_country }}
                             {{ form.p0_phone_country.error_tag }}
                         </span>
                     </div>
-                    <div class="phone">{% trans "Area Code" %}<br />{% trans "without" %} "0"
+                    <div class="phone">{% trans "Area Code" %}<br/>{% trans "without" %} "0"
                         <span class="phone_label">
                             {{ form.p0_phone_area }}
                             {{ form.p0_phone_area.error_tag }}
                         </span>
                     </div>
-                    <div class="phone" >{% trans "Number" %}<br />{% trans "with direct dial" %}
+                    <div class="phone">{% trans "Number" %}<br/>{% trans "with direct dial" %}
                         <span class="phone_label">
                             {{ form.p0_phone_number }}
                             {{ form.p0_phone_number.error_tag }}
@@ -78,10 +80,11 @@
                     {{ form.p0_mobile_number.error_tag }}
                 </li>
             </ul>
-            
+
             <h3>
                 {% trans "Privacy Protection for Contact Person (Administrator)" %}
             </h3>
+
             <p class="disclaimer">
                 {% trans "Here you can specify personal data to be displayed in your profile to the public." %}
             </p>
@@ -91,7 +94,7 @@
             {{ form.p0_display_fax|as_uni_field }}
             {{ form.p0_display_mobile|as_uni_field }}
             {{ form.p0_display_im|as_uni_field }}
-            
+
             {% include "utils/step_buttons_reg.html" %}
         </fieldset>
     </form>

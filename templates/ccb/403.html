@@ -8,8 +8,8 @@
 {% block sidebar-b %}&nbsp;{% endblock %}
 
 {% block headline %}
-	<h1>{% trans "Access Denied" %}</h1>
-{% endblock %}			
+    <h1>{% trans "Access Denied" %}</h1>
+{% endblock %}
 
 {% block content %}
     <hr/>
@@ -21,7 +21,8 @@
         <form action="" class="uniForm">
             <fieldset class="inlineLabels">
                 <div class="buttonsHolder">
-                    <input type="button" class="primaryAction" value="{% filter upper %}{% trans "back" %}{% endfilter %}" onclick="window.history.go(-1)" />
+                    <input type="button" class="primaryAction"
+                           value="{% filter upper %}{% trans "back" %}{% endfilter %}" onclick="window.history.go(-1)"/>
                 </div>
             </fieldset>
         </form>

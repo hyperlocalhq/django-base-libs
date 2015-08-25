@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% load i18n base_tags%}
+{% load i18n base_tags %}
 
 {% block title %}{{ flatpage.get_title|escape }}{% endblock %}
 
 {% block headline %}
-	<h1>{% trans "directory" %}</h1>
-{% endblock %}			
+    <h1>{% trans "directory" %}</h1>
+{% endblock %}
 
 {% comment %}<!-- 
 {% block sidebar-b %}

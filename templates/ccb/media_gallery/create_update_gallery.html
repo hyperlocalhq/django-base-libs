@@ -8,9 +8,12 @@
 {% block additional_controls %}
     <div class="media_nav">
         <div class="right">
-            <a class="fb-sync" href="{{ object.get_url_path }}portfolio/fb-sync/"><span><span>{% trans "Sync with Facebook" %}</span></span></a>
-            <a class="portfolio-manage" href="{{ object.get_url_path }}portfolio/manage/"><span><span>{% trans "All projects" %}</span></span></a>
-            <a class="portfolio-add active" href="{{ object.get_url_path }}portfolio/album/add/"><span><span>{% trans "Add project" %}</span></span></a>
+            <a class="fb-sync"
+               href="{{ object.get_url_path }}portfolio/fb-sync/"><span><span>{% trans "Sync with Facebook" %}</span></span></a>
+            <a class="portfolio-manage"
+               href="{{ object.get_url_path }}portfolio/manage/"><span><span>{% trans "All projects" %}</span></span></a>
+            <a class="portfolio-add active"
+               href="{{ object.get_url_path }}portfolio/album/add/"><span><span>{% trans "Add project" %}</span></span></a>
         </div>
     </div>
 {% endblock %}
@@ -26,10 +29,14 @@
             <fieldset class="inlineLabels">
                 <p class="preview_img">
                     {% if gallery.cover_image %}
-                        <img src="{{ UPLOADS_URL }}{{ gallery.cover_image|modified_path:"gp" }}" alt="{% trans "Album cover" %}" />
-                        <a href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/delete-cover/">{% trans "Delete image" %}</a>
+                        <img src="{{ UPLOADS_URL }}{{ gallery.cover_image|modified_path:"gp" }}"
+                             alt="{% trans "Album cover" %}"/>
+                        <a href="
+
+                            {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/delete-cover/">{% trans "Delete image" %}</a>
                     {% else %}
-                        <img src="{{ STATIC_URL }}site/img/website/placeholder/upload_image.png" alt="{% trans "Album cover" %}" />
+                        <img src="{{ STATIC_URL }}site/img/website/placeholder/upload_image.png"
+                             alt="{% trans "Album cover" %}"/>
                     {% endif %}
                 </p>
                 {{ form.cover_image|as_uni_field }}
@@ -40,34 +47,34 @@
                 {{ form.format|as_uni_field }}
                 {{ form.published|as_uni_field }}
                 <div class="buttonHolder">
-                    <input type="submit" class="primaryAction" value="{% trans "Save" %}" />
+                    <input type="submit" class="primaryAction" value="{% trans "Save" %}"/>
                 </div>
             </fieldset>
         </form>
     </div>
     {% if gallery.pk %}
         <script type="text/javascript">
-        (function($) {
-            $(document).ready(function() {
-                $('<input type="button" class="secondaryAction" value="' + gettext('Cancel') +'">').click(function() {
-                    redirect("../../../manage/");
-                }).prependTo(
-                    $(":submit").parent()
-                );            
-            })
-        }(jQuery));
+            (function ($) {
+                $(document).ready(function () {
+                    $('<input type="button" class="secondaryAction" value="' + gettext('Cancel') + '">').click(function () {
+                        redirect("../../../manage/");
+                    }).prependTo(
+                        $(":submit").parent()
+                    );
+                })
+            }(jQuery));
         </script>
     {% else %}
         <script type="text/javascript">
-        (function($) {
-            $(document).ready(function() {
-                $('<input type="button" class="secondaryAction" value="' + gettext('Cancel') +'">').click(function() {
-                    redirect("../../manage/");
-                }).prependTo(
-                    $(":submit").parent()
-                );            
-            })
-        }(jQuery));
+            (function ($) {
+                $(document).ready(function () {
+                    $('<input type="button" class="secondaryAction" value="' + gettext('Cancel') + '">').click(function () {
+                        redirect("../../manage/");
+                    }).prependTo(
+                        $(":submit").parent()
+                    );
+                })
+            }(jQuery));
         </script>
     {% endif %}
 {% endblock %}

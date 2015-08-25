@@ -4,13 +4,13 @@
 {% block title %}{{ message.subject }}{% endblock %}
 
 {% block extrahead %}
-<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
 {% endblock %}
 
 
 {% block headline %}
-	<h1>{% trans "Your Messages" %}</h1>
-{% endblock %}			
+    <h1>{% trans "Your Messages" %}</h1>
+{% endblock %}
 
 {% block formstart %}
 {% endblock %}
@@ -25,14 +25,14 @@
 
 {% block content %}
     {% block tabs %}
-    	<div id="tabs">
-			{% children_of "messages" using "navigation/children_in_tabs.html" %}
-		</div>
+        <div id="tabs">
+            {% children_of "messages" using "navigation/children_in_tabs.html" %}
+        </div>
         <hr class="hidden"/>
     {% endblock %}
-        <div id="details">
-            {% block details %}
-            {% endblock %}
+    <div id="details">
+        {% block details %}
+        {% endblock %}
         <hr class="hidden"/>
-        </div>
+    </div>
 {% endblock %}

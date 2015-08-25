@@ -4,8 +4,8 @@
 {% block title %}{% trans "login" %}{% endblock %}
 
 {% block headline %}
-	<h1>{% trans "login" %}</h1>
-{% endblock %}			
+    <h1>{% trans "login" %}</h1>
+{% endblock %}
 
 {% block sidebar-a %}&nbsp;{% endblock %}
 {% block sidebar-b %}&nbsp;{% endblock %}
@@ -14,14 +14,17 @@
     <form action="/{{ LANGUAGE_CODE }}/facebook/link/" method="post" class="uniForm">{% csrf_token %}
         <fieldset class="inlineLabels">
             <p class="disclaimer">
-                {% trans "Are you on Facebook?" %}<br />
+                {% trans "Are you on Facebook?" %}<br/>
                 {% trans "Login with Facebook for mobile devices will be available soon." %}
             </p>
+
             <div class="buttonHolder">
-                <input type="hidden" name="access_token" value="" />
-                <input type="hidden" name="uid" value="" />    
-                <input type="hidden" name="goto_next" value="{% ifequal goto_next root_dir %}/dashboard/{% else %}{% if goto_next %}{{ goto_next }}{% else %}/dashboard/{% endif %}{% endifequal %}" />
-                <input class="facebook_login primaryAction" type="submit" value="{% filter upper %}{% trans 'Login with Facebook' %}{% endfilter %}" />
+                <input type="hidden" name="access_token" value=""/>
+                <input type="hidden" name="uid" value=""/>
+                <input type="hidden" name="goto_next" value="{% ifequal goto_next root_dir %}/dashboard/
+                    {% else %}{% if goto_next %}{{ goto_next }}{% else %}/dashboard/{% endif %}{% endifequal %}"/>
+                <input class="facebook_login primaryAction" type="submit"
+                       value="{% filter upper %}{% trans 'Login with Facebook' %}{% endfilter %}"/>
             </div>
         </fieldset>
     </form>
@@ -30,7 +33,7 @@
             <!--{{ request.session.set_test_cookie }}-->
             {% if form.non_field_errors %}
                 <div id="errorMsg">
-                   <p>{{ form.non_field_errors|join:" " }}</p>
+                    <p>{{ form.non_field_errors|join:" " }}</p>
                 </div>
             {% endif %}
             <h3>{% trans "login" %}</h3>
@@ -39,12 +42,15 @@
             <p>
                 <a href="/password_reset/">{% trans "Forgotten your password?" %}</a>
             </p>
+
             <div class="buttonHolder">
                 {{ form.login_as|as_uni_field }}
-                <input type="hidden" name="this_is_the_login_form" value="1" />
-                <input type="hidden" name="post_data" value="{{ post_data }}" />
-                <input type="hidden" name="goto_next" value="{% ifequal goto_next root_dir %}/dashboard/{% else %}{% if goto_next %}{{ goto_next }}{% else %}/dashboard/{% endif %}{% endifequal %}" />
-                <input class="primaryAction" type="submit" value="{% filter upper %}{% trans 'Log in' %}{% endfilter %}" />
+                <input type="hidden" name="this_is_the_login_form" value="1"/>
+                <input type="hidden" name="post_data" value="{{ post_data }}"/>
+                <input type="hidden" name="goto_next" value="{% ifequal goto_next root_dir %}/dashboard/
+                    {% else %}{% if goto_next %}{{ goto_next }}{% else %}/dashboard/{% endif %}{% endifequal %}"/>
+                <input class="primaryAction" type="submit"
+                       value="{% filter upper %}{% trans 'Log in' %}{% endfilter %}"/>
             </div>
         </fieldset>
     </form>
@@ -53,8 +59,10 @@
             <p class="disclaimer">
                 {% trans "Haven't you got an account yet?" %}
             </p>
+
             <div class="buttonHolder">
-                <input class="primaryAction" type="button" onclick="window.redirect('/register/')" value="{% filter upper %}{% trans 'Create Account' %}{% endfilter %}" />
+                <input class="primaryAction" type="button" onclick="window.redirect('/register/')"
+                       value="{% filter upper %}{% trans 'Create Account' %}{% endfilter %}"/>
             </div>
         </fieldset>
     </form>

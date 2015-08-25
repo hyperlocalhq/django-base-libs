@@ -1,7 +1,7 @@
 {% load i18n base_tags uni_form_tags uni_form_field %}
 <div class="event_time formset-form">
     {{ f.label|as_uni_field }}
-    <div class="ctrlHolder{% if f.start_dd.errors or f.start_mm.errors or f.start_yyyy.errors %} error{% endif%}">
+    <div class="ctrlHolder{% if f.start_dd.errors or f.start_mm.errors or f.start_yyyy.errors %} error{% endif %}">
         {{ f.start_dd.error_tag }}
         {{ f.start_mm.error_tag }}
         {{ f.start_yyyy.error_tag }}
@@ -27,7 +27,7 @@
             </li>
         </ul>
     </div>
-    <div class="ctrlHolder noLabel{% if f.start_hh.errors or f.start_ii.errors %} error{% endif%}">
+    <div class="ctrlHolder noLabel{% if f.start_hh.errors or f.start_ii.errors %} error{% endif %}">
         <ul class="alternate">
             <li>
                 <label for="id_event_times-{{ forloop.counter0 }}-start_hh">
@@ -54,14 +54,14 @@
             </li>
             <li>
                 <label>
-                    <input type="checkbox" class="toggle_event_end checkboxinput" />
+                    <input type="checkbox" class="toggle_event_end checkboxinput"/>
                     {% trans "Event has an end date" %}
                 </label>
             </li>
         </ul>
     </div>
     <div class="event_end">
-        <div class="ctrlHolder{% if f.end_dd.errors or f.end_mm.errors or f.end_yyyy.errors %} error{% endif%}">
+        <div class="ctrlHolder{% if f.end_dd.errors or f.end_mm.errors or f.end_yyyy.errors %} error{% endif %}">
             {{ f.end_dd.error_tag }}
             {{ f.end_mm.error_tag }}
             {{ f.end_yyyy.error_tag }}
@@ -87,7 +87,7 @@
                 </li>
             </ul>
         </div>
-        <div class="ctrlHolder noLabel{% if f.end_hh.errors or f.end_ii.errors %} error{% endif%}">
+        <div class="ctrlHolder noLabel{% if f.end_hh.errors or f.end_ii.errors %} error{% endif %}">
             <ul class="alternate">
                 <li>
                     <label for="id_event_times-{{ forloop.counter0 }}-end_dd">

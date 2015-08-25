@@ -4,11 +4,11 @@
 {% block extrahead %}
     {{ block.super }}
     <script type="text/javascript">
-    // preloading portfolio images
-    {% for f in list_of_files %}
-    var oImg_{{ forloop.counter0 }} = new Image();
-    oImg_{{ forloop.counter0 }}.src = "{{ UPLOADS_URL }}{{ f.path|modified_path:"gd" }}";
-    {% endfor %}
+        // preloading portfolio images
+        {% for f in list_of_files %}
+            var oImg_{{ forloop.counter0 }} = new Image();
+            oImg_{{ forloop.counter0 }}.src = "{{ UPLOADS_URL }}{{ f.path|modified_path:"gd" }}";
+        {% endfor %}
     </script>
 {% endblock %}
 
