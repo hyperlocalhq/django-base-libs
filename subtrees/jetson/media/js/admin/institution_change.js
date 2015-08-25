@@ -370,8 +370,6 @@ var OpeningHoursManager = {
         // TODO. re-init ui-calendar
         django.jQuery("#institutionalcontact_set-group").grp_inline({
             prefix: "institutionalcontact_set",
-            deleteCssClass: "delete-handler",
-            emptyCssClass: "empty-form",
             onAfterRemoved: (function (row) {
                 updateInlineLabel(row);
                 deleteTinyMCE(row);
@@ -380,7 +378,7 @@ var OpeningHoursManager = {
                 grappelli.reinitDateTimeFields(row);
                 grappelli.updateSelectFilter(row);
                 row.grp_collapsible();
-                row.find("fieldset.collapse").grp_collapsible();
+                row.find("fieldset.grp-collapse").grp_collapsible();
                 
                 // get the jQuery obj instead of django.jQuery
                 row = jQuery(row);

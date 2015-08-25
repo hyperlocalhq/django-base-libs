@@ -213,12 +213,12 @@ var ContactPrepopulationManager = {
         if (sValue) {
             $j.get(
                 '/' + settings.lang + '/admin/institutions/institution/' + sValue + '/json/',
-                new Function("sData", "ContactPrepopulationManager.prepopulate("+iIndex+", sData)")
+                new Function("oData", "ContactPrepopulationManager.prepopulate("+iIndex+", oData)"),
+                'json'
             );
         }
     },
-    prepopulate: function (iIndex, sData) {
-        eval("oData =" + sData);
+    prepopulate: function (iIndex, oData) {
         var aFields = ContactPrepopulationManager.aTextFields;
         for (iPos=0, iLen=aFields.length; iPos < iLen; iPos++) {
             oNode = document.getElementById(CONTACT_ID_PREFIX + iIndex + "-" + aFields[iPos]);
@@ -297,8 +297,6 @@ var ContactPrepopulationManager = {
         // TODO. re-init ui-calendar
         django.jQuery("#individualcontact_set-group").grp_inline({
             prefix: "individualcontact_set",
-            //deleteCssClass: "delete-handler",
-            //emptyCssClass: "empty-form",
             onAfterRemoved: (function (row) {
                 row = jQuery(row);
                 updateInlineLabel(row);
@@ -308,7 +306,7 @@ var ContactPrepopulationManager = {
                 grappelli.reinitDateTimeFields(row);
                 grappelli.updateSelectFilter(row);
                 row.grp_collapsible();
-                row.find("fieldset.collapse").grp_collapsible();
+                row.find("fieldset.grp-collapse").grp_collapsible();
                 
                 // get the jQuery obj instead of django.jQuery
                 row = jQuery(row);

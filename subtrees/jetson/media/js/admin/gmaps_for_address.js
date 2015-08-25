@@ -31,8 +31,10 @@
     var GMapManager = self.GMapManager = {
         init_all: function() {
             var oSelf = self.GMapManager;
-            $('.gmap-wrapper:visible').each(function(nIndex, el) {
-                oSelf.init(nIndex);
+            $('.gmap-wrapper').each(function(nIndex, el) {
+                if (!$(el).closest('.grp-empty-form').length) {
+                    oSelf.init(nIndex);
+                }
             });
         },
         init: function(nIndex) {
@@ -63,6 +65,12 @@
                 });
                 $oGmapLocations[nIndex] = $('<ul class="gmap_locations">').appendTo($oDynMapContainer).hide();
                 oSelf.adjustGeoposition(nIndex);
+                $oDynMapContainer.parents('.grp-collapse').on('click', function(e) {
+                    if ($oDynMapContainer.is(':visible')) {
+                        e.preventDefault();
+                        google.maps.event.trigger(aMaps[nIndex], 'resize');
+                    }
+                });
             }
         },
         recognizeLocation: function(nIndex) {

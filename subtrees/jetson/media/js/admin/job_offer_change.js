@@ -244,8 +244,8 @@ var ContactPrepopulationManager = {
     },
     addEvents: function() {
         $j("#id_offering_institution").change( 
-            function() { 
-                ContactPrepopulationManager.get_contact_details( 
+            function() {
+                ContactPrepopulationManager.get_contact_details(
                     $j(this).val() 
                 ); 
             } 
@@ -255,12 +255,12 @@ var ContactPrepopulationManager = {
         if (sValue) {
             $j.get(
                 '/' + settings.lang + '/admin/institutions/institution/' + sValue + '/json/',
-                ContactPrepopulationManager.prepopulate
+                ContactPrepopulationManager.prepopulate,
+                'json'
             );
         }
     },
-    prepopulate: function (sData) {
-        eval("oData =" + sData);
+    prepopulate: function (oData) {
         var aFields = ContactPrepopulationManager.aTextFields;
         for (iPos=0, iLen=aFields.length; iPos < iLen; iPos++) {
             oNode = document.getElementById("id_" + aFields[iPos]);
@@ -286,7 +286,7 @@ var ContactPrepopulationManager = {
         PhoneManager.checkAppropriateRadio();
         EmailManager.checkAppropriateRadio();
         IMManager.checkAppropriateRadio();
-        self.GMapManager.adjustGeoposition();
+        self.GMapManager.adjustGeoposition(0);
     }
 };
 
