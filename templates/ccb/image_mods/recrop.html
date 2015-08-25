@@ -108,9 +108,9 @@
                     onChange: updateCoords,
                     allowSelect: false,
                     setSelect: [x1, y1, x2, y2]
-                }
+                };
                 {% if mod.width and mod.height and mod.crop %}
-                    options['aspectRatio'] = {{ mod.width }} / {{ mod.height }};
+                options['aspectRatio'] = {{ mod.width }} / {{ mod.height }};
                 {% endif %}
                 oCroppingAPI = $.Jcrop('#cropbox', options);
                 $(document).keyup(function (e) {
