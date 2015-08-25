@@ -86,14 +86,15 @@ class PorterStemmerGerman:
         #   Wortstämme werden klein geschrieben
         wort = wort.lower()
         #   Wenn 'stop' und Wort in Stopliste gib 'wort' zurück
-        if (stop == True) and (wort in stopliste):
+        if stop is True and wort in stopliste:
             return wort
         # Ersetze alle 'ß' durch 'ss'
         while u'ß' in wort:
             wort = wort[:(wort.find(u'ß'))] + u'ss' + wort[((wort.find(u'ß')) + 1):]
         # Schützenswerte u'u' bzw. u'y' werden durch u'U' bzw. u'Y' ersetzt
         for e in map(None, wort, range(len(wort))):
-            if e[1] == 0: continue
+            if e[1] == 0:
+                continue
             if u'u' in e:
                 try:
                     if (wort[(e[1] - 1)] in vokale) and (wort[(e[1] + 1)] in vokale): wort = wort[:e[1]] + u'U' + wort[(
