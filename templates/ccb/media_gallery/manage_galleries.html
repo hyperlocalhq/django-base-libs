@@ -161,10 +161,10 @@
                 set_work_in_progress();
                 sections = [];
                 $(".section").each(function () {
-                    section_token = $(this).attr("id").replace(/section_/, "")
+                    section_token = $(this).attr("id").replace(/section_/, "");
                     galleries = [];
                     $(this).find(".gallery").each(function () {
-                        gallery_token = $(this).attr("id").replace(/gallery_/, "")
+                        gallery_token = $(this).attr("id").replace(/gallery_/, "");
                         galleries.push(gallery_token)
                     });
                     sections.push([section_token, galleries.join(",")].join(":"));
@@ -268,14 +268,14 @@
                     $(".gallery.draft").animate({"opacity": ".20"});
                     $(".gallery.published").animate({"opacity": "1.00"});
                     return false;
-                })
+                });
                 $('.draft-albums').click(function () {
                     $(this).addClass("active");
                     $('.published-albums,.all-albums').removeClass("active");
                     $(".gallery.draft").animate({"opacity": "1.00"});
                     $(".gallery.published").animate({"opacity": ".20"});
                     return false;
-                })
+                });
                 $('.all-albums').click(function () {
                     $(this).addClass("active");
                     $('.published-albums,.draft-albums').removeClass("active");

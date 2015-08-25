@@ -161,10 +161,10 @@
                 if (in_progress) {
                     return
                 }
-                set_work_in_progress()
+                set_work_in_progress();
                 mediafiles = [];
                 $(".mediafile").each(function () {
-                    mediafile_token = $(this).attr("id").replace(/mediafile_/, "")
+                    mediafile_token = $(this).attr("id").replace(/mediafile_/, "");
                     mediafiles.push(mediafile_token);
                 });
                 $.post(
@@ -194,7 +194,7 @@
                     handle: ".ui-dragging-handle",
                     placeholder: "ui-mediafile-placeholder",
                     update: update_ordering
-                })
+                });
 
                 $(".add-mediafile").each(function () {
                     $(this).click(function () {
@@ -272,7 +272,7 @@
                                 $(this).attr("action", sURL);
                             });
                             self.PortfolioChangeManager.init();
-                        }).autoscroll()
+                        }).autoscroll();
                         set_work_in_progress();
                         return false;
                     });
