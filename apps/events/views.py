@@ -66,7 +66,7 @@ def event_list(request, criterion="", slug="", show="", start_date=None, end_dat
     # abc_list = None
     # abc_filter = request.GET.get('by-abc', None)
 
-    if not (kwargs.has_key('feed') and kwargs['feed'] == True):
+    if not 'feed' in kwargs or not kwargs['feed'] is True:
         kwargs['queryset'] = kwargs['queryset'].defer(
             "description", "description_de", "description_en",
             "description_de_markup_type", "description_en_markup_type",

@@ -65,7 +65,7 @@ def map_ct(sysname):
     just a helper function to map sysnames getting
     from object types to relating ContentTypes.
     """
-    if term_sysname_model_mapper.has_key(sysname):
+    if sysname in term_sysname_model_mapper:
         model = term_sysname_model_mapper[sysname]
         return ContentType.objects.get_for_model(model)
     return None

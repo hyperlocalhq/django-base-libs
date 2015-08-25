@@ -27,7 +27,7 @@ def get_faq_params(object_url_part, url_identifier, category_slug=None, **kwargs
     # first of all, object and container stuff!
     (obj, base_template) = get_object_from_url(object_url_part, **kwargs)
     site = None
-    if kwargs.has_key('only_for_this_site'):
+    if 'only_for_this_site' in kwargs:
         if kwargs['only_for_this_site']:
             site = Site.objects.get_current()
     container = get_container(FaqContainer, site, obj, url_identifier)
