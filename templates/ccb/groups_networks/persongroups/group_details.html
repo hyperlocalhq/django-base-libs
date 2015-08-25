@@ -13,11 +13,9 @@
 {% endblock %}
 
 {% block details %}
-    {% if_has_perm "groups_networks.change_persongroup" object %}
-        <div class="description_edit first-item">
-    {% else %}
-        <div class="description first-item overflow">
-    {% end_if_has_perm %}
+
+    <div
+        class="first-item description{% if_has_perm "groups_networks.change_persongroup" object %}_edit{% else %} overflow{% end_if_has_perm %}">
         <div class="profil_container">
             <div id="dyn_avatar" class="dyn_section">
                 {% include "groups_networks/persongroups/profile/avatar.html" %}
@@ -59,5 +57,3 @@
         </div>
     {% endif %}
 {% endblock %}
-
-
