@@ -2,7 +2,7 @@
 {% load base_tags blog babel i18n auth_extended image_modifications %}
 
 {% block meta_description %}
-	<meta name="description" content="{{ article.get_rendered_content|striptags|truncatewords:100 }}..." />
+    <meta name="description" content="{{ article.get_rendered_content|striptags|truncatewords:100 }}..."/>
 {% endblock %}
 
 {% block open_graph %}
@@ -11,14 +11,14 @@
     <meta property="og:title" content="{{ article.get_title }}"/>
     <meta property="og:type" content="article"/>
     {% if article.image %}
-        <meta property="og:image" content="{{ website_url|slice:":-1" }}{{ UPLOADS_URL }}{{ article.image.path }}" />
+        <meta property="og:image" content="{{ website_url|slice:":-1" }}{{ UPLOADS_URL }}{{ article.image.path }}"/>
     {% endif %}
     {% with content|get_first_media|get_media_src as media_src %}
         {% if media_src %}
             {% if "http://"|in_list:media_src %}
-                <meta property="og:image" content="{{ media_src }}" />
+                <meta property="og:image" content="{{ media_src }}"/>
             {% else %}
-                <meta property="og:image" content="{{ website_url|slice:":-1" }}{{ media_src }}" />
+                <meta property="og:image" content="{{ website_url|slice:":-1" }}{{ media_src }}"/>
             {% endif %}
         {% endif %}
     {% endwith %}
@@ -32,7 +32,8 @@
     <div class="toolbox clearfix">
         <div class="entry-controls">
             <a class="rss" href="/{{ LANGUAGE_CODE }}/news/feeds/rss/"><span><span>RSS</span></span></a>
-            <a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07"><span><span></span></span></a>
+            <a class="addthis_button"
+               href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07"><span><span></span></span></a>
         </div>
         <div class="newer-older">
             {% if article.get_newer_published %}
@@ -66,6 +67,7 @@
                 {% endif %}
             {% endif %}
         </p>
+
         <h3>
             {{ article.get_title|escape }}
         </h3>
@@ -81,29 +83,31 @@
             </div>
         {% endif %}
 
-        
+
         {% if article.image %}
-            <img class="small_inter left" src="{{ UPLOADS_URL }}{{ article.image|modified_path:"nd" }}" alt="{{ article.get_title|escape }}" />
+            <img class="small_inter left" src="{{ UPLOADS_URL }}{{ article.image|modified_path:"nd" }}"
+                 alt="{{ article.get_title|escape }}"/>
         {% endif %}
 
         {% parse article.get_rendered_content %}
 
         {% if article.is_excerpt %}
-            <p class="right cleaner"><a href="{{ article.external_url }}" onclick="open_new_window(event)">{% trans "Read full article" %}</a></p>
+            <p class="right cleaner"><a href="{{ article.external_url }}"
+                                        onclick="open_new_window(event)">{% trans "Read full article" %}</a></p>
         {% endif %}
-        
+
         {% if article.creative_sectors.count %}
             <div class="post-meta">
                 <p><span>{% trans "Categories" %}: </span>
-                {% for cs in article.creative_sectors.all %}
-                    {% if not forloop.first %}|{% endif %}
-                    <a href="/news/creative-sector/{{ cs.slug }}/">{{ cs.title }}</a>
-                {% endfor %}
+                    {% for cs in article.creative_sectors.all %}
+                        {% if not forloop.first %}|{% endif %}
+                        <a href="/news/creative-sector/{{ cs.slug }}/">{{ cs.title }}</a>
+                    {% endfor %}
                 </p>
             </div>
         {% endif %}
     </div>
-    <hr />
+    <hr/>
     <div class="shortinfo">
         {% if links_to_articles %}
             <div class="add_info">
@@ -113,30 +117,31 @@
                 {% if article.is_news %}
                     <h5>{% trans "Additional News" %}</h5>
                 {% endif %}
-                
+
                 <ul>
-                {% for link_article in links_to_articles %}
-                    <li>
-                        <p class="date">
-                            {{ link_article.published_from|datefmt:"long" }}
-                        </p>
-                        <h5>
-                            <a href="{{ link_article.get_url_path }}">
-                               {{ link_article.get_title|striptags|escape }}
-                            </a>
-                        </h5>
-                        <p>
-                            <a href="{{ link_article.get_url_path }}">
-                            {% parse link_article.get_rendered_content as content %}
-                            {{ content|striptags|truncatewords:"10" }}
-                            </a>
-                            <a class="more" href="{{ link_article.get_url_path }}">{% trans "more" %}</a>
-                        </p>
-                    </li>
-                {% endfor %}
+                    {% for link_article in links_to_articles %}
+                        <li>
+                            <p class="date">
+                                {{ link_article.published_from|datefmt:"long" }}
+                            </p>
+                            <h5>
+                                <a href="{{ link_article.get_url_path }}">
+                                    {{ link_article.get_title|striptags|escape }}
+                                </a>
+                            </h5>
+
+                            <p>
+                                <a href="{{ link_article.get_url_path }}">
+                                    {% parse link_article.get_rendered_content as content %}
+                                    {{ content|striptags|truncatewords:"10" }}
+                                </a>
+                                <a class="more" href="{{ link_article.get_url_path }}">{% trans "more" %}</a>
+                            </p>
+                        </li>
+                    {% endfor %}
                 </ul>
             </div>
-        {% endif %}		
+        {% endif %}
     </div>
 {% endblock %}
 
@@ -144,9 +149,12 @@
     <div class="breadcrumbs">
         <a href="/">{% trans "Home" %}</a>
         <span class="b-sep"><span>::</span></span><a href="/news/">{% trans "News" %}</a>
-        <span class="b-sep"><span>::</span></span><a href="/news/{{ article.published_from|date:"Y" }}/">{{ article.published_from|date:"Y" }}</a>
-        <span class="b-sep"><span>::</span></span><a href="/news/{{ article.published_from|date:"Y" }}/{{ article.published_from|date:"m" }}/">{{ article.published_from|datefmt:"MMM" }} </a>
-        <span class="b-sep"><span>::</span></span><a href="/news/{{ article.published_from|date:"Y" }}/{{ article.published_from|date:"m" }}/{{ article.published_from|date:"d" }}/">{{ article.published_from|date:"d" }}</a>
+        <span class="b-sep"><span>::</span></span><a
+        href="/news/{{ article.published_from|date:"Y" }}/">{{ article.published_from|date:"Y" }}</a>
+        <span class="b-sep"><span>::</span></span><a
+        href="/news/{{ article.published_from|date:"Y" }}/{{ article.published_from|date:"m" }}/">{{ article.published_from|datefmt:"MMM" }} </a>
+        <span class="b-sep"><span>::</span></span><a
+        href="/news/{{ article.published_from|date:"Y" }}/{{ article.published_from|date:"m" }}/{{ article.published_from|date:"d" }}/">{{ article.published_from|date:"d" }}</a>
         <span class="b-sep"><span>::</span></span><span>{{ article.get_title|escape }}</span>
     </div>
 {% endblock %}

@@ -16,8 +16,8 @@ def get_avatar_url(obj, dimensions):
             url = "/helper/tmpimage/%s/?path=%s" % (
                 dimensions,
                 path,
-                )
+            )
     return url
-    
-register.filter('get_avatar_url', get_avatar_url)
 
+
+register.filter('get_avatar_url', get_avatar_url)

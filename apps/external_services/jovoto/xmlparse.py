@@ -5,15 +5,17 @@ from xml.dom.minidom import Node
 functions used for xml parsing for external applications
 """
 
+
 def get_value(nodelist):
     """ little helper function for DOM parsing """
     try:
         node = nodelist[0]
-        if node.firstChild.nodeType == Node.TEXT_NODE: 
+        if node.firstChild.nodeType == Node.TEXT_NODE:
             return node.firstChild.data.strip()
-    except: 
+    except:
         pass
-    return "" 
+    return ""
+
 
 def parse_idea_list(xml):
     """
@@ -27,25 +29,26 @@ def parse_idea_list(xml):
         media0 = idea.getElementsByTagName("media")[0]
         author = idea.getElementsByTagName("author")[0]
         idea_list.append({
-            'name' : get_value(idea.getElementsByTagName("name")),
-            'description' : get_value(idea.getElementsByTagName("description")),
-            'pubdate' : get_value(idea.getElementsByTagName("pubDate")),
-            'link' : get_value(idea.getElementsByTagName("link")),
-            'guid' : get_value(idea.getElementsByTagName("guid")),
-            'rating' : get_value(idea.getElementsByTagName("rating")),
-            
-            'author_username' : get_value(author.getElementsByTagName("username")),
-            'author_city' : get_value(author.getElementsByTagName("city")),
-            'author_country' : get_value(author.getElementsByTagName("country")),
-            'author_icon' : get_value(author.getElementsByTagName("icon")),
-            
-            'media0_type' : get_value(media0.getElementsByTagName("type")),
-            'media0_thumb' : get_value(media0.getElementsByTagName("thumb")),
-            'media0_medium' : get_value(media0.getElementsByTagName("medium")),
-            'media0_big' : get_value(media0.getElementsByTagName("big")),
-            'media0_path' : get_value(media0.getElementsByTagName("path")),
+            'name': get_value(idea.getElementsByTagName("name")),
+            'description': get_value(idea.getElementsByTagName("description")),
+            'pubdate': get_value(idea.getElementsByTagName("pubDate")),
+            'link': get_value(idea.getElementsByTagName("link")),
+            'guid': get_value(idea.getElementsByTagName("guid")),
+            'rating': get_value(idea.getElementsByTagName("rating")),
+
+            'author_username': get_value(author.getElementsByTagName("username")),
+            'author_city': get_value(author.getElementsByTagName("city")),
+            'author_country': get_value(author.getElementsByTagName("country")),
+            'author_icon': get_value(author.getElementsByTagName("icon")),
+
+            'media0_type': get_value(media0.getElementsByTagName("type")),
+            'media0_thumb': get_value(media0.getElementsByTagName("thumb")),
+            'media0_medium': get_value(media0.getElementsByTagName("medium")),
+            'media0_big': get_value(media0.getElementsByTagName("big")),
+            'media0_path': get_value(media0.getElementsByTagName("path")),
         })
     return idea_list
+
 
 def parse_idea_details(xml):
     """
@@ -65,16 +68,16 @@ def parse_idea_details(xml):
     idea_dict['author_city'] = get_value(author.getElementsByTagName("city"))
     idea_dict['author_country'] = get_value(author.getElementsByTagName("country"))
     idea_dict['author_icon'] = get_value(author.getElementsByTagName("icon"))
-    
+
     media_list = []
     medias = idea.getElementsByTagName("media")
     for media in medias:
         media_list.append({
-            'media_type' : get_value(media.getElementsByTagName("type")),
-            'media_thumb' : get_value(media.getElementsByTagName("thumb")),
-            'media_medium' : get_value(media.getElementsByTagName("medium")),
-            'media_big' : get_value(media.getElementsByTagName("big")),
-            'media_path' : get_value(media.getElementsByTagName("path")),
+            'media_type': get_value(media.getElementsByTagName("type")),
+            'media_thumb': get_value(media.getElementsByTagName("thumb")),
+            'media_medium': get_value(media.getElementsByTagName("medium")),
+            'media_big': get_value(media.getElementsByTagName("big")),
+            'media_path': get_value(media.getElementsByTagName("path")),
         })
-    idea_dict['media'] = media_list            
+    idea_dict['media'] = media_list
     return idea_dict

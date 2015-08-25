@@ -1,1 +1,80 @@
-{% extends "base.html" %}{% load i18n base_tags nav_menu babel %}{% block doctype %}    {{ block.super }}{% endblock %}{% block title %}{{ object.get_title|escape }}{% endblock %}{% block meta_description %}	<meta name="description" content="{{ object.get_description|striptags|truncatewords:100 }}..." />{% endblock %}{% block bodyclass %}object-details{% endblock %}{% block headline %}	<h1>{{ object.get_title }}</h1>{% endblock %}			{% block content %}    {% block tabs %}        <div id="tabs">            {% children_of "event" using "navigation/children_in_tabs.html" %}        </div>    {% endblock %}    <div class="toolbox">        {% include "site_specific/count_of.html" %}        <div class="icons">            {% with object as event %}                {% include "events/controls.html" %}            {% endwith %}            <a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07">Share</a>        </div>    </div>    <div class="detail_headline">        {% if object.get_nearest_occurrence or object.event_type %}            <h4>                {% if object.event_type %}                    {{ object.event_type }} –                 {% endif %}                {% if event_time %}                    {% with event_time as time %}                        {% include "events/includes/event_time.html" %}                    {% endwith %}                {% else %}                    {% if object.get_nearest_occurrence %}                        {% with object.get_nearest_occurrence as time %}                            {% include "events/includes/event_time.html" %}                            {% if not forloop.last %}<br />{% endif %}                        {% endwith %}                    {% endif %}                {% endif %}            </h4>            {% if object.has_multiple_occurrences %}<a href="{% if event_time %}{{ object.get_absolute_url }}{% endif %}#event-occurrences">{% trans "See all occurrences" %}</a>{% endif %}        {% endif %}    </div>    <div id="details">        {% block details %}        {% endblock %}    </div>{% endblock %}{% block breadcrumbs %}    <div class="breadcrumbs">        <a href="/">{% trans "Home" %}</a>        <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_EVENTS }}/">{% trans "Events" %}</a>        <span class="b-sep"><span>::</span></span><a href="{{ object.get_url_path }}">{{ object.get_title }}</a>        {% block breadcrumbs_details %}        {% endblock %}    </div>{% endblock %}{% block extrabody %}    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>{% endblock %}
+{% extends "base.html" %}
+{% load i18n base_tags nav_menu babel %}
+
+{% block doctype %}
+    {{ block.super }}
+{% endblock %}
+
+{% block title %}{{ object.get_title|escape }}{% endblock %}
+
+{% block meta_description %}
+    <meta name="description" content="{{ object.get_description|striptags|truncatewords:100 }}..."/>
+{% endblock %}
+
+{% block bodyclass %}object-details{% endblock %}
+
+{% block headline %}
+    <h1>{{ object.get_title }}</h1>
+{% endblock %}
+
+{% block content %}
+    {% block tabs %}
+        <div id="tabs">
+            {% children_of "event" using "navigation/children_in_tabs.html" %}
+        </div>
+    {% endblock %}
+    <div class="toolbox">
+        {% include "site_specific/count_of.html" %}
+        <div class="icons">
+            {% with object as event %}
+                {% include "events/controls.html" %}
+            {% endwith %}
+            <a class="addthis_button"
+               href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07">Share</a>
+        </div>
+    </div>
+    <div class="detail_headline">
+        {% if object.get_nearest_occurrence or object.event_type %}
+            <h4>
+                {% if object.event_type %}
+                    {{ object.event_type }} –
+                {% endif %}
+                {% if event_time %}
+                    {% with event_time as time %}
+                        {% include "events/includes/event_time.html" %}
+                    {% endwith %}
+                {% else %}
+                    {% if object.get_nearest_occurrence %}
+                        {% with object.get_nearest_occurrence as time %}
+                            {% include "events/includes/event_time.html" %}
+                            {% if not forloop.last %}<br/>{% endif %}
+                        {% endwith %}
+                    {% endif %}
+                {% endif %}
+            </h4>
+            {% if object.has_multiple_occurrences %}<a href="
+
+                {% if event_time %}{{ object.get_absolute_url }}{% endif %}#event-occurrences">{% trans "See all occurrences" %}</a>
+            {% endif %}
+        {% endif %}
+    </div>
+    <div id="details">
+        {% block details %}
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="/">{% trans "Home" %}</a>
+        <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_EVENTS }}/">{% trans "Events" %}</a>
+        <span class="b-sep"><span>::</span></span><a href="{{ object.get_url_path }}">{{ object.get_title }}</a>
+        {% block breadcrumbs_details %}
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{% block extrabody %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+{% endblock %}
+

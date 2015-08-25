@@ -7,7 +7,8 @@ import unittest
 from django.test.utils import setup_test_environment
 from django.test import Client
 
-FULL_TESTS = False # will test more than 11,000 URLs if set to True, taking more than one hour
+FULL_TESTS = False  # will test more than 11,000 URLs if set to True, taking more than one hour
+
 
 class PageTest(unittest.TestCase):
     def __init__(self, url_path='', expected_status_code=200):
@@ -32,7 +33,7 @@ class PageTest(unittest.TestCase):
         assert isinstance(self.url_path, str)
         response = self.client.get(
             self.url_path,
-            **{'HTTP_USER_AGENT':'silly-human', 'REMOTE_ADDR':'127.0.0.1'}
+            **{'HTTP_USER_AGENT': 'silly-human', 'REMOTE_ADDR': '127.0.0.1'}
         )
         self.assertEqual(
             response.status_code,
@@ -57,46 +58,45 @@ class AuthenticatedPageTest(PageTest):
         )
 
 
-
 class Urls:
     urls_which_should_return_200_but_dont = (
-        '/de/events/', # FIXME currently failing with FieldDoesNotExist: additional_info_markup_type
-        '/de/partner/', # FIXME currently returning 404
-        '/de/password_change/done/', # FIXME currently returning 302
+        '/de/events/',  # FIXME currently failing with FieldDoesNotExist: additional_info_markup_type
+        '/de/partner/',  # FIXME currently returning 404
+        '/de/password_change/done/',  # FIXME currently returning 302
     )
     urls_which_should_return_301_but_dont = (
-        '/about/', # FIXME currently doesn't redirect to /de/.../
-        '/coworking/', # FIXME currently doesn't redirect to /de/.../
-        '/creative-sector/advertising-and-pr/location/', # FIXME currently doesn't redirect to /de/.../
-        '/creative-sector/architecture/location/', # FIXME currently doesn't redirect to /de/.../
-        '/creative-sector/design/location/', # FIXME currently doesn't redirect to /de/.../
-        '/creative-sector/events/location/', # FIXME currently doesn't redirect to /de/.../
-        '/creative-sector/fashion-and-textile/location/', # FIXME currently doesn't redirect to /de/.../
-        '/creative-sector/film-and-broadcast/location/', # FIXME currently doesn't redirect to /de/.../
-        '/creative-sector/fine-art/location/', # FIXME currently doesn't redirect to /de/.../
-        '/creative-sector/games-and-interactive/location/', # FIXME currently doesn't redirect to /de/.../
-        '/creative-sector/literature-and-publishing/location/', # FIXME currently doesn't redirect to /de/.../
-        '/creative-sector/music/location/', # FIXME currently doesn't redirect to /de/.../
-        '/creative-sector/photography/location/', # FIXME currently doesn't redirect to /de/.../
-        '/creative-sector/theatre-and-dance/location/', # FIXME currently doesn't redirect to /de/.../
-        '/education/', # FIXME currently doesn't redirect to /de/.../
-        '/imprint/', # FIXME currently doesn't redirect to /de/.../
-        '/KKI/', # FIXME currently doesn't redirect to /de/.../
-        '/kreativarbeiten/orientierungsberatung/', # FIXME currently doesn't redirect to /de/.../
-        '/kreativarbeiten/ueber-uns/', # FIXME currently doesn't redirect to /de/.../
-        '/location/', # FIXME currently doesn't redirect to /de/.../
-        '/privacy/', # FIXME currently doesn't redirect to /de/.../
-        '/spread-the-word/', # FIXME currently doesn't redirect to /de/.../
-        '/terms-of-use/', # FIXME currently doesn't redirect to /de/.../
+        '/about/',  # FIXME currently doesn't redirect to /de/.../
+        '/coworking/',  # FIXME currently doesn't redirect to /de/.../
+        '/creative-sector/advertising-and-pr/location/',  # FIXME currently doesn't redirect to /de/.../
+        '/creative-sector/architecture/location/',  # FIXME currently doesn't redirect to /de/.../
+        '/creative-sector/design/location/',  # FIXME currently doesn't redirect to /de/.../
+        '/creative-sector/events/location/',  # FIXME currently doesn't redirect to /de/.../
+        '/creative-sector/fashion-and-textile/location/',  # FIXME currently doesn't redirect to /de/.../
+        '/creative-sector/film-and-broadcast/location/',  # FIXME currently doesn't redirect to /de/.../
+        '/creative-sector/fine-art/location/',  # FIXME currently doesn't redirect to /de/.../
+        '/creative-sector/games-and-interactive/location/',  # FIXME currently doesn't redirect to /de/.../
+        '/creative-sector/literature-and-publishing/location/',  # FIXME currently doesn't redirect to /de/.../
+        '/creative-sector/music/location/',  # FIXME currently doesn't redirect to /de/.../
+        '/creative-sector/photography/location/',  # FIXME currently doesn't redirect to /de/.../
+        '/creative-sector/theatre-and-dance/location/',  # FIXME currently doesn't redirect to /de/.../
+        '/education/',  # FIXME currently doesn't redirect to /de/.../
+        '/imprint/',  # FIXME currently doesn't redirect to /de/.../
+        '/KKI/',  # FIXME currently doesn't redirect to /de/.../
+        '/kreativarbeiten/orientierungsberatung/',  # FIXME currently doesn't redirect to /de/.../
+        '/kreativarbeiten/ueber-uns/',  # FIXME currently doesn't redirect to /de/.../
+        '/location/',  # FIXME currently doesn't redirect to /de/.../
+        '/privacy/',  # FIXME currently doesn't redirect to /de/.../
+        '/spread-the-word/',  # FIXME currently doesn't redirect to /de/.../
+        '/terms-of-use/',  # FIXME currently doesn't redirect to /de/.../
     )
     urls_which_should_return_302_but_dont = (
-        '/admin/filebrowser/upload_file/', # FIXME AttributeError
+        '/admin/filebrowser/upload_file/',  # FIXME AttributeError
         '/de/rosetta/',  # login required
         '/de/rosetta/download/',  # login required
         '/de/rosetta/pick/',  # login required
     )
     urls_which_should_return_200 = (
-         # '/recrop/', # TODO rethink this test, /recrop/ requires URL parameters
+        # '/recrop/', # TODO rethink this test, /recrop/ requires URL parameters
         '/de/',
         '/de/about/',
         '/de/account/',
@@ -11647,8 +11647,8 @@ class Urls:
         '/partner/',
     )
     urls_which_should_return_302 = (
-         # '/de/helper/institution_lookup/',  # included in PATHS_NO_REDIRECTION
-         # '/de/helper/person_lookup/',  # included in PATHS_NO_REDIRECTION
+        # '/de/helper/institution_lookup/',  # included in PATHS_NO_REDIRECTION
+        # '/de/helper/person_lookup/',  # included in PATHS_NO_REDIRECTION
         '/',
         '/account/',
         '/admin/',
@@ -12023,7 +12023,7 @@ class Urls:
         '/tweets/',
     )
     urls_which_should_return_302_when_anonymous = (
-        '/admin/templates/', # TODO currently returns 404
+        '/admin/templates/',  # TODO currently returns 404
         '/de/creative-sector/',  # login required
         '/de/dashboard/',  # login required
         '/de/event/workshop-booking-tour-rockpop/claim/',  # login required
@@ -12069,36 +12069,38 @@ class Urls:
         '/de/notification/feed/',
     )
     urls_which_should_return_403_when_anonymous = (
-        '/de/event/workshop-booking-tour-rockpop/portfolio/album/add/', # access denied
-        '/de/event/workshop-booking-tour-rockpop/portfolio/manage/', # access denied
-        '/de/event/workshop-booking-tour-rockpop/portfolio/section/add/', # access denied
-        '/de/event/workshop-booking-tour-rockpop/portfolio/settings/', # access denied
-        '/de/event/workshop-booking-tour-rockpop/portfolio/settings/delete-landing-page-image/', # access denied
-        '/de/institution/a_s_theater_film_ltd/portfolio/album/add/', # access denied
-        '/de/institution/a_s_theater_film_ltd/portfolio/manage/', # access denied
-        '/de/institution/a_s_theater_film_ltd/portfolio/section/add/', # access denied
-        '/de/institution/a_s_theater_film_ltd/portfolio/settings/', # access denied
-        '/de/institution/a_s_theater_film_ltd/portfolio/settings/delete-landing-page-image/', # access denied
-        '/de/kreativarbeiten/blog/drafts/', # TODO currently returns 403, should probably redirect to login page
-        '/de/map/object-list/', # used by Ajax. Returns access denied if accessed directly or when given wrong query params.
-        '/de/person/aidas_bendoraitis/portfolio/album/add/', # access denied
-        '/de/person/aidas_bendoraitis/portfolio/manage/', # access denied
-        '/de/person/aidas_bendoraitis/portfolio/section/add/', # access denied
-        '/de/person/aidas_bendoraitis/portfolio/settings/', # access denied
-        '/de/person/aidas_bendoraitis/portfolio/settings/delete-landing-page-image/', # access denied
+        '/de/event/workshop-booking-tour-rockpop/portfolio/album/add/',  # access denied
+        '/de/event/workshop-booking-tour-rockpop/portfolio/manage/',  # access denied
+        '/de/event/workshop-booking-tour-rockpop/portfolio/section/add/',  # access denied
+        '/de/event/workshop-booking-tour-rockpop/portfolio/settings/',  # access denied
+        '/de/event/workshop-booking-tour-rockpop/portfolio/settings/delete-landing-page-image/',  # access denied
+        '/de/institution/a_s_theater_film_ltd/portfolio/album/add/',  # access denied
+        '/de/institution/a_s_theater_film_ltd/portfolio/manage/',  # access denied
+        '/de/institution/a_s_theater_film_ltd/portfolio/section/add/',  # access denied
+        '/de/institution/a_s_theater_film_ltd/portfolio/settings/',  # access denied
+        '/de/institution/a_s_theater_film_ltd/portfolio/settings/delete-landing-page-image/',  # access denied
+        '/de/kreativarbeiten/blog/drafts/',  # TODO currently returns 403, should probably redirect to login page
+        '/de/map/object-list/',
+        # used by Ajax. Returns access denied if accessed directly or when given wrong query params.
+        '/de/person/aidas_bendoraitis/portfolio/album/add/',  # access denied
+        '/de/person/aidas_bendoraitis/portfolio/manage/',  # access denied
+        '/de/person/aidas_bendoraitis/portfolio/section/add/',  # access denied
+        '/de/person/aidas_bendoraitis/portfolio/settings/',  # access denied
+        '/de/person/aidas_bendoraitis/portfolio/settings/delete-landing-page-image/',  # access denied
     )
     urls_which_should_return_404 = (
-        '/de/institution/a_s_theater_film_ltd/network/partners/', # page not found
-        '/tagging_autocomplete/list/', # FIXME currently returns 404 instead of redirecting to /de/.../
+        '/de/institution/a_s_theater_film_ltd/network/partners/',  # page not found
+        '/tagging_autocomplete/list/',  # FIXME currently returns 404 instead of redirecting to /de/.../
     )
     urls_which_should_return_500 = (
-        '/de/event/away-away-and-spiraling-in-6-2-2/', # FIXME throwing error in production
+        '/de/event/away-away-and-spiraling-in-6-2-2/',  # FIXME throwing error in production
     )
 
 
 def suite():
     suite = unittest.TestSuite()
     from random import sample
+
     sample_urls = sample(Urls.urls_which_should_return_200, 100)
     url_lists_by_expected_status_code = (
         (200, Urls.urls_which_should_return_200_but_dont),
@@ -12137,6 +12139,6 @@ if __name__ == '__main__':
     sys.path = ["", PROJECT_PATH] + sys.path
     os.environ["DJANGO_SETTINGS_MODULE"] = "settings"
     import django
+
     django.setup()
     unittest.TextTestRunner(verbosity=1).run(suite())
-

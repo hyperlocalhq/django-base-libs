@@ -10,7 +10,10 @@
 </dl>
 <dl>
     <dt>{% trans "Qualification" %}:</dt>
-    <dd>{% for q in object.qualifications.all %}{% if not forloop.first and not forloop.last %}, {% endif %}{% if forloop.last and not forloop.first %} {% trans "or" %} {% endif %}{% if forloop.first %}{{ q.title|capfirst }}{% else %}{{ q.title|lower }}{% endif %}{% endfor %}</dd>
+    <dd>{% for q in object.qualifications.all %}{% if not forloop.first and not forloop.last %}, {% endif %}
+        {% if forloop.last and not forloop.first %} {% trans "or" %} {% endif %}{% if forloop.first %}
+        {{ q.title|capfirst }}
+    {% else %}{{ q.title|lower }}{% endif %}{% endfor %}</dd>
 </dl>
 <dl>
     <dt>{% trans "Description" %}:</dt>
@@ -40,25 +43,25 @@
         <dl>
             <dt>{% trans "Address" %}:</dt>
             <dd>
-                    
-                <span>{{ object.offering_institution.get_title|escape }}<br /> </span>
+
+                <span>{{ object.offering_institution.get_title|escape }}<br/> </span>
     
                 <span>
                     {% if address.street_address %}
-                          <span>{{ address.street_address|escape }}, </span>
-                    {% endif %}								
+                        <span>{{ address.street_address|escape }}, </span>
+                    {% endif %}
                     {% if address.street_address2 %}
                         <span>{{ address.street_address2|escape }}, </span>
-                    {% endif %}								
+                    {% endif %}
                     {% if address.street_address3 %}
                         <span>{{ address.street_address3|escape }}, </span>
-                    {% endif %}								
-                    {% if address.postal_code %}	
-                          <span>{{ address.postal_code|escape }} </span> 
-                          <span>{{ address.city|escape }}, </span>
-                    {% endif %}								
+                    {% endif %}
+                    {% if address.postal_code %}
+                        <span>{{ address.postal_code|escape }} </span>
+                        <span>{{ address.city|escape }}, </span>
+                    {% endif %}
                     {% if address.country %}
-                          <span>{{ address.country.get_name }}</span>
+                        <span>{{ address.country.get_name }}</span>
                     {% endif %}
                 </span>
             </dd>
@@ -68,11 +71,11 @@
         <dl>
             <dt>{% trans "Contact Person" %}:</dt>
             <dd>
-            {% if object.contact_person %}
-                <a href="{{ object.contact_person.get_url }}">{{ object.contact_person.get_title }}</a>
-            {% else %}
-                {{ object.contact_person_name }}
-            {% endif %}
+                {% if object.contact_person %}
+                    <a href="{{ object.contact_person.get_url }}">{{ object.contact_person.get_title }}</a>
+                {% else %}
+                    {{ object.contact_person_name }}
+                {% endif %}
             </dd>
         </dl>
     {% endif %}
@@ -81,15 +84,15 @@
             {% if forloop.first %}
                 <dl>
             {% endif %}
-                <dd>
-                {% if phone.type %}
-                <span>{{ phone.type }}</span>: 
-                {% endif %}
-                <span>+{{ phone.country }}-{{ phone.area }}-{{ phone.number }}</span></dd>
-            {% if forloop.last %}
-                </dl>
+        <dd>
+            {% if phone.type %}
+                <span>{{ phone.type }}</span>:
             {% endif %}
-    
+            <span>+{{ phone.country }}-{{ phone.area }}-{{ phone.number }}</span></dd>
+        {% if forloop.last %}
+            </dl>
+        {% endif %}
+
         {% endfor %}
     {% endif %}
     {% if object.get_emails %}
@@ -97,12 +100,12 @@
             {% if forloop.first %}
                 <dl>
             {% endif %}
-                <dd>
-                <span>{% trans "E-mail" %}</span>: 
-                <span><a href="mailto:{{ email.address }}">{{ email.address }}</a></span></dd>
-            {% if forloop.last %}
-                </dl>
-            {% endif %}
+        <dd>
+            <span>{% trans "E-mail" %}</span>:
+            <span><a href="mailto:{{ email.address }}">{{ email.address }}</a></span></dd>
+        {% if forloop.last %}
+            </dl>
+        {% endif %}
         {% endfor %}
     {% endif %}
     {% if object.get_urls %}
@@ -110,18 +113,18 @@
             {% if forloop.first %}
                 <dl>
             {% endif %}
-            
-            {% with url.link|slice:":40" as sliced %}
-                {% if url.type %}
-                    <dt>{{ url.type }}:</dt>
-                {% endif %}
-                <dd>
-                    <a href="{{ url.link|escape }}">{{ url.link|escape }}</a>
-                </dd>
-            {% endwith %}
-            {% if forloop.last %}
-                </dl>
+
+        {% with url.link|slice:":40" as sliced %}
+            {% if url.type %}
+                <dt>{{ url.type }}:</dt>
             {% endif %}
+            <dd>
+                <a href="{{ url.link|escape }}">{{ url.link|escape }}</a>
+            </dd>
+        {% endwith %}
+        {% if forloop.last %}
+            </dl>
+        {% endif %}
         {% endfor %}
     {% endif %}
     {% if object.get_ims %}
@@ -145,9 +148,10 @@
             {% endwith %}
         </dt>
         {% for cat in object.job_sectors.all %}
-            {% if forloop.first %}<dd>{% endif %}
-                {{ cat.title|escape }}{% if not forloop.last %}, {% endif %}
-            {% if forloop.last %}</dd>{% endif %}  
+            {% if forloop.first %}
+                <dd>{% endif %}
+        {{ cat.title|escape }}{% if not forloop.last %}, {% endif %}
+        {% if forloop.last %}</dd>{% endif %}
         {% endfor %}
     </dl>
 {% endif %}

@@ -4,7 +4,7 @@
 {% block title %}{% trans "Create Account" %}{% endblock %}
 
 {% block headline %}
-	<h1>{% trans "Create Account" %}</h1>
+    <h1>{% trans "Create Account" %}</h1>
 {% endblock %}
 
 {% block sidebar-a %}&nbsp;{% endblock %}
@@ -20,34 +20,34 @@
             {{ form.first_name|as_uni_field }}
             {{ form.last_name|as_uni_field }}
             {{ form.email|as_uni_field }}
-            
+
             <h3>{% trans "Login" %}</h3>
             {{ form.username|as_uni_field }}
             {{ form.password|as_uni_field }}
             {{ form.password_confirm|as_uni_field }}
         </fieldset>
-        
+
         {% if form.creative_sectors %}
-        <div id="CI_{{ LANGUAGE_CODE }}_search">
-            <h3>
-                <a href="#" class="open_but">
-                    <b>{% trans "Creative Sectors" %}</b>
-                    <span class="pic"></span>
-                </a>
-            </h3>
-            <fieldset class="fieldset_categories">
-                {% if form.non_field_errors %}
-                   <p class="error">{{ form.non_field_errors|join:"<br />"|safe }}</p>
-                {% endif %}
-                <div class="hidable">
-                    {% filter remove_empty_lists %}
-                        {% creative_sectors_under "" using "site_specific/categories/creative_sectors.html" creating %}
-                    {% endfilter %}
-                </div>
-            </fieldset>
-        </div>
+            <div id="CI_{{ LANGUAGE_CODE }}_search">
+                <h3>
+                    <a href="#" class="open_but">
+                        <b>{% trans "Creative Sectors" %}</b>
+                        <span class="pic"></span>
+                    </a>
+                </h3>
+                <fieldset class="fieldset_categories">
+                    {% if form.non_field_errors %}
+                        <p class="error">{{ form.non_field_errors|join:"<br />"|safe }}</p>
+                    {% endif %}
+                    <div class="hidable">
+                        {% filter remove_empty_lists %}
+                            {% creative_sectors_under "" using "site_specific/categories/creative_sectors.html" creating %}
+                        {% endfilter %}
+                    </div>
+                </fieldset>
+            </div>
         {% endif %}
-        
+
         <fieldset class="inlineLabels">
             {% include "uni_form/includes/confirmation.html" %}
 
@@ -59,8 +59,10 @@
                 </div>
             {% endif %}
             <div class="buttonHolder">
-                <input id="login3" type="hidden" name="goto_next" value="{% ifequal goto_next root_dir %}/dashboard/{% else %}{% if goto_next %}{{ goto_next }}{% else %}/dashboard/{% endif %}{% endifequal %}" />
-                <input class="primaryAction" type="submit" value="{% filter upper %}{% trans 'Create Account' %}{% endfilter %}" />
+                <input id="login3" type="hidden" name="goto_next" value="{% ifequal goto_next root_dir %}/dashboard/
+                    {% else %}{% if goto_next %}{{ goto_next }}{% else %}/dashboard/{% endif %}{% endifequal %}"/>
+                <input class="primaryAction" type="submit"
+                       value="{% filter upper %}{% trans 'Create Account' %}{% endfilter %}"/>
             </div>
         </fieldset>
     </form>

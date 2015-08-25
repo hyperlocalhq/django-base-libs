@@ -4,11 +4,13 @@
 from django.core.management.base import NoArgsCommand
 import pprint
 
+
 class Command(NoArgsCommand):
     help = """Prints a list of all URL regex patterns"""
 
     def handle_noargs(self, **options):
         import urls
+
         result = self.collect_urls(urls.urlpatterns)
         # pprint.pprint(result)
         concatenated_result = self.concatenate_ancestors(result)

@@ -8,9 +8,12 @@
 {% block additional_controls %}
     <div class="media_nav">
         <div class="right">
-            <a class="fb-sync" href="{{ object.get_url_path }}portfolio/fb-sync/"><span><span>{% trans "Sync with Facebook" %}</span></span></a>
-            <a class="portfolio-manage active" href="{{ object.get_url_path }}portfolio/manage/"><span><span>{% trans "All projects" %}</span></span></a>
-            <a class="portfolio-add" href="{{ object.get_url_path }}portfolio/album/add/"><span><span>{% trans "Add project" %}</span></span></a>
+            <a class="fb-sync"
+               href="{{ object.get_url_path }}portfolio/fb-sync/"><span><span>{% trans "Sync with Facebook" %}</span></span></a>
+            <a class="portfolio-manage active"
+               href="{{ object.get_url_path }}portfolio/manage/"><span><span>{% trans "All projects" %}</span></span></a>
+            <a class="portfolio-add"
+               href="{{ object.get_url_path }}portfolio/album/add/"><span><span>{% trans "Add project" %}</span></span></a>
         </div>
     </div>
 {% endblock %}
@@ -19,89 +22,107 @@
     <div id="gallery">
         <div id="gallery_presentation" class="{{ gallery.get_status_display|lower }}">
             <h4>{{ gallery.title }}</h4>
-              
-              <div class="gallery_meta">
-	             <span class="gallery_teaser">
-	             	{% if gallery.cover_image %}
-	             	    <img width="75" height="75" src="{{ UPLOADS_URL }}{{ gallery.cover_image.path|modified_path:"gt" }}" alt="" />
-	             	{% else %}
-	             	    {% if gallery.mediafile_set.count %}
-	             	        <img width="75" height="75" src="{{ gallery.mediafile_set.all.0.get_thumbnail_url }}" alt="" />
-	             	    {% else  %}
-	             	        <img width="75" height="75" src="{{ STATIC_URL }}site/img/website/placeholder/upload_image.png" alt="" />
-	             	    {% endif %}
-	             		{% endif %}
-	             </span>
-	             
-	             <div class="meta_informations">
-	             	<span class="">{{ gallery.get_status_display }}</span><br/>
-	             	<span class="">Created: {{ gallery.creation_date|datefmt:"medium" }}</span><br/>
-	             	<span class="">Last Edited: {{ gallery.modified_date|datefmt:"medium" }}</span><br/>
-	             </div>
-	             	             
-	             <div class="meta_tools">
+
+            <div class="gallery_meta">
+                 <span class="gallery_teaser">
+                    {% if gallery.cover_image %}
+                        <img width="75" height="75"
+                             src="{{ UPLOADS_URL }}{{ gallery.cover_image.path|modified_path:"gt" }}" alt=""/>
+                    {% else %}
+                        {% if gallery.mediafile_set.count %}
+                            <img width="75" height="75" src="{{ gallery.mediafile_set.all.0.get_thumbnail_url }}"
+                                 alt=""/>
+                        {% else %}
+                            <img width="75" height="75"
+                                 src="{{ STATIC_URL }}site/img/website/placeholder/upload_image.png" alt=""/>
+                        {% endif %}
+                    {% endif %}
+                 </span>
+
+                <div class="meta_informations">
+                    <span class="">{{ gallery.get_status_display }}</span><br/>
+                    <span class="">Created: {{ gallery.creation_date|datefmt:"medium" }}</span><br/>
+                    <span class="">Last Edited: {{ gallery.modified_date|datefmt:"medium" }}</span><br/>
+                </div>
+
+                <div class="meta_tools">
                     <span class="add-media"></span>
-	                 <a class="add-mediafile add_image" href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/add/image/"><span><span>{% trans "Add new image" %}</span></span></a>
-	                 <a class="add-mediafile add_video" href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/add/video/"><span><span>{% trans "Add new video" %}</span></span></a>
-	                 <a class="add-mediafile add_audio" href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/add/audio/"><span><span>{% trans "Add new audio" %}</span></span></a>
-	             </div>
-             </div>
-             
-             {% if gallery.mediafile_set.count %}
-                 <div id="dyn_portfolio">
-                     {% for f in gallery.mediafile_set.all %}
-                         {% if forloop.first %}
-                             <div id="mediafiles">
-                         {% endif %}
-                                 <div class="mediafile" id="mediafile_{{ f.get_token }}">
-                                     <div class="mediafile-presentation">
-                                         <div class="image_container">
-                                             <img src="{{ f.get_thumbnail_url }}?now={% now "YmdHis" %}" alt="{{ f.title|escape }}" title="{{ f.get_file_type_display }}. {{ f.title|escape }}" />
-                                         </div>
+                    <a class="add-mediafile add_image" href="
+
+                        {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/add/image/"><span><span>{% trans "Add new image" %}</span></span></a>
+                    <a class="add-mediafile add_video" href="
+
+                        {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/add/video/"><span><span>{% trans "Add new video" %}</span></span></a>
+                    <a class="add-mediafile add_audio" href="
+
+                        {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/add/audio/"><span><span>{% trans "Add new audio" %}</span></span></a>
+                </div>
+            </div>
+
+            {% if gallery.mediafile_set.count %}
+                <div id="dyn_portfolio">
+                    {% for f in gallery.mediafile_set.all %}
+                        {% if forloop.first %}
+                            <div id="mediafiles">
+                        {% endif %}
+                    <div class="mediafile" id="mediafile_{{ f.get_token }}">
+                        <div class="mediafile-presentation">
+                            <div class="image_container">
+                                <img src="{{ f.get_thumbnail_url }}?now={% now "YmdHis" %}" alt="{{ f.title|escape }}"
+                                     title="{{ f.get_file_type_display }}. {{ f.title|escape }}"/>
+                            </div>
                                          <span class="portfolio_tools">
                                              {% if f.get_recroppable_thumbnail_path %}
-                                                 <a href="{% cropping_url f.get_recroppable_thumbnail_path "gt" request request.path %}" class="recrop_link">
+                                                 <a href="{% cropping_url f.get_recroppable_thumbnail_path "gt" request request.path %}"
+                                                    class="recrop_link">
                                                      <span><span>{% trans "Adjust image" %}</span></span>
                                                  </a>
                                              {% endif %}
-                                             <a class="edit_settings" href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/{{ f.get_token }}/"><span><span>{% trans "Settings" %}</span></span></a>
-                                             <a class="delete" href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/{{ f.get_token }}/delete/"><span><span>{% trans "Delete" %}</span></span></a>
-                                             <span class="ui-dragging-handle"><span><span>{% trans "Drag" %}</span></span></span>
+                                             <a class="edit_settings" href="
+
+                                                 {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/{{ f.get_token }}/"><span><span>{% trans "Settings" %}</span></span></a>
+                                             <a class="delete" href="
+
+                                                 {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/{{ f.get_token }}/delete/"><span><span>{% trans "Delete" %}</span></span></a>
+                                             <span
+                                                 class="ui-dragging-handle"><span><span>{% trans "Drag" %}</span></span></span>
                                          </span>
-                                     </div>
-                                     <div class="mediafile-form">
-                                     </div>
-                                 </div>
-                         {% if forloop.last %}
-                             </div>
-                         {% endif %}
-                     {% endfor %}
-                 </div>
-             {% else %}
-                 <p class="nothing">{% trans "There are no media files uploaded." %}</p>
-             {% endif %}
-            
+                        </div>
+                        <div class="mediafile-form">
+                        </div>
+                    </div>
+                    {% if forloop.last %}
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="nothing">{% trans "There are no media files uploaded." %}</p>
+            {% endif %}
+
             <div class="gallery_tools">
-            	<a id="change_gallery" class="edit_settings" href="{{ object.get_url_path }}portfolio/album/{{ gallery.get_token }}/change/"><span><span>{% trans "Settings" %}</span></span></a> 
-            	<a id="delete_gallery" class="delete" href="{{ object.get_url_path }}portfolio/album/{{ gallery.get_token }}/delete/"><span><span>{% trans "Delete" %}</span></span></a>
-        	</div>
+                <a id="change_gallery" class="edit_settings"
+                   href="{{ object.get_url_path }}portfolio/album/{{ gallery.get_token }}/change/"><span><span>{% trans "Settings" %}</span></span></a>
+                <a id="delete_gallery" class="delete"
+                   href="{{ object.get_url_path }}portfolio/album/{{ gallery.get_token }}/delete/"><span><span>{% trans "Delete" %}</span></span></a>
+            </div>
         </div>
         <div id="gallery_form"></div>
     </div>
-    
-    
 
-    
+
+
+
     <div id="new_mediafile">
     </div>
-    
+
     <hr class="hidden"/>
-    
-    
+
+
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/portfolio_change.js"></script>
     <script type="text/javascript">
-        (function($) {
-            $('html').ajaxSend(function(event, xhr, settings) {
+        (function ($) {
+            $('html').ajaxSend(function (event, xhr, settings) {
                 function getCookie(name) {
                     var cookieValue = null;
                     if (document.cookie && document.cookie != '') {
@@ -117,152 +138,156 @@
                     }
                     return cookieValue;
                 }
+
                 if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
                     // Only send the token to relative URLs i.e. locally.
                     xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
                 }
             });
-            
+
             var in_progress = false;
+
             function set_work_in_progress() {
                 in_progress = true;
                 $("#mediafiles").sortable("disable");
             }
+
             function unset_work_in_progress() {
                 $("#mediafiles").sortable("enable");
                 in_progress = false;
             }
+
             function update_ordering(event, ui) {
                 if (in_progress) {
                     return
                 }
-                set_work_in_progress()
-                mediafiles = [];
-                $(".mediafile").each(function() {
-                    mediafile_token = $(this).attr("id").replace(/mediafile_/, "")
+                set_work_in_progress();
+                var mediafiles = [];
+                $(".mediafile").each(function () {
+                    var mediafile_token = $(this).attr("id").replace(/mediafile_/, "");
                     mediafiles.push(mediafile_token);
                 });
                 $.post(
                     ".",
                     {ordering: mediafiles.join(",")},
-                    function() {
+                    function () {
                         unset_work_in_progress();
                         $("<div>").addClass("ui-status-message").html(
                             gettext("Sorting order saved")
                         ).appendTo($("body")).fadeOut(3000, function () {
-                            $(this).remove();
-                        });
+                                $(this).remove();
+                            });
                     }
                 );
             }
-            
-            $(document).ready(function() {
-                $(document).bind("dragstart", function(event) {
-                     if (event.target.nodeName.toUpperCase() == "IMG") {
-                         return false;
-                     }
+
+            $(document).ready(function () {
+                $(document).bind("dragstart", function (event) {
+                    if (event.target.nodeName.toUpperCase() == "IMG") {
+                        return false;
+                    }
                 });
-                    
+
                 $("#mediafiles").sortable({
                     /*axis: "y",*/
                     cursor: "move",
                     handle: ".ui-dragging-handle",
                     placeholder: "ui-mediafile-placeholder",
                     update: update_ordering
-                })
-                
-                $(".add-mediafile").each(function() {
-                    $(this).click(function() {
+                });
+
+                $(".add-mediafile").each(function () {
+                    $(this).click(function () {
                         var sURL = $(this).attr("href");
-                        $("#new_mediafile").load(sURL + " #create_update_mediafile", function() {
-                            $('<input type="button" class="secondaryAction" value="' + gettext('Cancel') +'">').click(function() {
+                        $("#new_mediafile").load(sURL + " #create_update_mediafile", function () {
+                            $('<input type="button" class="secondaryAction" value="' + gettext('Cancel') + '">').click(function () {
                                 $("#new_mediafile").html("");
-                                unset_work_in_progress();                            
+                                unset_work_in_progress();
                                 $(".add-mediafile").parent().show();
                             }).prependTo(
                                 $("#new_mediafile").find(":submit").parent()
                             );
-                            $("#new_mediafile").find("form").submit(function() {
+                            $("#new_mediafile").find("form").submit(function () {
                                 $(this).attr("action", sURL);
                             });
                             self.PortfolioChangeManager.init();
                         }).autoscroll();
-                        set_work_in_progress();                    
+                        set_work_in_progress();
                         $(".add-mediafile").parent().hide();
                         return false;
                     });
                 });
-                
-                $("#change_gallery").click(function() {
+
+                $("#change_gallery").click(function () {
                     var sURL = $(this).attr("href");
-                    $('#gallery_form').load(sURL + " #create_update_gallery", function() {
+                    $('#gallery_form').load(sURL + " #create_update_gallery", function () {
                         $('#gallery_presentation').hide();
-                        $('<input type="button" class="secondaryAction" value="' + gettext('Cancel') +'">').click(function() {
+                        $('<input type="button" class="secondaryAction" value="' + gettext('Cancel') + '">').click(function () {
                             $('#gallery_form').html("");
-                            unset_work_in_progress();   
+                            unset_work_in_progress();
                             $('#gallery_presentation').show();
                         }).prependTo(
                             $('#gallery_form').find(":submit").parent()
                         );
-                        $('#gallery_form').find("form").submit(function() {
+                        $('#gallery_form').find("form").submit(function () {
                             $(this).attr("action", sURL);
-                        });                        
+                        });
                     }).autoscroll();
                     set_work_in_progress();
                     return false;
                 });
-                $("#delete_gallery").click(function() {
+                $("#delete_gallery").click(function () {
                     var sURL = $(this).attr("href");
-                    $('#gallery_form').load(sURL + " #delete_gallery", function() {
+                    $('#gallery_form').load(sURL + " #delete_gallery", function () {
                         $('#gallery_presentation').hide();
-                        $('<input type="button" class="secondaryAction" value="' + gettext('Cancel') +'">').click(function() {
+                        $('<input type="button" class="secondaryAction" value="' + gettext('Cancel') + '">').click(function () {
                             $('#gallery_form').html("");
-                            unset_work_in_progress();   
+                            unset_work_in_progress();
                             $('#gallery_presentation').show();
                         }).prependTo(
                             $('#gallery_form').find(":submit").parent()
                         );
-                        $('#gallery_form').find("form").submit(function() {
+                        $('#gallery_form').find("form").submit(function () {
                             $(this).attr("action", sURL);
-                        });                        
+                        });
                     }).autoscroll();
                     set_work_in_progress();
                     return false;
                 });
-                var $oMediaFiles = $(".mediafile"); 
-                $oMediaFiles.each(function() {
+                var $oMediaFiles = $(".mediafile");
+                $oMediaFiles.each(function () {
                     var $oMediaFile = $(this);
-                    $(this).find(".change-mediafile").click(function() {
+                    $(this).find(".change-mediafile").click(function () {
                         var sURL = $(this).attr("href");
-                        $oMediaFile.find(".mediafile-form").load(sURL + " #create_update_mediafile", function(){
+                        $oMediaFile.find(".mediafile-form").load(sURL + " #create_update_mediafile", function () {
                             $oMediaFile.find(".mediafile-presentation").hide();
-                            $('<input type="button" class="secondaryAction"  value="' + gettext('Cancel') +'">').click(function() {
+                            $('<input type="button" class="secondaryAction"  value="' + gettext('Cancel') + '">').click(function () {
                                 $oMediaFile.find(".mediafile-form").html("");
-                                unset_work_in_progress();   
+                                unset_work_in_progress();
                                 $oMediaFile.find(".mediafile-presentation").show();
                             }).prependTo(
                                 $oMediaFile.find(".mediafile-form").find(":submit").parent()
                             );
-                            $oMediaFile.find(".mediafile-form").find("form").submit(function() {
+                            $oMediaFile.find(".mediafile-form").find("form").submit(function () {
                                 $(this).attr("action", sURL);
                             });
-                            self.PortfolioChangeManager.init();                            
-                        }).autoscroll()
+                            self.PortfolioChangeManager.init();
+                        }).autoscroll();
                         set_work_in_progress();
                         return false;
                     });
-                    $(this).find(".delete-mediafile").click(function() {
+                    $(this).find(".delete-mediafile").click(function () {
                         var sURL = $(this).attr("href");
-                        $oMediaFile.find(".mediafile-form").load(sURL + " #delete_mediafile", function() {
+                        $oMediaFile.find(".mediafile-form").load(sURL + " #delete_mediafile", function () {
                             $oMediaFile.find(".mediafile-presentation").hide();
-                            $('<input type="button" class="secondaryAction" value="' + gettext('Cancel') +'">').click(function() {
+                            $('<input type="button" class="secondaryAction" value="' + gettext('Cancel') + '">').click(function () {
                                 $oMediaFile.find(".mediafile-form").html("");
-                                unset_work_in_progress();   
+                                unset_work_in_progress();
                                 $oMediaFile.find(".mediafile-presentation").show();
                             }).prependTo(
                                 $oMediaFile.find(".mediafile-form").find(":submit").parent()
                             );
-                            $oMediaFile.find(".mediafile-form").find("form").submit(function() {
+                            $oMediaFile.find(".mediafile-form").find("form").submit(function () {
                                 $(this).attr("action", sURL);
                             });
                         }).autoscroll();
@@ -270,12 +295,12 @@
                         return false;
                     });
                 });
-                
+
             });
         }(jQuery));
-        
+
     </script>
-    
+
 {% endblock %}
 
 {% block breadcrumbs_details %}

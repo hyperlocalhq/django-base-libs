@@ -9,37 +9,41 @@
     <form class="uniForm" action="" method="post">
         <fieldset class="inlineLabels">
             <h3>Section title (h3)</h3>
+
             <div class="ctrlHolder">
                 <label for="id_title">Title <span>*</span></label>
-                <input id="id_title" class="textinput textInput" type="text" />
+                <input id="id_title" class="textinput textInput" type="text"/>
             </div>
             <div class="ctrlHolder error">
                 <p class="errorField">This field is required</p>
                 <label for="id_errorous_field">Errorous Field <span>*</span></label>
-                <input id="id_errorous_field" class="textinput textInput" type="text" />
+                <input id="id_errorous_field" class="textinput textInput" type="text"/>
             </div>
             <div class="ctrlHolder">
                 <label for="id_description">Description <span>*</span></label>
                 <textarea id="id_description"></textarea>
             </div>
             <h3>Section title (h3)</h3>
+
             <div class="ctrlHolder">
                 <p class="label">Postal Code / City</p>
                 <ul class="alternate2">
                     <li>
                         <label for="id_postal_code">
                             Postal Code
-                            <input type="text" name="postal_code" class="textinput textInput" id="id_postal_code" style="color: rgb(175, 175, 175);">
+                            <input type="text" name="postal_code" class="textinput textInput" id="id_postal_code"
+                                   style="color: rgb(175, 175, 175);">
                         </label>
                     </li>
                     <li>
                         <label for="id_city">
                             City
-                            <input type="text" name="city" class="textinput textInput" id="id_city" style="color: rgb(175, 175, 175);">
+                            <input type="text" name="city" class="textinput textInput" id="id_city"
+                                   style="color: rgb(175, 175, 175);">
                         </label>
                     </li>
                 </ul>
-            </div>            
+            </div>
             <div class="ctrlHolder" id="div_id_country">
                 <label for="id_country">
                     Country<span>*</span>
@@ -59,20 +63,23 @@
                 <ul class="alternate">
                     <li>
                         <label for="id_phone_country">
-                            Country Code<br />without "00"
-                            <input type="text" id="id_phone_country" value="49" class="textinput textInput" maxlength="4" name="phone_country">
+                            Country Code<br/>without "00"
+                            <input type="text" id="id_phone_country" value="49" class="textinput textInput"
+                                   maxlength="4" name="phone_country">
                         </label>
                     </li>
                     <li>
                         <label for="id_phone_area">
                             Area Code<br>without "0"
-                            <input type="text" id="id_phone_area" class="textinput textInput" maxlength="5" name="phone_area" style="color: rgb(175, 175, 175);">
+                            <input type="text" id="id_phone_area" class="textinput textInput" maxlength="5"
+                                   name="phone_area" style="color: rgb(175, 175, 175);">
                         </label>
                     </li>
                     <li>
                         <label for="id_phone_number">
                             Number<br>with direct dial
-                            <input type="text" id="id_phone_number" class="textinput textInput" maxlength="15" name="phone_number" style="color: rgb(175, 175, 175);">
+                            <input type="text" id="id_phone_number" class="textinput textInput" maxlength="15"
+                                   name="phone_number" style="color: rgb(175, 175, 175);">
                         </label>
                     </li>
                 </ul>
@@ -81,7 +88,8 @@
                 <ul>
                     <li>
                         <label>
-                            <input type="checkbox" name="newsletter_1" class="checkboxinput" checked="checked" id="id_newsletter_1">
+                            <input type="checkbox" name="newsletter_1" class="checkboxinput" checked="checked"
+                                   id="id_newsletter_1">
                             I want to subscribe to CCB-Newsletter.
                         </label>
                     </li>
@@ -98,10 +106,12 @@
 {% block sidebar-b %}
     <div class="sidebar-box nav_expanded">
         <h5>Login (h5)</h5>
+
         <form class="uniForm" action="/en/login/" method="post">
             <div class="ctrlHolder">
                 <label for="id_sidebar_email">Email or Username</label>
-                <input type="text" maxlength="75" name="email_or_username" class="form_text textInput" id="id_sidebar_email">
+                <input type="text" maxlength="75" name="email_or_username" class="form_text textInput"
+                       id="id_sidebar_email">
             </div>
             <div class="ctrlHolder">
                 <label for="id_sidebar_password">Password (<a href="/en/password_reset/">Forgot?</a>)</label>

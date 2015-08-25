@@ -18,6 +18,7 @@ from ccb.apps.events.models import Event, URL_ID_EVENT, URL_ID_EVENTS
 from ccb.apps.resources.models import Document, URL_ID_DOCUMENT, URL_ID_DOCUMENTS
 from ccb.apps.groups_networks.models import PersonGroup, URL_ID_PERSONGROUP, URL_ID_PERSONGROUPS
 
+
 def recreate_avatars():
     """ TODO: rewrite
     for model in (Person, Institution, Event, Document, PersonGroup):
@@ -33,6 +34,7 @@ def recreate_avatars():
                     obj.get_original_image_rel_path(True).split("/")[-1]
                     )
     """
+
 
 def recreate_portfolio_images():
     """ TODO: rewrite
@@ -111,4 +113,3 @@ def recreate_portfolio_images():
                 # a different file name
                 time.sleep(1)
     """
-

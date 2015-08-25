@@ -18,11 +18,13 @@ from base_libs.views import access_denied
 
 from jetson.apps.utils.decorators import login_required
 from jetson.apps.utils.views import show_form_step
-from jetson.apps.utils.views import object_list, object_detail, get_abc_list, filter_abc, get_year_list, filter_year, show_form_step
+from jetson.apps.utils.views import object_list, object_detail, get_abc_list, filter_abc, get_year_list, filter_year, \
+    show_form_step
 from jetson.apps.memos.models import Memo, MEMO_TOKEN_NAME
 
 from ccb.apps.marketplace.forms import ADD_JOB_OFFER_FORM_STEPS, JobOfferSearchForm
 from ccb.apps.marketplace.models import JobOffer, URL_ID_JOB_OFFER, URL_ID_JOB_OFFERS
+
 
 class JobOfferFeed(Feed):
     title = ""
@@ -30,7 +32,7 @@ class JobOfferFeed(Feed):
     description = ""
     title_template = "marketplace/feeds/feed_title.html"
     description_template = "marketplace/feeds/feed_description.html"
-    
+
     def __init__(self, request, queryset=JobOffer.objects.none, title="", description="", link=""):
         super(JobOfferFeed, self).__init__("", request)
         if callable(queryset):
@@ -42,9 +44,10 @@ class JobOfferFeed(Feed):
             self.description = description
         if link:
             self.link = link
-    
+
     def items(self):
         return self.queryset.order_by('-creation_date')[:20]
+
 
 @never_cache
 def add_job_offer(request):
@@ -53,42 +56,43 @@ def add_job_offer(request):
 
 add_job_offer = login_required(add_job_offer)
 
+
 @never_cache
 def job_offer_list(request, criterion="", slug="", show="", title="", **kwargs):
     """Displays the list of events"""
-    
-    #abc_list = None
-    #abc_filter = request.GET.get('by-abc', None)
-    
-    if not(kwargs.has_key('feed') and kwargs['feed'] == True):
+
+    # abc_list = None
+    # abc_filter = request.GET.get('by-abc', None)
+
+    if not (kwargs.has_key('feed') and kwargs['feed'] == True):
         kwargs['queryset'] = kwargs['queryset'].only("id", "published_from",
-            "job_type", "position", "offering_institution", 
-            "offering_institution_title", "is_commercial",
-            "url0_type", "url0_link", "is_url0_default", "is_url0_on_hold",
-            "url1_type", "url1_link", "is_url1_default", "is_url1_on_hold",
-            "url2_type", "url2_link", "is_url2_default", "is_url2_on_hold"
-            )
-    
-    if show=="memos":
+                                                     "job_type", "position", "offering_institution",
+                                                     "offering_institution_title", "is_commercial",
+                                                     "url0_type", "url0_link", "is_url0_default", "is_url0_on_hold",
+                                                     "url1_type", "url1_link", "is_url1_default", "is_url1_on_hold",
+                                                     "url2_type", "url2_link", "is_url2_default", "is_url2_on_hold"
+                                                     )
+
+    if show == "memos":
         ct = ContentType.objects.get_for_model(kwargs['queryset'].model)
         memos_ids = Memo.objects.filter(
             collection__token=request.COOKIES.get(MEMO_TOKEN_NAME, None),
             content_type=ct,
-            ).values_list("object_id", flat=True)
+        ).values_list("object_id", flat=True)
         kwargs['queryset'] = kwargs['queryset'].filter(
             pk__in=memos_ids,
-            )
+        )
     elif not show:
         kwargs['queryset'] = kwargs['queryset'].exclude(
             job_type__is_internship=True,
-            ).distinct()
-    elif show=="all":
+        ).distinct()
+    elif show == "all":
         pass
-    elif show=="internships":
+    elif show == "internships":
         kwargs['queryset'] = kwargs['queryset'].filter(
             job_type__is_internship=True,
-            ).distinct()
-    elif show=="own-%s" % URL_ID_JOB_OFFERS:
+        ).distinct()
+    elif show == "own-%s" % URL_ID_JOB_OFFERS:
         if not request.user.is_authenticated():
             return access_denied(request)
         PersonGroup = models.get_model("groups_networks", "PersonGroup")
@@ -103,64 +107,63 @@ def job_offer_list(request, criterion="", slug="", show="", title="", **kwargs):
             models.Q(creator=request.user)
             | models.Q(contact_person=request.user.profile)
             | models.Q(offering_institution__pk__in=owned_inst_ids)
-            )
+        )
     if show not in ("related", "own-%s" % URL_ID_JOB_OFFERS, "memos"):
         kwargs['queryset'] = kwargs['queryset'].filter(
             models.Q(published_till__gt=datetime.now()) | models.Q(published_till__isnull=True),
             status=STATUS_CODE_PUBLISHED,
-            )
-        
+        )
 
     form = JobOfferSearchForm(data=request.REQUEST)
     if not show:
         form.fields['job_type'].queryset = form.fields['job_type'].queryset.exclude(
             is_internship=True,
-            )
-    if show=="internships":
+        )
+    if show == "internships":
         form.fields['job_type'].queryset = form.fields['job_type'].queryset.filter(
             is_internship=True,
-            )
+        )
     if form.is_valid():
         js = form.cleaned_data['job_sector']
         if js:
             kwargs['queryset'] = kwargs['queryset'].filter(
                 job_sectors=js,
-                ).distinct()
+            ).distinct()
         jt = form.cleaned_data['job_type']
         if jt:
             kwargs['queryset'] = kwargs['queryset'].filter(
                 job_type=jt,
-                )
+            )
         ql = form.cleaned_data['qualification']
         if ql:
             kwargs['queryset'] = kwargs['queryset'].filter(
                 qualifications=ql,
-                )
-        
+            )
+
         kw = form.cleaned_data['keywords']
         kwargs['queryset'] = kwargs['queryset'].filter(
             tags__icontains=kw,
-            )
-    
+        )
+
     queryset = kwargs['queryset']
-    
-    #abc_list = get_abc_list(queryset, "position", abc_filter)
-    #if abc_filter:
+
+    # abc_list = get_abc_list(queryset, "position", abc_filter)
+    # if abc_filter:
     #    queryset = filter_abc(queryset, "position", abc_filter)
-    
+
     view_type = request.REQUEST.get('view_type', request.httpstate.get(
         "%s_view_type" % URL_ID_JOB_OFFERS,
         "listed",
-        ))
+    ))
     if view_type == "map":
         queryset = queryset.filter(
             postal_address__geoposition__latitude__gte=-90,
-            ).distinct()
+        ).distinct()
     kwargs['view_type'] = view_type
-    
+
     extra_context = kwargs.setdefault("extra_context", {})
-    #extra_context['abc_list'] = abc_list
-    extra_context['show'] = ("", "/%s" % show)[bool(show and show!="related")]
+    # extra_context['abc_list'] = abc_list
+    extra_context['show'] = ("", "/%s" % show)[bool(show and show != "related")]
     extra_context['source_list'] = URL_ID_JOB_OFFERS
     extra_context['form'] = form
     if request.is_ajax():
@@ -168,7 +171,7 @@ def job_offer_list(request, criterion="", slug="", show="", title="", **kwargs):
     kwargs['extra_context'] = extra_context
     kwargs['httpstate_prefix'] = URL_ID_JOB_OFFERS
     kwargs['queryset'] = queryset
-    
+
     if kwargs.has_key('feed') and kwargs['feed'] == True:
         feed_part = re.compile("/feed/[^/]+/[^/]+/$")
         url = get_website_url()
@@ -179,35 +182,37 @@ def job_offer_list(request, criterion="", slug="", show="", title="", **kwargs):
             link=kwargs.get(
                 "link",
                 url[:-1] + feed_part.sub("/", request.path) + "?" + (request.META.get("QUERY_STRING", "") or ""),
-                ),
-            ).get_feed(kwargs['feed_type'])
-    
+            ),
+        ).get_feed(kwargs['feed_type'])
+
         response = HttpResponse(content_type=feedgen.mime_type)
         feedgen.write(response, 'utf-8')
         return response
     else:
         return object_list(request, **kwargs)
 
+
 def job_board(request):
-    
     job_offers = JobOffer.objects.filter(
         models.Q(published_till__gt=datetime.now()) | models.Q(published_till__isnull=True),
         status=STATUS_CODE_PUBLISHED,
-        ).order_by('-creation_date')[:4]
-    
+    ).order_by('-creation_date')[:4]
+
     return render_to_response(
         "marketplace/job_board.html",
         {'job_offers': job_offers},
         context_instance=RequestContext(request),
-        )
+    )
 
 
 @never_cache
 def job_offer_list_feed(request, *args, **kwargs):
     return job_offer_list(request, feed=True, *args, **kwargs)
 
+
 def job_offer_detail(request, *args, **kwargs):
     from ccb.apps.marketplace.models import SECURITY_SUMMAND
+
     kwargs['object_id'] = int(kwargs['secure_id']) - SECURITY_SUMMAND
     return object_detail(request, *args, **kwargs)
 

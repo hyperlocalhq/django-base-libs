@@ -22,9 +22,12 @@
                 {{ form.description_en|as_uni_field }}
 
                 <h3>{% trans "Profile Photo" %}</h3>
+
                 <div class="ctrlHolder">
                     <p class="label">
-                        <img src="{% if form_step_data.1.image %}/helper/tmpimage/{{ form_step_data.1.image.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/{% else %}{{ DEFAULT_FORM_LOGO_4_EVENT }}{% endif %}" alt="{% trans "Image" %}" />
+                        <img
+                            src="{% if form_step_data.1.image %}/helper/tmpimage/{{ form_step_data.1.image.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/{% else %}{{ DEFAULT_FORM_LOGO_4_EVENT }}{% endif %}"
+                            alt="{% trans "Image" %}"/>
                     </p>
                     {{ form.image.error_tag }}
                     <ul>
@@ -51,6 +54,6 @@
 {% endblock %}
 
 {% block extrabody %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/add_event.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/add_event.js"></script>
 {% endblock %}
 

@@ -1,1 +1,59 @@
-{% extends "base.html" %}{% load i18n base_tags%}{% block title %}{{ flatpage.get_title|escape }}{% endblock %}{% block headline %}	<h1>{% trans "directory" %}</h1>{% endblock %}			{% comment %}<!-- {% block sidebar-b %}	<div id="add_box">		<h3><p>tools</p></h3>		<ul>			<li class="website"><a href="#"><span class="pic"></span>{% trans "visit website" %}</a></li>			<li class="note_sidebar"><a href="#"><span class="pic"></span>{% trans "memo" %}</a></li>			<li class="add_sidebar"><a href="#"><span class="pic"></span>{% trans "add to your addressbook" %}</a></li>			<li class="download_sidebar"><a href="#"><span class="pic"></span>{% trans "download h-card" %}</a></li>			<li class="posting"><a href="#"><span class="pic"></span>{% trans "write a message" %}</a></li>			<li class="rss"><a href="#"><span class="pic"></span>{% trans "RSS feed" %}</a></li>			<li class="claim"><a href="#"><span class="pic"></span>{% trans "claim this institution" %}</a></li>			<li class="print"><a href="#"><span class="pic"></span>{% trans "print" %}</a></li>		</ul>	</div>{% endblock %}-->{% comment %}{% block content %}<div id="tabs"><ul>	<li><a href="/{{ URL_ID_INSTITUTION }}/allianz-deutscher-designer-ev/">{% trans "Information" %}</a></li>	<li><a href="/test-map/">{% trans "maps" %}</a></li>	<li class="active"><a href="/test-map/">{% trans "photos" %}</a></li>	<li><a href="#">{% trans "videos" %}</a></li>	<li><a href="#">{% trans "events" %}</a></li>	<l><a href="#">{% trans "reviews" %}</a></li></ul></div><div id="info"></div>{% include "site_specific/count_of.html" %}<div class="info-facts">	<h2>VITRA Design Museum</h2>	<p>Rooms, furnishings and objects</p></div><div id="pic_show"></div>	<div class="pic"></div>	<div class="pic_navi">		<p>museum entrance</p>		<div id="next_pre">			<div class="previous_pic"><span>previous</span></div>			<div class="next_pic"><span>next</span></div>		</div>	</div></div><div id="pic_show_links"><h3 class="first">thumbnails</h3></div>{% endblock %}
+{% extends "base.html" %}
+{% load i18n base_tags %}
+
+{% block title %}{{ flatpage.get_title|escape }}{% endblock %}
+
+{% block headline %}
+    <h1>{% trans "directory" %}</h1>
+{% endblock %}
+
+{% comment %}<!-- 
+{% block sidebar-b %}
+    <div id="add_box">
+        <h3><p>tools</p></h3>
+        <ul>
+            <li class="website"><a href="#"><span class="pic"></span>{% trans "visit website" %}</a></li>
+            <li class="note_sidebar"><a href="#"><span class="pic"></span>{% trans "memo" %}</a></li>
+            <li class="add_sidebar"><a href="#"><span class="pic"></span>{% trans "add to your addressbook" %}</a></li>
+            <li class="download_sidebar"><a href="#"><span class="pic"></span>{% trans "download h-card" %}</a></li>
+            <li class="posting"><a href="#"><span class="pic"></span>{% trans "write a message" %}</a></li>
+            <li class="rss"><a href="#"><span class="pic"></span>{% trans "RSS feed" %}</a></li>
+            <li class="claim"><a href="#"><span class="pic"></span>{% trans "claim this institution" %}</a></li>
+            <li class="print"><a href="#"><span class="pic"></span>{% trans "print" %}</a></li>
+        </ul>
+    </div>
+{% endblock %}
+-->{% endcomment %}
+
+{% block content %}
+    <div id="tabs">
+        <ul>
+            <li><a href="/{{ URL_ID_INSTITUTION }}/allianz-deutscher-designer-ev/">{% trans "Information" %}</a></li>
+            <li><a href="/test-map/">{% trans "maps" %}</a></li>
+            <li class="active"><a href="/test-map/">{% trans "photos" %}</a></li>
+            <li><a href="#">{% trans "videos" %}</a></li>
+            <li><a href="#">{% trans "events" %}</a></li>
+            <li><a href="#">{% trans "reviews" %}</a></li>
+        </ul>
+    </div>
+
+    <div id="info"></div>
+    {% include "site_specific/count_of.html" %}
+    <div class="info-facts">
+        <h2>VITRA Design Museum</h2>
+
+        <p>Rooms, furnishings and objects</p>
+    </div>
+
+    <div id="pic_show"></div>
+    <div class="pic"></div>
+    <div class="pic_navi">
+        <p>museum entrance</p>
+
+        <div id="next_pre">
+            <div class="previous_pic"><span>previous</span></div>
+            <div class="next_pic"><span>next</span></div>
+        </div>
+    </div>
+    <div id="pic_show_links"><h3 class="first">thumbnails</h3></div>
+{% endblock %}

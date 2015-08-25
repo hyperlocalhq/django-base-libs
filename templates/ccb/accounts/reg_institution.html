@@ -1,1 +1,91 @@
-{% extends "base.html" %}{% comment %}<!-- UNUSED -->{% endcomment %}{% load base_tags i18n uni_form_tags uni_form_field %}{% block extrahead %}    <script type="text/javascript" src="{{ STATIC_URL }}site/js/urlify.js"></script>    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/registration.js"></script>{% endblock %}{% block title %}{% trans "Registration" %} - {% trans "Institution" %}{% endblock %}{% block headline %}    <h1>{% trans "Registration" %}</h1>    <h2 class="sub">{% trans "Institutional Account" %}</h2>{% endblock %}{% block sidebar-a %}    {% include "utils/registration_step_list.html" %}{% endblock %}{% block sidebar-b %}{% endblock %}{% block content %}    <form action="" method="post" class="uniForm">        <fieldset class="inlineLabels">            <h3>{% trans "Institution" %}</h3>            {{ form.institution_name|as_uni_field }}            {{ form.institution_name2|as_uni_field }}            {{ form.legal_form|as_uni_field }}                        <h3>{% trans "Contact Person" %} - {% trans "Administrator " %}</h3>            <div class="ctrlHolder">                {{ form.prefix.error_tag }}                <label for="id_prefix">                    <strong>{{ form.prefix.label }} / {{ form.first_name.label }}*</strong>                </label>                {{ form.prefix }}                {{ form.first_name }}            </div>            {{ form.last_name|as_uni_field }}            <div class="ctrlHolder">                {{ form.birthday_dd.error_tag }}                {{ form.birthday_mm.error_tag }}                {{ form.birthday_yyyy.error_tag }}                {{ form.birthday_yyyy.label_tag }}                {{ form.birthday_dd }}                {{ form.birthday_mm }}                {{ form.birthday_yyyy }}            </div>            {{ form.individual_type|as_uni_field }}            {{ form.occupation|as_uni_field }}            {{ form.nationality|as_uni_field }}                        <h3>Login - {% trans "Administrator " %}</h3>            {{ form.login_email|as_uni_field }}            {{ form.login_email_confirm|as_uni_field }}            {{ form.password|as_uni_field }}            {{ form.password_confirm|as_uni_field }}            {{ form.username|as_uni_field }}                        <h3>{% trans "Confirmation" %}</h3>            <div class="ctrlHolder">                {{ form.privacy_policy.error_tag }}                {{ form.privacy_policy|with_class }}                <label for="id_privacy_policy">                    {% if form.privacy_policy.required %}<strong>{% endif %}                    {% blocktrans %}I accept <a href="/privacy/" onclick="open_new_window(event)">the privacy policy</a>.{% endblocktrans %}                    {% if form.privacy_policy.required %}*</strong>{% endif %}                </label>            </div>            <div class="ctrlHolder">                {{ form.terms_of_use.error_tag }}                {{ form.terms_of_use|with_class }}                <label for="id_terms_of_use">                    {% if form.terms_of_use.required %}<strong>{% endif %}                    {% blocktrans %}I accept <a href="/terms-of-use/" onclick="open_new_window(event)">the terms of use</a>.{% endblocktrans %}                    {% if form.terms_of_use.required %}*</strong>{% endif %}                </label>            </div>                    </fieldset>        {% include "utils/step_buttons_reg.html" %}    </form>{% endblock %}
+{% extends "base.html" %}
+{% comment %}<!-- UNUSED -->{% endcomment %}
+{% load base_tags i18n uni_form_tags uni_form_field %}
+
+{% block extrahead %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/urlify.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/registration.js"></script>
+{% endblock %}
+
+{% block title %}{% trans "Registration" %} - {% trans "Institution" %}{% endblock %}
+
+{% block headline %}
+    <h1>{% trans "Registration" %}</h1>
+    <h2 class="sub">{% trans "Institutional Account" %}</h2>
+{% endblock %}
+
+{% block sidebar-a %}
+    {% include "utils/registration_step_list.html" %}
+{% endblock %}
+
+{% block sidebar-b %}
+{% endblock %}
+
+{% block content %}
+    <form action="" method="post" class="uniForm">
+        <fieldset class="inlineLabels">
+            <h3>{% trans "Institution" %}</h3>
+            {{ form.institution_name|as_uni_field }}
+            {{ form.institution_name2|as_uni_field }}
+            {{ form.legal_form|as_uni_field }}
+
+            <h3>{% trans "Contact Person" %} - {% trans "Administrator " %}</h3>
+
+            <div class="ctrlHolder">
+                {{ form.prefix.error_tag }}
+                <label for="id_prefix">
+                    <strong>{{ form.prefix.label }} / {{ form.first_name.label }}*</strong>
+                </label>
+                {{ form.prefix }}
+                {{ form.first_name }}
+            </div>
+            {{ form.last_name|as_uni_field }}
+            <div class="ctrlHolder">
+                {{ form.birthday_dd.error_tag }}
+                {{ form.birthday_mm.error_tag }}
+                {{ form.birthday_yyyy.error_tag }}
+                {{ form.birthday_yyyy.label_tag }}
+                {{ form.birthday_dd }}
+                {{ form.birthday_mm }}
+                {{ form.birthday_yyyy }}
+            </div>
+            {{ form.individual_type|as_uni_field }}
+            {{ form.occupation|as_uni_field }}
+            {{ form.nationality|as_uni_field }}
+
+            <h3>Login - {% trans "Administrator " %}</h3>
+            {{ form.login_email|as_uni_field }}
+            {{ form.login_email_confirm|as_uni_field }}
+            {{ form.password|as_uni_field }}
+            {{ form.password_confirm|as_uni_field }}
+            {{ form.username|as_uni_field }}
+
+            <h3>{% trans "Confirmation" %}</h3>
+
+            <div class="ctrlHolder">
+                {{ form.privacy_policy.error_tag }}
+                {{ form.privacy_policy|with_class }}
+                <label for="id_privacy_policy">
+                    {% if form.privacy_policy.required %}<strong>{% endif %}
+                    {% blocktrans %}I accept <a href="/privacy/" onclick="open_new_window(event)">the privacy policy</a>
+                        .{% endblocktrans %}
+                    {% if form.privacy_policy.required %}*</strong>{% endif %}
+                </label>
+            </div>
+            <div class="ctrlHolder">
+                {{ form.terms_of_use.error_tag }}
+                {{ form.terms_of_use|with_class }}
+                <label for="id_terms_of_use">
+                    {% if form.terms_of_use.required %}<strong>{% endif %}
+                    {% blocktrans %}I accept
+                        <a href="/terms-of-use/" onclick="open_new_window(event)">the terms of use</a>
+                        .{% endblocktrans %}
+                    {% if form.terms_of_use.required %}*</strong>{% endif %}
+                </label>
+            </div>
+
+        </fieldset>
+        {% include "utils/step_buttons_reg.html" %}
+    </form>
+{% endblock %}
+

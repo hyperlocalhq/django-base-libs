@@ -12,5 +12,5 @@ required_apps = [
     "memos",
     "favorites",
     "groups_networks",
-    ]
+]
 optional_apps = []

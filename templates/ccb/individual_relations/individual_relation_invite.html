@@ -5,8 +5,9 @@
             <h3>{% trans "Relation" %}</h3>
             {{ form.message|as_uni_field }}
             {{ form.relation_types|as_uni_field }}
-            
+
             <h3>{% trans "Permissions" %}</h3>
+
             <div class="permissions">
                 <div class="l-box">
                     {{ form.display_phone|as_uni_field }}
@@ -20,10 +21,12 @@
                 </div>
             </div>
             <div class="buttonHolder">
-                <input class="primaryAction" type="submit" id="post" name="post" value='{% filter upper %}{% trans "Invite" %}{% endfilter %}'/>       	
-                <input class="secondaryAction" type="button" name="cancel" value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}" />
+                <input class="primaryAction" type="submit" id="post" name="post"
+                       value='{% filter upper %}{% trans "Invite" %}{% endfilter %}'/>
+                <input class="secondaryAction" type="button" name="cancel"
+                       value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
             </div>
-        </div>
+        </fieldset>
     </form>
 </div>
 

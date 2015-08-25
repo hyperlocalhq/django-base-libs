@@ -1,7 +1,9 @@
 {% load i18n base_tags auth_extended uni_form_tags uni_form_field %}
 <div class="profile_infos">
     <h5 class="edit_subline">{% trans "Edit Job Details" %}</h5>
-    <form action="/helper/edit-{{ URL_ID_JOB_OFFER }}-profile/{{ object.get_secure_id }}/details/" method="post" enctype="multipart/form-data" target="hidden_iframe" class="uniForm">
+
+    <form action="/helper/edit-{{ URL_ID_JOB_OFFER }}-profile/{{ object.get_secure_id }}/details/" method="post"
+          enctype="multipart/form-data" target="hidden_iframe" class="uniForm">
         <fieldset class="inlineLabels">
             <h3>{% trans "Details" %}</h3>
             {{ form.position|as_uni_field }}
@@ -9,10 +11,11 @@
             {{ form.qualifications|as_uni_field }}
             {{ form.description|as_uni_field }}
             {% include "uni_form/includes/publish_until.html" %}
-            
+
             <div class="buttonHolder">
-                <input type="submit" class="primaryAction" value="{% filter upper %}{% trans "Save" %}{% endfilter %}" />
-                <input type="button" class="secondaryAction" value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel" />
+                <input type="submit" class="primaryAction" value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
+                <input type="button" class="secondaryAction"
+                       value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel"/>
             </div>
         </fieldset>
     </form>

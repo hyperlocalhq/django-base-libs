@@ -13,7 +13,8 @@ Usage in any template:
 -->{% endcomment %}
 
 
-{% block block_title %}<a href="/{{ URL_ID_PEOPLE }}/?order_by=creation_date_desc">{% trans "New People" %}</a>{% endblock %}
+{% block block_title %}
+    <a href="/{{ URL_ID_PEOPLE }}/?order_by=creation_date_desc">{% trans "New People" %}</a>{% endblock %}
 
 {% block link_to_more %}/{{ URL_ID_PEOPLE }}/?order_by=creation_date_desc{% endblock %}
 
@@ -24,17 +25,19 @@ Usage in any template:
         {% get_objects latest_published_with_avatars people.Person amount as newest_objects %}
         {% if newest_objects %}
             <ul>
-            {% for person in newest_objects %}
-                <li>
-                    <a href="{{ person.get_url_path }}">
-                        {% if person.image %}
-                            <img alt="{{ person.get_title|escape }}" title="{{ person.get_title|escape }}" src="{{ UPLOADS_URL }}{{ person.image|modified_path:"at" }}" />
-                        {% else %}
-                            <img alt="{{ person.get_title|escape }}" title="{{ person.get_title|escape }}" src="{{ DEFAULT_SMALL_LOGO_4_PERSON }}" />
-                        {% endif %}
-                    </a>
-                </li>
-            {% endfor %}
+                {% for person in newest_objects %}
+                    <li>
+                        <a href="{{ person.get_url_path }}">
+                            {% if person.image %}
+                                <img alt="{{ person.get_title|escape }}" title="{{ person.get_title|escape }}"
+                                     src="{{ UPLOADS_URL }}{{ person.image|modified_path:"at" }}"/>
+                            {% else %}
+                                <img alt="{{ person.get_title|escape }}" title="{{ person.get_title|escape }}"
+                                     src="{{ DEFAULT_SMALL_LOGO_4_PERSON }}"/>
+                            {% endif %}
+                        </a>
+                    </li>
+                {% endfor %}
             </ul>
             <hr class="hidden"/>
         {% else %}

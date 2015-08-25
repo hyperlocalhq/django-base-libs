@@ -1,7 +1,9 @@
 {% load i18n base_tags auth_extended uni_form_tags uni_form_field %}
 <div class="profile_infos">
     <h5 class="edit_subline">{% trans "edit event times" %}</h5>
-    <form action="/helper/edit-{{ URL_ID_EVENT }}-profile/{{ object.slug }}/event_times/" method="post" target="hidden_iframe" class="uniForm">
+
+    <form action="/helper/edit-{{ URL_ID_EVENT }}-profile/{{ object.slug }}/event_times/" method="post"
+          target="hidden_iframe" class="uniForm">
         <fieldset class="inlineLabels">
             <h3>{% trans "event times" %}</h3>
             {{ form.non_form_errors }}
@@ -11,8 +13,9 @@
                 {% include "uni_form/includes/event_time.html" %}
             {% endfor %}
             <div class="buttonHolder">
-                <input type="submit" class="primaryAction" value="{% filter upper %}{% trans "Save" %}{% endfilter %}" />
-                <input type="button" class="secondaryAction" value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel" />
+                <input type="submit" class="primaryAction" value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
+                <input type="button" class="secondaryAction"
+                       value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel"/>
             </div>
         </fieldset>
     </form>

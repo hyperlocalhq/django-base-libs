@@ -11,6 +11,7 @@ test_data = (
     ('jssettings', [], {}, 200),
 )
 
+
 class URLPatternReverse(TestCase):
     urls = settings.ROOT_URLCONF
     fixtures = ("test.json",)

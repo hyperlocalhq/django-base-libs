@@ -5,7 +5,8 @@
     <meta property="og:title" content="{{ gallery.get_title }}"/>
     <meta property="og:type" content="album"/>
     {% if gallery.cover_image %}
-        <meta property="og:image" content="http://www.creative-city-berlin.de{{ UPLOADS_URL }}{{ gallery.cover_image.path|modified_path:"glist" }}" />
+        <meta property="og:image" content="http://www.creative-city-berlin.de
+                {{ UPLOADS_URL }}{{ gallery.cover_image.path|modified_path:"glist" }}"/>
     {% else %}
         <meta property="og:image" content="{{ gallery.mediafile_set.all.0.get_list_image_url }}"/>
     {% endif %}
@@ -18,8 +19,8 @@
     <script type="text/javascript">
         // preloading portfolio images
         {% for f in list_of_files %}
-        var oImg_{{ forloop.counter0 }} = new Image();
-        oImg_{{ forloop.counter0 }}.src = "{{ UPLOADS_URL }}{{ f.path|modified_path:"gd" }}";
+            var oImg_{{ forloop.counter0 }} = new Image();
+            oImg_{{ forloop.counter0 }}.src = "{{ UPLOADS_URL }}{{ f.path|modified_path:"gd" }}";
         {% endfor %}
     </script>
 {% endblock %}

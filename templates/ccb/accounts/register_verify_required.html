@@ -1,1 +1,19 @@
-{% extends "base.html" %}{% load base_tags i18n %}{% block headline %}	<h1>{% trans "You're almost there." %}</h1>{% endblock %}			{% block sidebar-a %}&nbsp;{% endblock %}{% block sidebar-b %}&nbsp;{% endblock %}{% block title %}{% trans "You're almost there." %}{% endblock %}{% block content %}<div><p>{% trans "In order to complete registration, we need to confirm you entered a valid e-mail address. You should be getting a confirmation e-mail very shortly. It will contain instructions on how to finalize your registration." %}</p><p><strong>{% trans "Please also check your Spam folder to make sure that our message has not been filtered out." %}</strong></p></div>{% endblock %}
+{% extends "base.html" %}
+{% load base_tags i18n %}
+
+{% block headline %}
+    <h1>{% trans "You're almost there." %}</h1>
+{% endblock %}
+
+{% block sidebar-a %}&nbsp;{% endblock %}
+{% block sidebar-b %}&nbsp;{% endblock %}
+{% block title %}{% trans "You're almost there." %}{% endblock %}
+{% block content %}
+    <div>
+        <p>{% trans "In order to complete registration, we need to confirm you entered a valid e-mail address. You should be getting a confirmation e-mail very shortly. It will contain instructions on how to finalize your registration." %}</p>
+
+        <p>
+            <strong>{% trans "Please also check your Spam folder to make sure that our message has not been filtered out." %}</strong>
+        </p>
+    </div>
+{% endblock %}

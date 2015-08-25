@@ -9,15 +9,18 @@
                     {% adding_group_membership at persongroup %}
                 {% else %}
                     <li class="memo">{% adding2memos for persongroup %}</li>
-                    <li class="favorites"><a href="/login/?goto_next={{ request.path }}" title="{% trans "Add to favorites" %}"><span>{% trans "Add to favorites" %} ({% trans "login request" %})</span></a></li>
+                    <li class="favorites"><a href="/login/?goto_next={{ request.path }}"
+                                             title="{% trans "Add to favorites" %}"><span>{% trans "Add to favorites" %} ({% trans "login request" %})</span></a>
+                    </li>
                 {% endif %}
                 {% if request.user.is_staff %}
-                    {% if_has_perm "groups_networks.change_persongroup" persongroup %} 
+                    {% if_has_perm "groups_networks.change_persongroup" persongroup %}
                         <li class="admin_edit">
-                           <a href="/admin/groups_networks/persongroup/{{ group.id }}/" class="edit_link" onclick="open_new_window(event)"><span>{% trans "edit Group" %}</span></a>
-                       </li>
-                   {% end_if_has_perm %}
-               {% endif %}
+                            <a href="/admin/groups_networks/persongroup/{{ group.id }}/" class="edit_link"
+                               onclick="open_new_window(event)"><span>{% trans "edit Group" %}</span></a>
+                        </li>
+                    {% end_if_has_perm %}
+                {% endif %}
             </ul>
         </div>
     {% endwith %}

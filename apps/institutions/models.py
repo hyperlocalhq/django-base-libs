@@ -15,6 +15,7 @@ class InstitutionManagerExtended(InstitutionManager):
     def latest_published_with_avatars(self):
         return self.latest_published().exclude(image="")
 
+
 class Institution(InstitutionBase):
     creative_sectors = TreeManyToManyField(
         Term,
@@ -22,7 +23,7 @@ class Institution(InstitutionBase):
         limit_choices_to={'vocabulary__sysname': 'categories_creativesectors'},
         related_name="creative_sector_institutions",
         blank=True,
-        )
+    )
 
     objects = InstitutionManagerExtended()
 
@@ -33,16 +34,17 @@ class Institution(InstitutionBase):
             slug=self.slug,
             group_type=get_related_queryset(PersonGroup, "group_type").get(
                 sysname='institutional',
-                ),
+            ),
             access_type=get_related_queryset(PersonGroup, "access_type").get(
                 sysname='secret_access',
-                ),
-            )
+            ),
+        )
         group.content_object = self
         group.save()
         return group
+
     create_default_group.alters_data = True
-    
+
     def get_representatives(self):
         """
         Returns the default owners of this object for permission manipulation
@@ -54,26 +56,27 @@ class Institution(InstitutionBase):
         for person_group in groups:
             allowed_groups.append(
                 person_group.perobjectgroup_set.get(sysname__startswith="owners")
-                )
+            )
             allowed_groups.append(
                 person_group.perobjectgroup_set.get(sysname__startswith="moderators")
-                )
+            )
         return allowed_groups
-    
+
     def get_owners(self):
         group = self._get_related_group()
         if group:
             return group.get_owners()
         return []
-        
+
     def get_admin_links_to_owners(self):
         links = []
         for owner in self.get_owners():
             links.append("""<a href="/admin/people/person/%s/">%s</a>""" % (owner.id, owner.get_title()))
         return "<br /> ".join(links)
+
     get_admin_links_to_owners.allow_tags = True
     get_admin_links_to_owners.short_description = _("Owners")
-    
+
     def get_groups(self):
         if not hasattr(self, "_groups_cache"):
             PersonGroup = models.get_model("groups_networks", "PersonGroup")
@@ -81,114 +84,118 @@ class Institution(InstitutionBase):
             self._groups_cache = list(PersonGroup.objects.filter(
                 content_type__pk=ct.id,
                 object_id=self.id,
-                ))
+            ))
         return self._groups_cache
-    
+
     def get_creative_sectors(self):
         return self.creative_sectors.all()
-    
+
     def _get_current_user(self, user=None):
         if not user:
             from base_libs.middleware import get_current_user
+
             user = get_current_user()
         return user
-        
+
     def _get_related_group(self):
         groups = self.get_groups()
         if groups:
             return groups[0]
         else:
             return None
-        
-    
+
     def is_addable_to_favorites(self, user=None):
         if not hasattr(self, "_is_addable_to_favorites_cache"):
             from ccb.apps.site_specific.templatetags.browsing import get_context_item
+
             Favorite = models.get_model("favorites", "Favorite")
             user = self._get_current_user(user)
             group = self._get_related_group()
-            self._is_addable_to_favorites_cache = not(
+            self._is_addable_to_favorites_cache = not (
                 group
                 and group.get_owners().filter(user=user)
-                ) and not Favorite.objects.is_favorite(get_context_item(self), user)
+            ) and not Favorite.objects.is_favorite(get_context_item(self), user)
         return self._is_addable_to_favorites_cache
-    
+
     def is_removable_from_favorites(self, user=None):
         if not hasattr(self, "_is_removable_from_favorites_cache"):
             from ccb.apps.site_specific.templatetags.browsing import get_context_item
+
             Favorite = models.get_model("favorites", "Favorite")
             user = self._get_current_user(user)
             self._is_removable_from_favorites_cache = Favorite.objects.is_favorite(get_context_item(self), user)
         return self._is_removable_from_favorites_cache
-        
+
     def is_addable_to_memos(self, user=None):
         if not hasattr(self, "_is_addable_to_memos_cache"):
             user = self._get_current_user(user)
             group = self._get_related_group()
-            self._is_addable_to_memos_cache = not(
+            self._is_addable_to_memos_cache = not (
                 group
                 and group.get_owners().filter(user=user)
-                )
+            )
         return self._is_addable_to_memos_cache
-    
+
     def is_claimable(self, user=None):
         if not hasattr(self, "_is_claimable_cache"):
             user = self._get_current_user(user)
             group = self._get_related_group()
             self._is_claimable_cache = not group
         return self._is_claimable_cache
-        
+
     def is_contactable(self, user=None):
         if not hasattr(self, "_is_contactable_cache"):
             user = self._get_current_user(user)
             group = self._get_related_group()
             contact_dict = self.get_primary_contact()
-            self._is_contactable_cache = bool(not(
+            self._is_contactable_cache = bool(not (
                 group
                 and group.get_owners().filter(user=user)
-                ) and contact_dict.get("email0_address", False))
+            ) and contact_dict.get("email0_address", False))
         return self._is_contactable_cache
-    
+
     def is_email_displayed(self, user=None):
         if not hasattr(self, "_is_email_displayed_cache"):
             user = self._get_current_user(user)
-            #group = self._get_related_group()
+            # group = self._get_related_group()
             self._is_email_displayed_cache = False
         return self._is_email_displayed_cache
-        
+
     def is_phone_displayed(self, user=None):
         if not hasattr(self, "_is_phone_displayed_cache"):
             user = self._get_current_user(user)
             group = self._get_related_group()
             self._is_phone_displayed_cache = True
         return self._is_phone_displayed_cache
-        
+
     def is_fax_displayed(self, user=None):
         if not hasattr(self, "_is_fax_displayed_cache"):
             user = self._get_current_user(user)
             group = self._get_related_group()
             self._is_fax_displayed_cache = True
         return self._is_fax_displayed_cache
-        
+
     def is_mobile_displayed(self, user=None):
         if not hasattr(self, "_is_mobile_displayed_cache"):
             user = self._get_current_user(user)
             group = self._get_related_group()
             self._is_mobile_displayed_cache = True
         return self._is_mobile_displayed_cache
-        
+
     def is_deletable(self, user=None):
         if not hasattr(self, "_is_deletable_cache"):
             user = get_current_user(user) or AnonymousUser()
             self._is_deletable_cache = user.has_perm("institutions.delete_institution", self)
         return self._is_deletable_cache
-        
+
     def save(self, *args, **kwargs):
         is_new = not self.id
         super(Institution, self).save(*args, **kwargs)
         if is_new:
             institution_added(Institution, self)
+
     save.alters_data = True
+
 
 class InstitutionalContact(InstitutionalContactBase):
     def is_public(self):
@@ -200,28 +207,28 @@ def institution_added(sender, instance, **kwargs):
     from django.contrib.auth.models import User
     from base_libs.middleware import get_current_user
     from jetson.apps.notification import models as notification
+
     user = get_current_user()
     creator_url = (
         not user
         and get_website_url() + "admin/"
         or user.profile.get_url()
-        )
+    )
     creator_title = (
         not user
         and ugettext("System")
         or user.profile.get_title()
-        )
-    
+    )
+
     recipients = User.objects.all()
-    
+
     notification.send(
         recipients,
         "institution_added",
         {
             "object_creator_url": creator_url,
             "object_creator_title": creator_title,
-            },
+        },
         instance=instance,
         on_site=False,
-        )
-
+    )

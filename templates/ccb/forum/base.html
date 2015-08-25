@@ -2,21 +2,21 @@
 {% load i18n %}
 
 {% block extrahead %}
-	{{ block.super }}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
 {% endblock %}
 
 {% block title %}
-	{% if not current_forum %}
-		{{ container.title|escape }}
-	{% else %}
-		{{ current_forum.short_title|escape }}
-	{% endif %}
+    {% if not current_forum %}
+        {{ container.title|escape }}
+    {% else %}
+        {{ current_forum.short_title|escape }}
+    {% endif %}
 {% endblock %}
 {% block bodyclass %}forum{% endblock %}
 
 {% block headline %}
-	<h1>{{ container.title|escape }}</h1>	
+    <h1>{{ container.title|escape }}</h1>
     {% comment %}<!--
     {% if current_forum %}
         <h2 class="sub">
@@ -24,8 +24,8 @@
         </h2>
     {% endif %}
     -->{% endcomment %}
-{% endblock %}	
+{% endblock %}
 {% block content %}
-	{% block details %}
-	{% endblock %}
+    {% block details %}
+    {% endblock %}
 {% endblock %}

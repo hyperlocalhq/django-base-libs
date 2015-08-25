@@ -1,1 +1,73 @@
-{% extends "base.html" %}{% load i18n base_tags nav_menu babel %}{% block meta_keywords %}    {% if LANGUAGE_CODE == "de" %}        <meta name="keywords" lang="de" content="Jobbörse, Stellenmarkt, Stellenangebote, Kultur, Kreativwirtschaft, Kunst, Medien, Design, Praktikum, Praktika, Berlin" />    {% else %}        <meta name="keywords" lang="en-us" content="job, jobs, jobboard, job exchange, Berlin, culture, art, creative industries, media, design, internships, internship" />    {% endif %}{% endblock %}{% block meta_description %}    {% if LANGUAGE_CODE == "de" %}        <meta name="description" lang="de" content="Jobbörse für die Kultur- und Kreativwirtschaft in Berlin" />    {% else %}        <meta name="description" lang="en-us" content="Job exchange for the cultural sector and the creative industries in Berlin" />    {% endif %}{% endblock %}{% block title %}{{ object.position }} @ {% if object.offering_institution or object.offering_institution_title %}{% if object.offering_institution %}{{ object.offering_institution.get_title }}{% else %}{{ object.offering_institution_title }}{% endif %}{% endif %}{% endblock %}{% block bodyclass %}object-details{% endblock %}{% block headline %}	<h1>{{ object.position }}</h1>	<h2 class="smaller">@ {% if object.offering_institution or object.offering_institution_title %}{% if object.offering_institution %}{{ object.offering_institution.get_title }}{% else %}{{ object.offering_institution_title }}{% endif %}{% endif %}</h2>{% endblock %}			{% block content %}    {% block tabs %}        <div id="tabs">            {% children_of "job_offer" using "navigation/children_in_tabs.html" %}        </div>    {% endblock %}    <div class="toolbox">        {% include "site_specific/count_of.html" %}        <div class="icons">            {% with object as job_offer %}                {% include "marketplace/controls.html" %}            {% endwith %}            <a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07">Share</a>        </div>    </div>    <div id="details">        {% block details %}        {% endblock %}    </div>{% endblock %}{% block breadcrumbs %}    <div class="breadcrumbs">        <a href="/">{% trans "Home" %}</a>        <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_JOB_OFFERS }}/">{% trans "Jobs" %}</a>        <span class="b-sep"><span>::</span></span><a href="{{ object.get_url_path }}">{{ object.position }}</a>        {% block breadcrumbs_details %}        {% endblock %}    </div>{% endblock %}{% block extrabody %}    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>{% endblock %}
+{% extends "base.html" %}
+{% load i18n base_tags nav_menu babel %}
+
+{% block meta_keywords %}
+    {% if LANGUAGE_CODE == "de" %}
+        <meta name="keywords" lang="de"
+              content="Jobbörse, Stellenmarkt, Stellenangebote, Kultur, Kreativwirtschaft, Kunst, Medien, Design, Praktikum, Praktika, Berlin"/>
+    {% else %}
+        <meta name="keywords" lang="en-us"
+              content="job, jobs, jobboard, job exchange, Berlin, culture, art, creative industries, media, design, internships, internship"/>
+    {% endif %}
+{% endblock %}
+
+{% block meta_description %}
+    {% if LANGUAGE_CODE == "de" %}
+        <meta name="description" lang="de" content="Jobbörse für die Kultur- und Kreativwirtschaft in Berlin"/>
+    {% else %}
+        <meta name="description" lang="en-us"
+              content="Job exchange for the cultural sector and the creative industries in Berlin"/>
+    {% endif %}
+{% endblock %}
+
+{% block title %}{{ object.position }} @ {% if object.offering_institution or object.offering_institution_title %}
+    {% if object.offering_institution %}{{ object.offering_institution.get_title }}{% else %}
+        {{ object.offering_institution_title }}{% endif %}{% endif %}{% endblock %}
+
+{% block bodyclass %}object-details{% endblock %}
+
+{% block headline %}
+    <h1>{{ object.position }}</h1>
+    <h2 class="smaller">@
+        {% if object.offering_institution or object.offering_institution_title %}{% if object.offering_institution %}
+            {{ object.offering_institution.get_title }}{% else %}{{ object.offering_institution_title }}
+        {% endif %}{% endif %}</h2>
+{% endblock %}
+
+{% block content %}
+    {% block tabs %}
+        <div id="tabs">
+            {% children_of "job_offer" using "navigation/children_in_tabs.html" %}
+        </div>
+    {% endblock %}
+    <div class="toolbox">
+        {% include "site_specific/count_of.html" %}
+        <div class="icons">
+            {% with object as job_offer %}
+                {% include "marketplace/controls.html" %}
+            {% endwith %}
+            <a class="addthis_button"
+               href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07">Share</a>
+        </div>
+    </div>
+    <div id="details">
+        {% block details %}
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="/">{% trans "Home" %}</a>
+        <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_JOB_OFFERS }}/">{% trans "Jobs" %}</a>
+        <span class="b-sep"><span>::</span></span><a href="{{ object.get_url_path }}">{{ object.position }}</a>
+        {% block breadcrumbs_details %}
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{% block extrabody %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+{% endblock %}
+
+

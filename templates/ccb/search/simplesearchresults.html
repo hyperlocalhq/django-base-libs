@@ -3,8 +3,8 @@
 
 
 {% block extrahead %}
-    <meta name="robots" content="noindex" />
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js" defer="defer"></script>
+    <meta name="robots" content="noindex"/>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js" defer="defer"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/individual_relations.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/groups_networks.js"></script>
 {% endblock %}
@@ -15,25 +15,25 @@
 
 {% block headline %}
     {% if creative_sector %}
-    <h1>{{ creative_sector.get_title }}</h1>
-	<h2 class="sub">{% trans "search results" %}</h2>
+        <h1>{{ creative_sector.get_title }}</h1>
+        <h2 class="sub">{% trans "search results" %}</h2>
     {% else %}
-	<h2 class="main">{% trans "search results" %}</h2>
+        <h2 class="main">{% trans "search results" %}</h2>
     {% endif %}
-{% endblock %}			
+{% endblock %}
 
 
 {% block content %}
     <div class="search-browse">
         {% if object_list %}
-             {% include_parsed "utils/includes/sorting_and_pagination.html" with "under-tabs" as css_class %}
-            
+            {% include_parsed "utils/includes/sorting_and_pagination.html" with "under-tabs" as css_class %}
+
             <div id="object_list">
                 {% include "site_specific/context_item_list.html" %}
             </div>
-            
-           {% include "utils/includes/sorting_and_pagination.html" %}
-        
+
+            {% include "utils/includes/sorting_and_pagination.html" %}
+
         {% else %}
             <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>
         {% endif %}
@@ -42,5 +42,5 @@
 
 
 {% block extrabody %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
 {% endblock %}

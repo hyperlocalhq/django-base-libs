@@ -27,24 +27,27 @@
 {% endblock %}
 
 {% block content %}
-<form action="" method="post" enctype="multipart/form-data" class="uniForm">
-    <fieldset class="inlineLabels">
-        <h3>{% trans "Profile Data" %}</h3>
-        {{ form.description_de|as_uni_field }}
-        {{ form.description_en|as_uni_field }}
+    <form action="" method="post" enctype="multipart/form-data" class="uniForm">
+        <fieldset class="inlineLabels">
+            <h3>{% trans "Profile Data" %}</h3>
+            {{ form.description_de|as_uni_field }}
+            {{ form.description_en|as_uni_field }}
 
-        <h3>
-            {% trans "Photo" %}
-        </h3>
-        <div>
-            <div class="preview_img">
-                <img src="{% if form_step_data.303.avatar %}/helper/tmpimage/{{ form_step_data.303.avatar.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/{% else %}{% ifequal form_step_data.0.account_type "0" %}{{ DEFAULT_FORM_LOGO_4_PERSON }}{% else %}{{ DEFAULT_FORM_LOGO_4_INSTITUTION }}{% endifequal %}{% endif %}" alt="{% trans "Avatar" %}" />
+            <h3>
+                {% trans "Photo" %}
+            </h3>
+
+            <div>
+                <div class="preview_img">
+                    <img
+                        src="{% if form_step_data.303.avatar %}/helper/tmpimage/{{ form_step_data.303.avatar.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/{% else %}{% ifequal form_step_data.0.account_type "0" %}{{ DEFAULT_FORM_LOGO_4_PERSON }}{% else %}{{ DEFAULT_FORM_LOGO_4_INSTITUTION }}{% endifequal %}{% endif %}"
+                        alt="{% trans "Avatar" %}"/>
+                </div>
+                {{ form.avatar|as_uni_field }}
             </div>
-            {{ form.avatar|as_uni_field }}
-        </div>
-        
-        {% include "utils/step_buttons_reg.html" %}
-    </fieldset>
-</form>                                                          
+
+            {% include "utils/step_buttons_reg.html" %}
+        </fieldset>
+    </form>
 {% endblock %}
 

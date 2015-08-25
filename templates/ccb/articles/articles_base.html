@@ -2,9 +2,10 @@
 {% load i18n base_tags nav_menu cache infoblocks %}
 
 {% block extrahead %}
-	{{ block.super }}
-	<link rel="alternate" type="application/rss+xml" title="{% trans "Creative City Berlin News" %}" href="/{{ LANGUAGE_CODE }}/news/feeds/rss/" />
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    {{ block.super }}
+    <link rel="alternate" type="application/rss+xml" title="{% trans "Creative City Berlin News" %}"
+          href="/{{ LANGUAGE_CODE }}/news/feeds/rss/"/>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
 {% endblock %}
 
 {% block headline %}
@@ -19,7 +20,7 @@
             {{ article_list.0.article_type.title|default:_("News")|escape }}
         </h2>
     {% endif %}
-{% endblock %}			
+{% endblock %}
 
 {% block sidebar-a %}
     {% comment %}<!--
@@ -27,81 +28,83 @@
         {{ block.super }}
     {% else %}
     -->{% endcomment %}
-    <div class="sidebar-box nav_expanded" id="archives_{{ LANGUAGE_CODE }}">                   
+    <div class="sidebar-box nav_expanded" id="archives_{{ LANGUAGE_CODE }}">
         <h5>
             <a href="#" class="open_but">
                 <b>{% trans "Archives" %}</b>
                 <span class="pic"></span>
             </a>
         </h5>
+
         <div class="hidable">
             {% for year, month_list in archives %}
                 {% if forloop.first %}
                     <ul>
                     <li><a href="/news/">{% trans "All" %}</a></li>
                 {% endif %}
-                <li>
-                    <a href="/news/{{ year }}/">{{ year }}</a> 
-                    {% for month_index, month_name in month_list %}
-                        {% if forloop.first %}
-                            <ul>
-                        {% endif %}
-                            <li><a href="/news/{{ year }}/{{ month_index }}/">
-                            {{ month_name }}
-                            </a></li>
-                        {% if forloop.last %}
-                            </ul>
-                        {% endif %}
-                    {% endfor %}
-                </li>
+            <li>
+                <a href="/news/{{ year }}/">{{ year }}</a>
+                {% for month_index, month_name in month_list %}
+                    {% if forloop.first %}
+                        <ul>
+                    {% endif %}
+                <li><a href="/news/{{ year }}/{{ month_index }}/">
+                    {{ month_name }}
+                </a></li>
                 {% if forloop.last %}
                     </ul>
                 {% endif %}
+                {% endfor %}
+            </li>
+            {% if forloop.last %}
+                </ul>
+            {% endif %}
             {% endfor %}
         </div>
     </div>
 
-    <div class="sidebar-box nav_expanded" id="creative_sectors_{{ LANGUAGE_CODE }}">                   
+    <div class="sidebar-box nav_expanded" id="creative_sectors_{{ LANGUAGE_CODE }}">
         <h5>
             <a href="#" class="open_but">
                 <b>{% trans "Creative Sectors" %}</b>
                 <span class="pic"></span>
             </a>
         </h5>
+
         <div class="hidable">
             {% for cs in creative_sectors %}
                 {% if forloop.first %}
                     <ul>
                     <li><a href="/news/">{% trans "All" %}</a></li>
                 {% endif %}
-                <li>
-                    <a href="/news/creative-sector/{{ cs.slug }}/">{{ cs.get_title }}</a>
-                </li>
-                {% if forloop.last %}
-                    </ul>
-                {% endif %}
+            <li>
+                <a href="/news/creative-sector/{{ cs.slug }}/">{{ cs.get_title }}</a>
+            </li>
+            {% if forloop.last %}
+                </ul>
+            {% endif %}
             {% endfor %}
         </div>
     </div>
-    
+
     <div id="dyn_rotating_banner">
         {% infoblock "partners" using "blocks/collapsible_infoblock.html" %}
     </div>
 {% endblock %}
 
 {% block title %}
-	{% if type %}
-		{{ type.get_title|escape }}
-	{% else %}
-		{% if creative_sector %}
-			{{ creative_sector.get_title|escape }}
-		{% else %}
-			{% trans "Welcome" %}
-		{% endif %}
-	{% endif %}
+    {% if type %}
+        {{ type.get_title|escape }}
+    {% else %}
+        {% if creative_sector %}
+            {{ creative_sector.get_title|escape }}
+        {% else %}
+            {% trans "Welcome" %}
+        {% endif %}
+    {% endif %}
 {% endblock %}
 
 {% block content %}
     {% block details %}
     {% endblock %}
-{% endblock %}	 
+{% endblock %}   

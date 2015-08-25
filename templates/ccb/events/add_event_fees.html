@@ -26,7 +26,7 @@
                 {{ form.exceptions_de|as_uni_field }}
                 {{ form.exceptions_en|as_uni_field }}
                 {{ form.is_appointment_based|as_uni_field }}
-                
+
                 {% include "utils/step_buttons_reg.html" %}
             </fieldset>
         </form>
@@ -42,7 +42,7 @@
 {% endblock %}
 
 {% block extrabody %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/opening_hours.js"></script>
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/add_event.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/opening_hours.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/add_event.js"></script>
 {% endblock %}
 

@@ -4,30 +4,30 @@
 {% block gallery_detail %}
     {% if list_of_files %}
         <div id="dyn_portfolio" class="hidden">
-            <div class="overflow{% if list_of_files|length_is:"1"  %} single_IMG{% endif %}">
-                    {% if not list_of_files|length_is:"1"  %}
-                        <div class="media_nav">
-                            <div class="right">
-                                <a id="media_previous" href="" class="previous">
+            <div class="overflow{% if list_of_files|length_is:"1" %} single_IMG{% endif %}">
+                {% if not list_of_files|length_is:"1" %}
+                    <div class="media_nav">
+                        <div class="right">
+                            <a id="media_previous" href="" class="previous">
                                     <span class="disabled">
                                         <span class="hidden">{% trans "Previous media file" %} </span>
                                     </span>
-                                </a>
-                                <a id="media_slideshow_start" href="" class="slideshow_start">
-                                    <span class="hidden">{% trans "Start slideshow" %} </span>
-                                </a>
-                                <a id="media_slideshow_stop" href="" class="slideshow_stop hidden">
-                                    <span class="hidden">{% trans "Stop slideshow" %} </span>
-                                </a>
-                                <a id="media_next" href="" class="next">
+                            </a>
+                            <a id="media_slideshow_start" href="" class="slideshow_start">
+                                <span class="hidden">{% trans "Start slideshow" %} </span>
+                            </a>
+                            <a id="media_slideshow_stop" href="" class="slideshow_stop hidden">
+                                <span class="hidden">{% trans "Stop slideshow" %} </span>
+                            </a>
+                            <a id="media_next" href="" class="next">
                                     <span class="disabled">
                                         <span class="hidden">{% trans "Next media file" %} </span>
                                     </span>
-                                </a>
-                            </div>
+                            </a>
                         </div>
-                    {% endif %}
-                    <hr class="hidden"/>
+                    </div>
+                {% endif %}
+                <hr class="hidden"/>
                 <div id="dyn_media_file_container">
                     <div id="dyn_media_file_height_measurer">
                         <div id="media_file">
@@ -43,10 +43,12 @@
                             <div class="hidable" id="media_desc_content"></div>
                             {% if permission_name %}
                                 {% if_has_perm permission_name object %}
-                                <ul class="toolbar hidable">
-                                    <li><a id="media_change" class="editIMG" href=""><span>{% trans "Change" %}</span></a></li>
-                                    <li><a id="media_delete" class="deleteIMG" href=""><span>{% trans "Delete" %}</span></a></li>
-                                </ul>
+                                    <ul class="toolbar hidable">
+                                        <li><a id="media_change" class="editIMG"
+                                               href=""><span>{% trans "Change" %}</span></a></li>
+                                        <li><a id="media_delete" class="deleteIMG"
+                                               href=""><span>{% trans "Delete" %}</span></a></li>
+                                    </ul>
                                 {% end_if_has_perm %}
                             {% endif %}
                         </div>
@@ -58,21 +60,26 @@
                 {% if forloop.first %}
                     <ul id="media_thumbs">
                 {% endif %}
-                        <li class="image_container">
-                            <a href="#file_{{ f.id }}"><img src="{{ f.get_thumbnail_url }}{% if permission_name %}{% if_has_perm permission_name object %}?now={% now "YmdHis" %}{% end_if_has_perm %}{% endif %}" alt="{{ f.title|escape }}" title="{{ f.get_file_type_display }}. {{ f.title|escape }}" /></a>
-                            {% if permission_name %}
-                                {% if_has_perm permission_name object %}
-                                    {% if f.get_recroppable_thumbnail_path %}
-                                        <a href="{% cropping_url f.get_recroppable_thumbnail_path "gt" request request.path %}" class="recrop_link">
-                                            <span><span>{% trans "Adjust image" %}</span></span>
-                                        </a>
-                                    {% endif %}
-                                {% end_if_has_perm %}
-                            {% endif %}
-                        </li>
-                {% if forloop.last %}
-                    </ul>
+            <li class="image_container">
+                <a href="#file_{{ f.id }}"><img src="
+
+                    {{ f.get_thumbnail_url }}{% if permission_name %}{% if_has_perm permission_name object %}?now={% now "YmdHis" %}{% end_if_has_perm %}{% endif %}"
+                                                alt="{{ f.title|escape }}"
+                                                title="{{ f.get_file_type_display }}. {{ f.title|escape }}"/></a>
+                {% if permission_name %}
+                    {% if_has_perm permission_name object %}
+                        {% if f.get_recroppable_thumbnail_path %}
+                            <a href="{% cropping_url f.get_recroppable_thumbnail_path "gt" request request.path %}"
+                               class="recrop_link">
+                                <span><span>{% trans "Adjust image" %}</span></span>
+                            </a>
+                        {% endif %}
+                    {% end_if_has_perm %}
                 {% endif %}
+            </li>
+            {% if forloop.last %}
+                </ul>
+            {% endif %}
             {% endfor %}
         </div>
     {% else %}

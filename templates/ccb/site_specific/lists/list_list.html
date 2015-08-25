@@ -2,7 +2,7 @@
 {% load i18n base_tags nav_menu memos %}
 {% comment %}<!-- UNUSED -->{% endcomment %}
 {% block extrahead %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/individual_relations.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/groups_networks.js"></script>
 {% endblock %}
@@ -11,39 +11,40 @@
 {% block title %}{% trans "Lists" %}{% endblock %}
 
 {% block headline %}
-	<h1>{% trans "Lists" %}</h1>
-{% endblock %}			
+    <h1>{% trans "Lists" %}</h1>
+{% endblock %}
 
 {% comment %}<!-- 
 {% block sidebar-b %}
-	<div id="add_box" class="sidebar-box">
-		<h3><b>{% trans "tools" %}</b></h3>
-		<ul>
-			<li class="note_sidebar"><a href="/my-profile/memos/"><span class="pic"></span>{% trans "memos" %} <em>(<span id="memo_count">{{ request|get_memo_count }}</span>)</em></a></li>
-			{% if request.user.is_authenticated %}
-				<li class="add_sidebar"><a href="/my-profile/favorites/"><span class="pic"></span>{% trans "favorites" %}</a></li>
-			{% endif %}
-			<li class="rss"><a href="/browse/feeds/rss/{{ LANGUAGE_CODE }}/?{{ query|escape }}"><span class="pic"></span>{% trans "RSS feed" %}</a></li>
-			<li class="rss"><a href="/browse/feeds/atom/{{ LANGUAGE_CODE }}/?{{ query|escape }}"><span class="pic"></span>{% trans "ATOM feed" %}</a></li>
-			<li class="print"><a href="#" onclick="window.print(); return false;">{% trans "print" %}</a></li>
-		</ul>
-	</div>
+    <div id="add_box" class="sidebar-box">
+        <h3><b>{% trans "tools" %}</b></h3>
+        <ul>
+            <li class="note_sidebar"><a href="/my-profile/memos/"><span class="pic"></span>{% trans "memos" %} <em>(<span id="memo_count">{{ request|get_memo_count }}</span>)</em></a></li>
+            {% if request.user.is_authenticated %}
+                <li class="add_sidebar"><a href="/my-profile/favorites/"><span class="pic"></span>{% trans "favorites" %}</a></li>
+            {% endif %}
+            <li class="rss"><a href="/browse/feeds/rss/{{ LANGUAGE_CODE }}/?{{ query|escape }}"><span class="pic"></span>{% trans "RSS feed" %}</a></li>
+            <li class="rss"><a href="/browse/feeds/atom/{{ LANGUAGE_CODE }}/?{{ query|escape }}"><span class="pic"></span>{% trans "ATOM feed" %}</a></li>
+            <li class="print"><a href="#" onclick="window.print(); return false;">{% trans "print" %}</a></li>
+        </ul>
+    </div>
 {% endblock %}
 -->{% endcomment %}
 
 {% block content %}
 
     {% if object_list %}
-    
-        {% include "utils/includes/sorting_and_pagination.html" %}
-        
-        {% include "site_specific/context_item_list.html" %}
-	
+
         {% include "utils/includes/sorting_and_pagination.html" %}
 
-     {% else %}
+        {% include "site_specific/context_item_list.html" %}
+
+        {% include "utils/includes/sorting_and_pagination.html" %}
+
+    {% else %}
         <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>
-    {% endif %}<div class="cleaner"></div></div>
+    {% endif %}
+    <div class="cleaner"></div>
 {% endblock %}
 
 {% block breadcrumbs %}

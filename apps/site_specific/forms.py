@@ -53,11 +53,11 @@ HOURS_CHOICES = [("", _("HH"))] + [(i, "%02d" % i) for i in range(0, 24)]
 MINUTES_CHOICES = [("", _("MM"))] + [(i, "%02d" % i) for i in range(0, 60, 5)]
 
 # prexixes of fields to guarantee uniqueness
-PREFIX_CI = 'CI_' # Creative Sector aka Creative Industry
-PREFIX_BC = 'BC_' # Context Category aka Business Category
-PREFIX_OT = 'OT_' # Object Type
-PREFIX_LT = 'LT_' # Location Type
-PREFIX_JS = 'JS_' # Job Sector
+PREFIX_CI = 'CI_'  # Creative Sector aka Creative Industry
+PREFIX_BC = 'BC_'  # Context Category aka Business Category
+PREFIX_OT = 'OT_'  # Object Type
+PREFIX_LT = 'LT_'  # Location Type
+PREFIX_JS = 'JS_'  # Job Sector
 
 BIRTHDAY_DD_CHOICES = Person._meta.get_field('birthday_dd').get_choices()
 BIRTHDAY_DD_CHOICES[0] = ("", "----")
@@ -95,14 +95,14 @@ ACCESS_TYPE_CHOICES = (
     ("public", _("Public")),
     ("private", _("Private")),
     ("secret", _("Secret")),
-    )
+)
 
 GROUP_TYPE_CHOICES = [
-    ('', _("- Please select -"))
-    ] + [
-        (str(el.id), el.get_title())
-        for el in get_related_queryset(PersonGroup, 'group_type')
-        ]
+                         ('', _("- Please select -"))
+                     ] + [
+                         (str(el.id), el.get_title())
+                         for el in get_related_queryset(PersonGroup, 'group_type')
+                         ]
 
 MEMBERSHIP_OPTION_CHOICES = (
     ('', _("- Please select -")),
@@ -113,18 +113,18 @@ MEMBERSHIP_OPTION_CHOICES = (
 PREFERRED_LANGUAGE_CHOICES = XChoiceList(
     get_related_queryset(PersonGroup, 'preferred_language'),
     null_choice_text=_("- Please select -"),
-    )
+)
 
 ESTABLISHMENT_YYYY_CHOICES = Institution._meta.get_field('establishment_yyyy').get_choices()
 ESTABLISHMENT_YYYY_CHOICES[0] = ("", _("Year"))
 ESTABLISHMENT_MM_CHOICES = Institution._meta.get_field('establishment_mm').get_choices()
 ESTABLISHMENT_MM_CHOICES[0] = ("", _("Month"))
 
-
-LOGO_SIZE = getattr(settings, "LOGO_SIZE", (100,100))
-MIN_LOGO_SIZE = getattr(settings, "MIN_LOGO_SIZE", (100,100))
+LOGO_SIZE = getattr(settings, "LOGO_SIZE", (100, 100))
+MIN_LOGO_SIZE = getattr(settings, "MIN_LOGO_SIZE", (100, 100))
 STR_LOGO_SIZE = "%sx%s" % LOGO_SIZE
 STR_MIN_LOGO_SIZE = "%sx%s" % MIN_LOGO_SIZE
+
 
 class ProfileFormSet(BaseFormSet):
     def __init__(self, parent_instance, index, get_instances, *args, **kwargs):
@@ -135,7 +135,7 @@ class ProfileFormSet(BaseFormSet):
         for instance in qs:
             kwargs['initial'].append(instance.__dict__)
         super(ProfileFormSet, self).__init__(*args, **kwargs)
-        
+
     def _construct_form(self, i, **kwargs):
         """
         Instantiates and returns the i-th form instance in a formset.
@@ -159,16 +159,16 @@ class ProfileFormSet(BaseFormSet):
 
 
 # TODO: each form could be ModelForm. Each formset could be ModelFormSet.
-class PersonProfile: # namespace
+class PersonProfile:  # namespace
     class IdentityForm(dynamicforms.Form):
         first_name = forms.CharField(
             required=True,
             label=_("First Name"),
-            )
+        )
         last_name = forms.CharField(
             required=True,
             label=_("Last Name"),
-            )
+        )
 
         def __init__(self, person, index, *args, **kwargs):
             super(IdentityForm, self).__init__()
@@ -178,6 +178,7 @@ class PersonProfile: # namespace
             if not args and not kwargs:  # if nothing is posted
                 self.fields['first_name'].initial = person.user.first_name
                 self.fields['last_name'].initial = person.user.last_name
+
         def save(self):
             person = self.person
             user = person.user
@@ -186,21 +187,21 @@ class PersonProfile: # namespace
             user.save()
             person.save()
             return person
-            
+
         def get_extra_context(self):
             return {}
-            
+
     class DescriptionForm(dynamicforms.Form):
         description_en = forms.CharField(
             label=_("Description (English)"),
             required=False,
             widget=forms.Textarea(),
-            )
+        )
         description_de = forms.CharField(
             label=_("Description (German)"),
             required=False,
             widget=forms.Textarea(),
-            )
+        )
 
         def __init__(self, person, index, *args, **kwargs):
             super(DescriptionForm, self).__init__()
@@ -210,29 +211,32 @@ class PersonProfile: # namespace
             if not args and not kwargs:  # if nothing is posted
                 self.fields['description_en'].initial = person.description_en
                 self.fields['description_de'].initial = person.description_de
+
         def save(self):
             person = self.person
             person.description_en = self.cleaned_data['description_en']
             person.description_de = self.cleaned_data['description_de']
             person.save()
             return person
-            
+
         def get_extra_context(self):
             return {}
-    
+
     class AvatarForm(dynamicforms.Form):
         media_file = ImageField(
-            label= _("Photo"),
-            help_text= _("You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px.") % STR_MIN_LOGO_SIZE,
+            label=_("Photo"),
+            help_text=_(
+                "You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px.") % STR_MIN_LOGO_SIZE,
             required=False,
             min_dimensions=MIN_LOGO_SIZE,
-            )
+        )
 
         def __init__(self, person, index, *args, **kwargs):
             super(AvatarForm, self).__init__()
             self.person = person
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
+
         def save(self):
             person = self.person
             if "media_file" in self.files:
@@ -241,18 +245,19 @@ class PersonProfile: # namespace
                     person,
                     media_file.name,
                     media_file,
-                    subpath = "avatar/"
-                    )
+                    subpath="avatar/"
+                )
             return person
+
         def get_extra_context(self):
             return {}
-    
+
     class ContactForm(dynamicforms.Form):
         location_type = forms.ChoiceField(
             required=True,
             label=_("Location type"),
             choices=LOCATION_TYPE_CHOICES,
-            )
+        )
         """
         institution:
         
@@ -272,196 +277,196 @@ class PersonProfile: # namespace
             required=False,
             label=_("Institution"),
             help_text=_("Please enter a letter to display a list of available institutions"),
-            app="institutions", 
-            qs_function="get_all_institutions",   
-            display_attr="title", 
+            app="institutions",
+            qs_function="get_all_institutions",
+            display_attr="title",
             add_display_attr="get_address_string",
             options={
                 "minChars": 1,
                 "max": 20,
                 "mustMatch": 1,
-                "highlight" : False,
-                },
-            )
+                "highlight": False,
+            },
+        )
         institution_title = forms.CharField(
             required=False,
             label=_("Institution Title"),
         )
-        
+
         institution_website = forms.URLField(
             required=False,
             label=_("Institution Website"),
         )
-        
+
         location_title = forms.CharField(
             required=False,
             label=_("Location title"),
             max_length=255,
-            )
+        )
         street_address = forms.CharField(
             required=False,
             label=_("Street Address"),
-            )
+        )
         street_address2 = forms.CharField(
             required=False,
             label=_("Street Address (2nd line)"),
-            )
+        )
         city = forms.CharField(
             required=False,
             label=_("City"),
-            )
+        )
         postal_code = forms.CharField(
             required=False,
             label=_("Postal Code"),
-            )
+        )
         country = forms.ChoiceField(
             required=False,
             choices=Address._meta.get_field("country").get_choices(),
             label=_("Country"),
-            )
+        )
         district = forms.CharField(
             required=False,
-            widget = forms.HiddenInput(
+            widget=forms.HiddenInput(
                 attrs={
                     "class": "form_hidden",
-                    }
-                ),
-            )
+                }
+            ),
+        )
         longitude = forms.CharField(
             required=False,
-            widget = forms.HiddenInput(
+            widget=forms.HiddenInput(
                 attrs={
                     "class": "form_hidden",
-                    }
-                ),
-            )
+                }
+            ),
+        )
         latitude = forms.CharField(
             required=False,
-            widget = forms.HiddenInput(
+            widget=forms.HiddenInput(
                 attrs={
                     "class": "form_hidden",
-                    }
-                ),
-            )
+                }
+            ),
+        )
         phone_country = forms.CharField(
             required=False,
             max_length=4,
             initial="49",
-            )
+        )
         phone_area = forms.CharField(
             required=False,
             max_length=5,
-            )
+        )
         phone_number = forms.CharField(
             required=False,
             max_length=15,
             label=_("Phone"),
-            )
+        )
         fax_country = forms.CharField(
             required=False,
             max_length=4,
             initial="49",
-            )
+        )
         fax_area = forms.CharField(
             required=False,
             max_length=5,
-            )
+        )
         fax_number = forms.CharField(
             required=False,
             max_length=15,
             label=_("Fax"),
-            )
+        )
         mobile_country = forms.CharField(
             required=False,
             max_length=4,
             initial="49",
-            )
+        )
         mobile_area = forms.CharField(
             required=False,
             max_length=5,
-            )
+        )
         mobile_number = forms.CharField(
             required=False,
             max_length=15,
             label=_("Mobile"),
-            )
+        )
         email0 = forms.EmailField(
             required=False,
             label=_("E-mail"),
-            )
+        )
         email1 = forms.EmailField(
             required=False,
             label=_("E-mail"),
-            )
+        )
         email2 = forms.EmailField(
             required=False,
             label=_("E-mail"),
-            )
+        )
         url0_type = forms.ChoiceField(
             required=False,
             choices=URL_TYPE_CHOICES,
             label=_("Type"),
-            )
+        )
         url0_link = forms.URLField(
             required=False,
             label=_("URL"),
-            )
+        )
         url1_type = forms.ChoiceField(
             required=False,
             choices=URL_TYPE_CHOICES,
             label=_("Type"),
-            )
+        )
         url1_link = forms.URLField(
             required=False,
             label=_("URL"),
-            )
+        )
         url2_type = forms.ChoiceField(
             required=False,
             choices=URL_TYPE_CHOICES,
             label=_("Type"),
-            )
+        )
         url2_link = forms.URLField(
             required=False,
             label=_("URL"),
-            )
+        )
         im0_type = forms.ChoiceField(
             required=False,
             choices=IM_TYPE_CHOICES,
             label=_("Type"),
-            )
+        )
         im0_address = forms.CharField(
             required=False,
             max_length=255,
             label=_("Address"),
-            )
+        )
         im1_type = forms.ChoiceField(
             required=False,
             choices=IM_TYPE_CHOICES,
             label=_("Type"),
-            )
+        )
         im1_address = forms.CharField(
             required=False,
             max_length=255,
             label=_("Address"),
-            )
+        )
         im2_type = forms.ChoiceField(
             required=False,
             choices=IM_TYPE_CHOICES,
             label=_("Type"),
-            )
+        )
         im2_address = forms.CharField(
             required=False,
             max_length=255,
             label=_("Address"),
-            )
+        )
         save_as_primary = forms.CharField(
             required=False,
-            widget = forms.HiddenInput(
+            widget=forms.HiddenInput(
                 attrs={
                     "class": "form_hidden",
-                    }
-                ),
-            )
+                }
+            ),
+        )
 
         def __init__(self, person, index, *args, **kwargs):
             super(ContactForm, self).__init__()
@@ -511,11 +516,12 @@ class PersonProfile: # namespace
                     self.fields['email0'].initial = contact.email0_address
                     self.fields['email1'].initial = contact.email1_address
                     self.fields['email2'].initial = contact.email2_address
+
         def save(self):
             person = self.person
             index = self.index
             data = self.cleaned_data
-            save_as_primary = bool(data.get("save_as_primary", False)) 
+            save_as_primary = bool(data.get("save_as_primary", False))
             if save_as_primary:
                 for contact in person.get_contacts():
                     contact.is_primary = False
@@ -527,21 +533,21 @@ class PersonProfile: # namespace
             institution_id = None
             if institution_title:
                 institution = Institution.objects.create(
-                    title = institution_title
-                    )
+                    title=institution_title
+                )
                 institution_id = institution.id
                 if hasattr(institution, "create_default_group"):
                     person_group = institution.create_default_group()
                     person_group.content_object = institution
                     person_group.save()
                     membership = person_group.groupmembership_set.create(
-                        user = person.user,
-                        role = "owners",
-                        inviter = person.user,
-                        confirmer = person.user,
-                        is_accepted = True,
-                        )
-            if index is not None and index.isdigit(): # change
+                        user=person.user,
+                        role="owners",
+                        inviter=person.user,
+                        confirmer=person.user,
+                        is_accepted=True,
+                    )
+            if index is not None and index.isdigit():  # change
                 index = int(index)
                 contact = person.get_contacts()[index]
                 contact.location_type_id = data.get('location_type', '')
@@ -576,7 +582,7 @@ class PersonProfile: # namespace
                 contact.email2_address = data.get('email2', '')
                 contact.is_primary = save_as_primary
                 contact.save()
-            else: # create new
+            else:  # create new
                 contact = person.individualcontact_set.create(
                     location_type_id=data['location_type'] or None,
                     location_title=data.get('location_title', ''),
@@ -609,7 +615,7 @@ class PersonProfile: # namespace
                     email1_address=data.get('email1', ''),
                     email2_address=data.get('email2', ''),
                     is_primary=save_as_primary,
-                    )
+                )
             if data['country']:
                 Address.objects.set_for(
                     contact,
@@ -622,14 +628,14 @@ class PersonProfile: # namespace
                     postal_code=data['postal_code'],
                     latitude=data['latitude'],
                     longitude=data['longitude'],
-                    )
+                )
             else:
                 contact.postal_address = None
             if institution and person in institution.get_owners():
                 contact = institution.institutionalcontact_set.create(
-                    url0_link = data['institution_website'],
-                    is_primary = True,
-                    )
+                    url0_link=data['institution_website'],
+                    is_primary=True,
+                )
                 if data['country']:
                     Address.objects.set_for(
                         contact,
@@ -642,8 +648,9 @@ class PersonProfile: # namespace
                         postal_code=data['postal_code'],
                         latitude=data['latitude'],
                         longitude=data['longitude'],
-                        )
+                    )
             return person
+
         def get_extra_context(self):
             person = self.person
             index = self.index
@@ -652,47 +659,47 @@ class PersonProfile: # namespace
                 index = int(index)
                 contact = person.get_contacts()[index]
             return {'contact': contact}
-        
+
     class DetailsForm(dynamicforms.Form):
         individual_type = forms.ChoiceField(
             required=False,
             choices=INDIVIDUAL_TYPE_CHOICES,
             label=_("Status"),
-            )
+        )
         salutation = forms.ChoiceField(
             required=False,
             choices=SALUTATION_CHOICES,
             label=_("Salutation"),
-            )
+        )
         birthday_dd = forms.ChoiceField(
             required=False,
             choices=BIRTHDAY_DD_CHOICES,
             label=_("Birthday"),
-            )
+        )
         birthday_mm = forms.ChoiceField(
             required=False,
             choices=BIRTHDAY_MM_CHOICES,
             label=_("Birthday"),
-            )
+        )
         birthday_yyyy = forms.ChoiceField(
             required=False,
             choices=BIRTHDAY_YYYY_CHOICES,
             label=_("Birthday"),
-            )
+        )
         occupation = forms.CharField(
             required=False,
             label=_("Position in the company"),
-            )
+        )
         nationality = forms.ChoiceField(
             required=False,
             label=_("Nationality"),
             choices=NATIONALITY_CHOICES,
-            )
+        )
         preferred_language = forms.ChoiceField(
             required=False,
             label=_("Preferred Language"),
             choices=PREFERRED_LANGUAGE_CHOICES,
-            )
+        )
 
         def __init__(self, person, index, *args, **kwargs):
             super(DetailsForm, self).__init__()
@@ -708,6 +715,7 @@ class PersonProfile: # namespace
                 self.fields['occupation'].initial = person.occupation
                 self.fields['nationality'].initial = person.nationality_id
                 self.fields['preferred_language'].initial = person.preferred_language_id
+
         def save(self):
             person = self.person
             person.individual_type_id = self.cleaned_data['individual_type'] or None
@@ -720,19 +728,21 @@ class PersonProfile: # namespace
             person.preferred_language_id = self.cleaned_data['preferred_language'] or None
             person.save()
             return person
+
         def get_extra_context(self):
             return {}
-    
+
     class CategoriesForm(dynamicforms.Form):
         choose_creative_sectors = forms.BooleanField(
             initial=True,
             widget=forms.HiddenInput(
                 attrs={
                     "class": "form_hidden",
-                    }
-                ),
+                }
+            ),
             required=False,
-            )
+        )
+
         def clean_choose_creative_sectors(self):
             data = self.data
             el_count = 0
@@ -742,16 +752,17 @@ class PersonProfile: # namespace
             if not el_count:
                 raise forms.ValidationError(_("Please choose at least one creative sector."))
             return True
-            
+
         choose_context_categories = forms.BooleanField(
             initial=True,
             widget=forms.HiddenInput(
                 attrs={
                     "class": "form_hidden",
-                    }
-                ),
+                }
+            ),
             required=False,
-            )
+        )
+
         def clean_choose_context_categories(self):
             data = self.data
             el_count = 0
@@ -792,7 +803,7 @@ class PersonProfile: # namespace
             for el in person.get_context_categories():
                 for ancestor in el.get_ancestors(include_self=True):
                     self.fields[PREFIX_BC + str(ancestor.id)].initial = True
-            
+
         def save(self, *args, **kwargs):
             person = self.person
             cleaned = self.cleaned_data
@@ -802,29 +813,29 @@ class PersonProfile: # namespace
                     # remove all the parents
                     for ancestor in item.get_ancestors():
                         if ancestor.id in selected_cs:
-                            del(selected_cs[ancestor.id])
+                            del (selected_cs[ancestor.id])
                     # add current
                     selected_cs[item.id] = item
             person.creative_sectors.clear()
             person.creative_sectors.add(*selected_cs.values())
-            
+
             selected_cc = {}
             for item in get_related_queryset(Person, "context_categories"):
                 if cleaned.get(PREFIX_BC + str(item.id), False):
                     # remove all the parents
                     for ancestor in item.get_ancestors():
                         if ancestor.id in selected_cc:
-                            del(selected_cc[ancestor.id])
+                            del (selected_cc[ancestor.id])
                     # add current
                     selected_cc[item.id] = item
             person.context_categories.clear()
             person.context_categories.add(*selected_cc.values())
             ContextItem.objects.update_for(person)
             return person
-            
+
         def get_extra_context(self):
             return {}
-    
+
     forms = {
         'identity': IdentityForm,
         'description': DescriptionForm,
@@ -832,18 +843,19 @@ class PersonProfile: # namespace
         'contact': ContactForm,
         'details': DetailsForm,
         'categories': CategoriesForm,
-        }
+    }
 
-class InstitutionProfile: # namespace
+
+class InstitutionProfile:  # namespace
     class IdentityForm(dynamicforms.Form):
         title = forms.CharField(
             required=True,
             label=_("Institution Name"),
-            )
+        )
         title2 = forms.CharField(
             required=False,
             label=_("Institution Name 2nd line"),
-            )
+        )
 
         def __init__(self, institution, index, *args, **kwargs):
             super(IdentityForm, self).__init__()
@@ -853,26 +865,28 @@ class InstitutionProfile: # namespace
             if not args and not kwargs:  # if nothing is posted
                 self.fields['title'].initial = institution.title
                 self.fields['title2'].initial = institution.title2
+
         def save(self):
             institution = self.institution
             institution.title = self.cleaned_data['title']
             institution.title2 = self.cleaned_data['title2']
             institution.save()
             return institution
+
         def get_extra_context(self):
             return {}
-            
+
     class DescriptionForm(dynamicforms.Form):
         description_en = forms.CharField(
             label=_("Description (English)"),
             required=False,
             widget=forms.Textarea(),
-            )
+        )
         description_de = forms.CharField(
             label=_("Description (German)"),
             required=False,
             widget=forms.Textarea(),
-            )
+        )
 
         def __init__(self, institution, index, *args, **kwargs):
             super(DescriptionForm, self).__init__()
@@ -882,28 +896,32 @@ class InstitutionProfile: # namespace
             if not args and not kwargs:  # if nothing is posted
                 self.fields['description_en'].initial = institution.description_en
                 self.fields['description_de'].initial = institution.description_de
+
         def save(self):
             institution = self.institution
             institution.description_en = self.cleaned_data['description_en']
             institution.description_de = self.cleaned_data['description_de']
             institution.save()
             return institution
+
         def get_extra_context(self):
             return {}
-    
+
     class AvatarForm(dynamicforms.Form):
         media_file = ImageField(
-            label= _("Photo"),
-            help_text= _("You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px.") % STR_MIN_LOGO_SIZE,
+            label=_("Photo"),
+            help_text=_(
+                "You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px.") % STR_MIN_LOGO_SIZE,
             required=False,
             min_dimensions=MIN_LOGO_SIZE,
-            )
+        )
 
         def __init__(self, institution, index, *args, **kwargs):
             super(AvatarForm, self).__init__()
             self.institution = institution
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
+
         def save(self):
             institution = self.institution
             if "media_file" in self.files:
@@ -912,188 +930,188 @@ class InstitutionProfile: # namespace
                     institution,
                     media_file.name,
                     media_file,
-                    subpath = "avatar/"
-                    )
+                    subpath="avatar/"
+                )
             return institution
-            
+
         def get_extra_context(self):
             return {}
-    
+
     class ContactForm(dynamicforms.Form):
         location_type = forms.ChoiceField(
             required=True,
             label=_("Location type"),
             choices=INSTITUTION_LOCATION_TYPE_CHOICES,
-            )
+        )
         location_title = forms.CharField(
             required=False,
             label=_("Location title"),
             max_length=255,
-            )
+        )
         street_address = forms.CharField(
             required=True,
             label=_("Street Address"),
-            )
+        )
         street_address2 = forms.CharField(
             required=False,
             label=_("Street Address (2nd line)"),
-            )
+        )
         city = forms.CharField(
             required=True,
             label=_("City"),
-            )
+        )
         postal_code = forms.CharField(
             required=True,
             label=_("Postal Code"),
-            )
+        )
         country = forms.ChoiceField(
             required=True,
             choices=Address._meta.get_field("country").get_choices(),
             label=_("Country"),
-            )
+        )
         district = forms.CharField(
             required=False,
-            widget = forms.HiddenInput(
+            widget=forms.HiddenInput(
                 attrs={
                     "class": "form_hidden",
-                    }
-                ),
-            )
+                }
+            ),
+        )
         longitude = forms.CharField(
             required=False,
-            widget = forms.HiddenInput(
+            widget=forms.HiddenInput(
                 attrs={
                     "class": "form_hidden",
-                    }
-                ),
-            )
+                }
+            ),
+        )
         latitude = forms.CharField(
             required=False,
-            widget = forms.HiddenInput(
+            widget=forms.HiddenInput(
                 attrs={
                     "class": "form_hidden",
-                    }
-                ),
-            )
+                }
+            ),
+        )
         phone_country = forms.CharField(
             required=False,
             max_length=4,
             initial="49",
-            )
+        )
         phone_area = forms.CharField(
             required=False,
             max_length=5,
-            )
+        )
         phone_number = forms.CharField(
             required=False,
             max_length=15,
             label=_("Phone"),
-            )
+        )
         fax_country = forms.CharField(
             required=False,
             max_length=4,
             initial="49",
-            )
+        )
         fax_area = forms.CharField(
             required=False,
             max_length=5,
-            )
+        )
         fax_number = forms.CharField(
             required=False,
             max_length=15,
             label=_("Fax"),
-            )
+        )
         mobile_country = forms.CharField(
             required=False,
             max_length=4,
             initial="49",
-            )
+        )
         mobile_area = forms.CharField(
             required=False,
             max_length=5,
-            )
+        )
         mobile_number = forms.CharField(
             required=False,
             max_length=15,
             label=_("Mobile"),
-            )
+        )
         email0 = forms.EmailField(
             required=False,
             label=_("E-mail"),
-            )
+        )
         email1 = forms.EmailField(
             required=False,
             label=_("E-mail"),
-            )
+        )
         email2 = forms.EmailField(
             required=False,
             label=_("E-mail"),
-            )
+        )
         url0_type = forms.ChoiceField(
             required=False,
             choices=URL_TYPE_CHOICES,
             label=_("Type"),
-            )
+        )
         url0_link = forms.URLField(
             required=False,
             label=_("URL"),
-            )
+        )
         url1_type = forms.ChoiceField(
             required=False,
             choices=URL_TYPE_CHOICES,
             label=_("Type"),
-            )
+        )
         url1_link = forms.URLField(
             required=False,
             label=_("URL"),
-            )
+        )
         url2_type = forms.ChoiceField(
             required=False,
             choices=URL_TYPE_CHOICES,
             label=_("Type"),
-            )
+        )
         url2_link = forms.URLField(
             required=False,
             label=_("URL"),
-            )
+        )
         im0_type = forms.ChoiceField(
             required=False,
             choices=IM_TYPE_CHOICES,
             label=_("Type"),
-            )
+        )
         im0_address = forms.CharField(
             required=False,
             max_length=255,
             label=_("Address"),
-            )
+        )
         im1_type = forms.ChoiceField(
             required=False,
             choices=IM_TYPE_CHOICES,
             label=_("Type"),
-            )
+        )
         im1_address = forms.CharField(
             required=False,
             max_length=255,
             label=_("Address"),
-            )
+        )
         im2_type = forms.ChoiceField(
             required=False,
             choices=IM_TYPE_CHOICES,
             label=_("Type"),
-            )
+        )
         im2_address = forms.CharField(
             required=False,
             max_length=255,
             label=_("Address"),
-            )
+        )
         save_as_primary = forms.CharField(
             required=False,
-            widget = forms.HiddenInput(
+            widget=forms.HiddenInput(
                 attrs={
                     "class": "form_hidden",
-                    }
-                ),
-            )
+                }
+            ),
+        )
 
         def __init__(self, institution, index, *args, **kwargs):
             super(ContactForm, self).__init__()
@@ -1143,18 +1161,19 @@ class InstitutionProfile: # namespace
                     self.fields['email0'].initial = contact.email0_address
                     self.fields['email1'].initial = contact.email1_address
                     self.fields['email2'].initial = contact.email2_address
+
         def save(self):
             institution = self.institution
             index = self.index
             data = self.cleaned_data
-            save_as_primary = bool(data.get("save_as_primary", False)) 
+            save_as_primary = bool(data.get("save_as_primary", False))
             if save_as_primary:
                 for contact in institution.get_contacts():
                     contact.is_primary = False
                     super(type(contact), contact).save()
             elif not institution.get_contacts():
                 save_as_primary = True
-            if index is not None and index.isdigit(): # change
+            if index is not None and index.isdigit():  # change
                 index = int(index)
                 contact = institution.get_contacts()[index]
                 contact.location_type_id = data.get('location_type', '')
@@ -1188,7 +1207,7 @@ class InstitutionProfile: # namespace
                 contact.email2_address = data.get('email2', '')
                 contact.is_primary = save_as_primary
                 contact.save()
-            else: # create new
+            else:  # create new
                 contact = institution.institutionalcontact_set.create(
                     location_type_id=data['location_type'] or None,
                     location_title=data.get('location_title', ''),
@@ -1220,7 +1239,7 @@ class InstitutionProfile: # namespace
                     email1_address=data.get('email1', ''),
                     email2_address=data.get('email2', ''),
                     is_primary=save_as_primary,
-                    )
+                )
             Address.objects.set_for(
                 contact,
                 "postal_address",
@@ -1232,9 +1251,9 @@ class InstitutionProfile: # namespace
                 postal_code=data['postal_code'],
                 latitude=data['latitude'],
                 longitude=data['longitude'],
-                )
+            )
             return institution
-            
+
         def get_extra_context(self):
             institution = self.institution
             index = self.index
@@ -1243,34 +1262,34 @@ class InstitutionProfile: # namespace
                 index = int(index)
                 contact = institution.get_contacts()[index]
             return {'contact': contact}
-        
+
     class DetailsForm(dynamicforms.Form):
         legal_form = forms.ChoiceField(
             required=True,
             choices=LEGAL_FORM_CHOICES,
             label=_("Legal Form"),
-            )
-        
+        )
+
         establishment_yyyy = forms.ChoiceField(
-            required=False, #should be required=True ???
+            required=False,  # should be required=True ???
             choices=ESTABLISHMENT_YYYY_CHOICES,
             label=_("Establishment"),
             error_messages={
                 'required': _("Year of establishment is required"),
-                },
-            )
+            },
+        )
         establishment_mm = forms.ChoiceField(
-            required=False, #should be required=True ???
+            required=False,  # should be required=True ???
             choices=ESTABLISHMENT_MM_CHOICES,
             label=_("Establishment"),
             error_messages={
                 'required': _("Month of establishment is required"),
-                },
-            )
+            },
+        )
         nof_employees = forms.IntegerField(
             required=False,
             label=_("Number of Employees")
-            )
+        )
 
         def __init__(self, institution, index, *args, **kwargs):
             super(DetailsForm, self).__init__()
@@ -1282,6 +1301,7 @@ class InstitutionProfile: # namespace
                 self.fields['establishment_yyyy'].initial = institution.establishment_yyyy
                 self.fields['establishment_mm'].initial = institution.establishment_mm
                 self.fields['nof_employees'].initial = institution.nof_employees
+
         def save(self):
             institution = self.institution
             institution.legal_form_id = self.cleaned_data.get('legal_form', None)
@@ -1290,17 +1310,17 @@ class InstitutionProfile: # namespace
             institution.nof_employees = self.cleaned_data['nof_employees']
             institution.save()
             return institution
-            
+
         def get_extra_context(self):
             return {}
-        
+
     class PaymentForm(dynamicforms.Form):
         is_card_visa_ok = forms.BooleanField(
             label=_("Visa"),
             required=False,
             initial=False,
         )
-        
+
         is_card_mastercard_ok = forms.BooleanField(
             label=_("MasterCard"),
             required=False,
@@ -1311,50 +1331,50 @@ class InstitutionProfile: # namespace
             label=_("American Express"),
             required=False,
             initial=False,
-        )        
+        )
 
         is_paypal_ok = forms.BooleanField(
             label=_("PayPal"),
             required=False,
             initial=False,
-        )  
-        
+        )
+
         is_cash_ok = forms.BooleanField(
             label=_("Cash"),
             required=False,
             initial=False,
-        )  
+        )
 
         is_transaction_ok = forms.BooleanField(
             label=_("Bank transfer"),
             required=False,
             initial=False,
         )
-        
+
         is_prepayment_ok = forms.BooleanField(
             label=_("Prepayment"),
             required=False,
             initial=False,
         )
-        
+
         is_on_delivery_ok = forms.BooleanField(
             label=_("Payment on delivery"),
             required=False,
             initial=False,
-        )  
-        
+        )
+
         is_invoice_ok = forms.BooleanField(
             label=_("Invoice"),
             required=False,
             initial=False,
-        )  
+        )
 
         is_ec_maestro_ok = forms.BooleanField(
             label=_("EC Maestro"),
             required=False,
             initial=False,
-        )  
-        
+        )
+
         is_giropay_ok = forms.BooleanField(
             label=_("Giropay"),
             required=False,
@@ -1378,6 +1398,7 @@ class InstitutionProfile: # namespace
                 self.fields['is_invoice_ok'].initial = institution.is_invoice_ok
                 self.fields['is_ec_maestro_ok'].initial = institution.is_ec_maestro_ok
                 self.fields['is_giropay_ok'].initial = institution.is_giropay_ok
+
         def save(self):
             institution = self.institution
             institution.is_card_visa_ok = self.cleaned_data['is_card_visa_ok']
@@ -1393,23 +1414,23 @@ class InstitutionProfile: # namespace
             institution.is_giropay_ok = self.cleaned_data['is_giropay_ok']
             institution.save()
             return institution
-            
+
         def get_extra_context(self):
             return {}
-    
+
     class OpeningHoursForm(dynamicforms.Form):
         show_breaks = forms.BooleanField(
-            required=False,                                 
+            required=False,
             label=_("Morning/Afternoon"),
             initial=False,
-            )
-        
+        )
+
         is_appointment_based = forms.BooleanField(
             label=_("Visiting by appointment"),
             required=False,
             initial=False,
-            )
-        
+        )
+
         mon_open0 = forms.TimeField(required=False)
         mon_close0 = forms.TimeField(required=False)
         mon_open1 = forms.TimeField(required=False)
@@ -1418,8 +1439,8 @@ class InstitutionProfile: # namespace
             label=_("Closed"),
             required=False,
             initial=False,
-            )
-    
+        )
+
         tue_open0 = forms.TimeField(required=False)
         tue_close0 = forms.TimeField(required=False)
         tue_open1 = forms.TimeField(required=False)
@@ -1428,8 +1449,8 @@ class InstitutionProfile: # namespace
             label=_("Closed"),
             required=False,
             initial=False,
-            )
-    
+        )
+
         wed_open0 = forms.TimeField(required=False)
         wed_close0 = forms.TimeField(required=False)
         wed_open1 = forms.TimeField(required=False)
@@ -1438,8 +1459,8 @@ class InstitutionProfile: # namespace
             label=_("Closed"),
             required=False,
             initial=False,
-            )
-        
+        )
+
         thu_open0 = forms.TimeField(required=False)
         thu_close0 = forms.TimeField(required=False)
         thu_open1 = forms.TimeField(required=False)
@@ -1448,8 +1469,8 @@ class InstitutionProfile: # namespace
             label=_("Closed"),
             required=False,
             initial=False,
-            )
-        
+        )
+
         fri_open0 = forms.TimeField(required=False)
         fri_close0 = forms.TimeField(required=False)
         fri_open1 = forms.TimeField(required=False)
@@ -1458,8 +1479,8 @@ class InstitutionProfile: # namespace
             label=_("Closed"),
             required=False,
             initial=False,
-            )
-        
+        )
+
         sat_open0 = forms.TimeField(required=False)
         sat_close0 = forms.TimeField(required=False)
         sat_open1 = forms.TimeField(required=False)
@@ -1468,8 +1489,8 @@ class InstitutionProfile: # namespace
             label=_("Closed"),
             required=False,
             initial=False,
-            )
-        
+        )
+
         sun_open0 = forms.TimeField(required=False)
         sun_close0 = forms.TimeField(required=False)
         sun_open1 = forms.TimeField(required=False)
@@ -1478,18 +1499,18 @@ class InstitutionProfile: # namespace
             label=_("Closed"),
             required=False,
             initial=False,
-            )
-        
+        )
+
         exceptions_en = forms.CharField(
             label=_('Exceptions for working hours (English)'),
             required=False,
             widget=forms.Textarea,
-            )
+        )
         exceptions_de = forms.CharField(
             label=_('Exceptions for working hours (German)'),
             required=False,
             widget=forms.Textarea,
-            )
+        )
 
         def __init__(self, institution, index, *args, **kwargs):
             super(OpeningHoursForm, self).__init__()
@@ -1533,9 +1554,9 @@ class InstitutionProfile: # namespace
                 self.fields['exceptions_en'].initial = institution.exceptions_en
                 self.fields['exceptions_de'].initial = institution.exceptions_de
                 self.fields['show_breaks'].initial = show_breaks
-                
+
         def clean(self):
-            
+
             show_breaks = self.cleaned_data.get('show_breaks', False)
             for week_day in WEEK_DAYS:
 
@@ -1544,50 +1565,54 @@ class InstitutionProfile: # namespace
                 close0 = self.cleaned_data.get(week_day + '_close0', None)
                 open1 = self.cleaned_data.get(week_day + '_open1', None)
                 close1 = self.cleaned_data.get(week_day + '_close1', None)
-                    
+
                 # here, we apply opening hours and do some checks
                 if not is_closed:
                     if open0:
                         if not close0:
                             self._errors[week_day + '_open0'] = [_("Please enter a closing time.")]
                         elif close0 < open0:
-                            self._errors[week_day + '_open0'] = [_("A closing time must not be before an opening time.")]
+                            self._errors[week_day + '_open0'] = [
+                                _("A closing time must not be before an opening time.")]
                     if close0:
                         if not open0:
                             self._errors[week_day + '_open0'] = [_("Please enter an opening time.")]
-                    
+
                     if show_breaks:
                         if open1:
                             if not close1:
                                 self._errors[week_day + '_open1'] = [_("Please enter a closing time.")]
                             elif close1 < open1:
-                                self._errors[week_day + '_open1'] = [_("A closing time must not be before an opening time.")]
+                                self._errors[week_day + '_open1'] = [
+                                    _("A closing time must not be before an opening time.")]
                         if close1:
                             if not open1:
                                 self._errors[week_day + '_open1'] = [_("Please enter an opening time.")]
-                        
+
                         if open1 or close1:
                             if not open0 or not close0:
-                                self._errors[week_day + '_open1']  = [_("When specifying breaks, you must enter all data.")]
+                                self._errors[week_day + '_open1'] = [
+                                    _("When specifying breaks, you must enter all data.")]
                             else:
                                 if open1 < close0:
-                                    self._errors[week_day + '_open1']  = [_("An opening time after break must not be before the closing time to break.")]
-                        
+                                    self._errors[week_day + '_open1'] = [
+                                        _("An opening time after break must not be before the closing time to break.")]
+
                         if open0 and open1 and close0 and close1:
-                           self.cleaned_data[week_day + '_open'] = open0
-                           self.cleaned_data[week_day + '_break_close'] = close0
-                           self.cleaned_data[week_day + '_break_open'] = open1
-                           self.cleaned_data[week_day + '_close'] = close1
+                            self.cleaned_data[week_day + '_open'] = open0
+                            self.cleaned_data[week_day + '_break_close'] = close0
+                            self.cleaned_data[week_day + '_break_open'] = open1
+                            self.cleaned_data[week_day + '_close'] = close1
                         elif open0 and close0:
-                           self.cleaned_data[week_day + '_open'] = open0
-                           self.cleaned_data[week_day + '_close'] = close0
+                            self.cleaned_data[week_day + '_open'] = open0
+                            self.cleaned_data[week_day + '_close'] = close0
                     else:
                         if open0 and close0:
-                           self.cleaned_data[week_day + '_open'] = open0
-                           self.cleaned_data[week_day + '_close'] = close0
-                           
+                            self.cleaned_data[week_day + '_open'] = open0
+                            self.cleaned_data[week_day + '_close'] = close0
+
             return self.cleaned_data
-            
+
         def save(self):
             institution = self.institution
             for d in WEEK_DAYS:
@@ -1604,27 +1629,28 @@ class InstitutionProfile: # namespace
                     setattr(institution, '%s_break_close' % d, None)
                     setattr(institution, '%s_break_open' % d, None)
                     setattr(institution, '%s_close' % d, time_close0)
-            
+
             institution.exceptions_en = self.cleaned_data.get('exceptions_en', '')
             institution.exceptions_de = self.cleaned_data.get('exceptions_de', '')
             institution.is_appointment_based = self.cleaned_data.get('is_appointment_based', False)
-            
+
             institution.save()
             return institution
-            
+
         def get_extra_context(self):
             return {}
-    
+
     class CategoriesForm(dynamicforms.Form):
         choose_creative_sectors = forms.BooleanField(
             initial=True,
             widget=forms.HiddenInput(
                 attrs={
                     "class": "form_hidden",
-                    }
-                ),
+                }
+            ),
             required=False,
-            )
+        )
+
         def clean_choose_creative_sectors(self):
             data = self.data
             el_count = 0
@@ -1634,16 +1660,17 @@ class InstitutionProfile: # namespace
             if not el_count:
                 raise forms.ValidationError(_("Please choose at least one creative sector."))
             return True
-            
+
         choose_context_categories = forms.BooleanField(
             initial=True,
             widget=forms.HiddenInput(
                 attrs={
                     "class": "form_hidden",
-                    }
-                ),
+                }
+            ),
             required=False,
-            )
+        )
+
         def clean_choose_context_categories(self):
             data = self.data
             el_count = 0
@@ -1653,16 +1680,17 @@ class InstitutionProfile: # namespace
             if not el_count:
                 raise forms.ValidationError(_("Please choose at least one context category."))
             return True
-            
+
         choose_object_types = forms.BooleanField(
             initial=True,
             widget=forms.HiddenInput(
                 attrs={
                     "class": "form_hidden",
-                    }
-                ),
+                }
+            ),
             required=False,
-            )
+        )
+
         def clean_choose_object_types(self):
             data = self.data
             el_count = 0
@@ -1716,7 +1744,7 @@ class InstitutionProfile: # namespace
             for el in institution.get_object_types():
                 for ancestor in el.get_ancestors(include_self=True):
                     self.fields[PREFIX_OT + str(ancestor.id)].initial = True
-            
+
         def save(self, *args, **kwargs):
             institution = self.institution
             cleaned = self.cleaned_data
@@ -1726,31 +1754,31 @@ class InstitutionProfile: # namespace
                     # remove all the parents
                     for ancestor in item.get_ancestors():
                         if ancestor.id in selected_cs:
-                            del(selected_cs[ancestor.id])
+                            del (selected_cs[ancestor.id])
                     # add current
                     selected_cs[item.id] = item
             institution.creative_sectors.clear()
             institution.creative_sectors.add(*selected_cs.values())
-            
+
             selected_cc = {}
             for item in get_related_queryset(Institution, "context_categories"):
                 if cleaned.get(PREFIX_BC + str(item.id), False):
                     # remove all the parents
                     for ancestor in item.get_ancestors():
                         if ancestor.id in selected_cc:
-                            del(selected_cc[ancestor.id])
+                            del (selected_cc[ancestor.id])
                     # add current
                     selected_cc[item.id] = item
             institution.context_categories.clear()
             institution.context_categories.add(*selected_cc.values())
-            
+
             selected_ot = {}
             for item in get_related_queryset(Institution, "institution_types"):
                 if cleaned.get(PREFIX_OT + str(item.id), False):
                     # remove all the parents
                     for ancestor in item.get_ancestors():
                         if ancestor.id in selected_ot:
-                            del(selected_ot[ancestor.id])
+                            del (selected_ot[ancestor.id])
                     # add current
                     selected_ot[item.id] = item
             institution.institution_types.clear()
@@ -1760,7 +1788,7 @@ class InstitutionProfile: # namespace
 
         def get_extra_context(self):
             return {}
-    
+
     forms = {
         'identity': IdentityForm,
         'description': DescriptionForm,
@@ -1770,23 +1798,24 @@ class InstitutionProfile: # namespace
         'payment': PaymentForm,
         'opening_hours': OpeningHoursForm,
         'categories': CategoriesForm,
-        }
+    }
 
-class EventProfile: # namespace
+
+class EventProfile:  # namespace
     class IdentityForm(dynamicforms.Form):
         title_en = forms.CharField(
             required=True,
             label=_("Title (English)"),
-            )
+        )
         title_de = forms.CharField(
             required=True,
             label=_("Title (German)"),
-            )
+        )
         event_type = forms.ChoiceField(
             required=True,
             choices=EVENT_TYPE_CHOICES,
             label=_("Event Type"),
-            )
+        )
 
         def __init__(self, event, index, *args, **kwargs):
             super(IdentityForm, self).__init__()
@@ -1797,6 +1826,7 @@ class EventProfile: # namespace
                 self.fields['title_de'].initial = event.title_de
                 self.fields['title_en'].initial = event.title_en
                 self.fields['event_type'].initial = event.event_type_id
+
         def save(self):
             event = self.event
             event.title_de = self.cleaned_data['title_de']
@@ -1804,21 +1834,21 @@ class EventProfile: # namespace
             event.event_type_id = self.cleaned_data['event_type']
             event.save()
             return event
-            
+
         def get_extra_context(self):
             return {}
-            
+
     class DescriptionForm(dynamicforms.Form):
         description_en = forms.CharField(
             label=_("Description (English)"),
             required=False,
             widget=forms.Textarea(),
-            )
+        )
         description_de = forms.CharField(
             label=_("Description (German)"),
             required=False,
             widget=forms.Textarea(),
-            )
+        )
 
         def __init__(self, event, index, *args, **kwargs):
             super(DescriptionForm, self).__init__()
@@ -1828,28 +1858,32 @@ class EventProfile: # namespace
             if not args and not kwargs:  # if nothing is posted
                 self.fields['description_en'].initial = event.description_en
                 self.fields['description_de'].initial = event.description_de
+
         def save(self):
             event = self.event
             event.description_en = self.cleaned_data['description_en']
             event.description_de = self.cleaned_data['description_de']
             event.save()
             return event
+
         def get_extra_context(self):
             return {}
-    
+
     class AvatarForm(dynamicforms.Form):
         media_file = ImageField(
-            label= _("Photo"),
-            help_text= _("You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px.") % STR_MIN_LOGO_SIZE,
+            label=_("Photo"),
+            help_text=_(
+                "You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px.") % STR_MIN_LOGO_SIZE,
             required=False,
             min_dimensions=MIN_LOGO_SIZE,
-            )
+        )
 
         def __init__(self, event, index, *args, **kwargs):
             super(AvatarForm, self).__init__()
             self.event = event
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
+
         def save(self):
             event = self.event
             if "media_file" in self.files:
@@ -1858,190 +1892,191 @@ class EventProfile: # namespace
                     event,
                     media_file.name,
                     media_file,
-                    subpath = "avatar/"
-                    )
+                    subpath="avatar/"
+                )
             return event
+
         def get_extra_context(self):
             return {}
-    
+
     class ContactForm(dynamicforms.Form):
         venue = AutocompleteField(
             label=_("Venue/Institution"),
             required=False,
             help_text=_("Please enter a letter to display a list of available venues"),
-            app="events", 
-            qs_function="get_venues",   
-            display_attr="title", 
+            app="events",
+            qs_function="get_venues",
+            display_attr="title",
             add_display_attr="get_address_string",
             options={
                 "minChars": 1,
                 "max": 20,
                 "mustMatch": 1,
-                "highlight" : False,
+                "highlight": False,
             }
         )
-        
+
         venue_title = forms.CharField(
             required=False,
             label=_("Venue/Institution Title"),
         )
-        
+
         street_address = forms.CharField(
             required=False,
             label=_("Street Address"),
-            )
+        )
         street_address2 = forms.CharField(
             required=False,
             label=_("Street Address (2nd line)"),
-            )
+        )
         city = forms.CharField(
             required=True,
             label=_("City"),
-            )
+        )
         postal_code = forms.CharField(
             required=False,
             label=_("Postal Code"),
-            )
+        )
         country = forms.ChoiceField(
             required=True,
             choices=Address._meta.get_field("country").get_choices(),
             label=_("Country"),
-            )
+        )
         district = forms.CharField(
             required=False,
-            widget = forms.HiddenInput(
+            widget=forms.HiddenInput(
                 attrs={
                     "class": "form_hidden",
-                    }
-                ),
-            )
+                }
+            ),
+        )
         longitude = forms.CharField(
             required=False,
-            widget = forms.HiddenInput(
+            widget=forms.HiddenInput(
                 attrs={
                     "class": "form_hidden",
-                    }
-                ),
-            )
+                }
+            ),
+        )
         latitude = forms.CharField(
             required=False,
-            widget = forms.HiddenInput(
+            widget=forms.HiddenInput(
                 attrs={
                     "class": "form_hidden",
-                    }
-                ),
-            )
+                }
+            ),
+        )
         phone_country = forms.CharField(
             required=False,
             max_length=4,
             initial="49",
-            )
+        )
         phone_area = forms.CharField(
             required=False,
             max_length=5,
-            )
+        )
         phone_number = forms.CharField(
             required=False,
             max_length=15,
             label=_("Phone"),
-            )
+        )
         fax_country = forms.CharField(
             required=False,
             max_length=4,
             initial="49",
-            )
+        )
         fax_area = forms.CharField(
             required=False,
             max_length=5,
-            )
+        )
         fax_number = forms.CharField(
             required=False,
             max_length=15,
             label=_("Fax"),
-            )
+        )
         mobile_country = forms.CharField(
             required=False,
             max_length=4,
             initial="49",
-            )
+        )
         mobile_area = forms.CharField(
             required=False,
             max_length=5,
-            )
+        )
         mobile_number = forms.CharField(
             required=False,
             max_length=15,
             label=_("Mobile"),
-            )
+        )
         email0 = forms.EmailField(
             required=False,
             label=_("E-mail"),
-            )
+        )
         email1 = forms.EmailField(
             required=False,
             label=_("E-mail"),
-            )
+        )
         email2 = forms.EmailField(
             required=False,
             label=_("E-mail"),
-            )
+        )
         url0_type = forms.ChoiceField(
             required=False,
             choices=URL_TYPE_CHOICES,
             label=_("Type"),
-            )
+        )
         url0_link = forms.URLField(
             required=False,
             label=_("URL"),
-            )
+        )
         url1_type = forms.ChoiceField(
             required=False,
             choices=URL_TYPE_CHOICES,
             label=_("Type"),
-            )
+        )
         url1_link = forms.URLField(
             required=False,
             label=_("URL"),
-            )
+        )
         url2_type = forms.ChoiceField(
             required=False,
             choices=URL_TYPE_CHOICES,
             label=_("Type"),
-            )
+        )
         url2_link = forms.URLField(
             required=False,
             label=_("URL"),
-            )
+        )
         im0_type = forms.ChoiceField(
             required=False,
             choices=IM_TYPE_CHOICES,
             label=_("Type"),
-            )
+        )
         im0_address = forms.CharField(
             required=False,
             max_length=255,
             label=_("Address"),
-            )
+        )
         im1_type = forms.ChoiceField(
             required=False,
             choices=IM_TYPE_CHOICES,
             label=_("Type"),
-            )
+        )
         im1_address = forms.CharField(
             required=False,
             max_length=255,
             label=_("Address"),
-            )
+        )
         im2_type = forms.ChoiceField(
             required=False,
             choices=IM_TYPE_CHOICES,
             label=_("Type"),
-            )
+        )
         im2_address = forms.CharField(
             required=False,
             max_length=255,
             label=_("Address"),
-            )
+        )
 
         def __init__(self, event, index, *args, **kwargs):
             super(ContactForm, self).__init__()
@@ -2087,7 +2122,7 @@ class EventProfile: # namespace
                 self.fields['email0'].initial = contact.email0_address
                 self.fields['email1'].initial = contact.email1_address
                 self.fields['email2'].initial = contact.email2_address
-                
+
         def clean(self):
             # if venue is selected, the venue_title etc need not to be filled in and vice versa!
             data = super(type(self), self).clean()
@@ -2102,16 +2137,16 @@ class EventProfile: # namespace
                         'postal_code',
                         'city',
                         'country'
-                        ]:
+                    ]:
                         if field_name in self._errors:
                             del self._errors[field_name]
             return data
-            
+
         def save(self):
             event = self.event
             index = self.index
             data = self.cleaned_data
-            
+
             # venue data
             venue = None
             if data.get('venue', None):
@@ -2119,10 +2154,10 @@ class EventProfile: # namespace
                     venue = Institution.objects.get(id=data['venue'])
                 except:
                     return
-                #venue_title = venue.get_title()
-            #else:
+                    # venue_title = venue.get_title()
+            # else:
             venue_title = data.get('venue_title', None)
-            
+
             event.venue = venue
             event.venue_title = venue_title
             event.phone0_type = PhoneType.objects.get(slug='phone')
@@ -2164,8 +2199,9 @@ class EventProfile: # namespace
                 postal_code=data.get("postal_code", ""),
                 latitude=data.get("latitude", ""),
                 longitude=data.get("longitude", ""),
-                )
+            )
             return event
+
         def get_extra_context(self):
             return {}
 
@@ -2177,32 +2213,32 @@ class EventProfile: # namespace
             required=False,
             label=_("Organizing institution"),
             help_text=_("Please enter a letter to display a list of available institutions"),
-            app="events", 
-            qs_function="get_organizing_institutions",   
-            display_attr="title", 
+            app="events",
+            qs_function="get_organizing_institutions",
+            display_attr="title",
             add_display_attr="get_address_string",
             options={
                 "minChars": 1,
                 "max": 20,
                 "mustMatch": 1,
-                "highlight" : False,
-                }
-            )
-        
+                "highlight": False,
+            }
+        )
+
         organizer_title = forms.CharField(
             required=False,
             label=_("Name of Institution"),
-            )
-        
+        )
+
         organizer_url_link = forms.URLField(
             required=False,
             label=_("Website"),
-            )
+        )
 
         is_organized_by_myself = forms.BooleanField(
             required=False,
             label=_("Organized by myself")
-            )
+        )
 
         def __init__(self, event, index, *args, **kwargs):
             super(OrganizerForm, self).__init__()
@@ -2217,7 +2253,7 @@ class EventProfile: # namespace
             if event.creator and current_user != event.creator:
                 self.fields['is_organized_by_myself'].label = _(
                     "Organized by %s") % event.creator.profile.get_title()
-                
+
         def save(self):
             event = self.event
             data = self.cleaned_data
@@ -2225,31 +2261,31 @@ class EventProfile: # namespace
             event.organizing_person = (
                 None,
                 not event.creator and get_current_user().profile or event.creator.profile,
-                )[data.get("is_organized_by_myself", False)]
-            event.organizing_institution_id=data['organizing_institution'] or None
+            )[data.get("is_organized_by_myself", False)]
+            event.organizing_institution_id = data['organizing_institution'] or None
             event.organizer_title = data.get('organizer_title', None)
             event.organizer_url_link = data.get('organizer_url_link', None)
             event.save()
             return event
-            
+
         def get_extra_context(self):
             return {}
 
     class AdditionalInfoForm(dynamicforms.Form):
-        
+
         additional_info_en = forms.CharField(
-            label= _("Additional Info English (Max 500 Characters)"),
+            label=_("Additional Info English (Max 500 Characters)"),
             required=False,
             widget=forms.Textarea(),
             max_length=500,
-            )
+        )
         additional_info_de = forms.CharField(
-            label= _("Additional Info German (Max 500 Characters)"),
+            label=_("Additional Info German (Max 500 Characters)"),
             required=False,
             widget=forms.Textarea(),
             max_length=500,
-            )
-        
+        )
+
         related_events = forms.ModelMultipleChoiceField(
             label=_("Related Events"),
             queryset=get_related_queryset(Event, "related_events").all(),
@@ -2264,7 +2300,7 @@ class EventProfile: # namespace
             self.fields['related_events'].initial = event.related_events.values_list("pk", flat=True)
             self.fields['additional_info_en'].initial = event.additional_info_en
             self.fields['additional_info_de'].initial = event.additional_info_de
-                
+
         def save(self):
             event = self.event
             data = self.cleaned_data
@@ -2276,10 +2312,10 @@ class EventProfile: # namespace
             for ev in data['related_events']:
                 event.related_events.add(ev)
             return event
-            
+
         def get_extra_context(self):
             return {}
-    
+
     class EventTimesForm(dynamicforms.Form):
         """
         Dummy form for using together with a formset of EventTimeForm
@@ -2290,90 +2326,92 @@ class EventProfile: # namespace
             self.event = event
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
+
         def save(self):
             return self.event
+
         def get_extra_context(self):
             return {}
-            
+
     class EventTimeForm(dynamicforms.Form):
         """
         Form for event "main data"
         """
-        
+
         id = forms.IntegerField(
             required=False,
             widget=forms.HiddenInput,
-            )
-        
+        )
+
         label = forms.ModelChoiceField(
             required=False,
             queryset=get_related_queryset(EventTime, "label"),
-            )
-        
+        )
+
         start_yyyy = forms.ChoiceField(
             required=True,
             choices=YEARS_CHOICES,
             label=_("Start Year"),
-            )
-    
+        )
+
         start_mm = forms.ChoiceField(
             required=False,
             choices=MONTHS_CHOICES,
             label=_("Start Month"),
-            )
-        
+        )
+
         start_dd = forms.ChoiceField(
             required=False,
             choices=DAYS_CHOICES,
             label=_("Start Day"),
-            )
-        
+        )
+
         start_hh = forms.ChoiceField(
             required=False,
             choices=HOURS_CHOICES,
             label=_("Start Hours"),
-            )
-        
+        )
+
         start_ii = forms.ChoiceField(
             required=False,
             choices=MINUTES_CHOICES,
             label=_("Start Minutes"),
-            )
-        
+        )
+
         end_yyyy = forms.ChoiceField(
             required=False,
             choices=YEARS_CHOICES,
             label=_("End Year"),
-            )
-        
+        )
+
         end_mm = forms.ChoiceField(
             required=False,
             choices=MONTHS_CHOICES,
             label=_("End Month"),
-            )
-        
+        )
+
         end_dd = forms.ChoiceField(
             required=False,
             choices=DAYS_CHOICES,
             label=_("End Day"),
-            )
-        
+        )
+
         end_hh = forms.ChoiceField(
             required=False,
             choices=HOURS_CHOICES,
             label=_("End Hours"),
-            )
-        
+        )
+
         end_ii = forms.ChoiceField(
             required=False,
             choices=MINUTES_CHOICES,
             label=_("End Minutes"),
-            )
-        
+        )
+
         is_all_day = forms.BooleanField(
             required=False,
             label=_("All Day")
-            )
+        )
 
         def __init__(self, event, index, *args, **kwargs):
             super(EventTimeForm, self).__init__()
@@ -2382,7 +2420,7 @@ class EventProfile: # namespace
             kwargs.setdefault('initial', {})
             kwargs['initial']['label'] = kwargs['initial'].get("label_id", None)
             super(type(self), self).__init__(*args, **kwargs)
-            
+
         def clean(self):
             """"
             Below, there is some (simple and complex) validation logic:
@@ -2395,7 +2433,7 @@ class EventProfile: # namespace
             if you can enter alternatiave data. (You have this nice "*" attached
             to the label of the field indicating that you must fill in!
             (TODO Aidas, maybe you know something better!)
-            """ 
+            """
 
             # start date must be valid!
             start_date = None
@@ -2403,7 +2441,7 @@ class EventProfile: # namespace
             start_yyyy = self.cleaned_data.get('start_yyyy', None)
             start_mm = self.cleaned_data.get('start_mm', None)
             start_dd = self.cleaned_data.get('start_dd', None)
- 
+
             # any error handling is overwritten!
             if self._errors.get('start_yyyy', False):
                 del self._errors['start_yyyy']
@@ -2419,22 +2457,22 @@ class EventProfile: # namespace
                 start_date = datetime.date(int(start_yyyy), int(start_mm or 1), int(start_dd or 1))
             except:
                 self._errors['start_dd'] = [_("Please enter a valid date.")]
-        
+
             # start time or "all day must be entered"
             if 'start_hh' in self._errors or 'start_ii' in self._errors:
                 self._errors['start_dd'] = [_("Please enter a valid time using format 'HH:MM' or choose 'All Day'")]
                 if self.cleaned_data.get('is_all_day', False):
                     del self._errors['start_hh']
                     del self._errors['start_ii']
-            
+
             if self.cleaned_data.get('start_hh', None) and not self.cleaned_data.get('start_ii', None):
                 self.cleaned_data['start_ii'] = '0'
-            
+
             if self.cleaned_data.get('end_hh', None) and not self.cleaned_data.get('end_ii', None):
                 self.cleaned_data['end_ii'] = '0'
 
-            
-            
+
+
             # if start time is specified, day, month and year must be specified
             if self.cleaned_data.get('start_hh', None):
                 if not (start_yyyy and start_mm and start_dd):
@@ -2444,14 +2482,14 @@ class EventProfile: # namespace
             end_yyyy = self.cleaned_data.get('end_yyyy', None)
             end_mm = self.cleaned_data.get('end_mm', None)
             end_dd = self.cleaned_data.get('end_dd', None)
-            
+
             if self._errors.get('end_yyyy', False):
-                del self._errors['end_yyyy'] 
-            if self._errors.get('end_mm', False):                    
+                del self._errors['end_yyyy']
+            if self._errors.get('end_mm', False):
                 del self._errors['end_mm']
-            if self._errors.get('end_dd', False):                    
-                del self._errors['end_dd']     
-            
+            if self._errors.get('end_dd', False):
+                del self._errors['end_dd']
+
             if end_yyyy or end_mm or end_dd:
                 if end_dd:
                     if not end_mm:
@@ -2464,49 +2502,49 @@ class EventProfile: # namespace
             if end_date and start_date:
                 if start_date > end_date:
                     self._errors['end_dd'] = [_("End date must be after start date.")]
-                    
+
             # if end time is specified, day, month and year must be specified
             if self.cleaned_data.get('end_hh', None):
                 if not (end_yyyy and end_mm and end_dd):
                     self._errors['end_hh'] = [_("If you choose a time, please enter a valid day, month and year.")]
-                    
+
             return self.cleaned_data
-        
+
         def is_valid(self):
             is_valid = super(EventForm.EventTimeForm, self).is_valid()
             errors = self._errors
             return is_valid
-            
+
         def save(self):
             cleaned = self.cleaned_data
             if cleaned['id']:
                 time = self.event.eventtime_set.get(pk=cleaned["id"])
             else:
                 time = EventTime(event=self.event)
-                
+
             time.label = cleaned['label'] or None
-            
-            time.start_yyyy = cleaned['start_yyyy'] or None 
-            time.start_mm = cleaned['start_mm'] or None 
+
+            time.start_yyyy = cleaned['start_yyyy'] or None
+            time.start_mm = cleaned['start_mm'] or None
             time.start_dd = cleaned['start_dd'] or None
             time.start_hh = cleaned['start_hh'] or None
             time.start_ii = cleaned['start_ii'] or None
-            
-            time.end_yyyy = cleaned['end_yyyy'] or None 
-            time.end_mm = cleaned['end_mm'] or None 
+
+            time.end_yyyy = cleaned['end_yyyy'] or None
+            time.end_mm = cleaned['end_mm'] or None
             time.end_dd = cleaned['end_dd'] or None
             time.end_hh = cleaned['end_hh'] or None
             time.end_ii = cleaned['end_ii'] or None
             time.is_all_day = cleaned.get('is_all_day', False)
-            
+
             time.save()
-            
+
             event = time.event
             event.status = "published"
             event.save()
-            
+
             return time
-            
+
     class FeesOpeningHoursForm(dynamicforms.Form):
         """
         Form for fees and opening hours
@@ -2515,19 +2553,19 @@ class EventProfile: # namespace
             label=_("Fees (English)"),
             required=False,
             widget=forms.Textarea(),
-            )
+        )
         fees_de = forms.CharField(
             label=_("Fees (German)"),
             required=False,
             widget=forms.Textarea(),
-            )
-        
+        )
+
         show_breaks = forms.BooleanField(
-            required=False,                                 
+            required=False,
             label=_("Morning/Afternoon"),
             initial=False,
-            )
-        
+        )
+
         mon_open0 = forms.TimeField(required=False)
         mon_close0 = forms.TimeField(required=False)
         mon_open1 = forms.TimeField(required=False)
@@ -2536,8 +2574,8 @@ class EventProfile: # namespace
             label=_("Closed"),
             required=False,
             initial=False,
-            )
-    
+        )
+
         tue_open0 = forms.TimeField(required=False)
         tue_close0 = forms.TimeField(required=False)
         tue_open1 = forms.TimeField(required=False)
@@ -2546,8 +2584,8 @@ class EventProfile: # namespace
             label=_("Closed"),
             required=False,
             initial=False,
-            )
-    
+        )
+
         wed_open0 = forms.TimeField(required=False)
         wed_close0 = forms.TimeField(required=False)
         wed_open1 = forms.TimeField(required=False)
@@ -2556,8 +2594,8 @@ class EventProfile: # namespace
             label=_("Closed"),
             required=False,
             initial=False,
-            )
-        
+        )
+
         thu_open0 = forms.TimeField(required=False)
         thu_close0 = forms.TimeField(required=False)
         thu_open1 = forms.TimeField(required=False)
@@ -2566,8 +2604,8 @@ class EventProfile: # namespace
             label=_("Closed"),
             required=False,
             initial=False,
-            )
-        
+        )
+
         fri_open0 = forms.TimeField(required=False)
         fri_close0 = forms.TimeField(required=False)
         fri_open1 = forms.TimeField(required=False)
@@ -2576,8 +2614,8 @@ class EventProfile: # namespace
             label=_("Closed"),
             required=False,
             initial=False,
-            )
-        
+        )
+
         sat_open0 = forms.TimeField(required=False)
         sat_close0 = forms.TimeField(required=False)
         sat_open1 = forms.TimeField(required=False)
@@ -2586,8 +2624,8 @@ class EventProfile: # namespace
             label=_("Closed"),
             required=False,
             initial=False,
-            )
-        
+        )
+
         sun_open0 = forms.TimeField(required=False)
         sun_close0 = forms.TimeField(required=False)
         sun_open1 = forms.TimeField(required=False)
@@ -2596,18 +2634,18 @@ class EventProfile: # namespace
             label=_("Closed"),
             required=False,
             initial=False,
-            )
-        
+        )
+
         exceptions_en = forms.CharField(
             label=_('Exceptions for working hours (English)'),
             required=False,
             widget=forms.Textarea,
-            )
+        )
         exceptions_de = forms.CharField(
             label=_('Exceptions for working hours (German)'),
             required=False,
             widget=forms.Textarea,
-            )
+        )
 
         def __init__(self, event, index, *args, **kwargs):
             super(FeesOpeningHoursForm, self).__init__()
@@ -2653,53 +2691,54 @@ class EventProfile: # namespace
             self.fields['exceptions_en'].initial = event.exceptions_en
             self.fields['exceptions_de'].initial = event.exceptions_de
             self.fields['show_breaks'].initial = show_breaks
-                
+
         def clean(self):
-            
+
             for week_day in WEEK_DAYS:
                 # here, we apply opening hours and do some checks
                 if self.cleaned_data.get(week_day + '_open0', None) and \
-                   self.cleaned_data.get(week_day + '_open1', None) and  \
-                   self.cleaned_data.get(week_day + '_close0', None) and  \
-                   self.cleaned_data.get(week_day + '_close1', None):
-                    
-                   if self.cleaned_data[week_day + '_open1'] < self.cleaned_data[week_day + '_close0']:
-                       self._errors[week_day + '_open1']  = [_("An opening time after break must not be before the closing time to break.")]
-                       
-                   # map to custom forms fields
-                   if not self.cleaned_data.get(week_day + '_is_closed', False):
-                       self.cleaned_data[week_day + '_open'] = self.cleaned_data[week_day + '_open0']
-                       self.cleaned_data[week_day + '_break_close'] = self.cleaned_data[week_day + '_close0']
-                       self.cleaned_data[week_day + '_break_open'] = self.cleaned_data[week_day + '_open1']
-                       self.cleaned_data[week_day + '_close'] = self.cleaned_data[week_day + '_close1']
-                   
+                    self.cleaned_data.get(week_day + '_open1', None) and \
+                    self.cleaned_data.get(week_day + '_close0', None) and \
+                    self.cleaned_data.get(week_day + '_close1', None):
+
+                    if self.cleaned_data[week_day + '_open1'] < self.cleaned_data[week_day + '_close0']:
+                        self._errors[week_day + '_open1'] = [
+                            _("An opening time after break must not be before the closing time to break.")]
+
+                    # map to custom forms fields
+                    if not self.cleaned_data.get(week_day + '_is_closed', False):
+                        self.cleaned_data[week_day + '_open'] = self.cleaned_data[week_day + '_open0']
+                        self.cleaned_data[week_day + '_break_close'] = self.cleaned_data[week_day + '_close0']
+                        self.cleaned_data[week_day + '_break_open'] = self.cleaned_data[week_day + '_open1']
+                        self.cleaned_data[week_day + '_close'] = self.cleaned_data[week_day + '_close1']
+
                 elif self.cleaned_data.get(week_day + '_open0', None) and \
-                     self.cleaned_data.get(week_day + '_close0', None):
-                   self.cleaned_data[week_day + '_open'] = self.cleaned_data[week_day + '_open0']
-                   self.cleaned_data[week_day + '_close'] = self.cleaned_data[week_day + '_close0']
-                
+                    self.cleaned_data.get(week_day + '_close0', None):
+                    self.cleaned_data[week_day + '_open'] = self.cleaned_data[week_day + '_open0']
+                    self.cleaned_data[week_day + '_close'] = self.cleaned_data[week_day + '_close0']
+
                 if self.cleaned_data.get(week_day + '_open0', None):
                     if not self.cleaned_data.get(week_day + '_close0', None):
                         self._errors[week_day + '_open0'] = [_("Please enter a closing time.")]
                     elif self.cleaned_data[week_day + '_close0'] < self.cleaned_data[week_day + '_open0']:
                         self._errors[week_day + '_open0'] = [_("A closing time must not be before an opening time.")]
-                        
+
                 if self.cleaned_data.get(week_day + '_close0', None):
                     if not self.cleaned_data.get(week_day + '_open0', None):
                         self._errors[week_day + '_open0'] = [_("Please enter an opening time.")]
-    
+
                 if self.cleaned_data.get(week_day + '_open1', None):
                     if not self.cleaned_data.get(week_day + '_close1', None):
                         self._errors[week_day + '_open1'] = [_("Please enter a closing time.")]
                     elif self.cleaned_data[week_day + '_close1'] < self.cleaned_data[week_day + '_open1']:
                         self._errors[week_day + '_open1'] = [_("A closing time must not be before an opening time.")]
-    
+
                 if self.cleaned_data.get(week_day + '_close1', None):
                     if not self.cleaned_data.get(week_day + '_open1', None):
                         self._errors[week_day + '_open1'] = [_("Please enter an opening time.")]
-                    
+
             return self.cleaned_data
-            
+
         def save(self):
             event = self.event
             event.fees_en = self.cleaned_data.get("fees_en", "")
@@ -2721,30 +2760,30 @@ class EventProfile: # namespace
             event.exceptions_en = self.cleaned_data['exceptions_en']
             event.exceptions_de = self.cleaned_data['exceptions_de']
             event.save()
-            
+
             return event
-            
+
         def get_extra_context(self):
             return {}
-            
+
     class CategoriesForm(dynamicforms.Form):
         choose_creative_sectors = forms.BooleanField(
             initial=True,
             widget=forms.HiddenInput(
                 attrs={
                     "class": "form_hidden",
-                    }
-                ),
+                }
+            ),
             required=False,
-            )
-        
+        )
+
         tags = TagField(
-            label= _("Tags"),
+            label=_("Tags"),
             help_text=_("Separate tags with commas"),
             max_length=200,
             required=False,
             widget=TagAutocomplete,
-            )
+        )
 
         def clean_choose_creative_sectors(self):
             data = self.data
@@ -2774,32 +2813,32 @@ class EventProfile: # namespace
                 for ancestor in el.get_ancestors(include_self=True):
                     self.fields[PREFIX_CI + str(ancestor.id)].initial = True
             self.fields['tags'].initial = event.tags
-            
+
         def save(self, *args, **kwargs):
             event = self.event
             cleaned = self.cleaned_data
             event.tags = cleaned['tags']
             event.save()
-            
+
             selected_cs = {}
             for item in get_related_queryset(Event, "creative_sectors"):
                 if cleaned.get(PREFIX_CI + str(item.id), False):
                     # remove all the parents
                     for ancestor in item.get_ancestors():
                         if ancestor.id in selected_cs:
-                            del(selected_cs[ancestor.id])
+                            del (selected_cs[ancestor.id])
                     # add current
                     selected_cs[item.id] = item
             event.creative_sectors.clear()
             event.creative_sectors.add(*selected_cs.values())
-            
+
             ContextItem.objects.update_for(event)
-            
+
             return event
 
         def get_extra_context(self):
             return {}
-    
+
     forms = {
         'identity': IdentityForm,
         'description': DescriptionForm,
@@ -2810,7 +2849,7 @@ class EventProfile: # namespace
         'organizer': OrganizerForm,
         'additional_info': AdditionalInfoForm,
         'categories': CategoriesForm,
-        }
+    }
     formsets = {
         'event_times': {
             'event_times': {
@@ -2818,24 +2857,25 @@ class EventProfile: # namespace
                     EventTimeForm,
                     formset=ProfileFormSet,
                     can_delete=True,
-                    ),
+                ),
                 'get_instances': lambda event: event.eventtime_set.all(),
-                }
-            },
-        }
+            }
+        },
+    }
 
-class DocumentProfile: # namespace
+
+class DocumentProfile:  # namespace
     class DescriptionForm(dynamicforms.Form):
         description_en = forms.CharField(
             label=_("Description (English)"),
             required=False,
             widget=forms.Textarea(),
-            )
+        )
         description_de = forms.CharField(
             label=_("Description (German)"),
             required=False,
             widget=forms.Textarea(),
-            )
+        )
 
         def __init__(self, document, index, *args, **kwargs):
             super(DescriptionForm, self).__init__()
@@ -2845,30 +2885,32 @@ class DocumentProfile: # namespace
             if not args and not kwargs:  # if nothing is posted
                 self.fields['description_en'].initial = document.description_en
                 self.fields['description_de'].initial = document.description_de
+
         def save(self):
             document = self.document
             document.description_en = self.cleaned_data['description_en']
             document.description_de = self.cleaned_data['description_de']
             document.save()
             return document
-            
+
         def get_extra_context(self):
             return {}
-    
+
     class AvatarForm(dynamicforms.Form):
         media_file = ImageField(
-            label= _("Photo"),
-            help_text= _("You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px.") % STR_MIN_LOGO_SIZE,
+            label=_("Photo"),
+            help_text=_(
+                "You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px.") % STR_MIN_LOGO_SIZE,
             required=False,
             min_dimensions=MIN_LOGO_SIZE,
-            )
+        )
 
         def __init__(self, document, index, *args, **kwargs):
             super(AvatarForm, self).__init__()
             self.document = document
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
-            
+
         def save(self):
             document = self.document
             if "media_file" in self.files:
@@ -2877,27 +2919,28 @@ class DocumentProfile: # namespace
                     document,
                     media_file.name,
                     media_file,
-                    subpath = "avatar/"
-                    )
+                    subpath="avatar/"
+                )
             return document
+
         def get_extra_context(self):
             return {}
-    
+
     class DetailsForm(dynamicforms.Form):
         document_type = forms.ModelChoiceField(
             label=_("Document Type"),
             queryset=get_related_queryset(Document, "document_type"),
             required=False,
-            )
+        )
         url_link = forms.URLField(
             label=_("URL"),
             required=False,
-            )
+        )
         medium = forms.ModelChoiceField(
             label=_("Medium"),
             queryset=get_related_queryset(Document, "medium"),
             required=False,
-            )
+        )
 
         def __init__(self, document, index, *args, **kwargs):
             super(DetailsForm, self).__init__()
@@ -2908,6 +2951,7 @@ class DocumentProfile: # namespace
                 self.fields['document_type'].initial = self.document.document_type
                 self.fields['medium'].initial = self.document.medium
                 self.fields['url_link'].initial = self.document.url_link
+
         def save(self):
             document = self.document
             document.url_link = self.cleaned_data['url_link']
@@ -2915,20 +2959,21 @@ class DocumentProfile: # namespace
             document.medium = self.cleaned_data['medium']
             document.save()
             return document
-            
+
         def get_extra_context(self):
             return {}
-   
+
     class CategoriesForm(dynamicforms.Form):
         choose_creative_sectors = forms.BooleanField(
             initial=True,
             widget=forms.HiddenInput(
                 attrs={
                     "class": "form_hidden",
-                    }
-                ),
+                }
+            ),
             required=False,
-            )
+        )
+
         def clean_choose_creative_sectors(self):
             data = self.data
             el_count = 0
@@ -2938,16 +2983,17 @@ class DocumentProfile: # namespace
             if not el_count:
                 raise forms.ValidationError(_("Please choose at least one creative sector."))
             return True
-            
+
         choose_context_categories = forms.BooleanField(
             initial=True,
             widget=forms.HiddenInput(
                 attrs={
                     "class": "form_hidden",
-                    }
-                ),
+                }
+            ),
             required=False,
-            )
+        )
+
         def clean_choose_context_categories(self):
             data = self.data
             el_count = 0
@@ -2988,7 +3034,7 @@ class DocumentProfile: # namespace
             for el in document.get_context_categories():
                 for ancestor in el.get_ancestors(include_self=True):
                     self.fields[PREFIX_BC + str(ancestor.id)].initial = True
-            
+
         def save(self, *args, **kwargs):
             document = self.document
             cleaned = self.cleaned_data
@@ -2998,49 +3044,50 @@ class DocumentProfile: # namespace
                     # remove all the parents
                     for ancestor in item.get_ancestors():
                         if ancestor.id in selected_cs:
-                            del(selected_cs[ancestor.id])
+                            del (selected_cs[ancestor.id])
                     # add current
                     selected_cs[item.id] = item
             document.creative_sectors.clear()
             document.creative_sectors.add(*selected_cs.values())
-            
+
             selected_cc = {}
             for item in get_related_queryset(Document, "context_categories"):
                 if cleaned.get(PREFIX_BC + str(item.id), False):
                     # remove all the parents
                     for ancestor in item.get_ancestors():
                         if ancestor.id in selected_cc:
-                            del(selected_cc[ancestor.id])
+                            del (selected_cc[ancestor.id])
                     # add current
                     selected_cc[item.id] = item
             document.context_categories.clear()
             document.context_categories.add(*selected_cc.values())
             ContextItem.objects.update_for(document)
-            
+
             return document
-            
+
         def get_extra_context(self):
             return {}
-    
+
     forms = {
         'description': DescriptionForm,
         'avatar': AvatarForm,
         'details': DetailsForm,
         'categories': CategoriesForm,
-        }
+    }
 
-class GroupProfile: # namespace
+
+class GroupProfile:  # namespace
     class DescriptionForm(dynamicforms.Form):
         description_en = forms.CharField(
             label=_("Description (English)"),
             required=False,
             widget=forms.Textarea(),
-            )
+        )
         description_de = forms.CharField(
             label=_("Description (German)"),
             required=False,
             widget=forms.Textarea(),
-            )
+        )
 
         def __init__(self, group, index, *args, **kwargs):
             super(DescriptionForm, self).__init__()
@@ -3050,29 +3097,32 @@ class GroupProfile: # namespace
             if not args and not kwargs:  # if nothing is posted
                 self.fields['description_en'].initial = group.description_en
                 self.fields['description_de'].initial = group.description_de
+
         def save(self):
             group = self.group
             group.description_en = self.cleaned_data['description_en']
             group.description_de = self.cleaned_data['description_de']
             group.save()
             return group
-            
+
         def get_extra_context(self):
             return {}
-    
+
     class AvatarForm(dynamicforms.Form):
         media_file = ImageField(
-            label= _("Photo"),
-            help_text= _("You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px.") % STR_MIN_LOGO_SIZE,
+            label=_("Photo"),
+            help_text=_(
+                "You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px.") % STR_MIN_LOGO_SIZE,
             required=False,
             min_dimensions=MIN_LOGO_SIZE,
-            )
+        )
 
         def __init__(self, group, index, *args, **kwargs):
             super(AvatarForm, self).__init__()
             self.group = group
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
+
         def save(self):
             group = self.group
             if "media_file" in self.files:
@@ -3081,43 +3131,43 @@ class GroupProfile: # namespace
                     group,
                     media_file.name,
                     media_file,
-                    subpath = "avatar/"
-                    )
+                    subpath="avatar/"
+                )
             return group
-            
+
         def get_extra_context(self):
             return {}
-    
+
     class DetailsForm(dynamicforms.Form):
         group_type = forms.ChoiceField(
             required=True,
             choices=GROUP_TYPE_CHOICES,
             label=_("Group type"),
-            )
-        
+        )
+
         access_type = forms.ChoiceField(
             required=True,
             choices=ACCESS_TYPE_CHOICES,
             label=_("Security"),
-            )
-        
+        )
+
         institution = forms.ChoiceField(
             required=False,
             choices=[],
             label=_("Attach to profile"),
-            )
-        
+        )
+
         membership_options = forms.ChoiceField(
             required=True,
             choices=MEMBERSHIP_OPTION_CHOICES,
             label=_("Membership"),
-            )
-        
+        )
+
         main_language = forms.ChoiceField(
             required=True,
             choices=PREFERRED_LANGUAGE_CHOICES,
             label=_("Main language"),
-            )
+        )
 
         def __init__(self, group, index, *args, **kwargs):
             super(DetailsForm, self).__init__()
@@ -3142,6 +3192,7 @@ class GroupProfile: # namespace
                     self.fields['membership_options'].initial = "invite"
                 else:
                     self.fields['membership_options'].initial = "anyone"
+
         def save(self):
             group = self.group
             cleaned = self.cleaned_data
@@ -3151,28 +3202,29 @@ class GroupProfile: # namespace
             group.preferred_language = get_related_queryset(
                 PersonGroup,
                 "preferred_language"
-                ).get(
-                    pk=cleaned.get('main_language', ""),
-                    )
+            ).get(
+                pk=cleaned.get('main_language', ""),
+            )
             membership_options = cleaned.get('membership_options', 'anyone')
             group.is_by_invitation = membership_options in ("invite", "invite_or_confirm")
             group.is_by_confirmation = membership_options == "invite_or_confirm"
             group.save()
             return group
-            
+
         def get_extra_context(self):
             return {}
-    
+
     class CategoriesForm(dynamicforms.Form):
         choose_creative_sectors = forms.BooleanField(
             initial=True,
             widget=forms.HiddenInput(
                 attrs={
                     "class": "form_hidden",
-                    }
-                ),
+                }
+            ),
             required=False,
-            )
+        )
+
         def clean_choose_creative_sectors(self):
             data = self.data
             el_count = 0
@@ -3182,16 +3234,17 @@ class GroupProfile: # namespace
             if not el_count:
                 raise forms.ValidationError(_("Please choose at least one creative sector."))
             return True
-            
+
         choose_context_categories = forms.BooleanField(
             initial=True,
             widget=forms.HiddenInput(
                 attrs={
                     "class": "form_hidden",
-                    }
-                ),
+                }
+            ),
             required=False,
-            )
+        )
+
         def clean_choose_context_categories(self):
             data = self.data
             el_count = 0
@@ -3201,16 +3254,17 @@ class GroupProfile: # namespace
             if not el_count:
                 raise forms.ValidationError(_("Please choose at least one context category."))
             return True
-            
+
         choose_object_types = forms.BooleanField(
             initial=True,
             widget=forms.HiddenInput(
                 attrs={
                     "class": "form_hidden",
-                    }
-                ),
+                }
+            ),
             required=False,
-            )
+        )
+
         def clean_choose_object_types(self):
             data = self.data
             el_count = 0
@@ -3251,7 +3305,7 @@ class GroupProfile: # namespace
             for el in group.get_context_categories():
                 for ancestor in el.get_ancestors(include_self=True):
                     self.fields[PREFIX_BC + str(ancestor.id)].initial = True
-            
+
         def save(self, *args, **kwargs):
             group = self.group
             cleaned = self.cleaned_data
@@ -3261,70 +3315,71 @@ class GroupProfile: # namespace
                     # remove all the parents
                     for ancestor in item.get_ancestors():
                         if ancestor.id in selected_cs:
-                            del(selected_cs[ancestor.id])
+                            del (selected_cs[ancestor.id])
                     # add current
                     selected_cs[item.id] = item
             group.creative_sectors.clear()
             group.creative_sectors.add(*selected_cs.values())
-            
+
             selected_cc = {}
             for item in get_related_queryset(PersonGroup, "context_categories"):
                 if cleaned.get(PREFIX_BC + str(item.id), False):
                     # remove all the parents
                     for ancestor in item.get_ancestors():
                         if ancestor.id in selected_cc:
-                            del(selected_cc[ancestor.id])
+                            del (selected_cc[ancestor.id])
                     # add current
                     selected_cc[item.id] = item
             group.context_categories.clear()
             group.context_categories.add(*selected_cc.values())
             ContextItem.objects.update_for(group)
             return group
-            
+
         def get_extra_context(self):
             return {}
-    
+
     forms = {
         'description': DescriptionForm,
         'avatar': AvatarForm,
         'details': DetailsForm,
         'categories': CategoriesForm,
-        }
+    }
 
-class JobOfferProfile: # namespace
+
+class JobOfferProfile:  # namespace
     class DetailsForm(dynamicforms.Form):
         position = forms.CharField(
             required=True,
             label=_("Position"),
-            )
+        )
         job_type = forms.ModelChoiceField(
             required=True,
             queryset=get_related_queryset(JobOffer, "job_type"),
             label=_("Job Type"),
-            )
+        )
         qualifications = forms.ModelMultipleChoiceField(
             required=False,
             widget=forms.CheckboxSelectMultiple,
             queryset=get_related_queryset(JobOffer, "qualifications"),
             label=_("Qualification"),
-            )
+        )
         description = forms.CharField(
             label=_("Description"),
             required=True,
-            widget=forms.Textarea(attrs={'class':'vSystemTextField'}),
-            )
+            widget=forms.Textarea(attrs={'class': 'vSystemTextField'}),
+        )
         end_yyyy = forms.ChoiceField(
             required=False,
             choices=YEARS_CHOICES,
             label=_("End Year"),
         )
-        
+
         end_mm = forms.ChoiceField(
             required=False,
             choices=MONTHS_CHOICES,
             label=_("End Month"),
         )
-        
+
         end_dd = forms.ChoiceField(
             required=False,
             choices=DAYS_CHOICES,
@@ -3352,226 +3407,225 @@ class JobOfferProfile: # namespace
             job_offer.position = data['position']
             job_offer.job_type = data['job_type']
             job_offer.description = data['description']
-            
+
             end_date = None
             end_yyyy = data.get('end_yyyy', None)
             end_mm = data.get('end_mm', None)
             end_dd = data.get('end_dd', None)
-    
+
             if end_yyyy or end_mm or end_dd:
                 try:
                     end_date = datetime.date(int(end_yyyy), int(end_mm or 1), int(end_dd or 1))
                 except:
                     pass
-                
+
             job_offer.published_till = end_date
-            
+
             job_offer.save()
-            
+
             job_offer.qualifications.clear()
             for q in data['qualifications']:
                 job_offer.qualifications.add(q)
-                
+
             return job_offer
-            
+
         def get_extra_context(self):
             return {}
-            
-            
+
     class ContactForm(dynamicforms.Form):
         offering_institution = AutocompleteField(
             required=False,
             label=_("Offering institution"),
             help_text=_("Please enter a letter to display a list of available institutions"),
-            app="marketplace", 
-            qs_function="get_institutions",   
+            app="marketplace",
+            qs_function="get_institutions",
             display_attr="title",
             add_display_attr="get_address_string",
             options={
                 "minChars": 1,
                 "max": 20,
                 "mustMatch": 1,
-                "highlight" : False,
-                },
-            )
+                "highlight": False,
+            },
+        )
         offering_institution_title = forms.CharField(
             required=False,
             label=_("Institution/Company Title"),
         )
-        
+
         contact_person_ind = forms.ChoiceField(
             initial=0,
             choices=CONTACT_PERSON_CHOICES,
             widget=forms.RadioSelect()
         )
-        
+
         contact_person_name = forms.CharField(
             required=False,
             label=_("Contact Person Name"),
         )
-        
+
         street_address = forms.CharField(
             required=False,
             label=_("Street Address"),
-            )
+        )
         street_address2 = forms.CharField(
             required=False,
             label=_("Street Address (2nd line)"),
-            )
+        )
         city = forms.CharField(
             required=True,
             label=_("City"),
-            )
+        )
         postal_code = forms.CharField(
             required=False,
             label=_("Postal Code"),
-            )
+        )
         country = forms.ChoiceField(
             required=True,
             choices=Address._meta.get_field("country").get_choices(),
             label=_("Country"),
-            )
+        )
         district = forms.CharField(
             required=False,
-            widget = forms.HiddenInput(
+            widget=forms.HiddenInput(
                 attrs={
                     "class": "form_hidden",
-                    }
-                ),
-            )
+                }
+            ),
+        )
         longitude = forms.CharField(
             required=False,
-            widget = forms.HiddenInput(
+            widget=forms.HiddenInput(
                 attrs={
                     "class": "form_hidden",
-                    }
-                ),
-            )
+                }
+            ),
+        )
         latitude = forms.CharField(
             required=False,
-            widget = forms.HiddenInput(
+            widget=forms.HiddenInput(
                 attrs={
                     "class": "form_hidden",
-                    }
-                ),
-            )
+                }
+            ),
+        )
         phone_country = forms.CharField(
             required=False,
             max_length=4,
             initial="49",
-            )
+        )
         phone_area = forms.CharField(
             required=False,
             max_length=5,
-            )
+        )
         phone_number = forms.CharField(
             required=False,
             max_length=15,
             label=_("Phone"),
-            )
+        )
         fax_country = forms.CharField(
             required=False,
             max_length=4,
             initial="49",
-            )
+        )
         fax_area = forms.CharField(
             required=False,
             max_length=5,
-            )
+        )
         fax_number = forms.CharField(
             required=False,
             max_length=15,
             label=_("Fax"),
-            )
+        )
         mobile_country = forms.CharField(
             required=False,
             max_length=4,
             initial="49",
-            )
+        )
         mobile_area = forms.CharField(
             required=False,
             max_length=5,
-            )
+        )
         mobile_number = forms.CharField(
             required=False,
             max_length=15,
             label=_("Mobile"),
-            )
+        )
         email0 = forms.EmailField(
             required=False,
             label=_("E-mail"),
-            )
+        )
         email1 = forms.EmailField(
             required=False,
             label=_("E-mail"),
-            )
+        )
         email2 = forms.EmailField(
             required=False,
             label=_("E-mail"),
-            )
+        )
         publish_emails = forms.BooleanField(
             label=_("Publish emails to unregistered visitors"),
             initial=True,
             required=False,
-            )
-        
+        )
+
         url0_type = forms.ChoiceField(
             required=False,
             choices=URL_TYPE_CHOICES,
             label=_("Type"),
-            )
+        )
         url0_link = forms.URLField(
             required=False,
             label=_("URL"),
-            )
+        )
         url1_type = forms.ChoiceField(
             required=False,
             choices=URL_TYPE_CHOICES,
             label=_("Type"),
-            )
+        )
         url1_link = forms.URLField(
             required=False,
             label=_("URL"),
-            )
+        )
         url2_type = forms.ChoiceField(
             required=False,
             choices=URL_TYPE_CHOICES,
             label=_("Type"),
-            )
+        )
         url2_link = forms.URLField(
             required=False,
             label=_("URL"),
-            )
+        )
         im0_type = forms.ChoiceField(
             required=False,
             choices=IM_TYPE_CHOICES,
             label=_("Type"),
-            )
+        )
         im0_address = forms.CharField(
             required=False,
             max_length=255,
             label=_("Address"),
-            )
+        )
         im1_type = forms.ChoiceField(
             required=False,
             choices=IM_TYPE_CHOICES,
             label=_("Type"),
-            )
+        )
         im1_address = forms.CharField(
             required=False,
             max_length=255,
             label=_("Address"),
-            )
+        )
         im2_type = forms.ChoiceField(
             required=False,
             choices=IM_TYPE_CHOICES,
             label=_("Type"),
-            )
+        )
         im2_address = forms.CharField(
             required=False,
             max_length=255,
             label=_("Address"),
-            )
+        )
 
         def __init__(self, job_offer, index, *args, **kwargs):
             super(ContactForm, self).__init__()
@@ -3630,12 +3684,12 @@ class JobOfferProfile: # namespace
                 self.fields['email1'].initial = contact.email1_address
                 self.fields['email2'].initial = contact.email2_address
                 self.fields['publish_emails'].initial = contact.publish_emails
-            
+
         def save(self):
             job_offer = self.job_offer
             index = self.index
             data = self.cleaned_data
-            
+
             contact_person_ind = int(data.get("contact_person_ind", 0))
             # the creator is contact person
             contact_person = None
@@ -3646,7 +3700,7 @@ class JobOfferProfile: # namespace
                 else:
                     contact_person = get_current_user().profile
                 contact_person_name = ""
-                
+
             job_offer.offering_institution_id = data['offering_institution'] or None
             job_offer.offering_institution_title = data['offering_institution_title']
 
@@ -3693,8 +3747,9 @@ class JobOfferProfile: # namespace
                 postal_code=data.get("postal_code", ""),
                 latitude=data.get("latitude", ""),
                 longitude=data.get("longitude", ""),
-                )
+            )
             return job_offer
+
         def get_extra_context(self):
             return {}
 
@@ -3704,18 +3759,18 @@ class JobOfferProfile: # namespace
             widget=forms.HiddenInput(
                 attrs={
                     "class": "form_hidden",
-                    }
-                ),
+                }
+            ),
             required=False,
-            )
-        
+        )
+
         tags = TagField(
-            label= _("Tags"),
+            label=_("Tags"),
             help_text=_("Separate tags with commas"),
             max_length=200,
             required=False,
             widget=TagAutocomplete,
-            )
+        )
 
         def clean_choose_job_sectors(self):
             data = self.data
@@ -3747,89 +3802,90 @@ class JobOfferProfile: # namespace
                 if s['id'] in js_ids:
                     self.fields[PREFIX_JS + str(s['id'])].initial = True
             self.fields['tags'].initial = job_offer.tags
-            
+
         def save(self, *args, **kwargs):
             job_offer = self.job_offer
             cleaned = self.cleaned_data
             job_offer.tags = cleaned['tags']
             job_offer.save()
-            
+
             selected_js = {}
             for item in get_related_queryset(JobOffer, "job_sectors"):
                 if cleaned.get(PREFIX_JS + str(item.id), False):
                     selected_js[item.id] = item
             job_offer.job_sectors.clear()
             job_offer.job_sectors.add(*selected_js.values())
-            
+
             return job_offer
 
         def get_extra_context(self):
             return {}
-    
+
     forms = {
         'details': DetailsForm,
         'contact': ContactForm,
         'categories': CategoriesForm,
-        }
+    }
+
 
 class ClaimForm(dynamicforms.Form):
     """
     Form for claiming institutions, events, documents
     """
-    
+
     name = forms.CharField(
         label=_("Name"),
         required=True,
         max_length=80,
-        )
-    
+    )
+
     email = forms.EmailField(
         label=_("Email"),
         required=True,
         max_length=80,
-        )
-    
+    )
+
     best_time_to_call = forms.ChoiceField(
         required=False,
         choices=ClaimRequest._meta.get_field("best_time_to_call").get_choices(),
         label=_("Best Time to Call"),
-        )
-    
+    )
+
     phone_country = forms.CharField(
         required=False,
         max_length=4,
-        )
+    )
     phone_area = forms.CharField(
         required=False,
         max_length=5,
-        )
+    )
     phone_number = forms.CharField(
         required=False,
         max_length=15,
         label=_("Phone"),
-        )
-    
+    )
+
     role = forms.CharField(
         label=_("Role"),
         required=False,
         max_length=80,
-        )
+    )
 
     comments = forms.CharField(
-        label= _("Comments"),
+        label=_("Comments"),
         required=False,
-        widget=forms.Textarea(attrs={'class':'vSystemTextField'}),
-        )
-    
+        widget=forms.Textarea(attrs={'class': 'vSystemTextField'}),
+    )
+
     def __init__(self, content_type, object_id, *args, **kwargs):
         super(ClaimForm, self).__init__(*args, **kwargs)
-        
+
         self.content_type = content_type
         self.object_id = object_id
         self.user = get_current_user()
         self.fields["name"].initial = "%s %s" % (self.user.first_name, self.user.last_name)
         self.fields["email"].initial = self.user.email
-        
+
         person = self.user.profile
         contacts = person.get_contacts()
         if contacts:
@@ -3838,15 +3894,15 @@ class ClaimForm(dynamicforms.Form):
                     self.fields["phone_country"].initial = phone["country"]
                     self.fields["phone_area"].initial = phone["area"]
                     self.fields["phone_number"].initial = phone["number"]
-                    break    
+                    break
 
     def save(self):
         # do character encoding
         cleaned = self.cleaned_data
-        #for key, value in cleaned.items():
+        # for key, value in cleaned.items():
         #    if type(value).__name__ == "unicode":
         #        cleaned[key] = value.encode(settings.DEFAULT_CHARSET)
-        
+
         claim_request, created = ClaimRequest.objects.get_or_create(
             user=self.user,
             name=cleaned.get('name', None),
@@ -3860,56 +3916,56 @@ class ClaimForm(dynamicforms.Form):
             content_type=self.content_type,
             object_id=self.object_id,
             status=0,
-            )
+        )
+
 
 class InvitationForm(dynamicforms.Form):
-    
     body = forms.CharField(
-        label= _("Message"),
+        label=_("Message"),
         required=True,
-        widget=forms.Textarea(attrs={'class':'vSystemTextField'}),
-        )
-    
+        widget=forms.Textarea(attrs={'class': 'vSystemTextField'}),
+    )
+
     recipient_email = forms.EmailField(
         label=_("Recipient email"),
         required=True,
         max_length=255,
-        widget=forms.TextInput(attrs={'class':'vTextField'}),
+        widget=forms.TextInput(attrs={'class': 'vTextField'}),
         help_text=_("Enter an email of a person you want to invite to this website."),
-        )   
-    
+    )
+
     # prevent spam
     prevent_spam = SecurityField()
-    
+
     def __init__(self, sender, *args, **kwargs):
         super(InvitationForm, self).__init__(*args, **kwargs)
         self.sender = sender
-    
+
     def send(self):
         from jetson.apps.mailing.views import send_email_using_template
         from jetson.apps.mailing.recipient import Recipient
-        
+
         sender = self.sender
         cleaned = self.cleaned_data
-        
+
         body = cleaned["body"]
         recipient_email = cleaned["recipient_email"]
-        
 
         send_email_using_template(
-            recipients_list = [Recipient(
+            recipients_list=[Recipient(
                 email=recipient_email,
-                )],
-            email_template_slug = "invitation",
-            obj_placeholders = {
+            )],
+            email_template_slug="invitation",
+            obj_placeholders={
                 'object_creator_title': self.sender.profile.get_title(),
                 'object_creator_url': self.sender.profile.get_url(),
                 'object_description': body,
-                },
-            sender_name = settings.ADMINS[0][0],
-            sender_email = settings.ADMINS[0][1],
-            send_immediately = True,
-            )
+            },
+            sender_name=settings.ADMINS[0][0],
+            sender_email=settings.ADMINS[0][1],
+            send_immediately=True,
+        )
+
 
 class CCBCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
     def render(self, name, value, attrs=None, choices=()):
@@ -3932,7 +3988,8 @@ class CCBCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
             option_value = force_unicode(option_value)
             rendered_cb = cb.render(name, option_value)
             option_label = conditional_escape(force_unicode(option_label))
-            output.append(u'<li class="line_checkbox">%s <label%s>%s</label></li>' % (rendered_cb, label_for, option_label))
+            output.append(
+                u'<li class="line_checkbox">%s <label%s>%s</label></li>' % (rendered_cb, label_for, option_label))
         output.append(u'</ul>')
         return mark_safe(u'\n'.join(output))
 
@@ -3941,15 +3998,15 @@ class ProfileDeletionForm(dynamicforms.Form):
     delete_events = forms.BooleanField(
         required=False,
         label=_("Delete related events")
-        )
+    )
     delete_job_offers = forms.BooleanField(
         required=False,
         label=_("Delete related job offers")
-        )
-    
+    )
+
     user_deleted = False
     deleted_institutions = []
-    
+
     def __init__(self, user, *args, **kwargs):
         self.user_deleted = False
         self.deleted_institutions = []
@@ -3958,16 +4015,17 @@ class ProfileDeletionForm(dynamicforms.Form):
         self.user = user
         profile_choices = [
             ('auth.user', user.profile.get_title()),
-            ]
+        ]
         for inst in user.profile.get_institutions(clear_cache=True):
             profile_choices.append((inst.slug, inst.get_title()))
-        
+
         self.fields['profiles'] = forms.MultipleChoiceField(
             required=False,
             label=_("Profiles to delete"),
             choices=profile_choices,
             widget=CCBCheckboxSelectMultiple,
-            )
+        )
+
     def clean_profiles(self):
         value = self.cleaned_data.get('profiles', [])
         if not value:
@@ -3983,8 +4041,8 @@ class ProfileDeletionForm(dynamicforms.Form):
             else:
                 self.deleted_institutions.append(
                     Institution.objects.get(slug=p)
-                    )
-                
+                )
+
         User = models.get_model("auth", "User")
         Blog = models.get_model("blog", "Blog")
         MediaGallery = models.get_model("media_gallery", "MediaGallery")
@@ -3997,7 +4055,7 @@ class ProfileDeletionForm(dynamicforms.Form):
 
         delete_events = self.cleaned_data['delete_events']
         delete_job_offers = self.cleaned_data['delete_job_offers']
-        
+
         inst_content_type = ContentType.objects.get_for_model(Institution)
         event_content_type = ContentType.objects.get_for_model(Event)
         job_offer_content_type = ContentType.objects.get_for_model(JobOffer)
@@ -4007,37 +4065,37 @@ class ProfileDeletionForm(dynamicforms.Form):
             PersonGroup.objects.filter(
                 content_type=inst_content_type,
                 object_id=inst.pk,
-                ).delete()
+            ).delete()
             # delete blog
             Blog.objects.filter(
                 content_type=inst_content_type,
                 object_id=inst.pk,
-                ).delete()
+            ).delete()
             # delete media gallery
             MediaGallery.objects.filter(
                 content_type=inst_content_type,
                 object_id=inst.pk,
-                ).delete()
+            ).delete()
             # delete bookmarks
             Bookmark.objects.filter(
                 url_path=inst.get_url_path(),
-                ).delete()
+            ).delete()
             # delete memos
             Memo.objects.filter(
                 content_type=inst_content_type,
                 object_id=inst.pk,
-                ).delete()
+            ).delete()
             # delete favorites
             Favorite.objects.filter(
                 content_type=inst_content_type,
                 object_id=inst.pk,
-                ).delete()
+            ).delete()
             # optionally keep events
             if not delete_events:
                 for ev in Event.objects.filter(
-                    models.Q(organizing_institution=inst) |
-                    models.Q(venue=inst)
-                    ):
+                        models.Q(organizing_institution=inst) |
+                        models.Q(venue=inst)
+                ):
                     if ev.organizing_institution == inst:
                         if not ev.organizer_title:
                             ev.organizer_title = ev.organizing_institution.get_title()
@@ -4049,57 +4107,57 @@ class ProfileDeletionForm(dynamicforms.Form):
                     ev.save()
             else:
                 for ev in Event.objects.filter(
-                    models.Q(organizing_institution=inst) |
-                    models.Q(venue=inst)
-                    ):
+                        models.Q(organizing_institution=inst) |
+                        models.Q(venue=inst)
+                ):
                     # delete media galleries
                     MediaGallery.objects.filter(
                         content_type=event_content_type,
                         object_id=ev.pk,
-                        ).delete()
+                    ).delete()
                     # delete bookmarks
                     Bookmark.objects.filter(
                         url_path=ev.get_url_path(),
-                        ).delete()
+                    ).delete()
                     # delete memos
                     Memo.objects.filter(
                         content_type=event_content_type,
                         object_id=ev.pk,
-                        ).delete()
+                    ).delete()
                     # delete favorites
                     Favorite.objects.filter(
                         content_type=event_content_type,
                         object_id=ev.pk,
-                        ).delete()
+                    ).delete()
                     # delete event
                     ev.delete()
             # optionally keep job offers
             if not delete_job_offers:
                 for job in JobOffer.objects.filter(
                     offering_institution=inst,
-                    ):
+                ):
                     if not job.offering_institution_title:
                         job.offering_institution_title = job.offering_institution.get_title()
-                    job.offering_institution=None
+                    job.offering_institution = None
                     job.save()
             else:
                 for job in JobOffer.objects.filter(
                     offering_institution=inst,
-                    ):
+                ):
                     # delete bookmarks
                     Bookmark.objects.filter(
                         url_path=job.get_url_path(),
-                        ).delete()
+                    ).delete()
                     # delete memos
                     Memo.objects.filter(
                         content_type=job_offer_content_type,
                         object_id=job.pk,
-                        ).delete()
+                    ).delete()
                     # delete favorites
                     Favorite.objects.filter(
                         content_type=job_offer_content_type,
                         object_id=job.pk,
-                        ).delete()
+                    ).delete()
                     # delete job offer
                     job.delete()
             # delete institution
@@ -4113,16 +4171,16 @@ class ProfileDeletionForm(dynamicforms.Form):
             Blog.objects.filter(
                 content_type=person_content_type,
                 object_id=person.pk,
-                ).delete()
+            ).delete()
             # delete media gallery
             MediaGallery.objects.filter(
                 content_type=person_content_type,
                 object_id=person.pk,
-                ).delete()
+            ).delete()
             # keep comments
             for comment in Comment.objects.filter(
                 user=self.user,
-                ):
+            ):
                 comment.name = person.get_title()
                 comment.email = self.user.email
                 comment.user = None
@@ -4130,39 +4188,39 @@ class ProfileDeletionForm(dynamicforms.Form):
             # keep tickets
             Ticket.objects.filter(
                 submitter=self.user
-                ).update(
-                    submitter_name=person.get_title(),
-                    submitter_email=self.user.email,
-                    submitter=None,
-                    )
+            ).update(
+                submitter_name=person.get_title(),
+                submitter_email=self.user.email,
+                submitter=None,
+            )
             Ticket.objects.filter(
                 modifier=self.user,
-                ).update(
-                    modifier=None
-                    )
+            ).update(
+                modifier=None
+            )
             # delete bookmarks
             Bookmark.objects.filter(
                 url_path=person.get_url_path(),
-                ).delete()
+            ).delete()
             # delete memos
             Memo.objects.filter(
                 content_type=person_content_type,
                 object_id=person.pk,
-                ).delete()
+            ).delete()
             # delete favorites
             Favorite.objects.filter(
                 content_type=person_content_type,
                 object_id=person.pk,
-                ).delete()
+            ).delete()
             # optionally keep events
             if not delete_events:
                 for ev in Event.objects.filter(
-                    models.Q(organizing_person=person) |
-                    models.Q(creator=self.user) |
-                    models.Q(modifier=self.user)
-                    ):
+                            models.Q(organizing_person=person) |
+                            models.Q(creator=self.user) |
+                        models.Q(modifier=self.user)
+                ):
                     if ev.organizing_person == person:
-                        ev.organizing_person=None
+                        ev.organizing_person = None
                     if ev.creator == self.user:
                         ev.creator = superuser
                     if ev.modifier == self.user:
@@ -4170,134 +4228,134 @@ class ProfileDeletionForm(dynamicforms.Form):
                     ev.save_base()
             else:
                 for ev in Event.objects.filter(
-                    models.Q(organizing_person=person) |
-                    models.Q(creator=self.user) |
-                    models.Q(modifier=self.user)
-                    ):
+                            models.Q(organizing_person=person) |
+                            models.Q(creator=self.user) |
+                        models.Q(modifier=self.user)
+                ):
                     # delete media galleries
                     MediaGallery.objects.filter(
                         content_type=event_content_type,
                         object_id=ev.pk,
-                        ).delete()
+                    ).delete()
                     # delete bookmarks
                     Bookmark.objects.filter(
                         url_path=ev.get_url_path(),
-                        ).delete()
+                    ).delete()
                     # delete memos
                     Memo.objects.filter(
                         content_type=event_content_type,
                         object_id=ev.pk,
-                        ).delete()
+                    ).delete()
                     # delete favorites
                     Favorite.objects.filter(
                         content_type=event_content_type,
                         object_id=ev.pk,
-                        ).delete()
+                    ).delete()
                     # delete event
                     ev.delete()
             # optionally keep job offers
             if not delete_job_offers:
                 JobOffer.objects.filter(
                     contact_person=person,
-                    ).update(
-                        contact_person_name=person.get_title(),
-                        contact_person = None,
-                        )
+                ).update(
+                    contact_person_name=person.get_title(),
+                    contact_person=None,
+                )
                 JobOffer.objects.filter(
                     creator=self.user
-                    ).update(
-                        creator=superuser,
-                        )
+                ).update(
+                    creator=superuser,
+                )
                 JobOffer.objects.filter(
                     author=self.user
-                    ).update(
-                        author=superuser,
-                        )
+                ).update(
+                    author=superuser,
+                )
                 JobOffer.objects.filter(
                     modifier=self.user
-                    ).update(
-                        modifier=None,
-                        )
+                ).update(
+                    modifier=None,
+                )
             else:
                 for job in JobOffer.objects.filter(
-                    models.Q(contact_person=person) |
-                    models.Q(creator=self.user) |
-                    models.Q(modifier=self.user)
-                    ):
+                            models.Q(contact_person=person) |
+                            models.Q(creator=self.user) |
+                        models.Q(modifier=self.user)
+                ):
                     # delete bookmarks
                     Bookmark.objects.filter(
                         url_path=job.get_url_path(),
-                        ).delete()
+                    ).delete()
                     # delete memos
                     Memo.objects.filter(
                         content_type=job_offer_content_type,
                         object_id=job.pk,
-                        ).delete()
+                    ).delete()
                     # delete favorites
                     Favorite.objects.filter(
                         content_type=job_offer_content_type,
                         object_id=job.pk,
-                        ).delete()
+                    ).delete()
                     # delete job offer
                     job.delete()
             # delete user
             self.user.delete()
-            
+
+
 class ObjectDeletionForm(dynamicforms.Form):
     def __init__(self, obj, *args, **kwargs):
         super(ObjectDeletionForm, self).__init__(*args, **kwargs)
         self.obj = obj
-        
+
     def delete(self):
         self.obj.delete()
-        
+
+
 class KreativArbeitenContactForm(dynamicforms.Form):
-    
     subject = forms.CharField(
         label=_("Subject"),
         required=True,
         max_length=255,
-        widget=forms.TextInput(attrs={'class':'vTextField'}),
-        )
-    
+        widget=forms.TextInput(attrs={'class': 'vTextField'}),
+    )
+
     body = forms.CharField(
-        label= _("Message"),
+        label=_("Message"),
         required=True,
-        widget=forms.Textarea(attrs={'class':'vSystemTextField'}),
-        )
-    
+        widget=forms.Textarea(attrs={'class': 'vSystemTextField'}),
+    )
+
     sender_name = forms.CharField(
         label=_("Your name"),
-        required=True, 
+        required=True,
         max_length=255,
-        widget=forms.TextInput(attrs={'class':'vTextField'}),
-        )
+        widget=forms.TextInput(attrs={'class': 'vTextField'}),
+    )
     sender_email = SingleEmailTextField(
         label=_("Your e-mail address"),
         required=True,
         max_length=255,
-        widget=forms.TextInput(attrs={'class':'vTextField'}),
-        )   
-    
+        widget=forms.TextInput(attrs={'class': 'vTextField'}),
+    )
+
     # prevent spam
     prevent_spam = SecurityField()
-    
+
     def save(self, sender=None):
-        
         # do character encoding
         cleaned = self.cleaned_data
-        #for key, value in cleaned.items():
+        # for key, value in cleaned.items():
         #    if type(value).__name__ == "unicode":
         #        cleaned[key] = value.encode(settings.DEFAULT_CHARSET)
-        
+
         if not sender.is_authenticated():
-            sender=None
-        
+            sender = None
+
         subject = cleaned["subject"]
         body = cleaned["body"]
         sender_name = cleaned["sender_name"]
         sender_email = cleaned["sender_email"]
-        
+
         recipient_emails = ["%s <%s>" % (
             "Dirk Kiefer",
             "kiefer@rkw.de",
@@ -4311,4 +4369,3 @@ class KreativArbeitenContactForm(dynamicforms.Form):
             body_html=body,
         )
         message.send()
-

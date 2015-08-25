@@ -1,15 +1,18 @@
 {% load i18n base_tags auth_extended uni_form_tags %}
 <div class="form_description_position profile_infos">
     <h5 class="edit_subline">{% trans "edit Description data" %}</h5>
-    <form action="/helper/edit-{{ URL_ID_EVENT }}-profile/{{ object.slug }}/description/" method="post" enctype="multipart/form-data" target="hidden_iframe" class="uniForm">
+
+    <form action="/helper/edit-{{ URL_ID_EVENT }}-profile/{{ object.slug }}/description/" method="post"
+          enctype="multipart/form-data" target="hidden_iframe" class="uniForm">
         <fieldset class="inlineLabels">
             <h3>{% trans "Description" %}</h3>
             {{ form.non_field_errors }}
             {{ form.description_de|as_uni_field }}
             {{ form.description_en|as_uni_field }}
             <div class="buttonHolder">
-                <input type="submit" class="primaryAction" value="{% filter upper %}{% trans "Save" %}{% endfilter %}" />
-                <input type="button" class="secondaryAction" value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel" />
+                <input type="submit" class="primaryAction" value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
+                <input type="button" class="secondaryAction"
+                       value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel"/>
             </div>
         </fieldset>
     </form>

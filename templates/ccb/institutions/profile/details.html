@@ -10,14 +10,14 @@
             <dd>{{ object.legal_form }}</dd>
         </dl>
     {% endif %}
-    
+
     {% if object.establishment_yyyy %}
         <dl>
             <dt>{% trans "Established at" %}</dt>
             <dd>{{ object.establishment_yyyy }} {{ object.get_establishment_mm_display }}</dd>
         </dl>
     {% endif %}
-    
+
     {% if object.nof_employees %}
         <dl>
             <dt>{% trans "Number of Employees" %}</dt>

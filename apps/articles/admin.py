@@ -13,6 +13,7 @@ from base_libs.utils.misc import get_installed
 from base_libs.admin.tree_editor import TreeEditor
 
 import filebrowser.settings as filebrowser_settings
+
 URL_FILEBROWSER_MEDIA = getattr(filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/')
 Article = models.get_model("articles", "Article")
 ArticleType = models.get_model("articles", "ArticleType")
@@ -21,15 +22,17 @@ ArticleImportSource = models.get_model("external_services", "ArticleImportSource
 
 ARTICLES_HAVE_TYPES = get_installed("articles.settings.ARTICLES_HAVE_TYPES")
 
+
 class ArticleTypeOptions(TreeEditor):
     save_on_top = True
-    search_fields = ('title',)    
+    search_fields = ('title',)
     list_display = ['actions_column', 'indented_short_title']
     list_filter = ("creation_date",)
- 
-    fieldsets = [(None, {'fields': ('parent','slug',)}),]
-    fieldsets += get_admin_lang_section(_("Contents"), ['title',])
-    prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
+
+    fieldsets = [(None, {'fields': ('parent', 'slug',)}), ]
+    fieldsets += get_admin_lang_section(_("Contents"), ['title', ])
+    prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,), }
+
 
 class ArticleForm(forms.ModelForm):
     class Meta:
@@ -41,8 +44,9 @@ class ArticleForm(forms.ModelForm):
         self.fields['article_type'].required = True
         self.fields['language'].required = True
 
+
 class ArticleOptions(ExtendedModelAdmin):
-    form = ArticleForm    
+    form = ArticleForm
 
     class Media:
         js = (
@@ -50,41 +54,60 @@ class ArticleOptions(ExtendedModelAdmin):
         )
 
     save_on_top = True
-    
-    list_display = ['id', 'title', 'author', 'status', 'published_from', 'published_till', 'views', 'article_type', 'language']
+
+    list_display = ['id', 'title', 'author', 'status', 'published_from', 'published_till', 'views', 'article_type',
+                    'language']
     list_display_links = ['title']
-    list_filter = ('sites', 'content_provider', 'published_from', 'published_till', 'status', 'is_featured', 'article_type', 'language')
+    list_filter = (
+        'sites', 'content_provider', 'published_from', 'published_till', 'status', 'is_featured', 'article_type',
+        'language')
     search_fields = ('title', 'description', 'content', 'author__username')
-    
-    fieldsets = [(None, {'fields': ('article_type', 'creative_sectors')}),]
+
+    fieldsets = [(None, {'fields': ('article_type', 'creative_sectors')}), ]
     fieldsets += [(_("Article"), {'fields': ['title', 'subtitle', 'content', 'description', 'language']})]
-    fieldsets += [(None, {'fields': ('slug', 'sites', 'is_featured',),}),]
-    fieldsets += [(_('Import'), {'fields': ('content_provider', 'external_url', 'is_excerpt')}),]
+    fieldsets += [(None, {'fields': ('slug', 'sites', 'is_featured',), }), ]
+    fieldsets += [(_('Import'), {'fields': ('content_provider', 'external_url', 'is_excerpt')}), ]
     fieldsets += PublishingMixinAdminOptions.fieldsets
-    fieldsets += [(_('Additional Content'), {
-        'classes': ("collapse closed",),                                             
-        'fields': ['image', (_("Description"), {'fields': ['image_title', 'image_description']})],
-        }),
-    ]
-    
-    prepopulated_fields = {"slug": ("title",),}
+    fieldsets += [(
+        _('Additional Content'),
+        {
+            'classes': ("collapse closed",),
+            'fields': [
+                'image',
+                (
+                    _("Description"),
+                    {
+                        'fields': [
+                            'image_title',
+                            'image_description'
+                        ]
+                    }
+                )
+            ],
+        }
+    )]
+
+    prepopulated_fields = {"slug": ("title",), }
+
 
 class ArticleImportSource_Inline(ExtendedStackedInline):
     model = ArticleImportSource
     extra = 1
     fieldsets = (
         (None, {
-            'fields':  ('title', 'url', 'sysname', 'content_provider', 'are_excerpts')
-            }),
+            'fields': ('title', 'url', 'sysname', 'content_provider', 'are_excerpts')
+        }),
         (_("Defaults"), {
-            'fields':  ('default_sites', 'default_creative_sectors',  'default_status')
-            }),
-        )
+            'fields': ('default_sites', 'default_creative_sectors', 'default_status')
+        }),
+    )
+
 
 class ArticleContentProviderOptions(ExtendedModelAdmin):
     list_display = ['title', 'url']
-    fieldsets = [(None, {'fields': ('title', 'url')}),]
+    fieldsets = [(None, {'fields': ('title', 'url')}), ]
     inlines = [ArticleImportSource_Inline]
+
 
 if ARTICLES_HAVE_TYPES:
     admin.site.register(ArticleType, ArticleTypeOptions)

@@ -4,7 +4,7 @@
 {% block title %}{% trans "Create Account" %}{% endblock %}
 
 {% block headline %}
-	<h1>{% trans "Create Account" %}</h1>
+    <h1>{% trans "Create Account" %}</h1>
 {% endblock %}
 
 {% block sidebar-a %}&nbsp;{% endblock %}
@@ -27,24 +27,24 @@
         </fieldset>
 
         {% if form.creative_sectors %}
-        <div id="CI_{{ LANGUAGE_CODE }}_search">
-            <h3>
-                <a href="#" class="open_but">
-                    <b>{% trans "Creative Sectors" %}</b>
-                    <span class="pic"></span>
-                </a>
-            </h3>
-            <fieldset class="fieldset_categories">
-                {% if form.non_field_errors %}
-                   <p class="error">{{ form.non_field_errors|join:"<br />"|safe }}</p>
-                {% endif %}
-                <div class="hidable">
-                    {% filter remove_empty_lists %}
-                        {% creative_sectors_under "" using "site_specific/categories/creative_sectors.html" creating %}
-                    {% endfilter %}
-                </div>
-            </fieldset>
-        </div>
+            <div id="CI_{{ LANGUAGE_CODE }}_search">
+                <h3>
+                    <a href="#" class="open_but">
+                        <b>{% trans "Creative Sectors" %}</b>
+                        <span class="pic"></span>
+                    </a>
+                </h3>
+                <fieldset class="fieldset_categories">
+                    {% if form.non_field_errors %}
+                        <p class="error">{{ form.non_field_errors|join:"<br />"|safe }}</p>
+                    {% endif %}
+                    <div class="hidable">
+                        {% filter remove_empty_lists %}
+                            {% creative_sectors_under "" using "site_specific/categories/creative_sectors.html" creating %}
+                        {% endfilter %}
+                    </div>
+                </fieldset>
+            </div>
         {% endif %}
 
         <fieldset class="inlineLabels">
@@ -57,7 +57,8 @@
                 </div>
             {% endif %}
             <div class="buttonHolder">
-                <input class="primaryAction" type="submit" value="{% filter upper %}{% trans 'Create Account' %}{% endfilter %}" />
+                <input class="primaryAction" type="submit"
+                       value="{% filter upper %}{% trans 'Create Account' %}{% endfilter %}"/>
             </div>
         </fieldset>
     </form>

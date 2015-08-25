@@ -1,6 +1,6 @@
 {% extends base_template|default:"articles/articles_base.html" %}
 {% load base_tags blog babel i18n auth_extended %}
-		
+
 {% block details %}
     {% if not article_list %}
         <p class="nothing">{% trans "No articles are available" %}</p>
@@ -25,5 +25,5 @@
 {% endblock %}
 
 {% block extrabody %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
 {% endblock %}

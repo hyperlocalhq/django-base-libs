@@ -1,10 +1,13 @@
 {% load i18n base_tags babel nav_menu articles image_modifications %}
 
-<div class="list-item{% if forloop.first %} first-item{% endif %}{% if forloop.last %} last-item{% endif %}" onclick="redirect('{{ article.get_url_path }}')">
+<div class="list-item{% if forloop.first %} first-item{% endif %}{% if forloop.last %} last-item{% endif %}"
+     onclick="redirect('{{ article.get_url_path }}')">
     <p class="date">{{ article.published_from|datefmt:"long" }}</p>
+
     <h3><a href="{{ article.get_url_path }}">{{ article.get_title }}</a></h3>
     {% if article.image %}
-        <img class="left" src="{{ UPLOADS_URL }}{{ article.image|modified_path:"nt" }}" alt="{{ article.get_title|escape }}" />
+        <img class="left" src="{{ UPLOADS_URL }}{{ article.image|modified_path:"nt" }}"
+             alt="{{ article.get_title|escape }}"/>
     {% endif %}
     <p>
         {% if article.description %}
@@ -18,10 +21,10 @@
     {% if article.creative_sectors.count %}
         <div class="post-meta">
             <p><span>{% trans "Categories" %}: </span>
-            {% for cs in article.creative_sectors.all %}
-                {% if not forloop.first %}|{% endif %}
-                <a href="/news/creative-sector/{{ cs.slug }}/">{{ cs.title }}</a>
-            {% endfor %}
+                {% for cs in article.creative_sectors.all %}
+                    {% if not forloop.first %}|{% endif %}
+                    <a href="/news/creative-sector/{{ cs.slug }}/">{{ cs.title }}</a>
+                {% endfor %}
             </p>
         </div>
     {% endif %}

@@ -20,23 +20,24 @@ class JobOffer(JobOfferBase):
                 return Term.objects.get(
                     vocabulary__sysname="basics_locality",
                     sysname="international",
-                    )
+                )
             elif postal_address.city.lower() != "berlin":
                 return Term.objects.get(
                     vocabulary__sysname="basics_locality",
                     sysname="national",
-                    )
+                )
             else:
                 import re
                 from jetson.apps.location.data import POSTAL_CODE_2_DISTRICT
+
                 locality = postal_address.get_locality()
                 regional = Term.objects.get(
                     vocabulary__sysname="basics_locality",
                     sysname="regional",
-                    )
-                p = re.compile('[^\d]*') # remove non numbers
+                )
+                p = re.compile('[^\d]*')  # remove non numbers
                 postal_code = p.sub("", postal_address.postal_code)
-                
+
                 district = ""
                 if locality and locality.district:
                     district = locality.district
@@ -51,52 +52,53 @@ class JobOffer(JobOfferBase):
                         slug=slugify(district),
                         parent=regional,
                         defaults=d,
-                        )
+                    )
                     return term
                 else:
                     return regional
         except:
             return None
-        
+
     def is_deletable(self, user=None):
         if not hasattr(self, "_is_deletable_cache"):
             user = get_current_user(user) or AnonymousUser()
             self._is_deletable_cache = user.has_perm("marketplace.delete_joboffer", self)
         return self._is_deletable_cache
-        
+
     def is_public(self):
         return self.status == "published"
+
 
 # Notify appropriate users about new job offers from contacts and favorite institutions
 def job_offer_created(sender, instance, **kwargs):
     from django.contrib.sites.models import Site
     from django.contrib.auth.models import User
-    
+
     from jetson.apps.notification import models as notification
-    
+
     from ccb.apps.site_specific.models import ContextItem
-    
-    if 'created' in kwargs:   
+
+    if 'created' in kwargs:
         if kwargs['created']:
-                
+
             # let's not send duplicate notices to users who marked
             # organizing institution, venue, and organizing person as favorite.
             sent_recipient_pks = []
-            
+
             if instance.offering_institution:
                 # get users who favorited the offering_institution where the job_offer is happening
                 # and who haven't received notifications yet
                 ci = ContextItem.objects.get_for(
                     instance.offering_institution,
-                    )
+                )
                 # get users who favorited the institution organizing this job_offer
                 recipients = User.objects.filter(
                     favorite__content_type__app_label="site_specific",
                     favorite__content_type__model="contextitem",
                     favorite__object_id=ci.pk,
-                    ).exclude(pk__in=sent_recipient_pks)
+                ).exclude(pk__in=sent_recipient_pks)
                 sent_recipient_pks += list(recipients.values_list("pk", flat=True))
-                
+
                 notification.send(
                     recipients,
                     "job_offer_by_favorite_institution",
@@ -106,23 +108,23 @@ def job_offer_created(sender, instance, **kwargs):
                         "object_creator_title": instance.offering_institution.title,
                         "object_title": instance.position,
                         "object_url": instance.get_url(),
-                        },
+                    },
                     instance=instance,
                     on_site=False,
-                    )
+                )
 
             if instance.contact_person:
                 # get users who favorited the person organizing this job_offer
                 # and who haven't received notifications yet
                 ci = ContextItem.objects.get_for(
                     instance.contact_person,
-                    )
+                )
                 recipients = User.objects.filter(
                     favorite__content_type__app_label="site_specific",
                     favorite__content_type__model="contextitem",
                     favorite__object_id=ci.pk,
-                    ).exclude(pk__in=sent_recipient_pks)
-                
+                ).exclude(pk__in=sent_recipient_pks)
+
                 notification.send(
                     recipients,
                     "job_offer_by_contact",
@@ -132,9 +134,10 @@ def job_offer_created(sender, instance, **kwargs):
                         "object_creator_title": instance.contact_person.title,
                         "object_title": instance.position,
                         "object_url": instance.get_url(),
-                        },
+                    },
                     instance=instance,
                     on_site=False,
-                    )
+                )
+
 
 models.signals.post_save.connect(job_offer_created, sender=JobOffer)

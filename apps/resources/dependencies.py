@@ -8,5 +8,5 @@ required_apps = [
     "institutions",
     "memos",
     "favorites",
-    ]
+]
 optional_apps = []
