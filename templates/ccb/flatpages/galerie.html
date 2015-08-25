@@ -26,33 +26,34 @@
 -->{% endcomment %}
 
 {% block content %}
-<div id="tabs">
-<ul>
-    <li><a href="/{{ URL_ID_INSTITUTION }}/allianz-deutscher-designer-ev/">{% trans "Information" %}</a></li>
-    <li><a href="/test-map/">{% trans "maps" %}</a></li>
-    <li class="active"><a href="/test-map/">{% trans "photos" %}</a></li>
-    <li><a href="#">{% trans "videos" %}</a></li>
-    <li><a href="#">{% trans "events" %}</a></li>
-    <li><a href="#">{% trans "reviews" %}</a></li>
-</ul>
-</div>
+    <div id="tabs">
+        <ul>
+            <li><a href="/{{ URL_ID_INSTITUTION }}/allianz-deutscher-designer-ev/">{% trans "Information" %}</a></li>
+            <li><a href="/test-map/">{% trans "maps" %}</a></li>
+            <li class="active"><a href="/test-map/">{% trans "photos" %}</a></li>
+            <li><a href="#">{% trans "videos" %}</a></li>
+            <li><a href="#">{% trans "events" %}</a></li>
+            <li><a href="#">{% trans "reviews" %}</a></li>
+        </ul>
+    </div>
 
-<div id="info"></div>
-{% include "site_specific/count_of.html" %}
-<div class="info-facts">
-    <h2>VITRA Design Museum</h2>
-    <p>Rooms, furnishings and objects</p>
-</div>
+    <div id="info"></div>
+    {% include "site_specific/count_of.html" %}
+    <div class="info-facts">
+        <h2>VITRA Design Museum</h2>
 
-<div id="pic_show"></div>
+        <p>Rooms, furnishings and objects</p>
+    </div>
+
+    <div id="pic_show"></div>
     <div class="pic"></div>
     <div class="pic_navi">
         <p>museum entrance</p>
+
         <div id="next_pre">
             <div class="previous_pic"><span>previous</span></div>
             <div class="next_pic"><span>next</span></div>
         </div>
     </div>
-</div>
-<div id="pic_show_links"><h3 class="first">thumbnails</h3></div>
+    <div id="pic_show_links"><h3 class="first">thumbnails</h3></div>
 {% endblock %}
