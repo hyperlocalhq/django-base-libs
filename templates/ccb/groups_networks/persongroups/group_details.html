@@ -18,15 +18,15 @@
     {% else %}
         <div class="description first-item overflow">
     {% end_if_has_perm %}
-<div class="profil_container">
-    <div id="dyn_avatar" class="dyn_section">
-        {% include "groups_networks/persongroups/profile/avatar.html" %}
+        <div class="profil_container">
+            <div id="dyn_avatar" class="dyn_section">
+                {% include "groups_networks/persongroups/profile/avatar.html" %}
+            </div>
+        </div>
+        <div id="dyn_description" class="dyn_section">
+            {% include "groups_networks/persongroups/profile/description.html" %}
+        </div>
     </div>
-</div>
-<div id="dyn_description" class="dyn_section">
-    {% include "groups_networks/persongroups/profile/description.html" %}
-</div>
-</div>
     <div class="cats">
         <h6 class="subline">{% trans "Details" %}</h6>
 
