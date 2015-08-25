@@ -25,9 +25,13 @@
         {% if forloop.first %}
             <ul class="steps">
         {% else %}
-                <li><span class="count">{{ forloop.counter0 }}.</span> {% if step.current %}<strong>{% else %}<span class="txt">{% endif %}
-                {{ step.title }}
-                {% if step.current %}</strong>{% else %}</span>{% endif %}
+                <li>
+                    <span class="count">{{ forloop.counter0 }}.</span>
+                    {% if step.current %}
+                        <strong>{{ step.title }}</strong>
+                    {% else %}
+                        <span class="txt">{{ step.title }}</span>
+                    {% endif %}
                 </li>
         {% endif %}
         {% if forloop.last %}
