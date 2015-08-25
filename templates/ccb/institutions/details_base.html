@@ -1,1 +1,67 @@
-{% extends "base.html" %}{% load i18n base_tags nav_menu %}{% block title %}    {% if request.user.get_profile|in_list:object.get_groups.0.get_owners %}        {% trans "My Institution / Company" %}    {% else %}        {{ object.get_title|escape }}    {% endif %}{% endblock %}{% block meta_description %}	<meta name="description" content="{{ object.get_description|striptags|truncatewords:100 }}..." />{% endblock %}{% block bodyclass %}object-details{% endblock %}{% block headline %}	<h1>        {{ object.title }}    </h1>    <h2 class="smaller">        {{ object.title2 }}    </h2>{% endblock %}{% block content %}    {% block tabs %}        <div id="tabs">            {% children_of "institution" using "navigation/children_in_tabs.html" %}        </div>    {% endblock %}    <div class="toolbox">        {% include "site_specific/count_of.html" %}        <div class="icons">            {% block object_controls %}                {% with object as institution %}                    {% include "institutions/controls.html" %}                {% endwith %}                <a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07"><span><span></span></span></a>            {% endblock %}            {% block additional_controls %}            {% endblock %}        </div>    </div>    <div id="details">        {% block details %}        {% endblock %}    </div>    <hr class="hidden"/>{% endblock %}{% block breadcrumbs %}    <div class="breadcrumbs">        <a href="/">{% trans "Home" %}</a>        <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_INSTITUTIONS }}/">{% trans "Institutions" %}</a>        <span class="b-sep"><span>::</span></span><a href="{{ object.get_url_path }}">{{ object.get_title }}</a>        {% block breadcrumbs_details %}        {% endblock %}    </div>{% endblock %}{% block extrabody %}    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/groups_networks.js"></script>{% endblock %}
+{% extends "base.html" %}
+{% load i18n base_tags nav_menu %}
+
+{% block title %}
+    {% if request.user.get_profile|in_list:object.get_groups.0.get_owners %}
+        {% trans "My Institution / Company" %}
+    {% else %}
+        {{ object.get_title|escape }}
+    {% endif %}
+{% endblock %}
+
+{% block meta_description %}
+	<meta name="description" content="{{ object.get_description|striptags|truncatewords:100 }}..." />
+{% endblock %}
+
+{% block bodyclass %}object-details{% endblock %}
+
+{% block headline %}
+	<h1>
+        {{ object.title }}
+    </h1>
+    <h2 class="smaller">
+        {{ object.title2 }}
+    </h2>
+{% endblock %}
+
+{% block content %}
+    {% block tabs %}
+        <div id="tabs">
+            {% children_of "institution" using "navigation/children_in_tabs.html" %}
+        </div>
+    {% endblock %}
+    <div class="toolbox">
+        {% include "site_specific/count_of.html" %}
+        <div class="icons">
+            {% block object_controls %}
+                {% with object as institution %}
+                    {% include "institutions/controls.html" %}
+                {% endwith %}
+                <a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07"><span><span></span></span></a>
+            {% endblock %}
+            {% block additional_controls %}
+            {% endblock %}
+        </div>
+    </div>
+    <div id="details">
+        {% block details %}
+        {% endblock %}
+    </div>
+    <hr class="hidden"/>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="/">{% trans "Home" %}</a>
+        <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_INSTITUTIONS }}/">{% trans "Institutions" %}</a>
+        <span class="b-sep"><span>::</span></span><a href="{{ object.get_url_path }}">{{ object.get_title }}</a>
+        {% block breadcrumbs_details %}
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{% block extrabody %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/groups_networks.js"></script>
+{% endblock %}
+

@@ -1,1 +1,17 @@
-{% extends "base.html" %}{% load i18n infoblocks %}{% block title %}{% trans "Registration complete" %}{% endblock %}{% block headline %}	<h1>{% trans "Your registration is complete." %}</h1>{% endblock %}			{% block sidebar-a %}&nbsp;{% endblock %}{% block sidebar-b %}&nbsp;{% endblock %}{% block content %}<div class="text-info">    <div>{% infoblock "register_all_done" %}</div></div>{% endblock %}
+{% extends "base.html" %}
+{% load i18n infoblocks %}
+{% block title %}{% trans "Registration complete" %}{% endblock %}
+
+{% block headline %}
+	<h1>{% trans "Your registration is complete." %}</h1>
+{% endblock %}			
+
+{% block sidebar-a %}&nbsp;{% endblock %}
+{% block sidebar-b %}&nbsp;{% endblock %}
+
+{% block content %}
+<div class="text-info">
+    <div>{% infoblock "register_all_done" %}</div>
+</div>
+{% endblock %}
+

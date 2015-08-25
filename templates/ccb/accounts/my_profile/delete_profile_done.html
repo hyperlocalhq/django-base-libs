@@ -1,1 +1,34 @@
-{% extends "accounts/my_profile/base.html" %}{% load i18n base_tags %}{% block meta_tags %}    <meta name="robots" content="noindex,nofollow" />    <meta name="language" content="{{ LANGUAGE_CODE }}" />    <meta http-equiv="refresh" content="10;url=/" /> {% endblock %}{% block headline %}    <h1>        {% trans "Profile deleted" %}    </h1>{% endblock %}{% block sidebar-a %}{% endblock %}{% block sidebar-b %}{% endblock %}{% block content %}    <p>{% trans "Your profile has been deleted. You can now browse the website anonymously." %}</p>{% endblock %}{% block breadcrumbs %}    <div class="breadcrumbs">        <a href="/">{% trans "Home" %}</a>        <span class="b-sep"><span>::</span></span><a href="/my-profile/">{% trans "My profile" %}</a>        <span class="b-sep"><span>::</span></span><span>{% trans "Delete profile" %}</span>    </div>{% endblock %}
+{% extends "accounts/my_profile/base.html" %}
+{% load i18n base_tags %}
+
+{% block meta_tags %}
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="language" content="{{ LANGUAGE_CODE }}" />
+    <meta http-equiv="refresh" content="10;url=/" /> 
+{% endblock %}
+
+{% block headline %}
+    <h1>
+        {% trans "Profile deleted" %}
+    </h1>
+{% endblock %}
+
+{% block sidebar-a %}
+{% endblock %}
+
+{% block sidebar-b %}
+{% endblock %}
+
+{% block content %}
+    <p>{% trans "Your profile has been deleted. You can now browse the website anonymously." %}</p>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="/">{% trans "Home" %}</a>
+        <span class="b-sep"><span>::</span></span><a href="/my-profile/">{% trans "My profile" %}</a>
+        <span class="b-sep"><span>::</span></span><span>{% trans "Delete profile" %}</span>
+    </div>
+{% endblock %}
+
+
