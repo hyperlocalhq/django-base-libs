@@ -24,8 +24,8 @@
             <h4>{{ gallery.title }}</h4>
 
             <div class="gallery_meta">
-	             <span class="gallery_teaser">
-	             	{% if gallery.cover_image %}
+                 <span class="gallery_teaser">
+                    {% if gallery.cover_image %}
                         <img width="75" height="75"
                              src="{{ UPLOADS_URL }}{{ gallery.cover_image.path|modified_path:"gt" }}" alt=""/>
                     {% else %}
@@ -37,7 +37,7 @@
                                  src="{{ STATIC_URL }}site/img/website/placeholder/upload_image.png" alt=""/>
                         {% endif %}
                     {% endif %}
-	             </span>
+                 </span>
 
                 <div class="meta_informations">
                     <span class="">{{ gallery.get_status_display }}</span><br/>
