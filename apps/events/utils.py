@@ -9,6 +9,7 @@ from base_libs.utils.misc import get_website_url
 Event = models.get_model("events", "Event")
 EventTime = models.get_model("events", "EventTime")
 
+
 def add_vevent(cal, event_time):
     """
     adds a vEvent object to iCalender
@@ -23,12 +24,14 @@ def add_vevent(cal, event_time):
         if event_time.has_start_time():
             vevent.add('dtstart').value = event_time.start
         else:
-            vevent.add('dtstart').value = date(event_time.start_yyyy or 2007, event_time.start_mm or 1, event_time.start_dd or 1)
+            vevent.add('dtstart').value = date(event_time.start_yyyy or 2007, event_time.start_mm or 1,
+                                               event_time.start_dd or 1)
     if event.has_end_date():
         if event_time.has_end_time():
             vevent.add('dtend').value = event_time.end
         else:
-            vevent.add('dtend').value = date(event_time.end_yyyy or 2007, event_time.end_mm or 1, event_time.end_dd or 1)
+            vevent.add('dtend').value = date(event_time.end_yyyy or 2007, event_time.end_mm or 1,
+                                             event_time.end_dd or 1)
     if getattr(event, "venue", False):
         location = event.venue.get_title()
         venue_address = event.venue.get_address_string()
@@ -36,6 +39,7 @@ def add_vevent(cal, event_time):
             location += ', ' + venue_address
         vevent.add('location').value = location
     vevent.add('url').value = get_website_url() + event.get_absolute_url()[1:]
+
 
 def create_ics(events):
     """
@@ -49,10 +53,10 @@ def create_ics(events):
         * list of Event instances
         * list of EventTime instances
     """
-    
+
     cal = vobject.iCalendar()
-    cal.add('method').value = 'PUBLISH' # IE/Outlook needs this
-    
+    cal.add('method').value = 'PUBLISH'  # IE/Outlook needs this
+
     if isinstance(events, Event):
         # events is an instance of Event
         event = events

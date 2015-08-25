@@ -38,9 +38,9 @@ DEFAULT_FROM_EMAIL = "contact@creative-city-berlin.de"
 ### DIRS AND URLS ###
 
 TEMPLATE_DIRS = [
-    os.path.join(PROJECT_PATH, "ccb", "templates", "ccb"),
-    os.path.join(PROJECT_PATH, "ccb", "templates", "admin"),
-    ] + TEMPLATE_DIRS
+                    os.path.join(PROJECT_PATH, "ccb", "templates", "ccb"),
+                    os.path.join(PROJECT_PATH, "ccb", "templates", "admin"),
+                ] + TEMPLATE_DIRS
 
 TEMPLATESADMIN_TEMPLATE_DIRS = TEMPLATE_DIRS
 
@@ -80,7 +80,7 @@ INSTALLED_APPS = [
     "django.contrib.auth",
     "django.contrib.admin",
     "django.contrib.sessions",
-    "django.contrib.contenttypes", 
+    "django.contrib.contenttypes",
     "django.contrib.staticfiles",
     "django.contrib.messages",
 
@@ -105,7 +105,8 @@ INSTALLED_APPS = [
     'treebeard',  # utilities for implementing a tree
     'menus',  # helper for model independent hierarchical website navigation
     'sekizai',  # for javascript and css management
-    'djangocms_admin_style',  # for the admin skin. You **must** add 'djangocms_admin_style' in the list **before** 'django.contrib.admin'.
+    'djangocms_admin_style',
+    # for the admin skin. You **must** add 'djangocms_admin_style' in the list **before** 'django.contrib.admin'.
     'djangocms_text_ckeditor',
     'reversion',
 
@@ -122,8 +123,8 @@ INSTALLED_APPS = [
     'djangocms_video',
 
     ### jetson apps ###
-    "jetson.apps.image_mods", 
-    "jetson.apps.httpstate", 
+    "jetson.apps.image_mods",
+    "jetson.apps.httpstate",
     "jetson.apps.i18n",
     "jetson.apps.location",
     "jetson.apps.utils",
@@ -146,9 +147,9 @@ INSTALLED_APPS = [
     "jetson.apps.messaging",
     "jetson.apps.blog",
     "jetson.apps.comments",
-    "jetson.apps.compress_jetson", 
-    "jetson.apps.mailchimp", 
-    
+    "jetson.apps.compress_jetson",
+    "jetson.apps.mailchimp",
+
     ### ccb-specific apps ###
     "ccb.apps.people",
     "ccb.apps.institutions",
@@ -167,8 +168,8 @@ INSTALLED_APPS = [
     "ccb.apps.slideshows",
     "ccb.apps.faqs",
     "ccb.apps.celerytest",
-    "ccb", # just for i18n in Javascript
-    ]
+    "ccb",  # just for i18n in Javascript
+]
 
 MIDDLEWARE_CLASSES = [
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -191,7 +192,7 @@ MIDDLEWARE_CLASSES = [
     'cms.middleware.language.LanguageCookieMiddleware',
     # "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
-#if not DEVELOPMENT_MODE:
+# if not DEVELOPMENT_MODE:
 #    MIDDLEWARE_CLASSES.insert(0, "django.middleware.cache.UpdateCacheMiddleware")
 #    MIDDLEWARE_CLASSES.append("django.middleware.cache.FetchFromCacheMiddleware")
 
@@ -232,175 +233,178 @@ ADMIN_APP_INDEX = (
                 'models': ('Page',),
             }),
             ('events', {
-                'models':("EventType", "EventTimeLabel","Event",),
+                'models': ("EventType", "EventTimeLabel", "Event",),
                 'icon': 'date',
-                }),
+            }),
             ('resources', {
-                'models':("DocumentType", "Medium", "Document",),
+                'models': ("DocumentType", "Medium", "Document",),
                 'icon': 'link',
-                }),
+            }),
             ('articles', {
-                'models':("ArticleContentProvider", "ArticleType", "Article",),
+                'models': ("ArticleContentProvider", "ArticleType", "Article",),
                 'icon': 'page_white_text',
-                }),
+            }),
             ('blog', {
-                'models':("Blog", "Post"),
+                'models': ("Blog", "Post"),
                 'icon': 'page_white_edit',
-                }),
+            }),
             ('flatpages', {
-                'models':("FlatPage",),
+                'models': ("FlatPage",),
                 'icon': 'page_white',
-                }),
+            }),
             ('blocks', {
-                'models':("InfoBlock",),
+                'models': ("InfoBlock",),
                 'icon': 'brick',
-                }),
+            }),
             ('faqs', {
-                'models':("FaqContainer", "FaqCategory", "QuestionAnswer"),
+                'models': ("FaqContainer", "FaqCategory", "QuestionAnswer"),
                 'icon': 'help',
-                }),
+            }),
             ('media_gallery', {
-                'models':("PortfolioSettings", "Section", "MediaGallery",),
+                'models': ("PortfolioSettings", "Section", "MediaGallery",),
                 'icon': 'images',
-                }),
+            }),
             ('slideshows', {
-                'models':("Slideshow",),
+                'models': ("Slideshow",),
                 'icon': 'images',
-                }),
+            }),
         )
-    },{
+    }, {
         'title': _('Community'),
         'apps': (
             ('people', {
-                'models':("IndividualType", "Person",),
+                'models': ("IndividualType", "Person",),
                 'icon': 'user',
-                }),
+            }),
             ('institutions', {
-                'models':("LegalForm", "InstitutionType", "Institution",),
+                'models': ("LegalForm", "InstitutionType", "Institution",),
                 'icon': 'building',
-                }),
+            }),
             ('marketplace', {
-                'models':("JobOffer","JobSector","JobType","JobQualification",),
+                'models': ("JobOffer", "JobSector", "JobType", "JobQualification",),
                 'icon': 'page_white',
-                }),
+            }),
             ('auth', {
                 'verbose_name': _("Authentication"),
-                'models':("Group", "User"),
+                'models': ("Group", "User"),
                 'icon': 'key',
-                }),
+            }),
             ('individual_relations', {
-                'models':("IndividualRelationType", "IndividualRelation", ),
-                }),
+                'models': ("IndividualRelationType", "IndividualRelation",),
+            }),
             ('favorites', {
-                'models':("Favorite",),
+                'models': ("Favorite",),
                 'icon': 'heart',
-                }),
+            }),
             ('bookmarks', {
-                'models':("Bookmark",),
+                'models': ("Bookmark",),
                 'icon': 'flag_red',
-                }),
+            }),
             ('memos', {
-                'models':("MemoCollection",),
+                'models': ("MemoCollection",),
                 'icon': 'note',
-                }),
+            }),
             ('groups_networks', {
-                'models':("GroupType", "PersonGroup", "GroupMembership"),
+                'models': ("GroupType", "PersonGroup", "GroupMembership"),
                 'icon': 'group',
-                }),
+            }),
             ('facebook_app', {
-                'models':("FacebookAppSettings", ),
-                }),
+                'models': ("FacebookAppSettings",),
+            }),
         )
-    },{
+    }, {
         'title': _('Commerce'),
         'apps': ()
-    },{
+    }, {
         'title': _('Campaign'),
         'apps': (
             ('mailing', {
-                'models':("EmailMessage", "EmailTemplate", "EmailTemplatePlaceholder",),
+                'models': ("EmailMessage", "EmailTemplate", "EmailTemplatePlaceholder",),
                 'icon': 'email',
-                }),
+            }),
             ('messaging', {
-                'models':("InternalMessage",),
-                }),
+                'models': ("InternalMessage",),
+            }),
             ('mailchimp', {
-                'models':("Settings", "MList", "Subscription", "Campaign",),
+                'models': ("Settings", "MList", "Subscription", "Campaign",),
                 'icon': 'transmit',
-                }),
+            }),
         )
-    },{
+    }, {
         'title': _('Control'),
         'apps': ()
-    },{
+    }, {
         'title': _('Configure'),
         'apps': (
             ('navigation', {
-                'models':("NavigationLink",),
-                }),
-            #('chronograph', {
+                'models': ("NavigationLink",),
+            }),
+            # ('chronograph', {
             #    'models':("Job", "Log",),
             #    }),
             ('structure', {
-                'models':("Vocabulary", "Term", "ContextCategory"),
-                }),
+                'models': ("Vocabulary", "Term", "ContextCategory"),
+            }),
             ('image_mods', {
                 'verbose_name': _("Media"),
-                'models':("ImageModificationGroup","ImageModification","ImageCropping",),
-                }),
+                'models': ("ImageModificationGroup", "ImageModification", "ImageCropping",),
+            }),
             ('contact_form', {
-                'models':("ContactFormCategory",),
-                }),
+                'models': ("ContactFormCategory",),
+            }),
             ('sites', {
                 'verbose_name': _("Sites"),
-                'models':("Site",),
-                }),
+                'models': ("Site",),
+            }),
             ('configuration', {
-                'models':("SiteSettings",),
-                }),
+                'models': ("SiteSettings",),
+            }),
             ('redirects', {
                 'verbose_name': _("Redirects"),
-                'models':("Redirect",),
-                }),
+                'models': ("Redirect",),
+            }),
             ('i18n', {
-                'models':("Country", "Area", "Language", "CountryLanguage", "Phone", "Nationality", "TimeZone"),
-                }),
+                'models': ("Country", "Area", "Language", "CountryLanguage", "Phone", "Nationality", "TimeZone"),
+            }),
             ('optionset', {
-                'models':("Prefix", "Salutation", "IndividualLocationType", "InstitutionalLocationType", "PhoneType", "EmailType", "URLType", "IMType"),
-                }),
+                'models': (
+                    "Prefix", "Salutation", "IndividualLocationType", "InstitutionalLocationType", "PhoneType",
+                    "EmailType",
+                    "URLType", "IMType"),
+            }),
         )
-    },{
+    }, {
         'title': _('Connect'),
         'apps': (
-            #('jovoto', {
+            # ('jovoto', {
             #    'models':("Idea",),
             #    }),
             ('external_services', {
-                'models':("Service", "ArticleImportSource", "ServiceActionLog"),
-                }),
-            )
-    },{
+                'models': ("Service", "ArticleImportSource", "ServiceActionLog"),
+            }),
+        )
+    }, {
         'title': _('Control'),
         'apps': (
             ('comments', {
                 'verbose_name': _("Comments"),
-                'models': ('Comment','ModeratorDeletion','ModeratorDeletionReason',)
-                }),
+                'models': ('Comment', 'ModeratorDeletion', 'ModeratorDeletionReason',)
+            }),
             ('profanity_filter', {
-                'models':("SwearWord", "SwearingCase",),
-                }),
+                'models': ("SwearWord", "SwearingCase",),
+            }),
             ('site_specific', {
-                'models':("ClaimRequest", "Visit"),
-                }),
+                'models': ("ClaimRequest", "Visit"),
+            }),
             ('tracker', {
-                'models':("Concern", "Ticket",),
-                }),
+                'models': ("Concern", "Ticket",),
+            }),
             ('grappelli', {
-                'models':("Bookmark","Navigation","Help","HelpItem",),
-                }),
+                'models': ("Bookmark", "Navigation", "Help", "HelpItem",),
+            }),
             ('notification', {
-                'models':("NoticeTypeCategory", "NoticeType", "NoticeEmailTemplate", "Notice", "Digest",),
-                }),
+                'models': ("NoticeTypeCategory", "NoticeType", "NoticeEmailTemplate", "Notice", "Digest",),
+            }),
         )
     }
 )
@@ -410,13 +414,13 @@ ADMIN_APP_INDEX = (
 
 if not DEVELOPMENT_MODE and False:
     CACHES = {
-       'default': {
-           'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-           'LOCATION': '127.0.0.1:11211',
-           'KEY_PREFIX': "ccb_production_",
-           'TIMEOUT': 300,
-           'MAX_ENTRIES': 400,
-       }
+        'default': {
+            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            'LOCATION': '127.0.0.1:11211',
+            'KEY_PREFIX': "ccb_production_",
+            'TIMEOUT': 300,
+            'MAX_ENTRIES': 400,
+        }
     }
 
 
@@ -435,10 +439,10 @@ FILEBROWSER_STRICT_PIL = True
 
 ### SEARCH ###
 
-SPHINX_SERVER = 'localhost'    # Sphinx server address, default is localhost
-SPHINX_PORT = 3312             # Sphinx server port, default is 3312
+SPHINX_SERVER = 'localhost'  # Sphinx server address, default is localhost
+SPHINX_PORT = 3312  # Sphinx server port, default is 3312
 
-SEARCH_ENGINE = "MySqlFulltext" # one of these: "MySqlFulltext", "Proprietary", "Sphinx"
+SEARCH_ENGINE = "MySqlFulltext"  # one of these: "MySqlFulltext", "Proprietary", "Sphinx"
 
 
 ### MAILING ###
@@ -446,12 +450,12 @@ SEARCH_ENGINE = "MySqlFulltext" # one of these: "MySqlFulltext", "Proprietary", 
 MAILING_DEFAULT_FROM_NAME = 'Creative City Berlin'
 MAILING_DEFAULT_FROM_EMAIL = 'ccb-contact@kulturprojekte-berlin.de'
 MAILING_HTML_REPLACE = ()
-#(
+# (
 #    (r'<p([^>]*)>', r'<p\1 style="font-size: 12px;margin: 0;padding: 0;line-height: 1.5em;margin-bottom: 18px;">'),
 #    (r'<ul([^>]*)>', r'<ul\1 style="font-size: 12px;margin: 0;padding: 0;line-height: 1.5em;margin-bottom: 18px; margin-left: 18px;">'),
 #    (r'<li([^>]*)>', r'<li\1 style="margin: 0;padding: 0;list-style-type: square;">'),
 #    (r'<a([^>]*)>', r'<a\1 style="color:#6994A6;text-decoration:none;cursor:pointer;">'),
-#)
+# )
 
 
 ### DEBUG TOOLBAR ###
@@ -482,10 +486,10 @@ PIPELINE_CSS['screen'] = {
         "site/css/screen/content.css",
         "site/css/screen/icons.css",
         "site/css/screen/portfolio.css",
-        ),
+    ),
     'output_filename': "site/css/screen/screen_compressed.css",
     'extra_context': {'media': "screen"},
-    }
+}
 PIPELINE_CSS['kreativarbeiten'] = {
     'source_filenames': (
         "site/yaml/core/base.css",
@@ -499,41 +503,41 @@ PIPELINE_CSS['kreativarbeiten'] = {
         "site/css/screen/icons.css",
         "site/css/screen/portfolio.css",
         "site/css/exceptions/kreativarbeiten.css",
-        ),
+    ),
     'output_filename': "site/css/exceptions/kreativarbeiten_compressed.css",
     'extra_context': {'media': "screen"},
-    }
+}
 PIPELINE_CSS['screen_ie'] = {
     'source_filenames': (
         "site/yaml/core/iehacks.css",
         "site/css/patches/patch_layout.css",
-        ),
+    ),
     'output_filename': "site/css/screen/screen_ie_compressed.css",
     'extra_context': {'media': "screen"},
-    }
+}
 PIPELINE_CSS['print'] = {
     'source_filenames': (
         "site/css/print/print.css",
-        ),
+    ),
     'output_filename': "site/css/print/print_compressed.css",
     'extra_context': {'media': "print"},
-    }
+}
 
 PIPELINE_JS['common'] = {
     'source_filenames': (
         "site/js/collapse.js",
         "site/js/website/common.js",
-        ),
+    ),
     'output_filename': 'site/js/website/common_compressed.js',
-    }
+}
 
 PIPELINE_JS['common'] = {
     'source_filenames': (
         "site/js/collapse.js",
         "site/js/website/common.js",
-        ),
+    ),
     'output_filename': 'site/js/website/common_compressed.js',
-    }
+}
 
 PIPELINE_JS['person_details'] = {
     'source_filenames': (
@@ -541,9 +545,9 @@ PIPELINE_JS['person_details'] = {
         "site/js/website/gmaps_for_address.js",
         "site/js/website/contact_details.js",
         "site/js/website/profile.js",
-        ),
+    ),
     'output_filename': 'site/js/website/person_details_compressed.js',
-    }
+}
 
 PIPELINE_JS['institution_details'] = {
     'source_filenames': (
@@ -552,9 +556,9 @@ PIPELINE_JS['institution_details'] = {
         "site/js/website/contact_details.js",
         "site/js/website/profile.js",
         "site/js/website/opening_hours.js",
-        ),
+    ),
     'output_filename': 'site/js/website/institution_details_compressed.js',
-    }
+}
 
 PIPELINE_JS['event_details'] = {
     'source_filenames': (
@@ -566,17 +570,17 @@ PIPELINE_JS['event_details'] = {
         "site/js/website/event_times.js",
         "site/js/website/formsets.js",
         "site/js/website/multipleselectautocomplete.js",
-        ),
+    ),
     'output_filename': 'site/js/website/event_details_compressed.js',
-    }
+}
 
 PIPELINE_JS['document_details'] = {
     'source_filenames': (
         "site/js/website/categories.js",
         "site/js/website/profile.js",
-        ),
+    ),
     'output_filename': 'site/js/website/document_details_compressed.js',
-    }
+}
 
 PIPELINE_JS['job_offer_details'] = {
     'source_filenames': (
@@ -585,78 +589,78 @@ PIPELINE_JS['job_offer_details'] = {
         "site/js/website/profile.js",
         "site/js/website/formsets.js",
         "site/js/website/multipleselectautocomplete.js",
-        ),
+    ),
     'output_filename': 'site/js/website/job_offer_details_compressed.js',
-    }
+}
 
 PIPELINE_JS['map'] = {
     'source_filenames': (
         "site/js/website/map.js",
-        ),
+    ),
     'output_filename': 'site/js/website/map_compressed.js',
-    }
+}
 
 PIPELINE_JS['blog'] = {
     'source_filenames': (
         "site/js/website/comment.js",
         "site/js/website/blog.js",
-        ),
+    ),
     'output_filename': 'site/js/website/blog_compressed.js',
-    }
+}
 
 COMPRESS_JETSON_JS['admin_person_change'] = {
     'source_filenames': (
         "js/admin/person_change.js",
-        ),
+    ),
     'output_filename': 'js/admin/person_change_compressed.js',
-    }
+}
 
 COMPRESS_JETSON_JS['admin_institution_change'] = {
     'source_filenames': (
         "js/admin/institution_change.js",
-        ),
+    ),
     'output_filename': 'js/admin/institution_change_compressed.js',
-    }
+}
 
 COMPRESS_JETSON_JS['autocomplete'] = {
     'source_filenames': (
         "js/jquery/autocomplete_1.0/jquery.bgiframe.min.js",
         "js/jquery/autocomplete_1.0/jquery.autocomplete.js",
         "js/website/autocomplete.js",
-        ),
+    ),
     'output_filename': 'js/jquery/autocomplete_compressed.js',
-    }
+}
 
 COMPRESS_JETSON_JS['admin_event_change'] = {
     'source_filenames': (
         "js/admin/event_change.js",
-        ),
+    ),
     'output_filename': 'js/admin/event_change_compressed.js',
-    }
+}
 
 COMPRESS_JETSON_JS['admin_document_change'] = {
     'source_filenames': (
         "js/admin/document_change.js",
-        ),
+    ),
     'output_filename': 'js/admin/document_change_compressed.js',
-    }
+}
 
 COMPRESS_JETSON_JS['admin_job_offer_change'] = {
     'source_filenames': (
         "js/admin/job_offer_change.js",
-        ),
+    ),
     'output_filename': 'js/admin/job_offer_change_compressed.js',
-    }
-    
+}
+
 COMPRESS_JETSON_JS['jquery_plugins'] = {
     'source_filenames': (
         "js/jquery/jquery.ba-hashchange.min.js",
         "js/jquery/jquery.cookie.js",
         "js/jquery/jquery.popup.js",
         "js/jquery/uni-form.jquery.min.js",
-        ),
+    ),
     'output_filename': 'js/jquery/jquery_plugins_compressed.js',
-    }
+}
 
 
 ### PROFANITY FILTER ###
@@ -683,7 +687,7 @@ PROFANITY_MODELS_NOT_TO_CHECK = (
     "mailchimp.Settings",
     "mailchimp.Subscription",
     "mailchimp.MList",
-    )
+)
 
 ### HAYSTACK ###
 
@@ -704,7 +708,7 @@ APPEND_SLASH = True
 
 THIRD_PARTY_EMAILS = {
     'kulturmanagement.net': "jobs@kulturmanagement.net",
-    }
+}
 
 CREATIVESET_COMPANY_ID = 632
 CREATIVESET_KEY_COMPONENT = "46ea64b3b8cfa113d9bd5e131d598abac171205e"
@@ -723,8 +727,8 @@ IMAGE_MAX_SIZE = "342x342"
 IMAGE_PREVIEW_MAX_SIZE = "161x161"
 IMAGE_SMALL_SIZE = "75x75"
 
-MIN_LOGO_SIZE = (75,75)
-LOGO_SIZE = (165,165)
+MIN_LOGO_SIZE = (75, 75)
+LOGO_SIZE = (165, 165)
 LOGO_PREVIEW_SIZE = "161x161"
 LOGO_SMALL_SIZE = "50x50"
 
@@ -738,7 +742,7 @@ PATHS_NO_REDIRECTION = (
     STATIC_URL,
     MEDIA_URL,
     ADMIN_MEDIA_PREFIX,
-    )
+)
 
 TWITTER_USERNAME = "CREATIVEBERLIN"
 TWITTER_NUMBER_OF_TWEETS = 3
@@ -747,7 +751,6 @@ TWITTER_CONSUMER_KEY = "J1AlfzI5QuW3HOUF9fiU8Q"
 TWITTER_CONSUMER_SECRET = "VkIF6bZMLBGHqv8bguK2pmr5Rg1HNK7OuJBx4uGzRgo"
 TWITTER_ACCESS_TOKEN = "21031007-meNXTMlI5yPA7KGU3eiYUsfaVOYWAo0FiJB0alpxX"
 TWITTER_ACCESS_TOKEN_SECRET = "mOg8VE4SdCseexvdqjOKdWc0dJe6ALbWA89nLsdIMLk"
-
 
 MAILING_CONTENT_TYPE_CHOICES = (
     ('image_and_text', _("Image and text")),
@@ -758,7 +761,7 @@ MAILING_CONTENT_TYPE_CHOICES = (
     ('portfolios', _("Portfolios")),
     ('people', _("People")),
     ('institutions', _("Institutions")),
-    )
+)
 
 TIME_INPUT_FORMATS = ('%H:%M:%S', '%H:%M', '%H.%M')
 
@@ -766,9 +769,9 @@ TIME_INPUT_FORMATS = ('%H:%M:%S', '%H:%M', '%H.%M')
 
 CELERY_RESULT_BACKEND = 'database'
 # For scheduled jobs. 
-CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler" 
-CELERY_TRACK_STARTED = True 
-CELERY_SEND_EVENTS = True 
+CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
+CELERY_TRACK_STARTED = True
+CELERY_SEND_EVENTS = True
 CELERYD_LOG_FILE = os.path.join(PROJECT_PATH, "ccb/tmp/celery.log")
 
 BROKER_URL = "django://"
@@ -779,6 +782,7 @@ BROKER_PASSWORD = "guest"
 BROKER_VHOST = "/"
 
 import djcelery
+
 djcelery.setup_loader()
 
 ### CAPTCHA ###

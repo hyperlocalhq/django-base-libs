@@ -7,6 +7,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
 
+
 class CreateInstitution(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
@@ -14,7 +15,7 @@ class CreateInstitution(unittest.TestCase):
         self.base_url = "http://127.0.0.1:8000"
         self.verificationErrors = []
         self.accept_next_alert = True
-    
+
     def test_create_institution(self):
         driver = self.driver
         driver.get(self.base_url + "/en/institutions/add/")
@@ -57,9 +58,11 @@ class CreateInstitution(unittest.TestCase):
         driver.find_element_by_id("id_im0_address").send_keys("seleniumtest")
         driver.find_element_by_css_selector("input.primaryAction").click()
         driver.find_element_by_id("id_description_de").clear()
-        driver.find_element_by_id("id_description_de").send_keys("selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test.")
+        driver.find_element_by_id("id_description_de").send_keys(
+            "selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test.")
         driver.find_element_by_id("id_description_en").clear()
-        driver.find_element_by_id("id_description_en").send_keys("selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test.")
+        driver.find_element_by_id("id_description_en").send_keys(
+            "selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test. selenium test.")
         driver.find_element_by_id("id_avatar").clear()
         driver.find_element_by_id("id_avatar").send_keys("/Users/tiago/Desktop/runners.jpg")
         driver.find_element_by_css_selector("input.primaryAction").click()
@@ -80,17 +83,21 @@ class CreateInstitution(unittest.TestCase):
         self.assertEqual("Creative City Berlin - Registration - Institution", driver.title)
         self.assertEqual("Confirm Entered Data", driver.find_element_by_css_selector("fieldset.inlineLabels > h5").text)
         driver.find_element_by_css_selector("input.primaryAction").click()
-    
+
     def is_element_present(self, how, what):
-        try: self.driver.find_element(by=how, value=what)
-        except NoSuchElementException, e: return False
+        try:
+            self.driver.find_element(by=how, value=what)
+        except NoSuchElementException, e:
+            return False
         return True
-    
+
     def is_alert_present(self):
-        try: self.driver.switch_to_alert()
-        except NoAlertPresentException, e: return False
+        try:
+            self.driver.switch_to_alert()
+        except NoAlertPresentException, e:
+            return False
         return True
-    
+
     def close_alert_and_get_its_text(self):
         try:
             alert = self.driver.switch_to_alert()
@@ -100,11 +107,13 @@ class CreateInstitution(unittest.TestCase):
             else:
                 alert.dismiss()
             return alert_text
-        finally: self.accept_next_alert = True
-    
+        finally:
+            self.accept_next_alert = True
+
     def tearDown(self):
         self.driver.quit()
         self.assertEqual([], self.verificationErrors)
+
 
 if __name__ == "__main__":
     unittest.main()

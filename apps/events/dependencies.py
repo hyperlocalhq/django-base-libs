@@ -10,9 +10,9 @@ required_apps = [
     "auth",
     "notification",
     "site_specific",
-    ]
-    
+]
+
 optional_apps = [
     "institutions",
     "people",
-    ]
+]

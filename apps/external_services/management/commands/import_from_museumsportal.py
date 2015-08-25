@@ -4,16 +4,18 @@ from django.core.management.base import NoArgsCommand
 
 SILENT, NORMAL, VERBOSE = 0, 1, 2
 
+
 class Command(NoArgsCommand):
     option_list = NoArgsCommand.option_list + (
         make_option('--skip-images', action='store_true', dest='skip_images', default=False,
-            help='Tells Django to NOT download images.'),
-        )
+                    help='Tells Django to NOT download images.'),
+    )
     help = """Imports events from Museumsportal Berlin"""
+
     def handle_noargs(self, **options):
         verbosity = int(options.get('verbosity', NORMAL))
         skip_images = options.get('skip_images')
-        
+
         import re
         import urllib2
         from datetime import datetime
@@ -23,15 +25,15 @@ class Command(NoArgsCommand):
         from xml.dom.minidom import parseString
         from xml.dom.minidom import Node
         from dateutil.parser import parse as parse_datetime
-        
+
         from django.db import models
         from django.template.defaultfilters import slugify
 
         from base_libs.utils.misc import get_related_queryset
-        
+
         from jetson.apps.external_services.utils import get_first
         from jetson.apps.external_services.utils import get_value
-        
+
         image_mods = models.get_app("image_mods")
         Address = models.get_model("location", "Address")
         Institution = models.get_model("institutions", "Institution")
@@ -40,11 +42,11 @@ class Command(NoArgsCommand):
         EventTime = models.get_model("events", "EventTime")
         ObjectMapper = models.get_model("external_services", "ObjectMapper")
         Service = models.get_model("external_services", "Service")
-        
+
         old_to_new_museum_id_mapper = (
-            (1321, 277), # Deutsches Technikmuseum
-            )
-        
+            (1321, 277),  # Deutsches Technikmuseum
+        )
+
         (
             (1611, 8),
             (1131, 9),
@@ -187,10 +189,10 @@ class Command(NoArgsCommand):
             (1801, 160),
             (1806, 161),
             (1811, 162),
-            #(1816, 163),
+            # (1816, 163),
             (1821, 165),
             (1826, 166),
-            #(1831, 167),
+            # (1831, 167),
             (1836, 168),
             (3136, 169),
             (1846, 170),
@@ -220,12 +222,12 @@ class Command(NoArgsCommand):
             (1966, 194),
             (1976, 195),
             (3106, 196),
-            #(1981, 197),
+            # (1981, 197),
             (1986, 198),
             (1991, 199),
-            #(1996, 200),
+            # (1996, 200),
             (1371, 201),
-            #(2001, 202),
+            # (2001, 202),
             (1671, 203),
             (2006, 204),
             (2026, 205),
@@ -261,8 +263,8 @@ class Command(NoArgsCommand):
             (1981, 198),
             (1996, 201),
             (2001, 203),
-            )
-        
+        )
+
         def parse_phone(full_number):
             country = "49"
             full_number = re.sub(r"^\+49\D*", "", full_number)
@@ -275,26 +277,26 @@ class Command(NoArgsCommand):
             else:
                 area = ""
                 number = parts[0]
-            if len(number)>15:
+            if len(number) > 15:
                 return "", "", ""
             return country, area, number
-        
+
         ### IMPORT MUSEUMS ###
         if verbosity > 1:
             print u"### IMPORTING MUSEUMS ###"
-        
+
         s_museums, created = Service.objects.get_or_create(
             sysname="museumsportal_berlin_museums",
             defaults={
                 'url': "https://eingabe.museumsportal-berlin.de/mp_art/export_museums.php",
                 'title': "Museumsportal Berlin Museums",
-                },
-            )
+            },
+        )
         if created:
             ### initial setup ###
             old_service = Service.objects.get(
                 sysname="museumsportal_berlin",
-                )
+            )
             for old_external_id, new_external_id in old_to_new_museum_id_mapper:
                 try:
                     # get institution from saved mapper
@@ -302,7 +304,7 @@ class Command(NoArgsCommand):
                         external_id=str(old_external_id),
                         content_type__app_label="institutions",
                         content_type__model="institution",
-                        )
+                    )
                 except models.ObjectDoesNotExist:
                     pass
                 else:
@@ -310,7 +312,7 @@ class Command(NoArgsCommand):
                         mapper = ObjectMapper(
                             service=s_museums,
                             external_id=str(new_external_id),
-                            )
+                        )
                         mapper.content_object = old_mapper.content_object
                         mapper.save()
 
@@ -319,36 +321,36 @@ class Command(NoArgsCommand):
             pass
 
         data = get_museums_data()
-        
+
         xml_doc = parseString(data)
 
         status_imported = "import"
-        
+
         inst_type_museum = get_related_queryset(Institution, "institution_types").get(
             slug="museum",
-            )
+        )
         cs_art = get_related_queryset(Institution, "creative_sectors").get(
             sysname="art",
-            )
+        )
         phone_type = get_related_queryset(InstitutionalContact, "phone0_type").get(
             slug="phone",
-            )
+        )
         fax_type = get_related_queryset(InstitutionalContact, "phone0_type").get(
             slug="fax",
-            )
-        
+        )
+
         stats = {
             'added': 0,
             'updated': 0,
             'skipped': 0,
-            }
+        }
         for node_museum in xml_doc.getElementsByTagName("museum"):
             external_id = get_value(node_museum, "uid")
             change_date = parse_datetime(
                 get_value(node_museum, "dtstamp"),
                 ignoretz=True,
-                )
-            
+            )
+
             # get or create event
             mapper = None
             try:
@@ -357,7 +359,7 @@ class Command(NoArgsCommand):
                     external_id=external_id,
                     content_type__app_label="institutions",
                     content_type__model="institution",
-                    )
+                )
             except models.ObjectDoesNotExist:
                 # or create a new article and then create a mapper
                 institution = Institution()
@@ -376,11 +378,11 @@ class Command(NoArgsCommand):
             for node_title in node_museum.getElementsByTagName("title"):
                 if node_title.getAttribute("xml:lang") == "de":
                     institution.title = get_value(node_title)
-                    
+
             existing = Institution.objects.filter(slug=slugify(institution.title))
             if existing:
                 institution.pk = existing[0].pk
-            
+
             for node_subtitle in node_museum.getElementsByTagName("subtitle"):
                 if node_subtitle.getAttribute("xml:lang") == "de":
                     institution.title2 = get_value(node_subtitle)
@@ -389,12 +391,12 @@ class Command(NoArgsCommand):
                     institution,
                     "description_%s" % node_description.getAttribute("xml:lang"),
                     get_value(node_description),
-                    )
+                )
 
             opening_times = get_value(
                 node_museum,
                 "opentime",
-                )
+            )
             # parse this format: "Mo:10:00-18:00#Di:-#Mi:10:00-18:00#Do:10:00-20:00#Fr:10:00-18:00#Sa:10:00-18:00#So:10:00-18:00"
             weekday_map = {
                 'Mo': "mon",
@@ -404,7 +406,7 @@ class Command(NoArgsCommand):
                 'Fr': "fri",
                 'Sa': "sat",
                 'So': "sun",
-                }
+            }
             if opening_times:
                 for day_opening_times in opening_times.split("#"):
                     day, opening_times = day_opening_times.split(":", 1)
@@ -414,12 +416,12 @@ class Command(NoArgsCommand):
                             institution,
                             "%s_open" % weekday_map[day],
                             opening,
-                            )
+                        )
                         setattr(
                             institution,
                             "%s_close" % weekday_map[day],
                             closing,
-                            )
+                        )
 
             if not institution.status or institution.status == "draft":
                 institution.status = status_imported
@@ -435,39 +437,38 @@ class Command(NoArgsCommand):
                     institution,
                     filename,
                     image_data.read(),
-                    subpath = "avatar/"
-                    )
-
+                    subpath="avatar/"
+                )
 
             contacts = institution.institutionalcontact_set.order_by('-is_primary', 'id')
             if contacts:
                 contact = contacts[0]
             else:
                 contact = InstitutionalContact(institution=institution)
-            
+
             contact.url0_link = get_value(
                 node_museum,
                 "website",
-                )
-            
+            )
+
             phone = get_value(node_museum, "phone")
             if phone:
                 contact.phone0_type = phone_type
                 (contact.phone0_country, contact.phone0_area, contact.phone0_number) = parse_phone(phone)
-            
+
             fax = get_value(node_museum, "fax")
             if phone:
                 contact.phone1_type = fax_type
                 (contact.phone1_country, contact.phone1_area, contact.phone1_number) = parse_phone(fax)
-                
+
             phone = get_value(node_museum, "service_phone")
             if phone:
                 contact.phone2_type = phone_type
                 (contact.phone2_country, contact.phone2_area, contact.phone2_number) = parse_phone(phone)
-            
+
             contact.is_primary = True
             contact.save()
-            
+
             Address.objects.set_for(
                 contact,
                 "postal_address",
@@ -476,13 +477,13 @@ class Command(NoArgsCommand):
                 city=get_value(node_museum, "address-town"),
                 postal_code=get_value(node_museum, "address-zip"),
                 street_address=get_value(node_museum, "address-street"),
-                )
-            
+            )
+
             if not mapper:
                 mapper = ObjectMapper(
                     service=s_museums,
                     external_id=external_id,
-                    )
+                )
                 mapper.content_object = institution
                 mapper.save()
                 if verbosity > 1:
@@ -510,25 +511,26 @@ class Command(NoArgsCommand):
             defaults={
                 'url': "https://eingabe.museumsportal-berlin.de/mp_art/export_exhibitions.php",
                 'title': "Museumsportal Berlin Exhibitions",
-                },
-            )
+            },
+        )
+
         @webcall(url=s_exhibitions.url)
         def get_museumsportal_data():
             pass
 
         data = get_museumsportal_data()
-        
+
         xml_doc = parseString(data)
 
         event_type = get_related_queryset(Event, "event_type").get(
             slug="exhibition",
-            )
+        )
 
         stats = {
             'added': 0,
             'updated': 0,
             'skipped': 0,
-            }
+        }
         for node_event in xml_doc.getElementsByTagName("vevent"):
             external_id = get_value(node_event, "uid")
 
@@ -539,20 +541,20 @@ class Command(NoArgsCommand):
                     external_id=museum_guid,
                     content_type__app_label="institutions",
                     content_type__model="institution",
-                    ).content_object
+                ).content_object
             except models.ObjectDoesNotExist:
                 # don't import events of unknown museums
                 continue
-                
+
             if not inst:
                 continue
 
             inst_contact = inst.get_primary_contact()
-            
+
             change_date = parse_datetime(
                 get_value(node_event, "dtstamp"),
                 ignoretz=True,
-                )
+            )
 
             # get or create event
             mapper = None
@@ -562,7 +564,7 @@ class Command(NoArgsCommand):
                     external_id=external_id,
                     content_type__app_label="events",
                     content_type__model="event",
-                    )
+                )
             except models.ObjectDoesNotExist:
                 # or create a new article and then create a mapper
                 event = Event()
@@ -588,7 +590,7 @@ class Command(NoArgsCommand):
                         event,
                         "title_%s" % node_title.getAttribute("xml:lang"),
                         get_value(node_title),
-                        )
+                    )
             if not event.title:
                 event.title_en = event.title_de
             for node_description in node_event.getElementsByTagName("x-ce-description"):
@@ -597,15 +599,15 @@ class Command(NoArgsCommand):
                         event,
                         "description_%s" % node_description.getAttribute("xml:lang"),
                         get_value(node_description),
-                        )
+                    )
             event.url0_link = get_value(
                 node_event,
                 "x-ce-url",
-                )
+            )
             opening_times = get_value(
                 node_event,
                 "x-ce-opentime",
-                )
+            )
             # parse this format: "Mo:10:00-18:00#Di:-#Mi:10:00-18:00#Do:10:00-20:00#Fr:10:00-18:00#Sa:10:00-18:00#So:10:00-18:00"
             weekday_map = {
                 'Mo': "mon",
@@ -615,7 +617,7 @@ class Command(NoArgsCommand):
                 'Fr': "fri",
                 'Sa': "sat",
                 'So': "sun",
-                }
+            }
             if opening_times:
                 for day_opening_times in opening_times.split("#"):
                     day, opening_times = day_opening_times.split(":", 1)
@@ -625,15 +627,15 @@ class Command(NoArgsCommand):
                             event,
                             "%s_open" % weekday_map[day],
                             opening,
-                            )
+                        )
                         setattr(
                             event,
                             "%s_close" % weekday_map[day],
                             closing,
-                            )
-            
+                        )
+
             event.save()
-            
+
             image_url = get_value(node_event, "image_path")
             if image_url and not skip_images:
                 filename = image_url.split("/")[-1]
@@ -642,9 +644,9 @@ class Command(NoArgsCommand):
                     event,
                     filename,
                     image_data.read(),
-                    subpath = "avatar/"
-                    )
-            
+                    subpath="avatar/"
+                )
+
             event.creative_sectors.add(cs_art)
 
             if inst_contact:
@@ -657,16 +659,16 @@ class Command(NoArgsCommand):
                     postal_code=inst_contact['postal_code'],
                     street_address=inst_contact['street_address'],
                     street_address2=inst_contact['street_address2'],
-                    )
-                                
+                )
+
             start = parse_datetime(
                 get_value(node_event, "dtstart"),
                 ignoretz=True,
-                )
+            )
             end = parse_datetime(
                 get_value(node_event, "dtend"),
                 ignoretz=True,
-                )
+            )
             time = EventTime(
                 event=event,
                 start_yyyy=start.year,
@@ -676,14 +678,14 @@ class Command(NoArgsCommand):
                 end_mm=end.month,
                 end_dd=end.day,
                 is_all_day=True,
-                )
+            )
             time.save()
-            
+
             if not mapper:
                 mapper = ObjectMapper(
                     service=s_exhibitions,
                     external_id=external_id,
-                    )
+                )
                 mapper.content_object = event
                 mapper.save()
                 if verbosity > 1:
@@ -693,13 +695,13 @@ class Command(NoArgsCommand):
                 if verbosity > 1:
                     print u" > %s (pk=%s, uid=%s) updated" % (event, event.pk, external_id)
                     stats['updated'] += 1
-    
+
         if verbosity > 1:
             print u"Exibitions added: %d" % stats['added']
             print u"Exibitions updated: %d" % stats['updated']
             print u"Exibitions skipped: %d" % stats['skipped']
             print
-            
+
         ### IMPORT EVENTS ###
         if verbosity > 1:
             print u"### IMPORTING EVENTS ###"
@@ -718,30 +720,30 @@ class Command(NoArgsCommand):
             '86': 'vernissage',
             '66': 'lecture',
             '71': 'workshop',
-            }
-        
+        }
+
         s_events, created = Service.objects.get_or_create(
             sysname="museumsportal_berlin_events",
             defaults={
                 'url': "https://eingabe.museumsportal-berlin.de/mp_art/export_events.php",
                 'title': "Museumsportal Berlin Events",
-                },
-            )
-        
+            },
+        )
+
         @webcall(url=s_events.url)
         def get_events_data():
             pass
 
         data = get_events_data()
-        
+
         xml_doc = parseString(data)
 
         stats = {
             'added': 0,
             'updated': 0,
             'skipped': 0,
-            }
-            
+        }
+
         for node_event in xml_doc.getElementsByTagName("vevent"):
             external_id = get_value(node_event, "uid")
 
@@ -756,20 +758,20 @@ class Command(NoArgsCommand):
                     external_id=museum_guid,
                     content_type__app_label="institutions",
                     content_type__model="institution",
-                    ).content_object
+                ).content_object
             except models.ObjectDoesNotExist:
                 # don't import events of unknown museums
                 continue
 
             if not inst:
                 continue
-                
+
             inst_contact = inst.get_primary_contact()
-            
+
             change_date = parse_datetime(
                 get_value(node_event, "dtstamp"),
                 ignoretz=True,
-                )
+            )
 
             # get or create event
             mapper = None
@@ -779,7 +781,7 @@ class Command(NoArgsCommand):
                     external_id=external_id,
                     content_type__app_label="events",
                     content_type__model="event",
-                    )
+                )
             except models.ObjectDoesNotExist:
                 # or create a new article and then create a mapper
                 event = Event()
@@ -804,7 +806,7 @@ class Command(NoArgsCommand):
                         event,
                         "title_%s" % node_title.getAttribute("xml:lang"),
                         get_value(node_title),
-                        )
+                    )
             if not event.title:
                 event.title_en = event.title_de
             for node_description in node_event.getElementsByTagName("x-ce-description"):
@@ -813,7 +815,7 @@ class Command(NoArgsCommand):
                         event,
                         "description_%s" % node_description.getAttribute("xml:lang"),
                         get_value(node_description),
-                        )
+                    )
             fees_list_en = []
             fees_list_de = []
             normal_price = get_value(node_event, "x-ce-ticket-price")
@@ -827,20 +829,20 @@ class Command(NoArgsCommand):
             for node_infotext in node_event.getElementsByTagName("x-ce-ticket-infotext"):
                 infotext = get_value(node_infotext)
                 if infotext:
-                    if node_infotext.getAttribute("xml:lang")=="en":
+                    if node_infotext.getAttribute("xml:lang") == "en":
                         fees_list_en.append(get_value(node_infotext))
                     else:
                         fees_list_de.append(get_value(node_infotext))
             for node_infotext in node_event.getElementsByTagName("x-ce-booking-infotext"):
                 infotext = get_value(node_infotext)
                 if infotext:
-                    if node_infotext.getAttribute("xml:lang")=="en":
+                    if node_infotext.getAttribute("xml:lang") == "en":
                         fees_list_en.append(get_value(node_infotext))
                     else:
                         fees_list_de.append(get_value(node_infotext))
             event.fees_en = "\n".join(fees_list_en)
             event.fees_de = "\n".join(fees_list_de)
-            
+
             event.event_type = event_type
             category_node = get_first(node_event, "x-ce-category")
             if category_node:
@@ -849,12 +851,12 @@ class Command(NoArgsCommand):
                     event.event_type = get_related_queryset(
                         Event,
                         "event_type",
-                        ).get(
-                            slug=event_type_mapper[event_type_id],
-                            )
-            
+                    ).get(
+                        slug=event_type_mapper[event_type_id],
+                    )
+
             event.save()
-            
+
             event.creative_sectors.add(cs_art)
 
             if inst_contact:
@@ -867,17 +869,17 @@ class Command(NoArgsCommand):
                     postal_code=inst_contact['postal_code'],
                     street_address=inst_contact['street_address'],
                     street_address2=inst_contact['street_address2'],
-                    )
-            
+                )
+
             event.eventtime_set.all().delete()
-            
+
             for node_date in node_event.getElementsByTagName("date"):
                 start = parse_datetime(
                     get_value(node_date, "start"),
                     ignoretz=True,
-                    )
+                )
                 end = start + timedelta(minutes=int(get_value(node_date, "minutes")))
-                
+
                 time = EventTime(
                     event=event,
                     start_yyyy=start.year,
@@ -891,9 +893,9 @@ class Command(NoArgsCommand):
                     end_hh=end.hour,
                     end_ii=end.minute,
                     is_all_day=False,
-                    )
+                )
                 time.save()
-            
+
             event.related_events.clear()
             exhibition_node = get_first(node_event, "exhibition")
             if exhibition_node:
@@ -904,17 +906,17 @@ class Command(NoArgsCommand):
                         external_id=exhibition_id,
                         content_type__app_label="events",
                         content_type__model="event",
-                        )
+                    )
                 except models.ObjectDoesNotExist:
                     pass
                 else:
                     event.related_events.add(exh_mapper.content_object)
-                
+
             if not mapper:
                 mapper = ObjectMapper(
                     service=s_events,
                     external_id=external_id,
-                    )
+                )
                 mapper.content_object = event
                 mapper.save()
                 if verbosity > 1:
@@ -930,4 +932,3 @@ class Command(NoArgsCommand):
             print u"Events updated: %d" % stats['updated']
             print u"Events skipped: %d" % stats['skipped']
             print
-

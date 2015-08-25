@@ -13,26 +13,28 @@ from base_libs.utils.misc import get_translation
 
 verbose_name = _("Favorites")
 
+
 class FavoriteManager(models.Manager):
     def is_favorite(self, obj, user):
         return bool(self.filter(
             user=user,
             content_type=ContentType.objects.get_for_model(obj),
             object_id=obj.id,
-            ))
+        ))
+
 
 class Favorite(ObjectRelationMixin(is_required=True)):
     """
     Defines that a user likes an object
     """
     user = models.ForeignKey(User, verbose_name=_("Preferrer"))
-    
+
     objects = FavoriteManager()
-    
+
     class Meta:
         verbose_name = _("favorite")
         verbose_name_plural = _("favorites")
-        
+
     def __unicode__(self):
         try:
             content_object = self.content_object
@@ -44,7 +46,7 @@ class Favorite(ObjectRelationMixin(is_required=True)):
             force_unicode(content_object),
             force_unicode(self.user.username),
             postfix,
-            )
+        )
 
     def get_log_message(self, language=None, action=None):
         """
@@ -55,11 +57,10 @@ class Favorite(ObjectRelationMixin(is_required=True)):
             message = get_translation("%(user)s added %(obj)s to the favorites.", language=language) % {
                 'user': force_unicode(self.user.username),
                 'obj': force_unicode(self.content_object),
-                }
-        elif action==history_models.A_DELETION:
+            }
+        elif action == history_models.A_DELETION:
             message = get_translation("%(obj)s was removed from %(user)s's favorites.", language=language) % {
                 'user': force_unicode(self.user.username),
                 'obj': force_unicode(self.content_object),
-                }
+            }
         return message
-

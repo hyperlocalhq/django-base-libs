@@ -7,8 +7,8 @@ required_apps = [
     "utils",
     "optionset",
     "external_services",
-    ]
+]
 optional_apps = [
     "people",
     "institutions",
-    ]
+]

@@ -4,27 +4,29 @@ from django.core.management.base import NoArgsCommand
 
 SILENT, NORMAL, VERBOSE = 0, 1, 2
 
+
 class Command(NoArgsCommand):
     help = """Imports job offers from Creativeset.net"""
+
     def handle_noargs(self, **options):
         verbosity = int(options.get('verbosity', NORMAL))
-        
+
         from datetime import datetime, timedelta
         from time import strptime
         from rest.client import webcall
         from xml.dom.minidom import parseString
         from xml.dom.minidom import Node
         from dateutil.parser import parse as parse_datetime
-        
+
         from django.db import models
 
         from base_libs.utils.misc import get_related_queryset
         from base_libs.utils.misc import html_to_plain_text
         from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
-        
+
         from jetson.apps.external_services.utils import get_first
         from jetson.apps.external_services.utils import get_value
-        
+
         Address = models.get_model("location", "Address")
         JobOffer = models.get_model("marketplace", "JobOffer")
         JobSector = models.get_model("marketplace", "JobSector")
@@ -32,46 +34,45 @@ class Command(NoArgsCommand):
         ObjectMapper = models.get_model("external_services", "ObjectMapper")
         Service = models.get_model("external_services", "Service")
         URLType = models.get_model("optionset", "URLType")
-        
+
         s, created = Service.objects.get_or_create(
             sysname="museumsbund",
             defaults={
                 'url': "http://www.museumsbund.de/index.php?id=37&type=103",
                 'title': "museumsbund.de",
-                },
-            )
-        
+            },
+        )
+
         @webcall(url=s.url)
         def get_museumsbund_data():
             pass
 
-        
         default_job_type, created = JobType.objects.get_or_create(
             slug="full-time",
-            defaults = {
+            defaults={
                 'title_en': "Full-time",
                 'title_de': "Vollzeit",
-                },
-            )
-        
+            },
+        )
+
         default_urltype, created = URLType.objects.get_or_create(
             slug="museumsbund",
-            defaults = {
+            defaults={
                 'title_en': "museumsbund.de",
                 'title_de': "museumsbund.de",
-                },
-            )
-        
+            },
+        )
+
         default_job_sector, created = JobSector.objects.get_or_create(
             slug="museum-art",
-            defaults = {
+            defaults={
                 'title_en': "Museum & Art",
                 'title_de': "Museum & Kunst",
-                },
-            )
-        
+            },
+        )
+
         data = get_museumsbund_data()
-        
+
         try:
             xml_doc = parseString(data)
         except:
@@ -84,7 +85,7 @@ class Command(NoArgsCommand):
                 change_date = parse_datetime(
                     get_value(node_job, "pubDate"),
                     ignoretz=True,
-                    )
+                )
             except:
                 change_date = None
             mapper = None
@@ -94,7 +95,7 @@ class Command(NoArgsCommand):
                     external_id=external_id,
                     content_type__app_label="marketplace",
                     content_type__model="joboffer",
-                    )
+                )
                 job_offer = mapper.content_object
                 if job_offer.modified_date > change_date:
                     continue
@@ -112,60 +113,57 @@ class Command(NoArgsCommand):
             except ObjectMapper.DoesNotExist:
                 # or create a new job offer and then create a mapper
                 job_offer = JobOffer()
-                
+
             job_offer.modified_date = change_date
-            
+
             position, city = get_value(node_job, "title").rsplit(" - ", 1)
-            
+
             if city != "Berlin":
                 continue
-            
+
             job_offer.position = position
             job_offer.description = get_value(node_job, "description")
             job_offer.job_type = default_job_type
-            
+
             job_offer.url0_link = get_value(node_job, "link")
             job_offer.url0_type = default_urltype
             job_offer.is_commercial = True
-            
+
             if change_date:
                 job_offer.published_from = change_date
             else:
                 job_offer.published_from = parse_datetime(
                     get_value(node_job, "pubDate"),
                     ignoretz=True,
-                    )
-            job_offer.published_till = job_offer.published_from + timedelta(days=7*6)
+                )
+            job_offer.published_till = job_offer.published_from + timedelta(days=7 * 6)
             job_offer.status = STATUS_CODE_PUBLISHED
             job_offer.save()
-            
+
             # add address
-                
+
             Address.objects.set_for(
                 job_offer,
                 "postal_address",
                 country="DE",
                 city="Berlin",
-                )
-            
+            )
+
             # add job sector
-            
+
             job_offer.job_sectors.clear()
             job_offer.job_sectors.add(default_job_sector)
 
-            
             if verbosity > NORMAL:
                 print job_offer.__dict__
-                
+
             if not mapper:
                 mapper = ObjectMapper(
                     service=s,
                     external_id=external_id,
-                    )
+                )
                 mapper.content_object = job_offer
                 mapper.save()
-                
+
                 if verbosity > NORMAL:
                     print mapper.__dict__
-        
-
