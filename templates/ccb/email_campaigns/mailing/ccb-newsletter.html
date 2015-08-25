@@ -32,7 +32,7 @@
                 <h2 style="margin: 0;padding: 0 0 7px;color: #FA9C19;font-weight: bold;text-transform: uppercase;font-size: 30px;line-height: 0.96em;">
                     Creative City Berlin</h2>
 
-                <h2 style="margin: 0;padding: 0;padding-bottom: 7px; color: #6994A6;font-weight: bold;text-transform: uppercase;font-size: 30px;line-height: 0.96em;padding-bottom: 55px;">{{ mailing.subject }} &ndash;
+                <h2 style="margin: 0;padding: 0;color: #6994A6;font-weight: bold;text-transform: uppercase;font-size: 30px;line-height: 0.96em;padding-bottom: 55px;">{{ mailing.subject }} &ndash;
                     {% ifequal language "de" %}{{ mailing.modified_date|datefmt:"dd.MM.yy" }}{% else %}
                         {{ mailing.modified_date|datefmt:"short" }}{% endifequal %}</h2></td>
         </tr>
