@@ -40,8 +40,8 @@
                     {% comment_form using "comments/form.html" for institutions.institution object.id %}
                 </div>
             {% else %}
-                <a  href="/login/?goto_next={{ request.path }}#post_review"
-                    title="{% trans "Post a review (login required)" %}"
+                <a href="/login/?goto_next={{ request.path }}#post_review"
+                   title="{% trans "Post a review (login required)" %}"
                     >
                     {% trans "Post a review (login required)" %}</a>
             {% endif %}
