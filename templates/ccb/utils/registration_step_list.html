@@ -42,17 +42,9 @@
             <li>
                 <span class="count">{{ forloop.counter }}.</span>
                 {% if not form_step_data.current_step %}
-                    <strong>
+                    <strong>{% trans "approve your identity" %}</strong>
                 {% else %}
-                    <span class="txt">
-                {% endif %}
-
-                {% trans "approve your identity" %}
-
-                {% if not form_step_data.current_step %}
-                    </strong>
-                {% else %}
-                    </span>
+                    <span class="txt">{% trans "approve your identity" %}</span>
                 {% endif %}
             </li>
             </ul>
