@@ -27,7 +27,8 @@ class DatePeriodNode(template.Node):
         self, var_name, start_yyyy_lookup_var,
         start_mm_lookup_var, start_dd_lookup_var,
         end_yyyy_lookup_var=None, end_mm_lookup_var=None,
-        end_dd_lookup_var=None):
+        end_dd_lookup_var=None
+    ):
 
         self.var_name = var_name
         self.start_yyyy_lookup_var = start_yyyy_lookup_var

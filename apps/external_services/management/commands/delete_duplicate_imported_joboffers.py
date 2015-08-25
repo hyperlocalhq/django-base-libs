@@ -16,7 +16,8 @@ class Command(NoArgsCommand):
         Service = models.get_model("external_services", "Service")
 
         for s in Service.objects.filter(sysname__in=(
-            "berlinstartupjobs", "creativeset", "kulturmanagement", "museumsbund", "musicjob", "theaterjobs")):
+            "berlinstartupjobs", "creativeset", "kulturmanagement", "museumsbund", "musicjob", "theaterjobs")
+        ):
             print(s.title)
             unique_external_ids = set(s.objectmapper_set.filter(
                 content_type__app_label="marketplace",
