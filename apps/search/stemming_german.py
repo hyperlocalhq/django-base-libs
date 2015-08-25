@@ -19,7 +19,10 @@ SPECIAL_CHARS = u".:;,?!§$%&/()="
 
 
 class PorterStemmerGerman:
-    #   Die Funktion stem nimmt ein Wort und versucht dies durch Regelanwendung zu verkürzen. Wenn Stop auf 'True' gesetzt wird, werden Wörter in der Stopliste nicht 'gestemmt'.
+    """
+    Die Funktion stem nimmt ein Wort und versucht dies durch Regelanwendung zu verkürzen. Wenn Stop auf 'True' gesetzt wird, werden Wörter in der Stopliste nicht 'gestemmt'.
+    """
+
     def __init__(self):
         pass
 
@@ -43,7 +46,8 @@ class PorterStemmerGerman:
         p1 = 0
         r2 = ''
         p2 = 0
-        #   Die Stopliste; Wörter in dieser Liste werden nicht 'gestemmt', wenn stop  = 'True' an die Funktion übergeben wurde
+        #   Die Stopliste; Wörter in dieser Liste werden nicht 'gestemmt', wenn stop  = 'True' an die Funktion
+        #   übergeben wurde
         stopliste = [u'aber', u'alle', u'allem', u'allen', u'aller', u'alles', u'als', u'also', u'am', u'an', u'ander',
                      u'andere', u'anderem',
                      u'anderen', u'anderer', u'anderes', u'anderm', u'andern', u'anders', u'auch', u'auf', u'aus',

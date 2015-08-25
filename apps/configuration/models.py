@@ -81,7 +81,9 @@ class PageSettings(models.Model):
         _('Path'),
         max_length=100,
         help_text=_(
-            "All that goes after '/', for example: 'about/contact/'. Make sure to have trailing slash. Use '*' for all pages."),
+            """All that goes after '/', for example: 'about/contact/'. Make sure to have trailing slash.
+            Use '*' for all pages."""
+        ),
         blank=True,
     )
     pickled_settings = models.TextField(_('Settings'), editable=False)

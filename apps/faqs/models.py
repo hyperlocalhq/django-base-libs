@@ -60,7 +60,8 @@ class FaqContainer(MultiSiteContainerMixin, CreationModificationDateMixin, ):
         verbose_name = _("FAQ Container")
         verbose_name_plural = _("FAQ Containers")
 
-# QUICK HACK: Without the following the FaqContainer.objects.model will be MultiSiteContainerMixin and won't work correctly
+# QUICK HACK: Without the following the FaqContainer.objects.model will be MultiSiteContainerMixin and won't
+# work correctly
 FaqContainer.objects.model = FaqContainer
 
 
