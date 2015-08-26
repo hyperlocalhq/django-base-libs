@@ -29,7 +29,7 @@ class SlideshowRenderer(template.Node):
     def render(self, context):
         try:
             sysname = template.resolve_variable(self.sysname, context)
-        except:
+        except Exception:
             return ""
 
         slideshow, created = Slideshow.objects.get_or_create(
@@ -38,7 +38,7 @@ class SlideshowRenderer(template.Node):
 
         try:
             template_path = template.resolve_variable(self.template_path, context)
-        except:
+        except Exception:
             template_path = ""
         context_vars = context
         context_vars.push()

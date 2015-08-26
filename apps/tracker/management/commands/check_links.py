@@ -102,7 +102,7 @@ class Command(NoArgsCommand):
             self._checked_links[value] = True
         except ValueError:
             self._checked_links[value] = False
-        except:  # urllib2.URLError, httplib.InvalidURL, etc.
+        except Exception:  # urllib2.URLError, httplib.InvalidURL, etc.
             self._checked_links[value] = False
         return self._checked_links[value]
 

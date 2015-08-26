@@ -183,7 +183,7 @@ class FaqCategory(MPTTModel, CreationModificationMixin, UrlMixin, SlugMixin()):
                 try:
                     return self.parent.children_sort_order_format % \
                            self.sort_order
-                except:
+                except Exception:
                     pass
         return "%s" % self.sort_order
 
@@ -278,7 +278,7 @@ class QuestionAnswer(CreationModificationMixin, ViewsMixin, UrlMixin):
         if self.category.children_sort_order_format:
             try:
                 return self.category.children_sort_order_format % self.sort_order
-            except:
+            except Exception:
                 pass
         return "%s" % self.sort_order
 

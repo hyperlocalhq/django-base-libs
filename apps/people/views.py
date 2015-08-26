@@ -88,7 +88,7 @@ def person_list(
     if slug == "all":
         try:
             del (person_filters[criterion])
-        except:
+        except Exception:
             pass
     else:
         if person_filters.get('criterion', '') != slug:

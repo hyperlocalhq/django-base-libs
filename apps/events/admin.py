@@ -118,7 +118,7 @@ class EventForm(forms.ModelForm):
 
     try:
         Event._meta.get_field("organizing_person")
-    except:
+    except Exception:
         pass
     else:
         organizing_person = AutocompleteModelChoiceField(
@@ -139,7 +139,7 @@ class EventForm(forms.ModelForm):
 
     try:
         Event._meta.get_field("related_events")
-    except:
+    except Exception:
         pass
     else:
         related_events = AutocompleteModelMultipleChoiceField(

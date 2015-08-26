@@ -12,7 +12,7 @@ def get_value(nodelist):
         node = nodelist[0]
         if node.firstChild.nodeType == Node.TEXT_NODE:
             return node.firstChild.data.strip()
-    except:
+    except Exception:
         pass
     return ""
 

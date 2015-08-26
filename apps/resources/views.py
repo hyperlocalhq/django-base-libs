@@ -110,7 +110,7 @@ def document_list(
     if slug == "all":
         try:
             del (document_filters[criterion])
-        except:
+        except Exception:
             pass
     else:
         if document_filters.get('criterion', '') != slug:

@@ -91,7 +91,7 @@ SECURITY_SUMMAND = getattr(settings, "EVENT_SECURITY_SUMMAND", 7654102)
 def get_default_url_type():
     try:
         return URLType.objects.get(slug="homepage").id
-    except:
+    except Exception:
         return None
 
 
@@ -679,7 +679,7 @@ class ComplexEventBase(EventBase, OpeningHoursMixin):
                     return term
                 else:
                     return regional
-        except:
+        except Exception:
             return self.venue and self.venue.get_location_type() or None
 
     def get_object_types(self):

@@ -105,7 +105,7 @@ class LatestPublishedObjectsRssFeed(Feed):
         self.kwargs = kwargs
         try:
             self.amount = request.GET['amount']
-        except:
+        except Exception:
             self.amount = 5
 
     def title(self, obj):

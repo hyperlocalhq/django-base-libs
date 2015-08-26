@@ -106,7 +106,7 @@ def gallery_list(request, queryset, show="", paginate_by=None, order_by=None, pa
 
     try:
         queryset = queryset.sort_by(order_by)
-    except:
+    except Exception:
         pass
 
     request.httpstate["paginate_galleries_by"] = paginate_by

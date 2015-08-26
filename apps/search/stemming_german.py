@@ -99,13 +99,13 @@ class PorterStemmerGerman:
                 try:
                     if (wort[(e[1] - 1)] in vokale) and (wort[(e[1] + 1)] in vokale): wort = wort[:e[1]] + u'U' + wort[(
                         e[1] + 1):]
-                except:
+                except Exception:
                     pass
             if u'y' in e:
                 try:
                     if (wort[(e[1] - 1)] in vokale) and (wort[(e[1] + 1)] in vokale): wort = wort[:e[1]] + u'Y' + wort[(
                         e[1] + 1):]
-                except:
+                except Exception:
                     pass
         # r1, r2, p1 & p2 werden mit Werten belegt
         try:
@@ -128,7 +128,7 @@ class PorterStemmerGerman:
                 r1 = wort[p1:]
             if p1 == 0:
                 return self.end_stemming(wort)
-        except:
+        except Exception:
             pass
         # Die Schritte 1 bis 3 d) u'stemmen' das übergebene Wort.
         #   Schritt 1
@@ -147,7 +147,7 @@ class PorterStemmerGerman:
                         wort = wort[:-1]
                         r1 = r1[:-1]
                         r2 = r2[:-1]
-        except:
+        except Exception:
             pass
         # Schritt 2
         eSuffixe_2 = [u'est', u'er', u'en']
@@ -166,7 +166,7 @@ class PorterStemmerGerman:
                             wort = wort[:-2]
                             r1 = r1[:-2]
                             r2 = r2[:-2]
-        except:
+        except Exception:
             pass
         # Schritt 3 a)
         dSuffixe_1 = [u'end', u'ung']
@@ -189,7 +189,7 @@ class PorterStemmerGerman:
                         r2 = r2[:-(len(e))]
                         r1 = r1[:-(len(e))]
                     return self.end_stemming(wort)
-        except:
+        except Exception:
             pass
         # Schritt 3 b)
         dSuffixe_2 = [u'ig', u'ik', u'isch']
@@ -203,7 +203,7 @@ class PorterStemmerGerman:
                         r2 = r2[:-(len(e))]
                         r1 = r1[:-(len(e))]
                         break
-        except:
+        except Exception:
             pass
         # Schritt 3 c)
         dSuffixe_3 = [u'lich', u'heit']
@@ -223,7 +223,7 @@ class PorterStemmerGerman:
                         r2 = r2[:-(len(e))]
                         break
 
-        except:
+        except Exception:
             pass
         # Schritt 3 d)
         dSuffixe_4 = [u'keit']
@@ -238,7 +238,7 @@ class PorterStemmerGerman:
                     else:
                         wort = wort[:-(len(e))]
 
-        except:
+        except Exception:
             pass
         return self.end_stemming(wort)
 

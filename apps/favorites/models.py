@@ -37,7 +37,7 @@ class Favorite(ObjectRelationMixin(is_required=True)):
         try:
             content_object = self.content_object
             postfix = ""
-        except:
+        except Exception:
             content_object = None
             postfix = " (broken; id=%s)" % self.id
         return u"%s is favorite for %s%s" % (

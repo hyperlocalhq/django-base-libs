@@ -102,7 +102,7 @@ class Command(NoArgsCommand):
                         content_type__app_label="marketplace",
                         content_type__model="jobtype",
                     ).content_object
-                except:
+                except Exception:
                     job_offer.job_type = default_job_type
                 else:
                     job_offer.job_type = job_type
@@ -115,7 +115,7 @@ class Command(NoArgsCommand):
                         content_type__app_label="marketplace",
                         content_type__model="jobsector",
                     ).content_object
-                except:
+                except Exception:
                     pass
                 else:
                     job_offer.job_sectors.add(job_sector)

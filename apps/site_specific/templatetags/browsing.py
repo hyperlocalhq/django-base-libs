@@ -193,13 +193,13 @@ class CategoriesUnder(template.Node):
         sysname = None
         try:
             sysname = template.resolve_variable(self.sysname, context)
-        except:
+        except Exception:
             pass
         show_4_current_object = False
         current_object = None
         try:
             current_object = template.resolve_variable("object", context)
-        except:
+        except Exception:
             pass
         else:
             if is_context_item(current_object):
@@ -239,7 +239,7 @@ class CategoriesUnder(template.Node):
                 )]
         try:
             template_path = template.resolve_variable(self.template_path, context)
-        except:
+        except Exception:
             template_path = ""
         context_vars = context
         context_vars.push()

@@ -75,7 +75,7 @@ class Command(NoArgsCommand):
                     get_value(node_job, "pubDate"),
                     ignoretz=True,
                 )
-            except:
+            except Exception:
                 change_date = None
             mapper = None
             try:

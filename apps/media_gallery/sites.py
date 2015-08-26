@@ -1074,7 +1074,7 @@ class PortfolioSite(object):
             filters['gallery'] = gallery
         try:
             media_file_obj = MediaFile.objects.get(**filters)
-        except:
+        except Exception:
             raise Http404
 
         if "POST" == request.method:
@@ -1130,7 +1130,7 @@ class PortfolioSite(object):
             filters['gallery'] = gallery
         try:
             media_file_obj = MediaFile.objects.get(**filters)
-        except:
+        except Exception:
             media_file_obj = None
 
         kwargs['extra_context'] = {

@@ -116,7 +116,7 @@ class Article(ArticleBase, MultiSiteMixin):
                 pk__gt=self.pk,
                 language=self.language,
             ).order_by("published_from")[0]
-        except:
+        except Exception:
             return None
 
     def get_older_published(self):
@@ -126,5 +126,5 @@ class Article(ArticleBase, MultiSiteMixin):
                 pk__lt=self.pk,
                 language=self.language,
             ).order_by("-published_from")[0]
-        except:
+        except Exception:
             return None

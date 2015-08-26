@@ -431,7 +431,7 @@ class EventForm:  # namespace
                     self._errors['start_dd'] = [_("Please enter a valid month.")]
             try:
                 start_date = datetime.date(int(start_yyyy), int(start_mm or 1), int(start_dd or 1))
-            except:
+            except Exception:
                 self._errors['start_dd'] = [_("Please enter a valid date.")]
 
             # start time or "all day must be entered"
@@ -472,7 +472,7 @@ class EventForm:  # namespace
                         self._errors['end_dd'] = [_("Please enter a valid month.")]
                 try:
                     end_date = datetime.date(int(end_yyyy), int(end_mm or 1), int(end_dd or 1))
-                except:
+                except Exception:
                     self._errors['end_dd'] = [_("If you want to specify an end date, please enter a valid one.")]
 
             if end_date and start_date:

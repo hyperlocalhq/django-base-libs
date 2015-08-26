@@ -100,14 +100,14 @@ class ContextItemManager(models.Manager):
                 content_type__pk=ctype.id,
                 object_id=obj.id,
             )
-        except:
+        except Exception:
             return self.update_for(obj)
 
     def update_for(self, obj):
         ctype = ContentType.objects.get_for_model(obj)
         try:
             item = self.get(content_type=ctype, object_id=obj.id)
-        except:
+        except Exception:
             item = self.model(content_type=ctype, object_id=obj.id)
             item.save()
 
@@ -325,7 +325,7 @@ class MappedItemManager(models.Manager):
                 ctype = ContentType.objects.get_for_model(obj)
                 try:
                     item = self.get(content_type=ctype, object_id=obj.id)
-                except:
+                except Exception:
                     item = self.model(content_type=ctype, object_id=obj.id)
                 item.lat = address_dict['latitude']
                 item.lng = address_dict['longitude']
@@ -341,7 +341,7 @@ class MappedItemManager(models.Manager):
                 activate(current_language)
                 try:
                     item.save()
-                except:
+                except Exception:
                     pass
             else:
                 self.delete_for(obj)

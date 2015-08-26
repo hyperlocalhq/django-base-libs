@@ -170,7 +170,7 @@ def get_vcard(request, content_type_id, object_id):
     if content_type.model in ('person', 'institution'):
         try:
             instance = content_type.get_object_for_this_type(pk=object_id)
-        except:
+        except Exception:
             raise Http404
         primary_contact = instance.get_contacts()
         if primary_contact:
@@ -248,7 +248,7 @@ def delete_review(request, slug, id, year=0, month=0, day=0, template_name='site
             allowed = True
         else:
             allowed = False
-    except:
+    except Exception:
         comment = None
 
     if not comment:
@@ -330,12 +330,12 @@ def get_index(queryset, low_index = 0, high_index = -1, **kwargs):
         else:
             b=n
             return get_index(queryset, low_index, mid_index, **kwargs)
-    except:
+    except Exception:
         try:
             found = q_high.get(**kwargs)
             b=n
             return get_index(queryset, mid_index + 1, high_index, **kwargs)
-        except:
+        except Exception:
             c=b
             return -1
 """
@@ -363,7 +363,7 @@ def popup_window(request, window_type):
             spec = TYPE_2_MODEL[context_item_type]
             obj = spec['model'].objects.get(**{spec['slug_field']: slug})
             contact = obj.get_contacts()[index]
-        except:
+        except Exception:
             raise Http404()
         if not request.user.has_perm(
                 "%s.change_%s" % (
@@ -391,7 +391,7 @@ def popup_window(request, window_type):
             slug = request.GET['slug']
             spec = TYPE_2_MODEL[context_item_type]
             obj = spec['model'].objects.get(**{spec['slug_field']: slug})
-        except:
+        except Exception:
             raise Http404, "Object does not exist"
         if not request.user.has_perm(
                 "%s.change_%s" % (
@@ -586,11 +586,11 @@ def claim_object(request, **kwargs):
         raise Http404, "You must specify an object class"
     try:
         mapped_model = CLAIM_CLASS_MAPPER[ot_url_part][0]
-    except:
+    except Exception:
         raise Http404, "Unsupported object class"
     try:
         obj = mapped_model.objects.get(slug=kwargs['slug'])
-    except:
+    except Exception:
         raise Http404, "Object not found for given slug"
 
     if not obj.is_claimable():
@@ -658,11 +658,11 @@ def delete_object(request, **kwargs):
         raise Http404, "You must specify an object class"
     try:
         get_object = DELETE_CLASS_MAPPER[ot_url_part]['get_object']
-    except:
+    except Exception:
         raise Http404, "Unsupported object class"
     try:
         obj = get_object(kwargs['slug'])
-    except:
+    except Exception:
         raise Http404, "Object not found for given slug"
 
     if not obj.is_deletable():
@@ -919,7 +919,7 @@ def object_list_for_map(request):
         center_lat = float("%.06f" % float(request.GET.get("center_lat", -180)))
         center_lng = float("%.06f" % float(request.GET.get("center_lng", 90)))
         distance = float(request.GET.get("distance", 90))
-    except:
+    except Exception:
         return access_denied(request)
 
     from ccb.apps.site_specific.models import MappedItem
@@ -1015,7 +1015,7 @@ def newsfeed(request, rss, number_of_news):
 
     try:
         xml_doc = parseString(data)
-    except:
+    except Exception:
         return HttpResponse("Parsing error")
 
     articles = []

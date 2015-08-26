@@ -232,7 +232,7 @@ class SearchView(haystack_views.SearchView):
                     paginator = Paginator(results, self.results_per_page)
                     try:
                         page = paginator.page(self.request.GET.get('page', 1))
-                    except:
+                    except Exception:
                         raise Http404
                     d['paginator'] = paginator
                     d['page'] = page

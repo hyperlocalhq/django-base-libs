@@ -216,7 +216,7 @@ class Command(NoArgsCommand):
 
             try:
                 xml_doc = parseString(data)
-            except:
+            except Exception:
                 return
 
             for node_job in xml_doc.getElementsByTagName("entry"):
@@ -227,7 +227,7 @@ class Command(NoArgsCommand):
                         get_value(node_job, "published"),
                         ignoretz=True,
                     )
-                except:
+                except Exception:
                     change_date = None
                 mapper = None
                 try:

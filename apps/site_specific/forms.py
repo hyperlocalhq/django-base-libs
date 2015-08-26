@@ -2147,7 +2147,7 @@ class EventProfile:  # namespace
             if data.get('venue', None):
                 try:
                     venue = Institution.objects.get(id=data['venue'])
-                except:
+                except Exception:
                     return
                     # venue_title = venue.get_title()
             # else:
@@ -2450,7 +2450,7 @@ class EventProfile:  # namespace
                     self._errors['start_dd'] = [_("Please enter a valid month.")]
             try:
                 start_date = datetime.date(int(start_yyyy), int(start_mm or 1), int(start_dd or 1))
-            except:
+            except Exception:
                 self._errors['start_dd'] = [_("Please enter a valid date.")]
 
             # start time or "all day must be entered"
@@ -2491,7 +2491,7 @@ class EventProfile:  # namespace
                         self._errors['end_dd'] = [_("Please enter a valid month.")]
                 try:
                     end_date = datetime.date(int(end_yyyy), int(end_mm or 1), int(end_dd or 1))
-                except:
+                except Exception:
                     self._errors['end_dd'] = [_("If you want to specify an end date, please enter a valid one.")]
 
             if end_date and start_date:
@@ -3411,7 +3411,7 @@ class JobOfferProfile:  # namespace
             if end_yyyy or end_mm or end_dd:
                 try:
                     end_date = datetime.date(int(end_yyyy), int(end_mm or 1), int(end_dd or 1))
-                except:
+                except Exception:
                     pass
 
             job_offer.published_till = end_date

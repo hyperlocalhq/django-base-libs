@@ -25,7 +25,7 @@ def site_specific(request=None):
                 vocabulary__sysname="categories_creativesectors",
                 **conditions
             )
-        except:
+        except Exception:
             pass
     d = {
         'creative_sector': creative_sector,

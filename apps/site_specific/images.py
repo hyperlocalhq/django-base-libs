@@ -44,7 +44,7 @@ def recreate_portfolio_images():
                             file_obj = File.objects.get(
                                 path="".join((relative_path, filename)),
                                 )
-                        except:
+                        except Exception:
                             file_obj = None
                         media_file['file_obj'] = file_obj
                         list_of_files.append(media_file)
