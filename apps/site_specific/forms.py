@@ -154,6 +154,7 @@ class ProfileFormSet(BaseFormSet):
 
 
 # TODO: each form could be ModelForm. Each formset could be ModelFormSet.
+# noinspection PyClassHasNoInit
 class PersonProfile:  # namespace
     class IdentityForm(dynamicforms.Form):
         first_name = forms.CharField(
@@ -841,6 +842,7 @@ class PersonProfile:  # namespace
     }
 
 
+# noinspection PyClassHasNoInit
 class InstitutionProfile:  # namespace
     class IdentityForm(dynamicforms.Form):
         title = forms.CharField(
@@ -1796,6 +1798,7 @@ class InstitutionProfile:  # namespace
     }
 
 
+# noinspection PyClassHasNoInit
 class EventProfile:  # namespace
     class IdentityForm(dynamicforms.Form):
         title_en = forms.CharField(
@@ -2859,6 +2862,7 @@ class EventProfile:  # namespace
     }
 
 
+# noinspection PyClassHasNoInit
 class DocumentProfile:  # namespace
     class DescriptionForm(dynamicforms.Form):
         description_en = forms.CharField(
@@ -3071,6 +3075,7 @@ class DocumentProfile:  # namespace
     }
 
 
+# noinspection PyClassHasNoInit
 class GroupProfile:  # namespace
     class DescriptionForm(dynamicforms.Form):
         description_en = forms.CharField(
@@ -3341,6 +3346,7 @@ class GroupProfile:  # namespace
     }
 
 
+# noinspection PyClassHasNoInit
 class JobOfferProfile:  # namespace
     class DetailsForm(dynamicforms.Form):
         position = forms.CharField(

@@ -68,14 +68,33 @@
             {% for child0_category in category_list %}
                 <div>
                     {% if child0_category.has_link %}
-                        {% if root_category %}<h4{% else %}<h3{% endif %}
-                    {% if root_category %}{% if forloop.first %} class="first-faq"{% endif %}{% endif %}><a
-                        href="{{ child0_category.get_url_path }}">{{ child0_category.title }}</a>
-                        {% if root_category %}</h4>{% else %}</h3>{% endif %}
+                        {% if root_category %}
+                            <h4 class="{{ forloop.first|yesno:"first-faq," }}">
+                                <a href="{{ child0_category.get_url_path }}">
+                                    {{ child0_category.title }}
+                                </a>
+                            </h4>
+                        {% else %}
+                            <h3>
+                                <a href="{{ child0_category.get_url_path }}">
+                                    {{ child0_category.title }}
+                                </a>
+                            </h3>
+                        {% endif %}
                     {% else %}
-                        {% if root_category %}<h4{% else %}<h3{% endif %}
-                    {% if not root_category %}{% if forloop.first %} class="first-faq"{% endif %}{% endif %}>
-                        {{ child0_category.title }}{% if root_category %}</h4>{% else %}</h3>{% endif %}
+                        {% if root_category %}
+                            <h4>
+                                <a href="{{ child0_category.get_url_path }}">
+                                    {{ child0_category.title }}
+                                </a>
+                            </h4>
+                        {% else %}
+                            <h3 class="{{ forloop.first|yesno:"first-faq," }}">
+                                <a href="{{ child0_category.get_url_path }}">
+                                    {{ child0_category.title }}
+                                </a>
+                            </h3>
+                        {% endif %}
                     {% endif %}
 
                     {% comment %}<!--

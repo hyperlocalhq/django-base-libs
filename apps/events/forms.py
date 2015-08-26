@@ -64,6 +64,7 @@ LOGO_SIZE = getattr(settings, "LOGO_SIZE", (100, 100))
 STR_LOGO_SIZE = "%sx%s" % LOGO_SIZE
 
 
+# noinspection PyClassHasNoInit
 class EventForm:  # namespace
 
     class MainDataForm(dynamicforms.Form):

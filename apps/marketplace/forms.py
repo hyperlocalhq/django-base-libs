@@ -39,6 +39,7 @@ CONTACT_PERSON_CHOICES = [
 PREFIX_JS = 'JS_'  # Job Sector
 
 
+# noinspection PyClassHasNoInit
 class JobOfferForm:  # namespace
 
     class MainDataForm(dynamicforms.Form):

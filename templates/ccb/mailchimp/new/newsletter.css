@@ -17,40 +17,10 @@ body {
     background-color: #ffffff;
 }
 
-#templateContainer {
-    border-right: 1px solid #f0f0f0;
-    border-left: 1px solid #f0f0f0;
-    padding-bottom: 0;
-    overflow: hidden;
-    background-color: white;
-}
-
-a:link,
-a:visited,
-    /* Yahoo! Mail Override */
-a .yshortcuts
-    /* Yahoo! Mail Override */
-{
-    color: #6994A6;
-    font-weight: normal;
-    text-decoration: none;
-}
-
 a:hover
     /* Yahoo! Mail Override */
 {
     text-decoration: underline;
-}
-
-#preHeader,
-#social,
-#author,
-#utility {
-    color: #707070;
-    font-family: Helvetica, Arial;
-    font-size: 10px;
-    line-height: 13px;
-    text-align: left;
 }
 
 #preHeader div {
