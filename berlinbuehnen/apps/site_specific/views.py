@@ -654,6 +654,8 @@ def culturebase_export_productions(request, location_slug):
                 E.platzkategorie(
                     E.vkpreis(price_range)
                 ),
+                E.eventMerkmal(CDATA(', '.join(event.characteristics.values_list("title_de", flat=True)))),
+                E.eventMerkmalEn(CDATA(', '.join(event.characteristics.values_list("title_en", flat=True)))),
                 E.eventTicketsWebseite(CDATA(event.tickets_website)),
             ))
         try:
@@ -700,6 +702,8 @@ def culturebase_export_productions(request, location_slug):
             E.erSchlagworte(CDATA(""), alwaysEmpty="1"),
             E.erKategorie(CDATA(categories)),
             E.erTicketsWebseite(CDATA(prod.tickets_website)),
+            E.erMerkmal(CDATA(', '.join(prod.characteristics.values_list("title_de", flat=True)))),
+            E.erMerkmalEn(CDATA(', '.join(prod.characteristics.values_list("title_en", flat=True)))),
             *prod_image_nodes + event_nodes
         ))
 
