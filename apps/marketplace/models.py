@@ -55,7 +55,7 @@ class JobOffer(JobOfferBase):
                     return term
                 else:
                     return regional
-        except:
+        except Exception:
             return None
 
     def is_deletable(self, user=None):

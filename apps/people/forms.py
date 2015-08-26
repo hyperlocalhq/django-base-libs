@@ -88,7 +88,7 @@ class SimpleRegistrationForm(SimpleRegistrationFormBase):
 
         try:
             s = Settings.objects.get()
-        except:
+        except Exception:
             pass
         else:
             ms = MailSnake(s.api_key)
@@ -594,7 +594,7 @@ class Registration:  # Namespace
             return True
 
         def __init__(self, *args, **kwargs):
-            super(Registration.PersonCategories, self).__init__(*args, **kwargs)
+            super(PersonCategories, self).__init__(*args, **kwargs)
 
             self.creative_sectors = {}
             for item in get_related_queryset(Person, "creative_sectors"):
@@ -682,7 +682,7 @@ class Registration:  # Namespace
             return True
 
         def __init__(self, *args, **kwargs):
-            super(Registration.InstitutionCategories, self).__init__(*args, **kwargs)
+            super(InstitutionCategories, self).__init__(*args, **kwargs)
 
             self.creative_sectors = {}
             for item in get_related_queryset(Institution, "creative_sectors"):
@@ -1487,7 +1487,7 @@ class Registration:  # Namespace
                         p = form_step_data[current_step]["p%d" % i] = Person.objects.get(
                             user__email=email,
                         )
-                    except:
+                    except Exception:
                         pass
                     else:
                         form_step_data[current_step]["p%d_prefix" % i] = p.prefix_id
@@ -1527,7 +1527,7 @@ class Registration:  # Namespace
             user.save()
             try:
                 prefix = Prefix.objects.get(pk=int(form_step_data[101].get('prefix', 0)))
-            except:
+            except Exception:
                 prefix = None
 
             # init the status from display_profile checkbox
@@ -1657,7 +1657,7 @@ class Registration:  # Namespace
             user.save()
             try:
                 prefix = Prefix.objects.get(pk=int(form_step_data[201].get('prefix', 0)))
-            except:
+            except Exception:
                 prefix = None
 
             # init the status from display_profile checkbox

@@ -121,7 +121,7 @@ class Idea(CreationModificationDateMixin, ViewsMixin, UrlMixin):
             self.ext_id
         )
 
-    def delete(self):
+    def delete(self, using=None):
         """deletes the idea and all underlying comments and ratings"""
         super(Idea, self).delete()
 

@@ -99,7 +99,7 @@ def institution_list(
     if slug == "all":
         try:
             del (institution_filters[criterion])
-        except:
+        except Exception:
             pass
     else:
         if institution_filters.get('criterion', '') != slug:

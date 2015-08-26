@@ -157,11 +157,11 @@ def article_archive_index(
 
     try:
         extra_context['type'] = ArticleType.objects.get(slug=type_sysname)
-    except:
+    except Exception:
         pass
     try:
         extra_context['creative_sector'] = Term.objects.get(slug=creative_sector_slug)
-    except:
+    except Exception:
         pass
 
     extra_context['most_read_articles'] = get_most_read_articles(creative_sector_slug,
@@ -258,11 +258,11 @@ def article_archive_year(
     extra_context['rel_root_dir'] = reverse("article_archive")
     try:
         extra_context['type'] = ArticleType.objects.get(slug=type_sysname)
-    except:
+    except Exception:
         pass
     try:
         extra_context['creative_sector'] = Term.objects.get(slug=creative_sector_slug)
-    except:
+    except Exception:
         pass
 
     if template_name is None:
@@ -344,11 +344,11 @@ def article_archive_month(
 
     try:
         extra_context['type'] = ArticleType.objects.get(slug=type_sysname)
-    except:
+    except Exception:
         pass
     try:
         extra_context['creative_sector'] = Term.objects.get(slug=creative_sector_slug)
-    except:
+    except Exception:
         pass
 
     if template_name is None:
@@ -447,11 +447,11 @@ def article_archive_day(
 
     try:
         extra_context['type'] = ArticleType.objects.get(slug=type_sysname)
-    except:
+    except Exception:
         pass
     try:
         extra_context['creative_sector'] = Term.objects.get(slug=creative_sector_slug)
-    except:
+    except Exception:
         pass
 
     if template_name is None:
@@ -537,7 +537,7 @@ def article_object_detail(
     # get the requested article to update the "views field"
     try:
         article = queryset.get(slug=article_slug)
-    except:
+    except Exception:
         return HttpResponseRedirect(reverse("article_archive"))
     else:
         article.increase_views()
@@ -555,11 +555,11 @@ def article_object_detail(
 
     try:
         extra_context['type'] = ArticleType.objects.get(slug=type_sysname)
-    except:
+    except Exception:
         pass
     try:
         extra_context['creative_sector'] = Term.objects.get(slug=creative_sector_slug)
-    except:
+    except Exception:
         pass
     extra_context['archives'] = archives
     extra_context['creative_sectors'] = get_creative_sectors()
@@ -606,11 +606,11 @@ def article_feed(
     kwargs['queryset'] = queryset
     try:
         kwargs['type'] = ArticleType.objects.get(slug=type_sysname)
-    except:
+    except Exception:
         pass
     try:
         kwargs['creative_sector'] = Term.objects.get(slug=creative_sector_slug)
-    except:
+    except Exception:
         pass
 
     return feed(request, feed_type, **kwargs)

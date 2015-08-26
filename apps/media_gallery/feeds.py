@@ -33,7 +33,7 @@ class MediaGalleryRssFeed(Feed):
     def item_link(self, obj):
         try:
             return obj.get_url()
-        except:
+        except Exception:
             return ""
 
     def item_pubdate(self, obj):

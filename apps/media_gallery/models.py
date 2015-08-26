@@ -28,7 +28,7 @@ class PortfolioSettingsManager(models.Manager):
                 content_type=ContentType.objects.get_for_model(obj),
                 object_id=obj.pk,
             )
-        except:  # or take unsaved default
+        except Exception:  # or take unsaved default
             p_settings = PortfolioSettings()
             p_settings.content_object = obj
         return p_settings

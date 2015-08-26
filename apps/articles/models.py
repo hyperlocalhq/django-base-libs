@@ -68,7 +68,7 @@ class PublishedArticleManager(PublishingMixinPublishedManager):
 
 class DraftArticleManager(PublishingMixinDraftManager):
     def get_queryset(self):
-        return super(PublishedArticleManager, self).get_queryset().filter(
+        return super(DraftArticleManager, self).get_queryset().filter(
             sites=Site.objects.get_current(),
             language=get_current_language(),
         )
@@ -116,7 +116,7 @@ class Article(ArticleBase, MultiSiteMixin):
                 pk__gt=self.pk,
                 language=self.language,
             ).order_by("published_from")[0]
-        except:
+        except Exception:
             return None
 
     def get_older_published(self):
@@ -126,5 +126,5 @@ class Article(ArticleBase, MultiSiteMixin):
                 pk__lt=self.pk,
                 language=self.language,
             ).order_by("-published_from")[0]
-        except:
+        except Exception:
             return None

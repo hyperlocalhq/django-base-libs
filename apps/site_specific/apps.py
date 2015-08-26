@@ -14,7 +14,7 @@ class SiteSpecificConfig(AppConfig):
 
 
 def add_methods_to_institution():
-    '''Additional methods to Institution model'''
+    """Additional methods to Institution model"""
     Institution = apps.get_model("institutions", "Institution")
 
     def is_addable_to_favorites(self, user=None):

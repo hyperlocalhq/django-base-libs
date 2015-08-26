@@ -67,7 +67,7 @@ class TicketForm(dynamicforms.Form):
                     slug=concern,
                 )
                 self.fields["concern"].initial = term.id
-            except:
+            except Exception:
                 pass
 
         self.fields["description"].required = not meta.get_field("description").blank
@@ -94,7 +94,7 @@ class TicketForm(dynamicforms.Form):
 
         try:
             content_type = ContentType.objects.get(id=self.content_type_id)
-        except:
+        except Exception:
             content_type = None
 
         concern = get_related_queryset(Ticket, "concern").get(

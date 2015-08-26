@@ -70,7 +70,7 @@ class ObjectAdding2Favorites(template.Node):
 
         try:
             template_path = template.resolve_variable(self.template_path, context)
-        except:
+        except Exception:
             template_path = ""
 
         c = context

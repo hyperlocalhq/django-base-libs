@@ -76,7 +76,7 @@ def export_accounts(filename_postfix="", **filters):
         row += 1
         try:
             contact = p.get_primary_contact()
-        except:
+        except Exception:
             contact = {}
         row_content = [
             p.user.username,
@@ -145,7 +145,7 @@ def export_accounts(filename_postfix="", **filters):
         row += 1
         try:
             contact = inst.get_primary_contact()
-        except:
+        except Exception:
             contact = {}
         row_content = [
             inst.slug,

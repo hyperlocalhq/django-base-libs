@@ -32,7 +32,7 @@ def get_sector_info(path):
                     creative_sectors__rght__lte=cs.rght,
                     creative_sectors__tree_id=cs.tree_id,
                 ).select_related().order_by('-auth_user.date_joined', 'auth_user.username').distinct()[:count]
-            except:
+            except Exception:
                 return Person.objects.filter(
                     status="published",
                 ).select_related().order_by('-auth_user.date_joined', 'auth_user.username').distinct()[:count]
@@ -46,7 +46,7 @@ def get_sector_info(path):
                     status__in=("published", "published_commercial"),
                     creative_sectors__slug=self.sector_slug
                 ).order_by('-creation_date', 'title').distinct()[:count]
-            except:
+            except Exception:
                 return Institution.objects.filter(
                     status__in=("published", "published_commercial"),
                 ).order_by('-creation_date', 'title').distinct()[:count]
@@ -60,7 +60,7 @@ def get_sector_info(path):
                     status="published",
                     creative_sectors__slug=self.sector_slug
                 ).order_by('-creation_date', 'title').distinct()[:count]
-            except:
+            except Exception:
                 return Event.objects.filter(
                     status="published",
                 ).order_by('-creation_date', 'title').distinct()[:count]
@@ -74,7 +74,7 @@ def get_sector_info(path):
                     status__in=("published", "published_commercial"),
                     creative_sectors__slug=self.sector_slug
                 ).order_by('-creation_date', 'title').distinct()[:count]
-            except:
+            except Exception:
                 return Document.objects.filter(
                     status__in=("published", "published_commercial"),
                 ).order_by('-creation_date', 'title').distinct()[:count]
@@ -85,7 +85,7 @@ def get_sector_info(path):
                     slug=self.sector_slug
                 )
                 return PersonGroup.objects.order_by('-creation_date', 'title').distinct()[:count]
-            except:
+            except Exception:
                 return PersonGroup.objects.order_by('-creation_date', 'title').distinct()[:count]
 
         def get_new_lists(self, count=3):

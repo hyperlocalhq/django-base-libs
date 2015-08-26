@@ -69,7 +69,7 @@ class Command(NoArgsCommand):
                     get_value(node_job, "changeDate"),
                     ignoretz=True,
                 )
-            except:
+            except Exception:
                 change_date = None
             city = get_value(node_job, "city")
             if city != "Berlin":
@@ -140,7 +140,7 @@ class Command(NoArgsCommand):
                         content_type__app_label="marketplace",
                         content_type__model="jobtype",
                     ).content_object
-                except:
+                except Exception:
                     pass
                 else:
                     job_offer.job_type = job_type
@@ -158,7 +158,7 @@ class Command(NoArgsCommand):
                         content_type__app_label="marketplace",
                         content_type__model="jobsector",
                     ).content_object
-                except:
+                except Exception:
                     pass
                 else:
                     job_offer.job_sectors.add(job_sector)
@@ -173,7 +173,7 @@ class Command(NoArgsCommand):
                         content_type__app_label="marketplace",
                         content_type__model="jobqualification",
                     ).content_object
-                except:
+                except Exception:
                     pass
                 else:
                     job_offer.qualifications.add(qualification)

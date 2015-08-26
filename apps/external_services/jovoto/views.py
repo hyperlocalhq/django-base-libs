@@ -45,7 +45,7 @@ def get_idea_list():
     for idea_data in idea_list:
         try:
             idea = Idea.objects.get(guid=idea_data['guid'])
-        except:
+        except Exception:
             idea = Idea(guid=idea_data['guid'])
 
         # the ext_id represents the external idea id and is parsed from the guid
@@ -133,7 +133,7 @@ def get_idea(request, ext_id, retry_count=0, **kwargs):
         kwargs['object_id'] = idea.id
         return object_detail(request, **kwargs)
 
-    except:
+    except Exception:
         if retry_count >= JOVOTO_NOF_REQUEST_RETRIES:
             # raise Http404, "The requested object is not available"
             raise

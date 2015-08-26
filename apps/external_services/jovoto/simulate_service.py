@@ -31,7 +31,7 @@ def simulate_idea_list_service(request):
     try:
         xml = smart_str(loader.render_to_string('simulate_idea_list.xml', {'ideas': ideas}))
         return HttpResponse(xml, content_type='application/xml')
-    except:
+    except Exception:
         raise Http404, "The requested object is not available"
 
 
@@ -58,5 +58,5 @@ def simulate_idea_details_service(request, ext_id):
     try:
         xml = smart_str(loader.render_to_string('simulate_idea_details.xml', {'idea': idea}))
         return HttpResponse(xml, content_type='application/xml')
-    except:
+    except Exception:
         raise Http404, "The requested object is not available"

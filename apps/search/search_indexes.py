@@ -274,7 +274,7 @@ class MediaGalleryIndex(indexes.SearchIndex):
         else:
             try:
                 first_image_path = FileManager.modified_path(obj.mediafile_set.all()[0].path.path, "at")
-            except:
+            except Exception:
                 first_image_path = False
             if first_image_path:
                 return "%s%s" % (settings.UPLOADS_URL, first_image_path)

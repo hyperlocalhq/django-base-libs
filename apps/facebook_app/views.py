@@ -560,7 +560,7 @@ def sync_personal_portfolio(request, slug):
                     content_type__model="mediagallery",
                     object_id=gallery.pk,
                 )
-            except:
+            except Exception:
                 mapper = None
             fb_album = None
             if mapper:
@@ -593,7 +593,7 @@ def sync_personal_portfolio(request, slug):
                             content_type__model="mediafile",
                             object_id=media_file.pk
                         )
-                    except:
+                    except Exception:
                         file_mapper = None
 
                     fb_photo = None
@@ -624,7 +624,7 @@ def sync_personal_portfolio(request, slug):
                     content_type__model="mediagallery",
                     external_id=fb_album_id
                 )
-            except:
+            except Exception:
                 mapper = None
             if mapper:
                 gallery = mapper.content_object
@@ -652,7 +652,7 @@ def sync_personal_portfolio(request, slug):
                         content_type__model="mediafile",
                         external_id="%s" % fb_photo['id']
                     )
-                except:
+                except Exception:
                     file_mapper = None
 
                 if file_mapper and file_mapper.content_object:
@@ -739,7 +739,7 @@ def sync_personal_portfolio(request, slug):
                 content_type__model="mediagallery",
                 object_id=gallery.pk
             )
-        except:
+        except Exception:
             mapper = None
 
         if mapper and mapper.external_id in fb_albums:
@@ -803,7 +803,7 @@ def sync_institutional_portfolio(request, slug):
     obj = Institution.objects.get(slug=slug)
     try:
         fb_page = FacebookPage.objects.get(institution=obj)
-    except:
+    except Exception:
         return HttpResponseRedirect("/facebook/manage/")
     # get updated access_token of the page for the institution
     pages = graph.get_connections("me", "accounts").get("data", [])
@@ -841,7 +841,7 @@ def sync_institutional_portfolio(request, slug):
                     content_type__model="mediagallery",
                     object_id=gallery.pk,
                 )
-            except:
+            except Exception:
                 mapper = None
             fb_album = None
             if mapper:
@@ -874,7 +874,7 @@ def sync_institutional_portfolio(request, slug):
                             content_type__model="mediafile",
                             object_id=media_file.pk
                         )
-                    except:
+                    except Exception:
                         file_mapper = None
 
                     fb_photo = None
@@ -907,7 +907,7 @@ def sync_institutional_portfolio(request, slug):
                     content_type__model="mediagallery",
                     external_id=fb_album_id
                 )
-            except:
+            except Exception:
                 mapper = None
             if mapper:
                 gallery = mapper.content_object
@@ -934,7 +934,7 @@ def sync_institutional_portfolio(request, slug):
                         content_type__model="mediafile",
                         external_id="%s" % fb_photo['id']
                     )
-                except:
+                except Exception:
                     file_mapper = None
 
                 if file_mapper and file_mapper.content_object:
@@ -1026,7 +1026,7 @@ def sync_institutional_portfolio(request, slug):
                 content_type__model="mediagallery",
                 object_id=gallery.pk
             )
-        except:
+        except Exception:
             mapper = None
 
         if mapper and mapper.external_id in fb_albums:

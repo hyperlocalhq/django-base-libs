@@ -69,7 +69,7 @@ class Command(NoArgsCommand):
 
         try:
             xml_doc = parseString(data)
-        except:
+        except Exception:
             return
 
         for node_job in xml_doc.getElementsByTagName("item"):
@@ -80,7 +80,7 @@ class Command(NoArgsCommand):
                     get_value(node_job, "pubDate"),
                     ignoretz=True,
                 )
-            except:
+            except Exception:
                 change_date = None
             mapper = None
             try:

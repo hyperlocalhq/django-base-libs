@@ -8,7 +8,6 @@ class Command(NoArgsCommand):
     help = """Deletes duplicate job offers"""
 
     def handle_noargs(self, **options):
-        verbosity = int(options.get('verbosity', NORMAL))
 
         from django.db import models
 

@@ -51,7 +51,7 @@ class Command(NoArgsCommand):
 
             try:
                 xml_doc = parseString(data)
-            except:
+            except Exception:
                 services_failed.append(s)
                 continue
 
@@ -118,7 +118,7 @@ class Command(NoArgsCommand):
 
                 try:
                     article.save()
-                except:
+                except Exception:
                     articles_failed.append(article)
                     continue
 

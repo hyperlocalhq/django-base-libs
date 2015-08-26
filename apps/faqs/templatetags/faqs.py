@@ -44,14 +44,14 @@ class FaqCategoryListNode(template.Node):
         if self.category_id:
             try:
                 category = FaqCategory.objects.get(id=self.category_id)
-            except:
+            except Exception:
                 return ''
             category_list = category.get_children()
         # no category id given, so get the roots of the container
         else:
             try:
                 category_list = FaqCategory.objects.get_roots(self.container_id)
-            except:
+            except Exception:
                 return ''
 
         # if self.category_id == 14:
@@ -61,7 +61,7 @@ class FaqCategoryListNode(template.Node):
                 self.template_path,
                 context
             )
-        except:
+        except Exception:
             template_path = ""
 
         context_vars = context
@@ -98,7 +98,7 @@ class FaqListNode(template.Node):
 
         try:
             category = FaqCategory.objects.get(id=self.category_id)
-        except:
+        except Exception:
             return ''
 
         faq_list = getattr(category, 'get_faqs')()

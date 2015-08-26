@@ -205,7 +205,7 @@ class JobOfferForm:  # namespace
                         self._errors['end_dd'] = [_("Please enter a valid month.")]
                 try:
                     end_date = datetime.date(int(end_yyyy), int(end_mm or 1), int(end_dd or 1))
-                except:
+                except Exception:
                     self._errors['end_dd'] = [_("If you want to specify an end date, please enter a valid one.")]
 
             return self.cleaned_data
@@ -288,7 +288,7 @@ class JobOfferForm:  # namespace
             if end_yyyy or end_mm or end_dd:
                 try:
                     step_main_data['end_date'] = datetime.date(int(end_yyyy), int(end_mm or 1), int(end_dd or 1))
-                except:
+                except Exception:
                     pass
         return form_step_data
 

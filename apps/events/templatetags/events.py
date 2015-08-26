@@ -90,7 +90,7 @@ class DatePeriodNode(template.Node):
                 int(self.end_mm or 1),
                 int(self.end_dd or 1),
             )
-        except:
+        except Exception:
             end_date = None
 
         return dateformat.format(end_date, end_date_format)

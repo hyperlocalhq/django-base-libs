@@ -12,12 +12,12 @@ verbose_name = _("Facebook App")
 
 try:
     APP_ID = settings.FACEBOOK_APP_ID
-except:
+except Exception:
     raise ImproperlyConfigured, "settings.FACEBOOK_APP_ID should be defined"
 
 try:
     APP_SECRET = settings.FACEBOOK_APP_SECRET
-except:
+except Exception:
     raise ImproperlyConfigured, "settings.FACEBOOK_APP_SECRET should be defined"
 
 REQUIRED_PERMISSIONS = getattr(settings, "FACEBOOK_APP_REQUIRED_PERMISSIONS", [
