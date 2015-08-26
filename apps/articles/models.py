@@ -68,7 +68,7 @@ class PublishedArticleManager(PublishingMixinPublishedManager):
 
 class DraftArticleManager(PublishingMixinDraftManager):
     def get_queryset(self):
-        return super(PublishedArticleManager, self).get_queryset().filter(
+        return super(DraftArticleManager, self).get_queryset().filter(
             sites=Site.objects.get_current(),
             language=get_current_language(),
         )

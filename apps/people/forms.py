@@ -594,7 +594,7 @@ class Registration:  # Namespace
             return True
 
         def __init__(self, *args, **kwargs):
-            super(Registration.PersonCategories, self).__init__(*args, **kwargs)
+            super(PersonCategories, self).__init__(*args, **kwargs)
 
             self.creative_sectors = {}
             for item in get_related_queryset(Person, "creative_sectors"):
@@ -682,7 +682,7 @@ class Registration:  # Namespace
             return True
 
         def __init__(self, *args, **kwargs):
-            super(Registration.InstitutionCategories, self).__init__(*args, **kwargs)
+            super(InstitutionCategories, self).__init__(*args, **kwargs)
 
             self.creative_sectors = {}
             for item in get_related_queryset(Institution, "creative_sectors"):
