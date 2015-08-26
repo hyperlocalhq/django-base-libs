@@ -4,3 +4,4 @@ $ git remote add base_libs_origin https://github.com/archatas/django-base-libs
 $ git remote add filebrowser_origin https://github.com/archatas/django-filebrowser
 $ git remote add jetson_origin https://bitbucket.org/jetson/jetson
 $ git remote add tagging_origin https://github.com/archatas/django-tagging
+$ git remote add tagging_autocomplete_origin https://github.com/archatas/django-tagging-autocomplete
