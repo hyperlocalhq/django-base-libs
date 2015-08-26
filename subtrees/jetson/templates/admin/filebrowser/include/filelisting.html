@@ -12,9 +12,13 @@
                     {% selectable fileobject.filetype query.type %}
                     {% if selectable and fileobject.filetype != "Folder" %}
                         <!-- select original -->
-                        <button class="grp-button fb_selectlink"
-                                onclick="FileSubmit('{{ fileobject.path }}', '{{ fileobject.url }}', '
-                                    {{ MEDIA_URL }}{{ fileobject|modified_path:"filebrowser_thumbnail" }}', '{{ fileobject.filetype }}');">{% trans "Select" %}</button>
+                        <button
+                            class="grp-button fb_selectlink"
+                            onclick="FileSubmit('{{ fileobject.path }}', '{{ fileobject.url }}', '
+                                {{ MEDIA_URL }}{{ fileobject|modified_path:"filebrowser_thumbnail" }}', '{{ fileobject.filetype }}');"
+                            >
+                            {% trans "Select" %}
+                        </button>
                     {% else %}
                         &nbsp;
                     {% endif %}
@@ -28,16 +32,24 @@
                     {% selectable fileobject.filetype query.type %}
                     {% if selectable and fileobject.filetype != "Folder" %}
                         <!-- select original -->
-                        <button class="grp-button fb_selectlink"
-                                onclick="FileBrowserDialogue.fileAndDescriptionSubmit({file_path: '
-                                    {{ MEDIA_URL }}{{ fileobject.path|escapejs }}', title: '{{ f_description.title|escapejs }}', description: '{{ f_description.description|escapejs }}', author: '{{ f_description.author|escapejs }}'});">{% trans "Select" %}</button>
+                        <button
+                            class="grp-button fb_selectlink"
+                            onclick="FileBrowserDialogue.fileAndDescriptionSubmit({file_path: '
+                                {{ MEDIA_URL }}{{ fileobject.path|escapejs }}', title: '{{ f_description.title|escapejs }}', description: '{{ f_description.description|escapejs }}', author: '{{ f_description.author|escapejs }}'});
+                                "
+                            >
+                            {% trans "Select" %}
+                        </button>
                         <!-- select versions -->
                         {% if fileobject.filetype == "Image" %}
                             <br/><br/>
                             <a href="
                                 {% url 'fb_versions' %}{% query_string "" "p" %}&amp;filename={{ fileobject.filename }}"
                                class="fb_showversionslink"
-                               title="{% trans 'Show Versions' %}">{% trans "Versions" %}</a>
+                               title="{% trans 'Show Versions' %}"
+                                >
+                                {% trans "Versions" %}
+                            </a>
                         {% endif %}
                     {% else %}
                         &nbsp;
@@ -51,8 +63,12 @@
                     {% selectable fileobject.filetype query.type %}
                     {% if selectable and fileobject.filetype != "Folder" %}
                         <!-- select original -->
-                        <button class="grp-button fb_selectlink"
-                                onclick="OpenFile(ProtectPath('{{ fileobject.url|escapejs }}'));return false;">{% trans "Select" %}</button>
+                        <button
+                            class="grp-button fb_selectlink"
+                            onclick="OpenFile(ProtectPath('{{ fileobject.url|escapejs }}'));return false;"
+                            >
+                            {% trans "Select" %}
+                        </button>
                         <!-- select versions -->
                         {% if fileobject.filetype == "Image" %}
                             <br/><br/>
