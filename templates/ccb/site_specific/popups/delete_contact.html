@@ -9,7 +9,8 @@
             <input
                 class="secondaryAction" name="cancel" type="button"
                 value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"
-                onclick="{% if object %}redirect('{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/#file_{{ file.filename }}'){% endif %}"
+                onclick="{% if object %}redirect('
+                    {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/#file_{{ file.filename }}'){% endif %}"
                 />
         </div>
     </form>

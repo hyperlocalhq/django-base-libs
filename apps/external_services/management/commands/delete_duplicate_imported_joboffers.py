@@ -1,5 +1,4 @@
 # -*- coding: UTF-8 -*-
-from optparse import make_option
 from django.core.management.base import NoArgsCommand
 
 SILENT, NORMAL, VERBOSE = 0, 1, 2

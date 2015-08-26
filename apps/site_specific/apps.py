@@ -1,6 +1,8 @@
 # -*- coding: UTF-8 -*-
 from __future__ import unicode_literals
+
 from django.apps import AppConfig, apps
+
 from base_libs.middleware import get_current_user
 
 

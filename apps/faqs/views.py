@@ -1,17 +1,13 @@
 # -*- coding: utf-8 -*-
 from django.template import loader
-from django.http import Http404
-from django.conf import settings
 from django.contrib.sites.models import Site
 
 from base_libs.views import get_object_from_url
 from base_libs.views import get_container
 from base_libs.utils.loader import select_template_name
 from base_libs.utils.misc import get_or_404
-
 from jetson.apps.utils.views import object_list
 from ccb.apps.faqs.models import FaqContainer, FaqCategory
-from base_libs.utils.misc import get_website_url
 
 
 def get_faq_params(object_url_part, url_identifier, category_slug=None, **kwargs):

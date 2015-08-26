@@ -1,11 +1,9 @@
 # -*- coding: UTF-8 -*-
-from django.conf import settings
 from django.db.models import get_model
-from django.template import loader, Template, Context
+from django.template import loader
 from django import template
 
 from jetson.apps.structure.models import Term, ContextCategory
-
 from ccb.apps.site_specific.models import ContextItem
 
 register = template.Library()

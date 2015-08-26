@@ -9,12 +9,10 @@ from django.conf import settings
 from base_libs.models.models import UrlMixin
 from base_libs.models import ViewsMixin
 from base_libs.models import CreationModificationDateMixin
-
 from jetson.apps.comments.models import Comment
 from base_libs.utils.misc import get_website_url
 from base_libs.models.query import ExtendedQuerySet
 from base_libs.models.fields import URLField
-
 from ccb.apps.external_services.jovoto.default_settings import JOVOTO_ROOT_DIR
 
 verbose_name = _("Jovoto")

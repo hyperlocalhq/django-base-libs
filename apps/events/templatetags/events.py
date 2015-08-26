@@ -1,11 +1,8 @@
 # -*- coding: UTF-8 -*-
-import re
 import math
-from datetime import datetime, time, timedelta
+from datetime import datetime, timedelta
 
 from django import template
-from django.conf import settings
-from django.template import loader
 from django.utils import dateformat
 from django.utils.formats import get_format
 from django.db import models

@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 import re
+
 from django.contrib.syndication.views import Feed
 from django.utils.feedgenerator import Atom1Feed
 from django.utils.translation import ugettext_lazy as _

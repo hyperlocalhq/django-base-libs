@@ -1,18 +1,15 @@
 import re
-import calendar
 import json
-from datetime import datetime
-from dateutil.parser import parse as datetime_parse
-from urllib2 import urlopen, HTTPError, URLError
-from twython import Twython
 
+from dateutil.parser import parse as datetime_parse
+from twython import Twython
 from django.conf import settings
 from django.http import HttpResponse
 from django.utils.html import urlize
 from django.utils import dateformat
 from django.views.decorators.cache import cache_page
 from django.template.defaultfilters import timesince
-from django.utils.translation import ugettext_lazy as _, ugettext
+from django.utils.translation import ugettext
 
 
 @cache_page(60 * 15)

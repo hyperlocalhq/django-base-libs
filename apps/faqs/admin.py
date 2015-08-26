@@ -10,7 +10,6 @@ from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.admin import ExtendedStackedInline
 from base_libs.admin.tree_editor import TreeEditor
-
 from ccb.apps.faqs.models import FaqContainer, FaqCategory, QuestionAnswer
 
 

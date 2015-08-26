@@ -3,9 +3,8 @@
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import AnonymousUser
 
-from base_libs.middleware import get_current_user
-
 from jetson.apps.marketplace.base import *
+
 
 ### SITE-SPECIFIC JOB POSTING ###
 

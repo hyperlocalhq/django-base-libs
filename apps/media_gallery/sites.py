@@ -1,39 +1,25 @@
-import re
 import os
 import time
-import fnmatch
 import urllib2
-from os.path import isfile, isdir
 from datetime import datetime
+from functools import update_wrapper
 
 from django import forms
-from django import http, template
 from django.views.decorators.csrf import csrf_protect
-from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response
-from functools import update_wrapper
-from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy, ugettext as _
 from django.views.decorators.cache import never_cache
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.contrib.contenttypes.models import ContentType
 from django.template import RequestContext
 from django.db import models
 from django.shortcuts import get_object_or_404
-from django.template.defaultfilters import slugify
 from django.shortcuts import redirect
 from django.conf import settings
-
-from filebrowser.settings import MEDIA_ROOT as UPLOADS_ROOT
-from filebrowser.settings import MEDIA_URL as UPLOADS_URL
 
 from base_libs.utils.misc import get_installed
 from base_libs.views import access_denied
 from base_libs.models.models import STATUS_CODE_PUBLISHED, STATUS_CODE_DRAFT
-
 from jetson.apps.utils.views import direct_to_js_template
-from jetson.apps.utils.views import object_detail
-from jetson.apps.utils.views import object_list
 
 MediaGallery = models.get_model("media_gallery", "MediaGallery")
 MediaFile = models.get_model("media_gallery", "MediaFile")
@@ -155,7 +141,7 @@ class PortfolioSite(object):
         return update_wrapper(inner, view)
 
     def get_urls(self):
-        from django.conf.urls import patterns, url, include
+        from django.conf.urls import patterns, url
 
         def wrap(view, cacheable=False, admin=False):
             def wrapper(*args, **kwargs):

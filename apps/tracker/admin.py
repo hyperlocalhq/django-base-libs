@@ -1,13 +1,12 @@
 # -*- coding: UTF-8 -*-
 from django.contrib import admin
-from django.utils.translation import ugettext_lazy as _, ugettext
+from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.models.admin import ObjectRelationMixinAdminOptions
 from base_libs.models.admin import ObjectRelationMixinAdminForm
 from base_libs.models.admin import get_admin_lang_section
-
 from ccb.apps.tracker.models import Concern, Ticket, TicketModifications
 
 

@@ -1,15 +1,12 @@
 # -*- coding: UTF-8 -*-
 
-import datetime
-
 from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-
-from jetson.apps.image_mods.models import FileManager
-
 from haystack import indexes
 from haystack import site
+
+from jetson.apps.image_mods.models import FileManager
 
 Article = models.get_model("articles", "Article")
 Event = models.get_model("events", "Event")

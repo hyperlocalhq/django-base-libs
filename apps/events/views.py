@@ -3,31 +3,21 @@ import re
 from datetime import datetime, timedelta
 from time import strptime
 
-from django import forms
 from django.db import models
 from django.utils.translation import ugettext_lazy as _, ugettext
-from django.shortcuts import render_to_response, get_object_or_404
-from django.template import RequestContext, loader, Context
-from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404
+from django.http import Http404, HttpResponse
 from django.contrib.contenttypes.models import ContentType
-from django.conf import settings
-from django.utils.encoding import smart_unicode, force_unicode
 from django.contrib.syndication.views import Feed
 from django.views.decorators.cache import never_cache
-from django.utils import translation
 
-from base_libs.utils.misc import get_related_queryset
 from base_libs.utils.misc import get_website_url
-from base_libs.forms import dynamicforms
 from base_libs.views import access_denied
-
 from jetson.apps.utils.decorators import login_required
-from jetson.apps.utils.views import object_list, object_detail, get_abc_list, filter_abc, get_year_list, filter_year, \
-    show_form_step
+from jetson.apps.utils.views import object_list, object_detail, show_form_step
 from jetson.apps.memos.models import Memo, MEMO_TOKEN_NAME
-
 from ccb.apps.events.utils import create_ics
-from ccb.apps.events.models import URL_ID_EVENT, URL_ID_EVENTS, SECURITY_SUMMAND
+from ccb.apps.events.models import URL_ID_EVENTS, SECURITY_SUMMAND
 from ccb.apps.events.forms import ADD_EVENT_FORM_STEPS, EventSearchForm
 
 Event = models.get_model("events", "Event")

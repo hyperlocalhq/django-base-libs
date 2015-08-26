@@ -3,7 +3,6 @@ import datetime
 from itertools import chain
 
 from django.db import models
-from django.db.models.loading import load_app
 from django import forms
 from django.forms.formsets import formset_factory, BaseFormSet
 from django.utils.translation import ugettext_lazy as _
@@ -15,7 +14,6 @@ from django.utils.safestring import mark_safe
 
 from base_libs.forms import dynamicforms
 from base_libs.forms.fields import ImageField
-from base_libs.forms.fields import SecurityField
 from base_libs.utils.misc import get_related_queryset, XChoiceList
 from base_libs.forms.fields import AutocompleteField
 from base_libs.middleware import get_current_user
@@ -27,9 +25,6 @@ from tagging.forms import TagField
 from tagging_autocomplete.widgets import TagAutocomplete
 
 from jetson.apps.location.models import Address
-from jetson.apps.utils.images import validate_image, parse_dimensions
-from jetson.apps.optionset.models import IndividualLocationType
-from jetson.apps.optionset.models import InstitutionalLocationType
 from jetson.apps.optionset.models import PhoneType
 
 from ccb.apps.people.models import Person, IndividualContact

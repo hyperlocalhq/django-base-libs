@@ -1,5 +1,4 @@
 # -*- coding: UTF-8 -*-
-from optparse import make_option
 from django.core.management.base import NoArgsCommand
 
 SILENT, NORMAL, VERBOSE = 0, 1, 2
@@ -11,18 +10,13 @@ class Command(NoArgsCommand):
     def handle_noargs(self, **options):
         verbosity = int(options.get('verbosity', NORMAL))
 
-        from datetime import datetime
-        from time import strptime
         from rest.client import webcall
         from xml.dom.minidom import parseString
-        from xml.dom.minidom import Node
 
         from django.db import models
 
-        from base_libs.utils.misc import get_related_queryset
         from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
 
-        from jetson.apps.external_services.utils import get_first
         from jetson.apps.external_services.utils import get_value
 
         Address = models.get_model("location", "Address")

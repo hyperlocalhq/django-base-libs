@@ -2,8 +2,6 @@
 
 from django.db.models import signals
 
-from jetson.apps.marketplace.management import *
-
 try:
     from jetson.apps.notification import models as notification
 

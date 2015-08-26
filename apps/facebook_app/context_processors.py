@@ -1,8 +1,6 @@
 # -*- coding: UTF-8 -*-
-import re
 
 from django.db import models
-from django.conf import settings
 
 facebook_app_models = models.get_app("facebook_app")
 

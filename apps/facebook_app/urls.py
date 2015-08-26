@@ -1,6 +1,5 @@
 # -*- coding: UTF-8 -*-
 from django.conf.urls import *
-from django.conf import settings
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
 

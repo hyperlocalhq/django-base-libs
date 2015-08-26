@@ -1,5 +1,4 @@
 # -*- coding: UTF-8 -*-
-from optparse import make_option
 from django.core.management.base import NoArgsCommand
 
 SILENT, NORMAL, VERBOSE = 0, 1, 2
@@ -11,17 +10,13 @@ class Command(NoArgsCommand):
     def handle_noargs(self, **options):
         verbosity = int(options.get('verbosity', NORMAL))
 
-        from datetime import datetime, timedelta
-        from time import strptime
+        from datetime import timedelta
         from rest.client import webcall
         from xml.dom.minidom import parseString
-        from xml.dom.minidom import Node
         from dateutil.parser import parse as parse_datetime
 
         from django.db import models
 
-        from base_libs.utils.misc import get_related_queryset
-        from base_libs.utils.misc import html_to_plain_text
         from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
         from base_libs.templatetags.base_tags import decode_entities
 

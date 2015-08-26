@@ -1,5 +1,4 @@
 # -*- coding: UTF-8 -*-
-import re
 
 from django import forms
 from django.db import models
@@ -7,7 +6,6 @@ from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
 
 import haystack
-from haystack.backends import SQ
 from haystack.forms import SearchForm as _SearchForm
 
 

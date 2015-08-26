@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 from jetson.apps.media_gallery.views import *
-from base_libs.models.models import STATUS_CODE_PUBLISHED, STATUS_CODE_DRAFT
+from base_libs.models.models import STATUS_CODE_PUBLISHED
 
 
 def gallery_list(request, queryset, show="", paginate_by=None, order_by=None, page=None,

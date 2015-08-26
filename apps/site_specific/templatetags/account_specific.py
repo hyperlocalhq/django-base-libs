@@ -1,7 +1,4 @@
 # -*- coding: UTF-8 -*-
-from django.conf import settings
-from django.db.models import get_model
-from django.template import loader, Template, Context
 from django import template
 
 from ccb.apps.people.models import Person

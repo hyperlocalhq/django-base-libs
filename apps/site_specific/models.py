@@ -10,20 +10,16 @@ from django.contrib.auth.models import User
 from django.utils.encoding import force_unicode
 from django.conf import settings
 from django.apps import apps
+from mptt.fields import TreeForeignKey, TreeManyToManyField
 
 from base_libs.models.models import UrlMixin
 from base_libs.models.models import ObjectRelationMixin
 from base_libs.models.models import SlugMixin
 from base_libs.models import CreationModificationDateMixin
 from base_libs.middleware import get_current_language, get_current_user
-from base_libs.models.fields import PlainTextModelField
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
-from base_libs.models.fields import ExtendedTextField  # for south
-
 from ccb.apps.search.fulltextsearch import SearchQuerySet
-
-from mptt.fields import TreeForeignKey, TreeManyToManyField
 
 verbose_name = _("Site Specific")
 

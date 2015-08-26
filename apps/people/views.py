@@ -1,9 +1,7 @@
 # -*- coding: UTF-8 -*-
-from django.utils.translation import ugettext_lazy as _, ugettext
-from django.views.decorators.cache import never_cache
+from django.utils.translation import ugettext_lazy as _
 
 from jetson.apps.people.views import *
-
 from ccb.apps.events.views import event_list
 from ccb.apps.marketplace.views import job_offer_list
 from ccb.apps.people.forms import PersonSearchForm

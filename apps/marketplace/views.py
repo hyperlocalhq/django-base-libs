@@ -3,9 +3,8 @@ import re
 from datetime import datetime
 
 from django.contrib.syndication.views import Feed
-from django.utils import translation
-from django.template import RequestContext, loader, Context
-from django.http import Http404, HttpResponse
+from django.template import RequestContext
+from django.http import HttpResponse
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.cache import never_cache
@@ -15,15 +14,11 @@ from django.shortcuts import render_to_response
 from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
 from base_libs.utils.misc import get_website_url
 from base_libs.views import access_denied
-
 from jetson.apps.utils.decorators import login_required
-from jetson.apps.utils.views import show_form_step
-from jetson.apps.utils.views import object_list, object_detail, get_abc_list, filter_abc, get_year_list, filter_year, \
-    show_form_step
+from jetson.apps.utils.views import object_list, object_detail, show_form_step
 from jetson.apps.memos.models import Memo, MEMO_TOKEN_NAME
-
 from ccb.apps.marketplace.forms import ADD_JOB_OFFER_FORM_STEPS, JobOfferSearchForm
-from ccb.apps.marketplace.models import JobOffer, URL_ID_JOB_OFFER, URL_ID_JOB_OFFERS
+from ccb.apps.marketplace.models import JobOffer, URL_ID_JOB_OFFERS
 
 
 class JobOfferFeed(Feed):

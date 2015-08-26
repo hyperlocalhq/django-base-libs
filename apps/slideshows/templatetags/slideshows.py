@@ -1,6 +1,4 @@
-from django.conf import settings
-from django.db.models import get_model
-from django.template import loader, Template, Context
+from django.template import loader
 from django import template
 
 from ccb.apps.slideshows.models import Slideshow

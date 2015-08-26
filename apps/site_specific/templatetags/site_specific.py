@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 import re
+
 from django.db import models
-from django import template
 from django.conf import settings
 from django import template
 

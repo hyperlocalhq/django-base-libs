@@ -4,8 +4,7 @@ from hashlib import sha1
 
 from django.utils.encoding import smart_str
 from django.utils.encoding import force_unicode
-from django.utils.translation import ugettext_lazy as _, ugettext
-
+from django.utils.translation import ugettext
 from django.db import models
 from django.conf import settings
 
