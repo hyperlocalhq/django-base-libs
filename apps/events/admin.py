@@ -348,7 +348,7 @@ class EventAdmin(ExtendedModelAdmin):
 
     # @never_cache # doesn't work for class methods with django r11611
     @transaction.atomic
-    def change_view(self, request, object_id, extra_context=None):
+    def change_view(self, request, object_id, form_url='', extra_context=None):
         """Displays the event add/change form and handles event saving."""
         "The 'change' admin view for this model."
         model = self.model
