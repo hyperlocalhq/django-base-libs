@@ -79,24 +79,24 @@
         {% include "utils/includes/sorting_and_pagination.html" %}
         {% for thread in thread_list %}
             <p>
-            <h6><a href="{{ thread.get_url }}">{{ thread.subject }}</a></h6>
-            <br/>
+                <h6><a href="{{ thread.get_url }}">{{ thread.subject }}</a></h6>
+                <br/>
 
-            {% trans "Author" %}:  <a href="{{ thread.creator.get_profile.get_url }}">{{ thread.creator }}</a><br/>
-            {% trans "Forum" %}:   <a href="{{ thread.forum.get_url }}">{{ thread.forum.short_title }}</a><br/>
-            {% trans "Views" %}:  {{ thread.views }} <br/>
-            {% trans "Replies" %}:  {{ thread.get_nof_replies }} <br/>
+                {% trans "Author" %}:  <a href="{{ thread.creator.get_profile.get_url }}">{{ thread.creator }}</a><br/>
+                {% trans "Forum" %}:   <a href="{{ thread.forum.get_url }}">{{ thread.forum.short_title }}</a><br/>
+                {% trans "Views" %}:  {{ thread.views }} <br/>
+                {% trans "Replies" %}:  {{ thread.get_nof_replies }} <br/>
 
-            {% with thread.get_latest_post as latest_post %}
-                {% if latest_post %}
-                    | {% trans "Latest Post" %}:
-                    {% blocktrans with latest_post.creation_date|datetimefmt as creation_date and latest_post.creator as creator and latest_post.get_url as url and latest_post.creator.get_profile.get_url as creator_url %}
-                        Created on <a href="{{ url }}">{{ creation_date }}</a> by
-                        <a href="{{ creator_url }}">{{ creator }}</a>
-                    {% endblocktrans %}
-                {% endif %}
-            {% endwith %}
-            <br/>
+                {% with thread.get_latest_post as latest_post %}
+                    {% if latest_post %}
+                        | {% trans "Latest Post" %}:
+                        {% blocktrans with latest_post.creation_date|datetimefmt as creation_date and latest_post.creator as creator and latest_post.get_url as url and latest_post.creator.get_profile.get_url as creator_url %}
+                            Created on <a href="{{ url }}">{{ creation_date }}</a> by
+                            <a href="{{ creator_url }}">{{ creator }}</a>
+                        {% endblocktrans %}
+                    {% endif %}
+                {% endwith %}
+                <br/>
             </p>
         {% endfor %}
     {% else %}
