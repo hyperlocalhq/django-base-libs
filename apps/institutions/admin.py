@@ -12,7 +12,6 @@ from django.contrib.admin.util import model_ngettext
 from django.utils.encoding import force_unicode
 
 from base_libs.admin import ExtendedModelAdmin
-from base_libs.utils.misc import get_related_queryset
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin.tree_editor import TreeEditor
 

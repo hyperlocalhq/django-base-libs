@@ -1,8 +1,9 @@
 # -*- coding: UTF-8 -*-
 # inspired by http://stackoverflow.com/a/3772008
 
-from selenium import webdriver
 import unittest
+
+from selenium import webdriver
 
 FULL_TESTS = False  # will test more than 11,000 URLs if set to True, taking more than one hour
 

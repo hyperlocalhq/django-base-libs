@@ -1,22 +1,18 @@
 # -*- coding: utf-8 -*-
 
 import os
-import facebook
-import urllib
 import urllib2
 from datetime import datetime
-from datetime import timedelta
-from dateutil.parser import parse as parse_datetime
 
+import facebook
+from dateutil.parser import parse as parse_datetime
 from django.contrib.auth.views import logout as django_logout
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response
 from django.contrib.auth import login as auth_login
 from django.conf import settings
 from django.template import RequestContext
-from django.http import HttpResponseRedirect, Http404
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.db import models
-from django.contrib.auth import authenticate
 from django.views.decorators.cache import never_cache
 from django.contrib.auth.decorators import login_required
 from django.template.defaultfilters import slugify
@@ -25,9 +21,7 @@ from django.contrib.contenttypes.models import ContentType
 
 from base_libs.utils.misc import get_installed
 from base_libs.utils.misc import get_unique_value
-from base_libs.utils.misc import get_related_queryset
 from base_libs.views import access_denied
-
 from ccb.apps.people.views import login as jetson_login
 
 Site = models.get_model("sites", "Site")

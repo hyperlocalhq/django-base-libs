@@ -4,18 +4,14 @@ import re
 from django.db import models
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.http import HttpResponse, HttpResponseRedirect
-from django.conf import settings
+from django.http import HttpResponseRedirect
 from django.http import Http404
-from django.utils.encoding import force_unicode
-from django.template.defaultfilters import urlencode
 from django.contrib.contenttypes.models import ContentType
 from django.views.decorators.cache import never_cache
-from django.core.paginator import Paginator, InvalidPage
+from django.core.paginator import Paginator
 
 from jetson.apps.utils.views import object_list, get_abc_list, filter_abc
 from jetson.apps.structure.models import Term, ContextCategory
-
 from ccb.apps.site_specific.models import ContextItem
 
 Person = models.get_model("people", "Person")

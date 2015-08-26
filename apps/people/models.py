@@ -1,12 +1,8 @@
 # -*- coding: UTF-8 -*-
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.models import AnonymousUser
-
-from base_libs.middleware import get_current_user
+from mptt.fields import TreeManyToManyField
 
 from jetson.apps.people.base import *
-
-from mptt.fields import TreeManyToManyField
 
 ### SITE-SPECIFIC PERSON ###
 

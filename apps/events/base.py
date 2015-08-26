@@ -1,12 +1,8 @@
 # -*- coding: UTF-8 -*-
-import os
-import re
 import calendar
 from datetime import datetime
 
 from django.db import models
-from django.db.models.base import ModelBase
-from django.db.models.fields import FieldDoesNotExist
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify
 from django.conf import settings
@@ -16,46 +12,33 @@ from django.utils.safestring import mark_safe
 from django.utils.functional import lazy
 from django.utils.encoding import force_unicode
 from django.utils.text import capfirst
-from django.apps import apps
+from tagging_autocomplete.models import TagAutocompleteField
+from mptt.models import MPTTModel
+from mptt.managers import TreeManager
+from mptt.fields import TreeForeignKey
 
-from base_libs.models.models import HierarchyMixin
 from base_libs.models.models import UrlMixin
 from base_libs.models.models import CreationModificationMixin
 from base_libs.models.models import CreationModificationDateMixin
 from base_libs.models.models import OpeningHoursMixin
-from base_libs.models.models import FeesMixin
 from base_libs.models import SlugMixin
 from base_libs.utils.misc import get_unique_value
-from base_libs.utils.misc import get_website_url
 from base_libs.utils.misc import is_installed
 from base_libs.middleware import get_current_language, get_current_user
 from base_libs.models.query import ExtendedQuerySet
 from base_libs.models.fields import URLField
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
-from base_libs.models.fields import ExtendedTextField  # for south
-
 from filebrowser.fields import FileBrowseField
-
-from tagging.fields import TagField
 from tagging.models import Tag
-from tagging_autocomplete.models import TagAutocompleteField
-
 from jetson.apps.structure.models import Term
-from jetson.apps.structure.models import ContextCategory
 from jetson.apps.location.models import Address
-from jetson.apps.i18n.models import Language
 from jetson.apps.optionset.models import PhoneType, EmailType, URLType, IMType
 from jetson.apps.optionset.models import get_default_phonetype_for_phone
 from jetson.apps.optionset.models import get_default_phonetype_for_fax
 from jetson.apps.optionset.models import get_default_phonetype_for_mobile
-
 from jetson.apps.utils.models import MONTH_CHOICES
 from jetson.apps.image_mods.models import FileManager
-
-from mptt.models import MPTTModel
-from mptt.managers import TreeManager
-from mptt.fields import TreeForeignKey, TreeManyToManyField
 
 DATE_FORMAT = get_format('DATE_FORMAT')
 DATETIME_FORMAT = get_format('DATETIME_FORMAT')
@@ -257,7 +240,6 @@ class EventBase(CreationModificationMixin, UrlMixin):
         return True
 
     def get_url_path(self):
-        from django.conf import settings
 
         return "/%s/%s/" % (URL_ID_EVENT, self.slug)
 

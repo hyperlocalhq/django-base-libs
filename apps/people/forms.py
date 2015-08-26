@@ -1,18 +1,15 @@
 # -*- coding: UTF-8 -*-
 
-from django.db import models
-from jetson.apps.people.forms import *
 from django.utils.translation import ugettext_lazy as _
+from mptt.forms import TreeNodeChoiceField
+from mailsnake import MailSnake
+
+from jetson.apps.people.forms import *
 from jetson.apps.people.forms import SimpleRegistrationForm as SimpleRegistrationFormBase
 from jetson.apps.mailchimp.models import MList
 from jetson.apps.mailchimp.models import Subscription
 from jetson.apps.mailchimp.models import Settings
-
 from base_libs.forms import dynamicforms
-
-from mptt.forms import TreeNodeChoiceField
-
-from mailsnake import MailSnake
 
 
 class SimpleRegistrationForm(SimpleRegistrationFormBase):

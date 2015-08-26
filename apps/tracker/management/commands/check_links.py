@@ -1,6 +1,5 @@
 # -*- coding: UTF-8 -*-
 import re
-from optparse import make_option
 
 from django.core.management.base import NoArgsCommand
 from django.utils.encoding import force_unicode

@@ -1,5 +1,4 @@
 # -*- coding: UTF-8 -*-
-from optparse import make_option
 from django.core.management.base import NoArgsCommand
 
 SILENT, NORMAL, VERBOSE = 0, 1, 2
@@ -11,10 +10,7 @@ class Command(NoArgsCommand):
     def handle_noargs(self, **options):
         verbosity = int(options.get('verbosity', NORMAL))
 
-        from datetime import datetime, timedelta
-        from time import strptime
         from xml.dom.minidom import parseString
-        from xml.dom.minidom import Node
         from dateutil.parser import parse as parse_datetime
         from urllib2 import URLError
 
@@ -23,11 +19,9 @@ class Command(NoArgsCommand):
         from django.template.defaultfilters import slugify
 
         from base_libs.utils.misc import get_related_queryset
-        from base_libs.utils.misc import html_to_plain_text
         from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED, MARKUP_HTML_WYSIWYG
         from base_libs.utils.client import Connection
 
-        from jetson.apps.external_services.utils import get_first
         from jetson.apps.external_services.utils import get_value
         from jetson.apps.external_services.utils import date_de_to_en
 

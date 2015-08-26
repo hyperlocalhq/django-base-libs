@@ -1,20 +1,16 @@
 # -*- coding: UTF-8 -*-
 
 from django.utils.translation import ugettext_lazy as _
-from django.utils.encoding import force_unicode
 from django.contrib.sites.models import Site
+from mptt.fields import TreeManyToManyField
 
 from base_libs.models.models import PublishingMixinPublishedManager
 from base_libs.models.models import PublishingMixinDraftManager
 from base_libs.models.models import MultiSiteMixin
 from base_libs.models.fields import URLField
-from base_libs.middleware import get_current_language
-
 from jetson.apps.articles.base import *
-
-from mptt.fields import TreeManyToManyField
-
 from jetson.apps.structure.models import Term
+
 
 ### CCB-SPECIFIC ARTICLE ###
 

@@ -4,7 +4,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from base_libs.models.admin import ObjectRelationMixinAdminOptions
 from base_libs.models.admin import ObjectRelationMixinAdminForm
-
 from ccb.apps.site_specific.models import ContextItem, ClaimRequest, Visit
 
 

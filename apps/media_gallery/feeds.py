@@ -1,10 +1,7 @@
 # -*- coding: UTF-8 -*-
-from django.db.models.loading import load_app
 from django.contrib.syndication.views import Feed
 from django.utils.feedgenerator import Atom1Feed
-from django.utils.translation import ugettext, ugettext_lazy as _
-from django.conf import settings
-from django.utils.encoding import force_unicode
+from django.utils.translation import ugettext
 from django.db import models
 
 

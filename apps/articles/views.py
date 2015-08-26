@@ -1,20 +1,18 @@
 # -*- coding: UTF-8 -*-
-import datetime, time
+import datetime
+import time
 
 from django.db import models
 from django.template import loader
 from django.http import Http404, HttpResponseRedirect
 from django.db.models.fields import DateTimeField
-from django.views.generic.dates import DateDetailView
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import get_language
 
 from base_libs.models.base_libs_settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
 from base_libs.middleware import get_current_language
-from base_libs.views import access_denied
 from base_libs.utils.misc import get_related_queryset
-
 from jetson.apps.utils.views import object_list, feed
 from jetson.apps.structure.models import Term
 

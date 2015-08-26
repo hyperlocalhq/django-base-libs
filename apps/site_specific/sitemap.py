@@ -2,7 +2,6 @@
 from django.contrib.sitemaps import Sitemap
 
 from base_libs.middleware import get_current_language
-
 from ccb.apps.site_specific.models import ContextItem
 
 

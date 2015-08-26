@@ -1,6 +1,6 @@
-import vobject
 from datetime import date
 
+import vobject
 from django.db import models
 from django.db.models.query import QuerySet
 

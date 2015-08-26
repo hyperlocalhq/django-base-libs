@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 from django.contrib import admin
-from django.utils.translation import ugettext_lazy as _, ugettext
+from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 
 import filebrowser.settings as filebrowser_settings

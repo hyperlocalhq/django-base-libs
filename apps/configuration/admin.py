@@ -1,6 +1,6 @@
-from ccb.apps.configuration.models import SiteSettings
 from django.contrib import admin
-from django.utils.translation import ugettext_lazy as _
+
+from ccb.apps.configuration.models import SiteSettings
 
 
 class SiteSettingsOptions(admin.ModelAdmin):

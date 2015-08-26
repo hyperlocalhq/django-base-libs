@@ -1,20 +1,13 @@
 # -*- coding: UTF-8 -*-
-from django.db.models.loading import load_app
 from django import forms
-from django.conf import settings
-from django.template import RequestContext, loader, Context
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext_lazy as _
 
 from base_libs.forms import dynamicforms
-
 from base_libs.middleware import get_current_user
 from base_libs.utils.misc import get_related_queryset, XChoiceList
 from base_libs.forms.fields import SingleEmailTextField
-from base_libs.forms.fields import SecurityField
-
 from ccb.apps.tracker.models import Ticket
-from ccb.apps.configuration.models import SiteSettings
 
 NULL_CONCERN_TYPES = XChoiceList(get_related_queryset(Ticket, "concern"))
 

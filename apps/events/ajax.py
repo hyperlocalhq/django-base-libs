@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 import json
-from django.http import HttpResponse, HttpResponseRedirect
+
+from django.http import HttpResponse
 from django.views.decorators.cache import never_cache
 from django.db import models
 

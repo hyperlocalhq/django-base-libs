@@ -1,14 +1,10 @@
 # -*- coding: UTF-8 -*-
-from django.db import models
 from django.contrib import admin
 from django.contrib.admin.options import *
 from django.forms.models import modelform_factory
 from django import forms
-from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from django.shortcuts import get_object_or_404, render_to_response
 from django.core.exceptions import PermissionDenied
-from django.views.decorators.cache import never_cache
 from django.conf import settings
 from django.utils.encoding import force_text
 
@@ -17,10 +13,8 @@ from base_libs.admin import ExtendedModelAdmin
 from base_libs.forms.fields import AutocompleteModelChoiceField
 from base_libs.forms.fields import AutocompleteModelMultipleChoiceField
 from base_libs.middleware import get_current_user
-from base_libs.utils.misc import get_related_queryset
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin.tree_editor import TreeEditor
-
 import filebrowser.settings as filebrowser_settings
 
 URL_FILEBROWSER_MEDIA = getattr(filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/')

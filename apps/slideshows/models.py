@@ -1,14 +1,11 @@
 # -*- coding: UTF-8 -*-
-import re
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.utils.safestring import mark_safe
 
 from base_libs.models import SysnameMixin
 from base_libs.models import PublishingMixin
 from base_libs.models.fields import PositionField
 from base_libs.models.fields import MultilingualCharField
-
 from filebrowser.fields import FileBrowseField
 
 verbose_name = _("Slideshows")

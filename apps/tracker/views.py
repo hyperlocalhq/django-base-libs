@@ -1,8 +1,6 @@
 # -*- coding: UTF-8 -*-
-from django.db.models.loading import load_app
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.http import HttpResponseRedirect
 from django.views.decorators.cache import never_cache
 from django.conf import settings
 

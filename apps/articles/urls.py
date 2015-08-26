@@ -1,5 +1,4 @@
 from django.conf.urls import *
-from django.shortcuts import redirect
 
 from ccb.apps.articles.feeds import ArticleRssFeed, ArticleAtomFeed
 

@@ -1,10 +1,10 @@
 # -*- coding: UTF-8 -*-
 import json
+
 from django.db import models
 from django.http import HttpResponse
 from django.views.decorators.cache import never_cache
 from django.contrib.contenttypes.models import ContentType
-from django.utils.translation import ugettext_lazy as _
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 

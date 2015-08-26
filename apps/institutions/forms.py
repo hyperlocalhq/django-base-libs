@@ -1,13 +1,11 @@
 # -*- coding: UTF-8 -*-
 
-from django.utils.translation import ugettext_lazy as _, ugettext
-from jetson.apps.institutions.forms import *
-
-from base_libs.forms import dynamicforms
-
-from jetson.apps.structure.models import Term
-
+from django.utils.translation import ugettext_lazy as _
 from mptt.forms import TreeNodeChoiceField
+
+from jetson.apps.institutions.forms import *
+from base_libs.forms import dynamicforms
+from jetson.apps.structure.models import Term
 
 
 class InstitutionSearchForm(dynamicforms.Form):

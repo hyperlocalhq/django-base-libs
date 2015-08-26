@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 import re
+
 from django.db.models.query import Q
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import force_unicode
@@ -7,6 +8,7 @@ from django.utils.html import escape
 from django.conf import settings
 
 from base_libs.models.query import ExtendedQuerySet
+
 
 # stemming stuff
 from ccb.apps.search.stemming_english import PorterStemmerEnglish

@@ -1,7 +1,4 @@
 # -*- coding: UTF-8 -*-
-import os, fnmatch
-import json
-from os.path import isfile, isdir
 from datetime import datetime, timedelta
 
 from django.db import models
@@ -11,36 +8,30 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.contenttypes.models import ContentType
 from django.template import loader, RequestContext
 from django.shortcuts import render_to_response
-from django.db.models import Q
 from django.shortcuts import get_object_or_404
-from django.template.defaultfilters import slugify
 from django.conf import settings
 # json related stuff
 from django.contrib.admin.views.decorators import staff_member_required
 from django.views.decorators.cache import never_cache
-from django.utils.encoding import force_unicode
 from django.core.urlresolvers import reverse
 from django.contrib.auth import logout
 
 image_mods = models.get_app("image_mods")
 
-from base_libs.utils.misc import ExtendedJSONEncoder
-from base_libs.middleware import get_current_user, get_current_language
+from base_libs.middleware import get_current_language
 from base_libs.utils.misc import get_installed
 from base_libs.views import access_denied
 
-from jetson.apps.utils.views import object_list, object_detail, direct_to_js_template
-from jetson.apps.utils.images import save_jpg_image
 from jetson.apps.utils.decorators import login_required
 from jetson.apps.structure.models import Term, ContextCategory
-from jetson.apps.comments.models import Comment, UserRating
+from jetson.apps.comments.models import Comment
 from jetson.apps.comments.views.comments import post_comment
 
-from ccb.apps.people.models import Person, URL_ID_PERSON, URL_ID_PEOPLE
-from ccb.apps.institutions.models import Institution, URL_ID_INSTITUTION, URL_ID_INSTITUTIONS
+from ccb.apps.people.models import Person, URL_ID_PERSON
+from ccb.apps.institutions.models import Institution, URL_ID_INSTITUTION
 from ccb.apps.events.models import Event, URL_ID_EVENT, URL_ID_EVENTS
-from ccb.apps.resources.models import Document, URL_ID_DOCUMENT, URL_ID_DOCUMENTS
-from ccb.apps.groups_networks.models import PersonGroup, URL_ID_PERSONGROUP, URL_ID_PERSONGROUPS
+from ccb.apps.resources.models import Document, URL_ID_DOCUMENT
+from ccb.apps.groups_networks.models import PersonGroup, URL_ID_PERSONGROUP
 from ccb.apps.marketplace.models import JobOffer, URL_ID_JOB_OFFER, URL_ID_JOB_OFFERS, \
     SECURITY_SUMMAND as MARKETPLACE_SECURITY_SUMMAND
 from ccb.apps.site_specific.forms import ClaimForm
@@ -988,7 +979,7 @@ def kreativarbeiten_contact_form(request,
 
 
 def kreativarbeiten_best_practice(request):
-    from base_libs.models.base_libs_settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
+    from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
     from jetson.apps.blog.views import handle_request
 
     all_dict = {
@@ -1014,7 +1005,6 @@ def newsfeed(request, rss, number_of_news):
     from base_libs.utils.client import Connection
 
     from jetson.apps.external_services.utils import get_value
-    from jetson.apps.external_services.utils import date_de_to_en
 
     c = Connection(rss)
     try:

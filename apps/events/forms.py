@@ -5,12 +5,10 @@ import os.path
 from django import forms
 from django.forms.formsets import formset_factory
 from django.utils.translation import ugettext_lazy as _
-from django.template import loader, Context
 from django.utils.dates import MONTHS
 from django.conf import settings
 from django.db import models
-from django.utils.encoding import smart_unicode, force_unicode
-from django.db.models.query import QuerySet
+from django.utils.encoding import force_unicode
 from django.template.defaultfilters import slugify
 
 from base_libs.forms import dynamicforms
@@ -18,7 +16,6 @@ from base_libs.forms.fields import ImageField
 from base_libs.forms.fields import AutocompleteField
 from base_libs.middleware import get_current_user
 from base_libs.utils.misc import get_related_queryset, XChoiceList
-from base_libs.utils.misc import get_translation
 from base_libs.utils.misc import get_unique_value
 
 image_mods = models.get_app("image_mods")
@@ -27,7 +24,7 @@ from tagging.forms import TagField
 from tagging_autocomplete.widgets import TagAutocomplete
 
 from jetson.apps.location.models import Address
-from jetson.apps.structure.models import Term, ContextCategory
+from jetson.apps.structure.models import Term
 from jetson.apps.optionset.models import PhoneType, EmailType, URLType
 
 from mptt.forms import TreeNodeChoiceField

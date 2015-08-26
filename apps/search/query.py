@@ -4,7 +4,6 @@ from django.conf import settings
 from django.utils.translation import get_language
 
 from haystack.query import SearchQuerySet, DEFAULT_OPERATOR
-from haystack.views import SearchView
 
 
 class MultilingualSearchQuerySet(SearchQuerySet):

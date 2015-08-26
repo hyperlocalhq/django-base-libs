@@ -1,12 +1,8 @@
 # -*- coding: UTF-8 -*-
-from django.utils.translation import ugettext_lazy as _, ugettext
-from django.views.decorators.cache import never_cache
-from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 from base_libs.views import access_denied
-
 from jetson.apps.institutions.views import *
-
 from ccb.apps.events.views import event_list
 from ccb.apps.marketplace.views import job_offer_list
 from ccb.apps.institutions.forms import InstitutionSearchForm

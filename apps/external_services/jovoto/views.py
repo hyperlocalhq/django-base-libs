@@ -1,23 +1,20 @@
 # -*- coding: UTF-8 -*-
 from datetime import datetime
-from rest.client import webcall
 
 from django.conf import settings
-from django.http import HttpResponseRedirect, Http404, HttpResponse
-from django.template import RequestContext, loader
+from django.http import HttpResponseRedirect, HttpResponse
+from django.template import RequestContext
 from django.shortcuts import get_object_or_404
 from django.utils.encoding import smart_str
 from django.db.models import Q
 from django.views.decorators.cache import never_cache
 
+from rest.client import webcall
 from base_libs.utils.misc import string_to_datetime
 from base_libs.views import access_denied
-
 from jetson.apps.utils.views import object_list, object_detail
-from jetson.apps.utils.decorators import login_required
 from jetson.apps.comments.views.comments import post_comment, refuse_comment
 from jetson.apps.comments.views.comments import accept_comment, mark_as_spam_comment
-
 from ccb.apps.external_services.jovoto.models import Idea
 from ccb.apps.external_services.jovoto.xmlparse import parse_idea_list
 from ccb.apps.external_services.jovoto.xmlparse import parse_idea_details

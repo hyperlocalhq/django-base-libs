@@ -1,13 +1,10 @@
 # -*- coding: UTF-8 -*-
 from django.db import models
-from django import forms
-from django.utils.translation import ugettext_lazy as _, ugettext
+from django.utils.translation import ugettext_lazy as _
+from mptt.forms import TreeNodeChoiceField
 
 from base_libs.utils.misc import get_related_queryset
 from base_libs.forms import dynamicforms
-from base_libs.forms.fields import HierarchicalModelChoiceField
-
-from mptt.forms import TreeNodeChoiceField
 
 Document = models.get_model("resources", "Document")
 

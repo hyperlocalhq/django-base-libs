@@ -1,5 +1,4 @@
 from django.conf.urls import url, patterns, include
-from django.conf import settings
 
 from jetson.apps.utils.context_processors import prev_next_processor
 

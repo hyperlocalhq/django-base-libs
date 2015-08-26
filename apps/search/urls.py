@@ -2,7 +2,6 @@
 
 from django.conf.urls import *
 
-from ccb.apps.search.forms import ModelSearchForm
 from ccb.apps.search.views import SearchView
 from ccb.apps.search.query import MultilingualSearchQuerySet
 

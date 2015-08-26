@@ -1,10 +1,6 @@
 # -*- coding: UTF-8 -*-
-from django.db.models import get_model
 from django import template
 from django.template import loader
-from django.conf import settings
-
-from jetson.apps.structure.models import Term
 
 from ccb.apps.search.forms import AjaxSearchForm
 

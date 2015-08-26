@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 from optparse import make_option
+
 from django.core.management.base import NoArgsCommand
 
 SILENT, NORMAL, VERBOSE = 0, 1, 2
@@ -18,12 +19,9 @@ class Command(NoArgsCommand):
 
         import re
         import urllib2
-        from datetime import datetime
         from datetime import timedelta
-        from time import strptime
         from rest.client import webcall
         from xml.dom.minidom import parseString
-        from xml.dom.minidom import Node
         from dateutil.parser import parse as parse_datetime
 
         from django.db import models

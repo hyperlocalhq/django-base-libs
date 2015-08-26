@@ -4,7 +4,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from jetson.apps.media_gallery.base import *
 from jetson.apps.media_gallery.base import MediaGalleryManager as MediaGalleryManagerBase
-
 from base_libs.models import PublishingMixin
 
 ### CCB MEDIA GALLERY ###
