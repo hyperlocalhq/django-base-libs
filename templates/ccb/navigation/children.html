@@ -29,9 +29,14 @@
                 {% activeness link as is_active %}
                 <li class="navi_{{ link.sysname }}_
 
+
                     {{ LANGUAGE_CODE }}{% if link.is_promoted %} promoted{% endif %}{% if link.is_login_required %} login-required{% endif %}{% if is_active %} active{% endif %}">
-                    <a href="{{ url }}"{% if is_active %} class="active"{% endif %}
-                       title="{{ link.get_description|striptags }}"><span>{{ link.get_title|escape }}</span></a></li>
+                    <a href="{{ url }}"{% if is_active %}
+                       class="active"{% endif %}
+                       title="{{ link.get_description|striptags }}">
+                        <span>{{ link.get_title|escape }}</span>
+                    </a>
+                </li>
             {% endif %}
         {% endif %}
     {% endfor %}
