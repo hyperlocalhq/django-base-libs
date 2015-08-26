@@ -413,6 +413,7 @@ class EventType(MPTTModel, SlugMixin()):
         verbose_name_plural = _("event types")
         ordering = ["tree_id", "lft"]
 
+    # noinspection PyClassHasNoInit
     class MPTTMeta:
         order_insertion_by = ['sort_order']
 

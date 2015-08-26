@@ -46,6 +46,7 @@ class GroupMembership_Inline(ExtendedStackedInline):
 
 
 class PersonGroupOptions(admin.ModelAdmin):
+    # noinspection PyClassHasNoInit
     class Media:
         js = (
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,

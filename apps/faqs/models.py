@@ -118,6 +118,7 @@ class FaqCategory(MPTTModel, CreationModificationMixin, UrlMixin, SlugMixin()):
         verbose_name_plural = _('FAQ Categories')
         ordering = ["tree_id", "lft"]
 
+    # noinspection PyClassHasNoInit
     class MPTTMeta:
         order_insertion_by = ['sort_order']
 

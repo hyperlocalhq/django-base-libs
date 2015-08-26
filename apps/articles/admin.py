@@ -47,6 +47,7 @@ class ArticleForm(forms.ModelForm):
 class ArticleOptions(ExtendedModelAdmin):
     form = ArticleForm
 
+    # noinspection PyClassHasNoInit
     class Media:
         js = (
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,

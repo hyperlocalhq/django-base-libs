@@ -25,6 +25,7 @@ class Slide_Inline(ExtendedStackedInline):
 
 
 class SlideshowOptions(ExtendedModelAdmin):
+    # noinspection PyClassHasNoInit
     class Media:
         js = (
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,

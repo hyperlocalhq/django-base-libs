@@ -35,6 +35,7 @@ class MediumOptions(ExtendedModelAdmin):
 
 
 class DocumentOptions(admin.ModelAdmin):
+    # noinspection PyClassHasNoInit
     class Media:
         js = (
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,

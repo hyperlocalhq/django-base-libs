@@ -121,6 +121,7 @@ class SimpleRegistrationForm(SimpleRegistrationFormBase):
 
 ### REGISTRATION ###
 
+# noinspection PyClassHasNoInit
 class Registration:  # Namespace
 
     class AccountType(dynamicforms.Form):

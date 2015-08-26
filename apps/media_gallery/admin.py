@@ -32,6 +32,7 @@ class PortfolioSettingsAdminForm(ObjectRelationMixinAdminForm()):
 
 
 class PortfolioSettingsOptions(ObjectRelationMixinAdminOptions(admin_order_field="content_object_repr")):
+    # noinspection PyClassHasNoInit
     class Media:
         js = (
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
@@ -55,6 +56,7 @@ class SectionAdminForm(ObjectRelationMixinAdminForm()):
 
 
 class SectionOptions(ObjectRelationMixinAdminOptions(admin_order_field="content_object_repr")):
+    # noinspection PyClassHasNoInit
     class Media:
         js = (
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
