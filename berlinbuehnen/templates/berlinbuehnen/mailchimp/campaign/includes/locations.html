@@ -33,7 +33,7 @@
                                             <td><a href="{{ location.get_url }}" style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:110%;">{{ location.title }}</a></td>
                                         </tr>
                                         <tr>
-                                            <td height="4"><img src="http://www.berlin-buehnen.de/media/space.gif" width="268" height="4"/></td>
+                                            <td height="4" style="font-size:1px;">&nbsp;</td>
                                         </tr>
                                         {% if location.subtitle %}
                                             <tr>
@@ -44,7 +44,7 @@
                                             <td><a href="{{ location.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;">{{ location.get_rendered_description|striptags|truncatewords:"35" }}</a></td>
                                         </tr>
                                         <tr>
-                                            <td height="8"><img src="http://www.berlin-buehnen.de/media/space.gif" width="268" height="8"/></td>
+                                            <td height="8" style="font-size:1px;">&nbsp;</td>
                                         </tr>
                                     </table></td>
                                 {% endwith %}
@@ -64,7 +64,7 @@
                                                 <td><a href="{{ location.get_url }}" style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:110%;">{{ location.title }}</a></td>
                                             </tr>
                                             <tr>
-                                                <td height="4"><img src="http://www.berlin-buehnen.de/media/space.gif" width="268" height="4"/></td>
+                                                <td height="4" style="font-size:1px;">&nbsp;</td>
                                             </tr>
                                             {% if location.subtitle %}
                                                 <tr>
@@ -75,7 +75,7 @@
                                                 <td><a href="{{ location.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;">{{ location.get_rendered_description|striptags|truncatewords:"35" }}</a></td>
                                             </tr>
                                             <tr>
-                                                <td height="8"><img src="http://www.berlin-buehnen.de/media/space.gif" width="268" height="8"/></td>
+                                                <td height="8" style="font-size:1px;">&nbsp;</td>
                                             </tr>
                                         </table></td>
                                     {% endwith %}
@@ -92,8 +92,8 @@
                                 {% with newest_objects.0 as location %}
                                     <td valign="bottom"><table cellpadding="0" cellspacing="0" border="0">
                                         <tr>
-                                            <td><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none;">ZUR BÜHNE</a></td>
-                                            <td><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none;"><img src="http://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11" style="display:inline;"/></a></td>
+                                            <td valign="bottom"><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;">ZUR BÜHNE</a></td>
+                                            <td valign="bottom"><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;"><img src="http://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11" style="display:inline;"/></a></td>
                                         </tr>
                                     </table></td>
                                 {% endwith %}
@@ -102,8 +102,8 @@
                                     {% with newest_objects.1 as location %}
                                         <td valign="bottom"><table cellpadding="0" cellspacing="0" border="0">
                                             <tr>
-                                                <td><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none;">ZUR BÜHNE</a></td>
-                                                <td><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none;"><img src="http://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11" style="display:inline;"/></a></td>
+                                                <td valign="bottom"><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;">ZUR BÜHNE</a></td>
+                                                <td valign="bottom"><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;"><img src="http://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11" style="display:inline;"/></a></td>
                                             </tr>
                                         </table></td>
                                     {% endwith %}
@@ -138,7 +138,7 @@
                                             <td><a href="{{ location.get_url }}" style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:110%;">{{ location.title }}</a></td>
                                         </tr>
                                         <tr>
-                                            <td height="4"><img src="http://www.berlin-buehnen.de/media/space.gif" width="268" height="4"/></td>
+                                            <td height="4" style="font-size:1px;">&nbsp;</td>
                                         </tr>
                                         {% if location.subtitle %}
                                             <tr>
@@ -149,7 +149,7 @@
                                             <td><a href="{{ location.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;">{{ location.get_rendered_description|striptags|truncatewords:"35" }}</a></td>
                                         </tr>
                                         <tr>
-                                            <td height="8"><img src="http://www.berlin-buehnen.de/media/space.gif" width="268" height="8"/></td>
+                                            <td height="8" style="font-size:1px;">&nbsp;</td>
                                         </tr>
                                     </table></td>
                                 {% endwith %}
@@ -169,7 +169,7 @@
                                                 <td><a href="{{ location.get_url }}" style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:110%;">{{ location.title }}</a></td>
                                             </tr>
                                             <tr>
-                                                <td height="4"><img src="http://www.berlin-buehnen.de/media/space.gif" width="268" height="4"/></td>
+                                                <td height="4" style="font-size:1px;">&nbsp;</td>
                                             </tr>
                                             {% if location.subtitle %}
                                                 <tr>
@@ -180,7 +180,7 @@
                                                 <td><a href="{{ location.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;">{{ location.get_rendered_description|striptags|truncatewords:"35" }}</a></td>
                                             </tr>
                                             <tr>
-                                                <td height="8"><img src="http://www.berlin-buehnen.de/media/space.gif" width="268" height="8"/></td>
+                                                <td height="8" style="font-size:1px;">&nbsp;</td>
                                             </tr>
                                         </table></td>
                                     {% endwith %}
@@ -197,8 +197,8 @@
                                 {% with newest_objects.2 as location %}
                                     <td valign="bottom"><table cellpadding="0" cellspacing="0" border="0">
                                         <tr>
-                                            <td><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none;">ZUR BÜHNE</a></td>
-                                            <td><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none;"><img src="http://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11" style="display:inline;"/></a></td>
+                                            <td valign="bottom"><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;">ZUR BÜHNE</a></td>
+                                            <td valign="bottom"><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;"><img src="http://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11" style="display:inline;"/></a></td>
                                         </tr>
                                     </table></td>
                                 {% endwith %}
@@ -207,8 +207,8 @@
                                     {% with newest_objects.3 as location %}
                                         <td valign="bottom"><table cellpadding="0" cellspacing="0" border="0">
                                             <tr>
-                                                <td><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none;">ZUR BÜHNE</a></td>
-                                                <td><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none;"><img src="http://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11" style="display:inline;"/></a></td>
+                                                <td valign="bottom"><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;">ZUR BÜHNE</a></td>
+                                                <td valign="bottom"><a href="{{ location.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;"><img src="http://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11" style="display:inline;"/></a></td>
                                             </tr>
                                         </table></td>
                                     {% endwith %}
@@ -223,7 +223,7 @@
             <tr>
                 <td style="padding:0 24px;"><table width="552" cellpadding="0" cellspacing="0" border="0">
                     <tr>
-                        <td width="552" height="8"><img src="http://www.berlin-buehnen.de/media/space.gif" width="552" height="8"/> </td>
+                        <td width="552" height="8" style="font-size:1px;">&nbsp;</td>
                     </tr>
                     <tr>
                         <td width="552" height="32" style="background:#000;"><table width="552" height="32">
