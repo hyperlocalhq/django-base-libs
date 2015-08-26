@@ -54,19 +54,15 @@
                         <button class="grp-button fb_selectlink"
                                 onclick="OpenFile(ProtectPath('{{ fileobject.url|escapejs }}'));return false;">{% trans "Select" %}</button>
                         <!-- select versions -->
-                        {% if fileobject.filetype == "Image" and settings_var.ADMIN_VERSIONS %}
-                            <div class="grp-pulldown-versions-container">
-                                <a href="javascript://" class="grp-pulldown-versions-handler"
-                                   title="{% trans "Versions" %}">&nbsp;</a>
-                                <ul class="grp-pulldown-versions">
-                                    {% for version in settings_var.ADMIN_VERSIONS %}
-                                        {% version_setting version %}
-                                        <li><a href="" title=""
-                                               onclick="OpenFile(ProtectPath('{% version fileobject version %}'));return false;">{{ version_setting.verbose_name }}</a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
+                        {% if fileobject.filetype == "Image" %}
+                            <br/><br/>
+                            <a href="
+                                {% url 'fb_versions' %}{% query_string "" "p" %}&amp;filename={{ fileobject.filename }}"
+                               class="fb_showversionslink"
+                               title="{% trans 'Show Versions' %}"
+                                >
+                                {% trans "Versions" %}
+                            </a>
                         {% endif %}
                     {% else %}
                         &nbsp;
