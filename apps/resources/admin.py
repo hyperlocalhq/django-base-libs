@@ -35,11 +35,6 @@ class MediumOptions(ExtendedModelAdmin):
 
 
 class DocumentOptions(admin.ModelAdmin):
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-        )
-
     save_on_top = True
     list_display = ['title', 'document_type', 'url_link', 'status', 'is_featured']
     list_filter = ('document_type', 'medium', 'status', 'is_featured', 'creative_sectors', 'context_categories')

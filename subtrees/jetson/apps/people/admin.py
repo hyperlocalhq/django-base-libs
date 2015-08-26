@@ -26,10 +26,6 @@ class IndividualTypeOptions(TreeEditor):
 
 
 class PersonOptions(ExtendedModelAdmin):
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-            )
     save_on_top = True
     list_display = ('user', 'get_first_name', 'get_last_name', 'get_email', 'status')
     list_filter = ('status',)

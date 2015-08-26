@@ -47,11 +47,6 @@ class ArticleForm(forms.ModelForm):
 class ArticleOptions(ExtendedModelAdmin):
     form = ArticleForm
 
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-        )
-
     save_on_top = True
 
     list_display = ['id', 'title', 'author', 'status', 'published_from', 'published_till', 'views', 'article_type',
@@ -85,7 +80,7 @@ class ArticleOptions(ExtendedModelAdmin):
             ],
         }
     )]
-
+    filter_horizontal = ['creative_sectors', ]
     prepopulated_fields = {"slug": ("title",), }
 
 

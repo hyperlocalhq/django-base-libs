@@ -46,11 +46,6 @@ class GroupMembership_Inline(ExtendedStackedInline):
 
 
 class PersonGroupOptions(admin.ModelAdmin):
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-        )
-
     list_display = ('title', 'title2', 'group_type', 'access_type', 'preferred_language', 'status')
     search_fields = ["title", "title2"]
     list_filter = ('creation_date', 'group_type', 'status', 'preferred_language')

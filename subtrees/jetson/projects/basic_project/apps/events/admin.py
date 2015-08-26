@@ -22,10 +22,6 @@ class EventTime_Inline(ExtendedStackedInline):
 
 class EventOptions(ExtendedModelAdmin):
     inlines = [EventTime_Inline]
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-            )
     save_on_top = True
     list_display = ['title', 'get_start_date_string', 'get_end_date_string', 'status', 'creation_date']
     list_filter = ('creation_date', 'status')

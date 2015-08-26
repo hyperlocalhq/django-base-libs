@@ -52,10 +52,6 @@ class FlatPageOptions(ContentBaseMixinAdminOptions):
             }),
         ]
     
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-            )
 
 admin.site.register(FlatPage, FlatPageOptions)
 

@@ -86,11 +86,6 @@ class MailingAdmin(ExtendedModelAdmin):
         'status': admin.HORIZONTAL,
     }
     
-    
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-            )
     save_on_top = True
     
     # callback for the additional buttons (overwritten method)

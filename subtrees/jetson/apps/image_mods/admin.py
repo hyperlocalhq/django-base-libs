@@ -12,11 +12,6 @@ import filebrowser.settings as filebrowser_settings
 URL_FILEBROWSER_MEDIA = getattr(filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/')
 
 class ImageModificationOptions(admin.ModelAdmin):
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-            )
-    
     save_on_top = True
     list_filter = ['crop', 'group', 'output_format']
     list_display = ['sysname', 'title', 'width', 'height', 'crop', 'group', 'output_format']
@@ -42,11 +37,6 @@ class ImageModificationOptions(admin.ModelAdmin):
         ]
 
 class ImageCroppingOptions(admin.ModelAdmin):
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-            )
-    
     save_on_top = True
     search_fields = ("original",)
     list_filter = ("mods",)

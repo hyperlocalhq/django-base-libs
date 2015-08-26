@@ -153,10 +153,6 @@ class CampaignAdmin(ExtendedModelAdmin):
         'status': admin.HORIZONTAL,
     }
 
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-        )
     save_on_top = True
 
     def get_urls(self):

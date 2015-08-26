@@ -25,11 +25,6 @@ class Slide_Inline(ExtendedStackedInline):
 
 
 class SlideshowOptions(ExtendedModelAdmin):
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-        )
-
     save_on_top = True
     inlines = [Slide_Inline]
     list_display = ('id', '__unicode__',)

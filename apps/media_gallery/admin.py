@@ -32,11 +32,6 @@ class PortfolioSettingsAdminForm(ObjectRelationMixinAdminForm()):
 
 
 class PortfolioSettingsOptions(ObjectRelationMixinAdminOptions(admin_order_field="content_object_repr")):
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-        )
-
     form = PortfolioSettingsAdminForm
     save_on_top = True
     list_display = ('id', '__unicode__', 'content_type', 'get_content_object_display', 'creation_date', 'landing_page')
@@ -55,11 +50,6 @@ class SectionAdminForm(ObjectRelationMixinAdminForm()):
 
 
 class SectionOptions(ObjectRelationMixinAdminOptions(admin_order_field="content_object_repr")):
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-        )
-
     form = SectionAdminForm
     save_on_top = True
     list_display = ('id', '__unicode__', 'content_type', 'get_content_object_display', 'creation_date')

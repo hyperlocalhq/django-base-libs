@@ -201,10 +201,6 @@ class MediaGalleryAdminForm(ObjectRelationMixinAdminForm()):
 
 
 class MediaGalleryOptions(ObjectRelationMixinAdminOptions(admin_order_field="content_object_repr")):
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-        )
     form = MediaGalleryAdminForm
     save_on_top = True
     inlines = [MediaFile_Inline]

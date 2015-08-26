@@ -49,11 +49,11 @@
             }
         });
     
-        $('fieldset.multilingual a.switch-lang').live("click", function() {
+        $('body').on('click', 'fieldset.multilingual a.switch-lang', function() {
             var lang = $(this).meta('lang')[0];
             $('input[name=' + lang + ']').click();
             return false;
-        }).live("activate", function(event) {
+        }).on('activate', 'fieldset.multilingual a.switch-lang', function(event) {
             var $this_fieldset = $(this).parents('fieldset.multilingual:first');
             var set_hash = $this_fieldset.meta('multilingual-set')[0];
             var lang = $(this).meta('lang')[0];
