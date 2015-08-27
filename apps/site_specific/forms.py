@@ -26,6 +26,7 @@ from tagging_autocomplete.widgets import TagAutocomplete
 
 from jetson.apps.location.models import Address
 from jetson.apps.optionset.models import PhoneType
+from jetson.apps.mailing.models import EmailMessage
 
 from ccb.apps.people.models import Person, IndividualContact
 from ccb.apps.institutions.models import Institution, InstitutionalContact
@@ -167,7 +168,7 @@ class PersonProfile:  # namespace
         )
 
         def __init__(self, person, index, *args, **kwargs):
-            super(IdentityForm, self).__init__()
+            super(PersonProfile.IdentityForm, self).__init__()
             self.person = person
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -200,7 +201,7 @@ class PersonProfile:  # namespace
         )
 
         def __init__(self, person, index, *args, **kwargs):
-            super(DescriptionForm, self).__init__()
+            super(PersonProfile.DescriptionForm, self).__init__()
             self.person = person
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -228,7 +229,7 @@ class PersonProfile:  # namespace
         )
 
         def __init__(self, person, index, *args, **kwargs):
-            super(AvatarForm, self).__init__()
+            super(PersonProfile.AvatarForm, self).__init__()
             self.person = person
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -465,7 +466,7 @@ class PersonProfile:  # namespace
         )
 
         def __init__(self, person, index, *args, **kwargs):
-            super(ContactForm, self).__init__()
+            super(PersonProfile.ContactForm, self).__init__()
             self.person = person
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -698,7 +699,7 @@ class PersonProfile:  # namespace
         )
 
         def __init__(self, person, index, *args, **kwargs):
-            super(DetailsForm, self).__init__()
+            super(PersonProfile.DetailsForm, self).__init__()
             self.person = person
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -770,7 +771,7 @@ class PersonProfile:  # namespace
             return True
 
         def __init__(self, person, index, *args, **kwargs):
-            super(CategoriesForm, self).__init__()
+            super(PersonProfile.CategoriesForm, self).__init__()
             self.person = person
             super(type(self), self).__init__(*args, **kwargs)
             self.creative_sectors = {}
@@ -855,7 +856,7 @@ class InstitutionProfile:  # namespace
         )
 
         def __init__(self, institution, index, *args, **kwargs):
-            super(IdentityForm, self).__init__()
+            super(InstitutionProfile.IdentityForm, self).__init__()
             self.institution = institution
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -886,7 +887,7 @@ class InstitutionProfile:  # namespace
         )
 
         def __init__(self, institution, index, *args, **kwargs):
-            super(DescriptionForm, self).__init__()
+            super(InstitutionProfile.DescriptionForm, self).__init__()
             self.institution = institution
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -914,7 +915,7 @@ class InstitutionProfile:  # namespace
         )
 
         def __init__(self, institution, index, *args, **kwargs):
-            super(AvatarForm, self).__init__()
+            super(InstitutionProfile.AvatarForm, self).__init__()
             self.institution = institution
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -1111,7 +1112,7 @@ class InstitutionProfile:  # namespace
         )
 
         def __init__(self, institution, index, *args, **kwargs):
-            super(ContactForm, self).__init__()
+            super(InstitutionProfile.ContactForm, self).__init__()
             self.institution = institution
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -1289,7 +1290,7 @@ class InstitutionProfile:  # namespace
         )
 
         def __init__(self, institution, index, *args, **kwargs):
-            super(DetailsForm, self).__init__()
+            super(InstitutionProfile.DetailsForm, self).__init__()
             self.institution = institution
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -1379,7 +1380,7 @@ class InstitutionProfile:  # namespace
         )
 
         def __init__(self, institution, index, *args, **kwargs):
-            super(PaymentForm, self).__init__()
+            super(InstitutionProfile.PaymentForm, self).__init__()
             self.institution = institution
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -1510,7 +1511,7 @@ class InstitutionProfile:  # namespace
         )
 
         def __init__(self, institution, index, *args, **kwargs):
-            super(OpeningHoursForm, self).__init__()
+            super(InstitutionProfile.OpeningHoursForm, self).__init__()
             self.institution = institution
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -1699,7 +1700,7 @@ class InstitutionProfile:  # namespace
             return True
 
         def __init__(self, institution, index, *args, **kwargs):
-            super(CategoriesForm, self).__init__()
+            super(InstitutionProfile.CategoriesForm, self).__init__()
             self.institution = institution
             super(type(self), self).__init__(*args, **kwargs)
             self.creative_sectors = {}
@@ -1816,7 +1817,7 @@ class EventProfile:  # namespace
         )
 
         def __init__(self, event, index, *args, **kwargs):
-            super(IdentityForm, self).__init__()
+            super(EventProfile.IdentityForm, self).__init__()
             self.event = event
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -1849,7 +1850,7 @@ class EventProfile:  # namespace
         )
 
         def __init__(self, event, index, *args, **kwargs):
-            super(DescriptionForm, self).__init__()
+            super(EventProfile.DescriptionForm, self).__init__()
             self.event = event
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -1877,7 +1878,7 @@ class EventProfile:  # namespace
         )
 
         def __init__(self, event, index, *args, **kwargs):
-            super(AvatarForm, self).__init__()
+            super(EventProfile.AvatarForm, self).__init__()
             self.event = event
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -2077,7 +2078,7 @@ class EventProfile:  # namespace
         )
 
         def __init__(self, event, index, *args, **kwargs):
-            super(ContactForm, self).__init__()
+            super(EventProfile.ContactForm, self).__init__()
             self.event = event
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -2239,7 +2240,7 @@ class EventProfile:  # namespace
         )
 
         def __init__(self, event, index, *args, **kwargs):
-            super(OrganizerForm, self).__init__()
+            super(EventProfile.OrganizerForm, self).__init__()
             self.event = event
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -2291,7 +2292,7 @@ class EventProfile:  # namespace
         )
 
         def __init__(self, event, index, *args, **kwargs):
-            super(AdditionalInfoForm, self).__init__()
+            super(EventProfile.AdditionalInfoForm, self).__init__()
             self.event = event
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -2320,7 +2321,7 @@ class EventProfile:  # namespace
         """
 
         def __init__(self, event, index, *args, **kwargs):
-            super(EventTimesForm, self).__init__()
+            super(EventProfile.EventTimesForm, self).__init__()
             self.event = event
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -2412,7 +2413,7 @@ class EventProfile:  # namespace
         )
 
         def __init__(self, event, index, *args, **kwargs):
-            super(EventTimeForm, self).__init__()
+            super(EventProfile.EventTimeForm, self).__init__()
             self.event = event
             self.index = index
             kwargs.setdefault('initial', {})
@@ -2509,7 +2510,7 @@ class EventProfile:  # namespace
             return self.cleaned_data
 
         def is_valid(self):
-            is_valid = super(EventForm.EventTimeForm, self).is_valid()
+            is_valid = super(EventProfile.EventTimeForm, self).is_valid()
             errors = self._errors
             return is_valid
 
@@ -2646,7 +2647,7 @@ class EventProfile:  # namespace
         )
 
         def __init__(self, event, index, *args, **kwargs):
-            super(FeesOpeningHoursForm, self).__init__()
+            super(EventProfile.FeesOpeningHoursForm, self).__init__()
             self.event = event
             self.index = index
             kwargs['initial'] = {
@@ -2794,7 +2795,7 @@ class EventProfile:  # namespace
             return True
 
         def __init__(self, event, index, *args, **kwargs):
-            super(CategoriesForm, self).__init__()
+            super(EventProfile.CategoriesForm, self).__init__()
             self.event = event
             super(type(self), self).__init__(*args, **kwargs)
             self.creative_sectors = {}
@@ -2877,7 +2878,7 @@ class DocumentProfile:  # namespace
         )
 
         def __init__(self, document, index, *args, **kwargs):
-            super(DescriptionForm, self).__init__()
+            super(DocumentProfile.DescriptionForm, self).__init__()
             self.document = document
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -2905,7 +2906,7 @@ class DocumentProfile:  # namespace
         )
 
         def __init__(self, document, index, *args, **kwargs):
-            super(AvatarForm, self).__init__()
+            super(DocumentProfile.AvatarForm, self).__init__()
             self.document = document
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -2942,7 +2943,7 @@ class DocumentProfile:  # namespace
         )
 
         def __init__(self, document, index, *args, **kwargs):
-            super(DetailsForm, self).__init__()
+            super(DocumentProfile.DetailsForm, self).__init__()
             self.document = document
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -3004,7 +3005,7 @@ class DocumentProfile:  # namespace
             return True
 
         def __init__(self, document, index, *args, **kwargs):
-            super(CategoriesForm, self).__init__()
+            super(DocumentProfile.CategoriesForm, self).__init__()
             self.document = document
             super(type(self), self).__init__(*args, **kwargs)
             self.creative_sectors = {}
@@ -3090,7 +3091,7 @@ class GroupProfile:  # namespace
         )
 
         def __init__(self, group, index, *args, **kwargs):
-            super(DescriptionForm, self).__init__()
+            super(GroupProfile.DescriptionForm, self).__init__()
             self.group = group
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -3118,7 +3119,7 @@ class GroupProfile:  # namespace
         )
 
         def __init__(self, group, index, *args, **kwargs):
-            super(AvatarForm, self).__init__()
+            super(GroupProfile.AvatarForm, self).__init__()
             self.group = group
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -3170,7 +3171,7 @@ class GroupProfile:  # namespace
         )
 
         def __init__(self, group, index, *args, **kwargs):
-            super(DetailsForm, self).__init__()
+            super(GroupProfile.DetailsForm, self).__init__()
             self.group = group
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -3276,7 +3277,7 @@ class GroupProfile:  # namespace
             return True
 
         def __init__(self, group, index, *args, **kwargs):
-            super(CategoriesForm, self).__init__()
+            super(GroupProfile.CategoriesForm, self).__init__()
             self.group = group
             super(type(self), self).__init__(*args, **kwargs)
             self.creative_sectors = {}
@@ -3388,7 +3389,7 @@ class JobOfferProfile:  # namespace
         )
 
         def __init__(self, job_offer, index, *args, **kwargs):
-            super(DetailsForm, self).__init__()
+            super(JobOfferProfile.DetailsForm, self).__init__()
             self.job_offer = job_offer
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -3629,7 +3630,7 @@ class JobOfferProfile:  # namespace
         )
 
         def __init__(self, job_offer, index, *args, **kwargs):
-            super(ContactForm, self).__init__()
+            super(JobOfferProfile.ContactForm, self).__init__()
             self.job_offer = job_offer
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -3784,7 +3785,7 @@ class JobOfferProfile:  # namespace
             return True
 
         def __init__(self, job_offer, index, *args, **kwargs):
-            super(CategoriesForm, self).__init__()
+            super(JobOfferProfile.CategoriesForm, self).__init__()
             self.job_offer = job_offer
             super(type(self), self).__init__(*args, **kwargs)
             self.job_sectors = {}
