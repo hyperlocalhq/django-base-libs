@@ -303,7 +303,7 @@
                             {% trans "Organizer is venue" %}
                         {% endifequal %}
                         {% ifequal form_step_data.step_main_data.organizer_ind "2" %}
-                            <a href="{{ request.user.get_profile.get_url_path }}">{{ request.user.get_profile.get_title }}</a>
+                            <a href="{{ request.user.profile.get_url_path }}">{{ request.user.profile.get_title }}</a>
                         {% endifequal %}
                     </dd>
                 </dl>

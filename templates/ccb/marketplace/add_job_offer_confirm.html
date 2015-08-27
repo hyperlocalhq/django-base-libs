@@ -87,7 +87,7 @@
                         <dl>
                             <dt>{% trans "Contact Person" %}</dt>
                             <dd>
-                                <a href="{{ request.user.get_profile.get_url_path }}">{{ request.user.get_profile.get_title }}</a>
+                                <a href="{{ request.user.profile.get_url_path }}">{{ request.user.profile.get_title }}</a>
                             </dd>
                         </dl>
                     {% else %}

@@ -8,7 +8,7 @@
 {% block title %}{% trans "My Profile" %}{% endblock %}
 
 {% block headline %}
-    {% blocktrans with request.user.get_profile.get_title|escape as user %}
+    {% blocktrans with request.user.profile.get_title|escape as user %}
         <h1>Hello,</h1>
         <h2 class="sub">{{ user }}</h2>{% endblocktrans %}
 {% endblock %}

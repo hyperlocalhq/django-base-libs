@@ -22,7 +22,7 @@
 
                             <div class="ctrlHolder noLabel">
                                 <ul>
-                                    <li>{% blocktrans with person_url=request.user.get_profile.get_url_path %}
+                                    <li>{% blocktrans with person_url=request.user.profile.get_url_path %}
                                         <a href="{{ person_url }}portfolio/fb-sync/">Synchronize personal portfolio</a>
                                         .{% endblocktrans %}</li>
                                 </ul>

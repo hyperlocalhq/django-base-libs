@@ -29,7 +29,7 @@
                 <a href='/changeuser/'>{% trans "Login as a different user" %}</a>
             </li>
             <li>
-                <a href='{{ request.user.get_profile.get_absolute_url }}'>{% trans "Edit your profile" %}</a>
+                <a href='{{ request.user.profile.get_url_path }}'>{% trans "Edit your profile" %}</a>
             </li>
             <li>
                 <a href='/password_change/'>{% trans "Change your password" %}</a>

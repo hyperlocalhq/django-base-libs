@@ -2,7 +2,7 @@
 {% load i18n base_tags nav_menu %}
 
 {% block title %}
-    {% if request.user.get_profile|in_list:object.get_groups.0.get_owners %}
+    {% if request.user.profile|in_list:object.get_groups.0.get_owners %}
         {% trans "My Institution / Company" %}
     {% else %}
         {{ object.get_title|escape }}

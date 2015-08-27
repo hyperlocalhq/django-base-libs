@@ -72,7 +72,7 @@
     {% endif %}
     {% comment %}<!--
     <div class="sidebar-box navi_add_portfolio_image_{{ LANGUAGE_CODE }}">
-        <a href="{% if request.user.is_authenticated %}{{ request.user.get_profile.get_url_path }}portfolio/{% else %}/login/{% endif %}">
+        <a href="{% if request.user.is_authenticated %}{{ request.user.profile.get_url_path }}portfolio/{% else %}/login/{% endif %}">
             <img src="{{ STATIC_URL }}site/kreativarbeiten/ccb_teaser_kreative_arbeiten.jpg" alt="{% trans "Create your online portfolio!" %}" />
         </a>
     </div>
