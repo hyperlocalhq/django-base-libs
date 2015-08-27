@@ -3,7 +3,7 @@
     <h5 class="edit_subline">{% trans "Edit Job Details" %}</h5>
 
     <form action="/helper/edit-{{ URL_ID_JOB_OFFER }}-profile/{{ object.get_secure_id }}/details/" method="post"
-          enctype="multipart/form-data" target="hidden_iframe" class="uniForm">
+        enctype="multipart/form-data" target="hidden_iframe" class="uniForm">
         <fieldset class="inlineLabels">
             <h3>{% trans "Details" %}</h3>
             {{ form.position|as_uni_field }}
@@ -15,7 +15,7 @@
             <div class="buttonHolder">
                 <input type="submit" class="primaryAction" value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
                 <input type="button" class="secondaryAction"
-                       value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel"/>
+                    value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel"/>
             </div>
         </fieldset>
     </form>

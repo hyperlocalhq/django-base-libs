@@ -8,10 +8,10 @@
 
             <div class="buttonHolder">
                 <input class="primaryAction" id="delete_profile" type="submit"
-                       value="{% filter upper %}{% trans "Delete" %}{% endfilter %}"/>
+                    value="{% filter upper %}{% trans "Delete" %}{% endfilter %}"/>
                 <input name="cancel" type="button" class="secondaryAction"{% if not request.is_ajax %}
-                       onclick="history.go(-1)"{% endif %}
-                       value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}"/>
+                    onclick="history.go(-1)"{% endif %}
+                    value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}"/>
             </div>
         </fieldset>
     </form>

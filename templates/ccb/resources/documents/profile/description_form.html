@@ -3,7 +3,7 @@
     <h5 class="edit_subline">{% trans "edit Description data" %}</h5>
 
     <form action="/helper/edit-{{ URL_ID_DOCUMENT }}-profile/{{ object.slug }}/description/" method="post"
-          enctype="multipart/form-data" target="hidden_iframe" class="uniForm">
+        enctype="multipart/form-data" target="hidden_iframe" class="uniForm">
         <fieldset class="inlineLabels">
             <h3>{% trans "Description" %}</h3>
             {{ form.non_field_errors }}
@@ -12,7 +12,7 @@
             <div class="buttonHolder">
                 <input type="submit" class="primaryAction" value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
                 <input type="button" class="secondaryAction"
-                       value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel"/>
+                    value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel"/>
             </div>
         </fieldset>
     </form>

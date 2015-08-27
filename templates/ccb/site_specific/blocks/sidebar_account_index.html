@@ -12,10 +12,14 @@
                                 <a href="{{ request.user.get_profile.get_url_path }}">{{ request.user.get_profile.get_title|escape }}</a>
                             </li>
                             {% for inst in request.user.get_profile.get_institutions %}
-                                <li><a href="{{ inst.get_url_path }}">{{ inst.get_title|escape }}</a></li>
+                                <li>
+                                    <a href="{{ inst.get_url_path }}">{{ inst.get_title|escape }}</a>
+                                </li>
                             {% endfor %}
                             <li>
-                                <a href="/{{ URL_ID_INSTITUTIONS }}/add/">({% trans "Add an Institutional / Company  profile" %})</a>
+                                <a href="/{{ URL_ID_INSTITUTIONS }}/add/">
+                                    ({% trans "Add an Institutional / Company  profile" %})
+                                </a>
                             </li>
                         </ul>
                     </li>

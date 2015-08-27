@@ -5,7 +5,7 @@
     <a href="{{ event.get_url_path }}">
         {% if event.image %}
             <img alt="{{ event.get_title|escape }}" width="97" height="97"
-                 src="{{ UPLOADS_URL }}{{ event.image|modified_path:"al" }}"/>
+                src="{{ UPLOADS_URL }}{{ event.image|modified_path:"al" }}"/>
         {% else %}
             <span class="event-date">
                 <span>
@@ -82,9 +82,10 @@
             -->{% endcomment %}
             {% for url in event.get_contacts.0.get_urls %}
                 <span>
-                    {% if url.type %}<span class="type">{{ url.type }}: </span> {% endif %}<a class="url"
-                                                                                              href="{{ url.link|escape }}"
-                                                                                              onclick="open_new_window(event)">{{ url.link }}</a><br/>
+                    {% if url.type %}<span class="type">{{ url.type }}: </span> {% endif %}
+                    <a class="url"
+                        href="{{ url.link|escape }}"
+                        onclick="open_new_window(event)">{{ url.link }}</a><br/>
                 </span>
             {% endfor %}
         {% endif %}

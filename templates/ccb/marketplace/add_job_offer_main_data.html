@@ -3,9 +3,9 @@
 
 {% block extrahead %}
     <script type="text/javascript"
-            src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery.bgiframe.min.js"></script>
+        src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery.bgiframe.min.js"></script>
     <script type="text/javascript"
-            src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery.autocomplete.js"></script>
+        src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery.autocomplete.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/autocomplete.js"></script>
 {% endblock %}
 
@@ -36,15 +36,17 @@
                     <div id="block_institution_select">
                         <h3>{% trans "Institution/Company" %}</h3>
                         {{ form.offering_institution|as_uni_field }}
-                        <p class="disclaimer"><a id="link_enter_institution"
-                                                 href="#block_institution_title_input">{% trans "Not listed? Enter manually" %}</a>
+                        <p class="disclaimer">
+                            <a id="link_enter_institution"
+                                href="#block_institution_title_input">{% trans "Not listed? Enter manually" %}</a>
                         </p>
                     </div>
                     <div id="block_institution_title_input" class="to_hide">
                         <h3>{% trans "Institution/Company" %}</h3>
                         {{ form.offering_institution_title|as_uni_field }}
-                        <p class="disclaimer"><a id="link_enter_institution"
-                                                 href="#block_institution_select">{% trans "Back to selection" %}</a>
+                        <p class="disclaimer">
+                            <a id="link_enter_institution"
+                                href="#block_institution_select">{% trans "Back to selection" %}</a>
                         </p>
                     </div>
 
@@ -87,7 +89,8 @@
 {% block breadcrumbs %}
     <div class="breadcrumbs">
         <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_JOB_OFFERS }}/">{% trans "Jobs" %}</a>
+        <span class="b-sep"><span>::</span></span>
+        <a href="/{{ URL_ID_JOB_OFFERS }}/">{% trans "Jobs" %}</a>
         <span class="b-sep"><span>::</span></span><span>{% trans "Offer a job" %}</span>
     </div>
 {% endblock %}

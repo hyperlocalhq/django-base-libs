@@ -17,7 +17,7 @@
                 {% endfor %}
                 <div>
                     <input type="submit" class="button_good" id="post" name="{{ post_stage_field }}"
-                           value='{% filter upper %}{% trans "Save" %}{% endfilter %}'/>
+                        value='{% filter upper %}{% trans "Save" %}{% endfilter %}'/>
                 </div>
             </div>
         {% endif %}
@@ -44,9 +44,9 @@
             </fieldset>
             <div class="buttons">
                 <input id="id_cancel" type="submit" class="button_bad" name="{{ cancel_stage_field }}"
-                       value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
+                    value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
                 <input id="id_preview" class="button_good" type="submit" name="{{ preview_stage_field }}"
-                       value="{% filter upper %}{% trans 'Preview' %}{% endfilter %}"/>
+                    value="{% filter upper %}{% trans 'Preview' %}{% endfilter %}"/>
                 {% comment %}this one is used for security reasons -->{% endcomment %}
                 <input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}"/>
             </div>

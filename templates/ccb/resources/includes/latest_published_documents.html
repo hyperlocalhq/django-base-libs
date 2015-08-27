@@ -14,8 +14,10 @@ Usage in any template:
 
 
 {% block block_title %}
-    <h3><a href="/{{ URL_ID_DOCUMENTS }}/">{% trans "New Infolinks" %}</a><a href="/{{ URL_ID_DOCUMENTS }}/"
-                                                                             class="newdocuments"></a>
+    <h3>
+        <a href="/{{ URL_ID_DOCUMENTS }}/">{% trans "New Infolinks" %}</a>
+        <a href="/{{ URL_ID_DOCUMENTS }}/"
+            class="newdocuments"></a>
     </h3>{% endblock %}
 
 {% block block_content %}
@@ -28,10 +30,10 @@ Usage in any template:
                         <a href="{{ document.get_url_path }}">
                             {% if document.image %}
                                 <img class="left" alt="{{ document.get_title|escape }}" width="97" height="97"
-                                     src="{{ UPLOADS_URL }}{{ document.image|modified_path:"al" }}"/>
+                                    src="{{ UPLOADS_URL }}{{ document.image|modified_path:"al" }}"/>
                             {% else %}
                                 <img class="left" alt="{{ document.get_title|escape }}" width="97" height="97"
-                                     src="{{ STATIC_URL }}site/img/website/placeholder/document_m.png"/>
+                                    src="{{ STATIC_URL }}site/img/website/placeholder/document_m.png"/>
                             {% endif %}
                         </a>
                         <h5>

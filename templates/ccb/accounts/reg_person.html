@@ -80,7 +80,8 @@
                 {{ form.privacy_policy|with_class }}
                 <label for="id_privacy_policy">
                     {% if form.privacy_policy.required %}<strong>{% endif %}
-                    {% blocktrans %}I accept <a href="/privacy/" onclick="open_new_window(event)">the privacy policy</a>
+                    {% blocktrans %}I accept
+                        <a href="/privacy/" onclick="open_new_window(event)">the privacy policy</a>
                         .{% endblocktrans %}
                     {% if form.privacy_policy.required %}*</strong>{% endif %}
                 </label>

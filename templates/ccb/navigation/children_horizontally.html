@@ -6,9 +6,10 @@
                 {% parse_link link as url %}
                 {% if url %}
                     {% activeness link as is_active %}
-                    <li><a href="{{ url }}"{% if is_active %} class="active"{% endif %}
-                           title="{{ link.get_description|striptags }}">{{ link.get_title|escape }}
-                    </a>{% if not forloop.last %} | {% endif %}</li>
+                    <li>
+                        <a href="{{ url }}"{% if is_active %} class="active"{% endif %}
+                            title="{{ link.get_description|striptags }}">{{ link.get_title|escape }}
+                        </a>{% if not forloop.last %} | {% endif %}</li>
                 {% endif %}
             {% endif %}
         {% endspaceless %}

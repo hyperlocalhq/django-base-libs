@@ -42,7 +42,8 @@
 
 {% block breadcrumbs %}
     <div class="breadcrumbs">
-        <a href="/">{% trans "Overview" %}</a> |
+        <a href="/">{% trans "Overview" %}</a>
+        |
         {% ifequal request.path "/logo_contest/briefing/" %}
             <span class="active">{% trans "Briefing" %}</span>
         {% else %}

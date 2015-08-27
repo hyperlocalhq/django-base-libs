@@ -7,9 +7,9 @@
 
             <div class="buttonHolder">
                 <input id="id_delete" class="primaryAction" type="submit" name="{{ delete_stage_field }}"
-                       value="{% filter upper %}{% trans 'Delete' %}{% endfilter %}"/>
+                    value="{% filter upper %}{% trans 'Delete' %}{% endfilter %}"/>
                 <input id="id_cancel" type="submit" class="secondaryAction" name="{{ cancel_stage_field }}"
-                       value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
+                    value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
                 {% comment %}this one is used for security reasons -->{% endcomment %}
                 <input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}"/>
             </div>

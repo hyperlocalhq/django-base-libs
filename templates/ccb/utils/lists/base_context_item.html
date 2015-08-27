@@ -2,7 +2,7 @@
 The base for context item in context item lists
 -->{% endcomment %}
 <div class="list-item clearfix expanded {{ extra_css_classes|default:"" }}"
-     onclick="redirect('{% block object_absolute_url %}{% endblock %}');">
+    onclick="redirect('{% block object_absolute_url %}{% endblock %}');">
     {% block list-content %}
         {% block object_col1_container %}
             <div class="list-item-image">{% block object_image %}{% endblock %}</div>

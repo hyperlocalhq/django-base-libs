@@ -3,7 +3,7 @@
     <h5 class="edit_subline">{% trans "edit categories data" %}</h5>
 
     <form class="uniForm" action="/helper/edit-{{ URL_ID_DOCUMENT }}-profile/{{ object.slug }}/categories/"
-          method="post" enctype="multipart/form-data" target="hidden_iframe">
+        method="post" enctype="multipart/form-data" target="hidden_iframe">
         <fieldset class="inlineLabels">
             {% include "site_specific/categories/categories.html" %}
             <p class="disclaimer">{% blocktrans %}Is some category missing? You can
@@ -12,7 +12,7 @@
             <div class="buttonHolder">
                 <input type="submit" class="primaryAction" value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
                 <input type="button" class="secondaryAction"
-                       value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel"/>
+                    value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel"/>
             </div>
         </fieldset>
     </form>

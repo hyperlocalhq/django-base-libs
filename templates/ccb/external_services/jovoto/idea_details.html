@@ -31,9 +31,12 @@
 {% block breadcrumbs %}
     <div>
         <div class="breadcrumbs">
-            <a href="/">{% trans "Overview" %}</a> |
-            <a href="/logo_contest/">{% trans "Logo Contest" %}</a> ::
-            <a href="/logo_contest/ideas/">{% trans "Ideas" %}</a> ::
+            <a href="/">{% trans "Overview" %}</a>
+            |
+            <a href="/logo_contest/">{% trans "Logo Contest" %}</a>
+            ::
+            <a href="/logo_contest/ideas/">{% trans "Ideas" %}</a>
+            ::
             <a class="active" href="#">{{ object.name|escape }}</a>
         </div>
         <div class="counting_of right">

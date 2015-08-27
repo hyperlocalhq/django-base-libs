@@ -55,7 +55,8 @@
                     {% include "people/controls.html" %}
                 {% endwith %}
                 <a class="addthis_button"
-                   href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07"><span><span></span></span></a>
+                    href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07">
+                    <span><span></span></span></a>
             {% endblock %}
             {% block additional_controls %}
             {% endblock %}
@@ -70,8 +71,10 @@
 {% block breadcrumbs %}
     <div class="breadcrumbs">
         <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_PEOPLE }}/">{% trans "People" %}</a>
-        <span class="b-sep"><span>::</span></span><a href="{{ object.get_url_path }}">{{ object.get_title }}</a>
+        <span class="b-sep"><span>::</span></span>
+        <a href="/{{ URL_ID_PEOPLE }}/">{% trans "People" %}</a>
+        <span class="b-sep"><span>::</span></span>
+        <a href="{{ object.get_url_path }}">{{ object.get_title }}</a>
         {% block breadcrumbs_details %}
         {% endblock %}
     </div>

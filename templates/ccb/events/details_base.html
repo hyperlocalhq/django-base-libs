@@ -30,7 +30,8 @@
                 {% include "events/controls.html" %}
             {% endwith %}
             <a class="addthis_button"
-               href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07">Share</a>
+                href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07">Share
+            </a>
         </div>
     </div>
     <div class="detail_headline">
@@ -52,9 +53,11 @@
                     {% endif %}
                 {% endif %}
             </h4>
-            {% if object.has_multiple_occurrences %}<a href="
+            {% if object.has_multiple_occurrences %}
+                <a href="
 
-                {% if event_time %}{{ object.get_absolute_url }}{% endif %}#event-occurrences">{% trans "See all occurrences" %}</a>
+
+                    {% if event_time %}{{ object.get_absolute_url }}{% endif %}#event-occurrences">{% trans "See all occurrences" %}</a>
             {% endif %}
         {% endif %}
     </div>
@@ -67,8 +70,10 @@
 {% block breadcrumbs %}
     <div class="breadcrumbs">
         <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_EVENTS }}/">{% trans "Events" %}</a>
-        <span class="b-sep"><span>::</span></span><a href="{{ object.get_url_path }}">{{ object.get_title }}</a>
+        <span class="b-sep"><span>::</span></span>
+        <a href="/{{ URL_ID_EVENTS }}/">{% trans "Events" %}</a>
+        <span class="b-sep"><span>::</span></span>
+        <a href="{{ object.get_url_path }}">{{ object.get_title }}</a>
         {% block breadcrumbs_details %}
         {% endblock %}
     </div>

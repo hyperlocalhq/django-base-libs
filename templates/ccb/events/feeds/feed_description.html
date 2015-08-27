@@ -62,7 +62,9 @@
         </div>
     {% endif %}
 
-    <div><a href="{{ event.get_absolute_url }}{% if event_time %}{{ event_time.get_secure_id }}/{% endif %}ical/"
-            title="{% trans "Download iCalendar file" %}">{% trans "Download iCalendar file" %}</a></div>
+    <div>
+        <a href="{{ event.get_absolute_url }}{% if event_time %}{{ event_time.get_secure_id }}/{% endif %}ical/"
+            title="{% trans "Download iCalendar file" %}">{% trans "Download iCalendar file" %}</a>
+    </div>
 
 {% endwith %}

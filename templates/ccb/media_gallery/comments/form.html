@@ -1,20 +1,20 @@
 {% load base_tags babel i18n image_modifications uni_form_tags %}
 <form action="{{ object.get_url_path }}portfolio/album/{{ gallery.get_token }}/comments/add/" method="post"
-      class="uniForm">{% csrf_token %}
+    class="uniForm">{% csrf_token %}
     <fieldset class="inlineLabels">
         <h3>{% trans "Post a comment" %}</h3>
         {% if comment_form.is_valid %}
             <div class="preview">
                 {% if comment.user.get_profile.image %}
                     <img class="left" src="{{ UPLOADS_URL }}{{ comment.user.get_profile.image|modified_path:"at" }}"
-                         alt="{{ comment.user.get_profile.get_title|escape }}"/>
+                        alt="{{ comment.user.get_profile.get_title|escape }}"/>
                 {% else %}
                     {% if comment.user %}
                         <img class="left" src="{{ STATIC_URL }}site/img/website/placeholder/person_s.png"
-                             alt="{{ comment.user.get_profile.get_title|escape }}"/>
+                            alt="{{ comment.user.get_profile.get_title|escape }}"/>
                     {% else %}
                         <img class="left" src="{{ STATIC_URL }}site/img/website/placeholder/person_s.png"
-                             alt="{{ comment.name|escape }}"/>
+                            alt="{{ comment.name|escape }}"/>
                     {% endif %}
                 {% endif %}
                 <div class="left">
@@ -34,7 +34,7 @@
                 </div>
                 <div class="buttonHolder">
                     <input type="submit" id="but_post" class="primaryAction" name="post"
-                           value='{% filter upper %}{% trans "Post public comment" %}{% endfilter %}'/>
+                        value='{% filter upper %}{% trans "Post public comment" %}{% endfilter %}'/>
                 </div>
             </div>
         {% endif %}
@@ -53,15 +53,15 @@
 
         <div class="buttonHolder">
             <input type="hidden" class="form_hidden" name="goto_next"
-                   value="{% if goto_next %}{{ goto_next }}{% else %}{{ request.get_full_path }}{% endif %}"/>
+                value="{% if goto_next %}{{ goto_next }}{% else %}{{ request.get_full_path }}{% endif %}"/>
             <input type="hidden" class="form_hidden" name="options" value="{{ options }}"/>
             <input type="hidden" class="form_hidden" name="target" value="{{ target }}"/>
             <input type="hidden" class="form_hidden" name="gonzo" value="{{ hash }}"/>
             <input type="submit" id="but_preview" class="primaryAction" name="preview"
-                   value="{% filter upper %}{% trans "Preview" %}{% endfilter %}"/>
+                value="{% filter upper %}{% trans "Preview" %}{% endfilter %}"/>
             {% if comment_form.is_valid %}
                 <input type="button" id="but_cancel" class="secondaryAction"
-                       value='{% filter upper %}{% trans "Cancel" %}{% endfilter %}'/>
+                    value='{% filter upper %}{% trans "Cancel" %}{% endfilter %}'/>
             {% endif %}
         </div>
 

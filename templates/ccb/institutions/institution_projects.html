@@ -80,10 +80,12 @@
                             {% endif %}
                         {% if url.type %}
                             <dt>{{ url.type }}:</dt>
-                            <dd><a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">
-                                {% with url.link|slice:"0:26"|escape as sliced %}{{ sliced }}
-                                    {% with url.link|escape as not_sliced %}{% ifnotequal sliced not_sliced %}...
-                                    {% endifnotequal %}{% endwith %}{% endwith %}</a></dd>
+                            <dd>
+                                <a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">
+                                    {% with url.link|slice:"0:26"|escape as sliced %}{{ sliced }}
+                                        {% with url.link|escape as not_sliced %}{% ifnotequal sliced not_sliced %}...
+                                        {% endifnotequal %}{% endwith %}{% endwith %}</a>
+                            </dd>
                         {% else %}
                             <dd><span class="url"><a href="{{ url.link|escape }}" onclick="open_new_window(event)">
                                 {% with url.link|slice:"0:38"|escape as sliced %}{{ sliced }}
@@ -134,7 +136,8 @@
             <div class="timeboard">
 
                 {% for opening in object.get_opening_hours %}
-                    {% if forloop.first %}<h3 class="left_h3">{% trans "OPENING HOURS" %}</h3>
+                    {% if forloop.first %}
+                        <h3 class="left_h3">{% trans "OPENING HOURS" %}</h3>
                         <dl>{% endif %}
                 <dt class="day">{{ opening.weekday|slice:":2" }}</dt>
                 <dd class="time">

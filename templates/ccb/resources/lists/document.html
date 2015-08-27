@@ -13,7 +13,7 @@
             <img alt="{{ document.get_title|escape }}" src="{{ UPLOADS_URL }}{{ document.image|modified_path:"al" }}"/>
         {% else %}
             <img alt="{{ document.get_title|escape }}"
-                 src="{{ STATIC_URL }}site/img/website/placeholder/document_m.png"/>
+                src="{{ STATIC_URL }}site/img/website/placeholder/document_m.png"/>
         {% endif %}
     </a>
 {% endblock %}
@@ -26,11 +26,13 @@
         <p class="object-type">{{ document.document_type.get_title|escape }}</p>
     {% endif %}
     {% if document.url_link %}
-        <p><span class="type">{% trans "URL" %}: </span><a href="{{ document.url_link|escape }}"
-                                                           onclick="open_new_window(event)">
-            {% with document.url_link|slice:"0:70"|escape as sliced %}{{ sliced }}
-                {% with document.url_link|escape as not_sliced %}{% ifnotequal sliced not_sliced %}...
-                {% endifnotequal %}{% endwith %}{% endwith %}</a></p>
+        <p><span class="type">{% trans "URL" %}: </span>
+            <a href="{{ document.url_link|escape }}"
+                onclick="open_new_window(event)">
+                {% with document.url_link|slice:"0:70"|escape as sliced %}{{ sliced }}
+                    {% with document.url_link|escape as not_sliced %}{% ifnotequal sliced not_sliced %}...
+                    {% endifnotequal %}{% endwith %}{% endwith %}</a>
+        </p>
     {% endif %}
 {% endblock %}
 

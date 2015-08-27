@@ -12,7 +12,9 @@
             <ul>
                 {% if registered_visitors_count %}
                     {% for user in registered_visitors %}
-                        <li><a href="{{ user.get_profile.get_url_path }}">{{ user.get_profile.get_title }}</a></li>
+                        <li>
+                            <a href="{{ user.get_profile.get_url_path }}">{{ user.get_profile.get_title }}</a>
+                        </li>
                     {% endfor %}
                 {% endif %}
                 {% if unregistered_visitors_count %}

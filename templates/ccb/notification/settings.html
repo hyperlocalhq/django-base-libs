@@ -6,7 +6,7 @@
 
 {% block extra_head %}
     <link rel="alternate" type="application/atom+xml" title="Notices Feed"
-          href="{% url 'notification_feed_for_user' %}"/>
+        href="{% url 'notification_feed_for_user' %}"/>
 {% endblock %}
 
 {% block title %}{% trans "Notification Settings" %}{% endblock %}
@@ -68,7 +68,8 @@
 {% block breadcrumbs %}
     <div class="breadcrumbs">
         <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span><a href="/my-profile/">{% trans "My profile" %}</a>
+        <span class="b-sep"><span>::</span></span>
+        <a href="/my-profile/">{% trans "My profile" %}</a>
         <span class="b-sep"><span>::</span></span><span>{% trans "Notification settings" %}</span>
     </div>
 {% endblock %}

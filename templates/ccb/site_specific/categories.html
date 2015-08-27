@@ -2,7 +2,10 @@
 <ul>
     {% for cat in categories %}
         {% if cat.item_count %}
-            <li><a href="#">{{ cat.get_title|escape }}</a> ({{ cat.item_count }})</li>
+            <li>
+                <a href="#">{{ cat.get_title|escape }}</a>
+                ({{ cat.item_count }})
+            </li>
         {% endif %}
     {% endfor %}
 </ul>

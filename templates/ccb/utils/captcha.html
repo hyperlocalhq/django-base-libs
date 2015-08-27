@@ -1,13 +1,17 @@
 {% load base_tags i18n %}
 
-<div id="pic"><img src="http://captchator.com/captcha/image/{{ request.session.session_id }}"
-                   alt="A code that you have to enter to the field below"/></div>
+<div id="pic">
+    <img src="http://captchator.com/captcha/image/{{ request.session.session_id }}"
+        alt="A code that you have to enter to the field below"/>
+</div>
 
 
-<p id="label"><label id="captcha" for="id_captcha">
-    {% if form.captcha.formfield.is_required %}{% endif %}
-    {% trans "Enter the security code from the image above" %}{% if form.captcha.formfield.is_required %}{% endif %}
-</label></p>
+<p id="label">
+    <label id="captcha" for="id_captcha">
+        {% if form.captcha.formfield.is_required %}{% endif %}
+        {% trans "Enter the security code from the image above" %}{% if form.captcha.formfield.is_required %}{% endif %}
+    </label>
+</p>
 
 <div id="start">
     <p class="code">

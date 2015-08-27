@@ -7,7 +7,9 @@
 {% if root_forums %}
     {% for current_forum in root_forums %}
         <div class="forum-block">
-            <h3><a href="{{ current_forum.get_url }}">{{ current_forum.short_title|escape }}</a></h3>
+            <h3>
+                <a href="{{ current_forum.get_url }}">{{ current_forum.short_title|escape }}</a>
+            </h3>
         </div>
         {% get_forum_children for current_forum as forum_children %}
 

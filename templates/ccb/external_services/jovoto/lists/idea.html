@@ -9,14 +9,17 @@
 {% block list-content %}
 
     <div class="object_title">
-        <h5><a href="{{ object.get_url_path }}">{{ object.name|escape }}</a></h5>
+        <h5>
+            <a href="{{ object.get_url_path }}">{{ object.name|escape }}</a>
+        </h5>
         <a href="{{ object.get_url_path }}">
             <img src="{{ object.get_media0_thumb_path }}" alt=""/>
         </a>
     </div>
     <div>
         <div class="txt">
-            {% if not object.description %}<p>{% endif %}
+            {% if not object.description %}
+                <p>{% endif %}
             {{ object.pubdate|datefmt:"long" }}
             {% if not object.description %}</p>{% endif %}
             {% if object.description %}

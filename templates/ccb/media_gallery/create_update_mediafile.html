@@ -25,7 +25,7 @@
                                     {{ media_file.get_preview_representation }}
                                 {% else %}
                                     <img src="{{ STATIC_URL }}site/img/website/placeholder/{{ media_file_type }}_f.png"
-                                         alt="{{ object.get_title|escape }}"/>
+                                        alt="{{ object.get_title|escape }}"/>
                                 {% endif %}
                             </li>
                             <li class="insert_img">
@@ -38,8 +38,8 @@
                             <li class="insert_img">
                                 <div class="buttonHolder">
                                     <input type="submit" class="primaryAction"
-                                           value="{% filter upper %}{% trans "Upload" %}{% endfilter %}"
-                                           name="save_continue"/>
+                                        value="{% filter upper %}{% trans "Upload" %}{% endfilter %}"
+                                        name="save_continue"/>
                                 </div>
                             </li>
                             <li class="insert_img">
@@ -67,7 +67,7 @@
                                     {{ media_file.get_preview_representation }}
                                 {% else %}
                                     <img src="{{ STATIC_URL }}site/img/website/placeholder/{{ media_file_type }}_f.png"
-                                         alt="{{ object.get_title|escape }}"/>
+                                        alt="{{ object.get_title|escape }}"/>
                                 {% endif %}
                             </li>
                             <li class="insert_img">
@@ -80,8 +80,8 @@
                             <li class="insert_img">
                                 <div class="buttonHolder">
                                     <input type="submit" class="primaryAction"
-                                           value="{% filter upper %}{% trans "Upload" %}{% endfilter %}"
-                                           name="save_continue"/>
+                                        value="{% filter upper %}{% trans "Upload" %}{% endfilter %}"
+                                        name="save_continue"/>
                                 </div>
                             </li>
                             <li class="insert_img">
@@ -99,10 +99,10 @@
                                     {% if media_file.splash_image_path %}
                                         <img src="
                                                 {{ UPLOADS_URL }}{{ media_file.splash_image_path|modified_path:"gp" }}"
-                                             alt="{{ object.get_title|escape }}"/>
+                                            alt="{{ object.get_title|escape }}"/>
                                     {% else %}
                                         <img src="{{ STATIC_URL }}site/img/website/placeholder/upload_image.png"
-                                             alt="{{ object.get_title|escape }}"/>
+                                            alt="{{ object.get_title|escape }}"/>
                                     {% endif %}
                                 </li>
                                 <li class="insert_img">
@@ -115,8 +115,8 @@
                                 <li class="insert_img">
                                     <div class="buttonHolder">
                                         <input type="submit" class="primaryAction"
-                                               value="{% filter upper %}{% trans "Upload" %}{% endfilter %}"
-                                               name="save_continue"/>
+                                            value="{% filter upper %}{% trans "Upload" %}{% endfilter %}"
+                                            name="save_continue"/>
                                     </div>
                                 </li>
                             </ul>
@@ -131,7 +131,7 @@
                     </fieldset>
                     <div class="buttonHolder">
                         <input type="submit" class="primaryAction"
-                               value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
+                            value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
                     </div>
                 </div>
             </form>

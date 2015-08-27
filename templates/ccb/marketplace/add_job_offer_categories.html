@@ -75,7 +75,8 @@
 {% block breadcrumbs %}
     <div class="breadcrumbs">
         <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_JOB_OFFERS }}/">{% trans "Jobs" %}</a>
+        <span class="b-sep"><span>::</span></span>
+        <a href="/{{ URL_ID_JOB_OFFERS }}/">{% trans "Jobs" %}</a>
         <span class="b-sep"><span>::</span></span><span>{% trans "Offer a job" %}</span>
     </div>
 {% endblock %}
@@ -83,6 +84,6 @@
 {% block extrabody %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/categories.js"></script>
     <script type="text/javascript"
-            src="{{ jetson_media_url }}js/jquery/jquery-autocomplete/jquery.autocomplete.js"></script>
+        src="{{ jetson_media_url }}js/jquery/jquery-autocomplete/jquery.autocomplete.js"></script>
 {% endblock %}
 

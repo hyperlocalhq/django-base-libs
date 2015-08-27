@@ -28,9 +28,10 @@
             {% include_parsed "utils/includes/sorting_and_pagination.html" with "under-tabs" as css_class %}
             <div class="invitation-status">
                 <a href="/{{ URL_ID_PEOPLE }}/requests/?by-status={{ active_status_filter }}"
-                   {% ifequal active_link "requests" %}class="active"{% endifequal %}>{% trans "Sent invitations " %}</a>
-                | <a href="/{{ URL_ID_PEOPLE }}/requested/?by-status={{ active_status_filter }}"
-                     {% ifequal active_link "requested" %}class="active"{% endifequal %}>{% trans "Requests to confirm" %}</a>
+                    {% ifequal active_link "requests" %}class="active"{% endifequal %}>{% trans "Sent invitations " %}</a>
+                |
+                <a href="/{{ URL_ID_PEOPLE }}/requested/?by-status={{ active_status_filter }}"
+                    {% ifequal active_link "requested" %}class="active"{% endifequal %}>{% trans "Requests to confirm" %}</a>
             </div>
         </div>
 
@@ -42,9 +43,9 @@
                     A LITTLE BIT HACKISH, BUT WORKS AS A QUICK SOLUTION
                 {% endcomment %}
                 <a href="{{ request.path }}?by-status=pending"
-                   {% ifequal active_status_filter "pending" %}class="active"{% endifequal %}>{% trans "Pending" %}</a>
+                    {% ifequal active_status_filter "pending" %}class="active"{% endifequal %}>{% trans "Pending" %}</a>
                 | <a href="{{ request.path }}?by-status=denied"
-                     {% ifequal active_status_filter "denied" %}class="active"{% endifequal %}>{% trans "Denied" %}</a>
+                    {% ifequal active_status_filter "denied" %}class="active"{% endifequal %}>{% trans "Denied" %}</a>
                 </span>
             </div>
         </div>
@@ -71,15 +72,18 @@
     <div class="breadcrumbs">
         <a href="/">{% trans "Home" %}</a>
         {% if show == "/invitations" %}
-            <span class="b-sep"><span>::</span></span><a href="/people/">{% trans "People" %}</a>
+            <span class="b-sep"><span>::</span></span>
+            <a href="/people/">{% trans "People" %}</a>
             <span class="b-sep"><span>::</span></span><span>{% trans "Invitations" %}</span>
         {% endif %}
         {% if show == "/requests" %}
-            <span class="b-sep"><span>::</span></span><a href="/people/">{% trans "People" %}</a>
+            <span class="b-sep"><span>::</span></span>
+            <a href="/people/">{% trans "People" %}</a>
             <span class="b-sep"><span>::</span></span><span>{% trans "Sent invitations" %}</span>
         {% endif %}
         {% if show == "/requested" %}
-            <span class="b-sep"><span>::</span></span><a href="/people/">{% trans "People" %}</a>
+            <span class="b-sep"><span>::</span></span>
+            <a href="/people/">{% trans "People" %}</a>
             <span class="b-sep"><span>::</span></span><span>{% trans "Requests to confirm" %}</span>
         {% endif %}
     </div>

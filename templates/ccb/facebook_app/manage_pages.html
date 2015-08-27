@@ -19,22 +19,25 @@
                         <div id="fb_page_{{ fb_page.fb_id }}">
                             <p>
                                 {% blocktrans with institution_title=fb_page.institution.get_title institution_url=fb_page.institution.get_url_path fb_page_name=fb_page.name fb_page_url=fb_page.profile_url %}
-                                    Institution <a href="{{ institution_url }}">"{{ institution_title }}"</a> is linked
-                                    to facebook page <a href="{{ fb_page_url }}">"{{ fb_page_name }}"</a>
+                                    Institution
+                                    <a href="{{ institution_url }}">"{{ institution_title }}"</a> is linked
+                                    to facebook page
+                                    <a href="{{ fb_page_url }}">"{{ fb_page_name }}"</a>
                                     .{% endblocktrans %}</p>
 
                             <div class="ctrlHolder noLabel">
                                 <ul>
                                     <li>{% blocktrans with institution_url=fb_page.institution.get_url_path %}
                                         <a href="{{ institution_url }}portfolio/fb-sync/">Synchronize institution's
-                                            portfolio</a>.{% endblocktrans %}</li>
+                                            portfolio
+                                        </a>.{% endblocktrans %}</li>
                                 </ul>
                             </div>
                         </div>
                         <div class="buttonHolder">
                             <input type="hidden" name="institution" value="{{ fb_page.institution.pk }}"/>
                             <input class="secondaryAction facebook_disconnect_page" type="button"
-                                   value="{% filter upper %}{% trans 'Disconnect' %}{% endfilter %}"/>
+                                value="{% filter upper %}{% trans 'Disconnect' %}{% endfilter %}"/>
                         </div>
                     </fieldset>
                 </form>
@@ -49,8 +52,11 @@
                         <p class="disclaimer">{% trans "Connect your institution to Facebook page." %}</p>
 
                         <div id="inst_{{ institution.pk }}" class="ctrlHolder">
-                            <label>{% trans "Institution" %} <a
-                                href="{{ institution.get_url_path }}">"{{ institution.get_title }}"</a></label>
+                            <label>{% trans "Institution" %}
+                                <a
+                                    href="{{ institution.get_url_path }}">"{{ institution.get_title }}"
+                                </a>
+                            </label>
                             <input type="hidden" name="institution" value="{{ institution.pk }}"/>
                             <select name="page">
                                 <option value="">------</option>
@@ -62,7 +68,7 @@
                         </div>
                         <div class="buttonHolder">
                             <input class="primaryAction facebook_connect_page" type="button"
-                                   value="{% filter upper %}{% trans 'Connect' %}{% endfilter %}"/>
+                                value="{% filter upper %}{% trans 'Connect' %}{% endfilter %}"/>
                         </div>
                     </fieldset>
                 </form>
@@ -74,6 +80,6 @@
 
 {% block facebook_scripts %}
     <script type="text/javascript"
-            src="http://connect.facebook.net/{% if LANGUAGE_CODE == "en" %}en_US{% else %}de_DE{% endif %}/all.js"></script>
+        src="http://connect.facebook.net/{% if LANGUAGE_CODE == "en" %}en_US{% else %}de_DE{% endif %}/all.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/facebook_manage_pages.js"></script>
 {% endblock %}

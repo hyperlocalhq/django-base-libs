@@ -29,12 +29,13 @@
 
             <p class="disclaimer">Registrieren Sie sich mit einem persönlichen Profil. Sie erhalten damit zugleich
                 vielfältige Möglichkeiten, um dieses Informationsangebot individuell nutzen und eigene Beiträge
-                veröffentlichen zu k&ouml;nnen.</p>
+                veröffentlichen zu k&ouml;nnen.
+            </p>
 
             <div class="buttonHolder">
                 <input id="login4" type="hidden" name="account_type" value="0"/>
                 <input type="submit" class="primaryAction"
-                       value="{% filter upper %}{% trans "Create Individual Account" %}{% endfilter %}"/>
+                    value="{% filter upper %}{% trans "Create Individual Account" %}{% endfilter %}"/>
             </div>
         </fieldset>
     </form>
@@ -49,14 +50,15 @@
                 Registrieren Sie sich hier mit Ihrem Unternehmen. Sie legen damit gleichzeitig ein persönliches Profil
                 an, über das Sie Ihre Institution administrieren können. Stellen Sie also sicher, dass Sie dazu von
                 Ihrer Institution autorisiert sind. Bitte überprüfen Sie ebenfalls vor Ihrer Registrierung, ob Ihr
-                Unternehmen bereits in der <a onclick="open_new_window(event)" href="/institutions/"> Datenbank</a>
+                Unternehmen bereits in der
+                <a onclick="open_new_window(event)" href="/institutions/"> Datenbank</a>
                 eingetragen ist.
             </p>
 
             <div class="buttonHolder">
                 <input type="hidden" name="account_type" value="1"/>
                 <input type="submit" class="primaryAction"
-                       value="{% filter upper %}{% trans "Create Institutional Account" %}{% endfilter %}"/>
+                    value="{% filter upper %}{% trans "Create Institutional Account" %}{% endfilter %}"/>
             </div>
         </fieldset>
     </form>
@@ -75,8 +77,11 @@
         <strong>Frage: Das Unternehmen ist noch nicht eingetragen, aber ich bin auch nicht der Administrator. Wie
             verknüpfe ich mein Personenkonto mit dem Unternehmen?</strong><br/>
         Entweder bitten Sie zunächst eine autorisierte Person in Ihrem Unternehmen, das Firmenkonto anzulegen, dem Sie
-        sich dann nach Veröffentlichung zuordnen können. Alternativ wählen Sie das entsprechende Kontaktformular "<a
-        onclick="open_new_window(event)" href="/ticket/new-institution/">Neue Institution vorschlagen</a>" aus. Nach
+        sich dann nach Veröffentlichung zuordnen können. Alternativ wählen Sie das entsprechende Kontaktformular "
+        <a
+            onclick="open_new_window(event)" href="/ticket/new-institution/">Neue Institution vorschlagen
+        </a>
+        " aus. Nach
         Veröffentlichung des Institutionseintrags können Sie diesen ebenfalls Ihrem Profil zuordnen.
     </p>
 {% endblock %}

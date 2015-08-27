@@ -17,7 +17,8 @@
                     {% for fas in fass %}
                         <div id="fb_connection_{{ fas.fb_id }}">
                             <p class="disclaimer">{% trans "You can login to CreativeCityBerlin with this Facebook account:" %}
-                                <a href="{{ fas.profile_url }}">{{ fas.name }}</a></p>
+                                <a href="{{ fas.profile_url }}">{{ fas.name }}</a>
+                            </p>
 
                             <div class="ctrlHolder noLabel">
                                 <ul>
@@ -30,7 +31,7 @@
                                 <input type="hidden" name="uid" value="{{ fas.fb_id }}"/>
                                 <input type="hidden" name="a" value="disconnect"/>
                                 <input class="secondaryAction facebook_disconnect" type="button"
-                                       value="{% filter upper %}{% trans 'Disconnect' %}{% endfilter %}"/>
+                                    value="{% filter upper %}{% trans 'Disconnect' %}{% endfilter %}"/>
                             </div>
                             <div class="cleaner"></div>
                         </div>
@@ -44,7 +45,7 @@
                         <input type="hidden" name="uid" value=""/>
                         <input type="hidden" name="a" value="connect"/>
                         <input id="facebook_connect" class="primaryAction" type="button"
-                               value="{% filter upper %}{% trans 'Connect' %}{% endfilter %}"/>
+                            value="{% filter upper %}{% trans 'Connect' %}{% endfilter %}"/>
                     </div>
                 {% endif %}
             </fieldset>
@@ -56,6 +57,6 @@
 {% block facebook_scripts %}
     <div id="fb-root"></div>
     <script type="text/javascript"
-            src="http://connect.facebook.net/{% if LANGUAGE_CODE == "en" %}en_US{% else %}de_DE{% endif %}/all.js"></script>
+        src="http://connect.facebook.net/{% if LANGUAGE_CODE == "en" %}en_US{% else %}de_DE{% endif %}/all.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/facebook_manage_connections.js"></script>
 {% endblock %}

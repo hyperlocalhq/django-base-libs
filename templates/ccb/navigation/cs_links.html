@@ -6,8 +6,10 @@
     {% if link.is_group %}
         <li class="nav_group{% if not forloop.counter0 %} first_item{% endif %} navi_{{ link.sysname }}_
 
+
             {{ LANGUAGE_CODE }}{% if link.is_promoted %} promoted{% endif %}{% if link.is_login_required %} login-required{% endif %}">
-            {% if link.is_group_name_shown %}{% if link.link_url %}<a href="{% parse_link link %}">{% endif %}
+            {% if link.is_group_name_shown %}{% if link.link_url %}
+                <a href="{% parse_link link %}">{% endif %}
             <strong>{{ link.get_title|escape }}</strong>{% if link.link_url %}</a>{% endif %}{% endif %}
             {% for child in link.get_children_for_authenticated_user %}
                 {% if forloop.first %}
@@ -17,8 +19,10 @@
             {% branch_activeness child as is_branch_active %}
             <li class="navi_{{ child.sysname }}_
 
+
                 {{ LANGUAGE_CODE }}{% if child.is_promoted %} promoted{% endif %}{% if child.is_login_required %} login-required{% endif %}{% if is_active %} active{% endif %}">
-                {% if url %}<a href="{{ url }}"{% if is_active %} class="active"{% endif %}>{% endif %}
+                {% if url %}
+                    <a href="{{ url }}"{% if is_active %} class="active"{% endif %}>{% endif %}
                 <span>{{ child.get_title|escape }}</span>{% if url %}</a>{% endif %}
                 {% if is_branch_active %}
                     {% children_of child.sysname using "navigation/cs_links.html" %}
@@ -33,8 +37,10 @@
         {% parse_link link as url %}
         <li class="navi_{{ link.sysname }}_
 
+
             {{ LANGUAGE_CODE }}{% if link.is_promoted %} promoted{% endif %}{% if link.is_login_required %} login-required{% endif %}{% if is_active %} active{% endif %}">
-            {% if url %}<a href="{{ url }}"{% if is_active %} class="active"{% endif %}>{% endif %}
+            {% if url %}
+                <a href="{{ url }}"{% if is_active %} class="active"{% endif %}>{% endif %}
             <span>{{ link.get_title|escape }}</span>{% if link.link_url %}</a>{% endif %}
             {% if is_branch_active %}
                 {% children_of link.sysname using "navigation/cs_links.html" %}
@@ -50,8 +56,10 @@
     {% if link.is_group %}
         <li class="nav_group{% if not forloop.counter0 %} first_item{% endif %} navi_{{ link.sysname }}_
 
+
             {{ LANGUAGE_CODE }}{% if link.is_promoted %} promoted{% endif %}{% if link.is_login_required %} login-required{% endif %}">
-            {% if link.is_group_name_shown %}{% if link.link_url %}<a href="{% parse_link link.link_url %}">{% endif %}
+            {% if link.is_group_name_shown %}{% if link.link_url %}
+                <a href="{% parse_link link.link_url %}">{% endif %}
             <strong>{{ link.get_title|escape }}</strong>{% if link.link_url %}</a>{% endif %}{% endif %}
 
             {% for child in link.get_children_for_anonymous_user %}
@@ -62,8 +70,10 @@
             {% parse_link child as url %}
             <li class="navi_{{ child.sysname }}_
 
+
                 {{ LANGUAGE_CODE }}{% if child.is_promoted %} promoted{% endif %}{% if child.is_login_required %} login-required{% endif %}{% if is_active %} active{% endif %}">
-                {% if url %}<a href="{{ url }}"{% if is_active %} class="active"{% endif %}>{% endif %}
+                {% if url %}
+                    <a href="{{ url }}"{% if is_active %} class="active"{% endif %}>{% endif %}
                 <span>{{ child.get_title|escape }}</span>{% if url %}</a>{% endif %}
                 {% if is_branch_active %}
                     {% children_of child.sysname using "navigation/cs_links.html" %}
@@ -78,8 +88,10 @@
         {% parse_link link as url %}
         <li class="navi_{{ link.sysname }}_
 
+
             {{ LANGUAGE_CODE }}{% if link.is_promoted %} promoted{% endif %}{% if link.is_login_required %} login-required{% endif %}{% if is_active %} active{% endif %}">
-            {% if url %}<a href="{{ url }}"{% if is_active %} class="active"{% endif %}>{% endif %}
+            {% if url %}
+                <a href="{{ url }}"{% if is_active %} class="active"{% endif %}>{% endif %}
             <span>{{ link.get_title|escape }}</span>{% if url %}</a>{% endif %}
             {% if is_branch_active %}
                 {% children_of link.sysname using "navigation/cs_links.html" %}

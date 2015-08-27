@@ -13,7 +13,9 @@ Usage in any template:
 -->{% endcomment %}
 
 {% block block_title %}
-    <h3><a href="/{{ URL_ID_PEOPLE }}">{% trans "New People" %}</a><a href="/{{ URL_ID_PEOPLE }}" class="newpeople"></a>
+    <h3>
+        <a href="/{{ URL_ID_PEOPLE }}">{% trans "New People" %}</a>
+        <a href="/{{ URL_ID_PEOPLE }}" class="newpeople"></a>
     </h3>{% endblock %}
 
 {% block block_content %}
@@ -26,10 +28,10 @@ Usage in any template:
                         <a href="{{ person.get_url_path }}">
                             {% if person.image %}
                                 <img alt="{{ person.get_title|escape }}" title="{{ person.get_title|escape }}"
-                                     src="{{ UPLOADS_URL }}{{ person.image|modified_path:"at" }}"/>
+                                    src="{{ UPLOADS_URL }}{{ person.image|modified_path:"at" }}"/>
                             {% else %}
                                 <img alt="{{ person.get_title|escape }}" title="{{ person.get_title|escape }}"
-                                     src="{{ DEFAULT_SMALL_LOGO_4_PERSON }}"/>
+                                    src="{{ DEFAULT_SMALL_LOGO_4_PERSON }}"/>
                             {% endif %}
                         </a>
                     </li>

@@ -85,19 +85,26 @@
                         {% endfor %}
 
                         {% for url in contact.get_urls %}
-                            {% if forloop.first %} <h4>{% trans "WEBSITE" %}</h4> {% endif %}
+                            {% if forloop.first %}
+                                <h4>{% trans "WEBSITE" %}</h4> {% endif %}
                             <dl>
                                 {% if url.type %}
                                     <dt>{{ url.type }}:</dt>
-                                    <dd><a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">
-                                        {% with url.link|slice:"0:26"|escape as sliced %}{{ sliced }}
-                                            {% with url.link|escape as not_sliced %}{% ifnotequal sliced not_sliced %}
-                                                ...{% endifnotequal %}{% endwith %}{% endwith %}</a></dd>
+                                    <dd>
+                                        <a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">
+                                            {% with url.link|slice:"0:26"|escape as sliced %}{{ sliced }}
+                                                {% with url.link|escape as not_sliced %}
+                                                    {% ifnotequal sliced not_sliced %}
+                                                        ...{% endifnotequal %}{% endwith %}{% endwith %}</a>
+                                    </dd>
                                 {% else %}
-                                    <dd><a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">
-                                        {% with url.link|slice:"0:38"|escape as sliced %}{{ sliced }}
-                                            {% with url.link|escape as not_sliced %}{% ifnotequal sliced not_sliced %}
-                                                ...{% endifnotequal %}{% endwith %}{% endwith %}</a></dd>
+                                    <dd>
+                                        <a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">
+                                            {% with url.link|slice:"0:38"|escape as sliced %}{{ sliced }}
+                                                {% with url.link|escape as not_sliced %}
+                                                    {% ifnotequal sliced not_sliced %}
+                                                        ...{% endifnotequal %}{% endwith %}{% endwith %}</a>
+                                    </dd>
                                 {% endif %}
                             </dl>
                         {% endfor %}
@@ -163,7 +170,8 @@
 
 
                 {% for language in object.get_spoken_languages %}
-                    {% if forloop.first %}    <h4>{% trans "spoken languages" %}</h4>
+                    {% if forloop.first %}
+                        <h4>{% trans "spoken languages" %}</h4>
                         <dl>
                         <dd> {% endif %}
                 {{ language.get_name }}{% if forloop.last %}</dd></dl>{% else %}, {% endif %}

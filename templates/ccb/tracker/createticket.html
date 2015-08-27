@@ -33,9 +33,9 @@
                 <div class="buttonHolder">
                     <input type="hidden" class="form_hidden" name="post_data" value="{{ post_data }}"/>
                     <input type="hidden" class="form_hidden" name="goto_next"
-                           value="{% if goto_next %}{{ goto_next }}{% else %}/{% endif %}"/>
+                        value="{% if goto_next %}{{ goto_next }}{% else %}/{% endif %}"/>
                     <input class="primaryAction" id="id_submit" type="submit"
-                           value="{% filter upper %}{% trans 'Submit' %}{% endfilter %}"/>
+                        value="{% filter upper %}{% trans 'Submit' %}{% endfilter %}"/>
                 </div>
             </fieldset>
         </form>

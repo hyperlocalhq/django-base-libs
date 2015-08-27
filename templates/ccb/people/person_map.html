@@ -8,7 +8,9 @@
     <div class="map">
         <noscript>{% infoblock "js_warning" %}</noscript>
 
-        <div class="go-back"><a href="{{ object.get_url_path }}">{% trans "Back to profile view" %}</a></div>
+        <div class="go-back">
+            <a href="{{ object.get_url_path }}">{% trans "Back to profile view" %}</a>
+        </div>
 
         {% if object.is_address_displayed %}
             <div id="dyn_map" class="to_show">
@@ -19,10 +21,11 @@
                     {% for contact in object.get_contacts %}
                         {% with contact.postal_address.get_geoposition as geopos %}
                             {% if geopos %}
-                                |<a id="dyn_but_contact_{{ forloop.counter0 }}" class="dyn_but_contact"
+                                |
+                                <a id="dyn_but_contact_{{ forloop.counter0 }}" class="dyn_but_contact"
                                     href="#contact_{{ forloop.counter0 }}">
-                                {% if contact.location_title %}{{ contact.location_title }}{% else %}
-                                    {% trans "location" %} #{{ forloop.counter }}{% endif %}</a>
+                                    {% if contact.location_title %}{{ contact.location_title }}{% else %}
+                                        {% trans "location" %} #{{ forloop.counter }}{% endif %}</a>
                             {% endif %}
                         {% endwith %}
                     {% endfor %}
@@ -37,7 +40,7 @@
 
 {% block extrabody %}
     <script type="text/javascript"
-            src="http://maps.google.com/maps/api/js?sensor=false&amp;language={{ LANGUAGE_CODE }}&amp;region=DE"></script>
+        src="http://maps.google.com/maps/api/js?sensor=false&amp;language={{ LANGUAGE_CODE }}&amp;region=DE"></script>
     <script type="text/javascript">
         self.aGeopositions = [];
         {% for contact in object.get_contacts %}

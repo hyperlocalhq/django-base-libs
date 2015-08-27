@@ -4,9 +4,11 @@
 {% block object_controls %}
     <div class="portfolio-controls">
         <a class="published-albums"
-           href="{{ object.get_url_path }}portfolio/manage/?show=published">{% trans "Published" %}</a> |
+            href="{{ object.get_url_path }}portfolio/manage/?show=published">{% trans "Published" %}</a>
+        |
         <a class="draft-albums"
-           href="{{ object.get_url_path }}portfolio/manage/?show=unpublished">{% trans "Unpublished" %}</a> | 
+            href="{{ object.get_url_path }}portfolio/manage/?show=unpublished">{% trans "Unpublished" %}</a>
+         | 
         <a class="all-albums active" href="{{ object.get_url_path }}portfolio/manage/">{% trans "All projects" %}</a>
     </div>
 {% endblock %}
@@ -15,11 +17,14 @@
     <div class="media_nav">
         <div class="right">
             <a class="fb-sync"
-               href="{{ object.get_url_path }}portfolio/fb-sync/"><span><span>{% trans "Sync with Facebook" %}</span></span></a>
+                href="{{ object.get_url_path }}portfolio/fb-sync/">
+                <span><span>{% trans "Sync with Facebook" %}</span></span></a>
             <a class="portfolio-manage active"
-               href="{{ object.get_url_path }}portfolio/manage/"><span><span>{% trans "All projects" %}</span></span></a>
+                href="{{ object.get_url_path }}portfolio/manage/"><span><span>{% trans "All projects" %}</span></span>
+            </a>
             <a class="portfolio-add"
-               href="{{ object.get_url_path }}portfolio/album/add/"><span><span>{% trans "Add project" %}</span></span></a>
+                href="{{ object.get_url_path }}portfolio/album/add/"><span><span>{% trans "Add project" %}</span></span>
+            </a>
         </div>
     </div>
 {% endblock %}
@@ -35,9 +40,9 @@
 
                     <div class="section_tools">
                         <a href="{{ object.get_url_path }}portfolio/section/{{ section.get_token }}/change/"
-                           class="edit_settings"><span><span>{% trans "Settings" %}</span></span></a>
+                            class="edit_settings"><span><span>{% trans "Settings" %}</span></span></a>
                         <a href="{{ object.get_url_path }}portfolio/section/{{ section.get_token }}/delete/"
-                           class="delete"><span><span>{% trans "Delete" %}</span></span></a>
+                            class="delete"><span><span>{% trans "Delete" %}</span></span></a>
                         <span class="ui-dragging-handle"><span><span>{% trans "Drag" %}</span></span></span>
                     </div>
                 </div>
@@ -53,7 +58,8 @@
                     <div class="meta_tools">
                         <span class="add-media"></span>
                         <a class="add_album"
-                           href="{{ object.get_url_path }}portfolio/album/add/?section={{ section.get_token }}"><span><span>{% trans "Add album" %}</span></span></a>
+                            href="{{ object.get_url_path }}portfolio/album/add/?section={{ section.get_token }}">
+                            <span><span>{% trans "Add album" %}</span></span></a>
                     </div>
                 </div>
                 <div class="section-form">
@@ -61,12 +67,13 @@
                 <div class="galleries">
                     {% for gallery in galleries %}
                         <div class="gallery {% if gallery.status %}published{% else %}draft{% endif %}"
-                             id="gallery_{{ gallery.get_token }}">
+                            id="gallery_{{ gallery.get_token }}">
                             {% if gallery.cover_image %}
                                 <img width="75" height="75" src="
 
+
                                     {{ UPLOADS_URL }}{{ gallery.cover_image.path|modified_path:"gt" }}?now={% now "YmdHi" %}"
-                                     alt=""/>
+                                    alt=""/>
                             {% else %}
                                 {% if gallery.mediafile_set.count %}
                                     <img
@@ -80,16 +87,16 @@
                             <span class="portfolio_tools">
                                 {% if gallery.get_recroppable_thumbnail_path %}
                                     <a href="{% cropping_url gallery.get_recroppable_thumbnail_path "gt" request request.path %}"
-                                       class="recrop_link">
+                                        class="recrop_link">
                                         <span><span>{% trans "Adjust image" %}</span></span>
                                     </a>
                                 {% endif %}
                                 <a href="{{ object.get_url_path }}portfolio/album/{{ gallery.get_token }}/change/"
-                                   class="edit_settings"><span><span>{% trans "Settings" %}</span></span></a>
+                                    class="edit_settings"><span><span>{% trans "Settings" %}</span></span></a>
                                 <a href="{{ object.get_url_path }}portfolio/album/{{ gallery.get_token }}/manage/"
-                                   class="edit_content"><span><span>{% trans "Content" %}</span></span></a>
+                                    class="edit_content"><span><span>{% trans "Content" %}</span></span></a>
                                 <a href="{{ object.get_url_path }}portfolio/album/{{ gallery.get_token }}/delete/"
-                                   class="delete"><span><span>{% trans "Delete" %}</span></span></a>
+                                    class="delete"><span><span>{% trans "Delete" %}</span></span></a>
                                 <span class="ui-dragging-handle"><span><span>{% trans "Drag" %}</span></span></span>
                             </span>
                         </div>

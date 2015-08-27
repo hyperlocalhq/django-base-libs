@@ -10,7 +10,7 @@
                 {{ website_url|slice:":-1" }}{{ UPLOADS_URL }}{{ gallery.cover_image.path|modified_path:"glist" }}"/>
     {% else %}
         <meta property="og:image"
-              content="{{ website_url|slice:":-1" }}{{ gallery.mediafile_set.all.0.get_list_image_url }}"/>
+            content="{{ website_url|slice:":-1" }}{{ gallery.mediafile_set.all.0.get_list_image_url }}"/>
     {% endif %}
     <meta property="og:url" content="{{ gallery.get_url }}"/>
     <meta property="og:site_name" content="Creative City Berlin"/>
@@ -71,14 +71,14 @@
                 <div class="comment-author">
                     {% if comment.user.get_profile.image %}
                         <img class="left" src="{{ UPLOADS_URL }}{{ comment.user.get_profile.image|modified_path:"at" }}"
-                             alt="{{ comment.user.get_profile.get_title|escape }}"/>
+                            alt="{{ comment.user.get_profile.get_title|escape }}"/>
                     {% else %}
                         {% if comment.user %}
                             <img class="left" src="{{ STATIC_URL }}site/img/website/placeholder/person_s.png"
-                                 alt="{{ comment.user.get_profile.get_title|escape }}"/>
+                                alt="{{ comment.user.get_profile.get_title|escape }}"/>
                         {% else %}
                             <img class="left" src="{{ STATIC_URL }}site/img/website/placeholder/person_s.png"
-                                 alt="{{ comment.name|escape }}"/>
+                                alt="{{ comment.name|escape }}"/>
                         {% endif %}
                     {% endif %}
                     <p>
@@ -98,21 +98,30 @@
                     {% if can_manage_portfolio %}
                         <ul class="toolbar">
                             {% if not comment.is_removed %}
-                                <li id="refuseComment_{{ comment.id }}" class="refuseComment"><a
-                                    class="refuseComment_but" href="
+                                <li id="refuseComment_{{ comment.id }}" class="refuseComment">
+                                    <a
+                                        class="refuseComment_but" href="
 
-                                    {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/comment/{{ comment.id }}/refuse/"><span><span>{% trans "Refuse" %}</span></span></a>
+
+                                        {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/comment/{{ comment.id }}/refuse/">
+                                        <span><span>{% trans "Refuse" %}</span></span></a>
                                 </li>
-                                <li id="markAsSpamComment_{{ comment.id }}" class="markAsSpamComment"><a
-                                    class="markAsSpamComment_but" href="
+                                <li id="markAsSpamComment_{{ comment.id }}" class="markAsSpamComment">
+                                    <a
+                                        class="markAsSpamComment_but" href="
 
-                                    {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/comment/{{ comment.id }}/mark_as_spam/"><span><span>{% trans "Mark as Spam" %}</span></span></a>
+
+                                        {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/comment/{{ comment.id }}/mark_as_spam/">
+                                        <span><span>{% trans "Mark as Spam" %}</span></span></a>
                                 </li>
                             {% else %}
-                                <li id="acceptComment_{{ comment.id }}" class="acceptComment"><a
-                                    class="acceptComment_but" href="
+                                <li id="acceptComment_{{ comment.id }}" class="acceptComment">
+                                    <a
+                                        class="acceptComment_but" href="
 
-                                    {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/comment/{{ comment.id }}/accept/"><span><span>{% trans "Accept" %}</span></span></a>
+
+                                        {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/comment/{{ comment.id }}/accept/">
+                                        <span><span>{% trans "Accept" %}</span></span></a>
                                 </li>
                             {% endif %}
                         </ul>

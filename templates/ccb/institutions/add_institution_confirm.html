@@ -44,7 +44,9 @@
                 </div>
                 {{ form_step_data.0.location_title }}
                 <div class="cleaner"></div>
-                <h5 class="checkline"><a href="#">{% trans "Contact" %}</a></h5>
+                <h5 class="checkline">
+                    <a href="#">{% trans "Contact" %}</a>
+                </h5>
 
                 <div class="check">
                     <dl>
@@ -91,7 +93,9 @@
                         <dl>
                             {% if form_step_data.0.email0 %}
                                 <dt>{% trans "E-mail Add" %}:</dt>
-                                <dd><a href="form_step_data.0.email0">{{ form_step_data.0.email0 }}</a></dd>
+                                <dd>
+                                    <a href="form_step_data.0.email0">{{ form_step_data.0.email0 }}</a>
+                                </dd>
                             {% endif %}
 
                             {% if form_step_data.0.email1 %}
@@ -105,7 +109,9 @@
 
                             {% if form_step_data.0.email2 %}
                                 <dt>{% trans "E-mail Add" %}:</dt>
-                                <dd><a href="form_step_data.0.email2">{{ form_step_data.0.email2 }}</a></dd>
+                                <dd>
+                                    <a href="form_step_data.0.email2">{{ form_step_data.0.email2 }}</a>
+                                </dd>
                             {% endif %}
                         </dl>
                     {% endif %}
@@ -342,7 +348,9 @@
 
                     {% if creative_sectors or context_categories or object_types %}
                         <div class="cleaner"></div>
-                        <h5 class="checkline"><a href="#">{% trans "Category" %}</a></h5>
+                        <h5 class="checkline">
+                            <a href="#">{% trans "Category" %}</a>
+                        </h5>
                         <div class="check">
                             <dl>
                                 {% if creative_sectors %}
@@ -399,7 +407,8 @@
 {% block breadcrumbs %}
     <div class="breadcrumbs">
         <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_INSTITUTIONS }}/">{% trans "Institutions" %}</a>
+        <span class="b-sep"><span>::</span></span>
+        <a href="/{{ URL_ID_INSTITUTIONS }}/">{% trans "Institutions" %}</a>
         <span class="b-sep"><span>::</span></span><span>{% trans "Add new institution" %}</span>
     </div>
 {% endblock %}

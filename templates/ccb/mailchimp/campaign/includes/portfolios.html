@@ -1,35 +1,49 @@
 {% load mailhtml image_modifications babel base_tags %}
 <table class="portfolios" width="600" border="0" cellspacing="0" cellpadding="0">
     <tbody>
-    <tr style="background-color: #E8EDF0">
-        <td colspan="2" align="left" valign="bottom">
-            <!-- title goes here -->
-            <h3><span>Featured</span> Portfolios</h3>
-        </td>
-        <td colspan="2" align="right" valign="bottom">
-            <!-- VIEW MORE link goes here -->
-            <a title="" class="proceed" href="http://www.creative-city-berlin.de/portfolios/featured/" target="_blank">more
-                …</a>
-        </td>
-    </tr>
-    <tr>
-        {% get_objects newest_featured media_gallery.MediaGallery 4 as newest_objects %}
-        {% for gallery in newest_objects %}
-            {% with gallery.content_object as content_object %}
-                <td valign="top" style="border-right:1px #E8EDF0 solid; background-color: #6994A6;" class="portfolio">
-                    <a href="{{ content_object.get_url }}portfolio/" target="_blank"><img
-                        src="http://www.creative-city-berlin.de{{ gallery.mediafile_set.all.0.get_list_image_url }}"
-                        alt="" width="149" height="149" border="no"/></a><br/>
-                    <a href="{{ content_object.get_url }}portfolio/" target="_blank"
-                       class="portfolio">{{ content_object.get_title }}</a>
-                </td>
-            {% endwith %}
-        {% endfor %}
-    </tr>
-    <tr>
-        <td colspan="4"><img
-            src="http://www.creative-city-berlin.de/static/0/site/img/newsletter/ccb_newsletter_shadow.png" alt=""
-            width="600" height="20" border="no"/></td>
-    </tr>
+        <tr style="background-color: #E8EDF0">
+            <td colspan="2" align="left" valign="bottom">
+                <!-- title goes here -->
+                <h3><span>Featured</span> Portfolios</h3>
+            </td>
+            <td colspan="2" align="right" valign="bottom">
+                <!-- VIEW MORE link goes here -->
+                <a title=""
+                    class="proceed"
+                    href="http://www.creative-city-berlin.de/portfolios/featured/"
+                    target="_blank">more
+                    …
+                </a>
+            </td>
+        </tr>
+        <tr>
+            {% get_objects newest_featured media_gallery.MediaGallery 4 as newest_objects %}
+            {% for gallery in newest_objects %}
+                {% with gallery.content_object as content_object %}
+                    <td valign="top"
+                        style="border-right:1px #E8EDF0 solid; background-color: #6994A6;"
+                        class="portfolio">
+                        <a href="{{ content_object.get_url }}portfolio/" target="_blank">
+                            <img
+                                src="http://www.creative-city-berlin.de{{ gallery.mediafile_set.all.0.get_list_image_url }}"
+                                alt="" width="149" height="149" border="no"/>
+                        </a>
+                        <br/>
+                        <a href="{{ content_object.get_url }}portfolio/" target="_blank"
+                            class="portfolio">{{ content_object.get_title }}</a>
+                    </td>
+                {% endwith %}
+            {% endfor %}
+        </tr>
+        <tr>
+            <td colspan="4">
+                <img
+                    src="http://www.creative-city-berlin.de/static/0/site/img/newsletter/ccb_newsletter_shadow.png"
+                    alt=""
+                    width="600"
+                    height="20"
+                    border="no"/>
+            </td>
+        </tr>
     </tbody>
 </table>

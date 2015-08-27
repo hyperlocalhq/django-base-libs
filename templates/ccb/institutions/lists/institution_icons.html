@@ -5,10 +5,10 @@
     <a href="{{ institution.get_url_path }}">
         {% if institution.image %}
             <img alt="{{ institution.get_title|escape }}" width="97" height="97"
-                 src="{{ UPLOADS_URL }}{{ institution.image|modified_path:"al" }}"/>
+                src="{{ UPLOADS_URL }}{{ institution.image|modified_path:"al" }}"/>
         {% else %}
             <img alt="{{ institution.get_title|escape }}" width="97" height="97"
-                 src="{{ STATIC_URL }}site/img/website/placeholder/institution_m.png"/>
+                src="{{ STATIC_URL }}site/img/website/placeholder/institution_m.png"/>
         {% endif %}
     </a>
 {% endblock %}

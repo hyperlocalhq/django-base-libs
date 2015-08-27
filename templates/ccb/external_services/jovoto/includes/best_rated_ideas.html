@@ -12,7 +12,8 @@ Usage in any template:
     
 -->{% endcomment %}
 
-{% block block_title %}<h5>{% trans "Best Rated Ideas" %}</h5>
+{% block block_title %}
+    <h5>{% trans "Best Rated Ideas" %}</h5>
     <a href="/logo_contest/ideas/?order_by=rating_desc">{% trans "more..." %}</a>{% endblock %}
 
 {% block block_content %}
@@ -25,7 +26,7 @@ Usage in any template:
                         <a href="{{ idea.get_url_path }}">
                             {% if idea.media0_thumb %}
                                 <img class="newest_objects" name="Jovoto" alt="{{ idea.name|escape }}"
-                                     src="{{ idea.get_media0_thumb_path }}"/>
+                                    src="{{ idea.get_media0_thumb_path }}"/>
                             {% endif %}
                         </a>
                         <h5>

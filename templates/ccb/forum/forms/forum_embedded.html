@@ -13,7 +13,7 @@
 
                     <div class="buttonHolder">
                         <input type="submit" class="primaryAction" id="post" name="{{ post_stage_field }}"
-                               value='{% filter upper %}{% trans "Save" %}{% endfilter %}'/>
+                            value='{% filter upper %}{% trans "Save" %}{% endfilter %}'/>
                     </div>
                 </fieldset>
             </div>
@@ -48,9 +48,9 @@
             {{ form.status|as_uni_field }}
             <div class="buttonHolder">
                 <input id="id_preview" class="primaryAction" type="submit" name="{{ preview_stage_field }}"
-                       value="{% filter upper %}{% trans 'Preview' %}{% endfilter %}"/>
+                    value="{% filter upper %}{% trans 'Preview' %}{% endfilter %}"/>
                 <input id="id_cancel" type="submit" class="secondaryAction" name="{{ cancel_stage_field }}"
-                       value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
+                    value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
                 {% comment %}this one is used for security reasons -->{% endcomment %}
                 <input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}"/>
             </div>

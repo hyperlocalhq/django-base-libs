@@ -22,7 +22,7 @@
 {% block extrahead %}
     {{ block.super }}
     <link rel="alternate" type="application/rss+xml" title="{% trans "Creative City Berlin Blog" %}"
-          href="{{ container.get_url }}{% if type %}{{ type.sysname }}/{% endif %}feeds/rss/"/>
+        href="{{ container.get_url }}{% if type %}{{ type.sysname }}/{% endif %}feeds/rss/"/>
     {% compressed_js "blog" %}
 {% endblock %}
 
@@ -39,7 +39,9 @@
             {% for year, month_list in archives %}
                 {% if forloop.first %}
                     <ul>
-                    <li><a href="{{ container.get_url }}">{% trans "All" %}</a></li>
+                    <li>
+                        <a href="{{ container.get_url }}">{% trans "All" %}</a>
+                    </li>
                 {% endif %}
             <li>
                 <a href="{{ container.get_url }}{{ year }}/">{{ year }}</a>
@@ -47,9 +49,11 @@
                     {% if forloop.first %}
                         <ul>
                     {% endif %}
-                <li><a href="{{ container.get_url }}{{ year }}/{{ month_index }}/">
-                    {{ month_name }}
-                </a></li>
+                <li>
+                    <a href="{{ container.get_url }}{{ year }}/{{ month_index }}/">
+                        {{ month_name }}
+                    </a>
+                </li>
                 {% if forloop.last %}
                     </ul>
                 {% endif %}
@@ -61,14 +65,22 @@
             {% endfor %}
             {% if_has_perm "blog.change_blog_posts" container %}
                 <ul>
-                    <li><a href="{{ container.get_url }}new/">{% trans "Add a new blog entry" %}</a></li>
-                    <li><a href="{{ container.get_url }}drafts/">{% trans "Drafts" %}({{ nof_drafts }})</a></li>
+                    <li>
+                        <a href="{{ container.get_url }}new/">{% trans "Add a new blog entry" %}</a>
+                    </li>
+                    <li>
+                        <a href="{{ container.get_url }}drafts/">{% trans "Drafts" %}({{ nof_drafts }})</a>
+                    </li>
                 </ul>
             {% else %}
                 {% if_has_perm object_change_permission container.content_object %}
                     <ul>
-                        <li><a href="{{ container.get_url }}new/">{% trans "Add a new blog entry" %}</a></li>
-                        <li><a href="{{ container.get_url }}drafts/">{% trans "Drafts" %}({{ nof_drafts }})</a></li>
+                        <li>
+                            <a href="{{ container.get_url }}new/">{% trans "Add a new blog entry" %}</a>
+                        </li>
+                        <li>
+                            <a href="{{ container.get_url }}drafts/">{% trans "Drafts" %}({{ nof_drafts }})</a>
+                        </li>
                     </ul>
                 {% end_if_has_perm %}
             {% end_if_has_perm %}
@@ -86,10 +98,13 @@
         <div class="hidable">
             {% tag_cloud_for_blog container as blog_tags %}
             <ul>
-                <li><a href="{{ container.get_url_path }}">{% trans "All" %}</a></li>
+                <li>
+                    <a href="{{ container.get_url_path }}">{% trans "All" %}</a>
+                </li>
                 {% for blog_tag in blog_tags %}
-                    <li{% if tag == blog_tag.name or tag == blog_tag.slug %} class="active"{% endif %}><a
-                        href="{{ container.get_url_path }}tag/{{ blog_tag.slug|iriencode }}/">{{ blog_tag }}</a>
+                    <li{% if tag == blog_tag.name or tag == blog_tag.slug %} class="active"{% endif %}>
+                        <a
+                            href="{{ container.get_url_path }}tag/{{ blog_tag.slug|iriencode }}/">{{ blog_tag }}</a>
                         ({{ blog_tag.count }})
                     </li>
                 {% endfor %}
@@ -139,12 +154,16 @@
     {% ifequal archive "details" %}
         <span class="b-sep"><span>::</span></span>
         <a href="{{ container.get_url }}{{ post.published_from|date:"Y" }}/">{{ post.published_from|date:"Y" }}</a>
-        <span class="b-sep"><span>::</span></span><a href="
+        <span class="b-sep"><span>::</span></span>
+        <a href="
 
-        {{ container.get_url }}{{ post.published_from|date:"Y" }}/{{ post.published_from|date:"m" }}/">{{ post.published_from|date:"m" }} </a>
-        <span class="b-sep"><span>::</span></span><a href="
 
-        {{ container.get_url }}{{ post.published_from|date:"Y" }}/{{ post.published_from|date:"m" }}/{{ post.published_from|date:"d" }}/">{{ post.published_from|date:"d" }}</a>
+            {{ container.get_url }}{{ post.published_from|date:"Y" }}/{{ post.published_from|date:"m" }}/">{{ post.published_from|date:"m" }} </a>
+        <span class="b-sep"><span>::</span></span>
+        <a href="
+
+
+            {{ container.get_url }}{{ post.published_from|date:"Y" }}/{{ post.published_from|date:"m" }}/{{ post.published_from|date:"d" }}/">{{ post.published_from|date:"d" }}</a>
         <span class="b-sep"><span>::</span></span> <span>{{ post.title|truncatewords:"5" }}</span>
     {% endifequal %}
 

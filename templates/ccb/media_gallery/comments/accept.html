@@ -17,11 +17,11 @@
             <div class="buttonHolder">
                 <input type="hidden" name="post_data" value="{{ post_data }}"/>
                 <input type="hidden" name="goto_next"
-                       value="{% if goto_next %}{{ goto_next }}{% else %}/blog/{% endif %}"/>
+                    value="{% if goto_next %}{{ goto_next }}{% else %}/blog/{% endif %}"/>
                 <input id="id_delete" class="primaryAction" type="submit" name="delete"
-                       value="{% filter upper %}{% trans 'Accept' %}{% endfilter %}"/>
+                    value="{% filter upper %}{% trans 'Accept' %}{% endfilter %}"/>
                 <input id="id_cancel" class="secondaryAction" type="submit" name="cancel"
-                       value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
+                    value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
             </div>
         </form>
     </div>

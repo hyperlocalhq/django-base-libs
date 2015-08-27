@@ -24,7 +24,7 @@
                 <input type="hidden" name="goto_next" value="{% ifequal goto_next root_dir %}/dashboard/
                     {% else %}{% if goto_next %}{{ goto_next }}{% else %}/dashboard/{% endif %}{% endifequal %}"/>
                 <input class="facebook_login primaryAction" type="submit"
-                       value="{% filter upper %}{% trans 'Login with Facebook' %}{% endfilter %}"/>
+                    value="{% filter upper %}{% trans 'Login with Facebook' %}{% endfilter %}"/>
             </div>
         </fieldset>
     </form>
@@ -50,7 +50,7 @@
                 <input type="hidden" name="goto_next" value="{% ifequal goto_next root_dir %}/dashboard/
                     {% else %}{% if goto_next %}{{ goto_next }}{% else %}/dashboard/{% endif %}{% endifequal %}"/>
                 <input class="primaryAction" type="submit"
-                       value="{% filter upper %}{% trans 'Log in' %}{% endfilter %}"/>
+                    value="{% filter upper %}{% trans 'Log in' %}{% endfilter %}"/>
             </div>
         </fieldset>
     </form>
@@ -62,7 +62,7 @@
 
             <div class="buttonHolder">
                 <input class="primaryAction" type="button" onclick="window.redirect('/register/')"
-                       value="{% filter upper %}{% trans 'Create Account' %}{% endfilter %}"/>
+                    value="{% filter upper %}{% trans 'Create Account' %}{% endfilter %}"/>
             </div>
         </fieldset>
     </form>

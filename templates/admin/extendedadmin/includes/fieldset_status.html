@@ -40,7 +40,8 @@
                     </ul>
                 {% endif %}
 
-                {% if form.status.help_text %}<p class="grp-help">{{ form.status.help_text }}</p>{% endif %}
+                {% if form.status.help_text %}
+                    <p class="grp-help">{{ form.status.help_text }}</p>{% endif %}
             </div>
         </div>
     </div>
@@ -51,8 +52,9 @@
                     &nbsp;
                 </div>
                 <div class="c-2">
-                    {{ form.is_featured }}<label class="vCheckboxLabel"
-                                                 for="id_is_featured">{{ form.is_featured.label }}</label>
+                    {{ form.is_featured }}
+                    <label class="vCheckboxLabel"
+                        for="id_is_featured">{{ form.is_featured.label }}</label>
                 </div>
             </div>
         </div>
@@ -72,7 +74,8 @@
                         </ul>
                     {% endif %}
 
-                    {% if form.importance.help_text %}<p class="grp-help">{{ form.importance.help_text }}</p>{% endif %}
+                    {% if form.importance.help_text %}
+                        <p class="grp-help">{{ form.importance.help_text }}</p>{% endif %}
                 </div>
             </div>
         </div>

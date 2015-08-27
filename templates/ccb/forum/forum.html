@@ -54,12 +54,14 @@
 
 {% block breadcrumbs %}
     <div class="breadcrumbs">
-        <a href="/">{% trans "Overview" %}</a> |
+        <a href="/">{% trans "Overview" %}</a>
+        |
         <a {% if not current_forum %}class="active_toplevel"{% endif %}
-           href="{{ container.get_url }}">{% trans "Forums" %}</a>
+            href="{{ container.get_url }}">{% trans "Forums" %}</a>
         {% for forum in forum_path %}
-            ::<a {% ifequal current_forum forum %} class="active"{% endifequal %}
-                                                   href="{{ forum.get_url }}">{{ forum.short_title }}</a>
+            ::
+            <a {% ifequal current_forum forum %} class="active"{% endifequal %}
+                href="{{ forum.get_url }}">{{ forum.short_title }}</a>
         {% endfor %}
     </div>
 {% endblock %}    

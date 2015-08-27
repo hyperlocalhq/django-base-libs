@@ -3,13 +3,13 @@
     <h5 class="edit_subline">{% trans "upload a photo" %}</h5>
 
     <form action="/helper/edit-{{ URL_ID_DOCUMENT }}-profile/{{ object.slug }}/avatar/" method="post"
-          enctype="multipart/form-data" target="hidden_iframe" class="uniForm">
+        enctype="multipart/form-data" target="hidden_iframe" class="uniForm">
         <fieldset class="inlineLabels">
             <div class="ctrlHolder">
                 <p class="label">
                     {% if object.media_file %}
                         <img src="{{ UPLOADS_URL }}{{ object.media_file|modified_path:"ap" }}"
-                             alt="{{ object.get_title|escape }}"/>
+                            alt="{{ object.get_title|escape }}"/>
                     {% else %}
                         <img src="{{ DEFAULT_FORM_LOGO_4_DOCUMENT }}" alt="{{ object.get_title|escape }}"/>
                     {% endif %}
@@ -27,7 +27,7 @@
             <div class="buttonHolder">
                 <input type="submit" class="primaryAction" value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
                 <input type="button" class="secondaryAction"
-                       value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel"/>
+                    value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel"/>
             </div>
         </fieldset>
     </form>

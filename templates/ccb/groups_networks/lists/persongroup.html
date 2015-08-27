@@ -7,7 +7,7 @@
             <img alt="{{ person.get_title|escape }}" src="{{ UPLOADS_URL }}{{ persongroup.image|modified_path:"al" }}"/>
         {% else %}
             <img alt="{{ person.get_title|escape }}"
-                 src="{{ STATIC_URL }}site/img/website/placeholder/persongroup_m.png"/>
+                src="{{ STATIC_URL }}site/img/website/placeholder/persongroup_m.png"/>
         {% endif %}
     </a>
 {% endblock %}

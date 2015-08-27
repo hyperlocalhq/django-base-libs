@@ -82,15 +82,16 @@
                 {% with reply.creator.get_profile.image as image %}
                     {% if image %}
                         <img class="left" src="{{ UPLOADS_URL }}{{ image|modified_path:"at" }}"
-                             alt="{{ image.get_title|escape }}"/>
+                            alt="{{ image.get_title|escape }}"/>
                     {% else %}
                         <img class="left" src="{{ STATIC_URL }}site/img/website/placeholder/person_s.png"
-                             alt="{{ comment.name|escape }}"/>
+                            alt="{{ comment.name|escape }}"/>
                     {% endif %}
                 {% endwith %}
                 <div class="reply-info">
                     {% blocktrans with reply.creation_date|datetimefmt as creation_date and reply.creator as creator and reply.creator.get_profile.get_url as url %}
-                        Created on {{ creation_date }}<br/> by <a href="{{ url }}">{{ creator }}</a>
+                        Created on {{ creation_date }}<br/> by
+                        <a href="{{ url }}">{{ creator }}</a>
                     {% endblocktrans %}
                 </div>
             </div>

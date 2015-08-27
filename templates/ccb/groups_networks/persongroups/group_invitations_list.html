@@ -49,13 +49,15 @@
                             {% endif %}
                         </div>
                         <form action="">
-                            <p><select class="page_skip" onchange="append_to_get({page: this.value});">
-                                {% for pnumber in page_numbers %}
-                                    <option value="{{ pnumber }}"{% ifequal pnumber page %}
+                            <p>
+                                <select class="page_skip" onchange="append_to_get({page: this.value});">
+                                    {% for pnumber in page_numbers %}
+                                        <option value="{{ pnumber }}"{% ifequal pnumber page %}
                                             selected="selected"{% endifequal %}>{% blocktrans %}Page {{ pnumber }} of
-                                        {{ pages }}{% endblocktrans %}</option>
-                                {% endfor %}
-                            </select></p>
+                                            {{ pages }}{% endblocktrans %}</option>
+                                    {% endfor %}
+                                </select>
+                            </p>
                         </form>
                         <div class="next">
                             {% if has_next %}
@@ -82,10 +84,11 @@
                     {% endcomment %}
                     <p>
                         <a href="/{{ URL_ID_PERSONGROUPS }}/invitations/my-{{ URL_ID_PERSONGROUPS }}/invitations/?by-status={{ active_status_filter }}"
-                           {% ifequal group_ind "my-groups" %}class="active"{% endifequal %}>{% trans "My Groups" %}</a>
-                        | <a
-                        href="/{{ URL_ID_PERSONGROUPS }}/invitations/other-{{ URL_ID_PERSONGROUPS }}/invitations/?by-status={{ active_status_filter }}"
-                        {% ifequal group_ind "other-groups" %}class="active"{% endifequal %}>{% trans "Other Groups" %}</a>
+                            {% ifequal group_ind "my-groups" %}class="active"{% endifequal %}>{% trans "My Groups" %}</a>
+                        |
+                        <a
+                            href="/{{ URL_ID_PERSONGROUPS }}/invitations/other-{{ URL_ID_PERSONGROUPS }}/invitations/?by-status={{ active_status_filter }}"
+                            {% ifequal group_ind "other-groups" %}class="active"{% endifequal %}>{% trans "Other Groups" %}</a>
 
                         {% comment %}<!--
                         THAT IS NOT YET  IMPLEMENTED
@@ -99,7 +102,7 @@
         <div class="breadcrumbs">
             <span class="left">
                 <a href="/{{ URL_ID_PERSONGROUPS }}/invitations/{{ group_ind }}/invitations/?by-status={{ active_status_filter }}"
-                   {% ifequal active_link "invitations" %}class="active"{% endifequal %}>{% trans "Sent invitations " %}</a>
+                    {% ifequal active_link "invitations" %}class="active"{% endifequal %}>{% trans "Sent invitations " %}</a>
                 | <a
                 href="/{{ URL_ID_PERSONGROUPS }}/invitations/{{ group_ind }}/requests/?by-status={{ active_status_filter }}"
                 {% ifequal active_link "requests" %}class="active"{% endifequal %}>{% trans "Requests to confirm" %}</a>
@@ -111,7 +114,7 @@
                         A LITTLE BIT HACKISH, BUT WORKS AS A QUICK SOLUTION
                     -->{% endcomment %}
                     <a href="{{ request.path }}?by-status=pending"
-                       {% ifequal active_status_filter "pending" %}class="active"{% endifequal %}>{% trans "Pending" %}</a>
+                        {% ifequal active_status_filter "pending" %}class="active"{% endifequal %}>{% trans "Pending" %}</a>
     
                     {% comment %}<!--
                     THE DENIED FILTER IS NOT YET IMPLEMENTED

@@ -20,7 +20,8 @@
                         </ul>
                     {% endif %}
 
-                    {% if form.position.help_text %}<p class="grp-help">{{ form.position.help_text }}</p>{% endif %}
+                    {% if form.position.help_text %}
+                        <p class="grp-help">{{ form.position.help_text }}</p>{% endif %}
                 </div>
             </div>
         </div>
@@ -38,7 +39,8 @@
                         </ul>
                     {% endif %}
 
-                    {% if form.job_type.help_text %}<p class="grp-help">{{ form.job_type.help_text }}</p>{% endif %}
+                    {% if form.job_type.help_text %}
+                        <p class="grp-help">{{ form.job_type.help_text }}</p>{% endif %}
                 </div>
             </div>
         </div>
@@ -98,8 +100,9 @@
                     &nbsp;
                 </div>
                 <div class="c-2">
-                    {{ form.is_commercial }}<label class="vCheckboxLabel"
-                                                   for="id_is_commercial">{{ form.is_commercial.label }}</label>
+                    {{ form.is_commercial }}
+                    <label class="vCheckboxLabel"
+                        for="id_is_commercial">{{ form.is_commercial.label }}</label>
                 </div>
             </div>
         </div>
@@ -109,8 +112,9 @@
                     &nbsp;
                 </div>
                 <div class="c-2">
-                    {{ form.talent_in_berlin }}<label class="vCheckboxLabel"
-                                                      for="id_talent_in_berlin">{{ form.talent_in_berlin.label }}</label>
+                    {{ form.talent_in_berlin }}
+                    <label class="vCheckboxLabel"
+                        for="id_talent_in_berlin">{{ form.talent_in_berlin.label }}</label>
                 </div>
             </div>
         </div>

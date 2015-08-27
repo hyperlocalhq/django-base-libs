@@ -4,7 +4,7 @@
 {% block extrahead %}
     {{ block.super }}
     <link rel="alternate" type="application/rss+xml" title="{% trans "Creative City Berlin News" %}"
-          href="/{{ LANGUAGE_CODE }}/news/feeds/rss/"/>
+        href="/{{ LANGUAGE_CODE }}/news/feeds/rss/"/>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
 {% endblock %}
 
@@ -40,7 +40,9 @@
             {% for year, month_list in archives %}
                 {% if forloop.first %}
                     <ul>
-                    <li><a href="/news/">{% trans "All" %}</a></li>
+                    <li>
+                        <a href="/news/">{% trans "All" %}</a>
+                    </li>
                 {% endif %}
             <li>
                 <a href="/news/{{ year }}/">{{ year }}</a>
@@ -48,9 +50,11 @@
                     {% if forloop.first %}
                         <ul>
                     {% endif %}
-                <li><a href="/news/{{ year }}/{{ month_index }}/">
-                    {{ month_name }}
-                </a></li>
+                <li>
+                    <a href="/news/{{ year }}/{{ month_index }}/">
+                        {{ month_name }}
+                    </a>
+                </li>
                 {% if forloop.last %}
                     </ul>
                 {% endif %}
@@ -75,7 +79,9 @@
             {% for cs in creative_sectors %}
                 {% if forloop.first %}
                     <ul>
-                    <li><a href="/news/">{% trans "All" %}</a></li>
+                    <li>
+                        <a href="/news/">{% trans "All" %}</a>
+                    </li>
                 {% endif %}
             <li>
                 <a href="/news/creative-sector/{{ cs.slug }}/">{{ cs.get_title }}</a>

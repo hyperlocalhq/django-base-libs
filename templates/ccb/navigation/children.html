@@ -4,6 +4,7 @@
         {% if link.is_group %}
             <li class="nav_group navi_{{ link.sysname }}_
 
+
                 {{ LANGUAGE_CODE }}{% if not forloop.counter0 %} first_item{% endif %}{% if link.is_promoted %} promoted{% endif %}{% if link.is_login_required %} login-required{% endif %}">
                 {% if link.is_group_name_shown %}{% if link.link_url %}
                     <a href="{% parse_link link %}" title="{{ link.get_description|striptags }}">{% endif %}
@@ -15,9 +16,11 @@
                             {% activeness child as is_active %}
                             <li class="navi_{{ child.sysname }}_
 
+
                                 {{ LANGUAGE_CODE }}{% if child.is_promoted %} promoted{% endif %}{% if child.is_login_required %} login-required{% endif %}{% if is_active %} active{% endif %}">
                                 <a href="{{ url }}"{% if is_active %} class="active"{% endif %}
-                                   title="{{ child.get_description|striptags }}"><span>{{ child.get_title|escape }}</span></a>
+                                    title="{{ child.get_description|striptags }}">
+                                    <span>{{ child.get_title|escape }}</span></a>
                             </li>
                         {% endif %}
                     {% endfor %}
@@ -30,10 +33,11 @@
                 <li class="navi_{{ link.sysname }}_
 
 
+
                     {{ LANGUAGE_CODE }}{% if link.is_promoted %} promoted{% endif %}{% if link.is_login_required %} login-required{% endif %}{% if is_active %} active{% endif %}">
                     <a href="{{ url }}"{% if is_active %}
-                       class="active"{% endif %}
-                       title="{{ link.get_description|striptags }}">
+                        class="active"{% endif %}
+                        title="{{ link.get_description|striptags }}">
                         <span>{{ link.get_title|escape }}</span>
                     </a>
                 </li>

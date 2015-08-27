@@ -40,14 +40,16 @@
                             {% endif %}
                         </div>
                         <form action="" class="uniForm">
-                            <div><select class="page_skip"
-                                         onchange="redirect('/my-messages/{{ box }}/?page=' + this.value);">
-                                {% for pnumber in page_numbers %}
-                                    <option value="{{ pnumber }}"{% ifequal pnumber page %}
+                            <div>
+                                <select class="page_skip"
+                                    onchange="redirect('/my-messages/{{ box }}/?page=' + this.value);">
+                                    {% for pnumber in page_numbers %}
+                                        <option value="{{ pnumber }}"{% ifequal pnumber page %}
                                             selected="selected"{% endifequal %}>{% blocktrans %}Page {{ pnumber }} of
-                                        {{ pages }}{% endblocktrans %}</option>
-                                {% endfor %}
-                            </select></div>
+                                            {{ pages }}{% endblocktrans %}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
                         </form>
                         <div class="next">
                             {% if has_next %}
@@ -115,9 +117,9 @@
                         <div class="ask_sure_txt">{% trans "Are you sure?" %}</div>
                         <div class="buttons">
                             <input id="id_ask_sure_no" type="button" class="button_bad"
-                                   value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
+                                value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
                             <input id="id_ask_sure_yes" type="button" class="button_good"
-                                   value="{% filter upper %}{% trans "Yes" %}{% endfilter %}"/>
+                                value="{% filter upper %}{% trans "Yes" %}{% endfilter %}"/>
                         </div>
                     </div>
                 </div>
@@ -132,7 +134,8 @@
                     <div id="message_{{ message.id }}" class="list-item expanded">
                         <div class="message-statusbox">
                             <input id="action_{{ message.id }}"
-                                   type="checkbox"/>{{ contact.institution.get_title|escape }}
+                                type="checkbox"/>
+                            {{ contact.institution.get_title|escape }}
                             <div class="status-view">
                                 {% if message.is_replied %}
                                     <div class="message-status replied"><span
@@ -161,10 +164,11 @@
                                     {% if message.recipient.get_profile.image %}
                                         <img alt="{{ message.recipient.get_profile.get_title|escape }}" src="
 
+
                                             {{ UPLOADS_URL }}{{ message.recipient.get_profile.image|modified_path:"at" }}"/>
                                     {% else %}
                                         <img alt="{{ person.get_title|escape }}"
-                                             src="{{ DEFAULT_SMALL_LOGO_4_PERSON }}"/>
+                                            src="{{ DEFAULT_SMALL_LOGO_4_PERSON }}"/>
                                     {% endif %}
                                 </a>
                             {% else %}
@@ -172,10 +176,11 @@
                                     {% if message.sender.get_profile.image %}
                                         <img alt="{{ message.sender.get_profile.get_title|escape }}" src="
 
+
                                             {{ UPLOADS_URL }}{{ message.sender.get_profile.image|modified_path:"at" }}"/>
                                     {% else %}
                                         <img alt="{{ message.sender.get_profile.get_title|escape }}"
-                                             src="{{ DEFAULT_SMALL_LOGO_4_PERSON }}"/>
+                                            src="{{ DEFAULT_SMALL_LOGO_4_PERSON }}"/>
                                     {% endif %}
                                 </a>
                             {% endifequal %}
@@ -190,7 +195,7 @@
                                 {{ contact.institution.get_title|escape }}
                             {% else %}
                                 <a class="org"
-                                   href="{{ contact.institution.get_url_path }}">{{ contact.institution.get_title|escape }}</a>
+                                    href="{{ contact.institution.get_url_path }}">{{ contact.institution.get_title|escape }}</a>
                             {% endifequal %}
                         {% endif %}
 
@@ -250,7 +255,9 @@
                             </div>
                         {% endifequal %}
                         <div class="{% if message.is_read %} read{% else %} unread{% endif %}">
-                            <h5><a href="/my-messages/message/{{ message.id }}/">{{ message.subject }}</a></h5>
+                            <h5>
+                                <a href="/my-messages/message/{{ message.id }}/">{{ message.subject }}</a>
+                            </h5>
                         </div>
                     </div>
                     <hr class="hidden"/>
@@ -279,14 +286,16 @@
                             {% endif %}
                         </div>
                         <form action="" class="uniForm">
-                            <div><select class="page_skip"
-                                         onchange="redirect('/my-messages/{{ box }}/?page=' + this.value);">
-                                {% for pnumber in page_numbers %}
-                                    <option value="{{ pnumber }}"{% ifequal pnumber page %}
+                            <div>
+                                <select class="page_skip"
+                                    onchange="redirect('/my-messages/{{ box }}/?page=' + this.value);">
+                                    {% for pnumber in page_numbers %}
+                                        <option value="{{ pnumber }}"{% ifequal pnumber page %}
                                             selected="selected"{% endifequal %}>{% blocktrans %}Page {{ pnumber }} of
-                                        {{ pages }}{% endblocktrans %}</option>
-                                {% endfor %}
-                            </select></div>
+                                            {{ pages }}{% endblocktrans %}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
                         </form>
                         <div class="next">
                             {% if has_next %}
@@ -311,16 +320,18 @@
 
                 <form action="" class="uniForm">
                     <div>
-                        {% trans "show" %}<select id="id_list_pagination" class="page_count">
-                        <option value="5"{% ifequal results_per_page 5 %} selected="selected"{% endifequal %} >5
-                        </option>
-                        <option value="10"{% ifequal results_per_page 10 %} selected="selected"{% endifequal %} >10
-                        </option>
-                        <option value="20"{% ifequal results_per_page 20 %} selected="selected"{% endifequal %}>20
-                        </option>
-                        <option value="50"{% ifequal results_per_page 50 %} selected="selected"{% endifequal %}>50
-                        </option>
-                    </select>{% trans "items per page" %}
+                        {% trans "show" %}
+                        <select id="id_list_pagination" class="page_count">
+                            <option value="5"{% ifequal results_per_page 5 %} selected="selected"{% endifequal %} >5
+                            </option>
+                            <option value="10"{% ifequal results_per_page 10 %} selected="selected"{% endifequal %} >10
+                            </option>
+                            <option value="20"{% ifequal results_per_page 20 %} selected="selected"{% endifequal %}>20
+                            </option>
+                            <option value="50"{% ifequal results_per_page 50 %} selected="selected"{% endifequal %}>50
+                            </option>
+                        </select>
+                        {% trans "items per page" %}
                     </div>
                 </form>
             </div>

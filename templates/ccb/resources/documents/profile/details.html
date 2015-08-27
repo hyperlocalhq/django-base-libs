@@ -5,7 +5,8 @@
 
     <dl>
         <dt>{% trans "website" %}</dt>
-        <dd><a href="{{ object.url_link|escape }}" onclick="open_new_window(event)">{{ object.url_link }}</a>
+        <dd>
+            <a href="{{ object.url_link|escape }}" onclick="open_new_window(event)">{{ object.url_link }}</a>
         </dd>
     </dl>
 
@@ -26,7 +27,9 @@
     {% if object.document_file %}
         <dl>
             <dt>{% trans "file" %}</dt>
-            <dd><a href="{{ UPLOADS_URL }}{{ object.document_file }}">{% trans "Download" %}</a></dd>
+            <dd>
+                <a href="{{ UPLOADS_URL }}{{ object.document_file }}">{% trans "Download" %}</a>
+            </dd>
         </dl>
     {% endif %}
 
@@ -35,7 +38,8 @@
             <dl>{% endif %}
     <dt class="title">{% trans "authors" %}</dt>
     {% for author in object.get_authors %}
-        <dd class="author"><a href="{{ author.get_url_path }}">{{ author.get_title|escape }}</a>
+        <dd class="author">
+            <a href="{{ author.get_url_path }}">{{ author.get_title|escape }}</a>
         {% if forloop.last %}</dl>{% else %},</dd> {% endif %}
     {% endfor %}
     {% endif %}

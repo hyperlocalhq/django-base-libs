@@ -31,7 +31,7 @@
     {% else %}
         <li>
             <a href="/login/?goto_next={{ request.path }}"
-               title="{% trans "interesting" %}">{% trans "interesting" %}</a>
+                title="{% trans "interesting" %}">{% trans "interesting" %}</a>
             (<span class="review_rating_count">{{ review.rating2|default:"0" }}</span>)
         </li>
     {% endif %}
@@ -48,7 +48,7 @@
     {% else %}
         <li>
             <a href="/login/?goto_next={{ request.path }}"
-               title="{% trans "inappropriate" %}">{% trans "inappropriate" %}</a>
+                title="{% trans "inappropriate" %}">{% trans "inappropriate" %}</a>
             (<span class="review_rating_count">{{ review.rating3|default:"0" }}</span>)
         </li>
     {% endif %}

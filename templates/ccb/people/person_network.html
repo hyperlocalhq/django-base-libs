@@ -14,12 +14,12 @@
                             {% with contact_person.to_user.get_profile as person %}
                                 {% if person.image %}
                                     <img class="left"
-                                         src="{{ UPLOADS_URL }}{{ person.image|modified_path:"at" }}"
-                                         alt="{{ person.get_title|escape }}"/>
+                                        src="{{ UPLOADS_URL }}{{ person.image|modified_path:"at" }}"
+                                        alt="{{ person.get_title|escape }}"/>
                                 {% else %}
                                     <img class="left"
-                                         alt="{{ person.get_title|escape }}"
-                                         src="{{ STATIC_URL }}site/img/website/placeholder/person_s.png"/>
+                                        alt="{{ person.get_title|escape }}"
+                                        src="{{ STATIC_URL }}site/img/website/placeholder/person_s.png"/>
                                 {% endif %}
                                 <h6>
                                     {{ person.get_title|escape }}
@@ -43,7 +43,7 @@
                                 <img class="left" src="{{ group.image }}" alt="{{ group.get_title|escape }}"/>
                             {% else %}
                                 <img class="left" alt="{{ group.get_title|escape }}"
-                                     src="{{ STATIC_URL }}site/img/website/placeholder/group_sml.png"/>
+                                    src="{{ STATIC_URL }}site/img/website/placeholder/group_sml.png"/>
                             {% endif %}
 
                             <h6>
@@ -65,17 +65,19 @@
                 </div>
             </div>
             <div class="column_02">
-                <div class="subline"><h6>{% trans "Institutional Contacts" %}</h6></div>
+                <div class="subline">
+                    <h6>{% trans "Institutional Contacts" %}</h6>
+                </div>
                 <div class="network-content">
                     {% for contact_institution in object.get_institutions|slice:":3" %}
                         <div class="{% if not forloop.last %}not_{% endif %}last">
                             {% with contact_institution as institution %}
                                 {% if institution.image %}
                                     <img class="left" src="{{ UPLOADS_URL }}{{ institution.image|modified_path:"at" }}"
-                                         alt="{{ institution.get_title|escape }}"/>
+                                        alt="{{ institution.get_title|escape }}"/>
                                 {% else %}
                                     <img class="left" alt="{{ institution.get_title|escape }}"
-                                         src="{{ STATIC_URL }}site/img/website/placeholder/inst_sml.png"/>
+                                        src="{{ STATIC_URL }}site/img/website/placeholder/inst_sml.png"/>
                                 {% endif %}
 
                                 <h6>
@@ -95,7 +97,7 @@
                     {% endfor %}
                     <div class="cleaner"></div>
                     <a class="more"
-                       href="{{ request.path }}{{ URL_ID_INSTITUTION }}_contacts/">{% trans "more..." %}</a>
+                        href="{{ request.path }}{{ URL_ID_INSTITUTION }}_contacts/">{% trans "more..." %}</a>
                 </div>
 
                 <h6 class="subline">{% trans "Current Cooperations" %}</h6>
