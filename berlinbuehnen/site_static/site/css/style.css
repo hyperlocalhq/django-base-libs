@@ -1749,9 +1749,17 @@ select { visibility: hidden; }
 .details .main dl.listing p { display: inline; padding-right: 5px; }
 .details .additional .sponsor-content { margin-right: -35px; }
 .details .additional .sponsor-content .sponsor { display: inline-block; margin: 15px 35px 0 0; }
+.details .additional .multipart { margin-top: 10px; margin-bottom: 25px; }
+.details .additional .multipart:last-child { margin-bottom: 0; }
+.details .additional .multipart h1 { font-weight: 200; text-transform: uppercase; margin-bottom: 10px; }
+.details .additional .multipart dl { margin-top: 0; }
 .details .left { padding-left: 10px; padding-right: 10px; margin-bottom: 15px; }
 .details .left .top-image { width: 100%; margin-bottom: 24px; }
 .details .left .top-image img { width: 100%; }
+.details .left .multipart { margin-top: 50px; }
+.details .left .multipart .multipart-header { margin-bottom: 16px; }
+.details .left .multipart h1 { font-weight: 200; text-transform: uppercase; margin-bottom: 5px; }
+.details .left .multipart h2 { font-weight: 400; font-size: 1.125em; margin-bottom: 5px; }
 .details .right { padding-left: 10px; padding-right: 10px; margin-bottom: 15px; }
 .details .full { margin-top: 15px; padding-left: 0; padding-right: 0; }
 .details dl dt { display: inline; float: none; }

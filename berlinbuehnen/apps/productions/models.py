@@ -323,7 +323,40 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
         return self.event_set.filter(start_date__gt=timestamp.date())
         
     def get_categories(self):
-        return self.categories.all()
+    
+        categories = []
+        parent_categories = self.categories.all()
+        multiparts = self.get_multiparts()
+        
+        if multiparts:
+            for cat in parent_categories:
+                categories.append(cat)
+            for part in multiparts:
+                found_main = -1
+                for cat in part.production.categories.all():
+                
+                    if cat.level == 0:
+                        found_main = -1
+                        
+                    found_index = -1
+                    for index, category in enumerate(categories):
+                        if category.pk == cat.pk:
+                            found_index = index
+                            break
+                            
+                    if found_index == -1:
+                        if found_main >= 0:
+                            categories.insert(found_main+1, cat)
+                        else:
+                            categories.append(cat)
+                    else:
+                        if cat.level == 0:
+                            found_main = found_index
+        
+        else:
+            categories = parent_categories
+        
+        return categories
 
     def get_import_source(self):
         ObjectMapper = models.get_model("external_services", "ObjectMapper")
@@ -345,6 +378,86 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
                 self._first_image_cache = qs[0]
         return self._first_image_cache
     first_image = property(_get_first_image)
+    
+    def is_multipart(self):
+        try:
+            return self.multipart
+        except:
+            return None
+            
+    def get_multiparts(self):
+        try:
+            return self.multipart.part_set.all()
+        except:
+            return None
+            
+
+
+    def has_multiparts_leaderships(self):
+        multiparts = self.get_multiparts()
+        if multiparts:
+            for part in multiparts:
+                if part.production.get_leaderships().exists():
+                    return True
+            return False
+        else:
+            return False
+            
+    def get_leaderships(self):
+        return self.productionleadership_set.all().order_by('sort_order')
+
+    def has_multiparts_involvements(self):
+        multiparts = self.get_multiparts()
+        if multiparts:
+            for part in multiparts:
+                if part.production.get_involvements().exists():
+                    return True
+            return False
+        else:
+            return False
+        
+    def get_involvements(self):
+        return self.productioninvolvement_set.all().order_by('sort_order')
+
+    def has_multiparts_authorships(self):
+        multiparts = self.get_multiparts()
+        if multiparts:
+            for part in multiparts:
+                if part.production.get_authorships().exists():
+                    return True
+            return False
+        else:
+            return False
+        
+    def get_authorships(self):
+        return self.productionauthorship_set.all().order_by('sort_order')
+
+    def has_multiparts_videos(self):
+        multiparts = self.get_multiparts()
+        if multiparts:
+            for part in multiparts:
+                if part.production.get_videos().exists():
+                    return True
+            return False
+        else:
+            return False
+        
+    def get_videos(self):
+        return self.productionvideo_set.all()
+
+    def has_multiparts_images(self):
+        multiparts = self.get_multiparts()
+        if multiparts:
+            for part in multiparts:
+                if part.production.get_images().exists():
+                    return True
+            return False
+        else:
+            return False
+
+    def get_images(self):
+        return self.productionimage_set.all()
+            
 
 class ProductionSocialMediaChannel(models.Model):
     production = models.ForeignKey(Production)
@@ -827,6 +940,7 @@ class Event(CreationModificationMixin, UrlMixin):
         
     def is_canceled(self):
         return self.event_status == 'canceled'
+            
 
 class EventSocialMediaChannel(models.Model):
     event = models.ForeignKey(Event)
