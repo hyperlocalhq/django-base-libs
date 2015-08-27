@@ -1,4 +1,4 @@
-ccb is based on python2.6, Django 1.3.1, and jetson 3.1.6.
+Creative City Berlin (ccb) is based on python2.7
 
-Requirements:
-twython >= 2.10.1
+To install requirements to virtual environment run:
+pip install -r requirements.txt
