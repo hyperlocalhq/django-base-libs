@@ -53,7 +53,7 @@ def _institution_list_filter(request, queryset, show):
     elif show == "own-%s" % URL_ID_INSTITUTIONS:
         if not request.user.is_authenticated():
             raise AccessDenied
-        from jetson.apps.groups_networks.models import PersonGroup
+        from ccb.apps.groups_networks.models import PersonGroup
 
         ct = ContentType.objects.get_for_model(queryset.model)
         owned_inst_ids = [
