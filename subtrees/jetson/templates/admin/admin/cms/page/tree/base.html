@@ -1,17 +1,18 @@
 {% extends "admin/change_list.html" %}
-{% load i18n admin_static admin_list cms_admin cms_js_tags %}
+{% load i18n admin_static admin_list cms_admin cms_js_tags grp_tags tree_admin_list %}
 
 {% block title %}{% trans "List of pages" %}{% endblock %}
-{% block bodyclass %}change-list{% endblock %}
+{% block bodyclass %}grp-change-list{% endblock %}
 
 {% if not is_popup %}{% block breadcrumbs %}
-<div class="breadcrumbs">
-	<a href="../../">{% trans "Home" %}</a> &rsaquo;
-	<a href="../">{{ app_label|capfirst|escape }}</a> &rsaquo; {{ opts.verbose_name_plural|capfirst|escape }}
-	{% if request.REQUEST.q %}
-	&rsaquo; {% trans "Search" %}
-	{% endif %}
-</div>
+    <ul class="grp-horizontal-list">
+        <li><a href="../../">{% trans "Home" %}</a></li>
+        <li><a href="../">{% trans app_label|capfirst|escape %}</a></li>
+        <li>{{ opts.verbose_name_plural|capfirst|escape }}</li>
+        {% if request.REQUEST.q %}
+            <li>{% trans "Search" %}</li>
+        {% endif %}
+    </ul>
 {% endblock %}{% endif %}
 
 {% block coltype %}flex{% endblock %}
@@ -23,6 +24,12 @@
 {% if cl.is_filtered %}
 <link rel="stylesheet" href="{% static "cms/js/jstree/themes/default/style.css" %}" type="text/css" />
 {% endif %}
+<style>
+    p.sitemap-noentry {
+        text-align: center;
+        padding-bottom: 16px;
+    }
+</style>
 {% endblock extrastyle %}
 
 {% block extrahead %}
@@ -63,64 +70,113 @@ $(document).ready(function () {
 {% endblock extrahead %}
 
 {% block object-tools %}
-
-	<ul class="object-tools">
+	<ul class="grp-object-tools">
 		{% if has_recover_permission %}
 			<li><a href="recover/" class="recoverlink">{% blocktrans with cl.opts.verbose_name_plural|escape as name %}Recover deleted {{name}}{% endblocktrans %}</a></li>
 		{% endif %}
 		{% if has_add_permission %}
-		<li><a href="add/{% if is_popup %}?_popup=1{% endif %}" class="addlink">{% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}</a></li>
+		<li><a href="add/{% if is_popup %}?_popup=1{% endif %}" class="grp-add-link">{% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}</a></li>
 		{% endif %}
 	</ul>
-
-	<div id="loader-message">{% trans "Loading..." %}</div>
-
 {% endblock %}
 
 {% block content %}
+	<div id="loader-message">{% trans "Loading..." %}</div>
 
-<div id="content-main"{% if cl.is_filtered %} class="activ-filter"{% endif %}>
+    <div id="content-main"{% if cl.is_filtered %} class="activ-filter"{% endif %}>
 
-<div class="module{% if cl.has_filters %} filtered{% endif %}" id="changelist">
-{% block search %}
+        <div class="grp-module{% if cl.has_filters %} filtered{% endif %}" id="changelist">
+            <div class="grp-row">
+                <div class="l-2cr-fluid {% if cl.has_filters and cl.search_fields %}l-d-12{% else %}{% if cl.has_filters or cl.search_fields %}l-d-6{% endif %}{% endif %}">
+                    <aside class="c-1">
+                        <header style="display:none"><h1>{% if cl.search_fields %}Search{% if cl.has_filters %} &amp; {% endif %}{% endif %}{% if cl.has_filters %}Filters{% endif %}</h1></header>
+                        <!-- SEARCH -->
+                        {% if cl.search_fields %}
+                            {% block search %}
+                                <div id="search" class="g-d-6 g-d-f">
+                                    {% comment %}
+                                    <form action="." method="post">
+                                        {% if cl.has_access_to_multiple_sites %}
+                                            <div id="site-selector">{% trans "Pages on:" %}
+                                                <select id="site-select" name="site__exact">
+                                                    {% for site in cl.sites %}
+                                                    <option {% ifequal site.pk cl.current_site.pk %}selected {% endifequal %}value="{{ site.pk }}">{{ site.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                                <input type="hidden" id="site-copy" name="copy" />
+                                                {% csrf_token %}
+                                            </div>
+                                        {% else %}
+                                            <input type="hidden" id="site-select" value="{{ cl.sites.0.pk }}">
+                                        {% endif %}
+                                    </form>
+                                    {% endcomment %}
+                                    {% search_form cl %}
+                                </div>
+                            {% endblock %}
+                        {% endif %}
 
-<form action="." method="post">
-{% if cl.has_access_to_multiple_sites %}
-	<div id="site-selector">{% trans "Pages on:" %}
-		<select id="site-select" name="site__exact">
-			{% for site in cl.sites %}
-			<option {% ifequal site.pk cl.current_site.pk %}selected {% endifequal %}value="{{ site.pk }}">{{ site.name }}</option>
-			{% endfor %}
-		</select>
-		<input type="hidden" id="site-copy" name="copy" />
-		{% csrf_token %}
-	</div>
-{% else %}
-	<input type="hidden" id="site-select" value="{{ cl.sites.0.pk }}">
-{% endif %}
-</form>
+                        <!-- FILTERS -->
+                        {% block filters %}
+                            {% if cl.has_filters %}
+                                <div id="grp-filters" class="g-d-6 g-d-l">
+                                    <div class="grp-filter">
+                                        <div class="grp-pulldown-container">
+                                            <a href="javascript://" class="grp-button grp-pulldown-handler">{% trans 'Filter' %}</a>
+                                            <div class="grp-pulldown-content" style="display: none;">
 
-{% search_form cl %}
-{% endblock %}
-{% block date_hierarchy %}{% date_hierarchy cl %}{% endblock %}
+                                                {% if cl.has_access_to_multiple_sites %}
+                                                    <div class="grp-module">
+                                                        <div class="grp-row">
+                                                            <label>{% trans "Pages on:" %}</label>
+                                                            <select class="grp-filter-choice" name="site__exact">
+                                                                {% for site in cl.sites %}
+                                                                    <option{% ifequal site.pk cl.current_site.pk %} selected{% endifequal %} value="?site__exact={{ site.pk }}">{{ site.name }}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                            <input type="hidden" id="site-copy" name="copy" />
+                                                        </div>
+                                                    </div>
+                                                {% else %}
+                                                    <input type="hidden" id="site-select" value="{{ cl.sites.0.pk }}">
+                                                {% endif %}
 
-{% block filters %}
-{% if cl.has_filters %}
-<a href="#" id="changelist-filter-button">{% trans "Filter:" %} {% if cl.is_filtered %}{% trans "on" %}{% else %}{% trans "off" %}{% endif %}</a>
-<div id="changelist-filter" style="display:none;">
-<h2>{% trans 'Filter' %}</h2>
-{% for spec in cl.filter_specs %}
-	{% clean_admin_list_filter cl spec %}
-{% endfor %}
-</div>
-{% endif %}
-{% endblock %}
+                                                {% for spec in cl.filter_specs %}
+                                                    {% if spec.is_hierarchical %}
+                                                        {% tree_admin_list_filter cl spec %}
+                                                    {% else %}
+                                                        {% admin_list_filter cl spec %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% comment %}
+                                <a href="#" id="changelist-filter-button">{% trans "Filter:" %} {% if cl.is_filtered %}{% trans "on" %}{% else %}{% trans "off" %}{% endif %}</a>
+                                <div id="changelist-filter" style="display:none;">
+                                    <h2>{% trans 'Filter' %}</h2>
+                                    {% for spec in cl.filter_specs %}
+                                        {% clean_admin_list_filter cl spec %}
+                                    {% endfor %}
+                                </div>
+                                {% endcomment %}
+                            {% endif %}
+                        {% endblock %}
 
-{% include "admin/cms/page/tree/base_header.html" %}
+                    </aside>
+                </div>
+            </div>
 
-</div>
-</div>
+            {% block date_hierarchy %}{% date_hierarchy cl %}{% endblock %}
+        </div>
+        <div class="grp-module">
 
-<div id="dialogs"></div>
+            {% include "admin/cms/page/tree/base_header.html" %}
+
+        </div>
+    </div>
+
+    <div id="dialogs"></div>
 
 {% endblock %}
