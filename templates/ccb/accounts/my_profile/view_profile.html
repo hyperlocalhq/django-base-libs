@@ -61,11 +61,12 @@
             {% if object.content_object.birthday_dd %}{% if object.content_object.birthday_mm %}
                 <dt>{% trans "Date of birth" %} </dt>
                 <dd>
-                    <span
-                    class="output">{{ object.content_object.birthday_dd }}.{{ object.content_object.get_birthday_mm_display }}
-                    {% if object.content_object.birthday_yyyy %}.
-                        {{ object.content_object.birthday_yyyy }}
-                    {% endif %}</span>
+                    <span class="output">
+                        {{ object.content_object.birthday_dd }}.{{ object.content_object.get_birthday_mm_display }}
+                        {% if object.content_object.birthday_yyyy %}.
+                            {{ object.content_object.birthday_yyyy }}
+                        {% endif %}
+                    </span>
                 </dd>
             {% endif %}{% endif %}
             {% if object.content_object.occupation %}

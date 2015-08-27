@@ -5,17 +5,19 @@
         <div id="media_file_editing">
             {{ form.non_field_errors }}
             <div id="upload_media_file">
-                <fieldset><legend>
-                    {% ifequal media_file_type "image" %}
-                        {% trans "Upload Image" %}
-                    {% endifequal %}
-                    {% ifequal media_file_type "audio" %}
-                        {% trans "Upload Audio" %}
-                    {% endifequal %}
-                    {% ifequal media_file_type "video" %}
-                        {% trans "Upload Video" %}
-                    {% endifequal %}
-                </legend></fieldset>
+                <fieldset>
+                    <legend>
+                        {% ifequal media_file_type "image" %}
+                            {% trans "Upload Image" %}
+                        {% endifequal %}
+                        {% ifequal media_file_type "audio" %}
+                            {% trans "Upload Audio" %}
+                        {% endifequal %}
+                        {% ifequal media_file_type "video" %}
+                            {% trans "Upload Video" %}
+                        {% endifequal %}
+                    </legend>
+                </fieldset>
                 <ul>
                     <li class="preview_img">
                         {% if media_file.get_preview_representation %}
@@ -44,17 +46,19 @@
                 </ul>
             </div>
             <div id="link_to_media_file" class="to_hide">
-                <fieldset><legend>
-                    {% ifequal media_file_type "image" %}
-                        {% trans "Link to External Image" %}
-                    {% endifequal %}
-                    {% ifequal media_file_type "audio" %}
-                        {% trans "Link to External Audio" %}
-                    {% endifequal %}
-                    {% ifequal media_file_type "video" %}
-                        {% trans "Link to External Video" %}
-                    {% endifequal %}
-                </legend></fieldset>
+                <fieldset>
+                    <legend>
+                        {% ifequal media_file_type "image" %}
+                            {% trans "Link to External Image" %}
+                        {% endifequal %}
+                        {% ifequal media_file_type "audio" %}
+                            {% trans "Link to External Audio" %}
+                        {% endifequal %}
+                        {% ifequal media_file_type "video" %}
+                            {% trans "Link to External Video" %}
+                        {% endifequal %}
+                    </legend>
+                </fieldset>
                 <ul>
                     <li class="preview_img">
                         {% if media_file.get_preview_representation %}
