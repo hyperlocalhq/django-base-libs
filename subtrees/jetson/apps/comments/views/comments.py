@@ -30,8 +30,10 @@ from jetson.apps.comments.models import Comment, ModeratorDeletionReason, Modera
 from jetson.apps.comments.models import RATINGS_REQUIRED, RATINGS_OPTIONAL, IS_PUBLIC
 
 COMMENTS_PER_PAGE = getattr(settings, "COMMENTS_PER_PAGE", 20)
-
 COMMENT_DELETION_REASON_CHOICES = XChoiceList(get_related_queryset(ModeratorDeletion, 'deletion_reason'))
+COMMENTS_FIRST_FEW = getattr(settings, "COMMENTS_FIRST_FEW", 0)
+COMMENTS_SKETCHY_USERS_GROUP = getattr(settings, "COMMENTS_SKETCHY_USERS_GROUP", "")
+COMMENTS_BANNED_USERS_GROUP = getattr(settings, "COMMENTS_BANNED_USERS_GROUP", "")
 
 class PublicCommentForm(dynamicforms.Form):
     """
@@ -288,12 +290,12 @@ class PublicCommentForm(dynamicforms.Form):
         # If the commentor has posted fewer than COMMENTS_FIRST_FEW comments,
         # send the comment to the managers.
         if self.user and self.user.is_authenticated():
-            if self.user_cache.comment_set.count() <= settings.COMMENTS_FIRST_FEW:
+            if self.user_cache.comment_set.count() <= COMMENTS_FIRST_FEW:
                 message = ngettext('This comment was posted by a user who has posted fewer than %(count)s comment:\n\n%(text)s',
-                    'This comment was posted by a user who has posted fewer than %(count)s comments:\n\n%(text)s', settings.COMMENTS_FIRST_FEW) % \
-                    {'count': settings.COMMENTS_FIRST_FEW, 'text': c.get_as_text()}
+                    'This comment was posted by a user who has posted fewer than %(count)s comments:\n\n%(text)s', COMMENTS_FIRST_FEW) % \
+                    {'count': COMMENTS_FIRST_FEW, 'text': c.get_as_text()}
                 mail_managers("Comment posted by rookie user", message)
-        if settings.COMMENTS_SKETCHY_USERS_GROUP and settings.COMMENTS_SKETCHY_USERS_GROUP in [g.id for g in self.user_cache.get_group_list()]:
+        if COMMENTS_SKETCHY_USERS_GROUP and COMMENTS_SKETCHY_USERS_GROUP in [g.id for g in self.user_cache.get_group_list()]:
             message = _('This comment was posted by a sketchy user:\n\n%(text)s') % {'text': c.get_as_text()}
             mail_managers("Comment posted by sketchy user (%s)" % self.user_cache.username, c.get_as_text())
         return c
@@ -435,7 +437,7 @@ def post_comment(
         if 'post' in request.POST:
             # If the IP is banned, mail the admins, do NOT save the comment, and
             # serve up the "Thanks for posting" page as if the comment WAS posted.
-            if request.META['REMOTE_ADDR'] in settings.BANNED_IPS:
+            if request.META['REMOTE_ADDR'] in getattr(settings, "BANNED_IPS", []):
                 mail_admins("Banned IP attempted to post comment", unicode(request.POST) + "\n\n" + unicode(request.META))
             else:
                 comment = form.save()
@@ -499,7 +501,7 @@ def get_comments(content_type_id, object_id, sort_order = "", extra_kwargs=None)
     if extra_kwargs:
         kwargs.update(extra_kwargs)
     if getattr(settings, 'COMMENTS_BANNED_USERS_GROUP', ''):
-        kwargs['select'] = {'is_hidden': 'user_id IN (SELECT user_id FROM auth_user_groups WHERE group_id = %s)' % settings.COMMENTS_BANNED_USERS_GROUP}
+        kwargs['select'] = {'is_hidden': 'user_id IN (SELECT user_id FROM auth_user_groups WHERE group_id = %s)' % COMMENTS_BANNED_USERS_GROUP}
         
     return get_list_function(**kwargs).order_by(sort_order + 'submit_date').select_related()
 

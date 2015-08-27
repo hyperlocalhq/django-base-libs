@@ -1133,10 +1133,11 @@ class PortfolioSite(object):
         except Exception:
             media_file_obj = None
 
-        kwargs['extra_context'] = {
+        kwargs.pop('slug')
+        kwargs['dictionary'] = {
             'media_file': media_file_obj,
         }
-        kwargs['template'] = "media_gallery/includes/media_file.js"
+        kwargs['template_name'] = "media_gallery/includes/media_file.js"
         return direct_to_js_template(request, cache=False, **kwargs)
 
     ### COMMENTS ###
