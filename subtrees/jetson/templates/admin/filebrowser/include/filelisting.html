@@ -93,8 +93,7 @@
 
             <!-- FILENAME/DIMENSIONS -->
             {% if fileobject.filetype == "Folder" %}
-                <td><a href="
-                    {% url 'filebrowser:fb_browse' %}{% query_string "" "q,dir,p" %}&amp;dir={{ fileobject.directory|urlencode }}"><strong>{{ fileobject.filename }}</strong></a>
+                <td><a href="{% url 'filebrowser:fb_browse' %}{% query_string "" "q,dir,p" %}&amp;dir={{ fileobject.directory|urlencode }}"><strong>{{ fileobject.filename }}</strong></a>
                     {% if f_description.title %}
                         <br/>{{ f_description.title }}
                     {% endif %}
@@ -134,8 +133,10 @@
             <!-- EDIT -->
             <td>
                 <ul class="grp-actions">
-                    <li class="grp-change-link"><a href="
-                        {% url 'filebrowser:fb_detail' %}{% query_string "" "p" %}&amp;filename={{ fileobject.filename }}"><strong>{% trans "Change" %}</strong></a>
+                    <li class="grp-change-link">
+                        <a href="{% url 'filebrowser:fb_detail' %}{% query_string "" "p" %}&amp;filename={{ fileobject.filename }}">
+                            <strong>{% trans "Change" %}</strong>
+                        </a>
                     </li>
                 </ul>
             </td>

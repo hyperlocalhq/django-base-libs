@@ -99,29 +99,23 @@
                         <ul class="toolbar">
                             {% if not comment.is_removed %}
                                 <li id="refuseComment_{{ comment.id }}" class="refuseComment">
-                                    <a
-                                        class="refuseComment_but" href="
-
-
-                                        {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/comment/{{ comment.id }}/refuse/">
-                                        <span><span>{% trans "Refuse" %}</span></span></a>
+                                    <a class="refuseComment_but"
+                                        href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/comment/{{ comment.id }}/refuse/">
+                                        <span><span>{% trans "Refuse" %}</span></span>
+                                    </a>
                                 </li>
                                 <li id="markAsSpamComment_{{ comment.id }}" class="markAsSpamComment">
-                                    <a
-                                        class="markAsSpamComment_but" href="
-
-
-                                        {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/comment/{{ comment.id }}/mark_as_spam/">
-                                        <span><span>{% trans "Mark as Spam" %}</span></span></a>
+                                    <a class="markAsSpamComment_but"
+                                        href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/comment/{{ comment.id }}/mark_as_spam/">
+                                        <span><span>{% trans "Mark as Spam" %}</span></span>
+                                    </a>
                                 </li>
                             {% else %}
                                 <li id="acceptComment_{{ comment.id }}" class="acceptComment">
-                                    <a
-                                        class="acceptComment_but" href="
-
-
-                                        {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/comment/{{ comment.id }}/accept/">
-                                        <span><span>{% trans "Accept" %}</span></span></a>
+                                    <a class="acceptComment_but"
+                                        href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/comment/{{ comment.id }}/accept/">
+                                        <span><span>{% trans "Accept" %}</span></span>
+                                    </a>
                                 </li>
                             {% endif %}
                         </ul>
