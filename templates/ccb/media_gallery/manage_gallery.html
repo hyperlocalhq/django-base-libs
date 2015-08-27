@@ -212,7 +212,7 @@
                 $(".add-mediafile").each(function () {
                     $(this).click(function () {
                         var sURL = $(this).attr("href");
-                        $("#new_mediafile").load(sURL + "#create_update_mediafile", function () {
+                        $("#new_mediafile").load(sURL + " #create_update_mediafile", function () {
                             $('<input type="button" class="secondaryAction" value="' + gettext('Cancel') + '">').click(function () {
                                 $("#new_mediafile").html("");
                                 unset_work_in_progress();
