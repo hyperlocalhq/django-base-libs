@@ -5,10 +5,10 @@
     <a href="{{ person.get_url_path }}">
         {% if person.image %}
             <img alt="{{ person.get_title|escape }}" width="97" height="97"
-                 src="{{ UPLOADS_URL }}{{ person.image|modified_path:"al" }}"/>
+                src="{{ UPLOADS_URL }}{{ person.image|modified_path:"al" }}"/>
         {% else %}
             <img alt="{{ person.get_title|escape }}" width="97" height="97"
-                 src="{{ STATIC_URL }}site/img/website/placeholder/person_m.png"/>
+                src="{{ STATIC_URL }}site/img/website/placeholder/person_m.png"/>
         {% endif %}
     </a>
 {% endblock %}
@@ -42,7 +42,7 @@
                                         {{ contact.institution.get_title|escape }}
                                     {% else %}
                                         <a class="org"
-                                           href="{{ contact.institution.get_url_path }}">{{ contact.institution.get_title|escape }}</a>
+                                            href="{{ contact.institution.get_url_path }}">{{ contact.institution.get_title|escape }}</a>
                                         ,
                                     {% endifequal %}
                                     <br/>
@@ -95,7 +95,7 @@
                     <span>
                 {% if url.type %}<span class="type">{{ url.type }}: </span>{% endif %}
                         <a href="{{ url.link|escape }}" onclick="open_new_window(event)"
-                           class="url">{{ url.link }}</a><br/>
+                            class="url">{{ url.link }}</a><br/>
             </span>
                 {% endfor %}
             </p>

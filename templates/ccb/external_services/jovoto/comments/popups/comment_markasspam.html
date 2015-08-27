@@ -7,9 +7,9 @@
             <input type="hidden" name="post_data" value="{{ post_data }}"/>
             <input type="hidden" name="goto_next" value="{% if goto_next %}{{ goto_next }}{% else %}/blog/{% endif %}"/>
             <input id="id_delete" class="button_good" type="submit" name="delete"
-                   value="{% filter upper %}{% trans 'Mark as Spam' %}{% endfilter %}"/>
+                value="{% filter upper %}{% trans 'Mark as Spam' %}{% endfilter %}"/>
             <input id="id_cancel" class="button_bad" type="submit" name="cancel"
-                   value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
+                value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
 
             <div class="cleaner"></div>
         </div>

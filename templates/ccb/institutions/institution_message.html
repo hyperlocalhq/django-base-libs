@@ -25,7 +25,7 @@
                     {% endif %}
                     <div class="buttonHolder">
                         <input class="primaryAction" type="submit"
-                               value="{% filter upper %}{% trans "Send message" %}{% endfilter %}" id="id_submit"/>
+                            value="{% filter upper %}{% trans "Send message" %}{% endfilter %}" id="id_submit"/>
                     </div>
                 </fieldset>
             </form>
@@ -33,8 +33,10 @@
             <form action="{{ object.get_url_path }}" method="get">
                 <p id="okMsg">{% trans "Your message has been sent." %}</p>
 
-                <div class="back"><input class="primaryAction" type="submit"
-                                         value="{% filter upper %}{% trans "back" %}{% endfilter %}"/></div>
+                <div class="back">
+                    <input class="primaryAction" type="submit"
+                        value="{% filter upper %}{% trans "back" %}{% endfilter %}"/>
+                </div>
             </form>
         {% endif %}
     </div>

@@ -28,7 +28,8 @@
                         </div>
 
                         <div class="comment-text">
-                            {% if review.headline %}<p class="review_headline">{{ review.headline }}</p>{% endif %}
+                            {% if review.headline %}
+                                <p class="review_headline">{{ review.headline }}</p>{% endif %}
                             {{ review.comment|escape|urlizetrunc:40|linebreaks }}
 
                             {% include "site_specific/review_rating.html" %}
@@ -41,7 +42,7 @@
                     </div>
                 {% else %}
                     <a href="/login/?goto_next={{ request.path }}#post_review"
-                       title="{% trans "Post a review (login required)" %}">{% trans "Post a review (login required)" %}</a>
+                        title="{% trans "Post a review (login required)" %}">{% trans "Post a review (login required)" %}</a>
                 {% endif %}
             </div>
         {% endif %}

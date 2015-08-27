@@ -7,7 +7,10 @@
         {% if event.event_type %}<br/>
             <div class="object-type">{{ event.event_type }}</div>{% endif %}
     </td>
-    <td><h5><a class="summary" href="{{ event.get_url_path }}">{{ event.get_title|escape }}</a></h5>
+    <td>
+        <h5>
+            <a class="summary" href="{{ event.get_url_path }}">{{ event.get_title|escape }}</a>
+        </h5>
 
         <div class="location">
             {% if event.venue %}{{ event.venue.title }}{% else %}{{ event.venue_title }}{% endif %}</div>

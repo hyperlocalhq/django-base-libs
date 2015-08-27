@@ -18,7 +18,7 @@
         {% else %}
             <li><a href='/logout/'>{% trans "Logout" %}</a></li>
             <li><a href='/changeuser/'>{% trans "Login as a different user" %}</a></li>
-            <li><a href='{{ request.user.get_profile.get_url_path }}'>{% trans "Edit your profile" %}</a></li>
+            <li><a href='{{ request.user.profile.get_url_path }}'>{% trans "Edit your profile" %}</a></li>
             <li><a href='/password_change/'>{% trans "Change your password" %}</a></li>
         {% endif %}
     </ul>

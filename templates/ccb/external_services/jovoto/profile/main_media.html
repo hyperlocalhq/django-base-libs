@@ -15,7 +15,7 @@
 
         {% if idea_details.media.0.media_medium %}
             <img class="contest-big" style="width: 510px;"
-                 src="{{ jovoto_root_dir }}{{ idea_details.media.0.media_path }}" alt="{{ idea_details.name }}"/>
+                src="{{ jovoto_root_dir }}{{ idea_details.media.0.media_path }}" alt="{{ idea_details.name }}"/>
         {% endif %}
     </div>
     {% if not idea_details.media|length_is:"1" %}
@@ -28,7 +28,8 @@
         </div>
     {% endif %}
     <div class="additional_media">
-        {% trans "Vote for this idea on" %}: <a href="{{ idea_details.link|escape }}" onclick="open_new_window(event)">www.Jovoto.com</a>
+        {% trans "Vote for this idea on" %}:
+        <a href="{{ idea_details.link|escape }}" onclick="open_new_window(event)">www.Jovoto.com</a>
     </div>
 {% else %}
     <p>Logo is not any longer provided by Jovoto.com</p>

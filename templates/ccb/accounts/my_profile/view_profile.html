@@ -1,7 +1,8 @@
 {% extends "accounts/my_profile/base.html" %}
 {% load i18n base_tags %}
 
-{% block object-title %}<h2>{{ object.title }}</h2>{% endblock %}
+{% block object-title %}
+    <h2>{{ object.title }}</h2>{% endblock %}
 
 {% block sidebar-c %}
     {% if object.content_object.image %}
@@ -29,15 +30,25 @@
         {% endif %}
     {% endif %}
     <ul class="add">
-        <li><a href="/profile/{{ object.slug }}/projects/"><span
-            class="txt_red">{{ object.get_funded_project_count }}</span> {% trans "Own projects" %}</a></li>
-        <li><a href="/profile/{{ object.slug }}/donations/"><span
-            class="txt_red">{{ object.get_contribution_count }}</span> {% trans "Donated projects" %}</a></li>
-        <li><a href="/profile/{{ object.slug }}/contacts/"><span
-            class="txt_red">{{ object.get_individual_relation_count }}</span> {% trans "Contacts" %}</a></li>
-        <li><a href="/profile/{{ object.slug }}/{{ URL_ID_PERSONGROUPS }}/"><span
-            class="txt_red">{{ object.content_object.get_institutions|length }}</span> {% trans "Groups" %}</a></li>
-        <li><a href="/profile/{{ object.slug }}/reviews/"><span class="txt_red">0</span> {% trans "Reviews" %}</a></li>
+        <li>
+            <a href="/profile/{{ object.slug }}/projects/"><span
+                class="txt_red">{{ object.get_funded_project_count }}</span> {% trans "Own projects" %}</a>
+        </li>
+        <li>
+            <a href="/profile/{{ object.slug }}/donations/"><span
+                class="txt_red">{{ object.get_contribution_count }}</span> {% trans "Donated projects" %}</a>
+        </li>
+        <li>
+            <a href="/profile/{{ object.slug }}/contacts/"><span
+                class="txt_red">{{ object.get_individual_relation_count }}</span> {% trans "Contacts" %}</a>
+        </li>
+        <li>
+            <a href="/profile/{{ object.slug }}/{{ URL_ID_PERSONGROUPS }}/"><span
+                class="txt_red">{{ object.content_object.get_institutions|length }}</span> {% trans "Groups" %}</a>
+        </li>
+        <li>
+            <a href="/profile/{{ object.slug }}/reviews/"><span class="txt_red">0</span> {% trans "Reviews" %}</a>
+        </li>
     </ul>
 {% endblock %}
 
@@ -49,10 +60,13 @@
             <dd><span class="output">{{ object.title }}</span></dd>
             {% if object.content_object.birthday_dd %}{% if object.content_object.birthday_mm %}
                 <dt>{% trans "Date of birth" %} </dt>
-                <dd><span
+                <dd>
+                    <span
                     class="output">{{ object.content_object.birthday_dd }}.{{ object.content_object.get_birthday_mm_display }}
                     {% if object.content_object.birthday_yyyy %}.
-                        {{ object.content_object.birthday_yyyy }}{% endif %}</span></dd>
+                        {{ object.content_object.birthday_yyyy }}
+                    {% endif %}</span>
+                </dd>
             {% endif %}{% endif %}
             {% if object.content_object.occupation %}
                 <dt>{% trans "Occupation" %} </dt>

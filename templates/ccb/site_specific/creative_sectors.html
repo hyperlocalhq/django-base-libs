@@ -3,7 +3,9 @@
         <ul>
         {% if not object|is_context_item %}{% if not cat.parent %}
             {% if "creative-sector"|in_list:request.httpstate.browsing_filters %}
-                <li class="view-all"><a href="/browse/by-creative-sector/all/">{% trans "view all" %}</a></li>
+                <li class="view-all">
+                    <a href="/browse/by-creative-sector/all/">{% trans "view all" %}</a>
+                </li>
             {% endif %}{% endif %}{% endif %}
     {% endif %}
 <li>

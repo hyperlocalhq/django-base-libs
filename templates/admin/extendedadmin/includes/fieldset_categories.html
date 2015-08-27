@@ -17,9 +17,10 @@
                 <div class="c-2">
                     {{ form.creative_sectors }}
                     <a href="../../../structure/term/add/?vocabulary__id__exact=14&amp;_popup=1&amp;"
-                       class="add-another" id="add_id_creative_sectors" onclick="return showAddAnotherPopup(this);">
+                        class="add-another" id="add_id_creative_sectors" onclick="return showAddAnotherPopup(this);">
                         <img src="{{ jetson_media_url }}img/admin/icon_addlink.gif" width="10" height="10"
-                             alt="{% trans "Add Another" %}"/></a>
+                            alt="{% trans "Add Another" %}"/>
+                    </a>
                     {% if form.creative_sectors.errors %}
                         <ul class="errorlist">
                             <li>{{ form.creative_sectors.errors|join:", " }}</li>
@@ -47,9 +48,11 @@
                 <div class="c-2">
                     {{ form.context_categories }}
                     <a href="../../../structure/contextcategory/add/" class="add-another" id="add_id_context_categories"
-                       onclick="return showAddAnotherPopup(this);"> <img
-                        src="{{ jetson_media_url }}img/admin/icon_addlink.gif" width="10" height="10"
-                        alt="{% trans "Add Another" %}"/></a>
+                        onclick="return showAddAnotherPopup(this);">
+                        <img
+                            src="{{ jetson_media_url }}img/admin/icon_addlink.gif" width="10" height="10"
+                            alt="{% trans "Add Another" %}"/>
+                    </a>
                     {% if form.context_categories.errors %}
                         <ul class="errorlist">
                             <li>{{ form.context_categories.errors|join:", " }}</li>
@@ -81,7 +84,8 @@
                         </ul>
                     {% endif %}
 
-                    {% if form.tags.help_text %}<p class="grp-help">{{ form.tags.help_text }}</p>{% endif %}
+                    {% if form.tags.help_text %}
+                        <p class="grp-help">{{ form.tags.help_text }}</p>{% endif %}
                 </div>
             </div>
         </div>

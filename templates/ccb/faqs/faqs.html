@@ -136,8 +136,9 @@
     <div class="breadcrumbs">
         <a href="/">{% trans "Home" %}</a>
         {% if category_path %}
-            <span class="b-sep"><span>::</span></span><a {% if not root_category %}class="active_toplevel"{% endif %}
-                                                         href="{{ container.get_url_path }}">{{ container.title }}</a>
+            <span class="b-sep"><span>::</span></span>
+            <a {% if not root_category %}class="active_toplevel"{% endif %}
+                href="{{ container.get_url_path }}">{{ container.title }}</a>
         {% else %}
             <span class="b-sep"><span>::</span></span><span>{{ container.title }}</span>
         {% endif %}
@@ -152,11 +153,11 @@
                 {% if category.has_link %}
                     <span class="b-sep"><span>::</span></span>
                     <a {% ifequal root_category category %} class="active"{% endifequal %}
-                                                            href="{{ category.get_url_path }}">{{ category.short_title }}</a>
+                        href="{{ category.get_url_path }}">{{ category.short_title }}</a>
                 {% else %}
                     <span class="b-sep"><span>::</span></span>
                     <a {% ifequal root_category category %} class="active"{% endifequal %}
-                                                            href="#">{{ category.short_title }}</a>
+                        href="#">{{ category.short_title }}</a>
                 {% endif %}
             {% endif %}
         {% endfor %}

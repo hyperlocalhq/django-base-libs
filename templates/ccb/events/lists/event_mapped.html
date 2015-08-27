@@ -102,7 +102,7 @@
         {% for url in event.get_contacts.0.get_urls %}
             <span>
                 {% if url.type %}{{ url.type }}: {% endif %}<a class="url" href="{{ url.link|escape }}"
-                                                               onclick="open_new_window(event)">{{ url.link }}</a><br/>
+                onclick="open_new_window(event)">{{ url.link }}</a><br/>
             </span>
         {% endfor %}
     {% endif %}

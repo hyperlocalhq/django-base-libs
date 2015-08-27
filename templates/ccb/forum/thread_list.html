@@ -37,7 +37,8 @@
                 <p class="forum-info txt">
                     {% blocktrans with thread.creation_date|datetimefmt as creation_date and thread.creator as creator and thread.creator.get_profile.get_url as url %}
                         Created on {{ creation_date }}
-                        by <a href="{{ url }}">{{ creator }}</a><br/>
+                        by
+                        <a href="{{ url }}">{{ creator }}</a><br/>
                     {% endblocktrans %}
 
                     {% if not thread.is_sticky %}
@@ -45,7 +46,8 @@
                             {% if latest_post %}
                                 | {% trans "Latest Post" %}:
                                 {% blocktrans with latest_post.creation_date|datetimefmt as creation_date and latest_post.creator as creator and latest_post.get_url as url and latest_post.creator.get_profile.get_url as creator_url %}
-                                    Created on <a href="{{ url }}">{{ creation_date }}</a> by
+                                    Created on
+                                    <a href="{{ url }}">{{ creation_date }}</a> by
                                     <a href="{{ creator_url }}">{{ creator }}</a>
                                 {% endblocktrans %}
                             {% endif %}

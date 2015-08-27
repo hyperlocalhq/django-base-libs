@@ -35,16 +35,19 @@
                 <ul id="media_thumbs" class="clearfix">
             {% endif %}
         <li class="image_container">
-            <a href="#file_{{ f.id }}"><img src="
+            <a href="#file_{{ f.id }}">
+                <img src="
 
-                {{ f.get_thumbnail_url }}{% if permission_name %}{% if_has_perm permission_name object %}?now={% now "YmdHis" %}{% end_if_has_perm %}{% endif %}"
-                                            alt="{{ f.title|escape }}"
-                                            title="{{ f.get_file_type_display }}. {{ f.title|escape }}"/></a>
+
+                    {{ f.get_thumbnail_url }}{% if permission_name %}{% if_has_perm permission_name object %}?now={% now "YmdHis" %}{% end_if_has_perm %}{% endif %}"
+                    alt="{{ f.title|escape }}"
+                    title="{{ f.get_file_type_display }}. {{ f.title|escape }}"/>
+            </a>
             {% if permission_name %}
                 {% if_has_perm permission_name object %}
                     {% if f.get_recroppable_thumbnail_path %}
                         <a href="{% cropping_url f.get_recroppable_thumbnail_path "gt" request request.path %}"
-                           class="recrop_link">
+                            class="recrop_link">
                             <span><span>{% trans "Adjust image" %}</span></span>
                         </a>
                     {% endif %}

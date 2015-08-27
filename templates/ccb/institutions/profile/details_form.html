@@ -3,7 +3,7 @@
 <div class="edit">
     <div class="detail-form">
         <form action="/helper/edit-{{ URL_ID_INSTITUTION }}-profile/{{ object.slug }}/details/" method="post"
-              enctype="multipart/form-data" target="hidden_iframe" class="uniForm">
+            enctype="multipart/form-data" target="hidden_iframe" class="uniForm">
             <fieldset class="inlineLabels">
                 <h3>{% trans "Details" %}</h3>
                 {{ form.legal_form|as_uni_field }}
@@ -13,9 +13,9 @@
                 {{ form.nof_employees|as_uni_field }}
                 <div class="buttonHolder">
                     <input type="submit" class="primaryAction"
-                           value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
+                        value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
                     <input type="button" class="secondaryAction"
-                           value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel"/>
+                        value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel"/>
                 </div>
             </fieldset>
         </form>

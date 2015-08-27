@@ -72,7 +72,7 @@
     {% endif %}
     {% comment %}<!--
     <div class="sidebar-box navi_add_portfolio_image_{{ LANGUAGE_CODE }}">
-        <a href="{% if request.user.is_authenticated %}{{ request.user.get_profile.get_url_path }}portfolio/{% else %}/login/{% endif %}">
+        <a href="{% if request.user.is_authenticated %}{{ request.user.profile.get_url_path }}portfolio/{% else %}/login/{% endif %}">
             <img src="{{ STATIC_URL }}site/kreativarbeiten/ccb_teaser_kreative_arbeiten.jpg" alt="{% trans "Create your online portfolio!" %}" />
         </a>
     </div>
@@ -80,7 +80,7 @@
     <div class="sidebar-box">
         <a href="/kreativarbeiten/blog/">
             <img src="{{ UPLOADS_URL }}kreativarbeiten/ccb_teaser_kreative_arbeiten.jpg"
-                 alt="{% trans "Kreativ Arbeiten" %}"/>
+                alt="{% trans "Kreativ Arbeiten" %}"/>
         </a>
     </div>
 {% endblock %}
@@ -94,7 +94,7 @@
                         {% get_latest_published_objects marketplace.JobOffer 5 as latest_job_offers %}
                         {% if latest_job_offers.count %}
                             <div class="sidebar-box latest_job_offers_{{ LANGUAGE_CODE }} nav_expanded"
-                                 id="cat_latest_job_offers">
+                                id="cat_latest_job_offers">
                                 <h5>
                                     <a href="#Collapse-Expand" class="open_but">
                                         <b>{% trans "Jobboard" %}</b>
@@ -106,7 +106,9 @@
                                     {% for job_offer in latest_job_offers %}
                                         {% if forloop.first %}
                                             <ul>{% endif %}
-                                    <li><a href="{{ job_offer.get_url_path }}">{{ job_offer }}</a></li>
+                                    <li>
+                                        <a href="{{ job_offer.get_url_path }}">{{ job_offer }}</a>
+                                    </li>
                                     {% if forloop.last %}</ul>{% endif %}
                                     {% endfor %}
                                 </div>
@@ -143,10 +145,14 @@
 
                             <div class="sector-select hidable">
                                 <ul id="tweets">
-                                    <li><a href="http://www.twitter.com/CREATIVEBERLIN"
-                                           onclick="open_new_window(event)"><img
-                                        src="http://twitter-badges.s3.amazonaws.com/follow_us-b.png"
-                                        alt="Follow CREATIVEBERLIN on Twitter"/></a></li>
+                                    <li>
+                                        <a href="http://www.twitter.com/CREATIVEBERLIN"
+                                            onclick="open_new_window(event)">
+                                            <img
+                                                src="http://twitter-badges.s3.amazonaws.com/follow_us-b.png"
+                                                alt="Follow CREATIVEBERLIN on Twitter"/>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -190,8 +196,10 @@
                             {% for article in article_list %}
                                 <div class="news-details" onclick="redirect('{{ article.get_url_path }}')">
                                     <div class="date">{{ article.published_from|datefmt:"long" }}</div>
-                                    <h5><a href="{{ article.get_url_path }}">{{ article.get_title }}
-                                    </a></h5>
+                                    <h5>
+                                        <a href="{{ article.get_url_path }}">{{ article.get_title }}
+                                        </a>
+                                    </h5>
 
                                     {% if article.get_description %}
                                         {% parse article.get_rendered_description as description %}
@@ -201,7 +209,7 @@
 
                                     {% if article.image %}
                                         <img class="left" src="{{ UPLOADS_URL }}{{ article.image|modified_path:"nd" }}"
-                                             alt="{{ article.get_title|escape }}"/>
+                                            alt="{{ article.get_title|escape }}"/>
                                     {% endif %}
                                     <p>
                                         {{ description|wordwrap:30|striptags|truncatewords:"20" }}
@@ -229,8 +237,10 @@
                             {% for article in article_list %}
                                 <div class="news-details" onclick="redirect('{{ article.get_url_path }}')">
                                     <div class="date">{{ article.published_from|datefmt:"long" }}</div>
-                                    <h5><a href="{{ article.get_url_path }}">{{ article.get_title }}
-                                    </a></h5>
+                                    <h5>
+                                        <a href="{{ article.get_url_path }}">{{ article.get_title }}
+                                        </a>
+                                    </h5>
 
                                     {% if article.get_description %}
                                         {% parse article.get_rendered_description as description %}
@@ -240,7 +250,7 @@
 
                                     {% if article.image %}
                                         <img class="left" src="{{ UPLOADS_URL }}{{ article.image|modified_path:"nd" }}"
-                                             alt="{{ article.get_title|escape }}"/>
+                                            alt="{{ article.get_title|escape }}"/>
                                     {% endif %}
                                     <p>
                                         {{ description|wordwrap:30|striptags|truncatewords:"20" }}

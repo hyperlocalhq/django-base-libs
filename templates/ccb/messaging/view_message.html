@@ -22,10 +22,10 @@
                         <a href="{{ message.sender.get_profile.get_url_path }}">
                             {% if message.sender.get_profile.image %}
                                 <img alt="{{ message.sender.get_profile.get_title|escape }}"
-                                     src="{{ UPLOADS_URL }}{{ message.sender.get_profile.image|modified_path:"at" }}"/>
+                                    src="{{ UPLOADS_URL }}{{ message.sender.get_profile.image|modified_path:"at" }}"/>
                             {% else %}
                                 <img alt="{{ message.sender.get_profile.get_title|escape }}"
-                                     src="{{ DEFAULT_SMALL_LOGO_4_PERSON }}"/>
+                                    src="{{ DEFAULT_SMALL_LOGO_4_PERSON }}"/>
                             {% endif %}
                         </a>
                     {% endifequal %}

@@ -62,7 +62,7 @@
                 <input id="login3" type="hidden" name="goto_next" value="{% ifequal goto_next root_dir %}/dashboard/
                     {% else %}{% if goto_next %}{{ goto_next }}{% else %}/dashboard/{% endif %}{% endifequal %}"/>
                 <input class="primaryAction" type="submit"
-                       value="{% filter upper %}{% trans 'Create Account' %}{% endfilter %}"/>
+                    value="{% filter upper %}{% trans 'Create Account' %}{% endfilter %}"/>
             </div>
         </fieldset>
     </form>

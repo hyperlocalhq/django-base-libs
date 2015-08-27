@@ -6,7 +6,9 @@
     {% if object.get_additional_info %}
         <dl>
             <dt>{% trans "Additional Info" %}</dt>
-            <dd><p>{{ object.get_additional_info|safe }}</p></dd>
+            <dd>
+                <p>{{ object.get_additional_info|safe }}</p>
+            </dd>
         </dl>
     {% endif %}
 

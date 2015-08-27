@@ -57,9 +57,13 @@
                             <div class="hidable" id="media_desc_content"></div>
                             {% if can_manage_portfolio %}
                                 <ul class="toolbar hidable">
-                                    <li><a id="media_change" class="editIMG"
-                                           href=""><span>{% trans "Change" %}</span></a></li>
-                                    <li><a id="media_delete" class="deleteIMG" href=""><span>{% trans "Delete" %}</span></a>
+                                    <li>
+                                        <a id="media_change" class="editIMG"
+                                            href=""><span>{% trans "Change" %}</span></a>
+                                    </li>
+                                    <li>
+                                        <a id="media_delete" class="deleteIMG" href=""><span>{% trans "Delete" %}</span>
+                                        </a>
                                     </li>
                                 </ul>
                             {% endif %}
@@ -73,15 +77,18 @@
                     <ul id="media_thumbs" class="clearfix">
                 {% endif %}
             <li class="image_container {% cycle "" "" "" "" "" "last-in-row" %}">
-                <a href="#file_{{ f.get_token }}"><img width="88" height="88" src="
+                <a href="#file_{{ f.get_token }}">
+                    <img width="88" height="88" src="
 
-                    {{ f.get_thumbnail_url }}{% if permission_name %}{% if_has_perm permission_name object %}?now={% now "YmdHis" %}{% end_if_has_perm %}{% endif %}"
-                                                       alt="{{ f.title|escape }}"
-                                                       title="{{ f.get_file_type_display }}. {{ f.title|escape }}"/></a>
+
+                        {{ f.get_thumbnail_url }}{% if permission_name %}{% if_has_perm permission_name object %}?now={% now "YmdHis" %}{% end_if_has_perm %}{% endif %}"
+                        alt="{{ f.title|escape }}"
+                        title="{{ f.get_file_type_display }}. {{ f.title|escape }}"/>
+                </a>
                 {% if can_manage_portfolio %}
                     {% if f.get_recroppable_thumbnail_path %}
                         <a href="{% cropping_url f.get_recroppable_thumbnail_path "gt" request request.path %}"
-                           class="recrop_link">
+                            class="recrop_link">
                             <span><span>{% trans "Adjust image" %}</span></span>
                         </a>
                     {% endif %}

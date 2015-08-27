@@ -27,8 +27,9 @@
             <fieldset class="inlineLabels">
                 <h3>{{ form.profiles.label }}</h3>
                 {{ form.profiles|as_uni_field }}
-                {% if form.profiles.errors %}<p class="error"
-                                                id="id_profiles_error_container">{{ form.profiles.errors|join:"<br />"|safe }}</p>{% endif %}
+                {% if form.profiles.errors %}
+                    <p class="error"
+                        id="id_profiles_error_container">{{ form.profiles.errors|join:"<br />"|safe }}</p>{% endif %}
                 {{ form.non_field_errors }}
                 <div class="cleaner"></div>
 
@@ -37,9 +38,9 @@
                 {{ form.delete_job_offers|as_uni_field }}
                 <div class="buttonHolder">
                     <input type="button" class="secondaryAction" onclick="history.go(-1)"
-                           value="{% filter upper %}{% trans "Back" %}{% endfilter %}"/>
+                        value="{% filter upper %}{% trans "Back" %}{% endfilter %}"/>
                     <input class="primaryAction" id="delete_profile" type="submit"
-                           value="{% filter upper %}{% trans "Delete" %}{% endfilter %}"/>
+                        value="{% filter upper %}{% trans "Delete" %}{% endfilter %}"/>
                 </div>
             </fieldset>
         </form>
@@ -49,7 +50,8 @@
 {% block breadcrumbs %}
     <div class="breadcrumbs">
         <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span><a href="/my-profile/">{% trans "My profile" %}</a>
+        <span class="b-sep"><span>::</span></span>
+        <a href="/my-profile/">{% trans "My profile" %}</a>
         <span class="b-sep"><span>::</span></span><span>{% trans "Delete profile" %}</span>
     </div>
 {% endblock %}

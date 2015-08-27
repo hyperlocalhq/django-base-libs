@@ -28,8 +28,10 @@
                 <span class="country-name">{{ address.country.get_name }}</span>
             {% endif %}
             {% if address.get_geoposition.latitude and address.get_geoposition.longitude %}
-                <div class="map-link"><a
-                    href="{{ object.get_url_path }}map/#contact_{{ index }}">({% trans "Show on the map" %})</a>
+                <div class="map-link">
+                    <a
+                        href="{{ object.get_url_path }}map/#contact_{{ index }}">({% trans "Show on the map" %})
+                    </a>
                 </div>
             {% endif %}
         {% endwith %}
@@ -58,9 +60,12 @@
 {% if url.type %}
     <dd>{{ url.type }}:
         <a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">
-            {{ url.link }}</a></dd>
+            {{ url.link }}</a>
+    </dd>
 {% else %}
-    <dd><a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">{{ url.link }}</a></dd>
+    <dd>
+        <a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">{{ url.link }}</a>
+    </dd>
 {% endif %}
 {% if forloop.last %}
     </dl>

@@ -9,11 +9,14 @@
     <div class="media_nav">
         <div class="right">
             <a class="fb-sync"
-               href="{{ object.get_url_path }}portfolio/fb-sync/"><span><span>{% trans "Sync with Facebook" %}</span></span></a>
+                href="{{ object.get_url_path }}portfolio/fb-sync/">
+                <span><span>{% trans "Sync with Facebook" %}</span></span></a>
             <a class="portfolio-manage active"
-               href="{{ object.get_url_path }}portfolio/manage/"><span><span>{% trans "All projects" %}</span></span></a>
+                href="{{ object.get_url_path }}portfolio/manage/"><span><span>{% trans "All projects" %}</span></span>
+            </a>
             <a class="portfolio-add"
-               href="{{ object.get_url_path }}portfolio/album/add/"><span><span>{% trans "Add project" %}</span></span></a>
+                href="{{ object.get_url_path }}portfolio/album/add/"><span><span>{% trans "Add project" %}</span></span>
+            </a>
         </div>
     </div>
 {% endblock %}
@@ -27,14 +30,14 @@
                  <span class="gallery_teaser">
                     {% if gallery.cover_image %}
                         <img width="75" height="75"
-                             src="{{ UPLOADS_URL }}{{ gallery.cover_image.path|modified_path:"gt" }}" alt=""/>
+                            src="{{ UPLOADS_URL }}{{ gallery.cover_image.path|modified_path:"gt" }}" alt=""/>
                     {% else %}
                         {% if gallery.mediafile_set.count %}
                             <img width="75" height="75" src="{{ gallery.mediafile_set.all.0.get_thumbnail_url }}"
-                                 alt=""/>
+                                alt=""/>
                         {% else %}
                             <img width="75" height="75"
-                                 src="{{ STATIC_URL }}site/img/website/placeholder/upload_image.png" alt=""/>
+                                src="{{ STATIC_URL }}site/img/website/placeholder/upload_image.png" alt=""/>
                         {% endif %}
                     {% endif %}
                  </span>
@@ -49,13 +52,16 @@
                     <span class="add-media"></span>
                     <a class="add-mediafile add_image" href="
 
-                        {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/add/image/"><span><span>{% trans "Add new image" %}</span></span></a>
+                        {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/add/image/"><span><span>{% trans "Add new image" %}</span></span>
+                    </a>
                     <a class="add-mediafile add_video" href="
 
-                        {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/add/video/"><span><span>{% trans "Add new video" %}</span></span></a>
+                        {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/add/video/"><span><span>{% trans "Add new video" %}</span></span>
+                    </a>
                     <a class="add-mediafile add_audio" href="
 
-                        {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/add/audio/"><span><span>{% trans "Add new audio" %}</span></span></a>
+                        {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/add/audio/"><span><span>{% trans "Add new audio" %}</span></span>
+                    </a>
                 </div>
             </div>
 
@@ -69,21 +75,25 @@
                         <div class="mediafile-presentation">
                             <div class="image_container">
                                 <img src="{{ f.get_thumbnail_url }}?now={% now "YmdHis" %}" alt="{{ f.title|escape }}"
-                                     title="{{ f.get_file_type_display }}. {{ f.title|escape }}"/>
+                                    title="{{ f.get_file_type_display }}. {{ f.title|escape }}"/>
                             </div>
                                          <span class="portfolio_tools">
                                              {% if f.get_recroppable_thumbnail_path %}
                                                  <a href="{% cropping_url f.get_recroppable_thumbnail_path "gt" request request.path %}"
-                                                    class="recrop_link">
+                                                     class="recrop_link">
                                                      <span><span>{% trans "Adjust image" %}</span></span>
                                                  </a>
                                              {% endif %}
                                              <a class="edit_settings" href="
 
-                                                 {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/{{ f.get_token }}/"><span><span>{% trans "Settings" %}</span></span></a>
+
+                                                 {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/{{ f.get_token }}/">
+                                                 <span><span>{% trans "Settings" %}</span></span></a>
                                              <a class="delete" href="
 
-                                                 {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/{{ f.get_token }}/delete/"><span><span>{% trans "Delete" %}</span></span></a>
+
+                                                 {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/{{ f.get_token }}/delete/">
+                                                 <span><span>{% trans "Delete" %}</span></span></a>
                                              <span
                                                  class="ui-dragging-handle"><span><span>{% trans "Drag" %}</span></span></span>
                                          </span>
@@ -102,9 +112,11 @@
 
             <div class="gallery_tools">
                 <a id="change_gallery" class="edit_settings"
-                   href="{{ object.get_url_path }}portfolio/album/{{ gallery.get_token }}/change/"><span><span>{% trans "Settings" %}</span></span></a>
+                    href="{{ object.get_url_path }}portfolio/album/{{ gallery.get_token }}/change/">
+                    <span><span>{% trans "Settings" %}</span></span></a>
                 <a id="delete_gallery" class="delete"
-                   href="{{ object.get_url_path }}portfolio/album/{{ gallery.get_token }}/delete/"><span><span>{% trans "Delete" %}</span></span></a>
+                    href="{{ object.get_url_path }}portfolio/album/{{ gallery.get_token }}/delete/">
+                    <span><span>{% trans "Delete" %}</span></span></a>
             </div>
         </div>
         <div id="gallery_form"></div>
@@ -304,7 +316,8 @@
 {% endblock %}
 
 {% block breadcrumbs_details %}
-    <span class="b-sep"><span>::</span></span><a href="{{ object.get_url_path }}portfolio/">{% trans "Portfolio" %}</a>
+    <span class="b-sep"><span>::</span></span>
+    <a href="{{ object.get_url_path }}portfolio/">{% trans "Portfolio" %}</a>
     <span class="b-sep"><span>::</span></span><span>{{ gallery.title }}</span>
 {% endblock %}
 

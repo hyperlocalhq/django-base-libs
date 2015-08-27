@@ -12,9 +12,12 @@ Usage in any template:
     
 -->{% endcomment %}
 
-{% block block_title %}<h3><a href="/{{ URL_ID_EVENTS }}/">{% trans "New Events" %}</a><a href="/{{ URL_ID_EVENTS }}/"
-                                                                                          class="newevents"></a>
-</h3>{% endblock %}
+{% block block_title %}
+    <h3>
+        <a href="/{{ URL_ID_EVENTS }}/">{% trans "New Events" %}</a>
+        <a href="/{{ URL_ID_EVENTS }}/"
+            class="newevents"></a>
+    </h3>{% endblock %}
 
 {% block block_content %}
     {% with amount|default:3 as amount %}
@@ -26,7 +29,7 @@ Usage in any template:
                         <a href="{{ event.get_url_path }}">
                             {% if event.image %}
                                 <img alt="{{ event.get_title|escape }}" width="97" height="97"
-                                     src="{{ UPLOADS_URL }}{{ event.image|modified_path:"al" }}"/>
+                                    src="{{ UPLOADS_URL }}{{ event.image|modified_path:"al" }}"/>
                             {% else %}
                                 <span class="event-date">
                                 <span>
@@ -52,7 +55,7 @@ Usage in any template:
                                             </abbr>
                                         {% else %}
                                             <abbr class="dtstart"
-                                                  title="{{ event.start_yyyy }}-{{ event.start_mm|default:"01" }}-01">
+                                                title="{{ event.start_yyyy }}-{{ event.start_mm|default:"01" }}-01">
                                                 {% if event.start_mm %}
                                                     {{ event.get_start_mm_display }}
                                                 {% endif %}
@@ -66,7 +69,7 @@ Usage in any template:
                                             </abbr>
                                         {% else %}
                                             <abbr class="dtend"
-                                                  title="{{ event.end_yyyy }}-{{ event.end_mm|default:"01" }}-01">
+                                                title="{{ event.end_yyyy }}-{{ event.end_mm|default:"01" }}-01">
                                                 {% if event.end_mm %}{{ event.get_end_mm_display }}{% endif %}
                                                 {{ event.end_yyyy }}
                                             </abbr>
@@ -80,7 +83,7 @@ Usage in any template:
                                                 </abbr>
                                             {% else %}
                                                 <abbr class="dtstart"
-                                                      title="{{ event.start_yyyy }}-{{ event.start_mm|default:"01" }}-01">
+                                                    title="{{ event.start_yyyy }}-{{ event.start_mm|default:"01" }}-01">
                                                     {% if event.start_mm %}
                                                         {{ event.get_start_mm_display }}
                                                     {% endif %}
@@ -98,7 +101,7 @@ Usage in any template:
                                                     </abbr>
                                                 {% else %}
                                                     <abbr class="dtend"
-                                                          title="{{ event.end_yyyy }}-{{ event.end_mm|default:"01" }}-01">
+                                                        title="{{ event.end_yyyy }}-{{ event.end_mm|default:"01" }}-01">
                                                         {% if event.end_mm %}{{ event.get_end_mm_display }}{% endif %}
                                                         {{ event.end_yyyy }}
                                                     </abbr>

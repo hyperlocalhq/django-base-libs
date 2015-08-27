@@ -11,7 +11,8 @@ Usage in any template:
     {% include_parsed "groups_networks/includes/latest_published_persongroups.html" with 5 as amount %}
     
 -->{% endcomment %}
-{% block block_title %}<h5>{% trans "New Groups" %}</h5>{% endblock %}
+{% block block_title %}
+    <h5>{% trans "New Groups" %}</h5>{% endblock %}
 
 {% block block_content %}
     {% with amount|default:3 as amount %}
@@ -23,10 +24,10 @@ Usage in any template:
                         <a href="{{ persongroup.get_url_path }}">
                             {% if persongroup.image %}
                                 <img alt="{{ persongroup.get_title|escape }}"
-                                     src="{{ UPLOADS_URL }}{{ persongroup.image|modified_path:"at" }}"/>
+                                    src="{{ UPLOADS_URL }}{{ persongroup.image|modified_path:"at" }}"/>
                             {% else %}
                                 <img alt="{{ persongroup.get_title|escape }}"
-                                     src="{{ DEFAULT_SMALL_LOGO_4_PERSONGROUP }}"/>
+                                    src="{{ DEFAULT_SMALL_LOGO_4_PERSONGROUP }}"/>
                             {% endif %}
                         </a>
                         <h5>
@@ -42,7 +43,8 @@ Usage in any template:
                     </li>
                 {% endfor %}
             </ul>
-            <p class="more"><a href="/{{ URL_ID_PERSONGROUPS }}/?order_by=creation_date_desc">{% trans "more..." %}</a>
+            <p class="more">
+                <a href="/{{ URL_ID_PERSONGROUPS }}/?order_by=creation_date_desc">{% trans "more..." %}</a>
             </p>
         {% else %}
             <p>{% trans "There are no public groups." %}</p>

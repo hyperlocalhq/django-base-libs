@@ -13,7 +13,7 @@
                             {{ contact.institution.get_title|escape }}
                         {% else %}
                             <a class="org"
-                               href="{{ contact.institution.get_url_path }}">{{ contact.institution.get_title|escape }}</a>
+                                href="{{ contact.institution.get_url_path }}">{{ contact.institution.get_title|escape }}</a>
                         {% endifequal %}
                         <br/>
                     {% endif %}
@@ -52,7 +52,7 @@
                             {{ contact.institution.get_title|escape }}
                         {% else %}
                             <a class="org"
-                               href="{{ contact.institution.get_url_path }}">{{ contact.institution.get_title|escape }}</a>
+                                href="{{ contact.institution.get_url_path }}">{{ contact.institution.get_title|escape }}</a>
                         {% endifequal %}
                         <br/>
                     {% endif %}
@@ -69,7 +69,7 @@
             <dd class="tel">
                 {% if phone.type %}
                     <abbr class="type"
-                          title="{% ifequal phone.type.slug "mobile" %}Cell{% else %}{% endifequal %}">{{ phone.type }}</abbr>
+                        title="{% ifequal phone.type.slug "mobile" %}Cell{% else %}{% endifequal %}">{{ phone.type }}</abbr>
                     :
                 {% endif %}
                 <span class="value">+{{ phone.country }}-{{ phone.area }}-{{ phone.number }}</span></dd>
@@ -87,9 +87,12 @@
         {% if url.type %}
             <dd><span class="type">{{ url.type }}: </span>
                 <a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">
-                    {{ url.link }}</a></dd>
+                    {{ url.link }}</a>
+            </dd>
         {% else %}
-            <dd><a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">{{ url.link }}</a></dd>
+            <dd>
+                <a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">{{ url.link }}</a>
+            </dd>
         {% endif %}
         {% if forloop.last %}
             </dl>

@@ -1,13 +1,15 @@
 {% load i18n base_tags babel nav_menu articles image_modifications %}
 
 <div class="list-item{% if forloop.first %} first-item{% endif %}{% if forloop.last %} last-item{% endif %}"
-     onclick="redirect('{{ article.get_url_path }}')">
+    onclick="redirect('{{ article.get_url_path }}')">
     <p class="date">{{ article.published_from|datefmt:"long" }}</p>
 
-    <h3><a href="{{ article.get_url_path }}">{{ article.get_title }}</a></h3>
+    <h3>
+        <a href="{{ article.get_url_path }}">{{ article.get_title }}</a>
+    </h3>
     {% if article.image %}
         <img class="left" src="{{ UPLOADS_URL }}{{ article.image|modified_path:"nt" }}"
-             alt="{{ article.get_title|escape }}"/>
+            alt="{{ article.get_title|escape }}"/>
     {% endif %}
     <p>
         {% if article.description %}

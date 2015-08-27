@@ -27,8 +27,10 @@
 {% block breadcrumbs %}
     <div class="breadcrumbs">
         <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span><a href="{{ object.get_url_path }}network/">{% trans "Network" %}</a>
-        <span class="b-sep"><span>::</span></span><a class="active" href="#">{% trans "Groups" %}</a>
+        <span class="b-sep"><span>::</span></span>
+        <a href="{{ object.get_url_path }}network/">{% trans "Network" %}</a>
+        <span class="b-sep"><span>::</span></span>
+        <a class="active" href="#">{% trans "Groups" %}</a>
     </div>
 {% endblock %}
 

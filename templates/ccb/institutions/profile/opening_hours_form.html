@@ -4,7 +4,7 @@
 
     <div class="field_layout">
         <form action="/helper/edit-{{ URL_ID_INSTITUTION }}-profile/{{ object.slug }}/opening_hours/" method="post"
-              enctype="multipart/form-data" target="hidden_iframe" class="uniForm">
+            enctype="multipart/form-data" target="hidden_iframe" class="uniForm">
             <fieldset class="inlineLabels">
                 <h3>{% trans "Opening Time" %} - {% trans "Closing Time" %}</h3>
 
@@ -15,9 +15,9 @@
                 {{ form.is_appointment_based|as_uni_field }}
                 <div class="buttonHolder">
                     <input type="submit" class="primaryAction"
-                           value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
+                        value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
                     <input type="button" class="secondaryAction"
-                           value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel"/>
+                        value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel"/>
                 </div>
             </fieldset>
         </form>

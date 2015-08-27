@@ -13,8 +13,10 @@
 
     <div>
         <h2>{{ object.get_title|escape }}
-            {% if perms.people.change_person %}<a href="/admin/people/person/{{ object.id }}/" class="edit_link"
-                                                  onclick="open_new_window(event)">({% trans "edit" %})</a>{% endif %}
+            {% if perms.people.change_person %}
+                <a href="/admin/people/person/{{ object.id }}/" class="edit_link"
+                    onclick="open_new_window(event)">({% trans "edit" %})
+                </a>{% endif %}
         </h2>
         {% if object.individual_type %}
             <div class="output_facts"><span class="facts">{% trans "individual type" %}:</span>
@@ -44,7 +46,8 @@
                         </div>
 
                         <div class="comment-text">
-                            {% if review.headline %}<p class="review_headline">{{ review.headline }}</p>{% endif %}
+                            {% if review.headline %}
+                                <p class="review_headline">{{ review.headline }}</p>{% endif %}
                             {{ review.comment|escape|urlizetrunc:40|linebreaks }}
 
                             {% include "site_specific/review_rating.html" %}
@@ -57,7 +60,7 @@
                     </div>
                 {% else %}
                     <a href="/login/?goto_next={{ request.path }}#post_review"
-                       title="{% trans "Post a review (login required)" %}">{% trans "Post a review (login required)" %}</a>
+                        title="{% trans "Post a review (login required)" %}">{% trans "Post a review (login required)" %}</a>
                 {% endif %}
             </div>
         {% endif %}

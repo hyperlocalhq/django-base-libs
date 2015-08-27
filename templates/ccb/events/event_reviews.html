@@ -14,7 +14,8 @@
         <h2>{{ object.get_title|escape }}
             {% if perms.events.change_event %}
                 <a href="/admin/events/event/{{ object.id }}/" class="edit_link"
-                   onclick="open_new_window(event)">({% trans "edit" %})</a>
+                    onclick="open_new_window(event)">({% trans "edit" %})
+                </a>
             {% endif %}
         </h2>
         {% if object.has_start_date or object.has_end_date or object.label %}
@@ -50,7 +51,8 @@
                         </div>
 
                         <div class="comment-text">
-                            {% if review.headline %}<p><b>{{ review.headline }}</b></p>{% endif %}
+                            {% if review.headline %}
+                                <p><b>{{ review.headline }}</b></p>{% endif %}
                             {{ review.comment|escape|urlizetrunc:40|linebreaks }}
 
                             {% include "site_specific/review_rating.html" %}
@@ -63,7 +65,7 @@
                     </div>
                 {% else %}
                     <a href="/login/?goto_next={{ request.path }}#post_review"
-                       title="{% trans "Post a review (login required)" %}">{% trans "Post a review (login required)" %}</a>
+                        title="{% trans "Post a review (login required)" %}">{% trans "Post a review (login required)" %}</a>
                 {% endif %}
 
             </div>

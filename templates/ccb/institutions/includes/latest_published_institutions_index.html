@@ -29,10 +29,10 @@ Usage in any template:
                         <a href="{{ institution.get_url_path }}">
                             {% if institution.image %}
                                 <img alt="{{ institution.get_title|escape }}" title="{{ institution.get_title|escape }}"
-                                     src="{{ UPLOADS_URL }}{{ institution.image|modified_path:"at" }}"/>
+                                    src="{{ UPLOADS_URL }}{{ institution.image|modified_path:"at" }}"/>
                             {% else %}
                                 <img alt="{{ institution.get_title|escape }}" title="{{ institution.get_title|escape }}"
-                                     src="{{ DEFAULT_SMALL_LOGO_4_INSTITUTION }}"/>
+                                    src="{{ DEFAULT_SMALL_LOGO_4_INSTITUTION }}"/>
                             {% endif %}
                         </a>
                     </li>

@@ -36,7 +36,7 @@
                                         {{ contact.institution.get_title|escape }}
                                     {% else %}
                                         <a class="org"
-                                           href="{{ contact.institution.get_url_path }}">{{ contact.institution.get_title|escape }}</a>
+                                            href="{{ contact.institution.get_url_path }}">{{ contact.institution.get_title|escape }}</a>
                                     {% endifequal %}
                                     <br/>
                                 {% endif %}
@@ -94,7 +94,7 @@
             {% for url in contact.get_urls %}
                 <span>
                 {% if url.type %}{{ url.type }}: {% endif %}<a href="{{ url.link|escape }}"
-                                                               onclick="open_new_window(event)" class="url">
+                    onclick="open_new_window(event)" class="url">
                     {% with url.link|slice:"0:27"|escape as sliced %}{{ sliced }}
                         {% with url.link|escape as not_sliced %}{% ifnotequal sliced url.link|escape %}...
                         {% endifnotequal %}{% endwith %}{% endwith %}</a><br/>

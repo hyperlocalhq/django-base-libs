@@ -9,7 +9,7 @@
 
 {% block stylesheet %}
     <link rel="stylesheet" type="text/css" media="screen"
-          href="{{ STATIC_URL }}site/css/website/gwenn_forms-front.css"/>
+        href="{{ STATIC_URL }}site/css/website/gwenn_forms-front.css"/>
 {% endblock %}
 
 {% block title %}{% trans "Invitation" %} - {% trans "Confirm Entered Data" %}{% endblock %}
@@ -40,7 +40,7 @@
                             <dd>
                                 {% if form_step_data.0.p1 %}
                                     <a href="{{ form_step_data.0.p1.get_url_path }}"
-                                       onclick="return open_new_window(event);">
+                                        onclick="return open_new_window(event);">
                                 {% endif %}
                                 {{ form_step_data.0.get_p1_prefix_display }}
                                 {{ form_step_data.0.p1_first_name }}
@@ -50,7 +50,8 @@
                                 {% endif %}
                             </dd>
                             <dt>{% trans "E-mail Address" %}:</dt>
-                            <dd><a href="mailto:{{ form_step_data.0.p1_email }}">{{ form_step_data.0.p1_email }}</a>
+                            <dd>
+                                <a href="mailto:{{ form_step_data.0.p1_email }}">{{ form_step_data.0.p1_email }}</a>
                             </dd>
                             <dt>{% trans "Position in the Company" %}:</dt>
                             <dd>
@@ -84,7 +85,8 @@
                                 {{ form_step_data.0.p2_last_name }}
                             </dd>
                             <dt>{% trans "E-mail Address" %}:</dt>
-                            <dd><a href="mailto:{{ form_step_data.0.p2_email }}">{{ form_step_data.0.p2_email }}</a>
+                            <dd>
+                                <a href="mailto:{{ form_step_data.0.p2_email }}">{{ form_step_data.0.p2_email }}</a>
                             </dd>
                             <dt>{% trans "Position in the Company" %}:</dt>
                             <dd>
@@ -118,7 +120,8 @@
                                 {{ form_step_data.0.p3_last_name }}
                             </dd>
                             <dt>{% trans "E-mail Address" %}:</dt>
-                            <dd><a href="mailto:{{ form_step_data.0.p3_email }}">{{ form_step_data.0.p3_email }}</a>
+                            <dd>
+                                <a href="mailto:{{ form_step_data.0.p3_email }}">{{ form_step_data.0.p3_email }}</a>
                             </dd>
                             <dt>{% trans "Position in the Company" %}:</dt>
                             <dd>
@@ -152,7 +155,8 @@
                                 {{ form_step_data.0.p4_last_name }}
                             </dd>
                             <dt>{% trans "E-mail Address" %}:</dt>
-                            <dd><a href="mailto:{{ form_step_data.0.p4_email }}">{{ form_step_data.0.p4_email }}</a>
+                            <dd>
+                                <a href="mailto:{{ form_step_data.0.p4_email }}">{{ form_step_data.0.p4_email }}</a>
                             </dd>
                             <dt>{% trans "Position in the Company" %}:</dt>
                             <dd>
@@ -186,7 +190,8 @@
                                 {{ form_step_data.0.p5_last_name }}
                             </dd>
                             <dt>{% trans "E-mail Address" %}:</dt>
-                            <dd><a href="mailto:{{ form_step_data.0.p5_email }}">{{ form_step_data.0.p5_email }}</a>
+                            <dd>
+                                <a href="mailto:{{ form_step_data.0.p5_email }}">{{ form_step_data.0.p5_email }}</a>
                             </dd>
                             <dt>{% trans "Position in the Company" %}:</dt>
                             <dd>

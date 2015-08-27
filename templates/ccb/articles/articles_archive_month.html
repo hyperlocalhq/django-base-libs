@@ -18,8 +18,10 @@
 {% block breadcrumbs %}
     <div class="breadcrumbs">
         <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span><a href="/news/">{% trans "News" %}</a>
-        <span class="b-sep"><span>::</span></span><a href="/news/{{ month|date:"Y" }}/">{{ month|date:"Y" }}</a>
+        <span class="b-sep"><span>::</span></span>
+        <a href="/news/">{% trans "News" %}</a>
+        <span class="b-sep"><span>::</span></span>
+        <a href="/news/{{ month|date:"Y" }}/">{{ month|date:"Y" }}</a>
         <span class="b-sep"><span>::</span></span><span>{{ month|datefmt:"MMM" }} </span>
     </div>
 {% endblock %}

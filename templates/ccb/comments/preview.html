@@ -63,11 +63,12 @@
 
             <div class="comment-text">
 
-                {% if review.headline %}<p class="review_headline">{{ comment.headline }}</p>{% endif %}
+                {% if review.headline %}
+                    <p class="review_headline">{{ comment.headline }}</p>{% endif %}
                 {{ comment.comment|escape|urlizetrunc:"40"|linebreaks }}
             </div>
             <input type="submit" id="post" class="button_good" name="post"
-                   value='{% filter upper %}{% trans "Post review" %}{% endfilter %}'/>
+                value='{% filter upper %}{% trans "Post review" %}{% endfilter %}'/>
         {% endif %}
 
         <div id="add_comment">
@@ -80,7 +81,8 @@
             <div class="type_name">
                 <div>
                     <label for="id_headline">{% if comment_form.headline.field.required %}
-                        *{% endif %}{% trans "Title" %}:</label>
+                        *{% endif %}{% trans "Title" %}:
+                    </label>
                     {{ comment_form.headline }}
                     {% if comment_form.headline.errors %}
                         <p class="error">***{{ comment_form.headline.errors|join:", " }}</p>
@@ -88,7 +90,8 @@
                 </div>
 
                 <label for="id_comment">{% if comment_form.comment.field.required %}*{% endif %}{% trans "Review" %}
-                    :</label>
+                    :
+                </label>
                 {{ comment_form.comment }}
                 {% if comment_form.comment.errors %}
                     <p class="error">***{{ comment_form.comment.errors|join:", " }}</p>
@@ -103,14 +106,14 @@
             </div>
             <p class="disclaimer"><span id="last">*{% trans "required fields" %}</span></p>
             <input type="hidden" name="goto_next"
-                   value="{% if goto_next %}{{ goto_next }}{% else %}{{ request.get_full_path }}{% endif %}"/>
+                value="{% if goto_next %}{{ goto_next }}{% else %}{{ request.get_full_path }}{% endif %}"/>
             <input type="hidden" name="options" value="{{ options }}"/>
             <input type="hidden" name="target" value="{{ target }}"/>
             <input type="hidden" name="gonzo" value="{{ hash }}"/>
             <input type="submit" id="preview" class="button_good" name="preview"
-                   value='{% filter upper %}{% trans "Preview revised review" %}{% endfilter %}'/>
+                value='{% filter upper %}{% trans "Preview revised review" %}{% endfilter %}'/>
             <input type="submit" id="cancel" class="button_bad" name="cancel"
-                   value='{% filter upper %}{% trans "Cancel" %}{% endfilter %}'/>
+                value='{% filter upper %}{% trans "Cancel" %}{% endfilter %}'/>
 
             <div class="cleaner"></div>
         </div>

@@ -3,8 +3,9 @@
     {% if object.image %}
         <img src="
 
+
             {{ UPLOADS_URL }}{{ object.image|modified_path:"ad" }}{% if_has_perm "people.change_person" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}"
-             alt="{{ object.get_title|escape }}"/>
+            alt="{{ object.get_title|escape }}"/>
         {% if request.path == object.get_url_path %}
             {% if_has_perm "people.change_person" object %}
                 <a href="{% cropping_url object.image.path "ad" request object.get_url_path %}" class="recrop_link">

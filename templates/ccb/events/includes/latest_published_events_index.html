@@ -26,7 +26,7 @@ Usage in any template:
                         <a href="{{ event.get_url_path }}">
                             {% if event.image %}
                                 <img alt="{{ event.get_title|escape }}"
-                                     src="{{ UPLOADS_URL }}{{ event.image|modified_path:"ast" }}"/>
+                                    src="{{ UPLOADS_URL }}{{ event.image|modified_path:"ast" }}"/>
                             {% endif %}
                             {{ event.get_title|escape }}
                         </a>

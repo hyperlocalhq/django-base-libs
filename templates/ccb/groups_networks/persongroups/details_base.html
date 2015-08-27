@@ -11,7 +11,9 @@
 
 {% block headline %}
     {% include "site_specific/count_of.html" %}
-    <h1><a href="/{{ URL_ID_PERSONGROUPS }}/">{% trans "Groups" %}</a></h1>
+    <h1>
+        <a href="/{{ URL_ID_PERSONGROUPS }}/">{% trans "Groups" %}</a>
+    </h1>
     <div class="detail-navi">
         {% children_of "groups" using "navigation/children_horizontally.html" %}
     </div>

@@ -5,7 +5,7 @@
 
     <div class="field_layout description">
         <form action="/helper/edit-{{ URL_ID_PERSONGROUP }}-profile/{{ object.slug }}/description/" method="post"
-              enctype="multipart/form-data" target="hidden_iframe" class="left">
+            enctype="multipart/form-data" target="hidden_iframe" class="left">
             <fieldset class="fieldset_end">
                 <legend>{% trans "Description" %}</legend>
                 <ul>
@@ -27,7 +27,7 @@
             </fieldset>
             <div class="buttons">
                 <input type="button" class="button_bad" value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}"
-                       name="cancel"/>
+                    name="cancel"/>
                 <input type="submit" class="button_good" value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
             </div>
         </form>

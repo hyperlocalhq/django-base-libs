@@ -53,9 +53,12 @@
         {% if url.type %}
             <dd><span class="type">{{ url.type }}: </span>
                 <a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">
-                    {{ url.link }}</a></dd>
+                    {{ url.link }}</a>
+            </dd>
         {% else %}
-            <dd><a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">{{ url.link }}</a></dd>
+            <dd>
+                <a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">{{ url.link }}</a>
+            </dd>
         {% endif %}
         {% if forloop.last %}
             </dl>

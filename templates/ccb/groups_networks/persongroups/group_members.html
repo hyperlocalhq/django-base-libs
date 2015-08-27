@@ -26,14 +26,16 @@
                         <a class="person-icon" href="{{ person.get_url_path }}">
                             {% if person.image %}
                                 <img alt="{{ person.get_title|escape }}"
-                                     src="{{ UPLOADS_URL }}{{ person.image|modified_path:"at" }}"/>
+                                    src="{{ UPLOADS_URL }}{{ person.image|modified_path:"at" }}"/>
                             {% else %}
                                 <img alt="{{ person.get_title|escape }}" src="{{ DEFAULT_SMALL_LOGO_4_PERSON }}"/>
                             {% endif %}
                         </a>
 
                         <div>
-                            <h5><a href="{{ person.get_url_path }}">{{ person.get_title|escape }}</a></h5>
+                            <h5>
+                                <a href="{{ person.get_url_path }}">{{ person.get_title|escape }}</a>
+                            </h5>
 
                             <div class="txt">
                                 {% for institution in person.get_institutions %}
@@ -46,9 +48,9 @@
                                     {% if object|is_member_request_acceptable:person %}
                                         <li class="accept_member_request">
                                             <a href="#Accept-Request"
-                                               title="{% trans "Accept Request" %}"
-                                               onclick="GroupMembershipManager.accept_user('{{ object.slug }}', '{{ person.user.username }}'); window.cancelEvent(event);"
-                                               id="group_accept_user_{{ object.slug }}_{{ person.user.username }}"><span>{% blocktrans %}
+                                                title="{% trans "Accept Request" %}"
+                                                onclick="GroupMembershipManager.accept_user('{{ object.slug }}', '{{ person.user.username }}'); window.cancelEvent(event);"
+                                                id="group_accept_user_{{ object.slug }}_{{ person.user.username }}"><span>{% blocktrans %}
                                                 Accept membership request{% endblocktrans %}</span>
                                             </a>
                                         </li>
@@ -56,9 +58,9 @@
                                     {% if object|is_member_request_denyable:person %}
                                         <li class="deny_member_request">
                                             <a href="#Deny-Request"
-                                               title="{% trans "Deny Request" %}"
-                                               onclick="GroupMembershipManager.deny_user('{{ object.slug }}', '{{ person.user.username }}'); window.cancelEvent(event);"
-                                               id="group_deny_user_{{ object.slug }}_{{ person.user.username }}"><span>{% blocktrans %}
+                                                title="{% trans "Deny Request" %}"
+                                                onclick="GroupMembershipManager.deny_user('{{ object.slug }}', '{{ person.user.username }}'); window.cancelEvent(event);"
+                                                id="group_deny_user_{{ object.slug }}_{{ person.user.username }}"><span>{% blocktrans %}
                                                 Deny membership request{% endblocktrans %}</span>
                                             </a>
                                         </li>
@@ -66,9 +68,9 @@
                                     {% if object|is_member_invitation_cancelable:person %}
                                         <li class="cancel_member_invitation">
                                             <a href="#Cancel-Invitation"
-                                               title="{% trans "Cancel Invitation" %}"
-                                               onclick="GroupMembershipManager.cancel_user('{{ object.slug }}', '{{ person.user.username }}'); window.cancelEvent(event);"
-                                               id="group_cancel_user_{{ object.slug }}_{{ person.user.username }}"><span>{% blocktrans %}
+                                                title="{% trans "Cancel Invitation" %}"
+                                                onclick="GroupMembershipManager.cancel_user('{{ object.slug }}', '{{ person.user.username }}'); window.cancelEvent(event);"
+                                                id="group_cancel_user_{{ object.slug }}_{{ person.user.username }}"><span>{% blocktrans %}
                                                 Cancel invitation{% endblocktrans %}</span>
                                             </a>
                                         </li>
@@ -76,9 +78,9 @@
                                     {% if object|is_member_removable:person %}
                                         <li class="remove_membership">
                                             <a href="#Remove-Member"
-                                               title="{% trans "Remove Member" %}"
-                                               onclick="GroupMembershipManager.remove_user('{{ object.slug }}', '{{ person.user.username }}'); window.cancelEvent(event);"
-                                               id="group_remove_user_{{ object.slug }}_{{ person.user.username }}"><span>{% blocktrans %}
+                                                title="{% trans "Remove Member" %}"
+                                                onclick="GroupMembershipManager.remove_user('{{ object.slug }}', '{{ person.user.username }}'); window.cancelEvent(event);"
+                                                id="group_remove_user_{{ object.slug }}_{{ person.user.username }}"><span>{% blocktrans %}
                                                 Remove member{% endblocktrans %}</span>
                                             </a>
                                         </li>
@@ -86,7 +88,7 @@
                                     {% if person.is_contactable %}
                                         <li class="mail">
                                             <a href="{{ person.get_url_path }}message/"
-                                               title="{% trans "Send a mail" %}"><span>{% trans "Send a mail" %}</span>
+                                                title="{% trans "Send a mail" %}"><span>{% trans "Send a mail" %}</span>
                                             </a>
                                         </li>
                                     {% endif %}

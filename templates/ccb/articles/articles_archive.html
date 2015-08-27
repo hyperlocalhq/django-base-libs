@@ -19,7 +19,8 @@
     <div class="breadcrumbs">
         <a href="/">{% trans "Home" %}</a>
         {% if creative_sector %}
-            <span class="b-sep"><span>::</span></span><a href="/news/">{% trans "News" %}</a>
+            <span class="b-sep"><span>::</span></span>
+            <a href="/news/">{% trans "News" %}</a>
             <span class="b-sep"><span>::</span></span><span>{{ creative_sector.get_title }}</span>
         {% else %}
             <span class="b-sep"><span>::</span></span><span>{% trans "News" %}</span>

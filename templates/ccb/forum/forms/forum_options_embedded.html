@@ -9,9 +9,9 @@
             {{ form.max_level|as_uni_field }}
             <div class="buttonHolder">
                 <input id="id_post" class="primaryAction" type="submit" name="{{ post_stage_field }}"
-                       value="{% filter upper %}{% trans 'Save' %}{% endfilter %}"/>
+                    value="{% filter upper %}{% trans 'Save' %}{% endfilter %}"/>
                 <input id="id_cancel" type="submit" class="secondaryAction" name="{{ cancel_stage_field }}"
-                       value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
+                    value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
                 {% comment %}this one is used for security reasons -->{% endcomment %}
             </div>
         </fieldset>

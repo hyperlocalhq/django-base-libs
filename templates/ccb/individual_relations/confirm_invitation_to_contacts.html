@@ -8,7 +8,7 @@
 
 {% block stylesheet %}
     <link rel="stylesheet" type="text/css" media="screen"
-          href="{{ STATIC_URL }}site/css/website/gwenn_forms-front.css"/>
+        href="{{ STATIC_URL }}site/css/website/gwenn_forms-front.css"/>
 {% endblock %}
 
 {% block title %}{% trans "Accept Invitation" %}{% endblock %}
@@ -65,9 +65,9 @@
 
                 <div class="buttonHolder">
                     <input class="primaryAction" type="submit" id="post" name="accept_invitation"
-                           value='{% filter upper %}{% trans "Accept" %}{% endfilter %}'/>
+                        value='{% filter upper %}{% trans "Accept" %}{% endfilter %}'/>
                     <input class="secondaryAction" type="submit" name="deny_invitation"
-                           value="{% filter upper %}{% trans 'Deny' %}{% endfilter %}"/>
+                        value="{% filter upper %}{% trans 'Deny' %}{% endfilter %}"/>
                 </div>
             </fieldset>
         </form>

@@ -16,10 +16,10 @@
                             {% if portfolio_settings.landing_page_image %}
                                 <img src="
                                         {{ UPLOADS_URL }}{{ portfolio_settings.landing_page_image|modified_path:"gp" }}"
-                                     alt="{% trans "Image for landing page" %}"/>
+                                    alt="{% trans "Image for landing page" %}"/>
                             {% else %}
                                 <img src="{{ STATIC_URL }}site/img/website/placeholder/upload_image.png"
-                                     alt="{{ object.get_title|escape }}"/>
+                                    alt="{{ object.get_title|escape }}"/>
                             {% endif %}
                         </li>
                         <li class="insert_img">
@@ -31,11 +31,12 @@
                         </li>
                         <li class="insert_img">
                             <input type="submit" class="button_good left"
-                                   value="{% filter upper %}{% trans "Upload" %}{% endfilter %}" name="save_continue"/>
+                                value="{% filter upper %}{% trans "Upload" %}{% endfilter %}" name="save_continue"/>
                         </li>
                         <li>
                             {% if portfolio_settings.landing_page_image %}
                                 <a href="
+
 
                                     {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/settings/delete-landing-page-image/">{% trans "Delete image" %}</a>
                             {% endif %}
@@ -43,7 +44,7 @@
                     </ul>
                     <div class="buttonHolder">
                         <input type="submit" class="primaryAction"
-                               value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
+                            value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
                     </div>
                 </fieldset>
             </div>

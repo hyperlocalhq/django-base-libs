@@ -2,13 +2,15 @@
 <a href="{{ object.get_url_path }}">
     {% if object.cover_image %}
         <img width="184" height="184" src="{{ UPLOADS_URL }}{{ object.cover_image.path|modified_path:"glist" }}"
-             alt=""/>
+            alt=""/>
     {% else %}
         <img width="184" height="184" src="{{ object.mediafile_set.all.0.get_list_image_url }}" alt=""/>
     {% endif %}
 </a>
 <div class="media-info">
-    <h5><a href="{{ object.get_url_path }}">{{ object.content_object.get_title|escape }}</a></h5>
+    <h5>
+        <a href="{{ object.get_url_path }}">{{ object.content_object.get_title|escape }}</a>
+    </h5>
 
     <div class="tool txt">
         <div>
@@ -21,7 +23,8 @@
                     <li class="memo">{% adding2memos for object %}</li>
                     <li class="favorites login-required">
                         <a href="/login/?goto_next={{ request.path }}"
-                           title="{% trans "Add to favorites" %}"><span><span>{% trans "Add to favorites" %} ({% trans "login request" %})</span></span>
+                            title="{% trans "Add to favorites" %}">
+                            <span><span>{% trans "Add to favorites" %} ({% trans "login request" %})</span></span>
                         </a>
                     </li>
                 {% endif %}

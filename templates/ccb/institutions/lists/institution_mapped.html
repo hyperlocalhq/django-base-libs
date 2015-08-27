@@ -5,10 +5,10 @@
     <a href="{{ institution.get_url_path }}">
         {% if institution.image %}
             <img alt="{{ institution.get_title|escape }}"
-                 src="{{ UPLOADS_URL }}{{ institution.image|modified_path:"al" }}"/>
+                src="{{ UPLOADS_URL }}{{ institution.image|modified_path:"al" }}"/>
         {% else %}
             <img alt="{{ institution.get_title|escape }}"
-                 src="{{ STATIC_URL }}site/img/website/placeholder/institution_m.png"/>
+                src="{{ STATIC_URL }}site/img/website/placeholder/institution_m.png"/>
         {% endif %}
     </a>
 {% endblock %}
@@ -100,8 +100,9 @@
             </span>
             {% endfor %}
             {% for url in institution.get_contacts.0.get_urls %}
-                <span class="url">{% if url.type %}<span class="type">{{ url.type }}: </span>{% endif %}<a
-                    href="{{ url.link|escape }}" onclick="open_new_window(event)">{{ url.link }}</a><br/></span>
+                <span class="url">{% if url.type %}<span class="type">{{ url.type }}: </span>{% endif %}
+                    <a
+                        href="{{ url.link|escape }}" onclick="open_new_window(event)">{{ url.link }}</a><br/></span>
             {% endfor %}
         </p>
     {% endif %}

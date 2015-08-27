@@ -10,15 +10,16 @@
             <h2><span class="summary">{{ object.get_title|escape }}</span>
                 {% if perms.events.change_event %}
                     <a href="/admin/events/event/{{ object.id }}/" class="edit_link"
-                       onclick="open_new_window(event)">({% trans "edit" %})</a>
+                        onclick="open_new_window(event)">({% trans "edit" %})
+                    </a>
                 {% endif %}
             </h2>
             {% if object.has_start_date or object.has_end_date or object.label %}
                 <p>
                     <span class="dtstart"
-                          title="{{ object.get_start_date|date:"Ymd" }}">{{ object.get_start_date|date:"Y-m-d" }}</span>
+                        title="{{ object.get_start_date|date:"Ymd" }}">{{ object.get_start_date|date:"Y-m-d" }}</span>
                     <span class="dtend"
-                          title="{{ object.get_end_date|date:"Ymd" }}">{{ object.get_end_date|date:"Y-m-d" }}</span>
+                        title="{{ object.get_end_date|date:"Ymd" }}">{{ object.get_end_date|date:"Y-m-d" }}</span>
 
                     {% if object.label %}{{ object.label }}{% endif %}
                     {% get_date_period_formatted from object.start_yyyy object.start_mm object.start_dd to object.end_yyyy object.end_mm object.end_dd as event_period %}
@@ -78,7 +79,8 @@
                             {% endif %}
 
                             {% for phone in contact.get_phones %}
-                                {% if forloop.first %} <h4>{% trans "Contact" %}</h4>
+                                {% if forloop.first %}
+                                    <h4>{% trans "Contact" %}</h4>
                                     <dl> {% endif %}
                             {% if phone.type %}
                                 <dt>{{ phone.type }}:</dt>{% endif %}
@@ -87,19 +89,26 @@
 
                             {% endfor %}
                             {% for url in contact.get_urls %}
-                                {% if forloop.first %}<h4>{% trans "WEBSITE" %}</h4>
+                                {% if forloop.first %}
+                                    <h4>{% trans "WEBSITE" %}</h4>
                                     <dl>{% endif %}
                             {% if url.type %}
                                 <dt>{{ url.type }}:</dt>
-                                <dd><a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">
-                                    {% with url.link|slice:"0:26"|escape as sliced %}{{ sliced }}
-                                        {% with url.link|escape as not_sliced %}{% ifnotequal sliced not_sliced %}...
-                                        {% endifnotequal %}{% endwith %}{% endwith %}</a></dd>
+                                <dd>
+                                    <a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">
+                                        {% with url.link|slice:"0:26"|escape as sliced %}{{ sliced }}
+                                            {% with url.link|escape as not_sliced %}{% ifnotequal sliced not_sliced %}
+                                                ...
+                                            {% endifnotequal %}{% endwith %}{% endwith %}</a>
+                                </dd>
                             {% else %}
-                                <dd><a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">
-                                    {% with url.link|slice:"0:38"|escape as sliced %}{{ sliced }}
-                                        {% with url.link|escape as not_sliced %}{% ifnotequal sliced not_sliced %}...
-                                        {% endifnotequal %}{% endwith %}{% endwith %}</a></dd>
+                                <dd>
+                                    <a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">
+                                        {% with url.link|slice:"0:38"|escape as sliced %}{{ sliced }}
+                                            {% with url.link|escape as not_sliced %}{% ifnotequal sliced not_sliced %}
+                                                ...
+                                            {% endifnotequal %}{% endwith %}{% endwith %}</a>
+                                </dd>
                             {% endif %}
                             {% if forloop.last %}</dl>{% endif %}
                             {% endfor %}
@@ -111,7 +120,8 @@
                     {% endfor %}
              {% endcomment %}
                             {% for ims in contact.get_ims %}
-                                {% if forloop.first %}<h4>IM</h4>  {% endif %}
+                                {% if forloop.first %}
+                                    <h4>IM</h4>  {% endif %}
 
                                 <dl>{% if ims.type %}
                                     <dt>{{ ims.type }}:</dt>{% endif %}
@@ -129,7 +139,8 @@
                     <div id="address2">
 
                         {% if object.organizing_institution %}
-                            <div><h4>{% trans "organizer" %}</h4>
+                            <div>
+                                <h4>{% trans "organizer" %}</h4>
                                 <dl>
                                     <dd><span class="org"><a
                                         href="{{ object.organizing_institution.get_url_path }}">{{ object.organizing_institution.get_title|escape }}</a></span>
@@ -139,7 +150,8 @@
                         {% endif %}
 
                         {% if object.organizing_person %}
-                            <div><h4>{% trans "organizing person" %}</h4>
+                            <div>
+                                <h4>{% trans "organizing person" %}</h4>
                                 <dl>
                                     <dd>
                                         <a href="{{ object.organizing_person.get_url_path }}">{{ object.organizing_person.get_title|escape }}</a>
@@ -158,7 +170,8 @@
             {% if object.has_fees %}
                 <div class="labelamount">
                     {% for fee in object.get_fees %}
-                        {% if forloop.first %}<h3 class="left_h3">{% trans "FEES" %}</h3>{% endif %}
+                        {% if forloop.first %}
+                            <h3 class="left_h3">{% trans "FEES" %}</h3>{% endif %}
                         <div>
                             {{ fee.label }}
                             {{ fee.amount }}<br>
@@ -170,7 +183,8 @@
             {% if object.has_opening_hours %}
                 <div class="timeboard">
                     {% for opening in object.get_opening_hours %}
-                        {% if forloop.first %}<h3 class="left_h3">{% trans "OPENING HOURS" %}</h3>
+                        {% if forloop.first %}
+                            <h3 class="left_h3">{% trans "OPENING HOURS" %}</h3>
                             <dl>{% endif %}
                     <dt class="day">{{ opening.weekday|slice:":2" }}</dt>
                     <dd class="time">

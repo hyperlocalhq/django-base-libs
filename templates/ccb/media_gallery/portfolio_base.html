@@ -18,17 +18,21 @@
                         <li>{{ section.grouper.title }}
                             <ul>
                                 {% for item in section.list %}
-                                    <li{% if gallery == item %} class="active"{% endif %}><a
-                                        href="{{ object.get_url_path }}portfolio/album/{{ item.get_token }}/"
-                                        {% if gallery == item %} class="active"{% endif %}>{{ item.title }}</a></li>
+                                    <li{% if gallery == item %} class="active"{% endif %}>
+                                        <a
+                                            href="{{ object.get_url_path }}portfolio/album/{{ item.get_token }}/"
+                                            {% if gallery == item %} class="active"{% endif %}>{{ item.title }}</a>
+                                    </li>
                                 {% endfor %}
                             </ul>
                         </li>
                     {% else %}
                         {% for item in section.list %}
-                            <li{% if gallery == item %} class="active"{% endif %}><a
-                                href="{{ object.get_url_path }}portfolio/album/{{ item.get_token }}/"
-                                {% if gallery == item %} class="active"{% endif %}>{{ item.title }}</a></li>
+                            <li{% if gallery == item %} class="active"{% endif %}>
+                                <a
+                                    href="{{ object.get_url_path }}portfolio/album/{{ item.get_token }}/"
+                                    {% if gallery == item %} class="active"{% endif %}>{{ item.title }}</a>
+                            </li>
                         {% endfor %}
                     {% endif %}
                 {% endfor %}
@@ -36,19 +40,25 @@
                     <li>{% trans "Administration" %}
                         <ul>
                             {% comment %}<!--<li{% if view_name == "portfolio_settings" %} class="active"{% endif %}><a href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/settings/"{% if view_name == "portfolio_settings" %} class="active"{% endif %}>{% trans "Portfolio Settings" %}</a></li>-->{% endcomment %}
-                            <li{% if view_name == "create_update_gallery" %} class="active"{% endif %}><a
-                                href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/add/"
-                                {% if view_name == "manage_galleries" %}
-                                class="active"{% endif %}>{% trans "Add Project" %}</a></li>
-                            <li{% if view_name == "manage_galleries" %} class="active"{% endif %}><a
-                                href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/manage/"
-                                {% if view_name == "manage_galleries" %}
-                                class="active"{% endif %}>{% trans "Manage Portfolio" %}</a></li>
+                            <li{% if view_name == "create_update_gallery" %} class="active"{% endif %}>
+                                <a
+                                    href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/add/"
+                                    {% if view_name == "manage_galleries" %}
+                                        class="active"{% endif %}>{% trans "Add Project" %}</a>
+                            </li>
+                            <li{% if view_name == "manage_galleries" %} class="active"{% endif %}>
+                                <a
+                                    href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/manage/"
+                                    {% if view_name == "manage_galleries" %}
+                                        class="active"{% endif %}>{% trans "Manage Portfolio" %}</a>
+                            </li>
                             {% if object.is_person or object.is_institution %}
-                                <li{% if view_name == "fb_sync" %} class="active"{% endif %}><a
-                                    href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/fb-sync/"
-                                    {% if view_name == "fb_sync" %}
-                                    class="active"{% endif %}>{% trans "Synchronize with Facebook" %}</a></li>
+                                <li{% if view_name == "fb_sync" %} class="active"{% endif %}>
+                                    <a
+                                        href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/fb-sync/"
+                                        {% if view_name == "fb_sync" %}
+                                            class="active"{% endif %}>{% trans "Synchronize with Facebook" %}</a>
+                                </li>
                             {% endif %}
                         </ul>
                     </li>

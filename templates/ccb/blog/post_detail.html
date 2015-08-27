@@ -3,9 +3,11 @@
 
 <div class="toolbox clearfix">
     <div class="entry-controls">
-        <a class="rss" href="{{ container.get_url }}{% if type %}{{ type.sysname }}/{% endif %}feeds/rss/"><span><span>RSS</span></span></a>
+        <a class="rss" href="{{ container.get_url }}{% if type %}{{ type.sysname }}/{% endif %}feeds/rss/"><span><span>RSS</span></span>
+        </a>
         <a class="addthis_button"
-           href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07"><span><span>Share</span></span></a>
+            href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07"><span><span>Share</span></span>
+        </a>
     </div>
     <div class="newer-older">
         {% if post.get_newer_published %}
@@ -68,14 +70,16 @@
     {% endif %}
     <ul class="toolbar right">
         {% if_has_perm "blog.change_blog_posts" post.blog %}
-            <li id="editPost_{{ post.slug }}" class="editPost"><a title="{% trans "edit" %}"
-                                                                  href="{{ post.get_url }}edit/"><span><span>{% trans "edit" %}</span></span></a>
+            <li id="editPost_{{ post.slug }}" class="editPost">
+                <a title="{% trans "edit" %}"
+                    href="{{ post.get_url }}edit/"><span><span>{% trans "edit" %}</span></span></a>
             </li>
         {% end_if_has_perm %}
 
         {% if_has_perm "blog.delete_blog_posts" post.blog %}
-            <li id="deletePost_{{ post.slug }}" class="deletePost"><a title="{% trans "delete" %}"
-                                                                      href="{{ post.get_url }}delete/"><span><span>{% trans "delete" %}</span></span></a>
+            <li id="deletePost_{{ post.slug }}" class="deletePost">
+                <a title="{% trans "delete" %}"
+                    href="{{ post.get_url }}delete/"><span><span>{% trans "delete" %}</span></span></a>
             </li>
         {% end_if_has_perm %}
     </ul>
@@ -104,14 +108,14 @@
                 <div class="comment-author">
                     {% if comment.user.get_profile.image %}
                         <img class="left" src="{{ UPLOADS_URL }}{{ comment.user.get_profile.image|modified_path:"at" }}"
-                             alt="{{ comment.user.get_profile.get_title|escape }}"/>
+                            alt="{{ comment.user.get_profile.get_title|escape }}"/>
                     {% else %}
                         {% if comment.user %}
                             <img class="left" src="{{ STATIC_URL }}site/img/website/placeholder/person_s.png"
-                                 alt="{{ comment.user.get_profile.get_title|escape }}"/>
+                                alt="{{ comment.user.get_profile.get_title|escape }}"/>
                         {% else %}
                             <img class="left" src="{{ STATIC_URL }}site/img/website/placeholder/person_s.png"
-                                 alt="{{ comment.name|escape }}"/>
+                                alt="{{ comment.name|escape }}"/>
                         {% endif %}
                     {% endif %}
                     <p>
@@ -131,18 +135,24 @@
                     {% if_has_perm "blog.moderate_blog_comments" post.blog %}
                         <ul class="toolbar">
                             {% if not comment.is_removed %}
-                                <li id="refuseComment_{{ comment.id }}" class="refuseComment"><a
-                                    class="refuseComment_but"
-                                    href="{{ post.get_url }}comment/{{ comment.id }}/refuse/"><span><span>{% trans "Refuse" %}</span></span></a>
+                                <li id="refuseComment_{{ comment.id }}" class="refuseComment">
+                                    <a
+                                        class="refuseComment_but"
+                                        href="{{ post.get_url }}comment/{{ comment.id }}/refuse/">
+                                        <span><span>{% trans "Refuse" %}</span></span></a>
                                 </li>
-                                <li id="markAsSpamComment_{{ comment.id }}" class="markAsSpamComment"><a
-                                    class="markAsSpamComment_but"
-                                    href="{{ post.get_url }}comment/{{ comment.id }}/mark_as_spam/"><span><span>{% trans "Mark as Spam" %}</span></span></a>
+                                <li id="markAsSpamComment_{{ comment.id }}" class="markAsSpamComment">
+                                    <a
+                                        class="markAsSpamComment_but"
+                                        href="{{ post.get_url }}comment/{{ comment.id }}/mark_as_spam/">
+                                        <span><span>{% trans "Mark as Spam" %}</span></span></a>
                                 </li>
                             {% else %}
-                                <li id="acceptComment_{{ comment.id }}" class="acceptComment"><a
-                                    class="acceptComment_but"
-                                    href="{{ post.get_url }}comment/{{ comment.id }}/accept/"><span><span>{% trans "Accept" %}</span></span></a>
+                                <li id="acceptComment_{{ comment.id }}" class="acceptComment">
+                                    <a
+                                        class="acceptComment_but"
+                                        href="{{ post.get_url }}comment/{{ comment.id }}/accept/">
+                                        <span><span>{% trans "Accept" %}</span></span></a>
                                 </li>
                             {% endif %}
                         </ul>

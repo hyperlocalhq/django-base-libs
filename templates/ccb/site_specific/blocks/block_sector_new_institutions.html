@@ -8,7 +8,7 @@
                     <a href="{{ institution.get_url_path }}">
                         {% if institution.image %}
                             <img alt="{{ institution.get_title|escape }}"
-                                 src="{{ UPLOADS_URL }}{{ institution.image|modified_path:"at" }}"/>
+                                src="{{ UPLOADS_URL }}{{ institution.image|modified_path:"at" }}"/>
                         {% else %}
                             <img alt="{{ institution.get_title|escape }}" src="{{ DEFAULT_SMALL_LOGO_4_INSTITUTION }}"/>
                         {% endif %}
@@ -22,7 +22,9 @@
                 </li>
             {% endfor %}
         </ul>
-        <p class="more"><a href="/{{ URL_ID_INSTITUTIONS }}/?order_by=creation_date_desc">{% trans "more..." %}</a></p>
+        <p class="more">
+            <a href="/{{ URL_ID_INSTITUTIONS }}/?order_by=creation_date_desc">{% trans "more..." %}</a>
+        </p>
     {% else %}
         <p class="nothing">{% trans "There are no public institutions." %}</p>
     {% endif %}

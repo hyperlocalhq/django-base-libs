@@ -1,7 +1,9 @@
 {% load i18n browsing %}
 {% if selected_browsing_cats %}
     <div class="categories reset_all_filters_{{ LANGUAGE_CODE }}">
-        <h3><a href="/browse/reset-all/"><b>{% trans "Reset all filters" %}</b></a></h3>
+        <h3>
+            <a href="/browse/reset-all/"><b>{% trans "Reset all filters" %}</b></a>
+        </h3>
     </div>
 {% else %}
     <div class="categories item_categories_{{ LANGUAGE_CODE }}">

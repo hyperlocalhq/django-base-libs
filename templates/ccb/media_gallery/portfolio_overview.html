@@ -26,7 +26,7 @@
                         <div class="row">
                     {% endif %}
                 <div class="list-item {{ extra_css_classes|default:"" }}"
-                     onclick="redirect('{{ object.content_object.get_url_path }}portfolio/')">
+                    onclick="redirect('{{ object.content_object.get_url_path }}portfolio/')">
                     {% include_parsed "media_gallery/lists/landing_page_gallery_item.html" with forloop.counter as counter and item as object %}
                 </div>
                 {% if not forloop.last %}
@@ -47,12 +47,14 @@
             <p>
                 <a href="{{ object.get_url_path }}portfolio/album/{{ published_gallery_list.0.get_token }}/">
                     <img alt=""
-                         src="{{ UPLOADS_URL }}{{ portfolio_settings.landing_page_image.path|modified_path:"gd" }}"/>
+                        src="{{ UPLOADS_URL }}{{ portfolio_settings.landing_page_image.path|modified_path:"gd" }}"/>
                 </a>
             </p>
         {% else %}
             {% if can_manage_portfolio %}
-                <p><a href="settings/">{% trans "You need to upload an image." %}</a></p>
+                <p>
+                    <a href="settings/">{% trans "You need to upload an image." %}</a>
+                </p>
             {% endif %}
         {% endif %}
     {% endif %}

@@ -32,7 +32,8 @@
 {% block breadcrumbs %}
     <div class="breadcrumbs">
         <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_DOCUMENTS }}/">{% trans "Infolinks" %}</a>
+        <span class="b-sep"><span>::</span></span>
+        <a href="/{{ URL_ID_DOCUMENTS }}/">{% trans "Infolinks" %}</a>
         <span class="b-sep"><span>::</span></span><span>{{ object.get_title|truncatewords:5 }}</span>
     </div>
 {% endblock %}

@@ -17,9 +17,9 @@
 
         <div class="buttonHolder">
             <input class="primaryAction" type="button" onclick="window.redirect('login/?goto_next={{ goto_next }}')"
-                   value="{% filter upper %}{% trans 'Yes' %}{% endfilter %}"/>
+                value="{% filter upper %}{% trans 'Yes' %}{% endfilter %}"/>
             <input class="primaryAction" type="button" onclick="window.redirect('register/?goto_next={{ goto_next }}')"
-                   value="{% filter upper %}{% trans 'No' %}{% endfilter %}"/>
+                value="{% filter upper %}{% trans 'No' %}{% endfilter %}"/>
         </div>
     </form>
 {% endblock %}

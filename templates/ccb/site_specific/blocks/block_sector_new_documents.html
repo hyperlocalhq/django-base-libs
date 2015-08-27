@@ -8,7 +8,7 @@
                     <a href="{{ document.get_url_path }}">
                         {% if document.image %}
                             <img alt="{{ document.get_title|escape }}"
-                                 src="{{ UPLOADS_URL }}{{ document.image|modified_path:"at" }}"/>
+                                src="{{ UPLOADS_URL }}{{ document.image|modified_path:"at" }}"/>
                         {% else %}
                             <img alt="{{ document.get_title|escape }}" src="{{ DEFAULT_SMALL_LOGO_4_DOCUMENT }}"/>
                         {% endif %}
@@ -22,7 +22,9 @@
                 </li>
             {% endfor %}
         </ul>
-        <p class="more"><a href="/{{ URL_ID_DOCUMENTS }}/?order_by=creation_date_desc">{% trans "more..." %}</a></p>
+        <p class="more">
+            <a href="/{{ URL_ID_DOCUMENTS }}/?order_by=creation_date_desc">{% trans "more..." %}</a>
+        </p>
     {% else %}
         <p class="nothing">{% trans "There are no public documents." %}</p>
     {% endif %}

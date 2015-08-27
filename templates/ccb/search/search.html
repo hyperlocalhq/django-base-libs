@@ -27,7 +27,7 @@
                 </div>
                 <div class="buttonHolder">
                     <input class="primaryAction" type="submit"
-                           value="{% filter upper %}{% trans "Search" %}{% endfilter %}"/>
+                        value="{% filter upper %}{% trans "Search" %}{% endfilter %}"/>
                 </div>
             </fieldset>
         </form>
@@ -43,7 +43,7 @@
                             {% for result in result_group.page.object_list %}
                                 {% if result.object %} {# if the object still exists (is not deleted) #}
                                     <div class="list-item expanded {{ extra_css_classes|default:"" }}"
-                                         onclick="redirect('{{ result.get_stored_fields.url_path }}')">
+                                        onclick="redirect('{{ result.get_stored_fields.url_path }}')">
                                         {% if LANGUAGE_CODE == "en" %}
                                             {% autoescape off %}
                                                 <img src="{{ result.get_stored_fields.image_path }}" alt=""/>
@@ -82,14 +82,17 @@
                                     {% endif %}
                                 </div>
                                 <form class="to_show secondaryForm" action="">
-                                    <div class="ctrlHolder"><select class="page_skip">
-                                        {% for pnumber in result_group.paginator.page_range %}
-                                            <option value="{{ pnumber }}"{% ifequal pnumber result_group.page.number %}
-                                                    selected="selected"{% endifequal %}>
-                                                {% blocktrans with result_group.paginator.num_pages as pages %}Page
-                                                    {{ pnumber }} of {{ pages }}{% endblocktrans %}</option>
-                                        {% endfor %}
-                                    </select></div>
+                                    <div class="ctrlHolder">
+                                        <select class="page_skip">
+                                            {% for pnumber in result_group.paginator.page_range %}
+                                                <option value="{{ pnumber }}"
+                                                    {% ifequal pnumber result_group.page.number %}
+                                                        selected="selected"{% endifequal %}>
+                                                    {% blocktrans with result_group.paginator.num_pages as pages %}Page
+                                                        {{ pnumber }} of {{ pages }}{% endblocktrans %}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
                                 </form>
                                 <div class="next">
                                     {% if result_group.page.has_next %}
@@ -115,7 +118,7 @@
                         {% for result in result_group.results %}
                             {% if result.object %} {# if the object still exists (is not deleted) #}
                                 <div class="list-item expanded {{ extra_css_classes|default:"" }}"
-                                     onclick="redirect('{{ result.get_stored_fields.url_path }}')">
+                                    onclick="redirect('{{ result.get_stored_fields.url_path }}')">
                                     {% if LANGUAGE_CODE == "en" %}
                                         {% autoescape off %}
                                             <img src="{{ result.get_stored_fields.image_path }}" alt=""/>
@@ -149,7 +152,9 @@
                     {% endif %}
                 {% endfor %}
             {% else %}
-                <div><p class="nothing">{% trans "No results found." %}</p></div>
+                <div>
+                    <p class="nothing">{% trans "No results found." %}</p>
+                </div>
             {% endif %}
         {% else %}
             {# Show some example queries to run, maybe query syntax, something else? #}

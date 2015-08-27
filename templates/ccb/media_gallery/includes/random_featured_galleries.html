@@ -18,10 +18,10 @@ Usage in any template:
             {% for gallery in newest_objects %}
                 {% with gallery.content_object as content_object %}
                     <a href="{{ content_object.get_url_path }}portfolio/"
-                       class="featured_portfolio_item{% if forloop.last %} last-item{% endif %}">
+                        class="featured_portfolio_item{% if forloop.last %} last-item{% endif %}">
                         {% if gallery.mediafile_set.count %}
                             <img width="184" height="184" alt="{{ content_object.get_title|escape }}"
-                                 src="{{ gallery.mediafile_set.all.0.get_list_image_url }}"/>
+                                src="{{ gallery.mediafile_set.all.0.get_list_image_url }}"/>
                         {% endif %}
                         <span class="featured_portfolio_item_details">
                             <span class="featured_portfolio_item_title">{{ gallery.title }}</span>

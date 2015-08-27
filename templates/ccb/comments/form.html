@@ -18,13 +18,13 @@
             </fieldset>
             <div class="buttons">
                 <input type="hidden" name="goto_next"
-                       value="{% if goto_next %}{{ goto_next }}{% else %}{{ request.get_full_path }}{% endif %}"/>
+                    value="{% if goto_next %}{{ goto_next }}{% else %}{{ request.get_full_path }}{% endif %}"/>
                 <input type="hidden" name="options" value="{{ options }}"/>
                 <input type="hidden" name="target" value="{{ target }}"/>
                 <input type="hidden" name="gonzo" value="{{ hash }}"/>
                 <input type="hidden" name="prevent_spam" value="{{ prevent_spam }}"/>
                 <input type="submit" class="button_good" name="preview"
-                       value="{% filter upper %}{% trans "Preview" %}{% endfilter %}"/>
+                    value="{% filter upper %}{% trans "Preview" %}{% endfilter %}"/>
             </div>
         </div>
     </form>

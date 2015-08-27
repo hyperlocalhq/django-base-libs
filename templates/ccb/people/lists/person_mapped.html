@@ -61,7 +61,7 @@
                                         {{ contact.institution.get_title|escape }}
                                     {% else %}
                                         <a class="org"
-                                           href="{{ contact.institution.get_url_path }}">{{ contact.institution.get_title|escape }}</a>
+                                            href="{{ contact.institution.get_url_path }}">{{ contact.institution.get_title|escape }}</a>
                                         ,
                                     {% endifequal %}
                                     <br/>
@@ -114,9 +114,10 @@
                 {% endif %}
                 {% for url in contact.get_urls %}
                     <span>
-                {% if url.type %}<span class="type">{{ url.type }}: </span>{% endif %}<a href="{{ url.link|escape }}"
-                                                                                         onclick="open_new_window(event)"
-                                                                                         class="url">{{ url.link }}</a><br/>
+                {% if url.type %}<span class="type">{{ url.type }}: </span>{% endif %}
+                        <a href="{{ url.link|escape }}"
+                            onclick="open_new_window(event)"
+                            class="url">{{ url.link }}</a><br/>
             </span>
                 {% endfor %}
             </p>

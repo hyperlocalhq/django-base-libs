@@ -40,7 +40,9 @@
                 </div>
             </div>
         {% empty %}
-            <div><p class="nothing">{% trans "No results found." %}</p></div>
+            <div>
+                <p class="nothing">{% trans "No results found." %}</p>
+            </div>
         {% endfor %}
     </div>
 {% endblock %}

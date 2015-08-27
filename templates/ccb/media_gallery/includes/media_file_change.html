@@ -5,7 +5,7 @@
         <div id="media_file_editing">
             {{ form.non_field_errors }}
             <div id="upload_media_file">
-                <legend>
+                <fieldset><legend>
                     {% ifequal media_file_type "image" %}
                         {% trans "Upload Image" %}
                     {% endifequal %}
@@ -15,14 +15,14 @@
                     {% ifequal media_file_type "video" %}
                         {% trans "Upload Video" %}
                     {% endifequal %}
-                </legend>
+                </legend></fieldset>
                 <ul>
                     <li class="preview_img">
                         {% if media_file.get_preview_representation %}
                             {{ media_file.get_preview_representation }}
                         {% else %}
                             <img src="{{ STATIC_URL }}site/img/website/placeholder/upload_image.png"
-                                 alt="{{ object.get_title|escape }}"/>
+                                alt="{{ object.get_title|escape }}"/>
                         {% endif %}
                     </li>
                     <li class="insert_img">
@@ -34,7 +34,7 @@
                     </li>
                     <li class="insert_img">
                         <input type="submit" class="button_good left"
-                               value="{% filter upper %}{% trans "Upload" %}{% endfilter %}" name="save_continue"/>
+                            value="{% filter upper %}{% trans "Upload" %}{% endfilter %}" name="save_continue"/>
                     </li>
                     <li class="insert_img">
                         <a href="#link_to_media_file" id="link_to_media_file_switcher">
@@ -44,7 +44,7 @@
                 </ul>
             </div>
             <div id="link_to_media_file" class="to_hide">
-                <legend>
+                <fieldset><legend>
                     {% ifequal media_file_type "image" %}
                         {% trans "Link to External Image" %}
                     {% endifequal %}
@@ -54,14 +54,14 @@
                     {% ifequal media_file_type "video" %}
                         {% trans "Link to External Video" %}
                     {% endifequal %}
-                </legend>
+                </legend></fieldset>
                 <ul>
                     <li class="preview_img">
                         {% if media_file.get_preview_representation %}
                             {{ media_file.get_preview_representation }}
                         {% else %}
                             <img src="{{ STATIC_URL }}site/img/website/placeholder/upload_image.png"
-                                 alt="{{ object.get_title|escape }}"/>
+                                alt="{{ object.get_title|escape }}"/>
                         {% endif %}
                     </li>
                     <li class="insert_img">
@@ -73,8 +73,8 @@
                     </li>
                     <li class="insert_img">
                         <input type="submit" class="button_good left"
-                               value="{% filter upper %}{% trans "Save and Show" %}{% endfilter %}"
-                               name="save_continue"/>
+                            value="{% filter upper %}{% trans "Save and Show" %}{% endfilter %}"
+                            name="save_continue"/>
                     </li>
                     <li class="insert_img">
                         <a href="#upload_media_file" id="upload_media_file_switcher">
@@ -90,11 +90,11 @@
                         <li class="preview_img">
                             {% if media_file.splash_image_path %}
                                 <img src="{{ UPLOADS_URL }}{{ media_file.splash_image_path|modified_path:"gp" }}"
-                                     alt="{{ object.get_title|escape }}"/>
+                                    alt="{{ object.get_title|escape }}"/>
                             {% else %}
 
                                 <img src="{{ STATIC_URL }}site/img/website/placeholder/{{ media_file_type }}_f.png"
-                                     alt="{{ object.get_title|escape }}"/>
+                                    alt="{{ object.get_title|escape }}"/>
                             {% endif %}
                         </li>
                         <li class="insert_img">
@@ -106,7 +106,7 @@
                         </li>
                         <li class="insert_img">
                             <input type="submit" class="button_good left"
-                                   value="{% filter upper %}{% trans "Upload" %}{% endfilter %}" name="save_continue"/>
+                                value="{% filter upper %}{% trans "Upload" %}{% endfilter %}" name="save_continue"/>
                         </li>
                     </ul>
                 </fieldset>
@@ -143,14 +143,14 @@
                 </ul>
             </fieldset>
             <input type="button" class="button_bad button_delete"
-                   value="{% filter upper %}{% trans "Back" %}{% endfilter %}"
-                   onclick="redirect('{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/')"/>
+                value="{% filter upper %}{% trans "Back" %}{% endfilter %}"
+                onclick="redirect('{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/')"/>
 
             <div class="buttons">
                 <input type="submit" class="button_good right"
-                       value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
+                    value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
                 <input name="save_add" type="submit" class="button_good"
-                       value="{% filter upper %}{% trans "Save and add another" %}{% endfilter %}"/>
+                    value="{% filter upper %}{% trans "Save and add another" %}{% endfilter %}"/>
             </div>
         </div>
         {% if list_of_files %}
@@ -159,9 +159,11 @@
                     <ul id="media_thumbs">
                 {% endif %}
             <li class="{% ifequal f.id media_file.id %} active{% endifequal %}">
-                <a href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/file_{{ f.id }}/"><img
-                    src="{{ f.get_thumbnail_url }}" alt="{{ f.title|escape }}"
-                    title="{{ f.get_file_type_display }}. {{ f.title|escape }}"/></a>
+                <a href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/file_{{ f.id }}/">
+                    <img
+                        src="{{ f.get_thumbnail_url }}" alt="{{ f.title|escape }}"
+                        title="{{ f.get_file_type_display }}. {{ f.title|escape }}"/>
+                </a>
             </li>
             {% if forloop.last %}
                 </ul>

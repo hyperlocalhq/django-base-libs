@@ -52,10 +52,14 @@
                     <input type="hidden" name="action" value="mailchimp_subscribe"/>
                     <input type="hidden" name="mailchimp_subscribe" value="yes"/>
                     <ul class="submit-row" {% if is_popup %}style="overflow: auto;"{% endif %}>
-                        <li class="left cancel-button-container"><a href="../"
-                                                                    class="cancel-link">{% trans "Cancel" %}</a></li>
-                        <li class="submit-button-container"><input type="submit" value="{% trans "Subscribe" %}"
-                                                                   class="default"/></li>
+                        <li class="left cancel-button-container">
+                            <a href="../"
+                                class="cancel-link">{% trans "Cancel" %}</a>
+                        </li>
+                        <li class="submit-button-container">
+                            <input type="submit" value="{% trans "Subscribe" %}"
+                                class="default"/>
+                        </li>
                     </ul>
                 </div>
             </form>

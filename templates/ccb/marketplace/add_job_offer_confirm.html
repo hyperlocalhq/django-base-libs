@@ -87,7 +87,7 @@
                         <dl>
                             <dt>{% trans "Contact Person" %}</dt>
                             <dd>
-                                <a href="{{ request.user.get_profile.get_url_path }}">{{ request.user.get_profile.get_title }}</a>
+                                <a href="{{ request.user.profile.get_url_path }}">{{ request.user.profile.get_title }}</a>
                             </dd>
                         </dl>
                     {% else %}
@@ -172,7 +172,9 @@
                                 {{ form.report_kulturmanagement }}
                                 {% if form.report_kulturmanagement.required %}<strong>{% endif %}
                                 {% blocktrans %}Send to
-                                    <a href="http://www.kulturmanagement.net/" onclick="open_new_window(event)">Kulturmanagement.net</a>
+                                    <a href="http://www.kulturmanagement.net/" onclick="open_new_window(event)">
+                                        Kulturmanagement.net
+                                    </a>
                                     .{% endblocktrans %}
                                 {% if form.report_kulturmanagement.required %}*</strong>{% endif %}
                             </label>
@@ -194,7 +196,9 @@
                                 {{ form.report_talent_in_berlin }}
                                 {% if form.report_creativeset.required %}<strong>{% endif %}
                                 {% blocktrans %}Send to
-                                    <a href="https://www.talent-berlin.de/jobs/" onclick="open_new_window(event)">talent-in-berlin.de</a>
+                                    <a href="https://www.talent-berlin.de/jobs/" onclick="open_new_window(event)">
+                                        talent-in-berlin.de
+                                    </a>
                                     .{% endblocktrans %}
                                 {% if form.report_talent_in_berlin.required %}*</strong>{% endif %}
                             </label>
@@ -212,7 +216,8 @@
 {% block breadcrumbs %}
     <div class="breadcrumbs">
         <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_JOB_OFFERS }}/">{% trans "Jobs" %}</a>
+        <span class="b-sep"><span>::</span></span>
+        <a href="/{{ URL_ID_JOB_OFFERS }}/">{% trans "Jobs" %}</a>
         <span class="b-sep"><span>::</span></span><span>{% trans "Offer a job" %}</span>
     </div>
 {% endblock %}

@@ -14,12 +14,18 @@
                     <a href="{{ container.get_url }}new/"><span class="pic"></span>{% trans "Write a Post" %}</a>
                 </li>
             {% end_if_has_perm %}
-            <li class="rss"><a href="{{ container.get_url }}feeds/rss/"><span class="pic"></span>{% trans "RSS feed" %}
-            </a></li>
-            <li class="rss"><a href="{{ container.get_url }}feeds/atom/"><span
-                class="pic"></span>{% trans "ATOM feed" %}</a></li>
-            <li class="print"><a href="#" onclick="window.print(); return false;"><span
-                class="pic"></span>{% trans "print" %}</a></li>
+            <li class="rss">
+                <a href="{{ container.get_url }}feeds/rss/"><span class="pic"></span>{% trans "RSS feed" %}
+                </a>
+            </li>
+            <li class="rss">
+                <a href="{{ container.get_url }}feeds/atom/"><span
+                    class="pic"></span>{% trans "ATOM feed" %}</a>
+            </li>
+            <li class="print">
+                <a href="#" onclick="window.print(); return false;"><span
+                    class="pic"></span>{% trans "print" %}</a>
+            </li>
         </ul>
     </div>
 </div>
