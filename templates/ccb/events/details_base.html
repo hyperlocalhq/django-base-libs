@@ -54,10 +54,9 @@
                 {% endif %}
             </h4>
             {% if object.has_multiple_occurrences %}
-                <a href="
-
-
-                    {% if event_time %}{{ object.get_absolute_url }}{% endif %}#event-occurrences">{% trans "See all occurrences" %}</a>
+                <a href="{% if event_time %}{{ object.get_absolute_url }}{% endif %}#event-occurrences">
+                    {% trans "See all occurrences" %}
+                </a>
             {% endif %}
         {% endif %}
     </div>

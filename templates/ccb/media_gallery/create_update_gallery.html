@@ -34,10 +34,9 @@
                     {% if gallery.cover_image %}
                         <img src="{{ UPLOADS_URL }}{{ gallery.cover_image|modified_path:"gp" }}"
                             alt="{% trans "Album cover" %}"/>
-                        <a href="
-
-
-                            {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/delete-cover/">{% trans "Delete image" %}</a>
+                        <a href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/delete-cover/">
+                            {% trans "Delete image" %}
+                        </a>
                     {% else %}
                         <img src="{{ STATIC_URL }}site/img/website/placeholder/upload_image.png"
                             alt="{% trans "Album cover" %}"/>

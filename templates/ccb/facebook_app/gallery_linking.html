@@ -14,10 +14,7 @@
         data-fb-album-count="{{ gallery_opts.fb_album.count|default:0 }}">
         <div class="ccb-gallery">
             {% if gallery_opts.ccb_gallery %}
-                <a href="
-
-
-                    {{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery_opts.ccb_gallery.get_token }}/manage/">
+                <a href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery_opts.ccb_gallery.get_token }}/manage/">
                     {% if gallery_opts.ccb_gallery.cover_image %}
                         <img width="75" height="75"
                             src="{{ UPLOADS_URL }}{{ gallery_opts.ccb_gallery.cover_image.path|modified_path:"gt" }}"
