@@ -1040,7 +1040,7 @@ class PortfolioSite(object):
             else:
                 # new media file
                 form = form_class()
-                form.fields['media_file_path'].required = True
+                form.fields['media_file'].required = True
 
         context_dict = {
             'media_file': media_file_obj,
