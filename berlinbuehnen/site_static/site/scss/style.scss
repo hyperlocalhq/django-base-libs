@@ -6,7 +6,7 @@
 @import 'bootstrap';
 @import 'header';
 @import 'footer';
-@import 'form';
+@import 'form'; 
 @import 'default';
 @import 'article';
 @import 'theater-of-the-week';
@@ -158,6 +158,25 @@ h1.bottom-line {
     body.is-xs & {
         margin-left: 10px;
         margin-right: 10px;
+    }
+}
+
+    
+.headline-link {
+    color: black;
+    &:hover {
+        color: black; 
+    }
+    &:focus {
+        color: black;
+    }
+    &.fawesome {
+        font-weight: $light;
+        margin-right: 30px;
+        margin-top: 5px;
+        &:hover {
+            color: $blue;
+        }
     }
 }
 
