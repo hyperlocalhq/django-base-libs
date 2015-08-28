@@ -3,7 +3,7 @@
     <div class="accordion sidebar-accordion">
         {% if organizer or festival.phone_number or festival.fax_number or festival.email or festival.website or festival.street_address or festival.city %}
             <div class="accordion-item">
-                <h4 class="accordion-item-head open">{% if festival.organziers %}{% trans "Festival Organizer" %}{% else %}{% trans "Venue" %}{% endif %}</h4>
+                <h4 class="accordion-item-head open">{% if organizer %}{% trans "Festival Organizer" %}{% else %}{% trans "Venue" %}{% endif %}</h4>
                 <div class="accordion-item-content">
                     {% if festival.logo %}
                         <img src="{{ MEDIA_URL }}{{ festival.logo|modified_path:"list_logo" }}" class="logo" alt="{{ festival.title|escape }}"/>
