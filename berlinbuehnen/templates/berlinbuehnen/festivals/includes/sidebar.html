@@ -1,7 +1,7 @@
 {% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites %}
 {% with festival.organizers.all.0 as organizer %}
     <div class="accordion sidebar-accordion">
-        {% if organizer or festival.phone_number or festival.fax_number or festival.email or festival.website or festival.street_address or festival.city %}
+        {% if organizer or festival.phone_number or festival.fax_number or festival.email or festival.website or festival.street_address %}
             <div class="accordion-item">
                 <h4 class="accordion-item-head open">{% if organizer %}{% trans "Festival Organizer" %}{% else %}{% trans "Venue" %}{% endif %}</h4>
                 <div class="accordion-item-content">
@@ -37,7 +37,7 @@
                             </dl>
                         {% endif %}
                     {% endfor %}
-                    {% if festival.phone_number or festival.fax_number or festival.email or festival.website or festival.street_address or festival.city %}
+                    {% if festival.phone_number or festival.fax_number or festival.email or festival.website or festival.street_address %}
                         <dl>
                             {% if organizer %}<dd class="headline">{% trans "Festival Contact" %}</dd>{% endif %}
                             {% if festival.street_address %}<dd>{{ festival.street_address }}</dd>{% endif %}
