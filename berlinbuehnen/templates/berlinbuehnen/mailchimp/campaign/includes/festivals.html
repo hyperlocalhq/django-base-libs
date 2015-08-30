@@ -20,7 +20,7 @@
                         <td style="padding:0 24px;"><table width="552" cellpadding="0" cellspacing="0" border="0">
                             <tr>
                                 {% with newest_objects.0 as festival %}
-                                    <td width="268" valign="top"><table width="268" cellpadding="0" cellspacing="0">
+                                    <td width="268" valign="top"><table width="268" height="189" cellpadding="0" cellspacing="0">
                                         {% if festival.first_image %}
                                             <tr>
                                                 <td width="268"><a href="{{ festival.get_url }}"><img src="http://www.berlin-buehnen.de/media/{{ festival.first_image.path|modified_path:"newsletter_festival" }}" width="268" border="0"/></a></td>
@@ -62,7 +62,7 @@
                                         <td width="268" valign="top"><table width="268" cellpadding="0" cellspacing="0">
                                             {% if festival.first_image %}
                                                 <tr>
-                                                    <td width="268"><a href="{{ festival.get_url }}"><img src="http://www.berlin-buehnen.de/media/{{ festival.first_image.path|modified_path:"newsletter_festival" }}" width="268" border="0"/></a></td>
+                                                    <td width="268"><a href="{{ festival.get_url }}"><img src="http://www.berlin-buehnen.de/media/{{ festival.first_image.path|modified_path:"newsletter_festival" }}" width="268" height="189" border="0"/></a></td>
                                                 </tr>
                                                 <tr>
                                                     <td height="16" style="font-size:12px;">&nbsp;</td>
@@ -144,7 +144,7 @@
                                     <td width="268" valign="top"><table width="268" cellpadding="0" cellspacing="0">
                                         {% if festival.first_image %}
                                             <tr>
-                                                <td width="268"><a href="{{ festival.get_url }}"><img src="http://www.berlin-buehnen.de/media/{{ festival.first_image.path|modified_path:"newsletter_festival" }}" width="268" border="0"/></a></td>
+                                                <td width="268"><a href="{{ festival.get_url }}"><img src="http://www.berlin-buehnen.de/media/{{ festival.first_image.path|modified_path:"newsletter_festival" }}" width="268" height="189" border="0"/></a></td>
                                             </tr>
                                             <tr>
                                                 <td height="16" style="font-size:12px;">&nbsp;</td>
@@ -183,7 +183,7 @@
                                         <td width="268" valign="top"><table width="268" cellpadding="0" cellspacing="0">
                                             {% if festival.first_image %}
                                                 <tr>
-                                                    <td width="268"><a href="{{ festival.get_url }}"><img src="http://www.berlin-buehnen.de/media/{{ festival.first_image.path|modified_path:"newsletter_festival" }}" width="268" border="0"/></a></td>
+                                                    <td width="268"><a href="{{ festival.get_url }}"><img src="http://www.berlin-buehnen.de/media/{{ festival.first_image.path|modified_path:"newsletter_festival" }}" width="268" height="189" border="0"/></a></td>
                                                 </tr>
                                                 <tr>
                                                     <td height="16" style="font-size:12px;">&nbsp;</td>
