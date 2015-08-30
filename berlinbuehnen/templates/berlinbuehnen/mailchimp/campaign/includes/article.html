@@ -30,33 +30,33 @@
                                     </tr>
                                 {% endif %}
                                 <tr>
-                                    <td><a href="{{ article.get_url_path }}" style="color:#000; font-size:12px; font-weight:600; text-decoration:none; display:block; line-height:120%;">{{ article.published_from|date:"j. F Y" }}</a></td>
+                                    <td><a href="{{ article.get_url_path }}" style="color:#000; font-size:12px; font-weight:600; text-decoration:none; display:block; line-height:120%;"><span style="color:#000; font-size:12px; font-weight:600; text-decoration:none;">{{ article.published_from|date:"j. F Y" }}</span></a></td>
                                 </tr>
                                 <tr>
                                     <td height="8" style="font-size:1px;">&nbsp;</td>
                                 </tr>
                                 <tr>
-                                    <td><a href="{{ article.get_url_path }}" style="color:#000; font-size:12px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:120%;">{{ article.title|escape }}</a></td>
+                                    <td><a href="{{ article.get_url_path }}" style="color:#000; font-size:12px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:120%;"><span style="color:#000; font-size:12px; font-weight:600; text-transform:uppercase; text-decoration:none;">{{ article.title|escape }}</span></a></td>
                                 </tr>
                                 <tr>
                                     <td height="8" style="font-size:1px;">&nbsp;</td>
                                 </tr>
                                 {% if article.subtitle %}
                                     <tr>
-                                        <td><a href="{{ article.get_url_path }}" style="color:#000; font-size:12px; font-weight:600; text-decoration:none; display:block; line-height:120%;">{{ article.subtitle }}</a></td>
+                                        <td><a href="{{ article.get_url_path }}" style="color:#000; font-size:12px; font-weight:600; text-decoration:none; display:block; line-height:120%;"><span style="color:#000; font-size:12px; font-weight:600; text-decoration:none;">{{ article.subtitle }}</span></a></td>
                                     </tr>
                                     <tr>
                                         <td height="8" style="font-size:1px;">&nbsp;</td>
                                     </tr>
                                 {% endif %}
                                 <tr>
-                                    <td><a href="{{ article.get_url_path }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;">{{ article.get_rendered_content|striptags|truncatewords:"35" }}</a></td>
+                                    <td><a href="{{ article.get_url_path }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;"><span style="color:#000; font-size:12px; text-decoration:none;">{% if article.description %}{{ article.get_rendered_description|striptags }}{% else %}{{ article.get_rendered_content|striptags|truncatewords:"35" }}{% endif %}</span></a></td>
                                 </tr>
                                 <tr>
                                     <td height="8" style="font-size:1px;">&nbsp;</td>
                                 </tr>
                                 <tr>
-                                    <td><a href="{{ article.get_url_path }}" style="font-size:12px; font-weight:600; text-decoration:none; display:block;">Weiterlesen</a></td>
+                                    <td><a href="{{ article.get_url_path }}" style="font-size:12px; font-weight:600; text-decoration:none; display:block;"><span style="font-size:12px; font-weight:600;">Weiterlesen</span></a></td>
                                 </tr>
                             {% endwith %}
                         </table></td>
@@ -72,33 +72,33 @@
                                     </tr>
                                 {% endif %}
                                 <tr>
-                                    <td><a href="{{ article.get_url_path }}" style="color:#000; font-size:12px; font-weight:600; text-decoration:none; display:block; line-height:120%;">{{ article.published_from|date:"j. F Y" }}</a></td>
+                                    <td><a href="{{ article.get_url_path }}" style="color:#000; font-size:12px; font-weight:600; text-decoration:none; display:block; line-height:120%;"><span style="color:#000; font-size:12px; font-weight:600; text-decoration:none;">{{ article.published_from|date:"j. F Y" }}</span></a></td>
                                 </tr>
                                 <tr>
                                     <td height="8" style="font-size:1px;">&nbsp;</td>
                                 </tr>
                                 <tr>
-                                    <td><a href="{{ article.get_url_path }}" style="color:#000; font-size:12px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:120%;">{{ article.title|escape }}</a></td>
+                                    <td><a href="{{ article.get_url_path }}" style="color:#000; font-size:12px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:120%;"><span style="color:#000; font-size:12px; font-weight:600; text-transform:uppercase; text-decoration:none;">{{ article.title|escape }}</span></a></td>
                                 </tr>
                                 <tr>
                                     <td height="8" style="font-size:1px;">&nbsp;</td>
                                 </tr>
                                 {% if article.subtitle %}
                                     <tr>
-                                        <td><a href="{{ article.get_url_path }}" style="color:#000; font-size:12px; font-weight:600; text-decoration:none; display:block; line-height:120%;">{{ article.subtitle }}</a></td>
+                                        <td><a href="{{ article.get_url_path }}" style="color:#000; font-size:12px; font-weight:600; text-decoration:none; display:block; line-height:120%;"><span style="color:#000; font-size:12px; font-weight:600; text-decoration:none;">{{ article.subtitle }}</span></a></td>
                                     </tr>
                                     <tr>
                                         <td height="8" style="font-size:1px;">&nbsp;</td>
                                     </tr>
                                 {% endif %}
                                 <tr>
-                                    <td><a href="{{ article.get_url_path }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;">{{ article.get_rendered_content|striptags|truncatewords:"35" }}</a></td>
+                                    <td><a href="{{ article.get_url_path }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;"><span style="color:#000; font-size:12px; text-decoration:none;">{% if article.description %}{{ article.get_rendered_description|striptags }}{% else %}{{ article.get_rendered_content|striptags|truncatewords:"35" }}{% endif %}</span></a></td>
                                 </tr>
                                 <tr>
                                     <td height="8" style="font-size:1px;">&nbsp;</td>
                                 </tr>
                                 <tr>
-                                    <td><a href="{{ article.get_url_path }}" style="font-size:12px; font-weight:600; text-decoration:none; display:block;">Weiterlesen</a></td>
+                                    <td><a href="{{ article.get_url_path }}" style="font-size:12px; font-weight:600; text-decoration:none; display:block;"><span style="font-size:12px; font-weight:600; text-decoration:none;">Weiterlesen</span></a></td>
                                 </tr>
                             {% endwith %}
                         </table>{% else %}&nbsp;{% endif %}</td>
@@ -114,33 +114,33 @@
                                     </tr>
                                 {% endif %}
                                 <tr>
-                                    <td><a href="{{ article.get_url_path }}" style="color:#000; font-size:12px; font-weight:600; text-decoration:none; display:block; line-height:120%;">{{ article.published_from|date:"j. F Y" }}</a></td>
+                                    <td><a href="{{ article.get_url_path }}" style="color:#000; font-size:12px; font-weight:600; text-decoration:none; display:block; line-height:120%;"><span style="color:#000; font-size:12px; font-weight:600; text-decoration:none;">{{ article.published_from|date:"j. F Y" }}</span></a></td>
                                 </tr>
                                 <tr>
                                     <td height="8" style="font-size:1px;">&nbsp;</td>
                                 </tr>
                                 <tr>
-                                    <td><a href="{{ article.get_url_path }}" style="color:#000; font-size:12px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:120%;">{{ article.title|escape }}</a></td>
+                                    <td><a href="{{ article.get_url_path }}" style="color:#000; font-size:12px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:120%;"><span style="color:#000; font-size:12px; font-weight:600; text-transform:uppercase; text-decoration:none;">{{ article.title|escape }}</span></a></td>
                                 </tr>
                                 <tr>
                                     <td height="8" style="font-size:1px;">&nbsp;</td>
                                 </tr>
                                 {% if article.subtitle %}
                                     <tr>
-                                        <td><a href="{{ article.get_url_path }}" style="color:#000; font-size:12px; font-weight:600; text-decoration:none; display:block; line-height:120%;">{{ article.subtitle }}</a></td>
+                                        <td><a href="{{ article.get_url_path }}" style="color:#000; font-size:12px; font-weight:600; text-decoration:none; display:block; line-height:120%;"><span style="color:#000; font-size:12px; font-weight:600; text-decoration:none;">{{ article.subtitle }}</span></a></td>
                                     </tr>
                                     <tr>
                                         <td height="8" style="font-size:1px;">&nbsp;</td>
                                     </tr>
                                 {% endif %}
                                 <tr>
-                                    <td><a href="{{ article.get_url_path }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;">{{ article.get_rendered_content|striptags|truncatewords:"35" }}</a></td>
+                                    <td><a href="{{ article.get_url_path }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;"><span style="color:#000; font-size:12px; text-decoration:none;">{% if article.description %}{{ article.get_rendered_description|striptags }}{% else %}{{ article.get_rendered_content|striptags|truncatewords:"35" }}{% endif %}</span></a></td>
                                 </tr>
                                 <tr>
                                     <td height="8" style="font-size:1px;">&nbsp;</td>
                                 </tr>
                                 <tr>
-                                    <td><a href="{{ article.get_url_path }}" style="font-size:12px; font-weight:600; text-decoration:none; display:block;">Weiterlesen</a></td>
+                                    <td><a href="{{ article.get_url_path }}" style="font-size:12px; font-weight:600; text-decoration:none; display:block;"><span style="font-size:12px; font-weight:600; text-decoration:none;">Weiterlesen</span></a></td>
                                 </tr>
                             {% endwith %}
                         </table>{% else %}&nbsp;{% endif %}</td>
