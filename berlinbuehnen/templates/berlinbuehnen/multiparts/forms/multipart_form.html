@@ -73,6 +73,20 @@
                     $checkbox.closest('.form-group').hide();
                 });
             });
+            $('#parts').each(function() {
+                var index = 0;
+                $('input', $(this)).each(function() {
+                    var $this = $(this);
+                    var id = $this.attr('id');
+                    if (id) {
+                        id = id.split('-');
+                        if (id.length == 3 && id[0] == 'id_parts' && id[2] == 'sort_order') {
+                            $this.attr('value', index);
+                            index++;
+                        }
+                    }
+                });
+            });
             $('.delete').on('click', function() {
                 var $formset_form = $(this).closest('.formset-form');
                 var $checkbox = $formset_form.find('input:checkbox[id$=DELETE]');
