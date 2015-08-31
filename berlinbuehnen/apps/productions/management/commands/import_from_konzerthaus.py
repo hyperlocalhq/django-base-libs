@@ -23,6 +23,8 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
     IMPORT_URL = " "
     DEFAULT_PUBLISHING_STATUS = "import"
 
+    owners = []
+
     def handle_noargs(self, *args, **options):
         import re
         import os
@@ -42,6 +44,7 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
         Person = models.get_model("people", "Person")
 
         self.in_program_of = Location.objects.get(title_de=u"Konzerthaus Berlin")
+        self.owners = list(self.in_program_of.get_owners())
 
         self.service, created = Service.objects.get_or_create(
             sysname="konzerthaus_berlin_prods",
@@ -138,6 +141,9 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
                 prod.save()
 
                 prod.in_program_of.add(self.in_program_of)
+
+                for owner in self.owners:
+                    prod.set_owner(owner)
 
                 prod.productioninvolvement_set.all().delete()
                 if production_dict["Mitwirkende"]:
