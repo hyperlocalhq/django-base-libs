@@ -42,10 +42,18 @@ Parent = models.get_model("multiparts", "Parent")
 @never_cache
 @login_required
 def dashboard(request):
-    owned_locations = Location.objects.accessible_to(request.user).order_by("-modified_date", "-creation_date")[:3]
-    owned_productions = Production.objects.accessible_to(request.user).filter(status__in=('published', 'draft', 'expired', 'not_listed', 'import')).order_by("-modified_date", "-creation_date")[:3]
-    owned_multiparts = Parent.objects.accessible_to(request.user).order_by("-modified_date", "-creation_date")[:3]
-    owned_festivals = Festival.objects.accessible_to(request.user).filter(status__in=('published', 'draft', 'expired', 'not_listed', 'import')).order_by("-modified_date", "-creation_date")[:3]
+    owned_locations = Location.objects.accessible_to(request.user).extra(select={
+        'modified_or_creation_date': 'IFNULL(locations_location.modified_date, locations_location.creation_date)'
+    }).order_by("-modified_or_creation_date")[:3]
+    owned_productions = Production.objects.accessible_to(request.user).extra(select={
+        'modified_or_creation_date': 'IFNULL(productions_production.modified_date, productions_production.creation_date)'
+    }).filter(status__in=('published', 'draft', 'expired', 'not_listed', 'import')).order_by("-modified_or_creation_date")[:3]
+    owned_multiparts = Parent.objects.accessible_to(request.user).extra(select={
+        'modified_or_creation_date': 'IFNULL(multiparts_parent.modified_date, multiparts_parent.creation_date)'
+    }).order_by("-modified_or_creation_date")[:3]
+    owned_festivals = Festival.objects.accessible_to(request.user).filter(status__in=('published', 'draft', 'expired', 'not_listed', 'import')).extra(select={
+        'modified_or_creation_date': 'IFNULL(festivals_festival.modified_date, festivals_festival.creation_date)'
+    }).order_by("-modified_or_creation_date")[:3]
     context = {
         'owned_locations': owned_locations,
         'owned_productions': owned_productions,
@@ -57,7 +65,9 @@ def dashboard(request):
 @never_cache
 @login_required
 def dashboard_locations(request):
-    owned_location_qs = Location.objects.accessible_to(request.user)
+    owned_location_qs = Location.objects.accessible_to(request.user).extra(select={
+        'modified_or_creation_date': 'IFNULL(locations_location.modified_date, locations_location.creation_date)'
+    })
 
     status = request.REQUEST.get('status', 'published')
     if status in ('published', 'draft', 'not_listed'):
@@ -76,9 +86,9 @@ def dashboard_locations(request):
     elif sort_by == '-title':
         owned_location_qs = owned_location_qs.order_by("-title_de")
     elif sort_by == '-date':
-        owned_location_qs = owned_location_qs.order_by("modified_date", "creation_date")
+        owned_location_qs = owned_location_qs.order_by("modified_or_creation_date")
     else:
-        owned_location_qs = owned_location_qs.order_by("-modified_date", "-creation_date")
+        owned_location_qs = owned_location_qs.order_by("-modified_or_creation_date")
 
     paginator = Paginator(owned_location_qs, 50)
     page_number = request.GET.get('page', 1)
@@ -102,7 +112,9 @@ def dashboard_locations(request):
 @never_cache
 @login_required
 def dashboard_productions(request):
-    owned_production_qs = Production.objects.accessible_to(request.user)
+    owned_production_qs = Production.objects.accessible_to(request.user).extra(select={
+        'modified_or_creation_date': 'IFNULL(productions_production.modified_date, productions_production.creation_date)'
+    })
 
     status = request.REQUEST.get('status', 'published')
     if status in ('published', 'draft', 'expired', 'not_listed', 'import'):
@@ -123,9 +135,9 @@ def dashboard_productions(request):
     elif sort_by == '-title':
         owned_production_qs = owned_production_qs.order_by("-title_de")
     elif sort_by == '-date':
-        owned_production_qs = owned_production_qs.order_by("modified_date", "creation_date")
+        owned_production_qs = owned_production_qs.order_by("modified_or_creation_date")
     else:
-        owned_production_qs = owned_production_qs.order_by("-modified_date", "-creation_date")
+        owned_production_qs = owned_production_qs.order_by("-modified_or_creation_date")
 
     paginator = Paginator(owned_production_qs, 50)
     page_number = request.GET.get('page', 1)
@@ -198,7 +210,9 @@ def dashboard_festivals(request):
 @never_cache
 @login_required
 def dashboard_multiparts(request):
-    owned_multipart_qs = Parent.objects.accessible_to(request.user)
+    owned_multipart_qs = Parent.objects.accessible_to(request.user).extra(select={
+        'modified_or_creation_date': 'IFNULL(multiparts_parent.modified_date, multiparts_parent.creation_date)'
+    })
 
     status = request.REQUEST.get('status', 'published')
     if status in ('published', 'draft', 'expired', 'not_listed'):
@@ -219,9 +233,9 @@ def dashboard_multiparts(request):
     elif sort_by == '-title':
         owned_multipart_qs = owned_multipart_qs.order_by("-production__title_de")
     elif sort_by == '-date':
-        owned_multipart_qs = owned_multipart_qs.order_by("modified_date", "creation_date")
+        owned_multipart_qs = owned_multipart_qs.order_by("modified_or_creation_date")
     else:
-        owned_multipart_qs = owned_multipart_qs.order_by("-modified_date", "-creation_date")
+        owned_multipart_qs = owned_multipart_qs.order_by("-modified_or_creation_date")
 
     paginator = Paginator(owned_multipart_qs, 50)
     page_number = request.GET.get('page', 1)

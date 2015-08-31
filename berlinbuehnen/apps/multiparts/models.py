@@ -36,6 +36,8 @@ class ParentManager(models.Manager):
 class Parent(CreationModificationMixin, UrlMixin):
     production = models.OneToOneField('productions.Production', verbose_name=_("Production"), related_name="multipart")
 
+    row_level_permissions = True
+
     objects = ParentManager()
 
     def __unicode__(self):

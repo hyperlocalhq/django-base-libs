@@ -25,8 +25,8 @@ FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 
 from berlinbuehnen.apps.locations.models import Location
 
-from forms import ParentForm, PartFormset
-from models import Parent, Part
+from .forms import ParentForm, PartFormset
+from .models import Parent, Part
 
 
 class EventFilterForm(forms.Form):
@@ -110,8 +110,10 @@ def add_multipart(request):
                     and hasattr(frm, "cleaned_data")
                     and not frm.cleaned_data.get('DELETE', False)
                 ):
-                    frm.instance = multipart
-                    obj = frm.save()
+                    # frm.instance = multipart
+                    obj = frm.save(commit=False)
+                    obj.parent = multipart
+                    obj.save()
                     ids_to_keep.append(obj.pk)
             multipart.part_set.exclude(pk__in=ids_to_keep).delete()
 
