@@ -149,7 +149,9 @@ def dashboard_productions(request):
 @never_cache
 @login_required
 def dashboard_festivals(request):
-    owned_festival_qs = Festival.objects.accessible_to(request.user)
+    owned_festival_qs = Festival.objects.accessible_to(request.user).extra(select={
+        'modified_or_creation_date': 'IFNULL(festivals_festival.modified_date, festivals_festival.creation_date)'
+    })
 
     status = request.REQUEST.get('status', 'published')
     if status in ('published', 'draft', 'expired', 'not_listed', 'import'):
@@ -170,9 +172,9 @@ def dashboard_festivals(request):
     elif sort_by == '-title':
         owned_festival_qs = owned_festival_qs.order_by("-title_de")
     elif sort_by == '-date':
-        owned_festival_qs = owned_festival_qs.order_by("modified_date", "creation_date")
+        owned_festival_qs = owned_festival_qs.order_by("modified_or_creation_date")
     else:
-        owned_festival_qs = owned_festival_qs.order_by("-modified_date", "-creation_date")
+        owned_festival_qs = owned_festival_qs.order_by("-modified_or_creation_date")
 
     paginator = Paginator(owned_festival_qs, 50)
     page_number = request.GET.get('page', 1)
