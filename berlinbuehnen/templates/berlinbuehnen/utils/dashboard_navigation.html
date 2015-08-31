@@ -1,11 +1,25 @@
 {% load menu_tags i18n base_tags  %}
 <div class="navbar-wrapper">
-  <nav class="navbar navbar-default" role="navigation" data-spy="affix" data-offset-top="71">
+  <nav class="navbar navbar-default affix-rebuild" role="navigation" data-offset-top="30">
     <div class="container relative">
 
-      <div id="meta" class="pull-right">
+      <div id="meta" class="dashboard-meta-wrapper">
+        <div id="language-menu" class="pull-right">
+          <div class="dropdown">
+            <!-- Link or button to toggle dropdown -->
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+              {{ LANGUAGE_CODE|upper }}
+              <span class="caret black"></span>
+            </button>
+            <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
+              {% for language in LANGUAGES %}
+                <li class="{% if LANGUAGE_CODE == language.0 %}active{% endif %}"><a href="/{{ language.0 }}/dashboard/">{{ language.1 }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
         {% if request.user.is_authenticated %}
-          <div id="user-menu" class="pull-left hidden-xs">
+          <div id="user-menu" class="pull-right hidden-xs">
             <div class="btn-group">
               <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                 {% blocktrans with first_name=request.user.first_name|default:request.user.username %}{{ first_name }}{% endblocktrans %}
@@ -32,20 +46,6 @@
             <a class="btn btn-info" href="/{{ LANGUAGE_CODE }}/login/">{% trans "Login" %}</a>
           </div>
         {% endif %}
-        <div id="language-menu" class="pull-left">
-          <div class="dropdown">
-            <!-- Link or button to toggle dropdown -->
-            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-              {{ LANGUAGE_CODE|upper }}
-              <span class="caret black"></span>
-            </button>
-            <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
-              {% for language in LANGUAGES %}
-                <li class="{% if LANGUAGE_CODE == language.0 %}active{% endif %}"><a href="/{{ language.0 }}/dashboard/">{{ language.1 }}</a></li>
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
       </div>
 
       <div class="navbar-header">

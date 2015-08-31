@@ -1718,7 +1718,23 @@ select {
 }
 
 .dashboard {
+    
+  .dashboard-meta-wrapper {
+    max-width: 940px;
+    min-width: 940px;
+    width: 940px;
+    position: fixed;
+    top: 12px;
+    padding-right: 60px;
+  }
   
+  fieldset {
+    .subtitle {
+        position: relative;
+        top: -25px;
+    }
+  }
+    
   font-weight: $regular;
   
   label {

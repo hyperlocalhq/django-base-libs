@@ -181,6 +181,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
 
         layout_blocks.append(layout.Fieldset(
             _("Festival Office Address"),
+            layout.HTML("""{% load i18n %}<div class="subtitle">{% trans "leave blank if you want to use organizer data" %}</div>"""),
             layout.Row(
                 layout.Div(
                     "street_address",
@@ -214,6 +215,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
 
         layout_blocks.append(layout.Fieldset(
             _("Contact"),
+            layout.HTML("""{% load i18n %}<div class="subtitle">{% trans "leave blank if you want to use organizer data" %}</div>"""),
 
             layout.Row(
                 layout.Div(
@@ -266,6 +268,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
 
         layout_blocks.append(layout.Fieldset(
             _("Social media"),
+            layout.HTML("""{% load i18n %}<div class="subtitle">{% trans "leave blank if you want to use organizer data" %}</div>"""),
             layout.HTML("""{% load crispy_forms_tags i18n %}
             {{ formsets.social.management_form }}
             <div id="social">
@@ -287,6 +290,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
 
         layout_blocks.append(layout.Fieldset(
             _("Tickets Box Office (when differs from festival address)"),
+            layout.HTML("""{% load i18n %}<div class="subtitle">{% trans "leave blank if you want to use organizer data" %}</div>"""),
             layout.Row(
                 layout.Div(
                     "tickets_street_address",
@@ -340,6 +344,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
 
         layout_blocks.append(layout.Fieldset(
             _("Opening Hours of Tickets Box Office"),
+            layout.HTML("""{% load i18n %}<div class="subtitle">{% trans "leave blank if you want to use organizer data" %}</div>"""),
             layout.Row(
                 layout.Div(
                     'mon_open',
@@ -478,6 +483,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
 
         layout_blocks.append(layout.Fieldset(
             _("Press Contact"),
+            layout.HTML("""{% load i18n %}<div class="subtitle">{% trans "leave blank if you want to use organizer data" %}</div>"""),
 
             layout.Row(
                 layout.Div(

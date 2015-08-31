@@ -1554,6 +1554,8 @@ select { visibility: hidden; }
 .autocomplete-light-widget.modern-style .deck [data-value] .remove:hover { background-position: -15px 2px; }
 
 .dashboard { font-weight: 400; }
+.dashboard .dashboard-meta-wrapper { max-width: 940px; min-width: 940px; width: 940px; position: fixed; top: 12px; padding-right: 60px; }
+.dashboard fieldset .subtitle { position: relative; top: -25px; }
 .dashboard label { font-weight: 400; }
 .dashboard .navbar-wrapper .nav.navbar-nav { width: 100%; }
 .dashboard .navbar-wrapper .nav.navbar-nav > li { margin-right: 2.5%; }
@@ -1749,9 +1751,17 @@ select { visibility: hidden; }
 .details .main dl.listing p { display: inline; padding-right: 5px; }
 .details .additional .sponsor-content { margin-right: -35px; }
 .details .additional .sponsor-content .sponsor { display: inline-block; margin: 15px 35px 0 0; }
+.details .additional .multipart { margin-top: 10px; margin-bottom: 25px; }
+.details .additional .multipart:last-child { margin-bottom: 0; }
+.details .additional .multipart h1 { font-weight: 200; text-transform: uppercase; margin-bottom: 10px; }
+.details .additional .multipart dl { margin-top: 0; }
 .details .left { padding-left: 10px; padding-right: 10px; margin-bottom: 15px; }
 .details .left .top-image { width: 100%; margin-bottom: 24px; }
 .details .left .top-image img { width: 100%; }
+.details .left .multipart { margin-top: 50px; }
+.details .left .multipart .multipart-header { margin-bottom: 16px; }
+.details .left .multipart h1 { font-weight: 200; text-transform: uppercase; margin-bottom: 5px; }
+.details .left .multipart h2 { font-weight: 400; font-size: 1.125em; margin-bottom: 5px; }
 .details .right { padding-left: 10px; padding-right: 10px; margin-bottom: 15px; }
 .details .full { margin-top: 15px; padding-left: 0; padding-right: 0; }
 .details dl dt { display: inline; float: none; }
@@ -1866,8 +1876,11 @@ top: 0;*/ width: 110px; height: 100%; display: block; background-image: url(../i
 .month-slider .month-slider-dates a.month-slider-month { font-weight: 700; cursor: pointer; color: black; }
 .month-slider .month-slider-dates a.month-slider-month.active { color: #4583c8; }
 .month-slider .month-slider-dates a.month-slider-month:hover { color: #4583c8; }
-.month-slider .month-slider-dates .month-slider-year { font-weight: 200; color: black; font-size: 1.5em; margin-right: 20px; }
+.month-slider .month-slider-dates .month-slider-year { font-weight: 200; color: black; font-size: 1.5em; margin-right: 20px; cursor: default; }
 .month-slider .month-slider-dates .month-slider-year:last-child { margin-right: 0px; }
+.month-slider .month-slider-dates a.month-slider-year { cursor: pointer; }
+.month-slider .month-slider-dates a.month-slider-year:hover { color: #4583c8; }
+.month-slider .month-slider-dates a.month-slider-year.active { color: #4583c8; }
 .month-slider.medium .month-slider-prev { left: -10px; }
 .month-slider.medium .month-slider-next { right: -10px; }
 .month-slider.small .month-slider-prev { top: -2px; left: 0px; }
@@ -2259,6 +2272,12 @@ h3 { margin-bottom: 16px; }
 
 h1.bottom-line { padding-bottom: 8px; border-bottom: 4px solid black; margin: 0 30px 35px 30px; text-transform: uppercase; }
 body.is-xs h1.bottom-line { margin-left: 10px; margin-right: 10px; }
+
+.headline-link { color: black; }
+.headline-link:hover { color: black; }
+.headline-link:focus { color: black; }
+.headline-link.fawesome { font-weight: 200; margin-right: 30px; margin-top: 5px; }
+.headline-link.fawesome:hover { color: #4583c8; }
 
 .section-head { position: relative; }
 

@@ -172,6 +172,24 @@
                 margin: 15px 35px 0 0;
             }  
         }
+        .multipart {
+            margin-top: 10px;
+            margin-bottom: 25px;
+            
+            &:last-child {
+                margin-bottom: 0;
+            }
+            
+            h1 {
+                font-weight: $light;
+                text-transform: uppercase;
+                margin-bottom: 10px;
+            }
+            
+            dl {
+                margin-top: 0;
+            }
+        }
     }
     .left {
         padding-left: 10px;
@@ -182,6 +200,26 @@
             margin-bottom: 24px;
             img {
                 width: 100%;
+            }
+        }
+        
+        .multipart {
+            margin-top: 50px;
+            
+            .multipart-header {
+                margin-bottom: 16px;
+            }
+            
+            h1 {
+                font-weight: $light;
+                text-transform: uppercase;
+                margin-bottom: 5px;
+            }
+            
+            h2 {
+                font-weight: $regular;
+                font-size: 1.125em;
+                margin-bottom: 5px;
             }
         }
     }

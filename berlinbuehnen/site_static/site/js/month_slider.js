@@ -7,6 +7,8 @@
  * and their end date in "data-end".
  * E.g.: the slider with the id "main_monthslider" would belong to the grid with the id "main_list".
  *
+ * Elements with a class resampling the first part of the slider id up to "_" and adding "_clear" becoming a button for resetting the filter.
+ *
  * @author Daniel Lehmann
  */
 
@@ -38,6 +40,7 @@
         me.end = new Date(me.today.getFullYear(), me.today.getMonth(), 1);
         me.current_start = new Date(me.today.getFullYear(), me.today.getMonth(), 1);
         me.active_months = [];
+        me.active_years = [];
         
         if (me.$list) me.calculateRange();
         
@@ -51,6 +54,8 @@
         me.onResize();
         me.$prev.click(function() {me.onPrev();});
         me.$next.click(function() {me.onNext();});
+        
+        $('.'+me.connect_id+'_clear').click(function() {me.onClearFilter();});
         
         $(window).resize(function() {me.onResize();});
         window.setTimeout(function() {me.onResize();}, 200);
@@ -75,8 +80,11 @@
             
             while (start.getTime() <= end.getTime()) {
                 var month = 'month-slider-'+start.getFullYear()+'-'+start.getMonth();
+                var year = 'month-slider-'+start.getFullYear();
                 me.active_months[month] = true;
+                me.active_years[year] = true;
                 $this.addClass(month);
+                $this.addClass(year);
                 start = new Date(start.getFullYear(), start.getMonth()+1, 1);
             }
         });
@@ -105,7 +113,12 @@
             var year = date.getFullYear();
             if (current_year != year) {
                 current_year = year;   
-                html += '<span class="month-slider-year">'+year+'</span>';
+                var id = 'month-slider-'+year;
+                if (me.active_years[id]) {
+                    html += '<a id="'+id+'" href="javascript:void(0);" class="month-slider-year">'+year+'</a>';
+                } else {
+                    html += '<span class="month-slider-year">'+year+'</span>';
+                }
             }
             
             me.$dates.html(html);
@@ -133,7 +146,7 @@
         date = new Date(date.getFullYear(), date.getMonth()-1, 1);
         me.$dates.html(current_html);
         
-        $('a', me.$dates).click(function() {me.onMonth($(this));});
+        $('a', me.$dates).click(function() {me.onFilter($(this));});
         
         
         
@@ -144,12 +157,12 @@
         else me.$next.css('display', 'block');
     }
     
-    MonthSlider.prototype.onMonth = function($month) {
+    MonthSlider.prototype.onFilter = function($link) {
         
         var me = this.me;
         me.list = (me.$list) ? me.$list.data("list") : null;
         
-        if ($month.hasClass('active')) {
+        if ($link.hasClass('active')) {
             
             $('a', me.$dates).removeClass('active');
             if (me.list) me.list.$items.css('display', 'block');
@@ -157,15 +170,26 @@
         } else {
         
             $('a', me.$dates).removeClass('active');
-            $month.addClass('active');
+            $link.addClass('active');
             if (me.list) {
-                var id = $month.attr('id');    
+                var id = $link.attr('id');    
                 me.list.$items.css('display', 'none');
                 $('.'+id, me.$list).css('display', 'block');
             }
         }
         
-        me.list.reinitByFilter();
+        if (me.list) me.list.reinitByFilter();
+    }
+    
+    MonthSlider.prototype.onClearFilter = function() {
+        
+        var me = this.me;
+        me.list = (me.$list) ? me.$list.data("list") : null;
+        
+        $('a', me.$dates).removeClass('active');
+        if (me.list) me.list.$items.css('display', 'block');
+            
+        if (me.list) me.list.reinitByFilter(); 
     }
     
     MonthSlider.prototype.onPrev = function() {
@@ -199,7 +223,7 @@
         
         me.$main.removeClass("medium").removeClass("small").addClass(margin_class);
         
-        console.log(slider_margin);
+        //console.log(slider_margin);
     }
     
     function init() {

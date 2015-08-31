@@ -46,6 +46,7 @@
                     );
                 }
             });
+            $('#id_parts-'+index+'-sort_order', $formset_form).attr('value', index);
         }
 
         $(function() {
@@ -70,6 +71,20 @@
                     );
                     $checkbox.closest('.formset-form').append($deleteLink);
                     $checkbox.closest('.form-group').hide();
+                });
+            });
+            $('#parts').each(function() {
+                var index = 0;
+                $('input', $(this)).each(function() {
+                    var $this = $(this);
+                    var id = $this.attr('id');
+                    if (id) {
+                        id = id.split('-');
+                        if (id.length == 3 && id[0] == 'id_parts' && id[2] == 'sort_order') {
+                            $this.attr('value', index);
+                            index++;
+                        }
+                    }
                 });
             });
             $('.delete').on('click', function() {
