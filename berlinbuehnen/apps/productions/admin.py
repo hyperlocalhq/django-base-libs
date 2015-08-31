@@ -232,7 +232,7 @@ class ProductionAdmin(ExtendedModelAdmin):
             })
 
         return render(request, 'admin/productions/production/owners.html', {
-            'location': production,
+            'production': production,
             'original': production,
             'app_label': Production._meta.app_label,
             'opts': Production._meta,
