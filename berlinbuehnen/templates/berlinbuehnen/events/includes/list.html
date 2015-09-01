@@ -59,7 +59,7 @@
             <div class="list-item-body col-xs-12 col-sm-7 col-md-8 col-lg-9">
                 <a class="list-item-link" href="{{ event.get_url_path }}{% remove_from_query "page" %}">
                     {% if event.production.in_program_of.exists or event.location_title or event.production.location_title or event.ev_or_prod_play_locations|length > 0 or event.ev_or_prod_play_stages|length > 0 %}
-                        <dl>
+                        <dl {% if event.get_special_text or event.is_canceled %} class="short" {% endif %}>
                             {% with event.get_festivals as festivals %}
                                 {% if festivals %}
                                     <dd class="festivals">
@@ -97,8 +97,8 @@
                             {% endfor %}
                         </dl>
                     {% endif %}
-                    {% if event.production.ensembles %}<h3>{{ event.production.ensembles }}</h3>{% endif %}
-                    {% if event.production.title %}<h2>{% if event.production.prefix %}{{ event.production.prefix }} {% endif %}{{ event.production.title }}</h2>{% endif %}
+                    {% if event.production.ensembles %}<h3 {% if event.get_special_text or event.is_canceled %} class="short" {% endif %}>{{ event.production.ensembles }}</h3>{% endif %}
+                    {% if event.production.title %}<h2 {% if event.get_special_text or event.is_canceled %} class="short" {% endif %}>{% if event.production.prefix %}{{ event.production.prefix }} {% endif %}{{ event.production.title }}</h2>{% endif %}
                     {% if event.production.subtitle %}<h3>{{ event.production.subtitle }}</h3>
                     {% elif event.ev_or_prod_subtitles_text %}<h3>{{ event.ev_or_prod_subtitles_text }}</h3>{% endif %}
                     {% if event.production.original %}<h3>{{ event.production.original }}</h3>{% endif %}
