@@ -1006,9 +1006,9 @@ urlpatterns += i18n_patterns('',
                              }),
 
                              url(r'^select2/', include('django_select2.urls')),
-                             # url(r'^relaunch2015/sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap',
-                             #     {'sitemaps': {'cmspages': CMSSitemap}}),
-                             # url(r'^relaunch2015/', include('cms.urls')),
+                             url(r'^relaunch2015/sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap',
+                                 {'sitemaps': {'cmspages': CMSSitemap}}),
+                             url(r'^relaunch2015/', include('cms.urls')),
                          )
 
 if 'rosetta' in settings.INSTALLED_APPS:
