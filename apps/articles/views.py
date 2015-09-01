@@ -13,7 +13,7 @@ from django.utils.translation import get_language
 from base_libs.models.base_libs_settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
 from base_libs.middleware import get_current_language
 from base_libs.utils.misc import get_related_queryset
-from jetson.apps.utils.views import object_list, feed
+from jetson.apps.utils.views import object_list, object_detail, feed
 from jetson.apps.structure.models import Term
 
 Article = models.get_model("articles", "Article")
@@ -567,9 +567,8 @@ def article_object_detail(
     if template_name is None:
         template_name = 'articles/articles_detail.html'
 
-    return django.views.generic.dates.DateDetailView(
-        request, year, month, day, queryset, date_field,
-        month_format=month_format, day_format=day_format,
+    return object_detail(
+        request, queryset, year, month, day,
         object_id=None,
         slug=article_slug,
         slug_field='slug',
@@ -580,7 +579,6 @@ def article_object_detail(
         context_processors=context_processors,
         template_object_name=template_object_name,
         content_type=content_type,
-        allow_future=allow_future
     )
 
 

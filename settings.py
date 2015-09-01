@@ -18,14 +18,14 @@ execfile(os.path.join(JETSON_PATH, "jetson/settings/base.py"), globals(), locals
 
 SESSION_COOKIE_DOMAIN = "www.creative-city-berlin.de"
 STAGING_DOMAIN = "test.creative-city-berlin.de"
-
+ALLOWED_HOSTS = ["creative-city-berlin.de", "www.creative-city-berlin.de"]
 
 ### EMAILS ###
 
 MANAGERS = ADMINS = (
     ("Creative City Berlin", "webmaster@creative-city-berlin.de"),
-    # ('Aidas Bendoraitis', 'bendoraitis@studio38.de'),
-    ('Tiago Henriques', 'henriques@studio38.de'),
+    ("Aidas Bendoraitis', 'bendoraitis@studio38.de"),
+    ("Tiago Henriques', 'henriques@studio38.de"),
 )
 
 CONTENT_ADMINS = (
@@ -101,26 +101,26 @@ INSTALLED_APPS = [
     "captcha",
 
     ### django-cms ###
-    'cms',  # django CMS itself
-    'treebeard',  # utilities for implementing a tree
-    'menus',  # helper for model independent hierarchical website navigation
-    'sekizai',  # for javascript and css management
-    'djangocms_admin_style',
-    # for the admin skin. You **must** add 'djangocms_admin_style' in the list **before** 'django.contrib.admin'.
-    'djangocms_text_ckeditor',
-    'reversion',
-
-    ### django-cms plug-ins ###
-    'djangocms_style',
-    'djangocms_column',
-    'djangocms_file',
-    'djangocms_flash',
-    'djangocms_googlemap',
-    'djangocms_inherit',
-    'djangocms_link',
-    'djangocms_picture',
-    'djangocms_teaser',
-    'djangocms_video',
+    # 'cms',  # django CMS itself
+    # 'treebeard',  # utilities for implementing a tree
+    # 'menus',  # helper for model independent hierarchical website navigation
+    # 'sekizai',  # for javascript and css management
+    # 'djangocms_admin_style',
+    # # for the admin skin. You **must** add 'djangocms_admin_style' in the list **before** 'django.contrib.admin'.
+    # 'djangocms_text_ckeditor',
+    # 'reversion',
+    #
+    # ### django-cms plug-ins ###
+    # 'djangocms_style',
+    # 'djangocms_column',
+    # 'djangocms_file',
+    # 'djangocms_flash',
+    # 'djangocms_googlemap',
+    # 'djangocms_inherit',
+    # 'djangocms_link',
+    # 'djangocms_picture',
+    # 'djangocms_teaser',
+    # 'djangocms_video',
 
     ### jetson apps ###
     "jetson.apps.image_mods",
