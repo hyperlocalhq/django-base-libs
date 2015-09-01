@@ -2279,6 +2279,8 @@ body.is-xs h1.bottom-line { margin-left: 10px; margin-right: 10px; }
 .headline-link.fawesome { font-weight: 200; margin-right: 30px; margin-top: 5px; }
 .headline-link.fawesome:hover { color: #4583c8; }
 
+.clear_toggle { display: none; }
+
 .section-head { position: relative; }
 
 .section-head:before { display: block; content: " "; margin-top: -85px; height: 85px; visibility: hidden; }
