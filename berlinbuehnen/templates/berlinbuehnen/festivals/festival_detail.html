@@ -36,7 +36,7 @@
                             <header>
                                 <ul class="header-top">
                                     {% if festival.start %}
-                                        <li><time>{% if not festival.end or festival.start|date:"Y" != festival.end|date:"Y" %}{{ festival.start|date:"j. F Y" }}{% else %}{% if festival.start|date:"F" != festival.end|date:"F" %}{{ festival.start|date:"j. F" }}{% else %}{{ festival.start|date:"j." }}{% endif %}{% endif %}</time>{% if festival.end %} &nbsp;–&nbsp; <time>{{ festival.end|date:"j. F Y" }}</time>{% endif %}</li>
+                                        <li>{% if festival.end and festival.start == festival.end %}<time>{{ festival.start|date:"j. F Y" }}</time>{% else %}<time>{% if not festival.end or festival.start|date:"Y" != festival.end|date:"Y" %}{{ festival.start|date:"j. F Y" }}{% else %}{% if festival.start|date:"F" != festival.end|date:"F" %}{{ festival.start|date:"j. F" }}{% else %}{{ festival.start|date:"j." }}{% endif %}{% endif %}</time>{% if festival.end %} &nbsp;–&nbsp; <time>{{ festival.end|date:"j. F Y" }}</time>{% endif %}{% endif %}</li>
                                     {% endif %}
                                     {% if festival.organizers.all %}
                                             <li>

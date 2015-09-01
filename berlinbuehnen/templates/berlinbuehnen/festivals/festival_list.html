@@ -39,7 +39,7 @@
                                             
                                             {% if festival.title %}<h2>{{ festival.title }}</h2>{% endif %}
                                             {% if festival.subtitle %}<h3>{{ festival.subtitle }}</h3>{% endif %}
-                                            {% if festival.start %}<h4>{{ festival.start|date:"j.m.Y" }}</time>{% if festival.end %} &nbsp;–&nbsp; <time>{{ festival.end|date:"j.m.Y" }}</time>{% endif %}</h4>{% endif %}
+                                            {% if festival.start %}<h4><time>{{ festival.start|date:"j.m.Y" }}</time>{% if festival.end and festival.start != festival.end %} &nbsp;–&nbsp; <time>{{ festival.end|date:"j.m.Y" }}</time>{% endif %}</h4>{% endif %}
                                             {% if festival.organizers.all %}
                                                     <dl>
                                                         <dt>{% trans "Organizer" %}</dt>
