@@ -167,6 +167,23 @@
                     &:last-child:after {
                         content: none;
                     }
+                    &.festivals {
+                        &:after {
+                            content: "|";
+                        }
+                        span.festival {
+                            color: $blue;
+                            font-weight: $bold;
+                            &:after {
+                                content: ", "
+                            }
+                            &:last-child {
+                                &:after {
+                                    content: none;
+                                }
+                            }
+                        }
+                    }
                 }
             }
             
@@ -289,6 +306,10 @@
     
     .list-headline {
         font-size: 1.5em;
+    }
+    
+    dd.festivals {
+        display: none;
     }
 }
 

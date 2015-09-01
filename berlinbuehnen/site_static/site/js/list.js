@@ -372,7 +372,11 @@
     List.prototype.onClick = function(event) {
         
         var $target =  $(event.target);
-        if ($target.is('a')) return true;
+        if ($target.attr('data-url')) {
+            event.stopPropagation();
+            location.href = $target.attr('data-url');
+            return false;
+        } else if ($target.is('a')) return true;
         
         event.stopPropagation();
         

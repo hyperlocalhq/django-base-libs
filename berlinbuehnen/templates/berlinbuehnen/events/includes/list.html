@@ -60,6 +60,15 @@
                 <a class="list-item-link" href="{{ event.get_url_path }}{% remove_from_query "page" %}">
                     {% if event.production.in_program_of.exists or event.location_title or event.production.location_title or event.ev_or_prod_play_locations|length > 0 or event.ev_or_prod_play_stages|length > 0 %}
                         <dl>
+                            {% with event.get_festivals as festivals %}
+                                {% if festivals %}
+                                    <dd class="festivals">
+                                        {% for festival in festivals %}
+                                            <span class="festival" data-url="{{ festival.get_url_path }}">{% if forloop.counter == 1 %}{% trans "Festival" %}: {% endif %}{{ festival.title }}</span>
+                                        {% endfor %}
+                                    </dd>
+                                {% endif %}
+                            {% endwith %}
                             {% if event.production.in_program_of.exists %}
                                 {% for location in event.production.in_program_of.all %}
                                     <dd>
