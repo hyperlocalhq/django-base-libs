@@ -81,6 +81,11 @@ class BasicInfoForm(autocomplete_light.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(BasicInfoForm, self).__init__(*args, **kwargs)
+        
+        #self.fields['start'].widget = forms.DateInput(format='%d.%m.%Y')
+        self.fields['start'].input_formats=('%d.%m.%Y',)
+        #self.fields['end'].widget = forms.DateInput(format='%d.%m.%Y')
+        self.fields['end'].input_formats=('%d.%m.%Y',)
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             for f in [
