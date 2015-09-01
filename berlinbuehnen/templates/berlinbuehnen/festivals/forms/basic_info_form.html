@@ -181,12 +181,13 @@
                 $('#id_delete_logo').val(1);
             });
         });
-        alert($('.dateinput').length);
+        $('.dateinput').each(function() {
+            alert($(this).attr('value'));
+        });
         $('.dateinput').datepicker({
             format: 'yyyy-mm-dd',
             weekStart: 1
         });
-        alert('yo');
     </script>
 
 {% endblock %}
