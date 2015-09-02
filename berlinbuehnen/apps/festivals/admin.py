@@ -3,6 +3,11 @@
 from django.contrib import admin
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _, ugettext
+from django.db import models
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.models import User
+from django.conf.urls import patterns, include, url
+from django import forms
 
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.admin import ExtendedStackedInline
@@ -36,12 +41,21 @@ class FestivalPDFInline(ExtendedStackedInline):
     inline_classes = ('grp-collapse grp-open',)
 
 
+class OwnersForm(forms.Form):
+    users = forms.ModelMultipleChoiceField(
+        label=_("Users"),
+        queryset=User.objects.filter(is_active=True),
+        required=False,
+    )
+
+
 class FestivalAdmin(ExtendedModelAdmin):
     class Media:
         js = (
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
         )
-    list_display = ('title', 'start', 'end', 'get_organizers', 'get_owners_list', 'creation_date', 'modified_date', 'featured', 'newsletter', 'status')
+    list_display = ('id', 'title', 'start', 'end', 'get_organizers', 'get_owners_list', 'creation_date', 'modified_date', 'featured', 'newsletter', 'status')
+    list_display_links = ('id', 'title')
     list_editable = ('featured', 'newsletter', 'status', )
     list_filter = ('start', 'creation_date', 'modified_date', 'featured', 'newsletter', 'status')
     date_hierarchy = 'start'
@@ -81,13 +95,54 @@ class FestivalAdmin(ExtendedModelAdmin):
 
     def get_owners_list(self, obj):
         owners_list = []
+        manage_owners_link = '<a href="%s/owners/"><span>%s</span></a>' % (obj.pk, ugettext('Manage owners'))
         for o in obj.get_owners():
             owners_list.append('<a href="/admin/auth/user/%s/">%s</a>' % (o.pk, o.username))
         if owners_list:
-            return '<br />'.join(owners_list)
-        return ''
+            return '<br />'.join(owners_list) + '<br />' +  manage_owners_link
+        return manage_owners_link
     get_owners_list.allow_tags = True
     get_owners_list.short_description = _("Owners")
+
+    def owners_view(self, request, festival_id):
+        from base_libs.views.views import access_denied
+        festival = get_object_or_404(Festival, pk=festival_id)
+
+        if not request.user.has_perm('festivals.change_festival', festival):
+            return access_denied(request)
+
+        if request.method == "POST":
+            form = OwnersForm(request.POST)
+            if form.is_valid():
+                existing_owners = set(festival.get_owners())
+                changed_owners = set(form.cleaned_data['users'])
+
+                removed_owners = existing_owners - changed_owners
+                new_owners = changed_owners - existing_owners
+
+                for u in removed_owners:
+                    festival.remove_owner(u)
+
+                for u in new_owners:
+                    festival.set_owner(u)
+                return redirect('../../?id__exact=%d' % festival.pk)
+        else:
+            form = OwnersForm(initial={
+                'users': festival.get_owners()
+            })
+
+        return render(request, 'admin/festivals/festival/owners.html', {
+            'festival': festival,
+            'original': festival,
+            'app_label': Festival._meta.app_label,
+            'opts': Festival._meta,
+            'form': form,
+            'title': ugettext('The owners of %(festival)s') % {'festival': festival},
+        })
+
+    def get_urls(self):
+        urls = super(FestivalAdmin, self).get_urls()
+        return patterns('', url(r'^(?P<festival_id>\d+)/owners/$', self.owners_view)) + urls
 
 
 admin.site.register(Festival, FestivalAdmin)
