@@ -940,6 +940,15 @@ class Event(CreationModificationMixin, UrlMixin):
         
     def is_canceled(self):
         return self.event_status == 'canceled'
+        
+    def get_festivals(self):
+        festivals = []
+        for festival in self.production.festivals.all().filter(status="published"):
+            if self.start_date >= festival.start and self.start_date <= festival.end:
+                festivals.append(festival)
+        if len(festivals):
+            return festivals
+        return False
             
 
 class EventSocialMediaChannel(models.Model):

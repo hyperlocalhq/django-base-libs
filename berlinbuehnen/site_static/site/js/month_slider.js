@@ -42,6 +42,8 @@
         me.active_months = [];
         me.active_years = [];
         
+        me.$clear_toggle = $('.'+me.connect_id+'_clear.clear_toggle');
+        
         if (me.$list) me.calculateRange();
         
         var html = '<a href="javascript:void(0);" class="month-slider-prev fawesome prev"></a><div class="month-slider-dates"></div><a href="javascript:void(0);" class="month-slider-next fawesome next"></a>';
@@ -165,12 +167,14 @@
         if ($link.hasClass('active')) {
             
             $('a', me.$dates).removeClass('active');
+            me.$clear_toggle.css('display', 'none');
             if (me.list) me.list.$items.css('display', 'block');
             
         } else {
         
             $('a', me.$dates).removeClass('active');
             $link.addClass('active');
+            me.$clear_toggle.css('display', 'block');
             if (me.list) {
                 var id = $link.attr('id');    
                 me.list.$items.css('display', 'none');
@@ -187,6 +191,7 @@
         me.list = (me.$list) ? me.$list.data("list") : null;
         
         $('a', me.$dates).removeClass('active');
+        me.$clear_toggle.css('display', 'none');
         if (me.list) me.list.$items.css('display', 'block');
             
         if (me.list) me.list.reinitByFilter(); 

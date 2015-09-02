@@ -2012,13 +2012,17 @@ top: 0;*/ width: 110px; height: 100%; display: block; background-image: url(../i
 .list .list-item .list-item-body { margin: 0; padding: 0; height: 148px; overflow: hidden; }
 .list .list-item .list-item-body a { display: block; width: 100%; height: 100%; color: black; position: relative; }
 .list .list-item .list-item-body a:hover { color: black; }
-.list .list-item .list-item-body h2, .list .list-item .list-item-body h4 { width: 72%; }
-.list .list-item .list-item-body dl, .list .list-item .list-item-body h3 { width: auto; }
+.list .list-item .list-item-body dl, .list .list-item .list-item-body h2, .list .list-item .list-item-body h3, .list .list-item .list-item-body h4 { width: auto; }
+.list .list-item .list-item-body dl.short, .list .list-item .list-item-body h2.short, .list .list-item .list-item-body h3.short, .list .list-item .list-item-body h4.short { width: 72%; }
 .list .list-item .list-item-body dl, .list .list-item .list-item-body h2, .list .list-item .list-item-body h3, .list .list-item .list-item-body h4, .list .list-item .list-item-body div.copy { margin: 0 0 0 15px !important; }
 .list .list-item .list-item-body dl { float: none; padding-top: 10px; margin-top: 0px  !important; }
 .list .list-item .list-item-body dl dd { float: left; }
 .list .list-item .list-item-body dl dd:after { content: "–"; padding-right: 3px; }
 .list .list-item .list-item-body dl dd:last-child:after { content: none; }
+.list .list-item .list-item-body dl dd.festivals:after { content: "|"; }
+.list .list-item .list-item-body dl dd.festivals span.festival { color: #4583c8; font-weight: 700; }
+.list .list-item .list-item-body dl dd.festivals span.festival:after { content: ", "; }
+.list .list-item .list-item-body dl dd.festivals span.festival:last-child:after { content: none; }
 .list .list-item .list-item-body h2 { font-weight: 700; font-size: 1.125em; padding-top: 5px; padding-bottom: 5px; text-transform: uppercase; }
 .list .list-item .list-item-body h3 { font-weight: 400; font-size: 0.9em; line-height: 125%; }
 .list .list-item .list-item-body h3:last-of-type { padding-bottom: 5px; }
@@ -2041,6 +2045,7 @@ top: 0;*/ width: 110px; height: 100%; display: block; background-image: url(../i
 .additional-list .additional-list-more { font-size: 1em; color: black; position: absolute; right: 0px; bottom: -30px; display: none; line-height: 2em; }
 .additional-list .additional-list-more:after { font-size: 2em; padding-left: 5px; }
 .additional-list .list-headline { font-size: 1.5em; }
+.additional-list dd.festivals { display: none; }
 
 body.is-xs .list { margin-left: -20px; margin-right: -20px; }
 body.is-xs .list.additional-list { margin-left: 0px; margin-right: 0px; }
@@ -2057,6 +2062,7 @@ body.is-xs .list .list-item .list-item-head .list-item-head-image { position: ab
 body.is-xs .list .list-item .list-item-head .list-item-head-image img { width: 50px; float: none; }
 body.is-xs .list .list-item-body { padding-bottom: 40px; height: auto; max-height: 350px; }
 body.is-xs .list .list-item-body dl, body.is-xs .list .list-item-body h2, body.is-xs .list .list-item-body h3, body.is-xs .list .list-item-body h4, body.is-xs .list .list-item-body div.copy { margin: 0 0 0 5px  !important; width: auto; }
+body.is-xs .list .list-item-body dl.short, body.is-xs .list .list-item-body h2.short, body.is-xs .list .list-item-body h3.short, body.is-xs .list .list-item-body h4.short, body.is-xs .list .list-item-body div.copy.short { width: auto; }
 body.is-xs .list .list-item-body .extra { top: inherit; bottom: -40px; height: 22px; color: white; font-weight: 700; font-size: 0.875em; width: 160px; text-transform: uppercase; }
 body.is-xs .list .list-item-body .extra:before { content: url(../img/label_22px.png); position: relative; left: -10px; }
 body.is-xs .list .list-item-body .extra.canceled { background: #cf0000; }
@@ -2278,6 +2284,8 @@ body.is-xs h1.bottom-line { margin-left: 10px; margin-right: 10px; }
 .headline-link:focus { color: black; }
 .headline-link.fawesome { font-weight: 200; margin-right: 30px; margin-top: 5px; }
 .headline-link.fawesome:hover { color: #4583c8; }
+
+.clear_toggle { display: none; }
 
 .section-head { position: relative; }
 

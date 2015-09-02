@@ -142,12 +142,11 @@
                 }
             }
             
-            h2, h4 {
-                width: 72%;
-            }
-            
-            dl, h3 {
+            dl, h2, h3, h4 {
                 width: auto;
+                &.short {
+                    width: 72%;
+                }
             }
             
             dl, h2, h3, h4, div.copy {
@@ -166,6 +165,23 @@
                     }
                     &:last-child:after {
                         content: none;
+                    }
+                    &.festivals {
+                        &:after {
+                            content: "|";
+                        }
+                        span.festival {
+                            color: $blue;
+                            font-weight: $bold;
+                            &:after {
+                                content: ", "
+                            }
+                            &:last-child {
+                                &:after {
+                                    content: none;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -290,6 +306,10 @@
     .list-headline {
         font-size: 1.5em;
     }
+    
+    dd.festivals {
+        display: none;
+    }
 }
 
 body.is-xs {
@@ -376,6 +396,9 @@ body.is-xs {
             dl, h2, h3, h4, div.copy {
                 margin: 0 0 0 5px  !important;
                 width: auto;
+                &.short {
+                    width: auto;
+                }
             }
             
             .extra {
