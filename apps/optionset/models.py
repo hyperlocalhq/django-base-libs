@@ -87,6 +87,32 @@ class PhoneType(SlugMixin()):
     def get_title(self):
         return self.title
 
+def get_default_phonetype_for_phone():
+    retval = None
+    try:
+        retval = PhoneType.objects.get(slug='phone').id
+    except (PhoneType.DoesNotExist, PhoneType.MultipleObjectsReturned):
+        pass
+    return retval
+
+
+def get_default_phonetype_for_fax():
+    retval = None
+    try:
+        retval = PhoneType.objects.get(slug='fax').id
+    except (PhoneType.DoesNotExist, PhoneType.MultipleObjectsReturned):
+        pass
+    return retval
+
+def get_default_phonetype_for_mobile():
+    retval = None
+    try:
+        retval = PhoneType.objects.get(slug='mobile').id
+    except (PhoneType.DoesNotExist, PhoneType.MultipleObjectsReturned):
+        pass
+    return retval
+
+
 class EmailType(SlugMixin()):
     title = MultilingualCharField(_('title'), max_length=255)    
     sort_order = models.IntegerField(_("Sort order"), default=0)

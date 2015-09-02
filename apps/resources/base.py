@@ -12,6 +12,7 @@ from django.utils.functional import lazy
 from django.utils.encoding import force_unicode
 from django.conf import settings
 from django.utils.timezone import now as tz_now
+from django.apps import apps
 
 from base_libs.models.models import UrlMixin
 from base_libs.models import CreationModificationDateMixin
@@ -243,6 +244,7 @@ class DocumentBase(CreationModificationDateMixin, UrlMixin):
         )
         
     def get_authors(self):
+        Person = apps.get_model("people", "Person")
         person_db_table = Person._meta.db_table
         return Person.objects.distinct().extra(
             tables=['resources_document_authors'],

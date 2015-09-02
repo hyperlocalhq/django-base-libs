@@ -58,28 +58,20 @@ if is_installed("mailing.models"):
     # extendedadmin for mailing
     urlpatterns += patterns(path_in_installed_app('extendedadmin.views'),
         # mails to persons in admin
-        url(r'^auth/user/send_mail/$', 'person_send_mail', name="admin_person_send_mail"),
-        url(r'^auth/user/send_mail/(?P<email_template_slug>[^/]+)/', 'user_send_mail', name="admin_user_send_mail"),
+        url(r'^auth/user/send-email/$', 'person_send_mail', name="admin_person_send_mail"),
+        url(r'^auth/user/send-email/(?P<email_template_slug>[^/]+)/', 'user_send_mail', name="admin_user_send_mail"),
         )
     if is_installed("people.models"):
         urlpatterns += patterns(path_in_installed_app('extendedadmin.views'),
             # mails to persons in admin
-            url(r'^people/person/send_mail/$', 'person_send_mail', name="admin_person_send_mail"),
-            url(r'^people/person/send_mail/(?P<email_template_slug>[^/]+)/', 'person_send_mail', name="admin_person_send_mail"),
+            url(r'^people/person/send-email/$', 'person_send_mail', name="admin_person_send_mail"),
+            url(r'^people/person/send-email/(?P<email_template_slug>[^/]+)/', 'person_send_mail', name="admin_person_send_mail"),
             )
     if is_installed("institutions.models"):
         urlpatterns += patterns(path_in_installed_app('extendedadmin.views'),
             # mails to institutions in admin
-            url(r'^institutions/institution/send_mail/$', 'institution_send_mail', name="admin_institution_send_mail"),
-            url(r'^institutions/institution/send_mail/(?P<email_template_slug>[^/]+)/', 'institution_send_mail', name="admin_institution_send_mail"),
-            )
-
-    # extendedadmin for email campaigns
-    if is_installed("email_campaigns.models"):
-        urlpatterns += patterns(path_in_installed_app('extendedadmin.views'),
-            # infosubscription mails in admin
-            url(r'^email_campaigns/infosubscription/send_mail/$', 'infosubscription_send_mail', name="admin_infosubscription_send_mail"),
-            url(r'^email_campaigns/infosubscription/send_mail/(?P<email_template_slug>[^/]+)', 'infosubscription_send_mail', name="admin_infosubscription_send_mail"),
+            url(r'^institutions/institution/send-email/$', 'institution_send_mail', name="admin_institution_send_mail"),
+            url(r'^institutions/institution/send-email/(?P<email_template_slug>[^/]+)/', 'institution_send_mail', name="admin_institution_send_mail"),
             )
 
 # history

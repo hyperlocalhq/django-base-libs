@@ -1,8 +1,13 @@
 {% extends "admin/base_site.html" %}
-{% load i18n babel %}
+{% load admin_list i18n babel %}
 
 {% block breadcrumbs %}
-<div class="breadcrumbs"><a href="../../../../">{% trans 'Home' %}</a> &rsaquo; <a href="../../">{{ module_name }}</a> &rsaquo; <a href="../">{{ object|truncatewords:"18" }}</a> &rsaquo; {% trans 'History' %}</div>
+    <ul class="breadcrumbs">
+        <li><a href="../../../../">{% trans 'Home' %}</a></li>
+        <li><a href="../../">{{ module_name }}</a></li>
+        <li><a href="../">{{ object|truncatewords:"18" }}</a></li>
+        <li>{% trans 'History' %}</li>
+    </ul>
 {% endblock %}
 
 {% block content %}
@@ -10,7 +15,7 @@
 <div class="module">
 
 {% if action_list %}
-    <table id="change-history">
+    <table id="change-history" width="100%">
         <thead>
         <tr>
             <th scope="col">{% trans 'Date/time' %}</th>
@@ -32,6 +37,36 @@
         {% endfor %}
         </tbody>
     </table>
+    <!-- PAGINATION BOTTOM -->
+    {% block pagination_bottom %}
+        {% if paginator.num_pages > 1 %}
+            <div class="grp-module">
+                <div class="grp-row">
+                    <nav class="grp-pagination">
+                        <header style="display:none"><h1>Pagination</h1></header>
+                        <ul>
+                            <li class="grp-results">
+                                <span>{% blocktrans with paginator.count as full_result_count %}{{ full_result_count }} total{% endblocktrans %}</span>
+                            </li>
+                            {% for i in paginator.page_range %}
+                                {% ifequal i "." %}
+                                    <li class="grp-separator"><span>...</span></li>
+                                {% else %}
+                                    <li>
+                                        {% if action_list.number == i %}
+                                            <span class="this-page">{{ i }}</span>
+                                        {% else %}
+                                            <a href="?p={{ i }}">{{ i }}</a>
+                                        {% endif %}
+                                    </li>
+                                {% endifequal %}
+                            {% endfor %}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        {% endif %}
+    {% endblock %}
 {% else %}
     <p>{% trans "This user has no change history." %}</p>
 {% endif %}

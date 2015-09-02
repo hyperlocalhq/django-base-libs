@@ -14,7 +14,6 @@ optional_apps = [
     "location",
     "structure",
     "mailing",
-    "email_campaigns",
     "filebrowser",
     "permissions",
     ]

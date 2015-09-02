@@ -18,9 +18,8 @@
                 } else {
                     unsetTinyMce(sId);
                 }
-            }
-            $('.markupType').each(toggleMarkup);
-            $('.markupType').change(toggleMarkup);
+            };
+            $('.markupType').each(toggleMarkup).change(toggleMarkup);
         }
         window.setTimeout(initRTE,500);
     });

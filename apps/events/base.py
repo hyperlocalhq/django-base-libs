@@ -49,9 +49,6 @@ Institution = models.get_model("institutions", "Institution")
 
 verbose_name = _("Events")
 
-from south.modelsinspector import add_introspection_rules
-add_introspection_rules([], ["^tagging_autocomplete\.models\.TagAutocompleteField"])
-
 ### Event class ###
 
 STATUS_CHOICES = (

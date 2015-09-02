@@ -137,10 +137,7 @@ def get_change_message(old_obj, updated_obj, language=None):
     for f in old_obj._meta.fields:
         if f.primary_key or type(f).__name__.startswith("Multilingual"):
             continue
-        field_changed = f.formfield().widget._has_changed(
-            getattr(old_obj, f.name),
-            getattr(updated_obj, f.name),
-            )
+        field_changed = (getattr(old_obj, f.name) != getattr(updated_obj, f.name))
         if field_changed:
             if getattr(old_obj, f.name) in (None, ""):
                 added.append(ugettext(f.verbose_name))
