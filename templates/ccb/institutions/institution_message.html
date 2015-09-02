@@ -5,7 +5,7 @@
 {% block details %}
     <div class="contact-form first-item">
         {% if form %}
-            <form action="" method="post" class="uniForm">
+            <form action="" method="post" class="uniForm">{% csrf_token %}
                 <fieldset class="inlineLabels">
                     <h3>
                         {% trans "Write a message to" %} {{ object.get_title|escape }}

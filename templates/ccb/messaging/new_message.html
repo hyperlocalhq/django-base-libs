@@ -8,7 +8,7 @@
 
 {% block details %}
     <div class="new-messages first-item">
-        <form method="post" action="" class="uniForm">
+        <form method="post" action="" class="uniForm">{% csrf_token %}
             {% if form %}
                 <fieldset class="inlineLabels">
                     <h3>{% trans "Recipients" %}</h3>
