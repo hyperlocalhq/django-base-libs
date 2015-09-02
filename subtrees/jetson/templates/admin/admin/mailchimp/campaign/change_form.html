@@ -24,8 +24,8 @@
             DATETIME_FORMAT = "{% get_datetime_format %}";
     </script>
     <!-- jQuery, jQuery-UI -->
-    <script src="{% static "grappelli/jquery/jquery-1.7.2.min.js" %}" type="text/javascript"></script>
-    <script src="{% static "grappelli/jquery/ui/js/jquery-ui-1.8.18.custom.min.js" %}" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ JQUERY_URL }}"></script>
+    <script type="text/javascript" src="{{ JQUERY_UI_URL }}"></script>
     {% if debug %}
         <!-- Grappelli Main JS -->
         <script src="{% static "grappelli/js/grappelli.js" %}" type="text/javascript"></script>
@@ -44,7 +44,7 @@
         <!-- Grappelli Minified -->
         <script src="{% static "grappelli/js/grappelli.min.js" %}" type="text/javascript"></script>
     {% endif %}
-  	<script type="text/javascript" src="/jssettings/"></script>
+  	<script type="text/javascript" src="/{{ LANGUAGE_CODE }}/jssettings/"></script>
     {% url 'admin:jsi18n' as jsi18nurl %}
     <script type="text/javascript" src="{{ jsi18nurl|default:'../../../jsi18n/' }}"></script>
 
@@ -54,13 +54,24 @@
     <script src="{{ STATIC_URL }}grappelli/js/jquery.grp_inline.js" type="text/javascript"></script>
 
     <script type="text/javascript" src="{{ jetson_media_url }}js/admin/MultilingualFieldHelper.js"></script>
-	  <script type="text/javascript" src="{{ jetson_media_url }}js/admin/MarkupHelper.js"></script>
 
-	  <script type="text/javascript" src="{{ STATIC_URL }}grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
-    <script type="text/javascript" src="{{ jetson_media_url }}tinymce_setup/tinymce_setup_base.js"></script>
+    <!-- CKEDITOR -->
+    <script type="text/javascript" src="{{ STATIC_URL }}bower_components/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}filebrowser/js/FB_CKEditor.js"></script>
+    <script type="text/javascript">
+        if (CKEDITOR) {
+            // Added by Roger Hu 02/27/2010
+            CKEDITOR.config.filebrowserBrowseUrl = '/admin/filebrowser/browse?pop=3';
+        }
+    </script>
+
+    <!-- MARKUP HELPER -->
+    <script type="text/javascript" src="{{ jetson_media_url }}js/admin/MarkupHelper.js"></script>
 
     {% block tinymce_setup %}
+        {% comment %}
     	<script type="text/javascript" src="{{ STATIC_URL }}site/tinymce_setup/tinymce_setup_e-mail.js"></script>
+    	{% endcomment %}
     {% endblock %}
 	  <script type="text/javascript" src="{{ jetson_media_url }}js/admin/change_form.js"></script>
 
@@ -146,10 +157,10 @@
                             $oContent.val(responseText);
                             $oContentMarkupType.val("hw");
                             $oContentMarkupType.change();
-                            var oEditor = tinyMCE.getInstanceById($oContent.attr("id"));
-                            if (oEditor) {
-                                oEditor.setContent(responseText);
-                            }
+                            //var oEditor = tinyMCE.getInstanceById($oContent.attr("id"));
+                            //if (oEditor) {
+                            //    oEditor.setContent(responseText);
+                            //}
                         }
                     );
                 }
@@ -163,10 +174,11 @@
                         $oContent.val(responseText);
                         $oContentMarkupType.val("hw");
                         $oContentMarkupType.change();
-                        var oEditor = tinyMCE.getInstanceById($oContent.attr("id"));
-                        if (oEditor) {
-                            oEditor.setContent(responseText);
-                        }                    }
+                        //var oEditor = tinyMCE.getInstanceById($oContent.attr("id"));
+                        //if (oEditor) {
+                        //    oEditor.setContent(responseText);
+                        //}
+                    }
                     if ($oContentType.val()) {
                         if ($oContent.val()) {
                             if (confirm(gettext("Do you really want to replace the content of this block?"))) {
