@@ -226,6 +226,7 @@ INSTALLED_APPS = (
     "berlinbuehnen.apps.slideshows",
     "berlinbuehnen.apps.twitter",
     "berlinbuehnen.apps.advertising",
+    "berlinbuehnen.apps.education",
     "berlinbuehnen.apps.site_specific",
 )
 
@@ -256,6 +257,9 @@ ADMIN_APP_INDEX = (
             }),
             ('multiparts', {
                 'models': ('Parent',),
+            }),
+            ('education', {
+                'models': ('Department', 'ProjectTargetGroup', 'ProjectFormat', 'Project'),
             }),
             ('sponsors', {
                 'models': ('Sponsor',),
