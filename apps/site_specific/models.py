@@ -109,7 +109,6 @@ class ContextItemManager(models.Manager):
             item = self.get(content_type=ctype, object_id=obj.id)
         except Exception:
             item = self.model(content_type=ctype, object_id=obj.id)
-            item.save()
 
         """ 
         creation and modification date should not be 
