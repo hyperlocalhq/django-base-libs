@@ -449,13 +449,6 @@ SEARCH_ENGINE = "MySqlFulltext"  # one of these: "MySqlFulltext", "Proprietary",
 
 MAILING_DEFAULT_FROM_NAME = 'Creative City Berlin'
 MAILING_DEFAULT_FROM_EMAIL = 'ccb-contact@kulturprojekte-berlin.de'
-MAILING_HTML_REPLACE = ()
-# (
-#    (r'<p([^>]*)>', r'<p\1 style="font-size: 12px;margin: 0;padding: 0;line-height: 1.5em;margin-bottom: 18px;">'),
-#    (r'<ul([^>]*)>', r'<ul\1 style="font-size: 12px;margin: 0;padding: 0;line-height: 1.5em;margin-bottom: 18px; margin-left: 18px;">'),
-#    (r'<li([^>]*)>', r'<li\1 style="margin: 0;padding: 0;list-style-type: square;">'),
-#    (r'<a([^>]*)>', r'<a\1 style="color:#6994A6;text-decoration:none;cursor:pointer;">'),
-# )
 
 
 ### DEBUG TOOLBAR ###
