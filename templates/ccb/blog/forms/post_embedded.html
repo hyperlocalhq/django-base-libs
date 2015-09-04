@@ -1,7 +1,7 @@
 {% load base_tags i18n auth_extended blog uni_form_tags %}
 
 <div class="first-item-txt" id="popup_content">
-    <form action="" method="post" class="uniForm">
+    <form action="" method="post" class="uniForm">{% csrf_token %}
         {% if form_preview %}
             <div class="preview">
                 <div class="headline">
@@ -17,11 +17,15 @@
                     </div>
                 {% endif %}
                 <div class="buttonHolder">
-                    <input type="submit" class="primaryAction" id="post" name="{{ post_stage_field }}"
-                        value={% if post.is_draft %}'
-                               {% filter upper %}{% trans "Save as Draft" %}{% endfilter %}'{% else %}'
-                            {% filter upper %}{% trans "Save" %}{% endfilter %}'{% endif %}
-                    />
+                    {% trans "Save as Draft" as draft %}
+                    {% trans "Save" as non_draft %}
+                    {% with yesno_args=''|add:draft|add:','|add:non_draft|upper %}
+                        <input
+                            type="submit" class="primaryAction" id="post" name="{{ post_stage_field }}"
+                            value='{{ post.is_draft|yesno:yesno_args }}'
+                            />
+                    {% endwith %}
+
                 </div>
             </div>
         {% endif %}
