@@ -14,7 +14,7 @@ urlpatterns = patterns('berlinbuehnen.apps.festivals.views',
     url(r'^(?P<slug>[^/]+)/gallery/$', 'image_overview', name='festival_image_overview'),
     url(r'^(?P<slug>[^/]+)/gallery/add/$', 'create_update_image', name='festival_add_image'),
     url(r'^(?P<slug>[^/]+)/gallery/file_(?P<mediafile_token>[^/]+)/$', 'create_update_image', name='festival_change_image'),
-    url(r'^(?P<slug>[^/]+)/gallery/file_(?P<mediafile_token>[^/]+)/delete/$', 'delete_image', name='festival_delete_image'),
+    url(r'^(?P<slug>[^/]+)/change/gallery/file_(?P<mediafile_token>[^/]+)/delete/$', 'delete_image', name='festival_delete_image'),
     # pdfs
     url(r'^(?P<slug>[^/]+)/pdf/$', 'pdf_overview', name='festival_pdf_overview'),
     url(r'^(?P<slug>[^/]+)/pdf/add/$', 'create_update_pdf', name='festival_add_pdf'),
