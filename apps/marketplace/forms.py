@@ -20,7 +20,7 @@ from jetson.apps.optionset.models import PhoneType, EmailType, URLType
 from jetson.apps.mailing.views import Recipient, send_email_using_template
 
 app = models.get_app("marketplace")
-JobOffer, JobSector = app.JobOffer, app.JobSector
+JobOffer, JobSector, JobType = app.JobOffer, app.JobSector, app.JobType
 URL_ID_JOB_OFFER = app.URL_ID_JOB_OFFER
 URL_ID_JOB_OFFERS = app.URL_ID_JOB_OFFERS
 
@@ -314,7 +314,8 @@ class JobOfferForm:  # namespace
         job_offer = JobOffer()
 
         job_offer.position = step_main_data.get('position', None)
-        job_offer.job_type = step_main_data.get('job_type', None)
+        job_type_id = step_main_data.get('job_type', None)
+        job_offer.job_type = JobType.objects.get(pk=job_type_id) if job_type_id else None
         job_offer.description = step_main_data.get('description', None)
 
         job_offer.offering_institution = offering_institution
@@ -377,7 +378,7 @@ class JobOfferForm:  # namespace
         job_offer.job_sectors.add(*selected_js.values())
 
         # save again without triggering any signals
-        job_offer.save_base(raw=True, cls=type(job_offer))
+        job_offer.save_base(raw=True)
 
         # report to third parties
         description = loader.render_to_string(

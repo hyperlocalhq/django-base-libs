@@ -16,7 +16,7 @@
 {% block content %}
     <div class="reg">
         <div class="details">
-            <form action="" class="uniForm" method="post">
+            <form action="" class="uniForm" method="post">{% csrf_token %}
                 <fieldset class="inlineLabels">
                     <div class="nav_expanded" id="JS_{{ LANGUAGE_CODE }}_search">
                         <h3 class="{% if not form.object_types %}no-padding-top{% endif %}">
