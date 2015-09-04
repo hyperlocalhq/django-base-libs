@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n image_modifications base_tags tagging_tags favorites auth_extended %}
+{% block title %}{% trans "Festivals" %} – {% endblock %}
+{% block bodyclass %}project-list no-transition{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/grid.js" defer="defer"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/month_slider.js" defer="defer"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.min.js" defer="defer"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="content overview">
+        <div class="container">
+            <div class="row">
+                
+                <a class="fawesome back uc main_clear clear_toggle pull-right headline-link" href="javascript:void(0);">{% trans "back to overview" %}</a>
+                <h1 class="bottom-line"><a href="javascript:void(0);" class="headline-link main_clear">{% trans "Educational projects" %}</a></h1>
+
+                <div class="col-xs-12">
+                    
+                    <!-- the list -->
+                    {% if object_list %}
+                        <div id="main_list" class="grid project-grid mazery-grid row">
+                            {% for project in object_list %}
+                                <div class="grid-item {% if project.featured %} featured {% endif %} col-xs-12 col-sm-6 col-md-4" data-start="{{ project.start|date:"U" }}" {% if project.end %}data-end="{{ project.end|date:"U" }}"{% else %}data-end="{{ project.start|date:"U" }}"{% endif %}>
+                                    <div class="row">
+                                        <a href="{{ project.get_url_path }}">
+                                            {% if project.first_image %}
+                                                <img class="hidden-xs {% if project.featured %} hidden-sm hidden-md hidden-lg {% endif %}" src="{{ MEDIA_URL }}{{ project.first_image.path|modified_path:"mazery_image" }}{% if_has_perm "project.change_project" project %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.production.title|escape }}" />
+                                                <img class="{% if not project.featured %} visible-xs {% endif %}" src="{{ MEDIA_URL }}{{ project.first_image.path|modified_path:"gallery_image" }}{% if_has_perm "project.change_project" project %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.production.title|escape }}" />
+                                            {% elif project.image_set.exists %}
+                                                {% with project.image_set.all|first as image %}
+                                                    <img src="{{ MEDIA_URL }}{{ image.path|modified_path:"detail_image" }}{% if_has_perm "project.change_project" project %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ project.title|escape }}" />
+                                                {% endwith %}
+                                            {% endif %}
+                                            
+                                            {% if project.title %}<h2>{{ project.title }}</h2>{% endif %}
+                                            {% if project.subtitle %}<h3>{{ project.subtitle }}</h3>{% endif %}
+                                            {% if project.start %}<h4><time>{{ project.start|date:"j.m.Y" }}</time>{% if project.end and project.start != project.end %} &nbsp;–&nbsp; <time>{{ project.end|date:"j.m.Y" }}</time>{% endif %}</h4>{% endif %}
+                                            {% if project.organizers.all %}
+                                                    <dl>
+                                                        <dt>{% trans "Organizer" %}</dt>
+                                                        {% for location in project.organizers.all %}
+                                                            <dd>
+                                                                {{ location.title }}
+                                                            </dd>
+                                                        {% endfor %}
+                                                    </dl>
+                                            {% endif %}
+                                            {% if project.description %}<p class="copy">{{ project.get_rendered_description|striptags|wordwrap:30|truncatewords:"30" }}</p>{% endif %}
+                                        </a>
+                                    </div>
+                                </div>  
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                        
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

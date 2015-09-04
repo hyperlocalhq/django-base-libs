@@ -1,0 +1,305 @@
+# -*- coding: UTF-8 -*-
+from django.db import models
+from django.utils.translation import ugettext_lazy as _, ugettext
+from django.core.urlresolvers import reverse
+from django.conf import settings
+
+from base_libs.models.models import UrlMixin
+from base_libs.models.models import SlugMixin
+from base_libs.models.models import CreationModificationMixin
+from base_libs.models.models import CreationModificationDateMixin
+from base_libs.models.fields import MultilingualCharField
+from base_libs.models.fields import MultilingualTextField
+from base_libs.models.fields import URLField
+from base_libs.utils.misc import get_translation
+
+from berlinbuehnen.apps.locations.models import Location
+
+from filebrowser.fields import FileBrowseField
+
+STATUS_CHOICES = (
+    ('draft', _("Draft")),
+    ('published', _("Published")),
+    ('not_listed', _("Not Listed")),
+    ('import', _("Imported")),
+    ('trashed', _("Trashed")),
+)
+
+COPYRIGHT_RESTRICTION_CHOICES = (
+    ('general_use', _("Released for general use")),
+    ('protected', _("Released for this and own site only"))
+)
+
+TOKENIZATION_SUMMAND = 56436  # used to hide the ids of media files
+
+
+class Department(Location):
+
+    location = models.OneToOneField(Location, parent_link=True)
+
+    class Meta:
+        verbose_name = _("Education department")
+        verbose_name_plural = _("Education departments")
+
+
+    def set_owner(self, user):
+        self.location.set_owner(user)
+
+    def remove_owner(self, user):
+        self.location.remove_owner(user)
+
+    def get_owners(self):
+        return self.location.get_owners()
+
+
+class DepartmentMember(CreationModificationDateMixin):
+    department = models.ForeignKey(Department, verbose_name=_("Department"))
+    person = models.ForeignKey('people.Person', verbose_name=_("Person"), blank=True, null=True)
+    function = MultilingualCharField(_('Function'), max_length=255, blank=True)
+
+    phone_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
+    phone_area = models.CharField(_("Area Code"), max_length=6, blank=True)
+    phone_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
+    email = models.EmailField(_("Email"), max_length=255, blank=True)
+
+    sort_order = models.IntegerField(_("Sort order"), default=0)
+
+    class Meta:
+        ordering = ["sort_order"]
+        verbose_name = _("Department team member")
+        verbose_name_plural = _("Department team members")
+
+    def __unicode__(self):
+        return unicode(self.person)
+
+    def get_function(self):
+        return self.function
+
+
+class ProjectTargetGroup(CreationModificationDateMixin, SlugMixin()):
+    title = MultilingualCharField(_('Title'), max_length=200)
+    sort_order = models.IntegerField(_("Sort Order"), default=0)
+
+    def __unicode__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['sort_order']
+        verbose_name = _("Project target group")
+        verbose_name_plural = _("Project target groups")
+
+
+class ProjectFormat(CreationModificationDateMixin, SlugMixin()):
+    title = MultilingualCharField(_('Title'), max_length=200)
+    sort_order = models.IntegerField(_("Sort Order"), default=0)
+
+    def __unicode__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['sort_order']
+        verbose_name = _("Project format")
+        verbose_name_plural = _("Project formats")
+
+
+class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
+    title = MultilingualCharField(_("Title"), max_length=255)
+    subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
+    logo = FileBrowseField(_('Logo'), max_length=255, directory="locations/", extensions=['.jpg', '.jpeg', '.gif', '.png'], blank=True)
+    description = MultilingualTextField(_("Description"), blank=True)
+    departments = models.ManyToManyField(Department, verbose_name=_("Educational departments"), blank=True, related_name="department_projects")
+
+    location_title = models.CharField(_("Location title"), max_length=255, blank=True)
+    street_address = models.CharField(_("Street address"), max_length=255, blank=True)
+    street_address2 = models.CharField(_("Street address (second line)"), max_length=255, blank=True)
+    postal_code = models.CharField(_("Postal code"), max_length=255, blank=True)
+    city = models.CharField(_("City"), default="Berlin", max_length=255, blank=True)
+    latitude = models.FloatField(_("Latitude"), help_text=_("Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90)."), blank=True, null=True)
+    longitude = models.FloatField(_("Longitude"), help_text=_("Longitude (Long.) is the angle east or west of an arbitrary point on Earth from Greenwich (UK), which is the international zero-longitude point (longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction to east) and -180 (direction to west)."), blank=True, null=True)
+
+    phone_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
+    phone_area = models.CharField(_("Area Code"), max_length=6, blank=True)
+    phone_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
+    fax_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
+    fax_area = models.CharField(_("Area Code"), max_length=6, blank=True)
+    fax_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
+    email = models.EmailField(_("Email"), max_length=255, blank=True)
+    website = URLField("Website", blank=True)
+
+    age_from = models.PositiveSmallIntegerField(_(u"Age from"), blank=True, null=True)
+    age_till = models.PositiveSmallIntegerField(_(u"Age till"), blank=True, null=True)
+    participant_count = MultilingualTextField(_("Participant count"), blank=True)
+    needs_teachers = models.BooleanField(_("Workshop needs teachers"), default=False)
+    prices = MultilingualTextField(_("Prices"), blank=True)
+    free_entrance = models.BooleanField(_("Free entrance"))
+
+    special_conditions = MultilingualTextField(_("Special conditions"), blank=True)
+    remarks = MultilingualTextField(_("Remarks"), blank=True)
+    cooperation = MultilingualTextField(_("Cooperation partners"), blank=True)
+    supporters = MultilingualTextField(_("Supporters"), blank=True)
+    sponsors = models.ManyToManyField("sponsors.Sponsor", verbose_name=_("Sponsors"), blank=True)
+
+    target_group = models.ForeignKey(ProjectTargetGroup, verbose_name=_("Target group"), blank=True, null=True)
+    format = models.ForeignKey(ProjectFormat, verbose_name=_("Project format"), blank=True, null=True)
+
+    status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
+
+    row_level_permissions = True
+
+    def get_url_path(self):
+        try:
+            path = reverse("project_detail", kwargs={'slug': self.slug})
+        except:
+            # the apphook is not attached yet
+            return ""
+        else:
+            return path
+
+    class Meta:
+        ordering = ["-creation_date"]
+        verbose_name = _("Educational project")
+        verbose_name_plural = _("Educational projects")
+
+    def __unicode__(self):
+        return self.title
+
+    def set_owner(self, user):
+        ContentType = models.get_model("contenttypes", "ContentType")
+        PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
+        RowLevelPermission = models.get_model("permissions", "RowLevelPermission")
+        try:
+            role = PerObjectGroup.objects.get(
+                sysname__startswith="owners",
+                object_id=self.pk,
+                content_type=ContentType.objects.get_for_model(Project),
+            )
+        except:
+            role = PerObjectGroup(
+                sysname="owners",
+            )
+            for lang_code, lang_name in settings.LANGUAGES:
+                setattr(role, "title_%s" % lang_code, get_translation("Owners", language=lang_code))
+            role.content_object = self
+            role.save()
+
+            RowLevelPermission.objects.create_default_row_permissions(
+                model_instance=self,
+                owner=role,
+            )
+
+        if not role.users.filter(pk=user.pk).count():
+            role.users.add(user)
+
+    def remove_owner(self, user):
+        ContentType = models.get_model("contenttypes", "ContentType")
+        PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
+        try:
+            role = PerObjectGroup.objects.get(
+                sysname__startswith="owners",
+                object_id=self.pk,
+                content_type=ContentType.objects.get_for_model(Project),
+            )
+        except:
+            return
+        role.users.remove(user)
+        if not role.users.count():
+            role.delete()
+
+    def get_owners(self):
+        ContentType = models.get_model("contenttypes", "ContentType")
+        PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
+        try:
+            role = PerObjectGroup.objects.get(
+                sysname__startswith="owners",
+                object_id=self.pk,
+                content_type=ContentType.objects.get_for_model(Project),
+            )
+        except:
+            return []
+        return role.users.all()
+
+
+class ProjectTime(CreationModificationMixin, UrlMixin):
+    project = models.ForeignKey(Project, verbose_name=_("Project"))
+    start = models.DateTimeField(_("Start date and time"))
+    end = models.DateField(_("End date and time"), blank=True, null=True)
+
+    class Meta:
+        ordering = ["start"]
+        verbose_name = _("Project time")
+        verbose_name_plural = _("Project times")
+
+    def __unicode__(self):
+        return unicode(self.project) + ' ' + self.start.strftime('%Y-%m-%d %H:%M')
+
+
+class ProjectMember(CreationModificationDateMixin):
+    project = models.ForeignKey(Project, verbose_name=_("Project"))
+    person = models.ForeignKey('people.Person', verbose_name=_("Person"), blank=True, null=True)
+    function = MultilingualCharField(_('Function'), max_length=255, blank=True)
+
+    phone_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
+    phone_area = models.CharField(_("Area Code"), max_length=6, blank=True)
+    phone_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
+    email = models.EmailField(_("Email"), max_length=255, blank=True)
+
+    sort_order = models.IntegerField(_("Sort order"), default=0)
+
+    class Meta:
+        ordering = ["sort_order"]
+        verbose_name = _("Project team member")
+        verbose_name_plural = _("Project team members")
+
+    def __unicode__(self):
+        return unicode(self.person)
+
+    def get_function(self):
+        return self.function
+
+
+class ProjectImage(CreationModificationDateMixin):
+    project = models.ForeignKey(Project, verbose_name=_("Project"))
+    path = FileBrowseField(_('File path'), max_length=255, directory="locations/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image."))
+    copyright_restrictions = models.CharField(_('Copyright restrictions'), max_length=20, blank=True, choices=COPYRIGHT_RESTRICTION_CHOICES)
+    sort_order = models.PositiveIntegerField(_("Sort order"), default=0)
+
+    class Meta:
+        ordering = ["sort_order", "creation_date"]
+        verbose_name = _("Image")
+        verbose_name_plural = _("Images")
+
+    def __unicode__(self):
+        if self.path:
+            return self.path.path
+        return "Missing file (id=%s)" % self.pk
+
+    def get_token(self):
+        if self.pk:
+            return int(self.pk) + TOKENIZATION_SUMMAND
+        else:
+            return None
+
+    @staticmethod
+    def token_to_pk(token):
+        return int(token) - TOKENIZATION_SUMMAND
+
+
+class ProjectSocialMediaChannel(models.Model):
+    project = models.ForeignKey(Project)
+    channel_type = models.CharField(_("Social media type"), max_length=255, help_text=_("e.g. twitter, facebook, etc."))
+    url = URLField(_("URL"), max_length=255)
+
+    class Meta:
+        ordering = ['channel_type']
+        verbose_name = _("Social media channel")
+        verbose_name_plural = _("Social media channels")
+
+    def __unicode__(self):
+        return self.channel_type
+
+    def get_class(self):
+        social = self.channel_type.lower()
+        if social == "google+":
+            return u"googleplus"
+        return social
+
