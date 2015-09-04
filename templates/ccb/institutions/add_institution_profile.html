@@ -17,7 +17,7 @@
 
 {% block content %}
     <div class="reg">
-        <form action="" method="post" enctype="multipart/form-data" class="uniForm">
+        <form action="" method="post" enctype="multipart/form-data" class="uniForm">{% csrf_token %}
             <fieldset class="inlineLabels">
                 <h3>{% trans "Description" %}</h3>
                 {{ form.description_de|as_uni_field }}

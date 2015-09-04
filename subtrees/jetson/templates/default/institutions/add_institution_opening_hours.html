@@ -23,7 +23,7 @@
 {% block content %}
 <div class="reg">
     <div class="field_layout">
-        <form action="" method="post">
+        <form action="" method="post">{% csrf_token %}
             <fieldset>
                 <legend>
                     {% trans "Opening Hours (Optional)" %}

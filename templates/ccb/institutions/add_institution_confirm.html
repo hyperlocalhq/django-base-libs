@@ -17,7 +17,7 @@
 
 {% block content %}
     <div class="reg confirm">
-        <form action="" method="post" class="uniForm">
+        <form action="" method="post" class="uniForm">{% csrf_token %}
             <fieldset class="inlineLabels">
                 <h5>{% trans "Confirm Entered Data" %}</h5>
 
