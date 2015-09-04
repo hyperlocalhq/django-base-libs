@@ -27,6 +27,8 @@
             font-size: 1.375em;
             font-weight: $bold;
             text-transform: uppercase;
+            margin: 0 !important;
+            padding: 0 !important;
         }
     
         .more {
@@ -79,6 +81,11 @@
                     content: "|";
                     margin-left: 8px;
                     margin-right: 6px;
+                }
+                .date:last-child:after {
+                    content: none;
+                    margin-left: 0;
+                    margin-right: 0;
                 }
             }
             &:before {
@@ -153,6 +160,16 @@
                 font-size: 1em;
             }
         }
+        &.festivals {
+            h5 {
+                font-weight: $bold;
+                font-size: 1.2em;
+            }
+            strong {
+                font-weight: $regular;
+                font-size: 1em;
+            }
+        }
     }
     
     &.small {
@@ -160,6 +177,13 @@
             p {
                 display: none;
             }
+        }
+        &.festivals {
+            h5 {
+                font-weight: $regular;
+                font-size: 1em;
+            }
+            
         }
     }
     
@@ -193,12 +217,30 @@
     }
 }
 
+.home {
+    .slider {
+        margin-bottom: 55px;
+        .slider-head {
+            h4 {
+                padding: 0 0 8px 0 !important;
+            }
+        }
+    }
+}
+
 .is-xs {
     .slider {
         .slider-head {
             .more {
                 float: none;
             }
+        }
+    }
+    .home {
+        .slider {
+            margin-left: -20px;
+            margin-right: -20px;
+            width: auto;
         }
     }
 }

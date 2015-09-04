@@ -20,3 +20,21 @@ def month_slider(context, id=''):
         'months': months,
         'STATIC_URL': context['STATIC_URL'],
     }
+    
+
+@register.inclusion_tag('festivals/includes/festivals_slider.html', takes_context=True)
+def festivals_slider(context):
+    from berlinbuehnen.apps.festivals.models import Festival
+    
+    today = datetime.today()
+    
+    festivals = Festival.objects.filter(
+        slideshow = True,
+        end__gte = today,
+    )
+        
+    return {
+        'festivals': festivals,
+        'MEDIA_URL': context['MEDIA_URL'],
+        'STATIC_URL': context['STATIC_URL'],
+    }

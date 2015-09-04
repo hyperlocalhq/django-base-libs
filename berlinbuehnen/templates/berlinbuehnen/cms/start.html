@@ -1,5 +1,5 @@
 {% extends "cms/default.html" %}
-{% load base_tags cms_tags i18n image_modifications slideshows_tags production_tags favorites auth_extended infoblocks mailchimp_tags %}
+{% load base_tags cms_tags i18n image_modifications slideshows_tags production_tags favorites auth_extended infoblocks mailchimp_tags festival_tags %}
 
 {% block js %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/list.js" defer="defer"></script>
@@ -140,6 +140,8 @@
                     <div class="more-date"><a href="{% url 'event_list' %}" class="fawesome more">{% trans "more dates" %}</a></div>
                 </div>
             </div>
+            
+            {% festivals_slider %}
             
             <div class="row info">
                 

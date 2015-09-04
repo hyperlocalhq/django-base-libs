@@ -125,6 +125,7 @@ class Festival(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
 
     newsletter = models.BooleanField(_("Show in newsletter"))
     featured = models.BooleanField(_("Featured in overview"), default=False)
+    slideshow = models.BooleanField(_("Show in slideshow"), default=False)
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 
     objects = FestivalManager()

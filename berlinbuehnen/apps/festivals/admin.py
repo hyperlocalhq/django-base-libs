@@ -54,10 +54,10 @@ class FestivalAdmin(ExtendedModelAdmin):
         js = (
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
         )
-    list_display = ('id', 'title', 'start', 'end', 'get_organizers', 'get_owners_list', 'creation_date', 'modified_date', 'featured', 'newsletter', 'status')
+    list_display = ('id', 'title', 'start', 'end', 'get_organizers', 'get_owners_list', 'creation_date', 'modified_date', 'featured', 'slideshow', 'newsletter', 'status')
     list_display_links = ('id', 'title')
-    list_editable = ('featured', 'newsletter', 'status', )
-    list_filter = ('start', 'creation_date', 'modified_date', 'featured', 'newsletter', 'status')
+    list_editable = ('featured', 'slideshow', 'newsletter', 'status', )
+    list_filter = ('start', 'creation_date', 'modified_date', 'featured', 'slideshow', 'newsletter', 'status')
     date_hierarchy = 'start'
     search_fields = ('title_de', 'title_en')
 
