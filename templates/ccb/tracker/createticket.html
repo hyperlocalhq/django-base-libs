@@ -10,9 +10,8 @@
 
 {% block content %}
     <div class="suggest">
-        <form action="" method="post" class="uniForm">
+        <form action="" method="post" class="uniForm">{% csrf_token %}
             <p class="disclaimer">{% trans "We are constantly working to improve and expand this website with regard to both usability and content. If you have a suggestion, we are happy to hear about it." %}</p>
-
             <fieldset class="inlineLabels">
                 <h3>{% trans "Write Feedback" %}</h3>
                 {{ form.concern|as_uni_field }}
