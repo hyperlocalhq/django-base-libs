@@ -320,7 +320,15 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     def get_future_occurrences(self, timestamp=tz_now):
         if callable(timestamp):
             timestamp = timestamp()
-        return self.event_set.filter(start_date__gt=timestamp.date())
+            
+        now_date = timestamp.date()
+        now_time = timestamp.time()
+        events = self.event_set.filter(start_date__gte=now_date).order_by('start_date')
+        
+        while len(events) and events[0].start_date == now_date and events[0].start_time < now_time:
+            del events[0]
+        
+        return events 
         
     def get_categories(self):
     
