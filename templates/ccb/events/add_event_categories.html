@@ -15,7 +15,7 @@
 
 {% block content %}
     <div class="reg">
-        <form action="" class="uniForm" method="post">
+        <form action="" class="uniForm" method="post">{% csrf_token %}
             <fieldset class="inlineLabels">
                 {% include "site_specific/categories/categories.html" %}
                 <div id="message_suggest">

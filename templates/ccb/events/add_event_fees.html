@@ -15,7 +15,7 @@
 
 {% block content %}
     <div class="reg fees">
-        <form action="" method="post" class="uniForm">
+        <form action="" method="post" class="uniForm">{% csrf_token %}
             <fieldset class="inlineLabels">
                 <h3>{% trans "Fees (Optional)" %}</h3>
                 {{ form.fees_de|as_uni_field }}

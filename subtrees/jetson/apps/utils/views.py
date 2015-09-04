@@ -688,6 +688,10 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
             form_step_data[current_step] = dict(f.cleaned_data)
             for field in f:
                 # create get_XXX_display for all selection fields
+                try:
+                    field_value = form_step_data[current_step][field.name]
+                except KeyError:
+                    field_value = None
                 if hasattr(field.field, 'choices') and field.field.choices:
                     d = dict([
                         (str(k), unicode(v))
@@ -699,13 +703,13 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
                             'get_%s_display' % field.name
                         ] = d.get(k, "")
                         if k == "":
-                            form_step_data[current_step][field.name] = None
-                if isinstance(form_step_data[current_step][field.name], models.Model):
+                            field_value = None
+                if isinstance(field_value, models.Model):
                     # if ModelChoiceField is used, save primary key
-                    form_step_data[current_step][field.name] = form_step_data[current_step][field.name].pk
-                elif isinstance(form_step_data[current_step][field.name], QuerySet):
+                    field_value = field_value.pk
+                elif isinstance(field_value, QuerySet):
                     # if ModelMultipleChoiceField is used, save list of primary keys
-                    form_step_data[current_step][field.name] = [obj.pk for obj in form_step_data[current_step][field.name]]
+                    field_value = [obj.pk for obj in field_value]
                 # elif isinstance(form_step_data[current_step][field.name], (datetime.datetime, datetime.date, datetime.time, Decimal)):
                 #     # convert dates, times, and decimals to string
                 #     form_step_data[current_step][field.name] = unicode(form_step_data[current_step][field.name])

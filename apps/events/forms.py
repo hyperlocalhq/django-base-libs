@@ -30,8 +30,8 @@ from jetson.apps.optionset.models import PhoneType, EmailType, URLType
 from mptt.forms import TreeNodeChoiceField
 
 app = models.get_app("events")
-Event, EventType, EventTime, URL_ID_EVENT, URL_ID_EVENTS = (
-    app.Event, app.EventType, app.EventTime, app.URL_ID_EVENT, app.URL_ID_EVENTS,
+Event, EventType, EventTime, EventTimeLabel, URL_ID_EVENT, URL_ID_EVENTS = (
+    app.Event, app.EventType, app.EventTime, app.EventTimeLabel, app.URL_ID_EVENT, app.URL_ID_EVENTS,
 )
 
 Institution = models.get_model("institutions", "Institution")
@@ -932,14 +932,15 @@ class EventForm:  # namespace
             f.close()
 
         # save again without triggering any signals
-        event.save_base(raw=True, cls=type(event))
+        event.save_base(raw=True)
 
         # for ev in step_main_data.get('related_events', ()):
         #    event.related_events.add(ev)
 
         for time_data in step_main_data['sets'].get("event_times", ()):
             time = EventTime(event=event)
-            time.label = time_data.get('label', None)
+            label_id = time_data.get('label', None)
+            time.label = EventTimeLabel.objects.get(pk=label_id)
 
             time.start_yyyy = time_data.get('start_yyyy', None)
             time.start_mm = time_data.get('start_mm', None)

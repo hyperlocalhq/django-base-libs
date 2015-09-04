@@ -19,7 +19,7 @@
     <pre>{{ form_step_data|pprint|escape }}</pre>
     -->{% endcomment %}
     <div class="reg confirm">
-        <form action="" method="post" class="uniForm">
+        <form action="" method="post" class="uniForm">{% csrf_token %}
             <h3 class="begin">{% trans "Confirm Entered Data" %}</h3>
 
             <h3>{{ form_step_data.step_main_data.title_de }}{% if form_step_data.step_main_data.title_en %} /
