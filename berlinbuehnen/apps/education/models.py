@@ -93,6 +93,9 @@ class Department(CreationModificationMixin, UrlMixin, SlugMixin()):
         verbose_name_plural = _("Education departments")
 
 
+    def __unicode__(self):
+        return self.title
+
     def get_url_path(self):
         try:
             path = reverse("education_detail", kwargs={'slug': self.slug})
@@ -304,8 +307,8 @@ class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
     supporters = MultilingualTextField(_("Supporters"), blank=True)
     sponsors = models.ManyToManyField("sponsors.Sponsor", verbose_name=_("Sponsors"), blank=True)
 
-    target_group = models.ForeignKey(ProjectTargetGroup, verbose_name=_("Target group"), blank=True, null=True)
-    format = models.ForeignKey(ProjectFormat, verbose_name=_("Project format"), blank=True, null=True)
+    target_group = models.ManyToManyField("ProjectTargetGroup", verbose_name=_("Target group"), blank=True, null=True)
+    format = models.ManyToManyField("ProjectFormat", verbose_name=_("Project format"), blank=True, null=True)
 
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 

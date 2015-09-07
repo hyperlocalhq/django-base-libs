@@ -53,35 +53,28 @@
                 </div>
             </div>
         {% endif %}
-        {% if departrment.department_member__set.all %}
+        {% if department.departmentmember_set.all %}
             <div class="accordion-item">
                 <h4 class="accordion-item-head">{% trans "Team" %}</h4>
                 <div class="accordion-item-content">
+                    {% for member in department.departmentmember_set.all %}
                         <dl>
-                            {% if project.press_contact_name %}
-                                <dd>{{ project.press_contact_name }}</dd>
+                            {% if member.get_function %}
+                                <dd>{{ member.get_function }}</dd>
                             {% endif %}
-                            {% if project.press_phone_number %}
+                            {% if member.person %}
+                                <dd>{% if member.person.first_name %}{{ member.person.first_name }} {% endif %}{{ member.person.last_name }}</dd>
+                            {% endif %}
+                            {% if member.phone_number %}
                                 <dt class="width_50">{% trans "Phone" %}</dt>
-                                <dd><a class="phone" href="tel:{% if project.press_phone_country %}+{{ project.press_phone_country }}{% endif %}{{ project.press_phone_area }}{{ project.press_phone_number }}">{% if project.press_phone_country %}+{{ project.press_phone_country }}-{% endif %}{{ project.press_phone_area }}-{{ project.press_phone_number }}</a></dd>
+                                <dd><a class="phone" href="tel:{% if member.phone_country %}+{{ member.phone_country }}{% endif %}{{ member.phone_area }}{{ member.phone_number }}">{% if member.phone_country %}+{{ member.phone_country }}-{% endif %}{{ member.phone_area }}-{{ member.phone_number }}</a></dd>
                             {% endif %}
-                            {% if project.press_mobile_number %}
-                                <dt class="width_50">{% trans "Mobile" %}</dt>
-                                <dd><a class="phone" href="tel:{% if project.press_mobile_country %}+{{ project.press_mobile_country }}{% endif %}{{ project.press_mobile_area }}{{ project.press_mobile_number }}">{% if project.press_mobile_country %}+{{ project.press_mobile_country }}-{% endif %}{{ project.press_mobile_area }}-{{ project.press_mobile_number }}</a></dd>
-                            {% endif %}
-                            {% if project.press_fax_number %}
-                                <dt class="width_50">{% trans "Fax" %}</dt>
-                                <dd>{% if project.press_fax_country %}+{{ project.press_fax_country }}-{% endif %}{{ project.press_fax_area }}-{{ project.press_fax_number }}</dd>
-                            {% endif %}
-                            {% if project.press_email %}
+                            {% if member.email %}
                                 <dt class="width_50">{% trans "Mail" %}</dt>
-                                <dd><a href="mailto:{{ project.press_email }}">{{ project.press_email }}</a></dd>
-                            {% endif %}
-                            {% if project.press_website %}
-                                <dt class="width_50">{% trans "Web" %}</dt>
-                                <dd><a href="{{ project.press_website }}" target="_blank">{{ project.press_website|humanize_url:30 }}</a></dd>
+                                <dd><a href="mailto:{{ member.email }}">{{ member.email }}</a></dd>
                             {% endif %}
                         </dl>
+                    {% endfor %}
                 </div>
             </div>
         {% endif %}

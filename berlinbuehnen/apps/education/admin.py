@@ -80,7 +80,7 @@ class DepartmentMemberInline(ExtendedStackedInline):
     extra = 0
     fieldsets = [(None, {'fields': ('person', 'sort_order')}),]
     fieldsets += get_admin_lang_section(_("Function"), ['function',])
-    fieldsets += [(_("Contacts"), {'fields': ((_("Phone"), {'fields': ('phone_country', 'phone_area', 'phone_number')}), 'email', )}),]
+    fieldsets += [(None, {'fields': ((_("Phone"), {'fields': ('phone_country', 'phone_area', 'phone_number')}), 'email', )}),]
     raw_id_fields = ['person']
     inline_classes = ('grp-collapse grp-open',)
 
@@ -220,7 +220,7 @@ class ProjectAdmin(ExtendedModelAdmin):
     fieldsets += [(_("Sponsors"), {'fields': ['sponsors',]}),]
     fieldsets += [(_("Status"), {'fields': ['status',]}),]
 
-    filter_horizontal = ['departments', 'sponsors']
+    filter_horizontal = ['departments', 'sponsors', 'target_group', 'format']
     inlines = [
         ProjectTimeInline,
         ProjectMemberInline,
