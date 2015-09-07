@@ -211,7 +211,7 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
                 event.production = prod
 
                 date_str, start_time_str, end_time_str = production_dict["Termin"].split(", ")
-                event.start_date = parse_datetime(date_str).date()
+                event.start_date = parse_datetime(date_str, dayfirst=True).date()
                 event.start_time = time(*map(int, start_time_str.split(".")))
 
                 if production_dict["Ausverkauft"] == "JA":
