@@ -1,8 +1,10 @@
 #!/usr/local/www/apache24/data/creative-city-berlin.de/bin/python
 # -*- coding: utf-8 -*-
 import os
-import sys
+import signal
 import site
+import sys
+import time
 
 django_path = os.path.abspath(
     os.path.join(
