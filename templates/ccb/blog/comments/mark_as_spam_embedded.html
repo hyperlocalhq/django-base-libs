@@ -1,7 +1,7 @@
 {% load base_tags babel i18n %}
 
 <div class="field_layout" id="popup_content">
-    <form action="" method="post" class="uniForm">
+    <form action="" method="post" class="uniForm">{% csrf_token %}
         <fieldset class="inlineLabels">
             <p class="disclaimer">{% trans "Do you really want to mark this comment as spam?" %}</p>
 

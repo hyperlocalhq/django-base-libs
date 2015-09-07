@@ -7,7 +7,7 @@
         HERE THE CONTENT BEGINS
     {% endcomment %}
     <div class="first-item-txt">
-        <form action="" method="post" class="uniForm">
+        <form action="" method="post" class="uniForm">{% csrf_token %}
             <p class="disclaimer">Are you sure to delete the message "{{ message.subject }}"?</p>
 
             <div class="buttonHolder">

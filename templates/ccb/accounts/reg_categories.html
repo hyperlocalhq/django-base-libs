@@ -23,7 +23,7 @@
 {% endblock %}
 
 {% block content %}
-    <form action="" class="uniForm" method="post">
+    <form action="" class="uniForm" method="post">{% csrf_token %}
         {% include "site_specific/categories/categories.html" %}
         <p class="disclaimer">
             {% blocktrans %}Is some category missing? You can

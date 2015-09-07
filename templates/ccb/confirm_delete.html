@@ -4,7 +4,7 @@
 {% block content %}
 
     <div class="first-item-txt">
-        <form action="" method="post" class="uniForm">
+        <form action="" method="post" class="uniForm">{% csrf_token %}
             <fieldset class="inlineLabels">
                 <h3>
                     {% blocktrans %}Do you really want to delete "{{ delete_object }}"?{% endblocktrans %}

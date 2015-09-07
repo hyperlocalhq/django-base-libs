@@ -21,7 +21,7 @@
 {% endblock %}
 
 {% block content %}
-    <form action="" method="post" class="uniForm">
+    <form action="" method="post" class="uniForm">{% csrf_token %}
         <fieldset class="inlineLabels">
             <h3>{% trans "Opening Hours (Optional)" %}</h3>
             {% include "uni_form/includes/opening_hours.html" %}

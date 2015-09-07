@@ -47,7 +47,7 @@
         </div>
     {% endifequal %}
 
-    <form action="../post/" method="post">
+    <form action="../post/" method="post">{% csrf_token %}
 
         {% if not comment_form.is_valid %}
             Form is invalid

@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <div id="popup_content">
-    <form action="" method="post" class="uniForm">
+    <form action="" method="post" class="uniForm">{% csrf_token %}
         <p class="disclaimer">{% trans "Do you really want to mark this comment as spam?" %}</p>
 
         <div class="buttonHolder">

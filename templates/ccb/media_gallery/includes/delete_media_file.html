@@ -2,7 +2,7 @@
 <div id="popup_content">
     <form class="popup"
         action="/{{ context_item_type }}/{{ slug }}/{{ URL_ID_PORTFOLIO }}/file_{{ media_file.id }}/delete/"
-        method="post" class="uniForm">
+        method="post" class="uniForm">{% csrf_token %}
         {% if media_file.title %}
             <p class="disclaimer">{% blocktrans with media_file.title as title %}Do you really want to delete the media
                 file "{{ title }}"?{% endblocktrans %}</p>

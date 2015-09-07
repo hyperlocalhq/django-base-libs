@@ -30,7 +30,7 @@
                 members.{% endblocktrans %}</p>
         {% endif %}
     </div>
-    <form method="POST" action="" class="uniForm">
+    <form method="post" action="" class="uniForm">{% csrf_token %}
         {% regroup notice_settings.rows by category as notice_settings_rows %}
         {% for group in notice_settings_rows %}
             <fieldset class="inlineLabels">

@@ -4,7 +4,7 @@
 <div class="edit">
     <div class="field_layout detail-form">
         <form action="/helper/edit-{{ URL_ID_PERSONGROUP }}-profile/{{ object.slug }}/details/" method="post"
-            enctype="multipart/form-data" target="hidden_iframe">
+            enctype="multipart/form-data" target="hidden_iframe">{% csrf_token %}
             <fieldset class="fieldset_end">
                 <legend>{% trans "Details" %}</legend>
                 <ul>

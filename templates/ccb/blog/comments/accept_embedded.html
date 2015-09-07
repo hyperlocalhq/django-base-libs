@@ -1,6 +1,6 @@
 {% load base_tags babel i18n %}
 <div class="edit" id="popup_content">
-    <form action="" method="post" class="uniForm">
+    <form action="" method="post" class="uniForm">{% csrf_token %}
         <p class="delete">{% trans "Do you really want to accept this comment?" %}</p>
 
         <div>

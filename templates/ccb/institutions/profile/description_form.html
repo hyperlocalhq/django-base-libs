@@ -3,7 +3,7 @@
     <h5 class="edit_subline">{% trans "edit Description data" %}</h5>
 
     <form action="/helper/edit-{{ URL_ID_INSTITUTION }}-profile/{{ object.slug }}/description/" method="post"
-        enctype="multipart/form-data" target="hidden_iframe" class="uniForm">
+        enctype="multipart/form-data" target="hidden_iframe" class="uniForm">{% csrf_token %}
         <fieldset class="inlineLabels">
             <h3>{% trans "Description" %}</h3>
             {{ form.non_field_errors }}

@@ -1,5 +1,5 @@
 {% load i18n uni_form_tags uni_form_field %}
-<form action="" method="post" class="uniForm">
+<form action="" method="post" class="uniForm">{% csrf_token %}
     <fieldset class="inlineLabels">
         <h3>{% trans "Claim" %}</h3>
         {{ form.name|as_uni_field }}

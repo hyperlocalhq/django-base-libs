@@ -12,7 +12,7 @@
     <div id="content">
         {% for fb_page in fb_pages %}
             <div id="fb_connect_form_{{ fb_page.institution.pk }}">
-                <form action="{{ app_path }}" method="post" class="uniForm">
+                <form action="{{ app_path }}" method="post" class="uniForm">{% csrf_token %}
                     <fieldset class="inlineLabels">
                         <h3>{% trans "Linked Institution" %}</h3>
 
@@ -45,7 +45,7 @@
         {% endfor %}
         {% for institution in unlinked_institutions %}
             <div id="fb_connect_form_{{ institution.pk }}">
-                <form action="" method="post" class="uniForm">
+                <form action="" method="post" class="uniForm">{% csrf_token %}
                     <fieldset class="inlineLabels">
                         <h3>{% trans "Unlinked Institution" %}</h3>
 

@@ -1,6 +1,6 @@
 {% load i18n %}
 <div id="popup_content">
-    <form action="" method="post" class="uniForm">
+    <form action="" method="post" class="uniForm">{% csrf_token %}
         <div class="buttonHolder">
             <input class="primaryAction" type="submit" id="post" name="post"
                 value='{% filter upper %}{% trans "Join" %}{% endfilter %}'/>

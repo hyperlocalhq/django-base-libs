@@ -30,7 +30,7 @@
 {% block content %}
     <div class="reg confirm">
         <div class="field_info">
-            <form action="" method="post">
+            <form action="" method="post">{% csrf_token %}
                 <h5 class="begin">{% trans "Confirm Entered Data" %}</h5>
 
                 <div class="check">

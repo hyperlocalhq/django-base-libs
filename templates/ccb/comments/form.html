@@ -1,7 +1,7 @@
 {% load base_tags i18n %}
 
 {% if display_form %}
-    <form action="../post/" method="post">
+    <form action="../post/" method="post">{% csrf_token %}
         <div class="field_layout">
             <fieldset class="fieldset_end">
                 <legend>{% trans "Post a review" %}</legend>

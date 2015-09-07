@@ -1,6 +1,6 @@
 {% load i18n %}
 <div id="popup_content">
-    <form action="{{ rel_root_dir }}/helper/comment/{{ comment_id }}/accept/" method="post">
+    <form action="{{ rel_root_dir }}/helper/comment/{{ comment_id }}/accept/" method="post">{% csrf_token %}
         <p>
             {% trans "Do you really want to accept this comment?" %}
         </p>

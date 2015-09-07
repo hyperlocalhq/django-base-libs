@@ -22,7 +22,7 @@
         {% else %}
             {% if form %}
                 <div>
-                    <form method="post" action="" class="left">
+                    <form method="post" action="" class="left">{% csrf_token %}
                         <fieldset class="fieldset_end">
                             <legend>
                                 {% trans "Choose people to invite" %}

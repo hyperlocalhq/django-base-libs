@@ -3,7 +3,7 @@
     <h5 class="edit_subline">{% trans "edit organizer data" %}</h5>
 
     <form action="/helper/edit-{{ URL_ID_EVENT }}-profile/{{ object.slug }}/organizer/" method="post"
-        target="hidden_iframe" class="uniForm">
+        target="hidden_iframe" class="uniForm">{% csrf_token %}
         <fieldset class="inlineLabels">
             <h3>{% trans "details data" %}</h3>
             {{ form.non_form_errors }}

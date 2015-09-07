@@ -22,7 +22,7 @@
 {% endblock %}
 
 {% block content %}
-    <form action="" method="post" class="uniForm">
+    <form action="" method="post" class="uniForm">{% csrf_token %}
         {{ form.district }}
         {{ form.latitude }}
         {{ form.longitude }}

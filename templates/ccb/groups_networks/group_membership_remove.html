@@ -1,6 +1,6 @@
 {% load i18n %}
 <div id="popup_content">
-    <form action="" method="post" class="uniForm">
+    <form action="" method="post" class="uniForm">{% csrf_token %}
         <p class="disclaimer">{% blocktrans with group.get_title as group_name %}Do you really want to leave
             {{ group_name }}?{% endblocktrans %}</p>
 

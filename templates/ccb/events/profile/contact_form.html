@@ -1,7 +1,7 @@
 {% load i18n base_tags auth_extended uni_form_tags uni_form_field %}
 <div class="profile_infos">
     <form action="/helper/edit-{{ URL_ID_EVENT }}-profile/{{ object.slug }}/contact/" method="post"
-        target="hidden_iframe" class="uniForm">
+        target="hidden_iframe" class="uniForm">{% csrf_token %}
         <h3 class="edit_subline">{% trans "edit contact data" %}</h3>
         <fieldset class="inlineLabels">
             <h3>{% trans "Institution" %}</h3>

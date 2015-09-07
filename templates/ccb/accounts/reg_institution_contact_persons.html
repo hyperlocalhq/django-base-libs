@@ -22,7 +22,7 @@
 {% endblock %}
 
 {% block content %}
-    <form action="" method="post" class="uniForm">
+    <form action="" method="post" class="uniForm">{% csrf_token %}
         <fieldset class="inlineLabels">
             <h3>{% trans "Contact Person" %} - {% trans "Administrator" %}</h3>
 

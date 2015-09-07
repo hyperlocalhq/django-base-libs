@@ -337,7 +337,7 @@
                                 <ul>
                                     <li>
                                         <p>{% trans "By adjusting the selectable database fields you can refine your search results:" %}</p>
-                                        <form method="get" action="/simplesearch/" class="uniForm">
+                                        <form method="get" action="/simplesearch/" class="uniForm">{% csrf_token %}
                                             <div>
                                                 {% load ajax_search %}
                                                 <div id="dyn_search_selections">

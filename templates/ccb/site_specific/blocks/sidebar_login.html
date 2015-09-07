@@ -3,7 +3,7 @@
     <h5><b>{% trans "Login" %}</b></h5>
 
     <div class="hidable">
-        <form method="post" action="/{{ LANGUAGE_CODE }}/login/" class="uniForm">
+        <form method="post" action="/{{ LANGUAGE_CODE }}/login/" class="uniForm">{% csrf_token %}
             <!--{{ request.session.set_test_cookie }}-->
             {% csrf_token %}
             <div class="ctrlHolder">
@@ -27,7 +27,7 @@
                     value="{% filter upper %}{% trans 'Log in' %}{% endfilter %}"/>
             </div>
         </form>
-        <form method="post" action="/{{ LANGUAGE_CODE }}/facebook/link/" class="uniForm">
+        <form method="post" action="/{{ LANGUAGE_CODE }}/facebook/link/" class="uniForm">{% csrf_token %}
             <div class="buttonHolder">
                 <input type="hidden" name="access_token" value=""/>
                 <input type="hidden" name="uid" value=""/>

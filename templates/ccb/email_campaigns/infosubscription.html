@@ -12,7 +12,7 @@
 
 {% block content %}
     <div class="newsletter">
-        <form action="" method="post" enctype="multipart/form-data" class="uniForm">
+        <form action="" method="post" enctype="multipart/form-data" class="uniForm">{% csrf_token %}
             {{ form.prevent_spam }}
             {{ form.prevent_spam.error_tag }}
             <fieldset class="inlineLabels">

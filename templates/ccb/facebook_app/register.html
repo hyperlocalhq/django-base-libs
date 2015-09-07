@@ -12,7 +12,7 @@
 {% block sidebar-b %}&nbsp;{% endblock %}
 
 {% block content %}
-    <form action="{{ app_path }}" class="uniForm" method="post">
+    <form action="{{ app_path }}" class="uniForm" method="post">{% csrf_token %}
         <p class="disclaimer">{% trans "Create a CreativeCityBerlin account to link with your facebook." %}</p>
         <fieldset class="inlineLabels">
             <h3>{% trans "Profile" %}</h3>

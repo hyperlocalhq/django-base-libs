@@ -9,7 +9,7 @@
 
 {% block content %}
     <div class="new-messages">
-        <form method="post" action="" class="uniField">
+        <form method="post" action="" class="uniField">{% csrf_token %}
             {% if form %}
                 <fieldset class="inlineLabels">
                     <h3>

@@ -27,7 +27,7 @@
 {% endblock %}
 
 {% block content %}
-    <form action="" method="post" class="uniForm">
+    <form action="" method="post" class="uniForm">{% csrf_token %}
         <div>{{ form.latitude }}</div>
         <div>{{ form.longitude }}</div>
         <div>{{ form.district }}</div>

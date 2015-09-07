@@ -3,7 +3,7 @@
     <h5 class="edit_subline">{% trans "Edit Fees data" %}</h5>
 
     <form action="/helper/edit-{{ URL_ID_EVENT }}-profile/{{ object.slug }}/fees_opening_hours/" method="post"
-        enctype="multipart/form-data" target="hidden_iframe" class="uniForm">
+        enctype="multipart/form-data" target="hidden_iframe" class="uniForm">{% csrf_token %}
         <fieldset class="inlineLabels">
             <h3>{% trans "Fees" %}</h3>
             {{ form.fees_de|as_uni_field }}

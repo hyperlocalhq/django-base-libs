@@ -1,7 +1,7 @@
 {% load i18n %}
 <div id="popup_content">
     {{ block.super }}
-    <form action="" method="post">
+    <form action="" method="post">{% csrf_token %}
         <p class="delete">{% trans "Do you really want to refuse this comment?" %}</p>
         <fieldset>
             {{ form.reason.label_tag }}

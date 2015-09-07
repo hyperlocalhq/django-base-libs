@@ -26,7 +26,7 @@
 
 {% block content %}
     <div class="field_info">
-        <form action="" method="post" class="uniForm">
+        <form action="" method="post" class="uniForm">{% csrf_token %}
             <fieldset class="inlineLabels">
                 <h3>{% trans "Invitation" %}</h3>
 

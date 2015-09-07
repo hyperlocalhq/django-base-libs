@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-    <form class="uniForm" action="" method="post">
+    <form class="uniForm" action="" method="post">{% csrf_token %}
         <fieldset class="inlineLabels">
             <h3>Section title (h3)</h3>
 
@@ -107,7 +107,7 @@
     <div class="sidebar-box nav_expanded">
         <h5>Login (h5)</h5>
 
-        <form class="uniForm" action="/en/login/" method="post">
+        <form class="uniForm" action="/en/login/" method="post">{% csrf_token %}
             <div class="ctrlHolder">
                 <label for="id_sidebar_email">Email or Username</label>
                 <input type="text" maxlength="75" name="email_or_username" class="form_text textInput"

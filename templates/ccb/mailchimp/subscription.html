@@ -11,7 +11,7 @@
 
 {% block content %}
     <div class="newsletter" id="newsletter">
-        <form action="/{{ LANGUAGE_CODE }}/subscribe4info/" method="post" enctype="multipart/form-data" class="uniForm">
+        <form action="/{{ LANGUAGE_CODE }}/subscribe4info/" method="post" enctype="multipart/form-data" class="uniForm">{% csrf_token %}
             {{ form.prevent_spam }}
             {{ form.prevent_spam.error_tag }}
             <fieldset class="inlineLabels">

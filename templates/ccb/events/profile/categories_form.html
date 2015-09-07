@@ -3,7 +3,7 @@
     <h5 class="edit_subline">{% trans "edit categories" %}</h5>
 
     <form action="/helper/edit-{{ URL_ID_EVENT }}-profile/{{ object.slug }}/categories/" method="post"
-        enctype="multipart/form-data" target="hidden_iframe" class="uniForm">
+        enctype="multipart/form-data" target="hidden_iframe" class="uniForm">{% csrf_token %}
         <fieldset class="inlineLabels">
             {% include "site_specific/categories/categories.html" %}
             <p class="disclaimer">{% blocktrans %}Is some category missing? You can

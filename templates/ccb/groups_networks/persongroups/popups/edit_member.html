@@ -2,7 +2,7 @@
 {% comment %}<!-- UNUSED -->{% endcomment %}
 
 <div id="popup_content">
-    <form action="{{ person_group.get_url_path }}member/{{ user.id }}/edit/" method="post">
+    <form action="{{ person_group.get_url_path }}member/{{ user.id }}/edit/" method="post">{% csrf_token %}
         <div class="pop_edit">
             <div>
                 <label>{% trans "User" %}</label>

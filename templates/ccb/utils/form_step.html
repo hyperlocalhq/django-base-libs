@@ -8,7 +8,7 @@
 
     {% include "utils/step_list.html" %}
 
-    <form action="" method="post" class="uniForm">
+    <form action="" method="post" class="uniForm">{% csrf_token %}
         {% for field in form.fields %}
             {{ field|as_uni_field }}
         {% endfor %}

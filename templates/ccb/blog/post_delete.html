@@ -6,7 +6,7 @@
     {% block object-title %}
         <h2>{% blocktrans with post.tile as title %}Delete Post - {{ title }}{% endblocktrans %}</h2>{% endblock %}
 
-    <form action="" method="post" class="uniForm">
+    <form action="" method="post" class="uniForm">{% csrf_token %}
         <fieldset class="inlineLabels">
             <p class="disclaimer">Are you sure to delete the post "{{ post.title }}"?</p>
 

@@ -25,7 +25,7 @@
 
 {% block content %}
     <div class="approve">
-        <form action="" method="post">
+        <form action="" method="post">{% csrf_token %}
             <h4>{% trans "Done" %}</h4>
 
             <p>{% trans "Your invitation has been sent." %}</p>

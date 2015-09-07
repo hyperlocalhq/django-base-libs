@@ -13,7 +13,7 @@
 
 {% block content %}
     <div class="field_layout">
-        <form action="{{ app_path }}" method="post" class="uniForm">
+        <form action="{{ app_path }}" method="post" class="uniForm">{% csrf_token %}
             <fieldset class="inlineLabels">
                 <h3>{% trans "Login to link your profiles" %}</h3>
                 <!--{{ request.session.set_test_cookie }}-->

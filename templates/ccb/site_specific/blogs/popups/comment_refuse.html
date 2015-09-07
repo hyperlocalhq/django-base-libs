@@ -2,7 +2,7 @@
 
 <div class="first-item">
     {{ block.super }}
-    <form action="" method="post" class="uniForm">
+    <form action="" method="post" class="uniForm">{% csrf_token %}
         <fieldset class="inlineLabels">
             <p class="disclaimer">{% trans "Do you really want to refuse this comment?" %}</p>
             {{ form.reason|as_uni_field }}

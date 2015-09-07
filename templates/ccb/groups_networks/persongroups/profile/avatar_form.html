@@ -4,7 +4,7 @@
     <h5 class="edit_subline">{% trans "upload a photo" %}</h5>
 
     <form action="/helper/edit-{{ URL_ID_PERSONGROUP }}-profile/{{ object.slug }}/avatar/" method="post"
-        enctype="multipart/form-data" target="hidden_iframe" class="left">
+        enctype="multipart/form-data" target="hidden_iframe" class="left">{% csrf_token %}
         <fieldset class="inlineLabels">
             <div class="ctrlHolder">
                 <p class="label">

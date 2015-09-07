@@ -1,7 +1,7 @@
 {% load i18n base_tags auth_extended image_modifications %}
 {% comment %}<!-- UNUSED -->{% endcomment %}
 <div class="portfolio">
-    <form action="." method="post" enctype="multipart/form-data" class="uniForm">
+    <form action="." method="post" enctype="multipart/form-data" class="uniForm">{% csrf_token %}
         <div id="media_file_editing">
             {{ form.non_field_errors }}
             <div id="upload_media_file">

@@ -29,7 +29,7 @@
 
 {% block content %}
     <div class="field_info">
-        <form action="" method="post" class="uniForm">
+        <form action="" method="post" class="uniForm">{% csrf_token %}
             {% spaceless %}
                 <fieldset class="inlineLabels">
                     <h3>{% trans "People to Invite" %}</h3>

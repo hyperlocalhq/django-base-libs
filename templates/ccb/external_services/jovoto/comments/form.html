@@ -1,6 +1,6 @@
 {% load base_tags babel i18n image_modifications %}
 {% comment %}<!-- UNUSED -->{% endcomment %}
-<form action="" method="post">
+<form action="" method="post">{% csrf_token %}
     <fieldset class="fieldset_end">
         <legend>{% trans "Post a comment" %}</legend>
         <ul>
