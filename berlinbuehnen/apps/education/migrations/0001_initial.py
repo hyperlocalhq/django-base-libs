@@ -12,9 +12,52 @@ class Migration(SchemaMigration):
         
         # Adding model 'Department'
         db.create_table(u'education_department', south_cleaned_fields((
-            ('location', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['locations.Location'], unique=True, primary_key=True)),
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('creation_date', self.gf('django.db.models.fields.DateTimeField')()),
+            ('modified_date', self.gf('django.db.models.fields.DateTimeField')(null=True)),
+            ('creator', self.gf('django.db.models.fields.related.ForeignKey')(related_name='department_creator', null=True, to=orm['auth.User'])),
+            ('modifier', self.gf('django.db.models.fields.related.ForeignKey')(related_name='department_modifier', null=True, to=orm['auth.User'])),
+            ('slug', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=255)),
+            ('location', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['locations.Location'])),
+            ('title', self.gf('base_libs.models.fields.MultilingualCharField')(max_length=255, null=True)),
+            ('description', self.gf('base_libs.models.fields.MultilingualTextField')(default='', null=True, blank=True)),
+            ('teaser', self.gf('base_libs.models.fields.MultilingualTextField')(default='', null=True, blank=True)),
+            ('street_address', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('street_address2', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
+            ('postal_code', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('city', self.gf('django.db.models.fields.CharField')(default='Berlin', max_length=255)),
+            ('latitude', self.gf('django.db.models.fields.FloatField')(null=True, blank=True)),
+            ('longitude', self.gf('django.db.models.fields.FloatField')(null=True, blank=True)),
+            ('phone_country', self.gf('django.db.models.fields.CharField')(default='49', max_length=4, blank=True)),
+            ('phone_area', self.gf('django.db.models.fields.CharField')(max_length=6, blank=True)),
+            ('phone_number', self.gf('django.db.models.fields.CharField')(max_length=25, blank=True)),
+            ('fax_country', self.gf('django.db.models.fields.CharField')(default='49', max_length=4, blank=True)),
+            ('fax_area', self.gf('django.db.models.fields.CharField')(max_length=6, blank=True)),
+            ('fax_number', self.gf('django.db.models.fields.CharField')(max_length=25, blank=True)),
+            ('email', self.gf('django.db.models.fields.EmailField')(max_length=255, blank=True)),
+            ('website', self.gf('base_libs.models.fields.URLField')(max_length=200, blank=True)),
+            ('status', self.gf('django.db.models.fields.CharField')(default='draft', max_length=20, blank=True)),
+            ('title_de', self.gf('django.db.models.fields.CharField')(u'Title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
+            ('title_en', self.gf('django.db.models.fields.CharField')(u'Title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
+            ('description_de', self.gf('base_libs.models.fields.ExtendedTextField')(u'Description', unique_for_month=None, unique_for_date=None, primary_key=False, db_column=None, max_length=None, unique_for_year=None, rel=None, blank=True, unique=False, db_tablespace='', db_index=False)),
+            ('description_de_markup_type', self.gf('django.db.models.fields.CharField')('Markup type', default='pt', max_length=10, blank=False)),
+            ('description_en', self.gf('base_libs.models.fields.ExtendedTextField')(u'Description', unique_for_month=None, unique_for_date=None, primary_key=False, db_column=None, max_length=None, unique_for_year=None, rel=None, blank=True, unique=False, db_tablespace='', db_index=False)),
+            ('description_en_markup_type', self.gf('django.db.models.fields.CharField')('Markup type', default='pt', max_length=10, blank=False)),
+            ('teaser_de', self.gf('base_libs.models.fields.ExtendedTextField')(u'Teaser', unique_for_month=None, unique_for_date=None, primary_key=False, db_column=None, max_length=None, unique_for_year=None, rel=None, blank=True, unique=False, db_tablespace='', db_index=False)),
+            ('teaser_de_markup_type', self.gf('django.db.models.fields.CharField')('Markup type', default='pt', max_length=10, blank=False)),
+            ('teaser_en', self.gf('base_libs.models.fields.ExtendedTextField')(u'Teaser', unique_for_month=None, unique_for_date=None, primary_key=False, db_column=None, max_length=None, unique_for_year=None, rel=None, blank=True, unique=False, db_tablespace='', db_index=False)),
+            ('teaser_en_markup_type', self.gf('django.db.models.fields.CharField')('Markup type', default='pt', max_length=10, blank=False)),
         )))
         db.send_create_signal(u'education', ['Department'])
+        # Adding M2M table for field districts on 'Department'
+        m2m_table_name = db.shorten_name(u'education_department_districts')
+        db.create_table(m2m_table_name, (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('department', models.ForeignKey(orm[u'education.department'], null=False)),
+            ('district', models.ForeignKey(orm[u'locations.district'], null=False))
+        ))
+        db.create_unique(m2m_table_name, ['department_id', 'district_id'])
+
 
         # Adding model 'DepartmentMember'
         db.create_table(u'education_departmentmember', south_cleaned_fields((
@@ -33,6 +76,27 @@ class Migration(SchemaMigration):
             ('function_en', self.gf('django.db.models.fields.CharField')(u'Function', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
         )))
         db.send_create_signal(u'education', ['DepartmentMember'])
+
+        # Adding model 'Image'
+        db.create_table(u'education_image', south_cleaned_fields((
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('creation_date', self.gf('django.db.models.fields.DateTimeField')()),
+            ('modified_date', self.gf('django.db.models.fields.DateTimeField')(null=True)),
+            ('education', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['education.Department'])),
+            ('path', self.gf('filebrowser.fields.FileBrowseField')(directory='education/', max_length=255, extensions=['.jpg', '.jpeg', '.gif', '.png'])),
+            ('copyright_restrictions', self.gf('django.db.models.fields.CharField')(max_length=20, blank=True)),
+            ('sort_order', self.gf('django.db.models.fields.IntegerField')(default=None)),
+        )))
+        db.send_create_signal(u'education', ['Image'])
+
+        # Adding model 'SocialMediaChannel'
+        db.create_table(u'education_socialmediachannel', south_cleaned_fields((
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('department', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['education.Department'])),
+            ('channel_type', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('url', self.gf('base_libs.models.fields.URLField')(max_length=255)),
+        )))
+        db.send_create_signal(u'education', ['SocialMediaChannel'])
 
         # Adding model 'ProjectTargetGroup'
         db.create_table(u'education_projecttargetgroup', south_cleaned_fields((
@@ -70,7 +134,6 @@ class Migration(SchemaMigration):
             ('slug', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=255)),
             ('title', self.gf('base_libs.models.fields.MultilingualCharField')(max_length=255, null=True)),
             ('subtitle', self.gf('base_libs.models.fields.MultilingualCharField')(max_length=255, null=True, blank=True)),
-            ('logo', self.gf('filebrowser.fields.FileBrowseField')(directory='locations/', max_length=255, extensions=['.jpg', '.jpeg', '.gif', '.png'], blank=True)),
             ('description', self.gf('base_libs.models.fields.MultilingualTextField')(default='', null=True, blank=True)),
             ('location_title', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
             ('street_address', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
@@ -79,6 +142,8 @@ class Migration(SchemaMigration):
             ('city', self.gf('django.db.models.fields.CharField')(default='Berlin', max_length=255, blank=True)),
             ('latitude', self.gf('django.db.models.fields.FloatField')(null=True, blank=True)),
             ('longitude', self.gf('django.db.models.fields.FloatField')(null=True, blank=True)),
+            ('contact_department', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
+            ('contact_name', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
             ('phone_country', self.gf('django.db.models.fields.CharField')(default='49', max_length=4, blank=True)),
             ('phone_area', self.gf('django.db.models.fields.CharField')(max_length=6, blank=True)),
             ('phone_number', self.gf('django.db.models.fields.CharField')(max_length=25, blank=True)),
@@ -190,9 +255,9 @@ class Migration(SchemaMigration):
             ('creation_date', self.gf('django.db.models.fields.DateTimeField')()),
             ('modified_date', self.gf('django.db.models.fields.DateTimeField')(null=True)),
             ('project', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['education.Project'])),
-            ('path', self.gf('filebrowser.fields.FileBrowseField')(directory='locations/', max_length=255, extensions=['.jpg', '.jpeg', '.gif', '.png'])),
+            ('path', self.gf('filebrowser.fields.FileBrowseField')(directory='education/', max_length=255, extensions=['.jpg', '.jpeg', '.gif', '.png'])),
             ('copyright_restrictions', self.gf('django.db.models.fields.CharField')(max_length=20, blank=True)),
-            ('sort_order', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
+            ('sort_order', self.gf('django.db.models.fields.IntegerField')(default=None)),
         )))
         db.send_create_signal(u'education', ['ProjectImage'])
 
@@ -210,8 +275,17 @@ class Migration(SchemaMigration):
                 # Deleting model 'Department'
         db.delete_table(u'education_department')
 
+        # Removing M2M table for field districts on 'Department'
+        db.delete_table(db.shorten_name(u'education_department_districts'))
+
         # Deleting model 'DepartmentMember'
         db.delete_table(u'education_departmentmember')
+
+        # Deleting model 'Image'
+        db.delete_table(u'education_image')
+
+        # Deleting model 'SocialMediaChannel'
+        db.delete_table(u'education_socialmediachannel')
 
         # Deleting model 'ProjectTargetGroup'
         db.delete_table(u'education_projecttargetgroup')
@@ -280,8 +354,43 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
         u'education.department': {
-            'Meta': {'ordering': "['title']", 'object_name': 'Department', '_ormbases': [u'locations.Location']},
-            'location': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['locations.Location']", 'unique': 'True', 'primary_key': 'True'})
+            'Meta': {'ordering': "['title']", 'object_name': 'Department'},
+            'city': ('django.db.models.fields.CharField', [], {'default': "'Berlin'", 'max_length': '255'}),
+            'creation_date': ('django.db.models.fields.DateTimeField', [], {}),
+            'creator': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'department_creator'", 'null': 'True', 'to': u"orm['auth.User']"}),
+            'description': ('base_libs.models.fields.MultilingualTextField', [], {'default': "''", 'null': 'True', 'blank': 'True'}),
+            'description_de': ('base_libs.models.fields.ExtendedTextField', ["u'Description'"], {'unique_for_month': 'None', 'unique_for_date': 'None', 'primary_key': 'False', 'db_column': 'None', 'max_length': 'None', 'unique_for_year': 'None', 'rel': 'None', 'blank': 'True', 'unique': 'False', 'db_tablespace': "''", 'db_index': 'False'}),
+            'description_de_markup_type': ('django.db.models.fields.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
+            'description_en': ('base_libs.models.fields.ExtendedTextField', ["u'Description'"], {'unique_for_month': 'None', 'unique_for_date': 'None', 'primary_key': 'False', 'db_column': 'None', 'max_length': 'None', 'unique_for_year': 'None', 'rel': 'None', 'blank': 'True', 'unique': 'False', 'db_tablespace': "''", 'db_index': 'False'}),
+            'description_en_markup_type': ('django.db.models.fields.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
+            'districts': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['locations.District']", 'symmetrical': 'False', 'blank': 'True'}),
+            'email': ('django.db.models.fields.EmailField', [], {'max_length': '255', 'blank': 'True'}),
+            'fax_area': ('django.db.models.fields.CharField', [], {'max_length': '6', 'blank': 'True'}),
+            'fax_country': ('django.db.models.fields.CharField', [], {'default': "'49'", 'max_length': '4', 'blank': 'True'}),
+            'fax_number': ('django.db.models.fields.CharField', [], {'max_length': '25', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'latitude': ('django.db.models.fields.FloatField', [], {'null': 'True', 'blank': 'True'}),
+            'location': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['locations.Location']"}),
+            'longitude': ('django.db.models.fields.FloatField', [], {'null': 'True', 'blank': 'True'}),
+            'modified_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
+            'modifier': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'department_modifier'", 'null': 'True', 'to': u"orm['auth.User']"}),
+            'phone_area': ('django.db.models.fields.CharField', [], {'max_length': '6', 'blank': 'True'}),
+            'phone_country': ('django.db.models.fields.CharField', [], {'default': "'49'", 'max_length': '4', 'blank': 'True'}),
+            'phone_number': ('django.db.models.fields.CharField', [], {'max_length': '25', 'blank': 'True'}),
+            'postal_code': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
+            'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '255'}),
+            'status': ('django.db.models.fields.CharField', [], {'default': "'draft'", 'max_length': '20', 'blank': 'True'}),
+            'street_address': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
+            'street_address2': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
+            'teaser': ('base_libs.models.fields.MultilingualTextField', [], {'default': "''", 'null': 'True', 'blank': 'True'}),
+            'teaser_de': ('base_libs.models.fields.ExtendedTextField', ["u'Teaser'"], {'unique_for_month': 'None', 'unique_for_date': 'None', 'primary_key': 'False', 'db_column': 'None', 'max_length': 'None', 'unique_for_year': 'None', 'rel': 'None', 'blank': 'True', 'unique': 'False', 'db_tablespace': "''", 'db_index': 'False'}),
+            'teaser_de_markup_type': ('django.db.models.fields.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
+            'teaser_en': ('base_libs.models.fields.ExtendedTextField', ["u'Teaser'"], {'unique_for_month': 'None', 'unique_for_date': 'None', 'primary_key': 'False', 'db_column': 'None', 'max_length': 'None', 'unique_for_year': 'None', 'rel': 'None', 'blank': 'True', 'unique': 'False', 'db_tablespace': "''", 'db_index': 'False'}),
+            'teaser_en_markup_type': ('django.db.models.fields.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
+            'title': ('base_libs.models.fields.MultilingualCharField', [], {'max_length': '255', 'null': 'True'}),
+            'title_de': ('django.db.models.fields.CharField', ["u'Title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
+            'title_en': ('django.db.models.fields.CharField', ["u'Title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
+            'website': ('base_libs.models.fields.URLField', [], {'max_length': '200', 'blank': 'True'})
         },
         u'education.departmentmember': {
             'Meta': {'ordering': "['sort_order']", 'object_name': 'DepartmentMember'},
@@ -299,11 +408,23 @@ class Migration(SchemaMigration):
             'phone_number': ('django.db.models.fields.CharField', [], {'max_length': '25', 'blank': 'True'}),
             'sort_order': ('django.db.models.fields.IntegerField', [], {'default': '0'})
         },
+        u'education.image': {
+            'Meta': {'ordering': "['sort_order', 'creation_date']", 'object_name': 'Image'},
+            'copyright_restrictions': ('django.db.models.fields.CharField', [], {'max_length': '20', 'blank': 'True'}),
+            'creation_date': ('django.db.models.fields.DateTimeField', [], {}),
+            'education': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['education.Department']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'modified_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
+            'path': ('filebrowser.fields.FileBrowseField', [], {'directory': "'education/'", 'max_length': '255', 'extensions': "['.jpg', '.jpeg', '.gif', '.png']"}),
+            'sort_order': ('django.db.models.fields.IntegerField', [], {'default': 'None'})
+        },
         u'education.project': {
             'Meta': {'ordering': "['-creation_date']", 'object_name': 'Project'},
             'age_from': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True', 'blank': 'True'}),
             'age_till': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True', 'blank': 'True'}),
             'city': ('django.db.models.fields.CharField', [], {'default': "'Berlin'", 'max_length': '255', 'blank': 'True'}),
+            'contact_department': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
+            'contact_name': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
             'cooperation': ('base_libs.models.fields.MultilingualTextField', [], {'default': "''", 'null': 'True', 'blank': 'True'}),
             'cooperation_de': ('base_libs.models.fields.ExtendedTextField', ["u'Cooperation partners'"], {'unique_for_month': 'None', 'unique_for_date': 'None', 'primary_key': 'False', 'db_column': 'None', 'max_length': 'None', 'unique_for_year': 'None', 'rel': 'None', 'blank': 'True', 'unique': 'False', 'db_tablespace': "''", 'db_index': 'False'}),
             'cooperation_de_markup_type': ('django.db.models.fields.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
@@ -326,7 +447,6 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'latitude': ('django.db.models.fields.FloatField', [], {'null': 'True', 'blank': 'True'}),
             'location_title': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'logo': ('filebrowser.fields.FileBrowseField', [], {'directory': "'locations/'", 'max_length': '255', 'extensions': "['.jpg', '.jpeg', '.gif', '.png']", 'blank': 'True'}),
             'longitude': ('django.db.models.fields.FloatField', [], {'null': 'True', 'blank': 'True'}),
             'modified_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
             'modifier': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'project_modifier'", 'null': 'True', 'to': u"orm['auth.User']"}),
@@ -391,9 +511,9 @@ class Migration(SchemaMigration):
             'creation_date': ('django.db.models.fields.DateTimeField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
-            'path': ('filebrowser.fields.FileBrowseField', [], {'directory': "'locations/'", 'max_length': '255', 'extensions': "['.jpg', '.jpeg', '.gif', '.png']"}),
+            'path': ('filebrowser.fields.FileBrowseField', [], {'directory': "'education/'", 'max_length': '255', 'extensions': "['.jpg', '.jpeg', '.gif', '.png']"}),
             'project': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['education.Project']"}),
-            'sort_order': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'})
+            'sort_order': ('django.db.models.fields.IntegerField', [], {'default': 'None'})
         },
         u'education.projectmember': {
             'Meta': {'ordering': "['sort_order']", 'object_name': 'ProjectMember'},
@@ -439,6 +559,13 @@ class Migration(SchemaMigration):
             'modifier': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'projecttime_modifier'", 'null': 'True', 'to': u"orm['auth.User']"}),
             'project': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['education.Project']"}),
             'start': ('django.db.models.fields.DateTimeField', [], {})
+        },
+        u'education.socialmediachannel': {
+            'Meta': {'ordering': "['channel_type']", 'object_name': 'SocialMediaChannel'},
+            'channel_type': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
+            'department': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['education.Department']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'url': ('base_libs.models.fields.URLField', [], {'max_length': '255'})
         },
         u'locations.accessibilityoption': {
             'Meta': {'ordering': "['sort_order']", 'object_name': 'AccessibilityOption'},

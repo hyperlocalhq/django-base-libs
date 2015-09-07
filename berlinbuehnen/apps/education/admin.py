@@ -15,9 +15,8 @@ from base_libs.models.admin import get_admin_lang_section
 from filebrowser.settings import URL_FILEBROWSER_MEDIA
 
 from berlinbuehnen.apps.locations.models import Location
-from berlinbuehnen.apps.locations.models import Stage
-from berlinbuehnen.apps.locations.models import Image
-from berlinbuehnen.apps.locations.models import SocialMediaChannel
+from .models import Image
+from .models import SocialMediaChannel
 from .models import Department
 from .models import DepartmentMember
 from .models import Project
@@ -61,24 +60,15 @@ class ProjectFormatAdmin(ExtendedModelAdmin):
 admin.site.register(ProjectFormat, ProjectFormatAdmin)
 
 
-class StageInline(ExtendedStackedInline):
-    model = Stage
-    extra = 0
-    fieldsets = get_admin_lang_section(_("Title"), ['title', 'description',])
-    fieldsets += [(None, {'fields': ('slug', 'sort_order', )}),]
-    fieldsets += [(_("Address"), {'fields': ('street_address', 'street_address2', 'postal_code', 'city', 'district', 'latitude', 'longitude')}),]
-    # classes = ('grp-collapse grp-open',)
-    inline_classes = ('grp-collapse grp-open',)
 
-
-class LocationImageInline(ExtendedStackedInline):
+class DepartmentImageInline(ExtendedStackedInline):
     model = Image
     extra = 0
     # classes = ('grp-collapse grp-open',)
     inline_classes = ('grp-collapse grp-open',)
 
 
-class LocationSocialMediaChannelInline(ExtendedStackedInline):
+class DepartmentSocialMediaChannelInline(ExtendedStackedInline):
     model = SocialMediaChannel
     extra = 0
     # classes = ('grp-collapse grp-open',)
@@ -101,35 +91,21 @@ class DepartmentAdmin(ExtendedModelAdmin):
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
         )
 
-    list_display = ('title', 'creation_date', 'modified_date', 'get_owners_list', 'newsletter', 'status')
-    list_editable = ('newsletter', 'status', )
-    list_filter = ('newsletter', 'status', )
+    list_display = ('title', 'creation_date', 'modified_date', 'get_owners_list', 'status')
+    list_editable = ('status', )
+    list_filter = ('status', )
 
-    fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'description', 'teaser',])
-    fieldsets += [(None, {'fields': ('slug', 'logo')}),]
+    fieldsets = get_admin_lang_section(_("Title"), ['title', 'description', 'teaser',])
+    fieldsets += [(None, {'fields': ('slug',)}),]
+    fieldsets += [(_("Location"), {'fields': ('location',)})]
     fieldsets += [(_("Address"), {'fields': ('street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude')}),]
     fieldsets += [(_("District"), {'fields': ('districts',)}),]
     fieldsets += [(_("Contacts"), {'fields': ((_("Phone"), {'fields': ('phone_country', 'phone_area', 'phone_number')}), (_("Fax"), {'fields': ('fax_country', 'fax_area', 'fax_number')}),'email','website', )}),]
-    fieldsets += [(_("Tickets"), {'fields': ('tickets_street_address', 'tickets_street_address2', 'tickets_postal_code', 'tickets_city', 'tickets_email', 'tickets_website', (_("Phone"), {'fields': ('tickets_phone_country', 'tickets_phone_area', 'tickets_phone_number')}), (_("Fax"), {'fields': ('tickets_fax_country', 'tickets_fax_area', 'tickets_fax_number')}), get_admin_lang_section(_("Additional information"), ['tickets_calling_prices', 'tickets_additional_info',]))}),]
-    fieldsets += [(_("Tickets Opening Hours"), {'fields': ('is_appointment_based',
-       ('mon_open', 'mon_break_close', 'mon_break_open', 'mon_close'),
-       ('tue_open', 'tue_break_close', 'tue_break_open', 'tue_close'),
-       ('wed_open', 'wed_break_close', 'wed_break_open', 'wed_close'),
-       ('thu_open', 'thu_break_close', 'thu_break_open', 'thu_close'),
-       ('fri_open', 'fri_break_close', 'fri_break_open', 'fri_close'),
-       ('sat_open', 'sat_break_close', 'sat_break_open', 'sat_close'),
-       ('sun_open', 'sun_break_close', 'sun_break_open', 'sun_close'),
-       get_admin_lang_section(_("Exceptions"), ['exceptions',]),
-    )}),]
-    fieldsets += [(_("Press Contact"), {'fields': ('press_contact_name', 'press_email', 'press_website', (_("Phone"), {'fields': ('press_phone_country', 'press_phone_area', 'press_phone_number')}), (_("Fax"), {'fields': ('press_fax_country', 'press_fax_area', 'press_fax_number')}))}),]
-    fieldsets += [(_("Categories"), {'fields': ('categories',)}),]
-    fieldsets += [(_("Service"), {'fields': ('services',)}),]
-    fieldsets += [(_("Accessibility"), {'fields': ('accessibility_options',)}),]
-    fieldsets += [(_("Status"), {'fields': ('newsletter', 'status',)}),]
+    fieldsets += [(_("Status"), {'fields': ('status',)}),]
 
-    inlines = [StageInline, DepartmentMemberInline, LocationImageInline, LocationSocialMediaChannelInline]
+    inlines = [DepartmentMemberInline, DepartmentImageInline, DepartmentSocialMediaChannelInline]
 
-    filter_horizontal = ['services', 'accessibility_options', 'categories', 'districts']
+    filter_horizontal = ['districts']
 
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
 

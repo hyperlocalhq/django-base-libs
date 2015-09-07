@@ -25,14 +25,81 @@ FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 from jetson.apps.image_mods.models import FileManager
 from filebrowser.models import FileDescription
 
-from .models import Project, ProjectImage
+from .models import Project, ProjectImage, Department
 
 #from .forms.projects import FESTIVAL_FORM_STEPS
 #from .forms.gallery import ImageFileForm, ImageDeletionForm
 
-class ProjectFilterForm(forms.Form):
+    
+class EducationFilterForm(forms.Form):
     pass
 
+def education_list(request):
+
+    qs = Department.objects.filter(status="published")
+
+    form = EducationFilterForm(data=request.REQUEST)
+    
+    facets = {
+        'selected': {},
+        'categories': {
+        },
+    }
+    
+    if form.is_valid():
+        # cats = form.cleaned_data['services']
+        # if cats:
+        #     facets['selected']['services'] = cats
+        #     for cat in cats:
+        #         qs = qs.filter(
+        #             services=cat,
+        #         ).distinct()
+        pass
+
+    abc_filter = request.GET.get('abc', None)
+    if abc_filter:
+        facets['selected']['abc'] = abc_filter
+    abc_list = get_abc_list(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
+    if abc_filter:
+        qs = filter_abc(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
+    
+    extra_context = {}
+    extra_context['form'] = form
+    extra_context['abc_list'] = abc_list
+    extra_context['facets'] = facets
+
+    return object_list(
+        request,
+        queryset=qs,
+        template_name="education/education_list.html",
+        paginate_by=24,
+        extra_context=extra_context,
+        httpstate_prefix="education_list",
+        context_processors=(prev_next_processor,),
+    )
+
+def education_detail(request, slug):
+
+    if "preview" in request.REQUEST:
+        qs = Department.objects.all()
+        obj = get_object_or_404(qs, slug=slug)
+        if not request.user.has_perm("education.change_department", obj):
+            return access_denied(request)
+    else:
+        qs = Department.objects.filter(status="published")
+        
+    return object_detail(
+        request,
+        queryset=qs,
+        slug=slug,
+        slug_field="slug",
+        template_name="education/education_detail.html",
+        context_processors=(prev_next_processor,),
+    )
+    
+
+class ProjectFilterForm(forms.Form):
+    pass
 
 def project_list(request, year=None, month=None, day=None):
 

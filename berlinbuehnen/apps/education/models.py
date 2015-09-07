@@ -12,8 +12,9 @@ from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
 from base_libs.models.fields import URLField
 from base_libs.utils.misc import get_translation
+from base_libs.models.fields import PositionField
 
-from berlinbuehnen.apps.locations.models import Location
+from berlinbuehnen.apps.locations.models import Location, District
 
 from filebrowser.fields import FileBrowseField
 
@@ -33,23 +34,140 @@ COPYRIGHT_RESTRICTION_CHOICES = (
 TOKENIZATION_SUMMAND = 56436  # used to hide the ids of media files
 
 
-class Department(Location):
 
-    location = models.OneToOneField(Location, parent_link=True)
+class DepartmentManager(models.Manager):
+    def accessible_to(self, user):
+        from jetson.apps.permissions.models import PerObjectGroup
+        if user.has_perm("education.change_department"):
+            return self.get_query_set().exclude(status="trashed")
+        ids = PerObjectGroup.objects.filter(
+            content_type__app_label="education",
+            content_type__model="department",
+            sysname__startswith="owners",
+            users=user,
+        ).values_list("object_id", flat=True)
+        return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
+
+    def owned_by(self, user):
+        from jetson.apps.permissions.models import PerObjectGroup
+        ids = PerObjectGroup.objects.filter(
+            content_type__app_label="education",
+            content_type__model="department",
+            sysname__startswith="owners",
+            users=user,
+        ).values_list("object_id", flat=True)
+        return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
+
+        
+class Department(CreationModificationMixin, UrlMixin, SlugMixin()):
+
+    location = models.ForeignKey(Location, verbose_name=_("Location"))
+    
+    title = MultilingualCharField(_("Title"), max_length=255)
+    description = MultilingualTextField(_("Description"), blank=True)
+    teaser = MultilingualTextField(_("Teaser"), blank=True)
+    
+
+    street_address = models.CharField(_("Street address"), max_length=255)
+    street_address2 = models.CharField(_("Street address (second line)"), max_length=255, blank=True)
+    postal_code = models.CharField(_("Postal code"), max_length=255)
+    city = models.CharField(_("City"), default="Berlin", max_length=255)
+    latitude = models.FloatField(_("Latitude"), help_text=_("Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90)."), blank=True, null=True)
+    longitude = models.FloatField(_("Longitude"), help_text=_("Longitude (Long.) is the angle east or west of an arbitrary point on Earth from Greenwich (UK), which is the international zero-longitude point (longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction to east) and -180 (direction to west)."), blank=True, null=True)
+
+    phone_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
+    phone_area = models.CharField(_("Area Code"), max_length=6, blank=True)
+    phone_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
+    fax_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
+    fax_area = models.CharField(_("Area Code"), max_length=6, blank=True)
+    fax_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
+    email = models.EmailField(_("Email"), max_length=255, blank=True)
+    website = URLField("Website", blank=True)
+    
+    districts = models.ManyToManyField(District, verbose_name=_("District"), blank=True)
+    status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 
     class Meta:
+        ordering = ['title']
         verbose_name = _("Education department")
         verbose_name_plural = _("Education departments")
 
 
+    def get_url_path(self):
+        try:
+            path = reverse("education_detail", kwargs={'slug': self.slug})
+        except:
+            # the apphook is not attached yet
+            return ""
+        else:
+            return path
+            
     def set_owner(self, user):
-        self.location.set_owner(user)
+        ContentType = models.get_model("contenttypes", "ContentType")
+        PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
+        RowLevelPermission = models.get_model("permissions", "RowLevelPermission")
+        try:
+            role = PerObjectGroup.objects.get(
+                sysname__startswith="owners",
+                object_id=self.pk,
+                content_type=ContentType.objects.get_for_model(Department),
+            )
+        except:
+            role = PerObjectGroup(
+                sysname="owners",
+            )
+            for lang_code, lang_name in settings.LANGUAGES:
+                setattr(role, "title_%s" % lang_code, get_translation("Owners", language=lang_code))
+            role.content_object = self
+            role.save()
+
+            RowLevelPermission.objects.create_default_row_permissions(
+                model_instance=self,
+                owner=role,
+            )
+
+        if not role.users.filter(pk=user.pk).count():
+            role.users.add(user)
 
     def remove_owner(self, user):
-        self.location.remove_owner(user)
+        ContentType = models.get_model("contenttypes", "ContentType")
+        PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
+        try:
+            role = PerObjectGroup.objects.get(
+                sysname__startswith="owners",
+                object_id=self.pk,
+                content_type=ContentType.objects.get_for_model(Department),
+                )
+        except:
+            return
+        role.users.remove(user)
+        if not role.users.count():
+            role.delete()
 
     def get_owners(self):
-        return self.location.get_owners()
+        ContentType = models.get_model("contenttypes", "ContentType")
+        PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
+        try:
+            role = PerObjectGroup.objects.get(
+                sysname__startswith="owners",
+                object_id=self.pk,
+                content_type=ContentType.objects.get_for_model(Department),
+            )
+        except:
+            return []
+        return role.users.all()
+
+    def get_social_media(self):
+        return self.socialmediachannel_set.all()
+
+    def _get_first_image(self):
+        if not hasattr(self, '_first_image_cache'):
+            self._first_image_cache = None
+            qs = self.image_set.all()
+            if qs.count():
+                self._first_image_cache = qs[0]
+        return self._first_image_cache
+    first_image = property(_get_first_image)
 
 
 class DepartmentMember(CreationModificationDateMixin):
@@ -75,6 +193,52 @@ class DepartmentMember(CreationModificationDateMixin):
     def get_function(self):
         return self.function
 
+
+class Image(CreationModificationDateMixin):
+    education = models.ForeignKey(Department, verbose_name=_("Department"))
+    path = FileBrowseField(_('File path'), max_length=255, directory="education/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image."))
+    copyright_restrictions = models.CharField(_('Copyright restrictions'), max_length=20, blank=True, choices=COPYRIGHT_RESTRICTION_CHOICES)
+    sort_order = PositionField(_("Sort order"), collection="education")
+
+    class Meta:
+        ordering = ["sort_order", "creation_date"]
+        verbose_name = _("Image")
+        verbose_name_plural = _("Images")
+
+    def __unicode__(self):
+        if self.path:
+            return self.path.path
+        return "Missing file (id=%s)" % self.pk
+
+    def get_token(self):
+        if self.pk:
+            return int(self.pk) + TOKENIZATION_SUMMAND
+        else:
+            return None
+
+    @staticmethod
+    def token_to_pk(token):
+        return int(token) - TOKENIZATION_SUMMAND
+
+
+class SocialMediaChannel(models.Model):
+    department = models.ForeignKey(Department)
+    channel_type = models.CharField(_("Social media type"), max_length=255, help_text=_("e.g. twitter, facebook, etc."))
+    url = URLField(_("URL"), max_length=255)
+
+    class Meta:
+        ordering = ['channel_type']
+        verbose_name = _("Social media channel")
+        verbose_name_plural = _("Social media channels")
+
+    def __unicode__(self):
+        return self.channel_type
+        
+    def get_class(self):
+        social = self.channel_type.lower()
+        if social == "google+":
+            return u"googleplus"
+        return social
 
 class ProjectTargetGroup(CreationModificationDateMixin, SlugMixin()):
     title = MultilingualCharField(_('Title'), max_length=200)
@@ -105,7 +269,6 @@ class ProjectFormat(CreationModificationDateMixin, SlugMixin()):
 class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
     title = MultilingualCharField(_("Title"), max_length=255)
     subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
-    logo = FileBrowseField(_('Logo'), max_length=255, directory="locations/", extensions=['.jpg', '.jpeg', '.gif', '.png'], blank=True)
     description = MultilingualTextField(_("Description"), blank=True)
     departments = models.ManyToManyField(Department, verbose_name=_("Educational departments"), blank=True, related_name="department_projects")
 
@@ -117,6 +280,8 @@ class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
     latitude = models.FloatField(_("Latitude"), help_text=_("Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90)."), blank=True, null=True)
     longitude = models.FloatField(_("Longitude"), help_text=_("Longitude (Long.) is the angle east or west of an arbitrary point on Earth from Greenwich (UK), which is the international zero-longitude point (longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction to east) and -180 (direction to west)."), blank=True, null=True)
 
+    contact_department = models.CharField(_("Contact Department"), max_length=255, blank=True)
+    contact_name = models.CharField(_("Contact Name"), max_length=255, blank=True)
     phone_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
     phone_area = models.CharField(_("Area Code"), max_length=6, blank=True)
     phone_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
@@ -259,9 +424,9 @@ class ProjectMember(CreationModificationDateMixin):
 
 class ProjectImage(CreationModificationDateMixin):
     project = models.ForeignKey(Project, verbose_name=_("Project"))
-    path = FileBrowseField(_('File path'), max_length=255, directory="locations/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image."))
+    path = FileBrowseField(_('File path'), max_length=255, directory="education/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image."))
     copyright_restrictions = models.CharField(_('Copyright restrictions'), max_length=20, blank=True, choices=COPYRIGHT_RESTRICTION_CHOICES)
-    sort_order = models.PositiveIntegerField(_("Sort order"), default=0)
+    sort_order = PositionField(_("Sort order"), collection="education")
 
     class Meta:
         ordering = ["sort_order", "creation_date"]

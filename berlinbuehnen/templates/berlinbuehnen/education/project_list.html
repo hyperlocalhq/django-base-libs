@@ -28,8 +28,8 @@
                                     <div class="row">
                                         <a href="{{ project.get_url_path }}">
                                             {% if project.first_image %}
-                                                <img class="hidden-xs {% if project.featured %} hidden-sm hidden-md hidden-lg {% endif %}" src="{{ MEDIA_URL }}{{ project.first_image.path|modified_path:"mazery_image" }}{% if_has_perm "project.change_project" project %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.production.title|escape }}" />
-                                                <img class="{% if not project.featured %} visible-xs {% endif %}" src="{{ MEDIA_URL }}{{ project.first_image.path|modified_path:"gallery_image" }}{% if_has_perm "project.change_project" project %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.production.title|escape }}" />
+                                                <img class="hidden-xs {% if project.featured %} hidden-sm hidden-md hidden-lg {% endif %}" src="{{ MEDIA_URL }}{{ project.first_image.path|modified_path:"mazery_image" }}{% if_has_perm "project.change_project" project %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ project.title|escape }}" />
+                                                <img class="{% if not project.featured %} visible-xs {% endif %}" src="{{ MEDIA_URL }}{{ project.first_image.path|modified_path:"gallery_image" }}{% if_has_perm "project.change_project" project %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ project.title|escape }}" />
                                             {% elif project.image_set.exists %}
                                                 {% with project.image_set.all|first as image %}
                                                     <img src="{{ MEDIA_URL }}{{ image.path|modified_path:"detail_image" }}{% if_has_perm "project.change_project" project %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ project.title|escape }}" />
