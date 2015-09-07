@@ -240,4 +240,3 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
             print u"Events updated: %d" % self.stats["events_updated"]
             print u"Events skipped: %d" % self.stats["events_skipped"]
             print
-
