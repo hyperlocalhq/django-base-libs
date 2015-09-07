@@ -24,7 +24,7 @@
 {% endblock %}
 
 {% block content %}
-    {% with object as project %}
+    {% with object as department %}
         <div id="project" class="content details">
             <div class="container main-container">
                 <div class="row">
@@ -34,33 +34,13 @@
                             
                             <!-- headlines -->
                             <header>
-                                <ul class="header-top">
-                                    {% if project.start %}
-                                        <li>{% if project.end and project.start == project.end %}<time>{{ project.start|date:"j. F Y" }}</time>{% else %}<time>{% if not project.end or project.start|date:"Y" != project.end|date:"Y" %}{{ project.start|date:"j. F Y" }}{% else %}{% if project.start|date:"F" != project.end|date:"F" %}{{ project.start|date:"j. F" }}{% else %}{{ project.start|date:"j." }}{% endif %}{% endif %}</time>{% if project.end %} &nbsp;–&nbsp; <time>{{ project.end|date:"j. F Y" }}</time>{% endif %}{% endif %}</li>
-                                    {% endif %}
-                                    {% if project.organizers.all %}
-                                            <li>
-                                                <dl class="comma">
-                                                    <dt>{% trans "Organizer" %}</dt>
-                                                    {% for location in project.organizers.all %}
-                                                        <dd>
-                                                            {{ location.title }}
-                                                        </dd>
-                                                    {% endfor %}
-                                                </dl>
-                                            </li>
-                                    {% endif %}
-                                </ul>
-                                <h1>{{ project.title }}
-                                    {% if_has_perm "education.change_project" object %}
+                                <h1>{{ department.title }}
+                                    {% if_has_perm "education.change_department" object %}
                                         {% if not request.is_mobile %}
                                             <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>
                                         {% endif %}
                                     {% end_if_has_perm %}
                                 </h1>
-                                {% if project.subtitle %}
-                                    <h2>{{ project.subtitle }}</h2>
-                                {% endif %}
                             </header>
                             
                             <!-- main  part (including sidebar) -->
@@ -70,22 +50,22 @@
                                         
                                         <!-- main content -->
                                         <div class="col-xs-12 col-md-8 left">
-                                            {% if project.first_image %}
-                                                <div class="top-image img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ project.first_image.path|modified_path:"detail_image" }}" alt="{{ project.title|escape }}"  /></div>
+                                            {% if department.first_image %}
+                                                <div class="top-image img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ department.first_image.path|modified_path:"detail_image" }}" alt="{{ department.title|escape }}"  /></div>
                                             {% elif project.image_set.exists %}
-                                                {% with project.image_set.all|first as first %}
-                                                    <div class="top-image img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ first.path|modified_path:"detail_image" }}" alt="{{ project.title|escape }}"  /></div> 
+                                                {% with department.image_set.all|first as first %}
+                                                    <div class="top-image img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ first.path|modified_path:"detail_image" }}" alt="{{ department.title|escape }}"  /></div> 
                                                 {% endwith %}
                                             {% endif %}
                                             <div class="description">
-                                                {{ project.get_rendered_description }}
+                                                {{ department.get_rendered_description }}
                                             </div>
                                             {% comment %}
-                                            {% if project.website %}
+                                            {% if department.website %}
                                                 <dl class="listing">
-                                                    {% if project.website %}
+                                                    {% if department.website %}
                                                         <dt>{% trans "Web" %}</dt>
-                                                        <dd><a href="{{ project.website }}" target="_blank" class="no-print">{{ project.website|humanize_url:80 }}</a><a href="{{ project.website }}" target="_blank" class="print">{{ project.website }}</a></dd>
+                                                        <dd><a href="{{ department.website }}" target="_blank" class="no-print">{{ department.website|humanize_url:80 }}</a><a href="{{ department.website }}" target="_blank" class="print">{{ department.website }}</a></dd>
                                                     {% endif %}
                                                 </dl>
                                             {% endif %}
@@ -94,7 +74,7 @@
                                         
                                         <!-- main sidebar -->
                                         <div class="col-xs-12 col-md-4 right">
-                                            {% include "education/includes/sidebar.html" %}
+                                            {% include "education/includes/education_sidebar.html" %}
                                         </div>
                                         
                                     </div>
@@ -176,9 +156,6 @@
                             </div>
                             
                         </article>
-                        
-                        <!-- event slider -->
-                        {#% other_productions current_project=project %#}
                     </div>
                 </div>
             </div>

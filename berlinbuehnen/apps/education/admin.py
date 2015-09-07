@@ -210,7 +210,7 @@ class ProjectAdmin(ExtendedModelAdmin):
     date_hierarchy = "modified_date"
 
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle',])
-    fieldsets += [(None, {'fields': ('slug', 'logo')}),]
+    fieldsets += [(None, {'fields': ('slug',)}),]
     fieldsets += [(_("Location"), {'fields': ['departments',]}),]
     fieldsets += [(_("Free Location"), {'fields': ['location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude']}),]
     fieldsets += [(_("Contacts"), {'fields': ((_("Phone"), {'fields': ('phone_country', 'phone_area', 'phone_number')}), (_("Fax"), {'fields': ('fax_country', 'fax_area', 'fax_number')}),'email','website', )}),]
