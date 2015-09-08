@@ -23,7 +23,7 @@ sys.path += [project_path]
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 
 import newrelic.agent
-newrelic.agent.initialize('/usr/local/www/apache24/data/ccb.jetsonproject.org/newrelic.ini', 'staging')
+newrelic.agent.initialize('/usr/local/www/apache24/data/ccb.jetsonproject.org/project/ccb/deployment/staging/newrelic.ini', 'staging')
 
 from django.core.wsgi import get_wsgi_application
 try:
