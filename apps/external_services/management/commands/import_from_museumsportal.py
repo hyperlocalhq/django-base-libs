@@ -19,13 +19,14 @@ class Command(NoArgsCommand):
 
         import re
         import urllib2
+        import requests
         from datetime import timedelta
-        from rest.client import webcall
         from xml.dom.minidom import parseString
         from dateutil.parser import parse as parse_datetime
 
         from django.db import models
         from django.template.defaultfilters import slugify
+        from django.utils.encoding import smart_bytes
 
         from base_libs.utils.misc import get_related_queryset
 
@@ -96,13 +97,8 @@ class Command(NoArgsCommand):
                         mapper.content_object = old_mapper.content_object
                         mapper.save()
 
-        @webcall(url=s_museums.url)
-        def get_museums_data():
-            pass
-
-        data = get_museums_data()
-
-        xml_doc = parseString(data)
+        response = requests.get(s_museums.url, verify=False)
+        xml_doc = parseString(smart_bytes(response.text))
 
         status_imported = "import"
 
@@ -294,13 +290,8 @@ class Command(NoArgsCommand):
             },
         )
 
-        @webcall(url=s_exhibitions.url)
-        def get_museumsportal_data():
-            pass
-
-        data = get_museumsportal_data()
-
-        xml_doc = parseString(data)
+        response = requests.get(s_exhibitions.url, verify=False)
+        xml_doc = parseString(smart_bytes(response.text))
 
         event_type = get_related_queryset(Event, "event_type").get(
             slug="exhibition",
@@ -510,13 +501,8 @@ class Command(NoArgsCommand):
             },
         )
 
-        @webcall(url=s_events.url)
-        def get_events_data():
-            pass
-
-        data = get_events_data()
-
-        xml_doc = parseString(data)
+        response = requests.get(s_events.url, verify=False)
+        xml_doc = parseString(smart_bytes(response.text))
 
         stats = {
             'added': 0,

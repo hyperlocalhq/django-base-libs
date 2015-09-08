@@ -10,12 +10,13 @@ class Command(NoArgsCommand):
     def handle_noargs(self, **options):
         verbosity = int(options.get('verbosity', NORMAL))
 
-        import urllib2
+        import requests
         from datetime import timedelta
         from xml.dom.minidom import parseString
         from dateutil.parser import parse as parse_datetime
 
         from django.db import models
+        from django.utils.encoding import smart_bytes
 
         from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
 
@@ -61,10 +62,8 @@ class Command(NoArgsCommand):
             },
         )
 
-        response = urllib2.urlopen(s.url)
-        data = response.read()
-
-        xml_doc = parseString(data)
+        response = requests.get(s.url)
+        xml_doc = parseString(smart_bytes(response.text))
 
         for node_job in xml_doc.getElementsByTagName("item"):
 

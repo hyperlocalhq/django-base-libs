@@ -10,12 +10,13 @@ class Command(NoArgsCommand):
     def handle_noargs(self, **options):
         verbosity = int(options.get('verbosity', NORMAL))
 
+        import requests
         from datetime import timedelta
-        from rest.client import webcall
         from xml.dom.minidom import parseString
         from dateutil.parser import parse as parse_datetime
 
         from django.db import models
+        from django.utils.encoding import smart_bytes
 
         from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
 
@@ -36,10 +37,6 @@ class Command(NoArgsCommand):
                 'title': "museumsbund.de",
             },
         )
-
-        @webcall(url=s.url)
-        def get_museumsbund_data():
-            pass
 
         default_job_type, created = JobType.objects.get_or_create(
             slug="full-time",
@@ -65,10 +62,9 @@ class Command(NoArgsCommand):
             },
         )
 
-        data = get_museumsbund_data()
-
+        response = requests.get(s.url)
         try:
-            xml_doc = parseString(data)
+            xml_doc = parseString(smart_bytes(response.text))
         except Exception:
             return
 

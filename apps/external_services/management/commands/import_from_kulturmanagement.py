@@ -10,10 +10,11 @@ class Command(NoArgsCommand):
     def handle_noargs(self, **options):
         verbosity = int(options.get('verbosity', NORMAL))
 
-        from rest.client import webcall
+        import requests
         from xml.dom.minidom import parseString
 
         from django.db import models
+        from django.utils.encoding import smart_bytes
 
         from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
 
@@ -35,10 +36,6 @@ class Command(NoArgsCommand):
             },
         )
 
-        @webcall(url=s.url)
-        def get_kulturmanagement_data():
-            pass
-
         default_job_type, created = JobType.objects.get_or_create(
             slug="not-available",
             defaults={
@@ -55,9 +52,8 @@ class Command(NoArgsCommand):
             },
         )
 
-        data = get_kulturmanagement_data()
-
-        xml_doc = parseString(data)
+        response = requests.get(s.url)
+        xml_doc = parseString(smart_bytes(response.text))
 
         for node_job in xml_doc.getElementsByTagName("Jobangebot"):
             # get or create job offer

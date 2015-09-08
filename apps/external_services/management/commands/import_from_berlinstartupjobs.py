@@ -10,12 +10,13 @@ class Command(NoArgsCommand):
     def handle_noargs(self, **options):
         verbosity = int(options.get('verbosity', NORMAL))
 
+        import requests
         from datetime import timedelta
-        from rest.client import webcall
         from xml.dom.minidom import parseString
         from dateutil.parser import parse as parse_datetime
 
         from django.db import models
+        from django.utils.encoding import smart_bytes
 
         from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
         from base_libs.templatetags.base_tags import decode_entities
@@ -208,14 +209,9 @@ class Command(NoArgsCommand):
 
         for feed_settings in FEEDS:
 
-            @webcall(url=feed_settings['url'])
-            def get_berlinstartupjobs_data():
-                pass
-
-            data = get_berlinstartupjobs_data()
-
+            response = requests.get(feed_settings['url'])
             try:
-                xml_doc = parseString(data)
+                xml_doc = parseString(smart_bytes(response.text))
             except Exception:
                 return
 
