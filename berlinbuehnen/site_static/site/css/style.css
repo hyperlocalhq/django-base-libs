@@ -1765,6 +1765,7 @@ select { visibility: hidden; }
 .details .right { padding-left: 10px; padding-right: 10px; margin-bottom: 15px; }
 .details .full { margin-top: 15px; padding-left: 0; padding-right: 0; }
 .details dl dt { display: inline; float: none; }
+.details dl dt.width_50 { display: inline-block; width: 50px; }
 .details dl dt:after { content: ":"; padding-right: 2px; }
 .details dl dt:before { content: "\A"; white-space: pre; display: block; line-height: 10px; }
 .details dl dt:first-child:before { content: none; white-space: normal; display: inline; line-height: inherit; }
@@ -1772,6 +1773,10 @@ select { visibility: hidden; }
 .details dl dd { display: inline; float: none; }
 .details dl dd.series:before { content: ", "; }
 .details dl dd.spacer { display: block !important; height: 5px; }
+.details dl.block dt { font-weight: 400; }
+.details dl.block dt:before { content: none; white-space: normal; display: inline; line-height: inherit; }
+.details dl.block dt:after { content: none; padding-right: 0; }
+.details dl.block dd:after { content: "\A"; white-space: pre; display: block; line-height: 1px; }
 .details a.phone { color: black; cursor: default; }
 .details a.phone:hover, .details a.phone:focus { color: black; }
 .details a.pdf { color: black; display: block; margin-bottom: 5px; overflow: hidden; }
@@ -2006,7 +2011,11 @@ top: 0;*/ width: 110px; height: 100%; display: block; background-image: url(../i
 .list .list-item .list-item-head .list-item-head-date .list-item-head-date-day { height: 27px; margin: 0; padding: 0; font-weight: 700; font-size: 1.375em; line-height: 22px; text-transform: uppercase; }
 .list .list-item .list-item-head .list-item-head-date .list-item-head-date-month { height: 18px; margin: 0; padding: 0; font-weight: 600; font-size: 0.75em; line-height: 12px; text-transform: uppercase; }
 .list .list-item .list-item-head .list-item-head-date .list-item-head-date-month span { white-space: nowrap; }
+.list .list-item .list-item-head .list-item-head-date .list-item-head-date-none { height: 35px; margin: 0; padding: 0; font-weight: 600; font-size: 0.75em; line-height: 12px; text-transform: uppercase; }
 .list .list-item .list-item-head .list-item-head-date .list-item-head-date-type { height: 32px; margin: 0; padding: 0; font-weight: 400; font-size: 0.75em; line-height: 12px; text-transform: uppercase; }
+.list .list-item .list-item-head .list-item-head-date .list-item-head-date-type span:after { content: ", "; }
+.list .list-item .list-item-head .list-item-head-date .list-item-head-date-type span:last-child:after { content: none; }
+.list .list-item .list-item-head .list-item-head-date .list-item-head-date-type.no-date { height: 79px; }
 .list .list-item .list-item-head .list-item-head-date .list-item-head-date-time { height: 37px; margin: 0; padding: 0; font-weight: 700; font-size: 1.875em; line-height: 30px; }
 .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons { height: 23px; margin: 0; padding: 0; }
 .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a { font-size: 14px; color: black; margin-left: 2px; }
@@ -2022,7 +2031,7 @@ top: 0;*/ width: 110px; height: 100%; display: block; background-image: url(../i
 .list .list-item .list-item-body a:hover { color: black; }
 .list .list-item .list-item-body dl, .list .list-item .list-item-body h2, .list .list-item .list-item-body h3, .list .list-item .list-item-body h4 { width: auto; }
 .list .list-item .list-item-body dl.short, .list .list-item .list-item-body h2.short, .list .list-item .list-item-body h3.short, .list .list-item .list-item-body h4.short { width: 72%; }
-.list .list-item .list-item-body dl, .list .list-item .list-item-body h2, .list .list-item .list-item-body h3, .list .list-item .list-item-body h4, .list .list-item .list-item-body div.copy { margin: 0 0 0 15px !important; }
+.list .list-item .list-item-body dl, .list .list-item .list-item-body h2, .list .list-item .list-item-body h3, .list .list-item .list-item-body h4, .list .list-item .list-item-body div.copy, .list .list-item .list-item-body div.target { margin: 0 0 0 15px !important; }
 .list .list-item .list-item-body dl { float: none; padding-top: 10px; margin-top: 0px  !important; }
 .list .list-item .list-item-body dl dd { float: left; }
 .list .list-item .list-item-body dl dd:after { content: "–"; padding-right: 3px; }
@@ -2037,6 +2046,9 @@ top: 0;*/ width: 110px; height: 100%; display: block; background-image: url(../i
 .list .list-item .list-item-body h4 { font-weight: 400; font-size: 1em; line-height: 125%; padding-top: 10px; }
 .list .list-item .list-item-body p { padding: 0; font-size: 0.9em; }
 .list .list-item .list-item-body p p { margin: 0; }
+.list .list-item .list-item-body div.target { font-size: 0.9em; margin-top: 5px !important; }
+.list .list-item .list-item-body div.target span:after { content: ", "; }
+.list .list-item .list-item-body div.target span:last-child:after { content: none; }
 .list .list-item .list-item-body .extra { background: #4583c8; position: absolute; top: 0; right: 0; padding: 0; height: 28px; color: white; font-weight: 700; font-size: 0.875em; width: 23%; text-transform: uppercase; }
 .list .list-item .list-item-body .extra:before { content: url(../img/label_28px.png); position: relative; left: -11px; }
 .list .list-item .list-item-body .extra.canceled { background: #cf0000; }
@@ -2061,6 +2073,7 @@ body.is-xs .list .list-item .list-item-head { max-width: none; height: 50px; bor
 body.is-xs .list .list-item .list-item-head .list-item-head-date { margin: 0; position: absolute; top: -2px; right: 0; }
 body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-day { width: 45px; height: auto; position: absolute; top: 6px; left: 5px; }
 body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-month { width: 45px; height: auto; position: absolute; top: 32px; left: 5px; }
+body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-none { width: 90px; height: auto; position: absolute; top: 9px; left: 5px; }
 body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-time { width: 115px; height: auto; font-size: 3em; position: absolute; top: 8px; left: 55px; }
 body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-type { width: auto; height: auto; position: absolute; top: 8px; right: 5px; }
 body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons { width: auto; height: auto; position: absolute; top: 24px; right: -4px; }
@@ -2071,6 +2084,8 @@ body.is-xs .list .list-item .list-item-head .list-item-head-image img { width: 5
 body.is-xs .list .list-item-body { padding-bottom: 40px; height: auto; max-height: 350px; }
 body.is-xs .list .list-item-body dl, body.is-xs .list .list-item-body h2, body.is-xs .list .list-item-body h3, body.is-xs .list .list-item-body h4, body.is-xs .list .list-item-body div.copy { margin: 0 0 0 5px  !important; width: auto; }
 body.is-xs .list .list-item-body dl.short, body.is-xs .list .list-item-body h2.short, body.is-xs .list .list-item-body h3.short, body.is-xs .list .list-item-body h4.short, body.is-xs .list .list-item-body div.copy.short { width: auto; }
+body.is-xs .list .list-item-body div.target { margin: 5px 0 0 5px  !important; width: auto; }
+body.is-xs .list .list-item-body div.target.short { width: auto; }
 body.is-xs .list .list-item-body .extra { top: inherit; bottom: -40px; height: 22px; color: white; font-weight: 700; font-size: 0.875em; width: 160px; text-transform: uppercase; }
 body.is-xs .list .list-item-body .extra:before { content: url(../img/label_22px.png); position: relative; left: -10px; }
 body.is-xs .list .list-item-body .extra.canceled { background: #cf0000; }

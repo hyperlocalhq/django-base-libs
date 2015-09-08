@@ -213,9 +213,9 @@ class ProjectAdmin(ExtendedModelAdmin):
     fieldsets += [(None, {'fields': ('slug',)}),]
     fieldsets += [(_("Location"), {'fields': ['departments',]}),]
     fieldsets += [(_("Free Location"), {'fields': ['location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude']}),]
-    fieldsets += [(_("Contacts"), {'fields': ((_("Phone"), {'fields': ('phone_country', 'phone_area', 'phone_number')}), (_("Fax"), {'fields': ('fax_country', 'fax_area', 'fax_number')}),'email','website', )}),]
+    fieldsets += [(_("Contact"), {'fields': ('contact_department', 'contact_name', (_("Phone"), {'fields': ('phone_country', 'phone_area', 'phone_number')}), (_("Fax"), {'fields': ('fax_country', 'fax_area', 'fax_number')}),'email','website', )}),]
     fieldsets += get_admin_lang_section(_("Description"), ['description', 'special_conditions', 'remarks', 'cooperation', 'supporters', 'participant_count'])
-    fieldsets += [(_("Prices"), {'fields': ['free_entrance', get_admin_lang_section(_("Price information"), ['prices'])]}),]
+    fieldsets += [(_("Prices"), {'fields': ['free_entrance', 'tickets_website', get_admin_lang_section(_("Price information"), ['prices'])]}),]
     fieldsets += [(_("Additional details"), {'fields': ['age_from', 'age_till', 'needs_teachers', 'target_group', 'format']})]
     fieldsets += [(_("Sponsors"), {'fields': ['sponsors',]}),]
     fieldsets += [(_("Status"), {'fields': ['status',]}),]

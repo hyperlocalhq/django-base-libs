@@ -72,6 +72,15 @@
                         white-space: nowrap;
                     }
                 }
+                .list-item-head-date-none {
+                    height: 35px;
+                    margin: 0;
+                    padding: 0;
+                    font-weight: 600;
+                    font-size: 0.75em;
+                    line-height: 12px;
+                    text-transform: uppercase;                    
+                }
                 .list-item-head-date-type {
                     height: 32px;
                     margin: 0;
@@ -80,6 +89,19 @@
                     font-size: 0.75em;
                     line-height: 12px;
                     text-transform: uppercase;
+                    span {
+                        &:after {
+                            content: ", ";
+                        }
+                        &:last-child {
+                            &:after {
+                                content: none;
+                            }
+                        }
+                    }
+                    &.no-date {
+                        height: 79px;
+                    }
                 }
                 .list-item-head-date-time {
                     height: 37px;
@@ -149,7 +171,7 @@
                 }
             }
             
-            dl, h2, h3, h4, div.copy {
+            dl, h2, h3, h4, div.copy, div.target {
                 margin: 0 0 0 15px !important;
             }
             
@@ -218,6 +240,20 @@
                 }
             }
             
+            div.target {
+                font-size: 0.9em;
+                margin-top: 5px !important;
+                span {
+                    &:after {
+                        content: ", ";
+                    }
+                    &:last-child {
+                        &:after {
+                            content: none;
+                        }
+                    }
+                }
+            }
             
             .extra {
                 background: $blue;
@@ -348,6 +384,13 @@ body.is-xs {
                         top: 32px;
                         left: 5px;
                     }
+                    .list-item-head-date-none {
+                        width: 90px;
+                        height: auto;
+                        position: absolute;
+                        top: 9px;
+                        left: 5px;
+                    }
                     .list-item-head-date-time {
                         width: 115px;
                         height: auto;
@@ -399,6 +442,14 @@ body.is-xs {
                 &.short {
                     width: auto;
                 }
+            }
+            
+            div.target {
+                margin: 5px 0 0 5px  !important;
+                width: auto;
+                &.short {
+                    width: auto;
+                }                
             }
             
             .extra {

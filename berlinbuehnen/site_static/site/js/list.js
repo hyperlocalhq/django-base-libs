@@ -219,12 +219,13 @@
             var first_half = $last_p.data('text');
             var second_half = "";
             var split = first_half.length;
+            var bottom = ($('.copy', $body).attr('data-bottom-space')) ? parseInt($('.copy', $body).attr('data-bottom-space')) : 0;
             
             while (split) {
                 
                 $last_p.html(text + first_half);
                 
-                while (top + $last_p.height() > body_height) {
+                while (top + $last_p.height() + bottom > body_height) {
                     
                     split = Math.floor(split/2);
                     second_half = first_half.substr(split);
@@ -253,7 +254,7 @@
                     
                     text = text.substr(0, text.length-1);
                     
-                } while (top + $last_p.height() > body_height);
+                } while (top + $last_p.height() + bottom > body_height);
                 
             } else {
                 $last_p.css('display', 'none');   

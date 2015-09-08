@@ -4,18 +4,21 @@
             <div class="accordion-item">
                 <h4 class="accordion-item-head open">{% trans "Venue" %}</h4>
                 <div class="accordion-item-content">
-                    <p data-latitude="{{ department.latitude|stringformat:"%f" }}" data-longitude="{{ department.longitude|stringformat:"%f" }}">
-                        <strong>{{ department.title }}</strong><br />
-                        {% if department.street_address %}
+                    {% if department.street_address %}
+                        <p data-latitude="{{ department.latitude|stringformat:"%f" }}" data-longitude="{{ department.longitude|stringformat:"%f" }}">
+                            <strong>{{ department.title }}</strong><br />
                             {% if department.street_address %}{{ department.street_address }}<br />{% endif %}
                             {% if department.street_address2 %}{{ department.street_address2 }}<br />{% endif %}
                             {% if department.city %}{{ department.postal_code }} {{ department.city }}<br />{% endif %}
-                        {% elif  department.location.street_address %}
+                        </p>
+                    {% elif  department.location.street_address %}
+                        <p data-latitude="{{ department.location.latitude|stringformat:"%f" }}" data-longitude="{{ department.location.longitude|stringformat:"%f" }}">
+                            <strong>{{ department.title }}</strong><br />
                             {% if department.location.street_address %}{{ department.location.street_address }}<br />{% endif %}
                             {% if department.location.street_address2 %}{{ department.location.street_address2 }}<br />{% endif %}
                             {% if department.location.city %}{{ department.location.postal_code }} {{ department.location.city }}<br />{% endif %}
-                        {% endif %}
-                    </p>
+                        </p>
+                    {% endif %}
                     {% if department.phone_number or department.fax_number or department.email or department.website %}
                         <dl>
                             <dd class="headline">{% trans "Contact" %}</dd>
