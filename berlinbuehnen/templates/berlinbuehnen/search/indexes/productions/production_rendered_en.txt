@@ -1,0 +1,8 @@
+{% load base_tags image_modifications %}
+{% with object as event %}
+    <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <a href="/en/schedule/{{ event.slug }}/">
+            <h3>{{ event.title_en|default:event.title_de }}</h3>
+        </a>
+    </div>
+{% endwith %}

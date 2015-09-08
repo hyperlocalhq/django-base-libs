@@ -348,6 +348,8 @@ def change_event_basic_info(request, slug, event_id):
             initial['play_stages'] = event.play_stages.all()
         else:
             initial['play_stages'] = production.play_stages.all()
+        if event.characteristics.exists():
+            initial['characteristics'] = event.characteristics.all()
         form.initial = initial
 
     return render(request, "productions/events/basic_info_form.html", {'production': production, 'event': event, 'form': form})

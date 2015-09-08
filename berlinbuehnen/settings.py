@@ -227,6 +227,7 @@ INSTALLED_APPS = (
     "berlinbuehnen.apps.twitter",
     "berlinbuehnen.apps.advertising",
     "berlinbuehnen.apps.education",
+    "berlinbuehnen.apps.search",
     "berlinbuehnen.apps.site_specific",
 )
 
@@ -562,7 +563,7 @@ HAYSTACK_CONNECTIONS = {
         'POST_LIMIT': 128 * 1024 * 1024,
         'INCLUDE_SPELLING': True,
         'BATCH_SIZE': 100,
-        'URL': 'http://www.locationsportal-berlin.de/de/suche/',
+        'URL': 'http://www.berlin-buehnen.de/de/suche/',
     },
     'en': {
         'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
@@ -571,11 +572,11 @@ HAYSTACK_CONNECTIONS = {
         'POST_LIMIT': 128 * 1024 * 1024,
         'INCLUDE_SPELLING': True,
         'BATCH_SIZE': 100,
-        'URL': 'http://www.locationsportal-berlin.de/en/search/',
+        'URL': 'http://www.berlin-buehnen.de/en/search/',
     },
 }
 
-# HAYSTACK_ROUTERS = ['berlinbuehnen.apps.search.router.LanguageRouter']
+HAYSTACK_ROUTERS = ['berlinbuehnen.apps.search.router.LanguageRouter']
 ALDRYN_SEARCH_LANGUAGE_FROM_ALIAS = lambda alias: alias
 ALDRYN_SEARCH_INDEX_BASE_CLASS = "berlinbuehnen.apps.search.search_indexes.CMSPageIndexBase"  # custom index base for pages
 ALDRYN_SEARCH_REGISTER_APPHOOK = False  # we'll use a custom app hook for search
