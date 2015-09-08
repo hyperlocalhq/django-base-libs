@@ -376,9 +376,6 @@ ADMIN_APP_INDEX = (
     }, {
         'title': _('Connect'),
         'apps': (
-            # ('jovoto', {
-            #    'models':("Idea",),
-            #    }),
             ('external_services', {
                 'models': ("Service", "ArticleImportSource", "ServiceActionLog"),
             }),
