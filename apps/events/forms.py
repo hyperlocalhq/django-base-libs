@@ -940,7 +940,8 @@ class EventForm:  # namespace
         for time_data in step_main_data['sets'].get("event_times", ()):
             time = EventTime(event=event)
             label_id = time_data.get('label', None)
-            time.label = EventTimeLabel.objects.get(pk=label_id)
+            if label_id:
+                time.label = EventTimeLabel.objects.get(pk=label_id)
 
             time.start_yyyy = time_data.get('start_yyyy', None)
             time.start_mm = time_data.get('start_mm', None)
@@ -965,7 +966,7 @@ class EventForm:  # namespace
 
             time.save()
 
-        form_steps['success_url'] = event.get_url()
+        form_steps['success_url'] = event.get_url_path()
 
         return form_step_data
 
