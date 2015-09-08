@@ -26,7 +26,6 @@ class Command(NoArgsCommand):
 
         from django.db import models
         from django.template.defaultfilters import slugify
-        from django.utils.encoding import smart_bytes
 
         from base_libs.utils.misc import get_related_queryset
 
@@ -98,7 +97,7 @@ class Command(NoArgsCommand):
                         mapper.save()
 
         response = requests.get(s_museums.url, verify=False)
-        xml_doc = parseString(smart_bytes(response.text))
+        xml_doc = parseString(response.content)
 
         status_imported = "import"
 
@@ -291,7 +290,7 @@ class Command(NoArgsCommand):
         )
 
         response = requests.get(s_exhibitions.url, verify=False)
-        xml_doc = parseString(smart_bytes(response.text))
+        xml_doc = parseString(response.content)
 
         event_type = get_related_queryset(Event, "event_type").get(
             slug="exhibition",
@@ -502,7 +501,7 @@ class Command(NoArgsCommand):
         )
 
         response = requests.get(s_events.url, verify=False)
-        xml_doc = parseString(smart_bytes(response.text))
+        xml_doc = parseString(response.content)
 
         stats = {
             'added': 0,

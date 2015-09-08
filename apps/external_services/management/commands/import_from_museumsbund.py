@@ -16,7 +16,6 @@ class Command(NoArgsCommand):
         from dateutil.parser import parse as parse_datetime
 
         from django.db import models
-        from django.utils.encoding import smart_bytes
 
         from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
 
@@ -64,7 +63,7 @@ class Command(NoArgsCommand):
 
         response = requests.get(s.url)
         try:
-            xml_doc = parseString(smart_bytes(response.text))
+            xml_doc = parseString(response.content)
         except Exception:
             return
 

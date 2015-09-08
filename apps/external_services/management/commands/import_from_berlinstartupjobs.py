@@ -16,7 +16,6 @@ class Command(NoArgsCommand):
         from dateutil.parser import parse as parse_datetime
 
         from django.db import models
-        from django.utils.encoding import smart_bytes
 
         from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
         from base_libs.templatetags.base_tags import decode_entities
@@ -210,10 +209,15 @@ class Command(NoArgsCommand):
         for feed_settings in FEEDS:
 
             response = requests.get(feed_settings['url'])
+            if response.status_code != 200:
+                print "Broken feed link: %s (status_code=%s)" % (feed_settings['url'], response.status_code)
+                continue
+
             try:
-                xml_doc = parseString(smart_bytes(response.text))
+                xml_doc = parseString(response.content)
             except Exception:
-                return
+                print "Broken feed XML: %s" % feed_settings['url']
+                continue
 
             for node_job in xml_doc.getElementsByTagName("entry"):
                 # get or create job offer
