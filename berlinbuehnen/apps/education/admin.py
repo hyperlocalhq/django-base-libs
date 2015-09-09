@@ -122,46 +122,39 @@ class DepartmentAdmin(ExtendedModelAdmin):
 
     def owners_view(self, request, department_id):
         from base_libs.views.views import access_denied
-        location = get_object_or_404(Location, department__pk=department_id)
+        department = get_object_or_404(Department, pk=department_id)
 
-        if not request.user.has_perm('locations.change_location', location):
+        if not request.user.has_perm('education.change_department', department):
             return access_denied(request)
 
         if request.method == "POST":
             form = OwnersForm(request.POST)
             if form.is_valid():
-                existing_owners = set(location.get_owners())
+                existing_owners = set(department.get_owners())
                 changed_owners = set(form.cleaned_data['users'])
 
                 removed_owners = existing_owners - changed_owners
                 new_owners = changed_owners - existing_owners
 
                 for u in removed_owners:
-                    location.remove_owner(u)
-                    for p in location.program_productions.all():
-                        p.remove_owner(u)
-                    for p in location.located_productions.all():
-                        p.remove_owner(u)
+                    department.remove_owner(u)
 
                 for u in new_owners:
-                    location.set_owner(u)
-                    for p in location.program_productions.all():
-                        p.set_owner(u)
-                    for p in location.located_productions.all():
-                        p.set_owner(u)
-                return redirect('../../?id__exact=%d' % location.pk)
+                    department.set_owner(u)
+                    
+                return redirect('../../?id__exact=%d' % department.pk)
         else:
             form = OwnersForm(initial={
-                'users': location.get_owners()
+                'users': department.get_owners()
             })
 
-        return render(request, 'admin/locations/location/owners.html', {
-            'location': location,
-            'original': location,
+        return render(request, 'admin/education/department/owners.html', {
+            'department': department,
+            'original': department,
             'app_label': Department._meta.app_label,
             'opts': Department._meta,
             'form': form,
-            'title': ugettext('The owners of %(location)s') % {'location': location},
+            'title': ugettext('The owners of %(department)s') % {'department': department},
         })
 
     def get_urls(self):
@@ -251,38 +244,38 @@ class ProjectAdmin(ExtendedModelAdmin):
 
     def owners_view(self, request, project_id):
         from base_libs.views.views import access_denied
-        production = get_object_or_404(Project, pk=project_id)
+        project = get_object_or_404(Project, pk=project_id)
 
-        if not request.user.has_perm('productions.change_production', production):
+        if not request.user.has_perm('education.change_project', project):
             return access_denied(request)
 
         if request.method == "POST":
             form = OwnersForm(request.POST)
             if form.is_valid():
-                existing_owners = set(production.get_owners())
+                existing_owners = set(project.get_owners())
                 changed_owners = set(form.cleaned_data['users'])
 
                 removed_owners = existing_owners - changed_owners
                 new_owners = changed_owners - existing_owners
 
                 for u in removed_owners:
-                    production.remove_owner(u)
+                    project.remove_owner(u)
 
                 for u in new_owners:
-                    production.set_owner(u)
-                return redirect('../../?id__exact=%d' % production.pk)
+                    project.set_owner(u)
+                return redirect('../../?id__exact=%d' % project.pk)
         else:
             form = OwnersForm(initial={
-                'users': production.get_owners()
+                'users': project.get_owners()
             })
 
         return render(request, 'admin/productions/production/owners.html', {
-            'production': production,
-            'original': production,
+            'project': project,
+            'original': project,
             'app_label': Project._meta.app_label,
             'opts': Project._meta,
             'form': form,
-            'title': ugettext('The owners of %(production)s') % {'production': production},
+            'title': ugettext('The owners of %(project)s') % {'project': project},
         })
 
     def get_urls(self):
