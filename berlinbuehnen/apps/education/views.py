@@ -25,7 +25,7 @@ FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 from jetson.apps.image_mods.models import FileManager
 from filebrowser.models import FileDescription
 
-from .models import Project, ProjectImage, Department
+from .models import Project, ProjectImage, Department, ProjectTime
 
 #from .forms.projects import FESTIVAL_FORM_STEPS
 #from .forms.gallery import ImageFileForm, ImageDeletionForm
@@ -96,83 +96,37 @@ def education_detail(request, slug):
         template_name="education/education_detail.html",
         context_processors=(prev_next_processor,),
     )
-    
 
-class ProjectFilterForm(forms.Form):
-    pass
-
-def project_list(request, year=None, month=None, day=None):
-
-    qs = Project.objects.filter(status="published")
-    # qs = qs.filter(end__gte=datetime.today())
-
-    form = ProjectFilterForm(data=request.REQUEST)
-    
-    facets = {
-        'selected': {},
-        'categories': {
-        },
-    }
-    
-    if form.is_valid():
-        # cats = form.cleaned_data['services']
-        # if cats:
-        #     facets['selected']['services'] = cats
-        #     for cat in cats:
-        #         qs = qs.filter(
-        #             services=cat,
-        #         ).distinct()
-        pass
-
-    abc_filter = request.GET.get('abc', None)
-    if abc_filter:
-        facets['selected']['abc'] = abc_filter
-    abc_list = get_abc_list(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
-    if abc_filter:
-        qs = filter_abc(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
-
-    # qs = qs.extra(select={
-    #     'title_uni': "IF (events_event.title_%(lang_code)s = '', events_event.title_de, events_event.title_%(lang_code)s)" % {
-    #         'lang_code': request.LANGUAGE_CODE,
-    #     }
-    # }).order_by("title_uni")
-
-    #qs = qs.prefetch_related("season_set", "mediafile_set", "categories", "accessibility_options").defer("tags")
-    
-    # qs = qs.order_by('start', 'title_%s' % request.LANGUAGE_CODE)
-    
-    extra_context = {}
-    extra_context['form'] = form
-    extra_context['abc_list'] = abc_list
-    extra_context['facets'] = facets
-
-    return object_list(
-        request,
-        queryset=qs,
-        template_name="education/project_list.html",
-        paginate_by=24,
-        extra_context=extra_context,
-        httpstate_prefix="project_list",
-        context_processors=(prev_next_processor,),
-    )
-
-
-def project_detail(request, slug):
+def project_detail(request, slug, department=None, event_id=None):
     if "preview" in request.REQUEST:
         qs = Project.objects.all()
         obj = get_object_or_404(qs, slug=slug)
-        if not request.user.has_perm("projects.change_project", obj):
+        if not request.user.has_perm("education.change_project", obj):
             return access_denied(request)
     else:
         qs = Project.objects.filter(status="published")
+        
+    
+    extra_context = {}
+    extra_context['department'] = None
+    extra_context['event'] = None
+    
+    if department:
+        extra_context['department'] = Department.objects.filter(slug=department)[0]
+        
+    if event_id:
+        extra_context['event'] = ProjectTime.objects.filter(pk=event_id)[0]
+        
     return object_detail(
         request,
         queryset=qs,
         slug=slug,
         slug_field="slug",
+        extra_context=extra_context,
         template_name="education/project_detail.html",
         context_processors=(prev_next_processor,),
     )
+
 
 # @never_cache
 # @login_required

@@ -1,4 +1,6 @@
 # -*- coding: UTF-8 -*-
+import time
+from datetime import datetime
 from django.db import models
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.core.urlresolvers import reverse
@@ -171,6 +173,27 @@ class Department(CreationModificationMixin, UrlMixin, SlugMixin()):
                 self._first_image_cache = qs[0]
         return self._first_image_cache
     first_image = property(_get_first_image)
+    
+    def get_projects(self):
+        return self.department_projects.filter(status="published")
+        
+    def get_future_projects(self):
+        all_projects = self.get_projects()
+        projects_with_events = all_projects.filter(projecttime__isnull=False).distinct()
+        projects_sorted_events = sorted(projects_with_events, key= lambda t: t.get_next_timestamp())
+        projects_without_events = all_projects.filter(projecttime__isnull=True)
+        
+        result = []
+        for project in projects_sorted_events:
+            if project.get_next_date():
+                result.append(project)
+                
+        for project in projects_without_events:
+            result.append(project)
+            
+        if len(result):
+            return result
+        return None
 
 
 class DepartmentMember(CreationModificationDateMixin):
@@ -300,6 +323,7 @@ class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
     needs_teachers = models.BooleanField(_("Workshop needs teachers"), default=False)
     prices = MultilingualTextField(_("Prices"), blank=True)
     free_entrance = models.BooleanField(_("Free entrance"))
+    tickets_website = URLField(_("Tickets website"), blank=True, max_length=255)
 
     special_conditions = MultilingualTextField(_("Special conditions"), blank=True)
     remarks = MultilingualTextField(_("Remarks"), blank=True)
@@ -314,14 +338,43 @@ class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
 
     row_level_permissions = True
 
-    def get_url_path(self):
-        try:
-            path = reverse("project_detail", kwargs={'slug': self.slug})
-        except:
-            # the apphook is not attached yet
-            return ""
+    def get_url_path(self, department=None, event_id=None):
+    
+        if not department:    
+            if not event_id:
+                try:
+                    path = reverse("project_detail", kwargs={'slug': self.slug})
+                except:
+                    # the apphook is not attached yet
+                    return ""
+                else:
+                    return path
+            else:
+                try:
+                    path = reverse("project_event_detail", kwargs={'slug': self.slug, 'event_id': event_id})
+                except:
+                    # the apphook is not attached yet
+                    return ""
+                else:
+                    return path
+                
         else:
-            return path
+            if not event_id:
+                try:
+                    path = reverse("department_detail", kwargs={'slug': self.slug, 'department': department})
+                except:
+                    # the apphook is not attached yet
+                    return ""
+                else:
+                    return path
+            else:
+                try:
+                    path = reverse("department_event_detail", kwargs={'slug': self.slug, 'department': department, 'event_id': event_id})
+                except:
+                    # the apphook is not attached yet
+                    return ""
+                else:
+                    return path
 
     class Meta:
         ordering = ["-creation_date"]
@@ -385,12 +438,55 @@ class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
         except:
             return []
         return role.users.all()
+        
+    def get_next_timestamp(self):
+        next_date = self.get_next_date()
+        if next_date:
+            return time.mktime(next_date.timetuple())
+        else:
+            return 0
+        
+    def get_next_date(self):
+        next_event = self.get_next_event()
+        if next_event:
+            return next_event.start
+        return None
+        
+    def get_next_event(self):
+        next_events = self.get_next_events()
+        if next_events:
+            return next_events[0]
+        return None
+        
+    def get_next_events(self):
+        today = datetime.today()
+        return self.projecttime_set.filter(
+            models.Q(end__gte=today) | models.Q(end=None, start__gte=today),
+        )
+        
+    def has_events(self):
+        if self.projecttime_set.exists():
+            return True
+        else:
+            return False
+        
+    def _get_first_image(self):
+        if not hasattr(self, '_first_image_cache'):
+            self._first_image_cache = None
+            qs = self.projectimage_set.all()
+            if qs.count():
+                self._first_image_cache = qs[0]
+        return self._first_image_cache
+    first_image = property(_get_first_image)
+
+    def get_social_media(self):
+        return self.projectsocialmediachannel_set.all()
 
 
 class ProjectTime(CreationModificationMixin, UrlMixin):
     project = models.ForeignKey(Project, verbose_name=_("Project"))
     start = models.DateTimeField(_("Start date and time"))
-    end = models.DateField(_("End date and time"), blank=True, null=True)
+    end = models.DateTimeField(_("End date and time"), blank=True, null=True)
 
     class Meta:
         ordering = ["start"]
@@ -426,7 +522,7 @@ class ProjectMember(CreationModificationDateMixin):
 
 
 class ProjectImage(CreationModificationDateMixin):
-    project = models.ForeignKey(Project, verbose_name=_("Project"))
+    education = models.ForeignKey(Project, verbose_name=_("Project"))
     path = FileBrowseField(_('File path'), max_length=255, directory="education/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image."))
     copyright_restrictions = models.CharField(_('Copyright restrictions'), max_length=20, blank=True, choices=COPYRIGHT_RESTRICTION_CHOICES)
     sort_order = PositionField(_("Sort order"), collection="education")

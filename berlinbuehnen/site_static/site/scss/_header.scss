@@ -234,6 +234,52 @@
     margin-top: 0px;
 }
 
+.is-md {
+    .navbar-wrapper {
+        .top_nav {
+            .nav {
+                & > li {
+                    margin-right: 1.5%;
+                }
+            }
+        }
+    }
+}
+
+.is-sm {
+    .navbar-wrapper {
+        
+        height: 155px;
+        
+        .navbar-header {
+            min-height: 130px;    
+            .navbar-brand {
+                margin-top: 45px;
+            }
+        }
+        
+        .background {
+            height: 165px;
+        }
+        
+        .top_nav {
+            .nav {
+                & > li {
+                    margin-right: 1.1%;
+                    & > a {
+                        min-height: 30px;
+                        line-height: 30px;
+                    }
+                }
+                
+                a {
+                    font-size: 0.9em;
+                }
+            }
+        }
+    }
+}
+
 .is-xs {
     .navbar-wrapper {
         height: 100px;

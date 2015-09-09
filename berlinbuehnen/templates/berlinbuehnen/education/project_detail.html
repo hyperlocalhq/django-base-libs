@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites production_tags %}
+{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites education_tags %}
 {% block title %}{% trans "Educational Project" %} – {{ object.title }} – {% endblock %}
 {% block bodyclass %}project-detail{% endblock %}
 
@@ -20,6 +20,7 @@
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/accordion.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/gallery.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/list.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/add_to_calender_1.5_atc.min.js" defer="defer"></script>
     <!--<script type="text/javascript" src="{{ STATIC_URL }}site/js/slider.js"></script>-->
 {% endblock %}
 
@@ -29,30 +30,49 @@
             <div class="container main-container">
                 <div class="row">
                     <div class="col-xs-12">
-                        <a class="fawesome back uc" href="{% url 'project_list' %}">{% trans "back to overview" %}</a>
+                        {% if department %}
+                            <a class="fawesome back uc" href="{% url 'education_detail' slug=department.slug %}">{% trans "back to location" %}</a>
+                        {% endif %}
                         <article>
                             
                             <!-- headlines -->
                             <header>
                                 <ul class="header-top">
-                                    {% if project.start %}
-                                        <li>{% if project.end and project.start == project.end %}<time>{{ project.start|date:"j. F Y" }}</time>{% else %}<time>{% if not project.end or project.start|date:"Y" != project.end|date:"Y" %}{{ project.start|date:"j. F Y" }}{% else %}{% if project.start|date:"F" != project.end|date:"F" %}{{ project.start|date:"j. F" }}{% else %}{{ project.start|date:"j." }}{% endif %}{% endif %}</time>{% if project.end %} &nbsp;–&nbsp; <time>{{ project.end|date:"j. F Y" }}</time>{% endif %}{% endif %}</li>
+                                    {% if event %}
+                                        <li><time>{{ event.start|date:"l, j. F Y" }}{{ event.start|time:", H:i" }}</time></li>
                                     {% endif %}
-                                    {% if project.organizers.all %}
-                                            <li>
-                                                <dl class="comma">
-                                                    <dt>{% trans "Organizer" %}</dt>
-                                                    {% for location in project.organizers.all %}
-                                                        <dd>
-                                                            {{ location.title }}
-                                                        </dd>
-                                                    {% endfor %}
-                                                </dl>
-                                            </li>
+                                    {% if project.location_title %}
+                                        <li>
+                                            <dl class="comma">
+                                                <dd>
+                                                    {{ project.location_title }}
+                                                </dd>
+                                            </dl>
+                                        </li>
+                                    {% elif department %}
+                                        <li>
+                                            <dl class="comma">
+                                                <dd>
+                                                    {{ department.title }}
+                                                </dd>
+                                            </dl>
+                                        </li>
                                     {% endif %}
                                 </ul>
+                                <div class="header-icons no-print">
+                                    {% comment %}
+                                    {% if request.user.is_authenticated %}
+                                        {% adding2favorites for event using "favorites/includes/favorite_detail.html" %}
+                                    {% endif %}
+                                    {% endcomment %}
+                                    {% if event %}
+                                        {% add_to_calender event=event department=department %}
+                                    {% elif project.get_next_event %}
+                                        {% add_to_calender event=project.get_next_event department=department %}
+                                    {% endif %}
+                                </div>
                                 <h1>{{ project.title }}
-                                    {% if_has_perm "education.change_project" object %}
+                                    {% if_has_perm "education.change_project" project %}
                                         {% if not request.is_mobile %}
                                             <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>
                                         {% endif %}
@@ -72,10 +92,12 @@
                                         <div class="col-xs-12 col-md-8 left">
                                             {% if project.first_image %}
                                                 <div class="top-image img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ project.first_image.path|modified_path:"detail_image" }}" alt="{{ project.title|escape }}"  /></div>
-                                            {% elif project.image_set.exists %}
-                                                {% with project.image_set.all|first as first %}
-                                                    <div class="top-image img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ first.path|modified_path:"detail_image" }}" alt="{{ project.title|escape }}"  /></div> 
-                                                {% endwith %}
+                                            {% elif department %}
+                                                {% if department.first_image %}
+                                                    <div class="top-image img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ department.first_image.path|modified_path:"detail_image" }}" alt="{{ project.title|escape }}"  /></div>
+                                                {% elif department.location.first_image %}
+                                                    <div class="top-image img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ department.location.first_image.path|modified_path:"detail_image" }}" alt="{{ project.title|escape }}"  /></div>
+                                                {% endif %}
                                             {% endif %}
                                             <div class="description">
                                                 {{ project.get_rendered_description }}
@@ -94,7 +116,7 @@
                                         
                                         <!-- main sidebar -->
                                         <div class="col-xs-12 col-md-4 right">
-                                            {% include "education/includes/sidebar.html" %}
+                                            {% include "education/includes/project_sidebar.html" %}
                                         </div>
                                         
                                     </div>
@@ -108,25 +130,80 @@
                                     <div class="row">
                                         <div class="col-xs-12 full">
                                             <div class="accordion accordion-autoclose content-accordion">
-                                                {% if project.get_pdfs %}
+                                                {% if project.special_conditions %}
                                                     <div class="accordion-item">
-                                                        <h4 class="accordion-item-head">{% trans "Publications" %}</h4>
+                                                        <h4 class="accordion-item-head">{% trans "Special conditions" %}</h4>
                                                         <div class="accordion-item-content">
-                                                            {% for pdf in project.get_pdfs %}
-                                                                <div class="publication">
-                                                                    {% with pdf.path|file_description as file_desc %}
-                                                                        {% if file_desc.title %}
-                                                                            <a class="publication" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank"><strong>{{ file_desc.title }}</strong></a>
-                                                                        {% elif file_desc.filename %}
-                                                                            <a class="publication" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank"><strong>{{ file_desc.filename }}</strong></a>
-                                                                        {% else %}
-                                                                            <a class="publication" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank"><strong>{{ pdf.path }}</strong></a>
-                                                                        {% endif %}<br/>
-                                                                        {% if file_desc.description %}
-                                                                            {{ file_desc.description|urlize|linebreaks }}
-                                                                        {% endif %}
-                                                                        <a class="button" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank">{% trans "download" %}</a>
-                                                                    {% endwith %}
+                                                            <p>{{ project.get_rendered_special_conditions }}</p>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if project.remarks %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Remarks" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            <p>{{ project.get_rendered_remarks }}</p>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if project.projectmember_set.all %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Team" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            {% for member in project.projectmember_set.all %}
+                                                                <dl class="block">
+                                                                    {% if member.get_function %}
+                                                                        <dd>{{ member.get_function }}</dd>
+                                                                    {% endif %}
+                                                                    {% if member.person %}
+                                                                        <dd>{% if member.person.first_name %}{{ member.person.first_name }} {% endif %}{{ member.person.last_name }}</dd>
+                                                                    {% endif %}
+                                                                    {% if member.phone_number %}
+                                                                        <dt class="width_50">{% trans "Phone" %}</dt>
+                                                                        <dd><a class="phone" href="tel:{% if member.phone_country %}+{{ member.phone_country }}{% endif %}{{ member.phone_area }}{{ member.phone_number }}">{% if member.phone_country %}+{{ member.phone_country }}-{% endif %}{{ member.phone_area }}-{{ member.phone_number }}</a></dd>
+                                                                    {% endif %}
+                                                                    {% if member.email %}
+                                                                        <dt class="width_50">{% trans "Mail" %}</dt>
+                                                                        <dd><a href="mailto:{{ member.email }}">{{ member.email }}</a></dd>
+                                                                    {% endif %}
+                                                                </dl>
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if project.cooperation %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Cooperation partners" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            <p>{{ project.get_rendered_cooperation }}</p>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if project.supporters %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Supporters" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            <p>{{ project.get_rendered_supporters }}</p>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if project.sponsors.all %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Presented by" %}</h4>
+                                                        <div class="accordion-item-content sponsor-content">
+                                                            {% for sponsor in project.sponsors.all %}
+                                                                <div class="sponsor">
+                                                                    {% if sponsor.website %}
+                                                                        <a href="{{ sponsor.website }}" target="_blank">
+                                                                    {% endif %}
+                                                                    {% if sponsor.image %}
+                                                                        <img alt="{{ sponsor.title }}" src="{{ MEDIA_URL }}{{ sponsor.image.path }}" />
+                                                                    {% else %}
+                                                                        {{ sponsor.title }}
+                                                                    {% endif %}
+                                                                    {% if sponsor.website %}
+                                                                        </a>
+                                                                    {% endif %}
                                                                 </div>
                                                             {% endfor %}
                                                         </div>
@@ -134,17 +211,11 @@
                                                 {% endif %}
                                             </div>
                                             
-                                            <!-- Program -->
-                                            <div class="additional-list list row">
-                                                <h4 class="additional-list-head">{% trans "Project details" %}</h4>
-                                                <a class="additional-list-more fawesome down after" href="javascript:void(0);">{% trans 'more' %}</a>
-                                            </div>
-                                            
                                             <!-- Gallery -->
-                                            {% if project.image_set.exists %}
+                                            {% if project.projectimage_set.exists %}
                                                 <div class="gallery row">
                                                     <h4 class="gallery-head">{% trans "Gallery" %}</h4>
-                                                    {% for image in project.image_set.all %}
+                                                    {% for image in project.projectimage_set.all %}
                                                         <div class="col-xs-12 col-sm-6 col-md-4 image gallery-item img">
                                                             {% with image.path|file_description as file_desc %}
                                                                 <img class="gallery-image" src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"gallery_image" }}" alt="{% if file_desc.description %}{{ file_desc.description|escape }}{% endif %}" width="100%" data-image-big="{{ MEDIA_URL }}{{ image.path }}" />
@@ -177,8 +248,6 @@
                             
                         </article>
                         
-                        <!-- event slider -->
-                        {#% other_productions current_project=project %#}
                     </div>
                 </div>
             </div>

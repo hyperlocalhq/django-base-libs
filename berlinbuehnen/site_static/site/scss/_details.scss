@@ -237,6 +237,10 @@
         dt {
             display: inline;
             float: none;
+            &.width_50 {
+                display: inline-block;
+                width: 50px;
+            }
             &:after {
                 content: ":";
                 padding-right: 2px; 
@@ -273,6 +277,29 @@
             &.spacer {
                 display: block !important;
                 height: 5px;
+            }
+        }
+        &.block {
+            dt {
+                font-weight: $regular;
+                &:before {
+                    content: none;
+                    white-space: normal;
+                    display: inline;
+                    line-height: inherit;
+                }
+                &:after {
+                    content: none;
+                    padding-right: 0;
+                }
+            }
+            dd {
+                &:after {
+                    content:"\A"; 
+                    white-space:pre;
+                    display:block;
+                    line-height: 1px;  
+                }
             }
         }
     }
