@@ -44,7 +44,8 @@ class VideoForm(forms.Form):
         required=False,
     )
     link_or_embed = forms.CharField(
-        label=_("Link or embed code"),
+        # label=_("Link or embed code"),
+        label=_("Embed code"),
         widget=forms.Textarea(),
         required=True,
     )
@@ -149,6 +150,8 @@ class VideoForm(forms.Form):
                 # maxwidth and maxheight are optional.
                 data = oEmbed(link_or_embed, maxwidth=640, maxheight=480)
             except PyOembedException, e:
+                pass
+            except:  # catch any other exception, for example in BeatifulSoup
                 pass
             else:
                 if data['type'] in ('video', 'audio'):
@@ -303,6 +306,8 @@ class StreamingForm(forms.Form):
                 # maxwidth and maxheight are optional.
                 data = oEmbed(link_or_embed, maxwidth=640, maxheight=480)
             except PyOembedException, e:
+                pass
+            except:  # catch any other exception, for example in BeatifulSoup
                 pass
             else:
                 if data['type'] == 'video':
