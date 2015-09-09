@@ -815,7 +815,7 @@ class EventForm: # namespace
             f.close()
 
         # save again without triggering any signals
-        event.save_base(raw=True, cls=type(event))
+        event.save_base(raw=True)
         
         for ev in step_main_data.get('related_events', ()):
             event.related_events.add(ev)

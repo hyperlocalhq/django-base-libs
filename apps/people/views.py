@@ -73,6 +73,8 @@ def person_list(
 ):
     """Displays the list of people"""
 
+    Institution = models.get_model("institutions", "Institution")
+
     abc_list = None
     abc_filter = request.GET.get('by-abc', None)
 

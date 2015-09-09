@@ -4,6 +4,7 @@ import json
 
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.db import transaction
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render_to_response
 from django.template import RequestContext, loader, Context
@@ -666,8 +667,8 @@ def edit_group_member(request, slug, user_id):
         RequestContext(request),
         )
 
+@never_cache
+@transaction.atomic
+@login_required
 def add_group(request):
     return show_form_step(request, ADD_GROUP_FORM_STEPS, extra_context={})
-
-
-add_group = login_required(never_cache(add_group))

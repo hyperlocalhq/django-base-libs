@@ -614,7 +614,7 @@ class InstitutionForm: # Namespace
         f.write("-----\n")
         f.close()
         ### /DEBUG ###
-        
+
         institution = Institution(
             title=form_step_data[0].get('institution_name', ''),
             title2=form_step_data[0].get('institution_name2', ''),
@@ -653,7 +653,11 @@ class InstitutionForm: # Namespace
         institution.is_invoice_ok = form_step_data[2].get('is_invoice_ok', None)
         institution.is_ec_maestro_ok = form_step_data[2].get('is_ec_maestro_ok', None)
         institution.is_giropay_ok = form_step_data[2].get('is_giropay_ok', None)
+
+        # TODO: check what happens around institution saving: what signals are called and what notifications are created
+        # minimize or rework long-lasting tasks
         institution.save()
+
         institutional_contact = institution.institutionalcontact_set.create(
             location_type_id=form_step_data[0].get('location_type', ''),
             location_title=form_step_data[0].get('institution_name', ''),
@@ -683,6 +687,7 @@ class InstitutionForm: # Namespace
             email1_address=form_step_data[0].get('email1_address', ''),
             email2_address=form_step_data[0].get('email2_address', ''),
             )
+
         Address.objects.set_for(
             institutional_contact,
             "postal_address",
@@ -694,7 +699,8 @@ class InstitutionForm: # Namespace
             postal_code=form_step_data[0].get('postal_code', ''),
             latitude=form_step_data[0].get('latitude', ''),
             longitude=form_step_data[0].get('longitude', ''),
-            )
+        )
+
         if hasattr(institution, "create_default_group"):
             person_group = institution.create_default_group()
             person_group.content_object = institution
@@ -705,7 +711,7 @@ class InstitutionForm: # Namespace
                 inviter = user,
                 confirmer = user,
                 is_accepted = True,
-                )
+            )
         
         cleaned = form_step_data[3]
         selected_cs = {}
@@ -718,7 +724,7 @@ class InstitutionForm: # Namespace
                 # add current
                 selected_cs[item.id] = item
         institution.creative_sectors.add(*selected_cs.values())
-        
+
         selected_cc = {}
         for item in get_related_queryset(Institution, "context_categories"):
             if cleaned.get(PREFIX_BC + str(item.id), False):
@@ -729,7 +735,7 @@ class InstitutionForm: # Namespace
                 # add current
                 selected_cc[item.id] = item
         institution.context_categories.add(*selected_cc.values())
-        
+
         selected_ot = {}
         for item in get_related_queryset(Institution, "institution_types"):
             if cleaned.get(PREFIX_OT + str(item.id), False):
@@ -740,7 +746,7 @@ class InstitutionForm: # Namespace
                 # add current
                 selected_ot[item.id] = item
         institution.institution_types.add(*selected_ot.values())
-            
+
         media_file = form_step_data[1].get('avatar', '')
         if media_file:
             tmp_path = os.path.join(settings.PATH_TMP, media_file['tmp_filename'])
@@ -753,12 +759,12 @@ class InstitutionForm: # Namespace
                 subpath = "avatar/"
                 )
             f.close()
-        
-        # save again without triggering any signals        
-        institution.save_base(raw=True, cls=type(institution))
+
+        # save again without triggering any signals
+        institution.save_base(raw=True)
         
         # this is used for redirection to the institution details page
-        form_steps['success_url'] = institution.get_url()
+        form_steps['success_url'] = institution.get_url_path()
         return form_step_data
 
 ADD_INSTITUTION_FORM_STEPS = {

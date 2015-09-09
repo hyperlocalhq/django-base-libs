@@ -9,6 +9,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.cache import never_cache
 from django.db import models
+from django.db import transaction
 from django.shortcuts import render_to_response
 
 from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
@@ -45,11 +46,10 @@ class JobOfferFeed(Feed):
 
 
 @never_cache
+@transaction.atomic
+@login_required
 def add_job_offer(request):
     return show_form_step(request, ADD_JOB_OFFER_FORM_STEPS, extra_context={})
-
-
-add_job_offer = login_required(add_job_offer)
 
 
 @never_cache

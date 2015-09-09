@@ -314,8 +314,7 @@ class JobOfferForm:  # namespace
         job_offer = JobOffer()
 
         job_offer.position = step_main_data.get('position', None)
-        job_type_id = step_main_data.get('job_type', None)
-        job_offer.job_type = JobType.objects.get(pk=job_type_id) if job_type_id else None
+        job_offer.job_type = step_main_data.get('job_type', None)
         job_offer.description = step_main_data.get('description', None)
 
         job_offer.offering_institution = offering_institution
@@ -413,7 +412,7 @@ class JobOfferForm:  # namespace
         #     export_job_offer_to_creativeset(job_offer)
 
 
-        form_steps['success_url'] = job_offer.get_url()
+        form_steps['success_url'] = job_offer.get_url_path()
 
         return form_step_data
 

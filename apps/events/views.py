@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from time import strptime
 
 from django.db import models
+from django.db import transaction
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.shortcuts import get_object_or_404
 from django.http import Http404, HttpResponse
@@ -319,11 +320,10 @@ def event_list_feed(request, **kwargs):
 
 
 @never_cache
+@transaction.atomic
+@login_required
 def add_event(request):
     return show_form_step(request, ADD_EVENT_FORM_STEPS, extra_context={})
-
-
-add_event = login_required(add_event)
 
 
 def event_detail(request, event_time=None, ical=False, *args, **kwargs):

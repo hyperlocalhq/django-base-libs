@@ -3,6 +3,7 @@ import hashlib
 import urllib
 
 from django.db import models
+from django.db import transaction
 from django.views.decorators.cache import never_cache
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.core.mail import send_mail
@@ -61,18 +62,18 @@ def login(request, template_name='registration/login.html', redirect_field_name=
                 if "@" in login_as:
                     login_as_user = User.objects.get(
                         email=login_as,
-                        )
+                    )
                 else:
                     login_as_user = User.objects.get(
                         username=login_as,
-                        )
+                    )
                 login_as_user.backend = user.backend
                 user = login_as_user
             login(request, user)
             if request.session.test_cookie_worked():
                 request.session.delete_test_cookie()
-                if not redirect_to.startswith("http"):
-                    redirect_to = smart_str(get_website_url(redirect_to))
+                # if not redirect_to.startswith("http"):
+                #     redirect_to = smart_str(get_website_url(redirect_to))
                 if request.is_ajax():
                     return HttpResponse("redirect=%s" % redirect_to)
                 return HttpResponseRedirect(redirect_to)
@@ -80,7 +81,7 @@ def login(request, template_name='registration/login.html', redirect_field_name=
         data = {
             'email_or_username': request.GET.get('login_as', ''),
             'login_as': request.GET.get('login_as', ''),
-            }
+        }
         form = EmailOrUsernameAuthentication(request, initial=data)
     request.session.set_test_cookie()
     if Site._meta.installed:
@@ -92,17 +93,19 @@ def login(request, template_name='registration/login.html', redirect_field_name=
         redirect_field_name: redirect_to,
         'site_name': current_site.name,
         'login_by_email': site_settings.login_by_email,
-        }
+    }
     if request.is_ajax():
         context['base_template'] = "base_ajax.html"
     return render_to_response(
         template_name,
         context,
         context_instance=RequestContext(request),
-        )
+    )
     
 NULL_PREFIX_CHOICES = Person._meta.get_field('prefix').get_choices()
 
+@transaction.atomic
+@never_cache
 def register(request, *arguments, **keywords):
     """Displays the registration form and handles the registration action"""
     m = hashlib.md5()
@@ -132,8 +135,8 @@ def register(request, *arguments, **keywords):
             'site_name': Site.objects.get_current().name,
             'login_by_email': site_settings.login_by_email,
         }, context_instance=RequestContext(request))
-register = never_cache(register)
 
+@never_cache
 def confirm_registration(request, encrypted_email):
     """Displays the registration form and handles the registration action"""
     redirect_to = request.REQUEST.get(settings.REDIRECT_FIELD_NAME, '')
@@ -168,6 +171,8 @@ def confirm_registration(request, encrypted_email):
         )
     return HttpResponseRedirect('/register/alldone/')
 
+@login_required
+@never_cache
 def change_privacy_settings(request):
     """Displays the form for personal privacy settings"""
     person = get_object_or_404(Person, user=request.user)
@@ -200,7 +205,7 @@ def change_privacy_settings(request):
         'object': person,
         'form': form,
     }, context_instance=RequestContext(request))
-change_privacy_settings = login_required(never_cache(change_privacy_settings))
+
 
 def _person_list_filter(request, queryset, show):
     return queryset.filter(
