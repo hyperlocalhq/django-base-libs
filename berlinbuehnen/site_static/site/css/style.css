@@ -1172,6 +1172,16 @@ strong { font-weight: 700; }
 
 .navbar-toggle .icon-bar { margin-top: 0px; }
 
+.is-md .navbar-wrapper .top_nav .nav > li { margin-right: 1.5%; }
+
+.is-sm .navbar-wrapper { height: 155px; }
+.is-sm .navbar-wrapper .navbar-header { min-height: 130px; }
+.is-sm .navbar-wrapper .navbar-header .navbar-brand { margin-top: 45px; }
+.is-sm .navbar-wrapper .background { height: 165px; }
+.is-sm .navbar-wrapper .top_nav .nav > li { margin-right: 1.1%; }
+.is-sm .navbar-wrapper .top_nav .nav > li > a { min-height: 30px; line-height: 30px; }
+.is-sm .navbar-wrapper .top_nav .nav a { font-size: 0.9em; }
+
 .is-xs .navbar-wrapper { height: 100px; background-color: white; }
 .is-xs .navbar-wrapper .background { height: 110px; visibility: visible; }
 .is-xs .navbar-wrapper .navbar-header { min-height: 110px; }
@@ -2064,6 +2074,7 @@ top: 0;*/ width: 110px; height: 100%; display: block; background-image: url(../i
 
 .additional-list { position: relative; margin-bottom: 80px; }
 .additional-list .additional-list-head { font-weight: 200; font-size: 2em; text-transform: uppercase; padding: 8px 0; border-top: 2px solid black; border-bottom: 2px solid black; }
+.additional-list .additional-list-head.margin-bottom-none { margin-bottom: 0; }
 .additional-list .additional-list-more { font-size: 1em; color: black; position: absolute; right: 0px; bottom: -30px; display: none; line-height: 2em; }
 .additional-list .additional-list-more:after { font-size: 2em; padding-left: 5px; }
 .additional-list .list-headline { font-size: 1.5em; }

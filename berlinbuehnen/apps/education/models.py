@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+import time
 from datetime import datetime
 from django.db import models
 from django.utils.translation import ugettext_lazy as _, ugettext
@@ -179,7 +180,7 @@ class Department(CreationModificationMixin, UrlMixin, SlugMixin()):
     def get_future_projects(self):
         all_projects = self.get_projects()
         projects_with_events = all_projects.filter(projecttime__isnull=False).distinct()
-        projects_sorted_events = sorted(projects_with_events, key= lambda t: t.get_next_date())
+        projects_sorted_events = sorted(projects_with_events, key= lambda t: t.get_next_timestamp())
         projects_without_events = all_projects.filter(projecttime__isnull=True)
         
         result = []
@@ -438,10 +439,17 @@ class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
             return []
         return role.users.all()
         
-    def get_next_date(self):
-        next_date = self.get_next_event()
+    def get_next_timestamp(self):
+        next_date = self.get_next_date()
         if next_date:
-            return next_date.start
+            return time.mktime(next_date.timetuple())
+        else:
+            return 0
+        
+    def get_next_date(self):
+        next_event = self.get_next_event()
+        if next_event:
+            return next_event.start
         return None
         
     def get_next_event(self):

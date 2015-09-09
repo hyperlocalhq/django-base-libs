@@ -135,6 +135,7 @@
         var $body = $('.list-item-body', $item);
         var $h3 = $('h3', $body);
         var $p = $('p', $body);
+        var bottom = ($('.copy', $body).attr('data-bottom-space')) ? parseInt($('.copy', $body).attr('data-bottom-space')) : 0;
         
         if (!$p.length) $p = $('.copy', $body);
         
@@ -181,7 +182,7 @@
                 var top = $object.position().top;
                 var height = $object.height();
                 
-                if (top + height > body_height) {
+                if (top + height + bottom > body_height) {
                     overflow = true;
                     $object.css('display', 'none');
                 }
@@ -200,9 +201,9 @@
                 var top = $object.position().top;
                 var height = $object.height();
                 
-                if (top + height > body_height) {
+                if (top + height + bottom > body_height) {
                     overflow = true;
-                    if (top > body_height) {
+                    if (top + bottom > body_height) {
                         $object.css('display', 'none');
                     } else {
                         $last_p = $object;   
@@ -219,7 +220,6 @@
             var first_half = $last_p.data('text');
             var second_half = "";
             var split = first_half.length;
-            var bottom = ($('.copy', $body).attr('data-bottom-space')) ? parseInt($('.copy', $body).attr('data-bottom-space')) : 0;
             
             while (split) {
                 
