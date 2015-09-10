@@ -11,7 +11,7 @@ def site_specific(request=None):
         conditions["sysname"] = getattr(settings, "CREATIVE_SECTOR", None)
     if request:
         path_bits = request.path[1:].split("/")  # e.g.: ('en', 'creative-sector', 'architecture', '...') or ('creative-sector', 'architecture', '...')
-        if path_bits[0] == request.LANGUAGE_CODE:
+        if path_bits and path_bits[0] == request.LANGUAGE_CODE:
             path_bits = path_bits[1:]  # e.g.: ('creative-sector', 'architecture', '...')
         if path_bits >= 2 and path_bits[0] == "creative-sector":
             conditions["slug"] = path_bits[1]
