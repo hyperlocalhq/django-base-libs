@@ -31,7 +31,7 @@ def festivals_slider(context):
     festivals = Festival.objects.filter(
         slideshow = True,
         end__gte = today,
-    )
+    ).order_by('start', 'end')
         
     return {
         'festivals': festivals,

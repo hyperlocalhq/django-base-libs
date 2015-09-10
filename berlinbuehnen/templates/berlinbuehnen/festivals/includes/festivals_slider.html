@@ -3,9 +3,10 @@
     <div class="slider row festivals" data-image-ratio="680:375"  data-adjust-style="1">
         <div class="col-xs-12">
             <div class="slider-head row">
-                <h4 class="col-xs-12">
+                <h4 class="col-xs-4">
                     {% trans "Festivals" %}
                 </h4>
+                <div class="col-xs-8"><a href="{% url "festival_list" %}" class="fawesome more">{% trans "More Festivals" %}</a></div>
             </div>
             <ul class="slider-body row">
                 {% for festival in festivals %}
