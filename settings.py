@@ -23,7 +23,7 @@ ALLOWED_HOSTS = ["creative-city-berlin.de", "www.creative-city-berlin.de"]
 ### EMAILS ###
 
 MANAGERS = ADMINS = (
-    ("Creative City Berlin", "webmaster@creative-city-berlin.de"),
+    # ("Creative City Berlin", "webmaster@creative-city-berlin.de"),
     ("Aidas Bendoraitis', 'bendoraitis@studio38.de"),
     ("Tiago Henriques', 'henriques@studio38.de"),
 )
@@ -221,6 +221,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 SECRET_KEY = "*z-g$creativeberlinio@_qt9efb5dge+(64aeq4$!gk+62nsyqlgqpf8l6"
 
+# ROOT_URLCONF = "urls" # TODO: figure out if this would work
 ROOT_URLCONF = "ccb.urls"
 
 ### ADMIN ###

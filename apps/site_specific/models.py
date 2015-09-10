@@ -336,7 +336,8 @@ class MappedItemManager(models.Manager):
                     template_name = 'search/indexes/%s/%s_%s.txt' % (
                         obj._meta.app_label, obj._meta.module_name, field_name)
                     t = loader.get_template(template_name)
-                    setattr(item, field_name, t.render(Context({'object': obj})))
+                    html = t.render(Context({'object': obj}))
+                    setattr(item, field_name, html)
                 activate(current_language)
                 try:
                     item.save()
