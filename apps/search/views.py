@@ -226,7 +226,6 @@ class SearchView(haystack_views.SearchView):
                     'short_name': short_name,
                     'verbose_name': verbose_name,
                     'count': length,
-                    'results': results[:self.limit] if self.limit else results,
                 }
                 if self.limit is None and self.request.GET.get('t', "") == short_name:
                     paginator = Paginator(results, self.results_per_page)
@@ -236,6 +235,9 @@ class SearchView(haystack_views.SearchView):
                         raise Http404
                     d['paginator'] = paginator
                     d['page'] = page
+                else:
+                    d['results'] = results[:self.limit] if self.limit else results
+
                 result_groups.append(d)
 
         context = {

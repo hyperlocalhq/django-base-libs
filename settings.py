@@ -681,11 +681,16 @@ PROFANITY_MODELS_NOT_TO_CHECK = (
 
 ### HAYSTACK ###
 
-HAYSTACK_SITECONF = "ccb.apps.site_specific.search_site"
-HAYSTACK_SEARCH_ENGINE = "whoosh"
-HAYSTACK_WHOOSH_PATH = os.path.join(PATH_TMP, "site_index")
-HAYSTACK_BATCH_SIZE = 100000
-HAYSTACK_ENABLE_REGISTRATIONS = True
+# HAYSTACK_SITECONF = "ccb.apps.site_specific.search_site"
+# HAYSTACK_SEARCH_ENGINE = "whoosh"
+# HAYSTACK_WHOOSH_PATH = os.path.join(PATH_TMP, "site_index")
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(PATH_TMP, "site_index"),
+        'BATCH_SIZE': 100000,
+    },
+}
 
 ### MULTILINGUAL URLS ###
 

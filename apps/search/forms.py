@@ -5,20 +5,24 @@ from django.db import models
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
 
-import haystack
-from haystack.forms import SearchForm as _SearchForm
+from haystack.forms import SearchForm
+from haystack import connections
+from haystack.constants import DEFAULT_ALIAS
 
 
-def get_dictionaries(site=None):
-    if site is None:
-        site = haystack.site
+try:
+    from django.utils.encoding import smart_text
+except ImportError:
+    from django.utils.encoding import smart_unicode as smart_text
 
+
+def get_dictionaries(using=DEFAULT_ALIAS):
     models = {}
     indexes = {}
-    for model, index in site.get_indexes().items():
-        model = "%s.%s" % (model._meta.app_label, model._meta.module_name)
-        models[model] = index.short_name
-        indexes[index.short_name] = model
+    for model, index in connections[using].get_unified_index().get_indexes().items():
+        m = "%s.%s" % (model._meta.app_label, model._meta.module_name)
+        models[m] = index.short_name
+        indexes[index.short_name] = m
     return models, indexes
 
 
@@ -32,16 +36,13 @@ def get_model_from_short_name(name):
     return indexes[name]
 
 
-def model_choices(site=None):
-    if site is None:
-        site = haystack.site
-
-    models = sorted([(m, k.verbose_name, k.order) for m, k in site.get_indexes().items()], key=lambda x: x[2])
+def model_choices(using=DEFAULT_ALIAS):
+    models = sorted([(m, k.verbose_name, k.order) for m, k in connections[using].get_unified_index().get_indexes().items()], key=lambda x: x[2])
     return [("%s" % get_model_short_name("%s.%s" % (m[0]._meta.app_label, m[0]._meta.module_name)),
              capfirst(unicode(m[1]))) for m in models]
 
 
-class ModelSearchForm(_SearchForm):
+class ModelSearchForm(SearchForm):
     QUERY_PARAM_NAME = 'q'
     MODELS_PARAM_NAME = 't'
 

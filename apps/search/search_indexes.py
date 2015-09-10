@@ -4,7 +4,6 @@ from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from haystack import indexes
-from haystack import site
 
 from jetson.apps.image_mods.models import FileManager
 
@@ -20,7 +19,7 @@ QuestionAnswer = models.get_model("faqs", "QuestionAnswer")
 MediaGallery = models.get_model("media_gallery", "MediaGallery")
 
 
-class QuestionAnswerIndex(indexes.SearchIndex):
+class QuestionAnswerIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     text_en = indexes.CharField(use_template=True)
     text_de = indexes.CharField(use_template=True)
@@ -37,9 +36,12 @@ class QuestionAnswerIndex(indexes.SearchIndex):
     short_name = "faq"
     verbose_name = _("Questions and Answers")
 
-    def get_queryset(self):
+    def get_model(self):
+        return QuestionAnswer
+
+    def index_queryset(self, using=None):
         """Used when the entire index for model is updated."""
-        return QuestionAnswer.objects.all()
+        return self.get_model().objects.all()
 
     def prepare_url_path(self, obj):
         return obj.get_url_path()
@@ -48,7 +50,7 @@ class QuestionAnswerIndex(indexes.SearchIndex):
         return settings.STATIC_URL + "site/img/website/placeholder/faqs_s.png"
 
 
-class DocumentIndex(indexes.SearchIndex):
+class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     text_en = indexes.CharField(use_template=True)
     text_de = indexes.CharField(use_template=True)
@@ -65,9 +67,12 @@ class DocumentIndex(indexes.SearchIndex):
     short_name = "infolink"
     verbose_name = _("Infolinks")
 
-    def get_queryset(self):
+    def get_model(self):
+        return Document
+
+    def index_queryset(self, using=None):
         """Used when the entire index for model is updated."""
-        return Document.objects.filter(
+        return self.get_model().objects.filter(
             status="published",
         )
 
@@ -82,7 +87,7 @@ class DocumentIndex(indexes.SearchIndex):
         return settings.STATIC_URL + "site/img/website/placeholder/document_s.png"
 
 
-class ArticleIndex(indexes.SearchIndex):
+class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     text_en = indexes.CharField(use_template=True)
     text_de = indexes.CharField(use_template=True)
@@ -99,9 +104,12 @@ class ArticleIndex(indexes.SearchIndex):
     short_name = "news"
     verbose_name = _("News")
 
-    def get_queryset(self):
+    def get_model(self):
+        return Article
+
+    def index_queryset(self, using=None):
         """Used when the entire index for model is updated."""
-        return Article.published_objects.all()
+        return self.get_model().published_objects.all()
 
     def prepare_url_path(self, obj):
         return obj.get_url_path()
@@ -114,7 +122,7 @@ class ArticleIndex(indexes.SearchIndex):
         return settings.STATIC_URL + "site/img/website/placeholder/news_s.png"
 
 
-class JobOfferIndex(indexes.SearchIndex):
+class JobOfferIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     text_en = indexes.CharField(use_template=True)
     text_de = indexes.CharField(use_template=True)
@@ -131,9 +139,12 @@ class JobOfferIndex(indexes.SearchIndex):
     short_name = "job"
     verbose_name = _("Job Offers")
 
-    def get_queryset(self):
+    def get_model(self):
+        return JobOffer
+
+    def index_queryset(self, using=None):
         """Used when the entire index for model is updated."""
-        return JobOffer.published_objects.all()
+        return self.get_model().published_objects.all()
 
     def prepare_url_path(self, obj):
         return obj.get_url_path()
@@ -142,7 +153,7 @@ class JobOfferIndex(indexes.SearchIndex):
         return settings.STATIC_URL + "site/img/website/placeholder/jobs_s.png"
 
 
-class EventIndex(indexes.SearchIndex):
+class EventIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     text_en = indexes.CharField(use_template=True)
     text_de = indexes.CharField(use_template=True)
@@ -159,9 +170,12 @@ class EventIndex(indexes.SearchIndex):
     short_name = "event"
     verbose_name = _("Events")
 
-    def get_queryset(self):
+    def get_model(self):
+        return Event
+
+    def index_queryset(self, using=None):
         """Used when the entire index for model is updated."""
-        return Event.objects.filter(
+        return self.get_model().objects.filter(
             status="published",
         )
 
@@ -176,7 +190,7 @@ class EventIndex(indexes.SearchIndex):
         return settings.STATIC_URL + "site/img/website/placeholder/event_s.png"
 
 
-class InstitutionIndex(indexes.SearchIndex):
+class InstitutionIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     text_en = indexes.CharField(use_template=True)
     text_de = indexes.CharField(use_template=True)
@@ -193,9 +207,12 @@ class InstitutionIndex(indexes.SearchIndex):
     short_name = "institution"
     verbose_name = _("Institutions")
 
-    def get_queryset(self):
+    def get_model(self):
+        return Institution
+
+    def index_queryset(self, using=None):
         """Used when the entire index for model is updated."""
-        return Institution.objects.filter(
+        return self.get_model().objects.filter(
             status__in=("published", "published_commercial"),
         )
 
@@ -210,7 +227,7 @@ class InstitutionIndex(indexes.SearchIndex):
         return settings.STATIC_URL + "site/img/website/placeholder/institution_s.png"
 
 
-class PersonIndex(indexes.SearchIndex):
+class PersonIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     text_en = indexes.CharField(use_template=True)
     text_de = indexes.CharField(use_template=True)
@@ -227,9 +244,12 @@ class PersonIndex(indexes.SearchIndex):
     short_name = "person"
     verbose_name = _("People")
 
-    def get_queryset(self):
+    def get_model(self):
+        return Person
+
+    def index_queryset(self, using=None):
         """Used when the entire index for model is updated."""
-        return Person.objects.filter(status="published")
+        return self.get_model().objects.filter(status="published")
 
     def prepare_url_path(self, obj):
         return obj.get_url_path()
@@ -242,7 +262,7 @@ class PersonIndex(indexes.SearchIndex):
         return settings.STATIC_URL + "site/img/website/placeholder/person_s.png"
 
 
-class MediaGalleryIndex(indexes.SearchIndex):
+class MediaGalleryIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     text_en = indexes.CharField(use_template=True)
     text_de = indexes.CharField(use_template=True)
@@ -259,9 +279,12 @@ class MediaGalleryIndex(indexes.SearchIndex):
     short_name = "gallery"
     verbose_name = _("Portfolios")
 
-    def get_queryset(self):
+    def get_model(self):
+        return MediaGallery
+
+    def index_queryset(self, using=None):
         """Used when the entire index for model is updated."""
-        return MediaGallery.published_objects.all()
+        return self.get_model().published_objects.all()
 
     def prepare_url_path(self, obj):
         return obj.get_url_path()
@@ -281,7 +304,7 @@ class MediaGalleryIndex(indexes.SearchIndex):
         return "%s%s" % (settings.STATIC_URL, "site/img/website/placeholder/other_content_s.png")
 
 
-class FlatPageIndex(indexes.SearchIndex):
+class FlatPageIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     text_en = indexes.CharField(use_template=True)
     text_de = indexes.CharField(use_template=True)
@@ -298,9 +321,12 @@ class FlatPageIndex(indexes.SearchIndex):
     short_name = "page"
     verbose_name = _("Other Content")
 
-    def get_queryset(self):
+    def get_model(self):
+        return FlatPage
+
+    def index_queryset(self, using=None):
         """Used when the entire index for model is updated."""
-        return FlatPage.site_published_objects.all()
+        return self.get_model().site_published_objects.all()
 
     def prepare_url_path(self, obj):
         return obj.get_url_path()
@@ -309,39 +335,31 @@ class FlatPageIndex(indexes.SearchIndex):
         return "%s%s" % (settings.STATIC_URL, "site/img/website/placeholder/other_content_s.png")
 
 
-class PostIndex(indexes.SearchIndex):
-    text = indexes.CharField(document=True, use_template=True)
-    text_en = indexes.CharField(use_template=True)
-    text_de = indexes.CharField(use_template=True)
-    title_en = indexes.CharField(model_attr="title")  # , boost=1.1)
-    title_de = indexes.CharField(model_attr="title")  # , boost=1.1)
-    description_en = indexes.CharField(use_template=True)
-    description_de = indexes.CharField(use_template=True)
-    rendered_en = indexes.CharField(use_template=True, indexed=False)
-    rendered_de = indexes.CharField(use_template=True, indexed=False)
-    url_path = indexes.CharField(indexed=False)
-    image_path = indexes.CharField(indexed=False)
-
-    order = 11
-    short_name = "blog_post"
-
-    def get_queryset(self):
-        """Used when the entire index for model is updated."""
-        return Post.published_objects.all()
-
-    def prepare_url_path(self, obj):
-        return obj.get_url_path()
-
-    def prepare_image_path(self, obj):
-        return "%s%s" % (settings.STATIC_URL, "site/img/website/placeholder/other_content_s.png")
-
-
-site.register(Article, ArticleIndex)
-site.register(Event, EventIndex)
-site.register(Institution, InstitutionIndex)
-site.register(JobOffer, JobOfferIndex)
-site.register(Person, PersonIndex)
-site.register(Document, DocumentIndex)
-##site.register(Post, PostIndex)
-site.register(QuestionAnswer, QuestionAnswerIndex)
-site.register(MediaGallery, MediaGalleryIndex)
+# class PostIndex(indexes.SearchIndex, indexes.Indexable):
+#     text = indexes.CharField(document=True, use_template=True)
+#     text_en = indexes.CharField(use_template=True)
+#     text_de = indexes.CharField(use_template=True)
+#     title_en = indexes.CharField(model_attr="title")  # , boost=1.1)
+#     title_de = indexes.CharField(model_attr="title")  # , boost=1.1)
+#     description_en = indexes.CharField(use_template=True)
+#     description_de = indexes.CharField(use_template=True)
+#     rendered_en = indexes.CharField(use_template=True, indexed=False)
+#     rendered_de = indexes.CharField(use_template=True, indexed=False)
+#     url_path = indexes.CharField(indexed=False)
+#     image_path = indexes.CharField(indexed=False)
+#
+#     order = 11
+#     short_name = "blog_post"
+#
+#     def get_model(self):
+#         return Post
+#
+#     def index_queryset(self, using=None):
+#         """Used when the entire index for model is updated."""
+#         return self.get_model().published_objects.all()
+#
+#     def prepare_url_path(self, obj):
+#         return obj.get_url_path()
+#
+#     def prepare_image_path(self, obj):
+#         return "%s%s" % (settings.STATIC_URL, "site/img/website/placeholder/other_content_s.png")
