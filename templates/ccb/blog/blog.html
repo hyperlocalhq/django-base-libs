@@ -104,7 +104,7 @@
                 {% for blog_tag in blog_tags %}
                     <li{% if tag == blog_tag.name or tag == blog_tag.slug %} class="active"{% endif %}>
                         <a
-                            href="{{ container.get_url_path_path }}tag/{{ blog_tag.slug|iriencode }}/">{{ blog_tag }}</a>
+                            href="{{ container.get_url_path }}tag/{{ blog_tag.slug|iriencode }}/">{{ blog_tag.name }}</a>
                         ({{ blog_tag.count }})
                     </li>
                 {% endfor %}

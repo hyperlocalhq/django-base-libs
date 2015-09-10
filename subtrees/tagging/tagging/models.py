@@ -85,7 +85,7 @@ class TagManager(models.Manager):
         model_table = qn(model._meta.db_table)
         model_pk = '%s.%s' % (model_table, qn(model._meta.pk.column))
         query = """
-        SELECT DISTINCT %(tag)s.id, %(tag)s.name%(count_sql)s
+        SELECT DISTINCT %(tag)s.id, %(tag)s.name_de, %(tag)s.slug_de, %(tag)s.name_en, %(tag)s.slug_en%(count_sql)s
         FROM
             %(tag)s
             INNER JOIN %(tagged_item)s
@@ -104,6 +104,7 @@ class TagManager(models.Manager):
             'model': model_table,
             'model_pk': model_pk,
             'content_type_id': ContentType.objects.get_for_model(model).pk,
+            'lang_code': "de",
         }
 
         min_count_sql = ''
@@ -115,9 +116,13 @@ class TagManager(models.Manager):
         cursor.execute(query % (extra_joins, extra_criteria, min_count_sql), params)
         tags = []
         for row in cursor.fetchall():
-            t = self.model(*row[:2])
+            t = self.model(id=row[0])
+            t.name_de = row[1]
+            t.slug_de = row[2]
+            t.name_en = row[3]
+            t.slug_en = row[4]
             if counts:
-                t.count = row[2]
+                t.count = row[5]
             tags.append(t)
         return tags
 
@@ -201,7 +206,7 @@ class TagManager(models.Manager):
         tag_count = len(tags)
         tagged_item_table = qn(TaggedItem._meta.db_table)
         query = """
-        SELECT %(tag)s.id, %(tag)s.name, %(tag)s.slug%(count_sql)s
+        SELECT %(tag)s.id, %(tag)s.name_de, %(tag)s.slug_de, %(tag)s.name_en, %(tag)s.slug_en%(count_sql)s
         FROM %(tagged_item)s INNER JOIN %(tag)s ON %(tagged_item)s.tag_id = %(tag)s.id
         WHERE %(tagged_item)s.content_type_id = %(content_type_id)s
           AND %(tagged_item)s.object_id IN
@@ -235,10 +240,14 @@ class TagManager(models.Manager):
         cursor.execute(query, params)
         related = []
         for row in cursor.fetchall():
-            tag = self.model(*row[:3])
+            t = self.model(id=row[0])
+            t.name_de = row[1]
+            t.slug_de = row[2]
+            t.name_en = row[3]
+            t.slug_en = row[4]
             if counts is True:
-                tag.count = row[3]
-            related.append(tag)
+                t.count = row[5]
+            related.append(t)
         return related
 
     def cloud_for_model(self, model, steps=4, distribution=LOGARITHMIC,
