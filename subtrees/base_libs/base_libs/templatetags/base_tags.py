@@ -679,7 +679,37 @@ def try_to_include(parser, token):
             "%r tag requires a single argument" % token.contents.split()[0]
 
     return IncludeNode(template_name)    
-    
+
+
+class TranslatedURL(template.Node):
+    def __init__(self, lang_code):
+        self.lang_code = lang_code
+
+    def render(self, context):
+        import sys
+        from django.core.urlresolvers import reverse
+        from django.core.urlresolvers import resolve
+        from django.utils import translation
+        lang_code = template.resolve_variable(self.lang_code, context)
+
+        view = resolve(context['request'].path)
+        request_lang_code = translation.get_language()
+        translation.activate(lang_code)
+
+        try:
+            url = reverse(view.url_name, args=view.args, kwargs=view.kwargs)
+        except:  # if there are any errors resolving the view in another language, fallback to the trasnalted start page
+            url = "/%s/" % lang_code
+
+        translation.activate(request_lang_code)
+        return url
+
+@register.tag(name="translate_url")
+def do_translate_url(parser, token):
+    lang_code = token.split_contents()[1]
+    return TranslatedURL(lang_code)
+
+
 ### FILTERS ### 
 
 def dayssince(value):

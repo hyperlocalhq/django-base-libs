@@ -118,11 +118,11 @@
                                                 {% children_of "additional_links" using "navigation/multilevel.html" %}
                                                 {% if LANGUAGE_CODE == "en" %}
                                                     <a class="language_selection lang_de"
-                                                        href="/de{{ request.path }}"><span
+                                                        href="{% translate_url "de" %}"><span
                                                         class="hidden">DE</span></a>
                                                 {% else %}
                                                     <a class="language_selection lang_en"
-                                                        href="/en{{ request.path }}"><span
+                                                        href="{% translate_url "en" %}"><span
                                                         class="hidden">EN</span></a>
                                                 {% endif %}
                                             </div>
