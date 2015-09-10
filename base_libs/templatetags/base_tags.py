@@ -692,7 +692,11 @@ class TranslatedURL(template.Node):
         from django.utils import translation
         lang_code = template.resolve_variable(self.lang_code, context)
 
-        view = resolve(context['request'].path)
+        try:
+            view = resolve(context['request'].path)
+        except:
+            return "/%s/" % lang_code
+
         request_lang_code = translation.get_language()
         translation.activate(lang_code)
 
