@@ -156,7 +156,7 @@ def article_archive_index(
     extra_context['rel_root_dir'] = reverse("article_archive")
 
     try:
-        extra_context['type'] = ArticleType.objects.get(slug=type_sysname)
+        extra_context['article_type'] = ArticleType.objects.get(slug=type_sysname)
     except Exception:
         pass
     try:
@@ -164,13 +164,12 @@ def article_archive_index(
     except Exception:
         pass
 
-    extra_context['most_read_articles'] = get_most_read_articles(creative_sector_slug,
-                                                                 type_sysname, status)
+    extra_context['most_read_articles'] = get_most_read_articles(creative_sector_slug, type_sysname, status)
 
     if template_name is None:
         template_name = 'articles/articles_archive.html'
 
-        # this part is taken from django/views/generic/date_based.py,
+    # this part is taken from django/views/generic/date_based.py,
     # function "archive_index" 
     if not allow_future:
         queryset = queryset.filter(**{'%s__lte' % date_field: datetime.datetime.now()})
@@ -257,7 +256,7 @@ def article_archive_year(
     extra_context['article_filter'] = year
     extra_context['rel_root_dir'] = reverse("article_archive")
     try:
-        extra_context['type'] = ArticleType.objects.get(slug=type_sysname)
+        extra_context['article_type'] = ArticleType.objects.get(slug=type_sysname)
     except Exception:
         pass
     try:
@@ -343,7 +342,7 @@ def article_archive_month(
     extra_context['rel_root_dir'] = reverse("article_archive")
 
     try:
-        extra_context['type'] = ArticleType.objects.get(slug=type_sysname)
+        extra_context['article_type'] = ArticleType.objects.get(slug=type_sysname)
     except Exception:
         pass
     try:
@@ -446,7 +445,7 @@ def article_archive_day(
     extra_context['rel_root_dir'] = reverse("article_archive")
 
     try:
-        extra_context['type'] = ArticleType.objects.get(slug=type_sysname)
+        extra_context['article_type'] = ArticleType.objects.get(slug=type_sysname)
     except Exception:
         pass
     try:
@@ -554,7 +553,7 @@ def article_object_detail(
     ).order_by("-published_from")[0:5]
 
     try:
-        extra_context['type'] = ArticleType.objects.get(slug=type_sysname)
+        extra_context['article_type'] = ArticleType.objects.get(slug=type_sysname)
     except Exception:
         pass
     try:
@@ -603,7 +602,7 @@ def article_feed(
 
     kwargs['queryset'] = queryset
     try:
-        kwargs['type'] = ArticleType.objects.get(slug=type_sysname)
+        kwargs['article_type'] = ArticleType.objects.get(slug=type_sysname)
     except Exception:
         pass
     try:

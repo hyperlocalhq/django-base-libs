@@ -17,7 +17,7 @@
     {% else %}
         <h1>Creative City Berlin</h1>
         <h2 class="sub">
-            {{ article_list.0.article_type.title|default:_("News")|escape }}
+            {% trans "News" %}
         </h2>
     {% endif %}
 {% endblock %}
@@ -99,8 +99,8 @@
 {% endblock %}
 
 {% block title %}
-    {% if type %}
-        {{ type.get_title|escape }}
+    {% if article_type %}
+        {{ article_type.get_title|escape }}
     {% else %}
         {% if creative_sector %}
             {{ creative_sector.get_title|escape }}
