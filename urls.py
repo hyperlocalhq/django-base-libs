@@ -477,19 +477,20 @@ urlpatterns += i18n_patterns(
             template_name="institutions/institution_events.html",
         )
     ),
-    url(
-        r'^%s/(?P<slug>[^/]+)/%s/'
-        r'('
-        r'(?P<start_date>\d{8})'
-        r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
-        r')?'
-        r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_INSTITUTION, URL_ID_EVENTS),
-        _project_name + '.apps.institutions.views.institution_events_list_feed',
-        dict(
-            event_list_info,
-            template_name="institutions/institution_events.html",
-        )
-    ),
+    # FIXME
+    # url(
+    #     r'^%s/(?P<slug>[^/]+)/%s/'
+    #     r'('
+    #     r'(?P<start_date>\d{8})'
+    #     r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
+    #     r')?'
+    #     r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_INSTITUTION, URL_ID_EVENTS),
+    #     _project_name + '.apps.institutions.views.institution_events_list_feed',
+    #     dict(
+    #         event_list_info,
+    #         template_name="institutions/institution_events.html",
+    #     )
+    # ),
 
     url(
         r'^%s/(?P<slug>[^/]+)/%s/'
@@ -501,15 +502,16 @@ urlpatterns += i18n_patterns(
         ),
         name="institution_job_offer_list"
     ),
-    url(
-        r'^%s/(?P<slug>[^/]+)/%s/'
-        r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_INSTITUTION, URL_ID_JOB_OFFERS),
-        _project_name + '.apps.institutions.views.institution_job_offer_list_feed',
-        dict(
-            job_offer_list_info,
-            template_name="institutions/institution_job_offers.html",
-        )
-    ),
+    # FIXME
+    # url(
+    #     r'^%s/(?P<slug>[^/]+)/%s/'
+    #     r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_INSTITUTION, URL_ID_JOB_OFFERS),
+    #     _project_name + '.apps.institutions.views.institution_job_offer_list_feed',
+    #     dict(
+    #         job_offer_list_info,
+    #         template_name="institutions/institution_job_offers.html",
+    #     )
+    # ),
 
     url(r'^%s/(?P<slug>[^/]+)/reviews/$' % URL_ID_INSTITUTION, object_detail,
         dict(institution_details_info, template_name="institutions/institution_reviews.html")),
@@ -562,17 +564,18 @@ urlpatterns += i18n_patterns(
         _project_name + '.apps.events.views.event_list_ical',
         event_list_info,
     ),
-    url(
-        r'^%s/'
-        r'((?P<show>favorites|memos|own-%s)/)?'
-        '('
-        r'(?P<start_date>\d{8})'
-        r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
-        r')?'
-        r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_EVENTS, URL_ID_EVENTS),
-        _project_name + '.apps.events.views.event_list_feed',
-        event_list_info,
-    ),
+    # FIXME
+    # url(
+    #     r'^%s/'
+    #     r'((?P<show>favorites|memos|own-%s)/)?'
+    #     '('
+    #     r'(?P<start_date>\d{8})'
+    #     r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
+    #     r')?'
+    #     r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_EVENTS, URL_ID_EVENTS),
+    #     _project_name + '.apps.events.views.event_list_feed',
+    #     event_list_info,
+    # ),
     url(r'^%s/add/$' % URL_ID_EVENTS, _project_name + '.apps.events.views.add_event'),
 
     # events have their dates prefixed (or not, if there aren't any)
@@ -679,13 +682,14 @@ urlpatterns += i18n_patterns(
         job_offer_list_info,
         name="job_offer_list_global",
     ),
-    url(
-        r'^%s/'
-        r'((?P<show>memos|internships|jobs|all|own-%s)/)?'
-        r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_JOB_OFFERS, URL_ID_JOB_OFFERS),
-        _project_name + '.apps.marketplace.views.job_offer_list_feed',
-        job_offer_list_info,
-    ),
+    # FIXME
+    # url(
+    #     r'^%s/'
+    #     r'((?P<show>memos|internships|jobs|all|own-%s)/)?'
+    #     r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_JOB_OFFERS, URL_ID_JOB_OFFERS),
+    #     _project_name + '.apps.marketplace.views.job_offer_list_feed',
+    #     job_offer_list_info,
+    # ),
 
     url(
         r'^%s/(?P<secure_id>\d+)/$' % URL_ID_JOB_OFFER,
@@ -726,16 +730,17 @@ urlpatterns += i18n_patterns(
         _project_name + '.apps.people.views.person_events_list_ical',
         dict(event_list_info, template_name="people/person_events.html")
     ),
-    url(
-        r'^%s/(?P<slug>[^/]+)/%s/'
-        r'('
-        r'(?P<start_date>\d{8})'
-        r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
-        r')?'
-        r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_PERSON, URL_ID_EVENTS),
-        _project_name + '.apps.people.views.person_events_list_feed',
-        dict(event_list_info, template_name="people/person_events.html")
-    ),
+    # FIXME
+    # url(
+    #     r'^%s/(?P<slug>[^/]+)/%s/'
+    #     r'('
+    #     r'(?P<start_date>\d{8})'
+    #     r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
+    #     r')?'
+    #     r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_PERSON, URL_ID_EVENTS),
+    #     _project_name + '.apps.people.views.person_events_list_feed',
+    #     dict(event_list_info, template_name="people/person_events.html")
+    # ),
 
     url(
         r'^%s/(?P<slug>[^/]+)/%s/'
@@ -744,12 +749,13 @@ urlpatterns += i18n_patterns(
         dict(job_offer_list_info, template_name="people/person_job_offers.html"),
         name="person_job_offer_list"
     ),
-    url(
-        r'^%s/(?P<slug>[^/]+)/%s/'
-        r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_PERSON, URL_ID_JOB_OFFERS),
-        _project_name + '.apps.people.views.person_job_offer_list_feed',
-        dict(job_offer_list_info, template_name="people/person_job_offers.html")
-    ),
+    # FIXME
+    # url(
+    #     r'^%s/(?P<slug>[^/]+)/%s/'
+    #     r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_PERSON, URL_ID_JOB_OFFERS),
+    #     _project_name + '.apps.people.views.person_job_offer_list_feed',
+    #     dict(job_offer_list_info, template_name="people/person_job_offers.html")
+    # ),
 
     url(r'^%s/(?P<slug>[^/]+)/reviews/$' % URL_ID_PERSON, object_detail,
         dict(person_details_info, template_name="people/person_reviews.html")),
@@ -924,18 +930,20 @@ urlpatterns += i18n_patterns(
         ),
 
     # latest object feeds
-    url(r'^(?P<ot_url_part>%s|%s|%s|%s|%s)/latest_published/feeds/(?P<feed_type>.*)/$' % (
-        URL_ID_DOCUMENTS, URL_ID_EVENTS, URL_ID_PERSONGROUPS, URL_ID_INSTITUTIONS,
-        URL_ID_PEOPLE),
-        'jetson.apps.utils.views.feed', latest_published_objects_feeds),
+    # FIXME
+    # url(r'^(?P<ot_url_part>%s|%s|%s|%s|%s)/latest_published/feeds/(?P<feed_type>.*)/$' % (
+    #     URL_ID_DOCUMENTS, URL_ID_EVENTS, URL_ID_PERSONGROUPS, URL_ID_INSTITUTIONS,
+    #     URL_ID_PEOPLE),
+    #     'jetson.apps.utils.views.feed', latest_published_objects_feeds),
 
     # sitemaps
     url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
 
     url(r'^portfolios/((?P<show>favorites|memos|featured)/)?$',
         'ccb.apps.media_gallery.views.gallery_list', gallery_list_info),
-    url(r'^portfolios/feeds/(?P<feed_type>.*)/$', 'jetson.apps.utils.views.feed',
-        latest_media_galleries),
+    # FIXME
+    # url(r'^portfolios/feeds/(?P<feed_type>.*)/$', 'jetson.apps.utils.views.feed',
+    #     latest_media_galleries),
 
     # style guide
     url(r'^styleguide/', include('jetson.apps.styleguide.urls')),
@@ -983,10 +991,11 @@ urlpatterns += i18n_patterns(
         'twitter_username': "dirkkiefer",
         'number_of_tweets': 5,
     }),
-    (r'^kreativarbeiten/newsfeed/$', 'ccb.apps.site_specific.views.newsfeed', {
-        'rss': "http://www.kultur-kreativ-wirtschaft.de/KuK/Navigation/Service/RSS/rss-aktuelles.xml",
-        'number_of_news': 5,
-    }),
+    # FIXME
+    # (r'^kreativarbeiten/newsfeed/$', 'ccb.apps.site_specific.views.newsfeed', {
+    #     'rss': "http://www.kultur-kreativ-wirtschaft.de/KuK/Navigation/Service/RSS/rss-aktuelles.xml",
+    #     'number_of_news': 5,
+    # }),
 
     url(r'^livestream/$', TemplateView.as_view(template_name='site_specific/livestream.html')),
 
