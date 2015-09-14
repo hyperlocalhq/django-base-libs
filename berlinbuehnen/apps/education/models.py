@@ -77,6 +77,7 @@ class Department(CreationModificationMixin, UrlMixin, SlugMixin()):
     latitude = models.FloatField(_("Latitude"), help_text=_("Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90)."), blank=True, null=True)
     longitude = models.FloatField(_("Longitude"), help_text=_("Longitude (Long.) is the angle east or west of an arbitrary point on Earth from Greenwich (UK), which is the international zero-longitude point (longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction to east) and -180 (direction to west)."), blank=True, null=True)
 
+    contact_name = models.CharField(_("Contact Name"), max_length=255, blank=True)
     phone_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
     phone_area = models.CharField(_("Area Code"), max_length=6, blank=True)
     phone_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
@@ -265,6 +266,31 @@ class SocialMediaChannel(models.Model):
         if social == "google+":
             return u"googleplus"
         return social
+
+class PDF(CreationModificationDateMixin):
+    education = models.ForeignKey(Department, verbose_name=_("Department"))
+    path = FileBrowseField(_('File path'), max_length=255, directory="education/", extensions=['.pdf'], help_text=_("A path to a locally stored PDF file."))
+    sort_order = PositionField(_("Sort order"), collection="education")
+
+    class Meta:
+        ordering = ["sort_order", "creation_date"]
+        verbose_name = _("PDF")
+        verbose_name_plural = _("PDFs")
+
+    def __unicode__(self):
+        if self.path:
+            return self.path.path
+        return "Missing file (id=%s)" % self.pk
+
+    def get_token(self):
+        if self.pk:
+            return int(self.pk) + TOKENIZATION_SUMMAND
+        else:
+            return None
+
+    @staticmethod
+    def token_to_pk(token):
+        return int(token) - TOKENIZATION_SUMMAND
 
 class ProjectTargetGroup(CreationModificationDateMixin, SlugMixin()):
     title = MultilingualCharField(_('Title'), max_length=200)
@@ -566,4 +592,29 @@ class ProjectSocialMediaChannel(models.Model):
         if social == "google+":
             return u"googleplus"
         return social
+
+class ProjectPDF(CreationModificationDateMixin):
+    education = models.ForeignKey(Project, verbose_name=_("Project"))
+    path = FileBrowseField(_('File path'), max_length=255, directory="education/", extensions=['.pdf'], help_text=_("A path to a locally stored PDF file."))
+    sort_order = PositionField(_("Sort order"), collection="education")
+
+    class Meta:
+        ordering = ["sort_order", "creation_date"]
+        verbose_name = _("PDF")
+        verbose_name_plural = _("PDFs")
+
+    def __unicode__(self):
+        if self.path:
+            return self.path.path
+        return "Missing file (id=%s)" % self.pk
+
+    def get_token(self):
+        if self.pk:
+            return int(self.pk) + TOKENIZATION_SUMMAND
+        else:
+            return None
+
+    @staticmethod
+    def token_to_pk(token):
+        return int(token) - TOKENIZATION_SUMMAND
 

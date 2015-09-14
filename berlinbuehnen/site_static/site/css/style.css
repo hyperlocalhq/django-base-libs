@@ -2317,6 +2317,7 @@ h2 { margin-bottom: 20px; }
 h3 { margin-bottom: 16px; }
 
 h1.bottom-line { padding-bottom: 8px; border-bottom: 4px solid black; margin: 0 30px 35px 30px; text-transform: uppercase; }
+h1.bottom-line span { font-size: 0.7em; display: inline-block; }
 body.is-xs h1.bottom-line { margin-left: 10px; margin-right: 10px; }
 
 .headline-link { color: black; }
@@ -2348,8 +2349,11 @@ dl dt { float: left; }
 dl dd { float: right; }
 dl:before, dl:after { content: " "; display: table; }
 dl:after { clear: both; }
+dl.break-word dd { word-wrap: break-word; word-break: break-all; }
 
 .isotope-static .item { margin-right: -1px; margin-bottom: 30px !important; }
+
+.break-word { word-wrap: break-word; word-break: break-all; }
 
 dl + p { margin-bottom: 10px; }
 

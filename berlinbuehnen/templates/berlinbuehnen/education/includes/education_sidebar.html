@@ -20,8 +20,11 @@
                         </p>
                     {% endif %}
                     {% if department.phone_number or department.fax_number or department.email or department.website %}
-                        <dl>
-                            <dd class="headline">{% trans "Contact" %}</dd>
+                        <dl class="break-word">
+                            <dd class="headline">{% trans "Contact" %} {% trans "Education" %}</dd>
+                            {% if department.contact_name %}
+                                <dd>{{ department.contact_name }}</dd>
+                            {% endif %}
                             {% if department.phone_number %}
                                 <dt class="width_50">{% trans "Phone" %}</dt>
                                 <dd><a class="phone" href="tel:{% if department.phone_country %}+{{ department.phone_country }}{% endif %}{{ department.phone_area }}{{ department.phone_number }}">{% if department.phone_country %}+{{ department.phone_country }}-{% endif %}{{ department.phone_area }}-{{ department.phone_number }}</a></dd>
@@ -36,7 +39,7 @@
                             {% endif %}
                             {% if department.website %}
                                 <dt class="width_50">{% trans "Web" %}</dt>
-                                <dd><a href="{{ department.website }}" target="_blank" class="no-print">{{ department.website|humanize_url:30 }}</a><a href="{{ department.website }}" target="_blank" class="print">{{ department.website }}</a></dd>
+                                <dd><a href="{{ department.website }}" target="_blank" class="no-print">{{ department.website|humanize_url:28 }}</a><a href="{{ department.website }}" target="_blank" class="print">{{ department.website }}</a></dd>
                             {% endif %}
                         </dl>
                     {% endif %}
@@ -78,6 +81,26 @@
                             {% endif %}
                         </dl>
                     {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+        {% if department.pdf_set.all %}
+            <div class="accordion-item">
+                <h4 class="accordion-item-head">{% trans "Downloads" %}</h4>
+                <div class="accordion-item-content">
+                    <p>
+                        {% for pdf in department.pdf_set.all %}
+                            {% with pdf.path|file_description as file_desc %}
+                                {% if file_desc.title %}
+                                    <a class="pdf break-word" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank">{{ file_desc.title }}</a>
+                                {% elif file_desc.filename %}
+                                    <a class="pdf break-word" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank">{{ file_desc.filename }}</a>
+                                {% else %}
+                                    <a class="pdf break-word" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank">{{ pdf.path }}</a>
+                                {% endif %}
+                            {% endwith %}
+                        {% endfor %}
+                    </p>
                 </div>
             </div>
         {% endif %}

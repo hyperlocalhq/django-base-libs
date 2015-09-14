@@ -6,7 +6,7 @@
                 <div class="accordion-item-content">
                     <ul class="dates">
                         {% if not project.has_events %}
-                            <p>{% trans "on appointment" %}</p>
+                            <p>{% trans "continuous project" %}</p>
                         {% else %}
                             {% for ev in project.get_next_events %}
                                 <li>
@@ -63,7 +63,7 @@
         {% endif %}
         {% if project.phone_number or project.fax_number or project.email or project.website %}
             <div class="accordion-item">
-                <h4 class="accordion-item-head open">{% trans "Contact" %}</h4>
+                <h4 class="accordion-item-head open">{% trans "Contact" %} – {% trans "Education" %}</h4>
                 <div class="accordion-item-content">
                     <dl>
                         {% if project.contact_department %}
@@ -115,7 +115,7 @@
         {% elif department %}
             {% if department.phone_number or department.fax_number or department.email or department.website %}
                 <div class="accordion-item">
-                    <h4 class="accordion-item-head open">{% trans "Contact" %}</h4>
+                    <h4 class="accordion-item-head open">{% trans "Contact" %} – {% trans "Education" %}</h4>
                     <div class="accordion-item-content">
                         <dl>
                             {% if project.contact_department %}
@@ -216,6 +216,26 @@
                     {% if project.tickets_website %}
                         <p><a class="fawesome tickets tickets-link" href="{{ project.tickets_website }}" target="_blank">{% trans "Buy tickets" %}</a></p>
                     {% endif %}
+                </div>
+            </div>
+        {% endif %}
+        {% if project.projectpdf_set.all %}
+            <div class="accordion-item">
+                <h4 class="accordion-item-head">{% trans "Downloads" %}</h4>
+                <div class="accordion-item-content">
+                    <p>
+                        {% for pdf in project.projectpdf_set.all %}
+                            {% with pdf.path|file_description as file_desc %}
+                                {% if file_desc.title %}
+                                    <a class="pdf break-word" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank">{{ file_desc.title }}</a>
+                                {% elif file_desc.filename %}
+                                    <a class="pdf break-word" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank">{{ file_desc.filename }}</a>
+                                {% else %}
+                                    <a class="pdf break-word" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank">{{ pdf.path }}</a>
+                                {% endif %}
+                            {% endwith %}
+                        {% endfor %}
+                    </p>
                 </div>
             </div>
         {% endif %}

@@ -155,6 +155,10 @@ h1.bottom-line {
     border-bottom: 4px solid black;
     margin: 0 30px 35px 30px;
     text-transform: uppercase;
+    span {
+        font-size: 0.7em;
+        display: inline-block;
+    }
     body.is-xs & {
         margin-left: 10px;
         margin-right: 10px;
@@ -240,6 +244,12 @@ dl {
   &:after {
     clear: both;
   }
+  &.break-word {
+    dd {
+        word-wrap: break-word;
+        word-break: break-all;    
+    }
+  }
 }
 
 .isotope-static .item {
@@ -247,6 +257,10 @@ dl {
   margin-bottom: 30px !important;
 }
 
+.break-word {
+    word-wrap: break-word;
+    word-break: break-all;    
+}
 
 // dl + p { margin-top: 10px; }
 dl + p { margin-bottom: 10px; }

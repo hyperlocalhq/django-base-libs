@@ -17,6 +17,7 @@ from filebrowser.settings import URL_FILEBROWSER_MEDIA
 from berlinbuehnen.apps.locations.models import Location
 from .models import Image
 from .models import SocialMediaChannel
+from .models import PDF
 from .models import Department
 from .models import DepartmentMember
 from .models import Project
@@ -24,6 +25,7 @@ from .models import ProjectTime
 from .models import ProjectMember
 from .models import ProjectImage
 from .models import ProjectSocialMediaChannel
+from .models import ProjectPDF
 from .models import ProjectTargetGroup
 from .models import ProjectFormat
 
@@ -74,6 +76,11 @@ class DepartmentSocialMediaChannelInline(ExtendedStackedInline):
     # classes = ('grp-collapse grp-open',)
     inline_classes = ('grp-collapse grp-open',)
 
+class DepartmentPDFInline(ExtendedStackedInline):
+    model = PDF
+    extra = 0
+    inline_classes = ('grp-collapse grp-open',)
+
 
 class DepartmentMemberInline(ExtendedStackedInline):
     model = DepartmentMember
@@ -100,10 +107,10 @@ class DepartmentAdmin(ExtendedModelAdmin):
     fieldsets += [(_("Location"), {'fields': ('location',)})]
     fieldsets += [(_("Address"), {'fields': ('street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude')}),]
     fieldsets += [(_("District"), {'fields': ('districts',)}),]
-    fieldsets += [(_("Contacts"), {'fields': ((_("Phone"), {'fields': ('phone_country', 'phone_area', 'phone_number')}), (_("Fax"), {'fields': ('fax_country', 'fax_area', 'fax_number')}),'email','website', )}),]
+    fieldsets += [(_("Contacts"), {'fields': ('contact_name',(_("Phone"), {'fields': ('phone_country', 'phone_area', 'phone_number')}), (_("Fax"), {'fields': ('fax_country', 'fax_area', 'fax_number')}),'email','website', )}),]
     fieldsets += [(_("Status"), {'fields': ('status',)}),]
 
-    inlines = [DepartmentMemberInline, DepartmentImageInline, DepartmentSocialMediaChannelInline]
+    inlines = [DepartmentMemberInline, DepartmentSocialMediaChannelInline, DepartmentImageInline, DepartmentPDFInline,]
 
     filter_horizontal = ['districts']
 
@@ -194,6 +201,11 @@ class ProjectSocialMediaChannelInline(ExtendedStackedInline):
     # classes = ('grp-collapse grp-open',)
     inline_classes = ('grp-collapse grp-open',)
 
+class ProjectPDFInline(ExtendedStackedInline):
+    model = ProjectPDF
+    extra = 0
+    inline_classes = ('grp-collapse grp-open',)
+
 
 class ProjectAdmin(ExtendedModelAdmin):
     list_display = ('title_de', 'get_locations', 'get_owners_list', 'creation_date', 'modified_date', 'status')
@@ -219,6 +231,7 @@ class ProjectAdmin(ExtendedModelAdmin):
         ProjectMemberInline,
         ProjectSocialMediaChannelInline,
         ProjectImageInline,
+        ProjectPDFInline,
     ]
 
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}

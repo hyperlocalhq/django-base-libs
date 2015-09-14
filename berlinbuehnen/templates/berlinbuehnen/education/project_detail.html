@@ -43,20 +43,28 @@
                                     {% endif %}
                                     {% if project.location_title %}
                                         <li>
-                                            <dl class="comma">
+                                            <dl>
                                                 <dd>
                                                     {{ project.location_title }}
+                                                </dd>
+                                                <dd>
+                                                    {% trans "Education" %}
                                                 </dd>
                                             </dl>
                                         </li>
                                     {% elif department %}
                                         <li>
-                                            <dl class="comma">
+                                            <dl>
                                                 <dd>
                                                     {{ department.title }}
                                                 </dd>
+                                                <dd>
+                                                    {% trans "Education" %}
+                                                </dd>
                                             </dl>
                                         </li>
+                                    {% else %}
+                                        <li>{% trans "Education" %}</li>
                                     {% endif %}
                                 </ul>
                                 <div class="header-icons no-print">
@@ -95,8 +103,6 @@
                                             {% elif department %}
                                                 {% if department.first_image %}
                                                     <div class="top-image img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ department.first_image.path|modified_path:"detail_image" }}" alt="{{ project.title|escape }}"  /></div>
-                                                {% elif department.location.first_image %}
-                                                    <div class="top-image img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ department.location.first_image.path|modified_path:"detail_image" }}" alt="{{ project.title|escape }}"  /></div>
                                                 {% endif %}
                                             {% endif %}
                                             <div class="description">
