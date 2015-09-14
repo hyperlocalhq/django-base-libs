@@ -202,6 +202,7 @@ class InstitutionalContact(InstitutionalContactBase):
 
 # Notify appropriate users about new institutions
 def institution_added(sender, instance, **kwargs):
+    return  # FIXME: ensure that notifications are sent as Celery tasks
     from django.contrib.auth.models import User
     from base_libs.middleware import get_current_user
     from jetson.apps.notification import models as notification
