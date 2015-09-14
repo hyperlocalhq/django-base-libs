@@ -79,7 +79,7 @@ class ParentAdmin(ExtendedModelAdmin):
                 'users': multipart.get_owners()
             })
 
-        return render(request, 'admin/multiparts/parent/owners.html', {
+        return render(request, 'admin/owners.html', {
             'multipart': multipart,
             'original': multipart,
             'app_label': Parent._meta.app_label,

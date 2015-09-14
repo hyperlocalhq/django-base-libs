@@ -231,7 +231,7 @@ class ProductionAdmin(ExtendedModelAdmin):
                 'users': production.get_owners()
             })
 
-        return render(request, 'admin/productions/production/owners.html', {
+        return render(request, 'admin/owners.html', {
             'production': production,
             'original': production,
             'app_label': Production._meta.app_label,

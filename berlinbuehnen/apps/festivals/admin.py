@@ -131,7 +131,7 @@ class FestivalAdmin(ExtendedModelAdmin):
                 'users': festival.get_owners()
             })
 
-        return render(request, 'admin/festivals/festival/owners.html', {
+        return render(request, 'admin/owners.html', {
             'festival': festival,
             'original': festival,
             'app_label': Festival._meta.app_label,
