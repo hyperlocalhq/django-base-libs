@@ -18,8 +18,8 @@ drafts_dict = dict(
     )
 
 feed_dict = dict(
-    rss=RssFeed,
-    atom=AtomFeed,
+    rss=RssFeed(),
+    atom=AtomFeed(),
     )
 
 urlpatterns = patterns('jetson.apps.blog.views',
