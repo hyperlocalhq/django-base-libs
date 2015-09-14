@@ -15,9 +15,9 @@ class RssFeed(Feed):
     title_template = "blog/feeds/feed_title.html"
     description_template = "blog/feeds/feed_description.html"
     
-    def __init__(self, **kwargs):
-        Feed.__init__(self)
+    def get_object(self, request, *args, **kwargs):
         self.kwargs = kwargs
+        return None
         
     def title(self):
         obj = self.kwargs.get('object', None)

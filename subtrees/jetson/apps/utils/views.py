@@ -142,13 +142,12 @@ def feed(request, feed_type, language="de", **kwargs):
         raise Http404("Feed Slug %r isn't registered." % feed_slug)
 
     try:
-        feedgen = f.get_feed(feed_slug, request)
+        feedgen = f(request, **kwargs)
     except FeedDoesNotExist:
         raise Http404("Invalid feed parameters. Slug %r is valid, but other parameters, or lack thereof, are not." % feed_slug)
 
-    response = HttpResponse(content_type=feedgen.mime_type)
-    feedgen.write(response, 'utf-8')
-    return response
+    feedgen.content_type = 'application/rss+xml'
+    return feedgen
 
 feed = never_cache(feed)
 
