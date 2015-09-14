@@ -142,7 +142,7 @@ def feed(request, feed_type, language="de", **kwargs):
         raise Http404("Feed Slug %r isn't registered." % feed_slug)
 
     try:
-        feedgen = f(feed_slug, request, **kwargs).get_feed(param)
+        feedgen = f.get_feed(feed_slug, request)
     except FeedDoesNotExist:
         raise Http404("Invalid feed parameters. Slug %r is valid, but other parameters, or lack thereof, are not." % feed_slug)
 
