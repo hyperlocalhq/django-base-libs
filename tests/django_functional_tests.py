@@ -120,6 +120,7 @@ class Urls:
         '/de/person/AfricAvenir/events/feed/rss/',
         '/de/person/compuccino/jobs/feed/rss/',
         '/de/person/ReinholdSteinle/events/feed/rss/',
+        '/de/portfolios/feeds/rss/',
     )
     urls_which_should_return_200 = (
         # '/recrop/', # TODO rethink this test, /recrop/ requires URL parameters

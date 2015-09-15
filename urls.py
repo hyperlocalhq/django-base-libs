@@ -216,8 +216,8 @@ latest_published_objects_feeds = {
 from ccb.apps.media_gallery.feeds import MediaGalleryRssFeed, MediaGalleryAtomFeed
 
 latest_media_galleries = {
-    'rss': MediaGalleryRssFeed,
-    'atom': MediaGalleryAtomFeed,
+    'rss': MediaGalleryRssFeed(),
+    'atom': MediaGalleryAtomFeed(),
     'queryset': MediaGallery.objects.order_by("-creation_date")[:50],
 }
 
