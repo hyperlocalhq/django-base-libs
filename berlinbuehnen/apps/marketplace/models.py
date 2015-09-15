@@ -27,6 +27,7 @@ STATUS_CHOICES = (
     ('trashed', _("Trashed")),
 )
 
+SECURITY_SUMMAND = getattr(settings, "MARKETPLACE_SECURITY_SUMMAND", 7654102)
 
 class JobType(CreationModificationDateMixin, SlugMixin()):
     title = MultilingualCharField(_('Title'), max_length=200)
@@ -128,7 +129,7 @@ class JobOffer(CreationModificationMixin, UrlMixin):
 
     def get_url_path(self):
         try:
-            path = reverse("job_offer_detail", kwargs={'slug': self.slug})
+            path = reverse("job_offer_detail", kwargs={'secure_id': self.get_secure_id()})
         except:
             # the apphook is not attached yet
             return ""
@@ -189,3 +190,7 @@ class JobOffer(CreationModificationMixin, UrlMixin):
         except:
             return []
         return role.users.all()
+
+    def get_secure_id(self):
+        return int(self.pk) + SECURITY_SUMMAND
+

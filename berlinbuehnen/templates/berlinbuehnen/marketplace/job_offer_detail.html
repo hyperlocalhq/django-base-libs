@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites production_tags %}
+{% block title %}{% trans "job_offer" %} – {{ object.title }} – {% endblock %}
+{% block bodyclass %}job_offer-detail{% endblock %}
+
+{% block open_graph %}
+    <meta property="og:title" content="{{ object.title }}" />
+    <meta property="og:type" content="article" />
+    {% if object.image %}
+        <meta property="og:image" content="{{ current_website_url }}{{ MEDIA_URL }}{{ object.image|modified_path:"og" }}" />
+    {% else %}
+        <meta property="og:image" content="{{ current_website_url }}{{ STATIC_URL }}site/img/berlinbuehnen_opengraph.png" />
+    {% endif %}
+    <meta property="og:url" content="{{ object.get_url }}" />
+    <meta property="og:site_name" content="Berlin Bühnen" />
+    <meta property="og:description" content="{{ object.get_rendered_description|striptags|truncatewords:20|escape }}" />
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/accordion.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/gallery.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/slider.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.min.js" defer="defer"></script>
+{% endblock %}
+
+{% block content %}
+    {% with object as job_offer %}
+        <div id="job_offer" class="content details">
+            <div class="container main-container">
+                <div class="row">
+                    <div class="col-xs-12 print-padding">
+                        <a class="fawesome back uc no-print" href="{% url 'job_offer_list' %}">{% trans "back to overview" %}</a>
+                        <article>
+                            
+                            <!-- headlines -->
+                            <header>
+                                <div class="header-icons">
+                                    {% if request.user.is_authenticated %}
+                                        {% adding2favorites for job_offer using "favorites/includes/favorite_detail.html" %}
+                                    {% endif %}
+                                </div>
+                                <h1>{{ job_offer.title }}
+                                    {% if_has_perm "job_offers.change_job_offer" object %}
+                                        {% if not request.is_mobile %}
+                                            <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>
+                                        {% endif %}
+                                    {% end_if_has_perm %}
+                                </h1>
+                                {% if job_offer.subtitle %}
+                                    <h2>{{ job_offer.subtitle }}</h2>
+                                {% endif %}
+                            </header>
+                            
+                            <!-- main  part (including sidebar) -->
+                            <div class="main">
+                                <div class="container">
+                                    <div class="row">
+                                        
+                                        <!-- main content -->
+                                        <div class="col-xs-12 col-md-8 left">
+                                            {% if job_offer.first_image %}
+                                                <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ job_offer.first_image.path|modified_path:"detail_image" }}" alt="{{ job_offer.title|escape }}"  />{% pin image=job_offer.first_image description=job_offer.title %}</div>
+                                            {% elif job_offer.image_set.exists %}
+                                                {% with job_offer.image_set.all|first as first %}
+                                                    <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ first.path|modified_path:"detail_image" }}" alt="{{ job_offer.title|escape }}"  />{% pin image=first description=job_offer.title %}</div> 
+                                                {% endwith %}
+                                            {% endif %}
+                                            <div class="description">
+                                                {{ job_offer.get_rendered_description }}
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- main sidebar -->
+                                        <div class="col-xs-12 col-md-4 right">
+                                            {% include "job_offers/includes/sidebar.html" %}
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                                    
+                            
+                            <!-- additional content (accordion) -->
+                            <div class="additional">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-xs-12 full">
+                                            
+                                            <!-- Gallery -->
+                                            {% if job_offer.image_set.exists %}
+                                                <div class="gallery row">
+                                                    <h4 class="gallery-head">{% trans "Gallery" %}</h4>
+                                                    {% for image in job_offer.image_set.all %}
+                                                        <div class="col-xs-12 col-sm-6 col-md-4 image gallery-item img chevron">
+                                                            {% with image.path|file_description as file_desc %}
+                                                                <img class="gallery-image" src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"gallery_image" }}" alt="{% if file_desc.description %}{{ file_desc.description|escape }}{% endif %}" width="100%" data-image-big="{{ MEDIA_URL }}{{ image.path }}" />{% pin image=image description=job_offer.title %}
+                                                                <div class="gallery-image-text">
+                                                                    <div class="gallery-image-text-description">
+                                                                        {% if file_desc.title %}
+                                                                            <span class="gallery-image-text-description-title">{{ file_desc.title }}</span>
+                                                                        {% endif %}
+                                                                        {% if file_desc.description %}
+                                                                            <span class="gallery-image-text-description-copy">{{ file_desc.description }}</span>
+                                                                        {% endif %}
+                                                                        {% if file_desc.author %}
+                                                                            <span class="gallery-image-text-description-author">{% trans "Photo" %}: {{ file_desc.author }}</span>
+                                                                        {% endif %}
+                                                                    </div>
+                                                                    {% if file_desc.copyright_limitations %}
+                                                                        <div class="gallery-image-text-copyright">{% trans "Copyright" %}: {{ file_desc.copyright_limitations }}</div>
+                                                                    {% endif %}
+                                                                </div>
+                                                            {% endwith %}
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </article>
+                        
+                        <!-- event slider -->
+                        {% other_productions current_job_offer=job_offer %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endwith %}
+    {% include "utils/page_controls.html" %}
+{% endblock %}
