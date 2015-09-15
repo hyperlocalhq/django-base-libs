@@ -202,7 +202,7 @@ class LocationAdmin(ExtendedModelAdmin):
                 'users': location.get_owners()
             })
 
-        return render(request, 'admin/locations/location/owners.html', {
+        return render(request, 'admin/owners.html', {
             'location': location,
             'original': location,
             'app_label': Location._meta.app_label,

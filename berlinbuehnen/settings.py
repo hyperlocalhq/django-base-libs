@@ -228,6 +228,7 @@ INSTALLED_APPS = (
     "berlinbuehnen.apps.advertising",
     "berlinbuehnen.apps.education",
     "berlinbuehnen.apps.search",
+    "berlinbuehnen.apps.marketplace",
     "berlinbuehnen.apps.site_specific",
 )
 
@@ -280,6 +281,9 @@ ADMIN_APP_INDEX = (
             }),
             ('mega_menu', {
                 'models': ("MenuBlock",),
+            }),
+            ('marketplace', {
+                'models': ("JobType", "JobCategory", "JobOffer",),
             }),
         )
     },

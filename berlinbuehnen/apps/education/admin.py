@@ -155,7 +155,7 @@ class DepartmentAdmin(ExtendedModelAdmin):
                 'users': department.get_owners()
             })
 
-        return render(request, 'admin/education/department/owners.html', {
+        return render(request, 'admin/owners.html', {
             'department': department,
             'original': department,
             'app_label': Department._meta.app_label,
@@ -282,7 +282,7 @@ class ProjectAdmin(ExtendedModelAdmin):
                 'users': project.get_owners()
             })
 
-        return render(request, 'admin/productions/production/owners.html', {
+        return render(request, 'admin/owners.html', {
             'project': project,
             'original': project,
             'app_label': Project._meta.app_label,

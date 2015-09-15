@@ -64,7 +64,7 @@ class Service(CreationModificationDateMixin, SlugMixin()):
     class Meta:
         ordering = ['sort_order']
         verbose_name = _("Service")
-        verbose_name_plural = _("Service")
+        verbose_name_plural = _("Services")
 
 
 class AccessibilityOption(CreationModificationDateMixin, SlugMixin()):
