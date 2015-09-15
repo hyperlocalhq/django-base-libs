@@ -82,8 +82,7 @@ class LatestPublishedObjectsRssFeed(Feed):
     title_template = "site_specific/feeds/feed_title.html"
     description_template = "site_specific/feeds/feed_description.html"
 
-    def __init__(self, feed_slug, request, **kwargs):
-        Feed.__init__(self, feed_slug, request)
+    def get_object(self, request, *args, **kwargs):
         self.request = request
 
         self.ot = kwargs['ot_url_part']

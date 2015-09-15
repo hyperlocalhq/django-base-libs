@@ -209,8 +209,8 @@ from ccb.apps.site_specific.feeds import LatestPublishedObjectsRssFeed, LatestPu
 
 # feeds for the newest persons, institutions, etc.
 latest_published_objects_feeds = {
-    'rss': LatestPublishedObjectsRssFeed,
-    'atom': LatestPublishedObjectsAtomFeed,
+    'rss': LatestPublishedObjectsRssFeed(),
+    'atom': LatestPublishedObjectsAtomFeed(),
 }
 
 from ccb.apps.media_gallery.feeds import MediaGalleryRssFeed, MediaGalleryAtomFeed
@@ -924,11 +924,10 @@ urlpatterns += i18n_patterns(
         ),
 
     # latest object feeds
-    # FIXME
-    # url(r'^(?P<ot_url_part>%s|%s|%s|%s|%s)/latest_published/feeds/(?P<feed_type>.*)/$' % (
-    #     URL_ID_DOCUMENTS, URL_ID_EVENTS, URL_ID_PERSONGROUPS, URL_ID_INSTITUTIONS,
-    #     URL_ID_PEOPLE),
-    #     'jetson.apps.utils.views.feed', latest_published_objects_feeds),
+    url(r'^(?P<ot_url_part>%s|%s|%s|%s|%s)/latest_published/feeds/(?P<feed_type>.*)/$' % (
+        URL_ID_DOCUMENTS, URL_ID_EVENTS, URL_ID_PERSONGROUPS, URL_ID_INSTITUTIONS,
+        URL_ID_PEOPLE),
+        'jetson.apps.utils.views.feed', latest_published_objects_feeds),
 
     # sitemaps
     url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
