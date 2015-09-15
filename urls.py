@@ -941,9 +941,8 @@ urlpatterns += i18n_patterns(
 
     url(r'^portfolios/((?P<show>favorites|memos|featured)/)?$',
         'ccb.apps.media_gallery.views.gallery_list', gallery_list_info),
-    # FIXME
-    # url(r'^portfolios/feeds/(?P<feed_type>.*)/$', 'jetson.apps.utils.views.feed',
-    #     latest_media_galleries),
+    url(r'^portfolios/feeds/(?P<feed_type>.*)/$', 'jetson.apps.utils.views.feed',
+        latest_media_galleries),
 
     # style guide
     url(r'^styleguide/', include('jetson.apps.styleguide.urls')),

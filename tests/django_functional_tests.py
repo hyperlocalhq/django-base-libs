@@ -98,6 +98,7 @@ class Urls:
     )
     feed_urls_which_should_return_200 = (
         '/de/blog/feeds/rss/',
+        '/de/kreativarbeiten/blog/feeds/rss/',
         '/de/news/creative-sector/advertising-and-pr/feeds/rss/',
         '/de/news/creative-sector/architecture/feeds/rss/',
         '/de/news/creative-sector/design/feeds/rss/',
@@ -109,6 +110,7 @@ class Urls:
         '/de/news/creative-sector/photography/feeds/rss/',
         '/de/news/creative-sector/theatre-and-dance/feeds/rss/',
         '/de/news/feeds/rss/',
+        '/de/notification/feed/',
     )
     urls_which_should_return_200 = (
         # '/recrop/', # TODO rethink this test, /recrop/ requires URL parameters

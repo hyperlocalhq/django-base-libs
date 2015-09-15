@@ -40,7 +40,7 @@ class BaseNoticeFeed(Feed):
         return [{"name" : notification.user.username}]
 
 class NoticeUserFeed(BaseNoticeFeed):
-    def get_object(self, params):
+    def get_object(self, params, *args, **kwargs):
         return get_object_or_404(User, username=params[0].lower())
 
     def feed_id(self, user):
