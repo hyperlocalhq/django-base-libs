@@ -51,7 +51,6 @@ urlpatterns = patterns('jetson.apps.blog.views',
     (r'^tag/(?P<tag>[^/]+)/$', 'handle_request', all_dict), 
 
     # syndication feeds
-    # FIXME
     (r'^feeds/(?P<feed_type>.*)/$', 'blog_feed', feed_dict),
 
     # new post
