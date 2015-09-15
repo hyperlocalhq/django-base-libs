@@ -98,17 +98,17 @@ class Urls:
     )
     feed_urls_which_should_return_200 = (
         '/de/blog/feeds/rss/',
-        '/de/news/feeds/rss/',
+        '/de/news/creative-sector/advertising-and-pr/feeds/rss/',
         '/de/news/creative-sector/architecture/feeds/rss/',
-        '/de/news/creative-sector/fine-art/feeds/rss/',
         '/de/news/creative-sector/design/feeds/rss/',
         '/de/news/creative-sector/events/feeds/rss/',
         '/de/news/creative-sector/film-and-broadcast/feeds/rss/',
-        '/de/news/creative-sector/photography/feeds/rss/',
+        '/de/news/creative-sector/fine-art/feeds/rss/',
         '/de/news/creative-sector/games-and-interactive/feeds/rss/',
         '/de/news/creative-sector/music/feeds/rss/',
+        '/de/news/creative-sector/photography/feeds/rss/',
         '/de/news/creative-sector/theatre-and-dance/feeds/rss/',
-        '/de/news/creative-sector/advertising-and-pr/feeds/rss/',
+        '/de/news/feeds/rss/',
     )
     urls_which_should_return_200 = (
         # '/recrop/', # TODO rethink this test, /recrop/ requires URL parameters
