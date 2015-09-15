@@ -990,11 +990,10 @@ urlpatterns += i18n_patterns(
         'twitter_username': "dirkkiefer",
         'number_of_tweets': 5,
     }),
-    # FIXME
-    # (r'^kreativarbeiten/newsfeed/$', 'ccb.apps.site_specific.views.newsfeed', {
-    #     'rss': "http://www.kultur-kreativ-wirtschaft.de/KuK/Navigation/Service/RSS/rss-aktuelles.xml",
-    #     'number_of_news': 5,
-    # }),
+    (r'^kreativarbeiten/newsfeed/$', 'ccb.apps.site_specific.views.newsfeed', {
+        'rss': "http://www.kultur-kreativ-wirtschaft.de/KuK/Navigation/Service/RSS/rss-aktuelles.xml",
+        'number_of_news': 5,
+    }),
 
     url(r'^livestream/$', TemplateView.as_view(template_name='site_specific/livestream.html')),
 

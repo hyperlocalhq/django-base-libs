@@ -111,6 +111,7 @@ class Urls:
         '/de/news/creative-sector/theatre-and-dance/feeds/rss/',
         '/de/news/feeds/rss/',
         '/de/notification/feed/',
+        '/de/kreativarbeiten/newsfeed/',
     )
     urls_which_should_return_200 = (
         # '/recrop/', # TODO rethink this test, /recrop/ requires URL parameters
