@@ -29,20 +29,15 @@ class JobOfferFeed(Feed):
     title_template = "marketplace/feeds/feed_title.html"
     description_template = "marketplace/feeds/feed_description.html"
 
-    def __init__(self, request, queryset=JobOffer.objects.none, title="", description="", link=""):
-        super(JobOfferFeed, self).__init__("", request)
-        if callable(queryset):
-            queryset = queryset()
-        self.queryset = queryset
-        if title:
-            self.title = title
-        if description:
-            self.description = description
-        if link:
-            self.link = link
+    def get_object(self, request, *args, **kwargs):
+        self.request = request
+        self.kwargs = kwargs
+        return None
+
 
     def items(self):
-        return self.queryset.order_by('-creation_date')[:20]
+        queryset = self.kwargs['queryset'].order_by('-creation_date')[:20]
+        return queryset
 
 
 @never_cache
@@ -170,7 +165,8 @@ def job_offer_list(request, criterion="", slug="", show="", title="", **kwargs):
     if kwargs.has_key('feed') and kwargs['feed'] == True:
         feed_part = re.compile("/feed/[^/]+/[^/]+/$")
         url = get_website_url()
-        feedgen = JobOfferFeed(
+        feed_instance = JobOfferFeed()
+        response = feed_instance(
             request,
             queryset=queryset,
             title=title or _("CCB Job Offers"),
@@ -178,10 +174,8 @@ def job_offer_list(request, criterion="", slug="", show="", title="", **kwargs):
                 "link",
                 url[:-1] + feed_part.sub("/", request.path) + "?" + (request.META.get("QUERY_STRING", "") or ""),
             ),
-        ).get_feed(kwargs['feed_type'])
-
-        response = HttpResponse(content_type=feedgen.mime_type)
-        feedgen.write(response, 'utf-8')
+        )
+        response.content_type = 'application/rss+xml'
         return response
     else:
         return object_list(request, **kwargs)

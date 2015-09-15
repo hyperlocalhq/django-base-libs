@@ -501,16 +501,15 @@ urlpatterns += i18n_patterns(
         ),
         name="institution_job_offer_list"
     ),
-    # FIXME
-    # url(
-    #     r'^%s/(?P<slug>[^/]+)/%s/'
-    #     r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_INSTITUTION, URL_ID_JOB_OFFERS),
-    #     _project_name + '.apps.institutions.views.institution_job_offer_list_feed',
-    #     dict(
-    #         job_offer_list_info,
-    #         template_name="institutions/institution_job_offers.html",
-    #     )
-    # ),
+    url(
+        r'^%s/(?P<slug>[^/]+)/%s/'
+        r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_INSTITUTION, URL_ID_JOB_OFFERS),
+        _project_name + '.apps.institutions.views.institution_job_offer_list_feed',
+        dict(
+            job_offer_list_info,
+            template_name="institutions/institution_job_offers.html",
+        )
+    ),
 
     url(r'^%s/(?P<slug>[^/]+)/reviews/$' % URL_ID_INSTITUTION, object_detail,
         dict(institution_details_info, template_name="institutions/institution_reviews.html")),
@@ -680,14 +679,13 @@ urlpatterns += i18n_patterns(
         job_offer_list_info,
         name="job_offer_list_global",
     ),
-    # FIXME
-    # url(
-    #     r'^%s/'
-    #     r'((?P<show>memos|internships|jobs|all|own-%s)/)?'
-    #     r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_JOB_OFFERS, URL_ID_JOB_OFFERS),
-    #     _project_name + '.apps.marketplace.views.job_offer_list_feed',
-    #     job_offer_list_info,
-    # ),
+    url(
+        r'^%s/'
+        r'((?P<show>memos|internships|jobs|all|own-%s)/)?'
+        r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_JOB_OFFERS, URL_ID_JOB_OFFERS),
+        _project_name + '.apps.marketplace.views.job_offer_list_feed',
+        job_offer_list_info,
+    ),
 
     url(
         r'^%s/(?P<secure_id>\d+)/$' % URL_ID_JOB_OFFER,
@@ -746,13 +744,12 @@ urlpatterns += i18n_patterns(
         dict(job_offer_list_info, template_name="people/person_job_offers.html"),
         name="person_job_offer_list"
     ),
-    # FIXME
-    # url(
-    #     r'^%s/(?P<slug>[^/]+)/%s/'
-    #     r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_PERSON, URL_ID_JOB_OFFERS),
-    #     _project_name + '.apps.people.views.person_job_offer_list_feed',
-    #     dict(job_offer_list_info, template_name="people/person_job_offers.html")
-    # ),
+    url(
+        r'^%s/(?P<slug>[^/]+)/%s/'
+        r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_PERSON, URL_ID_JOB_OFFERS),
+        _project_name + '.apps.people.views.person_job_offer_list_feed',
+        dict(job_offer_list_info, template_name="people/person_job_offers.html")
+    ),
 
     url(r'^%s/(?P<slug>[^/]+)/reviews/$' % URL_ID_PERSON, object_detail,
         dict(person_details_info, template_name="people/person_reviews.html")),

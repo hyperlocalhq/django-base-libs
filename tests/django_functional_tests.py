@@ -99,8 +99,10 @@ class Urls:
     feed_urls_which_should_return_200 = (
         '/de/blog/feeds/rss/',
         '/de/events/feed/rss/',
+        '/de/institution/1000heads/jobs/feed/rss/',
         '/de/institution/acud_kunsthaus/events/feed/rss/',
         '/de/institution/universitat_der_kunste_berlin_7/events/feed/rss/',
+        '/de/jobs/feed/rss/',
         '/de/kreativarbeiten/blog/feeds/rss/',
         '/de/kreativarbeiten/newsfeed/',
         '/de/news/creative-sector/advertising-and-pr/feeds/rss/',
@@ -116,6 +118,7 @@ class Urls:
         '/de/news/feeds/rss/',
         '/de/notification/feed/',
         '/de/person/AfricAvenir/events/feed/rss/',
+        '/de/person/compuccino/jobs/feed/rss/',
         '/de/person/ReinholdSteinle/events/feed/rss/',
     )
     urls_which_should_return_200 = (
