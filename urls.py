@@ -477,20 +477,19 @@ urlpatterns += i18n_patterns(
             template_name="institutions/institution_events.html",
         )
     ),
-    # FIXME
-    # url(
-    #     r'^%s/(?P<slug>[^/]+)/%s/'
-    #     r'('
-    #     r'(?P<start_date>\d{8})'
-    #     r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
-    #     r')?'
-    #     r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_INSTITUTION, URL_ID_EVENTS),
-    #     _project_name + '.apps.institutions.views.institution_events_list_feed',
-    #     dict(
-    #         event_list_info,
-    #         template_name="institutions/institution_events.html",
-    #     )
-    # ),
+    url(
+        r'^%s/(?P<slug>[^/]+)/%s/'
+        r'('
+        r'(?P<start_date>\d{8})'
+        r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
+        r')?'
+        r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_INSTITUTION, URL_ID_EVENTS),
+        _project_name + '.apps.institutions.views.institution_events_list_feed',
+        dict(
+            event_list_info,
+            template_name="institutions/institution_events.html",
+        )
+    ),
 
     url(
         r'^%s/(?P<slug>[^/]+)/%s/'
@@ -564,18 +563,17 @@ urlpatterns += i18n_patterns(
         _project_name + '.apps.events.views.event_list_ical',
         event_list_info,
     ),
-    # FIXME
-    # url(
-    #     r'^%s/'
-    #     r'((?P<show>favorites|memos|own-%s)/)?'
-    #     '('
-    #     r'(?P<start_date>\d{8})'
-    #     r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
-    #     r')?'
-    #     r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_EVENTS, URL_ID_EVENTS),
-    #     _project_name + '.apps.events.views.event_list_feed',
-    #     event_list_info,
-    # ),
+    url(
+        r'^%s/'
+        r'((?P<show>favorites|memos|own-%s)/)?'
+        '('
+        r'(?P<start_date>\d{8})'
+        r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
+        r')?'
+        r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_EVENTS, URL_ID_EVENTS),
+        _project_name + '.apps.events.views.event_list_feed',
+        event_list_info,
+    ),
     url(r'^%s/add/$' % URL_ID_EVENTS, _project_name + '.apps.events.views.add_event'),
 
     # events have their dates prefixed (or not, if there aren't any)
@@ -730,17 +728,16 @@ urlpatterns += i18n_patterns(
         _project_name + '.apps.people.views.person_events_list_ical',
         dict(event_list_info, template_name="people/person_events.html")
     ),
-    # FIXME
-    # url(
-    #     r'^%s/(?P<slug>[^/]+)/%s/'
-    #     r'('
-    #     r'(?P<start_date>\d{8})'
-    #     r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
-    #     r')?'
-    #     r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_PERSON, URL_ID_EVENTS),
-    #     _project_name + '.apps.people.views.person_events_list_feed',
-    #     dict(event_list_info, template_name="people/person_events.html")
-    # ),
+    url(
+        r'^%s/(?P<slug>[^/]+)/%s/'
+        r'('
+        r'(?P<start_date>\d{8})'
+        r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
+        r')?'
+        r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_PERSON, URL_ID_EVENTS),
+        _project_name + '.apps.people.views.person_events_list_feed',
+        dict(event_list_info, template_name="people/person_events.html")
+    ),
 
     url(
         r'^%s/(?P<slug>[^/]+)/%s/'
