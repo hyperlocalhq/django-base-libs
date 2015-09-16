@@ -7,7 +7,7 @@ from haystack.query import SearchQuerySet, DEFAULT_OPERATOR
 
 
 class MultilingualSearchQuerySet(SearchQuerySet):
-    def auto_query(self, query_string):
+    def auto_query(self, query_string, fieldname='content'):
         return self.filter(content=self.query.clean(query_string))
 
     def filter(self, **kwargs):
