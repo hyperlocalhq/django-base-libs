@@ -24,8 +24,9 @@ ALLOWED_HOSTS = ["creative-city-berlin.de", "www.creative-city-berlin.de"]
 
 MANAGERS = ADMINS = (
     # ("Creative City Berlin", "webmaster@creative-city-berlin.de"),
-    ("Aidas Bendoraitis', 'bendoraitis@studio38.de"),
-    ("Tiago Henriques', 'henriques@studio38.de"),
+    ("Aidas Bendoraitis", "bendoraitis@studio38.de"),
+    ("Tiago Henriques", "henriques@studio38.de"),
+    ("Reinhard Knobelspies", "knobelspies@studio38.de"),
 )
 
 CONTENT_ADMINS = (
