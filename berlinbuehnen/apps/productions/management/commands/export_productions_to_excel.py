@@ -84,13 +84,15 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
         if self.verbosity >= NORMAL:
             print u"=== Exporting Productions ==="
         ws = wb.create_sheet(4, "Productions")
-        ws.append(['id', 'creation_date', 'modified_date', 'title_de', 'subtitle_de', 'link_de', 'contents_de', 'credits_de', 'concert_program_de', 'supporting_program_de', 'remarks_de', 'subtitles_text_de', 'age_text_de', 'free_entrance', 'play_locations', 'play_stages', 'categories', 'leaders', 'authors', 'participants', 'images', 'events'])
+        ws.append(['id', 'creation_date', 'modified_date', 'title_de', 'subtitle_de', 'link_de', 'contents_de', 'credits_de', 'concert_program_de', 'supporting_program_de', 'remarks_de', 'subtitles_text_de', 'age_text_de', 'free_entrance', 'in_program_of', 'play_locations', 'play_stages', 'location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'categories', 'leaders', 'authors', 'participants', 'images', 'events',])
         prod_count = Production.objects.filter(status="published").count()
         for prod_index, prod in enumerate(Production.objects.filter(status="published"), 1):
             print "%d/%d %s" % (prod_index, prod_count, smart_str(prod.title_de))
             ws.append([prod.id, prod.creation_date, prod.modified_date, prod.title_de, prod.subtitle_de, prod.get_url(), prod.get_rendered_contents_de(), prod.get_rendered_credits_de(), prod.get_rendered_concert_program_de(), prod.get_rendered_supporting_program_de(), prod.get_rendered_remarks_de(), prod.subtitles_text_de, prod.age_text_de, prod.free_entrance,
+                u','.join(map(str, prod.in_program_of.values_list('id', flat=True))),
                 u','.join(map(str, prod.play_locations.values_list('id', flat=True))),
                 u','.join(map(str, prod.play_stages.values_list('id', flat=True))),
+               prod.location_title, prod.street_address, prod.street_address2, prod.postal_code, prod.city,
                 u','.join(map(str, prod.categories.values_list('id', flat=True))),
                 u','.join([u'%s-%s' % (leader.person, leader.get_function()) for leader in prod.productionleadership_set.all()]),
                 u','.join([u'%s-%s' % (author.person, author.get_function()) for author in prod.productionauthorship_set.all()]),
