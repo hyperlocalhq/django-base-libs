@@ -47,7 +47,7 @@ class Command(NoArgsCommand):
             description.append("%s:" % force_unicode(f.verbose_name))
             for link in links:
                 description.append("    %s" % force_unicode(link))
-        description.append("\nYou can fix the links here:")
+        description.append(u"\nYou can fix the links here:")
         description.append(self.get_admin_link(obj))
 
         superuser = User.objects.filter(is_superuser=True)[0]

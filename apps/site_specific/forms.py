@@ -45,8 +45,8 @@ WEEK_DAYS = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
 YEARS_CHOICES = [("", _("Year"))] + [(i, i) for i in range(2008, 2040)]
 MONTHS_CHOICES = [("", _("Month"))] + MONTHS.items()
 DAYS_CHOICES = [("", _("Day"))] + [(i, i) for i in range(1, 32)]
-HOURS_CHOICES = [("", _("HH"))] + [(i, "%02d" % i) for i in range(0, 24)]
-MINUTES_CHOICES = [("", _("MM"))] + [(i, "%02d" % i) for i in range(0, 60, 5)]
+HOURS_CHOICES = [("", _("HH"))] + [(i, u"%02d" % i) for i in range(0, 24)]
+MINUTES_CHOICES = [("", _("MM"))] + [(i, u"%02d" % i) for i in range(0, 60, 5)]
 
 # prexixes of fields to guarantee uniqueness
 PREFIX_CI = 'CI_'  # Creative Sector aka Creative Industry
