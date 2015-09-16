@@ -1,7 +1,6 @@
 # -*- coding: UTF-8 -*-
 
 from django.utils.translation import ugettext_lazy as _
-from mptt.fields import TreeManyToManyField
 
 from jetson.apps.groups_networks.base import *
 

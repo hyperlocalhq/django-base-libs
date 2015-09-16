@@ -1,4 +1,3 @@
-import os
 from fabric.api import env, run, prompt, local, get
 from fabric.state import output
 

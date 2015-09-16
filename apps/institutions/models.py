@@ -2,7 +2,6 @@
 
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.contrib.auth.models import AnonymousUser
-from mptt.fields import TreeManyToManyField
 
 from jetson.apps.institutions.base import *
 
