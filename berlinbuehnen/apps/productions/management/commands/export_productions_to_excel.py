@@ -92,7 +92,7 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
                 u','.join(map(str, prod.in_program_of.values_list('id', flat=True))),
                 u','.join(map(str, prod.play_locations.values_list('id', flat=True))),
                 u','.join(map(str, prod.play_stages.values_list('id', flat=True))),
-               prod.location_title, prod.street_address, prod.street_address2, prod.postal_code, prod.city,
+                prod.location_title, prod.street_address, prod.street_address2, prod.postal_code, prod.city,
                 u','.join(map(str, prod.categories.values_list('id', flat=True))),
                 u','.join([u'%s-%s' % (leader.person, leader.get_function()) for leader in prod.productionleadership_set.all()]),
                 u','.join([u'%s-%s' % (author.person, author.get_function()) for author in prod.productionauthorship_set.all()]),
@@ -104,11 +104,14 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
         if self.verbosity >= NORMAL:
             print u"=== Exporting Events ==="
         ws = wb.create_sheet(5, "Events")
-        ws.append(['id', 'production_id', 'creation_date', 'modified_date', 'link_de', 'start_date', 'end_date', 'start_time', 'location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'free_entrance', 'images'])
+        ws.append(['id', 'production_id', 'creation_date', 'modified_date', 'link_de', 'start_date', 'end_date', 'start_time', 'play_locations', 'play_stages', 'location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'free_entrance', 'images'])
         ev_count = Event.objects.filter(production__status="published").distinct().count()
         for ev_index, ev in enumerate(Event.objects.filter(production__status="published").distinct(), 1):
             print "%d/%d %s %s" % (ev_index, ev_count, smart_str(ev.start_date), smart_str(ev.start_time))
-            ws.append([ev.id, ev.production_id, ev.creation_date, ev.modified_date, ev.get_url(), ev.start_date, ev.end_date, ev.start_time, ev.location_title, ev.street_address, ev.street_address2, ev.postal_code, ev.city, ev.free_entrance,
+            ws.append([ev.id, ev.production_id, ev.creation_date, ev.modified_date, ev.get_url(), ev.start_date, ev.end_date, ev.start_time,
+                u','.join(map(str, ev.play_locations.values_list('id', flat=True))),
+                u','.join(map(str, ev.play_stages.values_list('id', flat=True))),
+                ev.location_title, ev.street_address, ev.street_address2, ev.postal_code, ev.city, ev.free_entrance,
                 u','.join([str(im.pk) for im in ev.eventimage_set.all()]),
             ])
 
