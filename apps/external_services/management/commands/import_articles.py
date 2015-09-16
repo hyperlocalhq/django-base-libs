@@ -5,6 +5,9 @@ SILENT, NORMAL, VERBOSE = 0, 1, 2
 
 
 class Command(NoArgsCommand):
+    def handle(self, *args, **options):
+        pass
+
     help = """Imports articles from the article-import sources"""
 
     def handle_noargs(self, **options):

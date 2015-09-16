@@ -5,6 +5,9 @@ SILENT, NORMAL, VERBOSE = 0, 1, 2
 
 
 class Command(NoArgsCommand):
+    def handle(self, *args, **options):
+        pass
+
     help = """Imports job offers from Creativeset.net"""
 
     def handle_noargs(self, **options):

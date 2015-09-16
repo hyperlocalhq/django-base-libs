@@ -7,6 +7,9 @@ SILENT, NORMAL, VERBOSE = 0, 1, 2
 
 
 class Command(NoArgsCommand):
+    def handle(self, *args, **options):
+        pass
+
     option_list = NoArgsCommand.option_list + (
         make_option('--skip-images', action='store_true', dest='skip_images', default=False,
                     help='Tells Django to NOT download images.'),

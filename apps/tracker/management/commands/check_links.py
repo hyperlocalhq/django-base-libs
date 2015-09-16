@@ -26,6 +26,9 @@ a_link_regex = re.compile("<a[^>]+?href=([\"'])([^\"']+?)\\1[^>]*>", re.IGNORECA
 
 
 class Command(NoArgsCommand):
+    def handle(self, *args, **options):
+        pass
+
     help = """Checks the database for broken links"""
     _checked_links = {}
 

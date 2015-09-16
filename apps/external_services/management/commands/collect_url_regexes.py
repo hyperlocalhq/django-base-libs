@@ -5,6 +5,9 @@ from django.core.management.base import NoArgsCommand
 
 
 class Command(NoArgsCommand):
+    def handle(self, *args, **options):
+        pass
+
     help = """Prints a list of all URL regex patterns"""
 
     def handle_noargs(self, **options):
