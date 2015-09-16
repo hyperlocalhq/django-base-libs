@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load url from future %}
 {% load i18n image_modifications base_tags tagging_tags favorites auth_extended theater_of_the_week_tags %}
-{% block title %}{% trans "job_offers" %} – {% endblock %}
+{% block title %}{% trans "Job Offers" %} – {% endblock %}
 {% block bodyclass %}job_offer-list no-transition{% endblock %}
 
 
@@ -21,13 +21,12 @@
             </div>
             <div class="top-widgets">
                 {% include "utils/filter_job_offers.html" %}
-                {% theater_of_the_week %}
             </div>
         </div>
         <div class="container">
             <div class="row">
                 
-                <h1 class="bottom-line">{% trans "job_offers" %}</h1>
+                <h1 class="bottom-line">{% trans "Job Offers" %}</h1>
                 
                 <div class="col-xs-12 print-padding">
                     
@@ -36,34 +35,17 @@
                         {% if page == 1 %}
                             {% load advertising_tags %}
                             {% if show_ad %}
-                                {% get_random_zone_ad "job_offers" as job_offers_ad_html %}
+                                {% get_random_zone_ad "marketplace" as job_offers_ad_html %}
                             {% endif %}
                         {% endif %}
                         {% if object_list %}
                             {% for job_offer in object_list %}
                                 <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3" href="{{ job_offer.get_url_path }}">
-                                                
-                                    <!-- image -->
-                                    <span class="grid-item-image img">
-                                        {% comment %}{% if job_offer.logo %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder_job_offer_grid.png" data-original="{{ MEDIA_URL }}{{ job_offer.logo|modified_path:"detail_image" }}{% if_has_perm "job_offer.change_job_offer" job_offer %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ job_offer.title|escape }}" />{% endcomment %}
-                                        {% if job_offer.first_image %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder_job_offer_grid.png" data-original="{{ MEDIA_URL }}{{ job_offer.first_image.path|modified_path:"detail_image" }}{% if_has_perm "job_offer.change_job_offer" job_offer %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.production.title|escape }}" />
-                                        {% elif job_offer.image_set.exists %}
-                                            {% with job_offer.image_set.all|first as image %}
-                                                <img src="{{ STATIC_URL }}site/img/placeholder_job_offer_grid.png" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"detail_image" }}{% if_has_perm "job_offer.change_job_offer" job_offer %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ job_offer.title|escape }}" />
-                                            {% endwith %}
-                                        {% else %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder_job_offer_grid.png" />
-                                        {% endif %}
-                                    </span>
-                                    
                                     {% if job_offer.title %}<h2>{{ job_offer.title }}</h2>{% endif %}
                                     {% if job_offer.subtitle %}<h3>{{ job_offer.subtitle }}</h3>{% endif %}
                                     {% if job_offer.description %}
                                         <div class="copy">{{ job_offer.get_rendered_description|truncatewords:20 }}</div>
                                     {% endif %}
-                                    
                                 </a>
 
                                 {% if job_offers_ad_html %}

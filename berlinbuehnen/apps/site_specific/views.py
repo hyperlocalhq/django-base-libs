@@ -36,6 +36,7 @@ Location = models.get_model("locations", "Location")
 Production = models.get_model("productions", "Production")
 Festival = models.get_model("festivals", "Festival")
 Parent = models.get_model("multiparts", "Parent")
+JobOffer = models.get_model("marketplace", "JobOffer")
 
 # from forms import ExhibitionFilterForm, EventFilterForm, WorkshopFilterForm, ShopFilterForm
 
@@ -54,11 +55,15 @@ def dashboard(request):
     owned_festivals = Festival.objects.accessible_to(request.user).filter(status__in=('published', 'draft', 'expired', 'not_listed', 'import')).extra(select={
         'modified_or_creation_date': 'IFNULL(festivals_festival.modified_date, festivals_festival.creation_date)'
     }).order_by("-modified_or_creation_date")[:3]
+    owned_job_offers = JobOffer.objects.accessible_to(request.user).filter(status__in=('published', 'draft', 'expired', 'not_listed', 'import')).extra(select={
+        'modified_or_creation_date': 'IFNULL(marketplace_joboffer.modified_date, marketplace_joboffer.creation_date)'
+    }).order_by("-modified_or_creation_date")[:3]
     context = {
         'owned_locations': owned_locations,
         'owned_productions': owned_productions,
         'owned_multiparts': owned_multiparts,
         'owned_festivals': owned_festivals,
+        'owned_job_offers': owned_job_offers,
     }
     return render(request, "accounts/dashboard.html", context)
 
@@ -254,6 +259,53 @@ def dashboard_multiparts(request):
         'sort_by': sort_by,
     }
     return render(request, "accounts/dashboard_multiparts.html", context)
+
+
+@never_cache
+@login_required
+def dashboard_job_offers(request):
+    owned_job_offer_qs = JobOffer.objects.accessible_to(request.user).extra(select={
+        'modified_or_creation_date': 'IFNULL(marketplace_joboffer.modified_date, marketplace_joboffer.creation_date)'
+    })
+
+    status = request.REQUEST.get('status', 'published')
+    if status in ('published', 'draft', 'not_listed'):
+        owned_job_offer_qs = owned_job_offer_qs.filter(status=status)
+
+    q = request.REQUEST.get('q', '')
+    if q:
+        owned_job_offer_qs = owned_job_offer_qs.filter(
+            models.Q(title_de__icontains=q) | models.Q(title_en__icontains=q) |
+            models.Q(subtitle_de__icontains=q) | models.Q(subtitle_en__icontains=q)
+        )
+
+    sort_by = request.REQUEST.get('sort_by', 'date')
+    if sort_by == 'title':
+        owned_job_offer_qs = owned_job_offer_qs.order_by("title_de")
+    elif sort_by == '-title':
+        owned_job_offer_qs = owned_job_offer_qs.order_by("-title_de")
+    elif sort_by == '-date':
+        owned_job_offer_qs = owned_job_offer_qs.order_by("modified_or_creation_date")
+    else:
+        owned_job_offer_qs = owned_job_offer_qs.order_by("-modified_or_creation_date")
+
+    paginator = Paginator(owned_job_offer_qs, 50)
+    page_number = request.GET.get('page', 1)
+    try:
+        page = paginator.page(page_number)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        page = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        page = paginator.page(paginator.num_pages)
+    context = {
+        'page': page,
+        'q': q,
+        'status': status,
+        'sort_by': sort_by,
+    }
+    return render(request, "accounts/dashboard_job_offers.html", context)
 
 
 @never_cache

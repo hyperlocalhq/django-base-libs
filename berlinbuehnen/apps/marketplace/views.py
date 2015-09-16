@@ -44,7 +44,7 @@ class JobOfferFilterForm(forms.Form):
 
 def job_offer_list(request, year=None, month=None, day=None):
     from berlinbuehnen.apps.advertising.templatetags.advertising_tags import not_empty_ad_zone
-    qs = JobOffer.objects.filter(status="published")
+    qs = JobOffer.objects.filter(status="published").filter(models.Q(deadline=None) | models.Q(deadline__gte=datetime.today()))
 
     form = JobOfferFilterForm(data=request.REQUEST)
     
@@ -67,7 +67,7 @@ def job_offer_list(request, year=None, month=None, day=None):
             ).distinct()
             
         job_type = form.cleaned_data['job_type']
-        if cats:
+        if job_type:
             facets['selected']['job_type'] = job_type
             qs = qs.filter(
                 job_type=job_type,
@@ -137,7 +137,11 @@ def add_job_offer(request):
     if request.method == "POST":
         form = JobOfferForm(request.POST)
         if form.is_valid():
-            instance = form.save()
+            instance = form.save(commit=False)
+            instance.status = "published"
+            instance.save()
+            form.save_m2m()
+            instance.set_owner(request.user)
             return redirect("dashboard")
     else:
         form = JobOfferForm()

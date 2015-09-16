@@ -6,7 +6,7 @@
     {% if job_offer %}
         {{ job_offer.title }}
     {% else %}
-        {% trans "New job_offer" %}
+        {% trans "New job offer" %}
     {% endif %}
 {% endblock %}
 
@@ -34,7 +34,7 @@
             {% if job_offer %}
                 <h4>{{ job_offer.title }}</h4>
             {% else %}
-                <h4>{% trans "Add new job_offer" %}</h4>
+                <h4>{% trans "Add new job offer" %}</h4>
             {% endif %}
         {% endblock %}
         <div id="form-meta">
@@ -63,8 +63,6 @@
             
             <a class="btn btn-primary" id="preview_page" href="{{ job_offer.get_url_path }}?preview" ><span>{% trans "Preview" %}</span></a>
         </div>
-
-        {% include "utils/step_list.html" %}
     </div>
 {% endblock %}
 
