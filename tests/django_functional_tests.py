@@ -96,6 +96,37 @@ class Urls:
         '/de/rosetta/download/',  # login required
         '/de/rosetta/pick/',  # login required
     )
+    feed_urls_which_should_return_200 = (
+        '/de/blog/feeds/rss/',
+        '/de/documents/latest_published/feeds/rss/',
+        '/de/events/feed/rss/',
+        '/de/events/latest_published/feeds/rss/',
+        '/de/groups/latest_published/feeds/rss/',
+        '/de/institution/1000heads/jobs/feed/rss/',
+        '/de/institution/acud_kunsthaus/events/feed/rss/',
+        '/de/institution/universitat_der_kunste_berlin_7/events/feed/rss/',
+        '/de/institutions/latest_published/feeds/rss/',
+        '/de/jobs/feed/rss/',
+        '/de/kreativarbeiten/blog/feeds/rss/',
+        '/de/kreativarbeiten/newsfeed/',
+        '/de/news/creative-sector/advertising-and-pr/feeds/rss/',
+        '/de/news/creative-sector/architecture/feeds/rss/',
+        '/de/news/creative-sector/design/feeds/rss/',
+        '/de/news/creative-sector/events/feeds/rss/',
+        '/de/news/creative-sector/film-and-broadcast/feeds/rss/',
+        '/de/news/creative-sector/fine-art/feeds/rss/',
+        '/de/news/creative-sector/games-and-interactive/feeds/rss/',
+        '/de/news/creative-sector/music/feeds/rss/',
+        '/de/news/creative-sector/photography/feeds/rss/',
+        '/de/news/creative-sector/theatre-and-dance/feeds/rss/',
+        '/de/news/feeds/rss/',
+        '/de/notification/feed/',
+        '/de/people/latest_published/feeds/rss/',
+        '/de/person/AfricAvenir/events/feed/rss/',
+        '/de/person/compuccino/jobs/feed/rss/',
+        '/de/person/ReinholdSteinle/events/feed/rss/',
+        '/de/portfolios/feeds/rss/',
+    )
     urls_which_should_return_200 = (
         # '/recrop/', # TODO rethink this test, /recrop/ requires URL parameters
         '/de/',
@@ -12104,6 +12135,7 @@ def suite():
 
     sample_urls = sample(Urls.urls_which_should_return_200, 100)
     url_lists_by_expected_status_code = (
+        (200, Urls.feed_urls_which_should_return_200),
         (200, Urls.urls_which_should_return_200_but_dont),
         (301, Urls.urls_which_should_return_301_but_dont),
         (302, Urls.urls_which_should_return_302_but_dont),

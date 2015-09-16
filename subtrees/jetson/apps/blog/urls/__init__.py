@@ -18,8 +18,8 @@ drafts_dict = dict(
     )
 
 feed_dict = dict(
-    rss=RssFeed,
-    atom=AtomFeed,
+    rss=RssFeed(),
+    atom=AtomFeed(),
     )
 
 urlpatterns = patterns('jetson.apps.blog.views',
@@ -51,8 +51,7 @@ urlpatterns = patterns('jetson.apps.blog.views',
     (r'^tag/(?P<tag>[^/]+)/$', 'handle_request', all_dict), 
 
     # syndication feeds
-    # FIXME
-    # (r'^feeds/(?P<feed_type>.*)/$', 'blog_feed', feed_dict),
+    (r'^feeds/(?P<feed_type>.*)/$', 'blog_feed', feed_dict),
 
     # new post
     (r'^(?P<action>%s)/$' % ID_ACTION_NEW, BlogPostFormPreviewHandler(BlogPostForm, use_ajax=False)),    

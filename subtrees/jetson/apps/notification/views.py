@@ -17,9 +17,11 @@ from jetson.apps.notification.feeds import NoticeUserFeed
 @basic_auth_required(realm='Notices Feed', callback_func=simple_basic_auth_callback)
 def feed_for_user(request):
     url = "feed/%s" % request.user.username
-    return Feed(request, url, {
-        "feed": NoticeUserFeed,
+    feed_instance = Feed()
+    feed = feed_instance(request, url, {
+        "feed": NoticeUserFeed(),
     })
+    return feed
 
 @login_required
 @never_cache

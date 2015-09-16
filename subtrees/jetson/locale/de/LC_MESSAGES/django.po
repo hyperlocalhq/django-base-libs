@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Django 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-18 14:48+0200\n"
+"POT-Creation-Date: 2015-09-15 12:26+0200\n"
 "PO-Revision-Date: 2012-04-04 22:05+0100\n"
 "Last-Translator: Aidas Bendoraitis <bendoraitis@studio38.de>\n"
 "Language-Team: \n"
@@ -46,7 +46,7 @@ msgstr "Hauptinformation"
 
 #: subtrees/jetson/apps/advertising/admin.py:110
 #: subtrees/jetson/apps/advertising/admin.py:118
-#: subtrees/jetson/apps/groups_networks/admin.py:65
+#: subtrees/jetson/apps/groups_networks/admin.py:61
 #: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_categories.html:7
 #: subtrees/jetson/templates/default/accounts/reg_categories.html:8
 #: subtrees/jetson/templates/default/groups_networks/persongroups/group_details.html:39
@@ -83,7 +83,7 @@ msgstr ""
 #: subtrees/jetson/apps/advertising/models.py:89
 #: subtrees/jetson/apps/blog/forms.py:20
 #: subtrees/jetson/apps/cms_extensions/plugins/headline/models.py:9
-#: subtrees/jetson/apps/comments/views/comments.py:63
+#: subtrees/jetson/apps/comments/views/comments.py:65
 #: subtrees/jetson/apps/email_campaigns/admin.py:56
 #: subtrees/jetson/apps/email_campaigns/admin.py:66
 #: subtrees/jetson/apps/email_campaigns/models.py:61
@@ -112,8 +112,8 @@ msgstr ""
 #: subtrees/jetson/apps/institutions/admin.py:21
 #: subtrees/jetson/apps/institutions/admin.py:31
 #: subtrees/jetson/apps/institutions/base.py:213
-#: subtrees/jetson/apps/mailchimp/admin.py:95
-#: subtrees/jetson/apps/mailchimp/models.py:91
+#: subtrees/jetson/apps/mailchimp/admin.py:96
+#: subtrees/jetson/apps/mailchimp/models.py:92
 #: subtrees/jetson/apps/marketplace/admin.py:40
 #: subtrees/jetson/apps/marketplace/admin.py:48
 #: subtrees/jetson/apps/marketplace/admin.py:56
@@ -135,9 +135,9 @@ msgstr ""
 #: subtrees/jetson/apps/resources/admin.py:29
 #: subtrees/jetson/apps/resources/base.py:78
 #: subtrees/jetson/apps/resources/base.py:165
-#: subtrees/jetson/apps/structure/admin.py:21
-#: subtrees/jetson/apps/structure/admin.py:39
-#: subtrees/jetson/apps/structure/admin.py:58
+#: subtrees/jetson/apps/structure/admin.py:17
+#: subtrees/jetson/apps/structure/admin.py:30
+#: subtrees/jetson/apps/structure/admin.py:44
 #: subtrees/jetson/apps/tracker/admin.py:13
 #: subtrees/jetson/projects/basic_project/apps/events/south_migrations/0001_initial.py:20
 #: subtrees/jetson/templates/default/comments/form.html:10
@@ -148,12 +148,12 @@ msgstr "Titel"
 
 #: subtrees/jetson/apps/advertising/models.py:58
 #: subtrees/jetson/apps/advertising/models.py:72
-#: subtrees/jetson/apps/articles/admin.py:61
+#: subtrees/jetson/apps/articles/admin.py:57
 #: subtrees/jetson/apps/configuration/south_migrations/0001_initial.py:27
 #: subtrees/jetson/apps/configuration/south_migrations/0002_no_gmaps_api_key.py:74
 #: subtrees/jetson/apps/events/base.py:224
 #: subtrees/jetson/apps/forum/forms.py:70
-#: subtrees/jetson/apps/groups_networks/admin.py:63
+#: subtrees/jetson/apps/groups_networks/admin.py:59
 #: subtrees/jetson/apps/groups_networks/base.py:224
 #: subtrees/jetson/apps/institutions/base.py:217
 #: subtrees/jetson/apps/marketplace/base.py:147
@@ -171,8 +171,7 @@ msgstr "Titel"
 #: subtrees/jetson/apps/tracker/forms.py:50
 #: subtrees/jetson/projects/basic_project/apps/events/south_migrations/0001_initial.py:22
 #: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_details.html:8
-#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_details.html:29
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:167
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_details.html:30
 #: subtrees/jetson/templates/default/events/profile/description_form.html:7
 #: subtrees/jetson/templates/default/groups_networks/persongroups/profile/description_form.html:7
 #: subtrees/jetson/templates/default/institutions/add_institution_profile.html:29
@@ -257,10 +256,10 @@ msgstr ""
 #: subtrees/jetson/apps/blocks/models.py:39
 #: subtrees/jetson/apps/email_campaigns/admin.py:76
 #: subtrees/jetson/apps/email_campaigns/admin.py:83
-#: subtrees/jetson/apps/flatpages/admin.py:29
-#: subtrees/jetson/apps/mailchimp/admin.py:138
-#: subtrees/jetson/apps/mailchimp/admin.py:149
-#: subtrees/jetson/apps/mailchimp/models.py:381
+#: subtrees/jetson/apps/flatpages/admin.py:31
+#: subtrees/jetson/apps/mailchimp/admin.py:139
+#: subtrees/jetson/apps/mailchimp/admin.py:150
+#: subtrees/jetson/apps/mailchimp/models.py:382
 msgid "Content"
 msgstr "Inhalt"
 
@@ -277,12 +276,12 @@ msgstr ""
 msgid "Advertisement"
 msgstr ""
 
-#: subtrees/jetson/apps/articles/admin.py:56
-#: subtrees/jetson/projects/basic_project/apps/events/admin.py:33
+#: subtrees/jetson/apps/articles/admin.py:52
+#: subtrees/jetson/projects/basic_project/apps/events/admin.py:29
 msgid "Article"
 msgstr "Artikel"
 
-#: subtrees/jetson/apps/articles/admin.py:59
+#: subtrees/jetson/apps/articles/admin.py:55
 msgid "Additional Content"
 msgstr "Zusätzliche Inhalte"
 
@@ -530,7 +529,6 @@ msgstr "Letzte Beiträge"
 
 #: subtrees/jetson/apps/blog/forms.py:25
 #: subtrees/jetson/apps/events/forms.py:665
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:758
 #: subtrees/jetson/templates/default/blog/forms/post_embedded.html:12
 #: subtrees/jetson/templates/default/blog/post_brief.html:41
 #: subtrees/jetson/templates/default/blog/post_detail.html:38
@@ -547,9 +545,9 @@ msgstr ""
 "definieren."
 
 #: subtrees/jetson/apps/blog/forms.py:32
-#: subtrees/jetson/apps/structure/admin.py:23
-#: subtrees/jetson/apps/structure/admin.py:41
-#: subtrees/jetson/apps/structure/admin.py:60
+#: subtrees/jetson/apps/structure/admin.py:19
+#: subtrees/jetson/apps/structure/admin.py:32
+#: subtrees/jetson/apps/structure/admin.py:46
 msgid "Body"
 msgstr "Inhalt"
 
@@ -559,17 +557,16 @@ msgstr "Inhalt"
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:152
 #: subtrees/jetson/apps/events/base.py:230
 #: subtrees/jetson/apps/forum/forms.py:82
-#: subtrees/jetson/apps/groups_networks/admin.py:66
+#: subtrees/jetson/apps/groups_networks/admin.py:62
 #: subtrees/jetson/apps/groups_networks/base.py:238
 #: subtrees/jetson/apps/institutions/base.py:222
-#: subtrees/jetson/apps/mailchimp/models.py:57
-#: subtrees/jetson/apps/mailchimp/models.py:198
+#: subtrees/jetson/apps/mailchimp/models.py:58
+#: subtrees/jetson/apps/mailchimp/models.py:199
 #: subtrees/jetson/apps/people/base.py:298
 #: subtrees/jetson/apps/people/forms.py:629
 #: subtrees/jetson/apps/people/forms.py:1267
 #: subtrees/jetson/apps/resources/base.py:189
 #: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_status.html:3
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:782
 #: subtrees/jetson/templates/default/accounts/reg_confirm.html:405
 msgid "Status"
 msgstr "Status  "
@@ -783,7 +780,6 @@ msgstr "Lesezeichen"
 #: subtrees/jetson/apps/people/forms.py:1547
 #: subtrees/jetson/apps/people/forms.py:1556
 #: subtrees/jetson/apps/resources/base.py:170
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:146
 #: subtrees/jetson/templates/admin/filebrowser/detail.html:134
 #: subtrees/jetson/templates/default/resources/documents/document_list.html:43
 #: subtrees/jetson/templates/default/resources/documents/document_simplesearchresults.html:46
@@ -886,7 +882,7 @@ msgstr "Sie haben keine Berechtigung, etwas zu ändern."
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0002_add_campaign_mailinglist_mailing_mailingcontentblock.py:29
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:131
 #: subtrees/jetson/apps/events/base.py:225
-#: subtrees/jetson/apps/flatpages/admin.py:40
+#: subtrees/jetson/apps/flatpages/admin.py:42
 #: subtrees/jetson/apps/groups_networks/base.py:240
 #: subtrees/jetson/apps/institutions/base.py:219
 #: subtrees/jetson/apps/media_gallery/base.py:89
@@ -977,6 +973,7 @@ msgid "route planer"
 msgstr "Routenplaner"
 
 #: subtrees/jetson/apps/cms_extensions/plugins/gmap/models.py:32
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_contact_form.html:190
 #: subtrees/jetson/templates/default/events/event_details.html:70
 msgid "Map"
 msgstr "Karte"
@@ -1017,7 +1014,7 @@ msgid ""
 msgstr ""
 
 #: subtrees/jetson/apps/comments/admin.py:34
-#: subtrees/jetson/apps/comments/views/comments.py:308
+#: subtrees/jetson/apps/comments/views/comments.py:310
 msgid "Reason"
 msgstr "Begründung"
 
@@ -1277,60 +1274,60 @@ msgstr "Kommentar:"
 msgid "Preview comment"
 msgstr "Kommentarvorschau"
 
-#: subtrees/jetson/apps/comments/views/comments.py:42
+#: subtrees/jetson/apps/comments/views/comments.py:44
 msgid "Your Name"
 msgstr "Ihr Name"
 
-#: subtrees/jetson/apps/comments/views/comments.py:49
+#: subtrees/jetson/apps/comments/views/comments.py:51
 msgid "Your Email Address"
 msgstr "Ihre E-Mail Adresse"
 
-#: subtrees/jetson/apps/comments/views/comments.py:56
+#: subtrees/jetson/apps/comments/views/comments.py:58
 msgid "Your URL"
 msgstr "Ihre Website"
 
-#: subtrees/jetson/apps/comments/views/comments.py:70
+#: subtrees/jetson/apps/comments/views/comments.py:72
 msgid "Comment"
 msgstr "Kommentar"
 
-#: subtrees/jetson/apps/comments/views/comments.py:79
+#: subtrees/jetson/apps/comments/views/comments.py:81
 msgid "Rating1"
 msgstr "Bewertung1"
 
-#: subtrees/jetson/apps/comments/views/comments.py:80
+#: subtrees/jetson/apps/comments/views/comments.py:82
 msgid "Rating2"
 msgstr "Bewertung2"
 
-#: subtrees/jetson/apps/comments/views/comments.py:81
+#: subtrees/jetson/apps/comments/views/comments.py:83
 msgid "Rating3"
 msgstr "Bewertung3"
 
-#: subtrees/jetson/apps/comments/views/comments.py:82
+#: subtrees/jetson/apps/comments/views/comments.py:84
 msgid "Rating4"
 msgstr "Bewertung4"
 
-#: subtrees/jetson/apps/comments/views/comments.py:83
+#: subtrees/jetson/apps/comments/views/comments.py:85
 msgid "Rating5"
 msgstr "Bewertung5"
 
-#: subtrees/jetson/apps/comments/views/comments.py:84
+#: subtrees/jetson/apps/comments/views/comments.py:86
 msgid "Rating6"
 msgstr "Bewertung6"
 
-#: subtrees/jetson/apps/comments/views/comments.py:85
+#: subtrees/jetson/apps/comments/views/comments.py:87
 msgid "Rating7"
 msgstr "Bewertung7"
 
-#: subtrees/jetson/apps/comments/views/comments.py:86
+#: subtrees/jetson/apps/comments/views/comments.py:88
 msgid "Rating8"
 msgstr "Bewertung8"
 
-#: subtrees/jetson/apps/comments/views/comments.py:121
-#: subtrees/jetson/apps/comments/views/comments.py:175
+#: subtrees/jetson/apps/comments/views/comments.py:123
+#: subtrees/jetson/apps/comments/views/comments.py:177
 msgid "Write a comment"
 msgstr "Einen Kommentar schreiben"
 
-#: subtrees/jetson/apps/comments/views/comments.py:292
+#: subtrees/jetson/apps/comments/views/comments.py:294
 #, python-format
 msgid ""
 "This comment was posted by a user who has posted fewer than %(count)s "
@@ -1348,7 +1345,7 @@ msgstr[0] ""
 "\n"
 "%(text)s"
 
-#: subtrees/jetson/apps/comments/views/comments.py:297
+#: subtrees/jetson/apps/comments/views/comments.py:299
 #, python-format
 msgid ""
 "This comment was posted by a sketchy user:\n"
@@ -1359,16 +1356,16 @@ msgstr ""
 "\n"
 "%(text)s"
 
-#: subtrees/jetson/apps/comments/views/comments.py:453
+#: subtrees/jetson/apps/comments/views/comments.py:455
 msgid "The comment form didn't provide either 'preview' or 'post'"
 msgstr ""
 "Das Kommentarformular wurde nicht mit 'preview' oder 'post' abgeschickt"
 
-#: subtrees/jetson/apps/comments/views/comments.py:517
+#: subtrees/jetson/apps/comments/views/comments.py:519
 #: subtrees/jetson/apps/events/forms.py:894
 #: subtrees/jetson/apps/events/forms.py:900
-#: subtrees/jetson/apps/utils/views.py:887
-#: subtrees/jetson/apps/utils/views.py:947
+#: subtrees/jetson/apps/utils/views.py:890
+#: subtrees/jetson/apps/utils/views.py:950
 #: subtrees/jetson/templates/admin/admin/cms/page/permissions.html:46
 #: subtrees/jetson/templates/admin/rosetta/languages.html:33
 #: subtrees/jetson/templates/admin/rosetta/pofile.html:50
@@ -1391,13 +1388,13 @@ msgstr "Keine Abstimmung bei Dir selber"
 
 #: subtrees/jetson/apps/configuration/admin.py:19
 #: subtrees/jetson/apps/configuration/base.py:20
-#: subtrees/jetson/apps/flatpages/admin.py:47
+#: subtrees/jetson/apps/flatpages/admin.py:49
 #: subtrees/jetson/apps/navigation/admin.py:40
 msgid "Advanced"
 msgstr "Fortgeschritten"
 
 #: subtrees/jetson/apps/configuration/base.py:16
-#: subtrees/jetson/apps/groups_networks/admin.py:61
+#: subtrees/jetson/apps/groups_networks/admin.py:57
 msgid "Configuration"
 msgstr "Konfiguration"
 
@@ -1486,7 +1483,6 @@ msgstr "Stichworte"
 #: subtrees/jetson/apps/configuration/south_migrations/0001_initial.py:28
 #: subtrees/jetson/apps/configuration/south_migrations/0002_no_gmaps_api_key.py:83
 #: subtrees/jetson/apps/marketplace/admin.py:134
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:773
 #: subtrees/jetson/templates/default/forum/forum_list_level_1.html:82
 msgid "Author"
 msgstr "Autor"
@@ -1513,7 +1509,7 @@ msgstr "Kontaktformular"
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:185
 #: subtrees/jetson/apps/forum/forms.py:111
 #: subtrees/jetson/apps/i18n/models.py:74
-#: subtrees/jetson/apps/mailchimp/models.py:194
+#: subtrees/jetson/apps/mailchimp/models.py:195
 #: subtrees/jetson/apps/mailing/models.py:45
 #: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:52
 #: subtrees/jetson/apps/messaging/forms.py:16
@@ -1532,7 +1528,7 @@ msgstr "Betreff"
 #: subtrees/jetson/apps/forum/forms.py:117
 #: subtrees/jetson/apps/forum/forms.py:150
 #: subtrees/jetson/apps/individual_relations/forms.py:40
-#: subtrees/jetson/apps/mailchimp/models.py:195
+#: subtrees/jetson/apps/mailchimp/models.py:196
 #: subtrees/jetson/apps/mailing/admin.py:52
 #: subtrees/jetson/apps/messaging/admin.py:20
 #: subtrees/jetson/apps/messaging/forms.py:23
@@ -1596,7 +1592,7 @@ msgstr "Nichts ist zurück an den Absender, wenn die Vorlage nicht ausgewählt"
 #: subtrees/jetson/apps/i18n/models.py:127
 #: subtrees/jetson/apps/i18n/south_migrations/0001_initial.py:69
 #: subtrees/jetson/apps/i18n/south_migrations/0001_initial.py:87
-#: subtrees/jetson/apps/mailchimp/models.py:382
+#: subtrees/jetson/apps/mailchimp/models.py:383
 #: subtrees/jetson/apps/marketplace/base.py:72
 #: subtrees/jetson/apps/marketplace/base.py:85
 #: subtrees/jetson/apps/marketplace/base.py:97
@@ -1632,23 +1628,23 @@ msgstr "Geschäftsfelder"
 msgid "Either subscriber or subscriber email should be filled in."
 msgstr "Entweder Abonnent oder E-Mail des Abonnenten eintragen."
 
-#: subtrees/jetson/apps/email_campaigns/admin.py:106
+#: subtrees/jetson/apps/email_campaigns/admin.py:101
 msgid "Save and send"
 msgstr "Speichern und senden"
 
-#: subtrees/jetson/apps/email_campaigns/admin.py:169
-#: subtrees/jetson/apps/email_campaigns/admin.py:176
+#: subtrees/jetson/apps/email_campaigns/admin.py:164
+#: subtrees/jetson/apps/email_campaigns/admin.py:171
 #, python-format
 msgid "Mailing was sent out to %(count)s recipients (test transmission)"
 msgstr "Mailing wurde an %(count)s Empfänger versandt (Test-Versand)"
 
-#: subtrees/jetson/apps/email_campaigns/admin.py:218
-#: subtrees/jetson/apps/email_campaigns/admin.py:225
+#: subtrees/jetson/apps/email_campaigns/admin.py:213
+#: subtrees/jetson/apps/email_campaigns/admin.py:220
 #, python-format
 msgid "Mailing was sent out to %(count)s recipients (real transmission)"
 msgstr "Mailing wurde an %(count)s Empfänger versandt (Tatsächlicher Versand)"
 
-#: subtrees/jetson/apps/email_campaigns/admin.py:230
+#: subtrees/jetson/apps/email_campaigns/admin.py:225
 #, python-format
 msgid "Send mailing: %s"
 msgstr "Mailing senden: %s"
@@ -1663,7 +1659,7 @@ msgid "Email Campaigns"
 msgstr "Email-Campaigns"
 
 #: subtrees/jetson/apps/email_campaigns/models.py:24
-#: subtrees/jetson/apps/mailchimp/models.py:51
+#: subtrees/jetson/apps/mailchimp/models.py:52
 msgid "Subscriber"
 msgstr "Abonnent"
 
@@ -1680,7 +1676,7 @@ msgstr "Abonnenten-Name"
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0009_change_info_subscription.py:23
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0009_change_info_subscription.py:42
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:206
-#: subtrees/jetson/apps/mailchimp/models.py:54
+#: subtrees/jetson/apps/mailchimp/models.py:55
 msgid "Email address"
 msgstr "E-mail-Adresse"
 
@@ -1689,17 +1685,17 @@ msgstr "E-mail-Adresse"
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0009_change_info_subscription.py:20
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0009_change_info_subscription.py:39
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:197
-#: subtrees/jetson/apps/mailchimp/models.py:55
+#: subtrees/jetson/apps/mailchimp/models.py:56
 msgid "IP Address"
 msgstr "IP-Adresse"
 
 #: subtrees/jetson/apps/email_campaigns/models.py:28
 #: subtrees/jetson/apps/email_campaigns/models.py:46
 #: subtrees/jetson/apps/mailchimp/forms.py:22
-#: subtrees/jetson/apps/mailchimp/models.py:56
-#: subtrees/jetson/apps/mailchimp/models.py:75
-#: subtrees/jetson/apps/mailchimp/models.py:196
-#: subtrees/jetson/apps/mailchimp/models.py:229
+#: subtrees/jetson/apps/mailchimp/models.py:57
+#: subtrees/jetson/apps/mailchimp/models.py:76
+#: subtrees/jetson/apps/mailchimp/models.py:197
+#: subtrees/jetson/apps/mailchimp/models.py:230
 msgid "Mailing list"
 msgstr "Mailingliste"
 
@@ -1720,20 +1716,20 @@ msgid "Show mailing lists"
 msgstr "Alle Mailinglisten zeigen"
 
 #: subtrees/jetson/apps/email_campaigns/models.py:81
-#: subtrees/jetson/apps/mailchimp/models.py:97
+#: subtrees/jetson/apps/mailchimp/models.py:98
 msgid "Mailing Lists"
 msgstr "Mailinglisten"
 
 #: subtrees/jetson/apps/email_campaigns/models.py:89
 #: subtrees/jetson/apps/email_campaigns/models.py:126
-#: subtrees/jetson/apps/mailchimp/models.py:201
+#: subtrees/jetson/apps/mailchimp/models.py:202
 msgid "Campaign"
 msgstr "Kampagne"
 
 #: subtrees/jetson/apps/email_campaigns/models.py:91
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0010_enhance_mailing_lists.py:14
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:218
-#: subtrees/jetson/apps/mailchimp/models.py:92
+#: subtrees/jetson/apps/mailchimp/models.py:93
 msgid ""
 "Will this mailing list be displayed in the public settings of subscriptions?"
 msgstr ""
@@ -1742,13 +1738,13 @@ msgstr ""
 
 #: subtrees/jetson/apps/email_campaigns/models.py:95
 #: subtrees/jetson/apps/email_campaigns/models.py:112
-#: subtrees/jetson/apps/mailchimp/models.py:102
-#: subtrees/jetson/apps/mailchimp/models.py:119
+#: subtrees/jetson/apps/mailchimp/models.py:103
+#: subtrees/jetson/apps/mailchimp/models.py:120
 msgid "Number of recipients"
 msgstr "Anzahl der Empfänger"
 
 #: subtrees/jetson/apps/email_campaigns/models.py:110
-#: subtrees/jetson/apps/mailchimp/models.py:117
+#: subtrees/jetson/apps/mailchimp/models.py:118
 msgid "Show recipients"
 msgstr "Empfänger zeigen"
 
@@ -1757,7 +1753,7 @@ msgstr "Empfänger zeigen"
 #: subtrees/jetson/apps/forum/models.py:29
 #: subtrees/jetson/apps/groups_networks/base.py:58
 #: subtrees/jetson/apps/institutions/base.py:67
-#: subtrees/jetson/apps/mailchimp/models.py:187
+#: subtrees/jetson/apps/mailchimp/models.py:188
 #: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:62
 #: subtrees/jetson/apps/mailing/south_migrations/0002_removed_internal_message_specifics.py:78
 #: subtrees/jetson/apps/messaging/models.py:23
@@ -1768,7 +1764,7 @@ msgid "Draft"
 msgstr "Entwurf"
 
 #: subtrees/jetson/apps/email_campaigns/models.py:150
-#: subtrees/jetson/apps/mailchimp/models.py:188
+#: subtrees/jetson/apps/mailchimp/models.py:189
 #: subtrees/jetson/apps/mailing/models.py:48
 #: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:60
 msgid "Sent"
@@ -1777,7 +1773,7 @@ msgstr "Gesendet"
 #: subtrees/jetson/apps/email_campaigns/models.py:154
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0002_add_campaign_mailinglist_mailing_mailingcontentblock.py:50
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:164
-#: subtrees/jetson/apps/mailchimp/models.py:192
+#: subtrees/jetson/apps/mailchimp/models.py:193
 #: subtrees/jetson/apps/mailing/models.py:42
 #: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:49
 msgid "Sender name"
@@ -1786,7 +1782,7 @@ msgstr "Versender"
 #: subtrees/jetson/apps/email_campaigns/models.py:155
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0002_add_campaign_mailinglist_mailing_mailingcontentblock.py:51
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:173
-#: subtrees/jetson/apps/mailchimp/models.py:193
+#: subtrees/jetson/apps/mailchimp/models.py:194
 #: subtrees/jetson/apps/mailing/models.py:43
 #: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:50
 msgid "Sender email"
@@ -1800,7 +1796,7 @@ msgstr "Mailinglisten"
 #: subtrees/jetson/apps/email_campaigns/models.py:159
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0008_add_mailing_status.py:17
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:176
-#: subtrees/jetson/apps/mailchimp/models.py:197
+#: subtrees/jetson/apps/mailchimp/models.py:198
 #: subtrees/jetson/apps/optionset/admin.py:73
 msgid "Template"
 msgstr "Vorlage"
@@ -1829,12 +1825,12 @@ msgid "Link"
 msgstr "Link"
 
 #: subtrees/jetson/apps/email_campaigns/models.py:216
-#: subtrees/jetson/apps/mailchimp/models.py:389
+#: subtrees/jetson/apps/mailchimp/models.py:390
 msgid "Content Block"
 msgstr "Inhaltsblock"
 
 #: subtrees/jetson/apps/email_campaigns/models.py:217
-#: subtrees/jetson/apps/mailchimp/models.py:390
+#: subtrees/jetson/apps/mailchimp/models.py:391
 msgid "Content Blocks"
 msgstr "Inhaltsblöcke"
 
@@ -1845,7 +1841,7 @@ msgid "Timestamp"
 msgstr "Zeitstempel"
 
 #: subtrees/jetson/apps/events/admin.py:88
-#: subtrees/jetson/apps/events/admin.py:263
+#: subtrees/jetson/apps/events/admin.py:259
 #: subtrees/jetson/apps/events/base.py:444
 #: subtrees/jetson/apps/events/forms.py:111
 #: subtrees/jetson/templates/default/events/add_event_main_data.html:89
@@ -1869,7 +1865,6 @@ msgstr ""
 #: subtrees/jetson/apps/groups_networks/base.py:227
 #: subtrees/jetson/apps/groups_networks/forms.py:177
 #: subtrees/jetson/apps/marketplace/base.py:171
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:846
 msgid "Organizing institution"
 msgstr "Veranstalter (Institution)"
 
@@ -1887,7 +1882,6 @@ msgstr ""
 #: subtrees/jetson/apps/events/admin.py:130
 #: subtrees/jetson/apps/events/base.py:478
 #: subtrees/jetson/apps/marketplace/base.py:188
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:876
 msgid "Organizing person"
 msgstr "Veranstalter (Person)"
 
@@ -1899,7 +1893,6 @@ msgstr ""
 "der verfügbaren Personen angezeigt zu bekommen"
 
 #: subtrees/jetson/apps/events/admin.py:151
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:925
 msgid "Related events"
 msgstr "Verwandte Veranstaltungen"
 
@@ -1918,12 +1911,7 @@ msgstr ""
 #: subtrees/jetson/apps/marketplace/admin.py:160
 #: subtrees/jetson/apps/people/forms.py:693
 #: subtrees/jetson/apps/people/forms.py:1459
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:413
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:460
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:140
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:103
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:311
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:358
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_phones.html:13
 msgid "Country"
 msgstr "Land"
 
@@ -1946,30 +1934,30 @@ msgstr "Zeit"
 msgid "Times"
 msgstr "Zeiten"
 
-#: subtrees/jetson/apps/events/admin.py:247
+#: subtrees/jetson/apps/events/admin.py:243
 msgid "Publish selected events"
 msgstr "Veröffentlichen Sie die ausgewählten Veranstaltungen"
 
-#: subtrees/jetson/apps/events/admin.py:338
-#: subtrees/jetson/apps/marketplace/admin.py:293
+#: subtrees/jetson/apps/events/admin.py:334
+#: subtrees/jetson/apps/marketplace/admin.py:289
 #, python-format
 msgid "Add %s"
 msgstr "%s hinzufügen"
 
-#: subtrees/jetson/apps/events/admin.py:372
-#: subtrees/jetson/apps/marketplace/admin.py:326
+#: subtrees/jetson/apps/events/admin.py:368
+#: subtrees/jetson/apps/marketplace/admin.py:322
 #, python-format
 msgid "%(name)s object with primary key %(key)r does not exist."
 msgstr " %(name)s Objekt mit Primärschlüssel %(key)r existiert nicht."
 
-#: subtrees/jetson/apps/events/admin.py:430
-#: subtrees/jetson/apps/marketplace/admin.py:384
+#: subtrees/jetson/apps/events/admin.py:426
+#: subtrees/jetson/apps/marketplace/admin.py:380
 #, python-format
 msgid "Change %s"
 msgstr "%s geändert"
 
 #: subtrees/jetson/apps/events/base.py:50
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:58
+#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:57
 #: subtrees/jetson/templates/default/events/details_base.html:17
 #: subtrees/jetson/templates/default/events/event_list.html:9
 #: subtrees/jetson/templates/default/events/event_list.html:12
@@ -1986,7 +1974,7 @@ msgstr "Veranstaltungen"
 #: subtrees/jetson/apps/institutions/base.py:68
 #: subtrees/jetson/apps/people/base.py:111
 #: subtrees/jetson/apps/resources/base.py:50
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:208
+#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:281
 msgid "Published"
 msgstr "Veröffentlicht"
 
@@ -2057,8 +2045,6 @@ msgstr "Alphabetisch"
 #: subtrees/jetson/apps/events/base.py:223
 #: subtrees/jetson/apps/groups_networks/base.py:194
 #: subtrees/jetson/projects/basic_project/apps/events/south_migrations/0001_initial.py:21
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:128
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:125
 msgid "Slug for URIs"
 msgstr "URI-Pfadname"
 
@@ -2067,14 +2053,14 @@ msgstr "URI-Pfadname"
 #: subtrees/jetson/projects/basic_project/apps/events/south_migrations/0001_initial.py:24
 #: subtrees/jetson/projects/basic_project/apps/events/south_migrations/0001_initial.py:45
 #: subtrees/jetson/projects/basic_project/apps/events/south_migrations/0001_initial.py:51
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:192
+#: subtrees/jetson/templates/admin/extendedadmin/includes/event_time.html:49
 msgid "Start"
 msgstr "Von Datum"
 
 #: subtrees/jetson/apps/events/base.py:228
 #: subtrees/jetson/apps/events/base.py:800
 #: subtrees/jetson/projects/basic_project/apps/events/south_migrations/0001_initial.py:25
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:214
+#: subtrees/jetson/templates/admin/extendedadmin/includes/event_time.html:77
 msgid "End"
 msgstr "Bis Datum"
 
@@ -2128,7 +2114,7 @@ msgstr "Postalische Adresse"
 #: subtrees/jetson/apps/events/base.py:492
 #: subtrees/jetson/apps/marketplace/base.py:183
 #: subtrees/jetson/apps/marketplace/base.py:202
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:842
+#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:347
 #: subtrees/jetson/templates/default/events/add_event_confirm.html:251
 #: subtrees/jetson/templates/default/events/add_event_main_data.html:242
 #: subtrees/jetson/templates/default/events/add_event_main_data.html:262
@@ -2143,10 +2129,10 @@ msgstr "Website des Veranstalters"
 
 #: subtrees/jetson/apps/events/base.py:495
 #: subtrees/jetson/apps/marketplace/base.py:207
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:174
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:890
-#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:259
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:744
+#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:228
+#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:417
+#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:256
+#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:305
 #: subtrees/jetson/templates/default/events/profile/additional_info.html:3
 #: subtrees/jetson/templates/default/events/profile/additional_info.html:8
 msgid "Additional Info"
@@ -2390,10 +2376,7 @@ msgstr "IM-Typ"
 #: subtrees/jetson/apps/people/base.py:774
 #: subtrees/jetson/apps/people/base.py:779
 #: subtrees/jetson/apps/people/base.py:784
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:759
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:420
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:383
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:665
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_ims.html:12
 msgid "Instant Messenger"
 msgstr "Instant Messenger"
 
@@ -2424,10 +2407,7 @@ msgstr "Email-Typ"
 #: subtrees/jetson/apps/people/base.py:792
 #: subtrees/jetson/apps/people/base.py:797
 #: subtrees/jetson/apps/people/base.py:802
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:593
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:266
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:229
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:491
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_emails.html:12
 msgid "Email Address"
 msgstr "E-Mail Adresse"
 
@@ -2443,8 +2423,9 @@ msgstr "(punkt)"
 
 #: subtrees/jetson/apps/events/base.py:786
 #: subtrees/jetson/apps/events/management.py:51
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:59
+#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:58
 #: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:99
+#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:119
 #: subtrees/jetson/templates/default/events/add_event_categories.html:8
 #: subtrees/jetson/templates/default/events/add_event_categories.html:12
 #: subtrees/jetson/templates/default/events/add_event_confirm.html:9
@@ -2531,7 +2512,6 @@ msgid "event times"
 msgstr "Veranstaltungszeiträume"
 
 #: subtrees/jetson/apps/events/base.py:880
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:174
 msgid "Label"
 msgstr "Label"
 
@@ -2579,21 +2559,16 @@ msgstr "Ich selbst bin Veranstalter"
 
 #: subtrees/jetson/apps/events/forms.py:72
 #: subtrees/jetson/apps/groups_networks/forms.py:80
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:107
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:115
 msgid "Title (German)"
 msgstr "Titel (Deutsch)"
 
 #: subtrees/jetson/apps/events/forms.py:77
 #: subtrees/jetson/apps/groups_networks/forms.py:77
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:118
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:104
 msgid "Title (English)"
 msgstr "Titel (Englisch)"
 
 #: subtrees/jetson/apps/events/forms.py:84
 #: subtrees/jetson/apps/events/forms.py:895
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:134
 msgid "Event Type"
 msgstr "Veranstaltungsart"
 
@@ -2606,7 +2581,7 @@ msgstr "Verwandte Veranstaltungen"
 #: subtrees/jetson/apps/mailing/admin.py:21
 #: subtrees/jetson/apps/public_filebrowser/forms.py:26
 #: subtrees/jetson/apps/tracker/forms.py:30
-#: subtrees/jetson/templates/admin/filebrowser/versions.html:121
+#: subtrees/jetson/templates/admin/filebrowser/versions.html:112
 #: subtrees/jetson/templates/default/accounts/reg_person.html:29
 #: subtrees/jetson/templates/default/events/profile/identity_form.html:4
 #: subtrees/jetson/templates/default/groups_networks/persongroups/profile/identity_form.html:4
@@ -2624,8 +2599,6 @@ msgstr "Name"
 #: subtrees/jetson/apps/location/south_migrations/0002_auto__chg_field_geoposition_latitude__chg_field_geoposition_altitude__.py:89
 #: subtrees/jetson/apps/people/forms.py:662
 #: subtrees/jetson/apps/people/forms.py:1428
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:357
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:255
 msgid "Street Address"
 msgstr "Straße; Hausnummer"
 
@@ -2643,8 +2616,6 @@ msgstr "Adresse ( Zweite Zeile )"
 #: subtrees/jetson/apps/location/south_migrations/0002_auto__chg_field_geoposition_latitude__chg_field_geoposition_altitude__.py:71
 #: subtrees/jetson/apps/people/forms.py:670
 #: subtrees/jetson/apps/people/forms.py:1436
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:399
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:297
 msgid "City"
 msgstr "Ort"
 
@@ -2773,10 +2744,7 @@ msgstr "E-Mail"
 
 #: subtrees/jetson/apps/events/forms.py:188
 #: subtrees/jetson/apps/events/forms.py:220
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:676
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:343
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:306
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:582
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_websites.html:12
 #: subtrees/jetson/templates/default/accounts/reg_confirm.html:139
 #: subtrees/jetson/templates/default/accounts/reg_confirm.html:148
 #: subtrees/jetson/templates/default/accounts/reg_confirm.html:157
@@ -2984,7 +2952,7 @@ msgstr "Stichworte durch Kommas trennen"
 
 #: subtrees/jetson/apps/events/forms.py:848
 #: subtrees/jetson/apps/groups_networks/forms.py:332
-#: subtrees/jetson/apps/institutions/forms.py:766
+#: subtrees/jetson/apps/institutions/forms.py:772
 #: subtrees/jetson/apps/people/forms.py:2234
 #: subtrees/jetson/templates/default/groups_networks/persongroups/add_group_confirm.html:51
 msgid "main data"
@@ -3000,7 +2968,7 @@ msgstr "Eintritt & Öffnungszeiten"
 
 #: subtrees/jetson/apps/events/forms.py:870
 #: subtrees/jetson/apps/groups_networks/forms.py:337
-#: subtrees/jetson/apps/institutions/forms.py:786
+#: subtrees/jetson/apps/institutions/forms.py:792
 #: subtrees/jetson/apps/people/forms.py:2223
 #: subtrees/jetson/apps/people/forms.py:2249
 msgid "categories"
@@ -3008,7 +2976,7 @@ msgstr "Kategorien"
 
 #: subtrees/jetson/apps/events/forms.py:875
 #: subtrees/jetson/apps/groups_networks/forms.py:347
-#: subtrees/jetson/apps/institutions/forms.py:792
+#: subtrees/jetson/apps/institutions/forms.py:798
 #: subtrees/jetson/apps/people/forms.py:2265
 msgid "confirm data"
 msgstr "Eingaben prüfen"
@@ -3151,14 +3119,13 @@ msgstr "Mitglied von"
 
 #: subtrees/jetson/apps/extendedadmin/forms.py:464
 #: subtrees/jetson/apps/resources/base.py:172
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:177
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:186
+#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:246
+#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:390
 msgid "Authors"
 msgstr "Autoren"
 
 #: subtrees/jetson/apps/extendedadmin/forms.py:469
 #: subtrees/jetson/apps/resources/base.py:174
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:199
 msgid "Publisher"
 msgstr "Anbieter"
 
@@ -3515,7 +3482,7 @@ msgstr "Magenta"
 msgid "gray"
 msgstr "Grau"
 
-#: subtrees/jetson/apps/flatpages/admin.py:23
+#: subtrees/jetson/apps/flatpages/admin.py:25
 msgid "Image Properties"
 msgstr "Bildeigenschaften"
 
@@ -3805,15 +3772,15 @@ msgstr ""
 "'%(current_forum)s' wird in Ihr neues Forum verschoben!"
 
 #: subtrees/jetson/apps/groups_networks/admin.py:37
-#: subtrees/jetson/apps/groups_networks/admin.py:59
+#: subtrees/jetson/apps/groups_networks/admin.py:55
 msgid "Main"
 msgstr "Hauptinformation"
 
 #: subtrees/jetson/apps/groups_networks/admin.py:41
-#: subtrees/jetson/apps/groups_networks/admin.py:60
-#: subtrees/jetson/apps/media_gallery/admin.py:222
+#: subtrees/jetson/apps/groups_networks/admin.py:56
+#: subtrees/jetson/apps/media_gallery/admin.py:218
 #: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_details.html:4
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:163
+#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:196
 #: subtrees/jetson/templates/default/accounts/reg_confirm.html:193
 #: subtrees/jetson/templates/default/groups_networks/persongroups/group_details.html:33
 #: subtrees/jetson/templates/default/groups_networks/persongroups/profile/details_form.html:7
@@ -3832,7 +3799,7 @@ msgstr "Gruppen & Netzwerke"
 #: subtrees/jetson/apps/groups_networks/base.py:52
 #: subtrees/jetson/apps/groups_networks/forms.py:44
 #: subtrees/jetson/apps/history/models.py:39
-#: subtrees/jetson/apps/mailchimp/models.py:92
+#: subtrees/jetson/apps/mailchimp/models.py:93
 msgid "Public"
 msgstr "Öffentlich"
 
@@ -4026,7 +3993,7 @@ msgid "Please choose at least one context category."
 msgstr "Bitte wählen Sie mindestens ein Geschäftsfeld."
 
 #: subtrees/jetson/apps/groups_networks/forms.py:342
-#: subtrees/jetson/apps/institutions/forms.py:776
+#: subtrees/jetson/apps/institutions/forms.py:782
 #: subtrees/jetson/apps/people/forms.py:2260
 msgid "profile data"
 msgstr "Profildaten"
@@ -4106,7 +4073,6 @@ msgstr "Nachname"
 #: subtrees/jetson/apps/groups_networks/forms.py:598
 #: subtrees/jetson/apps/groups_networks/forms.py:676
 #: subtrees/jetson/apps/marketplace/base.py:146
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:116
 msgid "Position"
 msgstr "Tätigkeit"
 
@@ -4175,14 +4141,14 @@ msgstr "Eingaben prüfen"
 
 #: subtrees/jetson/apps/history/models.py:20
 #: subtrees/jetson/templates/admin/admin/auth/user/change_form.html:10
-#: subtrees/jetson/templates/admin/admin/change_form.html:142
+#: subtrees/jetson/templates/admin/admin/change_form.html:154
 #: subtrees/jetson/templates/admin/admin/cms/page/change_form.html:120
 #: subtrees/jetson/templates/admin/admin/object_history.html:14
 #: subtrees/jetson/templates/admin/admin/user_activity_history.html:9
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:72
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:68
-#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:79
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:81
+#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:75
+#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:67
+#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:82
+#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:80
 #: subtrees/jetson/templates/admin/extendedadmin/person_change.html:65
 msgid "History"
 msgstr "Verlauf"
@@ -4192,13 +4158,13 @@ msgid "Undefined"
 msgstr "Nicht definiert"
 
 #: subtrees/jetson/apps/history/models.py:24
-#: subtrees/jetson/templates/admin/admin/change_form.html:131
+#: subtrees/jetson/templates/admin/admin/change_form.html:143
 #: subtrees/jetson/templates/admin/admin/cms/page/plugin_change_form.html:154
 #: subtrees/jetson/templates/admin/admin/index.html:50
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:63
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:59
-#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:70
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:72
+#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:66
+#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:58
+#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:73
+#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:71
 #: subtrees/jetson/templates/admin/extendedadmin/person_change.html:56
 msgid "Add"
 msgstr "Hinzufügen"
@@ -4214,7 +4180,7 @@ msgstr "Gelesen"
 
 #: subtrees/jetson/apps/history/models.py:26
 #: subtrees/jetson/templates/admin/admin/index.html:55
-#: subtrees/jetson/templates/admin/filebrowser/include/filelisting.html:103
+#: subtrees/jetson/templates/admin/filebrowser/include/filelisting.html:138
 #: subtrees/jetson/templates/default/media_gallery/includes/gallery_slideshow.html:35
 #: subtrees/jetson/templates/default/notification/settings.html:42
 msgid "Change"
@@ -4506,8 +4472,6 @@ msgstr "Kolonie"
 #: subtrees/jetson/apps/location/models.py:217
 #: subtrees/jetson/apps/location/south_migrations/0001_initial.py:40
 #: subtrees/jetson/apps/location/south_migrations/0002_auto__chg_field_geoposition_latitude__chg_field_geoposition_altitude__.py:95
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:392
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:290
 msgid "District"
 msgstr "Bezirk"
 
@@ -4571,8 +4535,6 @@ msgstr "Teilbereich"
 #: subtrees/jetson/apps/location/models.py:168
 #: subtrees/jetson/apps/location/south_migrations/0001_initial.py:27
 #: subtrees/jetson/apps/location/south_migrations/0002_auto__chg_field_geoposition_latitude__chg_field_geoposition_altitude__.py:83
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:406
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:304
 msgid "State"
 msgstr "Bundesland, Region"
 
@@ -4822,50 +4784,52 @@ msgstr "Telefon"
 msgid "phones"
 msgstr "Telefone"
 
-#: subtrees/jetson/apps/image_mods/admin.py:24
+#: subtrees/jetson/apps/image_mods/admin.py:21
 msgid "Dimensions"
 msgstr "Abmessung"
 
-#: subtrees/jetson/apps/image_mods/admin.py:28
+#: subtrees/jetson/apps/image_mods/admin.py:25
 #: subtrees/jetson/apps/image_mods/models.py:380
 msgid "Filters"
 msgstr "Filter"
 
-#: subtrees/jetson/apps/image_mods/admin.py:32
+#: subtrees/jetson/apps/image_mods/admin.py:29
 msgid "Masks"
 msgstr "Masken"
 
-#: subtrees/jetson/apps/image_mods/admin.py:36
+#: subtrees/jetson/apps/image_mods/admin.py:33
 msgid "Saving"
 msgstr "Speichern"
 
-#: subtrees/jetson/apps/image_mods/admin.py:58
+#: subtrees/jetson/apps/image_mods/admin.py:50
 msgid "Coordinates"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/admin.py:61
+#: subtrees/jetson/apps/image_mods/admin.py:53
 msgid "Background"
 msgstr "Hintergrund"
 
-#: subtrees/jetson/apps/image_mods/admin.py:68
+#: subtrees/jetson/apps/image_mods/admin.py:60
 msgid "Cropping coordinates"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/admin.py:72
+#: subtrees/jetson/apps/image_mods/admin.py:64
 msgid "Cropping size"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/admin.py:79
-msgid "Original"
+#: subtrees/jetson/apps/image_mods/admin.py:71
+#, fuzzy
+#| msgid "Original"
+msgid "Original size"
 msgstr "Original"
 
-#: subtrees/jetson/apps/image_mods/admin.py:83
+#: subtrees/jetson/apps/image_mods/admin.py:75
 #: subtrees/jetson/apps/image_mods/models.py:88
 #: subtrees/jetson/apps/image_mods/models.py:388
 msgid "Image Modifications"
 msgstr "Bild Modifikationen"
 
-#: subtrees/jetson/apps/image_mods/admin.py:89
+#: subtrees/jetson/apps/image_mods/admin.py:81
 msgid "Update image versions"
 msgstr "Bildversionen aktualisieren"
 
@@ -4903,7 +4867,6 @@ msgstr "Medium-Low"
 #: subtrees/jetson/apps/image_mods/models.py:61
 #: subtrees/jetson/apps/resources/base.py:86
 #: subtrees/jetson/apps/resources/base.py:169
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:164
 msgid "Medium"
 msgstr "Medium"
 
@@ -4959,8 +4922,8 @@ msgstr "Sysnames werden für die Cache-Datei Suffixe und in den Vorlagen"
 #: subtrees/jetson/apps/image_mods/models.py:364
 #: subtrees/jetson/templates/admin/filebrowser/detail.html:187
 #: subtrees/jetson/templates/admin/filebrowser/detail.html:195
-#: subtrees/jetson/templates/admin/filebrowser/versions.html:172
-#: subtrees/jetson/templates/admin/filebrowser/versions.html:180
+#: subtrees/jetson/templates/admin/filebrowser/versions.html:151
+#: subtrees/jetson/templates/admin/filebrowser/versions.html:159
 #: subtrees/jetson/templates/default/public_filebrowser/versions.html:118
 msgid "Width"
 msgstr "Breite"
@@ -4972,8 +4935,8 @@ msgstr "Lassen Sie die Bildgröße auf der eingestellten Höhe"
 #: subtrees/jetson/apps/image_mods/models.py:365
 #: subtrees/jetson/templates/admin/filebrowser/detail.html:188
 #: subtrees/jetson/templates/admin/filebrowser/detail.html:196
-#: subtrees/jetson/templates/admin/filebrowser/versions.html:173
-#: subtrees/jetson/templates/admin/filebrowser/versions.html:181
+#: subtrees/jetson/templates/admin/filebrowser/versions.html:152
+#: subtrees/jetson/templates/admin/filebrowser/versions.html:160
 #: subtrees/jetson/templates/default/public_filebrowser/versions.html:119
 msgid "Height"
 msgstr "Höhe"
@@ -5076,6 +5039,11 @@ msgstr ""
 msgid "Image Modification"
 msgstr "Bild Modifikation "
 
+#: subtrees/jetson/apps/image_mods/models.py:590
+#: subtrees/jetson/templates/admin/rosetta/pofile.html:93
+msgid "Original"
+msgstr "Original"
+
 #: subtrees/jetson/apps/image_mods/models.py:591
 msgid "Modifications"
 msgstr "Modifikationen"
@@ -5103,7 +5071,7 @@ msgid "Y2"
 msgstr ""
 
 #: subtrees/jetson/apps/image_mods/models.py:596
-#: subtrees/jetson/apps/image_mods/views.py:198
+#: subtrees/jetson/apps/image_mods/views.py:199
 msgid "Canvas color"
 msgstr "Canvas Farbe"
 
@@ -5115,9 +5083,9 @@ msgstr ""
 msgid "Image Croppings"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/views.py:164
-#: subtrees/jetson/apps/image_mods/views.py:222
-#: subtrees/jetson/apps/image_mods/views.py:383
+#: subtrees/jetson/apps/image_mods/views.py:165
+#: subtrees/jetson/apps/image_mods/views.py:223
+#: subtrees/jetson/apps/image_mods/views.py:384
 #: subtrees/jetson/apps/public_filebrowser/views.py:87
 #: subtrees/jetson/apps/public_filebrowser/views.py:198
 #: subtrees/jetson/apps/public_filebrowser/views.py:252
@@ -5128,9 +5096,9 @@ msgstr ""
 msgid "The requested Folder does not exist."
 msgstr "Der aufgerufene Ordner ist nicht vorhanden."
 
-#: subtrees/jetson/apps/image_mods/views.py:166
-#: subtrees/jetson/apps/image_mods/views.py:224
-#: subtrees/jetson/apps/image_mods/views.py:385
+#: subtrees/jetson/apps/image_mods/views.py:167
+#: subtrees/jetson/apps/image_mods/views.py:225
+#: subtrees/jetson/apps/image_mods/views.py:386
 #: subtrees/jetson/apps/public_filebrowser/views.py:357
 #: subtrees/jetson/apps/public_filebrowser/views.py:439
 #: subtrees/jetson/apps/public_filebrowser/views.py:502
@@ -5138,29 +5106,29 @@ msgstr "Der aufgerufene Ordner ist nicht vorhanden."
 msgid "The requested File does not exist."
 msgstr "Die angeforderte Datei existiert nicht."
 
-#: subtrees/jetson/apps/image_mods/views.py:173
-#: subtrees/jetson/apps/image_mods/views.py:176
+#: subtrees/jetson/apps/image_mods/views.py:174
+#: subtrees/jetson/apps/image_mods/views.py:177
 #: subtrees/jetson/apps/public_filebrowser/views.py:510
 #: subtrees/jetson/apps/public_filebrowser/views.py:513
 #, python-format
 msgid "Versions for \"%s\""
 msgstr "Versionen für \"% s\""
 
-#: subtrees/jetson/apps/image_mods/views.py:346
+#: subtrees/jetson/apps/image_mods/views.py:347
 #, python-format
 msgid "Adjust the version \"%(mod_title)s\" for \"%(filename)s\""
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/views.py:402
+#: subtrees/jetson/apps/image_mods/views.py:403
 #, python-format
 msgid "Delete the version \"%(mod_title)s\" for \"%(filename)s\""
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/views.py:448
+#: subtrees/jetson/apps/image_mods/views.py:449
 msgid "Path is not defined"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/views.py:471
+#: subtrees/jetson/apps/image_mods/views.py:472
 msgid "Image does not exist"
 msgstr "Dieses Bild existiert nicht"
 
@@ -5275,7 +5243,7 @@ msgstr "Kennwort bestätigen"
 #: subtrees/jetson/apps/people/forms.py:1301
 #: subtrees/jetson/apps/people/forms.py:1309
 #: subtrees/jetson/apps/people/forms.py:1317
-#: subtrees/jetson/templates/admin/extendedadmin/person_change.html:344
+#: subtrees/jetson/templates/admin/extendedadmin/person_change.html:338
 #: subtrees/jetson/templates/default/accounts/reg_confirm.html:197
 #: subtrees/jetson/templates/default/accounts/reg_confirm.html:391
 msgid "Birthday"
@@ -5539,14 +5507,14 @@ msgstr "Ja"
 msgid "No"
 msgstr "Nein"
 
-#: subtrees/jetson/apps/institutions/admin.py:52
+#: subtrees/jetson/apps/institutions/admin.py:48
 msgid "Publish selected institutions"
 msgstr "Veröffentlichen Sie die ausgewählten Institutionen"
 
 #: subtrees/jetson/apps/institutions/apps.py:30
 #: subtrees/jetson/apps/institutions/base.py:512
-#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:70
-#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:109
+#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:73
+#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:112
 #: subtrees/jetson/templates/default/accounts/reg_institution.html:9
 #: subtrees/jetson/templates/default/accounts/reg_institution.html:28
 #: subtrees/jetson/templates/default/accounts/reg_institution_contacts.html:31
@@ -5577,7 +5545,7 @@ msgid "Institution"
 msgstr "Institution"
 
 #: subtrees/jetson/apps/institutions/base.py:56
-#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:69
+#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:72
 #: subtrees/jetson/templates/default/institutions/details_base.html:14
 #: subtrees/jetson/templates/default/institutions/institution_list.html:10
 #: subtrees/jetson/templates/default/institutions/institution_list.html:13
@@ -5624,7 +5592,7 @@ msgid "Slug"
 msgstr "System-Pfadname"
 
 #: subtrees/jetson/apps/institutions/base.py:221
-#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:171
+#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:174
 msgid "Types"
 msgstr "Typen"
 
@@ -5881,10 +5849,7 @@ msgstr "PLZ wird benötigt"
 #: subtrees/jetson/apps/people/forms.py:1566
 #: subtrees/jetson/apps/people/forms.py:1576
 #: subtrees/jetson/apps/people/forms.py:1586
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:353
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:489
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:452
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:251
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_contact_form.html:4
 #: subtrees/jetson/templates/default/accounts/reg_confirm.html:74
 #: subtrees/jetson/templates/default/accounts/reg_institution_contacts.html:56
 #: subtrees/jetson/templates/default/accounts/reg_person_contacts.html:68
@@ -5915,13 +5880,13 @@ msgstr "Bitte wählen Sie zumindest einen Kreativbereich aus."
 msgid "Please choose at least one object type."
 msgstr "Bitte wählen Sie mindestens eine Objektart."
 
-#: subtrees/jetson/apps/institutions/forms.py:781
+#: subtrees/jetson/apps/institutions/forms.py:787
 #: subtrees/jetson/apps/people/forms.py:2244
 msgid "opening hours and payment"
 msgstr "Öffnungszeiten und Zahlungsarten"
 
 #: subtrees/jetson/apps/location/models.py:10
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:320
+#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:281
 #: subtrees/jetson/templates/default/events/profile/categories.html:23
 #: subtrees/jetson/templates/default/groups_networks/persongroups/profile/categories.html:23
 #: subtrees/jetson/templates/default/groups_networks/persongroups/profile/contact_form.html:9
@@ -5956,8 +5921,6 @@ msgstr "Adressen"
 #: subtrees/jetson/apps/location/models.py:218
 #: subtrees/jetson/apps/location/south_migrations/0001_initial.py:41
 #: subtrees/jetson/apps/location/south_migrations/0002_auto__chg_field_geoposition_latitude__chg_field_geoposition_altitude__.py:92
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:385
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:283
 #: subtrees/jetson/templates/default/accounts/my_profile/view_profile.html:56
 msgid "Neighborhood"
 msgstr "Nachbarschaft"
@@ -5973,8 +5936,6 @@ msgstr "Ortschaften"
 #: subtrees/jetson/apps/location/models.py:228
 #: subtrees/jetson/apps/location/south_migrations/0001_initial.py:17
 #: subtrees/jetson/apps/location/south_migrations/0002_auto__chg_field_geoposition_latitude__chg_field_geoposition_altitude__.py:59
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:425
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:323
 msgid "Latitude"
 msgstr "Breitengrad"
 
@@ -5989,8 +5950,6 @@ msgstr ""
 #: subtrees/jetson/apps/location/models.py:229
 #: subtrees/jetson/apps/location/south_migrations/0001_initial.py:18
 #: subtrees/jetson/apps/location/south_migrations/0002_auto__chg_field_geoposition_latitude__chg_field_geoposition_altitude__.py:65
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:432
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:330
 msgid "Longitude"
 msgstr "Längengrad"
 
@@ -6010,8 +5969,6 @@ msgstr ""
 #: subtrees/jetson/apps/location/models.py:230
 #: subtrees/jetson/apps/location/south_migrations/0001_initial.py:19
 #: subtrees/jetson/apps/location/south_migrations/0002_auto__chg_field_geoposition_latitude__chg_field_geoposition_altitude__.py:62
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:439
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:337
 msgid "Altitude"
 msgstr "Höhenlage"
 
@@ -6032,16 +5989,16 @@ msgstr "Geopositionen"
 msgid "N/A"
 msgstr "N/A"
 
-#: subtrees/jetson/apps/mailchimp/admin.py:121
+#: subtrees/jetson/apps/mailchimp/admin.py:122
 msgid "MailChimp List"
 msgstr "MailChimp listen"
 
-#: subtrees/jetson/apps/mailchimp/admin.py:128
+#: subtrees/jetson/apps/mailchimp/admin.py:129
 msgid "Synchronize list"
 msgstr ""
 
-#: subtrees/jetson/apps/mailchimp/admin.py:183
-#: subtrees/jetson/apps/mailchimp/admin.py:184
+#: subtrees/jetson/apps/mailchimp/admin.py:180
+#: subtrees/jetson/apps/mailchimp/admin.py:181
 #: subtrees/jetson/templates/admin/admin/email_campaigns/mailing_send_prepare.html:40
 #: subtrees/jetson/templates/default/comments/form.html:25
 #: subtrees/jetson/templates/default/forum/forms/forum_embedded.html:82
@@ -6051,14 +6008,14 @@ msgid "Preview"
 msgstr "Vorschau"
 
 #: subtrees/jetson/apps/mailchimp/forms.py:27
-#: subtrees/jetson/apps/mailchimp/models.py:52
+#: subtrees/jetson/apps/mailchimp/models.py:53
 #: subtrees/jetson/apps/people/base.py:483
 #: subtrees/jetson/apps/people/forms.py:115
 msgid "First name"
 msgstr "Vorname"
 
 #: subtrees/jetson/apps/mailchimp/forms.py:32
-#: subtrees/jetson/apps/mailchimp/models.py:53
+#: subtrees/jetson/apps/mailchimp/models.py:54
 #: subtrees/jetson/apps/people/base.py:487
 #: subtrees/jetson/apps/people/forms.py:120
 msgid "Last name"
@@ -6069,107 +6026,107 @@ msgstr "Nachname"
 msgid "Send"
 msgstr "Senden"
 
-#: subtrees/jetson/apps/mailchimp/models.py:26
+#: subtrees/jetson/apps/mailchimp/models.py:27
 msgid "MailChimp"
 msgstr "MailChimp"
 
-#: subtrees/jetson/apps/mailchimp/models.py:29
+#: subtrees/jetson/apps/mailchimp/models.py:30
 #: subtrees/jetson/templates/default/groups_networks/persongroups/group_invitations_list.html:105
 #: subtrees/jetson/templates/default/people/person_invitations_list.html:87
 msgid "Pending"
 msgstr "Ausstehend"
 
-#: subtrees/jetson/apps/mailchimp/models.py:30
+#: subtrees/jetson/apps/mailchimp/models.py:31
 msgid "Subscribed"
 msgstr "Abonnent"
 
-#: subtrees/jetson/apps/mailchimp/models.py:31
+#: subtrees/jetson/apps/mailchimp/models.py:32
 msgid "Unsubscribed"
 msgstr ""
 
-#: subtrees/jetson/apps/mailchimp/models.py:35
+#: subtrees/jetson/apps/mailchimp/models.py:36
 msgid "API key"
 msgstr "API-Key"
 
-#: subtrees/jetson/apps/mailchimp/models.py:36
+#: subtrees/jetson/apps/mailchimp/models.py:37
 msgid "Double Optin"
 msgstr ""
 
-#: subtrees/jetson/apps/mailchimp/models.py:36
+#: subtrees/jetson/apps/mailchimp/models.py:37
 msgid ""
 "Flag to control whether a double opt-in confirmation message is sent. "
 "ABUSING THIS MAY CAUSE YOUR ACCOUNT TO BE SUSPENDED."
 msgstr ""
 
-#: subtrees/jetson/apps/mailchimp/models.py:37
+#: subtrees/jetson/apps/mailchimp/models.py:38
 msgid "Update existing"
 msgstr ""
 
-#: subtrees/jetson/apps/mailchimp/models.py:37
+#: subtrees/jetson/apps/mailchimp/models.py:38
 msgid ""
 "Flag to congtrol whether the existing subscribers should be updated instead "
 "of throwing an error."
 msgstr ""
 
-#: subtrees/jetson/apps/mailchimp/models.py:38
+#: subtrees/jetson/apps/mailchimp/models.py:39
 msgid "Send welcome"
 msgstr ""
 
-#: subtrees/jetson/apps/mailchimp/models.py:38
+#: subtrees/jetson/apps/mailchimp/models.py:39
 msgid ""
 "If double optin is false and this is true, MailChimp will send a welcome "
 "message to new subscribers."
 msgstr ""
 
-#: subtrees/jetson/apps/mailchimp/models.py:39
+#: subtrees/jetson/apps/mailchimp/models.py:40
 msgid "Delete member"
 msgstr "Miglied löschen"
 
-#: subtrees/jetson/apps/mailchimp/models.py:39
+#: subtrees/jetson/apps/mailchimp/models.py:40
 msgid ""
 "Flag to completely delete the member from the list instead of just "
 "unsubscribing"
 msgstr ""
 
-#: subtrees/jetson/apps/mailchimp/models.py:40
+#: subtrees/jetson/apps/mailchimp/models.py:41
 msgid "Send goodbye"
 msgstr ""
 
-#: subtrees/jetson/apps/mailchimp/models.py:40
+#: subtrees/jetson/apps/mailchimp/models.py:41
 msgid "Flag to send the goodbye message to the email address."
 msgstr ""
 
-#: subtrees/jetson/apps/mailchimp/models.py:43
 #: subtrees/jetson/apps/mailchimp/models.py:44
+#: subtrees/jetson/apps/mailchimp/models.py:45
 msgid "MailChimp Settings"
 msgstr "MailChimp Einstellungen"
 
-#: subtrees/jetson/apps/mailchimp/models.py:60
+#: subtrees/jetson/apps/mailchimp/models.py:61
 msgid "subscription"
 msgstr "Informationsabonnement"
 
-#: subtrees/jetson/apps/mailchimp/models.py:61
+#: subtrees/jetson/apps/mailchimp/models.py:62
 msgid "subscriptions"
 msgstr "Abonnements"
 
-#: subtrees/jetson/apps/mailchimp/models.py:93
+#: subtrees/jetson/apps/mailchimp/models.py:94
 msgid "Last sync"
 msgstr "Letzten Synchronisierung"
 
-#: subtrees/jetson/apps/mailchimp/models.py:96
-#: subtrees/jetson/apps/mailchimp/models.py:213
+#: subtrees/jetson/apps/mailchimp/models.py:97
+#: subtrees/jetson/apps/mailchimp/models.py:214
 msgid "Mailing List"
 msgstr "Mailinglisten"
 
-#: subtrees/jetson/apps/mailchimp/models.py:202
+#: subtrees/jetson/apps/mailchimp/models.py:203
 msgid "Campaigns"
 msgstr "Email-Kampagnen"
 
-#: subtrees/jetson/apps/mailchimp/models.py:374
+#: subtrees/jetson/apps/mailchimp/models.py:375
 msgid "Image and text"
 msgstr "Bild und Text"
 
-#: subtrees/jetson/apps/mailchimp/models.py:375
+#: subtrees/jetson/apps/mailchimp/models.py:376
 msgid "Text only"
 msgstr "nur Text"
 
@@ -6204,6 +6161,7 @@ msgid "Message \"%s\" has been sent"
 msgstr "Ihre Nachricht \"%s\" wurde gesendet"
 
 #: subtrees/jetson/apps/mailing/admin.py:40
+#, python-format
 msgid "Message \"%s\" has not been sent"
 msgstr "Ihre Nachricht \"%s\" wurde nicht gesendet"
 
@@ -6497,7 +6455,7 @@ msgid "job sectors"
 msgstr "Jobbereiche"
 
 #: subtrees/jetson/apps/marketplace/base.py:125
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:791
+#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:375
 msgid "Publishing date"
 msgstr "Veröffentlichungsdatum"
 
@@ -6506,11 +6464,12 @@ msgid "Job type"
 msgstr "Tätigkeitsart"
 
 #: subtrees/jetson/apps/marketplace/base.py:156
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:134
+#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:159
 msgid "Qualifications"
 msgstr "Qualifikationen"
 
 #: subtrees/jetson/apps/marketplace/base.py:163
+#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:178
 msgid "Job sectors"
 msgstr "Jobbereiche"
 
@@ -6530,7 +6489,7 @@ msgstr "Jobangebot"
 msgid "job offers"
 msgstr "Jobangebote"
 
-#: subtrees/jetson/apps/media_gallery/admin.py:219
+#: subtrees/jetson/apps/media_gallery/admin.py:215
 msgid "Cover"
 msgstr ""
 
@@ -6670,6 +6629,7 @@ msgstr "Bild hochladen"
 #: subtrees/jetson/apps/media_gallery/forms.py:86
 #: subtrees/jetson/apps/media_gallery/forms.py:246
 #: subtrees/jetson/apps/media_gallery/forms.py:386
+#, python-format
 msgid ""
 "You can upload GIF, JPG, and PNG images. The minimal dimensions are %s px."
 msgstr "Erlaubt sind Daten im Format JPG, GIF, PNG TIFF. Minimale Größe %s px."
@@ -6688,11 +6648,11 @@ msgstr "Bild vom Internet verlinken"
 #: subtrees/jetson/templates/admin/admin/extended_submit_line.html:7
 #: subtrees/jetson/templates/admin/admin/page_submit_line.html:11
 #: subtrees/jetson/templates/admin/admin/row_level_permissions.html:151
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:285
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:947
-#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:450
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:817
-#: subtrees/jetson/templates/admin/extendedadmin/person_change.html:580
+#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:402
+#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:491
+#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:447
+#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:412
+#: subtrees/jetson/templates/admin/extendedadmin/person_change.html:574
 #: subtrees/jetson/templates/admin/filebrowser/detail.html:228
 #: subtrees/jetson/templates/default/accounts/my_profile/privacy_settings.html:69
 #: subtrees/jetson/templates/default/events/profile/additional_info_form.html:12
@@ -6746,11 +6706,11 @@ msgstr "Sichern"
 #: subtrees/jetson/apps/media_gallery/forms.py:401
 #: subtrees/jetson/templates/admin/admin/extended_submit_line.html:9
 #: subtrees/jetson/templates/admin/admin/page_submit_line.html:13
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:286
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:948
-#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:451
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:818
-#: subtrees/jetson/templates/admin/extendedadmin/person_change.html:581
+#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:403
+#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:492
+#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:448
+#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:413
+#: subtrees/jetson/templates/admin/extendedadmin/person_change.html:575
 #: subtrees/jetson/templates/default/media_gallery/includes/media_file_change.html:138
 msgid "Save and add another"
 msgstr "Sichern und weiteres hinzufügen"
@@ -6922,8 +6882,8 @@ msgstr ""
 "unten."
 
 #: subtrees/jetson/apps/navigation/admin.py:39
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:688
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:651
+#: subtrees/jetson/templates/admin/extendedadmin/includes/individual_contact_change.html:139
+#: subtrees/jetson/templates/admin/extendedadmin/includes/institutional_contact_change.html:101
 msgid "Availability"
 msgstr "Verfügbarkeit"
 
@@ -7692,10 +7652,10 @@ msgstr "Jeder Besitzer von Zugriffsrechten sollte nur einmal gewählt werden."
 
 #: subtrees/jetson/apps/permissions/models.py:18
 #: subtrees/jetson/templates/admin/admin/row_level_permissions.html:28
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:75
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:71
-#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:82
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:84
+#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:78
+#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:70
+#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:85
+#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:83
 #: subtrees/jetson/templates/admin/extendedadmin/person_change.html:68
 #: subtrees/jetson/templates/default/individual_relations/individual_relation_accept.html:25
 #: subtrees/jetson/templates/default/individual_relations/individual_relation_edit.html:11
@@ -7845,8 +7805,9 @@ msgid "Folder"
 msgstr "Ordner"
 
 #: subtrees/jetson/apps/public_filebrowser/settings.py:122
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:63
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:102
+#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:66
+#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:106
+#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:126
 msgid "Document"
 msgstr "Dokument"
 
@@ -8019,7 +7980,6 @@ msgid "Document file"
 msgstr "Dokument Datei"
 
 #: subtrees/jetson/apps/resources/base.py:173
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:190
 msgid "External authors"
 msgstr "Externe Autoren"
 
@@ -8040,7 +8000,6 @@ msgid "Day of Publishing"
 msgstr "Veröffentlichungstag"
 
 #: subtrees/jetson/apps/resources/base.py:178
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:258
 msgid "Playing time"
 msgstr "Spieldauer"
 
@@ -8053,7 +8012,6 @@ msgid "ISBN-13"
 msgstr "ISBN-13"
 
 #: subtrees/jetson/apps/resources/base.py:181
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:240
 msgid "Pages"
 msgstr "Seiten"
 
@@ -8062,7 +8020,6 @@ msgid "File size (MB)"
 msgstr "Dateigröße (MB)"
 
 #: subtrees/jetson/apps/resources/base.py:183
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:267
 msgid "Languages"
 msgstr "Sprachen"
 
@@ -8317,16 +8274,16 @@ msgstr "November"
 msgid "December"
 msgstr "Dezember"
 
-#: subtrees/jetson/apps/utils/views.py:535
+#: subtrees/jetson/apps/utils/views.py:534
 msgid ""
 "There are errors in this form. Please correct them and try to save again."
 msgstr ""
 
-#: subtrees/jetson/apps/utils/views.py:913
+#: subtrees/jetson/apps/utils/views.py:916
 msgid "0-9"
 msgstr "0-9"
 
-#: subtrees/jetson/apps/utils/views.py:948
+#: subtrees/jetson/apps/utils/views.py:951
 msgid "Topical"
 msgstr "Aktuell"
 
@@ -8356,7 +8313,7 @@ msgid "Run the selected action"
 msgstr "Gewählte Aktion ausführen"
 
 #: subtrees/jetson/templates/admin/admin/actions.html:15
-#: subtrees/jetson/templates/default/public_filebrowser/include/search.html:18
+#: subtrees/jetson/templates/default/public_filebrowser/include/search.html:23
 #: subtrees/jetson/templates/default/site_specific/popups/choose_profile.html:16
 msgid "Go"
 msgstr "Weiter"
@@ -8370,12 +8327,12 @@ msgid "Edit Permissions"
 msgstr "Zugriffsrechte ändern"
 
 #: subtrees/jetson/templates/admin/admin/auth/user/change_form.html:16
-#: subtrees/jetson/templates/admin/admin/change_form.html:143
+#: subtrees/jetson/templates/admin/admin/change_form.html:155
 #: subtrees/jetson/templates/admin/admin/cms/page/change_form.html:121
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:79
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:75
-#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:86
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:88
+#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:82
+#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:74
+#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:89
+#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:87
 #: subtrees/jetson/templates/admin/extendedadmin/person_change.html:72
 msgid "View on site"
 msgstr "Auf der Seite anzeigen"
@@ -8401,21 +8358,21 @@ msgstr "Kennwort ändern"
 msgid "Documentation"
 msgstr "Dokumentation"
 
-#: subtrees/jetson/templates/admin/admin/change_form.html:118
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:149
-#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:221
+#: subtrees/jetson/templates/admin/admin/change_form.html:130
+#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:178
+#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:224
 #: subtrees/jetson/templates/admin/extendedadmin/person_change.html:287
 msgid "Open All Items"
 msgstr ""
 
-#: subtrees/jetson/templates/admin/admin/change_form.html:119
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:150
-#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:222
+#: subtrees/jetson/templates/admin/admin/change_form.html:131
+#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:179
+#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:225
 #: subtrees/jetson/templates/admin/extendedadmin/person_change.html:288
 msgid "Close All Items"
 msgstr "Alle Einträge schliessen"
 
-#: subtrees/jetson/templates/admin/admin/change_form.html:128
+#: subtrees/jetson/templates/admin/admin/change_form.html:140
 #: subtrees/jetson/templates/admin/admin/change_list.html:130
 #: subtrees/jetson/templates/admin/admin/cms/page/plugin_change_form.html:151
 #: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:9
@@ -8425,12 +8382,12 @@ msgstr "Alle Einträge schliessen"
 #: subtrees/jetson/templates/admin/admin/object_history.html:10
 #: subtrees/jetson/templates/admin/admin/row_level_permissions.html:14
 #: subtrees/jetson/templates/admin/admin/user_activity_history.html:6
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:60
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:56
+#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:63
+#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:55
 #: subtrees/jetson/templates/admin/extendedadmin/infosubscriber_mail.html:25
-#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:67
+#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:70
 #: subtrees/jetson/templates/admin/extendedadmin/institution_mail.html:29
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:69
+#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:68
 #: subtrees/jetson/templates/admin/extendedadmin/person_change.html:53
 #: subtrees/jetson/templates/admin/extendedadmin/person_mail.html:29
 #: subtrees/jetson/templates/admin/rosetta/languages.html:10
@@ -8438,19 +8395,19 @@ msgstr "Alle Einträge schliessen"
 msgid "Home"
 msgstr "Home"
 
-#: subtrees/jetson/templates/admin/admin/change_form.html:161
+#: subtrees/jetson/templates/admin/admin/change_form.html:173
 #: subtrees/jetson/templates/admin/admin/change_list.html:220
 #: subtrees/jetson/templates/admin/admin/cms/page/change_form.html:152
 #: subtrees/jetson/templates/admin/admin/cms/page/plugin_change_form.html:168
 #: subtrees/jetson/templates/admin/admin/login.html:32
 #: subtrees/jetson/templates/admin/admin/move_node.html:54
 #: subtrees/jetson/templates/admin/admin/tree_change_list.html:98
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:95
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:91
+#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:98
+#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:90
 #: subtrees/jetson/templates/admin/extendedadmin/infosubscriber_mail.html:36
-#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:102
+#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:105
 #: subtrees/jetson/templates/admin/extendedadmin/institution_mail.html:43
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:104
+#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:103
 #: subtrees/jetson/templates/admin/extendedadmin/person_change.html:88
 #: subtrees/jetson/templates/admin/extendedadmin/person_mail.html:43
 msgid "Please correct the error below."
@@ -8459,18 +8416,15 @@ msgstr[0] "Bitte folgenden Fehler korrigieren."
 msgstr[1] "Bitte folgende Fehler korrigieren."
 
 #: subtrees/jetson/templates/admin/admin/change_list.html:147
-#: subtrees/jetson/templates/admin/admin/cms/page/change_list.html:78
-#: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:72
+#: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:78
 #: subtrees/jetson/templates/admin/admin/tree_change_list.html:11
 #, python-format
 msgid "Add %(name)s"
 msgstr "%(name)s hinzufügen"
 
 #: subtrees/jetson/templates/admin/admin/change_list.html:178
-#: subtrees/jetson/templates/admin/admin/cms/page/change_list.html:153
-#: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:111
+#: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:126
 #: subtrees/jetson/templates/admin/admin/tree_change_list.html:56
-#: subtrees/jetson/templates/admin/admin/tree_editor.html:33
 #: subtrees/jetson/templates/default/site_specific/browsing.html:27
 #: subtrees/jetson/templates/default/site_specific/lists/list_list.html:42
 #: subtrees/jetson/templates/default/site_specific/marketplace/marketplace.html:22
@@ -8500,7 +8454,7 @@ msgstr "Alle Zugriffsrechte"
 
 #: subtrees/jetson/templates/admin/admin/cms/page/change_form.html:172
 #: subtrees/jetson/templates/admin/admin/cms/page/change_form.html:181
-#: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:76
+#: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:84
 msgid "Loading..."
 msgstr ""
 
@@ -8511,40 +8465,14 @@ msgstr "Seiten-Status"
 #: subtrees/jetson/templates/admin/admin/cms/page/change_form.html:211
 #: subtrees/jetson/templates/admin/admin/extended_submit_line.html:10
 #: subtrees/jetson/templates/admin/admin/page_submit_line.html:14
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:287
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:949
-#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:452
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:819
-#: subtrees/jetson/templates/admin/extendedadmin/person_change.html:582
+#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:404
+#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:493
+#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:449
+#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:414
+#: subtrees/jetson/templates/admin/extendedadmin/person_change.html:576
 #: subtrees/jetson/templates/admin/filebrowser/detail.html:229
 msgid "Save and continue editing"
 msgstr "Sichern und weiter bearbeiten"
-
-#: subtrees/jetson/templates/admin/admin/cms/page/change_list.html:3
-#: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:4
-msgid "List of pages"
-msgstr "Liste der Seiten"
-
-#: subtrees/jetson/templates/admin/admin/cms/page/change_list.html:75
-#: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:69
-#, python-format
-msgid "Recover deleted %(name)s"
-msgstr "Gelöschte %(name)s wieder herstellen"
-
-#: subtrees/jetson/templates/admin/admin/cms/page/change_list.html:99
-#: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:54
-msgid "Successfully moved"
-msgstr "Erfolgreich geändert"
-
-#: subtrees/jetson/templates/admin/admin/cms/page/change_list.html:108
-#: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:56
-msgid "An error occured. Please reload the page"
-msgstr ""
-
-#: subtrees/jetson/templates/admin/admin/cms/page/change_list.html:129
-#: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:89
-msgid "Pages on:"
-msgstr "Seiten auf:"
 
 #: subtrees/jetson/templates/admin/admin/cms/page/moderation_messages.html:5
 #: subtrees/jetson/templates/admin/admin/object_history.html:28
@@ -8691,31 +8619,40 @@ msgstr ""
 msgid "Plugin saved successfully."
 msgstr "Plugin erfolgreich gespeichert."
 
-#: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:12
+#: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:4
+msgid "List of pages"
+msgstr "Liste der Seiten"
+
+#: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:13
 #: subtrees/jetson/templates/admin/rosetta/pofile.html:66
 #: subtrees/jetson/templates/default/public_filebrowser/include/toolbar.html:17
 msgid "Search"
 msgstr "Suche"
 
-#: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:55
+#: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:61
+msgid "Successfully moved"
+msgstr "Erfolgreich geändert"
+
+#: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:62
 msgid "Changes within the tree might require a refresh."
 msgstr ""
 
-#: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:57
+#: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:63
+msgid "An error occured. Please reload the page"
+msgstr ""
+
+#: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:64
 msgid "Are you sure you want to § this page?"
 msgstr "Wollen Sie dieses Plugin wirklich löschen?"
 
-#: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:109
-msgid "Filter:"
-msgstr "Filter:"
+#: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:75
+#, python-format
+msgid "Recover deleted %(name)s"
+msgstr "Gelöschte %(name)s wieder herstellen"
 
-#: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:109
-msgid "on"
-msgstr "auf"
-
-#: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:109
-msgid "off"
-msgstr ""
+#: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:132
+msgid "Pages on:"
+msgstr "Seiten auf:"
 
 #: subtrees/jetson/templates/admin/admin/email_campaigns/infosubscription/change_list.html:25
 msgid "Choose an email template to send a message to the subscribers"
@@ -8846,7 +8783,6 @@ msgstr "Erstelltes Objekt"
 
 #: subtrees/jetson/templates/admin/admin/object_history.html:56
 #: subtrees/jetson/templates/admin/admin/user_activity_history.html:49
-#: subtrees/jetson/templates/default/public_filebrowser/include/search.html:4
 #: subtrees/jetson/templates/default/public_filebrowser/include/toolbar.html:30
 #, python-format
 msgid "%(full_result_count)s total"
@@ -8871,6 +8807,7 @@ msgid "Change Access to %(original)s"
 msgstr "Zugang zu %(original)s ändern"
 
 #: subtrees/jetson/templates/admin/admin/row_level_permissions.html:30
+#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:236
 #: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_categories.html:18
 #: subtrees/jetson/templates/default/widget/selectrow.html:14
 msgid "Add Another"
@@ -8894,8 +8831,8 @@ msgid "Add permission owner"
 msgstr "Zugriffsrechte hinzufügen"
 
 #: subtrees/jetson/templates/admin/admin/row_level_permissions.html:126
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:151
-#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:223
+#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:180
+#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:226
 #: subtrees/jetson/templates/admin/extendedadmin/person_change.html:289
 msgid "Add Item"
 msgstr "Element hinzufügen"
@@ -8945,18 +8882,6 @@ msgstr "Alle erweitern"
 msgid "Collapse all"
 msgstr "Alle zuklappen"
 
-#: subtrees/jetson/templates/admin/admin/tree_editor.html:27
-msgid "Shortcuts"
-msgstr ""
-
-#: subtrees/jetson/templates/admin/admin/tree_editor.html:29
-msgid "Collapse tree"
-msgstr "Alle zuklappen"
-
-#: subtrees/jetson/templates/admin/admin/tree_editor.html:30
-msgid "Expand tree"
-msgstr "Alle erweitern"
-
 #: subtrees/jetson/templates/admin/admin/tree_filter.html:3
 #, python-format
 msgid "%(filter_title)s"
@@ -8987,7 +8912,7 @@ msgstr "ID"
 msgid "This user has no change history."
 msgstr "Dieses Objekt enthält keine Versionsinformation."
 
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:62
+#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:65
 #: subtrees/jetson/templates/default/resources/documents/details_base.html:12
 #: subtrees/jetson/templates/default/resources/documents/document_list.html:9
 #: subtrees/jetson/templates/default/resources/documents/document_list.html:12
@@ -8996,196 +8921,98 @@ msgstr "Dieses Objekt enthält keine Versionsinformation."
 msgid "Documents"
 msgstr "Dokumente"
 
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:137
-msgid "Document Type"
-msgstr "Dokument Art"
-
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:155
-msgid "Document File"
-msgstr "Dokument Datei"
-
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:181
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:271
-msgid ""
-"Hold down \"Control\", or \"Command\" on a Mac, to select more than one."
-msgstr ""
-" Um mehr als eine Selektion zu treffen, \"Strg\", oder auf dem Mac \"Command"
-"\", beim Klicken gedrückt halten."
-
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:222
-#: subtrees/jetson/templates/default/resources/documents/profile/details.html:44
-msgid "ISBN 10"
-msgstr "ISBN-10"
-
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:231
-#: subtrees/jetson/templates/default/resources/documents/profile/details.html:48
-msgid "ISBN 13"
-msgstr "ISBN-13"
-
-#: subtrees/jetson/templates/admin/extendedadmin/document_change.html:249
-msgid "File size"
-msgstr "Dateigröße (MB)"
-
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:160
-msgid "Event Time"
-msgstr "Veranstaltungszeitraum"
-
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:164
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:166
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:12
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:14
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:12
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:14
-msgid "Delete Item"
-msgstr "Element löschen"
-
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:185
-msgid "All-day Event"
-msgstr "Ganztägige Veranstaltung"
-
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:240
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:242
+#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:200
+#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:202
 msgid "Add Event Time"
 msgstr "Veranstaltungszeitraum hinzufügen"
 
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:324
-msgid "Select a venue"
-msgstr "Wählen Sie einen Veranstaltungsort"
+#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:420
+msgid "Additional info (English)"
+msgstr "Zusatzinformation (Englisch)"
 
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:334
-msgid "...or enter a venue title"
-msgstr "... oder tragen Sie einen Veranstaltungsort ein"
-
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:344
-msgid "Venue title"
-msgstr "Veranstaltungsort"
-
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:378
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:276
-msgid "Postal Code/ZIP"
-msgstr "Postleitzahl"
-
+#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:428
 #: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:450
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:131
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:94
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:348
-msgid "Phones"
-msgstr "Telefone"
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_details.html:16
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_details.html:38
+msgid "You can select an appropriate markup type here."
+msgstr ""
 
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:456
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:590
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:673
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:756
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:136
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:263
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:340
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:417
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:99
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:226
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:303
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:380
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:354
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:488
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:579
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:662
-msgid "Type not listed?"
-msgstr "Typ hinzufügen?"
+#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:442
+msgid "Additional info (German)"
+msgstr "Zusatzinformation (Deutsch)"
 
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:464
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:144
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:107
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:362
-msgid "Area"
-msgstr "Bereich"
+#: subtrees/jetson/templates/admin/extendedadmin/includes/event_time.html:4
+msgid "Event Time"
+msgstr "Veranstaltungszeitraum"
 
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:464
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:144
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:107
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:362
-msgid "w/o (0)"
-msgstr "Ortsvorwahl ohne 0"
+#: subtrees/jetson/templates/admin/extendedadmin/includes/event_time.html:8
+#: subtrees/jetson/templates/admin/extendedadmin/includes/event_time.html:10
+#: subtrees/jetson/templates/admin/extendedadmin/includes/individual_contact_change.html:12
+#: subtrees/jetson/templates/admin/extendedadmin/includes/individual_contact_change.html:14
+#: subtrees/jetson/templates/admin/extendedadmin/includes/institutional_contact_change.html:12
+#: subtrees/jetson/templates/admin/extendedadmin/includes/institutional_contact_change.html:14
+msgid "Delete Item"
+msgstr "Element löschen"
 
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:468
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:148
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:111
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:366
-#: subtrees/jetson/templates/default/accounts/reg_institution_contact_persons.html:66
-#: subtrees/jetson/templates/default/accounts/reg_institution_contacts.html:114
-#: subtrees/jetson/templates/default/accounts/reg_person_contacts.html:125
-#: subtrees/jetson/templates/default/events/add_event_main_data.html:212
-#: subtrees/jetson/templates/default/events/profile/contact_form.html:79
-#: subtrees/jetson/templates/default/groups_networks/confirm_invitation_to_institution.html:144
-#: subtrees/jetson/templates/default/groups_networks/institution_invitation.html:74
-#: subtrees/jetson/templates/default/groups_networks/institution_invitation.html:146
-#: subtrees/jetson/templates/default/groups_networks/institution_invitation.html:218
-#: subtrees/jetson/templates/default/groups_networks/institution_invitation.html:290
-#: subtrees/jetson/templates/default/groups_networks/institution_invitation.html:362
-#: subtrees/jetson/templates/default/groups_networks/persongroups/profile/contact_form.html:78
-#: subtrees/jetson/templates/default/individual_relations/confirm_invitation_to_contacts.html:139
-#: subtrees/jetson/templates/default/institutions/add_institution_main_data.html:108
-#: subtrees/jetson/templates/default/institutions/profile/contact_form.html:79
-#: subtrees/jetson/templates/default/people/profile/contact_form.html:75
-#: subtrees/jetson/templates/default/resources/documents/profile/contact_form.html:78
-msgid "Number"
-msgstr "Nummer"
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_categories.html:5
+msgid "Categories & tags"
+msgstr "Kategorien & Tags"
 
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:468
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:148
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:111
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:366
-msgid "plus extension"
-msgstr "Nummer plus Durchwahl"
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_contact_form.html:112
+msgid "Additional Address Information"
+msgstr "Zusätzliche Adress-Information"
 
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:472
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:596
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:679
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:762
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:152
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:269
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:346
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:423
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:115
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:232
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:309
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:386
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:370
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:494
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:585
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:668
-msgid "Default"
-msgstr "Standard"
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_contact_form.html:197
+#, fuzzy
+#| msgid "Locate on map"
+msgid "Relocate on map"
+msgstr "Auf Karte anzeigen"
 
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:476
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:599
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:682
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:765
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:156
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:272
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:349
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:426
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:119
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:235
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:312
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:389
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:374
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:497
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:588
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:671
-msgid "On hold"
-msgstr "Inaktiv"
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_contact_form.html:198
+#: subtrees/jetson/templates/default/events/profile/contact_form.html:58
+#: subtrees/jetson/templates/default/groups_networks/persongroups/profile/contact_form.html:57
+#: subtrees/jetson/templates/default/institutions/profile/contact_form.html:58
+#: subtrees/jetson/templates/default/people/profile/contact_form.html:54
+#: subtrees/jetson/templates/default/resources/documents/profile/contact_form.html:57
+#: subtrees/jetson/templates/default/utils/set_geoposition.html:6
+msgid "Remove from map"
+msgstr "Aus Karte entfernen"
 
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:585
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:258
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:221
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:483
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_emails.html:4
 msgid "E-mail Addresses"
 msgstr "E-Mail Adressen"
 
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:668
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_emails.html:9
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_ims.html:9
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_phones.html:9
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_websites.html:9
+msgid "Type not listed?"
+msgstr "Typ hinzufügen?"
+
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_emails.html:15
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_ims.html:15
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_phones.html:25
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_websites.html:15
+msgid "Default"
+msgstr "Standard"
+
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_emails.html:18
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_ims.html:18
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_phones.html:29
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_websites.html:18
+msgid "On hold"
+msgstr "Inaktiv"
+
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_fees.html:3
+#: subtrees/jetson/templates/default/events/add_event_confirm.html:100
+#: subtrees/jetson/templates/default/events/add_event_fees.html:26
+#: subtrees/jetson/templates/default/events/profile/fees_opening_hours.html:9
+#: subtrees/jetson/templates/default/events/profile/fees_opening_hours_form.html:6
+msgid "Fees"
+msgstr "Eintrittskosten"
+
 #: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_fees.html:4
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:335
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:298
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:574
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_websites.html:4
 #: subtrees/jetson/templates/default/accounts/reg_institution_contacts.html:169
 #: subtrees/jetson/templates/default/accounts/reg_person_contacts.html:154
 #: subtrees/jetson/templates/default/events/profile/contact_form.html:132
@@ -9196,47 +9023,6 @@ msgstr "E-Mail Adressen"
 #: subtrees/jetson/templates/default/resources/documents/profile/contact_form.html:127
 msgid "Websites"
 msgstr "Webseiten"
-
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:751
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:412
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:375
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:657
-msgid "Instant Messengers"
-msgstr "Instant Messengers"
-
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:857
-msgid "Organizer Title"
-msgstr "Veranstalter Name"
-
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:866
-msgid "Organizer Website"
-msgstr "Veranstalter Website"
-
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:893
-msgid "Additional info (English)"
-msgstr "Zusatzinformation (Englisch)"
-
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:896
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:912
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:747
-msgid "Additional info"
-msgstr "Zusatzinformationen"
-
-#: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:909
-msgid "Additional info (German)"
-msgstr "Zusatzinformation (Deutsch)"
-
-#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_categories.html:5
-msgid "Categories & tags"
-msgstr "Kategorien & Tags"
-
-#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_fees.html:3
-#: subtrees/jetson/templates/default/events/add_event_confirm.html:100
-#: subtrees/jetson/templates/default/events/add_event_fees.html:26
-#: subtrees/jetson/templates/default/events/profile/fees_opening_hours.html:9
-#: subtrees/jetson/templates/default/events/profile/fees_opening_hours_form.html:6
-msgid "Fees"
-msgstr "Eintrittskosten"
 
 #: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_fees.html:8
 msgid "Fee Label (English)"
@@ -9253,6 +9039,10 @@ msgstr "Menge"
 #: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_fees.html:73
 msgid "Registration required"
 msgstr "Registrierung erforderlich"
+
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_ims.html:4
+msgid "Instant Messengers"
+msgstr "Instant Messengers"
 
 #: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_opening_hours.html:3
 #: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_opening_hours.html:15
@@ -9366,8 +9156,45 @@ msgstr "Sonstige Öffnungszeiten"
 msgid "Exceptions"
 msgstr "Ausnahmen"
 
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:4
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:4
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_phones.html:4
+msgid "Phones"
+msgstr "Telefone"
+
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_phones.html:17
+msgid "Area"
+msgstr "Bereich"
+
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_phones.html:17
+msgid "w/o (0)"
+msgstr "Ortsvorwahl ohne 0"
+
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_phones.html:21
+#: subtrees/jetson/templates/default/accounts/reg_institution_contact_persons.html:66
+#: subtrees/jetson/templates/default/accounts/reg_institution_contacts.html:114
+#: subtrees/jetson/templates/default/accounts/reg_person_contacts.html:125
+#: subtrees/jetson/templates/default/events/add_event_main_data.html:212
+#: subtrees/jetson/templates/default/events/profile/contact_form.html:79
+#: subtrees/jetson/templates/default/groups_networks/confirm_invitation_to_institution.html:144
+#: subtrees/jetson/templates/default/groups_networks/institution_invitation.html:74
+#: subtrees/jetson/templates/default/groups_networks/institution_invitation.html:146
+#: subtrees/jetson/templates/default/groups_networks/institution_invitation.html:218
+#: subtrees/jetson/templates/default/groups_networks/institution_invitation.html:290
+#: subtrees/jetson/templates/default/groups_networks/institution_invitation.html:362
+#: subtrees/jetson/templates/default/groups_networks/persongroups/profile/contact_form.html:78
+#: subtrees/jetson/templates/default/individual_relations/confirm_invitation_to_contacts.html:139
+#: subtrees/jetson/templates/default/institutions/add_institution_main_data.html:108
+#: subtrees/jetson/templates/default/institutions/profile/contact_form.html:79
+#: subtrees/jetson/templates/default/people/profile/contact_form.html:75
+#: subtrees/jetson/templates/default/resources/documents/profile/contact_form.html:78
+msgid "Number"
+msgstr "Nummer"
+
+#: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_phones.html:21
+msgid "plus extension"
+msgstr "Nummer plus Durchwahl"
+
+#: subtrees/jetson/templates/admin/extendedadmin/includes/individual_contact_change.html:4
+#: subtrees/jetson/templates/admin/extendedadmin/includes/institutional_contact_change.html:4
 #: subtrees/jetson/templates/default/accounts/reg_confirm.html:66
 #: subtrees/jetson/templates/default/accounts/reg_confirm.html:274
 #: subtrees/jetson/templates/default/contact_form/contact_form_done.html:4
@@ -9379,23 +9206,18 @@ msgstr "Ausnahmen"
 msgid "Contact"
 msgstr "Kontakt"
 
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:7
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:7
+#: subtrees/jetson/templates/admin/extendedadmin/includes/individual_contact_change.html:7
+#: subtrees/jetson/templates/admin/extendedadmin/includes/institutional_contact_change.html:7
 msgid "View on Site"
 msgstr "Auf der Seite anzeigen"
 
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:597
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:560
-msgid "Additional Address Information"
-msgstr "Zusätzliche Adress-Information"
-
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:706
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:669
+#: subtrees/jetson/templates/admin/extendedadmin/includes/individual_contact_change.html:157
+#: subtrees/jetson/templates/admin/extendedadmin/includes/institutional_contact_change.html:119
 msgid "From"
 msgstr "Von"
 
-#: subtrees/jetson/templates/admin/extendedadmin/individual_contact_change.html:733
-#: subtrees/jetson/templates/admin/extendedadmin/institutional_contact_change.html:696
+#: subtrees/jetson/templates/admin/extendedadmin/includes/individual_contact_change.html:184
+#: subtrees/jetson/templates/admin/extendedadmin/includes/institutional_contact_change.html:146
 msgid "Till"
 msgstr "Bis"
 
@@ -9430,24 +9252,24 @@ msgstr "Test-E-Mail senden"
 msgid "Send email"
 msgstr "E-Mail senden"
 
-#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:219
+#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:222
 #: subtrees/jetson/templates/admin/extendedadmin/person_change.html:285
 #: subtrees/jetson/templates/default/accounts/my_profile/view_profile.html:35
 msgid "Contacts"
 msgstr "Kontakte"
 
-#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:246
-#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:248
-#: subtrees/jetson/templates/admin/extendedadmin/person_change.html:312
-#: subtrees/jetson/templates/admin/extendedadmin/person_change.html:314
+#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:243
+#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:245
+#: subtrees/jetson/templates/admin/extendedadmin/person_change.html:306
+#: subtrees/jetson/templates/admin/extendedadmin/person_change.html:308
 msgid "Add Contact"
 msgstr "Kontakt hinzufügen"
 
-#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:296
+#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:293
 msgid "Payment options"
 msgstr "Zahlungsarten"
 
-#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:409
+#: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:406
 msgid "Tax info"
 msgstr "Steuerliche Angaben"
 
@@ -9455,60 +9277,28 @@ msgstr "Steuerliche Angaben"
 msgid "Institutions (places)"
 msgstr "Institutionen"
 
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:71
+#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:70
 msgid "Job Offers"
 msgstr "Jobangebote"
 
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:72
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:112
+#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:71
+#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:111
 msgid "Job Offer"
 msgstr "Jobangebot"
 
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:125
-msgid "Job Type"
-msgstr "Tätigkeitsart"
-
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:143
-msgid "Job Sectors"
-msgstr "Jobbereiche"
-
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:182
+#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:219
 msgid "Offerer"
 msgstr "Anbieter"
 
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:186
-msgid "Select the offering institution"
-msgstr "Wählen Sie die anbietende Institution"
-
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:195
-msgid "... or enter an institution title"
-msgstr "...oder geben Sie den Institutions- bzw. Firmennamen ein"
-
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:205
-msgid "Offering institution title"
-msgstr "Jobanbieter"
-
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:216
-msgid "Select a contact person"
-msgstr "Wählen Sie einen Ansprechpartner"
-
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:225
-msgid "... or enter contact person name"
-msgstr "... oder geben Sie den Namen des Ansprechpartners ein"
-
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:235
-msgid "Contact person name"
-msgstr "Kontaktperson"
-
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:249
+#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:290
 msgid "Contact Info"
 msgstr "Kontaktinformation"
 
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:770
+#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:341
 msgid "Publish Status"
 msgstr "Veröffentlichungsstatus"
 
-#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:800
+#: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:390
 msgid "Published until"
 msgstr "Veröffentlicht bis"
 
@@ -9520,19 +9310,19 @@ msgstr "Personen"
 msgid "User Account"
 msgstr "Benutzerkonto"
 
-#: subtrees/jetson/templates/admin/extendedadmin/person_change.html:325
+#: subtrees/jetson/templates/admin/extendedadmin/person_change.html:319
 msgid "Personal Information"
 msgstr "Stammdaten"
 
-#: subtrees/jetson/templates/admin/extendedadmin/person_change.html:444
+#: subtrees/jetson/templates/admin/extendedadmin/person_change.html:438
 msgid "Spoken languages"
 msgstr "Sprachen"
 
-#: subtrees/jetson/templates/admin/extendedadmin/person_change.html:447
+#: subtrees/jetson/templates/admin/extendedadmin/person_change.html:441
 msgid "Preferences"
 msgstr "Einstellungen"
 
-#: subtrees/jetson/templates/admin/extendedadmin/person_change.html:480
+#: subtrees/jetson/templates/admin/extendedadmin/person_change.html:474
 #: subtrees/jetson/templates/default/accounts/my_profile/privacy_settings.html:17
 msgid "Privacy Settings"
 msgstr "Privatsphäre Einstellungen"
@@ -9614,39 +9404,42 @@ msgid "Image Versions"
 msgstr "Bild Versionen"
 
 #: subtrees/jetson/templates/admin/filebrowser/detail.html:189
-#: subtrees/jetson/templates/admin/filebrowser/versions.html:174
+#: subtrees/jetson/templates/admin/filebrowser/versions.html:153
 msgid "Cropped"
 msgstr ""
 
 #: subtrees/jetson/templates/admin/filebrowser/detail.html:192
-#: subtrees/jetson/templates/admin/filebrowser/versions.html:177
+#: subtrees/jetson/templates/admin/filebrowser/versions.html:156
 msgid "Max width"
 msgstr "Maximale Breite"
 
 #: subtrees/jetson/templates/admin/filebrowser/detail.html:193
-#: subtrees/jetson/templates/admin/filebrowser/versions.html:178
+#: subtrees/jetson/templates/admin/filebrowser/versions.html:157
 msgid "Max height"
 msgstr "Maximale Höhe"
 
-#: subtrees/jetson/templates/admin/filebrowser/include/filelisting.html:14
-#: subtrees/jetson/templates/admin/filebrowser/include/filelisting.html:28
-#: subtrees/jetson/templates/admin/filebrowser/versions.html:143
-#: subtrees/jetson/templates/admin/filebrowser/versions.html:153
+#: subtrees/jetson/templates/admin/filebrowser/include/filelisting.html:15
+#: subtrees/jetson/templates/admin/filebrowser/include/filelisting.html:31
+#: subtrees/jetson/templates/admin/filebrowser/include/filelisting.html:53
+#: subtrees/jetson/templates/admin/filebrowser/versions.html:133
+#: subtrees/jetson/templates/admin/filebrowser/versions.html:142
 #: subtrees/jetson/templates/default/public_filebrowser/include/filelisting.html:12
 #: subtrees/jetson/templates/default/public_filebrowser/versions.html:83
 msgid "Select"
 msgstr "Wählen Sie"
 
-#: subtrees/jetson/templates/admin/filebrowser/include/filelisting.html:32
+#: subtrees/jetson/templates/admin/filebrowser/include/filelisting.html:36
+#: subtrees/jetson/templates/admin/filebrowser/include/filelisting.html:58
 msgid "Show Versions"
 msgstr "Versionen anzeigen"
 
-#: subtrees/jetson/templates/admin/filebrowser/include/filelisting.html:32
+#: subtrees/jetson/templates/admin/filebrowser/include/filelisting.html:37
+#: subtrees/jetson/templates/admin/filebrowser/include/filelisting.html:59
 msgid "Versions"
 msgstr "Versionen"
 
-#: subtrees/jetson/templates/admin/filebrowser/include/filelisting.html:55
-#: subtrees/jetson/templates/admin/filebrowser/include/filelisting.html:57
+#: subtrees/jetson/templates/admin/filebrowser/include/filelisting.html:84
+#: subtrees/jetson/templates/admin/filebrowser/include/filelisting.html:87
 #: subtrees/jetson/templates/default/public_filebrowser/include/filelisting.html:65
 msgid "View Image"
 msgstr "Bild sehen"
@@ -9664,23 +9457,15 @@ msgstr "Ergebnisse"
 msgid "total"
 msgstr "Insgesamt"
 
-#: subtrees/jetson/templates/admin/filebrowser/versions.html:124
+#: subtrees/jetson/templates/admin/filebrowser/versions.html:115
 #: subtrees/jetson/templates/default/public_filebrowser/versions.html:66
 msgid "Image Version"
 msgstr "Bild Version"
 
-#: subtrees/jetson/templates/admin/filebrowser/versions.html:127
+#: subtrees/jetson/templates/admin/filebrowser/versions.html:118
 #: subtrees/jetson/templates/default/public_filebrowser/versions.html:69
 msgid "Debug"
 msgstr ""
-
-#: subtrees/jetson/templates/admin/filebrowser/versions.html:163
-#: subtrees/jetson/templates/default/public_filebrowser/include/filelisting.html:26
-#: subtrees/jetson/templates/default/public_filebrowser/include/filelisting.html:40
-#: subtrees/jetson/templates/default/public_filebrowser/versions.html:95
-#: subtrees/jetson/templates/default/public_filebrowser/versions.html:107
-msgid "Select File"
-msgstr "Datei wählen"
 
 #: subtrees/jetson/templates/admin/rosetta/languages.html:5
 #: subtrees/jetson/templates/admin/rosetta/languages.html:11
@@ -11381,15 +11166,6 @@ msgstr "Kontaktdaten bearbeiten"
 msgid "Locate on map"
 msgstr "Auf Karte anzeigen"
 
-#: subtrees/jetson/templates/default/events/profile/contact_form.html:58
-#: subtrees/jetson/templates/default/groups_networks/persongroups/profile/contact_form.html:57
-#: subtrees/jetson/templates/default/institutions/profile/contact_form.html:58
-#: subtrees/jetson/templates/default/people/profile/contact_form.html:54
-#: subtrees/jetson/templates/default/resources/documents/profile/contact_form.html:57
-#: subtrees/jetson/templates/default/utils/set_geoposition.html:6
-msgid "Remove from map"
-msgstr "Aus Karte entfernen"
-
 #: subtrees/jetson/templates/default/events/profile/contact_form.html:110
 #: subtrees/jetson/templates/default/groups_networks/persongroups/profile/contact_form.html:105
 #: subtrees/jetson/templates/default/institutions/add_institution_main_data.html:136
@@ -12585,6 +12361,13 @@ msgstr "Kontakte zu Institutionen"
 msgid "Extranet"
 msgstr "Extranet"
 
+#: subtrees/jetson/templates/default/public_filebrowser/include/filelisting.html:26
+#: subtrees/jetson/templates/default/public_filebrowser/include/filelisting.html:40
+#: subtrees/jetson/templates/default/public_filebrowser/versions.html:95
+#: subtrees/jetson/templates/default/public_filebrowser/versions.html:107
+msgid "Select File"
+msgstr "Datei wählen"
+
 #: subtrees/jetson/templates/default/public_filebrowser/include/filelisting.html:90
 msgid "Are you sure you want to delete this file?"
 msgstr "Wollen Sie diese Datei wirklich löschen?"
@@ -12651,18 +12434,31 @@ msgid_plural "%(counter)s results"
 msgstr[0] "1 Ergebnis"
 msgstr[1] "%(counter)s Ergebnisse"
 
-#: subtrees/jetson/templates/default/public_filebrowser/include/search.html:5
-msgid "Clear Restrictions"
+#: subtrees/jetson/templates/default/public_filebrowser/include/search.html:4
+#, fuzzy, python-format
+#| msgid "%(full_result_count)s total"
+msgid ""
+"%(full_result_count)s\n"
+"        total"
+msgstr "%(full_result_count)s gesamt"
+
+#: subtrees/jetson/templates/default/public_filebrowser/include/search.html:7
+#, fuzzy
+#| msgid "Clear Restrictions"
+msgid ""
+"\n"
+"            Clear Restrictions\n"
+"        "
 msgstr "Einschränkungen aufheben"
 
-#: subtrees/jetson/templates/default/public_filebrowser/include/search.html:23
+#: subtrees/jetson/templates/default/public_filebrowser/include/search.html:28
 #, python-format
 msgid "%(counter)s Item found"
 msgid_plural "%(counter)s Items found"
 msgstr[0] ""
 msgstr[1] ""
 
-#: subtrees/jetson/templates/default/public_filebrowser/include/search.html:24
+#: subtrees/jetson/templates/default/public_filebrowser/include/search.html:29
 #, python-format
 msgid "%(counter)s Item total"
 msgid_plural "%(counter)s Items total"
@@ -12756,6 +12552,14 @@ msgstr "Datum"
 #: subtrees/jetson/templates/default/resources/documents/profile/details.html:40
 msgid "playing time"
 msgstr "Spieldauer"
+
+#: subtrees/jetson/templates/default/resources/documents/profile/details.html:44
+msgid "ISBN 10"
+msgstr "ISBN-10"
+
+#: subtrees/jetson/templates/default/resources/documents/profile/details.html:48
+msgid "ISBN 13"
+msgstr "ISBN-13"
 
 #: subtrees/jetson/templates/default/resources/documents/profile/details.html:52
 msgid "pages"
@@ -13059,6 +12863,81 @@ msgid ""
 msgstr ""
 "Geben Sie die Anfangsbuchstaben des %(lookup_field)s ein, um eine "
 "entsprechende Auswahl anzuzeigen."
+
+#~ msgid "Filter:"
+#~ msgstr "Filter:"
+
+#~ msgid "on"
+#~ msgstr "auf"
+
+#~ msgid "Collapse tree"
+#~ msgstr "Alle zuklappen"
+
+#~ msgid "Expand tree"
+#~ msgstr "Alle erweitern"
+
+#~ msgid "Document Type"
+#~ msgstr "Dokument Art"
+
+#~ msgid "Document File"
+#~ msgstr "Dokument Datei"
+
+#~ msgid ""
+#~ "Hold down \"Control\", or \"Command\" on a Mac, to select more than one."
+#~ msgstr ""
+#~ " Um mehr als eine Selektion zu treffen, \"Strg\", oder auf dem Mac "
+#~ "\"Command\", beim Klicken gedrückt halten."
+
+#~ msgid "File size"
+#~ msgstr "Dateigröße (MB)"
+
+#~ msgid "All-day Event"
+#~ msgstr "Ganztägige Veranstaltung"
+
+#~ msgid "Select a venue"
+#~ msgstr "Wählen Sie einen Veranstaltungsort"
+
+#~ msgid "...or enter a venue title"
+#~ msgstr "... oder tragen Sie einen Veranstaltungsort ein"
+
+#~ msgid "Venue title"
+#~ msgstr "Veranstaltungsort"
+
+#~ msgid "Postal Code/ZIP"
+#~ msgstr "Postleitzahl"
+
+#~ msgid "Organizer Title"
+#~ msgstr "Veranstalter Name"
+
+#~ msgid "Organizer Website"
+#~ msgstr "Veranstalter Website"
+
+#~ msgid "Additional info"
+#~ msgstr "Zusatzinformationen"
+
+#~ msgid "Job Type"
+#~ msgstr "Tätigkeitsart"
+
+#~ msgid "Job Sectors"
+#~ msgstr "Jobbereiche"
+
+#~ msgid "Select the offering institution"
+#~ msgstr "Wählen Sie die anbietende Institution"
+
+#~ msgid "... or enter an institution title"
+#~ msgstr "...oder geben Sie den Institutions- bzw. Firmennamen ein"
+
+#~ msgid "Offering institution title"
+#~ msgstr "Jobanbieter"
+
+#~ msgid "Select a contact person"
+#~ msgstr "Wählen Sie einen Ansprechpartner"
+
+#~ msgid "... or enter contact person name"
+#~ msgstr "... oder geben Sie den Namen des Ansprechpartners ein"
+
+#~ msgid "Contact person name"
+#~ msgstr "Kontaktperson"
 
 #~ msgid "Illustration File"
 #~ msgstr "Illustrations Datei"

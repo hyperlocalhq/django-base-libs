@@ -3,8 +3,8 @@ from django.conf.urls import *
 from ccb.apps.articles.feeds import ArticleRssFeed, ArticleAtomFeed
 
 article_feeds = {
-    'rss': ArticleRssFeed,
-    'atom': ArticleAtomFeed,
+    'rss': ArticleRssFeed(),
+    'atom': ArticleAtomFeed(),
 }
 
 urlpatterns = patterns(
@@ -27,12 +27,11 @@ urlpatterns = patterns(
         ),
 
     # articles aggregated syndication feeds
-    # FIXME
-    # url(r'^feeds/(?P<feed_type>.*)/$',
-    #     'article_feed',
-    #     dict(article_feeds, creative_sector_slug='all', type_sysname='all'),
-    #     name="article_feed",
-    #     ),
+    url(r'^feeds/(?P<feed_type>.*)/$',
+        'article_feed',
+        dict(article_feeds, creative_sector_slug='all', type_sysname='all'),
+        name="article_feed",
+        ),
 
     # articles aggregated by type
     url(r'^$',
@@ -106,9 +105,8 @@ urlpatterns = patterns(
         'article_object_detail',
     ),
 
-    # FIXME
-    # url(r'^creative-sector/(?P<creative_sector_slug>[^/]+)/feeds/(?P<feed_type>.*)/$',
-    #     'article_feed', article_feeds
-    #     ),
+    url(r'^creative-sector/(?P<creative_sector_slug>[^/]+)/feeds/(?P<feed_type>.*)/$',
+        'article_feed', article_feeds
+        ),
 
 )

@@ -12,10 +12,10 @@ class MediaGalleryRssFeed(Feed):
     title_template = "media_gallery/feeds/feed_title.html"
     description_template = "media_gallery/feeds/feed_description.html"
 
-    def __init__(self, feed_slug, request, **kwargs):
-        Feed.__init__(self, feed_slug, request)
+    def get_object(self, request, *args, **kwargs):
         self.request = request
         self.kwargs = kwargs
+        return None
 
     def title(self):
         Site = models.get_model("sites", "Site")

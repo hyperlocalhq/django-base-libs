@@ -12,7 +12,7 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.contrib.contenttypes.models import ContentType
 from django.conf import settings
 from django.utils.encoding import smart_unicode, force_unicode
-from django.contrib.syndication.feeds import Feed
+from django.contrib.syndication.views import Feed
 from django.utils import translation
 from django.views.decorators.cache import never_cache
 from django.utils.timezone import now as tz_now
