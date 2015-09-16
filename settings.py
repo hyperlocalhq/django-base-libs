@@ -13,12 +13,13 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-     ('Museumsportal Berlin Webmaster', 'bendoraitis@studio38.de'),
+    ("Museumsportal Berlin Webmaster", "bendoraitis@studio38.de"),
+    ("Reinhard Knobelspies", "knobelspies@studio38.de"),
 )
 
 DEFAULT_FROM_EMAIL = 'museumsportal@kulturprojekte-berlin.de'
 MANAGERS = (
-     ('Museumsportal Berlin Webmaster', 'museumsportal@kulturprojekte-berlin.de'),
+    ("Museumsportal Berlin Webmaster", "museumsportal@kulturprojekte-berlin.de"),
 )
 
 TIME_ZONE = 'Europe/Berlin'
