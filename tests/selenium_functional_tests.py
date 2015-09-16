@@ -45,6 +45,7 @@ class TitleTest(unittest.TestCase):
         self.browser.save_screenshot(filename)
 
 
+# noinspection PyClassHasNoInit
 class Urls:
     urls_which_should_return_200_but_dont = (
         '/de/partner/',  # FIXME currently returning 404

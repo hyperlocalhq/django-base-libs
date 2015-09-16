@@ -59,6 +59,7 @@ class AuthenticatedPageTest(PageTest):
         )
 
 
+# noinspection PyClassHasNoInit
 class Urls:
     urls_which_should_return_200_but_dont = (
         '/de/events/',  # FIXME currently failing with FieldDoesNotExist: additional_info_markup_type
