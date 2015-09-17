@@ -46,10 +46,9 @@ def prev_next_processor(request):
     adds some template vars used for prev-next navigation
     """
     object_id = request.httpstate.get('current_object_id', None)
-    queryset_model_str = request.httpstate.get('current_queryset_model', None)
-    queryset_model = None
-    if queryset_model_str:
-        queryset_model = models.get_model(*queryset_model_str.split("."))
+    queryset_model = request.httpstate.get('current_queryset_model', None)
+    if not issubclass(queryset_model, models.Model):
+        queryset_model = models.get_model(*queryset_model.split("."))
 
     queryset_pk_list = request.httpstate.get('current_queryset_pk_list', None)
     queryset_index_dict = request.httpstate.get('current_queryset_index_dict', {})
