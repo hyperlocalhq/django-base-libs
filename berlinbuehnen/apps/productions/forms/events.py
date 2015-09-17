@@ -128,10 +128,10 @@ class AddEventsForm(forms.Form):
                     layout.Field("start_time", placeholder="HH:MM"),
                     css_class="col-xs-12 col-sm-6 col-md-6 col-lg-6"
                 ),
-                layout.Div(
-                    layout.Field("end_time", placeholder="HH:MM"),
-                    css_class="col-xs-12 col-sm-6 col-md-6 col-lg-6"
-                ),
+                #layout.Div(
+                #    layout.Field("end_time", placeholder="HH:MM"),
+                #    css_class="col-xs-12 col-sm-6 col-md-6 col-lg-6"
+                #),
                 css_class="row-sm"
             ),
             layout.Row(
@@ -208,9 +208,9 @@ class BasicInfoForm(autocomplete_light.ModelForm):
         autocomplete_fields = ('play_locations', 'play_stages',)
         fields = [
             'start_date',
-            'end_date',
+            #'end_date',
             'start_time',
-            'end_time',
+            #'end_time',
             'pauses',
             'organizers',
             'play_locations', 'play_stages',
@@ -263,23 +263,27 @@ class BasicInfoForm(autocomplete_light.ModelForm):
                     layout.Field("start_date", placeholder="YYYY-MM-DD"),
                     css_class="col-xs-12 col-sm-6 col-md-6 col-lg-6"
                 ),
-                layout.Div(
-                    layout.Field("end_date", placeholder="YYYY-MM-DD"),
-                    css_class="col-xs-12 col-sm-6 col-md-6 col-lg-6"
-                ),
-                css_class="row-sm"
-            ),
-            layout.Row(
+                #layout.Div(
+                #    layout.Field("end_date", placeholder="YYYY-MM-DD"),
+                #    css_class="col-xs-12 col-sm-6 col-md-6 col-lg-6"
+                #),
                 layout.Div(
                     layout.Field("start_time", placeholder="HH:MM"),
                     css_class="col-xs-12 col-sm-6 col-md-6 col-lg-6"
                 ),
-                layout.Div(
-                    layout.Field("end_time", placeholder="HH:MM"),
-                    css_class="col-xs-12 col-sm-6 col-md-6 col-lg-6"
-                ),
                 css_class="row-sm"
             ),
+            #layout.Row(
+            #    layout.Div(
+            #        layout.Field("start_time", placeholder="HH:MM"),
+            #        css_class="col-xs-12 col-sm-6 col-md-6 col-lg-6"
+            #    ),
+            #    layout.Div(
+            #        layout.Field("end_time", placeholder="HH:MM"),
+            #        css_class="col-xs-12 col-sm-6 col-md-6 col-lg-6"
+            #    ),
+            #    css_class="row-sm"
+            #),
             layout.Row(
                 layout.Div(
                     layout.Field("duration_as_time", placeholder="HH:MM"),

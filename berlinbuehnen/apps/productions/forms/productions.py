@@ -266,9 +266,10 @@ class BasicInfoForm(autocomplete_light.ModelForm):
 class DescriptionForm(autocomplete_light.ModelForm):
     class Meta:
         model = Production
-        autocomplete_fields = ('related_productions',)
+        #autocomplete_fields = ('related_productions',)
         fields = [
-            'language_and_subtitles', 'related_productions',
+            'language_and_subtitles',
+            #'related_productions',
             'free_entrance', 'price_from', 'price_till', 'tickets_website',
             'characteristics', 'age_from', 'age_till', 'edu_offer_website',
         ]
@@ -446,7 +447,7 @@ class DescriptionForm(autocomplete_light.ModelForm):
         fieldset_content.append(layout.Row(
             layout.Div(
                 'language_and_subtitles',
-                'related_productions',
+                #'related_productions',
                 css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12",
             ),
             css_class="row-md",
@@ -1120,7 +1121,7 @@ def load_data(instance=None):
         for fname in fields:
             form_step_data['description'][fname] = getattr(instance, fname)
 
-        form_step_data['description']['related_productions'] = instance.related_productions.all()
+        #form_step_data['description']['related_productions'] = instance.related_productions.all()
         form_step_data['description']['characteristics'] = instance.characteristics.all()
 
         for leadership in instance.productionleadership_set.order_by('sort_order'):
@@ -1281,9 +1282,9 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
 
         instance.save()
 
-        instance.related_productions.clear()
-        for cat in form_step_data['description']['related_productions']:
-            instance.related_productions.add(cat)
+        #instance.related_productions.clear()
+        #for cat in form_step_data['description']['related_productions']:
+        #    instance.related_productions.add(cat)
 
         instance.characteristics.clear()
         for cat in form_step_data['description']['characteristics']:

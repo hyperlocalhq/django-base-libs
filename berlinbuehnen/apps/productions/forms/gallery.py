@@ -32,6 +32,7 @@ _("Are you sure you want to delete this photo?")
 _(u"Available formats are JPG, GIF, and PNG.")
 _(u"Minimal size is 148 × 148 px.")
 _(u"Optimal size is 680 × 375 px (min).")
+_(u"Size of a video should be 640 × 360 px.")
 
 from berlinbuehnen.apps.locations.models import COPYRIGHT_RESTRICTION_CHOICES
 
@@ -85,6 +86,9 @@ class VideoForm(forms.Form):
                 layout.Field('link_or_embed'),
                 css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12",
             ),
+            layout.HTML(u"""{% load i18n %}
+            <div class="col-xs-12" style="margin-top:-10px;"><small>{% trans "Size of a video should be 640 × 360 px." %}</small></div>
+            """),
             css_class="row-md"
         ))
 
