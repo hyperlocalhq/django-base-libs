@@ -996,7 +996,7 @@ class SponsorForm(autocomplete_light.ModelForm):
                             <p>{% trans "Please enable JavaScript to use file uploader." %}</p>
                         </noscript>
                     </div>
-                    <p class="image_help_text help-block">{% trans "Available formats are JPG, GIF, and PNG. Minimal size is 100 × 100 px. Optimal size is 1000 × 350 px (min)." %}</p>
+                    <p class="image_help_text help-block">{% trans "Available formats are JPG, GIF, and PNG." %}<br/>{% trans "Minimal size is 100 × 100 px." %}<br/><br/></p>
                 </div>
             </div>
             """)
