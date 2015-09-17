@@ -1,4 +1,4 @@
-{% load menu_tags i18n base_tags sekizai_tags %}
+{% load menu_tags cms_tags i18n base_tags sekizai_tags %}
 
 <div class="navbar-wrapper">
     
@@ -26,6 +26,7 @@
                 </ul>
                 <ul class="social_links visible-md visible-lg">
                     <li><a class="fawesome search" href="{% if LANGUAGE_CODE == "de" %}/de/suche/{% else %}/en/search/{% endif %}"><span class="sr-only">{% trans "Search" %}</span></a></li>
+                    <li><a class="fawesome newsletter" href="{% page_url "start_page" %}#newsletter_signup"><span class="sr-only">{% trans "Newsletter" %}</span></a></li>
                     <li><a class="fawesome facebook" href="https://www.facebook.com/pages/berlin-buehnende/440174332664851" target="_blank"><span class="sr-only">Facebook</span></a></li>
                     <li><a class="fawesome twitter" href="https://twitter.com/#!/berlinbuehnen" target="_blank"><span class="sr-only">Twitter</span></a></li>
                     <li><a class="fawesome instagram" href="https://instagram.com/berlinbuehnen" target="_blank"><span class="sr-only">Instagram</span></a></li>
@@ -47,6 +48,7 @@
                     <li id="meta_social_links" class="meta-item visible-sm">
                         <ul class="social_links">
                             <li><a class="fawesome search" href="{% if LANGUAGE_CODE == "de" %}/de/suche/{% else %}/en/search/{% endif %}"><span class="sr-only">{% trans "Search" %}</span></a></li>
+                            <li><a class="fawesome newsletter" href="{% page_url "start_page" %}#newsletter_signup"><span class="sr-only">{% trans "Newsletter" %}</span></a></li>
                             <li><a class="fawesome facebook" href="https://www.facebook.com/pages/berlin-buehnende/440174332664851" target="_blank"><span class="sr-only">Facebook</span></a></li>
                             <li><a class="fawesome twitter" href="https://twitter.com/#!/berlinbuehnen" target="_blank"><span class="sr-only">Twitter</span></a></li>
                             <li><a class="fawesome instagram" href="https://instagram.com/berlinbuehnen" target="_blank"><span class="sr-only">Instagram</span></a></li>

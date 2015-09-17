@@ -1,5 +1,5 @@
 {% extends "cms/default.html" %}
-{% load base_tags cms_tags i18n image_modifications slideshows_tags production_tags favorites auth_extended infoblocks mailchimp_tags festival_tags %}
+{% load base_tags cms_tags i18n image_modifications slideshows_tags production_tags favorites auth_extended infoblocks mailchimp_tags festival_tags advertising_tags %}
 
 {% block js %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/list.js" defer="defer"></script>
@@ -141,6 +141,10 @@
                 </div>
             </div>
             
+            {% if not "start_page"|not_empty_ad_zone %}
+                <a name="newsletter_signup"></a>
+            {% endif %}
+            
             {% festivals_slider %}
             
             <div class="row info">
@@ -226,10 +230,13 @@
                     </div>
                 </div>
                 
+                {% if "start_page"|not_empty_ad_zone %}
+                    <a name="newsletter_signup"></a>
+                {% endif %}
+                
                 <!-- Ads -->
-                <div class="col-xs-12 col-sm-6 col-md-4 ads">
+                <div class="col-xs-12 col-sm-6 col-md-4 ads {% if not "start_page"|not_empty_ad_zone %}no-ads{% endif %}">
 
-                    {% load advertising_tags %}
                     {% if "start_page"|not_empty_ad_zone %}
                         <h1 class="bottom-line">{% trans "Ad" %}</h1>
                         {% random_zone_ad "start_page" %}

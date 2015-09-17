@@ -87,6 +87,8 @@ strong { font-weight: 700; }
 
 .fawesome.search:before { content: "\f002"; }
 
+.fawesome.newsletter:before { content: "\f0e0"; }
+
 .subcategory:before { content: "\2514"; padding-right: 6px; opacity: 0.7; }
 
 @font-face { font-family: 'DingRegular'; src: url("../fonts/ding/ding-regular.eot"); src: url("../fonts/ding/ding-regular.eot") format("embedded-opentype"), url("../fonts/ding/ding-regular.woff") format("woff"), url("../fonts/ding/ding-regular.ttf") format("truetype"), url("../fonts/ding/ding-regular.svg#DingRegular") format("svg"); }
@@ -1138,7 +1140,7 @@ strong { font-weight: 700; }
 .navbar-wrapper .navbar-header .navbar-brand.visible-xs { width: 94%; position: fixed; top: -10px; left: 10px; }
 .navbar-wrapper .top_nav { position: relative; }
 .navbar-wrapper .top_nav .nav { font-weight: 700; text-transform: uppercase; width: 100%; float: none; }
-.navbar-wrapper .top_nav .nav > li { margin-right: 2.5%; }
+.navbar-wrapper .top_nav .nav > li { margin-right: 2.2%; }
 .navbar-wrapper .top_nav .nav > li.active a { color: #4583c8; }
 .navbar-wrapper .top_nav .nav a { font-size: 1em; font-weight: 700; color: black; }
 .navbar-wrapper .top_nav .nav a:hover { color: #4583c8; }
@@ -1172,11 +1174,14 @@ strong { font-weight: 700; }
 
 .navbar-toggle .icon-bar { margin-top: 0px; }
 
-.is-md .navbar-wrapper .top_nav .nav > li { margin-right: 1.5%; }
+.is-md .navbar-wrapper .top_nav .nav > li { margin-right: 1.2%; }
 
 .is-sm .navbar-wrapper { height: 155px; }
 .is-sm .navbar-wrapper .navbar-header { min-height: 130px; }
 .is-sm .navbar-wrapper .navbar-header .navbar-brand { margin-top: 45px; }
+.is-sm .navbar-wrapper ul.social_links li { margin-right: 0; }
+.is-sm .navbar-wrapper ul.social_links li a:before { padding-right: 8px; }
+.is-sm .navbar-wrapper ul.social_links li:last-child a:before { padding-right: 12px; }
 .is-sm .navbar-wrapper .background { height: 165px; }
 .is-sm .navbar-wrapper .top_nav .nav > li { margin-right: 1.1%; }
 .is-sm .navbar-wrapper .top_nav .nav > li > a { min-height: 30px; line-height: 30px; }
@@ -2195,6 +2200,7 @@ body.is-xs .grid { margin: 0 -28px; }
 .info .news .news-item p { font-weight: 400; line-height: 125%; margin: 0; padding: 0; }
 .info .news .news-item .more { display: inline-block; margin-top: 15px; font-weight: 700; font-size: 0.875em; color: black; text-transform: uppercase; line-height: inherit; }
 .info .ads { padding-left: 10px; padding-right: 10px; }
+.info .ads.no-ads { padding-top: 14px; }
 body.is-xs .info { margin-left: -30px; margin-right: -30px; }
 
 .twitter_wrapper { color: white; background: #4583c8; }
