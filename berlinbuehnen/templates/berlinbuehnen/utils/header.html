@@ -35,6 +35,7 @@
                 <div  class="top_nav collapse navbar-collapse collapse-navbar">
                     <ul class="nav navbar-nav">
                         {% show_menu_below_id "start_page" 0 2 2 2 "menu/top_menu.html" %}
+                        <li><a href="{% if LANGUAGE_CODE == "de" %}/de/suche/{% else %}/en/search/{% endif %}">{% trans "Search" %}</a></li>
                     </ul>
                 </div>
             </div>

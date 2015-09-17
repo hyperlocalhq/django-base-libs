@@ -29,7 +29,9 @@ _("Do you really want to delete this image?")
 _("Yes, Please")
 _("No, Thanks")
 _("Are you sure you want to delete this photo?")
-_(u"Available formats are JPG, GIF, and PNG. Minimal size is 100 × 100 px. Optimal size is 1000 × 350 px (min).")
+_(u"Available formats are JPG, GIF, and PNG.")
+_(u"Minimal size is 148 × 148 px.")
+_(u"Optimal size is 680 × 375 px (min).")
 
 from berlinbuehnen.apps.locations.models import COPYRIGHT_RESTRICTION_CHOICES
 
@@ -440,7 +442,7 @@ class ImageForm(forms.Form):
                                 <p>{% trans "Please enable JavaScript to use file uploader." %}</p>
                             </noscript>
                         </div>
-                        <p id="image_help_text" class="help-block">{% trans "Available formats are JPG, GIF, and PNG. Minimal size is 100 × 100 px. Optimal size is 1000 × 350 px (min)." %}</p>
+                        <p id="image_help_text" class="help-block">{% trans "Available formats are JPG, GIF, and PNG." %}<br/>{% trans "Minimal size is 148 × 148 px." %} {% trans "Optimal size is 680 × 375 px (min)." %}</p>
                     {% endif %}
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
