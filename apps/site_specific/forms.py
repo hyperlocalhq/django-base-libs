@@ -3963,8 +3963,8 @@ class InvitationForm(dynamicforms.Form):
                 'object_creator_url': self.sender.profile.get_url(),
                 'object_description': body,
             },
-            sender_name=settings.ADMINS[0][0],
-            sender_email=settings.ADMINS[0][1],
+            sender_name=''
+            sender_email=settings.DEFAULT_FROM_EMAIL
             send_immediately=True,
         )
 

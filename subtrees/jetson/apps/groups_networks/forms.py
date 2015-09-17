@@ -870,7 +870,8 @@ class Invitation: # Namespace
         
         for p in new_additional_contacts:
             encrypted_email = cryptString(p.user.email)
-            sender_name, sender_email = settings.ADMINS[0]
+            sender_name = ''
+            sender_email = settings.DEFAULT_FROM_EMAIL
             send_email_using_template(
                 [Recipient(user=p.user)],
                 "invite_external_people_to_group",
@@ -889,7 +890,8 @@ class Invitation: # Namespace
             for p in existing_additional_contacts
             ]
         if recipients:
-            sender_name, sender_email = settings.ADMINS[0]
+            sender_name = ''
+            sender_email = settings.DEFAULT_FROM_EMAIL
             send_email_using_template(
                 recipients,
                 "invite_internal_people_to_group",

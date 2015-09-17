@@ -391,7 +391,8 @@ class JobOfferForm:  # namespace
                 email=settings.THIRD_PARTY_EMAILS['kulturmanagement.net'],
             ))
         if recipients:
-            sender_name, sender_email = settings.ADMINS[0]
+            sender_name = ''
+            sender_email = settings.DEFAULT_FROM_EMAIL
             send_email_using_template(
                 recipients,
                 "new_job_offer",

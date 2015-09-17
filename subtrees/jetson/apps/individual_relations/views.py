@@ -194,7 +194,8 @@ def confirm_invitation(request, slug, encrypted_email):
                 membership = user.groupmembership_set.delete()
             
             current_site = Site.objects.get_current()
-            sender_name, sender_email = settings.ADMINS[0]
+            sender_name = ''
+            sender_email = settings.DEFAULT_FROM_EMAIL
             send_email_using_template(
                 [Recipient(user=user)],
                 "account_created",

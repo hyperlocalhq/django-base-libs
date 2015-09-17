@@ -73,9 +73,9 @@ def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct
     )
     # setting default values
     if not sender and not sender_name:
-        sender_name = settings.ADMINS[0][0]
+        sender_name = ''
     if not sender and not sender_email:
-        sender_email = settings.ADMINS[0][1]
+        sender_email = settings.DEFAULT_FROM_EMAIL
         
     current_language = get_language()
 
