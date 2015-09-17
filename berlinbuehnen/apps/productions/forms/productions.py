@@ -36,6 +36,8 @@ from berlinbuehnen.utils.forms import ModelMultipleChoiceTreeField
 
 import autocomplete_light
 
+# translatable strings to collect
+_(u"Minimal size is 100 × 100 px.")
 
 class BasicInfoForm(autocomplete_light.ModelForm):
     categories = ModelMultipleChoiceTreeField(

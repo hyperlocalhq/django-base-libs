@@ -42,6 +42,8 @@ PAUSES_CHOICES = (
     ('7', _("7 pauses")),
 )
 
+# translatable strings to collect
+_(u"Minimal size is 100 × 100 px.")
 
 class NullIntegerChoiceField(forms.ChoiceField):
     def to_python(self, value):
