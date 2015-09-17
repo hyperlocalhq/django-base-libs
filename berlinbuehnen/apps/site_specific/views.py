@@ -65,7 +65,7 @@ def dashboard(request):
         'owned_festivals': owned_festivals,
         'owned_job_offers': owned_job_offers,
     }
-    return render(request, "accounts/dashboard.html", context)
+    return render(request, "site_specific/dashboard.html", context)
 
 @never_cache
 @login_required
@@ -111,7 +111,7 @@ def dashboard_locations(request):
         'status': status,
         'sort_by': sort_by,
     }
-    return render(request, "accounts/dashboard_locations.html", context)
+    return render(request, "site_specific/dashboard_locations.html", context)
 
 
 @never_cache
@@ -160,7 +160,7 @@ def dashboard_productions(request):
         'status': status,
         'sort_by': sort_by,
     }
-    return render(request, "accounts/dashboard_productions.html", context)
+    return render(request, "site_specific/dashboard_productions.html", context)
 
 
 @never_cache
@@ -209,7 +209,7 @@ def dashboard_festivals(request):
         'status': status,
         'sort_by': sort_by,
     }
-    return render(request, "accounts/dashboard_festivals.html", context)
+    return render(request, "site_specific/dashboard_festivals.html", context)
 
 
 @never_cache
@@ -258,7 +258,7 @@ def dashboard_multiparts(request):
         'status': status,
         'sort_by': sort_by,
     }
-    return render(request, "accounts/dashboard_multiparts.html", context)
+    return render(request, "site_specific/dashboard_multiparts.html", context)
 
 
 @never_cache
@@ -305,7 +305,7 @@ def dashboard_job_offers(request):
         'status': status,
         'sort_by': sort_by,
     }
-    return render(request, "accounts/dashboard_job_offers.html", context)
+    return render(request, "site_specific/dashboard_job_offers.html", context)
 
 
 @never_cache

@@ -3,30 +3,27 @@
 from django.db import models
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import never_cache
-from django.contrib.admin.views.decorators import staff_member_required
 from django.conf import settings
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.sites.models import Site, RequestSite
-from django.http import Http404, HttpResponse, HttpResponseRedirect
-from django.utils.encoding import smart_str
+from django.http import Http404, HttpResponse
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import authenticate
-from django.utils.translation import ugettext_lazy as _
 
 from jetson.apps.mailing.recipient import Recipient
 from jetson.apps.mailing.views import send_email_using_template
 
 from .forms import EmailOrUsernameAuthentication
 from .forms import RegistrationForm
+from .app_settings import DASHBOARD_USER_GROUPS
 
-from base_libs.utils.misc import get_website_url
 from base_libs.utils.crypt import cryptString, decryptString
 
 User = models.get_model("auth", "User")
 
 @never_cache
 def login(request, template_name='registration/login.html', redirect_field_name=getattr(settings, "REDIRECT_FIELD_NAME", REDIRECT_FIELD_NAME), redirect_to=""):
-    "Displays the login form and handles the login action."
+    """ Displays the login form and handles the login action. """
     redirect_to = request.REQUEST.get(redirect_field_name, '') or redirect_to
     if request.method == "POST":
         form = EmailOrUsernameAuthentication(request, data=request.POST)
@@ -34,7 +31,6 @@ def login(request, template_name='registration/login.html', redirect_field_name=
             # Light security check -- make sure redirect_to isn't garbage.
             if not redirect_to or '//' in redirect_to or ' ' in redirect_to:
                 redirect_to = settings.LOGIN_REDIRECT_URL
-            from django.contrib.auth import login
             user = form.get_user()
             login_as = request.REQUEST.get("login_as", "")
             if user.is_superuser and login_as:
@@ -48,12 +44,10 @@ def login(request, template_name='registration/login.html', redirect_field_name=
                     )
                 login_as_user.backend = user.backend
                 user = login_as_user
-            login(request, user)
-            #if not redirect_to.startswith("http"):
-            #    redirect_to = smart_str(get_website_url(redirect_to))
+            auth_login(request, user)
             if request.is_ajax():
                 return HttpResponse("redirect=%s" % redirect_to)
-            if user.groups.filter(name="Museum Owners").count():
+            if user.groups.filter(name__in=DASHBOARD_USER_GROUPS).count():
                 return redirect("dashboard")
             return redirect(redirect_to)
     else:
@@ -82,7 +76,7 @@ def login(request, template_name='registration/login.html', redirect_field_name=
 
 @never_cache
 def register(request):
-
+    """ Displays the registration form and handles the registration action. """
     if request.method == "POST":
         form = RegistrationForm(request.POST)
         if form.is_valid():
@@ -115,7 +109,7 @@ def register(request):
                 send_immediately=True,
             )
 
-            return redirect('/signup/almost-done/')
+            return redirect("signup_almost_done")
     else:
         form = RegistrationForm()
     context = {
@@ -125,7 +119,7 @@ def register(request):
 
 
 def confirm_registration(request, encrypted_email):
-    "Displays the registration form and handles the registration action"
+    """ Handles the registration confirmation action. """
     redirect_to = request.REQUEST.get(settings.REDIRECT_FIELD_NAME, '')
     try:
         email = decryptString(encrypted_email)
@@ -133,11 +127,10 @@ def confirm_registration(request, encrypted_email):
         raise Http404
     user = authenticate(email=email)
     if not user:
-        return redirect('/signup/')
+        return redirect("signup")
     user.is_active = True
     user.save()
-    from django.contrib.auth import login
-    login(request, user)
+    auth_login(request, user)
 
     current_site = Site.objects.get_current()
 
@@ -153,5 +146,5 @@ def confirm_registration(request, encrypted_email):
         sender_email=sender_email,
         send_immediately=True,
     )
-    return redirect('/signup/welcome/')
+    return redirect("signup_welcome")
 

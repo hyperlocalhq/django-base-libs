@@ -230,6 +230,7 @@ INSTALLED_APPS = (
     "berlinbuehnen.apps.education",
     "berlinbuehnen.apps.search",
     "berlinbuehnen.apps.marketplace",
+    "berlinbuehnen.apps.accounts",
     "berlinbuehnen.apps.site_specific",
 )
 
@@ -627,6 +628,7 @@ ROSETTA_STORAGE_CLASS = "rosetta.storage.SessionRosettaStorage"
 ALLOWED_HOSTS = ['www.berlinbuehnen.de', 'berlinbuehnen.de']
 
 COMMENTS_BANNED_USERS_GROUP = ""
+ACCOUNTS_DASHBOARD_USER_GROUPS = ["Location Owners"]
 
 #SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 
