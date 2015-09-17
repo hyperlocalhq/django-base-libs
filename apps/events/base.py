@@ -254,7 +254,13 @@ class EventBase(CreationModificationMixin, UrlMixin):
 
     def get_description(self, language=None):
         language = language or get_current_language()
-        return mark_safe(getattr(self, "description_%s" % language, "") or self.description)
+        description = getattr(self, "description_%s" % language, "")
+        if not description:
+            try:
+                description = self.description
+            except KeyError:
+                description = ''
+        return mark_safe(description)
 
     def save(self, *args, **kwargs):
         from jetson.apps.permissions.models import RowLevelPermission
