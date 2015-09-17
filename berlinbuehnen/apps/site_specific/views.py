@@ -178,9 +178,7 @@ def dashboard_festivals(request):
     if q:
         owned_festival_qs = owned_festival_qs.filter(
             models.Q(title_de__icontains=q) | models.Q(title_en__icontains=q) |
-            models.Q(prefix_de__icontains=q) | models.Q(prefix_en__icontains=q) |
-            models.Q(subtitle_de__icontains=q) | models.Q(subtitle_en__icontains=q) |
-            models.Q(original_de__icontains=q) | models.Q(original_en__icontains=q)
+            models.Q(subtitle_de__icontains=q) | models.Q(subtitle_en__icontains=q)
         )
 
     sort_by = request.REQUEST.get('sort_by', 'date')
