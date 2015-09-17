@@ -47,7 +47,7 @@ def prev_next_processor(request):
     """
     object_id = request.httpstate.get('current_object_id', None)
     queryset_model = request.httpstate.get('current_queryset_model', None)
-    if not issubclass(queryset_model, models.Model):
+    if isinstance(queryset_model, basestring):
         queryset_model = models.get_model(*queryset_model.split("."))
 
     queryset_pk_list = request.httpstate.get('current_queryset_pk_list', None)
