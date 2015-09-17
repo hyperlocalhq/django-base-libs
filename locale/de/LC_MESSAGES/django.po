@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-17 20:02+0200\n"
-"PO-Revision-Date: 2015-09-17 20:05+0053\n"
+"POT-Creation-Date: 2015-09-17 20:29+0200\n"
+"PO-Revision-Date: 2015-09-17 20:34+0053\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3025,13 +3025,13 @@ msgstr "Verwandte Produktionen"
 
 #: .\berlinbuehnen\apps\productions\models.py:178
 #: .\berlinbuehnen\apps\productions\models.py:751
-msgid "Price from (€)"
-msgstr "Preise von (€)"
+msgid "Price from (€). Seperate cents by a point."
+msgstr "Preise von (€). Centbeträge mit einem Punkt angeben."
 
 #: .\berlinbuehnen\apps\productions\models.py:179
 #: .\berlinbuehnen\apps\productions\models.py:752
-msgid "Price till (€)"
-msgstr "Preise bis (€)"
+msgid "Price till (€). Seperate cents by a point."
+msgstr "Preise bis (€). Centbeträge mit einem Punkt angeben."
 
 #: .\berlinbuehnen\apps\productions\models.py:181
 #: .\berlinbuehnen\apps\productions\models.py:754
@@ -5201,6 +5201,12 @@ msgstr "Teilen auf Twitter"
 #: .\berlinbuehnen\templates\berlinbuehnen\utils\images.html.py:30
 msgid "Share on Facebook"
 msgstr "Teilen auf Facebook"
+
+#~ msgid "Price from (€)"
+#~ msgstr "Preise von (€)"
+
+#~ msgid "Price till (€)"
+#~ msgstr "Preise bis (€)"
 
 #~ msgid "Date on appointment"
 #~ msgstr "Datum und Uhrzeit"
