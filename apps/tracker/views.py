@@ -41,7 +41,7 @@ def create_ticket(request, concern=None, content_type_id=None, object_id=None,
             url=redirect_to,
             initial={
                 'client_info': "User Agent: %s\nJavascript: Off\n" % (
-                    request.META['HTTP_USER_AGENT'],
+                    request.META.get('HTTP_USER_AGENT', ''),
                 )
             }
         )
