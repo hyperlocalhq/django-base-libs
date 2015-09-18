@@ -139,18 +139,18 @@ class MySqlFulltextSearchQuerySet(ExtendedQuerySet):
         keywords_relevance = ""
         for item in keyword_list:
             if alternatives.has_key(item) and len(alternatives[item]) > 0:
-                keyword_where_part = '+("%s"' % item
-                keyword_relevance_part = '("%s"' % item
+                keyword_where_part = '+(%s' % item
+                keyword_relevance_part = '(%s' % item
 
                 for alternative in alternatives[item]:
-                    keyword_where_part += ' "%s"%s' % (alternative[0], alternative[1])
-                    keyword_relevance_part += ' "%s"%s' % (alternative[0], alternative[1])
+                    keyword_where_part += ' %s%s' % (alternative[0], alternative[1])
+                    keyword_relevance_part += ' %s%s' % (alternative[0], alternative[1])
 
                 keyword_where_part += ')'
                 keyword_relevance_part += ')'
             else:
-                keyword_where_part = '+"%s"' % item
-                keyword_relevance_part = '"%s"' % item
+                keyword_where_part = '+%s' % item
+                keyword_relevance_part = '%s' % item
 
             keywords_where = keywords_where + keyword_where_part + " "
             keywords_relevance = keywords_relevance + keyword_relevance_part + " "
