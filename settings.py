@@ -18,12 +18,10 @@ execfile(os.path.join(JETSON_PATH, "jetson/settings/base.py"), globals(), locals
 
 SESSION_COOKIE_DOMAIN = "www.creative-city-berlin.de"
 STAGING_DOMAIN = "test.creative-city-berlin.de"
-ALLOWED_HOSTS = ["creative-city-berlin.de", "www.creative-city-berlin.de"]
 
 ### EMAILS ###
 
 MANAGERS = ADMINS = (
-    # ("Creative City Berlin", "webmaster@creative-city-berlin.de"),
     ("Aidas Bendoraitis", "bendoraitis@studio38.de"),
     ("Tiago Henriques", "henriques@studio38.de"),
     ("Reinhard Knobelspies", "knobelspies@studio38.de"),
@@ -70,6 +68,7 @@ LANGUAGE_CODE = "de"
 
 INSTALLED_APPS = [
     ### third-party apps ###
+    # "django_extensions",
     "grappelli",
     "filebrowser",
     "crispy_forms",
@@ -123,6 +122,9 @@ INSTALLED_APPS = [
     'djangocms_teaser',
     'djangocms_video',
 
+    ### base libs ###
+    # "base_libs",
+
     ### jetson apps ###
     "jetson.apps.image_mods",
     "jetson.apps.httpstate",
@@ -174,6 +176,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE_CLASSES = [
     "django.middleware.common.CommonMiddleware",
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
     "django.contrib.sessions.middleware.SessionMiddleware",
     'django.middleware.csrf.CsrfViewMiddleware',
     "jetson.apps.httpstate.middleware.HttpStateMiddleware",
@@ -191,7 +194,6 @@ MIDDLEWARE_CLASSES = [
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
     'cms.middleware.language.LanguageCookieMiddleware',
-    # "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 # if not DEVELOPMENT_MODE:
 #    MIDDLEWARE_CLASSES.insert(0, "django.middleware.cache.UpdateCacheMiddleware")
@@ -452,7 +454,7 @@ MAILING_DEFAULT_FROM_EMAIL = 'ccb-contact@kulturprojekte-berlin.de'
 
 ### DEBUG TOOLBAR ###
 
-execfile(os.path.join(JETSON_PATH, "jetson/settings/debug_toolbar.py"))
+# execfile(os.path.join(JETSON_PATH, "jetson/settings/debug_toolbar.py"))
 
 
 ### GRAPPELLI ###

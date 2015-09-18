@@ -9,14 +9,12 @@ from django.shortcuts import redirect
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
-
 from cms.sitemaps import CMSSitemap
 
 from jetson.apps.utils.decorators import login_required
 from jetson.apps.location.models import Address
 from jetson.apps.utils.views import object_detail
 from jetson.apps.utils.context_processors import prev_next_processor
-
 from ccb.apps.media_gallery.models import URL_ID_PORTFOLIO
 from ccb.apps.media_gallery.models import MediaGallery
 from ccb.apps.people.models import Person, URL_ID_PERSON, URL_ID_PEOPLE
@@ -28,7 +26,6 @@ from ccb.apps.resources.views import _document_list_filter
 from ccb.apps.events.models import Event, URL_ID_EVENT, URL_ID_EVENTS
 from ccb.apps.marketplace.models import JobOffer, URL_ID_JOB_OFFER, URL_ID_JOB_OFFERS
 from ccb.apps.groups_networks.models import PersonGroup, URL_ID_PERSONGROUP, URL_ID_PERSONGROUPS
-
 from ccb.apps.media_gallery.sites import PortfolioSite
 
 _project_name = "ccb"
@@ -1026,3 +1023,11 @@ if 'rosetta' in settings.INSTALLED_APPS:
         '',
         url(r'^rosetta/', include('rosetta.urls')),
     )
+
+# if settings.DEBUG:
+#     import debug_toolbar
+#
+#     urlpatterns += patterns(
+#         '',
+#         url(r'^__debug__/', include(debug_toolbar.urls)),
+#     )
