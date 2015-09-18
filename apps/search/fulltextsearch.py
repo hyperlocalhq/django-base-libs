@@ -116,24 +116,24 @@ class MySqlFulltextSearchQuerySet(ExtendedQuerySet):
         alternatives = {}
 
         for item in keyword_list:
-            alternatives[item] = []
+            alternatives[item] = set()
 
             esc_item = full_escape(item)
             if esc_item != item:
-                alternatives[item].append((esc_item, ""))
+                alternatives[item].add((esc_item, ""))
 
             # add stemmed words to alternatives!
             stemmed_english = PorterStemmerEnglish().stem(item, 0, len(item) - 1)
             if stemmed_english != item:
-                alternatives[item].append((stemmed_english, "*"))
+                alternatives[item].add((stemmed_english, "*"))
 
             stemmed_list_german = PorterStemmerGerman().stem(item)
             for stemmed_german in stemmed_list_german:
                 if stemmed_german != item:
-                    alternatives[item].append((stemmed_german, "*"))
+                    alternatives[item].add((stemmed_german, "*"))
                     esc_stemmed_german = full_escape(stemmed_german)
                     if esc_stemmed_german != stemmed_german:
-                        alternatives[item].append((esc_stemmed_german, "*"))
+                        alternatives[item].add((esc_stemmed_german, "*"))
 
         keywords_where = ""
         keywords_relevance = ""
