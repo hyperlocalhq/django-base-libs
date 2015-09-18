@@ -23,8 +23,6 @@
                 <input type="hidden" name="uid" value=""/>
                 <input type="hidden" name="goto_next" value="{% ifequal goto_next root_dir %}/dashboard/
                     {% else %}{% if goto_next %}{{ goto_next }}{% else %}/dashboard/{% endif %}{% endifequal %}"/>
-                <input class="facebook_login primaryAction" type="submit"
-                    value="{% filter upper %}{% trans 'Login with Facebook' %}{% endfilter %}"/>
             </div>
         </fieldset>
     </form>
