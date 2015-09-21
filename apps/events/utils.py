@@ -73,7 +73,7 @@ def create_ics(events):
             for event in events:
                 for time in event.eventtime_set.all():
                     add_vevent(cal, time)
-        if issubclass(events.model, ContextItem):
+        elif issubclass(events.model, ContextItem):
             # events is a queryset of ContextItem instances
             for context_item in events:
                 for time in context_item.content_object.eventtime_set.all():
