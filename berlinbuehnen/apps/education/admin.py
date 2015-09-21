@@ -26,6 +26,7 @@ from .models import ProjectMember
 from .models import ProjectImage
 from .models import ProjectSocialMediaChannel
 from .models import ProjectPDF
+from .models import ProjectVideo
 from .models import ProjectTargetGroup
 from .models import ProjectFormat
 
@@ -75,6 +76,7 @@ class DepartmentSocialMediaChannelInline(ExtendedStackedInline):
     extra = 0
     # classes = ('grp-collapse grp-open',)
     inline_classes = ('grp-collapse grp-open',)
+
 
 class DepartmentPDFInline(ExtendedStackedInline):
     model = PDF
@@ -201,9 +203,18 @@ class ProjectSocialMediaChannelInline(ExtendedStackedInline):
     # classes = ('grp-collapse grp-open',)
     inline_classes = ('grp-collapse grp-open',)
 
+
 class ProjectPDFInline(ExtendedStackedInline):
     model = ProjectPDF
     extra = 0
+    inline_classes = ('grp-collapse grp-open',)
+
+
+class ProjectVideoInline(ExtendedStackedInline):
+    model = ProjectVideo
+    extra = 0
+    fieldsets = get_admin_lang_section(_("Title"), ['title'])
+    fieldsets += [(None, {'fields': ('link_or_embed', 'sort_order')}),]
     inline_classes = ('grp-collapse grp-open',)
 
 
@@ -232,6 +243,7 @@ class ProjectAdmin(ExtendedModelAdmin):
         ProjectSocialMediaChannelInline,
         ProjectImageInline,
         ProjectPDFInline,
+        ProjectVideoInline,
     ]
 
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
