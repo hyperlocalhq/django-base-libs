@@ -143,7 +143,8 @@ password_change_form_helper.layout = layout.Layout(
     layout.Fieldset(
         "", # no legend
         "old_password",
-        layout.Row("new_password1", "new_password2"),
+        "new_password1",
+        "new_password2",
     ),
     bootstrap.FormActions(
         layout.Submit('submit', _('Confirm')),

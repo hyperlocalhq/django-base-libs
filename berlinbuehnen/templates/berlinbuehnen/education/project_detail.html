@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites education_tags %}
+{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites_tags education_tags %}
 {% block title %}{% trans "Educational Project" %} – {{ object.title }} – {% endblock %}
 {% block bodyclass %}project-detail{% endblock %}
 
@@ -21,6 +21,7 @@
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/gallery.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/list.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/add_to_calender_1.5_atc.min.js" defer="defer"></script>
+    {% include "utils/favorites_scripts.html" %}
     <!--<script type="text/javascript" src="{{ STATIC_URL }}site/js/slider.js"></script>-->
 {% endblock %}
 
@@ -37,6 +38,11 @@
                             
                             <!-- headlines -->
                             <header>
+                                <div class="header-icons">
+                                    {% if request.user.is_authenticated %}
+                                        {% adding2favorites for project using "favorites/includes/favorite_detail.html" %}
+                                    {% endif %}
+                                </div>
                                 <ul class="header-top icons-space">
                                     {% if event %}
                                         <li><time>{{ event.start|date:"l, j. F Y" }}{{ event.start|time:", H:i" }}</time></li>

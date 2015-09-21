@@ -1,4 +1,4 @@
-{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites %}
+{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites_tags %}
 {% with festival.organizers.all.0 as organizer %}
     <div class="accordion sidebar-accordion">
         {% if organizer or festival.phone_number or festival.fax_number or festival.email or festival.website or festival.street_address %}

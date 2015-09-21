@@ -204,7 +204,6 @@ INSTALLED_APPS = (
     "jetson.apps.history",
     "jetson.apps.utils",
     "jetson.apps.extendedadmin",
-    "jetson.apps.favorites",
     "jetson.apps.permissions",
     "jetson.apps.blocks",
     "jetson.apps.configuration",
@@ -231,6 +230,7 @@ INSTALLED_APPS = (
     "berlinbuehnen.apps.search",
     "berlinbuehnen.apps.marketplace",
     "berlinbuehnen.apps.accounts",
+    "berlinbuehnen.apps.favorites",
     "berlinbuehnen.apps.site_specific",
 )
 
@@ -294,18 +294,21 @@ ADMIN_APP_INDEX = (
         'apps': (
             ('auth', {
                 'verbose_name': gettext("Authentication"),
-                'models':("Group", "User",),
+                'models': ("Group", "User",),
                 'icon': 'key',
             }),
             ('permissions', {
                 'models': ('PerObjectGroup','RowLevelPermission',),
             }),
             ('institutions', {
-                'models':("Institution",),
+                'models': ("Institution",),
             }),
             ('twitterwall', {
                 'verbose_name': gettext("Twitter Wall"),
-                'models':("SearchSettings", "UserTimelineSettings", "TwitterUser", "Tweet"),
+                'models': ("SearchSettings", "UserTimelineSettings", "TwitterUser", "Tweet"),
+            }),
+            ('favorites', {
+                'models': ("Favorite", "FavoriteListOptions"),
             }),
         )
     },

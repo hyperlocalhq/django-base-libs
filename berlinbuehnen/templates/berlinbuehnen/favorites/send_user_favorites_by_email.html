@@ -1,0 +1,12 @@
+{% extends "base_fullscreen.html" %}
+{% load crispy_forms_tags i18n %}
+
+{% block content %}
+    <div class="form wider">
+        {% crispy form %}
+    </div>
+    <script src="{{ STATIC_URL }}site/js/jquery.autosize.min.js"></script>
+    <script>
+        $('textarea').autosize();
+    </script>
+{% endblock %}

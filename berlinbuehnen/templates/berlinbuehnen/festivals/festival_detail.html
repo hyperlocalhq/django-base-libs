@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites production_tags %}
+{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites_tags production_tags %}
 {% block title %}{% trans "Festival" %} – {{ object.title }} – {% endblock %}
 {% block bodyclass %}festival-detail{% endblock %}
 
@@ -20,6 +20,7 @@
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/accordion.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/gallery.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/list.js"></script>
+    {% include "utils/favorites_scripts.html" %}
     <!--<script type="text/javascript" src="{{ STATIC_URL }}site/js/slider.js"></script>-->
 {% endblock %}
 
@@ -34,6 +35,11 @@
                             
                             <!-- headlines -->
                             <header>
+                                <div class="header-icons">
+                                    {% if request.user.is_authenticated %}
+                                        {% adding2favorites for festival using "favorites/includes/favorite_detail.html" %}
+                                    {% endif %}
+                                </div>
                                 <ul class="header-top">
                                     {% if festival.start %}
                                         <li>{% if festival.end and festival.start == festival.end %}<time>{{ festival.start|date:"j. F Y" }}</time>{% else %}<time>{% if not festival.end or festival.start|date:"Y" != festival.end|date:"Y" %}{{ festival.start|date:"j. F Y" }}{% else %}{% if festival.start|date:"F" != festival.end|date:"F" %}{{ festival.start|date:"j. F" }}{% else %}{{ festival.start|date:"j." }}{% endif %}{% endif %}</time>{% if festival.end %} &nbsp;–&nbsp; <time>{{ festival.end|date:"j. F Y" }}</time>{% endif %}{% endif %}</li>

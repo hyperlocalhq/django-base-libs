@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% load url from future %}
-{% load i18n image_modifications base_tags tagging_tags favorites auth_extended festival_tags %}
+{% load i18n image_modifications base_tags tagging_tags favorites_tags auth_extended festival_tags %}
 {% block title %}{% trans "Festivals" %} – {% endblock %}
 {% block bodyclass %}festival-list no-transition{% endblock %}
 
 {% block js %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/grid.js" defer="defer"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/month_slider.js" defer="defer"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.min.js" defer="defer"></script>
+    {% include "utils/favorites_scripts.html" %}
 {% endblock %}
 
 {% block content %}

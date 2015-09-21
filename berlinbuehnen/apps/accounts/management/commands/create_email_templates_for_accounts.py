@@ -95,7 +95,7 @@ The [site_name] team</p>"""
 
 <p>Um Ihre E-Mail Adresse zu bestätigen und Ihre Registrierung abschliessen zu können, klicken Sie bitte auf den folgenden Link:</p>
 
-<p><a href="[website_url]signup/[encrypted_email]/">[website_url]register/[encrypted_email]/</a></p>
+<p><a href="[website_url]signup/[encrypted_email]/">[website_url]signup/[encrypted_email]/</a></p>
 
 <p>Wenn Sie nicht wissen, worauf sich diese E-mail bezieht, ignorieren Sie sie einfach und es wird kein Benutzerkonto mit Ihrer E-Mail Adresse erstellt.</p>
 

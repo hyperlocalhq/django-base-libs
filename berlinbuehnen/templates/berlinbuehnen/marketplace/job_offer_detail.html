@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites production_tags %}
+{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites_tags production_tags %}
 {% block title %}{% trans "Job Offer" %} – {{ object.title }} – {% endblock %}
 {% block bodyclass %}job_offer-detail{% endblock %}
 
@@ -20,7 +20,7 @@
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/accordion.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/gallery.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/slider.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.min.js" defer="defer"></script>
+    {% include "utils/favorites_scripts.html" %}
 {% endblock %}
 
 {% block content %}
