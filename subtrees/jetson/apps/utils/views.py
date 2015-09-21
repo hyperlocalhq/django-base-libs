@@ -30,6 +30,7 @@ from django.utils.timezone import now as tz_now
 from django.shortcuts import redirect
 from django import forms
 
+from ccb.apps.events.utils import create_ics
 from base_libs.utils.misc import ExtendedJSONEncoder
 
 class JsonResponse(HttpResponse):
@@ -177,7 +178,7 @@ def object_list(request, queryset,
     paginate_by=None, order_by=None, view_type="icons", page=None,
     allow_empty=False, template_name=None, template_loader=loader,
     extra_context=None, context_processors=None, template_object_name="object",
-    content_type=None, pages_to_display=10, query="", httpstate_prefix="", paginate=True, first_page_delta=0):
+    content_type=None, pages_to_display=10, query="", httpstate_prefix="", paginate=True, first_page_delta=0, **kwargs):
     """
     Generic list of objects.
 
@@ -208,6 +209,13 @@ def object_list(request, queryset,
         first_page_delta
             how many items less to show on the first page
     """
+
+    if kwargs.has_key('ical') and kwargs['ical'] == True:
+        icalstream = create_ics(queryset)
+        response = HttpResponse(icalstream, content_type="text/calendar")
+        response['Filename'] = "CCB-events.ics"  # IE needs this
+        response['Content-Disposition'] = "attachment; filename=CCB-events.ics"
+        return response
 
     if extra_context is None: extra_context = {}
     

@@ -8,6 +8,7 @@ from base_libs.utils.misc import get_website_url
 
 Event = models.get_model("events", "Event")
 EventTime = models.get_model("events", "EventTime")
+ContextItem = models.get_model("site_specific", "ContextItem")
 
 
 def add_vevent(cal, event_time):
@@ -68,9 +69,14 @@ def create_ics(events):
         add_vevent(cal, time)
     elif isinstance(events, QuerySet):
         if issubclass(events.model, Event):
-            # events is an queryset of Event instances
+            # events is a queryset of Event instances
             for event in events:
                 for time in event.eventtime_set.all():
+                    add_vevent(cal, time)
+        if issubclass(events.model, ContextItem):
+            # events is a queryset of ContextItem instances
+            for context_item in events:
+                for time in context_item.content_object.eventtime_set.all():
                     add_vevent(cal, time)
         else:
             # events is an queryset of EventTime instances
