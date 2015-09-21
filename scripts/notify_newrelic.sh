@@ -17,7 +17,7 @@ if [ $# -eq 0 ]; then
 fi
 
 # check whether user had supplied -h or --help . If yes display usage
-if [[ ( $1 == "--help") ||  $1 == "-h" ]]; then
+if [[ ( "$1" == "--help") ||  "$1" == "-h" ]]; then
     display_usage
     exit 0
 fi
