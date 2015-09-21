@@ -34,7 +34,9 @@ curl \
     --data "deployment[description]=${commit_description}" \
     --data "deployment[user]=${commit_author}" \
     --data "deployment[revision]=${commit_revision}" \
-    https://api.newrelic.com/deployments.xml >> ${LOGFILE}
+    https://api.newrelic.com/deployments.xml 1>> ${LOGFILE} 2>&1
 
 echo "Notified NewRelic about new deployment" >> ${LOGFILE}
 echo "" >> ${LOGFILE}
+
+echo "post-merge hook notified NewRelic about new deployment"
