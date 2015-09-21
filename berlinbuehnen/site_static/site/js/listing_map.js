@@ -27,15 +27,21 @@ var oMap;
 (function($, undefined) {
     var oInfobox;
     var aMarkers = [];
+    var aStopMarkers = [];
     var oCurrentMarker = null;
     var oGeo2MarkersMapper = {};
     var oCurrentLocationMarker;
     var active_object_id = '';
     var loading = false;
+    
+    var nua = navigator.userAgent.toLowerCase();
+    var is_android = ((nua.indexOf('mozilla/5.0') > -1 && nua.indexOf('android ') > -1 && nua.indexOf('applewebkit') > -1) && !(nua.indexOf('chrome') > -1));
+    if (is_android) $('body').addClass('android');
 
     $(document).ready(function() {
         var $oList = $('body');
         if ($oList.length) {
+
             var oOptions = {
                 zoom: 14,
                 panControl: false,
@@ -97,8 +103,28 @@ var oMap;
 
         var oMarkerImgDefault = new google.maps.MarkerImage(self.settings.STATIC_URL + 'site/img/marker_default.png', null, null, null, new google.maps.Size(25,35));
         var oMarkerImgSelected = new google.maps.MarkerImage(self.settings.STATIC_URL + 'site/img/marker_selected.png', null, null, null, new google.maps.Size(25,35));
-
+        var oStopMarkerImgDefault = {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 7,
+            strokeColor: '#000000',
+            strokeOpacity: 0.8,
+            strokeWeight: 3,
+            fillColor: '#FFFFFF',
+            fillOpacity: 1,
+            radius: 7
+        };
+        var oStopMarkerImgSelected = {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 7,
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 3,
+            fillColor: '#FFFFFF',
+            fillOpacity: 1,
+            radius: 7
+        }
         var oActiveMarker = null;
+        var oActiveStopMarker = null;
 
         if (window.location.hash) {
             // get options object from hash

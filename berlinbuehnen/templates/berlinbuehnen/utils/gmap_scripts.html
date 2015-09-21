@@ -1,0 +1,71 @@
+{% load i18n %}
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;language=de&amp;region=DE&amp;v=3.6"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.1.3/mustache.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}site/js/markerwithlabel.js"></script>
+<!--<script type="text/javascript" src="{{ STATIC_URL }}site/js/styledinfowindow.js"></script>-->
+<script type="text/javascript" src="{{ STATIC_URL }}site/js/listing_map.js"></script>
+
+<script type="text/javascript">
+    (function($, undefined) {
+        $(function() {
+            $('#gmap_toggle').click(function() {
+                if (!self.oMap) {
+                   initialize_map();
+                }
+                $('body').toggleClass('map_visible');
+                setTimeout(function() {
+                    google.maps.event.trigger(oMap, 'resize');
+                }, 650);
+            });
+
+            $('#gmap_toggle2').click(function() {
+                $('body').toggleClass('map_visible');
+                setTimeout(function() {
+                    google.maps.event.trigger(oMap, 'resize');
+                }, 650);
+            });
+
+            $('#gmap_fullscreen').click(function() {
+                $('body').toggleClass('map_fullscreen');
+                setTimeout(function() {
+                    google.maps.event.trigger(oMap, 'resize');
+                }, 650);
+                // $('html, body').animate({scrollTop:0}, 'slow');
+                // e.preventDefault();
+            });
+        });
+    }(jQuery));
+</script>
+
+
+<script type="text/javascript">
+
+    function GMap() {
+        
+        var me = this;
+        this.me = me;
+        
+        me.$height = $('.gmap-height');
+    
+        $(window).resize(function() {me.setHeight();});
+        me.setHeight();
+    }
+    
+    GMap.prototype.setHeight = function() {
+        
+        var me = this.me;
+        var $body = $('body');
+        
+        var offset = 0;
+        if ($body.hasClass('is-sm')) offset = 100;
+        else if ($body.hasClass('is-xs')) offset = 80;
+        
+        var height = $(window).height();
+        me.$height.height(height-25-offset);
+    }
+    
+    $(document).ready(function() {
+        new GMap();
+    });
+
+</script>

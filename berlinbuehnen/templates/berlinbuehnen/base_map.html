@@ -1,0 +1,176 @@
+{% block doctype %}<!DOCTYPE html>{% endblock %}
+{% load cms_tags menu_tags sekizai_tags i18n image_modifications base_tags %}
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+    <title>{% block title %}{% endblock %} Berlin Bühnen</title>
+    <link rel="icon" href="{{ STATIC_URL }}site/img/favicon.ico" type="image/png">
+
+    {% block meta_tags %}
+      {{ site_settings.get_meta_tags|safe }}
+    {% endblock %}
+
+    {% block open_graph %}
+    {% endblock %}
+
+    {% block stylesheet %}
+        <link href='http://fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'/>
+        <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
+        <link href="{{ STATIC_URL }}site/css/bootstrap/bootstrap.css" rel="stylesheet" media="screen, print" type="text/css" />
+        <link href="{{ STATIC_URL }}site/css/style.css" rel="stylesheet" media="screen, print" type="text/css" />
+    {% endblock %}
+
+    {% render_block "css" %}
+    <script type="text/javascript">
+      <!--//--><![CDATA[//><!--
+        var images = [];
+        function preload() {
+          for (i = 0; i < preload.arguments.length; i++) {
+            images[i] = new Image();
+            images[i].src = preload.arguments[i];
+          }
+        }
+        preload(
+          "{{ STATIC_URL }}site/img/placeholder_list.gif",
+          "{{ STATIC_URL }}site/img/placeholder_cover.gif"
+        );
+      //--><!]]>    
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="/{{ LANGUAGE_CODE }}/jssettings/"></script>
+    <script type="text/javascript" src="/{{ LANGUAGE_CODE }}/jsi18n/"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.ba-bbq.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.isotope.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.scrollstop.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.lazyload.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.viewport.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/modernizr.custom.52849.js"></script>
+    <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/jquery.cookie.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.selectbox-0.2.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.sharrre-1.3.2.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.hammer-full.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/base.js"></script>
+
+    <script>
+        // forcing django CMS to use the already included version of jQuery
+        var django = {jQuery: jQuery};
+    </script>
+        <script>
+          var csrftoken = $.cookie('csrftoken');
+          function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+          }
+          $.ajaxSetup({
+            crossDomain: false, // obviates need for sameOrigin test
+            beforeSend: function(xhr, settings) {
+              if (!csrfSafeMethod(settings.type)) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+              }
+            }
+          });
+          if ($.browser.msie) {
+            $('html').addClass('msie');
+          }
+        </script>
+        
+    {{ site_settings.extra_head|safe }}
+    {% block js %}{% endblock %}
+</head>
+
+
+<body class="gmap map-only {% block bodyclass %}{% endblock %} lang_{{ LANGUAGE_CODE }}">
+    <div id="wrapper">
+        {% block header %}
+            {#% include "utils/navigation.html" %#}
+        {% endblock %}
+
+        <div id="body" class="container-fluid">
+            <div class="row gmap-height">
+                <div class="box gmap-wrapper col-xs-12">
+                    <div id="gmap" style="width: 500px; height: 500px;">&nbsp;</div>
+                    
+                    <div id="map-sidebar-wrapper">
+                        <div id="map-sidebar" class="map-description">
+                            <div id="map-buttons-overflow">
+                                <div id="map-buttons-wrapper">
+                                    <a href=".." id="cancel-map" class="fawesome back-round btn btn-default btn-lg">
+                                      <span class="sr-only">{% trans "close" %}</span>
+                                    </a>
+                                    
+                                    <button id="toggle-sidebar" class="btn btn-default btn-lg btn-icon">
+                                      <span class="icon icon-menu"></span>
+                                      <span class="sr-only">{% trans "Toggle Sidebar" %}</span>
+                                    </button>
+
+                                    <button id="show-current-location" class="btn btn-default btn-lg btn-icon hidden">
+                                      <span class="icon icon-cross-hair"></span>
+                                      <span class="sr-only">{% trans "Show my current location" %}</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div id="map-list" class="hide">
+                                <button id="cancel-list" class="cancel btn btn-info btn-lg">
+                                    <span class="icon icon-remove"></span>
+                                    <span class="sr-only">{% trans "close" %}</span>
+                                </button>
+                                <header class="list-header">
+                                    <h4>{% block list-title %}{% endblock %}</h4>
+                                    <div class="list-controls">
+                                        <div class="btn-group">
+                                            <button id="toggle-map-filter" class="btn btn-info">{% trans "filter" %}</button>
+                                            <button id="filter-reset" type="button" class="filter-reset btn btn-info">{% trans "Reset" %}</button>
+                                        </div>
+                                    </div>
+                                    <ul id="filter-summary"></ul>
+                                </header>
+                                {% include "utils/container_empty.html" %}
+
+                                {% block map-list %}
+                                {% endblock %}
+                            </div>
+                            <div id="map-description">
+                                <button id="cancel-description" class="cancel btn btn-info btn-lg">
+                                    <span class="icon icon-remove"></span>
+                                    <span class="sr-only">{% trans "close" %}</span>
+                                </button>
+                                <div class="android-wrapper">
+                                    <div class="map-ajax-detail">
+                                        <article>
+                                            <h4>{% trans "Nothing is selected" %}</h4>
+                                            <p>{% trans "Please select a location on the map first!" %}</p>
+                                        </article>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                </div>
+            </div>
+            {% block content %}
+            {% endblock %}            
+            {% block footer %}
+                {#% include "utils/footer.html" %#}
+            {% endblock %}
+        </div>
+    
+        {% block map-js %}{% endblock %}
+        {% render_block "js" %}
+        {{ site_settings.extra_body|safe }}
+    </div>
+    <span class="width-sniffer visible-xs"></span><span class="width-sniffer visible-sm"></span><span class="width-sniffer visible-md"></span><span class="width-sniffer visible-lg"></span>
+</body>
+</html>

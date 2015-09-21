@@ -144,6 +144,75 @@ def location_list(request, year=None, month=None, day=None):
     )
 
 
+def location_list_map(request, year=None, month=None, day=None):
+    from berlinbuehnen.apps.advertising.templatetags.advertising_tags import not_empty_ad_zone
+    qs = Location.objects.filter(status="published").exclude(latitude=None)
+
+    form = LocationFilterForm(data=request.REQUEST)
+
+    facets = {
+        'selected': {},
+        'categories': {
+            'categories': LocationCategory.objects.all(),
+            'districts': District.objects.all(),
+        },
+    }
+
+    abc_list = get_abc_list(qs, "title_%s" % request.LANGUAGE_CODE)
+
+    if form.is_valid():
+        cats = form.cleaned_data['categories']
+        if cats:
+            facets['selected']['categories'] = cats
+            qs = qs.filter(
+                categories__in=cats,
+            ).distinct()
+
+        cats = form.cleaned_data['districts']
+        if cats:
+            facets['selected']['districts'] = cats
+            qs = qs.filter(
+                models.Q(districts__in=cats) |
+                models.Q(stage__district__in=cats)
+            ).distinct()
+
+
+    abc_filter = request.GET.get('abc', None)
+    if abc_filter:
+        facets['selected']['abc'] = abc_filter
+        for letter in abc_filter:
+            qs = filter_abc(qs, "title_%s" % request.LANGUAGE_CODE, letter)
+
+    # qs = qs.extra(select={
+    #     'title_uni': "IF (events_event.title_%(lang_code)s = '', events_event.title_de, events_event.title_%(lang_code)s)" % {
+    #         'lang_code': request.LANGUAGE_CODE,
+    #     }
+    # }).order_by("title_uni")
+
+    #qs = qs.prefetch_related("season_set", "mediafile_set", "categories", "accessibility_options").defer("tags")
+
+    extra_context = {}
+    extra_context['form'] = form
+    extra_context['abc_list'] = abc_list
+    extra_context['facets'] = facets
+
+    first_page_delta = 0
+    if not_empty_ad_zone('locations'):
+        first_page_delta = 1
+        extra_context['show_ad'] = True
+
+    return object_list(
+        request,
+        queryset=qs,
+        template_name="locations/location_list_map.html",
+        paginate_by=24,
+        extra_context=extra_context,
+        httpstate_prefix="location_list_map",
+        context_processors=(prev_next_processor,),
+        first_page_delta=first_page_delta,
+    )
+
+
 def location_detail(request, slug):
     if "preview" in request.REQUEST:
         qs = Location.objects.all()
@@ -158,6 +227,24 @@ def location_detail(request, slug):
         slug=slug,
         slug_field="slug",
         template_name="locations/location_detail.html",
+        context_processors=(prev_next_processor,),
+    )
+
+
+def location_detail_ajax(request, slug):
+    if "preview" in request.REQUEST:
+        qs = Location.objects.all()
+        obj = get_object_or_404(qs, slug=slug)
+        if not request.user.has_perm("locations.change_location", obj):
+            return access_denied(request)
+    else:
+        qs = Location.objects.filter(status__in=("published", "not_listed"))
+    return object_detail(
+        request,
+        queryset=qs,
+        slug=slug,
+        slug_field="slug",
+        template_name="locations/location_detail_ajax.html",
         context_processors=(prev_next_processor,),
     )
 

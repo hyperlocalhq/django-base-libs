@@ -1,0 +1,60 @@
+{% load base_tags i18n image_modifications tagging_tags babel auth_extended fb_tags infoblocks favorites_tags %}
+
+{% with object as location %}
+    <div class="row row-md hidden-xs">
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
+            <header>
+                <h3>{{ location.title }} </h3>
+                {% if location.subtitle %}
+                    <h4> {{ location.subtitle }} </h4>
+                {% endif %}
+            </header>
+        </div>
+        <div class="hidden-xs hidden-sm col-md-4 col-lg-3">
+            <div class="actions">
+                {% if request.user.is_authenticated %}
+                    {% adding2favorites for location using "favorites/includes/favorite_detail.html" %}
+                {% endif %}
+
+                <a class="btn btn-default btn-round location" href="{% url "location_list_map" %}#object_id={{ location.pk }}">
+                    <span class="icon icon-location"></span>
+                    <span class="sr-only">{% trans "Show location on map" %}</span>
+                </a>
+
+                <button class="btn btn-default btn-round share-twitter" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Share on Twitter" %}"    data-url="{{ object.get_url }}" data-text="{{ location.title }}">
+                    <span class="icon icon-social-twitter"></span>
+                    <span class="sr-only">{% trans "Share on Twitter" %}</span>
+                </button>
+
+                <button class="btn btn-default btn-round share-facebook" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Share on Facebook" %}" data-url="{{ object.get_url }}" data-text="{{ location.title }}">
+                    <span class="icon icon-social-facebook"></span>
+                    <span class="sr-only">{% trans "Share on Facebook" %}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-md">
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
+            <p class="lead">{{ location.get_rendered_description|striptags|truncatewords:"40"|urlize }}</p>
+            <a class="btn btn-default" href="{{ location.get_url_path }}">{% trans "more" %}</a>
+            <button class="btn btn-info cancel">{% trans "Close" %}</button>
+        </div>
+
+        <p>
+            <small>
+            {% if location.parent %}
+                {{ location.parent.street_address }},
+                {% if location.parent.street_address2 %}{{ location.parent.street_address2 }},{% endif %}
+                {{ location.parent.postal_code }} {{ location.parent.city }}
+            {% else %}
+                {{ location.street_address }},
+                {% if location.street_address2 %}
+                    {{ location.street_address2 }},
+                {% endif %}
+                {{ location.postal_code }} {{ location.city }}
+            {% endif %}
+            </small>
+        </p>
+    </div>
+{% endwith %}

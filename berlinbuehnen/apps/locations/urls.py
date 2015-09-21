@@ -4,8 +4,10 @@ from django.conf.urls import *
 
 urlpatterns = patterns('berlinbuehnen.apps.locations.views',
     url(r'^$', 'location_list', name='location_list'),
+    url(r'^map/$', 'location_list_map', name='location_list_map'),
     url(r'^add/$', 'add_location', name='add_location'),
     url(r'^(?P<slug>[^/]+)/$', 'location_detail', name='location_detail'),
+    url(r'^(?P<slug>[^/]+)/ajax/map/$', 'location_detail_ajax', name='location_detail_ajax'),
     url(r'^(?P<slug>[^/]+)/change/$', 'change_location', name='change_location'),
     url(r'^(?P<slug>[^/]+)/delete/$', 'delete_location', name='delete_location'),
     url(r'^(?P<slug>[^/]+)/status/$', 'change_location_status', name='change_location_status'),
