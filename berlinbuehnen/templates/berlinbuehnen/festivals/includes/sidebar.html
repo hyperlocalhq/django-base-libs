@@ -32,7 +32,7 @@
                                 {% endif %}
                                 {% if location.website %}
                                     <dt class="width_50">{% trans "Web" %}</dt>
-                                    <dd><a href="{{ location.website }}" target="_blank">{{ location.website|humanize_url:30 }}</a></dd>
+                                    <dd><a href="{{ location.website }}" target="_blank">{{ location.website|humanize_url:28 }}</a></dd>
                                 {% endif %}
                             </dl>
                         {% endif %}
@@ -60,7 +60,7 @@
                             {% endif %}
                             {% if festival.website %}
                                 <dt class="width_50">{% trans "Web" %}</dt>
-                                <dd><a href="{{ festival.website }}" target="_blank">{{ festival.website|humanize_url:30 }}</a></dd>
+                                <dd><a href="{{ festival.website }}" target="_blank">{{ festival.website|humanize_url:28 }}</a></dd>
                             {% endif %}
                         </dl>
                     {% endif %}
@@ -150,7 +150,7 @@
                             {% endif %}
                             {% if festival.tickets_website %}
                                 <dt class="width_50">{% trans "Web" %}</dt>
-                                <dd><a href="{{ festival.tickets_website }}">{{ festival.tickets_website|humanize_url:30 }}</a><a href="{{ festival.tickets_website }}" class="print">{{ festival.tickets_website }}</a></dd>
+                                <dd><a href="{{ festival.tickets_website }}">{{ festival.tickets_website|humanize_url:28 }}</a><a href="{{ festival.tickets_website }}" class="print">{{ festival.tickets_website }}</a></dd>
                             {% endif %}
                         </dl>
                     {% elif organizer.tickets_phone_number or organizer.tickets_fax_number or organizer.tickets_email or organizer.tickets_website %}
@@ -171,7 +171,7 @@
                             {% endif %}
                             {% if organizer.tickets_website %}
                                 <dt class="width_50">{% trans "Web" %}</dt>
-                                <dd><a href="{{ organizer.tickets_website }}">{{ organizer.tickets_website|humanize_url:30 }}</a><a href="{{ organizer.tickets_website }}" class="print">{{ organizer.tickets_website }}</a></dd>
+                                <dd><a href="{{ organizer.tickets_website }}">{{ organizer.tickets_website|humanize_url:28 }}</a><a href="{{ organizer.tickets_website }}" class="print">{{ organizer.tickets_website }}</a></dd>
                             {% endif %}
                         </dl>
                     {% endif %}
@@ -204,7 +204,7 @@
                             {% endif %}
                             {% if festival.press_website %}
                                 <dt class="width_50">{% trans "Web" %}</dt>
-                                <dd><a href="{{ festival.press_website }}" target="_blank">{{ festival.press_website|humanize_url:30 }}</a></dd>
+                                <dd><a href="{{ festival.press_website }}" target="_blank">{{ festival.press_website|humanize_url:28 }}</a></dd>
                             {% endif %}
                         </dl>
                 </div>
@@ -235,7 +235,7 @@
                             {% endif %}
                             {% if organizer.press_website %}
                                 <dt class="width_50">{% trans "Web" %}</dt>
-                                <dd><a href="{{ organizer.press_website }}" target="_blank">{{ organizer.press_website|humanize_url:30 }}</a></dd>
+                                <dd><a href="{{ organizer.press_website }}" target="_blank">{{ organizer.press_website|humanize_url:28 }}</a></dd>
                             {% endif %}
                         </dl>
                 </div>

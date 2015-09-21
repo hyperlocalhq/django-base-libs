@@ -222,6 +222,9 @@ strong {
 .fawesome.search:before {
   content: "\f002"; }
 
+.fawesome.newsletter:before {
+  content: "\f0e0"; }
+
 .subcategory:before {
   content: "\2514";
   padding-right: 6px;
@@ -1843,7 +1846,7 @@ strong {
       width: 100%;
       float: none; }
       .navbar-wrapper .top_nav .nav > li {
-        margin-right: 2.5%; }
+        margin-right: 2.2%; }
         .navbar-wrapper .top_nav .nav > li.active a {
           color: #4583c8; }
       .navbar-wrapper .top_nav .nav a {
@@ -1958,7 +1961,7 @@ strong {
   margin-top: 0px; }
 
 .is-md .navbar-wrapper .top_nav .nav > li {
-  margin-right: 1.5%; }
+  margin-right: 1.2%; }
 
 .is-sm .navbar-wrapper {
   height: 155px; }
@@ -1966,6 +1969,12 @@ strong {
     min-height: 130px; }
     .is-sm .navbar-wrapper .navbar-header .navbar-brand {
       margin-top: 45px; }
+  .is-sm .navbar-wrapper ul.social_links li {
+    margin-right: 0; }
+    .is-sm .navbar-wrapper ul.social_links li a:before {
+      padding-right: 8px; }
+    .is-sm .navbar-wrapper ul.social_links li:last-child a:before {
+      padding-right: 12px; }
   .is-sm .navbar-wrapper .background {
     height: 165px; }
   .is-sm .navbar-wrapper .top_nav .nav > li {
@@ -5541,6 +5550,8 @@ body.is-xs .grid {
   .info .ads {
     padding-left: 10px;
     padding-right: 10px; }
+    .info .ads.no-ads {
+      padding-top: 14px; }
   body.is-xs .info {
     margin-left: -30px;
     margin-right: -30px; }
@@ -5853,6 +5864,9 @@ span.pin a {
   right: 40px; }
   .search #search_form #submit-id-submit:focus {
     box-shadow: none; }
+.search .pagination {
+  padding-left: 30px;
+  padding-right: 30px; }
 .search.is-xs .search-form-container > .container > .row > .col-xs-12 {
   width: auto;
   margin: 0 -20px; }
@@ -5867,6 +5881,12 @@ span.pin a {
   position: relative;
   top: -30px;
   right: 0; }
+.search.is-xs .item, .search.is-xs .pagination {
+  padding-left: 10px;
+  padding-right: 10px; }
+.search.is-xs .list .item {
+  padding-left: 30px;
+  padding-right: 30px; }
 
 button.sozial-button.fawesome.favorite {
   border: 0;

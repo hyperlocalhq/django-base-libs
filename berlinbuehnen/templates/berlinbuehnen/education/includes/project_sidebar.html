@@ -86,7 +86,7 @@
                         {% endif %}
                         {% if project.website %}
                             <dt class="width_50">{% trans "Web" %}</dt>
-                            <dd><a href="{{ project.website }}" target="_blank" class="no-print">{{ project.website|humanize_url:30 }}</a><a href="{{ project.website }}" target="_blank" class="print">{{ project.website }}</a></dd>
+                            <dd><a href="{{ project.website }}" target="_blank" class="no-print">{{ project.website|humanize_url:28 }}</a><a href="{{ project.website }}" target="_blank" class="print">{{ project.website }}</a></dd>
                         {% endif %}
                     </dl>
                     {% if project.get_social_media %}
@@ -138,7 +138,7 @@
                             {% endif %}
                             {% if department.website %}
                                 <dt class="width_50">{% trans "Web" %}</dt>
-                                <dd><a href="{{ department.website }}" target="_blank" class="no-print">{{ department.website|humanize_url:30 }}</a><a href="{{ department.website }}" target="_blank" class="print">{{ department.website }}</a></dd>
+                                <dd><a href="{{ department.website }}" target="_blank" class="no-print">{{ department.website|humanize_url:28 }}</a><a href="{{ department.website }}" target="_blank" class="print">{{ department.website }}</a></dd>
                             {% endif %}
                         </dl>
                         {% if project.get_social_media %}

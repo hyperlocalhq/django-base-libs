@@ -32,6 +32,11 @@
         
     }
     
+    .pagination {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+    
     &.is-xs {
         
         .search-form-container > .container > .row > .col-xs-12 {
@@ -55,6 +60,16 @@
                 top: -30px;
                 right: 0;
             }
+        }
+        
+        .item, .pagination {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        
+        .list .item {
+            padding-left: 30px;
+            padding-right: 30px;
         }
     }
 }
