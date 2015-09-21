@@ -34,7 +34,7 @@ curl \
     --data "deployment[description]=${commit_description}" \
     --data "deployment[user]=${commit_author}" \
     --data "deployment[revision]=${commit_revision}" \
-    https://api.newrelic.com/deployments.xml
+    https://api.newrelic.com/deployments.xml >> ${LOGFILE}
 
 echo "Notified NewRelic about new deployment" >> ${LOGFILE}
 echo "" >> ${LOGFILE}
