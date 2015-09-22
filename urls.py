@@ -431,10 +431,6 @@ urlpatterns += i18n_patterns(
         dict(group_list_info, template_name="institutions/institution_groups.html")),
 
     url(
-        r'^%s/(?P<slug>[^/]+)/%s/fb-sync/$' % (URL_ID_INSTITUTION, URL_ID_PORTFOLIO),
-        "ccb.apps.facebook_app.views.sync_institutional_portfolio"
-    ),
-    url(
         r'^%s/(?P<slug>[^/]+)/%s/' % (URL_ID_INSTITUTION, URL_ID_PORTFOLIO),
         include(PortfolioSite(
             object_detail_dict=institution_details_info,
@@ -650,10 +646,6 @@ urlpatterns += i18n_patterns(
         dict(group_list_info, template_name="people/person_groups.html")),
 
     url(
-        r'^%s/(?P<slug>[^/]+)/%s/fb-sync/$' % (URL_ID_PERSON, URL_ID_PORTFOLIO),
-        "ccb.apps.facebook_app.views.sync_personal_portfolio"
-    ),
-    url(
         r'^%s/(?P<slug>[^/]+)/%s/' % (URL_ID_PERSON, URL_ID_PORTFOLIO),
         include(PortfolioSite(
             object_detail_dict=person_details_info,
@@ -861,7 +853,7 @@ urlpatterns += i18n_patterns(
     url(r'^account/$', TemplateView.as_view(template_name='accounts/index.html')),
     url(r'^login', _project_name + '.apps.people.views.login',
         {'template_name': 'accounts/login.html'}, name="login"),
-    url(r'^logout', 'ccb.apps.facebook_app.views.logout', {'next_page': "/"}),
+    url(r'^logout', 'django.contrib.auth.views.logout', {'next_page': "/"}),
     url(r'^changeuser/', 'django.contrib.auth.views.logout_then_login'),
     url(r'^register/$', _project_name + '.apps.people.views.register'),
     url(r'^register/done/$',
@@ -897,7 +889,6 @@ urlpatterns += i18n_patterns(
         'django.contrib.auth.views.password_change_done',
         {'template_name': 'accounts/password_change_done.html'},
         name='password_change_done'),
-    url(r'^facebook/', include('ccb.apps.facebook_app.urls')),
 
     # articles
     url(r'^news/', include('ccb.apps.articles.urls')),

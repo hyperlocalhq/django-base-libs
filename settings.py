@@ -167,7 +167,6 @@ INSTALLED_APPS = [
     "ccb.apps.favorites",
     "ccb.apps.external_services",
     "ccb.apps.media_gallery",
-    "ccb.apps.facebook_app",
     "ccb.apps.slideshows",
     "ccb.apps.faqs",
     "ccb.apps.celerytest",
@@ -219,7 +218,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "ccb.apps.groups_networks.context_processors.groups_networks",
     "ccb.apps.marketplace.context_processors.marketplace",
     "ccb.apps.site_specific.context_processors.site_specific",
-    "ccb.apps.facebook_app.context_processors.facebook",
 )
 
 SECRET_KEY = "*z-g$creativeberlinio@_qt9efb5dge+(64aeq4$!gk+62nsyqlgqpf8l6"
@@ -311,9 +309,6 @@ ADMIN_APP_INDEX = (
             ('groups_networks', {
                 'models': ("GroupType", "PersonGroup", "GroupMembership"),
                 'icon': 'group',
-            }),
-            ('facebook_app', {
-                'models': ("FacebookAppSettings",),
             }),
         )
     }, {

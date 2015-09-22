@@ -52,14 +52,6 @@
                                     {% if view_name == "manage_galleries" %}
                                         class="active"{% endif %}>{% trans "Manage Portfolio" %}</a>
                             </li>
-                            {% if object.is_person or object.is_institution %}
-                                <li{% if view_name == "fb_sync" %} class="active"{% endif %}>
-                                    <a
-                                        href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/fb-sync/"
-                                        {% if view_name == "fb_sync" %}
-                                            class="active"{% endif %}>{% trans "Synchronize with Facebook" %}</a>
-                                </li>
-                            {% endif %}
                         </ul>
                     </li>
                 {% endif %}

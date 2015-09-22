@@ -144,8 +144,6 @@ class Urls:
         '/admin/external_services/service/add/',
         '/admin/external_services/serviceactionlog/',
         '/admin/external_services/serviceactionlog/add/',
-        '/admin/facebook_app/facebookappsettings/',
-        '/admin/facebook_app/facebookappsettings/add/',
         '/admin/faqs/faqcategory/',
         '/admin/faqs/faqcategory/add/',
         '/admin/faqs/faqcontainer/',
@@ -11889,13 +11887,6 @@ class Urls:
         '/event/workshop-booking-tour-rockpop/reviews/',
         '/events/',
         '/events/add/',
-        '/facebook/',
-        '/facebook/data-exchange/',
-        '/facebook/link/',
-        '/facebook/link/login/',
-        '/facebook/link/register/',
-        '/facebook/manage/',
-        '/facebook/pages/',
         '/faqs/',
         '/gmap/',
         '/groups/',
@@ -11914,7 +11905,6 @@ class Urls:
         '/institution/a_s_theater_film_ltd/network/staff/',
         '/institution/a_s_theater_film_ltd/portfolio/',
         '/institution/a_s_theater_film_ltd/portfolio/album/add/',
-        '/institution/a_s_theater_film_ltd/portfolio/fb-sync/',
         '/institution/a_s_theater_film_ltd/portfolio/manage/',
         '/institution/a_s_theater_film_ltd/portfolio/section/add/',
         '/institution/a_s_theater_film_ltd/portfolio/settings/',
@@ -11981,7 +11971,6 @@ class Urls:
         '/person/aidas_bendoraitis/network/person_contacts/',
         '/person/aidas_bendoraitis/portfolio/',
         '/person/aidas_bendoraitis/portfolio/album/add/',
-        '/person/aidas_bendoraitis/portfolio/fb-sync/',
         '/person/aidas_bendoraitis/portfolio/manage/',
         '/person/aidas_bendoraitis/portfolio/section/add/',
         '/person/aidas_bendoraitis/portfolio/settings/',
@@ -12017,18 +12006,10 @@ class Urls:
         '/de/event/workshop-booking-tour-rockpop/delete/',  # login required
         '/de/event/workshop-booking-tour-rockpop/post/',  # login required
         '/de/events/add/',  # login required
-        '/de/facebook/',  # login required
-        '/de/facebook/data-exchange/',  # login required
-        '/de/facebook/link/',  # login required
-        '/de/facebook/link/login/',  # login required
-        '/de/facebook/link/register/',  # login required
-        '/de/facebook/manage/',  # login required
-        '/de/facebook/pages/',  # login required
         '/de/groups/add/',  # login required
         '/de/groups/invitations/',  # login required
         '/de/i18n/setlang/',  # login required
         '/de/institution/a_s_theater_film_ltd/message/',  # login required
-        '/de/institution/a_s_theater_film_ltd/portfolio/fb-sync/',  # login required
         '/de/institution/a_s_theater_film_ltd/post/',  # login required
         '/de/institutions/add/',  # login required
         '/de/invite/',  # login required
@@ -12046,7 +12027,6 @@ class Urls:
         '/de/password_change/',  # login required
         '/de/person/aidas_bendoraitis/message/',  # login required
         '/de/person/aidas_bendoraitis/portfolio/',  # login required
-        '/de/person/aidas_bendoraitis/portfolio/fb-sync/',  # login required
         '/de/person/aidas_bendoraitis/post/',  # login required
         '/de/register/alldone/',  # login required
         '/helper/institution_lookup/',  # login required
