@@ -28,7 +28,7 @@ def add_to_calender(context, department, event):
     description = project.description
     if description:
         description += "\n\n"
-    description += context['request'].build_absolute_uri(project.get_url_path())
+    description += context['request'].build_absolute_uri(project.get_url_path(event))
         
     return {
         'department': department,
