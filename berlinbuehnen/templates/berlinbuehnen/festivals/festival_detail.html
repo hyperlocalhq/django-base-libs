@@ -35,12 +35,7 @@
                             
                             <!-- headlines -->
                             <header>
-                                <div class="header-icons">
-                                    {% if request.user.is_authenticated %}
-                                        {% adding2favorites for festival using "favorites/includes/favorite_detail.html" %}
-                                    {% endif %}
-                                </div>
-                                <ul class="header-top">
+                                <ul class="header-top icons-space">
                                     {% if festival.start %}
                                         <li>{% if festival.end and festival.start == festival.end %}<time>{{ festival.start|date:"j. F Y" }}</time>{% else %}<time>{% if not festival.end or festival.start|date:"Y" != festival.end|date:"Y" %}{{ festival.start|date:"j. F Y" }}{% else %}{% if festival.start|date:"F" != festival.end|date:"F" %}{{ festival.start|date:"j. F" }}{% else %}{{ festival.start|date:"j." }}{% endif %}{% endif %}</time>{% if festival.end %} &nbsp;–&nbsp; <time>{{ festival.end|date:"j. F Y" }}</time>{% endif %}{% endif %}</li>
                                     {% endif %}
@@ -57,6 +52,11 @@
                                             </li>
                                     {% endif %}
                                 </ul>
+                                <div class="header-icons">
+                                    {% if request.user.is_authenticated %}
+                                        {% adding2favorites for festival using "favorites/includes/favorite_detail.html" %}
+                                    {% endif %}
+                                </div>
                                 <h1>{{ festival.title }}
                                     {% if_has_perm "festivals.change_festival" object %}
                                         {% if not request.is_mobile %}

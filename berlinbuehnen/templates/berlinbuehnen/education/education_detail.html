@@ -21,6 +21,7 @@
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/gallery.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/list.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/add_to_calender_1.5_atc.min.js" defer="defer"></script>
+    {% include "utils/favorites_scripts.html" %}
     <!--<script type="text/javascript" src="{{ STATIC_URL }}site/js/slider.js"></script>-->
 {% endblock %}
 
@@ -125,11 +126,9 @@
                                                                                         </div>
                                                                                     {% endif %}
                                                                                     <div class="list-item-head-date-icons col-xs-3 col-sm-12">
-                                                                                        {% comment %}
                                                                                         {% if request.user.is_authenticated %}
-                                                                                            {% adding2favorites for event using "favorites/includes/favorite_detail.html" %}
+                                                                                            {% adding2favorites for project using "favorites/includes/favorite_detail.html" %}
                                                                                         {% endif %}
-                                                                                        {% endcomment %}
                                                                                         {% if project.get_next_event %}{% add_to_calender event=project.get_next_event department=department %}{% endif %}
                                                                                         {% if project.tickets_website %}
                                                                                             <a class="fawesome tickets" href="{{ project.tickets_website }}" target="_blank"></a>

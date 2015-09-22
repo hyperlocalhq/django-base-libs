@@ -38,11 +38,6 @@
                             
                             <!-- headlines -->
                             <header>
-                                <div class="header-icons">
-                                    {% if request.user.is_authenticated %}
-                                        {% adding2favorites for project using "favorites/includes/favorite_detail.html" %}
-                                    {% endif %}
-                                </div>
                                 <ul class="header-top icons-space">
                                     {% if event %}
                                         <li><time>{{ event.start|date:"l, j. F Y" }}{{ event.start|time:", H:i" }}</time></li>
@@ -74,11 +69,9 @@
                                     {% endif %}
                                 </ul>
                                 <div class="header-icons no-print">
-                                    {% comment %}
                                     {% if request.user.is_authenticated %}
-                                        {% adding2favorites for event using "favorites/includes/favorite_detail.html" %}
+                                        {% adding2favorites for project using "favorites/includes/favorite_detail.html" %}
                                     {% endif %}
-                                    {% endcomment %}
                                     {% if event %}
                                         {% add_to_calender event=event department=department %}
                                     {% elif project.get_next_event %}

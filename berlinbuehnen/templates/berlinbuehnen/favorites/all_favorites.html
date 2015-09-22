@@ -1,9 +1,13 @@
 {% extends "base.html" %}
 {% load i18n base_tags image_modifications tagging_tags favorites_tags sekizai_tags auth_extended %}
 
+{% block bodyclass %}favorites{% endblock %}
+
+
 {% block js %}
     {{ block.super }}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/share.min.js" defer="defer"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/grid.js" defer="defer"></script>
     {% include "utils/favorites_scripts.html" %}
 {% endblock %}
 
@@ -23,31 +27,25 @@
     <div class="content">
         <div class="container">
             <div class="row">
-                <div class="box col-xs-12">
-                    <div class="personalize-wrapper">
-                        <h1>{{ list_options.title|default:_("Favorites") }}</h1>
-                        {% if list_options.description %}<div class="personalize-copy">{{ list_options.description|urlize|linebreaks }}</div>{% endif %}
-                    </div>
-                    {% if not favorites.locations and not favorites.productions and not favorites.festivals and not favorites.projects %}
-                        <h3>{% trans "You didn't favor any objects." %}</h3>
-                    {% else %}
-                        <div class="sozial-panel pull-right">
+                <header>
+                    {% if favorites.locations or favorites.productions or favorites.festivals or favorites.projects %}
+                        <div class="header-icons no-print">
                             {% if request.user.is_authenticated %}
                                 {% if request.user.id == user_id or request.user.is_staff %}
-                                    <button id="change_favorites_list" class="sozial-button fawesome edit" data-href="{{ request.path }}change/" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Edit My Tour description" %}">
+                                    <a id="change_favorites_list" class="fawesome edit" data-href="{{ request.path }}change/" data-original-title="{% trans "Edit My Tour description" %}">
                                         <span class="sr-only">{% trans "Edit my tour description" %}</span>
-                                    </button>
+                                    </a>
                                 {% endif %}
-                                <button id="send_user_favorites_by_email" class="sozial-button fawesome email" data-href="{{ request.path }}email/" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Email list to a friend" %}">
+                                <a id="send_user_favorites_by_email" class="fawesome email" data-href="{{ request.path }}email/" data-original-title="{% trans "Email list to a friend" %}">
                                     <span class="sr-only">{% trans "Email this list to a friend" %}</span>
-                                </button>
+                                </a>
                             {% endif %}
-                            <button class="sozial-button fawesome twitter share-twitter" data-url="{{ website_url|slice:":-1" }}{{ request.path }}" data-text="{% trans "My Tour at the long night of museums" %}" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Tweet list" %}">
-                                <span class="sr-only">{% trans "Tweet this list" %}</span>
-                            </button>
-                            <button class="sozial-button fawesome facebook share-facebook" data-url="{{ website_url|slice:":-1" }}{{ request.path }}" data-text="{% trans "My Tour at the long night of museums" %}" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Share list on Facebook" %}">
+                            <a class="fawesome facebook share-facebook" href="javascript:void(0);" data-url="{{ website_url|slice:":-1" }}{{ request.path }}" data-text="{% trans "My favorites at Berlin Bühnen." %}" data-original-title="{% trans "Share list on Facebook" %}">
                                 <span class="sr-only">{% trans "Share this list on Facebook" %}</span>
-                            </button>
+                            </a>
+                            <a class="fawesome twitter share-twitter" data-url="{{ website_url|slice:":-1" }}{{ request.path }}" data-text="{% trans "My favorites at Berlin Bühnen." %}" data-original-title="{% trans "Tweet list" %}">
+                                <span class="sr-only">{% trans "Tweet this list" %}</span>
+                            </a>
                             {% comment %}
                             <a class="sozial-button icon icon-location" href="{{ request.path }}map/{% if request.GET %}?{{ request.GET.urlencode }}{% endif %}" data-toggle="tooltip" data-placement="left" data-original-title="{% trans "Show list on map" %}">
                                 <span class="sr-only">{% trans "Show this list on map" %}</span>
@@ -55,25 +53,27 @@
                             {% endcomment %}
                         </div>
                     {% endif %}
+                    <h1 class="bottom-line">{{ list_options.title|default:_("Favorites") }}</h1>
+                </header>
+                <div class="col-xs-12 print-padding">
+                    <div class="personalize-wrapper">
+                        {% if list_options.description %}<div class="personalize-copy">{{ list_options.description|urlize|linebreaks }}</div>{% endif %}
+                    </div>
+                    {% if not favorites.locations and not favorites.productions and not favorites.festivals and not favorites.projects %}
+                        <h3>{% trans "You didn't favor any objects." %}</h3>
+                    {% endif %}
                 </div>
-                <br /><br /><br /><br />
                 {% if favorites.locations %}
-                    <div class="box col-xs-12">
-                        <h2>{% trans "Theaters" %}</h2>
-                        <div class="grid location-grid grid-autoload row">
+                    <div class="col-xs-12 print-padding">
+                        <h2 class="section">{% trans "Theaters" %}</h2>
+                        <div class="grid location-grid row">
                             {% for location in favorites.locations %}
                                 <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3" href="{{ location.get_url_path }}">
 
                                     <!-- image -->
                                     <span class="grid-item-image img">
-                                        {% comment %}{% if location.logo %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ location.logo|modified_path:"detail_image" }}{% if_has_perm "location.change_location" location %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ location.title|escape }}" />{% endcomment %}
                                         {% if location.first_image %}
                                             <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ location.first_image.path|modified_path:"detail_image" }}{% if_has_perm "location.change_location" location %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.production.title|escape }}" />
-                                        {% elif location.image_set.exists %}
-                                            {% with location.image_set.all|first as image %}
-                                                <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"detail_image" }}{% if_has_perm "location.change_location" location %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ location.title|escape }}" />
-                                            {% endwith %}
                                         {% else %}
                                             <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
                                         {% endif %}
@@ -93,24 +93,18 @@
                     </div>
                 {% endif %}
                 {% if favorites.productions %}
-                    <div class="box col-xs-12">
-                        <h2>{% trans "Productions" %}</h2>
-                        <div class="grid location-grid grid-autoload row">
+                    <div class="col-xs-12 print-padding">
+                        <h2 class="section">{% trans "Productions" %}</h2>
+                        <div class="grid location-grid row">
                             {% for production in favorites.productions %}
                                 <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3" href="{{ production.get_url_path }}">
 
                                     <!-- image -->
                                     <span class="grid-item-image img">
-                                        {% comment %}{% if production.logo %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder_production_grid.png" data-original="{{ MEDIA_URL }}{{ production.logo|modified_path:"detail_image" }}{% if_has_perm "production.change_production" production %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ production.title|escape }}" />{% endcomment %}
                                         {% if production.first_image %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder_production_grid.png" data-original="{{ MEDIA_URL }}{{ production.first_image.path|modified_path:"detail_image" }}{% if_has_perm "production.change_production" production %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.production.title|escape }}" />
-                                        {% elif production.image_set.exists %}
-                                            {% with production.image_set.all|first as image %}
-                                                <img src="{{ STATIC_URL }}site/img/placeholder_production_grid.png" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"detail_image" }}{% if_has_perm "production.change_production" production %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ production.title|escape }}" />
-                                            {% endwith %}
+                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ production.first_image.path|modified_path:"detail_image" }}{% if_has_perm "production.change_production" production %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.production.title|escape }}" />
                                         {% else %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder_production_grid.png" />
+                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
                                         {% endif %}
                                     </span>
 
@@ -128,24 +122,18 @@
                     </div>
                 {% endif %}
                 {% if favorites.festivals %}
-                    <div class="box col-xs-12">
-                        <h2>{% trans "Festivals" %}</h2>
-                        <div class="grid location-grid grid-autoload row">
+                    <div class="col-xs-12 print-padding">
+                        <h2 class="section">{% trans "Festivals" %}</h2>
+                        <div class="grid location-grid row">
                             {% for festival in favorites.festivals %}
                                 <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3" href="{{ festival.get_url_path }}">
 
                                     <!-- image -->
                                     <span class="grid-item-image img">
-                                        {% comment %}{% if festival.logo %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder_festival_grid.png" data-original="{{ MEDIA_URL }}{{ festival.logo|modified_path:"detail_image" }}{% if_has_perm "festival.change_festival" festival %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ festival.title|escape }}" />{% endcomment %}
                                         {% if festival.first_image %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder_festival_grid.png" data-original="{{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"detail_image" }}{% if_has_perm "festival.change_festival" festival %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.festival.title|escape }}" />
-                                        {% elif festival.image_set.exists %}
-                                            {% with festival.image_set.all|first as image %}
-                                                <img src="{{ STATIC_URL }}site/img/placeholder_festival_grid.png" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"detail_image" }}{% if_has_perm "festival.change_festival" festival %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ festival.title|escape }}" />
-                                            {% endwith %}
+                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"detail_image" }}{% if_has_perm "festival.change_festival" festival %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.festival.title|escape }}" />
                                         {% else %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder_festival_grid.png" />
+                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
                                         {% endif %}
                                     </span>
 
@@ -163,24 +151,18 @@
                     </div>
                 {% endif %}
                 {% if favorites.projects %}
-                    <div class="box col-xs-12">
-                        <h2>{% trans "Educational Projects" %}</h2>
-                        <div class="grid location-grid grid-autoload row">
+                    <div class="col-xs-12 print-padding">
+                        <h2 class="section">{% trans "Educational Projects" %}</h2>
+                        <div class="grid location-grid row">
                             {% for project in favorites.projects %}
                                 <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3" href="{{ project.get_url_path }}">
 
                                     <!-- image -->
                                     <span class="grid-item-image img">
-                                        {% comment %}{% if project.logo %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder_project_grid.png" data-original="{{ MEDIA_URL }}{{ project.logo|modified_path:"detail_image" }}{% if_has_perm "project.change_project" project %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ project.title|escape }}" />{% endcomment %}
                                         {% if project.first_image %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder_project_grid.png" data-original="{{ MEDIA_URL }}{{ project.first_image.path|modified_path:"detail_image" }}{% if_has_perm "project.change_project" project %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.project.title|escape }}" />
-                                        {% elif project.image_set.exists %}
-                                            {% with project.image_set.all|first as image %}
-                                                <img src="{{ STATIC_URL }}site/img/placeholder_project_grid.png" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"detail_image" }}{% if_has_perm "project.change_project" project %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ project.title|escape }}" />
-                                            {% endwith %}
+                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ project.first_image.path|modified_path:"detail_image" }}{% if_has_perm "project.change_project" project %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.project.title|escape }}" />
                                         {% else %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder_project_grid.png" />
+                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
                                         {% endif %}
                                     </span>
 

@@ -1,8 +1,9 @@
 {% load base_tags i18n %}
-<button class="sozial-button fawesome favorite {% if not is_not_favorite_for_user %} active{% endif %}" onclick="FavoriteManager.toggle(this, {{ content_type_id }}, {{ object.id }}, '/');" data-toggle="tooltip" data-placement="right" data-original-title="{% if not is_not_favorite_for_user %}{% trans "Remove from My Favorites" %}{% else %}{% trans "Add to My Favorites" %}{% endif %}">
+{% comment %}<button class="sozial-button fawesome favorite {% if not is_not_favorite_for_user %} active{% endif %}" onclick="FavoriteManager.toggle(this, {{ content_type_id }}, {{ object.id }}, '/');" data-toggle="tooltip" data-placement="right" data-original-title="{% if not is_not_favorite_for_user %}{% trans "Remove from My Favorites" %}{% else %}{% trans "Add to My Favorites" %}{% endif %}">{% endcomment %}
+<a href="javascript:void(0);" class="fawesome favorite {% if not is_not_favorite_for_user %} active{% endif %}" onclick="FavoriteManager.toggle(this, {{ content_type_id }}, {{ object.id }}, '/');">
   {% if not is_not_favorite_for_user %}
     <span class="sr-only">{% trans "Add to My Favorites" %}</span>
   {% else %}
     <span class="sr-only">{% trans "Remove from My Favorites" %}</span>
    {% endif %}
-</button>
+</a>
