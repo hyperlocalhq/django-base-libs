@@ -29,6 +29,7 @@
 @import 'widget';
 @import 'search-page';
 @import 'favorites';
+@import 'account';
 //@import 'isotope';
 //@import 'tooltip';
 //@import 'maps';
@@ -102,6 +103,9 @@ input {
 
 #body {
     overflow: hidden;
+    .popup & {
+        padding-bottom: 0px;
+    }
 }
 
 

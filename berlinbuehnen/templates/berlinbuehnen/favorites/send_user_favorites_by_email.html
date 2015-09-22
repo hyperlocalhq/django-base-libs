@@ -1,8 +1,10 @@
 {% extends "base_fullscreen.html" %}
 {% load crispy_forms_tags i18n %}
 
+{% block bodyclass %}popup{% endblock %}
+
 {% block content %}
-    <div class="form wider">
+    <div class="form">
         {% crispy form %}
     </div>
     <script src="{{ STATIC_URL }}site/js/jquery.autosize.min.js"></script>

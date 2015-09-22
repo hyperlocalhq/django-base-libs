@@ -1,8 +1,9 @@
 {% extends "base_fullscreen.html" %}
 {% load crispy_forms_tags i18n %}
+{% block bodyclass %}popup{% endblock %}
 
 {% block content %}
-    <div class="form wider no-uppercase-force">
+    <div class="form">
         {% crispy form %}
     </div>
 

@@ -1,10 +1,12 @@
 {% extends "base_fullscreen.html" %}
 {% load crispy_forms_tags i18n %}
 
+{% block bodyclass %}popup{% endblock %}
+
 {% block content %}
     <div style="text-align:center; margin:80px 20px;">
         <h2 style="margin-bottom:30px;">{% trans "Your message has been sent!" %}</h2>
-        <button id="close_window" class="button">{% trans "Close" %}</button>
+        <button id="close_window" class="btn btn-lg btn-primary">{% trans "Close" %}</button>
     </div>
     <script>
     $('#close_window').on('click', function() {
