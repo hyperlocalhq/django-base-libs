@@ -38,7 +38,9 @@
             {% if result_groups %}
                 {% for result_group in result_groups %}
                     {% if result_group.page and result_group.page.object_list.count > 0 %}
-                        <div class="listsection clearfix">{{ result_group.verbose_name }} ({{ result_group.count }})</div>
+                        <div class="listsection clearfix">
+                            {{ result_group.verbose_name }} ({{ result_group.count }})
+                        </div>
                         <div id="object_list clearfix">
                             {% for result in result_group.page.object_list %}
                                 {% if result.object %} {# if the object still exists (is not deleted) #}
@@ -114,7 +116,9 @@
                             </div>
                         {% endif %}
                     {% elif result_group.results|length and not full %}
-                        <div class="listsection clearfix">{{ result_group.verbose_name }} ({{ result_group.count }})</div>
+                        <div class="listsection clearfix">
+                            {{ result_group.verbose_name }} ({{ result_group.count }})
+                        </div>
                         {% for result in result_group.results %}
                             {% if result.object %} {# if the object still exists (is not deleted) #}
                                 <div class="list-item expanded {{ extra_css_classes|default:"" }}"

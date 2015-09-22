@@ -13,7 +13,8 @@ ContextCategory = models.get_model("structure", "ContextCategory")
 
 register = template.Library()
 
-### TAGS ### 
+
+### TAGS ###
 
 def do_get_latest_published_objects(parser, token):
     """

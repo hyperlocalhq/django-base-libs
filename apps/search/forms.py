@@ -9,7 +9,6 @@ from haystack.forms import SearchForm
 from haystack import connections
 from haystack.constants import DEFAULT_ALIAS
 
-
 try:
     from django.utils.encoding import smart_text
 except ImportError:
@@ -37,7 +36,10 @@ def get_model_from_short_name(name):
 
 
 def model_choices(using=DEFAULT_ALIAS):
-    models = sorted([(m, k.verbose_name, k.order) for m, k in connections[using].get_unified_index().get_indexes().items()], key=lambda x: x[2])
+    models = sorted(
+        [(m, k.verbose_name, k.order) for m, k in connections[using].get_unified_index().get_indexes().items()],
+        key=lambda x: x[2]
+    )
     return [("%s" % get_model_short_name("%s.%s" % (m[0]._meta.app_label, m[0]._meta.module_name)),
              capfirst(unicode(m[1]))) for m in models]
 

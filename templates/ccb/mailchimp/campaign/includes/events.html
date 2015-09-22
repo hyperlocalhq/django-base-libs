@@ -40,7 +40,9 @@
                                             <td>
                                                 <a href="{{ event.get_url }}" target="_blank" class="capitalized">
                                                     <span class="category">
-                                                        {% for cat in event.get_object_types %}{{ cat.get_title|escape }}{% if not forloop.last %}, {% endif %}{% endfor %}
+                                                        {% for cat in event.get_object_types %}
+                                                            {{ cat.get_title|escape }}{% if not forloop.last %}, {% endif %}
+                                                        {% endfor %}
                                 |
                                                         {% if event.has_start_date or event.has_end_date %}
                                                             {% if event.has_start_date and event.has_end_date and event.get_start_date != event.get_end_date %}
@@ -56,7 +58,9 @@
                                                                 {% if event.get_end_date %}
                                                                     {{ event.get_end_date|datefmt:"long" }}
                                                                 {% else %}
-                                                                    {% if event.end_mm %}{{ event.get_end_mm_display }}{% endif %}
+                                                                    {% if event.end_mm %}
+                                                                        {{ event.get_end_mm_display }}
+                                                                    {% endif %}
                                                                     {{ event.end_yyyy }}
                                                                 {% endif %}
                                                             {% else %}
@@ -71,16 +75,20 @@
                                                                         {{ event.start_yyyy }}
                                                                     {% endif %}
                                                                 {% endif %}
-                                                                {% if event.has_end_date %}{% ifnotequal event.get_start_date event.get_end_date %}
-                                                                    -
-                                                                    {% if event.get_end_date %}
-                                                                        {{ event.get_end_date|datefmt:"long" }}
-                                                                        {{ event.get_end_date|time:"H:i" }}
-                                                                    {% else %}
-                                                                        {% if event.end_mm %}{{ event.get_end_mm_display }}{% endif %}
-                                                                        {{ event.end_yyyy }}
-                                                                    {% endif %}
-                                                                {% endifnotequal %}{% endif %}
+                                                                {% if event.has_end_date %}
+                                                                    {% ifnotequal event.get_start_date event.get_end_date %}
+                                                                        -
+                                                                        {% if event.get_end_date %}
+                                                                            {{ event.get_end_date|datefmt:"long" }}
+                                                                            {{ event.get_end_date|time:"H:i" }}
+                                                                        {% else %}
+                                                                            {% if event.end_mm %}
+                                                                                {{ event.get_end_mm_display }}
+                                                                            {% endif %}
+                                                                            {{ event.end_yyyy }}
+                                                                        {% endif %}
+                                                                    {% endifnotequal %}
+                                                                {% endif %}
                                                             {% endif %}
                                                             |
                                                         {% endif %}
