@@ -34,7 +34,8 @@ from .models import Project, ProjectImage, Department, ProjectTime
 class EducationFilterForm(forms.Form):
     pass
 
-def education_list(request):
+
+def department_list(request):
 
     qs = Department.objects.filter(status="published")
 
@@ -71,14 +72,15 @@ def education_list(request):
     return object_list(
         request,
         queryset=qs,
-        template_name="education/education_list.html",
+        template_name="education/department_list.html",
         paginate_by=24,
         extra_context=extra_context,
         httpstate_prefix="education_list",
         context_processors=(prev_next_processor,),
     )
 
-def education_detail(request, slug):
+
+def department_detail(request, slug):
 
     if "preview" in request.REQUEST:
         qs = Department.objects.all()
@@ -93,11 +95,17 @@ def education_detail(request, slug):
         queryset=qs,
         slug=slug,
         slug_field="slug",
-        template_name="education/education_detail.html",
+        template_name="education/department_detail.html",
         context_processors=(prev_next_processor,),
     )
 
-def project_detail(request, slug, department=None, event_id=None):
+
+def project_list(request):
+    return redirect("department_list")
+
+
+def project_detail(request, slug, event_id=None):
+    obj = None
     if "preview" in request.REQUEST:
         qs = Project.objects.all()
         obj = get_object_or_404(qs, slug=slug)
@@ -105,14 +113,16 @@ def project_detail(request, slug, department=None, event_id=None):
             return access_denied(request)
     else:
         qs = Project.objects.filter(status="published")
-        
-    
+
+    if not obj:
+        obj = get_object_or_404(qs, slug=slug)
+
     extra_context = {}
     extra_context['department'] = None
     extra_context['event'] = None
     
-    if department:
-        extra_context['department'] = Department.objects.filter(slug=department)[0]
+    if obj.departments.filter(status="published").count():
+        extra_context['department'] = obj.departments.filter(status="published")[0]
         
     if event_id:
         extra_context['event'] = ProjectTime.objects.filter(pk=event_id)[0]

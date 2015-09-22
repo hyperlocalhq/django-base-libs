@@ -101,7 +101,7 @@ class Department(CreationModificationMixin, UrlMixin, SlugMixin()):
 
     def get_url_path(self):
         try:
-            path = reverse("education_detail", kwargs={'slug': self.slug})
+            path = reverse("department_detail", kwargs={'slug': self.slug})
         except:
             # the apphook is not attached yet
             return ""
@@ -366,43 +366,14 @@ class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
 
     row_level_permissions = True
 
-    def get_url_path(self, department=None, event_id=None):
-    
-        if not department:    
-            if not event_id:
-                try:
-                    path = reverse("project_detail", kwargs={'slug': self.slug})
-                except:
-                    # the apphook is not attached yet
-                    return ""
-                else:
-                    return path
-            else:
-                try:
-                    path = reverse("project_event_detail", kwargs={'slug': self.slug, 'event_id': event_id})
-                except:
-                    # the apphook is not attached yet
-                    return ""
-                else:
-                    return path
-                
+    def get_url_path(self):
+        try:
+            path = reverse("project_detail", kwargs={'slug': self.slug})
+        except:
+            # the apphook is not attached yet
+            return ""
         else:
-            if not event_id:
-                try:
-                    path = reverse("department_detail", kwargs={'slug': self.slug, 'department': department})
-                except:
-                    # the apphook is not attached yet
-                    return ""
-                else:
-                    return path
-            else:
-                try:
-                    path = reverse("department_event_detail", kwargs={'slug': self.slug, 'department': department, 'event_id': event_id})
-                except:
-                    # the apphook is not attached yet
-                    return ""
-                else:
-                    return path
+            return path
 
     class Meta:
         ordering = ["-creation_date"]
@@ -509,6 +480,9 @@ class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
 
     def get_social_media(self):
         return self.projectsocialmediachannel_set.all()
+
+    def get_published_departments(self):
+        return self.departments.filter(status="published")
 
 
 class ProjectTime(CreationModificationMixin, UrlMixin):
