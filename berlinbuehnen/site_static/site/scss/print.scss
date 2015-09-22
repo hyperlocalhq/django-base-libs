@@ -271,6 +271,21 @@ h1.bottom-line {
     }
 }
 
+body.favorites {
+    
+    h2.section, .personalize-wrapper {
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+    
+    &.is-xs {
+        h2.section, .personalize-wrapper {
+            margin-left: -10px;
+            margin-right: -10px;
+        }
+    }
+}
+
 body.location-list {
     .list-item {
         .list-item-head {
@@ -355,9 +370,33 @@ body.safari {
                 font-weight: $bold;
                 border-bottom: 1px solid black;
             }
+            ul.dates li .date-wrapper {
+                margin-left: 4px;
+            }
         }
     }
 }
+
+#body .additional-list.list {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+
+.mazery-grid {
+    .grid-item {
+        position: static !important;
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+    
+    .is-xs & {
+        .grid-item {
+            margin-left: 0px;
+            margin-right: 0px;            
+        }
+    }
+}
+
 
 .home {
     .info {

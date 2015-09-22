@@ -30,9 +30,9 @@
         <div id="project" class="content details">
             <div class="container main-container">
                 <div class="row">
-                    <div class="col-xs-12">
+                    <div class="col-xs-12 print-padding">
                         {% if department %}
-                            <a class="fawesome back uc" href="{% url 'department_detail' slug=department.slug %}">{% trans "back to location" %}</a>
+                            <a class="fawesome back uc no-print" href="{% url 'department_detail' slug=department.slug %}">{% trans "back to location" %}</a>
                         {% endif %}
                         <article>
                             
