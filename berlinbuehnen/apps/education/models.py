@@ -101,7 +101,7 @@ class Department(CreationModificationMixin, UrlMixin, SlugMixin()):
 
     def get_url_path(self):
         try:
-            path = reverse("education_detail", kwargs={'slug': self.slug})
+            path = reverse("department_detail", kwargs={'slug': self.slug})
         except:
             # the apphook is not attached yet
             return ""
@@ -222,7 +222,7 @@ class DepartmentMember(CreationModificationDateMixin):
 
 
 class Image(CreationModificationDateMixin):
-    education = models.ForeignKey(Department, verbose_name=_("Department"))
+    department = models.ForeignKey(Department, verbose_name=_("Department"))
     path = FileBrowseField(_('File path'), max_length=255, directory="education/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image."))
     copyright_restrictions = models.CharField(_('Copyright restrictions'), max_length=20, blank=True, choices=COPYRIGHT_RESTRICTION_CHOICES)
     sort_order = PositionField(_("Sort order"), collection="education")
@@ -267,8 +267,9 @@ class SocialMediaChannel(models.Model):
             return u"googleplus"
         return social
 
+
 class PDF(CreationModificationDateMixin):
-    education = models.ForeignKey(Department, verbose_name=_("Department"))
+    department = models.ForeignKey(Department, verbose_name=_("Department"))
     path = FileBrowseField(_('File path'), max_length=255, directory="education/", extensions=['.pdf'], help_text=_("A path to a locally stored PDF file."))
     sort_order = PositionField(_("Sort order"), collection="education")
 
@@ -291,6 +292,7 @@ class PDF(CreationModificationDateMixin):
     @staticmethod
     def token_to_pk(token):
         return int(token) - TOKENIZATION_SUMMAND
+
 
 class ProjectTargetGroup(CreationModificationDateMixin, SlugMixin()):
     title = MultilingualCharField(_('Title'), max_length=200)
@@ -364,43 +366,14 @@ class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
 
     row_level_permissions = True
 
-    def get_url_path(self, department=None, event_id=None):
-    
-        if not department:    
-            if not event_id:
-                try:
-                    path = reverse("project_detail", kwargs={'slug': self.slug})
-                except:
-                    # the apphook is not attached yet
-                    return ""
-                else:
-                    return path
-            else:
-                try:
-                    path = reverse("project_event_detail", kwargs={'slug': self.slug, 'event_id': event_id})
-                except:
-                    # the apphook is not attached yet
-                    return ""
-                else:
-                    return path
-                
+    def get_url_path(self):
+        try:
+            path = reverse("project_detail", kwargs={'slug': self.slug})
+        except:
+            # the apphook is not attached yet
+            return ""
         else:
-            if not event_id:
-                try:
-                    path = reverse("department_detail", kwargs={'slug': self.slug, 'department': department})
-                except:
-                    # the apphook is not attached yet
-                    return ""
-                else:
-                    return path
-            else:
-                try:
-                    path = reverse("department_event_detail", kwargs={'slug': self.slug, 'department': department, 'event_id': event_id})
-                except:
-                    # the apphook is not attached yet
-                    return ""
-                else:
-                    return path
+            return path
 
     class Meta:
         ordering = ["-creation_date"]
@@ -507,6 +480,9 @@ class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
 
     def get_social_media(self):
         return self.projectsocialmediachannel_set.all()
+
+    def get_published_departments(self):
+        return self.departments.filter(status="published")
 
 
 class ProjectTime(CreationModificationMixin, UrlMixin):
@@ -618,3 +594,31 @@ class ProjectPDF(CreationModificationDateMixin):
     def token_to_pk(token):
         return int(token) - TOKENIZATION_SUMMAND
 
+
+class ProjectVideo(CreationModificationDateMixin):
+    project = models.ForeignKey(Project, verbose_name=_("Project"))
+    title = MultilingualCharField(_("Title"), max_length=255)
+    link_or_embed = models.TextField(verbose_name=_("Link or embed code"))
+    sort_order = PositionField(_("Sort order"), collection="production")
+
+    class Meta:
+        ordering = ["sort_order", "creation_date"]
+        verbose_name = _("Video/Audio")
+        verbose_name_plural = _("Videos/Audios")
+
+    def __unicode__(self):
+        return self.title
+
+    def get_embed(self):
+        # TODO: return embed code
+        return self.link_or_embed
+
+    def get_token(self):
+        if self.pk:
+            return int(self.pk) + TOKENIZATION_SUMMAND
+        else:
+            return None
+
+    @staticmethod
+    def token_to_pk(token):
+        return int(token) - TOKENIZATION_SUMMAND

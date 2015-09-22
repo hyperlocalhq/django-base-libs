@@ -3,14 +3,10 @@
 from django.conf.urls import *
 
 urlpatterns = patterns('berlinbuehnen.apps.education.views',
-    url(r'^$', 'education_list', name='education_list'),
-    url(r'^(?P<slug>[^/]+)/$', 'education_detail', name='education_detail'),
-    url(r'^projects/(?P<slug>[^/]+)/$', 'project_detail', name='project_detail'),
-    url(r'^(?P<department>[^/]+)/(?P<slug>[^/]+)/$', 'project_detail', name='department_detail'),
-    url(r'^projects/(?P<slug>[^/]+)/events/(?P<event_id>\d+)/$', 'project_detail', name='project_event_detail'),
-    url(r'^(?P<department>[^/]+)/(?P<slug>[^/]+)/events/(?P<event_id>\d+)/$', 'project_detail', name='department_event_detail'),
-    
-    
+    url(r'^$', 'project_list', name='project_list'),
+    url(r'^(?P<slug>[^/]+)/$', 'project_detail', name='project_detail'),
+    url(r'^(?P<slug>[^/]+)/events/(?P<event_id>\d+)/$', 'project_detail', name='project_event_detail'),
+
     # url(r'^add/$', 'add_project', name='add_project'),
     # url(r'^(?P<slug>[^/]+)/events/$', 'project_events', name='project_events'),
     # url(r'^(?P<slug>[^/]+)/change/$', 'change_project', name='change_project'),

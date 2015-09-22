@@ -31,7 +31,7 @@
             <div class="container main-container">
                 <div class="row">
                     <div class="col-xs-12">
-                        <a class="fawesome back uc" href="{% url 'education_list' %}">{% trans "back to overview" %}</a>
+                        <a class="fawesome back uc" href="{% url 'department_list' %}">{% trans "back to overview" %}</a>
                         <article>
                             
                             <!-- headlines -->
@@ -72,7 +72,7 @@
                                         
                                         <!-- main sidebar -->
                                         <div class="col-xs-12 col-md-4 right">
-                                            {% include "education/includes/education_sidebar.html" %}
+                                            {% include "education/includes/department_sidebar.html" %}
                                         </div>
                                         
                                     </div>
@@ -154,7 +154,7 @@
             
                                                                 <!-- list item body -->
                                                                 <div class="list-item-body col-xs-12 col-sm-7 col-md-8 col-lg-9">
-                                                                    <a class="list-item-link" href="{% if project.get_next_event %}{% url "department_event_detail" slug=project.slug department=department.slug event_id=project.get_next_event.id %}{% else %}{% url "department_detail" slug=project.slug department=department.slug %}{% endif %}">
+                                                                    <a class="list-item-link" href="{% if project.get_next_event %}{% url "project_event_detail" slug=project.slug event_id=project.get_next_event.id %}{% else %}{% url "project_detail" slug=project.slug %}{% endif %}">
                                                                         <h2>{{ project.title }}</h2>
                                                                         {% if project.subtitle %}<h3>{{ project.subtitle }}</h3>{% endif %}
                                                                         {% if project.description %}<div class="copy" {% if project.target_group.all %}data-bottom-space="25"{% endif %}><p>{{ project.description }}</p></div>{% endif %}
