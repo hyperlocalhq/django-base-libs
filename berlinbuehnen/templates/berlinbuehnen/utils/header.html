@@ -55,7 +55,7 @@
                         </ul>
                     </li>
                     {% if request.user.is_authenticated %}
-                        <li id="user-menu" class="meta-item hidden-xs">
+                        <li id="user-menu" class="meta-item">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                                     {% blocktrans with first_name=request.user.first_name|default:request.user.username %}{{ first_name }}{% endblocktrans %}
@@ -71,12 +71,13 @@
                                         <li><a href="/{{ LANGUAGE_CODE }}/dashboard/festivals/">{% trans "Festivals" %}</a></li>
                                         <li class="divider"></li>
                                     {% endif %}
+                                    <li><a href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">{% trans "My Favorites" %}</a></li>
                                     <li><a href="/{{ LANGUAGE_CODE }}/logout/">{% trans "Logout" %}</a></li>
                                 </ul>
                             </div>
                         </li>
                     {% else %}
-                        <li id="user-menu" class="meta-item hidden-xs">
+                        <li id="user-menu" class="meta-item">
                             <a href="/{{ LANGUAGE_CODE }}/login/">{% trans "Login" %}</a>
                         </li>
                     {% endif %}

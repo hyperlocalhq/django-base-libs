@@ -63,6 +63,9 @@ h1.bottom-line { margin-left: 0 !important; margin-right: 0 !important; }
 #body .list .list-item-body .extra.canceled:before { content: none; }
 #body .list .list-item-body .extra span { margin: 1px 0 0; vertical-align: top; display: inline-block; width: 155px; text-align: right; }
 
+body.favorites h2.section, body.favorites .personalize-wrapper { margin-left: -10px; margin-right: -10px; }
+body.favorites.is-xs h2.section, body.favorites.is-xs .personalize-wrapper { margin-left: -10px; margin-right: -10px; }
+
 body.location-list .list-item .list-item-head { max-width: none; }
 
 body.safari .list-item-head-date { top: 2px !important; }
@@ -82,6 +85,12 @@ body.safari .list-item-head-date .list-item-head-date-icons { top: 21px !importa
 #body .accordion .accordion-item ul.list { margin-left: inherit !important; margin-right: inherit !important; }
 .accordion .accordion-item ul.dates li { border-bottom: none; margin-left: -17px; }
 .accordion.sidebar-accordion .accordion-item .accordion-item-head { font-size: 1em; font-weight: 700; border-bottom: 1px solid black; }
+.accordion.sidebar-accordion .accordion-item ul.dates li .date-wrapper { margin-left: 4px; }
+
+#body .additional-list.list { margin-left: 0px !important; margin-right: 0px !important; }
+
+.mazery-grid .grid-item { position: static !important; margin-left: -10px; margin-right: -10px; }
+.is-xs .mazery-grid .grid-item { margin-left: 0px; margin-right: 0px; }
 
 .home .info { margin-left: -40px; margin-right: -40px; page-break-inside: avoid; }
 .home .info .news .news-item { page-break-inside: avoid; }

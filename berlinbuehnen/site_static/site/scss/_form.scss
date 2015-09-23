@@ -2143,3 +2143,22 @@ select {
     top: 41px !important;
     border: 1px solid #ccc !important;
 }
+
+
+
+
+.form {
+    margin: 20px;
+    max-width: 540px;
+    
+    form {
+        fieldset {
+            legend {
+                height: auto;
+                padding-bottom: 40px;
+                padding-top: 10px !important;
+                line-height: 100%;
+            }
+        }
+    }
+}

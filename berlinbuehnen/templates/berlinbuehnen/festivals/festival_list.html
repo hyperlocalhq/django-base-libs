@@ -19,7 +19,7 @@
                 <h1 class="bottom-line"><a href="javascript:void(0);" class="headline-link main_clear">{% trans "Festivals" %}</a></h1>
                 {% month_slider id='main_monthslider' %}
                 
-                <div class="col-xs-12">
+                <div class="col-xs-12 print-padding">
                     
                     <!-- the list -->
                     {% if object_list %}
@@ -29,11 +29,11 @@
                                     <div class="row">
                                         <a href="{{ festival.get_url_path }}">
                                             {% if festival.first_image %}
-                                                <img class="hidden-xs {% if festival.featured %} hidden-sm hidden-md hidden-lg {% endif %}" src="{{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"mazery_image" }}{% if_has_perm "festival.change_festival" festival %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.production.title|escape }}" />
-                                                <img class="{% if not festival.featured %} visible-xs {% endif %}" src="{{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"gallery_image" }}{% if_has_perm "festival.change_festival" festival %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.production.title|escape }}" />
+                                                <img class="hidden-xs {% if festival.featured %} hidden-sm hidden-md hidden-lg {% endif %} no-print" src="{{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"mazery_image" }}{% if_has_perm "festival.change_festival" festival %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.production.title|escape }}" />
+                                                <img class="{% if not festival.featured %} visible-xs {% endif %} no-print" src="{{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"gallery_image" }}{% if_has_perm "festival.change_festival" festival %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.production.title|escape }}" />
                                             {% elif festival.image_set.exists %}
                                                 {% with festival.image_set.all|first as image %}
-                                                    <img src="{{ MEDIA_URL }}{{ image.path|modified_path:"detail_image" }}{% if_has_perm "festival.change_festival" festival %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ festival.title|escape }}" />
+                                                    <img class=" no-print" src="{{ MEDIA_URL }}{{ image.path|modified_path:"detail_image" }}{% if_has_perm "festival.change_festival" festival %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ festival.title|escape }}" />
                                                 {% endwith %}
                                             {% endif %}
                                             

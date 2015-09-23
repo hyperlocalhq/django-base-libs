@@ -78,8 +78,8 @@ class Favorite(CreationModificationDateMixin, ObjectRelationMixin(is_required=Tr
 
 class FavoriteListOptions(CreationModificationDateMixin):
     user = models.ForeignKey(User, verbose_name=_("Preferrer"))
-    title = models.CharField(_("My Tour title"), max_length=255, blank=True)
-    description = models.TextField(_("My Tour description"), blank=True)
+    title = models.CharField(_("My Favorites title"), max_length=255, blank=True)
+    description = models.TextField(_("My Favorites description"), blank=True)
 
     class Meta:
         verbose_name = _("favorite list options")

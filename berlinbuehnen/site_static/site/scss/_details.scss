@@ -52,8 +52,6 @@
     }
     
     header { 
-        margin-bottom: 24px;
-        position: relative;
         
         ul.header-top {
             width: 100%;
@@ -111,29 +109,9 @@
             }
         }
         .header-icons {
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            position: absolute;
             right: -5px;
             top: 2px;
-            a {
-                font-size: 14px;
-                color: black;
-                cursor: pointer;
-                &:hover {
-                    color: black;
-                }
-                &.favorite.active:before {
-                    color: $blue;
-                    &:hover, &:focus {
-                        color: $blue;
-                    }
-                }
-            }
+            bottom: inherit;
             .atcb-list {
                 left: inherit;
                 right: 0;

@@ -212,7 +212,7 @@ class FavoritesByEmailForm(forms.Form):
         self.helper.form_method = "POST"
         self.helper.layout = layout.Layout(
             layout.Fieldset(
-                _("Send your Tour to a friend"),
+                _("Send your favorites to a friend"),
                 "sender_name",
                 "sender_email",
                 "recipient_name",
@@ -267,7 +267,7 @@ class FavoriteListOptionsForm(forms.ModelForm):
         self.helper.form_method = "POST"
         self.helper.layout = layout.Layout(
             layout.Fieldset(
-                _("Edit Favorites description"),
+                _("Edit My Favorites description"),
                 "title",
                 layout.Field("description", rows=5),
             ),

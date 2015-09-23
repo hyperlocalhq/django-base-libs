@@ -167,6 +167,10 @@ strong {
         padding-left: 10px;
         padding-right: 0px;
     }
+    
+    .icon {
+        display: none;
+    }
 }
 
 
@@ -267,6 +271,12 @@ strong {
 }
 .fawesome.newsletter:before {
     content: "\f0e0";
+}
+.fawesome.email:before {
+    content: "\f003";
+}
+.fawesome.edit:before {
+    content: "\f040";
 }
 
 .subcategory:before {

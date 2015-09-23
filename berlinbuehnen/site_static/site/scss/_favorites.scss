@@ -1,4 +1,27 @@
-button.sozial-button.fawesome.favorite {
-    border: 0;
-    background: transparent;
+.favorites {
+    h1.bottom-line {
+        padding-right: 125px;
+    }
+    
+    h2.section {
+        font-weight: 200;
+        font-size: 2em;
+        text-transform: uppercase;
+        padding-top: 20px;
+    }
+    
+    .personalize-wrapper {
+        margin-bottom: 30px;
+    }
+    
+    &.is-xs {
+        .personalize-wrapper {
+            margin-left: -20px;
+            margin-right: -20px;
+        }
+        h2.section {
+            margin-left: -20px;
+            margin-right: -20px;
+        }
+    }
 }

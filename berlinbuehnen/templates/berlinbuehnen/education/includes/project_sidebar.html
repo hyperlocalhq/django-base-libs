@@ -13,7 +13,7 @@
                                     {% if ev == event %}
                                         <span class="date-wrapper"><span class="date">{{ ev.start|date:"j. M Y" }}</span></span><span class="time-wrapper"><span class="time">{{ ev.start|time:"H:i" }}</span></span>
                                     {% else %}
-                                        <a class="black" href="{% if department %}{% url "department_event_detail" slug=project.slug department=department.slug event_id=ev.id %}{% else %}{% url "project_event_detail" slug=project.slug event_id=ev.id %}{% endif %}"><span class="date-wrapper"><span class="date">{{ ev.start|date:"j. M Y" }}</span></span><span class="time-wrapper"><span class="time">{{ ev.start|time:"H:i" }}</span></span></a>
+                                        <a class="black" href="{% url "project_event_detail" slug=project.slug event_id=ev.id %}"><span class="date-wrapper"><span class="date">{{ ev.start|date:"j. M Y" }}</span></span><span class="time-wrapper"><span class="time">{{ ev.start|time:"H:i" }}</span></span></a>
                                     {% endif %}
                                     {% if project.tickets_website %}
                                         <span class="tickets-wrapper"><a class="fawesome tickets" href="{{ project.tickets_website }}" target="_blank"></a></span>
@@ -44,17 +44,21 @@
                     {% for d in project.get_published_departments %}
                         {% if d.street_address %}
                             <p data-latitude="{{ d.latitude|stringformat:"%f" }}" data-longitude="{{ d.longitude|stringformat:"%f" }}">
-                                <strong>{% if project.location_title %}{{ project.location_title }}{% else %}<a href="{{ d.get_url_path }}">{{ d.title }}</a>{% endif %}</strong><br />
-                                {% if d.street_address %}{{ d.street_address }}<br />{% endif %}
-                                {% if d.street_address2 %}{{ d.street_address2 }}<br />{% endif %}
-                                {% if d.city %}{{ d.postal_code }} {{ d.city }}<br />{% endif %}
+                                {% if not project.location_title %}<a href="{{ d.get_url_path }}" class="black">{% endif %}
+                                    <strong>{% if project.location_title %}{{ project.location_title }}{% else %}{{ d.title }}{% endif %}</strong><br />
+                                    {% if d.street_address %}{{ d.street_address }}<br />{% endif %}
+                                    {% if d.street_address2 %}{{ d.street_address2 }}<br />{% endif %}
+                                    {% if d.city %}{{ d.postal_code }} {{ d.city }}<br />{% endif %}
+                                {% if not project.location_title %}</a>{% endif %}
                             </p>
                         {% elif d.location.street_address %}
                             <p data-latitude="{{ d.location.latitude|stringformat:"%f" }}" data-longitude="{{ d.location.longitude|stringformat:"%f" }}">
-                                <strong>{% if project.location_title %}{{ project.location_title }}{% else %}{{ d.get_url_path }}">{{ d.title }}</a>{% endif %}</strong><br />
-                                {% if d.location.street_address %}{{ d.location.street_address }}<br />{% endif %}
-                                {% if d.location.street_address2 %}{{ d.location.street_address2 }}<br />{% endif %}
-                                {% if d.location.city %}{{ d.location.postal_code }} {{ d.location.city }}<br />{% endif %}
+                                {% if not project.location_title %}<a href="{{ d.get_url_path }}" class="black">{% endif %}
+                                    <strong>{% if project.location_title %}{{ project.location_title }}{% else %}{{ d.title }}{% endif %}</strong><br />
+                                    {% if d.location.street_address %}{{ d.location.street_address }}<br />{% endif %}
+                                    {% if d.location.street_address2 %}{{ d.location.street_address2 }}<br />{% endif %}
+                                    {% if d.location.city %}{{ d.location.postal_code }} {{ d.location.city }}<br />{% endif %}
+                                {% if not project.location_title %}</a>{% endif %}
                             </p>
                         {% endif %}
                     {% endfor %}
@@ -65,7 +69,7 @@
             <div class="accordion-item">
                 <h4 class="accordion-item-head open">{% trans "Contact" %} – {% trans "Education" %}</h4>
                 <div class="accordion-item-content">
-                    <dl>
+                    <dl class="break-word">
                         {% if project.contact_department %}
                             <dd>{{ project.contact_department }}</dd>
                         {% endif %}
@@ -117,7 +121,7 @@
                 <div class="accordion-item">
                     <h4 class="accordion-item-head open">{% trans "Contact" %} – {% trans "Education" %}</h4>
                     <div class="accordion-item-content">
-                        <dl>
+                        <dl class="break-word">
                             {% if project.contact_department %}
                                 <dd>{{ project.contact_department }}</dd>
                             {% endif %}

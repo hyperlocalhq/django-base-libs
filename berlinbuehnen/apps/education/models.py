@@ -366,14 +366,23 @@ class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
 
     row_level_permissions = True
 
-    def get_url_path(self):
-        try:
-            path = reverse("project_detail", kwargs={'slug': self.slug})
-        except:
-            # the apphook is not attached yet
-            return ""
-        else:
-            return path
+    def get_url_path(self, event=None):
+        if event:
+            try:
+                path = reverse("project_event_detail", kwargs={'slug': self.slug, 'event_id': event.id})
+            except:
+                # the apphook is not attached yet
+                return ""
+            else:
+                return path
+        else:    
+            try:
+                path = reverse("project_detail", kwargs={'slug': self.slug})
+            except:
+                # the apphook is not attached yet
+                return ""
+            else:
+                return path
 
     class Meta:
         ordering = ["-creation_date"]
@@ -481,6 +490,13 @@ class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
     def get_social_media(self):
         return self.projectsocialmediachannel_set.all()
 
+    def get_first_department(self):
+        departments = self.get_published_departments()
+        if departments:
+            return departments[0]
+        else:
+            return None
+        
     def get_published_departments(self):
         return self.departments.filter(status="published")
 
