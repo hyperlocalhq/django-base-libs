@@ -91,7 +91,7 @@ class Command(NoArgsCommand):
                     if article.modified_date > change_date or article.status == STATUS_CODE_PUBLISHED:
                         continue
 
-                article.modified_date = change_date
+                article.orig_published = change_date
                 article.published_from = change_date
 
                 article.title = get_value(node_article, "title")

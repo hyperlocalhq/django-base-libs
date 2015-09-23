@@ -49,7 +49,7 @@ class ArticleOptions(ExtendedModelAdmin):
 
     save_on_top = True
 
-    list_display = ['id', 'title', 'author', 'status', 'published_from', 'published_till', 'views', 'article_type',
+    list_display = ['id', 'title', 'author', 'status', 'imported_from', 'creation_date', 'modified_date', 'orig_published', 'published_from', 'published_till', 'views', 'article_type',
                     'language']
     list_display_links = ['title']
     list_filter = (
@@ -82,6 +82,16 @@ class ArticleOptions(ExtendedModelAdmin):
     )]
     filter_horizontal = ['creative_sectors', ]
     prepopulated_fields = {"slug": ("title",), }
+
+    def imported_from(self, obj):
+        ContentType = models.get_model("contenttypes", "ContentType")
+        Service = models.get_model("external_services", "Service")
+        s = Service.objects.get(
+            objectmapper__content_type=ContentType.objects.get_for_model(obj),
+            objectmapper__object_id=obj.pk,
+        )
+        return unicode(s)
+    imported_from.short_description = _("Imported from")
 
 
 class ArticleImportSource_Inline(ExtendedStackedInline):

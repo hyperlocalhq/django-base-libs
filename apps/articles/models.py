@@ -89,6 +89,8 @@ class Article(ArticleBase, MultiSiteMixin):
     is_excerpt = models.BooleanField(_("Excerpt"), default=False, help_text=_(
         "If this article is an excerpt, the link in the list of articles will lead to the external URL."))
 
+    orig_published = models.DateTimeField(_("Originally published"), editable=False, blank=True, null=True)
+
     content_provider = models.ForeignKey(
         ArticleContentProvider,
         verbose_name=_("Content provider"),
