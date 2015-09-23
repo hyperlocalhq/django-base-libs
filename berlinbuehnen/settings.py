@@ -13,8 +13,9 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    ("Museumsportal Berlin Webmaster", "bendoraitis@studio38.de"),
+    ("Berlin Bühnen Webmaster", "bendoraitis@studio38.de"),
     ("Reinhard Knobelspies", "knobelspies@studio38.de"),
+    ("Tiago Henriques", "henriques@studio38.de"),
 )
 
 DEFAULT_FROM_EMAIL = 'berlin-buehnen@kulturprojekte-berlin.de'
