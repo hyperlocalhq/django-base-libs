@@ -376,7 +376,7 @@ ADMIN_APP_INDEX = (
         'title': _('Connect'),
         'apps': (
             ('external_services', {
-                'models': ("Service", "ArticleImportSource", "ServiceActionLog"),
+                'models': ("Service", "ArticleImportSource", "ServiceActionLog", "ObjectMapper"),
             }),
         )
     }, {

@@ -30,7 +30,8 @@ class ServiceOptions(ExtendedModelAdmin):
 class ObjectMapperOptions(ObjectRelationMixinAdminOptions()):
     form = ObjectRelationMixinAdminForm()
     save_on_top = True
-    list_display = ('external_id', 'get_content_object_display', 'service')
+    list_display = ('id', 'external_id', 'get_content_object_display', 'service')
+    list_display_links = ('id', 'external_id')
         
     list_filter =  ('service', 'content_type',)
     
