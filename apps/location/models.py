@@ -157,7 +157,7 @@ class AddressManager(models.Manager):
         # set it to the object and save the object
         setattr(address_owner, address_field, new_address)
         # save it without triggering any signals
-        address_owner.save_base(raw=True, cls=type(address_owner))
+        address_owner.save_base(raw=True)
         # delete the old address when necessary
         if delete_the_old:
             old_address.delete()

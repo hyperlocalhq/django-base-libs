@@ -29,8 +29,11 @@ def flatpage(request, url):
         flatpage
             `flatpages.flatpages` object
     """
-    if url.startswith("/"):
+    if url.startswith("/"):  # ignore the first slash
         url = url[1:]
+
+    if url.startswith(request.LANGUAGE_CODE + '/'):  # ignore the language prefix
+        url = url[len(request.LANGUAGE_CODE) + 1:]
         
     qs = FlatPage.site_published_objects.filter(
         url=url,

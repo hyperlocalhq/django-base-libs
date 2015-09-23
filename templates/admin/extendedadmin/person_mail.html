@@ -45,7 +45,7 @@
     {% endif %} 
 	<form method="post" action="">
 		<fieldset class="grp-module">
-            <div class="grp-row grp-cells-1{% if form.sender_name.errors %} errors{% endif %}">
+            <div class="grp-row grp-cells-1{% if form.sender_name.errors %} grp-errors{% endif %}">
                 <div class="l-2c-fluid l-d-4">
                     <div class="c-1">
                         <label{% if form.sender_name.field.required %} class="required"{% endif %}>{{ form.sender_name.label }}</label>
@@ -60,7 +60,7 @@
                     </div>
                 </div>
             </div>
-            <div class="grp-row grp-cells-1{% if form.sender_email.errors %} errors{% endif %}">
+            <div class="grp-row grp-cells-1{% if form.sender_email.errors %} grp-errors{% endif %}">
                 <div class="l-2c-fluid l-d-4">
                     <div class="c-1">
                         <label{% if form.sender_email.field.required %} class="required"{% endif %}>{{ form.sender_email.label }}</label>
@@ -75,7 +75,7 @@
                     </div>
                 </div>
             </div>
-            <div class="grp-row grp-cells-1{% if form.tester_email.errors %} errors{% endif %}">
+            <div class="grp-row grp-cells-1{% if form.tester_email.errors %} grp-errors{% endif %}">
                 <div class="l-2c-fluid l-d-4">
                     <div class="c-1">
                         <label{% if form.tester_email.field.required %} class="required"{% endif %}>{{ form.tester_email.label }}</label>
@@ -92,7 +92,7 @@
             </div>
 
             {% if display_recipients_list %}
-                <div class="grp-row grp-cells-1{% if form.recipients_email_list.errors %} errors{% endif %}">
+                <div class="grp-row grp-cells-1{% if form.recipients_email_list.errors %} grp-errors{% endif %}">
                     <div class="l-2c-fluid l-d-4">
                         <div class="c-1">
                             <label{% if form.recipients_email_list.field.required %} class="required"{% endif %}>{{ form.recipients_email_list.label }}</label>
@@ -110,7 +110,7 @@
             {% endif %}
 
             {% if display_recipients_input %}
-                <div class="grp-row grp-cells-1{% if form.recipients_email_input.errors %} errors{% endif %}">
+                <div class="grp-row grp-cells-1{% if form.recipients_email_input.errors %} grp-errors{% endif %}">
                     <div class="l-2c-fluid l-d-4">
                         <div class="c-1">
                             <label{% if form.recipients_email_input.field.required %} class="required"{% endif %}>{{ form.recipients_email_input.label }}</label>
@@ -128,7 +128,7 @@
             {% endif %}
 
             {% if display_en %}
-                <div class="grp-row grp-cells-1{% if form.subject.errors %} errors{% endif %}">
+                <div class="grp-row grp-cells-1{% if form.subject.errors %} grp-errors{% endif %}">
                     <div class="l-2c-fluid l-d-4">
                         <div class="c-1">
                             <label{% if form.subject.field.required %} class="required"{% endif %}>{{ form.subject.label }}</label>
@@ -144,7 +144,7 @@
                     </div>
                 </div>
 
-                <div class="grp-row grp-cells-1{% if form.body.errors %} errors{% endif %}">
+                <div class="grp-row grp-cells-1{% if form.body.errors %} grp-errors{% endif %}">
                     <div class="l-2c-fluid l-d-4">
                         <div class="c-1">
                             <label{% if form.body.field.required %} class="required"{% endif %}>{{ form.body.label }}</label>
@@ -163,7 +163,7 @@
 
             {% if display_de %}
 
-                <div class="grp-row grp-cells-1{% if form.subject_de.errors %} errors{% endif %}">
+                <div class="grp-row grp-cells-1{% if form.subject_de.errors %} grp-errors{% endif %}">
                     <div class="l-2c-fluid l-d-4">
                         <div class="c-1">
                             <label{% if form.subject_de.field.required %} class="required"{% endif %}>{{ form.subject_de.label }}</label>
@@ -179,7 +179,7 @@
                     </div>
                 </div>
 
-                <div class="grp-row grp-cells-1{% if form.body_de.errors %} errors{% endif %}">
+                <div class="grp-row grp-cells-1{% if form.body_de.errors %} grp-errors{% endif %}">
                     <div class="l-2c-fluid l-d-4">
                         <div class="c-1">
                             <label{% if form.body_de.field.required %} class="required"{% endif %}>{{ form.body_de.label }}</label>

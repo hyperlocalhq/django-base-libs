@@ -4,8 +4,8 @@ from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
-
+import filebrowser.settings as filebrowser_settings
+URL_FILEBROWSER_MEDIA = getattr(filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/')
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin.tree_editor import TreeEditor
 from base_libs.admin import ExtendedModelAdmin
@@ -47,10 +47,6 @@ class GroupMembership_Inline(ExtendedStackedInline):
 
 
 class PersonGroupOptions(ExtendedModelAdmin):
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-            )
     list_display = ('title', 'title2', 'group_type', 'access_type', 'preferred_language', 'status')
     search_fields = ["title", "title2"]
     list_filter = ('creation_date', 'group_type', 'status', 'preferred_language')

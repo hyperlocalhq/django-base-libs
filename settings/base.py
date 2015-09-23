@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import platform
 import sys
+import os
 
 _ = lambda s:s
 
@@ -30,6 +31,7 @@ EXTERNAL_LIBS_PATH = os.path.join(JETSON_PATH, "jetson", "externals", "libs")
 EXTERNAL_APPS_PATH = os.path.join(JETSON_PATH, "jetson", "externals", "apps")
 BASE_LIBS_PATH = os.path.join(JETSON_PATH, "base_libs")
 TAGGING_PATH = os.path.join(JETSON_PATH, "tagging")
+TAGGING_AUTOCOMPLETE_PATH = os.path.join(JETSON_PATH, "tagging_autocomplete")
 FILEBROWSER_PATH = os.path.join(JETSON_PATH, "filebrowser")
 sys.path = [
     "",
@@ -37,6 +39,7 @@ sys.path = [
     EXTERNAL_APPS_PATH,
     BASE_LIBS_PATH,
     TAGGING_PATH,
+    TAGGING_AUTOCOMPLETE_PATH,
     FILEBROWSER_PATH,
     JETSON_PATH,
     PROJECT_PATH,

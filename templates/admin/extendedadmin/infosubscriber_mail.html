@@ -44,7 +44,7 @@
         </div>		       
 		<fieldset class="module aligned">	    
 		    {% if form %}
-                 <div class="form-row{% if form.sender_name.errors %} errors{% endif %}">
+                 <div class="form-row{% if form.sender_name.errors %} grp-errors{% endif %}">
                  
                     {% if form.sender_name.errors %}
                         <ul class="errorlist"><li>{{ form.sender_name.errors|join:", "}}</li></ul>
@@ -56,7 +56,7 @@
                     {% if form.sender_name.help_text %}<p class="help">{{ form.sender_name.help_text }}</p>{% endif %}					    
                     
                 </div>
-                <div class="form-row{% if form.sender_email.errors %} errors{% endif %}">
+                <div class="form-row{% if form.sender_email.errors %} grp-errors{% endif %}">
                 
                     {% if form.sender_email.errors %}
                         <ul class="errorlist"><li>{{ form.sender_email.errors|join:", "}}</li></ul>
@@ -67,7 +67,7 @@
                     
                     {% if form.sender_email.help_text %}<p class="help">{{ form.sender_email.help_text }}</p>{% endif %}					    
                 </div>
-                <div class="form-row{% if form.tester_email.errors %} errors{% endif %}">
+                <div class="form-row{% if form.tester_email.errors %} grp-errors{% endif %}">
                 
                     {% if form.tester_email.errors %}
                         <ul class="errorlist"><li>{{ form.tester_email.errors|join:", "}}</li></ul>
@@ -80,7 +80,7 @@
                 </div>
 		    	
 		    	{% if display_recipients_list %}
-			    	<div class="form-row{% if form.recipients_email_list.errors %} errors{% endif %}">
+			    	<div class="form-row{% if form.recipients_email_list.errors %} grp-errors{% endif %}">
 			    	
 			    		{% if form.recipients_email_list.errors %}
 	            			<ul class="errorlist"><li>{{ form.recipients_email_list.errors|join:", "}}</li></ul>
@@ -100,7 +100,7 @@
 			    {% endif %}
 			    
 			    {% if display_recipients_input %}
-			    	<div class="form-row{% if form.recipients_email_input.errors %} errors{% endif %}">
+			    	<div class="form-row{% if form.recipients_email_input.errors %} grp-errors{% endif %}">
 			    	
 				    	{% if form.recipients_email_input.errors %}
 	            			<ul class="errorlist"><li>{{ form.recipients_email_input.errors|join:", "}}</li></ul>
@@ -114,7 +114,7 @@
 			    {% endif %} 
 			    
 			    {% if display_en %}
-				    <div class="form-row{% if form.subject.errors %} errors{% endif %}">
+				    <div class="form-row{% if form.subject.errors %} grp-errors{% endif %}">
 				    
 				    	{% if form.subject.errors %}
 	            			<ul class="errorlist"><li>{{ form.subject.errors|join:", "}}</li></ul>
@@ -126,7 +126,7 @@
 		    	        {% if form.subject.help_text %}<p class="help">{{ form.subject.help_text }}</p>{% endif %}					    
 			        </div>
 	
-				    <div class="form-row{% if form.body.errors %} errors{% endif %}">
+				    <div class="form-row{% if form.body.errors %} grp-errors{% endif %}">
 				    
 					    {% if form.body.errors %}
 	            			<ul class="errorlist"><li>{{ form.body.errors|join:", "}}</li></ul>
@@ -142,7 +142,7 @@
 			    
 			    {% if display_de %}
 			    
-			       <div class="form-row{% if form.subject_de.errors %} errors{% endif %}">
+			       <div class="form-row{% if form.subject_de.errors %} grp-errors{% endif %}">
 			       
 				        {% if form.subject_de.errors %}
 	            			<ul class="errorlist"><li>{{ form.subject_de.errors|join:", "}}</li></ul>
@@ -155,7 +155,7 @@
    		    	        
 			        </div>
 	
-				    <div class="form-row{% if form.body_de.errors %} errors{% endif %}">
+				    <div class="form-row{% if form.body_de.errors %} grp-errors{% endif %}">
 				    
 				        {% if form.body_de.errors %}
 	            			<ul class="errorlist"><li>{{ form.body_de.errors|join:", "}}</li></ul>

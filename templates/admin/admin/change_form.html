@@ -22,13 +22,24 @@
     <script src="{{ STATIC_URL }}grappelli/js/jquery.grp_inline.js" type="text/javascript"></script>
 
     <script type="text/javascript" src="{{ jetson_media_url }}js/admin/MultilingualFieldHelper.js"></script>
-	<script type="text/javascript" src="{{ jetson_media_url }}js/admin/MarkupHelper.js"></script>
-	
-	<script type="text/javascript" src="{{ STATIC_URL }}grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
-    <script type="text/javascript" src="{{ jetson_media_url }}tinymce_setup/tinymce_setup_base.js"></script>
+
+    <!-- CKEDITOR -->
+    <script type="text/javascript" src="{{ STATIC_URL }}bower_components/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}filebrowser/js/FB_CKEditor.js"></script>
+    <script type="text/javascript">
+        if (CKEDITOR) {
+            // Added by Roger Hu 02/27/2010
+            CKEDITOR.config.filebrowserBrowseUrl = '/admin/filebrowser/browse?pop=3';
+        }
+    </script>
+
+    <!-- MARKUP HELPER -->
+    <script type="text/javascript" src="{{ jetson_media_url }}js/admin/MarkupHelper.js"></script>
 
     {% block tinymce_setup %}
+        {% comment %}
     	<script type="text/javascript" src="{{ STATIC_URL }}site/tinymce_setup/tinymce_setup.js"></script>
+    	{% endcomment %}
     {% endblock %}
 	<script type="text/javascript" src="{{ jetson_media_url }}js/admin/change_form.js"></script>
 

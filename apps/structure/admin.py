@@ -6,15 +6,11 @@ from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.admin.tree_editor import TreeEditor
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
-
+import filebrowser.settings as filebrowser_settings
+URL_FILEBROWSER_MEDIA = getattr(filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/')
 from jetson.apps.structure.models import Vocabulary, Term, ContextCategory
 
 class VocabularyOptions(ExtendedModelAdmin):
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-            )
     save_on_top = True
     list_display = ['title', 'sysname', 'hierarchy', 'link_add_term', 'link_change_terms']
     
@@ -26,11 +22,6 @@ class VocabularyOptions(ExtendedModelAdmin):
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
 
 class TermOptions(TreeEditor):
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-            )
-        
     save_on_top = True
     list_display = ['actions_column', 'indented_short_title', 'vocabulary', 'sysname']
     list_filter = ('vocabulary',)
@@ -44,11 +35,6 @@ class TermOptions(TreeEditor):
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
 
 class ContextCategoryOptions(TreeEditor):
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-            )
-    
     save_on_top = True
     list_display = ['actions_column', 'indented_short_title', 'is_applied4person', 'is_applied4institution', 'is_applied4document', 'is_applied4event', 'is_applied4persongroup']
     #list_filter = ['parent','is_applied4person', 'is_applied4institution', 'is_applied4document', 'is_applied4event', 'is_applied4persongroup']

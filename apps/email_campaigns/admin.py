@@ -15,8 +15,8 @@ from django.conf import settings
 from django.views.decorators.cache import never_cache
 from django.forms.util import ErrorList
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
-
+import filebrowser.settings as filebrowser_settings
+URL_FILEBROWSER_MEDIA = getattr(filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/')
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.admin import ExtendedStackedInline
@@ -86,11 +86,6 @@ class MailingAdmin(ExtendedModelAdmin):
         'status': admin.HORIZONTAL,
     }
     
-    
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-            )
     save_on_top = True
     
     # callback for the additional buttons (overwritten method)

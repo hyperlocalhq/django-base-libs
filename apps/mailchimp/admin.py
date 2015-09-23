@@ -18,8 +18,8 @@ from django.forms.util import ErrorList
 from django.conf.urls import *
 from django.contrib.admin.util import unquote
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
-
+import filebrowser.settings as filebrowser_settings
+URL_FILEBROWSER_MEDIA = getattr(filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/')
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.admin import ExtendedStackedInline
@@ -89,7 +89,8 @@ class MListAdminForm(forms.ModelForm):
         
 class MListAdmin(admin.ModelAdmin):
     form = MListAdminForm
-    list_display = ('title', 'get_mailchimp_list', 'get_count_with_link', 'last_sync', 'is_public')
+    list_display = ('id', 'title', 'get_mailchimp_list', 'get_count_with_link', 'last_sync', 'is_public')
+    list_display_links = ('id', 'title')
     list_filter = ('is_public',)
     fieldsets = [(None, {'fields': ('site', 'mailchimp_list')}),]
     fieldsets += get_admin_lang_section(_("Title"), ['title'])
@@ -143,7 +144,7 @@ class MailingContentBlockInline(ExtendedStackedInline):
     inline_classes = ('grp-collapse grp-open',)
 
 class CampaignAdmin(ExtendedModelAdmin):
-    list_display = ('subject', 'get_mailinglist_with_link', 'get_preview_link', 'status',)
+    list_display = ('subject', 'get_mailinglist_with_link', 'get_preview_link',)
     list_filter = ('mailinglist',)
     fieldsets = [(None, {'fields': ('sender_name', 'sender_email', 'mailinglist', 'template', 'status',)}),]
     fieldsets += [(_("Content"), {'fields': ['subject', 'body_html']})]
@@ -152,10 +153,6 @@ class CampaignAdmin(ExtendedModelAdmin):
         'status': admin.HORIZONTAL,
     }
 
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-        )
     save_on_top = True
 
     def get_urls(self):

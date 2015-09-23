@@ -8,14 +8,16 @@ from base_libs.models.admin import get_admin_lang_section
 from base_libs.models.admin import ContentBaseMixinAdminOptions
 from base_libs.models.admin import PublishingMixinAdminOptions
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
+import filebrowser.settings as filebrowser_settings
+URL_FILEBROWSER_MEDIA = getattr(filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/')
 
 FlatPage = models.get_model("flatpages", "FlatPage")
 
 class FlatPageOptions(ContentBaseMixinAdminOptions):
     list_filter = ('sites', 'template_name')
     search_fieldsets = ['url', 'title']
-    list_display = ['get_id', 'title', 'url', 'template_name', 'is_published' ]
+    list_display = ['id', 'title', 'url', 'template_name', 'is_published' ]
+    list_display_links = ('id', 'title')
     ordering = ( 'title', 'template_name', 'url')
     search_fields = ('title',)
 
@@ -50,10 +52,6 @@ class FlatPageOptions(ContentBaseMixinAdminOptions):
             }),
         ]
     
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-            )
 
 admin.site.register(FlatPage, FlatPageOptions)
 

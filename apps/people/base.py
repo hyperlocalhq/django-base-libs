@@ -44,9 +44,9 @@ from jetson.apps.optionset.models import IMType
 from jetson.apps.optionset.models import get_default_phonetype_for_phone
 from jetson.apps.optionset.models import get_default_phonetype_for_fax
 from jetson.apps.optionset.models import get_default_phonetype_for_mobile
-from jetson.apps.i18n.models import Nationality
-from jetson.apps.i18n.models import Language
-from jetson.apps.i18n.models import TimeZone
+#from jetson.apps.i18n.models import Nationality
+#from jetson.apps.i18n.models import Language
+#from jetson.apps.i18n.models import TimeZone
 from jetson.apps.utils.models import MONTH_CHOICES
 from jetson.apps.image_mods.models import FileManager
 
@@ -282,9 +282,9 @@ class PersonBase(CreationModificationDateMixin, UrlMixin):
     birthday_mm = models.SmallIntegerField(_("Month of Birth"), blank=True, null=True, choices=MONTH_CHOICES)
     birthday_dd = models.SmallIntegerField(_("Day of Birth"), blank=True, null=True, choices=DAY_CHOICES)
     # can have choices
-    nationality = models.ForeignKey(Nationality, verbose_name=_("Nationality"), max_length=200, blank=True, null=True, limit_choices_to={'display': True})
+    nationality = models.ForeignKey("i18n.Nationality", verbose_name=_("Nationality"), max_length=200, blank=True, null=True, limit_choices_to={'display': True})
     # can have choices
-    spoken_languages = models.ManyToManyField(Language, verbose_name=_("Languages spoken"), blank=True, related_name="speaking_people")
+    spoken_languages = models.ManyToManyField("i18n.Language", verbose_name=_("Languages spoken"), blank=True, related_name="speaking_people")
     # http://en.wikipedia.org/wiki/Academic_degree#Types_of_academic_degree
     degree = models.CharField(_("Academic Degree"), max_length=200, blank=True)
     occupation = models.CharField(_("Current Occupation"), max_length=200, blank=True)
@@ -299,8 +299,8 @@ class PersonBase(CreationModificationDateMixin, UrlMixin):
     
     # PREFERENCES
     
-    preferred_language = models.ForeignKey(Language, verbose_name=_("Preferred Language"), blank=True, null=True, limit_choices_to={'display': True})
-    timezone = models.ForeignKey(TimeZone, verbose_name=_("Current Timezone"), max_length=200, blank=True, null=True)
+    preferred_language = models.ForeignKey("i18n.Language", verbose_name=_("Preferred Language"), blank=True, null=True, limit_choices_to={'display': True})
+    timezone = models.ForeignKey("i18n.TimeZone", verbose_name=_("Current Timezone"), max_length=200, blank=True, null=True)
     # current location
     # privacy settings
     
@@ -356,6 +356,7 @@ class PersonBase(CreationModificationDateMixin, UrlMixin):
         return self.context_categories.all()
         
     def get_spoken_languages(self):
+        from jetson.apps.i18n.models import Language
         sl_db_table = self._meta.get_field(
             "spoken_languages",
             )._get_m2m_db_table(self._meta)

@@ -10,7 +10,7 @@ from django.utils.translation import ugettext as _
 
 # filebrowser imports
 from filebrowser.settings import MAX_UPLOAD_SIZE, FOLDER_REGEX
-from filebrowser.functions import convert_filename
+from filebrowser.sites import convert_filename
 
 alnum_name_re = re.compile(FOLDER_REGEX)
 

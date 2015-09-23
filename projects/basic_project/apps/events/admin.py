@@ -9,8 +9,8 @@ from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.admin import ExtendedStackedInline
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
-
+import filebrowser.settings as filebrowser_settings
+URL_FILEBROWSER_MEDIA = getattr(filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/')
 Event = models.get_model("events", "Event")
 EventTime = models.get_model("events", "EventTime")
 
@@ -22,10 +22,6 @@ class EventTime_Inline(ExtendedStackedInline):
 
 class EventOptions(ExtendedModelAdmin):
     inlines = [EventTime_Inline]
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-            )
     save_on_top = True
     list_display = ['title', 'get_start_date_string', 'get_end_date_string', 'status', 'creation_date']
     list_filter = ('creation_date', 'status')

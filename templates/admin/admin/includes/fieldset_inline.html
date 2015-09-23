@@ -35,7 +35,7 @@
                                         {% else %}
                                             {% if field.has_markup_type %}
                                                 {{ field.related_markup_type_field }}
-                                                {% if field.related_markup_type_field.field.help_text %}<p class="grp-help">{{ field.related_markup_type_field.field.help_text|safe }}</p>{% endif %}
+                                                {% if field.related_markup_type_field.field.help_text %}<p class="grp-help markup-type-help">{{ field.related_markup_type_field.field.help_text|safe }}</p>{% endif %}
                                                 <p>{{ field.field }}</p>
                                             {% else %}          
                                                 {{ field.field }}

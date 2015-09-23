@@ -2,17 +2,17 @@
 
 #content ul li
 {
-	list-style-type: none;
+    list-style-type: none;
 }
 
 .form-row
 {
-	overflow: hidden;
+    overflow: hidden;
 }
 
 #hidden_links
 {
-	display: none;
+    display: none;
 }
 
 input[type="checkbox"],
@@ -45,6 +45,7 @@ input[type="text"], input[type="password"], input[type="submit"], input[type="re
 
 /*** ROW ***/
 
+/*
 .row {
     overflow: hidden;
 }
@@ -56,13 +57,14 @@ input[type="text"], input[type="password"], input[type="submit"], input[type="re
     clear: both;
     visibility: hidden;
 }
+*/
 
 /*** TICKET ***/
 
 #content .inline-item-tools input[type="checkbox"]
 {
-	float: left !important;
-	margin-right: 3px !important;
+    float: left !important;
+    margin-right: 3px !important;
 }
 
 
@@ -70,23 +72,23 @@ input[type="text"], input[type="password"], input[type="submit"], input[type="re
 
 .fees .spacer
 {
-	padding-right: 126px;
-	border-right: 1px solid #eee;
+    padding-right: 126px;
+    border-right: 1px solid #eee;
 }
 
 .fees input
 {
-	width: 130px;
+    width: 130px;
 }
 
 .fees .amount input
 {
-	width: 50px;
+    width: 50px;
 }
 
 .fees tbody
 {
-	border-right: 1px solid #eee;
+    border-right: 1px solid #eee;
 }
 
 
@@ -94,27 +96,27 @@ input[type="text"], input[type="password"], input[type="submit"], input[type="re
 
 #event_form .availability select
 {
-	min-width: inherit;
+    min-width: inherit;
 }
 
 #event_form .availability .low select
 {
-	width: 55px;
+    width: 55px;
 }
 
 #event_form .availability .mid select
 {
-	width: 65px;
+    width: 65px;
 }
 
 #event_form .availability .high select
 {
-	width: 86px;
+    width: 86px;
 }
 
 .event .inline-fields a
 {
-	margin: 0;
+    margin: 0;
 }
 
 .event #id_start_hh,
@@ -122,15 +124,15 @@ input[type="text"], input[type="password"], input[type="submit"], input[type="re
 #id_end_yyyy,
 #id_start_yyyy
 {
-	margin-right: 10px;
+    margin-right: 10px;
 }
 
 .map-settings
 {
-	float: left; 
-	width: 300px; 
-	border: none; 
-	border-right: 1px solid #FFFFFF;
+    float: left; 
+    width: 300px; 
+    border: none; 
+    border-right: 1px solid #FFFFFF;
 }
 
 .map-settings .row {
@@ -140,7 +142,7 @@ input[type="text"], input[type="password"], input[type="submit"], input[type="re
 .map-settings .row input,
 .map-settings .row select
 {
-	width: 280px !important; 
+    width: 280px !important; 
 }
 
 /*** INLINES ***/
@@ -153,54 +155,54 @@ input[type="text"], input[type="password"], input[type="submit"], input[type="re
 
 .add-type select
 {
-	width: 108px;
+    width: 108px;
 }
 
 .contact-types .contact-type-field,.contact-types .add-type,.contact-types .media-address,.contact-types .default,.contact-types .on-hold
 {
-	float: left;
-	margin-right: 10px;
-	font-weight: bold;
+    float: left;
+    margin-right: 10px;
+    font-weight: bold;
 }
 
 #content .contact-types .first
 {
-	margin-top: 21px;
+    margin-top: 21px;
 }
 
 .contact-types .add-type a
 {
-	display: block;
-	background: none !important;
-	width: auto !important;
-	height: auto !important;
+    display: block;
+    background: none !important;
+    width: auto !important;
+    height: auto !important;
 }
 
 .contact-types .first-media input
 {
-	margin-top: 16px;
+    margin-top: 16px;
 }
 
 .contact-types .on-hold,.contact-types .default
 {
-	width: 45px;
+    width: 45px;
 }
 
 .contact-types .on-hold input
 {
-	margin: 5px 0 0 8px;
+    margin: 5px 0 0 8px;
 }
 
 .contact-types .default input
 {
-	margin: 6px 0 0 15px;
+    margin: 6px 0 0 15px;
 }
 
 .media-address a
 {
-	display: block;
-	margin-top: 5px;
-	margin-left: 5px;
+    display: block;
+    margin-top: 5px;
+    margin-left: 5px;
 }
 
 
@@ -208,40 +210,40 @@ input[type="text"], input[type="password"], input[type="submit"], input[type="re
 
 .inline-fields
 {
-	margin-right: 10px;
+    margin-right: 10px;
 }
 
-.module .delete-contact label
+.grp-module .delete-contact label
 {
-	margin: 3px 0 0 10px;
+    margin: 3px 0 0 10px;
 }
 
 /* @group PHONE */
 
 .phone-first
 {
-	overflow: hidden;
+    overflow: hidden;
 }
 
 .label-first
 {
-	margin-top: 34px;
+    margin-top: 34px;
 }
 
 .phone-fields .add-type,.phone-fields .country,.phone-fields .area,.phone-fields .number,.phone-fields .default,.phone-fields .on-hold,
 .contact-types .contact-type-field,.contact-types .add-type,.contact-types .contact-type-field,.contact-types .default,.contact-types .on-hold
 {
-	float: left;
-	margin-right: 10px;
-	font-weight: bold;
+    float: left;
+    margin-right: 10px;
+    font-weight: bold;
 }
 
 #content .phone-fields .add-type a,.phone-fields .country div,.phone-fields .default div,.phone-fields .on-hold div
 {
-	display: block;
-	background: none;
-	width: auto;
-	height: auto;
+    display: block;
+    background: none;
+    width: auto;
+    height: auto;
 }
 
 .phone-fields a.add-another {
@@ -250,17 +252,17 @@ input[type="text"], input[type="password"], input[type="submit"], input[type="re
 
 .phone-fields .country input
 {
-	width: 30px;
+    width: 30px;
 }
 
 .phone-fields .area input
 {
-	width: 110px;
+    width: 110px;
 }
 
 .phone-fields .number input
 {
-	width: 137px;
+    width: 137px;
 }
 
 .contact-types .on-hold,
@@ -268,17 +270,17 @@ input[type="text"], input[type="password"], input[type="submit"], input[type="re
 .phone-fields .on-hold,
 .phone-fields .default
 {
-	width: 65px;
+    width: 65px;
 }
 
 .phone-fields .on-hold input
 {
-	margin: 5px 0 0 8px;
+    margin: 5px 0 0 8px;
 }
 
 .phone-fields .default input
 {
-	margin: 6px 0 0 15px;
+    margin: 6px 0 0 15px;
 }
 
 .contact-types .media-address input {
@@ -290,25 +292,25 @@ input[type="text"], input[type="password"], input[type="submit"], input[type="re
 
  form .aligned .privacy-settings ul
 {
-	overflow: hidden;
-	margin: 0 !important;
-	padding: 0 !important;
+    overflow: hidden;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 form .aligned .privacy-settings ul li
 {
-	overflow: hidden;
-	margin-bottom: 3px;
+    overflow: hidden;
+    margin-bottom: 3px;
 }
 
 .privacy-settings ul.first
 {
-	float: left;
+    float: left;
 }
 
 #content .privacy-settings .vCheckboxLabel
 {
-	width: 180px !important;
+    width: 180px !important;
 }
 
 
@@ -316,17 +318,17 @@ form .aligned .privacy-settings ul li
 
 #claimrequest_form #id_phone_country
 {
-	width: 45px;
+    width: 45px;
 }
 
 #claimrequest_form #id_phone_area
 {
-	width: 95px;
+    width: 95px;
 }
 
 #claimrequest_form #id_phone_number
 {
-	width: 120px;
+    width: 120px;
 }
 
 
@@ -341,17 +343,17 @@ form .aligned .privacy-settings ul li
 #content .use_captcha_subscription .vCheckboxLabel,
 #content .use_paypal_sandbox .vCheckboxLabel
 {
-	width: auto !important;
+    width: auto !important;
 }
 
 #content .faqs_on_separate_page .vCheckboxLabel
 {
-	width: 87% !important;
+    width: 87% !important;
 }
 
 #content .float-checkbox .inline .form_checkbox
 {
-	margin: 0;
+    margin: 0;
 }
 
 
@@ -359,19 +361,19 @@ form .aligned .privacy-settings ul li
 
 #imagemodification_form .crop .form_checkbox
 {
-	float: left;
+    float: left;
 }
 
 #imagemodification_form .crop .vCheckboxLabel
 {
-	float: none !important;
-	display: inline;
+    float: none !important;
+    display: inline;
 }
 
 .filebrowser_image
 {
-	margin-left: 130px;
-	margin-top: 5px;
+    margin-left: 130px;
+    margin-top: 5px;
 }
 
 
@@ -379,12 +381,12 @@ form .aligned .privacy-settings ul li
 
 #branding  #navigation .hasChild>a
 {
-	background:transparent url(../../img_grappelli/icon_menulist.gif) no-repeat scroll 185px 8px;
+    background:transparent url(../../img_grappelli/icon_menulist.gif) no-repeat scroll 185px 8px;
 }
 
 #branding  #navigation .hasChild>a:hover
 {
-	background:transparent url(../../img_grappelli/icon_menulist_w.gif) no-repeat scroll 185px 8px;
+    background:transparent url(../../img_grappelli/icon_menulist_w.gif) no-repeat scroll 185px 8px;
 }
 
 
@@ -393,96 +395,96 @@ form .aligned .privacy-settings ul li
 #content .is_read input[type="checkbox"],
 #content .is_draft input[type="checkbox"] 
 {
-	margin-left: 0 !important;
+    margin-left: 0 !important;
 }
 
 #content .is_read,
 #content .is_draft 
 {
-	padding-left: 130px !important;
+    padding-left: 130px !important;
 }
 
 
 /*** TREE_TABLE ***/
 
 .tree_table tr th {
-	padding-left: 8px;
+    padding-left: 8px;
 }
 
 .tree_table tr.filtered_out
 {
-	filter:alpha(opacity=60); 
-	-moz-opacity: 0.6; 
-	opacity: 0.6;
+    filter:alpha(opacity=60); 
+    -moz-opacity: 0.6; 
+    opacity: 0.6;
 }
 
 .tree_table tr th .expander {
-	background-image: url(../../img/admin/bullet_toggle_plus.png);
-	background-position: left center;
-	background-repeat: no-repeat;
-	cursor: pointer;
-	padding: 0;
-	zoom: 1; /* Hack for IE, works in IE7, IE6 or older's behavior is unchecked */
+    background-image: url(../../img/admin/bullet_toggle_plus.png);
+    background-position: left center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    padding: 0;
+    zoom: 1; /* Hack for IE, works in IE7, IE6 or older's behavior is unchecked */
 }
 
 .tree_table tr th .expander:hover {
-	background-image: url(../../img/admin/bullet_toggle_plus_hover.png);
+    background-image: url(../../img/admin/bullet_toggle_plus_hover.png);
 }
 
 .tree_table tr th .draggable {
-	background-image: url(../../img/admin/cursor_move_small.png);
-	background-position: left center;
-	background-repeat: no-repeat;
-	cursor: pointer;
-	padding: 0;
+    background-image: url(../../img/admin/cursor_move_small.png);
+    background-position: left center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    padding: 0;
 }
 
 .tree_table tr.expanded th .expander {
-	background-image: url(../../img/admin/bullet_toggle_minus.png);
+    background-image: url(../../img/admin/bullet_toggle_minus.png);
 }
 
 .tree_table tr.expanded th .expander:hover {
-	background-image: url(../../img/admin/bullet_toggle_minus_hover.png);
+    background-image: url(../../img/admin/bullet_toggle_minus_hover.png);
 }
 
 /* this class is used for table rows when hovered */
 .showHoverHandle {
-	background-image: url(../../img/admin/dnd_hover.png);
+    background-image: url(../../img/admin/dnd_hover.png);
 }
 
 /* this class is used for all children of a table row when hovered or dragged */
 .showHoverHandleChildren {
-	background-image: url(../../img/admin/dnd_hover_children.png);
+    background-image: url(../../img/admin/dnd_hover_children.png);
 }
 
 /* this class marks a drop row that the target should be inserted before the row */
 .showDragHandleBefore {
-	background-image: url(../../img/admin/arrow-up.gif);
-	background-repeat: no-repeat;
-	background-position: left top;	
+    background-image: url(../../img/admin/arrow-up.gif);
+    background-repeat: no-repeat;
+    background-position: left top;    
 }
 
 /* this class marks a drop row that the target should be inserted after the row */
 .showDragHandleAfter {
-	background-image: url(../../img/admin/arrow-down.gif);
-	background-repeat: no-repeat;
-	background-position: left bottom;
+    background-image: url(../../img/admin/arrow-down.gif);
+    background-repeat: no-repeat;
+    background-position: left bottom;
 }
 
 /* this class marks a drop row that the target should be inserted inside the row */
 .showDragHandleInside {
-	background-color: #00FF00;
-	background-repeat: no-repeat;
+    background-color: #00FF00;
+    background-repeat: no-repeat;
 }
 
 .markDirty {
-	background-color: #FFFFDD
+    background-color: #FFFFDD
 }
 
 #tree-form .submit-row
 {
-	text-align: left;
-	margin-right: 161px;
+    text-align: left;
+    margin-right: 161px;
 }
 
 
@@ -490,34 +492,35 @@ form .aligned .privacy-settings ul li
 
 .o2k7Skin .mceMenu
 {
-	width: 100%;
-	background-color: #FFF;
+    width: 100%;
+    background-color: #FFF;
 }
 
 .o2k7Skin .mceMenu table
 {
-	width: 100%;
+    width: 100%;
 }
 
 
 /*** NESTED FIELDSETS ***/
 
-fieldset.collapse.closed fieldset {
+fieldset.grp-collapse.grp-closed fieldset {
     display: none!important;
 }
 
-fieldset fieldset.collapse.closed h2.collapse-toggle {
+fieldset fieldset.grp-collapse.grp-closed h2.grp-collapse-toggle {
     background-color:#E0F0F5;
-    background-image:url(/admin-media/img/icons/icon_fieldset_collapse-closed.png);
     background-position:0 100%;
 }
 
-fieldset.collapse.closed h2.collapse-toggle:hover,
-fieldset.collapse.open h2.collapse-toggle {
+fieldset.grp-collapse.grp-closed h2.grp-collapse-toggle:hover,
+fieldset.grp-collapse.grp-open h2.grp-collapse-toggle {
     background-position:0 0;
 }
 
-fieldset.module.nested {
+fieldset.grp-module.nested {
+    in-width: auto !important;
+    width: auto !important;
     margin: 5px;
     border:1px solid #BDBDBD;
     -moz-border-radius:4px 4px 4px 4px;
@@ -528,15 +531,19 @@ div.nested {
     background: #fff;
 }
 
-fieldset.module.nested > :first-child {
+fieldset.grp-module.nested {
+    float:none;
+}
+
+fieldset.grp-module.nested > :first-child {
     border-top: none;
 }
 
-fieldset.module h2 + fieldset.module.nested {
+fieldset.grp-module h2 + fieldset.grp-module.nested {
     border:1px solid #BDBDBD !important;
 }
 
-.module.closed fieldset {
+.grp-module.grp-closed fieldset {
     display: none!important;
 }
 
@@ -685,7 +692,7 @@ a.open-link:hover, a.open-link:active {
     width:278px;
 }
 
-.row .ac_input {
+.grp-row .ac_input {
     width:758px !important;
 }
 
@@ -912,4 +919,21 @@ body#tinymce {
 
 .clearfix {
     clear: both;
+}
+
+.selector select[multiple=multiple] {
+    overflow: auto;
+}
+
+.markup-type-help {
+    margin-bottom: 8px !important;
+}
+
+.gmap {
+    width:916px;
+    height:300px;
+}
+
+.contact_fieldset .grp-submit-row {
+    width:916px;
 }

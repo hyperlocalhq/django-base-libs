@@ -266,7 +266,7 @@ class MediaGalleryBase(ObjectRelationMixin(is_required=True), CreationModificati
 
 
 class MediaFileBase(CreationModificationMixin):
-    gallery = models.ForeignKey("media_gallery.MediaGallery", verbose_name=_("Media Gallery"), default=0)
+    gallery = models.ForeignKey("media_gallery.MediaGallery", verbose_name=_("Media Gallery"))
     
     path = FileBrowseField(_('File path'), max_length=255, blank=True, help_text=_("A path to a locally stored image, video, or audio file."))
     

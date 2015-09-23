@@ -5,8 +5,8 @@ from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
-
+import filebrowser.settings as filebrowser_settings
+URL_FILEBROWSER_MEDIA = getattr(filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/')
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.utils.misc import get_related_queryset
 from base_libs.models.admin import get_admin_lang_section
@@ -35,10 +35,6 @@ class InstitutionTypeOptions(TreeEditor):
 
 
 class InstitutionOptions(ExtendedModelAdmin):
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-            )
     save_on_top = True
     list_display = ('title', 'slug', 'creation_date', 'status')
     list_filter = ('creation_date', 'status',)

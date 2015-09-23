@@ -20,8 +20,8 @@ from base_libs.middleware import get_current_language
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.admin import ExtendedStackedInline
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
-
+import filebrowser.settings as filebrowser_settings
+URL_FILEBROWSER_MEDIA = getattr(filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/')
 MediaGallery = models.get_model("media_gallery", "MediaGallery")
 MediaFile = models.get_model("media_gallery", "MediaFile")
 
@@ -201,10 +201,6 @@ class MediaGalleryAdminForm(ObjectRelationMixinAdminForm()):
 
 
 class MediaGalleryOptions(ObjectRelationMixinAdminOptions(admin_order_field="content_object_repr")):
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-        )
     form = MediaGalleryAdminForm
     save_on_top = True
     inlines = [MediaFile_Inline]

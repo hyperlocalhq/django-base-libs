@@ -21,8 +21,8 @@ from base_libs.utils.misc import get_related_queryset
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin.tree_editor import TreeEditor
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
-
+import filebrowser.settings as filebrowser_settings
+URL_FILEBROWSER_MEDIA = getattr(filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/')
 from jetson.apps.location.models import Address
 from jetson.apps.location.models import Locality
 from jetson.apps.location.models import Geoposition
@@ -221,7 +221,7 @@ class EventForm(forms.ModelForm):
         
 class EventTime_Inline(ExtendedStackedInline):
     model = EventTime
-    extra = 1
+    extra = 0
     verbose_name = _("Time")
     verbose_name_plural = _("Times")
 
@@ -229,10 +229,6 @@ class EventOptions(ExtendedModelAdmin):
     form = EventForm
     inlines = [EventTime_Inline]
     change_form_template = "extendedadmin/event_change.html"
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-            )
     save_on_top = True
     list_display = ['title', 'get_venue_display', 'get_start_date_string', 'get_end_date_string', 'event_type', 'status', 'creation_date']
     list_filter = ('creation_date', 'event_type', 'status')
