@@ -283,7 +283,7 @@ def send(recipients, sysname, extra_context=None, on_site=True, instance=None, s
     """
     if not extra_context:
         extra_context = {}
-    from tasks import send_to_user
+    from tasks import send_to_user_async
     
     # preparing recipients
     if not hasattr(recipients, '__iter__'):
@@ -305,7 +305,7 @@ def send(recipients, sysname, extra_context=None, on_site=True, instance=None, s
         sender_id = sender.pk
         
     for user_id in user_ids:
-        send_to_user.delay(user_id, sysname, extra_context, on_site,
+        send_to_user_async(user_id, sysname, extra_context, on_site,
             instance_ct, instance_id, sender_id, sender_name, sender_email)
         
         

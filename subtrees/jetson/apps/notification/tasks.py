@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.db import models
 from django.template import Context
 from django.utils.translation import ugettext, get_language, activate
@@ -5,6 +7,8 @@ from django.utils.encoding import force_unicode
 from django.template import Template
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.utils import timezone
+from django_q import async, schedule, Schedule
 
 from jetson.apps.people.functions import get_user_language
 
@@ -12,6 +16,7 @@ from base_libs.utils.misc import get_installed
 
 send_email_using_template = get_installed("mailing.views.send_email_using_template")
 Recipient = get_installed("mailing.recipient.Recipient")
+
 
 def get_notification_setting(user, notice_type, medium):
     """
@@ -30,6 +35,24 @@ def get_notification_setting(user, notice_type, medium):
         setting = NoticeSetting(user=user, notice_type=notice_type, medium=medium, frequency=frequency)
         setting.save()
         return setting
+
+
+def send_to_user_async(user_id, sysname, extra_context=None, on_site=True, instance_ct=None, instance_id=None,
+                       sender_id=None,
+                       sender_name="", sender_email=""):
+    async(
+        'jetson.apps.notification.send_to_user',
+        user_id,
+        sysname,
+        extra_context,
+        on_site,
+        instance_ct,
+        instance_id,
+        sender_id,
+        sender_name,
+        sender_email,
+    )
+
 
 def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct=None, instance_id=None, sender_id=None,
                  sender_name="", sender_email=""):
