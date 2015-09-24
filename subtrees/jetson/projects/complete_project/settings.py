@@ -92,7 +92,6 @@ INSTALLED_APPS = (
     "south",
     "pipeline",
     "crispy_forms",
-    "djcelery",
     "kombu.transport.django",
     
     ### jetson apps ###
@@ -251,20 +250,6 @@ COMPRESS_JETSON_JS['jquery_plugins'] = {
     'output_filename': 'js/jquery/jquery_plugins_compressed.js',
     }
 
-
-### CELERY ###
-
-CELERY_RESULT_BACKEND = 'database'
-# For scheduled jobs. 
-CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler" 
-CELERY_TRACK_STARTED = True 
-CELERY_SEND_EVENTS = True 
-CELERYD_LOG_FILE = os.path.join(JETSON_PROJECTS_PATH, "complete_project/tmp/celery.log")
-
-BROKER_URL = "django://"
-
-import djcelery
-djcelery.setup_loader()
 
 ### OTHER SETTINGS  ###
 

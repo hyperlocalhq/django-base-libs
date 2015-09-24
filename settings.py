@@ -96,8 +96,6 @@ INSTALLED_APPS = [
     "uni_form",
     "mptt",
     "picklefield",
-    "djcelery",
-    "kombu.transport.django",
     "captcha",
 
     ### django-cms ###
@@ -169,7 +167,6 @@ INSTALLED_APPS = [
     "ccb.apps.media_gallery",
     "ccb.apps.slideshows",
     "ccb.apps.faqs",
-    "ccb.apps.celerytest",
     "ccb",  # just for i18n in Javascript
 ]
 
@@ -758,26 +755,6 @@ MAILING_CONTENT_TYPE_CHOICES = (
 )
 
 TIME_INPUT_FORMATS = ('%H:%M:%S', '%H:%M', '%H.%M')
-
-### CELERY ###
-
-CELERY_RESULT_BACKEND = 'database'
-# For scheduled jobs. 
-CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
-CELERY_TRACK_STARTED = True
-CELERY_SEND_EVENTS = True
-CELERYD_LOG_FILE = os.path.join(PROJECT_PATH, "ccb/tmp/celery.log")
-
-BROKER_URL = "django://"
-BROKER_HOST = "localhost"
-BROKER_PORT = 5672
-BROKER_USER = "guest"
-BROKER_PASSWORD = "guest"
-BROKER_VHOST = "/"
-
-import djcelery
-
-djcelery.setup_loader()
 
 ### CAPTCHA ###
 

@@ -1,5 +1,3 @@
-from celery import task
-
 from django.db import models
 from django.template import Context
 from django.utils.translation import ugettext, get_language, activate
@@ -33,7 +31,6 @@ def get_notification_setting(user, notice_type, medium):
         setting.save()
         return setting
 
-@task
 def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct=None, instance_id=None, sender_id=None,
                  sender_name="", sender_email=""):
     """
