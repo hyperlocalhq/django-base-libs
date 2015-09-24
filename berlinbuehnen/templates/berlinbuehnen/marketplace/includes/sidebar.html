@@ -1,28 +1,44 @@
 {% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites_tags production_tags %}
 <div class="accordion sidebar-accordion">
-    {% if job_offer.position %}
+    {% if job_offer.deadline or job_offer.position or job_offer.job_type or job_offer.categories.all %}
         <div class="accordion-item">
-            <h4 class="accordion-item-head open">{% trans "Position" %}</h4>
+            <h4 class="accordion-item-head open">{% trans "Job informations" %}</h4>
             <div class="accordion-item-content">
-                <ul class="list">
-                    <li>{{ job_offer.position }}</li>
-                </ul>
+                <dl>
+                    {% if job_offer.job_type %}
+                        <dt class="width_80">{% trans "Job Type" %}:</dt>
+                        <dd>{{ job_offer.job_type }}</dd>
+                    {% endif %}
+                    {% if job_offer.position %}
+                        <dt class="width_80">{% trans "Position" %}:</dt>
+                        <dd>{{ job_offer.position }}</dd>
+                    {% endif %}
+                    {% if job_offer.categories.all %}
+                        <dt class="width_80 block">{% trans "Categories" %}:</dt>
+                        <dd>
+                            <ul>
+                            {% for cat in job_offer.categories.all %}
+                                <li>{{ cat.title }}</li>
+                            {% endfor %}
+                            </ul>
+                        </dd>
+                    {% endif %}
+                    {% if job_offer.deadline %}
+                        <dt class="width_80">{% trans "Deadline" %}:</dt>
+                        <dd>{{ job_offer.deadline|date:"d. b Y" }}</dd>
+                    {% endif %}
+                </dl>
             </div>
         </div>
     {% endif %}
     <div class="accordion-item">
         <h4 class="accordion-item-head open">{% trans "Venue" %}</h4>
         <div class="accordion-item-content">
-            {% if job_offer.logo %}
-                <a class="job_offer-link" href="{{ job_offer.get_url_path }}"><img src="{{ MEDIA_URL }}{{ job_offer.logo|modified_path:"list_logo" }}" class="logo" alt="{{ job_offer.title|escape }}"/></a> 
-            {% endif %}
             <p data-latitude="{{ job_offer.latitude|stringformat:"%f" }}" data-longitude="{{ job_offer.longitude|stringformat:"%f" }}">
-                <a class="job_offer-link" href="{{ job_offer.get_url_path }}">
-                    <strong>{{ job_offer.company }}</strong><br />
-                    {% if job_offer.street_address %}{{ job_offer.street_address }}<br />{% endif %}
-                    {% if job_offer.street_address2 %}{{ job_offer.street_address2 }}<br />{% endif %}
-                    {% if job_offer.city %}{{ job_offer.postal_code }} {{ job_offer.city }}<br />{% endif %}
-                </a>
+                {% if job_offer.company %}<strong>{{ job_offer.company }}</strong><br />{% endif %}
+                {% if job_offer.street_address %}{{ job_offer.street_address }}<br />{% endif %}
+                {% if job_offer.street_address2 %}{{ job_offer.street_address2 }}<br />{% endif %}
+                {% if job_offer.city %}{{ job_offer.postal_code }} {{ job_offer.city }}<br />{% endif %}
             </p>
             {% if job_offer.phone_number or job_offer.fax_number or job_offer.email or job_offer.website %}
                 <dl>
@@ -45,13 +61,6 @@
                     {% endif %}
                 </dl>
             {% endif %}
-            {% if job_offer.get_social_media %}
-                <ul class="social_link_list">
-                    {% for social in job_offer.get_social_media %}
-                        <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank"><span class="sr-only">{{ social.channel_type }}</span></a></li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
         </div>
     </div>
     <div class="accordion-item no-print">
@@ -60,26 +69,4 @@
             {% bvg address=job_offer.street_address address_2=job_offer.street_address2 postal_code=job_offer.postal_code city=job_offer.city %}
         </div>
     </div>
-    {% if job_offer.categories.all %}
-        <div class="accordion-item">
-            <h4 class="accordion-item-head">{% trans "Categories" %}</h4>
-            <div class="accordion-item-content">
-                <ul class="list">
-                    {% for cat in job_offer.categories.all %}
-                        <li>{{ cat.title }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-    {% endif %}
-    {% if job_offer.job_type %}
-        <div class="accordion-item">
-            <h4 class="accordion-item-head">{% trans "Job Type" %}</h4>
-            <div class="accordion-item-content">
-                <ul class="list">
-                    <li>{{ job_offer.job_type.title }}</li>
-                </ul>
-            </div>
-        </div>
-    {% endif %}
 </div>

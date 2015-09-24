@@ -14,9 +14,7 @@
 {% block title %}{% trans "Favorites" %}{% endblock %}
 {% block open_graph %}
     <meta property="og:url" content="{{ request.build_absolute_uri  }}" />
-    {% comment %}
-    <meta property="og:image" content="http://www.lange-nacht-der-museen.de/media/opengraph/fahren_big.png" />
-    {% endcomment %}
+    <meta property="og:image" content="http://www.berlin-buehnen.de/media/logo_berlinbuehnen_fb_v2.png" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="{{ list_options.title|default:_("Favorites") }}" />
     <meta property="og:site_name" content="{{ list_options.title|default:_("Favorites") }}" />

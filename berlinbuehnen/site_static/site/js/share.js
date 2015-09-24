@@ -6,7 +6,7 @@ function init_share(){
     template: '<span class="icon icon-social-twitter"></span> <span class="sr-only">{% trans "Share on Twitter" %}</span>',
     enableHover: false,
     enableTracking: true,
-    buttons: { twitter: {via: 'MUSEUMSPORTAL'}},
+    buttons: { twitter: {via: 'BERLINBUEHNEN'}},
     click: function(api, options){
       api.simulateClick();
       api.openPopup('twitter');

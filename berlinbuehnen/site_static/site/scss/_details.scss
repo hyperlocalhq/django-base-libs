@@ -250,6 +250,10 @@
                     padding-right: 0; 
                 }
             }
+            &.block {
+                display: block;
+                float: left;
+            }
         }
         dd {
             display: inline;
@@ -348,7 +352,7 @@
     
 }
     
-#location.details {
+#location.details, #job_offer.details {
     header {
         h1 {
             margin-right: 30px;
@@ -359,6 +363,18 @@
     }
 }
 
+
+#job_offer.details {
+    .main {
+        .description {
+            margin-bottom: 30px;
+        }
+        .remarks {
+            font-weight: $light;
+            font-size: 1.1em;
+        }
+    }
+}
 
 .is-xs {
     .details {
