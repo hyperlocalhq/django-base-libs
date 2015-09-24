@@ -68,10 +68,10 @@ LANGUAGE_CODE = "de"
 
 INSTALLED_APPS = [
     ### third-party apps ###
-    # "django_extensions",
-    "grappelli",
-    "filebrowser",
     "crispy_forms",
+    # "django_extensions",
+    "filebrowser",
+    "grappelli",
 
     ### django core apps ###
     "django.contrib.sitemaps",
@@ -86,30 +86,27 @@ INSTALLED_APPS = [
 
     ### more third-party apps ###
     "babeldjango",
-    "tagging",
-    "tagging_autocomplete",
-    "rosetta",
+    "captcha",
     # "debug_toolbar",
-    # "memcache_toolbar",
-    "pipeline",
     "haystack",
-    "uni_form",
+    # "memcache_toolbar",
     "mptt",
     "picklefield",
-    "captcha",
+    "pipeline",
+    "rosetta",
+    "tagging",
+    "tagging_autocomplete",
+    "uni_form",
 
     ### django-cms ###
     'cms',  # django CMS itself
-    'treebeard',  # utilities for implementing a tree
-    'menus',  # helper for model independent hierarchical website navigation
-    'sekizai',  # for javascript and css management
-    'djangocms_admin_style',
-    # for the admin skin. You **must** add 'djangocms_admin_style' in the list **before** 'django.contrib.admin'.
     'djangocms_text_ckeditor',
+    'menus',  # helper for model independent hierarchical website navigation
     'reversion',
+    'sekizai',  # for javascript and css management
+    'treebeard',  # utilities for implementing a tree
 
     ### django-cms plug-ins ###
-    'djangocms_style',
     'djangocms_column',
     'djangocms_file',
     'djangocms_flash',
@@ -117,6 +114,7 @@ INSTALLED_APPS = [
     'djangocms_inherit',
     'djangocms_link',
     'djangocms_picture',
+    'djangocms_style',
     'djangocms_teaser',
     'djangocms_video',
 
