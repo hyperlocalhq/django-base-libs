@@ -34,7 +34,6 @@ TAGGING_PATH = os.path.join(JETSON_PATH, "tagging")
 TAGGING_AUTOCOMPLETE_PATH = os.path.join(JETSON_PATH, "tagging_autocomplete")
 FILEBROWSER_PATH = os.path.join(JETSON_PATH, "filebrowser")
 sys.path = [
-    "",
     EXTERNAL_LIBS_PATH,
     EXTERNAL_APPS_PATH,
     BASE_LIBS_PATH,
