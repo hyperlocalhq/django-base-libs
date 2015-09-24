@@ -6,7 +6,7 @@ $('.share-twitter').sharrre({
   template: 'Share on Twitter',
   enableHover: false,
   enableTracking: true,
-  buttons: { twitter: {via: 'MUSEUMSPORTAL'}},
+  buttons: { twitter: {via: 'BERLINBUEHNEN'}},
   click: function(api, options){
     api.simulateClick();
     api.openPopup('twitter');
@@ -33,7 +33,7 @@ $('.share-image-twitter').sharrre({
   template: '<span class="icon icon-social-twitter"></span> <span class="sr-only">{% trans "Share on Twitter" %}</span>',
   enableHover: false,
   enableTracking: true,
-  buttons: { twitter: {via: 'MUSEUMSPORTAL'}},
+  buttons: { twitter: {via: 'BERLINBUEHNEN'}},
   click: function(api, options){
     api.simulateClick();
     api.openPopup('twitter');

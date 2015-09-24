@@ -234,7 +234,7 @@ def send_user_favorites_by_email(request, user_token, **kwargs):
             user_favorites_view = get_website_url(reverse('user_favorites', kwargs={'user_token': user_token}))
             send_email_using_template(
                 recipients_list=[Recipient(name=cleaned['recipient_name'], email=cleaned['recipient_email'])],
-                email_template_slug="tour_shared",
+                email_template_slug="favorites_shared",
                 obj_placeholders={
                     'object_url': user_favorites_view,
                     'object_title': ugettext("Favorites"),
