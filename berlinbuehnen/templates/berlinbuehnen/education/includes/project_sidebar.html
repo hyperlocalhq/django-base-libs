@@ -168,11 +168,11 @@
                 </div>
             {% endif %}
         {% endif %}
-        {% if project.target_group.all or project.age_from or project.age_till %}
+        {% if project.target_groups.all or project.age_from or project.age_till %}
             <div class="accordion-item">
                 <h4 class="accordion-item-head">{% trans "Target group" %}</h4>
                 <div class="accordion-item-content">
-                    {% if project.target_group.all %}
+                    {% if project.target_groups.all %}
                         <p>
                             {% for target in project.target_group.all %}
                                 {{ target.title }}<br/>
@@ -191,13 +191,13 @@
                 </div>
             </div>
         {% endif %}
-        {% if project.format.all or project.participant_count or project.needs_teachers %}
+        {% if project.formats.all or project.participant_count or project.needs_teachers %}
             <div class="accordion-item">
                 <h4 class="accordion-item-head">{% trans "Project format" %}</h4>
                 <div class="accordion-item-content">
-                    {% if project.format.all %}
+                    {% if project.formats.all %}
                         <p>
-                            {% for format in project.format.all %}
+                            {% for format in project.formats.all %}
                                 {{ format.title }}<br/>
                             {% endfor %}
                         </p>

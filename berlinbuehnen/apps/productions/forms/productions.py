@@ -10,9 +10,9 @@ from django.utils.translation import ugettext_lazy as _, ugettext
 from django.shortcuts import redirect
 from django.utils.safestring import mark_safe
 from django.db import models
-from django.utils.text import slugify
 
 from base_libs.utils.misc import get_unique_value
+from base_libs.utils.betterslugify import better_slugify
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
@@ -1077,6 +1077,9 @@ def load_data(instance=None):
             'events': {'_filled': True},
             '_pk': instance.pk,
         }
+
+        ### The "basic" step ###
+
         fields = [
             'ensembles', 'organizers', 'in_cooperation_with',
             'location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
@@ -1098,6 +1101,8 @@ def load_data(instance=None):
         form_step_data['basic']['play_locations'] = instance.play_locations.all()
         form_step_data['basic']['play_stages'] = instance.play_stages.all()
         form_step_data['basic']['categories'] = instance.categories.all()
+
+        ### The "description" step ###
 
         fields = [
             'language_and_subtitles',
@@ -1206,7 +1211,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             setattr(instance, fname, form_step_data[current_step][fname])
 
         if not instance.slug:
-            instance.slug = get_unique_value(Production, slugify(instance.title_de), instance_pk=instance.pk)
+            instance.slug = get_unique_value(Production, better_slugify(instance.title_de), instance_pk=instance.pk)
 
         instance.save()
 

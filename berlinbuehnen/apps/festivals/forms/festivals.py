@@ -14,13 +14,13 @@ from django.utils.translation import ugettext_lazy as _, ugettext
 from django.shortcuts import redirect
 from django.utils.safestring import mark_safe
 from django.db import models
-from django.utils.text import slugify
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
 from base_libs.middleware.threadlocals import get_current_user
 from base_libs.utils.misc import get_unique_value
+from base_libs.utils.betterslugify import better_slugify
 
 from berlinbuehnen.apps.festivals.models import Festival, Image, SocialMediaChannel
 from jetson.apps.image_mods.models import FileManager
@@ -741,7 +741,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             form_step_data[current_step]['description_%s' % lang_code] = getattr(instance, 'description_%s' % lang_code)
 
         if not instance.slug:
-            instance.slug = get_unique_value(Festival, slugify(instance.title_de), instance_pk=instance.pk)
+            instance.slug = get_unique_value(Festival, better_slugify(instance.title_de), instance_pk=instance.pk)
 
         if form_step_data[current_step]['delete_logo'] and instance.logo:
             try:

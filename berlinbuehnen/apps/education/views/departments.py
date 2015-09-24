@@ -25,10 +25,10 @@ FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 from jetson.apps.image_mods.models import FileManager
 from filebrowser.models import FileDescription
 
-from .models import Project, ProjectImage, Department, ProjectTime
+from berlinbuehnen.apps.education.models import Project, ProjectImage, Department, ProjectTime
 
-#from .forms.projects import FESTIVAL_FORM_STEPS
-#from .forms.gallery import ImageFileForm, ImageDeletionForm
+from berlinbuehnen.apps.education.forms.departments import DEPARTMENT_FORM_STEPS
+#from berlinbuehnen.apps.education.forms.gallery import ImageFileForm, ImageDeletionForm
 
     
 class EducationFilterForm(forms.Form):
@@ -99,43 +99,47 @@ def department_detail(request, slug):
         context_processors=(prev_next_processor,),
     )
 
+@never_cache
+@login_required
+def add_department(request):
+    if not request.user.has_perm("education.add_department"):
+        return access_denied(request)
+    return show_form_step(request, DEPARTMENT_FORM_STEPS, extra_context={});
 
-def project_list(request):
-    return redirect("department_list")
+
+@never_cache
+@login_required
+def change_department(request, slug):
+    instance = get_object_or_404(Department, slug=slug)
+    if not request.user.has_perm("education.change_department", instance):
+        return access_denied(request)
+    return show_form_step(request, DEPARTMENT_FORM_STEPS, extra_context={'project': instance}, instance=instance);
 
 
-def project_detail(request, slug, event_id=None):
-    obj = None
-    if "preview" in request.REQUEST:
-        qs = Project.objects.all()
-        obj = get_object_or_404(qs, slug=slug)
-        if not request.user.has_perm("education.change_project", obj):
-            return access_denied(request)
-    else:
-        qs = Project.objects.filter(status="published")
+@never_cache
+@login_required
+def delete_department(request, slug):
+    instance = get_object_or_404(Department, slug=slug)
+    if not request.user.has_perm("education.delete_department", instance):
+        return access_denied(request)
+    if request.method == "POST" and request.is_ajax():
+        instance.status = "trashed"
+        instance.save()
+        return HttpResponse("OK")
+    return redirect(instance.get_url_path())
 
-    if not obj:
-        obj = get_object_or_404(qs, slug=slug)
 
-    extra_context = {}
-    extra_context['department'] = None
-    extra_context['event'] = None
-    
-    if obj.departments.filter(status="published").count():
-        extra_context['department'] = obj.departments.filter(status="published")[0]
-        
-    if event_id:
-        extra_context['event'] = ProjectTime.objects.filter(pk=event_id)[0]
-        
-    return object_detail(
-        request,
-        queryset=qs,
-        slug=slug,
-        slug_field="slug",
-        extra_context=extra_context,
-        template_name="education/project_detail.html",
-        context_processors=(prev_next_processor,),
-    )
+@never_cache
+@login_required
+def change_department_status(request, slug):
+    instance = get_object_or_404(Department, slug=slug)
+    if not request.user.has_perm("education.change_department", instance):
+        return access_denied(request)
+    if request.method == "POST" and request.is_ajax() and request.POST['status'] in ("draft", "published", "not_listed"):
+        instance.status = request.POST['status']
+        instance.save()
+        return HttpResponse("OK")
+    return redirect(instance.get_url_path())
 
 
 # @never_cache

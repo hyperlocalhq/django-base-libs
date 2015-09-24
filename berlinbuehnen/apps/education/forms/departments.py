@@ -14,90 +14,66 @@ from django.utils.translation import ugettext_lazy as _, ugettext
 from django.shortcuts import redirect
 from django.utils.safestring import mark_safe
 from django.db import models
-from django.utils.text import slugify
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
 from base_libs.middleware.threadlocals import get_current_user
 from base_libs.utils.misc import get_unique_value
+from base_libs.utils.betterslugify import better_slugify
 
-from berlinbuehnen.apps.education.models import Project, ProjectImage, ProjectSocialMediaChannel
 from jetson.apps.image_mods.models import FileManager
 
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 EXCLUDED_LANGUAGES = set(dict(settings.LANGUAGES).keys()) - set(dict(FRONTEND_LANGUAGES).keys())
 
+import autocomplete_light
+
 from berlinbuehnen.utils.forms import PrimarySubmit
 from berlinbuehnen.utils.forms import SecondarySubmit
 from berlinbuehnen.utils.forms import InlineFormSet
 
-import autocomplete_light
+from berlinbuehnen.apps.people.models import Person
+from berlinbuehnen.apps.locations.models import Location
+from berlinbuehnen.apps.education.models import Department
+from berlinbuehnen.apps.education.models import SocialMediaChannel
+from berlinbuehnen.apps.education.models import DepartmentMember
 
 
 class BasicInfoForm(autocomplete_light.ModelForm):
-    logo_path = forms.CharField(
-        max_length=255,
-        widget=forms.HiddenInput(),
-        required=False,
-    )
-    delete_logo = forms.BooleanField(
-        widget=forms.HiddenInput(),
-        required=False,
-    )
 
     class Meta:
-        model = Project
-        autocomplete_fields = ('organizers',)
+        model = Department
+        autocomplete_fields = ('location',)
         fields = [
-            'organizers', 'start', 'end',
+            'location',
             'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
+            'contact_name',
             'phone_country', 'phone_area', 'phone_number',
             'fax_country', 'fax_area', 'fax_number',
             'email', 'website',
-            'tickets_street_address', 'tickets_street_address2', 'tickets_postal_code', 'tickets_city',
-            'tickets_email', 'tickets_website',
-            'tickets_phone_country', 'tickets_phone_area', 'tickets_phone_number',
-            'tickets_fax_country', 'tickets_fax_area', 'tickets_fax_number',
-            'mon_open', 'mon_break_close', 'mon_break_open', 'mon_close',
-            'tue_open', 'tue_break_close', 'tue_break_open', 'tue_close',
-            'wed_open', 'wed_break_close', 'wed_break_open', 'wed_close',
-            'thu_open', 'thu_break_close', 'thu_break_open', 'thu_close',
-            'fri_open', 'fri_break_close', 'fri_break_open', 'fri_close',
-            'sat_open', 'sat_break_close', 'sat_break_open', 'sat_close',
-            'sun_open', 'sun_break_close', 'sun_break_open', 'sun_close',
-            'press_contact_name', 'press_email', 'press_website',
-            'press_phone_country', 'press_phone_area', 'press_phone_number',
-            'press_mobile_country', 'press_mobile_area', 'press_mobile_number',
-            'press_fax_country', 'press_fax_area', 'press_fax_number',
+            'districts',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
                 'title_%s' % lang_code,
-                'subtitle_%s' % lang_code,
-                'description_%s' % lang_code,
-                'tickets_calling_prices_%s' % lang_code,
             ]
 
     def __init__(self, *args, **kwargs):
         super(BasicInfoForm, self).__init__(*args, **kwargs)
         
-        self.fields['start'].widget = forms.DateInput(format='%Y-%m-%d')
-        self.fields['start'].input_formats=('%Y-%m-%d',)
-        self.fields['end'].widget = forms.DateInput(format='%Y-%m-%d')
-        self.fields['end'].input_formats=('%Y-%m-%d',)
-
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             for f in [
                 'title_%s' % lang_code,
-                'subtitle_%s' % lang_code,
-                'description_%s' % lang_code,
-                'tickets_calling_prices_%s' % lang_code,
             ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
 
         self.fields['latitude'].widget = forms.HiddenInput()
         self.fields['longitude'].widget = forms.HiddenInput()
+
+        self.fields['districts'].widget = forms.CheckboxSelectMultiple()
+        self.fields['districts'].help_text = ""
+        self.fields['districts'].empty_label = None
 
         self.helper = FormHelper()
         self.helper.form_action = ""
@@ -114,22 +90,8 @@ class BasicInfoForm(autocomplete_light.ModelForm):
             ) for lang_code, lang_name in FRONTEND_LANGUAGES]
         ))
         fieldset_content.append(layout.Row(
-            css_class="row-md",
-            *[layout.Div(
-                layout.Field('subtitle_%s' % lang_code),
-                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
-        ))
-        fieldset_content.append(layout.Row(
-            css_class="row-md",
-            *[layout.Div(
-                layout.Field('description_%s' % lang_code),
-                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
-        ))
-        fieldset_content.append(layout.Row(
             layout.Div(
-                layout.Field('organizers'),
+                layout.Field('location'),
                 css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12",
             ),
             css_class="row-md"
@@ -142,51 +104,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
         ))
 
         layout_blocks.append(layout.Fieldset(
-            _("Duration"),
-            layout.Row(
-                layout.Div(
-                    layout.Field("start", placeholder="YYYY-MM-DD"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
-                ),
-                layout.Div(
-                    layout.Field("end", placeholder="YYYY-MM-DD"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
-                ),
-                css_class="row-md"
-            ),
-            css_class="fieldset-dates"
-        ))
-
-        layout_blocks.append(layout.Fieldset(
-            _("Logo"),
-            layout.Row(
-                layout.Div(
-                    layout.HTML("""{% load i18n %}
-                        <div id="logo_upload_widget">
-                            <div class="preview">
-                                {% if project.logo %}
-                                    <img src="{{ project.logo.url }}" alt="" class="img-responsive" />
-                                {% endif %}
-                            </div>
-                            <div class="uploader">
-                                <noscript>
-                                    <p>{% trans "Please enable Javascript to use file uploader." %}</p>
-                                </noscript>
-                            </div>
-                            <p class="help_text help-block">
-                                {% trans "Available formats are JPG, GIF, and PNG." %}
-                            </p>
-                            <div class="messages"></div>
-                        </div>
-                    """),
-                    "logo_path",
-                    "delete_logo",
-                    css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
-                ),
-            )
-        ))
-
-        layout_blocks.append(layout.Fieldset(
-            _("Project Office Address"),
-            layout.HTML("""{% load i18n %}<div class="subtitle">{% trans "leave blank if you want to use organizer data" %}</div>"""),
+            _("Educational Department Address"),
             layout.Row(
                 layout.Div(
                     "street_address",
@@ -219,9 +137,19 @@ class BasicInfoForm(autocomplete_light.ModelForm):
         ))
 
         layout_blocks.append(layout.Fieldset(
-            _("Contact"),
-            layout.HTML("""{% load i18n %}<div class="subtitle">{% trans "leave blank if you want to use organizer data" %}</div>"""),
+            _("Districts"),
+            "districts",
+            css_class="fieldset-services",
+        ))
 
+        layout_blocks.append(layout.Fieldset(
+            _("Contact"),
+
+            layout.Row(
+                layout.Div(
+                    'contact_name', css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+                ),
+            ),
             layout.Row(
                 layout.Div(
                     'email', css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
@@ -271,9 +199,94 @@ class BasicInfoForm(autocomplete_light.ModelForm):
             css_class="fieldset-other-contact-info"
         ))
 
+        if self.instance and self.instance.pk:
+            layout_blocks.append(bootstrap.FormActions(
+                PrimarySubmit('submit', _('Next')),
+                SecondarySubmit('save_and_close', _('Save and close')),
+                SecondarySubmit('reset', _('Cancel')),
+            ))
+        else:
+            layout_blocks.append(bootstrap.FormActions(
+                PrimarySubmit('submit', _('Next')),
+                SecondarySubmit('reset', _('Cancel')),
+            ))
+
+        self.helper.layout = layout.Layout(
+            *layout_blocks
+        )
+
+
+class DescriptionForm(autocomplete_light.ModelForm):
+    class Meta:
+        model = Department
+        fields = [
+        ]
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fields += [
+                'description_%s' % lang_code,
+                'teaser_%s' % lang_code,
+            ]
+
+    def __init__(self, *args, **kwargs):
+        super(DescriptionForm, self).__init__(*args, **kwargs)
+
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            for f in [
+                'description_%s' % lang_code,
+                'teaser_%s' % lang_code,
+            ]:
+                self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+
+        layout_blocks = []
+
+        layout_blocks.append(layout.Fieldset(
+            _("Members"),
+            layout.HTML("""{% load crispy_forms_tags i18n %}
+            {{ formsets.members.management_form }}
+            <div id="members">
+                {% for form in formsets.members.forms %}
+                    <div class="member formset-form">
+                        {% crispy form %}
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- used by javascript -->
+            <div id="members_empty_form" class="member formset-form" style="display: none">
+                {% with formsets.members.empty_form as form %}
+                    {% crispy form %}
+                {% endwith %}
+            </div>
+            """),
+            css_id="members_fieldset",
+        ))
+
+        fieldset_content = []  # collect multilingual divs into one list...
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
+                layout.Field('description_%s' % lang_code),
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
+                layout.Field('teaser_%s' % lang_code),
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
+        layout_blocks.append(layout.Fieldset(
+            _("Description"),
+            css_class="fieldset-basic-info",
+            *fieldset_content  # ... then pass them to a fieldset
+        ))
+
         layout_blocks.append(layout.Fieldset(
             _("Social media"),
-            layout.HTML("""{% load i18n %}<div class="subtitle">{% trans "leave blank if you want to use organizer data" %}</div>"""),
             layout.HTML("""{% load crispy_forms_tags i18n %}
             {{ formsets.social.management_form }}
             <div id="social">
@@ -293,278 +306,6 @@ class BasicInfoForm(autocomplete_light.ModelForm):
             css_id="social_channels_fieldset",
         ))
 
-        layout_blocks.append(layout.Fieldset(
-            _("Tickets Box Office (when differs from project address)"),
-            layout.HTML("""{% load i18n %}<div class="subtitle">{% trans "leave blank if you want to use organizer data" %}</div>"""),
-            layout.Row(
-                layout.Div(
-                    "tickets_street_address",
-                    "tickets_street_address2",
-                    "tickets_postal_code",
-                    "tickets_city",
-                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
-                ),
-                layout.Div(
-                    "tickets_email",
-                    "tickets_website",
-                    layout.HTML('{% load i18n %}<div><label class="with">{% trans "Phone" %}</label></div>'),
-                    layout.Row(
-                        layout.Div(
-                            'tickets_phone_country', css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                        ),
-                        layout.Div(
-                            'tickets_phone_area',  css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                        ),
-                        layout.Div(
-                            'tickets_phone_number', css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
-                        ),
-                        css_class="row-xs"
-                    ),
-                    layout.HTML('{% load i18n %}<div><label class="with">{% trans "Fax" %}</label></div>'),
-                    layout.Row(
-                        layout.Div(
-                            'tickets_fax_country', css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                        ),
-                        layout.Div(
-                            'tickets_fax_area', css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                        ),
-                        layout.Div(
-                            'tickets_fax_number', css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
-                        ),
-                        css_class="row-xs"
-                    ),
-                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
-                ),
-                css_class="row-md",
-            ),
-            layout.Row(
-                css_class="row-md",
-                *[layout.Div(
-                    layout.Field('tickets_calling_prices_%s' % lang_code),
-                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-                ) for lang_code, lang_name in FRONTEND_LANGUAGES]
-            ),
-            css_class="fieldset-tickets",
-        ))
-
-        layout_blocks.append(layout.Fieldset(
-            _("Opening Hours of Tickets Box Office"),
-            layout.HTML("""{% load i18n %}<div class="subtitle">{% trans "leave blank if you want to use organizer data" %}</div>"""),
-            layout.Row(
-                layout.Div(
-                    'mon_open',
-                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                ),
-                layout.Div(
-                    'mon_break_close',
-                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                ),
-                layout.Div(
-                    'mon_break_open',
-                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                ),
-                layout.Div(
-                    'mon_close',
-                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                ),
-                css_class="row-md",
-            ),
-            layout.Row(
-                layout.Div(
-                    'tue_open',
-                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                ),
-                layout.Div(
-                    'tue_break_close',
-                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                ),
-                layout.Div(
-                    'tue_break_open',
-                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                ),
-                layout.Div(
-                    'tue_close',
-                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                ),
-                css_class="row-md",
-            ),
-            layout.Row(
-                layout.Div(
-                    'wed_open',
-                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                ),
-                layout.Div(
-                    'wed_break_close',
-                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                ),
-                layout.Div(
-                    'wed_break_open',
-                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                ),
-                layout.Div(
-                    'wed_close',
-                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                ),
-                css_class="row-md",
-            ),
-            layout.Row(
-                layout.Div(
-                    'thu_open',
-                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                ),
-                layout.Div(
-                    'thu_break_close',
-                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                ),
-                layout.Div(
-                    'thu_break_open',
-                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                ),
-                layout.Div(
-                    'thu_close',
-                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                ),
-                css_class="row-md",
-            ),
-            layout.Row(
-                layout.Div(
-                    'fri_open',
-                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                ),
-                layout.Div(
-                    'fri_break_close',
-                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                ),
-                layout.Div(
-                    'fri_break_open',
-                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                ),
-                layout.Div(
-                    'fri_close',
-                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                ),
-                css_class="row-md",
-            ),
-            layout.Row(
-                layout.Div(
-                    'sat_open',
-                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                ),
-                layout.Div(
-                    'sat_break_close',
-                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                ),
-                layout.Div(
-                    'sat_break_open',
-                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                ),
-                layout.Div(
-                    'sat_close',
-                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                ),
-                css_class="row-md",
-            ),
-            layout.Row(
-                layout.Div(
-                    'sun_open',
-                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                ),
-                layout.Div(
-                    'sun_break_close',
-                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                ),
-                layout.Div(
-                    'sun_break_open',
-                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                ),
-                layout.Div(
-                    'sun_close',
-                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                ),
-                css_class="row-md",
-            ),
-            css_class="fieldset-tickets",
-        ))
-
-        layout_blocks.append(layout.Fieldset(
-            _("Press Contact"),
-            layout.HTML("""{% load i18n %}<div class="subtitle">{% trans "leave blank if you want to use organizer data" %}</div>"""),
-
-            layout.Row(
-                layout.Div(
-                    'press_contact_name', css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
-                ),
-                css_class="row-md"
-            ),
-
-            layout.Row(
-                layout.Div(
-                    'press_email', css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
-                ),
-                layout.Div(
-                    layout.Field('press_website', placeholder="http://"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
-                ),
-                css_class="row-md"
-            ),
-
-            layout.Row(
-                layout.Div(
-                    layout.HTML('{% load i18n %}<div><label class="with">{% trans "Phone" %}</label></div>'),
-                    layout.Row(
-                        layout.Div(
-                            'press_phone_country', css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                        ),
-                        layout.Div(
-                            'press_phone_area',  css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                        ),
-                        layout.Div(
-                            'press_phone_number', css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
-                        ),
-                        css_class="row-xs"
-                    ),
-                     css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
-                ),
-                layout.Div(
-                    layout.HTML('{% load i18n %}<div><label class="with">{% trans "Mobile" %}</label></div>'),
-                    layout.Row(
-                        layout.Div(
-                            'press_mobile_country', css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                        ),
-                        layout.Div(
-                            'press_mobile_area',  css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                        ),
-                        layout.Div(
-                            'press_mobile_number', css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
-                        ),
-                        css_class="row-xs"
-                    ),
-                     css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
-                ),
-                css_class="row-md"
-            ),
-
-            layout.Row(
-                layout.Div(
-                    layout.HTML('{% load i18n %}<div><label class="with">{% trans "Fax" %}</label></div>'),
-                    layout.Row(
-                        layout.Div(
-                            'press_fax_country', css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                        ),
-                        layout.Div(
-                            'press_fax_area', css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
-                        ),
-                        layout.Div(
-                            'press_fax_number', css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
-                        ),
-                        css_class="row-xs"
-                    ),
-                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
-                ),
-                css_class="row-md"
-            ),
-            css_class="fieldset-press_contact",
-        ))
-
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 PrimarySubmit('submit', _('Next')),
@@ -582,9 +323,136 @@ class BasicInfoForm(autocomplete_light.ModelForm):
         )
 
 
+class DepartmentMemberForm(autocomplete_light.ModelForm):
+    first_name = forms.CharField(
+        label=_("First name"),
+        required=False,
+        max_length=255,
+    )
+    last_name = forms.CharField(
+        label=_("Last name"),
+        required=False,
+        max_length=255,
+    )
+
+    class Meta:
+        model = DepartmentMember
+        autocomplete_fields = ('person',)
+
+    def __init__(self, *args, **kwargs):
+        super(DepartmentMemberForm, self).__init__(*args, **kwargs)
+
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            for f in [
+                'function_%s' % lang_code,
+            ]:
+                self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
+
+        self.fields['sort_order'].widget = forms.HiddenInput()
+        self.fields['person'].required = False
+        self.fields['person'].label = ugettext('Choose person') + ' (' + ugettext('or') + ' <a href="" class="enter_person">' + ugettext('click here to enter a new person') + '</a>)'
+        self.fields['first_name'].label += ' (' + ugettext('or') + ' <a href="" class="choose_person">' + ugettext('choose a person from the database') + '</a>)'
+
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        layout_blocks = []
+
+        layout_blocks.append(
+            layout.Row(
+                layout.Div(
+                    "person", css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+                ),
+                css_class="row-sm choosing_person"
+            )
+        )
+        layout_blocks.append(
+            layout.Row(
+                layout.Div(
+                    "first_name",
+                    css_class="col-xs-12 col-sm-6 col-md-6 col-lg-6"
+                ),
+                layout.Div(
+                    "last_name",
+                    css_class="col-xs-12 col-sm-6 col-md-6 col-lg-6"
+                ),
+                css_class="row-sm entering_person hidden"
+            )
+        )
+        fieldset_content = []  # collect multilingual divs into one list...
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
+                layout.Field('function_%s' % lang_code),
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
+        layout_blocks.append(layout.Fieldset(
+            _("Function"),
+            css_class="fieldset-basic-info",
+            *fieldset_content  # ... then pass them to a fieldset
+        ))
+        layout_blocks.append(layout.Fieldset(
+            _("Contact"),
+            layout.Row(
+                layout.Div(
+                    'email', css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+                ),
+                css_class="row-md"
+            ),
+
+            layout.Row(
+                layout.Div(
+                    layout.HTML('{% load i18n %}<div><label class="with">{% trans "Phone" %}</label></div>'),
+                    layout.Row(
+                        layout.Div(
+                            'phone_country', css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                        ),
+                        layout.Div(
+                            'phone_area',  css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                        ),
+                        layout.Div(
+                            'phone_number', css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                        ),
+                        css_class="row-xs"
+                    ),
+                     css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+                ),
+                css_class="row-md"
+            ),
+            css_class="fieldset-contact-info"
+        ))
+        layout_blocks.append(
+            layout.Div(
+                "sort_order",
+                "id",
+                "DELETE",
+                css_class="hidden"
+            )
+        )
+
+        self.helper.layout = layout.Layout(
+            *layout_blocks
+        )
+
+    def clean(self):
+        cleaned = super(DepartmentMemberForm, self).clean()
+        if not cleaned.get('last_name') and not cleaned.get('person'):
+            msg = _("Choose a person from the database or enter his name.")
+            self._errors["person"] = self.error_class([msg])
+            self._errors["last_name"] = self.error_class([_('This field is required.')])
+            if not cleaned.get('first_name'):
+                self._errors["first_name"] = self.error_class([_('This field is required.')])
+            del cleaned['last_name']
+            del cleaned['person']
+        return cleaned
+
+
+DepartmentMemberFormset = inlineformset_factory(Department, DepartmentMember, form=DepartmentMemberForm, formset=InlineFormSet, extra=0)
+
+
 class SocialMediaChannelForm(forms.ModelForm):
     class Meta:
-        model = ProjectSocialMediaChannel
+        model = SocialMediaChannel
 
     def __init__(self, *args, **kwargs):
         super(SocialMediaChannelForm, self).__init__(*args, **kwargs)
@@ -613,12 +481,12 @@ class SocialMediaChannelForm(forms.ModelForm):
             *layout_blocks
         )
 
-SocialMediaChannelFormset = inlineformset_factory(Project, ProjectSocialMediaChannel, form=SocialMediaChannelForm, formset=InlineFormSet, extra=0)
+SocialMediaChannelFormset = inlineformset_factory(Department, SocialMediaChannel, form=SocialMediaChannelForm, formset=InlineFormSet, extra=0)
 
 
 class GalleryForm(forms.ModelForm):
     class Meta:
-        model = Project
+        model = Department
         fields = []
 
     def __init__(self, *args, **kwargs):
@@ -646,49 +514,62 @@ def load_data(instance=None):
     form_step_data = {}
     if instance:
         form_step_data = {
-            'basic': {'_filled': True, 'sets': {'social': []}},
+            'basic': {'_filled': True},
+            'description': {'_filled': True, 'sets': {
+                'social': [],
+                'members': [],
+            }},
             'gallery': {'_filled': True},
             '_pk': instance.pk,
         }
+
+        ### The "basic" step ###
+
         fields = [
-            'start', 'end',
+            'location',
             'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
+            'contact_name',
             'phone_country', 'phone_area', 'phone_number',
             'fax_country', 'fax_area', 'fax_number',
             'email', 'website',
-            'tickets_street_address', 'tickets_street_address2', 'tickets_postal_code', 'tickets_city',
-            'tickets_email', 'tickets_website',
-            'tickets_phone_country', 'tickets_phone_area', 'tickets_phone_number',
-            'tickets_fax_country', 'tickets_fax_area', 'tickets_fax_number',
-            'mon_open', 'mon_break_close', 'mon_break_open', 'mon_close',
-            'tue_open', 'tue_break_close', 'tue_break_open', 'tue_close',
-            'wed_open', 'wed_break_close', 'wed_break_open', 'wed_close',
-            'thu_open', 'thu_break_close', 'thu_break_open', 'thu_close',
-            'fri_open', 'fri_break_close', 'fri_break_open', 'fri_close',
-            'sat_open', 'sat_break_close', 'sat_break_open', 'sat_close',
-            'sun_open', 'sun_break_close', 'sun_break_open', 'sun_close',
-            'press_contact_name', 'press_email', 'press_website',
-            'press_phone_country', 'press_phone_area', 'press_phone_number',
-            'press_mobile_country', 'press_mobile_area', 'press_mobile_number',
-            'press_fax_country', 'press_fax_area', 'press_fax_number',
+            'districts',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
                 'title_%s' % lang_code,
-                'subtitle_%s' % lang_code,
-                'description_%s' % lang_code,
-                'tickets_calling_prices_%s' % lang_code,
             ]
         for fname in fields:
             form_step_data['basic'][fname] = getattr(instance, fname)
 
-        form_step_data['basic']['organizers'] = instance.organizers.all()
+        form_step_data['basic']['districts'] = instance.districts.all()
+
+        ### The "description" step ###
+
+        fields = []
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fields += [
+                'description_%s' % lang_code,
+                'teaser_%s' % lang_code,
+            ]
+        for fname in fields:
+            form_step_data['description'][fname] = getattr(instance, fname)
+
+        for member in instance.departmentmember_set.all():
+            member_dict = {}
+            fields = ['id', 'person', 'phone_country', 'phone_area', 'phone_number', 'email', 'sort_order']
+            for lang_code, lang_name in FRONTEND_LANGUAGES:
+                fields += [
+                    'function_%s' % lang_code,
+                ]
+            for fname in fields:
+                member_dict[fname] = getattr(member, fname)
+            form_step_data['description']['sets']['members'].append(member_dict)
 
         for social_media_channel in instance.socialmediachannel_set.all():
             social_media_channel_dict = {}
             social_media_channel_dict['channel_type'] = social_media_channel.channel_type
             social_media_channel_dict['url'] = social_media_channel.url
-            form_step_data['basic']['sets']['social'].append(social_media_channel_dict)
+            form_step_data['description']['sets']['social'].append(social_media_channel_dict)
 
     return form_step_data
 
@@ -697,99 +578,99 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
     if current_step == "basic":
         # save the entry
         if "_pk" in form_step_data:
-            instance = Project.objects.get(pk=form_step_data['_pk'])
+            instance = Department.objects.get(pk=form_step_data['_pk'])
         else:
-            instance = Project()
+            instance = Department()
 
         fields = [
-            'start', 'end',
             'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
+            'contact_name',
             'phone_country', 'phone_area', 'phone_number',
             'fax_country', 'fax_area', 'fax_number',
             'email', 'website',
-            'tickets_street_address', 'tickets_street_address2', 'tickets_postal_code', 'tickets_city',
-            'tickets_email', 'tickets_website',
-            'tickets_phone_country', 'tickets_phone_area', 'tickets_phone_number',
-            'tickets_fax_country', 'tickets_fax_area', 'tickets_fax_number',
-            'mon_open', 'mon_break_close', 'mon_break_open', 'mon_close',
-            'tue_open', 'tue_break_close', 'tue_break_open', 'tue_close',
-            'wed_open', 'wed_break_close', 'wed_break_open', 'wed_close',
-            'thu_open', 'thu_break_close', 'thu_break_open', 'thu_close',
-            'fri_open', 'fri_break_close', 'fri_break_open', 'fri_close',
-            'sat_open', 'sat_break_close', 'sat_break_open', 'sat_close',
-            'sun_open', 'sun_break_close', 'sun_break_open', 'sun_close',
-            'press_contact_name', 'press_email', 'press_website',
-            'press_phone_country', 'press_phone_area', 'press_phone_number',
-            'press_mobile_country', 'press_mobile_area', 'press_mobile_number',
-            'press_fax_country', 'press_fax_area', 'press_fax_number',
+            'districts',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
                 'title_%s' % lang_code,
-                'subtitle_%s' % lang_code,
-                'description_%s' % lang_code,
-                'tickets_calling_prices_%s' % lang_code,
             ]
         for fname in fields:
             setattr(instance, fname, form_step_data[current_step][fname])
-
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            setattr(instance, 'description_%s_markup_type' % lang_code, 'pt')
-            setattr(instance, 'tickets_calling_prices_%s_markup_type' % lang_code, 'pt')
-
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            form_step_data[current_step]['description_%s' % lang_code] = getattr(instance, 'description_%s' % lang_code)
+        if form_step_data[current_step]['location']:
+            instance.location = Location.objects.get(pk=form_step_data[current_step]['location'])
 
         if not instance.slug:
-            instance.slug = get_unique_value(Project, slugify(instance.title_de), instance_pk=instance.pk)
-
-        if form_step_data[current_step]['delete_logo'] and instance.logo:
-            try:
-                FileManager.delete_file(instance.logo.path)
-            except OSError:
-                pass
-            instance.logo = ""
-            del form_step_data[current_step]['delete_logo']
-
-        rel_dir = "projects/%s/" % instance.slug
-
-        if form_step_data[current_step]['logo_path']:
-            tmp_path = form_step_data[current_step]['logo_path']
-            abs_tmp_path = os.path.join(settings.MEDIA_ROOT, tmp_path)
-
-            fname, fext = os.path.splitext(tmp_path)
-            now = tz_now()
-            filename = "".join((
-                now.strftime("%Y%m%d%H%M%S"),
-                ("000" + str(int(round(now.microsecond / 1000))))[-4:],
-                fext
-            ))
-            dest_path = ''.join((rel_dir, filename))
-            FileManager.path_exists(os.path.join(settings.MEDIA_ROOT, rel_dir))
-            abs_dest_path = os.path.join(settings.MEDIA_ROOT, dest_path)
-
-            shutil.copy2(abs_tmp_path, abs_dest_path)
-
-            os.remove(abs_tmp_path)
-            instance.logo = dest_path
-            del form_step_data[current_step]['logo_path']
+            instance.slug = get_unique_value(Department, better_slugify(instance.title_de), instance_pk=instance.pk)
 
         instance.save()
 
-        instance.organizers.clear()
-        for cat in form_step_data['basic']['organizers']:
-            instance.organizers.add(cat)
-
-        instance.socialmediachannel_set.all().delete()
-        for social_dict in form_step_data['basic']['sets']['social']:
-            social = ProjectSocialMediaChannel(project=instance)
-            social.channel_type = social_dict['channel_type']
-            social.url = social_dict['url']
-            social.save()
+        instance.districts.clear()
+        for cat in form_step_data['basic']['districts']:
+            instance.districts.add(cat)
 
         current_user = get_current_user()
         if not current_user.is_superuser and not instance.get_owners():
             instance.set_owner(current_user)
+
+    if current_step == "description":
+        fields = []
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fields += [
+                'description_%s' % lang_code,
+                'teaser_%s' % lang_code,
+            ]
+        for fname in fields:
+            form_step_data['description'][fname] = getattr(instance, fname)
+
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            setattr(instance, 'description_%s_markup_type' % lang_code, 'pt')
+            setattr(instance, 'teaser_%s_markup_type' % lang_code, 'pt')
+
+        instance.save()
+
+        # save members
+        fields = ['phone_country', 'phone_area', 'phone_number', 'email', 'sort_order']
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fields += [
+                'function_%s' % lang_code,
+            ]
+        member_ids_to_keep = []
+        for member_dict in form_step_data['description']['sets']['members']:
+            if member_dict['person']:
+                person = Person.objects.get(pk=member_dict['person'])
+            else:
+                person = Person()
+                person.first_name = member_dict['first_name']
+                person.last_name = member_dict['last_name']
+                person.save()
+
+                member_dict['person'] = person.pk
+                del member_dict['first_name']
+                del member_dict['last_name']
+            if member_dict['id']:
+                try:
+                    member = DepartmentMember.objects.get(
+                        pk=member_dict['id'],
+                        department=instance,
+                    )
+                except models.ObjectDoesNotExist:
+                    continue
+            else:
+                member = DepartmentMember(department=instance)
+            for fname in fields:
+                setattr(member, fname, member_dict[fname])
+            member.person = person
+            member.save()
+            member_ids_to_keep.append(member.pk)
+        instance.departmentmember_set.exclude(pk__in=member_ids_to_keep).delete()
+
+        # save social media channels
+        instance.socialmediachannel_set.all().delete()
+        for social_dict in form_step_data['description']['sets']['social']:
+            social = SocialMediaChannel(project=instance)
+            social.channel_type = social_dict['channel_type']
+            social.url = social_dict['url']
+            social.save()
 
         form_step_data['_pk'] = instance.pk
 
@@ -798,7 +679,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
 
 def set_extra_context(current_step, form_steps, form_step_data, instance=None):
     if "_pk" in form_step_data:
-        return {'project': Project.objects.get(pk=form_step_data['_pk'])}
+        return {'department': Department.objects.get(pk=form_step_data['_pk'])}
     return {}
 
 
@@ -807,9 +688,9 @@ def save_data(form_steps, form_step_data, instance=None):
     is_new = not instance
     if not instance:
         if '_pk' in form_step_data:
-            instance = Project.objects.get(pk=form_step_data['_pk'])
+            instance = Department.objects.get(pk=form_step_data['_pk'])
         else:
-            instance = Project()
+            instance = Department()
 
     return form_step_data
 
@@ -818,18 +699,24 @@ def cancel_editing(request):
     return redirect("dashboard")
 
 
-FESTIVAL_FORM_STEPS = {
+DEPARTMENT_FORM_STEPS = {
     'basic': {
-        'title': _("Theater"),
-        'template': "projects/forms/basic_info_form.html",
+        'title': _("Educational Department"),
+        'template': "education/departments/forms/basic_info_form.html",
         'form': BasicInfoForm,
+    },
+    'description': {
+        'title': _("Description"),
+        'template': "education/departments/forms/description_form.html",
+        'form': DescriptionForm,
         'formsets': {
+            'members': DepartmentMemberFormset,
             'social': SocialMediaChannelFormset,
         }
     },
     'gallery': {
         'title': _("Media"),
-        'template': "projects/forms/gallery_form.html",
+        'template': "education/departments/forms/gallery_form.html",
         'form': GalleryForm,  # dummy form
     },
     'oninit': load_data,
@@ -839,6 +726,6 @@ FESTIVAL_FORM_STEPS = {
     'onreset': cancel_editing,
     'success_url': "/dashboard/",
     'general_error_message': _("There are errors in this form. Please correct them and try to save again."),
-    'name': 'project_editing',
-    'default_path': ["basic", "gallery"],
+    'name': 'department_editing',
+    'default_path': ["basic", "description", "gallery"],
 }

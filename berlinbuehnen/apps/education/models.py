@@ -68,7 +68,6 @@ class Department(CreationModificationMixin, UrlMixin, SlugMixin()):
     title = MultilingualCharField(_("Title"), max_length=255)
     description = MultilingualTextField(_("Description"), blank=True)
     teaser = MultilingualTextField(_("Teaser"), blank=True)
-    
 
     street_address = models.CharField(_("Street address"), max_length=255)
     street_address2 = models.CharField(_("Street address (second line)"), max_length=255, blank=True)
@@ -359,8 +358,8 @@ class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
     supporters = MultilingualTextField(_("Supporters"), blank=True)
     sponsors = models.ManyToManyField("sponsors.Sponsor", verbose_name=_("Sponsors"), blank=True)
 
-    target_group = models.ManyToManyField("ProjectTargetGroup", verbose_name=_("Target group"), blank=True, null=True)
-    format = models.ManyToManyField("ProjectFormat", verbose_name=_("Project format"), blank=True, null=True)
+    target_groups = models.ManyToManyField("ProjectTargetGroup", verbose_name=_("Target groups"), blank=True, null=True)
+    formats = models.ManyToManyField("ProjectFormat", verbose_name=_("Project formats"), blank=True, null=True)
 
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 
