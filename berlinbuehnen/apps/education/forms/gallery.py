@@ -35,7 +35,167 @@ from berlinbuehnen.apps.locations.models import COPYRIGHT_RESTRICTION_CHOICES
 
 COPYRIGHT_RESTRICTION_CHOICES = (('', '---------'),) + COPYRIGHT_RESTRICTION_CHOICES
 
-class ImageFileForm(forms.Form):
+
+class VideoForm(forms.Form):
+    goto_next = forms.CharField(
+        widget=forms.HiddenInput(),
+        required=False,
+    )
+    link_or_embed = forms.CharField(
+        # label=_("Link or embed code"),
+        label=_("Embed code"),
+        widget=forms.Textarea(),
+        required=True,
+    )
+
+    def __init__(self, media_file_obj=None, *args, **kwargs):
+        self.media_file_obj = media_file_obj
+        super(VideoForm, self).__init__(*args, **kwargs)
+        for lang_code, lang_name in settings.FRONTEND_LANGUAGES:
+            self.fields['title_%s' % lang_code] = forms.CharField(
+                label=_('Title <span class="lang">%s</span>') % lang_code.upper(),
+                required=False,
+                max_length=255,
+            )
+        self.fields['title_%s' % settings.LANGUAGE_CODE].required = True
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+        layout_blocks = []
+
+        fieldset_content = []  # collect multilingual divs into one list...
+
+        fieldset_content.append(
+            "goto_next",
+        )
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
+                layout.Field('title_%s' % lang_code),
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
+        fieldset_content.append(layout.Row(
+            layout.Div(
+                layout.Field('link_or_embed'),
+                css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12",
+            ),
+            layout.HTML(u"""{% load i18n %}
+            <div class="col-xs-12" style="margin-top:-10px;"><small>{% trans "Size of a video should be 640 × 360 px." %}</small></div>
+            """),
+            css_class="row-md"
+        ))
+
+        layout_blocks.append(layout.Fieldset(
+            """{% load i18n %}
+            {% if media_file %}
+                {% trans "Edit Video/Audio" %}
+            {% else %}
+                {% trans "Add Video/Audio" %}
+            {% endif %}
+            """,
+            layout.HTML(u"""{% load i18n base_tags image_modifications %}
+            <div class="row row-md">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div id="video_preview">
+                        {% if media_file.get_embed %}
+                            {{ media_file.get_embed|safe }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            """),
+            css_class="fieldset-media-file",
+            *fieldset_content
+        ))
+
+        layout_blocks.append(bootstrap.FormActions(
+            PrimarySubmit('submit', _('Save file')),
+            SecondarySubmit('cancel', _('Cancel')),
+            layout.HTML(u"""{% load i18n base_tags image_modifications %}
+                {% if media_file %}
+                    {% if project %}
+                        <input type="button" id="button-id-delete-video" class="delete_photo btn btn-lg btn-info" data-href="{% url "project_delete_video" slug=project.slug mediafile_token=media_file.get_token %}" value="{% trans "Delete" %}" />&zwnj;
+                    {% else %}
+                        <input type="button" id="button-id-delete-video" class="delete_photo btn btn-lg btn-info" data-href="{% url "department_delete_video" slug=department.slug mediafile_token=media_file.get_token %}" value="{% trans "Delete" %}" />&zwnj;
+                    {% endif %}
+                    <!-- Modal -->
+                    <div id="deleteConfirmation" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
+                        <div class="modal-centered">
+                            <div class="cell">
+                                <div class="inner">
+                                    <div class="modal-body">
+                                        <p>{% trans "Do you really want to delete this video/audio?" %}</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button id="button-id-confirm-deletion" class="btn btn-primary">{% trans "Yes, Please" %}</button>
+                                        <button name="cancel" class="btn" data-dismiss="modal" aria-hidden="true">{% trans "No, Thanks" %}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            """),
+        ))
+        self.helper.layout = layout.Layout(
+            *layout_blocks
+        )
+
+    def get_embed(self):
+        from pyoembed import oEmbed, PyOembedException
+        link_or_embed = self.cleaned_data['link_or_embed']
+        if link_or_embed.startswith("http"):
+            try:
+                # maxwidth and maxheight are optional.
+                data = oEmbed(link_or_embed, maxwidth=640, maxheight=480)
+            except PyOembedException, e:
+                pass
+            except:  # catch any other exception, for example in BeatifulSoup
+                pass
+            else:
+                if data['type'] in ('video', 'audio'):
+                    return data['html']
+        return link_or_embed
+
+
+class VideoDeletionForm(forms.Form):
+    goto_next = forms.CharField(
+        widget=forms.HiddenInput(),
+        required=False,
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(VideoDeletionForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+        layout_blocks = []
+
+        layout_blocks.append(layout.Fieldset(
+            _("Delete Video/Audio?"),
+            layout.HTML("""{% load image_modifications %}
+                {% if media_file.link_or_embed %}
+                    <p>Are you sure you want to delete this video?</p>
+                {% endif %}
+            """),
+            "goto_next",
+
+            css_class="fieldset-media-file",
+        ))
+
+        layout_blocks.append(bootstrap.FormActions(
+            layout.Submit('submit', _('Delete')),
+            layout.Button('cancel', _('Cancel')),
+        ))
+        self.helper.layout = layout.Layout(
+            *layout_blocks
+        )
+
+
+class ImageForm(forms.Form):
     goto_next = forms.CharField(
         widget=forms.HiddenInput(),
         required=False,
@@ -49,12 +209,6 @@ class ImageFileForm(forms.Form):
         required=False,
         max_length=255,
     )
-    # copyright_limitations = forms.CharField(
-    #     label=_('Details of any restrictions on use (time limit) for the disclosure to third parties (Cinemarketing, Berlin online, etc.)'),
-    #     help_text=_('If this field does not contain precise restrictions or if no restrictions are set, the rights of use are granted non-exclusively, and unrestricted in terms of time, place and content.'),
-    #     required=False,
-    #     max_length=255,
-    # )
     copyright_restrictions = forms.ChoiceField(
         label=_("Copyright restrictions"),
         choices=COPYRIGHT_RESTRICTION_CHOICES,
@@ -63,7 +217,7 @@ class ImageFileForm(forms.Form):
 
     def __init__(self, media_file_obj=None, *args, **kwargs):
         self.media_file_obj = media_file_obj
-        super(ImageFileForm, self).__init__(*args, **kwargs)
+        super(ImageForm, self).__init__(*args, **kwargs)
         for lang_code, lang_name in settings.FRONTEND_LANGUAGES:
             self.fields['title_%s' % lang_code] = forms.CharField(
                 label=_('Caption <span class="lang">%s</span>') % lang_code.upper(),
@@ -132,12 +286,16 @@ class ImageFileForm(forms.Form):
                                 <p>{% trans "Please enable JavaScript to use file uploader." %}</p>
                             </noscript>
                         </div>
-                        <p id="image_help_text" class="help-block">{% trans "Available formats are JPG, GIF, and PNG. Minimal size is 100 × 100 px. Optimal size is 1000 × 350 px (min)." %}</p>
+                        <p id="image_help_text" class="help-block">{% trans "Available formats are JPG, GIF, and PNG." %}<br/>{% trans "Minimal size is 148 × 148 px." %} {% trans "Optimal size is 680 × 375 px (min)." %}</p>
                     {% endif %}
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     {% if media_file.path %}
-                        {% parse "{{ location.get_url_path }}change/" as goto_next %}
+                        {% if project %}
+                            {% parse "{{ project.get_url_path }}change/gallery/" as goto_next %}
+                        {% else %}
+                            {% parse "{{ department.get_url_path }}gallery/" as goto_next %}
+                        {% endif %}
                         <!--<input type="button" id="button-id-crop-photo" class="crop btn btn-primary" data-href="{% cropping_url media_file.path "medium" request goto_next %}" value="{% trans "Crop image" %}" />&zwnj;-->
                     {% endif %}
                 </div>
@@ -152,8 +310,11 @@ class ImageFileForm(forms.Form):
             SecondarySubmit('cancel', _('Cancel')),
             layout.HTML(u"""{% load i18n base_tags image_modifications %}
                 {% if media_file %}
-                    {% parse "{{ location.get_url_path }}change/" as goto_next %}
-                    <input type="button" id="button-id-delete-photo" class="delete_photo btn btn btn-lg btn-info" data-href="{{ location.get_url_path }}gallery/file_{{ media_file.get_token }}/delete/" value="{% trans "Delete" %}" />&zwnj;
+                    {% if project %}
+                        <input type="button" id="button-id-delete-photo" class="delete_photo btn btn-lg btn-info" data-href="{% url "project_delete_image" slug=project.slug mediafile_token=media_file.get_token %}" value="{% trans "Delete" %}" />&zwnj;
+                    {% else %}
+                        <input type="button" id="button-id-delete-photo" class="delete_photo btn btn-lg btn-info" data-href="{% url "department_delete_image" slug=department.slug mediafile_token=media_file.get_token %}" value="{% trans "Delete" %}" />&zwnj;
+                    {% endif %}
                     <!-- Modal -->
                     <div id="deleteConfirmation" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
                         <div class="modal-centered">
@@ -169,7 +330,7 @@ class ImageFileForm(forms.Form):
                                 </div>
                             </div>
                         </div>
-                    </div>    
+                    </div>
                 {% endif %}
             """),
         ))
@@ -313,7 +474,11 @@ class PDFForm(forms.Form):
             SecondarySubmit('cancel', _('Cancel')),
             layout.HTML(u"""{% load i18n base_tags image_modifications %}
                 {% if media_file %}
-                    <input type="button" id="button-id-delete-pdf" class="delete_photo btn btn-lg btn-info" data-href="{% url "festival_delete_pdf" slug=festival.slug mediafile_token=media_file.get_token %}" value="{% trans "Delete" %}" />&zwnj;
+                    {% if project %}
+                        <input type="button" id="button-id-delete-pdf" class="delete_photo btn btn-lg btn-info" data-href="{% url "project_delete_pdf" slug=project.slug mediafile_token=media_file.get_token %}" value="{% trans "Delete" %}" />&zwnj;
+                    {% elif department %}
+                        <input type="button" id="button-id-delete-pdf" class="delete_photo btn btn-lg btn-info" data-href="{% url "department_delete_pdf" slug=department.slug mediafile_token=media_file.get_token %}" value="{% trans "Delete" %}" />&zwnj;
+                    {% endif %}
                     <!-- Modal -->
                     <div id="deleteConfirmation" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
                         <div class="modal-centered">

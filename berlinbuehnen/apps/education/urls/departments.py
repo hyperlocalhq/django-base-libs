@@ -11,10 +11,17 @@ urlpatterns = patterns('berlinbuehnen.apps.education.views.departments',
     url(r'^(?P<slug>[^/]+)/change/$', 'change_department', name='change_department'),
     url(r'^(?P<slug>[^/]+)/delete/$', 'delete_department', name='delete_department'),
     url(r'^(?P<slug>[^/]+)/status/$', 'change_department_status', name='change_department_status'),
+)
 
-    # gallery
-    # url(r'^(?P<slug>[^/]+)/gallery/$', 'image_overview', name='project_image_overview'),
-    # url(r'^(?P<slug>[^/]+)/gallery/add/$', 'create_update_image', name='project_add_image'),
-    # url(r'^(?P<slug>[^/]+)/gallery/file_(?P<mediafile_token>[^/]+)/$', 'create_update_image', name='project_change_image'),
-    # url(r'^(?P<slug>[^/]+)/gallery/file_(?P<mediafile_token>[^/]+)/delete/$', 'delete_image', name='project_delete_image'),
+urlpatterns += patterns('berlinbuehnen.apps.education.views.department_gallery',
+    # images
+    url(r'^(?P<slug>[^/]+)/gallery/$', 'image_overview', name='department_image_overview'),
+    url(r'^(?P<slug>[^/]+)/gallery/add/$', 'create_update_image', name='department_add_image'),
+    url(r'^(?P<slug>[^/]+)/gallery/file_(?P<mediafile_token>[^/]+)/$', 'create_update_image', name='department_change_image'),
+    url(r'^(?P<slug>[^/]+)/gallery/file_(?P<mediafile_token>[^/]+)/delete/$', 'delete_image', name='department_delete_image'),
+    # pdfs
+    url(r'^(?P<slug>[^/]+)/pdf/$', 'pdf_overview', name='department_pdf_overview'),
+    url(r'^(?P<slug>[^/]+)/pdf/add/$', 'create_update_pdf', name='department_add_pdf'),
+    url(r'^(?P<slug>[^/]+)/pdf/file_(?P<mediafile_token>[^/]+)/$', 'create_update_pdf', name='department_change_pdf'),
+    url(r'^(?P<slug>[^/]+)/pdf/file_(?P<mediafile_token>[^/]+)/delete/$', 'delete_pdf', name='department_delete_pdf'),
 )

@@ -224,7 +224,7 @@ class Image(CreationModificationDateMixin):
     department = models.ForeignKey(Department, verbose_name=_("Department"))
     path = FileBrowseField(_('File path'), max_length=255, directory="education/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image."))
     copyright_restrictions = models.CharField(_('Copyright restrictions'), max_length=20, blank=True, choices=COPYRIGHT_RESTRICTION_CHOICES)
-    sort_order = PositionField(_("Sort order"), collection="education")
+    sort_order = PositionField(_("Sort order"), collection="department")
 
     class Meta:
         ordering = ["sort_order", "creation_date"]
@@ -270,7 +270,7 @@ class SocialMediaChannel(models.Model):
 class PDF(CreationModificationDateMixin):
     department = models.ForeignKey(Department, verbose_name=_("Department"))
     path = FileBrowseField(_('File path'), max_length=255, directory="education/", extensions=['.pdf'], help_text=_("A path to a locally stored PDF file."))
-    sort_order = PositionField(_("Sort order"), collection="education")
+    sort_order = PositionField(_("Sort order"), collection="department")
 
     class Meta:
         ordering = ["sort_order", "creation_date"]
@@ -539,10 +539,10 @@ class ProjectMember(CreationModificationDateMixin):
 
 
 class ProjectImage(CreationModificationDateMixin):
-    education = models.ForeignKey(Project, verbose_name=_("Project"))
+    project = models.ForeignKey(Project, verbose_name=_("Project"))
     path = FileBrowseField(_('File path'), max_length=255, directory="education/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image."))
     copyright_restrictions = models.CharField(_('Copyright restrictions'), max_length=20, blank=True, choices=COPYRIGHT_RESTRICTION_CHOICES)
-    sort_order = PositionField(_("Sort order"), collection="education")
+    sort_order = PositionField(_("Sort order"), collection="project")
 
     class Meta:
         ordering = ["sort_order", "creation_date"]
@@ -585,9 +585,9 @@ class ProjectSocialMediaChannel(models.Model):
         return social
 
 class ProjectPDF(CreationModificationDateMixin):
-    education = models.ForeignKey(Project, verbose_name=_("Project"))
+    project = models.ForeignKey(Project, verbose_name=_("Project"))
     path = FileBrowseField(_('File path'), max_length=255, directory="education/", extensions=['.pdf'], help_text=_("A path to a locally stored PDF file."))
-    sort_order = PositionField(_("Sort order"), collection="education")
+    sort_order = PositionField(_("Sort order"), collection="project")
 
     class Meta:
         ordering = ["sort_order", "creation_date"]
@@ -614,7 +614,7 @@ class ProjectVideo(CreationModificationDateMixin):
     project = models.ForeignKey(Project, verbose_name=_("Project"))
     title = MultilingualCharField(_("Title"), max_length=255)
     link_or_embed = models.TextField(verbose_name=_("Link or embed code"))
-    sort_order = PositionField(_("Sort order"), collection="production")
+    sort_order = PositionField(_("Sort order"), collection="project")
 
     class Meta:
         ordering = ["sort_order", "creation_date"]
