@@ -88,6 +88,7 @@ INSTALLED_APPS = [
     "babeldjango",
     "captcha",
     # "debug_toolbar",
+    # "django_q",
     "haystack",
     # "memcache_toolbar",
     "mptt",
