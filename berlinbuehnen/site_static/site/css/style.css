@@ -2479,4 +2479,4 @@ em { color: black; font-style: italic; }
 #to-top span { transform: translateY(250px); font-size: 0px; text-indent: 100px; overflow: hidden; white-space: nowrap; height: 60px; width: 70px; background-color: #000; display: inline-block; transition-property: all; transition-duration: 0.75s; position: relative; opacity: 0; background-repeat: no-repeat; background-position: center center; background-size: 40px auto; background-image: url("../img/icons/arrow_up.png"); }
 #to-top.on span { transform: translateY(0px); background-color: rgba(0, 0, 0, 0.95); opacity: 1; color: #FFF; }
 
-.empty-container { padding: 50px 0; }
+.empty-container { padding: 50px 8px; }
