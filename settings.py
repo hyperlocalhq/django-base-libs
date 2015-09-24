@@ -88,7 +88,7 @@ INSTALLED_APPS = [
     "babeldjango",
     "captcha",
     # "debug_toolbar",
-    # "django_q",
+    "django_q",
     "haystack",
     # "memcache_toolbar",
     "mptt",
@@ -323,6 +323,10 @@ ADMIN_APP_INDEX = (
             ('mailchimp', {
                 'models': ("Settings", "MList", "Subscription", "Campaign",),
                 'icon': 'transmit',
+            }),
+            ('django_q', {
+                'verbose_name': _("Django-Q"),
+                'models': ("Schedule", "Success", "Failure"),
             }),
         )
     }, {
@@ -819,6 +823,22 @@ MIGRATION_MODULES = {
     'djangocms_style': 'djangocms_style.migrations_django',
     'djangocms_column': 'djangocms_column.migrations_django',
     'djangocms_text_ckeditor': 'djangocms_text_ckeditor.migrations',
+}
+
+### DJANGO-Q ###
+
+# redis defaults
+Q_CLUSTER = {
+    'redis': {
+        'host': 'localhost',
+        'port': 6379,
+        'db': 0,
+        'password': None,
+        'socket_timeout': None,
+        'charset': 'utf-8',
+        'errors': 'strict',
+        'unix_socket_path': None
+    }
 }
 
 ### LOCAL SETTINGS ###
