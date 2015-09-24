@@ -34,7 +34,7 @@
                             
                             <!-- headlines -->
                             <header>
-                                <div class="header-icons">
+                                <div class="header-icons no-print">
                                     {% if request.user.is_authenticated %}
                                         {% adding2favorites for job_offer using "favorites/includes/favorite_detail.html" %}
                                     {% endif %}
@@ -58,13 +58,6 @@
                                         
                                         <!-- main content -->
                                         <div class="col-xs-12 col-md-8 left">
-                                            {% if job_offer.first_image %}
-                                                <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ job_offer.first_image.path|modified_path:"detail_image" }}" alt="{{ job_offer.title|escape }}"  />{% pin image=job_offer.first_image description=job_offer.title %}</div>
-                                            {% elif job_offer.image_set.exists %}
-                                                {% with job_offer.image_set.all|first as first %}
-                                                    <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ first.path|modified_path:"detail_image" }}" alt="{{ job_offer.title|escape }}"  />{% pin image=first description=job_offer.title %}</div> 
-                                                {% endwith %}
-                                            {% endif %}
                                             <div class="description">
                                                 {{ job_offer.get_rendered_description }}
                                             </div>

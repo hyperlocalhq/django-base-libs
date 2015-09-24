@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load url from future %}
-{% load i18n image_modifications base_tags tagging_tags favorites_tags auth_extended theater_of_the_week_tags %}
+{% load i18n image_modifications base_tags tagging_tags favorites_tags auth_extended %}
 {% block title %}{% trans "Job Offers" %} – {% endblock %}
 {% block bodyclass %}job_offer-list no-transition{% endblock %}
 
@@ -8,21 +8,12 @@
 {% block js %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/grid.js" defer="defer"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/list_filter.js" defer="defer"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/top_widgets.js" defer="defer"></script>
 {% endblock %}
 
 {% block content %}
     <div class="content overview">
-        <div class="top-widgets-wrapper">
-            <div class="container">
-                <button id="top-widget-button" class="top-widget-button fawesome down pull-right" data-toggle="collapse" data-target="#theater_of_the_week_widget, #main_filter">
-                    <span class="sr-only">{% trans "open widgets" %}</span>
-                </button>
-            </div>
-            <div class="top-widgets">
-                {% include "utils/filter_job_offers.html" %}
-            </div>
-        </div>
+        {% include "utils/filter_job_offers.html" %}
+        
         <div class="container">
             <div class="row">
                 
@@ -43,6 +34,7 @@
                                 <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3" href="{{ job_offer.get_url_path }}">
                                     {% if job_offer.title %}<h2>{{ job_offer.title }}</h2>{% endif %}
                                     {% if job_offer.subtitle %}<h3>{{ job_offer.subtitle }}</h3>{% endif %}
+                                    {% if job_offer.company or job_offer.position %}<h5>{% if job_offer.company %}{{ job_offer.company }}{% if job_offer.position %} – {% endif %}{% endif %}{% if job_offer.position %}{{ job_offer.position }}{% endif %}</h5>{% endif %}
                                     {% if job_offer.description %}
                                         <div class="copy">{{ job_offer.get_rendered_description|truncatewords:20 }}</div>
                                     {% endif %}
