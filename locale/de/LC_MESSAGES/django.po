@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-22 15:34+0200\n"
+"POT-Creation-Date: 2015-09-25 17:04+0200\n"
 "PO-Revision-Date: 2015-09-17 21:50+0053\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,14 +19,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.2\n"
 
-#: berlinbuehnen/settings.py:242 berlinbuehnen/apps/advertising/models.py:196
+#: berlinbuehnen/settings.py:243 berlinbuehnen/apps/advertising/models.py:196
 #: berlinbuehnen/apps/mailchimp/admin.py:124
 #: berlinbuehnen/apps/mailchimp/admin.py:135
 #: berlinbuehnen/apps/mailchimp/models.py:382
 msgid "Content"
 msgstr "Content"
 
-#: berlinbuehnen/settings.py:278
+#: berlinbuehnen/settings.py:279
 #: berlinbuehnen/apps/theater_of_the_week/admin.py:22
 #: berlinbuehnen/apps/theater_of_the_week/cms_app.py:8
 #: berlinbuehnen/apps/theater_of_the_week/models.py:29
@@ -40,32 +40,32 @@ msgstr "Content"
 msgid "Theater of the week"
 msgstr "Theater der Woche"
 
-#: berlinbuehnen/settings.py:293
+#: berlinbuehnen/settings.py:294
 msgid "Community"
 msgstr "Gemeinschaft"
 
-#: berlinbuehnen/settings.py:296
+#: berlinbuehnen/settings.py:297
 msgid "Authentication"
 msgstr "Authentifikation"
 
-#: berlinbuehnen/settings.py:307
+#: berlinbuehnen/settings.py:308
 msgid "Twitter Wall"
 msgstr "Twitter Wall"
 
-#: berlinbuehnen/settings.py:316 berlinbuehnen/apps/mailchimp/models.py:202
+#: berlinbuehnen/settings.py:317 berlinbuehnen/apps/mailchimp/models.py:202
 msgid "Campaign"
 msgstr "Kampagne"
 
-#: berlinbuehnen/settings.py:332
+#: berlinbuehnen/settings.py:333
 msgid "Configure"
 msgstr "Konfiguration"
 
-#: berlinbuehnen/settings.py:338
-#: berlinbuehnen/apps/education/forms/departments.py:831
-#: berlinbuehnen/apps/education/forms/projects.py:831
+#: berlinbuehnen/settings.py:339
+#: berlinbuehnen/apps/education/forms/departments.py:718
+#: berlinbuehnen/apps/education/forms/projects.py:1130
 #: berlinbuehnen/apps/festivals/forms/festivals.py:831
 #: berlinbuehnen/apps/locations/forms/locations.py:1080
-#: berlinbuehnen/apps/productions/forms/productions.py:1516
+#: berlinbuehnen/apps/productions/forms/productions.py:1521
 #: berlinbuehnen/templates/berlinbuehnen/productions/events/base.html:79
 #: berlinbuehnen/templates/berlinbuehnen/productions/events/base.html:86
 #: berlinbuehnen/templates/berlinbuehnen/productions/events/basic_info_form.html:20
@@ -79,157 +79,157 @@ msgstr "Konfiguration"
 msgid "Media"
 msgstr "Medien"
 
-#: berlinbuehnen/settings.py:342
+#: berlinbuehnen/settings.py:343
 msgid "Sites"
 msgstr "Seiten"
 
-#: berlinbuehnen/settings.py:394
+#: berlinbuehnen/settings.py:395
 msgid "Typehead"
 msgstr ""
 
-#: berlinbuehnen/settings.py:399
+#: berlinbuehnen/settings.py:400
 msgid "Top Image"
 msgstr "Anzeigebild"
 
-#: berlinbuehnen/settings.py:404
+#: berlinbuehnen/settings.py:405
 msgid "Intro"
 msgstr "Einleitung"
 
-#: berlinbuehnen/settings.py:409
+#: berlinbuehnen/settings.py:410
 msgid "Main Content"
 msgstr "Hauptinhalt"
 
-#: berlinbuehnen/settings.py:414
+#: berlinbuehnen/settings.py:415
 msgid "Footnotes"
 msgstr "Fußnoten"
 
-#: berlinbuehnen/settings.py:419
+#: berlinbuehnen/settings.py:420
 msgid "editorial notices"
 msgstr "redaktionelle Hinweise"
 
-#: berlinbuehnen/settings.py:424
+#: berlinbuehnen/settings.py:425
 msgid "Plan & Organize - First"
 msgstr "planen & organisieren - zuerst"
 
-#: berlinbuehnen/settings.py:429
+#: berlinbuehnen/settings.py:430
 msgid "Series Items Featured"
 msgstr ""
 
-#: berlinbuehnen/settings.py:434
+#: berlinbuehnen/settings.py:435
 msgid "Series Items"
 msgstr ""
 
-#: berlinbuehnen/settings.py:439
+#: berlinbuehnen/settings.py:440
 msgid "Series Exhibitions"
 msgstr "Austellungsreihe"
 
-#: berlinbuehnen/settings.py:444
+#: berlinbuehnen/settings.py:445
 msgid "Series Images"
 msgstr "Bilderreihe"
 
-#: berlinbuehnen/settings.py:449
+#: berlinbuehnen/settings.py:450
 msgid "Start Page Content"
 msgstr "Startseiteninhalt"
 
-#: berlinbuehnen/settings.py:454 berlinbuehnen/apps/mega_menu/admin.py:27
+#: berlinbuehnen/settings.py:455 berlinbuehnen/apps/mega_menu/admin.py:27
 msgid "Left Column"
 msgstr "Linke Spalte"
 
-#: berlinbuehnen/settings.py:459 berlinbuehnen/apps/mega_menu/admin.py:28
+#: berlinbuehnen/settings.py:460 berlinbuehnen/apps/mega_menu/admin.py:28
 msgid "Center Column"
 msgstr "Mittige Spalte"
 
-#: berlinbuehnen/settings.py:464 berlinbuehnen/apps/mega_menu/admin.py:29
+#: berlinbuehnen/settings.py:465 berlinbuehnen/apps/mega_menu/admin.py:29
 msgid "Right Column"
 msgstr "Rechte Spalte"
 
-#: berlinbuehnen/settings.py:469
+#: berlinbuehnen/settings.py:470
 msgid "Featured Magazin"
 msgstr "Blog"
 
-#: berlinbuehnen/settings.py:474
+#: berlinbuehnen/settings.py:475
 msgid "Start page left"
 msgstr "Startseite links"
 
-#: berlinbuehnen/settings.py:478
+#: berlinbuehnen/settings.py:479
 msgid "Start page center"
 msgstr "Startseite Mitte"
 
-#: berlinbuehnen/settings.py:482
+#: berlinbuehnen/settings.py:483
 msgid "Start page right"
 msgstr "Startseite rechts"
 
-#: berlinbuehnen/settings.py:487
+#: berlinbuehnen/settings.py:488
 msgid "Default"
 msgstr "vorgegeben"
 
-#: berlinbuehnen/settings.py:488
+#: berlinbuehnen/settings.py:489
 msgid "Homepage"
 msgstr "Internetseite"
 
-#: berlinbuehnen/settings.py:617 berlinbuehnen/apps/locations/models.py:201
+#: berlinbuehnen/settings.py:618 berlinbuehnen/apps/locations/models.py:201
 #: berlinbuehnen/apps/productions/admin.py:175
 #: berlinbuehnen/apps/productions/models.py:141
 #: berlinbuehnen/apps/productions/models.py:719
 #: berlinbuehnen/apps/productions/forms/productions.py:84
 #: berlinbuehnen/templates/berlinbuehnen/favorites/_all_favorites.html:149
-#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:64
+#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:67
 #: berlinbuehnen/templates/berlinbuehnen/locations/location_list_map.html:23
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:158
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_locations.html:25
 #: berlinbuehnen/templates/berlinbuehnen/utils/dashboard_navigation.html:33
-#: berlinbuehnen/templates/berlinbuehnen/utils/dashboard_navigation.html:73
+#: berlinbuehnen/templates/berlinbuehnen/utils/dashboard_navigation.html:74
 #: berlinbuehnen/templates/berlinbuehnen/utils/header.html:70
 msgid "Theaters"
 msgstr "Bühnen"
 
-#: berlinbuehnen/settings.py:618 berlinbuehnen/apps/productions/models.py:211
+#: berlinbuehnen/settings.py:619 berlinbuehnen/apps/productions/models.py:211
 #: berlinbuehnen/apps/search/search_indexes.py:84
 #: berlinbuehnen/templates/berlinbuehnen/favorites/_all_favorites.html:150
-#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:100
+#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:96
 #: berlinbuehnen/templates/berlinbuehnen/productions/includes/other_productions.html:13
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:42
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_productions.html:31
 #: berlinbuehnen/templates/berlinbuehnen/utils/dashboard_navigation.html:31
-#: berlinbuehnen/templates/berlinbuehnen/utils/dashboard_navigation.html:71
+#: berlinbuehnen/templates/berlinbuehnen/utils/dashboard_navigation.html:72
 #: berlinbuehnen/templates/berlinbuehnen/utils/header.html:68
 msgid "Productions"
 msgstr "Produktionen"
 
-#: berlinbuehnen/settings.py:619 berlinbuehnen/apps/festivals/cms_app.py:8
+#: berlinbuehnen/settings.py:620 berlinbuehnen/apps/festivals/cms_app.py:8
 #: berlinbuehnen/apps/festivals/models.py:141
 #: berlinbuehnen/apps/productions/models.py:173
 #: berlinbuehnen/apps/productions/forms/productions.py:193
 #: berlinbuehnen/apps/search/search_indexes.py:186
 #: berlinbuehnen/templates/berlinbuehnen/favorites/_all_favorites.html:151
-#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:136
+#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:125
 #: berlinbuehnen/templates/berlinbuehnen/festivals/festival_list.html:4
 #: berlinbuehnen/templates/berlinbuehnen/festivals/festival_list.html:19
 #: berlinbuehnen/templates/berlinbuehnen/festivals/includes/festivals_slider.html:7
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:218
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_festivals.html:31
 #: berlinbuehnen/templates/berlinbuehnen/utils/dashboard_navigation.html:34
-#: berlinbuehnen/templates/berlinbuehnen/utils/dashboard_navigation.html:74
+#: berlinbuehnen/templates/berlinbuehnen/utils/dashboard_navigation.html:75
 #: berlinbuehnen/templates/berlinbuehnen/utils/header.html:71
 msgid "Festivals"
 msgstr "Festivals"
 
-#: berlinbuehnen/settings.py:620
+#: berlinbuehnen/settings.py:621
 #: berlinbuehnen/templates/berlinbuehnen/articles/articles_overview.html:9
 #: berlinbuehnen/templates/berlinbuehnen/cms/start.html:154
 #: berlinbuehnen/templates/berlinbuehnen/cms/start.html:189
 msgid "News"
 msgstr "Aktuelles"
 
-#: berlinbuehnen/settings.py:621 berlinbuehnen/apps/advertising/models.py:201
+#: berlinbuehnen/settings.py:622 berlinbuehnen/apps/advertising/models.py:201
 msgid "Banner"
 msgstr ""
 
-#: berlinbuehnen/settings.py:622 berlinbuehnen/apps/mailchimp/models.py:375
+#: berlinbuehnen/settings.py:623 berlinbuehnen/apps/mailchimp/models.py:375
 msgid "Image and text"
 msgstr "Bild und Text"
 
-#: berlinbuehnen/settings.py:623 berlinbuehnen/apps/mailchimp/models.py:376
+#: berlinbuehnen/settings.py:624 berlinbuehnen/apps/mailchimp/models.py:376
 msgid "Text only"
 msgstr "Nur Text"
 
@@ -241,11 +241,11 @@ msgstr "Email oder Username"
 
 #: berlinbuehnen/apps/accounts/forms.py:42
 #: berlinbuehnen/apps/site_specific/forms.py:110
-#: berlinbuehnen/templates/berlinbuehnen/accounts/login.html:10
+#: berlinbuehnen/templates/berlinbuehnen/accounts/login.html:9
 #: berlinbuehnen/templates/berlinbuehnen/accounts/register.html:12
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/claiming_confirmation.html:22
-#: berlinbuehnen/templates/berlinbuehnen/utils/dashboard_navigation.html:47
-#: berlinbuehnen/templates/berlinbuehnen/utils/header.html:80
+#: berlinbuehnen/templates/berlinbuehnen/utils/dashboard_navigation.html:48
+#: berlinbuehnen/templates/berlinbuehnen/utils/header.html:82
 msgid "Login"
 msgstr "Login"
 
@@ -264,13 +264,13 @@ msgid "This account is inactive."
 msgstr "Dieser Account ist inaktiv."
 
 #: berlinbuehnen/apps/accounts/forms.py:81
-#: berlinbuehnen/apps/education/models.py:87
-#: berlinbuehnen/apps/education/models.py:208
-#: berlinbuehnen/apps/education/models.py:345
-#: berlinbuehnen/apps/education/models.py:510
+#: berlinbuehnen/apps/education/models.py:86
+#: berlinbuehnen/apps/education/models.py:207
+#: berlinbuehnen/apps/education/models.py:344
+#: berlinbuehnen/apps/education/models.py:525
 #: berlinbuehnen/apps/festivals/models.py:89
 #: berlinbuehnen/apps/locations/models.py:154
-#: berlinbuehnen/apps/marketplace/models.py:113
+#: berlinbuehnen/apps/marketplace/models.py:115
 #: berlinbuehnen/apps/site_specific/forms.py:43
 msgid "Email"
 msgstr "Email"
@@ -355,15 +355,15 @@ msgstr "Haupt Data"
 #: berlinbuehnen/apps/locations/models.py:96
 #: berlinbuehnen/apps/locations/models.py:139
 #: berlinbuehnen/apps/locations/forms/locations.py:559
-#: berlinbuehnen/apps/marketplace/admin.py:69
-#: berlinbuehnen/apps/marketplace/forms.py:200
+#: berlinbuehnen/apps/marketplace/admin.py:126
+#: berlinbuehnen/apps/marketplace/forms.py:201
 #: berlinbuehnen/apps/marketplace/models.py:57
-#: berlinbuehnen/apps/marketplace/models.py:97
+#: berlinbuehnen/apps/marketplace/models.py:98
 #: berlinbuehnen/apps/productions/models.py:82
 #: berlinbuehnen/apps/productions/models.py:156
 #: berlinbuehnen/apps/productions/forms/productions.py:44
 #: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:357
-#: berlinbuehnen/templates/berlinbuehnen/marketplace/includes/sidebar.html:65
+#: berlinbuehnen/templates/berlinbuehnen/marketplace/includes/sidebar.html:17
 #: berlinbuehnen/templates/berlinbuehnen/utils/filter_job_offers.html:32
 msgid "Categories"
 msgstr "Kategorien"
@@ -394,17 +394,16 @@ msgstr ""
 #: berlinbuehnen/apps/advertising/models.py:59
 #: berlinbuehnen/apps/advertising/models.py:73
 #: berlinbuehnen/apps/advertising/models.py:91
-#: berlinbuehnen/apps/blog/forms.py:20
-#: berlinbuehnen/apps/education/admin.py:46
+#: berlinbuehnen/apps/blog/forms.py:20 berlinbuehnen/apps/education/admin.py:46
 #: berlinbuehnen/apps/education/admin.py:58
 #: berlinbuehnen/apps/education/admin.py:107
 #: berlinbuehnen/apps/education/admin.py:216
 #: berlinbuehnen/apps/education/admin.py:228
 #: berlinbuehnen/apps/education/models.py:68
-#: berlinbuehnen/apps/education/models.py:298
-#: berlinbuehnen/apps/education/models.py:311
-#: berlinbuehnen/apps/education/models.py:324
-#: berlinbuehnen/apps/education/models.py:600
+#: berlinbuehnen/apps/education/models.py:297
+#: berlinbuehnen/apps/education/models.py:310
+#: berlinbuehnen/apps/education/models.py:323
+#: berlinbuehnen/apps/education/models.py:615
 #: berlinbuehnen/apps/festivals/admin.py:64
 #: berlinbuehnen/apps/festivals/models.py:71
 #: berlinbuehnen/apps/locations/admin.py:32
@@ -423,7 +422,7 @@ msgstr ""
 #: berlinbuehnen/apps/mailchimp/models.py:91
 #: berlinbuehnen/apps/marketplace/admin.py:29
 #: berlinbuehnen/apps/marketplace/admin.py:42
-#: berlinbuehnen/apps/marketplace/admin.py:63
+#: berlinbuehnen/apps/marketplace/admin.py:65
 #: berlinbuehnen/apps/marketplace/models.py:33
 #: berlinbuehnen/apps/marketplace/models.py:47
 #: berlinbuehnen/apps/marketplace/models.py:90
@@ -461,8 +460,9 @@ msgstr ""
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:110
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:162
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:222
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:282
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_festivals.html:39
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:34
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:42
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_locations.html:34
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_multiparts.html:46
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_productions.html:39
@@ -474,7 +474,11 @@ msgstr "Titel"
 #: berlinbuehnen/apps/articles/admin.py:43
 #: berlinbuehnen/apps/education/admin.py:233
 #: berlinbuehnen/apps/education/models.py:69
-#: berlinbuehnen/apps/education/models.py:326
+#: berlinbuehnen/apps/education/models.py:325
+#: berlinbuehnen/apps/education/forms/departments.py:283
+#: berlinbuehnen/apps/education/forms/departments.py:709
+#: berlinbuehnen/apps/education/forms/projects.py:483
+#: berlinbuehnen/apps/education/forms/projects.py:1120
 #: berlinbuehnen/apps/festivals/models.py:73
 #: berlinbuehnen/apps/locations/models.py:136
 #: berlinbuehnen/apps/locations/models.py:283
@@ -486,7 +490,7 @@ msgstr "Titel"
 #: berlinbuehnen/apps/productions/models.py:732
 #: berlinbuehnen/apps/productions/forms/events.py:604
 #: berlinbuehnen/apps/productions/forms/productions.py:456
-#: berlinbuehnen/apps/productions/forms/productions.py:1504
+#: berlinbuehnen/apps/productions/forms/productions.py:1509
 #: berlinbuehnen/apps/theater_of_the_week/admin.py:26
 #: berlinbuehnen/templates/berlinbuehnen/productions/events/base.html:78
 #: berlinbuehnen/templates/berlinbuehnen/productions/events/base.html:85
@@ -705,18 +709,17 @@ msgstr ""
 #: berlinbuehnen/apps/blog/forms.py:37
 #: berlinbuehnen/apps/education/admin.py:113
 #: berlinbuehnen/apps/education/admin.py:237
-#: berlinbuehnen/apps/education/models.py:91
-#: berlinbuehnen/apps/education/models.py:365
+#: berlinbuehnen/apps/education/models.py:90
+#: berlinbuehnen/apps/education/models.py:364
 #: berlinbuehnen/apps/festivals/admin.py:81
 #: berlinbuehnen/apps/festivals/models.py:129
 #: berlinbuehnen/apps/locations/admin.py:151
 #: berlinbuehnen/apps/locations/models.py:189
 #: berlinbuehnen/apps/mailchimp/models.py:57
 #: berlinbuehnen/apps/mailchimp/models.py:199
-#: berlinbuehnen/apps/marketplace/admin.py:70
-#: berlinbuehnen/apps/marketplace/models.py:116
-#: berlinbuehnen/apps/people/admin.py:64
-#: berlinbuehnen/apps/people/models.py:82
+#: berlinbuehnen/apps/marketplace/admin.py:137
+#: berlinbuehnen/apps/marketplace/models.py:118
+#: berlinbuehnen/apps/people/admin.py:64 berlinbuehnen/apps/people/models.py:82
 #: berlinbuehnen/apps/productions/admin.py:161
 #: berlinbuehnen/apps/productions/models.py:194
 #: berlinbuehnen/apps/productions/forms/events.py:401
@@ -724,8 +727,9 @@ msgstr ""
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:48
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:164
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:224
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:284
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_festivals.html:53
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:48
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:64
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_locations.html:48
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_productions.html:53
 msgid "Status"
@@ -906,7 +910,7 @@ msgstr ""
 #: berlinbuehnen/apps/education/admin.py:36
 #: berlinbuehnen/apps/festivals/admin.py:46
 #: berlinbuehnen/apps/locations/admin.py:115
-#: berlinbuehnen/apps/marketplace/admin.py:52
+#: berlinbuehnen/apps/marketplace/admin.py:53
 #: berlinbuehnen/apps/multiparts/admin.py:26
 #: berlinbuehnen/apps/productions/admin.py:138
 msgid "Users"
@@ -914,8 +918,10 @@ msgstr ""
 
 #: berlinbuehnen/apps/education/admin.py:91
 #: berlinbuehnen/apps/education/admin.py:187
-#: berlinbuehnen/apps/education/models.py:203
-#: berlinbuehnen/apps/education/models.py:505
+#: berlinbuehnen/apps/education/models.py:202
+#: berlinbuehnen/apps/education/models.py:520
+#: berlinbuehnen/apps/education/forms/departments.py:390
+#: berlinbuehnen/apps/education/forms/projects.py:611
 #: berlinbuehnen/apps/productions/admin.py:115
 #: berlinbuehnen/apps/productions/admin.py:301
 #: berlinbuehnen/apps/productions/models.py:610
@@ -939,12 +945,12 @@ msgstr "Funktion"
 #: berlinbuehnen/apps/locations/admin.py:135
 #: berlinbuehnen/apps/locations/admin.py:136
 #: berlinbuehnen/apps/locations/admin.py:147
-#: berlinbuehnen/apps/marketplace/admin.py:68
-#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:176
+#: berlinbuehnen/apps/marketplace/admin.py:109
+#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:168
 #: berlinbuehnen/templates/berlinbuehnen/education/includes/department_sidebar.html:29
 #: berlinbuehnen/templates/berlinbuehnen/education/includes/department_sidebar.html:75
-#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:76
-#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:128
+#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:80
+#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:132
 #: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:434
 #: berlinbuehnen/templates/berlinbuehnen/festivals/includes/sidebar.html:22
 #: berlinbuehnen/templates/berlinbuehnen/festivals/includes/sidebar.html:50
@@ -956,7 +962,7 @@ msgstr "Funktion"
 #: berlinbuehnen/templates/berlinbuehnen/locations/includes/sidebar.html:104
 #: berlinbuehnen/templates/berlinbuehnen/locations/includes/sidebar.html:107
 #: berlinbuehnen/templates/berlinbuehnen/locations/includes/sidebar.html:167
-#: berlinbuehnen/templates/berlinbuehnen/marketplace/includes/sidebar.html:31
+#: berlinbuehnen/templates/berlinbuehnen/marketplace/includes/sidebar.html:47
 msgid "Phone"
 msgstr "Telefon"
 
@@ -982,12 +988,12 @@ msgstr "Bühne"
 #: berlinbuehnen/apps/locations/admin.py:133
 #: berlinbuehnen/apps/locations/forms/locations.py:191
 #: berlinbuehnen/apps/locations/forms/locations.py:729
-#: berlinbuehnen/apps/marketplace/admin.py:65
+#: berlinbuehnen/apps/marketplace/admin.py:87
 msgid "Address"
 msgstr "Adresse"
 
 #: berlinbuehnen/apps/education/admin.py:111
-#: berlinbuehnen/apps/education/models.py:90
+#: berlinbuehnen/apps/education/models.py:89
 #: berlinbuehnen/apps/locations/admin.py:134
 #: berlinbuehnen/apps/locations/models.py:52
 #: berlinbuehnen/apps/locations/models.py:184
@@ -999,7 +1005,7 @@ msgstr "Bezirk"
 #: berlinbuehnen/apps/education/admin.py:188
 #: berlinbuehnen/apps/festivals/admin.py:68
 #: berlinbuehnen/apps/locations/admin.py:135
-#: berlinbuehnen/apps/marketplace/admin.py:68
+#: berlinbuehnen/apps/marketplace/admin.py:104
 msgid "Contacts"
 msgstr "Kontakte"
 
@@ -1011,10 +1017,10 @@ msgstr "Kontakte"
 #: berlinbuehnen/apps/locations/admin.py:135
 #: berlinbuehnen/apps/locations/admin.py:136
 #: berlinbuehnen/apps/locations/admin.py:147
-#: berlinbuehnen/apps/marketplace/admin.py:68
+#: berlinbuehnen/apps/marketplace/admin.py:117
 #: berlinbuehnen/templates/berlinbuehnen/education/includes/department_sidebar.html:33
-#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:80
-#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:132
+#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:84
+#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:136
 #: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:439
 #: berlinbuehnen/templates/berlinbuehnen/festivals/includes/sidebar.html:26
 #: berlinbuehnen/templates/berlinbuehnen/festivals/includes/sidebar.html:54
@@ -1025,7 +1031,7 @@ msgstr "Kontakte"
 #: berlinbuehnen/templates/berlinbuehnen/locations/includes/sidebar.html:25
 #: berlinbuehnen/templates/berlinbuehnen/locations/includes/sidebar.html:112
 #: berlinbuehnen/templates/berlinbuehnen/locations/includes/sidebar.html:171
-#: berlinbuehnen/templates/berlinbuehnen/marketplace/includes/sidebar.html:35
+#: berlinbuehnen/templates/berlinbuehnen/marketplace/includes/sidebar.html:51
 msgid "Fax"
 msgstr "Fax"
 
@@ -1033,7 +1039,7 @@ msgstr "Fax"
 #: berlinbuehnen/apps/education/admin.py:261
 #: berlinbuehnen/apps/festivals/admin.py:98
 #: berlinbuehnen/apps/locations/admin.py:161
-#: berlinbuehnen/apps/marketplace/admin.py:82
+#: berlinbuehnen/apps/marketplace/admin.py:157
 #: berlinbuehnen/apps/multiparts/admin.py:46
 #: berlinbuehnen/apps/productions/admin.py:198
 msgid "Manage owners"
@@ -1043,7 +1049,7 @@ msgstr "Eigentümer verwalten"
 #: berlinbuehnen/apps/education/admin.py:268
 #: berlinbuehnen/apps/festivals/admin.py:105
 #: berlinbuehnen/apps/locations/admin.py:168
-#: berlinbuehnen/apps/marketplace/admin.py:89
+#: berlinbuehnen/apps/marketplace/admin.py:165
 #: berlinbuehnen/apps/multiparts/admin.py:53
 #: berlinbuehnen/apps/productions/admin.py:205
 #: berlinbuehnen/templates/admin/admin/owners.html:16
@@ -1062,23 +1068,25 @@ msgid "Free Location"
 msgstr "Offene Veranstaltung"
 
 #: berlinbuehnen/apps/education/admin.py:232
-#: berlinbuehnen/apps/education/forms/departments.py:222
-#: berlinbuehnen/apps/education/forms/projects.py:222
+#: berlinbuehnen/apps/education/forms/departments.py:146
+#: berlinbuehnen/apps/education/forms/departments.py:395
+#: berlinbuehnen/apps/education/forms/projects.py:164
+#: berlinbuehnen/apps/education/forms/projects.py:616
 #: berlinbuehnen/apps/festivals/forms/festivals.py:222
 #: berlinbuehnen/apps/locations/forms/locations.py:230
-#: berlinbuehnen/apps/marketplace/forms.py:142
+#: berlinbuehnen/apps/marketplace/forms.py:143
 #: berlinbuehnen/templates/berlinbuehnen/education/includes/department_sidebar.html:24
-#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:66
-#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:118
+#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:70
+#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:122
 #: berlinbuehnen/templates/berlinbuehnen/festivals/includes/sidebar.html:20
 #: berlinbuehnen/templates/berlinbuehnen/locations/includes/sidebar.html:19
-#: berlinbuehnen/templates/berlinbuehnen/marketplace/includes/sidebar.html:29
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:345
+#: berlinbuehnen/templates/berlinbuehnen/marketplace/includes/sidebar.html:45
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:342
 msgid "Contact"
 msgstr "Kontakt"
 
 #: berlinbuehnen/apps/education/admin.py:234
-#: berlinbuehnen/apps/education/models.py:352
+#: berlinbuehnen/apps/education/models.py:351
 #: berlinbuehnen/apps/productions/admin.py:158
 #: berlinbuehnen/apps/productions/admin.py:332
 msgid "Prices"
@@ -1097,7 +1105,8 @@ msgid "Additional details"
 msgstr "zusätzliche Details / Infos"
 
 #: berlinbuehnen/apps/education/admin.py:236
-#: berlinbuehnen/apps/education/models.py:360
+#: berlinbuehnen/apps/education/models.py:359
+#: berlinbuehnen/apps/education/forms/projects.py:510
 #: berlinbuehnen/apps/productions/admin.py:160
 #: berlinbuehnen/apps/productions/admin.py:333
 #: berlinbuehnen/apps/productions/models.py:189
@@ -1128,6 +1137,11 @@ msgstr "Bühnen"
 msgid "The owners of %(project)s"
 msgstr "Weitere Produktionen"
 
+#: berlinbuehnen/apps/education/autocomplete_light_registry.py:14
+#, fuzzy
+msgid "Start typing to choose an educational department"
+msgstr "Tippen zur Auswahl einer Produktion"
+
 #: berlinbuehnen/apps/education/cms_app.py:8
 #, fuzzy
 msgid "Educational Departments"
@@ -1135,7 +1149,7 @@ msgstr "Theaterpädagogik Abteilungen"
 
 #: berlinbuehnen/apps/education/cms_app.py:15
 #: berlinbuehnen/templates/berlinbuehnen/favorites/_all_favorites.html:152
-#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:172
+#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:154
 msgid "Educational Projects"
 msgstr "Theaterpädagogik Projekte"
 
@@ -1147,6 +1161,8 @@ msgstr "Theaterpädagogik Projekte"
 #: berlinbuehnen/apps/people/models.py:15
 #: berlinbuehnen/apps/productions/models.py:31
 #: berlinbuehnen/apps/sponsors/models.py:13
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/base.html:47
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/base.html:47
 #: berlinbuehnen/templates/berlinbuehnen/festivals/forms/base.html:45
 #: berlinbuehnen/templates/berlinbuehnen/locations/forms/base.html:44
 #: berlinbuehnen/templates/berlinbuehnen/marketplace/forms/base.html:44
@@ -1155,8 +1171,9 @@ msgstr "Theaterpädagogik Projekte"
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:65
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:178
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:238
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:298
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_festivals.html:69
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:62
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:85
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_locations.html:62
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_productions.html:69
 msgid "Draft"
@@ -1169,6 +1186,8 @@ msgstr "Entwurf"
 #: berlinbuehnen/apps/people/models.py:16
 #: berlinbuehnen/apps/productions/models.py:32
 #: berlinbuehnen/apps/sponsors/models.py:14
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/base.html:48
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/base.html:48
 #: berlinbuehnen/templates/berlinbuehnen/festivals/forms/base.html:46
 #: berlinbuehnen/templates/berlinbuehnen/locations/forms/base.html:45
 #: berlinbuehnen/templates/berlinbuehnen/marketplace/forms/base.html:45
@@ -1177,8 +1196,9 @@ msgstr "Entwurf"
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:66
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:179
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:239
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:299
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_festivals.html:70
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:63
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:87
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_locations.html:63
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_productions.html:70
 msgid "Published"
@@ -1192,7 +1212,8 @@ msgstr "veröffentlicht"
 #: berlinbuehnen/apps/productions/models.py:33
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:180
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:240
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:64
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:300
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:89
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_locations.html:64
 msgid "Not Listed"
 msgstr "Nicht gelistet"
@@ -1241,75 +1262,75 @@ msgstr "Nur zur Nutzung auf dieser und der eigenen Seite freigegeben"
 msgid "Teaser"
 msgstr "Teaser"
 
-#: berlinbuehnen/apps/education/models.py:73
-#: berlinbuehnen/apps/education/models.py:330
+#: berlinbuehnen/apps/education/models.py:72
+#: berlinbuehnen/apps/education/models.py:329
 #: berlinbuehnen/apps/festivals/models.py:76
 #: berlinbuehnen/apps/festivals/models.py:92
 #: berlinbuehnen/apps/locations/models.py:141
 #: berlinbuehnen/apps/locations/models.py:157
 #: berlinbuehnen/apps/locations/models.py:285
-#: berlinbuehnen/apps/marketplace/models.py:100
+#: berlinbuehnen/apps/marketplace/models.py:102
 #: berlinbuehnen/apps/productions/models.py:149
 #: berlinbuehnen/apps/productions/models.py:723
 msgid "Street address"
 msgstr "Straße"
 
-#: berlinbuehnen/apps/education/models.py:74
-#: berlinbuehnen/apps/education/models.py:331
+#: berlinbuehnen/apps/education/models.py:73
+#: berlinbuehnen/apps/education/models.py:330
 #: berlinbuehnen/apps/festivals/models.py:77
 #: berlinbuehnen/apps/festivals/models.py:93
 #: berlinbuehnen/apps/locations/models.py:142
 #: berlinbuehnen/apps/locations/models.py:158
 #: berlinbuehnen/apps/locations/models.py:286
-#: berlinbuehnen/apps/marketplace/models.py:101
+#: berlinbuehnen/apps/marketplace/models.py:103
 #: berlinbuehnen/apps/productions/models.py:150
 #: berlinbuehnen/apps/productions/models.py:724
 msgid "Street address (second line)"
 msgstr "Adresszusatz"
 
-#: berlinbuehnen/apps/education/models.py:75
-#: berlinbuehnen/apps/education/models.py:332
+#: berlinbuehnen/apps/education/models.py:74
+#: berlinbuehnen/apps/education/models.py:331
 #: berlinbuehnen/apps/festivals/models.py:78
 #: berlinbuehnen/apps/festivals/models.py:94
 #: berlinbuehnen/apps/locations/models.py:143
 #: berlinbuehnen/apps/locations/models.py:159
 #: berlinbuehnen/apps/locations/models.py:287
-#: berlinbuehnen/apps/marketplace/models.py:102
+#: berlinbuehnen/apps/marketplace/models.py:104
 #: berlinbuehnen/apps/productions/models.py:151
 #: berlinbuehnen/apps/productions/models.py:725
 msgid "Postal code"
 msgstr "Postleitzahl"
 
-#: berlinbuehnen/apps/education/models.py:76
-#: berlinbuehnen/apps/education/models.py:333
+#: berlinbuehnen/apps/education/models.py:75
+#: berlinbuehnen/apps/education/models.py:332
 #: berlinbuehnen/apps/festivals/models.py:79
 #: berlinbuehnen/apps/festivals/models.py:95
 #: berlinbuehnen/apps/locations/models.py:144
 #: berlinbuehnen/apps/locations/models.py:160
 #: berlinbuehnen/apps/locations/models.py:288
-#: berlinbuehnen/apps/marketplace/models.py:103
+#: berlinbuehnen/apps/marketplace/models.py:105
 #: berlinbuehnen/apps/productions/models.py:152
 #: berlinbuehnen/apps/productions/models.py:726
 msgid "City"
 msgstr "Ort"
 
-#: berlinbuehnen/apps/education/models.py:77
-#: berlinbuehnen/apps/education/models.py:334
+#: berlinbuehnen/apps/education/models.py:76
+#: berlinbuehnen/apps/education/models.py:333
 #: berlinbuehnen/apps/festivals/models.py:80
 #: berlinbuehnen/apps/locations/models.py:145
 #: berlinbuehnen/apps/locations/models.py:289
-#: berlinbuehnen/apps/marketplace/models.py:104
+#: berlinbuehnen/apps/marketplace/models.py:106
 #: berlinbuehnen/apps/productions/models.py:153
 #: berlinbuehnen/apps/productions/models.py:727
 msgid "Latitude"
 msgstr "Breitengrad"
 
-#: berlinbuehnen/apps/education/models.py:77
-#: berlinbuehnen/apps/education/models.py:334
+#: berlinbuehnen/apps/education/models.py:76
+#: berlinbuehnen/apps/education/models.py:333
 #: berlinbuehnen/apps/festivals/models.py:80
 #: berlinbuehnen/apps/locations/models.py:145
 #: berlinbuehnen/apps/locations/models.py:289
-#: berlinbuehnen/apps/marketplace/models.py:104
+#: berlinbuehnen/apps/marketplace/models.py:106
 #: berlinbuehnen/apps/productions/models.py:153
 #: berlinbuehnen/apps/productions/models.py:727
 msgid ""
@@ -1317,23 +1338,23 @@ msgid ""
 "is at 90; south pole is at -90)."
 msgstr ""
 
-#: berlinbuehnen/apps/education/models.py:78
-#: berlinbuehnen/apps/education/models.py:335
+#: berlinbuehnen/apps/education/models.py:77
+#: berlinbuehnen/apps/education/models.py:334
 #: berlinbuehnen/apps/festivals/models.py:81
 #: berlinbuehnen/apps/locations/models.py:146
 #: berlinbuehnen/apps/locations/models.py:290
-#: berlinbuehnen/apps/marketplace/models.py:105
+#: berlinbuehnen/apps/marketplace/models.py:107
 #: berlinbuehnen/apps/productions/models.py:154
 #: berlinbuehnen/apps/productions/models.py:728
 msgid "Longitude"
 msgstr "Langengrad"
 
-#: berlinbuehnen/apps/education/models.py:78
-#: berlinbuehnen/apps/education/models.py:335
+#: berlinbuehnen/apps/education/models.py:77
+#: berlinbuehnen/apps/education/models.py:334
 #: berlinbuehnen/apps/festivals/models.py:81
 #: berlinbuehnen/apps/locations/models.py:146
 #: berlinbuehnen/apps/locations/models.py:290
-#: berlinbuehnen/apps/marketplace/models.py:105
+#: berlinbuehnen/apps/marketplace/models.py:107
 #: berlinbuehnen/apps/productions/models.py:154
 #: berlinbuehnen/apps/productions/models.py:728
 msgid ""
@@ -1343,18 +1364,18 @@ msgid ""
 "to east) and -180 (direction to west)."
 msgstr ""
 
-#: berlinbuehnen/apps/education/models.py:80
-#: berlinbuehnen/apps/education/models.py:338
+#: berlinbuehnen/apps/education/models.py:79
+#: berlinbuehnen/apps/education/models.py:337
 #, fuzzy
 msgid "Contact Name"
 msgstr "Kontakt"
 
-#: berlinbuehnen/apps/education/models.py:81
-#: berlinbuehnen/apps/education/models.py:84
-#: berlinbuehnen/apps/education/models.py:205
-#: berlinbuehnen/apps/education/models.py:339
-#: berlinbuehnen/apps/education/models.py:342
-#: berlinbuehnen/apps/education/models.py:507
+#: berlinbuehnen/apps/education/models.py:80
+#: berlinbuehnen/apps/education/models.py:83
+#: berlinbuehnen/apps/education/models.py:204
+#: berlinbuehnen/apps/education/models.py:338
+#: berlinbuehnen/apps/education/models.py:341
+#: berlinbuehnen/apps/education/models.py:522
 #: berlinbuehnen/apps/festivals/models.py:83
 #: berlinbuehnen/apps/festivals/models.py:86
 #: berlinbuehnen/apps/festivals/models.py:99
@@ -1368,17 +1389,17 @@ msgstr "Kontakt"
 #: berlinbuehnen/apps/locations/models.py:167
 #: berlinbuehnen/apps/locations/models.py:175
 #: berlinbuehnen/apps/locations/models.py:178
-#: berlinbuehnen/apps/marketplace/models.py:107
-#: berlinbuehnen/apps/marketplace/models.py:110
+#: berlinbuehnen/apps/marketplace/models.py:109
+#: berlinbuehnen/apps/marketplace/models.py:112
 msgid "Country Code"
 msgstr "Landesvorwahl"
 
-#: berlinbuehnen/apps/education/models.py:82
-#: berlinbuehnen/apps/education/models.py:85
-#: berlinbuehnen/apps/education/models.py:206
-#: berlinbuehnen/apps/education/models.py:340
-#: berlinbuehnen/apps/education/models.py:343
-#: berlinbuehnen/apps/education/models.py:508
+#: berlinbuehnen/apps/education/models.py:81
+#: berlinbuehnen/apps/education/models.py:84
+#: berlinbuehnen/apps/education/models.py:205
+#: berlinbuehnen/apps/education/models.py:339
+#: berlinbuehnen/apps/education/models.py:342
+#: berlinbuehnen/apps/education/models.py:523
 #: berlinbuehnen/apps/festivals/models.py:84
 #: berlinbuehnen/apps/festivals/models.py:87
 #: berlinbuehnen/apps/festivals/models.py:100
@@ -1392,17 +1413,17 @@ msgstr "Landesvorwahl"
 #: berlinbuehnen/apps/locations/models.py:168
 #: berlinbuehnen/apps/locations/models.py:176
 #: berlinbuehnen/apps/locations/models.py:179
-#: berlinbuehnen/apps/marketplace/models.py:108
-#: berlinbuehnen/apps/marketplace/models.py:111
+#: berlinbuehnen/apps/marketplace/models.py:110
+#: berlinbuehnen/apps/marketplace/models.py:113
 msgid "Area Code"
 msgstr "Ortsvorwahl"
 
-#: berlinbuehnen/apps/education/models.py:83
-#: berlinbuehnen/apps/education/models.py:86
-#: berlinbuehnen/apps/education/models.py:207
-#: berlinbuehnen/apps/education/models.py:341
-#: berlinbuehnen/apps/education/models.py:344
-#: berlinbuehnen/apps/education/models.py:509
+#: berlinbuehnen/apps/education/models.py:82
+#: berlinbuehnen/apps/education/models.py:85
+#: berlinbuehnen/apps/education/models.py:206
+#: berlinbuehnen/apps/education/models.py:340
+#: berlinbuehnen/apps/education/models.py:343
+#: berlinbuehnen/apps/education/models.py:524
 #: berlinbuehnen/apps/festivals/models.py:85
 #: berlinbuehnen/apps/festivals/models.py:88
 #: berlinbuehnen/apps/festivals/models.py:101
@@ -1416,28 +1437,28 @@ msgstr "Ortsvorwahl"
 #: berlinbuehnen/apps/locations/models.py:169
 #: berlinbuehnen/apps/locations/models.py:177
 #: berlinbuehnen/apps/locations/models.py:180
-#: berlinbuehnen/apps/marketplace/models.py:109
-#: berlinbuehnen/apps/marketplace/models.py:112
+#: berlinbuehnen/apps/marketplace/models.py:111
+#: berlinbuehnen/apps/marketplace/models.py:114
 msgid "Subscriber Number and Extension"
 msgstr "Nummer inkl. Durchwahl"
 
-#: berlinbuehnen/apps/education/models.py:95
+#: berlinbuehnen/apps/education/models.py:94
 msgid "Education department"
 msgstr "Theaterpädagogik Abteilung"
 
-#: berlinbuehnen/apps/education/models.py:96
+#: berlinbuehnen/apps/education/models.py:95
 msgid "Education departments"
 msgstr "Theaterpädagogik Abteilungen"
 
-#: berlinbuehnen/apps/education/models.py:201
-#: berlinbuehnen/apps/education/models.py:225
-#: berlinbuehnen/apps/education/models.py:272
+#: berlinbuehnen/apps/education/models.py:200
+#: berlinbuehnen/apps/education/models.py:224
+#: berlinbuehnen/apps/education/models.py:271
 #, fuzzy
 msgid "Department"
 msgstr "Abfahrt"
 
-#: berlinbuehnen/apps/education/models.py:202
-#: berlinbuehnen/apps/education/models.py:504
+#: berlinbuehnen/apps/education/models.py:201
+#: berlinbuehnen/apps/education/models.py:519
 #: berlinbuehnen/apps/productions/models.py:609
 #: berlinbuehnen/apps/productions/models.py:630
 #: berlinbuehnen/apps/productions/models.py:652
@@ -1447,13 +1468,13 @@ msgstr "Abfahrt"
 msgid "Person"
 msgstr "Person"
 
-#: berlinbuehnen/apps/education/models.py:210
-#: berlinbuehnen/apps/education/models.py:228
-#: berlinbuehnen/apps/education/models.py:274
-#: berlinbuehnen/apps/education/models.py:512
-#: berlinbuehnen/apps/education/models.py:530
-#: berlinbuehnen/apps/education/models.py:575
-#: berlinbuehnen/apps/education/models.py:602
+#: berlinbuehnen/apps/education/models.py:209
+#: berlinbuehnen/apps/education/models.py:227
+#: berlinbuehnen/apps/education/models.py:273
+#: berlinbuehnen/apps/education/models.py:527
+#: berlinbuehnen/apps/education/models.py:545
+#: berlinbuehnen/apps/education/models.py:590
+#: berlinbuehnen/apps/education/models.py:617
 #: berlinbuehnen/apps/festivals/models.py:227
 #: berlinbuehnen/apps/festivals/models.py:272
 #: berlinbuehnen/apps/locations/models.py:308
@@ -1479,19 +1500,19 @@ msgstr "Person"
 msgid "Sort order"
 msgstr "Auflistung"
 
-#: berlinbuehnen/apps/education/models.py:214
+#: berlinbuehnen/apps/education/models.py:213
 #, fuzzy
 msgid "Department team member"
 msgstr "Mitglied löschen"
 
-#: berlinbuehnen/apps/education/models.py:215
+#: berlinbuehnen/apps/education/models.py:214
 msgid "Department team members"
 msgstr "Theaterpädagogik Mitarbeiter"
 
-#: berlinbuehnen/apps/education/models.py:226
-#: berlinbuehnen/apps/education/models.py:273
-#: berlinbuehnen/apps/education/models.py:528
-#: berlinbuehnen/apps/education/models.py:574
+#: berlinbuehnen/apps/education/models.py:225
+#: berlinbuehnen/apps/education/models.py:272
+#: berlinbuehnen/apps/education/models.py:543
+#: berlinbuehnen/apps/education/models.py:589
 #: berlinbuehnen/apps/festivals/models.py:225
 #: berlinbuehnen/apps/festivals/models.py:271
 #: berlinbuehnen/apps/locations/models.py:306
@@ -1504,8 +1525,8 @@ msgstr "Theaterpädagogik Mitarbeiter"
 msgid "File path"
 msgstr "Deteipfad"
 
-#: berlinbuehnen/apps/education/models.py:226
-#: berlinbuehnen/apps/education/models.py:528
+#: berlinbuehnen/apps/education/models.py:225
+#: berlinbuehnen/apps/education/models.py:543
 #: berlinbuehnen/apps/festivals/models.py:225
 #: berlinbuehnen/apps/locations/models.py:306
 #: berlinbuehnen/apps/mailchimp/models.py:196
@@ -1515,9 +1536,9 @@ msgstr "Deteipfad"
 msgid "A path to a locally stored image."
 msgstr "Dateipfad zu einem lokal gespreicherten Bild."
 
-#: berlinbuehnen/apps/education/models.py:227
-#: berlinbuehnen/apps/education/models.py:529
-#: berlinbuehnen/apps/education/forms/gallery.py:59
+#: berlinbuehnen/apps/education/models.py:226
+#: berlinbuehnen/apps/education/models.py:544
+#: berlinbuehnen/apps/education/forms/gallery.py:213
 #: berlinbuehnen/apps/festivals/models.py:226
 #: berlinbuehnen/apps/festivals/forms/gallery.py:61
 #: berlinbuehnen/apps/locations/models.py:307
@@ -1528,8 +1549,8 @@ msgstr "Dateipfad zu einem lokal gespreicherten Bild."
 msgid "Copyright restrictions"
 msgstr "Urheberrechtsauflagen"
 
-#: berlinbuehnen/apps/education/models.py:232
-#: berlinbuehnen/apps/education/models.py:534
+#: berlinbuehnen/apps/education/models.py:231
+#: berlinbuehnen/apps/education/models.py:549
 #: berlinbuehnen/apps/festivals/models.py:231
 #: berlinbuehnen/apps/locations/models.py:58
 #: berlinbuehnen/apps/locations/models.py:72
@@ -1541,8 +1562,8 @@ msgstr "Urheberrechtsauflagen"
 msgid "Image"
 msgstr "Bild"
 
-#: berlinbuehnen/apps/education/models.py:233
-#: berlinbuehnen/apps/education/models.py:535
+#: berlinbuehnen/apps/education/models.py:232
+#: berlinbuehnen/apps/education/models.py:550
 #: berlinbuehnen/apps/festivals/models.py:232
 #: berlinbuehnen/apps/locations/models.py:313
 #: berlinbuehnen/apps/productions/models.py:563
@@ -1551,8 +1572,8 @@ msgstr "Bild"
 msgid "Images"
 msgstr "Bilder"
 
-#: berlinbuehnen/apps/education/models.py:253
-#: berlinbuehnen/apps/education/models.py:555
+#: berlinbuehnen/apps/education/models.py:252
+#: berlinbuehnen/apps/education/models.py:570
 #: berlinbuehnen/apps/festivals/models.py:252
 #: berlinbuehnen/apps/locations/models.py:333
 #: berlinbuehnen/apps/productions/models.py:472
@@ -1560,8 +1581,8 @@ msgstr "Bilder"
 msgid "Social media type"
 msgstr "Art des Sozialen Mediums"
 
-#: berlinbuehnen/apps/education/models.py:253
-#: berlinbuehnen/apps/education/models.py:555
+#: berlinbuehnen/apps/education/models.py:252
+#: berlinbuehnen/apps/education/models.py:570
 #: berlinbuehnen/apps/festivals/models.py:252
 #: berlinbuehnen/apps/locations/models.py:333
 #: berlinbuehnen/apps/productions/models.py:472
@@ -1569,8 +1590,8 @@ msgstr "Art des Sozialen Mediums"
 msgid "e.g. twitter, facebook, etc."
 msgstr "z.B. Twitter, Facebook, etc."
 
-#: berlinbuehnen/apps/education/models.py:254
-#: berlinbuehnen/apps/education/models.py:556
+#: berlinbuehnen/apps/education/models.py:253
+#: berlinbuehnen/apps/education/models.py:571
 #: berlinbuehnen/apps/festivals/models.py:253
 #: berlinbuehnen/apps/locations/models.py:334
 #: berlinbuehnen/apps/productions/models.py:473
@@ -1578,8 +1599,8 @@ msgstr "z.B. Twitter, Facebook, etc."
 msgid "URL"
 msgstr "URL"
 
-#: berlinbuehnen/apps/education/models.py:258
-#: berlinbuehnen/apps/education/models.py:560
+#: berlinbuehnen/apps/education/models.py:257
+#: berlinbuehnen/apps/education/models.py:575
 #: berlinbuehnen/apps/festivals/models.py:257
 #: berlinbuehnen/apps/locations/models.py:338
 #: berlinbuehnen/apps/productions/models.py:477
@@ -1587,8 +1608,8 @@ msgstr "URL"
 msgid "Social media channel"
 msgstr "Kanal der sozialen Medien"
 
-#: berlinbuehnen/apps/education/models.py:259
-#: berlinbuehnen/apps/education/models.py:561
+#: berlinbuehnen/apps/education/models.py:258
+#: berlinbuehnen/apps/education/models.py:576
 #: berlinbuehnen/apps/festivals/models.py:258
 #: berlinbuehnen/apps/locations/models.py:339
 #: berlinbuehnen/apps/productions/models.py:478
@@ -1596,35 +1617,37 @@ msgstr "Kanal der sozialen Medien"
 msgid "Social media channels"
 msgstr "Kanäle der sozialen Medien"
 
-#: berlinbuehnen/apps/education/models.py:273
-#: berlinbuehnen/apps/education/models.py:574
+#: berlinbuehnen/apps/education/models.py:272
+#: berlinbuehnen/apps/education/models.py:589
 #: berlinbuehnen/apps/festivals/models.py:271
 #: berlinbuehnen/apps/productions/models.py:583
 #: berlinbuehnen/apps/productions/models.py:1069
 msgid "A path to a locally stored PDF file."
 msgstr "Dateipfad zu lokal gespeicherter PDF Datei."
 
-#: berlinbuehnen/apps/education/models.py:278
-#: berlinbuehnen/apps/education/models.py:579
+#: berlinbuehnen/apps/education/models.py:277
+#: berlinbuehnen/apps/education/models.py:594
 #: berlinbuehnen/apps/festivals/models.py:276
 #: berlinbuehnen/apps/productions/models.py:588
 #: berlinbuehnen/apps/productions/models.py:1074
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/gallery_form.html:27
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/gallery_form.html:34
 #: berlinbuehnen/templates/berlinbuehnen/festivals/forms/gallery_form.html:27
 #: berlinbuehnen/templates/berlinbuehnen/productions/events/gallery_form.html:53
 #: berlinbuehnen/templates/berlinbuehnen/productions/forms/gallery_form.html:41
 msgid "PDF"
 msgstr "PDF"
 
-#: berlinbuehnen/apps/education/models.py:279
-#: berlinbuehnen/apps/education/models.py:580
+#: berlinbuehnen/apps/education/models.py:278
+#: berlinbuehnen/apps/education/models.py:595
 #: berlinbuehnen/apps/festivals/models.py:277
 #: berlinbuehnen/apps/productions/models.py:589
 #: berlinbuehnen/apps/productions/models.py:1075
 msgid "PDFs"
 msgstr "PDFs"
 
-#: berlinbuehnen/apps/education/models.py:299
-#: berlinbuehnen/apps/education/models.py:312
+#: berlinbuehnen/apps/education/models.py:298
+#: berlinbuehnen/apps/education/models.py:311
 #: berlinbuehnen/apps/locations/models.py:45
 #: berlinbuehnen/apps/locations/models.py:59
 #: berlinbuehnen/apps/locations/models.py:73
@@ -1638,25 +1661,25 @@ msgstr "PDFs"
 msgid "Sort Order"
 msgstr "Reihenfolge"
 
-#: berlinbuehnen/apps/education/models.py:306
+#: berlinbuehnen/apps/education/models.py:305
 msgid "Project target group"
 msgstr ""
 
-#: berlinbuehnen/apps/education/models.py:307
+#: berlinbuehnen/apps/education/models.py:306
 msgid "Project target groups"
 msgstr "Projektzielgruppe"
 
-#: berlinbuehnen/apps/education/models.py:319
-#: berlinbuehnen/apps/education/models.py:363
-#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:192
+#: berlinbuehnen/apps/education/models.py:318
+#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:196
 msgid "Project format"
 msgstr "Projektform"
 
-#: berlinbuehnen/apps/education/models.py:320
+#: berlinbuehnen/apps/education/models.py:319
+#: berlinbuehnen/apps/education/models.py:362
 msgid "Project formats"
 msgstr "Projektformen"
 
-#: berlinbuehnen/apps/education/models.py:325
+#: berlinbuehnen/apps/education/models.py:324
 #: berlinbuehnen/apps/festivals/models.py:72
 #: berlinbuehnen/apps/locations/models.py:135
 #: berlinbuehnen/apps/marketplace/models.py:91
@@ -1665,133 +1688,133 @@ msgstr "Projektformen"
 msgid "Subtitle"
 msgstr "Untertitel"
 
-#: berlinbuehnen/apps/education/models.py:327
+#: berlinbuehnen/apps/education/models.py:326
 msgid "Educational departments"
 msgstr "Theaterpädagogik Abteilungen"
 
-#: berlinbuehnen/apps/education/models.py:329
+#: berlinbuehnen/apps/education/models.py:328
 #: berlinbuehnen/apps/productions/models.py:148
 #: berlinbuehnen/apps/productions/models.py:722
 msgid "Location title"
 msgstr "Name der Spielstätte"
 
-#: berlinbuehnen/apps/education/models.py:337
+#: berlinbuehnen/apps/education/models.py:336
 #, fuzzy
 msgid "Contact Department"
 msgstr "Abfahrt"
 
-#: berlinbuehnen/apps/education/models.py:348
+#: berlinbuehnen/apps/education/models.py:347
 #: berlinbuehnen/apps/productions/models.py:185
 msgid "Age from"
 msgstr "Alter von"
 
-#: berlinbuehnen/apps/education/models.py:349
+#: berlinbuehnen/apps/education/models.py:348
 #: berlinbuehnen/apps/productions/models.py:186
 msgid "Age till"
 msgstr "Alter bis"
 
-#: berlinbuehnen/apps/education/models.py:350
+#: berlinbuehnen/apps/education/models.py:349
 msgid "Participant count"
 msgstr ""
 
-#: berlinbuehnen/apps/education/models.py:351
-#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:205
+#: berlinbuehnen/apps/education/models.py:350
+#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:209
 msgid "Workshop needs teachers"
 msgstr ""
 
-#: berlinbuehnen/apps/education/models.py:353
+#: berlinbuehnen/apps/education/models.py:352
 #: berlinbuehnen/apps/productions/models.py:177
 #: berlinbuehnen/apps/productions/models.py:750
-#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:215
+#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:219
 #: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:379
 #: berlinbuehnen/templates/berlinbuehnen/multiparts/multipart_list.html:38
 msgid "Free entrance"
 msgstr "Freier Eintritt"
 
-#: berlinbuehnen/apps/education/models.py:354
+#: berlinbuehnen/apps/education/models.py:353
 #: berlinbuehnen/apps/productions/models.py:180
 #: berlinbuehnen/apps/productions/models.py:753
 msgid "Tickets website"
 msgstr "Ticketlink"
 
-#: berlinbuehnen/apps/education/models.py:356
-#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:149
+#: berlinbuehnen/apps/education/models.py:355
+#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:141
 msgid "Special conditions"
 msgstr ""
 
-#: berlinbuehnen/apps/education/models.py:357
-#: berlinbuehnen/apps/marketplace/forms.py:220
+#: berlinbuehnen/apps/education/models.py:356
+#: berlinbuehnen/apps/marketplace/forms.py:222
 #: berlinbuehnen/apps/marketplace/models.py:93
 #: berlinbuehnen/apps/productions/models.py:168
 #: berlinbuehnen/apps/productions/models.py:742
-#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:157
+#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:149
 #: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:802
 msgid "Remarks"
 msgstr "Anmerkungen"
 
-#: berlinbuehnen/apps/education/models.py:358
-#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:190
+#: berlinbuehnen/apps/education/models.py:357
+#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:182
 #, fuzzy
 msgid "Cooperation partners"
 msgstr "in Zusammenarbeit mit"
 
-#: berlinbuehnen/apps/education/models.py:359
-#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:198
+#: berlinbuehnen/apps/education/models.py:358
+#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:190
 msgid "Supporters"
 msgstr ""
 
-#: berlinbuehnen/apps/education/models.py:362
-#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:169
-msgid "Target group"
+#: berlinbuehnen/apps/education/models.py:361
+#, fuzzy
+msgid "Target groups"
 msgstr "Zielgruppe"
 
-#: berlinbuehnen/apps/education/models.py:380
+#: berlinbuehnen/apps/education/models.py:388
 msgid "Educational project"
 msgstr "Theaterpädagogik Projekt"
 
-#: berlinbuehnen/apps/education/models.py:381
+#: berlinbuehnen/apps/education/models.py:389
 msgid "Educational projects"
 msgstr "Theaterpädagogik Projekte"
 
-#: berlinbuehnen/apps/education/models.py:489
-#: berlinbuehnen/apps/education/models.py:503
-#: berlinbuehnen/apps/education/models.py:527
-#: berlinbuehnen/apps/education/models.py:573
-#: berlinbuehnen/apps/education/models.py:599
+#: berlinbuehnen/apps/education/models.py:504
+#: berlinbuehnen/apps/education/models.py:518
+#: berlinbuehnen/apps/education/models.py:542
+#: berlinbuehnen/apps/education/models.py:588
+#: berlinbuehnen/apps/education/models.py:614
 msgid "Project"
 msgstr ""
 
-#: berlinbuehnen/apps/education/models.py:490
+#: berlinbuehnen/apps/education/models.py:505
 #, fuzzy
 msgid "Start date and time"
 msgstr "Datum und Uhrzeit"
 
-#: berlinbuehnen/apps/education/models.py:491
+#: berlinbuehnen/apps/education/models.py:506
 #, fuzzy
 msgid "End date and time"
 msgstr "Datum und Uhrzeit"
 
-#: berlinbuehnen/apps/education/models.py:495
+#: berlinbuehnen/apps/education/models.py:510
 #, fuzzy
 msgid "Project time"
 msgstr "Beginn"
 
-#: berlinbuehnen/apps/education/models.py:496
+#: berlinbuehnen/apps/education/models.py:511
 #, fuzzy
 msgid "Project times"
 msgstr "Beginn"
 
-#: berlinbuehnen/apps/education/models.py:516
+#: berlinbuehnen/apps/education/models.py:531
 #, fuzzy
 msgid "Project team member"
 msgstr "Mitglied löschen"
 
-#: berlinbuehnen/apps/education/models.py:517
+#: berlinbuehnen/apps/education/models.py:532
 #, fuzzy
 msgid "Project team members"
 msgstr "Mitglied löschen"
 
-#: berlinbuehnen/apps/education/models.py:601
+#: berlinbuehnen/apps/education/models.py:616
 #: berlinbuehnen/apps/productions/models.py:499
 #: berlinbuehnen/apps/productions/models.py:528
 #: berlinbuehnen/apps/productions/models.py:985
@@ -1800,85 +1823,48 @@ msgstr "Mitglied löschen"
 msgid "Link or embed code"
 msgstr "Link oder embed code"
 
-#: berlinbuehnen/apps/education/models.py:606
+#: berlinbuehnen/apps/education/models.py:621
 #: berlinbuehnen/apps/productions/models.py:504
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/gallery_form.html:18
 #: berlinbuehnen/templates/berlinbuehnen/productions/events/gallery_form.html:30
 #: berlinbuehnen/templates/berlinbuehnen/productions/forms/gallery_form.html:18
 msgid "Video/Audio"
 msgstr "Video/Audio"
 
-#: berlinbuehnen/apps/education/models.py:607
+#: berlinbuehnen/apps/education/models.py:622
 #: berlinbuehnen/apps/productions/models.py:505
 msgid "Videos/Audios"
 msgstr "Videos/Audios"
 
-#: berlinbuehnen/apps/education/forms/departments.py:139
-#: berlinbuehnen/apps/education/forms/projects.py:139
+#: berlinbuehnen/apps/education/forms/departments.py:101
+#: berlinbuehnen/apps/education/forms/projects.py:123
 #: berlinbuehnen/apps/festivals/forms/festivals.py:139
 #: berlinbuehnen/apps/locations/forms/locations.py:156
 #: berlinbuehnen/apps/locations/forms/locations.py:723
-#: berlinbuehnen/apps/marketplace/forms.py:102
+#: berlinbuehnen/apps/marketplace/forms.py:103
 msgid "Basic Info"
 msgstr "Basisinformation / Grundinformation"
 
-#: berlinbuehnen/apps/education/forms/departments.py:145
-#: berlinbuehnen/apps/education/forms/projects.py:145
-#: berlinbuehnen/apps/festivals/admin.py:66
-#: berlinbuehnen/apps/festivals/forms/festivals.py:145
-#: berlinbuehnen/apps/productions/forms/events.py:83
-#: berlinbuehnen/apps/productions/forms/events.py:196
-#: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:165
-#: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:213
-msgid "Duration"
-msgstr "Dauer"
-
-#: berlinbuehnen/apps/education/forms/departments.py:159
-#: berlinbuehnen/apps/education/forms/projects.py:159
-#: berlinbuehnen/apps/festivals/models.py:74
-#: berlinbuehnen/apps/festivals/forms/festivals.py:159
-#: berlinbuehnen/apps/locations/models.py:137
-#: berlinbuehnen/apps/locations/forms/locations.py:162
-msgid "Logo"
-msgstr "Logo"
-
-#: berlinbuehnen/apps/education/forms/departments.py:188
-#: berlinbuehnen/apps/education/forms/projects.py:188
-msgid "Project Office Address"
-msgstr ""
-
-#: berlinbuehnen/apps/education/forms/departments.py:275
-#: berlinbuehnen/apps/education/forms/projects.py:275
-#: berlinbuehnen/apps/festivals/forms/festivals.py:275
-#: berlinbuehnen/apps/locations/forms/locations.py:282
-msgid "Social media"
-msgstr "Social Media"
-
-#: berlinbuehnen/apps/education/forms/departments.py:297
-#: berlinbuehnen/apps/education/forms/projects.py:297
+#: berlinbuehnen/apps/education/forms/departments.py:107
 #, fuzzy
-msgid "Tickets Box Office (when differs from project address)"
-msgstr "Theaterkasse (falls abweichend von Adresse)"
+msgid "Educational Department Address"
+msgstr "Theaterpädagogik Abteilungen"
 
-#: berlinbuehnen/apps/education/forms/departments.py:351
-#: berlinbuehnen/apps/education/forms/projects.py:351
-#: berlinbuehnen/apps/festivals/forms/festivals.py:351
-#: berlinbuehnen/apps/locations/forms/locations.py:363
-msgid "Opening Hours of Tickets Box Office"
-msgstr "Öffnungszeiten des Kartenverkaufs"
+#: berlinbuehnen/apps/education/forms/departments.py:140
+#: berlinbuehnen/apps/locations/models.py:53
+#: berlinbuehnen/apps/locations/forms/locations.py:224
+#: berlinbuehnen/templates/berlinbuehnen/utils/filter_locations.html:37
+msgid "Districts"
+msgstr "Bezirke"
 
-#: berlinbuehnen/apps/education/forms/departments.py:490
-#: berlinbuehnen/apps/education/forms/projects.py:490
-#: berlinbuehnen/apps/festivals/admin.py:80
-#: berlinbuehnen/apps/festivals/forms/festivals.py:490
-#: berlinbuehnen/apps/locations/admin.py:147
-#: berlinbuehnen/apps/locations/forms/locations.py:501
-msgid "Press Contact"
-msgstr "Pressekontakte"
-
-#: berlinbuehnen/apps/education/forms/departments.py:570
-#: berlinbuehnen/apps/education/forms/departments.py:576
-#: berlinbuehnen/apps/education/forms/projects.py:570
-#: berlinbuehnen/apps/education/forms/projects.py:576
+#: berlinbuehnen/apps/education/forms/departments.py:204
+#: berlinbuehnen/apps/education/forms/departments.py:210
+#: berlinbuehnen/apps/education/forms/departments.py:311
+#: berlinbuehnen/apps/education/forms/departments.py:317
+#: berlinbuehnen/apps/education/forms/projects.py:311
+#: berlinbuehnen/apps/education/forms/projects.py:317
+#: berlinbuehnen/apps/education/forms/projects.py:532
+#: berlinbuehnen/apps/education/forms/projects.py:538
 #: berlinbuehnen/apps/festivals/forms/festivals.py:570
 #: berlinbuehnen/apps/festivals/forms/festivals.py:576
 #: berlinbuehnen/apps/locations/forms/locations.py:576
@@ -1893,17 +1879,19 @@ msgstr "Pressekontakte"
 msgid "Next"
 msgstr "Weiter"
 
-#: berlinbuehnen/apps/education/forms/departments.py:571
-#: berlinbuehnen/apps/education/forms/departments.py:632
-#: berlinbuehnen/apps/education/forms/projects.py:571
-#: berlinbuehnen/apps/education/forms/projects.py:632
+#: berlinbuehnen/apps/education/forms/departments.py:205
+#: berlinbuehnen/apps/education/forms/departments.py:312
+#: berlinbuehnen/apps/education/forms/departments.py:500
+#: berlinbuehnen/apps/education/forms/projects.py:312
+#: berlinbuehnen/apps/education/forms/projects.py:533
+#: berlinbuehnen/apps/education/forms/projects.py:793
 #: berlinbuehnen/apps/festivals/forms/festivals.py:571
 #: berlinbuehnen/apps/festivals/forms/festivals.py:632
 #: berlinbuehnen/apps/locations/forms/locations.py:577
 #: berlinbuehnen/apps/locations/forms/locations.py:663
 #: berlinbuehnen/apps/locations/forms/locations.py:798
-#: berlinbuehnen/apps/marketplace/forms.py:227
-#: berlinbuehnen/apps/marketplace/forms.py:232
+#: berlinbuehnen/apps/marketplace/forms.py:229
+#: berlinbuehnen/apps/marketplace/forms.py:234
 #: berlinbuehnen/apps/productions/forms/productions.py:243
 #: berlinbuehnen/apps/productions/forms/productions.py:574
 #: berlinbuehnen/apps/productions/forms/productions.py:1046
@@ -1911,18 +1899,24 @@ msgstr "Weiter"
 msgid "Save and close"
 msgstr "Speichern und schließen"
 
-#: berlinbuehnen/apps/education/forms/departments.py:572
-#: berlinbuehnen/apps/education/forms/departments.py:577
-#: berlinbuehnen/apps/education/forms/departments.py:633
-#: berlinbuehnen/apps/education/forms/departments.py:638
-#: berlinbuehnen/apps/education/forms/gallery.py:152
-#: berlinbuehnen/apps/education/forms/gallery.py:216
-#: berlinbuehnen/apps/education/forms/gallery.py:313
-#: berlinbuehnen/apps/education/forms/gallery.py:378
-#: berlinbuehnen/apps/education/forms/projects.py:572
-#: berlinbuehnen/apps/education/forms/projects.py:577
-#: berlinbuehnen/apps/education/forms/projects.py:633
-#: berlinbuehnen/apps/education/forms/projects.py:638
+#: berlinbuehnen/apps/education/forms/departments.py:206
+#: berlinbuehnen/apps/education/forms/departments.py:211
+#: berlinbuehnen/apps/education/forms/departments.py:313
+#: berlinbuehnen/apps/education/forms/departments.py:318
+#: berlinbuehnen/apps/education/forms/departments.py:501
+#: berlinbuehnen/apps/education/forms/departments.py:506
+#: berlinbuehnen/apps/education/forms/gallery.py:115
+#: berlinbuehnen/apps/education/forms/gallery.py:191
+#: berlinbuehnen/apps/education/forms/gallery.py:310
+#: berlinbuehnen/apps/education/forms/gallery.py:377
+#: berlinbuehnen/apps/education/forms/gallery.py:474
+#: berlinbuehnen/apps/education/forms/gallery.py:543
+#: berlinbuehnen/apps/education/forms/projects.py:313
+#: berlinbuehnen/apps/education/forms/projects.py:318
+#: berlinbuehnen/apps/education/forms/projects.py:534
+#: berlinbuehnen/apps/education/forms/projects.py:539
+#: berlinbuehnen/apps/education/forms/projects.py:794
+#: berlinbuehnen/apps/education/forms/projects.py:799
 #: berlinbuehnen/apps/festivals/forms/festivals.py:572
 #: berlinbuehnen/apps/festivals/forms/festivals.py:577
 #: berlinbuehnen/apps/festivals/forms/festivals.py:633
@@ -1939,8 +1933,8 @@ msgstr "Speichern und schließen"
 #: berlinbuehnen/apps/locations/forms/locations.py:669
 #: berlinbuehnen/apps/locations/forms/locations.py:799
 #: berlinbuehnen/apps/locations/forms/locations.py:804
-#: berlinbuehnen/apps/marketplace/forms.py:228
-#: berlinbuehnen/apps/marketplace/forms.py:233
+#: berlinbuehnen/apps/marketplace/forms.py:230
+#: berlinbuehnen/apps/marketplace/forms.py:235
 #: berlinbuehnen/apps/multiparts/forms.py:63
 #: berlinbuehnen/apps/productions/forms/events.py:151
 #: berlinbuehnen/apps/productions/forms/events.py:414
@@ -1965,6 +1959,8 @@ msgstr "Speichern und schließen"
 #: berlinbuehnen/templates/berlinbuehnen/blog/comments/mark_as_spam_embedded.html:9
 #: berlinbuehnen/templates/berlinbuehnen/blog/comments/refuse_embedded.html:14
 #: berlinbuehnen/templates/berlinbuehnen/blog/forms/confirm_delete_embedded.html:6
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/description_form.html:35
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/description_form.html:35
 #: berlinbuehnen/templates/berlinbuehnen/festivals/forms/basic_info_form.html:120
 #: berlinbuehnen/templates/berlinbuehnen/image_mods/recrop.html:172
 #: berlinbuehnen/templates/berlinbuehnen/locations/forms/basic_info_form.html:120
@@ -1974,8 +1970,140 @@ msgstr "Speichern und schließen"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: berlinbuehnen/apps/education/forms/departments.py:637
-#: berlinbuehnen/apps/education/forms/projects.py:637
+#: berlinbuehnen/apps/education/forms/departments.py:247
+#: berlinbuehnen/apps/education/forms/projects.py:426
+#, fuzzy
+msgid "Members"
+msgstr "November"
+
+#: berlinbuehnen/apps/education/forms/departments.py:289
+#: berlinbuehnen/apps/education/forms/projects.py:489
+#: berlinbuehnen/apps/festivals/forms/festivals.py:275
+#: berlinbuehnen/apps/locations/forms/locations.py:282
+msgid "Social media"
+msgstr "Social Media"
+
+#: berlinbuehnen/apps/education/forms/departments.py:328
+#: berlinbuehnen/apps/education/forms/projects.py:549
+#: berlinbuehnen/apps/mailchimp/forms.py:25
+#: berlinbuehnen/apps/mailchimp/models.py:52
+#: berlinbuehnen/apps/people/models.py:79
+#: berlinbuehnen/apps/productions/forms/events.py:680
+#: berlinbuehnen/apps/productions/forms/events.py:794
+#: berlinbuehnen/apps/productions/forms/events.py:901
+#: berlinbuehnen/apps/productions/forms/productions.py:590
+#: berlinbuehnen/apps/productions/forms/productions.py:686
+#: berlinbuehnen/apps/productions/forms/productions.py:778
+msgid "First name"
+msgstr "Vorname"
+
+#: berlinbuehnen/apps/education/forms/departments.py:333
+#: berlinbuehnen/apps/education/forms/projects.py:554
+#: berlinbuehnen/apps/mailchimp/forms.py:30
+#: berlinbuehnen/apps/mailchimp/models.py:53
+#: berlinbuehnen/apps/people/models.py:80
+#: berlinbuehnen/apps/productions/forms/events.py:685
+#: berlinbuehnen/apps/productions/forms/events.py:799
+#: berlinbuehnen/apps/productions/forms/events.py:906
+#: berlinbuehnen/apps/productions/forms/productions.py:595
+#: berlinbuehnen/apps/productions/forms/productions.py:691
+#: berlinbuehnen/apps/productions/forms/productions.py:783
+msgid "Last name"
+msgstr "Nachname"
+
+#: berlinbuehnen/apps/education/forms/departments.py:353
+#: berlinbuehnen/apps/education/forms/projects.py:574
+#: berlinbuehnen/apps/productions/forms/events.py:706
+#: berlinbuehnen/apps/productions/forms/events.py:815
+#: berlinbuehnen/apps/productions/forms/events.py:945
+#: berlinbuehnen/apps/productions/forms/productions.py:616
+#: berlinbuehnen/apps/productions/forms/productions.py:707
+#: berlinbuehnen/apps/productions/forms/productions.py:822
+msgid "Choose person"
+msgstr "Person auswählen"
+
+#: berlinbuehnen/apps/education/forms/departments.py:353
+#: berlinbuehnen/apps/education/forms/departments.py:354
+#: berlinbuehnen/apps/education/forms/projects.py:574
+#: berlinbuehnen/apps/education/forms/projects.py:575
+#: berlinbuehnen/apps/productions/forms/events.py:247
+#: berlinbuehnen/apps/productions/forms/events.py:706
+#: berlinbuehnen/apps/productions/forms/events.py:707
+#: berlinbuehnen/apps/productions/forms/events.py:815
+#: berlinbuehnen/apps/productions/forms/events.py:816
+#: berlinbuehnen/apps/productions/forms/events.py:939
+#: berlinbuehnen/apps/productions/forms/events.py:941
+#: berlinbuehnen/apps/productions/forms/events.py:945
+#: berlinbuehnen/apps/productions/forms/events.py:946
+#: berlinbuehnen/apps/productions/forms/productions.py:83
+#: berlinbuehnen/apps/productions/forms/productions.py:84
+#: berlinbuehnen/apps/productions/forms/productions.py:616
+#: berlinbuehnen/apps/productions/forms/productions.py:617
+#: berlinbuehnen/apps/productions/forms/productions.py:707
+#: berlinbuehnen/apps/productions/forms/productions.py:708
+#: berlinbuehnen/apps/productions/forms/productions.py:816
+#: berlinbuehnen/apps/productions/forms/productions.py:818
+#: berlinbuehnen/apps/productions/forms/productions.py:822
+#: berlinbuehnen/apps/productions/forms/productions.py:823
+msgid "or"
+msgstr "oder"
+
+#: berlinbuehnen/apps/education/forms/departments.py:353
+#: berlinbuehnen/apps/education/forms/projects.py:574
+#: berlinbuehnen/apps/productions/forms/events.py:706
+#: berlinbuehnen/apps/productions/forms/events.py:815
+#: berlinbuehnen/apps/productions/forms/events.py:945
+#: berlinbuehnen/apps/productions/forms/productions.py:616
+#: berlinbuehnen/apps/productions/forms/productions.py:707
+#: berlinbuehnen/apps/productions/forms/productions.py:822
+msgid "click here to enter a new person"
+msgstr "hier klicken, um eine neue Person hinzuzufügen"
+
+#: berlinbuehnen/apps/education/forms/departments.py:354
+#: berlinbuehnen/apps/education/forms/projects.py:575
+#: berlinbuehnen/apps/productions/forms/events.py:707
+#: berlinbuehnen/apps/productions/forms/events.py:816
+#: berlinbuehnen/apps/productions/forms/events.py:946
+#: berlinbuehnen/apps/productions/forms/productions.py:617
+#: berlinbuehnen/apps/productions/forms/productions.py:708
+#: berlinbuehnen/apps/productions/forms/productions.py:823
+msgid "choose a person from the database"
+msgstr "eine Person aus der Datenbank auswählen"
+
+#: berlinbuehnen/apps/education/forms/departments.py:440
+#: berlinbuehnen/apps/education/forms/projects.py:661
+#: berlinbuehnen/apps/productions/forms/events.py:764
+#: berlinbuehnen/apps/productions/forms/events.py:871
+#: berlinbuehnen/apps/productions/forms/events.py:1037
+#: berlinbuehnen/apps/productions/forms/productions.py:671
+#: berlinbuehnen/apps/productions/forms/productions.py:763
+#: berlinbuehnen/apps/productions/forms/productions.py:914
+msgid "Choose a person from the database or enter his name."
+msgstr "Eine Person aus der Datenbank auswählen"
+
+#: berlinbuehnen/apps/education/forms/departments.py:442
+#: berlinbuehnen/apps/education/forms/departments.py:444
+#: berlinbuehnen/apps/education/forms/projects.py:663
+#: berlinbuehnen/apps/education/forms/projects.py:665
+#: berlinbuehnen/apps/productions/forms/events.py:766
+#: berlinbuehnen/apps/productions/forms/events.py:768
+#: berlinbuehnen/apps/productions/forms/events.py:873
+#: berlinbuehnen/apps/productions/forms/events.py:875
+#: berlinbuehnen/apps/productions/forms/events.py:1039
+#: berlinbuehnen/apps/productions/forms/events.py:1041
+#: berlinbuehnen/apps/productions/forms/productions.py:673
+#: berlinbuehnen/apps/productions/forms/productions.py:675
+#: berlinbuehnen/apps/productions/forms/productions.py:765
+#: berlinbuehnen/apps/productions/forms/productions.py:767
+#: berlinbuehnen/apps/productions/forms/productions.py:916
+#: berlinbuehnen/apps/productions/forms/productions.py:918
+#: berlinbuehnen/templates/berlinbuehnen/locations/forms/stages_form.html:11
+#: berlinbuehnen/templates/berlinbuehnen/mailchimp/includes/subscribe.html:136
+msgid "This field is required."
+msgstr "Dieses Feld wird benötigt"
+
+#: berlinbuehnen/apps/education/forms/departments.py:505
+#: berlinbuehnen/apps/education/forms/projects.py:798
 #: berlinbuehnen/apps/favorites/views.py:275
 #: berlinbuehnen/apps/festivals/forms/festivals.py:637
 #: berlinbuehnen/apps/locations/forms/locations.py:803
@@ -1988,19 +2116,16 @@ msgstr "Abbrechen"
 msgid "Save"
 msgstr "Speichern"
 
-#: berlinbuehnen/apps/education/forms/departments.py:823
-#: berlinbuehnen/apps/education/forms/projects.py:823
-#: berlinbuehnen/apps/festivals/forms/festivals.py:823
-#: berlinbuehnen/apps/locations/models.py:200
-#: berlinbuehnen/apps/locations/forms/locations.py:1064
-msgid "Theater"
-msgstr "Bühne"
+#: berlinbuehnen/apps/education/forms/departments.py:704
+#, fuzzy
+msgid "Educational Department"
+msgstr "Theaterpädagogik Abteilungen"
 
-#: berlinbuehnen/apps/education/forms/departments.py:841
-#: berlinbuehnen/apps/education/forms/projects.py:841
+#: berlinbuehnen/apps/education/forms/departments.py:728
+#: berlinbuehnen/apps/education/forms/projects.py:1140
 #: berlinbuehnen/apps/festivals/forms/festivals.py:841
 #: berlinbuehnen/apps/locations/forms/locations.py:1090
-#: berlinbuehnen/apps/productions/forms/productions.py:1531
+#: berlinbuehnen/apps/productions/forms/productions.py:1536
 msgid ""
 "There are errors in this form. Please correct them and try to save again."
 msgstr ""
@@ -2041,8 +2166,9 @@ msgid "Crop image"
 msgstr "Bild zurecht schneiden"
 
 #: berlinbuehnen/apps/education/forms/gallery.py:27
-#: berlinbuehnen/apps/education/forms/gallery.py:215
-#: berlinbuehnen/apps/education/forms/gallery.py:377
+#: berlinbuehnen/apps/education/forms/gallery.py:190
+#: berlinbuehnen/apps/education/forms/gallery.py:376
+#: berlinbuehnen/apps/education/forms/gallery.py:542
 #: berlinbuehnen/apps/festivals/forms/gallery.py:27
 #: berlinbuehnen/apps/festivals/forms/gallery.py:217
 #: berlinbuehnen/apps/festivals/forms/gallery.py:379
@@ -2055,6 +2181,9 @@ msgstr "Bild zurecht schneiden"
 #: berlinbuehnen/apps/productions/forms/gallery.py:689
 #: berlinbuehnen/templates/berlinbuehnen/blog/post_delete.html:13
 #: berlinbuehnen/templates/berlinbuehnen/blog/forms/confirm_delete_embedded.html:7
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/description_form.html:154
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/basic_info_form.html:88
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/description_form.html:154
 #: berlinbuehnen/templates/berlinbuehnen/festivals/forms/basic_info_form.html:81
 #: berlinbuehnen/templates/berlinbuehnen/festivals/forms/basic_info_form.html:112
 #: berlinbuehnen/templates/berlinbuehnen/locations/forms/basic_info_form.html:81
@@ -2069,8 +2198,9 @@ msgstr "Bild zurecht schneiden"
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:130
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:190
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:250
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:310
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_festivals.html:82
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:74
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:107
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_locations.html:74
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_multiparts.html:77
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_productions.html:82
@@ -2081,6 +2211,11 @@ msgstr "löschen"
 #: berlinbuehnen/apps/festivals/forms/gallery.py:28
 #: berlinbuehnen/apps/locations/forms/gallery.py:28
 #: berlinbuehnen/apps/productions/forms/gallery.py:28
+#: berlinbuehnen/templates/berlinbuehnen/education/department_gallery/create_update_image.html:13
+#: berlinbuehnen/templates/berlinbuehnen/education/department_gallery/create_update_pdf.html:13
+#: berlinbuehnen/templates/berlinbuehnen/education/project_gallery/create_update_image.html:13
+#: berlinbuehnen/templates/berlinbuehnen/education/project_gallery/create_update_pdf.html:13
+#: berlinbuehnen/templates/berlinbuehnen/education/project_gallery/create_update_video.html:13
 #: berlinbuehnen/templates/berlinbuehnen/festivals/gallery/create_update_image.html:13
 #: berlinbuehnen/templates/berlinbuehnen/locations/gallery/create_update_image.html:13
 #: berlinbuehnen/templates/berlinbuehnen/productions/events/gallery/create_update_image.html:13
@@ -2098,6 +2233,11 @@ msgstr "Wollen Sie dieses Bild wirklich löschen?"
 #: berlinbuehnen/apps/festivals/forms/gallery.py:29
 #: berlinbuehnen/apps/locations/forms/gallery.py:29
 #: berlinbuehnen/apps/productions/forms/gallery.py:29
+#: berlinbuehnen/templates/berlinbuehnen/education/department_gallery/create_update_image.html:22
+#: berlinbuehnen/templates/berlinbuehnen/education/department_gallery/create_update_pdf.html:22
+#: berlinbuehnen/templates/berlinbuehnen/education/project_gallery/create_update_image.html:22
+#: berlinbuehnen/templates/berlinbuehnen/education/project_gallery/create_update_pdf.html:22
+#: berlinbuehnen/templates/berlinbuehnen/education/project_gallery/create_update_video.html:22
 #: berlinbuehnen/templates/berlinbuehnen/festivals/gallery/create_update_image.html:22
 #: berlinbuehnen/templates/berlinbuehnen/festivals/gallery/create_update_pdf.html:22
 #: berlinbuehnen/templates/berlinbuehnen/locations/gallery/create_update_image.html:22
@@ -2117,6 +2257,11 @@ msgstr "Ja, (bitte)"
 #: berlinbuehnen/apps/festivals/forms/gallery.py:30
 #: berlinbuehnen/apps/locations/forms/gallery.py:30
 #: berlinbuehnen/apps/productions/forms/gallery.py:30
+#: berlinbuehnen/templates/berlinbuehnen/education/department_gallery/create_update_image.html:23
+#: berlinbuehnen/templates/berlinbuehnen/education/department_gallery/create_update_pdf.html:23
+#: berlinbuehnen/templates/berlinbuehnen/education/project_gallery/create_update_image.html:23
+#: berlinbuehnen/templates/berlinbuehnen/education/project_gallery/create_update_pdf.html:23
+#: berlinbuehnen/templates/berlinbuehnen/education/project_gallery/create_update_video.html:23
 #: berlinbuehnen/templates/berlinbuehnen/festivals/gallery/create_update_image.html:23
 #: berlinbuehnen/templates/berlinbuehnen/festivals/gallery/create_update_pdf.html:23
 #: berlinbuehnen/templates/berlinbuehnen/locations/gallery/create_update_image.html:23
@@ -2147,32 +2292,25 @@ msgstr ""
 "Verfügbare Formate sind JPG, GIF, und PNG. Minimalgröße beträgt 100 x 100 "
 "px. Optimalgröße beträgt 1000 x 350 px (min.)"
 
-#: berlinbuehnen/apps/education/forms/gallery.py:48
-#: berlinbuehnen/apps/festivals/forms/gallery.py:50
-#: berlinbuehnen/apps/locations/forms/gallery.py:50
-#: berlinbuehnen/apps/productions/forms/gallery.py:368
-msgid "Copyright / Photographer"
-msgstr "Urheberrecht des Bildautors / Fotografs"
+#: berlinbuehnen/apps/education/forms/gallery.py:46
+#: berlinbuehnen/apps/productions/forms/gallery.py:51
+#, fuzzy
+msgid "Embed code"
+msgstr "Link oder embed code"
 
-#: berlinbuehnen/apps/education/forms/gallery.py:69
-#: berlinbuehnen/apps/festivals/forms/gallery.py:71
-#: berlinbuehnen/apps/locations/forms/gallery.py:71
-#: berlinbuehnen/apps/productions/forms/gallery.py:383
+#: berlinbuehnen/apps/education/forms/gallery.py:56
+#: berlinbuehnen/apps/education/forms/gallery.py:399
+#: berlinbuehnen/apps/festivals/forms/gallery.py:240
+#: berlinbuehnen/apps/productions/forms/gallery.py:61
+#: berlinbuehnen/apps/productions/forms/gallery.py:219
+#: berlinbuehnen/apps/productions/forms/gallery.py:558
 #, python-format
-msgid "Caption <span class=\"lang\">%s</span>"
-msgstr "Bildunterschrift <span class=\"lang\">%s</span>"
+msgid "Title <span class=\"lang\">%s</span>"
+msgstr "Titel <span class=\"lang\">%s</span>"
 
-#: berlinbuehnen/apps/education/forms/gallery.py:74
-#: berlinbuehnen/apps/festivals/forms/gallery.py:76
-#: berlinbuehnen/apps/locations/forms/gallery.py:76
-#: berlinbuehnen/apps/productions/forms/gallery.py:388
-#, python-format
-msgid ""
-"Description (will be used as alt attribute) <span class=\"lang\">%s</span>"
-msgstr "Bildunterschrift (HTML alternativ Text) <span class=\"lang\">%s</span>"
-
-#: berlinbuehnen/apps/education/forms/gallery.py:151
-#: berlinbuehnen/apps/education/forms/gallery.py:312
+#: berlinbuehnen/apps/education/forms/gallery.py:114
+#: berlinbuehnen/apps/education/forms/gallery.py:309
+#: berlinbuehnen/apps/education/forms/gallery.py:473
 #: berlinbuehnen/apps/festivals/forms/gallery.py:153
 #: berlinbuehnen/apps/festivals/forms/gallery.py:314
 #: berlinbuehnen/apps/locations/forms/gallery.py:153
@@ -2183,8 +2321,37 @@ msgstr "Bildunterschrift (HTML alternativ Text) <span class=\"lang\">%s</span>"
 msgid "Save file"
 msgstr "Datei / Daten speichern"
 
-#: berlinbuehnen/apps/education/forms/gallery.py:183
-#: berlinbuehnen/apps/education/forms/gallery.py:343
+#: berlinbuehnen/apps/education/forms/gallery.py:178
+#: berlinbuehnen/apps/productions/forms/gallery.py:183
+msgid "Delete Video/Audio?"
+msgstr "Video/Audio löschen?"
+
+#: berlinbuehnen/apps/education/forms/gallery.py:208
+#: berlinbuehnen/apps/festivals/forms/gallery.py:50
+#: berlinbuehnen/apps/locations/forms/gallery.py:50
+#: berlinbuehnen/apps/productions/forms/gallery.py:368
+msgid "Copyright / Photographer"
+msgstr "Urheberrecht des Bildautors / Fotografs"
+
+#: berlinbuehnen/apps/education/forms/gallery.py:223
+#: berlinbuehnen/apps/festivals/forms/gallery.py:71
+#: berlinbuehnen/apps/locations/forms/gallery.py:71
+#: berlinbuehnen/apps/productions/forms/gallery.py:383
+#, python-format
+msgid "Caption <span class=\"lang\">%s</span>"
+msgstr "Bildunterschrift <span class=\"lang\">%s</span>"
+
+#: berlinbuehnen/apps/education/forms/gallery.py:228
+#: berlinbuehnen/apps/festivals/forms/gallery.py:76
+#: berlinbuehnen/apps/locations/forms/gallery.py:76
+#: berlinbuehnen/apps/productions/forms/gallery.py:388
+#, python-format
+msgid ""
+"Description (will be used as alt attribute) <span class=\"lang\">%s</span>"
+msgstr "Bildunterschrift (HTML alternativ Text) <span class=\"lang\">%s</span>"
+
+#: berlinbuehnen/apps/education/forms/gallery.py:344
+#: berlinbuehnen/apps/education/forms/gallery.py:508
 #: berlinbuehnen/apps/festivals/forms/gallery.py:185
 #: berlinbuehnen/apps/festivals/forms/gallery.py:345
 #: berlinbuehnen/apps/locations/forms/gallery.py:185
@@ -2193,33 +2360,85 @@ msgstr "Datei / Daten speichern"
 msgid "You need to upload a valid file."
 msgstr "Sie müssen ein gültiges Format hochladen."
 
-#: berlinbuehnen/apps/education/forms/gallery.py:202
+#: berlinbuehnen/apps/education/forms/gallery.py:363
 #: berlinbuehnen/apps/festivals/forms/gallery.py:204
 #: berlinbuehnen/apps/locations/forms/gallery.py:204
 #: berlinbuehnen/apps/productions/forms/gallery.py:523
 msgid "Delete Photo?"
 msgstr "Foto löschen?"
 
-#: berlinbuehnen/apps/education/forms/gallery.py:238
-#: berlinbuehnen/apps/festivals/forms/gallery.py:240
-#: berlinbuehnen/apps/productions/forms/gallery.py:61
-#: berlinbuehnen/apps/productions/forms/gallery.py:219
-#: berlinbuehnen/apps/productions/forms/gallery.py:558
-#, python-format
-msgid "Title <span class=\"lang\">%s</span>"
-msgstr "Titel <span class=\"lang\">%s</span>"
-
-#: berlinbuehnen/apps/education/forms/gallery.py:243
+#: berlinbuehnen/apps/education/forms/gallery.py:404
 #: berlinbuehnen/apps/festivals/forms/gallery.py:245
 #, fuzzy, python-format
 msgid "Description <span class=\"lang\">%s</span>"
 msgstr "Bildunterschrift <span class=\"lang\">%s</span>"
 
-#: berlinbuehnen/apps/education/forms/gallery.py:362
+#: berlinbuehnen/apps/education/forms/gallery.py:527
 #: berlinbuehnen/apps/festivals/forms/gallery.py:364
 #: berlinbuehnen/apps/productions/forms/gallery.py:674
 msgid "Delete PDF Document?"
 msgstr "PDF Dokument löschen?"
+
+#: berlinbuehnen/apps/education/forms/projects.py:129
+msgid "Project Office Address"
+msgstr ""
+
+#: berlinbuehnen/apps/education/forms/projects.py:271
+#, fuzzy
+msgid "Dates and Times"
+msgstr "Datum und Uhrzeit"
+
+#: berlinbuehnen/apps/education/forms/projects.py:292
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/basic_info_form.html:18
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/basic_info_form.html:22
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:19
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:23
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/gallery_form.html:17
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/gallery_form.html:21
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/overview.html:36
+#: berlinbuehnen/templates/berlinbuehnen/productions/forms/events_form.html:35
+msgid "Details"
+msgstr "Details"
+
+#: berlinbuehnen/apps/education/forms/projects.py:298
+#, fuzzy
+msgid "Target Groups"
+msgstr "Zielgruppe"
+
+#: berlinbuehnen/apps/education/forms/projects.py:304
+msgid "Formats"
+msgstr ""
+
+#: berlinbuehnen/apps/education/forms/projects.py:328
+#: berlinbuehnen/apps/festivals/models.py:121
+#: berlinbuehnen/apps/productions/models.py:712
+msgid "Start date"
+msgstr "Anfangsdatum"
+
+#: berlinbuehnen/apps/education/forms/projects.py:334
+#: berlinbuehnen/apps/productions/models.py:714
+#: berlinbuehnen/apps/productions/forms/events.py:76
+msgid "Start time"
+msgstr "Beginn"
+
+#: berlinbuehnen/apps/education/forms/projects.py:338
+#: berlinbuehnen/apps/festivals/models.py:122
+#: berlinbuehnen/apps/productions/models.py:713
+msgid "End date"
+msgstr "End(e) / Enddatum"
+
+#: berlinbuehnen/apps/education/forms/projects.py:344
+#: berlinbuehnen/apps/productions/models.py:715
+#: berlinbuehnen/apps/productions/forms/events.py:79
+msgid "End time"
+msgstr "Ende"
+
+#: berlinbuehnen/apps/education/forms/projects.py:1112
+#: berlinbuehnen/templates/berlinbuehnen/education/department_detail.html:3
+#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:3
+#, fuzzy
+msgid "Educational Project"
+msgstr "Theaterpädagogik Projekte"
 
 #: berlinbuehnen/apps/favorites/models.py:15
 #: berlinbuehnen/apps/favorites/views.py:240
@@ -2227,10 +2446,10 @@ msgstr "PDF Dokument löschen?"
 #: berlinbuehnen/templates/berlinbuehnen/favorites/_all_favorites.html:139
 #: berlinbuehnen/templates/berlinbuehnen/favorites/_all_favorites.html:146
 #: berlinbuehnen/templates/berlinbuehnen/favorites/_all_favorites.html:312
-#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:10
-#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:18
+#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:14
 #: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:19
-#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:29
+#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:20
+#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:55
 #, fuzzy
 msgid "Favorites"
 msgstr "zu Favoriten hinzufügen"
@@ -2252,12 +2471,12 @@ msgstr "zu Favoriten hinzufügen"
 
 #: berlinbuehnen/apps/favorites/models.py:81
 #, fuzzy
-msgid "My Tour title"
+msgid "My Favorites title"
 msgstr "Werktitel"
 
 #: berlinbuehnen/apps/favorites/models.py:82
 #, fuzzy
-msgid "My Tour description"
+msgid "My Favorites description"
 msgstr "Beschreibung"
 
 #: berlinbuehnen/apps/favorites/models.py:85
@@ -2290,7 +2509,7 @@ msgid "Message"
 msgstr "Nachricht"
 
 #: berlinbuehnen/apps/favorites/views.py:215
-msgid "Send your Tour to a friend"
+msgid "Send your favorites to a friend"
 msgstr ""
 
 #: berlinbuehnen/apps/favorites/views.py:223
@@ -2299,8 +2518,18 @@ msgid "Send"
 msgstr "senden"
 
 #: berlinbuehnen/apps/favorites/views.py:270
-msgid "Edit Favorites description"
-msgstr ""
+#, fuzzy
+msgid "Edit My Favorites description"
+msgstr "Beschreibung"
+
+#: berlinbuehnen/apps/festivals/admin.py:66
+#: berlinbuehnen/apps/festivals/forms/festivals.py:145
+#: berlinbuehnen/apps/productions/forms/events.py:83
+#: berlinbuehnen/apps/productions/forms/events.py:196
+#: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:165
+#: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:213
+msgid "Duration"
+msgstr "Dauer"
 
 #: berlinbuehnen/apps/festivals/admin.py:67
 #: berlinbuehnen/apps/festivals/forms/festivals.py:188
@@ -2331,6 +2560,13 @@ msgid "Exceptions"
 msgstr "Ausnahmen"
 
 #: berlinbuehnen/apps/festivals/admin.py:80
+#: berlinbuehnen/apps/festivals/forms/festivals.py:490
+#: berlinbuehnen/apps/locations/admin.py:147
+#: berlinbuehnen/apps/locations/forms/locations.py:501
+msgid "Press Contact"
+msgstr "Pressekontakte"
+
+#: berlinbuehnen/apps/festivals/admin.py:80
 #: berlinbuehnen/templates/berlinbuehnen/festivals/includes/sidebar.html:194
 #: berlinbuehnen/templates/berlinbuehnen/festivals/includes/sidebar.html:225
 msgid "Mobile"
@@ -2355,12 +2591,21 @@ msgstr "Tippen zum Auswahl des Festivals"
 
 #: berlinbuehnen/apps/festivals/models.py:27
 #: berlinbuehnen/apps/productions/models.py:35
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/base.html:50
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/base.html:50
 #: berlinbuehnen/templates/berlinbuehnen/productions/forms/base.html:50
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:68
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_festivals.html:72
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_productions.html:72
 msgid "Expired"
 msgstr "Abgelaufen"
+
+#: berlinbuehnen/apps/festivals/models.py:74
+#: berlinbuehnen/apps/festivals/forms/festivals.py:159
+#: berlinbuehnen/apps/locations/models.py:137
+#: berlinbuehnen/apps/locations/forms/locations.py:162
+msgid "Logo"
+msgstr "Logo"
 
 #: berlinbuehnen/apps/festivals/models.py:96
 #: berlinbuehnen/apps/locations/models.py:161
@@ -2381,16 +2626,6 @@ msgstr "Ansprechpartner Presse"
 #: berlinbuehnen/apps/locations/models.py:181
 msgid "Press Email"
 msgstr "Email(Adresse) Presse"
-
-#: berlinbuehnen/apps/festivals/models.py:121
-#: berlinbuehnen/apps/productions/models.py:712
-msgid "Start date"
-msgstr "Anfangsdatum"
-
-#: berlinbuehnen/apps/festivals/models.py:122
-#: berlinbuehnen/apps/productions/models.py:713
-msgid "End date"
-msgstr "End(e) / Enddatum"
 
 #: berlinbuehnen/apps/festivals/models.py:127
 #, fuzzy
@@ -2416,6 +2651,17 @@ msgstr "Festival"
 #, fuzzy
 msgid "Tickets Box Office (when differs from festival address)"
 msgstr "Theaterkasse (falls abweichend von Adresse)"
+
+#: berlinbuehnen/apps/festivals/forms/festivals.py:351
+#: berlinbuehnen/apps/locations/forms/locations.py:363
+msgid "Opening Hours of Tickets Box Office"
+msgstr "Öffnungszeiten des Kartenverkaufs"
+
+#: berlinbuehnen/apps/festivals/forms/festivals.py:823
+#: berlinbuehnen/apps/locations/models.py:200
+#: berlinbuehnen/apps/locations/forms/locations.py:1064
+msgid "Theater"
+msgstr "Bühne"
 
 #: berlinbuehnen/apps/festivals/forms/gallery.py:32
 #: berlinbuehnen/apps/locations/forms/gallery.py:32
@@ -2467,12 +2713,6 @@ msgstr "Tippen zur Auswahl einer Bühne"
 #: berlinbuehnen/apps/locations/autocomplete_light_registry.py:33
 msgid "Start typing to choose a stage"
 msgstr "Tippen zur Auswahl einer Spielstätte"
-
-#: berlinbuehnen/apps/locations/models.py:53
-#: berlinbuehnen/apps/locations/forms/locations.py:224
-#: berlinbuehnen/templates/berlinbuehnen/utils/filter_locations.html:37
-msgid "Districts"
-msgstr "Bezirke"
 
 #: berlinbuehnen/apps/locations/models.py:67
 msgid "Services"
@@ -2527,6 +2767,10 @@ msgstr ""
 
 #: berlinbuehnen/apps/mailchimp/admin.py:169
 #: berlinbuehnen/apps/mailchimp/admin.py:170
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/base.html:30
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/base.html:69
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/base.html:30
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/base.html:69
 #: berlinbuehnen/templates/berlinbuehnen/festivals/forms/base.html:29
 #: berlinbuehnen/templates/berlinbuehnen/festivals/forms/base.html:65
 #: berlinbuehnen/templates/berlinbuehnen/locations/forms/base.html:28
@@ -2552,10 +2796,12 @@ msgstr ""
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:187
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:245
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:247
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:305
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:307
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_festivals.html:77
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_festivals.html:79
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:69
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:71
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:97
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:101
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_locations.html:69
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_locations.html:71
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_multiparts.html:72
@@ -2572,30 +2818,6 @@ msgstr "Vorschau"
 #: berlinbuehnen/apps/mailchimp/models.py:230
 msgid "Mailing list"
 msgstr ""
-
-#: berlinbuehnen/apps/mailchimp/forms.py:25
-#: berlinbuehnen/apps/mailchimp/models.py:52
-#: berlinbuehnen/apps/people/models.py:79
-#: berlinbuehnen/apps/productions/forms/events.py:680
-#: berlinbuehnen/apps/productions/forms/events.py:794
-#: berlinbuehnen/apps/productions/forms/events.py:901
-#: berlinbuehnen/apps/productions/forms/productions.py:590
-#: berlinbuehnen/apps/productions/forms/productions.py:686
-#: berlinbuehnen/apps/productions/forms/productions.py:778
-msgid "First name"
-msgstr "Vorname"
-
-#: berlinbuehnen/apps/mailchimp/forms.py:30
-#: berlinbuehnen/apps/mailchimp/models.py:53
-#: berlinbuehnen/apps/people/models.py:80
-#: berlinbuehnen/apps/productions/forms/events.py:685
-#: berlinbuehnen/apps/productions/forms/events.py:799
-#: berlinbuehnen/apps/productions/forms/events.py:906
-#: berlinbuehnen/apps/productions/forms/productions.py:595
-#: berlinbuehnen/apps/productions/forms/productions.py:691
-#: berlinbuehnen/apps/productions/forms/productions.py:783
-msgid "Last name"
-msgstr "Nachname"
 
 #: berlinbuehnen/apps/mailchimp/models.py:26
 msgid "MailChimp"
@@ -2779,19 +3001,19 @@ msgstr ""
 msgid "%(counter)d members at %(list_title)s unsubscribed on MailChimp."
 msgstr ""
 
-#: berlinbuehnen/apps/marketplace/admin.py:64
-#: berlinbuehnen/apps/marketplace/forms.py:206
-#: berlinbuehnen/apps/marketplace/models.py:96
-#, fuzzy
-msgid "Deadline"
-msgstr "Überschrift"
+#: berlinbuehnen/apps/marketplace/admin.py:76
+#: berlinbuehnen/apps/marketplace/forms.py:207
+#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:5
+#: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:232
+msgid "Dates"
+msgstr "Termine"
 
-#: berlinbuehnen/apps/marketplace/admin.py:77
+#: berlinbuehnen/apps/marketplace/admin.py:152
 #, fuzzy
 msgid "Map"
 msgstr "Mrz"
 
-#: berlinbuehnen/apps/marketplace/admin.py:132
+#: berlinbuehnen/apps/marketplace/admin.py:208
 #, fuzzy, python-format
 msgid "The owners of %(job_offer)s"
 msgstr "Weitere Produktionen"
@@ -2801,12 +3023,12 @@ msgstr "Weitere Produktionen"
 msgid "Marketplace"
 msgstr "Findet statt"
 
-#: berlinbuehnen/apps/marketplace/forms.py:108
-#: berlinbuehnen/apps/marketplace/models.py:99
+#: berlinbuehnen/apps/marketplace/forms.py:109
+#: berlinbuehnen/apps/marketplace/models.py:101
 msgid "Company"
 msgstr ""
 
-#: berlinbuehnen/apps/marketplace/forms.py:194
+#: berlinbuehnen/apps/marketplace/forms.py:195
 #: berlinbuehnen/apps/productions/models.py:631
 #: berlinbuehnen/apps/productions/models.py:653
 #: berlinbuehnen/apps/productions/models.py:1117
@@ -2825,21 +3047,36 @@ msgid "Job types"
 msgstr ""
 
 #: berlinbuehnen/apps/marketplace/models.py:94
-#: berlinbuehnen/templates/berlinbuehnen/marketplace/includes/sidebar.html:5
+#: berlinbuehnen/templates/berlinbuehnen/marketplace/includes/sidebar.html:13
 #, fuzzy
 msgid "Position"
 msgstr "Produktion"
 
-#: berlinbuehnen/apps/marketplace/models.py:127
+#: berlinbuehnen/apps/marketplace/models.py:96
+#: berlinbuehnen/templates/berlinbuehnen/marketplace/includes/sidebar.html:27
+#, fuzzy
+msgid "Deadline"
+msgstr "Überschrift"
+
+#: berlinbuehnen/apps/marketplace/models.py:97
+#, fuzzy
+msgid "Start contract on"
+msgstr "Ansprechpartner Presse"
+
+#: berlinbuehnen/apps/marketplace/models.py:100
+msgid "Name"
+msgstr ""
+
+#: berlinbuehnen/apps/marketplace/models.py:129
 #: berlinbuehnen/templates/berlinbuehnen/marketplace/job_offer_detail.html:3
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:74
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:310
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:110
 msgid "Job Offer"
 msgstr ""
 
-#: berlinbuehnen/apps/marketplace/models.py:128
+#: berlinbuehnen/apps/marketplace/models.py:130
 #: berlinbuehnen/templates/berlinbuehnen/marketplace/job_offer_list.html:4
-#: berlinbuehnen/templates/berlinbuehnen/marketplace/job_offer_list.html:29
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:25
+#: berlinbuehnen/templates/berlinbuehnen/marketplace/job_offer_list.html:20
 msgid "Job Offers"
 msgstr ""
 
@@ -2910,7 +3147,7 @@ msgstr "Teile"
 #: berlinbuehnen/apps/productions/models.py:629
 #: berlinbuehnen/apps/productions/models.py:651
 #: berlinbuehnen/apps/productions/models.py:711
-#: berlinbuehnen/apps/productions/forms/productions.py:1499
+#: berlinbuehnen/apps/productions/forms/productions.py:1504
 #: berlinbuehnen/templates/berlinbuehnen/productions/events/base.html:77
 #: berlinbuehnen/templates/berlinbuehnen/productions/events/base.html:84
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:78
@@ -3272,16 +3509,6 @@ msgstr "Als Hauptkategorie anzeigen"
 msgid "Event Characteristics"
 msgstr "Terminmerkmale"
 
-#: berlinbuehnen/apps/productions/models.py:714
-#: berlinbuehnen/apps/productions/forms/events.py:76
-msgid "Start time"
-msgstr "Beginn"
-
-#: berlinbuehnen/apps/productions/models.py:715
-#: berlinbuehnen/apps/productions/forms/events.py:79
-msgid "End time"
-msgstr "Ende"
-
 #: berlinbuehnen/apps/productions/models.py:716
 msgid "Duration in seconds"
 msgstr "Dauer (in Sek.)"
@@ -3314,7 +3541,7 @@ msgid "Event"
 msgstr "Termin"
 
 #: berlinbuehnen/apps/productions/models.py:766
-#: berlinbuehnen/apps/productions/forms/productions.py:1521
+#: berlinbuehnen/apps/productions/forms/productions.py:1526
 #: berlinbuehnen/templates/berlinbuehnen/events/event_list.html:4
 #: berlinbuehnen/templates/berlinbuehnen/multiparts/multipart_list.html:4
 #: berlinbuehnen/templates/berlinbuehnen/productions/events/base.html:80
@@ -3450,28 +3677,6 @@ msgid "Add events"
 msgstr "Veranstaltungen hinzufügen"
 
 #: berlinbuehnen/apps/productions/forms/events.py:247
-#: berlinbuehnen/apps/productions/forms/events.py:706
-#: berlinbuehnen/apps/productions/forms/events.py:707
-#: berlinbuehnen/apps/productions/forms/events.py:815
-#: berlinbuehnen/apps/productions/forms/events.py:816
-#: berlinbuehnen/apps/productions/forms/events.py:939
-#: berlinbuehnen/apps/productions/forms/events.py:941
-#: berlinbuehnen/apps/productions/forms/events.py:945
-#: berlinbuehnen/apps/productions/forms/events.py:946
-#: berlinbuehnen/apps/productions/forms/productions.py:83
-#: berlinbuehnen/apps/productions/forms/productions.py:84
-#: berlinbuehnen/apps/productions/forms/productions.py:616
-#: berlinbuehnen/apps/productions/forms/productions.py:617
-#: berlinbuehnen/apps/productions/forms/productions.py:707
-#: berlinbuehnen/apps/productions/forms/productions.py:708
-#: berlinbuehnen/apps/productions/forms/productions.py:816
-#: berlinbuehnen/apps/productions/forms/productions.py:818
-#: berlinbuehnen/apps/productions/forms/productions.py:822
-#: berlinbuehnen/apps/productions/forms/productions.py:823
-msgid "or"
-msgstr "oder"
-
-#: berlinbuehnen/apps/productions/forms/events.py:247
 #: berlinbuehnen/apps/productions/forms/productions.py:83
 #: berlinbuehnen/apps/productions/forms/productions.py:84
 msgid "enter a new location below"
@@ -3513,59 +3718,6 @@ msgstr "Besetzung"
 #: berlinbuehnen/apps/productions/forms/events.py:619
 msgid "Social media for this event"
 msgstr "Art des Sozialen Mediums für diesen Termin"
-
-#: berlinbuehnen/apps/productions/forms/events.py:706
-#: berlinbuehnen/apps/productions/forms/events.py:815
-#: berlinbuehnen/apps/productions/forms/events.py:945
-#: berlinbuehnen/apps/productions/forms/productions.py:616
-#: berlinbuehnen/apps/productions/forms/productions.py:707
-#: berlinbuehnen/apps/productions/forms/productions.py:822
-msgid "Choose person"
-msgstr "Person auswählen"
-
-#: berlinbuehnen/apps/productions/forms/events.py:706
-#: berlinbuehnen/apps/productions/forms/events.py:815
-#: berlinbuehnen/apps/productions/forms/events.py:945
-#: berlinbuehnen/apps/productions/forms/productions.py:616
-#: berlinbuehnen/apps/productions/forms/productions.py:707
-#: berlinbuehnen/apps/productions/forms/productions.py:822
-msgid "click here to enter a new person"
-msgstr "hier klicken, um eine neue Person hinzuzufügen"
-
-#: berlinbuehnen/apps/productions/forms/events.py:707
-#: berlinbuehnen/apps/productions/forms/events.py:816
-#: berlinbuehnen/apps/productions/forms/events.py:946
-#: berlinbuehnen/apps/productions/forms/productions.py:617
-#: berlinbuehnen/apps/productions/forms/productions.py:708
-#: berlinbuehnen/apps/productions/forms/productions.py:823
-msgid "choose a person from the database"
-msgstr "eine Person aus der Datenbank auswählen"
-
-#: berlinbuehnen/apps/productions/forms/events.py:764
-#: berlinbuehnen/apps/productions/forms/events.py:871
-#: berlinbuehnen/apps/productions/forms/events.py:1037
-#: berlinbuehnen/apps/productions/forms/productions.py:671
-#: berlinbuehnen/apps/productions/forms/productions.py:763
-#: berlinbuehnen/apps/productions/forms/productions.py:914
-msgid "Choose a person from the database or enter his name."
-msgstr "Eine Person aus der Datenbank auswählen"
-
-#: berlinbuehnen/apps/productions/forms/events.py:766
-#: berlinbuehnen/apps/productions/forms/events.py:768
-#: berlinbuehnen/apps/productions/forms/events.py:873
-#: berlinbuehnen/apps/productions/forms/events.py:875
-#: berlinbuehnen/apps/productions/forms/events.py:1039
-#: berlinbuehnen/apps/productions/forms/events.py:1041
-#: berlinbuehnen/apps/productions/forms/productions.py:673
-#: berlinbuehnen/apps/productions/forms/productions.py:675
-#: berlinbuehnen/apps/productions/forms/productions.py:765
-#: berlinbuehnen/apps/productions/forms/productions.py:767
-#: berlinbuehnen/apps/productions/forms/productions.py:916
-#: berlinbuehnen/apps/productions/forms/productions.py:918
-#: berlinbuehnen/templates/berlinbuehnen/locations/forms/stages_form.html:11
-#: berlinbuehnen/templates/berlinbuehnen/mailchimp/includes/subscribe.html:136
-msgid "This field is required."
-msgstr "Dieses Feld wird benötigt"
 
 #: berlinbuehnen/apps/productions/forms/events.py:817
 #: berlinbuehnen/apps/productions/forms/productions.py:709
@@ -3610,15 +3762,6 @@ msgstr "Minimalgröße beträgt 148 × 148 px."
 msgid "Size of a video should be 640 × 360 px."
 msgstr "Die Maße eines Videos sollten 640 × 360 px sein."
 
-#: berlinbuehnen/apps/productions/forms/gallery.py:51
-#, fuzzy
-msgid "Embed code"
-msgstr "Link oder embed code"
-
-#: berlinbuehnen/apps/productions/forms/gallery.py:183
-msgid "Delete Video/Audio?"
-msgstr "Video/Audio löschen?"
-
 #: berlinbuehnen/apps/productions/forms/gallery.py:339
 msgid "Delete Live Streaming?"
 msgstr "Live Streaming löschen?"
@@ -3638,7 +3781,7 @@ msgstr "Nur ausfüllen, wenn anders als \"im Spielplan von\"."
 #: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:267
 #: berlinbuehnen/templates/berlinbuehnen/festivals/includes/sidebar.html:6
 #: berlinbuehnen/templates/berlinbuehnen/locations/includes/sidebar.html:4
-#: berlinbuehnen/templates/berlinbuehnen/marketplace/includes/sidebar.html:14
+#: berlinbuehnen/templates/berlinbuehnen/marketplace/includes/sidebar.html:35
 msgid "Venue"
 msgstr "Ort"
 
@@ -3668,8 +3811,8 @@ msgstr "Art des Sozialen Mediums für diese Produktion"
 
 #: berlinbuehnen/apps/productions/templatetags/production_tags.py:126
 #: berlinbuehnen/templates/berlinbuehnen/articles/articles_detail.html:54
-#: berlinbuehnen/templates/berlinbuehnen/education/department_detail.html:197
-#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:245
+#: berlinbuehnen/templates/berlinbuehnen/education/department_detail.html:195
+#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:237
 #: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:848
 #: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:874
 #: berlinbuehnen/templates/berlinbuehnen/festivals/festival_detail.html:167
@@ -3882,7 +4025,7 @@ msgid "filter"
 msgstr "Filter"
 
 #: berlinbuehnen/templates/berlinbuehnen/base_map.html:132
-#: berlinbuehnen/templates/berlinbuehnen/accounts/login.html:14
+#: berlinbuehnen/templates/berlinbuehnen/accounts/login.html:13
 #: berlinbuehnen/templates/berlinbuehnen/multiparts/multipart_list.html:29
 msgid "Reset"
 msgstr "Zurücksetzten"
@@ -3895,23 +4038,36 @@ msgstr ""
 msgid "Please select a location on the map first!"
 msgstr ""
 
-#: berlinbuehnen/templates/berlinbuehnen/accounts/login.html:6
+#: berlinbuehnen/templates/berlinbuehnen/accounts/login.html:5
 msgid "login"
 msgstr "Login"
 
-#: berlinbuehnen/templates/berlinbuehnen/accounts/login.html:14
+#: berlinbuehnen/templates/berlinbuehnen/accounts/login.html:13
 msgid "Forgot your Password?"
 msgstr "Passwort vergessen?"
 
-#: berlinbuehnen/templates/berlinbuehnen/accounts/login.html:15
+#: berlinbuehnen/templates/berlinbuehnen/accounts/login.html:14
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/claiming_confirmation.html:31
 msgid "Don't have an account?"
 msgstr "Haben Sie bereits einen Account?"
 
-#: berlinbuehnen/templates/berlinbuehnen/accounts/login.html:15
+#: berlinbuehnen/templates/berlinbuehnen/accounts/login.html:14
 #: berlinbuehnen/templates/berlinbuehnen/accounts/register.html:8
 msgid "Sign Up"
 msgstr "Registrieren"
+
+#: berlinbuehnen/templates/berlinbuehnen/accounts/login.html:16
+#: berlinbuehnen/templates/berlinbuehnen/accounts/password_change_done.html:11
+#: berlinbuehnen/templates/berlinbuehnen/accounts/password_change_form.html:12
+#: berlinbuehnen/templates/berlinbuehnen/accounts/password_reset_confirm.html:15
+#: berlinbuehnen/templates/berlinbuehnen/accounts/password_reset_done.html:11
+#: berlinbuehnen/templates/berlinbuehnen/accounts/password_reset_form.html:16
+#: berlinbuehnen/templates/berlinbuehnen/accounts/register.html:14
+#: berlinbuehnen/templates/berlinbuehnen/accounts/register_done.html:11
+#: berlinbuehnen/templates/berlinbuehnen/accounts/register_verify_required.html:12
+#, fuzzy
+msgid "back to home"
+msgstr "Zurück zur Übersicht"
 
 #: berlinbuehnen/templates/berlinbuehnen/accounts/password_change_done.html:4
 msgid "Password change successful"
@@ -4066,7 +4222,7 @@ msgstr ""
 #: berlinbuehnen/templates/berlinbuehnen/articles/articles_archive_month.html:34
 #: berlinbuehnen/templates/berlinbuehnen/articles/articles_archive_year.html:34
 #: berlinbuehnen/templates/berlinbuehnen/articles/articles_detail.html:20
-#: berlinbuehnen/templates/berlinbuehnen/utils/dashboard_navigation.html:70
+#: berlinbuehnen/templates/berlinbuehnen/utils/dashboard_navigation.html:71
 msgid "Overview"
 msgstr "Überblick"
 
@@ -4163,7 +4319,7 @@ msgid "Welcome"
 msgstr "Wilkommen"
 
 #: berlinbuehnen/templates/berlinbuehnen/articles/articles_detail.html:16
-#: berlinbuehnen/templates/berlinbuehnen/education/department_detail.html:33
+#: berlinbuehnen/templates/berlinbuehnen/education/department_detail.html:34
 #: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:76
 #: berlinbuehnen/templates/berlinbuehnen/festivals/festival_detail.html:33
 #: berlinbuehnen/templates/berlinbuehnen/festivals/festival_list.html:18
@@ -4290,25 +4446,19 @@ msgstr "Weitere Termine"
 msgid "Ad"
 msgstr "Anzeige"
 
-#: berlinbuehnen/templates/berlinbuehnen/education/department_detail.html:3
-#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:3
-#, fuzzy
-msgid "Educational Project"
-msgstr "Theaterpädagogik Projekte"
-
-#: berlinbuehnen/templates/berlinbuehnen/education/department_detail.html:38
+#: berlinbuehnen/templates/berlinbuehnen/education/department_detail.html:39
 #: berlinbuehnen/templates/berlinbuehnen/education/department_list.html:4
-#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:57
+#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:52
+#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:63
 #: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:68
-#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:73
 #: berlinbuehnen/templates/berlinbuehnen/education/includes/department_sidebar.html:24
-#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:66
-#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:118
+#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:70
+#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:122
 msgid "Education"
 msgstr "Theaterpädagogik"
 
-#: berlinbuehnen/templates/berlinbuehnen/education/department_detail.html:41
-#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:92
+#: berlinbuehnen/templates/berlinbuehnen/education/department_detail.html:42
+#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:84
 #: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:128
 #: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:190
 #: berlinbuehnen/templates/berlinbuehnen/festivals/festival_detail.html:63
@@ -4317,25 +4467,25 @@ msgstr "Theaterpädagogik"
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: berlinbuehnen/templates/berlinbuehnen/education/department_detail.html:92
+#: berlinbuehnen/templates/berlinbuehnen/education/department_detail.html:93
 msgid "Projects"
 msgstr "Projekte"
 
-#: berlinbuehnen/templates/berlinbuehnen/education/department_detail.html:115
+#: berlinbuehnen/templates/berlinbuehnen/education/department_detail.html:116
 #: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:9
 msgid "continuous project"
 msgstr "fortlaufendes Angebot"
 
-#: berlinbuehnen/templates/berlinbuehnen/education/department_detail.html:183
-#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:231
+#: berlinbuehnen/templates/berlinbuehnen/education/department_detail.html:181
+#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:223
 #: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:821
 #: berlinbuehnen/templates/berlinbuehnen/festivals/festival_detail.html:153
 #: berlinbuehnen/templates/berlinbuehnen/locations/location_detail.html:92
 msgid "Gallery"
 msgstr "Bildergalerie"
 
-#: berlinbuehnen/templates/berlinbuehnen/education/department_detail.html:201
-#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:249
+#: berlinbuehnen/templates/berlinbuehnen/education/department_detail.html:199
+#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:241
 #: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:852
 #: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:878
 #: berlinbuehnen/templates/berlinbuehnen/festivals/festival_detail.html:171
@@ -4351,16 +4501,16 @@ msgstr "mit  theaterpädagogischer Abteilung"
 msgid "back to location"
 msgstr "zurück zur Bühne"
 
-#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:165
+#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:157
 #: berlinbuehnen/templates/berlinbuehnen/education/includes/department_sidebar.html:64
 msgid "Team"
 msgstr ""
 
-#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:180
+#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:172
 #: berlinbuehnen/templates/berlinbuehnen/education/includes/department_sidebar.html:37
 #: berlinbuehnen/templates/berlinbuehnen/education/includes/department_sidebar.html:79
-#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:84
-#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:136
+#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:88
+#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:140
 #: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:443
 #: berlinbuehnen/templates/berlinbuehnen/festivals/includes/sidebar.html:30
 #: berlinbuehnen/templates/berlinbuehnen/festivals/includes/sidebar.html:58
@@ -4371,18 +4521,247 @@ msgstr ""
 #: berlinbuehnen/templates/berlinbuehnen/locations/includes/sidebar.html:29
 #: berlinbuehnen/templates/berlinbuehnen/locations/includes/sidebar.html:116
 #: berlinbuehnen/templates/berlinbuehnen/locations/includes/sidebar.html:175
-#: berlinbuehnen/templates/berlinbuehnen/marketplace/includes/sidebar.html:39
+#: berlinbuehnen/templates/berlinbuehnen/marketplace/includes/sidebar.html:55
 msgid "Mail"
 msgstr ""
 
-#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:206
+#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:198
 #: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:740
 msgid "Presented by"
 msgstr "Präsentiert von"
 
+#: berlinbuehnen/templates/berlinbuehnen/education/department_gallery/image_overview.html:24
+#: berlinbuehnen/templates/berlinbuehnen/education/project_gallery/image_overview.html:24
+#: berlinbuehnen/templates/berlinbuehnen/festivals/gallery/overview.html:24
+#: berlinbuehnen/templates/berlinbuehnen/locations/gallery/overview.html:24
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/gallery/image_overview.html:24
+#: berlinbuehnen/templates/berlinbuehnen/productions/gallery/image_overview.html:24
+msgid "Crop list image"
+msgstr "Listenbild zuschneiden"
+
+#: berlinbuehnen/templates/berlinbuehnen/education/department_gallery/image_overview.html:25
+#: berlinbuehnen/templates/berlinbuehnen/education/project_gallery/image_overview.html:25
+#: berlinbuehnen/templates/berlinbuehnen/festivals/gallery/overview.html:25
+#: berlinbuehnen/templates/berlinbuehnen/locations/gallery/overview.html:25
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/gallery/image_overview.html:25
+#: berlinbuehnen/templates/berlinbuehnen/productions/gallery/image_overview.html:25
+msgid "Crop cover image"
+msgstr "Hauptbild zuschneiden"
+
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/base.html:9
+#, fuzzy
+msgid "New department"
+msgstr "Abfahrt"
+
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/base.html:40
+#, fuzzy
+msgid "Add new educational department"
+msgstr "mit  theaterpädagogischer Abteilung"
+
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/base.html:49
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/base.html:49
+#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/base.html:47
+#: berlinbuehnen/templates/berlinbuehnen/locations/forms/base.html:46
+#: berlinbuehnen/templates/berlinbuehnen/marketplace/forms/base.html:46
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/base.html:51
+#: berlinbuehnen/templates/berlinbuehnen/productions/forms/base.html:49
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:15
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_locations.html:12
+msgid "Not listed"
+msgstr "nicht aufgelistet"
+
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/base.html:92
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/base.html:92
+#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/base.html:87
+#: berlinbuehnen/templates/berlinbuehnen/locations/forms/base.html:86
+#: berlinbuehnen/templates/berlinbuehnen/marketplace/forms/base.html:84
+#: berlinbuehnen/templates/berlinbuehnen/multiparts/forms/base.html:65
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/base.html:111
+#: berlinbuehnen/templates/berlinbuehnen/productions/forms/base.html:92
+msgid "Fields with * are required."
+msgstr "Felder mit * sind Pflichtfelder."
+
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/description_form.html:26
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/description_form.html:26
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:38
+#: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:26
+msgid "Drop image here"
+msgstr "Bild per Drag and Drop einfügen"
+
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/description_form.html:27
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/description_form.html:27
+#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/basic_info_form.html:111
+#: berlinbuehnen/templates/berlinbuehnen/locations/forms/basic_info_form.html:111
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:39
+#: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:27
+msgid "Upload Image"
+msgstr "Bild hochladen"
+
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/description_form.html:36
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/description_form.html:36
+#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/basic_info_form.html:121
+#: berlinbuehnen/templates/berlinbuehnen/locations/forms/basic_info_form.html:121
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:48
+#: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:36
+#: berlinbuehnen/templates/berlinbuehnen/utils/gallery_upload_scripts.html:15
+msgid "Failed"
+msgstr "fehlgeschlagen"
+
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/description_form.html:39
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/description_form.html:39
+#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/basic_info_form.html:124
+#: berlinbuehnen/templates/berlinbuehnen/locations/forms/basic_info_form.html:124
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:51
+#: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:39
+#: berlinbuehnen/templates/berlinbuehnen/utils/gallery_upload_scripts.html:18
+#, python-brace-format
+msgid "{file} has invalid extension. Only {extensions} are allowed."
+msgstr ""
+"{file} hat eine nicht erlaubte Erweiterung. Nur {extensions} sind erlaubt."
+
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/description_form.html:40
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/description_form.html:40
+#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/basic_info_form.html:125
+#: berlinbuehnen/templates/berlinbuehnen/locations/forms/basic_info_form.html:125
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:52
+#: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:40
+#: berlinbuehnen/templates/berlinbuehnen/utils/gallery_upload_scripts.html:19
+#, python-brace-format
+msgid "{file} is too large, maximum file size is {sizeLimit}."
+msgstr "{file} ist zu groß, Maximalgröße ist {sizeLimit}."
+
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/description_form.html:41
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/description_form.html:41
+#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/basic_info_form.html:126
+#: berlinbuehnen/templates/berlinbuehnen/locations/forms/basic_info_form.html:126
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:53
+#: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:41
+#: berlinbuehnen/templates/berlinbuehnen/utils/gallery_upload_scripts.html:20
+#, python-brace-format
+msgid "{file} is too small, minimum file size is {minSizeLimit}."
+msgstr "{file} ist zu klein, Minimalgröße beträgt {minSizeLimit}."
+
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/description_form.html:42
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/description_form.html:42
+#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/basic_info_form.html:127
+#: berlinbuehnen/templates/berlinbuehnen/locations/forms/basic_info_form.html:127
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:54
+#: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:42
+#: berlinbuehnen/templates/berlinbuehnen/utils/gallery_upload_scripts.html:21
+#, python-brace-format
+msgid "{file} is empty, please select files again without it."
+msgstr "{file} ist leer, bitte wählen sie die Dateien erneut aus."
+
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/description_form.html:43
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/description_form.html:43
+#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/basic_info_form.html:128
+#: berlinbuehnen/templates/berlinbuehnen/locations/forms/basic_info_form.html:128
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:55
+#: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:43
+#: berlinbuehnen/templates/berlinbuehnen/utils/gallery_upload_scripts.html:22
+#, python-brace-format
+msgid "No more than {filesLimit} files are allowed to be uploaded."
+msgstr "Nicht mehr als {filesLimit} Dateien sind zum Hochladen erlaubt."
+
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/description_form.html:44
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/description_form.html:44
+#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/basic_info_form.html:129
+#: berlinbuehnen/templates/berlinbuehnen/locations/forms/basic_info_form.html:129
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:56
+#: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:44
+#: berlinbuehnen/templates/berlinbuehnen/utils/gallery_upload_scripts.html:23
+msgid ""
+"The files are being uploaded, if you leave now the upload will be cancelled."
+msgstr ""
+"Die Dateien werden hochgeladen. Wenn Sie die Seite jetzt verlassen wird der "
+"Vorgang abgebrochen."
+
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/description_form.html:138
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:150
+#: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:138
+msgid "Add staff"
+msgstr "Beteiligten hinzufügen"
+
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/description_form.html:154
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/basic_info_form.html:88
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/description_form.html:154
+#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/basic_info_form.html:81
+#: berlinbuehnen/templates/berlinbuehnen/locations/forms/basic_info_form.html:81
+#: berlinbuehnen/templates/berlinbuehnen/locations/forms/stages_form.html:75
+#: berlinbuehnen/templates/berlinbuehnen/multiparts/forms/multipart_form.html:70
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:166
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/overview.html:47
+#: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:154
+#: berlinbuehnen/templates/berlinbuehnen/productions/forms/events_form.html:46
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:80
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:132
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:192
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:252
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:312
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_festivals.html:84
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:112
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_locations.html:76
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_multiparts.html:79
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_productions.html:84
+msgid "Remove"
+msgstr "Entfernen"
+
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/description_form.html:175
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/description_form.html:175
+#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/basic_info_form.html:65
+#: berlinbuehnen/templates/berlinbuehnen/locations/forms/basic_info_form.html:65
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:225
+#: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:212
+msgid "Add social media channel"
+msgstr "Social Media Channel hinzufügen"
+
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/gallery_form.html:18
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/gallery_form.html:25
+#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/gallery_form.html:18
+#: berlinbuehnen/templates/berlinbuehnen/locations/forms/gallery_form.html:18
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/gallery_form.html:44
+#: berlinbuehnen/templates/berlinbuehnen/productions/forms/gallery_form.html:32
+msgid "Image Gallery"
+msgstr "Bildergalerie"
+
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/gallery_form.html:20
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/gallery_form.html:27
+#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/gallery_form.html:20
+#: berlinbuehnen/templates/berlinbuehnen/locations/forms/gallery_form.html:20
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/gallery_form.html:46
+#: berlinbuehnen/templates/berlinbuehnen/productions/forms/gallery_form.html:34
+msgid "Crop List Image"
+msgstr "Listenbild zuschneiden"
+
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/gallery_form.html:21
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/gallery_form.html:28
+#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/gallery_form.html:21
+#: berlinbuehnen/templates/berlinbuehnen/locations/forms/gallery_form.html:21
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/gallery_form.html:47
+#: berlinbuehnen/templates/berlinbuehnen/productions/forms/gallery_form.html:35
+msgid "Crop Cover Image"
+msgstr "Anzeigebild zuschneiden"
+
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/gallery_form.html:22
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/gallery_form.html:29
+#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/gallery_form.html:22
+#: berlinbuehnen/templates/berlinbuehnen/locations/forms/gallery_form.html:22
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/gallery_form.html:48
+#: berlinbuehnen/templates/berlinbuehnen/productions/forms/gallery_form.html:36
+msgid "Add image"
+msgstr "Bild hinzufügen"
+
+#: berlinbuehnen/templates/berlinbuehnen/education/departments/forms/gallery_form.html:29
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/gallery_form.html:36
+#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/gallery_form.html:29
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/gallery_form.html:55
+#: berlinbuehnen/templates/berlinbuehnen/productions/forms/gallery_form.html:43
+msgid "Add PDF document"
+msgstr "PDF Dokument hinzufügen"
+
 #: berlinbuehnen/templates/berlinbuehnen/education/includes/department_sidebar.html:41
-#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:88
-#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:140
+#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:92
+#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:144
 #: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:176
 #: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:217
 #: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:447
@@ -4395,39 +4774,70 @@ msgstr "Präsentiert von"
 #: berlinbuehnen/templates/berlinbuehnen/locations/includes/sidebar.html:33
 #: berlinbuehnen/templates/berlinbuehnen/locations/includes/sidebar.html:120
 #: berlinbuehnen/templates/berlinbuehnen/locations/includes/sidebar.html:179
-#: berlinbuehnen/templates/berlinbuehnen/marketplace/includes/sidebar.html:43
+#: berlinbuehnen/templates/berlinbuehnen/marketplace/includes/sidebar.html:59
 msgid "Web"
 msgstr "Web"
 
 #: berlinbuehnen/templates/berlinbuehnen/education/includes/department_sidebar.html:89
-#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:228
+#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:232
 #: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:529
 msgid "Downloads"
 msgstr ""
 
-#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:5
-#: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:232
-msgid "Dates"
-msgstr "Termine"
+#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:173
+msgid "Target group"
+msgstr "Zielgruppe"
 
-#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:181
+#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:185
 #, python-format
 msgid "Age from %(age_from)s till %(age_till)s years"
 msgstr "Alter von %(age_from)s bis %(age_till)s Jahre"
 
-#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:183
+#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:187
 #, python-format
 msgid "Age from %(age_from)s years"
 msgstr "Alter ab %(age_from)s Jahre"
 
-#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:212
+#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:216
 msgid "Cost"
 msgstr "Kosten"
 
-#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:221
+#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:225
 #: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:393
 msgid "Buy tickets"
 msgstr "Tickets"
+
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/base.html:9
+#, fuzzy
+msgid "New project"
+msgstr "Neue Produktion"
+
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/base.html:40
+#, fuzzy
+msgid "Add new project"
+msgstr "Neue Produktion hinzufügen"
+
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/basic_info_form.html:72
+#, fuzzy
+msgid "Add date and time"
+msgstr "Datum und Uhrzeit"
+
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/description_form.html:138
+#, fuzzy
+msgid "Add member"
+msgstr "Bühne hinzufügen"
+
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/description_form.html:193
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:243
+#: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:230
+msgid "Add sponsor"
+msgstr "Sponsor hinzufügen"
+
+#: berlinbuehnen/templates/berlinbuehnen/education/projects/forms/gallery_form.html:20
+#: berlinbuehnen/templates/berlinbuehnen/productions/events/gallery_form.html:32
+#: berlinbuehnen/templates/berlinbuehnen/productions/forms/gallery_form.html:20
+msgid "Add video trailer"
+msgstr "Video Trailer hinzufügen"
 
 #: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:250
 #: berlinbuehnen/templates/berlinbuehnen/events/includes/list.html:108
@@ -4458,7 +4868,7 @@ msgstr "geschlossen"
 
 #: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:460
 #: berlinbuehnen/templates/berlinbuehnen/locations/includes/sidebar.html:129
-#: berlinbuehnen/templates/berlinbuehnen/marketplace/includes/sidebar.html:58
+#: berlinbuehnen/templates/berlinbuehnen/marketplace/includes/sidebar.html:67
 msgid "Public transport"
 msgstr "Anfahrt BVG"
 
@@ -4491,49 +4901,50 @@ msgid "Authors"
 msgstr "Autoren"
 
 #: berlinbuehnen/templates/berlinbuehnen/favorites/_all_favorites.html:313
-#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:33
+#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:62
 msgid "You didn't favor any objects."
 msgstr ""
 
-#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:38
+#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:33
 msgid "Edit My Tour description"
 msgstr ""
 
-#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:39
+#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:34
 msgid "Edit my tour description"
 msgstr ""
 
-#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:42
+#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:37
 msgid "Email list to a friend"
 msgstr ""
 
-#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:43
+#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:38
 msgid "Email this list to a friend"
 msgstr ""
 
-#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:46
-#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:49
-msgid "My Tour at the long night of museums"
-msgstr ""
-
-#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:46
+#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:41
+#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:44
 #, fuzzy
-msgid "Tweet list"
-msgstr "nicht aufgelistet"
+msgid "My favorites at Berlin Bühnen."
+msgstr "Berlin Bühnen"
 
-#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:47
-msgid "Tweet this list"
-msgstr ""
-
-#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:49
+#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:41
 #, fuzzy
 msgid "Share list on Facebook"
 msgstr "Teilen auf Facebook"
 
-#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:50
+#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:42
 #, fuzzy
 msgid "Share this list on Facebook"
 msgstr "Teilen auf Facebook"
+
+#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:44
+#, fuzzy
+msgid "Tweet list"
+msgstr "nicht aufgelistet"
+
+#: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:45
+msgid "Tweet this list"
+msgstr ""
 
 #: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites_map.html:3
 #: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites_map.html:19
@@ -4547,12 +4958,12 @@ msgstr ""
 msgid "Filter selection"
 msgstr "Filterauswahl"
 
-#: berlinbuehnen/templates/berlinbuehnen/favorites/change_favorite_list_done.html:6
+#: berlinbuehnen/templates/berlinbuehnen/favorites/change_favorite_list_done.html:7
 msgid "Your changes have been saved!"
 msgstr ""
 
-#: berlinbuehnen/templates/berlinbuehnen/favorites/change_favorite_list_done.html:7
-#: berlinbuehnen/templates/berlinbuehnen/favorites/send_user_favorites_by_email_done.html:7
+#: berlinbuehnen/templates/berlinbuehnen/favorites/change_favorite_list_done.html:8
+#: berlinbuehnen/templates/berlinbuehnen/favorites/send_user_favorites_by_email_done.html:9
 #: berlinbuehnen/templates/berlinbuehnen/festivals/forms/basic_info_form.html:105
 #: berlinbuehnen/templates/berlinbuehnen/locations/location_detail_ajax.html:41
 #: berlinbuehnen/templates/berlinbuehnen/locations/forms/basic_info_form.html:105
@@ -4561,7 +4972,7 @@ msgstr ""
 msgid "Close"
 msgstr "Schließen"
 
-#: berlinbuehnen/templates/berlinbuehnen/favorites/send_user_favorites_by_email_done.html:6
+#: berlinbuehnen/templates/berlinbuehnen/favorites/send_user_favorites_by_email_done.html:8
 msgid "Your message has been sent!"
 msgstr ""
 
@@ -4573,21 +4984,19 @@ msgstr "zu Favoriten hinzufügen"
 msgid "Remove from Favorites"
 msgstr "aus Favoriten entfernen"
 
-#: berlinbuehnen/templates/berlinbuehnen/favorites/includes/favorite_detail.html:2
 #: berlinbuehnen/templates/berlinbuehnen/favorites/includes/favorite_detail.html:6
-#: berlinbuehnen/templates/berlinbuehnen/utils/favorites_scripts.html:5
-#, fuzzy
-msgid "Remove from My Favorites"
-msgstr "aus Favoriten entfernen"
-
-#: berlinbuehnen/templates/berlinbuehnen/favorites/includes/favorite_detail.html:2
-#: berlinbuehnen/templates/berlinbuehnen/favorites/includes/favorite_detail.html:4
 #: berlinbuehnen/templates/berlinbuehnen/utils/favorites_scripts.html:4
 #, fuzzy
 msgid "Add to My Favorites"
 msgstr "zu Favoriten hinzufügen"
 
-#: berlinbuehnen/templates/berlinbuehnen/festivals/festival_detail.html:50
+#: berlinbuehnen/templates/berlinbuehnen/favorites/includes/favorite_detail.html:8
+#: berlinbuehnen/templates/berlinbuehnen/utils/favorites_scripts.html:5
+#, fuzzy
+msgid "Remove from My Favorites"
+msgstr "aus Favoriten entfernen"
+
+#: berlinbuehnen/templates/berlinbuehnen/festivals/festival_detail.html:45
 #: berlinbuehnen/templates/berlinbuehnen/festivals/festival_list.html:45
 msgid "Organizer"
 msgstr "Veranstalter"
@@ -4616,6 +5025,7 @@ msgstr "Festivalprogramm"
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:149
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:209
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:269
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:329
 msgid "more"
 msgstr "Mehr"
 
@@ -4628,52 +5038,6 @@ msgstr "Festival"
 #, fuzzy
 msgid "Add new festival"
 msgstr "Neuen Mehrteiler hinzufügen"
-
-#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/base.html:47
-#: berlinbuehnen/templates/berlinbuehnen/locations/forms/base.html:46
-#: berlinbuehnen/templates/berlinbuehnen/marketplace/forms/base.html:46
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/base.html:51
-#: berlinbuehnen/templates/berlinbuehnen/productions/forms/base.html:49
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:12
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_locations.html:12
-msgid "Not listed"
-msgstr "nicht aufgelistet"
-
-#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/base.html:87
-#: berlinbuehnen/templates/berlinbuehnen/locations/forms/base.html:86
-#: berlinbuehnen/templates/berlinbuehnen/marketplace/forms/base.html:84
-#: berlinbuehnen/templates/berlinbuehnen/multiparts/forms/base.html:65
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/base.html:111
-#: berlinbuehnen/templates/berlinbuehnen/productions/forms/base.html:92
-msgid "Fields with * are required."
-msgstr "Felder mit * sind Pflichtfelder."
-
-#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/basic_info_form.html:65
-#: berlinbuehnen/templates/berlinbuehnen/locations/forms/basic_info_form.html:65
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:225
-#: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:212
-msgid "Add social media channel"
-msgstr "Social Media Channel hinzufügen"
-
-#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/basic_info_form.html:81
-#: berlinbuehnen/templates/berlinbuehnen/locations/forms/basic_info_form.html:81
-#: berlinbuehnen/templates/berlinbuehnen/locations/forms/stages_form.html:75
-#: berlinbuehnen/templates/berlinbuehnen/multiparts/forms/multipart_form.html:70
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:166
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/overview.html:47
-#: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:154
-#: berlinbuehnen/templates/berlinbuehnen/productions/forms/events_form.html:46
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:80
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:132
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:192
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:252
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_festivals.html:84
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:76
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_locations.html:76
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_multiparts.html:79
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_productions.html:84
-msgid "Remove"
-msgstr "Entfernen"
 
 #: berlinbuehnen/templates/berlinbuehnen/festivals/forms/basic_info_form.html:102
 #: berlinbuehnen/templates/berlinbuehnen/locations/forms/basic_info_form.html:102
@@ -4695,130 +5059,10 @@ msgstr "Minuten"
 msgid "Drop file here"
 msgstr "Datei hier ablegen"
 
-#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/basic_info_form.html:111
-#: berlinbuehnen/templates/berlinbuehnen/locations/forms/basic_info_form.html:111
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:39
-#: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:27
-msgid "Upload Image"
-msgstr "Bild hochladen"
-
-#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/basic_info_form.html:121
-#: berlinbuehnen/templates/berlinbuehnen/locations/forms/basic_info_form.html:121
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:48
-#: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:36
-#: berlinbuehnen/templates/berlinbuehnen/utils/gallery_upload_scripts.html:15
-msgid "Failed"
-msgstr "fehlgeschlagen"
-
-#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/basic_info_form.html:124
-#: berlinbuehnen/templates/berlinbuehnen/locations/forms/basic_info_form.html:124
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:51
-#: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:39
-#: berlinbuehnen/templates/berlinbuehnen/utils/gallery_upload_scripts.html:18
-#, python-brace-format
-msgid "{file} has invalid extension. Only {extensions} are allowed."
-msgstr ""
-"{file} hat eine nicht erlaubte Erweiterung. Nur {extensions} sind erlaubt."
-
-#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/basic_info_form.html:125
-#: berlinbuehnen/templates/berlinbuehnen/locations/forms/basic_info_form.html:125
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:52
-#: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:40
-#: berlinbuehnen/templates/berlinbuehnen/utils/gallery_upload_scripts.html:19
-#, python-brace-format
-msgid "{file} is too large, maximum file size is {sizeLimit}."
-msgstr "{file} ist zu groß, Maximalgröße ist {sizeLimit}."
-
-#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/basic_info_form.html:126
-#: berlinbuehnen/templates/berlinbuehnen/locations/forms/basic_info_form.html:126
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:53
-#: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:41
-#: berlinbuehnen/templates/berlinbuehnen/utils/gallery_upload_scripts.html:20
-#, python-brace-format
-msgid "{file} is too small, minimum file size is {minSizeLimit}."
-msgstr "{file} ist zu klein, Minimalgröße beträgt {minSizeLimit}."
-
-#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/basic_info_form.html:127
-#: berlinbuehnen/templates/berlinbuehnen/locations/forms/basic_info_form.html:127
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:54
-#: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:42
-#: berlinbuehnen/templates/berlinbuehnen/utils/gallery_upload_scripts.html:21
-#, python-brace-format
-msgid "{file} is empty, please select files again without it."
-msgstr "{file} ist leer, bitte wählen sie die Dateien erneut aus."
-
-#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/basic_info_form.html:128
-#: berlinbuehnen/templates/berlinbuehnen/locations/forms/basic_info_form.html:128
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:55
-#: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:43
-#: berlinbuehnen/templates/berlinbuehnen/utils/gallery_upload_scripts.html:22
-#, python-brace-format
-msgid "No more than {filesLimit} files are allowed to be uploaded."
-msgstr "Nicht mehr als {filesLimit} Dateien sind zum Hochladen erlaubt."
-
-#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/basic_info_form.html:129
-#: berlinbuehnen/templates/berlinbuehnen/locations/forms/basic_info_form.html:129
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:56
-#: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:44
-#: berlinbuehnen/templates/berlinbuehnen/utils/gallery_upload_scripts.html:23
-msgid ""
-"The files are being uploaded, if you leave now the upload will be cancelled."
-msgstr ""
-"Die Dateien werden hochgeladen. Wenn Sie die Seite jetzt verlassen wird der "
-"Vorgang abgebrochen."
-
-#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/gallery_form.html:18
-#: berlinbuehnen/templates/berlinbuehnen/locations/forms/gallery_form.html:18
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/gallery_form.html:44
-#: berlinbuehnen/templates/berlinbuehnen/productions/forms/gallery_form.html:32
-msgid "Image Gallery"
-msgstr "Bildergalerie"
-
-#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/gallery_form.html:20
-#: berlinbuehnen/templates/berlinbuehnen/locations/forms/gallery_form.html:20
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/gallery_form.html:46
-#: berlinbuehnen/templates/berlinbuehnen/productions/forms/gallery_form.html:34
-msgid "Crop List Image"
-msgstr "Listenbild zuschneiden"
-
-#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/gallery_form.html:21
-#: berlinbuehnen/templates/berlinbuehnen/locations/forms/gallery_form.html:21
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/gallery_form.html:47
-#: berlinbuehnen/templates/berlinbuehnen/productions/forms/gallery_form.html:35
-msgid "Crop Cover Image"
-msgstr "Anzeigebild zuschneiden"
-
-#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/gallery_form.html:22
-#: berlinbuehnen/templates/berlinbuehnen/locations/forms/gallery_form.html:22
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/gallery_form.html:48
-#: berlinbuehnen/templates/berlinbuehnen/productions/forms/gallery_form.html:36
-msgid "Add image"
-msgstr "Bild hinzufügen"
-
-#: berlinbuehnen/templates/berlinbuehnen/festivals/forms/gallery_form.html:29
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/gallery_form.html:55
-#: berlinbuehnen/templates/berlinbuehnen/productions/forms/gallery_form.html:43
-msgid "Add PDF document"
-msgstr "PDF Dokument hinzufügen"
-
 #: berlinbuehnen/templates/berlinbuehnen/festivals/gallery/create_update_pdf.html:13
 #, fuzzy
 msgid "Do you really want to delete this file?"
 msgstr "Möchten Sie dieses Objekt wirklich löschen?"
-
-#: berlinbuehnen/templates/berlinbuehnen/festivals/gallery/overview.html:24
-#: berlinbuehnen/templates/berlinbuehnen/locations/gallery/overview.html:24
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/gallery/image_overview.html:24
-#: berlinbuehnen/templates/berlinbuehnen/productions/gallery/image_overview.html:24
-msgid "Crop list image"
-msgstr "Listenbild zuschneiden"
-
-#: berlinbuehnen/templates/berlinbuehnen/festivals/gallery/overview.html:25
-#: berlinbuehnen/templates/berlinbuehnen/locations/gallery/overview.html:25
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/gallery/image_overview.html:25
-#: berlinbuehnen/templates/berlinbuehnen/productions/gallery/image_overview.html:25
-msgid "Crop cover image"
-msgstr "Hauptbild zuschneiden"
 
 #: berlinbuehnen/templates/berlinbuehnen/festivals/includes/festivals_slider.html:9
 msgid "More Festivals"
@@ -4875,7 +5119,6 @@ msgid "Share on Facebook"
 msgstr "Teilen auf Facebook"
 
 #: berlinbuehnen/templates/berlinbuehnen/locations/location_list.html:19
-#: berlinbuehnen/templates/berlinbuehnen/marketplace/job_offer_list.html:19
 #, fuzzy
 msgid "open widgets"
 msgstr "Filter öffnen"
@@ -4945,10 +5188,15 @@ msgstr ""
 
 #: berlinbuehnen/templates/berlinbuehnen/marketplace/forms/base.html:37
 #, fuzzy
-msgid "Add new job offer"
+msgid "Add new job"
 msgstr "Einen neuen Blogbeitrag hinzufügen"
 
-#: berlinbuehnen/templates/berlinbuehnen/marketplace/includes/sidebar.html:77
+#: berlinbuehnen/templates/berlinbuehnen/marketplace/includes/sidebar.html:5
+#, fuzzy
+msgid "Job informations"
+msgstr "Preisinformation"
+
+#: berlinbuehnen/templates/berlinbuehnen/marketplace/includes/sidebar.html:9
 #, fuzzy
 msgid "Job Type"
 msgstr "Typ"
@@ -5031,27 +5279,6 @@ msgstr "Neue Produktion"
 msgid "Add new production"
 msgstr "Neue Produktion hinzufügen"
 
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/basic_info_form.html:18
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/basic_info_form.html:22
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:19
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:23
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/gallery_form.html:17
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/gallery_form.html:21
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/overview.html:36
-#: berlinbuehnen/templates/berlinbuehnen/productions/forms/events_form.html:35
-msgid "Details"
-msgstr "Details"
-
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:38
-#: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:26
-msgid "Drop image here"
-msgstr "Bild per Drag and Drop einfügen"
-
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:150
-#: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:138
-msgid "Add staff"
-msgstr "Beteiligten hinzufügen"
-
 #: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:187
 #: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:175
 msgid "Add author"
@@ -5061,16 +5288,6 @@ msgstr "Autor / Verfasser hinzufügen"
 #: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:193
 msgid "Add another involved person"
 msgstr "Eine weitere beteiligte Person hinzufügen"
-
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:243
-#: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:230
-msgid "Add sponsor"
-msgstr "Sponsor hinzufügen"
-
-#: berlinbuehnen/templates/berlinbuehnen/productions/events/gallery_form.html:32
-#: berlinbuehnen/templates/berlinbuehnen/productions/forms/gallery_form.html:20
-msgid "Add video trailer"
-msgstr "Video Trailer hinzufügen"
 
 #: berlinbuehnen/templates/berlinbuehnen/productions/events/gallery_form.html:37
 #: berlinbuehnen/templates/berlinbuehnen/productions/forms/gallery_form.html:25
@@ -5088,8 +5305,9 @@ msgstr "Live Stream hinzufügen"
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:112
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:165
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:225
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:285
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_festivals.html:54
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:49
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:67
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_locations.html:49
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_multiparts.html:60
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_productions.html:54
@@ -5098,7 +5316,7 @@ msgstr "Handlungen"
 
 #: berlinbuehnen/templates/berlinbuehnen/productions/events/overview.html:58
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_festivals.html:95
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:86
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:123
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_locations.html:86
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_productions.html:95
 msgid "There are no published items."
@@ -5106,7 +5324,7 @@ msgstr "Keine veröffentlichten Elemente vorhanden"
 
 #: berlinbuehnen/templates/berlinbuehnen/productions/events/overview.html:59
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_festivals.html:96
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:87
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:124
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_locations.html:87
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_productions.html:96
 msgid "There are no draft items."
@@ -5114,7 +5332,7 @@ msgstr "Es gibt keine Entwürfe."
 
 #: berlinbuehnen/templates/berlinbuehnen/productions/events/overview.html:60
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_festivals.html:97
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:88
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:125
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_locations.html:88
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_productions.html:97
 msgid "There are no expired items."
@@ -5240,8 +5458,9 @@ msgstr "Produktion hinzufügen"
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:111
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:163
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:223
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:283
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_festivals.html:46
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:41
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:54
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_locations.html:41
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_multiparts.html:53
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_productions.html:46
@@ -5252,6 +5471,7 @@ msgstr "Zuletzt geändert"
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:142
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:202
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:262
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:322
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_multiparts.html:89
 msgid "There are no items."
 msgstr "Es gibt hierzu keine Einträge."
@@ -5264,7 +5484,7 @@ msgstr "Mehrteiler hinzufügen"
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:106
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_multiparts.html:30
 #: berlinbuehnen/templates/berlinbuehnen/utils/dashboard_navigation.html:32
-#: berlinbuehnen/templates/berlinbuehnen/utils/dashboard_navigation.html:72
+#: berlinbuehnen/templates/berlinbuehnen/utils/dashboard_navigation.html:73
 #: berlinbuehnen/templates/berlinbuehnen/utils/header.html:69
 msgid "Multipart Productions"
 msgstr "Mehrteiler"
@@ -5279,8 +5499,21 @@ msgstr "Bühne hinzufügen"
 msgid "Add festival"
 msgstr "Festival hinzufügen"
 
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:276
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:25
+msgid "Add job"
+msgstr ""
+
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:278
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:29
+#: berlinbuehnen/templates/berlinbuehnen/utils/dashboard_navigation.html:35
+#: berlinbuehnen/templates/berlinbuehnen/utils/dashboard_navigation.html:76
+#: berlinbuehnen/templates/berlinbuehnen/utils/header.html:72
+msgid "Jobs"
+msgstr ""
+
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_festivals.html:14
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:10
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:11
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_locations.html:10
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_multiparts.html:14
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_productions.html:14
@@ -5288,7 +5521,7 @@ msgid "Only Published"
 msgstr "Veröffentlicht"
 
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_festivals.html:15
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:11
+#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:13
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_locations.html:11
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_multiparts.html:15
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_productions.html:15
@@ -5306,10 +5539,6 @@ msgstr "importiert"
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_productions.html:17
 msgid "Only Expired"
 msgstr "nur Abgelaufene"
-
-#: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:22
-msgid "Add job offer"
-msgstr ""
 
 #: berlinbuehnen/templates/berlinbuehnen/theater_of_the_week/includes/theater_of_the_week.html:7
 #, fuzzy
@@ -5339,8 +5568,8 @@ msgstr "Möchten Sie dieses Objekt wirklich löschen?"
 msgid "%(first_name)s"
 msgstr ""
 
-#: berlinbuehnen/templates/berlinbuehnen/utils/dashboard_navigation.html:36
-#: berlinbuehnen/templates/berlinbuehnen/utils/header.html:74
+#: berlinbuehnen/templates/berlinbuehnen/utils/dashboard_navigation.html:37
+#: berlinbuehnen/templates/berlinbuehnen/utils/header.html:76
 msgid "Logout"
 msgstr "Logout"
 
@@ -5419,6 +5648,15 @@ msgstr "Gattungen"
 #: berlinbuehnen/templates/berlinbuehnen/utils/gallery_upload_scripts.html:6
 msgid "Upload file"
 msgstr "Datei hochladen"
+
+#: berlinbuehnen/templates/berlinbuehnen/utils/header.html:75
+#, fuzzy
+msgid "My Favorites"
+msgstr "zu Favoriten hinzufügen"
+
+#, fuzzy
+#~ msgid "Tickets Box Office (when differs from project address)"
+#~ msgstr "Theaterkasse (falls abweichend von Adresse)"
 
 #~ msgid "from"
 #~ msgstr "von"
