@@ -27,22 +27,23 @@ class JobCategoryAdmin(TreeEditor, ExtendedModelAdmin):
     list_display = ['actions_column', 'indented_short_title', ]
 
     fieldsets = get_admin_lang_section(_("Title"), ['title'])
-    fieldsets += [(None, {'fields': ('slug', 'parent')}),]
+    fieldsets += [(None, {'fields': ('slug', 'parent')}), ]
 
-    prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
+    prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,), }
+
 
 admin.site.register(JobCategory, JobCategoryAdmin)
 
 
 class JobTypeAdmin(ExtendedModelAdmin):
-
     save_on_top = True
-    list_display = ['title',]
+    list_display = ['title', ]
 
     fieldsets = get_admin_lang_section(_("Title"), ['title'])
-    fieldsets += [(None, {'fields': ('slug', 'sort_order', )}),]
+    fieldsets += [(None, {'fields': ('slug', 'sort_order',)}), ]
 
-    prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
+    prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,), }
+
 
 admin.site.register(JobType, JobTypeAdmin)
 
@@ -57,23 +58,97 @@ class OwnersForm(forms.Form):
 
 class JobOfferAdmin(ExtendedModelAdmin):
     list_display = ('title', 'creation_date', 'modified_date', 'get_owners_list', 'status')
-    list_editable = ('status', )
-    list_filter = ('status', )
+    list_editable = ('status',)
+    list_filter = ('status',)
 
-    fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'position', 'description', 'remarks',])
-    fieldsets += [(_("Deadline"), {'fields': ('deadline', )}),]
-    fieldsets += [(_("Address"), {
-        'fields': ('company', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude', 'get_map'),
-    }),]
-    fieldsets += [(_("Contacts"), {'fields': ((_("Phone"), {'fields': ('phone_country', 'phone_area', 'phone_number')}), (_("Fax"), {'fields': ('fax_country', 'fax_area', 'fax_number')}),'email','website', )}),]
-    fieldsets += [(_("Categories"), {'fields': ('job_type', 'categories',)}),]
-    fieldsets += [(_("Status"), {'fields': ('status',)}),]
+    fieldsets = get_admin_lang_section(
+        _("Title"),
+        [
+            'title',
+            'subtitle',
+            'position',
+            'description',
+            'remarks',
+        ]
+    )
+    fieldsets += [
+        (
+            _("Dates"),
+            {
+                'fields': (
+                    'deadline',
+                    'start_contract_on'
+                )
+            }
+        ),
+    ]
+    fieldsets += [
+        (
+            _("Address"),
+            {
+                'fields': (
+                    'company',
+                    'street_address',
+                    'street_address2',
+                    'postal_code',
+                    'city',
+                    'latitude',
+                    'longitude',
+                    'get_map'
+                ),
+            }
+        ),
+    ]
+    fieldsets += [
+        (
+            _("Contacts"),
+            {
+                'fields': (
+                    'name',
+                    (
+                        _("Phone"), {
+                            'fields': (
+                                'phone_country',
+                                'phone_area',
+                                'phone_number'
+                            )
+                        }
+                    ),
+                    (_("Fax"), {'fields': ('fax_country', 'fax_area', 'fax_number')}),
+                    'email',
+                    'website',
+                )
+            }
+        ),
+    ]
+    fieldsets += [
+        (
+            _("Categories"),
+            {
+                'fields': (
+                    'job_type',
+                    'categories',
+                )
+            }
+        ),
+    ]
+    fieldsets += [
+        (
+            _("Status"),
+            {
+                'fields': (
+                    'status',
+                )
+            }
+        ),
+    ]
 
     filter_horizontal = ['categories']
     readonly_fields = ["get_map"]
 
     def get_map(self, instance):
         return mark_safe(render_to_string("admin/map.html", {'STATIC_URL': settings.STATIC_URL}))
+
     get_map.short_description = _("Map")
     get_map.allow_tags = True
 
@@ -85,6 +160,7 @@ class JobOfferAdmin(ExtendedModelAdmin):
         if owners_list:
             return '<br />'.join(owners_list) + '<br />' + manage_owners_link
         return manage_owners_link
+
     get_owners_list.allow_tags = True
     get_owners_list.short_description = _("Owners")
 
@@ -135,5 +211,6 @@ class JobOfferAdmin(ExtendedModelAdmin):
     def get_urls(self):
         urls = super(JobOfferAdmin, self).get_urls()
         return patterns('', url(r'^(?P<job_offer_id>\d+)/owners/$', self.owners_view)) + urls
+
 
 admin.site.register(JobOffer, JobOfferAdmin)

@@ -94,8 +94,10 @@ class JobOffer(CreationModificationMixin, UrlMixin):
     position = MultilingualCharField(_('Position'), max_length=200)
     job_type = models.ForeignKey(JobType, verbose_name=_("Job type"), blank=True, null=True)
     deadline = models.DateField(_("Deadline"), blank=True, null=True)
+    start_contract_on = models.DateField(_("Start contract on"), blank=True, null=True)
     categories = models.ManyToManyField(JobCategory, verbose_name=_("Categories"), blank=True)
 
+    name = models.CharField(_("Name"), max_length=255)
     company = models.CharField(_("Company"), max_length=255)
     street_address = models.CharField(_("Street address"), max_length=255)
     street_address2 = models.CharField(_("Street address (second line)"), max_length=255, blank=True)

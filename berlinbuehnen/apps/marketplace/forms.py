@@ -27,8 +27,9 @@ class JobOfferForm(forms.ModelForm):
     class Meta:
         model = JobOffer
         fields = [
-            'deadline',
+            'deadline', 'start_contract_on',
             'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
+            'name',
             'phone_country', 'phone_area', 'phone_number',
             'fax_country', 'fax_area', 'fax_number',
             'email', 'website',
@@ -140,7 +141,7 @@ class JobOfferForm(forms.ModelForm):
 
         layout_blocks.append(layout.Fieldset(
             _("Contact"),
-
+            "name",
             layout.Row(
                 layout.Div(
                     'email', css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
@@ -203,8 +204,9 @@ class JobOfferForm(forms.ModelForm):
         ))
 
         layout_blocks.append(layout.Fieldset(
-            _("Deadline"),
+            _("Dates"),
             "deadline",
+            "start_contract_on",
             css_class="fieldset-services",
         ))
 
