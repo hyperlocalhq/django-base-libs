@@ -837,8 +837,9 @@ Q_CLUSTER = {
         'socket_timeout': None,
         'charset': 'utf-8',
         'errors': 'strict',
-        'unix_socket_path': None
-    }
+        'unix_socket_path': None,
+    },
+    'sync': True,
 }
 
 ### PERSISTENT DATABASE CONNECTIONS ###
