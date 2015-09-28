@@ -19,6 +19,8 @@ from django.db.models.query import QuerySet
 from django.utils.timezone import now as tz_now
 from django.apps import apps
 
+from django_q import async
+
 from base_libs.middleware import get_current_language
 from base_libs.utils.misc import html_to_plain_text
 from base_libs.models.models import UrlMixin
@@ -284,35 +286,27 @@ def send(recipients, sysname, extra_context=None, on_site=True, instance=None, s
     if not extra_context:
         extra_context = {}
     from tasks import send_to_user_async
-    
+    from tasks import send_email_using_template_async
+
     # preparing recipients
     if not hasattr(recipients, '__iter__'):
         recipients = [recipients]
 
-    if isinstance(recipients, QuerySet):
-        user_ids = recipients.values_list("pk", flat=True)
-    else:
-        user_ids = [user.pk for user in recipients]
-    
-    instance_ct = None
-    instance_id = None
-    if instance:
-        instance_ct = ContentType.objects.get_for_model(instance).pk
-        instance_id = instance.pk
-        
-    sender_id = None
-    if sender:
-        sender_id = sender.pk
-        
-    for user_id in user_ids:
-        send_to_user_async(user_id, sysname, extra_context, on_site,
-            instance_ct, instance_id, sender_id, sender_name, sender_email)
-        
-        
+    recipients = [recipients[0]]
+    for user in recipients:
+        # send_to_user_async(user_id, sysname, extra_context, on_site,
+        #     instance_ct, instance_id, sender_id, sender_name, sender_email)
+        send_email_using_template_async(
+            user,
+            sysname,
+            extra_context,
+            on_site,
+            instance,
+            sender,
+        )
 
 
 class ObservedItemManager(models.Manager):
-
     def all_for(self, observed, signal):
         """
         Returns all ObservedItems for an observed object,

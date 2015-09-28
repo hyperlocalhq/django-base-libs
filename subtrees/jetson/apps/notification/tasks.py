@@ -37,23 +37,6 @@ def get_notification_setting(user, notice_type, medium):
         return setting
 
 
-def send_to_user_async(user_id, sysname, extra_context=None, on_site=True, instance_ct=None, instance_id=None,
-                       sender_id=None,
-                       sender_name="", sender_email=""):
-    async(
-        'jetson.apps.notification.send_to_user',
-        user_id,
-        sysname,
-        extra_context,
-        on_site,
-        instance_ct,
-        instance_id,
-        sender_id,
-        sender_name,
-        sender_email,
-    )
-
-
 def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct=None, instance_id=None, sender_id=None,
                  sender_name="", sender_email=""):
     """
@@ -150,3 +133,65 @@ def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct
     # reset environment to original language
     activate(current_language)
 
+
+def send_to_user_async(
+    user_id,
+    sysname,
+    extra_context=None,
+    on_site=True,
+    instance_ct=None,
+    instance_id=None,
+    sender_id=None,
+    sender_name="",
+    sender_email=""
+):
+    async(
+        send_to_user,
+        user_id,
+        sysname,
+        extra_context,
+        on_site,
+        instance_ct,
+        instance_id,
+        sender_id,
+        sender_name,
+        sender_email,
+    )
+
+
+def send_email_using_template_async(
+    user,
+    sysname,
+    extra_context=None,
+    on_site=True,
+    instance=None,
+    sender=None,
+):
+    recipient = Recipient(user=user)
+    recipient_list = [recipient.email]
+
+    if sender:
+        sender_name = sender.get('name', '')
+        sender_email = sender.get('email', '')
+    else:
+        sender_name = sender_email = ''
+
+    # from django.core.mail import send_mail
+    # send_mail(
+    #     subject='Subject here',
+    #     message='Here is the message.',
+    #     from_email='messanger@localhost.com',
+    #     recipient_list=recipient_list,
+    #     fail_silently=False)
+    # return
+
+    send_email_using_template(
+        recipient_list,
+        email_template_slug=sysname,
+        obj=instance,
+        obj_placeholders=extra_context,
+        sender=sender,
+        sender_name=sender_name,
+        sender_email=sender_email,
+        delete_after_sending=True,
+    )
