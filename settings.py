@@ -841,6 +841,10 @@ Q_CLUSTER = {
     }
 }
 
+### PERSISTENT DATABASE CONNECTIONS ###
+
+CONN_MAX_AGE = 600
+
 ### LOCAL SETTINGS ###
 
 try:
