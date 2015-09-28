@@ -220,12 +220,12 @@ def institution_added(sender, instance, **kwargs):
     recipients = User.objects.all()
 
     notification.send(
-        recipients,
-        "institution_added",
-        {
+        recipients=recipients,
+        sysname='institution_added',
+        extra_context={
             "object_creator_url": creator_url,
             "object_creator_title": creator_title,
         },
-        instance=instance,
         on_site=False,
+        instance=instance,
     )
