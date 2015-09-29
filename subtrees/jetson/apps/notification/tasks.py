@@ -134,31 +134,6 @@ def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct
     activate(current_language)
 
 
-def send_to_user_async(
-    user_id,
-    sysname,
-    extra_context=None,
-    on_site=True,
-    instance_ct=None,
-    instance_id=None,
-    sender_id=None,
-    sender_name="",
-    sender_email=""
-):
-    async(
-        send_to_user,
-        user_id,
-        sysname,
-        extra_context,
-        on_site,
-        instance_ct,
-        instance_id,
-        sender_id,
-        sender_name,
-        sender_email,
-    )
-
-
 def send_email_using_template_async(
     user,
     sysname,
@@ -167,8 +142,16 @@ def send_email_using_template_async(
     instance=None,
     sender=None,
 ):
-    recipient = Recipient(user=user)
-    recipient_list = [recipient.email]
+    try:
+        recipient = Recipient(user=user)
+    except Exception as e:
+        print('exception creating recipient for user {0}:\n{1}'.format(
+            user,
+            e,
+        ))
+        return
+
+    recipient_list = [recipient]
 
     if sender:
         sender_name = sender.get('name', '')
@@ -190,8 +173,9 @@ def send_email_using_template_async(
         email_template_slug=sysname,
         obj=instance,
         obj_placeholders=extra_context,
+        delete_after_sending=True,
         sender=sender,
         sender_name=sender_name,
         sender_email=sender_email,
-        delete_after_sending=True,
+        send_immediately=True,
     )

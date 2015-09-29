@@ -285,14 +285,12 @@ def send(recipients, sysname, extra_context=None, on_site=True, instance=None, s
     """
     if not extra_context:
         extra_context = {}
-    from tasks import send_to_user_async
     from tasks import send_email_using_template_async
 
     # preparing recipients
     if not hasattr(recipients, '__iter__'):
         recipients = [recipients]
 
-    recipients = [recipients[0]]
     for user in recipients:
         # send_to_user_async(user_id, sysname, extra_context, on_site,
         #     instance_ct, instance_id, sender_id, sender_name, sender_email)
