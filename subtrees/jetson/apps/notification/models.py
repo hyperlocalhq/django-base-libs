@@ -19,8 +19,6 @@ from django.db.models.query import QuerySet
 from django.utils.timezone import now as tz_now
 from django.apps import apps
 
-from django_q import async
-
 from base_libs.middleware import get_current_language
 from base_libs.utils.misc import html_to_plain_text
 from base_libs.models.models import UrlMixin
@@ -292,8 +290,6 @@ def send(recipients, sysname, extra_context=None, on_site=True, instance=None, s
         recipients = [recipients]
 
     for user in recipients:
-        # send_to_user_async(user_id, sysname, extra_context, on_site,
-        #     instance_ct, instance_id, sender_id, sender_name, sender_email)
         send_email_using_template_async(
             user,
             sysname,

@@ -8,7 +8,8 @@ from django.template import Template
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils import timezone
-from django_q import async, schedule, Schedule
+
+from django_q import async
 
 from jetson.apps.people.functions import get_user_language
 
@@ -159,15 +160,8 @@ def send_email_using_template_async(
     else:
         sender_name = sender_email = ''
 
-    # from django.core.mail import send_mail
-    # send_mail(
-    #     subject='Subject here',
-    #     message='Here is the message.',
-    #     from_email='messanger@localhost.com',
-    #     recipient_list=recipient_list,
-    #     fail_silently=False)
-    # return
-
+    # async(
+    #     send_email_using_template,
     send_email_using_template(
         recipient_list,
         email_template_slug=sysname,
