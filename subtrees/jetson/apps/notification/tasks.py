@@ -156,14 +156,38 @@ def send_to_user(
     activate(current_language)
 
 
-def send_email_using_template_async(
-    user,
+def send_to_user_simplified(
+    user_id,
     sysname,
     extra_context=None,
     on_site=True,
-    instance=None,
-    sender=None,
+    instance_ct=None,
+    instance_id=None,
+    sender_id=None,
+    sender_name="",
+    sender_email=""
 ):
+    ContentType = models.get_model("contenttypes", "ContentType")
+    User = models.get_model("auth", "User")
+
+    instance = None
+    if instance_ct and instance_id:
+        ct = ContentType.objects.get(pk=instance_ct)
+        instance = ct.get_object_for_this_type(pk=instance_id)
+
+    sender = None
+    if sender_id:
+        sender = User.objects.get(pk=sender_id)
+
+    user = User.objects.get(pk=user_id)
+
+    # setting default values
+    if not sender:
+        if not sender_name:
+            sender_name = ''
+        if not sender_email:
+            sender_email = settings.DEFAULT_FROM_EMAIL
+
     try:
         recipient = Recipient(user=user)
     except Exception as e:
