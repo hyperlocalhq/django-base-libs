@@ -9,11 +9,11 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils import timezone
 
-from django_q import async
-
 from jetson.apps.people.functions import get_user_language
 
 from base_libs.utils.misc import get_installed
+
+from django_q import async
 
 send_email_using_template = get_installed("mailing.views.send_email_using_template")
 Recipient = get_installed("mailing.recipient.Recipient")
@@ -26,20 +26,30 @@ def get_notification_setting(user, notice_type, medium):
     notification = models.get_app("notification")
     NoticeSetting = notification.NoticeSetting
     NOTICE_MEDIA_DEFAULTS = notification.NOTICE_MEDIA_DEFAULTS
+    notification_setting = None
     try:
-        return NoticeSetting.objects.get(user=user, notice_type=notice_type, medium=medium)
+        notification_setting = NoticeSetting.objects.get(user=user, notice_type=notice_type, medium=medium)
     except NoticeSetting.DoesNotExist:
         if NOTICE_MEDIA_DEFAULTS[medium] <= notice_type.default:
             frequency = "immediately"
         else:
             frequency = "never"
-        setting = NoticeSetting(user=user, notice_type=notice_type, medium=medium, frequency=frequency)
-        setting.save()
-        return setting
+        notification_setting = NoticeSetting(user=user, notice_type=notice_type, medium=medium, frequency=frequency)
+        notification_setting.save()
+    return notification_setting
 
 
-def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct=None, instance_id=None, sender_id=None,
-                 sender_name="", sender_email=""):
+def send_to_user(
+    user_id,
+    sysname,
+    extra_context=None,
+    on_site=True,
+    instance_ct=None,
+    instance_id=None,
+    sender_id=None,
+    sender_name="",
+    sender_email=""
+):
     """
     Creates a new notice and/or
     sends notification by email or saves notification to a digest.
@@ -58,10 +68,9 @@ def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct
     
     instance = None
     if instance_ct and instance_id:
-        instance = ContentType.objects.get(
-            pk=instance_ct,
-            ).get_object_for_this_type(pk=instance_id)
-        
+        ct = ContentType.objects.get(pk=instance_ct)
+        instance = ct.get_object_for_this_type(pk=instance_id)
+
     sender = None
     if sender_id:
         sender = User.objects.get(pk=sender_id)
