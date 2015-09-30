@@ -118,17 +118,29 @@ def send_to_user(
         
     if user.email: # Email
         notification_setting = get_notification_setting(user, notice_type, "1")
-        if notification_setting.frequency == "immediately":
-            send_email_using_template(
-                recipients_list=[Recipient(user=user)],
-                email_template_slug=sysname,
-                obj=instance,
-                obj_placeholders=extra_context,
-                sender = sender,
-                sender_name = sender_name,
-                sender_email = sender_email,
-                delete_after_sending = True,
+        # if notification_setting.frequency == "immediately":
+        if True: # TODO disable this before deploying to production!!!
+            try:
+                recipient = Recipient(user=user)
+                recipients_list = [recipient]
+                send_email_using_template(
+                # async(
+                #     'jetson.apps.mailing.views.send_email_using_template',
+                    recipients_list=recipients_list,
+                    email_template_slug=sysname,
+                    obj=instance,
+                    obj_placeholders=extra_context,
+                    delete_after_sending=True,
+                    sender=sender,
+                    sender_name=sender_name,
+                    sender_email=sender_email,
+                    send_immediately=True,
                 )
+            except Exception as e:
+                print('exception creating recipient for user {0}:\n{1}'.format(
+                    user,
+                    e,
+                ))
         elif notification_setting.frequency in ("daily", "weekly"):
             digest, _created = Digest.objects.get_or_create(
                 user=user,
@@ -162,12 +174,6 @@ def send_email_using_template_async(
         return
 
     recipient_list = [recipient]
-
-    if sender:
-        sender_name = sender.get('name', '')
-        sender_email = sender.get('email', '')
-    else:
-        sender_name = sender_email = ''
 
     # async(
     #     send_email_using_template,
