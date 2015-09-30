@@ -6,7 +6,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.template import Context
 from django.template import Template
-from django.template.defaultfilters import striptags 
+from django.template.defaultfilters import striptags
 from django.utils.safestring import mark_safe
 from django.utils.encoding import smart_unicode, force_unicode
 from django.core.exceptions import ObjectDoesNotExist
@@ -27,12 +27,13 @@ from base_libs.models.models import CreationDateMixin
 from base_libs.models.models import ObjectRelationMixin
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualPlainTextField
-from base_libs.models.fields import PlainTextModelField # for south to work
+from base_libs.models.fields import PlainTextModelField  # for south to work
 
 from jetson.apps.people.functions import get_user_language
 from jetson.apps.mailing.models import EmailTemplate
 
 verbose_name = _("Notification")
+
 
 class SiteProfileNotAvailable(Exception):
     pass
@@ -40,7 +41,9 @@ class SiteProfileNotAvailable(Exception):
 
 class NoticeTypeCategory(models.Model):
     title = MultilingualCharField(_('display'), max_length=50)
-    is_public = models.BooleanField(_('public'), help_text=_('is this category displayed in the public notification settings?'), default=True)
+    is_public = models.BooleanField(_('public'),
+                                    help_text=_('is this category displayed in the public notification settings?'),
+                                    default=True)
 
     def __unicode__(self):
         return self.title
@@ -48,46 +51,56 @@ class NoticeTypeCategory(models.Model):
     class Meta:
         verbose_name = _("notice-type category")
         verbose_name_plural = _("notice-type categories")
-        ordering=("title",)
-        
+        ordering = ("title",)
+
+
 NOTICE_MEDIA_DEFAULTS_CHOICES = (
     (0, _("Not reported")),
     (1, _("Shown in the website")),
     (2, _("Shown in the website and sent by email")),
-    )
+)
 
-class NoticeType(SysnameMixin(help_text=_("should match the slug of an associated EmailTemplate object"))): #TODO max_length 40 -> 255
+
+class NoticeType(SysnameMixin(
+    help_text=_("should match the slug of an associated EmailTemplate object"))):  # TODO max_length 40 -> 255
     category = models.ForeignKey(NoticeTypeCategory, verbose_name=_("Category"), null=True, blank=True)
     display = MultilingualCharField(_('display'), max_length=50)
     description = MultilingualCharField(_('description'), max_length=100)
-    message_template = MultilingualPlainTextField(_("Message Template"), help_text=_("This message will be shown in the website. Accepted template variables: {{ notified_user }}, {{ object }}, and specific extra context."))
-        
+    message_template = MultilingualPlainTextField(_("Message Template"), help_text=_(
+        "This message will be shown in the website. Accepted template variables: {{ notified_user }}, {{ object }}, and specific extra context."))
+
     # by default only on for media with sensitivity less than or equal to this number
-    default = models.IntegerField(_('default media'), choices=NOTICE_MEDIA_DEFAULTS_CHOICES, help_text=_("How will the notices be reported to users by default?"))
-    is_public = models.BooleanField(_('public'), help_text=_('is this notice type displayed in the public notification settings?'), default=True)
+    default = models.IntegerField(_('default media'), choices=NOTICE_MEDIA_DEFAULTS_CHOICES,
+                                  help_text=_("How will the notices be reported to users by default?"))
+    is_public = models.BooleanField(_('public'),
+                                    help_text=_('is this notice type displayed in the public notification settings?'),
+                                    default=True)
 
     def get_display(self):
         return mark_safe(force_unicode(self.display))
+
     get_display.short_description = _("Display")
-        
+
     def get_description(self):
         return mark_safe(force_unicode(self.description))
+
     get_description.short_description = _("Description")
-        
+
     def get_message_template(self):
         return mark_safe(force_unicode(self.message_template))
-        
+
     def __unicode__(self):
         return self.sysname
 
     class Meta:
         verbose_name = _("notice type")
         verbose_name_plural = _("notice types")
-        ordering=("category__title", "display",)
+        ordering = ("category__title", "display",)
 
 
 class NoticeEmailTemplate(EmailTemplate):
     pass
+
 
 # if this gets updated, the create() method below needs to be as well...
 NOTICE_MEDIA = (
@@ -96,7 +109,7 @@ NOTICE_MEDIA = (
 
 # how spam-sensitive is the medium
 NOTICE_MEDIA_DEFAULTS = {
-    "1": 2 # email
+    "1": 2  # email
 }
 
 NOTICE_FREQUENCY = (
@@ -105,6 +118,7 @@ NOTICE_FREQUENCY = (
     ('daily', _("Send in a daily digest")),
     ('weekly', _("Send in a weekly digest")),
 )
+
 
 class NoticeSetting(models.Model):
     """
@@ -127,11 +141,12 @@ DIGEST_FREQUENCY = (
     ('weekly', _("Weekly")),
 )
 
+
 class Digest(CreationDateMixin):
     user = models.ForeignKey(User, verbose_name=_('user'))
     frequency = models.CharField(_('frequency'), max_length=15, choices=DIGEST_FREQUENCY)
     is_sent = models.BooleanField(_('sent?'), default=False)
-    
+
     class Meta:
         verbose_name = _("digest")
         verbose_name_plural = _("digests")
@@ -145,11 +160,11 @@ class Digest(CreationDateMixin):
         # setting default values
         sender_name = ''
         sender_email = settings.DEFAULT_FROM_EMAIL
-            
+
         notices_html = ""
         for notice in self.digestnotice_set.all():
             notices_html += notice.message
-            
+
         send_email_using_template(
             recipients_list=[Recipient(user=self.user)],
             email_template_slug="%s_digest" % self.frequency,
@@ -157,30 +172,30 @@ class Digest(CreationDateMixin):
                 'notices_html': notices_html,
                 'notices_text': html_to_plain_text(notices_html),
             },
-            sender_name = sender_name,
-            sender_email = sender_email,
-            delete_after_sending = True,
-            )
+            sender_name=sender_name,
+            sender_email=sender_email,
+            delete_after_sending=True,
+        )
         # send
         self.is_sent = True
         self.save()
+
 
 class DigestNotice(CreationDateMixin):
     digest = models.ForeignKey(Digest, verbose_name=_('digest'))
     message = models.TextField(_('message'))
     notice_type = models.ForeignKey(NoticeType, verbose_name=_('notice type'))
-    
+
     def __unicode__(self):
         return striptags(self.message)
-    
+
     class Meta:
         verbose_name = _("notice of a digest")
         verbose_name_plural = _("notices of digests")
         ordering = ['creation_date']
-        
+
 
 class NoticeManager(models.Manager):
-
     def notices_for(self, user, archived=False, unseen=None):
         """
         returns Notice objects for the given user.
@@ -207,8 +222,8 @@ class NoticeManager(models.Manager):
         """
         return self.filter(user=user, unseen=True).count()
 
-class Notice(UrlMixin):
 
+class Notice(UrlMixin):
     user = models.ForeignKey(User, verbose_name=_('user'))
     message = models.TextField(_('message'))
     notice_type = models.ForeignKey(NoticeType, verbose_name=_('notice type'))
@@ -246,10 +261,11 @@ class Notice(UrlMixin):
     @models.permalink
     def get_absolute_url(self):
         return ("notification_notice", [str(self.pk)])
-        
+
     @models.permalink
     def get_url_path(self):
         return ("notification_notice", [str(self.pk)])
+
 
 def create_notice_type(sysname, display, description, default=2, display_de="", description_de="", is_public=True):
     """
@@ -264,12 +280,13 @@ def create_notice_type(sysname, display, description, default=2, display_de="", 
             sysname=sysname,
             default=default,
             is_public=is_public,
-            )
-        nt.display_en=display
-        nt.display_de=display_de
-        nt.description_en=description
-        nt.description_de=description_de
+        )
+        nt.display_en = display
+        nt.display_de = display_de
+        nt.description_en = description
+        nt.description_de = description_de
         nt.save()
+
 
 def send(recipients, sysname, extra_context=None, on_site=True, instance=None, sender=None, sender_name="",
          sender_email=""):
@@ -317,7 +334,6 @@ class ObservedItemManager(models.Manager):
 
 
 class ObservedItem(ObjectRelationMixin(is_required=True)):
-
     user = models.ForeignKey(User, verbose_name=_('user'))
 
     notice_type = models.ForeignKey(NoticeType, verbose_name=_('notice type'))
@@ -337,13 +353,14 @@ class ObservedItem(ObjectRelationMixin(is_required=True)):
     def send_notice(self):
         send([self.user], self.notice_type.sysname,
              {'observed': self.content_object})
+
     send_notice.alters_data = True
-        
+
     def __unicode__(self):
         return u"%s @ %s" % (
             force_unicode(self.content_object),
             force_unicode(self.user),
-            ) 
+        )
 
 
 def observe(observed, observer, notice_type_sysname, signal='post_save'):
@@ -358,9 +375,10 @@ def observe(observed, observer, notice_type_sysname, signal='post_save'):
         content_object=observed,
         notice_type=notice_type,
         signal=signal,
-        )
+    )
     observed_item.save()
     return observed_item
+
 
 def stop_observing(observed, observer, signal='post_save'):
     """
@@ -368,6 +386,7 @@ def stop_observing(observed, observer, signal='post_save'):
     """
     observed_item = ObservedItem.objects.get_for(observed, observer, signal)
     observed_item.delete()
+
 
 def send_observation_notices_for(observed, signal='post_save'):
     """
@@ -378,6 +397,7 @@ def send_observation_notices_for(observed, signal='post_save'):
         observed_item.send_notice()
     return observed_items
 
+
 def is_observing(observed, observer, signal='post_save'):
     try:
         observed_items = ObservedItem.objects.get_for(observed, observer, signal)
@@ -386,6 +406,7 @@ def is_observing(observed, observer, signal='post_save'):
         return False
     except ObservedItem.MultipleObjectsReturned:
         return True
+
 
 def handle_observations(sender, instance, *args, **kw):
     send_observation_notices_for(instance)
