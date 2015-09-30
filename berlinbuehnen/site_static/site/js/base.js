@@ -214,7 +214,7 @@ window.tooltipAdjustments = function() {
             }
             
             var height_offset = height - $tooltip.height();
-            if (height_offset != 0 && top_offset != 0 ) {
+            if (height_offset != 0 && (top_offset != 0 || left_offset != 0) ) {
                 var top = parseInt($tooltip.css("top"));
                 $tooltip.css("top", (top + height_offset) + "px");
             }

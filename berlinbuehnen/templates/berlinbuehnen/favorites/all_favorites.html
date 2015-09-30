@@ -30,18 +30,18 @@
                         <div class="header-icons no-print">
                             {% if request.user.is_authenticated %}
                                 {% if request.user.id == user_id or request.user.is_staff %}
-                                    <a id="change_favorites_list" class="fawesome edit" data-href="{{ request.path }}change/" data-original-title="{% trans "Edit My Tour description" %}">
-                                        <span class="sr-only">{% trans "Edit my tour description" %}</span>
+                                    <a id="change_favorites_list" class="fawesome edit" data-href="{{ request.path }}change/" data-toggle="tooltip" data-placement="top" title="{% trans "Edit my favorites description" %}" data-tooltip-left="-11">
+                                        <span class="sr-only">{% trans "Edit my favorites description" %}</span>
                                     </a>
                                 {% endif %}
-                                <a id="send_user_favorites_by_email" class="fawesome email" data-href="{{ request.path }}email/" data-original-title="{% trans "Email list to a friend" %}">
+                                <a id="send_user_favorites_by_email" class="fawesome email" data-href="{{ request.path }}email/" data-toggle="tooltip" data-placement="top" title="{% trans "Email list to a friend" %}" data-tooltip-left="-11">
                                     <span class="sr-only">{% trans "Email this list to a friend" %}</span>
                                 </a>
                             {% endif %}
-                            <a class="fawesome facebook share-facebook" href="javascript:void(0);" data-url="{{ website_url|slice:":-1" }}{{ request.path }}?rand={{ random }}" data-text="{% trans "My favorites at Berlin Bühnen." %}" data-original-title="{% trans "Share list on Facebook" %}">
+                            <a class="fawesome facebook share-facebook" href="javascript:void(0);" data-url="{{ website_url|slice:":-1" }}{{ request.path }}?rand={{ random }}" data-text="{% trans "My favorites at Berlin Bühnen." %}" data-toggle="tooltip" data-placement="top" title="{% trans "Share list on Facebook" %}" data-tooltip-left="-11">
                                 <span class="sr-only">{% trans "Share this list on Facebook" %}</span>
                             </a>
-                            <a class="fawesome twitter share-twitter" data-url="{{ website_url|slice:":-1" }}{{ request.path }}" data-text="{% trans "My favorites at Berlin Bühnen." %}" data-original-title="{% trans "Tweet list" %}">
+                            <a class="fawesome twitter share-twitter" data-url="{{ website_url|slice:":-1" }}{{ request.path }}" data-text="{% trans "My favorites at Berlin Bühnen." %}" data-toggle="tooltip" data-placement="top" title="{% trans "Tweet list" %}" data-tooltip-left="-11">
                                 <span class="sr-only">{% trans "Tweet this list" %}</span>
                             </a>
                             {% comment %}
