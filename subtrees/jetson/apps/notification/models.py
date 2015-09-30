@@ -32,6 +32,8 @@ from base_libs.models.fields import PlainTextModelField  # for south to work
 from jetson.apps.people.functions import get_user_language
 from jetson.apps.mailing.models import EmailTemplate
 
+from django_q import async
+
 verbose_name = _("Notification")
 
 
@@ -300,20 +302,43 @@ def send(recipients, sysname, extra_context=None, on_site=True, instance=None, s
     """
     if not extra_context:
         extra_context = {}
-    from tasks import send_email_using_template_async
+    from tasks import send_to_user
+    from tasks import send_to_user_simplified
 
     # preparing recipients
     if not hasattr(recipients, '__iter__'):
         recipients = [recipients]
 
-    for user in recipients:
-        send_email_using_template_async(
-            user,
+    if isinstance(recipients, QuerySet):
+        user_ids = recipients.values_list("pk", flat=True)
+    else:
+        user_ids = [user.pk for user in recipients]
+
+    instance_ct = None
+    instance_id = None
+    if instance:
+        instance_ct = ContentType.objects.get_for_model(instance).pk
+        instance_id = instance.pk
+
+    sender_id = None
+    if sender:
+        sender_id = sender.pk
+
+    for user_id in user_ids:
+        # send_to_user(
+        # send_to_user_simplified(
+        async(
+            # 'jetson.apps.notification.tasks.send_to_user',
+            'jetson.apps.notification.tasks.send_to_user_simplified',
+            user_id,
             sysname,
             extra_context,
             on_site,
-            instance,
-            sender,
+            instance_ct,
+            instance_id,
+            sender_id,
+            sender_name,
+            sender_email,
         )
 
 
