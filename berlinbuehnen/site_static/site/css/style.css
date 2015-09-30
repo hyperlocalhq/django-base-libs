@@ -1755,7 +1755,7 @@ select { visibility: hidden; }
 .details .social_link_list li a:after, .details .social_link_list li a:before { padding: 0; }
 .details .social_link_list li a:before { width: 35px; height: 35px; background: black; border-radius: 50%; text-align: center; line-height: 35px; font-size: 18px; }
 .details header ul.header-top { width: 100%; list-style: none; padding-bottom: 4px; margin-bottom: 29px; margin-top: 18px; border-bottom: 4px solid #000; }
-.details header ul.header-top.icons-space { padding-right: 60px; }
+.details header ul.header-top.icons-space { padding-right: 65px; }
 .details header ul.header-top li { display: inline; text-transform: uppercase; font-size: 1.125em; font-weight: 700; }
 .details header ul.header-top li:after { content: "|"; margin: 0 10px; }
 .details header ul.header-top li:last-child:after { content: none; margin: 0; }
@@ -2133,15 +2133,22 @@ body.is-xs.safari .list-item-head-date .list-item-head-date-icons { top: 21px !i
 .grid .grid { margin: 0 !important; }
 .grid .grid-item { display: block; padding: 0 8px 56px; color: black; }
 .grid .grid-item:hover { color: black; }
-.grid .grid-item .grid-item-image { display: block; width: 100%; margin-bottom: 16px; }
+.grid .grid-item .grid-item-image { display: block; width: 100%; margin-bottom: 16px; position: relative; }
 .grid .grid-item .grid-item-image img { width: 100%; height: auto; }
+.grid .grid-item button.favorite { position: absolute; top: 4px; right: 6px; padding: 0; margin: 0; border: none; background: transparent; color: white; }
+.grid .grid-item button.favorite.active { color: #4583c8; }
+.grid .grid-item button.favorite:before { font-size: 14px; background: black; width: 20px; height: 20px; line-height: 19px; margin: 0; padding: 1px 0 0 1px; border-radius: 50%; }
+.grid .grid-item button.favorite:active, .grid .grid-item button.favorite:hover, .grid .grid-item button.favorite:focus { border: none; outline: none; }
 .grid .grid-item h2 { text-transform: uppercase; font-size: 1.25em; margin-bottom: 16px; }
 .grid .grid-item h3 { font-size: 1em; margin-top: -10px; margin-bottom: 16px; }
 .grid .ad_banner { position: relative; top: -20px; }
 .grid .ad_banner h6.block-label { margin-bottom: 4px; }
 .grid.mazery-grid { margin: 0 -10px; }
-.grid.mazery-grid .grid-item { padding: 0 10px; }
+.grid.mazery-grid .grid-item { padding: 0 10px; position: relative; }
 .grid.mazery-grid .grid-item .row { margin: 0; }
+.grid.mazery-grid .grid-item button.favorite { right: 16px; }
+.grid.mazery-grid .grid-item.no-image button.favorite { top: 0px; }
+.grid.mazery-grid .grid-item.no-image h2 { padding-right: 32px; }
 .grid.mazery-grid img { width: 100%; margin-bottom: 16px; }
 .grid.mazery-grid a { color: black; border-bottom: 4px solid black; padding-bottom: 20px; margin-bottom: 20px; display: inline-block; width: 100%; }
 .grid.mazery-grid a:hover { color: black; }
@@ -2157,6 +2164,7 @@ body.is-xs.safari .list-item-head-date .list-item-head-date-icons { top: 21px !i
 .grid.job_offer-grid h5 { margin-top: -14px; }
 
 body.is-xs .grid { margin: 0 -28px; }
+body.is-xs .grid .grid-item button.favorite:before { padding-left: 0; }
 
 .top-widgets-wrapper .filter-wrapper .top-widget-button-up-wrapper { background: #F1F6FA; }
 
@@ -2368,13 +2376,13 @@ h1.bottom-line { padding-bottom: 8px !important; border-bottom: 4px solid black;
 h1.bottom-line span { font-size: 0.7em; display: inline-block; }
 body.is-xs h1.bottom-line { margin-left: 10px; margin-right: 10px; }
 
-header { margin-bottom: 24px; position: relative; }
+header { margin-bottom: 24px; position: relative; /*.is-xs & { .header-icons { right: 5px; }
+}*/ }
 header .header-icons { -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; position: absolute; right: 25px; bottom: 14px; }
 header .header-icons a { font-size: 14px; color: black; cursor: pointer; }
 header .header-icons a:hover { color: black; }
 header .header-icons a.favorite.active:before { color: #4583c8; }
 header .header-icons a.favorite.active:before:hover, header .header-icons a.favorite.active:before:focus { color: #4583c8; }
-.is-xs header .header-icons { right: 5px; }
 
 .headline-link { color: black; }
 .headline-link:hover { color: black; }
@@ -2480,3 +2488,7 @@ em { color: black; font-style: italic; }
 #to-top.on span { transform: translateY(0px); background-color: rgba(0, 0, 0, 0.95); opacity: 1; color: #FFF; }
 
 .empty-container { padding: 50px 8px; }
+
+.tooltip .tooltip-inner { border-radius: 2px; font-weight: 400; padding-bottom: 6px; box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.3); text-transform: none; }
+.tooltip.right .tooltip-arrow { left: 5px; }
+.tooltip.left .tooltip-arrow { right: 5px; }

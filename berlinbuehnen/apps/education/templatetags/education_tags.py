@@ -12,7 +12,7 @@ register = template.Library()
 
 
 @register.inclusion_tag('education/includes/add_to_calender.html', takes_context=True)
-def add_to_calender(context, department, event):
+def add_to_calender_education(context, department, event):
 
     project = event.project
     

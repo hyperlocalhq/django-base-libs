@@ -46,13 +46,13 @@
                     {% if department.get_social_media %}
                         <ul class="social_link_list">
                             {% for social in department.get_social_media %}
-                                <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank"><span class="sr-only">{{ social.channel_type }}</span></a></li>
+                                <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{{ social.channel_type }}" data-tooltip-top="-12"><span class="sr-only">{{ social.channel_type }}</span></a></li>
                             {% endfor %}
                         </ul>
                     {% elif department.location.get_social_media %}
                         <ul class="social_link_list">
                             {% for social in department.location.get_social_media %}
-                                <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank"><span class="sr-only">{{ social.channel_type }}</span></a></li>
+                                <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{{ social.channel_type }}" data-tooltip-top="-12"><span class="sr-only">{{ social.channel_type }}</span></a></li>
                             {% endfor %}
                         </ul>
                     {% endif %}

@@ -37,6 +37,8 @@
                                 <div class="header-icons no-print">
                                     {% if request.user.is_authenticated %}
                                         {% adding2favorites for location using "favorites/includes/favorite_detail.html" %}
+                                    {% else %}
+                                        {% login2favorites using "favorites/includes/favorite_detail_login.html" %}
                                     {% endif %}
                                 </div>
                                 <h1>{{ location.title }}
@@ -60,10 +62,6 @@
                                         <div class="col-xs-12 col-md-8 left">
                                             {% if location.first_image %}
                                                 <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ location.first_image.path|modified_path:"detail_image" }}" alt="{{ location.title|escape }}"  />{% pin image=location.first_image description=location.title %}</div>
-                                            {% elif location.image_set.exists %}
-                                                {% with location.image_set.all|first as first %}
-                                                    <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ first.path|modified_path:"detail_image" }}" alt="{{ location.title|escape }}"  />{% pin image=first description=location.title %}</div> 
-                                                {% endwith %}
                                             {% endif %}
                                             <div class="description">
                                                 {{ location.get_rendered_description }}

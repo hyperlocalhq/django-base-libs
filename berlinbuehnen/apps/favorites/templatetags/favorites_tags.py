@@ -70,6 +70,38 @@ class ObjectAdding2Favorites(template.Node):
 
 register.tag('adding2favorites', do_adding2favorites)
 
+
+def do_login2favorites(parser, token):
+
+    try:
+        tag_name, str_using, template_path = token.split_contents()
+    except ValueError:
+        template_path = ""
+    return ObjectLogin2Favorites(template_path)
+    
+class ObjectLogin2Favorites(template.Node):
+    count = 0
+    def __init__(self, template_path):
+        self.counter = self.__class__.count 
+        self.__class__.count += 1
+        self.template_path = template_path
+    def render(self, context):
+        
+        try:
+            template_path = template.resolve_variable(self.template_path, context)
+        except:
+            template_path = ""
+            
+        c = context
+        c.push()
+        output = loader.render_to_string(template_path or "favorites/includes/favorite_login.html", c)
+        c.pop()
+        return output
+
+    
+register.tag('login2favorites', do_login2favorites)
+
+
 ### FILTERS ###
 
 def get_favorites_count(obj):

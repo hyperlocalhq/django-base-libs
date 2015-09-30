@@ -68,6 +68,9 @@
         
         me.initListItems();
         if (me.autoload) me.initAutoscroll();
+        
+        $('[data-toggle="tooltip"]').tooltip();
+        window.tooltipAdjustments();
     }
     
     /**
@@ -104,6 +107,9 @@
         if (typeof window.addToCalenderReset == "function") window.addToCalenderReset();
         
         me.onResize(new_items);
+        
+        $('[data-toggle="tooltip"]').tooltip();
+        window.tooltipAdjustments();
     }
     
     /**

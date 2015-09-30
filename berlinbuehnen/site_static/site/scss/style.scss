@@ -201,11 +201,11 @@ header {
         }
     }
     
-    .is-xs & {
+    /*.is-xs & {
         .header-icons {
             right: 5px;
         }
-    }
+    }*/
 }
     
 .headline-link {
@@ -518,3 +518,24 @@ em { color: black; font-style: italic; }
     padding: 50px 8px;    
 }
 
+.tooltip {
+    .tooltip-inner {
+        border-radius: 2px;
+        font-weight: $regular;
+        padding-bottom: 6px;
+        box-shadow: 0 0 1px 1px rgba(0,0,0,0.3);
+        text-transform: none;
+    }
+    
+    &.right {
+        .tooltip-arrow {
+            left: 5px;
+        }
+    }
+    
+    &.left {
+        .tooltip-arrow {
+            right: 5px;
+        }
+    }
+}

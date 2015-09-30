@@ -25,16 +25,12 @@
                     {% if object_list %}
                         <div id="main_list" class="grid festival-grid mazery-grid row">
                             {% for festival in object_list %}
-                                <div class="grid-item {% if festival.featured %} featured {% endif %} col-xs-12 col-sm-6 col-md-4" data-start="{{ festival.start|date:"U" }}" {% if festival.end %}data-end="{{ festival.end|date:"U" }}"{% else %}data-end="{{ festival.start|date:"U" }}"{% endif %}>
+                                <div class="grid-item {% if festival.featured %} featured {% endif %}{% if not festival.first_image %} no-image {% endif %} col-xs-12 col-sm-6 col-md-4" data-start="{{ festival.start|date:"U" }}" {% if festival.end %}data-end="{{ festival.end|date:"U" }}"{% else %}data-end="{{ festival.start|date:"U" }}"{% endif %}>
                                     <div class="row">
                                         <a href="{{ festival.get_url_path }}">
                                             {% if festival.first_image %}
                                                 <img class="hidden-xs {% if festival.featured %} hidden-sm hidden-md hidden-lg {% endif %} no-print" src="{{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"mazery_image" }}{% if_has_perm "festival.change_festival" festival %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.production.title|escape }}" />
                                                 <img class="{% if not festival.featured %} visible-xs {% endif %} no-print" src="{{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"gallery_image" }}{% if_has_perm "festival.change_festival" festival %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.production.title|escape }}" />
-                                            {% elif festival.image_set.exists %}
-                                                {% with festival.image_set.all|first as image %}
-                                                    <img class=" no-print" src="{{ MEDIA_URL }}{{ image.path|modified_path:"detail_image" }}{% if_has_perm "festival.change_festival" festival %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ festival.title|escape }}" />
-                                                {% endwith %}
                                             {% endif %}
                                             
                                             {% if festival.title %}<h2>{{ festival.title }}</h2>{% endif %}
@@ -51,6 +47,11 @@
                                                     </dl>
                                             {% endif %}
                                             {% if festival.description %}<p class="copy">{{ festival.get_rendered_description|striptags|wordwrap:30|truncatewords:"30" }}</p>{% endif %}
+                                            {% if request.user.is_authenticated %}
+                                                {% adding2favorites for festival using "favorites/includes/favorite_grid.html" %}
+                                            {% else %}
+                                                {% login2favorites using "favorites/includes/favorite_grid_login.html" %}
+                                            {% endif %}
                                         </a>
                                     </div>
                                 </div>  

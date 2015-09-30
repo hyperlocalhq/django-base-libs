@@ -16,7 +16,7 @@
                                         <a class="black" href="{% url "project_event_detail" slug=project.slug event_id=ev.id %}"><span class="date-wrapper"><span class="date">{{ ev.start|date:"j. M Y" }}</span></span><span class="time-wrapper"><span class="time">{{ ev.start|time:"H:i" }}</span></span></a>
                                     {% endif %}
                                     {% if project.tickets_website %}
-                                        <span class="tickets-wrapper"><a class="fawesome tickets" href="{{ project.tickets_website }}" target="_blank"></a></span>
+                                        <span class="tickets-wrapper"><a class="fawesome tickets" href="{{ project.tickets_website }}" target="_blank" data-toggle="tooltip" data-placement="right" title="{% trans "Tickets" %}"><span class="sr-only">{% trans "Tickets" %}</span></a></span>
                                     {% endif %}
                                 </li>
                             {% endfor %}
@@ -96,20 +96,20 @@
                     {% if project.get_social_media %}
                         <ul class="social_link_list">
                             {% for social in project.get_social_media %}
-                                <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank"><span class="sr-only">{{ social.channel_type }}</span></a></li>
+                                <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{{ social.channel_type }}" data-tooltip-top="-12"><span class="sr-only">{{ social.channel_type }}</span></a></li>
                             {% endfor %}
                         </ul>
                     {% elif department %}
                         {% if department.get_social_media %}
                             <ul class="social_link_list">
                                 {% for social in department.get_social_media %}
-                                    <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank"><span class="sr-only">{{ social.channel_type }}</span></a></li>
+                                    <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{{ social.channel_type }}" data-tooltip-top="-12"><span class="sr-only">{{ social.channel_type }}</span></a></li>
                                 {% endfor %}
                             </ul>
                         {% elif department.location.get_social_media %}
                             <ul class="social_link_list">
                                 {% for social in department.location.get_social_media %}
-                                    <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank"><span class="sr-only">{{ social.channel_type }}</span></a></li>
+                                    <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{{ social.channel_type }}" data-tooltip-top="-12"><span class="sr-only">{{ social.channel_type }}</span></a></li>
                                 {% endfor %}
                             </ul>
                         {% endif %}
@@ -148,19 +148,19 @@
                         {% if project.get_social_media %}
                             <ul class="social_link_list">
                                 {% for social in project.get_social_media %}
-                                    <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank"><span class="sr-only">{{ social.channel_type }}</span></a></li>
+                                    <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{{ social.channel_type }}" data-tooltip-top="-12"><span class="sr-only">{{ social.channel_type }}</span></a></li>
                                 {% endfor %}
                             </ul>
                         {% elif department.get_social_media %}
                             <ul class="social_link_list">
                                 {% for social in department.get_social_media %}
-                                    <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank"><span class="sr-only">{{ social.channel_type }}</span></a></li>
+                                    <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{{ social.channel_type }}" data-tooltip-top="-12"><span class="sr-only">{{ social.channel_type }}</span></a></li>
                                 {% endfor %}
                             </ul>
                         {% elif department.location.get_social_media %}
                             <ul class="social_link_list">
                                 {% for social in department.location.get_social_media %}
-                                    <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank"><span class="sr-only">{{ social.channel_type }}</span></a></li>
+                                    <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{{ social.channel_type }}" data-tooltip-top="-12"><span class="sr-only">{{ social.channel_type }}</span></a></li>
                                 {% endfor %}
                             </ul>
                         {% endif %}

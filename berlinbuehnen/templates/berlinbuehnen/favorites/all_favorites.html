@@ -38,7 +38,7 @@
                                     <span class="sr-only">{% trans "Email this list to a friend" %}</span>
                                 </a>
                             {% endif %}
-                            <a class="fawesome facebook share-facebook" href="javascript:void(0);" data-url="{{ website_url|slice:":-1" }}{{ request.path }}" data-text="{% trans "My favorites at Berlin Bühnen." %}" data-original-title="{% trans "Share list on Facebook" %}">
+                            <a class="fawesome facebook share-facebook" href="javascript:void(0);" data-url="{{ website_url|slice:":-1" }}{{ request.path }}?rand={{ random }}" data-text="{% trans "My favorites at Berlin Bühnen." %}" data-original-title="{% trans "Share list on Facebook" %}">
                                 <span class="sr-only">{% trans "Share this list on Facebook" %}</span>
                             </a>
                             <a class="fawesome twitter share-twitter" data-url="{{ website_url|slice:":-1" }}{{ request.path }}" data-text="{% trans "My favorites at Berlin Bühnen." %}" data-original-title="{% trans "Tweet list" %}">
@@ -75,6 +75,9 @@
                                         {% else %}
                                             <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
                                         {% endif %}
+                                        {% if request.user.is_authenticated %}
+                                            {% adding2favorites for location using "favorites/includes/favorite_grid.html" %}
+                                        {% endif %}
                                     </span>
 
                                     {% if location.title %}<h2>{{ location.title }}</h2>{% endif %}
@@ -104,6 +107,9 @@
                                         {% else %}
                                             <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
                                         {% endif %}
+                                        {% if request.user.is_authenticated %}
+                                            {% adding2favorites for production using "favorites/includes/favorite_grid.html" %}
+                                        {% endif %}
                                     </span>
 
                                     {% if production.title %}<h2>{{ production.title }}</h2>{% endif %}
@@ -132,6 +138,9 @@
                                             <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"detail_image" }}{% if_has_perm "festival.change_festival" festival %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.festival.title|escape }}" />
                                         {% else %}
                                             <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
+                                        {% endif %}
+                                        {% if request.user.is_authenticated %}
+                                            {% adding2favorites for festival using "favorites/includes/favorite_grid.html" %}
                                         {% endif %}
                                     </span>
 
@@ -164,6 +173,9 @@
                                                 <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png"" data-original="{{ MEDIA_URL }}{{ department.first_image.path|modified_path:"detail_image" }}{% if_has_perm "project.change_project" project %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.project.title|escape }}" />
                                             {% else %}
                                                 <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
+                                            {% endif %}
+                                            {% if request.user.is_authenticated %}
+                                                {% adding2favorites for project using "favorites/includes/favorite_grid.html" %}
                                             {% endif %}
                                         {% endwith %}
                                     </span>

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites_tags education_tags %}
+{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites_tags education_tags production_tags %}
 {% block title %}{% trans "Educational Project" %} – {{ object.title }} – {% endblock %}
 {% block bodyclass %}project-detail{% endblock %}
 
@@ -53,7 +53,7 @@
                                         <!-- main content -->
                                         <div class="col-xs-12 col-md-8 left">
                                             {% if department.first_image %}
-                                                <div class="top-image img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ department.first_image.path|modified_path:"detail_image" }}" alt="{{ department.title|escape }}"  /></div>
+                                                <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ department.first_image.path|modified_path:"detail_image" }}" alt="{{ department.title|escape }}"  />{% pin image=department.first_image description=department.title %}</div>
                                             {% endif %}
                                             <div class="description">
                                                 {{ department.get_rendered_description }}
@@ -128,10 +128,12 @@
                                                                                     <div class="list-item-head-date-icons col-xs-3 col-sm-12">
                                                                                         {% if request.user.is_authenticated %}
                                                                                             {% adding2favorites for project using "favorites/includes/favorite_detail.html" %}
+                                                                                        {% else %}
+                                                                                            {% login2favorites using "favorites/includes/favorite_detail_login.html" %}
                                                                                         {% endif %}
-                                                                                        {% if project.get_next_event %}{% add_to_calender event=project.get_next_event department=department %}{% endif %}
+                                                                                        {% if project.get_next_event %}{% add_to_calender_education event=project.get_next_event department=department %}{% endif %}
                                                                                         {% if project.tickets_website %}
-                                                                                            <a class="fawesome tickets" href="{{ project.tickets_website }}" target="_blank"></a>
+                                                                                            <a class="fawesome tickets" href="{{ project.tickets_website }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{% trans "Tickets" %}" data-tooltip-left="-10,.is-xs"><span class="sr-only">{% trans "Tickets" %}</span></a>
                                                                                         {% endif %}
                                                                                     </div>
                                                                                 </div>
@@ -179,9 +181,9 @@
                                                 <div class="gallery row">
                                                     <h4 class="gallery-head">{% trans "Gallery" %}</h4>
                                                     {% for image in department.image_set.all %}
-                                                        <div class="col-xs-12 col-sm-6 col-md-4 image gallery-item img">
+                                                        <div class="col-xs-12 col-sm-6 col-md-4 image gallery-item img chevron">
                                                             {% with image.path|file_description as file_desc %}
-                                                                <img class="gallery-image" src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"gallery_image" }}" alt="{% if file_desc.description %}{{ file_desc.description|escape }}{% endif %}" width="100%" data-image-big="{{ MEDIA_URL }}{{ image.path }}" />
+                                                                <img class="gallery-image" src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"gallery_image" }}" alt="{% if file_desc.description %}{{ file_desc.description|escape }}{% endif %}" width="100%" data-image-big="{{ MEDIA_URL }}{{ image.path }}" />{% pin image=image description=department.title %}
                                                                 <div class="gallery-image-text">
                                                                     <div class="gallery-image-text-description">
                                                                         {% if file_desc.title %}

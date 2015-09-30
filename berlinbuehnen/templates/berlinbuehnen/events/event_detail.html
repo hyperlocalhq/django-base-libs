@@ -118,6 +118,8 @@
                                     <div class="header-icons no-print">
                                         {% if request.user.is_authenticated %}
                                             {% adding2favorites for event.production using "favorites/includes/favorite_detail.html" %}
+                                        {% else %}
+                                            {% login2favorites using "favorites/includes/favorite_detail_login.html" %}
                                         {% endif %}
                                         {% add_to_calender event=event %}
                                     </div>
@@ -241,7 +243,7 @@
                                                                                 <a class="black" href="{% url "event_detail" slug=ev.production.slug event_id=ev.id %}"><span class="date-wrapper"><span class="date">{{ ev.start_date|date:"j. M Y" }}</span></span><span class="time-wrapper"><span class="time">{{ ev.start_time|time:"H:i" }}</span></span></a>
                                                                             {% endif %}
                                                                             {% if ev.ev_or_prod_tickets_website %}
-                                                                                <span class="tickets-wrapper"><a class="fawesome tickets" href="{{ ev.ev_or_prod_tickets_website }}" target="_blank"></a></span>
+                                                                                <span class="tickets-wrapper"><a class="fawesome tickets" href="{{ ev.ev_or_prod_tickets_website }}" target="_blank" data-toggle="tooltip" data-placement="right" title="{% trans "Tickets" %}"><span class="sr-only">{% trans "Tickets" %}</span></a></span>
                                                                             {% endif %}
                                                                             {% if ev.get_special_text and not ev.is_canceled %}
                                                                                 <span class="extra"><span>{{ ev.get_special_text }}</span></span>
@@ -328,7 +330,7 @@
                                                                     {% if event.ev_or_prod_social_media %}
                                                                         <ul class="social_link_list">
                                                                             {% for social in event.ev_or_prod_social_media %}
-                                                                                <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank"><span class="sr-only">{{ social.channel_type }}</span></a></li>
+                                                                                <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{{ social.channel_type }}" data-tooltip-top="-12"><span class="sr-only">{{ social.channel_type }}</span></a></li>
                                                                             {% endfor %}
                                                                         </ul>
                                                                     {% endif %}

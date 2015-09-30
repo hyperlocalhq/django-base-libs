@@ -16,9 +16,37 @@
             display: block;
             width: 100%;
             margin-bottom: 16px;
+            position: relative;
             img {
                 width: 100%;
                 height: auto;
+            }
+        }
+        button.favorite {
+            position: absolute;
+            top: 4px;
+            right: 6px;
+            padding: 0;
+            margin: 0;
+            border: none;
+            background: transparent;
+            color: white;
+            &.active {
+                color: $blue;
+            }
+            &:before {
+                font-size: 14px;
+                background: black;
+                width: 20px;
+                height: 20px;
+                line-height: 19px;
+                margin: 0;
+                padding: 1px 0 0 1px;
+                border-radius: 50%;
+            }
+            &:active, &:hover, &:focus {
+                border: none;
+                outline: none;
             }
         }
         h2 {
@@ -48,8 +76,21 @@
         
         .grid-item {
             padding: 0 10px;
+            position: relative;
             .row {
                 margin: 0;
+            }
+            button.favorite {
+                right: 16px;
+            }
+            
+            &.no-image {
+                button.favorite {
+                    top: 0px;
+                }
+                h2 {
+                    padding-right: 32px;
+                }
             }
         }
         
@@ -120,5 +161,10 @@
 body.is-xs {
     .grid {
         margin: 0 -28px;
+        .grid-item {
+            button.favorite:before {
+                padding-left: 0;
+            }
+        }
     }
 }

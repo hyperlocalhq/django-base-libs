@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 import json
+import random
 
 from django.contrib.contenttypes.models import ContentType
 from datetime import datetime, date, time
@@ -181,6 +182,7 @@ def user_favorites(request, user_token, **kwargs):
         'form': form,
         'favorites': favorites,
         'list_options': opts,
+        'random': random.randint(-99999999, 99999999),
         'user_id': user_id,
     })
 

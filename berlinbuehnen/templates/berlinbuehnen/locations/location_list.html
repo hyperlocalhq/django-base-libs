@@ -9,6 +9,7 @@
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/grid.js" defer="defer"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/list_filter.js" defer="defer"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/top_widgets.js" defer="defer"></script>
+    {% include "utils/favorites_scripts.html" %}
 {% endblock %}
 
 {% block content %}
@@ -49,6 +50,11 @@
                                             <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ location.first_image.path|modified_path:"detail_image" }}{% if_has_perm "location.change_location" location %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.production.title|escape }}" />
                                         {% else %}
                                             <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
+                                        {% endif %}
+                                        {% if request.user.is_authenticated %}
+                                            {% adding2favorites for location using "favorites/includes/favorite_grid.html" %}
+                                        {% else %}
+                                            {% login2favorites  using "favorites/includes/favorite_grid_login.html" %}
                                         {% endif %}
                                     </span>
                                     

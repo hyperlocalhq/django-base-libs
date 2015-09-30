@@ -1,5 +1,5 @@
 {% load base_tags i18n %}
-<span class="addtocalendar atc-style-blue">
+<span class="addtocalendar atc-style-blue" data-toggle="tooltip" data-placement="top" title="{% trans "Add to calendar" %}" data-tooltip-left="-3;-10,.is-xs;-4,.header-icons">
     <var class="atc_event">
         <var class="atc_date_start">{{ event.start|date:"Y-m-d" }} {{ event.start|time:"G:i:s" }}</var>
         <var class="atc_date_end">{{ end_datetime|date:"Y-m-d" }} {{ end_datetime|time:"G:i:s" }}</var>

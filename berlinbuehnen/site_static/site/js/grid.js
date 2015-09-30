@@ -35,12 +35,11 @@
         
         me.$main.data('list', me);
         
-        
         if (me.mazery) {
             
             if (me.$featured.length) {
                 var $first = $(me.$featured.get(0));
-                $first.remove();
+                $first.detach();
                 me.$main.prepend($first);
             } 
             
@@ -60,11 +59,30 @@
         if (this.me) var me = this.me;
         
         me.$items = $('.grid-item', me.$main);
-        me.$featured = $('.grid-item.featured', me.$main)
         me.initGridItems();
         if (me.autoload) me.initAutoscroll();
         lazyload_images();
+        
+        $('[data-toggle="tooltip"]').tooltip();
+        window.tooltipAdjustments();
     }    
+    
+    Grid.prototype.toggleFavorite = function(event) {
+        
+        var $button = $(event.target);
+        
+        if ($button.hasClass('favorite')) {
+            if ($button.attr('data-content-type-id') && $button.attr('data-object-id')) {
+                FavoriteManager.toggle(event.target, $button.attr('data-content-type-id'), $button.attr('data-object-id'), '/');
+                return false;
+            } else if ($button.attr('data-href')) {
+                location.href =  $button.attr('data-href');
+                return false;
+            }
+        }
+        
+        return true;
+    }
     
     /**
      * Handles work which needs to be done on each grid item.
@@ -75,6 +93,8 @@
         if (this.me) var me = this.me;
         
         $('.clearfix', me.$main).remove();
+        
+        me.$items.off().click(function(event) {return me.toggleFavorite(event);});
         
         if (!me.mazery) {
             
@@ -113,6 +133,9 @@
             
             me.createMazery();
         }
+        
+        $('[data-toggle="tooltip"]').tooltip();
+        window.tooltipAdjustments();
     }
     
     Grid.prototype.createMazery = function() {
@@ -130,7 +153,7 @@
         
         if (cols == 1) {
             
-            me.$items.css('position', 'static');
+            me.$items.css('position', 'relative').css('top', '0px').css('left', '0px');
             
         } else {
             
@@ -193,6 +216,9 @@
             me.$main.height(heights[col]);
         }
         
+        
+        $('[data-toggle="tooltip"]').tooltip();
+        window.tooltipAdjustments();
     }
     
     /**

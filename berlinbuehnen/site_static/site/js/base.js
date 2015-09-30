@@ -132,7 +132,8 @@ $(document).ready(function() {
 
 // ADD crsftoken TO AJAX CALLS
 (function() {
-    var csrftoken = $.cookie('csrftoken');
+    var csrftoken = "";
+    if (typeof $.cookie != "undefined" ) csrftoken = $.cookie('csrftoken');
     function csrfSafeMethod(method) {
         // these HTTP methods do not require CSRF protection
         return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
@@ -150,3 +151,81 @@ $(document).ready(function() {
 if ($.browser.msie) {
     $('html').addClass('msie');
 }
+
+
+window.tooltipAdjustments = function() {
+    
+    var tooltipFix = function(event) {
+        
+        var $element = $(event.target);
+        var $tooltip = $element.next('.tooltip');
+        
+        var getValue = function(data) {
+            
+            if (typeof data == "undefined") return 0;
+            
+            var default_value = 0;
+            var values = data.split(';');
+            for (var i=0, length=values.length; i<length; i++) {
+                values[i] = values[i].split(',');   
+                if (values[i].length == 1 && default_value == 0) default_value = parseInt(values[i][0]);
+            }
+            
+            if (length == 0) return 0;
+            
+            for (var i=0, length=values.length; i<length; i++) {
+                if (values[i].length == 2) {
+                    if ($element.parents(values[i][1]).length) return parseInt(values[i][0]);
+                }
+            }
+            
+            return default_value;
+        }
+        
+        if ($tooltip.length) {
+            
+            var top_offset = getValue($element.attr('data-tooltip-top'));  
+            var left_offset = getValue($element.attr('data-tooltip-left'));
+            var top_absolute = getValue($element.attr('data-tooltip-top-abs'));
+            var bottom_absolute = getValue($element.attr('data-tooltip-bottom-abs'));
+            var left_absolute = getValue($element.attr('data-tooltip-left-abs'));
+            var right_absolute = getValue($element.attr('data-tooltip-right-abs'));
+            
+            var height = $tooltip.height();
+            
+            if (top_offset != 0) {
+                var top = parseInt($tooltip.css("top"));
+                $tooltip.css("top", (top + top_offset) + "px");
+            } else if (top_absolute != 0) {
+                $tooltip.css("top", top_absolute + "px");
+            } else if (bottom_absolute != 0) {
+                $tooltip.css("top", "");
+                $tooltip.css("bottom", bottom_absolute + "px");
+            }
+            
+            if (left_offset != 0) {
+                var left = parseInt($tooltip.css("left"));
+                $tooltip.css("left", (left + left_offset) + "px");
+            } else if (left_absolute != 0) {
+                $tooltip.css("left", left_absolute + "px");
+            } else if (right_absolute != 0) {
+                $tooltip.css("left", "");
+                $tooltip.css("right", right_absolute + "px");
+            }
+            
+            var height_offset = height - $tooltip.height();
+            if (height_offset != 0 && top_offset != 0 ) {
+                var top = parseInt($tooltip.css("top"));
+                $tooltip.css("top", (top + height_offset) + "px");
+            }
+            
+        }
+    }
+    
+    $('[data-toggle="tooltip"]').off('shown.bs.tooltip').on('shown.bs.tooltip', tooltipFix);
+}
+
+$(document).ready(function() {
+    window.tooltipAdjustments();
+});
+
