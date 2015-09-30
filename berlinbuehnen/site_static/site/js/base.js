@@ -182,6 +182,16 @@ window.tooltipAdjustments = function() {
             return default_value;
         }
         
+        var clear = function(event) {
+        
+            var $element = $(event.target);
+            var $tooltip = $element.next('.tooltip');
+            
+            $element.off('hidden.bs.tooltip');
+            
+            $tooltip.css("min-width", "");  
+        }
+        
         if ($tooltip.length) {
             
             var top_offset = getValue($element.attr('data-tooltip-top'));  
@@ -190,6 +200,9 @@ window.tooltipAdjustments = function() {
             var bottom_absolute = getValue($element.attr('data-tooltip-bottom-abs'));
             var left_absolute = getValue($element.attr('data-tooltip-left-abs'));
             var right_absolute = getValue($element.attr('data-tooltip-right-abs'));
+            
+            var min_width = getValue($element.attr('data-tooltip-width'));
+            if (min_width < 0) min_width = 0;
             
             var height = $tooltip.height();
             
@@ -213,12 +226,21 @@ window.tooltipAdjustments = function() {
                 $tooltip.css("right", right_absolute + "px");
             }
             
+            
+            if ($tooltip.width() < min_width) {
+                var width_offset = Math.round(($tooltip.width() - min_width) / 2);
+                $tooltip.css("min-width", min_width + "px");    
+                var left = parseInt($tooltip.css("left"));
+                $tooltip.css("left", (left + width_offset) + "px");
+            }
+            
             var height_offset = height - $tooltip.height();
             if (height_offset != 0 && (top_offset != 0 || left_offset != 0) ) {
                 var top = parseInt($tooltip.css("top"));
                 $tooltip.css("top", (top + height_offset) + "px");
             }
             
+            $element.on('hidden.bs.tooltip',  clear);
         }
     }
     

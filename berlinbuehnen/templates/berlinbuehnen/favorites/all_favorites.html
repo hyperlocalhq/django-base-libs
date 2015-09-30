@@ -38,7 +38,7 @@
                                     <span class="sr-only">{% trans "Email this list to a friend" %}</span>
                                 </a>
                             {% endif %}
-                            <a class="fawesome facebook share-facebook" href="javascript:void(0);" data-url="{{ website_url|slice:":-1" }}{{ request.path }}?rand={{ random }}" data-text="{% trans "My favorites at Berlin Bühnen." %}" data-toggle="tooltip" data-placement="top" title="{% trans "Share list on Facebook" %}" data-tooltip-left="-11">
+                            <a class="fawesome facebook share-facebook" href="javascript:void(0);" data-url="{{ website_url|slice:":-1" }}{{ request.path }}?rand={{ random }}" data-text="{% trans "My favorites at Berlin Bühnen." %}" data-toggle="tooltip" data-placement="top" title="{% trans "Share list on Facebook" %}" data-tooltip-left="-18" data-tooltip-width="150">
                                 <span class="sr-only">{% trans "Share this list on Facebook" %}</span>
                             </a>
                             <a class="fawesome twitter share-twitter" data-url="{{ website_url|slice:":-1" }}{{ request.path }}" data-text="{% trans "My favorites at Berlin Bühnen." %}" data-toggle="tooltip" data-placement="top" title="{% trans "Tweet list" %}" data-tooltip-left="-11">
