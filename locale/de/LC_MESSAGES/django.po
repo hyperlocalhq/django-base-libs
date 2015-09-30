@@ -2,20 +2,20 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-09-25 17:04+0200\n"
-"PO-Revision-Date: 2015-09-17 21:50+0053\n"
+"PO-Revision-Date: 2015-09-25 17:57+0053\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.2\n"
 
@@ -252,8 +252,8 @@ msgstr "Login"
 #: berlinbuehnen/apps/accounts/forms.py:56
 #: berlinbuehnen/apps/site_specific/forms.py:123
 msgid ""
-"Please enter a correct email or username and password. Note that both fields "
-"are case-sensitive."
+"Please enter a correct email or username and password. Note that both fields"
+" are case-sensitive."
 msgstr ""
 "Bitte geben Sie Email oder Username und Passwort korrekt ein.\n"
 "Beachten sie Groß- und Kleinschreibung."
@@ -376,11 +376,11 @@ msgstr "Veröffentlichen"
 
 #: berlinbuehnen/apps/advertising/models.py:41
 msgid "Company Name"
-msgstr ""
+msgstr "Firmenname"
 
 #: berlinbuehnen/apps/advertising/models.py:42
 msgid "Company Site"
-msgstr ""
+msgstr "Firmenadresse"
 
 #: berlinbuehnen/apps/advertising/models.py:46
 #: berlinbuehnen/apps/advertising/models.py:101
@@ -394,7 +394,8 @@ msgstr ""
 #: berlinbuehnen/apps/advertising/models.py:59
 #: berlinbuehnen/apps/advertising/models.py:73
 #: berlinbuehnen/apps/advertising/models.py:91
-#: berlinbuehnen/apps/blog/forms.py:20 berlinbuehnen/apps/education/admin.py:46
+#: berlinbuehnen/apps/blog/forms.py:20
+#: berlinbuehnen/apps/education/admin.py:46
 #: berlinbuehnen/apps/education/admin.py:58
 #: berlinbuehnen/apps/education/admin.py:107
 #: berlinbuehnen/apps/education/admin.py:216
@@ -696,8 +697,8 @@ msgstr "Tags"
 
 #: berlinbuehnen/apps/blog/forms.py:28
 msgid ""
-"Use commas to separate your tags. Tags can have multiple words. For example: "
-"'one, two, three apples' would define three tags."
+"Use commas to separate your tags. Tags can have multiple words. For example:"
+" 'one, two, three apples' would define three tags."
 msgstr ""
 "Benutze Kommas, um die Tags zu seperieren. Z.B.: 'eins, zwei, drei Äpfel' "
 "würde drei Tags definieren."
@@ -719,7 +720,8 @@ msgstr ""
 #: berlinbuehnen/apps/mailchimp/models.py:199
 #: berlinbuehnen/apps/marketplace/admin.py:137
 #: berlinbuehnen/apps/marketplace/models.py:118
-#: berlinbuehnen/apps/people/admin.py:64 berlinbuehnen/apps/people/models.py:82
+#: berlinbuehnen/apps/people/admin.py:64
+#: berlinbuehnen/apps/people/models.py:82
 #: berlinbuehnen/apps/productions/admin.py:161
 #: berlinbuehnen/apps/productions/models.py:194
 #: berlinbuehnen/apps/productions/forms/events.py:401
@@ -1360,15 +1362,14 @@ msgstr "Langengrad"
 msgid ""
 "Longitude (Long.) is the angle east or west of an arbitrary point on Earth "
 "from Greenwich (UK), which is the international zero-longitude point "
-"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction "
-"to east) and -180 (direction to west)."
+"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction"
+" to east) and -180 (direction to west)."
 msgstr ""
 
 #: berlinbuehnen/apps/education/models.py:79
 #: berlinbuehnen/apps/education/models.py:337
-#, fuzzy
 msgid "Contact Name"
-msgstr "Kontakt"
+msgstr "Kontaktperson"
 
 #: berlinbuehnen/apps/education/models.py:80
 #: berlinbuehnen/apps/education/models.py:83
@@ -2346,8 +2347,7 @@ msgstr "Bildunterschrift <span class=\"lang\">%s</span>"
 #: berlinbuehnen/apps/locations/forms/gallery.py:76
 #: berlinbuehnen/apps/productions/forms/gallery.py:388
 #, python-format
-msgid ""
-"Description (will be used as alt attribute) <span class=\"lang\">%s</span>"
+msgid "Description (will be used as alt attribute) <span class=\"lang\">%s</span>"
 msgstr "Bildunterschrift (HTML alternativ Text) <span class=\"lang\">%s</span>"
 
 #: berlinbuehnen/apps/education/forms/gallery.py:344
@@ -2470,14 +2470,12 @@ msgid "favorites"
 msgstr "zu Favoriten hinzufügen"
 
 #: berlinbuehnen/apps/favorites/models.py:81
-#, fuzzy
 msgid "My Favorites title"
-msgstr "Werktitel"
+msgstr "Meine Favoriten - Überschrift"
 
 #: berlinbuehnen/apps/favorites/models.py:82
-#, fuzzy
 msgid "My Favorites description"
-msgstr "Beschreibung"
+msgstr "Meine Favoriten - Beschreibung"
 
 #: berlinbuehnen/apps/favorites/models.py:85
 #: berlinbuehnen/apps/favorites/models.py:86
@@ -2485,9 +2483,8 @@ msgid "favorite list options"
 msgstr ""
 
 #: berlinbuehnen/apps/favorites/views.py:190
-#, fuzzy
 msgid "Your name"
-msgstr "Vorname"
+msgstr "Ihr Name"
 
 #: berlinbuehnen/apps/favorites/views.py:193
 #: berlinbuehnen/apps/mailchimp/forms.py:35
@@ -2496,12 +2493,11 @@ msgstr "Ihre Emailadresse"
 
 #: berlinbuehnen/apps/favorites/views.py:196
 msgid "Your friend's name"
-msgstr ""
+msgstr "Der Name des Empfängers"
 
 #: berlinbuehnen/apps/favorites/views.py:199
-#, fuzzy
 msgid "Your friend's email"
-msgstr "Ihre Emailadresse"
+msgstr "Die Emailadresse des Empfängers"
 
 #: berlinbuehnen/apps/favorites/views.py:202
 #: berlinbuehnen/apps/mailchimp/models.py:195
@@ -2518,9 +2514,8 @@ msgid "Send"
 msgstr "senden"
 
 #: berlinbuehnen/apps/favorites/views.py:270
-#, fuzzy
 msgid "Edit My Favorites description"
-msgstr "Beschreibung"
+msgstr "Die Beschreibung bearbeiten"
 
 #: berlinbuehnen/apps/festivals/admin.py:66
 #: berlinbuehnen/apps/festivals/forms/festivals.py:145
@@ -3026,7 +3021,7 @@ msgstr "Findet statt"
 #: berlinbuehnen/apps/marketplace/forms.py:109
 #: berlinbuehnen/apps/marketplace/models.py:101
 msgid "Company"
-msgstr ""
+msgstr "Firma"
 
 #: berlinbuehnen/apps/marketplace/forms.py:195
 #: berlinbuehnen/apps/productions/models.py:631
@@ -3038,13 +3033,12 @@ msgstr "Typ"
 
 #: berlinbuehnen/apps/marketplace/models.py:41
 #: berlinbuehnen/apps/marketplace/models.py:95
-#, fuzzy
 msgid "Job type"
-msgstr "Weiterer Typ"
+msgstr "Tätigkeitsart"
 
 #: berlinbuehnen/apps/marketplace/models.py:42
 msgid "Job types"
-msgstr ""
+msgstr "Tätigkeitsarten"
 
 #: berlinbuehnen/apps/marketplace/models.py:94
 #: berlinbuehnen/templates/berlinbuehnen/marketplace/includes/sidebar.html:13
@@ -3054,18 +3048,16 @@ msgstr "Produktion"
 
 #: berlinbuehnen/apps/marketplace/models.py:96
 #: berlinbuehnen/templates/berlinbuehnen/marketplace/includes/sidebar.html:27
-#, fuzzy
 msgid "Deadline"
-msgstr "Überschrift"
+msgstr "Bewerbungsfrist"
 
 #: berlinbuehnen/apps/marketplace/models.py:97
-#, fuzzy
 msgid "Start contract on"
-msgstr "Ansprechpartner Presse"
+msgstr "Vertragsbeginn"
 
 #: berlinbuehnen/apps/marketplace/models.py:100
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: berlinbuehnen/apps/marketplace/models.py:129
 #: berlinbuehnen/templates/berlinbuehnen/marketplace/job_offer_detail.html:3
@@ -4065,7 +4057,6 @@ msgstr "Registrieren"
 #: berlinbuehnen/templates/berlinbuehnen/accounts/register.html:14
 #: berlinbuehnen/templates/berlinbuehnen/accounts/register_done.html:11
 #: berlinbuehnen/templates/berlinbuehnen/accounts/register_verify_required.html:12
-#, fuzzy
 msgid "back to home"
 msgstr "Zurück zur Übersicht"
 
@@ -4088,8 +4079,8 @@ msgstr "Passwortänderung"
 
 #: berlinbuehnen/templates/berlinbuehnen/accounts/password_change_form.html:9
 msgid ""
-"Please enter your old password, for security's sake, and then enter your new "
-"password twice so we can verify you typed it in correctly."
+"Please enter your old password, for security's sake, and then enter your new"
+" password twice so we can verify you typed it in correctly."
 msgstr ""
 "Bitte geben Sie ihr altes Passwort aus Sicherheitsgründen ein. Danach geben "
 "Sie Ihr neues Passwort doppelt ein, damit wir eine Überprüfung vornehmen "
@@ -4109,20 +4100,20 @@ msgstr "Passwort zurücksetzen"
 #: berlinbuehnen/templates/berlinbuehnen/accounts/password_reset_complete.html:10
 #, python-format
 msgid ""
-"Your password has been set. You may go ahead and <a href=\"%(login_url)s"
-"\">log in</a> now."
+"Your password has been set. You may go ahead and <a "
+"href=\"%(login_url)s\">log in</a> now."
 msgstr ""
-"Ihr Passwort wurde bestätigt. Sie können sich nun <a href=\"%(login_url)s"
-"\">einloggen</a>."
+"Ihr Passwort wurde bestätigt. Sie können sich nun <a "
+"href=\"%(login_url)s\">einloggen</a>."
 
 #: berlinbuehnen/templates/berlinbuehnen/accounts/password_reset_confirm.html:13
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used. Please request a new password reset."
 msgstr ""
-"Der Link zum Zurücksetzten des Passworts war ungültig,  da er wahrscheinlich "
-"bereits verwendet wurde. Bitte fordern Sie das Zurücksetzen Ihres Passwortes "
-"erneut an."
+"Der Link zum Zurücksetzten des Passworts war ungültig,  da er wahrscheinlich"
+" bereits verwendet wurde. Bitte fordern Sie das Zurücksetzen Ihres "
+"Passwortes erneut an."
 
 #: berlinbuehnen/templates/berlinbuehnen/accounts/password_reset_done.html:4
 msgid "Password reset successful"
@@ -4139,8 +4130,8 @@ msgstr ""
 #: berlinbuehnen/templates/berlinbuehnen/accounts/password_reset_email.html:3
 #, python-format
 msgid ""
-"You're receiving this e-mail because you requested a password reset for your "
-"user account at %(site_name)s."
+"You're receiving this e-mail because you requested a password reset for your"
+" user account at %(site_name)s."
 msgstr ""
 "Sie erhalten diese Email, da Sie das Zurücksetzen Ihres Passwortes für Ihr "
 "Nutzerkonto bei %(site_name)s beantragt haben."
@@ -4201,9 +4192,9 @@ msgstr "Sie haben es gleich geschafft."
 
 #: berlinbuehnen/templates/berlinbuehnen/accounts/register_verify_required.html:10
 msgid ""
-"In order to complete registration, we need to confirm you entered a valid e-"
-"mail address. You should be getting a confirmation e-mail very shortly. It "
-"will contain instructions on how to finalize your registration."
+"In order to complete registration, we need to confirm you entered a valid "
+"e-mail address. You should be getting a confirmation e-mail very shortly. It"
+" will contain instructions on how to finalize your registration."
 msgstr ""
 "Um die Registrierung abzuschließen müssen wir die Gültigkeit der eingeben "
 "Emailadresse prüfen. Sie erhalten dazu in Kürze eine weitere E-Mail mit "
@@ -4214,8 +4205,8 @@ msgid ""
 "Please also check your Spam folder to make sure that our message has not "
 "been filtered out."
 msgstr ""
-"Bitte überprüfen Sie auch Ihren Spamordner. Eventuell ist unsere E-Mail dort "
-"gelandet."
+"Bitte überprüfen Sie auch Ihren Spamordner. Eventuell ist unsere E-Mail dort"
+" gelandet."
 
 #: berlinbuehnen/templates/berlinbuehnen/articles/articles_archive.html:39
 #: berlinbuehnen/templates/berlinbuehnen/articles/articles_archive_day.html:34
@@ -4923,9 +4914,8 @@ msgstr ""
 
 #: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:41
 #: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:44
-#, fuzzy
 msgid "My favorites at Berlin Bühnen."
-msgstr "Berlin Bühnen"
+msgstr "Meine Favoriten bei Berlin Bühnen"
 
 #: berlinbuehnen/templates/berlinbuehnen/favorites/all_favorites.html:41
 #, fuzzy
@@ -4974,7 +4964,7 @@ msgstr "Schließen"
 
 #: berlinbuehnen/templates/berlinbuehnen/favorites/send_user_favorites_by_email_done.html:8
 msgid "Your message has been sent!"
-msgstr ""
+msgstr "Ihre Nachricht wurde versendet!"
 
 #: berlinbuehnen/templates/berlinbuehnen/favorites/includes/favorite.html:4
 msgid "Add to Favorites"
@@ -4986,15 +4976,13 @@ msgstr "aus Favoriten entfernen"
 
 #: berlinbuehnen/templates/berlinbuehnen/favorites/includes/favorite_detail.html:6
 #: berlinbuehnen/templates/berlinbuehnen/utils/favorites_scripts.html:4
-#, fuzzy
 msgid "Add to My Favorites"
-msgstr "zu Favoriten hinzufügen"
+msgstr "Zu Favoriten hinzufügen"
 
 #: berlinbuehnen/templates/berlinbuehnen/favorites/includes/favorite_detail.html:8
 #: berlinbuehnen/templates/berlinbuehnen/utils/favorites_scripts.html:5
-#, fuzzy
 msgid "Remove from My Favorites"
-msgstr "aus Favoriten entfernen"
+msgstr "Aus Favoriten entfernen"
 
 #: berlinbuehnen/templates/berlinbuehnen/festivals/festival_detail.html:45
 #: berlinbuehnen/templates/berlinbuehnen/festivals/festival_list.html:45
@@ -5184,12 +5172,11 @@ msgstr "Geben Sie bitte eine gültige Emailadresse ein."
 
 #: berlinbuehnen/templates/berlinbuehnen/marketplace/forms/base.html:9
 msgid "New job offer"
-msgstr ""
+msgstr "Neues Jobangebot"
 
 #: berlinbuehnen/templates/berlinbuehnen/marketplace/forms/base.html:37
-#, fuzzy
 msgid "Add new job"
-msgstr "Einen neuen Blogbeitrag hinzufügen"
+msgstr "Ein neues Jobangebot hinzufügen"
 
 #: berlinbuehnen/templates/berlinbuehnen/marketplace/includes/sidebar.html:5
 #, fuzzy
@@ -5197,9 +5184,8 @@ msgid "Job informations"
 msgstr "Preisinformation"
 
 #: berlinbuehnen/templates/berlinbuehnen/marketplace/includes/sidebar.html:9
-#, fuzzy
 msgid "Job Type"
-msgstr "Typ"
+msgstr "Tätigkeitsart"
 
 #: berlinbuehnen/templates/berlinbuehnen/multiparts/multipart_list.html:22
 msgid "Events, Palaces, and Memorials"
@@ -5411,15 +5397,15 @@ msgstr "Administrationsrechte bestätigen"
 #, python-format
 msgid ""
 "Please fill in this form to create and account at Berlin Bühnen and to "
-"confirm that you are the owner of <a href=\"%(location_link)s\">"
-"%(location_title)s</a>."
+"confirm that you are the owner of <a "
+"href=\"%(location_link)s\">%(location_title)s</a>."
 msgstr ""
 
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/claiming_confirmation.html:27
 #, python-format
 msgid ""
-"Please login to confirm that you are the owner of <a href=\"%(location_link)s"
-"\">%(location_title)s</a>."
+"Please login to confirm that you are the owner of <a "
+"href=\"%(location_link)s\">%(location_title)s</a>."
 msgstr ""
 
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/claiming_confirmation.html:60
@@ -5502,7 +5488,7 @@ msgstr "Festival hinzufügen"
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:276
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:25
 msgid "Add job"
-msgstr ""
+msgstr "Jobangebot hinzufügen"
 
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard.html:278
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/dashboard_job_offers.html:29
@@ -5650,11 +5636,9 @@ msgid "Upload file"
 msgstr "Datei hochladen"
 
 #: berlinbuehnen/templates/berlinbuehnen/utils/header.html:75
-#, fuzzy
 msgid "My Favorites"
-msgstr "zu Favoriten hinzufügen"
+msgstr "Meine Favoriten"
 
-#, fuzzy
 #~ msgid "Tickets Box Office (when differs from project address)"
 #~ msgstr "Theaterkasse (falls abweichend von Adresse)"
 
