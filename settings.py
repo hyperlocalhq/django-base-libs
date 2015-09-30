@@ -839,7 +839,7 @@ Q_CLUSTER = {
         'errors': 'strict',
         'unix_socket_path': None,
     },
-    'sync': True,
+    'sync': False,
 }
 
 ### PERSISTENT DATABASE CONNECTIONS ###
