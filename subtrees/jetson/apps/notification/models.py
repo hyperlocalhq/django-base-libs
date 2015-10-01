@@ -325,10 +325,7 @@ def send(recipients, sysname, extra_context=None, on_site=True, instance=None, s
         sender_id = sender.pk
 
     for user_id in user_ids:
-        # send_to_user(
-        # send_to_user_simplified(
         async(
-            # 'jetson.apps.notification.tasks.send_to_user',
             'jetson.apps.notification.tasks.send_to_user_simplified',
             user_id,
             sysname,

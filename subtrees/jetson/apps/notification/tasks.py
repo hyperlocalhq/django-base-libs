@@ -173,7 +173,8 @@ def send_to_user_simplified(
     instance = None
     if instance_ct and instance_id:
         ct = ContentType.objects.get(pk=instance_ct)
-        instance = ct.get_object_for_this_type(pk=instance_id)
+        # the following line causes an error with async tasks:
+        # instance = ct.get_object_for_this_type(pk=instance_id)
 
     sender = None
     if sender_id:
@@ -201,14 +202,26 @@ def send_to_user_simplified(
 
     # async(
     #     send_email_using_template,
-    send_email_using_template(
-        recipient_list,
-        email_template_slug=sysname,
-        obj=instance,
-        obj_placeholders=extra_context,
-        delete_after_sending=True,
-        sender=sender,
-        sender_name=sender_name,
-        sender_email=sender_email,
-        send_immediately=True,
+    # send_email_using_template(
+    #     recipient_list,
+    #     email_template_slug=sysname,
+    #     obj=instance,
+    #     obj_placeholders=extra_context,
+    #     delete_after_sending=True,
+    #     sender=sender,
+    #     sender_name=sender_name,
+    #     sender_email=sender_email,
+    #     send_immediately=True,
+    # )
+
+    from django.core.mail import send_mail
+    # async(
+    #     'django.core.mail.send_mail',
+    send_mail(
+        'Subject here',
+        'Here is the message.',
+        'from@example.com',
+        ['to@example.com'],
+        fail_silently=False,
     )
+
