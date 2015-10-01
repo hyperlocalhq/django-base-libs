@@ -43,6 +43,9 @@ from berlinbuehnen.utils.forms import InlineFormSet
 
 import autocomplete_light
 
+# translatable strings to collect
+_(u"leave blank if you want to use the data from the department")
+
 
 class BasicInfoForm(autocomplete_light.ModelForm):
     class Meta:

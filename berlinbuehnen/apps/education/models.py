@@ -373,7 +373,7 @@ class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
     age_from = models.PositiveSmallIntegerField(_(u"Age from"), blank=True, null=True)
     age_till = models.PositiveSmallIntegerField(_(u"Age till"), blank=True, null=True)
     participant_count = MultilingualTextField(_("Participant count"), blank=True)
-    needs_teachers = models.BooleanField(_("Workshop needs teachers"), default=False)
+    needs_teachers = models.BooleanField(_("Project needs teachers"), default=False)
     prices = MultilingualTextField(_("Prices"), blank=True)
     free_entrance = models.BooleanField(_("Free entrance"))
     tickets_website = URLField(_("Tickets website"), blank=True, max_length=255)
