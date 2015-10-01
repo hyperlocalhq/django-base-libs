@@ -1,4 +1,4 @@
-from datetime import timedelta
+from celery import task
 
 from django.db import models
 from django.template import Context
@@ -7,17 +7,13 @@ from django.utils.encoding import force_unicode
 from django.template import Template
 from django.core.urlresolvers import reverse
 from django.conf import settings
-from django.utils import timezone
 
 from jetson.apps.people.functions import get_user_language
 
 from base_libs.utils.misc import get_installed
 
-from django_q import async
-
 send_email_using_template = get_installed("mailing.views.send_email_using_template")
 Recipient = get_installed("mailing.recipient.Recipient")
-
 
 def get_notification_setting(user, notice_type, medium):
     """
@@ -26,30 +22,20 @@ def get_notification_setting(user, notice_type, medium):
     notification = models.get_app("notification")
     NoticeSetting = notification.NoticeSetting
     NOTICE_MEDIA_DEFAULTS = notification.NOTICE_MEDIA_DEFAULTS
-    notification_setting = None
     try:
-        notification_setting = NoticeSetting.objects.get(user=user, notice_type=notice_type, medium=medium)
+        return NoticeSetting.objects.get(user=user, notice_type=notice_type, medium=medium)
     except NoticeSetting.DoesNotExist:
         if NOTICE_MEDIA_DEFAULTS[medium] <= notice_type.default:
             frequency = "immediately"
         else:
             frequency = "never"
-        notification_setting = NoticeSetting(user=user, notice_type=notice_type, medium=medium, frequency=frequency)
-        notification_setting.save()
-    return notification_setting
+        setting = NoticeSetting(user=user, notice_type=notice_type, medium=medium, frequency=frequency)
+        setting.save()
+        return setting
 
-
-def send_to_user(
-    user_id,
-    sysname,
-    extra_context=None,
-    on_site=True,
-    instance_ct=None,
-    instance_id=None,
-    sender_id=None,
-    sender_name="",
-    sender_email=""
-):
+@task
+def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct=None, instance_id=None, sender_id=None,
+                 sender_name="", sender_email=""):
     """
     Creates a new notice and/or
     sends notification by email or saves notification to a digest.
@@ -68,9 +54,10 @@ def send_to_user(
     
     instance = None
     if instance_ct and instance_id:
-        ct = ContentType.objects.get(pk=instance_ct)
-        instance = ct.get_object_for_this_type(pk=instance_id)
-
+        instance = ContentType.objects.get(
+            pk=instance_ct,
+            ).get_object_for_this_type(pk=instance_id)
+        
     sender = None
     if sender_id:
         sender = User.objects.get(pk=sender_id)
@@ -118,29 +105,17 @@ def send_to_user(
         
     if user.email: # Email
         notification_setting = get_notification_setting(user, notice_type, "1")
-        # if notification_setting.frequency == "immediately":
-        if True: # TODO disable this before deploying to production!!!
-            try:
-                recipient = Recipient(user=user)
-                recipients_list = [recipient]
-                send_email_using_template(
-                # async(
-                #     'jetson.apps.mailing.views.send_email_using_template',
-                    recipients_list=recipients_list,
-                    email_template_slug=sysname,
-                    obj=instance,
-                    obj_placeholders=extra_context,
-                    delete_after_sending=True,
-                    sender=sender,
-                    sender_name=sender_name,
-                    sender_email=sender_email,
-                    send_immediately=True,
+        if notification_setting.frequency == "immediately":
+            send_email_using_template(
+                recipients_list=[Recipient(user=user)],
+                email_template_slug=sysname,
+                obj=instance,
+                obj_placeholders=extra_context,
+                sender = sender,
+                sender_name = sender_name,
+                sender_email = sender_email,
+                delete_after_sending = True,
                 )
-            except Exception as e:
-                print('exception creating recipient for user {0}:\n{1}'.format(
-                    user,
-                    e,
-                ))
         elif notification_setting.frequency in ("daily", "weekly"):
             digest, _created = Digest.objects.get_or_create(
                 user=user,
@@ -154,74 +129,4 @@ def send_to_user(
 
     # reset environment to original language
     activate(current_language)
-
-
-def send_to_user_simplified(
-    user_id,
-    sysname,
-    extra_context=None,
-    on_site=True,
-    instance_ct=None,
-    instance_id=None,
-    sender_id=None,
-    sender_name="",
-    sender_email=""
-):
-    ContentType = models.get_model("contenttypes", "ContentType")
-    User = models.get_model("auth", "User")
-
-    instance = None
-    if instance_ct and instance_id:
-        ct = ContentType.objects.get(pk=instance_ct)
-        # the following line causes an error with async tasks:
-        # instance = ct.get_object_for_this_type(pk=instance_id)
-
-    sender = None
-    if sender_id:
-        sender = User.objects.get(pk=sender_id)
-
-    user = User.objects.get(pk=user_id)
-
-    # setting default values
-    if not sender:
-        if not sender_name:
-            sender_name = ''
-        if not sender_email:
-            sender_email = settings.DEFAULT_FROM_EMAIL
-
-    try:
-        recipient = Recipient(user=user)
-    except Exception as e:
-        print('exception creating recipient for user {0}:\n{1}'.format(
-            user,
-            e,
-        ))
-        return
-
-    recipient_list = [recipient]
-
-    # async(
-    #     send_email_using_template,
-    # send_email_using_template(
-    #     recipient_list,
-    #     email_template_slug=sysname,
-    #     obj=instance,
-    #     obj_placeholders=extra_context,
-    #     delete_after_sending=True,
-    #     sender=sender,
-    #     sender_name=sender_name,
-    #     sender_email=sender_email,
-    #     send_immediately=True,
-    # )
-
-    from django.core.mail import send_mail
-    # async(
-    #     'django.core.mail.send_mail',
-    send_mail(
-        'Subject here',
-        'Here is the message.',
-        'from@example.com',
-        ['to@example.com'],
-        fail_silently=False,
-    )
 

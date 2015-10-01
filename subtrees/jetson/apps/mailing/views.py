@@ -10,7 +10,6 @@ from django.conf import settings
 from django.utils.encoding import force_unicode
 from django.utils.translation import ugettext as _
 from django.views.decorators.cache import never_cache
-from django.core.mail import send_mail
 
 from base_libs.middleware import get_current_user
 from base_libs.utils.misc import get_website_url, get_website_ssl_url
@@ -728,12 +727,18 @@ def send_email_using_template(
                 the_subject = subject_de
                 the_body = body_de
                 the_body_html = body_html_de
-
-        send_mail(
+        message = EmailMessage.objects.create(
+            sender=sender,
+            recipient=recipient.user,
+            sender_name=sender_name,
+            sender_email=sender_email,
+            recipient_emails=recipient_email,
             subject=the_subject,
-            message=the_body,
-            from_email=sender_email,
-            recipient_list=[recipient_email],
-            fail_silently=False,
-            html_message=the_body_html,
+            body_html=the_body_html,
+            body=the_body,
+            delete_after_sending=delete_after_sending
         )
+        message.save()
+        
+        if send_immediately:
+            message.send()

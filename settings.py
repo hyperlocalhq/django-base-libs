@@ -86,26 +86,29 @@ INSTALLED_APPS = [
 
     ### more third-party apps ###
     "babeldjango",
-    "captcha",
-    # "debug_toolbar",
-    "django_q",
-    "haystack",
-    # "memcache_toolbar",
-    "mptt",
-    "picklefield",
-    "pipeline",
-    "rosetta",
     "tagging",
     "tagging_autocomplete",
+    "rosetta",
+    # "debug_toolbar",
+    "haystack",
+    # "memcache_toolbar",
+    "pipeline",
     "uni_form",
+    "mptt",
+    "picklefield",
+    "djcelery",
+    "kombu.transport.django",
+    "captcha",
 
     ### django-cms ###
     'cms',  # django CMS itself
-    'djangocms_text_ckeditor',
-    'menus',  # helper for model independent hierarchical website navigation
-    'reversion',
-    'sekizai',  # for javascript and css management
     'treebeard',  # utilities for implementing a tree
+    'menus',  # helper for model independent hierarchical website navigation
+    'sekizai',  # for javascript and css management
+    'djangocms_admin_style',
+    # for the admin skin. You **must** add 'djangocms_admin_style' in the list **before** 'django.contrib.admin'.
+    'djangocms_text_ckeditor',
+    'reversion',
 
     ### django-cms plug-ins ###
     'djangocms_column',
@@ -166,6 +169,7 @@ INSTALLED_APPS = [
     "ccb.apps.media_gallery",
     "ccb.apps.slideshows",
     "ccb.apps.faqs",
+    "ccb.apps.celerytest",
     "ccb",  # just for i18n in Javascript
 ]
 
@@ -323,10 +327,6 @@ ADMIN_APP_INDEX = (
             ('mailchimp', {
                 'models': ("Settings", "MList", "Subscription", "Campaign",),
                 'icon': 'transmit',
-            }),
-            ('django_q', {
-                'verbose_name': _("Django-Q"),
-                'models': ("Schedule", "Success", "Failure"),
             }),
         )
     }, {
@@ -759,6 +759,26 @@ MAILING_CONTENT_TYPE_CHOICES = (
 
 TIME_INPUT_FORMATS = ('%H:%M:%S', '%H:%M', '%H.%M')
 
+### CELERY ###
+
+CELERY_RESULT_BACKEND = 'database'
+# For scheduled jobs. 
+CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
+CELERY_TRACK_STARTED = True
+CELERY_SEND_EVENTS = True
+CELERYD_LOG_FILE = os.path.join(PROJECT_PATH, "ccb/tmp/celery.log")
+
+BROKER_URL = "django://"
+BROKER_HOST = "localhost"
+BROKER_PORT = 5672
+BROKER_USER = "guest"
+BROKER_PASSWORD = "guest"
+BROKER_VHOST = "/"
+
+import djcelery
+
+djcelery.setup_loader()
+
 ### CAPTCHA ###
 
 RECAPTCHA_PUBLIC_KEY = '6LfWkt8SAAAAAPnRowSBDg1GJOk6umAqdwVcpUFK'
@@ -823,23 +843,6 @@ MIGRATION_MODULES = {
     'djangocms_style': 'djangocms_style.migrations_django',
     'djangocms_column': 'djangocms_column.migrations_django',
     'djangocms_text_ckeditor': 'djangocms_text_ckeditor.migrations',
-}
-
-### DJANGO-Q ###
-
-# redis defaults
-Q_CLUSTER = {
-    'redis': {
-        'host': 'localhost',
-        'port': 6379,
-        'db': 0,
-        'password': None,
-        'socket_timeout': None,
-        'charset': 'utf-8',
-        'errors': 'strict',
-        'unix_socket_path': None,
-    },
-    'sync': False,
 }
 
 ### PERSISTENT DATABASE CONNECTIONS ###

@@ -2,7 +2,6 @@
 
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.contrib.auth.models import AnonymousUser
-from django.db.models.signals import post_save
 
 from jetson.apps.institutions.base import *
 
@@ -186,6 +185,14 @@ class Institution(InstitutionBase):
             self._is_deletable_cache = user.has_perm("institutions.delete_institution", self)
         return self._is_deletable_cache
 
+    def save(self, *args, **kwargs):
+        is_new = not self.id
+        super(Institution, self).save(*args, **kwargs)
+        if is_new:
+            institution_added(Institution, self)
+
+    save.alters_data = True
+
 
 class InstitutionalContact(InstitutionalContactBase):
     def is_public(self):
@@ -194,34 +201,32 @@ class InstitutionalContact(InstitutionalContactBase):
 
 # Notify appropriate users about new institutions
 def institution_added(sender, instance, **kwargs):
-    if kwargs.get('created', False):
-        from django.contrib.auth.models import User
-        from base_libs.middleware import get_current_user
-        from jetson.apps.notification import models as notification
+    return  # FIXME: ensure that notifications are sent as Celery tasks
+    from django.contrib.auth.models import User
+    from base_libs.middleware import get_current_user
+    from jetson.apps.notification import models as notification
 
-        user = get_current_user()
-        creator_url = (
-            not user
-            and get_website_url() + "admin/"
-            or user.profile.get_url()
-        )
-        creator_title = (
-            not user
-            and ugettext("System")
-            or user.profile.get_title()
-        )
+    user = get_current_user()
+    creator_url = (
+        not user
+        and get_website_url() + "admin/"
+        or user.profile.get_url()
+    )
+    creator_title = (
+        not user
+        and ugettext("System")
+        or user.profile.get_title()
+    )
 
-        recipients = User.objects.all()
+    recipients = User.objects.all()
 
-        notification.send(
-            recipients=recipients,
-            sysname='institution_added',
-            extra_context={
-                "object_creator_url": creator_url,
-                "object_creator_title": creator_title,
-            },
-            on_site=False,
-            instance=instance,
-        )
-
-post_save.connect(institution_added, sender=Institution, dispatch_uid="institution_added_notification")
+    notification.send(
+        recipients,
+        "institution_added",
+        {
+            "object_creator_url": creator_url,
+            "object_creator_title": creator_title,
+        },
+        instance=instance,
+        on_site=False,
+    )
