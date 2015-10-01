@@ -33,6 +33,8 @@
                 <li><a href="/{{ LANGUAGE_CODE }}/dashboard/locations/">{% trans "Theaters" %}</a></li>
                 <li><a href="/{{ LANGUAGE_CODE }}/dashboard/festivals/">{% trans "Festivals" %}</a></li>
                 <li><a href="/{{ LANGUAGE_CODE }}/dashboard/jobs/">{% trans "Jobs" %}</a></li>
+                <li><a href="/{{ LANGUAGE_CODE }}/dashboard/educational_departments/">{% trans "Educational Departments" %}</a></li>
+                <li><a href="/{{ LANGUAGE_CODE }}/dashboard/educational_projects/">{% trans "Educational Projects" %}</a></li>
                 <li class="divider"></li>
                 <li><a href="/{{ LANGUAGE_CODE }}/logout/">{% trans "Logout" %}</a></li>
               </ul>
@@ -73,6 +75,8 @@
           <li{% if "/stages-and-companies/" in request.path or "/locations/" in request.path or "/buehnen-und-ensembles/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/locations/">{% trans "Theaters" %}</a></li>
           <li{% if "/festivals/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/festivals/">{% trans "Festivals" %}</a></li>
           <li{% if "/jobs/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/jobs/">{% trans "Jobs" %}</a></li>
+          <li{% if "/educational_departments/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/educational_departments/">{% trans "Edu. Departments" %}</a></li>
+          <li{% if "/educational_projects/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/educational_projectss/">{% trans "Edu. Projects" %}</a></li>
         </ul>
 
         {% comment %}

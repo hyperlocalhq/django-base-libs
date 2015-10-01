@@ -11,7 +11,6 @@ urlpatterns = patterns('berlinbuehnen.apps.education.views.projects',
 
     url(r'^(?P<slug>[^/]+)/change/$', 'change_project', name='change_project'),
     url(r'^(?P<slug>[^/]+)/delete/$', 'delete_project', name='delete_project'),
-    url(r'^(?P<slug>[^/]+)/delete/$', 'delete_project', name='delete_project'),
     url(r'^(?P<slug>[^/]+)/status/$', 'change_project_status', name='change_project_status'),
 )
 

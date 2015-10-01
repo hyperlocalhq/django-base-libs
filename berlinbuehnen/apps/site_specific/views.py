@@ -37,6 +37,8 @@ Production = models.get_model("productions", "Production")
 Festival = models.get_model("festivals", "Festival")
 Parent = models.get_model("multiparts", "Parent")
 JobOffer = models.get_model("marketplace", "JobOffer")
+EducationalDepartment = models.get_model("education", "Department")
+EducationalProjects = models.get_model("education", "Project")
 
 # from forms import ExhibitionFilterForm, EventFilterForm, WorkshopFilterForm, ShopFilterForm
 
@@ -58,12 +60,20 @@ def dashboard(request):
     owned_job_offers = JobOffer.objects.accessible_to(request.user).filter(status__in=('published', 'draft', 'expired', 'not_listed', 'import')).extra(select={
         'modified_or_creation_date': 'IFNULL(marketplace_joboffer.modified_date, marketplace_joboffer.creation_date)'
     }).order_by("-modified_or_creation_date")[:3]
+    owned_educational_departments = EducationalDepartment.objects.accessible_to(request.user).filter(status__in=('published', 'draft', 'expired', 'not_listed', 'import')).extra(select={
+        'modified_or_creation_date': 'IFNULL(education_department.modified_date, education_department.creation_date)'
+    }).order_by("-modified_or_creation_date")[:3]
+    owned_educational_projects = EducationalProjects.objects.accessible_to(request.user).filter(status__in=('published', 'draft', 'expired', 'not_listed', 'import')).extra(select={
+        'modified_or_creation_date': 'IFNULL(education_project.modified_date, education_project.creation_date)'
+    }).order_by("-modified_or_creation_date")[:3]
     context = {
         'owned_locations': owned_locations,
         'owned_productions': owned_productions,
         'owned_multiparts': owned_multiparts,
         'owned_festivals': owned_festivals,
         'owned_job_offers': owned_job_offers,
+        'owned_educational_departments': owned_educational_departments,
+        'owned_educational_projects': owned_educational_projects,
     }
     return render(request, "site_specific/dashboard.html", context)
 
@@ -304,6 +314,100 @@ def dashboard_job_offers(request):
         'sort_by': sort_by,
     }
     return render(request, "site_specific/dashboard_job_offers.html", context)
+
+
+@never_cache
+@login_required
+def dashboard_educational_department(request):
+    owned_department_qs = EducationalDepartment.objects.accessible_to(request.user).extra(select={
+        'modified_or_creation_date': 'IFNULL(education_department.modified_date, education_department.creation_date)'
+    })
+
+    status = request.REQUEST.get('status', 'published')
+    if status in ('published', 'draft', 'not_listed'):
+        owned_department_qs = owned_department_qs.filter(status=status)
+
+    q = request.REQUEST.get('q', '')
+    if q:
+        owned_department_qs = owned_department_qs.filter(
+            models.Q(title_de__icontains=q) | models.Q(title_en__icontains=q) |
+            models.Q(subtitle_de__icontains=q) | models.Q(subtitle_en__icontains=q)
+        )
+
+    sort_by = request.REQUEST.get('sort_by', 'date')
+    if sort_by == 'title':
+        owned_department_qs = owned_department_qs.order_by("title_de")
+    elif sort_by == '-title':
+        owned_department_qs = owned_department_qs.order_by("-title_de")
+    elif sort_by == '-date':
+        owned_department_qs = owned_department_qs.order_by("modified_or_creation_date")
+    else:
+        owned_department_qs = owned_department_qs.order_by("-modified_or_creation_date")
+
+    paginator = Paginator(owned_department_qs, 50)
+    page_number = request.GET.get('page', 1)
+    try:
+        page = paginator.page(page_number)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        page = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        page = paginator.page(paginator.num_pages)
+    context = {
+        'page': page,
+        'q': q,
+        'status': status,
+        'sort_by': sort_by,
+    }
+    return render(request, "site_specific/dashboard_educational_department.html", context)
+
+
+@never_cache
+@login_required
+def dashboard_educational_project(request):
+    owned_project_qs = EducationalProjects.objects.accessible_to(request.user).extra(select={
+        'modified_or_creation_date': 'IFNULL(education_project.modified_date, education_project.creation_date)'
+    })
+
+    status = request.REQUEST.get('status', 'published')
+    if status in ('published', 'draft', 'not_listed'):
+        owned_project_qs = owned_project_qs.filter(status=status)
+
+    q = request.REQUEST.get('q', '')
+    if q:
+        owned_project_qs = owned_project_qs.filter(
+            models.Q(title_de__icontains=q) | models.Q(title_en__icontains=q) |
+            models.Q(subtitle_de__icontains=q) | models.Q(subtitle_en__icontains=q)
+        )
+
+    sort_by = request.REQUEST.get('sort_by', 'date')
+    if sort_by == 'title':
+        owned_project_qs = owned_project_qs.order_by("title_de")
+    elif sort_by == '-title':
+        owned_project_qs = owned_project_qs.order_by("-title_de")
+    elif sort_by == '-date':
+        owned_project_qs = owned_project_qs.order_by("modified_or_creation_date")
+    else:
+        owned_project_qs = owned_project_qs.order_by("-modified_or_creation_date")
+
+    paginator = Paginator(owned_project_qs, 50)
+    page_number = request.GET.get('page', 1)
+    try:
+        page = paginator.page(page_number)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        page = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        page = paginator.page(paginator.num_pages)
+    context = {
+        'page': page,
+        'q': q,
+        'status': status,
+        'sort_by': sort_by,
+    }
+    return render(request, "site_specific/dashboard_educational_project.html", context)
 
 
 @never_cache

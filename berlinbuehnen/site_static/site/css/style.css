@@ -1579,7 +1579,7 @@ select { visibility: hidden; }
 .autocomplete-light-widget.modern-style .deck [data-value] .remove:hover { background-position: -15px 2px; }
 
 .dashboard { font-weight: 400; }
-.dashboard .dashboard-meta-wrapper { max-width: 940px; min-width: 940px; width: 940px; position: fixed; top: 12px; padding-right: 60px; }
+.dashboard .dashboard-meta-wrapper { max-width: 940px; min-width: 940px; width: 940px; position: fixed; top: 12px; padding-right: 60px; z-index: 2; }
 .dashboard fieldset .subtitle { position: relative; top: -25px; }
 .dashboard label { font-weight: 400; }
 .dashboard .navbar-wrapper .nav.navbar-nav { width: 100%; }

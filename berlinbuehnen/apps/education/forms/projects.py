@@ -966,7 +966,14 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             time_ids_to_keep.append(project_time.pk)
         instance.projecttime_set.exclude(pk__in=time_ids_to_keep).delete()
 
+        form_step_data['_pk'] = instance.pk
+
     if current_step == "description":
+        if "_pk" in form_step_data:
+            instance = Project.objects.get(pk=form_step_data['_pk'])
+        else:
+            return
+            
         fields = []
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -1031,8 +1038,6 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             social.channel_type = social_dict['channel_type']
             social.url = social_dict['url']
             social.save()
-
-        form_step_data['_pk'] = instance.pk
 
         # save sponsors
         fields = [

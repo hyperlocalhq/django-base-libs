@@ -588,7 +588,6 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             'phone_country', 'phone_area', 'phone_number',
             'fax_country', 'fax_area', 'fax_number',
             'email', 'website',
-            'districts',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -612,7 +611,14 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         if not current_user.is_superuser and not instance.get_owners():
             instance.set_owner(current_user)
 
+        form_step_data['_pk'] = instance.pk
+
     if current_step == "description":
+        if "_pk" in form_step_data:
+            instance = Department.objects.get(pk=form_step_data['_pk'])
+        else:
+            return
+            
         fields = []
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -671,8 +677,6 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             social.channel_type = social_dict['channel_type']
             social.url = social_dict['url']
             social.save()
-
-        form_step_data['_pk'] = instance.pk
 
     return form_step_data
 

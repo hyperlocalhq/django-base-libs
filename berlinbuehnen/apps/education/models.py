@@ -89,6 +89,8 @@ class Department(CreationModificationMixin, UrlMixin, SlugMixin()):
     districts = models.ManyToManyField(District, verbose_name=_("District"), blank=True)
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 
+    objects = DepartmentManager()
+
     class Meta:
         ordering = ['title']
         verbose_name = _("Education department")
@@ -318,6 +320,30 @@ class ProjectFormat(CreationModificationDateMixin, SlugMixin()):
         verbose_name = _("Project format")
         verbose_name_plural = _("Project formats")
 
+        
+class ProjectManager(models.Manager):
+    def accessible_to(self, user):
+        from jetson.apps.permissions.models import PerObjectGroup
+        if user.has_perm("education.change_project"):
+            return self.get_query_set().exclude(status="trashed")
+        ids = PerObjectGroup.objects.filter(
+            content_type__app_label="education",
+            content_type__model="project",
+            sysname__startswith="owners",
+            users=user,
+        ).values_list("object_id", flat=True)
+        return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
+
+    def owned_by(self, user):
+        from jetson.apps.permissions.models import PerObjectGroup
+        ids = PerObjectGroup.objects.filter(
+            content_type__app_label="education",
+            content_type__model="project",
+            sysname__startswith="owners",
+            users=user,
+        ).values_list("object_id", flat=True)
+        return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
+
 
 class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
     title = MultilingualCharField(_("Title"), max_length=255)
@@ -362,6 +388,8 @@ class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
     formats = models.ManyToManyField("ProjectFormat", verbose_name=_("Project formats"), blank=True, null=True)
 
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
+
+    objects = ProjectManager()
 
     row_level_permissions = True
 
