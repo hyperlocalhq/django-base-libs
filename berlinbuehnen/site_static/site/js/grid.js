@@ -27,6 +27,7 @@
         me.$featured = $('.grid-item.featured', me.$main)
         me.autoload = $main.hasClass('grid-autoload');
         me.mazery = $main.hasClass('mazery-grid');
+        me.is_two_columns = $main.hasClass('grid-two-columns');
         
         $('.ad_banner', me.$main).removeClass('clearfix');
         
@@ -121,9 +122,14 @@
                     counter_lg++;
                 }              
                 
-                if (counter_lg % 4 == 0) $element.after('<div class="clearfix visible-lg"></div>');
-                if (counter_md % 3 == 0) $element.after('<div class="clearfix visible-md"></div>');
-                if (counter_sm % 2 == 0) $element.after('<div class="clearfix visible-sm"></div>');
+                if (me.is_two_columns) {
+                    if (counter_lg % 2 == 0) $element.after('<div class="clearfix visible-lg"></div>');
+                    if (counter_md % 2 == 0) $element.after('<div class="clearfix visible-md"></div>');
+                } else {
+                    if (counter_lg % 4 == 0) $element.after('<div class="clearfix visible-lg"></div>');
+                    if (counter_md % 3 == 0) $element.after('<div class="clearfix visible-md"></div>');
+                    if (counter_sm % 2 == 0) $element.after('<div class="clearfix visible-sm"></div>');
+                }
                 
             });
             
