@@ -48,7 +48,7 @@
                                     {% if department.teaser %}
                                         <div class="copy">{{ department.get_rendered_teaser }}</div>
                                     {% elif department.description %}
-                                        <div class="copy">{{ department.get_rendered_description|truncatewords:20 }}</div>
+                                        <div class="copy">{{ department.get_rendered_description|striptags|truncatewords:20 }}</div>
                                     {% endif %}
                                     
                                 </a>

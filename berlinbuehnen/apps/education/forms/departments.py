@@ -595,6 +595,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             ]
         for fname in fields:
             setattr(instance, fname, form_step_data[current_step][fname])
+            
         if form_step_data[current_step]['location']:
             instance.location = Location.objects.get(pk=form_step_data[current_step]['location'])
 
@@ -626,7 +627,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 'teaser_%s' % lang_code,
             ]
         for fname in fields:
-            form_step_data['description'][fname] = getattr(instance, fname)
+            setattr(instance, fname, form_step_data[current_step][fname])
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             setattr(instance, 'description_%s_markup_type' % lang_code, 'pt')
@@ -673,7 +674,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         # save social media channels
         instance.socialmediachannel_set.all().delete()
         for social_dict in form_step_data['description']['sets']['social']:
-            social = SocialMediaChannel(project=instance)
+            social = SocialMediaChannel(department=instance)
             social.channel_type = social_dict['channel_type']
             social.url = social_dict['url']
             social.save()
