@@ -45,6 +45,7 @@ class JobOfferFilterForm(forms.Form):
 def job_offer_list(request, year=None, month=None, day=None):
     from berlinbuehnen.apps.advertising.templatetags.advertising_tags import not_empty_ad_zone
     qs = JobOffer.objects.filter(status="published").filter(models.Q(deadline=None) | models.Q(deadline__gte=datetime.today()))
+    qs = qs.filter(status="published").filter(models.Q(start_contract_on=None) | models.Q(start_contract_on__gte=datetime.today()))
 
     form = JobOfferFilterForm(data=request.REQUEST)
     
@@ -56,7 +57,7 @@ def job_offer_list(request, year=None, month=None, day=None):
         },
     }
             
-    abc_list = get_abc_list(qs, "title_%s" % request.LANGUAGE_CODE)
+    abc_list = get_abc_list(qs, "position_%s" % request.LANGUAGE_CODE)
     
     if form.is_valid():
         cats = form.cleaned_data['categories']
@@ -78,7 +79,7 @@ def job_offer_list(request, year=None, month=None, day=None):
     if abc_filter:
         facets['selected']['abc'] = abc_filter
         for letter in abc_filter:
-            qs = filter_abc(qs, "title_%s" % request.LANGUAGE_CODE, letter)
+            qs = filter_abc(qs, "position_%s" % request.LANGUAGE_CODE, letter)
 
     # qs = qs.extra(select={
     #     'title_uni': "IF (events_event.title_%(lang_code)s = '', events_event.title_de, events_event.title_%(lang_code)s)" % {
@@ -87,6 +88,8 @@ def job_offer_list(request, year=None, month=None, day=None):
     # }).order_by("title_uni")
 
     #qs = qs.prefetch_related("season_set", "mediafile_set", "categories", "accessibility_options").defer("tags")
+    
+    qs.order_by("deadline")
     
     extra_context = {}
     extra_context['form'] = form

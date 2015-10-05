@@ -32,9 +32,9 @@
                         {% if object_list %}
                             {% for job_offer in object_list %}
                                 <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3" href="{{ job_offer.get_url_path }}">
-                                    {% if job_offer.title %}<h2>{{ job_offer.title }}</h2>{% endif %}
-                                    {% if job_offer.subtitle %}<h3>{{ job_offer.subtitle }}</h3>{% endif %}
-                                    {% if job_offer.company or job_offer.position %}<h5>{% if job_offer.company %}{{ job_offer.company }}{% if job_offer.position %} – {% endif %}{% endif %}{% if job_offer.position %}{{ job_offer.position }}{% endif %}</h5>{% endif %}
+                                    {% if job_offer.deadline %}<h3>{% trans "Deadline" %}: {{ job_offer.deadline|date:"d.m.Y" }}</h3>{% endif %}
+                                    {% if job_offer.position %}<h2>{{ job_offer.position }}</h2>{% endif %}
+                                    {% if job_offer.company %}<h5>{{ job_offer.company }}</h5>{% endif %}
                                     {% if job_offer.description %}
                                         <div class="copy">{{ job_offer.get_rendered_description|truncatewords:20 }}</div>
                                     {% endif %}

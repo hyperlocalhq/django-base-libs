@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites_tags production_tags %}
-{% block title %}{% trans "Job Offer" %} – {{ object.title }} – {% endblock %}
+{% block title %}{% trans "Job Offer" %} – {{ object.position }} – {% endblock %}
 {% block bodyclass %}job_offer-detail{% endblock %}
 
 {% block open_graph %}
-    <meta property="og:title" content="{{ object.title }}" />
+    <meta property="og:title" content="{{ object.position }}" />
     <meta property="og:type" content="article" />
     {% if object.image %}
         <meta property="og:image" content="{{ current_website_url }}{{ MEDIA_URL }}{{ object.image|modified_path:"og" }}" />
@@ -39,16 +39,13 @@
                                         {% adding2favorites for job_offer using "favorites/includes/favorite_detail.html" %}
                                     {% endif %}
                                 </div>
-                                <h1>{{ job_offer.title }}
+                                <h1>{{ job_offer.position }}
                                     {% if_has_perm "job_offers.change_job_offer" object %}
                                         {% if not request.is_mobile %}
                                             <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>
                                         {% endif %}
                                     {% end_if_has_perm %}
                                 </h1>
-                                {% if job_offer.subtitle %}
-                                    <h2>{{ job_offer.subtitle }}</h2>
-                                {% endif %}
                             </header>
                             
                             <!-- main  part (including sidebar) -->

@@ -87,8 +87,8 @@ class JobOfferManager(models.Manager):
 
 
 class JobOffer(CreationModificationMixin, UrlMixin):
-    title = MultilingualCharField(_("Title"), max_length=255)
-    subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
+    #title = MultilingualCharField(_("Title"), max_length=255)
+    #subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
     description = MultilingualTextField(_("Description"), blank=True)
     remarks = MultilingualTextField(_("Remarks"), blank=True)
     position = MultilingualCharField(_('Position'), max_length=200)
@@ -97,7 +97,7 @@ class JobOffer(CreationModificationMixin, UrlMixin):
     start_contract_on = models.DateField(_("Start contract on"), blank=True, null=True)
     categories = models.ManyToManyField(JobCategory, verbose_name=_("Categories"), blank=True)
 
-    name = models.CharField(_("Name"), max_length=255)
+    name = models.CharField(_("Name"), max_length=255, blank=True)
     company = models.CharField(_("Company"), max_length=255)
     street_address = models.CharField(_("Street address"), max_length=255)
     street_address2 = models.CharField(_("Street address (second line)"), max_length=255, blank=True)
@@ -122,10 +122,10 @@ class JobOffer(CreationModificationMixin, UrlMixin):
     row_level_permissions = True
 
     def __unicode__(self):
-        return self.title
+        return self.position
 
     class Meta:
-        ordering = ['title']
+        ordering = ['position']
         verbose_name = _("Job Offer")
         verbose_name_plural = _("Job Offers")
 
@@ -153,7 +153,7 @@ class JobOffer(CreationModificationMixin, UrlMixin):
                 sysname="owners",
             )
             for lang_code, lang_name in settings.LANGUAGES:
-                setattr(role, "title_%s" % lang_code, get_translation("Owners", language=lang_code))
+                setattr(role, "position_%s" % lang_code, get_translation("Owners", language=lang_code))
             role.content_object = self
             role.save()
 

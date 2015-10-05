@@ -152,8 +152,16 @@
     }
     
     &.job_offer-grid {
+        h3 {
+            margin-top: 0px;
+            margin-bottom: 6px;
+        }
+        h2 {
+            margin-bottom: 6px;
+        }
         h5 {
-            margin-top: -14px;
+            margin-top: -6px;
+            margin-bottom: 6px;
         }
     }
 }

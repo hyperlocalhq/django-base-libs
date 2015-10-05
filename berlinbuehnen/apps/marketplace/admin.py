@@ -57,15 +57,15 @@ class OwnersForm(forms.Form):
 
 
 class JobOfferAdmin(ExtendedModelAdmin):
-    list_display = ('title', 'creation_date', 'modified_date', 'get_owners_list', 'status')
+    list_display = ('position', 'creation_date', 'modified_date', 'deadline', 'start_contract_on', 'get_owners_list', 'status')
     list_editable = ('status',)
     list_filter = ('status',)
 
     fieldsets = get_admin_lang_section(
-        _("Title"),
+        _("Position"),
         [
-            'title',
-            'subtitle',
+            #'title',
+            #'subtitle',
             'position',
             'description',
             'remarks',

@@ -37,8 +37,8 @@ class JobOfferForm(forms.ModelForm):
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
-                'title_%s' % lang_code,
-                'subtitle_%s' % lang_code,
+                #'title_%s' % lang_code,
+                #'subtitle_%s' % lang_code,
                 'position_%s' % lang_code,
                 'description_%s' % lang_code,
                 'remarks_%s' % lang_code,
@@ -49,8 +49,8 @@ class JobOfferForm(forms.ModelForm):
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             for f in [
-                'title_%s' % lang_code,
-                'subtitle_%s' % lang_code,
+                #'title_%s' % lang_code,
+                #'subtitle_%s' % lang_code,
                 'position_%s' % lang_code,
                 'description_%s' % lang_code,
                 'remarks_%s' % lang_code,
@@ -71,20 +71,20 @@ class JobOfferForm(forms.ModelForm):
         layout_blocks = []
 
         fieldset_content = []  # collect multilingual divs into one list...
-        fieldset_content.append(layout.Row(
-            css_class="row-md",
-            *[layout.Div(
-                layout.Field('title_%s' % lang_code),
-                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
-        ))
-        fieldset_content.append(layout.Row(
-            css_class="row-md",
-            *[layout.Div(
-                layout.Field('subtitle_%s' % lang_code),
-                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
-        ))
+        #fieldset_content.append(layout.Row(
+        #    css_class="row-md",
+        #    *[layout.Div(
+        #        layout.Field('title_%s' % lang_code),
+        #        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+        #    ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        #))
+        #fieldset_content.append(layout.Row(
+        #    css_class="row-md",
+        #    *[layout.Div(
+        #        layout.Field('subtitle_%s' % lang_code),
+        #        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+        #    ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        #))
         fieldset_content.append(layout.Row(
             css_class="row-md",
             *[layout.Div(
@@ -119,7 +119,7 @@ class JobOfferForm(forms.ModelForm):
                 layout.Div(
                     layout.HTML("""{% load i18n %}
                         <div class="dyn_set_map">
-                            <label>{% trans "Location" %}</label>
+                            <label>{% trans "Company" %}</label>
                             <div class="map_canvas">
                             </div>
                             <div class="form-actions">
@@ -205,8 +205,15 @@ class JobOfferForm(forms.ModelForm):
 
         layout_blocks.append(layout.Fieldset(
             _("Dates"),
-            "deadline",
-            "start_contract_on",
+            layout.Row(
+                layout.Div(
+                    'deadline', css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                ),
+                layout.Div(
+                    'start_contract_on', css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                ),
+                css_class="row-md"
+            ),
             css_class="fieldset-services",
         ))
 

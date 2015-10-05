@@ -32,7 +32,7 @@
     <div class="dashboard-header container relative">
         {% block dashboard_title %}
             {% if job_offer %}
-                <h4>{{ job_offer.title }}</h4>
+                <h4>{{ job_offer.position }}</h4>
             {% else %}
                 <h4>{% trans "Add new job" %}</h4>
             {% endif %}

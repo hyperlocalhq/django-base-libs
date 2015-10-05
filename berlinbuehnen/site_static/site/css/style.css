@@ -1959,6 +1959,8 @@ top: 0;*/ width: 110px; height: 100%; display: block; background-image: url(../i
 .sidebar-accordion .accordion-item dl dt { margin: 0; font-weight: 400; display: inline-block; }
 .sidebar-accordion .accordion-item dl dt.width_50 { width: 55px; }
 .sidebar-accordion .accordion-item dl dt.width_80 { width: 80px; }
+.sidebar-accordion .accordion-item dl dt.width_90 { width: 90px; }
+.sidebar-accordion .accordion-item dl dt.width_120 { width: 120px; }
 .sidebar-accordion .accordion-item dl dt:after, .sidebar-accordion .accordion-item dl dt:before { content: none; padding: 0; display: inline; }
 .sidebar-accordion .accordion-item dl dd { display: inline; }
 .sidebar-accordion .accordion-item dl dd.headline { font-weight: 700; }
@@ -2162,7 +2164,9 @@ body.is-xs.safari .list-item-head-date .list-item-head-date-icons { top: 21px !i
 .grid.mazery-grid dl dd { display: inline; float: none; }
 .grid.mazery-grid dl dd:after { content: ", "; }
 .grid.mazery-grid dl dd:last-child:after { content: none; }
-.grid.job_offer-grid h5 { margin-top: -14px; }
+.grid.job_offer-grid h3 { margin-top: 0px; margin-bottom: 6px; }
+.grid.job_offer-grid h2 { margin-bottom: 6px; }
+.grid.job_offer-grid h5 { margin-top: -6px; margin-bottom: 6px; }
 
 body.is-xs .grid { margin: 0 -28px; }
 body.is-xs .grid .grid-item button.favorite:before { padding-left: 0; }
@@ -2352,7 +2356,7 @@ input { font-size: 16px !important; }
 
 #search-form-wrapper { background-image: url("../img/trns-1.png") !important; -moz-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05); -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05); box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05); }
 
-#body { overflow: hidden; }
+#body { /* overflow: hidden; */ }
 .popup #body { padding-bottom: 0px; }
 
 ::selection { background: #ffb7b7; /* Safari */ }
