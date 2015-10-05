@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-01 11:35+0200\n"
-"PO-Revision-Date: 2015-10-05 09:49+0053\n"
+"POT-Creation-Date: 2015-10-05 11:34+0200\n"
+"PO-Revision-Date: 2015-10-05 11:36+0053\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -370,7 +370,7 @@ msgstr "Haupt Data"
 #: .\berlinbuehnen\apps\productions\models.py:156
 #: .\berlinbuehnen\apps\productions\forms\productions.py:44
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_detail.html.py:359
-#: .\berlinbuehnen\templates\berlinbuehnen\marketplace\includes\sidebar.html.py:17
+#: .\berlinbuehnen\templates\berlinbuehnen\marketplace\includes\sidebar.html.py:14
 #: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_job_offers.html.py:32
 msgid "Categories"
 msgstr "Kategorien"
@@ -430,10 +430,8 @@ msgstr ""
 #: .\berlinbuehnen\apps\mailchimp\models.py:91
 #: .\berlinbuehnen\apps\marketplace\admin.py:29
 #: .\berlinbuehnen\apps\marketplace\admin.py:42
-#: .\berlinbuehnen\apps\marketplace\admin.py:65
 #: .\berlinbuehnen\apps\marketplace\models.py:33
 #: .\berlinbuehnen\apps\marketplace\models.py:47
-#: .\berlinbuehnen\apps\marketplace\models.py:90
 #: .\berlinbuehnen\apps\mega_menu\models.py:15
 #: .\berlinbuehnen\apps\people\admin.py:23
 #: .\berlinbuehnen\apps\people\admin.py:35
@@ -469,13 +467,11 @@ msgstr ""
 #: .\berlinbuehnen\templates\berlinbuehnen\site_specific\dashboard.html.py:110
 #: .\berlinbuehnen\templates\berlinbuehnen\site_specific\dashboard.html.py:162
 #: .\berlinbuehnen\templates\berlinbuehnen\site_specific\dashboard.html.py:222
-#: .\berlinbuehnen\templates\berlinbuehnen\site_specific\dashboard.html.py:282
 #: .\berlinbuehnen\templates\berlinbuehnen\site_specific\dashboard.html.py:342
 #: .\berlinbuehnen\templates\berlinbuehnen\site_specific\dashboard.html.py:402
 #: .\berlinbuehnen\templates\berlinbuehnen\site_specific\dashboard_educational_department.html.py:42
 #: .\berlinbuehnen\templates\berlinbuehnen\site_specific\dashboard_educational_project.html.py:42
 #: .\berlinbuehnen\templates\berlinbuehnen\site_specific\dashboard_festivals.html.py:39
-#: .\berlinbuehnen\templates\berlinbuehnen\site_specific\dashboard_job_offers.html.py:42
 #: .\berlinbuehnen\templates\berlinbuehnen\site_specific\dashboard_locations.html.py:34
 #: .\berlinbuehnen\templates\berlinbuehnen\site_specific\dashboard_multiparts.html.py:46
 #: .\berlinbuehnen\templates\berlinbuehnen\site_specific\dashboard_productions.html.py:39
@@ -982,7 +978,7 @@ msgstr "Funktion"
 #: .\berlinbuehnen\templates\berlinbuehnen\locations\includes\sidebar.html.py:104
 #: .\berlinbuehnen\templates\berlinbuehnen\locations\includes\sidebar.html.py:107
 #: .\berlinbuehnen\templates\berlinbuehnen\locations\includes\sidebar.html.py:167
-#: .\berlinbuehnen\templates\berlinbuehnen\marketplace\includes\sidebar.html.py:47
+#: .\berlinbuehnen\templates\berlinbuehnen\marketplace\includes\sidebar.html.py:56
 msgid "Phone"
 msgstr "Telefon"
 
@@ -1051,7 +1047,7 @@ msgstr "Kontakte"
 #: .\berlinbuehnen\templates\berlinbuehnen\locations\includes\sidebar.html.py:25
 #: .\berlinbuehnen\templates\berlinbuehnen\locations\includes\sidebar.html.py:112
 #: .\berlinbuehnen\templates\berlinbuehnen\locations\includes\sidebar.html.py:171
-#: .\berlinbuehnen\templates\berlinbuehnen\marketplace\includes\sidebar.html.py:51
+#: .\berlinbuehnen\templates\berlinbuehnen\marketplace\includes\sidebar.html.py:60
 msgid "Fax"
 msgstr "Fax"
 
@@ -1100,7 +1096,7 @@ msgstr "Offene Veranstaltung"
 #: .\berlinbuehnen\templates\berlinbuehnen\education\includes\project_sidebar.html.py:122
 #: .\berlinbuehnen\templates\berlinbuehnen\festivals\includes\sidebar.html.py:20
 #: .\berlinbuehnen\templates\berlinbuehnen\locations\includes\sidebar.html.py:19
-#: .\berlinbuehnen\templates\berlinbuehnen\marketplace\includes\sidebar.html.py:45
+#: .\berlinbuehnen\templates\berlinbuehnen\marketplace\includes\sidebar.html.py:51
 #: .\berlinbuehnen\templates\berlinbuehnen\site_specific\dashboard.html.py:462
 msgid "Contact"
 msgstr "Kontakt"
@@ -1719,7 +1715,6 @@ msgstr "Projektformen"
 #: .\berlinbuehnen\apps\education\models.py:350
 #: .\berlinbuehnen\apps\festivals\models.py:72
 #: .\berlinbuehnen\apps\locations\models.py:135
-#: .\berlinbuehnen\apps\marketplace\models.py:91
 #: .\berlinbuehnen\apps\productions\models.py:136
 #: .\berlinbuehnen\apps\slideshows\models.py:33
 msgid "Subtitle"
@@ -1779,7 +1774,7 @@ msgid "Special conditions"
 msgstr ""
 
 #: .\berlinbuehnen\apps\education\models.py:382
-#: .\berlinbuehnen\apps\marketplace\forms.py:222
+#: .\berlinbuehnen\apps\marketplace\forms.py:229
 #: .\berlinbuehnen\apps\marketplace\models.py:93
 #: .\berlinbuehnen\apps\productions\models.py:168
 #: .\berlinbuehnen\apps\productions\models.py:742
@@ -1923,8 +1918,8 @@ msgstr "Weiter"
 #: .\berlinbuehnen\apps\locations\forms\locations.py:577
 #: .\berlinbuehnen\apps\locations\forms\locations.py:663
 #: .\berlinbuehnen\apps\locations\forms\locations.py:798
-#: .\berlinbuehnen\apps\marketplace\forms.py:229
-#: .\berlinbuehnen\apps\marketplace\forms.py:234
+#: .\berlinbuehnen\apps\marketplace\forms.py:236
+#: .\berlinbuehnen\apps\marketplace\forms.py:241
 #: .\berlinbuehnen\apps\productions\forms\productions.py:243
 #: .\berlinbuehnen\apps\productions\forms\productions.py:574
 #: .\berlinbuehnen\apps\productions\forms\productions.py:1046
@@ -1966,8 +1961,8 @@ msgstr "Speichern und schließen"
 #: .\berlinbuehnen\apps\locations\forms\locations.py:669
 #: .\berlinbuehnen\apps\locations\forms\locations.py:799
 #: .\berlinbuehnen\apps\locations\forms\locations.py:804
-#: .\berlinbuehnen\apps\marketplace\forms.py:230
-#: .\berlinbuehnen\apps\marketplace\forms.py:235
+#: .\berlinbuehnen\apps\marketplace\forms.py:237
+#: .\berlinbuehnen\apps\marketplace\forms.py:242
 #: .\berlinbuehnen\apps\multiparts\forms.py:63
 #: .\berlinbuehnen\apps\productions\forms\events.py:151
 #: .\berlinbuehnen\apps\productions\forms\events.py:414
@@ -3048,6 +3043,14 @@ msgstr ""
 msgid "%(counter)d members at %(list_title)s unsubscribed on MailChimp."
 msgstr ""
 
+#: .\berlinbuehnen\apps\marketplace\admin.py:65
+#: .\berlinbuehnen\apps\marketplace\models.py:94
+#: .\berlinbuehnen\templates\berlinbuehnen\site_specific\dashboard.html.py:282
+#: .\berlinbuehnen\templates\berlinbuehnen\site_specific\dashboard_job_offers.html.py:42
+#, fuzzy
+msgid "Position"
+msgstr "Produktion"
+
 #: .\berlinbuehnen\apps\marketplace\admin.py:76
 #: .\berlinbuehnen\apps\marketplace\forms.py:207
 #: .\berlinbuehnen\templates\berlinbuehnen\education\includes\project_sidebar.html.py:5
@@ -3092,14 +3095,9 @@ msgstr "Tätigkeitsart"
 msgid "Job types"
 msgstr "Tätigkeitsarten"
 
-#: .\berlinbuehnen\apps\marketplace\models.py:94
-#: .\berlinbuehnen\templates\berlinbuehnen\marketplace\includes\sidebar.html.py:13
-#, fuzzy
-msgid "Position"
-msgstr "Produktion"
-
 #: .\berlinbuehnen\apps\marketplace\models.py:96
-#: .\berlinbuehnen\templates\berlinbuehnen\marketplace\includes\sidebar.html.py:27
+#: .\berlinbuehnen\templates\berlinbuehnen\marketplace\job_offer_list.html.py:35
+#: .\berlinbuehnen\templates\berlinbuehnen\marketplace\includes\sidebar.html.py:28
 msgid "Deadline"
 msgstr "Bewerbungsfrist"
 
@@ -3825,7 +3823,7 @@ msgstr "Nur ausfüllen, wenn anders als \"im Spielplan von\"."
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_detail.html.py:269
 #: .\berlinbuehnen\templates\berlinbuehnen\festivals\includes\sidebar.html.py:6
 #: .\berlinbuehnen\templates\berlinbuehnen\locations\includes\sidebar.html.py:4
-#: .\berlinbuehnen\templates\berlinbuehnen\marketplace\includes\sidebar.html.py:35
+#: .\berlinbuehnen\templates\berlinbuehnen\marketplace\includes\sidebar.html.py:41
 msgid "Venue"
 msgstr "Ort"
 
@@ -4069,7 +4067,7 @@ msgid "filter"
 msgstr "Filter"
 
 #: .\berlinbuehnen\templates\berlinbuehnen\base_map.html.py:132
-#: .\berlinbuehnen\templates\berlinbuehnen\accounts\login.html.py:13
+#: .\berlinbuehnen\templates\berlinbuehnen\accounts\login.html.py:14
 #: .\berlinbuehnen\templates\berlinbuehnen\multiparts\multipart_list.html.py:29
 msgid "Reset"
 msgstr "Zurücksetzten"
@@ -4086,21 +4084,21 @@ msgstr ""
 msgid "login"
 msgstr "Login"
 
-#: .\berlinbuehnen\templates\berlinbuehnen\accounts\login.html.py:13
+#: .\berlinbuehnen\templates\berlinbuehnen\accounts\login.html.py:14
 msgid "Forgot your Password?"
 msgstr "Passwort vergessen?"
 
-#: .\berlinbuehnen\templates\berlinbuehnen\accounts\login.html.py:14
+#: .\berlinbuehnen\templates\berlinbuehnen\accounts\login.html.py:15
 #: .\berlinbuehnen\templates\berlinbuehnen\site_specific\claiming_confirmation.html.py:31
 msgid "Don't have an account?"
 msgstr "Haben Sie bereits einen Account?"
 
-#: .\berlinbuehnen\templates\berlinbuehnen\accounts\login.html.py:14
+#: .\berlinbuehnen\templates\berlinbuehnen\accounts\login.html.py:15
 #: .\berlinbuehnen\templates\berlinbuehnen\accounts\register.html.py:8
 msgid "Sign Up"
 msgstr "Registrieren"
 
-#: .\berlinbuehnen\templates\berlinbuehnen\accounts\login.html.py:16
+#: .\berlinbuehnen\templates\berlinbuehnen\accounts\login.html.py:17
 #: .\berlinbuehnen\templates\berlinbuehnen\accounts\password_change_done.html.py:11
 #: .\berlinbuehnen\templates\berlinbuehnen\accounts\password_change_form.html.py:12
 #: .\berlinbuehnen\templates\berlinbuehnen\accounts\password_reset_confirm.html.py:15
@@ -4564,7 +4562,7 @@ msgstr ""
 #: .\berlinbuehnen\templates\berlinbuehnen\locations\includes\sidebar.html.py:29
 #: .\berlinbuehnen\templates\berlinbuehnen\locations\includes\sidebar.html.py:116
 #: .\berlinbuehnen\templates\berlinbuehnen\locations\includes\sidebar.html.py:175
-#: .\berlinbuehnen\templates\berlinbuehnen\marketplace\includes\sidebar.html.py:55
+#: .\berlinbuehnen\templates\berlinbuehnen\marketplace\includes\sidebar.html.py:64
 msgid "Mail"
 msgstr ""
 
@@ -4822,7 +4820,7 @@ msgstr "Zum Kalender hinzufügen"
 #: .\berlinbuehnen\templates\berlinbuehnen\locations\includes\sidebar.html.py:33
 #: .\berlinbuehnen\templates\berlinbuehnen\locations\includes\sidebar.html.py:120
 #: .\berlinbuehnen\templates\berlinbuehnen\locations\includes\sidebar.html.py:179
-#: .\berlinbuehnen\templates\berlinbuehnen\marketplace\includes\sidebar.html.py:59
+#: .\berlinbuehnen\templates\berlinbuehnen\marketplace\includes\sidebar.html.py:68
 msgid "Web"
 msgstr "Web"
 
@@ -4919,7 +4917,7 @@ msgstr "geschlossen"
 
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_detail.html.py:462
 #: .\berlinbuehnen\templates\berlinbuehnen\locations\includes\sidebar.html.py:129
-#: .\berlinbuehnen\templates\berlinbuehnen\marketplace\includes\sidebar.html.py:67
+#: .\berlinbuehnen\templates\berlinbuehnen\marketplace\includes\sidebar.html.py:76
 msgid "Public transport"
 msgstr "Anfahrt BVG"
 
@@ -5257,9 +5255,13 @@ msgstr "Ein neues Jobangebot hinzufügen"
 msgid "Job informations"
 msgstr "Jobinformationen"
 
-#: .\berlinbuehnen\templates\berlinbuehnen\marketplace\includes\sidebar.html.py:9
+#: .\berlinbuehnen\templates\berlinbuehnen\marketplace\includes\sidebar.html.py:10
 msgid "Job Type"
 msgstr "Tätigkeitsart"
+
+#: .\berlinbuehnen\templates\berlinbuehnen\marketplace\includes\sidebar.html.py:32
+msgid "Start of contract"
+msgstr "Vertragsbeginn"
 
 #: .\berlinbuehnen\templates\berlinbuehnen\multiparts\multipart_list.html.py:22
 msgid "Events, Palaces, and Memorials"
