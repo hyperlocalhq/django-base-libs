@@ -944,9 +944,14 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         for cat in form_step_data['basic']['formats']:
             instance.formats.add(cat)
 
-        current_user = get_current_user()
-        if not current_user.is_superuser and not instance.get_owners():
-            instance.set_owner(current_user)
+        if not instance.get_owners():
+            current_user = get_current_user()
+            if not current_user.is_superuser:
+                instance.set_owner(current_user)
+            # add other owners from the organizers relationship
+            for department in instance.departments.all():
+                for owner in department.get_owners():
+                    instance.set_owner(owner)
 
         # save times
         time_ids_to_keep = []
