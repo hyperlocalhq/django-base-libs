@@ -34,11 +34,11 @@
                             
                             <!-- headlines -->
                             <header>
-                                <div class="header-icons no-print">
+                                <!--<div class="header-icons no-print">
                                     {% if request.user.is_authenticated %}
                                         {% adding2favorites for job_offer using "favorites/includes/favorite_detail.html" %}
                                     {% endif %}
-                                </div>
+                                </div>-->
                                 <h1>{{ job_offer.position }}
                                     {% if_has_perm "job_offers.change_job_offer" object %}
                                         {% if not request.is_mobile %}

@@ -89,7 +89,7 @@ def job_offer_list(request, year=None, month=None, day=None):
 
     #qs = qs.prefetch_related("season_set", "mediafile_set", "categories", "accessibility_options").defer("tags")
     
-    qs.order_by("deadline")
+    qs = qs.order_by("deadline")
     
     extra_context = {}
     extra_context['form'] = form
