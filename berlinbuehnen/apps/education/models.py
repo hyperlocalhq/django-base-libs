@@ -135,6 +135,7 @@ class Department(CreationModificationMixin, UrlMixin, SlugMixin()):
 
         if not role.users.filter(pk=user.pk).count():
             role.users.add(user)
+    set_owner.alters_data = True
 
     def remove_owner(self, user):
         ContentType = models.get_model("contenttypes", "ContentType")
@@ -150,6 +151,7 @@ class Department(CreationModificationMixin, UrlMixin, SlugMixin()):
         role.users.remove(user)
         if not role.users.count():
             role.delete()
+    remove_owner.alters_data = True
 
     def get_owners(self):
         ContentType = models.get_model("contenttypes", "ContentType")
@@ -445,6 +447,7 @@ class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
 
         if not role.users.filter(pk=user.pk).count():
             role.users.add(user)
+    set_owner.alters_data = True
 
     def remove_owner(self, user):
         ContentType = models.get_model("contenttypes", "ContentType")
@@ -460,6 +463,7 @@ class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
         role.users.remove(user)
         if not role.users.count():
             role.delete()
+    remove_owner.alters_data = True
 
     def get_owners(self):
         ContentType = models.get_model("contenttypes", "ContentType")

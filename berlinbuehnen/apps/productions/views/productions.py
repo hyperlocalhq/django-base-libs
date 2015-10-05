@@ -275,6 +275,19 @@ def change_production_status(request, slug):
         return HttpResponse("OK")
     return redirect(instance.get_url_path())
 
+
+@never_cache
+@login_required
+def duplicate_production(request, slug):
+    production = get_object_or_404(Production, slug=slug)
+    if not request.user.has_perm("productions.change_production", production) or not request.user.has_perm("productions.add_production"):
+        return access_denied(request)
+    if request.method == "POST" and request.is_ajax():
+        new_production = production.duplicate()
+        return HttpResponse(reverse("change_production", kwargs={'slug': new_production.slug}))
+    return redirect(production)
+
+
 ### EVENTS MANAGEMENT ###
 
 @never_cache

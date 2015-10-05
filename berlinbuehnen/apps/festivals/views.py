@@ -10,6 +10,7 @@ from django.views.decorators.cache import never_cache
 from django.http import HttpResponse
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render, redirect
+from django.core.urlresolvers import reverse
 
 from base_libs.views.views import access_denied
 
@@ -186,6 +187,18 @@ def change_festival_status(request, slug):
         instance.save()
         return HttpResponse("OK")
     return redirect(instance.get_url_path())
+
+
+@never_cache
+@login_required
+def duplicate_festival(request, slug):
+    festival = get_object_or_404(Festival, slug=slug)
+    if not request.user.has_perm("festivals.change_festival", festival) or not request.user.has_perm("festivals.add_festival"):
+        return access_denied(request)
+    if request.method == "POST" and request.is_ajax():
+        new_festival = festival.duplicate()
+        return HttpResponse(reverse("change_festival", kwargs={'slug': new_festival.slug}))
+    return redirect(festival)
 
 
 ### MEDIA FILE MANAGEMENT ###
@@ -437,7 +450,7 @@ def pdf_overview(request, slug):
 
     if "ordering" in request.POST and request.is_ajax():
         tokens = request.POST['ordering']
-        update_pdf_ordering(tokens, event)
+        update_pdf_ordering(tokens, festival)
         return HttpResponse("OK")
 
     return render(request, "festivals/gallery/pdf_overview.html", {

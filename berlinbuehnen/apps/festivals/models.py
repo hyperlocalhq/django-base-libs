@@ -16,6 +16,8 @@ from base_libs.models.fields import MultilingualTextField
 from base_libs.models.fields import ExtendedTextField # needed for south to work
 from base_libs.models.fields import PositionField
 from base_libs.utils.misc import get_translation
+from base_libs.utils.misc import get_unique_value
+from base_libs.utils.betterslugify import better_slugify
 
 from filebrowser.fields import FileBrowseField
 
@@ -181,6 +183,7 @@ class Festival(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
 
         if not role.users.filter(pk=user.pk).count():
             role.users.add(user)
+    set_owner.alters_data = True
 
     def remove_owner(self, user):
         ContentType = models.get_model("contenttypes", "ContentType")
@@ -196,6 +199,7 @@ class Festival(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
         role.users.remove(user)
         if not role.users.count():
             role.delete()
+    remove_owner.alters_data = True
 
     def get_owners(self):
         ContentType = models.get_model("contenttypes", "ContentType")
@@ -218,6 +222,56 @@ class Festival(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
                 self._first_image_cache = qs[0]
         return self._first_image_cache
     first_image = property(_get_first_image)
+
+    def duplicate(self):
+        import os
+        from distutils.dir_util import copy_tree
+        from filebrowser.models import FileDescription
+        # copy the model
+        source_festival = self
+        target_festival = Festival.objects.get(pk=self.pk)
+        target_festival.pk = None
+        target_festival.slug = get_unique_value(Festival, better_slugify(source_festival.title_de))
+        target_festival.creation_date = None
+        target_festival.modified_date = None
+        target_festival.status = "draft"
+
+        source_media_dir = "festivals/%s" % source_festival.slug
+        target_media_dir = "festivals/%s" % target_festival.slug
+
+        target_festival.logo = source_festival.logo.path.replace(source_media_dir, target_media_dir)
+        target_festival.save()
+        # add m2m relationships
+        target_festival.organizers = source_festival.organizers.all()
+        # copy media directory
+        abs_source_media_path = os.path.join(settings.MEDIA_ROOT, source_media_dir)
+        abs_target_media_path = os.path.join(settings.MEDIA_ROOT, target_media_dir)
+        if os.path.exists(abs_source_media_path):
+            copy_tree(abs_source_media_path, abs_target_media_path)
+        for file_desc in FileDescription.objects.filter(file_path__startswith=source_media_dir):
+            file_desc.pk = None
+            file_desc.file_path = file_desc.file_path.path.replace(source_media_dir, target_media_dir)
+            file_desc.save()
+        # add m2o relationships
+        for image in source_festival.image_set.all():
+            image.pk = None
+            image.path = image.path.path.replace(source_media_dir, target_media_dir)
+            image.festival = target_festival
+            image.save()
+        for social_media in source_festival.socialmediachannel_set.all():
+            social_media.pk = None
+            social_media.festival = target_festival
+            social_media.save()
+        for pdf in source_festival.festivalpdf_set.all():
+            pdf.pk = None
+            pdf.path = pdf.path.path.replace(source_media_dir, target_media_dir)
+            pdf.production = target_festival
+            pdf.save()
+        # set ownership
+        for owner in source_festival.get_owners():
+            target_festival.set_owner(owner)
+        return target_festival
+    duplicate.alters_data = True
 
 
 class Image(CreationModificationDateMixin):

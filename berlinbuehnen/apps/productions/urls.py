@@ -10,6 +10,7 @@ urlpatterns = patterns('berlinbuehnen.apps.productions.views.productions',
     url(r'^(?P<slug>[^/]+)/change/$', 'change_production', name='change_production'),
     url(r'^(?P<slug>[^/]+)/delete/$', 'delete_production', name='delete_production'),
     url(r'^(?P<slug>[^/]+)/status/$', 'change_production_status', name='change_production_status'),
+    url(r'^(?P<slug>[^/]+)/duplicate/$', 'duplicate_production', name='duplicate_production'),
 )
 
 urlpatterns += patterns('berlinbuehnen.apps.productions.views.production_gallery',

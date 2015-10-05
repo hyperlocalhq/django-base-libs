@@ -20,6 +20,9 @@ from base_libs.models.fields import ExtendedTextField # needed for south to work
 from base_libs.models.fields import PositionField
 from base_libs.utils.misc import get_translation
 from base_libs.middleware.threadlocals import get_current_language
+from base_libs.utils.misc import get_unique_value
+from base_libs.utils.betterslugify import better_slugify
+
 
 from filebrowser.fields import FileBrowseField
 
@@ -242,6 +245,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
 
         if not role.users.filter(pk=user.pk).count():
             role.users.add(user)
+    set_owner.alters_data = True
 
     def remove_owner(self, user):
         ContentType = models.get_model("contenttypes", "ContentType")
@@ -257,6 +261,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
         role.users.remove(user)
         if not role.users.count():
             role.delete()
+    remove_owner.alters_data = True
 
     def get_owners(self):
         ContentType = models.get_model("contenttypes", "ContentType")
@@ -283,6 +288,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
                 Production.objects.filter(pk=self.pk).update(
                     status="expired",
                 )
+    update_actual_date_and_time.alters_data = True
 
     def get_nearest_occurrence(self, timestamp=tz_now):
         """ returns current or closest future or closest past event time """
@@ -399,8 +405,6 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
         except:
             return None
             
-
-
     def has_multiparts_leaderships(self):
         multiparts = self.get_multiparts()
         if multiparts:
@@ -466,6 +470,81 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     def get_images(self):
         return self.productionimage_set.all()
             
+    def duplicate(self):
+        import os
+        from distutils.dir_util import copy_tree
+        from filebrowser.models import FileDescription
+        # copy the model
+        source_prod = self
+        target_prod = Production.objects.get(pk=self.pk)
+        target_prod.pk = None
+        target_prod.slug = get_unique_value(Production, better_slugify(source_prod.title_de))
+        target_prod.start_date = None
+        target_prod.start_time = None
+        target_prod.creation_date = None
+        target_prod.modified_date = None
+        target_prod.status = "draft"
+        target_prod.save()
+        # add m2m relationships
+        target_prod.in_program_of = source_prod.in_program_of.all()
+        target_prod.play_locations = source_prod.play_locations.all()
+        target_prod.play_stages = source_prod.play_stages.all()
+        target_prod.categories = source_prod.categories.all()
+        target_prod.festivals = source_prod.festivals.all()
+        target_prod.related_productions = source_prod.related_productions.all()
+        target_prod.sponsors = source_prod.sponsors.all()
+        # copy media directory
+        source_media_dir = "productions/%s" % source_prod.slug
+        target_media_dir = "productions/%s" % target_prod.slug
+        abs_source_media_path = os.path.join(settings.MEDIA_ROOT, source_media_dir)
+        abs_target_media_path = os.path.join(settings.MEDIA_ROOT, target_media_dir)
+        if os.path.exists(abs_source_media_path):
+            copy_tree(abs_source_media_path, abs_target_media_path)
+        for file_desc in FileDescription.objects.filter(file_path__startswith=source_media_dir):
+            file_desc.pk = None
+            file_desc.file_path = file_desc.file_path.path.replace(source_media_dir, target_media_dir)
+            file_desc.save()
+        # add m2o relationships
+        for social_media in source_prod.productionsocialmediachannel_set.all():
+            social_media.pk = None
+            social_media.production = target_prod
+            social_media.save()
+        for video in source_prod.productionvideo_set.all():
+            video.pk = None
+            video.production = target_prod
+            video.save()
+        for livestream in source_prod.productionlivestream_set.all():
+            livestream.pk = None
+            livestream.production = target_prod
+            livestream.save()
+        for image in source_prod.productionimage_set.all():
+            image.pk = None
+            image.path = image.path.path.replace(source_media_dir, target_media_dir)
+            image.production = target_prod
+            image.save()
+        for pdf in source_prod.productionpdf_set.all():
+            pdf.pk = None
+            pdf.path = pdf.path.path.replace(source_media_dir, target_media_dir)
+            pdf.production = target_prod
+            pdf.save()
+        for member in source_prod.productionleadership_set.all():
+            member.pk = None
+            member.production = target_prod
+            member.save()
+        for member in source_prod.productionauthorship_set.all():
+            member.pk = None
+            member.production = target_prod
+            member.save()
+        for member in source_prod.productioninvolvement_set.all():
+            member.pk = None
+            member.production = target_prod
+            member.save()
+        # set ownership
+        for owner in source_prod.get_owners():
+            target_prod.set_owner(owner)
+        return target_prod
+    duplicate.alters_data = True
+
 
 class ProductionSocialMediaChannel(models.Model):
     production = models.ForeignKey(Production)
@@ -486,12 +565,6 @@ class ProductionSocialMediaChannel(models.Model):
             return u"googleplus"
         return social
         
-    def get_class(self):
-        social = self.channel_type.lower()
-        if social == "google+":
-            return u"googleplus"
-        return social
-
 
 class ProductionVideo(CreationModificationDateMixin):
     production = models.ForeignKey(Production, verbose_name=_("Production"))
