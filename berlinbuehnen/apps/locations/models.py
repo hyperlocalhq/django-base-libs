@@ -235,6 +235,7 @@ class Location(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
 
         if not role.users.filter(pk=user.pk).count():
             role.users.add(user)
+    set_owner.alters_data = True
 
     def remove_owner(self, user):
         ContentType = models.get_model("contenttypes", "ContentType")
@@ -250,6 +251,7 @@ class Location(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
         role.users.remove(user)
         if not role.users.count():
             role.delete()
+    remove_owner.alters_data = True
 
     def get_owners(self):
         ContentType = models.get_model("contenttypes", "ContentType")

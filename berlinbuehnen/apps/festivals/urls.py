@@ -10,6 +10,7 @@ urlpatterns = patterns('berlinbuehnen.apps.festivals.views',
     url(r'^(?P<slug>[^/]+)/change/$', 'change_festival', name='change_festival'),
     url(r'^(?P<slug>[^/]+)/delete/$', 'delete_festival', name='delete_festival'),
     url(r'^(?P<slug>[^/]+)/status/$', 'change_festival_status', name='change_festival_status'),
+    url(r'^(?P<slug>[^/]+)/duplicate/$', 'duplicate_festival', name='duplicate_festival'),
     # gallery
     url(r'^(?P<slug>[^/]+)/gallery/$', 'image_overview', name='festival_image_overview'),
     url(r'^(?P<slug>[^/]+)/gallery/add/$', 'create_update_image', name='festival_add_image'),

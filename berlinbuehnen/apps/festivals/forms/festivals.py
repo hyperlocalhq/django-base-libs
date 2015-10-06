@@ -787,9 +787,14 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             social.url = social_dict['url']
             social.save()
 
-        current_user = get_current_user()
-        if not current_user.is_superuser and not instance.get_owners():
-            instance.set_owner(current_user)
+        if not instance.get_owners():
+            current_user = get_current_user()
+            if not current_user.is_superuser:
+                instance.set_owner(current_user)
+            # add other owners from the organizers relationship
+            for organizer in instance.organizers.all():
+                for owner in organizer.get_owners():
+                    instance.set_owner(owner)
 
         form_step_data['_pk'] = instance.pk
 
