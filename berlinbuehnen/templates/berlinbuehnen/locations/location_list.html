@@ -63,7 +63,7 @@
                                     {% if location.teaser %}
                                         <div class="copy">{{ location.get_rendered_teaser }}</div>
                                     {% elif location.description %}
-                                        <div class="copy">{{ location.get_rendered_description|truncatewords:20 }}</div>
+                                        <div class="copy">{{ location.get_rendered_description|striptags|truncatewords:20 }}</div>
                                     {% endif %}
                                     
                                 </a>

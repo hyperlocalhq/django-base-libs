@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 import os
 import shutil
-from datetime import datetime
+from datetime import datetime, time, timedelta
 try:
     from django.utils.timezone import now as tz_now
 except:
@@ -348,7 +348,7 @@ class ProjectTimeForm(forms.ModelForm):
         required=False,
     )
     class Meta:
-        model = ProjectSocialMediaChannel
+        model = ProjectTime
         fields = ['id']
 
     def __init__(self, *args, **kwargs):
@@ -897,6 +897,7 @@ def load_data(instance=None):
                 sponsor_dict['title_%s' % lang_code] = getattr(sponsor, 'title_%s' % lang_code)
             form_step_data['description']['sets']['sponsors'].append(sponsor_dict)
 
+            
     return form_step_data
 
 
@@ -965,11 +966,15 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 except models.ObjectDoesNotExist:
                     continue
             else:
-                project_time = ProjectMember(project=instance)
+                project_time = ProjectTime(project=instance)
             if time_dict['start_date'] and time_dict['start_time']:
-                project_time.start = datetime.combine(time_dict['start_date'], time_dict['start_time'])
-            if time_dict['end_date'] and time_dict['end_time']:
-                project_time.end = datetime.combine(time_dict['end_date'], time_dict['end_time'])
+                #project_time.start = datetime.combine(time_dict['start_date'], time_dict['start_time'])
+                project_time.start = datetime(time_dict['start_date'].year, time_dict['start_date'].month, time_dict['start_date'].day, time_dict['start_time'].hour, time_dict['start_time'].minute)
+            if time_dict['end_date']:
+                if not time_dict['end_time']:
+                    time_dict['end_time'] = time(0,0)
+                #project_time.end = datetime.combine(time_dict['end_date'], time_dict['end_time'])
+                project_time.end = datetime(time_dict['end_date'].year, time_dict['end_date'].month, time_dict['end_date'].day, time_dict['end_time'].hour, time_dict['end_time'].minute)
             project_time.save()
             time_ids_to_keep.append(project_time.pk)
         instance.projecttime_set.exclude(pk__in=time_ids_to_keep).delete()

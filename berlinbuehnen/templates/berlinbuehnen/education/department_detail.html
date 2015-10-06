@@ -36,7 +36,7 @@
                             
                             <!-- headlines -->
                             <header>
-                                <h1>{{ department.title }} – {% trans "Education" %}
+                                <h1>{{ department.title }}
                                     {% if_has_perm "education.change_department" object %}
                                         {% if not request.is_mobile %}
                                             <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{% url "change_department" slug=department.slug %}">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>

@@ -1982,6 +1982,14 @@ select {
     }
   }
   
+  .formset-form {
+    .input-append {
+        .input-group-btn {
+            position: absolute;
+        }
+    }
+  }
+  
   .form-actions {
     #submit-id-save_and_close {
       margin-right: 5px;
@@ -2033,6 +2041,12 @@ select {
             position: absolute;
             top: 27px;
             right:0px;
+        }
+        &.delete-time {
+            height: 40px;
+            .delete {
+                top: -27px;
+            }
         }
     }
     .input-group {
