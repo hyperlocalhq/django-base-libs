@@ -1,0 +1,69 @@
+PROJECT_PATH=/usr/local/www/apache24/data/berlin-buehnen.de
+CRON_LOG_FILE=${PROJECT_PATH}/logs/import_from_individual_sources.log
+
+cd ${PROJECT_PATH}
+. bin/activate
+cd project/berlinbuehnen
+
+echo "Importing from Berliner Philharmonie" > ${CRON_LOG_FILE}
+date >> ${CRON_LOG_FILE}
+python manage.py import_from_berliner_philharmonie --traceback >> ${CRON_LOG_FILE}  2>&1
+
+echo "Importing from Deutsches Theater" >> ${CRON_LOG_FILE}
+date >> ${CRON_LOG_FILE}
+python manage.py import_from_deutsches_theater --traceback >> ${CRON_LOG_FILE}  2>&1
+
+echo "Importing from HAU" >> ${CRON_LOG_FILE}
+date >> ${CRON_LOG_FILE}
+python manage.py import_from_hau --traceback >> ${CRON_LOG_FILE}  2>&1
+
+echo "Importing from Komische Oper Berlin" >> ${CRON_LOG_FILE}
+date >> ${CRON_LOG_FILE}
+python manage.py import_from_komische_oper_berlin --traceback >> ${CRON_LOG_FILE}  2>&1
+
+echo "Importing from Maxim Gorki Theater" >> ${CRON_LOG_FILE}
+date >> ${CRON_LOG_FILE}
+python manage.py import_from_maxim_gorki_theater --traceback >> ${CRON_LOG_FILE}  2>&1
+
+echo "Importing from Schaubuehne" >> ${CRON_LOG_FILE}
+date >> ${CRON_LOG_FILE}
+python manage.py import_from_schaubuehne --traceback >> ${CRON_LOG_FILE}  2>&1
+
+echo "Importing from Schlosspark Theater" >> ${CRON_LOG_FILE}
+date >> ${CRON_LOG_FILE}
+python manage.py import_from_schlosspark_theater --traceback >> ${CRON_LOG_FILE}  2>&1
+
+echo "Importing from Sophiensaele" >> ${CRON_LOG_FILE}
+date >> ${CRON_LOG_FILE}
+python manage.py import_from_sophiensaele --traceback >> ${CRON_LOG_FILE}  2>&1
+
+echo "Importing from Staatsballet Berlin" >> ${CRON_LOG_FILE}
+date >> ${CRON_LOG_FILE}
+python manage.py import_from_staatsballet_berlin --traceback >> ${CRON_LOG_FILE}  2>&1
+
+echo "Importing from Volksbuehne" >> ${CRON_LOG_FILE}
+date >> ${CRON_LOG_FILE}
+python manage.py import_from_volksbuehne --traceback >> ${CRON_LOG_FILE}  2>&1
+
+echo "Importing from Wuehlmaeuse" >> ${CRON_LOG_FILE}
+date >> ${CRON_LOG_FILE}
+python manage.py import_from_wuehlmaeuse --traceback >> ${CRON_LOG_FILE}  2>&1
+
+#echo "Importing from Theater an der Parkaue" >> ${CRON_LOG_FILE}
+#date >> ${CRON_LOG_FILE}
+#python manage.py import_from_parkaue --traceback >> ${CRON_LOG_FILE} 2>&1
+
+echo "Importing from Deutsche Oper Berlin" >> ${CRON_LOG_FILE}
+date >> ${CRON_LOG_FILE}
+python manage.py import_from_culturebase_dob --traceback >> ${CRON_LOG_FILE}  2>&1
+
+echo "Importing from RADIALSYSTEM V" >> ${CRON_LOG_FILE}
+date >> ${CRON_LOG_FILE}
+python manage.py import_from_culturebase_radialsystem --traceback >> ${CRON_LOG_FILE}  2>&1
+
+echo "Importing from Staatsoper im Schiller Theater" >> ${CRON_LOG_FILE}
+date >> ${CRON_LOG_FILE}
+python manage.py import_from_culturebase_sob --traceback >> ${CRON_LOG_FILE}  2>&1
+
+cd ${PROJECT_PATH}/commands/
+./fix_permissions_for_media.bsh
