@@ -1,0 +1,4 @@
+cd /usr/local/www/apache24/data/museumsportal-berlin.de/
+source bin/activate
+cd project/museumsportal/
+python manage.py send_mails
