@@ -1,8 +1,8 @@
 PROJECT_PATH=/usr/local/www/apache24/data/creative-city-berlin.de
 CRON_LOG_FILE=${PROJECT_PATH}/logs/backup_db.log
 BACKUP_PATH=${PROJECT_PATH}/db_backups/$(date +%w-%A).sql
-USER=creativeberlin
-DATABASE=creativeberlin
+USER=ccb
+DATABASE=ccb
 PASS=ot6q4R
 
 EXCLUDED_TABLES=(
