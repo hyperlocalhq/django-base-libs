@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 import os
 import shutil
-from datetime import datetime
+from datetime import datetime, time
 try:
     from django.utils.timezone import now as tz_now
 except:
@@ -969,7 +969,9 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 project_time = ProjectTime(project=instance)
             if time_dict['start_date'] and time_dict['start_time']:
                 project_time.start = datetime.combine(time_dict['start_date'], time_dict['start_time'])
-            if time_dict['end_date'] and time_dict['end_time']:
+            if time_dict['end_date']:
+                if not time_dict['end_time']:
+                    time_dict['end_time'] = time(0,0,0)
                 project_time.end = datetime.combine(time_dict['end_date'], time_dict['end_time'])
             project_time.save()
             time_ids_to_keep.append(project_time.pk)
