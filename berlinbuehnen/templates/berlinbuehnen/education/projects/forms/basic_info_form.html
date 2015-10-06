@@ -24,11 +24,17 @@
             $('[rel=tooltip]').tooltip();
             $('[id^="id_social"][id$="channel_type"]').autocomplete(['Google+', 'Twitter', 'Facebook', 'LinkedIn', 'XING', 'Instagram', 'Soundcloud', 'Youtube', 'Pinterest']);
             $('select:visible').not('[name*="__prefix__"]').selectbox();
-            $('.dateinput').datepicker({
+        
+            $('.dateinput').not('.done').datepicker({
                 format: 'yyyy-mm-dd',
                 weekStart: 1
-            });
-            $('.timeinput').timepicker();
+            }).addClass('done');
+            $('.timeinput').not('.done').timepicker({
+                str_hours: '{% trans "Hours" %}',
+                str_minutes: '{% trans "Minutes" %}',
+                str_confirm: '{% trans "Confirm" %}',
+                str_close: '{% trans "Close" %}'
+            }).addClass('done');
         }
 
         function set_index_for_fields($formset_form, index) {
@@ -68,11 +74,19 @@
         }
 
         $(function() {
+        
+            var $new_form = $('#times_empty_form');
+            $('.dateinput', $new_form).addClass('done');
+            $('.timeinput', $new_form).addClass('done');
+            reinit_widgets();
+        
             $(
                 '<a class="add btn btn-primary" id="add_time" href="#">{% trans "Add date and time" %}</a>'
             ).insertAfter('#times').click(function() {
                 var $total_forms = $('#id_times-TOTAL_FORMS');
                 var $new_form = $('#times_empty_form').clone(true).attr("id", null).show();
+                $('.dateinput', $new_form).removeClass('done');
+                $('.timeinput', $new_form).removeClass('done');
                 set_index_for_fields($new_form, parseInt($total_forms.val(), 10));
                 $('#times').append($new_form);
                 $total_forms.val(parseInt($total_forms.val(), 10) + 1);
@@ -85,7 +99,7 @@
                 $formset_form.find('input:checkbox[id$=DELETE]').each(function() {
                     var $checkbox = $(this);
                     var $deleteLink = $(
-                        '<span class="input-group-btn"><button class="delete btn btn-lg btn-info btn-icon" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Delete" %}"><span class="icon icon-remove"></span><span class="sr-only">{% trans "Remove" %}</span></button></span>'
+                        '<span class="input-group-btn delete-time"><button class="delete btn btn-lg btn-info btn-icon" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Delete" %}"><span class="icon icon-remove"></span><span class="sr-only">{% trans "Remove" %}</span></button></span>'
                     );
                     $checkbox.closest('.formset-form').append($deleteLink);
                     $checkbox.closest('.form-group').hide();

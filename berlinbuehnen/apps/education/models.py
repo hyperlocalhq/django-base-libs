@@ -69,10 +69,10 @@ class Department(CreationModificationMixin, UrlMixin, SlugMixin()):
     description = MultilingualTextField(_("Description"), blank=True)
     teaser = MultilingualTextField(_("Teaser"), blank=True)
 
-    street_address = models.CharField(_("Street address"), max_length=255)
+    street_address = models.CharField(_("Street address"), max_length=255, blank=True)
     street_address2 = models.CharField(_("Street address (second line)"), max_length=255, blank=True)
-    postal_code = models.CharField(_("Postal code"), max_length=255)
-    city = models.CharField(_("City"), default="Berlin", max_length=255)
+    postal_code = models.CharField(_("Postal code"), max_length=255, blank=True)
+    city = models.CharField(_("City"), default="Berlin", max_length=255, blank=True)
     latitude = models.FloatField(_("Latitude"), help_text=_("Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90)."), blank=True, null=True)
     longitude = models.FloatField(_("Longitude"), help_text=_("Longitude (Long.) is the angle east or west of an arbitrary point on Earth from Greenwich (UK), which is the international zero-longitude point (longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction to east) and -180 (direction to west)."), blank=True, null=True)
 

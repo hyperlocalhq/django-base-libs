@@ -348,7 +348,7 @@ class ProjectTimeForm(forms.ModelForm):
         required=False,
     )
     class Meta:
-        model = ProjectSocialMediaChannel
+        model = ProjectTime
         fields = ['id']
 
     def __init__(self, *args, **kwargs):
@@ -897,6 +897,7 @@ def load_data(instance=None):
                 sponsor_dict['title_%s' % lang_code] = getattr(sponsor, 'title_%s' % lang_code)
             form_step_data['description']['sets']['sponsors'].append(sponsor_dict)
 
+            
     return form_step_data
 
 
@@ -960,7 +961,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 except models.ObjectDoesNotExist:
                     continue
             else:
-                project_time = ProjectMember(project=instance)
+                project_time = ProjectTime(project=instance)
             if time_dict['start_date'] and time_dict['start_time']:
                 project_time.start = datetime.combine(time_dict['start_date'], time_dict['start_time'])
             if time_dict['end_date'] and time_dict['end_time']:

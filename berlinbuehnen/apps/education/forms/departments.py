@@ -40,6 +40,9 @@ from berlinbuehnen.apps.education.models import SocialMediaChannel
 from berlinbuehnen.apps.education.models import DepartmentMember
 
 
+# translatable strings to collect
+_(u"leave blank if you want to use the data from the location")
+
 class BasicInfoForm(autocomplete_light.ModelForm):
 
     class Meta:
@@ -105,6 +108,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
 
         layout_blocks.append(layout.Fieldset(
             _("Educational Department Address"),
+            layout.HTML("""{% load i18n %}<div class="subtitle">{% trans "leave blank if you want to use the data from the location" %}</div>"""),
             layout.Row(
                 layout.Div(
                     "street_address",

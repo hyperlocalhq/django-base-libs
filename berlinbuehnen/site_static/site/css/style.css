@@ -1624,6 +1624,7 @@ select { visibility: hidden; }
 .dashboard #popup #picker footer button.done { float: left; width: 290px; font-size: 28px; }
 .dashboard .input-append { position: relative; }
 .dashboard .input-append .input-group-btn { position: absolute; right: 0px; top: 0px; }
+.dashboard .formset-form .input-append .input-group-btn { position: absolute; }
 .dashboard .form-actions #submit-id-save_and_close { margin-right: 5px; }
 .dashboard .form-actions input:first-child { margin-right: 0px !important; }
 .dashboard .row.row-md .col-xs-6, .dashboard .row.row-md .col-sm-6, .dashboard .row.row-md .col-md-6, .dashboard .row.row-md .col-lg-3, .dashboard .row.row-md .col-xs-3, .dashboard .row.row-md .col-sm-3, .dashboard .row.row-md .col-md-3, .dashboard .row.row-md .col-lg-3 { padding-left: 10px; padding-right: 10px; }
@@ -1636,6 +1637,8 @@ select { visibility: hidden; }
 .dashboard .formset-form { position: relative; }
 .dashboard .formset-form .input-group-btn { position: static; }
 .dashboard .formset-form .input-group-btn .delete { position: absolute; top: 27px; right: 0px; }
+.dashboard .formset-form .input-group-btn.delete-time { height: 40px; }
+.dashboard .formset-form .input-group-btn.delete-time .delete { top: -27px; }
 .dashboard .formset-form .input-group .delete { position: absolute; top: 25px; right: 35px; }
 .dashboard .formset-form .fieldset-where .delete { top: 10px; right: 0; }
 .dashboard .formset-form fieldset { position: static; }

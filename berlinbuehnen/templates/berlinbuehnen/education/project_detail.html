@@ -48,9 +48,9 @@
                                                 <dd>
                                                     {{ project.location_title }}
                                                 </dd>
-                                                <dd>
+                                                <!--<dd>
                                                     {% trans "Education" %}
-                                                </dd>
+                                                </dd>-->
                                             </dl>
                                         </li>
                                     {% elif department %}
@@ -59,9 +59,9 @@
                                                 <dd>
                                                     {{ department.title }}
                                                 </dd>
-                                                <dd>
+                                                <!-- <dd>
                                                     {% trans "Education" %}
-                                                </dd>
+                                                </dd>-->
                                             </dl>
                                         </li>
                                     {% else %}
@@ -219,9 +219,12 @@
                                             </div>
                                             
                                             <!-- Gallery -->
-                                            {% if project.projectimage_set.exists %}
+                                            {% if project.projectimage_set.exists or project.projectvideo_set.exists %}
                                                 <div class="gallery row">
                                                     <h4 class="gallery-head">{% trans "Gallery" %}</h4>
+                                                    {% for video in project.projectvideo_set.all %}
+                                                        <div class="col-xs-12 col-md-8 video gallery-item">{{ video.get_embed|safe }}</div>
+                                                    {% endfor %}
                                                     {% for image in project.projectimage_set.all %}
                                                         <div class="col-xs-12 col-sm-6 col-md-4 image gallery-item img chevron">
                                                             {% with image.path|file_description as file_desc %}
