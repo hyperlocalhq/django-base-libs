@@ -64,6 +64,7 @@ class Command(NoArgsCommand):
                     date_de_to_en(get_value(node_article, "pubDate")),
                     ignoretz=True,
                 )
+
                 # get or create article
                 mapper = None
                 try:
@@ -85,8 +86,9 @@ class Command(NoArgsCommand):
                         # if article was deleted after import,
                         # don't import it again
                         continue
-                    if article.modified_date > change_date or article.status == STATUS_CODE_PUBLISHED:
-                        continue
+                    if article.modified_date:
+                        if article.modified_date > change_date or article.status == STATUS_CODE_PUBLISHED:
+                            continue
 
                 article.orig_published = change_date
                 article.published_from = change_date
