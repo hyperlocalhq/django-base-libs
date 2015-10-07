@@ -180,6 +180,32 @@
             margin-bottom: 6px;
         }
     }
+    
+    &.favorites-grid {
+        h3 {
+            margin-top: -15px;
+        }
+        h4 {
+            font-size: 1em;
+            margin-bottom: 5px;
+        }
+        h5 {
+            margin-top: -6px;
+            margin-bottom: 16px;
+        }
+        h4 {
+            span {
+                &:after {
+                    content: ", ";
+                }
+                &:last-child {
+                    &:after {
+                        content: none;
+                    }
+                }
+            }
+        }
+    }
 }
 
 body.is-xs {

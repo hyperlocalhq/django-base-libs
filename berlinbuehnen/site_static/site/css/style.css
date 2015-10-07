@@ -2180,6 +2180,11 @@ body.is-xs.safari .list-item-head-date .list-item-head-date-icons { top: 21px !i
 .grid.job_offer-grid h3 { margin-top: 0px; margin-bottom: 6px; }
 .grid.job_offer-grid h2 { margin-bottom: 6px; }
 .grid.job_offer-grid h5 { margin-top: -6px; margin-bottom: 6px; }
+.grid.favorites-grid h3 { margin-top: -15px; }
+.grid.favorites-grid h4 { font-size: 1em; margin-bottom: 5px; }
+.grid.favorites-grid h5 { margin-top: -6px; margin-bottom: 16px; }
+.grid.favorites-grid h4 span:after { content: ", "; }
+.grid.favorites-grid h4 span:last-child:after { content: none; }
 
 body.is-xs .grid { margin: 0 -28px; }
 body.is-xs .grid .grid-item button.favorite:before { padding-left: 0; }
