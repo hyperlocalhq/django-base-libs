@@ -42,7 +42,7 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
                 print u"=== Nothing to update ==="
             return
 
-        self.delete_existing_productions_and_events(self.service)
+        # self.delete_existing_productions_and_events(self.service)
 
         self.in_program_of, created = Location.objects.get_or_create(
             title_de=u"GRIPS Theater",
@@ -68,19 +68,25 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
             'prods_added': 0,
             'prods_updated': 0,
             'prods_skipped': 0,
+            'prods_deleted': 0,
             'events_added': 0,
             'events_updated': 0,
             'events_skipped': 0,
+            'events_deleted': 0,
         }
 
         root_node = ElementTree.fromstring(r.content)
         self.save_page(root_node)
 
+        self.delete_outdated_productions_and_events(self.service)
+
         if self.verbosity >= NORMAL:
             print u"Productions added: %d" % self.stats['prods_added']
             print u"Productions updated: %d" % self.stats['prods_updated']
             print u"Productions skipped: %d" % self.stats['prods_skipped']
+            print u"Productions deleted: %d" % self.stats['prods_deleted']
             print u"Events added: %d" % self.stats['events_added']
             print u"Events updated: %d" % self.stats['events_updated']
             print u"Events skipped: %d" % self.stats['events_skipped']
+            print u"Events deleted: %d" % self.stats['events_deleted']
             print

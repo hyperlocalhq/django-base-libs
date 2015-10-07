@@ -304,6 +304,8 @@ class ImportFromHeimatBase(object):
     owners = []
     IMPORT_URL = None
     DEFAULT_PUBLISHING_STATUS = "published"  # "import"
+    production_ids_to_keep = set()
+    event_ids_to_keep = set()
 
     def load_and_parse_locations(self):
         response = requests.get("http://web2.heimat.de/cb-out/exports/address/address_id.php?city=berlin")
@@ -746,6 +748,7 @@ class ImportFromHeimatBase(object):
                 prod.import_source = self.service
             else:
                 prod = mapper.content_object
+                self.production_ids_to_keep.add(prod.pk)
                 if not prod or prod.status == "trashed":
                     # if exhibition was deleted after import,
                     # don't import it again
@@ -774,6 +777,7 @@ class ImportFromHeimatBase(object):
             self.parse_and_use_texts(prod_node, prod)
 
             prod.save()
+            self.production_ids_to_keep.add(prod.pk)
 
             venue_node = prod_node.find('location')
             if venue_node is not None:
@@ -983,6 +987,7 @@ class ImportFromHeimatBase(object):
                     event = Event()
                 else:
                     event = event_mapper.content_object
+                    self.event_ids_to_keep.add(event.pk)
                     if not event:
                         # skip deleted events
                         self.stats['events_skipped'] += 1
@@ -1040,6 +1045,7 @@ class ImportFromHeimatBase(object):
                 self.parse_and_use_texts(event_node, event)
 
                 event.save()
+                self.event_ids_to_keep.add(event.pk)
 
                 if not self.skip_images:
                     image_ids_to_keep = []
@@ -1260,6 +1266,65 @@ class ImportFromHeimatBase(object):
             mapper.delete()
 
         # deleting event images and their mappers if an event was deleted
+        for mapper in service.objectmapper_set.filter(content_type__model__iexact="eventimage"):
+            if mapper.content_object:
+                continue
+            mapper.delete()
+
+
+    def delete_outdated_productions_and_events(self, service):
+        if self.verbosity >= NORMAL:
+            print u"=== Deleting outdated productions ==="
+
+        # deleting productions and their mappers
+        prods_count = service.objectmapper_set.filter(
+            content_type__model__iexact="production"
+        ).exclude(
+            object_id__in=self.production_ids_to_keep
+        ).count()
+
+        for prod_index, mapper in enumerate(service.objectmapper_set.filter(
+            content_type__model__iexact="production"
+        ).exclude(
+            object_id__in=self.production_ids_to_keep
+        ), 1):
+            if mapper.content_object:
+                if self.verbosity >= NORMAL:
+                    print "%d/%d %s | %s" % (prod_index, prods_count, smart_str(mapper.content_object.title_de), smart_str(mapper.content_object.title_en))
+                if mapper.content_object.no_overwriting:  # don't delete items with no_overwriting == True
+                    continue
+
+                # delete media files
+                try:
+                    shutil.rmtree(os.path.join(settings.MEDIA_ROOT, "productions", mapper.content_object.slug))
+                except OSError as err:
+                    pass
+
+                mapper.content_object.delete()
+            mapper.delete()
+            self.stats.setdefault('prods_deleted', 0)
+            self.stats['prods_deleted'] += 1
+
+        # deleting events and their mappers
+        for mapper in service.objectmapper_set.filter(content_type__model__iexact="event").exclude(
+            object_id__in=self.event_ids_to_keep
+        ):
+            if mapper.content_object:
+                if mapper.content_object.production.no_overwriting:  # don't delete items with no_overwriting == True
+                    continue
+
+                mapper.content_object.delete()
+            mapper.delete()
+            self.stats.setdefault('events_deleted', 0)
+            self.stats['events_deleted'] += 1
+
+        # deleting production image mappers if a production was deleted
+        for mapper in service.objectmapper_set.filter(content_type__model__iexact="productionimage"):
+            if mapper.content_object:
+                continue
+            mapper.delete()
+
+        # deleting event image mappers if an event was deleted
         for mapper in service.objectmapper_set.filter(content_type__model__iexact="eventimage"):
             if mapper.content_object:
                 continue
