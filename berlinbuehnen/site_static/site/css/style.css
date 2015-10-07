@@ -2145,10 +2145,10 @@ body.is-xs.safari .list-item-head-date .list-item-head-date-icons { top: 21px !i
 .grid .grid-item:hover { color: black; }
 .grid .grid-item .grid-item-image { display: block; width: 100%; margin-bottom: 16px; position: relative; }
 .grid .grid-item .grid-item-image img { width: 100%; height: auto; }
+.grid .grid-item.grid-item-favorite .grid-item-image { background-color: #4583c8; }
 .grid .grid-item.grid-item-favorite .grid-item-image .favorite { visibility: hidden; }
 .grid .grid-item.grid-item-favorite .grid-item-image .favorite.active:before { color: #4583c8; }
-.grid .grid-item.grid-item-favorite .grid-item-image:hover { background-color: #4583c8; }
-.grid .grid-item.grid-item-favorite .grid-item-image:hover img { visibility: hidden; }
+.grid .grid-item.grid-item-favorite .grid-item-image:hover img { opacity: 0.4; }
 .grid .grid-item.grid-item-favorite .grid-item-image:hover .favorite { visibility: visible; }
 .grid .grid-item button.favorite { position: absolute; top: 6px; right: 8px; padding: 0; margin: 0; border: none; background: transparent; color: white; }
 .grid .grid-item button.favorite.active { color: #4583c8; }

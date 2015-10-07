@@ -25,6 +25,7 @@
             
         &.grid-item-favorite {
             .grid-item-image {
+                background-color: $blue;
                 .favorite {
                     visibility: hidden;
                     &.active {
@@ -34,9 +35,8 @@
                     }
                 }
                 &:hover {
-                    background-color: $blue;
                     img {
-                        visibility: hidden;
+                        opacity: 0.4;
                     }
                     .favorite {
                         visibility: visible;
