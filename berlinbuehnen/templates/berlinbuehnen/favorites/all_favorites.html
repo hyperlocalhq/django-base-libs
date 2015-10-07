@@ -66,7 +66,7 @@
                         <h2 class="section">{% trans "Theaters" %}</h2>
                         <div class="grid location-grid row">
                             {% for location in favorites.locations %}
-                                <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3" href="{{ location.get_url_path }}">
+                                <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item-favorite" href="{{ location.get_url_path }}">
 
                                     <!-- image -->
                                     <span class="grid-item-image img">
@@ -98,7 +98,7 @@
                         <h2 class="section">{% trans "Productions" %}</h2>
                         <div class="grid location-grid row">
                             {% for production in favorites.productions %}
-                                <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3" href="{{ production.get_url_path }}">
+                                <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item-favorite" href="{{ production.get_url_path }}">
 
                                     <!-- image -->
                                     <span class="grid-item-image img">
@@ -130,7 +130,7 @@
                         <h2 class="section">{% trans "Festivals" %}</h2>
                         <div class="grid location-grid row">
                             {% for festival in favorites.festivals %}
-                                <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3" href="{{ festival.get_url_path }}">
+                                <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item-favorite" href="{{ festival.get_url_path }}">
 
                                     <!-- image -->
                                     <span class="grid-item-image img">
@@ -162,7 +162,7 @@
                         <h2 class="section">{% trans "Educational Projects" %}</h2>
                         <div class="grid location-grid row">
                             {% for project in favorites.projects %}
-                                <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3" href="{{ project.get_url_path }}">
+                                <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item-favorite" href="{{ project.get_url_path }}">
 
                                     <!-- image -->
                                     <span class="grid-item-image img">

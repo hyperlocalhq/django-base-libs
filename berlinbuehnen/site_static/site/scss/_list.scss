@@ -123,15 +123,24 @@
                             color: black;
                         }
                         &:before {
-                            padding-right: 6px;
+                            padding-right: 0px;
+                            margin-right: 6px;
                         }
                         &.tickets:before {
-                           padding-right: 0px;
+                           margin-right: 0px;
                         }
-                        &.favorite.active:before {
-                            color: $blue;
-                            &:hover, &:focus {
+                        &.favorite {
+                            &:before {
+                                height: 21px;
+                                width: 21px;
+                                font-size: 15px;
+                                margin-right: 5px;
+                            }
+                            &.active:before {
                                 color: $blue;
+                                &:hover, &:focus {
+                                    color: $blue;
+                                }
                             }
                         }
                     }
@@ -417,10 +426,10 @@ body.is-xs {
                         top: 24px;
                         right: -4px;
                         a:before {
-                           padding-right: 10px;
+                           margin-right: 10px;
                         }
                         a.tickets:before {
-                           padding-right: 10px;
+                           margin-right: 10px;
                         }
                     }
                 }

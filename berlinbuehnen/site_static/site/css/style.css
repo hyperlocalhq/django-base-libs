@@ -50,7 +50,8 @@ strong { font-weight: 700; }
 
 .fawesome.calender:before { content: "\f073"; }
 
-.fawesome.favorite:before { content: "\f005"; }
+.fawesome.favorite:before { content: "\f005"; color: white; background: black; border-radius: 50%; padding: 0 0 0 1px; font-size: 16px; margin-right: 10px; margin-bottom: -1px; width: 22px; height: 22px; line-height: 22px; text-align: center; }
+.is-xs .fawesome.favorite:before { padding: 0; }
 
 .fawesome.more:after { content: "\f105"; }
 
@@ -2059,8 +2060,9 @@ top: 0;*/ width: 110px; height: 100%; display: block; background-image: url(../i
 .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons { height: 23px; margin: 0; padding: 0; }
 .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a { font-size: 14px; color: black; margin-left: 2px; }
 .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a:hover, .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a:focus { color: black; }
-.list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a:before { padding-right: 6px; }
-.list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a.tickets:before { padding-right: 0px; }
+.list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a:before { padding-right: 0px; margin-right: 6px; }
+.list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a.tickets:before { margin-right: 0px; }
+.list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a.favorite:before { height: 21px; width: 21px; font-size: 15px; margin-right: 5px; }
 .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a.favorite.active:before { color: #4583c8; }
 .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a.favorite.active:before:hover, .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a.favorite.active:before:focus { color: #4583c8; }
 .list .list-item .list-item-head .list-item-head-image { margin: 0; padding: 0; }
@@ -2117,8 +2119,8 @@ body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head
 body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-time { width: 115px; height: auto; font-size: 3em; position: absolute; top: 8px; left: 55px; }
 body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-type { width: auto; height: auto; position: absolute; top: 8px; right: 5px; }
 body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons { width: auto; height: auto; position: absolute; top: 24px; right: -4px; }
-body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a:before { padding-right: 10px; }
-body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a.tickets:before { padding-right: 10px; }
+body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a:before { margin-right: 10px; }
+body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a.tickets:before { margin-right: 10px; }
 body.is-xs .list .list-item .list-item-head .list-item-head-image { position: absolute; top: 0; left: 0; }
 body.is-xs .list .list-item .list-item-head .list-item-head-image img { width: 50px; float: none; }
 body.is-xs .list .list-item-body { padding-bottom: 40px; height: auto; max-height: 350px; }
@@ -2143,20 +2145,26 @@ body.is-xs.safari .list-item-head-date .list-item-head-date-icons { top: 21px !i
 .grid .grid-item:hover { color: black; }
 .grid .grid-item .grid-item-image { display: block; width: 100%; margin-bottom: 16px; position: relative; }
 .grid .grid-item .grid-item-image img { width: 100%; height: auto; }
-.grid .grid-item button.favorite { position: absolute; top: 4px; right: 6px; padding: 0; margin: 0; border: none; background: transparent; color: white; }
+.grid .grid-item.grid-item-favorite .grid-item-image .favorite { visibility: hidden; }
+.grid .grid-item.grid-item-favorite .grid-item-image .favorite.active:before { color: #4583c8; }
+.grid .grid-item.grid-item-favorite .grid-item-image:hover { background-color: #4583c8; }
+.grid .grid-item.grid-item-favorite .grid-item-image:hover img { visibility: hidden; }
+.grid .grid-item.grid-item-favorite .grid-item-image:hover .favorite { visibility: visible; }
+.grid .grid-item button.favorite { position: absolute; top: 6px; right: 8px; padding: 0; margin: 0; border: none; background: transparent; color: white; }
 .grid .grid-item button.favorite.active { color: #4583c8; }
-.grid .grid-item button.favorite:before { font-size: 14px; background: black; width: 20px; height: 20px; line-height: 19px; margin: 0; padding: 1px 0 0 1px; border-radius: 50%; }
+.grid .grid-item button.favorite:before { margin: 0; }
 .grid .grid-item button.favorite:active, .grid .grid-item button.favorite:hover, .grid .grid-item button.favorite:focus { border: none; outline: none; }
 .grid .grid-item h2 { text-transform: uppercase; font-size: 1.25em; margin-bottom: 16px; }
 .grid .grid-item h3 { font-size: 1em; margin-top: -10px; margin-bottom: 16px; }
 .grid .ad_banner { position: relative; top: -20px; }
 .grid .ad_banner h6.block-label { margin-bottom: 4px; }
 .grid.mazery-grid { margin: 0 -10px; }
-.grid.mazery-grid .grid-item { padding: 0 10px; position: relative; }
+.grid.mazery-grid .grid-item { padding: 0 10px; position: relative; /*button.favorite { right: 16px;
+}
+
+&.no-image { button.favorite { top: 0px; } h2 { padding-right: 32px; }
+}*/ }
 .grid.mazery-grid .grid-item .row { margin: 0; }
-.grid.mazery-grid .grid-item button.favorite { right: 16px; }
-.grid.mazery-grid .grid-item.no-image button.favorite { top: 0px; }
-.grid.mazery-grid .grid-item.no-image h2 { padding-right: 32px; }
 .grid.mazery-grid img { width: 100%; margin-bottom: 16px; }
 .grid.mazery-grid a { color: black; border-bottom: 4px solid black; padding-bottom: 20px; margin-bottom: 20px; display: inline-block; width: 100%; }
 .grid.mazery-grid a:hover { color: black; }
