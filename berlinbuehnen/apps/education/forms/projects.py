@@ -14,6 +14,7 @@ from django.utils.translation import ugettext_lazy as _, ugettext
 from django.shortcuts import redirect
 from django.utils.safestring import mark_safe
 from django.db import models
+from django.utils import timezone
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
@@ -850,11 +851,13 @@ def load_data(instance=None):
         for project_time in instance.projecttime_set.all():
             time_dict = {}
             time_dict['id'] = project_time.id
-            time_dict['start_date'] = project_time.start.date()
-            time_dict['start_time'] = project_time.start.time()
+            local_start = timezone.localtime(project_time.start)
+            time_dict['start_date'] = local_start.date()
+            time_dict['start_time'] = local_start.time()
             if project_time.end is not None:
-                time_dict['end_date'] = project_time.end.date()
-                time_dict['end_time'] = project_time.end.time()
+                local_end = timezone.localtime(project_time.end)
+                time_dict['end_date'] = local_end.date()
+                time_dict['end_time'] = local_end.time()
 
             form_step_data['basic']['sets']['times'].append(time_dict)
 
@@ -968,13 +971,11 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             else:
                 project_time = ProjectTime(project=instance)
             if time_dict['start_date'] and time_dict['start_time']:
-                #project_time.start = datetime.combine(time_dict['start_date'], time_dict['start_time'])
-                project_time.start = datetime(time_dict['start_date'].year, time_dict['start_date'].month, time_dict['start_date'].day, time_dict['start_time'].hour, time_dict['start_time'].minute)
+                project_time.start = datetime.combine(time_dict['start_date'], time_dict['start_time'])
             if time_dict['end_date']:
                 if not time_dict['end_time']:
                     time_dict['end_time'] = time(0,0)
-                #project_time.end = datetime.combine(time_dict['end_date'], time_dict['end_time'])
-                project_time.end = datetime(time_dict['end_date'].year, time_dict['end_date'].month, time_dict['end_date'].day, time_dict['end_time'].hour, time_dict['end_time'].minute)
+                project_time.end = datetime.combine(time_dict['end_date'], time_dict['end_time'])
             project_time.save()
             time_ids_to_keep.append(project_time.pk)
         instance.projecttime_set.exclude(pk__in=time_ids_to_keep).delete()
