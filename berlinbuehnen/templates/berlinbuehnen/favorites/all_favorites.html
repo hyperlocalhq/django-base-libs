@@ -64,7 +64,7 @@
                 {% if favorites.locations %}
                     <div class="col-xs-12 print-padding">
                         <h2 class="section">{% trans "Theaters" %}</h2>
-                        <div class="grid location-grid row">
+                        <div class="grid favorites-grid row">
                             {% for location in favorites.locations %}
                                 <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item-favorite" href="{{ location.get_url_path }}">
 
@@ -85,7 +85,7 @@
                                     {% if location.teaser %}
                                         <div class="copy">{{ location.get_rendered_teaser }}</div>
                                     {% elif location.description %}
-                                        <div class="copy">{{ location.get_rendered_description|truncatewords:20 }}</div>
+                                        <div class="copy">{{ location.get_rendered_description|striptags|truncatewords:20 }}</div>
                                     {% endif %}
 
                                 </a>
@@ -96,7 +96,7 @@
                 {% if favorites.productions %}
                     <div class="col-xs-12 print-padding">
                         <h2 class="section">{% trans "Productions" %}</h2>
-                        <div class="grid location-grid row">
+                        <div class="grid favorites-grid row">
                             {% for production in favorites.productions %}
                                 <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item-favorite" href="{{ production.get_url_path }}">
 
@@ -112,12 +112,13 @@
                                         {% endif %}
                                     </span>
 
+                                    {% if production.organizers %}<h4>{{ production.organizers }}</h4>{% endif %}
                                     {% if production.title %}<h2>{{ production.title }}</h2>{% endif %}
                                     {% if production.subtitle %}<h3>{{ production.subtitle }}</h3>{% endif %}
                                     {% if production.teaser %}
                                         <div class="copy">{{ production.get_rendered_teaser }}</div>
                                     {% elif production.description %}
-                                        <div class="copy">{{ production.get_rendered_description|truncatewords:20 }}</div>
+                                        <div class="copy">{{ production.get_rendered_description|striptags|truncatewords:20 }}</div>
                                     {% endif %}
 
                                 </a>
@@ -128,7 +129,7 @@
                 {% if favorites.festivals %}
                     <div class="col-xs-12 print-padding">
                         <h2 class="section">{% trans "Festivals" %}</h2>
-                        <div class="grid location-grid row">
+                        <div class="grid favorites-grid row">
                             {% for festival in favorites.festivals %}
                                 <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item-favorite" href="{{ festival.get_url_path }}">
 
@@ -143,15 +144,17 @@
                                             {% adding2favorites for festival using "favorites/includes/favorite_grid.html" %}
                                         {% endif %}
                                     </span>
-
+                                    {% if festival.organizers.all %}<h4><span>{% for organizer in festival.organizers.all %}{{ organizer }}{% endfor %}</span></h4>{% endif %}
                                     {% if festival.title %}<h2>{{ festival.title }}</h2>{% endif %}
                                     {% if festival.subtitle %}<h3>{{ festival.subtitle }}</h3>{% endif %}
+                                    {% if festival.start %}
+                                        <h5><time>{{ festival.start|date:"j.m.Y" }}</time>{% if festival.end and festival.start != festival.end %} &nbsp;–&nbsp; <time>{{ festival.end|date:"j.m.Y" }}</time>{% endif %}</h5>
+                                    {% endif %}
                                     {% if festival.teaser %}
                                         <div class="copy">{{ festival.get_rendered_teaser }}</div>
                                     {% elif festival.description %}
-                                        <div class="copy">{{ festival.get_rendered_description|truncatewords:20 }}</div>
+                                        <div class="copy">{{ festival.get_rendered_description|striptags|truncatewords:20 }}</div>
                                     {% endif %}
-
                                 </a>
                             {% endfor %}
                         </div>
@@ -160,7 +163,7 @@
                 {% if favorites.projects %}
                     <div class="col-xs-12 print-padding">
                         <h2 class="section">{% trans "Educational Projects" %}</h2>
-                        <div class="grid location-grid row">
+                        <div class="grid favorites-grid row">
                             {% for project in favorites.projects %}
                                 <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item-favorite" href="{{ project.get_url_path }}">
 
@@ -185,7 +188,7 @@
                                     {% if project.teaser %}
                                         <div class="copy">{{ project.get_rendered_teaser }}</div>
                                     {% elif project.description %}
-                                        <div class="copy">{{ project.get_rendered_description|truncatewords:20 }}</div>
+                                        <div class="copy">{{ project.get_rendered_description|striptags|truncatewords:20 }}</div>
                                     {% endif %}
 
                                 </a>

@@ -1586,7 +1586,7 @@ select { visibility: hidden; }
 .dashboard fieldset .subtitle { position: relative; top: -25px; }
 .dashboard label { font-weight: 400; }
 .dashboard .navbar-wrapper .nav.navbar-nav { width: 100%; }
-.dashboard .navbar-wrapper .nav.navbar-nav > li { margin-right: 2.5%; }
+.dashboard .navbar-wrapper .nav.navbar-nav > li { margin-right: 2.2%; }
 .dashboard .dashboard-header h4 { margin-bottom: 20px !important; }
 .dashboard .dashboard-header .form-steps li a { min-width: 70px; text-align: center; }
 .dashboard .dashboard-header .form-steps li.active a { background-color: #F5F5F5; }
@@ -2062,7 +2062,7 @@ top: 0;*/ width: 110px; height: 100%; display: block; background-image: url(../i
 .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a:hover, .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a:focus { color: black; }
 .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a:before { padding-right: 0px; margin-right: 6px; }
 .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a.tickets:before { margin-right: 0px; }
-.list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a.favorite:before { height: 21px; width: 21px; font-size: 15px; margin-right: 5px; }
+.list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a.favorite:before { height: 20px; width: 20px; font-size: 14px; line-height: 20px; }
 .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a.favorite.active:before { color: #4583c8; }
 .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a.favorite.active:before:hover, .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a.favorite.active:before:focus { color: #4583c8; }
 .list .list-item .list-item-head .list-item-head-image { margin: 0; padding: 0; }
@@ -2145,10 +2145,10 @@ body.is-xs.safari .list-item-head-date .list-item-head-date-icons { top: 21px !i
 .grid .grid-item:hover { color: black; }
 .grid .grid-item .grid-item-image { display: block; width: 100%; margin-bottom: 16px; position: relative; }
 .grid .grid-item .grid-item-image img { width: 100%; height: auto; }
+.grid .grid-item.grid-item-favorite .grid-item-image { background-color: #4583c8; }
 .grid .grid-item.grid-item-favorite .grid-item-image .favorite { visibility: hidden; }
 .grid .grid-item.grid-item-favorite .grid-item-image .favorite.active:before { color: #4583c8; }
-.grid .grid-item.grid-item-favorite .grid-item-image:hover { background-color: #4583c8; }
-.grid .grid-item.grid-item-favorite .grid-item-image:hover img { visibility: hidden; }
+.grid .grid-item.grid-item-favorite .grid-item-image:hover img { opacity: 0.4; }
 .grid .grid-item.grid-item-favorite .grid-item-image:hover .favorite { visibility: visible; }
 .grid .grid-item button.favorite { position: absolute; top: 6px; right: 8px; padding: 0; margin: 0; border: none; background: transparent; color: white; }
 .grid .grid-item button.favorite.active { color: #4583c8; }
@@ -2180,6 +2180,11 @@ body.is-xs.safari .list-item-head-date .list-item-head-date-icons { top: 21px !i
 .grid.job_offer-grid h3 { margin-top: 0px; margin-bottom: 6px; }
 .grid.job_offer-grid h2 { margin-bottom: 6px; }
 .grid.job_offer-grid h5 { margin-top: -6px; margin-bottom: 6px; }
+.grid.favorites-grid h3 { margin-top: -15px; }
+.grid.favorites-grid h4 { font-size: 1em; margin-bottom: 5px; }
+.grid.favorites-grid h5 { margin-top: -6px; margin-bottom: 16px; }
+.grid.favorites-grid h4 span:after { content: ", "; }
+.grid.favorites-grid h4 span:last-child:after { content: none; }
 
 body.is-xs .grid { margin: 0 -28px; }
 body.is-xs .grid .grid-item button.favorite:before { padding-left: 0; }

@@ -46,6 +46,11 @@ class JobOfferForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(JobOfferForm, self).__init__(*args, **kwargs)
+        
+        self.fields['deadline'].widget = forms.DateInput(format='%Y-%m-%d')
+        self.fields['deadline'].input_formats=('%Y-%m-%d',)
+        self.fields['start_contract_on'].widget = forms.DateInput(format='%Y-%m-%d')
+        self.fields['start_contract_on'].input_formats=('%Y-%m-%d',)
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             for f in [
