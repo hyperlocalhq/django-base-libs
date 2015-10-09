@@ -37,35 +37,3 @@
     }(jQuery));
 </script>
 
-
-<script type="text/javascript">
-
-    function GMap() {
-        
-        var me = this;
-        this.me = me;
-        
-        me.$height = $('.gmap-height');
-    
-        $(window).resize(function() {me.setHeight();});
-        me.setHeight();
-    }
-    
-    GMap.prototype.setHeight = function() {
-        
-        var me = this.me;
-        var $body = $('body');
-        
-        var offset = 0;
-        if ($body.hasClass('is-sm')) offset = 100;
-        else if ($body.hasClass('is-xs')) offset = 80;
-        
-        var height = $(window).height();
-        me.$height.height(height-25-offset);
-    }
-    
-    $(document).ready(function() {
-        new GMap();
-    });
-
-</script>

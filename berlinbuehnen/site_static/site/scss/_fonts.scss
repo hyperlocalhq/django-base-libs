@@ -297,6 +297,18 @@ strong {
     font-size: 1em;
     padding-right: 0;
 }
+.fawesome.back-round:before {
+    content: "\f112";
+}
+.fawesome.menu:before {
+    content: "\f039";
+}
+.fawesome.crosshair:before {
+    content: "\f05b";
+}
+.fawesome.cancel:before {
+    content: "\f00d";
+}
 
 .subcategory:before {
     content: "\2514";
