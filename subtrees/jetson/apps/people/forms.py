@@ -252,7 +252,7 @@ class SimpleRegistrationForm(dynamicforms.Form):
             current_site = Site.objects.get_current()
             encrypted_email = cryptString(user.email)
     
-            sender_name, sender_email = settings.MANAGERS[0]
+            sender_name, sender_email = settings.DEFAULT_FROM_EMAIL, settings.DEFAULT_FROM_EMAIL
             send_email_using_template(
                 [Recipient(user=user)],
                 "account_verification",
