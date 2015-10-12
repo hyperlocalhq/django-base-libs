@@ -31,12 +31,11 @@ class DocumentSearchForm(dynamicforms.Form):
 
     def get_query(self):
         from django.template.defaultfilters import urlencode
-
-        cleaned = self.cleaned_data
-        return "&".join(
-            [
+        if self.is_valid():
+            cleaned = self.cleaned_data
+            return "&".join([
                 ("%s=%s" % (k, urlencode(isinstance(v, models.Model) and v.pk or v)))
                 for (k, v) in cleaned.items()
                 if v
-            ]
-        )
+            ])
+        return ""
