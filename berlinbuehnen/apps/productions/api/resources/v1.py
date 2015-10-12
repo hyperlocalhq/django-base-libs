@@ -172,6 +172,8 @@ class ProductionImageResource(ModelResource):
                 bundle.data['description_de'] = strip_invalid_chars(file_description.description_de)
                 bundle.data['description_en'] = strip_invalid_chars(file_description.description_en)
                 bundle.data['author'] = strip_invalid_chars(file_description.author)
+                bundle.data['photographer'] = strip_invalid_chars(file_description.author)
+                bundle.data['copyright'] = strip_invalid_chars(file_description.copyright_limitations)
         return bundle
 
 
@@ -204,6 +206,7 @@ class ProductionPDFResource(ModelResource):
                 bundle.data['description_de'] = strip_invalid_chars(file_description.description_de)
                 bundle.data['description_en'] = strip_invalid_chars(file_description.description_en)
                 bundle.data['author'] = strip_invalid_chars(file_description.author)
+                bundle.data['copyright'] = strip_invalid_chars(file_description.copyright_limitations)
         return bundle
 
 
@@ -347,6 +350,8 @@ class EventImageResource(ModelResource):
                 bundle.data['description_de'] = strip_invalid_chars(file_description.description_de)
                 bundle.data['description_en'] = strip_invalid_chars(file_description.description_en)
                 bundle.data['author'] = strip_invalid_chars(file_description.author)
+                bundle.data['photographer'] = strip_invalid_chars(file_description.author)
+                bundle.data['copyright'] = strip_invalid_chars(file_description.copyright_limitations)
         return bundle
 
 
@@ -379,6 +384,7 @@ class EventPDFResource(ModelResource):
                 bundle.data['description_de'] = strip_invalid_chars(file_description.description_de)
                 bundle.data['description_en'] = strip_invalid_chars(file_description.description_en)
                 bundle.data['author'] = strip_invalid_chars(file_description.author)
+                bundle.data['copyright'] = strip_invalid_chars(file_description.copyright_limitations)
         return bundle
 
 
