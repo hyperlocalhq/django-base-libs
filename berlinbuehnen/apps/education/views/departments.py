@@ -20,17 +20,12 @@ from jetson.apps.utils.context_processors import prev_next_processor
 from jetson.apps.utils.views import show_form_step
 from jetson.apps.utils.decorators import login_required
 
+from berlinbuehnen.apps.education.models import Department
+from berlinbuehnen.apps.education.forms.departments import DEPARTMENT_FORM_STEPS
+
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 
-from jetson.apps.image_mods.models import FileManager
-from filebrowser.models import FileDescription
 
-from berlinbuehnen.apps.education.models import Project, ProjectImage, Department, ProjectTime
-
-from berlinbuehnen.apps.education.forms.departments import DEPARTMENT_FORM_STEPS
-#from berlinbuehnen.apps.education.forms.gallery import ImageFileForm, ImageDeletionForm
-
-    
 class EducationFilterForm(forms.Form):
     pass
 
@@ -113,7 +108,7 @@ def change_department(request, slug):
     instance = get_object_or_404(Department, slug=slug)
     if not request.user.has_perm("education.change_department", instance):
         return access_denied(request)
-    return show_form_step(request, DEPARTMENT_FORM_STEPS, extra_context={'project': instance}, instance=instance);
+    return show_form_step(request, DEPARTMENT_FORM_STEPS, extra_context={'department': instance}, instance=instance);
 
 
 @never_cache

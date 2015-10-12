@@ -91,11 +91,12 @@ class Department(CreationModificationMixin, UrlMixin, SlugMixin()):
 
     objects = DepartmentManager()
 
+    row_level_permissions = True
+
     class Meta:
         ordering = ['title']
         verbose_name = _("Education department")
         verbose_name_plural = _("Education departments")
-
 
     def __unicode__(self):
         return self.title

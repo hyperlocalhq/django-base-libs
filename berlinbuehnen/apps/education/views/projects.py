@@ -20,15 +20,10 @@ from jetson.apps.utils.context_processors import prev_next_processor
 from jetson.apps.utils.views import show_form_step
 from jetson.apps.utils.decorators import login_required
 
-FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
-
-from jetson.apps.image_mods.models import FileManager
-from filebrowser.models import FileDescription
-
-from berlinbuehnen.apps.education.models import Project, ProjectImage, Department, ProjectTime
-
+from berlinbuehnen.apps.education.models import Project, ProjectTime
 from berlinbuehnen.apps.education.forms.projects import PROJECT_FORM_STEPS
-#from berlinbuehnen.apps.education.forms.gallery import ImageFileForm, ImageDeletionForm
+
+FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 
 
 def project_list(request):
@@ -72,7 +67,7 @@ def project_detail(request, slug, event_id=None):
 @never_cache
 @login_required
 def add_project(request):
-    if not request.user.has_perm("projects.add_project"):
+    if not request.user.has_perm("education.add_project"):
         return access_denied(request)
     return show_form_step(request, PROJECT_FORM_STEPS, extra_context={});
 
@@ -81,7 +76,7 @@ def add_project(request):
 @login_required
 def change_project(request, slug):
     instance = get_object_or_404(Project, slug=slug)
-    if not request.user.has_perm("projects.change_project", instance):
+    if not request.user.has_perm("education.change_project", instance):
         return access_denied(request)
     return show_form_step(request, PROJECT_FORM_STEPS, extra_context={'project': instance}, instance=instance);
 
@@ -90,7 +85,7 @@ def change_project(request, slug):
 @login_required
 def delete_project(request, slug):
     instance = get_object_or_404(Project, slug=slug)
-    if not request.user.has_perm("projects.delete_project", instance):
+    if not request.user.has_perm("education.delete_project", instance):
         return access_denied(request)
     if request.method == "POST" and request.is_ajax():
         instance.status = "trashed"
@@ -103,7 +98,7 @@ def delete_project(request, slug):
 @login_required
 def change_project_status(request, slug):
     instance = get_object_or_404(Project, slug=slug)
-    if not request.user.has_perm("projects.change_project", instance):
+    if not request.user.has_perm("education.change_project", instance):
         return access_denied(request)
     if request.method == "POST" and request.is_ajax() and request.POST['status'] in ("draft", "published", "not_listed"):
         instance.status = request.POST['status']
@@ -137,7 +132,7 @@ def change_project_status(request, slug):
 # @login_required
 # def image_overview(request, slug):
 #     instance = get_object_or_404(Project, slug=slug)
-#     if not request.user.has_perm("projects.change_project", instance):
+#     if not request.user.has_perm("education.change_project", instance):
 #         return access_denied(request)
 #
 #     if "ordering" in request.POST and request.is_ajax():
@@ -152,7 +147,7 @@ def change_project_status(request, slug):
 # @login_required
 # def create_update_image(request, slug, mediafile_token="", **kwargs):
 #     instance = get_object_or_404(Project, slug=slug)
-#     if not request.user.has_perm("projects.change_project", instance):
+#     if not request.user.has_perm("education.change_project", instance):
 #         return access_denied(request)
 #
 #     rel_dir = "projects/%s/" % instance.slug
@@ -287,7 +282,7 @@ def change_project_status(request, slug):
 # @login_required
 # def delete_image(request, slug, mediafile_token="", **kwargs):
 #     instance = get_object_or_404(Project, slug=slug)
-#     if not request.user.has_perm("projects.change_project", instance):
+#     if not request.user.has_perm("education.change_project", instance):
 #         return access_denied(request)
 #
 #     filters = {
