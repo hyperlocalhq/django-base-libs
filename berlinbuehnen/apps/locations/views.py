@@ -145,7 +145,6 @@ def location_list(request, year=None, month=None, day=None):
 
 
 def location_list_map(request, year=None, month=None, day=None):
-    from berlinbuehnen.apps.advertising.templatetags.advertising_tags import not_empty_ad_zone
     qs = Location.objects.filter(status="published").exclude(latitude=None)
 
     form = LocationFilterForm(data=request.REQUEST)
@@ -196,20 +195,14 @@ def location_list_map(request, year=None, month=None, day=None):
     extra_context['abc_list'] = abc_list
     extra_context['facets'] = facets
 
-    first_page_delta = 0
-    if not_empty_ad_zone('locations'):
-        first_page_delta = 1
-        extra_context['show_ad'] = True
-
     return object_list(
         request,
         queryset=qs,
         template_name="locations/location_list_map.html",
-        paginate_by=24,
+        paginate_by=1000,
         extra_context=extra_context,
         httpstate_prefix="location_list_map",
         context_processors=(prev_next_processor,),
-        first_page_delta=first_page_delta,
     )
 
 
