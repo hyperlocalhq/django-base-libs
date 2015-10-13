@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Django 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-15 12:26+0200\n"
+"POT-Creation-Date: 2015-10-13 18:14+0200\n"
 "PO-Revision-Date: 2012-09-18 17:08\n"
 "Last-Translator: Reinhard Knobelspies <knobelspies@mac.com>\n"
 "Language-Team: \n"
@@ -36,7 +36,7 @@ msgstr "Zusätzliche Inhalte"
 
 #: apps/articles/admin.py:72 apps/events/base.py:217
 #: apps/marketplace/forms.py:68 apps/site_specific/forms.py:3369
-#: apps/site_specific/models.py:200 apps/tracker/forms.py:43
+#: apps/site_specific/models.py:201 apps/tracker/forms.py:43
 #: subtrees/base_libs/base_libs/models/admin.py:551
 #: subtrees/base_libs/base_libs/models/admin.py:560
 #: subtrees/base_libs/base_libs/models/models.py:1051
@@ -49,7 +49,7 @@ msgstr "Zusätzliche Inhalte"
 #: templates/ccb/marketplace/add_job_offer_confirm.html:54
 #: templates/ccb/marketplace/emails/new_job_offer.html:19
 #: templates/ccb/marketplace/profile/details.html:30
-#: templates/ccb/media_gallery/create_update_mediafile.html:126
+#: templates/ccb/media_gallery/create_update_mediafile.html:125
 #: templates/ccb/media_gallery/includes/media_file_change.html:120
 #: templates/ccb/people/profile/description.html:3
 #: templates/ccb/people/profile/description_form.html:9
@@ -57,7 +57,13 @@ msgstr "Zusätzliche Inhalte"
 msgid "Description"
 msgstr "Beschreibung"
 
-#: apps/articles/admin.py:94 apps/external_services/admin.py:23
+#: apps/articles/admin.py:94
+#, fuzzy
+#| msgid "Imported"
+msgid "Imported from"
+msgstr "Importiert"
+
+#: apps/articles/admin.py:104 apps/external_services/admin.py:23
 msgid "Defaults"
 msgstr "Standards"
 
@@ -84,11 +90,11 @@ msgid "Latest %(article_type)s"
 msgstr "Neueste(r) %(article_type)s"
 
 #: apps/articles/models.py:18 apps/events/admin.py:36 apps/events/admin.py:67
-#: apps/events/base.py:215 apps/events/base.py:439 apps/faqs/admin.py:29
+#: apps/events/base.py:215 apps/events/base.py:445 apps/faqs/admin.py:29
 #: apps/groups_networks/admin.py:21 apps/institutions/admin.py:30
 #: apps/institutions/admin.py:140 apps/media_gallery/models.py:91
 #: apps/people/admin.py:32 apps/resources/admin.py:24
-#: apps/resources/admin.py:32 apps/site_specific/models.py:199
+#: apps/resources/admin.py:32 apps/site_specific/models.py:200
 #: apps/tracker/admin.py:15 templates/ccb/comments/form.html:10
 #: templates/ccb/comments/preview.html:84
 #: templates/ccb/events/add_event_main_data.html:29
@@ -96,8 +102,8 @@ msgstr "Neueste(r) %(article_type)s"
 msgid "Title"
 msgstr "Titel"
 
-#: apps/articles/models.py:19 apps/events/base.py:528 apps/events/base.py:533
-#: apps/events/base.py:538 apps/people/forms.py:486 apps/people/forms.py:495
+#: apps/articles/models.py:19 apps/events/base.py:534 apps/events/base.py:539
+#: apps/events/base.py:544 apps/people/forms.py:486 apps/people/forms.py:495
 #: apps/people/forms.py:504 apps/people/forms.py:1271 apps/people/forms.py:1280
 #: apps/people/forms.py:1289 apps/site_specific/forms.py:409
 #: apps/site_specific/forms.py:418 apps/site_specific/forms.py:427
@@ -119,9 +125,9 @@ msgid "article-content providers"
 msgstr "Artikel-Content-Provider"
 
 #: apps/articles/models.py:80 apps/events/models.py:28
-#: apps/external_services/models.py:31 apps/groups_networks/models.py:13
-#: apps/institutions/models.py:20 apps/people/models.py:37
-#: apps/resources/models.py:17 apps/site_specific/models.py:202
+#: apps/external_services/models.py:31 apps/groups_networks/models.py:12
+#: apps/institutions/models.py:19 apps/people/models.py:36
+#: apps/resources/models.py:16 apps/site_specific/models.py:203
 #: templates/admin/extendedadmin/includes/fieldset_categories.html:37
 msgid "Creative sectors"
 msgstr "Kreativbereiche"
@@ -146,7 +152,13 @@ msgstr ""
 "Wenn dieser Artikel ein Auszug ist, wird der Link in der Liste der Artikel "
 "auf die externe URL führen."
 
-#: apps/articles/models.py:94 apps/external_services/models.py:49
+#: apps/articles/models.py:92
+#, fuzzy
+#| msgid "Unpublished"
+msgid "Originally published"
+msgstr "Entwurf"
+
+#: apps/articles/models.py:96 apps/external_services/models.py:49
 msgid "Content provider"
 msgstr "Content-Anbieter"
 
@@ -210,8 +222,8 @@ msgstr "Einfach"
 msgid "Advanced"
 msgstr "Fortgeschritten"
 
-#: apps/configuration/models.py:28 apps/configuration/models.py:58
-#: apps/configuration/models.py:78
+#: apps/configuration/models.py:28 apps/configuration/models.py:59
+#: apps/configuration/models.py:79
 #: subtrees/base_libs/base_libs/models/models.py:449
 #: subtrees/base_libs/base_libs/models/models.py:463
 #: subtrees/base_libs/base_libs/models/models.py:478
@@ -234,31 +246,31 @@ msgstr "Google Maps API Key"
 msgid "Sign up for the Google Maps API"
 msgstr "Google Maps API Key generieren"
 
-#: apps/configuration/models.py:41
+#: apps/configuration/models.py:42
 msgid "Use Captcha for account registration"
 msgstr "Captcha für die Registrierung des Benutzerkontos benutzen"
 
-#: apps/configuration/models.py:42
+#: apps/configuration/models.py:43
 msgid "Use Captcha for info subscription"
 msgstr "Captcha für Infoabonnements verwenden"
 
-#: apps/configuration/models.py:44
+#: apps/configuration/models.py:45
 msgid "Use PayPal sandbox (fake money transactions)"
 msgstr "PayPal Sandbox verwenden (für Test-Transaktionen)"
 
-#: apps/configuration/models.py:49 apps/configuration/models.py:50
+#: apps/configuration/models.py:50 apps/configuration/models.py:51
 msgid "site settings"
 msgstr "Website-Einstellungen"
 
-#: apps/configuration/models.py:79
+#: apps/configuration/models.py:80
 msgid "Viewer"
 msgstr "Benutzer"
 
-#: apps/configuration/models.py:81
+#: apps/configuration/models.py:82
 msgid "Path"
 msgstr "Pfad"
 
-#: apps/configuration/models.py:84
+#: apps/configuration/models.py:85
 #, fuzzy
 #| msgid ""
 #| "All that goes after '/', for example: 'about/contact/'. Make sure to have "
@@ -271,22 +283,41 @@ msgstr ""
 "Alles nach '/', Beispiel: 'about/contact/'. Wichtig: vor und nach dem "
 "Begriff muss ein / stehen. Bitte '*' für alle Seiten verwenden."
 
-#: apps/configuration/models.py:89
+#: apps/configuration/models.py:90
 #: templates/ccb/groups_networks/persongroups/add_group_main_data.html:61
-#: templates/ccb/media_gallery/manage_galleries.html:43
-#: templates/ccb/media_gallery/manage_galleries.html:95
-#: templates/ccb/media_gallery/manage_gallery.html:92
-#: templates/ccb/media_gallery/manage_gallery.html:117
+#: templates/ccb/media_gallery/manage_galleries.html:40
+#: templates/ccb/media_gallery/manage_galleries.html:91
+#: templates/ccb/media_gallery/manage_gallery.html:89
+#: templates/ccb/media_gallery/manage_gallery.html:114
 #: templates/ccb/site_specific/blocks/sidebar_settings.html:5
 #: templates/ccb/site_specific/creative_sectors/creative_sector_details.html:101
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: apps/configuration/models.py:94 apps/configuration/models.py:95
+#: apps/configuration/models.py:95 apps/configuration/models.py:96
 msgid "page settings"
 msgstr "Seiten-Einstellungen"
 
-#: apps/events/admin.py:84 apps/events/admin.py:262 apps/events/base.py:443
+#: apps/editorial/cms_plugins.py:14 apps/editorial/models.py:15
+#, fuzzy
+#| msgid "Questions and Answers"
+msgid "Question and Answer"
+msgstr "Fragen und Antworten"
+
+#: apps/editorial/models.py:11 apps/faqs/models.py:236 apps/faqs/models.py:264
+msgid "question"
+msgstr "Frage"
+
+#: apps/editorial/models.py:12 apps/faqs/models.py:237 apps/faqs/models.py:274
+msgid "answer"
+msgstr "Antwort"
+
+#: apps/editorial/models.py:16 apps/search/search_indexes.py:37
+#: templates/ccb/faqs/faqs.html:31
+msgid "Questions and Answers"
+msgstr "Fragen und Antworten"
+
+#: apps/events/admin.py:84 apps/events/admin.py:262 apps/events/base.py:449
 #: apps/events/forms.py:114 templates/ccb/events/add_event_main_data.html:43
 #: templates/ccb/events/add_event_main_data.html:50
 #: templates/ccb/events/add_event_main_data.html:86
@@ -301,7 +332,7 @@ msgstr ""
 "Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl "
 "der verfügbaren Veranstaltungsorte angezeigt zu bekommen."
 
-#: apps/events/admin.py:105 apps/events/base.py:463 apps/events/forms.py:218
+#: apps/events/admin.py:105 apps/events/base.py:469 apps/events/forms.py:218
 #: apps/site_specific/forms.py:2213
 msgid "Organizing institution"
 msgstr "Veranstalter (Institution)"
@@ -315,7 +346,7 @@ msgstr ""
 "Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl "
 "der verfügbaren Institutionen angezeigt zu bekommen."
 
-#: apps/events/admin.py:126 apps/events/base.py:478
+#: apps/events/admin.py:126 apps/events/base.py:484
 msgid "Organizing person"
 msgstr "Veranstalter (Person)"
 
@@ -378,7 +409,7 @@ msgid "Change %s"
 msgstr "%s ändern"
 
 #: apps/events/base.py:49 apps/search/search_indexes.py:171
-#: apps/site_specific/feeds.py:95 settings.py:758
+#: apps/site_specific/feeds.py:94 settings.py:758
 #: templates/ccb/events/add_event_categories.html:40
 #: templates/ccb/events/add_event_confirm.html:354
 #: templates/ccb/events/add_event_fees.html:40
@@ -405,7 +436,7 @@ msgid "Draft"
 msgstr "Entwurf"
 
 #: apps/events/base.py:55 apps/external_services/models.py:14
-#: apps/media_gallery/forms.py:161
+#: apps/media_gallery/forms.py:176
 #: subtrees/base_libs/base_libs/models/models.py:209
 #: subtrees/base_libs/base_libs/models/models.py:262
 #: templates/ccb/media_gallery/manage_galleries.html:7
@@ -424,7 +455,7 @@ msgstr "Importiert"
 msgid "Expired"
 msgstr "Abgelaufen"
 
-#: apps/events/base.py:99 apps/events/base.py:407 apps/faqs/models.py:28
+#: apps/events/base.py:99 apps/events/base.py:413 apps/faqs/models.py:28
 #: apps/faqs/models.py:89 apps/tracker/models.py:37
 #: subtrees/base_libs/base_libs/admin/tree_editor.py:222
 #: subtrees/base_libs/base_libs/models/models.py:1024
@@ -470,7 +501,7 @@ msgstr "URL-Pfadname"
 msgid "Image"
 msgstr "Bild"
 
-#: apps/events/base.py:221 apps/events/base.py:808 apps/events/base.py:815
+#: apps/events/base.py:221 apps/events/base.py:814 apps/events/base.py:821
 #: templates/ccb/uni_form/includes/event_time.html:8
 msgid "Start"
 msgstr "Beginn"
@@ -480,7 +511,7 @@ msgid "End"
 msgstr "Ende"
 
 #: apps/events/base.py:224 apps/people/forms.py:991
-#: apps/site_specific/forms.py:664 apps/site_specific/models.py:478
+#: apps/site_specific/forms.py:664 apps/site_specific/models.py:479
 #: templates/admin/extendedadmin/includes/fieldset_status.html:6
 #: templates/ccb/accounts/reg_confirm.html:445
 #: templates/ccb/facebook_app/gallery_linking.html:37
@@ -488,53 +519,53 @@ msgstr "Ende"
 msgid "Status"
 msgstr "Status"
 
-#: apps/events/base.py:232 apps/events/base.py:589
+#: apps/events/base.py:232 apps/events/base.py:595
 msgid "event"
 msgstr "Veranstaltung"
 
-#: apps/events/base.py:233 apps/events/base.py:590
+#: apps/events/base.py:233 apps/events/base.py:596
 #: templates/ccb/flatpages/galerie.html:45
 msgid "events"
 msgstr "Veranstaltungen"
 
-#: apps/events/base.py:295 apps/events/base.py:307
+#: apps/events/base.py:301 apps/events/base.py:313
 msgid "Start Date"
 msgstr "Beginn Tag"
 
-#: apps/events/base.py:316 apps/events/base.py:328
+#: apps/events/base.py:322 apps/events/base.py:334
 msgid "End Date"
 msgstr "Ende Tag"
 
-#: apps/events/base.py:338
+#: apps/events/base.py:344
 msgid "Start Time"
 msgstr "Beginn Minute"
 
-#: apps/events/base.py:348
+#: apps/events/base.py:354
 msgid "End Time"
 msgstr "Ende Minute"
 
-#: apps/events/base.py:395 apps/faqs/models.py:77 apps/faqs/models.py:234
+#: apps/events/base.py:401 apps/faqs/models.py:77 apps/faqs/models.py:234
 #: subtrees/base_libs/base_libs/models/models.py:690
 msgid "sort order"
 msgstr "Sortierreihenfolge"
 
-#: apps/events/base.py:412
+#: apps/events/base.py:418
 msgid "event type"
 msgstr "Art der Veranstaltung"
 
-#: apps/events/base.py:413
+#: apps/events/base.py:419
 msgid "event types"
 msgstr "Veranstaltungsarten"
 
-#: apps/events/base.py:437 templates/ccb/events/profile/identity.html:11
+#: apps/events/base.py:443 templates/ccb/events/profile/identity.html:11
 msgid "Event type"
 msgstr "Art der Veranstaltung"
 
-#: apps/events/base.py:457
+#: apps/events/base.py:463
 msgid "Postal Address"
 msgstr "Postanschrift"
 
-#: apps/events/base.py:492 templates/ccb/events/add_event_confirm.html:280
+#: apps/events/base.py:498 templates/ccb/events/add_event_confirm.html:280
 #: templates/ccb/events/add_event_main_data.html:118
 #: templates/ccb/events/add_event_main_data.html:132
 #: templates/ccb/events/profile/organizer.html:3
@@ -542,23 +573,23 @@ msgstr "Postanschrift"
 msgid "Organizer"
 msgstr "Veranstalter"
 
-#: apps/events/base.py:493
+#: apps/events/base.py:499
 msgid "Organizer URL"
 msgstr "Website des Veranstalters"
 
-#: apps/events/base.py:495
+#: apps/events/base.py:501
 #: templates/admin/extendedadmin/job_offer_change.html:126
 #: templates/ccb/events/profile/additional_info.html:3
 #: templates/ccb/events/profile/additional_info.html:8
 msgid "Additional Info"
 msgstr "Zusatzinformation"
 
-#: apps/events/base.py:500 apps/events/base.py:508 apps/events/base.py:516
+#: apps/events/base.py:506 apps/events/base.py:514 apps/events/base.py:522
 msgid "Phone Type"
 msgstr "Telefon-Typ"
 
-#: apps/events/base.py:502 apps/events/base.py:510 apps/events/base.py:518
-#: apps/site_specific/models.py:465
+#: apps/events/base.py:508 apps/events/base.py:516 apps/events/base.py:524
+#: apps/site_specific/models.py:466
 #: templates/ccb/accounts/reg_institution_contact_persons.html:46
 #: templates/ccb/groups_networks/institution_invitation.html:67
 #: templates/ccb/groups_networks/institution_invitation.html:140
@@ -569,8 +600,8 @@ msgstr "Telefon-Typ"
 msgid "Country Code"
 msgstr "Ländervorwahl"
 
-#: apps/events/base.py:503 apps/events/base.py:511 apps/events/base.py:519
-#: apps/site_specific/models.py:466
+#: apps/events/base.py:509 apps/events/base.py:517 apps/events/base.py:525
+#: apps/site_specific/models.py:467
 #: templates/ccb/accounts/reg_institution_contact_persons.html:52
 #: templates/ccb/groups_networks/institution_invitation.html:73
 #: templates/ccb/groups_networks/institution_invitation.html:146
@@ -581,60 +612,60 @@ msgstr "Ländervorwahl"
 msgid "Area Code"
 msgstr "Ortsvorwahl"
 
-#: apps/events/base.py:504 apps/events/base.py:512 apps/events/base.py:520
+#: apps/events/base.py:510 apps/events/base.py:518 apps/events/base.py:526
 msgid "Subscriber Number and Extension"
 msgstr "Abonnent Nummer und Durchwahl"
 
-#: apps/events/base.py:505 apps/events/base.py:513 apps/events/base.py:521
-#: apps/events/base.py:529 apps/events/base.py:534 apps/events/base.py:539
-#: apps/events/base.py:547 apps/events/base.py:552 apps/events/base.py:557
-#: apps/events/base.py:566 apps/events/base.py:572 apps/events/base.py:578
+#: apps/events/base.py:511 apps/events/base.py:519 apps/events/base.py:527
+#: apps/events/base.py:535 apps/events/base.py:540 apps/events/base.py:545
+#: apps/events/base.py:553 apps/events/base.py:558 apps/events/base.py:563
+#: apps/events/base.py:572 apps/events/base.py:578 apps/events/base.py:584
 msgid "Default?"
 msgstr "Standard?"
 
-#: apps/events/base.py:506 apps/events/base.py:514 apps/events/base.py:522
-#: apps/events/base.py:530 apps/events/base.py:535 apps/events/base.py:540
-#: apps/events/base.py:548 apps/events/base.py:553 apps/events/base.py:558
-#: apps/events/base.py:567 apps/events/base.py:573 apps/events/base.py:579
+#: apps/events/base.py:512 apps/events/base.py:520 apps/events/base.py:528
+#: apps/events/base.py:536 apps/events/base.py:541 apps/events/base.py:546
+#: apps/events/base.py:554 apps/events/base.py:559 apps/events/base.py:564
+#: apps/events/base.py:573 apps/events/base.py:579 apps/events/base.py:585
 msgid "On Hold?"
 msgstr "Inaktiv?"
 
-#: apps/events/base.py:527 apps/events/base.py:532 apps/events/base.py:537
+#: apps/events/base.py:533 apps/events/base.py:538 apps/events/base.py:543
 msgid "URL Type"
 msgstr "URL-Typ"
 
-#: apps/events/base.py:545 apps/events/base.py:550 apps/events/base.py:555
+#: apps/events/base.py:551 apps/events/base.py:556 apps/events/base.py:561
 msgid "IM Type"
 msgstr "IM-Typ"
 
-#: apps/events/base.py:546 apps/events/base.py:551 apps/events/base.py:556
+#: apps/events/base.py:552 apps/events/base.py:557 apps/events/base.py:562
 #: templates/ccb/uni_form/includes/ims.html:7
 #: templates/ccb/uni_form/includes/ims.html:26
 #: templates/ccb/uni_form/includes/ims.html:43
 msgid "Instant Messenger"
 msgstr "Instant Messenger"
 
-#: apps/events/base.py:563 apps/events/base.py:569 apps/events/base.py:575
+#: apps/events/base.py:569 apps/events/base.py:575 apps/events/base.py:581
 msgid "Email Type"
 msgstr "E-Mail-Typ"
 
-#: apps/events/base.py:565 apps/events/base.py:571 apps/events/base.py:577
+#: apps/events/base.py:571 apps/events/base.py:577 apps/events/base.py:583
 msgid "Email Address"
 msgstr "E-Mail-Adresse"
 
-#: apps/events/base.py:583 subtrees/tagging/tagging/models.py:480
+#: apps/events/base.py:589 subtrees/tagging/tagging/models.py:480
 msgid "tags"
 msgstr "Stichworte"
 
-#: apps/events/base.py:747
+#: apps/events/base.py:753
 msgid " (at) "
 msgstr ""
 
-#: apps/events/base.py:747
+#: apps/events/base.py:753
 msgid " (dot) "
 msgstr ""
 
-#: apps/events/base.py:801 apps/events/management.py:55
+#: apps/events/base.py:807 apps/events/management.py:55
 #: templates/ccb/events/add_event_categories.html:4
 #: templates/ccb/events/add_event_categories.html:8
 #: templates/ccb/events/add_event_confirm.html:4
@@ -649,69 +680,69 @@ msgstr ""
 msgid "Event"
 msgstr "Termin"
 
-#: apps/events/base.py:803 apps/events/forms.py:333
+#: apps/events/base.py:809 apps/events/forms.py:333
 #: apps/site_specific/forms.py:2353
 msgid "Start Year"
 msgstr "Beginn Jahr"
 
-#: apps/events/base.py:804 apps/events/forms.py:339
+#: apps/events/base.py:810 apps/events/forms.py:339
 #: apps/site_specific/forms.py:2359
 msgid "Start Month"
 msgstr "Beginn Monat"
 
-#: apps/events/base.py:805 apps/events/forms.py:345
+#: apps/events/base.py:811 apps/events/forms.py:345
 #: apps/site_specific/forms.py:2365
 msgid "Start Day"
 msgstr "Beginn Tag"
 
-#: apps/events/base.py:806
+#: apps/events/base.py:812
 msgid "Start Hour"
 msgstr "Beginn Stunde"
 
-#: apps/events/base.py:807
+#: apps/events/base.py:813
 msgid "Start Minute"
 msgstr "Beginn Minute"
 
-#: apps/events/base.py:810 apps/events/forms.py:363
+#: apps/events/base.py:816 apps/events/forms.py:363
 #: apps/marketplace/forms.py:175 apps/site_specific/forms.py:2383
 #: apps/site_specific/forms.py:3376
 msgid "End Year"
 msgstr "Ende Jahr"
 
-#: apps/events/base.py:811 apps/events/forms.py:369
+#: apps/events/base.py:817 apps/events/forms.py:369
 #: apps/marketplace/forms.py:181 apps/site_specific/forms.py:2389
 #: apps/site_specific/forms.py:3382
 msgid "End Month"
 msgstr "Ende Monat"
 
-#: apps/events/base.py:812 apps/events/forms.py:375
+#: apps/events/base.py:818 apps/events/forms.py:375
 #: apps/marketplace/forms.py:187 apps/site_specific/forms.py:2395
 #: apps/site_specific/forms.py:3388
 msgid "End Day"
 msgstr "Ende Tag"
 
-#: apps/events/base.py:813
+#: apps/events/base.py:819
 msgid "End Hour"
 msgstr "Ende Stunde"
 
-#: apps/events/base.py:814
+#: apps/events/base.py:820
 msgid "End Minute"
 msgstr "Ende Minute"
 
-#: apps/events/base.py:817
+#: apps/events/base.py:823
 msgid "All Day Event"
 msgstr "Ganztägiger Event"
 
-#: apps/events/base.py:821 apps/events/base.py:904
+#: apps/events/base.py:827 apps/events/base.py:910
 msgid "event time"
 msgstr "Veranstaltungzeit"
 
-#: apps/events/base.py:822 apps/events/base.py:905
+#: apps/events/base.py:828 apps/events/base.py:911
 #: templates/ccb/events/profile/event_times_form.html:8
 msgid "event times"
 msgstr "Veranstaltungzeiten"
 
-#: apps/events/base.py:896
+#: apps/events/base.py:902
 msgid "Label"
 msgstr ""
 
@@ -778,7 +809,7 @@ msgid "Event Type"
 msgstr "Terminart"
 
 #: apps/events/forms.py:130 apps/site_specific/forms.py:3839
-#: apps/site_specific/models.py:463 apps/tracker/forms.py:23
+#: apps/site_specific/models.py:464 apps/tracker/forms.py:23
 #: subtrees/tagging/tagging/admin.py:20
 #: templates/ccb/accounts/reg_person.html:30
 #: templates/ccb/groups_networks/persongroups/profile/identity_form.html:6
@@ -1057,8 +1088,8 @@ msgstr "Beschreibung (Deutsch)"
 msgid "Profile photo"
 msgstr "Profilphoto"
 
-#: apps/events/forms.py:680 apps/media_gallery/forms.py:36
-#: apps/media_gallery/forms.py:111 apps/people/forms.py:551
+#: apps/events/forms.py:680 apps/media_gallery/forms.py:39
+#: apps/media_gallery/forms.py:126 apps/people/forms.py:551
 #: apps/site_specific/forms.py:226 apps/site_specific/forms.py:912
 #: apps/site_specific/forms.py:1875 apps/site_specific/forms.py:2903
 #: apps/site_specific/forms.py:3116
@@ -1093,7 +1124,7 @@ msgstr "Stichwort durch Kommas trennen."
 msgid "Please choose at least one creative sector."
 msgstr "Bitte wählen Sie mindestens einen Kreativbereich aus."
 
-#: apps/events/forms.py:976 apps/marketplace/forms.py:422
+#: apps/events/forms.py:976 apps/marketplace/forms.py:423
 #: apps/people/forms.py:1970
 #: templates/ccb/groups_networks/persongroups/add_group_confirm.html:56
 msgid "main data"
@@ -1107,12 +1138,12 @@ msgstr "Profildaten"
 msgid "fees and opening hours"
 msgstr "Eintritt und Öffnungszeiten"
 
-#: apps/events/forms.py:997 apps/marketplace/forms.py:427
+#: apps/events/forms.py:997 apps/marketplace/forms.py:428
 #: apps/people/forms.py:1959 apps/people/forms.py:1985
 msgid "categories"
 msgstr "Kategorien"
 
-#: apps/events/forms.py:1002 apps/marketplace/forms.py:432
+#: apps/events/forms.py:1002 apps/marketplace/forms.py:433
 #: apps/people/forms.py:2001
 msgid "confirm data"
 msgstr "Eingaben überprüfen"
@@ -1120,8 +1151,8 @@ msgstr "Eingaben überprüfen"
 #: apps/events/forms.py:1022 apps/events/forms.py:1028
 #: apps/events/forms.py:1034 apps/institutions/forms.py:13
 #: apps/institutions/forms.py:19 apps/institutions/forms.py:25
-#: apps/institutions/forms.py:31 apps/marketplace/forms.py:450
-#: apps/marketplace/forms.py:456 apps/marketplace/forms.py:462
+#: apps/institutions/forms.py:31 apps/marketplace/forms.py:451
+#: apps/marketplace/forms.py:457 apps/marketplace/forms.py:463
 #: apps/people/forms.py:2016 apps/people/forms.py:2022
 #: apps/people/forms.py:2028 apps/people/forms.py:2034
 #: apps/resources/forms.py:14 apps/resources/forms.py:20
@@ -1159,7 +1190,7 @@ msgstr "Kreativbereich"
 msgid "Location Type"
 msgstr "Standortkategorie"
 
-#: apps/events/forms.py:1042 apps/marketplace/forms.py:468
+#: apps/events/forms.py:1042 apps/marketplace/forms.py:469
 msgid "Keyword(s)"
 msgstr "Stichworte"
 
@@ -1257,7 +1288,7 @@ msgstr ""
 msgid "Fees"
 msgstr "Eintrittskosten"
 
-#: apps/events/models.py:23 apps/resources/models.py:22
+#: apps/events/models.py:23 apps/resources/models.py:21
 msgid "Featured"
 msgstr "Featured"
 
@@ -1265,11 +1296,11 @@ msgstr "Featured"
 msgid "Importance"
 msgstr ""
 
-#: apps/events/views.py:193 apps/events/views.py:199
+#: apps/events/views.py:187 apps/events/views.py:193
 msgid "Naughty hacker!"
 msgstr "Naughty Hacker!"
 
-#: apps/events/views.py:298
+#: apps/events/views.py:293
 msgid "CCB Events"
 msgstr "CCB Veranstaltungen"
 
@@ -1441,14 +1472,6 @@ msgstr ""
 msgid "category"
 msgstr "Kategorie"
 
-#: apps/faqs/models.py:236 apps/faqs/models.py:264
-msgid "question"
-msgstr "Frage"
-
-#: apps/faqs/models.py:237 apps/faqs/models.py:274
-msgid "answer"
-msgstr "Antwort"
-
 #: apps/faqs/models.py:240
 msgid "Question-Answer"
 msgstr "Frage/Antwort"
@@ -1566,11 +1589,11 @@ msgstr ""
 msgid "Type"
 msgstr "Art"
 
-#: apps/institutions/models.py:76
+#: apps/institutions/models.py:75
 msgid "Owners"
 msgstr "Besitzer"
 
-#: apps/institutions/models.py:218
+#: apps/institutions/models.py:217
 msgid "System"
 msgstr "Website"
 
@@ -1598,14 +1621,14 @@ msgstr "Ich bin nicht der Ansprechpartner"
 msgid "Position"
 msgstr "Position/Tätigkeit"
 
-#: apps/marketplace/forms.py:55 apps/marketplace/forms.py:457
+#: apps/marketplace/forms.py:55 apps/marketplace/forms.py:458
 #: apps/site_specific/forms.py:3360
 #: templates/ccb/marketplace/emails/new_job_offer.html:8
 #: templates/ccb/marketplace/profile/details.html:11
 msgid "Job Type"
 msgstr "Tätigkeitsart"
 
-#: apps/marketplace/forms.py:64 apps/marketplace/forms.py:463
+#: apps/marketplace/forms.py:64 apps/marketplace/forms.py:464
 #: apps/site_specific/forms.py:3366
 #: templates/ccb/marketplace/add_job_offer_confirm.html:47
 #: templates/ccb/marketplace/emails/new_job_offer.html:12
@@ -1642,7 +1665,7 @@ msgstr "An Kulturmanagement.net weiterleiten"
 msgid "Report to talent-in-berlin.de"
 msgstr ""
 
-#: apps/marketplace/forms.py:451
+#: apps/marketplace/forms.py:452
 #: templates/ccb/marketplace/add_job_offer_confirm.html:142
 #: templates/ccb/marketplace/emails/new_job_offer.html:144
 #: templates/ccb/marketplace/profile/categories.html:11
@@ -1653,7 +1676,7 @@ msgstr "Jobbereich"
 msgid "Export to www.talent-in-berlin.de"
 msgstr ""
 
-#: apps/marketplace/views.py:176
+#: apps/marketplace/views.py:172
 msgid "CCB Job Offers"
 msgstr "CCB Job-Angebote"
 
@@ -1670,27 +1693,27 @@ msgstr ""
 msgid "Latest projects"
 msgstr ""
 
-#: apps/media_gallery/forms.py:23
+#: apps/media_gallery/forms.py:24
 #, fuzzy, python-format
 #| msgid "Title in English"
 msgid "Title in %s"
 msgstr "Titel (Englisch)"
 
-#: apps/media_gallery/forms.py:28
+#: apps/media_gallery/forms.py:29
 #, fuzzy, python-format
 #| msgid "Short Description in English"
 msgid "Short Description in %s"
 msgstr "Kurzbeschreibung (Englisch)"
 
-#: apps/media_gallery/forms.py:35 apps/media_gallery/forms.py:41
+#: apps/media_gallery/forms.py:37 apps/media_gallery/forms.py:44
 msgid "Image File"
 msgstr "Bilddatei"
 
-#: apps/media_gallery/forms.py:42
+#: apps/media_gallery/forms.py:45
 msgid "You can link to a GIF, JPG, or PNG image."
 msgstr "Sie können eine GIF-, JPG- oder PNG-Datei verlinken."
 
-#: apps/media_gallery/forms.py:49
+#: apps/media_gallery/forms.py:54
 msgid ""
 "You can only link to GIF, JPG, and PNG files. This image format is not "
 "supported."
@@ -1698,18 +1721,18 @@ msgstr ""
 "Sie können nur GIF-, JPG- und PNG-Dateien verlinken. Das Dateiformat wird "
 "nicht unterstützt."
 
-#: apps/media_gallery/forms.py:54 apps/media_gallery/forms.py:60
-#: apps/media_gallery/forms.py:85
+#: apps/media_gallery/forms.py:60 apps/media_gallery/forms.py:66
+#: apps/media_gallery/forms.py:97
 msgid "Video File"
 msgstr "Videodatei"
 
-#: apps/media_gallery/forms.py:55
+#: apps/media_gallery/forms.py:61
 #, fuzzy
 #| msgid "You can upload only MP3 files."
 msgid "You can upload only FLV files."
 msgstr "Sie können nur MP3-Dateien hochladen."
 
-#: apps/media_gallery/forms.py:61
+#: apps/media_gallery/forms.py:68
 #, fuzzy
 #| msgid ""
 #| "You can link to a FLV file or Youtube video (i.e. http://www.youtube.com/"
@@ -1722,11 +1745,11 @@ msgstr ""
 "Sie können eine FLV-Datei oder ein YouTube-Video (z.B. http://www.youtube."
 "com/watch?v=rd2izv5JBcE) verlinken."
 
-#: apps/media_gallery/forms.py:65 apps/media_gallery/forms.py:90
+#: apps/media_gallery/forms.py:72 apps/media_gallery/forms.py:102
 msgid "Illustration File"
 msgstr "Illustrationsdatei"
 
-#: apps/media_gallery/forms.py:66
+#: apps/media_gallery/forms.py:74
 #, fuzzy, python-format
 #| msgid ""
 #| "You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal "
@@ -1737,26 +1760,26 @@ msgid ""
 msgstr ""
 "Erlaubt sind Daten im Format JPG, GIF, PNG TIFF. Minimale Größe: %s px."
 
-#: apps/media_gallery/forms.py:74
+#: apps/media_gallery/forms.py:85
 #, fuzzy
 #| msgid "You can only link to FLV files or Youtube video pages."
 msgid ""
 "You can only link to FLV files, Youtube video pages or Vimeo video pages."
 msgstr "Sie können nur FLV-Videos oder YouTube-Seiten verlinken."
 
-#: apps/media_gallery/forms.py:79
+#: apps/media_gallery/forms.py:91
 msgid "Audio File"
 msgstr "Audiodatei"
 
-#: apps/media_gallery/forms.py:80
+#: apps/media_gallery/forms.py:92
 msgid "You can upload only MP3 files."
 msgstr "Sie können nur MP3-Dateien hochladen."
 
-#: apps/media_gallery/forms.py:86
+#: apps/media_gallery/forms.py:98
 msgid "You can link to an MP3 file."
 msgstr "Sie können nur MP3-Dateien verlinken."
 
-#: apps/media_gallery/forms.py:91
+#: apps/media_gallery/forms.py:104
 #, python-format
 msgid ""
 "It will be used for the thumbnail of the audio file as well as for the "
@@ -1765,50 +1788,50 @@ msgid ""
 msgstr ""
 "Erlaubt sind Daten im Format JPG, GIF, PNG TIFF. Minimale Größe: %s px."
 
-#: apps/media_gallery/forms.py:99
+#: apps/media_gallery/forms.py:113
 msgid "You can only link to MP3 files. This is not MP3."
 msgstr "Sie können nur MP3-Dateien verlinken."
 
-#: apps/media_gallery/forms.py:104 apps/media_gallery/models.py:46
+#: apps/media_gallery/forms.py:119 apps/media_gallery/models.py:46
 #: templates/ccb/media_gallery/portfolio_settings.html:10
 msgid "Landing page"
 msgstr "Zielseite"
 
-#: apps/media_gallery/forms.py:109
+#: apps/media_gallery/forms.py:124
 #: templates/ccb/media_gallery/portfolio_settings.html:13
-#: templates/ccb/media_gallery/portfolio_settings.html:19
+#: templates/ccb/media_gallery/portfolio_settings.html:18
 msgid "Image for landing page"
 msgstr "Bild für Startseite"
 
-#: apps/media_gallery/forms.py:119 apps/media_gallery/forms.py:136
+#: apps/media_gallery/forms.py:134 apps/media_gallery/forms.py:151
 msgid "Title in English"
 msgstr "Titel (Englisch)"
 
-#: apps/media_gallery/forms.py:124 apps/media_gallery/forms.py:141
+#: apps/media_gallery/forms.py:139 apps/media_gallery/forms.py:156
 msgid "Title in German"
 msgstr "Titel (Deutsch)"
 
-#: apps/media_gallery/forms.py:129 apps/media_gallery/models.py:99
+#: apps/media_gallery/forms.py:144 apps/media_gallery/models.py:99
 msgid "Show title"
 msgstr "Titel anzeigen"
 
-#: apps/media_gallery/forms.py:146
+#: apps/media_gallery/forms.py:161
 msgid "Short Description in English"
 msgstr "Kurzbeschreibung (Englisch)"
 
-#: apps/media_gallery/forms.py:151
+#: apps/media_gallery/forms.py:166
 msgid "Short Description in German"
 msgstr "Kurzbeschreibung (Deutsch)"
 
-#: apps/media_gallery/forms.py:156 apps/media_gallery/models.py:150
+#: apps/media_gallery/forms.py:171 apps/media_gallery/models.py:150
 msgid "Presentation format"
 msgstr "Präsentationsormat"
 
-#: apps/media_gallery/forms.py:165
+#: apps/media_gallery/forms.py:180
 msgid "Cover image"
 msgstr "Übersichtsbild"
 
-#: apps/media_gallery/forms.py:167
+#: apps/media_gallery/forms.py:182
 #, python-format
 msgid ""
 "If unspecified, the first image from the album will be used. You can upload "
@@ -2123,7 +2146,7 @@ msgstr "Institution"
 
 #: apps/people/forms.py:366 apps/people/forms.py:1151
 #: apps/site_specific/forms.py:255 apps/site_specific/forms.py:941
-#: apps/site_specific/models.py:209
+#: apps/site_specific/models.py:210
 msgid "Location type"
 msgstr "Standortkategorie"
 
@@ -2343,20 +2366,20 @@ msgstr "Kontaktperson"
 msgid "profile data"
 msgstr "Profildaten"
 
-#: apps/people/models.py:14
+#: apps/people/models.py:13
 msgid "Sign-up date (newest first)"
 msgstr "Erstellungsdatum (neueste zuerst)"
 
-#: apps/people/models.py:19 apps/search/fulltextsearch.py:50
+#: apps/people/models.py:18 apps/search/fulltextsearch.py:50
 #: apps/search/fulltextsearch.py:187 apps/search/fulltextsearch.py:239
 msgid "Alphabetical (A-Z)"
 msgstr "Alphabetisch (A-Z)"
 
-#: apps/people/models.py:24
+#: apps/people/models.py:23
 msgid "Completeness (complete first)"
 msgstr "Vollständigkeit (komplette zuerst)"
 
-#: apps/people/models.py:42
+#: apps/people/models.py:41
 msgid "Completeness in %"
 msgstr "Vollständigkeit in %"
 
@@ -2365,7 +2388,7 @@ msgstr "Vollständigkeit in %"
 msgid "Events by %s"
 msgstr "Veranstaltungen nach %s"
 
-#: apps/search/forms.py:56
+#: apps/search/forms.py:58
 msgid "Search In"
 msgstr "Suche in"
 
@@ -2391,10 +2414,6 @@ msgstr "Relevanz"
 #: apps/search/fulltextsearch.py:238
 msgid "Rank"
 msgstr "Rang"
-
-#: apps/search/search_indexes.py:37 templates/ccb/faqs/faqs.html:31
-msgid "Questions and Answers"
-msgstr "Fragen und Antworten"
 
 #: apps/search/search_indexes.py:68 settings.py:759
 #: templates/ccb/resources/documents/details_base.html:42
@@ -2427,7 +2446,7 @@ msgstr "News"
 msgid "Job Offers"
 msgstr "Jobangebote"
 
-#: apps/search/search_indexes.py:208 apps/site_specific/feeds.py:101
+#: apps/search/search_indexes.py:208 apps/site_specific/feeds.py:100
 #: settings.py:762
 #: templates/ccb/institutions/add_institution_categories.html:36
 #: templates/ccb/institutions/add_institution_confirm.html:411
@@ -2489,11 +2508,11 @@ msgstr "Feeds durchblättern @ %(site)s"
 msgid "Browse result feeds"
 msgstr "Ergebnisliste durchblättern"
 
-#: apps/site_specific/feeds.py:92
+#: apps/site_specific/feeds.py:91
 msgid "Documents"
 msgstr "Dokumente"
 
-#: apps/site_specific/feeds.py:98
+#: apps/site_specific/feeds.py:97
 #: templates/ccb/accounts/my_profile/view_profile.html:47
 #: templates/ccb/groups_networks/persongroups/details_base.html:15
 #: templates/ccb/groups_networks/persongroups/group_invitations_list.html:13
@@ -2510,11 +2529,11 @@ msgstr "Dokumente"
 msgid "Groups"
 msgstr "Gruppen"
 
-#: apps/site_specific/feeds.py:104
+#: apps/site_specific/feeds.py:103
 msgid "Persons"
 msgstr "Personen"
 
-#: apps/site_specific/feeds.py:112
+#: apps/site_specific/feeds.py:111
 #, python-format
 msgid "Latest published %(object)s @ %(site)s"
 msgstr "Letzte veröffentlichte %(object)s @ %(site)s"
@@ -2682,21 +2701,21 @@ msgstr "%s ist Ansprechpartner"
 msgid "%s is not the contact person"
 msgstr "%s ist nicht der Ansprechpartner"
 
-#: apps/site_specific/forms.py:3845 apps/site_specific/models.py:464
+#: apps/site_specific/forms.py:3845 apps/site_specific/models.py:465
 #: apps/tracker/forms.py:30 templates/ccb/events/add_event_confirm.html:100
 #: templates/ccb/marketplace/add_job_offer_confirm.html:121
 msgid "Email"
 msgstr "E-Mail"
 
-#: apps/site_specific/forms.py:3853 apps/site_specific/models.py:468
+#: apps/site_specific/forms.py:3853 apps/site_specific/models.py:469
 msgid "Best Time to Call"
 msgstr "Beste Tageszeit für Rückruf"
 
-#: apps/site_specific/forms.py:3871 apps/site_specific/models.py:470
+#: apps/site_specific/forms.py:3871 apps/site_specific/models.py:471
 msgid "Role"
 msgstr "Rolle"
 
-#: apps/site_specific/forms.py:3877 apps/site_specific/models.py:471
+#: apps/site_specific/forms.py:3877 apps/site_specific/models.py:472
 #: settings.py:391
 msgid "Comments"
 msgstr "Kommentare"
@@ -2753,24 +2772,24 @@ msgstr "Ihre E-Mail Adresse"
 msgid "Site Specific"
 msgstr "Website-spezifisch"
 
-#: apps/site_specific/models.py:206
+#: apps/site_specific/models.py:207
 #: templates/admin/extendedadmin/includes/fieldset_categories.html:69
 msgid "Context categories"
 msgstr "Geschäftsfelder"
 
-#: apps/site_specific/models.py:235
+#: apps/site_specific/models.py:236
 msgid "context item"
 msgstr "Kontext Objekt"
 
-#: apps/site_specific/models.py:236
+#: apps/site_specific/models.py:237
 msgid "context items"
 msgstr "Kontext Objekte"
 
-#: apps/site_specific/models.py:359
+#: apps/site_specific/models.py:360
 msgid "Latitude"
 msgstr "Breitengrad"
 
-#: apps/site_specific/models.py:360
+#: apps/site_specific/models.py:361
 msgid ""
 "Latitude (Lat.) is the angle between any point and the equator (north pole "
 "is at 90; south pole is at -90)."
@@ -2778,11 +2797,11 @@ msgstr ""
 "Latitude (lat.) ist der Winkel zwischen einem beliebigen Punkt und dem "
 "Äquator (Nordpol liegt bei 90; Südpol ist auf -90)."
 
-#: apps/site_specific/models.py:361
+#: apps/site_specific/models.py:362
 msgid "Longitude"
 msgstr "Längengrad"
 
-#: apps/site_specific/models.py:362
+#: apps/site_specific/models.py:363
 msgid ""
 "Longitude (Long.) is the angle east or west of an arbitrary point on Earth "
 "from Greenwich (UK), which is the international zero-longitude point "
@@ -2795,100 +2814,100 @@ msgstr ""
 "Die Anti-Meridian von Greenwich ist sowohl 180 (Richtung Osten) und -180 "
 "(Richtung Westen)."
 
-#: apps/site_specific/models.py:367
+#: apps/site_specific/models.py:368
 msgid "mapped item"
 msgstr "Kontext Objekt"
 
-#: apps/site_specific/models.py:368
+#: apps/site_specific/models.py:369
 msgid "mapped items"
 msgstr "Kontext Objekte"
 
-#: apps/site_specific/models.py:414 apps/site_specific/models.py:462
-#: apps/site_specific/models.py:525
+#: apps/site_specific/models.py:415 apps/site_specific/models.py:463
+#: apps/site_specific/models.py:526
 #: templates/ccb/groups_networks/persongroups/popups/edit_member.html:9
 msgid "User"
 msgstr "Benutzer"
 
-#: apps/site_specific/models.py:416
+#: apps/site_specific/models.py:417
 msgid "IP Address"
 msgstr "IP-Adresse"
 
-#: apps/site_specific/models.py:417
+#: apps/site_specific/models.py:418
 msgid "User Agent"
 msgstr ""
 
-#: apps/site_specific/models.py:418
+#: apps/site_specific/models.py:419
 msgid "Session ID"
 msgstr ""
 
-#: apps/site_specific/models.py:426
+#: apps/site_specific/models.py:427
 #, python-format
 msgid "%(user)s's visit"
 msgstr ""
 
-#: apps/site_specific/models.py:438
+#: apps/site_specific/models.py:439
 msgid "Morning"
 msgstr "Vormittag"
 
-#: apps/site_specific/models.py:439
+#: apps/site_specific/models.py:440
 msgid "Noon"
 msgstr "Mittag"
 
-#: apps/site_specific/models.py:440
+#: apps/site_specific/models.py:441
 msgid "Afternoon"
 msgstr "Nachmittag"
 
-#: apps/site_specific/models.py:441
+#: apps/site_specific/models.py:442
 msgid "Evening"
 msgstr "Abend"
 
-#: apps/site_specific/models.py:445
+#: apps/site_specific/models.py:446
 msgid "Requested"
 msgstr "Angefragt"
 
-#: apps/site_specific/models.py:446
+#: apps/site_specific/models.py:447
 msgid "Approved"
 msgstr "Angenommen"
 
-#: apps/site_specific/models.py:447
+#: apps/site_specific/models.py:448
 #: templates/ccb/groups_networks/persongroups/group_invitations_list.html:129
 #: templates/ccb/people/person_invitations_list.html:50
 msgid "Denied"
 msgstr "Abgewiesen"
 
-#: apps/site_specific/models.py:467
+#: apps/site_specific/models.py:468
 msgid "Phone Number"
 msgstr "Telefonnummer"
 
-#: apps/site_specific/models.py:473
+#: apps/site_specific/models.py:474
 msgid "Created"
 msgstr "Erstellt"
 
-#: apps/site_specific/models.py:474
+#: apps/site_specific/models.py:475
 msgid "Modified"
 msgstr "Zuletzt bearbeitet"
 
-#: apps/site_specific/models.py:475
+#: apps/site_specific/models.py:476
 msgid "Modifier"
 msgstr "Zuletzt bearbeitet von"
 
-#: apps/site_specific/models.py:481
+#: apps/site_specific/models.py:482
 msgid "claim"
 msgstr "Institution administrieren"
 
-#: apps/site_specific/models.py:482
+#: apps/site_specific/models.py:483
 msgid "claims"
 msgstr "Institutionen administrieren"
 
-#: apps/site_specific/models.py:513
+#: apps/site_specific/models.py:514
 msgid "Claimed Object"
 msgstr "Beanspruchtes Objekt"
 
-#: apps/site_specific/models.py:532 apps/site_specific/models.py:544
+#: apps/site_specific/models.py:533 apps/site_specific/models.py:545
 msgid "Approve"
 msgstr "Annehmen"
 
-#: apps/site_specific/models.py:551 apps/site_specific/models.py:563
+#: apps/site_specific/models.py:552 apps/site_specific/models.py:564
 #: templates/ccb/groups_networks/confirm_invitation_to_institution.html:101
 #: templates/ccb/groups_networks/group_membership_deny-group.html:9
 #: templates/ccb/groups_networks/group_membership_deny-user.html:9
@@ -3060,29 +3079,29 @@ msgstr "Ticket Historie"
 msgid "%s ago"
 msgstr "Vor %s"
 
-#: settings.py:61
+#: settings.py:60
 #, fuzzy
 #| msgid "Fees (English)"
 msgid "English"
 msgstr "Gebühr (Englisch)"
 
-#: settings.py:62
+#: settings.py:61
 #, fuzzy
 #| msgid "Fees (German)"
 msgid "German"
 msgstr "Gebühr (Deutsch)"
 
-#: settings.py:234 subtrees/base_libs/base_libs/models/admin.py:508
+#: settings.py:237 subtrees/base_libs/base_libs/models/admin.py:508
 #: subtrees/base_libs/base_libs/models/models.py:1044
-#: templates/ccb/media_gallery/manage_galleries.html:97
+#: templates/ccb/media_gallery/manage_galleries.html:93
 msgid "Content"
 msgstr "Content"
 
-#: settings.py:277
+#: settings.py:280
 msgid "Community"
 msgstr "Community"
 
-#: settings.py:292
+#: settings.py:295
 msgid "Authentication"
 msgstr "Authentifikation"
 
@@ -3253,11 +3272,11 @@ msgstr ""
 #: templates/ccb/marketplace/profile/categories_form.html:47
 #: templates/ccb/marketplace/profile/contact_form.html:55
 #: templates/ccb/marketplace/profile/details_form.html:16
-#: templates/ccb/media_gallery/create_update_gallery.html:53
-#: templates/ccb/media_gallery/create_update_mediafile.html:134
+#: templates/ccb/media_gallery/create_update_gallery.html:50
+#: templates/ccb/media_gallery/create_update_mediafile.html:133
 #: templates/ccb/media_gallery/create_update_section.html:17
 #: templates/ccb/media_gallery/includes/media_file_change.html:156
-#: templates/ccb/media_gallery/portfolio_settings.html:46
+#: templates/ccb/media_gallery/portfolio_settings.html:45
 #: templates/ccb/people/profile/avatar_form.html:28
 #: templates/ccb/people/profile/categories_form.html:13
 #: templates/ccb/people/profile/contact_form.html:42
@@ -3982,7 +4001,7 @@ msgstr ""
 #: templates/ccb/resources/documents/details_base.html:40
 #: templates/ccb/resources/documents/document_details.html:34
 #: templates/ccb/resources/documents/document_list.html:64
-#: templates/ccb/search/search.html:167
+#: templates/ccb/search/search.html:171
 #: templates/ccb/site_specific/marketplace/marketplace.html:28
 #: templates/ccb/tracker/createticket.html:47
 msgid "Home"
@@ -4074,7 +4093,7 @@ msgstr ""
 #: templates/ccb/media_gallery/comments/accept.html:24
 #: templates/ccb/media_gallery/comments/form.html:65
 #: templates/ccb/media_gallery/comments/markasspam.html:24
-#: templates/ccb/media_gallery/comments/popups/comment_accept.html:8
+#: templates/ccb/media_gallery/comments/popups/comment_accept.html:10
 #: templates/ccb/media_gallery/comments/popups/comment_markasspam.html:13
 #: templates/ccb/media_gallery/comments/popups/comment_refuse.html:14
 #: templates/ccb/media_gallery/comments/refuse.html:25
@@ -4091,7 +4110,7 @@ msgstr ""
 #: templates/ccb/resources/documents/profile/categories_form.html:15
 #: templates/ccb/resources/documents/profile/description_form.html:15
 #: templates/ccb/resources/documents/profile/details_form.html:19
-#: templates/ccb/site_specific/blogs/popups/comment_accept.html:10
+#: templates/ccb/site_specific/blogs/popups/comment_accept.html:12
 #: templates/ccb/site_specific/blogs/popups/comment_markasspam.html:13
 #: templates/ccb/site_specific/blogs/popups/comment_refuse.html:16
 #: templates/ccb/site_specific/blogs/popups/post_delete.html:12
@@ -4359,7 +4378,7 @@ msgid "Change your password"
 msgstr "Mein Kennwort ändern"
 
 #: templates/ccb/accounts/login.html:4 templates/ccb/accounts/login.html:7
-#: templates/ccb/accounts/login.html:39 templates/ccb/facebook_app/login.html:5
+#: templates/ccb/accounts/login.html:37 templates/ccb/facebook_app/login.html:5
 #: templates/ccb/facebook_app/login.html:8
 msgid "login"
 msgstr "Anmelden"
@@ -4372,30 +4391,26 @@ msgstr "Sind Sie bei Facebook?"
 msgid "Login with Facebook for mobile devices will be available soon."
 msgstr ""
 
-#: templates/ccb/accounts/login.html:27
-msgid "Login with Facebook"
-msgstr "Login mit Facebook"
-
-#: templates/ccb/accounts/login.html:43
+#: templates/ccb/accounts/login.html:41
 #: templates/ccb/facebook_app/login.html:28
 msgid "Forgotten your password?"
 msgstr "Kennwort vergessen?"
 
-#: templates/ccb/accounts/login.html:53
+#: templates/ccb/accounts/login.html:51
 #: templates/ccb/accounts/password_reset_complete.html:20
 #: templates/ccb/facebook_app/login.html:37
 #: templates/ccb/site_specific/blocks/sidebar_login.html:27
 msgid "Log in"
 msgstr "Anmelden"
 
-#: templates/ccb/accounts/login.html:60
+#: templates/ccb/accounts/login.html:58
 msgid "Haven't you got an account yet?"
 msgstr ""
 "Sie sind noch nicht bei CreativeCityBerlin angemeldet? Nutzen Sie die "
 "erweiterten Möglichkeiten als registrierter Nutzer und richten Sie in zwei "
 "Schritten Ihr persönliches Konto ein."
 
-#: templates/ccb/accounts/login.html:65 templates/ccb/accounts/register.html:4
+#: templates/ccb/accounts/login.html:63 templates/ccb/accounts/register.html:4
 #: templates/ccb/accounts/register.html:7
 #: templates/ccb/accounts/register.html:61
 #: templates/ccb/facebook_app/register.html:4
@@ -4464,10 +4479,10 @@ msgstr "Zurück"
 #: templates/ccb/media_gallery/gallery_detail/gallery_slideshow.html:66
 #: templates/ccb/media_gallery/gallery_detail/gallery_thumbs.html:54
 #: templates/ccb/media_gallery/includes/delete_media_file.html:13
-#: templates/ccb/media_gallery/manage_galleries.html:45
-#: templates/ccb/media_gallery/manage_galleries.html:99
-#: templates/ccb/media_gallery/manage_gallery.html:96
-#: templates/ccb/media_gallery/manage_gallery.html:120
+#: templates/ccb/media_gallery/manage_galleries.html:42
+#: templates/ccb/media_gallery/manage_galleries.html:95
+#: templates/ccb/media_gallery/manage_gallery.html:93
+#: templates/ccb/media_gallery/manage_gallery.html:117
 #: templates/ccb/messaging/delete_message.html:15
 #: templates/ccb/site_specific/blogs/popups/post_delete.html:11
 #: templates/ccb/site_specific/popups/delete_avatar.html:8
@@ -5460,7 +5475,7 @@ msgstr "Willkommen"
 #: templates/ccb/marketplace/job_offer_list.html:66
 #: templates/ccb/people/person_list.html:42
 #: templates/ccb/resources/documents/document_list.html:34
-#: templates/ccb/search/search.html:30 templates/ccb/search/search.html:168
+#: templates/ccb/search/search.html:30 templates/ccb/search/search.html:172
 msgid "Search"
 msgstr "Suche"
 
@@ -5516,8 +5531,8 @@ msgstr "Entwürfe"
 
 #: templates/ccb/blog/comments/accept_embedded.html:4
 #: templates/ccb/media_gallery/comments/accept.html:15
-#: templates/ccb/media_gallery/comments/popups/comment_accept.html:4
-#: templates/ccb/site_specific/blogs/popups/comment_accept.html:4
+#: templates/ccb/media_gallery/comments/popups/comment_accept.html:6
+#: templates/ccb/site_specific/blogs/popups/comment_accept.html:6
 msgid "Do you really want to accept this comment?"
 msgstr "Wollen Sie diesen Kommentar wirklich akzeptieren?"
 
@@ -5530,9 +5545,9 @@ msgstr "Wollen Sie diesen Kommentar wirklich akzeptieren?"
 #: templates/ccb/individual_relations/individual_relation.html:12
 #: templates/ccb/individual_relations/individual_relation_accept.html:24
 #: templates/ccb/media_gallery/comments/accept.html:22
-#: templates/ccb/media_gallery/comments/popups/comment_accept.html:10
+#: templates/ccb/media_gallery/comments/popups/comment_accept.html:12
 #: templates/ccb/media_gallery/gallery_detail/gallery_base.html:117
-#: templates/ccb/site_specific/blogs/popups/comment_accept.html:8
+#: templates/ccb/site_specific/blogs/popups/comment_accept.html:10
 msgid "Accept"
 msgstr "Annehmen"
 
@@ -5763,7 +5778,7 @@ msgid "Newsletter"
 msgstr "Newsletter"
 
 #: templates/ccb/email_campaigns/infosubscription.html:19
-#: templates/ccb/mailchimp/subscription.html:18
+#: templates/ccb/mailchimp/subscription.html:21
 msgid "newsletter registration"
 msgstr "Newsletter-Registrierung"
 
@@ -5778,7 +5793,7 @@ msgstr ""
 "selbstvertändlich jederzeit wieder abbestellen."
 
 #: templates/ccb/email_campaigns/infosubscription.html:26
-#: templates/ccb/mailchimp/subscription.html:27
+#: templates/ccb/mailchimp/subscription.html:30
 #: templates/ccb/site_specific/claim_object.html:17
 msgid "Send"
 msgstr "Senden"
@@ -6041,9 +6056,9 @@ msgstr "Es sind noch keine Bewertungen verfügbar"
 #: templates/ccb/individual_relations/lists/person_invitation.html:7
 #: templates/ccb/individual_relations/lists/person_invitation.html:11
 #: templates/ccb/institutions/institution_reviews.html:23
-#: templates/ccb/messaging/messages_list.html:215
-#: templates/ccb/messaging/messages_list.html:229
-#: templates/ccb/messaging/messages_list.html:262
+#: templates/ccb/messaging/messages_list.html:213
+#: templates/ccb/messaging/messages_list.html:227
+#: templates/ccb/messaging/messages_list.html:260
 #: templates/ccb/messaging/view_message.html:48
 #: templates/ccb/people/person_reviews.html:41
 #: templates/ccb/resources/documents/document_reviews.html:23
@@ -6379,26 +6394,23 @@ msgstr ""
 #: templates/ccb/facebook_app/sync_portfolio.html:6
 #: templates/ccb/facebook_app/sync_portfolio.html:16
 #: templates/ccb/media_gallery/create_update_gallery.html:5
-#: templates/ccb/media_gallery/create_update_gallery.html:15
+#: templates/ccb/media_gallery/create_update_gallery.html:12
 #: templates/ccb/media_gallery/manage_galleries.html:12
-#: templates/ccb/media_gallery/manage_galleries.html:23
+#: templates/ccb/media_gallery/manage_galleries.html:20
 #: templates/ccb/media_gallery/manage_gallery.html:5
-#: templates/ccb/media_gallery/manage_gallery.html:15
+#: templates/ccb/media_gallery/manage_gallery.html:12
 msgid "All projects"
 msgstr "Alle Projekte"
 
 #: templates/ccb/facebook_app/sync_portfolio.html:14
-#: templates/ccb/media_gallery/create_update_gallery.html:13
-#: templates/ccb/media_gallery/manage_galleries.html:21
-#: templates/ccb/media_gallery/manage_gallery.html:13
 msgid "Sync with Facebook"
 msgstr "Synchronisieren mit Facebook"
 
 #: templates/ccb/facebook_app/sync_portfolio.html:19
-#: templates/ccb/media_gallery/create_update_gallery.html:18
-#: templates/ccb/media_gallery/manage_galleries.html:26
-#: templates/ccb/media_gallery/manage_galleries.html:115
-#: templates/ccb/media_gallery/manage_gallery.html:18
+#: templates/ccb/media_gallery/create_update_gallery.html:15
+#: templates/ccb/media_gallery/manage_galleries.html:23
+#: templates/ccb/media_gallery/manage_galleries.html:111
+#: templates/ccb/media_gallery/manage_gallery.html:15
 msgid "Add project"
 msgstr "Projekt hinzufügen"
 
@@ -6808,7 +6820,7 @@ msgid "Average rating"
 msgstr "Durchschnittliche Bewertung"
 
 #: templates/ccb/gmap/ajax_object_list.html:46
-#: templates/ccb/search/search.html:156
+#: templates/ccb/search/search.html:160
 msgid "No results found."
 msgstr "Keine Ergebnisse gefunden."
 
@@ -7063,7 +7075,7 @@ msgstr "Neue Gruppen"
 #: templates/ccb/people/person_network.html:63
 #: templates/ccb/people/person_network.html:100
 #: templates/ccb/people/person_network.html:108
-#: templates/ccb/search/search.html:148
+#: templates/ccb/search/search.html:152
 #: templates/ccb/site_specific/blocks/block_sector_new_documents.html:26
 #: templates/ccb/site_specific/blocks/block_sector_new_events.html:26
 #: templates/ccb/site_specific/blocks/block_sector_new_groups.html:26
@@ -7187,9 +7199,9 @@ msgstr "Öffnungszeiten"
 #: templates/ccb/groups_networks/persongroups/group_invitations_list.html:49
 #: templates/ccb/messaging/messages_list.html:32
 #: templates/ccb/messaging/messages_list.html:38
-#: templates/ccb/messaging/messages_list.html:287
-#: templates/ccb/messaging/messages_list.html:293
-#: templates/ccb/search/search.html:74 templates/ccb/search/search.html:80
+#: templates/ccb/messaging/messages_list.html:285
+#: templates/ccb/messaging/messages_list.html:291
+#: templates/ccb/search/search.html:76 templates/ccb/search/search.html:82
 #: templates/ccb/site_specific/count_of.html:9
 #: templates/ccb/site_specific/count_of.html:16
 #: templates/ccb/utils/includes/pagination.html:9
@@ -7199,7 +7211,7 @@ msgstr "Zurück"
 
 #: templates/ccb/groups_networks/persongroups/group_invitations_list.html:58
 #: templates/ccb/messaging/messages_list.html:48
-#: templates/ccb/messaging/messages_list.html:303
+#: templates/ccb/messaging/messages_list.html:301
 #, python-format
 msgid ""
 "Page %(pnumber)s of\n"
@@ -7210,9 +7222,9 @@ msgstr ""
 #: templates/ccb/groups_networks/persongroups/group_invitations_list.html:76
 #: templates/ccb/messaging/messages_list.html:59
 #: templates/ccb/messaging/messages_list.html:66
-#: templates/ccb/messaging/messages_list.html:314
-#: templates/ccb/messaging/messages_list.html:321
-#: templates/ccb/search/search.html:102 templates/ccb/search/search.html:109
+#: templates/ccb/messaging/messages_list.html:312
+#: templates/ccb/messaging/messages_list.html:319
+#: templates/ccb/search/search.html:104 templates/ccb/search/search.html:111
 #: templates/ccb/site_specific/count_of.html:31
 #: templates/ccb/site_specific/count_of.html:38
 #: templates/ccb/utils/includes/pagination.html:34
@@ -7331,14 +7343,14 @@ msgstr "Einladen"
 msgid "Your message has been sent."
 msgstr "Ihre Nachricht wurde gesendet"
 
-#: templates/ccb/groups_networks/persongroups/profile/avatar.html:11
-#: templates/ccb/institutions/profile/avatar.html:11
+#: templates/ccb/groups_networks/persongroups/profile/avatar.html:8
+#: templates/ccb/institutions/profile/avatar.html:8
 #: templates/ccb/media_gallery/gallery_detail/gallery_slideshow.html:93
-#: templates/ccb/media_gallery/gallery_detail/gallery_thumbs.html:82
-#: templates/ccb/media_gallery/includes/gallery_slideshow.html:51
-#: templates/ccb/media_gallery/manage_galleries.html:91
-#: templates/ccb/media_gallery/manage_gallery.html:87
-#: templates/ccb/people/profile/avatar.html:12
+#: templates/ccb/media_gallery/gallery_detail/gallery_thumbs.html:79
+#: templates/ccb/media_gallery/includes/gallery_slideshow.html:48
+#: templates/ccb/media_gallery/manage_galleries.html:87
+#: templates/ccb/media_gallery/manage_gallery.html:84
+#: templates/ccb/people/profile/avatar.html:9
 #: templates/ccb/resources/documents/profile/avatar.html:8
 msgid "Adjust image"
 msgstr "Bild anpassen"
@@ -7767,7 +7779,7 @@ msgstr "Zahlungsmöglichkeiten"
 msgid "edit payment options"
 msgstr "Zahlungsmöglichkeiten bearbeiten"
 
-#: templates/ccb/mailchimp/subscription.html:20
+#: templates/ccb/mailchimp/subscription.html:23
 msgid ""
 "Receive the latest and greatest news about CreativeCityBerlin with "
 "subscribing to our Newsletter."
@@ -7948,21 +7960,21 @@ msgstr "Als Spam markieren"
 msgid "Refuse Comment"
 msgstr "Kommentar abweisen"
 
-#: templates/ccb/media_gallery/create_update_gallery.html:27
+#: templates/ccb/media_gallery/create_update_gallery.html:24
 msgid "Change Album"
 msgstr "Album ändern"
 
-#: templates/ccb/media_gallery/create_update_gallery.html:29
+#: templates/ccb/media_gallery/create_update_gallery.html:26
 msgid "Create Album"
 msgstr "Album erstellen"
 
-#: templates/ccb/media_gallery/create_update_gallery.html:36
-#: templates/ccb/media_gallery/create_update_gallery.html:42
+#: templates/ccb/media_gallery/create_update_gallery.html:33
+#: templates/ccb/media_gallery/create_update_gallery.html:39
 msgid "Album cover"
 msgstr "Album-Titel"
 
-#: templates/ccb/media_gallery/create_update_gallery.html:38
-#: templates/ccb/media_gallery/portfolio_settings.html:39
+#: templates/ccb/media_gallery/create_update_gallery.html:35
+#: templates/ccb/media_gallery/portfolio_settings.html:38
 msgid "Delete image"
 msgstr "Bild löschen"
 
@@ -7983,10 +7995,10 @@ msgstr "Video hochladen"
 
 #: templates/ccb/media_gallery/create_update_mediafile.html:41
 #: templates/ccb/media_gallery/create_update_mediafile.html:83
-#: templates/ccb/media_gallery/create_update_mediafile.html:118
+#: templates/ccb/media_gallery/create_update_mediafile.html:117
 #: templates/ccb/media_gallery/includes/media_file_change.html:40
 #: templates/ccb/media_gallery/includes/media_file_change.html:114
-#: templates/ccb/media_gallery/portfolio_settings.html:34
+#: templates/ccb/media_gallery/portfolio_settings.html:33
 msgid "Upload"
 msgstr "Hochladen"
 
@@ -8100,9 +8112,9 @@ msgstr ""
 
 #: templates/ccb/media_gallery/gallery_detail/gallery_listed.html:20
 #: templates/ccb/media_gallery/gallery_detail/gallery_slideshow.html:104
-#: templates/ccb/media_gallery/gallery_detail/gallery_thumbs.html:94
-#: templates/ccb/media_gallery/includes/gallery_slideshow.html:63
-#: templates/ccb/media_gallery/manage_gallery.html:111
+#: templates/ccb/media_gallery/gallery_detail/gallery_thumbs.html:91
+#: templates/ccb/media_gallery/includes/gallery_slideshow.html:60
+#: templates/ccb/media_gallery/manage_gallery.html:108
 msgid "There are no media files uploaded."
 msgstr "Es sind keine Bilder hochgeladen."
 
@@ -8188,55 +8200,55 @@ msgstr "Es gibt keine gefeatureten Galerien."
 msgid "Unpublished"
 msgstr "Entwurf"
 
-#: templates/ccb/media_gallery/manage_galleries.html:39
+#: templates/ccb/media_gallery/manage_galleries.html:36
 msgid "(title not shown in public)"
 msgstr "(Titel nicht veröffentlichen)"
 
-#: templates/ccb/media_gallery/manage_galleries.html:46
-#: templates/ccb/media_gallery/manage_galleries.html:100
-#: templates/ccb/media_gallery/manage_gallery.html:99
+#: templates/ccb/media_gallery/manage_galleries.html:43
+#: templates/ccb/media_gallery/manage_galleries.html:96
+#: templates/ccb/media_gallery/manage_gallery.html:96
 msgid "Drag"
 msgstr "Ziehen"
 
-#: templates/ccb/media_gallery/manage_galleries.html:52
+#: templates/ccb/media_gallery/manage_galleries.html:49
 msgid "Title shown in public"
 msgstr "(Titel veröffentlichen)"
 
-#: templates/ccb/media_gallery/manage_galleries.html:53
+#: templates/ccb/media_gallery/manage_galleries.html:50
 msgid "Title not shown in public"
 msgstr "(Titel nicht veröffentlichen)"
 
-#: templates/ccb/media_gallery/manage_galleries.html:62
+#: templates/ccb/media_gallery/manage_galleries.html:59
 msgid "Add album"
 msgstr "Album hinzufügen"
 
-#: templates/ccb/media_gallery/manage_gallery.html:56
+#: templates/ccb/media_gallery/manage_gallery.html:53
 msgid "Add new image"
 msgstr "Neues Bild hinzufügen"
 
-#: templates/ccb/media_gallery/manage_gallery.html:61
+#: templates/ccb/media_gallery/manage_gallery.html:58
 msgid "Add new video"
 msgstr "Neues Video hinzufügen"
 
-#: templates/ccb/media_gallery/manage_gallery.html:66
+#: templates/ccb/media_gallery/manage_gallery.html:63
 msgid "Add new audio"
 msgstr "Neues Audio hinzufügen"
 
-#: templates/ccb/media_gallery/manage_gallery.html:321
+#: templates/ccb/media_gallery/manage_gallery.html:318
 #: templates/ccb/media_gallery/portfolio_base.html:8
-#: templates/ccb/media_gallery/portfolio_base.html:73
+#: templates/ccb/media_gallery/portfolio_base.html:65
 #: templates/ccb/media_gallery/portfolio_overview.html:64
 msgid "Portfolio"
 msgstr "Portfolio"
 
 #: templates/ccb/media_gallery/pagination_footer.html:7
-#: templates/ccb/messaging/messages_list.html:332
+#: templates/ccb/messaging/messages_list.html:330
 #: templates/ccb/utils/pagination_footer.html:6
 msgid "show"
 msgstr "Zeige"
 
 #: templates/ccb/media_gallery/pagination_footer.html:14
-#: templates/ccb/messaging/messages_list.html:343
+#: templates/ccb/messaging/messages_list.html:341
 #: templates/ccb/utils/pagination_footer.html:13
 msgid "items per page"
 msgstr "Einträge pro Seite"
@@ -8252,10 +8264,6 @@ msgstr "Projekt hinzufügen"
 #: templates/ccb/media_gallery/portfolio_base.html:54
 msgid "Manage Portfolio"
 msgstr "Portfolio bearbeiten"
-
-#: templates/ccb/media_gallery/portfolio_base.html:61
-msgid "Synchronize with Facebook"
-msgstr "Synchronisieren mit Facebook"
 
 #: templates/ccb/media_gallery/portfolio_overview.html:18
 msgid "There haven't been any files uploaded yet."
@@ -8344,20 +8352,20 @@ msgstr "gelesen"
 msgid "unread"
 msgstr "nicht gelesen"
 
-#: templates/ccb/messaging/messages_list.html:210
-#: templates/ccb/messaging/messages_list.html:244
+#: templates/ccb/messaging/messages_list.html:208
+#: templates/ccb/messaging/messages_list.html:242
 #: templates/ccb/messaging/view_message.html:42
 msgid "from"
 msgstr "von"
 
-#: templates/ccb/messaging/messages_list.html:224
-#: templates/ccb/messaging/messages_list.html:239
-#: templates/ccb/messaging/messages_list.html:257
+#: templates/ccb/messaging/messages_list.html:222
+#: templates/ccb/messaging/messages_list.html:237
+#: templates/ccb/messaging/messages_list.html:255
 #: templates/ccb/messaging/view_message.html:37
 msgid "to"
 msgstr "Tour"
 
-#: templates/ccb/messaging/messages_list.html:348
+#: templates/ccb/messaging/messages_list.html:346
 msgid "There are no messages."
 msgstr "Es sind keine Nachrichten vorhanden"
 
@@ -8661,7 +8669,7 @@ msgstr "Geben Sie ein Wort zur Suche ein"
 msgid "Results"
 msgstr "Suchergebnisse"
 
-#: templates/ccb/search/search.html:91
+#: templates/ccb/search/search.html:93
 #, python-format
 msgid ""
 "Page\n"
@@ -8750,11 +8758,7 @@ msgstr "E-Mail oder Benutzername"
 msgid "Forgot?"
 msgstr "Vergessen?"
 
-#: templates/ccb/site_specific/blocks/sidebar_login.html:37
-msgid "Facebook Login"
-msgstr "Facebook Login"
-
-#: templates/ccb/site_specific/blocks/sidebar_login.html:41
+#: templates/ccb/site_specific/blocks/sidebar_login.html:38
 #, fuzzy
 #| msgid "No profile yet? <a href=\"/register/\">Register</a> for free"
 msgid ""
@@ -9164,6 +9168,15 @@ msgstr "Vorherige Seite"
 #: templates/ccb/utils/step_list.html:4
 msgid "Steps"
 msgstr ""
+
+#~ msgid "Login with Facebook"
+#~ msgstr "Login mit Facebook"
+
+#~ msgid "Synchronize with Facebook"
+#~ msgstr "Synchronisieren mit Facebook"
+
+#~ msgid "Facebook Login"
+#~ msgstr "Facebook Login"
 
 #~ msgid "Jovoto"
 #~ msgstr "Jovoto"

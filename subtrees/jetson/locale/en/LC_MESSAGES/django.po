@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-15 12:26+0200\n"
+"POT-Creation-Date: 2015-10-13 18:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -617,7 +617,7 @@ msgid "tags"
 msgstr ""
 
 #: subtrees/jetson/apps/blog/models.py:82
-#: subtrees/jetson/apps/cms_extensions/plugins/richtext/models.py:16
+#: subtrees/jetson/apps/cms_extensions/plugins/richtext/models.py:24
 #: subtrees/jetson/apps/structure/models.py:24
 #: subtrees/jetson/apps/structure/models.py:84
 #: subtrees/jetson/apps/structure/models.py:143
@@ -1334,8 +1334,8 @@ msgstr ""
 #: subtrees/jetson/apps/comments/views/comments.py:519
 #: subtrees/jetson/apps/events/forms.py:894
 #: subtrees/jetson/apps/events/forms.py:900
-#: subtrees/jetson/apps/utils/views.py:890
-#: subtrees/jetson/apps/utils/views.py:950
+#: subtrees/jetson/apps/utils/views.py:898
+#: subtrees/jetson/apps/utils/views.py:958
 #: subtrees/jetson/templates/admin/admin/cms/page/permissions.html:46
 #: subtrees/jetson/templates/admin/rosetta/languages.html:33
 #: subtrees/jetson/templates/admin/rosetta/pofile.html:50
@@ -4037,13 +4037,13 @@ msgstr ""
 msgid "First name is required"
 msgstr ""
 
-#: subtrees/jetson/apps/groups_networks/forms.py:910
+#: subtrees/jetson/apps/groups_networks/forms.py:912
 #: subtrees/jetson/templates/default/groups_networks/institution_invitation.html:13
 #: subtrees/jetson/templates/default/groups_networks/institution_invitation.html:32
 msgid "People to Invite"
 msgstr ""
 
-#: subtrees/jetson/apps/groups_networks/forms.py:915
+#: subtrees/jetson/apps/groups_networks/forms.py:917
 msgid "Confirm Data"
 msgstr ""
 
@@ -4088,7 +4088,7 @@ msgstr ""
 
 #: subtrees/jetson/apps/history/models.py:26
 #: subtrees/jetson/templates/admin/admin/index.html:55
-#: subtrees/jetson/templates/admin/filebrowser/include/filelisting.html:138
+#: subtrees/jetson/templates/admin/filebrowser/include/filelisting.html:137
 #: subtrees/jetson/templates/default/media_gallery/includes/gallery_slideshow.html:35
 #: subtrees/jetson/templates/default/notification/settings.html:42
 msgid "Change"
@@ -7071,7 +7071,7 @@ msgstr ""
 msgid "default"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/views.py:51
+#: subtrees/jetson/apps/notification/views.py:53
 msgid "How often should the email be sent?"
 msgstr ""
 
@@ -8093,16 +8093,16 @@ msgstr ""
 msgid "December"
 msgstr ""
 
-#: subtrees/jetson/apps/utils/views.py:534
+#: subtrees/jetson/apps/utils/views.py:542
 msgid ""
 "There are errors in this form. Please correct them and try to save again."
 msgstr ""
 
-#: subtrees/jetson/apps/utils/views.py:916
+#: subtrees/jetson/apps/utils/views.py:924
 msgid "0-9"
 msgstr ""
 
-#: subtrees/jetson/apps/utils/views.py:951
+#: subtrees/jetson/apps/utils/views.py:959
 msgid "Topical"
 msgstr ""
 
