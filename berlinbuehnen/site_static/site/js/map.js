@@ -39,11 +39,11 @@
         
         
         var window_width = me.$window.width() + 30;
-        if (window_width > 400) window_width = 400;
+        if (window_width > 430) window_width = 410;
         
         me.$sidebar.css('max-width', window_width + "px");
         
-        var buttons_margin = (400 - window_width + 52) * (-1);
+        var buttons_margin = (410 - window_width + 52) * (-1);
         me.$buttons.css('left', buttons_margin + "px");
     }
     

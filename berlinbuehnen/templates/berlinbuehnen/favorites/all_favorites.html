@@ -112,7 +112,15 @@
                                         {% endif %}
                                     </span>
 
-                                    {% if production.organizers %}<h4>{{ production.organizers }}</h4>{% endif %}
+                                    {% if production.play_stages.exists %}
+                                        <h4>{% for stage in production.play_stages.all %}<span>{{ stage.title }}</span>{% endfor %}</h4>
+                                    {% elif production.location_title %}
+                                        <h4>{{ production.location_title }}</h4>
+                                    {% elif production.play_locations.exists %}
+                                        <h4>{% for stage in production.play_locations.all %}<span>{{ stage.title }}</span>{% endfor %}</h4>
+                                    {% elif production.in_program_of.exists %}
+                                        <h4>{% for stage in production.in_program_of.all %}<span>{{ stage.title }}</span>{% endfor %}</h4>
+                                    {% endif %}
                                     {% if production.title %}<h2>{{ production.title }}</h2>{% endif %}
                                     {% if production.subtitle %}<h3>{{ production.subtitle }}</h3>{% endif %}
                                     {% if production.teaser %}
@@ -142,9 +150,9 @@
                                         {% endif %}
                                         {% if request.user.is_authenticated %}
                                             {% adding2favorites for festival using "favorites/includes/favorite_grid.html" %}
-                                        {% endif %}
+                                        {% endif %} 
                                     </span>
-                                    {% if festival.organizers.all %}<h4><span>{% for organizer in festival.organizers.all %}{{ organizer }}{% endfor %}</span></h4>{% endif %}
+                                    {% if festival.organizers.all %}<h4>{% for organizer in festival.organizers.all %}<span>{{ organizer }}</span>{% endfor %}</h4>{% endif %}
                                     {% if festival.title %}<h2>{{ festival.title }}</h2>{% endif %}
                                     {% if festival.subtitle %}<h3>{{ festival.subtitle }}</h3>{% endif %}
                                     {% if festival.start %}
@@ -183,6 +191,7 @@
                                         {% endwith %}
                                     </span>
 
+                                    {% if project.get_first_department %}<h4>{{ project.get_first_department.title }}</h4>{% endif %}
                                     {% if project.title %}<h2>{{ project.title }}</h2>{% endif %}
                                     {% if project.subtitle %}<h3>{{ project.subtitle }}</h3>{% endif %}
                                     {% if project.teaser %}
