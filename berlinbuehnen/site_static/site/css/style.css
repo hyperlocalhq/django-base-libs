@@ -2371,13 +2371,14 @@ span.pin a { position: absolute !important; top: 6px; right: 6px; cursor: pointe
 .gmap .gmap-wrapper #gmap { width: 100%; height: 100%; }
 .gmap.is-sm #body { margin-top: 20px; }
 .gmap.is-xs #body { margin-top: 10px; }
+.gmap.is-xs #map-sidebar-wrapper #map-sidebar #map-description { margin-left: 20px; padding-right: 40px; padding-top: 20px; }
 .gmap .gmap-wrapper { position: relative; }
-.gmap #map-sidebar-wrapper { position: absolute; top: 0; right: 0px; max-width: 400px; width: 100%; height: 100%; background: white; border: 1px solid #eee; -webkit-transition: right 0.5s; transition: right 0.5s; }
-.gmap #map-sidebar-wrapper #map-sidebar { padding-bottom: 90px; margin-top: 90px; height: 100%; }
+.gmap #map-sidebar-wrapper { position: absolute; top: 0; right: 0px; max-width: 410px; width: 100%; height: 100%; background: white; border: 1px solid #eee; -webkit-transition: right 0.5s; transition: right 0.5s; }
+.gmap #map-sidebar-wrapper #map-sidebar { height: 100%; }
 .gmap #map-sidebar-wrapper #map-sidebar #map-buttons-overflow { width: 50px; position: absolute; top: -1px; left: -52px; }
 .gmap #map-sidebar-wrapper #map-sidebar #map-buttons-overflow #map-buttons-wrapper .btn { padding: 0; margin-bottom: 1px; }
 .gmap #map-sidebar-wrapper #map-sidebar #map-buttons-overflow #map-buttons-wrapper .btn:before { line-height: 50px; padding: 0; }
-.gmap #map-sidebar-wrapper #map-sidebar #map-description { margin-right: 30px; margin-left: 30px; padding-right: 30px; height: 100%; overflow: scroll; overflow-x: hidden; overflow-y: scroll; }
+.gmap #map-sidebar-wrapper #map-sidebar #map-description { margin-right: 30px; margin-left: 30px; padding-right: 40px; padding-top: 30px; height: 100%; overflow: scroll; overflow-x: hidden; overflow-y: scroll; }
 .gmap #map-sidebar-wrapper #map-sidebar #map-description .map-description-content { padding-bottom: 20px; margin-bottom: 20px; border-bottom: 1px solid #ddd; }
 .gmap #map-sidebar-wrapper #map-sidebar #map-description .map-description-content:last-child { margin: 0; border-bottom: none; }
 .gmap #map-sidebar-wrapper #map-sidebar #map-description img { width: 100%; margin-bottom: 20px; }
@@ -2386,9 +2387,9 @@ span.pin a { position: absolute !important; top: 6px; right: 6px; cursor: pointe
 .gmap #map-sidebar-wrapper #map-sidebar #map-description .copy { margin-bottom: 20px; }
 .gmap #map-sidebar-wrapper #map-sidebar #map-description .address { margin-bottom: 20px; }
 .gmap #map-sidebar-wrapper #map-sidebar #map-description .more { margin-top: 10px; }
-.gmap #map-sidebar-wrapper #map-sidebar #cancel-description { position: absolute; right: 30px; top: 0px; padding: 0; margin-bottom: 1px; }
+.gmap #map-sidebar-wrapper #map-sidebar #cancel-description { position: absolute; right: 30px; top: 0px; padding: 0; margin-bottom: 1px; background-color: #eee; }
 .gmap #map-sidebar-wrapper #map-sidebar #cancel-description:before { line-height: 50px; padding: 0; }
-.gmap.map-only #map-sidebar-wrapper { right: -370px; }
+.gmap.map-only #map-sidebar-wrapper { right: -380px; }
 
 html { height: 100%; }
 
