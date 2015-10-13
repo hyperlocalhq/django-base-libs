@@ -12,8 +12,8 @@
                     {% ifequal message.sender request.user %}
                         <a href="{{ message.recipient.get_profile.get_url_path }}">
                             {% if message.recipient.get_profile.image %}
-                                <img alt="{{ message.recipient.get_profile.get_title|escape }}" src="
-                                        {{ UPLOADS_URL }}{{ message.recipient.get_profile.image|modified_path:"at" }}"/>
+                                <img alt="{{ message.recipient.get_profile.get_title|escape }}"
+                                    src="{{ UPLOADS_URL }}{{ message.recipient.get_profile.image|modified_path:"at" }}"/>
                             {% else %}
                                 <img alt="{{ person.get_title|escape }}" src="{{ DEFAULT_SMALL_LOGO_4_PERSON }}"/>
                             {% endif %}

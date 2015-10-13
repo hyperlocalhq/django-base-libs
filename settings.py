@@ -120,11 +120,12 @@ INSTALLED_APPS = [
     'djangocms_teaser',
     'djangocms_video',
 
-    ### jetson plug-ins for django-cms ###
+    ### plug-ins for django-cms ###
     "jetson.apps.cms_extensions.plugins.richtext",
     "jetson.apps.cms_extensions.plugins.filebrowser_image",
     "jetson.apps.cms_extensions.plugins.gmap",
     "jetson.apps.cms_extensions.plugins.headline",
+    "ccb.apps.editorial",
 
     ### base libs ###
     # "base_libs",

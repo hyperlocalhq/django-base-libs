@@ -78,10 +78,10 @@
                 {% endif %}
             <li class="image_container {% cycle "" "" "" "" "" "last-in-row" %}">
                 <a href="#file_{{ f.get_token }}">
-                    <img width="88" height="88" src="
-
-
-                        {{ f.get_thumbnail_url }}{% if permission_name %}{% if_has_perm permission_name object %}?now={% now "YmdHis" %}{% end_if_has_perm %}{% endif %}"
+                    <img
+                        width="88"
+                        height="88"
+                        src="{{ f.get_thumbnail_url }}{% if permission_name %}{% if_has_perm permission_name object %}?now={% now "YmdHis" %}{% end_if_has_perm %}{% endif %}"
                         alt="{{ f.title|escape }}"
                         title="{{ f.get_file_type_display }}. {{ f.title|escape }}"/>
                 </a>
