@@ -66,10 +66,7 @@
                 {% endif %}
             <li class="image_container">
                 <a href="#file_{{ f.id }}">
-                    <img src="
-
-
-                        {{ f.get_thumbnail_url }}{% if permission_name %}{% if_has_perm permission_name object %}?now={% now "YmdHis" %}{% end_if_has_perm %}{% endif %}"
+                    <img src="{{ f.get_thumbnail_url }}{% if permission_name %}{% if_has_perm permission_name object %}?now={% now "YmdHis" %}{% end_if_has_perm %}{% endif %}"
                         alt="{{ f.title|escape }}"
                         title="{{ f.get_file_type_display }}. {{ f.title|escape }}"/>
                 </a>

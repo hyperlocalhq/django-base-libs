@@ -118,8 +118,7 @@
 
             <!-- FOLDER -->
             {% if query.q and settings_var.SEARCH_TRAVERSE %}
-                <td><a href="
-                    {% url 'filebrowser:fb_browse' %}{% query_string "" "dir,p" %}&amp;dir={{ fileobject.folder|urlencode }}"><strong>{{ fileobject.folder }}</strong></a>
+                <td><a href="{% url 'filebrowser:fb_browse' %}{% query_string "" "dir,p" %}&amp;dir={{ fileobject.folder|urlencode }}"><strong>{{ fileobject.folder }}</strong></a>
                 </td>
             {% endif %}
 

@@ -66,10 +66,9 @@
                         <div class="gallery {% if gallery.status %}published{% else %}draft{% endif %}"
                             id="gallery_{{ gallery.get_token }}">
                             {% if gallery.cover_image %}
-                                <img width="75" height="75" src="
-
-
-                                    {{ UPLOADS_URL }}{{ gallery.cover_image.path|modified_path:"gt" }}?now={% now "YmdHi" %}"
+                                <img width="75"
+                                    height="75"
+                                    src="{{ UPLOADS_URL }}{{ gallery.cover_image.path|modified_path:"gt" }}?now={% now "YmdHi" %}"
                                     alt=""/>
                             {% else %}
                                 {% if gallery.mediafile_set.count %}

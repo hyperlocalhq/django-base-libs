@@ -14,8 +14,7 @@
                     <ul>
                         <li class="preview_img">
                             {% if portfolio_settings.landing_page_image %}
-                                <img src="
-                                        {{ UPLOADS_URL }}{{ portfolio_settings.landing_page_image|modified_path:"gp" }}"
+                                <img src="{{ UPLOADS_URL }}{{ portfolio_settings.landing_page_image|modified_path:"gp" }}"
                                     alt="{% trans "Image for landing page" %}"/>
                             {% else %}
                                 <img src="{{ STATIC_URL }}site/img/website/placeholder/upload_image.png"
