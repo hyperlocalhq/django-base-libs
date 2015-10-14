@@ -37,6 +37,10 @@
                 <span>{% trans "Districts" %}</span>
             </label>
 
+            <a href="{% url 'location_list_map' %}" class="filter-option col-xs-6 col-sm-4 col-md-3">
+                <span>{% trans "City Map" %}</span>
+            </a>
+
             {% comment %}
                 <label type="button" class="filter-option col-xs-6 col-sm-4 col-md-3" data-parent="#main-filter-suboptions" data-toggle="collapse" data-target="#filter-smartlists">
                     <input type="radio" name="options" id="filter-toggle-services">

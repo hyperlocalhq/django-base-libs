@@ -67,7 +67,7 @@ strong { font-weight: 700; }
 
 .fawesome.linkedin:before { content: "\f0e1"; }
 
-.fawesome.map:before { content: "\f041"; }
+.fawesome.map:before { content: "\f041"; font-size: 24px; line-height: 0.88; }
 
 .fawesome.pinterest:before { content: "\f231"; }
 
@@ -1830,7 +1830,7 @@ select { visibility: hidden; }
 .details a.button { display: inline-block; height: 30px; color: white; text-transform: uppercase; background: #4583c8; padding: 5px 40px; font-weight: 700; font-size: 1em; }
 .details a.button:hover { color: white; }
 
-#location.details header h1, #job_offer.details header h1 { margin-right: 30px; }
+#location.details header h1, #job_offer.details header h1 { margin-right: 60px; }
 #location.details header .header-icons, #job_offer.details header .header-icons { top: 9px; }
 
 #job_offer.details .main .description { margin-bottom: 30px; }
@@ -2209,15 +2209,15 @@ body.is-xs .grid .grid-item button.favorite:before { padding-left: 0; }
 .filter-wrapper .filter-space .filter .filter-options-wrapper h4 { text-transform: uppercase; font-size: 1em; margin-bottom: 20px; }
 .filter-wrapper .filter-space .filter .filter-options-wrapper .panel { margin: 0; }
 .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options { display: block; }
-.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options label { padding: 0 15px; margin-bottom: 15px; }
-.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options label input { display: none; }
-.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options label span { display: block; border-bottom: 2px solid black; text-transform: uppercase; font-size: 0.875em; font-weight: 700; cursor: pointer; }
-.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options label.active { color: #4583c8; }
-.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options label.active.collapsed { color: black; }
-.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options label.active.collapsed:hover { color: #4583c8; }
-.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options label:hover { color: #4583c8; }
-.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options label a { display: block; border-bottom: 2px solid black; text-transform: uppercase; font-size: 0.875em; font-weight: 700; color: black; }
-.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options label a:hover { color: #4583c8; }
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option { padding: 0 15px; margin-bottom: 15px; color: black; cursor: default; }
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option input { display: none; }
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option span { display: block; border-bottom: 2px solid black; text-transform: uppercase; font-size: 0.875em; font-weight: 700; cursor: pointer; }
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option.active { color: #4583c8; }
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option.active.collapsed { color: black; }
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option.active.collapsed:hover { color: #4583c8; }
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option:hover { color: #4583c8; }
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option a { display: block; border-bottom: 2px solid black; text-transform: uppercase; font-size: 0.875em; font-weight: 700; color: black; }
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option a:hover { color: #4583c8; }
 .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-suboptions { padding: 0 15px; margin-top: 10px; margin-bottom: 40px; font-size: 0.875em; }
 .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-suboptions h5 { color: #4583c8; text-transform: uppercase; border-bottom: 2px solid black; padding-bottom: 10px; margin-bottom: 6px; }
 .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-suboptions ul { list-style: none; margin: 0 -10px; }

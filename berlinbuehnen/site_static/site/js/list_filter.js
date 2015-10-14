@@ -119,6 +119,11 @@
      */
     Filter.prototype.onLinkClicked = function(event) {
         
+        if ($(event.delegateTarget).hasClass('filter-option')) {
+            location.href = $(event.delegateTarget).attr('href');   
+            return true;
+        }
+        
         if (this.me) var me = this.me;
         if (!me.$list.length) return true;
         
