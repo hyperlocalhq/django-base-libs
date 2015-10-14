@@ -48,17 +48,17 @@
                 <div class="meta_tools">
                     <span class="add-media"></span>
                     <a class="add-mediafile add_image"
-                        href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/add/image/"
+                        href="/{{ LANGUAGE_CODE }}{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/add/image/"
                         >
                         <span><span>{% trans "Add new image" %}</span></span>
                     </a>
                     <a class="add-mediafile add_video"
-                        href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/add/video/"
+                        href="/{{ LANGUAGE_CODE }}{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/add/video/"
                         >
                         <span><span>{% trans "Add new video" %}</span></span>
                     </a>
                     <a class="add-mediafile add_audio"
-                        href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/add/audio/"
+                        href="/{{ LANGUAGE_CODE }}{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/add/audio/"
                         >
                         <span><span>{% trans "Add new audio" %}</span></span>
                     </a>
