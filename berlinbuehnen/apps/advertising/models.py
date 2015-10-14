@@ -23,16 +23,21 @@ from berlinbuehnen.apps.advertising.managers import AdManager
 
 from filebrowser.fields import FileBrowseField
 
-
-# Use a datetime a few days before the max to that timezone changes don't
-# cause an OverflowError.
-MAX_DATETIME = datetime.datetime.max - datetime.timedelta(days=2)
 try:
     from django.utils.timezone import now, make_aware, utc
 except ImportError:
     now = datetime.datetime.now
-else:
-    MAX_DATETIME = make_aware(MAX_DATETIME, utc)
+
+# Use a datetime a few days before the max to that timezone changes don't
+# cause an OverflowError.
+# MAX_DATETIME = datetime.datetime.max - datetime.timedelta(days=2)
+# try:
+#     from django.utils.timezone import now, make_aware, utc
+# except ImportError:
+#     now = datetime.datetime.now
+# else:
+#     MAX_DATETIME = make_aware(MAX_DATETIME, utc)
+MAX_DATETIME = datetime.datetime(2016, 12, 31)
 
 
 class Advertiser(models.Model):
