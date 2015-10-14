@@ -113,28 +113,20 @@ def register(request, *arguments, **keywords):
     request.session.session_id = m.hexdigest()[:20]
     redirect_to = request.REQUEST.get(settings.REDIRECT_FIELD_NAME, '')
     site_settings = SiteSettings.objects.get_current()
-    if site_settings.registration_type == "advanced":
-        extra_context = {
-            settings.REDIRECT_FIELD_NAME: redirect_to,
-            'site_name': Site.objects.get_current().name,
-            'login_by_email': site_settings.login_by_email,
-        }
-        return show_form_step(request, REGISTRATION_FORM_STEPS, extra_context)
+    if request.method == "POST":
+        form = SimpleRegistrationForm(request, request.POST, request.FILES)
+        if form.is_valid():
+            user = form.save()
+            return HttpResponseRedirect('/register/done/')
     else:
-        if request.method == "POST":
-            form = SimpleRegistrationForm(request, request.POST, request.FILES)
-            if form.is_valid():
-                user = form.save()
-                return HttpResponseRedirect('/register/done/')
-        else:
-            form = SimpleRegistrationForm(request)
-        request.session.set_test_cookie()
-        return render_to_response('accounts/register.html' ,{
-            'form': form,
-            settings.REDIRECT_FIELD_NAME: redirect_to,
-            'site_name': Site.objects.get_current().name,
-            'login_by_email': site_settings.login_by_email,
-        }, context_instance=RequestContext(request))
+        form = SimpleRegistrationForm(request)
+    request.session.set_test_cookie()
+    return render_to_response('accounts/register.html' ,{
+        'form': form,
+        settings.REDIRECT_FIELD_NAME: redirect_to,
+        'site_name': Site.objects.get_current().name,
+        'login_by_email': site_settings.login_by_email,
+    }, context_instance=RequestContext(request))
 
 @never_cache
 def confirm_registration(request, encrypted_email):

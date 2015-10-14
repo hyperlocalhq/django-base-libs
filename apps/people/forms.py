@@ -9,6 +9,7 @@ from jetson.apps.people.forms import SimpleRegistrationForm as SimpleRegistratio
 from jetson.apps.mailchimp.models import MList
 from jetson.apps.mailchimp.models import Subscription
 from jetson.apps.mailchimp.models import Settings
+from ccb.apps.people.models import Prefix
 from base_libs.forms import dynamicforms
 
 
@@ -46,6 +47,8 @@ class SimpleRegistrationForm(SimpleRegistrationFormBase):
                 required=False,
             )
             self.newsletter_fields.append(("newsletter_%s" % ml.pk, f))
+
+
 
     def clean(self):
         super(SimpleRegistrationForm, self).clean()
@@ -283,8 +286,8 @@ class Registration:  # Namespace
             suggested = get_unique_value(
                 User,
                 username or slugify("_".join((
-                    cleaned_data['first_name'],
-                    cleaned_data['last_name'],
+                    self.cleaned_data['first_name'],
+                    self.cleaned_data['last_name'],
                 ))).replace("-", "_"),
                 field_name="username",
                 separator="_",
@@ -595,7 +598,7 @@ class Registration:  # Namespace
             return True
 
         def __init__(self, *args, **kwargs):
-            super(PersonCategories, self).__init__(*args, **kwargs)
+            super(Registration.PersonCategories, self).__init__(*args, **kwargs)
 
             self.creative_sectors = {}
             for item in get_related_queryset(Person, "creative_sectors"):
@@ -683,7 +686,7 @@ class Registration:  # Namespace
             return True
 
         def __init__(self, *args, **kwargs):
-            super(InstitutionCategories, self).__init__(*args, **kwargs)
+            super(Registration.InstitutionCategories, self).__init__(*args, **kwargs)
 
             self.creative_sectors = {}
             for item in get_related_queryset(Institution, "creative_sectors"):
@@ -1068,8 +1071,8 @@ class Registration:  # Namespace
             suggested = get_unique_value(
                 User,
                 username or slugify("_".join((
-                    cleaned_data['first_name'],
-                    cleaned_data['last_name'],
+                    self.cleaned_data['first_name'],
+                    self.cleaned_data['last_name'],
                 ))).replace("-", "_"),
                 field_name="username",
                 separator="_",

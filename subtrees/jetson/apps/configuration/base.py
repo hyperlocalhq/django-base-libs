@@ -15,11 +15,6 @@ from base_libs.models.fields import MultilingualCharField # for south to work
 
 verbose_name = _("Configuration")
 
-ACCOUNT_REGISTRATION_TYPES = (
-    ('simple', _("Simple")),
-    ('advanced', _("Advanced")),
-)
-
 class SiteSettingsManager(models.Manager):
     def get_current(self):
         site = Site.objects.get_current()
@@ -28,7 +23,6 @@ class SiteSettingsManager(models.Manager):
         
 class SiteSettingsBase(MetaTagsMixin):
     site = models.ForeignKey(Site, verbose_name=_("Site"), unique=True)
-    registration_type = models.CharField(_("Registration type"), max_length=10, choices=ACCOUNT_REGISTRATION_TYPES, default="simple")
     login_by_email = models.BooleanField(_("Login by email"), default=False)
     
     extra_head = PlainTextModelField(_("Extra head"), help_text=_("Third-party code snippets to be added to the end of the HEAD section."), blank=True)

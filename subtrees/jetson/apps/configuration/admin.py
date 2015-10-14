@@ -10,7 +10,7 @@ class SiteSettingsOptions(admin.ModelAdmin):
     list_display = ('get_site_name','__unicode__',)
     
     fieldsets = (
-        (None, {'fields': ("site", "registration_type", "login_by_email")}),
+        (None, {'fields': ("site", "login_by_email")}),
         )
     
     fieldsets += MetaTagsMixinAdminOptions.fieldsets
