@@ -2,7 +2,7 @@
 
 {% with object as location %}
     
-    <div class="map-description-content">
+    <a class="map-description-content"  href="{{ location.get_url_path }}">
         
         {% if location.first_image %}
             <img src="{{ MEDIA_URL }}{{ location.first_image.path|modified_path:"detail_image" }}{% if_has_perm "location.change_location" location %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ location.title|escape }}" />
@@ -25,8 +25,8 @@
             {% if location.city %}{{ location.postal_code }} {{ location.city }}<br />{% endif %}
         </p>
 
-        <a class="btn btn-default more" href="{{ location.get_url_path }}">{% trans "more" %}</a>
+        <span class="btn btn-default more">{% trans "more" %}</span>
         
-    </div>
+    </a>
     
 {% endwith %}

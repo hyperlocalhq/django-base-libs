@@ -2379,14 +2379,14 @@ span.pin a { position: absolute !important; top: 6px; right: 6px; cursor: pointe
 .gmap #map-sidebar-wrapper #map-sidebar #map-buttons-overflow #map-buttons-wrapper .btn { padding: 0; margin-bottom: 1px; }
 .gmap #map-sidebar-wrapper #map-sidebar #map-buttons-overflow #map-buttons-wrapper .btn:before { line-height: 50px; padding: 0; }
 .gmap #map-sidebar-wrapper #map-sidebar #map-description { margin-right: 30px; margin-left: 30px; padding-right: 40px; padding-top: 30px; height: 100%; overflow: scroll; overflow-x: hidden; overflow-y: scroll; }
-.gmap #map-sidebar-wrapper #map-sidebar #map-description .map-description-content { padding-bottom: 20px; margin-bottom: 20px; border-bottom: 1px solid #ddd; }
+.gmap #map-sidebar-wrapper #map-sidebar #map-description .map-description-content { display: block; padding-bottom: 20px; margin-bottom: 20px; border-bottom: 1px solid #ddd; color: black; cursor: default; }
 .gmap #map-sidebar-wrapper #map-sidebar #map-description .map-description-content:last-child { margin: 0; border-bottom: none; }
 .gmap #map-sidebar-wrapper #map-sidebar #map-description img { width: 100%; margin-bottom: 20px; }
 .gmap #map-sidebar-wrapper #map-sidebar #map-description h1 { margin-bottom: 20px; }
 .gmap #map-sidebar-wrapper #map-sidebar #map-description h2 { margin-top: -15px; margin-bottom: 20px; font-size: 1em; }
 .gmap #map-sidebar-wrapper #map-sidebar #map-description .copy { margin-bottom: 20px; }
 .gmap #map-sidebar-wrapper #map-sidebar #map-description .address { margin-bottom: 20px; }
-.gmap #map-sidebar-wrapper #map-sidebar #map-description .more { margin-top: 10px; }
+.gmap #map-sidebar-wrapper #map-sidebar #map-description .more { margin-top: 10px; cursor: pointer; }
 .gmap #map-sidebar-wrapper #map-sidebar #cancel-description { position: absolute; right: 30px; top: 0px; padding: 0; margin-bottom: 1px; background-color: #eee; }
 .gmap #map-sidebar-wrapper #map-sidebar #cancel-description:before { line-height: 50px; padding: 0; }
 .gmap.map-only #map-sidebar-wrapper { right: -380px; }
