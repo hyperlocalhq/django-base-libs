@@ -194,6 +194,7 @@ MIDDLEWARE_CLASSES = [
     "django.contrib.admindocs.middleware.XViewMiddleware",
     "jetson.apps.utils.middleware.generic.AdminScriptUpdateMiddleware",
     "django.contrib.redirects.middleware.RedirectFallbackMiddleware",
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
