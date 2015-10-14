@@ -16,11 +16,13 @@
 {% endblock %}
 
 {% block content %}
-    <form action="" class="uniForm" method="post">
+    <form action="" class="uniForm" method="post">{% csrf_token %}
         <fieldset class="inlineLabels">
             {% include "site_specific/categories/categories.html" %}
-            <p class="disclaimer">    
-                {% blocktrans %}Is some category missing? You can <a href="/ticket/new-category/">suggest it here</a>.{% endblocktrans %}
+            <p class="disclaimer">
+                {% blocktrans %}Is some category missing? You can
+                    <a href="/ticket/new-category/">suggest it here</a>
+                    .{% endblocktrans %}
             </p>
             {% include "utils/step_buttons_reg.html" %}
         </fieldset>
@@ -30,7 +32,8 @@
 {% block breadcrumbs %}
     <div class="breadcrumbs">
         <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_INSTITUTIONS }}/">{% trans "Institutions" %}</a>
+        <span class="b-sep"><span>::</span></span>
+        <a href="/{{ URL_ID_INSTITUTIONS }}/">{% trans "Institutions" %}</a>
         <span class="b-sep"><span>::</span></span><span>{% trans "Add new institution" %}</span>
     </div>
 {% endblock %}

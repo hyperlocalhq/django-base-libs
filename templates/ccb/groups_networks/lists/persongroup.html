@@ -4,9 +4,10 @@
 {% block object_image %}
     <a href="{{ person.get_url_path }}">
         {% if persongroup.image %}
-            <img alt="{{ person.get_title|escape }}" src="{{ UPLOADS_URL }}{{ persongroup.image|modified_path:"al" }}" />
+            <img alt="{{ person.get_title|escape }}" src="{{ UPLOADS_URL }}{{ persongroup.image|modified_path:"al" }}"/>
         {% else %}
-            <img alt="{{ person.get_title|escape }}" src="{{ STATIC_URL }}site/img/website/placeholder/persongroup_m.png" />
+            <img alt="{{ person.get_title|escape }}"
+                src="{{ STATIC_URL }}site/img/website/placeholder/persongroup_m.png"/>
         {% endif %}
     </a>
 {% endblock %}
@@ -39,14 +40,15 @@
         {% endif %}
     </div>
     {% if persongroup.get_description %}
-        {% with persongroup.get_description|striptags|truncatewords:"60" as filtered_desc %}{% with filtered_desc|truncatewords:"40" as shortened_desc %}
-            <p class="description hidable">{{ shortened_desc }}
-                {% ifnotequal shortened_desc filtered_desc %}
-                <a href="{{ group.get_url_path }}">{% trans "read more" %}</a>
-                {% endifnotequal %}
-            </p>
-        {% endwith %}{% endwith %}
-    {% endif %}	
+        {% with persongroup.get_description|striptags|truncatewords:"60" as filtered_desc %}
+            {% with filtered_desc|truncatewords:"40" as shortened_desc %}
+                <p class="description hidable">{{ shortened_desc }}
+                    {% ifnotequal shortened_desc filtered_desc %}
+                        <a href="{{ group.get_url_path }}">{% trans "read more" %}</a>
+                    {% endifnotequal %}
+                </p>
+            {% endwith %}{% endwith %}
+    {% endif %}
 {% endblock %}
 
 {% block object_controls %}

@@ -14,34 +14,37 @@
 {% block sidebar-b %}{% endblock %}
 
 {% block content %}
-<div class="reg">
-    <form action="" class="uniForm" method="post">
-        <fieldset class="inlineLabels">
-            {% include "site_specific/categories/categories.html" %}
-            <div id="message_suggest">
-                <div class="message_suggest_category">
-                    {% blocktrans %}Is some category missing? You can <a href="/ticket/new-category/">suggest it here</a>.{% endblocktrans %}
+    <div class="reg">
+        <form action="" class="uniForm" method="post">{% csrf_token %}
+            <fieldset class="inlineLabels">
+                {% include "site_specific/categories/categories.html" %}
+                <div id="message_suggest">
+                    <div class="message_suggest_category">
+                        {% blocktrans %}Is some category missing? You can
+                            <a href="/ticket/new-category/">suggest it here</a>.{% endblocktrans %}
+                    </div>
                 </div>
-            </div>
-            <h3>{% trans "Tagging" %}</h3>
-            {{ form.tags|as_uni_field }}
+                <h3>{% trans "Tagging" %}</h3>
+                {{ form.tags|as_uni_field }}
 
-            {% include "utils/step_buttons_reg.html" %}
-        </fieldset>
-    </form>
-</div>
+                {% include "utils/step_buttons_reg.html" %}
+            </fieldset>
+        </form>
+    </div>
 {% endblock %}
 
 {% block breadcrumbs %}
     <div class="breadcrumbs">
         <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_EVENTS }}/">{% trans "Events" %}</a>
+        <span class="b-sep"><span>::</span></span>
+        <a href="/{{ URL_ID_EVENTS }}/">{% trans "Events" %}</a>
         <span class="b-sep"><span>::</span></span><span>{% trans "Add new event" %}</span>
     </div>
 {% endblock %}
 
 {% block extrabody %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/categories.js"></script>
-	<script type="text/javascript" src="{{ jetson_media_url }}js/jquery/jquery-autocomplete/jquery.autocomplete.js"></script>	
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/categories.js"></script>
+    <script type="text/javascript"
+        src="{{ jetson_media_url }}js/jquery/jquery-autocomplete/jquery.autocomplete.js"></script>
 {% endblock %}
 

@@ -2,15 +2,15 @@
 {% load i18n base_tags nav_menu %}
 
 {% block extrahead %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
 {% endblock %}
 
 
 {% block title %}{% trans "Marketplace" %}{% endblock %}
 
 {% block headline %}
-	<h1>{% trans "Marketplace" %}</h1>
-{% endblock %}			
+    <h1>{% trans "Marketplace" %}</h1>
+{% endblock %}
 
 
 {% block content %}
@@ -18,7 +18,7 @@
         {% include "utils/includes/sorting_and_pagination.html" %}
         {% include "site_specific/context_item_list.html" %}
         {% include "utils/includes/sorting_and_pagination.html" %}
-     {% else %}
+    {% else %}
         <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>
     {% endif %}
 {% endblock %}

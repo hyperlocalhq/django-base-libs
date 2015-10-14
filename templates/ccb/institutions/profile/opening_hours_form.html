@@ -1,21 +1,25 @@
 {% load i18n base_tags auth_extended uni_form_tags %}
 <div class="profile_infos">
     <h5 class="edit_subline">{% trans "Opening Hours Edit" %}</h5>
+
     <div class="field_layout">
-        <form action="/helper/edit-{{ URL_ID_INSTITUTION }}-profile/{{ object.slug }}/opening_hours/" method="post" enctype="multipart/form-data" target="hidden_iframe" class="uniForm">
-           <fieldset class="inlineLabels">
+        <form action="/helper/edit-{{ URL_ID_INSTITUTION }}-profile/{{ object.slug }}/opening_hours/" method="post"
+            enctype="multipart/form-data" target="hidden_iframe" class="uniForm">{% csrf_token %}
+            <fieldset class="inlineLabels">
                 <h3>{% trans "Opening Time" %} - {% trans "Closing Time" %}</h3>
-              
+
                 {% include "uni_form/includes/opening_hours.html" %}
-                
+
                 {{ form.exceptions_de|as_uni_field }}
                 {{ form.exceptions_en|as_uni_field }}
                 {{ form.is_appointment_based|as_uni_field }}
                 <div class="buttonHolder">
-                    <input type="submit" class="primaryAction" value="{% filter upper %}{% trans "Save" %}{% endfilter %}" />
-                    <input type="button" class="secondaryAction" value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel" />
+                    <input type="submit" class="primaryAction"
+                        value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
+                    <input type="button" class="secondaryAction"
+                        value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel"/>
                 </div>
-           </fieldset>
+            </fieldset>
         </form>
     </div>
 </div>

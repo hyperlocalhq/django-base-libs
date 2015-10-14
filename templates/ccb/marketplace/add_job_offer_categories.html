@@ -14,27 +14,27 @@
 {% block sidebar-b %}{% endblock %}
 
 {% block content %}
-<div class="reg">
-    <div class="details">
-        <form action="" class="uniForm" method="post">
-            <fieldset class="inlineLabels">
-                <div class="nav_expanded" id="JS_{{ LANGUAGE_CODE }}_search">
-                    <h3 class="{% if not form.object_types %}no-padding-top{% endif %}">
-                        <a href="#" class="open_but">
-                            <b>{% trans "job sector" %}</b>
-                            <span class="pic"></span>
-                        </a>
-                    </h3>
-                    <fieldset class="fieldset_categories">
-                        <div class="hidable">
-                            {% filter remove_empty_lists %}
-                                {% for slug, cat in form.job_sectors.items %}
-                                    {% if forloop.first %}
-                                        <ul>
-                                    {% endif %}
+    <div class="reg">
+        <div class="details">
+            <form action="" class="uniForm" method="post">{% csrf_token %}
+                <fieldset class="inlineLabels">
+                    <div class="nav_expanded" id="JS_{{ LANGUAGE_CODE }}_search">
+                        <h3 class="{% if not form.object_types %}no-padding-top{% endif %}">
+                            <a href="#" class="open_but">
+                                <b>{% trans "job sector" %}</b>
+                                <span class="pic"></span>
+                            </a>
+                        </h3>
+                        <fieldset class="fieldset_categories">
+                            <div class="hidable">
+                                {% filter remove_empty_lists %}
+                                    {% for slug, cat in form.job_sectors.items %}
+                                        {% if forloop.first %}
+                                            <ul>
+                                        {% endif %}
                                     {% with form|dict_value:cat.field_name as job_sector_field %}
                                         {% if job_sector_field %}
-                                            <li> 
+                                            <li>
                                                 <a href="#" class="no-children"><span>&bull;</span></a>
                                                 <label for="id_{{ cat.field_name }}">
                                                     {{ job_sector_field }}
@@ -46,40 +46,44 @@
                                     {% if forloop.last %}
                                         </ul>
                                     {% endif %}
-                                {% endfor %}
-                            {% endfilter %}
-                        </div>
-                        {{ form.choose_job_sectors }}
-                        {{ form.choose_job_sectors.error_tag }}
-                    </fieldset>
-                </div>
-                <p class="disclaimer">
-                    {% blocktrans %}Is some category missing? You can <a href="/ticket/new-category/">suggest it here</a>.{% endblocktrans %}
-                </p>
-                <div id="tag_list">
-                    <fieldset class="inlineLabels">
-                        <h3>{% trans "Tagging" %}</h3>
-                        {{ form.tags|as_uni_field }}
-                    </fieldset>
-                </div>
+                                    {% endfor %}
+                                {% endfilter %}
+                            </div>
+                            {{ form.choose_job_sectors }}
+                            {{ form.choose_job_sectors.error_tag }}
+                        </fieldset>
+                    </div>
+                    <p class="disclaimer">
+                        {% blocktrans %}Is some category missing? You can
+                            <a href="/ticket/new-category/">suggest it here</a>.{% endblocktrans %}
+                    </p>
 
-                {% include "utils/step_buttons_reg.html" %}
-            </fieldset>
-        </form>
+                    <div id="tag_list">
+                        <fieldset class="inlineLabels">
+                            <h3>{% trans "Tagging" %}</h3>
+                            {{ form.tags|as_uni_field }}
+                        </fieldset>
+                    </div>
+
+                    {% include "utils/step_buttons_reg.html" %}
+                </fieldset>
+            </form>
+        </div>
     </div>
-</div>
 {% endblock %}
 
 {% block breadcrumbs %}
     <div class="breadcrumbs">
         <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_JOB_OFFERS }}/">{% trans "Jobs" %}</a>
+        <span class="b-sep"><span>::</span></span>
+        <a href="/{{ URL_ID_JOB_OFFERS }}/">{% trans "Jobs" %}</a>
         <span class="b-sep"><span>::</span></span><span>{% trans "Offer a job" %}</span>
     </div>
 {% endblock %}
 
 {% block extrabody %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/categories.js"></script>
-	<script type="text/javascript" src="{{ jetson_media_url }}js/jquery/jquery-autocomplete/jquery.autocomplete.js"></script>	
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/categories.js"></script>
+    <script type="text/javascript"
+        src="{{ jetson_media_url }}js/jquery/jquery-autocomplete/jquery.autocomplete.js"></script>
 {% endblock %}
 

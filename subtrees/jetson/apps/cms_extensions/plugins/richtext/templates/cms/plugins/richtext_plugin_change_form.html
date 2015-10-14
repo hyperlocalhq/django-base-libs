@@ -1,0 +1,16 @@
+{% extends "admin/cms/page/plugin_change_form.html" %}
+
+<!-- LOADING -->
+{% load i18n %}
+
+{% block javascripts %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}bower_components/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="{{ jetson_media_url }}js/admin/MarkupHelper.js"></script>
+{% endblock %}
+
+{% block fieldsets %}
+    {% for fieldset in adminform %}
+        {% include "admin/includes/fieldset.html" %}
+    {% endfor %}
+{% endblock %}

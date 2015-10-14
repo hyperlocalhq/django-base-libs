@@ -1,25 +1,8 @@
 # -*- coding: UTF-8 -*-
-import os, fnmatch, time, Image
 
-from datetime import datetime
-from django.conf import settings
-
-from filebrowser.models import File
-from filebrowser.settings import MEDIA_ROOT as UPLOADS_ROOT
-from filebrowser.settings import MEDIA_URL as UPLOADS_URL
-
-from jetson.apps.media_gallery.models import URL_ID_PORTFOLIO
-from jetson.apps.utils.files import path_exists
-from jetson.apps.utils.images import save_jpg_image
-
-from ccb.apps.people.models import Person, URL_ID_PERSON, URL_ID_PEOPLE
-from ccb.apps.institutions.models import Institution, URL_ID_INSTITUTION, URL_ID_INSTITUTIONS
-from ccb.apps.events.models import Event, URL_ID_EVENT, URL_ID_EVENTS
-from ccb.apps.resources.models import Document, URL_ID_DOCUMENT, URL_ID_DOCUMENTS
-from ccb.apps.groups_networks.models import PersonGroup, URL_ID_PERSONGROUP, URL_ID_PERSONGROUPS
 
 def recreate_avatars():
-    ''' TODO: rewrite
+    """ TODO: rewrite
     for model in (Person, Institution, Event, Document, PersonGroup):
         for obj in model.objects.all():
             rel_path = obj.get_original_image_rel_path()
@@ -32,10 +15,11 @@ def recreate_avatars():
                     rel_path.split("/")[-1],
                     obj.get_original_image_rel_path(True).split("/")[-1]
                     )
-    '''
+    """
+
 
 def recreate_portfolio_images():
-    ''' TODO: rewrite
+    """ TODO: rewrite
     for model in (Person, Institution, Event, Document, PersonGroup):
         for obj in model.objects.all():
             list_of_files = []
@@ -60,7 +44,7 @@ def recreate_portfolio_images():
                             file_obj = File.objects.get(
                                 path="".join((relative_path, filename)),
                                 )
-                        except:
+                        except Exception:
                             file_obj = None
                         media_file['file_obj'] = file_obj
                         list_of_files.append(media_file)
@@ -110,5 +94,4 @@ def recreate_portfolio_images():
                 # wait for one second, because the next image has to have
                 # a different file name
                 time.sleep(1)
-    '''            
-
+    """

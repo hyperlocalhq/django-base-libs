@@ -1,20 +1,24 @@
 # -*- coding: UTF-8 -*-
-from optparse import make_option
 from django.core.management.base import NoArgsCommand
 
 SILENT, NORMAL, VERBOSE = 0, 1, 2
 
 
 class Command(NoArgsCommand):
+    def handle(self, *args, **options):
+        pass
+
     help = """Deletes duplicate job offers"""
+
     def handle_noargs(self, **options):
-        verbosity = int(options.get('verbosity', NORMAL))
 
         from django.db import models
 
         Service = models.get_model("external_services", "Service")
 
-        for s in Service.objects.filter(sysname__in=("berlinstartupjobs", "creativeset", "kulturmanagement", "museumsbund", "musicjob", "theaterjobs")):
+        for s in Service.objects.filter(sysname__in=(
+            "berlinstartupjobs", "creativeset", "kulturmanagement", "museumsbund", "musicjob", "theaterjobs")
+        ):
             print(s.title)
             unique_external_ids = set(s.objectmapper_set.filter(
                 content_type__app_label="marketplace",
@@ -31,4 +35,3 @@ class Command(NoArgsCommand):
                     if mapper.content_object:
                         mapper.content_object.delete()
                     mapper.delete()
-

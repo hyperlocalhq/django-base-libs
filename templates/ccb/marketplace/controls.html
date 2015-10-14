@@ -6,7 +6,8 @@
             {% if request.user.is_staff %}
                 {% if perms.marketplace.change_joboffer %}
                     <li class="admin_edit">
-                        <a href="/admin/marketplace/joboffer/{{ job_offer.pk }}/" onclick="open_new_window(event)" title="{% trans "Edit Job Offer" %}">
+                        <a href="/admin/marketplace/joboffer/{{ job_offer.pk }}/" onclick="open_new_window(event)"
+                            title="{% trans "Edit Job Offer" %}">
                             <span><span>{% trans "Edit Job Offer" %}</span></span>
                         </a>
                     </li>

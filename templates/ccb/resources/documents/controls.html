@@ -6,9 +6,10 @@
                 <li class="memo">{% adding2memos for document %}</li>
                 {% comment %}<!--<li class="favorites">{% adding2favorites for context_item %}</li>-->{% endcomment %}
                 {% if request.user.is_staff %}
-                    {% if perms.resources.change_document %} 
+                    {% if perms.resources.change_document %}
                         <li class="admin_edit">
-                            <a href="/admin/resources/document/{{ document.id }}/" onclick="open_new_window(event)" title="{% trans "Edit Infolink" %}">
+                            <a href="/admin/resources/document/{{ document.id }}/" onclick="open_new_window(event)"
+                                title="{% trans "Edit Infolink" %}">
                                 <span><span>{% trans "Edit Infolink" %}</span></span>
                             </a>
                         </li>

@@ -13,18 +13,22 @@
         </div>
         {% include "utils/includes/sorting_and_pagination.html" %}
     {% endif %}
-{% endblock %} 
+{% endblock %}
 
 {% block breadcrumbs %}
     <div class="breadcrumbs">
         <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span><a href="/news/">{% trans "News" %}</a>
-        <span class="b-sep"><span>::</span></span> <a href="/news/{{ day|date:"Y" }}/">{{ day|date:"Y" }}</a>
-        <span class="b-sep"><span>::</span></span> <a href="/news/{{ day|date:"Y" }}/{{ day|date:"m" }}/">{{ day|datefmt:"MMM" }} </a>
+        <span class="b-sep"><span>::</span></span>
+        <a href="/news/">{% trans "News" %}</a>
+        <span class="b-sep"><span>::</span></span>
+        <a href="/news/{{ day|date:"Y" }}/">{{ day|date:"Y" }}</a>
+        <span class="b-sep"><span>::</span></span>
+        <a
+            href="/news/{{ day|date:"Y" }}/{{ day|date:"m" }}/">{{ day|datefmt:"MMM" }} </a>
         <span class="b-sep"><span>::</span></span><span>{{ day|date:"d" }}</span>
     </div>
 {% endblock %}
 
 {% block extrabody %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
 {% endblock %}

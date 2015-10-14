@@ -6,19 +6,20 @@
     <script type="text/javascript">
         // preloading portfolio images
         {% for f in list_of_files %}
-        var oImg_{{ forloop.counter0 }} = new Image();
-        oImg_{{ forloop.counter0 }}.src = "{{ UPLOADS_URL }}{{ f.path|modified_path:"gd" }}";
+            var oImg_{{ forloop.counter0 }} = new Image();
+            oImg_{{ forloop.counter0 }}.src = "{{ UPLOADS_URL }}{{ f.path|modified_path:"gd" }}";
         {% endfor %}
     </script>
 {% endblock %}
 
 {% block additional_controls %}
-    {% if not list_of_files|length_is:"1"  %}
+    {% if not list_of_files|length_is:"1" %}
         <div class="media_nav">
             <div class="right">
                 <a id="media_previous" href="" class="previous">
                     <span class="disabled">
                         <span class="hidden">{% trans "Previous media file" %} </span>
+                    </span>
                 </a>
                 <a id="media_slideshow_start" href="" class="slideshow_start">
                     <span class="hidden">{% trans "Start slideshow" %} </span>
@@ -40,7 +41,7 @@
     <noscript>{% infoblock "js_warning" %}</noscript>
     {% if list_of_files %}
         <div id="dyn_portfolio" class="hidden">
-            <div class="overflow{% if list_of_files|length_is:"1"  %} single_IMG{% endif %}">
+            <div class="overflow{% if list_of_files|length_is:"1" %} single_IMG{% endif %}">
                 <div id="dyn_media_file_container">
                     <div id="dyn_media_file_height_measurer">
                         <div id="media_file">
@@ -56,8 +57,14 @@
                             <div class="hidable" id="media_desc_content"></div>
                             {% if can_manage_portfolio %}
                                 <ul class="toolbar hidable">
-                                    <li><a id="media_change" class="editIMG" href=""><span>{% trans "Change" %}</span></a></li>
-                                    <li><a id="media_delete" class="deleteIMG" href=""><span>{% trans "Delete" %}</span></a></li>
+                                    <li>
+                                        <a id="media_change" class="editIMG"
+                                            href=""><span>{% trans "Change" %}</span></a>
+                                    </li>
+                                    <li>
+                                        <a id="media_delete" class="deleteIMG" href=""><span>{% trans "Delete" %}</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             {% endif %}
                         </div>
@@ -69,19 +76,27 @@
                 {% if forloop.first %}
                     <ul id="media_thumbs" class="clearfix">
                 {% endif %}
-                        <li class="image_container {% cycle "" "" "" "" "" "last-in-row" %}">
-                            <a href="#file_{{ f.get_token }}"><img width="88" height="88" src="{{ f.get_thumbnail_url }}{% if permission_name %}{% if_has_perm permission_name object %}?now={% now "YmdHis" %}{% end_if_has_perm %}{% endif %}" alt="{{ f.title|escape }}" title="{{ f.get_file_type_display }}. {{ f.title|escape }}" /></a>
-                            {% if can_manage_portfolio %}
-                                {% if f.get_recroppable_thumbnail_path %}
-                                    <a href="{% cropping_url f.get_recroppable_thumbnail_path "gt" request request.path %}" class="recrop_link">
-                                        <span><span>{% trans "Adjust image" %}</span></span>
-                                    </a>
-                                {% endif %}
-                            {% endif %}
-                        </li>
-                {% if forloop.last %}
-                    </ul>
+            <li class="image_container {% cycle "" "" "" "" "" "last-in-row" %}">
+                <a href="#file_{{ f.get_token }}">
+                    <img
+                        width="88"
+                        height="88"
+                        src="{{ f.get_thumbnail_url }}{% if permission_name %}{% if_has_perm permission_name object %}?now={% now "YmdHis" %}{% end_if_has_perm %}{% endif %}"
+                        alt="{{ f.title|escape }}"
+                        title="{{ f.get_file_type_display }}. {{ f.title|escape }}"/>
+                </a>
+                {% if can_manage_portfolio %}
+                    {% if f.get_recroppable_thumbnail_path %}
+                        <a href="{% cropping_url f.get_recroppable_thumbnail_path "gt" request request.path %}"
+                            class="recrop_link">
+                            <span><span>{% trans "Adjust image" %}</span></span>
+                        </a>
+                    {% endif %}
                 {% endif %}
+            </li>
+            {% if forloop.last %}
+                </ul>
+            {% endif %}
             {% endfor %}
         </div>
     {% else %}

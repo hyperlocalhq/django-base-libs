@@ -1,7 +1,9 @@
 {% load i18n base_tags auth_extended uni_form_tags %}
 <div class="profile_infos">
     <h5 class="edit_subline">{% trans "edit additional info" %}</h5>
-    <form action="/helper/edit-{{ URL_ID_EVENT }}-profile/{{ object.slug }}/additional_info/" method="post" target="hidden_iframe" class="uniForm">
+
+    <form action="/helper/edit-{{ URL_ID_EVENT }}-profile/{{ object.slug }}/additional_info/" method="post"
+        target="hidden_iframe" class="uniForm">{% csrf_token %}
         <fieldset class="inlineLabels">
             <h3>{% trans "additional info" %}</h3>
             {{ form.non_form_errors }}
@@ -9,8 +11,9 @@
             {{ form.additional_info_en|as_uni_field }}
             {{ form.related_events|as_uni_field }}
             <div class="buttonHolder">
-                <input type="submit" class="primaryAction" value="{% filter upper %}{% trans "Save" %}{% endfilter %}" />
-                <input type="button" class="secondaryAction" value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel" />
+                <input type="submit" class="primaryAction" value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
+                <input type="button" class="secondaryAction"
+                    value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel"/>
             </div>
         </fieldset>
     </form>

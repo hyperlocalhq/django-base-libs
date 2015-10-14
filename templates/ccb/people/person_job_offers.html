@@ -3,33 +3,40 @@
 
 {% block extrahead %}
     {{ block.super }}
-    <link rel="alternate" type="application/rss+xml" title="{% blocktrans with object.get_title as person_title %}RSS Feed of Jobs by {{ person_title }}{% endblocktrans %}" href="{{ website_url|slice:"0:-1" }}{{ request.path }}feed/rss/{{ LANGUAGE_CODE }}/{% filter force_escape %}{% append_to_get page=0,paginate_by=0,sort_by=0 no_path %}{% endfilter %}">
-    <link rel="alternate" type="application/atom+xml" title="{% blocktrans with object.get_title as person_title %}Atom Feed of Jobs by {{ person_title }}{% endblocktrans %}" href="{{ website_url|slice:"0:-1" }}{{ request.path }}feed/atom/{{ LANGUAGE_CODE }}/{% filter force_escape %}{% append_to_get page=0,paginate_by=0,sort_by=0 no_path %}{% endfilter %}">
+    <link rel="alternate" type="application/rss+xml"
+        title="{% blocktrans with object.get_title as person_title %}RSS Feed of Jobs by {{ person_title }}{% endblocktrans %}"
+        href="{{ website_url|slice:"0:-1" }}{{ request.path }}feed/rss/{{ LANGUAGE_CODE }}/
+                  {% filter force_escape %}{% append_to_get page=0,paginate_by=0,sort_by=0 no_path %}{% endfilter %}">
+    <link rel="alternate" type="application/atom+xml"
+        title="{% blocktrans with object.get_title as person_title %}Atom Feed of Jobs by {{ person_title }}{% endblocktrans %}"
+        href="{{ website_url|slice:"0:-1" }}{{ request.path }}feed/atom/{{ LANGUAGE_CODE }}/
+                  {% filter force_escape %}{% append_to_get page=0,paginate_by=0,sort_by=0 no_path %}{% endfilter %}">
 {% endblock %}
 
 
 {% block details %}
     {% include "site_specific/count_of.html" %}
-    {% url person_job_offer_list slug=object.slug as base_url %}
+    {% url "person_job_offer_list" slug=object.slug as base_url %}
     {% if object_list %}
         {% include "utils/includes/sorting_and_pagination.html" %}
-    
+
         {% for job_offer in object_list %}
             {% if forloop.first %}
-            <table class="job_offers">
+                <table class="job_offers">
             {% endif %}
-            
-            {% include_parsed "marketplace/lists/job_offer_list.html" %}
-            
-            {% if forloop.last %}
+
+        {% include_parsed "marketplace/lists/job_offer_list.html" %}
+
+        {% if forloop.last %}
             </table>
-            {% endif %}
+        {% endif %}
         {% endfor %}
         <hr class="hidden"/>
         {% include "utils/includes/sorting_and_pagination.html" %}
 
     {% else %}
-        <p class="nothing">{% blocktrans with object.get_title as person_title %}There were no jobs offered by {{ person_title }} found within the selected conditions.{% endblocktrans %}</p>
+        <p class="nothing">{% blocktrans with object.get_title as person_title %}There were no jobs offered by
+            {{ person_title }} found within the selected conditions.{% endblocktrans %}</p>
     {% endif %}
 {% endblock %}
 

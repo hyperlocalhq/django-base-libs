@@ -21,16 +21,17 @@ Usage in any template:
         {% get_latest_published_objects_cs events.Event amount as newest_objects %}
         {% if newest_objects %}
             <ul>
-            {% for event in newest_objects %}
-                <li>
-                    <a href="{{ event.get_url_path }}">
-                        {% if event.image %}
-                            <img alt="{{ event.get_title|escape }}" src="{{ UPLOADS_URL }}{{ event.image|modified_path:"ast" }}" />
-                        {% endif %}
-                        {{ event.get_title|escape }}
-                    </a>
-                </li>
-            {% endfor %}
+                {% for event in newest_objects %}
+                    <li>
+                        <a href="{{ event.get_url_path }}">
+                            {% if event.image %}
+                                <img alt="{{ event.get_title|escape }}"
+                                    src="{{ UPLOADS_URL }}{{ event.image|modified_path:"ast" }}"/>
+                            {% endif %}
+                            {{ event.get_title|escape }}
+                        </a>
+                    </li>
+                {% endfor %}
             </ul>
             <hr class="hidden"/>
         {% else %}

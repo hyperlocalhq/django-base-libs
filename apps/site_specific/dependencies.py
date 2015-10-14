@@ -12,5 +12,5 @@ required_apps = [
     "events",
     "groups_networks",
     "admin",
-    ]
+]
 optional_apps = []

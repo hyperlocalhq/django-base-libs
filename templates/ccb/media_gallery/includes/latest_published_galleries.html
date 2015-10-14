@@ -11,7 +11,11 @@ Usage in any template:
     
 -->{% endcomment %}
 
-<div class="dragging_handle"><h5>{% trans "New Galleries" %}</h5><a href="/portfolios/?order_by=creation_date_desc">{% trans "more..." %}</a></div>
+<div class="dragging_handle">
+    <h5>{% trans "New Galleries" %}</h5>
+    <a
+        href="/portfolios/?order_by=creation_date_desc">{% trans "more..." %}</a>
+</div>
 <div class="draggable_block_media">
     <div class="galleries">
         {% with amount|default:3 as amount %}
@@ -22,12 +26,15 @@ Usage in any template:
                         <div>
                             <a href="{{ content_object.get_url_path }}portfolio/">
                                 {% if gallery.mediafile_set.count %}
-                                    <img width="155px" height="155px" alt="{{ content_object.get_title|escape }}" src="{{ gallery.mediafile_set.all.0.get_list_image_url }}" />
+                                    <img width="155px" height="155px" alt="{{ content_object.get_title|escape }}"
+                                        src="{{ gallery.mediafile_set.all.0.get_list_image_url }}"/>
                                 {% endif %}
                             </a>
-                            <h5><a href="{{ content_object.get_url_path }}portfolio/">
-                            {{ content_object.get_title }}
-                            </a></h5>
+                            <h5>
+                                <a href="{{ content_object.get_url_path }}portfolio/">
+                                    {{ content_object.get_title }}
+                                </a>
+                            </h5>
                             {% if gallery.description %}
                                 <p>
                                     {{ gallery.description }}

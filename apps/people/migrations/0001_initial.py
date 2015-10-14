@@ -1,351 +1,222 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
-from south.db import db
-from django.db import models
-from ccb.apps.people.models import *
-from base_libs.utils.misc import south_clean_multilingual_fields
+from django.db import models, migrations
+import filebrowser.fields
+import jetson.apps.optionset.models
+import mptt.fields
+import jetson.apps.people.base
+from django.conf import settings
+import base_libs.models.fields
 
-class Migration:
-    
-    def forwards(self, orm):
-        
-        # Adding model 'Person'
-        db.create_table('people_person', (
-            ('id', models.AutoField(primary_key=True)),
-            ('creation_date', models.DateTimeField(_("creation date"), editable=False)),
-            ('modified_date', models.DateTimeField(_("modified date"), null=True, editable=False)),
-            ('user', models.OneToOneField(orm['auth.User'], unique=True)),
-            ('individual_type', models.ForeignKey(orm['structure.Term'], limit_choices_to=models.Q(vocabulary__sysname='basics_object_types',path_search__contains=ObjectTypeFilter("person"))&~models.Q(models.Q(sysname="person")), null=True, blank=True)),
-            ('prefix', models.ForeignKey(orm['optionset.Prefix'], null=True, blank=True)),
-            ('salutation', models.ForeignKey(orm['optionset.Salutation'], null=True, blank=True)),
-            ('nickname', models.CharField(_("Nickname"), max_length=200, blank=True)),
-            ('birthname', models.CharField(_("Birth / Maiden name"), max_length=200, blank=True)),
-            ('gender', models.CharField(_("Gender"), blank=True, max_length=1)),
-            ('birthday_yyyy', models.IntegerField(_("Year of Birth"), null=True, blank=True)),
-            ('birthday_mm', models.SmallIntegerField(_("Month of Birth"), null=True, blank=True)),
-            ('birthday_dd', models.SmallIntegerField(_("Day of Birth"), null=True, blank=True)),
-            ('nationality', models.ForeignKey(orm['i18n.Nationality'], limit_choices_to={'display':True}, null=True, max_length=200, blank=True)),
-            ('degree', models.CharField(_("Academic Degree"), max_length=200, blank=True)),
-            ('occupation', models.CharField(_("Current Occupation"), max_length=200, blank=True)),
-            ('interests', models.CharField(_("Interests"), max_length=200, blank=True)),
-            ('description', models.TextField(_("Description (English)"), blank=True)),
-            ('description_de', models.TextField(_("Description (German)"), blank=True)),
-            ('image', FileBrowseField(_('Image'), extensions=['.jpg','.jpeg','.gif','.png','.tif','.tiff'], max_length=255, directory="/%s/"%URL_ID_PEOPLE, blank=True)),
-            ('status', models.ForeignKey(orm['structure.Term'], limit_choices_to={'vocabulary__sysname':'basics_object_statuses'}, related_name="status_person_set", default=DefaultObjectStatus("draft"), blank=True, null=True)),
-            ('preferred_language', models.ForeignKey(orm['i18n.Language'], limit_choices_to={'display':True}, null=True, blank=True)),
-            ('timezone', models.ForeignKey(orm['i18n.TimeZone'], null=True, max_length=200, blank=True)),
-            ('display_birthday', models.BooleanField(_("Display birthday to public"), default=True)),
-            ('display_email', models.BooleanField(_("Display email address to public"), default=False)),
-            ('display_address', models.BooleanField(_("Display address data to public"), default=True)),
-            ('display_phone', models.BooleanField(_("Display phone numbers to public"), default=True)),
-            ('display_fax', models.BooleanField(_("Display fax numbers to public"), default=True)),
-            ('display_mobile', models.BooleanField(_("Display mobile phones to public"), default=True)),
-            ('display_im', models.BooleanField(_("Display instant messengers to public"), default=True)),
-            ('display_username', models.BooleanField(_("Display user name instead of full name"), default=False)),
-            ('allow_search_engine_indexing', models.BooleanField(_("Allow indexing by search engines"), default=True)),
-        ))
-        db.send_create_signal('people', ['Person'])
-        
-        # Adding model 'IndividualContact'
-        db.create_table('people_individualcontact', (
-            ('id', models.AutoField(primary_key=True)),
-            ('location_type', models.ForeignKey(orm['optionset.IndividualLocationType'], default=get_default_ind_loc_type)),
-            ('location_title', models.CharField(_("Location title"), max_length=255, blank=True)),
-            ('is_primary', models.BooleanField(_("Primary contact"), default=True)),
-            ('is_seasonal', models.BooleanField(_("Seasonal"), default=False)),
-            ('validity_start_yyyy', models.IntegerField(_("From Year"), null=True, blank=True)),
-            ('validity_start_mm', models.SmallIntegerField(_("From Month"), null=True, blank=True)),
-            ('validity_start_dd', models.SmallIntegerField(_("From Day"), null=True, blank=True)),
-            ('validity_end_yyyy', models.IntegerField(_("Till Year"), null=True, blank=True)),
-            ('validity_end_mm', models.SmallIntegerField(_("Till Month"), null=True, blank=True)),
-            ('validity_end_dd', models.SmallIntegerField(_("Till Day"), null=True, blank=True)),
-            ('institutional_title', models.CharField(_("Title in the institution"), max_length=255, blank=True)),
-            ('postal_address', models.ForeignKey(orm['location.Address'], related_name="individual_address", null=True, blank=True)),
-            ('is_billing_address', models.BooleanField(_("Use this address for billing"), default=True)),
-            ('is_shipping_address', models.BooleanField(_("Use this address for shipping"), default=True)),
-            ('phone0_type', models.ForeignKey(orm['optionset.PhoneType'], default=DefaultPhoneType("phone"), related_name='individual_contacts0', null=True, blank=True)),
-            ('phone0_country', models.CharField(_("Country Code"), default='49', max_length=4, blank=True)),
-            ('phone0_area', models.CharField(_("Area Code"), default='30', max_length=5, blank=True)),
-            ('phone0_number', models.CharField(_("Subscriber Number and Extension"), max_length=15, blank=True)),
-            ('is_phone0_default', models.BooleanField(_("Default?"), default=True)),
-            ('is_phone0_on_hold', models.BooleanField(_("Default?"), default=False)),
-            ('phone1_type', models.ForeignKey(orm['optionset.PhoneType'], default=DefaultPhoneType("fax"), related_name='individual_contacts1', null=True, blank=True)),
-            ('phone1_country', models.CharField(_("Country Code"), default='49', max_length=4, blank=True)),
-            ('phone1_area', models.CharField(_("Area Code"), default='30', max_length=5, blank=True)),
-            ('phone1_number', models.CharField(_("Subscriber Number and Extension"), max_length=15, blank=True)),
-            ('is_phone1_default', models.BooleanField(_("Default?"), default=False)),
-            ('is_phone1_on_hold', models.BooleanField(_("Default?"), default=False)),
-            ('phone2_type', models.ForeignKey(orm['optionset.PhoneType'], default=DefaultPhoneType("mobile"), related_name='individual_contacts2', null=True, blank=True)),
-            ('phone2_country', models.CharField(_("Country Code"), default='49', max_length=4, blank=True)),
-            ('phone2_area', models.CharField(_("Area Code"), max_length=5, blank=True)),
-            ('phone2_number', models.CharField(_("Subscriber Number and Extension"), max_length=15, blank=True)),
-            ('is_phone2_default', models.BooleanField(_("Default?"), default=False)),
-            ('is_phone2_on_hold', models.BooleanField(_("On Hold?"), default=False)),
-            ('url0_type', models.ForeignKey(orm['optionset.URLType'], related_name='individual_contacts0', null=True, blank=True)),
-            ('url0_link', URLField(_("URL"), blank=True)),
-            ('is_url0_default', models.BooleanField(_("Default?"), default=True)),
-            ('is_url0_on_hold', models.BooleanField(_("On Hold?"), default=False)),
-            ('url1_type', models.ForeignKey(orm['optionset.URLType'], related_name='individual_contacts1', null=True, blank=True)),
-            ('url1_link', URLField(_("URL"), blank=True)),
-            ('is_url1_default', models.BooleanField(_("Default?"), default=False)),
-            ('is_url1_on_hold', models.BooleanField(_("On Hold?"), default=False)),
-            ('url2_type', models.ForeignKey(orm['optionset.URLType'], related_name='individual_contacts2', null=True, blank=True)),
-            ('url2_link', URLField(_("URL"), blank=True)),
-            ('is_url2_default', models.BooleanField(_("Default?"), default=False)),
-            ('is_url2_on_hold', models.BooleanField(_("On Hold?"), default=False)),
-            ('im0_type', models.ForeignKey(orm['optionset.IMType'], related_name='individual_contacts0', null=True, blank=True)),
-            ('im0_address', models.CharField(_("Instant Messenger"), max_length=255, blank=True)),
-            ('is_im0_default', models.BooleanField(_("Default?"), default=True)),
-            ('is_im0_on_hold', models.BooleanField(_("On Hold?"), default=False)),
-            ('im1_type', models.ForeignKey(orm['optionset.IMType'], related_name='individual_contacts1', null=True, blank=True)),
-            ('im1_address', models.CharField(_("Instant Messenger"), max_length=255, blank=True)),
-            ('is_im1_default', models.BooleanField(_("Default?"), default=False)),
-            ('is_im1_on_hold', models.BooleanField(_("On Hold?"), default=False)),
-            ('im2_type', models.ForeignKey(orm['optionset.IMType'], related_name='individual_contacts2', null=True, blank=True)),
-            ('im2_address', models.CharField(_("Instant Messenger"), max_length=255, blank=True)),
-            ('is_im2_default', models.BooleanField(_("Default?"), default=False)),
-            ('is_im2_on_hold', models.BooleanField(_("On Hold?"), default=False)),
-            ('email0_type', models.ForeignKey(orm['optionset.EmailType'], related_name='individual_contacts0', null=True, blank=True)),
-            ('email0_address', models.CharField(_("Email Address"), max_length=255, blank=True)),
-            ('is_email0_default', models.BooleanField(_("Default?"), default=True)),
-            ('is_email0_on_hold', models.BooleanField(_("On Hold?"), default=False)),
-            ('email1_type', models.ForeignKey(orm['optionset.EmailType'], related_name='individual_contacts1', null=True, blank=True)),
-            ('email1_address', models.CharField(_("Email Address"), max_length=255, blank=True)),
-            ('is_email1_default', models.BooleanField(_("Default?"), default=False)),
-            ('is_email1_on_hold', models.BooleanField(_("On Hold?"), default=False)),
-            ('email2_type', models.ForeignKey(orm['optionset.EmailType'], related_name='individual_contacts2', null=True, blank=True)),
-            ('email2_address', models.CharField(_("Email Address"), max_length=255, blank=True)),
-            ('is_email2_default', models.BooleanField(_("Default?"), default=False)),
-            ('is_email2_on_hold', models.BooleanField(_("On Hold?"), default=False)),
-            ('person', models.ForeignKey(orm['people.person'])),
-            ('institution', models.ForeignKey(orm['institutions.institution'], null=True, blank=True)),
-        ))
-        db.send_create_signal('people', ['IndividualContact'])
-        
-        # Adding ManyToManyField 'Person.spoken_languages'
-        db.create_table('people_person_spoken_languages', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('person', models.ForeignKey(orm.Person, null=False)),
-            ('language', models.ForeignKey(orm['i18n.Language'], null=False))
-        ))
-        
-        # Adding ManyToManyField 'Person.context_categories'
-        db.create_table('people_person_context_categories', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('person', models.ForeignKey(orm.Person, null=False)),
-            ('contextcategory', models.ForeignKey(orm['structure.ContextCategory'], null=False))
-        ))
-        
-        # Adding ManyToManyField 'Person.creative_sectors'
-        db.create_table('people_person_creative_sectors', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('person', models.ForeignKey(orm.Person, null=False)),
-            ('term', models.ForeignKey(orm['structure.Term'], null=False))
-        ))
-        
-    
-    
-    def backwards(self, orm):
-        
-        # Deleting model 'Person'
-        db.delete_table('people_person')
-        
-        # Deleting model 'IndividualContact'
-        db.delete_table('people_individualcontact')
-        
-        # Dropping ManyToManyField 'Person.spoken_languages'
-        db.delete_table('people_person_spoken_languages')
-        
-        # Dropping ManyToManyField 'Person.context_categories'
-        db.delete_table('people_person_context_categories')
-        
-        # Dropping ManyToManyField 'Person.creative_sectors'
-        db.delete_table('people_person_creative_sectors')
-        
-    
-    
-    models = {
-        'optionset.phonetype': {
-            'Meta': {'ordering': "['sort_order','title']"},
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'structure.contextcategory': {
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'people.person': {
-            'allow_search_engine_indexing': ('models.BooleanField', ['_("Allow indexing by search engines")'], {'default': 'True'}),
-            'birthday_dd': ('models.SmallIntegerField', ['_("Day of Birth")'], {'null': 'True', 'blank': 'True'}),
-            'birthday_mm': ('models.SmallIntegerField', ['_("Month of Birth")'], {'null': 'True', 'blank': 'True'}),
-            'birthday_yyyy': ('models.IntegerField', ['_("Year of Birth")'], {'null': 'True', 'blank': 'True'}),
-            'birthname': ('models.CharField', ['_("Birth / Maiden name")'], {'max_length': '200', 'blank': 'True'}),
-            'context_categories': ('models.ManyToManyField', ["orm['structure.ContextCategory']"], {'limit_choices_to': "{'is_applied4person':True}", 'blank': 'True'}),
-            'creation_date': ('models.DateTimeField', ['_("creation date")'], {'editable': 'False'}),
-            'creative_sectors': ('models.ManyToManyField', ["orm['structure.Term']"], {'limit_choices_to': "{'vocabulary__sysname':'categories_creativesectors'}", 'related_name': '"creative_industry_people"', 'blank': 'True'}),
-            'degree': ('models.CharField', ['_("Academic Degree")'], {'max_length': '200', 'blank': 'True'}),
-            'description': ('models.TextField', ['_("Description (English)")'], {'blank': 'True'}),
-            'description_de': ('models.TextField', ['_("Description (German)")'], {'blank': 'True'}),
-            'display_address': ('models.BooleanField', ['_("Display address data to public")'], {'default': 'True'}),
-            'display_birthday': ('models.BooleanField', ['_("Display birthday to public")'], {'default': 'True'}),
-            'display_email': ('models.BooleanField', ['_("Display email address to public")'], {'default': 'False'}),
-            'display_fax': ('models.BooleanField', ['_("Display fax numbers to public")'], {'default': 'True'}),
-            'display_im': ('models.BooleanField', ['_("Display instant messengers to public")'], {'default': 'True'}),
-            'display_mobile': ('models.BooleanField', ['_("Display mobile phones to public")'], {'default': 'True'}),
-            'display_phone': ('models.BooleanField', ['_("Display phone numbers to public")'], {'default': 'True'}),
-            'display_username': ('models.BooleanField', ['_("Display user name instead of full name")'], {'default': 'False'}),
-            'gender': ('models.CharField', ['_("Gender")'], {'blank': 'True', 'max_length': '1'}),
-            'id': ('models.AutoField', [], {'primary_key': 'True'}),
-            'image': ('FileBrowseField', ["_('Image')"], {'extensions': "['.jpg','.jpeg','.gif','.png','.tif','.tiff']", 'max_length': '255', 'directory': '"/%s/"%URL_ID_PEOPLE', 'blank': 'True'}),
-            'individual_type': ('models.ForeignKey', ["orm['structure.Term']"], {'limit_choices_to': 'models.Q(vocabulary__sysname=\'basics_object_types\',path_search__contains=ObjectTypeFilter("person"))&~models.Q(models.Q(sysname="person"))', 'null': 'True', 'blank': 'True'}),
-            'interests': ('models.CharField', ['_("Interests")'], {'max_length': '200', 'blank': 'True'}),
-            'modified_date': ('models.DateTimeField', ['_("modified date")'], {'null': 'True', 'editable': 'False'}),
-            'nationality': ('models.ForeignKey', ["orm['i18n.Nationality']"], {'limit_choices_to': "{'display':True}", 'null': 'True', 'max_length': '200', 'blank': 'True'}),
-            'nickname': ('models.CharField', ['_("Nickname")'], {'max_length': '200', 'blank': 'True'}),
-            'occupation': ('models.CharField', ['_("Current Occupation")'], {'max_length': '200', 'blank': 'True'}),
-            'preferred_language': ('models.ForeignKey', ["orm['i18n.Language']"], {'limit_choices_to': "{'display':True}", 'null': 'True', 'blank': 'True'}),
-            'prefix': ('models.ForeignKey', ["orm['optionset.Prefix']"], {'null': 'True', 'blank': 'True'}),
-            'salutation': ('models.ForeignKey', ["orm['optionset.Salutation']"], {'null': 'True', 'blank': 'True'}),
-            'spoken_languages': ('models.ManyToManyField', ["orm['i18n.Language']"], {'related_name': '"speaking_people"', 'blank': 'True'}),
-            'status': ('models.ForeignKey', ["orm['structure.Term']"], {'limit_choices_to': "{'vocabulary__sysname':'basics_object_statuses'}", 'related_name': '"status_person_set"', 'default': 'DefaultObjectStatus("draft")', 'blank': 'True', 'null': 'True'}),
-            'timezone': ('models.ForeignKey', ["orm['i18n.TimeZone']"], {'null': 'True', 'max_length': '200', 'blank': 'True'}),
-            'user': ('models.OneToOneField', ["orm['auth.User']"], {'unique': 'True'})
-        },
-        'optionset.individuallocationtype': {
-            'Meta': {'ordering': "['sort_order','title']"},
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'auth.user': {
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'i18n.language': {
-            'Meta': {'ordering': "XFieldList(['sort_order','name_'])"},
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'structure.term': {
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'people.individualcontact': {
-            'email0_address': ('models.CharField', ['_("Email Address")'], {'max_length': '255', 'blank': 'True'}),
-            'email0_type': ('models.ForeignKey', ["orm['optionset.EmailType']"], {'related_name': "'individual_contacts0'", 'null': 'True', 'blank': 'True'}),
-            'email1_address': ('models.CharField', ['_("Email Address")'], {'max_length': '255', 'blank': 'True'}),
-            'email1_type': ('models.ForeignKey', ["orm['optionset.EmailType']"], {'related_name': "'individual_contacts1'", 'null': 'True', 'blank': 'True'}),
-            'email2_address': ('models.CharField', ['_("Email Address")'], {'max_length': '255', 'blank': 'True'}),
-            'email2_type': ('models.ForeignKey', ["orm['optionset.EmailType']"], {'related_name': "'individual_contacts2'", 'null': 'True', 'blank': 'True'}),
-            'id': ('models.AutoField', [], {'primary_key': 'True'}),
-            'im0_address': ('models.CharField', ['_("Instant Messenger")'], {'max_length': '255', 'blank': 'True'}),
-            'im0_type': ('models.ForeignKey', ["orm['optionset.IMType']"], {'related_name': "'individual_contacts0'", 'null': 'True', 'blank': 'True'}),
-            'im1_address': ('models.CharField', ['_("Instant Messenger")'], {'max_length': '255', 'blank': 'True'}),
-            'im1_type': ('models.ForeignKey', ["orm['optionset.IMType']"], {'related_name': "'individual_contacts1'", 'null': 'True', 'blank': 'True'}),
-            'im2_address': ('models.CharField', ['_("Instant Messenger")'], {'max_length': '255', 'blank': 'True'}),
-            'im2_type': ('models.ForeignKey', ["orm['optionset.IMType']"], {'related_name': "'individual_contacts2'", 'null': 'True', 'blank': 'True'}),
-            'institution': ('models.ForeignKey', ["orm['institutions.institution']"], {'null': 'True', 'blank': 'True'}),
-            'institutional_title': ('models.CharField', ['_("Title in the institution")'], {'max_length': '255', 'blank': 'True'}),
-            'is_billing_address': ('models.BooleanField', ['_("Use this address for billing")'], {'default': 'True'}),
-            'is_email0_default': ('models.BooleanField', ['_("Default?")'], {'default': 'True'}),
-            'is_email0_on_hold': ('models.BooleanField', ['_("On Hold?")'], {'default': 'False'}),
-            'is_email1_default': ('models.BooleanField', ['_("Default?")'], {'default': 'False'}),
-            'is_email1_on_hold': ('models.BooleanField', ['_("On Hold?")'], {'default': 'False'}),
-            'is_email2_default': ('models.BooleanField', ['_("Default?")'], {'default': 'False'}),
-            'is_email2_on_hold': ('models.BooleanField', ['_("On Hold?")'], {'default': 'False'}),
-            'is_im0_default': ('models.BooleanField', ['_("Default?")'], {'default': 'True'}),
-            'is_im0_on_hold': ('models.BooleanField', ['_("On Hold?")'], {'default': 'False'}),
-            'is_im1_default': ('models.BooleanField', ['_("Default?")'], {'default': 'False'}),
-            'is_im1_on_hold': ('models.BooleanField', ['_("On Hold?")'], {'default': 'False'}),
-            'is_im2_default': ('models.BooleanField', ['_("Default?")'], {'default': 'False'}),
-            'is_im2_on_hold': ('models.BooleanField', ['_("On Hold?")'], {'default': 'False'}),
-            'is_phone0_default': ('models.BooleanField', ['_("Default?")'], {'default': 'True'}),
-            'is_phone0_on_hold': ('models.BooleanField', ['_("Default?")'], {'default': 'False'}),
-            'is_phone1_default': ('models.BooleanField', ['_("Default?")'], {'default': 'False'}),
-            'is_phone1_on_hold': ('models.BooleanField', ['_("Default?")'], {'default': 'False'}),
-            'is_phone2_default': ('models.BooleanField', ['_("Default?")'], {'default': 'False'}),
-            'is_phone2_on_hold': ('models.BooleanField', ['_("On Hold?")'], {'default': 'False'}),
-            'is_primary': ('models.BooleanField', ['_("Primary contact")'], {'default': 'True'}),
-            'is_seasonal': ('models.BooleanField', ['_("Seasonal")'], {'default': 'False'}),
-            'is_shipping_address': ('models.BooleanField', ['_("Use this address for shipping")'], {'default': 'True'}),
-            'is_url0_default': ('models.BooleanField', ['_("Default?")'], {'default': 'True'}),
-            'is_url0_on_hold': ('models.BooleanField', ['_("On Hold?")'], {'default': 'False'}),
-            'is_url1_default': ('models.BooleanField', ['_("Default?")'], {'default': 'False'}),
-            'is_url1_on_hold': ('models.BooleanField', ['_("On Hold?")'], {'default': 'False'}),
-            'is_url2_default': ('models.BooleanField', ['_("Default?")'], {'default': 'False'}),
-            'is_url2_on_hold': ('models.BooleanField', ['_("On Hold?")'], {'default': 'False'}),
-            'location_title': ('models.CharField', ['_("Location title")'], {'max_length': '255', 'blank': 'True'}),
-            'location_type': ('models.ForeignKey', ["orm['optionset.IndividualLocationType']"], {'default': 'get_default_ind_loc_type'}),
-            'person': ('models.ForeignKey', ["orm['people.person']"], {}),
-            'phone0_area': ('models.CharField', ['_("Area Code")'], {'default': "'30'", 'max_length': '5', 'blank': 'True'}),
-            'phone0_country': ('models.CharField', ['_("Country Code")'], {'default': "'49'", 'max_length': '4', 'blank': 'True'}),
-            'phone0_number': ('models.CharField', ['_("Subscriber Number and Extension")'], {'max_length': '15', 'blank': 'True'}),
-            'phone0_type': ('models.ForeignKey', ["orm['optionset.PhoneType']"], {'default': 'DefaultPhoneType("phone")', 'related_name': "'individual_contacts0'", 'null': 'True', 'blank': 'True'}),
-            'phone1_area': ('models.CharField', ['_("Area Code")'], {'default': "'30'", 'max_length': '5', 'blank': 'True'}),
-            'phone1_country': ('models.CharField', ['_("Country Code")'], {'default': "'49'", 'max_length': '4', 'blank': 'True'}),
-            'phone1_number': ('models.CharField', ['_("Subscriber Number and Extension")'], {'max_length': '15', 'blank': 'True'}),
-            'phone1_type': ('models.ForeignKey', ["orm['optionset.PhoneType']"], {'default': 'DefaultPhoneType("fax")', 'related_name': "'individual_contacts1'", 'null': 'True', 'blank': 'True'}),
-            'phone2_area': ('models.CharField', ['_("Area Code")'], {'max_length': '5', 'blank': 'True'}),
-            'phone2_country': ('models.CharField', ['_("Country Code")'], {'default': "'49'", 'max_length': '4', 'blank': 'True'}),
-            'phone2_number': ('models.CharField', ['_("Subscriber Number and Extension")'], {'max_length': '15', 'blank': 'True'}),
-            'phone2_type': ('models.ForeignKey', ["orm['optionset.PhoneType']"], {'default': 'DefaultPhoneType("mobile")', 'related_name': "'individual_contacts2'", 'null': 'True', 'blank': 'True'}),
-            'postal_address': ('models.ForeignKey', ["orm['location.Address']"], {'related_name': '"individual_address"', 'null': 'True', 'blank': 'True'}),
-            'url0_link': ('URLField', ['_("URL")'], {'blank': 'True'}),
-            'url0_type': ('models.ForeignKey', ["orm['optionset.URLType']"], {'related_name': "'individual_contacts0'", 'null': 'True', 'blank': 'True'}),
-            'url1_link': ('URLField', ['_("URL")'], {'blank': 'True'}),
-            'url1_type': ('models.ForeignKey', ["orm['optionset.URLType']"], {'related_name': "'individual_contacts1'", 'null': 'True', 'blank': 'True'}),
-            'url2_link': ('URLField', ['_("URL")'], {'blank': 'True'}),
-            'url2_type': ('models.ForeignKey', ["orm['optionset.URLType']"], {'related_name': "'individual_contacts2'", 'null': 'True', 'blank': 'True'}),
-            'validity_end_dd': ('models.SmallIntegerField', ['_("Till Day")'], {'null': 'True', 'blank': 'True'}),
-            'validity_end_mm': ('models.SmallIntegerField', ['_("Till Month")'], {'null': 'True', 'blank': 'True'}),
-            'validity_end_yyyy': ('models.IntegerField', ['_("Till Year")'], {'null': 'True', 'blank': 'True'}),
-            'validity_start_dd': ('models.SmallIntegerField', ['_("From Day")'], {'null': 'True', 'blank': 'True'}),
-            'validity_start_mm': ('models.SmallIntegerField', ['_("From Month")'], {'null': 'True', 'blank': 'True'}),
-            'validity_start_yyyy': ('models.IntegerField', ['_("From Year")'], {'null': 'True', 'blank': 'True'})
-        },
-        'optionset.emailtype': {
-            'Meta': {'ordering': "['sort_order','title']"},
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'location.address': {
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'optionset.urltype': {
-            'Meta': {'ordering': "['sort_order','title']"},
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'institutions.institution': {
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'i18n.timezone': {
-            'Meta': {'ordering': "['zone']"},
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'optionset.imtype': {
-            'Meta': {'ordering': "['sort_order','title']"},
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'i18n.nationality': {
-            'Meta': {'ordering': "XFieldList(['sort_order','name_'])"},
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'optionset.prefix': {
-            'Meta': {'ordering': "['sort_order','title']"},
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'optionset.salutation': {
-            'Meta': {'ordering': "['sort_order','title']"},
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        }
-    }
-    south_clean_multilingual_fields(models)
-    
-    complete_apps = ['people']
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('optionset', '0001_initial'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('structure', '0001_initial'),
+        ('institutions', '0001_initial'),
+        ('location', '0001_initial'),
+        ('i18n', '0001_initial'),
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name='IndividualContact',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('location_title', models.CharField(max_length=255, verbose_name='Location title', blank=True)),
+                ('is_primary', models.BooleanField(default=True, verbose_name='Primary contact')),
+                ('is_seasonal', models.BooleanField(default=False, verbose_name='Seasonal')),
+                ('validity_start_yyyy', models.IntegerField(blank=True, null=True, verbose_name='From Year', choices=[(2005, 2005), (2006, 2006), (2007, 2007), (2008, 2008), (2009, 2009), (2010, 2010), (2011, 2011), (2012, 2012), (2013, 2013), (2014, 2014), (2015, 2015), (2016, 2016), (2017, 2017), (2018, 2018), (2019, 2019), (2020, 2020), (2021, 2021), (2022, 2022), (2023, 2023), (2024, 2024)])),
+                ('validity_start_mm', models.SmallIntegerField(blank=True, null=True, verbose_name='From Month', choices=[(1, 'January'), (2, 'February'), (3, 'March'), (4, 'April'), (5, 'May'), (6, 'June'), (7, 'July'), (8, 'August'), (9, 'September'), (10, 'October'), (11, 'November'), (12, 'December')])),
+                ('validity_start_dd', models.SmallIntegerField(blank=True, null=True, verbose_name='From Day', choices=[(1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9), (10, 10), (11, 11), (12, 12), (13, 13), (14, 14), (15, 15), (16, 16), (17, 17), (18, 18), (19, 19), (20, 20), (21, 21), (22, 22), (23, 23), (24, 24), (25, 25), (26, 26), (27, 27), (28, 28), (29, 29), (30, 30), (31, 31)])),
+                ('validity_end_yyyy', models.IntegerField(blank=True, null=True, verbose_name='Till Year', choices=[(2005, 2005), (2006, 2006), (2007, 2007), (2008, 2008), (2009, 2009), (2010, 2010), (2011, 2011), (2012, 2012), (2013, 2013), (2014, 2014), (2015, 2015), (2016, 2016), (2017, 2017), (2018, 2018), (2019, 2019), (2020, 2020), (2021, 2021), (2022, 2022), (2023, 2023), (2024, 2024)])),
+                ('validity_end_mm', models.SmallIntegerField(blank=True, null=True, verbose_name='Till Month', choices=[(1, 'January'), (2, 'February'), (3, 'March'), (4, 'April'), (5, 'May'), (6, 'June'), (7, 'July'), (8, 'August'), (9, 'September'), (10, 'October'), (11, 'November'), (12, 'December')])),
+                ('validity_end_dd', models.SmallIntegerField(blank=True, null=True, verbose_name='Till Day', choices=[(1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9), (10, 10), (11, 11), (12, 12), (13, 13), (14, 14), (15, 15), (16, 16), (17, 17), (18, 18), (19, 19), (20, 20), (21, 21), (22, 22), (23, 23), (24, 24), (25, 25), (26, 26), (27, 27), (28, 28), (29, 29), (30, 30), (31, 31)])),
+                ('institutional_title', models.CharField(help_text='i.e. "director", "manager", "student", "doctor", etc.', max_length=255, verbose_name='Title in the institution', blank=True)),
+                ('is_billing_address', models.BooleanField(default=True, verbose_name='Use this address for billing')),
+                ('is_shipping_address', models.BooleanField(default=True, verbose_name='Use this address for shipping')),
+                ('phone0_country', models.CharField(default=b'49', max_length=4, verbose_name='Country Code', blank=True)),
+                ('phone0_area', models.CharField(default=b'30', max_length=6, verbose_name='Area Code', blank=True)),
+                ('phone0_number', models.CharField(max_length=25, verbose_name='Subscriber Number and Extension', blank=True)),
+                ('is_phone0_default', models.BooleanField(default=True, verbose_name='Default?')),
+                ('is_phone0_on_hold', models.BooleanField(default=False, verbose_name='Default?')),
+                ('phone1_country', models.CharField(default=b'49', max_length=4, verbose_name='Country Code', blank=True)),
+                ('phone1_area', models.CharField(default=b'30', max_length=6, verbose_name='Area Code', blank=True)),
+                ('phone1_number', models.CharField(max_length=25, verbose_name='Subscriber Number and Extension', blank=True)),
+                ('is_phone1_default', models.BooleanField(default=False, verbose_name='Default?')),
+                ('is_phone1_on_hold', models.BooleanField(default=False, verbose_name='Default?')),
+                ('phone2_country', models.CharField(default=b'49', max_length=4, verbose_name='Country Code', blank=True)),
+                ('phone2_area', models.CharField(max_length=6, verbose_name='Area Code', blank=True)),
+                ('phone2_number', models.CharField(max_length=25, verbose_name='Subscriber Number and Extension', blank=True)),
+                ('is_phone2_default', models.BooleanField(default=False, verbose_name='Default?')),
+                ('is_phone2_on_hold', models.BooleanField(default=False, verbose_name='On Hold?')),
+                ('url0_link', base_libs.models.fields.URLField(verbose_name='URL', blank=True)),
+                ('is_url0_default', models.BooleanField(default=True, verbose_name='Default?')),
+                ('is_url0_on_hold', models.BooleanField(default=False, verbose_name='On Hold?')),
+                ('url1_link', base_libs.models.fields.URLField(verbose_name='URL', blank=True)),
+                ('is_url1_default', models.BooleanField(default=False, verbose_name='Default?')),
+                ('is_url1_on_hold', models.BooleanField(default=False, verbose_name='On Hold?')),
+                ('url2_link', base_libs.models.fields.URLField(verbose_name='URL', blank=True)),
+                ('is_url2_default', models.BooleanField(default=False, verbose_name='Default?')),
+                ('is_url2_on_hold', models.BooleanField(default=False, verbose_name='On Hold?')),
+                ('im0_address', models.CharField(max_length=255, verbose_name='Instant Messenger', blank=True)),
+                ('is_im0_default', models.BooleanField(default=True, verbose_name='Default?')),
+                ('is_im0_on_hold', models.BooleanField(default=False, verbose_name='On Hold?')),
+                ('im1_address', models.CharField(max_length=255, verbose_name='Instant Messenger', blank=True)),
+                ('is_im1_default', models.BooleanField(default=False, verbose_name='Default?')),
+                ('is_im1_on_hold', models.BooleanField(default=False, verbose_name='On Hold?')),
+                ('im2_address', models.CharField(max_length=255, verbose_name='Instant Messenger', blank=True)),
+                ('is_im2_default', models.BooleanField(default=False, verbose_name='Default?')),
+                ('is_im2_on_hold', models.BooleanField(default=False, verbose_name='On Hold?')),
+                ('email0_address', models.CharField(max_length=255, verbose_name='Email Address', blank=True)),
+                ('is_email0_default', models.BooleanField(default=True, verbose_name='Default?')),
+                ('is_email0_on_hold', models.BooleanField(default=False, verbose_name='On Hold?')),
+                ('email1_address', models.CharField(max_length=255, verbose_name='Email Address', blank=True)),
+                ('is_email1_default', models.BooleanField(default=False, verbose_name='Default?')),
+                ('is_email1_on_hold', models.BooleanField(default=False, verbose_name='On Hold?')),
+                ('email2_address', models.CharField(max_length=255, verbose_name='Email Address', blank=True)),
+                ('is_email2_default', models.BooleanField(default=False, verbose_name='Default?')),
+                ('is_email2_on_hold', models.BooleanField(default=False, verbose_name='On Hold?')),
+                ('email0_type', models.ForeignKey(related_name='individual_contacts0', verbose_name='Email Type', blank=True, to='optionset.EmailType', null=True)),
+                ('email1_type', models.ForeignKey(related_name='individual_contacts1', verbose_name='Email Type', blank=True, to='optionset.EmailType', null=True)),
+                ('email2_type', models.ForeignKey(related_name='individual_contacts2', verbose_name='Email Type', blank=True, to='optionset.EmailType', null=True)),
+                ('im0_type', models.ForeignKey(related_name='individual_contacts0', verbose_name='IM Type', blank=True, to='optionset.IMType', null=True)),
+                ('im1_type', models.ForeignKey(related_name='individual_contacts1', verbose_name='IM Type', blank=True, to='optionset.IMType', null=True)),
+                ('im2_type', models.ForeignKey(related_name='individual_contacts2', verbose_name='IM Type', blank=True, to='optionset.IMType', null=True)),
+                ('institution', models.ForeignKey(verbose_name='Institution', blank=True, to='institutions.Institution', null=True)),
+                ('location_type', models.ForeignKey(default=jetson.apps.people.base.get_default_ind_loc_type, verbose_name='Location type', to='optionset.IndividualLocationType')),
+            ],
+            options={
+                'ordering': ['-is_primary'],
+                'abstract': False,
+                'verbose_name': 'individual contact',
+                'verbose_name_plural': 'individual contacts',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='IndividualType',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
+                ('sort_order', models.IntegerField(default=0, verbose_name='sort order', editable=False, blank=True)),
+                ('title', models.CharField(verbose_name='title', max_length=255, null=True, editable=False)),
+                ('title_de', models.CharField(max_length=255, verbose_name='title')),
+                ('title_en', models.CharField(max_length=255, verbose_name='title', blank=True)),
+                ('lft', models.PositiveIntegerField(editable=False, db_index=True)),
+                ('rght', models.PositiveIntegerField(editable=False, db_index=True)),
+                ('tree_id', models.PositiveIntegerField(editable=False, db_index=True)),
+                ('level', models.PositiveIntegerField(editable=False, db_index=True)),
+                ('parent', mptt.fields.TreeForeignKey(related_name='child_set', blank=True, to='people.IndividualType', null=True)),
+            ],
+            options={
+                'ordering': ['tree_id', 'lft'],
+                'verbose_name': 'individual type',
+                'verbose_name_plural': 'individual types',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Person',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
+                ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
+                ('person_repr', models.CharField(verbose_name='Person Representation', max_length=200, editable=False, blank=True)),
+                ('nickname', models.CharField(max_length=200, verbose_name='Nickname', blank=True)),
+                ('birthname', models.CharField(max_length=200, verbose_name='Birth / Maiden name', blank=True)),
+                ('gender', models.CharField(blank=True, max_length=1, verbose_name='Gender', choices=[(b'M', 'Male'), (b'F', 'Female')])),
+                ('birthday_yyyy', models.IntegerField(blank=True, null=True, verbose_name='Year of Birth', choices=[(1999, 1999), (1998, 1998), (1997, 1997), (1996, 1996), (1995, 1995), (1994, 1994), (1993, 1993), (1992, 1992), (1991, 1991), (1990, 1990), (1989, 1989), (1988, 1988), (1987, 1987), (1986, 1986), (1985, 1985), (1984, 1984), (1983, 1983), (1982, 1982), (1981, 1981), (1980, 1980), (1979, 1979), (1978, 1978), (1977, 1977), (1976, 1976), (1975, 1975), (1974, 1974), (1973, 1973), (1972, 1972), (1971, 1971), (1970, 1970), (1969, 1969), (1968, 1968), (1967, 1967), (1966, 1966), (1965, 1965), (1964, 1964), (1963, 1963), (1962, 1962), (1961, 1961), (1960, 1960), (1959, 1959), (1958, 1958), (1957, 1957), (1956, 1956), (1955, 1955), (1954, 1954), (1953, 1953), (1952, 1952), (1951, 1951), (1950, 1950), (1949, 1949), (1948, 1948), (1947, 1947), (1946, 1946), (1945, 1945), (1944, 1944), (1943, 1943), (1942, 1942), (1941, 1941), (1940, 1940), (1939, 1939), (1938, 1938), (1937, 1937), (1936, 1936), (1935, 1935), (1934, 1934), (1933, 1933), (1932, 1932), (1931, 1931), (1930, 1930), (1929, 1929), (1928, 1928), (1927, 1927), (1926, 1926), (1925, 1925), (1924, 1924), (1923, 1923), (1922, 1922), (1921, 1921), (1920, 1920), (1919, 1919), (1918, 1918), (1917, 1917), (1916, 1916)])),
+                ('birthday_mm', models.SmallIntegerField(blank=True, null=True, verbose_name='Month of Birth', choices=[(1, 'January'), (2, 'February'), (3, 'March'), (4, 'April'), (5, 'May'), (6, 'June'), (7, 'July'), (8, 'August'), (9, 'September'), (10, 'October'), (11, 'November'), (12, 'December')])),
+                ('birthday_dd', models.SmallIntegerField(blank=True, null=True, verbose_name='Day of Birth', choices=[(1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9), (10, 10), (11, 11), (12, 12), (13, 13), (14, 14), (15, 15), (16, 16), (17, 17), (18, 18), (19, 19), (20, 20), (21, 21), (22, 22), (23, 23), (24, 24), (25, 25), (26, 26), (27, 27), (28, 28), (29, 29), (30, 30), (31, 31)])),
+                ('degree', models.CharField(max_length=200, verbose_name='Academic Degree', blank=True)),
+                ('occupation', models.CharField(max_length=200, verbose_name='Current Occupation', blank=True)),
+                ('interests', models.CharField(max_length=200, verbose_name='Interests', blank=True)),
+                ('description', models.TextField(default=b'', verbose_name='Description', null=True, editable=False, blank=True)),
+                ('image', filebrowser.fields.FileBrowseField(max_length=255, verbose_name='Image', blank=True)),
+                ('status', models.CharField(default=b'unconfirmed', max_length=20, verbose_name='Status', blank=True, choices=[(b'unconfirmed', 'Unconfirmed'), (b'published', 'Published'), (b'not_listed', 'Not Listed'), (b'import', 'Imported')])),
+                ('display_birthday', models.BooleanField(default=True, verbose_name='Display birthday to public')),
+                ('display_email', models.BooleanField(default=False, verbose_name='Display email address to public')),
+                ('display_address', models.BooleanField(default=True, verbose_name='Display address data to public')),
+                ('display_phone', models.BooleanField(default=True, verbose_name='Display phone numbers to public')),
+                ('display_fax', models.BooleanField(default=True, verbose_name='Display fax numbers to public')),
+                ('display_mobile', models.BooleanField(default=True, verbose_name='Display mobile phones to public')),
+                ('display_im', models.BooleanField(default=True, verbose_name='Display instant messengers to public')),
+                ('display_username', models.BooleanField(default=False, verbose_name='Display user name instead of full name')),
+                ('allow_search_engine_indexing', models.BooleanField(default=True, verbose_name='Allow indexing by search engines')),
+                ('completeness', models.SmallIntegerField(default=0, verbose_name='Completeness in %')),
+                ('description_de', base_libs.models.fields.ExtendedTextField(default=b'', null=True, verbose_name='Beschreibung', blank=True)),
+                ('description_de_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('description_en', base_libs.models.fields.ExtendedTextField(default=b'', null=True, verbose_name='Beschreibung', blank=True)),
+                ('description_en_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('context_categories', mptt.fields.TreeManyToManyField(to='structure.ContextCategory', verbose_name='Context categories', blank=True)),
+                ('creative_sectors', mptt.fields.TreeManyToManyField(related_name='creative_industry_people', verbose_name='Creative sectors', to='structure.Term', blank=True)),
+                ('individual_type', mptt.fields.TreeForeignKey(verbose_name='Type', blank=True, to='people.IndividualType', null=True)),
+                ('nationality', models.ForeignKey(blank=True, to='i18n.Nationality', max_length=200, null=True, verbose_name='Nationality')),
+                ('preferred_language', models.ForeignKey(verbose_name='Preferred Language', blank=True, to='i18n.Language', null=True)),
+                ('prefix', models.ForeignKey(verbose_name='Prefix', blank=True, to='optionset.Prefix', null=True)),
+                ('salutation', models.ForeignKey(verbose_name='Salutation', blank=True, to='optionset.Salutation', null=True)),
+                ('spoken_languages', models.ManyToManyField(related_name='speaking_people', verbose_name='Languages spoken', to='i18n.Language', blank=True)),
+                ('timezone', models.ForeignKey(blank=True, to='i18n.TimeZone', max_length=200, null=True, verbose_name='Current Timezone')),
+                ('user', models.OneToOneField(related_name='profile', verbose_name='User', to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+                'abstract': False,
+                'verbose_name': 'individual (person)',
+                'verbose_name_plural': 'individuals (people)',
+                'permissions': (('can_see_birthday', 'Can see birthday'), ('can_see_addresses', 'Can see addresses'), ('can_see_phones', 'Can see phone numbers'), ('can_see_faxes', 'Can see fax numbers'), ('can_see_mobiles', 'Can see mobile phone numbers'), ('can_see_ims', 'Can see instant messengers')),
+            },
+            bases=(models.Model,),
+        ),
+        migrations.AddField(
+            model_name='individualcontact',
+            name='person',
+            field=models.ForeignKey(verbose_name='Person', to='people.Person'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='individualcontact',
+            name='phone0_type',
+            field=models.ForeignKey(related_name='individual_contacts0', default=jetson.apps.optionset.models.get_default_phonetype_for_phone, blank=True, to='optionset.PhoneType', null=True, verbose_name='Phone Type'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='individualcontact',
+            name='phone1_type',
+            field=models.ForeignKey(related_name='individual_contacts1', default=jetson.apps.optionset.models.get_default_phonetype_for_fax, blank=True, to='optionset.PhoneType', null=True, verbose_name='Phone Type'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='individualcontact',
+            name='phone2_type',
+            field=models.ForeignKey(related_name='individual_contacts2', default=jetson.apps.optionset.models.get_default_phonetype_for_mobile, blank=True, to='optionset.PhoneType', null=True, verbose_name='Phone Type'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='individualcontact',
+            name='postal_address',
+            field=models.ForeignKey(related_name='individual_address', verbose_name='Postal Address', blank=True, to='location.Address', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='individualcontact',
+            name='url0_type',
+            field=models.ForeignKey(related_name='individual_contacts0', verbose_name='URL Type', blank=True, to='optionset.URLType', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='individualcontact',
+            name='url1_type',
+            field=models.ForeignKey(related_name='individual_contacts1', verbose_name='URL Type', blank=True, to='optionset.URLType', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='individualcontact',
+            name='url2_type',
+            field=models.ForeignKey(related_name='individual_contacts2', verbose_name='URL Type', blank=True, to='optionset.URLType', null=True),
+            preserve_default=True,
+        ),
+    ]

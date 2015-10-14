@@ -3,12 +3,14 @@
 
 {% block object_col2 %}
     {% ifequal active_link "requests" %}
-        <div class="object-type">{% trans "Invitation from" %} {{ person.individualrelation_timestamp|date:_("DATETIME_FORMAT") }}</div>
-    {% else %}    
+        <div
+            class="object-type">{% trans "Invitation from" %} {{ person.individualrelation_timestamp|date:_("DATETIME_FORMAT") }}</div>
+    {% else %}
         {% ifequal active_link "requested" %}
-            <div class="object-type">{% trans "Request from" %} {{ person.individualrelation_timestamp|date:_("DATETIME_FORMAT") }}</div>
+            <div
+                class="object-type">{% trans "Request from" %} {{ person.individualrelation_timestamp|date:_("DATETIME_FORMAT") }}</div>
         {% endifequal %}
-    {% endifequal %}		                	
+    {% endifequal %}
     {% comment %}<!--
     STATUS = {{ person.individualrelation_status }}
     -->{% endcomment %}
@@ -28,13 +30,17 @@
                 -->{% endcomment %}
                 {% adding_individual_relation with person %}
                 {% if person.is_contactable %}
-                    <li class="mail"><a href="{{ person.get_url_path }}message/" title="{% trans "Send a mail" %}"><span>{% trans "Send a mail" %}</span></a></li>
+                    <li class="mail">
+                        <a href="{{ person.get_url_path }}message/"
+                            title="{% trans "Send a mail" %}"><span>{% trans "Send a mail" %}</span></a>
+                    </li>
                 {% endif %}
             {% endif %}
             {% if perms.people.change_person %}
                 <li class="admin_edit">
-                    <a href="/admin/people/person/{{ person.id }}/" class="edit_link" onclick="open_new_window(event)" title="{% trans "Edit Person" %}">
-                    <span>{% trans "Edit Person" %}</span>
+                    <a href="/admin/people/person/{{ person.id }}/" class="edit_link" onclick="open_new_window(event)"
+                        title="{% trans "Edit Person" %}">
+                        <span>{% trans "Edit Person" %}</span>
                     </a>
                 </li>
             {% endif %}

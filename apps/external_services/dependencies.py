@@ -8,5 +8,5 @@ required_apps = [
     "events",
     "marketplace",
     "optionset",
-    ]
+]
 optional_apps = []

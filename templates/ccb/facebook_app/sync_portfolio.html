@@ -9,9 +9,15 @@
 {% block additional_controls %}
     <div class="media_nav">
         <div class="right">
-            <a class="fb-sync active" href="{{ object.get_url_path }}portfolio/fb-sync/"><span><span>{% trans "Sync with Facebook" %}</span></span></a>
-            <a class="portfolio-manage" href="{{ object.get_url_path }}portfolio/manage/"><span><span>{% trans "All projects" %}</span></span></a>
-            <a class="portfolio-add" href="{{ object.get_url_path }}portfolio/album/add/"><span><span>{% trans "Add project" %}</span></span></a>
+            <a class="fb-sync active"
+                href="{{ object.get_url_path }}portfolio/fb-sync/">
+                <span><span>{% trans "Sync with Facebook" %}</span></span></a>
+            <a class="portfolio-manage"
+                href="{{ object.get_url_path }}portfolio/manage/"><span><span>{% trans "All projects" %}</span></span>
+            </a>
+            <a class="portfolio-add"
+                href="{{ object.get_url_path }}portfolio/album/add/"><span><span>{% trans "Add project" %}</span></span>
+            </a>
         </div>
     </div>
 {% endblock %}

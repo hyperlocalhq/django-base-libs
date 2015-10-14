@@ -2,7 +2,7 @@
 {% load i18n base_tags auth_extended nav_menu %}
 
 {% block extrahead %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/groups_networks.js"></script>
 {% endblock %}
 
@@ -10,8 +10,8 @@
 {% block title %}{% trans "Institutions" %}{% endblock %}
 
 {% block headline %}
-	<h1>{% trans "Institutions" %}</h1>
-{% endblock %}			
+    <h1>{% trans "Institutions" %}</h1>
+{% endblock %}
 
 {% block content %}
     {% block tabs %}
@@ -21,18 +21,18 @@
     {% endblock %}
 
     {% if object_list %}
-         {% include_parsed "utils/includes/sorting_and_pagination.html" with "under-tabs" as css_class %}
+        {% include_parsed "utils/includes/sorting_and_pagination.html" with "under-tabs" as css_class %}
         <div id="object_list">
             {% for object in object_list %}
                 {% include_parsed "institutions/lists/institution.html" with object.content_object as institution and "vcard" as extra_css_classes %}
             {% endfor %}
         </div>
         {% include "utils/includes/sorting_and_pagination.html" %}
-     {% else %}
+    {% else %}
         <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>
     {% endif %}
 {% endblock %}
 
 {% block extrabody %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
 {% endblock %}

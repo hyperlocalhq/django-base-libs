@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 import re
+
 from django.db import models
-from django import template
 from django.conf import settings
 from django import template
 
@@ -11,9 +11,10 @@ from ccb.apps.marketplace.forms import PREFIX_JS
 Term = models.get_model("structure", "Term")
 ContextCategory = models.get_model("structure", "ContextCategory")
 
-register = template.Library() 
+register = template.Library()
 
-### TAGS ### 
+
+### TAGS ###
 
 def do_get_latest_published_objects(parser, token):
     """
@@ -39,135 +40,141 @@ def do_get_latest_published_objects(parser, token):
     model = models.get_model(appname, modelname)
     return LatestPublishedObjectsNode(model, amount, var_name)
 
+
 class LatestPublishedObjectsNode(template.Node):
     def __init__(self, model, amount, var_name):
         self.model = model
         self.amount = amount
         self.var_name = var_name
+
     def render(self, context):
         sector_slug = getattr(settings, "CREATIVE_SECTOR", "")
         path_re = re.compile('^/creative-sector/(?P<slug>[^/]+)/$')
         m = re.match(path_re, context["request"].path)
         if m:
             sector_slug = m.groupdict()["slug"]
-        
+
         if hasattr(self.model.objects, "latest_published"):
             qs = self.model.objects.latest_published()
         else:
             qs = self.model.objects.all()
         if sector_slug:
             qs = qs.filter(creative_sectors__slug=sector_slug)
-        #if qs.model.__name__ == "Event":
+        # if qs.model.__name__ == "Event":
         #    qs = qs.order_by("start")
         amount = template.resolve_variable(self.amount, context)
         context[self.var_name] = qs[:amount]
         return ''
 
+
 register.tag('get_latest_published_objects_cs', do_get_latest_published_objects)
 
 
 class CreativeSectorsNode(template.Node):
-    
     def __init__(self, var_name, cs_cleaned_data_lookup_var):
-        
+
         self.var_name = var_name
         self.cs_cleaned_data_lookup_var = cs_cleaned_data_lookup_var
 
     def render(self, context):
-        
+
         # try to resolve vars
+        cleaned = None
         if self.cs_cleaned_data_lookup_var:
             try:
                 cleaned = template.resolve_variable(self.cs_cleaned_data_lookup_var, context)
             except template.VariableDoesNotExist:
                 return ''
-        
+
         selected_cs = {}
         for item in Term.objects.filter(
             vocabulary__sysname='categories_creativesectors',
-            ):
+        ):
             if cleaned.get(PREFIX_CI + str(item.id), False):
                 # remove all the parents
                 for ancestor in item.get_ancestors():
                     if ancestor.id in selected_cs:
-                        del(selected_cs[ancestor.id])
+                        del (selected_cs[ancestor.id])
                 # add current
                 selected_cs[item.id] = item
 
-        context[self.var_name] = selected_cs.values()     
-        return ''   
+        context[self.var_name] = selected_cs.values()
+        return ''
+
 
 class JobSectorsNode(template.Node):
-    
     def __init__(self, var_name, js_cleaned_data_lookup_var):
-        
+
         self.var_name = var_name
         self.js_cleaned_data_lookup_var = js_cleaned_data_lookup_var
 
     def render(self, context):
-        
+
         # try to resolve vars
+        cleaned = None
         if self.js_cleaned_data_lookup_var:
             try:
                 cleaned = template.resolve_variable(self.js_cleaned_data_lookup_var, context)
             except template.VariableDoesNotExist:
                 return ''
-        
+
         selected_js = {}
         JobSector = models.get_model("marketplace", "JobSector")
-        
+
         for item in JobSector.objects.all():
             if cleaned.get(PREFIX_JS + str(item.id), False):
                 selected_js[item.id] = item
 
-        context[self.var_name] = selected_js.values()     
+        context[self.var_name] = selected_js.values()
         return ''
 
+
 class ContextCategoriesNode(template.Node):
-    
     def __init__(self, var_name, cc_cleaned_data_lookup_var):
-        
+
         self.var_name = var_name
         self.cc_cleaned_data_lookup_var = cc_cleaned_data_lookup_var
 
     def render(self, context):
-        
+
         # try to resolve vars
+        cleaned = None
         if self.cc_cleaned_data_lookup_var:
             try:
                 cleaned = template.resolve_variable(self.cc_cleaned_data_lookup_var, context)
             except template.VariableDoesNotExist:
                 return ''
-        
+
         selected_cc = {}
         for item in ContextCategory.objects.filter(is_applied4person=True):
             if cleaned.get(PREFIX_BC + str(item.id), False):
                 # remove all the parents
                 for ancestor in item.get_ancestors():
                     if ancestor.id in selected_cc:
-                        del(selected_cc[ancestor.id])
+                        del (selected_cc[ancestor.id])
                 # add current
                 selected_cc[item.id] = item
 
-        context[self.var_name] = selected_cc.values()     
-        return ''   
-    
+        context[self.var_name] = selected_cc.values()
+        return ''
+
+
 class InstitutionTypesNode(template.Node):
-    
     def __init__(self, var_name, ot_cleaned_data_lookup_var):
-        
+
         self.var_name = var_name
         self.ot_cleaned_data_lookup_var = ot_cleaned_data_lookup_var
 
     def render(self, context):
-        
+
         # try to resolve vars
+        cleaned = None
         if self.ot_cleaned_data_lookup_var:
             try:
                 cleaned = template.resolve_variable(self.ot_cleaned_data_lookup_var, context)
             except template.VariableDoesNotExist:
                 return ''
-        
+
         selected_ot = {}
         InstitutionType = models.get_model("institutions", "InstitutionType")
         for item in InstitutionType.objects.all():
@@ -175,12 +182,13 @@ class InstitutionTypesNode(template.Node):
                 # remove all the parents
                 for ancestor in item.get_ancestors():
                     if ancestor.id in selected_ot:
-                        del(selected_ot[ancestor.id])
+                        del (selected_ot[ancestor.id])
                 # add current
                 selected_ot[item.id] = item
-        context[self.var_name] = selected_ot.values()     
+        context[self.var_name] = selected_ot.values()
         return ''
-    
+
+
 class DoGetCreativeSectors:
     """
     Gets selected creative sectors from form data
@@ -190,6 +198,10 @@ class DoGetCreativeSectors:
         {% get_creative_sectors [cleaned_form_data] as [varname] %}
         
     """
+
+    def __init__(self):
+        pass
+
     def __call__(self, parser, token):
 
         tokens = token.contents.split()
@@ -204,8 +216,9 @@ class DoGetCreativeSectors:
             raise template.TemplateSyntaxError, "%r tag requires 3 arguments" % tokens[0]
         if tokens[2] != 'as':
             raise template.TemplateSyntaxError, "second argument in %r tag must be 'as'" % tokens[0]
-        
-        return CreativeSectorsNode(tokens[3], tokens[1])                
+
+        return CreativeSectorsNode(tokens[3], tokens[1])
+
 
 class DoGetJobSectors:
     """
@@ -216,6 +229,10 @@ class DoGetJobSectors:
         {% get_job_sectors [cleaned_form_data] as [varname] %}
         
     """
+
+    def __init__(self):
+        pass
+
     def __call__(self, parser, token):
 
         tokens = token.contents.split()
@@ -230,8 +247,9 @@ class DoGetJobSectors:
             raise template.TemplateSyntaxError, "%r tag requires 3 arguments" % tokens[0]
         if tokens[2] != 'as':
             raise template.TemplateSyntaxError, "second argument in %r tag must be 'as'" % tokens[0]
-        
-        return JobSectorsNode(tokens[3], tokens[1])                
+
+        return JobSectorsNode(tokens[3], tokens[1])
+
 
 class DoGetContextCategories:
     """
@@ -242,6 +260,10 @@ class DoGetContextCategories:
         {% get_context_categories [cleaned_form_data] as [varname] %}
         
     """
+
+    def __init__(self):
+        pass
+
     def __call__(self, parser, token):
 
         tokens = token.contents.split()
@@ -256,8 +278,9 @@ class DoGetContextCategories:
             raise template.TemplateSyntaxError, "%r tag requires 3 arguments" % tokens[0]
         if tokens[2] != 'as':
             raise template.TemplateSyntaxError, "second argument in %r tag must be 'as'" % tokens[0]
-        
-        return ContextCategoriesNode(tokens[3], tokens[1])                
+
+        return ContextCategoriesNode(tokens[3], tokens[1])
+
 
 class DoGetInstitutionTypes:
     """
@@ -268,6 +291,10 @@ class DoGetInstitutionTypes:
         {% get_institution_types [cleaned_form_data] as [varname] %}
         
     """
+
+    def __init__(self):
+        pass
+
     def __call__(self, parser, token):
 
         tokens = token.contents.split()
@@ -282,11 +309,11 @@ class DoGetInstitutionTypes:
             raise template.TemplateSyntaxError, "%r tag requires 3 arguments" % tokens[0]
         if tokens[2] != 'as':
             raise template.TemplateSyntaxError, "second argument in %r tag must be 'as'" % tokens[0]
-        
+
         return InstitutionTypesNode(tokens[3], tokens[1])
+
 
 register.tag('get_creative_sectors', DoGetCreativeSectors())
 register.tag('get_job_sectors', DoGetJobSectors())
 register.tag('get_context_categories', DoGetContextCategories())
 register.tag('get_institution_types', DoGetInstitutionTypes())
-

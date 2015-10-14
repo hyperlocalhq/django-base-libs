@@ -1,7 +1,9 @@
 {% load i18n base_tags uni_form_tags %}
 <div class="profile_infos">
     <h5 class="edit_subline">{% trans "edit organizer data" %}</h5>
-    <form action="/helper/edit-{{ URL_ID_EVENT }}-profile/{{ object.slug }}/organizer/" method="post" target="hidden_iframe" class="uniForm">
+
+    <form action="/helper/edit-{{ URL_ID_EVENT }}-profile/{{ object.slug }}/organizer/" method="post"
+        target="hidden_iframe" class="uniForm">{% csrf_token %}
         <fieldset class="inlineLabels">
             <h3>{% trans "details data" %}</h3>
             {{ form.non_form_errors }}
@@ -10,8 +12,9 @@
             {{ form.organizer_url_link|as_uni_field }}
             {{ form.is_organized_by_myself|as_uni_field }}
             <div class="buttonHolder">
-                <input type="submit" class="primaryAction" value="{% filter upper %}{% trans "Save" %}{% endfilter %}" />
-                <input type="button" class="secondaryAction" value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel" />
+                <input type="submit" class="primaryAction" value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
+                <input type="button" class="secondaryAction"
+                    value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel"/>
             </div>
         </fieldset>
     </form>

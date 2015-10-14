@@ -2,8 +2,8 @@
 from django.contrib.sitemaps import Sitemap
 
 from base_libs.middleware import get_current_language
-
 from ccb.apps.site_specific.models import ContextItem
+
 
 class ContextItemSitemap(Sitemap):
     changefreq = "never"
@@ -12,14 +12,13 @@ class ContextItemSitemap(Sitemap):
     def items(self):
         return ContextItem.objects.filter(
             status__in=("published", "published_commercial"),
-            ).distinct()                         
+        ).distinct()
 
     def location(self, obj):
         return "/%s%s" % (
             get_current_language(),
             obj.get_url_path()
-            )
-    
+        )
+
     def lastmod(self, obj):
         return obj.modified_date
-    

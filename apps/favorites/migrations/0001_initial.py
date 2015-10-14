@@ -1,50 +1,30 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
-from south.db import db
-from django.db import models
-from ccb.apps.favorites.models import *
-from base_libs.utils.misc import south_clean_multilingual_fields
-from base_libs.utils.misc import south_cleaned_fields
+from django.db import models, migrations
+from django.conf import settings
 
-class Migration:
-    
-    def forwards(self, orm):
-        
-        # Adding model 'Favorite'
-        db.create_table('favorites_favorite', south_cleaned_fields((
-            ('id', models.AutoField(primary_key=True)),
-            ('content_type', models.ForeignKey(orm['contenttypes.ContentType'], limit_choices_to={}, related_name=None, null=False, blank=False)),
-            ('object_id', models.CharField(u'Related object', max_length=255, null=False, blank=False)),
-            ('user', models.ForeignKey(orm['auth.User'])),
-        )))
-        db.send_create_signal('favorites', ['Favorite'])
-        
-    
-    
-    def backwards(self, orm):
-        
-        # Deleting model 'Favorite'
-        db.delete_table('favorites_favorite')
-        
-    
-    
-    models = {
-        'auth.user': {
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'favorites.favorite': {
-            'content_type': ('models.ForeignKey', ["orm['contenttypes.ContentType']"], {'limit_choices_to': '{}', 'related_name': 'None', 'null': 'False', 'blank': 'False'}),
-            'id': ('models.AutoField', [], {'primary_key': 'True'}),
-            'object_id': ('models.CharField', ["u'Related object'"], {'max_length': '255', 'null': 'False', 'blank': 'False'}),
-            'user': ('models.ForeignKey', ["orm['auth.User']"], {})
-        },
-        'contenttypes.contenttype': {
-            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label','model'),)", 'db_table': "'django_content_type'"},
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        }
-    }
-    south_clean_multilingual_fields(models)
-    
-    complete_apps = ['favorites']
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('contenttypes', '0001_initial'),
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name='Favorite',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('object_id', models.CharField(default=b'', help_text='Please select the related object.', max_length=255, verbose_name='Related object')),
+                ('content_type', models.ForeignKey(verbose_name="Related object's type (model)", to='contenttypes.ContentType', help_text='Please select the type (model) for the relation, you want to build.')),
+                ('user', models.ForeignKey(verbose_name='Preferrer', to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+                'verbose_name': 'favorite',
+                'verbose_name_plural': 'favorites',
+            },
+            bases=(models.Model,),
+        ),
+    ]

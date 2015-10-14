@@ -1,63 +1,52 @@
-# encoding: utf-8
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
-from base_libs.utils.misc import south_clean_multilingual_fields
-from base_libs.utils.misc import south_cleaned_fields
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
-class Migration(SchemaMigration):
-    
-    def forwards(self, orm):
-        
-        # Adding model 'Slideshow'
-        db.create_table('slideshows_slideshow', south_cleaned_fields((
-            ('sysname', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=255, db_index=True)),
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-        )))
-        db.send_create_signal('slideshows', ['Slideshow'])
+from django.db import models, migrations
+import base_libs.models.fields
+import filebrowser.fields
 
-        # Adding model 'Slide'
-        db.create_table('slideshows_slide', south_cleaned_fields((
-            ('alt_en', self.gf('django.db.models.fields.CharField')(u'Alternative text', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=100, db_tablespace='', blank=True, unique=False, db_index=False)),
-            ('alt_de', self.gf('django.db.models.fields.CharField')(u'Alternative text', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=100, db_tablespace='', blank=True, unique=False, db_index=False)),
-            ('slideshow', self.gf('django.db.models.fields.related.ForeignKey')(default=0, to=orm['slideshows.Slideshow'])),
-            ('sort_order', self.gf('django.db.models.fields.IntegerField')(default=None)),
-            ('link', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('path', self.gf('filebrowser.fields.FileBrowseField')(max_length=255, blank=True)),
-            ('alt', self.gf('base_libs.models.fields.MultilingualCharField')(max_length=100, null=True, blank=True)),
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-        )))
-        db.send_create_signal('slideshows', ['Slide'])
-    
-    
-    def backwards(self, orm):
-        
-        # Deleting model 'Slideshow'
-        db.delete_table('slideshows_slideshow')
 
-        # Deleting model 'Slide'
-        db.delete_table('slideshows_slide')
-    
-    
-    models = {
-        'slideshows.slide': {
-            'Meta': {'object_name': 'Slide'},
-            'alt': ('base_libs.models.fields.MultilingualCharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'alt_de': ('django.db.models.fields.CharField', ["u'Alternative text'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '100', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
-            'alt_en': ('django.db.models.fields.CharField', ["u'Alternative text'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '100', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'link': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'path': ('filebrowser.fields.FileBrowseField', [], {'max_length': '255', 'blank': 'True'}),
-            'slideshow': ('django.db.models.fields.related.ForeignKey', [], {'default': '0', 'to': "orm['slideshows.Slideshow']"}),
-            'sort_order': ('django.db.models.fields.IntegerField', [], {'default': 'None'})
-        },
-        'slideshows.slideshow': {
-            'Meta': {'object_name': 'Slideshow'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'sysname': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '255', 'db_index': 'True'})
-        }
-    }
-    south_clean_multilingual_fields(models)
-    
-    complete_apps = ['slideshows']
+class Migration(migrations.Migration):
+
+    dependencies = [
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name='Slide',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('path', filebrowser.fields.FileBrowseField(help_text='A path to a locally stored image or video.', max_length=255, verbose_name='File path', blank=True)),
+                ('link', models.CharField(max_length=255, verbose_name='Link', blank=True)),
+                ('alt', models.CharField(verbose_name='Alternative text', max_length=100, null=True, editable=False, blank=True)),
+                ('sort_order', base_libs.models.fields.PositionField(default=None, verbose_name='Sort order')),
+                ('alt_de', models.CharField(max_length=100, verbose_name='Alternative text', blank=True)),
+                ('alt_en', models.CharField(max_length=100, verbose_name='Alternative text', blank=True)),
+            ],
+            options={
+                'ordering': ['sort_order'],
+                'verbose_name': 'slide',
+                'verbose_name_plural': 'slides',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Slideshow',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('sysname', models.SlugField(help_text='Do not change this value!', unique=True, max_length=255, verbose_name='Sysname')),
+            ],
+            options={
+                'ordering': ['sysname'],
+                'verbose_name': 'slideshow',
+                'verbose_name_plural': 'slideshows',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.AddField(
+            model_name='slide',
+            name='slideshow',
+            field=models.ForeignKey(verbose_name='Slideshow', to='slideshows.Slideshow'),
+            preserve_default=True,
+        ),
+    ]

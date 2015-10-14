@@ -13,7 +13,7 @@
 {% block headline %}
     <h1>{% trans "Registration" %}</h1>
     <h2 class="sub">{% trans "Group" %}</h2>
-    
+
 {% endblock %}
 
 {% block sidebar-a %}
@@ -24,18 +24,19 @@
 {% endblock %}
 
 {% block content %}
-<div class="reg">
-    <div class="details">
-        <div class="search">
-            <form action="" class="search_form left" method="post">
-                <div class="field_layout">
-                    {% include "site_specific/categories/categories.html" %}
-                    <div class="message_suggest_category left">{% blocktrans %}Is some category missing? You can <a href="/ticket/new-category/">suggest it here</a>.{% endblocktrans %}</div>
-                    {% include "utils/step_buttons.html" %}
-                </div>
-            </form>
+    <div class="reg">
+        <div class="details">
+            <div class="search">
+                <form action="" class="search_form left" method="post">{% csrf_token %}
+                    <div class="field_layout">
+                        {% include "site_specific/categories/categories.html" %}
+                        <div class="message_suggest_category left">{% blocktrans %}Is some category missing? You can
+                            <a href="/ticket/new-category/">suggest it here</a>.{% endblocktrans %}</div>
+                        {% include "utils/step_buttons.html" %}
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 {% endblock %}
 

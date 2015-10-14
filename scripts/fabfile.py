@@ -1,4 +1,3 @@
-import os
 from fabric.api import env, run, prompt, local, get
 from fabric.state import output
 
@@ -14,20 +13,24 @@ env.full = False
 
 output['running'] = False
 
+
 def dev():
     """ chooses development environment """
     env.environment = "dev"
     print("LOCAL DEVELOPMENT ENVIRONMENT\n")
+
 
 def staging():
     """ chooses testing environment """
     env.environment = "staging"
     print("STAGING WEBSITE\n")
 
+
 def production():
     """ chooses production environment """
     env.environment = "production"
     print("PRODUCTION WEBSITE\n")
+
 
 def full():
     """ all commands should be executed without questioning """
@@ -36,31 +39,32 @@ def full():
 
 def _update_dev():
     """ updates development environment """
-    run("") # password request
+    run("")  # password request
     print
-    
+
     if env.full or "y" == prompt('Get latest production database (y/n)?', default="y"):
         print(" * creating production-database dump...")
-        run('mysqldump --opt -u ccb2008 -pjkads654 ccb2008 > %sproject/jetson_project/ccb/tmp/ccb2008.sql' % PRODUCTION_CCB_DIR)
+        run(
+            'mysqldump --opt -u ccb2008 -pjkads654 ccb2008 > %sproject/jetson_project/ccb/tmp/ccb2008.sql' % PRODUCTION_CCB_DIR)
         print(" * downloading dump...")
         get("%sproject/jetson_project/ccb/tmp/ccb2008.sql"
             % PRODUCTION_CCB_DIR,
             "ccb2008.sql")
         print(" * importing the dump locally...")
         local('cd .. '
-            '&& ./manage.py dbshell < scripts/ccb2008.sql '
-            '&& rm scripts/ccb2008.sql', capture=False)
+              '&& ./manage.py dbshell < scripts/ccb2008.sql '
+              '&& rm scripts/ccb2008.sql', capture=False)
         print(" * removing production-database dump...")
         run('rm %sproject/jetson_project/ccb/tmp/ccb2008.sql' % PRODUCTION_CCB_DIR)
         print
         if env.full or "y" == prompt('Call prepare_dev command (y/n)?', default="y"):
             print(" * preparing data for development...")
             local('cd .. '
-                '&& ./manage.py prepare_dev', capture=False)
+                  '&& ./manage.py prepare_dev', capture=False)
             local('cd .. '
-                '&& ./manage.py prepare_dev --settings=settings_icb', capture=False)
+                  '&& ./manage.py prepare_dev --settings=settings_icb', capture=False)
     print
-    
+
     if env.full or "y" == prompt('Download media uploads (y/n)?', default="y"):
         print(" * creating an archive of media uploads...")
         run('cd %sproject/jetson_project/ccb/media/uploads '
@@ -72,18 +76,18 @@ def _update_dev():
             "uploads.tar.gz")
         print(" * extracting and removing archive locally...")
         local('cd ../media/uploads/ '
-            '&& tar -xzf ../../scripts/uploads.tar.gz '
-            '&& rm ../../scripts/uploads.tar.gz', capture=False)
+              '&& tar -xzf ../../scripts/uploads.tar.gz '
+              '&& rm ../../scripts/uploads.tar.gz', capture=False)
         print(" * removing archive from the server...")
         run("rm %sproject/jetson_project/ccb/tmp/uploads.tar.gz"
             % PRODUCTION_CCB_DIR)
     print
-    
+
     if env.full or "y" == prompt('Update code (y/n)?', default="y"):
         print(" * updating code...")
         local('cd ../.. && svn up', capture=False)
     print
-        
+
     if env.full or "y" == prompt('Migrate database schema (y/n)?', default="y"):
         print(" * migrating database schema...")
         local("cd .. && ./manage migrate --no-initial-data", capture=False)
@@ -93,9 +97,9 @@ def _update_dev():
 
 def _update_staging():
     """ updates testing environment """
-    run("") # password request
+    run("")  # password request
     print
-    
+
     if env.full or "y" == prompt('Set under-construction screen (y/n)?', default="y"):
         print(" * changing vhost.conf...")
         run('cd %sconf/ '
@@ -124,13 +128,14 @@ def _update_staging():
                 '&& ./manage prepare_staging --settings=settings_icb'
                 % STAGING_CCB_DIR)
     print
-    
+
     if env.full or "y" == prompt('Get latest media uploads (y/n)?', default="y"):
         print(" * updating media uploads...")
         run('cp -R %sproject/jetson_project/ccb/media/uploads/* %sproject/jetson_project/ccb/media/uploads/ '
-        '&& chmod -R 0777 %sproject/jetson_project/ccb/media/uploads' % (PRODUCTION_CCB_DIR, STAGING_CCB_DIR, STAGING_CCB_DIR))
+            '&& chmod -R 0777 %sproject/jetson_project/ccb/media/uploads' % (
+                PRODUCTION_CCB_DIR, STAGING_CCB_DIR, STAGING_CCB_DIR))
     print
-    
+
     if env.full or "y" == prompt('Update code (y/n)?', default="y"):
         print(" * updating code...")
         run('cd %s/project/jetson_project/ccb/ '
@@ -139,7 +144,7 @@ def _update_staging():
             '&& svn up'
             % STAGING_CCB_DIR)
     print
-    
+
     if env.full or "y" == prompt('Migrate database schema (y/n)?', default="y"):
         print(" * migrating database schema...")
         run('cd %s/project/jetson_project/ccb/ '
@@ -168,14 +173,15 @@ def _update_staging():
         run('/etc/init.d/apache2 start')
     print
 
+
 def _update_production():
     """ updates production environment """
     if "y" != prompt('Are you sure you want to update production website (y/n)?', default="n"):
         return
-    
-    run("") # password request
+
+    run("")  # password request
     print
-    
+
     if env.full or "y" == prompt('Set under-construction screen (y/n)?', default="y"):
         print(" * changing vhost.conf...")
         run('cd %sconf/ '
@@ -196,7 +202,7 @@ def _update_production():
 
     if env.full or "y" == prompt('Backup database (y/n)?', default="y"):
         print(" * creating a database dump...")
-        run('cd %sprivate/ ' 
+        run('cd %sprivate/ '
             '&& ./backupdb.bsh'
             % PRODUCTION_CCB_DIR)
     print
@@ -209,7 +215,7 @@ def _update_production():
             '&& svn up'
             % PRODUCTION_CCB_DIR)
     print
-    
+
     if env.full or "y" == prompt('Change permissions for translation files (y/n)?', default="y"):
         print(" * making translation files writable...")
         run('find %sproject/jetson_project/jetson/locale/ '
@@ -221,7 +227,7 @@ def _update_production():
             '-exec chmod -R 0666 {} ";"'
             % PRODUCTION_CCB_DIR)
     print
-    
+
     if env.full or "y" == prompt('Migrate database schema (y/n)?', default="y"):
         print(" * migrating database schema...")
         run('cd %s/project/jetson_project/ccb/ '
@@ -264,10 +270,11 @@ def deploy():
 
     globals()["_update_%s" % env.environment]()
 
+
 def _translate_on_dev():
-    run("") # password request
+    run("")  # password request
     print
-    
+
     if env.full or "y" == prompt('Change permissions for translation files (y/n)?', default="y"):
         print(" * locking files on the production environment...")
         run('find %sproject/jetson_project/jetson/locale/ '
@@ -290,38 +297,38 @@ def _translate_on_dev():
             % PRODUCTION_CCB_DIR)
         print(" * updating dev environment...")
         local('cd ../../jetson/locale/ '
-            '&& svn up', capture=False)
+              '&& svn up', capture=False)
         local('cd ../locale/ '
-            '&& svn up', capture=False)
+              '&& svn up', capture=False)
     print
 
     if env.full or "y" == prompt('Collect translatable strings (y/n)?', default="y"):
         print(" * making messages...")
         local('cd ../../jetson/ '
-            '&& django-admin.py makemessages --all && django-admin.py makemessages --all -d djangojs', capture=False)
+              '&& django-admin.py makemessages --all && django-admin.py makemessages --all -d djangojs', capture=False)
         local('cd .. '
-            '&& django-admin.py makemessages --all && django-admin.py makemessages --all -d djangojs', capture=False)
+              '&& django-admin.py makemessages --all && django-admin.py makemessages --all -d djangojs', capture=False)
     print
 
 
 def _translate_on_production():
-    run("") # password request
+    run("")  # password request
     print
 
     if env.full or "y" == prompt('Compile translations (y/n)?', default="y"):
         print(" * compiling translations in dev environment...")
         local('cd ../../jetson/ '
-            '&& django-admin.py compilemessages', capture=False)
+              '&& django-admin.py compilemessages', capture=False)
         local('cd .. '
-            '&& django-admin.py compilemessages', capture=False)
+              '&& django-admin.py compilemessages', capture=False)
     print
 
     if env.full or "y" == prompt('Send existing translations to production (y/n)?', default="y"):
         print(" * committing from dev environment...")
         local('cd ../../jetson/locale/ '
-            '&& svn commit -m "translations for Jetson"', capture=False)
+              '&& svn commit -m "translations for Jetson"', capture=False)
         local('cd ../locale/ '
-            '&& svn commit -m "translations for CCB"', capture=False)
+              '&& svn commit -m "translations for CCB"', capture=False)
         print(" * updating production environment...")
         run('cd %s/project/jetson_project/jetson/locale/ '
             '&& svn update'
@@ -330,7 +337,7 @@ def _translate_on_production():
             '&& svn update'
             % PRODUCTION_CCB_DIR)
     print
-    
+
     if env.full or "y" == prompt('Change permissions for translation files (y/n)?', default="y"):
         print(" * unlocking files on the production environment...")
         run('find %sproject/jetson_project/jetson/locale/ '
@@ -349,6 +356,7 @@ def _translate_on_production():
         run('/etc/init.d/apache2 start')
     print
 
+
 def translate():
     """ activates translations for the chosen environment """
     while env.environment not in ("dev", "production"):
@@ -356,4 +364,3 @@ def translate():
         print
 
     globals()["_translate_on_%s" % env.environment]()
-

@@ -1,11 +1,10 @@
-from django.conf import settings
-from django.db.models import get_model
-from django.template import loader, Template, Context
+from django.template import loader
 from django import template
 
 from ccb.apps.slideshows.models import Slideshow
 
 register = template.Library()
+
 
 def do_slideshow(parser, token):
     try:
@@ -15,27 +14,31 @@ def do_slideshow(parser, token):
         try:
             tag_name, sysname = token.split_contents()
         except ValueError:
-            raise template.TemplateSyntaxError, "%r tag requires a following syntax: {%% %r <sysname> [using <template_path>] %%}" % token.contents[0]
+            raise template.TemplateSyntaxError, "%r tag requires a following syntax: {%% %r <sysname> [using <template_path>] %%}" % \
+                                                token.contents[0]
     return SlideshowRenderer(sysname, template_path)
+
 
 class SlideshowRenderer(template.Node):
     """ {% slideshow <sysname> [using <template_path>] %} """
+
     def __init__(self, sysname, template_path):
         self.sysname = sysname
         self.template_path = template_path
+
     def render(self, context):
         try:
             sysname = template.resolve_variable(self.sysname, context)
-        except:
+        except Exception:
             return ""
-            
+
         slideshow, created = Slideshow.objects.get_or_create(
             sysname=sysname,
-            )
-        
+        )
+
         try:
             template_path = template.resolve_variable(self.template_path, context)
-        except:
+        except Exception:
             template_path = ""
         context_vars = context
         context_vars.push()
@@ -44,5 +47,5 @@ class SlideshowRenderer(template.Node):
         context_vars.pop()
         return output
 
-register.tag('slideshow', do_slideshow)
 
+register.tag('slideshow', do_slideshow)

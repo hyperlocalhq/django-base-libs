@@ -2,22 +2,21 @@
 
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
+from mptt.fields import TreeManyToManyField
 
-from base_libs.models.settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
-from base_libs.models.fields import URLField
-
+from base_libs.models.base_libs_settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
 from jetson.apps.external_services.models import *
 
-from mptt.fields import TreeManyToManyField
 
 class ArticleImportSource(Service):
     STATUS_CHOICES = getattr(settings, "PUBLISHING_STATUS_CHOICES", (
         (STATUS_CODE_DRAFT, _("Draft")),
         (STATUS_CODE_PUBLISHED, _("Published")),
     ))
-    
-    are_excerpts = models.BooleanField(_("Excerpts"), default=False, help_text=_("Does the feed provide not full content, but excerpts? The link in the list of articles will lead to the external URL if full content is not provided."))
-    
+
+    are_excerpts = models.BooleanField(_("Excerpts"), default=False, help_text=_(
+        "Does the feed provide not full content, but excerpts? The link in the list of articles will lead to the external URL if full content is not provided."))
+
     default_sites = models.ManyToManyField(
         "sites.Site",
         verbose_name=_("Sites"),
@@ -25,8 +24,8 @@ class ArticleImportSource(Service):
         related_name="site_article_import_sources",
         blank=True,
         null=True,
-        )
-    
+    )
+
     default_creative_sectors = TreeManyToManyField(
         "structure.Term",
         verbose_name=_("Creative sectors"),
@@ -36,25 +35,24 @@ class ArticleImportSource(Service):
         db_column="default_cs",
         blank=True,
         null=True,
-        )
+    )
 
     default_status = models.SmallIntegerField(
         _("status"),
         choices=STATUS_CHOICES,
         default=STATUS_CODE_DRAFT,
         help_text=_("Status to apply to the imported articles by default."),
-        )
-    
+    )
+
     content_provider = models.ForeignKey(
         "articles.ArticleContentProvider",
         verbose_name=_("Content provider"),
         blank=True,
         null=True,
-        )
-    
+    )
+
     class Meta:
         verbose_name = _("article-import source")
         verbose_name_plural = _("article-import sources")
         ordering = ("title",)
         db_table = "external_services_ais"
-

@@ -1,182 +1,125 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
-from south.db import db
-from django.db import models
-from ccb.apps.faqs.models import *
-from base_libs.utils.misc import south_clean_multilingual_fields
-from base_libs.utils.misc import south_cleaned_fields
+from django.db import models, migrations
+import mptt.fields
+from django.conf import settings
+import base_libs.models.fields
 
-class Migration:
-    
-    def forwards(self, orm):
-        
-        # Adding model 'FaqContainer'
-        db.create_table('faqs_faqcontainer', south_cleaned_fields((
-            ('id', models.AutoField(primary_key=True)),
-            ('creation_date', models.DateTimeField(_("creation date"), editable=False)),
-            ('modified_date', models.DateTimeField(_("modified date"), null=True, editable=False)),
-            ('content_type', models.ForeignKey(orm['contenttypes.ContentType'], limit_choices_to={}, related_name=None, null=True, blank=True)),
-            ('object_id', models.CharField(u'Related object', max_length=255, null=False, blank=True)),
-            ('sysname', models.CharField(_("URL Identifier"), max_length=255)),
-            ('title', MultilingualCharField(_('title'), max_length=255, blank=True)),
-            ('title_de', models.CharField(u'title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
-            ('title_en', models.CharField(u'title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
-        )))
-        db.send_create_signal('faqs', ['FaqContainer'])
-        
-        # Adding model 'FaqCategory'
-        db.create_table('faqs_faqcategory', south_cleaned_fields((
-            ('id', models.AutoField(primary_key=True)),
-            ('creation_date', models.DateTimeField(_("creation date"), editable=False)),
-            ('modified_date', models.DateTimeField(_("modified date"), null=True, editable=False)),
-            ('creator', models.ForeignKey(orm['auth.User'], editable=False, related_name="%(class)s_creator", null=True)),
-            ('modifier', models.ForeignKey(orm['auth.User'], editable=False, related_name="%(class)s_modifier", null=True)),
-            ('sort_order', models.IntegerField(_("sort order"), editable=False, blank=True)),
-            ('parent', models.ForeignKey(orm.FaqCategory, related_name="child_set", null=True, blank=True)),
-            ('path', models.CharField(_('path'), editable=False, max_length=8192, null=True)),
-            ('slug', models.SlugField(unique=True, max_length=255)),
-            ('container', models.ForeignKey(orm.FaqContainer)),
-            ('title', MultilingualCharField(_('title'), max_length=512)),
-            ('short_title', MultilingualCharField(_('short title'), max_length=80)),
-            ('description', MultilingualTextField(_('description'), max_length=8192, blank=True)),
-            ('children_sort_order_format', models.CharField(_('format for child categories'), default='%02d', max_length=20, null=True, blank=True)),
-            ('faqs_on_separate_page', models.BooleanField(_('separate page'), default=False)),
-            ('title_de', models.CharField(u'title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=512, db_tablespace='', blank=False, unique=False, db_index=False)),
-            ('title_en', models.CharField(u'title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=512, db_tablespace='', blank=False, unique=False, db_index=False)),
-            ('description_de', ExtendedTextField(u'description', unique_for_month=None, unique=False, primary_key=False, db_column=None, default='', max_length=8192, unique_for_year=None, rel=None, blank=True, null=False, unique_for_date=None, db_tablespace='', db_index=False)),
-            ('description_de_markup_type', models.CharField('Markup type', default='pt', max_length=10, blank=False)),
-            ('description_en', ExtendedTextField(u'description', unique_for_month=None, unique=False, primary_key=False, db_column=None, default='', max_length=8192, unique_for_year=None, rel=None, blank=True, null=False, unique_for_date=None, db_tablespace='', db_index=False)),
-            ('description_en_markup_type', models.CharField('Markup type', default='pt', max_length=10, blank=False)),
-            ('description_markup_type', models.CharField('Markup type', default='pt', max_length=10, blank=False)),
-            ('short_title_de', models.CharField(u'short title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=80, db_tablespace='', blank=False, unique=False, db_index=False)),
-            ('short_title_en', models.CharField(u'short title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=80, db_tablespace='', blank=False, unique=False, db_index=False)),
-        )))
-        db.send_create_signal('faqs', ['FaqCategory'])
-        
-        # Adding model 'QuestionAnswer'
-        db.create_table('faqs_questionanswer', south_cleaned_fields((
-            ('id', models.AutoField(primary_key=True)),
-            ('creation_date', models.DateTimeField(_("creation date"), editable=False)),
-            ('modified_date', models.DateTimeField(_("modified date"), null=True, editable=False)),
-            ('creator', models.ForeignKey(orm['auth.User'], editable=False, related_name="%(class)s_creator", null=True)),
-            ('modifier', models.ForeignKey(orm['auth.User'], editable=False, related_name="%(class)s_modifier", null=True)),
-            ('views', models.IntegerField(_("views"), default=0, editable=False)),
-            ('slug', models.SlugField(unique=True, max_length=255)),
-            ('category', models.ForeignKey(orm.FaqCategory)),
-            ('sort_order', models.IntegerField(_('sort order'))),
-            ('question', MultilingualCharField(_('question'), max_length=255)),
-            ('answer', MultilingualTextField(_('answer'), max_length=16384)),
-            ('question_de', models.CharField(u'question', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=False, unique=False, db_index=False)),
-            ('question_en', models.CharField(u'question', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=False, unique=False, db_index=False)),
-            ('answer_de', ExtendedTextField(u'answer', unique_for_month=None, unique=False, primary_key=False, db_column=None, default='', max_length=16384, unique_for_year=None, rel=None, blank=False, null=False, unique_for_date=None, db_tablespace='', db_index=False)),
-            ('answer_de_markup_type', models.CharField('Markup type', default='pt', max_length=10, blank=False)),
-            ('answer_en', ExtendedTextField(u'answer', unique_for_month=None, unique=False, primary_key=False, db_column=None, default='', max_length=16384, unique_for_year=None, rel=None, blank=False, null=False, unique_for_date=None, db_tablespace='', db_index=False)),
-            ('answer_en_markup_type', models.CharField('Markup type', default='pt', max_length=10, blank=False)),
-            ('answer_markup_type', models.CharField('Markup type', default='pt', max_length=10, blank=False)),
-        )))
-        db.send_create_signal('faqs', ['QuestionAnswer'])
-        
-        # Adding ManyToManyField 'FaqContainer.sites'
-        db.create_table('faqs_faqcontainer_sites', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('faqcontainer', models.ForeignKey(orm.FaqContainer, null=False)),
-            ('site', models.ForeignKey(orm['sites.Site'], null=False))
-        ))
-        
-    
-    
-    def backwards(self, orm):
-        
-        # Deleting model 'FaqContainer'
-        db.delete_table('faqs_faqcontainer')
-        
-        # Deleting model 'FaqCategory'
-        db.delete_table('faqs_faqcategory')
-        
-        # Deleting model 'QuestionAnswer'
-        db.delete_table('faqs_questionanswer')
-        
-        # Dropping ManyToManyField 'FaqContainer.sites'
-        db.delete_table('faqs_faqcontainer_sites')
-        
-    
-    
-    models = {
-        'sites.site': {
-            'Meta': {'ordering': "('domain',)", 'db_table': "'django_site'"},
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'auth.user': {
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'faqs.faqcontainer': {
-            'Meta': {'ordering': "('title',)"},
-            'content_type': ('models.ForeignKey', ["orm['contenttypes.ContentType']"], {'limit_choices_to': '{}', 'related_name': 'None', 'null': 'True', 'blank': 'True'}),
-            'creation_date': ('models.DateTimeField', ['_("creation date")'], {'editable': 'False'}),
-            'id': ('models.AutoField', [], {'primary_key': 'True'}),
-            'modified_date': ('models.DateTimeField', ['_("modified date")'], {'null': 'True', 'editable': 'False'}),
-            'object_id': ('models.CharField', ["u'Related object'"], {'max_length': '255', 'null': 'False', 'blank': 'True'}),
-            'sites': ('models.ManyToManyField', ["orm['sites.Site']"], {'null': 'True', 'blank': 'True'}),
-            'sysname': ('models.CharField', ['_("URL Identifier")'], {'max_length': '255'}),
-            'title': ('MultilingualCharField', ["_('title')"], {'max_length': '255', 'blank': 'True'}),
-            'title_de': ('models.CharField', ["u'title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
-            'title_en': ('models.CharField', ["u'title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'})
-        },
-        'faqs.faqcategory': {
-            'children_sort_order_format': ('models.CharField', ["_('format for child categories')"], {'default': "'%02d'", 'max_length': '20', 'null': 'True', 'blank': 'True'}),
-            'container': ('models.ForeignKey', ["orm['faqs.FaqContainer']"], {}),
-            'creation_date': ('models.DateTimeField', ['_("creation date")'], {'editable': 'False'}),
-            'creator': ('models.ForeignKey', ["orm['auth.User']"], {'editable': 'False', 'related_name': '"%(class)s_creator"', 'null': 'True'}),
-            'description': ('MultilingualTextField', ["_('description')"], {'max_length': '8192', 'blank': 'True'}),
-            'description_de': ('ExtendedTextField', ["u'description'"], {'unique_for_month': 'None', 'unique': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'max_length': '8192', 'unique_for_year': 'None', 'rel': 'None', 'blank': 'True', 'null': 'False', 'unique_for_date': 'None', 'db_tablespace': "''", 'db_index': 'False'}),
-            'description_de_markup_type': ('models.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
-            'description_en': ('ExtendedTextField', ["u'description'"], {'unique_for_month': 'None', 'unique': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'max_length': '8192', 'unique_for_year': 'None', 'rel': 'None', 'blank': 'True', 'null': 'False', 'unique_for_date': 'None', 'db_tablespace': "''", 'db_index': 'False'}),
-            'description_en_markup_type': ('models.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
-            'description_markup_type': ('models.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
-            'faqs_on_separate_page': ('models.BooleanField', ["_('separate page')"], {'default': 'False'}),
-            'id': ('models.AutoField', [], {'primary_key': 'True'}),
-            'modified_date': ('models.DateTimeField', ['_("modified date")'], {'null': 'True', 'editable': 'False'}),
-            'modifier': ('models.ForeignKey', ["orm['auth.User']"], {'editable': 'False', 'related_name': '"%(class)s_modifier"', 'null': 'True'}),
-            'parent': ('models.ForeignKey', ["orm['faqs.FaqCategory']"], {'related_name': '"child_set"', 'null': 'True', 'blank': 'True'}),
-            'path': ('models.CharField', ["_('path')"], {'editable': 'False', 'max_length': '8192', 'null': 'True'}),
-            'short_title': ('MultilingualCharField', ["_('short title')"], {'max_length': '80'}),
-            'short_title_de': ('models.CharField', ["u'short title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '80', 'db_tablespace': "''", 'blank': 'False', 'unique': 'False', 'db_index': 'False'}),
-            'short_title_en': ('models.CharField', ["u'short title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '80', 'db_tablespace': "''", 'blank': 'False', 'unique': 'False', 'db_index': 'False'}),
-            'slug': ('models.SlugField', [], {'unique': 'True', 'max_length': '255'}),
-            'sort_order': ('models.IntegerField', ['_("sort order")'], {'editable': 'False', 'blank': 'True'}),
-            'title': ('MultilingualCharField', ["_('title')"], {'max_length': '512'}),
-            'title_de': ('models.CharField', ["u'title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '512', 'db_tablespace': "''", 'blank': 'False', 'unique': 'False', 'db_index': 'False'}),
-            'title_en': ('models.CharField', ["u'title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '512', 'db_tablespace': "''", 'blank': 'False', 'unique': 'False', 'db_index': 'False'})
-        },
-        'contenttypes.contenttype': {
-            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label','model'),)", 'db_table': "'django_content_type'"},
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'faqs.questionanswer': {
-            'Meta': {'ordering': "['category']"},
-            'answer': ('MultilingualTextField', ["_('answer')"], {'max_length': '16384'}),
-            'answer_de': ('ExtendedTextField', ["u'answer'"], {'unique_for_month': 'None', 'unique': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'max_length': '16384', 'unique_for_year': 'None', 'rel': 'None', 'blank': 'False', 'null': 'False', 'unique_for_date': 'None', 'db_tablespace': "''", 'db_index': 'False'}),
-            'answer_de_markup_type': ('models.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
-            'answer_en': ('ExtendedTextField', ["u'answer'"], {'unique_for_month': 'None', 'unique': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'max_length': '16384', 'unique_for_year': 'None', 'rel': 'None', 'blank': 'False', 'null': 'False', 'unique_for_date': 'None', 'db_tablespace': "''", 'db_index': 'False'}),
-            'answer_en_markup_type': ('models.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
-            'answer_markup_type': ('models.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
-            'category': ('models.ForeignKey', ["orm['faqs.FaqCategory']"], {}),
-            'creation_date': ('models.DateTimeField', ['_("creation date")'], {'editable': 'False'}),
-            'creator': ('models.ForeignKey', ["orm['auth.User']"], {'editable': 'False', 'related_name': '"%(class)s_creator"', 'null': 'True'}),
-            'id': ('models.AutoField', [], {'primary_key': 'True'}),
-            'modified_date': ('models.DateTimeField', ['_("modified date")'], {'null': 'True', 'editable': 'False'}),
-            'modifier': ('models.ForeignKey', ["orm['auth.User']"], {'editable': 'False', 'related_name': '"%(class)s_modifier"', 'null': 'True'}),
-            'question': ('MultilingualCharField', ["_('question')"], {'max_length': '255'}),
-            'question_de': ('models.CharField', ["u'question'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'False', 'unique': 'False', 'db_index': 'False'}),
-            'question_en': ('models.CharField', ["u'question'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'False', 'unique': 'False', 'db_index': 'False'}),
-            'slug': ('models.SlugField', [], {'unique': 'True', 'max_length': '255'}),
-            'sort_order': ('models.IntegerField', ["_('sort order')"], {}),
-            'views': ('models.IntegerField', ['_("views")'], {'default': '0', 'editable': 'False'})
-        }
-    }
-    south_clean_multilingual_fields(models)
-    
-    complete_apps = ['faqs']
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('sites', '0001_initial'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('contenttypes', '0001_initial'),
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name='FaqCategory',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
+                ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
+                ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
+                ('sort_order', models.IntegerField(default=0, verbose_name='sort order', editable=False, blank=True)),
+                ('title', models.CharField(verbose_name='title', max_length=512, null=True, editable=False)),
+                ('short_title', models.CharField(help_text='a short title to be displayed in page breadcrumbs and headline.', max_length=80, null=True, editable=False, verbose_name='short title')),
+                ('description', models.TextField(default=b'', editable=False, max_length=8192, blank=True, null=True, verbose_name='description')),
+                ('children_sort_order_format', models.CharField(default=b'%02d', max_length=20, blank=True, help_text="sort order format for children (python style, e.g '%d')", null=True, verbose_name='format for child categories')),
+                ('faqs_on_separate_page', models.BooleanField(default=False, help_text="check, if you want to display relating faqs on a separate page. If this category is not a 'leaf category', it has no effect.", verbose_name='separate page')),
+                ('title_de', models.CharField(max_length=512, verbose_name='title')),
+                ('title_en', models.CharField(max_length=512, verbose_name='title', blank=True)),
+                ('description_de', base_libs.models.fields.ExtendedTextField(default=b'', max_length=8192, null=True, verbose_name='Beschreibung', blank=True)),
+                ('description_de_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('description_en', base_libs.models.fields.ExtendedTextField(default=b'', max_length=8192, null=True, verbose_name='Beschreibung', blank=True)),
+                ('description_en_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('short_title_de', models.CharField(help_text='a short title to be displayed in page breadcrumbs and headline.', max_length=80, verbose_name='short title')),
+                ('short_title_en', models.CharField(help_text='a short title to be displayed in page breadcrumbs and headline.', max_length=80, verbose_name='short title', blank=True)),
+                ('lft', models.PositiveIntegerField(editable=False, db_index=True)),
+                ('rght', models.PositiveIntegerField(editable=False, db_index=True)),
+                ('tree_id', models.PositiveIntegerField(editable=False, db_index=True)),
+                ('level', models.PositiveIntegerField(editable=False, db_index=True)),
+            ],
+            options={
+                'ordering': ['tree_id', 'lft'],
+                'verbose_name': 'FAQ Category',
+                'verbose_name_plural': 'FAQ Categories',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='FaqContainer',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
+                ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
+                ('object_id', models.CharField(default=b'', help_text='Please select the related object.', max_length=255, verbose_name='Related object', blank=True)),
+                ('sysname', models.CharField(help_text="Please specify an additional URL identifier for the container here. The provided name must be the last part of the calling url, which wants to access the container. For example, if you have a FAQ-Container and you want to use the url 'http://www.example.com/gettinghelp/faqs/', the URL identifier must be 'faqs'. For different URL identifiers, you can create multiple containers for the same related object and site. Note, that the site, the related object and the URL identifier must be unique together.", max_length=255, verbose_name='URL Identifier')),
+                ('title', models.CharField(verbose_name='title', max_length=255, null=True, editable=False, blank=True)),
+                ('title_de', models.CharField(max_length=255, verbose_name='title', blank=True)),
+                ('title_en', models.CharField(max_length=255, verbose_name='title', blank=True)),
+                ('content_type', models.ForeignKey(blank=True, to='contenttypes.ContentType', help_text='Please select the type (model) for the relation, you want to build.', null=True, verbose_name="Related object's type (model)")),
+                ('sites', models.ManyToManyField(help_text='Please select some sites, this container relates to. If you do not select any site, the container applies to all sites.', to='sites.Site', null=True, verbose_name='Sites', blank=True)),
+            ],
+            options={
+                'ordering': ('title',),
+                'abstract': False,
+                'verbose_name': 'FAQ Container',
+                'verbose_name_plural': 'FAQ Containers',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='QuestionAnswer',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
+                ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
+                ('views', models.IntegerField(default=0, verbose_name='views', editable=False)),
+                ('sort_order', models.IntegerField(verbose_name='sort order')),
+                ('question', models.CharField(verbose_name='question', max_length=255, null=True, editable=False)),
+                ('answer', models.TextField(default=b'', max_length=16384, null=True, editable=False, verbose_name='answer')),
+                ('question_de', models.CharField(max_length=255, verbose_name='question')),
+                ('question_en', models.CharField(max_length=255, verbose_name='question', blank=True)),
+                ('answer_de', base_libs.models.fields.ExtendedTextField(default=b'', max_length=16384, null=True, verbose_name='Antwort')),
+                ('answer_de_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('answer_en', base_libs.models.fields.ExtendedTextField(default=b'', max_length=16384, null=True, verbose_name='Antwort', blank=True)),
+                ('answer_en_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('category', mptt.fields.TreeForeignKey(verbose_name='category', to='faqs.FaqCategory')),
+                ('creator', models.ForeignKey(related_name='questionanswer_creator', editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='creator')),
+                ('modifier', models.ForeignKey(related_name='questionanswer_modifier', editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='modifier')),
+            ],
+            options={
+                'ordering': ['category'],
+                'verbose_name': 'Question-Answer',
+                'verbose_name_plural': 'Questions-Answers',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.AddField(
+            model_name='faqcategory',
+            name='container',
+            field=models.ForeignKey(verbose_name='container', to='faqs.FaqContainer'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='faqcategory',
+            name='creator',
+            field=models.ForeignKey(related_name='faqcategory_creator', editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='creator'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='faqcategory',
+            name='modifier',
+            field=models.ForeignKey(related_name='faqcategory_modifier', editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='modifier'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='faqcategory',
+            name='parent',
+            field=mptt.fields.TreeForeignKey(related_name='child_set', blank=True, to='faqs.FaqCategory', null=True),
+            preserve_default=True,
+        ),
+    ]

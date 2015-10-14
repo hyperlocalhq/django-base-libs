@@ -12,7 +12,7 @@
 
 {% block content %}
     {% infoblock "contact_info" %}
-	<form action="" method="post" class="uniForm">
+    <form action="" method="post" class="uniForm">{% csrf_token %}
         <fieldset class="inlineLabels">
             <h3>{% trans "Contact us" %}</h3>
             {{ form.sender_name|as_uni_field }}
@@ -22,7 +22,8 @@
             {{ form.prevent_spam }}
             {{ form.prevent_spam.error_tag }}
             <div class="buttonHolder">
-                <input class="primaryAction" id="id_submit" type="submit" value="{% filter upper %}{% trans "Submit" %}{% endfilter %}"/>
+                <input class="primaryAction" id="id_submit" type="submit"
+                    value="{% filter upper %}{% trans "Submit" %}{% endfilter %}"/>
             </div>
         </fieldset>
     </form>

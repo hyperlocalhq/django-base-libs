@@ -11,6 +11,6 @@ required_apps = [
     "mailing",
     "memos",
     "image_mods",
-    ]
-    
+]
+
 optional_apps = []

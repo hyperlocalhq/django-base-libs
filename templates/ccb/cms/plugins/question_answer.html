@@ -1,0 +1,18 @@
+{% load cms_tags base_tags %}
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">
+      <a class="collapsed" data-toggle="collapse" data-parent="#faq-accordion" href="#q_{{ object.question|slugify }}">
+        {{ object.question|disarm_user_input|striptags }}
+      </a>
+    </h2>
+  </div>
+  <div id="q_{{ object.question|slugify }}" class="panel-collapse collapse">
+    <div class="panel-body">
+      <div class="answer lead">
+        {{ object.get_rendered_answer|disarm_user_input|safe }}
+      </div>
+    </div>
+  </div>
+</div>

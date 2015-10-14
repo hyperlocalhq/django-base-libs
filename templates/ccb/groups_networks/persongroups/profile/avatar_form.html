@@ -2,14 +2,17 @@
 {% comment %}<!-- UNUSED -->{% endcomment %}
 <div class="form_avatar_position profile_infos">
     <h5 class="edit_subline">{% trans "upload a photo" %}</h5>
-    <form action="/helper/edit-{{ URL_ID_PERSONGROUP }}-profile/{{ object.slug }}/avatar/" method="post" enctype="multipart/form-data" target="hidden_iframe" class="left">
+
+    <form action="/helper/edit-{{ URL_ID_PERSONGROUP }}-profile/{{ object.slug }}/avatar/" method="post"
+        enctype="multipart/form-data" target="hidden_iframe" class="left">{% csrf_token %}
         <fieldset class="inlineLabels">
-            <div class="ctrlHolder"> 
+            <div class="ctrlHolder">
                 <p class="label">
                     {% if object.media_file %}
-                        <img src="{{ UPLOADS_URL }}{{ object.media_file|modified_path:"ap" }}" alt="{{ object.get_title|escape }}" />
+                        <img src="{{ UPLOADS_URL }}{{ object.media_file|modified_path:"ap" }}"
+                            alt="{{ object.get_title|escape }}"/>
                     {% else %}
-                        <img src="{{ DEFAULT_FORM_LOGO_4_EVENT }}" alt="{{ object.get_title|escape }}" />
+                        <img src="{{ DEFAULT_FORM_LOGO_4_EVENT }}" alt="{{ object.get_title|escape }}"/>
                     {% endif %}
                 </p>
                 {{ form.media_file.error_tag }}
@@ -24,8 +27,9 @@
             </div>
         </fieldset>
         <div class="buttons">
-            <input type="button" class="button_bad" value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel" />
-            <input type="submit" class="button_good" value="{% filter upper %}{% trans "Save" %}{% endfilter %}" />
+            <input type="button" class="button_bad" value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}"
+                name="cancel"/>
+            <input type="submit" class="button_good" value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
         </div>
     </form>
 </div>

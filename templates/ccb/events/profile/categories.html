@@ -2,7 +2,7 @@
 
 <h6 class="section-header">{% trans "Categories" %}</h6>
 <div class="section-details">
-    
+
     {% if object.get_creative_sectors %}
         <dl>
             <dt>
@@ -15,9 +15,10 @@
                 {% endwith %}
             </dt>
             {% for cat in object.get_creative_sectors %}
-                {% if forloop.first %}<dd>{% endif %}
-                    {{ cat.get_title|escape }}{% if not forloop.last %}, {% endif %}
-                {% if forloop.last %}</dd>{% endif %}  
+                {% if forloop.first %}
+                    <dd>{% endif %}
+            {{ cat.get_title|escape }}{% if not forloop.last %}, {% endif %}
+            {% if forloop.last %}</dd>{% endif %}
             {% endfor %}
         </dl>
     {% endif %}

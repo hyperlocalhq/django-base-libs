@@ -3,7 +3,7 @@
 
 
 {% block extrahead %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
 {% endblock %}
 
 
@@ -11,9 +11,9 @@
 
 
 {% block headline %}
-	<h1>{% trans "Infolinks" %}</h1>
-	{% comment %}<!--<h2>{% trans "Support Programmes" %}</h2>-->{% endcomment %}
-{% endblock %}			
+    <h1>{% trans "Infolinks" %}</h1>
+    {% comment %}<!--<h2>{% trans "Support Programmes" %}</h2>-->{% endcomment %}
+{% endblock %}
 
 
 {% block sidebar-a %}
@@ -24,12 +24,13 @@
                 <span class="pic"></span>
             </a>
         </h5>
+
         <form method="get" id="object_list_filter_form" class="uniForm hidable">
             <div class="object_search_form">
                 {{ form.creative_sector|as_uni_field }}
                 {{ form.document_type|as_uni_field }}
                 <div class="col one-line last">
-                    <input type="submit" class="primaryAction" value="{% trans "Search" %}" />
+                    <input type="submit" class="primaryAction" value="{% trans "Search" %}"/>
                 </div>
             </div>
         </form>
@@ -64,20 +65,23 @@
             <span class="b-sep"><span>::</span></span><span>{% trans "Infolinks" %}</span>
         {% endif %}
         {% if show == "/memos" %}
-            <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_DOCUMENTS }}/">{% trans "Infolinks" %}</a>
+            <span class="b-sep"><span>::</span></span>
+            <a href="/{{ URL_ID_DOCUMENTS }}/">{% trans "Infolinks" %}</a>
             <span class="b-sep"><span>::</span></span><span>{% trans "Memos" %}</span>
         {% endif %}
         {% if show == "/favorites" %}
-            <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_DOCUMENTS }}/">{% trans "Infolinks" %}</a>
+            <span class="b-sep"><span>::</span></span>
+            <a href="/{{ URL_ID_DOCUMENTS }}/">{% trans "Infolinks" %}</a>
             <span class="b-sep"><span>::</span></span><span>{% trans "Favorites" %}</span>
         {% endif %}
         {% if show == "/own-documents" %}
-            <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_DOCUMENTS }}/">{% trans "Infolinks" %}</a>
+            <span class="b-sep"><span>::</span></span>
+            <a href="/{{ URL_ID_DOCUMENTS }}/">{% trans "Infolinks" %}</a>
             <span class="b-sep"><span>::</span></span><span>{% trans "Own infolinks" %}</span>
         {% endif %}
     </div>
 {% endblock %}
 
 {% block extrabody %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
 {% endblock %}

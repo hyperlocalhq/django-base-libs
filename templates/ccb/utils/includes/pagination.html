@@ -17,11 +17,14 @@
             {% endif %}
         </div>
         <form class="to_show secondaryForm" action="">
-            <div class="ctrlHolder"><select class="page_skip">
-                {% for pnumber in page_numbers %}
-                <option value="{{ pnumber }}"{% ifequal pnumber page %} selected="selected"{% endifequal %}>{% blocktrans %}Page {{ pnumber }} of {{ pages }}{% endblocktrans %}</option>
-                {% endfor %}
-           </select></div>
+            <div class="ctrlHolder">
+                <select class="page_skip">
+                    {% for pnumber in page_numbers %}
+                        <option value="{{ pnumber }}"{% ifequal pnumber page %} selected="selected"{% endifequal %}>
+                            {% blocktrans %}Page {{ pnumber }} of {{ pages }}{% endblocktrans %}</option>
+                    {% endfor %}
+                </select>
+            </div>
         </form>
         <div class="next">
             {% if has_next %}

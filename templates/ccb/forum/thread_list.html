@@ -4,23 +4,24 @@
 
 <div class="forum-block">
     <h3>{{ current_forum.short_title|escape }}</h3>
+
     <div>
         <p>
             {{ current_forum.description|striptags|safe }}
         </p>
-        
-        {% trans "Threads" %}:  {{ current_forum.get_nof_threads }} | 
-        {% trans "Replies" %}:  {{ current_forum.get_nof_replies }}
-        
-     	<ul  {% comment %}<!--class="toolbar"-->{% endcomment %}>
+
+        {% trans "Threads" %}: {{ current_forum.get_nof_threads }} |
+        {% trans "Replies" %}: {{ current_forum.get_nof_replies }}
+
+        <ul  {% comment %}<!--class="toolbar"-->{% endcomment %}>
             <li id="newThread_{{ current_forum.slug }}" class="new_link">
                 <a href="{{ current_forum.get_url }}start_thread/" title="{% trans "Start a Thread" %}">
                     <span>{% trans "Start a Thread" %}</span>
                 </a>
             </li>
         </ul>
-       
-    </div>	
+
+    </div>
 </div>
 
 {% if thread_list %}
@@ -29,25 +30,29 @@
     {% for thread in thread_list %}
         <div class="forum-block">
             <div>
-              	<h5>
-            		<a href="{{ thread.get_url }}">{{ thread.subject }}</a>
+                <h5>
+                    <a href="{{ thread.get_url }}">{{ thread.subject }}</a>
                 </h5>
+
                 <p class="forum-info txt">
                     {% blocktrans with thread.creation_date|datetimefmt as creation_date and thread.creator as creator and thread.creator.get_profile.get_url as url %}
                         Created on {{ creation_date }}
-                        by <a href="{{ url }}">{{ creator }}</a><br/>
-                    {% endblocktrans %} 
-                    
+                        by
+                        <a href="{{ url }}">{{ creator }}</a><br/>
+                    {% endblocktrans %}
+
                     {% if not thread.is_sticky %}
-                      	{% with thread.get_latest_post as latest_post %}
-			         		{% if latest_post %}
-			   					| {% trans "Latest Post" %}: 
-			 	        		{% blocktrans with latest_post.creation_date|datetimefmt as creation_date and latest_post.creator as creator and latest_post.get_url as url and latest_post.creator.get_profile.get_url as creator_url %}
-									Created on <a href="{{ url }}">{{ creation_date }}</a> by <a href="{{ creator_url }}">{{ creator }}</a>
-								{% endblocktrans %}
-			        		{% endif %}							
-						{% endwith %}		
-					{% endif %}		
+                        {% with thread.get_latest_post as latest_post %}
+                            {% if latest_post %}
+                                | {% trans "Latest Post" %}:
+                                {% blocktrans with latest_post.creation_date|datetimefmt as creation_date and latest_post.creator as creator and latest_post.get_url as url and latest_post.creator.get_profile.get_url as creator_url %}
+                                    Created on
+                                    <a href="{{ url }}">{{ creation_date }}</a> by
+                                    <a href="{{ creator_url }}">{{ creator }}</a>
+                                {% endblocktrans %}
+                            {% endif %}
+                        {% endwith %}
+                    {% endif %}
                 </p>
                 {% comment %}<!--
                     Display some statistics and description of the current thread
@@ -59,11 +64,11 @@
                     {{ thread.message|safe|truncatewords:25 }}
                     <a href="{{ thread.get_url }}">{% trans "more" %}</a>
                 </p>
-                
+
                 {% comment %}<!--
                     I think, we do not need those buttons at the list level!
                 -->{% endcomment %}
-                
+
                 {% comment %}<!--
                 <ul class="toolbar">
                     <li id="editThread_{{ thread.id }}" class="editThread">
@@ -79,17 +84,17 @@
                 </ul>
                 -->{% endcomment %}
             </div>
-        	{% if not thread.is_sticky %}
-	            <div>
-		            <div class="statistics txt">
-						{% trans "Replies" %}: {{ thread.get_nof_replies }}<br/>
-						{% trans "Views" %}: {{ thread.views }}
-					</div>
-	            </div>
-        	{% endif %}
+            {% if not thread.is_sticky %}
+                <div>
+                    <div class="statistics txt">
+                        {% trans "Replies" %}: {{ thread.get_nof_replies }}<br/>
+                        {% trans "Views" %}: {{ thread.views }}
+                    </div>
+                </div>
+            {% endif %}
         </div>
     {% endfor %}
-    
-{% else %}   	        	
-	<p class="nothing">{% trans "No threads have been posted yet." %}</p>
+
+{% else %}
+    <p class="nothing">{% trans "No threads have been posted yet." %}</p>
 {% endif %}

@@ -18,11 +18,12 @@
 {% block breadcrumbs %}
     <div class="breadcrumbs">
         <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span><a href="/news/">{% trans "News" %}</a>
+        <span class="b-sep"><span>::</span></span>
+        <a href="/news/">{% trans "News" %}</a>
         <span class="b-sep"><span>::</span></span> <span>{{ year }}</span>
     </div>
 {% endblock %}
 
 {% block extrabody %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
 {% endblock %}

@@ -1,145 +1,126 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
-from south.db import db
-from django.db import models
-from ccb.apps.resources.models import *
-from base_libs.utils.misc import south_clean_multilingual_fields
+from django.db import models, migrations
+import mptt.fields
+import filebrowser.fields
+import base_libs.models.fields
 
-class Migration:
-    
-    def forwards(self, orm):
-        
-        # Adding model 'Document'
-        db.create_table('resources_document', (
-            ('id', models.AutoField(primary_key=True)),
-            ('creation_date', models.DateTimeField(_("creation date"), editable=False)),
-            ('modified_date', models.DateTimeField(_("modified date"), null=True, editable=False)),
-            ('title', models.CharField(_("Title (English)"), max_length=255)),
-            ('title_de', models.CharField(_("Title (German)"), max_length=255, blank=True)),
-            ('slug', models.CharField(_("Slug"), max_length=255)),
-            ('description', models.TextField(_("Description (English)"), blank=True)),
-            ('description_de', models.TextField(_("Description (German)"), blank=True)),
-            ('document_type', models.ForeignKey(orm['structure.Term'], limit_choices_to=models.Q(vocabulary__sysname='basics_object_types',path_search__contains=ObjectTypeFilter("document"))&~models.Q(models.Q(sysname="document")), related_name="type_documents")),
-            ('medium', models.ForeignKey(orm['structure.Term'], limit_choices_to={'vocabulary__sysname':'basics_media'}, related_name="medium_documents", null=True, blank=True)),
-            ('url_link', URLField(_("URL"), blank=True)),
-            ('document_file', FileBrowseField(_('Document file'), max_length=255, blank=True)),
-            ('authors_plain', PlainTextModelField(_("External authors"), max_length=255, blank=True)),
-            ('publisher', models.ForeignKey(orm['institutions.Institution'], null=True, blank=True)),
-            ('published_yyyy', models.IntegerField(_("Year of Publishing"), null=True, blank=True)),
-            ('published_mm', models.SmallIntegerField(_("Month of Publishing"), null=True, blank=True)),
-            ('published_dd', models.SmallIntegerField(_("Day of Publishing"), null=True, blank=True)),
-            ('playing_time', models.TimeField(_("Playing time"), null=True, blank=True)),
-            ('isbn10', models.CharField(_("ISBN-10"), max_length=13, blank=True)),
-            ('isbn13', models.CharField(_("ISBN-13"), max_length=17, blank=True)),
-            ('pages', models.PositiveIntegerField(_("Pages"), default=0, null=True, blank=True)),
-            ('file_size', models.PositiveIntegerField(_("File size (MB)"), default=0, null=True, blank=True)),
-            ('image', FileBrowseField(_('Image'), extensions=['.jpg','.jpeg','.gif','.png','.tif','.tiff'], max_length=255, directory="/%s/"%URL_ID_DOCUMENTS, blank=True)),
-            ('status', models.ForeignKey(orm['structure.Term'], limit_choices_to={'vocabulary__sysname':'basics_object_statuses'}, related_name="status_documents", default=DefaultObjectStatus("draft"), blank=True, null=True)),
-        ))
-        db.send_create_signal('resources', ['Document'])
-        
-        # Adding ManyToManyField 'Document.authors'
-        db.create_table('resources_document_authors', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('document', models.ForeignKey(orm.Document, null=False)),
-            ('person', models.ForeignKey(orm['people.Person'], null=False))
-        ))
-        
-        # Adding ManyToManyField 'Document.languages'
-        db.create_table('resources_document_languages', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('document', models.ForeignKey(orm.Document, null=False)),
-            ('language', models.ForeignKey(orm['i18n.Language'], null=False))
-        ))
-        
-        # Adding ManyToManyField 'Document.creative_sectors'
-        db.create_table('resources_document_creative_sectors', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('document', models.ForeignKey(orm.Document, null=False)),
-            ('term', models.ForeignKey(orm['structure.Term'], null=False))
-        ))
-        
-        # Adding ManyToManyField 'Document.context_categories'
-        db.create_table('resources_document_context_categories', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('document', models.ForeignKey(orm.Document, null=False)),
-            ('contextcategory', models.ForeignKey(orm['structure.ContextCategory'], null=False))
-        ))
-        
-    
-    
-    def backwards(self, orm):
-        
-        # Deleting model 'Document'
-        db.delete_table('resources_document')
-        
-        # Dropping ManyToManyField 'Document.authors'
-        db.delete_table('resources_document_authors')
-        
-        # Dropping ManyToManyField 'Document.languages'
-        db.delete_table('resources_document_languages')
-        
-        # Dropping ManyToManyField 'Document.creative_sectors'
-        db.delete_table('resources_document_creative_sectors')
-        
-        # Dropping ManyToManyField 'Document.context_categories'
-        db.delete_table('resources_document_context_categories')
-        
-    
-    
-    models = {
-        'people.person': {
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'structure.contextcategory': {
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'resources.document': {
-            'authors': ('models.ManyToManyField', ["orm['people.Person']"], {'related_name': '"author_documents"', 'blank': 'True'}),
-            'authors_plain': ('PlainTextModelField', ['_("External authors")'], {'max_length': '255', 'blank': 'True'}),
-            'context_categories': ('models.ManyToManyField', ["orm['structure.ContextCategory']"], {'limit_choices_to': "{'is_applied4document':True}", 'blank': 'True'}),
-            'creation_date': ('models.DateTimeField', ['_("creation date")'], {'editable': 'False'}),
-            'creative_sectors': ('models.ManyToManyField', ["orm['structure.Term']"], {'limit_choices_to': "{'vocabulary__sysname':'categories_creativesectors'}", 'related_name': '"creative_industry_documents"', 'blank': 'True'}),
-            'description': ('models.TextField', ['_("Description (English)")'], {'blank': 'True'}),
-            'description_de': ('models.TextField', ['_("Description (German)")'], {'blank': 'True'}),
-            'document_file': ('FileBrowseField', ["_('Document file')"], {'max_length': '255', 'blank': 'True'}),
-            'document_type': ('models.ForeignKey', ["orm['structure.Term']"], {'limit_choices_to': 'models.Q(vocabulary__sysname=\'basics_object_types\',path_search__contains=ObjectTypeFilter("document"))&~models.Q(models.Q(sysname="document"))', 'related_name': '"type_documents"'}),
-            'file_size': ('models.PositiveIntegerField', ['_("File size (MB)")'], {'default': '0', 'null': 'True', 'blank': 'True'}),
-            'id': ('models.AutoField', [], {'primary_key': 'True'}),
-            'image': ('FileBrowseField', ["_('Image')"], {'extensions': "['.jpg','.jpeg','.gif','.png','.tif','.tiff']", 'max_length': '255', 'directory': '"/%s/"%URL_ID_DOCUMENTS', 'blank': 'True'}),
-            'isbn10': ('models.CharField', ['_("ISBN-10")'], {'max_length': '13', 'blank': 'True'}),
-            'isbn13': ('models.CharField', ['_("ISBN-13")'], {'max_length': '17', 'blank': 'True'}),
-            'languages': ('models.ManyToManyField', ["orm['i18n.Language']"], {'limit_choices_to': "{'display':True}", 'blank': 'True'}),
-            'medium': ('models.ForeignKey', ["orm['structure.Term']"], {'limit_choices_to': "{'vocabulary__sysname':'basics_media'}", 'related_name': '"medium_documents"', 'null': 'True', 'blank': 'True'}),
-            'modified_date': ('models.DateTimeField', ['_("modified date")'], {'null': 'True', 'editable': 'False'}),
-            'pages': ('models.PositiveIntegerField', ['_("Pages")'], {'default': '0', 'null': 'True', 'blank': 'True'}),
-            'playing_time': ('models.TimeField', ['_("Playing time")'], {'null': 'True', 'blank': 'True'}),
-            'published_dd': ('models.SmallIntegerField', ['_("Day of Publishing")'], {'null': 'True', 'blank': 'True'}),
-            'published_mm': ('models.SmallIntegerField', ['_("Month of Publishing")'], {'null': 'True', 'blank': 'True'}),
-            'published_yyyy': ('models.IntegerField', ['_("Year of Publishing")'], {'null': 'True', 'blank': 'True'}),
-            'publisher': ('models.ForeignKey', ["orm['institutions.Institution']"], {'null': 'True', 'blank': 'True'}),
-            'slug': ('models.CharField', ['_("Slug")'], {'max_length': '255'}),
-            'status': ('models.ForeignKey', ["orm['structure.Term']"], {'limit_choices_to': "{'vocabulary__sysname':'basics_object_statuses'}", 'related_name': '"status_documents"', 'default': 'DefaultObjectStatus("draft")', 'blank': 'True', 'null': 'True'}),
-            'title': ('models.CharField', ['_("Title (English)")'], {'max_length': '255'}),
-            'title_de': ('models.CharField', ['_("Title (German)")'], {'max_length': '255', 'blank': 'True'}),
-            'url_link': ('URLField', ['_("URL")'], {'blank': 'True'})
-        },
-        'structure.term': {
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'institutions.institution': {
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'i18n.language': {
-            'Meta': {'ordering': "XFieldList(['sort_order','name_'])"},
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        }
-    }
-    south_clean_multilingual_fields(models)
-    
-    complete_apps = ['resources']
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('structure', '0001_initial'),
+        ('institutions', '0001_initial'),
+        ('people', '0001_initial'),
+        ('i18n', '0001_initial'),
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name='Document',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
+                ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
+                ('title', models.CharField(verbose_name='Title', max_length=255, null=True, editable=False)),
+                ('slug', models.CharField(max_length=255, verbose_name='Slug')),
+                ('description', models.TextField(default=b'', verbose_name='Description', null=True, editable=False, blank=True)),
+                ('url_link', base_libs.models.fields.URLField(verbose_name='URL', blank=True)),
+                ('document_file', filebrowser.fields.FileBrowseField(max_length=255, verbose_name='Document file', blank=True)),
+                ('authors_plain', base_libs.models.fields.PlainTextModelField(help_text='Comma-separated list', max_length=255, verbose_name='External authors', blank=True)),
+                ('published_yyyy', models.IntegerField(blank=True, null=True, verbose_name='Year of Publishing', choices=[(2005, 2005), (2006, 2006), (2007, 2007), (2008, 2008), (2009, 2009), (2010, 2010), (2011, 2011), (2012, 2012), (2013, 2013), (2014, 2014), (2015, 2015), (2016, 2016), (2017, 2017), (2018, 2018), (2019, 2019), (2020, 2020), (2021, 2021), (2022, 2022), (2023, 2023), (2024, 2024)])),
+                ('published_mm', models.SmallIntegerField(blank=True, null=True, verbose_name='Month of Publishing', choices=[(1, 'January'), (2, 'February'), (3, 'March'), (4, 'April'), (5, 'May'), (6, 'June'), (7, 'July'), (8, 'August'), (9, 'September'), (10, 'October'), (11, 'November'), (12, 'December')])),
+                ('published_dd', models.SmallIntegerField(blank=True, null=True, verbose_name='Day of Publishing', choices=[(1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9), (10, 10), (11, 11), (12, 12), (13, 13), (14, 14), (15, 15), (16, 16), (17, 17), (18, 18), (19, 19), (20, 20), (21, 21), (22, 22), (23, 23), (24, 24), (25, 25), (26, 26), (27, 27), (28, 28), (29, 29), (30, 30), (31, 31)])),
+                ('playing_time', models.TimeField(null=True, verbose_name='Playing time', blank=True)),
+                ('isbn10', models.CharField(max_length=13, verbose_name='ISBN-10', blank=True)),
+                ('isbn13', models.CharField(max_length=17, verbose_name='ISBN-13', blank=True)),
+                ('pages', models.PositiveIntegerField(default=0, null=True, verbose_name='Pages', blank=True)),
+                ('file_size', models.PositiveIntegerField(default=0, null=True, verbose_name='File size (MB)', blank=True)),
+                ('image', filebrowser.fields.FileBrowseField(max_length=255, verbose_name='Image', blank=True)),
+                ('status', models.CharField(default=b'draft', max_length=20, verbose_name='Status', blank=True, choices=[(b'draft', 'Draft'), (b'published', 'Published'), (b'published_commercial', 'Published-Commercial'), (b'not_listed', 'Not Listed')])),
+                ('is_featured', models.BooleanField(default=False, verbose_name='Featured')),
+                ('title_de', models.CharField(max_length=255, verbose_name='Title')),
+                ('title_en', models.CharField(max_length=255, verbose_name='Title', blank=True)),
+                ('description_de', base_libs.models.fields.ExtendedTextField(default=b'', null=True, verbose_name='Beschreibung', blank=True)),
+                ('description_de_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('description_en', base_libs.models.fields.ExtendedTextField(default=b'', null=True, verbose_name='Beschreibung', blank=True)),
+                ('description_en_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('authors', models.ManyToManyField(related_name='author_documents', verbose_name='Authors', to='people.Person', blank=True)),
+                ('context_categories', mptt.fields.TreeManyToManyField(to='structure.ContextCategory', verbose_name='Context categories', blank=True)),
+                ('creative_sectors', mptt.fields.TreeManyToManyField(related_name='creative_industry_documents', verbose_name='Creative sectors', to='structure.Term', blank=True)),
+            ],
+            options={
+                'ordering': ['title', 'creation_date'],
+                'abstract': False,
+                'verbose_name': 'document',
+                'verbose_name_plural': 'documents',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='DocumentType',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
+                ('sort_order', models.IntegerField(default=0, verbose_name='sort order', editable=False, blank=True)),
+                ('title', models.CharField(verbose_name='title', max_length=255, null=True, editable=False)),
+                ('title_de', models.CharField(max_length=255, verbose_name='title')),
+                ('title_en', models.CharField(max_length=255, verbose_name='title', blank=True)),
+                ('lft', models.PositiveIntegerField(editable=False, db_index=True)),
+                ('rght', models.PositiveIntegerField(editable=False, db_index=True)),
+                ('tree_id', models.PositiveIntegerField(editable=False, db_index=True)),
+                ('level', models.PositiveIntegerField(editable=False, db_index=True)),
+                ('parent', mptt.fields.TreeForeignKey(related_name='child_set', blank=True, to='resources.DocumentType', null=True)),
+            ],
+            options={
+                'ordering': ['tree_id', 'lft'],
+                'verbose_name': 'document type',
+                'verbose_name_plural': 'document types',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Medium',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
+                ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
+                ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
+                ('title', models.CharField(verbose_name='Title', max_length=200, null=True, editable=False)),
+                ('sort_order', models.IntegerField(default=0, verbose_name='Sort Order')),
+                ('title_de', models.CharField(max_length=200, verbose_name='Title')),
+                ('title_en', models.CharField(max_length=200, verbose_name='Title', blank=True)),
+            ],
+            options={
+                'ordering': ['sort_order'],
+                'verbose_name': 'Medium',
+                'verbose_name_plural': 'Mediums',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.AddField(
+            model_name='document',
+            name='document_type',
+            field=mptt.fields.TreeForeignKey(related_name='type_documents', verbose_name='Document type', to='resources.DocumentType'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='document',
+            name='languages',
+            field=models.ManyToManyField(to='i18n.Language', verbose_name='Languages', blank=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='document',
+            name='medium',
+            field=models.ForeignKey(related_name='medium_documents', verbose_name='Medium', blank=True, to='resources.Medium', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='document',
+            name='publisher',
+            field=models.ForeignKey(verbose_name='Publisher', blank=True, to='institutions.Institution', null=True),
+            preserve_default=True,
+        ),
+    ]

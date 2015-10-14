@@ -1,100 +1,80 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
-from south.db import db
-from django.db import models
-from ccb.apps.tracker.models import *
-from base_libs.utils.misc import south_clean_multilingual_fields
-from base_libs.utils.misc import south_cleaned_fields
+from django.db import models, migrations
+from django.conf import settings
+import base_libs.models.fields
 
-class Migration:
-    
-    def forwards(self, orm):
-        
-        # Adding model 'Ticket'
-        db.create_table('tracker_ticket', south_cleaned_fields((
-            ('id', models.AutoField(primary_key=True)),
-            ('content_type', models.ForeignKey(orm['contenttypes.ContentType'], limit_choices_to={}, related_name=None, null=True, blank=True)),
-            ('object_id', models.CharField(u'Related object', max_length=255, null=False, blank=True)),
-            ('submitted_date', models.DateTimeField(_("submitted Date"), auto_now_add=True)),
-            ('modified_date', models.DateTimeField(_("modified Date"), null=True, editable=False, blank=True)),
-            ('submitter', models.ForeignKey(orm['auth.User'], related_name="ticket_submitter", null=True, blank=True)),
-            ('submitter_name', models.CharField('name', max_length=80)),
-            ('submitter_email', models.EmailField('email')),
-            ('modifier', models.ForeignKey(orm['auth.User'], related_name="ticket_modifier", null=True, blank=True)),
-            ('description', models.TextField(_("description"))),
-            ('status', models.IntegerField(_("status"), default=1)),
-            ('priority', models.IntegerField(_("priority"), default=1)),
-            ('url', URLField(_("related object's URL"), max_length=255, null=True, blank=True)),
-            ('concern', models.ForeignKey(orm['structure.Term'], limit_choices_to={'vocabulary__sysname':'ticket_types'})),
-        )))
-        db.send_create_signal('tracker', ['Ticket'])
-        
-        # Adding model 'TicketModifications'
-        db.create_table('tracker_ticketmodifications', south_cleaned_fields((
-            ('id', models.AutoField(primary_key=True)),
-            ('ticket', models.ForeignKey(orm.Ticket, related_name="ticket_modification")),
-            ('modified_date', models.DateTimeField(_("modified Date"), editable=False)),
-            ('modifier', models.ForeignKey(orm['auth.User'], editable=False, related_name="ticket_modification_modifier")),
-            ('modification', models.TextField(_("modification"))),
-            ('status', models.IntegerField(_("status"), default=1)),
-            ('priority', models.IntegerField(_("priority"), default=1)),
-        )))
-        db.send_create_signal('tracker', ['TicketModifications'])
-        
-    
-    
-    def backwards(self, orm):
-        
-        # Deleting model 'Ticket'
-        db.delete_table('tracker_ticket')
-        
-        # Deleting model 'TicketModifications'
-        db.delete_table('tracker_ticketmodifications')
-        
-    
-    
-    models = {
-        'tracker.ticket': {
-            'Meta': {'ordering': "('-submitted_date',)"},
-            'concern': ('models.ForeignKey', ["orm['structure.Term']"], {'limit_choices_to': "{'vocabulary__sysname':'ticket_types'}"}),
-            'content_type': ('models.ForeignKey', ["orm['contenttypes.ContentType']"], {'limit_choices_to': '{}', 'related_name': 'None', 'null': 'True', 'blank': 'True'}),
-            'description': ('models.TextField', ['_("description")'], {}),
-            'id': ('models.AutoField', [], {'primary_key': 'True'}),
-            'modified_date': ('models.DateTimeField', ['_("modified Date")'], {'null': 'True', 'editable': 'False', 'blank': 'True'}),
-            'modifier': ('models.ForeignKey', ["orm['auth.User']"], {'related_name': '"ticket_modifier"', 'null': 'True', 'blank': 'True'}),
-            'object_id': ('models.CharField', ["u'Related object'"], {'max_length': '255', 'null': 'False', 'blank': 'True'}),
-            'priority': ('models.IntegerField', ['_("priority")'], {'default': '1'}),
-            'status': ('models.IntegerField', ['_("status")'], {'default': '1'}),
-            'submitted_date': ('models.DateTimeField', ['_("submitted Date")'], {'auto_now_add': 'True'}),
-            'submitter': ('models.ForeignKey', ["orm['auth.User']"], {'related_name': '"ticket_submitter"', 'null': 'True', 'blank': 'True'}),
-            'submitter_email': ('models.EmailField', ["'email'"], {}),
-            'submitter_name': ('models.CharField', ["'name'"], {'max_length': '80'}),
-            'url': ('URLField', ['_("related object\'s URL")'], {'max_length': '255', 'null': 'True', 'blank': 'True'})
-        },
-        'auth.user': {
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'tracker.ticketmodifications': {
-            'Meta': {'ordering': "('modified_date',)"},
-            'id': ('models.AutoField', [], {'primary_key': 'True'}),
-            'modification': ('models.TextField', ['_("modification")'], {}),
-            'modified_date': ('models.DateTimeField', ['_("modified Date")'], {'editable': 'False'}),
-            'modifier': ('models.ForeignKey', ["orm['auth.User']"], {'editable': 'False', 'related_name': '"ticket_modification_modifier"'}),
-            'priority': ('models.IntegerField', ['_("priority")'], {'default': '1'}),
-            'status': ('models.IntegerField', ['_("status")'], {'default': '1'}),
-            'ticket': ('models.ForeignKey', ["orm['tracker.Ticket']"], {'related_name': '"ticket_modification"'})
-        },
-        'contenttypes.contenttype': {
-            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label','model'),)", 'db_table': "'django_content_type'"},
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'structure.term': {
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        }
-    }
-    south_clean_multilingual_fields(models)
-    
-    complete_apps = ['tracker']
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('contenttypes', '0001_initial'),
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name='Concern',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
+                ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
+                ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
+                ('title', models.CharField(verbose_name='title', max_length=200, null=True, editable=False)),
+                ('sort_order', models.IntegerField(default=0, verbose_name='Sort Order')),
+                ('title_de', models.CharField(max_length=200, verbose_name='title')),
+                ('title_en', models.CharField(max_length=200, verbose_name='title', blank=True)),
+            ],
+            options={
+                'ordering': ['sort_order'],
+                'verbose_name': 'Concern',
+                'verbose_name_plural': 'Concerns',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Ticket',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('object_id', models.CharField(default=b'', help_text='Please select the related object.', max_length=255, verbose_name='Related object', blank=True)),
+                ('submitted_date', models.DateTimeField(auto_now_add=True, verbose_name='submitted Date')),
+                ('modified_date', models.DateTimeField(verbose_name='modified Date', null=True, editable=False, blank=True)),
+                ('submitter_name', models.CharField(max_length=80, verbose_name='submitter name')),
+                ('submitter_email', models.EmailField(max_length=75, verbose_name='submitter email')),
+                ('description', models.TextField(verbose_name='description')),
+                ('client_info', models.TextField(verbose_name='client info')),
+                ('status', models.IntegerField(default=1, verbose_name='status', choices=[(1, 'Open'), (2, 'Working'), (3, 'Closed'), (4, 'Rejected')])),
+                ('priority', models.IntegerField(default=1, verbose_name='priority', choices=[(1, 'Now'), (2, 'Soon'), (3, 'Someday')])),
+                ('url', base_libs.models.fields.URLField(max_length=255, null=True, verbose_name="related object's URL", blank=True)),
+                ('concern', models.ForeignKey(verbose_name='concern', to='tracker.Concern')),
+                ('content_type', models.ForeignKey(blank=True, to='contenttypes.ContentType', help_text='Please select the type (model) for the relation, you want to build.', null=True, verbose_name="Related object's type (model)")),
+                ('modifier', models.ForeignKey(related_name='ticket_modifier', verbose_name='modifier', blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+                ('submitter', models.ForeignKey(related_name='ticket_submitter', verbose_name='submitter', blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+            ],
+            options={
+                'ordering': ('-submitted_date',),
+                'verbose_name': 'ticket',
+                'verbose_name_plural': 'tickets',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='TicketModifications',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('modified_date', models.DateTimeField(verbose_name='modified Date', editable=False)),
+                ('modification', models.TextField(verbose_name='modification')),
+                ('status', models.IntegerField(default=1, verbose_name='status', choices=[(1, 'Open'), (2, 'Working'), (3, 'Closed'), (4, 'Rejected')])),
+                ('priority', models.IntegerField(default=1, verbose_name='priority', choices=[(1, 'Now'), (2, 'Soon'), (3, 'Someday')])),
+                ('modifier', models.ForeignKey(related_name='ticket_modification_modifier', editable=False, to=settings.AUTH_USER_MODEL, verbose_name='modifier')),
+                ('ticket', models.ForeignKey(related_name='ticket_modification', verbose_name='ticket', to='tracker.Ticket')),
+            ],
+            options={
+                'ordering': ('modified_date',),
+                'verbose_name': 'ticket history',
+                'verbose_name_plural': 'ticket history',
+            },
+            bases=(models.Model,),
+        ),
+    ]

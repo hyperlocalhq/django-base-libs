@@ -1,153 +1,113 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
-from south.db import db
-from django.db import models
-from ccb.apps.site_specific.models import *
-from base_libs.utils.misc import south_clean_multilingual_fields
-from base_libs.utils.misc import south_cleaned_fields
+from django.db import models, migrations
+import mptt.fields
+import datetime
+from django.conf import settings
+import base_libs.models.fields
 
-class Migration:
-    
-    def forwards(self, orm):
-        
-        # Adding model 'ClaimRequest'
-        db.create_table('system_claimrequest', south_cleaned_fields((
-            ('id', models.AutoField(primary_key=True)),
-            ('content_type', models.ForeignKey(orm['contenttypes.ContentType'], related_name=None, null=False, blank=False)),
-            ('object_id', models.CharField(u'Related object', max_length=255, null=False, blank=False)),
-            ('user', models.ForeignKey(orm['auth.User'], related_name="claimrequest_user")),
-            ('name', models.CharField(_('Name'), max_length=80)),
-            ('email', models.EmailField(_('Email'))),
-            ('phone_country', models.CharField(_("Country Code"), max_length=4, null=True, blank=True)),
-            ('phone_area', models.CharField(_("Area Code"), max_length=5, null=True, blank=True)),
-            ('phone_number', models.CharField(_("Phone Number"), max_length=15, null=True, blank=True)),
-            ('best_time_to_call', models.CharField(_("Best Time to Call"), blank=True, max_length=25, null=True)),
-            ('role', models.CharField(_('Role'), max_length=80, null=True, blank=True)),
-            ('comments', models.TextField(_('Comments'), null=True, blank=True)),
-            ('created_date', models.DateTimeField(_("Created"), auto_now_add=True)),
-            ('modified_date', models.DateTimeField(_("Modified"), auto_now=True)),
-            ('modifier', models.ForeignKey(orm['auth.User'], related_name="claimrequest_modifier", null=True, blank=True)),
-            ('status', models.IntegerField(_("Status"), blank=True, null=True)),
-        )))
-        db.send_create_signal('site_specific', ['ClaimRequest'])
-        
-        # Adding model 'ContextItem'
-        db.create_table('system_contextitem', south_cleaned_fields((
-            ('id', models.AutoField(primary_key=True)),
-            ('creation_date', models.DateTimeField(_("creation date"), editable=False)),
-            ('modified_date', models.DateTimeField(_("modified date"), null=True, editable=False)),
-            ('content_type', models.ForeignKey(orm['contenttypes.ContentType'], related_name=None, null=False, blank=False)),
-            ('object_id', models.CharField(u'Related object', max_length=255, null=False, blank=False)),
-            ('slug', models.SlugField(unique=True, max_length=255)),
-            ('title', models.CharField(_("Title (English)"), max_length=255, blank=True)),
-            ('title_de', models.CharField(_("Title (German)"), max_length=255, blank=True)),
-            ('description', models.TextField(_("Description (English)"), blank=True)),
-            ('description_de', models.TextField(_("Description (German)"), blank=True)),
-            ('location_type', models.ForeignKey(orm['structure.Term'], limit_choices_to={'vocabulary__sysname':'basics_locality'}, related_name="locality_contextitems", null=True, blank=True)),
-            ('status', models.ForeignKey(orm['structure.Term'], limit_choices_to={'vocabulary__sysname':'basics_object_statuses'}, related_name="status_contextitems", null=True, blank=True)),
-            ('additional_search_data', models.TextField(null=True, blank=True)),
-        )))
-        db.send_create_signal('site_specific', ['ContextItem'])
-        
-        # Adding ManyToManyField 'ContextItem.creative_sectors'
-        db.create_table('system_contextitem_creative_sectors', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('contextitem', models.ForeignKey(orm.ContextItem, null=False)),
-            ('term', models.ForeignKey(orm['structure.Term'], null=False))
-        ))
-        
-        # Adding ManyToManyField 'ContextItem.object_types'
-        db.create_table('system_contextitem_object_types', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('contextitem', models.ForeignKey(orm.ContextItem, null=False)),
-            ('term', models.ForeignKey(orm['structure.Term'], null=False))
-        ))
-        
-        # Adding ManyToManyField 'ContextItem.context_categories'
-        db.create_table('system_contextitem_context_categories', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('contextitem', models.ForeignKey(orm.ContextItem, null=False)),
-            ('contextcategory', models.ForeignKey(orm['structure.ContextCategory'], null=False))
-        ))
-        
-    
-    
-    def backwards(self, orm):
-        
-        # Deleting model 'ClaimRequest'
-        db.delete_table('system_claimrequest')
-        
-        # Deleting model 'ContextItem'
-        db.delete_table('system_contextitem')
-        
-        # Dropping ManyToManyField 'ContextItem.creative_sectors'
-        db.delete_table('system_contextitem_creative_sectors')
-        
-        # Dropping ManyToManyField 'ContextItem.object_types'
-        db.delete_table('system_contextitem_object_types')
-        
-        # Dropping ManyToManyField 'ContextItem.context_categories'
-        db.delete_table('system_contextitem_context_categories')
-        
-    
-    
-    models = {
-        'auth.user': {
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'structure.contextcategory': {
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'site_specific.contextitem': {
-            'Meta': {'ordering': "XFieldList(['title_','creation_date'])", 'db_table': '"system_contextitem"'},
-            'additional_search_data': ('models.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'content_type': ('models.ForeignKey', ["orm['contenttypes.ContentType']"], {'related_name': 'None', 'null': 'False', 'blank': 'False'}),
-            'context_categories': ('models.ManyToManyField', ["orm['structure.ContextCategory']"], {'blank': 'True'}),
-            'creation_date': ('models.DateTimeField', ['_("creation date")'], {'editable': 'False'}),
-            'creative_sectors': ('models.ManyToManyField', ["orm['structure.Term']"], {'limit_choices_to': "{'vocabulary__sysname':'categories_creativesectors'}", 'related_name': '"creative_industry_contextitems"', 'blank': 'True'}),
-            'description': ('models.TextField', ['_("Description (English)")'], {'blank': 'True'}),
-            'description_de': ('models.TextField', ['_("Description (German)")'], {'blank': 'True'}),
-            'id': ('models.AutoField', [], {'primary_key': 'True'}),
-            'location_type': ('models.ForeignKey', ["orm['structure.Term']"], {'limit_choices_to': "{'vocabulary__sysname':'basics_locality'}", 'related_name': '"locality_contextitems"', 'null': 'True', 'blank': 'True'}),
-            'modified_date': ('models.DateTimeField', ['_("modified date")'], {'null': 'True', 'editable': 'False'}),
-            'object_id': ('models.CharField', ["u'Related object'"], {'max_length': '255', 'null': 'False', 'blank': 'False'}),
-            'object_types': ('models.ManyToManyField', ["orm['structure.Term']"], {'limit_choices_to': "{'vocabulary__sysname':'basics_object_types'}", 'related_name': '"object_type_contextitems"', 'blank': 'True'}),
-            'slug': ('models.SlugField', [], {'unique': 'True', 'max_length': '255'}),
-            'status': ('models.ForeignKey', ["orm['structure.Term']"], {'limit_choices_to': "{'vocabulary__sysname':'basics_object_statuses'}", 'related_name': '"status_contextitems"', 'null': 'True', 'blank': 'True'}),
-            'title': ('models.CharField', ['_("Title (English)")'], {'max_length': '255', 'blank': 'True'}),
-            'title_de': ('models.CharField', ['_("Title (German)")'], {'max_length': '255', 'blank': 'True'})
-        },
-        'contenttypes.contenttype': {
-            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label','model'),)", 'db_table': "'django_content_type'"},
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'structure.term': {
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'site_specific.claimrequest': {
-            'Meta': {'ordering': "('-created_date',)", 'db_table': '"system_claimrequest"'},
-            'best_time_to_call': ('models.CharField', ['_("Best Time to Call")'], {'blank': 'True', 'max_length': '25', 'null': 'True'}),
-            'comments': ('models.TextField', ["_('Comments')"], {'null': 'True', 'blank': 'True'}),
-            'content_type': ('models.ForeignKey', ["orm['contenttypes.ContentType']"], {'related_name': 'None', 'null': 'False', 'blank': 'False'}),
-            'created_date': ('models.DateTimeField', ['_("Created")'], {'auto_now_add': 'True'}),
-            'email': ('models.EmailField', ["_('Email')"], {}),
-            'id': ('models.AutoField', [], {'primary_key': 'True'}),
-            'modified_date': ('models.DateTimeField', ['_("Modified")'], {'auto_now': 'True'}),
-            'modifier': ('models.ForeignKey', ["orm['auth.User']"], {'related_name': '"claimrequest_modifier"', 'null': 'True', 'blank': 'True'}),
-            'name': ('models.CharField', ["_('Name')"], {'max_length': '80'}),
-            'object_id': ('models.CharField', ["u'Related object'"], {'max_length': '255', 'null': 'False', 'blank': 'False'}),
-            'phone_area': ('models.CharField', ['_("Area Code")'], {'max_length': '5', 'null': 'True', 'blank': 'True'}),
-            'phone_country': ('models.CharField', ['_("Country Code")'], {'max_length': '4', 'null': 'True', 'blank': 'True'}),
-            'phone_number': ('models.CharField', ['_("Phone Number")'], {'max_length': '15', 'null': 'True', 'blank': 'True'}),
-            'role': ('models.CharField', ["_('Role')"], {'max_length': '80', 'null': 'True', 'blank': 'True'}),
-            'status': ('models.IntegerField', ['_("Status")'], {'blank': 'True', 'null': 'True'}),
-            'user': ('models.ForeignKey', ["orm['auth.User']"], {'related_name': '"claimrequest_user"'})
-        }
-    }
-    south_clean_multilingual_fields(models)
-    
-    complete_apps = ['site_specific']
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('structure', '0001_initial'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('contenttypes', '0001_initial'),
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name='ClaimRequest',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('object_id', models.CharField(default=b'', help_text='Please select the related object.', max_length=255, verbose_name='Related object')),
+                ('name', models.CharField(max_length=80, verbose_name='Name')),
+                ('email', models.EmailField(max_length=75, verbose_name='Email')),
+                ('phone_country', models.CharField(max_length=4, null=True, verbose_name='Country Code', blank=True)),
+                ('phone_area', models.CharField(max_length=5, null=True, verbose_name='Area Code', blank=True)),
+                ('phone_number', models.CharField(max_length=15, null=True, verbose_name='Phone Number', blank=True)),
+                ('best_time_to_call', models.CharField(blank=True, max_length=25, null=True, verbose_name='Best Time to Call', choices=[(b'morning', 'Morning'), (b'noon', 'Noon'), (b'afternoon', 'Afternoon'), (b'evening', 'Evening')])),
+                ('role', models.CharField(max_length=80, null=True, verbose_name='Role', blank=True)),
+                ('comments', models.TextField(null=True, verbose_name='Comments', blank=True)),
+                ('created_date', models.DateTimeField(auto_now_add=True, verbose_name='Created')),
+                ('modified_date', models.DateTimeField(auto_now=True, verbose_name='Modified')),
+                ('status', models.IntegerField(blank=True, null=True, verbose_name='Status', choices=[(0, 'Requested'), (1, 'Approved'), (2, 'Denied')])),
+                ('content_type', models.ForeignKey(verbose_name="Related object's type (model)", to='contenttypes.ContentType', help_text='Please select the type (model) for the relation, you want to build.')),
+                ('modifier', models.ForeignKey(related_name='claimrequest_modifier', verbose_name='Modifier', blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+                ('user', models.ForeignKey(related_name='claimrequest_user', verbose_name='User', to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+                'ordering': ('-created_date',),
+                'db_table': 'system_claimrequest',
+                'verbose_name': 'claim',
+                'verbose_name_plural': 'claims',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='ContextItem',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
+                ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
+                ('object_id', models.CharField(default=b'', help_text='Please select the related object.', max_length=255, verbose_name='Related object')),
+                ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
+                ('title', models.CharField(verbose_name='Title', max_length=255, null=True, editable=False, blank=True)),
+                ('description', models.TextField(default=b'', verbose_name='Description', null=True, editable=False, blank=True)),
+                ('status', models.CharField(max_length=20, blank=True)),
+                ('additional_search_data', models.TextField(null=True, blank=True)),
+                ('title_de', models.CharField(max_length=255, verbose_name='Title', blank=True)),
+                ('title_en', models.CharField(max_length=255, verbose_name='Title', blank=True)),
+                ('description_de', base_libs.models.fields.ExtendedTextField(default=b'', null=True, verbose_name='Beschreibung', blank=True)),
+                ('description_de_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('description_en', base_libs.models.fields.ExtendedTextField(default=b'', null=True, verbose_name='Beschreibung', blank=True)),
+                ('description_en_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('content_type', models.ForeignKey(verbose_name="Related object's type (model)", to='contenttypes.ContentType', help_text='Please select the type (model) for the relation, you want to build.')),
+                ('context_categories', mptt.fields.TreeManyToManyField(to='structure.ContextCategory', verbose_name='Context categories', blank=True)),
+                ('creative_sectors', mptt.fields.TreeManyToManyField(related_name='creative_industry_contextitems', verbose_name='Creative sectors', to='structure.Term', blank=True)),
+                ('location_type', mptt.fields.TreeForeignKey(related_name='locality_contextitems', verbose_name='Location type', blank=True, to='structure.Term', null=True)),
+            ],
+            options={
+                'ordering': ['title', 'creation_date'],
+                'db_table': 'system_contextitem',
+                'verbose_name': 'context item',
+                'verbose_name_plural': 'context items',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='MappedItem',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('object_id', models.CharField(default=b'', help_text='Please select the related object.', max_length=255, verbose_name='Related object')),
+                ('rendered_en', models.TextField()),
+                ('rendered_de', models.TextField()),
+                ('lat', models.FloatField(help_text='Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90).', verbose_name='Latitude')),
+                ('lng', models.FloatField(help_text='Longitude (Long.) is the angle east or west of an arbitrary point on Earth from Greenwich (UK), which is the international zero-longitude point (longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction to east) and -180 (direction to west).', verbose_name='Longitude')),
+                ('content_type', models.ForeignKey(verbose_name="Related object's type (model)", to='contenttypes.ContentType', help_text='Please select the type (model) for the relation, you want to build.')),
+            ],
+            options={
+                'verbose_name': 'mapped item',
+                'verbose_name_plural': 'mapped items',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Visit',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
+                ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
+                ('last_activity', models.DateTimeField(default=datetime.datetime.now)),
+                ('ip_address', models.IPAddressField(verbose_name='IP Address')),
+                ('user_agent', models.CharField(max_length=255, verbose_name='User Agent')),
+                ('session_key', models.CharField(max_length=255, verbose_name='Session ID')),
+                ('user', models.ForeignKey(verbose_name='User', blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+            ],
+            options={
+                'ordering': ('-last_activity',),
+            },
+            bases=(models.Model,),
+        ),
+    ]

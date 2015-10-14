@@ -76,35 +76,35 @@ self.JobOfferMainDataManager = {
     	if ($(this).val()) {
 	    	$.get(
   		   		"/helper/"+ settings.URL_ID_JOB_OFFER +"/"+ settings.URL_ID_INSTITUTION +"_attrs/" + $("#id_offering_institution").val() + "/",
-    	   		new Function("sData", "self.JobOfferMainDataManager.fillInContactData(sData)")
+    	   		self.JobOfferMainDataManager.fillInContactData,
+                'json'
 			);
 			return false;
 		}
 	},
 	
-    fillInContactData: function(sData) {
+    fillInContactData: function(oData) {
     	var oSelf = self.JobOfferMainDataManager;
-        eval("var oData = " + sData);
-        
+
 		// fill in data
-        if (!$("#id_street_address").val()) {
-            $("#id_street_address").val(oData.street_address);
+        if (!$('#id_street_address').val()) {
+            $('#id_street_address').val(oData.street_address);
         }
-        if (!$("#id_street_address2").val()) {
+        if (!$('#id_street_address2').val()) {
             if (oData.street_address2) { 
-                $("#id_street_address2").val(oData.street_address2);
+                $('#id_street_address2').val(oData.street_address2);
             } else {
-                $("#id_street_address2").val("");
+                $('#id_street_address2').val('');
             }
         }
-        if (!$("#id_postal_code").val()) {
-            $("#id_postal_code").val(oData.postal_code);
+        if (!$('#id_postal_code').val()) {
+            $('#id_postal_code').val(oData.postal_code);
         }
-        if (!$("#id_city").val()) {
-            $("#id_city").val(oData.city);
+        if (!$('#id_city').val()) {
+            $('#id_city').val(oData.city);
         }
-        if (!$("#id_country").val()) {
-            $("#id_country").val(oData.country.iso2_code);
+        if (!$('#id_country').val()) {
+            $('#id_country').val(oData.country.iso2_code);
         }
 		
 		/*
@@ -113,31 +113,31 @@ self.JobOfferMainDataManager = {
 		overwritten
 		*/
 			
-        $("#id_email0_address").val(oData.email0_address);
-        $("#id_url0_link").val(oData.url0_link);
+        $('#id_email0_address').val(oData.email0_address);
+        $('#id_url0_link').val(oData.url0_link);
         
         /*
-        fill in phone and fax data. we have to map the "phone-type".
+        fill in phone and fax data. we have to map the 'phone-type'.
         for simplicity, this is hardcoded at the moment. But maybe
         there is a nicer solution for that
         */
         var phone_index = -1;
         var fax_index = -1;
         for (i=0; i<3; i++) {
-            if (oData["phone" + i + "_type_id"] == 1)
+            if (oData['phone' + i + '_type_id'] == 1)
                 phone_index = i;
-            if (oData["phone" + i + "_type_id"] == 2)
+            if (oData['phone' + i + '_type_id'] == 2)
                 fax_index = i;
         }
         if (phone_index != -1) {
-            $("#id_phone_country").val(oData["phone" + phone_index + "_country"]);
-            $("#id_phone_area").val(oData["phone" + phone_index + "_area"]);
-            $("#id_phone_number").val(oData["phone" + phone_index + "_number"]);
+            $('#id_phone_country').val(oData['phone' + phone_index + '_country']);
+            $('#id_phone_area').val(oData['phone' + phone_index + '_area']);
+            $('#id_phone_number').val(oData['phone' + phone_index + '_number']);
         } 
         if (fax_index != -1) {
-            $("#id_fax_country").val(oData["phone" + fax_index + "_country"]);
-            $("#id_fax_area").val(oData["phone" + fax_index + "_area"]);
-            $("#id_fax_number").val(oData["phone" + fax_index + "_number"]);
+            $('#id_fax_country').val(oData['phone' + fax_index + '_country']);
+            $('#id_fax_area').val(oData['phone' + fax_index + '_area']);
+            $('#id_fax_number').val(oData['phone' + fax_index + '_number']);
         }
     },
     

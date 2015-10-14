@@ -15,7 +15,7 @@
 
 {% block content %}
     <div class="reg fees">
-        <form action="" method="post" class="uniForm">
+        <form action="" method="post" class="uniForm">{% csrf_token %}
             <fieldset class="inlineLabels">
                 <h3>{% trans "Fees (Optional)" %}</h3>
                 {{ form.fees_de|as_uni_field }}
@@ -26,7 +26,7 @@
                 {{ form.exceptions_de|as_uni_field }}
                 {{ form.exceptions_en|as_uni_field }}
                 {{ form.is_appointment_based|as_uni_field }}
-                
+
                 {% include "utils/step_buttons_reg.html" %}
             </fieldset>
         </form>
@@ -36,13 +36,14 @@
 {% block breadcrumbs %}
     <div class="breadcrumbs">
         <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_EVENTS }}/">{% trans "Events" %}</a>
+        <span class="b-sep"><span>::</span></span>
+        <a href="/{{ URL_ID_EVENTS }}/">{% trans "Events" %}</a>
         <span class="b-sep"><span>::</span></span><span>{% trans "Add new event" %}</span>
     </div>
 {% endblock %}
 
 {% block extrabody %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/opening_hours.js"></script>
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/add_event.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/opening_hours.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/add_event.js"></script>
 {% endblock %}
 

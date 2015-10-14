@@ -1,157 +1,149 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
-from south.db import db
-from django.db import models
-from ccb.apps.media_gallery.models import *
-from base_libs.utils.misc import south_clean_multilingual_fields
-from base_libs.utils.misc import south_cleaned_fields
+from django.db import models, migrations
+import filebrowser.fields
+from django.conf import settings
+import base_libs.models.fields
 
-class Migration:
-    
-    def forwards(self, orm):
-        
-        # Adding model 'MediaFile'
-        db.create_table('media_gallery_mediafile', south_cleaned_fields((
-            ('id', models.AutoField(primary_key=True)),
-            ('creation_date', models.DateTimeField(_("creation date"), editable=False)),
-            ('modified_date', models.DateTimeField(_("modified date"), null=True, editable=False)),
-            ('media_set', models.ForeignKey(orm.MediaSet)),
-            ('path', FileBrowseField(_('File path'), max_length=255, blank=True)),
-            ('external_url', URLField(_('External URL'), blank=True)),
-            ('splash_image_path', FileBrowseField(_('Splash-image path'), extensions=['.jpg','.jpeg','.gif','.png','.tif','.tiff'], max_length=255, blank=True)),
-            ('file_type', models.CharField(default='-', max_length=1, editable=False)),
-            ('title', MultilingualCharField(_("Title"), max_length=255, blank=True)),
-            ('description', MultilingualTextField(_("Description"), blank=True)),
-            ('sort_order', models.IntegerField(_("Sort order"), blank=True)),
-            ('description_de', ExtendedTextField(u'Description', unique_for_month=None, unique=False, primary_key=False, db_column=None, default='', max_length=None, unique_for_year=None, rel=None, blank=True, null=False, unique_for_date=None, db_tablespace='', db_index=False)),
-            ('description_de_markup_type', models.CharField('Markup type', default='pt', max_length=10, blank=False)),
-            ('description_en', ExtendedTextField(u'Description', unique_for_month=None, unique=False, primary_key=False, db_column=None, default='', max_length=None, unique_for_year=None, rel=None, blank=True, null=False, unique_for_date=None, db_tablespace='', db_index=False)),
-            ('description_en_markup_type', models.CharField('Markup type', default='pt', max_length=10, blank=False)),
-            ('description_markup_type', models.CharField('Markup type', default='pt', max_length=10, blank=False)),
-            ('title_de', models.CharField(u'Title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
-            ('title_en', models.CharField(u'Title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
-        )))
-        db.send_create_signal('media_gallery', ['MediaFile'])
-        
-        # Adding model 'MediaSet'
-        db.create_table('media_gallery_mediaset', south_cleaned_fields((
-            ('id', models.AutoField(primary_key=True)),
-            ('creation_date', models.DateTimeField(_("creation date"), editable=False)),
-            ('modified_date', models.DateTimeField(_("modified date"), null=True, editable=False)),
-            ('views', models.IntegerField(_("views"), default=0, editable=False)),
-            ('slug', models.SlugField(default='default', unique=False, max_length=255)),
-            ('media_gallery', models.ForeignKey(orm.MediaGallery)),
-            ('title', MultilingualCharField(_("Title"), max_length=100, blank=True)),
-            ('description', MultilingualTextField(_("Description"), blank=True)),
-            ('is_featured', models.BooleanField(_("Featured"), default=False)),
-            ('description_de', ExtendedTextField(u'Description', unique_for_month=None, unique=False, primary_key=False, db_column=None, default='', max_length=None, unique_for_year=None, rel=None, blank=True, null=False, unique_for_date=None, db_tablespace='', db_index=False)),
-            ('description_de_markup_type', models.CharField('Markup type', default='pt', max_length=10, blank=False)),
-            ('description_en', ExtendedTextField(u'Description', unique_for_month=None, unique=False, primary_key=False, db_column=None, default='', max_length=None, unique_for_year=None, rel=None, blank=True, null=False, unique_for_date=None, db_tablespace='', db_index=False)),
-            ('description_en_markup_type', models.CharField('Markup type', default='pt', max_length=10, blank=False)),
-            ('description_markup_type', models.CharField('Markup type', default='pt', max_length=10, blank=False)),
-            ('title_de', models.CharField(u'Title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=100, db_tablespace='', blank=True, unique=False, db_index=False)),
-            ('title_en', models.CharField(u'Title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=100, db_tablespace='', blank=True, unique=False, db_index=False)),
-        )))
-        db.send_create_signal('media_gallery', ['MediaSet'])
-        
-        # Adding model 'MediaGallery'
-        db.create_table('media_gallery_mediagallery', south_cleaned_fields((
-            ('id', models.AutoField(primary_key=True)),
-            ('creation_date', models.DateTimeField(_("creation date"), editable=False)),
-            ('modified_date', models.DateTimeField(_("modified date"), null=True, editable=False)),
-            ('content_type', models.ForeignKey(orm['contenttypes.ContentType'], limit_choices_to={}, related_name=None, null=False, blank=False)),
-            ('object_id', models.CharField(u'Related object', max_length=255, null=False, blank=False)),
-            ('title', MultilingualCharField(_("Title"), max_length=100, blank=True)),
-            ('description', MultilingualTextField(_("Description"), blank=True)),
-            ('description_de', ExtendedTextField(u'Description', unique_for_month=None, unique=False, primary_key=False, db_column=None, default='', max_length=None, unique_for_year=None, rel=None, blank=True, null=False, unique_for_date=None, db_tablespace='', db_index=False)),
-            ('description_de_markup_type', models.CharField('Markup type', default='pt', max_length=10, blank=False)),
-            ('description_en', ExtendedTextField(u'Description', unique_for_month=None, unique=False, primary_key=False, db_column=None, default='', max_length=None, unique_for_year=None, rel=None, blank=True, null=False, unique_for_date=None, db_tablespace='', db_index=False)),
-            ('description_en_markup_type', models.CharField('Markup type', default='pt', max_length=10, blank=False)),
-            ('description_markup_type', models.CharField('Markup type', default='pt', max_length=10, blank=False)),
-            ('title_de', models.CharField(u'Title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=100, db_tablespace='', blank=True, unique=False, db_index=False)),
-            ('title_en', models.CharField(u'Title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=100, db_tablespace='', blank=True, unique=False, db_index=False)),
-        )))
-        db.send_create_signal('media_gallery', ['MediaGallery'])
-        
-    
-    
-    def backwards(self, orm):
-        
-        # Deleting model 'MediaFile'
-        db.delete_table('media_gallery_mediafile')
-        
-        # Deleting model 'MediaSet'
-        db.delete_table('media_gallery_mediaset')
-        
-        # Deleting model 'MediaGallery'
-        db.delete_table('media_gallery_mediagallery')
-        
-    
-    
-    models = {
-        'media_gallery.mediafile': {
-            'Meta': {'ordering': '["sort_order","creation_date"]'},
-            'creation_date': ('models.DateTimeField', ['_("creation date")'], {'editable': 'False'}),
-            'description': ('MultilingualTextField', ['_("Description")'], {'blank': 'True'}),
-            'description_de': ('ExtendedTextField', ["u'Description'"], {'unique_for_month': 'None', 'unique': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'max_length': 'None', 'unique_for_year': 'None', 'rel': 'None', 'blank': 'True', 'null': 'False', 'unique_for_date': 'None', 'db_tablespace': "''", 'db_index': 'False'}),
-            'description_de_markup_type': ('models.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
-            'description_en': ('ExtendedTextField', ["u'Description'"], {'unique_for_month': 'None', 'unique': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'max_length': 'None', 'unique_for_year': 'None', 'rel': 'None', 'blank': 'True', 'null': 'False', 'unique_for_date': 'None', 'db_tablespace': "''", 'db_index': 'False'}),
-            'description_en_markup_type': ('models.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
-            'description_markup_type': ('models.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
-            'external_url': ('URLField', ["_('External URL')"], {'blank': 'True'}),
-            'file_type': ('models.CharField', [], {'default': "'-'", 'max_length': '1', 'editable': 'False'}),
-            'id': ('models.AutoField', [], {'primary_key': 'True'}),
-            'media_set': ('models.ForeignKey', ["orm['media_gallery.MediaSet']"], {}),
-            'modified_date': ('models.DateTimeField', ['_("modified date")'], {'null': 'True', 'editable': 'False'}),
-            'path': ('FileBrowseField', ["_('File path')"], {'max_length': '255', 'blank': 'True'}),
-            'sort_order': ('models.IntegerField', ['_("Sort order")'], {'blank': 'True'}),
-            'splash_image_path': ('FileBrowseField', ["_('Splash-image path')"], {'extensions': "['.jpg','.jpeg','.gif','.png','.tif','.tiff']", 'max_length': '255', 'blank': 'True'}),
-            'title': ('MultilingualCharField', ['_("Title")'], {'max_length': '255', 'blank': 'True'}),
-            'title_de': ('models.CharField', ["u'Title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
-            'title_en': ('models.CharField', ["u'Title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'})
-        },
-        'contenttypes.contenttype': {
-            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label','model'),)", 'db_table': "'django_content_type'"},
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'media_gallery.mediaset': {
-            'Meta': {'ordering': '["creation_date"]'},
-            'creation_date': ('models.DateTimeField', ['_("creation date")'], {'editable': 'False'}),
-            'description': ('MultilingualTextField', ['_("Description")'], {'blank': 'True'}),
-            'description_de': ('ExtendedTextField', ["u'Description'"], {'unique_for_month': 'None', 'unique': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'max_length': 'None', 'unique_for_year': 'None', 'rel': 'None', 'blank': 'True', 'null': 'False', 'unique_for_date': 'None', 'db_tablespace': "''", 'db_index': 'False'}),
-            'description_de_markup_type': ('models.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
-            'description_en': ('ExtendedTextField', ["u'Description'"], {'unique_for_month': 'None', 'unique': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'max_length': 'None', 'unique_for_year': 'None', 'rel': 'None', 'blank': 'True', 'null': 'False', 'unique_for_date': 'None', 'db_tablespace': "''", 'db_index': 'False'}),
-            'description_en_markup_type': ('models.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
-            'description_markup_type': ('models.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
-            'id': ('models.AutoField', [], {'primary_key': 'True'}),
-            'is_featured': ('models.BooleanField', ['_("Featured")'], {'default': 'False'}),
-            'media_gallery': ('models.ForeignKey', ["orm['media_gallery.MediaGallery']"], {}),
-            'modified_date': ('models.DateTimeField', ['_("modified date")'], {'null': 'True', 'editable': 'False'}),
-            'slug': ('models.SlugField', [], {'default': "'default'", 'unique': 'False', 'max_length': '255'}),
-            'title': ('MultilingualCharField', ['_("Title")'], {'max_length': '100', 'blank': 'True'}),
-            'title_de': ('models.CharField', ["u'Title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '100', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
-            'title_en': ('models.CharField', ["u'Title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '100', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
-            'views': ('models.IntegerField', ['_("views")'], {'default': '0', 'editable': 'False'})
-        },
-        'media_gallery.mediagallery': {
-            'Meta': {'ordering': "['-creation_date']", 'get_latest_by': "'creation_date'"},
-            'content_type': ('models.ForeignKey', ["orm['contenttypes.ContentType']"], {'limit_choices_to': '{}', 'related_name': 'None', 'null': 'False', 'blank': 'False'}),
-            'creation_date': ('models.DateTimeField', ['_("creation date")'], {'editable': 'False'}),
-            'description': ('MultilingualTextField', ['_("Description")'], {'blank': 'True'}),
-            'description_de': ('ExtendedTextField', ["u'Description'"], {'unique_for_month': 'None', 'unique': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'max_length': 'None', 'unique_for_year': 'None', 'rel': 'None', 'blank': 'True', 'null': 'False', 'unique_for_date': 'None', 'db_tablespace': "''", 'db_index': 'False'}),
-            'description_de_markup_type': ('models.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
-            'description_en': ('ExtendedTextField', ["u'Description'"], {'unique_for_month': 'None', 'unique': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'max_length': 'None', 'unique_for_year': 'None', 'rel': 'None', 'blank': 'True', 'null': 'False', 'unique_for_date': 'None', 'db_tablespace': "''", 'db_index': 'False'}),
-            'description_en_markup_type': ('models.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
-            'description_markup_type': ('models.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
-            'id': ('models.AutoField', [], {'primary_key': 'True'}),
-            'modified_date': ('models.DateTimeField', ['_("modified date")'], {'null': 'True', 'editable': 'False'}),
-            'object_id': ('models.CharField', ["u'Related object'"], {'max_length': '255', 'null': 'False', 'blank': 'False'}),
-            'title': ('MultilingualCharField', ['_("Title")'], {'max_length': '100', 'blank': 'True'}),
-            'title_de': ('models.CharField', ["u'Title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '100', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
-            'title_en': ('models.CharField', ["u'Title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '100', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'})
-        }
-    }
-    south_clean_multilingual_fields(models)
-    
-    complete_apps = ['media_gallery']
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('contenttypes', '0001_initial'),
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name='MediaFile',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
+                ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
+                ('path', filebrowser.fields.FileBrowseField(help_text='A path to a locally stored image, video, or audio file.', max_length=255, verbose_name='File path', blank=True)),
+                ('external_url', base_libs.models.fields.URLField(help_text='A URL of an external image, video, or audio file.', verbose_name='External URL', blank=True)),
+                ('splash_image_path', filebrowser.fields.FileBrowseField(help_text='Used for still images in Flash players and for thumbnails.', max_length=255, verbose_name='Splash-image path', blank=True)),
+                ('file_type', models.CharField(default=b'-', max_length=1, editable=False, choices=[(b'-', 'Unknown'), (b'i', 'Image'), (b'v', 'Video'), (b'a', 'Audio'), (b'y', 'Youtube video'), (b'm', 'Vimeo video')])),
+                ('title', models.CharField(verbose_name='Title', max_length=255, null=True, editable=False, blank=True)),
+                ('description', models.TextField(default=b'', verbose_name='Description', null=True, editable=False, blank=True)),
+                ('sort_order', base_libs.models.fields.PositionField(default=None, verbose_name='Sort order')),
+                ('title_de', models.CharField(max_length=255, verbose_name='Title', blank=True)),
+                ('title_en', models.CharField(max_length=255, verbose_name='Title', blank=True)),
+                ('description_de', base_libs.models.fields.ExtendedTextField(default=b'', null=True, verbose_name='Beschreibung', blank=True)),
+                ('description_de_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('description_en', base_libs.models.fields.ExtendedTextField(default=b'', null=True, verbose_name='Beschreibung', blank=True)),
+                ('description_en_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('creator', models.ForeignKey(related_name='mediafile_creator', editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='creator')),
+            ],
+            options={
+                'ordering': ['sort_order', 'creation_date'],
+                'abstract': False,
+                'verbose_name': 'Media File',
+                'verbose_name_plural': 'Media File',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='MediaGallery',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
+                ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
+                ('published_from', models.DateTimeField(help_text="If not provided and the status is set to 'published', the entry will be published immediately.", null=True, verbose_name='publishing date', blank=True)),
+                ('published_till', models.DateTimeField(help_text="If not provided and the status is set to 'published', the entry will be published forever.", null=True, verbose_name='published until', blank=True)),
+                ('status', models.SmallIntegerField(default=0, verbose_name='status', choices=[(0, 'Draft'), (1, 'Published')])),
+                ('views', models.IntegerField(default=0, verbose_name='views', editable=False)),
+                ('object_id', models.CharField(default=b'', help_text='Please select the related object.', max_length=255, verbose_name='Related object')),
+                ('title', models.CharField(verbose_name='Title', max_length=100, null=True, editable=False, blank=True)),
+                ('description', models.TextField(default=b'', verbose_name='Description', null=True, editable=False, blank=True)),
+                ('content_object_repr', models.CharField(default=b'', editable=False, max_length=100, blank=True, help_text='Used for search and ordering in administration.', null=True, verbose_name='Content object representation')),
+                ('content_object_id', models.CharField(default=b'', editable=False, max_length=100, blank=True, help_text='Used for grouping the sortable galleries.', verbose_name='Content object ID combo')),
+                ('cover_image', filebrowser.fields.FileBrowseField(default=b'', max_length=255, verbose_name='Cover image', blank=True)),
+                ('sort_order', base_libs.models.fields.PositionField(default=0, verbose_name='Sort order')),
+                ('is_featured', models.BooleanField(default=False, verbose_name='Featured')),
+                ('format', models.CharField(default=b'slideshow', max_length=20, verbose_name='Presentation format', choices=[(b'slideshow', 'Slideshow'), (b'listed', 'Large-scaled listing')])),
+                ('title_de', models.CharField(max_length=100, verbose_name='Title', blank=True)),
+                ('title_en', models.CharField(max_length=100, verbose_name='Title', blank=True)),
+                ('description_de', base_libs.models.fields.ExtendedTextField(default=b'', null=True, verbose_name='Beschreibung', blank=True)),
+                ('description_de_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('description_en', base_libs.models.fields.ExtendedTextField(default=b'', null=True, verbose_name='Beschreibung', blank=True)),
+                ('description_en_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('content_object_repr_de', models.CharField(default=b'', editable=False, max_length=100, blank=True, help_text='Used for search and ordering in administration.', verbose_name='Content object representation')),
+                ('content_object_repr_en', models.CharField(default=b'', editable=False, max_length=100, blank=True, help_text='Used for search and ordering in administration.', verbose_name='Content object representation')),
+                ('author', models.ForeignKey(related_name='mediagallery_author', blank=True, to=settings.AUTH_USER_MODEL, help_text='If you do not select an author, you will be the author!', null=True, verbose_name='author')),
+                ('content_type', models.ForeignKey(verbose_name="Related object's type (model)", to='contenttypes.ContentType', help_text='Please select the type (model) for the relation, you want to build.')),
+            ],
+            options={
+                'ordering': ['sort_order', '-creation_date'],
+                'abstract': False,
+                'get_latest_by': 'creation_date',
+                'verbose_name': 'Media Gallery',
+                'verbose_name_plural': 'Media Galleries',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='PortfolioSettings',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
+                ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
+                ('object_id', models.CharField(default=b'', help_text='Please select the related object.', max_length=255, verbose_name='Related object')),
+                ('content_object_repr', models.CharField(default=b'', editable=False, max_length=100, blank=True, help_text='Used for search and ordering in administration.', null=True, verbose_name='Content object representation')),
+                ('content_object_id', models.CharField(default=b'', editable=False, max_length=100, blank=True, help_text='Used for grouping the sortable galleries.', verbose_name='Content object ID combo')),
+                ('landing_page', models.CharField(default=b'first_album', max_length=20, verbose_name='Landing page', choices=[(b'first_album', 'First album'), (b'album_list', 'List of albums'), (b'custom_image', 'Custom image')])),
+                ('landing_page_image', filebrowser.fields.FileBrowseField(help_text='A path to a custom landing page image.', max_length=255, verbose_name='Landing page image', blank=True)),
+                ('content_object_repr_de', models.CharField(default=b'', editable=False, max_length=100, blank=True, help_text='Used for search and ordering in administration.', verbose_name='Content object representation')),
+                ('content_object_repr_en', models.CharField(default=b'', editable=False, max_length=100, blank=True, help_text='Used for search and ordering in administration.', verbose_name='Content object representation')),
+                ('content_type', models.ForeignKey(verbose_name="Related object's type (model)", to='contenttypes.ContentType', help_text='Please select the type (model) for the relation, you want to build.')),
+            ],
+            options={
+                'verbose_name': 'Portfolio Settings',
+                'verbose_name_plural': 'Portfolio Settings',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Section',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
+                ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
+                ('object_id', models.CharField(default=b'', help_text='Please select the related object.', max_length=255, verbose_name='Related object')),
+                ('title', models.CharField(verbose_name='Title', max_length=100, null=True, editable=False, blank=True)),
+                ('content_object_repr', models.CharField(default=b'', editable=False, max_length=100, blank=True, help_text='Used for search and ordering in administration.', null=True, verbose_name='Content object representation')),
+                ('content_object_id', models.CharField(default=b'', editable=False, max_length=100, blank=True, help_text='Used for grouping the sortable galleries.', verbose_name='Content object ID combo')),
+                ('sort_order', base_libs.models.fields.PositionField(default=None, verbose_name='Sort order')),
+                ('show_title', models.BooleanField(default=False, verbose_name='Show title')),
+                ('title_de', models.CharField(max_length=100, verbose_name='Title', blank=True)),
+                ('title_en', models.CharField(max_length=100, verbose_name='Title', blank=True)),
+                ('content_object_repr_de', models.CharField(default=b'', editable=False, max_length=100, blank=True, help_text='Used for search and ordering in administration.', verbose_name='Content object representation')),
+                ('content_object_repr_en', models.CharField(default=b'', editable=False, max_length=100, blank=True, help_text='Used for search and ordering in administration.', verbose_name='Content object representation')),
+                ('content_type', models.ForeignKey(verbose_name="Related object's type (model)", to='contenttypes.ContentType', help_text='Please select the type (model) for the relation, you want to build.')),
+            ],
+            options={
+                'verbose_name': 'Portfolio Section',
+                'verbose_name_plural': 'Portfolio Sections',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.AddField(
+            model_name='mediagallery',
+            name='section',
+            field=models.ForeignKey(verbose_name='Section', blank=True, to='media_gallery.Section', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='mediafile',
+            name='gallery',
+            field=models.ForeignKey(verbose_name='Media Gallery', to='media_gallery.MediaGallery'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='mediafile',
+            name='modifier',
+            field=models.ForeignKey(related_name='mediafile_modifier', editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='modifier'),
+            preserve_default=True,
+        ),
+    ]

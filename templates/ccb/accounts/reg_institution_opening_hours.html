@@ -21,7 +21,7 @@
 {% endblock %}
 
 {% block content %}
-    <form action="" method="post" class="uniForm">
+    <form action="" method="post" class="uniForm">{% csrf_token %}
         <fieldset class="inlineLabels">
             <h3>{% trans "Opening Hours (Optional)" %}</h3>
             {% include "uni_form/includes/opening_hours.html" %}
@@ -32,15 +32,15 @@
                     {{ form.exceptions_de.error_tag }}
                 </li>
                 <li>
-                    {{ form.exceptions_en.label_tag }}                                
+                    {{ form.exceptions_en.label_tag }}
                     {{ form.exceptions_en }}
                     {{ form.exceptions_en.error_tag }}
                 </li>
-                <li  class="line_checkbox">
-                    {{ form.is_appointment_based  }}{{ form.is_appointment_based.label_tag }}
-                </li>   
+                <li class="line_checkbox">
+                    {{ form.is_appointment_based }}{{ form.is_appointment_based.label_tag }}
+                </li>
             </ul>
-            
+
             <h3>
                 {% trans "Payment" %}
             </h3>
@@ -54,7 +54,7 @@
             {{ form.is_giropay_ok|as_uni_field }}
             {{ form.is_prepayment_ok|as_uni_field }}
             {{ form.is_paypal_ok|as_uni_field }}
-            
+
             {% include "utils/step_buttons_reg.html" %}
         </fieldset>
     </form>

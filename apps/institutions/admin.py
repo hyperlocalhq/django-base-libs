@@ -12,7 +12,6 @@ from django.contrib.admin.util import model_ngettext
 from django.utils.encoding import force_unicode
 
 from base_libs.admin import ExtendedModelAdmin
-from base_libs.utils.misc import get_related_queryset
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin.tree_editor import TreeEditor
 
@@ -22,17 +21,16 @@ InstitutionType = models.get_model("institutions", "InstitutionType")
 MList = models.get_model("mailchimp", "MList")
 Subscription = models.get_model("mailchimp", "Subscription")
 
+
 class InstitutionTypeOptions(TreeEditor):
-        
     save_on_top = True
     list_display = ['actions_column', 'indented_short_title']
-    
-    fieldsets = [(None, {'fields': ('parent',)}),]
-    fieldsets += get_admin_lang_section(_("Title"), ['title'])
-    fieldsets += [(None, {'fields': ('slug',)}),]
-    
-    prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
 
+    fieldsets = [(None, {'fields': ('parent',)}), ]
+    fieldsets += get_admin_lang_section(_("Title"), ['title'])
+    fieldsets += [(None, {'fields': ('slug',)}), ]
+
+    prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,), }
 
 
 class MListForm(forms.Form):
@@ -40,16 +38,17 @@ class MListForm(forms.Form):
         queryset=MList.objects.all(),
         label=_("Mailing List"),
         required=True,
-        )
+    )
     email_type = forms.ChoiceField(
         choices=(
             ('', "---------"),
             ('contact', _("Contact Email")),
             ('owner', _("Owner Email")),
-            ),
+        ),
         label=_("Email type"),
         required=True,
-        )
+    )
+
 
 def mailchimp_subscribe(modeladmin, request, queryset):
     """
@@ -82,9 +81,9 @@ def mailchimp_subscribe(modeladmin, request, queryset):
                                     'subscriber': None,
                                     'ip': "",
                                     'status': "subscribed",
-                                    }
-                                )
-                            
+                                }
+                            )
+
                     elif email_type == "owner":
                         for p in obj.get_owners():
                             user = p.user
@@ -97,12 +96,12 @@ def mailchimp_subscribe(modeladmin, request, queryset):
                                     'subscriber': user,
                                     'ip': "",
                                     'status': "subscribed",
-                                    }
-                                )
-                            
+                                }
+                            )
+
                 modeladmin.message_user(request, _("Successfully subscribed %(count)d %(items)s.") % {
                     "count": n, "items": model_ngettext(modeladmin.opts, n)
-                    })
+                })
             # Return None to display the change list page again.
             return None
     else:
@@ -114,7 +113,7 @@ def mailchimp_subscribe(modeladmin, request, queryset):
         objects_name = force_unicode(opts.verbose_name_plural)
 
     title = _("Subscribe to a mailing list")
-    
+
     context = {
         "title": title,
         "objects_name": objects_name,
@@ -130,15 +129,17 @@ def mailchimp_subscribe(modeladmin, request, queryset):
         "admin/%s/%s/mailchimp_subscribe_selected.html" % (app_label, opts.object_name.lower()),
         context,
         context_instance=template.RequestContext(request)
-        )
+    )
+
 
 mailchimp_subscribe.short_description = _("Subscribe to mailing list")
+
 
 class LegalFormOptions(ExtendedModelAdmin):
     save_on_top = True
     fieldsets = get_admin_lang_section(_("Title"), ['title'])
-    fieldsets += [(None, {'fields': ('slug', 'sort_order')}),]
-    prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
+    fieldsets += [(None, {'fields': ('slug', 'sort_order')}), ]
+    prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,), }
 
 
 class InstitutionOptions(ExtendedModelAdmin):
@@ -153,15 +154,17 @@ class InstitutionOptions(ExtendedModelAdmin):
         for inst in queryset:
             inst.status = "published"
             inst.save()
+
     publish.short_description = _("Publish selected institutions as non-commercial")
-    
+
     def publish_commercial(self, request, queryset):
         for inst in queryset:
             inst.status = "published_commercial"
             inst.save()
+
     publish_commercial.short_description = _("Publish selected institutions as commercial")
-    
+
+
 admin.site.register(Institution, InstitutionOptions)
 admin.site.register(InstitutionType, InstitutionTypeOptions)
 admin.site.register(LegalForm, LegalFormOptions)
-

@@ -1,12 +1,13 @@
 {% load i18n uni_form_tags %}
 <div id="popup_content">
-    <form action="" method="post" class="uniForm">
+    <form action="" method="post" class="uniForm">{% csrf_token %}
         <div class="pop_edit edit_permissions">
             {{ form.message|as_uni_field }}
             {{ form.relation_types|as_uni_field }}
-            
+
             <div class="permissions">
                 <label>{% trans "Permissions" %}</label>
+
                 <div class="l-box">
                     {{ form.display_phone|as_uni_field }}
                     {{ form.display_fax|as_uni_field }}
@@ -19,8 +20,10 @@
                 </div>
             </div>
             <div class="buttonHolder">
-                <input class="primaryAction" type="submit" id="post" name="post" value='{% filter upper %}{% trans "Accept" %}{% endfilter %}'/>       	
-                <input class="secondaryAction" type="button" name="cancel" value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}" />
+                <input class="primaryAction" type="submit" id="post" name="post"
+                    value='{% filter upper %}{% trans "Accept" %}{% endfilter %}'/>
+                <input class="secondaryAction" type="button" name="cancel"
+                    value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
             </div>
         </div>
     </form>

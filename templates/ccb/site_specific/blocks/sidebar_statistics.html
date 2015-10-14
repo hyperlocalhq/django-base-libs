@@ -7,13 +7,13 @@
             <span class="pic"></span>
         </a>
     </h5>
-    <div class="hidable">	
+    <div class="hidable">   
         <ul>
             {% ifequal context_item.get_reviewed 1 %}
                 <li><a href="#" onclick="window.cancelEvent(event)">{{ context_item.get_reviewed }} {% trans "Review" %}</a></li>
             {% else %}
                 <li><a href="#" onclick="window.cancelEvent(event)">{{ context_item.get_reviewed }} {% trans "Reviews" %}</a></li>
-            {% endifequal %}	
+            {% endifequal %}    
             <li><a href="#" onclick="window.cancelEvent(event)">{% blocktrans with context_item.get_recommended_by as recommended_by %}Recommended by {{ recommended_by }} people{% endblocktrans %}</a></li>
             <li><a href="#" onclick="window.cancelEvent(event)">{% blocktrans with context_item.get_saved_by as saved_by %}Saved by {{ saved_by }} people{% endblocktrans %}</a></li>
 

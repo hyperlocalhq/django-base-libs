@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n base_tags nav_menu auth_extended %}     
+{% load i18n base_tags nav_menu auth_extended %}
 
 {% block doctype %}
     {{ block.super }}
@@ -14,15 +14,15 @@
 {% endblock %}
 
 {% block extrahead %}
-	{% if object.allow_search_engine_indexing %}
-		<meta name="robots" content="ALL, INDEX, FOLLOW" />
-	{% else %}
-		<meta name="robots" content="NOINDEX, NOFOLLOW" />
-	{% endif %}
+    {% if object.allow_search_engine_indexing %}
+        <meta name="robots" content="ALL, INDEX, FOLLOW"/>
+    {% else %}
+        <meta name="robots" content="NOINDEX, NOFOLLOW"/>
+    {% endif %}
 {% endblock %}
 
 {% block meta_description %}
-	<meta name="description" content="{{ object.get_description|striptags|truncatewords:100 }}..." />
+    <meta name="description" content="{{ object.get_description|striptags|truncatewords:100 }}..."/>
 {% endblock %}
 
 
@@ -39,7 +39,7 @@
     <h2 class="smaller">
         {{ object.occupation }}
     </h2>
-{% endblock %}			
+{% endblock %}
 
 {% block content %}
     {% block tabs %}
@@ -54,7 +54,9 @@
                 {% with object as person %}
                     {% include "people/controls.html" %}
                 {% endwith %}
-                <a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07"><span><span></span></span></a>
+                <a class="addthis_button"
+                    href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07">
+                    <span><span></span></span></a>
             {% endblock %}
             {% block additional_controls %}
             {% endblock %}
@@ -69,8 +71,10 @@
 {% block breadcrumbs %}
     <div class="breadcrumbs">
         <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_PEOPLE }}/">{% trans "People" %}</a>
-        <span class="b-sep"><span>::</span></span><a href="{{ object.get_url_path }}">{{ object.get_title }}</a>
+        <span class="b-sep"><span>::</span></span>
+        <a href="/{{ URL_ID_PEOPLE }}/">{% trans "People" %}</a>
+        <span class="b-sep"><span>::</span></span>
+        <a href="{{ object.get_url_path }}">{{ object.get_title }}</a>
         {% block breadcrumbs_details %}
         {% endblock %}
     </div>
@@ -78,6 +82,6 @@
 
 {% block extrabody %}
     {{ block.super }}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/individual_relations.js"></script>
 {% endblock %}

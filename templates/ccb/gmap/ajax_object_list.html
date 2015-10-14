@@ -3,44 +3,46 @@
 
 {% block content %}
     <div id="object_list">
-    {% for result in object_list %}
-        <div class="list-item expanded {{ extra_css_classes|default:"" }}">
-            {% comment %}<!--
+        {% for result in object_list %}
+            <div class="list-item expanded {{ extra_css_classes|default:"" }}">
+                {% comment %}<!--
             {% if LANGUAGE_CODE == "en" %}
                 {{ result.get_stored_fields.rendered_en|safe }}
             {% else %}
                 {{ result.get_stored_fields.rendered_de|safe }}
             {% endif %}
             -->{% endcomment %}
-            {% if LANGUAGE_CODE == "en" %}
-                {{ result.rendered_en|safe }}
-            {% else %}
-                {{ result.rendered_de|safe }}
-            {% endif %}
-            <script type="text/javascript">
-            //<![CDATA[
-            (function(undefined) {
-                var iIndex = aGeopositions.length;
-                aGeopositions[iIndex] = {
-                    {% comment %}/*
-                    latitude: {{ result.get_stored_fields.latitude }},
-                    longitude: {{ result.get_stored_fields.longitude }},
-                    content: '<div>{% if LANGUAGE_CODE == "en" %}{{ result.get_stored_fields.rendered_en|safe|escapejs }}{% else %}{{ result.get_stored_fields.rendered_de|safe|escapejs }}{% endif %}</div>'
-                    */{% endcomment %}
-                    latitude: {{ result.lat }},
-                    longitude: {{ result.lng }},
-                    content: '<div>{% if LANGUAGE_CODE == "en" %}{{ result.rendered_en|safe|escapejs }}{% else %}{{ result.rendered_de|safe|escapejs }}{% endif %}</div>'
-                }
-            }());
-            //]]>
-            </script>
-            <div class="marker-link"></div>
-            <div class="object-distance">
-                {{ result.get_distance }}
+                {% if LANGUAGE_CODE == "en" %}
+                    {{ result.rendered_en|safe }}
+                {% else %}
+                    {{ result.rendered_de|safe }}
+                {% endif %}
+                <script type="text/javascript">
+                    //<![CDATA[
+                    (function (undefined) {
+                        var iIndex = aGeopositions.length;
+                        aGeopositions[iIndex] = {
+                            {% comment %}/*
+                            latitude: {{ result.get_stored_fields.latitude }},
+                            longitude: {{ result.get_stored_fields.longitude }},
+                            content: '<div>{% if LANGUAGE_CODE == "en" %}{{ result.get_stored_fields.rendered_en|safe|escapejs }}{% else %}{{ result.get_stored_fields.rendered_de|safe|escapejs }}{% endif %}</div>'
+                            */{% endcomment %}
+                            latitude: {{ result.lat }},
+                            longitude: {{ result.lng }},
+                            content: '<div>{% if LANGUAGE_CODE == "en" %}{{ result.rendered_en|safe|escapejs }}{% else %}{{ result.rendered_de|safe|escapejs }}{% endif %}</div>'
+                        }
+                    }());
+                    //]]>
+                </script>
+                <div class="marker-link"></div>
+                <div class="object-distance">
+                    {{ result.get_distance }}
+                </div>
             </div>
-        </div>
-    {% empty %}
-        <div><p class="nothing">{% trans "No results found." %}</p></div>
-    {% endfor %}
+        {% empty %}
+            <div>
+                <p class="nothing">{% trans "No results found." %}</p>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}

@@ -2,7 +2,6 @@
 from datetime import datetime
 
 from django.utils.translation import ugettext_lazy as _
-from django.db.models.loading import load_app
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
@@ -23,26 +22,27 @@ STATUS_CODES = (
     (2, _("Working")),
     (3, _("Closed")),
     (4, _("Rejected")),
-    )
+)
 
 PRIORITY_CODES = (
     (1, _("Now")),
     (2, _("Soon")),
     (3, _("Someday")),
-    )
+)
 
 PROJECTS = list(enumerate(settings.INSTALLED_APPS))
+
 
 class Concern(CreationModificationDateMixin, SlugMixin()):
     title = MultilingualCharField(_('title'), max_length=200)
     sort_order = models.IntegerField(_("Sort Order"), default=0)
-    
+
     def __unicode__(self):
         return self.title
-        
+
     def get_title(self):
         return self.title
-        
+
     class Meta:
         ordering = ['sort_order']
         verbose_name = _("Concern")
@@ -50,28 +50,29 @@ class Concern(CreationModificationDateMixin, SlugMixin()):
 
 
 class Ticket(ObjectRelationMixin()):
-
     submitted_date = models.DateTimeField(_("submitted Date"), auto_now_add=True)
     modified_date = models.DateTimeField(_("modified Date"), blank=True, null=True, editable=False)
-    
+
     # one of the fields, submitter_name and submitter is mandatory. If a user is logged in,
     # submitter is filled in as the logged in user, otherwise, the "submitter" must provide a 
     # name (see the save method below).  
-    submitter = models.ForeignKey(User, blank=True, null=True,  verbose_name=_("submitter"), related_name="ticket_submitter")
-    submitter_name = models.CharField(_("submitter name"), max_length=80) 
-    submitter_email = models.EmailField(_("submitter email")) 
-    
-    modifier = models.ForeignKey(User, blank=True, null=True,  verbose_name=_("modifier"), related_name="ticket_modifier")
-    
+    submitter = models.ForeignKey(User, blank=True, null=True, verbose_name=_("submitter"),
+                                  related_name="ticket_submitter")
+    submitter_name = models.CharField(_("submitter name"), max_length=80)
+    submitter_email = models.EmailField(_("submitter email"))
+
+    modifier = models.ForeignKey(User, blank=True, null=True, verbose_name=_("modifier"),
+                                 related_name="ticket_modifier")
+
     description = models.TextField(_("description"))
     client_info = models.TextField(_("client info"))
     status = models.IntegerField(_("status"), default=1, choices=STATUS_CODES)
     priority = models.IntegerField(_("priority"), default=1, choices=PRIORITY_CODES)
 
     url = URLField(_("related object's URL"), blank=True, null=True, max_length=255)
-    
+
     concern = models.ForeignKey(Concern, verbose_name=_("concern"))
-    
+
     class Meta:
         verbose_name = _("ticket")
         verbose_name_plural = _("tickets")
@@ -79,16 +80,16 @@ class Ticket(ObjectRelationMixin()):
 
     def __unicode__(self):
         return self.description
-    
+
     # begin remove_that_when_subclassing_is_supported        
     def save(self, *args, **kwargs):
         # This is a new object, set the submitter and the creation date ...
         created = not self.id
-        if not self.id:   
+        if not self.id:
             self.submitter = get_current_user()
             # fill in user name and email
-            if self.submitter != None:
-                self.submitter_name = self.submitter.first_name + ' ' + self.submitter.last_name 
+            if self.submitter is not None:
+                self.submitter_name = self.submitter.first_name + ' ' + self.submitter.last_name
                 if len(self.submitter_name) < 2:
                     self.submitter_name = self.submitter.username
                 self.submitter_email = self.submitter.email
@@ -102,17 +103,20 @@ class Ticket(ObjectRelationMixin()):
             self.modifier = get_current_user()
 
         super(Ticket, self).save(*args, **kwargs)
-        
+
         ticket_reported(sender=Ticket, instance=self, created=created)
+
     # end remove_that_when_subclassing_is_supported
     save.alters_data = True
-        
-class TicketModifications(models.Model):        
+
+
+class TicketModifications(models.Model):
     """ Change History of a Ticket """
     ticket = models.ForeignKey(Ticket, verbose_name=_("ticket"), related_name="ticket_modification")
     modified_date = models.DateTimeField(_("modified Date"), editable=False)
-    modifier = models.ForeignKey(User,  verbose_name=_("modifier"), editable=False, related_name="ticket_modification_modifier")    
-    
+    modifier = models.ForeignKey(User, verbose_name=_("modifier"), editable=False,
+                                 related_name="ticket_modification_modifier")
+
     modification = models.TextField(_("modification"))
     status = models.IntegerField(_("status"), default=1, choices=STATUS_CODES)
     priority = models.IntegerField(_("priority"), default=1, choices=PRIORITY_CODES)
@@ -121,21 +125,22 @@ class TicketModifications(models.Model):
         verbose_name = _("ticket history")
         verbose_name_plural = _("ticket history")
         ordering = ('modified_date',)
-        
+
     def __unicode__(self):
         return self.modification
-    
+
     def save(self, *args, **kwargs):
         # This is a new object, set the submitter and the creation date ...
         self.modified_date = datetime.now()
         self.modifier = get_current_user()
-        
+
         # change the ticket values ....
         self.ticket.status = self.status
         self.ticket.priority = self.priority
         self.ticket.save()
-               
+
         super(TicketModifications, self).save(*args, **kwargs)
+
     save.alters_data = True
 
 
@@ -144,13 +149,13 @@ def ticket_reported(sender, instance, **kwargs):
     from django.contrib.sites.models import Site
     from django.contrib.auth.models import User
     from jetson.apps.notification import models as notification
-    
-    if 'created' in kwargs:   
+
+    if 'created' in kwargs:
         if kwargs['created']:
             ticket_url = "%sadmin/tracker/ticket/%s/" % (
                 get_website_url(),
                 instance.pk,
-                )
+            )
             if instance.submitter_email:
                 submitter_email = instance.submitter_email
             else:
@@ -158,9 +163,9 @@ def ticket_reported(sender, instance, **kwargs):
             if instance.submitter_name:
                 submitter_name = instance.submitter_name
             else:
-                submitter_name = instance.submitter.get_profile().get_title()
+                submitter_name = instance.submitter.profile.get_title()
             if instance.submitter:
-                submitter_url = instance.submitter.get_profile().get_url()
+                submitter_url = instance.submitter.profile.get_url()
             else:
                 submitter_url = ticket_url
             '''
@@ -172,7 +177,7 @@ def ticket_reported(sender, instance, **kwargs):
                 ))
             '''
             recipients = User.objects.all()
-            #'''
+            # '''
             notification.send(
                 recipients,
                 "ticket_reported",
@@ -182,9 +187,9 @@ def ticket_reported(sender, instance, **kwargs):
                     "object_creator_title": submitter_name,
                     "object_title": instance.concern.get_title(),
                     "object_url": ticket_url,
-                    },
+                },
                 instance=instance,
                 on_site=False,
-                )
-            
-#models.signals.post_save.connect(ticket_reported, sender=Ticket)
+            )
+
+# models.signals.post_save.connect(ticket_reported, sender=Ticket)
