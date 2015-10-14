@@ -5,7 +5,7 @@ from django.db import models
 from django.conf import settings
 from django import template
 
-from ccb.apps.people.forms import PREFIX_CI, PREFIX_BC, PREFIX_OT
+from ccb.apps.people.app_settings import PREFIX_CI, PREFIX_BC, PREFIX_OT
 from ccb.apps.marketplace.forms import PREFIX_JS
 
 Term = models.get_model("structure", "Term")

@@ -1,6 +1,10 @@
 # -*- coding: UTF-8 -*-
 from django.utils.translation import ugettext_lazy as _
+from django.shortcuts import get_object_or_404
+from django.http import Http404
+from django.contrib.auth.models import User
 
+from jetson.apps.utils.decorators import login_required
 from jetson.apps.people.views import *
 from ccb.apps.events.views import event_list
 from ccb.apps.marketplace.views import job_offer_list
