@@ -28,6 +28,7 @@ from jetson.apps.mailchimp.models import Subscription
 from jetson.apps.mailchimp.models import Settings
 from jetson.apps.configuration.models import SiteSettings
 from jetson.apps.mailing.views import Recipient, send_email_using_template
+from jetson.apps.utils.forms import ModelMultipleChoiceTreeField
 
 image_mods = models.get_app("image_mods")
 
@@ -48,6 +49,7 @@ site_settings = SiteSettings.objects.get_current()
 
 class SimpleRegistrationFormBase(dynamicforms.Form):
     """ One-step registration form """
+    # TODO: merge this class with SimpleRegistrationForm as it doesn't add any value when used separately
     email = forms.EmailField(
         label=_("Email"),
         required=True,
@@ -99,6 +101,9 @@ class SimpleRegistrationFormBase(dynamicforms.Form):
     prevent_spam = SecurityField()
 
     def __init__(self, request, *args, **kwargs):
+        super(SimpleRegistrationFormBase, self).__init__(*args, **kwargs)
+        self.request = request
+
         self.helper = FormHelper()
         self.helper.form_action = "register"
         self.helper.form_method = "POST"
@@ -126,9 +131,6 @@ class SimpleRegistrationFormBase(dynamicforms.Form):
                 layout.Submit('submit', _('Create account')),
             )
         )
-
-        super(SimpleRegistrationFormBase, self).__init__(*args, **kwargs)
-        self.request = request
 
     def clean(self):
         cleaned = self.cleaned_data
@@ -238,6 +240,11 @@ class SimpleRegistrationForm(SimpleRegistrationFormBase):
         ),
         required=False,
     )
+    creative_sector_checkboxes = ModelMultipleChoiceTreeField(
+        label=_("Creative Sectors"),
+        queryset=get_related_queryset(Person, "creative_sectors"),
+        required=True,
+    )
 
     def __init__(self, *args, **kwargs):
         super(SimpleRegistrationForm, self).__init__(*args, **kwargs)
@@ -255,6 +262,7 @@ class SimpleRegistrationForm(SimpleRegistrationFormBase):
             )
 
         self.newsletter_fields = []
+        self.newsletter_field_names = []
         for ml in MList.site_objects.filter(is_public=True):
             f = self.fields['newsletter_%s' % ml.pk] = forms.BooleanField(
                 label=_("I want to subscribe to %s.") % ml.title,
@@ -262,6 +270,40 @@ class SimpleRegistrationForm(SimpleRegistrationFormBase):
                 required=False,
             )
             self.newsletter_fields.append(("newsletter_%s" % ml.pk, f))
+            self.newsletter_field_names.append("newsletter_%s" % ml.pk)
+
+        self.helper = FormHelper()
+        self.helper.form_action = "register"
+        self.helper.form_method = "POST"
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Profile"),
+                "prefix",
+                "first_name",
+                "last_name",
+                "email",
+            ),
+            layout.Fieldset(
+                _("Login"),
+                "username",
+                "password",
+                "password_confirm",
+            ),
+            layout.Fieldset(
+                _("Creative Sectors"),
+                layout.Div(layout.Field("creative_sector_checkboxes", template="utils/checkboxselectmultipletree.html")),
+            ),
+            layout.Fieldset(
+                _("Confirmation"),
+                "privacy_policy",
+                "terms_of_use",
+                "prevent_spam",
+                *self.newsletter_field_names
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Create account')),
+            )
+        )
 
     def clean(self):
         super(SimpleRegistrationForm, self).clean()
@@ -287,6 +329,8 @@ class SimpleRegistrationForm(SimpleRegistrationFormBase):
     def save(self, activate_immediately=False):
         user = super(SimpleRegistrationForm, self).save(activate_immediately=activate_immediately)
         cleaned = self.cleaned_data
+
+        # TODO: Update the save method to use creatives sectors from crispy form
 
         person = user.profile
 
@@ -343,6 +387,21 @@ class EmailAuthentication(AuthenticationForm):
             max_length=75,
         )
         del self.fields['username']
+
+        self.helper = FormHelper()
+        self.helper.form_action = "login"
+        self.helper.form_method = "POST"
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Login"),
+                "email",
+                "password",
+                "login_as",
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Login')),
+            )
+        )
 
     def clean(self):
         email = self.cleaned_data.get('email')
@@ -402,6 +461,21 @@ class EmailOrUsernameAuthentication(AuthenticationForm):
         super(EmailOrUsernameAuthentication, self).__init__(*args, **kwargs)
         del self.fields['username']
 
+        self.helper = FormHelper()
+        self.helper.form_action = "login"
+        self.helper.form_method = "POST"
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Login"),
+                "email_or_username",
+                "password",
+                "login_as",
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Login')),
+            )
+        )
+
     def clean(self):
         email_or_username = self.cleaned_data.get('email_or_username')
         password = self.cleaned_data.get('password')
@@ -428,9 +502,8 @@ class EmailOrUsernameAuthentication(AuthenticationForm):
 
 class PrivacySettingsForm(dynamicforms.Form):
     def __init__(self, *args, **kwargs):
-        """ we overrride the init method here, beceause we
-        need a custom mapping for special initial values"""
-
+        ## we overrride the init method here, because we
+        ## need a custom mapping for special initial values
         if kwargs.has_key('initial'):
             initial = kwargs['initial']
             status = initial['status']
@@ -440,6 +513,33 @@ class PrivacySettingsForm(dynamicforms.Form):
                 initial['display_profile'] = False
 
         super(PrivacySettingsForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = "privacy_settings"
+        self.helper.form_method = "POST"
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Global"),
+                "display_profile",
+                "display_username",
+            ),
+            layout.Fieldset(
+                _("Profile"),
+                "display_birthday",
+                "allow_search_engine_indexing",
+            ),
+            layout.Fieldset(
+                _("Contact"),
+                "display_address",
+                "display_phone",
+                "display_fax",
+                "display_mobile",
+                "display_im",
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Confirm')),
+            )
+        )
 
     display_profile = forms.BooleanField(
         required=False,

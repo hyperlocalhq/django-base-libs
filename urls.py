@@ -842,7 +842,7 @@ urlpatterns += i18n_patterns(
     url(r'^my-profile/bookmarks/$', 'jetson.apps.bookmarks.views.bookmarks',
         {'template_name': 'generic/bookmarklist.html'}),
     url(r'^my-profile/privacy/$',
-        'ccb.apps.accounts.views.change_privacy_settings'),
+        'ccb.apps.accounts.views.change_privacy_settings', name="privacy_settings"),
     url(r'^my-profile/delete/$', _project_name + '.apps.site_specific.views.delete_profile'),
     url(r'^my-profile/delete/done/$',
         TemplateView.as_view(template_name='accounts/my_profile/delete_profile_done.html')),

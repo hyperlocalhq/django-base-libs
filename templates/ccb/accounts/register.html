@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n browsing uni_form_tags %}
+{% load base_tags i18n browsing uni_form_tags crispy_forms_tags %}
 
 {% block title %}{% trans "Create Account" %}{% endblock %}
 
@@ -12,6 +12,7 @@
 {% block sidebar-b %}&nbsp;{% endblock %}
 
 {% block content %}
+    {#% crispy form %#}
     <form action="{{ app_path }}" class="uniForm" method="post">{% csrf_token %}
         <fieldset class="inlineLabels">
             <h3>{% trans "Profile" %}</h3>

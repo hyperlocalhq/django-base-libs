@@ -1,5 +1,5 @@
 {% extends base_template|default:"base.html" %}
-{% load base_tags i18n uni_form_tags %}
+{% load base_tags i18n uni_form_tags crispy_forms_tags %}
 
 {% block title %}{% trans "login" %}{% endblock %}
 
@@ -21,11 +21,12 @@
             <div class="buttonHolder">
                 <input type="hidden" name="access_token" value=""/>
                 <input type="hidden" name="uid" value=""/>
-                <input type="hidden" name="goto_next" value="{% ifequal goto_next root_dir %}/dashboard/
-                    {% else %}{% if goto_next %}{{ goto_next }}{% else %}/dashboard/{% endif %}{% endifequal %}"/>
+                <input type="hidden" name="goto_next" value="{% ifequal goto_next root_dir %}/dashboard/{% else %}{% if goto_next %}{{ goto_next }}{% else %}/dashboard/{% endif %}{% endifequal %}" />
             </div>
         </fieldset>
     </form>
+
+    {#% crispy form %#}
     <form action="/{{ LANGUAGE_CODE }}/login/" method="post" class="uniForm">{% csrf_token %}
         <fieldset class="inlineLabels">
             <!--{{ request.session.set_test_cookie }}-->
@@ -45,8 +46,7 @@
                 {{ form.login_as|as_uni_field }}
                 <input type="hidden" name="this_is_the_login_form" value="1"/>
                 <input type="hidden" name="post_data" value="{{ post_data }}"/>
-                <input type="hidden" name="goto_next" value="{% ifequal goto_next root_dir %}/dashboard/
-                    {% else %}{% if goto_next %}{{ goto_next }}{% else %}/dashboard/{% endif %}{% endifequal %}"/>
+                <input type="hidden" name="goto_next" value="{% ifequal goto_next root_dir %}/dashboard/{% else %}{% if goto_next %}{{ goto_next }}{% else %}/dashboard/{% endif %}{% endifequal %}" />
                 <input class="primaryAction" type="submit"
                     value="{% filter upper %}{% trans 'Log in' %}{% endfilter %}"/>
             </div>
