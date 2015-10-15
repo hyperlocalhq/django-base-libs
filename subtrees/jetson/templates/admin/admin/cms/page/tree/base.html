@@ -4,8 +4,9 @@
 {% block title %}{% trans "List of pages" %}{% endblock %}
 {% block bodyclass %}grp-change-list{% endblock %}
 
-{% if not is_popup %}{% block breadcrumbs %}
-    <ul class="grp-horizontal-list">
+{% block breadcrumbs %}{% if not is_popup %}
+    <!-- this is an HTML comment about breadcrumbs -->
+    <ul class="grp-horizontal-list breadcrumbs">
         <li><a href="../../">{% trans "Home" %}</a></li>
         <li><a href="../">{% trans app_label|capfirst|escape %}</a></li>
         <li>{{ opts.verbose_name_plural|capfirst|escape }}</li>
@@ -13,7 +14,7 @@
             <li>{% trans "Search" %}</li>
         {% endif %}
     </ul>
-{% endblock %}{% endif %}
+{% endif %}{% endblock %}
 
 {% block coltype %}flex{% endblock %}
 {% block extrastyle %}
