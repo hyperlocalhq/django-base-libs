@@ -1,6 +1,8 @@
+#! /usr/bin/env bash
 PROJECT_PATH=/usr/local/www/apache24/data/creative-city-berlin.de
 CRON_LOG_FILE=${PROJECT_PATH}/logs/backup_db.log
-BACKUP_PATH=${PROJECT_PATH}/db_backups/$(date +%w-%A).sql
+WEEK_DATE=$(LC_ALL=en_US.UTF-8 date +"%w-%A")
+BACKUP_PATH=${PROJECT_PATH}/db_backups/${WEEK_DATE}.sql
 USER=ccb
 DATABASE=ccb
 PASS=ot6q4R
