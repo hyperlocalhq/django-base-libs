@@ -107,7 +107,6 @@ INSTALLED_APPS = [
     'sekizai',  # for javascript and css management
     'djangocms_admin_style',
     # for the admin skin. You **must** add 'djangocms_admin_style' in the list **before** 'django.contrib.admin'.
-    'djangocms_text_ckeditor',
     'reversion',
 
     ### django-cms plug-ins ###
