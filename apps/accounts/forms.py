@@ -586,3 +586,61 @@ class PrivacySettingsForm(dynamicforms.Form):
         label=_("Display instant messangers to public"),
         initial=True,
     )
+
+
+# Translatable strings to collect to django.po file
+_("Please enter your old password, for security's sake, and then enter your new password twice so we can verify you typed it in correctly.")
+_("Forgot your password? Enter your e-mail address below, and we’ll send you an e-mail with a link which allows you to set up a new password.")
+_("Please enter your new password twice so we can verify you typed it in correctly.")
+
+
+password_change_form_helper = FormHelper()
+password_change_form_helper.form_action = ""
+password_change_form_helper.form_method = "POST"
+password_change_form_helper.layout = layout.Layout(
+    layout.Fieldset(
+        _("Password change"),
+        layout.HTML(u"""{% load i18n %}
+            <p>{% trans "Please enter your old password, for security's sake, and then enter your new password twice so we can verify you typed it in correctly." %}</p>
+        """),
+        "old_password",
+        "new_password1",
+        "new_password2",
+    ),
+    bootstrap.FormActions(
+        layout.Submit('submit', _('Confirm')),
+    )
+)
+
+
+password_reset_form_helper = FormHelper()
+password_reset_form_helper.form_action = ""
+password_reset_form_helper.form_method = "POST"
+password_reset_form_helper.layout = layout.Layout(
+    layout.Fieldset(
+        _("Password reset"),
+        layout.HTML(u"""{% load i18n %}
+            <p>{% trans "Forgot your password? Enter your e-mail address below, and we’ll send you an e-mail with a link which allows you to set up a new password." %}</p>
+        """),
+        "email",
+    ),
+    bootstrap.FormActions(
+        layout.Submit('submit', _('Reset my password')),
+    )
+)
+
+password_reset_change_form_helper = FormHelper()
+password_reset_change_form_helper.form_action = ""
+password_reset_change_form_helper.form_method = "POST"
+password_reset_change_form_helper.layout = layout.Layout(
+    layout.Fieldset(
+        _("Password change"),
+        layout.HTML(u"""{% load i18n %}
+            <p>{% trans "Please enter your new password twice so we can verify you typed it in correctly." %}</p>
+        """),
+        layout.Row("new_password1", "new_password2"),
+    ),
+    bootstrap.FormActions(
+        layout.Submit('submit', _('Change my password')),
+    )
+)

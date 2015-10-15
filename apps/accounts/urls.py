@@ -3,6 +3,11 @@ from django.conf.urls import *
 from django.views.generic import TemplateView
 from jetson.apps.utils.decorators import login_required
 
+from ccb.apps.accounts.forms import password_change_form_helper
+from ccb.apps.accounts.forms import password_reset_form_helper
+from ccb.apps.accounts.forms import password_reset_change_form_helper
+
+
 urlpatterns = [
     url(r'^account/$', TemplateView.as_view(template_name='accounts/index.html')),
     url(
@@ -43,14 +48,18 @@ urlpatterns = [
         'django.contrib.auth.views.password_reset',
         {
             'template_name': 'accounts/password_reset_form.html',
-            'email_template_name': 'accounts/password_reset_email.html'
+            'email_template_name': 'accounts/password_reset_email.html',
+            'extra_context': {'form_helper': password_reset_form_helper}
         },
         name="password_reset",
     ),
     url(
         r'^password_reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$',
         'django.contrib.auth.views.password_reset_confirm',
-        {'template_name': 'accounts/password_reset_confirm.html'},
+        {
+            'template_name': 'accounts/password_reset_confirm.html',
+            'extra_context': {'form_helper': password_reset_change_form_helper}
+        },
         name="password_reset_confirm",
     ),
     url(
@@ -68,7 +77,10 @@ urlpatterns = [
     url(
         r'^password_change/$',
         'django.contrib.auth.views.password_change',
-        {'template_name': 'accounts/password_change_form.html'},
+        {
+            'template_name': 'accounts/password_change_form.html',
+            'extra_context': {'form_helper': password_change_form_helper}
+        },
         name="password_change"
     ),
     url(
