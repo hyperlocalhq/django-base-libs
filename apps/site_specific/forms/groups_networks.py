@@ -55,271 +55,270 @@ STR_MIN_LOGO_SIZE = "%sx%s" % MIN_LOGO_SIZE
 
 # TODO: each form could be ModelForm. Each formset could be ModelFormSet.
 # noinspection PyClassHasNoInit
-class GroupProfile:  # namespace
-    class DescriptionForm(dynamicforms.Form):
-        description_en = forms.CharField(
-            label=_("Description (English)"),
-            required=False,
-            widget=forms.Textarea(),
-        )
-        description_de = forms.CharField(
-            label=_("Description (German)"),
-            required=False,
-            widget=forms.Textarea(),
-        )
+class DescriptionForm(dynamicforms.Form):
+    description_en = forms.CharField(
+        label=_("Description (English)"),
+        required=False,
+        widget=forms.Textarea(),
+    )
+    description_de = forms.CharField(
+        label=_("Description (German)"),
+        required=False,
+        widget=forms.Textarea(),
+    )
 
-        def __init__(self, group, index, *args, **kwargs):
-            super(GroupProfile.DescriptionForm, self).__init__()
-            self.group = group
-            self.index = index
-            super(type(self), self).__init__(*args, **kwargs)
-            if not args and not kwargs:  # if nothing is posted
-                self.fields['description_en'].initial = group.description_en
-                self.fields['description_de'].initial = group.description_de
+    def __init__(self, group, index, *args, **kwargs):
+        super(DescriptionForm, self).__init__()
+        self.group = group
+        self.index = index
+        super(type(self), self).__init__(*args, **kwargs)
+        if not args and not kwargs:  # if nothing is posted
+            self.fields['description_en'].initial = group.description_en
+            self.fields['description_de'].initial = group.description_de
 
-        def save(self):
-            group = self.group
-            group.description_en = self.cleaned_data['description_en']
-            group.description_de = self.cleaned_data['description_de']
-            group.save()
-            return group
+    def save(self):
+        group = self.group
+        group.description_en = self.cleaned_data['description_en']
+        group.description_de = self.cleaned_data['description_de']
+        group.save()
+        return group
 
-        def get_extra_context(self):
-            return {}
+    def get_extra_context(self):
+        return {}
 
-    class AvatarForm(dynamicforms.Form):
-        media_file = ImageField(
-            label=_("Photo"),
-            help_text=_(
-                "You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px.") % STR_MIN_LOGO_SIZE,
-            required=False,
-            min_dimensions=MIN_LOGO_SIZE,
-        )
+class AvatarForm(dynamicforms.Form):
+    media_file = ImageField(
+        label=_("Photo"),
+        help_text=_(
+            "You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px.") % STR_MIN_LOGO_SIZE,
+        required=False,
+        min_dimensions=MIN_LOGO_SIZE,
+    )
 
-        def __init__(self, group, index, *args, **kwargs):
-            super(GroupProfile.AvatarForm, self).__init__()
-            self.group = group
-            self.index = index
-            super(type(self), self).__init__(*args, **kwargs)
+    def __init__(self, group, index, *args, **kwargs):
+        super(AvatarForm, self).__init__()
+        self.group = group
+        self.index = index
+        super(type(self), self).__init__(*args, **kwargs)
 
-        def save(self):
-            group = self.group
-            if "media_file" in self.files:
-                media_file = self.files['media_file']
-                image_mods.FileManager.save_file_for_object(
-                    group,
-                    media_file.name,
-                    media_file,
-                    subpath="avatar/"
-                )
-            return group
-
-        def get_extra_context(self):
-            return {}
-
-    class DetailsForm(dynamicforms.Form):
-        group_type = forms.ChoiceField(
-            required=True,
-            choices=GROUP_TYPE_CHOICES,
-            label=_("Group type"),
-        )
-
-        access_type = forms.ChoiceField(
-            required=True,
-            choices=ACCESS_TYPE_CHOICES,
-            label=_("Security"),
-        )
-
-        institution = forms.ChoiceField(
-            required=False,
-            choices=[],
-            label=_("Attach to profile"),
-        )
-
-        membership_options = forms.ChoiceField(
-            required=True,
-            choices=MEMBERSHIP_OPTION_CHOICES,
-            label=_("Membership"),
-        )
-
-        main_language = forms.ChoiceField(
-            required=True,
-            choices=PREFERRED_LANGUAGE_CHOICES,
-            label=_("Main language"),
-        )
-
-        def __init__(self, group, index, *args, **kwargs):
-            super(GroupProfile.DetailsForm, self).__init__()
-            self.group = group
-            self.index = index
-            super(type(self), self).__init__(*args, **kwargs)
-            user = get_current_user()
-            person = user.profile
-            INSTITUTION_CHOICES = [("", "---------")]
-            INSTITUTION_CHOICES.extend([(str(el.id), force_unicode(el))
-                                        for el in person.get_institutions()
-                                        ])
-            self.fields['institution'].choices = self.fields['institution'].widget.choices = INSTITUTION_CHOICES
-            if not args and not kwargs:  # if nothing is posted
-                self.fields['group_type'].initial = group.group_type_id
-                self.fields['access_type'].initial = group.access_type_id
-                self.fields['institution'].initial = group.organizing_institution_id
-                self.fields['main_language'].initial = group.preferred_language_id
-                if group.is_by_invitation and group.is_by_confirmation:
-                    self.fields['membership_options'].initial = "invite_or_confirm"
-                elif group.is_by_invitation:
-                    self.fields['membership_options'].initial = "invite"
-                else:
-                    self.fields['membership_options'].initial = "anyone"
-
-        def save(self):
-            group = self.group
-            cleaned = self.cleaned_data
-            group.group_type_id = cleaned['group_type']
-            group.access_type_id = cleaned['access_type']
-            group.organizing_institution_id = cleaned.get('institution', None)
-            group.preferred_language = get_related_queryset(
-                PersonGroup,
-                "preferred_language"
-            ).get(
-                pk=cleaned.get('main_language', ""),
+    def save(self):
+        group = self.group
+        if "media_file" in self.files:
+            media_file = self.files['media_file']
+            image_mods.FileManager.save_file_for_object(
+                group,
+                media_file.name,
+                media_file,
+                subpath="avatar/"
             )
-            membership_options = cleaned.get('membership_options', 'anyone')
-            group.is_by_invitation = membership_options in ("invite", "invite_or_confirm")
-            group.is_by_confirmation = membership_options == "invite_or_confirm"
-            group.save()
-            return group
+        return group
 
-        def get_extra_context(self):
-            return {}
+    def get_extra_context(self):
+        return {}
 
-    class CategoriesForm(dynamicforms.Form):
-        choose_creative_sectors = forms.BooleanField(
-            initial=True,
-            widget=forms.HiddenInput(
-                attrs={
-                    "class": "form_hidden",
-                }
-            ),
-            required=False,
+class DetailsForm(dynamicforms.Form):
+    group_type = forms.ChoiceField(
+        required=True,
+        choices=GROUP_TYPE_CHOICES,
+        label=_("Group type"),
+    )
+
+    access_type = forms.ChoiceField(
+        required=True,
+        choices=ACCESS_TYPE_CHOICES,
+        label=_("Security"),
+    )
+
+    institution = forms.ChoiceField(
+        required=False,
+        choices=[],
+        label=_("Attach to profile"),
+    )
+
+    membership_options = forms.ChoiceField(
+        required=True,
+        choices=MEMBERSHIP_OPTION_CHOICES,
+        label=_("Membership"),
+    )
+
+    main_language = forms.ChoiceField(
+        required=True,
+        choices=PREFERRED_LANGUAGE_CHOICES,
+        label=_("Main language"),
+    )
+
+    def __init__(self, group, index, *args, **kwargs):
+        super(DetailsForm, self).__init__()
+        self.group = group
+        self.index = index
+        super(type(self), self).__init__(*args, **kwargs)
+        user = get_current_user()
+        person = user.profile
+        INSTITUTION_CHOICES = [("", "---------")]
+        INSTITUTION_CHOICES.extend([(str(el.id), force_unicode(el))
+                                    for el in person.get_institutions()
+                                    ])
+        self.fields['institution'].choices = self.fields['institution'].widget.choices = INSTITUTION_CHOICES
+        if not args and not kwargs:  # if nothing is posted
+            self.fields['group_type'].initial = group.group_type_id
+            self.fields['access_type'].initial = group.access_type_id
+            self.fields['institution'].initial = group.organizing_institution_id
+            self.fields['main_language'].initial = group.preferred_language_id
+            if group.is_by_invitation and group.is_by_confirmation:
+                self.fields['membership_options'].initial = "invite_or_confirm"
+            elif group.is_by_invitation:
+                self.fields['membership_options'].initial = "invite"
+            else:
+                self.fields['membership_options'].initial = "anyone"
+
+    def save(self):
+        group = self.group
+        cleaned = self.cleaned_data
+        group.group_type_id = cleaned['group_type']
+        group.access_type_id = cleaned['access_type']
+        group.organizing_institution_id = cleaned.get('institution', None)
+        group.preferred_language = get_related_queryset(
+            PersonGroup,
+            "preferred_language"
+        ).get(
+            pk=cleaned.get('main_language', ""),
         )
+        membership_options = cleaned.get('membership_options', 'anyone')
+        group.is_by_invitation = membership_options in ("invite", "invite_or_confirm")
+        group.is_by_confirmation = membership_options == "invite_or_confirm"
+        group.save()
+        return group
 
-        def clean_choose_creative_sectors(self):
-            data = self.data
-            el_count = 0
-            for el in self.creative_sectors.values():
-                if el['field_name'] in data:
-                    el_count += 1
-            if not el_count:
-                raise forms.ValidationError(_("Please choose at least one creative sector."))
-            return True
+    def get_extra_context(self):
+        return {}
 
-        choose_context_categories = forms.BooleanField(
-            initial=True,
-            widget=forms.HiddenInput(
-                attrs={
-                    "class": "form_hidden",
-                }
-            ),
-            required=False,
-        )
+class CategoriesForm(dynamicforms.Form):
+    choose_creative_sectors = forms.BooleanField(
+        initial=True,
+        widget=forms.HiddenInput(
+            attrs={
+                "class": "form_hidden",
+            }
+        ),
+        required=False,
+    )
 
-        def clean_choose_context_categories(self):
-            data = self.data
-            el_count = 0
-            for el in self.context_categories.values():
-                if el['field_name'] in data:
-                    el_count += 1
-            if not el_count:
-                raise forms.ValidationError(_("Please choose at least one context category."))
-            return True
+    def clean_choose_creative_sectors(self):
+        data = self.data
+        el_count = 0
+        for el in self.creative_sectors.values():
+            if el['field_name'] in data:
+                el_count += 1
+        if not el_count:
+            raise forms.ValidationError(_("Please choose at least one creative sector."))
+        return True
 
-        choose_object_types = forms.BooleanField(
-            initial=True,
-            widget=forms.HiddenInput(
-                attrs={
-                    "class": "form_hidden",
-                }
-            ),
-            required=False,
-        )
+    choose_context_categories = forms.BooleanField(
+        initial=True,
+        widget=forms.HiddenInput(
+            attrs={
+                "class": "form_hidden",
+            }
+        ),
+        required=False,
+    )
 
-        def clean_choose_object_types(self):
-            data = self.data
-            el_count = 0
-            for el in self.object_types.values():
-                if el['field_name'] in data:
-                    el_count += 1
-            if not el_count:
-                raise forms.ValidationError(_("Please choose at least one object type."))
-            return True
+    def clean_choose_context_categories(self):
+        data = self.data
+        el_count = 0
+        for el in self.context_categories.values():
+            if el['field_name'] in data:
+                el_count += 1
+        if not el_count:
+            raise forms.ValidationError(_("Please choose at least one context category."))
+        return True
 
-        def __init__(self, group, index, *args, **kwargs):
-            super(GroupProfile.CategoriesForm, self).__init__()
-            self.group = group
-            super(type(self), self).__init__(*args, **kwargs)
-            self.creative_sectors = {}
-            for item in get_related_queryset(PersonGroup, "creative_sectors"):
-                self.creative_sectors[item.sysname] = {
-                    'id': item.id,
-                    'field_name': PREFIX_CI + str(item.id),
-                }
-            self.context_categories = {}
-            for item in get_related_queryset(PersonGroup, "context_categories"):
-                self.context_categories[item.sysname] = {
-                    'id': item.id,
-                    'field_name': PREFIX_BC + str(item.id),
-                }
-            for s in self.creative_sectors.values():
-                self.fields[s['field_name']] = forms.BooleanField(
-                    required=False
-                )
-            for el in group.get_creative_sectors():
-                for ancestor in el.get_ancestors(include_self=True):
-                    self.fields[PREFIX_CI + str(ancestor.id)].initial = True
-            for c in self.context_categories.values():
-                self.fields[c['field_name']] = forms.BooleanField(
-                    required=False
-                )
-            for el in group.get_context_categories():
-                for ancestor in el.get_ancestors(include_self=True):
-                    self.fields[PREFIX_BC + str(ancestor.id)].initial = True
+    choose_object_types = forms.BooleanField(
+        initial=True,
+        widget=forms.HiddenInput(
+            attrs={
+                "class": "form_hidden",
+            }
+        ),
+        required=False,
+    )
 
-        def save(self, *args, **kwargs):
-            group = self.group
-            cleaned = self.cleaned_data
-            selected_cs = {}
-            for item in get_related_queryset(PersonGroup, "creative_sectors"):
-                if cleaned.get(PREFIX_CI + str(item.id), False):
-                    # remove all the parents
-                    for ancestor in item.get_ancestors():
-                        if ancestor.id in selected_cs:
-                            del (selected_cs[ancestor.id])
-                    # add current
-                    selected_cs[item.id] = item
-            group.creative_sectors.clear()
-            group.creative_sectors.add(*selected_cs.values())
+    def clean_choose_object_types(self):
+        data = self.data
+        el_count = 0
+        for el in self.object_types.values():
+            if el['field_name'] in data:
+                el_count += 1
+        if not el_count:
+            raise forms.ValidationError(_("Please choose at least one object type."))
+        return True
 
-            selected_cc = {}
-            for item in get_related_queryset(PersonGroup, "context_categories"):
-                if cleaned.get(PREFIX_BC + str(item.id), False):
-                    # remove all the parents
-                    for ancestor in item.get_ancestors():
-                        if ancestor.id in selected_cc:
-                            del (selected_cc[ancestor.id])
-                    # add current
-                    selected_cc[item.id] = item
-            group.context_categories.clear()
-            group.context_categories.add(*selected_cc.values())
-            ContextItem.objects.update_for(group)
-            return group
+    def __init__(self, group, index, *args, **kwargs):
+        super(CategoriesForm, self).__init__()
+        self.group = group
+        super(type(self), self).__init__(*args, **kwargs)
+        self.creative_sectors = {}
+        for item in get_related_queryset(PersonGroup, "creative_sectors"):
+            self.creative_sectors[item.sysname] = {
+                'id': item.id,
+                'field_name': PREFIX_CI + str(item.id),
+            }
+        self.context_categories = {}
+        for item in get_related_queryset(PersonGroup, "context_categories"):
+            self.context_categories[item.sysname] = {
+                'id': item.id,
+                'field_name': PREFIX_BC + str(item.id),
+            }
+        for s in self.creative_sectors.values():
+            self.fields[s['field_name']] = forms.BooleanField(
+                required=False
+            )
+        for el in group.get_creative_sectors():
+            for ancestor in el.get_ancestors(include_self=True):
+                self.fields[PREFIX_CI + str(ancestor.id)].initial = True
+        for c in self.context_categories.values():
+            self.fields[c['field_name']] = forms.BooleanField(
+                required=False
+            )
+        for el in group.get_context_categories():
+            for ancestor in el.get_ancestors(include_self=True):
+                self.fields[PREFIX_BC + str(ancestor.id)].initial = True
 
-        def get_extra_context(self):
-            return {}
+    def save(self, *args, **kwargs):
+        group = self.group
+        cleaned = self.cleaned_data
+        selected_cs = {}
+        for item in get_related_queryset(PersonGroup, "creative_sectors"):
+            if cleaned.get(PREFIX_CI + str(item.id), False):
+                # remove all the parents
+                for ancestor in item.get_ancestors():
+                    if ancestor.id in selected_cs:
+                        del (selected_cs[ancestor.id])
+                # add current
+                selected_cs[item.id] = item
+        group.creative_sectors.clear()
+        group.creative_sectors.add(*selected_cs.values())
 
-    forms = {
-        'description': DescriptionForm,
-        'avatar': AvatarForm,
-        'details': DetailsForm,
-        'categories': CategoriesForm,
-    }
+        selected_cc = {}
+        for item in get_related_queryset(PersonGroup, "context_categories"):
+            if cleaned.get(PREFIX_BC + str(item.id), False):
+                # remove all the parents
+                for ancestor in item.get_ancestors():
+                    if ancestor.id in selected_cc:
+                        del (selected_cc[ancestor.id])
+                # add current
+                selected_cc[item.id] = item
+        group.context_categories.clear()
+        group.context_categories.add(*selected_cc.values())
+        ContextItem.objects.update_for(group)
+        return group
+
+    def get_extra_context(self):
+        return {}
+
+profile_forms = {
+    'description': DescriptionForm,
+    'avatar': AvatarForm,
+    'details': DetailsForm,
+    'categories': CategoriesForm,
+}

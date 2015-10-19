@@ -35,12 +35,12 @@ from ccb.apps.groups_networks.models import PersonGroup, URL_ID_PERSONGROUP
 from ccb.apps.marketplace.models import JobOffer, URL_ID_JOB_OFFER, URL_ID_JOB_OFFERS, \
     SECURITY_SUMMAND as MARKETPLACE_SECURITY_SUMMAND
 from ccb.apps.site_specific.forms import ClaimForm
-from ccb.apps.site_specific.forms import PersonProfile
-from ccb.apps.site_specific.forms import InstitutionProfile
-from ccb.apps.site_specific.forms import DocumentProfile
-from ccb.apps.site_specific.forms import EventProfile
-from ccb.apps.site_specific.forms import GroupProfile
-from ccb.apps.site_specific.forms import JobOfferProfile
+from ccb.apps.site_specific.forms import people as people_forms
+from ccb.apps.site_specific.forms import institutions as institutions_forms
+from ccb.apps.site_specific.forms import resources as resources_forms
+from ccb.apps.site_specific.forms import events as events_forms
+from ccb.apps.site_specific.forms import groups_networks as groups_networks_forms
+from ccb.apps.site_specific.forms import marketplace as marketplace_forms
 from ccb.apps.site_specific.forms import InvitationForm
 from ccb.apps.site_specific.forms import ProfileDeletionForm
 from ccb.apps.site_specific.forms import ObjectDeletionForm
@@ -59,42 +59,42 @@ BROWSING_CRITERIA = {
 TYPE_2_MODEL = {
     URL_ID_PERSON: {
         'model': Person,
-        'form_namespace': PersonProfile,
+        'form_namespace': people_forms,
         'slug_field': "user__username",
         'change_perm': "people.change_person",
         'template_folder': "people",
     },
     URL_ID_INSTITUTION: {
         'model': Institution,
-        'form_namespace': InstitutionProfile,
+        'form_namespace': institutions_forms,
         'slug_field': 'slug',
         'change_perm': "institutions.change_institution",
         'template_folder': "institutions",
     },
     URL_ID_DOCUMENT: {
         'model': Document,
-        'form_namespace': DocumentProfile,
+        'form_namespace': resources_forms,
         'slug_field': 'slug',
         'change_perm': "resources.change_document",
         'template_folder': "resources/documents",
     },
     URL_ID_EVENT: {
         'model': Event,
-        'form_namespace': EventProfile,
+        'form_namespace': events_forms,
         'slug_field': 'slug',
         'change_perm': "events.change_event",
         'template_folder': "events",
     },
     URL_ID_PERSONGROUP: {
         'model': PersonGroup,
-        'form_namespace': GroupProfile,
+        'form_namespace': groups_networks_forms,
         'slug_field': 'slug',
         'change_perm': "groups_networks.change_persongroup",
         'template_folder': "groups_networks/persongroups",
     },
     URL_ID_JOB_OFFER: {
         'model': JobOffer,
-        'form_namespace': JobOfferProfile,
+        'form_namespace': marketplace_forms,
         'slug_field': 'slug',
         'get_object': lambda slug: get_object_or_404(JobOffer, **{
             'pk': int(slug) - MARKETPLACE_SECURITY_SUMMAND,
@@ -438,10 +438,10 @@ def edit_profile(request, object_type, slug, section_name="", index=None):
         section_name,
     )
 
-    form_class = specifics['form_namespace'].forms.get(section_name, False)
+    form_class = specifics['form_namespace'].profile_forms.get(section_name, False)
     formset_classes = getattr(
         specifics['form_namespace'],
-        "formsets",
+        "profile_formsets",
         {},
     ).get(section_name, {})
 
