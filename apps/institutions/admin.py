@@ -270,10 +270,12 @@ def get_deleted_objects(objs, opts, user, admin_site, using):
 
 def merge_selected(modeladmin, request, queryset):
     MANAGERS_AND_FIELDS = (
-        ("artapplicant_set", "institution"),
-        ("cooperationpartner_set", "institution"),
-        ("eduapplicant_set", "institution"),
-        ("membership_set", "institution"),
+        ("events_happened", "venue"),
+        ("event_set", "organizing_institution"),
+        ("institution_set", "parent"),
+        ("document_set", "publisher"),
+        ("institutionalcontact_set", "institution"),
+        ("individualcontact_set", "institution"),
     )
 
     opts = modeladmin.model._meta
