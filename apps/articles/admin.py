@@ -50,7 +50,9 @@ class ArticleOptions(ExtendedModelAdmin):
     save_on_top = True
 
     list_display = [
-        'id', 'title', 'author', 'status', 'imported_from', 'creation_date',
+        'id', 'title',
+        # 'author',
+        'status', 'imported_from', 'creation_date',
         # 'modified_date',
         # 'orig_published',
         'published_from',
