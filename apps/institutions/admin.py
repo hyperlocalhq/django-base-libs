@@ -154,19 +154,68 @@ def get_deleted_objects(objs, opts, user, admin_site, using):
     """
     FIELDS_AND_DISPLAYS = (
         ("title", lambda obj: obj.title),
-        ("email", lambda obj: obj.email),
-        ("phone_number", lambda obj: obj.phone_number),
-        ("cell_phone_number", lambda obj: obj.cell_phone_number),
-        ("street_address", lambda obj: obj.street_address),
-        ("postal_code", lambda obj: obj.postal_code),
-        ("city", lambda obj: obj.city),
-        ("district", lambda obj: obj.district),
-        ("website", lambda obj: obj.website),
-        ("short_description", lambda obj: obj.short_description),
-        ("categories", lambda obj: ", ".join((unicode(el) for el in obj.categories.all()))),
-        ("reference_url_1", lambda obj: obj.reference_url_1),
-        ("reference_url_2", lambda obj: obj.reference_url_2),
-        ("reference_url_3", lambda obj: obj.reference_url_3),
+        ("title2", lambda obj: obj.title2),
+        ("slug", lambda obj: obj.slug),
+        ("parent", lambda obj: obj.parent),
+        ("description", lambda obj: obj.description),
+        ("image", lambda obj: obj.image),
+        # ("institution_types", lambda obj: obj.institution_types),
+        ("status", lambda obj: obj.status),
+        ("legal_form", lambda obj: obj.legal_form),
+        # ("context_categories", lambda obj: obj.context_categories),
+        ("access", lambda obj: obj.access),
+        ("is_parking_avail", lambda obj: obj.is_parking_avail),
+        ("is_wlan_avail", lambda obj: obj.is_wlan_avail),
+        ("is_non_profit", lambda obj: obj.is_non_profit),
+        ("tax_id_number", lambda obj: obj.tax_id_number),
+        ("vat_id_number", lambda obj: obj.vat_id_number),
+        ("is_card_visa_ok", lambda obj: obj.is_card_visa_ok),
+        ("is_card_mastercard_ok", lambda obj: obj.is_card_mastercard_ok),
+        ("is_card_americanexpress_ok", lambda obj: obj.is_card_americanexpress_ok),
+        ("is_paypal_ok", lambda obj: obj.is_paypal_ok),
+        ("is_cash_ok", lambda obj: obj.is_cash_ok),
+        ("is_transaction_ok", lambda obj: obj.is_transaction_ok),
+        ("is_prepayment_ok", lambda obj: obj.is_prepayment_ok),
+        ("is_on_delivery_ok", lambda obj: obj.is_on_delivery_ok),
+        ("is_invoice_ok", lambda obj: obj.is_invoice_ok),
+        ("is_ec_maestro_ok", lambda obj: obj.is_ec_maestro_ok),
+        ("is_giropay_ok", lambda obj: obj.is_giropay_ok),
+        ("establishment_yyyy", lambda obj: obj.establishment_yyyy),
+        ("establishment_mm", lambda obj: obj.establishment_mm),
+        ("nof_employees", lambda obj: obj.nof_employees),
+        # ("creative_sectors", lambda obj: obj.creative_sectors),
+        ("creation_date", lambda obj: obj.creation_date),
+        ("modified_date", lambda obj: obj.modified_date),
+        ("is_appointment_based", lambda obj: obj.is_appointment_based),
+        ("mon_open", lambda obj: obj.mon_open),
+        ("mon_break_close", lambda obj: obj.mon_break_close),
+        ("mon_break_open", lambda obj: obj.mon_break_open),
+        ("mon_close", lambda obj: obj.mon_close),
+        ("tue_open", lambda obj: obj.tue_open),
+        ("tue_break_close", lambda obj: obj.tue_break_close),
+        ("tue_break_open", lambda obj: obj.tue_break_open),
+        ("tue_close", lambda obj: obj.tue_close),
+        ("wed_open", lambda obj: obj.wed_open),
+        ("wed_break_close", lambda obj: obj.wed_break_close),
+        ("wed_break_open", lambda obj: obj.wed_break_open),
+        ("wed_close", lambda obj: obj.wed_close),
+        ("thu_open", lambda obj: obj.thu_open),
+        ("thu_break_close", lambda obj: obj.thu_break_close),
+        ("thu_break_open", lambda obj: obj.thu_break_open),
+        ("thu_close", lambda obj: obj.thu_close),
+        ("fri_open", lambda obj: obj.fri_open),
+        ("fri_break_close", lambda obj: obj.fri_break_close),
+        ("fri_break_open", lambda obj: obj.fri_break_open),
+        ("fri_close", lambda obj: obj.fri_close),
+        ("sat_open", lambda obj: obj.sat_open),
+        ("sat_break_close", lambda obj: obj.sat_break_close),
+        ("sat_break_open", lambda obj: obj.sat_break_open),
+        ("sat_close", lambda obj: obj.sat_close),
+        ("sun_open", lambda obj: obj.sun_open),
+        ("sun_break_close", lambda obj: obj.sun_break_close),
+        ("sun_break_open", lambda obj: obj.sun_break_open),
+        ("sun_close", lambda obj: obj.sun_close),
+        ("exceptions", lambda obj: obj.exceptions),
     )
 
     collector = NestedObjects(using=using)
@@ -196,56 +245,13 @@ def get_deleted_objects(objs, opts, user, admin_site, using):
                 admin_url,
                 escape(obj))
             if isinstance(obj, Institution) and type(obj) == Institution:
-                obj_str += " %s." % obj.get_address()
+                # obj_str += " %s." % obj.get_address()
                 if obj.creation_date:
                     obj_str += " Erstellungsdatum: %s." % date(obj.creation_date, "j. E Y H:i:s")
                 for field_name, display_function in FIELDS_AND_DISPLAYS:
                     obj_str += u'<div class="row cells-1"><div><div class="column span-4">%s</div><div class="column span-flexible">%s&nbsp;</div></div></div>' % (
                         Institution._meta.get_field(field_name).verbose_name,
                         display_function(obj) or "-",
-                    )
-                try:
-                    obj.artisticinstitution
-                except Institution.DoesNotExist:
-                    pass
-                else:
-                    obj_str += u'<div class="row cells-1"><div><div class="column span-4">%s</div><div class="column span-flexible">%s&nbsp;</div></div></div>' % (
-                        obj.artisticinstitution._meta.get_field("legal_form").verbose_name,
-                        obj.artisticinstitution.legal_form or "-",
-                    )
-                    obj_str += u'<div class="row cells-1"><div><div class="column span-4">%s</div><div class="column span-flexible">%s&nbsp;</div></div></div>' % (
-                        obj.artisticinstitution._meta.get_field("other_legal_form").verbose_name,
-                        obj.artisticinstitution.other_legal_form or "-",
-                    )
-                try:
-                    obj.educationalinstitution
-                except Institution.DoesNotExist:
-                    pass
-                else:
-                    obj_str += u'<div class="row cells-1"><div><div class="column span-4">%s</div><div class="column span-flexible">%s&nbsp;</div></div></div>' % (
-                        obj.educationalinstitution._meta.get_field("organization_forms").verbose_name,
-                        ", ".join((unicode(el) for el in obj.educationalinstitution.organization_forms.all())) or "-",
-                    )
-                    obj_str += u'<div class="row cells-1"><div><div class="column span-4">%s</div><div class="column span-flexible">%s&nbsp;</div></div></div>' % (
-                        obj.educationalinstitution._meta.get_field("bsn").verbose_name,
-                        obj.educationalinstitution.bsn or "-",
-                    )
-                    obj_str += u'<div class="row cells-1"><div><div class="column span-4">%s</div><div class="column span-flexible">%s&nbsp;</div></div></div>' % (
-                        obj.educationalinstitution._meta.get_field("school_branch").verbose_name,
-                        obj.educationalinstitution.school_branch or "-",
-                    )
-                try:
-                    obj.youthinstitution
-                except Institution.DoesNotExist:
-                    pass
-                else:
-                    obj_str += u'<div class="row cells-1"><div><div class="column span-4">%s</div><div class="column span-flexible">%s&nbsp;</div></div></div>' % (
-                        obj.youthinstitution._meta.get_field("legal_form").verbose_name,
-                        obj.youthinstitution.legal_form or "-",
-                    )
-                    obj_str += u'<div class="row cells-1"><div><div class="column span-4">%s</div><div class="column span-flexible">%s&nbsp;</div></div></div>' % (
-                        obj.youthinstitution._meta.get_field("other_legal_form").verbose_name,
-                        obj.youthinstitution.other_legal_form or "-",
                     )
 
             return mark_safe(obj_str)
@@ -325,7 +331,7 @@ def merge_selected(modeladmin, request, queryset):
         "perms_lacking": perms_needed,
         "protected": protected,
         "opts": opts,
-        "root_path": modeladmin.admin_site.root_path,
+        # "root_path": modeladmin.admin_site.root_path,
         "app_label": app_label,
         'action_checkbox_name': helpers.ACTION_CHECKBOX_NAME,
     }
@@ -335,7 +341,7 @@ def merge_selected(modeladmin, request, queryset):
                               context_instance=template.RequestContext(request))
 
 
-merge_selected.short_description = "Merge selected institutions"
+merge_selected.short_description = _("Merge selected institutions")
 
 
 class LegalFormOptions(ExtendedModelAdmin):
