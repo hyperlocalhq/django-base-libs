@@ -49,12 +49,20 @@ class ArticleOptions(ExtendedModelAdmin):
 
     save_on_top = True
 
-    list_display = ['id', 'title', 'author', 'status', 'imported_from', 'creation_date', 'modified_date', 'orig_published', 'published_from', 'published_till', 'views', 'article_type',
-                    'language']
+    list_display = [
+        'id', 'title', 'author', 'status', 'imported_from', 'creation_date',
+        # 'modified_date',
+        # 'orig_published',
+        'published_from',
+        # 'published_till',
+        'views', 'article_type', 'language',
+    ]
     list_display_links = ['title']
     list_filter = (
-        'sites', 'content_provider', 'published_from', 'published_till', 'status', 'is_featured', 'article_type',
-        'language')
+        'sites', 'content_provider', 'published_from',
+        # 'published_till',
+        'status', 'is_featured', 'article_type', 'language',
+    )
     search_fields = ('title', 'description', 'content', 'author__username')
 
     fieldsets = [(None, {'fields': ('article_type', 'creative_sectors')}), ]
@@ -91,6 +99,7 @@ class ArticleOptions(ExtendedModelAdmin):
             objectmapper__object_id=obj.pk,
         )
         return unicode(s)
+
     imported_from.short_description = _("Imported from")
 
 
