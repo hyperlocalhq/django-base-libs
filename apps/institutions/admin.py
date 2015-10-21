@@ -237,22 +237,23 @@ def get_deleted_objects(objs, opts, user, admin_site, using):
             if not user.has_perm(p):
                 perms_needed.add(opts.verbose_name)
             # Display a link to the admin page.
-            obj_str = ""
+            obj_str = '<li>\n<h3>'
             if isinstance(obj, Institution) and type(obj) == Institution:
                 obj_str += u'<input type="radio" name="main_institution" value="%s" /> ' % obj.pk
-            obj_str += u'%s: <a href="%s">%s</a>.' % (
+            obj_str += u'%s: <a href="%s">%s</a></h3>' % (
                 escape(capfirst(opts.verbose_name)),
                 admin_url,
                 escape(obj))
             if isinstance(obj, Institution) and type(obj) == Institution:
                 # obj_str += " %s." % obj.get_address()
                 if obj.creation_date:
-                    obj_str += " Erstellungsdatum: %s." % date(obj.creation_date, "j. E Y H:i:s")
+                    obj_str += u'<div class="grp-row grp-cells-1>Erstellungsdatum: %s</div>' % date(obj.creation_date, "j. E Y H:i:s")
                 for field_name, display_function in FIELDS_AND_DISPLAYS:
-                    obj_str += u'<div class="row cells-1"><div><div class="column span-4">%s</div><div class="column span-flexible">%s&nbsp;</div></div></div>' % (
+                    obj_str += u'<div class="grp-row grp-cells-1"><div><div class="grp-column span-4">%s</div><div class="grp-column span-flexible">%s&nbsp;</div></div></div>' % (
                         Institution._meta.get_field(field_name).verbose_name,
                         display_function(obj) or "-",
                     )
+            obj_str += "\n</li>"
 
             return mark_safe(obj_str)
         else:
