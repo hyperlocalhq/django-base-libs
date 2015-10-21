@@ -237,7 +237,7 @@ def get_deleted_objects(objs, opts, user, admin_site, using):
             if not user.has_perm(p):
                 perms_needed.add(opts.verbose_name)
             # Display a link to the admin page.
-            obj_str = '<li>\n<h3>'
+            obj_str = '<h3>'
             if isinstance(obj, Institution) and type(obj) == Institution:
                 obj_str += u'<input type="radio" name="main_institution" value="%s" /> ' % obj.pk
             obj_str += u'%s: <a href="%s">%s</a></h3>' % (
@@ -259,7 +259,6 @@ def get_deleted_objects(objs, opts, user, admin_site, using):
                         Institution._meta.get_field(field_name).verbose_name,
                         display_function(obj) or "-",
                     )
-            obj_str += "\n</li>"
 
             return mark_safe(obj_str)
         else:
@@ -281,7 +280,7 @@ def merge_selected(modeladmin, request, queryset):
         ("event_set", "organizing_institution"),
         ("institution_set", "parent"),
         ("document_set", "publisher"),
-        ("institutionalcontact_set", "institution"),
+        # ("institutionalcontact_set", "institution"),
         ("individualcontact_set", "institution"),
     )
 
@@ -305,19 +304,27 @@ def merge_selected(modeladmin, request, queryset):
     if request.POST.get('post') and 'main_institution' in request.POST:
         if perms_needed:
             raise PermissionDenied
-        main_person = queryset.get(pk=request.POST['main_institution'])
+        main_institution = queryset.get(pk=request.POST['main_institution'])
         queryset = queryset.exclude(pk=request.POST['main_institution'])
         n = queryset.count()
         if n:
+            address_ids = set()
             for obj in queryset:
                 for manager_name, field_name in MANAGERS_AND_FIELDS:
                     for related in getattr(obj, manager_name).all():
-                        setattr(related, field_name, main_person)
+                        setattr(related, field_name, main_institution)
                         related.save()
+                for related in obj.institutionalcontact_set.all():
+                    if related.postal_address_id not in address_ids:
+                        related.institution = main_institution
+                        related.save()
+                        address_ids.add(related.postal_address_id)
+                    else:
+                        related.delete()
                 obj.delete()
             modeladmin.message_user(request, _("Successfully merged %(count)d institutions to %(name)s.") % {
                 "count": n + 1,
-                "name": unicode(main_person),
+                "name": unicode(main_institution),
             })
         # Return None to display the change list page again.
         return None
