@@ -245,11 +245,17 @@ def get_deleted_objects(objs, opts, user, admin_site, using):
                 admin_url,
                 escape(obj))
             if isinstance(obj, Institution) and type(obj) == Institution:
-                # obj_str += " %s." % obj.get_address()
+                row_template = u'''
+                <div class="grp-row grp-cells-1">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">{0}</div>
+                        <div class="c-2">{1}&nbsp;</div>
+                    </div>
+                </div>'''
                 if obj.creation_date:
-                    obj_str += u'<div class="grp-row grp-cells-1>Erstellungsdatum: %s</div>' % date(obj.creation_date, "j. E Y H:i:s")
+                    obj_str += row_template.format('Erstellungsdatum', date(obj.creation_date, "j. E Y H:i:s"))
                 for field_name, display_function in FIELDS_AND_DISPLAYS:
-                    obj_str += u'<div class="grp-row grp-cells-1"><div><div class="grp-column span-4">%s</div><div class="grp-column span-flexible">%s&nbsp;</div></div></div>' % (
+                    obj_str += row_template.format(
                         Institution._meta.get_field(field_name).verbose_name,
                         display_function(obj) or "-",
                     )
