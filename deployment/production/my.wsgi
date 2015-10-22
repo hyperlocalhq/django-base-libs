@@ -26,7 +26,7 @@ DJANGO_PATH = '/usr/local/www/apache24/data/berlin-buehnen.de/lib/python2.7/site
 site.addsitedir(DJANGO_PATH)
 site.addsitedir('/usr/local/lib/python2.7/site-packages/')
 
-PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '../project/berlinbuehnen'))
+PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
 
 sys.path += [PROJECT_PATH]
 
@@ -36,11 +36,16 @@ sys.path += [PROJECT_PATH]
 # os.environ["DJANGO_SETTINGS_MODULE"] = "temp.settings"
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "berlinbuehnen.settings")
 
+import newrelic.agent
+NEW_RELIC_INI = os.path.join(PROJECT_PATH, 'newrelic.ini')
+newrelic.agent.initialize(NEW_RELIC_INI, 'production')
+
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION
 # setting points here.
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
+application = newrelic.agent.wsgi_application()(application)
 
 # Apply WSGI middleware here.
 # from helloworld.wsgi import HelloWorldApplication
