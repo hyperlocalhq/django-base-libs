@@ -4,7 +4,7 @@ import hashlib
 from django.db import models
 from django.db import transaction
 from django.views.decorators.cache import never_cache
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
@@ -100,7 +100,7 @@ def register(request, *arguments, **keywords):
         form = SimpleRegistrationForm(request, request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
-            return HttpResponseRedirect('/register/done/')
+            return redirect('register_done')
     else:
         form = SimpleRegistrationForm(request)
     request.session.set_test_cookie()
@@ -122,7 +122,7 @@ def confirm_registration(request, encrypted_email):
         raise Http404
     user = authenticate(email=email)
     if not user:
-        return HttpResponseRedirect('/register/')
+        return redirect('register')
     user.is_active = True
     user.save()
     person = user.profile
@@ -145,7 +145,7 @@ def confirm_registration(request, encrypted_email):
         sender_email=sender_email,
         send_immediately=True,
     )
-    return HttpResponseRedirect('/register/alldone/')
+    return redirect('register_all_done')
 
 
 @login_required

@@ -240,11 +240,11 @@ class SimpleRegistrationForm(SimpleRegistrationFormBase):
         ),
         required=False,
     )
-    creative_sector_checkboxes = ModelMultipleChoiceTreeField(
-        label=_("Creative Sectors"),
-        queryset=get_related_queryset(Person, "creative_sectors"),
-        required=True,
-    )
+    # creative_sector_checkboxes = ModelMultipleChoiceTreeField(
+    #     label=_("Creative Sectors"),
+    #     queryset=get_related_queryset(Person, "creative_sectors"),
+    #     required=True,
+    # )
 
     def __init__(self, *args, **kwargs):
         super(SimpleRegistrationForm, self).__init__(*args, **kwargs)
