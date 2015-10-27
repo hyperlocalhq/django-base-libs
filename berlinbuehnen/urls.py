@@ -123,6 +123,8 @@ urlpatterns += i18n_patterns('',
     url(r'^', include('cms.urls')),
 )
 
+# JSON decorator taken from https://gist.github.com/marteinn/5693665
+
 def html_decorator(func):
     """
     This decorator wraps the output in html.
