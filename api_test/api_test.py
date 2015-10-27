@@ -6,8 +6,8 @@ import requests
 
 from tictoc import tic, toc
 
-# BASE_URL = 'http://www.berlin-buehnen.de'
-BASE_URL = 'http://127.0.0.1:8005'
+BASE_URL = 'http://www.berlin-buehnen.de'
+# BASE_URL = 'http://127.0.0.1:8005'
 URL_PATH = '/de/api/v1/production/'
 ENDPOINT = '{0}{1}'.format(BASE_URL, URL_PATH)
 
