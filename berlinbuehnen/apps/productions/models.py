@@ -135,7 +135,7 @@ class ProductionManager(models.Manager):
 
 class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     prefix = MultilingualCharField(_("Title prefix"), max_length=255, blank=True)
-    title = MultilingualCharField(_("Title"), max_length=255)
+    title = MultilingualCharField(_("Title"), max_length=255, db_index=True)
     subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
     original = MultilingualCharField(_("Original title"), max_length=255, blank=True)
     website = MultilingualURLField(_("Production URL"), blank=True, max_length=255)
@@ -631,6 +631,9 @@ class ProductionImage(CreationModificationDateMixin):
     sort_order = PositionField(_("Sort order"), collection="production")
 
     class Meta:
+        index_together = [
+            ['production', 'sort_order', 'creation_date']
+        ]
         ordering = ["sort_order", "creation_date"]
         verbose_name = _("Image")
         verbose_name_plural = _("Images")
@@ -732,6 +735,9 @@ class ProductionInvolvement(CreationModificationDateMixin):
     imported_sort_order = models.IntegerField(_("Imported sort order"), default=0)
 
     class Meta:
+        index_together = [
+            ['production', 'sort_order']
+        ]
         ordering = ["sort_order"]
         verbose_name = _("Involvement")
         verbose_name_plural = _("Involvements")
@@ -834,6 +840,9 @@ class Event(CreationModificationMixin, UrlMixin):
     objects = EventManager()
 
     class Meta:
+        index_together = [
+            ['production', 'start_date', 'start_time']
+        ]
         ordering = ["start_date", "start_time"]
         verbose_name = _("Event")
         verbose_name_plural = _("Events")
@@ -1218,6 +1227,9 @@ class EventInvolvement(CreationModificationDateMixin):
     imported_sort_order = models.IntegerField(_("Imported sort order"), default=0)
 
     class Meta:
+        index_together = [
+            ['event', 'sort_order']
+        ]
         ordering = ["sort_order"]
         verbose_name = _("Involvement")
         verbose_name_plural = _("Involvements")
