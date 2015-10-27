@@ -40,6 +40,7 @@
                                     {% else %}
                                         {% login2favorites using "favorites/includes/favorite_detail_login.html" %}
                                     {% endif %}
+                                    <a href="{% url 'location_list_map' %}#object_id={{ location.id }}" class="fawesome map" data-toggle="tooltip" data-placement="top" title="{% trans "Show on map" %}" data-tooltip-left="-6"><span class="sr-only">{% trans "Show on map" %}</span></a>
                                 </div>
                                 <h1>{{ location.title }}
                                     {% if_has_perm "locations.change_location" object %}

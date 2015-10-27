@@ -112,9 +112,7 @@
                                         {% endif %}
                                     </span>
 
-                                    {% if production.play_stages.exists %}
-                                        <h4>{% for stage in production.play_stages.all %}<span>{{ stage.title }}</span>{% endfor %}</h4>
-                                    {% elif production.location_title %}
+                                    {% if production.location_title %}
                                         <h4>{{ production.location_title }}</h4>
                                     {% elif production.play_locations.exists %}
                                         <h4>{% for stage in production.play_locations.all %}<span>{{ stage.title }}</span>{% endfor %}</h4>

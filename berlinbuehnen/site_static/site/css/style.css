@@ -67,7 +67,7 @@ strong { font-weight: 700; }
 
 .fawesome.linkedin:before { content: "\f0e1"; }
 
-.fawesome.map:before { content: "\f041"; }
+.fawesome.map:before { content: "\f041"; font-size: 24px; line-height: 0.88; }
 
 .fawesome.pinterest:before { content: "\f231"; }
 
@@ -1830,7 +1830,7 @@ select { visibility: hidden; }
 .details a.button { display: inline-block; height: 30px; color: white; text-transform: uppercase; background: #4583c8; padding: 5px 40px; font-weight: 700; font-size: 1em; }
 .details a.button:hover { color: white; }
 
-#location.details header h1, #job_offer.details header h1 { margin-right: 30px; }
+#location.details header h1, #job_offer.details header h1 { margin-right: 60px; }
 #location.details header .header-icons, #job_offer.details header .header-icons { top: 9px; }
 
 #job_offer.details .main .description { margin-bottom: 30px; }
@@ -2209,15 +2209,15 @@ body.is-xs .grid .grid-item button.favorite:before { padding-left: 0; }
 .filter-wrapper .filter-space .filter .filter-options-wrapper h4 { text-transform: uppercase; font-size: 1em; margin-bottom: 20px; }
 .filter-wrapper .filter-space .filter .filter-options-wrapper .panel { margin: 0; }
 .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options { display: block; }
-.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options label { padding: 0 15px; margin-bottom: 15px; }
-.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options label input { display: none; }
-.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options label span { display: block; border-bottom: 2px solid black; text-transform: uppercase; font-size: 0.875em; font-weight: 700; cursor: pointer; }
-.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options label.active { color: #4583c8; }
-.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options label.active.collapsed { color: black; }
-.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options label.active.collapsed:hover { color: #4583c8; }
-.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options label:hover { color: #4583c8; }
-.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options label a { display: block; border-bottom: 2px solid black; text-transform: uppercase; font-size: 0.875em; font-weight: 700; color: black; }
-.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options label a:hover { color: #4583c8; }
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option, .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .singleton { padding: 0 15px; margin-bottom: 15px; color: black; cursor: default; }
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option input, .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .singleton input { display: none; }
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option span, .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .singleton span { display: block; border-bottom: 2px solid black; text-transform: uppercase; font-size: 0.875em; font-weight: 700; cursor: pointer; }
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option.active, .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .singleton.active { color: #4583c8; }
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option.active.collapsed, .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .singleton.active.collapsed { color: black; }
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option.active.collapsed:hover, .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .singleton.active.collapsed:hover { color: #4583c8; }
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option:hover, .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .singleton:hover { color: #4583c8; }
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option a, .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .singleton a { display: block; border-bottom: 2px solid black; text-transform: uppercase; font-size: 0.875em; font-weight: 700; color: black; }
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option a:hover, .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .singleton a:hover { color: #4583c8; }
 .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-suboptions { padding: 0 15px; margin-top: 10px; margin-bottom: 40px; font-size: 0.875em; }
 .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-suboptions h5 { color: #4583c8; text-transform: uppercase; border-bottom: 2px solid black; padding-bottom: 10px; margin-bottom: 6px; }
 .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-suboptions ul { list-style: none; margin: 0 -10px; }
@@ -2366,7 +2366,7 @@ span.pin a { position: absolute !important; top: 6px; right: 6px; cursor: pointe
 .account .infoblock { margin-bottom: 40px; }
 .account .infoblock h3 { margin-bottom: 5px; }
 
-.gmap #body { margin-top: 40px; }
+.gmap #body { margin-top: 40px; padding-bottom: 0; }
 .gmap .gmap-wrapper { width: 100%; height: 100%; }
 .gmap .gmap-wrapper #gmap { width: 100%; height: 100%; }
 .gmap.is-sm #body { margin-top: 20px; }
@@ -2379,14 +2379,14 @@ span.pin a { position: absolute !important; top: 6px; right: 6px; cursor: pointe
 .gmap #map-sidebar-wrapper #map-sidebar #map-buttons-overflow #map-buttons-wrapper .btn { padding: 0; margin-bottom: 1px; }
 .gmap #map-sidebar-wrapper #map-sidebar #map-buttons-overflow #map-buttons-wrapper .btn:before { line-height: 50px; padding: 0; }
 .gmap #map-sidebar-wrapper #map-sidebar #map-description { margin-right: 30px; margin-left: 30px; padding-right: 40px; padding-top: 30px; height: 100%; overflow: scroll; overflow-x: hidden; overflow-y: scroll; }
-.gmap #map-sidebar-wrapper #map-sidebar #map-description .map-description-content { padding-bottom: 20px; margin-bottom: 20px; border-bottom: 1px solid #ddd; }
+.gmap #map-sidebar-wrapper #map-sidebar #map-description .map-description-content { display: block; padding-bottom: 20px; margin-bottom: 20px; border-bottom: 1px solid #ddd; color: black; cursor: default; }
 .gmap #map-sidebar-wrapper #map-sidebar #map-description .map-description-content:last-child { margin: 0; border-bottom: none; }
 .gmap #map-sidebar-wrapper #map-sidebar #map-description img { width: 100%; margin-bottom: 20px; }
 .gmap #map-sidebar-wrapper #map-sidebar #map-description h1 { margin-bottom: 20px; }
 .gmap #map-sidebar-wrapper #map-sidebar #map-description h2 { margin-top: -15px; margin-bottom: 20px; font-size: 1em; }
 .gmap #map-sidebar-wrapper #map-sidebar #map-description .copy { margin-bottom: 20px; }
 .gmap #map-sidebar-wrapper #map-sidebar #map-description .address { margin-bottom: 20px; }
-.gmap #map-sidebar-wrapper #map-sidebar #map-description .more { margin-top: 10px; }
+.gmap #map-sidebar-wrapper #map-sidebar #map-description .more { margin-top: 10px; cursor: pointer; }
 .gmap #map-sidebar-wrapper #map-sidebar #cancel-description { position: absolute; right: 30px; top: 0px; padding: 0; margin-bottom: 1px; background-color: #eee; }
 .gmap #map-sidebar-wrapper #map-sidebar #cancel-description:before { line-height: 50px; padding: 0; }
 .gmap.map-only #map-sidebar-wrapper { right: -380px; }

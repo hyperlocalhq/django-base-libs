@@ -2,6 +2,7 @@
     
     #body {
         margin-top: 40px;
+        padding-bottom: 0;
     }
     
     .gmap-wrapper {
@@ -80,9 +81,12 @@
                 overflow-y: scroll;
                 
                 .map-description-content {
+                    display: block;
                     padding-bottom: 20px;
                     margin-bottom: 20px;
                     border-bottom: 1px solid #ddd;
+                    color: black;
+                    cursor: default;
                     &:last-child {
                         margin: 0;
                         border-bottom: none;
@@ -114,6 +118,7 @@
                 
                 .more {
                     margin-top: 10px;
+                    cursor: pointer;
                 }
             }
                 

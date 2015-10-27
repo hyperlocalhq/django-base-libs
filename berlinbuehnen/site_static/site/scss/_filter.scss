@@ -55,9 +55,11 @@
                 
                 .filter-options {
                     display: block;
-                    label {
+                    .filter-option, .singleton {
                         padding: 0 15px;
                         margin-bottom: 15px;
+                        color: black;
+                        cursor: default;
                         
                         input {
                             display: none;
