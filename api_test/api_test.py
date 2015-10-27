@@ -22,7 +22,7 @@ params = dict(
 tic()
 r = requests.get(ENDPOINT, params=params)
 print r.url
-toc()
+total_time = toc(save=True)
 
 data = r.json()
 next_path = None
@@ -48,5 +48,6 @@ def get_next(next_path):
 while next_path:
     tic()
     next_path = get_next(next_path)
-    toc()
+    total_time += toc(save=True)
 
+print 'Total time: {}'.format(total_time)

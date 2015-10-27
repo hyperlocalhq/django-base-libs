@@ -21,8 +21,11 @@ endpoints = (
     '/de/api/v1/production/?username=BerlinOnline&api_key=3c42ccbfe87040951429e2d09c0e575747bac771&limit=25&offset=5700&format=json',
 )
 
+total_time = 0
 for endpoint in endpoints:
     tic()
     r = requests.get(BASE_URL + endpoint)
     print r.url
-    toc()
+    total_time += toc(save=True)
+
+print 'Total time: {}'.format(total_time)

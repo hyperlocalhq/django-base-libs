@@ -20,9 +20,12 @@ params = dict(
     limit='1',
 )
 
+total_time = 0
 for i in range(25):
     tic()
     params['offset'] = str(OFFSET + i)
     r = requests.get(URL, params=params)
     print r.url
-    toc()
+    total_time += toc(save=True)
+
+print 'Total time: {}'.format(total_time)
