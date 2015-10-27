@@ -987,8 +987,9 @@ class ImportFromHeimatBase(object):
                     event = Event()
                 else:
                     event = event_mapper.content_object
-                    self.event_ids_to_keep.add(event.pk)
-                    if not event:
+                    if event:
+                        self.event_ids_to_keep.add(event.pk)
+                    else:
                         # skip deleted events
                         self.stats['events_skipped'] += 1
                         continue
