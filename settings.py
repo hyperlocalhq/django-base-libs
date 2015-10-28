@@ -846,7 +846,6 @@ MIGRATION_MODULES = {
     'djangocms_video': 'djangocms_video.migrations_django',
     'djangocms_style': 'djangocms_style.migrations_django',
     'djangocms_column': 'djangocms_column.migrations_django',
-    'djangocms_text_ckeditor': 'djangocms_text_ckeditor.migrations',
 }
 
 ### PERSISTENT DATABASE CONNECTIONS ###
