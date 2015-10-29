@@ -631,9 +631,6 @@ class ProductionImage(CreationModificationDateMixin):
     sort_order = PositionField(_("Sort order"), collection="production")
 
     class Meta:
-        index_together = [
-            ['production', 'sort_order', 'creation_date']
-        ]
         ordering = ["sort_order", "creation_date"]
         verbose_name = _("Image")
         verbose_name_plural = _("Images")
@@ -840,9 +837,6 @@ class Event(CreationModificationMixin, UrlMixin):
     objects = EventManager()
 
     class Meta:
-        index_together = [
-            ['production', 'start_date', 'start_time']
-        ]
         ordering = ["start_date", "start_time"]
         verbose_name = _("Event")
         verbose_name_plural = _("Events")
