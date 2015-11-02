@@ -998,7 +998,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 'supporters_%s' % lang_code,
             ]
         for fname in fields:
-            form_step_data['description'][fname] = getattr(instance, fname)
+            setattr(instance, fname, form_step_data['description'][fname])
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             setattr(instance, 'description_%s_markup_type' % lang_code, 'pt')
