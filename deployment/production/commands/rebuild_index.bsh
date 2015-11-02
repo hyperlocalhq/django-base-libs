@@ -1,0 +1,5 @@
+cd /usr/local/www/apache24/data/museumsportal-berlin.de
+. bin/activate 
+cd project/museumsportal/ 
+python manage.py rebuild_index --noinput
+chmod -R 777 tmp
