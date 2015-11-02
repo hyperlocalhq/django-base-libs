@@ -449,7 +449,7 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         if self.museum:
             if self.permanent:
                 times = self.museum.specialopeningtime_set.all()
-            else:
+            elif self.start and self.end:
                 today = date.today()
                 for t in self.museum.specialopeningtime_set.all():
                     if self.start <= date(t.yyyy or today.year, t.mm, t.dd) <= self.end:
