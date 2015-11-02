@@ -135,7 +135,7 @@ class ProductionManager(models.Manager):
 
 class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     prefix = MultilingualCharField(_("Title prefix"), max_length=255, blank=True)
-    title = MultilingualCharField(_("Title"), max_length=255)
+    title = MultilingualCharField(_("Title"), max_length=255, db_index=True)
     subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
     original = MultilingualCharField(_("Original title"), max_length=255, blank=True)
     website = MultilingualURLField(_("Production URL"), blank=True, max_length=255)
@@ -732,6 +732,9 @@ class ProductionInvolvement(CreationModificationDateMixin):
     imported_sort_order = models.IntegerField(_("Imported sort order"), default=0)
 
     class Meta:
+        index_together = [
+            ['production', 'sort_order']
+        ]
         ordering = ["sort_order"]
         verbose_name = _("Involvement")
         verbose_name_plural = _("Involvements")
@@ -1218,6 +1221,9 @@ class EventInvolvement(CreationModificationDateMixin):
     imported_sort_order = models.IntegerField(_("Imported sort order"), default=0)
 
     class Meta:
+        index_together = [
+            ['event', 'sort_order']
+        ]
         ordering = ["sort_order"]
         verbose_name = _("Involvement")
         verbose_name_plural = _("Involvements")

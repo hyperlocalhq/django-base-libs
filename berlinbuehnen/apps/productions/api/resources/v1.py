@@ -560,7 +560,7 @@ class ProductionResource(ModelResource):
             'event_set__play_locations', 'event_set__play_stages', 'event_set__characteristics', 'event_set__sponsors',
             'event_set__eventleadership_set__person', 'event_set__eventauthorship_set__person', 'event_set__eventauthorship_set__authorship_type', 'event_set__eventinvolvement_set__person', 'event_set__eventinvolvement_set__involvement_type',
             'event_set__eventvideo_set', 'event_set__eventlivestream_set', 'event_set__eventimage_set', 'event_set__eventpdf_set',
-        ).distinct()
+        )
         resource_name = 'production'
         fields = [
             'id', 'creation_date', 'modified_date',
