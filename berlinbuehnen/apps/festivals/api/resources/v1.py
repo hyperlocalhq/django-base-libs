@@ -193,6 +193,13 @@ class FestivalResource(ModelResource):
                 pass
         activate(current_language)
 
+        if bundle.obj.logo:
+            bundle.data['logo_url'] = "".join((
+                get_website_url(),
+                settings.MEDIA_URL[1:],
+                bundle.obj.logo.path,
+            ))
+
         bundle.data['description_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_description_de()))
         bundle.data['description_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_description_en()))
 
