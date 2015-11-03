@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-
+from datetime import datetime
 from django.db import models
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.cache import never_cache
@@ -13,6 +13,8 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import authenticate
 from django.utils.translation import ugettext_lazy as _
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.syndication.views import Feed
+from django.core.urlresolvers import reverse
 
 from jetson.apps.utils.decorators import login_required
 from jetson.apps.favorites.models import Favorite
@@ -754,3 +756,85 @@ def culturebase_export_productions(request, location_slug):
         ),
         content_type="text/xml"
     )
+
+API_CHANGELOG = [
+    {
+        'date': datetime(2015, 10, 12, 12, 0),
+        'changes': [
+            u"Field copyright added to production and event images",
+            u"Field photographer added to production and event images",
+            u"Field copyright added to production and event pdfs",
+        ],
+    },
+    {
+        'date': datetime(2015, 8, 11, 12, 0),
+        'changes': [
+            u"Custom location added to production with fields: location_title, street_address, street_address2, postal_code, city, country, latitude, longitude",
+        ],
+    },
+    {
+        'date': datetime(2015, 7, 9, 12, 0),
+        'changes': [
+            u"Field event_status added to events",
+            u"Field ticket_status added to events",
+            u"Field list_image_url added to production and event images",
+        ],
+    },
+    {
+        'date': datetime(2015, 6, 16, 12, 0),
+        'changes': [
+            u"Filtering productions by in_program_of",
+            u"Filtering productions by play_locations",
+            u"Filtering productions by status",
+            u"Filtering productions by categories",
+            u"Filtering productions by creation_date",
+            u"Filtering productions by modified_date",
+        ],
+    },
+    {
+        'date': datetime(2015, 4, 2, 12, 0),
+        'changes': [
+            u"Field concert_programm_de changed to concert_program_de",
+            u"Field concert_programm_en changed to concert_program_en",
+            u"Field supporting_programm_de changed to supporting_program_de",
+            u"Field supporting_programm_en changed to supporting_program_en",
+        ],
+    },
+    {
+        'date': datetime(2015, 4, 2, 12, 0),
+        'changes': [u"Field sort_order added to media files"],
+    },
+    {
+        'date': datetime(2015, 3, 23, 12, 0),
+        'changes': [u"Field organizer_title changed to organizers at events"],
+    },
+    {
+        'date': datetime(2015, 3, 12, 12, 0),
+        'changes': [u"Location, production, and event export"],
+    },
+]
+
+def api_changelog(request):
+    return render(request, "site_specific/api_changelog.html", {'api_changelog': API_CHANGELOG})
+
+class APIChangeLogFeed(Feed):
+    title = "Export API Change Log"
+
+    def link(self):
+        return reverse("api_changelog")
+
+    def items(self):
+        return API_CHANGELOG
+
+    def item_title(self, item):
+        return u"API Changes on %s" % item['date'].strftime('%Y-%m-%d')
+
+    def item_description(self, item):
+        return '<br />'.join(item['changes'])
+
+    def item_pubdate(self, item):
+        return item['date']
+
+    # item_link is only needed if NewsItem has no get_absolute_url method.
+    def item_link(self, item):
+        return reverse("api_changelog") + '#d' + item['date'].strftime('%Y-%m-%d')

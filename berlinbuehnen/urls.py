@@ -15,6 +15,7 @@ import autocomplete_light
 from tastypie.api import Api
 
 # API v1
+from berlinbuehnen.apps.site_specific.views import APIChangeLogFeed
 from berlinbuehnen.apps.locations.api.resources import v1 as locations_api_v1
 from berlinbuehnen.apps.productions.api.resources import v1 as productions_api_v1
 
@@ -71,6 +72,8 @@ urlpatterns += i18n_patterns('',
 
 urlpatterns += i18n_patterns('',
     url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
+    url(r'^api/changelog/$', "berlinbuehnen.apps.site_specific.views.api_changelog", name="api_changelog"),
+    url(r'^api/changelog/feed/$', APIChangeLogFeed(), name="api_changelog_feed"),
     url(r'^api/', include(v1_api.urls)),
     url(r'^culturebase-export/locations/(?P<location_slug>[^/]+)/productions/$', 'berlinbuehnen.apps.site_specific.views.culturebase_export_productions', name="culturebase_export_productions"),
 
