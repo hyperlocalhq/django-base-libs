@@ -15,13 +15,19 @@
                 <h1>Export API Change Log</h1>
                 <table class="table">
                     <tr>
-                        <th>Date</th>
+                        <th width="100">Date</th>
                         <th>Changes</th>
                     </tr>
                     {% for date in api_changelog %}
                         <tr id="#d{{ date.date|date:"Y-m-d" }}">
                             <td class="nowrap">{{ date.date|date:"Y-m-d" }}</td>
-                            <td>{{ date.changes|join:'<br />' }}</td>
+                            <td>
+                                <ul>
+                                    {% for change in date.changes %}
+                                        <li>{{ change|safe }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
                         </tr>
                     {% endfor %}
                 </table>
