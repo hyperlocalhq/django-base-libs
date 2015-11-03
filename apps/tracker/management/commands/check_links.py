@@ -26,9 +26,6 @@ a_link_regex = re.compile("<a[^>]+?href=([\"'])([^\"']+?)\\1[^>]*>", re.IGNORECA
 
 
 class Command(NoArgsCommand):
-    def handle(self, *args, **options):
-        pass
-
     help = """Checks the database for broken links"""
     _checked_links = {}
 
@@ -87,7 +84,8 @@ class Command(NoArgsCommand):
 
         import urlparse
         import urllib2
-        from django.conf.global_settings import URL_VALIDATOR_USER_AGENT
+
+        URL_VALIDATOR_USER_AGENT = 'Django (https://www.djangoproject.com/)'
 
         # If no URL path given, assume /
         if value and not urlparse.urlsplit(value)[2]:
