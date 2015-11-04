@@ -22,7 +22,7 @@
 
 {% block content %}
 <div id="grp-content-container">
-    <form action="" method="post">
+    <form action="" method="post">{% csrf_token %}
         <div>
             <div class="grp-group grp-tabular" id="{{ permissions_formset.prefix }}-group" >
                 <h2>{% trans "Permissions" %}</h2>
