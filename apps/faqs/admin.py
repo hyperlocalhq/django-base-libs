@@ -63,7 +63,15 @@ class FaqCategoryOptions(TreeEditor):
     save_on_top = True
     inlines = [QuestionAnswer_Inline]
     search_fields = ['title', 'short_title_']
-    list_display = ['actions_column', 'indented_short_title', 'container', 'short_title', 'questionanswer_count']
+    list_display = [
+        'actions_column',
+        'indented_short_title',
+        'container',
+        'short_title',
+        'questionanswer_count',
+        # 'slug',
+        'get_url_path'
+    ]
     list_filter = ('container', "creation_date", "creator", "modified_date", "modifier")
 
     fieldsets = [(None, {'fields': ('container', 'parent', 'slug')}), ]

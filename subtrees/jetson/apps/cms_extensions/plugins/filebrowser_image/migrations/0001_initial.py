@@ -8,8 +8,8 @@ import filebrowser.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cms', '0013_urlconfrevision'),
         ('image_mods', '0001_initial'),
+        ('cms', '0012_auto_20150607_2207'),
     ]
 
     operations = [
