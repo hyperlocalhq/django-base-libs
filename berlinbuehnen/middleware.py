@@ -15,9 +15,9 @@ class SmartUpdateCacheMiddleware(UpdateCacheMiddleware):
         # Strip all non-Django cookies.
         new_cookies = []
         for cookie in re.split("\;\s*", cookies):
-            key, value = cookie.split("=")
             if "=" not in cookie:
                 continue
+            key, value = cookie.split("=", 1)
             if key.lower().strip() in (
                 "csrftoken",
                 "sessionid",
