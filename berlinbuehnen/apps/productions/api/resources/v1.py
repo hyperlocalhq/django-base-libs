@@ -174,6 +174,8 @@ class ProductionImageResource(ModelResource):
                 bundle.data['author'] = strip_invalid_chars(file_description.author)
                 bundle.data['photographer'] = strip_invalid_chars(file_description.author)
                 bundle.data['copyright'] = strip_invalid_chars(file_description.copyright_limitations)
+        if not bundle.data.get('copyright', None):
+            bundle.data['copyright'] = "Promo"
         return bundle
 
 
@@ -207,6 +209,8 @@ class ProductionPDFResource(ModelResource):
                 bundle.data['description_en'] = strip_invalid_chars(file_description.description_en)
                 bundle.data['author'] = strip_invalid_chars(file_description.author)
                 bundle.data['copyright'] = strip_invalid_chars(file_description.copyright_limitations)
+        if not bundle.data.get('copyright', None):
+            bundle.data['copyright'] = "Promo"
         return bundle
 
 
@@ -352,6 +356,8 @@ class EventImageResource(ModelResource):
                 bundle.data['author'] = strip_invalid_chars(file_description.author)
                 bundle.data['photographer'] = strip_invalid_chars(file_description.author)
                 bundle.data['copyright'] = strip_invalid_chars(file_description.copyright_limitations)
+        if not bundle.data.get('copyright', None):
+            bundle.data['copyright'] = "Promo"
         return bundle
 
 
@@ -385,6 +391,8 @@ class EventPDFResource(ModelResource):
                 bundle.data['description_en'] = strip_invalid_chars(file_description.description_en)
                 bundle.data['author'] = strip_invalid_chars(file_description.author)
                 bundle.data['copyright'] = strip_invalid_chars(file_description.copyright_limitations)
+        if not bundle.data.get('copyright', None):
+            bundle.data['copyright'] = "Promo"
         return bundle
 
 

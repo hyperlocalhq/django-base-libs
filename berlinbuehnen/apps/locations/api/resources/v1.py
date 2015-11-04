@@ -142,6 +142,8 @@ class ImageResource(ModelResource):
                 bundle.data['author'] = strip_invalid_chars(file_description.author)
                 bundle.data['photographer'] = strip_invalid_chars(file_description.author)
                 bundle.data['copyright'] = strip_invalid_chars(file_description.copyright_limitations)
+        if not bundle.data.get('copyright', None):
+            bundle.data['copyright'] = "Promo"
         return bundle
 
 

@@ -759,6 +759,12 @@ def culturebase_export_productions(request, location_slug):
 
 API_CHANGELOG = [
     {
+        'date': datetime(2015, 11, 4, 12, 0),
+        'changes': [
+            u"The <strong>copyright</strong> field contains \"Promo\" if an image or PDF document has no copyright information.",
+        ],
+    },
+    {
         'date': datetime(2015, 11, 3, 12, 0),
         'changes': [
             u"Festival export",
