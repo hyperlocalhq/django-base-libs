@@ -128,6 +128,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'jetson.apps.httpstate.middleware.HttpStateMiddleware',
@@ -141,6 +142,7 @@ MIDDLEWARE_CLASSES = (
     'cms.middleware.toolbar.ToolbarMiddleware',
     'jetson.apps.mobile_detection.middleware.MobileDetectionMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
 )
 
 ROOT_URLCONF = 'berlinbuehnen.urls'
@@ -637,6 +639,15 @@ ACCOUNTS_DASHBOARD_USER_GROUPS = ["Location Owners"]
 #SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 
 USE_TZ = True
+
+### CACHE SETTINGS ###
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
 
 ### LOCAL SETTINGS ###
 
