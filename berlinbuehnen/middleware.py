@@ -18,6 +18,11 @@ class SmartUpdateCacheMiddleware(UpdateCacheMiddleware):
             key, value = cookie.split("=")
             if "=" not in cookie:
                 continue
-            if key.lower().strip() in ("csrftoken", "sessionid"):
+            if key.lower().strip() in (
+                "csrftoken",
+                "sessionid",
+                "djdt", # used by Django Debug Toolbar
+                "__json_message", # used by django.contrib.messages
+            ):
                 new_cookies.append("%s=%s" % (key, value))
         request.META['HTTP_COOKIE'] = "; ".join(new_cookies)
