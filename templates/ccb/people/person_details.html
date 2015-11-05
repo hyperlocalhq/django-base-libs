@@ -83,7 +83,7 @@
     {{ block.super }}
     {% if_has_perm "people.change_person" object %}
         {% compressed_js "person_details" %}
-        {% compressed_jetson_js "autocomplete" %}
+        {% compressed_js "autocomplete" %}
     {% end_if_has_perm %}
     <script type="text/javascript"
         src="http://maps.google.com/maps/api/js?sensor=false&amp;language={{ LANGUAGE_CODE }}&amp;region=DE"></script>

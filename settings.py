@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # Django settings for the Creative-City-Berlin project.
-import os
 from datetime import timedelta
+
+import os
 
 gettext = lambda s: s
 
@@ -599,6 +600,15 @@ PIPELINE_JS['blog'] = {
         "site/js/website/blog.js",
     ),
     'output_filename': 'site/js/website/blog_compressed.js',
+}
+
+PIPELINE_JS['autocomplete'] = {
+    'source_filenames': (
+        "site/js/jquery/autocomplete_1.0/jquery.bgiframe.min.js",
+        "site/js/jquery/autocomplete_1.0/jquery.autocomplete.js",
+        "site/js/website/autocomplete.js",
+    ),
+    'output_filename': 'site/js/jquery/autocomplete_compressed.js',
 }
 
 COMPRESS_JETSON_JS['admin_person_change'] = {

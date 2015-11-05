@@ -393,14 +393,14 @@
             var sValue = $(this).val()
             if (sValue) {
                 $j.get(
-                    "/admin/accounts/institution/" + sValue + "/json/",
-                    oSelf.prepopulate
+                    "/admin/institutions/institution/" + sValue + "/json/",
+                    oSelf.prepopulate,
+                    'json'
                 );
             }
         },
-        prepopulate: function (sData) {
+        prepopulate: function (oData) {
             var oSelf = self.ContactPrepopulationManager;
-            eval("var oData =" + sData);
             $(oSelf.aTextFields).each(function(iKey, sVal) {
                 var oNode = $("#id_" + sVal);
                 if (!oNode.val() && oData[sVal]) {

@@ -257,7 +257,7 @@ $("#id_institution").change(oSelf.get_contact_details)
 },destruct:function(){self.ContactPrepopulationManager=null
 },get_contact_details:function(){var oSelf=self.ContactPrepopulationManager;
 var sValue=$(this).val();
-if(sValue){$j.get("/admin/accounts/institution/"+sValue+"/json/",oSelf.prepopulate)
+if(sValue){$j.get("/admin/institutions/institution/"+sValue+"/json/",oSelf.prepopulate)
 }},prepopulate:function(sData){var oSelf=self.ContactPrepopulationManager;
 eval("var oData ="+sData);
 $(oSelf.aTextFields).each(function(iKey,sVal){var oNode=$("#id_"+sVal);
