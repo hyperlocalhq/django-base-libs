@@ -664,6 +664,11 @@ CACHE_MIDDLEWARE_SECONDS = 300
 CACHE_MIDDLEWARE_KEY_PREFIX = ''
 CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True
 
+if not DEBUG:
+    # use a write-through cache – every write to the cache will also be written to the database.
+    # Session reads only use the database if the data is not already in the cache.
+    SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+
 ### LOCAL SETTINGS ###
 
 try:
