@@ -247,21 +247,22 @@
                 $("#id_institution_enter").click();
             }
             $("#id_institution").blur(oSelf.prepopulateContact);
+            $("#id_offering_institution").blur(oSelf.prepopulateContact);
             $("#id_venue").blur(oSelf.prepopulateContact);
         },
         prepopulateContact: function() {
             var oSelf = self.ContactManager;
             if ($(this).val()) {
-                $j.get(
+                $.get(
                     "/helper/accounts/"+ settings.URL_ID_INSTITUTION +"_attrs/" + $(this).val() + "/",
-                    self.ContactManager.fillInInstitutionContactData
+                    self.ContactManager.fillInInstitutionContactData,
+                    'json'
                 );
                 return false;
             }
         },
-        fillInInstitutionContactData: function(sData) {
+        fillInInstitutionContactData: function(oData) {
             var oSelf = self.ContactManager;
-            eval("var oData = " + sData);
             if (oData.street_address && !$("#id_street_address").val()) {
                 $("#id_street_address").val(oData.street_address);
             }
@@ -324,7 +325,9 @@
             
             if (typeof(oData.latitude) != "undefined"
                 && typeof(oData.longitude) != "undefined") {
-                self.GMapManager.markGeoposition(oData.latitude, oData.longitude);
+                if (self.GMapManager) {
+                    self.GMapManager.markGeoposition(oData.latitude, oData.longitude);
+                }
             }
         },
         destruct: function() {

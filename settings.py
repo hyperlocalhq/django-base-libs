@@ -580,6 +580,7 @@ PIPELINE_JS['job_offer_details'] = {
     'source_filenames': (
         "site/js/website/categories.js",
         "site/js/website/contact_details.js",
+        "site/js/website/gmaps_for_address.js",
         "site/js/website/profile.js",
         "site/js/website/formsets.js",
         "site/js/website/multipleselectautocomplete.js",

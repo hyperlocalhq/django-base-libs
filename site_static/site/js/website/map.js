@@ -12,7 +12,11 @@ self.GMapViewManager = {
     oSelected: null,
     init: function() {
         var oSelf = self.GMapViewManager;
-        oSelf.initGMaps(document.getElementById("gmap_view"));
+        var gmap_view = document.getElementById("gmap_view");
+        if (!gmap_view) {
+            return;
+        }
+        oSelf.initGMaps(gmap_view);
 
         // parse url
         var aUrlBits = window.website.path.substr(1).split("/");

@@ -35,11 +35,11 @@
             {% include "uni_form/includes/postal_code_city.html" %}
             {{ form.country|as_uni_field }}
 
-            <div id="dyn_set_map" class="buttonHolder">
-                <input id="dyn_locate_geo" type="button" class="primaryAction"
-                    value="{% filter upper %}{% trans "Locate on map" %}{% endfilter %}"/>
-                <input id="dyn_remove_geo" type="button" class="secondaryAction"
-                    value="{% filter upper %}{% trans "Remove from map" %}{% endfilter %}"/>
+            <div id="dyn_set_map">
+                <div class="buttonHolder">
+                    <input id="dyn_locate_geo" type="button" class="primaryAction" value="{% filter upper %}{% trans "Locate on map" %}{% endfilter %}"/>
+                    <input id="dyn_remove_geo" type="button" class="secondaryAction" value="{% filter upper %}{% trans "Remove from map" %}{% endfilter %}"/>
+                </div>
                 <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
             </div>
 
