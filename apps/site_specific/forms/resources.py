@@ -42,10 +42,9 @@ class DescriptionForm(dynamicforms.Form):
     )
 
     def __init__(self, document, index, *args, **kwargs):
-        super(DescriptionForm, self).__init__()
+        super(DescriptionForm, self).__init__(*args, **kwargs)
         self.document = document
         self.index = index
-        super(type(self), self).__init__(*args, **kwargs)
         if not args and not kwargs:  # if nothing is posted
             self.fields['description_en'].initial = document.description_en
             self.fields['description_de'].initial = document.description_de
@@ -70,10 +69,9 @@ class AvatarForm(dynamicforms.Form):
     )
 
     def __init__(self, document, index, *args, **kwargs):
-        super(AvatarForm, self).__init__()
+        super(AvatarForm, self).__init__(*args, **kwargs)
         self.document = document
         self.index = index
-        super(type(self), self).__init__(*args, **kwargs)
 
     def save(self):
         document = self.document
@@ -107,10 +105,9 @@ class DetailsForm(dynamicforms.Form):
     )
 
     def __init__(self, document, index, *args, **kwargs):
-        super(DetailsForm, self).__init__()
+        super(DetailsForm, self).__init__(*args, **kwargs)
         self.document = document
         self.index = index
-        super(type(self), self).__init__(*args, **kwargs)
         if not args and not kwargs:  # if nothing is posted
             self.fields['document_type'].initial = self.document.document_type
             self.fields['medium'].initial = self.document.medium
@@ -169,9 +166,8 @@ class CategoriesForm(dynamicforms.Form):
         return True
 
     def __init__(self, document, index, *args, **kwargs):
-        super(CategoriesForm, self).__init__()
+        super(CategoriesForm, self).__init__(*args, **kwargs)
         self.document = document
-        super(type(self), self).__init__(*args, **kwargs)
         self.creative_sectors = {}
         for item in get_related_queryset(Document, "creative_sectors"):
             self.creative_sectors[item.sysname] = {

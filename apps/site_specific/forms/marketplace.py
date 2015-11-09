@@ -90,10 +90,9 @@ class DetailsForm(dynamicforms.Form):
     )
 
     def __init__(self, job_offer, index, *args, **kwargs):
-        super(DetailsForm, self).__init__()
+        super(DetailsForm, self).__init__(*args, **kwargs)
         self.job_offer = job_offer
         self.index = index
-        super(type(self), self).__init__(*args, **kwargs)
         if not args and not kwargs:  # if nothing is posted
             self.fields['position'].initial = job_offer.position
             self.fields['job_type'].initial = job_offer.job_type_id
@@ -331,10 +330,9 @@ class ContactForm(dynamicforms.Form):
     )
 
     def __init__(self, job_offer, index, *args, **kwargs):
-        super(ContactForm, self).__init__()
+        super(ContactForm, self).__init__(*args, **kwargs)
         self.job_offer = job_offer
         self.index = index
-        super(type(self), self).__init__(*args, **kwargs)
         if not args and not kwargs:  # if nothing is posted
             self.fields['contact_person_name'].initial = job_offer.contact_person_name
 
@@ -486,9 +484,8 @@ class CategoriesForm(dynamicforms.Form):
         return True
 
     def __init__(self, job_offer, index, *args, **kwargs):
-        super(CategoriesForm, self).__init__()
+        super(CategoriesForm, self).__init__(*args, **kwargs)
         self.job_offer = job_offer
-        super(type(self), self).__init__(*args, **kwargs)
         self.job_sectors = {}
         for item in get_related_queryset(JobOffer, "job_sectors"):
             self.job_sectors[item.slug] = {
