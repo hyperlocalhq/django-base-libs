@@ -12,6 +12,9 @@ from django.utils.dates import MONTHS
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 
+from crispy_forms.helper import FormHelper
+from crispy_forms import layout, bootstrap
+
 from base_libs.forms import dynamicforms
 from base_libs.forms.fields import ImageField
 from base_libs.utils.misc import get_related_queryset, XChoiceList
@@ -191,6 +194,32 @@ class ClaimForm(dynamicforms.Form):
                     self.fields["phone_area"].initial = phone["area"]
                     self.fields["phone_number"].initial = phone["number"]
                     break
+
+        self.helper = FormHelper()
+        self.helper.form_action = "claim_object"
+        self.helper.form_method = "POST"
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _('Claim'),
+                'name',
+                'email',
+                layout.Row(
+                    'phone_country',
+                    'phone_area',
+                    'phone_number',
+                ),
+                'best_time_to_call',
+                'role',
+            ),
+            layout.Fieldset(
+                _('comment'),
+                'comments',
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Send').upper())
+            )
+        )
+
 
     def save(self):
         # do character encoding
