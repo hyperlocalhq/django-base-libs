@@ -16,6 +16,7 @@
                     parent.ProfileManager.section_loaded(document.body.innerHTML{% if not form %}, true{% endif %});
                 }
             };
+            window.onerror = function() {return true;};
             /* ]]> */
         </script>
     </head>

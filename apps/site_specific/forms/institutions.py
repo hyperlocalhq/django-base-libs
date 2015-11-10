@@ -9,16 +9,17 @@ from base_libs.forms import dynamicforms
 from base_libs.forms.fields import ImageField
 from base_libs.utils.misc import get_related_queryset, XChoiceList
 
-image_mods = models.get_app("image_mods")
-
 from jetson.apps.location.models import Address
 from jetson.apps.optionset.models import PhoneType
 
 from ccb.apps.institutions.models import Institution, InstitutionalContact
 from ccb.apps.site_specific.models import ContextItem
+from ccb.apps.institutions.models import URL_ID_INSTITUTION
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
+
+image_mods = models.get_app("image_mods")
 
 LEGAL_FORM_CHOICES = XChoiceList(get_related_queryset(Institution, 'legal_form'))
 
@@ -46,10 +47,9 @@ MIN_LOGO_SIZE = getattr(settings, "MIN_LOGO_SIZE", (100, 100))
 STR_LOGO_SIZE = "%sx%s" % LOGO_SIZE
 STR_MIN_LOGO_SIZE = "%sx%s" % MIN_LOGO_SIZE
 
-from ccb.apps.institutions.models import URL_ID_INSTITUTION
-
 # Collect translatable strings
-_("")
+_("Remove from map")
+_("Apply to all days")
 
 
 # TODO: each form could be ModelForm. Each formset could be ModelFormSet.

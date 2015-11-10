@@ -9,17 +9,18 @@ from base_libs.forms.fields import ImageField
 from base_libs.utils.misc import get_related_queryset, XChoiceList
 from base_libs.forms.fields import AutocompleteField
 
-image_mods = models.get_app("image_mods")
-
 from jetson.apps.location.models import Address
 from jetson.apps.optionset.models import PhoneType
 
 from ccb.apps.people.models import Person, IndividualContact
 from ccb.apps.institutions.models import Institution
 from ccb.apps.site_specific.models import ContextItem
+from ccb.apps.people.models import URL_ID_PERSON
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
+
+image_mods = models.get_app("image_mods")
 
 # prexixes of fields to guarantee uniqueness
 PREFIX_CI = 'CI_'  # Creative Sector aka Creative Industry
@@ -54,8 +55,6 @@ LOGO_SIZE = getattr(settings, "LOGO_SIZE", (100, 100))
 MIN_LOGO_SIZE = getattr(settings, "MIN_LOGO_SIZE", (100, 100))
 STR_LOGO_SIZE = "%sx%s" % LOGO_SIZE
 STR_MIN_LOGO_SIZE = "%sx%s" % MIN_LOGO_SIZE
-
-from ccb.apps.people.models import URL_ID_PERSON, URL_ID_PEOPLE
 
 # Collect translatable strings
 _("Not listed? Enter manually")
