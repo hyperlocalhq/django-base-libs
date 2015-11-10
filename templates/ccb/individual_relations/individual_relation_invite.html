@@ -1,5 +1,7 @@
-{% load i18n uni_form_tags %}
+{% load i18n uni_form_tags crispy_forms_tags %}
 <div id="popup_content">
+    {% crispy form %}
+
     <form action="" method="post" class="uniForm">{% csrf_token %}
         <fieldset class="inlineLabels">
             <h3>{% trans "Relation" %}</h3>
