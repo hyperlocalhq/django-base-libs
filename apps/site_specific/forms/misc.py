@@ -11,6 +11,7 @@ from django.utils.encoding import force_unicode
 from django.utils.dates import MONTHS
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
+from django.utils.translation import string_concat
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
@@ -153,15 +154,33 @@ class ClaimForm(dynamicforms.Form):
     phone_country = forms.CharField(
         required=False,
         max_length=4,
+        label=string_concat(
+            _('Country Code'),
+            '<br>',
+            _('without'),
+            ' "00"',
+        )
     )
+
     phone_area = forms.CharField(
         required=False,
         max_length=5,
+        label=string_concat(
+            _('Area Code'),
+            '<br>',
+            _('without'),
+            ' "0"',
+        )
     )
+
     phone_number = forms.CharField(
         required=False,
         max_length=15,
-        label=_("Phone"),
+        label=string_concat(
+            _('Number'),
+            '<br>',
+            _('with direct dial'),
+        )
     )
 
     role = forms.CharField(
@@ -196,7 +215,7 @@ class ClaimForm(dynamicforms.Form):
                     break
 
         self.helper = FormHelper()
-        self.helper.form_action = "claim_object"
+        self.helper.form_action = ""
         self.helper.form_method = "POST"
         self.helper.layout = layout.Layout(
             layout.Fieldset(
@@ -204,9 +223,10 @@ class ClaimForm(dynamicforms.Form):
                 'name',
                 'email',
                 layout.Row(
-                    'phone_country',
-                    'phone_area',
-                    'phone_number',
+                    layout.Div(layout.HTML(_('Phone')), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"),
+                    layout.Div('phone_country', css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"),
+                    layout.Div('phone_area', css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"),
+                    layout.Div('phone_number', css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"),
                 ),
                 'best_time_to_call',
                 'role',
