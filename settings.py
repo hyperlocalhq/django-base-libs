@@ -6,6 +6,8 @@ import os
 
 gettext = lambda s: s
 
+DEBUG = TEMPLATE_DEBUG = False
+
 SITE_ID = 1
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -90,9 +92,7 @@ INSTALLED_APPS = [
     "tagging",
     "tagging_autocomplete",
     "rosetta",
-    # "debug_toolbar",
     "haystack",
-    # "memcache_toolbar",
     "pipeline",
     "uni_form",
     "mptt",
@@ -179,7 +179,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE_CLASSES = [
     "django.middleware.common.CommonMiddleware",
-    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     "django.contrib.sessions.middleware.SessionMiddleware",
     'django.middleware.csrf.CsrfViewMiddleware',
     "jetson.apps.httpstate.middleware.HttpStateMiddleware",
@@ -450,11 +450,6 @@ SEARCH_ENGINE = "MySqlFulltext"  # one of these: "MySqlFulltext", "Proprietary",
 
 MAILING_DEFAULT_FROM_NAME = 'Creative City Berlin'
 MAILING_DEFAULT_FROM_EMAIL = 'ccb-contact@kulturprojekte-berlin.de'
-
-
-### DEBUG TOOLBAR ###
-
-# execfile(os.path.join(JETSON_PATH, "jetson/settings/debug_toolbar.py"))
 
 
 ### GRAPPELLI ###
@@ -869,3 +864,14 @@ try:
     execfile(os.path.join(os.path.dirname(__file__), "local_settings.py"))
 except IOError:
     pass
+
+### DEBUG TOOLBAR ###
+
+if DEBUG:
+    import debug_toolbar
+
+    INSTALLED_APPS += [
+        "debug_toolbar",
+        # "memcache_toolbar",
+    ]
+    execfile(os.path.join(JETSON_PATH, "jetson/settings/debug_toolbar.py"))
