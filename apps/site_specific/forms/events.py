@@ -57,6 +57,10 @@ MIN_LOGO_SIZE = getattr(settings, "MIN_LOGO_SIZE", (100, 100))
 STR_LOGO_SIZE = "%sx%s" % LOGO_SIZE
 STR_MIN_LOGO_SIZE = "%sx%s" % MIN_LOGO_SIZE
 
+# Collect translatable strings
+_("Remove from map")
+_("Apply to all days")
+
 
 class ProfileFormSet(BaseFormSet):
     def __init__(self, parent_instance, index, get_instances, *args, **kwargs):
@@ -659,7 +663,6 @@ class ContactForm(dynamicforms.Form):
                 layout.Submit('submit', _('Save')),
             )
         )
-
 
     def clean(self):
         # if venue is selected, the venue_title etc need not to be filled in and vice versa!
