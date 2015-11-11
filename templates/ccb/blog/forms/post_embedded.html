@@ -1,6 +1,77 @@
-{% load base_tags i18n auth_extended blog uni_form_tags %}
+{% load base_tags i18n auth_extended blog uni_form_tags crispy_forms_tags %}
 
 <div class="first-item-txt" id="popup_content">
+    <!--
+    <form action="" method="post" class="uniForm">{% csrf_token %}
+        {% if form_preview %}
+            <div class="preview">
+                <div class="headline">
+                    <h3>{{ form.title.data }}</h3>
+                </div>
+
+                {{ form.body.data|disarm_user_input }}
+
+                {% if form.tags.data %}
+                    <div class="post-meta left">
+                        <span>{% trans "Tags" %}: </span>
+                        {{ form.tags.data }}
+                    </div>
+                {% endif %}
+                <div class="buttonHolder">
+                    {% trans "Save as Draft" as draft %}
+                    {% trans "Save" as non_draft %}
+                    {% with yesno_args=''|add:draft|add:','|add:non_draft|upper %}
+                        <input
+                            type="submit" class="primaryAction" id="post" name="{{ post_stage_field }}"
+                            value='{{ post.is_draft|yesno:yesno_args }}'
+                            />
+                    {% endwith %}
+
+                </div>
+            </div>
+        {% endif %}
+
+        {% load i18n %}
+        <fieldset>
+            <legend>
+                {% if form_handler_action == "new" %}
+                    {% trans "Post To the Blog" %}
+                {% else %}
+                    {% if form_handler_action == "edit" %}
+                        {% trans "Edit Post" %}
+                    {% endif %}
+                {% endif %}
+            </legend>
+            {% crispy form %}
+        </fieldset>
+
+        {% load i18n %}
+        <input
+            id="id_preview"
+            class="btn btn-primary"
+            type="submit"
+            name="{{ preview_stage_field }}"
+            value="{% filter upper %}{% trans 'Preview' %}{% endfilter %}"
+            />&zwnj;
+        <input
+            id="id_cancel"
+            class="btn btn-warning"
+            type="submit"
+            name="{{ cancel_stage_field }}"
+            value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"
+            />&zwnj;
+        <input
+            type="hidden"
+            name="{{ hash_field }}"
+            value="{{ hash_value }}"
+            />
+        <input
+            type="hidden"
+            name="goto_next"
+            value="{% if goto_next %}{{ goto_next }}{% else %}/blog/{% endif %}"
+            />
+    </form>
+    -->
     <form action="" method="post" class="uniForm">{% csrf_token %}
         {% if form_preview %}
             <div class="preview">
