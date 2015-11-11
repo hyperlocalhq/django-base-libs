@@ -62,13 +62,38 @@ class BlogPostForm(dynamicforms.Form):
         self.helper.method = 'POST'
         self.helper.form_tag = False
         self.helper.layout = layout.Layout(
-            layout.Div(
+            layout.Fieldset(
+                '''{% load i18n %}
+                    {% if form_handler_action == "new" %}
+                        {% trans "Post To the Blog" %}
+                    {% else %}
+                        {% if form_handler_action == "edit" %}
+                            {% trans "Edit Post" %}
+                        {% endif %}
+                    {% endif %}
+                ''',
                 "title",
                 "body",
                 "tags",
                 "status",
                 "enable_comment_form",
             ),
+            layout.HTML('''
+                <input
+                    type="hidden"
+                    name="{{ hash_field }}"
+                    value="{{ hash_value }}"
+                />
+                <input
+                    type="hidden"
+                    name="goto_next"
+                    value="{% if goto_next %}{{ goto_next }}{% else %}/blog/{% endif %}"
+                />
+            '''),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Preview')),
+                layout.Button('button', _('Cancel').upper()),
+            ),
         )
-        
+
         super(BlogPostForm, self).__init__(*args, **kwargs)
