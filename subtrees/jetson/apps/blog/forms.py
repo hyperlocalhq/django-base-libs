@@ -58,41 +58,17 @@ class BlogPostForm(dynamicforms.Form):
     def __init__(self, *args, **kwargs):
         self.helper = FormHelper()
         self.helper.form_tag = False
+        self.helper.action = ''
+        self.helper.method = 'POST'
+        self.helper.form_tag = False
         self.helper.layout = layout.Layout(
-            layout.HTML(
-                """
-                {% load i18n %}
-                <fieldset>
-                    <legend>
-                        {% if form_handler_action == "new" %}
-                            {% trans "Post To the Blog" %}
-                        {% else %}
-                            {% if form_handler_action == "edit" %}
-                                {% trans "Edit Post" %}
-                            {% endif %}
-                        {% endif %}
-                    </legend>
-                """,
-                ),
             layout.Div(
                 "title",
                 "body",
                 "tags",
-                "enable_comment_form",
                 "status",
-                "published_from",
-                "published_till",
-                ),
-            layout.HTML("</fieldset>"),
-            bootstrap.FormActions(
-                layout.HTML("""
-                    {% load i18n %}
-                    <input id="id_preview" class="btn btn-primary" type="submit" name="{{ preview_stage_field }}" value="{% filter upper %}{% trans 'Preview' %}{% endfilter %}" />&zwnj;
-                    <input id="id_cancel" type="submit" class="btn btn-warning" name="{{ cancel_stage_field }}" value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}" />&zwnj;
-                    <input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}" />
-                    <input type="hidden" name="goto_next" value="{% if goto_next %}{{ goto_next }}{% else %}/blog/{% endif %}" />
-                    """),
-                )
-            )
+                "enable_comment_form",
+            ),
+        )
         
         super(BlogPostForm, self).__init__(*args, **kwargs)

@@ -107,7 +107,7 @@ class IndividualRelationForm(dynamicforms.Form):
                 for el in rel.relation_types.all()
                 ]
         self.helper = FormHelper()
-        self.helper.form_action = "manage_individual_relationship"
+        self.helper.form_action = ""
         self.helper.form_method = "POST"
         self.helper.layout = layout.Layout(
             layout.Fieldset(
