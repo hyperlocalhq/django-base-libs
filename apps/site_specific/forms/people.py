@@ -9,14 +9,18 @@ from base_libs.forms.fields import ImageField
 from base_libs.utils.misc import get_related_queryset, XChoiceList
 from base_libs.forms.fields import AutocompleteField
 
-image_mods = models.get_app("image_mods")
-
 from jetson.apps.location.models import Address
 from jetson.apps.optionset.models import PhoneType
 
 from ccb.apps.people.models import Person, IndividualContact
 from ccb.apps.institutions.models import Institution
 from ccb.apps.site_specific.models import ContextItem
+from ccb.apps.people.models import URL_ID_PERSON
+
+from crispy_forms.helper import FormHelper
+from crispy_forms import layout, bootstrap
+
+image_mods = models.get_app("image_mods")
 
 # prexixes of fields to guarantee uniqueness
 PREFIX_CI = 'CI_'  # Creative Sector aka Creative Industry
@@ -52,6 +56,12 @@ MIN_LOGO_SIZE = getattr(settings, "MIN_LOGO_SIZE", (100, 100))
 STR_LOGO_SIZE = "%sx%s" % LOGO_SIZE
 STR_MIN_LOGO_SIZE = "%sx%s" % MIN_LOGO_SIZE
 
+# Collect translatable strings
+_("Not listed? Enter manually")
+_("Back to selection")
+_("Remove from map")
+_('Is some category missing? You can <a href="/ticket/new-category/" target="_blank">suggest it here</a>.')
+
 
 # TODO: each form could be ModelForm. Each formset could be ModelFormSet.
 # noinspection PyClassHasNoInit
@@ -66,13 +76,34 @@ class IdentityForm(dynamicforms.Form):
     )
 
     def __init__(self, person, index, *args, **kwargs):
-        super(IdentityForm, self).__init__()
+        super(IdentityForm, self).__init__(*args, **kwargs)
         self.person = person
         self.index = index
-        super(type(self), self).__init__(*args, **kwargs)
         if not args and not kwargs:  # if nothing is posted
             self.fields['first_name'].initial = person.user.first_name
             self.fields['last_name'].initial = person.user.last_name
+
+        self.helper = FormHelper()
+        self.helper.form_action = "/helper/edit-%(URL_ID_PERSON)s-profile/%(username)s/identity/" % {
+            'URL_ID_PERSON': URL_ID_PERSON,
+            'username': self.person.user.username,
+        }
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'target': "hidden_iframe",
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Identity"),
+                "first_name",
+                "last_name",
+            ),
+            bootstrap.FormActions(
+                layout.Button('cancel', _('Cancel')),
+                layout.Submit('submit', _('Save')),
+            )
+        )
 
     def save(self):
         person = self.person
@@ -99,13 +130,34 @@ class DescriptionForm(dynamicforms.Form):
     )
 
     def __init__(self, person, index, *args, **kwargs):
-        super(DescriptionForm, self).__init__()
+        super(DescriptionForm, self).__init__(*args, **kwargs)
         self.person = person
         self.index = index
-        super(type(self), self).__init__(*args, **kwargs)
         if not args and not kwargs:  # if nothing is posted
             self.fields['description_en'].initial = person.description_en
             self.fields['description_de'].initial = person.description_de
+
+        self.helper = FormHelper()
+        self.helper.form_action = "/helper/edit-%(URL_ID_PERSON)s-profile/%(username)s/description/" % {
+            'URL_ID_PERSON': URL_ID_PERSON,
+            'username': self.person.user.username,
+        }
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'target': "hidden_iframe",
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Description"),
+                "description_en",
+                "description_de",
+            ),
+            bootstrap.FormActions(
+                layout.Button('cancel', _('Cancel')),
+                layout.Submit('submit', _('Save')),
+            )
+        )
 
     def save(self):
         person = self.person
@@ -127,10 +179,37 @@ class AvatarForm(dynamicforms.Form):
     )
 
     def __init__(self, person, index, *args, **kwargs):
-        super(AvatarForm, self).__init__()
+        super(AvatarForm, self).__init__(*args, **kwargs)
         self.person = person
         self.index = index
-        super(type(self), self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = "/helper/edit-%(URL_ID_PERSON)s-profile/%(username)s/avatar/" % {
+            'URL_ID_PERSON': URL_ID_PERSON,
+            'username': self.person.user.username,
+        }
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'target': "hidden_iframe",
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Avatar"),
+                layout.HTML("""{% load image_modifications %}
+                    {% if object.image %}
+                        <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"ap" }}" alt="{{ object.get_title|escape }}"/>
+                    {% else %}
+                        <img src="{{ DEFAULT_FORM_LOGO_4_PERSON }}" alt="{{ object.get_title|escape }}"/>
+                    {% endif %}
+                """),
+                "media_file",
+            ),
+            bootstrap.FormActions(
+                layout.Button('cancel', _('Cancel')),
+                layout.Submit('submit', _('Save')),
+            )
+        )
 
     def save(self):
         person = self.person
@@ -364,10 +443,9 @@ class ContactForm(dynamicforms.Form):
     )
 
     def __init__(self, person, index, *args, **kwargs):
-        super(ContactForm, self).__init__()
+        super(ContactForm, self).__init__(*args, **kwargs)
         self.person = person
         self.index = index
-        super(type(self), self).__init__(*args, **kwargs)
         if not args and not kwargs:  # if nothing is posted
             if index is not None and index.isdigit():
                 index = int(index)
@@ -412,15 +490,208 @@ class ContactForm(dynamicforms.Form):
                 self.fields['email1'].initial = contact.email1_address
                 self.fields['email2'].initial = contact.email2_address
 
+        self.helper = FormHelper()
+        self.helper.form_action = "/helper/edit-%(URL_ID_PERSON)s-profile/%(username)s/contact/%(index)s/" % {
+            'URL_ID_PERSON': URL_ID_PERSON,
+            'username': self.person.user.username,
+            'index': self.index,
+        }
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'target': "hidden_iframe",
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Location"),
+                "location_type",
+                "location_title",
+            ),
+            layout.Fieldset(
+                _("Institution"),
+                "institution",
+                layout.HTML("""{% load i18n %}
+                    <button id="id_institution_enter" class="btn btn-link">{% trans "Not listed? Enter manually" %}</button>
+                """),
+                css_id="fieldset_institution_select",
+            ),
+            layout.Fieldset(
+                _("Institution"),
+                "institution_title",
+                "institution_website",
+                layout.HTML("""{% load i18n %}
+                    <button id="id_institution_select" class="btn btn-link">{% trans "Back to selection" %}</button>
+                """),
+                css_id="fieldset_institution_enter",
+                css_class="hidden",
+            ),
+            layout.Fieldset(
+                _("Address"),
+                "latitude",  # hidden field
+                "longitude",  # hidden field
+                "district",  # hidden field
+                "street_address",
+                "street_address2",
+                layout.Row(
+                    layout.Div(
+                        "postal_code",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "city",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+                "country",
+                layout.HTML("""{% load i18n %}
+                    <div class="map_container">
+                        <div class="map_canvas">
+                            <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
+                        </div>
+                        <div class="buttonHolder">
+                            <button id="dyn_remove_geo" class="btn">{% filter upper %}{% trans "Remove from map" %}{% endfilter %}</button>
+                        </div>
+                    </div>
+                """),
+                css_id="fieldset_institution_select",
+            ),
+            layout.Fieldset(
+                _("Phone"),
+                layout.Row(
+                    layout.Div(
+                        "phone_country",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                    layout.Div(
+                        "phone_area",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                    layout.Div(
+                        "phone_number",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                ),
+            ),
+            layout.Fieldset(
+                _("Fax"),
+                layout.Row(
+                    layout.Div(
+                        "fax_country",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                    layout.Div(
+                        "fax_area",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                    layout.Div(
+                        "fax_number",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                ),
+            ),
+            layout.Fieldset(
+                _("Mobile"),
+                layout.Row(
+                    layout.Div(
+                        "mobile_country",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                    layout.Div(
+                        "mobile_area",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                    layout.Div(
+                        "mobile_number",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                ),
+            ),
+            layout.Fieldset(
+                _("Emails"),
+                "email0",
+                "email1",
+                "email2",
+            ),
+            layout.Fieldset(
+                _("Websites"),
+                layout.Row(
+                    layout.Div(
+                        "url0_type",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "url0_link",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        "url1_type",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "url1_link",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        "url2_type",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "url2_link",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+            ),
+            layout.Fieldset(
+                _("Instant Messengers"),
+                layout.Row(
+                    layout.Div(
+                        "im0_type",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "im0_address",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        "im1_type",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "im1_address",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        "im2_type",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "im2_address",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+            ),
+            bootstrap.FormActions(
+                layout.Button('cancel', _('Cancel')),
+                layout.Submit('save_as_primary', _('Save as Primary')),
+                layout.Submit('submit', _('Save')),
+            )
+        )
+
     def save(self):
         person = self.person
         index = self.index
         data = self.cleaned_data
         save_as_primary = bool(data.get("save_as_primary", False))
         if save_as_primary:
-            for contact in person.get_contacts():
-                contact.is_primary = False
-                super(type(contact), contact).save()
+            IndividualContact.objects.filter(person=person).update(is_primary=False)
         elif not person.get_contacts():
             save_as_primary = True
         institution_title = data.get('institution_title', '')
@@ -597,10 +868,9 @@ class DetailsForm(dynamicforms.Form):
     )
 
     def __init__(self, person, index, *args, **kwargs):
-        super(DetailsForm, self).__init__()
+        super(DetailsForm, self).__init__(*args, **kwargs)
         self.person = person
         self.index = index
-        super(type(self), self).__init__(*args, **kwargs)
         if not args and not kwargs:  # if nothing is posted
             self.fields['individual_type'].initial = person.individual_type_id
             self.fields['salutation'].initial = person.salutation_id
@@ -610,6 +880,48 @@ class DetailsForm(dynamicforms.Form):
             self.fields['occupation'].initial = person.occupation
             self.fields['nationality'].initial = person.nationality_id
             self.fields['preferred_language'].initial = person.preferred_language_id
+
+        self.helper = FormHelper()
+        self.helper.form_action = "/helper/edit-%(URL_ID_PERSON)s-profile/%(username)s/details/" % {
+            'URL_ID_PERSON': URL_ID_PERSON,
+            'username': self.person.user.username,
+        }
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'target': "hidden_iframe",
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Details"),
+                "individual_type",
+                "occupation",
+                "salutation",
+                "nationality",
+                "preferred_language",
+            ),
+            layout.Fieldset(
+                _("Birthday"),
+                layout.Row(
+                    layout.Div(
+                        "birthday_dd",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                    layout.Div(
+                        "birthday_mm",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                    layout.Div(
+                        "birthday_yyyy",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                ),
+            ),
+            bootstrap.FormActions(
+                layout.Button('cancel', _('Cancel')),
+                layout.Submit('submit', _('Save')),
+            )
+        )
 
     def save(self):
         person = self.person
@@ -628,6 +940,7 @@ class DetailsForm(dynamicforms.Form):
         return {}
 
 class CategoriesForm(dynamicforms.Form):
+    # TODO: rework categories to use CheckboxSelectMultiple widget when it is clear what categorizations to use at all
     choose_creative_sectors = forms.BooleanField(
         initial=True,
         widget=forms.HiddenInput(
@@ -669,9 +982,8 @@ class CategoriesForm(dynamicforms.Form):
         return True
 
     def __init__(self, person, index, *args, **kwargs):
-        super(CategoriesForm, self).__init__()
+        super(CategoriesForm, self).__init__(*args, **kwargs)
         self.person = person
-        super(type(self), self).__init__(*args, **kwargs)
         self.creative_sectors = {}
         for item in get_related_queryset(Person, "creative_sectors"):
             self.creative_sectors[item.sysname] = {
@@ -698,6 +1010,31 @@ class CategoriesForm(dynamicforms.Form):
         for el in person.get_context_categories():
             for ancestor in el.get_ancestors(include_self=True):
                 self.fields[PREFIX_BC + str(ancestor.id)].initial = True
+
+        self.helper = FormHelper()
+        self.helper.form_action = "/helper/edit-%(URL_ID_PERSON)s-profile/%(username)s/categories/" % {
+            'URL_ID_PERSON': URL_ID_PERSON,
+            'username': self.person.user.username,
+        }
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'target': "hidden_iframe",
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Categories"),
+                "choose_creative_sectors",
+                "choose_context_categories",
+                layout.HTML("""{% load i18n %}
+                    <p class="disclaimer">{% blocktrans %}Is some category missing? You can <a href="/ticket/new-category/" target="_blank">suggest it here</a>.{% endblocktrans %}</p>
+                """),
+            ),
+            bootstrap.FormActions(
+                layout.Button('cancel', _('Cancel')),
+                layout.Submit('submit', _('Save')),
+            )
+        )
 
     def save(self, *args, **kwargs):
         person = self.person

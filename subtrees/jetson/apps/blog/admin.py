@@ -26,7 +26,7 @@ class BlogAdminForm(MultiSiteContainerMixinAdminForm):
 
 class BlogOptions(MultiSiteContainerMixinAdminOptions):
     save_on_top = True
-    inlines = [Post_Inline]
+    # inlines = [Post_Inline]
     list_display = ('id', 'title', 'get_sites', 'get_content_object_display', 'sysname')
     list_display_links = ('id', 'title',)
     list_filter =  ("creation_date", "modified_date", "content_type",)
@@ -38,6 +38,7 @@ class BlogOptions(MultiSiteContainerMixinAdminOptions):
     
     search_fields = ('title',)
     form = BlogAdminForm
+    filter_horizontal = ["sites"]
 
 class PostOptions(ExtendedModelAdmin):
     save_on_top = True

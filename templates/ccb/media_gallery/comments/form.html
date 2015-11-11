@@ -5,13 +5,13 @@
         <h3>{% trans "Post a comment" %}</h3>
         {% if comment_form.is_valid %}
             <div class="preview">
-                {% if comment.user.get_profile.image %}
-                    <img class="left" src="{{ UPLOADS_URL }}{{ comment.user.get_profile.image|modified_path:"at" }}"
-                        alt="{{ comment.user.get_profile.get_title|escape }}"/>
+                {% if comment.user.profile.image %}
+                    <img class="left" src="{{ UPLOADS_URL }}{{ comment.user.profile.image|modified_path:"at" }}"
+                        alt="{{ comment.user.profile.get_title|escape }}"/>
                 {% else %}
                     {% if comment.user %}
                         <img class="left" src="{{ STATIC_URL }}site/img/website/placeholder/person_s.png"
-                            alt="{{ comment.user.get_profile.get_title|escape }}"/>
+                            alt="{{ comment.user.profile.get_title|escape }}"/>
                     {% else %}
                         <img class="left" src="{{ STATIC_URL }}site/img/website/placeholder/person_s.png"
                             alt="{{ comment.name|escape }}"/>
@@ -19,8 +19,8 @@
                 {% endif %}
                 <div class="left">
                     {% if comment.user %}
-                        <a href='{{ comment.user.get_profile.get_url_path }}'>
-                            {{ comment.user.get_profile.get_title|escape }}
+                        <a href='{{ comment.user.profile.get_url_path }}'>
+                            {{ comment.user.profile.get_title|escape }}
                         </a><br/>
                     {% else %}
                         <span class="no_link">

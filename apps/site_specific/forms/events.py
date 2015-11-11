@@ -5,17 +5,16 @@ from django.db import models
 from django import forms
 from django.forms.formsets import formset_factory
 from django.utils.translation import ugettext_lazy as _
-from django.conf import settings
+from django.utils.translation import string_concat
 from django.utils.dates import MONTHS
 from django.forms.formsets import BaseFormSet
+from django.conf import settings
 
 from base_libs.forms import dynamicforms
 from base_libs.forms.fields import ImageField
 from base_libs.utils.misc import get_related_queryset, XChoiceList
 from base_libs.forms.fields import AutocompleteField
 from base_libs.middleware import get_current_user
-
-image_mods = models.get_app("image_mods")
 
 from tagging.forms import TagField
 from tagging_autocomplete.widgets import TagAutocomplete
@@ -26,7 +25,12 @@ from jetson.apps.optionset.models import PhoneType
 from ccb.apps.institutions.models import Institution
 from ccb.apps.events.models import Event, EventTime
 from ccb.apps.site_specific.models import ContextItem
+from ccb.apps.events.models import URL_ID_EVENT
 
+from crispy_forms.helper import FormHelper
+from crispy_forms import layout, bootstrap
+
+image_mods = models.get_app("image_mods")
 
 WEEK_DAYS = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
 
@@ -52,6 +56,10 @@ LOGO_SIZE = getattr(settings, "LOGO_SIZE", (100, 100))
 MIN_LOGO_SIZE = getattr(settings, "MIN_LOGO_SIZE", (100, 100))
 STR_LOGO_SIZE = "%sx%s" % LOGO_SIZE
 STR_MIN_LOGO_SIZE = "%sx%s" % MIN_LOGO_SIZE
+
+# Collect translatable strings
+_("Remove from map")
+_("Apply to all days")
 
 
 class ProfileFormSet(BaseFormSet):
@@ -104,14 +112,36 @@ class IdentityForm(dynamicforms.Form):
     )
 
     def __init__(self, event, index, *args, **kwargs):
-        super(IdentityForm, self).__init__()
+        super(IdentityForm, self).__init__(*args, **kwargs)
         self.event = event
         self.index = index
-        super(type(self), self).__init__(*args, **kwargs)
         if not args and not kwargs:  # if nothing is posted
             self.fields['title_de'].initial = event.title_de
             self.fields['title_en'].initial = event.title_en
             self.fields['event_type'].initial = event.event_type_id
+
+        self.helper = FormHelper()
+        self.helper.form_action = "/helper/edit-%(URL_ID_EVENT)s-profile/%(slug)s/identity/" % {
+            'URL_ID_EVENT': URL_ID_EVENT,
+            'slug': self.event.slug,
+        }
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'target': "hidden_iframe",
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Name"),
+                "title_en",
+                "title_de",
+                "event_type",
+            ),
+            bootstrap.FormActions(
+                layout.Button('cancel', _('Cancel')),
+                layout.Submit('submit', _('Save')),
+            )
+        )
 
     def save(self):
         event = self.event
@@ -123,6 +153,7 @@ class IdentityForm(dynamicforms.Form):
 
     def get_extra_context(self):
         return {}
+
 
 class DescriptionForm(dynamicforms.Form):
     description_en = forms.CharField(
@@ -137,13 +168,34 @@ class DescriptionForm(dynamicforms.Form):
     )
 
     def __init__(self, event, index, *args, **kwargs):
-        super(DescriptionForm, self).__init__()
+        super(DescriptionForm, self).__init__(*args, **kwargs)
         self.event = event
         self.index = index
-        super(type(self), self).__init__(*args, **kwargs)
         if not args and not kwargs:  # if nothing is posted
             self.fields['description_en'].initial = event.description_en
             self.fields['description_de'].initial = event.description_de
+
+        self.helper = FormHelper()
+        self.helper.form_action = "/helper/edit-%(URL_ID_EVENT)s-profile/%(slug)s/description/" % {
+            'URL_ID_EVENT': URL_ID_EVENT,
+            'slug': self.event.slug,
+        }
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'target': "hidden_iframe",
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Description"),
+                "description_en",
+                "description_de",
+            ),
+            bootstrap.FormActions(
+                layout.Button('cancel', _('Cancel')),
+                layout.Submit('submit', _('Save')),
+            )
+        )
 
     def save(self):
         event = self.event
@@ -155,6 +207,7 @@ class DescriptionForm(dynamicforms.Form):
     def get_extra_context(self):
         return {}
 
+
 class AvatarForm(dynamicforms.Form):
     media_file = ImageField(
         label=_("Photo"),
@@ -165,10 +218,37 @@ class AvatarForm(dynamicforms.Form):
     )
 
     def __init__(self, event, index, *args, **kwargs):
-        super(AvatarForm, self).__init__()
+        super(AvatarForm, self).__init__(*args, **kwargs)
         self.event = event
         self.index = index
-        super(type(self), self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = "/helper/edit-%(URL_ID_EVENT)s-profile/%(slug)s/avatar/" % {
+            'URL_ID_EVENT': URL_ID_EVENT,
+            'slug': self.event.slug,
+        }
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'target': "hidden_iframe",
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Avatar"),
+                layout.HTML("""{% load image_modifications %}
+                    {% if object.image %}
+                        <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"ap" }}" alt="{{ object.get_title|escape }}"/>
+                    {% else %}
+                        <img src="{{ DEFAULT_FORM_LOGO_4_EVENT }}" alt="{{ object.get_title|escape }}"/>
+                    {% endif %}
+                """),
+                "media_file",
+            ),
+            bootstrap.FormActions(
+                layout.Button('cancel', _('Cancel')),
+                layout.Submit('submit', _('Save')),
+            )
+        )
 
     def save(self):
         event = self.event
@@ -184,6 +264,7 @@ class AvatarForm(dynamicforms.Form):
 
     def get_extra_context(self):
         return {}
+
 
 class ContactForm(dynamicforms.Form):
     venue = AutocompleteField(
@@ -365,10 +446,9 @@ class ContactForm(dynamicforms.Form):
     )
 
     def __init__(self, event, index, *args, **kwargs):
-        super(ContactForm, self).__init__()
+        super(ContactForm, self).__init__(*args, **kwargs)
         self.event = event
         self.index = index
-        super(type(self), self).__init__(*args, **kwargs)
         if not args and not kwargs:  # if nothing is posted
             contact = event.get_contacts()[0]
             postal_address = contact.postal_address
@@ -409,9 +489,184 @@ class ContactForm(dynamicforms.Form):
             self.fields['email1'].initial = contact.email1_address
             self.fields['email2'].initial = contact.email2_address
 
+        self.helper = FormHelper()
+        self.helper.form_action = "/helper/edit-%(URL_ID_EVENT)s-profile/%(slug)s/contact/" % {
+            'URL_ID_EVENT': URL_ID_EVENT,
+            'slug': self.event.slug,
+        }
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'target': "hidden_iframe",
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Institution"),
+                "venue",
+                "venue_title",
+            ),
+            layout.Fieldset(
+                _("Address"),
+                "latitude",  # hidden field
+                "longitude",  # hidden field
+                "district",  # hidden field
+                "street_address",
+                "street_address2",
+                layout.Row(
+                    layout.Div(
+                        "postal_code",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "city",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+                "country",
+                layout.HTML("""{% load i18n %}
+                    <div class="map_container">
+                        <div class="map_canvas">
+                            <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
+                        </div>
+                        <div class="buttonHolder">
+                            <button id="dyn_remove_geo" class="btn">{% filter upper %}{% trans "Remove from map" %}{% endfilter %}</button>
+                        </div>
+                    </div>
+                """),
+                css_id="fieldset_institution_select",
+            ),
+            layout.Fieldset(
+                _("Phone"),
+                layout.Row(
+                    layout.Div(
+                        "phone_country",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                    layout.Div(
+                        "phone_area",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                    layout.Div(
+                        "phone_number",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                ),
+            ),
+            layout.Fieldset(
+                _("Fax"),
+                layout.Row(
+                    layout.Div(
+                        "fax_country",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                    layout.Div(
+                        "fax_area",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                    layout.Div(
+                        "fax_number",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                ),
+            ),
+            layout.Fieldset(
+                _("Mobile"),
+                layout.Row(
+                    layout.Div(
+                        "mobile_country",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                    layout.Div(
+                        "mobile_area",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                    layout.Div(
+                        "mobile_number",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                ),
+            ),
+            layout.Fieldset(
+                _("Emails"),
+                "email0",
+                "email1",
+                "email2",
+            ),
+            layout.Fieldset(
+                _("Websites"),
+                layout.Row(
+                    layout.Div(
+                        "url0_type",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "url0_link",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        "url1_type",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "url1_link",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        "url2_type",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "url2_link",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+            ),
+            layout.Fieldset(
+                _("Instant Messengers"),
+                layout.Row(
+                    layout.Div(
+                        "im0_type",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "im0_address",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        "im1_type",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "im1_address",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        "im2_type",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "im2_address",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+            ),
+            bootstrap.FormActions(
+                layout.Button('cancel', _('Cancel')),
+                layout.Submit('submit', _('Save')),
+            )
+        )
+
     def clean(self):
         # if venue is selected, the venue_title etc need not to be filled in and vice versa!
-        data = super(type(self), self).clean()
+        data = super(ContactForm, self).clean()
         if data.get('venue_title', None):
             if 'venue' in self._errors:
                 del self._errors['venue']
@@ -491,6 +746,7 @@ class ContactForm(dynamicforms.Form):
     def get_extra_context(self):
         return {}
 
+
 class OrganizerForm(dynamicforms.Form):
     """
     A form for the informaton who or what institution organizes the event
@@ -527,10 +783,9 @@ class OrganizerForm(dynamicforms.Form):
     )
 
     def __init__(self, event, index, *args, **kwargs):
-        super(OrganizerForm, self).__init__()
+        super(OrganizerForm, self).__init__(*args, **kwargs)
         self.event = event
         self.index = index
-        super(type(self), self).__init__(*args, **kwargs)
         self.fields['organizing_institution'].initial = event.organizing_institution_id
         self.fields['organizer_title'].initial = event.organizer_title
         self.fields['organizer_url_link'].initial = event.organizer_url_link
@@ -539,6 +794,30 @@ class OrganizerForm(dynamicforms.Form):
         if event.creator and current_user != event.creator:
             self.fields['is_organized_by_myself'].label = _(
                 "Organized by %s") % event.creator.profile.get_title()
+
+        self.helper = FormHelper()
+        self.helper.form_action = "/helper/edit-%(URL_ID_EVENT)s-profile/%(slug)s/organizer/" % {
+            'URL_ID_EVENT': URL_ID_EVENT,
+            'slug': self.event.slug,
+        }
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'target': "hidden_iframe",
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Organizer"),
+                "organizing_institution",
+                "organizer_title",
+                "organizer_url_link",
+                "is_organized_by_myself",
+            ),
+            bootstrap.FormActions(
+                layout.Button('cancel', _('Cancel')),
+                layout.Submit('submit', _('Save')),
+            )
+        )
 
     def save(self):
         event = self.event
@@ -557,8 +836,8 @@ class OrganizerForm(dynamicforms.Form):
     def get_extra_context(self):
         return {}
 
-class AdditionalInfoForm(dynamicforms.Form):
 
+class AdditionalInfoForm(dynamicforms.Form):
     additional_info_en = forms.CharField(
         label=_("Additional Info English (Max 500 Characters)"),
         required=False,
@@ -576,16 +855,40 @@ class AdditionalInfoForm(dynamicforms.Form):
         label=_("Related Events"),
         queryset=get_related_queryset(Event, "related_events").all(),
         required=False,
+        help_text="",
     )
 
     def __init__(self, event, index, *args, **kwargs):
-        super(AdditionalInfoForm, self).__init__()
+        super(AdditionalInfoForm, self).__init__(*args, **kwargs)
         self.event = event
         self.index = index
-        super(type(self), self).__init__(*args, **kwargs)
         self.fields['related_events'].initial = event.related_events.values_list("pk", flat=True)
+        self.fields['related_events'].help_text = ""
         self.fields['additional_info_en'].initial = event.additional_info_en
         self.fields['additional_info_de'].initial = event.additional_info_de
+
+        self.helper = FormHelper()
+        self.helper.form_action = "/helper/edit-%(URL_ID_EVENT)s-profile/%(slug)s/additional_info/" % {
+            'URL_ID_EVENT': URL_ID_EVENT,
+            'slug': self.event.slug,
+        }
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'target': "hidden_iframe",
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Additional Info"),
+                "additional_info_de",
+                "additional_info_en",
+                "related_events",
+            ),
+            bootstrap.FormActions(
+                layout.Button('cancel', _('Cancel')),
+                layout.Submit('submit', _('Save')),
+            )
+        )
 
     def save(self):
         event = self.event
@@ -602,22 +905,63 @@ class AdditionalInfoForm(dynamicforms.Form):
     def get_extra_context(self):
         return {}
 
+
 class EventTimesForm(dynamicforms.Form):
     """
     Dummy form for using together with a formset of EventTimeForm
     """
+    # TODO: ensure that empty form is also provided and implement JavaScripts
 
     def __init__(self, event, index, *args, **kwargs):
-        super(EventTimesForm, self).__init__()
+        super(EventTimesForm, self).__init__(*args, **kwargs)
         self.event = event
         self.index = index
-        super(type(self), self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = "/helper/edit-%(URL_ID_EVENT)s-profile/%(slug)s/event_times/" % {
+            'URL_ID_EVENT': URL_ID_EVENT,
+            'slug': self.event.slug,
+        }
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'target': "hidden_iframe",
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Event Times"),
+                layout.HTML("""{% load crispy_forms_tags i18n %}
+                {{ formsets.event_times.management_form }}
+                <div id="event_times">
+                    {% for event_time_form in formsets.event_times.forms %}
+                        <div class="event_time formset-form tabular-inline">
+                            {% crispy event_time_form %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <!-- used by javascript -->
+                <div id="event_times_empty_form" class="event_time formset-form tabular-inline" style="display: none">
+                    {% with formsets.event_times.empty_form as event_time_form %}
+                        {% if event_time_form %}
+                            {% crispy event_time_form %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                """),
+                css_id="event_times_fieldset",
+            ),
+            bootstrap.FormActions(
+                layout.Button('cancel', _('Cancel')),
+                layout.Submit('submit', _('Save')),
+            )
+        )
 
     def save(self):
         return self.event
 
     def get_extra_context(self):
         return {}
+
 
 class EventTimeForm(dynamicforms.Form):
     """
@@ -699,13 +1043,115 @@ class EventTimeForm(dynamicforms.Form):
         label=_("All Day")
     )
 
+    has_end_date = forms.BooleanField(
+        required=False,
+        label=_("Event has an end date")
+    )
+
     def __init__(self, event, index, *args, **kwargs):
-        super(EventTimeForm, self).__init__()
+        super(EventTimeForm, self).__init__(*args, **kwargs)
         self.event = event
         self.index = index
         kwargs.setdefault('initial', {})
         kwargs['initial']['label'] = kwargs['initial'].get("label_id", None)
-        super(type(self), self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = layout.Layout(
+            layout.Div(
+                "label",
+                layout.Row(
+                    layout.Div(
+                        layout.HTML(_("Start")),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "start_dd",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "start_mm",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "start_yyyy",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "start_hh",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "start_ii",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "is_all_day",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "has_end_date",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        layout.HTML(_("End")),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "end_dd",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "end_mm",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "end_yyyy",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "end_hh",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "end_ii",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+            )
+        )
 
     def clean(self):
         """"
@@ -831,6 +1277,7 @@ class EventTimeForm(dynamicforms.Form):
 
         return time
 
+
 class FeesOpeningHoursForm(dynamicforms.Form):
     """
     Form for fees and opening hours
@@ -852,70 +1299,154 @@ class FeesOpeningHoursForm(dynamicforms.Form):
         initial=False,
     )
 
-    mon_open0 = forms.TimeField(required=False)
-    mon_close0 = forms.TimeField(required=False)
-    mon_open1 = forms.TimeField(required=False)
-    mon_close1 = forms.TimeField(required=False)
+    mon_open0 = forms.TimeField(
+        label=_("opens"),
+        required=False,
+    )
+    mon_close0 = forms.TimeField(
+        label=_("closes"),
+        required=False,
+    )
+    mon_open1 = forms.TimeField(
+        label=_("opens again"),
+        required=False,
+    )
+    mon_close1 = forms.TimeField(
+        label=_("closes"),
+        required=False,
+    )
     mon_is_closed = forms.BooleanField(
         label=_("Closed"),
         required=False,
         initial=False,
     )
 
-    tue_open0 = forms.TimeField(required=False)
-    tue_close0 = forms.TimeField(required=False)
-    tue_open1 = forms.TimeField(required=False)
-    tue_close1 = forms.TimeField(required=False)
+    tue_open0 = forms.TimeField(
+        label=_("opens"),
+        required=False,
+    )
+    tue_close0 = forms.TimeField(
+        label=_("closes"),
+        required=False,
+    )
+    tue_open1 = forms.TimeField(
+        label=_("opens again"),
+        required=False,
+    )
+    tue_close1 = forms.TimeField(
+        label=_("closes"),
+        required=False,
+    )
     tue_is_closed = forms.BooleanField(
         label=_("Closed"),
         required=False,
         initial=False,
     )
 
-    wed_open0 = forms.TimeField(required=False)
-    wed_close0 = forms.TimeField(required=False)
-    wed_open1 = forms.TimeField(required=False)
-    wed_close1 = forms.TimeField(required=False)
+    wed_open0 = forms.TimeField(
+        label=_("opens"),
+        required=False,
+    )
+    wed_close0 = forms.TimeField(
+        label=_("closes"),
+        required=False,
+    )
+    wed_open1 = forms.TimeField(
+        label=_("opens again"),
+        required=False,
+    )
+    wed_close1 = forms.TimeField(
+        label=_("closes"),
+        required=False,
+    )
     wed_is_closed = forms.BooleanField(
         label=_("Closed"),
         required=False,
         initial=False,
     )
 
-    thu_open0 = forms.TimeField(required=False)
-    thu_close0 = forms.TimeField(required=False)
-    thu_open1 = forms.TimeField(required=False)
-    thu_close1 = forms.TimeField(required=False)
+    thu_open0 = forms.TimeField(
+        label=_("opens"),
+        required=False,
+    )
+    thu_close0 = forms.TimeField(
+        label=_("closes"),
+        required=False,
+    )
+    thu_open1 = forms.TimeField(
+        label=_("opens again"),
+        required=False,
+    )
+    thu_close1 = forms.TimeField(
+        label=_("closes"),
+        required=False,
+    )
     thu_is_closed = forms.BooleanField(
         label=_("Closed"),
         required=False,
         initial=False,
     )
 
-    fri_open0 = forms.TimeField(required=False)
-    fri_close0 = forms.TimeField(required=False)
-    fri_open1 = forms.TimeField(required=False)
-    fri_close1 = forms.TimeField(required=False)
+    fri_open0 = forms.TimeField(
+        label=_("opens"),
+        required=False,
+    )
+    fri_close0 = forms.TimeField(
+        label=_("closes"),
+        required=False,
+    )
+    fri_open1 = forms.TimeField(
+        label=_("opens again"),
+        required=False,
+    )
+    fri_close1 = forms.TimeField(
+        label=_("closes"),
+        required=False,
+    )
     fri_is_closed = forms.BooleanField(
         label=_("Closed"),
         required=False,
         initial=False,
     )
 
-    sat_open0 = forms.TimeField(required=False)
-    sat_close0 = forms.TimeField(required=False)
-    sat_open1 = forms.TimeField(required=False)
-    sat_close1 = forms.TimeField(required=False)
+    sat_open0 = forms.TimeField(
+        label=_("opens"),
+        required=False,
+    )
+    sat_close0 = forms.TimeField(
+        label=_("closes"),
+        required=False,
+    )
+    sat_open1 = forms.TimeField(
+        label=_("opens again"),
+        required=False,
+    )
+    sat_close1 = forms.TimeField(
+        label=_("closes"),
+        required=False,
+    )
     sat_is_closed = forms.BooleanField(
         label=_("Closed"),
         required=False,
         initial=False,
     )
 
-    sun_open0 = forms.TimeField(required=False)
-    sun_close0 = forms.TimeField(required=False)
-    sun_open1 = forms.TimeField(required=False)
-    sun_close1 = forms.TimeField(required=False)
+    sun_open0 = forms.TimeField(
+        label=_("opens"),
+        required=False,
+    )
+    sun_close0 = forms.TimeField(
+        label=_("closes"),
+        required=False,
+    )
+    sun_open1 = forms.TimeField(
+        label=_("opens again"),
+        required=False,
+    )
+    sun_close1 = forms.TimeField(
+        label=_("closes"),
+        required=False,
+    )
     sun_is_closed = forms.BooleanField(
         label=_("Closed"),
         required=False,
@@ -934,14 +1465,13 @@ class FeesOpeningHoursForm(dynamicforms.Form):
     )
 
     def __init__(self, event, index, *args, **kwargs):
-        super(FeesOpeningHoursForm, self).__init__()
         self.event = event
         self.index = index
         kwargs['initial'] = {
             'fees_en': event.fees_en,
             'fees_de': event.fees_de,
         }
-        super(type(self), self).__init__(*args, **kwargs)
+        super(FeesOpeningHoursForm, self).__init__(*args, **kwargs)
         show_breaks = False
         for d in WEEK_DAYS:
             time_open = getattr(
@@ -978,14 +1508,305 @@ class FeesOpeningHoursForm(dynamicforms.Form):
         self.fields['exceptions_de'].initial = event.exceptions_de
         self.fields['show_breaks'].initial = show_breaks
 
+        self.helper = FormHelper()
+        self.helper.form_action = "/helper/edit-%(URL_ID_EVENT)s-profile/%(slug)s/fees_opening_hours/" % {
+            'URL_ID_EVENT': URL_ID_EVENT,
+            'slug': self.event.slug,
+        }
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'target': "hidden_iframe",
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Fees"),
+                "fees_de",
+                "fees_en",
+            ),
+            layout.Fieldset(
+                string_concat(_("Opening Time"), " - ",  _("Closing Time")),
+                layout.Row(
+                    layout.Div(
+                        layout.HTML(_("Monday")),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "mon_open0",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "mon_close0",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "mon_is_closed",
+                        "show_breaks",
+                        layout.HTML("""{% load i18n %}
+                            <p>
+                                <a id="id_apply_all_days" href="#">{% trans "Apply to all days" %}</a>
+                            </p>
+                        """),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "mon_open1",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "mon_close1",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+
+                layout.Row(
+                    layout.Div(
+                        layout.HTML(_("Tuesday")),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "tue_open0",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "tue_close0",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "tue_is_closed",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "tue_open1",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "tue_close1",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+
+                layout.Row(
+                    layout.Div(
+                        layout.HTML(_("Wednesday")),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "wed_open0",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "wed_close0",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "wed_is_closed",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "wed_open1",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "wed_close1",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+
+                layout.Row(
+                    layout.Div(
+                        layout.HTML(_("Thursday")),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "thu_open0",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "thu_close0",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "thu_is_closed",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "thu_open1",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "thu_close1",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+
+                layout.Row(
+                    layout.Div(
+                        layout.HTML(_("Friday")),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "fri_open0",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "fri_close0",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "fri_is_closed",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "fri_open1",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "fri_close1",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+
+                layout.Row(
+                    layout.Div(
+                        layout.HTML(_("Saturday")),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "sat_open0",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "sat_close0",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "sat_is_closed",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "sat_open1",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "sat_close1",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+
+                layout.Row(
+                    layout.Div(
+                        layout.HTML(_("Sunday")),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "sun_open0",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "sun_close0",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "sun_is_closed",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "sun_open1",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "sun_close1",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+                "exceptions_de",
+                "exceptions_en",
+            ),
+            bootstrap.FormActions(
+                layout.Button('cancel', _('Cancel')),
+                layout.Submit('submit', _('Save')),
+            )
+        )
+
     def clean(self):
 
         for week_day in WEEK_DAYS:
             # here, we apply opening hours and do some checks
             if self.cleaned_data.get(week_day + '_open0', None) and \
-                self.cleaned_data.get(week_day + '_open1', None) and \
-                self.cleaned_data.get(week_day + '_close0', None) and \
-                self.cleaned_data.get(week_day + '_close1', None):
+                    self.cleaned_data.get(week_day + '_open1', None) and \
+                    self.cleaned_data.get(week_day + '_close0', None) and \
+                    self.cleaned_data.get(week_day + '_close1', None):
 
                 if self.cleaned_data[week_day + '_open1'] < self.cleaned_data[week_day + '_close0']:
                     self._errors[week_day + '_open1'] = [
@@ -999,7 +1820,7 @@ class FeesOpeningHoursForm(dynamicforms.Form):
                     self.cleaned_data[week_day + '_close'] = self.cleaned_data[week_day + '_close1']
 
             elif self.cleaned_data.get(week_day + '_open0', None) and \
-                self.cleaned_data.get(week_day + '_close0', None):
+                    self.cleaned_data.get(week_day + '_close0', None):
                 self.cleaned_data[week_day + '_open'] = self.cleaned_data[week_day + '_open0']
                 self.cleaned_data[week_day + '_close'] = self.cleaned_data[week_day + '_close0']
 
@@ -1052,7 +1873,9 @@ class FeesOpeningHoursForm(dynamicforms.Form):
     def get_extra_context(self):
         return {}
 
+
 class CategoriesForm(dynamicforms.Form):
+    # TODO: rework categories to use CheckboxSelectMultiple widget when it is clear what categorizations to use at all
     choose_creative_sectors = forms.BooleanField(
         initial=True,
         widget=forms.HiddenInput(
@@ -1082,9 +1905,8 @@ class CategoriesForm(dynamicforms.Form):
         return True
 
     def __init__(self, event, index, *args, **kwargs):
-        super(CategoriesForm, self).__init__()
+        super(CategoriesForm, self).__init__(*args, **kwargs)
         self.event = event
-        super(type(self), self).__init__(*args, **kwargs)
         self.creative_sectors = {}
         for item in get_related_queryset(Event, "creative_sectors"):
             self.creative_sectors[item.sysname] = {
@@ -1099,6 +1921,28 @@ class CategoriesForm(dynamicforms.Form):
             for ancestor in el.get_ancestors(include_self=True):
                 self.fields[PREFIX_CI + str(ancestor.id)].initial = True
         self.fields['tags'].initial = event.tags
+
+        self.helper = FormHelper()
+        self.helper.form_action = "/helper/edit-%(URL_ID_EVENT)s-profile/%(slug)s/categories/" % {
+            'URL_ID_EVENT': URL_ID_EVENT,
+            'slug': self.event.slug,
+        }
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'target': "hidden_iframe",
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Categories"),
+                "choose_creative_sectors",
+                "tags",
+            ),
+            bootstrap.FormActions(
+                layout.Button('cancel', _('Cancel')),
+                layout.Submit('submit', _('Save')),
+            )
+        )
 
     def save(self, *args, **kwargs):
         event = self.event
@@ -1124,6 +1968,7 @@ class CategoriesForm(dynamicforms.Form):
 
     def get_extra_context(self):
         return {}
+
 
 profile_forms = {
     'identity': IdentityForm,

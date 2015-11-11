@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 # Django settings for the Creative-City-Berlin project.
-import os
 from datetime import timedelta
 
+import os
+
 gettext = lambda s: s
+
+DEBUG = TEMPLATE_DEBUG = False
 
 SITE_ID = 1
 
@@ -89,9 +92,7 @@ INSTALLED_APPS = [
     "tagging",
     "tagging_autocomplete",
     "rosetta",
-    # "debug_toolbar",
     "haystack",
-    # "memcache_toolbar",
     "pipeline",
     "uni_form",
     "mptt",
@@ -178,7 +179,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE_CLASSES = [
     "django.middleware.common.CommonMiddleware",
-    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     "django.contrib.sessions.middleware.SessionMiddleware",
     'django.middleware.csrf.CsrfViewMiddleware',
     "jetson.apps.httpstate.middleware.HttpStateMiddleware",
@@ -451,11 +452,6 @@ MAILING_DEFAULT_FROM_NAME = 'Creative City Berlin'
 MAILING_DEFAULT_FROM_EMAIL = 'ccb-contact@kulturprojekte-berlin.de'
 
 
-### DEBUG TOOLBAR ###
-
-# execfile(os.path.join(JETSON_PATH, "jetson/settings/debug_toolbar.py"))
-
-
 ### GRAPPELLI ###
 
 execfile(os.path.join(JETSON_PATH, "jetson/settings/grappelli.py"))
@@ -579,6 +575,7 @@ PIPELINE_JS['job_offer_details'] = {
     'source_filenames': (
         "site/js/website/categories.js",
         "site/js/website/contact_details.js",
+        "site/js/website/gmaps_for_address.js",
         "site/js/website/profile.js",
         "site/js/website/formsets.js",
         "site/js/website/multipleselectautocomplete.js",
@@ -599,6 +596,15 @@ PIPELINE_JS['blog'] = {
         "site/js/website/blog.js",
     ),
     'output_filename': 'site/js/website/blog_compressed.js',
+}
+
+PIPELINE_JS['autocomplete'] = {
+    'source_filenames': (
+        "site/js/jquery/autocomplete_1.0/jquery.bgiframe.min.js",
+        "site/js/jquery/autocomplete_1.0/jquery.autocomplete.js",
+        "site/js/website/autocomplete.js",
+    ),
+    'output_filename': 'site/js/jquery/autocomplete_compressed.js',
 }
 
 COMPRESS_JETSON_JS['admin_person_change'] = {
@@ -846,7 +852,6 @@ MIGRATION_MODULES = {
     'djangocms_video': 'djangocms_video.migrations_django',
     'djangocms_style': 'djangocms_style.migrations_django',
     'djangocms_column': 'djangocms_column.migrations_django',
-    'djangocms_text_ckeditor': 'djangocms_text_ckeditor.migrations',
 }
 
 ### PERSISTENT DATABASE CONNECTIONS ###
@@ -859,3 +864,14 @@ try:
     execfile(os.path.join(os.path.dirname(__file__), "local_settings.py"))
 except IOError:
     pass
+
+### DEBUG TOOLBAR ###
+
+if DEBUG:
+    import debug_toolbar
+
+    INSTALLED_APPS += [
+        "debug_toolbar",
+        # "memcache_toolbar",
+    ]
+    execfile(os.path.join(JETSON_PATH, "jetson/settings/debug_toolbar.py"))

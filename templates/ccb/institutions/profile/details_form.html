@@ -1,7 +1,10 @@
-{% load i18n base_tags auth_extended uni_form_tags uni_form_field %}
+{% load i18n base_tags auth_extended uni_form_tags uni_form_field crispy_forms_tags %}
 <h5 class="edit_subline">{% trans "edit details" %}</h5>
 <div class="edit">
     <div class="detail-form">
+
+        {#% crispy form %#}
+
         <form action="/helper/edit-{{ URL_ID_INSTITUTION }}-profile/{{ object.slug }}/details/" method="post"
             enctype="multipart/form-data" target="hidden_iframe" class="uniForm">{% csrf_token %}
             <fieldset class="inlineLabels">

@@ -2,19 +2,24 @@
 from django.db import models
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import string_concat
 from django.conf import settings
 
 from base_libs.forms import dynamicforms
 from base_libs.forms.fields import ImageField
 from base_libs.utils.misc import get_related_queryset, XChoiceList
 
-image_mods = models.get_app("image_mods")
-
 from jetson.apps.location.models import Address
 from jetson.apps.optionset.models import PhoneType
 
 from ccb.apps.institutions.models import Institution, InstitutionalContact
 from ccb.apps.site_specific.models import ContextItem
+from ccb.apps.institutions.models import URL_ID_INSTITUTION
+
+from crispy_forms.helper import FormHelper
+from crispy_forms import layout, bootstrap
+
+image_mods = models.get_app("image_mods")
 
 LEGAL_FORM_CHOICES = XChoiceList(get_related_queryset(Institution, 'legal_form'))
 
@@ -42,6 +47,10 @@ MIN_LOGO_SIZE = getattr(settings, "MIN_LOGO_SIZE", (100, 100))
 STR_LOGO_SIZE = "%sx%s" % LOGO_SIZE
 STR_MIN_LOGO_SIZE = "%sx%s" % MIN_LOGO_SIZE
 
+# Collect translatable strings
+_("Remove from map")
+_("Apply to all days")
+
 
 # TODO: each form could be ModelForm. Each formset could be ModelFormSet.
 # noinspection PyClassHasNoInit
@@ -56,13 +65,34 @@ class IdentityForm(dynamicforms.Form):
     )
 
     def __init__(self, institution, index, *args, **kwargs):
-        super(IdentityForm, self).__init__()
+        super(IdentityForm, self).__init__(*args, **kwargs)
         self.institution = institution
         self.index = index
-        super(type(self), self).__init__(*args, **kwargs)
         if not args and not kwargs:  # if nothing is posted
             self.fields['title'].initial = institution.title
             self.fields['title2'].initial = institution.title2
+
+        self.helper = FormHelper()
+        self.helper.form_action = "/helper/edit-%(URL_ID_INSTITUTION)s-profile/%(slug)s/identity/" % {
+            'URL_ID_INSTITUTION': URL_ID_INSTITUTION,
+            'slug': self.institution.slug,
+        }
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'target': "hidden_iframe",
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Name"),
+                "title",
+                "title2",
+            ),
+            bootstrap.FormActions(
+                layout.Button('cancel', _('Cancel')),
+                layout.Submit('submit', _('Save')),
+            )
+        )
 
     def save(self):
         institution = self.institution
@@ -73,6 +103,7 @@ class IdentityForm(dynamicforms.Form):
 
     def get_extra_context(self):
         return {}
+
 
 class DescriptionForm(dynamicforms.Form):
     description_en = forms.CharField(
@@ -87,13 +118,34 @@ class DescriptionForm(dynamicforms.Form):
     )
 
     def __init__(self, institution, index, *args, **kwargs):
-        super(DescriptionForm, self).__init__()
+        super(DescriptionForm, self).__init__(*args, **kwargs)
         self.institution = institution
         self.index = index
-        super(type(self), self).__init__(*args, **kwargs)
         if not args and not kwargs:  # if nothing is posted
             self.fields['description_en'].initial = institution.description_en
             self.fields['description_de'].initial = institution.description_de
+
+        self.helper = FormHelper()
+        self.helper.form_action = "/helper/edit-%(URL_ID_INSTITUTION)s-profile/%(slug)s/description/" % {
+            'URL_ID_INSTITUTION': URL_ID_INSTITUTION,
+            'slug': self.institution.slug,
+        }
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'target': "hidden_iframe",
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Description"),
+                "description_en",
+                "description_de",
+            ),
+            bootstrap.FormActions(
+                layout.Button('cancel', _('Cancel')),
+                layout.Submit('submit', _('Save')),
+            )
+        )
 
     def save(self):
         institution = self.institution
@@ -105,6 +157,7 @@ class DescriptionForm(dynamicforms.Form):
     def get_extra_context(self):
         return {}
 
+
 class AvatarForm(dynamicforms.Form):
     media_file = ImageField(
         label=_("Photo"),
@@ -115,10 +168,37 @@ class AvatarForm(dynamicforms.Form):
     )
 
     def __init__(self, institution, index, *args, **kwargs):
-        super(AvatarForm, self).__init__()
+        super(AvatarForm, self).__init__(*args, **kwargs)
         self.institution = institution
         self.index = index
-        super(type(self), self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = "/helper/edit-%(URL_ID_INSTITUTION)s-profile/%(slug)s/avatar/" % {
+            'URL_ID_INSTITUTION': URL_ID_INSTITUTION,
+            'slug': self.institution.slug,
+        }
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'target': "hidden_iframe",
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Avatar"),
+                layout.HTML("""{% load image_modifications %}
+                    {% if object.image %}
+                        <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"ap" }}" alt="{{ object.get_title|escape }}"/>
+                    {% else %}
+                        <img src="{{ DEFAULT_FORM_LOGO_4_INSTITUTION }}" alt="{{ object.get_title|escape }}"/>
+                    {% endif %}
+                """),
+                "media_file",
+            ),
+            bootstrap.FormActions(
+                layout.Button('cancel', _('Cancel')),
+                layout.Submit('submit', _('Save')),
+            )
+        )
 
     def save(self):
         institution = self.institution
@@ -134,6 +214,7 @@ class AvatarForm(dynamicforms.Form):
 
     def get_extra_context(self):
         return {}
+
 
 class ContactForm(dynamicforms.Form):
     location_type = forms.ChoiceField(
@@ -312,10 +393,9 @@ class ContactForm(dynamicforms.Form):
     )
 
     def __init__(self, institution, index, *args, **kwargs):
-        super(ContactForm, self).__init__()
+        super(ContactForm, self).__init__(*args, **kwargs)
         self.institution = institution
         self.index = index
-        super(type(self), self).__init__(*args, **kwargs)
         if not args and not kwargs:  # if nothing is posted
             if index is not None and index.isdigit():
                 index = int(index)
@@ -360,15 +440,190 @@ class ContactForm(dynamicforms.Form):
                 self.fields['email1'].initial = contact.email1_address
                 self.fields['email2'].initial = contact.email2_address
 
+        self.helper = FormHelper()
+        self.helper.form_action = "/helper/edit-%(URL_ID_INSTITUTION)s-profile/%(slug)s/contact/%(index)s/" % {
+            'URL_ID_INSTITUTION': URL_ID_INSTITUTION,
+            'slug': self.institution.slug,
+            'index': self.index,
+        }
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'target': "hidden_iframe",
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Location"),
+                "location_type",
+                "location_title",
+            ),
+            layout.Fieldset(
+                _("Address"),
+                "latitude",  # hidden field
+                "longitude",  # hidden field
+                "district",  # hidden field
+                "street_address",
+                "street_address2",
+                layout.Row(
+                    layout.Div(
+                        "postal_code",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "city",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+                "country",
+                layout.HTML("""{% load i18n %}
+                    <div class="map_container">
+                        <div class="map_canvas">
+                            <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
+                        </div>
+                        <div class="buttonHolder">
+                            <button id="dyn_remove_geo" class="btn">{% filter upper %}{% trans "Remove from map" %}{% endfilter %}</button>
+                        </div>
+                    </div>
+                """),
+                css_id="fieldset_institution_select",
+            ),
+            layout.Fieldset(
+                _("Phone"),
+                layout.Row(
+                    layout.Div(
+                        "phone_country",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                    layout.Div(
+                        "phone_area",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                    layout.Div(
+                        "phone_number",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                ),
+            ),
+            layout.Fieldset(
+                _("Fax"),
+                layout.Row(
+                    layout.Div(
+                        "fax_country",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                    layout.Div(
+                        "fax_area",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                    layout.Div(
+                        "fax_number",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                ),
+            ),
+            layout.Fieldset(
+                _("Mobile"),
+                layout.Row(
+                    layout.Div(
+                        "mobile_country",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                    layout.Div(
+                        "mobile_area",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                    layout.Div(
+                        "mobile_number",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                ),
+            ),
+            layout.Fieldset(
+                _("Emails"),
+                "email0",
+                "email1",
+                "email2",
+            ),
+            layout.Fieldset(
+                _("Websites"),
+                layout.Row(
+                    layout.Div(
+                        "url0_type",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "url0_link",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        "url1_type",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "url1_link",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        "url2_type",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "url2_link",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+            ),
+            layout.Fieldset(
+                _("Instant Messengers"),
+                layout.Row(
+                    layout.Div(
+                        "im0_type",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "im0_address",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        "im1_type",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "im1_address",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        "im2_type",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "im2_address",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+            ),
+            bootstrap.FormActions(
+                layout.Button('cancel', _('Cancel')),
+                layout.Submit('save_as_primary', _('Save as Primary')),
+                layout.Submit('submit', _('Save')),
+            )
+        )
+
     def save(self):
         institution = self.institution
         index = self.index
         data = self.cleaned_data
         save_as_primary = bool(data.get("save_as_primary", False))
         if save_as_primary:
-            for contact in institution.get_contacts():
-                contact.is_primary = False
-                super(type(contact), contact).save()
+            InstitutionalContact.objects.filter(institution=institution).update(is_primary=False)
         elif not institution.get_contacts():
             save_as_primary = True
         if index is not None and index.isdigit():  # change
@@ -461,6 +716,7 @@ class ContactForm(dynamicforms.Form):
             contact = institution.get_contacts()[index]
         return {'contact': contact}
 
+
 class DetailsForm(dynamicforms.Form):
     legal_form = forms.ChoiceField(
         required=True,
@@ -490,15 +746,46 @@ class DetailsForm(dynamicforms.Form):
     )
 
     def __init__(self, institution, index, *args, **kwargs):
-        super(DetailsForm, self).__init__()
+        super(DetailsForm, self).__init__(*args, **kwargs)
         self.institution = institution
         self.index = index
-        super(type(self), self).__init__(*args, **kwargs)
         if not args and not kwargs:  # if nothing is posted
             self.fields['legal_form'].initial = institution.legal_form_id
             self.fields['establishment_yyyy'].initial = institution.establishment_yyyy
             self.fields['establishment_mm'].initial = institution.establishment_mm
             self.fields['nof_employees'].initial = institution.nof_employees
+
+        self.helper = FormHelper()
+        self.helper.form_action = "/helper/edit-%(URL_ID_INSTITUTION)s-profile/%(slug)s/details/" % {
+            'URL_ID_INSTITUTION': URL_ID_INSTITUTION,
+            'slug': self.institution.slug,
+        }
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'target': "hidden_iframe",
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Details"),
+                "legal_form",
+                layout.Row(
+                    layout.Div(
+                        "establishment_mm",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "establishment_yyyy",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+                "nof_employees",
+            ),
+            bootstrap.FormActions(
+                layout.Button('cancel', _('Cancel')),
+                layout.Submit('submit', _('Save')),
+            )
+        )
 
     def save(self):
         institution = self.institution
@@ -511,6 +798,7 @@ class DetailsForm(dynamicforms.Form):
 
     def get_extra_context(self):
         return {}
+
 
 class PaymentForm(dynamicforms.Form):
     is_card_visa_ok = forms.BooleanField(
@@ -580,10 +868,9 @@ class PaymentForm(dynamicforms.Form):
     )
 
     def __init__(self, institution, index, *args, **kwargs):
-        super(PaymentForm, self).__init__()
+        super(PaymentForm, self).__init__(*args, **kwargs)
         self.institution = institution
         self.index = index
-        super(type(self), self).__init__(*args, **kwargs)
         if not args and not kwargs:  # if nothing is posted
             self.fields['is_card_visa_ok'].initial = institution.is_card_visa_ok
             self.fields['is_card_mastercard_ok'].initial = institution.is_card_mastercard_ok
@@ -596,6 +883,76 @@ class PaymentForm(dynamicforms.Form):
             self.fields['is_invoice_ok'].initial = institution.is_invoice_ok
             self.fields['is_ec_maestro_ok'].initial = institution.is_ec_maestro_ok
             self.fields['is_giropay_ok'].initial = institution.is_giropay_ok
+
+        self.helper = FormHelper()
+        self.helper.form_action = "/helper/edit-%(URL_ID_INSTITUTION)s-profile/%(slug)s/payment/" % {
+            'URL_ID_INSTITUTION': URL_ID_INSTITUTION,
+            'slug': self.institution.slug,
+        }
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'target': "hidden_iframe",
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Payment Options"),
+                layout.Row(
+                    layout.Div(
+                        "is_cash_ok",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "is_card_visa_ok",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        "is_invoice_ok",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "is_card_mastercard_ok",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        "is_on_delivery_ok",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "is_card_americanexpress_ok",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        "is_ec_maestro_ok",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "is_giropay_ok",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        "is_prepayment_ok",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "is_paypal_ok",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+            ),
+            bootstrap.FormActions(
+                layout.Button('cancel', _('Cancel')),
+                layout.Submit('submit', _('Save')),
+            )
+        )
 
     def save(self):
         institution = self.institution
@@ -616,6 +973,7 @@ class PaymentForm(dynamicforms.Form):
     def get_extra_context(self):
         return {}
 
+
 class OpeningHoursForm(dynamicforms.Form):
     show_breaks = forms.BooleanField(
         required=False,
@@ -629,70 +987,154 @@ class OpeningHoursForm(dynamicforms.Form):
         initial=False,
     )
 
-    mon_open0 = forms.TimeField(required=False)
-    mon_close0 = forms.TimeField(required=False)
-    mon_open1 = forms.TimeField(required=False)
-    mon_close1 = forms.TimeField(required=False)
+    mon_open0 = forms.TimeField(
+        label=_("opens"),
+        required=False,
+    )
+    mon_close0 = forms.TimeField(
+        label=_("closes"),
+        required=False,
+    )
+    mon_open1 = forms.TimeField(
+        label=_("opens again"),
+        required=False,
+    )
+    mon_close1 = forms.TimeField(
+        label=_("closes"),
+        required=False,
+    )
     mon_is_closed = forms.BooleanField(
         label=_("Closed"),
         required=False,
         initial=False,
     )
 
-    tue_open0 = forms.TimeField(required=False)
-    tue_close0 = forms.TimeField(required=False)
-    tue_open1 = forms.TimeField(required=False)
-    tue_close1 = forms.TimeField(required=False)
+    tue_open0 = forms.TimeField(
+        label=_("opens"),
+        required=False,
+    )
+    tue_close0 = forms.TimeField(
+        label=_("closes"),
+        required=False,
+    )
+    tue_open1 = forms.TimeField(
+        label=_("opens again"),
+        required=False,
+    )
+    tue_close1 = forms.TimeField(
+        label=_("closes"),
+        required=False,
+    )
     tue_is_closed = forms.BooleanField(
         label=_("Closed"),
         required=False,
         initial=False,
     )
 
-    wed_open0 = forms.TimeField(required=False)
-    wed_close0 = forms.TimeField(required=False)
-    wed_open1 = forms.TimeField(required=False)
-    wed_close1 = forms.TimeField(required=False)
+    wed_open0 = forms.TimeField(
+        label=_("opens"),
+        required=False,
+    )
+    wed_close0 = forms.TimeField(
+        label=_("closes"),
+        required=False,
+    )
+    wed_open1 = forms.TimeField(
+        label=_("opens again"),
+        required=False,
+    )
+    wed_close1 = forms.TimeField(
+        label=_("closes"),
+        required=False,
+    )
     wed_is_closed = forms.BooleanField(
         label=_("Closed"),
         required=False,
         initial=False,
     )
 
-    thu_open0 = forms.TimeField(required=False)
-    thu_close0 = forms.TimeField(required=False)
-    thu_open1 = forms.TimeField(required=False)
-    thu_close1 = forms.TimeField(required=False)
+    thu_open0 = forms.TimeField(
+        label=_("opens"),
+        required=False,
+    )
+    thu_close0 = forms.TimeField(
+        label=_("closes"),
+        required=False,
+    )
+    thu_open1 = forms.TimeField(
+        label=_("opens again"),
+        required=False,
+    )
+    thu_close1 = forms.TimeField(
+        label=_("closes"),
+        required=False,
+    )
     thu_is_closed = forms.BooleanField(
         label=_("Closed"),
         required=False,
         initial=False,
     )
 
-    fri_open0 = forms.TimeField(required=False)
-    fri_close0 = forms.TimeField(required=False)
-    fri_open1 = forms.TimeField(required=False)
-    fri_close1 = forms.TimeField(required=False)
+    fri_open0 = forms.TimeField(
+        label=_("opens"),
+        required=False,
+    )
+    fri_close0 = forms.TimeField(
+        label=_("closes"),
+        required=False,
+    )
+    fri_open1 = forms.TimeField(
+        label=_("opens again"),
+        required=False,
+    )
+    fri_close1 = forms.TimeField(
+        label=_("closes"),
+        required=False,
+    )
     fri_is_closed = forms.BooleanField(
         label=_("Closed"),
         required=False,
         initial=False,
     )
 
-    sat_open0 = forms.TimeField(required=False)
-    sat_close0 = forms.TimeField(required=False)
-    sat_open1 = forms.TimeField(required=False)
-    sat_close1 = forms.TimeField(required=False)
+    sat_open0 = forms.TimeField(
+        label=_("opens"),
+        required=False,
+    )
+    sat_close0 = forms.TimeField(
+        label=_("closes"),
+        required=False,
+    )
+    sat_open1 = forms.TimeField(
+        label=_("opens again"),
+        required=False,
+    )
+    sat_close1 = forms.TimeField(
+        label=_("closes"),
+        required=False,
+    )
     sat_is_closed = forms.BooleanField(
         label=_("Closed"),
         required=False,
         initial=False,
     )
 
-    sun_open0 = forms.TimeField(required=False)
-    sun_close0 = forms.TimeField(required=False)
-    sun_open1 = forms.TimeField(required=False)
-    sun_close1 = forms.TimeField(required=False)
+    sun_open0 = forms.TimeField(
+        label=_("opens"),
+        required=False,
+    )
+    sun_close0 = forms.TimeField(
+        label=_("closes"),
+        required=False,
+    )
+    sun_open1 = forms.TimeField(
+        label=_("opens again"),
+        required=False,
+    )
+    sun_close1 = forms.TimeField(
+        label=_("closes"),
+        required=False,
+    )
     sun_is_closed = forms.BooleanField(
         label=_("Closed"),
         required=False,
@@ -711,10 +1153,9 @@ class OpeningHoursForm(dynamicforms.Form):
     )
 
     def __init__(self, institution, index, *args, **kwargs):
-        super(OpeningHoursForm, self).__init__()
+        super(OpeningHoursForm, self).__init__(*args, **kwargs)
         self.institution = institution
         self.index = index
-        super(type(self), self).__init__(*args, **kwargs)
         if not args and not kwargs:  # if nothing is posted
             self.fields['is_appointment_based'].initial = institution.is_appointment_based
             show_breaks = False
@@ -752,6 +1193,294 @@ class OpeningHoursForm(dynamicforms.Form):
             self.fields['exceptions_en'].initial = institution.exceptions_en
             self.fields['exceptions_de'].initial = institution.exceptions_de
             self.fields['show_breaks'].initial = show_breaks
+
+        self.helper = FormHelper()
+        self.helper.form_action = "/helper/edit-%(URL_ID_INSTITUTION)s-profile/%(slug)s/opening_hours/" % {
+            'URL_ID_INSTITUTION': URL_ID_INSTITUTION,
+            'slug': self.institution.slug,
+        }
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'target': "hidden_iframe",
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                string_concat(_("Opening Time"), " - ",  _("Closing Time")),
+                layout.Row(
+                    layout.Div(
+                        layout.HTML(_("Monday")),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "mon_open0",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "mon_close0",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "mon_is_closed",
+                        "show_breaks",
+                        layout.HTML("""{% load i18n %}
+                            <p>
+                                <a id="id_apply_all_days" href="#">{% trans "Apply to all days" %}</a>
+                            </p>
+                        """),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "mon_open1",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "mon_close1",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+                
+                layout.Row(
+                    layout.Div(
+                        layout.HTML(_("Tuesday")),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "tue_open0",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "tue_close0",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "tue_is_closed",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "tue_open1",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "tue_close1",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+                
+                layout.Row(
+                    layout.Div(
+                        layout.HTML(_("Wednesday")),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "wed_open0",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "wed_close0",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "wed_is_closed",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "wed_open1",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "wed_close1",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+                
+                layout.Row(
+                    layout.Div(
+                        layout.HTML(_("Thursday")),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "thu_open0",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "thu_close0",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "thu_is_closed",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "thu_open1",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "thu_close1",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+                
+                layout.Row(
+                    layout.Div(
+                        layout.HTML(_("Friday")),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "fri_open0",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "fri_close0",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "fri_is_closed",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "fri_open1",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "fri_close1",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+                
+                layout.Row(
+                    layout.Div(
+                        layout.HTML(_("Saturday")),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "sat_open0",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "sat_close0",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "sat_is_closed",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "sat_open1",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "sat_close1",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+                
+                layout.Row(
+                    layout.Div(
+                        layout.HTML(_("Sunday")),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "sun_open0",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "sun_close0",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "sun_is_closed",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "sun_open1",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "sun_close1",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        layout.HTML("&nbsp;"),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+                
+                "exceptions_de",
+                "exceptions_en",
+                "is_appointment_based",
+            ),
+            bootstrap.FormActions(
+                layout.Button('cancel', _('Cancel')),
+                layout.Submit('submit', _('Save')),
+            )
+        )
 
     def clean(self):
 
@@ -838,7 +1567,9 @@ class OpeningHoursForm(dynamicforms.Form):
     def get_extra_context(self):
         return {}
 
+
 class CategoriesForm(dynamicforms.Form):
+    # TODO: rework categories to use CheckboxSelectMultiple widget when it is clear what categorizations to use at all
     choose_creative_sectors = forms.BooleanField(
         initial=True,
         widget=forms.HiddenInput(
@@ -900,9 +1631,8 @@ class CategoriesForm(dynamicforms.Form):
         return True
 
     def __init__(self, institution, index, *args, **kwargs):
-        super(CategoriesForm, self).__init__()
+        super(CategoriesForm, self).__init__(*args, **kwargs)
         self.institution = institution
-        super(type(self), self).__init__(*args, **kwargs)
         self.creative_sectors = {}
         for item in get_related_queryset(Institution, "creative_sectors"):
             self.creative_sectors[item.sysname] = {
@@ -942,6 +1672,29 @@ class CategoriesForm(dynamicforms.Form):
         for el in institution.get_object_types():
             for ancestor in el.get_ancestors(include_self=True):
                 self.fields[PREFIX_OT + str(ancestor.id)].initial = True
+
+        self.helper = FormHelper()
+        self.helper.form_action = "/helper/edit-%(URL_ID_INSTITUTION)s-profile/%(slug)s/categories/" % {
+            'URL_ID_INSTITUTION': URL_ID_INSTITUTION,
+            'slug': self.institution.slug,
+        }
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'target': "hidden_iframe",
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Categories"),
+                "choose_creative_sectors",
+                "choose_context_categories",
+                "choose_object_types",
+            ),
+            bootstrap.FormActions(
+                layout.Button('cancel', _('Cancel')),
+                layout.Submit('submit', _('Save')),
+            )
+        )
 
     def save(self, *args, **kwargs):
         institution = self.institution
@@ -986,6 +1739,7 @@ class CategoriesForm(dynamicforms.Form):
 
     def get_extra_context(self):
         return {}
+
 
 profile_forms = {
     'identity': IdentityForm,

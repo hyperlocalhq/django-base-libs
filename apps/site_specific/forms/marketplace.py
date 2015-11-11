@@ -6,20 +6,20 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.utils.dates import MONTHS
-
 from base_libs.forms import dynamicforms
 from base_libs.utils.misc import get_related_queryset, XChoiceList
 from base_libs.forms.fields import AutocompleteField
 from base_libs.middleware import get_current_user
-
-image_mods = models.get_app("image_mods")
-
 from tagging.forms import TagField
 from tagging_autocomplete.widgets import TagAutocomplete
-
 from jetson.apps.location.models import Address
 from jetson.apps.optionset.models import PhoneType
 from ccb.apps.marketplace.models import JobOffer
+from ccb.apps.marketplace.models import URL_ID_JOB_OFFER
+from crispy_forms.helper import FormHelper
+from crispy_forms import layout, bootstrap
+
+image_mods = models.get_app("image_mods")
 
 YEARS_CHOICES = [("", _("Year"))] + [(i, i) for i in range(2008, 2040)]
 MONTHS_CHOICES = [("", _("Month"))] + MONTHS.items()
@@ -46,6 +46,9 @@ LOGO_SIZE = getattr(settings, "LOGO_SIZE", (100, 100))
 MIN_LOGO_SIZE = getattr(settings, "MIN_LOGO_SIZE", (100, 100))
 STR_LOGO_SIZE = "%sx%s" % LOGO_SIZE
 STR_MIN_LOGO_SIZE = "%sx%s" % MIN_LOGO_SIZE
+
+# Collect translatable strings
+_("Remove from map")
 
 
 # TODO: each form could be ModelForm. Each formset could be ModelFormSet.
@@ -90,10 +93,9 @@ class DetailsForm(dynamicforms.Form):
     )
 
     def __init__(self, job_offer, index, *args, **kwargs):
-        super(DetailsForm, self).__init__()
+        super(DetailsForm, self).__init__(*args, **kwargs)
         self.job_offer = job_offer
         self.index = index
-        super(type(self), self).__init__(*args, **kwargs)
         if not args and not kwargs:  # if nothing is posted
             self.fields['position'].initial = job_offer.position
             self.fields['job_type'].initial = job_offer.job_type_id
@@ -103,6 +105,48 @@ class DetailsForm(dynamicforms.Form):
                 self.fields['end_yyyy'].initial = job_offer.published_till.year
                 self.fields['end_mm'].initial = job_offer.published_till.month
                 self.fields['end_dd'].initial = job_offer.published_till.day
+
+        self.helper = FormHelper()
+        self.helper.form_action = "/helper/edit-%(URL_ID_JOB_OFFER)s-profile/%(slug)s/details/" % {
+            'URL_ID_JOB_OFFER': URL_ID_JOB_OFFER,
+            'slug': self.job_offer.get_secure_id(),
+        }
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'target': "hidden_iframe",
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Details"),
+                "position",
+                "job_type",
+                "qualifications",
+                "description",
+                layout.Row(
+                    layout.Div(
+                        layout.HTML(_("Publish until")),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "end_dd",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "end_mm",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "end_yyyy",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+            ),
+            bootstrap.FormActions(
+                layout.Button('cancel', _('Cancel')),
+                layout.Submit('submit', _('Save')),
+            )
+        )
 
     def save(self):
         job_offer = self.job_offer
@@ -134,6 +178,7 @@ class DetailsForm(dynamicforms.Form):
 
     def get_extra_context(self):
         return {}
+
 
 class ContactForm(dynamicforms.Form):
     offering_institution = AutocompleteField(
@@ -331,10 +376,9 @@ class ContactForm(dynamicforms.Form):
     )
 
     def __init__(self, job_offer, index, *args, **kwargs):
-        super(ContactForm, self).__init__()
+        super(ContactForm, self).__init__(*args, **kwargs)
         self.job_offer = job_offer
         self.index = index
-        super(type(self), self).__init__(*args, **kwargs)
         if not args and not kwargs:  # if nothing is posted
             self.fields['contact_person_name'].initial = job_offer.contact_person_name
 
@@ -387,6 +431,199 @@ class ContactForm(dynamicforms.Form):
             self.fields['email1'].initial = contact.email1_address
             self.fields['email2'].initial = contact.email2_address
             self.fields['publish_emails'].initial = contact.publish_emails
+
+        self.helper = FormHelper()
+        self.helper.form_action = "/helper/edit-%(URL_ID_JOB_OFFER)s-profile/%(slug)s/contact/" % {
+            'URL_ID_JOB_OFFER': URL_ID_JOB_OFFER,
+            'slug': self.job_offer.get_secure_id(),
+        }
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'target': "hidden_iframe",
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Institution/Company"),
+                "offering_institution",
+                layout.HTML("""{% load i18n %}
+                    <button id="id_institution_enter" class="btn btn-link">{% trans "Not listed? Enter manually" %}</button>
+                """),
+                css_id="fieldset_institution_select",
+            ),
+            layout.Fieldset(
+                _("Institution/Company"),
+                "offering_institution_title",
+                layout.HTML("""{% load i18n %}
+                    <button id="id_institution_select" class="btn btn-link">{% trans "Back to selection" %}</button>
+                """),
+                css_id="fieldset_institution_enter",
+                css_class="hidden",
+            ),
+            layout.Fieldset(
+                _("Contact person"),
+                "contact_person_ind",
+                "contact_person_name",
+            ),
+            layout.Fieldset(
+                _("Address"),
+                "latitude",  # hidden field
+                "longitude",  # hidden field
+                "district",  # hidden field
+                "street_address",
+                "street_address2",
+                layout.Row(
+                    layout.Div(
+                        "postal_code",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "city",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+                "country",
+                layout.HTML("""{% load i18n %}
+                    <div class="map_container">
+                        <div class="map_canvas">
+                            <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
+                        </div>
+                        <div class="buttonHolder">
+                            <button id="dyn_locate_geo" class="btn">{% filter upper %}{% trans "Locate on map" %}{% endfilter %}</button>
+                            <button id="dyn_remove_geo" class="btn">{% filter upper %}{% trans "Remove from map" %}{% endfilter %}</button>
+                        </div>
+                    </div>
+                """),
+                css_id="fieldset_institution_select",
+            ),
+            layout.Fieldset(
+                _("Phone"),
+                layout.Row(
+                    layout.Div(
+                        "phone_country",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                    layout.Div(
+                        "phone_area",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                    layout.Div(
+                        "phone_number",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                ),
+            ),
+            layout.Fieldset(
+                _("Fax"),
+                layout.Row(
+                    layout.Div(
+                        "fax_country",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                    layout.Div(
+                        "fax_area",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                    layout.Div(
+                        "fax_number",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                ),
+            ),
+            layout.Fieldset(
+                _("Mobile"),
+                layout.Row(
+                    layout.Div(
+                        "mobile_country",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                    layout.Div(
+                        "mobile_area",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                    layout.Div(
+                        "mobile_number",
+                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                    ),
+                ),
+            ),
+            layout.Fieldset(
+                _("Emails"),
+                "email0",
+                "email1",
+                "email2",
+            ),
+            layout.Fieldset(
+                _("Websites"),
+                layout.Row(
+                    layout.Div(
+                        "url0_type",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "url0_link",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        "url1_type",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "url1_link",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        "url2_type",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "url2_link",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+            ),
+            layout.Fieldset(
+                _("Instant Messengers"),
+                layout.Row(
+                    layout.Div(
+                        "im0_type",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "im0_address",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        "im1_type",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "im1_address",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        "im2_type",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "im2_address",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+            ),
+            bootstrap.FormActions(
+                layout.Button('cancel', _('Cancel')),
+                layout.Submit('submit', _('Save')),
+            )
+        )
 
     def save(self):
         job_offer = self.job_offer
@@ -456,15 +693,14 @@ class ContactForm(dynamicforms.Form):
     def get_extra_context(self):
         return {}
 
+
 class CategoriesForm(dynamicforms.Form):
-    choose_job_sectors = forms.BooleanField(
-        initial=True,
-        widget=forms.HiddenInput(
-            attrs={
-                "class": "form_hidden",
-            }
-        ),
-        required=False,
+    job_sectors = forms.ModelMultipleChoiceField(
+        queryset=get_related_queryset(JobOffer, "job_sectors"),
+        required=True,
+        widget=forms.CheckboxSelectMultiple,
+        help_text="",
+        label="",
     )
 
     tags = TagField(
@@ -475,36 +711,36 @@ class CategoriesForm(dynamicforms.Form):
         widget=TagAutocomplete,
     )
 
-    def clean_choose_job_sectors(self):
-        data = self.data
-        el_count = 0
-        for el in self.job_sectors.values():
-            if el['field_name'] in data:
-                el_count += 1
-        if not el_count:
-            raise forms.ValidationError(_("Please choose at least one job sector."))
-        return True
-
     def __init__(self, job_offer, index, *args, **kwargs):
-        super(CategoriesForm, self).__init__()
+        super(CategoriesForm, self).__init__(*args, **kwargs)
         self.job_offer = job_offer
-        super(type(self), self).__init__(*args, **kwargs)
-        self.job_sectors = {}
-        for item in get_related_queryset(JobOffer, "job_sectors"):
-            self.job_sectors[item.slug] = {
-                'id': item.id,
-                'field_name': PREFIX_JS + str(item.id),
-                'title': item.title,
-            }
-        js_ids = [el.id for el in job_offer.job_sectors.all()]
-        for s in self.job_sectors.values():
-            self.fields[s['field_name']] = forms.BooleanField(
-                required=False
-            )
-        for s in self.job_sectors.values():
-            if s['id'] in js_ids:
-                self.fields[PREFIX_JS + str(s['id'])].initial = True
+        self.fields['job_sectors'].initial = job_offer.job_sectors.all()
         self.fields['tags'].initial = job_offer.tags
+
+        self.helper = FormHelper()
+        self.helper.form_action = "/helper/edit-%(URL_ID_JOB_OFFER)s-profile/%(slug)s/categories/" % {
+            'URL_ID_JOB_OFFER': URL_ID_JOB_OFFER,
+            'slug': self.job_offer.get_secure_id(),
+        }
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'target': "hidden_iframe",
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Categories"),
+                "job_sectors",
+                layout.HTML("""{% load i18n %}
+                    <p class="disclaimer">{% blocktrans %}Is some category missing? You can <a href="/ticket/new-category/">suggest it here</a>.{% endblocktrans %}</p>
+                """),
+                "tags",
+            ),
+            bootstrap.FormActions(
+                layout.Button('cancel', _('Cancel')),
+                layout.Submit('submit', _('Save')),
+            )
+        )
 
     def save(self, *args, **kwargs):
         job_offer = self.job_offer
@@ -512,17 +748,14 @@ class CategoriesForm(dynamicforms.Form):
         job_offer.tags = cleaned['tags']
         job_offer.save()
 
-        selected_js = {}
-        for item in get_related_queryset(JobOffer, "job_sectors"):
-            if cleaned.get(PREFIX_JS + str(item.id), False):
-                selected_js[item.id] = item
         job_offer.job_sectors.clear()
-        job_offer.job_sectors.add(*selected_js.values())
+        job_offer.job_sectors.add(*cleaned['job_sectors'])
 
         return job_offer
 
     def get_extra_context(self):
         return {}
+
 
 profile_forms = {
     'details': DetailsForm,
