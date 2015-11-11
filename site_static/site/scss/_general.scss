@@ -1,0 +1,192 @@
+@charset "UTF-8";
+
+body {
+    font-family: $font-2, $font-family-1;
+    font-size: 15px;
+    font-weight: $font-regular;
+    color: $black;
+    &.show-layer {
+        height: 100%;
+        min-height: 100%;
+        overflow: hidden;
+    }
+}
+
+b, strong {
+    font-weight: $font-bold;
+}
+small {
+    font-weight: $font-light;
+}
+.uppercase {
+    text-transform: uppercase;
+}
+.word-wrap {
+    word-wrap: break-word;
+}
+.no-select {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+a {
+    &:hover, &:active, &:visited, &:focus {
+        text-decoration: none;
+    }
+}
+
+h1 {
+    font-family: $font-1, $font-family-1;
+    font-weight: $font-black;
+    font-size: 4.25em;
+    line-height: 109%;
+    margin: 0;
+    .is-xs & {
+        font-size: 2.13em;
+        line-height: 97%;
+    }
+}
+
+h2 {
+    font-family: $font-2, $font-family-1;
+    font-size: 1.6em;
+    line-height: 133%;
+    margin: 0;
+    .is-xs & {
+        font-size: 1.07em;
+        line-height: 125%;
+    }
+}
+
+p {
+    font-size: 1em;
+    line-height: 133%;
+    margin: 0;
+    .is-xs & {
+        font-size: 1em;
+        line-height: 133%;
+    }
+}
+
+.button {
+    display: inline-block;
+    font-weight: $font-bold;
+    font-size: 1.2em;
+    color: $white;
+    background: $cyan;
+    padding: 10px 48px;
+    border-radius: 1.33em;
+    cursor: pointer;
+    
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    
+    .is-xs & {
+        font-size: 1.07em;
+        padding: 9px 40px;
+        border-radius: 1.2em;
+    }
+    
+    &:hover {
+        background: $black;
+    }
+}
+
+.button-group {
+    cursor: default;
+    
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    
+    .button {
+        margin-right: 2.4em;
+        margin-bottom: 10px;
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
+.center {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.line {
+    width:100%;
+    height:1px;
+    display: block;
+    background: $grey;
+}
+
+.tooltip {
+    position: absolute;
+    z-index: 9999999999;
+    display: none;
+    pointer-events: none;
+    .tooltip-content {
+        background: $black;
+        color: $white;
+        padding: 5px 15px;
+        border-radius: 15px;
+    }
+    .tooltip-arrow {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-color: transparent;
+        border-style: solid;
+    }
+    
+    &.top {
+        padding: 5px 0;
+        margin-top: -5px;
+        .tooltip-arrow {
+            border-top-color: $black;
+            bottom: 0;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px 5px 0 5px;
+        }
+    }
+    &.bottom {
+        padding: 5px 0;
+        margin-bottom: -5px;
+        .tooltip-arrow {
+            border-bottom-color: $black;
+            top: 0;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 0px 5px 5px 5px;
+        }
+    }
+}
+
+.layer {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.6);
+    
+    .show-layer & {
+        display: block;
+    }
+}

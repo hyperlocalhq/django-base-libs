@@ -960,8 +960,11 @@ urlpatterns += i18n_patterns(
         }
         ),
 
-    (r'^tweets/$', 'ccb.apps.twitter.views.latest_tweets', {
+    url(r'^tweets/$', 'ccb.apps.twitter.views.latest_tweets', {
         'twitter_username': settings.TWITTER_USERNAME,
+        'number_of_tweets': settings.TWITTER_NUMBER_OF_TWEETS,
+    }),
+    url(r'^tweets/(?P<twitter_username>.+)/$', 'ccb.apps.twitter.views.latest_tweets', {
         'number_of_tweets': settings.TWITTER_NUMBER_OF_TWEETS,
     }),
 

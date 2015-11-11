@@ -1,0 +1,153 @@
+@charset "UTF-8";
+
+.header-search {
+    border-bottom: 2px solid $black;
+    overflow: hidden;
+    padding-top: 1px;
+    padding-bottom: 10px;
+    
+    .is-xs & {
+        padding-top: 0;
+        padding-bottom: 10px;   
+    }    
+    
+    > div {
+        display: inline-block;
+        
+        &.fawesome {
+            line-height: 1.73em;
+            cursor: pointer;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            
+            .is-xs & {
+                line-height: 1.33em;
+            }
+            
+            &:before {
+                font-size: 1.73em;
+                .is-xs & {
+                    font-size: 1.33em;
+                }
+            }
+            .text {
+                font-size: 1.07em;
+                color: $grey;
+            }
+        }
+        
+        &.result {
+            float: right;
+            font-size: 1.73em;
+            line-height: 100%;
+            vertical-align: middle;
+            font-weight: $font-black;
+            position:relative;
+            top: -3px;
+            
+            .is-xs & {
+                font-size: 1.33em;
+                top: 3px;
+            }
+            .text {
+                font-size: 0.62em;
+                color: $grey;
+                font-weight: $font-regular;
+                margin-left: 15px;
+            }
+        }
+        
+        &.button-group {
+            float: right;
+            margin-left: 50px;
+            
+            .is-xs & {
+                margin-left: 25px;
+            }
+            
+            .button {
+                background: none;
+                border-radius: 0;
+                color: $grey;
+                margin: 0 0 0 15px;
+                width: auto;
+                line-height: 1.73em;
+                
+                .is-xs & {
+                    line-height: 1.33em;
+                    margin: 0 0 0 15px;
+                }
+                
+                &:hover, &.active {
+                    color: $black;
+                }
+            
+                &:before {
+                    font-size: 1.73em;
+                    line-height: 100%;
+                    .is-xs & {
+                        font-size: 1.33em;
+                    }
+                }
+            }
+        }
+    }
+}
+
+#search-layer {
+    .wrapper {
+        position: relative;
+        top: 40%;
+        width: 710px;
+        margin: 0 auto;
+        .is-xs & {
+            width: auto;
+            margin: 0 15px;
+            top: 20%;
+        }
+    }
+    input {
+        display: inline-block;
+        float: left;
+        background: $white;
+        color: $grey-light;
+        font-size: 2em;
+        line-height: 240%;
+        width: 580px;
+        padding: 0 15px;
+        text-align: center;
+        border: 0;
+        .is-xs & {
+            display: block;
+            float: none;
+            width: 100%;
+            font-size: 1.27em;
+        }
+        &:focus {
+            outline: 0;
+        }
+    }
+    .button-group {
+        display: inline-block;
+        float: left;
+        .is-xs & {
+            display: block;
+            float: right;
+        }
+        
+        .button {
+            background: none;
+            border-radius: 0;
+            color: $white;
+            margin: 0 0 0 30px;
+            width: auto;
+            .is-xs & {
+                margin: 0 0 0 20px;   
+            }
+        }
+    }
+}

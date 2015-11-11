@@ -1,0 +1,297 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: $font-1;
+    src: url('../fonts/metronic-slab-pro/MetronicSlabProBlack.eot');
+    src: local('☺'), url('../fonts/metronic-slab-pro/MetronicSlabProBlack.eot?#') format('embedded-opentype'), url('../fonts/metronic-slab-pro/MetronicSlabProBlack.woff2') format('woff2'), url('../fonts/metronic-slab-pro/MetronicSlabProBlack.woff') format('woff'), url('../fonts/metronic-slab-pro/MetronicSlabProBlack.ttf') format('truetype');
+    font-weight: $font-black;
+}
+
+@font-face {
+    font-family: $font-1;
+    src: url('../fonts/metronic-slab-pro/MetronicSlabProSemiBold.eot');
+    src: local('☺'), url('../fonts/metronic-slab-pro/MetronicSlabProSemiBold.eot?#') format('embedded-opentype'), url('../fonts/metronic-slab-pro/MetronicSlabProSemiBold.woff2') format('woff2'), url('../fonts/metronic-slab-pro/MetronicSlabProSemiBold.woff') format('woff'), url('../fonts/metronic-slab-pro/MetronicSlabProSemiBold.ttf') format('truetype');
+    font-weight: $font-semi;
+}
+
+
+@font-face {
+    font-family: 'FontAwesome';
+    src: url('../fonts/fontawesome/fontawesome-webfont.eot?v=4.3.0');
+    src: url('../fonts/fontawesome/fontawesome-webfont.eot?#iefix&v=4.3.0') format('embedded-opentype'), url('../fonts/fontawesome/fontawesome-webfont.woff2?v=4.3.0') format('woff2'), url('../fonts/fontawesome/fontawesome-webfont.woff?v=4.3.0') format('woff'), url('../fonts/fontawesome/fontawesome-webfont.ttf?v=4.3.0') format('truetype'), url('../fonts/fontawesome/fontawesome-webfont.svg?v=4.3.0#fontawesomeregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.fawesome {
+    
+    line-height: 2.4em;
+    padding-left: 1px;
+    .is-xs & {
+        line-height: 1.73em;
+    }
+    
+    &:before, &:after {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        padding: 0px;
+        margin: 0px;
+        vertical-align: bottom;
+        font-weight: 400;
+        font-size: 2.4em;
+        .is-xs & {
+            font-size: 1.73em;
+        }
+    }
+    
+    &.active {
+        color: $cyan;
+    }
+    
+    &.button {
+        display: block;
+        text-align: center;
+        width: 4.93em;
+        border-radius: 50%;
+        background: $black;
+        padding: 0;
+        font-size: inherit;
+        font-weight: inherit;
+        .is-xs & {
+            width: 2.53em;
+            border-radius: 50%;
+            padding: 0;
+        }
+        &:before, &:after {
+            line-height: 200%;
+            padding-top: 0;
+            .is-xs & {
+                font-size: 1.27em;
+            }
+        }
+        
+        // center for certan icons
+        &.facebook, &.googleplus, &.pinterest {
+            &:before, &after {
+                line-height: 190%;
+                padding-top: 5%;                
+            }
+        }
+        
+        &:hover {
+            background: $cyan;
+        }
+    }
+    
+    *.text {
+        margin-left: 15px;
+    }
+    
+    &.big {
+        line-height: 3.07em;
+        .is-xs & {
+            line-height: 2.13em;
+        }
+        &:before, &:after {
+            font-size: 3.07em;
+            .is-xs & {
+                font-size: 2.13em;
+            }
+        }
+    }
+    
+    &.small {
+        line-height: 1.33em;
+        .is-xs & {
+            line-height: 1.27em;
+        }
+        &:before, &:after {
+            font-size: 1.33em;
+            .is-xs & {
+                font-size: 1.27em;
+            }
+        }
+        &.button {
+            width: 2.67em;
+            .is-xs & {
+                width: 2.53em;
+            }
+        }
+    }
+    
+    .button-group &.button {
+        display: inline-block;
+        margin-right: 2.4em;
+        .is-xs & {
+            margin-right: 1.4em;
+        }
+        &.small {
+            margin-right: 1.2em;
+            .is-xs & {
+                margin-right: 0.7em;
+            }
+        }
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
+
+
+.fawesome.twitter:before {
+    content: "\f099";
+}
+.fawesome.facebook:before {
+    content: "\f09a";
+}
+.fawesome.googleplus:before {
+    content: "\f0d5";
+}
+.fawesome.instagram:before {
+    content: "\f16d";
+}
+.fawesome.linkedin:before {
+    content: "\f0e1";
+}
+.fawesome.map:before {
+    content: "\f041";
+}
+.fawesome.pinterest:before {
+    content: "\f231";
+}
+.fawesome.soundcloud:before {
+    content: "\f1be";
+}
+.fawesome.xing:before {
+    content: "\f168";
+}
+.fawesome.youtube:before {
+    content: "\f167";
+}
+.fawesome.vimeo:before {
+    content: "\f194";
+}
+.fawesome.vine:before {
+    content: "\f1ca";
+}
+.fawesome.issuu:before {
+    content: "\f192";
+}
+.fawesome.flickr:before {
+    content: "\f16e";
+}
+.fawesome.blog:before {
+    content: "\f039";
+}
+.fawesome.email:before {
+    content: "\f0e0";
+}
+.fawesome.search:before {
+    content: "\f002";
+}
+.fawesome.education:before {
+    content: "\f19d";
+}
+.fawesome.bus:before {
+    content: "\f207";
+}
+.fawesome.gate:before {
+    content: "\f19c";
+}
+.fawesome.clock:before {
+    content: "\f017";
+}
+.fawesome.man:before {
+    content: "\f007";
+}
+.fawesome.circle:before {
+    content: "\f10c";
+}
+.fawesome.close:before {
+    content: "\f00d";
+}
+.fawesome.edit:before {
+    content: "\f040";
+}
+.fawesome.tickets:before {
+    content: "\f02c";
+}
+.fawesome.ticket:before {
+    content: "\f145";
+}
+.fawesome.gift:before {
+    content: "\f06b";
+}
+.fawesome.calender:before {
+    content: "\f133";
+}
+.fawesome.favorite:before {
+    content: "\f005";
+}
+.fawesome.left:before {
+    content: "\f104";
+}
+.fawesome.right:before {
+    content: "\f105";
+}
+.fawesome.up:before {
+    content: "\f106";
+}
+.fawesome.down:before {
+    content: "\f107";
+}
+.fawesome.left-bold:before {
+    content: "\f053";
+}
+.fawesome.right-bold:before {
+    content: "\f054";
+}
+.fawesome.up-bold:before {
+    content: "\f077";
+}
+.fawesome.down-bold:before {
+    content: "\f078";
+}
+.fawesome.back:before {
+    content: "\f112";
+}
+.fawesome.more:before {
+    content: "\f064";
+}
+.fawesome.menu:before {
+    content: "\f0c9";
+}
+.fawesome.bookmark:before {
+    content: "\f02e";
+}
+.fawesome.plus:before {
+    content: "\f067";
+}
+.fawesome.plus-circle:before {
+    content: "\f055";
+}
+.fawesome.eye:before {
+    content: "\f06e";
+}
+.fawesome.heart:before {
+    content: "\f004";
+}
+.fawesome.hand-down:before {
+    content: "\f0a7";
+}
+.fawesome.bullhorn:before {
+    content: "\f0a1";
+}
+.fawesome.paper-plane:before {
+    content: "\f1d9";
+}
+.fawesome.list:before {
+    content: "\f03a";
+}
+.fawesome.grid:before {
+    content: "\f00a";
+}

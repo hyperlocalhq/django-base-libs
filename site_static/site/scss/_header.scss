@@ -1,0 +1,216 @@
+@charset "UTF-8";
+
+.header {
+    
+    overflow: hidden;
+    max-height: 450px;
+    position: relative;
+    
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    
+    .is-xs & {
+        border-bottom: 1px solid $grey-bright;
+    }
+    
+    .container {
+        height: 100%;
+    }
+    
+    h1 {
+        margin: 50px 0;
+        text-transform: uppercase;
+        .is-xs & {
+            margin: 36px 0;
+        }
+    }
+    
+    img {
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        
+        .is-xs & {
+            display: none;
+        }
+    }
+    
+    .menu {
+        width: 100%;
+        height: 56px;
+        background: rgba(0,0,0,0.5);
+        color: $grey-bright;
+        overflow: hidden;
+        -webkit-transition: background 0.3s;
+        transition: background 0.3s;
+        
+        .is-xs & {
+            height: 40px;
+            background: transparent;
+            bottom: 40px;
+        }
+        
+        h2 {
+            font-family: $font-1, $font-family-1;
+            font-weight: $font-semi;
+            font-size: 1.47em;
+            line-height: 56px;
+            cursor: default;
+            padding-right: 15px;
+            opacity: 0;
+            -webkit-transition: opacity 0.3s;
+            transition: opacity 0.3s;
+        }
+        
+        nav {
+            overflow: hidden;
+            height: 56px;
+            position: relative;
+            width: 100%;
+            
+            .is-xs & {
+                height: 40px;
+            }
+        }
+        
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            cursor: default;
+            position: relative;
+            -webkit-transition: left 0.6s;
+            transition: left 0.6s;
+            
+            li {
+                display: inline-block;
+                position: absolute;
+                left: 0;
+                top: 0;
+                    
+                a {
+                    display: inline-block;
+                    font-family: $font-1, $font-family-1;
+                    font-weight: $font-semi;
+                    font-size: 1.47em;
+                    line-height: 44px;
+                    color: $grey-bright;
+                    padding: 6px 0;
+                    
+                    .is-xs & {
+                        font-size: 1.07em;
+                        line-height: 32px;
+                        padding: 4px 0;
+                    }
+                    
+                    &:hover, &.active {
+                        color: $white;
+                        border-bottom: 6px solid $cyan;
+                        padding-bottom: 0;
+                        
+                        .is-xs & {
+                            color: $black;
+                            border-bottom: 4px solid $cyan;
+                        }
+                    }
+                }
+            }
+        }
+        
+        .row {
+            position: relative;
+        }
+            
+        .prev, .next {
+            position: absolute;
+            top: 0;
+            color: $grey-bright;
+            cursor: pointer;
+            line-height: 56px;
+            &:hover {
+                color: $white;
+            }
+            &:before {
+                line-height: 56px;
+                font-size: 1.6em;
+            }
+            &.disabled {
+                display: none;
+            }
+            
+            .is-xs & {
+                display: none;
+            }
+        }
+        
+        .prev {
+            left: -10px;
+        }
+        
+        .next {
+            right: -10px;
+            &.squeezed {
+                right: -5px;
+            }
+        }
+        
+    }
+    
+    &.has-image {
+        
+        .menu {
+            position: relative;
+            bottom: 56px;
+            left: 0;
+            
+            .is-xs & {
+                position: static;
+            }
+        }
+        
+        &.fixed {
+            padding-bottom: 0;
+            
+            .is-xs & {
+                padding-bottom: 40px;
+            }
+        }
+    }
+    
+    &.fixed {
+        padding-bottom: 56px;
+        
+        .is-xs & {
+            padding-bottom: 40px;
+        }
+        
+        .menu {
+            position: fixed;
+            top: 114px;
+            bottom: inherit;
+            background: $black;
+            z-index: 100;
+            
+            .is-xs & {
+                top: 70px;
+                background: $black;
+                position: fixed;
+            }
+            
+            h2 {
+                opacity: 1;
+            }
+            
+            ul li a {
+                &:hover, &.active {
+                    color: $white;
+                }
+            }
+        }
+    }
+}

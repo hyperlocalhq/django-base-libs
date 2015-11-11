@@ -12,6 +12,8 @@ from django.template.defaultfilters import timesince
 from django.utils.translation import ugettext
 
 
+
+
 @cache_page(60 * 15)
 def latest_tweets(request, twitter_username, number_of_tweets):
     twitter = Twython(
@@ -33,8 +35,7 @@ def latest_tweets(request, twitter_username, number_of_tweets):
         for word in re.split(re.compile(r'\s+'), tweet['text_urlized']):
             match = username_re.match(word)
             if match:
-                word = '<a href="http://twitter.com/' + match.group(1) + '">@' + match.group(1) + '</a>' + match.group(
-                    2)
+                word = '<a href="http://twitter.com/' + match.group(1) + '">@' + match.group(1) + '</a>' + match.group(2)
             tmp.append(word)
         tweet['text_urlized_atlinked'] = ' '.join(tmp)
         tweet['created_at_formatted'] = dateformat.format(datetime_parse(tweet['created_at']), 'd.m.Y H:i')

@@ -1,0 +1,100 @@
+{% block doctype %}<!DOCTYPE html>{% endblock %}
+{% load i18n base_tags cms_tags %}
+<html lang="{{ LANGUAGE_CODE }}">
+    <head>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+            
+        <title>{% block title %}{% endblock %} Styleguide</title>
+        
+        {% block meta_tags %}
+            {{ site_settings.get_meta_tags|safe }}
+        {% endblock %}
+        
+        {% block open_graph %}
+        {% endblock %}
+        
+        <link href='https://fonts.googleapis.com/css?family=Lato:400,400italic,700,700italic,300,300italic,900' rel='stylesheet' type='text/css'>
+        <link href="{{ STATIC_URL }}site/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen, print" type="text/css" />
+        <link href="{{ STATIC_URL }}site/css/style.css" rel="stylesheet" media="screen, print" type="text/css" />
+        {% block stylesheet %}
+        {% endblock %}
+        
+        <style type="text/css">
+            {% block css %}
+            {% endblock %}
+        </style>
+        
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.mobile.custom.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/base.js"></script>
+        
+    </head>
+    <body class="{% block body_class %}{% endblock %}">
+        <div class="container">
+            <div class="row">
+                <ul style="list-style:none; margin:10px auto 50px;" class="col-xs-12">
+                    <li style="display:inline-block; margin:0 5px;"><a href="{% url 'styleguide' %}" style="text-decoration:none; font-weight:bold; text-transform:uppercase; color:black;">General</a></li>
+                    <li style="display:inline-block; margin:0 5px;"><a href="{% url 'styleguide' page='variables' %}" style="text-decoration:none; font-weight:bold; text-transform:uppercase; color:black;">Variables</a></li>
+                    <li style="display:inline-block; margin:0 5px;"><a href="{% url 'styleguide' page='fonts' %}" style="text-decoration:none; font-weight:bold; text-transform:uppercase; color:black;">Fonts</a></li>
+                    <li style="display:inline-block; margin:0 5px;"><a href="{% url 'styleguide' page='icons' %}" style="text-decoration:none; font-weight:bold; text-transform:uppercase; color:black;">Icons</a></li>
+                    <li style="display:inline-block; margin:0 5px;"><a href="{% url 'styleguide' page='elements' %}" style="text-decoration:none; font-weight:bold; text-transform:uppercase; color:black;">Elements</a></li>
+                    <li style="display:inline-block; margin:0 5px;"><a href="{% url 'styleguide' page='layout' %}" style="text-decoration:none; font-weight:bold; text-transform:uppercase; color:black;">Layout</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="body" style="margin-bottom:50px;">
+            {% block content %}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h1>General</h1>
+                            <br/>
+                            <p class="uppercase">The grid</p>
+                            <p>The grid system is based on bootstrap.</p>
+                            <p>To place elements inside the grid wrap the area in div tags with class="container", class="row" and than in class="col-...-...".<br/>
+                            <pre>
+&lt;div class="container">
+    &lt;div class="row">
+        &lt;div class="col-...-...">
+            ...
+        &lt;/div>
+    &lt;/div>
+&lt;/div>
+                            </pre>
+                            Certain elements will need an extra class added to the row tag in order to work.</p>
+                            <p>To place an element which spans over the whole width of the page DO NOT wrap it inside the classes but place it directly in the html code.</p>
+                            <br/>
+                            <p class="uppercase">The tempplate</p>
+                            <p>Extend your template from "base.html".</p>
+                            <p>Place your content inside <b>{&#37; block content &#37;}...{&#37; endblock &#37;}</b>.</p>
+                            <p>Add javascript to <b>{&#37; block javascript &#37;}...{&#37; endblock &#37;}</b>.</p>
+                            <p>Add stylesheets to <b>{&#37; block stylesheet &#37;}...{&#37; endblock &#37;}</b> and style rules to <b>{&#37; block css &#37;}...{&#37; endblock &#37;}</b>.</p>
+                            <p>Redefine open graph definitions in <b>{&#37; block open_graph &#37;}...{&#37; endblock &#37;}</b>.</p>
+                            <p>Use the <b>{&#37; block title &#37;}...{&#37; endblock &#37;}</b> to prepend to the page title.</p>
+                            <p>Overwrite or append metatags in <b>{&#37; block meta_tags &#37;}...{&#37; endblock &#37;}</b>.</p>
+                            <p>Add body classes in <b>{&#37; block body_class &#37;}...{&#37; endblock &#37;}</b>.</p>
+                            <br/>
+                            <p class="uppercase">Sniffer</p>
+                            <p>Depending on the window width the body tag has the class "is-xs", "is-sm", "is-md" or "is-lg".</p>
+                            <br/>
+                        </div>
+                    </div>
+                </div>
+            {% endblock %}
+        </div>
+        <div id="search-layer" class="layer">
+            <div class="wrapper">
+                <input placeholder="{% trans 'Enter your search term ...' %}"/>
+                <div class="button-group">
+                    <div class="fawesome search button"><span class="sr-only">{% trans 'search' %}</span></div>
+                    <div class="fawesome close button"><span class="sr-only">{% trans 'close' %}</span></div>
+                </div>
+            </div>
+        </div>
+        <span class="width-sniffer visible-xs"></span><span class="width-sniffer visible-sm"></span><span class="width-sniffer visible-md"></span><span class="width-sniffer visible-lg"></span>
+        {% block javascript %}
+        {% endblock %}
+    </body>
+</html>
