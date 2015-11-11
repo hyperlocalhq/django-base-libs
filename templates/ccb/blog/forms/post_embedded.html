@@ -31,7 +31,6 @@
             </div>
         {% endif %}
 
-        {% load i18n %}
         <fieldset>
             <legend>
                 {% if form_handler_action == "new" %}
@@ -45,7 +44,6 @@
             {% crispy form %}
         </fieldset>
 
-        {% load i18n %}
         <input
             id="id_preview"
             class="btn btn-primary"
