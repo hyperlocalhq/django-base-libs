@@ -125,7 +125,7 @@ class IndividualRelationForm(dynamicforms.Form):
                 'display_im',
             ),
             bootstrap.FormActions(
-                layout.Submit('submit', _('Invite').upper()),
+                layout.Submit('submit', _(self.relation_action.title()).upper()),
                 layout.Button('button', _('Cancel').upper()),
             )
         )
