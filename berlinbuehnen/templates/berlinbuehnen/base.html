@@ -130,13 +130,13 @@
                 <div class="content">
                     <div class="container">
                         <div class="row">
-                            <div id="footer-links" class="col-xs-6 col-sm-3 col-md-2">
+                            <div id="footer-links" class="col-xs-6 col-sm-3 col-md-1 col-lg-1">
                                 <h3>{% trans "Links" %}</h3>
                                 <ul class="navigation">
                                     {% show_menu_below_id "meta" 0 0 1 1 %}
                                 </ul>
                             </div>
-                            <div id="footer-social" class="col-xs-6 col-sm-3 col-md-2">
+                            <div id="footer-social" class="col-xs-6 col-sm-3 col-md-2 col-lg-2">
                                 <h3>{% trans "Follow us" %}</h3>
                                 <ul class="social_links">
                                     <li><a class="fawesome facebook" href="https://www.facebook.com/pages/berlin-buehnende/440174332664851" target="_blank"><span class="sr-only">Facebook</span></a></li>
@@ -145,73 +145,19 @@
                                 </ul>
                             </div>
                             <div class="clearfix visible-xs"></div>
-                            <div class="col-xs-12 col-sm-6 col-md-3">
+                            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                                 <p>Ein Service von Kulturprojekte Berlin GmbH <br class="hidden-xs hidden-md" />gemeinsam mit den Berliner Bühnen</p>
-                                <a href="http://www.kulturprojekte-berlin.de" target="_blank" class="no-print"><img src="{{ STATIC_URL }}site/img/logos/kpb.gif" height="40"/></a>
-                                <img class="print" src="{{ STATIC_URL }}site/img/logos/kpb_black.gif" height="40"/>
+                                <a href="http://www.kulturprojekte-berlin.de" target="_blank" class="no-print full-white"><img src="{{ STATIC_URL }}site/img/logos/kpb_logo.gif" height="70"/></a>
+                                <img class="print" src="{{ STATIC_URL }}site/img/logos/kpb_black.gif" height="70"/>
                             </div>
                             <div class="clearfix visible-sm"></div>
-                            <div id="footer-sponsors" class="col-xs-12 col-md-5">
+                            <div id="footer-sponsors" class="col-xs-12 col-md-5 col-lg-5">
                                 <p>Gefördert durch:</p>
-                                <a href="http://www.berlin.de/sen/wirtschaft/gruenden-und-foerdern/europaeische-strukturfonds" target="_blank" class="no-print"><img src="{{ STATIC_URL }}site/img/logos/efre.gif" height="60"/></a>
-                                <img class="print" src="{{ STATIC_URL }}site/img/logos/efre_black.gif" height="60"/>
-                                <a href="http://www.berlin.de/rbmskzl/kultur" target="_blank" class="no-print"><img src="{{ STATIC_URL }}site/img/logos/berlin.gif" height="70"/></a>
-                                <img class="print" src="{{ STATIC_URL }}site/img/logos/berlin_black.gif" height="70"/>
-                                <a href="http://www.berlin.de/sen/wirtschaft/gruenden-und-foerdern/europaeische-strukturfonds" target="_blank" class="no-print"><img src="{{ STATIC_URL }}site/img/logos/eu.gif" height="70"/></a>
-                                <img class="print" src="{{ STATIC_URL }}site/img/logos/eu_black.gif" height="70"/>
+                                <a href="http://www.berlin.de/sen/wirtschaft/gruenden-und-foerdern/europaeische-strukturfonds" target="_blank" class="full-white"><img src="{{ STATIC_URL }}site/img/logos/efre_logo.gif" height="70"/></a><a href="http://www.berlin.de/rbmskzl/kultur" target="_blank" class="full-white"><img id="berlin-logo" src="{{ STATIC_URL }}site/img/logos/berlin_logo.gif"/></a>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                {% comment %}
-                <!-- Sponsors ================================================== -->
-                <div id="sponsors" class="content">
-                    <div class="container">
-                        <div>
-                            <h4 class="title">{% trans "Supported by" %}</h4>
-                            <a title="EU" target="_blank" href="http://europa.eu/legislation_summaries/agriculture/general_framework/g24234_de.htm">
-                                <img src="{{ STATIC_URL }}/site/img/footer/europa.png" alt="EU" />
-                                <span>EU</span>
-                            </a>
-                            <a title="EFRE" target="_blank" href="http://www.berlin.de/sen/strukturfonds/ab2007/efre/efre.html">
-                                <img src="{{ STATIC_URL }}/site/img/footer/efre.png" alt="EFRE" />
-                                <span>Kulturprojekte Berlin</span>
-                            </a>
-                            <a title="Projektzukunft" target="_blank" href="http://www.projektzukunft.berlin.de/">
-                                <img src="{{ STATIC_URL }}/site/img/footer/projektzukunft.png" alt="Projektzukunft" />
-                                <span>Projektzukunft</span>
-                            </a>
-                            <a title="Be-Berlin" target="_blank" href="http://www.berlin.de/sen/kultur/index.de.php">
-                                <img src="{{ STATIC_URL }}/site/img/footer/beberlin.png" alt="Be-Berlin" />
-                                <span>Be-Berlin</span>
-                            </a>
-                        </div>
-                        <div>
-                            <h4 class="title">{% trans "A service from" %}</h4>
-                            <a title="Kulturprojekte Berlin" target="_blank" href="http://www.kulturprojekte-berlin.de/">
-                                <img src="{{ STATIC_URL }}/site/img/footer/kulturprojekte.png" alt="Kulturprojekte Berlin" />
-                                <span>Kulturprojekte Berlin</span>
-                            </a>
-                        </div>
-                        <div>
-                            <h4>{% trans "Together with Berlin museums and" %}</h4>
-                            <a title="Landesverband der Museen zu Berlin e.V." target="_blank" href="http://www.lmb.museum/">
-                                <img src="{{ STATIC_URL }}/site/img/footer/lmb.png" alt="Landesverband der Museen zu Berlin e.V." />
-                                <span>Landesverband der Museen zu Berlin e.V.</span>
-                            </a>
-                        </div>
-                        <ul>
-                            <li{% if request.current_page.reverse_id == "impressum" %} class="active"{% endif %}>
-                                <a href="{% page_url "impressum" %}">{% page_attribute "menu_title" "impressum" %}</a>
-                            </li>
-                            <li{% if request.current_page.reverse_id == "logo_download" %} class="active"{% endif %}>
-                                <a href="{% page_url "logo_download" %}">{% page_attribute "menu_title" "logo_download" %}</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                {% endcomment %}
             {% endblock %}
         </div>
         {% render_block "js" %}

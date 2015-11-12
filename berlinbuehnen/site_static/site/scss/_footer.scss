@@ -21,8 +21,43 @@
         background: black;
     }
     
+    .row {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    
     div.row > div {
         margin-bottom: 20px;
+        padding-left: 5px;
+        padding-right: 5px;
+        .is-lg & {
+            &.col-lg-1 {
+                width: 11%;
+            }
+            &.col-lg-2 {
+                width: 13%;
+            }
+            &.col-lg-3 {
+                width: 23%;
+            }
+            &.col-lg-5 {
+                width: 53%;
+            }
+        }
+        .is-md & {
+            &.col-md-1 {
+                width: 11%;
+            }
+            &.col-md-2 {
+                width: 12.5%;
+            }
+            &.col-md-3 {
+                width: 18.5%;
+            }
+            &.col-md-5 {
+                width: 58%;
+            }
+        }
     }
     
     h3 {
@@ -32,13 +67,31 @@
     }
     
     p {
-        margin: 0 0 20px !important;
+        height: 24px;
+        margin: 0 0 17px !important;
         font-size: 0.7em;
         line-height: 1.1em;
+        .is-xs & {
+            height: auto;
+        }
     }
     
-    img {
-        margin-right: 35px;
+    #footer-sponsors {
+        .is-sm &, .is-xs & {
+            p {
+                height: auto;
+            }
+        }
+    }
+    
+    #berlin-logo {
+        height: 70px;
+        width: auto;
+        .is-xs & {
+            height: auto;
+            width: 100%;
+            max-width: 302px;
+        }
     }
     
     a:last-child img {
@@ -63,7 +116,7 @@
         color: white;
         opacity: 0.7;
         font-weight: $regular;
-        &:hover {
+        &:hover, &.full-white {
             opacity: 1;
         }
     }

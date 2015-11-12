@@ -1219,16 +1219,28 @@ strong { font-weight: 700; }
 
 #footer { position: absolute; bottom: 0; width: 100%; height: 170px; /* Height of the footer */ background: black; color: white; }
 #footer div.content { background: black; }
-#footer div.row > div { margin-bottom: 20px; }
+#footer .row { margin-left: 5px; margin-right: 5px; }
+#footer div.row > div { margin-bottom: 20px; padding-left: 5px; padding-right: 5px; }
+.is-lg #footer div.row > div.col-lg-1 { width: 11%; }
+.is-lg #footer div.row > div.col-lg-2 { width: 13%; }
+.is-lg #footer div.row > div.col-lg-3 { width: 23%; }
+.is-lg #footer div.row > div.col-lg-5 { width: 53%; }
+.is-md #footer div.row > div.col-md-1 { width: 11%; }
+.is-md #footer div.row > div.col-md-2 { width: 12.5%; }
+.is-md #footer div.row > div.col-md-3 { width: 18.5%; }
+.is-md #footer div.row > div.col-md-5 { width: 58%; }
 #footer h3 { text-transform: uppercase; margin-bottom: 20px !important; font-size: 1em; }
-#footer p { margin: 0 0 20px !important; font-size: 0.7em; line-height: 1.1em; }
-#footer img { margin-right: 35px; }
+#footer p { height: 24px; margin: 0 0 17px !important; font-size: 0.7em; line-height: 1.1em; }
+.is-xs #footer p { height: auto; }
+.is-sm #footer #footer-sponsors p, .is-xs #footer #footer-sponsors p { height: auto; }
+#footer #berlin-logo { height: 70px; width: auto; }
+.is-xs #footer #berlin-logo { height: auto; width: 100%; max-width: 302px; }
 #footer a:last-child img { margin-right: 0; }
 #footer ul { list-style: none; }
 #footer ul li { margin-bottom: 6px; }
 #footer ul.social_links li { display: inline-block; margin-right: 3px; }
 #footer a { color: white; opacity: 0.7; font-weight: 400; }
-#footer a:hover { opacity: 1; }
+#footer a:hover, #footer a.full-white { opacity: 1; }
 
 .is-xs #footer img { margin-bottom: 20px; }
 
