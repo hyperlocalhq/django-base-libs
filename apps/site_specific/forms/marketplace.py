@@ -48,8 +48,11 @@ STR_LOGO_SIZE = "%sx%s" % LOGO_SIZE
 STR_MIN_LOGO_SIZE = "%sx%s" % MIN_LOGO_SIZE
 
 # Collect translatable strings
+_("Not listed? Enter manually")
+_("Back to selection")
+_("Locate on map")
 _("Remove from map")
-
+_('Is some category missing? You can <a href="/ticket/new-category/">suggest it here</a>.')
 
 # TODO: each form could be ModelForm. Each formset could be ModelFormSet.
 # noinspection PyClassHasNoInit

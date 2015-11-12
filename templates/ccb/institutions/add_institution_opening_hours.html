@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n uni_form_tags uni_form_field %}
+{% load base_tags i18n uni_form_tags uni_form_field crispy_forms_tags %}
 
 {% block title %}{% trans "Registration" %} - {% trans "Institution Contact Data" %}{% endblock %}
 
@@ -17,6 +17,7 @@
 
 {% block content %}
     <div class="reg">
+        {#% crispy form %#}
         <form action="" method="post" class="uniForm">{% csrf_token %}
             <fieldset class="inlineLabels">
                 <h3>{% trans "Opening Hours (Optional)" %}</h3>
