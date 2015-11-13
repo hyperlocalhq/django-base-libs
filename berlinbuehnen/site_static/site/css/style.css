@@ -2185,7 +2185,7 @@ body.is-xs.safari .list-item-head-date .list-item-head-date-icons { top: 21px !i
 &.no-image { button.favorite { top: 0px; } h2 { padding-right: 32px; }
 }*/ }
 .grid.mazery-grid .grid-item .row { margin: 0; }
-.grid.mazery-grid img { width: 100%; margin-bottom: 16px; }
+.grid.mazery-grid img { display: block; width: 100%; margin-bottom: 16px; }
 .grid.mazery-grid a { color: black; border-bottom: 4px solid black; padding-bottom: 20px; margin-bottom: 20px; display: inline-block; width: 100%; }
 .grid.mazery-grid a:hover { color: black; }
 .grid.mazery-grid h2 { margin-bottom: 10px; }
