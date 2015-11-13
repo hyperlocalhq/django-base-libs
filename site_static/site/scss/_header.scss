@@ -3,7 +3,6 @@
 .header {
     
     overflow: hidden;
-    max-height: 450px;
     position: relative;
     
     -webkit-touch-callout: none;
@@ -17,7 +16,7 @@
         border-bottom: 1px solid $grey-bright;
     }
     
-    .container {
+    > .container {
         height: 100%;
     }
     
@@ -29,7 +28,7 @@
         }
     }
     
-    img {
+    > img {
         width: 100%;
         position: absolute;
         left: 0;
@@ -37,6 +36,149 @@
         
         .is-xs & {
             display: none;
+        }
+    }
+    
+    .info {
+        background: $cyan-light;
+        position: relative;
+        
+        &.closed {
+            .info-menu-space {
+                visibility: visible;
+                .is-xs & {
+                    display: none;
+                }
+            }
+            .toggle {
+                &:before {
+                    content: "\f077";
+                }
+                .is-xs & {
+                    bottom: -40px;
+                }
+            }
+        }
+        
+        .info-menu-space {
+            height: 56px;
+            background: $white;
+            visibility: hidden;
+            .is-xs & {
+                height: 40px;
+            }
+        }
+        
+        .toggle {
+            width: 56px;
+            height: 56px;
+            background: $black;
+            position: absolute;
+            top: 0;
+            right: 0;
+            cursor: pointer;
+            z-index: 2;
+            color: $cyan;
+            text-align: center;
+            &:before {
+                content: "\f078";
+                font-size: 1.87em;
+                line-height: 52px;
+            }
+            
+            .is-xs & {
+                width: 40px;
+                height: 40px;
+                top: inherit;
+                bottom: 0;
+                -webkit-transition: bottom 0.4s;
+                transition: bottom 0.4s;
+                &:before {
+                    font-size: 1.6em;
+                    line-height: 38px;
+                }
+            }
+        }
+        
+        a {
+            color: $black;
+        }
+        
+        .container > .portfolio {
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            height: 320px;
+            
+            .is-xs & {
+                position: relative;
+                margin-top: 0;
+                margin-bottom: 0;
+                height: auto;
+            }
+            
+            > div {
+                height: 100%;
+                position: relative;
+                
+                &:first-child {
+                    z-index: 1;
+                    .is-xs & {
+                        padding: 0;
+                        z-index: inherit;
+                    }
+                }
+                &:last-child {
+                    .text {
+                        position: absolute;
+                        left: 15px;
+                        bottom: 20px;
+                        .is-xs & {
+                            position: static;
+                        }
+                    }
+                    h2 {
+                        font-family: $font-1, $font-family-1;
+                        font-size: 1.47em;
+                        line-height: 127%;
+                    }
+                    h3 {
+                        font-family: $font-2, $font-family-1;
+                        font-size: 1.2em;
+                        line-height: 156%;
+                        font-weight: $font-regular;
+                    }
+                    
+                    .is-xs & {
+                        .bubble {
+                            position: absolute;
+                            top: 15px;
+                            right: 15px;
+                        }
+                    }
+                }
+                
+                .is-xs & {
+                    position: static;
+                }
+            }
+            
+            .slider {
+                .is-xs & {
+                    .slide {
+                        display: none;
+                        &:first-child {
+                            display: block;
+                        }
+                    }
+                }
+            }
+        }
+        
+        .is-xs &, .is-sm & {
+            .prev, .next {
+                display: none !important;
+            }
         }
     }
     
@@ -143,7 +285,7 @@
                 display: none;
             }
             
-            .is-xs & {
+            .is-xs &, .is-sm & {
                 display: none;
             }
         }
@@ -162,10 +304,14 @@
     }
     
     &.has-image {
+        max-height: 450px;
+    }
+    
+    &.has-content {
         
         .menu {
-            position: relative;
-            bottom: 56px;
+            position: absolute;
+            bottom: 0;
             left: 0;
             
             .is-xs & {

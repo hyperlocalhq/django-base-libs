@@ -21,7 +21,7 @@
             
             a.content {
                 display: block;
-                .image {
+                .image-hover-bg {
                     background: $cyan;
                     display: inline-block;
                 }
@@ -62,7 +62,7 @@
                 position: static;
             }
             
-            img, .image {
+            img, .image-hover-bg {
                 width: 100%;
             }
             

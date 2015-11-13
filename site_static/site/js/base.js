@@ -43,7 +43,6 @@ $(document).ready(function() {
     
     
     
-    
     function Tooltip($element) {
      
         var me = this;
@@ -258,14 +257,20 @@ $(document).ready(function() {
     
     
     
-    
+    /**
+     * Handles the header part of a page.
+     *
+     * @param   $main   the main jquery tag
+     */
     function Header($main) {
         
         var me = this;
         this.me = me;
         
         me.$main = $main;
-        me.$image = $('img', me.$main);
+        me.$image = $('img', me.$main).not('.info img');
+        me.$info = $('.info', me.$main);
+        me.$info_container = $('.info > .container', me.$main);
         me.$menu = $('.menu', me.$main);
         me.$nav = $('nav', me.$menu);
         me.$list = $('ul', me.$nav);
@@ -273,11 +278,15 @@ $(document).ready(function() {
         me.$window = $(window);
         me.$body = $('body');
         
+        me.$info_menu_space = null;
+        me.$info_toggle_button = null;
+        me.animating = false;
         me.$prev = null;
         me.$next = null;
         me.left_nav = 0;
         
         if (me.$image.length) me.$main.addClass('has-image');
+        if (me.$image.length || me.$info.length) me.$main.addClass('has-content');
         
         me.$image.load(function() {me.styleImage();});
         me.$window.resize(function() {me.onResize();});
@@ -285,6 +294,9 @@ $(document).ready(function() {
         me.onResize();
     }
     
+    /**
+     * Styles the image part of the header.
+     */
     Header.prototype.styleImage = function() {
         
         var me = this.me;
@@ -301,6 +313,33 @@ $(document).ready(function() {
         me.checkFixedPosition();
     }
     
+    /**
+     * Styles the info part of the header.
+     */
+    Header.prototype.styleInfo = function() {
+        
+        var me  = this.me;
+        
+        if (!me.$info.length) return;
+        
+        if (!me.$info_menu_space && me.$menu.length) {
+            
+            me.$info_menu_space = $('<div class="info-menu-space"></div>');
+            me.$info.append(me.$info_menu_space);
+        }
+        
+        if (!me.$info_toggle_button) {
+         
+            me.$info_toggle_button = $('<div class="toggle fawesome"></div>');
+            me.$info_toggle_button.click(function() {me.infoToggle();});
+            me.$info.append(me.$info_toggle_button);
+        }
+        
+    }
+    
+    /**
+     * Styles the navi/menu part of the header.
+     */
     Header.prototype.styleNavi = function() {
         
         var me = this.me;
@@ -333,8 +372,8 @@ $(document).ready(function() {
         
         if (!me.$prev) {
             
-            me.$prev = $('<div class="fawesome left prev disabled"><span class="sr-only">previous</span></div>');
-            me.$next = $('<div class="fawesome right next disabled"><span class="sr-only">next</span></div>');
+            me.$prev = $('<div class="fawesome fa-left prev disabled"><span class="sr-only">previous</span></div>');
+            me.$next = $('<div class="fawesome fa-right next disabled"><span class="sr-only">next</span></div>');
             
             me.$nav.after(me.$prev);
             me.$nav.after(me.$next);
@@ -360,6 +399,9 @@ $(document).ready(function() {
         me.checkNextPrev();
     }
     
+    /**
+     * Checks if the next/prev button of the navi/menu should be visible.
+     */
     Header.prototype.checkNextPrev = function() {
         
         var me = this.me;
@@ -390,6 +432,9 @@ $(document).ready(function() {
         }
     }
     
+    /**
+     * Moves to the next menu item.
+     */
     Header.prototype.next = function() {
      
         var me = this.me;
@@ -397,12 +442,21 @@ $(document).ready(function() {
         var $left_nav = $(me.$lists.get(me.left_nav));
         var $right_nav = $(me.$lists.get(me.$lists.length - 1));
         var width = $right_nav.data('left') + $right_nav.width() - $left_nav.data('left');
-        if (me.$nav.width() < width) {
+        
+        var offset = 0;
+        if (me.$info.length && me.$info.hasClass('closed')) {
+            offset = (me.$body.hasClass('is-xs')) ? 40 : 56;   
+        }
+        
+        if (me.$nav.width() < width + offset) {
             me.left_nav++;
             me.styleNavi();
         }   
     }
     
+    /**
+     * Moves to the previous menu item.
+     */
     Header.prototype.prev = function() {
      
         var me = this.me;
@@ -413,6 +467,9 @@ $(document).ready(function() {
         }
     }
         
+    /**
+     * Checks if the navi/menu has reached its fixed position at the top of the page.
+     */
     Header.prototype.checkFixedPosition = function() {
         
         var me = this.me;
@@ -436,11 +493,63 @@ $(document).ready(function() {
         }
     }
     
+    /**
+     * Toggles the height of the info part.
+     */
+    Header.prototype.infoToggle = function() {
+        
+        var me = this.me;
+        
+        if (me.animating) return;
+        me.animating = true;
+        
+        if (me.$info.hasClass('closed')) {
+            
+            me.$info.removeClass('closed');     
+            me.$info_container.css('height', '');
+            me.$info_container.css('display', '');
+            
+            var height = me.$info_container.height();
+            
+            me.$info_container.height(0);
+            me.$info_container.animate({
+                height: height
+            }, 400, function() {
+                me.animating = false;
+                me.$info_container.css('height', '');
+                me.checkFixedPosition();
+            });
+            
+        } else {
+            
+            me.$info.addClass('closed');   
+            me.$info_container.css('height', '');
+            me.$info_container.css('display', '');
+            
+            var height = me.$info_container.height();
+            
+            me.$info_container.height(height);
+            me.$info_container.animate({
+                height: 0
+            }, 400, function() {
+                me.animating = false;
+                me.$info_container.css('display', 'none');
+                me.$info_container.css('height', '');
+                me.checkFixedPosition();
+            });
+            
+        }
+    }
+    
+    /**
+     * The page got resized.
+     */
     Header.prototype.onResize = function() {
         
         var me = this.me;
         
         me.styleImage();
+        me.styleInfo();
         me.styleNavi();
         me.checkFixedPosition();
     }

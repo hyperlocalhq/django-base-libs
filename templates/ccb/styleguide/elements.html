@@ -16,10 +16,10 @@
                 <br/>
                 <p class="uppercase">Icon Buttons</p>
                 <br/>
-                <div style="display:inline-block;" class="fawesome twitter small button"></div>&nbsp;&nbsp;&nbsp;<span>class="fawesome twitter small button"</span>
+                <div style="display:inline-block;" class="fawesome fa-twitter small button"></div>&nbsp;&nbsp;&nbsp;<span>class="fawesome fa-twitter small button"</span>
                 <br/>
                 <br/>
-                <div style="display:inline-block;" class="fawesome twitter button"></div>&nbsp;&nbsp;&nbsp;<span>class="fawesome twitter button"</span>
+                <div style="display:inline-block;" class="fawesome fa-twitter button"></div>&nbsp;&nbsp;&nbsp;<span>class="fawesome fa-twitter button"</span>
                 <br/>
                 <br/>
                 <br/>
@@ -32,15 +32,15 @@
                 </div>
                 <br/>
                 <div class="button-group">
-                    <div class="fawesome twitter button"></div>
-                    <div class="fawesome facebook button"></div>
-                    <div class="fawesome googleplus button"></div>
+                    <div class="fawesome fa-twitter button"></div>
+                    <div class="fawesome fa-facebook button"></div>
+                    <div class="fawesome fa-googleplus button"></div>
                 </div>
                 <br/>
                 <div class="button-group">
-                    <div class="fawesome twitter small button"></div>
-                    <div class="fawesome facebook small button"></div>
-                    <div class="fawesome googleplus small button"></div>
+                    <div class="fawesome fa-twitter small button"></div>
+                    <div class="fawesome fa-facebook small button"></div>
+                    <div class="fawesome fa-googleplus small button"></div>
                 </div>
                 <br/>
                 <br/>
@@ -52,9 +52,15 @@
                 <p>To give a body class button a toggle on/off functionality add the attribute "<b>data-body-class-toggle</b>" with a positive/true value.</p>
                 <p>To have a body class button initialy be active add the class "active" to the button and its "data-body-class" value to the body tag classes.</p>
                 <pre>
-&lt;div class="fawesome list button active" data-body-class="list" data-body-class-group="profiles">&lt;/div>
-&lt;div class="fawesome grid button" data-body-class="grid" data-body-class-group="profiles">&lt;/div>
+&lt;div class="fawesome fa-list button active" data-body-class="list" data-body-class-group="profiles">&lt;/div>
+&lt;div class="fawesome fa-grid button" data-body-class="grid" data-body-class-group="profiles">&lt;/div>
                 </pre>
+                <br/>
+                <br/>
+                <br/>
+                <p class="uppercase">Bubble</p>
+                <br/>
+                <div class="bubble">class="bubble"</div>
                 <br/>
                 <br/>
                 <br/>
@@ -74,12 +80,12 @@
                 <p class="uppercase">Search</p>
                 <br/>
                 <div class="header-search">
-                    <div class="fawesome search"><span class="text hidden-xs">{% trans 'Search' %}</span></div>
+                    <div class="fawesome fa-search"><span class="text hidden-xs">{% trans 'Search' %}</span></div>
                     <div class="result">402<span class="text">{% trans 'Results' %}</span></div>
                 </div>
                 <pre>
 &lt;div class="header-search">
-    &lt;div class="fawesome search">&lt;span class="text hidden-xs">&#123;% trans 'Search' %}&lt;/span>&lt;/div>
+    &lt;div class="fawesome fa-search">&lt;span class="text hidden-xs">&#123;% trans 'Search' %}&lt;/span>&lt;/div>
     &lt;div class="result">402&lt;span class="text">&#123;% trans 'Results' %}&lt;/span>&lt;/div>
 &lt;/div>                    
                 </pre>
@@ -95,19 +101,19 @@
                 <br/>
                 <br/>
                 <div class="header-search">
-                    <div class="fawesome search"><span class="text hidden-xs">{% trans 'Search' %}</span></div>
+                    <div class="fawesome fa-search"><span class="text hidden-xs">{% trans 'Search' %}</span></div>
                     <div class="button-group hidden-xs">
-                        <div class="fawesome list button active" data-body-class="list" data-body-class-group="profiles"></div>
-                        <div class="fawesome grid button" data-body-class="grid" data-body-class-group="profiles"></div>
+                        <div class="fawesome fa-list button active" data-body-class="list" data-body-class-group="profiles"></div>
+                        <div class="fawesome fa-grid button" data-body-class="grid" data-body-class-group="profiles"></div>
                     </div>
                     <div class="result">8.843<span class="text">{% trans 'Profiles' %}</span></div>
                 </div>
                 <pre>
 &lt;div class="header-search">
-    &lt;div class="fawesome search">&lt;span class="text hidden-xs">&#123;% trans 'Search' %}&lt;/span>&lt;/div>
+    &lt;div class="fawesome fa-search">&lt;span class="text hidden-xs">&#123;% trans 'Search' %}&lt;/span>&lt;/div>
     &lt;div class="button-group hidden-xs">
-        &lt;div class="fawesome list button active" data-body-class="list" data-body-class-group="profiles">&lt;/div>
-        &lt;div class="fawesome grid button" data-body-class="grid" data-body-class-group="profiles">&lt;/div>
+        &lt;div class="fawesome fa-list button active" data-body-class="list" data-body-class-group="profiles">&lt;/div>
+        &lt;div class="fawesome fa-grid button" data-body-class="grid" data-body-class-group="profiles">&lt;/div>
     &lt;/div>
     &lt;div class="result">8.843&lt;span class="text">&#123;% trans 'Profiles' %}&lt;/span>&lt;/div>
 &lt;/div>                    
@@ -128,9 +134,9 @@
                     </div>
                 </a>
                 <div class="button-group">
-                    <a href="#" class="fawesome bookmark button"></a>
-                    <a href="#" class="fawesome favorite button"></a>
-                    <a href="#" class="fawesome plus-circle button"></a>
+                    <a href="#" class="fawesome fa-bookmark button"></a>
+                    <a href="#" class="fawesome fa-favorite button"></a>
+                    <a href="#" class="fawesome fa-plus-circle button"></a>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-3">
@@ -141,9 +147,9 @@
                     </div>
                 </a>
                 <div class="button-group">
-                    <a href="#" class="fawesome bookmark button"></a>
-                    <a href="#" class="fawesome favorite button"></a>
-                    <a href="#" class="fawesome plus-circle button"></a>
+                    <a href="#" class="fawesome fa-bookmark button"></a>
+                    <a href="#" class="fawesome fa-favorite button"></a>
+                    <a href="#" class="fawesome fa-plus-circle button"></a>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-3">
@@ -154,9 +160,9 @@
                     </div>
                 </a>
                 <div class="button-group">
-                    <a href="#" class="fawesome bookmark button"></a>
-                    <a href="#" class="fawesome favorite button"></a>
-                    <a href="#" class="fawesome plus-circle button"></a>
+                    <a href="#" class="fawesome fa-bookmark button"></a>
+                    <a href="#" class="fawesome fa-favorite button"></a>
+                    <a href="#" class="fawesome fa-plus-circle button"></a>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-3">
@@ -167,9 +173,9 @@
                     </div>
                 </a>
                 <div class="button-group">
-                    <a href="#" class="fawesome bookmark button"></a>
-                    <a href="#" class="fawesome favorite button"></a>
-                    <a href="#" class="fawesome plus-circle button"></a>
+                    <a href="#" class="fawesome fa-bookmark button"></a>
+                    <a href="#" class="fawesome fa-favorite button"></a>
+                    <a href="#" class="fawesome fa-plus-circle button"></a>
                 </div>
             </div>
         </div>
@@ -185,9 +191,9 @@
             &lt;/div>
         &lt;/a>
         &lt;div class="button-group">
-            &lt;a href="#" class="fawesome bookmark button">&lt;/a>
-            &lt;a href="#" class="fawesome favorite button">&lt;/a>
-            &lt;a href="#" class="fawesome plus-circle button">&lt;/a>
+            &lt;a href="#" class="fawesome fa-bookmark button">&lt;/a>
+            &lt;a href="#" class="fawesome fa-favorite button">&lt;/a>
+            &lt;a href="#" class="fawesome fa-plus-circle button">&lt;/a>
         &lt;/div>
     &lt;/div>
     ... the col block 3 more times
@@ -335,7 +341,7 @@
     </div>
     <div class="twitter-wall" data-username="CREATIVEBERLIN">
         <div class="container">
-            <div class="fawesome twitter big center"></div>
+            <div class="fawesome fa-twitter big center"></div>
             <h2 class="center hidden-xs">Twitter</h2>
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-4 tweet"></div>
@@ -350,7 +356,7 @@
                 <pre>
 &lt;div class="twitter-wall" data-username="CREATIVEBERLIN">
     &lt;div class="container">
-        &lt;div class="fawesome twitter big center">&lt;/div>
+        &lt;div class="fawesome fa-twitter big center">&lt;/div>
         &lt;h2 class="center hidden-xs">Twitter&lt;/h2>
         &lt;div class="row">
             &lt;div class="col-xs-12 col-sm-6 col-md-4 tweet">&lt;/div>
@@ -376,62 +382,62 @@
             <div class="wrapper">
                 <div class="col-xs-12 slide">
                     <a class="content" href="#">
-                        <span class="image">
+                        <span class="image-hover-bg">
                             <img src="http://placehold.it/400x320&text=image"/>
                         </span>
                         <h2>Hier steht mehr zum Portfolio.</h2>
                     </a>
                     <div class="button-group">
-                        <a href="#" class="fawesome favorite button"></a>
-                        <a href="#" class="fawesome more button"></a>
+                        <a href="#" class="fawesome fa-favorite button"></a>
+                        <a href="#" class="fawesome fa-more button"></a>
                     </div>
                 </div>
                 <div class="col-xs-12 slide">
                     <a class="content" href="#">
-                        <span class="image">
+                        <span class="image-hover-bg">
                             <img src="http://placehold.it/500x320&text=image"/>
                         </span>
                         <h2>Hier steht mehr zum Portfolio.</h2>
                     </a>
                     <div class="button-group">
-                        <a href="#" class="fawesome favorite button"></a>
-                        <a href="#" class="fawesome more button"></a>
+                        <a href="#" class="fawesome fa-favorite button"></a>
+                        <a href="#" class="fawesome fa-more button"></a>
                     </div>
                 </div>
                 <div class="col-xs-12 slide">
                     <a class="content" href="#">
-                        <span class="image">
+                        <span class="image-hover-bg">
                             <img src="http://placehold.it/450x320&text=image"/>
                         </span>
                         <h2>Hier steht mehr zum Portfolio.</h2>
                     </a>
                     <div class="button-group">
-                        <a href="#" class="fawesome favorite button"></a>
-                        <a href="#" class="fawesome more button"></a>
+                        <a href="#" class="fawesome fa-favorite button"></a>
+                        <a href="#" class="fawesome fa-more button"></a>
                     </div>
                 </div>
                 <div class="col-xs-12 slide">
                     <a class="content" href="#">
-                        <span class="image">
+                        <span class="image-hover-bg">
                             <img src="http://placehold.it/400x320&text=image"/>
                         </span>
                         <h2>Hier steht mehr zum Portfolio.</h2>
                     </a>
                     <div class="button-group">
-                        <a href="#" class="fawesome favorite button"></a>
-                        <a href="#" class="fawesome more button"></a>
+                        <a href="#" class="fawesome fa-favorite button"></a>
+                        <a href="#" class="fawesome fa-more button"></a>
                     </div>
                 </div>
                 <div class="col-xs-12 slide">
                     <a class="content" href="#">
-                        <span class="image">
+                        <span class="image-hover-bg">
                             <img src="http://placehold.it/500x320&text=image"/>
                         </span>
                         <h2>Hier steht mehr zum Portfolio.</h2>
                     </a>
                     <div class="button-group">
-                        <a href="#" class="fawesome favorite button"></a>
-                        <a href="#" class="fawesome more button"></a>
+                        <a href="#" class="fawesome fa-favorite button"></a>
+                        <a href="#" class="fawesome fa-more button"></a>
                     </div>
                 </div>
             </div>
@@ -443,26 +449,26 @@
     &lt;div class="wrapper">
         &lt;div class="col-xs-12 slide">
             &lt;a class="content" href="#">
-                &lt;span class="image">
+                &lt;span class="image-hover-bg">
                     &lt;img src="http://placehold.it/400x320&text=image"/>
                 &lt;/span>
                 &lt;h2>Hier steht mehr zum Portfolio.&lt;/h2>
             &lt;/a>
             &lt;div class="button-group">
-                &lt;a href="#" class="fawesome favorite button">&lt;/a>
-                &lt;a href="#" class="fawesome more button">&lt;/a>
+                &lt;a href="#" class="fawesome fa-favorite button">&lt;/a>
+                &lt;a href="#" class="fawesome fa-more button">&lt;/a>
             &lt;/div>
         &lt;/div>
         &lt;div class="col-xs-12 slide">
             &lt;a class="content" href="#">
-                &lt;span class="image">
+                &lt;span class="image-hover-bg">
                     &lt;img src="http://placehold.it/500x320&text=image"/>
                 &lt;/span>
                 &lt;h2>Hier steht mehr zum Portfolio.&lt;/h2>
             &lt;/a>
             &lt;div class="button-group">
-                &lt;a href="#" class="fawesome favorite button">&lt;/a>
-                &lt;a href="#" class="fawesome more button">&lt;/a>
+                &lt;a href="#" class="fawesome fa-favorite button">&lt;/a>
+                &lt;a href="#" class="fawesome fa-more button">&lt;/a>
             &lt;/div>
         &lt;/div>
         ... keep adding slide blocks for each slide element
@@ -572,10 +578,10 @@
         <div class="menu">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-3 hidden-xs">
+                    <div class="hidden-xs col-sm-4 col-md-3">
                         <h2>Header</h2>
                     </div>
-                    <div class="col-xs-12 col-sm-9">
+                    <div class="col-xs-12 col-sm-8 col-md-9">
                         <nav>
                             <ul>
                                 <li><a href="javascript:void();">Menu Link #1</a></li>
@@ -605,10 +611,10 @@
     &lt;div class="menu">
         &lt;div class="container">
             &lt;div class="row">
-                &lt;div class="col-sm-3 hidden-xs">
+                &lt;div class="hidden-xs col-sm-4 col-md-3">
                     &lt;h2>Header&lt;/h2>
                 &lt;/div>
-                &lt;div class="col-xs-12 col-sm-9">
+                &lt;div class="col-xs-12 col-sm-8 col-md-9">
                     &lt;nav>
                         &lt;ul>
                             &lt;li>&lt;a href="javascript:void();">Menu Link #1&lt;/a>&lt;/li>
@@ -644,10 +650,10 @@
         <div class="menu">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-3 hidden-xs">
+                    <div class="hidden-xs col-sm-4 col-md-3">
                         <h2>Header</h2>
                     </div>
-                    <div class="col-xs-12 col-sm-9">
+                    <div class="col-xs-12 col-sm-8 col-md-9">
                         <nav>
                             <ul>
                                 <li><a href="javascript:void();">Menu Link #1</a></li>
@@ -678,10 +684,10 @@
     &lt;div class="menu">
         &lt;div class="container">
             &lt;div class="row">
-                &lt;div class="col-sm-3 hidden-xs">
+                &lt;div class="hidden-xs col-sm-4 col-md-3">
                     &lt;h2>Header&lt;/h2>
                 &lt;/div>
-                &lt;div class="col-xs-12 col-sm-9">
+                &lt;div class="col-xs-12 col-sm-8 col-md-9">
                     &lt;nav>
                         &lt;ul>
                             &lt;li>&lt;a href="javascript:void();">Menu Link #1&lt;/a>&lt;/li>
@@ -700,12 +706,128 @@
                 <br/>
                 <br/>
                 <br/>
+                <p ><span class="uppercase">Header</span> with info</p>
                 <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>Header with info</h1>
+                </div>
+            </div>
+        </div>
+        <div class="info">
+            <div class="container">
+                <a href="#" class="row portfolio">
+                    <div class="col-xs-12 col-sm-8 col-sm-push-4 col-md-9 col-md-push-3">
+                        <div class="row slider portfolio">
+                            <div class="wrapper">
+                                <div class="col-xs-12 slide">
+                                    <img src="http://placehold.it/400x320&text=image"/>
+                                </div>
+                                <div class="col-xs-12 slide">
+                                    <img src="http://placehold.it/500x320&text=image"/>
+                                </div>
+                                <div class="col-xs-12 slide">
+                                    <img src="http://placehold.it/400x320&text=image"/>
+                                </div>
+                                <div class="col-xs-12 slide">
+                                    <img src="http://placehold.it/500x320&text=image"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-sm-pull-8 col-md-3 col-md-pull-9">
+                        <div class="bubble">Work of the day</div>
+                        <div class="text">
+                            <h2>Max<br/>Mustermann</h2>
+                            <h3>Portfolio Title</h3>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="menu">
+            <div class="container">
+                <div class="row">
+                    <div class="hidden-xs col-sm-4 col-md-3">
+                        <h2>Header</h2>
+                    </div>
+                    <div class="col-xs-12 col-sm-8 col-md-9">
+                        <nav>
+                            <ul>
+                                <li><a href="javascript:void();">Menu Link #1</a></li>
+                                <li><a href="javascript:void();">Menu Link #2</a></li>
+                                <li><a href="javascript:void();">Menu Link #3</a></li>
+                                <li><a href="javascript:void();">Menu Link #4</a></li>
+                                <li><a href="javascript:void();">Menu Link #5</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <pre>
+&lt;div class="header">
+    &lt;div class="container">
+        &lt;div class="row">
+            &lt;div class="col-xs-12">
+                &lt;h1>Header with info&lt;/h1>
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    &lt;div class="info">
+        &lt;div class="container">
+            &lt;a href="#" class="row portfolio">
+                &lt;div class="col-xs-12 col-sm-8 col-sm-push-4 col-md-9 col-md-push-3">
+                    &lt;div class="row slider portfolio">
+                        &lt;div class="wrapper">
+                            &lt;div class="col-xs-12 slide">
+                                &lt;img src="http://placehold.it/400x320&text=image"/>
+                            &lt;/div>
+                            ... keep adding slides
+                        &lt;/div>
+                    &lt;/div>
+                &lt;/div>
+                &lt;div class="col-xs-12 col-sm-4 col-sm-pull-8 col-md-3 col-md-pull-9">
+                    &lt;div class="bubble">Work of the day&lt;/div>
+                    &lt;div class="text">
+                        &lt;h2>Max&lt;br/>Mustermann&lt;/h2>
+                        &lt;h3>Portfolio Title&lt;/h3>
+                    &lt;/div>
+                &lt;/div>
+            &lt;/a>
+        &lt;/div>
+    &lt;/div>
+    &lt;div class="menu">
+        &lt;div class="container">
+            &lt;div class="row">
+                &lt;div class="hidden-xs col-sm-4 col-md-3">
+                    &lt;h2>Header&lt;/h2>
+                &lt;/div>
+                &lt;div class="col-xs-12 col-sm-8 col-md-9">
+                    &lt;nav>
+                        &lt;ul>
+                            &lt;li>&lt;a href="javascript:void();">Menu Link #1&lt;/a>&lt;/li>
+                            &lt;li>&lt;a href="javascript:void();">Menu Link #2&lt;/a>&lt;/li>
+                            &lt;li>&lt;a href="javascript:void();">Menu Link #3&lt;/a>&lt;/li>
+                            &lt;li>&lt;a href="javascript:void();">Menu Link #4&lt;/a>&lt;/li>
+                            &lt;li>&lt;a href="javascript:void();">Menu Link #5&lt;/a>&lt;/li>
+                        &lt;/ul>
+                    &lt;/nav>
+                &lt;/div>
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+&lt;/div>
+                </pre>
                 <br/>
                 <br/>
                 <br/>

@@ -18,6 +18,8 @@
         me.$wrapper = $('.wrapper', me.$main);
         me.$elements = $('.slide', me.$main);
         me.$body = $('body');
+        me.$window = $(window);
+        me.is_header = me.$main.parents('.header').length;
         
         if (!me.$wrapper.length) me.$wrapper = me.$main;
         
@@ -35,7 +37,7 @@
         me.$prev = null;
         me.$next = null;
         
-        $(window).resize(function() {me.styleIt(false, 200);});
+        me.$window.resize(function() {me.styleIt(false, 200);});
         $(document).ready(function() {me.styleIt();});
         $('img', me.$main).load(function() {me.styleIt();});
         me.styleIt();
@@ -230,14 +232,14 @@
             
             if (!me.$prev) {
                 
-                me.$prev = $('<div class="fawesome left-bold prev"><span class="sr-only">previous</span></div>');
-                me.$next = $('<div class="fawesome right-bold next"><span class="sr-only">next</span></div>');
+                me.$prev = $('<div class="fawesome fa-left-bold prev"><span class="sr-only">previous</span></div>');
+                me.$next = $('<div class="fawesome fa-right-bold next"><span class="sr-only">next</span></div>');
                 
                 me.$main.append(me.$prev);
                 me.$main.append(me.$next);
                 
-                me.$prev.click(function() {me.timer = false; me.prev();});
-                me.$next.click(function() {me.timer = false; me.next();});
+                me.$prev.click(function(e) {me.timer = false; me.prev(e); return false;});
+                me.$next.click(function(e) {me.timer = false; me.next(e); return false;});
                 
             }
             
@@ -254,9 +256,19 @@
                 
                 var margin = Math.round((me.$body.width() - me.$wrapper.width()) / 2 - 1);
                 if (margin > 50) margin = 50;
+                if (me.is_header && margin > 30) margin = 30;
+                if (margin < 15) margin = 15;
                 
                 me.$prev.css('left', '-'+margin+'px');
                 me.$next.css('right', '-'+margin+'px');
+                
+                var right = me.$next.offset().left + me.$next.width();
+                if (me.$window.width() < right) {
+                    margin -= right - me.$window.width();
+                    if (margin < 15) margin = 15;
+                    me.$prev.css('left', '-'+margin+'px');
+                    me.$next.css('right', '-'+margin+'px');
+                }
             }
             
             
@@ -381,7 +393,9 @@
     /**
      * Sets the next element to be the me.current_element.
      */
-    Slider.prototype.next = function() {
+    Slider.prototype.next = function(event) {
+        
+        if (typeof event != "undefined") event.stopImmediatePropagation();
         
         var me = this.me;
         
@@ -397,12 +411,14 @@
         }
         
         me.styleIt(true);
+        
+        return false;
     }
     
     /**
      * Sets the previous element to be the me.current_element.
      */
-    Slider.prototype.prev = function() {
+    Slider.prototype.prev = function(event) {
         
         var me = this.me;
         

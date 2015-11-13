@@ -12,6 +12,10 @@ body {
     }
 }
 
+#body {
+    overflow: hidden;
+}
+
 b, strong {
     font-weight: $font-bold;
 }
@@ -60,6 +64,10 @@ h2 {
         font-size: 1.07em;
         line-height: 125%;
     }
+}
+
+h3 {
+    margin: 0;
 }
 
 p {
@@ -116,6 +124,33 @@ p {
         &:last-child {
             margin-right: 0;
         }
+    }
+}
+
+.bubble {
+    width: 100px;
+    height: 100px;
+    padding: 30px 5px 0 10px;
+    margin: 0;
+    font-family: $font-1, $font-family-1;
+    font-weight: $font-black;
+    font-size: 1.47em;
+    line-height: 95%;
+    background: $cyan;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    color: $white;
+    text-transform: uppercase;
+    display: block;
+    word-wrap: break-word;
+    
+    .is-xs & {
+        width: 80px;
+        height: 80px;
+        padding: 25px 5px 0 8px;
+        font-size: 1.1em;
+        line-height: 97%;
     }
 }
 
