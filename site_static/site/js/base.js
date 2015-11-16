@@ -145,10 +145,10 @@ $(document).ready(function() {
         this.me = me;
         
         me.$main = $main;
-        me.$button = $('.search', me.$main);
+        me.$button = $('.fa-search', me.$main);
         me.$layer = $('#search-layer');
-        me.$search = $('.search', me.$layer);
-        me.$close = $('.close', me.$layer);
+        me.$search = $('.fa-search', me.$layer);
+        me.$close = $('.fa-close', me.$layer);
         me.$input = $('input', me.$layer);
         me.$body = $('body');
         me.$window = $(window);
@@ -272,6 +272,8 @@ $(document).ready(function() {
         me.$info = $('.info', me.$main);
         me.$info_container = $('.info > .container', me.$main);
         me.$menu = $('.menu', me.$main);
+        me.$menu_header = $('.header', me.$menu);
+        me.$menu_navi = $('.navi', me.$menu);
         me.$nav = $('nav', me.$menu);
         me.$list = $('ul', me.$nav);
         me.$lists = $('li', me.$nav);
@@ -287,6 +289,7 @@ $(document).ready(function() {
         
         if (me.$image.length) me.$main.addClass('has-image');
         if (me.$image.length || me.$info.length) me.$main.addClass('has-content');
+        if (me.$menu.length) me.$main.addClass('has-menu');
         
         me.$image.load(function() {me.styleImage();});
         me.$window.resize(function() {me.onResize();});
@@ -346,6 +349,21 @@ $(document).ready(function() {
         
         if (!me.$nav.length) return;
         
+        
+        var header_position = me.$menu_header.position();
+        me.$menu_navi.css('left', (header_position.left + me.$menu_header.width() + 20) + 'px');
+        
+        var navi_offset = me.$menu_navi.offset();
+        var right_margin = 10;
+        if (!me.$body.hasClass('is-xs')) right_margin = 40;
+        if (me.$info.hasClass('closed') && !me.$main.hasClass('fixed')) {
+            if (me.$body.hasClass('is-xs')) right_margin += 40;
+            else right_margin += 56;
+        }
+        me.$menu_navi.width(me.$window.width() - right_margin - navi_offset.left);
+        
+        
+        
         me.$list.css('width', '');
         me.$lists.css('left', '');
         
@@ -385,13 +403,6 @@ $(document).ready(function() {
             me.$nav.on("swipeleft", function() {me.next();});
         }
         
-        var nav_pos = me.$nav.offset();
-        
-        if (nav_pos.left + me.$nav.width() + 25 > me.$window.width()) {
-            me.$next.addClass('squeezed');   
-        } else {
-            me.$next.removeClass('squeezed');
-        }
         
         var $left_nav = $(me.$lists.get(me.left_nav));
         me.$list.css('left', '-' + $left_nav.data('left') + 'px');
@@ -425,7 +436,7 @@ $(document).ready(function() {
             var $left_nav = $(me.$lists.get(me.left_nav));
             var $right_nav = $(me.$lists.get(me.$lists.length - 1));
             var width = $right_nav.data('left') + $right_nav.width() - $left_nav.data('left');
-            if (nav_width >= width) {
+            if (nav_width >= width || me.left_nav == me.$lists.length - 1) {
                 me.$next.addClass('disabled');
             }
             
@@ -443,12 +454,7 @@ $(document).ready(function() {
         var $right_nav = $(me.$lists.get(me.$lists.length - 1));
         var width = $right_nav.data('left') + $right_nav.width() - $left_nav.data('left');
         
-        var offset = 0;
-        if (me.$info.length && me.$info.hasClass('closed')) {
-            offset = (me.$body.hasClass('is-xs')) ? 40 : 56;   
-        }
-        
-        if (me.$nav.width() < width + offset) {
+        if (me.$nav.width() < width) {
             me.left_nav++;
             me.styleNavi();
         }   
@@ -491,6 +497,8 @@ $(document).ready(function() {
         } else {
             me.$main.removeClass('fixed');
         }
+        
+        me.styleNavi();
     }
     
     /**
@@ -510,6 +518,7 @@ $(document).ready(function() {
             me.$info_container.css('display', '');
             
             var height = me.$info_container.height();
+            var padding = 0;
             
             me.$info_container.height(0);
             me.$info_container.animate({
@@ -517,6 +526,7 @@ $(document).ready(function() {
             }, 400, function() {
                 me.animating = false;
                 me.$info_container.css('height', '');
+                $('.slider', me.$info).data('me').styleIt();
                 me.checkFixedPosition();
             });
             

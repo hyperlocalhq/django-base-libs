@@ -14,6 +14,20 @@ body {
 
 #body {
     overflow: hidden;
+    > .container {
+        > .row {
+            margin-left: -$grid-padding;
+            margin-right: -$grid-padding;
+            > div {
+                padding-left: $grid-padding;
+                padding-right: $grid-padding;
+            }
+        }
+        .is-xs & {
+            padding-left: $window-margin-xs;
+            padding-right: $window-margin-xs;
+        }
+    }
 }
 
 b, strong {
@@ -24,6 +38,9 @@ small {
 }
 .uppercase {
     text-transform: uppercase;
+}
+.underline {
+    text-decoration: underline;
 }
 .word-wrap {
     word-wrap: break-word;
@@ -38,6 +55,10 @@ small {
 }
 
 a {
+    color: $cyan-dark;
+    &:hover {
+        color: $cyan;
+    }
     &:hover, &:active, &:visited, &:focus {
         text-decoration: none;
     }
@@ -128,9 +149,9 @@ p {
 }
 
 .bubble {
-    width: 100px;
-    height: 100px;
-    padding: 30px 5px 0 10px;
+    width: 105px;
+    height: 105px;
+    padding: 35px 5px 0 10px;
     margin: 0;
     font-family: $font-1, $font-family-1;
     font-weight: $font-black;
@@ -144,6 +165,14 @@ p {
     text-transform: uppercase;
     display: block;
     word-wrap: break-word;
+    cursor: default;
+    
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     
     .is-xs & {
         width: 80px;
@@ -167,6 +196,10 @@ p {
     height:1px;
     display: block;
     background: $grey;
+    &.thick {
+        height: 3px;
+        background: $black;
+    }
 }
 
 .tooltip {

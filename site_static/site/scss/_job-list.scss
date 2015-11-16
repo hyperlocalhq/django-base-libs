@@ -1,0 +1,278 @@
+@charset "UTF-8";
+
+#body {
+    .container {
+        .row.job-list {
+            margin-left: -10px;
+            margin-right: -10px;
+            > div {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+        }
+    }
+}
+
+.row.job-list {
+    
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    
+    > div {
+        
+        a.content {
+            display: block;
+            background: $white;
+            overflow: hidden;
+            border-bottom: 1px solid $grey-bright;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            position: relative;
+            
+            .is-xs & {
+                padding-bottom: 60px;
+            }
+            
+            &:hover {
+                background: $white-dirty;
+                .is-xs & {
+                    background: $white;
+                }
+            }
+            
+            h2 {
+                font-family: $font-1, $font-family-1;
+                font-weight: $font-black;
+                font-size: 1.47em;
+                line-height: 127%;
+                color: $black;
+                padding: 0 20px 5px;
+                
+                .is-sm & {
+                    font-size: 1.4em;
+                }
+                
+                .is-xs & {
+                    font-size: 1.27em;
+                    padding: 0 0 5px;
+                }
+            }
+            
+            h3 {
+                font-family: $font-2, $font-family-1;
+                font-weight: $font-bold;
+                font-size: 1.07em;
+                line-height: 140%;
+                color: $cyan;
+                text-transform: uppercase;
+                padding: 0 105px 20px 20px;
+                time {
+                    font-weight: $font-light;
+                    color: $black;
+                    padding-left: 15px;
+                    .is-xs & {
+                        padding-left: 10px;
+                    }
+                }
+                
+                .is-sm & {
+                    font-size: 1em;
+                    padding: 0 90px 15px 20px;
+                }
+                
+                .is-xs & {
+                    font-size: 0.73em;
+                    padding: 0 0 20px 0;
+                    line-height: 126%;
+                }
+            }
+            
+            p {
+                font-size: 1.2em;
+                line-height: 140%;
+                padding: 0 20px 5px;
+                color: $black;
+                
+                .is-sm & {
+                    font-size: 1em;
+                }
+                
+                .is-xs & {
+                    font-size: 1.07em;
+                    padding: 0 0 5px;
+                    line-height: 150%;
+                }
+            }
+            
+            ul {
+                font-size: 1.2em;
+                font-weight: $font-light;
+                line-height: 140%;
+                list-style: none;
+                padding: 0 20px;
+                margin: 0;
+                color: $black;
+                
+                .is-sm & {
+                    font-size: 1.07em;    
+                }
+                
+                .is-xs & {
+                    font-size: 1.07em;
+                    padding: 0;
+                    line-height: 150%;
+                }
+                
+                li {
+                    display: inline;
+                    &:after {
+                        content: ", ";
+                    }
+                    &:last-child {
+                        &:after {
+                            content: none;
+                        }
+                    }
+                }
+            }
+        
+            .bubble {
+                position: absolute;
+                right: 10px;
+                bottom: 30px;
+                cursor: pointer;
+                
+                .is-xs & {
+                    top: 5px;
+                    right: 0;
+                    bottom: inherit;
+                }
+            }
+        }
+        
+        &.has-bubble {
+            a.content {
+                h2, p, ul {
+                    padding-right: 125px;
+                }
+                
+                .is-xs & {
+                    padding-top: 30px;
+                    
+                    h2, h3 {
+                        padding-right: 90px;
+                    }
+                    
+                    p, ul {
+                        padding-right: 0;
+                    }
+                }
+            }
+            a.website {
+                margin-right: 125px;
+                word-break: break-word;
+                
+                .is-xs & {
+                    margin-right: 0;
+                }
+            }
+        }
+            
+        a.website {
+            font-size: 1.2em;
+            line-height: 140%;
+            padding: 0;
+            margin-left: 20px;
+            margin-right: 20px;
+            position: absolute;
+            left: 0;
+            
+            .is-sm & {
+                font-size: 1.07em;
+            }
+            
+            .is-xs & {
+                font-size: 1.07em;
+                margin-left: 0;
+                margin-right: 0;
+            }
+        }
+        
+        .button-group {
+            position: absolute;
+            top: 17px;
+            right: 20px;
+            
+            .is-sm & {
+                top: 13px;    
+            }
+            
+            .is-xs & {
+                position: absolute;
+                top: inherit;
+                right: inherit;
+                left: 0;
+                bottom: 20px;
+            }
+            
+            .button {
+                background: none;
+                border-radius: 0;
+                color: $grey-light;
+                font-size: inherit;
+                display: none; 
+                margin-left: 20px;
+                margin-right: 0;
+                margin-bottom: 0;
+                width: auto;
+                
+                .is-sm & {
+                    margin-left: 15px;
+                }
+                
+                .is-xs & {
+                    display: inline-block;
+                }
+                
+                &:hover {
+                    color: $black;
+                }
+                &:before {
+                    font-size: 2em;
+                    line-height: 100%;
+                    
+                    .is-sm & {
+                        font-size: 1.67em;
+                    }
+                    
+                    .is-xs & {
+                        font-size: 1.67em;
+                    }
+                }
+                &.active {
+                    display: inline-block;
+                }
+                &:first-child {
+                    margin-left: 0;
+                }
+            }
+        }
+            
+        .wrapper {
+            position: relative;
+            &:hover {
+                .button-group {
+                    .button {
+                        display: inline-block;
+                    }
+                }
+            }
+        }
+        
+    }
+    
+}

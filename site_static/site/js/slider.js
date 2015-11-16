@@ -44,6 +44,9 @@
         
         me.$main.on("swiperight", function() {me.timer = false; me.prev();});
         me.$main.on("swipeleft", function() {me.timer = false; me.next();});
+        
+        
+        me.$main.data('me', me);
     }
     
     /**
@@ -274,6 +277,8 @@
             
             me.disabled = false;
             me.checkNextPrev();
+            
+            me.previous_element = me.current_element;
         }
     }
     
@@ -449,10 +454,10 @@
             var $first = $(me.$elements.get(0));
             var $last = $(me.$elements.get(me.$elements.length-1));
             
-            if ($first.position().left >= me.margin*(-1)) me.$prev.addClass('disabled');
+            if ($first.position().left >= me.margin*(-1) || me.current_element == 0) me.$prev.addClass('disabled');
             else me.$prev.removeClass('disabled');
             
-            if ($last.position().left + $last.width() <= me.$wrapper.width() + me.margin) me.$next.addClass('disabled');
+            if ($last.position().left + $last.width() <= me.$wrapper.width() + me.margin || me.current_element == me.$elements.length-1) me.$next.addClass('disabled');
             else me.$next.removeClass('disabled');
             
         }

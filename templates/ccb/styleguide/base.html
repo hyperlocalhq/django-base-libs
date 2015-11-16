@@ -51,9 +51,10 @@
                         <div class="col-xs-12">
                             <h1>General</h1>
                             <br/>
-                            <p class="uppercase">The grid</p>
+                            <p class="uppercase"><b>The grid</b></p>
+                            <br/>
                             <p>The grid system is based on bootstrap.</p>
-                            <p>To place elements inside the grid wrap the area in div tags with class="container", class="row" and than in class="col-...-...".<br/>
+                            <p>To place elements inside the grid wrap the area in div tags with class="container", class="row" and than in class="col-...-...".</p>
                             <pre>
 &lt;div class="container">
     &lt;div class="row">
@@ -63,10 +64,37 @@
     &lt;/div>
 &lt;/div>
                             </pre>
-                            Certain elements will need an extra class added to the row tag in order to work.</p>
+                            <p>In order to have a left navigation column and a right content column use the following structure:</p>
+                            <pre>
+&lt;div class="container">
+    &lt;div class="row">
+        &lt;div class="col-xs-12 col-sm-4 col-md-3">
+            
+            Place navgation here!
+            
+        &lt;/div>
+        &lt;div class="col-xs-12 col-sm-8 col-md-9">
+            
+            Place elements here like ...
+            
+            &lt;div class="row">
+                &lt;div class="col-...-...">
+                    ...
+                &lt;/div>
+            &lt;/div>
+                
+        &lt;/div>
+    &lt;/div>
+&lt;/div>
+                            </pre>
+                            <p>Certain elements will need an extra class added to their row tag in order to work.</p>
+                            <br/>
                             <p>To place an element which spans over the whole width of the page DO NOT wrap it inside the classes but place it directly in the html code.</p>
                             <br/>
-                            <p class="uppercase">The tempplate</p>
+                            <br/>
+                            <br/>
+                            <p class="uppercase"><b>The tempplate</b></p>
+                            <br/>
                             <p>Extend your template from "base.html".</p>
                             <p>Place your content inside <b>{&#37; block content &#37;}...{&#37; endblock &#37;}</b>.</p>
                             <p>Add javascript to <b>{&#37; block javascript &#37;}...{&#37; endblock &#37;}</b>.</p>
@@ -76,7 +104,10 @@
                             <p>Overwrite or append metatags in <b>{&#37; block meta_tags &#37;}...{&#37; endblock &#37;}</b>.</p>
                             <p>Add body classes in <b>{&#37; block body_class &#37;}...{&#37; endblock &#37;}</b>.</p>
                             <br/>
-                            <p class="uppercase">Sniffer</p>
+                            <br/>
+                            <br/>
+                            <p class="uppercase"><b>Sniffer</b></p>
+                            <br/>
                             <p>Depending on the window width the body tag has the class "is-xs", "is-sm", "is-md" or "is-lg".</p>
                             <br/>
                         </div>
@@ -88,8 +119,8 @@
             <div class="wrapper">
                 <input placeholder="{% trans 'Enter your search term ...' %}"/>
                 <div class="button-group">
-                    <div class="fawesome search button"><span class="sr-only">{% trans 'search' %}</span></div>
-                    <div class="fawesome close button"><span class="sr-only">{% trans 'close' %}</span></div>
+                    <div class="fawesome fa-search button"><span class="sr-only">{% trans 'search' %}</span></div>
+                    <div class="fawesome fa-close button"><span class="sr-only">{% trans 'close' %}</span></div>
                 </div>
             </div>
         </div>

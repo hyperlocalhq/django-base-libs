@@ -12,8 +12,15 @@
     -ms-user-select: none;
     user-select: none;
     
-    .is-xs & {
+    .is-xs &.has-menu {
         border-bottom: 1px solid $grey-bright;
+    }
+    
+    .is-xs & {
+        .container {
+            padding-left: $window-margin-xs;
+            padding-right: $window-margin-xs;
+        }
     }
     
     > .container {
@@ -39,11 +46,35 @@
         }
     }
     
+    &.has-menu .info {
+        margin-bottom: 0;
+        .is-xs & {
+            padding-bottom: 0;
+        }
+        &.closed {
+            .is-xs & {
+                margin-bottom: 0;
+            }
+        }
+    }
+    
     .info {
         background: $cyan-light;
         position: relative;
+        margin-bottom: 56px;
+        
+        .is-xs & {
+            margin-bottom: 0;
+            padding-bottom: 40px;
+        }
         
         &.closed {
+            
+            .is-xs & {
+                padding-bottom: 0;
+                margin-bottom: 40px;
+            }
+            
             .info-menu-space {
                 visibility: visible;
                 .is-xs & {
@@ -152,7 +183,7 @@
                     .is-xs & {
                         .bubble {
                             position: absolute;
-                            top: 15px;
+                            top: 10px;
                             right: 15px;
                         }
                     }
@@ -175,7 +206,11 @@
             }
         }
         
-        .is-xs &, .is-sm & {
+        .bubble {
+            cursor: pointer;
+        }
+        
+        .is-xs & {
             .prev, .next {
                 display: none !important;
             }
@@ -190,6 +225,22 @@
         overflow: hidden;
         -webkit-transition: background 0.3s;
         transition: background 0.3s;
+        
+        > .container {
+            > .row {
+                margin-left: -$grid-padding;
+                margin-right: -$grid-padding;
+                > div {
+                    padding-left: $grid-padding;
+                    padding-right: $grid-padding;
+                    &.navi {
+                        position: absolute;
+                        top: 0;
+                        width: auto;
+                    }
+                }
+            }
+        }
         
         .is-xs & {
             height: 40px;
@@ -207,6 +258,9 @@
             opacity: 0;
             -webkit-transition: opacity 0.3s;
             transition: opacity 0.3s;
+            .is-xs &, .is-sm & {
+                padding-right: 0;
+            }
         }
         
         nav {
@@ -285,7 +339,7 @@
                 display: none;
             }
             
-            .is-xs &, .is-sm & {
+            .is-xs & {
                 display: none;
             }
         }
@@ -296,9 +350,6 @@
         
         .next {
             right: -10px;
-            &.squeezed {
-                right: -5px;
-            }
         }
         
     }

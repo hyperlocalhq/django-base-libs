@@ -9,12 +9,12 @@
             <div class="col-xs-12">
                 <h1>Elements</h1>
                 <br/>
-                <p class="uppercase">Buttons</p>
+                <p class="uppercase underline">Buttons</p>
                 <br/>
                 <div class="button">class="button"</div>
                 <br/>
                 <br/>
-                <p class="uppercase">Icon Buttons</p>
+                <p class="uppercase underline">Icon Buttons</p>
                 <br/>
                 <div style="display:inline-block;" class="fawesome fa-twitter small button"></div>&nbsp;&nbsp;&nbsp;<span>class="fawesome fa-twitter small button"</span>
                 <br/>
@@ -23,7 +23,7 @@
                 <br/>
                 <br/>
                 <br/>
-                <p><span class="uppercase">buttons wrapped in </span>class="button-group"</p>
+                <p class="underline"><span class="uppercase">buttons wrapped in </span>class="button-group"</p>
                 <br/>
                 <div class="button-group">
                     <div class="button">class="button"</div>
@@ -45,54 +45,57 @@
                 <br/>
                 <br/>
                 <br/>
-                <p class="uppercase">Body Class Buttons</p>
+                <p class="uppercase underline">Body Class Buttons</p>
                 <br/>
                 <p>If you add the attribute "<b>data-body-class</b>" to an element, it will add the value of the attribute to the classes of the body tag when you click on the element. At the same time all classes of the body tag which belong to other body class buttons are getting removed from the body tag. The clicked active button gets the class "active".</p>
                 <p>If you want to group body class buttons, so that they only affect each other and not the rest of the body class buttons on the page, add the attribute "<b>data-body-class-group</b>" to the buttons and give them the same value.</p>
                 <p>To give a body class button a toggle on/off functionality add the attribute "<b>data-body-class-toggle</b>" with a positive/true value.</p>
                 <p>To have a body class button initialy be active add the class "active" to the button and its "data-body-class" value to the body tag classes.</p>
-                <pre>
-&lt;div class="fawesome fa-list button active" data-body-class="list" data-body-class-group="profiles">&lt;/div>
-&lt;div class="fawesome fa-grid button" data-body-class="grid" data-body-class-group="profiles">&lt;/div>
-                </pre>
+                <pre>&lt;div class="fawesome fa-list button active" data-body-class="list" data-body-class-group="profiles">&lt;/div>
+&lt;div class="fawesome fa-grid button" data-body-class="grid" data-body-class-group="profiles">&lt;/div></pre>
                 <br/>
                 <br/>
                 <br/>
-                <p class="uppercase">Bubble</p>
+                <br/>
+                <p class="uppercase underline">Bubble</p>
                 <br/>
                 <div class="bubble">class="bubble"</div>
                 <br/>
                 <br/>
                 <br/>
-                <p class="uppercase">Tooltip</p>
+                <br/>
+                <p class="uppercase underline">Tooltip</p>
                 <br/>
                 <h2 data-tooltip="Tooltip" style="display:inline-block;">element with data-tooltip="Tooltip"</h2>
                 <br/>
                 <br/>
                 <br/>
-                <p class="uppercase">Line</p>
                 <br/>
-                <p>&lt;div or span class="line"&gt;&lt;/div or span&gt;</p>
+                <p class="uppercase underline">Line</p>
+                <br/>
+                <p>&lt;div or span class="line"&gt;&lt;/div or /span&gt;</p>
                 <span class="line"></span>
                 <br/>
+                <p>&lt;div or span class="line thick"&gt;&lt;/div or /span&gt;</p>
+                <span class="line thick"></span>
                 <br/>
                 <br/>
-                <p class="uppercase">Search</p>
+                <br/>
+                <br/>
+                <p class="uppercase underline">Search</p>
                 <br/>
                 <div class="header-search">
                     <div class="fawesome fa-search"><span class="text hidden-xs">{% trans 'Search' %}</span></div>
                     <div class="result">402<span class="text">{% trans 'Results' %}</span></div>
                 </div>
-                <pre>
-&lt;div class="header-search">
+                <pre>&lt;div class="header-search">
     &lt;div class="fawesome fa-search">&lt;span class="text hidden-xs">&#123;% trans 'Search' %}&lt;/span>&lt;/div>
     &lt;div class="result">402&lt;span class="text">&#123;% trans 'Results' %}&lt;/span>&lt;/div>
-&lt;/div>                    
-                </pre>
+&lt;/div></pre>
                 <br/>
                 <br/>
                 <br/>
-                <p><span class="uppercase">Search</span> with icons menu</p>
+                <p class="underline"><span class="uppercase">Search</span> with icons menu</p>
                 <br/>
                 <p>Requirements:<br/>
                     Add the data-body-class value of the initialy active menu icon to the body classes.<br/>
@@ -108,101 +111,330 @@
                     </div>
                     <div class="result">8.843<span class="text">{% trans 'Profiles' %}</span></div>
                 </div>
-                <pre>
-&lt;div class="header-search">
+                <pre>&lt;div class="header-search">
     &lt;div class="fawesome fa-search">&lt;span class="text hidden-xs">&#123;% trans 'Search' %}&lt;/span>&lt;/div>
     &lt;div class="button-group hidden-xs">
         &lt;div class="fawesome fa-list button active" data-body-class="list" data-body-class-group="profiles">&lt;/div>
         &lt;div class="fawesome fa-grid button" data-body-class="grid" data-body-class-group="profiles">&lt;/div>
     &lt;/div>
     &lt;div class="result">8.843&lt;span class="text">&#123;% trans 'Profiles' %}&lt;/span>&lt;/div>
-&lt;/div>                    
-                </pre>
+&lt;/div></pre>
                 <br/>
                 <br/>
                 <br/>
-                <p class="uppercase">Profile row</p>
+                <p class="uppercase underline">Profile list/grid</p>
+                <p>Use the buttons on the right side of the search bar above to switch between list and grid view.</p>
                 <br/>
             </div>
         </div>
-        <div class="row profile">
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <a class="content" href="#">
-                    <img src="http://placehold.it/640x666&text=image">
-                    <div class="text">
-                        <h2>Max<br/>Mustermann</h2>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                
+                Navigation
+                
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                <div class="row profile-grid profile-list">
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="wrapper">
+                            <a class="content" href="#">
+                                <img src="http://placehold.it/270x281&text=image">
+                                <div class="text">
+                                    <h2>Max Mustermann</h2>
+                                    <h3>Art Director <span class="feature">Grafikdesign, Produktdesign</span></h3>
+                                    <ul>
+                                        <li>201 <span class="feature">{% trans "Follower" %}</span></li>
+                                        <li>8 <span class="feature">{% trans "Curated lists" %}</span></li>
+                                    </ul>
+                                </div>
+                            </a>
+                            <div class="button-group">
+                                <a href="#" class="fawesome fa-bookmark button"></a>
+                                <a href="#" class="fawesome fa-favorite button"></a>
+                                <a href="#" class="fawesome fa-plus-circle button"></a>
+                            </div>
+                        </div>
                     </div>
-                </a>
-                <div class="button-group">
-                    <a href="#" class="fawesome fa-bookmark button"></a>
-                    <a href="#" class="fawesome fa-favorite button"></a>
-                    <a href="#" class="fawesome fa-plus-circle button"></a>
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="wrapper">
+                            <a class="content" href="#">
+                                <img src="http://placehold.it/270x281&text=image">
+                                <div class="text">
+                                    <h2>Max Mustermann Langername</h2>
+                                    <h3>Art Director <span class="feature">Grafikdesign, Produktdesign, Illustration, Grafikdesign, Produktdesign, Illustration</span></h3>
+                                    <ul>
+                                        <li>201 <span class="feature">{% trans "Follower" %}</span></li>
+                                        <li>8 <span class="feature">{% trans "Curated lists" %}</span></li>
+                                    </ul>
+                                </div>
+                            </a>
+                            <div class="button-group">
+                                <a href="#" class="fawesome fa-bookmark button"></a>
+                                <a href="#" class="fawesome fa-favorite button active"></a>
+                                <a href="#" class="fawesome fa-plus-circle button"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="wrapper">
+                            <a class="content" href="#">
+                                <img src="http://placehold.it/270x281&text=image">
+                                <div class="text">
+                                    <h2>Max Mustermann</h2>
+                                    <h3>Art Director <span class="feature">Grafikdesign, Produktdesign, Illustration</span></h3>
+                                    <ul>
+                                        <li>201 <span class="feature">{% trans "Follower" %}</span></li>
+                                        <li>8 <span class="feature">{% trans "Curated lists" %}</span></li>
+                                    </ul>
+                                </div>
+                            </a>
+                            <div class="button-group">
+                                <a href="#" class="fawesome fa-bookmark button"></a>
+                                <a href="#" class="fawesome fa-favorite button"></a>
+                                <a href="#" class="fawesome fa-plus-circle button"></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <a class="content" href="#">
-                    <img src="http://placehold.it/640x666&text=image">
-                    <div class="text">
-                        <h2>Max<br/>Mustermann</h2>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <br/>
+                <p>Place the code inside the elements area of a navigation layout block.</p>
+                <pre>&lt;div class="row profile-grid profile-list">
+    &lt;div class="col-xs-12 col-sm-6 col-md-4">
+        &lt;div class="wrapper">
+            &lt;a class="content" href="#">
+                &lt;img src="http://placehold.it/270x281&text=image">
+                &lt;div class="text">
+                    &lt;h2>Max Mustermann&lt;/h2>
+                    &lt;h3>Art Director &lt;span class="feature">Grafikdesign, Produktdesign&lt;/span>&lt;/h3>
+                    &lt;ul>
+                        &lt;li>201 &lt;span class="feature">&#123;% trans "Follower" %}&lt;/span>&lt;/li>
+                        &lt;li>8 &lt;span class="feature">&#123;% trans "Curated lists" %}&lt;/span>&lt;/li>
+                    &lt;/ul>
+                &lt;/div>
+            &lt;/a>
+            &lt;div class="button-group">
+                &lt;a href="#" class="fawesome fa-bookmark button">&lt;/a>
+                &lt;a href="#" class="fawesome fa-favorite button">&lt;/a>
+                &lt;a href="#" class="fawesome fa-plus-circle button">&lt;/a>
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    ... keep adding col blocks
+&lt;/div></pre>
+                <p>Add class="active" to an active icon button.</p>
+                <br/>
+                <br/>
+                <br/>
+                <p class="uppercase underline">Profile row</p>
+                <br/>
+            </div>
+        </div>
+        <div class="row profile-grid">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <div class="wrapper">
+                    <a class="content" href="#">
+                        <img src="http://placehold.it/270x281&text=image">
+                        <div class="name">
+                            <h2>Max <br/>Mustermann</h2>
+                        </div>
+                    </a>
+                    <div class="button-group">
+                        <a href="#" class="fawesome fa-bookmark button"></a>
+                        <a href="#" class="fawesome fa-favorite button"></a>
+                        <a href="#" class="fawesome fa-plus-circle button"></a>
                     </div>
-                </a>
-                <div class="button-group">
-                    <a href="#" class="fawesome fa-bookmark button"></a>
-                    <a href="#" class="fawesome fa-favorite button"></a>
-                    <a href="#" class="fawesome fa-plus-circle button"></a>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <a class="content" href="#">
-                    <img src="http://placehold.it/640x666&text=image">
-                    <div class="text">
-                        <h2>Max<br/>Mustermann</h2>
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <div class="wrapper">
+                    <a class="content" href="#">
+                        <img src="http://placehold.it/270x281&text=image">
+                        <div class="name">
+                            <h2>Max <br/>Mustermann</h2>
+                        </div>
+                    </a>
+                    <div class="button-group">
+                        <a href="#" class="fawesome fa-bookmark button"></a>
+                        <a href="#" class="fawesome fa-favorite button active"></a>
+                        <a href="#" class="fawesome fa-plus-circle button"></a>
                     </div>
-                </a>
-                <div class="button-group">
-                    <a href="#" class="fawesome fa-bookmark button"></a>
-                    <a href="#" class="fawesome fa-favorite button"></a>
-                    <a href="#" class="fawesome fa-plus-circle button"></a>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <a class="content" href="#">
-                    <img src="http://placehold.it/640x666&text=image"/>
-                    <div class="text">
-                        <h2>Max<br/>Mustermann</h2>
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <div class="wrapper">
+                    <a class="content" href="#">
+                        <img src="http://placehold.it/270x281&text=image">
+                        <div class="name">
+                            <h2>Max <br/>Mustermann Langername</h2>
+                        </div>
+                    </a>
+                    <div class="button-group">
+                        <a href="#" class="fawesome fa-bookmark button"></a>
+                        <a href="#" class="fawesome fa-favorite button"></a>
+                        <a href="#" class="fawesome fa-plus-circle button"></a>
                     </div>
-                </a>
-                <div class="button-group">
-                    <a href="#" class="fawesome fa-bookmark button"></a>
-                    <a href="#" class="fawesome fa-favorite button"></a>
-                    <a href="#" class="fawesome fa-plus-circle button"></a>
+                </div>
+            </div>
+            <div class="col-xs-12 hidden-sm col-md-3">
+                <div class="wrapper">
+                    <a class="content" href="#">
+                        <img src="http://placehold.it/270x281&text=image"/>
+                        <div class="name">
+                            <h2>Max <br/>Mustermann</h2>
+                        </div>
+                    </a>
+                    <div class="button-group">
+                        <a href="#" class="fawesome fa-bookmark button"></a>
+                        <a href="#" class="fawesome fa-favorite button"></a>
+                        <a href="#" class="fawesome fa-plus-circle button"></a>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-xs-12">
-                <pre>
-&lt;div class="row profile">
+                <pre>&lt;div class="row profile-grid">
     &lt;div class="col-xs-12 col-sm-6 col-md-3">
-        &lt;a class="content" href="#">
-            &lt;img src="http://placehold.it/640x666&text=image"/>
-            &lt;div class="text">
-                &lt;h2>Max&lt;br/>Mustermann&lt;/h2>
+        &lt;div class="wrapper">
+            &lt;a class="content" href="#">
+                &lt;img src="http://placehold.it/270x281&text=image"/>
+                &lt;div class="name">
+                    &lt;h2>Max &lt;br/>Mustermann&lt;/h2>
+                &lt;/div>
+            &lt;/a>
+            &lt;div class="button-group">
+                &lt;a href="#" class="fawesome fa-bookmark button">&lt;/a>
+                &lt;a href="#" class="fawesome fa-favorite button">&lt;/a>
+                &lt;a href="#" class="fawesome fa-plus-circle button">&lt;/a>
             &lt;/div>
-        &lt;/a>
-        &lt;div class="button-group">
-            &lt;a href="#" class="fawesome fa-bookmark button">&lt;/a>
-            &lt;a href="#" class="fawesome fa-favorite button">&lt;/a>
-            &lt;a href="#" class="fawesome fa-plus-circle button">&lt;/a>
         &lt;/div>
     &lt;/div>
     ... the col block 3 more times
-&lt;/div>
-                </pre>
+&lt;/div></pre>
+                <p>Add class="active" to an active icon button.</p>
                 <br/>
                 <br/>
                 <br/>
-                <p class="uppercase">Navigation grid</p>
+                <p class="uppercase underline">Job list</p>
+                <p>The col-xs-12 tag gets the class "has-bubble" if a bubble tag exists inside.</p>
+                <br/>
+                <p>Requirements:<br/>
+                    &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/job-list.js">&lt;/script>
+                </p>
+                <br/>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                
+                Navigation
+                
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                <div class="row job-list">
+                    <div class="col-xs-12">
+                        <div class="wrapper">
+                            <a class="content" href="#">
+                                <h3>Freie Mitarbeit <time datetime="2015-10-08">08. Oktober 2015</time></h3>
+                                <h2>Game Translations | English, Danish, Swedish, Finnish</h2>
+                                <p>Crispy Content</p>
+                                <ul>
+                                    <li>Online &amp; IT</li>
+                                    <li>Games</li>
+                                </ul>
+                                <div class="bubble">{% trans 'Dream Job' %}</div>
+                            </a>
+                            <a class="website" href="#">http:\\www.website.de</a>
+                            <div class="button-group">
+                                <a href="#" class="fawesome fa-more button"></a>
+                                <a href="#" class="fawesome fa-bookmark button"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="wrapper">
+                            <a class="content" href="#">
+                                <h3>Freie Mitarbeit <time datetime="2015-10-08">08. Oktober 2015</time></h3>
+                                <h2>Game Translations | English, Danish, Swedish, Finnish</h2>
+                                <p>Crispy Content</p>
+                                <ul>
+                                    <li>Online &amp; IT</li>
+                                    <li>Games</li>
+                                </ul>
+                            </a>
+                            <a class="website" href="#">http:\\www.website.de</a>
+                            <div class="button-group">
+                                <a href="#" class="fawesome fa-more button"></a>
+                                <a href="#" class="fawesome fa-bookmark button active"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="wrapper">
+                            <a class="content" href="#">
+                                <h3>Freie Mitarbeit <time datetime="2015-10-08">08. Oktober 2015</time></h3>
+                                <h2>Jobbeschreibung</h2>
+                                <p>Crispy Content</p>
+                                <ul>
+                                    <li>Online &amp; IT</li>
+                                    <li>Games</li>
+                                </ul>
+                            </a>
+                            <a class="website" href="#">http:\\www.website.de</a>
+                            <div class="button-group">
+                                <a href="#" class="fawesome fa-more button"></a>
+                                <a href="#" class="fawesome fa-bookmark button"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <br/>
+                <p>Place the code inside the elements area of a navigation layout block.</p>
+<pre>&lt;div class="row job-list">
+    &lt;div class="col-xs-12">
+        &lt;div class="wrapper">
+            &lt;a class="content" href="#">
+                &lt;h3>Freie Mitarbeit &lt;time datetime="2015-10-08">08. Oktober 2015&lt;/time>&lt;/h3>
+                &lt;h2>Game Translations | English, Danish, Swedish, Finnish&lt;/h2>
+                &lt;p>Crispy Content&lt;/p>
+                &lt;ul>
+                    &lt;li>Online &amp; IT&lt;/li>
+                    &lt;li>Games&lt;/li>
+                &lt;/ul>
+                &lt;div class="bubble">&#123;% trans 'Dream Job' %}&lt;/div>
+            &lt;/a>
+            &lt;a class="website" href="#">http:\\www.website.de&lt;/a>
+            &lt;div class="button-group">
+                &lt;a href="#" class="fawesome fa-more button">&lt;/a>
+                &lt;a href="#" class="fawesome fa-bookmark button">&lt;/a>
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    ... keep adding col blocks
+&lt;/div></pre>
+                <p>Add class="active" to an active icon button.</p>
+                <p>Remove the bubble tag if not needed.</p>
+                <br/>
+                <br/>
+                <br/>
+                <p class="uppercase underline">Navigation grid</p>
                 <br/>
                 <p>Requirements:<br/>
                     &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/navi-grid.js">&lt;/script><br/>
@@ -295,8 +527,7 @@
         </div>
         <div class="row">
             <div class="col-xs-12">
-                <pre>
-&lt;div class="row navi-grid">
+                <pre>&lt;div class="row navi-grid">
     &lt;!-- One Column Element -->
     &lt;div class="col-xs-6 col-md-3">
         &lt;a class="content" href="#">
@@ -321,12 +552,11 @@
         &lt;/a>
     &lt;/div>
     ... and so on
-&lt;/div>
-                </pre>
+&lt;/div></pre>
                 <br/>
                 <br/>
                 <br/>
-                <p class="uppercase">Twitter wall</p>
+                <p class="uppercase underline">Twitter wall</p>
                 <br/>
                 <p>Requirements:<br/>
                     &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/twitter-wall.js">&lt;/script><br/>
@@ -353,8 +583,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <pre>
-&lt;div class="twitter-wall" data-username="CREATIVEBERLIN">
+                <pre>&lt;div class="twitter-wall" data-username="CREATIVEBERLIN">
     &lt;div class="container">
         &lt;div class="fawesome fa-twitter big center">&lt;/div>
         &lt;h2 class="center hidden-xs">Twitter&lt;/h2>
@@ -364,12 +593,11 @@
             &lt;div class="col-md-4 hidden-xs hidden-sm tweet">&lt;/div>
         &lt;/div>
     &lt;/div>
-&lt;/div>
-                </pre>
+&lt;/div></pre>
                 <br/>
                 <br/>
                 <br/>
-                <p class="uppercase">Portfolio slider</p>
+                <p class="uppercase underline">Portfolio slider</p>
                 <br/>
                 <p>Requirements:<br/>
                     &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/slider.js">&lt;/script>
@@ -400,7 +628,7 @@
                         <h2>Hier steht mehr zum Portfolio.</h2>
                     </a>
                     <div class="button-group">
-                        <a href="#" class="fawesome fa-favorite button"></a>
+                        <a href="#" class="fawesome fa-favorite button active"></a>
                         <a href="#" class="fawesome fa-more button"></a>
                     </div>
                 </div>
@@ -444,8 +672,7 @@
         </div>
         <div class="row">
             <div class="col-xs-12">
-                <pre>
-&lt;div class="row slider portfolio">
+                <pre>&lt;div class="row slider portfolio">
     &lt;div class="wrapper">
         &lt;div class="col-xs-12 slide">
             &lt;a class="content" href="#">
@@ -473,12 +700,12 @@
         &lt;/div>
         ... keep adding slide blocks for each slide element
     &lt;/div>
-&lt;/div>
-                </pre>
+&lt;/div></pre>
+                <p>Add class="active" to an active icon button.</p>
                 <br/>
                 <br/>
                 <br/>
-                <p class="uppercase">Full side slider</p>
+                <p class="uppercase underline">Full side slider</p>
                 <br/>
                 <p>Requirements:<br/>
                     &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/slider.js">&lt;/script>
@@ -513,8 +740,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <pre>
-&lt;div class="slider fullside" data-speed="600" data-timer="4000">
+                <pre>&lt;div class="slider fullside" data-speed="600" data-timer="4000">
     &lt;div class="slide">
         &lt;img src="http://placehold.it/2003x1010&text=image"/>
         &lt;div class="container">
@@ -526,12 +752,11 @@
         &lt;/div>
     &lt;/div>
     ... keep adding slide blocks for each slide element
-&lt;/div>
-                </pre>
+&lt;/div></pre>
                 <br/>
                 <br/>
                 <br/>
-                <p class="uppercase">Header</p>
+                <p class="uppercase underline">Header</p>
                 <br/>
             </div>
         </div>
@@ -548,8 +773,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <pre>
-&lt;div class="header">
+                <pre>&lt;div class="header">
     &lt;div class="container">
         &lt;div class="row">
             &lt;div class="col-xs-12">
@@ -557,12 +781,12 @@
             &lt;/div>
         &lt;/div>
     &lt;/div>
-&lt;/div>
-                </pre>
+&lt;/div></pre>
                 <br/>
                 <br/>
                 <br/>
-                <p ><span class="uppercase">Header</span> with menu</p>
+                <p class="underline"><span class="uppercase">Header</span> with menu</p>
+                <p>The header tag gets the class "has-menu" if a menu tag exits.</p>
                 <br/>
             </div>
         </div>
@@ -578,10 +802,10 @@
         <div class="menu">
             <div class="container">
                 <div class="row">
-                    <div class="hidden-xs col-sm-4 col-md-3">
+                    <div class="hidden-xs col-sm-4 col-md-3 header">
                         <h2>Header</h2>
                     </div>
-                    <div class="col-xs-12 col-sm-8 col-md-9">
+                    <div class="navi">
                         <nav>
                             <ul>
                                 <li><a href="javascript:void();">Menu Link #1</a></li>
@@ -599,8 +823,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <pre>
-&lt;div class="header">
+                <pre>&lt;div class="header">
     &lt;div class="container">
         &lt;div class="row">
             &lt;div class="col-xs-12">
@@ -611,10 +834,10 @@
     &lt;div class="menu">
         &lt;div class="container">
             &lt;div class="row">
-                &lt;div class="hidden-xs col-sm-4 col-md-3">
+                &lt;div class="hidden-xs col-sm-4 col-md-3 header">
                     &lt;h2>Header&lt;/h2>
                 &lt;/div>
-                &lt;div class="col-xs-12 col-sm-8 col-md-9">
+                &lt;div class="navi">
                     &lt;nav>
                         &lt;ul>
                             &lt;li>&lt;a href="javascript:void();">Menu Link #1&lt;/a>&lt;/li>
@@ -628,12 +851,12 @@
             &lt;/div>
         &lt;/div>
     &lt;/div>
-&lt;/div>
-                </pre>
+&lt;/div></pre>
                 <br/>
                 <br/>
                 <br/>
-                <p ><span class="uppercase">Header</span> with image</p>
+                <p class="underline"><span class="uppercase">Header</span> with image</p>
+                <p>The header tag gets the classes "has-image" and "has-content" if a background image exits.</p>
                 <br/>
             </div>
         </div>
@@ -650,10 +873,10 @@
         <div class="menu">
             <div class="container">
                 <div class="row">
-                    <div class="hidden-xs col-sm-4 col-md-3">
+                    <div class="hidden-xs col-sm-4 col-md-3 header">
                         <h2>Header</h2>
                     </div>
-                    <div class="col-xs-12 col-sm-8 col-md-9">
+                    <div class="navi">
                         <nav>
                             <ul>
                                 <li><a href="javascript:void();">Menu Link #1</a></li>
@@ -671,8 +894,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <pre>
-&lt;div class="header">
+                <pre>&lt;div class="header">
     &lt;img src="http://placehold.it/2002x770&text=image"/>
     &lt;div class="container">
         &lt;div class="row">
@@ -684,10 +906,10 @@
     &lt;div class="menu">
         &lt;div class="container">
             &lt;div class="row">
-                &lt;div class="hidden-xs col-sm-4 col-md-3">
+                &lt;div class="hidden-xs col-sm-4 col-md-3 header">
                     &lt;h2>Header&lt;/h2>
                 &lt;/div>
-                &lt;div class="col-xs-12 col-sm-8 col-md-9">
+                &lt;div class="navi">
                     &lt;nav>
                         &lt;ul>
                             &lt;li>&lt;a href="javascript:void();">Menu Link #1&lt;/a>&lt;/li>
@@ -701,12 +923,17 @@
             &lt;/div>
         &lt;/div>
     &lt;/div>
-&lt;/div>
-                </pre>
+&lt;/div></pre>
                 <br/>
                 <br/>
                 <br/>
-                <p ><span class="uppercase">Header</span> with info</p>
+                <p class="underline"><span class="uppercase">Header</span> with info</p>
+                <p>The header tag gets the class "has-content" if an info tag exits.</p>
+                <br/>
+                <p>Requirements:<br/>
+                    &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/slider.js">&lt;/script>
+                </p>
+                <br/>
                 <br/>
             </div>
         </div>
@@ -753,10 +980,10 @@
         <div class="menu">
             <div class="container">
                 <div class="row">
-                    <div class="hidden-xs col-sm-4 col-md-3">
+                    <div class="hidden-xs col-sm-4 col-md-3 header">
                         <h2>Header</h2>
                     </div>
-                    <div class="col-xs-12 col-sm-8 col-md-9">
+                    <div class="navi">
                         <nav>
                             <ul>
                                 <li><a href="javascript:void();">Menu Link #1</a></li>
@@ -774,8 +1001,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <pre>
-&lt;div class="header">
+                <pre>&lt;div class="header">
     &lt;div class="container">
         &lt;div class="row">
             &lt;div class="col-xs-12">
@@ -809,10 +1035,10 @@
     &lt;div class="menu">
         &lt;div class="container">
             &lt;div class="row">
-                &lt;div class="hidden-xs col-sm-4 col-md-3">
+                &lt;div class="hidden-xs col-sm-4 col-md-3 header">
                     &lt;h2>Header&lt;/h2>
                 &lt;/div>
-                &lt;div class="col-xs-12 col-sm-8 col-md-9">
+                &lt;div class="navi">
                     &lt;nav>
                         &lt;ul>
                             &lt;li>&lt;a href="javascript:void();">Menu Link #1&lt;/a>&lt;/li>
@@ -826,8 +1052,7 @@
             &lt;/div>
         &lt;/div>
     &lt;/div>
-&lt;/div>
-                </pre>
+&lt;/div></pre>
                 <br/>
                 <br/>
                 <br/>
@@ -840,4 +1065,5 @@
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/navi-grid.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/twitter-wall.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/slider.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/job-list.js"></script>
 {% endblock %}

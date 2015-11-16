@@ -6,7 +6,7 @@
 .is-xs .fawesome { line-height: 1.73em; }
 .fawesome:before, .fawesome:after { display: inline-block; font: normal normal normal 14px/1 FontAwesome; text-rendering: auto; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; padding: 0px; margin: 0px; vertical-align: bottom; font-weight: 400; font-size: 2.4em; }
 .is-xs .fawesome:before, .is-xs .fawesome:after { font-size: 1.73em; }
-.fawesome.active { color: #00cdff; }
+.fawesome.active { color: #00cdff !important; }
 .fawesome.button { display: block; text-align: center; width: 4.93em; border-radius: 50%; background: #000; padding: 0; font-size: inherit; font-weight: inherit; }
 .is-xs .fawesome.button { width: 2.53em; border-radius: 50%; padding: 0; }
 .fawesome.button:before, .fawesome.button:after { line-height: 200%; padding-top: 0; }
@@ -136,6 +136,9 @@ body { font-family: "Lato", "sans-serif"; font-size: 15px; font-weight: 400; col
 body.show-layer { height: 100%; min-height: 100%; overflow: hidden; }
 
 #body { overflow: hidden; }
+#body > .container > .row { margin-left: -10px; margin-right: -10px; }
+#body > .container > .row > div { padding-left: 10px; padding-right: 10px; }
+.is-xs #body > .container { padding-left: 10px; padding-right: 10px; }
 
 b, strong { font-weight: 700; }
 
@@ -143,10 +146,14 @@ small { font-weight: 300; }
 
 .uppercase { text-transform: uppercase; }
 
+.underline { text-decoration: underline; }
+
 .word-wrap { word-wrap: break-word; }
 
 .no-select { -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
 
+a { color: #0c8ba9; }
+a:hover { color: #00cdff; }
 a:hover, a:active, a:visited, a:focus { text-decoration: none; }
 
 h1 { font-family: "MetronicSlabPro", "sans-serif"; font-weight: 900; font-size: 4.25em; line-height: 109%; margin: 0; }
@@ -168,12 +175,13 @@ p { font-size: 1em; line-height: 133%; margin: 0; }
 .button-group .button { margin-right: 2.4em; margin-bottom: 10px; }
 .button-group .button:last-child { margin-right: 0; }
 
-.bubble { width: 100px; height: 100px; padding: 30px 5px 0 10px; margin: 0; font-family: "MetronicSlabPro", "sans-serif"; font-weight: 900; font-size: 1.47em; line-height: 95%; background: #00cdff; border-top-left-radius: 50%; border-top-right-radius: 50%; border-bottom-right-radius: 50%; color: #fff; text-transform: uppercase; display: block; word-wrap: break-word; }
+.bubble { width: 105px; height: 105px; padding: 35px 5px 0 10px; margin: 0; font-family: "MetronicSlabPro", "sans-serif"; font-weight: 900; font-size: 1.47em; line-height: 95%; background: #00cdff; border-top-left-radius: 50%; border-top-right-radius: 50%; border-bottom-right-radius: 50%; color: #fff; text-transform: uppercase; display: block; word-wrap: break-word; cursor: default; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
 .is-xs .bubble { width: 80px; height: 80px; padding: 25px 5px 0 8px; font-size: 1.1em; line-height: 97%; }
 
 .center { display: block; width: 100%; text-align: center; margin-left: auto; margin-right: auto; }
 
 .line { width: 100%; height: 1px; display: block; background: #979797; }
+.line.thick { height: 3px; background: #000; }
 
 .tooltip { position: absolute; z-index: 9999999999; display: none; pointer-events: none; }
 .tooltip .tooltip-content { background: #000; color: #fff; padding: 5px 15px; border-radius: 15px; }
@@ -186,32 +194,84 @@ p { font-size: 1em; line-height: 133%; margin: 0; }
 .layer { display: none; width: 100%; height: 100%; position: absolute; top: 0; left: 0; background: rgba(0, 0, 0, 0.6); }
 .show-layer .layer { display: block; }
 
-.row.profile { margin-left: -10px; margin-right: -10px; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
-.row.profile > div { padding-left: 10px; padding-right: 10px; padding-bottom: 20px; }
-.row.profile > div a.content { display: block; background: #444444; }
-.row.profile > div a.content:hover { background: #000; }
-.row.profile > div a.content img { width: 100%; }
-.row.profile > div a.content .text { width: 100%; height: 120px; }
-.row.profile > div a.content .text h2 { font-family: "MetronicSlabPro", "sans-serif"; font-weight: 900; font-size: 1.73em; line-height: 108%; color: #fff; padding-left: 20px; padding-right: 10px; padding-top: 30px; }
-.row.profile > div .button-group { position: absolute; top: 10px; right: 25px; }
-.row.profile > div .button-group .button { background: none; border-radius: 0; color: #afaeae; font-size: 1em; margin-right: 20px; width: auto; }
-.row.profile > div .button-group .button:hover { color: #fff; }
-.row.profile > div .button-group .button:before { line-height: 100%; }
-.row.profile > div .button-group .button:last-child { margin-right: 0; }
-.is-md .row.profile > div a.content .text { height: 100px; }
-.is-md .row.profile > div a.content .text h2 { font-size: 1.4em; padding-left: 15px; padding-top: 25px; }
-.is-xs .row.profile > div a.content { width: 100%; display: block; background: #fff; overflow: hidden; border-bottom: 1px solid #979797; }
-.is-xs .row.profile > div a.content:hover { background: #fff; }
-.is-xs .row.profile > div a.content img { width: 110px; float: left; margin-bottom: 20px; }
-.is-xs .row.profile > div a.content .text { width: auto; height: auto; float: left; margin-left: 20px; }
-.is-xs .row.profile > div a.content .text h2 { font-size: 1.27em; line-height: 100%; color: #000; padding: 0; }
-.is-xs .row.profile > div .button-group { top: inherit; right: inherit; bottom: 30px; left: 140px; }
-.is-xs .row.profile > div .button-group .button { font-size: inherit; }
-.is-xs .row.profile > div .button-group .button:hover { color: #000; }
-.is-xs .row.profile > div .button-group .button:before { font-size: 1.67em; }
+#body .container .row.profile-grid { margin-left: -10px; margin-right: -10px; }
+#body .container .row.profile-grid > div { padding-left: 10px; padding-right: 10px; }
 
-.row.navi-grid { margin-left: -5px; margin-right: -5px; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
-.row.navi-grid > div { padding-left: 5px; padding-right: 5px; padding-bottom: 10px; }
+.row.profile-grid { -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+.row.profile-grid > div { padding-bottom: 20px; }
+.row.profile-grid > div a.content { display: block; background: #444444; }
+.row.profile-grid > div a.content:hover { background: #000; }
+.row.profile-grid > div a.content img { width: 100%; }
+.row.profile-grid > div a.content .text, .row.profile-grid > div a.content .name { width: 100%; height: 120px; }
+.row.profile-grid > div a.content .text h2, .row.profile-grid > div a.content .name h2 { font-family: "MetronicSlabPro", "sans-serif"; font-weight: 900; font-size: 1.73em; line-height: 108%; color: #fff; padding-left: 20px; padding-right: 10px; padding-top: 30px; }
+.row.profile-grid > div a.content .text h3, .row.profile-grid > div a.content .name h3 { font-family: "Lato", "sans-serif"; font-weight: 400; font-size: 1.2em; line-height: 108%; color: #fff; padding-left: 20px; padding-right: 10px; padding-top: 10px; }
+.row.profile-grid > div a.content .text h3 .feature, .row.profile-grid > div a.content .name h3 .feature { display: none; }
+.row.profile-grid > div a.content .text ul, .row.profile-grid > div a.content .name ul { display: none; }
+.row.profile-grid > div a.content .text h2 { padding-top: 15px; }
+.row.profile-grid > div a.content .name br { display: none; }
+.row.profile-grid > div .button-group { position: absolute; top: 10px; right: 25px; }
+.row.profile-grid > div .button-group .button { background: none; border-radius: 0; color: #afaeae; font-size: 1em; margin-left: 20px; margin-right: 0; margin-bottom: 0; width: auto; }
+.row.profile-grid > div .button-group .button:hover { color: #fff; }
+.row.profile-grid > div .button-group .button:before { line-height: 100%; }
+.row.profile-grid > div .button-group .button:first-child { margin-left: 0; }
+.is-sm .row.profile-grid > div a.content .text, .is-sm .row.profile-grid > div a.content .name, .is-md .row.profile-grid > div a.content .text, .is-md .row.profile-grid > div a.content .name { height: 100px; }
+.is-sm .row.profile-grid > div a.content .text h2, .is-sm .row.profile-grid > div a.content .name h2, .is-md .row.profile-grid > div a.content .text h2, .is-md .row.profile-grid > div a.content .name h2 { font-size: 1.4em; padding-left: 15px; padding-top: 27px; }
+.is-sm .row.profile-grid > div a.content .text h3, .is-sm .row.profile-grid > div a.content .name h3, .is-md .row.profile-grid > div a.content .text h3, .is-md .row.profile-grid > div a.content .name h3 { font-size: 1em; padding-left: 15px; padding-top: 10px; }
+.is-sm .row.profile-grid > div a.content .text h2, .is-md .row.profile-grid > div a.content .text h2 { padding-top: 13px; }
+.list .row.profile-grid.profile-list > div { width: 100%; padding-bottom: 0; }
+.list .row.profile-grid.profile-list > div a.content { width: 100%; display: block; background: #fff; overflow: hidden; border-bottom: 1px solid #d8d8d8; padding-top: 20px; position: relative; }
+.list .row.profile-grid.profile-list > div a.content:hover { background: #efefef; }
+.list .row.profile-grid.profile-list > div a.content img { width: 100px; float: left; margin-bottom: 20px; }
+.list .row.profile-grid.profile-list > div a.content .text, .list .row.profile-grid.profile-list > div a.content .name { width: auto; height: auto; margin-left: 120px; }
+.list .row.profile-grid.profile-list > div a.content .text h2, .list .row.profile-grid.profile-list > div a.content .name h2 { font-size: 1.47em; line-height: 127%; color: #000; padding: 0 5px 0 0; margin-top: -5px; }
+.list .row.profile-grid.profile-list > div a.content .text h3, .list .row.profile-grid.profile-list > div a.content .name h3 { font-size: 1.2em; line-height: 115%; color: #000; padding: 9px 5px 0 0; font-weight: 400; }
+.list .row.profile-grid.profile-list > div a.content .text h3 .feature, .list .row.profile-grid.profile-list > div a.content .name h3 .feature { display: inline; font-weight: 300; }
+.list .row.profile-grid.profile-list > div a.content .text h3 .feature:before, .list .row.profile-grid.profile-list > div a.content .name h3 .feature:before { content: " "; padding-left: 10px; }
+.list .row.profile-grid.profile-list > div a.content .text ul, .list .row.profile-grid.profile-list > div a.content .name ul { font-size: 1.2em; line-height: 156%; color: #000; padding: 0; list-style: none; display: block; position: absolute; left: 120px; bottom: -4px; }
+.list .row.profile-grid.profile-list > div a.content .text ul li, .list .row.profile-grid.profile-list > div a.content .name ul li { display: inline; }
+.list .row.profile-grid.profile-list > div a.content .text ul li:after, .list .row.profile-grid.profile-list > div a.content .name ul li:after { content: "|"; padding-left: 5px; padding-right: 5px; }
+.list .row.profile-grid.profile-list > div a.content .text ul li:last-child:after, .list .row.profile-grid.profile-list > div a.content .name ul li:last-child:after { content: none; }
+.list .row.profile-grid.profile-list > div a.content .text ul li .feature, .list .row.profile-grid.profile-list > div a.content .name ul li .feature { display: inline; font-weight: 300; text-transform: uppercase; }
+.list .row.profile-grid.profile-list > div a.content .text ul li .feature:before, .list .row.profile-grid.profile-list > div a.content .name ul li .feature:before { content: " "; padding-left: 5px; }
+.is-sm .list .row.profile-grid.profile-list > div a.content .text ul, .is-sm .list .row.profile-grid.profile-list > div a.content .name ul { font-size: 1em; }
+.list .row.profile-grid.profile-list > div .button-group { top: 12px; }
+.list .row.profile-grid.profile-list > div .button-group .button { font-size: inherit; display: none; }
+.list .row.profile-grid.profile-list > div .button-group .button:hover { color: #000; }
+.list .row.profile-grid.profile-list > div .button-group .button:before { font-size: 2em; }
+.list .row.profile-grid.profile-list > div .button-group .button.active { display: inline-block; }
+.list .row.profile-grid.profile-list > div .wrapper:hover .button-group .button { display: inline-block; }
+.is-sm.list .row.profile-grid.profile-list > div a.content .text h2, .is-sm.list .row.profile-grid.profile-list > div a.content .name h2 { font-size: 1.4em; line-height: 100%; padding-right: 100px; margin-top: -2px; }
+.is-sm.list .row.profile-grid.profile-list > div a.content .text h3, .is-sm.list .row.profile-grid.profile-list > div a.content .name h3 { font-size: 1em; padding-top: 9px; }
+.is-sm.list .row.profile-grid.profile-list > div a.content .text ul, .is-sm.list .row.profile-grid.profile-list > div a.content .name ul { font-size: 1em; bottom: -1px; }
+.is-sm.list .row.profile-grid.profile-list > div .button-group { top: 8px; }
+.is-sm.list .row.profile-grid.profile-list > div .button-group .button { font-size: inherit; margin-left: 15px; }
+.is-sm.list .row.profile-grid.profile-list > div .button-group .button:before { font-size: 1.67em; }
+.is-xs .row.profile-grid > div, .is-xs.list .row.profile-grid.profile-list > div { padding-bottom: 0px; }
+.is-xs .row.profile-grid > div a.content, .is-xs.list .row.profile-grid.profile-list > div a.content { width: 100%; display: block; background: #fff; overflow: hidden; border-bottom: 1px solid #979797; padding-top: 20px; }
+.is-xs .row.profile-grid > div a.content:hover, .is-xs.list .row.profile-grid.profile-list > div a.content:hover { background: #fff; }
+.is-xs .row.profile-grid > div a.content img, .is-xs.list .row.profile-grid.profile-list > div a.content img { width: 110px; float: left; margin-bottom: 20px; }
+.is-xs .row.profile-grid > div a.content .text, .is-xs .row.profile-grid > div a.content .name, .is-xs.list .row.profile-grid.profile-list > div a.content .text, .is-xs.list .row.profile-grid.profile-list > div a.content .name { width: auto; height: auto; margin-left: 130px; }
+.is-xs .row.profile-grid > div a.content .text h2, .is-xs .row.profile-grid > div a.content .name h2, .is-xs.list .row.profile-grid.profile-list > div a.content .text h2, .is-xs.list .row.profile-grid.profile-list > div a.content .name h2 { font-size: 1.27em; line-height: 100%; color: #000; padding: 0; margin-top: -2px; }
+.is-xs .row.profile-grid > div a.content .text h3, .is-xs .row.profile-grid > div a.content .name h3, .is-xs.list .row.profile-grid.profile-list > div a.content .text h3, .is-xs.list .row.profile-grid.profile-list > div a.content .name h3 { font-size: 1em; line-height: 100%; color: #000; padding: 10px 0 0; }
+.is-xs .row.profile-grid > div a.content .text h3 .feature, .is-xs .row.profile-grid > div a.content .name h3 .feature, .is-xs.list .row.profile-grid.profile-list > div a.content .text h3 .feature, .is-xs.list .row.profile-grid.profile-list > div a.content .name h3 .feature { display: none; }
+.is-xs .row.profile-grid > div a.content .text ul, .is-xs .row.profile-grid > div a.content .name ul, .is-xs.list .row.profile-grid.profile-list > div a.content .text ul, .is-xs.list .row.profile-grid.profile-list > div a.content .name ul { display: none; }
+.is-xs .row.profile-grid > div a.content .name br, .is-xs.list .row.profile-grid.profile-list > div a.content .name br { display: inline; }
+.is-xs .row.profile-grid > div .button-group, .is-xs.list .row.profile-grid.profile-list > div .button-group { top: inherit; right: inherit; bottom: 19px; left: 140px; }
+.is-xs .row.profile-grid > div .button-group .button, .is-xs.list .row.profile-grid.profile-list > div .button-group .button { font-size: inherit; }
+.is-xs .row.profile-grid > div .button-group .button:hover, .is-xs.list .row.profile-grid.profile-list > div .button-group .button:hover { color: #000; }
+.is-xs .row.profile-grid > div .button-group .button:before, .is-xs.list .row.profile-grid.profile-list > div .button-group .button:before { font-size: 1.67em; }
+.is-xs .row.profile-grid.profile-list > div a.content img, .is-xs.list .row.profile-grid.profile-list > div a.content img { width: 80px; }
+.is-xs .row.profile-grid.profile-list > div a.content .text, .is-xs .row.profile-grid.profile-list > div a.content .name, .is-xs.list .row.profile-grid.profile-list > div a.content .text, .is-xs.list .row.profile-grid.profile-list > div a.content .name { margin-left: 95px; }
+.is-xs .row.profile-grid.profile-list > div a.content .text h2, .is-xs .row.profile-grid.profile-list > div a.content .name h2, .is-xs.list .row.profile-grid.profile-list > div a.content .text h2, .is-xs.list .row.profile-grid.profile-list > div a.content .name h2 { padding-right: 0; line-height: 90%; }
+.is-xs .row.profile-grid.profile-list > div a.content .text h3, .is-xs .row.profile-grid.profile-list > div a.content .name h3, .is-xs.list .row.profile-grid.profile-list > div a.content .text h3, .is-xs.list .row.profile-grid.profile-list > div a.content .name h3 { padding-top: 7px; padding-right: 0; }
+.is-xs .row.profile-grid.profile-list > div .button-group, .is-xs.list .row.profile-grid.profile-list > div .button-group { left: 105px; }
+.is-xs .row.profile-grid.profile-list > div .button-group .button, .is-xs.list .row.profile-grid.profile-list > div .button-group .button { display: inline-block; }
+
+#body > .container > .row.navi-grid { margin-left: -5px; margin-right: -5px; }
+#body > .container > .row.navi-grid > div { padding-left: 5px; padding-right: 5px; }
+
+.row.navi-grid { -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+.row.navi-grid > div { padding-bottom: 10px; }
 .row.navi-grid > div a.content { display: block; background: #00cdff; position: relative; }
 .row.navi-grid > div a.content img { width: 100%; }
 .row.navi-grid > div a.content h2 { position: absolute; top: 50%; left: 0; width: 100%; font-family: "MetronicSlabPro", "sans-serif"; font-weight: 900; font-size: 1.87em; line-height: 100%; color: #fff; padding-left: 10px; padding-right: 10px; text-transform: uppercase; word-wrap: break-word; }
@@ -226,6 +286,57 @@ p { font-size: 1em; line-height: 133%; margin: 0; }
 .is-sm .row.navi-grid > div.col-xs-12 a.content h2 { font-size: 3em; }
 .is-xs .row.navi-grid > div a.content:hover p { opacity: 0; }
 
+#body .container .row.job-list { margin-left: -10px; margin-right: -10px; }
+#body .container .row.job-list > div { padding-left: 10px; padding-right: 10px; }
+
+.row.job-list { -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+.row.job-list > div a.content { display: block; background: #fff; overflow: hidden; border-bottom: 1px solid #d8d8d8; padding-top: 20px; padding-bottom: 20px; position: relative; }
+.is-xs .row.job-list > div a.content { padding-bottom: 60px; }
+.row.job-list > div a.content:hover { background: #efefef; }
+.is-xs .row.job-list > div a.content:hover { background: #fff; }
+.row.job-list > div a.content h2 { font-family: "MetronicSlabPro", "sans-serif"; font-weight: 900; font-size: 1.47em; line-height: 127%; color: #000; padding: 0 20px 5px; }
+.is-sm .row.job-list > div a.content h2 { font-size: 1.4em; }
+.is-xs .row.job-list > div a.content h2 { font-size: 1.27em; padding: 0 0 5px; }
+.row.job-list > div a.content h3 { font-family: "Lato", "sans-serif"; font-weight: 700; font-size: 1.07em; line-height: 140%; color: #00cdff; text-transform: uppercase; padding: 0 105px 20px 20px; }
+.row.job-list > div a.content h3 time { font-weight: 300; color: #000; padding-left: 15px; }
+.is-xs .row.job-list > div a.content h3 time { padding-left: 10px; }
+.is-sm .row.job-list > div a.content h3 { font-size: 1em; padding: 0 90px 15px 20px; }
+.is-xs .row.job-list > div a.content h3 { font-size: 0.73em; padding: 0 0 20px 0; line-height: 126%; }
+.row.job-list > div a.content p { font-size: 1.2em; line-height: 140%; padding: 0 20px 5px; color: #000; }
+.is-sm .row.job-list > div a.content p { font-size: 1em; }
+.is-xs .row.job-list > div a.content p { font-size: 1.07em; padding: 0 0 5px; line-height: 150%; }
+.row.job-list > div a.content ul { font-size: 1.2em; font-weight: 300; line-height: 140%; list-style: none; padding: 0 20px; margin: 0; color: #000; }
+.is-sm .row.job-list > div a.content ul { font-size: 1.07em; }
+.is-xs .row.job-list > div a.content ul { font-size: 1.07em; padding: 0; line-height: 150%; }
+.row.job-list > div a.content ul li { display: inline; }
+.row.job-list > div a.content ul li:after { content: ", "; }
+.row.job-list > div a.content ul li:last-child:after { content: none; }
+.row.job-list > div a.content .bubble { position: absolute; right: 10px; bottom: 30px; cursor: pointer; }
+.is-xs .row.job-list > div a.content .bubble { top: 5px; right: 0; bottom: inherit; }
+.row.job-list > div.has-bubble a.content h2, .row.job-list > div.has-bubble a.content p, .row.job-list > div.has-bubble a.content ul { padding-right: 125px; }
+.is-xs .row.job-list > div.has-bubble a.content { padding-top: 30px; }
+.is-xs .row.job-list > div.has-bubble a.content h2, .is-xs .row.job-list > div.has-bubble a.content h3 { padding-right: 90px; }
+.is-xs .row.job-list > div.has-bubble a.content p, .is-xs .row.job-list > div.has-bubble a.content ul { padding-right: 0; }
+.row.job-list > div.has-bubble a.website { margin-right: 125px; word-break: break-word; }
+.is-xs .row.job-list > div.has-bubble a.website { margin-right: 0; }
+.row.job-list > div a.website { font-size: 1.2em; line-height: 140%; padding: 0; margin-left: 20px; margin-right: 20px; position: absolute; left: 0; }
+.is-sm .row.job-list > div a.website { font-size: 1.07em; }
+.is-xs .row.job-list > div a.website { font-size: 1.07em; margin-left: 0; margin-right: 0; }
+.row.job-list > div .button-group { position: absolute; top: 17px; right: 20px; }
+.is-sm .row.job-list > div .button-group { top: 13px; }
+.is-xs .row.job-list > div .button-group { position: absolute; top: inherit; right: inherit; left: 0; bottom: 20px; }
+.row.job-list > div .button-group .button { background: none; border-radius: 0; color: #afaeae; font-size: inherit; display: none; margin-left: 20px; margin-right: 0; margin-bottom: 0; width: auto; }
+.is-sm .row.job-list > div .button-group .button { margin-left: 15px; }
+.is-xs .row.job-list > div .button-group .button { display: inline-block; }
+.row.job-list > div .button-group .button:hover { color: #000; }
+.row.job-list > div .button-group .button:before { font-size: 2em; line-height: 100%; }
+.is-sm .row.job-list > div .button-group .button:before { font-size: 1.67em; }
+.is-xs .row.job-list > div .button-group .button:before { font-size: 1.67em; }
+.row.job-list > div .button-group .button.active { display: inline-block; }
+.row.job-list > div .button-group .button:first-child { margin-left: 0; }
+.row.job-list > div .wrapper { position: relative; }
+.row.job-list > div .wrapper:hover .button-group .button { display: inline-block; }
+
 .twitter-wall { width: 100%; background: #00cdff; }
 .twitter-wall .fawesome { margin: 30px 0; }
 .twitter-wall h2 { margin: 30px 0; }
@@ -236,22 +347,26 @@ p { font-size: 1em; line-height: 133%; margin: 0; }
 .twitter-wall .row .tweet .tweet-time { margin-top: 15px; text-transform: uppercase; }
 .is-xs .twitter-wall p { font-size: 1.07em; line-height: 125%; }
 
+#body > .container > .row.slider.portfolio { margin-left: 0px; margin-right: 0px; }
+#body > .container > .row.slider.portfolio > div { padding-left: 0px; padding-right: 0px; }
+
 .slider { -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
-.slider.portfolio.row { margin-left: -5px; margin-right: -5px; position: relative; }
+.slider.portfolio.row { margin-left: 0px; margin-right: 0px; position: relative; }
 .slider.portfolio.row .wrapper > div { padding-left: 5px; padding-right: 5px; }
 .slider.portfolio.row .wrapper > div a.content { display: block; }
 .slider.portfolio.row .wrapper > div a.content .image-hover-bg { background: #00cdff; display: inline-block; }
 .slider.portfolio.row .wrapper > div a.content:hover img { opacity: 0.33; }
-.slider.portfolio.row .wrapper > div h2 { font-family: "MetronicSlabPro", "sans-serif"; font-weight: 900; }
+.slider.portfolio.row .wrapper > div a.content:hover h2 { display: block; }
+.slider.portfolio.row .wrapper > div h2 { font-family: "MetronicSlabPro", "sans-serif"; font-weight: 900; display: none; }
 .slider.portfolio.row .wrapper > div .button-group .button { background: none; border-radius: 0; line-height: 1.67em; margin-right: 20px; width: auto; }
 .slider.portfolio.row .wrapper > div .button-group .button:before { line-height: 100%; font-size: 1.67em; }
 .slider.portfolio.row .wrapper > div .button-group .button:last-child { margin-right: 0; }
-.is-xs .slider.portfolio.row .wrapper > div { margin-bottom: 20px; position: static; }
-.is-xs .slider.portfolio.row img, .is-xs .slider.portfolio.row .image-hover-bg { width: 100%; }
-.is-xs .slider.portfolio.row h2 { color: #000; font-size: 1.27em; line-height: 100%; padding: 20px 0; background: #fff; }
-.is-xs .slider.portfolio.row .button-group { border-bottom: 1px solid #979797; }
-.is-xs .slider.portfolio.row .button-group .button { color: #979797; margin-bottom: 17px; }
-.is-xs .slider.portfolio.row .button-group .button:hover { color: #000; }
+.is-xs .slider.portfolio.row .wrapper > div { margin-bottom: 20px; position: static; padding-left: 0; padding-right: 0; }
+.is-xs .slider.portfolio.row .wrapper > div img, .is-xs .slider.portfolio.row .wrapper > div .image-hover-bg { width: 100%; }
+.is-xs .slider.portfolio.row .wrapper > div h2 { color: #000; font-size: 1.27em; line-height: 100%; padding: 20px 0; background: #fff; display: block; }
+.is-xs .slider.portfolio.row .wrapper > div .button-group { border-bottom: 1px solid #979797; }
+.is-xs .slider.portfolio.row .wrapper > div .button-group .button { color: #979797; margin-bottom: 17px; }
+.is-xs .slider.portfolio.row .wrapper > div .button-group .button:hover { color: #000; }
 .is-xs .slider.portfolio.row .prev, .is-xs .slider.portfolio.row .next { display: none; }
 .is-sm .slider.portfolio.row .wrapper, .is-md .slider.portfolio.row .wrapper, .is-lg .slider.portfolio.row .wrapper { overflow: hidden; height: 320px; width: 100%; position: relative; }
 .is-sm .slider.portfolio.row .wrapper > div, .is-md .slider.portfolio.row .wrapper > div, .is-lg .slider.portfolio.row .wrapper > div { position: absolute; top: 0; left: 0; }
@@ -288,7 +403,7 @@ p { font-size: 1em; line-height: 133%; margin: 0; }
 .is-xs .header-search > div.button-group { margin-left: 25px; }
 .header-search > div.button-group .button { background: none; border-radius: 0; color: #979797; margin: 0 0 0 15px; width: auto; line-height: 1.73em; }
 .is-xs .header-search > div.button-group .button { line-height: 1.33em; margin: 0 0 0 15px; }
-.header-search > div.button-group .button:hover, .header-search > div.button-group .button.active { color: #000; }
+.header-search > div.button-group .button:hover, .header-search > div.button-group .button.active { color: #000 !important; }
 .header-search > div.button-group .button:before { font-size: 1.73em; line-height: 100%; }
 .is-xs .header-search > div.button-group .button:before { font-size: 1.33em; }
 
@@ -303,13 +418,19 @@ p { font-size: 1em; line-height: 133%; margin: 0; }
 .is-xs #search-layer .button-group .button { margin: 0 0 0 20px; }
 
 .header { overflow: hidden; position: relative; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
-.is-xs .header { border-bottom: 1px solid #d8d8d8; }
+.is-xs .header.has-menu { border-bottom: 1px solid #d8d8d8; }
+.is-xs .header .container { padding-left: 10px; padding-right: 10px; }
 .header > .container { height: 100%; }
 .header h1 { margin: 50px 0; text-transform: uppercase; }
 .is-xs .header h1 { margin: 36px 0; }
 .header > img { width: 100%; position: absolute; left: 0; top: 50%; }
 .is-xs .header > img { display: none; }
-.header .info { background: #c7e2ea; position: relative; }
+.header.has-menu .info { margin-bottom: 0; }
+.is-xs .header.has-menu .info { padding-bottom: 0; }
+.is-xs .header.has-menu .info.closed { margin-bottom: 0; }
+.header .info { background: #c7e2ea; position: relative; margin-bottom: 56px; }
+.is-xs .header .info { margin-bottom: 0; padding-bottom: 40px; }
+.is-xs .header .info.closed { padding-bottom: 0; margin-bottom: 40px; }
 .header .info.closed .info-menu-space { visibility: visible; }
 .is-xs .header .info.closed .info-menu-space { display: none; }
 .header .info.closed .toggle:before { content: "\f077"; }
@@ -330,14 +451,19 @@ p { font-size: 1em; line-height: 133%; margin: 0; }
 .is-xs .header .info .container > .portfolio > div:last-child .text { position: static; }
 .header .info .container > .portfolio > div:last-child h2 { font-family: "MetronicSlabPro", "sans-serif"; font-size: 1.47em; line-height: 127%; }
 .header .info .container > .portfolio > div:last-child h3 { font-family: "Lato", "sans-serif"; font-size: 1.2em; line-height: 156%; font-weight: 400; }
-.is-xs .header .info .container > .portfolio > div:last-child .bubble { position: absolute; top: 15px; right: 15px; }
+.is-xs .header .info .container > .portfolio > div:last-child .bubble { position: absolute; top: 10px; right: 15px; }
 .is-xs .header .info .container > .portfolio > div { position: static; }
 .is-xs .header .info .container > .portfolio .slider .slide { display: none; }
 .is-xs .header .info .container > .portfolio .slider .slide:first-child { display: block; }
-.is-xs .header .info .prev, .is-xs .header .info .next, .is-sm .header .info .prev, .is-sm .header .info .next { display: none !important; }
+.header .info .bubble { cursor: pointer; }
+.is-xs .header .info .prev, .is-xs .header .info .next { display: none !important; }
 .header .menu { width: 100%; height: 56px; background: rgba(0, 0, 0, 0.5); color: #d8d8d8; overflow: hidden; -webkit-transition: background 0.3s; transition: background 0.3s; }
+.header .menu > .container > .row { margin-left: -10px; margin-right: -10px; }
+.header .menu > .container > .row > div { padding-left: 10px; padding-right: 10px; }
+.header .menu > .container > .row > div.navi { position: absolute; top: 0; width: auto; }
 .is-xs .header .menu { height: 40px; background: transparent; bottom: 40px; }
 .header .menu h2 { font-family: "MetronicSlabPro", "sans-serif"; font-weight: 600; font-size: 1.47em; line-height: 56px; cursor: default; padding-right: 15px; opacity: 0; -webkit-transition: opacity 0.3s; transition: opacity 0.3s; }
+.is-xs .header .menu h2, .is-sm .header .menu h2 { padding-right: 0; }
 .header .menu nav { overflow: hidden; height: 56px; position: relative; width: 100%; }
 .is-xs .header .menu nav { height: 40px; }
 .header .menu ul { list-style: none; margin: 0; padding: 0; cursor: default; position: relative; -webkit-transition: left 0.6s; transition: left 0.6s; }
@@ -351,10 +477,9 @@ p { font-size: 1em; line-height: 133%; margin: 0; }
 .header .menu .prev:hover, .header .menu .next:hover { color: #fff; }
 .header .menu .prev:before, .header .menu .next:before { line-height: 56px; font-size: 1.6em; }
 .header .menu .prev.disabled, .header .menu .next.disabled { display: none; }
-.is-xs .header .menu .prev, .is-sm .header .menu .prev, .is-xs .header .menu .next, .is-sm .header .menu .next { display: none; }
+.is-xs .header .menu .prev, .is-xs .header .menu .next { display: none; }
 .header .menu .prev { left: -10px; }
 .header .menu .next { right: -10px; }
-.header .menu .next.squeezed { right: -5px; }
 .header.has-image { max-height: 450px; }
 .header.has-content .menu { position: absolute; bottom: 0; left: 0; }
 .is-xs .header.has-content .menu { position: static; }
