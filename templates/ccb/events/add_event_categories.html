@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n uni_form_tags %}
+{% load base_tags i18n uni_form_tags crispy_forms_tags %}
 
 {% block title %}{% trans "Registration" %} - {% trans "Event" %}{% endblock %}
 
@@ -15,6 +15,7 @@
 
 {% block content %}
     <div class="reg">
+        {#% crispy form %#}
         <form action="" class="uniForm" method="post">{% csrf_token %}
             <fieldset class="inlineLabels">
                 {% include "site_specific/categories/categories.html" %}

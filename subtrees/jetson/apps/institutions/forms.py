@@ -304,53 +304,59 @@ class MainDataForm(dynamicforms.Form):
                 css_id="fieldset_institution_select",
             ),
             layout.Fieldset(
-                _("Phone"),
+                _("Phones"),
                 layout.Row(
                     layout.Div(
+                        layout.HTML(_("Phone")),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
                         "phone_country",
-                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
                     ),
                     layout.Div(
                         "phone_area",
-                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
                     ),
                     layout.Div(
                         "phone_number",
-                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
                     ),
                 ),
-            ),
-            layout.Fieldset(
-                _("Fax"),
                 layout.Row(
                     layout.Div(
+                        layout.HTML(_("Fax")),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
                         "fax_country",
-                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
                     ),
                     layout.Div(
                         "fax_area",
-                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
                     ),
                     layout.Div(
                         "fax_number",
-                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
                     ),
                 ),
-            ),
-            layout.Fieldset(
-                _("Mobile"),
                 layout.Row(
                     layout.Div(
+                        layout.HTML(_("Mobile")),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
                         "mobile_country",
-                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
                     ),
                     layout.Div(
                         "mobile_area",
-                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
                     ),
                     layout.Div(
                         "mobile_number",
-                        css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
                     ),
                 ),
             ),
@@ -430,6 +436,7 @@ class MainDataForm(dynamicforms.Form):
                 layout.Submit('submit', _('Next')),
             )
         )
+
 
 class ProfileForm(dynamicforms.Form):
     description_en = forms.CharField(
