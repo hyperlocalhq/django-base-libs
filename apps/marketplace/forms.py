@@ -7,17 +7,18 @@ from django.template import loader
 from django.utils.dates import MONTHS
 from django.conf import settings
 from django.db import models
-from tagging_autocomplete.widgets import TagAutocomplete
-
 from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
 from base_libs.forms import dynamicforms
 from base_libs.forms.fields import AutocompleteField
 from base_libs.middleware import get_current_user
 from base_libs.utils.misc import get_related_queryset
 from tagging.forms import TagField
+from tagging_autocomplete.widgets import TagAutocomplete
 from jetson.apps.location.models import Address
 from jetson.apps.optionset.models import PhoneType, EmailType, URLType
 from jetson.apps.mailing.views import Recipient, send_email_using_template
+from crispy_forms.helper import FormHelper
+from crispy_forms import layout, bootstrap
 
 app = models.get_app("marketplace")
 JobOffer, JobSector, JobType = app.JobOffer, app.JobSector, app.JobType
@@ -38,404 +39,554 @@ CONTACT_PERSON_CHOICES = [
 # prexixes of fields to guarantee uniqueness
 PREFIX_JS = 'JS_'  # Job Sector
 
+# Collect translatable strings
+_("Not listed? Enter manually")
+_("Back to selection")
+_('Is some category missing? You can <a href="/ticket/new-category/">suggest it here</a>.')
+_("Previous")
+_("Please activate the checkboxes if you want to send your jobposting to one of our partners.")
 
-# noinspection PyClassHasNoInit
-class JobOfferForm:  # namespace
 
-    class MainDataForm(dynamicforms.Form):
-        """
-        Form for main data
-        """
-        position = forms.CharField(
-            label=_("Position"),
-            required=True,
-        )
+class MainDataForm(dynamicforms.Form):
+    """
+    Form for main data
+    """
+    position = forms.CharField(
+        label=_("Position"),
+        required=True,
+    )
 
-        job_type = forms.ModelChoiceField(
-            label=_("Job Type"),
-            required=True,
-            queryset=get_related_queryset(JobOffer, "job_type"),
-        )
+    job_type = forms.ModelChoiceField(
+        label=_("Job Type"),
+        required=True,
+        queryset=get_related_queryset(JobOffer, "job_type"),
+    )
 
-        qualifications = forms.ModelMultipleChoiceField(
-            required=False,
-            widget=forms.CheckboxSelectMultiple,
-            queryset=get_related_queryset(JobOffer, "qualifications"),
-            label=_("Qualification"),
-        )
+    qualifications = forms.ModelMultipleChoiceField(
+        required=False,
+        widget=forms.CheckboxSelectMultiple,
+        queryset=get_related_queryset(JobOffer, "qualifications"),
+        label=_("Qualification"),
+    )
 
-        description = forms.CharField(
-            label=_("Description"),
-            required=True,
-            widget=forms.Textarea(attrs={'class': 'vSystemTextField'}),
-        )
+    description = forms.CharField(
+        label=_("Description"),
+        required=True,
+        widget=forms.Textarea(attrs={'class': 'vSystemTextField'}),
+    )
 
-        offering_institution = AutocompleteField(
-            required=False,
-            label=_("Offering institution"),
-            help_text=_("Please enter a letter to display a list of available institutions"),
-            app="marketplace",
-            qs_function="get_institutions",
-            display_attr="title",
-            add_display_attr="get_address_string",
-            options={
-                "minChars": 1,
-                "max": 20,
-                "mustMatch": 1,
-                "highlight": False,
-            },
-        )
+    offering_institution = AutocompleteField(
+        required=False,
+        label=_("Offering institution"),
+        help_text=_("Please enter a letter to display a list of available institutions"),
+        app="marketplace",
+        qs_function="get_institutions",
+        display_attr="title",
+        add_display_attr="get_address_string",
+        options={
+            "minChars": 1,
+            "max": 20,
+            "mustMatch": 1,
+            "highlight": False,
+        },
+    )
 
-        offering_institution_title = forms.CharField(
-            required=False,
-            label=_("Institution/Company Title"),
-        )
+    offering_institution_title = forms.CharField(
+        required=False,
+        label=_("Institution/Company Title"),
+    )
 
-        contact_person_ind = forms.ChoiceField(
-            initial=0,
-            choices=CONTACT_PERSON_CHOICES,
-            widget=forms.RadioSelect()
-        )
+    contact_person_ind = forms.ChoiceField(
+        initial=0,
+        choices=CONTACT_PERSON_CHOICES,
+        widget=forms.RadioSelect()
+    )
 
-        contact_person_name = forms.CharField(
-            required=False,
-            label=_("Contact Person Name"),
-        )
+    contact_person_name = forms.CharField(
+        required=False,
+        label=_("Contact Person Name"),
+    )
 
-        street_address = forms.CharField(
-            required=True,
-            label=_("Street Address"),
-        )
-        street_address2 = forms.CharField(
-            required=False,
-            label=_("Street Address (2nd line)"),
-        )
-        city = forms.CharField(
-            required=True,
-            label=_("City"),
-        )
-        postal_code = forms.CharField(
-            required=True,
-            label=_("Postal Code"),
-        )
-        country = forms.ChoiceField(
-            required=True,
-            choices=Address._meta.get_field("country").get_choices(),
-            label=_("Country"),
-        )
+    street_address = forms.CharField(
+        required=True,
+        label=_("Street Address"),
+    )
+    street_address2 = forms.CharField(
+        required=False,
+        label=_("Street Address (2nd line)"),
+    )
+    city = forms.CharField(
+        required=True,
+        label=_("City"),
+    )
+    postal_code = forms.CharField(
+        required=True,
+        label=_("Postal Code"),
+    )
+    country = forms.ChoiceField(
+        required=True,
+        choices=Address._meta.get_field("country").get_choices(),
+        label=_("Country"),
+    )
 
-        phone_country = forms.CharField(
-            required=False,
-            max_length=4,
-            initial="49",
-        )
-        phone_area = forms.CharField(
-            required=False,
-            max_length=5,
-        )
-        phone_number = forms.CharField(
-            required=False,
-            max_length=15,
-            label=_("Phone"),
-        )
-        fax_country = forms.CharField(
-            required=False,
-            max_length=4,
-            initial="49",
-        )
-        fax_area = forms.CharField(
-            required=False,
-            max_length=5,
-        )
-        fax_number = forms.CharField(
-            required=False,
-            max_length=15,
-            label=_("Fax"),
-        )
+    phone_country = forms.CharField(
+        required=False,
+        max_length=4,
+        initial="49",
+    )
+    phone_area = forms.CharField(
+        required=False,
+        max_length=5,
+    )
+    phone_number = forms.CharField(
+        required=False,
+        max_length=15,
+        label=_("Phone"),
+    )
+    fax_country = forms.CharField(
+        required=False,
+        max_length=4,
+        initial="49",
+    )
+    fax_area = forms.CharField(
+        required=False,
+        max_length=5,
+    )
+    fax_number = forms.CharField(
+        required=False,
+        max_length=15,
+        label=_("Fax"),
+    )
 
-        email0_address = forms.EmailField(
-            required=False,
-            label=_("E-mail"),
-        )
+    email0_address = forms.EmailField(
+        required=False,
+        label=_("E-mail"),
+    )
 
-        url0_link = forms.URLField(
-            required=False,
-            label=_("Website"),
-        )
+    url0_link = forms.URLField(
+        required=False,
+        label=_("Website"),
+    )
 
-        publish_emails = forms.BooleanField(
-            label=_("Publish email to unregistered visitors"),
-            initial=True,
-            required=False,
-        )
+    publish_emails = forms.BooleanField(
+        label=_("Publish email to unregistered visitors"),
+        initial=True,
+        required=False,
+    )
 
-        end_yyyy = forms.ChoiceField(
-            required=True,
-            choices=YEARS_CHOICES,
-            label=_("End Year"),
-        )
+    end_yyyy = forms.ChoiceField(
+        required=True,
+        choices=YEARS_CHOICES,
+        label=_("End Year"),
+    )
 
-        end_mm = forms.ChoiceField(
-            required=True,
-            choices=MONTHS_CHOICES,
-            label=_("End Month"),
-        )
+    end_mm = forms.ChoiceField(
+        required=True,
+        choices=MONTHS_CHOICES,
+        label=_("End Month"),
+    )
 
-        end_dd = forms.ChoiceField(
-            required=True,
-            choices=DAYS_CHOICES,
-            label=_("End Day"),
-        )
+    end_dd = forms.ChoiceField(
+        required=True,
+        choices=DAYS_CHOICES,
+        label=_("End Day"),
+    )
 
-        def __init__(self, *args, **kwargs):
-            super(JobOfferForm.MainDataForm, self).__init__(*args, **kwargs)
-            six_weeks_from_now = datetime.datetime.now() + datetime.timedelta(days=7 * 6)
-            self.fields['end_yyyy'].initial = six_weeks_from_now.year
-            self.fields['end_mm'].initial = six_weeks_from_now.month
-            self.fields['end_dd'].initial = six_weeks_from_now.day
+    def __init__(self, *args, **kwargs):
+        super(MainDataForm, self).__init__(*args, **kwargs)
+        six_weeks_from_now = datetime.datetime.now() + datetime.timedelta(days=7 * 6)
+        self.fields['end_yyyy'].initial = six_weeks_from_now.year
+        self.fields['end_mm'].initial = six_weeks_from_now.month
+        self.fields['end_dd'].initial = six_weeks_from_now.day
 
-        def clean(self):
-            # if end date is specified, all fields must be specified!
-            end_yyyy = self.cleaned_data.get('end_yyyy', None)
-            end_mm = self.cleaned_data.get('end_mm', None)
-            end_dd = self.cleaned_data.get('end_dd', None)
-
-            if end_yyyy or end_mm or end_dd:
-                if end_dd:
-                    if not end_mm:
-                        self._errors['end_dd'] = [_("Please enter a valid month.")]
-                try:
-                    end_date = datetime.date(int(end_yyyy), int(end_mm or 1), int(end_dd or 1))
-                except Exception:
-                    self._errors['end_dd'] = [_("If you want to specify an end date, please enter a valid one.")]
-
-            return self.cleaned_data
-
-        def is_valid(self):
-            is_valid = super(JobOfferForm.MainDataForm, self).is_valid()
-            errors = self._errors
-            return is_valid
-
-    class CategoriesForm(dynamicforms.Form):
-        choose_job_sectors = forms.BooleanField(
-            initial=True,
-            widget=forms.HiddenInput(
-                attrs={
-                    "class": "form_hidden",
-                }
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Job"),
+                "position",
+                "job_type",
+                "qualifications",
+                "description",
             ),
-            required=False,
-        )
-
-        tags = TagField(
-            label=_("Tags"),
-            help_text=_("Separate tags with commas."),
-            max_length=200,
-            required=False,
-            widget=TagAutocomplete,
-        )
-
-        def clean_choose_job_sectors(self):
-            data = self.data
-            el_count = 0
-            for el in self.job_sectors.values():
-                if el['field_name'] in data:
-                    el_count += 1
-            if not el_count:
-                raise forms.ValidationError(_("Please choose at least one job sector."))
-            return True
-
-        def __init__(self, *args, **kwargs):
-            super(JobOfferForm.CategoriesForm, self).__init__(*args, **kwargs)
-
-            self.job_sectors = {}
-            for item in get_related_queryset(JobOffer, "job_sectors"):
-                self.job_sectors[item.slug] = {
-                    'id': item.id,
-                    'field_name': PREFIX_JS + str(item.id),
-                    'title': item.title,
-                }
-
-            for s in self.job_sectors.values():
-                self.fields[s['field_name']] = forms.BooleanField(
-                    required=False
-                )
-
-    class ReportForm(dynamicforms.Form):
-        report_kulturmanagement = forms.BooleanField(
-            label=_("Report to Kulturmanagement.net"),
-            initial=False,
-            required=False,
-        )
-        # report_creativeset = forms.BooleanField(
-        #     label=_("Report to Creativeset.net"),
-        #     initial=False,
-        #     required=False,
-        #     )
-        report_talent_in_berlin = forms.BooleanField(
-            label=_("Report to talent-in-berlin.de"),
-            initial=False,
-            required=False,
-        )
-
-    @staticmethod
-    def submit_step(current_step, form_steps, form_step_data):
-        if current_step == "step_main_data":
-            step_main_data = form_step_data['step_main_data']
-            end_yyyy = step_main_data.get('end_yyyy', None)
-            end_mm = step_main_data.get('end_mm', None)
-            end_dd = step_main_data.get('end_dd', None)
-
-            if end_yyyy or end_mm or end_dd:
-                try:
-                    step_main_data['end_date'] = datetime.date(int(end_yyyy), int(end_mm or 1), int(end_dd or 1))
-                except Exception:
-                    pass
-        return form_step_data
-
-    @staticmethod
-    def save_data(form_steps, form_step_data):
-        step_main_data = form_step_data['step_main_data']
-        step_categories = form_step_data['step_categories']
-        step_confirm_data = form_step_data['step_confirm_data']
-
-        # institution
-        offering_institution = None
-        if step_main_data.get('offering_institution', None):
-            offering_institution = Institution.objects.get(pk=step_main_data['offering_institution'])
-        offering_institution_title = step_main_data.get('offering_institution_title', None)
-
-        contact_person_ind = int(step_main_data.get("contact_person_ind", 0))
-        # the creator is contact person
-        contact_person = None
-        if contact_person_ind == 0:
-            contact_person = get_current_user().profile
-
-        job_offer = JobOffer()
-
-        job_offer.position = step_main_data.get('position', None)
-        job_offer.job_type = step_main_data.get('job_type', None)
-        job_offer.description = step_main_data.get('description', None)
-
-        job_offer.offering_institution = offering_institution
-        job_offer.contact_person = contact_person
-        job_offer.offering_institution_title = step_main_data.get('offering_institution_title', None)
-        job_offer.contact_person_name = step_main_data.get('contact_person_name', "")
-
-        job_offer.phone0_type = PhoneType.objects.get(slug='phone')
-        job_offer.phone0_country = step_main_data.get('phone_country', '')
-        job_offer.phone0_area = step_main_data.get('phone_area', '')
-        job_offer.phone0_number = step_main_data.get('phone_number', '')
-
-        job_offer.phone1_type = PhoneType.objects.get(slug='fax')
-        job_offer.phone1_country = step_main_data.get('fax_country', '')
-        job_offer.phone1_area = step_main_data.get('fax_area', '')
-        job_offer.phone1_number = step_main_data.get('fax_number', '')
-
-        job_offer.email0_type = EmailType.objects.get(slug='email')
-        job_offer.email0_address = step_main_data.get('email0_address', '')
-
-        job_offer.url0_type = URLType.objects.get(slug='web')
-        job_offer.url0_link = step_main_data.get('url0_link', '')
-        job_offer.publish_emails = step_main_data.get('publish_emails', '')
-
-        job_offer.tags = step_categories.get('tags', '')
-
-        job_offer.status = STATUS_CODE_PUBLISHED
-
-        end_date = step_main_data.get('end_date', None)
-        if end_date:
-            job_offer.published_till = end_date
-
-        if step_confirm_data.get('report_talent_in_berlin', False):
-            job_offer.talent_in_berlin = True
-
-        job_offer.save()
-
-        Address.objects.set_for(
-            job_offer,
-            "postal_address",
-            country=step_main_data.get('country', None),
-            city=step_main_data.get('city', None),
-            street_address=step_main_data.get('street_address', None),
-            street_address2=step_main_data.get('street_address2', None),
-            postal_code=step_main_data.get('postal_code', None),
-        )
-
-        # job qualifications
-        job_offer.qualifications.clear()
-        for q in step_main_data.get('qualifications', None):
-            job_offer.qualifications.add(q)
-
-        # job sectors
-        cleaned = step_categories
-        selected_js = {}
-        for item in JobSector.objects.all():
-            if cleaned.get(PREFIX_JS + str(item.id), False):
-                # add current
-                selected_js[item.id] = item
-        job_offer.job_sectors.add(*selected_js.values())
-
-        # save again without triggering any signals
-        job_offer.save_base(raw=True)
-
-        # report to third parties
-        description = loader.render_to_string(
-            "marketplace/emails/new_job_offer.html",
-            {'object': job_offer},
-        )
-        recipients = []
-        if step_confirm_data.get('report_kulturmanagement', False):
-            recipients.append(Recipient(
-                name="Kulturmanagement.net",
-                email=settings.THIRD_PARTY_EMAILS['kulturmanagement.net'],
-            ))
-        if recipients:
-            sender_name = ''
-            sender_email = settings.DEFAULT_FROM_EMAIL
-            send_email_using_template(
-                recipients,
-                "new_job_offer",
-                obj_placeholders={
-                    'object_title': job_offer.position,
-                    'object_description': description,
-                    'object_url': job_offer.get_url(),
-                    'object_creator_url': job_offer.creator.profile.get_url(),
-                    'object_creator_title': job_offer.creator.profile.get_title(),
-                },
-                delete_after_sending=False,
-                sender_name=sender_name,
-                sender_email=sender_email,
-                send_immediately=False,
+            layout.Fieldset(
+                _("Institution/Company"),
+                "offering_institution",
+                layout.HTML("""{% load i18n %}
+                    <p class="disclaimer">
+                        <a id="link_enter_institution" href="#block_institution_title_input">{% trans "Not listed? Enter manually" %}</a>
+                    </p>
+                """),
+                css_id="block_institution_select",
+            ),
+            layout.Fieldset(
+                _("Institution/Company"),
+                "offering_institution_title",
+                layout.HTML("""{% load i18n %}
+                    <p class="disclaimer">
+                        <a id="link_enter_institution" href="#block_institution_select">{% trans "Back to selection" %}</a>
+                    </p>
+                """),
+                css_id="block_institution_title_input",
+            ),
+            layout.Fieldset(
+                _("Address"),
+                "street_address",
+                "street_address2",
+                layout.Row(
+                    layout.Div(
+                        "postal_code",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "city",
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                ),
+                "country",
+            ),
+            layout.Fieldset(
+                _("Contact person"),
+                "contact_person_ind",
+                "contact_person_name",
+            ),
+            layout.Fieldset(
+                _("Contact info"),
+                layout.Row(
+                    layout.Div(
+                        layout.HTML(_("Phone")),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "phone_country",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "phone_area",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "phone_number",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+                layout.Row(
+                    layout.Div(
+                        layout.HTML(_("Fax")),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "fax_country",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "fax_area",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "fax_number",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+                "email0_address",
+                "publish_emails",
+                "url0_link",
+            ),
+            layout.Fieldset(
+                _("Publishing"),
+                layout.Row(
+                    layout.Div(
+                        layout.HTML(_("Publish until")),
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "end_dd",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "end_mm",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                    layout.Div(
+                        "end_yyyy",
+                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                    ),
+                ),
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Next')),
             )
-        # if step_confirm_data.get('report_creativeset', False):
-        #     from ccb.apps.external_services.export_to_creativeset import export_job_offer_to_creativeset
-        #     export_job_offer_to_creativeset(job_offer)
+        )
+
+    def clean(self):
+        # if end date is specified, all fields must be specified!
+        end_yyyy = self.cleaned_data.get('end_yyyy', None)
+        end_mm = self.cleaned_data.get('end_mm', None)
+        end_dd = self.cleaned_data.get('end_dd', None)
+
+        if end_yyyy or end_mm or end_dd:
+            if end_dd:
+                if not end_mm:
+                    self._errors['end_dd'] = [_("Please enter a valid month.")]
+            try:
+                end_date = datetime.date(int(end_yyyy), int(end_mm or 1), int(end_dd or 1))
+            except Exception:
+                self._errors['end_dd'] = [_("If you want to specify an end date, please enter a valid one.")]
+
+        return self.cleaned_data
+
+    def is_valid(self):
+        is_valid = super(MainDataForm, self).is_valid()
+        errors = self._errors
+        return is_valid
 
 
-        form_steps['success_url'] = job_offer.get_url_path()
+class CategoriesForm(dynamicforms.Form):
+    job_sectors = forms.ModelMultipleChoiceField(
+        queryset=get_related_queryset(JobOffer, "job_sectors"),
+        required=True,
+        widget=forms.CheckboxSelectMultiple,
+        help_text="",
+        label="",
+    )
 
-        return form_step_data
+    tags = TagField(
+        label=_("Tags"),
+        help_text=_("Separate tags with commas"),
+        max_length=200,
+        required=False,
+        widget=TagAutocomplete,
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(CategoriesForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Categories"),
+                "job_sectors",
+                layout.HTML("""{% load i18n %}
+                    <p class="disclaimer">{% blocktrans %}Is some category missing? You can <a href="/ticket/new-category/">suggest it here</a>.{% endblocktrans %}</p>
+                """),
+                "tags",
+            ),
+            bootstrap.FormActions(
+                layout.Submit('reset', _('Reset')),
+                layout.HTML("""{% load i18n %}
+                    <button class="btn" onclick="window.redirect(document.location.pathname + '?step=' + ({{ form_step_data.step_counter|default:"0" }} - 1))">
+                        {% trans "Previous" %}
+                    </button>
+                """),
+                layout.Submit('submit', _('Next')),
+            )
+        )
+
+
+class ReportForm(dynamicforms.Form):
+    report_kulturmanagement = forms.BooleanField(
+        label=_('Report to <a href="http://kulturmanagement.net" target="_blank">Kulturmanagement.net</a>'),
+        initial=False,
+        required=False,
+    )
+    # report_creativeset = forms.BooleanField(
+    #     label=_("Report to Creativeset.net"),
+    #     initial=False,
+    #     required=False,
+    #     )
+    report_talent_in_berlin = forms.BooleanField(
+        label=_('Report to <a href="http://www.talent-in-berlin.de" target="_blank">talent-in-berlin.de</a>'),
+        initial=False,
+        required=False,
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(ReportForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Report job offer"),
+                layout.HTML("""{% load i18n %}
+                    <p>{% trans "Please activate the checkboxes if you want to send your jobposting to one of our partners." %}</p>
+                """),
+                "report_kulturmanagement",
+                "report_talent_in_berlin",
+            ),
+            bootstrap.FormActions(
+                layout.Submit('reset', _('Reset')),
+                layout.HTML("""{% load i18n %}
+                    <button class="btn" onclick="window.redirect(document.location.pathname + '?step=' + ({{ form_step_data.step_counter|default:"0" }} - 1))">
+                        {% trans "Previous" %}
+                    </button>
+                """),
+                layout.Submit('submit', _('Next')),
+            )
+        )
+
+
+def submit_step(current_step, form_steps, form_step_data):
+    if current_step == "step_main_data":
+        step_main_data = form_step_data['step_main_data']
+        end_yyyy = step_main_data.get('end_yyyy', None)
+        end_mm = step_main_data.get('end_mm', None)
+        end_dd = step_main_data.get('end_dd', None)
+
+        if end_yyyy or end_mm or end_dd:
+            try:
+                step_main_data['end_date'] = datetime.date(int(end_yyyy), int(end_mm or 1), int(end_dd or 1))
+            except Exception:
+                pass
+    return form_step_data
+
+
+def save_data(form_steps, form_step_data):
+    step_main_data = form_step_data['step_main_data']
+    step_categories = form_step_data['step_categories']
+    step_confirm_data = form_step_data['step_confirm_data']
+
+    # institution
+    offering_institution = None
+    if step_main_data.get('offering_institution', None):
+        offering_institution = Institution.objects.get(pk=step_main_data['offering_institution'])
+    offering_institution_title = step_main_data.get('offering_institution_title', None)
+
+    contact_person_ind = int(step_main_data.get("contact_person_ind", 0))
+    # the creator is contact person
+    contact_person = None
+    if contact_person_ind == 0:
+        contact_person = get_current_user().profile
+
+    job_offer = JobOffer()
+
+    job_offer.position = step_main_data.get('position', None)
+    job_offer.job_type = step_main_data.get('job_type', None)
+    job_offer.description = step_main_data.get('description', None)
+
+    job_offer.offering_institution = offering_institution
+    job_offer.contact_person = contact_person
+    job_offer.offering_institution_title = step_main_data.get('offering_institution_title', None)
+    job_offer.contact_person_name = step_main_data.get('contact_person_name', "")
+
+    job_offer.phone0_type = PhoneType.objects.get(slug='phone')
+    job_offer.phone0_country = step_main_data.get('phone_country', '')
+    job_offer.phone0_area = step_main_data.get('phone_area', '')
+    job_offer.phone0_number = step_main_data.get('phone_number', '')
+
+    job_offer.phone1_type = PhoneType.objects.get(slug='fax')
+    job_offer.phone1_country = step_main_data.get('fax_country', '')
+    job_offer.phone1_area = step_main_data.get('fax_area', '')
+    job_offer.phone1_number = step_main_data.get('fax_number', '')
+
+    job_offer.email0_type = EmailType.objects.get(slug='email')
+    job_offer.email0_address = step_main_data.get('email0_address', '')
+
+    job_offer.url0_type = URLType.objects.get(slug='web')
+    job_offer.url0_link = step_main_data.get('url0_link', '')
+    job_offer.publish_emails = step_main_data.get('publish_emails', '')
+
+    job_offer.tags = step_categories.get('tags', '')
+
+    job_offer.status = STATUS_CODE_PUBLISHED
+
+    end_date = step_main_data.get('end_date', None)
+    if end_date:
+        job_offer.published_till = end_date
+
+    if step_confirm_data.get('report_talent_in_berlin', False):
+        job_offer.talent_in_berlin = True
+
+    job_offer.save()
+
+    Address.objects.set_for(
+        job_offer,
+        "postal_address",
+        country=step_main_data.get('country', None),
+        city=step_main_data.get('city', None),
+        street_address=step_main_data.get('street_address', None),
+        street_address2=step_main_data.get('street_address2', None),
+        postal_code=step_main_data.get('postal_code', None),
+    )
+
+    # job qualifications
+    job_offer.qualifications.clear()
+    for q in step_main_data.get('qualifications', None):
+        job_offer.qualifications.add(q)
+
+    # job sectors
+    job_offer.job_sectors.clear()
+    job_offer.job_sectors.add(*step_categories['job_sectors'])
+
+    # save again without triggering any signals
+    job_offer.save_base(raw=True)
+
+    # report to third parties
+    description = loader.render_to_string(
+        "marketplace/emails/new_job_offer.html",
+        {'object': job_offer},
+    )
+    recipients = []
+    if step_confirm_data.get('report_kulturmanagement', False):
+        recipients.append(Recipient(
+            name="Kulturmanagement.net",
+            email=settings.THIRD_PARTY_EMAILS['kulturmanagement.net'],
+        ))
+    if recipients:
+        sender_name = ''
+        sender_email = settings.DEFAULT_FROM_EMAIL
+        send_email_using_template(
+            recipients,
+            "new_job_offer",
+            obj_placeholders={
+                'object_title': job_offer.position,
+                'object_description': description,
+                'object_url': job_offer.get_url(),
+                'object_creator_url': job_offer.creator.profile.get_url(),
+                'object_creator_title': job_offer.creator.profile.get_title(),
+            },
+            delete_after_sending=False,
+            sender_name=sender_name,
+            sender_email=sender_email,
+            send_immediately=False,
+        )
+    # if step_confirm_data.get('report_creativeset', False):
+    #     from ccb.apps.external_services.export_to_creativeset import export_job_offer_to_creativeset
+    #     export_job_offer_to_creativeset(job_offer)
+
+
+    form_steps['success_url'] = job_offer.get_url_path()
+
+    return form_step_data
 
 
 ADD_JOB_OFFER_FORM_STEPS = {
     'step_main_data': {
         'title': _("main data"),
         'template': "marketplace/add_job_offer_main_data.html",
-        'form': JobOfferForm.MainDataForm,
+        'form': MainDataForm,
     },
     'step_categories': {
         'title': _("categories"),
         'template': "marketplace/add_job_offer_categories.html",
-        'form': JobOfferForm.CategoriesForm,
+        'form': CategoriesForm,
     },
     'step_confirm_data': {
         'title': _("confirm data"),
         'template': "marketplace/add_job_offer_confirm.html",
-        'form': JobOfferForm.ReportForm,
+        'form': ReportForm,
     },
-    'onsubmit': JobOfferForm.submit_step,
-    'onsave': JobOfferForm.save_data,
+    'onsubmit': submit_step,
+    'onsave': save_data,
     'name': 'add_job_offer',
     'success_url': "/%s/" % URL_ID_JOB_OFFERS,
     'default_path': [
@@ -474,9 +625,11 @@ class JobOfferSearchForm(dynamicforms.Form):
         from django.template.defaultfilters import urlencode
         if self.is_valid():
             cleaned = self.cleaned_data
-            return "&".join([
-                ("%s=%s" % (k, urlencode(isinstance(v, models.Model) and v.pk or v)))
-                for (k, v) in cleaned.items()
-                if v
-            ])
+            return "&".join(
+                [
+                    ("%s=%s" % (k, urlencode(isinstance(v, models.Model) and v.pk or v)))
+                    for (k, v) in cleaned.items()
+                    if v
+                ]
+            )
         return ""

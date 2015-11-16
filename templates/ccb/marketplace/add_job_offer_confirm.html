@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n site_specific babel %}
+{% load base_tags i18n site_specific babel crispy_forms_tags %}
 
 {% block title %}{% trans "Registration" %} - {% trans "Job Offer" %}{% endblock %}
 
@@ -160,6 +160,8 @@
                         </dl>
                     </div>
                 {% endif %}
+
+                {#% crispy form %#}
 
                 <fieldset class="fieldset_end">
                     <legend><span>{% trans "Report job offer" %}</span></legend>

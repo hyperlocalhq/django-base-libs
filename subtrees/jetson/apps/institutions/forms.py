@@ -57,8 +57,11 @@ PREFIX_LT = 'LT_'  # Location Type
 LOGO_SIZE = getattr(settings, "LOGO_SIZE", (100, 100))
 STR_LOGO_SIZE = "%sx%s" % LOGO_SIZE
 
+# Collect translatable strings
+_("Remove from map")
+_("Previous")
+_("Apply to all days")
 
-# FORMS
 
 ### ADD INSTITUTION ###
 

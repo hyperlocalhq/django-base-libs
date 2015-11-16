@@ -68,6 +68,19 @@ LOGO_SIZE = getattr(settings, "LOGO_SIZE", (100, 100))
 STR_LOGO_SIZE = "%sx%s" % LOGO_SIZE
 
 
+# Collect translatable strings
+_("Not listed? Enter manually")
+_("Address")
+_("Change selection")
+_("Back to selection")
+_("Remove from map")
+_("Phone")
+_("Fax")
+_("URL")
+_("Previous")
+_("Apply to all days")
+
+
 class MainDataForm(dynamicforms.Form):
     """
     Form for event "main data"
@@ -310,7 +323,7 @@ class MainDataForm(dynamicforms.Form):
                     <ul class="def_list">
                         <li class="add_manually_list_label">
                             <label>
-                                {% trans "address" %}:
+                                {% trans "Address" %}:
                             </label>
                         </li>
                         <li id="id_venue_address_title" class="add_manually_list">
@@ -442,7 +455,7 @@ class MainDataForm(dynamicforms.Form):
                 layout.HTML("""{% load i18n %}
                     <ul class="address def_list">
                         <li class="add_manually_list_label">
-                            <label>{% trans "address" %}:</label>
+                            <label>{% trans "Address" %}:</label>
                         </li>
                         <li id="id_org_inst_address_title" class="add_manually_list">
                             <strong></strong>
@@ -486,7 +499,7 @@ class MainDataForm(dynamicforms.Form):
                     <ul class="def_list" id="id_org_inst_url0_link_container">
                         <li class="add_manually_list_label">
                             <label>
-                                {% trans "Url" %}:
+                                {% trans "URL" %}:
                             </label>
                         </li>
                         <li id="id_org_inst_url0_link" class="add_manually_list">
