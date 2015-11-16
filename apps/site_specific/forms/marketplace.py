@@ -50,12 +50,9 @@ STR_MIN_LOGO_SIZE = "%sx%s" % MIN_LOGO_SIZE
 # Collect translatable strings
 _("Not listed? Enter manually")
 _("Back to selection")
-_("Locate on map")
-_("Remove from map")
 _('Is some category missing? You can <a href="/ticket/new-category/">suggest it here</a>.')
 
 # TODO: each form could be ModelForm. Each formset could be ModelFormSet.
-# noinspection PyClassHasNoInit
 class DetailsForm(dynamicforms.Form):
     position = forms.CharField(
         required=True,
@@ -486,17 +483,7 @@ class ContactForm(dynamicforms.Form):
                     ),
                 ),
                 "country",
-                layout.HTML("""{% load i18n %}
-                    <div class="map_container">
-                        <div class="map_canvas">
-                            <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
-                        </div>
-                        <div class="buttonHolder">
-                            <button id="dyn_locate_geo" class="btn">{% filter upper %}{% trans "Locate on map" %}{% endfilter %}</button>
-                            <button id="dyn_remove_geo" class="btn">{% filter upper %}{% trans "Remove from map" %}{% endfilter %}</button>
-                        </div>
-                    </div>
-                """),
+                layout.HTML("""{% include "bootstrap3/custom_widgets/editable_map.html" %}"""),
                 css_id="fieldset_institution_select",
             ),
             layout.Fieldset(

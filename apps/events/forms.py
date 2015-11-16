@@ -73,11 +73,9 @@ _("Not listed? Enter manually")
 _("Address")
 _("Change selection")
 _("Back to selection")
-_("Remove from map")
 _("Phone")
 _("Fax")
 _("URL")
-_("Previous")
 _("Apply to all days")
 
 
@@ -385,16 +383,7 @@ class MainDataForm(dynamicforms.Form):
             ),
             layout.Fieldset(
                 _("Map"),
-                layout.HTML("""{% load i18n %}
-                    <div class="map_container">
-                        <div class="map_canvas">
-                            <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
-                        </div>
-                        <div class="buttonHolder">
-                            <button id="dyn_remove_geo" class="btn">{% filter upper %}{% trans "Remove from map" %}{% endfilter %}</button>
-                        </div>
-                    </div>
-                """),
+                layout.HTML("""{% include "bootstrap3/custom_widgets/editable_map.html" %}"""),
             ),
             layout.Fieldset(
                 _("Information about this Event"),
@@ -897,11 +886,7 @@ class ProfileForm(dynamicforms.Form):
             ),
             bootstrap.FormActions(
                 layout.Submit('reset', _('Reset')),
-                layout.HTML("""{% load i18n %}
-                    <button class="btn" onclick="window.redirect(document.location.pathname + '?step=' + ({{ form_step_data.step_counter|default:"0" }} - 1))">
-                        {% trans "Previous" %}
-                    </button>
-                """),
+                layout.HTML("""{% include "bootstrap3/custom_widgets/previous_button.html" %}"""),
                 layout.Submit('submit', _('Next')),
             )
         )
@@ -1387,11 +1372,7 @@ class FeesForm(dynamicforms.Form):
             ),
             bootstrap.FormActions(
                 layout.Submit('reset', _('Reset')),
-                layout.HTML("""{% load i18n %}
-                    <button class="btn" onclick="window.redirect(document.location.pathname + '?step=' + ({{ form_step_data.step_counter|default:"0" }} - 1))">
-                        {% trans "Previous" %}
-                    </button>
-                """),
+                layout.HTML("""{% include "bootstrap3/custom_widgets/previous_button.html" %}"""),
                 layout.Submit('submit', _('Next')),
             )
         )
@@ -1513,11 +1494,7 @@ class CategoriesForm(dynamicforms.Form):
             ),
             bootstrap.FormActions(
                 layout.Submit('reset', _('Reset')),
-                layout.HTML("""{% load i18n %}
-                    <button class="btn" onclick="window.redirect(document.location.pathname + '?step=' + ({{ form_step_data.step_counter|default:"0" }} - 1))">
-                        {% trans "Previous" %}
-                    </button>
-                """),
+                layout.HTML("""{% include "bootstrap3/custom_widgets/previous_button.html" %}"""),
                 layout.Submit('submit', _('Next')),
             )
         )

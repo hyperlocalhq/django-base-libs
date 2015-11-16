@@ -58,7 +58,6 @@ STR_LOGO_SIZE = "%sx%s" % LOGO_SIZE
 STR_MIN_LOGO_SIZE = "%sx%s" % MIN_LOGO_SIZE
 
 # Collect translatable strings
-_("Remove from map")
 _("Apply to all days")
 
 
@@ -523,16 +522,7 @@ class ContactForm(dynamicforms.Form):
                     ),
                 ),
                 "country",
-                layout.HTML("""{% load i18n %}
-                    <div class="map_container">
-                        <div class="map_canvas">
-                            <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
-                        </div>
-                        <div class="buttonHolder">
-                            <button id="dyn_remove_geo" class="btn">{% filter upper %}{% trans "Remove from map" %}{% endfilter %}</button>
-                        </div>
-                    </div>
-                """),
+                layout.HTML("""{% include "bootstrap3/custom_widgets/editable_map.html" %}"""),
                 css_id="fieldset_institution_select",
             ),
             layout.Fieldset(

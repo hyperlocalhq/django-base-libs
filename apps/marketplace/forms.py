@@ -43,7 +43,6 @@ PREFIX_JS = 'JS_'  # Job Sector
 _("Not listed? Enter manually")
 _("Back to selection")
 _('Is some category missing? You can <a href="/ticket/new-category/">suggest it here</a>.')
-_("Previous")
 _("Please activate the checkboxes if you want to send your jobposting to one of our partners.")
 
 
@@ -382,11 +381,7 @@ class CategoriesForm(dynamicforms.Form):
             ),
             bootstrap.FormActions(
                 layout.Submit('reset', _('Reset')),
-                layout.HTML("""{% load i18n %}
-                    <button class="btn" onclick="window.redirect(document.location.pathname + '?step=' + ({{ form_step_data.step_counter|default:"0" }} - 1))">
-                        {% trans "Previous" %}
-                    </button>
-                """),
+                layout.HTML("""{% include "bootstrap3/custom_widgets/previous_button.html" %}"""),
                 layout.Submit('submit', _('Next')),
             )
         )
@@ -425,11 +420,7 @@ class ReportForm(dynamicforms.Form):
             ),
             bootstrap.FormActions(
                 layout.Submit('reset', _('Reset')),
-                layout.HTML("""{% load i18n %}
-                    <button class="btn" onclick="window.redirect(document.location.pathname + '?step=' + ({{ form_step_data.step_counter|default:"0" }} - 1))">
-                        {% trans "Previous" %}
-                    </button>
-                """),
+                layout.HTML("""{% include "bootstrap3/custom_widgets/previous_button.html" %}"""),
                 layout.Submit('submit', _('Next')),
             )
         )

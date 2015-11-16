@@ -58,8 +58,6 @@ LOGO_SIZE = getattr(settings, "LOGO_SIZE", (100, 100))
 STR_LOGO_SIZE = "%sx%s" % LOGO_SIZE
 
 # Collect translatable strings
-_("Remove from map")
-_("Previous")
 _("Apply to all days")
 
 
@@ -294,16 +292,7 @@ class MainDataForm(dynamicforms.Form):
                     ),
                 ),
                 "country",
-                layout.HTML("""{% load i18n %}
-                    <div class="map_container">
-                        <div class="map_canvas">
-                            <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
-                        </div>
-                        <div class="buttonHolder">
-                            <button id="dyn_remove_geo" class="btn">{% filter upper %}{% trans "Remove from map" %}{% endfilter %}</button>
-                        </div>
-                    </div>
-                """),
+                layout.HTML("""{% include "bootstrap3/custom_widgets/editable_map.html" %}"""),
                 css_id="fieldset_institution_select",
             ),
             layout.Fieldset(
@@ -488,11 +477,7 @@ class ProfileForm(dynamicforms.Form):
             ),
             bootstrap.FormActions(
                 layout.Submit('reset', _('Reset')),
-                layout.HTML("""{% load i18n %}
-                    <button class="btn" onclick="window.redirect(document.location.pathname + '?step=' + ({{ form_step_data.step_counter|default:"0" }} - 1))">
-                        {% trans "Previous" %}
-                    </button>
-                """),
+                layout.HTML("""{% include "bootstrap3/custom_widgets/previous_button.html" %}"""),
                 layout.Submit('submit', _('Next')),
             )
         )
