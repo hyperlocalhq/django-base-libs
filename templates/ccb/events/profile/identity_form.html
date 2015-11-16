@@ -2,7 +2,7 @@
 <div class="profile_infos">
     <h5 class="edit_subline">{% trans "Edit Event Data" %}</h5>
 
-    {% crispy form %}
+    {#% crispy form %#}
 
     <form action="/helper/edit-{{ URL_ID_EVENT }}-profile/{{ object.slug }}/identity/" method="post"
         enctype="multipart/form-data" target="hidden_iframe" class="uniForm">{% csrf_token %}

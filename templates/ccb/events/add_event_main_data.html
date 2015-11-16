@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n uni_form_tags uni_form_field %}
+{% load base_tags i18n uni_form_tags uni_form_field crispy_forms_tags %}
 
 {% block title %}{% trans "Registration" %} - {% trans "Event" %}{% endblock %}
 
@@ -24,6 +24,7 @@
 
 {% block content %}
     <div class="reg">
+        {#% crispy form %#}
         <form id="id_event_main_data_form" action="" method="post" class="uniForm">{% csrf_token %}
             <fieldset class="inlineLabels">
                 <h3>{% trans "Title" %}</h3>
@@ -57,22 +58,22 @@
                                 </label>
                             </li>
                             <li id="id_venue_address_title" class="add_manually_list">
-                                <strong>Title</strong>
+                                <strong></strong>
                             </li>
                             <li id="id_venue_address_street_address" class="add_manually_list">
-                                <strong>Street Address</strong>
+                                <strong></strong>
                             </li>
                             <li id="id_venue_address_street_address2" class="add_manually_list">
-                                <strong>Street Address 2</strong>
+                                <strong></strong>
                             </li>
                             <li id="id_venue_address_postal_code" class="add_manually_list">
-                                <strong>11111</strong>
+                                <strong></strong>
                             </li>
                             <li id="id_venue_address_city" class="add_manually_list">
-                                <strong>Berlin</strong>
+                                <strong></strong>
                             </li>
                             <li id="id_venue_address_country" class="add_manually_list">
-                                <strong>Germany</strong>
+                                <strong></strong>
                             </li>
                             <li class="add_manually_list">
                                 <a id="id_venue_change" href="#">
@@ -129,7 +130,7 @@
                 </div>
                 <div id="id_block_org_inst_address_display" class="organizeraddress_add_event">
                     <h3>
-                        {% trans "Organizer" %}{% trans "Address" %}
+                        {% trans "Organizer" %} {% trans "Address" %}
                     </h3>
 
                     <div class="ctrlHolder noLabel">
@@ -138,22 +139,22 @@
                                 <label>{% trans "address" %}:</label>
                             </li>
                             <li id="id_org_inst_address_title" class="add_manually_list">
-                                <strong>Title</strong>
+                                <strong></strong>
                             </li>
                             <li id="id_org_inst_address_street_address" class="add_manually_list">
-                                <strong>Street Address</strong>
+                                <strong></strong>
                             </li>
                             <li id="id_org_inst_address_street_address2" class="add_manually_list">
-                                <strong>Street Address 2</strong>
+                                <strong></strong>
                             </li>
                             <li id="id_org_inst_address_postal_code" class="add_manually_list">
-                                <strong>11111</strong>
+                                <strong></strong>
                             </li>
                             <li id="id_org_inst_address_city" class="add_manually_list">
-                                <strong>Berlin</strong>
+                                <strong></strong>
                             </li>
                             <li id="id_org_inst_address_country" class="add_manually_list">
-                                <strong>Germany</strong>
+                                <strong></strong>
                             </li>
                         </ul>
                     </div>
