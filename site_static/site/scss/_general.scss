@@ -70,6 +70,10 @@ h1 {
     font-size: 4.25em;
     line-height: 109%;
     margin: 0;
+    .is-sm & {
+        font-size: 3.5em;
+        line-height: 107%;
+    }
     .is-xs & {
         font-size: 2.13em;
         line-height: 97%;

@@ -434,6 +434,87 @@
                 <br/>
                 <br/>
                 <br/>
+                <p class="uppercase underline">Article List</p>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                
+                Navigation
+                
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                <div class="row article-list">
+                    <div class="col-xs-12">
+                        <div class="wrapper">
+                            <a class="content" href="#">
+                                <img src="http://placehold.it/200x208&text=image">
+                                <div class="text">
+                                    <h3>{% trans 'Rubric' %} <time datetime="2015-10-08">08. Oktober 2015</time></h3>
+                                    <h2>"Grüne Mode muss die Masse ansprechen"</h2>
+                                    <p>Natacha Aedo Duran ist 26 Jahre alt, Mode-Designerin, ...</p>
+                                    <div>{% trans 'Read on' %}</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="wrapper">
+                            <a class="content" href="#">
+                                <img src="http://placehold.it/200x208&text=image">
+                                <div class="text">
+                                    <h3>{% trans 'Rubric' %} <time datetime="2015-10-08">08. Oktober 2015</time></h3>
+                                    <h2>"Grüne Mode muss die Masse ansprechen"</h2>
+                                    <p>Natacha Aedo Duran ist 26 Jahre alt, Mode-Designerin, ...</p>
+                                    <div>{% trans 'Read on' %}</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="wrapper">
+                            <a class="content" href="#">
+                                <img src="http://placehold.it/200x208&text=image">
+                                <div class="text">
+                                    <h3>{% trans 'Rubric' %} <time datetime="2015-10-08">08. Oktober 2015</time></h3>
+                                    <h2>"Grüne Mode muss die Masse ansprechen"</h2>
+                                    <p>Natacha Aedo Duran ist 26 Jahre alt, Mode-Designerin, ...</p>
+                                    <div>{% trans 'Read on' %}</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <br/>
+                <p>Place the code inside the elements area of a navigation layout block.</p>
+<pre>&lt;div class="row article-list">
+    &lt;div class="col-xs-12">
+        &lt;div class="wrapper">
+            &lt;a class="content" href="#">
+                &lt;img src="http://placehold.it/200x208&text=image">
+                &lt;div class="text">
+                    &lt;h3>{% trans 'Rubric' %} &lt;time datetime="2015-10-08">08. Oktober 2015&lt;/time>&lt;/h3>
+                    &lt;h2>"Grüne Mode muss die Masse ansprechen"&lt;/h2>
+                    &lt;p>Natacha Aedo Duran ist 26 Jahre alt, Mode-Designerin, ...&lt;/p>
+                    &lt;div>{% trans 'Read on' %}&lt;/div>
+                &lt;/div>
+            &lt;/a>
+        &lt;/div>
+    &lt;/div>
+    ... keep adding col blocks
+&lt;/div></pre>
+                <br/>
+                <br/>
+                <br/>
                 <p class="uppercase underline">Navigation grid</p>
                 <br/>
                 <p>Requirements:<br/>
@@ -920,6 +1001,43 @@
                         &lt;/ul>
                     &lt;/nav>
                 &lt;/div>
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+&lt;/div></pre>
+                <br/>
+                <br/>
+                <br/>
+                <p class="underline"><span class="uppercase">Header</span> with headline beneath the content</p>
+                <p>The header tag gets the classes "has-image" and "has-content" if a background image exits.</p>
+                <p>Add the class "large-image" to the header tag to get a larger image.</p>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="header large-image">
+        <img src="http://placehold.it/2003x1010&text=image"/>
+    </div>
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>Headline beneath image</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <pre>&lt;div class="header large-image">
+    &lt;img src="http://placehold.it/2003x1010&text=image"/>
+&lt;/div>
+&lt;div class="header">
+    &lt;div class="container">
+        &lt;div class="row">
+            &lt;div class="col-xs-12">
+                &lt;h1>Headline beneath image&lt;/h1>
             &lt;/div>
         &lt;/div>
     &lt;/div>

@@ -356,6 +356,9 @@
     
     &.has-image {
         max-height: 450px;
+        &.large-image {
+            max-height: 590px;
+        }
     }
     
     &.has-content {

@@ -287,6 +287,7 @@ $(document).ready(function() {
         me.$next = null;
         me.left_nav = 0;
         
+        if ($('h1.on-top', $main).length) me.$main.addClass('headline-on-top');
         if (me.$image.length) me.$main.addClass('has-image');
         if (me.$image.length || me.$info.length) me.$main.addClass('has-content');
         if (me.$menu.length) me.$main.addClass('has-menu');

@@ -157,6 +157,7 @@ a:hover { color: #00cdff; }
 a:hover, a:active, a:visited, a:focus { text-decoration: none; }
 
 h1 { font-family: "MetronicSlabPro", "sans-serif"; font-weight: 900; font-size: 4.25em; line-height: 109%; margin: 0; }
+.is-sm h1 { font-size: 3.5em; line-height: 107%; }
 .is-xs h1 { font-size: 2.13em; line-height: 97%; }
 
 h2 { font-family: "Lato", "sans-serif"; font-size: 1.6em; line-height: 133%; margin: 0; }
@@ -261,10 +262,10 @@ p { font-size: 1em; line-height: 133%; margin: 0; }
 .is-xs .row.profile-grid > div .button-group .button:hover, .is-xs.list .row.profile-grid.profile-list > div .button-group .button:hover { color: #000; }
 .is-xs .row.profile-grid > div .button-group .button:before, .is-xs.list .row.profile-grid.profile-list > div .button-group .button:before { font-size: 1.67em; }
 .is-xs .row.profile-grid.profile-list > div a.content img, .is-xs.list .row.profile-grid.profile-list > div a.content img { width: 80px; }
-.is-xs .row.profile-grid.profile-list > div a.content .text, .is-xs .row.profile-grid.profile-list > div a.content .name, .is-xs.list .row.profile-grid.profile-list > div a.content .text, .is-xs.list .row.profile-grid.profile-list > div a.content .name { margin-left: 95px; }
+.is-xs .row.profile-grid.profile-list > div a.content .text, .is-xs .row.profile-grid.profile-list > div a.content .name, .is-xs.list .row.profile-grid.profile-list > div a.content .text, .is-xs.list .row.profile-grid.profile-list > div a.content .name { margin-left: 100px; }
 .is-xs .row.profile-grid.profile-list > div a.content .text h2, .is-xs .row.profile-grid.profile-list > div a.content .name h2, .is-xs.list .row.profile-grid.profile-list > div a.content .text h2, .is-xs.list .row.profile-grid.profile-list > div a.content .name h2 { padding-right: 0; line-height: 90%; }
 .is-xs .row.profile-grid.profile-list > div a.content .text h3, .is-xs .row.profile-grid.profile-list > div a.content .name h3, .is-xs.list .row.profile-grid.profile-list > div a.content .text h3, .is-xs.list .row.profile-grid.profile-list > div a.content .name h3 { padding-top: 7px; padding-right: 0; }
-.is-xs .row.profile-grid.profile-list > div .button-group, .is-xs.list .row.profile-grid.profile-list > div .button-group { left: 105px; }
+.is-xs .row.profile-grid.profile-list > div .button-group, .is-xs.list .row.profile-grid.profile-list > div .button-group { left: 110px; }
 .is-xs .row.profile-grid.profile-list > div .button-group .button, .is-xs.list .row.profile-grid.profile-list > div .button-group .button { display: inline-block; }
 
 #body > .container > .row.navi-grid { margin-left: -5px; margin-right: -5px; }
@@ -336,6 +337,30 @@ p { font-size: 1em; line-height: 133%; margin: 0; }
 .row.job-list > div .button-group .button:first-child { margin-left: 0; }
 .row.job-list > div .wrapper { position: relative; }
 .row.job-list > div .wrapper:hover .button-group .button { display: inline-block; }
+
+#body .container .row.article-list { margin-left: -10px; margin-right: -10px; }
+#body .container .row.article-list > div { padding-left: 10px; padding-right: 10px; }
+
+.row.article-list { -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+.row.article-list > div a.content { display: block; width: 100%; background: #fff; overflow: hidden; border-bottom: 1px solid #d8d8d8; padding-top: 20px; }
+.row.article-list > div a.content:hover { background: #efefef; }
+.is-xs .row.article-list > div a.content:hover { background: #fff; }
+.row.article-list > div a.content img { width: 100px; float: left; margin-bottom: 20px; }
+.is-xs .row.article-list > div a.content img { width: 80px; }
+.row.article-list > div a.content .text { margin-left: 120px; margin-bottom: 20px; }
+.is-xs .row.article-list > div a.content .text { margin-left: 100px; }
+.row.article-list > div a.content .text h2 { font-family: "MetronicSlabPro", "sans-serif"; font-weight: 900; font-size: 1.47em; line-height: 127%; color: #000; padding: 0 20px 5px 0; }
+.is-sm .row.article-list > div a.content .text h2 { font-size: 1.4em; }
+.is-xs .row.article-list > div a.content .text h2 { font-size: 1.27em; padding: 0 0 5px; }
+.row.article-list > div a.content .text h3 { font-family: "Lato", "sans-serif"; font-weight: 700; font-size: 1.07em; line-height: 140%; color: #00cdff; text-transform: uppercase; padding: 0 20px 20px 0px; margin-top: -5px; }
+.row.article-list > div a.content .text h3 time { font-weight: 300; color: #000; padding-left: 15px; }
+.is-xs .row.article-list > div a.content .text h3 time { padding-left: 10px; }
+.is-sm .row.article-list > div a.content .text h3 { font-size: 1em; padding: 0 20px 15px 0px; }
+.is-xs .row.article-list > div a.content .text h3 { font-size: 0.73em; padding: 0 0 20px 0; line-height: 126%; margin-top: -2px; }
+.row.article-list > div a.content .text p { font-size: 1.2em; line-height: 140%; padding: 0 20px 20px 0; color: #000; }
+.is-sm .row.article-list > div a.content .text p { font-size: 1em; }
+.is-xs .row.article-list > div a.content .text p { font-size: 1.07em; padding: 0 0 20px; line-height: 150%; }
+.row.article-list > div a.content .text div { color: #444444; text-transform: uppercase; font-size: 0.73em; font-weight: 700; }
 
 .twitter-wall { width: 100%; background: #00cdff; }
 .twitter-wall .fawesome { margin: 30px 0; }
@@ -481,6 +506,7 @@ p { font-size: 1em; line-height: 133%; margin: 0; }
 .header .menu .prev { left: -10px; }
 .header .menu .next { right: -10px; }
 .header.has-image { max-height: 450px; }
+.header.has-image.large-image { max-height: 590px; }
 .header.has-content .menu { position: absolute; bottom: 0; left: 0; }
 .is-xs .header.has-content .menu { position: static; }
 .header.has-content.fixed { padding-bottom: 0; }
