@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n uni_form_tags uni_form_field %}
+{% load base_tags i18n uni_form_tags uni_form_field crispy_forms_tags %}
 
 {% block title %}{% trans "Registration" %} - {% trans "Event" %}{% endblock %}
 
@@ -15,6 +15,7 @@
 
 {% block content %}
     <div class="reg">
+        {#% crispy form %#}
         <form action="" method="post" enctype="multipart/form-data" class="uniForm">{% csrf_token %}
             <fieldset class="inlineLabels">
                 <h3>{% trans "Event Profile (Optional)" %}</h3>
@@ -26,7 +27,7 @@
                 <div class="ctrlHolder">
                     <p class="label">
                         <img
-                            src="{% if form_step_data.1.image %}/helper/tmpimage/{{ form_step_data.1.image.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/{% else %}{{ DEFAULT_FORM_LOGO_4_EVENT }}{% endif %}"
+                            src="{% if form_step_data.step_event_profile.image %}/helper/tmpimage/{{ form_step_data.step_event_profile.image.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/{% else %}{{ DEFAULT_FORM_LOGO_4_EVENT }}{% endif %}"
                             alt="{% trans "Image" %}"/>
                     </p>
                     {{ form.image.error_tag }}
