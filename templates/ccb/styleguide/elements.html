@@ -9,54 +9,6 @@
             <div class="col-xs-12">
                 <h1>Elements</h1>
                 <br/>
-                <p class="uppercase underline">Buttons</p>
-                <br/>
-                <div class="button">class="button"</div>
-                <br/>
-                <br/>
-                <p class="uppercase underline">Icon Buttons</p>
-                <br/>
-                <div style="display:inline-block;" class="fawesome fa-twitter small button"></div>&nbsp;&nbsp;&nbsp;<span>class="fawesome fa-twitter small button"</span>
-                <br/>
-                <br/>
-                <div style="display:inline-block;" class="fawesome fa-twitter button"></div>&nbsp;&nbsp;&nbsp;<span>class="fawesome fa-twitter button"</span>
-                <br/>
-                <br/>
-                <br/>
-                <p class="underline"><span class="uppercase">buttons wrapped in </span>class="button-group"</p>
-                <br/>
-                <div class="button-group">
-                    <div class="button">class="button"</div>
-                    <div class="button">class="button"</div>
-                    <div class="button">class="button"</div>
-                </div>
-                <br/>
-                <div class="button-group">
-                    <div class="fawesome fa-twitter button"></div>
-                    <div class="fawesome fa-facebook button"></div>
-                    <div class="fawesome fa-googleplus button"></div>
-                </div>
-                <br/>
-                <div class="button-group">
-                    <div class="fawesome fa-twitter small button"></div>
-                    <div class="fawesome fa-facebook small button"></div>
-                    <div class="fawesome fa-googleplus small button"></div>
-                </div>
-                <br/>
-                <br/>
-                <br/>
-                <p class="uppercase underline">Body Class Buttons</p>
-                <br/>
-                <p>If you add the attribute "<b>data-body-class</b>" to an element, it will add the value of the attribute to the classes of the body tag when you click on the element. At the same time all classes of the body tag which belong to other body class buttons are getting removed from the body tag. The clicked active button gets the class "active".</p>
-                <p>If you want to group body class buttons, so that they only affect each other and not the rest of the body class buttons on the page, add the attribute "<b>data-body-class-group</b>" to the buttons and give them the same value.</p>
-                <p>To give a body class button a toggle on/off functionality add the attribute "<b>data-body-class-toggle</b>" with a positive/true value.</p>
-                <p>To have a body class button initialy be active add the class "active" to the button and its "data-body-class" value to the body tag classes.</p>
-                <pre>&lt;div class="fawesome fa-list button active" data-body-class="list" data-body-class-group="profiles">&lt;/div>
-&lt;div class="fawesome fa-grid button" data-body-class="grid" data-body-class-group="profiles">&lt;/div></pre>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
                 <p class="uppercase underline">Bubble</p>
                 <br/>
                 <div class="bubble">class="bubble"</div>
@@ -453,7 +405,7 @@
                             <a class="content" href="#">
                                 <img src="http://placehold.it/200x208&text=image">
                                 <div class="text">
-                                    <h3>{% trans 'Rubric' %} <time datetime="2015-10-08">08. Oktober 2015</time></h3>
+                                    <h3>Rubrik <time datetime="2015-10-08">08. Oktober 2015</time></h3>
                                     <h2>"Grüne Mode muss die Masse ansprechen"</h2>
                                     <p>Natacha Aedo Duran ist 26 Jahre alt, Mode-Designerin, ...</p>
                                     <div>{% trans 'Read on' %}</div>
@@ -466,7 +418,7 @@
                             <a class="content" href="#">
                                 <img src="http://placehold.it/200x208&text=image">
                                 <div class="text">
-                                    <h3>{% trans 'Rubric' %} <time datetime="2015-10-08">08. Oktober 2015</time></h3>
+                                    <h3>Rubrik <time datetime="2015-10-08">08. Oktober 2015</time></h3>
                                     <h2>"Grüne Mode muss die Masse ansprechen"</h2>
                                     <p>Natacha Aedo Duran ist 26 Jahre alt, Mode-Designerin, ...</p>
                                     <div>{% trans 'Read on' %}</div>
@@ -479,7 +431,7 @@
                             <a class="content" href="#">
                                 <img src="http://placehold.it/200x208&text=image">
                                 <div class="text">
-                                    <h3>{% trans 'Rubric' %} <time datetime="2015-10-08">08. Oktober 2015</time></h3>
+                                    <h3>Rubrik <time datetime="2015-10-08">08. Oktober 2015</time></h3>
                                     <h2>"Grüne Mode muss die Masse ansprechen"</h2>
                                     <p>Natacha Aedo Duran ist 26 Jahre alt, Mode-Designerin, ...</p>
                                     <div>{% trans 'Read on' %}</div>
@@ -502,10 +454,10 @@
             &lt;a class="content" href="#">
                 &lt;img src="http://placehold.it/200x208&text=image">
                 &lt;div class="text">
-                    &lt;h3>{% trans 'Rubric' %} &lt;time datetime="2015-10-08">08. Oktober 2015&lt;/time>&lt;/h3>
+                    &lt;h3>Rubrik &lt;time datetime="2015-10-08">08. Oktober 2015&lt;/time>&lt;/h3>
                     &lt;h2>"Grüne Mode muss die Masse ansprechen"&lt;/h2>
                     &lt;p>Natacha Aedo Duran ist 26 Jahre alt, Mode-Designerin, ...&lt;/p>
-                    &lt;div>{% trans 'Read on' %}&lt;/div>
+                    &lt;div>&#123;% trans 'Read on' %}&lt;/div>
                 &lt;/div>
             &lt;/a>
         &lt;/div>

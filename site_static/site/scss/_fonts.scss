@@ -53,41 +53,105 @@
     
     &.button {
         display: block;
-        text-align: center;
-        width: 4.93em;
-        border-radius: 50%;
-        background: $black;
+        border-radius: 0;
+        background: transparent;
         padding: 0;
-        font-size: inherit;
-        font-weight: inherit;
-        .is-xs & {
-            width: 2.53em;
-            border-radius: 50%;
-            padding: 0;
-        }
-        &:before, &:after {
-            line-height: 200%;
-            padding-top: 0;
-            .is-xs & {
-                font-size: 1.27em;
-            }
-        }
+        color: $grey;
         
-        // center for certan icons
-        &.fa-facebook, &.fa-googleplus, &.fa-pinterest {
-            &:before, &after {
-                line-height: 190%;
-                padding-top: 5%;                
-            }
+        .is-xs & {
+            padding: 0;
         }
         
         &:hover {
-            background: $cyan;
+            background: transparent;
+            color: $black;
+        }
+        
+        .text {
+            font-size: 0.83em;
+            font-weight: $font-regular;
+            margin-left: 10px;
+        }
+        
+        &.round {
+            display: block;
+            text-align: center;
+            width: 4.93em;
+            border-radius: 50%;
+            background: $black;
+            padding: 0;
+            font-size: inherit;
+            font-weight: inherit;
+            color: $white;
+            .is-xs & {
+                width: 2.53em;
+                border-radius: 50%;
+                padding: 0;
+            }
+            &:before, &:after {
+                line-height: 200%;
+                padding-top: 0;
+                .is-xs & {
+                    font-size: 1.27em;
+                }
+            }
+            
+            // center for certan icons
+            &.fa-facebook, &.fa-googleplus, &.fa-pinterest {
+                &:before, &after {
+                    line-height: 190%;
+                    padding-top: 5%;                
+                }
+            }
+            
+            &:hover {
+                background: $cyan;
+            }
+        }
+        
+        &.square {
+            display: block;
+            text-align: center;
+            width: 4em;
+            background: $grey;
+            color: $black;
+            font-size: inherit;
+            font-weight: inherit;
+            
+            &:hover {
+                background: $black;
+                color: $white;
+            }
+            
+            &:before {
+                line-height: 130%;
+            }
+            &.small {
+                width: 3em;
+                &:before {
+                    line-height: 190%;
+                }
+            }
+            
+            .is-xs & {
+                border-radius: 0;
+                width: 3.6em;
+                &:before {
+                    line-height: 160%;
+                }
+                &.small {
+                    width: 2.8em;
+                    &:before {
+                        line-height: 180%;
+                    }
+                }
+            }
         }
     }
     
-    *.text {
-        margin-left: 15px;
+    .text {
+        font-size: 1em;
+        margin-left: 10px;
     }
     
     &.big {
@@ -100,6 +164,17 @@
             .is-xs & {
                 font-size: 2.13em;
             }
+        }
+        
+        &.button {
+            .text {
+                font-size: 1em;
+            }
+        }
+        
+        .text {
+            font-size: 1.2em;
+            margin-left: 15px;
         }
     }
     
@@ -114,26 +189,58 @@
                 font-size: 1.27em;
             }
         }
-        &.button {
+        &.button.round {
             width: 2.67em;
             .is-xs & {
                 width: 2.53em;
             }
         }
+        
+        &.button {
+            .text {
+                font-size: 0.61em;
+            }
+        }
+        
+        .text {
+            font-size: 0.73em;
+            margin-left: 5px;
+        }
     }
     
     .button-group &.button {
         display: inline-block;
-        margin-right: 2.4em;
+        
+        margin-right: 2em;
         .is-xs & {
-            margin-right: 1.4em;
+            margin-right: 1em;
         }
-        &.small {
-            margin-right: 1.2em;
+        &.big {
+            margin-right: 2.4em;
             .is-xs & {
-                margin-right: 0.7em;
+                margin-right: 1.4em;
             }
         }
+        &.small {
+            margin-right: 1em;
+            .is-xs & {
+                margin-right: 0.5em;
+            }
+        }
+        
+        &.round {
+            margin-right: 2.4em;
+            .is-xs & {
+                margin-right: 1.4em;
+            }
+            &.small {
+                margin-right: 1.2em;
+                .is-xs & {
+                    margin-right: 0.7em;
+                }
+            }
+        }
+        
         &:last-child {
             margin-right: 0;
         }

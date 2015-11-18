@@ -41,6 +41,9 @@
                 &:hover {
                     img {
                         opacity: 0.33;
+                        .is-xs & {
+                            opacity: 1;
+                        }
                     }
                     h2 {
                         display: block;
@@ -56,6 +59,7 @@
             
             .button-group {
                 .button {
+                    padding: 0;
                     background: none;
                     border-radius: 0;
                     line-height: 1.67em;

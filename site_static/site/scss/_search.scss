@@ -70,6 +70,9 @@
             }
             
             .button {
+                font-size: inherit;
+                font-weight: inherit;
+                padding: 0;
                 background: none;
                 border-radius: 0;
                 color: $grey;
@@ -140,11 +143,17 @@
         }
         
         .button {
+            font-size: inherit;
+            font-weight: inherit;
+            padding: 0;
             background: none;
             border-radius: 0;
             color: $white;
             margin: 0 0 0 30px;
             width: auto;
+            &:before {
+                line-height: 200%;
+            }
             .is-xs & {
                 margin: 0 0 0 20px;   
             }

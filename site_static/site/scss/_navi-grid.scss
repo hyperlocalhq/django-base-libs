@@ -64,6 +64,9 @@
             &:hover {
                 img {
                     opacity: 0.33;
+                    .is-xs & {
+                        opacity: 1;
+                    }
                 }
                 p {
                     opacity: 1;
