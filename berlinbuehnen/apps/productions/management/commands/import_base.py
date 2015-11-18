@@ -128,11 +128,11 @@ STAGE_TO_LOCATION_MAPPER = dict((k.lower(), v) for k, v in {
 
     u"Renaissance-Theater Berlin - Bruckner-Foyer": StageSettings(u"Renaissance-Theater Berlin", u"Bruckner-Foyer", True),
 
-    u"Sophiensaele - Festsaal": StageSettings(u"Sophiensaele", u"Festsaal", True),
-	u"Sophiensaele - Hochzeitssaal": StageSettings(u"Sophiensaele", u"Hochzeitssaal", True),
-	u"Kantine": StageSettings(u"Sophiensaele", u"Kantine", True),
-	u"gesamtes Haus": StageSettings(u"Sophiensaele", u"gesamtes Haus", True),
-	u"Sophiensaele - Kantine": StageSettings(u"Sophiensaele", u"Kantine", True),
+    u"Sophiensaele - Festsaal": StageSettings(u"Sophiensæle", u"Festsaal", True),
+	u"Sophiensaele - Hochzeitssaal": StageSettings(u"Sophiensæle", u"Hochzeitssaal", True),
+	u"Kantine": StageSettings(u"Sophiensæle", u"Kantine", True),
+	u"gesamtes Haus": StageSettings(u"Sophiensæle", u"gesamtes Haus", True),
+	u"Sophiensaele - Kantine": StageSettings(u"Sophiensæle", u"Kantine", True),
 
     u"Bode-Museum": StageSettings(u"Staatsoper im Schiller Theater", u"Bode Museum", True),
 	u"Staatsoper im Schiller Theater - Gläsernes Foyer": StageSettings(u"Staatsoper im Schiller Theater", u"Gläsernes Foyer", True),

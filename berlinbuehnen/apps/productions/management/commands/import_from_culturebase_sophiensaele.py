@@ -41,9 +41,9 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
         self.load_and_parse_locations()
 
         self.in_program_of, created = Location.objects.get_or_create(
-            title_de=u"Sophiensaele",
+            title_de=u"Sophiensæle",
             defaults={
-                'title_en': u"Sophiensaele",
+                'title_en': u"Sophiensæle",
                 'slug': 'sophiensaele',
                 'street_address': u'Sophienstrasse 18',
                 'postal_code': u'10178',
