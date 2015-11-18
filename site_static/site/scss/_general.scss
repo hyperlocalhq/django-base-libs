@@ -30,6 +30,25 @@ body {
     }
 }
 
+.padding-20 {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.padding-40 {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    
+    .is-sm & {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+    
+    .is-xs & {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+}
+
 b, strong {
     font-weight: $font-bold;
 }
@@ -54,6 +73,55 @@ small {
     user-select: none;
 }
 
+q {
+    display: inline;
+    &:before {
+        content: open-quote;
+    }
+    &:after {
+        content: close-quote;
+    }
+}
+
+blockquote {
+    font-family: $font-2, $font-family-1;
+    font-weight: $font-regular;
+    font-size: 2.13em;
+    line-height: 150%;
+    color: $black-light;
+    margin: 60px 0;
+    padding: 0 0 0 1.9em;
+    position: relative;
+    
+    .is-sm & {
+        font-size: 1.76em;
+        line-height: 146%;
+        margin: 50px 0;
+    }
+    
+    .is-xs & {
+        font-size: 1.4em;
+        line-height: 138%;
+        margin: 50px 0;
+    }
+    
+    &:before {
+        content: '“';
+        font-family: Georgia;
+        font-weight: $font-bold;
+        font-size: 2.34em;
+        line-height: 0;
+        color: $black;
+        position: absolute;
+        top: 0.56em;
+        left: 0;
+        
+        .is-xs & {
+            font-size: 2.2em;
+        }
+    }
+}
+
 a {
     color: $cyan-dark;
     &:hover {
@@ -61,6 +129,19 @@ a {
     }
     &:hover, &:active, &:visited, &:focus {
         text-decoration: none;
+    }
+}
+
+img {
+    width: 100%;
+    margin: 0 0 80px;
+    
+    .is-sm & {
+        margin-bottom: 60px;
+    }
+    
+    .is-xs & {
+        margin-bottom: 50px;
     }
 }
 
@@ -81,27 +162,188 @@ h1 {
 }
 
 h2 {
-    font-family: $font-2, $font-family-1;
-    font-size: 1.6em;
-    line-height: 133%;
-    margin: 0;
+    font-family: $font-1, $font-family-1;
+    font-weight: $font-regular;
+    font-size: 2.67em;
+    line-height: 140%;
+    margin: 0 0 30px;
+    
+    .is-sm & {
+        font-size: 2.2em;
+        line-height: 137%;
+        margin-bottom: 25px;
+    }
+    
     .is-xs & {
-        font-size: 1.07em;
-        line-height: 125%;
+        font-size: 1.93em;
+        line-height: 134%;
+        margin-bottom: 25px;
+    }
+}
+   
+h3 {
+    font-family: $font-2, $font-family-1;
+    font-weight: $font-bold;
+    font-size: 1.07em;
+    line-height: 140%;
+    color: $cyan;
+    text-transform: uppercase;
+    margin: 0 0 20px;
+    time {
+        font-weight: $font-light;
+        color: $black;
+        padding-left: 15px;
+        .is-xs & {
+            padding-left: 10px;
+        }
+    }
+    
+    .is-sm & {
+        font-size: 1em;
+    }
+    
+    .is-xs & {
+        font-size: 0.73em;
+        line-height: 126%;
+        margin-bottom: 40px;
     }
 }
 
-h3 {
-    margin: 0;
+h4 {
+    font-family: $font-2, $font-family-1;
+    font-weight: $font-bold;
+    font-size: 1.33em;
+    line-height: 150%;
+    color: $grey;
+    text-transform: uppercase;
+    margin: 0 0 15px;
+    strong, b {
+        color: $black;
+        padding-left: 20px;
+        .is-xs & {
+            padding-left: 15px;
+        }
+    }
+    
+    .is-sm & {
+        font-size: 1.2em;
+        line-height: 146%;
+        margin-bottom: 15px;
+    }
+    
+    .is-xs & {
+        font-size: 0.73em;
+        line-height: 126%;
+        margin-bottom: 15px;
+    }
 }
 
 p {
-    font-size: 1em;
-    line-height: 133%;
-    margin: 0;
+    font-size: 1.47em;
+    line-height: 164%;
+    color: $grey-dark;
+    margin: 0 0 30px;
+    
+    .is-sm & {
+        font-size: 1.33em;
+        line-height: 154%;
+        margin-bottom: 25px;
+    }
+    
     .is-xs & {
-        font-size: 1em;
-        line-height: 133%;
+        font-size: 1.2em;
+        line-height: 144%;
+        margin-bottom: 20px;
+    }
+}
+
+dl {
+    margin:0;
+    padding:0;
+    &.interview {
+        margin-bottom: 30px;
+        
+        .is-sm & {
+            margin-bottom: 25px;
+        }
+        
+        .is-xs & {
+            margin-bottom: 20px;
+        }
+        
+        dt {
+            display: inline-block;
+            font-family: $font-1, $font-family-1;
+            font-weight: $font-bold;
+            font-size: 1.33em;
+            line-height: 150%;
+            color: $black-light;
+            &:after {
+                content: ":";
+                margin-right: 15px;
+            }
+            
+            .is-sm & {
+                font-size: 1.2em;
+                line-height: 146%;
+                &:after {
+                    margin-right: 13px;
+                }
+            }
+            
+            .is-xs & {
+                font-size: 1.07em;
+                line-height: 138%;
+                &:after {
+                    margin-right: 10px;
+                }
+            }
+        }
+        dd {
+            display: inline;
+            font-size: 1.33em;
+            line-height: 150%;
+            color: $grey-darker;
+            margin: 0;
+            &:after {
+                content: "\A";
+                white-space: pre-line;
+                display: block;
+                height: 0;
+                margin-bottom: 30px;
+            }
+            &:last-child {
+                &:after {
+                    margin-bottom: 0;
+                }
+            }
+            
+            .is-sm & {
+                font-size: 1.2em;
+                line-height: 146%;
+                &:after {
+                    margin-bottom: 25px;
+                }
+                &:last-child {
+                    &:after {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+            
+            .is-xs & {
+                font-size: 1.07em;
+                line-height: 138%;
+                &:after {
+                    margin-bottom: 20px;
+                }
+                &:last-child {
+                    &:after {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -142,6 +384,18 @@ p {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+        
+    &.top-right {
+        position: absolute;
+        top: -2px;
+        right: 0;
+        .is-sm & {
+            top: -4px;
+        }
+        .is-xs & {
+            top: -5px;
+        }
+    }
     
     .button {
         margin-right: 2.4em;
@@ -200,9 +454,18 @@ p {
     height:1px;
     display: block;
     background: $grey;
+    margin: 0 0 30px;
     &.thick {
         height: 3px;
         background: $black;
+    }
+    
+    .is-sm & {
+        margin-bottom:25px;
+    }
+    
+    .is-xs & {
+        margin-bottom: 20px;
     }
 }
 

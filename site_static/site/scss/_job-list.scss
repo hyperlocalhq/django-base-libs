@@ -51,6 +51,7 @@
                 line-height: 127%;
                 color: $black;
                 padding: 0 20px 5px;
+                margin: 0;
                 
                 .is-sm & {
                     font-size: 1.4em;
@@ -70,6 +71,8 @@
                 color: $cyan;
                 text-transform: uppercase;
                 padding: 0 105px 20px 20px;
+                margin: 0;
+                
                 time {
                     font-weight: $font-light;
                     color: $black;
@@ -95,6 +98,7 @@
                 font-size: 1.2em;
                 line-height: 140%;
                 padding: 0 20px 5px;
+                margin: 0;
                 color: $black;
                 
                 .is-sm & {

@@ -55,6 +55,7 @@
                 font-family: $font-1, $font-family-1;
                 font-weight: $font-black;
                 display: none;
+                margin: 0;
             }
             
             .button-group {
@@ -86,6 +87,7 @@
             
                 img, .image-hover-bg {
                     width: 100%;
+                    margin: 0;
                 }
                 
                 h2 {
@@ -130,7 +132,9 @@
             }
             
             img {
+                width: auto;
                 height: 100%;
+                margin: 0;
             }
             
             h2 {
@@ -197,6 +201,7 @@
                 position: relative;
                 left: 0;
                 top: 0;
+                margin: 0;
             }
             .container {
                 position: absolute;
@@ -212,6 +217,7 @@
                     text-shadow: 0 1px 1px rgba(0,0,0,0.75);
                     text-align: center;
                     text-transform: uppercase;
+                    margin: 0;
                     .is-xs & {
                         text-shadow: 0 4px 4px rgba(0,0,0,0.75);
                         font-size: 2.4em;

@@ -8,7 +8,19 @@
         margin: 30px 0;
     }
     h2 {
+        font-family: $font-2, $font-family-1;
+        font-size: 1.6em;
+        line-height: 133%;
         margin: 30px 0;
+        .is-xs & {
+            font-size: 1.07em;
+            line-height: 125%;
+        }
+    }
+    p {
+        font-size: 1em;
+        line-height: 133%;
+        margin: 0;
     }
     .row {
         margin: 30px 0 60px;
