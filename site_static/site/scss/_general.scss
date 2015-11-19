@@ -283,6 +283,25 @@ h4 {
     }
 }
 
+h5 {
+    font-family: $font-2, $font-family-1;
+    font-weight: $font-black;
+    font-size: 1.07em;
+    line-height: 127%;
+    letter-spacing: 0.07em;
+    color: $grey-dark;
+    text-transform: uppercase;
+    margin: 60px 0 20px;
+    
+    .is-sm & {
+        margin: 50px 0 20px;
+    }
+    
+    .is-xs & {
+        margin: 50px 0 15px;
+    }
+}
+
 p {
     font-size: 1.47em;
     line-height: 164%;
@@ -299,6 +318,12 @@ p {
         font-size: 1.2em;
         line-height: 144%;
         margin-bottom: 20px;
+    }
+    
+    &.description {
+        font-size: 1em;
+        line-height: 133%;
+        color: $black;
     }
 }
 
