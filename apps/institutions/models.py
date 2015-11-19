@@ -21,6 +21,11 @@ class Institution(InstitutionBase):
         related_name="creative_sector_institutions",
         blank=True,
     )
+    categories = TreeManyToManyField(
+        Category,
+        verbose_name=_("categories"),
+        blank=True
+    )
 
     objects = InstitutionManagerExtended()
 

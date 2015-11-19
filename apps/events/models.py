@@ -30,6 +30,11 @@ class Event(ComplexEventBase):
         related_name="creative_industry_events",
         blank=True,
     )
+    categories = TreeManyToManyField(
+        Category,
+        verbose_name=_("categories"),
+        blank=True
+    )
 
     objects = ExtendedEventManager()
 

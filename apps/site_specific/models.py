@@ -207,6 +207,12 @@ class ContextItem(CreationModificationDateMixin, ContextItemObjectRelation, UrlM
     context_categories = TreeManyToManyField("structure.ContextCategory", verbose_name=_("Context categories"),
                                              blank=True)
 
+    categories = TreeManyToManyField(
+        "structure.Category",
+        verbose_name=_("Categories"),
+        blank=True,
+    )
+
     location_type = TreeForeignKey("structure.Term", verbose_name=_("Location type"),
                                    limit_choices_to={'vocabulary__sysname': 'basics_locality'}, blank=True, null=True,
                                    related_name="locality_contextitems")

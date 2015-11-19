@@ -8,7 +8,10 @@ from base_libs.admin.tree_editor import TreeEditor
 
 import filebrowser.settings as filebrowser_settings
 URL_FILEBROWSER_MEDIA = getattr(filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/')
-from jetson.apps.structure.models import Vocabulary, Term, ContextCategory
+from jetson.apps.structure.models import Vocabulary
+from jetson.apps.structure.models import Term
+from jetson.apps.structure.models import ContextCategory
+from jetson.apps.structure.models import Category
 
 class VocabularyOptions(ExtendedModelAdmin):
     save_on_top = True
@@ -53,7 +56,19 @@ class ContextCategoryOptions(TreeEditor):
     
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
 
+
+class CategoryOptions(TreeEditor):
+    save_on_top = True
+    list_display = ['actions_column', 'indented_short_title']
+
+    fieldsets = [(None, {'fields': ('parent',)}),]
+    fieldsets += get_admin_lang_section(_("Title"), ['title'])
+    fieldsets += [(None, {'fields': ('slug',)}),]
+
+    prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
+
+
 admin.site.register(Vocabulary, VocabularyOptions)
 admin.site.register(Term, TermOptions)
 admin.site.register(ContextCategory, ContextCategoryOptions)
-
+admin.site.register(Category, CategoryOptions)

@@ -38,6 +38,11 @@ class Person(PersonBase):
         related_name="creative_industry_people",
         blank=True,
     )
+    categories = TreeManyToManyField(
+        Category,
+        verbose_name=_("categories"),
+        blank=True
+    )
     completeness = models.SmallIntegerField(_("Completeness in %"), default=0)
 
     objects = PersonManagerExtended()

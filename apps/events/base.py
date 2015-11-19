@@ -32,6 +32,7 @@ from base_libs.models.fields import MultilingualTextField
 from filebrowser.fields import FileBrowseField
 from tagging.models import Tag
 from jetson.apps.structure.models import Term
+from jetson.apps.structure.models import Category
 from jetson.apps.location.models import Address
 from jetson.apps.optionset.models import PhoneType, EmailType, URLType, IMType
 from jetson.apps.optionset.models import get_default_phonetype_for_phone

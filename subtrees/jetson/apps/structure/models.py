@@ -204,3 +204,75 @@ class ContextCategory(MPTTModel,  SlugMixin(), SysnameMixin()):
                 t.creative_sectors.add(ci)
     save.alters_data = True
 
+
+class Category(MPTTModel,  SlugMixin(), SysnameMixin()):
+    sort_order = models.IntegerField(
+        _("sort order"),
+        blank=True,
+        editable=False,
+        default=0,
+    )
+    parent = TreeForeignKey(
+       'self',
+       #related_name="%(class)s_children",
+       related_name="child_set",
+       blank=True,
+       null=True,
+    )
+    title = MultilingualCharField(_('title'), max_length=255)
+
+    objects = TreeManager()
+
+    class Meta:
+        verbose_name = _("category")
+        verbose_name_plural = _("categories")
+        ordering = ["tree_id", "lft"]
+
+    class MPTTMeta:
+        order_insertion_by = ['sort_order']
+
+    def __unicode__(self):
+        return self.title
+
+    def get_title(self, prefix="", postfix=""):
+        return self.title
+
+    def get_slug(self):
+        return self.slug
+
+    def get_body(self):
+        return mark_safe(self.body)
+
+    def _recurse_for_parents_ids(self, cat_obj):
+        #This is used for search path formating
+        p_list = []
+        if cat_obj.parent_id:
+            p = cat_obj.parent
+            p_list.append(str(p.pk))
+            more = self._recurse_for_parents_ids(p)
+            p_list.extend(more)
+        if cat_obj == self and p_list:
+            p_list.reverse()
+        return p_list
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            Category.objects.insert_node(self, self.parent)
+
+        super(Category, self).save(*args, **kwargs)
+
+        # update paths in the child terms
+        for t in self.child_set.all():
+            if not self.is_applied4person:
+                t.is_applied4person = False
+            if not self.is_applied4institution:
+                t.is_applied4institution = False
+            if not self.is_applied4document:
+                t.is_applied4document = False
+            if not self.is_applied4event:
+                t.is_applied4event = False
+            t.save()
+            t.creative_sectors = []
+            for ci in self.creative_sectors.all():
+                t.creative_sectors.add(ci)
+    save.alters_data = True

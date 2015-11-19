@@ -33,6 +33,7 @@ from filebrowser.fields import FileBrowseField
 
 from jetson.apps.structure.models import Term
 from jetson.apps.structure.models import ContextCategory
+from jetson.apps.structure.models import Category
 from jetson.apps.location.models import Address
 from jetson.apps.optionset.models import Prefix
 from jetson.apps.optionset.models import Salutation
