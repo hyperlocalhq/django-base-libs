@@ -1,4 +1,5 @@
 {% extends "styleguide/base.html" %}
+{% load i18n %}
 
 {% block content %}
     <div class="container">
@@ -31,6 +32,7 @@
                 <br/>
                 <p class="uppercase underline">Paddings</p>
                 <br/>
+                <p>class="padding-10" -> gives an element 10px padding on top and bottom<br/>
                 <p>class="padding-20" -> gives an element 20px padding on top and bottom<br/>
                 class="padding-40" -> gives an element 40px padding on top and bottom</p>
                 <br/>
@@ -98,7 +100,7 @@
                 <h2>&lt;h2>A Headline&lt;/h2></h2>
                 <h2><q>&lt;h2>&lt;q>A Headline as quote&lt;/q>&lt;/h2></q></h2>
                 
-                <p>&lt;p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. <a href="#">&lt;a href="#">&lt;/a></a> Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.&lt/p></p>
+                <p>&lt;p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. <a href="#">&lt;a>text link&lt;/a></a> Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.&lt/p></p>
                 
                 <pre style="margin:0;">&lt;h4>Interview &lt;strong>Jens Thomas&lt;/strong>&lt;/h4>
 &lt;div class="line">&lt;/div></pre>
@@ -137,8 +139,8 @@
                 <pre style="margin:0;">&lt;div class="line">&lt;/div></pre>
                 <div class="line"></div>
                 
-                <p>&lt;p>Lorem ipsum dolor sit amet: <a href="#">&lt;a href="#">&lt;/a></a>&lt;/p></p>
-                <p>&lt;p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor: <a href="#">&lt;a href="#">&lt;/a></a>&lt;/p></p>
+                <p>&lt;p>Lorem ipsum dolor sit amet: <a href="#">&lt;a>text link&lt;/a></a>&lt;/p></p>
+                <p>&lt;p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor: <a href="#">&lt;a>text link&lt;/a></a>&lt;/p></p>
                 
                 <pre style="margin:0 0 -30px; padding-top:30px;">&lt;div class="button-group padding-40">
     &lt;a href="#" class="fawesome fa-rss smaller button">&lt;/a>
@@ -162,13 +164,25 @@ the bottom</pre>
     &lt;a href="#" class="fawesome fa-favorite small button">&lt;span class="text">126&lt;/span>&lt;/a>
     &lt;a href="#" class="fawesome fa-more small button">&lt;span class="text">17&lt;/span>&lt;/a>
 &lt;/div></pre>
+                <br/>
+                <pre>End of navigation layout block.</pre>
             </div>
         </div>
     </div>
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
+                <pre style="margin:0;">&lt;div class="line">&lt;/div></pre>
                 <div class="line"></div>
+                <pre style="margin-bottom:-20px;">&lt;div class="center padding-10">
+    &lt;div class="fawesome fa-heart big padding-10">&lt;/div>
+    &lt;p class="color-black">&lt;strong>&#123;% trans 'Also a good read' %}&lt;/strong>&lt;/p>
+&lt;/div></pre>
+                <div class="center padding-10">
+                    <div class="fawesome fa-heart big padding-10"></div>
+                    <p class="color-black"><strong>{% trans 'Also a good read' %}</strong></p>
+                </div>
+                
             </div>
         </div>
     </div>

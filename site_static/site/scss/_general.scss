@@ -30,6 +30,17 @@ body {
     }
 }
 
+
+
+.padding-10 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    
+    .is-xs & {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+}
 .padding-20 {
     padding-top: 20px;
     padding-bottom: 20px;
@@ -38,18 +49,52 @@ body {
     padding-top: 40px;
     padding-bottom: 40px;
     
-    .is-sm & {
-        padding-top: 30px;
-        padding-bottom: 30px;
-    }
-    
     .is-xs & {
         padding-top: 30px;
         padding-bottom: 30px;
     }
 }
 
-b, strong {
+
+.color-black {
+    color: $black;
+}
+.color-black-light {
+    color: $black-light;
+}
+.color-white {
+    color: $white;
+}
+.color-white-dirty {
+    color: $white-dirty;
+}
+.color-grey {
+    color: $grey;
+}
+.color-grey-dark {
+    color: $grey-dark;
+}
+.color-grey-darker {
+    color: $grey-darker;
+}
+.color-grey-light {
+    color: $grey-light;
+}
+.color-grey-bright {
+    color: $grey-bright;
+}
+.color-cyan {
+    color: $cyan;
+}
+.color-cyan-dark {
+    color: $cyan-dark;
+}
+.color-cyan-light {
+    color: $cyan-light;
+}
+
+
+b, strong, .strong, .bold {
     font-weight: $font-bold;
 }
 small {
@@ -217,11 +262,11 @@ h4 {
     color: $grey;
     text-transform: uppercase;
     margin: 0 0 15px;
-    strong, b {
+    strong {
         color: $black;
-        padding-left: 20px;
+        padding-left: 15px;
         .is-xs & {
-            padding-left: 15px;
+            padding-left: 10px;
         }
     }
     
@@ -287,7 +332,7 @@ dl {
                 font-size: 1.2em;
                 line-height: 146%;
                 &:after {
-                    margin-right: 13px;
+                    margin-right: 10px;
                 }
             }
             
