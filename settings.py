@@ -347,7 +347,7 @@ ADMIN_APP_INDEX = (
             #    'models':("Job", "Log",),
             #    }),
             ('structure', {
-                'models': ("Vocabulary", "Term", "ContextCategory"),
+                'models': ("Vocabulary", "Term", "ContextCategory", "Category"),
             }),
             ('image_mods', {
                 'verbose_name': _("Media"),
