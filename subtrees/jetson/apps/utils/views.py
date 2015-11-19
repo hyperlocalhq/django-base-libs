@@ -298,7 +298,6 @@ def object_list(request, queryset,
     the queryset directly to the httpstate. So we take a list (current_queryset_list)
     """
 
-    # TODO: copy aggregates support from jetson_kb
     if context_processors:
         queryset_index_dict = {}
         index = 0
