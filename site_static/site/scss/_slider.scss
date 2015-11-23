@@ -63,12 +63,12 @@
                     padding: 0;
                     background: none;
                     border-radius: 0;
-                    line-height: 1.67em;
+                    line-height: 2em;
                     margin-right: 20px;
                     width: auto;
                     &:before {
                         line-height: 100%;
-                        font-size: 1.67em;
+                        font-size: 2em;
                     }
                     &:last-child {
                         margin-right: 0;
@@ -104,6 +104,10 @@
                     .button {
                         color: $grey;
                         margin-bottom: 17px;
+                        line-height: 1.67em;
+                        &:before {
+                            font-size: 1.67em;
+                        }
                         &:hover {
                             color: $black;
                         }

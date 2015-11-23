@@ -38,7 +38,7 @@
                 <br/>
                 <br/>
                 <br/>
-                <p class="uppercase underline">Left navigation</p>
+                <p class="uppercase underline">Navigation layout block</p>
                 <br/>
             </div>
         </div>
@@ -76,12 +76,16 @@
         &lt;/div>
     &lt;/div>
 &lt;/div></pre>
-            <br/>
-            <br/>
-            <br/>
-            <p class="uppercase underline">Detail pages</p>
-            <p>Place the elements inside the elements section of a navigation layout block.</p>
-            <br/>
+                <br/>
+                <br/>
+                <br/>
+                <p class="uppercase">The following elements are not bound to any particular type of page like article, interview or profile page. You can use and place them as you wish. The differentiation is only made for clarity.</p>
+                <br/>
+                <br/>
+                <br/>
+                <p class="uppercase underline">Article/Interview page</p>
+                <p>Place the elements inside a navigation layout block.</p>
+                <br/>
             </div>
         </div>
     </div>
@@ -142,6 +146,7 @@
                 
                 <pre style="margin:0;">&lt;img src="http://placehold.it/850x500&text=image" /></pre>
                 <img src="http://placehold.it/850x500&text=image" />
+                <h5 class="caption">&lt;h5 class="caption">Caption&lt;/h5> (use only beneath an image)</h5>
                 
                 <pre style="margin:0;">&lt;div class="line">&lt;/div></pre>
                 <div class="line"></div>
@@ -161,15 +166,15 @@
                 </div>
                 
                 <div class="button-group top-right">
-                    <a href="#" class="fawesome fa-favorite small button"><span class="text">126</span></a>
-                    <a href="#" class="fawesome fa-more small button"><span class="text">17</span></a>
+                    <a href="#" class="fawesome fa-favorite button"><span class="text">126</span></a>
+                    <a href="#" class="fawesome fa-more button"><span class="text">17</span></a>
                     <pre style="margin:0;" class="hidden-xs hidden-sm">code is on
 the bottom</pre>
                 </div>
                 <pre>The code for the top right icon buttons is placed on the bottom of the code block:
 &lt;div class="button-group top-right">
-    &lt;a href="#" class="fawesome fa-favorite small button">&lt;span class="text">126&lt;/span>&lt;/a>
-    &lt;a href="#" class="fawesome fa-more small button">&lt;span class="text">17&lt;/span>&lt;/a>
+    &lt;a href="#" class="fawesome fa-favorite button">&lt;span class="text">126&lt;/span>&lt;/a>
+    &lt;a href="#" class="fawesome fa-more button">&lt;span class="text">17&lt;/span>&lt;/a>
 &lt;/div></pre>
                 <br/>
                 <pre class="bold uppercase">End of navigation layout block</pre>
@@ -181,7 +186,7 @@ the bottom</pre>
             <div class="col-xs-12">
                 <pre style="margin:0;">&lt;div class="line">&lt;/div></pre>
                 <div class="line"></div>
-                <pre style="margin-bottom:-20px;">&lt;div class="center padding-10">
+                <pre style="margin-bottom:-10px;">&lt;div class="center padding-10">
     &lt;div class="fawesome fa-heart big padding-10">&lt;/div>
     &lt;p class="color-black bold">&#123;% trans 'Also a good read' %}&lt;/p>
 &lt;/div></pre>
@@ -190,6 +195,182 @@ the bottom</pre>
                     <p class="color-black bold">{% trans 'Also a good read' %}</p>
                 </div>
                 
+                <br/>
+                <br/>
+                <br/>
+                <p class="underline uppercase">Profile page</p>
+                <p>The code for the header elements (Header with tabs, Profile Header, Project Header) you'll find in the ELEMENTS section. In the LEFT NAVIGATION section you'll find the code for the profile image.</p>
+                <p>Except for the main header place the elements inside a navigation layout block.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>Personen</h1>
+                </div>
+            </div>
+        </div>
+        <div class="menu tabs">
+            <div class="container">
+                <div class="row">
+                    <div class="hidden-xs col-sm-4 col-md-3 header">
+                        <h2>Personen</h2>
+                    </div>
+                    <div class="navi">
+                        <nav>
+                            <ul>
+                                <li><a href="javascript:void();">{% trans 'Profile' %}</a></li>
+                                <li><a href="javascript:void();">{% trans 'Projects' %} (7)</a></li>
+                                <li><a href="javascript:void();">{% trans 'Events' %}</a></li>
+                                <li><a href="javascript:void();">{% trans 'Blog' %}</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                
+                <div class="row profile-image">
+                    <div class="col-xs-4 col-sm-12">
+                        <img src="http://placehold.it/270x281&text=image"/>
+                    </div>
+                    <div class="col-xs-8 col-sm-12">
+                        <p class="hidden-xs">{% trans 'Get connected!' %}</p>
+                        <div class="button-group">
+                            <a class="fawesome fa-bookmark button" href="#"></a>
+                            <a class="fawesome fa-favorite button" href="#"></a>
+                            <a class="fawesome fa-plus-circle button" href="#"></a>
+                            <a class="fawesome fa-more button" href="#"></a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                
+                <div class="row profile-header">
+                    <div class="col-xs-12">
+                        <h2>Max Mustermann</h2>
+                        <h3>Grafikdesign, Produktdesign</h3>
+                        <div class="statistics">
+                            <div class="statistic">
+                                <canvas class="fawesome fa-percentage big" data-value="65" data-color-active="#00cdff" data-color-inactive="#c7e2ea">
+                                    <div class="fawesome fa-circle big"></div>
+                                </canvas>
+                                <div class="text">{% blocktrans with amount='<b>65%</b>' %}{{ amount }} completed{% endblocktrans %}</div>
+                            </div>
+                            <div class="statistic">
+                                <div class="fawesome fa-man big"></div>
+                                <div class="text">{% blocktrans with amount='<b>16</b>' %}{{ amount }} Follower{% endblocktrans %}</div>
+                            </div>
+                            <div class="statistic">
+                                <div class="fawesome fa-list-short big"></div>
+                                <div class="text">{% blocktrans with amount='<b>3</b>' %}On {{ amount }} curated lists{% endblocktrans %}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    
+                <p class="description">&lt;p class="description">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.&lt;/p></p>
+                
+            </div>
+        </div>
+    </div>
+    
+    <br/>
+    <br/>
+    <br/>    
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                
+                <div class="row profile-image">
+                    <div class="col-xs-4 col-sm-12">
+                        <img src="http://placehold.it/270x281&text=image"/>
+                    </div>
+                    <div class="col-xs-8 col-sm-12">
+                        <p class="hidden-xs">{% trans 'Get connected!' %}</p>
+                        <div class="button-group">
+                            <a class="fawesome fa-bookmark button" href="#"></a>
+                            <a class="fawesome fa-favorite button" href="#"></a>
+                            <a class="fawesome fa-plus-circle button" href="#"></a>
+                            <a class="fawesome fa-more button" href="#"></a>
+                        </div>
+                        <div class="button-group top-right visible-xs">
+                            <a href="#" class="fawesome fa-grid button after"><span class="text">{% trans 'Show all' %}</span></a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                
+                <div class="row project-header">
+                    <div class="col-xs-12">
+                        <h2>Max Mustermann: {% trans 'Projects' %}</h2>
+                        <h3>Title des Projektes</h3>
+                        <h4>{% trans 'Rubrics' %}: <span class="feature">Fotografie, Design</span></h4>
+                        <div class="line"></div>
+                        <div class="button-group top-right hidden-xs">
+                            <a href="#" class="fawesome fa-grid button after"><span class="text">{% trans 'Show all' %}</span></a>
+                        </div>
+                        <div class="button-group bottom-right">
+                            <a href="#" class="fawesome fa-favorite button"><span class="text">126</span></a>
+                            <a href="#" class="fawesome fa-more button"><span class="text">17</span></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <p class="description">&lt;p class="description">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.&lt;/p></p>
+                
+                <pre style="margin:0;">&lt;img src="http://placehold.it/850x500&text=image" /></pre>
+                <img src="http://placehold.it/850x500&text=image" />
+                <h5 class="caption">&lt;h5 class="caption">Caption&lt;/h5> (use only beneath an image)</h5>
+                
+                <pre style="margin:0;">&lt;img src="http://placehold.it/850x650&text=image" /></pre>
+                <img src="http://placehold.it/850x650&text=image" />
+                
+                <pre style="margin:0;">&lt;img src="http://placehold.it/850x600&text=image" /></pre>
+                <img src="http://placehold.it/850x600&text=image" />
+                <h5 class="caption">&lt;h5 class="caption">Caption&lt;/h5> (use only beneath an image)</h5>
+                
+                <pre style="margin:0;">&lt;img src="http://placehold.it/850x900&text=image" /></pre>
+                <img src="http://placehold.it/850x900&text=image" />
+                <h5 class="caption">&lt;h5 class="caption">Caption&lt;/h5> (use only beneath an image)</h5>
+                
+                <pre style="margin:0">&lt;div class="button-group">
+    &lt;a href="#" class="fawesome fa-rss smaller button">&lt;/a>
+    &lt;a href="#" class="fawesome fa-favorite smaller button">&lt;/a>
+    &lt;a href="#" class="fawesome fa-more smaller button">&lt;/a>
+&lt;/div></pre>
+                <div class="button-group">
+                    <a href="#" class="fawesome fa-rss smaller button"></a>
+                    <a href="#" class="fawesome fa-favorite smaller button"></a>
+                    <a href="#" class="fawesome fa-more smaller button"></a>
+                </div>
+                
+                <pre style="margin: 30px 0 -30px;">&lt;div class="center padding-40">
+    &lt;div class="fawesome fa-favorite big padding-10">&lt;&lt;/div>
+    &lt;p class="color-black bold">&#123;% trans 'Thanks for appreciating my project!' %}&lt;/p>
+&lt;/div></pre>
+                <div class="center padding-40">
+                    <div class="fawesome fa-favorite big padding-10"></div>
+                    <p class="color-black bold">{% trans 'Thanks for appreciating my project!' %}</p>
+                </div>
+                
+                <pre style="margin:50px 0 -50px;">&lt;h5>&#123;% trans 'Comments' %}&lt;/h5>
+&lt;div class="line">&lt;/div></pre>
+                <h5>{% trans 'Comments' %}</h5>
+                <div class="line"></div>
             </div>
         </div>
     </div>

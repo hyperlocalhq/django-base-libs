@@ -161,7 +161,7 @@
                         line-height: 127%;
                         color: $black;
                         padding: 0 5px 0 0;
-                        margin-top: -5px 0 0 0;
+                        margin: -5px 0 0 0;
                     }
                     h3 {
                         font-size: 1.2em;
@@ -362,8 +362,9 @@
                         line-height: 90%;
                     }
                     h3 {
-                        padding-top: 7px;
+                        padding-top: 5px;
                         padding-right: 0;
+                        line-height: 110%;
                     }
                 }
             }

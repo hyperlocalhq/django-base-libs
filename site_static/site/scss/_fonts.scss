@@ -71,6 +71,7 @@
         background: transparent;
         padding: 0;
         color: $grey;
+        font-size: inherit;
         
         .is-xs & {
             padding: 0;
@@ -137,12 +138,12 @@
                 color: $white;
             }
             
-            &:before {
+            &:before, &:after {
                 line-height: 130%;
             }
             &.small {
                 width: 3em;
-                &:before {
+                &:before, &:after {
                     line-height: 190%;
                 }
             }
@@ -150,12 +151,12 @@
             .is-xs & {
                 border-radius: 0;
                 width: 3.6em;
-                &:before {
+                &:before, &:after {
                     line-height: 160%;
                 }
                 &.small {
                     width: 2.8em;
-                    &:before {
+                    &:before, &:after {
                         line-height: 180%;
                     }
                 }
@@ -265,6 +266,26 @@
         }
     }
     
+    .button-group.top-right &.button, .button-group.bottom-right &.button {
+        
+        line-height: 1.8em;
+        margin-right: 1.5em;
+        
+        &:before, &:after {
+            font-size: 1.8em;
+        }
+        
+        .is-xs & {
+            
+            line-height: 1.27em;
+            margin-right: 0.5em;
+            
+            &:before, &:after {
+                font-size: 1.27em;
+            }
+        }
+    }
+        
     .button-group &.button {
         display: inline-block;
         
@@ -313,10 +334,112 @@
         }
         
         &:last-child {
-            margin-right: 0;
+            margin-right: 0 !important;
+        }
+    }
+    
+    &.after {
+        &:before {
+            content: none !important;
+        }
+        
+        &.button {
+            .text {
+                margin-left: 0px;
+                margin-right: 10px;
+            }
+        }
+        
+        .text {
+            margin-left: 0;
+            margin-right: 10px;
+            .is-xs & {
+                margin-left: 0;
+                margin-right: 7px;
+            }
+        }
+        
+        &.big {
+            .text {
+                margin-left: 0;
+                margin-right: 15px;
+                .is-xs & {
+                    margin-left: 0;
+                    margin-right: 10px;
+                }
+            }
+        }
+        
+        &.smaller {
+            .text {
+                margin-left: 0;
+                margin-right: 7px;
+                .is-xs & {
+                    margin-left: 0;
+                    margin-right: 7px;
+                }
+            }
+        }
+        
+        &.small {
+            .text {
+                margin-left: 0;
+                margin-right: 5px;
+            }
         }
     }
 }
+
+
+
+            
+canvas.fawesome {
+    
+    width: 31px;
+    height: 36px;
+    display: block;
+    
+    .is-xs & {
+        width: 23px;
+        height: 26px;
+    }
+    
+    .fawesome {
+        margin: 0 !important;
+        color: $cyan;
+    }
+    
+    &.small {
+        width: 18px;
+        height: 20px;
+        
+        .is-xs & {
+            width: 17px;
+            height: 19px;
+        }
+    }
+    
+    &.smaller {
+        width: 24px;
+        height: 27px;
+        
+        .is-xs & {
+            width: 23px;
+            height: 26px;
+        }
+    }
+    
+    &.big {
+        width: 41px;
+        height: 46px;
+        
+        .is-xs & {
+            width: 28px;
+            height: 32px;
+        }
+    }
+}
+
 
 
 
@@ -473,6 +596,172 @@
 .fawesome.fa-list:before {
     content: "\f03a";
 }
+.fawesome.fa-list-short:before {
+    content: "\f0ca";
+}
 .fawesome.fa-grid:before {
+    content: "\f00a";
+}
+
+
+
+
+.fawesome.fa-twitter.after:after {
+    content: "\f099";
+}
+.fawesome.fa-facebook.after:after {
+    content: "\f09a";
+}
+.fawesome.fa-googleplus.after:after {
+    content: "\f0d5";
+}
+.fawesome.fa-instagram.after:after {
+    content: "\f16d";
+}
+.fawesome.fa-linkedin.after:after {
+    content: "\f0e1";
+}
+.fawesome.fa-map.after.after:after {
+    content: "\f041";
+}
+.fawesome.fa-pinterest.after:after {
+    content: "\f231";
+}
+.fawesome.fa-soundcloud.after:after {
+    content: "\f1be";
+}
+.fawesome.fa-xing.after:after {
+    content: "\f168";
+}
+.fawesome.fa-youtube.after:after {
+    content: "\f167";
+}
+.fawesome.fa-vimeo.after:after {
+    content: "\f194";
+}
+.fawesome.fa-vine.after:after {
+    content: "\f1ca";
+}
+.fawesome.fa-issuu.after:after {
+    content: "\f192";
+}
+.fawesome.fa-flickr.after:after {
+    content: "\f16e";
+}
+.fawesome.fa-blog.after:after {
+    content: "\f039";
+}
+.fawesome.fa-rss.after:after {
+    content: "\f09e";
+}
+.fawesome.fa-email.after:after {
+    content: "\f0e0";
+}
+.fawesome.fa-search.after:after {
+    content: "\f002";
+}
+.fawesome.fa-education.after:after {
+    content: "\f19d";
+}
+.fawesome.fa-bus.after:after {
+    content: "\f207";
+}
+.fawesome.fa-gate.after:after {
+    content: "\f19c";
+}
+.fawesome.fa-clock.after:after {
+    content: "\f017";
+}
+.fawesome.fa-man.after:after {
+    content: "\f007";
+}
+.fawesome.fa-circle.after:after {
+    content: "\f10c";
+}
+.fawesome.fa-close.after:after {
+    content: "\f00d";
+}
+.fawesome.fa-edit.after:after {
+    content: "\f040";
+}
+.fawesome.fa-tickets.after:after {
+    content: "\f02c";
+}
+.fawesome.fa-ticket.after:after {
+    content: "\f145";
+}
+.fawesome.fa-gift.after:after {
+    content: "\f06b";
+}
+.fawesome.fa-calender.after:after {
+    content: "\f133";
+}
+.fawesome.fa-favorite.after:after {
+    content: "\f005";
+}
+.fawesome.fa-left.after:after {
+    content: "\f104";
+}
+.fawesome.fa-right.after:after {
+    content: "\f105";
+}
+.fawesome.fa-up.after:after {
+    content: "\f106";
+}
+.fawesome.fa-down.after:after {
+    content: "\f107";
+}
+.fawesome.fa-left-bold.after:after {
+    content: "\f053";
+}
+.fawesome.fa-right-bold.after:after {
+    content: "\f054";
+}
+.fawesome.fa-up-bold.after:after {
+    content: "\f077";
+}
+.fawesome.fa-down-bold.after:after {
+    content: "\f078";
+}
+.fawesome.fa-back.after:after {
+    content: "\f112";
+}
+.fawesome.fa-more.after:after {
+    content: "\f064";
+}
+.fawesome.fa-menu.after:after {
+    content: "\f0c9";
+}
+.fawesome.fa-bookmark.after:after {
+    content: "\f02e";
+}
+.fawesome.fa-plus.after:after {
+    content: "\f067";
+}
+.fawesome.fa-plus-circle.after:after {
+    content: "\f055";
+}
+.fawesome.fa-eye.after:after {
+    content: "\f06e";
+}
+.fawesome.fa-heart.after:after {
+    content: "\f004";
+}
+.fawesome.fa-hand-down.after:after {
+    content: "\f0a7";
+}
+.fawesome.fa-bullhorn.after:after {
+    content: "\f0a1";
+}
+.fawesome.fa-paper-plane.after:after {
+    content: "\f1d9";
+}
+.fawesome.fa-list.after:after {
+    content: "\f03a";
+}
+.fawesome.fa-list-short.after:after {
+    content: "\f0ca";
+}
+.fawesome.fa-grid.after:after {
     content: "\f00a";
 }

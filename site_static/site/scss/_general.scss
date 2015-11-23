@@ -179,14 +179,14 @@ a {
 
 img {
     width: 100%;
-    margin: 0 0 80px;
+    margin: 0 0 40px;
     
     .is-sm & {
-        margin-bottom: 60px;
+        margin-bottom: 40px;
     }
     
     .is-xs & {
-        margin-bottom: 50px;
+        margin-bottom: 30px;
     }
 }
 
@@ -202,7 +202,7 @@ h1 {
     }
     .is-xs & {
         font-size: 2.13em;
-        line-height: 97%;
+        line-height: 110%;
     }
 }
 
@@ -214,14 +214,14 @@ h2 {
     margin: 0 0 30px;
     
     .is-sm & {
-        font-size: 2.2em;
-        line-height: 137%;
+        font-size: 2em;
+        line-height: 115%;
         margin-bottom: 25px;
     }
     
     .is-xs & {
         font-size: 1.93em;
-        line-height: 134%;
+        line-height: 115%;
         margin-bottom: 25px;
     }
 }
@@ -300,6 +300,18 @@ h5 {
     .is-xs & {
         margin: 50px 0 15px;
     }
+    
+    &.caption {
+        margin: -25px 0 30px;
+        
+        .is-sm & {
+            margin: -30px 0 30px;
+        }
+        
+        .is-xs & {
+            margin: -20px 0 25px;
+        }
+    }
 }
 
 p {
@@ -321,15 +333,26 @@ p {
     }
     
     &.description {
-        font-size: 1em;
-        line-height: 133%;
+        font-size: 1.2em;
+        line-height: 140%;
         color: $black;
+        
+        .is-sm & {
+            font-size: 1.2em;
+            line-height: 140%;
+        }
+        
+        .is-xs & {
+            font-size: 1.07em;
+            line-height: 138%;
+        }
     }
 }
 
 dl {
     margin:0;
     padding:0;
+    
     &.interview {
         margin-bottom: 30px;
         
@@ -369,6 +392,7 @@ dl {
                 }
             }
         }
+        
         dd {
             display: inline;
             font-size: 1.33em;
@@ -458,7 +482,7 @@ dl {
     &.top-right {
         position: absolute;
         top: -2px;
-        right: 0;
+        right: 10px;
         .is-sm & {
             top: -4px;
         }
@@ -467,11 +491,17 @@ dl {
         }
     }
     
+    &.bottom-right {
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+    }
+    
     .button {
         margin-right: 2.4em;
         margin-bottom: 10px;
-        &:last-child {
-            margin-right: 0;
+        &:last-child, &:last-of-type {
+            margin-right: 0 !important;
         }
     }
 }

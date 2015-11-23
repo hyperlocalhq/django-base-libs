@@ -2,6 +2,7 @@
 
 .header {
     
+    margin-bottom: 60px;
     overflow: hidden;
     position: relative;
     
@@ -12,11 +13,14 @@
     -ms-user-select: none;
     user-select: none;
     
-    .is-xs &.has-menu {
+    .is-xs &.has-menu, &.has-tabs {
         border-bottom: 1px solid $grey-bright;
     }
     
     .is-xs & {
+        
+        margin-bottom: 30px;
+        
         .container {
             padding-left: $window-margin-xs;
             padding-right: $window-margin-xs;
@@ -359,6 +363,31 @@
             right: -10px;
         }
         
+        &.tabs {
+            background: transparent;
+            color: $grey-light;
+            
+            h2 {
+                padding-right: 0;
+            }
+            
+            ul {
+                li {
+                    a {
+                        color: $grey-light;
+                        &:hover, &.active {
+                            color: $black;
+                        }
+                    }
+                }
+            }
+            
+            .prev, .next {
+                &:hover {
+                    color: $black;
+                }
+            }
+        }
     }
     
     &.has-image {
@@ -416,6 +445,23 @@
             ul li a {
                 &:hover, &.active {
                     color: $white;
+                }
+            }
+            
+            &.tabs {
+                color: $grey-bright;
+                ul {
+                    li {
+                        a {
+                            color: $grey-bright;
+                        }
+                    }
+                }
+                
+                .prev, .next {
+                    &:hover {
+                        color: $white;
+                    }
                 }
             }
         }

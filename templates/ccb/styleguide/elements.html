@@ -467,6 +467,128 @@
                 <br/>
                 <br/>
                 <br/>
+                <p class="uppercase underline">Profile Header</p>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                
+                Navigation
+                
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                <div class="row profile-header">
+                    <div class="col-xs-12">
+                        <h2>Max Mustermann</h2>
+                        <h3>Grafikdesign, Produktdesign</h3>
+                        <div class="statistics">
+                            <div class="statistic">
+                                <canvas class="fawesome fa-percentage big" data-value="65" data-color-active="#00cdff" data-color-inactive="#c7e2ea">
+                                    <div class="fawesome fa-circle big"></div>
+                                </canvas>
+                                <div class="text">{% blocktrans with amount='<b>65%</b>' %}{{ amount }} completed{% endblocktrans %}</div>
+                            </div>
+                            <div class="statistic">
+                                <div class="fawesome fa-man big"></div>
+                                <div class="text">{% blocktrans with amount='<b>16</b>' %}{{ amount }} Follower{% endblocktrans %}</div>
+                            </div>
+                            <div class="statistic">
+                                <div class="fawesome fa-list-short big"></div>
+                                <div class="text">{% blocktrans with amount='<b>3</b>' %}On {{ amount }} curated lists{% endblocktrans %}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <br/>
+                <p>Place the code inside the elements area of a navigation layout block.</p>
+<pre>&lt;div class="row profile-header">
+    &lt;div class="col-xs-12">
+        &lt;h2>Max Mustermann&lt;/h2>
+        &lt;h3>Grafikdesign, Produktdesign&lt;/h3>
+        &lt;div class="statistics">
+            &lt;div class="statistic">
+                &lt;canvas class="fawesome fa-percentage big" data-value="65" data-color-active="#00cdff" data-color-inactive="#c7e2ea">
+                    &lt;div class="fawesome fa-circle big">&lt;/div>
+                &lt;/canvas> 
+                &lt;div class="text">&#123;% blocktrans with amount='&lt;b>65%&lt;/b>' %}&#123;{ amount }} completed&#123;% endblocktrans %}&lt;/div>
+            &lt;/div>
+            &lt;div class="statistic">
+                &lt;div class="fawesome fa-man big">&lt;/div>
+                &lt;div class="text">&#123;% blocktrans with amount='&lt;b>16&lt;/b>' %}&#123;{ amount }} Follower&#123;% endblocktrans %}&lt;/div>
+            &lt;/div>
+            &lt;div class="statistic">
+                &lt;div class="fawesome fa-list-short big">&lt;/div>
+                &lt;div class="text">&#123;% blocktrans with amount='&lt;b>3&lt;/b>' %}On &#123;{ amount }} curated lists&#123;% endblocktrans %}&lt;/div>
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+&lt;/div></pre>
+                <br/>
+                <br/>
+                <br/>
+                <p class="uppercase underline">Project Header</p>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                
+                Navigation
+                
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                <div class="row project-header">
+                    <div class="col-xs-12">
+                        <h2>Max Mustermann: {% trans 'Projects' %}</h2>
+                        <h3>Title des Projektes</h3>
+                        <h4>{% trans 'Rubrics' %}: <span class="feature">Fotografie, Design</span></h4>
+                        <div class="line"></div>
+                        <div class="button-group top-right hidden-xs">
+                            <a href="#" class="fawesome fa-grid button after"><span class="text">{% trans 'Show all' %}</span></a>
+                        </div>
+                        <div class="button-group bottom-right">
+                            <a href="#" class="fawesome fa-favorite button"><span class="text">126</span></a>
+                            <a href="#" class="fawesome fa-more button"><span class="text">17</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <br/>
+                <p>Place the code inside the elements area of a navigation layout block.</p>
+<pre>&lt;div class="row project-header">
+    &lt;div class="col-xs-12">
+        &lt;h2>Max Mustermann: {% trans 'Projects' %}&lt;/h2>
+        &lt;h3>Title des Projektes&lt;/h3>
+        &lt;h4>{% trans 'Rubrics' %}: &lt;span class="feature">Fotografie, Design&lt;/span>&lt;/h4>
+        &lt;div class="line">&lt;/div>
+        &lt;div class="button-group top-right hidden-xs">
+            &lt;a href="#" class="fawesome fa-grid button after">&lt;span class="text">{% trans 'Show all' %}&lt;/span>&lt;/a>
+        &lt;/div>
+        &lt;div class="button-group bottom-right">
+            &lt;a href="#" class="fawesome fa-favorite button">&lt;span class="text">126&lt;/span>&lt;/a>
+            &lt;a href="#" class="fawesome fa-more button">&lt;span class="text">17&lt;/span>&lt;/a>
+        &lt;/div>
+    &lt;/div>
+&lt;/div></pre>
+                <br/>
+                <br/>
+                <br/>
                 <p class="uppercase underline">Navigation grid</p>
                 <br/>
                 <p>Requirements:<br/>
@@ -865,6 +987,76 @@
         &lt;/div>
     &lt;/div>
     &lt;div class="menu">
+        &lt;div class="container">
+            &lt;div class="row">
+                &lt;div class="hidden-xs col-sm-4 col-md-3 header">
+                    &lt;h2>Header&lt;/h2>
+                &lt;/div>
+                &lt;div class="navi">
+                    &lt;nav>
+                        &lt;ul>
+                            &lt;li>&lt;a href="javascript:void();">Menu Link #1&lt;/a>&lt;/li>
+                            &lt;li>&lt;a href="javascript:void();">Menu Link #2&lt;/a>&lt;/li>
+                            &lt;li>&lt;a href="javascript:void();">Menu Link #3&lt;/a>&lt;/li>
+                            &lt;li>&lt;a href="javascript:void();">Menu Link #4&lt;/a>&lt;/li>
+                            &lt;li>&lt;a href="javascript:void();">Menu Link #5&lt;/a>&lt;/li>
+                        &lt;/ul>
+                    &lt;/nav>
+                &lt;/div>
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+&lt;/div></pre>
+                <br/>
+                <br/>
+                <br/>
+                <p class="underline"><span class="uppercase">Header</span> with tabs</p>
+                <p>The header tag gets the class "has-menu" if a menu tag exits and <br/>the class "has-tabs" if the menu tag has also the class "tabs".</p>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>Header with tabs</h1>
+                </div>
+            </div>
+        </div>
+        <div class="menu tabs">
+            <div class="container">
+                <div class="row">
+                    <div class="hidden-xs col-sm-4 col-md-3 header">
+                        <h2>Header</h2>
+                    </div>
+                    <div class="navi">
+                        <nav>
+                            <ul>
+                                <li><a href="javascript:void();">Menu Link #1</a></li>
+                                <li><a href="javascript:void();">Menu Link #2</a></li>
+                                <li><a href="javascript:void();">Menu Link #3</a></li>
+                                <li><a href="javascript:void();">Menu Link #4</a></li>
+                                <li><a href="javascript:void();">Menu Link #5</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <pre>&lt;div class="header">
+    &lt;div class="container">
+        &lt;div class="row">
+            &lt;div class="col-xs-12">
+                &lt;h1>Header with tabs&lt;/h1>
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    &lt;div class="menu tabs">
         &lt;div class="container">
             &lt;div class="row">
                 &lt;div class="hidden-xs col-sm-4 col-md-3 header">

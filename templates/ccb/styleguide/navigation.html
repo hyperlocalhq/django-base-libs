@@ -1,0 +1,112 @@
+{% extends "styleguide/base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Left Navigation</h1>
+                <br/>
+                <p class="uppercase underline">Navigation layout block</p>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                
+                Place navgation here!
+                
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                
+                Place elements here!
+                    
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <br/>
+                <br/>
+                <pre>&lt;div class="container">
+    &lt;div class="row">
+        &lt;div class="col-xs-12 col-sm-4 col-md-3">
+            
+            Place navgation here!
+            
+        &lt;/div>
+        &lt;div class="col-xs-12 col-sm-8 col-md-9">
+            
+            Place elements here!
+                
+        &lt;/div>
+    &lt;/div>
+&lt;/div></pre>
+                <br/>
+                <br/>
+                <br/>
+                <p class="uppercase underline">Profile image</p>
+                <p>Place the element inside the navigation section of a navigation layout block.</p>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                
+                <div class="row profile-image">
+                    <div class="col-xs-4 col-sm-12">
+                        <img src="http://placehold.it/270x281&text=image"/>
+                    </div>
+                    <div class="col-xs-8 col-sm-12">
+                        <p class="hidden-xs">{% trans 'Get connected!' %}</p>
+                        <div class="button-group">
+                            <a class="fawesome fa-bookmark button" href="#"></a>
+                            <a class="fawesome fa-favorite button" href="#"></a>
+                            <a class="fawesome fa-plus-circle button" href="#"></a>
+                            <a class="fawesome fa-more button" href="#"></a>
+                        </div>
+                        <div class="button-group top-right visible-xs">
+                            <a href="#" class="fawesome fa-grid button after"><span class="text">{% trans 'Show all' %}</span></a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                
+                Elements
+                
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+<pre>&lt;div class="row profile-image">
+    &lt;div class="col-xs-4 col-sm-12">
+        &lt;img src="http://placehold.it/270x281&text=image"/>
+    &lt;/div>
+    &lt;div class="col-xs-8 col-sm-12">
+        &lt;p class="hidden-xs">{% trans 'Get connected!' %}&lt;/p>
+        &lt;div class="button-group">
+            &lt;a class="fawesome fa-bookmark button" href="#">&lt;/a>
+            &lt;a class="fawesome fa-favorite button" href="#">&lt;/a>
+            &lt;a class="fawesome fa-plus-circle button" href="#">&lt;/a>
+            &lt;a class="fawesome fa-more button" href="#">&lt;/a>
+        &lt;/div>
+        &lt;div class="button-group top-right visible-xs">
+            &lt;a href="#" class="fawesome fa-grid button after">&lt;span class="text">&#123;% trans 'Show all' %}&lt;/span>&lt;/a>
+        &lt;/div>
+    &lt;/div>
+&lt;/div></pre>
+            <p>Add class="active" to an active icon button.<br/>
+            Remove the top right button group if not needed (only visible on very small screens).</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

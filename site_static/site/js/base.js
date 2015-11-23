@@ -291,10 +291,12 @@ $(document).ready(function() {
         if (me.$image.length) me.$main.addClass('has-image');
         if (me.$image.length || me.$info.length) me.$main.addClass('has-content');
         if (me.$menu.length) me.$main.addClass('has-menu');
+        if (me.$menu.hasClass('tabs')) me.$main.addClass('has-tabs');
         
         me.$image.load(function() {me.styleImage();});
         me.$window.resize(function() {me.onResize();});
         me.$window.scroll(function() {me.checkFixedPosition();});
+        $('img').load(function() {me.checkFixedPosition();});
         me.onResize();
     }
     
@@ -369,6 +371,7 @@ $(document).ready(function() {
         me.$lists.css('left', '');
         
         var left = 0;
+        var margin = (me.$body.hasClass('is-xs')) ? 40 : 60 ;
         me.$lists.each(function() {
             
             var $list = $(this);
@@ -376,7 +379,7 @@ $(document).ready(function() {
             var width = $list.width();
             $list.data('left', left);
             $list.data('width', width);
-            left += width + 60;
+            left += width + margin;
             
         });
         
@@ -563,6 +566,8 @@ $(document).ready(function() {
         me.styleInfo();
         me.styleNavi();
         me.checkFixedPosition();
+        
+        setTimeout(function() {me.checkFixedPosition();}, 300);
     }
     
     $('.header').each(function() {
@@ -571,6 +576,62 @@ $(document).ready(function() {
     
     
     
+    function FaPercentage($main) {
+        
+        var me = this;
+        this.me = me;
+        
+        me.$main = $main;
+        me.canvas = $main.get(0);
+        me.context = (me.canvas.getContext) ? me.canvas.getContext("2d") : null;
+        
+        me.value = parseInt(me.$main.attr('data-value'));
+        me.color_active = me.$main.attr('data-color-active');
+        me.color_inactive = me.$main.attr('data-color-inactive');
+        
+        me.$main.data('me', me);
+        
+        $(window).resize(function() {me.draw();});
+        me.draw();
+    }
+    
+    FaPercentage.prototype.draw = function() {
+        
+        var me = this.me;
+        
+        if (!me.context) return;
+        
+        me.$main.attr('width', '');
+        me.$main.attr('height', '');
+        
+        var width = me.$main.width();
+        var height = me.$main.height();
+        var radius = (width < height) ? width/2 : height/2;
+        var line = radius * 0.4;
+        
+        me.$main.attr('width', width);
+        me.$main.attr('height', height);
+
+        me.context.translate(width - radius, height - radius);
+        me.context.lineWidth = line;
+        radius -= line/2;
+        
+        me.context.clearRect(0,0,width,height);
+        
+        me.context.beginPath();
+        me.context.arc(0, 0, radius, 0 , 2*Math.PI);
+        me.context.strokeStyle = me.color_inactive;
+        me.context.stroke();
+        
+        me.context.beginPath();
+        me.context.arc(0, 0, radius, -Math.PI/2 , 2*Math.PI * (me.value / 100) -Math.PI/2);
+        me.context.strokeStyle = me.color_active;
+        me.context.stroke();
+    }
+    
+    $('canvas.fawesome.fa-percentage').each(function() {
+        new FaPercentage($(this)); 
+    });
     
     /*
     function lazyload_images() {
