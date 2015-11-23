@@ -48,7 +48,6 @@
                 <br/>
                 <br/>
                 <p class="underline"><span class="uppercase">Search</span> with icons menu</p>
-                <br/>
                 <p>Requirements:<br/>
                     Add the data-body-class value of the initialy active menu icon to the body classes.<br/>
                     e.g. &#123;% block body_class %} list &#123;% endblock %}
@@ -277,7 +276,6 @@
                 <br/>
                 <p class="uppercase underline">Job list</p>
                 <p>The col-xs-12 tag gets the class "has-bubble" if a bubble tag exists inside.</p>
-                <br/>
                 <p>Requirements:<br/>
                     &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/job-list.js">&lt;/script>
                 </p>
@@ -381,8 +379,8 @@
     &lt;/div>
     ... keep adding col blocks
 &lt;/div></pre>
-                <p>Add class="active" to an active icon button.</p>
-                <p>Remove the bubble tag if not needed.</p>
+                <p>Add class="active" to an active icon button.<br/>
+                Remove the bubble tag if not needed.</p>
                 <br/>
                 <br/>
                 <br/>
@@ -460,6 +458,67 @@
                     &lt;div>&#123;% trans 'Read on' %}&lt;/div>
                 &lt;/div>
             &lt;/a>
+        &lt;/div>
+    &lt;/div>
+    ... keep adding col blocks
+&lt;/div></pre>
+                <br/>
+                <br/>
+                <br/>
+                <p class="uppercase underline">Comment List</p>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                
+                Navigation
+                
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                <div class="row comment-list">
+                    <div class="col-xs-12">
+                        <div class="wrapper">
+                            <img src="http://placehold.it/270x281&text=image">
+                            <time datetime="2015-10-08 14:47">08. Oktober 2015 14:47</time>
+                            <h2>Max Mustermann</h2>
+                            <p class="description">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="wrapper">
+                            <img src="http://placehold.it/270x281&text=image">
+                            <time datetime="2015-10-08 14:47">08. Oktober 2015 14:47</time>
+                            <h2>Max Mustermann</h2>
+                            <p class="description">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="wrapper">
+                            <img src="http://placehold.it/270x281&text=image">
+                            <time datetime="2015-10-08 14:47">08. Oktober 2015 14:47</time>
+                            <h2>Max Mustermann</h2>
+                            <p class="description">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <br/>
+                <p>Place the code inside the elements area of a navigation layout block.</p>
+<pre>&lt;div class="row comment-list">
+    &lt;div class="col-xs-12">
+        &lt;div class="wrapper">
+            &lt;img src="http://placehold.it/270x281&text=image">
+            &lt;time datetime="2015-10-08 14:47">08. Oktober 2015 14:47&lt;/time>
+            &lt;h2>Max Mustermann&lt;/h2>
+            &lt;p class="description">Lorem ipsum ...&lt;/p>
         &lt;/div>
     &lt;/div>
     ... keep adding col blocks
@@ -551,12 +610,12 @@
                 <div class="row project-header">
                     <div class="col-xs-12">
                         <h2>Max Mustermann: {% trans 'Projects' %}</h2>
+                        <div class="button-group top-right">
+                            <a href="#" class="fawesome fa-grid button after"><span class="text">{% trans 'Show all' %}</span></a>
+                        </div>
                         <h3>Title des Projektes</h3>
                         <h4>{% trans 'Rubrics' %}: <span class="feature">Fotografie, Design</span></h4>
                         <div class="line"></div>
-                        <div class="button-group top-right hidden-xs">
-                            <a href="#" class="fawesome fa-grid button after"><span class="text">{% trans 'Show all' %}</span></a>
-                        </div>
                         <div class="button-group bottom-right">
                             <a href="#" class="fawesome fa-favorite button"><span class="text">126</span></a>
                             <a href="#" class="fawesome fa-more button"><span class="text">17</span></a>
@@ -574,12 +633,12 @@
 <pre>&lt;div class="row project-header">
     &lt;div class="col-xs-12">
         &lt;h2>Max Mustermann: {% trans 'Projects' %}&lt;/h2>
+        &lt;div class="button-group top-right">
+            &lt;a href="#" class="fawesome fa-grid button after">&lt;span class="text">{% trans 'Show all' %}&lt;/span>&lt;/a>
+        &lt;/div>
         &lt;h3>Title des Projektes&lt;/h3>
         &lt;h4>{% trans 'Rubrics' %}: &lt;span class="feature">Fotografie, Design&lt;/span>&lt;/h4>
         &lt;div class="line">&lt;/div>
-        &lt;div class="button-group top-right hidden-xs">
-            &lt;a href="#" class="fawesome fa-grid button after">&lt;span class="text">{% trans 'Show all' %}&lt;/span>&lt;/a>
-        &lt;/div>
         &lt;div class="button-group bottom-right">
             &lt;a href="#" class="fawesome fa-favorite button">&lt;span class="text">126&lt;/span>&lt;/a>
             &lt;a href="#" class="fawesome fa-more button">&lt;span class="text">17&lt;/span>&lt;/a>
@@ -590,7 +649,6 @@
                 <br/>
                 <br/>
                 <p class="uppercase underline">Navigation grid</p>
-                <br/>
                 <p>Requirements:<br/>
                     &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/navi-grid.js">&lt;/script><br/>
                     The order and size of the elements have to fit a 2 and 4 column grid.
@@ -712,7 +770,6 @@
                 <br/>
                 <br/>
                 <p class="uppercase underline">Twitter wall</p>
-                <br/>
                 <p>Requirements:<br/>
                     &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/twitter-wall.js">&lt;/script><br/>
                     Set the twitter user account in "data-username" of the main element.<br/>
@@ -753,7 +810,6 @@
                 <br/>
                 <br/>
                 <p class="uppercase underline">Portfolio slider</p>
-                <br/>
                 <p>Requirements:<br/>
                     &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/slider.js">&lt;/script>
                 </p>
@@ -861,7 +917,6 @@
                 <br/>
                 <br/>
                 <p class="uppercase underline">Full side slider</p>
-                <br/>
                 <p>Requirements:<br/>
                     &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/slider.js">&lt;/script>
                 </p>
@@ -1153,8 +1208,8 @@
                 <br/>
                 <br/>
                 <p class="underline"><span class="uppercase">Header</span> with headline beneath the content</p>
-                <p>The header tag gets the classes "has-image" and "has-content" if a background image exits.</p>
-                <p>Add the class "large-image" to the header tag to get a larger image.</p>
+                <p>The header tag gets the classes "has-image" and "has-content" if a background image exits.<br/>
+                Add the class "large-image" to the header tag to get a larger/heigher image.</p>
                 <br/>
             </div>
         </div>
@@ -1162,7 +1217,7 @@
     <div class="header large-image">
         <img src="http://placehold.it/2003x1010&text=image"/>
     </div>
-    <div class="header">
+    <div class="header beneath">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
@@ -1177,7 +1232,7 @@
                 <pre>&lt;div class="header large-image">
     &lt;img src="http://placehold.it/2003x1010&text=image"/>
 &lt;/div>
-&lt;div class="header">
+&lt;div class="header beneath">
     &lt;div class="container">
         &lt;div class="row">
             &lt;div class="col-xs-12">
@@ -1191,7 +1246,6 @@
                 <br/>
                 <p class="underline"><span class="uppercase">Header</span> with info</p>
                 <p>The header tag gets the class "has-content" if an info tag exits.</p>
-                <br/>
                 <p>Requirements:<br/>
                     &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/slider.js">&lt;/script>
                 </p>

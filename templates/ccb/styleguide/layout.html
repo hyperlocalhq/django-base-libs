@@ -8,7 +8,6 @@
                 <h1>Layout</h1>
                 <br/>
                 <p class="uppercase underline">center elements</p>
-                <br/>
                 <p>To center an element wrap it in class="center"</p>
                 <br/>
                 <div class="center">
@@ -31,7 +30,6 @@
                 <br/>
                 <br/>
                 <p class="uppercase underline">Paddings</p>
-                <br/>
                 <p>class="padding-10" -> gives an element 10px padding on top and bottom<br/>
                 class="padding-20" -> gives an element 20px padding on top and bottom<br/>
                 class="padding-40" -> gives an element 40px padding on top and bottom</p>
@@ -84,6 +82,7 @@
                 <br/>
                 <br/>
                 <p class="uppercase underline">Article/Interview page</p>
+                <p>You can find the code for the Article List in the elements section.</p>
                 <p>Place the elements inside a navigation layout block.</p>
                 <br/>
             </div>
@@ -195,11 +194,73 @@ the bottom</pre>
                     <p class="color-black bold">{% trans 'Also a good read' %}</p>
                 </div>
                 
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3"></div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                <pre class="bold uppercase">Start of a new navigation layout block with an empty navigation part</pre>
+                
+                <div class="row article-list">
+                    <div class="col-xs-12">
+                        <div class="wrapper">
+                            <a class="content" href="#">
+                                <img src="http://placehold.it/200x208&text=image">
+                                <div class="text">
+                                    <h3>Rubrik <time datetime="2015-10-08">08. Oktober 2015</time></h3>
+                                    <h2>"Grüne Mode muss die Masse ansprechen"</h2>
+                                    <p>Natacha Aedo Duran ist 26 Jahre alt, Mode-Designerin, ...</p>
+                                    <div>{% trans 'Read on' %}</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="wrapper">
+                            <a class="content" href="#">
+                                <img src="http://placehold.it/200x208&text=image">
+                                <div class="text">
+                                    <h3>Rubrik <time datetime="2015-10-08">08. Oktober 2015</time></h3>
+                                    <h2>"Grüne Mode muss die Masse ansprechen"</h2>
+                                    <p>Natacha Aedo Duran ist 26 Jahre alt, Mode-Designerin, ...</p>
+                                    <div>{% trans 'Read on' %}</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="wrapper">
+                            <a class="content" href="#">
+                                <img src="http://placehold.it/200x208&text=image">
+                                <div class="text">
+                                    <h3>Rubrik <time datetime="2015-10-08">08. Oktober 2015</time></h3>
+                                    <h2>"Grüne Mode muss die Masse ansprechen"</h2>
+                                    <p>Natacha Aedo Duran ist 26 Jahre alt, Mode-Designerin, ...</p>
+                                    <div>{% trans 'Read on' %}</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+          
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <br/>
+                <br/>
+                <br/>
                 <br/>
                 <br/>
                 <br/>
                 <p class="underline uppercase">Profile page</p>
-                <p>The code for the header elements (Header with tabs, Profile Header, Project Header) you'll find in the ELEMENTS section. In the LEFT NAVIGATION section you'll find the code for the profile image.</p>
+                <p>The code for the header elements (Header with tabs, Profile Header, Project Header) and Comment List you'll find in the ELEMENTS section. In the LEFT NAVIGATION section you'll find the code for the profile image.</p>
                 <p>Except for the main header place the elements inside a navigation layout block.</p>
             </div>
         </div>
@@ -305,9 +366,6 @@ the bottom</pre>
                             <a class="fawesome fa-plus-circle button" href="#"></a>
                             <a class="fawesome fa-more button" href="#"></a>
                         </div>
-                        <div class="button-group top-right visible-xs">
-                            <a href="#" class="fawesome fa-grid button after"><span class="text">{% trans 'Show all' %}</span></a>
-                        </div>
                     </div>
                 </div>
                 
@@ -317,12 +375,12 @@ the bottom</pre>
                 <div class="row project-header">
                     <div class="col-xs-12">
                         <h2>Max Mustermann: {% trans 'Projects' %}</h2>
+                        <div class="button-group top-right">
+                            <a href="#" class="fawesome fa-grid button after"><span class="text">{% trans 'Show all' %}</span></a>
+                        </div>
                         <h3>Title des Projektes</h3>
                         <h4>{% trans 'Rubrics' %}: <span class="feature">Fotografie, Design</span></h4>
                         <div class="line"></div>
-                        <div class="button-group top-right hidden-xs">
-                            <a href="#" class="fawesome fa-grid button after"><span class="text">{% trans 'Show all' %}</span></a>
-                        </div>
                         <div class="button-group bottom-right">
                             <a href="#" class="fawesome fa-favorite button"><span class="text">126</span></a>
                             <a href="#" class="fawesome fa-more button"><span class="text">17</span></a>
@@ -371,6 +429,26 @@ the bottom</pre>
 &lt;div class="line">&lt;/div></pre>
                 <h5>{% trans 'Comments' %}</h5>
                 <div class="line"></div>
+                
+                <div class="row comment-list">
+                    <div class="col-xs-12">
+                        <div class="wrapper">
+                            <img src="http://placehold.it/270x281&text=image">
+                            <time datetime="2015-10-08 14:47">08. Oktober 2015 14:47</time>
+                            <h2>Max Mustermann</h2>
+                            <p class="description">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="wrapper">
+                            <img src="http://placehold.it/270x281&text=image">
+                            <time datetime="2015-10-08 14:47">08. Oktober 2015 14:47</time>
+                            <h2>Max Mustermann</h2>
+                            <p class="description">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>

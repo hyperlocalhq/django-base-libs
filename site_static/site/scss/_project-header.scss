@@ -48,6 +48,7 @@
         .is-xs & {
             font-size: 1.4em;
             margin-bottom: 25px;
+            margin-right: 35px;
         }
     }
                 
@@ -90,9 +91,25 @@
             top: 0px;
         }
         
+        .is-xs & {
+            position: relative;
+            width: 100%;
+        }
+        
+        .button {
+            .is-xs & {
+                position: absolute;
+                top: -2px;
+                right: -10px;
+            }
+        }
+        
         .text {
             font-size: 1em;
             margin-right: 20px;
+            .is-xs & {
+                display: none;
+            }
         }
     }
     
