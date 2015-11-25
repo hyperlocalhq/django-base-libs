@@ -968,7 +968,7 @@ def kreativarbeiten_contact_form(request,
 
         if form.is_valid():
             form.save(request.user)
-            return HttpResponseRedirect('%salldone/' % request.path)
+            return HttpResponseRedirect('%sdone/' % request.path)
     else:
         form = KreativArbeitenContactForm()
     return render_to_response(
