@@ -258,7 +258,7 @@ class ContextItem(CreationModificationDateMixin, ContextItemObjectRelation, UrlM
         return mark_safe(getattr(self, "description_%s" % language, "") or self.description)
 
     def get_creative_sectors(self):
-        self.creative_sectors.all()
+        return self.creative_sectors.all()
 
     # def get_object_types(self):
     #    return self.object_types.all()
