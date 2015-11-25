@@ -173,6 +173,8 @@ class ContextItemManager(models.Manager):
         item.context_categories.add(*context_categories)
         item.creative_sectors.clear()
         item.creative_sectors.add(*list(obj.get_creative_sectors()))
+        item.categories.clear()
+        item.categories.add(*list(obj.get_categories()))
 
         return item
 
