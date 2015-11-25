@@ -154,6 +154,13 @@ class ContextItemManager(models.Manager):
                     getattr(cat, "title_%s" % lang_code),
                 )
 
+        # categories
+        for cat in obj.get_categories():
+            for lang_code, lang_title in settings.LANGUAGES:
+                additional_search_data.append(
+                    getattr(cat, "title_%s" % lang_code),
+                )
+
         # creative sectors
         for cat in obj.get_creative_sectors():
             for lang_code, lang_title in settings.LANGUAGES:
