@@ -19,9 +19,15 @@ class SmartUpdateCacheMiddleware(UpdateCacheMiddleware):
                 continue
             key, value = cookie.split("=", 1)
             if key.lower().strip() in (
+                "CMS_toolbar-collapsed",
                 "csrftoken",
+                "django_language",
+                "grappelli_show_documentstructure",
+                "httpstateid",
+                "messages",
                 "sessionid",
                 "djdt", # used by Django Debug Toolbar
+                "djdttop", # used by Django Debug Toolbar
                 "__json_message", # used by django.contrib.messages
             ):
                 new_cookies.append("%s=%s" % (key, value))
