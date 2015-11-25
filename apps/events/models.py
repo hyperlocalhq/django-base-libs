@@ -44,7 +44,7 @@ class Event(ComplexEventBase):
     def get_context_categories(self):
         return []
 
-    def get_categories_sectors(self):
+    def get_categories(self):
         return self.categories.all()
 
     def has_fees(self):
