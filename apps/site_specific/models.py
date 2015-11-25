@@ -266,6 +266,9 @@ class ContextItem(CreationModificationDateMixin, ContextItemObjectRelation, UrlM
     def get_context_categories(self):
         return self.context_categories.all()
 
+    def get_categories(self):
+        return self.categories.all()
+
     def is_person(self):
         return self.content_type.model == "person"
 
