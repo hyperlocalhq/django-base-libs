@@ -59,11 +59,13 @@
                             <p>To place elements inside the grid wrap the area in div tags with class="container", class="row" and than in class="col-...-...".</p>
                             <pre>
 &lt;div class="container">
+    
     &lt;div class="row">
         &lt;div class="col-...-...">
             ...
         &lt;/div>
     &lt;/div>
+        
 &lt;/div>
                             </pre>
                             <p>To have a left navigation column and a right content column use the following structure:</p>
@@ -96,7 +98,7 @@
                             <br/>
                             <br/>
                             
-                            <p class="uppercase"><b>The tempplate</b></p>
+                            <p class="uppercase"><b>The template</b></p>
                             <p>Extend your template from "base.html".<br/>
                             Place your content inside <b>{&#37; block content &#37;}...{&#37; endblock &#37;}</b>.<br/>
                             Add javascript to <b>{&#37; block javascript &#37;}...{&#37; endblock &#37;}</b>.<br/>
@@ -125,6 +127,14 @@
                     <div class="fawesome fa-close button"><span class="sr-only">{% trans 'close' %}</span></div>
                 </div>
             </div>
+        </div>
+        <div id="image-layer" class="layer">
+            <div class="wrapper">
+                <div class="image"></div>
+                <h5 class="caption"></h5>
+            </div>
+            <div class="navi"></div>
+            <div class="fawesome fa-close button"><span class="sr-only">{% trans 'close' %}</span></div>
         </div>
         <span class="width-sniffer visible-xs"></span><span class="width-sniffer visible-sm"></span><span class="width-sniffer visible-md"></span><span class="width-sniffer visible-lg"></span>
         {% block javascript %}

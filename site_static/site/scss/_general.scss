@@ -620,8 +620,13 @@ dl {
     top: 0;
     left: 0;
     background: rgba(0,0,0,0.6);
+    z-index: 101;
     
-    .show-layer & {
+    body.show-layer.search-layer &#search-layer {
+        display: block;
+    }
+    
+    body.show-layer.image-layer &#image-layer {
         display: block;
     }
 }

@@ -648,6 +648,18 @@
                 <br/>
                 <br/>
                 <br/>
+                <p class="uppercase underline">Image Popup/Gallery</p>
+                <p>Add the attribute "<b>data-popup-image-src</b>" to an image tag with the url or path to the image which should be shown in a popup. If you click on the image of the image tag, a popup opens showing the image of the "data-popup-image-src" attribute.<br/>
+                If you want to group images into a gallery, set the attribute "<b>data-popup-image-gallery</b>" and give it the same value. You can then browse through the gallery images in the opened popup layer. For an example look into the LAYOUT section.</p>
+                <img src="http://placehold.it/640x320&text=image with popup" style="max-width:640px;" data-popup-image-src="http://placehold.it/1900x1000&text=image in the popup" />
+                <h5 class="caption">&lt;h5 class="caption">Caption&lt;/h5> &nbsp;&nbsp;&nbsp;&lt;-- use it only beneath an image</h5>
+<pre>&lt;img src="http://placehold.it/640x320&text=image with popup" 
+data-popup-image-src="http://placehold.it/1900x1000&text=image in the popup" />
+&lt;h5 class="caption">Caption&lt;/h5>   &lt;-- use it only beneath an image</pre>
+                <p>If the image doesn't have a caption, leave the &lt;h5> tag empty or remove it entirely.</p>
+                <br/>
+                <br/>
+                <br/>
                 <p class="uppercase underline">Navigation grid</p>
                 <p>Requirements:<br/>
                     &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/navi-grid.js">&lt;/script><br/>

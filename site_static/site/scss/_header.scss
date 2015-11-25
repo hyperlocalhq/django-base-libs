@@ -451,13 +451,13 @@
         
         .menu {
             position: fixed;
-            top: 114px;
+            top: $navi-height;
             bottom: inherit;
             background: $black;
             z-index: 100;
             
             .is-xs & {
-                top: 70px;
+                top: $navi-height-xs;
                 background: $black;
                 position: fixed;
             }

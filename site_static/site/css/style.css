@@ -10,7 +10,7 @@
 .is-xs .fawesome:before, .is-xs .fawesome:after { font-size: 1.73em; }
 .fawesome.active { color: #00cdff !important; }
 .fawesome.button { display: block; border-radius: 0; background: transparent; padding: 0; color: #979797; font-size: inherit; }
-.is-xs .fawesome.button { padding: 0; }
+.is-xs .fawesome.button { padding: 0; border-radius: 0; }
 .fawesome.button:hover { background: transparent; color: #000; }
 .fawesome.button .text { font-size: 0.83em; font-weight: 400; margin-left: 10px; }
 .fawesome.button.round { display: block; text-align: center; width: 4.93em; border-radius: 50%; background: #000; padding: 0; font-size: inherit; font-weight: inherit; color: #fff; }
@@ -460,8 +460,9 @@ dl.interview dd:last-child:after { margin-bottom: 0; }
 .tooltip.bottom { padding: 5px 0; margin-bottom: -5px; }
 .tooltip.bottom .tooltip-arrow { border-bottom-color: #000; top: 0; left: 50%; margin-left: -5px; border-width: 0px 5px 5px 5px; }
 
-.layer { display: none; width: 100%; height: 100%; position: absolute; top: 0; left: 0; background: rgba(0, 0, 0, 0.6); }
-.show-layer .layer { display: block; }
+.layer { display: none; width: 100%; height: 100%; position: absolute; top: 0; left: 0; background: rgba(0, 0, 0, 0.6); z-index: 101; }
+body.show-layer.search-layer .layer#search-layer { display: block; }
+body.show-layer.image-layer .layer#image-layer { display: block; }
 
 #body .container .row.profile-grid { margin-left: -10px; margin-right: -10px; }
 #body .container .row.profile-grid > div { padding-left: 10px; padding-right: 10px; }
@@ -708,6 +709,30 @@ dl.interview dd:last-child:after { margin-bottom: 0; }
 .row.comment-list p { margin: 0 0 0 120px; }
 .is-xs .row.comment-list p { margin-left: 100px; }
 
+img[data-popup-image-src] { cursor: pointer; }
+
+#image-layer { -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+#image-layer .wrapper { width: 100%; height: 100%; padding: 80px 140px 60px; opacity: 0; }
+.is-md #image-layer .wrapper { padding: 70px 100px 50px; }
+.is-sm #image-layer .wrapper { padding: 70px 80px 50px; }
+.is-xs #image-layer .wrapper { padding: 50px 10px 20px; }
+#image-layer .wrapper .image { width: 100%; height: 100%; text-align: center; overflow: hidden; }
+#image-layer .wrapper img { width: auto; height: auto; margin: 0; padding: 0; }
+#image-layer .wrapper h5.caption { position: absolute; top: 0; left: 0; color: #fff; }
+#image-layer .fa-close { position: absolute; top: 0; right: 0; color: #000; background: #fff; width: 60px; text-align: center; }
+#image-layer .fa-close:before { line-height: 60px; }
+.is-xs #image-layer .fa-close { width: 40px; }
+.is-xs #image-layer .fa-close:before { line-height: 40px; }
+#image-layer .navi { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+#image-layer .navi .fawesome { position: absolute; top: 50%; color: #fff; }
+.is-xs #image-layer .navi .fawesome { display: none; }
+#image-layer .navi .fawesome.fa-right-bold { right: 50px; }
+.is-md #image-layer .navi .fawesome.fa-right-bold { right: 30px; }
+.is-sm #image-layer .navi .fawesome.fa-right-bold { right: 20px; }
+#image-layer .navi .fawesome.fa-left-bold { left: 50px; }
+.is-md #image-layer .navi .fawesome.fa-left-bold { left: 30px; }
+.is-sm #image-layer .navi .fawesome.fa-left-bold { left: 20px; }
+
 .twitter-wall { width: 100%; background: #00cdff; }
 .twitter-wall .fawesome { margin: 30px 0; }
 .twitter-wall h2 { font-family: "Lato", "sans-serif"; font-size: 1.6em; line-height: 133%; margin: 30px 0; }
@@ -876,8 +901,8 @@ dl.interview dd:last-child:after { margin-bottom: 0; }
 .is-xs .header.has-content.fixed { padding-bottom: 40px; }
 .header.fixed { padding-bottom: 56px; }
 .is-xs .header.fixed { padding-bottom: 40px; }
-.header.fixed .menu { position: fixed; top: 114px; bottom: inherit; background: #000; z-index: 100; }
-.is-xs .header.fixed .menu { top: 70px; background: #000; position: fixed; }
+.header.fixed .menu { position: fixed; top: 60px; bottom: inherit; background: #000; z-index: 100; }
+.is-xs .header.fixed .menu { top: 40px; background: #000; position: fixed; }
 .header.fixed .menu h2 { opacity: 1; }
 .header.fixed .menu ul li a:hover, .header.fixed .menu ul li a.active { color: #fff; }
 .header.fixed .menu.tabs { color: #d8d8d8; }

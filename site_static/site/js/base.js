@@ -167,7 +167,7 @@ $(document).ready(function() {
         me.close();
        
         me.$layer.css('top', me.$window.scrollTop() + 'px');
-        me.$body.addClass('show-layer');
+        me.$body.addClass('show-layer').addClass('search-layer');
         
         me.$search.off().click(function() {me.search();});
         me.$close.off().click(function() {me.close();});
@@ -184,7 +184,7 @@ $(document).ready(function() {
         
         var me = this.me;
         
-        me.$body.removeClass('show-layer');
+        me.$body.removeClass('show-layer').removeClass('search-layer');
         
         me.is_open = false;
     }
@@ -489,11 +489,11 @@ $(document).ready(function() {
         var height = me.$main.height() + me.$main.offset().top + parseInt(me.$main.css('padding-bottom'));
         
         if (me.$body.hasClass('is-xs')) {
-            height -= 40;
-            height -= 70;
+            height -= 40; // height of menu
+            height -= 40; // top position
         } else {
-            height -= 56;
-            height -= 114;
+            height -= 56; // height of menu
+            height -= 60; // top position
         }
         
         if (me.$window.scrollTop() >= height) {
@@ -632,6 +632,236 @@ $(document).ready(function() {
     $('canvas.fawesome.fa-percentage').each(function() {
         new FaPercentage($(this)); 
     });
+    
+    
+    
+    function ImagePopup($main) {
+        
+        var me = this;
+        this.me = me;
+        
+        me.$main = $main;
+        me.$layer = $('#image-layer');
+        me.$wrapper = $('.wrapper', me.$layer);
+        me.$image = $('.image', me.$layer);
+        me.$caption = $('.caption', me.$layer);
+        me.$navi = $('.navi', me.$layer);
+        me.$close = $('.fa-close', me.$layer);
+        me.$body = $('body');
+        me.$window = $(window);
+        
+        me.popup = me.$main.attr('data-popup-image-src').toLowerCase();
+        me.caption = me.$main.next('h5.caption').text();
+        me.gallery = me.$main.attr('data-popup-image-gallery');
+        
+        me.is_open = false;
+        me.index = 0;
+        me.$current_image = null;
+        
+        me.is_animating = false;
+        me.$next = null;
+        me.$prev = null;
+        
+        
+        if (me.gallery) {
+            if (typeof ImagePopup.popups[me.gallery] == "undefined") ImagePopup.popups[me.gallery] = [];
+            ImagePopup.popups[me.gallery].push({'popup':me.popup, 'caption':me.caption});
+        }
+        
+        
+        me.$main.click(function() {me.is_open = true; me.setIndex(); me.open();});
+        me.$window.resize(function() {me.open();});
+    }
+    
+    ImagePopup.popups = [];
+    
+    ImagePopup.prototype.setIndex = function() {
+     
+        var me = this.me;
+        
+        if (!me.gallery) return;
+        
+        var gallery = ImagePopup.popups[me.gallery];
+        for (var i=0, length=gallery.length; i<length; i++) {
+            if (gallery[i].popup == me.popup) break;
+        }
+        
+        me.index = i;
+    }
+    
+    ImagePopup.prototype.setImage = function(popup, caption) {
+        
+        var me = this.me;
+            
+        me.$wrapper.css('opacity', 0);
+        me.$current_image = $('<img src="'+popup+'" />');
+        me.$current_image.css('visibility', 'hidden');
+        me.$current_image.load(function() {me.open();});
+        me.$image.html('').append(me.$current_image);
+        
+        me.$caption.css('display', 'none');
+        
+        me.$caption.html('');
+        if (caption && caption != '') me.$caption.text(caption);       
+    }
+    
+    ImagePopup.prototype.open = function() {
+        
+        var me = this.me;
+        if (!me.is_open) return;
+        
+        me.close(me.$current_image);
+        
+        if (!me.$current_image) {   
+            
+            me.setImage(me.popup, me.caption);
+        
+            me.$navi.html('');
+            if (me.gallery) {
+                
+                 var gallery = ImagePopup.popups[me.gallery];
+                
+                 if (gallery.length > 1) {
+                    me.$next = $('<a href="javascript:void(0);" class="fawesome fa-right-bold big button"></a>');
+                    me.$prev = $('<a href="javascript:void(0);" class="fawesome fa-left-bold big button"></a>');
+                    
+                    me.$next.click(function() {me.next();});
+                    me.$prev.click(function() {me.prev();});
+                    
+                    me.$navi.append(me.$next);
+                    me.$navi.append(me.$prev);
+                 }
+            }
+            me.$navi.off();
+            me.$navi.on("swiperight", function() {me.prev();});
+            me.$navi.on("swipeleft", function() {me.next();});
+        }    
+        
+        
+        var window_top = me.$window.scrollTop();
+        me.$layer.css('top', window_top + 'px');
+        me.$body.addClass('show-layer').addClass('image-layer');
+        
+        
+        // resetting the style values of the image
+        me.$current_image.css('width', '');
+        me.$current_image.css('height', '');
+        me.$current_image.css('margin-top', '');
+        
+        
+        // setting the initial dimensions of the image
+        if (me.$current_image.width() > me.$image.width()) {
+            me.$current_image.width(me.$image.width());   
+        }
+        if (me.$current_image.height() > me.$image.height()) {
+            me.$current_image.css('width', '');
+            me.$current_image.height(me.$image.height());
+        }
+        
+        
+        // setting the width of the caption
+        me.$caption.width(me.$current_image.width());
+        // center the image verticaly
+        me.$current_image.css('margin-top', Math.round((me.$image.height() - me.$current_image.height() - me.$caption.height()) / 2) + 'px');
+        
+        
+        if (me.$current_image.height()) me.$caption.css('display', '');
+        
+        
+        var image_position = me.$current_image.offset();
+        var image_height = me.$current_image.height();
+        var caption_top = (image_position.top - window_top + image_height + 35);
+        var caption_bottom = caption_top + me.$caption.height();
+        
+        // checking if the caption runs out of the bottom window -> adjusting the height of the image
+        if (caption_bottom > me.$window.height()) image_height -= caption_bottom - me.$window.height();
+        
+        // setting the final height of the image
+        me.$current_image.css('width', '');
+        me.$current_image.height(image_height);
+        
+        // setting the position of the caption and its final width
+        image_position = me.$current_image.offset();
+        me.$caption.css('top', (image_position.top - window_top + image_height + 35) + 'px');
+        me.$caption.css('left', image_position.left + 'px');
+        me.$caption.width(me.$current_image.width());
+        
+        if (me.$current_image.height()) me.$current_image.css('visibility', '');
+        
+        
+        me.$close.off().click(function() {me.close();});
+        
+        me.is_open = true;
+        
+        
+        if (me.$current_image.height()) {
+            me.$wrapper.animate({
+                opacity: 1
+            }, 600, function() {
+                me.animating = false;
+            });
+        }
+    }
+    
+    ImagePopup.prototype.close = function($current_image) {
+        
+        var me = this.me;
+        
+        me.$body.removeClass('show-layer').removeClass('image-layer');
+        me.$current_image = $current_image;
+        
+        me.is_open = false;
+    }
+    
+    ImagePopup.prototype.next = function() {
+        
+        var me = this.me;
+        
+        if (!me.gallery) return;
+        if (me.animating) return;
+        
+        var gallery = ImagePopup.popups[me.gallery];
+        if (gallery.length <= 1) return;
+        
+        me.animating = true;
+        
+        me.$wrapper.animate({
+            opacity: 0
+        }, 300, function() {
+            me.index++;
+            if (me.index >= gallery.length) me.index = 0;
+            me.setImage(gallery[me.index].popup, gallery[me.index].caption);
+            me.open();
+        });
+    }
+    
+    ImagePopup.prototype.prev = function() {
+        
+        var me = this.me;
+        
+        if (!me.gallery) return;
+        if (me.animating) return;
+        
+        var gallery = ImagePopup.popups[me.gallery];
+        if (gallery.length <= 1) return;
+        
+        me.animating = true;
+        
+        me.$wrapper.animate({
+            opacity: 0
+        }, 300, function() {
+            me.index--;
+            if (me.index < 0) me.index = gallery.length-1;
+            me.setImage(gallery[me.index].popup, gallery[me.index].caption);
+            me.open();
+        });
+    }
+    
+    $('img[data-popup-image-src]').each(function() {
+        new ImagePopup($(this)); 
+    });
+    
+    
     
     /*
     function lazyload_images() {
