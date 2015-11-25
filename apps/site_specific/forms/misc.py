@@ -236,7 +236,7 @@ class ClaimForm(dynamicforms.Form):
                 'comments',
             ),
             bootstrap.FormActions(
-                layout.Submit('submit', _('Send').upper())
+                layout.Submit('submit', _('Send'))
             )
         )
 
@@ -285,6 +285,21 @@ class InvitationForm(dynamicforms.Form):
     def __init__(self, sender, *args, **kwargs):
         super(InvitationForm, self).__init__(*args, **kwargs)
         self.sender = sender
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _('Invitation'),
+                'recipient_email',
+                'body',
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Send'))
+            )
+        )
+
 
     def send(self):
         from jetson.apps.mailing.views import send_email_using_template
@@ -342,6 +357,25 @@ class ProfileDeletionForm(dynamicforms.Form):
             label=_("Profiles to delete"),
             choices=profile_choices,
             widget=CCBCheckboxSelectMultiple,
+        )
+
+        self.helper = FormHelper()
+        self.helper.form_action = "."
+        self.helper.form_method = "POST"
+        self.helper.form_id = "delete_profile_form"
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Profiles to delete"),
+                'profiles',
+            ),
+            layout.Fieldset(
+                _("Additional Options"),
+                'delete_events',
+                'delete_job_offers',
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Delete'))
+            )
         )
 
     def clean_profiles(self):

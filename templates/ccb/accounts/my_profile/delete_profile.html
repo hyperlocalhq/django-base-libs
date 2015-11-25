@@ -1,5 +1,5 @@
 {% extends "accounts/my_profile/base.html" %}
-{% load i18n base_tags uni_form_tags %}
+{% load i18n base_tags uni_form_tags crispy_forms_tags %}
 
 {% block headline %}
     <h1>
@@ -23,6 +23,7 @@
                 <p>{% trans "Attention! This action is permanent and you can't undo it." %}</p>
             </div>
         </div>
+        {#% crispy form %#}
         <form id="delete_profile_form" class="uniForm" action="." method="post">{% csrf_token %}
             <fieldset class="inlineLabels">
                 <h3>{{ form.profiles.label }}</h3>
