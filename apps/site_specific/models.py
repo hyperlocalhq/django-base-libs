@@ -154,6 +154,13 @@ class ContextItemManager(models.Manager):
                     getattr(cat, "title_%s" % lang_code),
                 )
 
+        # categories
+        for cat in obj.get_categories():
+            for lang_code, lang_title in settings.LANGUAGES:
+                additional_search_data.append(
+                    getattr(cat, "title_%s" % lang_code),
+                )
+
         # creative sectors
         for cat in obj.get_creative_sectors():
             for lang_code, lang_title in settings.LANGUAGES:
@@ -173,6 +180,8 @@ class ContextItemManager(models.Manager):
         item.context_categories.add(*context_categories)
         item.creative_sectors.clear()
         item.creative_sectors.add(*list(obj.get_creative_sectors()))
+        item.categories.clear()
+        item.categories.add(*list(obj.get_categories()))
 
         return item
 
@@ -258,13 +267,16 @@ class ContextItem(CreationModificationDateMixin, ContextItemObjectRelation, UrlM
         return mark_safe(getattr(self, "description_%s" % language, "") or self.description)
 
     def get_creative_sectors(self):
-        self.creative_sectors.all()
+        return self.creative_sectors.all()
 
     # def get_object_types(self):
     #    return self.object_types.all()
 
     def get_context_categories(self):
         return self.context_categories.all()
+
+    def get_categories(self):
+        return self.categories.all()
 
     def is_person(self):
         return self.content_type.model == "person"

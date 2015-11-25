@@ -50,6 +50,9 @@ class Person(PersonBase):
     def get_creative_sectors(self):
         return self.creative_sectors.all()
 
+    def get_categories(self):
+        return self.categories.all()
+
     def is_deletable(self, user=None):
         if not hasattr(self, "_is_deletable_cache"):
             user = get_current_user(user) or AnonymousUser()

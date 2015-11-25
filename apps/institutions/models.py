@@ -92,6 +92,9 @@ class Institution(InstitutionBase):
     def get_creative_sectors(self):
         return self.creative_sectors.all()
 
+    def get_categories(self):
+        return self.categories.all()
+
     def _get_current_user(self, user=None):
         if not user:
             from base_libs.middleware import get_current_user
