@@ -1275,6 +1275,8 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
 
         if form_step_data[current_step]['language_and_subtitles']:
             instance.language_and_subtitles = LanguageAndSubtitles.objects.get(pk=form_step_data[current_step]['language_and_subtitles'])
+        else:
+            instance.language_and_subtitles = None
 
         # set markup types to plain text
         for lang_code, lang_name in FRONTEND_LANGUAGES:
