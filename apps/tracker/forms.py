@@ -3,6 +3,9 @@ from django import forms
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext_lazy as _
 
+from crispy_forms.helper import FormHelper
+from crispy_forms import layout, bootstrap
+
 from base_libs.forms import dynamicforms
 from base_libs.middleware import get_current_user
 from base_libs.utils.misc import get_related_queryset, XChoiceList
@@ -55,11 +58,28 @@ class TicketForm(dynamicforms.Form):
 
     def __init__(self, concern, content_type_id, object_id, url, *args, **kwargs):
         super(TicketForm, self).__init__(*args, **kwargs)
-
         self.content_type_id = content_type_id
         self.object_id = object_id
         self.url = url
         meta = Ticket._meta
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper_form_method = "POST"
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Write Feedback"),
+                'concern',
+                'submitter_name',
+                'submitter_email',
+                'description',
+                'client_info',
+                'captcha',
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Submit').upper())
+            )
+        )
+
 
         if concern:
             try:
