@@ -14,9 +14,17 @@ class PersonGroup(PersonGroupBase):
         related_name="creative_sectors_groups",
         blank=True,
     )
+    categories = TreeManyToManyField(
+        'structure.Category',
+        verbose_name=_("categories"),
+        blank=True
+    )
 
     def get_creative_sectors(self):
         return self.creative_sectors.all()
+
+    def get_categories(self):
+        return self.categories.all()
 
 
 class GroupMembership(GroupMembershipBase):
