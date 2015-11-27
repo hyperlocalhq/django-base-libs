@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n infoblocks uni_form_tags %}
+{% load base_tags i18n infoblocks uni_form_tags crispy_forms_tags %}
 
 {% block headline %}
     <h1>{{ site_settings.site.name }}</h1>
@@ -12,6 +12,7 @@
 
 {% block content %}
     {% infoblock "contact_info" %}
+{#    {% crispy form %}#}
     <form action="" method="post" class="uniForm">{% csrf_token %}
         <fieldset class="inlineLabels">
             <h3>{% trans "Contact us" %}</h3>
