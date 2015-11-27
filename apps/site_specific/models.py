@@ -3,7 +3,7 @@ from datetime import datetime
 
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, ugettext
 from django.utils.safestring import mark_safe
 from django.utils.functional import lazy
 from django.contrib.auth.models import User
@@ -226,6 +226,8 @@ class ContextItem(CreationModificationDateMixin, ContextItemObjectRelation, UrlM
                                    limit_choices_to={'vocabulary__sysname': 'basics_locality'}, blank=True, null=True,
                                    related_name="locality_contextitems")
 
+    locality_type = TreeForeignKey("location.LocalityType", verbose_name=_("Locality type"), blank=True, null=True)
+
     status = models.CharField(max_length=20, blank=True)
 
     # this field is used for storing additional fulltext search data
@@ -258,9 +260,11 @@ class ContextItem(CreationModificationDateMixin, ContextItemObjectRelation, UrlM
 
     def get_title(self, language=None):
         language = language or get_current_language()
-        return getattr(self, "title_%s" % language, "") or self.title
+        return (getattr(self, "title_%s" % language, "") or self.title).strip() or ugettext("(Untitled)")
 
     get_title = lazy(get_title, unicode)
+    get_title.short_description = _("Title")
+    get_title.admin_order_field = "title"
 
     def get_description(self, language=None):
         language = language or get_current_language()

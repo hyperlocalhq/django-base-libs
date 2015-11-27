@@ -335,9 +335,6 @@ ADMIN_APP_INDEX = (
             }),
         )
     }, {
-        'title': _('Control'),
-        'apps': ()
-    }, {
         'title': _('Configure'),
         'apps': (
             ('navigation', {
@@ -395,7 +392,7 @@ ADMIN_APP_INDEX = (
                 'models': ("SwearWord", "SwearingCase",),
             }),
             ('site_specific', {
-                'models': ("ClaimRequest", "Visit"),
+                'models': ("ClaimRequest", "Visit", "ContextItem"),
             }),
             ('tracker', {
                 'models': ("Concern", "Ticket",),
@@ -405,6 +402,9 @@ ADMIN_APP_INDEX = (
             }),
             ('notification', {
                 'models': ("NoticeTypeCategory", "NoticeType", "NoticeEmailTemplate", "Notice", "Digest",),
+            }),
+            ('location', {
+                'models': ("Address", "LocalityType",),
             }),
         )
     }

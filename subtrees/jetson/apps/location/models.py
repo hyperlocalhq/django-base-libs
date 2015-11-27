@@ -5,6 +5,13 @@ from django.utils.translation import ugettext_lazy as _, ugettext
 from django.utils.encoding import force_unicode
 from django.conf import settings
 
+from mptt.models import MPTTModel
+from mptt.managers import TreeManager
+from mptt.fields import TreeForeignKey, TreeManyToManyField
+
+from base_libs.models.models import SlugMixin
+from base_libs.models.fields import MultilingualCharField
+
 from jetson.apps.i18n.models import Country
 
 verbose_name = _("Location")
@@ -261,3 +268,21 @@ class Geoposition(models.Model):
         return result
             
             
+class LocalityType(MPTTModel, SlugMixin()):
+    parent = TreeForeignKey(
+       'self',
+       related_name="child_set",
+       blank=True,
+       null=True,
+    )
+    title = MultilingualCharField(_('title'), max_length=255)
+
+    objects = TreeManager()
+
+    class Meta:
+        verbose_name = _("locality type")
+        verbose_name_plural = _("locality types")
+        ordering = ["tree_id", "lft"]
+
+    def __unicode__(self):
+        return self.title
