@@ -1,1 +1,84 @@
-{% extends "articles/articles_base.html" %}{% load base_tags babel i18n auth_extended image_modifications articles_tags fb_tags %}{% block title %}    {{ article.title|escape }} ̶ {% endblock %}{% block details %}    {% comment %}<!--    TODO CHECK PRIVILEGES TO DISPLAY DRAFTS    {% if_has_perm "blog.change_blog_posts" blog %}        {% ifequal post_filter "drafts" %}            <a class="active" href="{{ rel_root_dir }}">{% trans "Drafts" %}({{ nof_drafts }})</a> |         {% else %}            <a href="{{ rel_root_dir }}drafts/">{% trans "Drafts" %}({{ nof_drafts }})</a> |        {% endifequal %}    {% end_if_has_perm %}    -->{% endcomment %}    <a class="fawesome back no-print" href="{{ rel_root_dir }}">{% trans "back to overview" %}</a>    <div id="article_detail">        <!-- {% block breadcrumbs %}            <div class="breadcrumbs">                <a class="btn btn-small" href="{{ rel_root_dir }}">{% trans "Overview" %}</a>                <a class="btn btn-small" href="{{ rel_root_dir }}{% if type %}{{ type.slug }}/{% endif %}{{ article.published_from|date:"Y" }}/">{{ article.published_from|date:"Y" }}</a>                <a class="btn btn-small" href="{{ rel_root_dir }}{% if type %}{{ type.slug }}/{% endif %}{{ article.published_from|date:"Y" }}/{{ article.published_from|date:"m" }}/">{{ article.published_from|datefmt:"MMM" }} </a>                <a class="btn btn-small" href="{{ rel_root_dir }}{% if type %}{{ type.slug }}/{% endif %}{{ article.published_from|date:"Y" }}/{{ article.published_from|date:"m" }}/{{ article.published_from|date:"d" }}/">{{ article.published_from|date:"d" }}</a>                <a class="btn btn-small btn-active" href="{{ rel_root_dir }}{% if type %}{{ type.slug }}/{% endif %}{{ article.published_from|date:"Y" }}/{{ article.published_from|date:"m" }}/{{ article.published_from|date:"d" }}/{{ article.slug }}/">{{ article.title|truncatewords:"3"|escape }}</a>                <a class="btn btn-small rss" href="{% url "article_feed" feed_type="rss" %}"><span>{% trans "RSS feed" %}</span></a>            </div>        {% endblock %} -->        <div class="article-content row">            <div class="col-xs-12  col-md-8">                <div class="article-date">{{ article.published_from|datefmt:"long" }}</div>                {% if article.category.title %}<h2 class="article-category">{{ article.category.title }}</h2>{% endif %}                <h1>{{ article.title|escape }}</h1>                {% if article.subtitle %}                    <h4 class="subtitle">{{ article.subtitle }}</h4>                {% endif %}                {% comment %}{% if article.description %}                    <div>                        {{ article.get_rendered_description }}                    </div>                {% endif %}{% endcomment %}                {% if article.image %}                    <div class="article-image">                        <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"detail_image" }}" alt="{{ article.get_title|escape }}" />                        {% if article.image_description %}                            <div class="article-image-caption">                                {{ article.get_rendered_image_description }}                            </div>                        {% else %}                            {% with article.image|file_description as file_desc %}                                {% if file_desc.title or file_desc.author %}                                    <div class="article-image-caption">                                        {{  file_desc.title }}{% if file_desc.author %}{% if file_desc.title %}, {% endif %}{% trans "Photo" %}: {{ file_desc.author }}{% endif %}                                    </div>                                {% endif %}                            {% endwith %}                        {% endif %}                    </div>                {% endif %}                <div  class="article-content-cms">                    {{ article.get_rendered_content }}                 </div>            </div>        </div>        <div class="article-more-list row">            <div class="col-xs-12  col-md-8">                {% other_articles article 3 %}            </div>        </div>    </div>{% endblock %}
+{% extends "articles/articles_base.html" %}
+{% load base_tags babel i18n auth_extended image_modifications articles_tags fb_tags %}
+
+{% block title %}
+    {{ article.title|escape }} —
+{% endblock %}
+
+{% block open_graph %}
+    <meta property="og:url" content="{{ request.build_absolute_uri  }}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="{{ article.title|escape }}" />
+    <meta property="og:site_name" content="{{ article.title|escape }}" />
+    {% if article.image %}
+        <meta property="og:image" content="http://www.berlin-buehnen.de/{{ UPLOADS_URL }}{{ article.image|modified_path:"detail_image" }}" />
+    {% endif %}
+{% endblock %}
+
+{% block details %}
+    {% comment %}<!--
+    TODO CHECK PRIVILEGES TO DISPLAY DRAFTS
+    {% if_has_perm "blog.change_blog_posts" blog %}
+        {% ifequal post_filter "drafts" %}
+            <a class="active" href="{{ rel_root_dir }}">{% trans "Drafts" %}({{ nof_drafts }})</a> | 
+        {% else %}
+            <a href="{{ rel_root_dir }}drafts/">{% trans "Drafts" %}({{ nof_drafts }})</a> |
+        {% endifequal %}
+    {% end_if_has_perm %}
+    -->{% endcomment %}
+    <a class="fawesome back no-print" href="{{ rel_root_dir }}">{% trans "back to overview" %}</a>
+    <div id="article_detail">
+        <!-- {% block breadcrumbs %}
+            <div class="breadcrumbs">
+                <a class="btn btn-small" href="{{ rel_root_dir }}">{% trans "Overview" %}</a>
+                <a class="btn btn-small" href="{{ rel_root_dir }}{% if type %}{{ type.slug }}/{% endif %}{{ article.published_from|date:"Y" }}/">{{ article.published_from|date:"Y" }}</a>
+                <a class="btn btn-small" href="{{ rel_root_dir }}{% if type %}{{ type.slug }}/{% endif %}{{ article.published_from|date:"Y" }}/{{ article.published_from|date:"m" }}/">{{ article.published_from|datefmt:"MMM" }} </a>
+                <a class="btn btn-small" href="{{ rel_root_dir }}{% if type %}{{ type.slug }}/{% endif %}{{ article.published_from|date:"Y" }}/{{ article.published_from|date:"m" }}/{{ article.published_from|date:"d" }}/">{{ article.published_from|date:"d" }}</a>
+                <a class="btn btn-small btn-active" href="{{ rel_root_dir }}{% if type %}{{ type.slug }}/{% endif %}{{ article.published_from|date:"Y" }}/{{ article.published_from|date:"m" }}/{{ article.published_from|date:"d" }}/{{ article.slug }}/">{{ article.title|truncatewords:"3"|escape }}</a>
+                <a class="btn btn-small rss" href="{% url "article_feed" feed_type="rss" %}"><span>{% trans "RSS feed" %}</span></a>
+            </div>
+        {% endblock %} -->
+        <div class="article-content row">
+            <div class="col-xs-12  col-md-8">
+                <div class="article-date">{{ article.published_from|datefmt:"long" }}</div>
+                {% if article.category.title %}<h2 class="article-category">{{ article.category.title }}</h2>{% endif %}
+                <h1>{{ article.title|escape }}</h1>
+                {% if article.subtitle %}
+                    <h4 class="subtitle">{{ article.subtitle }}</h4>
+                {% endif %}
+
+                {% comment %}{% if article.description %}
+                    <div>
+                        {{ article.get_rendered_description }}
+                    </div>
+                {% endif %}{% endcomment %}
+                {% if article.image %}
+                    <div class="article-image">
+                        <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"detail_image" }}" alt="{{ article.get_title|escape }}" />
+                        {% if article.image_description %}
+                            <div class="article-image-caption">
+                                {{ article.get_rendered_image_description }}
+                            </div>
+                        {% else %}
+                            {% with article.image|file_description as file_desc %}
+                                {% if file_desc.title or file_desc.author %}
+                                    <div class="article-image-caption">
+                                        {{  file_desc.title }}{% if file_desc.author %}{% if file_desc.title %}, {% endif %}{% trans "Photo" %}: {{ file_desc.author }}{% endif %}
+                                    </div>
+                                {% endif %}
+                            {% endwith %}
+                        {% endif %}
+                    </div>
+                {% endif %}
+                <div  class="article-content-cms">
+                    {{ article.get_rendered_content }} 
+                </div>
+            </div>
+        </div>
+        <div class="article-more-list row">
+            <div class="col-xs-12  col-md-8">
+                {% other_articles article 3 %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
