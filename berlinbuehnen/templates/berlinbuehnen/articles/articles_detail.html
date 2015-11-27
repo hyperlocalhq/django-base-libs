@@ -11,7 +11,7 @@
     <meta property="og:title" content="{{ article.title|escape }}" />
     <meta property="og:site_name" content="{{ article.title|escape }}" />
     {% if article.image %}
-        <meta property="og:image" content="http://www.berlin-buehnen.de/{{ UPLOADS_URL }}{{ article.image|modified_path:"detail_image" }}" />
+        <meta property="og:image" content="http://www.berlin-buehnen.de{{ UPLOADS_URL }}{{ article.image|modified_path:"detail_image" }}" />
     {% endif %}
 {% endblock %}
 
