@@ -135,9 +135,9 @@ def get_browse_queryset(request, use_httpstate=False, **kwargs):
             )
         elif k == "location-type":
             queryset = queryset.filter(
-                location_type__lft__gte=v.lft,
-                location_type__rght__lte=v.rght,
-                location_type__tree_id=v.tree_id,
+                locality_type__lft__gte=v.lft,
+                locality_type__rght__lte=v.rght,
+                locality_type__tree_id=v.tree_id,
             )
         v.criterion = k
         selected_cats.append(v)

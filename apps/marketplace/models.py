@@ -12,7 +12,7 @@ from jetson.apps.marketplace.base import *
 class JobOffer(JobOfferBase):
     talent_in_berlin = models.BooleanField(_("Export to www.talent-in-berlin.de"), default=False)
 
-    def get_location_type(self):
+    def get_locality_type(self):
         from jetson.apps.location.models import LocalityType
         try:
             postal_address = self.postal_address

@@ -28,11 +28,11 @@
             <dd>{{ object.get_tags|join:", " }}</dd>
         </dl>
     {% endif %}
-    {% if object.get_location_type %}
+    {% if object.get_locality_type %}
         <dl>
             <dt>{% trans "Location" %}</dt>
             <dd>
-                {{ object.get_location_type.get_title|escape }}
+                {{ object.get_locality_type.get_title|escape }}
             </dd>
         </dl>
     {% endif %}

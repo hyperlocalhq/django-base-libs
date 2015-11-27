@@ -28,7 +28,7 @@ class InstitutionSearchForm(dynamicforms.Form):
         required=False,
         queryset=get_related_queryset(Institution, "institution_types"),
     )
-    location_type = TreeNodeChoiceField(
+    locality_type = TreeNodeChoiceField(
         empty_label=_("All"),
         label=_("Location Type"),
         required=False,

@@ -10,7 +10,7 @@
     {% endif %}
 <li>
     <a href="{% if object|is_context_item %}/browse/reset-all/?goto_next={% endif %}/browse/by-location-type/{{ cat.slug }}/">{{ cat.get_title|escape }}</a>
-    ({{ cat.item_count }}) {% location_types_under cat.sysname using "site_specific/location_types.html" browsing %}
+    ({{ cat.item_count }}) {% locality_type_under cat.slug using "site_specific/locality_types.html" browsing %}
 </li>
 {% if forloop.last %}</ul>{% endif %}
 {% endfor %}{% endspaceless %}

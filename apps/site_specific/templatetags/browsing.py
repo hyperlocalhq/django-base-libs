@@ -120,7 +120,7 @@ def institution_types_under(sysname, request, is_for_browsing=False, is_for_crea
     #    return InstitutionType.objects.filter(**filter_params).extra(select={'item_count': 'SELECT COUNT(DISTINCT sc.id) FROM system_contextitem AS sc INNER JOIN system_contextitem_object_types AS scot ON sc.id=scot.contextitem_id INNER JOIN structure_term AS ot2 ON scot.term_id=ot2.id ' + ' '.join(additional_joins) + ' WHERE ot2.path_search LIKE CONCAT(structure_term.path_search, "%%") AND ' + ' AND '.join(additional_conditions) + ' AND sc.status IN ("published", "published_commercial")'})
 
 
-def location_types_under(sysname, request, is_for_browsing=False, is_for_creating=False):
+def locality_type_under(sysname, request, is_for_browsing=False, is_for_creating=False):
     from jetson.apps.location.models import LocalityType
     browsing_filters = request.httpstate.get("browsing_filters", {})
     additional_joins = []
@@ -155,7 +155,7 @@ def do_categories_under(parser, token):
         {% context_categories_under <sysname> [using <template_path>] [browsing|creating|selecting] %}
         {% creative_sectors_under <sysname> [using <template_path>] [browsing|creating|selecting] %}
         {% institution_types_under <sysname> [using <template_path>] [browsing|creating|selecting] %}
-        {% location_types_under <sysname> [using <template_path>] [browsing|creating|selecting] %}
+        {% locality_types_under <sysname> [using <template_path>] [browsing|creating|selecting] %}
     
     Examples::
 
@@ -214,7 +214,7 @@ class CategoriesUnder(template.Node):
                 "context_categories_under": "get_context_categories",
                 "creative_sectors_under": "get_creative_sectors",
                 "institution_types_under": "get_object_types",
-                "location_types_under": "get_location_type",
+                "locality_type_under": "get_locality_type",
             }
             categories = [cat for cat in categories
                           if self.is_for_creating or (cat.item_count and is_active_object_category(
@@ -227,7 +227,7 @@ class CategoriesUnder(template.Node):
                 "context_categories_under": "context-category",
                 "creative_sectors_under": "creative-sector",
                 "institution_types_under": "object-type",
-                "location_types_under": "location-type",
+                "locality_type_under": "location-type",
             }
             categories = [cat for cat in categories
                           if cat.item_count and is_active_browsed_category(
@@ -250,7 +250,7 @@ class CategoriesUnder(template.Node):
 register.tag('context_categories_under', do_categories_under)
 register.tag('creative_sectors_under', do_categories_under)
 register.tag('institution_types_under', do_categories_under)
-register.tag('location_types_under', do_categories_under)
+register.tag('locality_type_under', do_categories_under)
 
 ### FILTERS ###
 

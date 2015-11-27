@@ -895,7 +895,7 @@ class EventSearchForm(dynamicforms.Form):
         required=False,
         queryset=get_related_queryset(Event, "event_type"),
         )
-    location_type = TreeNodeChoiceField(
+    locality_type = TreeNodeChoiceField(
         empty_label=_("All"),
         label=_("Location Type"),
         required=False,

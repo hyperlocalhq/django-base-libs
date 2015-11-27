@@ -370,7 +370,7 @@ class PersonBase(CreationModificationDateMixin, UrlMixin):
             ],
         )
         
-    def get_location_type(self):
+    def get_locality_type(self):
         from jetson.apps.location.models import LocalityType
         try:
             postal_address = self.get_contacts()[0].postal_address

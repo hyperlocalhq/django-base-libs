@@ -344,7 +344,7 @@ class PersonGroupBase(CreationModificationDateMixin, PersonGroupObjectRelation, 
     def get_context_categories(self):
         return self.context_categories.all()
         
-    def get_location_type(self):
+    def get_locality_type(self):
         from jetson.apps.location.models import LocalityType
         if self.content_type and  self.content_type.model == "address":
             postal_address = self.content_object

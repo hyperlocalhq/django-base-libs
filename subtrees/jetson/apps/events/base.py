@@ -629,7 +629,7 @@ class ComplexEventBase(EventBase, OpeningHoursMixin):
                         )
     save.alters_data = True
 
-    def get_location_type(self):
+    def get_locality_type(self):
         from jetson.apps.location.models import LocalityType
         try:
             postal_address = self.postal_address
@@ -669,7 +669,7 @@ class ComplexEventBase(EventBase, OpeningHoursMixin):
                 else:
                     return regional
         except:
-            return self.venue and self.venue.get_location_type() or None
+            return self.venue and self.venue.get_locality_type() or None
         
     def get_object_types(self):
         return self.event_type and [self.event_type] or []
