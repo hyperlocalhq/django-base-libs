@@ -68,6 +68,11 @@
                     margin-right: 0;
                     width: auto;
                     display: none;
+                    
+                    .is-xs & {
+                        display: inline-block;
+                    }
+                    
                     &:before {
                         line-height: 100%;
                         font-size: 2em;

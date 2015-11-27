@@ -95,6 +95,11 @@
                 margin-bottom: 0;
                 width: auto;
                 display: none;
+                
+                .is-xs & {
+                    display: inline-block;
+                }
+                
                 &:hover {
                     color: $white;
                 }

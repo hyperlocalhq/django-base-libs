@@ -481,6 +481,7 @@ body.show-layer.image-layer .layer#image-layer { display: block; }
 .row.profile-grid > div a.content .name br { display: none; }
 .row.profile-grid > div .button-group { position: absolute; top: 10px; right: 25px; }
 .row.profile-grid > div .button-group .button { padding: 0; background: none; border-radius: 0; color: #afaeae; font-size: 1em; margin-left: 20px; margin-right: 0; margin-bottom: 0; width: auto; display: none; }
+.is-xs .row.profile-grid > div .button-group .button { display: inline-block; }
 .row.profile-grid > div .button-group .button:hover { color: #fff; }
 .row.profile-grid > div .button-group .button:before { line-height: 100%; }
 .row.profile-grid > div .button-group .button:first-child { margin-left: 0; }
@@ -790,6 +791,7 @@ img[data-popup-image-src] { cursor: pointer; }
 .slider.portfolio.row .wrapper > div a.content:hover h2 { display: block; }
 .slider.portfolio.row .wrapper > div h2 { font-family: "MetronicSlabPro", "sans-serif"; font-weight: 900; display: none; margin: 0; }
 .slider.portfolio.row .wrapper > div .button-group .button { padding: 0; background: none; border-radius: 0; line-height: 2em; margin-left: 20px; margin-right: 0; width: auto; display: none; }
+.is-xs .slider.portfolio.row .wrapper > div .button-group .button { display: inline-block; }
 .slider.portfolio.row .wrapper > div .button-group .button:before { line-height: 100%; font-size: 2em; }
 .slider.portfolio.row .wrapper > div .button-group .button:first-child { margin-left: 0; }
 .slider.portfolio.row .wrapper > div .button-group .button.active { display: inline-block; }
