@@ -64,14 +64,27 @@
                     background: none;
                     border-radius: 0;
                     line-height: 2em;
-                    margin-right: 20px;
+                    margin-left: 20px;
+                    margin-right: 0;
                     width: auto;
+                    display: none;
                     &:before {
                         line-height: 100%;
                         font-size: 2em;
                     }
-                    &:last-child {
-                        margin-right: 0;
+                    &:first-child {
+                        margin-left: 0;
+                    }
+                    &.active {
+                        display: inline-block;
+                    }
+                }
+            }
+            
+            &:hover {
+                .button-group {
+                    .button {
+                        display: inline-block;
                     }
                 }
             }

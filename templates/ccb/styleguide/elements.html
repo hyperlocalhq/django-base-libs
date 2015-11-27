@@ -637,7 +637,7 @@
             &lt;a href="#" class="fawesome fa-grid button after">&lt;span class="text">{% trans 'Show all' %}&lt;/span>&lt;/a>
         &lt;/div>
         &lt;h3>Title des Projektes&lt;/h3>
-        &lt;h4>{% trans 'Rubrics' %}: &lt;span class="feature">Fotografie, Design&lt;/span>&lt;/h4>
+        &lt;h4>&#123;% trans 'Rubrics' %}: &lt;span class="feature">Fotografie, Design&lt;/span>&lt;/h4>
         &lt;div class="line">&lt;/div>
         &lt;div class="button-group bottom-right">
             &lt;a href="#" class="fawesome fa-favorite button">&lt;span class="text">126&lt;/span>&lt;/a>
@@ -657,6 +657,124 @@
 data-popup-image-src="http://placehold.it/1900x1000&text=image in the popup" />
 &lt;h5 class="caption">Caption&lt;/h5>   &lt;-- use it only beneath an image</pre>
                 <p>If the image doesn't have a caption, leave the &lt;h5> tag empty or remove it entirely.</p>
+                <br/>
+                <br/>
+                <br/>
+                <p class="uppercase underline">Projects grid</p>
+                <p>Requirements:<br/>
+                    &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/projects-grid.js">&lt;/script><br/>
+                </p>
+                <br/>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                
+                Navigation
+                
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                <div class="row projects-grid">
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="wrapper tap-hover">
+                            <a class="content tap-hover-trigger" href="#">
+                                <img src="http://placehold.it/640x360&text=image"/>
+                                <h2>Hier steht mehr zum Projekt.</h2>
+                            </a>
+                            <div class="button-group">
+                                <a href="#" class="fawesome fa-favorite button"></a>
+                                <a href="#" class="fawesome fa-more button"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="wrapper tap-hover">
+                            <a class="content tap-hover-trigger" href="#">
+                                <img src="http://placehold.it/640x860&text=image"/>
+                                <h2>Hier steht mehr zum Projekt.</h2>
+                            </a>
+                            <div class="button-group">
+                                <a href="#" class="fawesome fa-favorite button active"></a>
+                                <a href="#" class="fawesome fa-more button"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="wrapper tap-hover">
+                            <a class="content tap-hover-trigger" href="#">
+                                <img src="http://placehold.it/640x560&text=image"/>
+                                <h2>Hier steht mehr zum Projekt.</h2>
+                            </a>
+                            <div class="button-group">
+                                <a href="#" class="fawesome fa-favorite button"></a>
+                                <a href="#" class="fawesome fa-more button"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="wrapper tap-hover">
+                            <a class="content tap-hover-trigger" href="#">
+                                <img src="http://placehold.it/640x460&text=image"/>
+                                <h2>Hier steht mehr zum Projekt.</h2>
+                            </a>
+                            <div class="button-group">
+                                <a href="#" class="fawesome fa-favorite button"></a>
+                                <a href="#" class="fawesome fa-more button"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="wrapper tap-hover">
+                            <a class="content tap-hover-trigger" href="#">
+                                <img src="http://placehold.it/640x960&text=image"/>
+                                <h2>Hier steht mehr zum Projekt.</h2>
+                            </a>
+                            <div class="button-group">
+                                <a href="#" class="fawesome fa-favorite button active"></a>
+                                <a href="#" class="fawesome fa-more button"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <br/>
+                <p>Place the code inside the elements area of a navigation layout block.</p>
+<pre>&lt;div class="row projects-grid">
+    &lt;div class="col-xs-12 col-sm-6">
+        &lt;div class="wrapper tap-hover">
+            &lt;a class="content tap-hover-trigger" href="#">
+                &lt;img src="http://placehold.it/640x360&text=image"/>
+                &lt;h2>Hier steht mehr zum Projekt.&lt;/h2>
+            &lt;/a>
+            &lt;div class="button-group">
+                &lt;a href="#" class="fawesome fa-favorite button">&lt;/a>
+                &lt;a href="#" class="fawesome fa-more button">&lt;/a>
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    &lt;div class="col-xs-12 col-sm-6">
+        &lt;div class="wrapper tap-hover">
+            &lt;a class="content tap-hover-trigger" href="#">
+                &lt;img src="http://placehold.it/640x860&text=image"/>
+                &lt;h2>Hier steht mehr zum Projekt.&lt;/h2>
+            &lt;/a>
+            &lt;div class="button-group">
+                &lt;a href="#" class="fawesome fa-favorite button">&lt;/a>
+                &lt;a href="#" class="fawesome fa-more button">&lt;/a>
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    ... keep adding col blocks
+&lt;/div></pre>
+                <p>Add class="active" to an active icon button.</p>
                 <br/>
                 <br/>
                 <br/>
@@ -1390,6 +1508,7 @@ data-popup-image-src="http://placehold.it/1900x1000&text=image in the popup" />
 {% endblock %}
 
 {% block javascript %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/projects-grid.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/navi-grid.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/twitter-wall.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/slider.js"></script>

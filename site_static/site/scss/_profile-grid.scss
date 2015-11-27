@@ -94,6 +94,7 @@
                 margin-right: 0;
                 margin-bottom: 0;
                 width: auto;
+                display: none;
                 &:hover {
                     color: $white;
                 }
@@ -102,6 +103,17 @@
                 }
                 &:first-child {
                     margin-left: 0;
+                }
+                &.active {
+                    display: inline-block;
+                }
+            }
+        }
+            
+        .wrapper:hover {
+            .button-group {
+                .button {
+                    display: inline-block;
                 }
             }
         }
@@ -223,23 +235,11 @@
                 top: 12px;
                 .button {
                     font-size: inherit;
-                    display: none;
                     &:hover {
                         color: $black;
                     }
                     &:before {
                         font-size: 2em;
-                    }
-                    &.active {
-                        display: inline-block;
-                    }
-                }
-            }
-            
-            .wrapper:hover {
-                .button-group {
-                    .button {
-                        display: inline-block;
                     }
                 }
             }

@@ -41,6 +41,51 @@ $(document).ready(function() {
     widthSniffer();
     
     
+    /**
+     * Simulates a hover state if you tap on a link the first time.
+     * The default click action triggers only at the second tap on the link.
+     *
+     * Mark the link with the class "tap-hover-trigger". If the link is also 
+     * the element which should recieve the class "hover" at the first tap, 
+     * give it the class "tap-hover" as well.
+     *
+     * If a different element (like some parent element) should recieve the 
+     * class "hover", give this element the class "tap-hover" and assign it 
+     * to the link element as jQuery object into the data variable "$tap-hover":
+     * e.g. $link_element.data("$tap-hover", $hover_element);
+     *
+     * Now style the (.hover) class to look like the pseudo (:hover) class.
+     */
+    function tapHover(event) {
+        
+        var $link = $(this);
+        
+        var $hover = $link;
+        if ($link.data('$tap-hover')) {
+            
+            $hover = $link.data('$tap-hover');   
+            
+        } else if (!$link.hasClass('tap-hover')) {
+            
+            $('.tap-hover').removeClass("hover");
+            return;
+        }
+        
+        
+        if ($hover.hasClass('hover')) {
+            
+            return true;
+            
+        } else {
+            
+            $('.tap-hover').removeClass("hover");
+            $hover.addClass("hover");
+            event.preventDefault();
+            return false;
+        }
+    }
+    $('.tap-hover-trigger').on('touchstart', tapHover);
+    $(window).on('touchstart click', tapHover);
     
     
     function Tooltip($element) {
@@ -765,6 +810,7 @@ $(document).ready(function() {
         me.$current_image.css('margin-top', Math.round((me.$image.height() - me.$current_image.height() - me.$caption.height()) / 2) + 'px');
         
         
+        // show caption if image is loaded already
         if (me.$current_image.height()) me.$caption.css('display', '');
         
         
@@ -786,6 +832,7 @@ $(document).ready(function() {
         me.$caption.css('left', image_position.left + 'px');
         me.$caption.width(me.$current_image.width());
         
+        // show the image if it is loaded alreadey
         if (me.$current_image.height()) me.$current_image.css('visibility', '');
         
         
@@ -794,6 +841,7 @@ $(document).ready(function() {
         me.is_open = true;
         
         
+        // animate in the image if it is loaded already
         if (me.$current_image.height()) {
             me.$wrapper.animate({
                 opacity: 1

@@ -480,10 +480,12 @@ body.show-layer.image-layer .layer#image-layer { display: block; }
 .row.profile-grid > div a.content .text h2 { padding-top: 15px; }
 .row.profile-grid > div a.content .name br { display: none; }
 .row.profile-grid > div .button-group { position: absolute; top: 10px; right: 25px; }
-.row.profile-grid > div .button-group .button { padding: 0; background: none; border-radius: 0; color: #afaeae; font-size: 1em; margin-left: 20px; margin-right: 0; margin-bottom: 0; width: auto; }
+.row.profile-grid > div .button-group .button { padding: 0; background: none; border-radius: 0; color: #afaeae; font-size: 1em; margin-left: 20px; margin-right: 0; margin-bottom: 0; width: auto; display: none; }
 .row.profile-grid > div .button-group .button:hover { color: #fff; }
 .row.profile-grid > div .button-group .button:before { line-height: 100%; }
 .row.profile-grid > div .button-group .button:first-child { margin-left: 0; }
+.row.profile-grid > div .button-group .button.active { display: inline-block; }
+.row.profile-grid > div .wrapper:hover .button-group .button { display: inline-block; }
 .is-sm .row.profile-grid > div a.content .text, .is-sm .row.profile-grid > div a.content .name, .is-md .row.profile-grid > div a.content .text, .is-md .row.profile-grid > div a.content .name { height: 100px; }
 .is-sm .row.profile-grid > div a.content .text h2, .is-sm .row.profile-grid > div a.content .name h2, .is-md .row.profile-grid > div a.content .text h2, .is-md .row.profile-grid > div a.content .name h2 { font-size: 1.4em; padding-left: 15px; padding-top: 27px; }
 .is-sm .row.profile-grid > div a.content .text h3, .is-sm .row.profile-grid > div a.content .name h3, .is-md .row.profile-grid > div a.content .text h3, .is-md .row.profile-grid > div a.content .name h3 { font-size: 1em; padding-left: 15px; padding-top: 10px; }
@@ -505,11 +507,9 @@ body.show-layer.image-layer .layer#image-layer { display: block; }
 .list .row.profile-grid.profile-list > div a.content .text ul li .feature:before, .list .row.profile-grid.profile-list > div a.content .name ul li .feature:before { content: " "; padding-left: 5px; }
 .is-sm .list .row.profile-grid.profile-list > div a.content .text ul, .is-sm .list .row.profile-grid.profile-list > div a.content .name ul { font-size: 1em; }
 .list .row.profile-grid.profile-list > div .button-group { top: 12px; }
-.list .row.profile-grid.profile-list > div .button-group .button { font-size: inherit; display: none; }
+.list .row.profile-grid.profile-list > div .button-group .button { font-size: inherit; }
 .list .row.profile-grid.profile-list > div .button-group .button:hover { color: #000; }
 .list .row.profile-grid.profile-list > div .button-group .button:before { font-size: 2em; }
-.list .row.profile-grid.profile-list > div .button-group .button.active { display: inline-block; }
-.list .row.profile-grid.profile-list > div .wrapper:hover .button-group .button { display: inline-block; }
 .is-sm.list .row.profile-grid.profile-list > div a.content .text h2, .is-sm.list .row.profile-grid.profile-list > div a.content .name h2 { font-size: 1.4em; line-height: 100%; padding-right: 130px; margin: -2px 0 0 0; }
 .is-sm.list .row.profile-grid.profile-list > div a.content .text h3, .is-sm.list .row.profile-grid.profile-list > div a.content .name h3 { font-size: 1em; padding-top: 9px; }
 .is-sm.list .row.profile-grid.profile-list > div a.content .text ul, .is-sm.list .row.profile-grid.profile-list > div a.content .name ul { font-size: 1em; bottom: -1px; }
@@ -597,6 +597,38 @@ body.show-layer.image-layer .layer#image-layer { display: block; }
 .row.project-header .button-group.bottom-right { right: 10px; bottom: 50px; }
 .is-sm .row.project-header .button-group.bottom-right { bottom: 44px; }
 .is-xs .row.project-header .button-group.bottom-right { bottom: 32px; }
+
+#body .container .row.projects-grid { margin-left: -10px; margin-right: -10px; }
+#body .container .row.projects-grid > div { padding-left: 10px; padding-right: 10px; }
+
+.row.projects-grid { -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; padding: 0; margin: 0; position: relative; }
+.row.projects-grid > div { padding: 0; margin: 0; position: absolute; }
+.row.projects-grid > div .wrapper { position: relative; }
+.row.projects-grid > div .wrapper a.content { width: 100%; height: 100%; display: block; position: relative; background: #00cdff; }
+.row.projects-grid > div .wrapper a.content .underlay { width: 100%; position: absolute; left: 0; top: 0; display: none; background: #00cdff; }
+.row.projects-grid > div .wrapper a.content .underlay.has-border { border-bottom: 20px solid #fff; }
+.is-xs .row.projects-grid > div .wrapper a.content .underlay.has-border { border-bottom: 10px solid #fff; }
+.row.projects-grid > div .wrapper a.content img { width: 100%; margin: 0; }
+.row.projects-grid > div .wrapper a.content h2 { position: absolute; left: 0; top: 0; width: 100%; font-family: "MetronicSlabPro", "sans-serif"; font-weight: 900; font-size: 1.87em; line-height: 100%; color: #fff; padding-left: 20px; padding-right: 20px; margin: 0; text-transform: none; word-wrap: break-word; visibility: hidden; }
+.is-sm .row.projects-grid > div .wrapper a.content h2 { font-size: 1.2em; line-height: 117%; padding-left: 10px; padding-right: 10px; }
+.row.projects-grid > div .wrapper a.content:hover .underlay { display: block; }
+.row.projects-grid > div .wrapper a.content:hover img { opacity: 0.33; }
+.row.projects-grid > div .wrapper a.content:hover h2 { visibility: visible; }
+.row.projects-grid > div .wrapper .button-group { position: absolute; top: 10px; right: 20px; }
+.is-sm .row.projects-grid > div .wrapper .button-group { top: 0px; right: 15px; }
+.is-xs .row.projects-grid > div .wrapper .button-group { top: 15px; right: 20px; }
+.row.projects-grid > div .wrapper .button-group .button { padding: 0; background: none; border-radius: 0; color: #afaeae; font-size: inherit; display: none; margin-left: 20px; margin-right: 0; margin-bottom: 0; width: auto; }
+.is-sm .row.projects-grid > div .wrapper .button-group .button { margin-left: 15px; }
+.row.projects-grid > div .wrapper .button-group .button:hover { color: #fff; }
+.row.projects-grid > div .wrapper .button-group .button:before { font-size: 2em; line-height: 100%; }
+.is-sm .row.projects-grid > div .wrapper .button-group .button:before { font-size: 1.67em; }
+.row.projects-grid > div .wrapper .button-group .button.active { display: inline-block; }
+.row.projects-grid > div .wrapper .button-group .button:first-child { margin-left: 0; }
+.row.projects-grid > div .wrapper:hover, .row.projects-grid > div .wrapper.hover { z-index: 1; }
+.row.projects-grid > div .wrapper:hover .button-group .button, .row.projects-grid > div .wrapper.hover .button-group .button { display: inline-block; }
+.row.projects-grid > div .wrapper.hover a.content .underlay { display: block; }
+.row.projects-grid > div .wrapper.hover a.content img { opacity: 0.33; }
+.row.projects-grid > div .wrapper.hover a.content h2 { visibility: visible; }
 
 #body > .container > .row.navi-grid { margin-left: -5px; margin-right: -5px; }
 #body > .container > .row.navi-grid > div { padding-left: 5px; padding-right: 5px; }
@@ -757,9 +789,11 @@ img[data-popup-image-src] { cursor: pointer; }
 .is-xs .slider.portfolio.row .wrapper > div a.content:hover img { opacity: 1; }
 .slider.portfolio.row .wrapper > div a.content:hover h2 { display: block; }
 .slider.portfolio.row .wrapper > div h2 { font-family: "MetronicSlabPro", "sans-serif"; font-weight: 900; display: none; margin: 0; }
-.slider.portfolio.row .wrapper > div .button-group .button { padding: 0; background: none; border-radius: 0; line-height: 2em; margin-right: 20px; width: auto; }
+.slider.portfolio.row .wrapper > div .button-group .button { padding: 0; background: none; border-radius: 0; line-height: 2em; margin-left: 20px; margin-right: 0; width: auto; display: none; }
 .slider.portfolio.row .wrapper > div .button-group .button:before { line-height: 100%; font-size: 2em; }
-.slider.portfolio.row .wrapper > div .button-group .button:last-child { margin-right: 0; }
+.slider.portfolio.row .wrapper > div .button-group .button:first-child { margin-left: 0; }
+.slider.portfolio.row .wrapper > div .button-group .button.active { display: inline-block; }
+.slider.portfolio.row .wrapper > div:hover .button-group .button { display: inline-block; }
 .is-xs .slider.portfolio.row .wrapper > div { margin-bottom: 20px; position: static; padding-left: 0; padding-right: 0; }
 .is-xs .slider.portfolio.row .wrapper > div img, .is-xs .slider.portfolio.row .wrapper > div .image-hover-bg { width: 100%; margin: 0; }
 .is-xs .slider.portfolio.row .wrapper > div h2 { color: #000; font-size: 1.27em; line-height: 100%; padding: 20px 0; background: #fff; display: block; }
