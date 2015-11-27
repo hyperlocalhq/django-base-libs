@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from mptt.forms import TreeNodeChoiceField
 
 from jetson.apps.institutions.forms import *
+from jetson.apps.location.models import LocalityType
 from base_libs.forms import dynamicforms
 from jetson.apps.structure.models import Term
 
@@ -31,9 +32,7 @@ class InstitutionSearchForm(dynamicforms.Form):
         empty_label=_("All"),
         label=_("Location Type"),
         required=False,
-        queryset=Term.objects.filter(
-            vocabulary__sysname='basics_locality',
-        ).order_by("tree_id", "lft"),
+        queryset=LocalityType.objects.order_by("tree_id", "lft"),
     )
 
     def get_query(self):

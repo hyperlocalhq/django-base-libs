@@ -345,26 +345,24 @@ class PersonGroupBase(CreationModificationDateMixin, PersonGroupObjectRelation, 
         return self.context_categories.all()
         
     def get_location_type(self):
+        from jetson.apps.location.models import LocalityType
         if self.content_type and  self.content_type.model == "address":
             postal_address = self.content_object
             if postal_address.country != "DE":
-                return Term.objects.get(
-                    vocabulary__sysname="basics_locality",
-                    sysname="international",
-                    )
+                return LocalityType.objects.get(
+                    slug="international",
+                )
             elif postal_address.city.lower() != "berlin":
-                return Term.objects.get(
-                    vocabulary__sysname="basics_locality",
-                    sysname="national",
-                    )
+                return LocalityType.objects.get(
+                    slug="national",
+                )
             else:
                 import re
                 from jetson.apps.location.data import POSTAL_CODE_2_DISTRICT
                 locality = postal_address.get_locality()
-                regional = Term.objects.get(
-                    vocabulary__sysname="basics_locality",
-                    sysname="regional",
-                    )
+                regional = LocalityType.objects.get(
+                    slug="regional",
+                )
                 p = re.compile('[^\d]*') # remove non numbers
                 postal_code = p.sub("", postal_address.postal_code)
                 
@@ -377,12 +375,11 @@ class PersonGroupBase(CreationModificationDateMixin, PersonGroupObjectRelation, 
                     d = {}
                     for lang_code, lang_verbose in settings.LANGUAGES:
                         d["title_%s" % lang_code] = district
-                    term, created = Term.objects.get_or_create(
-                        vocabulary=regional.vocabulary,
+                    term, created = LocalityType.objects.get_or_create(
                         slug=slugify(district),
                         parent=regional,
                         defaults=d,
-                        )
+                    )
                     return term
                 else:
                     return regional

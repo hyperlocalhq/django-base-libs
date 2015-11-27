@@ -24,6 +24,7 @@ from base_libs.views import access_denied
 
 from jetson.apps.utils.decorators import login_required
 from jetson.apps.structure.models import Term, ContextCategory
+from jetson.apps.location.models import LocalityType
 from jetson.apps.comments.models import Comment
 from jetson.apps.comments.views.comments import post_comment
 
@@ -51,9 +52,7 @@ BROWSING_CRITERIA = {
         vocabulary__sysname="categories_creativesectors",
     ),
     "context-category": ContextCategory.objects.all(),
-    "location-type": Term.objects.filter(
-        vocabulary__sysname="basics_locality",
-    ),
+    "location-type": LocalityType.objects.all(),
 }
 
 TYPE_2_MODEL = {

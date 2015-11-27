@@ -22,7 +22,7 @@ from base_libs.utils.misc import get_unique_value
 from tagging.forms import TagField
 from tagging_autocomplete.widgets import TagAutocomplete
 
-from jetson.apps.location.models import Address
+from jetson.apps.location.models import Address, LocalityType
 from jetson.apps.structure.models import Term
 from jetson.apps.optionset.models import PhoneType, EmailType, URLType
 
@@ -1807,9 +1807,7 @@ class EventSearchForm(dynamicforms.Form):
         empty_label=_("All"),
         label=_("Location Type"),
         required=False,
-        queryset=Term.objects.filter(
-            vocabulary__sysname='basics_locality',
-        ).order_by("tree_id", "lft"),
+        queryset=Locality.objects.order_by("tree_id", "lft"),
     )
     keywords = forms.CharField(
         label=_("Keyword(s)"),

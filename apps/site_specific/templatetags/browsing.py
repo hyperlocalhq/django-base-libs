@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from django.db.models import get_model
+from django.apps import apps
 from django.template import loader
 from django import template
 
@@ -92,7 +92,7 @@ def creative_sectors_under(sysname, request, is_for_browsing=False, is_for_creat
 
 
 def institution_types_under(sysname, request, is_for_browsing=False, is_for_creating=False):
-    InstitutionType = get_model("institutions", "InstitutionType")
+    InstitutionType = apps.get_model("institutions", "InstitutionType")
     browsing_filters = request.httpstate.get("browsing_filters", {})
     additional_joins = []
     additional_conditions = ["1"]
@@ -121,6 +121,7 @@ def institution_types_under(sysname, request, is_for_browsing=False, is_for_crea
 
 
 def location_types_under(sysname, request, is_for_browsing=False, is_for_creating=False):
+    from jetson.apps.location.models import LocalityType
     browsing_filters = request.httpstate.get("browsing_filters", {})
     additional_joins = []
     additional_conditions = ["1"]
@@ -135,13 +136,10 @@ def location_types_under(sysname, request, is_for_browsing=False, is_for_creatin
         #    additional_joins.append('INNER JOIN system_contextitem_creative_sectors AS scci ON sc.id=scci.contextitem_id INNER JOIN structure_term AS st ON scci.term_id=st.id')
         #    additional_conditions.append('st.path_search LIKE "' + selected.path_search + '%%"')
     if sysname:
-        filter_params = {'parent__sysname': sysname}
+        filter_params = {'parent__slug': sysname}
     else:
         filter_params = {'parent__isnull': True}
-    # if is_for_creating:
-    return Term.objects.filter(**dict(filter_params, vocabulary__sysname="basics_locality"))
-    # else:
-    #    return Term.objects.filter(**dict(filter_params, vocabulary__sysname="basics_locality")).extra(select={'item_count': 'SELECT COUNT(DISTINCT sc.id) FROM system_contextitem AS sc INNER JOIN structure_term AS lt ON sc.location_type_id=lt.id ' + ' '.join(additional_joins) + ' WHERE lt.path_search LIKE CONCAT(structure_term.path_search, "%%") AND ' + ' AND '.join(additional_conditions) + ' AND sc.status IN ("published", "published_commercial")'})
+    return LocalityType.objects.filter(**dict(filter_params))
 
 
 ### TAGS ###

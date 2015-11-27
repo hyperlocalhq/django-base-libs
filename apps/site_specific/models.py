@@ -222,10 +222,6 @@ class ContextItem(CreationModificationDateMixin, ContextItemObjectRelation, UrlM
         blank=True,
     )
 
-    location_type = TreeForeignKey("structure.Term", verbose_name=_("Location type"),
-                                   limit_choices_to={'vocabulary__sysname': 'basics_locality'}, blank=True, null=True,
-                                   related_name="locality_contextitems")
-
     locality_type = TreeForeignKey("location.LocalityType", verbose_name=_("Locality type"), blank=True, null=True)
 
     status = models.CharField(max_length=20, blank=True)
