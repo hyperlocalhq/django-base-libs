@@ -200,6 +200,8 @@ canvas.fawesome.big { width: 41px; height: 46px; }
 
 .fawesome.fa-grid:before { content: "\f00a"; }
 
+.fawesome.fa-rocket:before { content: "\f135"; }
+
 .fawesome.fa-twitter.after:after { content: "\f099"; }
 
 .fawesome.fa-facebook.after:after { content: "\f09a"; }
@@ -305,6 +307,8 @@ canvas.fawesome.big { width: 41px; height: 46px; }
 .fawesome.fa-list-short.after:after { content: "\f0ca"; }
 
 .fawesome.fa-grid.after:after { content: "\f00a"; }
+
+.fawesome.fa-rocket.after:after { content: "\f135"; }
 
 body { font-family: "Lato", "sans-serif"; font-size: 15px; font-weight: 400; color: #000; }
 body.show-layer { height: 100%; min-height: 100%; overflow: hidden; }
@@ -610,8 +614,15 @@ body.show-layer.image-layer .layer#image-layer { display: block; }
 .row.projects-grid > div .wrapper a.content .underlay.has-border { border-bottom: 20px solid #fff; }
 .is-xs .row.projects-grid > div .wrapper a.content .underlay.has-border { border-bottom: 10px solid #fff; }
 .row.projects-grid > div .wrapper a.content img { width: 100%; margin: 0; }
-.row.projects-grid > div .wrapper a.content h2 { position: absolute; left: 0; top: 0; width: 100%; font-family: "MetronicSlabPro", "sans-serif"; font-weight: 900; font-size: 1.87em; line-height: 100%; color: #fff; padding-left: 20px; padding-right: 20px; margin: 0; text-transform: none; word-wrap: break-word; visibility: hidden; }
-.is-sm .row.projects-grid > div .wrapper a.content h2 { font-size: 1.2em; line-height: 117%; padding-left: 10px; padding-right: 10px; }
+.row.projects-grid > div .wrapper a.content h2 { position: absolute; left: 0; top: 0; width: 100%; font-family: "MetronicSlabPro", "sans-serif"; font-weight: 700; font-size: 1.87em; line-height: 110%; color: #fff; padding-left: 20px; padding-right: 20px; margin: 0; text-transform: none; word-wrap: break-word; visibility: hidden; }
+.is-sm .row.projects-grid > div .wrapper a.content h2 { font-size: 1.6em; line-height: 100%; padding-left: 10px; padding-right: 10px; }
+.row.projects-grid > div .wrapper a.content .upload-project { width: 100%; height: 250px; background: #d8d8d8; text-align: center; }
+.row.projects-grid > div .wrapper a.content .upload-project .fawesome { color: #979797; padding-bottom: 15px; line-height: 3.07em; }
+.row.projects-grid > div .wrapper a.content .upload-project .fawesome:before { font-size: 3.07em; }
+.is-xs .row.projects-grid > div .wrapper a.content .upload-project .fawesome, .is-sm .row.projects-grid > div .wrapper a.content .upload-project .fawesome { line-height: 2.7em; }
+.is-xs .row.projects-grid > div .wrapper a.content .upload-project .fawesome:before, .is-sm .row.projects-grid > div .wrapper a.content .upload-project .fawesome:before { font-size: 2.7em; }
+.row.projects-grid > div .wrapper a.content .upload-project h3 { color: #979797; text-transform: none; font-size: 1.7em; line-height: 130%; padding: 0 20px; }
+.is-sm .row.projects-grid > div .wrapper a.content .upload-project h3 { font-size: 1.5em; line-height: 125%; padding: 0 10px; }
 .row.projects-grid > div .wrapper a.content:hover .underlay { display: block; }
 .row.projects-grid > div .wrapper a.content:hover img { opacity: 0.33; }
 .row.projects-grid > div .wrapper a.content:hover h2 { visibility: visible; }
@@ -627,6 +638,9 @@ body.show-layer.image-layer .layer#image-layer { display: block; }
 .row.projects-grid > div .wrapper .button-group .button:first-child { margin-left: 0; }
 .row.projects-grid > div .wrapper:hover, .row.projects-grid > div .wrapper.hover { z-index: 1; }
 .row.projects-grid > div .wrapper:hover .button-group .button, .row.projects-grid > div .wrapper.hover .button-group .button { display: inline-block; }
+.row.projects-grid > div .wrapper:hover a.content .upload-project, .row.projects-grid > div .wrapper.hover a.content .upload-project { background: rgba(216, 216, 216, 0.33); }
+.row.projects-grid > div .wrapper:hover a.content .upload-project .fawesome, .row.projects-grid > div .wrapper.hover a.content .upload-project .fawesome { color: #fff; }
+.row.projects-grid > div .wrapper:hover a.content .upload-project h3, .row.projects-grid > div .wrapper.hover a.content .upload-project h3 { color: #fff; }
 .row.projects-grid > div .wrapper.hover a.content .underlay { display: block; }
 .row.projects-grid > div .wrapper.hover a.content img { opacity: 0.33; }
 .row.projects-grid > div .wrapper.hover a.content h2 { visibility: visible; }

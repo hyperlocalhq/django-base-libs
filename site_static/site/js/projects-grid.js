@@ -14,6 +14,7 @@
         me.$main = $main;
         me.$blocks = $('.col-xs-12', me.$main);
         me.$elements = $('.wrapper', me.$main);
+        me.$uploads = $('.upload-project', me.$main);
         me.$body = $('body');
         
         me.$elements.each(function() {
@@ -21,7 +22,9 @@
             var $element = $(this);
             var $link = $('.content', $element);
             
-            $link.prepend($('<div class="underlay"></div>'));
+            if ($('img', $element).length) {
+                $link.prepend($('<div class="underlay"></div>'));
+            }
             $link.data('$tap-hover', $element);
         });
         
@@ -61,6 +64,17 @@
             
             if ($underlay.height() > image_height) $underlay.addClass('has-border');
             else $underlay.removeClass('has-border');
+        });
+        
+        me.$uploads.each(function() {
+           
+            var $add = $(this);
+            var $icon = $('.fawesome', $add);
+            var $text = $('h3', $add);
+            
+            $icon.css('padding-top', '');
+            $icon.css('padding-top', Math.round(($add.height() - ($icon.height() + $text.height()) - 20) / 2) + 'px');
+            
         });
         
         me.mazeIt();

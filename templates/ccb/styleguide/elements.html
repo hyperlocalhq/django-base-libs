@@ -738,6 +738,16 @@ data-popup-image-src="http://placehold.it/1900x1000&text=image in the popup" />
                             </div>
                         </div>
                     </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="wrapper">
+                            <a class="content" href="#">
+                                <div class="upload-project">
+                                    <div class="fawesome fa-rocket"></div>
+                                    <h3>{% trans 'Do you have something new?' %}<br/>{% trans 'Upload project' %}</h3>
+                                </div>    
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -773,8 +783,22 @@ data-popup-image-src="http://placehold.it/1900x1000&text=image in the popup" />
         &lt;/div>
     &lt;/div>
     ... keep adding col blocks
+    
+    &lt;!-- the "Upload project" field -->
+    &lt;div class="col-xs-12 col-sm-6">
+        &lt;div class="wrapper">
+            &lt;a class="content" href="#">
+                &lt;div class="upload-project">
+                    &lt;div class="fawesome fa-rocket">&lt;/div>
+                    &lt;h3>&#123;% trans 'Do you have something new?' %}&lt;br/>&#123;% trans 'Upload project' %}&lt;/h3>
+                &lt;/div>    
+            &lt;/a>
+        &lt;/div>
+    &lt;/div>
+         
 &lt;/div></pre>
-                <p>Add class="active" to an active icon button.</p>
+                <p>Add class="active" to an active icon button.<br/>
+                Remove the "Upload project" field if not needed.</p>
                 <br/>
                 <br/>
                 <br/>
