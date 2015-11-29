@@ -13,8 +13,8 @@
 .is-xs .fawesome.button { padding: 0; border-radius: 0; }
 .fawesome.button:hover { background: transparent; color: #000; }
 .fawesome.button .text { font-size: 0.83em; font-weight: 400; margin-left: 10px; }
-.fawesome.button.form { line-height: 1.6em; }
-.fawesome.button.form:before, .fawesome.button.form:after { width: 1.2em; height: 1.2em; font-size: 1.4em; line-height: 1.2em; color: #fff; border: 1px solid black; border-radius: 50%; text-align: center; padding-left: 0.5px; }
+.fawesome.button.form { line-height: 1.6em; font-size: 24px; display: inline-block; }
+.fawesome.button.form:before, .fawesome.button.form:after { width: 1.2em; height: 1.2em; font-size: 1em; line-height: 1.2em; color: #fff; border: 1px solid black; border-radius: 50%; text-align: center; padding-left: 0.5px; }
 .fawesome.button.form.positive:before, .fawesome.button.form.positive:after { background: #a2eebe; border-color: #a7d0a4; }
 .fawesome.button.form.positive:hover:before, .fawesome.button.form.positive:hover:after, .fawesome.button.form.positive.active:before, .fawesome.button.form.positive.active:after { background: #03bf62; border-color: #009b4a; }
 .fawesome.button.form.negative:before, .fawesome.button.form.negative:after { background: #e9b2b2; border-color: #b47a7a; }
