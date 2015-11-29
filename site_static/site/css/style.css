@@ -9,18 +9,48 @@
 .fawesome:before, .fawesome:after { display: inline-block; font: normal normal normal 14px/1 FontAwesome; text-rendering: auto; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; padding: 0px; margin: 0px; vertical-align: bottom; font-weight: 400; font-size: 2.4em; }
 .is-xs .fawesome:before, .is-xs .fawesome:after { font-size: 1.73em; }
 .fawesome.active { color: #00cdff !important; }
-.fawesome.button { display: block; border-radius: 0; background: transparent; padding: 0; color: #979797; font-size: inherit; }
+.fawesome.button { height: auto; border: none; display: block; border-radius: 0; background: transparent; padding: 0; color: #afaeae; font-size: inherit; }
 .is-xs .fawesome.button { padding: 0; border-radius: 0; }
 .fawesome.button:hover { background: transparent; color: #000; }
 .fawesome.button .text { font-size: 0.83em; font-weight: 400; margin-left: 10px; }
+.fawesome.button.form { line-height: 1.6em; }
+.fawesome.button.form:before, .fawesome.button.form:after { width: 1.2em; height: 1.2em; font-size: 1.4em; line-height: 1.2em; color: #fff; border: 1px solid black; border-radius: 50%; text-align: center; padding-left: 0.5px; }
+.fawesome.button.form.positive:before, .fawesome.button.form.positive:after { background: #a2eebe; border-color: #a7d0a4; }
+.fawesome.button.form.positive:hover:before, .fawesome.button.form.positive:hover:after, .fawesome.button.form.positive.active:before, .fawesome.button.form.positive.active:after { background: #03bf62; border-color: #009b4a; }
+.fawesome.button.form.negative:before, .fawesome.button.form.negative:after { background: #e9b2b2; border-color: #b47a7a; }
+.fawesome.button.form.negative:hover:before, .fawesome.button.form.negative:hover:after, .fawesome.button.form.negative.active:before, .fawesome.button.form.negative.active:after { background: #ff0000; border-color: #c70202; }
+.fawesome.button.primary { background: transparent; color: #00cdff; }
+.fawesome.button.primary:hover { background: transparent; color: #000000; }
+.fawesome.button.success { background: transparent; color: #03bf62; }
+.fawesome.button.success:hover { background: transparent; color: #009b4a; }
+.fawesome.button.warning { background: transparent; color: #dba400; }
+.fawesome.button.warning:hover { background: transparent; color: #b57500; }
+.fawesome.button.danger { background: transparent; color: #ff0000; }
+.fawesome.button.danger:hover { background: transparent; color: #c70202; }
 .fawesome.button.round { display: block; text-align: center; width: 4.93em; border-radius: 50%; background: #000; padding: 0; font-size: inherit; font-weight: inherit; color: #fff; }
 .is-xs .fawesome.button.round { width: 2.53em; border-radius: 50%; padding: 0; }
 .fawesome.button.round:before, .fawesome.button.round:after { line-height: 200%; padding-top: 0; }
 .is-xs .fawesome.button.round:before, .is-xs .fawesome.button.round:after { font-size: 1.27em; }
 .fawesome.button.round.fa-facebook:before, .fawesome.button.round.fa-facebookafter, .fawesome.button.round.fa-googleplus:before, .fawesome.button.round.fa-googleplusafter, .fawesome.button.round.fa-pinterest:before, .fawesome.button.round.fa-pinterestafter { line-height: 190%; padding-top: 5%; }
 .fawesome.button.round:hover { background: #00cdff; }
+.fawesome.button.round.primary { background: #00cdff; color: #fff; }
+.fawesome.button.round.primary:hover { background: #000000; color: #fff; }
+.fawesome.button.round.success { background: #03bf62; color: #fff; }
+.fawesome.button.round.success:hover { background: #009b4a; color: #fff; }
+.fawesome.button.round.warning { background: #dba400; color: #fff; }
+.fawesome.button.round.warning:hover { background: #b57500; color: #fff; }
+.fawesome.button.round.danger { background: #ff0000; color: #fff; }
+.fawesome.button.round.danger:hover { background: #c70202; color: #fff; }
 .fawesome.button.square { display: block; text-align: center; width: 4em; background: #979797; color: #000; font-size: inherit; font-weight: inherit; }
 .fawesome.button.square:hover { background: #000; color: #fff; }
+.fawesome.button.square.primary { background: #00cdff; color: #000; }
+.fawesome.button.square.primary:hover { background: #000000; color: #fff; }
+.fawesome.button.square.success { background: #03bf62; color: #000; }
+.fawesome.button.square.success:hover { background: #009b4a; color: #fff; }
+.fawesome.button.square.warning { background: #dba400; color: #000; }
+.fawesome.button.square.warning:hover { background: #b57500; color: #fff; }
+.fawesome.button.square.danger { background: #ff0000; color: #000; }
+.fawesome.button.square.danger:hover { background: #c70202; color: #fff; }
 .fawesome.button.square:before, .fawesome.button.square:after { line-height: 130%; }
 .fawesome.button.square.small { width: 3em; }
 .fawesome.button.square.small:before, .fawesome.button.square.small:after { line-height: 190%; }
@@ -183,6 +213,10 @@ canvas.fawesome.big { width: 41px; height: 46px; }
 .fawesome.fa-plus:before { content: "\f067"; }
 
 .fawesome.fa-plus-circle:before { content: "\f055"; }
+
+.fawesome.fa-minus:before { content: "\f068"; }
+
+.fawesome.fa-minus-circle:before { content: "\f056"; }
 
 .fawesome.fa-eye:before { content: "\f06e"; }
 
@@ -434,9 +468,20 @@ dl.interview dd:last-child:after { margin-bottom: 0; }
 .is-xs dl.interview dd:after { margin-bottom: 20px; }
 .is-xs dl.interview dd:last-child:after { margin-bottom: 0; }
 
-.button { display: inline-block; font-weight: 700; font-size: 1.2em; color: #fff; background: #00cdff; padding: 10px 48px; border-radius: 1.33em; cursor: pointer; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
-.is-xs .button { font-size: 1.07em; padding: 9px 40px; border-radius: 1.2em; }
-.button:hover { background: #000; }
+.button { height: 2.67em; line-height: 261%; display: inline-block; font-weight: 700; font-size: 1.2em; color: #fff; background: #afaeae; padding: 0px 3em; border-radius: 1.33em; border: 1px solid #999999; cursor: pointer; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+.is-xs .button { font-size: 1.07em; padding: 0px 2em; }
+.button:hover { background: #888888; border-color: #999999; }
+.button.primary { background: #00cdff; border-color: #d8d8d8; }
+.button.primary:hover { background: #000000; border-color: #999999; }
+.button.success { background: #03bf62; border-color: #009b4a; }
+.button.success:hover { background: #009b4a; border-color: #009b4a; }
+.button.warning { background: #dba400; border-color: #b57500; }
+.button.warning:hover { background: #b57500; border-color: #b57500; }
+.button.danger { background: #ff0000; border-color: #c70202; }
+.button.danger:hover { background: #c70202; border-color: #c70202; }
+
+span.button { font-size: 18px; }
+.is-xs span.button { font-size: 16px; }
 
 .button-group { cursor: default; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
 .button-group.top-right { position: absolute; top: -2px; right: 10px; }
@@ -445,6 +490,13 @@ dl.interview dd:last-child:after { margin-bottom: 0; }
 .button-group.bottom-right { position: absolute; bottom: 0px; right: 0px; }
 .button-group .button { margin-right: 2.4em; margin-bottom: 10px; }
 .button-group .button:last-child, .button-group .button:last-of-type { margin-right: 0 !important; }
+
+ul.button-list { list-style: none; margin: 0; padding: 0; overflow: hidden; }
+ul.button-list li { display: inline-block; float: left; padding: 0; margin: 0 10px 15px 0; }
+ul.button-list li:last-child { margin-right: 0; }
+ul.button-list li.active a { color: #fff; background: #00cdff; }
+ul.button-list li a { display: block; height: 36px; font-family: "Lato", "sans-serif"; font-weight: 400; font-size: 1.07em; line-height: 34px; color: #979797; text-transform: uppercase; border: 1px solid #979797; background: #fff; padding: 0 5px; margin: 0; }
+ul.button-list li a:hover, ul.button-list li a.active { color: #fff; background: #00cdff; }
 
 .bubble { width: 105px; height: 105px; padding: 35px 5px 0 10px; margin: 0; font-family: "MetronicSlabPro", "sans-serif"; font-weight: 900; font-size: 1.47em; line-height: 95%; background: #00cdff; border-top-left-radius: 50%; border-top-right-radius: 50%; border-bottom-right-radius: 50%; color: #fff; text-transform: uppercase; display: block; word-wrap: break-word; cursor: default; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
 .is-xs .bubble { width: 80px; height: 80px; padding: 25px 5px 0 8px; font-size: 1.1em; line-height: 97%; }

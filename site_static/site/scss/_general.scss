@@ -442,13 +442,16 @@ dl {
 }
 
 .button {
+    height: 2.67em;
+    line-height: 261%;
     display: inline-block;
     font-weight: $font-bold;
     font-size: 1.2em;
     color: $white;
-    background: $cyan;
-    padding: 10px 48px;
+    background: $button-default;
+    padding: 0px 3em;
     border-radius: 1.33em;
+    border: 1px solid $button-default-border;
     cursor: pointer;
     
     -webkit-touch-callout: none;
@@ -460,12 +463,55 @@ dl {
     
     .is-xs & {
         font-size: 1.07em;
-        padding: 9px 40px;
-        border-radius: 1.2em;
+        padding: 0px 2em;
     }
     
     &:hover {
-        background: $black;
+        background: $button-default-active;
+        border-color: $button-default-border-actvie;
+    }
+    
+    &.primary {
+        background: $button-primary;
+        border-color: $button-primary-border;
+        &:hover {
+            background: $button-primary-active;
+            border-color: $button-primary-active-border;
+        }
+    }
+    
+    &.success {
+        background: $button-success;
+        border-color: $button-success-border;
+        &:hover {
+            background: $button-success-active;
+            border-color: $button-success-active-border;
+        }
+    }
+    
+    &.warning {
+        background: $button-warning;
+        border-color: $button-warning-border;
+        &:hover {
+            background: $button-warning-active;
+            border-color: $button-warning-active-border;
+        }
+    }
+    
+    &.danger {
+        background: $button-danger;
+        border-color: $button-danger-border;
+        &:hover {
+            background: $button-danger-active;
+            border-color: $button-danger-active-border;
+        }
+    }
+}
+
+span.button {
+    font-size: 18px;
+    .is-xs & {
+        font-size: 16px;
     }
 }
 
@@ -502,6 +548,51 @@ dl {
         margin-bottom: 10px;
         &:last-child, &:last-of-type {
             margin-right: 0 !important;
+        }
+    }
+}
+
+ul.button-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    
+    li {
+        display: inline-block;
+        float: left;
+        padding: 0;
+        margin: 0 10px 15px 0;
+        
+        &:last-child {
+            margin-right: 0;
+        }
+        
+        &.active {
+            a {
+                color: $white;
+                background: $cyan;
+            }
+        }
+        
+        a {
+            display: block;
+            height: 36px;
+            font-family: $font-2, $font-family-1;
+            font-weight: $font-regular;
+            font-size: 1.07em;
+            line-height: 34px;
+            color: $grey;
+            text-transform: uppercase;
+            border: 1px solid $grey;
+            background: $white;
+            padding: 0 5px;
+            margin: 0;
+            
+            &:hover, &.active {
+                color: $white;
+                background: $cyan;
+            }
         }
     }
 }

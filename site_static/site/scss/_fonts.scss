@@ -41,6 +41,7 @@
     
     line-height: 2.4em;
     padding-left: 1px;
+    
     .is-xs & {
         line-height: 1.73em;
     }
@@ -66,11 +67,13 @@
     }
     
     &.button {
+        height: auto;
+        border: none;
         display: block;
         border-radius: 0;
         background: transparent;
         padding: 0;
-        color: $grey;
+        color: $button-default;
         font-size: inherit;
         
         .is-xs & {
@@ -87,6 +90,81 @@
             font-size: 0.83em;
             font-weight: $font-regular;
             margin-left: 10px;
+        }
+    
+        &.form {
+            line-height: 1.6em;
+            &:before, &:after {
+                width: 1.2em;
+                height: 1.2em;
+                font-size: 1.4em;
+                line-height: 1.2em;
+                color: $white;
+                border: 1px solid black;
+                border-radius: 50%;
+                text-align: center;
+                padding-left: 0.5px;
+            }
+            &.positive {
+                &:before, &:after {
+                    background: $button-form-positive;
+                    border-color: $button-form-positive-border;
+                }
+                &:hover, &.active {
+                    &:before, &:after {
+                        background: $button-form-positive-active;
+                        border-color: $button-form-positive-active-border;
+                    }
+                }
+            }
+            &.negative {
+                &:before, &:after {
+                    background: $button-form-negative;
+                    border-color: $button-form-negative-border;
+                }
+                &:hover, &.active {
+                    &:before, &:after {
+                        background: $button-form-negative-active;
+                        border-color: $button-form-negative-active-border;
+                    }
+                }
+            }
+        }
+        
+        &.primary {
+            background: transparent;
+            color: $button-primary;
+            &:hover {
+                background: transparent;
+                color: $button-primary-active;
+            }
+        }
+        
+        &.success {
+            background: transparent;
+            color: $button-success;
+            &:hover {
+                background: transparent;
+                color: $button-success-active;
+            }
+        }
+        
+        &.warning {
+            background: transparent;
+            color: $button-warning;
+            &:hover {
+                background: transparent;
+                color: $button-warning-active;
+            }
+        }
+        
+        &.danger {
+            background: transparent;
+            color: $button-danger;
+            &:hover {
+                background: transparent;
+                color: $button-danger-active;
+            }
         }
         
         &.round {
@@ -123,6 +201,42 @@
             &:hover {
                 background: $cyan;
             }
+            
+            &.primary {
+                background: $button-primary;
+                color: $white;
+                &:hover {
+                    background: $button-primary-active;
+                    color: $white;
+                }
+            }
+            
+            &.success {
+                background: $button-success;
+                color: $white;
+                &:hover {
+                    background: $button-success-active;
+                    color: $white;
+                }
+            }
+            
+            &.warning {
+                background: $button-warning;
+                color: $white;
+                &:hover {
+                    background: $button-warning-active;
+                    color: $white;
+                }
+            }
+            
+            &.danger {
+                background: $button-danger;
+                color: $white;
+                &:hover {
+                    background: $button-danger-active;
+                    color: $white;
+                }
+            }
         }
         
         &.square {
@@ -137,6 +251,42 @@
             &:hover {
                 background: $black;
                 color: $white;
+            }
+            
+            &.primary {
+                background: $button-primary;
+                color: $black;
+                &:hover {
+                    background: $button-primary-active;
+                    color: $white;
+                }
+            }
+            
+            &.success {
+                background: $button-success;
+                color: $black;
+                &:hover {
+                    background: $button-success-active;
+                    color: $white;
+                }
+            }
+            
+            &.warning {
+                background: $button-warning;
+                color: $black;
+                &:hover {
+                    background: $button-warning-active;
+                    color: $white;
+                }
+            }
+            
+            &.danger {
+                background: $button-danger;
+                color: $black;
+                &:hover {
+                    background: $button-danger-active;
+                    color: $white;
+                }
             }
             
             &:before, &:after {
@@ -578,6 +728,12 @@ canvas.fawesome {
 }
 .fawesome.fa-plus-circle:before {
     content: "\f055";
+}
+.fawesome.fa-minus:before {
+    content: "\f068";
+}
+.fawesome.fa-minus-circle:before {
+    content: "\f056";
 }
 .fawesome.fa-eye:before {
     content: "\f06e";
