@@ -131,7 +131,9 @@ class ContextItemManager(models.Manager):
             )
         item.slug = obj.slug
         item.status = obj.status
-        item.locality_type = obj.get_locality_type()
+
+        if hasattr(obj, "get_locality_type"):
+            item.locality_type = obj.get_locality_type()
 
         # now fill in additional fields for search ....
 

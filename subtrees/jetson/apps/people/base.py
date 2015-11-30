@@ -372,8 +372,9 @@ class PersonBase(CreationModificationDateMixin, UrlMixin):
         
     def get_locality_type(self):
         from jetson.apps.location.models import LocalityType
-        try:
-            postal_address = self.get_contacts()[0].postal_address
+        contacts = self.get_contacts()
+        if contacts and contacts[0].postal_address:
+            postal_address = contacts[0].postal_address
             if postal_address.country_id != "DE":
                 return LocalityType.objects.get(
                     slug="international",
@@ -409,7 +410,7 @@ class PersonBase(CreationModificationDateMixin, UrlMixin):
                     return term
                 else:
                     return regional
-        except:
+        else:
             return None
         
     def get_object_types(self):
