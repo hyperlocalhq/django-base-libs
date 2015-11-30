@@ -1807,7 +1807,7 @@ class EventSearchForm(dynamicforms.Form):
         empty_label=_("All"),
         label=_("Location Type"),
         required=False,
-        queryset=Locality.objects.order_by("tree_id", "lft"),
+        queryset=LocalityType.objects.order_by("tree_id", "lft"),
     )
     keywords = forms.CharField(
         label=_("Keyword(s)"),
