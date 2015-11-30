@@ -1316,8 +1316,7 @@ def save_data(form_steps, form_step_data):
     institution.is_ec_maestro_ok = form_step_data[2].get('is_ec_maestro_ok', None)
     institution.is_giropay_ok = form_step_data[2].get('is_giropay_ok', None)
 
-    # TODO: check what happens around institution saving: what signals are called and what notifications are created
-    # minimize or rework long-lasting tasks
+    # save the institution to get its id for database relations used further
     institution.save()
 
     institutional_contact = institution.institutionalcontact_set.create(
@@ -1422,8 +1421,10 @@ def save_data(form_steps, form_step_data):
         )
         f.close()
 
-    # save again without triggering any signals
-    institution.save_base(raw=True)
+    # save again triggering signals
+    # TODO: check what happens around institution saving: what signals are called and what notifications are created
+    # minimize or rework long-lasting tasks
+    institution.save()
 
     # this is used for redirection to the institution details page
     form_steps['success_url'] = institution.get_url_path()
