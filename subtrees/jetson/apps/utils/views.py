@@ -16,7 +16,6 @@ from django.core.paginator import Paginator, Page, InvalidPage
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render_to_response
 from django.template import loader, RequestContext, Template, Context
-from django.template.defaultfilters import slugify
 from django.contrib.auth.views import redirect_to_login
 from django.contrib.syndication.views import FeedDoesNotExist
 from django.contrib.contenttypes.models import ContentType
@@ -32,6 +31,8 @@ from django import forms
 
 from ccb.apps.events.utils import create_ics
 from base_libs.utils.misc import ExtendedJSONEncoder
+from base_libs.utils.betterslugify import better_slugify
+
 
 class JsonResponse(HttpResponse):
     def __init__(self, obj):
@@ -766,7 +767,7 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
                 except:
                     filename = ""
                     ext = ""
-                tmp_filename = tz_now().strftime("%d%H%I%S_") + slugify(filename) + "." + ext
+                tmp_filename = tz_now().strftime("%d%H%I%S_") + better_slugify(filename) + "." + ext
                 tmp_path = os.path.join(settings.PATH_TMP, tmp_filename)
                 fd = open(tmp_path, 'wb')
                 for chunk in file_data.chunks():

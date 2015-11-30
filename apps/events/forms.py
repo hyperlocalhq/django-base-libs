@@ -10,7 +10,6 @@ from django.utils.dates import MONTHS
 from django.conf import settings
 from django.db import models
 from django.utils.encoding import force_unicode
-from django.template.defaultfilters import slugify
 
 from base_libs.forms import dynamicforms
 from base_libs.forms.fields import ImageField
@@ -18,6 +17,7 @@ from base_libs.forms.fields import AutocompleteField
 from base_libs.middleware import get_current_user
 from base_libs.utils.misc import get_related_queryset, XChoiceList
 from base_libs.utils.misc import get_unique_value
+from base_libs.utils.betterslugify import better_slugify
 
 from tagging.forms import TagField
 from tagging_autocomplete.widgets import TagAutocomplete
@@ -1522,7 +1522,7 @@ def save_data(form_steps, form_step_data):
 
         venue = Institution(
             title=venue_title,
-            slug=get_unique_value(Institution, slugify(venue_title).replace("-", "_"), separator="_"),
+            slug=get_unique_value(Institution, better_slugify(venue_title).replace("-", "_"), separator="_"),
         )
         venue.status = "event_location"
         venue.save()

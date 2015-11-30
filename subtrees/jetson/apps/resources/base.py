@@ -5,7 +5,6 @@ from datetime import datetime, date
 from django.db import models
 from django.db.models.base import ModelBase
 from django.db.models.fields import FieldDoesNotExist
-from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.utils.functional import lazy
@@ -19,6 +18,7 @@ from base_libs.models import CreationModificationDateMixin
 from base_libs.models.models import SlugMixin
 from base_libs.utils.misc import get_unique_value
 from base_libs.utils.misc import get_website_url
+from base_libs.utils.betterslugify import better_slugify
 from base_libs.middleware import get_current_language
 from base_libs.middleware import get_current_user
 from base_libs.models.query import ExtendedQuerySet
@@ -275,7 +275,7 @@ class DocumentBase(CreationModificationDateMixin, UrlMixin):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = self.title
-        self.slug = get_unique_value(type(self), slugify(self.slug), separator="-", instance_pk=self.id)
+        self.slug = get_unique_value(type(self), better_slugify(self.slug), separator="-", instance_pk=self.id)
         if hasattr(self, "title_en") and not self.title_en:
             self.title_en = self.title_de
         super(DocumentBase, self).save(*args, **kwargs)

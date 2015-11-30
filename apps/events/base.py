@@ -4,7 +4,6 @@ from datetime import datetime
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.template.defaultfilters import slugify
 from django.conf import settings
 from django.utils import dateformat
 from django.utils.formats import get_format
@@ -24,6 +23,7 @@ from base_libs.models.models import OpeningHoursMixin
 from base_libs.models import SlugMixin
 from base_libs.utils.misc import get_unique_value
 from base_libs.utils.misc import is_installed
+from base_libs.utils.betterslugify import better_slugify
 from base_libs.middleware import get_current_language, get_current_user
 from base_libs.models.query import ExtendedQuerySet
 from base_libs.models.fields import URLField
@@ -268,7 +268,7 @@ class EventBase(CreationModificationMixin, UrlMixin):
 
         if not self.slug:
             self.slug = self.title
-        self.slug = get_unique_value(type(self), slugify(self.slug), separator="-", instance_pk=self.id)
+        self.slug = get_unique_value(type(self), better_slugify(self.slug), separator="-", instance_pk=self.id)
         if not self.title_de:
             self.title_de = self.title_en
 
@@ -677,7 +677,7 @@ class ComplexEventBase(EventBase, OpeningHoursMixin):
                     for lang_code, lang_verbose in settings.LANGUAGES:
                         d["title_%s" % lang_code] = district
                     term, created = LocalityType.objects.get_or_create(
-                        slug=slugify(district),
+                        slug=better_slugify(district),
                         parent=regional,
                         defaults=d,
                     )

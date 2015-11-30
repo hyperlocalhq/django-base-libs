@@ -13,7 +13,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.utils.functional import lazy
 from django.utils.encoding import force_unicode
-from django.template.defaultfilters import slugify
 from django.conf import settings
 from django.utils.timezone import now as tz_now
 from django.apps import apps
@@ -24,6 +23,7 @@ from base_libs.models.models import OpeningHoursMixin
 from base_libs.models import SlugMixin
 from base_libs.utils.misc import get_unique_value
 from base_libs.utils.misc import get_website_url
+from base_libs.utils.betterslugify import better_slugify
 from base_libs.middleware import get_current_language
 from base_libs.middleware import get_current_user
 from base_libs.models.query import ExtendedQuerySet
@@ -369,7 +369,7 @@ class InstitutionBase(CreationModificationDateMixin, UrlMixin, OpeningHoursMixin
                     for lang_code, lang_verbose in settings.LANGUAGES:
                         d["title_%s" % lang_code] = district
                     term, created = LocalityType.objects.get_or_create(
-                        slug=slugify(district),
+                        slug=better_slugify(district),
                         parent=regional,
                         defaults=d,
                     )
@@ -446,7 +446,7 @@ class InstitutionBase(CreationModificationDateMixin, UrlMixin, OpeningHoursMixin
             self.slug = title
         self.slug = get_unique_value(
             self.__class__,
-            slugify(self.slug),
+            better_slugify(self.slug),
             separator="_",
             instance_pk=self.id,
             )

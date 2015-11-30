@@ -13,7 +13,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import force_unicode
 from django.utils.safestring import mark_safe
 from django.utils.functional import lazy
-from django.template.defaultfilters import slugify
 from django.conf import settings
 from django.utils.timezone import now as tz_now
 from django.apps import AppConfig
@@ -22,6 +21,7 @@ from base_libs.middleware import get_current_language
 from base_libs.middleware import get_current_user
 from base_libs.utils.misc import get_website_url
 from base_libs.utils.misc import get_translation
+from base_libs.utils.betterslugify import better_slugify
 from base_libs.models.query import ExtendedQuerySet
 from base_libs.models.models import UrlMixin
 from base_libs.models.models import ObjectRelationMixin
@@ -376,7 +376,7 @@ class PersonGroupBase(CreationModificationDateMixin, PersonGroupObjectRelation, 
                     for lang_code, lang_verbose in settings.LANGUAGES:
                         d["title_%s" % lang_code] = district
                     term, created = LocalityType.objects.get_or_create(
-                        slug=slugify(district),
+                        slug=better_slugify(district),
                         parent=regional,
                         defaults=d,
                     )

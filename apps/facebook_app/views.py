@@ -15,14 +15,14 @@ from django.http import HttpResponseRedirect
 from django.db import models
 from django.views.decorators.cache import never_cache
 from django.contrib.auth.decorators import login_required
-from django.template.defaultfilters import slugify
 from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
 
 from base_libs.utils.misc import get_installed
 from base_libs.utils.misc import get_unique_value
+from base_libs.utils.betterslugify import better_slugify
 from base_libs.views import access_denied
-from ccb.apps.people.views import login as jetson_login
+from ccb.apps.accounts.views import login as jetson_login
 
 Site = models.get_model("sites", "Site")
 SiteSettings = models.get_model("configuration", "SiteSettings")
@@ -178,7 +178,7 @@ def register(request):
             'email': profile['email'],
             'username': get_unique_value(
                 User,
-                slugify(profile['name']).replace("-", "_"),
+                better_slugify(profile['name']).replace("-", "_"),
                 field_name="username",
                 separator="_",
             ),

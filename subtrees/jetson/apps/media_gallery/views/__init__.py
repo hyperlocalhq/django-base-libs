@@ -15,7 +15,6 @@ from django.shortcuts import render_to_response
 from django.db.models import Q
 from django.db import models
 from django.shortcuts import get_object_or_404
-from django.template.defaultfilters import slugify
 from django.core.paginator import Paginator, InvalidPage
 from django.views.decorators.cache import never_cache
 from django.conf import settings

@@ -9,13 +9,14 @@ from inspect import isclass
 
 from django.db import models
 from django.core.files import base
-from django.template.defaultfilters import slugify
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 try:
     from django.utils.timezone import now as tz_now
 except:
     tz_now = datetime.now
+
+from base_libs.utils.betterslugify import better_slugify
 
 from filebrowser.fields import FileBrowseField
 from filebrowser.functions import get_version_path
@@ -96,7 +97,7 @@ class FileManager:
         """
         takes any amount of strings as params and makes unique token from that
         """
-        return slugify(cryptString("".join(args)))[:10]
+        return better_slugify(cryptString("".join(args)))[:10]
     
     @staticmethod
     def path_exists(*args):
