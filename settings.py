@@ -193,7 +193,7 @@ MIDDLEWARE_CLASSES = [
     "django.contrib.admindocs.middleware.XViewMiddleware",
     "jetson.apps.utils.middleware.generic.AdminScriptUpdateMiddleware",
     "django.contrib.redirects.middleware.RedirectFallbackMiddleware",
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'django.middleware.clickjacking.XFrameOptionsMiddleware', # we can't have this, because KB is using some content from Kreativ Arbeiten section in an iframe
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
@@ -335,9 +335,6 @@ ADMIN_APP_INDEX = (
             }),
         )
     }, {
-        'title': _('Control'),
-        'apps': ()
-    }, {
         'title': _('Configure'),
         'apps': (
             ('navigation', {
@@ -347,7 +344,7 @@ ADMIN_APP_INDEX = (
             #    'models':("Job", "Log",),
             #    }),
             ('structure', {
-                'models': ("Vocabulary", "Term", "ContextCategory"),
+                'models': ("Vocabulary", "Term", "ContextCategory", "Category"),
             }),
             ('image_mods', {
                 'verbose_name': _("Media"),
@@ -395,7 +392,7 @@ ADMIN_APP_INDEX = (
                 'models': ("SwearWord", "SwearingCase",),
             }),
             ('site_specific', {
-                'models': ("ClaimRequest", "Visit"),
+                'models': ("ClaimRequest", "Visit", "ContextItem"),
             }),
             ('tracker', {
                 'models': ("Concern", "Ticket",),
@@ -405,6 +402,9 @@ ADMIN_APP_INDEX = (
             }),
             ('notification', {
                 'models': ("NoticeTypeCategory", "NoticeType", "NoticeEmailTemplate", "Notice", "Digest",),
+            }),
+            ('location', {
+                'models': ("Address", "LocalityType",),
             }),
         )
     }

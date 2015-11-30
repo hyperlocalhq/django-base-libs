@@ -5,7 +5,6 @@ from django.template import RequestContext, loader, Context
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.contrib.sites.models import Site
 from django.contrib.contenttypes.models import ContentType
-from django.template.defaultfilters import slugify
 from django.db import models
 from django.db import transaction
 from django.contrib.auth import authenticate, login

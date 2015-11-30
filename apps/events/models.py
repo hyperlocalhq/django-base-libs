@@ -30,6 +30,11 @@ class Event(ComplexEventBase):
         related_name="creative_industry_events",
         blank=True,
     )
+    categories = TreeManyToManyField(
+        Category,
+        verbose_name=_("categories"),
+        blank=True
+    )
 
     objects = ExtendedEventManager()
 
@@ -38,6 +43,9 @@ class Event(ComplexEventBase):
 
     def get_context_categories(self):
         return []
+
+    def get_categories(self):
+        return self.categories.all()
 
     def has_fees(self):
         return bool(self.fees)

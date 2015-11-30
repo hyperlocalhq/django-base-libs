@@ -3,7 +3,6 @@ import os
 
 from django import forms
 from django.conf import settings
-from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import string_concat
 from django.db import models
@@ -15,6 +14,7 @@ from base_libs.forms.fields import ImageField
 from jetson.apps.location.models import Address
 from jetson.apps.optionset.models import PhoneType
 from base_libs.utils.misc import get_related_queryset, get_unique_value, XChoiceList
+from base_libs.utils.betterslugify import better_slugify
 from base_libs.middleware import get_current_user
 
 from crispy_forms.helper import FormHelper
@@ -1279,7 +1279,7 @@ def save_data(form_steps, form_step_data):
     institution = Institution(
         title=form_step_data[0].get('institution_name', ''),
         title2=form_step_data[0].get('institution_name2', ''),
-        slug=get_unique_value(Institution, slugify(form_step_data[0].get('institution_name', '')).replace("-", "_"),
+        slug=get_unique_value(Institution, better_slugify(form_step_data[0].get('institution_name', '')).replace("-", "_"),
                               separator="_"),
         status="published",
     )
@@ -1316,8 +1316,7 @@ def save_data(form_steps, form_step_data):
     institution.is_ec_maestro_ok = form_step_data[2].get('is_ec_maestro_ok', None)
     institution.is_giropay_ok = form_step_data[2].get('is_giropay_ok', None)
 
-    # TODO: check what happens around institution saving: what signals are called and what notifications are created
-    # minimize or rework long-lasting tasks
+    # save the institution to get its id for database relations used further
     institution.save()
 
     institutional_contact = institution.institutionalcontact_set.create(
@@ -1422,8 +1421,10 @@ def save_data(form_steps, form_step_data):
         )
         f.close()
 
-    # save again without triggering any signals
-    institution.save_base(raw=True)
+    # save again triggering signals
+    # TODO: check what happens around institution saving: what signals are called and what notifications are created
+    # minimize or rework long-lasting tasks
+    institution.save()
 
     # this is used for redirection to the institution details page
     form_steps['success_url'] = institution.get_url_path()

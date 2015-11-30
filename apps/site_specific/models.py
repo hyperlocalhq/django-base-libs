@@ -3,7 +3,7 @@ from datetime import datetime
 
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, ugettext
 from django.utils.safestring import mark_safe
 from django.utils.functional import lazy
 from django.contrib.auth.models import User
@@ -131,7 +131,9 @@ class ContextItemManager(models.Manager):
             )
         item.slug = obj.slug
         item.status = obj.status
-        item.location_type = obj.get_location_type()
+
+        if hasattr(obj, "get_locality_type"):
+            item.locality_type = obj.get_locality_type()
 
         # now fill in additional fields for search ....
 
@@ -149,6 +151,13 @@ class ContextItemManager(models.Manager):
 
         # context categories
         for cat in obj.get_context_categories():
+            for lang_code, lang_title in settings.LANGUAGES:
+                additional_search_data.append(
+                    getattr(cat, "title_%s" % lang_code),
+                )
+
+        # categories
+        for cat in obj.get_categories():
             for lang_code, lang_title in settings.LANGUAGES:
                 additional_search_data.append(
                     getattr(cat, "title_%s" % lang_code),
@@ -173,6 +182,8 @@ class ContextItemManager(models.Manager):
         item.context_categories.add(*context_categories)
         item.creative_sectors.clear()
         item.creative_sectors.add(*list(obj.get_creative_sectors()))
+        item.categories.clear()
+        item.categories.add(*list(obj.get_categories()))
 
         return item
 
@@ -207,9 +218,13 @@ class ContextItem(CreationModificationDateMixin, ContextItemObjectRelation, UrlM
     context_categories = TreeManyToManyField("structure.ContextCategory", verbose_name=_("Context categories"),
                                              blank=True)
 
-    location_type = TreeForeignKey("structure.Term", verbose_name=_("Location type"),
-                                   limit_choices_to={'vocabulary__sysname': 'basics_locality'}, blank=True, null=True,
-                                   related_name="locality_contextitems")
+    categories = TreeManyToManyField(
+        "structure.Category",
+        verbose_name=_("Categories"),
+        blank=True,
+    )
+
+    locality_type = TreeForeignKey("location.LocalityType", verbose_name=_("Locality type"), blank=True, null=True)
 
     status = models.CharField(max_length=20, blank=True)
 
@@ -243,22 +258,27 @@ class ContextItem(CreationModificationDateMixin, ContextItemObjectRelation, UrlM
 
     def get_title(self, language=None):
         language = language or get_current_language()
-        return getattr(self, "title_%s" % language, "") or self.title
+        return (getattr(self, "title_%s" % language, "") or self.title).strip() or ugettext("(Untitled)")
 
     get_title = lazy(get_title, unicode)
+    get_title.short_description = _("Title")
+    get_title.admin_order_field = "title"
 
     def get_description(self, language=None):
         language = language or get_current_language()
         return mark_safe(getattr(self, "description_%s" % language, "") or self.description)
 
     def get_creative_sectors(self):
-        self.creative_sectors.all()
+        return self.creative_sectors.all()
 
     # def get_object_types(self):
     #    return self.object_types.all()
 
     def get_context_categories(self):
         return self.context_categories.all()
+
+    def get_categories(self):
+        return self.categories.all()
 
     def is_person(self):
         return self.content_type.model == "person"

@@ -7,7 +7,6 @@ from datetime import datetime
 from django.db import models
 from django.db.models.base import ModelBase
 from django.db.models.fields import FieldDoesNotExist
-from django.template.defaultfilters import slugify
 from django.conf import settings
 from django.utils import dateformat
 from django.utils.translation import ugettext_lazy as _, ugettext

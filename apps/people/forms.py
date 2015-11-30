@@ -6,6 +6,8 @@ from mptt.forms import TreeNodeChoiceField
 from base_libs.forms import dynamicforms
 from base_libs.utils.misc import get_related_queryset
 
+from jetson.apps.location.models import LocalityType
+
 Person = models.get_model("people", "Person")
 Term = models.get_model("structure", "Term")
 
@@ -29,13 +31,11 @@ class PersonSearchForm(dynamicforms.Form):
         required=False,
         queryset=get_related_queryset(Person, "individual_type"),
     )
-    location_type = TreeNodeChoiceField(
+    locality_type = TreeNodeChoiceField(
         empty_label=_("All"),
         label=_("Location Type"),
         required=False,
-        queryset=Term.objects.filter(
-            vocabulary__sysname='basics_locality',
-        ).order_by("tree_id", "lft"),
+        queryset=LocalityType.objects.order_by("tree_id", "lft"),
     )
 
     def get_query(self):

@@ -185,7 +185,7 @@ def institution_list(
                     institution_types=it,
                 )
 
-            lt = form.cleaned_data['location_type']
+            lt = form.cleaned_data['locality_type']
             if lt:
                 ContextItem = models.get_model("site_specific", "ContextItem")
                 context_item_qs = ContextItem.objects.filter(
@@ -194,9 +194,9 @@ def institution_list(
                 )
                 if lt:
                     context_item_qs = context_item_qs.filter(
-                        location_type__lft__gte=lt.lft,
-                        location_type__rght__lte=lt.rght,
-                        location_type__tree_id=lt.tree_id,
+                        locality_type__lft__gte=lt.lft,
+                        locality_type__rght__lte=lt.rght,
+                        locality_type__tree_id=lt.tree_id,
                     ).distinct()
 
                 institutions_pks = list(context_item_qs.values_list("object_id", flat=True))

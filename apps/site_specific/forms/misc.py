@@ -28,6 +28,9 @@ image_mods = models.get_app("image_mods")
 from tagging.forms import TagField
 from tagging_autocomplete.widgets import TagAutocomplete
 
+from crispy_forms.helper import FormHelper
+from crispy_forms import layout, bootstrap
+
 from jetson.apps.location.models import Address
 from jetson.apps.optionset.models import PhoneType
 from jetson.apps.mailing.models import EmailMessage
@@ -236,7 +239,7 @@ class ClaimForm(dynamicforms.Form):
                 'comments',
             ),
             bootstrap.FormActions(
-                layout.Submit('submit', _('Send').upper())
+                layout.Submit('submit', _('Send'))
             )
         )
 
@@ -285,6 +288,21 @@ class InvitationForm(dynamicforms.Form):
     def __init__(self, sender, *args, **kwargs):
         super(InvitationForm, self).__init__(*args, **kwargs)
         self.sender = sender
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _('Invitation'),
+                'recipient_email',
+                'body',
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Send'))
+            )
+        )
+
 
     def send(self):
         from jetson.apps.mailing.views import send_email_using_template
@@ -342,6 +360,25 @@ class ProfileDeletionForm(dynamicforms.Form):
             label=_("Profiles to delete"),
             choices=profile_choices,
             widget=CCBCheckboxSelectMultiple,
+        )
+
+        self.helper = FormHelper()
+        self.helper.form_action = "."
+        self.helper.form_method = "POST"
+        self.helper.form_id = "delete_profile_form"
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Profiles to delete"),
+                'profiles',
+            ),
+            layout.Fieldset(
+                _("Additional Options"),
+                'delete_events',
+                'delete_job_offers',
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Delete'))
+            )
         )
 
     def clean_profiles(self):
@@ -658,6 +695,28 @@ class KreativArbeitenContactForm(dynamicforms.Form):
 
     # prevent spam
     prevent_spam = SecurityField()
+
+    def __init__(self, *args, **kwargs):
+        super(KreativArbeitenContactForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_action = ''
+        self.helper.form_method = 'POST'
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _('Contact us'),
+                'sender_name',
+                'sender_email',
+                'subject',
+                'body',
+                'prevent_spam',
+            ),
+            bootstrap.FormActions(
+                layout.Submit(
+                    'submit',
+                    _('Submit'),
+                ),
+            ),
+        )
 
     def save(self, sender=None):
         # do character encoding

@@ -258,26 +258,26 @@ urlpatterns = i18n_patterns(
     url(r'^search/', include("ccb.apps.search.urls")),
 
     # simplesearch
-    url(r'^simplesearch/$', _project_name + '.apps.search.views.simplesearch',
-        simplesearch_dict, name="simple_search"),
-    url(r'^(?P<ot_url_part>%s|%s|%s|%s|%s)/simplesearch/$' % (
-        URL_ID_DOCUMENTS, URL_ID_EVENTS, URL_ID_PERSONGROUPS, URL_ID_INSTITUTIONS,
-        URL_ID_PEOPLE),
-        _project_name + '.apps.search.views.simplesearch', simplesearch_dict,
-        name="model_specific_simple_search"),
-    url(r'^(?P<ot_url_part>%s)/simplesearch/ical/$' % URL_ID_EVENTS,
-        _project_name + '.apps.search.views.simplesearch_ical', simplesearch_dict,
-        name="model_specific_simple_search"),
+    # url(r'^simplesearch/$', _project_name + '.apps.search.views.simplesearch',
+    #     simplesearch_dict, name="simple_search"),
+    # url(r'^(?P<ot_url_part>%s|%s|%s|%s|%s)/simplesearch/$' % (
+    #     URL_ID_DOCUMENTS, URL_ID_EVENTS, URL_ID_PERSONGROUPS, URL_ID_INSTITUTIONS,
+    #     URL_ID_PEOPLE),
+    #     _project_name + '.apps.search.views.simplesearch', simplesearch_dict,
+    #     name="model_specific_simple_search"),
+    # url(r'^(?P<ot_url_part>%s)/simplesearch/ical/$' % URL_ID_EVENTS,
+    #     _project_name + '.apps.search.views.simplesearch_ical', simplesearch_dict,
+    #     name="model_specific_simple_search"),
 
     # simplesearch for creative sectors
-    url(r'^creative-sector/[^/]+/simplesearch/$',
-        _project_name + '.apps.search.views.simplesearch', simplesearch_dict,
-        name="cs_simple_search"),
-    url(r'^creative-sector/[^/]+/(?P<ot_url_part>%s|%s|%s|%s|%s)/simplesearch/$' % (
-        URL_ID_DOCUMENTS, URL_ID_EVENTS, URL_ID_PERSONGROUPS, URL_ID_INSTITUTIONS,
-        URL_ID_PEOPLE),
-        _project_name + '.apps.search.views.simplesearch', simplesearch_dict,
-        name="cs_model_specific_simple_search"),
+    # url(r'^creative-sector/[^/]+/simplesearch/$',
+    #     _project_name + '.apps.search.views.simplesearch', simplesearch_dict,
+    #     name="cs_simple_search"),
+    # url(r'^creative-sector/[^/]+/(?P<ot_url_part>%s|%s|%s|%s|%s)/simplesearch/$' % (
+    #     URL_ID_DOCUMENTS, URL_ID_EVENTS, URL_ID_PERSONGROUPS, URL_ID_INSTITUTIONS,
+    #     URL_ID_PEOPLE),
+    #     _project_name + '.apps.search.views.simplesearch', simplesearch_dict,
+    #     name="cs_model_specific_simple_search"),
 
     # info vCard
     url(r'^vcard/(?P<content_type_id>[0-9]+)/(?P<object_id>[0-9]+)/$',

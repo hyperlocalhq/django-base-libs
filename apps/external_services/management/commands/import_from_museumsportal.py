@@ -28,9 +28,9 @@ class Command(NoArgsCommand):
         from dateutil.parser import parse as parse_datetime
 
         from django.db import models
-        from django.template.defaultfilters import slugify
 
         from base_libs.utils.misc import get_related_queryset
+        from base_libs.utils.betterslugify import better_slugify
 
         from jetson.apps.external_services.utils import get_first
         from jetson.apps.external_services.utils import get_value
@@ -157,7 +157,7 @@ class Command(NoArgsCommand):
                 if node_title.getAttribute("xml:lang") == "de":
                     institution.title = get_value(node_title)
 
-            existing = Institution.objects.filter(slug=slugify(institution.title))
+            existing = Institution.objects.filter(slug=better_slugify(institution.title))
             if existing:
                 institution.pk = existing[0].pk
 

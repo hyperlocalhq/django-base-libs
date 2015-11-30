@@ -21,6 +21,11 @@ class Institution(InstitutionBase):
         related_name="creative_sector_institutions",
         blank=True,
     )
+    categories = TreeManyToManyField(
+        Category,
+        verbose_name=_("categories"),
+        blank=True
+    )
 
     objects = InstitutionManagerExtended()
 
@@ -86,6 +91,9 @@ class Institution(InstitutionBase):
 
     def get_creative_sectors(self):
         return self.creative_sectors.all()
+
+    def get_categories(self):
+        return self.categories.all()
 
     def _get_current_user(self, user=None):
         if not user:

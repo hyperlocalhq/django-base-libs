@@ -151,16 +151,16 @@ def simplesearch(request, ot_url_part=None, **kwargs):
         if data.has_key('search-lt_d') and numeric.match(data['search-lt_d']):
             lt = Term.objects.get(pk=data['search-lt_d'])
             queryset = queryset.filter(
-                location_type__lft__gte=lt.lft,
-                location_type__rght__lte=lt.rght,
-                location_type__tree_id=lt.tree_id,
+                locality_type__lft__gte=lt.lft,
+                locality_type__rght__lte=lt.rght,
+                locality_type__tree_id=lt.tree_id,
             )
         elif data.has_key('search-lt') and numeric.match(data['search-lt']):
             lt = Term.objects.get(pk=data['search-lt'])
             queryset = queryset.filter(
-                location_type__lft__gte=lt.lft,
-                location_type__rght__lte=lt.rght,
-                location_type__tree_id=lt.tree_id,
+                locality_type__lft__gte=lt.lft,
+                locality_type__rght__lte=lt.rght,
+                locality_type__tree_id=lt.tree_id,
             )
 
         if data.has_key('search-status') and len(data['search-status']) > 0:

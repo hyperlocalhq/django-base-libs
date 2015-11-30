@@ -16,9 +16,9 @@ class Command(NoArgsCommand):
 
         from django.db import models
         from django.core.exceptions import MultipleObjectsReturned
-        from django.template.defaultfilters import slugify
 
         from base_libs.utils.misc import get_related_queryset
+        from base_libs.utils.betterslugify import better_slugify
         from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED, MARKUP_HTML_WYSIWYG
         from base_libs.utils.client import Connection
 
@@ -95,7 +95,7 @@ class Command(NoArgsCommand):
 
                 article.title = get_value(node_article, "title")
 
-                article.slug = slugify(article.title)
+                article.slug = better_slugify(article.title)
 
                 content = get_value(node_article, "content:encoded") or get_value(node_article, "description")
                 if "</p>" not in content:
