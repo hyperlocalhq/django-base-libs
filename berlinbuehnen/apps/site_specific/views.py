@@ -689,6 +689,8 @@ def culturebase_export_productions(request, location_slug):
                 E.eventMerkmal(CDATA(', '.join(event.characteristics.values_list("title_de", flat=True)))),
                 E.eventMerkmalEn(CDATA(', '.join(event.characteristics.values_list("title_en", flat=True)))),
                 E.eventTicketsWebseite(CDATA(event.tickets_website)),
+                E.erUntertitel(CDATA(event.subtitles_text_de)),
+                E.erUntertitelEn(CDATA(event.subtitles_text_en)),
             ))
         try:
             first_date = prod.event_set.order_by("start_date")[0].start_date.strftime('%Y-%m-%d')
@@ -704,6 +706,12 @@ def culturebase_export_productions(request, location_slug):
         categories = ','.join([
             str(REVERSE_CATEGORY_MAPPER[cat.pk]) for cat in prod.categories.all() if REVERSE_CATEGORY_MAPPER.get(cat.pk, False)
         ])
+        language_and_subtitles_de = u""
+        language_and_subtitles_en = u""
+        if prod.language_and_subtitles:
+            language_and_subtitles_de = prod.language_and_subtitles.title_de
+            language_and_subtitles_en = prod.language_and_subtitles.title_en
+
         production_nodes.append(E.eventReihe(
             E.erId(str(prod.pk)),
             E.erName(CDATA(prod.title_de)),
@@ -736,6 +744,10 @@ def culturebase_export_productions(request, location_slug):
             E.erTicketsWebseite(CDATA(prod.tickets_website)),
             E.erMerkmal(CDATA(', '.join(prod.characteristics.values_list("title_de", flat=True)))),
             E.erMerkmalEn(CDATA(', '.join(prod.characteristics.values_list("title_en", flat=True)))),
+            E.erUntertitel(CDATA(prod.subtitles_text_de)),
+            E.erUntertitelEn(CDATA(prod.subtitles_text_en)),
+            E.erSpracheUndUntertitel(CDATA(language_and_subtitles_de)),
+            E.erSpracheUndUntertitelEn(CDATA(language_and_subtitles_en)),
             *prod_image_nodes + event_nodes
         ))
 
