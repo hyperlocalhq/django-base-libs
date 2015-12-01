@@ -1,6 +1,6 @@
 {% extends "people/details_base.html" %}
 
-{% load i18n babel %}
+{% load i18n babel crispy_forms_tags %}
 
 {% block head_title %}{% trans "Notices" %}{% endblock %}
 
@@ -26,10 +26,12 @@
             {% blocktrans with user.email as email %}The chosen notices will be sent to {{ email }}.{% endblocktrans %}
         </p>
         {% if user.is_staff %}
-            <p class="disclaimer">{% blocktrans %}Settings marked with "(Staff)" are only visible to staff
-                members.{% endblocktrans %}</p>
+            <p class="disclaimer">{% blocktrans %}Settings marked with "(Staff)" are only visible to staff members.{% endblocktrans %}</p>
         {% endif %}
     </div>
+
+    {#% crispy form %#}
+
     <form method="post" action="" class="uniForm">{% csrf_token %}
         {% regroup notice_settings.rows by category as notice_settings_rows %}
         {% for group in notice_settings_rows %}
@@ -63,6 +65,9 @@
             <input type="submit" value="{% trans "Change" %}" class="primaryAction"/>
         </div>
     </form>
+    <script>
+    $('legend').css('font-weight', "bold"); // DEBUG
+    </script>
 {% endblock %}
 
 {% block breadcrumbs %}

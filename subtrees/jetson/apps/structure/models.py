@@ -204,3 +204,23 @@ class ContextCategory(MPTTModel,  SlugMixin(), SysnameMixin()):
                 t.creative_sectors.add(ci)
     save.alters_data = True
 
+
+class Category(MPTTModel,  SlugMixin(), SysnameMixin()):
+    parent = TreeForeignKey(
+       'self',
+       related_name="child_set",
+       blank=True,
+       null=True,
+    )
+    title = MultilingualCharField(_('title'), max_length=255)
+
+    objects = TreeManager()
+
+    class Meta:
+        verbose_name = _("category")
+        verbose_name_plural = _("categories")
+        ordering = ["tree_id", "lft"]
+
+    def __unicode__(self):
+        return self.title
+

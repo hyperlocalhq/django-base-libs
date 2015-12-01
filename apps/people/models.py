@@ -38,12 +38,20 @@ class Person(PersonBase):
         related_name="creative_industry_people",
         blank=True,
     )
+    categories = TreeManyToManyField(
+        Category,
+        verbose_name=_("categories"),
+        blank=True
+    )
     completeness = models.SmallIntegerField(_("Completeness in %"), default=0)
 
     objects = PersonManagerExtended()
 
     def get_creative_sectors(self):
         return self.creative_sectors.all()
+
+    def get_categories(self):
+        return self.categories.all()
 
     def is_deletable(self, user=None):
         if not hasattr(self, "_is_deletable_cache"):

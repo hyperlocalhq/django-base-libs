@@ -24,6 +24,7 @@ from base_libs.views import access_denied
 
 from jetson.apps.utils.decorators import login_required
 from jetson.apps.structure.models import Term, ContextCategory
+from jetson.apps.location.models import LocalityType
 from jetson.apps.comments.models import Comment
 from jetson.apps.comments.views.comments import post_comment
 
@@ -51,9 +52,7 @@ BROWSING_CRITERIA = {
         vocabulary__sysname="categories_creativesectors",
     ),
     "context-category": ContextCategory.objects.all(),
-    "location-type": Term.objects.filter(
-        vocabulary__sysname="basics_locality",
-    ),
+    "location-type": LocalityType.objects.all(),
 }
 
 TYPE_2_MODEL = {
@@ -136,9 +135,9 @@ def get_browse_queryset(request, use_httpstate=False, **kwargs):
             )
         elif k == "location-type":
             queryset = queryset.filter(
-                location_type__lft__gte=v.lft,
-                location_type__rght__lte=v.rght,
-                location_type__tree_id=v.tree_id,
+                locality_type__lft__gte=v.lft,
+                locality_type__rght__lte=v.rght,
+                locality_type__tree_id=v.tree_id,
             )
         v.criterion = k
         selected_cats.append(v)
@@ -968,7 +967,7 @@ def kreativarbeiten_contact_form(request,
 
         if form.is_valid():
             form.save(request.user)
-            return HttpResponseRedirect('%salldone/' % request.path)
+            return HttpResponseRedirect('%sdone/' % request.path)
     else:
         form = KreativArbeitenContactForm()
     return render_to_response(

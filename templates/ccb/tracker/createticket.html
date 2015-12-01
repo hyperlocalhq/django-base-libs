@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n uni_form_tags %}
+{% load base_tags i18n uni_form_tags crispy_forms_tags %}
 
 {% block title %}{% trans 'Feedback' %}{% endblock %}
 
@@ -10,6 +10,7 @@
 
 {% block content %}
     <div class="suggest">
+{#        {% crispy form %}#}
         <form action="" method="post" class="uniForm">{% csrf_token %}
             <p class="disclaimer">{% trans "We are constantly working to improve and expand this website with regard to both usability and content. If you have a suggestion, we are happy to hear about it." %}</p>
             <fieldset class="inlineLabels">

@@ -10,7 +10,6 @@ from django.utils.dates import MONTHS
 from django.conf import settings
 from django.db import models
 from django.utils.encoding import force_unicode
-from django.template.defaultfilters import slugify
 
 from base_libs.forms import dynamicforms
 from base_libs.forms.fields import ImageField
@@ -18,11 +17,12 @@ from base_libs.forms.fields import AutocompleteField
 from base_libs.middleware import get_current_user
 from base_libs.utils.misc import get_related_queryset, XChoiceList
 from base_libs.utils.misc import get_unique_value
+from base_libs.utils.betterslugify import better_slugify
 
 from tagging.forms import TagField
 from tagging_autocomplete.widgets import TagAutocomplete
 
-from jetson.apps.location.models import Address
+from jetson.apps.location.models import Address, LocalityType
 from jetson.apps.structure.models import Term
 from jetson.apps.optionset.models import PhoneType, EmailType, URLType
 
@@ -1522,7 +1522,7 @@ def save_data(form_steps, form_step_data):
 
         venue = Institution(
             title=venue_title,
-            slug=get_unique_value(Institution, slugify(venue_title).replace("-", "_"), separator="_"),
+            slug=get_unique_value(Institution, better_slugify(venue_title).replace("-", "_"), separator="_"),
         )
         venue.status = "event_location"
         venue.save()
@@ -1803,13 +1803,11 @@ class EventSearchForm(dynamicforms.Form):
         required=False,
         queryset=get_related_queryset(Event, "event_type"),
     )
-    location_type = TreeNodeChoiceField(
+    locality_type = TreeNodeChoiceField(
         empty_label=_("All"),
         label=_("Location Type"),
         required=False,
-        queryset=Term.objects.filter(
-            vocabulary__sysname='basics_locality',
-        ).order_by("tree_id", "lft"),
+        queryset=LocalityType.objects.order_by("tree_id", "lft"),
     )
     keywords = forms.CharField(
         label=_("Keyword(s)"),

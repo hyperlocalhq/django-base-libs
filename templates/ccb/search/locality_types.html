@@ -1,0 +1,20 @@
+{% load i18n base_tags browsing %}
+{% for cat in categories %}
+    {% if forloop.first %}
+        <ul>
+    {% endif %}
+{% if cat.item_count %}
+    <li>
+        <a href="#" class="no-children"><span>O</span></a>
+        {% with form.locality_types|dict_value:cat.sysname as locality_type %}
+            {{ form|dict_value:locality_type.field_name }}
+            <label for="id_LT_{{ locality_type.id }}">{{ cat.get_title|escape }} <em>({{ cat.item_count }})</em></label>
+        {% endwith %}
+        {% locality_type_under cat.slug using "search/locality_types.html" %}
+    </li>
+{% endif %}
+{% if forloop.last %}
+    </ul>
+{% endif %}
+{% endfor %}
+

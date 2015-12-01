@@ -26,8 +26,7 @@ image_mods = models.get_app("image_mods")
 from tagging.forms import TagField
 from tagging_autocomplete.widgets import TagAutocomplete
 
-from jetson.apps.location.models import Address
-from jetson.apps.structure.models import Term, ContextCategory
+from jetson.apps.location.models import Address, LocalityType
 from jetson.apps.optionset.models import PhoneType, EmailType, URLType
 
 from mptt.forms import TreeNodeChoiceField
@@ -896,13 +895,11 @@ class EventSearchForm(dynamicforms.Form):
         required=False,
         queryset=get_related_queryset(Event, "event_type"),
         )
-    location_type = TreeNodeChoiceField(
+    locality_type = TreeNodeChoiceField(
         empty_label=_("All"),
         label=_("Location Type"),
         required=False,
-        queryset=Term.objects.filter(
-            vocabulary__sysname='basics_locality',
-            ).order_by("path"),
+        queryset=LocalityType.objects.order_by("tree_id", "lft"),
         )
     keywords = forms.CharField(
         label=_("Keyword(s)"),

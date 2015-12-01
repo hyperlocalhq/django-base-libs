@@ -9,7 +9,6 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
-from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 
@@ -22,6 +21,7 @@ from base_libs.utils.misc import get_related_queryset
 from base_libs.utils.misc import get_unique_value
 from base_libs.utils.misc import XChoiceList
 from base_libs.utils.crypt import cryptString
+from base_libs.utils.betterslugify import better_slugify
 
 from jetson.apps.mailchimp.models import MList
 from jetson.apps.mailchimp.models import Subscription
@@ -142,7 +142,7 @@ class SimpleRegistrationFormBase(dynamicforms.Form):
         if username:
             suggested = get_unique_value(
                 User,
-                username.lower() or slugify("_".join((first_name, last_name))).replace("-", "_"),
+                username.lower() or better_slugify("_".join((first_name, last_name))).replace("-", "_"),
                 field_name="username",
                 separator="_",
                 ignore_case=True,
@@ -186,7 +186,7 @@ class SimpleRegistrationFormBase(dynamicforms.Form):
 
         username = get_unique_value(
             User,
-            cleaned.get('username', "") or slugify(cleaned["name"]).replace("-", "_"),
+            cleaned.get('username', "") or better_slugify(cleaned["name"]).replace("-", "_"),
             field_name="username",
             separator="_",
         )
