@@ -541,7 +541,7 @@ body.show-layer.image-layer .layer#image-layer { display: block; }
 .input-field input[type="text"]:-moz-placeholder { color: #d8d8d8; opacity: 1; }
 .input-field input[type="text"]::-moz-placeholder { color: #d8d8d8; opacity: 1; }
 .input-field input[type="text"]:-ms-input-placeholder { color: #d8d8d8; opacity: 1; }
-.input-field textarea { width: 100%; height: auto; min-height: 6em; font-family: "Lato", "sans-serif"; font-weight: 400; font-size: 1.2em; line-height: 133%; background: #fff; color: #000; border: 1px solid #979797; border-radius: 4px; padding: 15px 1em; margin: 0; overflow: hidden; }
+.input-field textarea { width: 100%; height: auto; min-height: 6em; font-family: "Lato", "sans-serif"; font-weight: 400; font-size: 1.2em; line-height: 133%; background: #fff; color: #000; border: 1px solid #979797; border-radius: 4px; padding: 15px 1em; margin: 0; overflow: hidden; resize: none; }
 .input-field textarea.error { background: #fff69f; }
 .input-field textarea.error::-webkit-input-placeholder { color: #e9b2b2; opacity: 1; }
 .input-field textarea.error:-moz-placeholder { color: #e9b2b2; opacity: 1; }
@@ -957,6 +957,10 @@ img[data-popup-image-src] { cursor: pointer; }
 #search-layer input { display: inline-block; float: left; background: #fff; color: #afaeae; font-size: 2em; line-height: 240%; width: 580px; padding: 0 15px; text-align: center; border: 0; }
 .is-xs #search-layer input { display: block; float: none; width: 100%; font-size: 1.27em; }
 #search-layer input:focus { outline: 0; }
+#search-layer input::-webkit-input-placeholder { color: #d8d8d8; opacity: 1; }
+#search-layer input:-moz-placeholder { color: #d8d8d8; opacity: 1; }
+#search-layer input::-moz-placeholder { color: #d8d8d8; opacity: 1; }
+#search-layer input:-ms-input-placeholder { color: #d8d8d8; opacity: 1; }
 #search-layer .button-group { display: inline-block; float: left; }
 .is-xs #search-layer .button-group { display: block; float: right; }
 #search-layer .button-group .button { font-size: inherit; font-weight: inherit; padding: 0; background: none; border-radius: 0; color: #fff; margin: 0 0 0 30px; width: auto; }

@@ -42,7 +42,7 @@ $(document).ready(function() {
         var onChange = function($field, delay) {
             
             if (typeof delay != "undefined") {
-                setTimeout(function() {var $me=$field; onChange($me);}, 0);
+                setTimeout(function() {var $me=$field; onChange($me);}, delay);
             }
             
             $field.css('height', '');
@@ -50,9 +50,18 @@ $(document).ready(function() {
         }
         
         $field.change(function() {onChange($(this));});
-        $field.on('cut paste drop keydown', function() {onChange($(this), true);});
+        $field.on('cut paste drop keydown', function() {onChange($(this), 0);});
         
         onChange($field);
+        onChange($field, 100);
+    });
+    
+    $(window).resize(function() {
+        $('.input-field textarea').each(function() {
+            var $field = $(this);
+            $field.css('height', '');
+            $field.height($field.get(0).scrollHeight - 30); 
+        });
     });
     
 });

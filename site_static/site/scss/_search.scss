@@ -133,6 +133,23 @@
         &:focus {
             outline: 0;
         }
+        
+        &::-webkit-input-placeholder {
+            color: $grey-bright;
+            opacity: 1;
+        }
+        &:-moz-placeholder {
+            color: $grey-bright;
+            opacity: 1;
+        }
+        &::-moz-placeholder {
+            color: $grey-bright;
+            opacity: 1;
+        }
+        &:-ms-input-placeholder {
+            color: $grey-bright;
+            opacity: 1;
+        }
     }
     .button-group {
         display: inline-block;
