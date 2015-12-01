@@ -7,10 +7,6 @@
             <div class="col-xs-12">
                 <h1>Form</h1>
                 <br/>
-                <p>Requirements:<br/>
-                    &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/form.js">&lt;/script>
-                </p>
-                <br/>
                 <p class="underline uppercase">Buttons</p>
                 <div style="display:inline-block;" class="fawesome fa-plus button form positive"></div>&nbsp;&nbsp;&nbsp;<span>class="fawesome fa-plus button form positive"</span>
                 <br/>
@@ -45,7 +41,7 @@
                     <li><a href="#">V</a></li>
                     <li><a href="#">W</a></li>
                     <li><a href="#">X</a></li>
-                    <li><a href="#">Y</a></li>
+                    <li class="disabled">Y</li>
                     <li class="active"><a href="#">Z</a></li>
                     <li><a class="active" href="#">0-9</a></li>
                     <li><a href="#">{% trans 'all' %}</a></li>
@@ -55,15 +51,20 @@
     &lt;li>&lt;a href="#">B&lt;/a>&lt;/li>
     &lt;li>&lt;a href="#">C&lt;/a>&lt;/li>
     ... and so on ...    
+    &lt;li class="disabled">Y&lt;/li>
     &lt;li class="active">&lt;a href="#">Z&lt;/a>&lt;/li>
     &lt;li>&lt;a class="active" href="#">0-9&lt;/a>&lt;/li>
     &lt;li>&lt;a href="#">&#123;% trans 'all' %}&lt;/a>&lt;/li>
 &lt;/ul></pre>
-                <p>Add class="active" to the list or anchor element of an active button.</p>
+                <p>Add class="disabled" and don't provide an anchor element to a disabled list element.<br/>
+                Add class="active" to the list or anchor element of an active button.</p>
                 <br/>
                 <br/>
                 <br/>
                 <p class="underline uppercase">Elements</p>
+                <p>Requirements:<br/>
+                    &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/form.js">&lt;/script>
+                </p>
                 <br/>
                 <div class="input-field"><input type="text" placeholder="Placeholder"/></div>
 <pre>&lt;div class="input-field">&lt;input type="text" placeholder="Placeholder"/>&lt;/div></pre>
@@ -74,13 +75,14 @@
 <pre>&lt;div class="input-field">&lt;input class="error" type="text" placeholder="Placeholder" value="Invalid input"/>&lt;/div>
 &lt;div class="error">Error text ... Lorem ipsum dolor sit amet&lt;/div></pre>
                 <br/>
+                <div><b>Readonly</b></div>
+                <div class="input-field"><input type="text" placeholder="Placeholder" value="Lorem ipsum dolor sit amet" readonly/></div>
+<pre>&lt;div class="input-field">&lt;input type="text" placeholder="Placeholder" value="Lorem ipsum dolor sit amet" readonly/>&lt;/div></pre>
+                <br/>
                 <div><b>Disabled</b></div>
                 <div class="input-field"><input type="text" placeholder="Placeholder" value="Lorem ipsum dolor sit amet" disabled/></div>
 <pre>&lt;div class="input-field">&lt;input type="text" placeholder="Placeholder" value="Lorem ipsum dolor sit amet" disabled/>&lt;/div></pre>
                 <br/>
-                <div><b>Readonly</b></div>
-                <div class="input-field"><input type="text" placeholder="Placeholder" value="Lorem ipsum dolor sit amet" readonly/></div>
-<pre>&lt;div class="input-field">&lt;input type="text" placeholder="Placeholder" value="Lorem ipsum dolor sit amet" readonly/>&lt;/div></pre>
                 <br/>
                 <div class="input-prefix">http://</div>
                 <div class="input-field"><input type="text" placeholder="Placeholder" value="www.studio38.de"/></div>
@@ -95,17 +97,17 @@
 &lt;div class="input-field">&lt;input class="error" type="text" placeholder="Placeholder" value="www.studio38.de"/>&lt;/div>
 &lt;div class="error">Error text ... Lorem ipsum dolor sit amet&lt;/div></pre>
                 <br/>
-                <div><b>Disabled</b></div>
-                <div class="input-prefix disabled">http://</div>
-                <div class="input-field"><input type="text" placeholder="Placeholder" value="www.studio38.de" disabled/></div>
-<pre>&lt;div class="input-prefix disabled">http://&lt;/div>
-&lt;div class="input-field">&lt;input type="text" placeholder="Placeholder" value="www.studio38.de" disabled/>&lt;/div></pre>
-                <br/>
                 <div><b>Readonly</b></div>
                 <div class="input-prefix readonly">http://</div>
                 <div class="input-field"><input type="text" placeholder="Placeholder" value="www.studio38.de" readonly/></div>
 <pre>&lt;div class="input-prefix readonly">http://&lt;/div>
 &lt;div class="input-field">&lt;input type="text" placeholder="Placeholder" value="www.studio38.de" readonly/>&lt;/div></pre>
+                <br/>
+                <div><b>Disabled</b></div>
+                <div class="input-prefix disabled">http://</div>
+                <div class="input-field"><input type="text" placeholder="Placeholder" value="www.studio38.de" disabled/></div>
+<pre>&lt;div class="input-prefix disabled">http://&lt;/div>
+&lt;div class="input-field">&lt;input type="text" placeholder="Placeholder" value="www.studio38.de" disabled/>&lt;/div></pre>
                 <br/>
                 <br/>
                 <div class="input-field"><textarea placeholder="Placeholder"></textarea></div>
@@ -117,13 +119,13 @@
 <pre>&lt;div class="input-field">&lt;textarea class="error" placeholder="Placeholder">Invalid input&lt;/textarea>&lt;/div>
 &lt;div class="error">Error text ... Lorem ipsum dolor sit amet&lt;/div></pre>
                 <br/>
-                <div><b>Disabled</b></div>
-                <div class="input-field"><textarea placeholder="Placeholder" disabled>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</textarea></div>
-<pre>&lt;div class="input-field">&lt;textarea placeholder="Placeholder" disabled>Lorem ipsum dolor ... &lt;/textarea>&lt;/div></pre>
-                <br/>
                 <div><b>Readonly</b></div>
                 <div class="input-field"><textarea placeholder="Placeholder" readonly>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</textarea></div>
 <pre>&lt;div class="input-field">&lt;textarea placeholder="Placeholder" readonly>Lorem ipsum dolor ... &lt;/textarea>&lt;/div></pre>
+                <br/>
+                <div><b>Disabled</b></div>
+                <div class="input-field"><textarea placeholder="Placeholder" disabled>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</textarea></div>
+<pre>&lt;div class="input-field">&lt;textarea placeholder="Placeholder" disabled>Lorem ipsum dolor ... &lt;/textarea>&lt;/div></pre>
                 <br/>
                 <br/>
                 <br/>

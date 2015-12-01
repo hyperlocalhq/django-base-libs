@@ -565,13 +565,28 @@ ul.button-list {
     overflow: hidden;
     
     li {
+        height: 2.25em;
         display: inline-block;
         float: left;
+        font-size: 1.07em;
+        line-height: 212.5%;
+        color: $grey;
+        background: $white;
         padding: 0;
         margin: 0 10px 15px 0;
+        border: 1px solid $grey;
+        text-transform: uppercase;
+        cursor: default;
         
         &:last-child {
             margin-right: 0;
+        }
+        
+        &.disabled {
+            color: $grey-bright;
+            border-color: $grey-bright;
+            background: $white-dirty;
+            padding: 0 5px;
         }
         
         &.active {
@@ -582,15 +597,13 @@ ul.button-list {
         }
         
         a {
+            height: 100%;
             display: block;
-            height: 36px;
             font-family: $font-2, $font-family-1;
             font-weight: $font-regular;
-            font-size: 1.07em;
-            line-height: 34px;
+            font-size: inherit;
+            line-height: 212.5%;
             color: $grey;
-            text-transform: uppercase;
-            border: 1px solid $grey;
             background: $white;
             padding: 0 5px;
             margin: 0;

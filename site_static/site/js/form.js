@@ -45,8 +45,9 @@ $(document).ready(function() {
                 setTimeout(function() {var $me=$field; onChange($me);}, delay);
             }
             
+            var padding = ($field.prop('disabled')) ? 0 : 30;
             $field.css('height', '');
-            $field.height($field.get(0).scrollHeight - 30);            
+            $field.height($field.get(0).scrollHeight - padding);            
         }
         
         $field.change(function() {onChange($(this));});
@@ -59,8 +60,9 @@ $(document).ready(function() {
     $(window).resize(function() {
         $('.input-field textarea').each(function() {
             var $field = $(this);
+            var padding = ($field.prop('disabled')) ? 0 : 30;
             $field.css('height', '');
-            $field.height($field.get(0).scrollHeight - 30); 
+            $field.height($field.get(0).scrollHeight - padding); 
         });
     });
     

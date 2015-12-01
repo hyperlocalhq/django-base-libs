@@ -496,10 +496,11 @@ span.button { font-size: 18px; }
 .button-group .button:last-child, .button-group .button:last-of-type { margin-right: 0 !important; }
 
 ul.button-list { list-style: none; margin: 0; padding: 0; overflow: hidden; }
-ul.button-list li { display: inline-block; float: left; padding: 0; margin: 0 10px 15px 0; }
+ul.button-list li { height: 2.25em; display: inline-block; float: left; font-size: 1.07em; line-height: 212.5%; color: #979797; background: #fff; padding: 0; margin: 0 10px 15px 0; border: 1px solid #979797; text-transform: uppercase; cursor: default; }
 ul.button-list li:last-child { margin-right: 0; }
+ul.button-list li.disabled { color: #d8d8d8; border-color: #d8d8d8; background: #efefef; padding: 0 5px; }
 ul.button-list li.active a { color: #fff; background: #00cdff; }
-ul.button-list li a { display: block; height: 36px; font-family: "Lato", "sans-serif"; font-weight: 400; font-size: 1.07em; line-height: 34px; color: #979797; text-transform: uppercase; border: 1px solid #979797; background: #fff; padding: 0 5px; margin: 0; }
+ul.button-list li a { height: 100%; display: block; font-family: "Lato", "sans-serif"; font-weight: 400; font-size: inherit; line-height: 212.5%; color: #979797; background: #fff; padding: 0 5px; margin: 0; }
 ul.button-list li a:hover, ul.button-list li a.active { color: #fff; background: #00cdff; }
 
 .bubble { width: 105px; height: 105px; padding: 35px 5px 0 10px; margin: 0; font-family: "MetronicSlabPro", "sans-serif"; font-weight: 900; font-size: 1.47em; line-height: 95%; background: #00cdff; border-top-left-radius: 50%; border-top-right-radius: 50%; border-bottom-right-radius: 50%; color: #fff; text-transform: uppercase; display: block; word-wrap: break-word; cursor: default; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
@@ -534,9 +535,13 @@ body.show-layer.image-layer .layer#image-layer { display: block; }
 .input-field input[type="text"].error::-moz-placeholder { color: #e9b2b2; opacity: 1; }
 .input-field input[type="text"].error:-ms-input-placeholder { color: #e9b2b2; opacity: 1; }
 .input-field input[type="text"]:focus { outline: 0; border: 1px solid #444444; box-shadow: 0 0 6px 0 rgba(12, 138, 169, 0.7); }
-.input-field input[type="text"][disabled], .input-field input[type="text"][readonly] { border: 1px solid #d8d8d8; color: #afaeae; cursor: default; }
-.input-field input[type="text"][disabled]:focus, .input-field input[type="text"][readonly]:focus { box-shadow: 0 0 6px 0 #d8d8d8; }
-.input-field input[type="text"][readonly] { cursor: text; }
+.input-field input[type="text"][readonly] { border: 1px solid #d8d8d8; color: #afaeae; cursor: default; }
+.input-field input[type="text"][readonly]:focus { box-shadow: 0 0 6px 0 #d8d8d8; }
+.input-field input[type="text"][disabled] { line-height: 133%; background: transparent; border: none; cursor: text; padding: 0; }
+.input-field input[type="text"][disabled]::-webkit-input-placeholder { color: #afaeae; opacity: 1; }
+.input-field input[type="text"][disabled]:-moz-placeholder { color: #afaeae; opacity: 1; }
+.input-field input[type="text"][disabled]::-moz-placeholder { color: #afaeae; opacity: 1; }
+.input-field input[type="text"][disabled]:-ms-input-placeholder { color: #afaeae; opacity: 1; }
 .input-field input[type="text"]::-webkit-input-placeholder { color: #d8d8d8; opacity: 1; }
 .input-field input[type="text"]:-moz-placeholder { color: #d8d8d8; opacity: 1; }
 .input-field input[type="text"]::-moz-placeholder { color: #d8d8d8; opacity: 1; }
@@ -548,9 +553,13 @@ body.show-layer.image-layer .layer#image-layer { display: block; }
 .input-field textarea.error::-moz-placeholder { color: #e9b2b2; opacity: 1; }
 .input-field textarea.error:-ms-input-placeholder { color: #e9b2b2; opacity: 1; }
 .input-field textarea:focus { outline: 0; border: 1px solid #444444; box-shadow: 0 0 6px 0 rgba(12, 138, 169, 0.7); }
-.input-field textarea[disabled], .input-field textarea[readonly] { border: 1px solid #d8d8d8; color: #afaeae; cursor: default; }
-.input-field textarea[disabled]:focus, .input-field textarea[readonly]:focus { box-shadow: 0 0 6px 0 #d8d8d8; }
-.input-field textarea[readonly] { cursor: text; }
+.input-field textarea[readonly] { border: 1px solid #d8d8d8; color: #afaeae; cursor: default; }
+.input-field textarea[readonly]:focus { box-shadow: 0 0 6px 0 #d8d8d8; }
+.input-field textarea[disabled] { min-height: 0; line-height: 133%; background: transparent; border: none; cursor: text; padding: 0; }
+.input-field textarea[disabled]::-webkit-input-placeholder { color: #afaeae; opacity: 1; }
+.input-field textarea[disabled]:-moz-placeholder { color: #afaeae; opacity: 1; }
+.input-field textarea[disabled]::-moz-placeholder { color: #afaeae; opacity: 1; }
+.input-field textarea[disabled]:-ms-input-placeholder { color: #afaeae; opacity: 1; }
 .input-field textarea::-webkit-input-placeholder { color: #d8d8d8; opacity: 1; }
 .input-field textarea:-moz-placeholder { color: #d8d8d8; opacity: 1; }
 .input-field textarea::-moz-placeholder { color: #d8d8d8; opacity: 1; }
@@ -559,7 +568,8 @@ body.show-layer.image-layer .layer#image-layer { display: block; }
 .input-prefix { display: block; float: left; font-family: "Lato", "sans-serif"; font-weight: 400; font-size: 1.2em; line-height: 300%; background: #efefef; color: #afaeae; border: 1px solid #979797; border-right: none; border-top-left-radius: 4px; border-bottom-left-radius: 4px; padding: 0 1em; margin: 5px 0 10px 0; cursor: default; }
 .input-prefix.focus { box-shadow: 0 0 6px 0 rgba(12, 138, 169, 0.7); border-left-color: #444444; border-top-color: #444444; border-bottom-color: #444444; }
 .input-prefix.focus-readonly { box-shadow: 0 0 6px 0 #d8d8d8; border-left-color: #d8d8d8; border-top-color: #d8d8d8; border-bottom-color: #d8d8d8; }
-.input-prefix.disabled, .input-prefix.readonly { border: 1px solid #d8d8d8; border-right: none; color: #afaeae; }
+.input-prefix.readonly { border: 1px solid #d8d8d8; border-right: none; color: #afaeae; }
+.input-prefix.disabled { line-height: 133%; color: #000; background: transparent; border: none; padding: 0; cursor: text; }
 .input-prefix + div.input-field { display: block; width: auto; overflow: hidden; padding-left: 0; border-left-color: #979797; }
 .input-prefix + div.input-field input[type="text"] { border-top-left-radius: 0; border-bottom-left-radius: 0; border-left-color: #d8d8d8 !important; }
 

@@ -220,7 +220,7 @@
                     <li><a href="#">V</a></li>
                     <li><a href="#">W</a></li>
                     <li><a href="#">X</a></li>
-                    <li><a href="#">Y</a></li>
+                    <li class="disabled">Y</li>
                     <li class="active"><a href="#">Z</a></li>
                     <li><a class="active" href="#">0-9</a></li>
                     <li><a href="#">{% trans 'all' %}</a></li>
@@ -230,11 +230,13 @@
     &lt;li>&lt;a href="#">B&lt;/a>&lt;/li>
     &lt;li>&lt;a href="#">C&lt;/a>&lt;/li>
     ... and so on ...    
+    &lt;li class="disabled">Y&lt;/li>
     &lt;li class="active">&lt;a href="#">Z&lt;/a>&lt;/li>
     &lt;li>&lt;a class="active" href="#">0-9&lt;/a>&lt;/li>
     &lt;li>&lt;a href="#">&#123;% trans 'all' %}&lt;/a>&lt;/li>
 &lt;/ul></pre>
-                <p>Add class="active" to the list or anchor element of an active button.</p>
+                <p>Add class="disabled" and don't provide an anchor element to a disabled list element.<br/>
+                Add class="active" to the list or anchor element of an active button.</p>
                 <br/>
                 <br/>
                 <br/>

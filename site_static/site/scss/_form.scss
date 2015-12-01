@@ -50,7 +50,7 @@
             box-shadow: $form-glow;
         }
         
-        &[disabled], &[readonly] {
+        &[readonly] {
             border: 1px solid $grey-bright;
             color: $grey-light;
             cursor: default;
@@ -59,8 +59,29 @@
             }
         }
         
-        &[readonly] {
+        &[disabled] {
+            line-height: 133%;
+            background: transparent;
+            border: none;
             cursor: text;
+            padding: 0;
+        
+            &::-webkit-input-placeholder {
+                color: $grey-light;
+                opacity: 1;
+            }
+            &:-moz-placeholder {
+                color: $grey-light;
+                opacity: 1;
+            }
+            &::-moz-placeholder {
+                color: $grey-light;
+                opacity: 1;
+            }
+            &:-ms-input-placeholder {
+                color: $grey-light;
+                opacity: 1;
+            }
         }
         
         &::-webkit-input-placeholder {
@@ -126,7 +147,7 @@
             box-shadow: $form-glow;
         }
         
-        &[disabled], &[readonly] {
+        &[readonly] {
             border: 1px solid $grey-bright;
             color: $grey-light;
             cursor: default;
@@ -135,8 +156,30 @@
             }
         }
         
-        &[readonly] {
+        &[disabled] {
+            min-height: 0;
+            line-height: 133%;
+            background: transparent;
+            border: none;
             cursor: text;
+            padding: 0;
+        
+            &::-webkit-input-placeholder {
+                color: $grey-light;
+                opacity: 1;
+            }
+            &:-moz-placeholder {
+                color: $grey-light;
+                opacity: 1;
+            }
+            &::-moz-placeholder {
+                color: $grey-light;
+                opacity: 1;
+            }
+            &:-ms-input-placeholder {
+                color: $grey-light;
+                opacity: 1;
+            }
         }
         
         &::-webkit-input-placeholder {
@@ -191,10 +234,19 @@
         border-bottom-color: $grey-bright;
     }
     
-    &.disabled, &.readonly {
+    &.readonly {
         border: 1px solid $grey-bright;
         border-right: none;
         color: $grey-light;
+    }
+    
+    &.disabled {
+        line-height: 133%;
+        color: $black;
+        background: transparent;
+        border: none;
+        padding: 0;
+        cursor: text;
     }
     
     & + div.input-field {
