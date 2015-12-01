@@ -31,6 +31,8 @@
         me.initial_items_length = me.$items.length;
         me.last_width = -1;
         
+        $('a', me.$items).attr('target', '_self');
+        
         if (me.initial_items_length == 0) {
             $main.remove();
             return;
