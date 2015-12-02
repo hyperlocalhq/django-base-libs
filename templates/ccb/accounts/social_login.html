@@ -45,12 +45,12 @@
                 {% if name == "google-plus" %}
                   <div class="col-md-2 btn btn-default" id="{{ name }}-button" name="{{ backend|backend_class }}">
                     <i class="fa fa-{{ name|icon_name }}"></i>
-                    {{ backend|backend_name }}
+                    {{ backend.name|title }}
                   </div>
                 {% else %}
                   <a class="col-md-2 btn btn-default" id="{{ name }}-button" name="{{ backend|backend_class }}" href="{% url "social:begin" backend=name %}">
                     <i class="fa fa-{{ name|icon_name }}"></i>
-                    {{ backend|backend_name }}
+                    {{ backend.name|title }}
                   </a>
                 {% endif %}
               {% endif %}
@@ -59,6 +59,7 @@
         {% endfor %}
       </div>
 
+      {% comment %}
       <div class="legacy">
         {% for name, backend in available_backends|legacy_backends %}
           {% associated backend %}
@@ -66,13 +67,13 @@
             <form class="disconnect-form" action="{% url "social:disconnect_individual" backend=association.provider association_id=association.id %}" method="post">{% csrf_token %}
               <a class="btn btn-danger" name="{{ backend|backend_class }}" href="#">
                 <i class="fa fa-{{ name|icon_name }}"></i>
-                Disconnect {{ backend|backend_name }}
+                Disconnect {{ backend.name|title }}
               </a>
             </form>
           {% else %}
             <a class="btn btn-default" name="{{ backend|backend_class }}" href="{% url "social:begin" backend=name %}">
               <i class="fa fa-{{ name|icon_name }}"></i>
-              {{ backend|backend_name }}
+              {{ backend.name|title }}
             </a>
           {% endif %}
         {% endfor %}
@@ -82,7 +83,7 @@
           Ajax
         </a>
       </div>
-
+      {% endcomment %}
       <div>
         <a class="btn btn-primary" href="/logout/" id="logout">
           <i class="fa fa-sign-out"></i>

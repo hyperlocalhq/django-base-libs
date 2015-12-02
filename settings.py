@@ -893,7 +893,7 @@ AUTHENTICATION_BACKENDS = (
 
 AUTH_USER_MODEL = 'auth.User'
 
-LOGIN_URL = '/social-login/'
+LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = 'dashboard'
 URL_PATH = ''
 SOCIAL_AUTH_STRATEGY = 'social.strategies.django_strategy.DjangoStrategy'
