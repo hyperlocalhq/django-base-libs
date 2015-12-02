@@ -906,6 +906,10 @@ SOCIAL_AUTH_USERNAME_FORM_HTML = 'username_signup.html'
 
 SOCIAL_AUTH_FACEBOOK_KEY = "217188838296370"
 SOCIAL_AUTH_FACEBOOK_SECRET = "66548a2c23317f70ff1e20bd982a5f68"
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+  'fields': 'id, name, email, first_name, last_name',
+}
 
 SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.social_details',

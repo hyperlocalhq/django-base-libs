@@ -3,6 +3,7 @@
 <html>
   <head>
     <title>Python Social Auth</title>
+    <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -38,7 +39,7 @@
                 <form class="disconnect-form col-md-2" id="{{ name }}-disconnect" action="{% url "social:disconnect_individual" backend=association.provider association_id=association.id %}" method="post">{% csrf_token %}
                   <a class="btn btn-danger" name="{{ backend|backend_class }}" href="#">
                     <i class="fa fa-{{ name|icon_name }}"></i>
-                    Disconnect {{ backend|backend_name }}
+                    Disconnect {{ backend.name|title }}
                   </a>
                 </form>
               {% else %}
