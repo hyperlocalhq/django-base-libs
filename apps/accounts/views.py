@@ -1,22 +1,29 @@
 # -*- coding: UTF-8 -*-
 import hashlib
+import json
 
 from django.db import models
 from django.db import transaction
 from django.views.decorators.cache import never_cache
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
-from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.contrib.auth.models import User
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.sites.models import Site, RequestSite
 from django.contrib.auth import authenticate, login as auth_login
 from django.conf import settings
+from django.shortcuts import render
 from base_libs.utils.crypt import decryptString
 from base_libs.utils.misc import get_installed
 from jetson.apps.utils.decorators import login_required
 from jetson.apps.configuration.models import SiteSettings
 from jetson.apps.mailing.views import send_email_using_template, Recipient
+
+from social.backends.oauth import BaseOAuth1, BaseOAuth2
+from social.backends.google import GooglePlusAuth
+from social.backends.utils import load_backends
+from social.apps.django_app.utils import psa
 
 from ccb.apps.accounts.forms import EmailOrUsernameAuthentication
 from ccb.apps.accounts.forms import SimpleRegistrationForm
@@ -25,6 +32,14 @@ from ccb.apps.accounts.forms import PrivacySettingsForm
 URL_ID_PERSON = get_installed("people.models.URL_ID_PERSON")
 URL_ID_PEOPLE = get_installed("people.models.URL_ID_PEOPLE")
 Person = models.get_model("people", "Person")
+
+
+def social_auth_context(**extra):
+    return dict({
+        'plus_id': getattr(settings, 'SOCIAL_AUTH_GOOGLE_PLUS_KEY', None),
+        'plus_scope': ' '.join(GooglePlusAuth.DEFAULT_SCOPE),
+        'available_backends': load_backends(settings.AUTHENTICATION_BACKENDS)
+    }, **extra)
 
 
 @never_cache
@@ -86,6 +101,8 @@ def login(request, template_name='registration/login.html',
         context_instance=RequestContext(request),
     )
 
+def social_login(request):
+    return render(request, "accounts/social_login.html", social_auth_context())
 
 @transaction.atomic
 @never_cache
@@ -110,6 +127,23 @@ def register(request, *arguments, **keywords):
         'site_name': Site.objects.get_current().name,
         'login_by_email': site_settings.login_by_email,
     }, context_instance=RequestContext(request))
+
+
+@psa('social:complete')
+def ajax_auth(request, backend):
+    if isinstance(request.backend, BaseOAuth1):
+        token = {
+            'oauth_token': request.REQUEST.get('access_token'),
+            'oauth_token_secret': request.REQUEST.get('access_token_secret'),
+        }
+    elif isinstance(request.backend, BaseOAuth2):
+        token = request.REQUEST.get('access_token')
+    else:
+        raise HttpResponseBadRequest('Wrong backend type')
+    user = request.backend.do_auth(token, ajax=True)
+    login(request, user)
+    data = {'id': user.id, 'username': user.username}
+    return HttpResponse(json.dumps(data), mimetype='application/json')
 
 
 @never_cache
