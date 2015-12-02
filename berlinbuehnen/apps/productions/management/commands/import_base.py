@@ -40,6 +40,7 @@ LOCATION_TITLE_MAPPER = dict((k.lower(), v) for k, v in {
     u"Astrid Lindgren Bühne im FEZ Berlin": u"Astrid Lindgren Bühne im FEZ-Berlin",
     u"FEZ-Berlin und Landesmusikakademie Berlin": u"Landesmusikakademie Berlin im FEZ",
     u"UdK - Universität der Künste Berlin": u"UNI.T - Theater der UdK Berlin",
+    u"Sophiensaele": u"Sophiensæle",
 }.iteritems())
 
 
@@ -386,10 +387,10 @@ class ImportFromHeimatBase(object):
                     stage_dict['city'] = u"Berlin"
                 return LocationAndStage(None, stage_dict)
             try:
-                location = Location.objects.get(title_de=culturebase_location.title)
+                location = Location.objects.get(title_de=convert_location_title(culturebase_location.title))
             except Location.DoesNotExist:
                 location = Location()
-                location.title_de = location.title_en = culturebase_location.title
+                location.title_de = location.title_en = convert_location_title(culturebase_location.title)
 
             if not location.street_address:
                 location.street_address = culturebase_location.street_address
