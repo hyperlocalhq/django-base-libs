@@ -112,5 +112,15 @@
 
 {# JavaScript for prepopulated fields #}
 {% prepopulated_fields_js %}
-
+<script>
+(function ($) {
+    $(function () {
+        $(".object-tools").hide();
+        $("input#id_parent").closest(".grp-row").hide();
+        $("input#id_site").closest(".grp-row").hide();
+        $("input#id_template").closest(".grp-row").hide();
+        $("input#id_language").closest(".grp-row").hide();
+    });
+})(grp.jQuery);
+</script>
 {% endblock %}
