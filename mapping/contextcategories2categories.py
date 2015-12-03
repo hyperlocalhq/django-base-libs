@@ -3,8 +3,13 @@
 
 import csv
 from pprint import pprint as pp
+import categories
+import contextcategories
 
-d = None
+cs = categories.main()
+ccs = contextcategories.main()
+
+ccs2cs = None
 
 with open('csv/contextcategories2categories.csv') as f:
     r = csv.DictReader(f, delimiter=';')
@@ -12,7 +17,8 @@ with open('csv/contextcategories2categories.csv') as f:
               row['context category'],
               (row['category'], row['category_sysname']),
           ) for row in r]
-    d = dict(ls)
+    ccs2cs = dict(ls)
 
-del d['']
-pp(d)
+del ccs2cs['']
+pp(ccs2cs)
+
