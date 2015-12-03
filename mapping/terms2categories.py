@@ -24,7 +24,7 @@ with open('csv/terms2categories.csv') as f:
     r = csv.DictReader(f, delimiter=';')
     ls = [(
               row['term'],
-              (row['category'], row['category_sysname']),
+              (row['category'], row['category_slug']),
           ) for row in r]
     ts2cs = dict(ls)
 
@@ -32,38 +32,38 @@ with open('csv/terms2categories.csv') as f:
 # pp(dict(reverse_cs))
 # pp(dict(reverse_ts))
 
-ts_sysname2cs_sysname = {}
+ts_slug2cs_slug = {}
 for term in ts2cs:
-    category, sysname = ts2cs[term]
+    category, slug = ts2cs[term]
     try:
-        term_sysname = reverse_ts[term.strip()][0]
+        term_slug = reverse_ts[term.strip()][0]
     except IndexError:
-        print 'no sysname for term with title "{}"'.format(term.strip())
+        print 'no slug for term with title "{}"'.format(term.strip())
         continue
-    category_sysnames = reverse_cs[category.strip()]
+    category_slugs = reverse_cs[category.strip()]
     if not category:
-        category_sysname = 'miscellaneous'
+        category_slug = 'sonstiges'
     else:
-        if len(category_sysnames) == 0:
-            print 'no sysnames for category with title "{}"'.format(category.strip())
+        if len(category_slugs) == 0:
+            print 'no slugs for category with title "{}"'.format(category.strip())
             continue
-        elif len(category_sysnames) == 1:
-            category_sysname = category_sysnames[0]
+        elif len(category_slugs) == 1:
+            category_slug = category_slugs[0]
         else:
-            category_sysname = sysname
-    ts_sysname2cs_sysname[term_sysname] = category_sysname
+            category_slug = slug
+    ts_slug2cs_slug[term_slug] = category_slug
 
-# pp(ts_sysname2cs_sysname)
+# pp(ts_slug2cs_slug)
 
 mappings = []
-for t_sysname, c_sysname in ts_sysname2cs_sysname.items():
-    t_title = ts[t_sysname]
-    c_title = cs[c_sysname]
+for t_slug, c_slug in ts_slug2cs_slug.items():
+    t_title = ts[t_slug]
+    c_title = cs[c_slug]
     mappings += [{
         'term title': t_title,
-        'term slug': t_sysname,
+        'term slug': t_slug,
         'category title': c_title,
-        'category slug': c_sysname,
+        'category slug': c_slug,
     }]
 
 # pp(mappings)

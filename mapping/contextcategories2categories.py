@@ -24,7 +24,7 @@ with open('csv/contextcategories2categories.csv') as f:
     r = csv.DictReader(f, delimiter=';')
     ls = [(
               row['context category'],
-              (row['category'], row['category_sysname']),
+              (row['category'], row['category_slug']),
           ) for row in r]
     ccs2cs = dict(ls)
 
@@ -32,38 +32,38 @@ with open('csv/contextcategories2categories.csv') as f:
 # pp(dict(reverse_cs))
 # pp(dict(reverse_ccs))
 
-ccs_sysname2cs_sysname = {}
+ccs_slug2cs_slug = {}
 for contexcategory in ccs2cs:
-    category, sysname = ccs2cs[contexcategory]
+    category, slug = ccs2cs[contexcategory]
     try:
-        contexcategory_sysname = reverse_ccs[contexcategory.strip()][0]
+        contexcategory_slug = reverse_ccs[contexcategory.strip()][0]
     except IndexError:
-        print 'no sysname for contextcategory with title "{}"'.format(contexcategory.strip())
+        print 'no slug for contextcategory with title "{}"'.format(contexcategory.strip())
         continue
-    category_sysnames = reverse_cs[category.strip()]
+    category_slugs = reverse_cs[category.strip()]
     if not category:
-        category_sysname = 'miscellaneous'
+        category_slug = 'sonstiges'
     else:
-        if len(category_sysnames) == 0:
-            print 'no sysnames for category with title "{}"'.format(category.strip())
+        if len(category_slugs) == 0:
+            print 'no slugs for category with title "{}"'.format(category.strip())
             continue
-        elif len(category_sysnames) == 1:
-            category_sysname = category_sysnames[0]
+        elif len(category_slugs) == 1:
+            category_slug = category_slugs[0]
         else:
-            category_sysname = sysname
-    ccs_sysname2cs_sysname[contexcategory_sysname] = category_sysname
+            category_slug = slug
+    ccs_slug2cs_slug[contexcategory_slug] = category_slug
 
-# pp(ccs_sysname2cs_sysname)
+# pp(ccs_slug2cs_slug)
 
 mappings = []
-for cc_sysname, c_sysname in ccs_sysname2cs_sysname.items():
-    cc_title = ccs[cc_sysname]
-    c_title = cs[c_sysname]
+for cc_slug, c_slug in ccs_slug2cs_slug.items():
+    cc_title = ccs[cc_slug]
+    c_title = cs[c_slug]
     mappings += [{
         'context category title': cc_title,
-        'context category slug': cc_sysname,
+        'context category slug': cc_slug,
         'category title': c_title,
-        'category slug': c_sysname,
+        'category slug': c_slug,
     }]
 
 # pp(mappings)

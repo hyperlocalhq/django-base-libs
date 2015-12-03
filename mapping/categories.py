@@ -10,7 +10,7 @@ def main():
     with open('tsv/categories.tsv') as f:
         r = csv.DictReader(f, delimiter='\t')
         ls = [(
-                  row['sysname'],
+                  row['slug'],
                   row['title'],
               ) for row in r]
         d = dict(ls)
