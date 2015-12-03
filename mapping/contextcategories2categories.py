@@ -66,4 +66,17 @@ for cc_sysname, c_sysname in ccs_sysname2cs_sysname.items():
         'category slug': c_sysname,
     }]
 
-pp(mappings)
+# pp(mappings)
+
+with open('full_contextcategories2categories.csv', 'w') as csvfile:
+    fieldnames = [
+        'context category title',
+        'context category slug',
+        'category title',
+        'category slug',
+    ]
+    writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=';')
+
+    writer.writeheader()
+    for d in mappings:
+        writer.writerow(d)

@@ -60,10 +60,23 @@ for t_sysname, c_sysname in ts_sysname2cs_sysname.items():
     t_title = ts[t_sysname]
     c_title = cs[c_sysname]
     mappings += [{
-        'context category title': t_title,
-        'context category slug': t_sysname,
+        'term title': t_title,
+        'term slug': t_sysname,
         'category title': c_title,
         'category slug': c_sysname,
     }]
 
-pp(mappings)
+# pp(mappings)
+
+with open('full_terms2categories.csv', 'w') as csvfile:
+    fieldnames = [
+        'term title',
+        'term slug',
+        'category title',
+        'category slug',
+    ]
+    writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=';')
+
+    writer.writeheader()
+    for d in mappings:
+        writer.writerow(d)
