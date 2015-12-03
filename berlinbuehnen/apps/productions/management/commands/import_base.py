@@ -862,8 +862,8 @@ class ImportFromHeimatBase(object):
                         except:
                             file_description = FileDescription(file_path=mf.path)
 
-                        file_description.title_de = self.get_child_text(picture_node, 'text', languageId="1")
-                        file_description.title_en = self.get_child_text(picture_node, 'text', languageId="2")
+                        file_description.title_de = self.get_child_text(picture_node, 'title', languageId="1") or self.get_child_text(picture_node, 'text', languageId="1")
+                        file_description.title_en = self.get_child_text(picture_node, 'title', languageId="2") or self.get_child_text(picture_node, 'text', languageId="2")
                         file_description.author = (picture_node.get('photographer') or u"").replace("Foto: ", "")
                         file_description.copyright_limitations = picture_node.get('copyright')
                         file_description.save()
@@ -1095,8 +1095,8 @@ class ImportFromHeimatBase(object):
                             except:
                                 file_description = FileDescription(file_path=mf.path)
 
-                            file_description.title_de = self.get_child_text(picture_node, 'text', languageId="1")
-                            file_description.title_en = self.get_child_text(picture_node, 'text', languageId="2")
+                            file_description.title_de = self.get_child_text(picture_node, 'title', languageId="1") or self.get_child_text(picture_node, 'text', languageId="1")
+                            file_description.title_en = self.get_child_text(picture_node, 'title', languageId="2") or self.get_child_text(picture_node, 'text', languageId="2")
                             file_description.author = (picture_node.get('photographer') or u"").replace("Foto: ", "")
                             file_description.copyright_limitations = picture_node.get('copyright')
                             file_description.save()
