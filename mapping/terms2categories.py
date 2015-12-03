@@ -27,8 +27,30 @@ with open('csv/terms2categories.csv') as f:
               (row['category'], row['category_sysname']),
           ) for row in r]
     ts2cs = dict(ls)
-    del ts2cs['']
 
 # pp(ts2cs)
 # pp(dict(reverse_cs))
-pp(dict(reverse_ts))
+# pp(dict(reverse_ts))
+
+ts_sysname2cs_sysname = {}
+for term in ts2cs:
+    category, sysname = ts2cs[term]
+    try:
+        term_sysname = reverse_ts[term.strip()][0]
+    except IndexError:
+        print 'no sysname for term with title "{}"'.format(term.strip())
+        continue
+    category_sysnames = reverse_cs[category.strip()]
+    if not category:
+        category_sysname = 'miscellaneous'
+    else:
+        if len(category_sysnames) == 0:
+            print 'no sysnames for category with title "{}"'.format(category.strip())
+            continue
+        elif len(category_sysnames) == 1:
+            category_sysname = category_sysnames[0]
+        else:
+            category_sysname = sysname
+    ts_sysname2cs_sysname[term_sysname] = category_sysname
+
+pp(ts_sysname2cs_sysname)
