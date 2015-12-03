@@ -53,4 +53,17 @@ for contexcategory in ccs2cs:
             category_sysname = sysname
     ccs_sysname2cs_sysname[contexcategory_sysname] = category_sysname
 
-pp(ccs_sysname2cs_sysname)
+# pp(ccs_sysname2cs_sysname)
+
+mappings = []
+for cc_sysname, c_sysname in ccs_sysname2cs_sysname.items():
+    cc_title = ccs[cc_sysname]
+    c_title = cs[c_sysname]
+    mappings += [{
+        'context category title': cc_title,
+        'context category slug': cc_sysname,
+        'category title': c_title,
+        'category slug': c_sysname,
+    }]
+
+pp(mappings)

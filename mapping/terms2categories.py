@@ -53,4 +53,17 @@ for term in ts2cs:
             category_sysname = sysname
     ts_sysname2cs_sysname[term_sysname] = category_sysname
 
-pp(ts_sysname2cs_sysname)
+# pp(ts_sysname2cs_sysname)
+
+mappings = []
+for t_sysname, c_sysname in ts_sysname2cs_sysname.items():
+    t_title = ts[t_sysname]
+    c_title = cs[c_sysname]
+    mappings += [{
+        'context category title': t_title,
+        'context category slug': t_sysname,
+        'category title': c_title,
+        'category slug': c_sysname,
+    }]
+
+pp(mappings)
