@@ -36,7 +36,7 @@
             {% for name, backend in sublist %}
               {% associated backend %}
               {% if association %}
-                <form class="disconnect-form col-md-2" id="{{ name }}-disconnect" action="{% url "social:disconnect_individual" backend=association.provider association_id=association.id %}?next={% url "dashboard" %}" method="post">{% csrf_token %}
+                <form class="disconnect-form col-md-2" id="{{ name }}-disconnect" action="{% url "social:disconnect_individual" backend=association.provider association_id=association.id %}?next={{ request.path }}" method="post">{% csrf_token %}
                   <a class="btn btn-danger" name="{{ backend|backend_class }}" href="#">
                     <i class="fa fa-{{ name|icon_name }}"></i>
                     Disconnect {{ backend.name|title }}
@@ -49,7 +49,7 @@
                     {{ backend.name|title }}
                   </div>
                 {% else %}
-                  <a class="col-md-2 btn btn-default" id="{{ name }}-button" name="{{ backend|backend_class }}" href="{% url "social:begin" backend=name %}?next={% url "dashboard" %}">
+                  <a class="col-md-2 btn btn-default" id="{{ name }}-button" name="{{ backend|backend_class }}" href="{% url "social:begin" backend=name %}?next={{ request.path }}">
                     <i class="fa fa-{{ name|icon_name }}"></i>
                     {{ backend.name|title }}
                   </a>
@@ -85,14 +85,12 @@
         </a>
       </div>
       {% endcomment %}
-      {% if request.user.is_authenticated %}
       <div>
         <a class="btn btn-primary" href="/logout/" id="logout">
           <i class="fa fa-sign-out"></i>
           Logout
         </a>
       </div>
-      {% endif %}
     </div>
 
     <div id="username-modal" class="modal fade">

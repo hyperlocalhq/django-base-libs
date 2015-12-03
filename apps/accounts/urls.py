@@ -18,7 +18,26 @@ urlpatterns = [
     ),
     url(r'^social-login/$',
         'ccb.apps.accounts.views.social_login',
-        name="social_login"
+        name="social_login",
+    ),
+    url(r'^social-connections/$',
+        'ccb.apps.accounts.views.social_connections',
+        name="social_connections",
+    ),
+    url(
+        r'^social-connections/link/$',
+        "ccb.apps.accounts.views.social_connection_link",
+        name="social_connection_link",
+    ),
+    url(
+        r'^social-connections/link/login/$',
+        "ccb.apps.accounts.views.social_connection_login",
+        name="social_connection_login",
+    ),
+    url(
+        r'^social-connections/link/register/$',
+        "ccb.apps.accounts.views.social_connection_register",
+        name="social_connection_register",
     ),
     url(
         r'^logout/$',

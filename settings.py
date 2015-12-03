@@ -200,6 +200,7 @@ MIDDLEWARE_CLASSES = [
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
     'cms.middleware.language.LanguageCookieMiddleware',
+    "ccb.apps.accounts.middleware.MySocialAuthExceptionMiddleware",
 ]
 # if not DEVELOPMENT_MODE:
 #    MIDDLEWARE_CLASSES.insert(0, "django.middleware.cache.UpdateCacheMiddleware")
@@ -884,7 +885,7 @@ AUTHENTICATION_BACKENDS = (
     #'social.backends.twitter.TwitterOAuth',
     #'social.backends.xing.XingOAuth',
     #'social.backends.yahoo.YahooOAuth',
-    'social.backends.yahoo.YahooOpenId',
+    #'social.backends.yahoo.YahooOpenId',
     #'social.backends.vimeo.VimeoOAuth1',
     'social.backends.email.EmailAuth',
     'social.backends.username.UsernameAuth',
@@ -918,13 +919,14 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.social_user',
     'social.pipeline.user.get_username',
     #'example.app.pipeline.require_email',
-    'social.pipeline.mail.mail_validation',
-    'social.pipeline.user.create_user',
+    #'social.pipeline.mail.mail_validation',
+    'ccb.apps.accounts.pipeline.login_or_registration',
+    'ccb.apps.accounts.pipeline.create_user',
     'social.pipeline.social_auth.associate_user',
-    'social.pipeline.debug.debug',
+    #'social.pipeline.debug.debug',
     'social.pipeline.social_auth.load_extra_data',
     'social.pipeline.user.user_details',
-    'social.pipeline.debug.debug'
+    #'social.pipeline.debug.debug',
 )
 
 SOCIAL_AUTH_DISCONNECT_PIPELINE = (
