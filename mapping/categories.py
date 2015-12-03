@@ -6,12 +6,17 @@ from pprint import pprint as pp
 
 d = None
 
-with open('tsv/categories.tsv') as f:
-    r = csv.DictReader(f, delimiter='\t')
-    ls = [(
-              row['sysname'],
-              row['title'],
-          ) for row in r]
-    d = dict(ls)
+def main():
+    with open('tsv/categories.tsv') as f:
+        r = csv.DictReader(f, delimiter='\t')
+        ls = [(
+                  row['sysname'],
+                  row['title'],
+              ) for row in r]
+        d = dict(ls)
 
-pp(d)
+    return d
+
+if __name__ == '__main__':
+    d = main()
+    pp(d)
