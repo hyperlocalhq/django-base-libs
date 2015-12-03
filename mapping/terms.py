@@ -14,6 +14,7 @@ def main():
                   row['title'],
               ) for row in r]
         d = dict(ls)
+
     return d
 
 if __name__ == '__main__':

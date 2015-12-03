@@ -4,9 +4,9 @@
 import csv
 from pprint import pprint as pp
 
-def main():
-    d = None
+d = None
 
+def main():
     with open('tsv/contextcategories.tsv') as f:
         r = csv.DictReader(f, delimiter='\t')
         ls = [(
