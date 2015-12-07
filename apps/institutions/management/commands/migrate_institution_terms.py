@@ -3,6 +3,7 @@ from django.core.management.base import NoArgsCommand
 import csv
 
 from ccb.apps.institutions.models import Institution
+from ccb.apps.site_specific.models import ContextItem
 from jetson.apps.structure.models import Category
 
 class Command(NoArgsCommand):
@@ -16,9 +17,12 @@ class Command(NoArgsCommand):
             ) for row in r]
             ts2cs = dict(ls)
         print 'migrating terms...'
-        institutions = Institution.objects.all()
+        institutions = Institution.objects.order_by('id')
         for institution in institutions:
             print 'migrating institution "{}"'.format(institution.id)
             for term in institution.get_creative_sectors():
-                category_id = ts2cs[term.slug]
-                print '\tmigrating term "{}" to category "{}"'.format(term.slug, category_id)
+                category_slug = ts2cs[term.slug]
+                category = Category.objects.get(slug=category_slug)
+                institution.categories.add(category)
+                ContextItem.objects.update_for(institution)
+                print '\tmigrating term "{}" to category "{}"'.format(term.slug, category_slug)
