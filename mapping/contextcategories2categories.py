@@ -55,8 +55,10 @@ for contexcategory in ccs2cs:
 
 # pp(ccs_slug2cs_slug)
 
+items = ccs_slug2cs_slug.items()
+items.sort()
 mappings = []
-for cc_slug, c_slug in ccs_slug2cs_slug.items():
+for cc_slug, c_slug in items:
     cc_title = ccs[cc_slug]
     c_title = cs[c_slug]
     mappings += [{

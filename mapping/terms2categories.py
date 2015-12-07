@@ -55,8 +55,10 @@ for term in ts2cs:
 
 # pp(ts_slug2cs_slug)
 
+items = ts_slug2cs_slug.items()
+items.sort()
 mappings = []
-for t_slug, c_slug in ts_slug2cs_slug.items():
+for t_slug, c_slug in items:
     t_title = ts[t_slug]
     c_title = cs[c_slug]
     mappings += [{
