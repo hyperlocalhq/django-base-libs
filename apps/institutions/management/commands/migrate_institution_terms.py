@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 from django.core.management.base import NoArgsCommand
+from django.db.utils import IntegrityError
 import csv
 
 from ccb.apps.institutions.models import Institution
@@ -18,11 +19,21 @@ class Command(NoArgsCommand):
             ts2cs = dict(ls)
         print 'migrating terms...'
         institutions = Institution.objects.order_by('id')
+        problems = set()
         for institution in institutions:
             print 'migrating institution "{}"'.format(institution.id)
             for term in institution.get_creative_sectors():
                 category_slug = ts2cs[term.slug]
-                category = Category.objects.get(slug=category_slug)
-                institution.categories.add(category)
-                ContextItem.objects.update_for(institution)
                 print '\tmigrating term "{}" to category "{}"'.format(term.slug, category_slug)
+                try:
+                    category = Category.objects.get(slug=category_slug)
+                    institution.categories.add(category)
+                    ContextItem.objects.update_for(institution)
+                except IntegrityError:
+                    print '\t** integrity error migrating person {} from term {} to category "{}" **'.format(
+                        institution.id,
+                        term.slug,
+                        category_slug,
+                    )
+                    problems.add((institution.id, term.slug))
+        print 'problems migrating the following events and terms: {}'.format(problems)
