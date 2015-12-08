@@ -100,6 +100,7 @@ INSTALLED_APPS = [
     "djcelery",
     "kombu.transport.django",
     "captcha",
+    "social.apps.django_app.default",
 
     ### django-cms ###
     'cms',  # django CMS itself
@@ -174,6 +175,7 @@ INSTALLED_APPS = [
     "ccb.apps.slideshows",
     "ccb.apps.faqs",
     "ccb.apps.celerytest",
+    "ccb.apps.accounts",
     "ccb",  # just for i18n in Javascript
 ]
 
@@ -198,6 +200,7 @@ MIDDLEWARE_CLASSES = [
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
     'cms.middleware.language.LanguageCookieMiddleware',
+    "ccb.apps.accounts.middleware.MySocialAuthExceptionMiddleware",
 ]
 # if not DEVELOPMENT_MODE:
 #    MIDDLEWARE_CLASSES.insert(0, "django.middleware.cache.UpdateCacheMiddleware")
@@ -223,6 +226,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "ccb.apps.groups_networks.context_processors.groups_networks",
     "ccb.apps.marketplace.context_processors.marketplace",
     "ccb.apps.site_specific.context_processors.site_specific",
+    'social.apps.django_app.context_processors.backends',
+    'social.apps.django_app.context_processors.login_redirect',
 )
 
 SECRET_KEY = "*z-g$creativeberlinio@_qt9efb5dge+(64aeq4$!gk+62nsyqlgqpf8l6"
@@ -421,6 +426,12 @@ if not DEVELOPMENT_MODE and False:
             'KEY_PREFIX': "ccb_production_",
             'TIMEOUT': 300,
             'MAX_ENTRIES': 400,
+        }
+    }
+else:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
         }
     }
 
@@ -857,6 +868,79 @@ MIGRATION_MODULES = {
 ### PERSISTENT DATABASE CONNECTIONS ###
 
 CONN_MAX_AGE = 600
+
+### SOCIAL AUTHENTICATION ###
+
+AUTHENTICATION_BACKENDS = (
+    #'social.backends.behance.BehanceOAuth2',
+    #'social.backends.disqus.DisqusOAuth2',
+    'social.backends.facebook.FacebookOAuth2',
+    #'social.backends.flickr.FlickrOAuth',
+    #'social.backends.google.GoogleOAuth',
+    #'social.backends.google.GoogleOAuth2',
+    #'social.backends.google.GooglePlusAuth',
+    #'social.backends.google.GoogleOpenIdConnect',
+    #'social.backends.instagram.InstagramOAuth2',
+    #'social.backends.linkedin.LinkedinOAuth',
+    #'social.backends.linkedin.LinkedinOAuth2',
+    #'social.backends.mixcloud.MixcloudOAuth2',
+    #'social.backends.open_id.OpenIdAuth',
+    #'social.backends.soundcloud.SoundcloudOAuth2',
+    #'social.backends.spotify.SpotifyOAuth2',
+    #'social.backends.tumblr.TumblrOAuth',
+    #'social.backends.twitter.TwitterOAuth',
+    #'social.backends.xing.XingOAuth',
+    #'social.backends.yahoo.YahooOAuth',
+    #'social.backends.yahoo.YahooOpenId',
+    #'social.backends.vimeo.VimeoOAuth1',
+    'social.backends.email.EmailAuth',
+    'social.backends.username.UsernameAuth',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+AUTH_USER_MODEL = 'auth.User'
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = 'dashboard'
+URL_PATH = ''
+SOCIAL_AUTH_STRATEGY = 'social.strategies.django_strategy.DjangoStrategy'
+SOCIAL_AUTH_STORAGE = 'social.apps.django_app.default.models.DjangoStorage'
+SOCIAL_AUTH_GOOGLE_OAUTH_SCOPE = [
+    'https://www.googleapis.com/auth/drive',
+    'https://www.googleapis.com/auth/userinfo.profile'
+]
+SOCIAL_AUTH_USERNAME_FORM_HTML = 'username_signup.html'
+
+SOCIAL_AUTH_FACEBOOK_KEY = "217188838296370"
+SOCIAL_AUTH_FACEBOOK_SECRET = "66548a2c23317f70ff1e20bd982a5f68"
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+  'fields': 'id, name, email, first_name, last_name',
+}
+
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    #'example.app.pipeline.require_email',
+    #'social.pipeline.mail.mail_validation',
+    'ccb.apps.accounts.pipeline.login_or_registration',
+    'ccb.apps.accounts.pipeline.create_user',
+    'social.pipeline.social_auth.associate_user',
+    #'social.pipeline.debug.debug',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details',
+    #'social.pipeline.debug.debug',
+)
+
+SOCIAL_AUTH_DISCONNECT_PIPELINE = (
+    #'social.pipeline.disconnect.allowed_to_disconnect',
+    'social.pipeline.disconnect.get_entries',
+    'social.pipeline.disconnect.revoke_tokens',
+    'social.pipeline.disconnect.disconnect'
+)
 
 ### LOCAL SETTINGS ###
 
