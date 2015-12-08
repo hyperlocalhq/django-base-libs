@@ -176,7 +176,7 @@ ROOT_URLCONF = "complete_project.urls"
 ### CACHING ###
 
 #CACHE_BACKEND = "locmem://" # passes cache-session test only
-CACHE_BACKEND = "dummy:///"  # doesn't pass cache-session test
+CACHE_BACKEND = "dummy://"  # doesn't pass cache-session test
 
 
 ### FILEBROWSER ###

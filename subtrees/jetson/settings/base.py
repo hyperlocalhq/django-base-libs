@@ -109,7 +109,7 @@ FILE_UPLOAD_PERMISSIONS = 0664
 ### CACHING ###
 
 # CACHE_BACKEND = "locmem://?timeout=30&max_entries=400" # passes cache-session test only
-CACHE_BACKEND = "dummy:///" # doesn't pass cache-session test
+CACHE_BACKEND = "dummy://" # doesn't pass cache-session test
 
 ### SESSION ###
 
