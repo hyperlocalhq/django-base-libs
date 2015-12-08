@@ -428,6 +428,12 @@ if not DEVELOPMENT_MODE and False:
             'MAX_ENTRIES': 400,
         }
     }
+else:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+        }
+    }
 
 
 ### FILEBROWSER ###
