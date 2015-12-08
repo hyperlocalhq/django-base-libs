@@ -1,11 +1,13 @@
 # -*- coding: UTF-8 -*-
 from django.core.management.base import NoArgsCommand
+from django.db import transaction
 from django.db.utils import IntegrityError
 import csv
 
 from ccb.apps.people.models import Person
 from ccb.apps.site_specific.models import ContextItem
 from jetson.apps.structure.models import Category
+
 
 class Command(NoArgsCommand):
     def handle_noargs(self, **options):
@@ -22,18 +24,18 @@ class Command(NoArgsCommand):
         problems = set()
         for person in people:
             print 'migrating person "{}"'.format(person.id)
-            for term in person.get_creative_sectors():
-                category_slug = ts2cs[term.slug]
-                print '\tmigrating term "{}" to category "{}"'.format(term.slug, category_slug)
-                try:
-                    category = Category.objects.get(slug=category_slug)
-                    person.categories.add(category)
-                    ContextItem.objects.update_for(person)
-                except IntegrityError:
-                    print '\t** integrity error migrating person {} from term {} to category "{}" **'.format(
-                        person.id,
-                        term.slug,
-                        category_slug,
-                    )
-                    problems.add((person.id, term.slug))
-        print 'problems migrating the following events and terms: {}'.format(problems)
+            try:
+                with transaction.atomic():
+                    for term in person.get_creative_sectors():
+                        category_slug = ts2cs[term.slug]
+                        print '\tmigrating term "{}" to category "{}"'.format(term.slug, category_slug)
+                        category = Category.objects.get(slug=category_slug)
+                        person.categories.add(category)
+                        ContextItem.objects.update_for(person)
+            except IntegrityError:
+                print '** integrity error migrating person {} **'.format(
+                    person.id,
+                )
+                problems.add((person.id))
+        if problems:
+            print 'problems migrating the following people: {}'.format(problems)
