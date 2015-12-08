@@ -1,0 +1,70 @@
+# -*- coding: UTF-8 -*-
+from django.db import models
+from django import forms
+from django.utils.translation import ugettext_lazy as _
+
+from base_libs.forms import dynamicforms
+from base_libs.utils.misc import get_related_queryset
+
+from ccb.apps.site_specific.models import ContextItem
+
+from mptt.forms import TreeNodeChoiceField
+
+from crispy_forms.helper import FormHelper
+from crispy_forms import layout, bootstrap
+
+
+OBJECT_TYPE_CHOICES = (
+    ('', _("All")),
+    ('person', _("People")),
+    ('institution', _("Institutions"))
+)
+
+class MemberSearchForm(dynamicforms.Form):
+    category = TreeNodeChoiceField(
+        empty_label=_("All"),
+        label=_("Category"),
+        required=False,
+        queryset=get_related_queryset(ContextItem, "categories"),
+    )
+    locality_type = TreeNodeChoiceField(
+        empty_label=_("All"),
+        label=_("Locality Type"),
+        required=False,
+        queryset=get_related_queryset(ContextItem, "locality_type").all(),
+    )
+    object_type = forms.ChoiceField(
+        choices=OBJECT_TYPE_CHOICES,
+        label=_("Object Type"),
+        required=False,
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(MemberSearchForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "GET"
+        self.helper.form_id = "object_list_filter_form"
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Filter"),
+                "category",
+                "locality_type",
+                "object_type",
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Search')),
+            )
+        )
+
+    def get_query(self):
+        from django.template.defaultfilters import urlencode
+        if self.is_valid():
+            cleaned = self.cleaned_data
+            return "&".join([
+                ("%s=%s" % (k, urlencode(isinstance(v, models.Model) and v.pk or v)))
+                for (k, v) in cleaned.items()
+                if v
+            ])
+        return ""
