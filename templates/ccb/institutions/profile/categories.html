@@ -43,6 +43,25 @@
             {% endfor %}
         </dl>
     {% endif %}
+    {% if object.get_categories %}
+        <dl>
+            <dt>
+                {% with object.get_categories|length as categories_count %}
+                    {% ifequal categories_count 1 %}
+                        {% trans "Category" %}
+                    {% else %}
+                        {% trans "Categories" %}
+                    {% endifequal %}
+                {% endwith %}
+            </dt>
+            {% for cat in object.get_categories %}
+                {% if forloop.first %}
+                    <dd>{% endif %}
+            {{ cat.title|escape }}{% if not forloop.last %}, {% endif %}
+            {% if forloop.last %}</dd>{% endif %}
+            {% endfor %}
+        </dl>
+    {% endif %}
     {% if object.get_locality_type %}
         <dl>
             <dt>{% trans "Location" %}</dt>
