@@ -10,6 +10,7 @@ def make_slugs_unique_together_with_usernames(apps, schema_editor):
     ContentType = apps.get_model("contenttypes", "ContentType")
     ct = ContentType.objects.get(app_label="institutions", model="institution")
 
+    count = 0
     for inst in Institution.objects.all():
         item = ContextItem.objects.get(
             content_type=ct,
@@ -19,6 +20,8 @@ def make_slugs_unique_together_with_usernames(apps, schema_editor):
             inst.slug = item.slug
             inst.save()
             print(inst.slug)
+            count += 1
+    print("Institutions changed: %d" % count)
 
 
 class Migration(migrations.Migration):

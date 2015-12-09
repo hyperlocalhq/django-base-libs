@@ -953,13 +953,21 @@ urlpatterns += i18n_patterns(
     url(r'^livestream/$', TemplateView.as_view(template_name='site_specific/livestream.html')),
 
     # general FAQs and Help
-    url(r'^(?P<object_url_part>([^/]+/[^/]+/)?)(?P<url_identifier>faqs|help|contacts)/',
+    url(r'^(?P<object_url_part>([^/]+/[^/]+/)?)(?P<url_identifier>faqs|help)/',
         include('ccb.apps.faqs.urls'),
         {
             'only_for_this_site': True,
             'include': [None],
         }
-        ),
+    ),
+    url(r'^(?P<url_identifier>contacts)/',
+        include('ccb.apps.faqs.urls'),
+        {
+            'object_url_part': None,
+            'only_for_this_site': True,
+            'include': [None],
+        }
+    ),
 
     (r'^tweets/$', 'ccb.apps.twitter.views.latest_tweets', {
         'twitter_username': settings.TWITTER_USERNAME,

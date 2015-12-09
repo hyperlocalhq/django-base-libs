@@ -31,79 +31,57 @@ def _member_list_filter(request, queryset, show):
         # "nationality", "degree", "interests", "preferred_language",
         # "timezone", "completeness", "user__password",
     )
-    print(show)
-    if show == "contacts":
-        from ccb.apps.site_specific.models import ContextItem
-
+    if show in ("contacts", "favorites"):
         if not request.user.is_authenticated():
-            pass
-            # raise Http404
+            raise AccessDenied
         tables = ["favorites_favorite"]
         condition = [
             "favorites_favorite.user_id = %d" % request.user.id,
             "favorites_favorite.object_id = system_contextitem.id"]
-        ct = ContentType.objects.get_for_model(queryset.model)
-        fav_person_ids = [
-            el['object_id'] for el in ContextItem.objects.filter(
-                content_type=ct
-            ).extra(
-                tables=tables,
-                where=condition,
-            ).distinct().values("object_id")
-            ]
         queryset = queryset.filter(
-            pk__in=fav_person_ids,
-        )
+            content_type__model__in=("person", "institution")
+        ).extra(
+            tables=tables,
+            where=condition,
+        ).distinct()
     elif show == "relationships":
         if not request.user.is_authenticated():
             raise Http404
-        queryset = queryset.filter(
+        related_people_pks = Person.objects.filter(
             user__to_user__user=request.user,
             user__to_user__status="confirmed",
+        ).values_list("id", flat=True)
+        ct = ContentType.objects.get_for_model(Person)
+        queryset = queryset.filter(
+            object_id__in=related_people_pks,
+            content_type=ct,
         )
     elif show == "memos":
+        # DEPRECATED
         from jetson.apps.memos.models import Memo, MEMO_TOKEN_NAME
-
         ct = ContentType.objects.get_for_model(queryset.model)
         memos_ids = Memo.objects.filter(
             collection__token=request.COOKIES.get(MEMO_TOKEN_NAME, None),
-            content_type=ct,
+            content_type__model__in=("person", "institution"),
         ).values_list("object_id", flat=True)
+        # the following should check object_id and content_type pairs
         queryset = queryset.filter(
-            pk__in=memos_ids,
+            content_type__model__in=("person", "institution"),
+            object_id__in=memos_ids,
         )
-    elif show == "favorites":
-        from ccb.apps.site_specific.models import ContextItem
-
-        if not request.user.is_authenticated():
-            raise AccessDenied
-
-        tables = ["favorites_favorite"]
-        condition = ["favorites_favorite.user_id = %d" % request.user.id,
-                     "favorites_favorite.object_id = system_contextitem.id"]
-        ct = ContentType.objects.get_for_model(queryset.model)
-        fav_inst_ids = [
-            el['object_id'] for el in ContextItem.objects.filter(
-                content_type=ct
-            ).extra(
-                tables=tables,
-                where=condition,
-            ).distinct().values("object_id")
-            ]
-        queryset = queryset.filter(pk__in=fav_inst_ids)
     elif show == "own-institutions":
         if not request.user.is_authenticated():
             raise AccessDenied
         from ccb.apps.groups_networks.models import PersonGroup
 
-        ct = ContentType.objects.get_for_model(queryset.model)
+        ct = ContentType.objects.get_for_model(Institution)
         owned_inst_ids = [
             el['object_id'] for el in PersonGroup.objects.filter(
                 groupmembership__user=request.user,
                 content_type=ct,
             ).distinct().values("object_id")
             ]
-        queryset = queryset.filter(pk__in=owned_inst_ids)
+        queryset = queryset.filter(object_id__in=owned_inst_ids, content_type=ct)
     else:
         queryset = queryset.filter(
             status__in=("published", "published_commercial"),
@@ -198,13 +176,13 @@ def member_list(request, creative_sector_slug="", show="", list_filter=_member_l
 
 
 def member_detail(request, slug, creative_sector_slug="", **kwargs):
-    ci = get_object_or_404(
+    item = get_object_or_404(
         ContextItem,
         content_type__model__in=["person", "institution"],
         status="published",
         slug=slug,
     )
-    if ci.is_person():
+    if item.is_person():
         kwargs['queryset'] = Person.objects.all()
         kwargs['template_name'] = 'people/person_details.html'
         kwargs['slug_field'] = 'user__username'
@@ -219,4 +197,5 @@ def member_detail(request, slug, creative_sector_slug="", **kwargs):
         kwargs['queryset'] = kwargs['queryset'].filter(
             creative_sectors__slug=creative_sector_slug,
         )
+
     return object_detail(request, **kwargs)

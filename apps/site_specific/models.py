@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _, ugettext
 from django.utils.safestring import mark_safe
 from django.utils.functional import lazy
 from django.contrib.auth.models import User
-from django.utils.encoding import force_unicode
+from django.utils.encoding import force_unicode, smart_str
 from django.conf import settings
 from django.apps import apps
 from mptt.fields import TreeForeignKey, TreeManyToManyField
@@ -255,6 +255,9 @@ class ContextItem(CreationModificationDateMixin, ContextItemObjectRelation, UrlM
 
     def __unicode__(self):
         return force_unicode(self.get_title())
+
+    def __str__(self):
+        return smart_str(self.get_title())
 
     def get_title(self, language=None):
         language = language or get_current_language()

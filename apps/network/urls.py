@@ -52,7 +52,7 @@ urlpatterns = [
     ),
     url(r'^add-institution/$', 'ccb.apps.institutions.views.add_institution'),
 
-    url(r'^member/(?P<slug>[^/]+)/$', 'ccb.apps.network.views.member_detail', member_detail_info),
+    url(r'^member/(?P<slug>[^/]+)/$', 'ccb.apps.network.views.member_detail', member_detail_info, name="member_detail"),
     # url(r'^member/(?P<slug>[^/]+)/network/$', 'ccb.apps.network.views.member_detail',
     #     dict(member_detail_info, template_name="people/person_network.html")),
     # url(r'^member/(?P<slug>[^/]+)/network/person_contacts/$',

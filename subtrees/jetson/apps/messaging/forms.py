@@ -3,6 +3,9 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.conf import settings
 
+from crispy_forms.helper import FormHelper
+from crispy_forms import layout, bootstrap
+
 from base_libs.forms import dynamicforms
 from base_libs.forms.fields import SingleEmailTextField
 from base_libs.forms.fields import SecurityField
@@ -27,7 +30,8 @@ class MessageFormBase(dynamicforms.Form):
     
     # prevent spam
     prevent_spam = SecurityField()
-    
+
+
 class ContactForm(MessageFormBase):
     
     def __init__(self, sender, recipient, *args, **kwargs):
@@ -37,6 +41,11 @@ class ContactForm(MessageFormBase):
         self.sender = sender.is_authenticated() and sender or None
         self.recipient = recipient
         # add sender_name and sender_email only if unregistered
+
+        self.helper.form_action = "."
+        self.helper.form_method = "POST"
+        self.helper.form_id = "contact_form"
+
         if not self.sender:
             self.fields['sender_name'] = forms.CharField(
                 label=_("Your name"),
@@ -50,7 +59,34 @@ class ContactForm(MessageFormBase):
                 max_length=255,
                 widget=forms.TextInput(attrs={'class':'vTextField'}),
                 )
-        
+            self.helper.layout = layout.Layout(
+                layout.Fieldset(
+                    _("Contact Form"),
+                    layout.Field("sender_name"),
+                    layout.Field("sender_email"),
+                    layout.Field("subject"),
+                    layout.Field("body"),
+                    "prevent_spam",
+                    layout.HTML("{{ form.prevent_spam.error_tag }}"),
+                ),
+                bootstrap.FormActions(
+                    layout.Submit('submit', _('Send message')),
+                )
+            )
+        else:
+            self.helper.layout = layout.Layout(
+                layout.Fieldset(
+                    _("Contact Form"),
+                    layout.Field("subject"),
+                    layout.Field("body"),
+                    "prevent_spam",
+                    layout.HTML("{{ form.prevent_spam.error_tag }}"),
+                ),
+                bootstrap.FormActions(
+                    layout.Submit('submit', _('Send message')),
+                )
+            )
+
     def save(self):
         cleaned = self.cleaned_data
         
