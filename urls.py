@@ -894,10 +894,12 @@ urlpatterns += i18n_patterns(
     # sitemaps
     url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
 
+    ## begin TODO: remove these URLs after migrating apps to django-cms
     url(r'^portfolios/((?P<show>favorites|memos|featured)/)?$',
         'ccb.apps.media_gallery.views.gallery_list', gallery_list_info),
     url(r'^portfolios/feeds/(?P<feed_type>.*)/$', 'jetson.apps.utils.views.feed',
         latest_media_galleries),
+    ## end
 
     # style guide
     url(r'^styleguide/', include('jetson.apps.styleguide.urls')),
