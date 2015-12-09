@@ -141,6 +141,7 @@ event_details_info = {
     'context_item_type': URL_ID_EVENT,
 }
 
+# begin TODO: remote these variabls after migrating app to django-cms
 job_offer_list_info = {
     'queryset': JobOffer.objects.all(),
     'template_name': 'marketplace/job_offer_list.html',
@@ -156,6 +157,7 @@ job_offer_details_info = {
     'template_name': 'marketplace/job_offer_details.html',
     'context_processors': (prev_next_processor,),
 }
+# end
 
 person_list_info = {
     'queryset': Person.objects.select_related().order_by('auth_user.username'),
@@ -173,12 +175,14 @@ person_details_info = {
     'context_item_type': URL_ID_PERSON,
 }
 
+# begin TODO: remote these variabls after migrating app to django-cms
 gallery_list_info = {
     'queryset': MediaGallery.objects.all(),
     'template_name': 'media_gallery/gallery_list.html',
     'paginate_by': 15,
     'allow_empty': True,
 }
+# end
 
 group_list_info = {
     'queryset': PersonGroup.objects.order_by('title'),
@@ -211,6 +215,7 @@ latest_published_objects_feeds = {
     'atom': LatestPublishedObjectsAtomFeed(),
 }
 
+# begin TODO: remote these variabls after migrating app to django-cms
 from ccb.apps.media_gallery.feeds import MediaGalleryRssFeed, MediaGalleryAtomFeed
 
 latest_media_galleries = {
@@ -218,6 +223,7 @@ latest_media_galleries = {
     'atom': MediaGalleryAtomFeed(),
     'queryset': MediaGallery.objects.order_by("-creation_date")[:50],
 }
+# end
 
 from ccb.apps.site_specific.sitemap import ContextItemSitemap
 
@@ -655,6 +661,7 @@ urlpatterns += i18n_patterns(
         ).urls),
     ),
 
+    # begin TODO: remote these URLs after migrating app to django-cms
     url(r'^%s/create-berlin-jobboard/$' % URL_ID_JOB_OFFERS,
         _project_name + '.apps.marketplace.views.job_board'),
     url(r'^%s/talent-in-berlin/$' % URL_ID_JOB_OFFERS,
@@ -692,6 +699,7 @@ urlpatterns += i18n_patterns(
         _project_name + '.apps.marketplace.views.job_offer_detail',
         dict(job_offer_details_info, template_name="marketplace/job_offer_map.html"),
     ),
+    # end
 
     url(r'^%s/(?P<slug>[^/]+)/projects/$' % URL_ID_PERSON, object_detail,
         dict(person_details_info, template_name="people/person_projects.html")),
