@@ -109,7 +109,7 @@ institution_details_info = {
     'context_item_type': URL_ID_INSTITUTION,
 }
 
-# begin TODO: remote these variabls after migrating app to django-cms
+# begin TODO: remote these variables after migrating app to django-cms
 document_list_info = {
     'queryset': Document.objects.filter(status__in=("published", "published_commercial")),
     'template_name': 'resources/documents/document_list.html',
@@ -145,7 +145,7 @@ event_details_info = {
 }
 # end
 
-# begin TODO: remote these variabls after migrating app to django-cms
+# begin TODO: remote these variables after migrating app to django-cms
 job_offer_list_info = {
     'queryset': JobOffer.objects.all(),
     'template_name': 'marketplace/job_offer_list.html',
@@ -179,7 +179,7 @@ person_details_info = {
     'context_item_type': URL_ID_PERSON,
 }
 
-# begin TODO: remote these variabls after migrating app to django-cms
+# begin TODO: remote these variables after migrating app to django-cms
 gallery_list_info = {
     'queryset': MediaGallery.objects.all(),
     'template_name': 'media_gallery/gallery_list.html',
@@ -219,7 +219,7 @@ latest_published_objects_feeds = {
     'atom': LatestPublishedObjectsAtomFeed(),
 }
 
-# begin TODO: remote these variabls after migrating app to django-cms
+# begin TODO: remote these variables after migrating app to django-cms
 from ccb.apps.media_gallery.feeds import MediaGalleryRssFeed, MediaGalleryAtomFeed
 
 latest_media_galleries = {
