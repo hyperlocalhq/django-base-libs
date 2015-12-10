@@ -725,7 +725,7 @@ input:focus { outline: 0; }
 .fieldset.editable dl.input-fields .row > * { padding: 0 10px; }
 .is-xs .fieldset.editable dl.input-fields .row { margin: 0 -5px; }
 .is-xs .fieldset.editable dl.input-fields .row > * { padding: 0 5px; }
-.fieldset.editable dl.input-fields dt { width: 30%; display: inline-block; float: left; font-family: "Lato", "sans-serif"; font-weight: 900; font-size: 1.07em; letter-spacing: 0.07em; line-height: 118.75%; color: #afaeae; text-transform: uppercase; padding: 7px 20px 10px 0; margin: 0 0px 10px 0; }
+.fieldset.editable dl.input-fields dt { width: 30%; display: inline-block; float: left; font-family: "Lato", "sans-serif"; font-weight: 900; font-size: 1.07em; letter-spacing: 0.07em; line-height: 118.75%; color: #afaeae; text-transform: uppercase; padding: 24px 20px 10px 0; margin: 0 0px 10px 0; }
 .is-xs .fieldset.editable dl.input-fields dt { width: 100%; padding: 0; margin: 0 0 5px 0; }
 .fieldset.editable dl.input-fields dd { width: 70%; display: inline-block; float: left; margin: 0 0 10px 0; padding: 0 10% 0 0; }
 .is-xs .fieldset.editable dl.input-fields dd { width: 100%; }
@@ -746,8 +746,8 @@ input:focus { outline: 0; }
 .fieldset.editable .accordion .input-field.box { margin: 0; }
 .fieldset.editable.disabled { background: none; box-shadow: none; }
 .fieldset.editable.disabled h2 { color: #444444; }
-.fieldset.editable.disabled dt { padding-top: 7px; }
-.fieldset.editable.disabled dd { padding-top: 0; }
+.fieldset.editable.disabled dl.input-fields dt { padding-top: 7px; }
+.fieldset.editable.disabled dl.input-fields dd { padding-top: 0; }
 .fieldset.editable.disabled .edit-button { opacity: 0; }
 .fieldset.editable.disabled .hide { display: none !important; }
 .fieldset.editable.disabled .input-field.box { margin: -7px 0 0 -7px; }

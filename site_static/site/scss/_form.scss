@@ -1195,7 +1195,7 @@ input {
                 color: $grey-light;
                 text-transform: uppercase;
                 
-                padding: 7px 20px 10px 0;
+                padding: 24px 20px 10px 0;
                 margin: 0 0px 10px 0;
                 
                 .is-xs & {
@@ -1297,14 +1297,16 @@ input {
                 color: $grey-dark;
             }
             
-            dt {
-                padding-top: 7px;
-            }
-            
-            dd {
-                padding-top: 0;
-            }
+            dl.input-fields {
+                dt {
+                    padding-top: 7px;
+                }
                 
+                dd {
+                    padding-top: 0;
+                }
+            }
+                    
             .edit-button {
                 opacity: 0;
             } 
