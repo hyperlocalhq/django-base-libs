@@ -127,6 +127,7 @@ document_details_info = {
 }
 # end
 
+# begin TODO: remote these variables after migrating app to django-cms
 event_list_info = {
     'queryset': Event.objects.all(),
     'template_name': 'events/event_list.html',
@@ -142,6 +143,7 @@ event_details_info = {
     'context_processors': (prev_next_processor,),
     'context_item_type': URL_ID_EVENT,
 }
+# end
 
 # begin TODO: remote these variabls after migrating app to django-cms
 job_offer_list_info = {
@@ -543,6 +545,7 @@ urlpatterns += i18n_patterns(
              template_name="resources/documents/document_network.html")),
     # end
 
+    # begin TODO: remote these URLs after migrating app to django-cms
     url(
         r'^%s/'
         r'((?P<show>favorites|memos|own-%s)/)?'
@@ -629,6 +632,7 @@ urlpatterns += i18n_patterns(
             name="event",
         ).urls),
     ),
+    # end
 
     url(r'^%s/$' % URL_ID_PEOPLE, _project_name + '.apps.people.views.person_list',
         dict(list_filter=_person_list_filter, **person_list_info)),
