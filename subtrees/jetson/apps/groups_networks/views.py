@@ -14,6 +14,7 @@ from django.contrib.sites.models import Site
 from django.views.decorators.cache import never_cache
 from django.contrib.auth import authenticate, login
 from django.conf import settings
+from django.shortcuts import get_object_or_404
 
 from base_libs.utils.misc import ExtendedJSONEncoder, get_related_queryset
 from base_libs.utils.crypt import decryptString
@@ -587,14 +588,11 @@ def invite_persongroup_members(request, slug, **kwargs):
         return object_list(request, **kwargs)
 
 def invite_institution_members(request, slug, **kwargs):
-    institution = Institution.objects.get(slug=slug)
-    try:
-        group = PersonGroup.objects.get(
-            object_id=institution.id,
-            content_type=ContentType.objects.get_for_model(institution),
-            )
-    except:
-        return access_denied(request)
+    institution = get_object_or_404(Institution, slug=slug)
+    group = get_object_or_404(PersonGroup,
+        object_id=institution.id,
+        content_type=ContentType.objects.get_for_model(institution),
+    )
     #check privileges
     if not group.are_members_invitable(request.user):
         return access_denied(request)

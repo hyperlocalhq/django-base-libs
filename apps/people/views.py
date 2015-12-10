@@ -235,6 +235,7 @@ def person_invitation_list(request, show="", **kwargs):
     if show == "invitations":
         if not status_filter:
             status_filter = "pending"
+        # TODO: change the hardcoded URL to a named one, specialized for network app
         return HttpResponseRedirect('/%s/requests/?by-status=%s' % (URL_ID_PEOPLE, status_filter))
 
     elif show == "requested":

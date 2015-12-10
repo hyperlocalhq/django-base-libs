@@ -28,6 +28,7 @@ from ccb.apps.events.models import Event, URL_ID_EVENT, URL_ID_EVENTS
 from ccb.apps.marketplace.models import JobOffer, URL_ID_JOB_OFFER, URL_ID_JOB_OFFERS
 from ccb.apps.groups_networks.models import PersonGroup, URL_ID_PERSONGROUP, URL_ID_PERSONGROUPS
 from ccb.apps.media_gallery.sites import PortfolioSite
+from ccb.apps.site_specific.models import ContextItem
 
 _project_name = "ccb"
 
@@ -49,6 +50,7 @@ OBJECT_URL_MAPPER = {
     URL_ID_DOCUMENT: (Document, 'slug', "resources/documents/details_base.html"),
     URL_ID_EVENT: (Event, 'slug', "events/details_base.html"),
     URL_ID_PERSONGROUP: (PersonGroup, 'slug', "groups_networks/persongroups/details_base.html"),
+    "member": (ContextItem, 'slug', "network/details_base.html"),
 }
 
 country_lookup = {
@@ -972,13 +974,21 @@ urlpatterns += i18n_patterns(
     url(r'^livestream/$', TemplateView.as_view(template_name='site_specific/livestream.html')),
 
     # general FAQs and Help
-    url(r'^(?P<object_url_part>([^/]+/[^/]+/)?)(?P<url_identifier>faqs|help|contacts)/',
+    url(r'^(?P<object_url_part>([^/]+/[^/]+/)?)(?P<url_identifier>faqs|help)/',
         include('ccb.apps.faqs.urls'),
         {
             'only_for_this_site': True,
             'include': [None],
         }
-        ),
+    ),
+    url(r'^(?P<url_identifier>contacts)/',
+        include('ccb.apps.faqs.urls'),
+        {
+            'object_url_part': None,
+            'only_for_this_site': True,
+            'include': [None],
+        }
+    ),
 
     (r'^tweets/$', 'ccb.apps.twitter.views.latest_tweets', {
         'twitter_username': settings.TWITTER_USERNAME,

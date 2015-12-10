@@ -177,6 +177,7 @@ INSTALLED_APPS = [
     "ccb.apps.faqs",
     "ccb.apps.celerytest",
     "ccb.apps.accounts",
+    "ccb.apps.network",
     "ccb",  # just for i18n in Javascript
 ]
 
