@@ -618,7 +618,7 @@
                     &lt;div class="row collapse">
                         &lt;div class="col-xs-3 col-sm-4 col-md-3">
                             &lt;div class="input-field select">
-                                &lt;select placeholder="{% trans 'Day' %}" required>
+                                &lt;select placeholder="&#123;% trans 'Day' %}" required>
                                     &lt;option>--------&lt;/option>
                                     &lt;option value="1">1.&lt;/option>
                                     ...
@@ -627,7 +627,7 @@
                         &lt;/div>
                         &lt;div class="col-xs-5 col-sm-4 col-md-3">
                             &lt;div class="input-field select">
-                                &lt;select placeholder="{% trans 'Month' %}" required>
+                                &lt;select placeholder="&#123;% trans 'Month' %}" required>
                                     &lt;option>--------&lt;/option>
                                     &lt;option value="1">Januar&lt;/option>
                                     ...
@@ -636,7 +636,7 @@
                         &lt;/div>
                         &lt;div class="col-xs-4 col-sm-4 col-md-3">
                             &lt;div class="input-field select">
-                                &lt;select placeholder="{% trans 'Year' %}" required>
+                                &lt;select placeholder="&#123;% trans 'Year' %}" required>
                                     &lt;option>--------&lt;/option>
                                     &lt;option value="1985">1985&lt;/option>
                                     ...
@@ -650,7 +650,7 @@
                 &lt;dt>Beschreibung&lt;/dt>
                 &lt;dd>&lt;div class="input-field text">&lt;textarea placeholder="Placeholder">&lt;/textarea>&lt;/div>&lt;/dd>
                 &lt;dt>Datei&lt;/dt>
-                &lt;dd>&lt;div class="input-field file">&lt;input type="file" placeholder="{% trans 'No file selected' %}"/>&lt;/div>&lt;/dd>
+                &lt;dd>&lt;div class="input-field file">&lt;input type="file" placeholder="&#123;% trans 'No file selected' %}"/>&lt;/div>&lt;/dd>
                 &lt;dt>Wahl&lt;/dt>
                 &lt;dd>&lt;div class="input-field box">&lt;input id="fieldset-choice-1" type="checkbox"/>&lt;label for="fieldset-choice-1">Wirklich?&lt;/label>&lt;/div>&lt;/dd>
                 &lt;dt>Schalter&lt;/dt>
@@ -658,7 +658,7 @@
                 &lt;dt>Auswahl&lt;/dt>
                 &lt;dd>
                     &lt;div class="input-field select">
-                        &lt;select placeholder="{% trans 'Please choose' %}">
+                        &lt;select placeholder="&#123;% trans 'Please choose' %}">
                             &lt;option>--------&lt;/option>
                             &lt;option value="option-1">Option 1&lt;/option>
                             ...
@@ -672,12 +672,17 @@
                     &lt;/ul>
                 &lt;/dd>
             &lt;/dl>
+            &lt;div class="button-group form-buttons hide">
+                &lt;button class="cancel button">&#123;% trans 'Cancel' %}&lt;/button>
+                &lt;input class="button primary" type="submit" value="&#123;% trans 'Publish' %}"/>
+            &lt;/div>
         &lt;/fieldset>
     &lt;/div>
 &lt;/form></pre>
             <p>If you want to start with the editing view of the fieldset, remove the "disabled" property of the fieldset tag.<br/>
             If you don't want the user to be able to switch between editing and disabled mode, remove the class "switch" of the ".fieldset" tag.<br/>
-            If you structure an entry in row and col-...-... and you want the columns to collapse in disabled mode, give the row the class "collapse".</p>
+            If you structure an entry in row and col-...-... and you want the columns to collapse in disabled mode (like in the birthday field), give the row the class "collapse".<br/>
+            To hide an element in disabled mode give it the class "hide".</p>
         </div>
     </div>
 {% endblock %}

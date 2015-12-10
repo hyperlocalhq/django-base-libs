@@ -121,7 +121,7 @@ $(document).ready(function() {
         
         me.$wrapper = $('<div class="input-file-display-wrapper"></div>');
         me.$display = $('<input type="text" class="input-file-display" disabled="disabled"/>');
-        me.$button = $('<div class="button input-file-button">'+translation["Upload"]+'</div>');
+        me.$button = $('<div class="button input-file-button">'+trans["Upload"]+'</div>');
         
         
         if (me.$main.hasClass('default')) me.$button.addClass('default');
@@ -1040,7 +1040,7 @@ $(document).ready(function() {
                 me.edit_button.addClass('fa-close');
                 me.$fieldset.prop('disabled', false);
                 me.$main.removeClass('disabled');
-                $('.sr-only', me.edit_button).text(translation['close']);
+                $('.sr-only', me.edit_button).text(trans['close']);
                 
             } else {
                 
@@ -1048,7 +1048,7 @@ $(document).ready(function() {
                 me.edit_button.removeClass('fa-close');
                 me.$fieldset.prop('disabled', true);
                 me.$main.addClass('disabled');
-                $('.sr-only', me.edit_button).text(translation['edit']);
+                $('.sr-only', me.edit_button).text(trans['edit']);
             }
             
             me.$files.each(function() {
@@ -1068,7 +1068,7 @@ $(document).ready(function() {
             return false;            
         }
         
-        me.edit_button = $('<button class="edit-button button fawesome fa-'+button+' smaller primary"><span class="sr-only">'+translation[button]+'</span></button>');
+        me.edit_button = $('<button class="edit-button button fawesome fa-'+button+' smaller primary"><span class="sr-only">'+trans[button]+'</span></button>');
         me.edit_button.click(function(e) {return toggle(me, e);});
         $('.cancel', me.$main).click(function(e) {return toggle(me, e, true);});
         

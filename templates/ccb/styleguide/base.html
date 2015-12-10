@@ -28,10 +28,11 @@
         
         <script type="text/javascript">
         
-            var translation = [];
-            translation["Upload"] = '{% trans "Upload" %}';
-            translation["edit"] = '{% trans "edit" %}';
-            translation["close"] = '{% trans "close" %}';
+            var trans = [];
+            trans["Upload"] = '{% trans "Upload" %}';
+            trans["edit"] = '{% trans "edit" %}';
+            trans["close"] = '{% trans "close" %}';
+            {% block translations %}{% endblock %}
             
         </script>
         
@@ -116,14 +117,38 @@
                             Redefine open graph definitions in <b>{&#37; block open_graph &#37;}...{&#37; endblock &#37;}</b>.<br/>
                             Use the <b>{&#37; block title &#37;}...{&#37; endblock &#37;}</b> to prepend to the page title.<br/>
                             Overwrite or append metatags in <b>{&#37; block meta_tags &#37;}...{&#37; endblock &#37;}</b>.<br/>
-                            Add body classes in <b>{&#37; block body_class &#37;}...{&#37; endblock &#37;}</b>.</p>
+                            Add body classes in <b>{&#37; block body_class &#37;}...{&#37; endblock &#37;}</b>.<br/>
+                            To add javascript translations use <b>{&#37; block translations &#37;}...{&#37; endblock &#37;}</b>.</p>
+                            <br/>
+                            <br/>
+                            <br/>
+                            
+                            <p class="uppercase"><b>Translations in Javascript</b></p>
+                            <p>To use a translation in javascript add the translation to the global javascript array "trans" like:</p>
+<pre>&#123;% block translations %}
+    trans["some phrase"] = '&#123;% trans "some phrase" %}';
+    trans["another phrase"] = '&#123;% trans "another phrase" %}';
+&#123;% endblock %}</pre>
+                            <p>Then you can access the translation through the "trans" array.</p>
+                            <br/>
+                            <br/>
+                            <br/>
+                            
+                            <p class="uppercase"><b>Realisation of a double tab link</b></p>
+                            <p>To simulate a hover state if you tap on a link the first time and trigger the default click action only at the second tap on the link do the following:</p>
+     
+                            <p>Mark the link with the class "tap-hover-trigger". If the link is also the element which should recieve the class "hover" at the first tap, give it the class "tap-hover" as well.</p>
+                            <p>If a different element (like some parent element) should recieve the class "hover", give this element the class "tap-hover" and assign it to the link element as jQuery object into the data variable "$tap-hover":<br/>
+                            e.g. $link_element.data("$tap-hover", $hover_element);</p>
+     
+                            <p>Now style the (.hover) class to look like the pseudo (:hover) class.</p>
                             <br/>
                             <br/>
                             <br/>
                             
                             <p class="uppercase"><b>Sniffer</b></p>
                             <p>Depending on the window width the body tag has the class "is-xs", "is-sm", "is-md" or "is-lg".</p>
-                            <br/>
+
                         </div>
                     </div>
                 </div>
