@@ -156,5 +156,12 @@ urlpatterns = [
     url(r'^member/(?P<slug>[^/]+)/invite/',
         'ccb.apps.groups_networks.views.invite_institution_members',
     ),
-    
+
+    url(r'^(?P<object_url_part>member/(?P<slug>[^/]+)/)(?P<url_identifier>blog)/',
+        include('jetson.apps.blog.urls'),
+        {
+            'only_for_this_site': True,
+            'include': ["member"],
+        }
+    ),
 ]

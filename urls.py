@@ -28,6 +28,7 @@ from ccb.apps.events.models import Event, URL_ID_EVENT, URL_ID_EVENTS
 from ccb.apps.marketplace.models import JobOffer, URL_ID_JOB_OFFER, URL_ID_JOB_OFFERS
 from ccb.apps.groups_networks.models import PersonGroup, URL_ID_PERSONGROUP, URL_ID_PERSONGROUPS
 from ccb.apps.media_gallery.sites import PortfolioSite
+from ccb.apps.site_specific.models import ContextItem
 
 _project_name = "ccb"
 
@@ -49,6 +50,7 @@ OBJECT_URL_MAPPER = {
     URL_ID_DOCUMENT: (Document, 'slug', "resources/documents/details_base.html"),
     URL_ID_EVENT: (Event, 'slug', "events/details_base.html"),
     URL_ID_PERSONGROUP: (PersonGroup, 'slug', "groups_networks/persongroups/details_base.html"),
+    "member": (ContextItem, 'slug', "network/details_base.html"),
 }
 
 country_lookup = {
