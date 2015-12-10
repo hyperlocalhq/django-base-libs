@@ -869,10 +869,11 @@ urlpatterns += i18n_patterns(
     # accounts and registration
     url(r'^', include('ccb.apps.accounts.urls')),
 
+    # begin TODO: remote these URLs after migrating app to django-cms
     # articles
     url(r'^news/', include('ccb.apps.articles.urls')),
+    # end
 
-    #
     url(r'^creative-sector/$',
         'ccb.apps.site_specific.views.redirect_to_creative_sector',
         ),
