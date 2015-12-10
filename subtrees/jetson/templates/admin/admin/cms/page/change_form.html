@@ -1,236 +1,126 @@
 {% extends "admin/change_form.html" %}
-{% load i18n admin_modify cms_tags cms_admin %}
-{% load url from future %}
+{% load i18n admin_urls admin_static admin_modify cms_admin %}
+
 {% block title %}{% trans "Change a page" %}{% endblock %}
 
-{% block media %}
-    <!--
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
-    <script type="text/javascript" src="http://code.jquery.com/ui/1.8.0/jquery-ui.min.js"></script>
-    -->
-    <script>
-        var jQuery = grp.jQuery;
-    </script>
-    <link href="{{ STATIC_URL }}cms/css/rte.css" type="text/css" media="all" rel="stylesheet" />
-    <link href="{{ STATIC_URL }}cms/css/pages.css" type="text/css" media="all" rel="stylesheet" />
-    <link href="{{ STATIC_URL }}cms/css/change_form.css" type="text/css" media="all" rel="stylesheet" />
-    <link href="{{ STATIC_URL }}cms/css/jquery.dialog.css" type="text/css" media="all" rel="stylesheet" />
-    <link href="{{ STATIC_URL }}cms/css/plugin_editor.css" type="text/css" media="all" rel="stylesheet" />
-    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/core.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/admin/RelatedObjectLookups.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/jquery.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/jquery.init.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/actions.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}cms/js/plugins/admincompat.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}cms/js/libs/jquery.query.js"></script>
-    <!--
-    <script type="text/javascript" src="{{ STATIC_URL }}cms/js/libs/jquery.ui.core.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}cms/js/libs/jquery.ui.dialog.js"></script>
-    -->
-    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/calendar.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/admin/DateTimeShortcuts.js"></script>
-    <!--
-    <script type="text/javascript" src="{{ STATIC_URL }}cms/js/libs/jquery.ui.sortable.js"></script>
-    -->
-    <script type="text/javascript" src="{{ STATIC_URL }}cms/js/plugin_editor.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/inlines.js"></script>    
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+    &rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a>
+    &rsaquo; {% if has_change_permission %}<a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>{% else %}{{ opts.verbose_name_plural|capfirst }}{% endif %}
+    &rsaquo; {% if add %}{% trans 'Add' %} {{ opts.verbose_name }}{% else %}{{ original|truncatewords:"18" }}{% endif %}
+</div>
 {% endblock %}
 
 {% block extrahead %}
-    {{ block.super }}
-    <script type="text/javascript" src="{{ STATIC_URL }}cms/js/csrf.js"></script>
-    <script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
-    
-    {% if not add %}
-    <script type="text/javascript" src="{{ STATIC_URL }}cms/js/change_form.js"></script>
-    {% endif %}
-    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/urlify.js"></script>
-    
-    {% if add %}
-        <script type="text/javascript">
-        //<![CDATA[	
-            jQuery(document).ready(function (){
-                var title= jQuery('#id_title');
-                var slug = jQuery('#id_slug');
-                var update = function(){
-                    var value = title.val();
-                    if (window.UNIHANDECODER){
-                        value = UNIHANDECODER.decode(value);
-                    }
-                    slug.val(URLify(value, 64));
-                };
-                title.keyup(update);
-                update();
-            });
-        //]]>
-        </script>
-    {% endif %}
-    
-    <style type="text/css">
-    <!--
-    .language_button { 
-        font-weight:bold;
-        margin-bottom:-1px;
-        border-color:#ddd #aaa #ccc #ddd !important;
-        border:1px;
-        /*background:#fff url('{% cms_admin_icon_base %}nav-bg.gif') repeat-x center bottom !important;*/
-        background: #267C99;
-    }
-    
-    #lang_tab_content h2.header {
-        margin:0;
-        font-size:11px;
-        text-align:left;
-        font-weight:bold;
-        /*background:#7ca0c7 url('{% cms_admin_icon_base %}default-bg.gif') repeat-x left top;*/
-        background: #267C99;
-        color:#fff;
-        height: 7px;
-        margin-bottom: 7px;
-    }
-    
-    .notfilled {
-        color: #808080 !important;
-    }
-    .hidden {
-        display: none;
-    }
-    .plugin-list-holder {
-        padding: 0;
-        margin-left: -170px;
-        margin-top: 30px;
-    }
-    .plugin-editor {
-        margin-left: 140px;
-    }
-    -->
-    </style>
-
-
+{{ block.super }}
+{# load nonconflict pre and post files to fix conflict if there is another jQuery loaded #}
+{# the code is included by a external file because the code has to be loaded into a python file where the wizard is loaded as well #}
+<script src="{% static "cms/js/modules/jquery.noconflict.pre.js" %}" type="text/javascript"></script>
+<script src="{% static "admin/js/urlify.js" %}" type="text/javascript"></script>
+<script src="{% static "cms/js/dist/bundle.admin.base.min.js" %}" type="text/javascript"></script>
+<script src="{% static "cms/js/dist/bundle.admin.changeform.min.js" %}" type="text/javascript"></script>
+<script src="{% static "cms/js/modules/jquery.noconflict.post.js" %}" type="text/javascript"></script>
 {% endblock %}
 
-{% block object-tools %}
-    {% if change %}{% if not is_popup %}
-        <ul class="grp-object-tools">
-            {% if can_publish %}
-                <li><a href="publish/" class="publishlink">{% trans "Publish draft" %}</a></li>
-                <li><a href="preview/?language={{ language }}" class="previewdraftlink" target="_blank">{% trans "Preview draft" %}</a></li>
-            {% endif %}
-            {% if can_change and page.published and page.is_dirty %}<li><a href="revert/" class="revertlink">{% trans "Revert to public" %}</a></li>{% endif %}
-                <li><a href="history/" class="historylink">{% trans "History" %}</a></li>
-            {% if page.publisher_public %}<li><a href="preview/?public=1&language={{ language }}" class="viewsitelink grp-state-focus" target="_blank">{% trans "View on site" %}</a></li>{% endif%}
+{% block content_title %}
+    {% if title %}<h1>{{ title }}</h1>{% endif %}
+    {% if not popup %}
+        <ul class="object-tools hide-in-modal">
+            <li>
+                {% url 'admin:cms_page_preview_page' page.id language as admin_url %}
+                <a href="{{ admin_url }}" target="_parent">{% trans "View on site" %}</a>
+            </li>
         </ul>
-    {% endif %}{% endif %}
+    {% endif %}
 {% endblock %}
 
-{% block content %}<div id="content-main">
+{% block content %}
+<div id="content-main">
 
-<form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="?language={{ language }}{%if request.GET.target %}&amp;target={{ request.GET.target }}{% endif %}&amp;{%if request.GET.target %}position={{ request.GET.position }}{% endif %}" method="post" id="page_form">{% csrf_token %}{% block form_top %}{% endblock %}
+{% block object-tools %}{% endblock %}
+
+<form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="?language={{ language }}{%if request.GET.target %}&amp;target={{ request.GET.target }}{% endif %}{%if request.GET.position %}&amp;position={{ request.GET.position }}{% endif %}{% if request.GET.copy_target %}&amp;copy_target={{ request.GET.copy_target }}{% endif %}{% if request.GET.add_page_type %}&amp;add_page_type={{ request.GET.add_page_type }}{% endif %}" method="post" id="page_form">
+{% csrf_token %}
+{% block form_top %}{% endblock %}
 {{ adminForm.fields.parent }}
 
 <div style="display: none;"><input type="hidden" name="language" value="{{language}}" id="id_language"/></div>
 
-{% if show_language_tabs %}
+{% if show_language_tabs and not show_permissions %}
 <div id="page_form_lang_tabs">
     {% for lang_code, lang_name in language_tabs %}
-        <input type="button" onclick="trigger_lang_button(this,'./?language={{lang_code}}');"
-            class="language_button {% ifequal lang_code language %}selected{% else %}{% if not lang_code in filled_languages %} notfilled{% endif %}{% endifequal %}"
-            id="debutton" name="{{lang_code}}" value="{{lang_name}}" /> 
+        <input type="button" onclick="CMS.API.changeLanguage('./?language={{lang_code}}');"
+            class="language_button {% if lang_code == language %}selected{% else %}{% if not lang_code in filled_languages %} notfilled{% endif %}{% endif %}"
+            id="{{lang_code}}button" name="{{lang_code}}" value="{{lang_name}}" />
     {% endfor %}
+    <div class="lang_tabs_line"></div>
 </div>
 {% endif %}
 
-
 <div id="lang_tab_content">
-{% if show_language_tabs %}
-<h2 class="header"></h2>
-{% endif %}
 {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
 {% if save_on_top %}{% submit_row %}{% endif %}
 {% if errors %}
-    <p class="errornote">
-    {% blocktrans count errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
-    </p>
-    <ul class="errorlist">{% for error in adminform.form.non_field_errors %}<li>{{ error }}</li>{% endfor %}</ul>
+<p class="errornote">
+{% blocktrans count errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+</p>
+<ul class="errorlist">{% for error in adminform.form.non_field_errors %}<li>{{ error }}</li>{% endfor %}</ul>
 {% endif %}
 
 {% for fieldset in adminform %}
-  {% include "admin/cms/page/includes/fieldset.html" %}
+    {% include "admin/cms/page/includes/fieldset.html" %}
 {% endfor %}
-
 
 {% for inline_admin_formset in inline_admin_formsets %}
     {% include inline_admin_formset.opts.template %}
 {% endfor %}
 
-
-{% if not add %}
-	{% if CMS_PERMISSION and can_change_permissions %}
-		<div class="grp-group grp-tabular grp-collapse grp-closed">
-            <h2 class="grp-collapse-handler load_remote">{% trans 'All permissions' %}</h2>
-            <fieldset id="inherited_permissions" class="grp-module aligned">
-                <div class="loading">{% trans 'Loading...' %}</div>
-                <div class="load">./permissions/</div>
+{% if show_permissions %}
+    {% if CMS_PERMISSION and can_change_permissions %}
+    <div class="inline-group">
+        <div class="tabular inline-related">
+            <fieldset id="inherited_permissions" class="module aligned collapse">
+              <h2>{% trans 'All permissions' %}</h2>
+              <div class="loading" rel="../permissions/">{% trans 'Loading...' %}</div>
             </fieldset>
-		</div>
-	{% endif %}
-
-    <div class="grp-group grp-tabular grp-collapse grp-closed">
-        <h2 class="grp-collapse-handler load_remote">{% trans 'Page states' %}</h2>
-        <fieldset id="page_states" class="grp-module aligned">
-            <div class="loading">{% trans 'Loading...' %}</div>
-            <div class="load">./moderation-states/</div>
-        </fieldset>
+        </div>
     </div>
-    
-    <script>
-		$('h2.load_remote').click(function() {
-			// reqest content - do it this way, so we can save some time which
-			// this operation may need
-			$(this).removeClass('load_remote');
-			var $parent = $(this).closest('.grp-group');
-			var pathHolder = $parent.find('div.load');
-			if (pathHolder.length) {
-				var url = pathHolder.text();
-				// load just once
-				pathHolder.remove();
-				$parent.find('div.loading').load(url);
-			}
-			return false;	
-		});	
-    </script>
+    {% endif %}
 {% endif %}
 
 {% block after_related_objects %}{% endblock %}
 
 {% if add %}
-    <footer class="grp-module grp-submit-row grp-fixed-footer">
-        <header style="display:none"><h1>Submit Options</h1></header>
-        <ul>
-            <li><input type="submit" name="_save" class="grp-button grp-default" value="{% trans 'Save' %}" {{ onclick_attrib }}/></li>
-            <li><input type="submit" name="_continue" class="grp-button" value="{% trans 'Save and continue editing' %}" {{ onclick_attrib }}/></li>
-        </ul>
-	</footer>
+    <div class="submit-row"{% if is_popup %} style="overflow: auto;"{% endif %}>
+        <input type="submit" name="_save" class="default" value="{% trans 'Save' %}" {{ onclick_attrib }}/>
+        <input type="submit" name="_continue" value="{% trans 'Save and continue editing' %}" {{ onclick_attrib }}/>
+    </div>
 {% else %}
-	{% if not moderation_delete_request %}{% page_submit_row %}{% endif %}
+    {% page_submit_row %}
 {% endif %}
+</div>
+</form>
+</div>
 
-{% if add %}
-   <script type="text/javascript">document.getElementById("{{ adminform.first_field.auto_id }}").focus();</script>
-
-{% endif %}
-{% for url in unihandecode_urls %}
-<script type="text/javascript" src="{{ url }}"></script>
-{% endfor %}
+{% for url in unihandecode_urls %}<script src="{{ url }}" type="text/javascript"></script>{% endfor %}
 {% if unihandecode_urls %}
-<script type="text/javascript">
+<script>
     var UNIHANDECODER = unihandecode.Unihan('{{ unihandecode_lang }}');
 </script>
 {% endif %}
 
 {# JavaScript for prepopulated fields #}
 {% prepopulated_fields_js %}
-
-</div>
-</form></div>
+<script>
+(function ($) {
+    $(function () {
+        $(".object-tools").hide();
+        $("input#id_parent").closest(".grp-row").hide();
+        $("input#id_site").closest(".grp-row").hide();
+        $("input#id_template").closest(".grp-row").hide();
+        $("input#id_language").closest(".grp-row").hide();
+    });
+})(grp.jQuery);
+</script>
 {% endblock %}

@@ -9,6 +9,7 @@ from django.shortcuts import redirect
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
+from django.shortcuts import render
 from cms.sitemaps import CMSSitemap
 
 from jetson.apps.utils.decorators import login_required

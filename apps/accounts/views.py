@@ -1,30 +1,58 @@
 # -*- coding: UTF-8 -*-
 import hashlib
+import json
+import facebook
 
+from django.apps import apps
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.db import transaction
 from django.views.decorators.cache import never_cache
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
-from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.contrib.auth.models import User
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.sites.models import Site, RequestSite
 from django.contrib.auth import authenticate, login as auth_login
 from django.conf import settings
+from django.shortcuts import render
+
+from base_libs.utils.misc import get_unique_value
+from base_libs.utils.betterslugify import better_slugify
 from base_libs.utils.crypt import decryptString
 from base_libs.utils.misc import get_installed
+
 from jetson.apps.utils.decorators import login_required
 from jetson.apps.configuration.models import SiteSettings
 from jetson.apps.mailing.views import send_email_using_template, Recipient
+
+from social.backends.oauth import BaseOAuth1, BaseOAuth2
+from social.backends.google import GooglePlusAuth
+from social.backends.utils import load_backends
+from social.apps.django_app.utils import psa
 
 from ccb.apps.accounts.forms import EmailOrUsernameAuthentication
 from ccb.apps.accounts.forms import SimpleRegistrationForm
 from ccb.apps.accounts.forms import PrivacySettingsForm
 
+Site = apps.get_model("sites", "Site")
+SiteSettings = apps.get_model("configuration", "SiteSettings")
+User = apps.get_model("auth", "User")
+image_mods = models.get_app("image_mods")
+Institution = models.get_model("institutions", "Institution")
+
 URL_ID_PERSON = get_installed("people.models.URL_ID_PERSON")
 URL_ID_PEOPLE = get_installed("people.models.URL_ID_PEOPLE")
-Person = models.get_model("people", "Person")
+Person = apps.get_model("people", "Person")
+
+
+def social_auth_context(**extra):
+    return dict({
+        'plus_id': getattr(settings, 'SOCIAL_AUTH_GOOGLE_PLUS_KEY', None),
+        'plus_scope': ' '.join(GooglePlusAuth.DEFAULT_SCOPE),
+        'available_backends': load_backends(settings.AUTHENTICATION_BACKENDS)
+    }, **extra)
 
 
 @never_cache
@@ -86,6 +114,160 @@ def login(request, template_name='registration/login.html',
         context_instance=RequestContext(request),
     )
 
+def social_login(request):
+    return render(request, "accounts/social_login.html", social_auth_context())
+
+@never_cache
+def social_connection_link(request):
+    """
+    logs in existing account by facebook account or gives a choice to
+    * login and link to an existing account
+    * register and link to the new account
+    """
+    backend = request.session.get('partial_pipeline', {}).get('backend', None)
+    if not backend:
+        return redirect("social_login")
+    """
+    request.session['partial_pipeline'] == {
+        u'args': [],
+        u'backend': u'yahoo',
+        u'kwargs': {
+            u'details': {
+                u'email': u'aidasbend@yahoo.com',
+                u'first_name': u'Aidas',
+                u'fullname': u'Aidas Bendoraitis',
+                u'last_name': u'Bendoraitis',
+                u'nickname': u'archatas',
+                u'username': u'AidasBendoraitis'
+            },
+            u'is_new': True,
+            u'new_association': False,
+            u'social': None,
+            u'uid': u'https://me.yahoo.com/aaiddennium#6a55e',
+            u'user': None,
+            u'username': u'AidasBendoraitis'
+        },
+        u'next': 5
+    }
+    """
+    return render(request, "accounts/unlinked_user.html")
+
+
+@never_cache
+def social_connection_login(request):
+    """
+    logs the user in and links him with facebook account
+    """
+    backend = request.session.get('partial_pipeline', {}).get('backend', None)
+    if not backend:
+        return redirect("social_login")
+    """
+    request.session['partial_pipeline'] == {
+        u'args': [],
+        u'backend': u'yahoo',
+        u'kwargs': {
+            u'details': {
+                u'email': u'aidasbend@yahoo.com',
+                u'first_name': u'Aidas',
+                u'fullname': u'Aidas Bendoraitis',
+                u'last_name': u'Bendoraitis',
+                u'nickname': u'archatas',
+                u'username': u'AidasBendoraitis'
+            },
+            u'is_new': True,
+            u'new_association': False,
+            u'social': None,
+            u'uid': u'https://me.yahoo.com/aaiddennium#6a55e',
+            u'user': None,
+            u'username': u'AidasBendoraitis'
+        },
+        u'next': 5
+    }
+    """
+
+    template_name = "accounts/login_and_link.html"
+
+    response = login(request, template_name=template_name)
+
+    # if there are any validation errors, return the form
+    if response.status_code != 302:
+        return response
+
+    return redirect("social:complete", backend=backend)
+
+
+@never_cache
+def social_connection_register(request):
+    """
+    registers the new user in and links him with facebook account
+    """
+    backend = request.session.get('partial_pipeline', {}).get('backend', None)
+    if not backend:
+        return redirect("social_login")
+    details = request.session['partial_pipeline']['kwargs']['details']
+    """
+    request.session['partial_pipeline'] == {
+        u'args': [],
+        u'backend': u'yahoo',
+        u'kwargs': {
+            u'details': {
+                u'email': u'aidasbend@yahoo.com',
+                u'first_name': u'Aidas',
+                u'fullname': u'Aidas Bendoraitis',
+                u'last_name': u'Bendoraitis',
+                u'nickname': u'archatas',
+                u'username': u'AidasBendoraitis'
+            },
+            u'is_new': True,
+            u'new_association': False,
+            u'social': None,
+            u'uid': u'https://me.yahoo.com/aaiddennium#6a55e',
+            u'user': None,
+            u'username': u'AidasBendoraitis'
+        },
+        u'next': 5
+    }
+    """
+    site_settings = SiteSettings.objects.get_current()
+
+    if request.method == "POST":
+        form = SimpleRegistrationForm(request, request.POST, request.FILES)
+        if form.is_valid():
+            # create User and Person instances
+            user = form.save(activate_immediately=True)
+            # login the user
+            user.backend = "django.contrib.auth.backends.ModelBackend"
+            auth_login(request, user)
+
+            # change the next page from whatever it was to "registration complete"
+            request.session['next'] = reverse('register_all_done')
+            return redirect("social:complete", backend=backend)
+    else:
+        initial = {
+            'email': details['email'],
+            'username': get_unique_value(
+                User,
+                better_slugify(request.session['partial_pipeline']['kwargs']['username']).replace("-", "_"),
+                field_name="username",
+                separator="_",
+            ),
+            'first_name': details['first_name'],
+            'last_name': details['last_name'],
+        }
+
+        form = SimpleRegistrationForm(request, initial=initial)
+
+    return render(request, "accounts/register_and_link.html", {
+        'form': form,
+        'site_name': Site.objects.get_current().name,
+        'login_by_email': site_settings.login_by_email,
+    })
+
+
+@login_required
+@never_cache
+def social_connections(request):
+    return render(request, "accounts/social_connections.html", social_auth_context())
 
 @transaction.atomic
 @never_cache
@@ -110,6 +292,23 @@ def register(request, *arguments, **keywords):
         'site_name': Site.objects.get_current().name,
         'login_by_email': site_settings.login_by_email,
     }, context_instance=RequestContext(request))
+
+
+@psa('social:complete')
+def ajax_auth(request, backend):
+    if isinstance(request.backend, BaseOAuth1):
+        token = {
+            'oauth_token': request.REQUEST.get('access_token'),
+            'oauth_token_secret': request.REQUEST.get('access_token_secret'),
+        }
+    elif isinstance(request.backend, BaseOAuth2):
+        token = request.REQUEST.get('access_token')
+    else:
+        raise HttpResponseBadRequest('Wrong backend type')
+    user = request.backend.do_auth(token, ajax=True)
+    login(request, user)
+    data = {'id': user.id, 'username': user.username}
+    return HttpResponse(json.dumps(data), mimetype='application/json')
 
 
 @never_cache

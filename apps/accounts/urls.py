@@ -11,13 +11,36 @@ from ccb.apps.accounts.forms import password_reset_change_form_helper
 urlpatterns = [
     url(r'^account/$', TemplateView.as_view(template_name='accounts/index.html')),
     url(
-        r'^login',
+        r'^login/$',
         'ccb.apps.accounts.views.login',
         {'template_name': 'accounts/login.html'},
         name="login",
     ),
+    url(r'^social-login/$',
+        'ccb.apps.accounts.views.social_login',
+        name="social_login",
+    ),
+    url(r'^social-connections/$',
+        'ccb.apps.accounts.views.social_connections',
+        name="social_connections",
+    ),
     url(
-        r'^logout',
+        r'^social-connections/link/$',
+        "ccb.apps.accounts.views.social_connection_link",
+        name="social_connection_link",
+    ),
+    url(
+        r'^social-connections/link/login/$',
+        "ccb.apps.accounts.views.social_connection_login",
+        name="social_connection_login",
+    ),
+    url(
+        r'^social-connections/link/register/$',
+        "ccb.apps.accounts.views.social_connection_register",
+        name="social_connection_register",
+    ),
+    url(
+        r'^logout/$',
         'django.contrib.auth.views.logout',
         {'next_page': "/"},
         name="logout",
@@ -89,4 +112,9 @@ urlpatterns = [
         {'template_name': 'accounts/password_change_done.html'},
         name='password_change_done',
     ),
+    url(r'^ajax-auth/(?P<backend>[^/]+)/$',
+        'ccb.apps.accounts.views.ajax_auth',
+        name='ajax-auth'
+    ),
+    url(r'', include('social.apps.django_app.urls', namespace='social')),
 ]
