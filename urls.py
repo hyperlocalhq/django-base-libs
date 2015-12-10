@@ -109,6 +109,7 @@ institution_details_info = {
     'context_item_type': URL_ID_INSTITUTION,
 }
 
+# begin TODO: remote these variabls after migrating app to django-cms
 document_list_info = {
     'queryset': Document.objects.filter(status__in=("published", "published_commercial")),
     'template_name': 'resources/documents/document_list.html',
@@ -124,6 +125,7 @@ document_details_info = {
     'context_processors': (prev_next_processor,),
     'context_item_type': URL_ID_DOCUMENT,
 }
+# end
 
 event_list_info = {
     'queryset': Event.objects.all(),
@@ -524,6 +526,7 @@ urlpatterns += i18n_patterns(
         'ccb.apps.groups_networks.views.invite_institution_members',
         ),
 
+    # begin TODO: remote these URLs after migrating app to django-cms
     url(r'^%s/$' % URL_ID_DOCUMENTS, _project_name + '.apps.resources.views.document_list',
         dict(list_filter=_document_list_filter, **document_list_info)),
     url(
@@ -538,6 +541,7 @@ urlpatterns += i18n_patterns(
     url(r'^%s/(?P<slug>[^/]+)/network/$' % URL_ID_DOCUMENT, object_detail,
         dict(document_details_info,
              template_name="resources/documents/document_network.html")),
+    # end
 
     url(
         r'^%s/'
