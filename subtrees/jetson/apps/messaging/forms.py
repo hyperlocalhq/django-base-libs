@@ -42,7 +42,8 @@ class ContactForm(MessageFormBase):
         self.recipient = recipient
         # add sender_name and sender_email only if unregistered
 
-        self.helper.form_action = "."
+        self.helper = FormHelper()
+        self.helper.form_action = ""
         self.helper.form_method = "POST"
         self.helper.form_id = "contact_form"
 
@@ -61,7 +62,7 @@ class ContactForm(MessageFormBase):
                 )
             self.helper.layout = layout.Layout(
                 layout.Fieldset(
-                    _("Contact Form"),
+                    _("Write a message to %s") % self.recipient.get_title(),
                     layout.Field("sender_name"),
                     layout.Field("sender_email"),
                     layout.Field("subject"),
@@ -76,7 +77,7 @@ class ContactForm(MessageFormBase):
         else:
             self.helper.layout = layout.Layout(
                 layout.Fieldset(
-                    _("Contact Form"),
+                    _("Write a message to %s") % self.recipient.get_title(),
                     layout.Field("subject"),
                     layout.Field("body"),
                     "prevent_spam",

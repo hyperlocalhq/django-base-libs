@@ -148,13 +148,13 @@ urlpatterns = [
     #     dict(member_detail_info, template_name="institutions/institution_reviews.html")),
     url(r'^member/(?P<slug>[^/]+)/message/$',
         'jetson.apps.messaging.views.contact',
-        dict(member_detail_info, template_name='institutions/institution_message.html')),
+        dict(member_detail_info, template_name='network/member_message.html')),
     url(r'^member/(?P<slug>[^/]+)/message/alldone/$',
         'jetson.apps.messaging.views.contact_done',
-        dict(member_detail_info, template_name='institutions/institution_message.html')),
+        dict(member_detail_info, template_name='network/member_message.html')),
 
     url(r'^member/(?P<slug>[^/]+)/invite/',
         'ccb.apps.groups_networks.views.invite_institution_members',
-        ),
+    ),
     
 ]
