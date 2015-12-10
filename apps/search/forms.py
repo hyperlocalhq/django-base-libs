@@ -2,61 +2,48 @@
 
 from django import forms
 from django.db import models
-from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
+from django.core.urlresolvers import reverse
 
-from haystack.forms import SearchForm
-from haystack import connections
-from haystack.constants import DEFAULT_ALIAS
+from crispy_forms.helper import FormHelper
+from crispy_forms import layout, bootstrap
 
-try:
-    from django.utils.encoding import smart_text
-except ImportError:
-    from django.utils.encoding import smart_unicode as smart_text
+from haystack.forms import SearchForm as _SearchForm
 
-
-def get_dictionaries(using=DEFAULT_ALIAS):
-    models = {}
-    indexes = {}
-    for model, index in connections[using].get_unified_index().get_indexes().items():
-        m = "%s.%s" % (model._meta.app_label, model._meta.module_name)
-        models[m] = index.short_name
-        indexes[index.short_name] = m
-    return models, indexes
+from .functions import model_choices, get_model_from_short_name
 
 
-def get_model_short_name(name):
-    short_model_names, indexes = get_dictionaries()
-    return short_model_names[name]
-
-
-def get_model_from_short_name(name):
-    short_model_names, indexes = get_dictionaries()
-    return indexes[name]
-
-
-def model_choices(using=DEFAULT_ALIAS):
-    models = sorted(
-        [(m, k.verbose_name, k.order) for m, k in connections[using].get_unified_index().get_indexes().items()],
-        key=lambda x: x[2]
-    )
-    return [("%s" % get_model_short_name("%s.%s" % (m[0]._meta.app_label, m[0]._meta.module_name)),
-             capfirst(unicode(m[1]))) for m in models]
-
-
-class ModelSearchForm(SearchForm):
+class ModelSearchForm(_SearchForm):
     QUERY_PARAM_NAME = 'q'
     MODELS_PARAM_NAME = 't'
 
-    # selected_facets = forms.CharField( required=False, widget=forms.HiddenInput )
-
     def __init__(self, *args, **kwargs):
         super(ModelSearchForm, self).__init__(*args, **kwargs)
+        self.fields[self.QUERY_PARAM_NAME].label = u""
         self.fields[self.MODELS_PARAM_NAME] = forms.MultipleChoiceField(
             choices=model_choices(),
             required=False,
             label=_('Search In'),
             widget=forms.CheckboxSelectMultiple
+        )
+        self.helper = FormHelper()
+        self.helper.form_action = reverse("haystack_search")
+        self.helper.form_method = "GET"
+        self.helper.form_id = "search_form"
+
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                "",
+                    layout.Div(
+                        layout.Field(self.QUERY_PARAM_NAME, css_class="input-block-level"),
+                        layout.Field(self.MODELS_PARAM_NAME, template="bootstrap/layout/dropdown_checkboxselectmultiple.html"),
+                        css_class="input-block-wrapper"
+                    ),
+                    layout.Div(
+                        layout.Submit('submit', _('search')),
+                        css_class="btn-group"
+                    ),
+            ),
         )
 
     def get_models(self):
@@ -64,9 +51,9 @@ class ModelSearchForm(SearchForm):
         search_models = []
 
         if self.is_valid():
-            for model in self.cleaned_data[self.MODELS_PARAM_NAME]:
-                model = get_model_from_short_name(model)
-                search_models.append(models.get_model(*model.split('.')))
+            for short_name in self.cleaned_data[self.MODELS_PARAM_NAME]:
+                app_model = get_model_from_short_name(short_name)
+                search_models.append(models.get_model(*app_model.split('.')))
 
         return search_models
 
@@ -80,13 +67,11 @@ class ModelSearchForm(SearchForm):
         self.clean()
 
         q = self.cleaned_data[self.QUERY_PARAM_NAME]
-        models = self.get_models()
+        model_list = self.get_models()
 
         # add models
-        # sqs = self.searchqueryset.models( *models )
         from haystack.query import SearchQuerySet
-
-        sqs = SearchQuerySet().models(*models)
+        sqs = SearchQuerySet().models(*model_list)
 
         sqs = sqs.auto_query(sqs.query.clean(q))
 

@@ -109,6 +109,7 @@ INSTALLED_APPS = [
     'sekizai',  # for javascript and css management
     # for the admin skin. You **must** add 'djangocms_admin_style' in the list **before** 'django.contrib.admin'.
     'reversion',
+    'aldryn_search',
 
     ### django-cms plug-ins ###
     'djangocms_column',
@@ -701,16 +702,39 @@ PROFANITY_MODELS_NOT_TO_CHECK = (
 
 ### HAYSTACK ###
 
-# HAYSTACK_SITECONF = "ccb.apps.site_specific.search_site"
-# HAYSTACK_SEARCH_ENGINE = "whoosh"
-# HAYSTACK_WHOOSH_PATH = os.path.join(PATH_TMP, "site_index")
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        'PATH': os.path.join(PATH_TMP, "site_index"),
-        'BATCH_SIZE': 100000,
+        'PATH': os.path.join(PATH_TMP, "whoosh_index", "default"),
+        'STORAGE': 'file',
+        'POST_LIMIT': 128 * 1024 * 1024,
+        'INCLUDE_SPELLING': True,
+        'BATCH_SIZE': 100,
+    },
+    'de': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(PATH_TMP, "whoosh_index", "de"),
+        'STORAGE': 'file',
+        'POST_LIMIT': 128 * 1024 * 1024,
+        'INCLUDE_SPELLING': True,
+        'BATCH_SIZE': 100,
+        'URL': 'http://www.creative-city-berlin.de/de/suche/',
+    },
+    'en': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(PATH_TMP, "whoosh_index", "en"),
+        'STORAGE': 'file',
+        'POST_LIMIT': 128 * 1024 * 1024,
+        'INCLUDE_SPELLING': True,
+        'BATCH_SIZE': 100,
+        'URL': 'http://www.creative-city-berlin.de/en/search/',
     },
 }
+
+HAYSTACK_ROUTERS = ['ccb.apps.search.router.LanguageRouter']
+ALDRYN_SEARCH_LANGUAGE_FROM_ALIAS = lambda alias: alias
+ALDRYN_SEARCH_INDEX_BASE_CLASS = "ccb.apps.search.search_indexes.CMSPageIndexBase"  # custom index base for pages
+ALDRYN_SEARCH_REGISTER_APPHOOK = False  # we'll use a custom app hook for search
 
 ### MULTILINGUAL URLS ###
 
