@@ -30,6 +30,13 @@ body {
     }
 }
 
+*, *:before, *:after {
+    padding: 0;
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
 
 
 .padding-10 {
@@ -472,7 +479,8 @@ dl {
         padding: 0px 2em;
     }
     
-    &:hover {
+    &:hover, &:focus, &.focus {
+        outline: none;
         background: $button-default-active;
         border-color: $button-default-border-actvie;
     }
@@ -480,7 +488,7 @@ dl {
     &.primary {
         background: $button-primary;
         border-color: $button-primary-border;
-        &:hover {
+        &:hover, &:focus, &.focus {
             background: $button-primary-active;
             border-color: $button-primary-active-border;
         }
@@ -489,7 +497,7 @@ dl {
     &.success {
         background: $button-success;
         border-color: $button-success-border;
-        &:hover {
+        &:hover, &:focus, &.focus {
             background: $button-success-active;
             border-color: $button-success-active-border;
         }
@@ -498,7 +506,7 @@ dl {
     &.warning {
         background: $button-warning;
         border-color: $button-warning-border;
-        &:hover {
+        &:hover, &:focus, &.focus {
             background: $button-warning-active;
             border-color: $button-warning-active-border;
         }
@@ -507,7 +515,7 @@ dl {
     &.danger {
         background: $button-danger;
         border-color: $button-danger-border;
-        &:hover {
+        &:hover, &:focus, &.focus {
             background: $button-danger-active;
             border-color: $button-danger-active-border;
         }
@@ -550,9 +558,9 @@ span.button {
     }
     
     .button {
-        margin-right: 2.4em;
+        margin-right: 2em;
         margin-bottom: 10px;
-        &:last-child, &:last-of-type {
+        &:last-child {
             margin-right: 0 !important;
         }
     }
@@ -608,7 +616,8 @@ ul.button-list {
             padding: 0 5px;
             margin: 0;
             
-            &:hover, &.active {
+            &:hover, &:focus, &.active {
+                outline: none;
                 color: $white;
                 background: $cyan;
             }
