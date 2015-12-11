@@ -1,4 +1,4 @@
-{% load nav_menu base_tags mptt_tags %}
+{% load navigation_tags base_tags mptt_tags %}
 <ul class="nav_menu">
     {% recursetree nav_link.get_descendants %}
         {% if user.is_authenticated and node.is_shown_for_users %}

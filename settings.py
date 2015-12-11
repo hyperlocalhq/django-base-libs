@@ -143,7 +143,6 @@ INSTALLED_APPS = [
     "jetson.apps.optionset",
     "jetson.apps.individual_relations",
     "jetson.apps.structure",
-    "jetson.apps.navigation",
     "jetson.apps.extendedadmin",
     "jetson.apps.history",
     "jetson.apps.memos",
@@ -178,6 +177,7 @@ INSTALLED_APPS = [
     "ccb.apps.celerytest",
     "ccb.apps.accounts",
     "ccb.apps.network",
+    "ccb.apps.navigation",
     "ccb",  # just for i18n in Javascript
     "actstream",
 ]

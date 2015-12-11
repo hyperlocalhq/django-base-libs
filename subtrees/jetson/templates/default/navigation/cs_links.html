@@ -1,4 +1,4 @@
-{% load nav_menu %}
+{% load navigation_tags %}
 {% for link in nav_link.get_children_for_current_user %}
     {% if forloop.first %}<ul class="nav_menu">{% endif %}
     {% if link.is_group %}

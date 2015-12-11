@@ -1,4 +1,4 @@
-{% load i18n base_tags nav_menu memos groups_networks browsing favorites %}
+{% load i18n base_tags navigation_tags memos groups_networks browsing favorites %}
 {% with forloop.counter|default:0 as counter %}
     {% with institution|get_context_item as context_item %}
         <ul class="toolbar">

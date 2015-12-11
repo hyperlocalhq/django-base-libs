@@ -1,4 +1,4 @@
-{% load i18n base_tags nav_menu %}
+{% load i18n base_tags navigation_tags %}
 {% if not creative_sector %}
     {% children_of "all_sectors" using "navigation/cs_links.html" %}
 {% endif %}

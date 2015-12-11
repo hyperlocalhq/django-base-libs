@@ -1,4 +1,4 @@
-{% load i18n base_tags babel nav_menu articles image_modifications %}
+{% load i18n base_tags babel navigation_tags articles image_modifications %}
 
 <div class="list-item{% if forloop.first %} first-item{% endif %}{% if forloop.last %} last-item{% endif %}"
     onclick="redirect('{{ article.get_url_path }}')">
