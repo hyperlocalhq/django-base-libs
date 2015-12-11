@@ -414,6 +414,9 @@ ADMIN_APP_INDEX = (
             ('location', {
                 'models': ("Address", "LocalityType",),
             }),
+            ('actstream', {
+                'models': ("Action", "Follow",),
+            }),
         )
     }
 )
