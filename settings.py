@@ -179,6 +179,7 @@ INSTALLED_APPS = [
     "ccb.apps.accounts",
     "ccb.apps.network",
     "ccb",  # just for i18n in Javascript
+    "actstream",
 ]
 
 MIDDLEWARE_CLASSES = [

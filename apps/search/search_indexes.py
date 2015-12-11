@@ -366,9 +366,10 @@ class FlatPageIndex(indexes.SearchIndex, indexes.Indexable):
 #         return "%s%s" % (settings.STATIC_URL, "site/img/website/placeholder/other_content_s.png")
 
 
-class CMSPageIndexBase(AldrynIndexBase):
-    order = 4
-    short_name = "page"
-    verbose_name = _("Editorial Content")
-    rendered_en = indexes.CharField(use_template=False, indexed=False)
-    rendered_de = indexes.CharField(use_template=False, indexed=False)
+# TODO: re-enable indexing of CMS pages when they are put in production
+# class CMSPageIndexBase(AldrynIndexBase):
+#     order = 4
+#     short_name = "page"
+#     verbose_name = _("Editorial Content")
+#     rendered_en = indexes.CharField(use_template=False, indexed=False)
+#     rendered_de = indexes.CharField(use_template=False, indexed=False)
