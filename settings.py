@@ -178,6 +178,7 @@ INSTALLED_APPS = [
     "ccb.apps.celerytest",
     "ccb.apps.accounts",
     "ccb",  # just for i18n in Javascript
+    "actstream",
 ]
 
 MIDDLEWARE_CLASSES = [
