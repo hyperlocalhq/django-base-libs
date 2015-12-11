@@ -215,16 +215,9 @@ def institution_added(sender, instance, **kwargs):
     from jetson.apps.notification import models as notification
 
     user = get_current_user()
-    creator_url = (
-        not user
-        and get_website_url() + "admin/"
-        or user.profile.get_url()
-    )
-    creator_title = (
-        not user
-        and ugettext("System")
-        or user.profile.get_title()
-    )
+
+    creator_url = user.profile.get_url() if user else get_website_url() + "admin/"
+    creator_title = user.profile.get_title() if user else ugettext("System")
 
     recipients = User.objects.all()
 
