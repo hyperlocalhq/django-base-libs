@@ -109,7 +109,7 @@ INSTALLED_APPS = [
     'sekizai',  # for javascript and css management
     # for the admin skin. You **must** add 'djangocms_admin_style' in the list **before** 'django.contrib.admin'.
     'reversion',
-    'aldryn_search',
+    #'aldryn_search',
 
     ### django-cms plug-ins ###
     'djangocms_column',
@@ -734,9 +734,9 @@ HAYSTACK_CONNECTIONS = {
 }
 
 HAYSTACK_ROUTERS = ['ccb.apps.search.router.LanguageRouter']
-ALDRYN_SEARCH_LANGUAGE_FROM_ALIAS = lambda alias: alias
-ALDRYN_SEARCH_INDEX_BASE_CLASS = "ccb.apps.search.search_indexes.CMSPageIndexBase"  # custom index base for pages
-ALDRYN_SEARCH_REGISTER_APPHOOK = False  # we'll use a custom app hook for search
+#ALDRYN_SEARCH_LANGUAGE_FROM_ALIAS = lambda alias: alias
+#ALDRYN_SEARCH_INDEX_BASE_CLASS = "ccb.apps.search.search_indexes.CMSPageIndexBase"  # custom index base for pages
+#ALDRYN_SEARCH_REGISTER_APPHOOK = False  # we'll use a custom app hook for search
 
 ### MULTILINGUAL URLS ###
 
