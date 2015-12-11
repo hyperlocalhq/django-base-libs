@@ -10,6 +10,7 @@ try:
     from django.utils.timezone import now as tz_now
 except:
     tz_now = datetime.now
+from actstream import action
 
 from base_libs.models.models import UrlMixin
 from base_libs.models.models import ObjectRelationMixin
@@ -408,5 +409,6 @@ def comment_added(sender, instance, **kwargs):
                 },
             instance=instance,
             )
+        action.send(instance.user, verb="added comment", action_object=instance)
             
 models.signals.post_save.connect(comment_added, sender=Comment)

@@ -2,6 +2,7 @@
 
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import AnonymousUser
+from actstream import action
 
 from jetson.apps.marketplace.base import *
 
@@ -108,6 +109,7 @@ def job_offer_created(sender, instance, **kwargs):
                     instance=instance,
                     on_site=False,
                 )
+                action.send(instance.offering_institution, verb="looking for", action_object=instance)
 
             if instance.contact_person:
                 # get users who favorited the person organizing this job_offer
@@ -134,6 +136,7 @@ def job_offer_created(sender, instance, **kwargs):
                     instance=instance,
                     on_site=False,
                 )
+                action.send(instance.contact_person, verb="looking for", action_object=instance)
 
 
 models.signals.post_save.connect(job_offer_created, sender=JobOffer)

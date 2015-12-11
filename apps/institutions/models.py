@@ -2,6 +2,7 @@
 
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.contrib.auth.models import AnonymousUser
+from actstream import action
 
 from jetson.apps.institutions.base import *
 
@@ -231,3 +232,8 @@ def institution_added(sender, instance, **kwargs):
         instance=instance,
         on_site=False,
     )
+
+    if user:
+        action.send(user, verb="added institution", action_object=instance)
+    else:
+        action.send(instance, verb="was added")

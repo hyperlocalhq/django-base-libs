@@ -6,6 +6,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.template.defaultfilters import urlize
+from actstream import action
 
 from base_libs.models.models import ObjectRelationMixin
 from base_libs.models.models import CreationModificationDateMixin
@@ -191,5 +192,9 @@ def ticket_reported(sender, instance, **kwargs):
                 instance=instance,
                 on_site=False,
             )
+            if instance.submitter:
+                action.send(instance.submitter, verb="reported ticket", action_object=instance)
+            else:
+                action.send(instance, verb="was reported")
 
 # models.signals.post_save.connect(ticket_reported, sender=Ticket)
