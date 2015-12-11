@@ -1,13 +1,14 @@
-# -*- coding: utf-8 -*-
+# -*- coding: UTF-8 -*-
 
 from django.conf import settings
 from django.utils.translation import get_language
 
 from haystack.query import SearchQuerySet, DEFAULT_OPERATOR
+from haystack.views import SearchView
 
 
 class MultilingualSearchQuerySet(SearchQuerySet):
-    def auto_query(self, query_string, fieldname='content'):
+    def auto_query(self, query_string):
         return self.filter(content=self.query.clean(query_string))
 
     def filter(self, **kwargs):
@@ -20,3 +21,5 @@ class MultilingualSearchQuerySet(SearchQuerySet):
             return self.filter_or(**kwargs)
         else:
             return self.filter_and(**kwargs)
+
+

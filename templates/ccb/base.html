@@ -1,6 +1,6 @@
 {% block doctype %}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">{% endblock %}
-{% load i18n base_tags nav_menu browsing account_specific memos bookmarks messaging infoblocks cache compressed compressed_jetson %}
+{% load i18n base_tags nav_menu browsing account_specific memos bookmarks messaging infoblocks cache compressed compressed_jetson cms_tags sekizai_tags menu_tags %}
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{{ LANGUAGE_CODE }}" lang="{{ LANGUAGE_CODE }}"
     xmlns:og="http://ogp.me/ns#">
     <head>
@@ -47,6 +47,7 @@
             {% compressed_css "screen_ie" %}
         {% endif %}
         {% compressed_css "print" %}
+        {% render_block "css" %}
 
         <script type="text/javascript" src="{{ JQUERY_URL }}"></script>
         <script type="text/javascript" src="{{ JQUERY_UI_URL }}"></script>
@@ -78,6 +79,8 @@
         {% block extrahead %}{% endblock %}
     </head>
     <body class="body lang-{{ LANGUAGE_CODE }} {% block bodyclass %}{% endblock %}">
+        {% cms_toolbar %}
+
         {% spaceless %}
 
             <ul id="skiplinks">
@@ -559,6 +562,7 @@
 
         {% block extrabody %}{% endblock %}
 
+        {% render_block "js" %}
         <!-- Last update: {% now "Y-m-d H:i:s" %} -->
     </body>
 </html>

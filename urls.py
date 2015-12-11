@@ -28,6 +28,7 @@ from ccb.apps.events.models import Event, URL_ID_EVENT, URL_ID_EVENTS
 from ccb.apps.marketplace.models import JobOffer, URL_ID_JOB_OFFER, URL_ID_JOB_OFFERS
 from ccb.apps.groups_networks.models import PersonGroup, URL_ID_PERSONGROUP, URL_ID_PERSONGROUPS
 from ccb.apps.media_gallery.sites import PortfolioSite
+from ccb.apps.site_specific.models import ContextItem
 
 _project_name = "ccb"
 
@@ -49,6 +50,7 @@ OBJECT_URL_MAPPER = {
     URL_ID_DOCUMENT: (Document, 'slug', "resources/documents/details_base.html"),
     URL_ID_EVENT: (Event, 'slug', "events/details_base.html"),
     URL_ID_PERSONGROUP: (PersonGroup, 'slug', "groups_networks/persongroups/details_base.html"),
+    "member": (ContextItem, 'slug', "network/details_base.html"),
 }
 
 country_lookup = {
@@ -109,6 +111,7 @@ institution_details_info = {
     'context_item_type': URL_ID_INSTITUTION,
 }
 
+# begin TODO: remote these variables after migrating app to django-cms
 document_list_info = {
     'queryset': Document.objects.filter(status__in=("published", "published_commercial")),
     'template_name': 'resources/documents/document_list.html',
@@ -124,7 +127,9 @@ document_details_info = {
     'context_processors': (prev_next_processor,),
     'context_item_type': URL_ID_DOCUMENT,
 }
+# end
 
+# begin TODO: remote these variables after migrating app to django-cms
 event_list_info = {
     'queryset': Event.objects.all(),
     'template_name': 'events/event_list.html',
@@ -140,7 +145,9 @@ event_details_info = {
     'context_processors': (prev_next_processor,),
     'context_item_type': URL_ID_EVENT,
 }
+# end
 
+# begin TODO: remote these variables after migrating app to django-cms
 job_offer_list_info = {
     'queryset': JobOffer.objects.all(),
     'template_name': 'marketplace/job_offer_list.html',
@@ -156,6 +163,7 @@ job_offer_details_info = {
     'template_name': 'marketplace/job_offer_details.html',
     'context_processors': (prev_next_processor,),
 }
+# end
 
 person_list_info = {
     'queryset': Person.objects.select_related().order_by('auth_user.username'),
@@ -173,12 +181,14 @@ person_details_info = {
     'context_item_type': URL_ID_PERSON,
 }
 
+# begin TODO: remote these variables after migrating app to django-cms
 gallery_list_info = {
     'queryset': MediaGallery.objects.all(),
     'template_name': 'media_gallery/gallery_list.html',
     'paginate_by': 15,
     'allow_empty': True,
 }
+# end
 
 group_list_info = {
     'queryset': PersonGroup.objects.order_by('title'),
@@ -211,6 +221,7 @@ latest_published_objects_feeds = {
     'atom': LatestPublishedObjectsAtomFeed(),
 }
 
+# begin TODO: remote these variables after migrating app to django-cms
 from ccb.apps.media_gallery.feeds import MediaGalleryRssFeed, MediaGalleryAtomFeed
 
 latest_media_galleries = {
@@ -218,6 +229,7 @@ latest_media_galleries = {
     'atom': MediaGalleryAtomFeed(),
     'queryset': MediaGallery.objects.order_by("-creation_date")[:50],
 }
+# end
 
 from ccb.apps.site_specific.sitemap import ContextItemSitemap
 
@@ -518,6 +530,7 @@ urlpatterns += i18n_patterns(
         'ccb.apps.groups_networks.views.invite_institution_members',
         ),
 
+    # begin TODO: remote these URLs after migrating app to django-cms
     url(r'^%s/$' % URL_ID_DOCUMENTS, _project_name + '.apps.resources.views.document_list',
         dict(list_filter=_document_list_filter, **document_list_info)),
     url(
@@ -532,7 +545,9 @@ urlpatterns += i18n_patterns(
     url(r'^%s/(?P<slug>[^/]+)/network/$' % URL_ID_DOCUMENT, object_detail,
         dict(document_details_info,
              template_name="resources/documents/document_network.html")),
+    # end
 
+    # begin TODO: remote these URLs after migrating app to django-cms
     url(
         r'^%s/'
         r'((?P<show>favorites|memos|own-%s)/)?'
@@ -619,6 +634,7 @@ urlpatterns += i18n_patterns(
             name="event",
         ).urls),
     ),
+    # end
 
     url(r'^%s/$' % URL_ID_PEOPLE, _project_name + '.apps.people.views.person_list',
         dict(list_filter=_person_list_filter, **person_list_info)),
@@ -655,6 +671,7 @@ urlpatterns += i18n_patterns(
         ).urls),
     ),
 
+    # begin TODO: remote these URLs after migrating app to django-cms
     url(r'^%s/create-berlin-jobboard/$' % URL_ID_JOB_OFFERS,
         _project_name + '.apps.marketplace.views.job_board'),
     url(r'^%s/talent-in-berlin/$' % URL_ID_JOB_OFFERS,
@@ -692,6 +709,7 @@ urlpatterns += i18n_patterns(
         _project_name + '.apps.marketplace.views.job_offer_detail',
         dict(job_offer_details_info, template_name="marketplace/job_offer_map.html"),
     ),
+    # end
 
     url(r'^%s/(?P<slug>[^/]+)/projects/$' % URL_ID_PERSON, object_detail,
         dict(person_details_info, template_name="people/person_projects.html")),
@@ -853,10 +871,11 @@ urlpatterns += i18n_patterns(
     # accounts and registration
     url(r'^', include('ccb.apps.accounts.urls')),
 
+    # begin TODO: remote these URLs after migrating app to django-cms
     # articles
     url(r'^news/', include('ccb.apps.articles.urls')),
+    # end
 
-    #
     url(r'^creative-sector/$',
         'ccb.apps.site_specific.views.redirect_to_creative_sector',
         ),
@@ -894,10 +913,12 @@ urlpatterns += i18n_patterns(
     # sitemaps
     url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
 
+    ## begin TODO: remove these URLs after migrating apps to django-cms
     url(r'^portfolios/((?P<show>favorites|memos|featured)/)?$',
         'ccb.apps.media_gallery.views.gallery_list', gallery_list_info),
     url(r'^portfolios/feeds/(?P<feed_type>.*)/$', 'jetson.apps.utils.views.feed',
         latest_media_galleries),
+    ## end
 
     # style guide
     url(r'^styleguide/', include('jetson.apps.styleguide.urls')),
@@ -953,13 +974,21 @@ urlpatterns += i18n_patterns(
     url(r'^livestream/$', TemplateView.as_view(template_name='site_specific/livestream.html')),
 
     # general FAQs and Help
-    url(r'^(?P<object_url_part>([^/]+/[^/]+/)?)(?P<url_identifier>faqs|help|contacts)/',
+    url(r'^(?P<object_url_part>([^/]+/[^/]+/)?)(?P<url_identifier>faqs|help)/',
         include('ccb.apps.faqs.urls'),
         {
             'only_for_this_site': True,
             'include': [None],
         }
-        ),
+    ),
+    url(r'^(?P<url_identifier>contacts)/',
+        include('ccb.apps.faqs.urls'),
+        {
+            'object_url_part': None,
+            'only_for_this_site': True,
+            'include': [None],
+        }
+    ),
 
     url(r'^tweets/$', 'ccb.apps.twitter.views.latest_tweets', {
         'twitter_username': settings.TWITTER_USERNAME,
@@ -973,6 +1002,7 @@ urlpatterns += i18n_patterns(
     url(r'^relaunch2015/sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap',
         {'sitemaps': {'cmspages': CMSSitemap}}),
     url(r'^relaunch2015/', include('cms.urls')),
+    url(r'^activity/', include('actstream.urls')),
 )
 
 if 'rosetta' in settings.INSTALLED_APPS:

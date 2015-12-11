@@ -133,6 +133,7 @@ class SimpleRegistrationFormBase(dynamicforms.Form):
         )
 
     def clean(self):
+        from ccb.apps.site_specific.models import ContextItem
         cleaned = self.cleaned_data
         errors = False
         first_name = cleaned.get('first_name', '')
@@ -141,9 +142,9 @@ class SimpleRegistrationFormBase(dynamicforms.Form):
         username = cleaned.get('username', '')
         if username:
             suggested = get_unique_value(
-                User,
+                ContextItem,
                 username.lower() or better_slugify("_".join((first_name, last_name))).replace("-", "_"),
-                field_name="username",
+                field_name="slug",
                 separator="_",
                 ignore_case=True,
             )

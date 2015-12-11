@@ -3,8 +3,9 @@
 from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from haystack import indexes
 
+from haystack import indexes
+from aldryn_search.base import AldrynIndexBase
 from jetson.apps.image_mods.models import FileManager
 
 Article = models.get_model("articles", "Article")
@@ -318,7 +319,7 @@ class FlatPageIndex(indexes.SearchIndex, indexes.Indexable):
     image_path = indexes.CharField(indexed=False)
 
     order = 8
-    short_name = "page"
+    short_name = "flatpage"
     verbose_name = _("Other Content")
 
     def get_model(self):
@@ -363,3 +364,12 @@ class FlatPageIndex(indexes.SearchIndex, indexes.Indexable):
 #
 #     def prepare_image_path(self, obj):
 #         return "%s%s" % (settings.STATIC_URL, "site/img/website/placeholder/other_content_s.png")
+
+
+# TODO: re-enable indexing of CMS pages when they are put in production
+# class CMSPageIndexBase(AldrynIndexBase):
+#     order = 4
+#     short_name = "page"
+#     verbose_name = _("Editorial Content")
+#     rendered_en = indexes.CharField(use_template=False, indexed=False)
+#     rendered_de = indexes.CharField(use_template=False, indexed=False)
