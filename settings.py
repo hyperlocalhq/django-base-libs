@@ -80,7 +80,7 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     "django.contrib.sites",
     "django.contrib.redirects",
-    "django.contrib.auth",
+    "ccb.project_apps.DjangoContribAuthConfig",
     "django.contrib.admin",
     "django.contrib.sessions",
     "django.contrib.contenttypes",
