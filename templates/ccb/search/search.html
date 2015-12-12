@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n highlight uni_form_tags %}
+{% load base_tags i18n highlight uni_form_tags crispy_forms_tags %}
 
 {% block title %}{% trans 'SEARCH' %}{% endblock %}
 
@@ -17,6 +17,22 @@
 {% endblock %}
 
 {% block content %}
+{#    <div class="content overview">#}
+{#        <div class="search-form-container">#}
+{#            <div class="container">#}
+{#                <div class="row">#}
+{#                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">#}
+{#                        {% crispy form %}#}
+{#                        <script>#}
+{#                            $('label').click(function(e) {#}
+{#                                e.stopPropagation();#}
+{#                            })#}
+{#                        </script>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
     <div class="search">
         <form action="/search/" method="get" class="search_form uniForm">
             <fieldset class="inlineLabels">

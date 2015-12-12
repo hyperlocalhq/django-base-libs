@@ -2,8 +2,9 @@
 
 from django.conf.urls import *
 
-from ccb.apps.search.views import SearchView
-from ccb.apps.search.query import MultilingualSearchQuerySet
+from .views import SearchView
+from .query import MultilingualSearchQuerySet
+
 
 urlpatterns = patterns(
     '',

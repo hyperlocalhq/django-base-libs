@@ -319,9 +319,11 @@ def confirm_registration(request, encrypted_email):
         email = decryptString(encrypted_email)
     except:
         raise Http404
-    user = authenticate(email=email)
-    if not user:
+    try:
+        user = User.objects.get(email=email)
+    except:
         return redirect('register')
+    user.backend = "django.contrib.auth.backends.ModelBackend"
     user.is_active = True
     user.save()
     person = user.profile

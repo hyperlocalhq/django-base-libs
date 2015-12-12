@@ -19,12 +19,11 @@ class VisitAdmin(admin.ModelAdmin):
 
 
 class ContextItemOptions(ObjectRelationMixinAdminOptions()):
-    list_display = ['get_title', 'content_type', 'creation_date', 'status']
+    list_display = ['get_title', 'content_type', 'slug', 'creation_date', 'status']
     list_filter = ('creation_date', 'status', 'content_type')
-    search_fieldsets = ['title', 'description']
     save_on_top = True
     filter_vertical = ('context_categories',)
-    search_fields = ["title_de", "title_en", "description_de", "description_en", "object_id"]
+    search_fields = ["title_de", "title_en", "slug", "description_de", "description_en", "object_id"]
 
     fieldsets = [
         (_("Related object"), {

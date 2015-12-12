@@ -217,6 +217,9 @@ def get_blog_params(object_url_part, url_identifier, post_slug=None, **kwargs):
     current_post = None
     # first of all, object and container stuff!
     (obj, base_template) = get_object_from_url(object_url_part, **kwargs)
+    if hasattr(obj, "content_object"):
+        obj = obj.content_object
+
     site = None
     if kwargs.has_key('only_for_this_site'):
         if kwargs['only_for_this_site']:
