@@ -431,14 +431,16 @@ blockquote { font-family: "Lato", "sans-serif"; font-weight: 400; font-size: 2.1
 .is-xs blockquote { font-size: 1.4em; line-height: 138%; margin: 50px 0; }
 blockquote:before { content: '“'; font-family: Georgia; font-weight: 700; font-size: 2.34em; line-height: 0; color: #000; position: absolute; top: 0.56em; left: 0; }
 .is-xs blockquote:before { font-size: 2.2em; }
+blockquote p, blockquote p.description, blockquote p.interview, blockquote h2, blockquote h4, blockquote h5 { font-family: inherit; font-weight: inherit; font-size: inherit; line-height: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit; margin: inherit; padding: 0; }
 
-a { color: #0c8ba9; }
+a { color: #0c8ba9; text-decoration: none; }
 a:hover { color: #00cdff; }
 a:hover, a:active, a:visited, a:focus { text-decoration: none; }
 
-img { width: 100%; margin: 0 0 40px; }
+img { width: 100%; display: block; margin: 0 0 40px; }
 .is-sm img { margin-bottom: 40px; }
 .is-xs img { margin-bottom: 30px; }
+img .ckeditor-image { width: 100% !important; height: auto !important; }
 
 h1 { font-family: "MetronicSlabPro", "sans-serif"; font-weight: 900; font-size: 4.25em; line-height: 109%; margin: 0; }
 .is-sm h1 { font-size: 3.5em; line-height: 107%; }
@@ -473,6 +475,12 @@ p { font-size: 1.47em; line-height: 164%; color: #444444; margin: 0 0 30px; }
 p.description { font-size: 1.2em; line-height: 140%; color: #000; }
 .is-sm p.description { font-size: 1.2em; line-height: 140%; }
 .is-xs p.description { font-size: 1.07em; line-height: 138%; }
+p.interview { font-size: 1.33em; line-height: 150%; color: #777777; padding: 0; margin: 0 0 30px; }
+.is-sm p.interview { font-size: 1.2em; line-height: 146%; margin-bottom: 25px; }
+.is-xs p.interview { font-size: 1.07em; line-height: 138%; margin-bottom: 20px; }
+p.interview .interviewee { display: inline-block; font-family: "MetronicSlabPro", "sans-serif"; font-weight: 700; color: #171616; margin-right: 15px; }
+.is-sm p.interview .interviewee { margin-right: 10px; }
+.is-xs p.interview .interviewee { margin-right: 10px; }
 
 dl { margin: 0; padding: 0; }
 dl.interview { margin-bottom: 30px; }
@@ -530,10 +538,10 @@ ul.button-list li a:hover, ul.button-list li a:focus, ul.button-list li a.active
 
 .center { display: block; width: 100%; text-align: center; margin-left: auto; margin-right: auto; }
 
-.line { width: 100%; height: 1px; display: block; background: #979797; margin: 0 0 30px; }
-.line.thick { height: 3px; background: #000; }
-.is-sm .line { margin-bottom: 25px; }
-.is-xs .line { margin-bottom: 20px; }
+.line, hr { display: block; width: 100%; height: 1px; display: block; background: #979797; margin: 0 0 30px; border: 0; }
+.line.thick, hr.thick { height: 3px; background: #000; }
+.is-sm .line, .is-sm hr { margin-bottom: 25px; }
+.is-xs .line, .is-xs hr { margin-bottom: 20px; }
 
 .tooltip { position: absolute; z-index: 9999999999; display: none; pointer-events: none; }
 .tooltip .tooltip-content { background: #000; color: #fff; padding: 5px 15px; border-radius: 15px; }

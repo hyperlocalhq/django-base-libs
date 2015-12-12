@@ -1,0 +1,87 @@
+@charset "UTF-8";
+/* The style for the CKeditor */
+
+@import 'constants';
+
+@font-face {
+    font-family: $font-1;
+    src: url('../../site/fonts/metronic-slab-pro/MetronicSlabProBlack.eot');
+    src: local('☺'), url('../../site/fonts/metronic-slab-pro/MetronicSlabProBlack.eot?#') format('embedded-opentype'), url('../../site/fonts/metronic-slab-pro/MetronicSlabProBlack.woff2') format('woff2'), url('../../site/fonts/metronic-slab-pro/MetronicSlabProBlack.woff') format('woff'), url('../../site/fonts/metronic-slab-pro/MetronicSlabProBlack.ttf') format('truetype');
+    font-weight: $font-black;
+}
+
+@font-face {
+    font-family: $font-1;
+    src: url('../../site/fonts/metronic-slab-pro/MetronicSlabProBold.eot');
+    src: local('☺'), url('../../site/fonts/metronic-slab-pro/MetronicSlabProBold.eot?#') format('embedded-opentype'), url('../../site/fonts/metronic-slab-pro/MetronicSlabProBold.woff2') format('woff2'), url('../../site/fonts/metronic-slab-pro/MetronicSlabProBold.woff') format('woff'), url('../../site/fonts/metronic-slab-pro/MetronicSlabProBold.ttf') format('truetype');
+    font-weight: $font-bold;
+}
+
+@font-face {
+    font-family: $font-1;
+    src: url('../../site/fonts/metronic-slab-pro/MetronicSlabProSemiBold.eot');
+    src: local('☺'), url('../../site/fonts/metronic-slab-pro/MetronicSlabProSemiBold.eot?#') format('embedded-opentype'), url('../../site/fonts/metronic-slab-pro/MetronicSlabProSemiBold.woff2') format('woff2'), url('../../site/fonts/metronic-slab-pro/MetronicSlabProSemiBold.woff') format('woff'), url('../../site/fonts/metronic-slab-pro/MetronicSlabProSemiBold.ttf') format('truetype');
+    font-weight: $font-semi;
+}
+
+@font-face {
+    font-family: $font-1;
+    src: url('../../site/fonts/metronic-slab-pro/MetronicSlabProRegular.eot');
+    src: local('☺'), url('../../site/fonts/metronic-slab-pro/MetronicSlabProRegular.eot?#') format('embedded-opentype'), url('../../site/fonts/metronic-slab-pro/MetronicSlabProRegular.woff2') format('woff2'), url('../../site/fonts/metronic-slab-pro/MetronicSlabProRegular.woff') format('woff'), url('../../site/fonts/metronic-slab-pro/MetronicSlabProRegular.ttf') format('truetype');
+    font-weight: $font-regular;
+}
+
+@font-face {
+    font-family: $font-2;
+    src: url('../../site/fonts/lato/Lato-Regular.ttf');
+    font-weight: $font-regular;
+}
+
+@font-face {
+    font-family: $font-2;
+    src: url('../../site/fonts/lato/Lato-Italic.ttf');
+    font-weight: $font-regular;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: $font-2;
+    src: url('../../site/fonts/lato/Lato-Light.ttf');
+    font-weight: $font-light;
+}
+
+@font-face {
+    font-family: $font-2;
+    src: url('../../site/fonts/lato/Lato-Light.ttf');
+    font-weight: $font-light;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: $font-2;
+    src: url('../../site/fonts/lato/Lato-Bold.ttf');
+    font-weight: $font-bold;
+}
+
+@font-face {
+    font-family: $font-2;
+    src: url('../../site/fonts/lato/Lato-Bold.ttf');
+    font-weight: $font-bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: $font-2;
+    src: url('../../site/fonts/lato/Lato-Black.ttf');
+    font-weight: $font-black;
+}
+
+
+@import 'general';
+
+body {
+    max-width: 870px;
+	background-color: #fff;
+	margin: 20px;
+}
+

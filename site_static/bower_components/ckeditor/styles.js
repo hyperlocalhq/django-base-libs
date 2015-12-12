@@ -31,7 +31,7 @@ CKEDITOR.stylesSet.add( 'default', [
 	{ name: 'Address',			element: 'address' },
 	*/
 
-	{ name: 'Italic Title',		element: 'h2', styles: { 'font-style': 'italic' } },
+	/*{ name: 'Italic Title',		element: 'h2', styles: { 'font-style': 'italic' } },
 	{ name: 'Subtitle',			element: 'h3', styles: { 'color': '#aaa', 'font-style': 'italic' } },
 	{
 		name: 'Special Container',
@@ -41,7 +41,21 @@ CKEDITOR.stylesSet.add( 'default', [
 			background: '#eee',
 			border: '1px solid #ccc'
 		}
-	},
+	},*/
+    
+    { name: 'Headline', element: 'h2', attributes: { 'class': 'general'}},
+    { name: 'Smaller Headline', element: 'h4', attributes: { 'class': 'general'}},
+    { name: 'Small Headline<br/><br/>', element: 'h5', attributes: { 'class': 'general'}},
+    { name: 'Main Paragraph', element: 'p', attributes: { 'class': 'general'}},
+    { name: 'Description Paragraph', element: 'p', attributes: { 'class': 'description'}},
+    { name: 'Caption   <br/><br/>Caption<br/><small>only use beneath an image</small>', element: 'h5', attributes: { 'class': 'caption'}},
+    { name: 'Interview', element: 'p', attributes: { 'class': 'interview'}},
+    
+    { name: 'Interviewee', element: 'span', attributes: { 'class': 'interviewee'}},
+    { name: 'Quotes', element: 'q' },
+    { name: 'Line Break', element: 'br'},
+    
+    
 
 	/* Inline Styles */
 
@@ -57,7 +71,8 @@ CKEDITOR.stylesSet.add( 'default', [
 	{ name: 'Superscript',		element: 'sup' },
 	*/
 
-	{ name: 'Marker',			element: 'span', attributes: { 'class': 'marker' } },
+    
+	/*{ name: 'Marker',			element: 'span', attributes: { 'class': 'marker' } },
 
 	{ name: 'Big',				element: 'big' },
 	{ name: 'Small',			element: 'small' },
@@ -75,11 +90,11 @@ CKEDITOR.stylesSet.add( 'default', [
 	{ name: 'Inline Quotation',	element: 'q' },
 
 	{ name: 'Language: RTL',	element: 'span', attributes: { 'dir': 'rtl' } },
-	{ name: 'Language: LTR',	element: 'span', attributes: { 'dir': 'ltr' } },
+	{ name: 'Language: LTR',	element: 'span', attributes: { 'dir': 'ltr' } },*/
 
 	/* Object Styles */
 
-	{
+	/*{
 		name: 'Styled image (left)',
 		element: 'img',
 		attributes: { 'class': 'left' }
@@ -106,6 +121,6 @@ CKEDITOR.stylesSet.add( 'default', [
 	},
 
 	{ name: 'Borderless Table',		element: 'table',	styles: { 'border-style': 'hidden', 'background-color': '#E6E6FA' } },
-	{ name: 'Square Bulleted List',	element: 'ul',		styles: { 'list-style-type': 'square' } }
+	{ name: 'Square Bulleted List',	element: 'ul',		styles: { 'list-style-type': 'square' } }*/
 ] );
 
