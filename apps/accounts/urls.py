@@ -7,6 +7,7 @@ from ccb.apps.accounts.forms import password_change_form_helper
 from ccb.apps.accounts.forms import password_reset_form_helper
 from ccb.apps.accounts.forms import password_reset_change_form_helper
 
+from . import views
 
 urlpatterns = [
     url(r'^account/$', TemplateView.as_view(template_name='accounts/index.html')),
@@ -116,5 +117,11 @@ urlpatterns = [
         'ccb.apps.accounts.views.ajax_auth',
         name='ajax-auth'
     ),
+    url(r'^user_stream', views.user_stream, name='user_stream'),
+    url(r'^actor_stream', views.actor_stream, name='actor_stream'),
+    url(r'^action_object_stream', views.action_object_stream, name='action_object_stream'),
+    url(r'^target_stream', views.target_stream, name='target_stream'),
+    url(r'^model_stream', views.model_stream, name='model_stream'),
+    url(r'^any_stream', views.any_stream, name='any_stream'),
     url(r'', include('social.apps.django_app.urls', namespace='social')),
 ]
