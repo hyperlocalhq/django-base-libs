@@ -399,5 +399,75 @@ def user_stream(request):
         # show the latest 20 activities
         "stream":stream[:20]
     }
-
     return render(request, template, context)
+
+def actor_stream(request):
+    """
+    Render the template showing recent activitiy of the user, using actstream
+    user_stream
+    """
+    # retrieve the stream from an user
+    stream = actstream.models.actor_stream(request.user)
+    template = "ccb/accounts/activities/actor_stream.html"
+    context = {
+        # show the latest 20 activities
+        "stream":stream[:20]
+    }
+    return render(request, template, context)
+
+def action_object_stream(request):
+    """
+    Render the template showing recent activitiy of the user, using actstream
+    user_stream
+    """
+    # retrieve the stream from an user
+    stream = actstream.models.action_object_stream(request.user)
+    template = "ccb/accounts/activities/action_object_stream.html"
+    context = {
+        # show the latest 20 activities
+        "stream":stream[:20]
+    }
+    return render(request, template, context)
+
+def target_stream(request):
+    """
+    Render the template showing recent activitiy of the user, using actstream
+    user_stream
+    """
+    # retrieve the stream from an user
+    stream = actstream.models.target_stream(request.user)
+    template = "ccb/accounts/activities/target_stream.html"
+    context = {
+        # show the latest 20 activities
+        "stream":stream[:20]
+    }
+    return render(request, template, context)
+
+def model_stream(request):
+    """
+    Render the template showing recent activitiy of the user, using actstream
+    user_stream
+    """
+    # retrieve the stream from an user
+    stream = actstream.models.model_stream(request.user)
+    template = "ccb/accounts/activities/model_stream.html"
+    context = {
+        # show the latest 20 activities
+        "stream":stream[:20]
+    }
+    return render(request, template, context)
+
+def any_stream(request):
+    """
+    Render the template showing recent activitiy of the user, using actstream
+    user_stream
+    """
+    # retrieve the stream from an user
+    stream = actstream.models.any_stream(request.user)
+    template = "ccb/accounts/activities/any_stream.html"
+    context = {
+        # show the latest 20 activities
+        "stream":stream[:20]
+    }
+    return render(request, template, context)
+

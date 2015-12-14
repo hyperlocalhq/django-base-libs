@@ -118,5 +118,10 @@ urlpatterns = [
         name='ajax-auth'
     ),
     url(r'^user_stream', views.user_stream, name='user_stream'),
+    url(r'^actor_stream', views.actor_stream, name='actor_stream'),
+    url(r'^action_object_stream', views.action_object_stream, name='action_object_stream'),
+    url(r'^target_stream', views.target_stream, name='target_stream'),
+    url(r'^model_stream', views.model_stream, name='model_stream'),
+    url(r'^any_stream', views.any_stream, name='any_stream'),
     url(r'', include('social.apps.django_app.urls', namespace='social')),
 ]
