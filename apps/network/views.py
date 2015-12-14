@@ -4,6 +4,8 @@ from django.db import models
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.contrib.contenttypes.models import ContentType
+from django.views.decorators.cache import never_cache
+from django.utils.translation import ugettext_lazy as _
 
 from base_libs.views import access_denied
 
@@ -15,6 +17,7 @@ from jetson.apps.utils.views import filter_abc
 from ccb.apps.people.models import Person
 from ccb.apps.institutions.models import Institution
 from ccb.apps.site_specific.models import ContextItem
+from ccb.apps.events.views import event_list
 
 from .forms import MemberSearchForm
 
@@ -199,3 +202,38 @@ def member_detail(request, slug, creative_sector_slug="", **kwargs):
         )
 
     return object_detail(request, **kwargs)
+
+
+@never_cache
+def member_events_list(request, slug, **kwargs):
+    """
+    Lists the institution's events
+    """
+    item = get_object_or_404(ContextItem, slug=slug)
+    if item.is_institution():
+        institution = item.content_object
+        kwargs['queryset'] = kwargs['queryset'].filter(
+            models.Q(organizing_institution=institution) |
+            models.Q(venue=institution),
+        ).order_by('-creation_date')
+    elif item.is_person():
+        person = item.content_object
+        kwargs['queryset'] = kwargs['queryset'].filter(
+            models.Q(organizing_person=person)
+        ).order_by('-creation_date')
+
+    kwargs.setdefault("extra_context", {})
+    kwargs['extra_context']['object'] = item.content_object
+    kwargs['title'] = _("Events by/at %s") % item.content_object.get_title()
+    return event_list(request, show="related", **kwargs)
+
+
+@never_cache
+def member_events_list_ical(request, slug, **kwargs):
+    return member_events_list(request, slug, ical=True, **kwargs)
+
+
+@never_cache
+def member_events_list_feed(request, slug, **kwargs):
+    return member_events_list(request, slug, feed=True, **kwargs)
+

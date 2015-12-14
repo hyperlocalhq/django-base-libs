@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n base_tags nav_menu babel %}
+{% load i18n base_tags navigation_tags babel %}
 
 {% block doctype %}
     {{ block.super }}
@@ -20,7 +20,8 @@
 {% block content %}
     {% block tabs %}
         <div id="tabs">
-            {% children_of "event" using "navigation/children_in_tabs.html" %}
+            {#% children_of "event" using "navigation/children_in_tabs.html" %#}
+            {% navigation_links "event" using "navigation/includes/navigation_links_in_tabs.html" %}
         </div>
     {% endblock %}
     <div class="toolbox">

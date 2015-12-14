@@ -1,5 +1,5 @@
 {% extends base_template|default:"base.html" %}
-{% load i18n base_tags nav_menu infoblocks uni_form_tags crispy_forms_tags %}
+{% load i18n base_tags navigation_tags infoblocks uni_form_tags crispy_forms_tags %}
 
 
 {% block extrahead %}
@@ -38,7 +38,8 @@
 {% block content %}
     {% block tabs %}
         <div id="tabs">
-            {% children_of "people" using "navigation/children_in_tabs.html" %}
+            {#% children_of "people" using "navigation/children_in_tabs.html" %#}
+            {% navigation_links "members" using "navigation/includes/navigation_links_in_tabs.html" %}
         </div>
         <hr class="hidden"/>
     {% endblock %}

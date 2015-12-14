@@ -1,4 +1,4 @@
-{% load nav_menu %}
+{% load navigation_tags %}
 <ul class="nav_menu">
 {% for link in nav_link.get_children_for_current_user %}
     {% if link.is_group %}

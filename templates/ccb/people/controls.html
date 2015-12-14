@@ -1,4 +1,4 @@
-{% load i18n base_tags nav_menu memos individual_relations groups_networks browsing favorites %}
+{% load i18n base_tags navigation_tags memos individual_relations groups_networks browsing favorites %}
 {% with forloop.counter|default:0 as counter %}
     {% with person|get_context_item as context_item %}
         <ul class="toolbar">

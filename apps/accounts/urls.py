@@ -99,7 +99,7 @@ urlpatterns = [
         name="password_reset_complete",
     ),
     url(
-        r'^password_change/$',
+        r'^password-change/$',
         'django.contrib.auth.views.password_change',
         {
             'template_name': 'accounts/password_change_form.html',

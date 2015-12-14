@@ -1,5 +1,5 @@
 {% extends base_template|default:"base.html" %}
-{% load events i18n base_tags auth_extended nav_menu uni_form_tags infoblocks %}
+{% load events i18n base_tags auth_extended navigation_tags uni_form_tags infoblocks %}
 
 
 {% block extrahead %}
@@ -55,7 +55,8 @@
 {% block content %}
     {% block tabs %}
         <div id="tabs">
-            {% children_of "events" using "navigation/children_in_tabs.html" %}
+            {#% children_of "events" using "navigation/children_in_tabs.html" %#}
+            {% navigation_links "events" using "navigation/includes/navigation_links_in_tabs.html" %}
         </div>
     {% endblock %}
     <form method="get" id="object_list_filter_form" class="clearfix">
