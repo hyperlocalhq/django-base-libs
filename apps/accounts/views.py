@@ -394,7 +394,7 @@ def user_stream(request):
     """
     # retrieve the stream from an user
     stream = user_stream(request.user, with_user_activity=True)
-    template = "ccb/accounts/user_stream.html"
+    template = "ccb/accounts/activities/user_stream.html"
     context = {
         # show the latest 20 activities
         "stream":stream[:20]
