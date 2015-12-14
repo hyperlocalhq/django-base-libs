@@ -387,14 +387,14 @@ def change_privacy_settings(request):
 
 
 
-def activities(request):
+def user_stream(request):
     """
     Render the template showing recent activitiy of the user, using actstream
     user_stream
     """
     # retrieve the stream from an user
     stream = user_stream(request.user, with_user_activity=True)
-    template = "ccb/accounts/activities.html"
+    template = "ccb/accounts/user_stream.html"
     context = {
         # show the latest 20 activities
         "stream":stream[:20]

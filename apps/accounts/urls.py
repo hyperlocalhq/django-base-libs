@@ -117,6 +117,6 @@ urlpatterns = [
         'ccb.apps.accounts.views.ajax_auth',
         name='ajax-auth'
     ),
-    url(r'^activities', views.activities, name='activities'),
+    url(r'^user_stream', views.user_stream, name='user_stream'),
     url(r'', include('social.apps.django_app.urls', namespace='social')),
 ]
