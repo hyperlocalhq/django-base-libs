@@ -18,7 +18,7 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.conf import settings
 from django.shortcuts import render
 
-from actstream.models import user_stream
+import actstream.models
 
 from base_libs.utils.misc import get_unique_value
 from base_libs.utils.betterslugify import better_slugify
@@ -393,7 +393,7 @@ def user_stream(request):
     user_stream
     """
     # retrieve the stream from an user
-    stream = user_stream(request.user, with_user_activity=True)
+    stream = actstream.models.user_stream(request.user, with_user_activity=True)
     template = "ccb/accounts/activities/user_stream.html"
     context = {
         # show the latest 20 activities
