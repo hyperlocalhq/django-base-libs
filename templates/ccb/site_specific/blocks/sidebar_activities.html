@@ -8,8 +8,11 @@
     </h5>
 
     <div class="hidable">
-        {% filter remove_empty_lists %}
-            {% children_of "menu_activities" %}
-        {% endfilter %}
+        {% comment %}
+            {% filter remove_empty_lists %}
+                {% children_of "menu_activities" %}
+            {% endfilter %}
+        {% endcomment %}
+        {% navigation_links "menu_activities" %}
     </div>
 </div>

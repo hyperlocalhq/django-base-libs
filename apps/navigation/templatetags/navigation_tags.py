@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import re
 from django.conf import settings
-from django.db.models.loading import get_model, load_app
 from django.template import loader, Template, Context
 from django import template
+from django.template import Context, Template
 
 from base_libs.utils.misc import get_website_url
 from ccb.apps.navigation.models import NavigationLink
@@ -144,10 +144,14 @@ class NavigationLinks(template.Node):
         links_config = navigation_links.get(sysname, [])
         for config in links_config:
             if config['should_be_shown'](context):
+                url_template = Template(config['url_{}'.format(context['LANGUAGE_CODE'])])
+                text_template = Template(config['text_{}'.format(context['LANGUAGE_CODE'])])
+                highlight_pattern_template = Template(config['highlight_pattern'])
+                is_highlighted = bool(re.compile(highlight_pattern_template.render(context)).search(request.path))
                 link = {
-                    'url': config['url_{}'.format(context['LANGUAGE_CODE'])],
-                    'text': config['text_{}'.format(context['LANGUAGE_CODE'])],
-                    'is_highlighted': bool(re.compile(config['highlight_pattern']).search(request.path)),
+                    'url': url_template.render(context),
+                    'text': text_template.render(context),
+                    'is_highlighted': is_highlighted,
                     'is_promoted': config.get('is_promoted', False),
                     'is_login_required': config.get('is_login_required', False),
                 }

@@ -1,14 +1,41 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+
 def for_all(context):
     return True
+
 
 def for_anonymous_only(context):
     return context['request'].user.is_anonymous()
 
+
 def for_authenticated_only(context):
     return context['request'].user.is_authenticated()
+
+
+def is_claimable_institution(context):
+    return (
+        'object' in context and
+        getattr(context['object'], "is_institution", lambda: False)() and
+        getattr(context['object'], "is_claimable", lambda: False)()
+    )
+
+
+def is_deletable_job_offer(context):
+    return (
+        'object' in context and
+        getattr(context['object'], "is_job_offer", lambda: False)() and
+        getattr(context['object'], "is_deletable", lambda: False)()
+    )
+
+
+def is_deletable_event(context):
+    return (
+        'object' in context and
+        getattr(context['object'], "is_event", lambda: False)() and
+        getattr(context['object'], "is_deletable", lambda: False)()
+    )
 
 
 navigation_links = {
@@ -42,60 +69,60 @@ navigation_links = {
     ],
     'menu_activities': [
         {
-            'url_de': '/de/kreativarbeiten/events/',
-            'url_en': '/en/kreativarbeiten/events/',
+            'url_de': '/de/relaunch2015/network/member/{{ request.user.username }}/portfolio/album/add/',
+            'url_en': '/en/relaunch2015/network/member/{{ request.user.username }}/portfolio/album/add/',
             'text_de': 'Projekt hinzufügen',
             'text_en': 'Add New Project',
             'should_be_shown': for_authenticated_only,
-            'highlight_pattern': r'^/(de|en)/kreativarbeiten/events/',
+            'highlight_pattern': r'^/(de|en)/relaunch2015/network/member/{{ request.user.username }}/portfolio/album/add/',
         },
         {
-            'url_de': '/de/kreativarbeiten/events/',
-            'url_en': '/en/kreativarbeiten/events/',
+            'url_de': '/de/events/add/',
+            'url_en': '/en/events/add/',
             'text_de': 'Event hinzufügen',
             'text_en': 'Add New Event',
             'should_be_shown': for_authenticated_only,
-            'highlight_pattern': r'^/(de|en)/kreativarbeiten/events/',
+            'highlight_pattern': r'^/(de|en)/events/add/',
         },
         {
-            'url_de': '/de/kreativarbeiten/events/',
-            'url_en': '/en/kreativarbeiten/events/',
+            'url_de': '/de/jobs/add/',
+            'url_en': '/en/jobs/add/',
             'text_de': 'Jobangebot hinzufügen',
             'text_en': 'Add Job Offer',
             'should_be_shown': for_authenticated_only,
-            'highlight_pattern': r'^/(de|en)/kreativarbeiten/events/',
+            'highlight_pattern': r'^/(de|en)/jobs/add/',
         },
         {
-            'url_de': '/de/kreativarbeiten/events/',
-            'url_en': '/en/kreativarbeiten/events/',
+            'url_de': '/de/relaunch2015/network/member/{{ request.user.username }}/blog/new/',
+            'url_en': '/en/relaunch2015/network/member/{{ request.user.username }}/blog/new/',
             'text_de': 'Blogbeitrag hinzufügen',
             'text_en': 'Add Blog Entry',
             'should_be_shown': for_authenticated_only,
-            'highlight_pattern': r'^/(de|en)/kreativarbeiten/events/',
+            'highlight_pattern': r'^/(de|en)/relaunch2015/network/member/{{ request.user.username }}/blog/new/',
         },
         {
-            'url_de': '/de/kreativarbeiten/events/',
-            'url_en': '/en/kreativarbeiten/events/',
+            'url_de': '{{ object.get_url_path }}claim/',
+            'url_en': '{{ object.get_url_path }}claim/',
             'text_de': 'Ist dies Ihr Unternehmen?',
             'text_en': 'Claim this institution',
-            'should_be_shown': for_authenticated_only,
-            'highlight_pattern': r'^/(de|en)/kreativarbeiten/events/',
+            'should_be_shown': is_claimable_institution,
+            'highlight_pattern': r'^{{ object.get_url_path }}claim/',
         },
         {
-            'url_de': '/de/kreativarbeiten/events/',
-            'url_en': '/en/kreativarbeiten/events/',
+            'url_de': '{{ object.get_url_path }}delete/',
+            'url_en': '{{ object.get_url_path }}delete/',
             'text_de': 'Job löschen',
             'text_en': 'Delete Job Offer',
-            'should_be_shown': for_authenticated_only,
-            'highlight_pattern': r'^/(de|en)/kreativarbeiten/events/',
+            'should_be_shown': is_deletable_job_offer,
+            'highlight_pattern': r'^{{ object.get_url_path }}delete/',
         },
         {
-            'url_de': '/de/kreativarbeiten/events/',
-            'url_en': '/en/kreativarbeiten/events/',
+            'url_de': '{{ object.get_url_path }}delete/',
+            'url_en': '{{ object.get_url_path }}delete/',
             'text_de': 'Event löschen',
             'text_en': 'Delete Event',
-            'should_be_shown': for_authenticated_only,
-            'highlight_pattern': r'^/(de|en)/kreativarbeiten/events/',
+            'should_be_shown': is_deletable_event,
+            'highlight_pattern': r'^{{ object.get_url_path }}delete/',
         },
     ],
     'menu_settings': [
@@ -124,12 +151,12 @@ navigation_links = {
             'highlight_pattern': r'^/(de|en)/my-profile/privacy/',
         },
         {
-            'url_de': '/de/password_change/',
-            'url_en': '/en/password_change/',
+            'url_de': '/de/password-change/',
+            'url_en': '/en/password-change/',
             'text_de': 'Kennwort ändern',
             'text_en': 'Change Password',
             'should_be_shown': for_authenticated_only,
-            'highlight_pattern': r'^/(de|en)/password_change/',
+            'highlight_pattern': r'^/(de|en)/password[-_]change/',
         },
         {
             'url_de': '/de/my-profile/delete/',
@@ -141,8 +168,6 @@ navigation_links = {
         },
     ],
 }
-
-
 
 """
 [
