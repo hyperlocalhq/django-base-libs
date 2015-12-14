@@ -2,18 +2,14 @@
 
 {% block content %}
     <div class="sidebar" id="activities-container">
-        <h1>Recent Activities</h1>
+        <h1>Recent User Activities</h1>
         {% if stream %}
             {% for s in stream %}
                 <li class="list-group-item">{{ s }}</li>
             {% endfor %}
         {% else %}
             <div class="alert alert-info" role="alert">
-                <strong>You are currently not following any topic!</strong>
-                <br>
-                Click
-                <a href="{% url 'topics:index' %}">here</a>
-                to start following!!!
+                <strong>No activities</strong>
             </div>
         {% endif %}
     </div>
