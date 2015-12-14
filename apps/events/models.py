@@ -3,6 +3,7 @@
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import AnonymousUser
 from mptt.fields import TreeManyToManyField
+from actstream import action
 
 from ccb.apps.events.base import *
 
@@ -116,6 +117,7 @@ def event_created(sender, instance, **kwargs):
                     instance=instance,
                     on_site=False,
                 )
+                action.send(instance.venue, verb="created event", action_object=instance)
 
             if instance.organizing_institution:
                 # get users who favorited the institution organizing this event
@@ -143,6 +145,7 @@ def event_created(sender, instance, **kwargs):
                     instance=instance,
                     on_site=False,
                 )
+                action.send(instance.organizing_institution, verb="created event", action_object=instance)
 
             if instance.organizing_person:
                 # get users who favorited the person organizing this event
@@ -169,6 +172,7 @@ def event_created(sender, instance, **kwargs):
                     instance=instance,
                     on_site=False,
                 )
+                action.send(instance.organizing_person, verb="created event", action_object=instance)
 
 
 models.signals.post_save.connect(event_created, sender=Event)
