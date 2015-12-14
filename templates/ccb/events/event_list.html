@@ -55,7 +55,8 @@
 {% block content %}
     {% block tabs %}
         <div id="tabs">
-            {% children_of "events" using "navigation/children_in_tabs.html" %}
+            {#% children_of "events" using "navigation/children_in_tabs.html" %#}
+            {% navigation_links "events" using "navigation/includes/navigation_links_in_tabs.html" %}
         </div>
     {% endblock %}
     <form method="get" id="object_list_filter_form" class="clearfix">

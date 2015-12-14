@@ -2,15 +2,11 @@
 {% load i18n base_tags individual_relations %}
 
 {% block object_col2 %}
-    {% ifequal active_link "requests" %}
-        <div
-            class="object-type">{% trans "Invitation from" %} {{ person.individualrelation_timestamp|date:_("DATETIME_FORMAT") }}</div>
-    {% else %}
-        {% ifequal active_link "requested" %}
-            <div
-                class="object-type">{% trans "Request from" %} {{ person.individualrelation_timestamp|date:_("DATETIME_FORMAT") }}</div>
-        {% endifequal %}
-    {% endifequal %}
+    {% if active_link == "requests" %}
+        <div class="object-type">{% trans "Invitation from" %} {{ person.individualrelation_timestamp|date:_("DATETIME_FORMAT") }}</div>
+    {% elif active_link == "requested" %}
+        <div class="object-type">{% trans "Request from" %} {{ person.individualrelation_timestamp|date:_("DATETIME_FORMAT") }}</div>
+    {% endif %}
     {% comment %}<!--
     STATUS = {{ person.individualrelation_status }}
     -->{% endcomment %}

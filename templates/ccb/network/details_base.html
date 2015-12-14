@@ -35,11 +35,14 @@
 {% block content %}
     {% block tabs %}
         <div id="tabs">
-            {% if object.is_person %}
-                {% children_of "person" using "navigation/children_in_tabs.html" %}
-            {% elif object.is_institution %}
-                {% children_of "institution" using "navigation/children_in_tabs.html" %}
-            {% endif %}
+            {% comment %}
+                {% if object.is_person %}
+                    {% children_of "person" using "navigation/children_in_tabs.html" %}
+                {% elif object.is_institution %}
+                    {% children_of "institution" using "navigation/children_in_tabs.html" %}
+                {% endif %}
+            {% endcomment %}
+            {% navigation_links "member" using "navigation/includes/navigation_links_in_tabs.html" %}
         </div>
     {% endblock %}
     <div class="toolbox">

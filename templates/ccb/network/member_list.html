@@ -38,7 +38,8 @@
 {% block content %}
     {% block tabs %}
         <div id="tabs">
-            {% children_of "people" using "navigation/children_in_tabs.html" %}
+            {#% children_of "people" using "navigation/children_in_tabs.html" %#}
+            {% navigation_links "members" using "navigation/includes/navigation_links_in_tabs.html" %}
         </div>
         <hr class="hidden"/>
     {% endblock %}
