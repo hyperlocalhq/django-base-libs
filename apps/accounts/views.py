@@ -18,6 +18,8 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.conf import settings
 from django.shortcuts import render
 
+from actstream.models import user_stream
+
 from base_libs.utils.misc import get_unique_value
 from base_libs.utils.betterslugify import better_slugify
 from base_libs.utils.crypt import decryptString
@@ -382,3 +384,20 @@ def change_privacy_settings(request):
         'object': person,
         'form': form,
     }, context_instance=RequestContext(request))
+
+
+
+def activities(request):
+    """
+    Render the template showing recent activitiy of the user, using actstream
+    user_stream
+    """
+    # retrieve the stream from an user
+    stream = user_stream(request.user, with_user_activity=True)
+    template = "ccb/accounts/activities.html"
+    context = {
+        # show the latest 20 activities
+        "stream":stream[:20]
+    }
+
+    return render(request, template, context)
