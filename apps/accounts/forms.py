@@ -482,8 +482,15 @@ class EmailOrUsernameAuthentication(AuthenticationForm):
         password = self.cleaned_data.get('password')
 
         if email_or_username and password:
+            self.user_cache = None
             if "@" in email_or_username:
-                self.user_cache = authenticate(email=email_or_username, password=password)
+                # TODO: integrate this somehow better into the Python Social Auth backends
+                try:
+                    user = User.objects.get(email=email_or_username)
+                except:
+                    pass
+                else:
+                    self.user_cache = authenticate(username=user.username, password=password)
             else:
                 self.user_cache = authenticate(username=email_or_username, password=password)
             if self.user_cache is None:
