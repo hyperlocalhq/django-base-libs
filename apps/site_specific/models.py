@@ -11,6 +11,7 @@ from django.utils.encoding import force_unicode, smart_str
 from django.conf import settings
 from django.apps import apps
 from mptt.fields import TreeForeignKey, TreeManyToManyField
+from actstream import action
 
 from base_libs.models.models import UrlMixin
 from base_libs.models.models import ObjectRelationMixin
@@ -628,3 +629,7 @@ def institution_claimed(sender, instance, **kwargs):
         instance=instance.content_object,
         on_site=False,
     )
+    if instance.user:
+        action.send(instance.user, verb="claimed", action_object=instance)
+    else:
+        action.send(instance, verb="was claimed")

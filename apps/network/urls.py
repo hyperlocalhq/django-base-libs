@@ -100,7 +100,7 @@ urlpatterns = [
         r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
         r')?'
         r'$' % URL_ID_EVENTS,
-        'ccb.apps.institutions.views.institution_events_list',
+        'ccb.apps.network.views.member_events_list',
         event_list_info,
         name="member_event_list"
     ),
@@ -111,7 +111,7 @@ urlpatterns = [
         r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
         r')?'
         r'ical/$' % URL_ID_EVENTS,
-        'ccb.apps.institutions.views.institution_events_list_ical',
+        'ccb.apps.network.views.member_events_list_ical',
         event_list_info,
     ),
     url(
@@ -121,7 +121,7 @@ urlpatterns = [
         r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
         r')?'
         r'feed/(?P<feed_type>[^/]+)/$' % URL_ID_EVENTS,
-        'ccb.apps.institutions.views.institution_events_list_feed',
+        'ccb.apps.network.views.member_events_list_feed',
         event_list_info,
     ),
 

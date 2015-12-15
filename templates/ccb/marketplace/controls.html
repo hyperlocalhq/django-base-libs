@@ -1,4 +1,4 @@
-{% load i18n base_tags nav_menu memos %}
+{% load i18n base_tags navigation_tags memos %}
 {% with forloop.counter|default:0 as counter %}
     <ul class="toolbar">
         {% if request.user.is_authenticated %}

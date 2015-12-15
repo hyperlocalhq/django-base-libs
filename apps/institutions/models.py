@@ -2,6 +2,7 @@
 
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.contrib.auth.models import AnonymousUser
+from actstream import action
 
 from jetson.apps.institutions.base import *
 
@@ -209,22 +210,22 @@ class InstitutionalContact(InstitutionalContactBase):
 
 # Notify appropriate users about new institutions
 def institution_added(sender, instance, **kwargs):
-    return  # FIXME: ensure that notifications are sent as Celery tasks
     from django.contrib.auth.models import User
     from base_libs.middleware import get_current_user
     from jetson.apps.notification import models as notification
 
     user = get_current_user()
-    creator_url = (
-        not user
-        and get_website_url() + "admin/"
-        or user.profile.get_url()
-    )
-    creator_title = (
-        not user
-        and ugettext("System")
-        or user.profile.get_title()
-    )
+
+    if user:
+        action.send(user, verb="added institution", action_object=instance)
+    else:
+        action.send(instance, verb="was added")
+
+    # TODO: fix this when re-enabling celery
+    return
+
+    creator_url = user.profile.get_url() if user else get_website_url() + "admin/"
+    creator_title = user.profile.get_title() if user else ugettext("System")
 
     recipients = User.objects.all()
 
@@ -238,3 +239,4 @@ def institution_added(sender, instance, **kwargs):
         instance=instance,
         on_site=False,
     )
+

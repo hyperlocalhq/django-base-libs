@@ -1,5 +1,5 @@
 {% extends base_template|default:"base.html" %}
-{% load i18n base_tags auth_extended nav_menu infoblocks uni_form_tags %}
+{% load i18n base_tags auth_extended navigation_tags infoblocks uni_form_tags %}
 
 
 {% block meta_keywords %}
@@ -25,11 +25,9 @@
 
 {% block extrahead %}
     <link rel="alternate" type="application/rss+xml" title="{% trans "RSS Feed of CCB Jobs" %}"
-        href="{{ website_url }}{{ LANGUAGE_CODE }}{{ request.path }}feed/rss/
-                  {% filter force_escape %}{% append_to_get page=0,paginate_by=0,sort_by=0 no_path %}{% endfilter %}">
+        href="{{ website_url }}{{ LANGUAGE_CODE }}{{ request.path }}feed/rss/{% filter force_escape %}{% append_to_get page=0,paginate_by=0,sort_by=0 no_path %}{% endfilter %}">
     <link rel="alternate" type="application/atom+xml" title="{% trans "Atom Feed of CCB Jobs" %}"
-        href="{{ website_url }}{{ LANGUAGE_CODE }}{{ request.path }}feed/atom/
-                  {% filter force_escape %}{% append_to_get page=0,paginate_by=0,sort_by=0 no_path %}{% endfilter %}">
+        href="{{ website_url }}{{ LANGUAGE_CODE }}{{ request.path }}feed/atom/{% filter force_escape %}{% append_to_get page=0,paginate_by=0,sort_by=0 no_path %}{% endfilter %}">
     {% if view_type == "map" %}
         <script type="text/javascript">
             //<![CDATA[
@@ -75,7 +73,8 @@
 {% block content %}
     {% block tabs %}
         <div id="tabs">
-            {% children_of "job_offers" using "navigation/children_in_tabs.html" %}
+            {#% children_of "job_offers" using "navigation/children_in_tabs.html" %#}
+            {% navigation_links "jobs" using "navigation/includes/navigation_links_in_tabs.html" %}
         </div>
     {% endblock %}
     {% if object_list %}
