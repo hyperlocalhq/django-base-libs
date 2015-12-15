@@ -7,4 +7,5 @@ class InstitutionsConfig(BaseInstitutionsConfig):
     name = "ccb.apps.institutions"
 
     def ready(self):
+        super(InstitutionsConfig, self).ready()
         registry.register(self.get_model('Institution'))
