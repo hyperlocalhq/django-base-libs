@@ -195,7 +195,7 @@ $(document).ready(function() {
         var me = this.me;
         
         if (me.readonly) {
-            event.isPropagationStopped();
+            event.stopPropagation();
             event.preventDefault();
             return false;
         }
@@ -350,7 +350,7 @@ $(document).ready(function() {
         me.$main.click(function(e) {return me.onSelectClick(e);});
         me.$main.keypress(function(e) {return me.onSelectKeypress(e);});
         
-        me.$main.change(function() {me.onSelectChange();});
+        me.$main.change(function(e) {me.onSelectChange(e);});
         me.$main.focus(function() {me.onSelectFocus();});
         me.$main.blur(function() {me.onSelectBlur();});
         
@@ -405,7 +405,7 @@ $(document).ready(function() {
         var me = this.me;
         
         if (me.readonly) {
-            event.isPropagationStopped();
+            event.stopPropagation();
             event.preventDefault();
             return false;
         }
@@ -422,14 +422,14 @@ $(document).ready(function() {
         var me = this.me;
         
         if (me.readonly) {
-            event.isPropagationStopped();
+            event.stopPropagation();
             event.preventDefault();
             return false;
         }
         
         if (event.which == 13) {
             
-            event.isPropagationStopped();
+            event.stopPropagation();
             event.preventDefault();
             
             if (me.multiple) {
@@ -454,7 +454,7 @@ $(document).ready(function() {
     /**
      * The value of the actual select box changed.
      */
-    SelectBox.prototype.onSelectChange = function() {
+    SelectBox.prototype.onSelectChange = function(event) {
      
         var me = this.me;
         
@@ -886,10 +886,18 @@ $(document).ready(function() {
         if (me.readonly) return;
         
         if (me.$dropdown.css('display') == 'none') {
+            
+            if (me.closing_dropdown) {
+                clearTimeout(me.closing_dropdown);
+                me.closing_dropdown = null;
+            }
+        
             me.$dropdown.css('display', 'block');
             me.positionDropdown();
+            
         } else {
             me.$dropdown.css('display', 'none');
+            me.$main.trigger('closed');
         }
     }
     
@@ -918,6 +926,7 @@ $(document).ready(function() {
         var me = this.me;
         if (me.readonly) return;
         me.$dropdown.css('display', 'none');
+        me.$main.trigger('closed');
     }
     
     /**

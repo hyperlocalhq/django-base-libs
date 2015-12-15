@@ -413,7 +413,7 @@ $(document).ready(function() {
         this.me = me;
         
         me.$main = $main;
-        me.$button = $('.fa-search', me.$main);
+        me.$button = (me.$main.hasClass('fa-search')) ? me.$main : $('.fa-search', me.$main);
         me.$layer = $('#search-layer');
         me.$search = $('.fa-search', me.$layer);
         me.$close = $('.fa-close', me.$layer);
@@ -524,9 +524,226 @@ $(document).ready(function() {
     });
     
     
+    /**
+     * Handels the main navigation of the page.
+     */
+    function Navigation($main) {
+        
+        var me = this;
+        this.me = me;
+        
+        me.$main = $main;
+        me.$navi = $('nav', me.$main);
+        me.$header = $('#header');
+        me.$content = $('#body');
+        me.$body = $('body');
+        me.$window = $(window);
+        
+        me.$overlay = $('<div class="navigation-overlay"></div>');
+        me.$content.append(me.$overlay);
+        
+        me.top = 0;
+        
+        me.$window.scroll(function() {me.onScroll();});
+        me.$window.resize(function() {me.onResize();});
+        me.$main.on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(e) {me.onClosed(e);});
+        
+        me.$main.data('Navigation', me);
+    }
+    
+    Navigation.prototype.open = function() {
+     
+        var me = this.me;
+        
+        me.$navi.css('height', '');
+        
+        me.top = me.getTop();
+        
+        me.$navi.css('padding-top', me.top + 'px');
+        me.$overlay.css('display', 'block');
+        setTimeout(function() {me.$overlay.css('opacity', '1');}, 0);
+        
+        me.setHeight();
+        
+        me.$body.addClass('navigation-open');  
+    }
+    
+    Navigation.prototype.close = function() {
+        
+        var me = this.me;
+        
+        if (!Modernizr.csstransitions) {
+            setTimeout(function() {
+                me.$main.css('height', '');
+                me.$content.css('height', '');
+                me.$overlay.css('display', '');
+            }, 500);
+        }
+        
+        me.$overlay.css('opacity', '');
+        me.$body.removeClass('navigation-open');
+    }
+    
+    Navigation.prototype.onClosed = function(event) {
+        
+        var me = this.me;
+        
+        event.stopImmediatePropagation();
+        
+        if (!me.$body.hasClass('navigation-open')) {
+            me.$main.css('height', '');
+            me.$content.css('height', '');
+            me.$navi.css('height', 0);
+            me.$overlay.css('display', '');
+        }
+    }
+    
+    Navigation.prototype.onScroll = function() {
+     
+        var me = this.me;
+        
+        var top = me.getTop();
+        
+        if (top < me.top) {
+         
+            me.top = top;
+            me.$navi.css('padding-top', me.top + 'px');
+        }
+        
+        me.setHeight();
+    }
+    
+    Navigation.prototype.getTop = function() {
+        
+        var me = this.me;
+        
+        var header_height = (me.$body.hasClass('is-xs')) ? 70 : 114;
+        var scroll_offset = (me.$body.hasClass('is-xs')) ? 25 : 54;
+        var scroll_top = me.$window.scrollTop();
+        
+        scroll_top -= scroll_offset;
+        if (!me.$header.hasClass('fixed')) scroll_top = 0;
+        if (scroll_top < 0) scroll_top = 0;
+        
+        return scroll_top + header_height;
+    }
+    
+    Navigation.prototype.setHeight = function() {
+     
+        var me = this.me;
+        
+        me.$main.css('height', '');
+        me.$content.css('height', '');
+        
+        var navi_height = me.$main.height() - 21;
+        var content_height = me.$content.height();
+        
+        if (navi_height > content_height) {
+            me.$content.height(navi_height);
+        } else {
+            me.$main.height(content_height);   
+        }
+    }
+    
+    Navigation.prototype.onResize = function() {
+     
+        var me = this.me;
+        
+        
+        me.top = me.getTop();
+        
+        me.$navi.css('padding-top', me.top + 'px');
+        
+        me.setHeight();
+    }
+    
+    new Navigation($('#navigation')); 
+
+    
     
     /**
-     * Handles the header part of a page.
+     * Handles the main header of the page (the black top part with the logo).
+     */
+    function MainHeader($main) {
+        
+        var me = this;
+        this.me = me;
+        
+        me.$main = $main;
+        me.$wrapper = $('.wrapper', me.$main);
+        me.$logo = $('.logo', me.$main);
+        me.$navi_button = $('.fa-menu', me.$main);
+        me.$language = $('#language', me.$main);
+        me.$body = $('body');
+        me.$window = $(window);
+        me.$navi = $('#navigation');
+        
+        me.$wrapper.prepend('<div class="navigation-bg"></div>');
+        
+        me.navi_open = false;
+        me.language_value = me.$language.get(0).value;
+        
+        me.$navi_button.click(function() {me.onNavigation();});
+        me.$language.on('closed', function() {me.onLanguageChange();});
+        me.$window.scroll(function() {me.checkFixedPosition();});
+    }
+    
+    MainHeader.prototype.onNavigation = function() {
+     
+        var me = this;
+        
+        me.navi_open = !(me.$body.hasClass('navigation-open'));
+        
+        if (!me.navi_open) {
+            
+            me.$navi_button.removeClass('fa-close');
+            me.$navi_button.addClass('fa-menu');
+            me.$navi.data('Navigation').close();
+            
+        } else {
+            
+            me.$navi_button.removeClass('fa-menu');
+            me.$navi_button.addClass('fa-close');   
+            me.$navi.data('Navigation').open(); 
+        }
+    }
+    
+    MainHeader.prototype.onLanguageChange = function() {
+     
+        var me = this;
+        
+        if (me.$language.get(0).value != me.language_value) location.href = me.$language.get(0).value;
+    }
+    
+    MainHeader.prototype.checkFixedPosition = function() {
+     
+        var me = this;
+        
+        var height = me.$main.height();
+        var scroll_top = me.$window.scrollTop();
+        
+        if (scroll_top >= height) {
+            me.$main.addClass('fixed');
+        } else {
+            me.$main.removeClass('fixed');
+        }
+    }
+    
+    MainHeader.prototype.onResize = function() {
+     
+        var me = this;
+        
+        me.checkFixedPosition();
+        setTimeout(function() {me.checkFixedPosition();}, 0);
+    }
+    
+    new MainHeader($('#header')); 
+    
+    
+    
+    
+    /**
+     * Handles the big header part of a page beneath the black top part.
      *
      * @param   $main   the main jquery tag
      */
@@ -540,7 +757,7 @@ $(document).ready(function() {
         me.$info = $('.info', me.$main);
         me.$info_container = $('.info > .container', me.$main);
         me.$menu = $('.menu', me.$main);
-        me.$menu_header = $('.header', me.$menu);
+        me.$menu_header = $('.headline', me.$menu);
         me.$menu_navi = $('.navi', me.$menu);
         me.$nav = $('nav', me.$menu);
         me.$list = $('ul', me.$nav);
@@ -619,6 +836,7 @@ $(document).ready(function() {
         var me = this.me;
         
         if (!me.$nav.length) return;
+        if (me.$body.hasClass('navigation-open')) return;
         
         
         var header_position = me.$menu_header.position();

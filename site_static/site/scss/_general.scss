@@ -14,7 +14,20 @@ body {
 
 #body {
     overflow: hidden;
+    position: relative;
+    
     > .container {
+        position: relative;
+        top: 0;
+        left: 0;
+        
+        -webkit-transition: left 0.4s;
+        transition: left 0.4s;
+    
+        .navigation-open & {
+            left: $navi-slide-width;
+        }
+    
         > .row {
             margin-left: -$grid-padding;
             margin-right: -$grid-padding;

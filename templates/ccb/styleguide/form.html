@@ -73,9 +73,9 @@
                 <br/>
                 <br/>
                 <p class="underline uppercase">Elements</p>
-                <p>Requirements:<br/>
+                <!--<p>Requirements:<br/>
                     &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/form.js">&lt;/script>
-                </p>
+                </p>-->
                 <br/>
                 <div class="input-field text"><input type="text" placeholder="Placeholder"/></div>
 <pre>&lt;div class="input-field text">&lt;input type="text" placeholder="Placeholder"/>&lt;/div></pre>
@@ -304,7 +304,8 @@
 &lt;/div></pre>
             <p>Always add an empty option on top of all options like "&lt;option>--------&lt;/option>".<br/>
             Only the first option is permitted to have no or an empty value!!!<br/>
-            Use the "size" attribute to define the height of the dropdown in amount of visible options. Default is 5.</p>
+            Use the "size" attribute to define the height of the dropdown in amount of visible options. Default is 5.<br/>
+            <b>Use the event "closed" to catch the moment when the user made a choice and closed the dropdown. Only then the select box has the final value.</b></p>
             <br/>
             <div><b>Required selection</b></div>
             <div class="input-field select">
@@ -685,9 +686,5 @@
             To hide an element in disabled mode give it the class "hide".</p>
         </div>
     </div>
-{% endblock %}
-
-{% block javascript %}
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/form.js"></script>
 {% endblock %}
 
