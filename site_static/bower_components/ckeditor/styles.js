@@ -48,7 +48,7 @@ CKEDITOR.stylesSet.add( 'default', [
     { name: 'Small Headline<br/><br/>', element: 'h5', attributes: { 'class': 'default'}},
     { name: 'Intro Paragraph', element: 'p', attributes: { 'class': 'intro'}},
     { name: 'Default Paragraph', element: 'p', attributes: { 'class': 'default'}},
-    { name: 'Caption   <br/><br/>Caption<br/><small>only use beneath an image</small>', element: 'h5', attributes: { 'class': 'caption'}},
+    { name: 'Caption   <br/><br/>Caption<br/><small>only use beneath an image <br/>or embeded media</small>', element: 'h5', attributes: { 'class': 'caption'}},
     { name: 'Interview', element: 'p', attributes: { 'class': 'interview'}},
     
     { name: 'Interviewee', element: 'span', attributes: { 'class': 'interviewee'}},

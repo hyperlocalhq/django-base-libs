@@ -230,9 +230,23 @@ img {
         margin-bottom: 30px;
     }
     
-    .ckeditor-image {
+    &.ckeditor-image {
         width: 100% !important;
         height: auto !important;
+    }
+}
+
+.ckeditor-embed {
+    width: 100%;
+    display: block;
+    margin: 0 0 40px;
+    
+    .is-sm & {
+        margin-bottom: 40px;
+    }
+    
+    .is-xs & {
+        margin-bottom: 30px;
     }
 }
 

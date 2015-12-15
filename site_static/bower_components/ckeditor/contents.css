@@ -89,7 +89,11 @@ a:hover, a:active, a:visited, a:focus { text-decoration: none; }
 img { width: 100%; display: block; margin: 0 0 40px; }
 .is-sm img { margin-bottom: 40px; }
 .is-xs img { margin-bottom: 30px; }
-img .ckeditor-image { width: 100% !important; height: auto !important; }
+img.ckeditor-image { width: 100% !important; height: auto !important; }
+
+.ckeditor-embed { width: 100%; display: block; margin: 0 0 40px; }
+.is-sm .ckeditor-embed { margin-bottom: 40px; }
+.is-xs .ckeditor-embed { margin-bottom: 30px; }
 
 h1 { font-family: "MetronicSlabPro", "sans-serif"; font-weight: 900; font-size: 4.25em; line-height: 109%; margin: 0; }
 .is-sm h1 { font-size: 3.5em; line-height: 107%; }
