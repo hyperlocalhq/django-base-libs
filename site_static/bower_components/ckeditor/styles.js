@@ -43,11 +43,11 @@ CKEDITOR.stylesSet.add( 'default', [
 		}
 	},*/
     
-    { name: 'Headline', element: 'h2', attributes: { 'class': 'general'}},
-    { name: 'Smaller Headline', element: 'h4', attributes: { 'class': 'general'}},
-    { name: 'Small Headline<br/><br/>', element: 'h5', attributes: { 'class': 'general'}},
-    { name: 'Main Paragraph', element: 'p', attributes: { 'class': 'general'}},
-    { name: 'Description Paragraph', element: 'p', attributes: { 'class': 'description'}},
+    { name: 'Headline', element: 'h2', attributes: { 'class': 'default'}},
+    { name: 'Smaller Headline', element: 'h4', attributes: { 'class': 'default'}},
+    { name: 'Small Headline<br/><br/>', element: 'h5', attributes: { 'class': 'default'}},
+    { name: 'Intro Paragraph', element: 'p', attributes: { 'class': 'intro'}},
+    { name: 'Default Paragraph', element: 'p', attributes: { 'class': 'default'}},
     { name: 'Caption   <br/><br/>Caption<br/><small>only use beneath an image</small>', element: 'h5', attributes: { 'class': 'caption'}},
     { name: 'Interview', element: 'p', attributes: { 'class': 'interview'}},
     

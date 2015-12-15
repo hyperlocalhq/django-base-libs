@@ -461,7 +461,7 @@ blockquote { font-family: "Lato", "sans-serif"; font-weight: 400; font-size: 2.1
 .is-xs blockquote { font-size: 1.4em; line-height: 138%; margin: 50px 0; }
 blockquote:before { content: '“'; font-family: Georgia; font-weight: 700; font-size: 2.34em; line-height: 0; color: #000; position: absolute; top: 0.56em; left: 0; }
 .is-xs blockquote:before { font-size: 2.2em; }
-blockquote p, blockquote p.description, blockquote p.interview, blockquote h2, blockquote h4, blockquote h5 { font-family: inherit; font-weight: inherit; font-size: inherit; line-height: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit; margin: inherit; padding: 0; }
+blockquote p, blockquote p.intro, blockquote p.interview, blockquote h2, blockquote h4, blockquote h5 { font-family: inherit; font-weight: inherit; font-size: inherit; line-height: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit; margin: inherit; padding: 0; }
 
 a { color: #0c8ba9; text-decoration: none; }
 a:hover { color: #00cdff; }
@@ -499,12 +499,12 @@ h5.caption { margin: -25px 0 30px; }
 .is-sm h5.caption { margin: -30px 0 30px; }
 .is-xs h5.caption { margin: -20px 0 25px; }
 
-p { font-size: 1.47em; line-height: 164%; color: #444444; margin: 0 0 30px; }
-.is-sm p { font-size: 1.33em; line-height: 154%; margin-bottom: 25px; }
-.is-xs p { font-size: 1.2em; line-height: 144%; margin-bottom: 20px; }
-p.description { font-size: 1.2em; line-height: 140%; color: #000; }
-.is-sm p.description { font-size: 1.2em; line-height: 140%; }
-.is-xs p.description { font-size: 1.07em; line-height: 138%; }
+p { font-size: 1.2em; line-height: 140%; color: #000; margin: 0 0 30px; }
+.is-sm p { font-size: 1.2em; line-height: 140%; margin-bottom: 25px; }
+.is-xs p { font-size: 1.07em; line-height: 138%; margin-bottom: 20px; }
+p.intro { font-size: 1.47em; line-height: 164%; color: #444444; }
+.is-sm p.intro { font-size: 1.33em; line-height: 154%; }
+.is-xs p.intro { font-size: 1.2em; line-height: 144%; }
 p.interview { font-size: 1.33em; line-height: 150%; color: #777777; padding: 0; margin: 0 0 30px; }
 .is-sm p.interview { font-size: 1.2em; line-height: 146%; margin-bottom: 25px; }
 .is-xs p.interview { font-size: 1.07em; line-height: 138%; margin-bottom: 20px; }
@@ -850,10 +850,10 @@ input:focus { outline: 0; }
 .list .row.profile-grid.profile-list > div a.content img { width: 100px; float: left; margin-bottom: 20px; }
 .list .row.profile-grid.profile-list > div a.content .text, .list .row.profile-grid.profile-list > div a.content .name { width: auto; height: auto; margin-left: 120px; }
 .list .row.profile-grid.profile-list > div a.content .text h2, .list .row.profile-grid.profile-list > div a.content .name h2 { font-size: 1.47em; line-height: 127%; color: #000; padding: 0 160px 0 0; margin: -5px 0 0 0; }
-.list .row.profile-grid.profile-list > div a.content .text h3, .list .row.profile-grid.profile-list > div a.content .name h3 { font-size: 1.2em; line-height: 115%; color: #000; padding: 9px 5px 0 0; font-weight: 400; }
+.list .row.profile-grid.profile-list > div a.content .text h3, .list .row.profile-grid.profile-list > div a.content .name h3 { font-size: 1.2em; line-height: 115%; color: #000; padding: 9px 5px 50px 0; font-weight: 400; }
 .list .row.profile-grid.profile-list > div a.content .text h3 .feature, .list .row.profile-grid.profile-list > div a.content .name h3 .feature { display: inline; font-weight: 300; }
 .list .row.profile-grid.profile-list > div a.content .text h3 .feature:before, .list .row.profile-grid.profile-list > div a.content .name h3 .feature:before { content: " "; padding-left: 10px; }
-.list .row.profile-grid.profile-list > div a.content .text ul, .list .row.profile-grid.profile-list > div a.content .name ul { font-size: 1.2em; line-height: 156%; color: #000; padding: 0; list-style: none; display: block; position: absolute; left: 120px; bottom: -4px; }
+.list .row.profile-grid.profile-list > div a.content .text ul, .list .row.profile-grid.profile-list > div a.content .name ul { font-size: 1.2em; line-height: 156%; color: #000; padding: 0; list-style: none; display: block; position: absolute; left: 120px; bottom: 14px; }
 .list .row.profile-grid.profile-list > div a.content .text ul li, .list .row.profile-grid.profile-list > div a.content .name ul li { display: inline; }
 .list .row.profile-grid.profile-list > div a.content .text ul li:after, .list .row.profile-grid.profile-list > div a.content .name ul li:after { content: "|"; padding-left: 5px; padding-right: 5px; }
 .list .row.profile-grid.profile-list > div a.content .text ul li:last-child:after, .list .row.profile-grid.profile-list > div a.content .name ul li:last-child:after { content: none; }

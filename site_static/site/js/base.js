@@ -573,6 +573,7 @@ $(document).ready(function() {
         
         me.top = 0;
         
+        me.$overlay.click(function() {me.$header.data('MainHeader').onNavigation();});
         me.$window.scroll(function() {me.onScroll();});
         me.$window.resize(function() {me.onResize();});
         me.$main.on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(e) {me.onClosed(e);});
@@ -715,6 +716,9 @@ $(document).ready(function() {
         me.$navi_button.click(function() {me.onNavigation();});
         me.$language.on('closed', function() {me.onLanguageChange();});
         me.$window.scroll(function() {me.checkFixedPosition();});
+        
+        
+        me.$main.data('MainHeader', me);
     }
     
     MainHeader.prototype.onNavigation = function() {

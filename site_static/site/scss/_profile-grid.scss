@@ -184,7 +184,7 @@
                         font-size: 1.2em;
                         line-height: 115%;
                         color: $black;
-                        padding: 9px 5px 0 0;
+                        padding: 9px 5px 50px 0;
                         font-weight: $font-regular;
                         .feature {
                             display: inline;
@@ -204,7 +204,7 @@
                         display: block;
                         position: absolute;
                         left: 120px;
-                        bottom: -4px;
+                        bottom: 14px;
                         li {
                             display: inline;
                             &:after {

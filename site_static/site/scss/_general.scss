@@ -192,7 +192,7 @@ blockquote {
         }
     }
     
-    p, p.description, p.interview, h2, h4, h5 {
+    p, p.intro, p.interview, h2, h4, h5 {
         font-family: inherit;
         font-weight: inherit;
         font-size: inherit;
@@ -361,36 +361,36 @@ h5 {
 }
 
 p {
-    font-size: 1.47em;
-    line-height: 164%;
-    color: $grey-dark;
+    font-size: 1.2em;
+    line-height: 140%;
+    color: $black;
     margin: 0 0 30px;
     
     .is-sm & {
-        font-size: 1.33em;
-        line-height: 154%;
+        font-size: 1.2em;
+        line-height: 140%;
         margin-bottom: 25px;
     }
     
     .is-xs & {
-        font-size: 1.2em;
-        line-height: 144%;
+        font-size: 1.07em;
+        line-height: 138%;
         margin-bottom: 20px;
     }
     
-    &.description {
-        font-size: 1.2em;
-        line-height: 140%;
-        color: $black;
+    &.intro {
+        font-size: 1.47em;
+        line-height: 164%;
+        color: $grey-dark;
         
         .is-sm & {
-            font-size: 1.2em;
-            line-height: 140%;
+            font-size: 1.33em;
+            line-height: 154%;
         }
         
         .is-xs & {
-            font-size: 1.07em;
-            line-height: 138%;
+            font-size: 1.2em;
+            line-height: 144%;
         }
     }
     

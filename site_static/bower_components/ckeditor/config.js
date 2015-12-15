@@ -3,7 +3,7 @@
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
  
-CKEDITOR.config.forcePasteAsPlainText = true;
+CKEDITOR.config.forcePasteAsPlainText = false;
 
  
 CKEDITOR.editorConfig = function( config ) {
@@ -37,12 +37,14 @@ CKEDITOR.editorConfig = function( config ) {
 	config.format_tags = 'p;h2;h4;h5';
 
 	// Simplify the dialog windows.
-	//config.removeDialogTabs = 'image:advanced;link:advanced';
+	config.removeDialogTabs = 'image:advanced;link:advanced';
+    
+    config.extraPlugins = 'embed';
     
     config.toolbar = [
         ["Cut", "Copy", "-", "Paste", "PasteText", "PasteFromWord", "-", "Undo", "Redo"], ["Scayt"], ["Styles"], ["Source"], ["Maximize"],
         '/',
-        ["Bold", "Italic", "-", "Underline", "Strike", "-", "Subscript", "Superscript", "-", "RemoveFormat"], ["Image", "-", "SpecialChar", "-", "HorizontalRule", "-", "Blockquote"], ["Link", "Unlink", "Anchor"]
+        ["Bold", "Italic", "-", "Underline", "Strike", "-", "Subscript", "Superscript", "-", "RemoveFormat"], ["Image", "-", "Embed", "-", "SpecialChar", "-", "HorizontalRule", "-", "Blockquote"], ["Link", "Unlink", "Anchor"]
     ]
 };
 
