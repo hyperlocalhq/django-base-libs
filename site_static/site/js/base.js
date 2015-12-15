@@ -639,7 +639,7 @@ $(document).ready(function() {
         var content_height = me.$content.height();
         
         if (navi_height > content_height) {
-            me.$content.height(navi_height);
+            me.$content.height(navi_height + 21);
         } else {
             me.$main.height(content_height);   
         }

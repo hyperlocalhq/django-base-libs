@@ -1,5 +1,5 @@
 {% block doctype %}<!DOCTYPE html>{% endblock %}
-{% load i18n base_tags cms_tags %}
+{% load i18n base_tags cms_tags menu_tags %}
 <html lang="{{ LANGUAGE_CODE }}">
     <head>
 
@@ -47,21 +47,7 @@
         <div id="navigation">
             <nav>
                 <ul class="accordion">
-                    <li><a href="#">Navi 1</a></li>
-                    <li><a href="#">Navi 2Navi 2Navi 2Navi 2Navi 2Navi 2Navi 2Navi 2Navi 2Navi 2Navi 2</a></li>
-                    <li><a href="#">Navi 3</a></li>
-                    <li class="accordion-inside accordion-trigger">
-                        <a href="#">Navi 4</a>
-                        <ul class="accordion">
-                            <li><a href="#">Navi 1</a></li>
-                            <li><a href="#">Navi 2</a></li>
-                            <li><a href="#">Navi 3</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">Navi 5</a></li>
-                    <li><a href="#">Navi 6</a></li>
-                    <li><a href="#">Navi 7</a></li>
-                    <li><a href="#">Navi 8</a></li>
+                    {% show_menu 1 2 2 2 "navigation/main_navigation.html" %}
                 </ul>
             </nav>
         </div>
