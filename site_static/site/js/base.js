@@ -121,9 +121,13 @@ $(document).ready(function() {
             $children.click(function(e) {me.toggle($child, e);});
         });
         
-        me.$main.data('accordion', me);
+        me.$main.data('Accordion', me);
+        me.$main.data('AccordionChild', me);
         
         setTimeout(function() {me.init();}, 0);
+        
+        
+        if (me.$parents.length == 1) $(window).resize(function() {me.onResize();});
     }
     
     Accordion.prototype.init = function() {
@@ -150,7 +154,7 @@ $(document).ready(function() {
         me.$children.each(function() {
             
             var $child = $(this);
-            $child.data('accordion', me);
+            $child.data('Accordion', me);
             
             var $accordion = $('> .accordion', $child);
             if (!$child.hasClass('opened')) offset += $accordion.data('height');
@@ -187,9 +191,9 @@ $(document).ready(function() {
         
         var me = this.me;
         
-        $('input, select, a', me.$main).focus(function() {me.onFocus($(this));});
+        $('input, select, a', me.$main).off('focus').focus(function() {me.onFocus($(this));});
         me.$main.addClass('initialised');
-        me.$main.on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(e) {me.onAnimationDone(e);});
+        me.$main.off('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(e) {me.onAnimationDone(e);});
     }
     
     Accordion.prototype.animating = function($child, value) {
@@ -303,6 +307,31 @@ $(document).ready(function() {
         var me = this.me;
         
         if ($child.hasClass('opened')) me.toggle($child);
+    }
+    
+    Accordion.prototype.onResize = function() {
+        
+        var me = this;
+        
+        me.$main.data('accordion-initialised', false);
+        me.$main.css('height', '');
+        
+        if (me.$parents.length == 1) {
+            
+            var $all_children = $('.accordion-inside', me.$main);
+        
+            $all_children.each(function() {
+                
+                var $child = $(this);
+                var $accordion = $('> .accordion', $child);
+                $accordion.css('height', '');
+                
+                $accordion.data('AccordionChild').onResize();
+            });
+            
+        }
+        
+        me.init();
     }
     
     $('.accordion').each(function() {
