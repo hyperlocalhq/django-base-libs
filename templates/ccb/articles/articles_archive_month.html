@@ -19,7 +19,3 @@
     <li><a href="/news/{{ month|date:"Y" }}/">{{ month|date:"Y" }}</a></li>
     <li>{{ month|datefmt:"MMM" }}</li>
 {% endblock %}
-
-{% block javascript %}
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/pagination.js"></script>
-{% endblock %}
