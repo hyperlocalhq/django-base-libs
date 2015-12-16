@@ -41,6 +41,9 @@
         <script type="text/javascript" src="{{ STATIC_URL }}site/js/base.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}site/js/form.js"></script>
         
+        {% block extrahead %}
+        {% endblock %}
+        
     </head>
     <body class="{% block body_class %}{% endblock %}">
         
@@ -148,13 +151,14 @@
                             <br/>
                             
                             <p class="uppercase"><b>The template</b></p>
-                            <p>Extend your template from "base.html".<br/>
+                            <p>Extend your template from "base_redesign.html".<br/>
                             Place your content inside <b>{&#37; block content &#37;}...{&#37; endblock &#37;}</b>.<br/>
                             Add javascript to <b>{&#37; block javascript &#37;}...{&#37; endblock &#37;}</b>.<br/>
                             Add stylesheets to <b>{&#37; block stylesheet &#37;}...{&#37; endblock &#37;}</b> and style rules to <b>{&#37; block css &#37;}...{&#37; endblock &#37;}</b>.<br/>
                             Redefine open graph definitions in <b>{&#37; block open_graph &#37;}...{&#37; endblock &#37;}</b>.<br/>
                             Use the <b>{&#37; block title &#37;}...{&#37; endblock &#37;}</b> to prepend to the page title.<br/>
                             Overwrite or append metatags in <b>{&#37; block meta_tags &#37;}...{&#37; endblock &#37;}</b>.<br/>
+                            For additional header content use <b>{&#37; block extrahead &#37;}...{&#37; endblock &#37;}</b>.<br/>
                             Add body classes in <b>{&#37; block body_class &#37;}...{&#37; endblock &#37;}</b>.<br/>
                             To add javascript translations use <b>{&#37; block translations &#37;}...{&#37; endblock &#37;}</b>.</p>
                             <br/>

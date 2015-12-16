@@ -297,6 +297,7 @@ h3 {
     color: $cyan;
     text-transform: uppercase;
     margin: 0 0 20px;
+    
     time {
         font-weight: $font-light;
         color: $black;
@@ -304,6 +305,10 @@ h3 {
         .is-xs & {
             padding-left: 10px;
         }
+    }
+    
+    a {
+        color: $cyan;
     }
     
     .is-sm & {

@@ -1,7 +1,7 @@
 {% extends "articles/articles_base.html" %}
 {% load base_tags blog babel i18n auth_extended image_modifications %}
 
-{% block meta_description %}
+{% block meta_tags %}
     <meta name="description" content="{{ article.get_rendered_content|striptags|truncatewords:100 }}..."/>
 {% endblock %}
 
@@ -29,6 +29,8 @@
 {% endblock %}
 
 {% block details %}
+
+    {% comment %}
     <div class="toolbox clearfix">
         <div class="entry-controls">
             <a class="rss" href="/{{ LANGUAGE_CODE }}/news/feeds/rss/"><span><span>RSS</span></span></a>
@@ -57,95 +59,108 @@
             {% endif %}
         </div>
     </div>
-    <div class="entry-details clearfix">
-        <p><span class="date">{{ article.published_from|datefmt:"long" }}</span>
-            {% if article.content_provider %}
-                |
-                {% if article.content_provider.url %}
-                    <a href="{{ article.content_provider.url }}">{{ article.content_provider.title }}</a>
-                {% else %}
-                    {{ article.content_provider.title }}
-                {% endif %}
+    {% endcomment %}
+    
+    <h3>
+        {% if article.content_provider %}
+            {% if article.content_provider.url %}
+                <a href="{{ article.content_provider.url }}">{{ article.content_provider.title }}</a>
+            {% else %}
+                {{ article.content_provider.title }}
             {% endif %}
-        </p>
+        {% endif %}
+        <time datetime="{{article.published_from|date:"Y-m-d"}}">{{ article.published_from|datefmt:"long" }}</time>
+    </h3>
+    
+    <div class="entry-details clearfix">
 
-        <h3>
-            {{ article.get_title|escape }}
-        </h3>
+        <h2>{{ article.get_title|escape }}</h2>
+        
         {% if article.get_subtitle %}
             <h4 class="type">{{ article.get_subtitle }}</h4>
-            {% comment %}<!--
-                {{ article.published_from|datefmt:"long" }}
-            -->{% endcomment %}
         {% endif %}
+        
         {% if article.description %}
-            <div class="inter_description">
-                <p>{% parse article.get_rendered_description %}</p>
-            </div>
+            <p class="intro">{% parse article.get_rendered_description %}</p>
         {% endif %}
 
 
         {% if article.image %}
-            <img class="small_inter left" src="{{ UPLOADS_URL }}{{ article.image|modified_path:"nd" }}"
-                alt="{{ article.get_title|escape }}"/>
+            <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"article" }}" alt="{{ article.get_title|escape }}"/>
         {% endif %}
 
         {% parse article.get_rendered_content %}
 
         {% if article.is_excerpt %}
-            <p class="right cleaner">
-                <a href="{{ article.external_url }}"
-                    onclick="open_new_window(event)">{% trans "Read full article" %}</a>
-            </p>
+            <p><a href="{{ article.external_url }}" onclick="open_new_window(event)">{% trans "Read full article" %}</a></p>
         {% endif %}
 
         {% if article.creative_sectors.count %}
-            <div class="post-meta">
-                <p><span>{% trans "Categories" %}: </span>
-                    {% for cs in article.creative_sectors.all %}
-                        {% if not forloop.first %}|{% endif %}
-                        <a href="/news/creative-sector/{{ cs.slug }}/">{{ cs.title }}</a>
-                    {% endfor %}
-                </p>
-            </div>
+            <p>{% trans "Categories" %}:
+                {% for cs in article.creative_sectors.all %}
+                    {% if not forloop.first %}|{% endif %}
+                    <a href="/news/creative-sector/{{ cs.slug }}/">{{ cs.title }}</a>
+                {% endfor %}
+            </p>
         {% endif %}
+        
+        <div class="button-group padding-40">
+            <a href="/{{ LANGUAGE_CODE }}/news/feeds/rss/" class="fawesome fa-rss smaller button"><span class="sr-only">rss</span></a>
+        </div>
+
     </div>
+    
     <hr/>
-    <div class="shortinfo">
-        {% if links_to_articles %}
-            <div class="add_info">
-                {% if article.is_interview %}
-                    <h5>{% trans "Additional Interviews" %}</h5>
-                {% endif %}
-                {% if article.is_news %}
-                    <h5>{% trans "Additional News" %}</h5>
-                {% endif %}
-
-                <ul>
-                    {% for link_article in links_to_articles %}
-                        <li>
-                            <p class="date">
-                                {{ link_article.published_from|datefmt:"long" }}
-                            </p>
-                            <h5>
-                                <a href="{{ link_article.get_url_path }}">
-                                    {{ link_article.get_title|striptags|escape }}
-                                </a>
-                            </h5>
-
-                            <p>
-                                <a href="{{ link_article.get_url_path }}">
+    
+   
+    {% if links_to_articles %}
+    
+        <div class="center padding-10">
+            <div class="fawesome fa-heart big padding-10"></div>
+            <p class="color-black bold">{% trans 'Also a good read' %}</p>
+        </div>
+    
+        {% comment %}
+            {% if article.is_interview %}
+                <h5>{% trans "Additional Interviews" %}</h5>
+            {% endif %}
+            {% if article.is_news %}
+                <h5>{% trans "Additional News" %}</h5>
+            {% endif %}
+        {% endcomment %}
+        
+        <div class="row article-list">
+            {% for link_article in links_to_articles %}
+                <div class="col-xs-12">
+                    <div class="wrapper">
+                        <a class="content" href="{{ link_article.get_url_path }}">
+                            {% if article.image %}
+                                <img src="{{ UPLOADS_URL }}{{ link_article.image|modified_path:"list" }}" alt="{{ link_article.get_title|escape }}"/>
+                            {% else %}
+                                <img src="http://placehold.it/200x208&text=image">
+                            {% endif %}
+                            <div class="text">
+                                <h3>
+                                    {% if link_article.content_provider %}
+                                        {{ link_article.content_provider.title }}
+                                    {% endif %}
+                                    <time datetime="{{ link_article.published_from|date:"Y-m-d" }}">{{ link_article.published_from|datefmt:"long" }}</time>
+                                </h3>
+                                <h2>{{ link_article.get_title|striptags|escape }}</h2>
+                                <p>
                                     {% parse link_article.get_rendered_content as content %}
                                     {{ content|striptags|truncatewords:"10" }}
-                                </a>
-                                <a class="more" href="{{ link_article.get_url_path }}">{% trans "more" %}</a>
-                            </p>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
-    </div>
+                                </p>
+                                <div>{% trans 'Read on' %}</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+    {% endif %}
+    
 {% endblock %}
 
 {% block breadcrumbs %}

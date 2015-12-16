@@ -1,0 +1,132 @@
+{% block doctype %}<!DOCTYPE html>{% endblock %}
+{% load i18n base_tags cms_tags menu_tags sekizai_tags%}
+<html lang="{{ LANGUAGE_CODE }}">
+    <head>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+            
+        <title>{% block title %}{% endblock %}{{ site_settings.site.name }}</title>
+        
+        {% block meta_tags %}
+            {{ site_settings.get_meta_tags|safe }}
+        {% endblock %}
+        
+        <meta name="robots" content="index,follow"/>
+        <meta name="language" content="{{ LANGUAGE_CODE }}"/>
+        
+        {% block open_graph %}
+            <meta property="og:title" content="Creative City Berlin"/>
+            <meta property="og:type" content="website"/>
+            <meta property="og:image" content="http://www.creative-city-berlin.de{{ STATIC_URL }}site/img/default/ccb_logo.gif"/>
+            <meta property="og:url" content="http://www.creative-city-berlin.de/"/>
+            <meta property="og:site_name" content="Creative City Berlin"/>
+            <meta property="og:description" content="{% trans "Portal for the cultural sector and the creative industries" %}"/>
+        {% endblock %}
+        
+        <link href='https://fonts.googleapis.com/css?family=Lato:400,400italic,700,700italic,300,300italic,900' rel='stylesheet' type='text/css'>
+        <link href="{{ STATIC_URL }}site/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen, print" type="text/css" />
+        <link href="{{ STATIC_URL }}site/css/style.css" rel="stylesheet" media="screen, print" type="text/css" />
+        {% render_block "css" %}
+        
+        {% block stylesheet %}
+        {% endblock %}
+        
+        <style type="text/css">
+            {% block css %}
+            {% endblock %}
+        </style>
+        
+        <script type="text/javascript">
+        
+            var trans = [];
+            trans["Upload"] = '{% trans "Upload" %}';
+            trans["edit"] = '{% trans "edit" %}';
+            trans["close"] = '{% trans "close" %}';
+            {% block translations %}{% endblock %}
+            
+        </script>
+        
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.mobile.custom.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/base.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/form.js"></script>
+        
+        {% block extrahead %}
+        {% endblock %}
+        
+    </head>
+    <body class="{% block body_class %}{% endblock %}">
+        {% cms_toolbar %}
+        
+        <div id="navigation">
+            <nav>
+                <div class="buttons visible-xs">
+                    <button class="fawesome fa-search button header-search"><span class="sr-only">{% trans 'search entire website' %}</span></button>
+                    <div class="input-field select languages">
+                        <select id="language-navi" required>
+                            <option>--------</option>
+                            <option value="{% translate_url "de" %}" {% if LANGUAGE_CODE == "de" %} selected="selected" {% endif %}>DE</option>
+                            <option value="{% translate_url "en" %}" {% if LANGUAGE_CODE == "en" %} selected="selected" {% endif %}>EN</option>
+                        </select>
+                    </div>
+                </div>
+                <ul class="accordion">
+                    {% show_menu 1 3 3 3 "navigation/main_navigation.html" %}
+                </ul>
+            </nav>
+        </div>
+        
+        <div id="body">
+            
+            <div id="header">
+                <div class="wrapper">
+                    <a href="{% url 'splash_page' %}"><img class="logo" src="{{ STATIC_URL }}site/img/default/ccb_logo.gif" alt="Creative City Berlin" /></a>
+                    <button class="fawesome fa-menu button navigation"><span class="sr-only">{% trans 'toggle menu' %}</span></button>
+                    <button class="fawesome fa-search button header-search"><span class="sr-only">{% trans 'search entire website' %}</span></button>
+                    <a href="{% url 'login' %}" class="fawesome fa-man button"><span class="sr-only">{% trans 'login' %}</span></a>
+                    <div class="input-field select languages">
+                        <select id="language-header" required>
+                            <option>--------</option>
+                            <option value="{% translate_url "de" %}" {% if LANGUAGE_CODE == "de" %} selected="selected" {% endif %}>DE</option>
+                            <option value="{% translate_url "en" %}" {% if LANGUAGE_CODE == "en" %} selected="selected" {% endif %}>EN</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        
+            {% block content %}
+            {% endblock %}
+        </div>
+        
+        <div id="search-layer" class="layer">
+            <div class="wrapper">
+                <input placeholder="{% trans 'Enter your search term ...' %}"/>
+                <div class="button-group">
+                    <div class="fawesome fa-search button"><span class="sr-only">{% trans 'search' %}</span></div>
+                    <div class="fawesome fa-close button"><span class="sr-only">{% trans 'close' %}</span></div>
+                </div>
+            </div>
+        </div>
+        <div id="image-layer" class="layer">
+            <div class="wrapper">
+                <div class="image"></div>
+                <h5 class="caption"></h5>
+            </div>
+            <div class="navi"></div>
+            <div class="fawesome fa-close button"><span class="sr-only">{% trans 'close' %}</span></div>
+        </div>
+        <span class="width-sniffer visible-xs"></span><span class="width-sniffer visible-sm"></span><span class="width-sniffer visible-md"></span><span class="width-sniffer visible-lg"></span>
+        
+        {% block javascript %}
+        {% endblock %}
+
+        {% block facebook_scripts %}
+            <div id="fb-root"></div>
+            <script type="text/javascript" src="http://connect.facebook.net/{% if LANGUAGE_CODE == "en" %}en_US{% else %}de_DE{% endif %}/all.js"></script>
+        {% endblock %}
+        
+        {% render_block "js" %}
+        
+    </body>
+</html>
