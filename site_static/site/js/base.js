@@ -620,6 +620,7 @@ $(document).ready(function() {
         if (!Modernizr.csstransitions) {
             setTimeout(function() {
                 me.$main.css('height', '');
+                me.$main.css('min-height', '');
                 me.$content.css('height', '');
                 me.$overlay.css('display', '');
             }, 500);
@@ -637,6 +638,7 @@ $(document).ready(function() {
         
         if (!me.$body.hasClass('navigation-open')) {
             me.$main.css('height', '');
+            me.$main.css('min-height', '');
             me.$content.css('height', '');
             me.$navi.css('height', 0);
             me.$overlay.css('display', '');
@@ -678,6 +680,7 @@ $(document).ready(function() {
         var me = this.me;
         
         me.$main.css('height', '');
+        me.$main.css('min-height', '');
         me.$content.css('height', '');
         
         var navi_height = me.$main.height() - 21;
@@ -688,6 +691,8 @@ $(document).ready(function() {
         } else {
             me.$main.height(content_height);   
         }
+        
+        me.$main.css('min-height', content_height + 'px');
     }
     
     Navigation.prototype.onLanguageChange = function() {
