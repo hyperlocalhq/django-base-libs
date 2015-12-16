@@ -803,7 +803,7 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
                 if multistep_forms_name in request.httpstate:
                     del(request.httpstate[multistep_forms_name])
                 if form_steps.get('success_url', False): 
-                    return HttpResponseRedirect(form_steps['success_url'])
+                    return redirect(form_steps['success_url'])
                 else:
                     form_step_data['current_step'] = None
                     current_step = None

@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% load i18n image_modifications base_tags crispy_forms_tags %}
+
+{% block bodyclass %}
+    count" data-spy="scroll" data-target="#nav-form
+{% endblock %}
+
+{% block extrahead %}
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+    $('#submit-form').click(function() {
+        $('#id_confirmed').val("1");
+        $('#bulletin_progression').submit();
+        return false;
+    });
+
+    $('#back-form').click(function() {
+        $('#id_confirmed').val("2");
+        $('#bulletin_progression').submit();
+        return false;
+    });
+
+    $('#back-step').click(function() {
+        $('#id_confirmed').val("2");
+        $('#bulletin_progression').submit();
+        return false;
+    });
+    
+});
+</script>
+{% endblock %}
+
+{% block headline %}
+    <h1>{% trans "Registration" %}</h1>
+    <h2 class="sub">{% trans "Ad" %}</h2>
+{% endblock %}
+ 
+{% block breadcrumbs %}
+    <a href="/">{% trans "Home" %}</a>
+    <a href="/{{ URL_ID_BULLETIN_BOARD }}/">{% trans "Bulletin Board" %}</a>
+    {% if object %}
+        <span>{{ object.title }} ({% if object.status == "published" %}Öffentlich{% else %}Entwurf{% endif %})</span>
+    {% else %}
+        <span>{% trans "Create Bulletin" %}</span>
+    {% endif %}
+{% endblock %}
+
+{% block sidebar-a %}
+	  <ul class="form_steps">
+        <li>
+            <span>
+                <a id="back-step" class="txt done" href="javascript:void();">{% trans "main data" %}</a>
+            </span>
+        </li>
+        <li>
+            <span class="active">{% trans "confirm data" %}</span>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div id="bulletin_confirm" class="article short editable">
+        <div id="dyn_content" class="dyn_section">
+            <div class="dyn_section_content">
+                <h1>{{ object.title }}</h1>
+                {% if object.description %}
+                    <div class="dyn_section_content">
+                        <p>{{ object.description|urlize|linebreaks }}</p>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="section-details address_field_last">
+                <div class="bulletin-contact">
+                    <dl>
+                        <dt>{% trans "Contact" %}</dt>
+                        {% if object.institution %}
+                            <dd>
+                                {{ object.institution.title }}
+                            </dd>
+                        {% endif %}
+                        {% if object.contact_person %}
+                            <dd>{{ object.contact_person }}</dd>
+                        {% endif %}
+                    </dl>
+                </div>
+                {% if object.phone %}
+                    <dl>
+                        <dd class="tel">
+                            <abbr class="type">{% trans "Phone" %}:</abbr>
+                            <span class="value">&nbsp;{{ object.phone }}</span>
+                        </dd>
+                    </dl>
+                {% endif %}
+                {% if object.email %}
+                    <dl>
+                        <dd class="tel">
+                            <span class="value">{{ object.email }}</span>
+                        </dd>
+                    </dl>
+                {% endif %}
+                    
+                </br>
+                {% if object.bulletin_type %}
+                    <p class="bulletin-type-category">{% trans object.bulletin_type %}{% if object.category %} {{ object.category }}{% endif %}</p>
+                {% else %}
+                    {% if object.category %}<p class="bulletin-type-category">{{ object.category }}</p>{% endif %}
+                {% endif %}
+            </div>
+                    
+            <dl class="extra_info">
+                <dt><h3>{% trans "Image" %}</h3></dt>
+                    <dd>
+                        <div class="article_img">
+                            {% if object.image_path %}
+                                <img src="{{ UPLOADS_URL }}{{ object.image_path|modified_path:"ad" }}" alt="" title="" />
+                            {% else %}
+                                {% if object.image %}
+                                    <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"ad" }}" alt="" title="" />
+                                {% else %}
+                                    <img alt="" src="{{ STATIC_URL }}site/img/website/placeholder/default/news.png" />
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        {% if object.image_description %}
+                            <div class="caption">
+                                <p>{{ object.image_description }}</p>
+                            </div>
+                        {% endif %}
+                    </dd>
+                </dt>
+            </dl>
+            <dl class="extra_info">
+                <dt><h3>{% trans "Categories" %}</h3></dt>
+                {% if object.creative_sectors %}
+                    <dt>{% trans "Creative sectors" %}</dt>
+                    {% for item in object.creative_sectors %}
+                        <dd>{{ item }}</dd>
+                    {% endfor %}
+                {% endif %}
+                <dt>{% trans "Location type" %}</dt>
+                <dd>
+                    {% if object.location_type %}
+                        {{ object.location_type }}
+                    {% else %}
+                        {% trans "All" %}
+                    {% endif %}
+                </dd>
+            </dl>
+            <dl class="extra_info">
+                <dt><h3>{% trans "Published till" %}</h3></dt>
+                <dd>{{ object.published_till_date|date:"d. m. Y" }} {{ object.published_till_time|time:"H:i" }}</dd>
+            </dl>   
+        </div>
+        <form action="" method="POST" id="bulletin_progression" class="hidden">
+            {% crispy form %}
+        </form>
+        <div class="nav-form-wrapper">
+            <div id="nav-form" class="nav nav-form buttonHolder" data-spy="affix" data-offset-top="205">
+                <ul class="nav nav-list affix-top"></ul>
+                <input id="back-form" type="button" class="secondaryAction" value="{% filter upper %}{% trans "Previous" %}{% endfilter %}" />
+                <a id="submit-form" class="btn btn-primary" href="javascript:void();">{% trans "next" %}</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

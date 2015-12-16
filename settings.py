@@ -178,6 +178,7 @@ INSTALLED_APPS = [
     "ccb.apps.accounts",
     "ccb.apps.network",
     "ccb.apps.navigation",
+    "ccb.apps.bulletin_board",
     "ccb",  # just for i18n in Javascript
     "actstream",
 ]
@@ -297,6 +298,10 @@ ADMIN_APP_INDEX = (
             }),
             ('marketplace', {
                 'models': ("JobOffer", "JobSector", "JobType", "JobQualification",),
+                'icon': 'page_white',
+            }),
+            ('bulletin_board', {
+                'models': ("BulletinCategory", "Bulletin",),
                 'icon': 'page_white',
             }),
             ('auth', {

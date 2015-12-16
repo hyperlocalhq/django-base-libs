@@ -1,0 +1,55 @@
+{% extends base_template|default:"base.html" %}
+{% load i18n base_tags auth_extended nav_menu uni_form_tags infoblocks site_specific bulletin_board_tags %}
+
+{% block extrahead %}
+    <link rel="alternate" type="application/rss+xml" title="Projektboerse RSS" href="{{ website_url|slice:":-1" }}{% url "bulletin_rss" %}{% filter force_escape %}{% append_to_get sort_by="" no_path %}{% endfilter %}" />
+{% endblock %}
+
+{% block title %}Meine Inserate{% endblock %}
+ 
+{% block breadcrumbs %}
+    <a href="/">{% trans "Home" %}</a>
+    <a href="{% url "bulletin_list" %}">Projektbörse</a>
+    <span>Meine Inserate</span>
+{% endblock %}
+
+{% block content %}
+    <div id="object_list">
+        {% if object_list %}
+            {% for bulletin in object_list %}
+                {% include_parsed "bulletin_board/bulletin_list_item.html" with "vevent" as extra_css_classes and 1 as show_status %}
+            {% endfor %}
+        {% else %}
+            <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>
+        {% endif %}
+    </div>
+    <div class="sorting_menu under-tabs">
+        <form action="" method="get">
+            {% include "utils/includes/paginate_by.html" %}
+            {% include "utils/includes/pagination.html" %}
+        </form>
+    </div>
+{% endblock %}
+
+{% block filter %}
+    <div class="dyn_facet">
+        <h3>Status</h3>
+        <ul>
+            <li{% if not facets.selected.status %} class="active"{% endif %}>
+                <a href="?status=" class="dyn_facet_link">Alle</a>
+            </li>
+            {% for val, display in facets.categories.statuses %}
+                <li{% if facets.selected.status == val %} class="active"{% endif %}>
+                    <a href="?status={{ val }}" class="dyn_facet_link">
+                        {{ display }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
+{% block extrabody %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
+{% endblock %}
