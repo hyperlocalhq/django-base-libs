@@ -4,14 +4,6 @@
     width: 100%;
     background: $cyan;
     position: relative;
-    left: 0;
-    
-    -webkit-transition: left 0.4s;
-    transition: left 0.4s;
-    
-    .navigation-open & {
-        left: $navi-slide-width;
-    }
    
     .fawesome {
         margin: 30px 0;

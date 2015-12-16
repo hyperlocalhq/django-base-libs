@@ -16,7 +16,8 @@ body {
     overflow: hidden;
     position: relative;
     
-    > .container {
+    .content-wrapper {
+        margin-bottom: 50px;
         position: relative;
         top: 0;
         left: 0;
@@ -28,18 +29,22 @@ body {
             left: $navi-slide-width;
         }
     
-        > .row {
-            margin-left: -$grid-padding;
-            margin-right: -$grid-padding;
-            > div {
-                padding-left: $grid-padding;
-                padding-right: $grid-padding;
+        > .container {
+        
+            > .row {
+                margin-left: -$grid-padding;
+                margin-right: -$grid-padding;
+                > div {
+                    padding-left: $grid-padding;
+                    padding-right: $grid-padding;
+                }
+            }
+            .is-xs & {
+                padding-left: $window-margin-xs;
+                padding-right: $window-margin-xs;
             }
         }
-        .is-xs & {
-            padding-left: $window-margin-xs;
-            padding-right: $window-margin-xs;
-        }
+    
     }
 }
 

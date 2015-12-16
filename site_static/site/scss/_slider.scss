@@ -212,14 +212,6 @@
         position: relative;
         width: 100%;
         overflow: hidden;
-        left:0;
-    
-        -webkit-transition: left 0.4s;
-        transition: left 0.4s;
-    
-        .navigation-open & {
-            left: $navi-slide-width;
-        }
         
         .slide {
             width: 100%;

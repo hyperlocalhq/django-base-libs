@@ -144,20 +144,10 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    <div class="breadcrumbs">
-        <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span>
-        <a href="/news/">{% trans "News" %}</a>
-        <span class="b-sep"><span>::</span></span>
-        <a
-            href="/news/{{ article.published_from|date:"Y" }}/">{{ article.published_from|date:"Y" }}</a>
-        <span class="b-sep"><span>::</span></span>
-        <a
-            href="/news/{{ article.published_from|date:"Y" }}/{{ article.published_from|date:"m" }}/">{{ article.published_from|datefmt:"MMM" }} </a>
-        <span class="b-sep"><span>::</span></span>
-        <a
-            href="/news/{{ article.published_from|date:"Y" }}/{{ article.published_from|date:"m" }}/{{ article.published_from|date:"d" }}/">{{ article.published_from|date:"d" }}</a>
-        <span class="b-sep"><span>::</span></span><span>{{ article.get_title|escape }}</span>
-    </div>
+    <li><a href="/news/">{% trans "News" %}</a></li>
+    <li><a href="/news/{{ article.published_from|date:"Y" }}/">{{ article.published_from|date:"Y" }}</a></li>
+    <li><a href="/news/{{ article.published_from|date:"Y" }}/{{ article.published_from|date:"m" }}/">{{ article.published_from|datefmt:"MMM" }} </a></li>
+    <li><a href="/news/{{ article.published_from|date:"Y" }}/{{ article.published_from|date:"m" }}/{{ article.published_from|date:"d" }}/">{{ article.published_from|date:"d" }}</a></li>
+    <li>{{ article.get_title|escape }}</li>
 {% endblock %}
 

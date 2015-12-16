@@ -15,17 +15,10 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    <div class="breadcrumbs">
-        <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span>
-        <a href="/news/">{% trans "News" %}</a>
-        <span class="b-sep"><span>::</span></span>
-        <a href="/news/{{ day|date:"Y" }}/">{{ day|date:"Y" }}</a>
-        <span class="b-sep"><span>::</span></span>
-        <a
-            href="/news/{{ day|date:"Y" }}/{{ day|date:"m" }}/">{{ day|datefmt:"MMM" }} </a>
-        <span class="b-sep"><span>::</span></span><span>{{ day|date:"d" }}</span>
-    </div>
+    <li><a href="/news/">{% trans "News" %}</a></li>
+    <li><a href="/news/{{ day|date:"Y" }}/">{{ day|date:"Y" }}</a></li>
+    <li><a href="/news/{{ day|date:"Y" }}/{{ day|date:"m" }}/">{{ day|datefmt:"MMM" }} </a></li>
+    <li>{{ day|date:"d" }}</li>
 {% endblock %}
 
 {% block javascript %}

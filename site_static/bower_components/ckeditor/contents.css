@@ -15,11 +15,11 @@ body { font-family: "Lato", "sans-serif"; font-size: 15px; font-weight: 400; col
 body.show-layer { height: 100%; min-height: 100%; overflow: hidden; }
 
 #body { overflow: hidden; position: relative; }
-#body > .container { position: relative; top: 0; left: 0; -webkit-transition: left 0.4s; transition: left 0.4s; }
-.navigation-open #body > .container { left: 380px; }
-#body > .container > .row { margin-left: -10px; margin-right: -10px; }
-#body > .container > .row > div { padding-left: 10px; padding-right: 10px; }
-.is-xs #body > .container { padding-left: 10px; padding-right: 10px; }
+#body .content-wrapper { margin-bottom: 50px; position: relative; top: 0; left: 0; -webkit-transition: left 0.4s; transition: left 0.4s; }
+.navigation-open #body .content-wrapper { left: 380px; }
+#body .content-wrapper > .container > .row { margin-left: -10px; margin-right: -10px; }
+#body .content-wrapper > .container > .row > div { padding-left: 10px; padding-right: 10px; }
+.is-xs #body .content-wrapper > .container { padding-left: 10px; padding-right: 10px; }
 
 *, *:before, *:after { padding: 0; margin: 0; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 

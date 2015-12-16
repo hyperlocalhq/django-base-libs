@@ -943,6 +943,9 @@ canvas.fawesome {
 .fawesome.fa-spinner:before {
     content: "\f110";
 }
+.fawesome.fa-home:before {
+    content: "\f015";
+}
 
 
 
@@ -1126,4 +1129,7 @@ canvas.fawesome {
 }
 .fawesome.fa-spinner.after:after {
     content: "\f110";
+}
+.fawesome.fa-home.after:after {
+    content: "\f015";
 }

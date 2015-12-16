@@ -94,9 +94,26 @@
                     </div>
                 </div>
             </div>
+                
+            <div class="content-wrapper">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
         
-            {% block content %}
-            {% endblock %}
+        <div id="breadcrumbs" class="hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <ul>
+                            <li><a href="{% url 'splash_page' %}" class="fawesome fa-home"><span class="sr-only">{% trans "Home" %}</span></a></li>
+                            {% block breadcrumbs %}
+                                {% show_breadcrumb 1 %}
+                            {% endblock %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <div id="search-layer" class="layer">

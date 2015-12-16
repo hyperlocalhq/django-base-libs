@@ -194,6 +194,8 @@ $(document).ready(function() {
         $('input, select, a', me.$main).off('focus').focus(function() {me.onFocus($(this));});
         me.$main.addClass('initialised');
         me.$main.off('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(e) {me.onAnimationDone(e);});
+        
+        me.$main.trigger('initialised');
     }
     
     Accordion.prototype.animating = function($child, value) {
@@ -218,6 +220,8 @@ $(document).ready(function() {
             $target.removeClass('animating');
             me.is_animating = false;
         }
+        
+        me.$main.trigger('animationDone');
     }
     
     Accordion.prototype.onFocus = function($element) {
@@ -332,7 +336,7 @@ $(document).ready(function() {
             
         }
         
-        setTimeout(function() {me.init();}, 0);
+        setTimeout(function() {me.init();}, 10);
     }
     
     $('.accordion').each(function() {
@@ -575,9 +579,11 @@ $(document).ready(function() {
         
         me.$main = $main;
         me.$navi = $('nav', me.$main);
+        me.$accordion = $('.accordion', me.$navi).first();
         me.$language = $('#language-navi', me.$main);
         me.$header = $('#header');
         me.$content = $('#body');
+        me.$breadcrunbs = $('#breadcrumbs');
         me.$body = $('body');
         me.$window = $(window);
         
@@ -592,6 +598,7 @@ $(document).ready(function() {
         me.$window.resize(function() {me.onResize();});
         me.$main.on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(e) {me.onClosed(e);});
         me.$language.on('closed', function() {me.onLanguageChange();});
+        me.$accordion.on('initialised animationDone', function() {me.setHeight();});
         
         me.$main.data('Navigation', me);
     }
@@ -686,6 +693,8 @@ $(document).ready(function() {
         var navi_height = me.$main.height() - 21;
         var content_height = me.$content.height();
         
+        //alert(navi_height + ' - ' + content_height);
+        
         if (navi_height > content_height) {
             me.$content.height(navi_height + 21);
         } else {
@@ -693,6 +702,10 @@ $(document).ready(function() {
         }
         
         me.$main.css('min-height', content_height + 'px');
+        
+        if (!me.$body.hasClass('is-xs')) {
+            me.$main.css('margin-bottom', me.$breadcrunbs.height() + 'px');
+        }
     }
     
     Navigation.prototype.onLanguageChange = function() {
@@ -710,8 +723,6 @@ $(document).ready(function() {
         me.top = me.getTop();
         
         me.$navi.css('padding-top', me.top + 'px');
-        
-        me.setHeight();
     }
     
     new Navigation($('#navigation')); 

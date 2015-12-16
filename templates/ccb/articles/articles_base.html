@@ -14,7 +14,7 @@
         {% if creative_sector %}
             {{ creative_sector.get_title|escape }} - 
         {% else %}
-            {% trans "Welcome" %} - 
+            {% trans "News" %} - 
         {% endif %}
     {% endif %}
 {% endblock %}
@@ -25,7 +25,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    {% if creative_sector.get_title %}
+                    {% if article_type %}
+                        <h1>{{ article_type.get_title|escape }}</h1>
+                    {% elif creative_sector.get_title %}
                         <h1>{{ creative_sector.get_title|escape }}</h1>
                     {% else %}
                         <h1>{% trans "News" %}</h1>

@@ -5,6 +5,7 @@
     -moz--transition: height 0.3s ease-in;
     -o-transition: height 0.3s ease-in;
     transition: height 0.3s ease-in;
+    visibility: visible;
     
     > * {
         &.accordion-inside {            
@@ -21,6 +22,7 @@
 
 .accordion {
     list-style: none;
+    visibility: hidden;
     
     > * {
         

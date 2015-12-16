@@ -82,120 +82,153 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="container">
-                <div class="row">
-                    <ul style="list-style:none; margin:10px auto 50px;" class="col-xs-12">
-                        <li style="display:inline-block; margin:0 5px;"><a href="{% url 'styleguide' %}" style="text-decoration:none; font-weight:bold; text-transform:uppercase; color:black;">General</a></li>
-                        <li style="display:inline-block; margin:0 5px;"><a href="{% url 'styleguide' page='constants' %}" style="text-decoration:none; font-weight:bold; text-transform:uppercase; color:black;">Constants</a></li>
-                        <li style="display:inline-block; margin:0 5px;"><a href="{% url 'styleguide' page='fonts' %}" style="text-decoration:none; font-weight:bold; text-transform:uppercase; color:black;">Fonts</a></li>
-                        <li style="display:inline-block; margin:0 5px;"><a href="{% url 'styleguide' page='icons' %}" style="text-decoration:none; font-weight:bold; text-transform:uppercase; color:black;">Icons</a></li>
-                        <li style="display:inline-block; margin:0 5px;"><a href="{% url 'styleguide' page='buttons' %}" style="text-decoration:none; font-weight:bold; text-transform:uppercase; color:black;">Buttons</a></li>
-                        <li style="display:inline-block; margin:0 5px;"><a href="{% url 'styleguide' page='elements' %}" style="text-decoration:none; font-weight:bold; text-transform:uppercase; color:black;">Elements</a></li>
-                        <li style="display:inline-block; margin:0 5px;"><a href="{% url 'styleguide' page='form' %}" style="text-decoration:none; font-weight:bold; text-transform:uppercase; color:black;">Form</a></li>
-                        <li style="display:inline-block; margin:0 5px;"><a href="{% url 'styleguide' page='navigation' %}" style="text-decoration:none; font-weight:bold; text-transform:uppercase; color:black;">Left Navigation</a></li>
-                        <li style="display:inline-block; margin:0 5px;"><a href="{% url 'styleguide' page='layout' %}" style="text-decoration:none; font-weight:bold; text-transform:uppercase; color:black;">Layout</a></li>
-                    </ul>
-                </div>
-            </div>
-        
-            {% block content %}
+                
+            <div class="content-wrapper">
+                
                 <div class="container">
                     <div class="row">
-                        <div class="col-xs-12">
-                            <h1>General</h1>
-                            <br/>
-                            
-                            <p class="uppercase"><b>The grid</b></p>
-                            <p>The grid system is based on bootstrap.</p>
-                            <p>To place elements inside the grid wrap the area in div tags with class="container", class="row" and than in class="col-...-...".</p>
-                            <pre>
-&lt;div class="container">
-    
-    &lt;div class="row">
-        &lt;div class="col-...-...">
-            ...
-        &lt;/div>
-    &lt;/div>
-        
-&lt;/div>
-                            </pre>
-                            <p>To have a left navigation column and a right content column use the following structure:</p>
-                            <pre>
-&lt;div class="container">
-    &lt;div class="row">
-        &lt;div class="col-xs-12 col-sm-4 col-md-3">
-            
-            Place navgation here!
-            
-        &lt;/div>
-        &lt;div class="col-xs-12 col-sm-8 col-md-9">
-            
-            Place elements here like ...
-            
-            &lt;div class="row">
-                &lt;div class="col-...-...">
-                    ...
-                &lt;/div>
-            &lt;/div>
-                
-        &lt;/div>
-    &lt;/div>
-&lt;/div>
-                            </pre>
-                            <p>Certain elements will need an extra class added to their row tag in order to work.</p>
-                            <br/>
-                            <p>To place an element which spans over the whole width of the page DO NOT wrap it inside the classes but place it directly in the html code.</p>
-                            <br/>
-                            <br/>
-                            <br/>
-                            
-                            <p class="uppercase"><b>The template</b></p>
-                            <p>Extend your template from "base_redesign.html".<br/>
-                            Place your content inside <b>{&#37; block content &#37;}...{&#37; endblock &#37;}</b>.<br/>
-                            Add javascript to <b>{&#37; block javascript &#37;}...{&#37; endblock &#37;}</b>.<br/>
-                            Add stylesheets to <b>{&#37; block stylesheet &#37;}...{&#37; endblock &#37;}</b> and style rules to <b>{&#37; block css &#37;}...{&#37; endblock &#37;}</b>.<br/>
-                            Redefine open graph definitions in <b>{&#37; block open_graph &#37;}...{&#37; endblock &#37;}</b>.<br/>
-                            Use the <b>{&#37; block title &#37;}...{&#37; endblock &#37;}</b> to prepend to the page title.<br/>
-                            Overwrite or append metatags in <b>{&#37; block meta_tags &#37;}...{&#37; endblock &#37;}</b>.<br/>
-                            For additional header content use <b>{&#37; block extrahead &#37;}...{&#37; endblock &#37;}</b>.<br/>
-                            Add body classes in <b>{&#37; block body_class &#37;}...{&#37; endblock &#37;}</b>.<br/>
-                            To add javascript translations use <b>{&#37; block translations &#37;}...{&#37; endblock &#37;}</b>.</p>
-                            <br/>
-                            <br/>
-                            <br/>
-                            
-                            <p class="uppercase"><b>Translations in Javascript</b></p>
-                            <p>To use a translation in javascript add the translation to the global javascript array "trans" like:</p>
-<pre>&#123;% block translations %}
-    trans["some phrase"] = '&#123;% trans "some phrase" %}';
-    trans["another phrase"] = '&#123;% trans "another phrase" %}';
-&#123;% endblock %}</pre>
-                            <p>Then you can access the translation through the "trans" array.</p>
-                            <br/>
-                            <br/>
-                            <br/>
-                            
-                            <p class="uppercase"><b>Realisation of a double tab link</b></p>
-                            <p>To simulate a hover state if you tap on a link the first time and trigger the default click action only at the second tap on the link do the following:</p>
-     
-                            <p>Mark the link with the class "tap-hover-trigger". If the link is also the element which should recieve the class "hover" at the first tap, give it the class "tap-hover" as well.</p>
-                            <p>If a different element (like some parent element) should recieve the class "hover", give this element the class "tap-hover" and assign it to the link element as jQuery object into the data variable "$tap-hover":<br/>
-                            e.g. $link_element.data("$tap-hover", $hover_element);</p>
-     
-                            <p>Now style the (.hover) class to look like the pseudo (:hover) class.</p>
-                            <br/>
-                            <br/>
-                            <br/>
-                            
-                            <p class="uppercase"><b>Sniffer</b></p>
-                            <p>Depending on the window width the body tag has the class "is-xs", "is-sm", "is-md" or "is-lg".</p>
-
-                        </div>
+                        <ul style="list-style:none; margin:10px auto 50px;" class="col-xs-12">
+                            <li style="display:inline-block; margin:0 5px;"><a href="{% url 'styleguide' %}" style="text-decoration:none; font-weight:bold; text-transform:uppercase; color:black;">General</a></li>
+                            <li style="display:inline-block; margin:0 5px;"><a href="{% url 'styleguide' page='constants' %}" style="text-decoration:none; font-weight:bold; text-transform:uppercase; color:black;">Constants</a></li>
+                            <li style="display:inline-block; margin:0 5px;"><a href="{% url 'styleguide' page='fonts' %}" style="text-decoration:none; font-weight:bold; text-transform:uppercase; color:black;">Fonts</a></li>
+                            <li style="display:inline-block; margin:0 5px;"><a href="{% url 'styleguide' page='icons' %}" style="text-decoration:none; font-weight:bold; text-transform:uppercase; color:black;">Icons</a></li>
+                            <li style="display:inline-block; margin:0 5px;"><a href="{% url 'styleguide' page='buttons' %}" style="text-decoration:none; font-weight:bold; text-transform:uppercase; color:black;">Buttons</a></li>
+                            <li style="display:inline-block; margin:0 5px;"><a href="{% url 'styleguide' page='elements' %}" style="text-decoration:none; font-weight:bold; text-transform:uppercase; color:black;">Elements</a></li>
+                            <li style="display:inline-block; margin:0 5px;"><a href="{% url 'styleguide' page='form' %}" style="text-decoration:none; font-weight:bold; text-transform:uppercase; color:black;">Form</a></li>
+                            <li style="display:inline-block; margin:0 5px;"><a href="{% url 'styleguide' page='navigation' %}" style="text-decoration:none; font-weight:bold; text-transform:uppercase; color:black;">Left Navigation</a></li>
+                            <li style="display:inline-block; margin:0 5px;"><a href="{% url 'styleguide' page='layout' %}" style="text-decoration:none; font-weight:bold; text-transform:uppercase; color:black;">Layout</a></li>
+                        </ul>
                     </div>
                 </div>
-            {% endblock %}
+            
+                {% block content %}
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h1>General</h1>
+                                <br/>
+                                
+                                <p class="uppercase"><b>The grid</b></p>
+                                <p>The grid system is based on bootstrap.</p>
+                                <p>To place elements inside the grid wrap the area in div tags with class="container", class="row" and than in class="col-...-...".</p>
+                                <pre>
+    &lt;div class="container">
+        
+        &lt;div class="row">
+            &lt;div class="col-...-...">
+                ...
+            &lt;/div>
+        &lt;/div>
+            
+    &lt;/div>
+                                </pre>
+                                <p>To have a left navigation column and a right content column use the following structure:</p>
+                                <pre>
+    &lt;div class="container">
+        &lt;div class="row">
+            &lt;div class="col-xs-12 col-sm-4 col-md-3">
+                
+                Place navgation here!
+                
+            &lt;/div>
+            &lt;div class="col-xs-12 col-sm-8 col-md-9">
+                
+                Place elements here like ...
+                
+                &lt;div class="row">
+                    &lt;div class="col-...-...">
+                        ...
+                    &lt;/div>
+                &lt;/div>
+                    
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+                                </pre>
+                                <p>Certain elements will need an extra class added to their row tag in order to work.</p>
+                                <br/>
+                                <p>To place an element which spans over the whole width of the page DO NOT wrap it inside the classes but place it directly in the html code.</p>
+                                <br/>
+                                <br/>
+                                <br/>
+                                
+                                <p class="uppercase"><b>The template</b></p>
+                                <p>Extend your template from "base_redesign.html".<br/>
+                                Place your content inside <b>{&#37; block content &#37;}...{&#37; endblock &#37;}</b>.<br/>
+                                Add javascript to <b>{&#37; block javascript &#37;}...{&#37; endblock &#37;}</b>.<br/>
+                                Add stylesheets to <b>{&#37; block stylesheet &#37;}...{&#37; endblock &#37;}</b> and style rules to <b>{&#37; block css &#37;}...{&#37; endblock &#37;}</b>.<br/>
+                                Redefine open graph definitions in <b>{&#37; block open_graph &#37;}...{&#37; endblock &#37;}</b>.<br/>
+                                Use the <b>{&#37; block title &#37;}...{&#37; endblock &#37;}</b> to prepend to the page title.<br/>
+                                Overwrite or append metatags in <b>{&#37; block meta_tags &#37;}...{&#37; endblock &#37;}</b>.<br/>
+                                For additional header content use <b>{&#37; block extrahead &#37;}...{&#37; endblock &#37;}</b>.<br/>
+                                Add body classes in <b>{&#37; block body_class &#37;}...{&#37; endblock &#37;}</b>.<br/>
+                                To build the breadcrumbs use <b>{&#37; block breadcrumbs &#37;}...{&#37; endblock &#37;}</b>.<br/>
+                                To add javascript translations use <b>{&#37; block translations &#37;}...{&#37; endblock &#37;}</b>.</p>
+                                <br/>
+                                <br/>
+                                <br/>
+                                
+                                <p class="uppercase"><b>Translations in Javascript</b></p>
+                                <p>To use a translation in javascript add the translation to the global javascript array "trans" like:</p>
+    <pre>&#123;% block translations %}
+        trans["some phrase"] = '&#123;% trans "some phrase" %}';
+        trans["another phrase"] = '&#123;% trans "another phrase" %}';
+    &#123;% endblock %}</pre>
+                                <p>Then you can access the translation through the "trans" array.</p>
+                                <br/>
+                                <br/>
+                                <br/>
+                                
+                                <p class="uppercase"><b>Breadcrumbs</b></p>
+                                <p>The breadcrumbs are build automaticly for all pages defined in the cms.<br/>
+                                For other paged you have to customise the breadcrumbs by using "li" tags:</p>
+<pre>&#123;% block breadcrumbs %}
+    &lt;li>&lt;a href="parent url">parent name&lt;/a>&lt;/li>
+    &lt;li>&lt;a href="parent url">parent name&lt;/a>&lt;/li>
+    &lt;li>page name&lt;/li>
+&#123;% endblock %}</pre>
+                                <br/>
+                                <br/>
+                                <br/>
+                                
+                                <p class="uppercase"><b>Realisation of a double tab link</b></p>
+                                <p>To simulate a hover state if you tap on a link the first time and trigger the default click action only at the second tap on the link do the following:</p>
+         
+                                <p>Mark the link with the class "tap-hover-trigger". If the link is also the element which should recieve the class "hover" at the first tap, give it the class "tap-hover" as well.</p>
+                                <p>If a different element (like some parent element) should recieve the class "hover", give this element the class "tap-hover" and assign it to the link element as jQuery object into the data variable "$tap-hover":<br/>
+                                e.g. $link_element.data("$tap-hover", $hover_element);</p>
+         
+                                <p>Now style the (.hover) class to look like the pseudo (:hover) class.</p>
+                                <br/>
+                                <br/>
+                                <br/>
+                                
+                                <p class="uppercase"><b>Sniffer</b></p>
+                                <p>Depending on the window width the body tag has the class "is-xs", "is-sm", "is-md" or "is-lg".</p>
+
+                            </div>
+                        </div>
+                    </div>
+                {% endblock %}
+                
+            </div>
         </div>
+        
+        <div id="breadcrumbs" class="hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <ul>
+                            <li><a href="{% url 'splash_page' %}" class="fawesome fa-home"><span class="sr-only">{% trans "Home" %}</span></a></li>
+                            {% block breadcrumbs %}
+                                {% show_breadcrumb 1 %}
+                            {% endblock %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <div id="search-layer" class="layer">
             <div class="wrapper">
                 <input placeholder="{% trans 'Enter your search term ...' %}"/>
