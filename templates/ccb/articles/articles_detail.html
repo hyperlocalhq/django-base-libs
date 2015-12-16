@@ -64,10 +64,14 @@
     <h3>
         {% if article.content_provider %}
             {% if article.content_provider.url %}
-                <a href="{{ article.content_provider.url }}">{{ article.content_provider.title }}</a>
+                <a href="{{ article.content_provider.url }}" target="_blank">{{ article.content_provider.title }}</a>
             {% else %}
                 {{ article.content_provider.title }}
             {% endif %}
+        {% elif article.article_type %}
+            {{ article.article_type.title|escape }}
+        {% else %}
+            {% trans "News" %}
         {% endif %}
         <time datetime="{{article.published_from|date:"Y-m-d"}}">{{ article.published_from|datefmt:"long" }}</time>
     </h3>
@@ -92,7 +96,7 @@
         {% parse article.get_rendered_content %}
 
         {% if article.is_excerpt %}
-            <p><a href="{{ article.external_url }}" onclick="open_new_window(event)">{% trans "Read full article" %}</a></p>
+            <p><a href="{{ article.external_url }}" target="_blank">{% trans "Read full article" %}</a></p>
         {% endif %}
 
         {% if article.creative_sectors.count %}
@@ -130,32 +134,8 @@
         {% endcomment %}
         
         <div class="row article-list">
-            {% for link_article in links_to_articles %}
-                <div class="col-xs-12">
-                    <div class="wrapper">
-                        <a class="content" href="{{ link_article.get_url_path }}">
-                            {% if article.image %}
-                                <img src="{{ UPLOADS_URL }}{{ link_article.image|modified_path:"list" }}" alt="{{ link_article.get_title|escape }}"/>
-                            {% else %}
-                                <img src="http://placehold.it/200x208&text=image">
-                            {% endif %}
-                            <div class="text">
-                                <h3>
-                                    {% if link_article.content_provider %}
-                                        {{ link_article.content_provider.title }}
-                                    {% endif %}
-                                    <time datetime="{{ link_article.published_from|date:"Y-m-d" }}">{{ link_article.published_from|datefmt:"long" }}</time>
-                                </h3>
-                                <h2>{{ link_article.get_title|striptags|escape }}</h2>
-                                <p>
-                                    {% parse link_article.get_rendered_content as content %}
-                                    {{ content|striptags|truncatewords:"10" }}
-                                </p>
-                                <div>{% trans 'Read on' %}</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+            {% for list_article in links_to_articles %}
+                {% include "articles/articles_brief.html" %}
             {% endfor %}
         </div>
         

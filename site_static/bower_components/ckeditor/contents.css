@@ -85,7 +85,7 @@ blockquote:before { content: '“'; font-family: Georgia; font-weight: 700; font
 blockquote p, blockquote p.intro, blockquote p.interview, blockquote h2, blockquote h4, blockquote h5 { font-family: inherit; font-weight: inherit; font-size: inherit; line-height: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit; margin: inherit; padding: 0; }
 
 a { color: #0c8ba9; text-decoration: none; }
-a:hover { color: #00cdff; }
+a:hover, a:focus { color: #00cdff; outline: none; }
 a:hover, a:active, a:visited, a:focus { text-decoration: none; }
 
 img { width: 100%; display: block; margin: 0 0 40px; }
@@ -108,7 +108,7 @@ h2 { font-family: "MetronicSlabPro", "sans-serif"; font-weight: 400; font-size: 
 h3 { font-family: "Lato", "sans-serif"; font-weight: 700; font-size: 1.07em; line-height: 140%; color: #00cdff; text-transform: uppercase; margin: 0 0 20px; }
 h3 time { font-weight: 300; color: #000; padding-left: 15px; }
 .is-xs h3 time { padding-left: 10px; }
-h3 a { color: #00cdff; }
+h3 a, h3 a:hover, h3 a:focus { color: #00cdff; }
 .is-sm h3 { font-size: 1em; }
 .is-xs h3 { font-size: 0.73em; line-height: 126%; margin-bottom: 40px; }
 

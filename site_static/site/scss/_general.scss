@@ -212,8 +212,9 @@ a {
     color: $cyan-dark;
     text-decoration: none;
     
-    &:hover {
+    &:hover, &:focus {
         color: $cyan;
+        outline: none;
     }
     &:hover, &:active, &:visited, &:focus {
         text-decoration: none;
@@ -307,7 +308,7 @@ h3 {
         }
     }
     
-    a {
+    a, a:hover, a:focus {
         color: $cyan;
     }
     

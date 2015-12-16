@@ -1,5 +1,39 @@
 {% load i18n base_tags babel navigation_tags articles image_modifications %}
 
+
+
+<div class="col-xs-12">
+    <div class="wrapper">
+        <a class="content" href="{{ list_article.get_url_path }}">
+            {% if list_article.image %}
+                <img src="{{ UPLOADS_URL }}{{ list_article.image|modified_path:"list" }}" alt="{{ list_article.get_title|escape }}"/>
+            {% else %}
+                <img src="http://placehold.it/200x208&text=image">
+            {% endif %}
+            <div class="text">
+                <h3>
+                    {% if list_article.content_provider %}
+                        {{ list_article.content_provider.title }}
+                    {% elif list_article.article_type %}
+                        {{ list_article.article_type.title|escape }}
+                    {% else %}
+                        {% trans "News" %}
+                    {% endif %}
+                    <time datetime="{{ list_article.published_from|date:"Y-m-d" }}">{{ list_article.published_from|datefmt:"long" }}</time>
+                </h3>
+                <h2>{{ list_article.get_title|striptags|escape }}</h2>
+                <p>
+                    {% parse list_article.get_rendered_content as content %}
+                    {{ content|striptags|truncatewords:"10" }}
+                </p>
+                <div>{% trans 'Read on' %}</div>
+            </div>
+        </a>
+    </div>
+</div>
+                
+
+{% comment %}
 <div class="list-item{% if forloop.first %} first-item{% endif %}{% if forloop.last %} last-item{% endif %}"
     onclick="redirect('{{ article.get_url_path }}')">
     <p class="date">{{ article.published_from|datefmt:"long" }}</p>
@@ -31,4 +65,4 @@
         </div>
     {% endif %}
 </div>
-
+{% endcomment %}
