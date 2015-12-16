@@ -3,11 +3,10 @@
 
 {% block details %}
     {% if not article_list %}
-        <p class="nothing">{% trans "No articles are available" %}</p>
+        <p>{% trans "No articles are available" %}</p>
     {% else %}
-        {% include "utils/includes/sorting_and_pagination.html" %}
-        <div id="object_list">
-            {% for article in article_list %}
+        <div class="row article-list">
+            {% for list_article in article_list %}
                 {% include "articles/articles_brief.html" %}
             {% endfor %}
         </div>
@@ -24,6 +23,6 @@
     </div>
 {% endblock %}
 
-{% block extrabody %}
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
+{% block javascript %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/pagination.js"></script>
 {% endblock %}
