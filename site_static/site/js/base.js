@@ -703,7 +703,6 @@ $(document).ready(function() {
         
         me.$main.css('min-height', content_height + 'px');
         
-        alert(me.$body.hasClass('is-xs'));
         if (!me.$body.hasClass('is-xs')) {
             me.$main.css('margin-bottom', me.$breadcrunbs.height() + 'px');
         } else {
