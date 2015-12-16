@@ -7,5 +7,6 @@ class TrackerConfig(BaseTrackerConfig):
     name = 'ccb.apps.tracker'
 
     def ready(self):
+        super(TrackerConfig, self).ready()
         registry.register(self.get_model('Ticket'))
 
