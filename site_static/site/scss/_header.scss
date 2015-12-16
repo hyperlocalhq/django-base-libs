@@ -1,6 +1,54 @@
 @charset "UTF-8";
 
 
+///////////////////////////////////////////////////////////////
+// the languages dropdown
+
+#header, #navigation {    
+    .languages {
+        width: 75px;
+        text-align: left;
+        position: absolute;
+    
+        -webkit-transition: top 0.4s;
+        transition: top 0.4s;
+        
+        .select-display-wrapper {
+            &:after {
+                content: "\f107";
+                color: $white;
+                top: 9px;
+                right: 5px;
+                font-size: 1.33em;
+            }
+        }
+        .select-display {
+            color: $white;
+            background: $black;
+            border: none;
+            border-radius: 0;
+            padding-right: 25px;
+            line-height: 200%;
+            
+            &:focus, &:hover, &.focus {
+                border: none;
+                box-shadow: none;
+            }
+        }
+        .select-dropdown {
+            background: $black;
+            color: $white;
+            border: 1px solid $grey-dark;
+            border-radius: 0;
+            box-shadow: none;
+            
+        }
+    }
+}
+
+
+
+
 /////////////////////////////////////////////////////////
 // page header (the top black part with the logo)
 
@@ -65,6 +113,15 @@
         }
     }
     
+    .languages {
+        top: 37px;
+        right: 40px;        
+        
+        .is-xs & {
+            display: none;
+        }
+    }
+    
     .button {
         color: white;
         position: absolute;
@@ -90,7 +147,7 @@
             }
             
             .navigation-open & {
-                left: $navi-close_button;
+                left: $navi-close-button;
             }
         }
         
@@ -108,52 +165,6 @@
             .is-xs & {
                 right: 20px;
             }
-        }
-    }
-    
-    .languages {
-        width: 75px;
-        text-align: left;
-        position: absolute;
-        top: 37px;
-        right: 40px;
-    
-        -webkit-transition: top 0.4s;
-        transition: top 0.4s;
-        
-        .is-xs & {
-            display: none;
-        }
-        
-        .select-display-wrapper {
-            &:after {
-                content: "\f107";
-                color: $white;
-                top: 9px;
-                right: 5px;
-                font-size: 1.33em;
-            }
-        }
-        .select-display {
-            color: $white;
-            background: $black;
-            border: none;
-            border-radius: 0;
-            padding-right: 25px;
-            line-height: 200%;
-            
-            &:focus, &:hover, &.focus {
-                border: none;
-                box-shadow: none;
-            }
-        }
-        .select-dropdown {
-            background: $black;
-            color: $white;
-            border: 1px solid $white;
-            border-radius: 0;
-            box-shadow: none;
-            
         }
     }
     

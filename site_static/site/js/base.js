@@ -313,6 +313,7 @@ $(document).ready(function() {
         
         var me = this;
         
+        me.$main.removeClass('initialised');
         me.$main.data('accordion-initialised', false);
         me.$main.css('height', '');
         
@@ -326,12 +327,12 @@ $(document).ready(function() {
                 var $accordion = $('> .accordion', $child);
                 $accordion.css('height', '');
                 
-                $accordion.data('AccordionChild').onResize();
+                setTimeout(function() {$accordion.data('AccordionChild').onResize();}, 0);
             });
             
         }
         
-        me.init();
+        setTimeout(function() {me.init();}, 0);
     }
     
     $('.accordion').each(function() {
@@ -466,12 +467,16 @@ $(document).ready(function() {
         me.$layer.css('top', me.$window.scrollTop() + 'px');
         me.$body.addClass('show-layer').addClass('search-layer');
         
-        me.$search.off().click(function() {me.search();});
+        me.$search.off().click(function(e) {me.search(e);});
         me.$close.off().click(function() {me.close();});
-        me.$input.keypress(function(e) {
+        me.$layer.off().click(function() {me.close();});
+        me.$input.off().keypress(function(e) {
             if(e.which == 13) {
-                me.search();
+                me.search(e);
             }
+        }).click(function(e) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
         });
         
         me.is_open = true;
@@ -481,14 +486,21 @@ $(document).ready(function() {
         
         var me = this.me;
         
+        me.$search.off();
+        me.$close.off();
+        me.$layer.off();
+        me.$input.off();
         me.$body.removeClass('show-layer').removeClass('search-layer');
         
         me.is_open = false;
     }
     
-    Search.prototype.search = function() {
+    Search.prototype.search = function(event) {
         
         var me = this.me;
+        
+        event.stopImmediatePropagation();
+        event.preventDefault();
         
         alert('implement search action in base.js');
         
@@ -563,6 +575,7 @@ $(document).ready(function() {
         
         me.$main = $main;
         me.$navi = $('nav', me.$main);
+        me.$language = $('#language-navi', me.$main);
         me.$header = $('#header');
         me.$content = $('#body');
         me.$body = $('body');
@@ -572,11 +585,13 @@ $(document).ready(function() {
         me.$content.append(me.$overlay);
         
         me.top = 0;
+        me.language_value = me.$language.get(0).value;
         
         me.$overlay.click(function() {me.$header.data('MainHeader').onNavigation();});
         me.$window.scroll(function() {me.onScroll();});
         me.$window.resize(function() {me.onResize();});
         me.$main.on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(e) {me.onClosed(e);});
+        me.$language.on('closed', function() {me.onLanguageChange();});
         
         me.$main.data('Navigation', me);
     }
@@ -675,6 +690,13 @@ $(document).ready(function() {
         }
     }
     
+    Navigation.prototype.onLanguageChange = function() {
+     
+        var me = this;
+        
+        if (me.$language.get(0).value != me.language_value) location.href = me.$language.get(0).value;
+    }
+    
     Navigation.prototype.onResize = function() {
      
         var me = this.me;
@@ -703,7 +725,7 @@ $(document).ready(function() {
         me.$wrapper = $('.wrapper', me.$main);
         me.$logo = $('.logo', me.$main);
         me.$navi_button = $('.fa-menu', me.$main);
-        me.$language = $('#language', me.$main);
+        me.$language = $('#language-header', me.$main);
         me.$body = $('body');
         me.$window = $(window);
         me.$navi = $('#navigation');
