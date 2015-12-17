@@ -101,6 +101,7 @@ INSTALLED_APPS = [
     "kombu.transport.django",
     "captcha",
     "social.apps.django_app.default",
+    "bootstrap_pagination",
 
     ### django-cms ###
     'cms',  # django CMS itself
@@ -927,7 +928,8 @@ AUTHENTICATION_BACKENDS = (
     #'social.backends.yahoo.YahooOAuth',
     #'social.backends.yahoo.YahooOpenId',
     #'social.backends.vimeo.VimeoOAuth1',
-    'social.backends.email.EmailAuth',
+    "jetson.apps.permissions.backends.RowLevelPermissionsBackend",
+    "jetson.apps.utils.backends.EmailBackend",
     'social.backends.username.UsernameAuth',
     'django.contrib.auth.backends.ModelBackend',
 )

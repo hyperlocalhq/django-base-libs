@@ -146,7 +146,7 @@
                 
                 <p>&lt;p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. <a href="#">&lt;a>text link&lt;/a></a> Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.&lt/p></p>
                 
-                <pre style="margin:0;">&lt;img src="http://placehold.it/850x500&text=image" /></pre>
+                <pre style="margin:0;">&lt;img src="&#123;{ UPLOADS_URL }}&#123;{ article.image|modified_path:"article" }}" alt="..."/></pre>
                 <img src="http://placehold.it/850x500&text=image" />
                 <h5 class="caption">&lt;h5 class="<span style="text-transform:lowercase">caption</span>">Caption&lt;/h5> &nbsp;&nbsp;&nbsp;&lt;-- use it only beneath an image or embeded media</h5>
                 
@@ -393,26 +393,22 @@ the bottom</pre>
                 
                 <p>&lt;p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.&lt;/p></p>
                 
-                <pre style="margin:0;">&lt;img src="http://placehold.it/850x500&text=image" 
-data-popup-image-src="http://placehold.it/2100x840&text=popup image 1" 
-data-popup-image-gallery="gallery" /></pre>
+                <pre style="margin:0;">&lt;img src="&#123;{ UPLOADS_URL }}&#123;{ gallery.image|modified_path:"article" }}" alt="..."
+data-popup-image-src="gallery.image" data-popup-image-gallery="gallery" /></pre>
                 <img src="http://placehold.it/850x500&text=image" data-popup-image-src="http://placehold.it/2100x840&text=popup image 1" data-popup-image-gallery="gallery" />
                 <h5 class="caption">&lt;h5 class="caption">Caption #1&lt;/h5> &nbsp;&nbsp;&nbsp;&lt;-- use it only beneath an image</h5>
                 
-                <pre style="margin:0;">&lt;img src="http://placehold.it/850x650&text=image" 
-data-popup-image-src="http://placehold.it/1280x1340&text=popup image 2" 
-data-popup-image-gallery="gallery" /></pre>
+                <pre style="margin:0;">&lt;img src="&#123;{ UPLOADS_URL }}&#123;{ gallery.image|modified_path:"article" }}" alt="..."
+data-popup-image-src="gallery.image" data-popup-image-gallery="gallery" /></pre>
                 <img src="http://placehold.it/850x650&text=image" data-popup-image-src="http://placehold.it/1280x1340&text=popup image 2" data-popup-image-gallery="gallery" />
                 
-                <pre style="margin:0;">&lt;img src="http://placehold.it/850x600&text=image" 
-data-popup-image-src="http://placehold.it/850x600&text=popup image 3" 
-data-popup-image-gallery="gallery" /></pre>
+                <pre style="margin:0;">&lt;img src="&#123;{ UPLOADS_URL }}&#123;{ gallery.image|modified_path:"article" }}" alt="..."
+data-popup-image-src="gallery.image" data-popup-image-gallery="gallery" /></pre>
                 <img src="http://placehold.it/850x600&text=image" data-popup-image-src="http://placehold.it/850x600&text=popup image 3" data-popup-image-gallery="gallery" />
                 <h5 class="caption">&lt;h5 class="caption">Caption #3&lt;/h5> &nbsp;&nbsp;&nbsp;&lt;-- use it only beneath an image</h5>
                 
-                <pre style="margin:0;">&lt;img src="http://placehold.it/850x900&text=image" 
-data-popup-image-src="http://placehold.it/1280x1400&text=popup image 4" 
-data-popup-image-gallery="gallery" /></pre>
+                <pre style="margin:0;">&lt;img src="&#123;{ UPLOADS_URL }}&#123;{ gallery.image|modified_path:"article" }}" alt="..."
+data-popup-image-src="gallery.image" data-popup-image-gallery="gallery" /></pre>
                 <img src="http://placehold.it/850x900&text=image" data-popup-image-src="http://placehold.it/1280x1400&text=popup image 4" data-popup-image-gallery="gallery" />
                 <h5 class="caption">&lt;h5 class="caption">Caption #4&lt;/h5> &nbsp;&nbsp;&nbsp;&lt;-- use it only beneath an image</h5>
                 

@@ -194,6 +194,7 @@
             margin-right: 20px;
             position: absolute;
             left: 0;
+            word-break: break-all;
             
             .is-sm & {
                 font-size: 1.07em;
@@ -208,11 +209,11 @@
         
         .button-group {
             position: absolute;
-            top: 17px;
+            top: 14px;
             right: 20px;
             
             .is-sm & {
-                top: 13px;    
+                top: 10px;    
             }
             
             .is-xs & {

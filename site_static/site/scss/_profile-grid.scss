@@ -237,7 +237,6 @@
             }
             
             .button-group {
-                top: 12px;
                 .button {
                     font-size: inherit;
                     &:hover {
@@ -267,13 +266,13 @@
                     }
                     ul {
                         font-size: 1em;
-                        bottom: -1px;
+                        bottom: 14px;
                     }
                 }
             }
             
             .button-group {
-                top: 8px;
+                top: 5px;
                 .button {
                     font-size: inherit;
                     margin-left: 15px;

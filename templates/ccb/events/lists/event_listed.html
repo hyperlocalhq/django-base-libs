@@ -1,19 +1,36 @@
-<tr class="list-item {{ extra_css_classes }} {% if forloop.counter|divisibleby:"2" %}even{% else %}odd{% endif %}">
-    <td class="datetime">
-        {% for time in event.eventtime_set.all %}
-            {% include "events/includes/event_time.html" %}
-            {% if not forloop.last %}<br/>{% endif %}
-        {% endfor %}
-        {% if event.event_type %}<br/>
-            <div class="object-type">{{ event.event_type }}</div>{% endif %}
-    </td>
-    <td>
-        <h5>
-            <a class="summary" href="{{ event.get_url_path }}">{{ event.get_title|escape }}</a>
-        </h5>
+{% load babel %}
 
-        <div class="location">
-            {% if event.venue %}{{ event.venue.title }}{% else %}{{ event.venue_title }}{% endif %}</div>
-    </td>
-    <td class="controls">{% include "events/controls.html" %}</td>
-</tr>
+
+<div class="col-xs-12">
+    <div class="wrapper">
+        <a class="content" href="{{ event.get_url_path }}">
+            <div class="text">
+                <h3>
+                    {% if event.event_type %}<br/>
+                        {{ event.event_type }}
+                    {% endif %}
+                </h3>
+                <h2>{{ event.get_title|escape }}</h2>
+
+                <p>
+                    {% if event.venue %}
+                        {{ event.venue.title }}
+                    {% else %}
+                        {{ event.venue_title }}
+                    {% endif %}
+                </p>
+{#                <p>#}
+{#                    {% for time in event.eventtime_set.all %}#}
+{#                        {% include "events/includes/event_time.html" %}#}
+{#                        {% if not forloop.last %}<br/>{% endif %}#}
+{#                    {% endfor %}#}
+{#                </p>#}
+            </div>
+        </a>
+        <div class="button-group">
+            <a href="#" class="fawesome fa-more button"></a>
+            <a href="#" class="fawesome fa-bookmark button"></a>
+            <a href="#" class="fawesome fa-calender-check button"></a>
+        </div>
+    </div>
+</div>

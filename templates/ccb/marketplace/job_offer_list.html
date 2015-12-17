@@ -1,162 +1,30 @@
-{% extends base_template|default:"base.html" %}
-{% load i18n base_tags auth_extended navigation_tags infoblocks uni_form_tags %}
+{% extends "marketplace/job_offer_base.html" %}
+{% load i18n auth_extended uni_form_tags %}
 
-
-{% block meta_keywords %}
-    {% if LANGUAGE_CODE == "de" %}
-        <meta name="keywords" lang="de"
-            content="Jobbörse, Stellenmarkt, Stellenangebote, Kultur, Kreativwirtschaft, Kunst, Medien, Design, Praktikum, Praktika, Berlin"/>
+{% block details %}
+    {% if not object_list %}
+        <p>{% trans "No objects found within the selected conditions." %}</p>
     {% else %}
-        <meta name="keywords" lang="en-us"
-            content="job, jobs, jobboard, job exchange, Berlin, culture, art, creative industries, media, design, internships, internship"/>
-    {% endif %}
-{% endblock %}
-
-
-{% block meta_description %}
-    {% if LANGUAGE_CODE == "de" %}
-        <meta name="description" lang="de" content="Jobbörse für die Kultur- und Kreativwirtschaft in Berlin"/>
-    {% else %}
-        <meta name="description" lang="en-us"
-            content="Job exchange for the cultural sector and the creative industries in Berlin"/>
-    {% endif %}
-{% endblock %}
-
-
-{% block extrahead %}
-    <link rel="alternate" type="application/rss+xml" title="{% trans "RSS Feed of CCB Jobs" %}"
-        href="{{ website_url }}{{ LANGUAGE_CODE }}{{ request.path }}feed/rss/{% filter force_escape %}{% append_to_get page=0,paginate_by=0,sort_by=0 no_path %}{% endfilter %}">
-    <link rel="alternate" type="application/atom+xml" title="{% trans "Atom Feed of CCB Jobs" %}"
-        href="{{ website_url }}{{ LANGUAGE_CODE }}{{ request.path }}feed/atom/{% filter force_escape %}{% append_to_get page=0,paginate_by=0,sort_by=0 no_path %}{% endfilter %}">
-    {% if view_type == "map" %}
-        <script type="text/javascript">
-            //<![CDATA[
-            var aGeopositions = [];
-            //]]>
-        </script>
-    {% endif %}
-{% endblock %}
-
-
-{% block title %}{% trans "Jobs and Internships in Berlin" %}{% endblock %}
-
-{% block headline %}
-    <h1>{% trans "Jobs and Internships in Berlin" %}</h1>
-{% endblock %}
-
-{% block sidebar-a %}
-    <div class="sidebar-box nav_expanded" id="block_filter_{{ LANGUAGE_CODE }}">
-        <h5>
-            <a href="#" class="open_but">
-                <b>{% trans "Filter" %}</b>
-                <span class="pic"></span>
-            </a>
-        </h5>
-
-        <form method="get" id="object_list_filter_form" class="uniForm">
-            {% url "job_offer_list_global" as base_url %}
-            <div class="object_search_form">
-                {{ form.job_sector|as_uni_field }}
-                {{ form.job_type|as_uni_field }}
-                {{ form.qualification|as_uni_field }}
-                {{ form.keywords|as_uni_field }}
-                <div class="col one-line last">
-                    <input type="submit" class="button_good right" value="{% trans "Search" %}"/>
-                </div>
-            </div>
-        </form>
-    </div>
-    {% infoblock "jobs" %}
-{% endblock %}
-
-
-{% block content %}
-    {% block tabs %}
-        <div id="tabs">
-            {#% children_of "job_offers" using "navigation/children_in_tabs.html" %#}
-            {% navigation_links "jobs" using "navigation/includes/navigation_links_in_tabs.html" %}
-        </div>
-    {% endblock %}
-    {% if object_list %}
-        {% include_parsed "utils/includes/sorting_and_pagination.html" with "under-tabs" as css_class %}
-    {% endif %}
-    {% comment %}<!--
-    {% include "marketplace/includes/list_type_links.html" %}
-    -->{% endcomment %}
-    {% if object_list %}
-        {% if view_type == "map" %}
-            <noscript>{% infoblock "js_warning" %}</noscript>
-            <div id="dyn_map" class="to_show">
-                <div id="gmap" style="width: 512px; height: 272px; position: relative;"></div>
-            </div>
-        {% endif %}
-        <div id="object_list">
+        <div class="row job-list">
             {% for job_offer in object_list %}
-                {% if forloop.first %}
-                    <table class="job_offers">
+                {% if view_type == "listed" %}
+                    {% include "marketplace/lists/job_offer_listed.html" %}
                 {% endif %}
-
-            {% if view_type == "listed" %}
-                {% include_parsed "marketplace/lists/job_offer_listed.html" %}
-            {% endif %}
-            {% if view_type == "map" %}
-                {% include_parsed "marketplace/lists/job_offer_mapped.html" %}
-            {% endif %}
-
-            {% if forloop.last %}
-                </table>
-            {% endif %}
+                {% if view_type == "map" %}
+                    {% include "marketplace/lists/job_offer_mapped.html" %}
+                {% endif %}
             {% endfor %}
         </div>
         {% include "utils/includes/sorting_and_pagination.html" %}
-    {% else %}
-        <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>
     {% endif %}
 {% endblock %}
 
 {% block breadcrumbs %}
-    <div class="breadcrumbs">
-        <a href="/">{% trans "Home" %}</a>
-        {% if not show %}
-            <span class="b-sep"><span>::</span></span><span>{% trans "Jobs" %}</span>
-        {% endif %}
-        {% if show == "/internships" %}
-            <span class="b-sep"><span>::</span></span>
-            <a href="/{{ URL_ID_JOB_OFFERS }}/">{% trans "Jobs" %}</a>
-            <span class="b-sep"><span>::</span></span><span>{% trans "Internships" %}</span>
-        {% endif %}
-        {% if show == "/all" %}
-            <span class="b-sep"><span>::</span></span>
-            <a href="/{{ URL_ID_JOB_OFFERS }}/">{% trans "Jobs" %}</a>
-            <span class="b-sep"><span>::</span></span><span>{% trans "All" %}</span>
-        {% endif %}
-        {% if show == "/memos" %}
-            <span class="b-sep"><span>::</span></span>
-            <a href="/{{ URL_ID_JOB_OFFERS }}/">{% trans "Jobs" %}</a>
-            <span class="b-sep"><span>::</span></span><span>{% trans "Memos" %}</span>
-        {% endif %}
-        {% if show == "/favorites" %}
-            <span class="b-sep"><span>::</span></span>
-            <a href="/{{ URL_ID_JOB_OFFERS }}/">{% trans "Jobs" %}</a>
-            <span class="b-sep"><span>::</span></span><span>{% trans "Favorites" %}</span>
-        {% endif %}
-        {% if show == "/own-events" %}
-            <span class="b-sep"><span>::</span></span>
-            <a href="/{{ URL_ID_JOB_OFFERS }}/">{% trans "Jobs" %}</a>
-            <span class="b-sep"><span>::</span></span><span>{% trans "Own events" %}</span>
-        {% endif %}
-    </div>
+    <li>{% trans "Jobs" %}</li>
 {% endblock %}
 
-{% block extrabody %}
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
-    {% if view_type == "map" %}
-        <script type="text/javascript"
-            src="http://maps.google.com/maps/api/js?language={{ LANGUAGE_CODE }}&amp;region=DE"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/styledinfowindow.js"></script>
-    {% endif %}
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
-    {% if view_type == "map" %}
-        <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing_map.js"></script>
-    {% endif %}
+
+
+{% block javascript %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/job-list.js"></script>
 {% endblock %}

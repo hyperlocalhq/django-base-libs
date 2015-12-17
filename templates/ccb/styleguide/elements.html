@@ -169,7 +169,7 @@
     &lt;div class="col-xs-12 col-sm-6 col-md-4">
         &lt;div class="wrapper">
             &lt;a class="content" href="#">
-                &lt;img src="http://placehold.it/270x281&text=image">
+                &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ list_profile.image|modified_path:"profile" }}" alt="&#123;{ list_profile.get_title|escape }}/>
                 &lt;div class="text">
                     &lt;h2>Max Mustermann&lt;/h2>
                     &lt;h3>Art Director &lt;span class="feature">Grafikdesign, Produktdesign&lt;/span>&lt;/h3>
@@ -264,7 +264,7 @@
     &lt;div class="col-xs-12 col-sm-6 col-md-3">
         &lt;div class="wrapper">
             &lt;a class="content" href="#">
-                &lt;img src="http://placehold.it/270x281&text=image"/>
+                &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ list_profile.image|modified_path:"profile" }}" alt="&#123;{ list_profile.get_title|escape }}/>
                 &lt;div class="name">
                     &lt;h2>Max &lt;br/>Mustermann&lt;/h2>
                 &lt;/div>
@@ -381,7 +381,7 @@
                 &lt;/ul>
                 &lt;div class="bubble">&#123;% trans 'Dream Job' %}&lt;/div>
             &lt;/a>
-            &lt;a class="website" href="#">http:\\www.website.de&lt;/a>
+            &lt;a class="website" href="url.link" target="_blank">&#123;{ url.link|truncatechars:50 }}&lt;/a>
             &lt;div class="button-group">
                 &lt;a href="#" class="fawesome fa-more button">&lt;/a>
                 &lt;a href="#" class="fawesome fa-bookmark button">&lt;/a>
@@ -461,7 +461,7 @@
     &lt;div class="col-xs-12">
         &lt;div class="wrapper">
             &lt;a class="content" href="#">
-                &lt;img src="http://placehold.it/200x208&text=image">
+                &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ list_article.image|modified_path:"list" }}" alt="&#123;{ list_article.get_title|escape }}"/>
                 &lt;div class="text">
                     &lt;h3>Rubrik &lt;time datetime="2015-10-08">08. Oktober 2015&lt;/time>&lt;/h3>
                     &lt;h2>"Grüne Mode muss die Masse ansprechen"&lt;/h2>
@@ -473,6 +473,135 @@
     &lt;/div>
     ... keep adding col blocks
 &lt;/div></pre>
+                <br/>
+                <br/>
+                <br/>
+                <p class="uppercase underline">Event List</p>
+                <p>Requirements:<br/>
+                    &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/event-list.js">&lt;/script>
+                </p>
+                <br/>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                
+                Navigation
+                
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                <div class="row event-list">
+                    <h2 class="date">Sa, 12. 12. 2015</h2>
+                    <div class="col-xs-12">
+                        <div class="wrapper">
+                            <a class="content" href="#">
+                                <img src="http://placehold.it/200x208&text=image">
+                                <div class="text">
+                                    <h3>Rubrik</h3>
+                                    <h2>Titel der Veranstaltung</h2>
+                                    <p>
+                                        Veranstaltungsort <br/>
+                                        <span class="seperator">Beispielstarße 12</span> 
+                                        <span class="seperator">12345 Berlin</span> 
+                                        <span class="seperator">Deutschland</span>
+                                        <br/>{% trans 'Time' %}: 14:00 - 19:00
+                                    </p>
+                                </div>
+                            </a>
+                            <a class="website" href="#" target="_blank">http://www.website.de</a>
+                            <div class="button-group">
+                                <a href="#" class="fawesome fa-more button"></a>
+                                <a href="#" class="fawesome fa-bookmark button"></a>
+                                <a href="#" class="fawesome fa-calender-check button"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="wrapper">
+                            <a class="content" href="#">
+                                <img src="http://placehold.it/200x208&text=image">
+                                <div class="text">
+                                    <h3>Rubrik</h3>
+                                    <h2>Titel der Veranstaltung</h2>
+                                    <p>
+                                        Veranstaltungsort <br/>
+                                        <span class="seperator">Beispielstarße 12</span> 
+                                        <span class="seperator">12345 Berlin</span> 
+                                        <span class="seperator">Deutschland</span>
+                                    </p>
+                                </div>
+                            </a>
+                            <a class="website" href="#" target="_blank">http://www.website.de</a>
+                            <div class="button-group">
+                                <a href="#" class="fawesome fa-more button"></a>
+                                <a href="#" class="fawesome fa-bookmark button"></a>
+                                <a href="#" class="fawesome fa-calender-check button"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="wrapper">
+                            <a class="content" href="#">
+                                <img src="http://placehold.it/200x208&text=image">
+                                <div class="text">
+                                    <h3>Rubrik</h3>
+                                    <h2>Titel der Veranstaltung</h2>
+                                    <p>
+                                        Veranstaltungsort <br/>
+                                        <span class="seperator">Beispielstarße 12</span> 
+                                        <span class="seperator">12345 Berlin</span> 
+                                        <span class="seperator">Deutschland</span>
+                                    </p>
+                                </div>
+                            </a>
+                            <div class="button-group">
+                                <a href="#" class="fawesome fa-more button"></a>
+                                <a href="#" class="fawesome fa-bookmark button"></a>
+                                <a href="#" class="fawesome fa-calender-check button"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+<pre>&lt;div class="row event-list">
+    &lt;h2 class="date">Sa, 12. 12. 2015&lt;/h2>
+    &lt;div class="col-xs-12">
+        &lt;div class="wrapper">
+            &lt;a class="content" href="#">
+                &lt;img src="http://placehold.it/200x208&text=image">
+                &lt;div class="text">
+                    &lt;h3>Rubrik&lt;/h3>
+                    &lt;h2>Titel der Veranstaltung&lt;/h2>
+                    &lt;p>
+                        Veranstaltungsort &lt;br/>
+                        &lt;span class="seperator">Beispielstarße 12&lt;/span> 
+                        &lt;span class="seperator">12345 Berlin&lt;/span> 
+                        &lt;span class="seperator">Deutschland&lt;/span>
+                        &lt;br/>{&#123; trans 'Time' %}: 14:00 - 19:00
+                    &lt;/p>
+                &lt;/div>
+            &lt;/a>
+            &lt;a class="website" href="url.link" target="_blank">&#123;{ url.link|truncatechars:50 }}&lt;/a>
+            &lt;div class="button-group">
+                &lt;a href="#" class="fawesome fa-more button">&lt;/a>
+                &lt;a href="#" class="fawesome fa-bookmark button">&lt;/a>
+                &lt;a href="#" class="fawesome fa-calender-check button">&lt;/a>
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    ... keep adding col blocks
+    &lt;h2 class="date">So, 13. 12. 2015&lt;/h2>
+    ...
+&lt;/div></pre>
+                <p>Add class="active" to an active icon button.</p>
                 <br/>
                 <br/>
                 <br/>
@@ -492,7 +621,7 @@
                 <div class="row comment-list">
                     <div class="col-xs-12">
                         <div class="wrapper">
-                            <img src="http://placehold.it/270x281&text=image">
+                            <img src="http://placehold.it/200x208&text=image">
                             <time datetime="2015-10-08 14:47">08. Oktober 2015 14:47</time>
                             <h2>Max Mustermann</h2>
                             <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
@@ -500,7 +629,7 @@
                     </div>
                     <div class="col-xs-12">
                         <div class="wrapper">
-                            <img src="http://placehold.it/270x281&text=image">
+                            <img src="http://placehold.it/200x208&text=image">
                             <time datetime="2015-10-08 14:47">08. Oktober 2015 14:47</time>
                             <h2>Max Mustermann</h2>
                             <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
@@ -508,7 +637,7 @@
                     </div>
                     <div class="col-xs-12">
                         <div class="wrapper">
-                            <img src="http://placehold.it/270x281&text=image">
+                            <img src="http://placehold.it/200x208&text=image">
                             <time datetime="2015-10-08 14:47">08. Oktober 2015 14:47</time>
                             <h2>Max Mustermann</h2>
                             <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
@@ -526,7 +655,7 @@
 <pre>&lt;div class="row comment-list">
     &lt;div class="col-xs-12">
         &lt;div class="wrapper">
-            &lt;img src="http://placehold.it/270x281&text=image">
+            &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ list_comment.image|modified_path:"list" }}" alt="&#123;{ list_comment.get_title|escape }}"/>
             &lt;time datetime="2015-10-08 14:47">08. Oktober 2015 14:47&lt;/time>
             &lt;h2>Max Mustermann&lt;/h2>
             &lt;p>Lorem ipsum ...&lt;/p>
@@ -664,8 +793,8 @@
                 If you want to group images into a gallery, set the attribute "<b>data-popup-image-gallery</b>" and give it the same value. You can then browse through the gallery images in the opened popup layer. For an example look into the LAYOUT section.</p>
                 <img src="http://placehold.it/640x320&text=image with popup" style="max-width:640px;" data-popup-image-src="http://placehold.it/1900x1000&text=image in the popup" />
                 <h5 class="caption">&lt;h5 class="caption">Caption&lt;/h5> &nbsp;&nbsp;&nbsp;&lt;-- use it only beneath an image</h5>
-<pre>&lt;img src="http://placehold.it/640x320&text=image with popup" 
-data-popup-image-src="http://placehold.it/1900x1000&text=image in the popup" />
+<pre>&lt;img src="&#123;{ UPLOADS_URL }}&#123;{ article.image|modified_path:"article" }}" 
+data-popup-image-src="&#123;{ article.image }}" alt="..."/>
 &lt;h5 class="caption">Caption&lt;/h5>   &lt;-- use it only beneath an image</pre>
                 <p>If the image doesn't have a caption, leave the &lt;h5> tag empty or remove it entirely.</p>
                 <br/>
@@ -772,19 +901,7 @@ data-popup-image-src="http://placehold.it/1900x1000&text=image in the popup" />
     &lt;div class="col-xs-12 col-sm-6">
         &lt;div class="wrapper tap-hover">
             &lt;a class="content tap-hover-trigger" href="#">
-                &lt;img src="http://placehold.it/640x360&text=image"/>
-                &lt;h2>Hier steht mehr zum Projekt.&lt;/h2>
-            &lt;/a>
-            &lt;div class="button-group">
-                &lt;a href="#" class="fawesome fa-favorite button">&lt;/a>
-                &lt;a href="#" class="fawesome fa-more button">&lt;/a>
-            &lt;/div>
-        &lt;/div>
-    &lt;/div>
-    &lt;div class="col-xs-12 col-sm-6">
-        &lt;div class="wrapper tap-hover">
-            &lt;a class="content tap-hover-trigger" href="#">
-                &lt;img src="http://placehold.it/640x860&text=image"/>
+                &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ grid_project.image|modified_path:"project_grid" }}" alt="&#123;{ grid_project.get_title|escape }}/>
                 &lt;h2>Hier steht mehr zum Projekt.&lt;/h2>
             &lt;/a>
             &lt;div class="button-group">
@@ -909,7 +1026,7 @@ data-popup-image-src="http://placehold.it/1900x1000&text=image in the popup" />
     &lt;!-- One Column Element -->
     &lt;div class="col-xs-6 col-md-3">
         &lt;a class="content" href="#">
-            &lt;img src="http://placehold.it/320x260&text=image"/>
+            &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ grid_navi.image|modified_path:"navi_grid_small" }}" alt="&#123;{ grid_navi.get_title|escape }}/>
             &lt;h2>Participate&lt;/h2>
             &lt;p>Erstelle dein Portfolio&lt;br/>und vernetze dich mit anderen&lt;/p>
         &lt;/a>
@@ -917,14 +1034,14 @@ data-popup-image-src="http://placehold.it/1900x1000&text=image in the popup" />
     &lt;!-- One Column Element -->
     &lt;div class="col-xs-6 col-md-3">
         &lt;a class="content" href="#">
-            &lt;img src="http://placehold.it/320x260&text=image"/>
+            &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ grid_navi.image|modified_path:"navi_grid_small" }}" alt="&#123;{ grid_navi.get_title|escape }}/>
             &lt;h2>Connect&lt;/h2>
         &lt;/a>
     &lt;/div>
     &lt;!-- Two Columns Element -->
     &lt;div class="col-xs-12 col-md-6">
         &lt;a class="content" href="#">
-            &lt;img src="http://placehold.it/640x255&text=image"/>
+            &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ grid_navi.image|modified_path:"navi_grid_big" }}" alt="&#123;{ grid_navi.get_title|escape }}/>
             &lt;h2>Get&lt;br/>funding&lt;/h2>
             &lt;p>Erstelle dein Portfolio&lt;br/>und vernetze dich mit anderen&lt;/p>
         &lt;/a>
@@ -1053,19 +1170,7 @@ data-popup-image-src="http://placehold.it/1900x1000&text=image in the popup" />
         &lt;div class="col-xs-12 slide">
             &lt;a class="content" href="#">
                 &lt;span class="image-hover-bg">
-                    &lt;img src="http://placehold.it/400x320&text=image"/>
-                &lt;/span>
-                &lt;h2>Hier steht mehr zum Portfolio.&lt;/h2>
-            &lt;/a>
-            &lt;div class="button-group">
-                &lt;a href="#" class="fawesome fa-favorite button">&lt;/a>
-                &lt;a href="#" class="fawesome fa-more button">&lt;/a>
-            &lt;/div>
-        &lt;/div>
-        &lt;div class="col-xs-12 slide">
-            &lt;a class="content" href="#">
-                &lt;span class="image-hover-bg">
-                    &lt;img src="http://placehold.it/500x320&text=image"/>
+                    &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ slide.image|modified_path:"portfolio_slide" }}" alt="&#123;{ slide.get_title|escape }}/>
                 &lt;/span>
                 &lt;h2>Hier steht mehr zum Portfolio.&lt;/h2>
             &lt;/a>
@@ -1117,7 +1222,7 @@ data-popup-image-src="http://placehold.it/1900x1000&text=image in the popup" />
             <div class="col-xs-12">
                 <pre>&lt;div class="slider fullside" data-speed="600" data-timer="4000">
     &lt;div class="slide">
-        &lt;img src="http://placehold.it/2003x1010&text=image"/>
+        &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ slide.image|modified_path:"home_slide" }}" alt="&#123;{ slide.get_title|escape }}/>
         &lt;div class="container">
             &lt;div class="row">
                 &lt;div class="col-xs-12">
@@ -1340,7 +1445,7 @@ data-popup-image-src="http://placehold.it/1900x1000&text=image in the popup" />
         <div class="row">
             <div class="col-xs-12">
                 <pre>&lt;div class="header">
-    &lt;img src="http://placehold.it/2002x770&text=image"/>
+    &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ header.image|modified_path:"header" }}" alt="&#123;{ header.get_title|escape }}/>
     &lt;div class="container">
         &lt;div class="row">
             &lt;div class="col-xs-12">
@@ -1395,7 +1500,7 @@ data-popup-image-src="http://placehold.it/1900x1000&text=image in the popup" />
         <div class="row">
             <div class="col-xs-12">
                 <pre>&lt;div class="header large-image">
-    &lt;img src="http://placehold.it/2003x1010&text=image"/>
+    &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ header.image|modified_path:"home_slide" }}" alt="&#123;{ header.get_title|escape }}/>
 &lt;/div>
 &lt;div class="header beneath">
     &lt;div class="container">
@@ -1497,7 +1602,7 @@ data-popup-image-src="http://placehold.it/1900x1000&text=image in the popup" />
                     &lt;div class="row slider portfolio">
                         &lt;div class="wrapper">
                             &lt;div class="col-xs-12 slide">
-                                &lt;img src="http://placehold.it/400x320&text=image"/>
+                                &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ slide.image|modified_path:"portfolio_slide" }}" alt="&#123;{ slide.get_title|escape }}/>
                             &lt;/div>
                             ... keep adding slides
                         &lt;/div>
@@ -1548,4 +1653,5 @@ data-popup-image-src="http://placehold.it/1900x1000&text=image in the popup" />
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/twitter-wall.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/slider.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/job-list.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/event-list.js"></script>
 {% endblock %}

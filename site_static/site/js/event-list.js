@@ -1,12 +1,12 @@
 /**
- * Provides functionality and styles for the job list.
+ * Provides functionality and styles for the event list.
  *
  * @author Daniel Lehmann
  */
 
 (function() {
     
-    function JobList($main) {
+    function EventList($main) {
         
         var me = this;
         this.me = me;
@@ -20,7 +20,7 @@
         me.styleIt();
     }
     
-    JobList.prototype.styleIt = function(delay) {
+    EventList.prototype.styleIt = function(delay) {
      
         var me = this.me;
         
@@ -35,27 +35,22 @@
             var $content = $('.content', $element);
             var $website = $('.website', $element);
             
-            if ($('.bubble', $content).length) {
-                $element.addClass('has-bubble');   
-            }
-            
             if ($website.length) {
             
                 var $p = $('p', $content);
-                var $ul = $('ul', $content);
                 
                 var margin = 5;
                 
+                $p.css('margin-bottom', ($website.height() + margin) + 'px');
                 $website.css('top', ($p.position().top + $p.height()) + margin + 'px');
-                $ul.css('margin-top', ($website.height() + margin) + 'px');
                 
             }
             
         });
     }
     
-    $('.job-list').each(function() {
-        new JobList($(this)); 
+    $('.event-list').each(function() {
+        new EventList($(this)); 
     });    
     
 })();
