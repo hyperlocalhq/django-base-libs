@@ -1,5 +1,5 @@
-{% extends base_template|default:"base.html" %}
-{% load i18n base_tags auth_extended nav_menu uni_form_tags infoblocks site_specific bulletin_board_tags %}
+{% extends "bulletin_board/bulletin_list.html" %}
+{% load i18n base_tags auth_extended navigation_tags uni_form_tags infoblocks site_specific bulletin_board_tags %}
 
 {% block extrahead %}
     <link rel="alternate" type="application/rss+xml" title="Projektboerse RSS" href="{{ website_url|slice:":-1" }}{% url "bulletin_rss" %}{% filter force_escape %}{% append_to_get sort_by="" no_path %}{% endfilter %}" />
@@ -14,10 +14,15 @@
 {% endblock %}
 
 {% block content %}
+    {% block tabs %}
+        <div id="tabs">
+            {% navigation_links "bulletin_board" using "navigation/includes/navigation_links_in_tabs.html" %}
+        </div>
+    {% endblock %}
     <div id="object_list">
         {% if object_list %}
             {% for bulletin in object_list %}
-                {% include_parsed "bulletin_board/bulletin_list_item.html" with "vevent" as extra_css_classes and 1 as show_status %}
+                {% include_parsed "bulletin_board/lists/bulletin_list_item.html" with "vevent" as extra_css_classes and 1 as show_status %}
             {% endfor %}
         {% else %}
             <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>

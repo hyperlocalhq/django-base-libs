@@ -120,13 +120,34 @@
                             </dl>
                         {% endif %}
                         
-                        </br>
-                        {% if object.bulletin_type %}
-                            <p class="bulletin-type-category">{{ object.get_type }}{% if object.category %} {{ object.category }}{% endif %}</p>
-                        {% else %}
-                            {% if object.category %}<p class="bulletin-type-category">{{ object.category }}</p>{% endif %}
-                        {% endif %}
                     </div>
+                </div>
+                <div>
+                    <h3>{% trans "Categories" %}</h3>
+                    <dl class="extra_info">
+                        {% if object.bulletin_type %}
+                            <dt>{% trans "Bulletin Type" %}</dt>
+                            <dd>{% trans object.bulletin_type %}</dd>
+                        {% endif %}
+                        {% if object.bulletin_category %}
+                            <dt>{% trans "Bulletin Category" %}</dt>
+                            <dd>{{ object.bulletin_category }}</dd>
+                        {% endif %}
+                        {% if object.categories %}
+                            <dt>{% trans "Categories" %}</dt>
+                            {% for item in object.categories.all %}
+                                <dd>{{ item }}</dd>
+                            {% endfor %}
+                        {% endif %}
+                        <dt>{% trans "Location type" %}</dt>
+                        <dd>
+                            {% if object.locality_type %}
+                                {{ object.locality_type }}
+                            {% else %}
+                                {% trans "All" %}
+                            {% endif %}
+                        </dd>
+                    </dl>
                 </div>
             </div>
         </div>

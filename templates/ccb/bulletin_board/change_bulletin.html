@@ -4,6 +4,7 @@
 {% block bodyclass %}count{% endblock %}
 
 {% block extrahead %}
+    {% comment %}
     <link href="{{ STATIC_URL }}site/css/datepicker.css" rel="stylesheet" media="screen" type="text/css" />
     <link href="{{ STATIC_URL }}site/css/timepicker.css" rel="stylesheet" media="screen" type="text/css" />
     <link href="{{ STATIC_URL }}site/css/fileuploader.css" media="screen" rel="stylesheet" type="text/css" />
@@ -14,11 +15,12 @@
     <script src="{{ STATIC_URL }}site/js/bootstrap-jetson-timepicker.js"></script>
     <script src="{{ STATIC_URL }}site/js/jquery/jquery.selectbox-0.2.min.js"></script>
     <script src="{{ STATIC_URL }}site/js/jquery/jquery.autosize-min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery/jquery.charCount.js"></script>
+    <script src="{{ STATIC_URL }}site/js/website/form.js"></script>
+    {% endcomment %}
     <script src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery.bgiframe.min.js"></script>
     <script src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery.autocomplete.js"></script>
     <script src="{{ STATIC_URL }}site/js/website/autocomplete.js"></script>
-    <script src="{{ STATIC_URL }}site/js/jquery/jquery.charCount.js"></script>
-    <script src="{{ STATIC_URL }}site/js/website/form.js"></script>
 {% endblock %}
 
 {% block headline %}
@@ -74,6 +76,7 @@
             }
         };
         // $("select").not('[name*="__prefix__"]').selectbox();
+        /*
         $('.dateinput').datepicker({
             format: 'yyyy-mm-dd',
             weekStart: 1
@@ -84,9 +87,12 @@
             str_confirm: '{% trans "Confirm" %}',
             str_close: '{% trans "Close" %}',
         });
+        */
         $(".qq-uploader").click(function(){ $(".qq-upload-button input").click() });
     </script>
+    {% comment %}
     <script src="{{ STATIC_URL }}site/js/website/change_bulletin.js"></script>
+    {% endcomment %}
     <script>
         $(document).ready(function ($) {
             $('.control-group.error:first').find(':input').focus();

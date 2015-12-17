@@ -206,7 +206,33 @@ navigation_links = {
             'should_be_shown': for_all,
             'highlight_pattern': r'^/(de|en)/relaunch2015/jobs/add/$',
         },
+    ],
 
+    'bulletin_board': [
+        {
+            'url_de': '/de/relaunch2015/market-place/',
+            'url_en': '/en/relaunch2015/market-place/',
+            'text_de': 'Alle',
+            'text_en': 'All',
+            'should_be_shown': for_all,
+            'highlight_pattern': r'^/(de|en)/relaunch2015/market-place/$',
+        },
+        {
+            'url_de': '/de/relaunch2015/market-place/my-bulletins/',
+            'url_en': '/en/relaunch2015/market-place/my-bulletins/',
+            'text_de': 'Meine Inserate',
+            'text_en': 'My Bulletins',
+            'should_be_shown': for_authenticated_only,
+            'highlight_pattern': r'^/(de|en)/relaunch2015/market-place/my-bulletins/$',
+        },
+        {
+            'url_de': '/de/relaunch2015/market-place/add/',
+            'url_en': '/en/relaunch2015/market-place/add/',
+            'text_de': 'Inserat eintragen',
+            'text_en': 'Add a Bulletin',
+            'should_be_shown': for_authenticated_only,
+            'highlight_pattern': r'^/(de|en)/relaunch2015/market-place/add/$',
+        },
     ],
 
     'events': [

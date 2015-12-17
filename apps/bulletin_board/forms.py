@@ -1,4 +1,7 @@
 # -*- coding: UTF-8 -*-
+import os
+import shutil
+from datetime import datetime, time
 
 from django.db import models
 from django import forms
@@ -15,7 +18,7 @@ from base_libs.middleware.threadlocals import get_current_user
 
 from mptt.forms import TreeNodeChoiceField
 
-from jetson.apps.structure.models import Term
+from jetson.apps.image_mods.models import FileManager
 
 from .models import Bulletin, BulletinCategory
 from .models import TYPE_CHOICES, STATUS_CHOICES
@@ -71,11 +74,6 @@ class BulletinForm(forms.ModelForm):
         label=_("Location Type"),
         required=False,
         queryset=get_related_queryset(Bulletin, "locality_type"),
-    )
-
-    reload_page = forms.BooleanField(
-        required=False,
-        widget=forms.HiddenInput(),
     )
 
     class Meta:
@@ -179,7 +177,7 @@ class BulletinForm(forms.ModelForm):
 
             bootstrap.FormActions(
                 layout.Submit('reset', _('Reset')),
-                layout.Submit('submit', _('Save')),
+                layout.Submit('submit', _('Next')),
             )
         )
 
@@ -209,7 +207,7 @@ def load_data(instance=None):
             'bulletin_type', 'bulletin_category', 'title', 'description', 'locality_type',
             'institution', 'institution_title', 'institution_url',
             'contact_person', 'phone', 'email',
-            'image', 'image_description', 'published_from', 'published_till', 'status',
+            'image_description', 'status',
         ]
         for fname in fields:
             form_step_data['bulletin_data'][fname] = getattr(instance, fname)
@@ -230,15 +228,14 @@ def load_data(instance=None):
             form_step_data['bulletin_data']['institution'] = institution
             primary_contact = institution.get_primary_contact()  # institutional contact data is more preferable than personal
 
-        if primary_contact:
-            form_step_data['bulletin_data']['email'] = primary_contact.get('email0_address', person.user.email)
-            form_step_data['bulletin_data']['phone'] = (
-                '+{phone_country} {phone_area} {phone_number}'.format(primary_contact)
-                if primary_contact.get('phone_number, None') else ''
-            ) or (
-                '+{phone_country} {phone_area} {phone_number}'.format(personal_primary_contact)
-                if personal_primary_contact.get('phone_number, None') else ''
-            )
+        form_step_data['bulletin_data']['email'] = primary_contact.get('email0_address', '') or person.user.email
+        form_step_data['bulletin_data']['phone'] = (
+            '+{phone_country} {phone_area} {phone_number}'.format(**primary_contact)
+            if primary_contact.get('phone_number', None) else ''
+        ) or (
+            '+{phone_country} {phone_area} {phone_number}'.format(**personal_primary_contact)
+            if personal_primary_contact.get('phone_number', None) else ''
+        )
 
 
     return form_step_data
@@ -270,10 +267,22 @@ def save_data(form_steps, form_step_data, instance=None):
         'bulletin_type', 'bulletin_category', 'title', 'description', 'locality_type',
         'institution', 'institution_title', 'institution_url',
         'contact_person', 'phone', 'email',
-        'image', 'image_description', 'published_from', 'published_till', 'status',
+        'image_description', 'status',
     ]
     for fname in fields:
         setattr(instance, fname, form_step_data['bulletin_data'][fname])
+
+    if form_step_data['bulletin_data']['published_till_date']:
+        if form_step_data['bulletin_data']['published_till_time']:
+            instance.published_till = datetime.combine(
+                form_step_data['bulletin_data']['published_till_date'],
+                form_step_data['bulletin_data']['published_till_time'],
+            )
+        else:
+            instance.published_till = datetime.combine(
+                form_step_data['bulletin_data']['published_till_date'],
+                time(0,0),
+            )
 
     instance.save()
 
@@ -281,11 +290,36 @@ def save_data(form_steps, form_step_data, instance=None):
     for cat in form_step_data['bulletin_data']['categories']:
         instance.categories.add(cat)
 
+    rel_dir = "bulletin_board/"
+    if form_step_data['bulletin_data']['image_path']:
+        tmp_path = form_step_data['bulletin_data']['image_path']
+        abs_tmp_path = os.path.join(settings.MEDIA_ROOT, tmp_path)
+
+        fname, fext = os.path.splitext(tmp_path)
+        filename = datetime.now().strftime("%Y%m%d%H%M%S") + fext
+        dest_path = "".join((rel_dir, filename))
+        FileManager.path_exists(os.path.join(settings.MEDIA_ROOT, rel_dir))
+        abs_dest_path = os.path.join(settings.MEDIA_ROOT, dest_path)
+
+        shutil.copy2(abs_tmp_path, abs_dest_path)
+
+        os.remove(abs_tmp_path)
+        instance.image = dest_path
+        instance.save()
+
     return form_step_data
 
 
-def cancel_editing(request):
-    return redirect("dashboard")
+def cancel_editing(request, instance=None):
+    if instance:
+        return redirect(instance)
+    return redirect("bulletin_list")
+
+
+def redirect_to_bulletin(request, instance=None):
+    if instance:
+        return redirect(instance)
+    return redirect("bulletin_list")
 
 
 BULLETIN_FORM_STEPS = {
@@ -297,15 +331,14 @@ BULLETIN_FORM_STEPS = {
     'confirm_data': {
         'title': _("confirm data"),
         'template': "bulletin_board/change_bulletin_confirm.html",
-        'form': forms.Form,  # dummy form
     },
     'oninit': load_data,
     'on_set_extra_context': set_extra_context,
     'onsubmit': submit_step,
     'onsave': save_data,
     'onreset': cancel_editing,
+    'onsuccess': redirect_to_bulletin,
     'name': 'bulletin_form',
-    'success_url': "bulletin_list",
     'default_path': ['bulletin_data', 'confirm_data'],
 }
 

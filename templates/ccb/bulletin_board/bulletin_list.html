@@ -20,6 +20,12 @@
 {% endblock %}
 
 {% block content %}
+    {% block tabs %}
+        <div id="tabs">
+            {% navigation_links "bulletin_board" using "navigation/includes/navigation_links_in_tabs.html" %}
+        </div>
+    {% endblock %}
+
    <!--<div>
         <p class="item">
             <a href="{% url "bulletin_rss" %}{% filter force_escape %}{% append_to_get sort_by="" no_path %}{% endfilter %}" class="btn btn-primary">RSS abonnieren</a>
@@ -38,7 +44,7 @@
     <div id="object_list">
         {% if object_list %}
             {% for bulletin in object_list %}
-                {% include_parsed "bulletin_board/bulletin_list_item.html" with "vevent" as extra_css_classes %}
+                {% include_parsed "bulletin_board/lists/bulletin_list_item.html" with "vevent" as extra_css_classes %}
             {% endfor %}
         {% else %}
             <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>

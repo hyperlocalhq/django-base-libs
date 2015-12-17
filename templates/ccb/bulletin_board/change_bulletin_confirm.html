@@ -1,73 +1,14 @@
-{% extends "base.html" %}
+{% extends "bulletin_board/change_bulletin.html" %}
 {% load i18n image_modifications base_tags crispy_forms_tags %}
-
-{% block bodyclass %}
-    count" data-spy="scroll" data-target="#nav-form
-{% endblock %}
-
-{% block extrahead %}
-<script type="text/javascript">
-
-$(document).ready(function(){
-
-    $('#submit-form').click(function() {
-        $('#id_confirmed').val("1");
-        $('#bulletin_progression').submit();
-        return false;
-    });
-
-    $('#back-form').click(function() {
-        $('#id_confirmed').val("2");
-        $('#bulletin_progression').submit();
-        return false;
-    });
-
-    $('#back-step').click(function() {
-        $('#id_confirmed').val("2");
-        $('#bulletin_progression').submit();
-        return false;
-    });
-    
-});
-</script>
-{% endblock %}
-
-{% block headline %}
-    <h1>{% trans "Registration" %}</h1>
-    <h2 class="sub">{% trans "Ad" %}</h2>
-{% endblock %}
- 
-{% block breadcrumbs %}
-    <a href="/">{% trans "Home" %}</a>
-    <a href="/{{ URL_ID_BULLETIN_BOARD }}/">{% trans "Bulletin Board" %}</a>
-    {% if object %}
-        <span>{{ object.title }} ({% if object.status == "published" %}Öffentlich{% else %}Entwurf{% endif %})</span>
-    {% else %}
-        <span>{% trans "Create Bulletin" %}</span>
-    {% endif %}
-{% endblock %}
-
-{% block sidebar-a %}
-	  <ul class="form_steps">
-        <li>
-            <span>
-                <a id="back-step" class="txt done" href="javascript:void();">{% trans "main data" %}</a>
-            </span>
-        </li>
-        <li>
-            <span class="active">{% trans "confirm data" %}</span>
-        </li>
-    </ul>
-{% endblock %}
 
 {% block content %}
     <div id="bulletin_confirm" class="article short editable">
         <div id="dyn_content" class="dyn_section">
             <div class="dyn_section_content">
-                <h1>{{ object.title }}</h1>
-                {% if object.description %}
+                <h1>{{ form_step_data.bulletin_data.title }}</h1>
+                {% if form_step_data.bulletin_data.description %}
                     <div class="dyn_section_content">
-                        <p>{{ object.description|urlize|linebreaks }}</p>
+                        <p>{{ form_step_data.bulletin_data.description|urlize|linebreaks }}</p>
                     </div>
                 {% endif %}
             </div>
@@ -76,37 +17,30 @@ $(document).ready(function(){
                 <div class="bulletin-contact">
                     <dl>
                         <dt>{% trans "Contact" %}</dt>
-                        {% if object.institution %}
+                        {% if form_step_data.bulletin_data.institution %}
                             <dd>
-                                {{ object.institution.title }}
+                                {{ form_step_data.bulletin_data.institution.title }}
                             </dd>
                         {% endif %}
-                        {% if object.contact_person %}
-                            <dd>{{ object.contact_person }}</dd>
+                        {% if form_step_data.bulletin_data.contact_person %}
+                            <dd>{{ form_step_data.bulletin_data.contact_person }}</dd>
                         {% endif %}
                     </dl>
                 </div>
-                {% if object.phone %}
+                {% if form_step_data.bulletin_data.phone %}
                     <dl>
                         <dd class="tel">
                             <abbr class="type">{% trans "Phone" %}:</abbr>
-                            <span class="value">&nbsp;{{ object.phone }}</span>
+                            <span class="value">&nbsp;{{ form_step_data.bulletin_data.phone }}</span>
                         </dd>
                     </dl>
                 {% endif %}
-                {% if object.email %}
+                {% if form_step_data.bulletin_data.email %}
                     <dl>
                         <dd class="tel">
-                            <span class="value">{{ object.email }}</span>
+                            <span class="value">{{ form_step_data.bulletin_data.email }}</span>
                         </dd>
                     </dl>
-                {% endif %}
-                    
-                </br>
-                {% if object.bulletin_type %}
-                    <p class="bulletin-type-category">{% trans object.bulletin_type %}{% if object.category %} {{ object.category }}{% endif %}</p>
-                {% else %}
-                    {% if object.category %}<p class="bulletin-type-category">{{ object.category }}</p>{% endif %}
                 {% endif %}
             </div>
                     
@@ -114,55 +48,62 @@ $(document).ready(function(){
                 <dt><h3>{% trans "Image" %}</h3></dt>
                     <dd>
                         <div class="article_img">
-                            {% if object.image_path %}
-                                <img src="{{ UPLOADS_URL }}{{ object.image_path|modified_path:"ad" }}" alt="" title="" />
+                            {% if form_step_data.bulletin_data.image_path %}
+                                <img src="{{ UPLOADS_URL }}{{ form_step_data.bulletin_data.image_path|modified_path:"ad" }}" alt="" title="" />
                             {% else %}
-                                {% if object.image %}
-                                    <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"ad" }}" alt="" title="" />
+                                {% if form_step_data.bulletin_data.image %}
+                                    <img src="{{ UPLOADS_URL }}{{ form_step_data.bulletin_data.image|modified_path:"ad" }}" alt="" title="" />
                                 {% else %}
                                     <img alt="" src="{{ STATIC_URL }}site/img/website/placeholder/default/news.png" />
                                 {% endif %}
                             {% endif %}
                         </div>
-                        {% if object.image_description %}
+                        {% if form_step_data.bulletin_data.image_description %}
                             <div class="caption">
-                                <p>{{ object.image_description }}</p>
+                                <p>{{ form_step_data.bulletin_data.image_description }}</p>
                             </div>
                         {% endif %}
                     </dd>
                 </dt>
             </dl>
+            <h3>{% trans "Categories" %}</h3>
             <dl class="extra_info">
-                <dt><h3>{% trans "Categories" %}</h3></dt>
-                {% if object.creative_sectors %}
-                    <dt>{% trans "Creative sectors" %}</dt>
-                    {% for item in object.creative_sectors %}
+                {% if form_step_data.bulletin_data.bulletin_type %}
+                    <dt>{% trans "Bulletin Type" %}</dt>
+                    <dd>{% trans form_step_data.bulletin_data.bulletin_type %}</dd>
+                {% endif %}
+                {% if form_step_data.bulletin_data.bulletin_category %}
+                    <dt>{% trans "Bulletin Category" %}</dt>
+                    <dd>{{ form_step_data.bulletin_data.bulletin_category }}</dd>
+                {% endif %}
+                {% if form_step_data.bulletin_data.categories %}
+                    <dt>{% trans "Categories" %}</dt>
+                    {% for item in form_step_data.bulletin_data.categories %}
                         <dd>{{ item }}</dd>
                     {% endfor %}
                 {% endif %}
                 <dt>{% trans "Location type" %}</dt>
                 <dd>
-                    {% if object.location_type %}
-                        {{ object.location_type }}
+                    {% if form_step_data.bulletin_data.locality_type %}
+                        {{ form_step_data.bulletin_data.locality_type }}
                     {% else %}
                         {% trans "All" %}
                     {% endif %}
                 </dd>
             </dl>
-            <dl class="extra_info">
-                <dt><h3>{% trans "Published till" %}</h3></dt>
-                <dd>{{ object.published_till_date|date:"d. m. Y" }} {{ object.published_till_time|time:"H:i" }}</dd>
-            </dl>   
+            {% if form_step_data.bulletin_data.published_till_date %}
+                <dl class="extra_info">
+                    <dt><h3>{% trans "Published till" %}</h3></dt>
+                    <dd>{{ form_step_data.bulletin_data.published_till_date|date:"d. m. Y" }} {{ form_step_data.bulletin_data.published_till_time|time:"H:i" }}</dd>
+                </dl>
+            {% endif %}
         </div>
-        <form action="" method="POST" id="bulletin_progression" class="hidden">
-            {% crispy form %}
-        </form>
-        <div class="nav-form-wrapper">
-            <div id="nav-form" class="nav nav-form buttonHolder" data-spy="affix" data-offset-top="205">
-                <ul class="nav nav-list affix-top"></ul>
-                <input id="back-form" type="button" class="secondaryAction" value="{% filter upper %}{% trans "Previous" %}{% endfilter %}" />
-                <a id="submit-form" class="btn btn-primary" href="javascript:void();">{% trans "next" %}</a>
+        <form action="" method="POST">{% csrf_token %}
+            <div id="nav-form" class="nav nav-form buttonHolder">
+                <input id="back-form" type="button" class="secondaryAction" value="{% trans "Previous" %}" />
+                <input name="reset" type="submit" class="btn btn-primary" value="{% trans "Reset" %}" />
+                <input name="submit" type="submit" class="btn btn-primary" value="{% trans "Save" %}" />
             </div>
-        </div>
+        </form>
     </div>
 {% endblock %}
