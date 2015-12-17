@@ -101,6 +101,7 @@ INSTALLED_APPS = [
     "kombu.transport.django",
     "captcha",
     "social.apps.django_app.default",
+    "bootstrap_pagination",
 
     ### django-cms ###
     'cms',  # django CMS itself
