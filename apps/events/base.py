@@ -377,7 +377,7 @@ class EventBase(CreationModificationMixin, UrlMixin):
             return event_times[0]
 
         return None
-
+        
     def get_past_occurrences(self, timestamp=datetime.now):
         if callable(timestamp):
             timestamp = timestamp()
@@ -387,6 +387,17 @@ class EventBase(CreationModificationMixin, UrlMixin):
         if callable(timestamp):
             timestamp = timestamp()
         return self.eventtime_set.filter(start__gt=timestamp)
+        
+    def get_unexpired_occurences(self, timestamp=datetime.now):
+        """ returns all current and future event times """
+        if callable(timestamp):
+            timestamp = timestamp()
+
+        event_times = self.eventtime_set.filter(
+            end__gte=timestamp,
+        )
+        
+        return event_times
 
     def is_happening(self, timestamp=datetime.now):
         if callable(timestamp):

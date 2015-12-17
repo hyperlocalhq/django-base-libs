@@ -80,6 +80,18 @@ body {
     }
 }
 
+.seperator {
+    display: inline;
+    &:after {
+        content: ', ';
+    }
+    &:last-of-type {
+        &:after {
+            content: none;
+        }
+    }
+}
+
 
 .color-black {
     color: $black;

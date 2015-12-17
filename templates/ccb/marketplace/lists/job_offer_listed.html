@@ -13,6 +13,7 @@
                 </h3>
                 <h2>{{ job_offer.position }}</h2>
                 <p>
+                    {% comment %}
                     {% if job_offer.get_urls %}
                         <p>
 {#                            <a href="{{ job_offer.get_urls.0.link }}"{% if job_offer.get_urls.0.type %}#}
@@ -24,15 +25,28 @@
                             {% if job_offer.is_commercial %}(€){% endif %}
                         </p>
                     {% endif %}
-
-                    <p>
-                        {% for sector in job_offer.job_sectors.all %}
-                            {{ sector.title }}{% if not forloop.last %},{% endif %}
-                        {% endfor %}
-                    </p>
+                    {% endcomment %}
+                    
+                    {{ job_offer.get_description|striptags|truncatewords:20 }}
                 </p>
+                {% if job_offer.job_sectors.all %}
+                    <ul>
+                        {% for sector in job_offer.job_sectors.all %}
+                            <li>{{ sector.title }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             </div>
         </a>
+        {% with job_offer.get_urls|first as url %}
+            {% if url %}
+                <a class="website" href="url.link" target="_blank">{{ url.link|truncatechars:50 }}</a>
+            {% endif %}
+        {% endwith %}
+        <div class="button-group">
+            <a href="#" class="fawesome fa-more button"></a>
+            <a href="#" class="fawesome fa-bookmark button"></a>
+        </div>
     </div>
 </div>
 

@@ -5,7 +5,7 @@
     {% if not object_list %}
         <p>{% trans "No objects found within the selected conditions." %}</p>
     {% else %}
-        <div class="row article-list">
+        <div class="row job-list">
             {% for job_offer in object_list %}
                 {% if view_type == "listed" %}
                     {% include "marketplace/lists/job_offer_listed.html" %}
@@ -23,3 +23,8 @@
     <li>{% trans "Jobs" %}</li>
 {% endblock %}
 
+
+
+{% block javascript %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/job-list.js"></script>
+{% endblock %}

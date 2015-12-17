@@ -4,16 +4,18 @@
 
 {% block details %}
     {% if not object_list %}
-        <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>
+        <p>{% trans "No objects found within the selected conditions." %}</p>
     {% else %}
         {% if view_type == "map" %}
-            <noscript>{% infoblock "js_warning" %}</noscript>
             <div id="dyn_map" class="to_show">
                 <div id="gmap" style="width: 584px; height: 272px; position: relative; float: left"></div>
             </div>
         {% endif %}
-        <div class="row article-list">
+        <div class="row event-list">
             {% for event in object_list %}
+                {% with event.get_nearest_occurrence as date %}
+                    {% ifchanged %}<h2 class="date">{{ date|date:'D, d. m. Y' }}</h2>{% endifchanged %}
+                {% endwith %}
                 {% if view_type == "icons" %}
                     {% include "events/lists/event_icons.html" %}
                 {% elif view_type == "listed" %}
@@ -28,23 +30,21 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    <div class="breadcrumbs">
-        <a href="/">{% trans "Home" %}</a>
-        {% if not show %}
-            <span class="b-sep"><span>::</span></span><span>{% trans "Events" %}</span>
-        {% elif show == "/memos" %}
-            <span class="b-sep"><span>::</span></span>
-            <a href="/{{ URL_ID_EVENTS }}/">{% trans "Events" %}</a>
-            <span class="b-sep"><span>::</span></span><span>{% trans "Memos" %}</span>
-        {% elif show == "/favorites" %}
-            <span class="b-sep"><span>::</span></span>
-            <a href="/{{ URL_ID_EVENTS }}/">{% trans "Events" %}</a>
-            <span class="b-sep"><span>::</span></span><span>{% trans "Favorites" %}</span>
-        {% elif show == "/own-events" %}
-            <span class="b-sep"><span>::</span></span>
-            <a href="/{{ URL_ID_EVENTS }}/">{% trans "Events" %}</a>
-            <span class="b-sep"><span>::</span></span><span>{% trans "Own events" %}</span>
-        {% endif %}
-    </div>
+    {% if not show %}
+        <li>{% trans "Events" %}</li>
+    {% elif show == "/memos" %}
+        <li><a href="/{{ URL_ID_EVENTS }}/">{% trans "Events" %}</a></li>
+        <li>{% trans "Memos" %}</li>
+    {% elif show == "/favorites" %}
+        <li><a href="/{{ URL_ID_EVENTS }}/">{% trans "Events" %}</a></li>
+        <li>{% trans "Favorites" %}</li>
+    {% elif show == "/own-events" %}
+        <li><a href="/{{ URL_ID_EVENTS }}/">{% trans "Events" %}</a></li>
+        <li>{% trans "Own events" %}</li>
+    {% endif %}
 {% endblock %}
 
+
+{% block javascript %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/event-list.js"></script>
+{% endblock %}

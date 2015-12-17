@@ -11,52 +11,52 @@
             {% endif %}
             <div class="text">
                 <h3>
-                    {% if event.event_type %}<br/>
+                    {% if event.event_type %}
                         {{ event.event_type }}
                     {% endif %}
-{#                    <time datetime="{{ event.get_nearest_occurrence|date:'Y-m-d' }}">#}
-{#                        {{ event.get_nearest_occurrence|datefmt:'long' }}#}
-{#                    </time>#}
                 </h3>
                 <h2>{{ event.get_title|escape }}</h2>
 
-                <p class="location">
+                <p>
+{#                  <a href="{{ event.venue.get_url_path }}">#}
                     {% if event.venue %}
                         {{ event.venue.title }}
                     {% else %}
                         {{ event.venue_title }}
                     {% endif %}
+{#                   </a>#}
                     {% if event.postal_address %}
                         {% with event.postal_address.get_dict as postal_address %}
                             {% if postal_address.street_address or postal_address.country_name %}
-                                <span class="type">{% trans "Address" %}: </span>
-                                <address class="location">
-                                    {% if event.venue %}
-{#                                        <a href="{{ event.venue.get_url_path }}">#}
-                                            {{ event.venue.title }},
-{#                                        </a>#}
-                                    {% else %}
-                                        {{ event.venue_title }},
-                                    {% endif %}
+                                    <br/>
+                                    
                                     {% if postal_address.street_address %}
-                                        {{ postal_address.street_address|escape }},
+                                        <span class="seperator">{{ postal_address.street_address|escape }}</span>
                                     {% endif %}
                                     {% if postal_address.street_address2 %}
-                                        {{ postal_address.street_address2|escape }},
+                                        <span class="seperator">{{ postal_address.street_address2|escape }}</span>
                                     {% endif %}
                                     {% if postal_address.street_address3 %}
-                                        {{ postal_address.street_address3|escape }},
+                                        <span class="seperator">{{ postal_address.street_address3|escape }}</span>
                                     {% endif %}
                                     {% if postal_address.postal_code %}
-                                        {{ postal_address.postal_code|escape }} {{ postal_address.city|escape }},
+                                        <span class="seperator">{{ postal_address.postal_code|escape }} {{ postal_address.city|escape }}</span>
                                     {% endif %}
                                     {% if postal_address.country_name %}
-                                        {{ postal_address.country_name }}<br/>
+                                        <span class="seperator">{{ postal_address.country_name }}</span>
                                     {% endif %}
-                                </address>
+                                    
+                                    {% if date %}
+                                        <br/>
+                                    {% endif %}
                             {% endif %}
                         {% endwith %}
                     {% endif %}
+                    
+                    {% if date %}
+                        {% trans 'Date' %}: {{ date|date:'G:i' }} - {{ date.end|date:'G:i' }}
+                    {% endif %}
+                    
                 </p>
 {#                <p>#}
 {#                    {% for time in event.eventtime_set.all %}#}
@@ -66,6 +66,18 @@
 {#                </p>#}
             </div>
         </a>
+        
+        {% with event.get_urls|first as url %}
+            {% if url %}
+                <a class="website" href="url.link" target="_blank">{{ url.link|truncatechars:50 }}</a>
+            {% endif %}
+        {% endwith %}
+        
+        <div class="button-group">
+            <a href="#" class="fawesome fa-more button"></a>
+            <a href="#" class="fawesome fa-bookmark button"></a>
+            <a href="#" class="fawesome fa-calender-check button"></a>
+        </div>
     </div>
 </div>
 

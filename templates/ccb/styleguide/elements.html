@@ -381,7 +381,7 @@
                 &lt;/ul>
                 &lt;div class="bubble">&#123;% trans 'Dream Job' %}&lt;/div>
             &lt;/a>
-            &lt;a class="website" href="#">http:\\www.website.de&lt;/a>
+            &lt;a class="website" href="url.link" target="_blank">&#123;{ url.link|truncatechars:50 }}&lt;/a>
             &lt;div class="button-group">
                 &lt;a href="#" class="fawesome fa-more button">&lt;/a>
                 &lt;a href="#" class="fawesome fa-bookmark button">&lt;/a>
@@ -473,6 +473,135 @@
     &lt;/div>
     ... keep adding col blocks
 &lt;/div></pre>
+                <br/>
+                <br/>
+                <br/>
+                <p class="uppercase underline">Event List</p>
+                <p>Requirements:<br/>
+                    &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/event-list.js">&lt;/script>
+                </p>
+                <br/>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                
+                Navigation
+                
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                <div class="row event-list">
+                    <h2 class="date">Sa, 12. 12. 2015</h2>
+                    <div class="col-xs-12">
+                        <div class="wrapper">
+                            <a class="content" href="#">
+                                <img src="http://placehold.it/200x208&text=image">
+                                <div class="text">
+                                    <h3>Rubrik</h3>
+                                    <h2>Titel der Veranstaltung</h2>
+                                    <p>
+                                        Veranstaltungsort <br/>
+                                        <span class="seperator">Beispielstarße 12</span> 
+                                        <span class="seperator">12345 Berlin</span> 
+                                        <span class="seperator">Deutschland</span>
+                                        <br/>{% trans 'Time' %}: 14:00 - 19:00
+                                    </p>
+                                </div>
+                            </a>
+                            <a class="website" href="#" target="_blank">http://www.website.de</a>
+                            <div class="button-group">
+                                <a href="#" class="fawesome fa-more button"></a>
+                                <a href="#" class="fawesome fa-bookmark button"></a>
+                                <a href="#" class="fawesome fa-calender-check button"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="wrapper">
+                            <a class="content" href="#">
+                                <img src="http://placehold.it/200x208&text=image">
+                                <div class="text">
+                                    <h3>Rubrik</h3>
+                                    <h2>Titel der Veranstaltung</h2>
+                                    <p>
+                                        Veranstaltungsort <br/>
+                                        <span class="seperator">Beispielstarße 12</span> 
+                                        <span class="seperator">12345 Berlin</span> 
+                                        <span class="seperator">Deutschland</span>
+                                    </p>
+                                </div>
+                            </a>
+                            <a class="website" href="#" target="_blank">http://www.website.de</a>
+                            <div class="button-group">
+                                <a href="#" class="fawesome fa-more button"></a>
+                                <a href="#" class="fawesome fa-bookmark button"></a>
+                                <a href="#" class="fawesome fa-calender-check button"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="wrapper">
+                            <a class="content" href="#">
+                                <img src="http://placehold.it/200x208&text=image">
+                                <div class="text">
+                                    <h3>Rubrik</h3>
+                                    <h2>Titel der Veranstaltung</h2>
+                                    <p>
+                                        Veranstaltungsort <br/>
+                                        <span class="seperator">Beispielstarße 12</span> 
+                                        <span class="seperator">12345 Berlin</span> 
+                                        <span class="seperator">Deutschland</span>
+                                    </p>
+                                </div>
+                            </a>
+                            <div class="button-group">
+                                <a href="#" class="fawesome fa-more button"></a>
+                                <a href="#" class="fawesome fa-bookmark button"></a>
+                                <a href="#" class="fawesome fa-calender-check button"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+<pre>&lt;div class="row event-list">
+    &lt;h2 class="date">Sa, 12. 12. 2015&lt;/h2>
+    &lt;div class="col-xs-12">
+        &lt;div class="wrapper">
+            &lt;a class="content" href="#">
+                &lt;img src="http://placehold.it/200x208&text=image">
+                &lt;div class="text">
+                    &lt;h3>Rubrik&lt;/h3>
+                    &lt;h2>Titel der Veranstaltung&lt;/h2>
+                    &lt;p>
+                        Veranstaltungsort &lt;br/>
+                        &lt;span class="seperator">Beispielstarße 12&lt;/span> 
+                        &lt;span class="seperator">12345 Berlin&lt;/span> 
+                        &lt;span class="seperator">Deutschland&lt;/span>
+                        &lt;br/>{&#123; trans 'Time' %}: 14:00 - 19:00
+                    &lt;/p>
+                &lt;/div>
+            &lt;/a>
+            &lt;a class="website" href="url.link" target="_blank">&#123;{ url.link|truncatechars:50 }}&lt;/a>
+            &lt;div class="button-group">
+                &lt;a href="#" class="fawesome fa-more button">&lt;/a>
+                &lt;a href="#" class="fawesome fa-bookmark button">&lt;/a>
+                &lt;a href="#" class="fawesome fa-calender-check button">&lt;/a>
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    ... keep adding col blocks
+    &lt;h2 class="date">So, 13. 12. 2015&lt;/h2>
+    ...
+&lt;/div></pre>
+                <p>Add class="active" to an active icon button.</p>
                 <br/>
                 <br/>
                 <br/>
@@ -1524,4 +1653,5 @@ data-popup-image-src="&#123;{ article.image }}" alt="..."/>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/twitter-wall.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/slider.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/job-list.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/event-list.js"></script>
 {% endblock %}
