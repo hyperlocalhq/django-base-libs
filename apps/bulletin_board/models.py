@@ -17,10 +17,12 @@ from base_libs.models.models import CreationModificationMixin
 from base_libs.models.models import UrlMixin
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import PositionField
+from base_libs.models.fields import URLField
 from base_libs.middleware import get_current_language
 
 from mptt.fields import TreeForeignKey, TreeManyToManyField
 
+verbose_name = _("Bulletin Board")
 
 TYPE_CHOICES = (
     ('searching', _("Searching")),
@@ -30,9 +32,23 @@ TYPE_CHOICES = (
 STATUS_CHOICES = (
     ('draft', _("Draft")),
     ('published', _("Published")),
+    ('import', _("Imported")),
 )
 
 TOKENIZATION_SUMMAND = 75623 # used to hide the ids of bulletins
+
+
+class BulletinContentProvider(models.Model):
+    title = models.CharField(_("Title"), max_length=200)
+    url = URLField(_("URL"), blank=True)
+
+    class Meta:
+        verbose_name = _("bulletin-content provider")
+        verbose_name_plural = _("bulletin-content providers")
+        ordering = ('title',)
+
+    def __unicode__(self):
+        return self.title
 
 
 class BulletinCategory(SlugMixin()):
@@ -99,10 +115,10 @@ class ExpiredBulletinManager(models.Manager):
 
 class Bulletin(CreationModificationMixin, UrlMixin):
     bulletin_type = models.CharField(_("Type"), max_length=20, choices=TYPE_CHOICES)
-    bulletin_category = models.ForeignKey(BulletinCategory, verbose_name=_("Bulletin category"))
+    bulletin_category = models.ForeignKey(BulletinCategory, verbose_name=_("Bulletin category"), blank=True, null=True)
     
     title = models.CharField(_("Title"), max_length=255)
-    description = models.TextField(_("Description"), max_length=300)
+    description = models.TextField(_("Description"))
 
     institution = models.ForeignKey("institutions.Institution", blank=True, null=True)
     institution_title = models.CharField(_("Institution title"), max_length=255, blank=True)
@@ -114,7 +130,15 @@ class Bulletin(CreationModificationMixin, UrlMixin):
     image = FileBrowseField(_("Image"), max_length=255, directory="bulletin_board/", extensions=['.jpg', '.jpeg', '.gif', '.png'], blank=True)
     image_description = models.TextField(_('Image Description'), blank=True, default="")
 
-    source_url = models.URLField(_("Source URL"), max_length=255, blank=True)
+    orig_published = models.DateTimeField(_("Originally published"), editable=False, blank=True, null=True)
+
+    external_url = models.URLField(_("External URL"), max_length=255, blank=True)
+    content_provider = models.ForeignKey(
+        BulletinContentProvider,
+        verbose_name=_("Content provider"),
+        blank=True,
+        null=True,
+    )
 
     categories = TreeManyToManyField(
         "structure.Category",

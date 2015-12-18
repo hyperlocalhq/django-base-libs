@@ -302,11 +302,11 @@ ADMIN_APP_INDEX = (
                 'icon': 'page_white',
             }),
             ('bulletin_board', {
-                'models': ("BulletinCategory", "Bulletin",),
+                'models': ("BulletinContentProvider", "BulletinCategory", "Bulletin",),
                 'icon': 'page_white',
             }),
             ('auth', {
-                'verbose_name': _("Authentication"),
+                'verbose_name': _("Authentication & Authorization"),
                 'models': ("Group", "User"),
                 'icon': 'key',
             }),

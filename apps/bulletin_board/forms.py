@@ -31,10 +31,6 @@ _(u"Available formats are JPG, GIF, and PNG. Minimal size is 290 × 290 px.")
         
         
 class BulletinForm(forms.ModelForm):
-    confirmed = forms.CharField(
-        label=_("confirmed"),
-        required=False,
-    )
     image_path = forms.CharField(
         max_length=255,
         widget=forms.HiddenInput(),
@@ -78,7 +74,12 @@ class BulletinForm(forms.ModelForm):
 
     class Meta:
         model = Bulletin
-        exclude = ['image', 'published_from', 'published_till']
+        fields = [
+            'bulletin_type', 'bulletin_category', 'categories', 'title', 'description', 'locality_type',
+            'institution', 'institution_title', 'institution_url',
+            'contact_person', 'phone', 'email',
+            'image_description', 'status',
+        ]
 
     def __init__(self, *args, **kwargs):
         super(BulletinForm, self).__init__(*args, **kwargs)

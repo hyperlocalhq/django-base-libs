@@ -1,10 +1,6 @@
 {% extends "base.html" %}
 {% load i18n base_tags auth_extended bulletin_board_tags compressed compressed_jetson site_specific image_modifications browsing %}
 
-{% block doctype %}
-     <!DOCTYPE html SYSTEM "{{ website_url }}{{ jetson_media_url|slice:"1:" }}dtd/xhtml1-iframe.dtd">
-{% endblock %}
- 
 {% block open_graph %}
     <meta property="og:title" content="{{ object.get_title }}"/>
     <meta property="og:type" content="article"/>
@@ -121,6 +117,10 @@
                         {% endif %}
                         
                     </div>
+                    {% if object.external_url and object.content_provider %}
+                        <p><a href="{{ object.external_url }}" target="_blank">{% blocktrans with content_provider_title=object.content_provider.title %}More info at {{ content_provider_title }}{% endblocktrans %}</a></p>
+                    {% endif %}
+
                 </div>
                 <div>
                     <h3>{% trans "Categories" %}</h3>
@@ -151,13 +151,13 @@
                 </div>
             </div>
         </div>
-        <!--    <div class="container">
-                {% if request.user.is_authenticated %}
-                        {% if object|can_be_changed:request.user and request.user.is_staff %}
-                            <a href="/admin/bulletin_board/bulletin/{{ object.pk }}/" class="btn btn-small btn-danger" target="_blank">Admin</a>
-                        {% endif %}
+        <div class="container">
+            {% if request.user.is_authenticated %}
+                {% if object|can_be_changed:request.user and request.user.is_staff %}
+                    <a href="/admin/bulletin_board/bulletin/{{ object.pk }}/" class="btn btn-small btn-danger" target="_blank">Admin</a>
                 {% endif %}
-            </div> -->
+            {% endif %}
+        </div>
     {% endwith %}
     <script>
         (function() {

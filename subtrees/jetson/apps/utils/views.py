@@ -849,7 +849,7 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
             return HttpResponseRedirect("%s?step=%s" % (request.path, new_step_counter + 1))
         else:
             messages.error(request, form_steps.get('general_error_message', GENERAL_ERROR_MESSAGE))
-        for field_name in fields:
+        for field_name in f.fields:
             if not f.data.get(field_name, False):
                 f.data[field_name] = f.fields[field_name].initial
         

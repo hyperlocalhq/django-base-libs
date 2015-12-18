@@ -10,6 +10,8 @@ from base_libs.models.admin import get_admin_lang_section
 
 BulletinCategory = models.get_model("bulletin_board", "BulletinCategory")
 Bulletin = models.get_model("bulletin_board", "Bulletin")
+BulletinContentProvider = models.get_model("bulletin_board", "BulletinContentProvider")
+BulletinImportSource = models.get_model("external_services", "BulletinImportSource")
 
 
 class BulletinCategoryAdmin(ExtendedModelAdmin):
@@ -34,11 +36,32 @@ class BulletinAdmin(ExtendedModelAdmin):
         (_("Image"), {'fields': ('image', 'image_description'), 'classes': ("grp-collapse", "grp-open")}),
         (_("Region"), {'fields': ('locality_type',), 'classes': ("grp-collapse", "grp-open")}),
         (_("Contact"), {'fields': ('institution', 'institution_title', 'institution_url', 'contact_person', 'phone', 'email'), 'classes': ("grp-collapse", "grp-open")}),
-        (_("Publishing"), {'fields': ('published_from', 'published_till', 'source_url', 'status'), 'classes': ("grp-collapse", "grp-closed")}),
+        (_("Publishing"), {'fields': ('published_from', 'published_till', 'external_url', 'content_provider', 'status'), 'classes': ("grp-collapse", "grp-closed")}),
     ]
     
     filter_horizontal = ('categories',)
 
+
+class BulletinImportSource_Inline(ExtendedStackedInline):
+    model = BulletinImportSource
+    extra = 1
+    fieldsets = (
+        (None, {
+            'fields': ('title', 'url', 'sysname', 'content_provider',)
+        }),
+        (_("Defaults"), {
+            'fields': ('default_categories', 'default_status')
+        }),
+    )
+
+
+class BulletinContentProviderAdmin(ExtendedModelAdmin):
+    list_display = ['title', 'url']
+    fieldsets = [(None, {'fields': ('title', 'url')}), ]
+    inlines = [BulletinImportSource_Inline]
+
+
 admin.site.register(BulletinCategory, BulletinCategoryAdmin)
 admin.site.register(Bulletin, BulletinAdmin) 
+admin.site.register(BulletinContentProvider, BulletinContentProviderAdmin)
 
