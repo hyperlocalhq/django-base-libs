@@ -342,60 +342,28 @@
                         </dl>
                     {% endif %}
 
-                    {% get_creative_sectors form_step_data.3 as creative_sectors %}
-                    {% get_context_categories form_step_data.3 as context_categories %}
-                    {% get_institution_types form_step_data.3 as object_types %}
-
-                    {% if creative_sectors or context_categories or object_types %}
-                        <div class="cleaner"></div>
-                        <h5 class="checkline">
-                            <a href="#">{% trans "Category" %}</a>
-                        </h5>
-                        <div class="check">
-                            <dl>
-                                {% if creative_sectors %}
-                                    <dt>
-                                        {% with object.get_creative_sectors|length as creative_sectors_count %}
-                                            {% ifequal creative_sectors_count 1 %}
-                                                {% trans "Creative Sector" %}:
-                                            {% else %}
-                                                {% trans "Creative Sectors" %}:
-                                            {% endifequal %}
-                                        {% endwith %}
-                                    </dt>
-                                    <dd>
-                                        {% for creative_sector in creative_sectors %}
-                                            {{ creative_sector.get_title }}{% if not forloop.last %}, {% endif %}
-                                        {% endfor %}
-                                    </dd>
-                                {% endif %}
-                                {% if context_categories %}
-                                    <dt>
-                                        {% with object.get_context_categories|length as context_categories_count %}
-                                            {% ifequal context_categories_count 1 %}
-                                                {% trans "Context Category" %}:
-                                            {% else %}
-                                                {% trans "Context Categories" %}:
-                                            {% endifequal %}
-                                        {% endwith %}
-                                    </dt>
-                                    <dd>
-                                        {% for context_category in context_categories %}
-                                            {{ context_category.get_title }}{% if not forloop.last %}, {% endif %}
-                                        {% endfor %}
-                                    </dd>
-                                {% endif %}
-                                {% if object_types %}
-                                    <dt>{% trans "Institution Type" %}:</dt>
-                                    <dd>
-                                        {% for object_type in object_types %}
-                                            {{ object_type.get_title }}{% if not forloop.last %}, {% endif %}
-                                        {% endfor %}
-                                    </dd>
-                                {% endif %}
-                            </dl>
-                        </div>
-                    {% endif %}
+                    <div class="cleaner"></div>
+                    <h5 class="checkline">
+                        <a href="#">{% trans "Category" %}</a>
+                    </h5>
+                    <div class="check">
+                        <dl>
+                            <dt>
+                                {% trans "Categories" %}:
+                            </dt>
+                            <dd>
+                                {% for cat in form_step_data.3.categories %}
+                                    {{ cat.title }}{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </dd>
+                            <dt>{% trans "Institution Types" %}:</dt>
+                            <dd>
+                                {% for object_type in form_step_data.3.institution_types %}
+                                    {{ object_type.title }}{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </dd>
+                        </dl>
+                    </div>
                 </div>
                 {% include "utils/step_buttons_reg.html" %}
                 <div class="cleaner"></div>

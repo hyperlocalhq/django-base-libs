@@ -62,6 +62,19 @@
             {% endfor %}
         </dl>
     {% endif %}
+    {% if object.institution_types.count %}
+        <dl>
+            <dt>
+                {% trans "Institution types" %}
+            </dt>
+            {% for cat in object.institution_types.all %}
+                {% if forloop.first %}
+                    <dd>{% endif %}
+            {{ cat.title|escape }}{% if not forloop.last %}, {% endif %}
+            {% if forloop.last %}</dd>{% endif %}
+            {% endfor %}
+        </dl>
+    {% endif %}
     {% if object.get_locality_type %}
         <dl>
             <dt>{% trans "Location" %}</dt>

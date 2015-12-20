@@ -2,8 +2,8 @@
 <div class="profile_infos">
     <h5 class="edit_subline">{% trans "edit categories data" %}</h5>
 
-    {#% crispy form %#}
-
+    {% crispy form %}
+    {% comment %}
     <form class="uniForm" action="/helper/edit-{{ URL_ID_PERSON }}-profile/{{ object.slug }}/categories/" method="post"
         enctype="multipart/form-data" target="hidden_iframe" class="uniForm">{% csrf_token %}
         <fieldset class="inlineLabels">
@@ -18,4 +18,5 @@
             </div>
         </fieldset>
     </form>
+    {% endcomment %}
 </div>

@@ -19,6 +19,7 @@ from base_libs.middleware.threadlocals import get_current_user
 from mptt.forms import TreeNodeChoiceField
 
 from jetson.apps.image_mods.models import FileManager
+from jetson.apps.utils.forms import ModelMultipleChoiceTreeField
 
 from .models import Bulletin, BulletinCategory
 from .models import TYPE_CHOICES, STATUS_CHOICES
@@ -71,6 +72,11 @@ class BulletinForm(forms.ModelForm):
         required=False,
         queryset=get_related_queryset(Bulletin, "locality_type"),
     )
+    categories = ModelMultipleChoiceTreeField(
+        label=_("Categories"),
+        required=False,
+        queryset=get_related_queryset(Bulletin, "categories"),
+    )
 
     class Meta:
         model = Bulletin
@@ -95,8 +101,8 @@ class BulletinForm(forms.ModelForm):
         self.fields['bulletin_category'].widget = forms.RadioSelect()
         self.fields['bulletin_category'].empty_label = None
 
-        self.fields['categories'].widget = forms.CheckboxSelectMultiple()
-        self.fields['categories'].empty_label = None
+        # self.fields['categories'].widget = forms.CheckboxSelectMultiple()
+        # self.fields['categories'].empty_label = None
 
         self.fields['status'].widget = forms.HiddenInput()
 
@@ -117,7 +123,7 @@ class BulletinForm(forms.ModelForm):
             layout.Fieldset(
                 _("Categories"),
                 layout.Field("bulletin_category"),
-                layout.Field("categories"),
+                layout.Div(layout.Field("categories", template="utils/includes/checkboxselectmultipletree.html")),
                 layout.Field("locality_type"),
             ),
             layout.Fieldset(

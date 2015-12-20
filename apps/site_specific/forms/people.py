@@ -11,6 +11,7 @@ from base_libs.forms.fields import AutocompleteField
 
 from jetson.apps.location.models import Address
 from jetson.apps.optionset.models import PhoneType
+from jetson.apps.utils.forms import ModelMultipleChoiceTreeField
 
 from ccb.apps.people.models import Person, IndividualContact
 from ccb.apps.institutions.models import Institution
@@ -935,76 +936,16 @@ class DetailsForm(dynamicforms.Form):
         return {}
 
 class CategoriesForm(dynamicforms.Form):
-    # TODO: rework categories to use CheckboxSelectMultiple widget when it is clear what categorizations to use at all
-    choose_creative_sectors = forms.BooleanField(
-        initial=True,
-        widget=forms.HiddenInput(
-            attrs={
-                "class": "form_hidden",
-            }
-        ),
-        required=False,
+    categories = ModelMultipleChoiceTreeField(
+        label=_("Categories"),
+        queryset=get_related_queryset(Person, "categories"),
+        required=True,
     )
-
-    def clean_choose_creative_sectors(self):
-        data = self.data
-        el_count = 0
-        for el in self.creative_sectors.values():
-            if el['field_name'] in data:
-                el_count += 1
-        if not el_count:
-            raise forms.ValidationError(_("Please choose at least one creative sector."))
-        return True
-
-    choose_context_categories = forms.BooleanField(
-        initial=True,
-        widget=forms.HiddenInput(
-            attrs={
-                "class": "form_hidden",
-            }
-        ),
-        required=False,
-    )
-
-    def clean_choose_context_categories(self):
-        data = self.data
-        el_count = 0
-        for el in self.context_categories.values():
-            if el['field_name'] in data:
-                el_count += 1
-        if not el_count:
-            raise forms.ValidationError(_("Please choose at least one context category."))
-        return True
 
     def __init__(self, person, index, *args, **kwargs):
         super(CategoriesForm, self).__init__(*args, **kwargs)
         self.person = person
-        self.creative_sectors = {}
-        for item in get_related_queryset(Person, "creative_sectors"):
-            self.creative_sectors[item.sysname] = {
-                'id': item.id,
-                'field_name': PREFIX_CI + str(item.id),
-            }
-        self.context_categories = {}
-        for item in get_related_queryset(Person, "context_categories"):
-            self.context_categories[item.sysname] = {
-                'id': item.id,
-                'field_name': PREFIX_BC + str(item.id),
-            }
-        for s in self.creative_sectors.values():
-            self.fields[s['field_name']] = forms.BooleanField(
-                required=False
-            )
-        for el in person.get_creative_sectors():
-            for ancestor in el.get_ancestors(include_self=True):
-                self.fields[PREFIX_CI + str(ancestor.id)].initial = True
-        for c in self.context_categories.values():
-            self.fields[c['field_name']] = forms.BooleanField(
-                required=False
-            )
-        for el in person.get_context_categories():
-            for ancestor in el.get_ancestors(include_self=True):
-                self.fields[PREFIX_BC + str(ancestor.id)].initial = True
+        self.fields['categories'].initial = self.person.categories.all()
 
         self.helper = FormHelper()
         self.helper.form_action = "/helper/edit-%(URL_ID_PERSON)s-profile/%(username)s/categories/" % {
@@ -1019,8 +960,7 @@ class CategoriesForm(dynamicforms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Categories"),
-                "choose_creative_sectors",
-                "choose_context_categories",
+                layout.Div(layout.Field("categories", template="utils/includes/checkboxselectmultipletree.html")),
                 layout.HTML("""{% load i18n %}
                     <p class="disclaimer">{% blocktrans %}Is some category missing? You can <a href="/ticket/new-category/" target="_blank">suggest it here</a>.{% endblocktrans %}</p>
                 """),
@@ -1034,29 +974,8 @@ class CategoriesForm(dynamicforms.Form):
     def save(self, *args, **kwargs):
         person = self.person
         cleaned = self.cleaned_data
-        selected_cs = {}
-        for item in get_related_queryset(Person, "creative_sectors"):
-            if cleaned.get(PREFIX_CI + str(item.id), False):
-                # remove all the parents
-                for ancestor in item.get_ancestors():
-                    if ancestor.id in selected_cs:
-                        del (selected_cs[ancestor.id])
-                # add current
-                selected_cs[item.id] = item
-        person.creative_sectors.clear()
-        person.creative_sectors.add(*selected_cs.values())
-
-        selected_cc = {}
-        for item in get_related_queryset(Person, "context_categories"):
-            if cleaned.get(PREFIX_BC + str(item.id), False):
-                # remove all the parents
-                for ancestor in item.get_ancestors():
-                    if ancestor.id in selected_cc:
-                        del (selected_cc[ancestor.id])
-                # add current
-                selected_cc[item.id] = item
-        person.context_categories.clear()
-        person.context_categories.add(*selected_cc.values())
+        person.categories.clear()
+        person.categories.add(*cleaned['categories'])
         ContextItem.objects.update_for(person)
         return person
 
