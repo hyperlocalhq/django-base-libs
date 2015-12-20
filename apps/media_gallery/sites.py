@@ -647,7 +647,6 @@ class PortfolioSite(object):
                 gallery.title_de = cleaned['title_de']
                 gallery.description_en = cleaned['description_en']
                 gallery.description_de = cleaned['description_de']
-                gallery.format = cleaned['format']
                 gallery.status = [0, 1][cleaned['published']]
 
                 if not gallery.section:
@@ -710,7 +709,6 @@ class PortfolioSite(object):
                 'title_de': gallery.title_de,
                 'description_en': gallery.description_en,
                 'description_de': gallery.description_de,
-                'format': gallery.format,
                 'published': gallery.status == 1,
             }
             form = MediaGalleryForm(initial=initial)
@@ -877,7 +875,7 @@ class PortfolioSite(object):
         context_dict.update(self.extra_context)
 
         return render_to_response(
-            "media_gallery/gallery_detail/gallery_%s.html" % gallery.format,
+            "media_gallery/gallery_detail/gallery_listed.html",
             context_dict,
             context_instance=RequestContext(request),
         )

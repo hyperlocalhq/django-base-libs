@@ -167,11 +167,6 @@ class MediaGalleryForm(dynamicforms.Form):
         required=False,
         widget=forms.Textarea(),
     )
-    format = forms.ChoiceField(
-        label=_("Presentation format"),
-        required=True,
-        choices=MediaGallery._meta.get_field("format").get_choices(),
-    )
     published = forms.BooleanField(
         label=_("Published"),
         required=False,

@@ -10,11 +10,11 @@ Section = models.get_model("media_gallery", "Section")
 
 
 class CCBMediaGalleryOptions(MediaGalleryOptions):
-    list_filter = ['creation_date', 'content_type', 'status', 'is_featured', 'format']
+    list_filter = ['creation_date', 'content_type', 'status', 'is_featured']
     list_display = (
         'id', '__unicode__', 'content_type', 'get_content_object_display', 'creation_date', 'file_count', 'views',
         'status',
-        'is_featured', 'format')
+        'is_featured')
 
     fieldsets = ObjectRelationMixinAdminOptions().fieldsets
     fieldsets += get_admin_lang_section(None, ['title', 'description'])
@@ -22,7 +22,7 @@ class CCBMediaGalleryOptions(MediaGalleryOptions):
         (_("Cover"), {'fields': ("cover_image",), 'classes': ["collapse closed"]}),
     ]
     fieldsets += [
-        (_("Details"), {'fields': ("section", "format", "is_featured", "sort_order"), 'classes': ["collapse closed"]}),
+        (_("Details"), {'fields': ("section", "is_featured", "sort_order"), 'classes': ["collapse closed"]}),
     ]
     fieldsets += PublishingMixinAdminOptions.fieldsets
 

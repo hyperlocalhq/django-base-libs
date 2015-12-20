@@ -14,13 +14,6 @@ LANDING_PAGE_CHOICES = (
     ("custom_image", _("Custom image")),
 )
 
-PRESENTATION_FORMAT_CHOICES = (
-    ("slideshow", _("Slideshow")),
-    # ("thumbs", _("Thumbnails")),
-    ("listed", _("Large-scaled listing")),
-)
-
-
 class PortfolioSettingsManager(models.Manager):
     def get_for_object(self, obj):
         try:  # get existing settings for the object
@@ -147,8 +140,6 @@ class MediaGalleryManager(MediaGalleryManagerBase):
 
 class MediaGallery(MediaGalleryBase, PublishingMixin):
     section = models.ForeignKey(Section, verbose_name=_("Section"), blank=True, null=True)
-    format = models.CharField(_("Presentation format"), choices=PRESENTATION_FORMAT_CHOICES, default="slideshow",
-                              max_length=20)
 
     objects = MediaGalleryManager()
 
