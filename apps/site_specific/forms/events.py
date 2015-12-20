@@ -21,6 +21,7 @@ from tagging_autocomplete.widgets import TagAutocomplete
 
 from jetson.apps.location.models import Address
 from jetson.apps.optionset.models import PhoneType
+from jetson.apps.utils.forms import ModelMultipleChoiceTreeField
 
 from ccb.apps.institutions.models import Institution
 from ccb.apps.events.models import Event, EventTime
@@ -1871,15 +1872,10 @@ class FeesOpeningHoursForm(dynamicforms.Form):
 
 
 class CategoriesForm(dynamicforms.Form):
-    # TODO: rework categories to use CheckboxSelectMultiple widget when it is clear what categorizations to use at all
-    choose_creative_sectors = forms.BooleanField(
-        initial=True,
-        widget=forms.HiddenInput(
-            attrs={
-                "class": "form_hidden",
-            }
-        ),
-        required=False,
+    categories = ModelMultipleChoiceTreeField(
+        label=_("Categories"),
+        queryset=get_related_queryset(Event, "categories"),
+        required=True,
     )
 
     tags = TagField(
@@ -1890,32 +1886,11 @@ class CategoriesForm(dynamicforms.Form):
         widget=TagAutocomplete,
     )
 
-    def clean_choose_creative_sectors(self):
-        data = self.data
-        el_count = 0
-        for el in self.creative_sectors.values():
-            if el['field_name'] in data:
-                el_count += 1
-        if not el_count:
-            raise forms.ValidationError(_("Please choose at least one creative sector."))
-        return True
-
     def __init__(self, event, index, *args, **kwargs):
         super(CategoriesForm, self).__init__(*args, **kwargs)
         self.event = event
-        self.creative_sectors = {}
-        for item in get_related_queryset(Event, "creative_sectors"):
-            self.creative_sectors[item.sysname] = {
-                'id': item.id,
-                'field_name': PREFIX_CI + str(item.id),
-            }
-        for s in self.creative_sectors.values():
-            self.fields[s['field_name']] = forms.BooleanField(
-                required=False
-            )
-        for el in event.get_creative_sectors():
-            for ancestor in el.get_ancestors(include_self=True):
-                self.fields[PREFIX_CI + str(ancestor.id)].initial = True
+
+        self.fields['categories'].initial = event.categories.all()
         self.fields['tags'].initial = event.tags
 
         self.helper = FormHelper()
@@ -1931,7 +1906,10 @@ class CategoriesForm(dynamicforms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Categories"),
-                "choose_creative_sectors",
+                "categories",
+            ),
+            layout.Fieldset(
+                _("Tags"),
                 "tags",
             ),
             bootstrap.FormActions(
@@ -1946,17 +1924,8 @@ class CategoriesForm(dynamicforms.Form):
         event.tags = cleaned['tags']
         event.save()
 
-        selected_cs = {}
-        for item in get_related_queryset(Event, "creative_sectors"):
-            if cleaned.get(PREFIX_CI + str(item.id), False):
-                # remove all the parents
-                for ancestor in item.get_ancestors():
-                    if ancestor.id in selected_cs:
-                        del (selected_cs[ancestor.id])
-                # add current
-                selected_cs[item.id] = item
-        event.creative_sectors.clear()
-        event.creative_sectors.add(*selected_cs.values())
+        event.categories.clear()
+        event.categories.add(*cleaned['categories'])
 
         ContextItem.objects.update_for(event)
 

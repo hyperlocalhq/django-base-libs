@@ -309,36 +309,31 @@
                 </dl>
             </div>
 
-            {% get_creative_sectors form_step_data.step_categories as creative_sectors %}
-            {% if creative_sectors or form_step_data.step_categories.tags %}
-                <div class="cleaner"></div>
-                <h3>{% trans "Category" %}</h3>
-                <div class="check">
-                    <dl>
-                        {% if creative_sectors %}
-                            <dt>{% trans "Creative Sector" %}:</dt>
-                            <dd>
-                                {% for creative_sector in creative_sectors %}
-                                    {{ creative_sector.get_title }}{% if not forloop.last %}, {% endif %}
-                                {% endfor %}
-                            </dd>
-                        {% endif %}
-                        {% if form_step_data.step_categories.tags %}
-                            <dt>{% trans "Tags" %}:</dt>
-                            <dd>
-                                {% with form_step_data.step_categories.tags|slice:"-2:" as trailing_coma %}
-                                    {% ifequal trailing_coma ", " %}
-                                        {{ form_step_data.step_categories.tags|slice:"0:-2" }}
-                                    {% else %}
-                                        {{ form_step_data.step_categories.tags }}
-                                    {% endifequal %}
-                                {% endwith %}
-                            </dd>
-                        {% endif %}
-                    </dl>
-                </div>
-                <div id="line_end_fieldset_no_marge"></div>
-            {% endif %}
+            <div class="cleaner"></div>
+            <h3>{% trans "Category" %}</h3>
+            <div class="check">
+                <dl>
+                    <dt>{% trans "Categories" %}:</dt>
+                    <dd>
+                        {% for cat in form_step_data.step_categories.categories %}
+                            {{ cat.title }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </dd>
+                    {% if form_step_data.step_categories.tags %}
+                        <dt>{% trans "Tags" %}:</dt>
+                        <dd>
+                            {% with form_step_data.step_categories.tags|slice:"-2:" as trailing_coma %}
+                                {% ifequal trailing_coma ", " %}
+                                    {{ form_step_data.step_categories.tags|slice:"0:-2" }}
+                                {% else %}
+                                    {{ form_step_data.step_categories.tags }}
+                                {% endifequal %}
+                            {% endwith %}
+                        </dd>
+                    {% endif %}
+                </dl>
+            </div>
+            <div id="line_end_fieldset_no_marge"></div>
             {% include "utils/step_buttons_reg.html" %}
             <div class="cleaner"></div>
         </form>

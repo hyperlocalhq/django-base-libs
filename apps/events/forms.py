@@ -23,8 +23,8 @@ from tagging.forms import TagField
 from tagging_autocomplete.widgets import TagAutocomplete
 
 from jetson.apps.location.models import Address, LocalityType
-from jetson.apps.structure.models import Term
 from jetson.apps.optionset.models import PhoneType, EmailType, URLType
+from jetson.apps.utils.forms import ModelMultipleChoiceTreeField
 
 from mptt.forms import TreeNodeChoiceField
 
@@ -1437,14 +1437,10 @@ class FeesForm(dynamicforms.Form):
 
 
 class CategoriesForm(dynamicforms.Form):
-    choose_creative_sectors = forms.BooleanField(
-        initial=True,
-        widget=forms.HiddenInput(
-            attrs={
-                "class": "form_hidden",
-            }
-        ),
-        required=False,
+    categories = ModelMultipleChoiceTreeField(
+        label=_("Categories"),
+        queryset=get_related_queryset(Event, "categories"),
+        required=True,
     )
 
     tags = TagField(
@@ -1455,30 +1451,8 @@ class CategoriesForm(dynamicforms.Form):
         widget=TagAutocomplete,
     )
 
-    def clean_choose_creative_sectors(self):
-        data = self.data
-        el_count = 0
-        for el in self.creative_sectors.values():
-            if el['field_name'] in data:
-                el_count += 1
-        if not el_count:
-            raise forms.ValidationError(_("Please choose at least one creative sector."))
-        return True
-
     def __init__(self, *args, **kwargs):
         super(CategoriesForm, self).__init__(*args, **kwargs)
-
-        self.creative_sectors = {}
-        for item in get_related_queryset(Event, "creative_sectors"):
-            self.creative_sectors[item.sysname] = {
-                'id': item.id,
-                'field_name': PREFIX_CI + str(item.id),
-            }
-
-        for s in self.creative_sectors.values():
-            self.fields[s['field_name']] = forms.BooleanField(
-                required=False
-            )
 
         self.helper = FormHelper()
         self.helper.form_action = ""
@@ -1489,7 +1463,10 @@ class CategoriesForm(dynamicforms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Categories"),
-                "choose_creative_sectors",
+                layout.Div(layout.Field("categories", template="utils/includes/checkboxselectmultipletree.html")),
+            ),
+            layout.Fieldset(
+                _("Tags"),
                 "tags",
             ),
             bootstrap.FormActions(
@@ -1678,18 +1655,7 @@ def save_data(form_steps, form_step_data):
 
     # creative sectors and context categories
     cleaned = step_categories
-    selected_cs = {}
-    for item in Term.objects.filter(
-        vocabulary__sysname='categories_creativesectors',
-    ):
-        if cleaned.get(PREFIX_CI + str(item.id), False):
-            # remove all the parents
-            for ancestor in item.get_ancestors():
-                if ancestor.id in selected_cs:
-                    del (selected_cs[ancestor.id])
-            # add current
-            selected_cs[item.id] = item
-    event.creative_sectors.add(*selected_cs.values())
+    event.categories.add(*cleaned['categories'])
 
     media_file = step_event_profile.get('image', '')
     if media_file:

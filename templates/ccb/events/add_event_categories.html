@@ -15,7 +15,8 @@
 
 {% block content %}
     <div class="reg">
-        {#% crispy form %#}
+        {% crispy form %}
+        {% comment %}
         <form action="" class="uniForm" method="post">{% csrf_token %}
             <fieldset class="inlineLabels">
                 {% include "site_specific/categories/categories.html" %}
@@ -31,6 +32,7 @@
                 {% include "utils/step_buttons_reg.html" %}
             </fieldset>
         </form>
+        {% endcomment %}
     </div>
 {% endblock %}
 
