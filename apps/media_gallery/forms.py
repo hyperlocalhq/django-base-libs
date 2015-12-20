@@ -8,6 +8,9 @@ from django.conf import settings
 from base_libs.forms import dynamicforms
 from base_libs.forms.fields import ImageField, VideoField, AudioField
 
+from crispy_forms.helper import FormHelper
+from crispy_forms import layout, bootstrap
+
 IMAGE_MIN_DIMENSIONS = getattr(settings, "GALLERY_IMAGE_MIN_DIMENSIONS", (100, 100))
 STR_IMAGE_MIN_DIMENSIONS = "%s x %s" % IMAGE_MIN_DIMENSIONS
 
@@ -178,3 +181,29 @@ class MediaGalleryForm(dynamicforms.Form):
         required=False,
         min_dimensions=IMAGE_MIN_DIMENSIONS,
     )
+
+    def __init__(self, gallery, *args, **kwargs):
+        super(MediaGalleryForm, self).__init__(*args, **kwargs)
+        self.gallery = gallery
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Change Album") if gallery.pk else _("Create Album"),
+                layout.HTML("""{% include "media_gallery/includes/cover_image_preview.html" %}"""),
+                "cover_image",
+                "title_de",
+                "description_de",
+                "title_en",
+                "description_en",
+                "published",
+            ),
+            bootstrap.FormActions(
+                layout.Submit("submit", _("Save")),
+            )
+        )

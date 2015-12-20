@@ -1,9 +1,9 @@
-import os
 import time
 import urllib2
 from datetime import datetime
 from functools import update_wrapper
 
+import os
 from django import forms
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render_to_response
@@ -15,7 +15,6 @@ from django.db import models
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.conf import settings
-
 from base_libs.utils.misc import get_installed
 from base_libs.views import access_denied
 from base_libs.models.models import STATUS_CODE_PUBLISHED, STATUS_CODE_DRAFT
@@ -80,7 +79,7 @@ class PortfolioSite(object):
             self.object_detail_dict['queryset'],
             **{self.object_detail_dict['slug_field']: kwargs['slug']}
         )
-        if hasattr(self.obj, "content_object"): # if the obj is ContextItem, then use its related object
+        if hasattr(self.obj, "content_object"):  # if the obj is ContextItem, then use its related object
             self.obj = self.obj.content_object
         self.obj_ct = ContentType.objects.get_for_model(self.obj)
         self.obj_app_name = type(self.obj)._meta.app_label
@@ -143,7 +142,7 @@ class PortfolioSite(object):
         return update_wrapper(inner, view)
 
     def get_urls(self):
-        from django.conf.urls import patterns, url
+        from django.conf.urls import url
 
         def wrap(view, cacheable=False, admin=False):
             def wrapper(*args, **kwargs):
@@ -153,105 +152,131 @@ class PortfolioSite(object):
             return update_wrapper(wrapper, view)
 
         # portfolio-wide views.
-        urlpatterns = patterns("",
-                               url(r'^$',
-                                   wrap(self.portfolio_overview),
-                                   ),
-                               url(r'^settings/$',
-                                   wrap(self.portfolio_settings, admin=True),
-                                   ),
-                               url(r'^settings/delete-landing-page-image/$',
-                                   wrap(self.delete_landing_page_image, admin=True),
-                                   ),
-                               url(r'^manage/$',
-                                   wrap(self.manage_galleries, admin=True),
-                                   ),
-                               url(r'^section/add/$',
-                                   wrap(self.create_update_section, admin=True),
-                                   ),
-                               url(r'^section/(?P<section_token>\d+)/change/$',
-                                   wrap(self.create_update_section, admin=True),
-                                   ),
-                               url(r'^section/(?P<section_token>\d+)/delete/$',
-                                   wrap(self.delete_section, admin=True),
-                                   ),
-                               url(r'^album/add/$',
-                                   wrap(self.create_update_gallery, admin=True),
-                                   ),
-                               url(r'^album/(?P<gallery_token>\d+)/$',
-                                   wrap(self.gallery_detail),
-                                   ),
-                               url(r'^album/(?P<gallery_token>\d+)/change/$',
-                                   wrap(self.create_update_gallery, admin=True),
-                                   ),
-                               url(r'^album/(?P<gallery_token>\d+)/manage/$',
-                                   wrap(self.manage_gallery, admin=True),
-                                   ),
-                               url(r'^album/(?P<gallery_token>\d+)/delete/$',
-                                   wrap(self.delete_gallery, admin=True),
-                                   ),
-                               url(r'^album/(?P<gallery_token>\d+)/delete-cover/$',
-                                   wrap(self.delete_gallery_cover, admin=True),
-                                   ),
-                               url(r'^album/(?P<gallery_token>\d+)/add/((?P<media_file_type>[^/]+)/)?$',
-                                   wrap(self.create_update_mediafile, admin=True),
-                                   ),
-                               url(r'^album/(?P<gallery_token>\d+)/(?P<mediafile_token>\d+)/$',
-                                   wrap(self.create_update_mediafile, admin=True),
-                                   ),
-                               url(r'^album/(?P<gallery_token>\d+)/(?P<mediafile_token>\d+)/delete/$',
-                                   wrap(self.delete_mediafile, admin=True),
-                                   ),
-                               url(r'^album/(?P<gallery_token>\d+)/(?P<mediafile_token>\d+)/popup_delete/$',
-                                   wrap(self.delete_mediafile_popup, admin=True),
-                                   ),
-                               url(r'^album/(?P<gallery_token>\d+)/(?P<mediafile_token>\d+)/json/$',
-                                   wrap(self.json_show_file),
-                                   ),
-                               url(r'^album/(?P<gallery_token>\d+)/comments/add/$',
-                                   wrap(self.gallery_post_comment),
-                                   {'user_ajax': False}
-                                   ),
-                               url(r'^album/(?P<gallery_token>\d+)/comments/add_ajax/$',
-                                   wrap(self.gallery_post_comment),
-                                   {'user_ajax': True}
-                                   ),
-                               url(r'^album/(?P<gallery_token>\d+)/comment/(?P<comment_id>\d+)/refuse/use-popup/$',
-                                   wrap(self.gallery_refuse_comment),
-                                   {
-                                       'use_popup': True,
-                                       'template_name': 'media_gallery/comments/popups/comment_refuse.html',
-                                   }
-                                   ),
-                               url(r'^album/(?P<gallery_token>\d+)/comment/(?P<comment_id>\d+)/refuse/$',
-                                   wrap(self.gallery_refuse_comment), {
-                                       'use_popup': True,
-                                   }),
-
-                               url(r'^album/(?P<gallery_token>\d+)/comment/(?P<comment_id>\d+)/accept/use-popup/$',
-                                   wrap(self.gallery_accept_comment),
-                                   {
-                                       'use_popup': True,
-                                       'template_name': 'media_gallery/comments/popups/comment_accept.html',
-                                   }
-                                   ),
-                               url(r'^album/(?P<gallery_token>\d+)/comment/(?P<comment_id>\d+)/accept/$',
-                                   wrap(self.gallery_accept_comment), {
-                                       'use_popup': True,
-                                   }),
-                               url(
-                                   r'^album/(?P<gallery_token>\d+)/comment/(?P<comment_id>\d+)/mark_as_spam/use-popup/$',
-                                   wrap(self.gallery_mark_comment_as_spam),
-                                   {
-                                       'use_popup': True,
-                                       'template_name': 'media_gallery/comments/popups/comment_markasspam.html',
-                                   }
-                               ),
-                               url(r'^album/(?P<gallery_token>\d+)/comment/(?P<comment_id>\d+)/mark_as_spam/$',
-                                   wrap(self.gallery_mark_comment_as_spam), {
-                                       'use_popup': True,
-                                   }),
-                               )
+        urlpatterns = [
+            url(
+                r'^$',
+                wrap(self.portfolio_overview),
+            ),
+            url(
+                r'^settings/$',
+                wrap(self.portfolio_settings, admin=True),
+            ),
+            url(
+                r'^settings/delete-landing-page-image/$',
+                wrap(self.delete_landing_page_image, admin=True),
+            ),
+            url(
+                r'^manage/$',
+                wrap(self.manage_galleries, admin=True),
+            ),
+            url(
+                r'^section/add/$',
+                wrap(self.create_update_section, admin=True),
+            ),
+            url(
+                r'^section/(?P<section_token>\d+)/change/$',
+                wrap(self.create_update_section, admin=True),
+            ),
+            url(
+                r'^section/(?P<section_token>\d+)/delete/$',
+                wrap(self.delete_section, admin=True),
+            ),
+            url(
+                r'^album/add/$',
+                wrap(self.create_update_gallery, admin=True),
+            ),
+            url(
+                r'^album/(?P<gallery_token>\d+)/$',
+                wrap(self.gallery_detail),
+            ),
+            url(
+                r'^album/(?P<gallery_token>\d+)/change/$',
+                wrap(self.create_update_gallery, admin=True),
+            ),
+            url(
+                r'^album/(?P<gallery_token>\d+)/manage/$',
+                wrap(self.manage_gallery, admin=True),
+            ),
+            url(
+                r'^album/(?P<gallery_token>\d+)/delete/$',
+                wrap(self.delete_gallery, admin=True),
+            ),
+            url(
+                r'^album/(?P<gallery_token>\d+)/delete-cover/$',
+                wrap(self.delete_gallery_cover, admin=True),
+            ),
+            url(
+                r'^album/(?P<gallery_token>\d+)/add/((?P<media_file_type>[^/]+)/)?$',
+                wrap(self.create_update_mediafile, admin=True),
+            ),
+            url(
+                r'^album/(?P<gallery_token>\d+)/(?P<mediafile_token>\d+)/$',
+                wrap(self.create_update_mediafile, admin=True),
+            ),
+            url(
+                r'^album/(?P<gallery_token>\d+)/(?P<mediafile_token>\d+)/delete/$',
+                wrap(self.delete_mediafile, admin=True),
+            ),
+            url(
+                r'^album/(?P<gallery_token>\d+)/(?P<mediafile_token>\d+)/popup_delete/$',
+                wrap(self.delete_mediafile_popup, admin=True),
+            ),
+            url(
+                r'^album/(?P<gallery_token>\d+)/(?P<mediafile_token>\d+)/json/$',
+                wrap(self.json_show_file),
+            ),
+            url(
+                r'^album/(?P<gallery_token>\d+)/comments/add/$',
+                wrap(self.gallery_post_comment),
+                {'user_ajax': False}
+            ),
+            url(
+                r'^album/(?P<gallery_token>\d+)/comments/add_ajax/$',
+                wrap(self.gallery_post_comment),
+                {'user_ajax': True}
+            ),
+            url(
+                r'^album/(?P<gallery_token>\d+)/comment/(?P<comment_id>\d+)/refuse/use-popup/$',
+                wrap(self.gallery_refuse_comment),
+                {
+                    'use_popup': True,
+                    'template_name': 'media_gallery/comments/popups/comment_refuse.html',
+                }
+            ),
+            url(r'^album/(?P<gallery_token>\d+)/comment/(?P<comment_id>\d+)/refuse/$',
+                wrap(self.gallery_refuse_comment), {
+                    'use_popup': True,
+                }
+                ),
+            url(
+                r'^album/(?P<gallery_token>\d+)/comment/(?P<comment_id>\d+)/accept/use-popup/$',
+                wrap(self.gallery_accept_comment),
+                {
+                    'use_popup': True,
+                    'template_name': 'media_gallery/comments/popups/comment_accept.html',
+                }
+            ),
+            url(
+                r'^album/(?P<gallery_token>\d+)/comment/(?P<comment_id>\d+)/accept/$',
+                wrap(self.gallery_accept_comment), {
+                    'use_popup': True,
+                }
+            ),
+            url(
+                r'^album/(?P<gallery_token>\d+)/comment/(?P<comment_id>\d+)/mark_as_spam/use-popup/$',
+                wrap(self.gallery_mark_comment_as_spam),
+                {
+                    'use_popup': True,
+                    'template_name': 'media_gallery/comments/popups/comment_markasspam.html',
+                }
+            ),
+            url(
+                r'^album/(?P<gallery_token>\d+)/comment/(?P<comment_id>\d+)/mark_as_spam/$',
+                wrap(self.gallery_mark_comment_as_spam), {
+                    'use_popup': True,
+                }
+            ),
+        ]
 
         return urlpatterns
 
@@ -640,7 +665,7 @@ class PortfolioSite(object):
             gallery.content_object = self.obj
 
         if request.method == "POST":
-            form = MediaGalleryForm(request.POST, request.FILES)
+            form = MediaGalleryForm(gallery, request.POST, request.FILES)
             if form.is_valid():
                 cleaned = form.cleaned_data
                 gallery.title_en = cleaned['title_en']
@@ -711,7 +736,7 @@ class PortfolioSite(object):
                 'description_de': gallery.description_de,
                 'published': gallery.status == 1,
             }
-            form = MediaGalleryForm(initial=initial)
+            form = MediaGalleryForm(gallery, initial=initial)
 
         context_dict = {
             'form': form,
@@ -1248,12 +1273,14 @@ class PortfolioSite(object):
             return HttpResponseRedirect(redirect_to)
         return response
 
-    def gallery_accept_comment(self,
-                               request,
-                               gallery_token,
-                               comment_id,
-                               template_name=None,
-                               extra_context=None, use_popup=False, **kwargs):
+    def gallery_accept_comment(
+            self,
+            request,
+            gallery_token,
+            comment_id,
+            template_name=None,
+            extra_context=None, use_popup=False, **kwargs
+    ):
 
         """
         Displays the accept comment form and handles the associated action
@@ -1290,12 +1317,14 @@ class PortfolioSite(object):
             return HttpResponseRedirect(redirect_to)
         return response
 
-    def gallery_mark_comment_as_spam(self,
-                                     request,
-                                     gallery_token,
-                                     comment_id,
-                                     template_name=None,
-                                     extra_context=None, use_popup=False, **kwargs):
+    def gallery_mark_comment_as_spam(
+            self,
+            request,
+            gallery_token,
+            comment_id,
+            template_name=None,
+            extra_context=None, use_popup=False, **kwargs
+    ):
 
         """
         Displays the "mark as spam" comment form and handles the associated action
