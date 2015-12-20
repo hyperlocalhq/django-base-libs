@@ -271,7 +271,7 @@ class SimpleRegistrationForm(SimpleRegistrationFormBase):
             ),
             layout.Fieldset(
                 _("Categories"),
-                layout.Div(layout.Field("categories", template="utils/includes/checkboxselectmultipletree.html")),
+                layout.Div(layout.Field("categories", template="bootstrap3/custom_widgets/checkboxselectmultipletree.html")),
             ),
             layout.Fieldset(
                 _("Confirmation"),

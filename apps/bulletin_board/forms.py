@@ -123,7 +123,7 @@ class BulletinForm(forms.ModelForm):
             layout.Fieldset(
                 _("Categories"),
                 layout.Field("bulletin_category"),
-                layout.Div(layout.Field("categories", template="utils/includes/checkboxselectmultipletree.html")),
+                layout.Div(layout.Field("categories", template="bootstrap3/custom_widgets/checkboxselectmultipletree.html")),
                 layout.Field("locality_type"),
             ),
             layout.Fieldset(

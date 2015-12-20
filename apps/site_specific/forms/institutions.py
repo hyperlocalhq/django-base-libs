@@ -1597,11 +1597,11 @@ class CategoriesForm(dynamicforms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Categories"),
-                layout.Div(layout.Field("categories", template="utils/includes/checkboxselectmultipletree.html")),
+                layout.Div(layout.Field("categories", template="bootstrap3/custom_widgets/checkboxselectmultipletree.html")),
             ),
             layout.Fieldset(
                 _("Institution Types"),
-                layout.Div(layout.Field("institution_types", template="utils/includes/checkboxselectmultipletree.html")),
+                layout.Div(layout.Field("institution_types", template="bootstrap3/custom_widgets/checkboxselectmultipletree.html")),
             ),
             bootstrap.FormActions(
                 layout.Button('cancel', _('Cancel')),
