@@ -49,6 +49,49 @@ class ImageFileForm(PortfolioFileForm):
         required=False,
     )
 
+    def __init__(self, *args, **kwargs):
+        super(ImageFileForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Upload Image"),
+                layout.HTML("""{% include "media_gallery/includes/media_file_image_preview.html" %}"""),
+                "media_file",
+                layout.HTML("""
+                    {% include "media_gallery/includes/upload_and_continue.html" %}
+                    {% include "media_gallery/includes/switch_to_external.html" %}
+                """),
+                css_id="upload_media_file",
+            ),
+            layout.Fieldset(
+                _("Link to External Image"),
+                layout.HTML("""{% include "media_gallery/includes/media_file_image_preview.html" %}"""),
+                layout.Field("external_url", placeholder="http://"),
+                layout.HTML("""
+                    {% include "media_gallery/includes/upload_and_continue.html" %}
+                    {% include "media_gallery/includes/switch_to_upload.html" %}
+                """),
+                css_id="link_to_media_file",
+                css_class="to_hide",
+            ),
+            layout.Fieldset(
+                _("Description"),
+                "title_de",
+                "description_de",
+                "title_en",
+                "description_en",
+            ),
+            bootstrap.FormActions(
+                layout.Submit("submit", _("Save")),
+            )
+        )
+
     def clean_external_url(self):
         external_url = self.cleaned_data['external_url']
         if external_url:
@@ -79,6 +122,55 @@ class VideoFileForm(PortfolioFileForm):
         min_dimensions=IMAGE_MIN_DIMENSIONS,
     )
 
+    def __init__(self, *args, **kwargs):
+        super(VideoFileForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Upload Video"),
+                layout.HTML("""{% include "media_gallery/includes/media_file_image_preview.html" %}"""),
+                "media_file",
+                layout.HTML("""
+                    {% include "media_gallery/includes/upload_and_continue.html" %}
+                    {% include "media_gallery/includes/switch_to_external.html" %}
+                """),
+                css_id="upload_media_file",
+            ),
+            layout.Fieldset(
+                _("Link to External Video"),
+                layout.HTML("""{% include "media_gallery/includes/media_file_image_preview.html" %}"""),
+                layout.Field("external_url", placeholder="http://"),
+                layout.HTML("""
+                    {% include "media_gallery/includes/upload_and_continue.html" %}
+                    {% include "media_gallery/includes/switch_to_upload.html" %}
+                """),
+                css_id="link_to_media_file",
+                css_class="to_hide",
+            ),
+            layout.Fieldset(
+                _("Upload Illustration"),
+                layout.HTML("""{% include "media_gallery/includes/splash_image_preview.html" %}"""),
+                "splash_image_file",
+                layout.HTML("""{% include "media_gallery/includes/upload_and_continue.html" %}"""),
+            ),
+            layout.Fieldset(
+                _("Description"),
+                "title_de",
+                "description_de",
+                "title_en",
+                "description_en",
+            ),
+            bootstrap.FormActions(
+                layout.Submit("submit", _("Save")),
+            )
+        )
+
     def clean_external_url(self):
         external_url = self.cleaned_data['external_url']
         if external_url:
@@ -108,6 +200,55 @@ class AudioFileForm(PortfolioFileForm):
         required=False,
         min_dimensions=IMAGE_MIN_DIMENSIONS,
     )
+
+    def __init__(self, *args, **kwargs):
+        super(AudioFileForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+        self.helper.attrs = {
+            'enctype': "multipart/form-data",
+        }
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Upload Audio"),
+                layout.HTML("""{% include "media_gallery/includes/media_file_image_preview.html" %}"""),
+                "media_file",
+                layout.HTML("""
+                    {% include "media_gallery/includes/upload_and_continue.html" %}
+                    {% include "media_gallery/includes/switch_to_external.html" %}
+                """),
+                css_id="upload_media_file",
+            ),
+            layout.Fieldset(
+                _("Link to External Audio"),
+                layout.HTML("""{% include "media_gallery/includes/media_file_image_preview.html" %}"""),
+                layout.Field("external_url", placeholder="http://"),
+                layout.HTML("""
+                    {% include "media_gallery/includes/upload_and_continue.html" %}
+                    {% include "media_gallery/includes/switch_to_upload.html" %}
+                """),
+                css_id="link_to_media_file",
+                css_class="to_hide",
+            ),
+            layout.Fieldset(
+                _("Upload Illustration"),
+                layout.HTML("""{% include "media_gallery/includes/splash_image_preview.html" %}"""),
+                "splash_image_file",
+                layout.HTML("""{% include "media_gallery/includes/upload_and_continue.html" %}"""),
+            ),
+            layout.Fieldset(
+                _("Description"),
+                "title_de",
+                "description_de",
+                "title_en",
+                "description_en",
+            ),
+            bootstrap.FormActions(
+                layout.Submit("submit", _("Save")),
+            )
+        )
 
     def clean_external_url(self):
         external_url = self.cleaned_data['external_url']

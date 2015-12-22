@@ -1,6 +1,7 @@
-{% load i18n base_tags auth_extended image_modifications %}
-{% comment %}<!-- UNUSED -->{% endcomment %}
+{% load i18n base_tags auth_extended image_modifications crispy_forms_tags %}
+{% comment %}<!-- UNUSED! TODO: remove it! -->{% endcomment %}
 <div class="portfolio">
+    {% crispy form %}
     <form action="." method="post" enctype="multipart/form-data" class="uniForm">{% csrf_token %}
         <div id="media_file_editing">
             {{ form.non_field_errors }}
@@ -157,23 +158,24 @@
                     value="{% filter upper %}{% trans "Save and add another" %}{% endfilter %}"/>
             </div>
         </div>
-        {% if list_of_files %}
-            {% for f in list_of_files %}
-                {% if forloop.first %}
-                    <ul id="media_thumbs">
-                {% endif %}
-            <li class="{% ifequal f.id media_file.id %} active{% endifequal %}">
-                <a href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/file_{{ f.id }}/">
-                    <img
-                        src="{{ f.get_thumbnail_url }}" alt="{{ f.title|escape }}"
-                        title="{{ f.get_file_type_display }}. {{ f.title|escape }}"/>
-                </a>
-            </li>
-            {% if forloop.last %}
-                </ul>
-            {% endif %}
-            {% endfor %}
-        {% endif %}
     </form>
+
+    {% if list_of_files %}
+        {% for f in list_of_files %}
+            {% if forloop.first %}
+                <ul id="media_thumbs">
+            {% endif %}
+        <li class="{% ifequal f.id media_file.id %} active{% endifequal %}">
+            <a href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/file_{{ f.id }}/">
+                <img
+                    src="{{ f.get_thumbnail_url }}" alt="{{ f.title|escape }}"
+                    title="{{ f.get_file_type_display }}. {{ f.title|escape }}"/>
+            </a>
+        </li>
+        {% if forloop.last %}
+            </ul>
+        {% endif %}
+        {% endfor %}
+    {% endif %}
 </div>
 

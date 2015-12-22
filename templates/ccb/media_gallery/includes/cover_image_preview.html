@@ -1,5 +1,5 @@
 {% load i18n image_modifications %}
-<p class="preview_img">
+<p class="preview-img">
     {% if gallery.cover_image %}
         <img src="{{ UPLOADS_URL }}{{ gallery.cover_image|modified_path:"gp" }}"
             alt="{% trans "Album cover" %}"/>
