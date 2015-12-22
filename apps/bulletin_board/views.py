@@ -22,6 +22,7 @@ from base_libs.utils.misc import get_related_queryset
 
 from jetson.apps.utils.views import show_form_step
 from jetson.apps.utils.decorators import login_required
+from jetson.apps.structure.models import Category
 
 from .models import Bulletin, TYPE_CHOICES, STATUS_CHOICES
 from .forms import BulletinForm, BULLETIN_FORM_STEPS, BulletinSearchForm
@@ -33,9 +34,13 @@ TOKENIZATION_SUMMAND = models.get_app("bulletin_board").TOKENIZATION_SUMMAND
 
 
 @never_cache
-def bulletin_list(request, **kwargs):
-        
+def bulletin_list(request, category_slug=None, **kwargs):
     kwargs['queryset'] = Bulletin.published_objects.order_by("-creation_date")
+
+    category = None
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
+        kwargs['queryset'] = kwargs['queryset'].filter(categories__tree_id=category.tree_id)
 
     form = BulletinSearchForm(data=request.REQUEST)
     
@@ -87,6 +92,7 @@ def bulletin_list(request, **kwargs):
     extra_context['facets'] = facets
     extra_context['form'] = form
     extra_context['source_list'] = reverse("bulletin_list")
+    extra_context['category'] = category
 
     #extra_context = {
     #    'form': form,

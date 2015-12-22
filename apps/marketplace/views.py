@@ -10,7 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.cache import never_cache
 from django.db import models
 from django.db import transaction
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 
 from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
 from base_libs.utils.misc import get_website_url
@@ -20,7 +20,7 @@ from jetson.apps.utils.views import object_list, object_detail, show_form_step
 from jetson.apps.memos.models import Memo, MEMO_TOKEN_NAME
 from ccb.apps.marketplace.forms import ADD_JOB_OFFER_FORM_STEPS, JobOfferSearchForm
 from ccb.apps.marketplace.models import JobOffer, URL_ID_JOB_OFFERS
-
+from jetson.apps.structure.models import Category
 
 class JobOfferFeed(Feed):
     title = ""
@@ -48,11 +48,16 @@ def add_job_offer(request):
 
 
 @never_cache
-def job_offer_list(request, criterion="", slug="", show="", title="", **kwargs):
+def job_offer_list(request, criterion="", slug="", show="", title="", category_slug=None, **kwargs):
     """Displays the list of events"""
 
     # abc_list = None
     # abc_filter = request.GET.get('by-abc', None)
+
+    category = None
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
+        kwargs['queryset'] = kwargs['queryset'].filter(categories__tree_id=category.tree_id)
 
     if not (kwargs.has_key('feed') and kwargs['feed'] == True):
         kwargs['queryset'] = kwargs['queryset'].only("id", "published_from",
@@ -156,6 +161,7 @@ def job_offer_list(request, criterion="", slug="", show="", title="", **kwargs):
     extra_context['show'] = ("", "/%s" % show)[bool(show and show != "related")]
     extra_context['source_list'] = URL_ID_JOB_OFFERS
     extra_context['form'] = form
+    extra_context['category'] = category
     if request.is_ajax():
         extra_context['base_template'] = "base_ajax.html"
     kwargs['extra_context'] = extra_context

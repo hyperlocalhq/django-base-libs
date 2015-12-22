@@ -92,11 +92,17 @@ def _member_list_filter(request, queryset, show):
     return queryset
 
 
-def member_list(request, creative_sector_slug="", show="", list_filter=_member_list_filter, **kwargs):
+def member_list(request, creative_sector_slug="", show="", list_filter=_member_list_filter, category_slug=None, **kwargs):
     if creative_sector_slug:
         kwargs['queryset'] = kwargs['queryset'].filter(
             creative_sectors__slug=creative_sector_slug,
         )
+
+    category = None
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
+        kwargs['queryset'] = kwargs['queryset'].filter(categories__tree_id=category.tree_id)
+
     try:
         kwargs['queryset'] = list_filter(request, kwargs['queryset'], show)
     except AccessDenied:
@@ -169,6 +175,7 @@ def member_list(request, creative_sector_slug="", show="", list_filter=_member_l
     extra_context = kwargs.setdefault("extra_context", {})
     extra_context['form'] = form
     extra_context['abc_list'] = abc_list
+    extra_context['category'] = category
     facets['queryset'] = kwargs['queryset']
     extra_context['facets'] = facets
 
