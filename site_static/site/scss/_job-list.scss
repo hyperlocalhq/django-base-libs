@@ -37,10 +37,10 @@
                 padding-bottom: 60px;
             }
             
-            &:hover {
+            &:hover, &:focus {
                 background: $white-dirty;
                 .is-xs & {
-                    background: $white;
+                    background: transparent;
                 }
             }
             
@@ -244,7 +244,7 @@
                     display: inline-block;
                 }
                 
-                &:hover {
+                &:hover, &:focus {
                     color: $black;
                 }
                 &:before {

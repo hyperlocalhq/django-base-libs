@@ -695,7 +695,6 @@ ul.button-list {
         padding: 0;
         margin: 0 10px 15px 0;
         border: 1px solid $grey;
-        text-transform: uppercase;
         cursor: default;
         
         &:last-child {
@@ -732,6 +731,32 @@ ul.button-list {
                 outline: none;
                 color: $white;
                 background: $cyan;
+            }
+        }
+    }
+    
+    &.menu {
+        li {
+            a {
+                padding: 0 45px 0 10px;
+                position: relative;
+                
+                &:after {
+                    display: inline-block;
+                    font: normal normal normal 14px/1 FontAwesome;
+                    text-rendering: auto;
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                    padding: 0px;
+                    margin: 0px;
+                    vertical-align: bottom;
+                    font-weight: 400;
+                    font-size: 1.47em;
+                    content: "\f107";
+                    position: absolute;
+                    top: 6px;
+                    right: 7px;
+                }
             }
         }
     }

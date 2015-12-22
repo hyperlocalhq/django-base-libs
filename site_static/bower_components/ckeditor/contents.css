@@ -186,12 +186,14 @@ span.button { font-size: 18px; }
 .button-group .button:last-child { margin-right: 0 !important; }
 
 ul.button-list { list-style: none; margin: 0; padding: 0; overflow: hidden; }
-ul.button-list li { height: 2.25em; display: inline-block; float: left; font-size: 1.07em; line-height: 212.5%; color: #979797; background: #fff; padding: 0; margin: 0 10px 15px 0; border: 1px solid #979797; text-transform: uppercase; cursor: default; }
+ul.button-list li { height: 2.25em; display: inline-block; float: left; font-size: 1.07em; line-height: 212.5%; color: #979797; background: #fff; padding: 0; margin: 0 10px 15px 0; border: 1px solid #979797; cursor: default; }
 ul.button-list li:last-child { margin-right: 0; }
 ul.button-list li.disabled { color: #d8d8d8; border-color: #d8d8d8; background: #efefef; padding: 0 5px; }
 ul.button-list li.active a { color: #fff; background: #00cdff; }
 ul.button-list li a { height: 100%; display: block; font-family: "Lato", "sans-serif"; font-weight: 400; font-size: inherit; line-height: 212.5%; color: #979797; background: #fff; padding: 0 5px; margin: 0; }
 ul.button-list li a:hover, ul.button-list li a:focus, ul.button-list li a.active { outline: none; color: #fff; background: #00cdff; }
+ul.button-list.menu li a { padding: 0 45px 0 10px; position: relative; }
+ul.button-list.menu li a:after { display: inline-block; font: normal normal normal 14px/1 FontAwesome; text-rendering: auto; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; padding: 0px; margin: 0px; vertical-align: bottom; font-weight: 400; font-size: 1.47em; content: "\f107"; position: absolute; top: 6px; right: 7px; }
 
 .bubble { width: 105px; height: 105px; padding: 35px 5px 0 10px; margin: 0; font-family: "MetronicSlabPro", "sans-serif"; font-weight: 900; font-size: 1.47em; line-height: 95%; background: #00cdff; border-top-left-radius: 50%; border-top-right-radius: 50%; border-bottom-right-radius: 50%; color: #fff; text-transform: uppercase; display: block; word-wrap: break-word; cursor: default; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
 .is-xs .bubble { width: 80px; height: 80px; padding: 25px 5px 0 8px; font-size: 1.1em; line-height: 97%; }

@@ -28,7 +28,7 @@
         a.content {
             display: block;
             background: $grey-dark;
-            &:hover {
+            &:hover, &:focus {
                 background: $black;
             }
             img {
@@ -100,7 +100,7 @@
                     display: inline-block;
                 }
                 
-                &:hover {
+                &:hover, &:focus {
                     color: $white;
                 }
                 &:before {
@@ -161,7 +161,7 @@
                 border-bottom: 1px solid $grey-bright;
                 padding-top: 20px;
                 position: relative;
-                &:hover {
+                &:hover, &:focus {
                     background: $white-dirty;
                 }
                 img {
@@ -239,7 +239,7 @@
             .button-group {
                 .button {
                     font-size: inherit;
-                    &:hover {
+                    &:hover, &:focus {
                         color: $black;
                     }
                     &:before {
@@ -342,7 +342,7 @@
                 left: 140px;
                 .button {
                     font-size: inherit;
-                    &:hover {
+                    &:hover, &:focus {
                         color: $black;
                     }
                     &:before {

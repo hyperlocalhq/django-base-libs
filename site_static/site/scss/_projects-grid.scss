@@ -121,7 +121,7 @@
                     }
                 }
                 
-                &:hover {
+                &:hover, &:focus {
                     .underlay {
                         display: block;
                     }
@@ -165,7 +165,7 @@
                         margin-left: 15px;
                     }
                     
-                    &:hover {
+                    &:hover, &:focus {
                         color: $white;
                     }
                     &:before {
@@ -185,7 +185,7 @@
                 }
             }
             
-            &:hover, &.hover {     
+            &:hover, &.hover, &:focus {     
                 z-index: 1;
                 
                 .button-group {
@@ -207,7 +207,7 @@
                 }
             }
             
-            &.hover {
+            &.hover, &:focus {
                 a.content {
                     .underlay {
                         display: block;

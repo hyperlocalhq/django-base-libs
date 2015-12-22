@@ -285,6 +285,62 @@
                 <br/>
                 <br/>
                 <br/>
+                <p class="uppercase underline">Event row</p>
+                <p>Requirements:<br/>
+                    &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/event-grid.js">&lt;/script>
+                </p>
+                <br/>
+                <br/>
+            </div>
+        </div>
+        <div class="row event-grid">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <a class="content tap-hover tap-hover-trigger" href="#">
+                    <img src="http://placehold.it/540x540&text=image"/>
+                    <h2>Titel der Veranstaltung</h2>
+                    <p><time datetime="2015-12-12">Sa, 12. Dez. 2015</time>Location Name</p>
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <a class="content tap-hover tap-hover-trigger" href="#">
+                    <img src="http://placehold.it/540x540&text=image"/>
+                    <h2>Titel der Veranstaltung</h2>
+                    <p><time datetime="2015-12-12">Sa, 12. Dez. 2015</time>Location Name</p>
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <a class="content tap-hover tap-hover-trigger" href="#">
+                    <img src="http://placehold.it/540x540&text=image"/>
+                    <h2>Titel der Veranstaltung</h2>
+                    <p><time datetime="2015-12-12">Sa, 12. Dez. 2015</time>Location Name</p>
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-3 hidden-sm">
+                <a class="content tap-hover tap-hover-trigger" href="#">
+                    <img src="http://placehold.it/540x540&text=image"/>
+                    <h2>Titel der Veranstaltung</h2>
+                    <p><time datetime="2015-12-12">Sa, 12. Dez. 2015</time>Location Name</p>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+<pre>&lt;div class="row event-grid">
+    &lt;div class="col-xs-12 col-sm-4 col-md-3">
+        &lt;a class="content tap-hover tap-hover-trigger" href="#">
+            &lt;img src="http://placehold.it/540x540&text=image"/>
+            &lt;h2>Titel der Veranstaltung&lt;/h2>
+            &lt;p>&lt;time datetime="2015-12-12">Sa, 12. Dez. 2015&lt;/time>Location Name&lt;/p>
+        &lt;/a>
+    &lt;/div>
+    ... the col block 3 more times
+    
+    Add to the 4th block the class "hidden-sm"!!!
+&lt;/div></pre>
+                <p>Add to the 4th col block the class "hidden-sm"!!!</p>
+                <br/>
+                <br/>
+                <br/>
                 <p class="uppercase underline">Job list</p>
                 <p>The col-xs-12 tag gets the class "has-bubble" if a bubble tag exists inside.</p>
                 <p>Requirements:<br/>
@@ -663,6 +719,123 @@
     &lt;/div>
     ... keep adding col blocks
 &lt;/div></pre>
+                <br/>
+                <br/>
+                <br/>
+                <p class="uppercase underline">Job columns</p>
+                <br/>
+            </div>
+        </div>
+        <div class="row job-columns">
+            <div class="col-xs-12 col-sm-6">
+                <a href="#" class="content">
+                    <h3>Tätigkeitsart <time datetime="2015-10-08">08. Oktober 2015</time></h3>
+                    <h2>Jobbeschreibung</h2>
+                    <p>Anbieter der Stellenanzeige</p>
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <a href="#" class="content">
+                    <h3>Tätigkeitsart <time datetime="2015-10-08">08. Oktober 2015</time></h3>
+                    <h2>Jobbeschreibung</h2>
+                    <p>Anbieter der Stellenanzeige</p>
+                </a>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-xs-12 col-sm-6">
+                <a href="#" class="content">
+                    <h3>Tätigkeitsart <time datetime="2015-10-08">08. Oktober 2015</time></h3>
+                    <h2>Jobbeschreibung</h2>
+                    <p>Anbieter der Stellenanzeige</p>
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <a href="#" class="content">
+                    <h3>Tätigkeitsart <time datetime="2015-10-08">08. Oktober 2015</time></h3>
+                    <h2>Jobbeschreibung</h2>
+                    <p>Anbieter der Stellenanzeige</p>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+<pre>&lt;div class="row job-columns">
+    &lt;div class="col-xs-12 col-sm-6">
+        &lt;a href="#" class="content">
+            &lt;h3>Tätigkeitsart &lt;time datetime="2015-10-08">08. Oktober 2015&lt;/time>&lt;/h3>
+            &lt;h2>Jobbeschreibung&lt;/h2>
+            &lt;p>Anbieter der Stellenanzeige&lt;/p>
+        &lt;/a>
+    &lt;/div>
+    &lt;div class="col-xs-12 col-sm-6">
+        &lt;a href="#" class="content">
+            &lt;h3>Tätigkeitsart &lt;time datetime="2015-10-08">08. Oktober 2015&lt;/time>&lt;/h3>
+            &lt;h2>Jobbeschreibung&lt;/h2>
+            &lt;p>Anbieter der Stellenanzeige&lt;/p>
+        &lt;/a>
+    &lt;/div>
+    &lt;div class="clearfix">&lt;/div>
+    ... keep adding col blocks
+    
+    Add every second column a clear fix.
+&lt;/div></pre>
+                <p>Add every second column a clear fix!</p>
+                <br/>
+                <br/>
+                <br/>
+                <p class="uppercase underline">News columns</p>
+                <br/>
+            </div>
+        </div>
+        <div class="row news-columns">
+            <div class="col-xs-12 col-sm-6">
+                <a href="#" class="content">
+                    <h3><time datetime="2015-12-08 17:45:00">08. Dez. 2015, 17:45</time></h3>
+                    <h2>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</h2>
+                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <a href="#" class="content">
+                    <h3><time datetime="2015-12-08 17:45:00">08. Dez. 2015, 17:45</time></h3>
+                    <h2>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</h2>
+                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                </a>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-xs-12 col-sm-6">
+                <a href="#" class="content">
+                    <h3><time datetime="2015-12-08 17:45:00">08. Dez. 2015, 17:45</time></h3>
+                    <h2>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</h2>
+                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+<pre>&lt;div class="row news-columns">
+    &lt;div class="col-xs-12 col-sm-6">
+        &lt;a href="#" class="content">
+            &lt;h3>&lt;time datetime="2015-12-08 17:45:00">08. Dez. 2015, 17:45&lt;/time>&lt;/h3>
+            &lt;h2>Lorem ipsum dolor sit amet, consetetur sadipscing elitr&lt;/h2>
+            &lt;p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt 
+            ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.&lt;/p>
+        &lt;/a>
+    &lt;/div>
+    &lt;div class="col-xs-12 col-sm-6">
+        &lt;a href="#" class="content">
+            &lt;h3>&lt;time datetime="2015-12-08 17:45:00">08. Dez. 2015, 17:45&lt;/time>&lt;/h3>
+            &lt;h2>Lorem ipsum dolor sit amet, consetetur sadipscing elitr&lt;/h2>
+            &lt;p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt 
+            ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.&lt;/p>
+        &lt;/a>
+    &lt;/div>
+    &lt;div class="clearfix">&lt;/div>
+    ... keep adding col blocks
+    
+    Add every second column a clear fix.
+&lt;/div></pre>
+                <p>Add every second column a clear fix!</p>
                 <br/>
                 <br/>
                 <br/>
@@ -1266,7 +1439,7 @@ data-popup-image-src="&#123;{ article.image }}" alt="..."/>
                 <br/>
                 <br/>
                 <p class="underline"><span class="uppercase">Header</span> with menu</p>
-                <p>The header tag gets the class "has-menu" if a menu tag exits.</p>
+                <p>The header tag gets the class "has-menu" if a menu tag exists.</p>
                 <br/>
             </div>
         </div>
@@ -1336,7 +1509,7 @@ data-popup-image-src="&#123;{ article.image }}" alt="..."/>
                 <br/>
                 <br/>
                 <p class="underline"><span class="uppercase">Header</span> with tabs</p>
-                <p>The header tag gets the class "has-menu" if a menu tag exits and <br/>the class "has-tabs" if the menu tag has also the class "tabs".</p>
+                <p>The header tag gets the class "has-menu" if a menu tag exists and <br/>the class "has-tabs" if the menu tag has also the class "tabs".</p>
                 <br/>
             </div>
         </div>
@@ -1406,7 +1579,7 @@ data-popup-image-src="&#123;{ article.image }}" alt="..."/>
                 <br/>
                 <br/>
                 <p class="underline"><span class="uppercase">Header</span> with image</p>
-                <p>The header tag gets the classes "has-image" and "has-content" if a background image exits.</p>
+                <p>The header tag gets the classes "has-image" and "has-content" if a background image exists.</p>
                 <br/>
             </div>
         </div>
@@ -1478,7 +1651,7 @@ data-popup-image-src="&#123;{ article.image }}" alt="..."/>
                 <br/>
                 <br/>
                 <p class="underline"><span class="uppercase">Header</span> with headline beneath the content</p>
-                <p>The header tag gets the classes "has-image" and "has-content" if a background image exits.<br/>
+                <p>The header tag gets the classes "has-image" and "has-content" if a background image exists.<br/>
                 Add the class "large-image" to the header tag to get a larger/heigher image.</p>
                 <br/>
             </div>
@@ -1515,7 +1688,7 @@ data-popup-image-src="&#123;{ article.image }}" alt="..."/>
                 <br/>
                 <br/>
                 <p class="underline"><span class="uppercase">Header</span> with info</p>
-                <p>The header tag gets the class "has-content" if an info tag exits.</p>
+                <p>The header tag gets the class "has-content" if an info tag exists.</p>
                 <p>Requirements:<br/>
                     &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/slider.js">&lt;/script>
                 </p>
@@ -1642,6 +1815,81 @@ data-popup-image-src="&#123;{ article.image }}" alt="..."/>
                 <br/>
                 <br/>
                 <br/>
+                <p class="underline"><span class="uppercase">Header</span> with sticky image</p>
+                <p>The header tag gets the classes "has-image" and "has-content" if a background image exists.<br/>
+                It also gets the class "has-sticky" if a sticky element exists.</p>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="header">
+        <div class="sticky">
+            <img src="http://placehold.it/2002x770&text=image"/>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h1>With sticky image</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="menu">
+            <div class="container">
+                <div class="row">
+                    <div class="hidden-xs col-sm-4 col-md-3 headline">
+                    </div>
+                    <div class="navi">
+                        <nav>
+                            <ul>
+                                <li><a href="javascript:void();">Menu Link #1</a></li>
+                                <li><a href="javascript:void();">Menu Link #2</a></li>
+                                <li><a href="javascript:void();">Menu Link #3</a></li>
+                                <li><a href="javascript:void();">Menu Link #4</a></li>
+                                <li><a href="javascript:void();">Menu Link #5</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+<pre>&lt;div class="header">
+    &lt;div class="sticky">
+        &lt;img src="http://placehold.it/2002x770&text=image"/>
+        &lt;div class="container">
+            &lt;div class="row">
+                &lt;div class="col-xs-12">
+                    &lt;h1>With sticky image&lt;/h1>
+                &lt;/div>
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    &lt;div class="menu">
+        &lt;div class="container">
+            &lt;div class="row">
+                &lt;div class="hidden-xs col-sm-4 col-md-3 headline">
+                &lt;/div>
+                &lt;div class="navi">
+                    &lt;nav>
+                        &lt;ul>
+                            &lt;li>&lt;a href="javascript:void();">Menu Link #1&lt;/a>&lt;/li>
+                            &lt;li>&lt;a href="javascript:void();">Menu Link #2&lt;/a>&lt;/li>
+                            &lt;li>&lt;a href="javascript:void();">Menu Link #3&lt;/a>&lt;/li>
+                            &lt;li>&lt;a href="javascript:void();">Menu Link #4&lt;/a>&lt;/li>
+                            &lt;li>&lt;a href="javascript:void();">Menu Link #5&lt;/a>&lt;/li>
+                        &lt;/ul>
+                    &lt;/nav>
+                &lt;/div>
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+&lt;/div></pre>
+                <br/>
+                <br/>
+                <br/>
             </div>
         </div>
     </div>
@@ -1654,4 +1902,5 @@ data-popup-image-src="&#123;{ article.image }}" alt="..."/>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/slider.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/job-list.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/event-list.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/event-grid.js"></script>
 {% endblock %}

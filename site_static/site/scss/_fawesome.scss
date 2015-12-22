@@ -145,13 +145,13 @@
         
         &.text {
             width: 100%;
-            max-width: 250px;
-            height: 2.67em;
+            max-width: 230px;
+            height: 2.56em;
             line-height: 261%;
             display: inline-block;
             font-weight: $font-bold;
             font-size: 1.2em;
-            color: $black;
+            color: $grey-dark;
             background: $white-dirty;
             padding: 0;
             border-radius: 1.33em;
@@ -175,13 +175,13 @@
             }
             
             &:before {
-                font-size: 1.33em;
-                line-height: 203%;
+                font-size: 1.22em;
+                line-height: 215%;
                 text-align: center;
-                width: 2em;
-                height: 2em;
+                width: 2.05em;
+                height: 2.05em;
                 border-radius: 50%;
-                background: $grey-light;
+                background: $grey;
                 color: $white;
                 margin-right: 1em;
                 margin-top: 1px;
@@ -301,7 +301,7 @@
                                 height: 1.8em;
                                 border-radius: 50%;
                                 background: $cyan;
-                                opacity: 0.1;
+                                opacity: 0.15;
                             }
                         }
                         
@@ -317,7 +317,7 @@
                             line-height: 135%;
                             width: 1.31em;
                             height: 1.31em;
-                            background: rgba(0, 0, 0, 0.1);
+                            background: rgba(0, 0, 0, 0.15);
                             border-radius: 50%;
                             text-align: center;
                             
@@ -853,6 +853,9 @@ canvas.fawesome {
 .fawesome.fa-calender-check:before {
     content: "\f274";
 }
+.fawesome.fa-calender-plus:before {
+    content: "\f271";
+}
 .fawesome.fa-favorite:before {
     content: "\f005";
 }
@@ -948,6 +951,15 @@ canvas.fawesome {
 }
 .fawesome.fa-home:before {
     content: "\f015";
+}
+.fawesome.fa-camera:before {
+    content: "\f083";
+}
+.fawesome.fa-wrench:before {
+    content: "\f0ad";
+}
+.fawesome.fa-news:before {
+    content: "\f1ea";
 }
 
 
@@ -1049,6 +1061,9 @@ canvas.fawesome {
 .fawesome.fa-calender-check.after:after {
     content: "\f274";
 }
+.fawesome.fa-calender-plus.after:after {
+    content: "\f271";
+}
 .fawesome.fa-favorite.after:after {
     content: "\f005";
 }
@@ -1138,4 +1153,13 @@ canvas.fawesome {
 }
 .fawesome.fa-home.after:after {
     content: "\f015";
+}
+.fawesome.fa-camera.after:after {
+    content: "\f083";
+}
+.fawesome.fa-wrench.after:after {
+    content: "\f0ad";
+}
+.fawesome.fa-news.after:after {
+    content: "\f1ea";
 }
