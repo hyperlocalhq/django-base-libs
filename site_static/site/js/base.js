@@ -571,6 +571,7 @@ $(document).ready(function() {
     
     /**
      * Handels the main navigation of the page.
+     * Triggers 'navigation-closed' on the body tag if the navigation got closed.
      */
     function Navigation($main) {
         
@@ -630,6 +631,7 @@ $(document).ready(function() {
                 me.$main.css('min-height', '');
                 me.$content.css('height', '');
                 me.$overlay.css('display', '');
+                me.$body.trigger('navigation-closed');
             }, 500);
         }
         
@@ -649,6 +651,7 @@ $(document).ready(function() {
             me.$content.css('height', '');
             me.$navi.css('height', 0);
             me.$overlay.css('display', '');
+            me.$body.trigger('navigation-closed');
         }
     }
     
@@ -826,7 +829,9 @@ $(document).ready(function() {
         this.me = me;
         
         me.$main = $main;
+        me.$sticky = $('.sticky', me.$main);
         me.$image = $('img', me.$main).not('.info img');
+        me.$headline = $('h1', me.$main);
         me.$info = $('.info', me.$main);
         me.$info_container = $('.info > .container', me.$main);
         me.$menu = $('.menu', me.$main);
@@ -838,6 +843,7 @@ $(document).ready(function() {
         me.$window = $(window);
         me.$body = $('body');
         
+        me.is_sticky = (me.$sticky.length);
         me.$info_menu_space = null;
         me.$info_toggle_button = null;
         me.animating = false;
@@ -846,6 +852,7 @@ $(document).ready(function() {
         me.left_nav = 0;
         
         if ($('h1.on-top', $main).length) me.$main.addClass('headline-on-top');
+        if (me.$sticky.length) me.$main.addClass('has-sticky');
         if (me.$image.length) me.$main.addClass('has-image');
         if (me.$image.length || me.$info.length) me.$main.addClass('has-content');
         if (me.$menu.length) me.$main.addClass('has-menu');
@@ -854,6 +861,7 @@ $(document).ready(function() {
         me.$image.load(function() {me.styleImage();});
         me.$window.resize(function() {me.onResize();});
         me.$window.scroll(function() {me.checkFixedPosition();});
+        me.$body.on('navigation-closed', function() {me.styleNavi();});
         $('img').load(function() {me.checkFixedPosition();});
         me.onResize();
     }
@@ -870,8 +878,10 @@ $(document).ready(function() {
         me.$main.css('height', '');
         
         if (!me.$body.hasClass('is-xs')) {
-            me.$main.height(me.$image.height());
-            me.$image.css('margin-top', '-' + Math.round(me.$image.height()/2) + 'px');
+            var image_height = me.$image.height();
+            me.$main.height(image_height);
+            me.$sticky.height(image_height);
+            me.$image.css('margin-top', '-' + Math.round(image_height/2) + 'px');
         }
         
         me.checkFixedPosition();
@@ -909,7 +919,7 @@ $(document).ready(function() {
         var me = this.me;
         
         if (!me.$nav.length) return;
-        if (me.$body.hasClass('navigation-open')) return;
+        //if (me.$body.hasClass('navigation-open')) return;
         
         
         var header_position = me.$menu_header.position();
@@ -922,7 +932,7 @@ $(document).ready(function() {
             if (me.$body.hasClass('is-xs')) right_margin += 40;
             else right_margin += 56;
         }
-        me.$menu_navi.width(me.$window.width() - right_margin - navi_offset.left);
+        if (!me.$body.hasClass('navigation-open')) me.$menu_navi.width(me.$window.width() - right_margin - navi_offset.left);
         
         
         
@@ -982,7 +992,7 @@ $(document).ready(function() {
         
         var nav_width = me.$nav.width();
         
-        if (nav_width >= me.$list.width()) {
+        if (nav_width >= me.$list.width() && me.left_nav == 0) {
             
             me.$prev.addClass('disabled');  
             me.$next.addClass('disabled');   
@@ -1043,22 +1053,70 @@ $(document).ready(function() {
         
         var me = this.me;
         
-        if (!me.$menu.length) return;
+        var is_xs = me.$body.hasClass('is-xs');
+        if (!me.$menu.length && !me.is_sticky) return;
+        if (!me.$menu.length && is_xs) {
+            me.$menu.css('top', '');
+            me.$sticky.css('top', '');
+            me.$main.removeClass('fixed-headline');
+            me.$headline.css('width', '');
+            return;
+        }
         
         var height = me.$main.height() + me.$main.offset().top + parseInt(me.$main.css('padding-bottom'));
         
-        if (me.$body.hasClass('is-xs')) {
-            height -= 40; // height of menu
-            height -= 40; // top position
+        if (is_xs) {
+            
+            var top = 40;
+            var menu_height = (me.$menu.length) ? 40 : 0;
+            
+            height -= menu_height; // height of menu/tabs
+            height -= top; // top position when fixed
+            
         } else {
-            height -= 56; // height of menu
-            height -= 60; // top position
+            
+            var top = 60;
+            var menu_height = (me.$menu.length) ? 56 : 0;
+            
+            if (me.is_sticky) {
+                top += me.$headline.height() + 100;   
+            }
+            
+            height -= menu_height; // height of menu/tabs
+            height -= top; // top position when fixed
         }
         
-        if (me.$window.scrollTop() >= height) {
+        var scroll_top = me.$window.scrollTop();
+        if (scroll_top >= height) {
+            
             me.$main.addClass('fixed');   
+            
+            if (me.is_sticky && !is_xs) {
+                var menu_height = (me.$menu.length) ? 56 : 0;
+                me.$menu.css('top',  top + 'px');
+                me.$sticky.css('top', '-' + (me.$sticky.height() - top - menu_height) + 'px');
+            } else {
+                me.$menu.css('top', '');   
+                me.$sticky.css('top', '');
+            }
+            
         } else {
             me.$main.removeClass('fixed');
+            me.$menu.css('top', '');
+            me.$sticky.css('top', '');
+        }
+        
+        if (me.is_sticky) {
+            
+            var offset = me.$sticky.offset().top;
+            
+            if (!is_xs && scroll_top >= offset) {
+                me.$main.addClass('fixed-headline');
+                me.$headline.width(me.$headline.parent().width());
+            } else {
+                me.$main.removeClass('fixed-headline');
+                me.$headline.css('width', '');
+            }   
         }
         
         me.styleNavi();

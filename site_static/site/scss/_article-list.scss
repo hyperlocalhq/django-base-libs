@@ -31,7 +31,7 @@
             border-bottom: 1px solid $grey-bright;
             padding-top: 20px;
             
-            &:hover {
+            &:hover, &:focus {
                 background: $white-dirty;
                 .is-xs & {
                     background: $white;

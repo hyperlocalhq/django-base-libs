@@ -48,8 +48,9 @@
             var $over = $('p', $element);
             
             var text_height = Math.round($text.height() / 2);
-            $text.css('margin-top', "-" + text_height + "px");
-            $over.css('margin-top', (text_height+10) + "px");
+            var offset = text_height * 0.2;
+            $text.css('margin-top', "-" + Math.round(text_height + offset) + "px");
+            $over.css('margin-top', Math.round(text_height+10 - offset) + "px");
             
         });
     }

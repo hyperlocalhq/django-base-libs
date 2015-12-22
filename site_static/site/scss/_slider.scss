@@ -38,7 +38,7 @@
                     background: $cyan;
                     display: inline-block;
                 }
-                &:hover {
+                &:hover, &:focus {
                     img {
                         opacity: 0.33;
                         .is-xs & {
@@ -86,7 +86,7 @@
                 }
             }
             
-            &:hover {
+            &:hover, &:focus {
                 .button-group {
                     .button {
                         display: inline-block;
@@ -126,7 +126,7 @@
                         &:before {
                             font-size: 1.67em;
                         }
-                        &:hover {
+                        &:hover, &:focus {
                             color: $black;
                         }
                     }
@@ -177,7 +177,7 @@
                 right: 35px;
                 .button {
                     color: $grey-light;
-                    &:hover {
+                    &:hover, &:focus {
                         color: $white;
                     }
                 }
@@ -190,7 +190,7 @@
                 color: $grey-light;
                 cursor: pointer;
                 line-height: 1.6em;
-                &:hover {
+                &:hover, &:focus {
                     color: $black;
                 }
                 &:before {
@@ -200,7 +200,7 @@
                 &.disabled {
                     opacity: 0.2;
                     cursor: default;
-                    &:hover {
+                    &:hover, &:focus {
                         color: $grey-light;
                     }
                 }
