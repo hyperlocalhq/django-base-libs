@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+{% load i18n base_tags auth_extended bulletin_board_tags compressed compressed_jetson site_specific image_modifications browsing %}
+
+{% block open_graph %}
+    <meta property="og:title" content="{{ object.get_title }}"/>
+    <meta property="og:type" content="article"/>
+    {% if object.image %}
+	        <meta property="og:image" content="{{ website_url|slice:":-1" }}{{ UPLOADS_URL }}{{ object.image.path|modified_path:"og" }}" />
+	    {% else %}
+	        <meta property="og:image" content="{{ website_url|slice:":-1" }}{{ STATIC_URL }}site/img/kb_logo_facebook.png"/>
+	    {% endif %}
+    <meta property="og:url" content="{{ object.get_url_path }}"/>
+    <meta property="og:site_name" content="Kreatives Brandenburg"/>
+    <meta property="og:description" content="{{ object.get_description|striptags|truncatewords:100 }}..."/>
+{% endblock %}
+
+{% block title %}{{ object.get_title|escape }}{% endblock %}
+
+{% block extrahead %}
+	{{ block.super }}
+	<script type="text/javascript">
+	self.oCurrentObject = {
+	    id: "{{ object.pk }}",
+	    content_type_id: "{{ object|content_type_id }}"
+	};
+	</script>
+{% endblock %}
+
+{% block meta_description %}
+	<meta name="description" content="{{ object.get_description|striptags|truncatewords:100 }}..." />
+{% endblock %}
+
+{% block bodyclass %}object-details{% endblock %}
+
+{% block breadcrumbs %}
+    <a href="/">{% trans "Home" %}</a>
+    <a href="/{{ URL_ID_BULLETIN_BOARD }}/">{% trans "Bulletin Board" %}</a>
+    <span>{{ object.get_title }}</span>
+{% endblock %}
+
+{% block extrabody %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+{% endblock %}
+
+{% block headline %}
+	<h1>{{ object.get_title }}</h1>
+{% endblock %}	
+
+{% block content %}
+    {% with object as bulletin %}
+        <div class="vevent">
+            <div class="article short editable">
+                <div class="head">
+                    <div id="dyn_avatar" class="dyn_section bulletin_avatar">
+                        <div class="article_img">
+                            {% if object.image %}
+                                <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"ad" }}" alt="{{ object.get_title|escape }}" title="{{ object.get_title|escape }}" />
+                                {% if object|can_be_changed:request.user %}
+                                    <!--<a href="{% cropping_url bulletin.image.path "ad" request request.path %}" class="but_edit recrop_link"><span><span>Adjust image</span></span></a>-->
+                                {% endif %}
+                            {% else %}
+                                <img alt="{{ object.get_title|escape }}" src="{{ STATIC_URL }}site/img/website/placeholder/default/news.png" />
+                            {% endif %}
+                        </div>
+                        {% if object.image_description %}
+                            <div class="caption">
+                                <p>{{ object.image_description }}</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div id="dyn_content" class="dyn_section">
+                    <div class="dyn_section_content">
+                        <h1>{{ object.get_title }}</h1>
+                        {% if object.description %}
+                            <div class="dyn_section_content">
+                                <p>{{ object.get_description|urlize|linebreaks }}</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% if request.user.is_authenticated and object|can_be_changed:request.user %}
+                        <a id="but_edit_content" href="{% url "change_bulletin" token=object.get_token %}" class="but_edit"><span><span>bearbeiten</span></span></a>
+                    {% endif %}
+
+                    <div class="section-details address_field_last">
+                        <div class="bulletin-contact">
+                            <dl>
+                                <dt>{% trans "Contact" %}</dt>
+                                {% if object.institution %}
+                                    <dd>
+                                        {% if object.institution.status == "published" %}
+                                            <a href="{{ object.institution.get_url_path }}">{{ object.institution.title }}</a>
+                                        {% else %}
+                                            {{ object.institution.title }}
+                                        {% endif %}
+                                    </dd>
+                                {% endif %}
+                                {% if object.contact_person %}
+                                    <dd>{{ object.contact_person }}</dd>
+                                {% endif %}
+                            </dl>
+                        </div>
+                        {% if object.phone %}
+                            <dl>
+                                <dd class="tel">
+                                    <abbr class="type">{% trans "Phone" %}:</abbr>
+                                    <span class="value">&nbsp;{{ object.phone }}</span>
+                                </dd>
+                            </dl>
+                        {% endif %}
+                        {% if object.email %}
+                            <dl>
+                                <dd class="tel">
+                                    <span class="value"><a href="mailto:{{ object.email }}">{{ object.email }}</a></span>
+                                </dd>
+                            </dl>
+                        {% endif %}
+                        
+                    </div>
+                    {% if object.external_url and object.content_provider %}
+                        <p><a href="{{ object.external_url }}" target="_blank">{% blocktrans with content_provider_title=object.content_provider.title %}More info at {{ content_provider_title }}{% endblocktrans %}</a></p>
+                    {% endif %}
+
+                </div>
+                <div>
+                    <h3>{% trans "Categories" %}</h3>
+                    <dl class="extra_info">
+                        {% if object.bulletin_type %}
+                            <dt>{% trans "Bulletin Type" %}</dt>
+                            <dd>{% trans object.bulletin_type %}</dd>
+                        {% endif %}
+                        {% if object.bulletin_category %}
+                            <dt>{% trans "Bulletin Category" %}</dt>
+                            <dd>{{ object.bulletin_category }}</dd>
+                        {% endif %}
+                        {% if object.categories %}
+                            <dt>{% trans "Categories" %}</dt>
+                            {% for item in object.categories.all %}
+                                <dd>{{ item }}</dd>
+                            {% endfor %}
+                        {% endif %}
+                        <dt>{% trans "Location type" %}</dt>
+                        <dd>
+                            {% if object.locality_type %}
+                                {{ object.locality_type }}
+                            {% else %}
+                                {% trans "All" %}
+                            {% endif %}
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            {% if request.user.is_authenticated %}
+                {% if object|can_be_changed:request.user and request.user.is_staff %}
+                    <a href="/admin/bulletin_board/bulletin/{{ object.pk }}/" class="btn btn-small btn-danger" target="_blank">Admin</a>
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endwith %}
+    <script>
+        (function() {
+    
+            function onImageOver() {
+                
+                var $a = jQuery("a", jQuery(this));
+                $a.css("display", "block");
+                $a.css("opacity", "1");
+            
+            }
+            function onImageOut() {
+                
+                var $a = jQuery("a", jQuery(this));
+                $a.css("display", "none");
+                $a.css("opacity", "0");
+            }
+            jQuery('.dyn_section_content').hover(onImageOver, onImageOut);
+    
+        })();
+    </script>
+{% endblock %}

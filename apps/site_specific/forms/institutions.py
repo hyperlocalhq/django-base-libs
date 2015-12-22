@@ -11,6 +11,7 @@ from base_libs.utils.misc import get_related_queryset, XChoiceList
 
 from jetson.apps.location.models import Address
 from jetson.apps.optionset.models import PhoneType
+from jetson.apps.utils.forms import ModelMultipleChoiceTreeField
 
 from ccb.apps.institutions.models import Institution, InstitutionalContact
 from ccb.apps.site_specific.models import ContextItem
@@ -1564,109 +1565,24 @@ class OpeningHoursForm(dynamicforms.Form):
 
 
 class CategoriesForm(dynamicforms.Form):
-    # TODO: rework categories to use CheckboxSelectMultiple widget when it is clear what categorizations to use at all
-    choose_creative_sectors = forms.BooleanField(
-        initial=True,
-        widget=forms.HiddenInput(
-            attrs={
-                "class": "form_hidden",
-            }
-        ),
-        required=False,
+    categories = ModelMultipleChoiceTreeField(
+        label=_("Categories"),
+        queryset=get_related_queryset(Institution, "categories"),
+        required=True,
     )
 
-    def clean_choose_creative_sectors(self):
-        data = self.data
-        el_count = 0
-        for el in self.creative_sectors.values():
-            if el['field_name'] in data:
-                el_count += 1
-        if not el_count:
-            raise forms.ValidationError(_("Please choose at least one creative sector."))
-        return True
-
-    choose_context_categories = forms.BooleanField(
-        initial=True,
-        widget=forms.HiddenInput(
-            attrs={
-                "class": "form_hidden",
-            }
-        ),
-        required=False,
+    institution_types = ModelMultipleChoiceTreeField(
+        label=_("Types"),
+        queryset=get_related_queryset(Institution, "institution_types"),
+        required=True,
     )
-
-    def clean_choose_context_categories(self):
-        data = self.data
-        el_count = 0
-        for el in self.context_categories.values():
-            if el['field_name'] in data:
-                el_count += 1
-        if not el_count:
-            raise forms.ValidationError(_("Please choose at least one context category."))
-        return True
-
-    choose_object_types = forms.BooleanField(
-        initial=True,
-        widget=forms.HiddenInput(
-            attrs={
-                "class": "form_hidden",
-            }
-        ),
-        required=False,
-    )
-
-    def clean_choose_object_types(self):
-        data = self.data
-        el_count = 0
-        for el in self.object_types.values():
-            if el['field_name'] in data:
-                el_count += 1
-        if not el_count:
-            raise forms.ValidationError(_("Please choose at least one object type."))
-        return True
 
     def __init__(self, institution, index, *args, **kwargs):
         super(CategoriesForm, self).__init__(*args, **kwargs)
         self.institution = institution
-        self.creative_sectors = {}
-        for item in get_related_queryset(Institution, "creative_sectors"):
-            self.creative_sectors[item.sysname] = {
-                'id': item.id,
-                'field_name': PREFIX_CI + str(item.id),
-            }
-        self.context_categories = {}
-        for item in get_related_queryset(Institution, "context_categories"):
-            self.context_categories[item.sysname] = {
-                'id': item.id,
-                'field_name': PREFIX_BC + str(item.id),
-            }
-        self.object_types = {}
-        for item in get_related_queryset(Institution, "institution_types"):
-            self.object_types[item.slug] = {
-                'id': item.id,
-                'field_name': PREFIX_OT + str(item.id),
-            }
-        for s in self.creative_sectors.values():
-            self.fields[s['field_name']] = forms.BooleanField(
-                required=False
-            )
-        for el in institution.get_creative_sectors():
-            for ancestor in el.get_ancestors(include_self=True):
-                self.fields[PREFIX_CI + str(ancestor.id)].initial = True
-        for c in self.context_categories.values():
-            self.fields[c['field_name']] = forms.BooleanField(
-                required=False
-            )
-        for el in institution.get_context_categories():
-            for ancestor in el.get_ancestors(include_self=True):
-                self.fields[PREFIX_BC + str(ancestor.id)].initial = True
-        for t in self.object_types.values():
-            self.fields[t['field_name']] = forms.BooleanField(
-                required=False
-            )
-        for el in institution.get_object_types():
-            for ancestor in el.get_ancestors(include_self=True):
-                self.fields[PREFIX_OT + str(ancestor.id)].initial = True
+
+        self.fields['categories'].initial = self.institution.categories.all()
+        self.fields['institution_types'].initial = self.institution.institution_types.all()
 
         self.helper = FormHelper()
         self.helper.form_action = "/helper/edit-%(URL_ID_INSTITUTION)s-profile/%(slug)s/categories/" % {
@@ -1681,9 +1597,11 @@ class CategoriesForm(dynamicforms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Categories"),
-                "choose_creative_sectors",
-                "choose_context_categories",
-                "choose_object_types",
+                layout.Div(layout.Field("categories", template="bootstrap3/custom_widgets/checkboxselectmultipletree.html")),
+            ),
+            layout.Fieldset(
+                _("Institution Types"),
+                layout.Div(layout.Field("institution_types", template="bootstrap3/custom_widgets/checkboxselectmultipletree.html")),
             ),
             bootstrap.FormActions(
                 layout.Button('cancel', _('Cancel')),
@@ -1694,41 +1612,13 @@ class CategoriesForm(dynamicforms.Form):
     def save(self, *args, **kwargs):
         institution = self.institution
         cleaned = self.cleaned_data
-        selected_cs = {}
-        for item in get_related_queryset(Institution, "creative_sectors"):
-            if cleaned.get(PREFIX_CI + str(item.id), False):
-                # remove all the parents
-                for ancestor in item.get_ancestors():
-                    if ancestor.id in selected_cs:
-                        del (selected_cs[ancestor.id])
-                # add current
-                selected_cs[item.id] = item
-        institution.creative_sectors.clear()
-        institution.creative_sectors.add(*selected_cs.values())
 
-        selected_cc = {}
-        for item in get_related_queryset(Institution, "context_categories"):
-            if cleaned.get(PREFIX_BC + str(item.id), False):
-                # remove all the parents
-                for ancestor in item.get_ancestors():
-                    if ancestor.id in selected_cc:
-                        del (selected_cc[ancestor.id])
-                # add current
-                selected_cc[item.id] = item
-        institution.context_categories.clear()
-        institution.context_categories.add(*selected_cc.values())
+        institution.categories.clear()
+        institution.categories.add(*cleaned['categories'])
 
-        selected_ot = {}
-        for item in get_related_queryset(Institution, "institution_types"):
-            if cleaned.get(PREFIX_OT + str(item.id), False):
-                # remove all the parents
-                for ancestor in item.get_ancestors():
-                    if ancestor.id in selected_ot:
-                        del (selected_ot[ancestor.id])
-                # add current
-                selected_ot[item.id] = item
         institution.institution_types.clear()
-        institution.institution_types.add(*selected_ot.values())
+        institution.institution_types.add(*cleaned['institution_types'])
+
         ContextItem.objects.update_for(institution)
         return institution
 

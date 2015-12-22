@@ -101,6 +101,7 @@ INSTALLED_APPS = [
     "kombu.transport.django",
     "captcha",
     "social.apps.django_app.default",
+    "bootstrap_pagination",
 
     ### django-cms ###
     'cms',  # django CMS itself
@@ -178,6 +179,7 @@ INSTALLED_APPS = [
     "ccb.apps.accounts",
     "ccb.apps.network",
     "ccb.apps.navigation",
+    "ccb.apps.bulletin_board",
     "ccb",  # just for i18n in Javascript
     "actstream",
 ]
@@ -299,8 +301,12 @@ ADMIN_APP_INDEX = (
                 'models': ("JobOffer", "JobSector", "JobType", "JobQualification",),
                 'icon': 'page_white',
             }),
+            ('bulletin_board', {
+                'models': ("BulletinContentProvider", "BulletinCategory", "Bulletin",),
+                'icon': 'page_white',
+            }),
             ('auth', {
-                'verbose_name': _("Authentication"),
+                'verbose_name': _("Authentication & Authorization"),
                 'models': ("Group", "User"),
                 'icon': 'key',
             }),
@@ -922,7 +928,8 @@ AUTHENTICATION_BACKENDS = (
     #'social.backends.yahoo.YahooOAuth',
     #'social.backends.yahoo.YahooOpenId',
     #'social.backends.vimeo.VimeoOAuth1',
-    'social.backends.email.EmailAuth',
+    "jetson.apps.permissions.backends.RowLevelPermissionsBackend",
+    "jetson.apps.utils.backends.EmailBackend",
     'social.backends.username.UsernameAuth',
     'django.contrib.auth.backends.ModelBackend',
 )

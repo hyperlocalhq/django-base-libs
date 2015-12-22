@@ -359,6 +359,7 @@ def object_list(request, queryset,
             'results_per_page': paginate_by,
             'has_next': current_page.has_next(),
             'has_previous': current_page.has_previous(),
+            'current_page': current_page,
             'page': page,
             'next': next_page_number,
             'previous': previous_page_number,
@@ -473,8 +474,8 @@ FORM_STEPS = {
     'step_0': {
         'title': _("Some Title"),                           # default: ""
         'template': "path/to/some/template.html",           # required
-        'form': FormClass,                                  # required
-        'formsets': {
+        'form': FormClass,                                  # optional
+        'formsets': {                                       # optional
             'formset_name1': FormsetClass1,
             'formset_name2': FormsetClass2,
         },
@@ -485,21 +486,35 @@ FORM_STEPS = {
         ..
     },
     ..
+    'name': "form_name",                                    # required
+
     'oninit': init_func,                                    # optional;
                                                             # passed args: instance=None;
                                                             # returns form_step_data
+
     'onsubmit': submit_func,                                # optional; 
                                                             # passed args: current_step, request, form_steps, instance=None;
                                                             # returns form_step_data
+
     'on_set_extra_context': set_extra_context,              # optional,
                                                             # passed args: current_step, request, form_steps, instance=None;
-                                                            # returns exztra context dictionary
+                                                            # returns extra context dictionary
+
+    'onreset': return_func,                                 # optional;
+                                                            # passed args: request, instance=None;
+                                                            # returns HttpResponse object
+
     'onsave': save_func,                                    # required;
                                                             # passed args: form_steps, form_step_data, instance=None;
                                                             # returns form_step_data
-    'name': "form_name",                                    # required
+
+    'onsuccess': success_func,                              # optional
+                                                            # passed args: request, instance=None;
+                                                            # returns HttpResponse object
+
     'success_url': "/path/to/redirect/to/",                 # optional
-    'success_template': "path/to/template_of_success.html", # required if 'success_url' is not set
+    'success_template': "path/to/template_of_success.html", # required if neither 'onsuccess' nor 'success_url' is not set
+
     'default_path': ["step_0", "step_1",..]
 }
 
@@ -653,7 +668,7 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
     
     initial_data = form_steps[current_step].get('initial_data', {})
     
-    form_class = form_steps[current_step]['form']
+    form_class = form_steps[current_step].get('form', None)
     formset_classes = form_steps[current_step].setdefault("formsets", {})
     formsets = {}
     
@@ -665,21 +680,28 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
             if multistep_forms_name in request.httpstate:
                 del(request.httpstate[multistep_forms_name])
             if 'onreset' in form_steps:
-                return form_steps['onreset'](request)
+                if instance:
+                    return form_steps['onreset'](request, instance)
+                else:
+                    return form_steps['onreset'](request)
             return HttpResponseRedirect(request.path)
 
         # TODO: decide if it's still necessary to do this initial_data check
         # why can't request.POST be used instead for the form?
-        fields = form_class().fields
+        #fields = form_class().fields
         #data = dict([
         #    (item[0], item[1])
         #    for item in data.items()
         #    if item[0] in fields
         #        and (item[0] not in initial_data or item[1]!=initial_data[item[0]])
         #    ])
-        if instance:
-            f = form_class(data, request.FILES, instance=instance)
+        if form_class:
+            if instance:
+                f = form_class(data, request.FILES, instance=instance)
+            else:
+                f = form_class(data, request.FILES)
         else:
+            form_class = forms.Form
             f = form_class(data, request.FILES)
         
         formsets_are_valid = True
@@ -802,8 +824,15 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
                         form_step_data = form_steps['onsave'](form_steps, form_step_data)
                 if multistep_forms_name in request.httpstate:
                     del(request.httpstate[multistep_forms_name])
-                if form_steps.get('success_url', False): 
-                    return HttpResponseRedirect(form_steps['success_url'])
+
+                # return the user to onsuccess response, success_url or render a success_template
+                if 'onsuccess' in form_steps:
+                    if instance:
+                        return form_steps['onsuccess'](request, instance)
+                    else:
+                        return form_steps['onsuccess'](request)
+                elif form_steps.get('success_url', False):
+                    return redirect(form_steps['success_url'])
                 else:
                     form_step_data['current_step'] = None
                     current_step = None
@@ -820,7 +849,7 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
             return HttpResponseRedirect("%s?step=%s" % (request.path, new_step_counter + 1))
         else:
             messages.error(request, form_steps.get('general_error_message', GENERAL_ERROR_MESSAGE))
-        for field_name in fields:
+        for field_name in f.fields:
             if not f.data.get(field_name, False):
                 f.data[field_name] = f.fields[field_name].initial
         
@@ -837,9 +866,13 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
                 new_v = [(not isinstance(item, models.Model) and [item] or [item.pk])[0] for item in v]
                 data[k] = new_v
 
-        if instance:
-            f = form_class(initial=data, instance=instance)
+        if form_class:
+            if instance:
+                f = form_class(initial=data, instance=instance)
+            else:
+                f = form_class(initial=data)
         else:
+            form_class = forms.Form
             f = form_class(initial=data)
         
         for formset_name, formset_class in formset_classes.items():

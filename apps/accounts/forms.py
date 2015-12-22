@@ -232,35 +232,14 @@ class SimpleRegistrationFormBase(dynamicforms.Form):
 
 
 class SimpleRegistrationForm(SimpleRegistrationFormBase):
-    choose_creative_sectors = forms.BooleanField(
-        initial=True,
-        widget=forms.HiddenInput(
-            attrs={
-                "class": "form_hidden",
-            }
-        ),
-        required=False,
+    categories = ModelMultipleChoiceTreeField(
+        label=_("Categories"),
+        queryset=get_related_queryset(Person, "categories"),
+        required=True,
     )
-    # creative_sector_checkboxes = ModelMultipleChoiceTreeField(
-    #     label=_("Creative Sectors"),
-    #     queryset=get_related_queryset(Person, "creative_sectors"),
-    #     required=True,
-    # )
 
     def __init__(self, *args, **kwargs):
         super(SimpleRegistrationForm, self).__init__(*args, **kwargs)
-
-        self.creative_sectors = {}
-        for item in get_related_queryset(Person, "creative_sectors"):
-            self.creative_sectors[item.sysname] = {
-                'id': item.id,
-                'field_name': PREFIX_CI + str(item.id),
-            }
-
-        for s in self.creative_sectors.values():
-            self.fields[s['field_name']] = forms.BooleanField(
-                required=False
-            )
 
         self.newsletter_fields = []
         self.newsletter_field_names = []
@@ -291,8 +270,8 @@ class SimpleRegistrationForm(SimpleRegistrationFormBase):
                 "password_confirm",
             ),
             layout.Fieldset(
-                _("Creative Sectors"),
-                layout.Div(layout.Field("creative_sector_checkboxes", template="utils/checkboxselectmultipletree.html")),
+                _("Categories"),
+                layout.Div(layout.Field("categories", template="bootstrap3/custom_widgets/checkboxselectmultipletree.html")),
             ),
             layout.Fieldset(
                 _("Confirmation"),
@@ -306,27 +285,6 @@ class SimpleRegistrationForm(SimpleRegistrationFormBase):
             )
         )
 
-    def clean(self):
-        super(SimpleRegistrationForm, self).clean()
-        cleaned = self.cleaned_data
-        non_field_errors = []
-        errors = False
-
-        # check if at least one creative sector is chosen
-        el_count = 0
-        for el in self.creative_sectors.values():
-            if cleaned.get(el['field_name'], False):
-                el_count += 1
-        if not el_count:
-            non_field_errors.append(_("Please choose at least one creative sector."))
-            errors = True
-
-        if errors:
-            # raise an error so that the form doesn't validate
-            raise forms.ValidationError(non_field_errors)
-
-        return cleaned
-
     def save(self, activate_immediately=False):
         user = super(SimpleRegistrationForm, self).save(activate_immediately=activate_immediately)
         cleaned = self.cleaned_data
@@ -335,17 +293,8 @@ class SimpleRegistrationForm(SimpleRegistrationFormBase):
 
         person = user.profile
 
-        selected_cs = {}
-        for item in get_related_queryset(Person, "creative_sectors"):
-            if cleaned.get(PREFIX_CI + str(item.id), False):
-                # remove all the parents
-                for ancestor in item.get_ancestors():
-                    if ancestor.id in selected_cs:
-                        del (selected_cs[ancestor.id])
-                # add current
-                selected_cs[item.id] = item
-        person.creative_sectors.clear()
-        person.creative_sectors.add(*selected_cs.values())
+        person.categories.clear()
+        person.categories.add(*cleaned['categories'])
 
         try:
             s = Settings.objects.get()

@@ -1,0 +1,53 @@
+{% extends "utils/lists/base_context_item.html" %}
+{% load i18n base_tags babel image_modifications %}
+
+{% block object_image %}
+    <a href="{{ bulletin.get_url_path }}">
+        {% if bulletin.image %}
+            <img alt="{{ bulletin.get_title|escape }}" src="{{ UPLOADS_URL }}{{ bulletin.image|modified_path:"al" }}" />
+        {% else %}
+            <img alt="{{ bulletin.get_title|escape }}" src="{{ STATIC_URL }}site/img/website/placeholder/default/news.png" />
+        {% endif %}
+    </a>
+{% endblock %}
+
+{% block object_title %}
+    {{ bulletin.get_title|escape }}
+    {% if show_status %}<small>({{ bulletin.get_status_display }})</small>{% endif %}
+{% endblock %}
+
+{% block object_absolute_url %}{{ bulletin.get_url_path }}{% if bulletin.status == "draft" %}?preview=1{% endif %}{% endblock %}
+
+{% block object_content %}
+	
+    {% if bulletin.description %}<div class="type">{{ bulletin.get_description|linebreaks|truncatewords_html:40 }}</div>{% endif %}
+    <address class="location">
+        {% if bulletin.institution %}
+            <span>
+                {% if bulletin.institution.status == "published" %}
+                    <a href="{{ bulletin.institution.get_url_path }}">{{ bulletin.institution.title }}</a>
+                {% else %}
+                    {{ bulletin.institution.title }}
+                {% endif %}
+            </span>
+        {% endif %}
+        {% if bulletin.contact_person %}
+            <span>{{ bulletin.contact_person }}</span>
+        {% endif %}
+        {% if bulletin.phone %}
+            <span>{{ bulletin.phone }}</span>
+        {% endif %}
+        {% if bulletin.email %}
+            <span><a href="mailto:{{ bulletin.email }}">{{ bulletin.email }}</a></span>
+        {% endif %}
+    </address>
+    {% if bulletin.bulletin_type %}
+        <p class="bulletin-type-category">{{ bulletin.get_type }}{% if bulletin.category %} {{ bulletin.category }}{% endif %}</p>
+    {% else %}
+        {% if bulletin.category %}<p class="bulletin-type-category">{{ bulletin.category }}</p>{% endif %}
+    {% endif %}
+    {% if my_list %}
+        <div></br>{% trans "Published till" %} {{ bulletin.published_till|date:"d. m. Y H:i" }}</div>
+    {% endif %}
+{% endblock %}
+

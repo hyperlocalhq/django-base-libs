@@ -56,3 +56,40 @@ class ArticleImportSource(Service):
         verbose_name_plural = _("article-import sources")
         ordering = ("title",)
         db_table = "external_services_ais"
+
+
+class BulletinImportSource(Service):
+    STATUS_CHOICES = (
+        ("draft", _("Draft")),
+        ("published", _("Published")),
+        ("import", _("Imported")),
+    )
+
+    default_categories = TreeManyToManyField(
+        "structure.Category",
+        verbose_name=_("Categories"),
+        help_text=_("Categories to apply to the imported bulletins by default."),
+        blank=True,
+        null=True,
+    )
+
+    default_status = models.CharField(
+        _("status"),
+        choices=STATUS_CHOICES,
+        default="draft",
+        max_length=20,
+        help_text=_("Status to apply to the imported bulletins by default."),
+    )
+
+    content_provider = models.ForeignKey(
+        "bulletin_board.BulletinContentProvider",
+        verbose_name=_("Content provider"),
+        blank=True,
+        null=True,
+    )
+
+    class Meta:
+        verbose_name = _("bulletin-import source")
+        verbose_name_plural = _("bulletin-import sources")
+        ordering = ("title",)
+        db_table = "external_services_bis"
