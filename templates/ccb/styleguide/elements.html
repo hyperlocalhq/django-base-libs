@@ -328,7 +328,7 @@
 <pre>&lt;div class="row event-grid">
     &lt;div class="col-xs-12 col-sm-4 col-md-3">
         &lt;a class="content tap-hover tap-hover-trigger" href="#">
-            &lt;img src="http://placehold.it/540x540&text=image"/>
+            &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ event.image|modified_path:"event_row" }}" alt="&#123;{ event.get_title|escape }}/>
             &lt;h2>Titel der Veranstaltung&lt;/h2>
             &lt;p>&lt;time datetime="2015-12-12">Sa, 12. Dez. 2015&lt;/time>Location Name&lt;/p>
         &lt;/a>
@@ -632,7 +632,7 @@
     &lt;div class="col-xs-12">
         &lt;div class="wrapper">
             &lt;a class="content" href="#">
-                &lt;img src="http://placehold.it/200x208&text=image">
+                &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ list_event.image|modified_path:"list" }}" alt="&#123;{ list_event.get_title|escape }}"/>
                 &lt;div class="text">
                     &lt;h3>Rubrik&lt;/h3>
                     &lt;h2>Titel der Veranstaltung&lt;/h2>
@@ -964,6 +964,161 @@
 data-popup-image-src="&#123;{ article.image }}" alt="..."/>
 &lt;h5 class="caption">Caption&lt;/h5>   &lt;-- use it only beneath an image</pre>
                 <p>If the image doesn't have a caption, leave the &lt;h5> tag empty or remove it entirely.</p>
+                <br/>
+                <br/>
+                <br/>
+                <p class="uppercase underline">Blog grid</p>
+                <p>Requirements:<br/>
+                    &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/blog-grid.js">&lt;/script><br/>
+                </p>
+                <br/>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                
+                Navigation
+                
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                <div class="row blog-grid">
+                    <div class="col-xs-12">
+                        <a class="content" href="#">
+                            <img class="hidden-xs" src="http://placehold.it/850x485&text=image"/>
+                            <img class="visible-xs" src="http://placehold.it/410x305&text=image"/>
+                            <div class="subline">
+                                <h3><time datetime="2015-10-08 17:45:00" class="hidden-xs">08. Oktober 2015, 17:45</time><time datetime="2015-10-08 17:45:00" class="visible-xs">08. Okt. 2015, 17:45</time></h3>
+                                <div class="statistics">
+                                    <div class="fawesome fa-comment smaller"><span class="text">3</span></div>
+                                    <div class="fawesome fa-favorite smaller"><span class="text">126</span></div>
+                                    <div class="fawesome fa-more smaller"><span class="text">17</span></div>
+                                </div>
+                            </div>
+                            <h2>Headline latest Blog Post: Lorem ipsum dolor sit amet, consetetur sadipscing elitr</h2>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <a class="content" href="#">
+                            <img src="http://placehold.it/410x500&text=image"/>
+                            <div class="subline">
+                                <h3><time datetime="2015-10-08 17:45:00">08. Okt. 2015, 17:45</time></h3>
+                                <div class="statistics">
+                                    <div class="fawesome fa-comment smaller"><span class="text">3</span></div>
+                                    <div class="fawesome fa-favorite smaller"><span class="text">126</span></div>
+                                    <div class="fawesome fa-more smaller"><span class="text">17</span></div>
+                                </div>
+                            </div>
+                            <h2>Headline next Blog Post: Lorem ipsum dolor sit amet, consetetur sadipscing elitr</h2>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <a class="content" href="#">
+                            <div class="subline">
+                                <h3><time datetime="2015-10-08 17:45:00">08. Okt. 2015, 17:45</time></h3>
+                                <div class="statistics">
+                                    <div class="fawesome fa-comment smaller"><span class="text">3</span></div>
+                                    <div class="fawesome fa-favorite smaller"><span class="text">126</span></div>
+                                    <div class="fawesome fa-more smaller"><span class="text">17</span></div>
+                                </div>
+                            </div>
+                            <h2>Headline next Blog Post: Lorem ipsum dolor sit amet, consetetur sadipscing elitr</h2>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <a class="content" href="#">
+                            <img src="http://placehold.it/410x250&text=image"/>
+                            <div class="subline">
+                                <h3><time datetime="2015-10-08 17:45:00">08. Okt. 2015, 17:45</time></h3>
+                                <div class="statistics">
+                                    <div class="fawesome fa-comment smaller"><span class="text">3</span></div>
+                                    <div class="fawesome fa-favorite smaller"><span class="text">126</span></div>
+                                    <div class="fawesome fa-more smaller"><span class="text">17</span></div>
+                                </div>
+                            </div>
+                            <h2>Headline next Blog Post: Lorem ipsum dolor sit amet, consetetur sadipscing elitr</h2>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <a class="content" href="#">
+                            <div class="subline">
+                                <h3><time datetime="2015-10-08 17:45:00">08. Okt. 2015, 17:45</time></h3>
+                                <div class="statistics">
+                                    <div class="fawesome fa-comment smaller"><span class="text">3</span></div>
+                                    <div class="fawesome fa-favorite smaller"><span class="text">126</span></div>
+                                    <div class="fawesome fa-more smaller"><span class="text">17</span></div>
+                                </div>
+                            </div>
+                            <h2>Headline next Blog Post: Lorem ipsum dolor sit amet, consetetur sadipscing elitr</h2>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <br/>
+                <p>Place the code inside the elements area of a navigation layout block.</p>
+<pre>&lt;div class="row blog-grid">
+    &lt;div class="col-xs-12">
+        &lt;a class="content" href="#">
+            &lt;img class="hidden-xs" src="&#123;{ UPLOADS_URL }}&#123;{ blog.image|modified_path:"blog_grid_big" }}" alt="&#123;{ blog.get_title|escape }}"/>
+            &lt;img class="visible-xs" src="&#123;{ UPLOADS_URL }}&#123;{ blog.image|modified_path:"blog_grid_small" }}" alt="&#123;{ blog.get_title|escape }}"/>
+            &lt;div class="subline">
+                &lt;h3>&lt;time class="hidden-xs" datetime="2015-10-08 17:45:00">08. Oktober 2015, 17:45&lt;/time>&lt;time class="visible-xs" datetime="2015-10-08 17:45:00">08. Okt. 2015, 17:45&lt;/time>&lt;/h3>
+                &lt;div class="statistics">
+                    &lt;div class="fawesome fa-comment smaller">&lt;span class="text">3&lt;/span>&lt;/div>
+                    &lt;div class="fawesome fa-favorite smaller">&lt;span class="text">126&lt;/span>&lt;/div>
+                    &lt;div class="fawesome fa-more smaller">&lt;span class="text">17&lt;/span>&lt;/div>
+                &lt;/div>
+            &lt;/div>
+            &lt;h2>Headline latest Blog Post: Lorem ipsum dolor sit amet, consetetur sadipscing elitr&lt;/h2>
+            &lt;p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.&lt;/p>
+        &lt;/a>
+    &lt;/div>
+    &lt;div class="col-xs-12 col-sm-6">
+        &lt;a class="content" href="#">
+            &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ blog.image|modified_path:"blog_grid_small" }}" alt="&#123;{ blog.get_title|escape }}"/>
+            &lt;div class="subline">
+                &lt;h3>&lt;time datetime="2015-10-08 17:45:00">08. Okt. 2015, 17:45&lt;/time>&lt;/h3>
+                &lt;div class="statistics">
+                    &lt;div class="fawesome fa-comment smaller">&lt;span class="text">3&lt;/span>&lt;/div>
+                    &lt;div class="fawesome fa-favorite smaller">&lt;span class="text">126&lt;/span>&lt;/div>
+                    &lt;div class="fawesome fa-more smaller">&lt;span class="text">17&lt;/span>&lt;/div>
+                &lt;/div>
+            &lt;/div>
+            &lt;h2>Headline next Blog Post: Lorem ipsum dolor sit amet, consetetur sadipscing elitr&lt;/h2>
+            &lt;p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.&lt;/p>
+        &lt;/a>
+    &lt;/div>
+    &lt;div class="col-xs-12 col-sm-6">
+        &lt;a class="content" href="#">
+            &lt;div class="subline">
+                &lt;h3>&lt;time datetime="2015-10-08 17:45:00">08. Okt. 2015, 17:45&lt;/time>&lt;/h3>
+                &lt;div class="statistics">
+                    &lt;div class="fawesome fa-comment smaller">&lt;span class="text">3&lt;/span>&lt;/div>
+                    &lt;div class="fawesome fa-favorite smaller">&lt;span class="text">126&lt;/span>&lt;/div>
+                    &lt;div class="fawesome fa-more smaller">&lt;span class="text">17&lt;/span>&lt;/div>
+                &lt;/div>
+            &lt;/div>
+            &lt;h2>Headline next Blog Post: Lorem ipsum dolor sit amet, consetetur sadipscing elitr&lt;/h2>
+            &lt;p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.&lt;/p>
+        &lt;/a>
+    &lt;/div>
+    ... keep adding col blocks
+    
+&lt;/div></pre>
+                <br/>
+                <p>Please notice the differences between the first col block and the others!!!</p>
                 <br/>
                 <br/>
                 <br/>
@@ -1987,6 +2142,7 @@ data-popup-image-src="&#123;{ article.image }}" alt="..."/>
 {% endblock %}
 
 {% block javascript %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/blog-grid.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/projects-grid.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/navi-grid.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/twitter-wall.js"></script>

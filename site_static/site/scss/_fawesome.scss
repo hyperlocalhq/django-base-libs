@@ -962,6 +962,9 @@ canvas.fawesome {
 .fawesome.fa-news:before {
     content: "\f1ea";
 }
+.fawesome.fa-comment:before {
+    content: "\f075";
+}
 
 
 
@@ -1163,4 +1166,7 @@ canvas.fawesome {
 }
 .fawesome.fa-news.after:after {
     content: "\f1ea";
+}
+.fawesome.fa-comment.after:after {
+    content: "\f075";
 }
