@@ -46,10 +46,10 @@
                 }
             });
             
-            if ($pages.length / 2 > active) {
-                $pages.last().addClass('hidden');   
-            } else {
+            if ($pages.length / 2 < active) {
                 $pages.first().addClass('hidden');   
+            } else { 
+                $pages.last().addClass('hidden');  
             }
             
             first_top = me.$first.position().top;
