@@ -18,7 +18,8 @@
         me.$pages = $('li.page', me.$main);
         
         $(window).resize(function() {me.setWidth(100);});
-        me.setWidth(100);
+        me.setWidth(200);
+        me.setWidth();
     }
     
     Pagination.prototype.setWidth = function(delay) {
@@ -46,7 +47,7 @@
                 }
             });
             
-            if ($pages.length / 2 < active) {
+            if ($pages.length / 2 <= active) {
                 $pages.first().addClass('hidden');   
             } else { 
                 $pages.last().addClass('hidden');  
