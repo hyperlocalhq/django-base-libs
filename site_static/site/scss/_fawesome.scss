@@ -965,7 +965,18 @@ canvas.fawesome {
 .fawesome.fa-comment:before {
     content: "\f075";
 }
-
+.fawesome.fa-left-double:before {
+    content: "\f100";
+}
+.fawesome.fa-right-double:before {
+    content: "\f101";
+}
+.fawesome.fa-up-double:before {
+    content: "\f102";
+}
+.fawesome.fa-down-double:before {
+    content: "\f103";
+}
 
 
 
@@ -1169,4 +1180,16 @@ canvas.fawesome {
 }
 .fawesome.fa-comment.after:after {
     content: "\f075";
+}
+.fawesome.fa-left-double.after:after {
+    content: "\f100";
+}
+.fawesome.fa-right-double.after:after {
+    content: "\f101";
+}
+.fawesome.fa-up-double.after:after {
+    content: "\f102";
+}
+.fawesome.fa-down-double.after:after {
+    content: "\f103";
 }

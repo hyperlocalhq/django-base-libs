@@ -1,34 +1,53 @@
-{% load bootstrap_pagination %}
-<ul class="pagination{% if size == "small" %} pagination-sm{% endif %}{% if size == "large" %} pagination-lg{% endif %}{% block extra_classes %}{% endblock %}">
-{% if show_first_last %}
-     <li {% if not page.has_previous %}class="disabled"{% endif %}>
-        <a title="First Page" href="{{ first_page_url|default:"#" }}">{{first_label}}</a>
-     </li>
-{% endif %}
-{% if show_prev_next %}
-    <li {% if not page.has_previous %}class="disabled"{% endif %}>
-        <a title="Previous Page" href="{{ previous_page_url|default:"#" }}">{{ previous_label }}</a>
-    </li>
-{% endif %}
-{% for pagenum, url in page_urls %}
-    {% if page.number == pagenum %}
-        <li class="active">
-            <a title="Current Page" href="#">{{ pagenum }}</a>
-        </li>
-    {% else %}
-        <li>
-            <a title="Page {{ pagenum }} of {{ page.paginator.num_pages }}" href="{{ url }}">{{ pagenum }}</a>
-        </li>
-    {% endif %}
-{% endfor %}
-{% if show_prev_next %}
-    <li {% if not page.has_next %}class="disabled"{% endif %}>
-        <a title="Next Page" href="{{ next_page_url|default:"#" }}">{{ next_label }}</a>
-    </li>
-{% endif %}
-{% if show_first_last %}
-    <li {% if not page.has_next %}class="disabled"{% endif %}>
-        <a title="Last Page" href="{{ last_page_url|default:"#" }}">{{last_label}}</a>
-    </li>
-{% endif %}
-</ul>
+{% load bootstrap_pagination i18n %}
+
+<div class="pagination">
+    <ul class="button-list">
+        {% if show_first_last %}
+            <li {% if not page.has_previous %}class="disabled"{% endif %}>
+                {% if page.has_previous %}
+                    <a title="{% trans 'First Page' %}" href="{{ first_page_url|default:"#" }}" class="fawesome fa-left-double"><span class="sr-only">{% trans 'First Page' %}</span></a>
+                {% else %}
+                    <span class="fawesome fa-left-double"><span class="sr-only">{% trans 'First Page' %}</span></span>
+                {% endif %}
+            </li>
+        {% endif %}
+        {% if show_prev_next %}
+            <li class="prev_next{% if not page.has_previous %} disabled{% endif %}">
+                {% if page.has_previous %}
+                    <a title="{% trans 'Previous Page' %}" href="{{ previous_page_url|default:"#" }}" class="fawesome fa-left"><span class="sr-only">{% trans 'Previous Page' %}</span></a>
+                {% else %}
+                    <span class="fawesome fa-left"><span class="sr-only">{% trans 'Previous Page' %}</span></span>
+                {% endif %}
+            </li>
+        {% endif %}
+        {% for pagenum, url in page_urls %}
+            {% if page.number == pagenum %}
+                <li class="active page">
+                    <a title="{% trans 'Current Page' %}" href="#">{{ pagenum }}</a>
+                </li>
+            {% else %}
+                <li class="page">
+                    <a title="{% blocktrans with pagenum=pagenum num_pages=page.paginator.num_pages %}Page {{ pagenum }} of {{ num_pages }}{% endblocktrans %}" href="{{ url }}">{{ pagenum }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+        {% if show_prev_next %}
+            <li class="prev_next{% if not page.has_next %} disabled{% endif %}">
+                {% if page.has_next %}
+                    <a title="{% trans 'Next Page' %}" href="{{ next_page_url|default:"#" }}" class="fawesome fa-right"><span class="sr-only">{% trans 'Next Page' %}</span></a>
+                {% else %}
+                    <span class="fawesome fa-right"><span class="sr-only">{% trans 'Next Page' %}</span></span>
+                {% endif %}
+            </li>
+        {% endif %}
+        {% if show_first_last %}
+            <li {% if not page.has_next %}class="disabled"{% endif %}>
+                {% if page.has_next %}
+                    <a title="{% trans 'Last Page' %}" href="{{ last_page_url|default:"#" }}" class="fawesome fa-right-double"><span class="sr-only">{% trans 'Last Page' %}</span></a>
+                {% else %}
+                    <span class="fawesome fa-right-double"><span class="sr-only">{% trans 'Last Page' %}</span></span>
+                {% endif %}
+            </li>
+        {% endif %}
+    </ul>
+</div>

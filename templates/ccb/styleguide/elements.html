@@ -722,6 +722,32 @@
                 <br/>
                 <br/>
                 <br/>
+                <p class="uppercase underline">Pagination</p>
+                <p>Requirements:<br/>
+                    &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/pagination.js">&lt;/script><br/>
+                </p>
+                <div class="pagination">
+                    <ul class="button-list">
+                        <li><a title="{% trans 'First Page' %}" href="#" class="fawesome fa-left-double"><span class="sr-only">{% trans 'First Page' %}</span></a></li>
+                        <li class="prev_next"><a title="{% trans 'Previous Page' %}" href="#" class="fawesome fa-left"><span class="sr-only">{% trans 'Previous Page' %}</span></a></li>
+                        <li class="page"><a title="{% blocktrans with pagenum=1 num_pages=10 %}Page {{ pagenum }} of {{ num_pages }}{% endblocktrans %}" href="#">1</a></li>
+                        <li class="page"><a title="{% blocktrans with pagenum=2 num_pages=10 %}Page {{ pagenum }} of {{ num_pages }}{% endblocktrans %}" href="#">2</a></li>
+                        <li class="page"><a title="{% blocktrans with pagenum=3 num_pages=10 %}Page {{ pagenum }} of {{ num_pages }}{% endblocktrans %}" href="#">3</a></li>
+                        <li class="page"><a title="{% blocktrans with pagenum=4 num_pages=10 %}Page {{ pagenum }} of {{ num_pages }}{% endblocktrans %}" href="#">4</a></li>
+                        <li class="page"><a title="{% blocktrans with pagenum=5 num_pages=10 %}Page {{ pagenum }} of {{ num_pages }}{% endblocktrans %}" href="#">5</a></li>
+                        <li class="page"><a title="{% blocktrans with pagenum=6 num_pages=10 %}Page {{ pagenum }} of {{ num_pages }}{% endblocktrans %}" href="#">6</a></li>
+                        <li class="page"><a title="{% blocktrans with pagenum=7 num_pages=10 %}Page {{ pagenum }} of {{ num_pages }}{% endblocktrans %}" href="#">7</a></li>
+                        <li class="page"><a title="{% blocktrans with pagenum=8 num_pages=10 %}Page {{ pagenum }} of {{ num_pages }}{% endblocktrans %}" href="#">8</a></li>
+                        <li class="page"><a title="{% blocktrans with pagenum=9 num_pages=10 %}Page {{ pagenum }} of {{ num_pages }}{% endblocktrans %}" href="#">9</a></li>
+                        <li class="page"><a title="{% blocktrans with pagenum=10 num_pages=10 %}Page {{ pagenum }} of {{ num_pages }}{% endblocktrans %}" href="#">10</a></li>
+                        <li class="prev_next"><a title="{% trans 'Next Page' %}" href="#" class="fawesome fa-right"><span class="sr-only">{% trans 'Next Page' %}</span></a></li>
+                        <li><a title="{% trans 'Last Page' %}" href="#" class="fawesome fa-right-double"><span class="sr-only">{% trans 'Last Page' %}</span></a></li>
+                    </ul>
+                </div>
+<pre>&#123;% include "utils/includes/pagination.html" %}</pre>
+                <br/>
+                <br/>
+                <br/>
                 <p class="uppercase underline">Job columns</p>
                 <br/>
             </div>

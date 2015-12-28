@@ -10,7 +10,7 @@
                 {% include "articles/articles_brief.html" %}
             {% endfor %}
         </div>
-        {% include "utils/includes/sorting_and_pagination.html" %}
+        {% include "utils/includes/pagination.html" %}
     {% endif %}
 {% endblock %}
 
@@ -19,3 +19,8 @@
     <li><a href="/news/{{ month|date:"Y" }}/">{{ month|date:"Y" }}</a></li>
     <li>{{ month|datefmt:"MMM" }}</li>
 {% endblock %}
+
+ {% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/pagination.js"></script>
+ {% endblock %}

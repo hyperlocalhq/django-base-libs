@@ -7,7 +7,7 @@
             {% if event.image %}
                 <img src="{{ UPLOADS_URL }}{{ event.image|modified_path:"list" }}" alt="{{ event.get_title|escape }}"/>
             {% else %}
-                <img src="http://placehold.it/200x208&text=image">
+                <img src="{{ STATIC_URL }}site/img/placeholder/event_list.png">
             {% endif %}
             <div class="text">
                 <h3>
