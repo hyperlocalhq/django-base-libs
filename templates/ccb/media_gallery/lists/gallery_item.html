@@ -1,4 +1,29 @@
 {% load i18n base_tags babel comments image_modifications memos favorites %}
+
+
+<div class="col-xs-12 col-sm-6">
+    <div class="wrapper tap-hover">
+        <a class="content tap-hover-trigger" href="{{ object.get_url_path }}">
+            {% if object.cover_image %}
+                <img src="{{ UPLOADS_URL }}{{ object.cover_image.path|modified_path:"project_grid" }}" alt=""/>
+            {% else %}
+                <img src="{{ object.mediafile_set.all.0.get_list_image_url }}" alt=""/>
+            {% endif %}
+            <h2>{{ object.content_object.get_title|escape }}</h2>
+        </a>
+        <div class="button-group">
+            {% if request.user.is_authenticated %}
+                {% adding2memos for object using "memos/memo_icon.html" %}
+                {% adding2favorites for object using "generic/favorite_icon.html" %}
+            {% else %}
+                {% adding2memos for object using "memos/memo_icon.html" %}
+                <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-favorite button"><span class="sr-only">{% trans "Add to favorites" %}</span></a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% comment %}
 <a href="{{ object.get_url_path }}">
     {% if object.cover_image %}
         <img width="184" height="184" src="{{ UPLOADS_URL }}{{ object.cover_image.path|modified_path:"glist" }}"
@@ -32,4 +57,4 @@
         </div>
     </div>
 </div>
-
+{% endcomment %}

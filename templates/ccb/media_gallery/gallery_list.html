@@ -1,22 +1,78 @@
-{% extends base_template|default:"base.html" %}
+{% extends base_template|default:"base_redesign.html" %}
 {% load i18n base_tags auth_extended navigation_tags %}
 
 {% block extrahead %}
-    <link rel="alternate" type="application/rss+xml" title="{% trans "Creative City Berlin Portfolios" %}"
-        href="/{{ LANGUAGE_CODE }}/portfolios/feeds/rss/"/>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <link rel="alternate" type="application/rss+xml" title="{% trans "Creative City Berlin Portfolios" %}" href="/{{ LANGUAGE_CODE }}/portfolios/feeds/rss/"/>
+    <!--<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
     <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/starrating/jquery.MetaData.js"></script>
-    <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/starrating/jquery.rating.js"></script>
+    <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/starrating/jquery.rating.js"></script>-->
 {% endblock %}
 
 {% block title %}{% trans "Portfolios" %}{% endblock %}
 
-{% block headline %}
+{% block content %}
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{% trans "Portfolios" %}</h1>
+                </div>
+            </div>
+        </div>
+        <div class="menu">
+            <div class="container">
+                <div class="row">
+                    <div class="hidden-xs col-sm-4 col-md-3 headline">
+                        <h2>{% trans "Portfolios" %}</h2>
+                    </div>
+                    <div class="navi">
+                        <nav>
+                            <ul>
+                                {% navigation_links "portfolios" using "navigation/includes/navigation_links_in_tabs.html" %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                {% if object_list %}
+                    <div class="row projects-grid">
+                        {% for object in object_list %}
+                            {% include_parsed "media_gallery/lists/gallery_item.html" %}
+                        {% endfor %}
+                    </div>
+                    {#% include "utils/includes/pagination.html" %#}
+                {% else %}
+                    <p>{% trans "No objects found within the selected conditions." %}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/projects-grid.js"></script>
+{% endblock %}
+
+
+
+
+
+
+{% block headline_old %}
     <h1>{% trans "Portfolios" %}</h1>
     <hr class="hidden"/>
 {% endblock %}
 
-{% block content %}
+{% block content_old %}
     {% block tabs %}
         <div id="tabs">
             {#% children_of "portfolios" using "navigation/children_in_tabs.html" %#}
@@ -33,7 +89,7 @@
             </div>
             <div class="inner_col2">
                 <div class="inner_col2_content">
-                    {% include "utils/includes/pagination.html" %}
+                    {#% include "utils/includes/pagination.html" %#}
                 </div>
             </div>
             <div class="inner_col3">
@@ -92,7 +148,7 @@
             </div>
             <div class="inner_col2">
                 <div class="inner_col2_content">
-                    {% include "utils/includes/pagination.html" %}
+                    {#% include "utils/includes/pagination.html" %#}
                 </div>
             </div>
             <div class="inner_col3">
@@ -128,6 +184,6 @@
 {% endblock %}
 
 
-{% block extrabody %}
+{% block extrabody_old %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
 {% endblock %}
