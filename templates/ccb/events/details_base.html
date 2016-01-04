@@ -1,23 +1,111 @@
-{% extends "base.html" %}
-{% load i18n base_tags navigation_tags babel %}
-
-{% block doctype %}
-    {{ block.super }}
-{% endblock %}
+{% extends "base_redesign.html" %}
+{% load i18n base_tags auth_extended image_modifications navigation_tags babel memos browsing favorites individual_relations %}
 
 {% block title %}{{ object.get_title|escape }}{% endblock %}
 
-{% block meta_description %}
+{% block meta_tags %}
+    {{ block.super }}
     <meta name="description" content="{{ object.get_description|striptags|truncatewords:100 }}..."/>
 {% endblock %}
 
-{% block bodyclass %}object-details{% endblock %}
+{% block content %}
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{% trans "Event" %}</h1>
+                    <div class="profile">
+                        
+                        {% if object.image %}
+                            <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if_has_perm "events.change_event" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ object.title|escape }}"/>
+                        {% else %}
+                            <img src="{{ STATIC_URL }}site/img/placeholder/profile.png" alt="{{ object.title|escape }}"/>
+                        {% endif %}
+                        
+                        <div class="content">
+                            <h2>{{ object.get_title }}</h2>
+                            <div class="buttons">
+                                {% if request.user.is_authenticated %}
+                                    {% adding2memos for object %}
+                                    {% with object|get_context_item as context_item %}
+                                        {% adding2favorites for context_item %}
+                                    {% endwith %}
+                                    {% if request.user.is_staff and perms.events.change_event %}
+                                        <a href="/admin/events/event/{{ object.id }}/" class="fawesome fa-edit button text hidden-xs" onclick="open_new_window(event)"><span class="text">{% trans "edit Event" %}</span></a>
+                                    {% endif %}
+                                {% else %}
+                                    {% adding2memos for object %}
+                                    <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-favorite button text" ><span class="text">{% trans "Favorite" %}</span></a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <div class="profile-image">
+                    
+                    {#% if request.path == object.get_url_path %#}
+                        {% if_has_perm "institutions.change_institution" object %}
+                            <a href="{% cropping_url object.image.path "ad" request object.get_url_path %}" class="fawesome fa-edit recrop-link">
+                        {% end_if_has_perm %}
+                    {#% endif %#}
+                    
+                    {% if object.image %}
+                        <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if_has_perm "events.change_event" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ object.title|escape }}"/>
+                    {% else %}
+                        <img src="{{ STATIC_URL }}site/img/placeholder/profile.png" alt="{{ object.title|escape }}"/>
+                    {% endif %}
+                    
+                    {#% if request.path == object.get_url_path %#}
+                        {% if_has_perm "institutions.change_institution" object %}
+                            </a>
+                        {% end_if_has_perm %}
+                    {#% endif %#}
+                
+                    {% if request.user.is_authenticated %}
+                        {% adding2memos for object %}
+                        {% with object|get_context_item as context_item %}
+                            {% adding2favorites for context_item %}
+                        {% endwith %}
+                        {% if request.user.is_staff and perms.events.change_event %}
+                            <a href="/admin/events/event/{{ object.id }}/" class="fawesome fa-edit button text" onclick="open_new_window(event)"><span class="text">{% trans "edit Event" %}</span></a>
+                        {% endif %}
+                    {% else %}
+                        {% adding2memos for object %}
+                        <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-favorite button text" ><span class="text">{% trans "Favorite" %}</span></a>
+                    {% endif %}
+                    
+                </div>
+                
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                {% block details %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
 
-{% block headline %}
+
+{% block breadcrumbs %}
+    <li><a href="/{{ URL_ID_EVENTS }}/">{% trans "Events" %}</a></li>
+    <li><a href="{{ object.get_url_path }}">{{ object.get_title }}</a></li>
+    {% block breadcrumbs_details %}
+    {% endblock %}
+{% endblock %}
+
+
+
+{% block headline_old %}
     <h1>{{ object.get_title }}</h1>
 {% endblock %}
 
-{% block content %}
+{% block content_old %}
     {% block tabs %}
         <div id="tabs">
             {#% children_of "event" using "navigation/children_in_tabs.html" %#}
@@ -62,24 +150,12 @@
         {% endif %}
     </div>
     <div id="details">
-        {% block details %}
+        {% block details_old %}
         {% endblock %}
     </div>
 {% endblock %}
 
-{% block breadcrumbs %}
-    <div class="breadcrumbs">
-        <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span>
-        <a href="/{{ URL_ID_EVENTS }}/">{% trans "Events" %}</a>
-        <span class="b-sep"><span>::</span></span>
-        <a href="{{ object.get_url_path }}">{{ object.get_title }}</a>
-        {% block breadcrumbs_details %}
-        {% endblock %}
-    </div>
-{% endblock %}
-
-{% block extrabody %}
+{% block extrabody_old %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
 {% endblock %}
 

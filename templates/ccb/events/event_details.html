@@ -1,11 +1,29 @@
 {% extends "events/details_base.html" %}
-{% load i18n base_tags auth_extended events compressed compressed_jetson %}
+{% load i18n base_tags auth_extended events compressed %}
 
-{% block doctype %}
-    <!DOCTYPE html SYSTEM "{{ website_url }}{{ jetson_media_url|slice:"1:" }}dtd/xhtml1-iframe.dtd">
-{% endblock %}
 
 {% block details %}
+
+    {% include "events/profile/contact.html" %}
+    
+    {% include "events/profile/description.html" %}
+    
+    {% include "events/profile/identity.html" %}
+    
+    {% include "events/profile/event_times.html" %}
+    
+    {% include "events/profile/fees_opening_hours.html" %}
+    
+    {% include "events/profile/organizer.html" %}
+    
+    {% include "events/profile/additional_info.html" %}
+    
+    {% include "events/profile/categories.html" %}
+
+{% endblock %}
+
+
+{% block details_old %}
     <div class="vevent">
         <div id="dyn_avatar" class="dyn_section">
             {% include "events/profile/avatar.html" %}
@@ -81,15 +99,11 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    <div class="breadcrumbs">
-        <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span>
-        <a href="/{{ URL_ID_EVENTS }}/">{% trans "Events" %}</a>
-        <span class="b-sep"><span>::</span></span><span>{{ object.get_title }}</span>
-    </div>
+    <li><a href="/{{ URL_ID_EVENTS }}/">{% trans "Events" %}</a></li>
+    <li>{{ object.get_title }}</li>
 {% endblock %}
 
-{% block extrabody %}
+{% block extrabody_old %}
     {{ block.super }}
     {% if_has_perm "events.change_event" object %}
         {% compressed_js "event_details" %}

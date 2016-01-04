@@ -151,9 +151,11 @@ class NavigationLinks(template.Node):
                 link = {
                     'url': url_template.render(context),
                     'text': text_template.render(context),
+                    'sysname': sysname,
                     'is_highlighted': is_highlighted,
                     'is_promoted': config.get('is_promoted', False),
                     'is_login_required': config.get('is_login_required', False),
+                    'icon': config.get('icon', ''),
                 }
                 links.append(link)
 

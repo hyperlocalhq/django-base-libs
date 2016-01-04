@@ -12,6 +12,30 @@ input {
     }
 }
     
+.text-field {
+    font-size: 1.2em;
+    padding: 4px 2px 10px 0px;
+    
+    p {
+        font-size: 1em;
+        line-height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .is-xs & {
+        padding: 4px 2px 10px 0px;
+        font-size: 1.07em;
+    
+        p {
+            font-size: 1em;
+            line-height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    }
+}
+
 .input-field {
     
     &.text {
@@ -1130,7 +1154,7 @@ input {
     }
     
         
-    &.editable {
+    &.editable, &.not-editable {
             
         position: relative;
         border-radius: 4px;
@@ -1139,6 +1163,7 @@ input {
     
         padding: 10px 20px;
         margin: 0 0 70px 0;
+        
         
         .is-xs & {
             padding: 10px 10px;
@@ -1155,9 +1180,14 @@ input {
             font-size: 1.07em;
             letter-spacing: 0.07em;
             line-height: 118.75%;
-            color: $grey-dark;
             text-transform: uppercase;
             color: $black;
+        }
+        
+        h3 {
+            color: $grey-darker;
+            letter-spacing: 0.07em;
+            font-weight: $font-black;
         }
         
         dl.input-fields {
@@ -1353,6 +1383,80 @@ input {
                 }
             }
         }
+    }
+    
+    &.not-editable {
+            
+        background: none;
+        box-shadow: none;
+        
+        padding: 10px 0;
+        
+        .is-xs & {
+            padding: 10px 0;
+        }
+        
+        h2 {
+            color: $grey-dark;
+        }
+        
+        dl.input-fields {
+            dt {
+                padding-top: 7px;
+            }
+            
+            dd {
+                padding-top: 0;
+            }
+        }
+                
+        .edit-button {
+            opacity: 0;
+        } 
+        
+        .hide {
+            display: none !important;
+        }
+    
+        .input-field.box {
+            margin: -7px 0 0 -7px;
+            
+            .is-xs & {
+                margin-top: 0;
+            }
+        }
+        
+        .accordion {
+            margin: -7px 0 0 -30px;
+            
+            .is-xs & {
+                margin: 0;
+            }
+            
+            .accordion {
+                margin: 0;
+            }
+            
+            .input-field.box {
+                margin: 0;
+            }
+        }
+        
+        &.switch {
+            &:hover {
+                background: $white-dirty;
+            
+                h2 {
+                    color: $black;
+                }
+                    
+                .edit-button {
+                    opacity: 1;
+                }
+            }
+        }
+        
+        
     }
 }
 

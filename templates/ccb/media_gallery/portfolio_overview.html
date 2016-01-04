@@ -1,7 +1,58 @@
 {% extends "media_gallery/portfolio_base.html" %}
 {% load i18n base_tags auth_extended infoblocks image_modifications %}
 
-{% block extrahead %}
+
+{% block details %}
+    {% if not published_gallery_list %}
+        {% trans "There haven't been any files uploaded yet." %}
+    {% else %}    
+    
+        <div class="row projects-grid">
+            
+            {% for item in published_gallery_list %}
+                <div class="col-xs-12 col-sm-6">
+                    <div class="wrapper tap-hover">
+                        <a class="content tap-hover-trigger" href="{{ item.content_object.get_url_path }}portfolio/album/{{ item.get_token }}/">
+                            <img src="{{ UPLOADS_URL }}{{ item.cover_image.path|modified_path:"project_grid" }}" alt=""/>
+                            <h2>{{ item.title|escape }}</h2>
+                        </a>
+                        <div class="button-group">
+                            <a href="#" class="fawesome fa-favorite button"></a>
+                            <a href="#" class="fawesome fa-more button"></a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            
+            {% if_has_perm "people.change_person" object %}
+                <div class="col-xs-12 col-sm-6">
+                    <div class="wrapper">
+                        <a class="content" href="#">
+                            <div class="upload-project">
+                                <div class="fawesome fa-rocket"></div>
+                                <h3>{% trans 'Do you have something new?' %}<br/>{% trans 'Upload project' %}</h3>
+                            </div>    
+                        </a>
+                    </div>
+                </div>
+            {% end_if_has_perm %}
+                 
+        </div>           
+        
+    {% endif %}
+{% endblock %}
+
+
+
+{% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/projects-grid.js"></script>
+{% endblock %}
+
+
+
+
+{% block extrahead_old %}
     {{ block.super }}
     <script type="text/javascript">
         // preloading portfolio images
@@ -12,7 +63,7 @@
     </script>
 {% endblock %}
 
-{% block details %}
+{% block details_old %}
     {% if portfolio_settings.landing_page == "first_album" %}
         {% if not published_gallery_list %}
             {% trans "There haven't been any files uploaded yet." %}
@@ -60,11 +111,11 @@
     {% endif %}
 {% endblock %}
 
-{% block breadcrumbs_details %}
+{% block breadcrumbs_details_old %}
     <span class="b-sep"><span>::</span></span><span>{% trans "Portfolio" %}</span>
 {% endblock %}
 
-{% block extrabody %}
+{% block extrabody_old %}
     {{ block.super }}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery/jquery.popup.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/portfolio.js"></script>

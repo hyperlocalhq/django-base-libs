@@ -6,7 +6,7 @@
         {{ object.get_title }}
     {% elif object.is_institution %}
         {% if request.user.profile|in_list:object.get_groups.0.get_owners %}
-            {% trans "My Institution / Company" %}
+            {% trans "My Institution" %}
         {% else %}
             {{ object.get_title|escape }}
         {% endif %}
@@ -14,10 +14,12 @@
 {% endblock %}
 
 {% block meta_description %}
+    {{ block.super }}
     <meta name="description" content="{{ object.get_description|striptags|truncatewords:100 }}..."/>
 {% endblock %}
 
-{% block bodyclass %}object-details{% endblock %}
+
+
 
 {% block headline %}
     <h1>
@@ -32,7 +34,7 @@
     </h2>
 {% endblock %}
 
-{% block content %}
+{% block content_old %}
     {% block tabs %}
         <div id="tabs">
             {% comment %}
@@ -73,10 +75,8 @@
     <hr class="hidden"/>
 {% endblock %}
 
-{% block breadcrumbs %}
-{% endblock %}
 
-{% block extrabody %}
+{% block extrabody_old %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/groups_networks.js"></script>
 {% endblock %}

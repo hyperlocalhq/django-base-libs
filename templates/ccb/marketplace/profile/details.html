@@ -1,38 +1,52 @@
 {% load i18n base_tags babel %}
 
-<h6 class="section-header">{% trans "Details" %}</h6>
-<div class="section-details">
 
-    <dl>
-        <dt>{% trans "Position" %}</dt>
-        <dd>{{ object.position }}</dd>
-    </dl>
-    <dl>
-        <dt>{% trans "Job Type" %}</dt>
-        <dd>{{ object.job_type.title }}</dd>
-    </dl>
-    {% if object.qualifications.count %}
-        <dl>
-            <dt>{% trans "Qualification" %}</dt>
-            {% comment %}<!--
-            List of qualifications separated by commas with the word "or" before the last qualification, e.g.:
-            * Junior
-            * Middle or senior
-            * Junior, middle or senior
-            -->{% endcomment %}
-            <dd>{% for q in object.qualifications.all %}{% if not forloop.first and not forloop.last %}, {% endif %}
-                {% if forloop.last and not forloop.first %} {% trans "or" %} {% endif %}{% if forloop.first %}
-                {{ q.title|capfirst }}{% else %}{{ q.title|lower }}{% endif %}{% endfor %}</dd>
+<div class="fieldset not-editable ">
+    <fieldset>
+        <h2>{% trans "Details" %}</h2>
+        
+        <dl class="input-fields">
+            <dt>{% trans "Position" %}</dt>
+            <dd><div class="text-field">{{ object.position }}</div></dd>
         </dl>
-    {% endif %}
-    <dl>
-        <dt>{% trans "Description" %}</dt>
-        <dd>{{ object.description|urlize|linebreaks|mark_first_and_last:"p" }}</dd>
-    </dl>
-    {% if object.published_till %}
-        <dl>
-            <dt>{% trans "Published till" %}</dt>
-            <dd>{{ object.published_till|datefmt:"medium" }}</dd>
+        
+        <dl class="input-fields">
+            <dt>{% trans "Job Type" %}</dt>
+            <dd><div class="text-field">{{ object.job_type.title }}</div></dd>
         </dl>
-    {% endif %}
+
+        {% if object.qualifications.count %}
+            <dl class="input-fields">
+                <dt>{% trans "Qualification" %}</dt>
+                <dd><div class="text-field">
+                    {% for q in object.qualifications.all %}
+                        {{ q.title|capfirst }}
+                    {% endfor %}
+                </div></dd>
+            </dl>
+        {% endif %}
+        
+        {% if object.get_locality_type %}
+            <dl class="input-fields">
+                <dt>{% trans "Location" %}</dt>
+                <dd><div class="text-field">{{ object.get_locality_type.title|escape }}</div></dd>
+            </dl>
+        {% endif %}
+        
+        {% if object.published_till %}
+            <dl class="input-fields">
+                <dt>{% trans "Published till" %}</dt>
+                <dd><div class="text-field">{{ object.published_till|datefmt:"medium" }}</div></dd>
+            </dl>
+        {% endif %}
+        
+    </fieldset>
 </div>
+
+<div class="fieldset not-editable">
+    <fieldset>
+        <h2>{% trans "Description" %}</h2>
+        {{ object.description|urlize|linebreaks|mark_first_and_last:"p" }}
+    </fieldset>
+</div>
+

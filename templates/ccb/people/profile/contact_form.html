@@ -1,4 +1,15 @@
 {% load i18n base_tags auth_extended uni_form_tags uni_form_field crispy_forms_tags %}
+
+<form>
+    <div class="fieldset editable">
+        <fieldset disabled>
+            <h2>{% trans "Contact Data" %}</h2>
+        </fieldset>
+    </div>
+</form>
+
+
+{% comment %}
 <div class="profile_infos">
     <h5 class="edit_subline">{% trans "edit contact data" %}</h5>
 
@@ -48,4 +59,4 @@
         </fieldset>
     </form>
 </div>
-
+{% endcomment %}

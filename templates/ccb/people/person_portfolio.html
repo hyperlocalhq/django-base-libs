@@ -5,17 +5,64 @@
     <meta property="og:title" content="{{ gallery.get_title }}"/>
     <meta property="og:type" content="album"/>
     {% if gallery.cover_image %}
-        <meta property="og:image" content="http://www.creative-city-berlin.de
-                {{ UPLOADS_URL }}{{ gallery.cover_image.path|modified_path:"glist" }}"/>
+        <meta property="og:image" content="http://www.creative-city-berlin.de{{ UPLOADS_URL }}{{ gallery.cover_image.path|modified_path:"glist" }}"/>
     {% else %}
         <meta property="og:image" content="{{ gallery.mediafile_set.all.0.get_list_image_url }}"/>
     {% endif %}
     <meta property="og:url" content="{{ gallery.get_url }}"/>
-    <meta property="og:site_name" content="Creative City Berlin"/>
+    <meta property="og:site_name" content="{{ site_settings.site.name }}"/>
 {% endblock %}
 
 
-{% block extrahead %}
+{% block details %}
+    {% if list_of_files %}
+    
+        <div class="row projects-grid">
+            
+            {% for f in list_of_files %}
+                <div class="col-xs-12 col-sm-6">
+                    <div class="wrapper tap-hover">
+                        <a class="content tap-hover-trigger" href="#">
+                            <img src="{{ UPLOADS_URL }}{{ f.image|modified_path:"project_grid" }}" alt="{{ f.title|escape }}/>
+                            <h2>Hier steht mehr zum Projekt.</h2>
+                        </a>
+                        <div class="button-group">
+                            <a href="#" class="fawesome fa-favorite button"></a>
+                            <a href="#" class="fawesome fa-more button"></a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            
+            {% if_has_perm "people.change_person" object %}
+                <div class="col-xs-12 col-sm-6">
+                    <div class="wrapper">
+                        <a class="content" href="#">
+                            <div class="upload-project">
+                                <div class="fawesome fa-rocket"></div>
+                                <h3>{% trans 'Do you have something new?' %}<br/>{% trans 'Upload project' %}</h3>
+                            </div>    
+                        </a>
+                    </div>
+                </div>
+            {% end_if_has_perm %}
+                 
+        </div>    
+    
+    {% else %}
+        <p>{% trans "There are no media files uploaded." %}</p>
+    {% endif %}
+{% endblock %}
+
+
+{% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/projects-grid.js"></script>
+{% endblock %}
+
+
+
+{% block extrahead_old %}
     {{ block.super }}
     <script type="text/javascript">
         // preloading portfolio images
@@ -27,11 +74,11 @@
 {% endblock %}
 
 
-{% block details %}
+{% block details_old %}
     {% include_parsed "media_gallery/includes/gallery_slideshow.html" with "people.change_person" as permission_name %}
 {% endblock %}
 
-{% block extrabody %}
+{% block extrabody_old %}
     {{ block.super }}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery/jquery.popup.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/portfolio.js"></script>

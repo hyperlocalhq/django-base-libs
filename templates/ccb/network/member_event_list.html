@@ -1,7 +1,15 @@
 {% extends base_template|default:"network/details_base.html" %}
 {% load events i18n base_tags navigation_tags auth_extended babel infoblocks %}
 
-{% block extrahead %}
+
+{% block content %}
+    wrong template<br/>
+    it is "network/member_event_list"<br/>
+    it should be "people/person_events"
+{% endblock %}
+
+
+{% block extrahead_old %}
     {{ block.super }}
     <link rel="alternate" type="application/rss+xml"
         title="{% blocktrans with object.get_title as institution_title %}RSS Feed of Events by/at {{ institution_title }}{% endblocktrans %}"
@@ -21,7 +29,7 @@
     {% endif %}
 {% endblock %}
 
-{% block details %}
+{% block details_old %}
     {% if object_list %}
         {% include "utils/includes/sorting_and_pagination.html" %}
         {% if view_type == "map" %}
@@ -58,12 +66,12 @@
     {% endif %}
 {% endblock %}
 
-{% block breadcrumbs_details %}
+{% block breadcrumbs_details_old %}
     <span class="b-sep"><span>::</span></span><span>{% trans "Events" %}</span>
 {% endblock %}
 
 
-{% block extrabody %}
+{% block extrabody_old %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
     {% if view_type == "map" %}
         <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing_map.js"></script>

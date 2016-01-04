@@ -1,5 +1,36 @@
 {% load i18n base_tags auth_extended %}
 
+
+<div class="fieldset not-editable ">
+    <fieldset>
+        <h2>{% trans "Details" %}</h2>
+        
+        {% if object.legal_form %}
+            <dl class="input-fields">
+                <dt>{% trans "Legal Form" %}</dt>
+                <dd><div class="text-field">{{ object.legal_form }}</div></dd>
+            </dl>
+        {% endif %}
+
+        {% if object.establishment_yyyy %}
+            <dl class="input-fields">
+                <dt>{% trans "Established at" %}</dt>
+                <dd><div class="text-field">{{ object.establishment_yyyy }} {{ object.get_establishment_mm_display }}</div></dd>
+            </dl>
+        {% endif %}
+        
+        {% if object.nof_employees %}
+            <dl class="input-fields">
+                <dt>{% trans "Number of Employees" %}</dt>
+                <dd><div class="text-field">{{ object.nof_employees }}</div></dd>
+            </dl>
+        {% endif %}
+        
+    </fieldset>
+</div>
+
+
+{% comment %}
 <h6 class="section-header">
     {% trans "Details" %}
 </h6>
@@ -25,3 +56,4 @@
         </dl>
     {% endif %}
 </div>
+{% endcomment %}

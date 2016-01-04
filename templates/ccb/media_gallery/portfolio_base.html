@@ -1,7 +1,7 @@
 {% extends base_template %}
 {% load i18n base_tags auth_extended infoblocks image_modifications %}
 
-{% block sidebar-a %}
+{% block sidebar-a_old %}
     <div id="cat_portfolio" class="nav_expanded sidebar-box ">
         <h5>
             <a class="open_but" href="#Collapse-Expand">
@@ -61,6 +61,6 @@
 {% endblock %}
 
 {% block breadcrumbs_details %}
-    <span class="b-sep"><span>::</span></span><span>{% trans "Portfolio" %}</span>
+    <li>{% trans "Portfolio" %}</li>
 {% endblock %}
 

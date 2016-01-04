@@ -1,32 +1,73 @@
-{% extends "base.html" %}
-{% load i18n base_tags navigation_tags babel %}
+{% extends "base_redesign.html" %}
+{% load i18n base_tags navigation_tags babel memos %}
 
-{% block meta_keywords %}
+{% block meta_tags %}
     {% if LANGUAGE_CODE == "de" %}
-        <meta name="keywords" lang="de"
-            content="Jobbörse, Stellenmarkt, Stellenangebote, Kultur, Kreativwirtschaft, Kunst, Medien, Design, Praktikum, Praktika, Berlin"/>
-    {% else %}
-        <meta name="keywords" lang="en-us"
-            content="job, jobs, jobboard, job exchange, Berlin, culture, art, creative industries, media, design, internships, internship"/>
-    {% endif %}
-{% endblock %}
-
-{% block meta_description %}
-    {% if LANGUAGE_CODE == "de" %}
+        <meta name="keywords" lang="de" content="Jobbörse, Stellenmarkt, Stellenangebote, Kultur, Kreativwirtschaft, Kunst, Medien, Design, Praktikum, Praktika, Berlin"/>
         <meta name="description" lang="de" content="Jobbörse für die Kultur- und Kreativwirtschaft in Berlin"/>
     {% else %}
-        <meta name="description" lang="en-us"
-            content="Job exchange for the cultural sector and the creative industries in Berlin"/>
+        <meta name="keywords" lang="en-us" content="job, jobs, jobboard, job exchange, Berlin, culture, art, creative industries, media, design, internships, internship"/>
+        <meta name="description" lang="en-us" content="Job exchange for the cultural sector and the creative industries in Berlin"/>
     {% endif %}
 {% endblock %}
 
-{% block title %}{{ object.position }} @ {% if object.offering_institution or object.offering_institution_title %}
-    {% if object.offering_institution %}{{ object.offering_institution.get_title }}{% else %}
-        {{ object.offering_institution_title }}{% endif %}{% endif %}{% endblock %}
 
-{% block bodyclass %}object-details{% endblock %}
+{% block title %}
+    {{ object.position }} @ 
+    {% if object.offering_institution or object.offering_institution_title %}
+        {% if object.offering_institution %}
+            {{ object.offering_institution.get_title }}
+        {% else %}
+            {{ object.offering_institution_title }}
+        {% endif %}
+    {% endif %}
+{% endblock %}
 
-{% block headline %}
+{% block content %}
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{% trans "Job" %}</h1>
+                    <h2>{{ object.position }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                
+                <div class="button-group-left-navi">
+                    {% if request.user.is_authenticated %}
+                        {% adding2memos for object %}
+                        {% if request.user.is_staff and perms.marketplace.change_joboffer %}
+                            <a href="/admin/marketplace/joboffer/{{ object.pk }}/" class="fawesome fa-edit button text" onclick="open_new_window(event)"><span class="text">{% trans "edit Job Offer" %}</span></a>
+                        {% endif %}
+                    {% else %}
+                        {% adding2memos for object %}
+                    {% endif %}
+                </div>
+                
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                {% block details %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="/{{ URL_ID_JOB_OFFERS }}/">{% trans "Jobs" %}</a></li>
+    <li><a href="{{ object.get_url_path }}">{{ object.position }}</a></li>
+    {% block breadcrumbs_details %}
+    {% endblock %}
+{% endblock %}
+
+
+
+{% block headline_old %}
     <h1>{{ object.position }}</h1>
     <h2 class="smaller">@
         {% if object.offering_institution or object.offering_institution_title %}{% if object.offering_institution %}
@@ -34,7 +75,7 @@
         {% endif %}{% endif %}</h2>
 {% endblock %}
 
-{% block content %}
+{% block content_old %}
     {% block tabs %}
         <div id="tabs">
             {% children_of "job_offer" using "navigation/children_in_tabs.html" %}
@@ -52,24 +93,12 @@
         </div>
     </div>
     <div id="details">
-        {% block details %}
+        {% block details_old %}
         {% endblock %}
     </div>
 {% endblock %}
 
-{% block breadcrumbs %}
-    <div class="breadcrumbs">
-        <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span>
-        <a href="/{{ URL_ID_JOB_OFFERS }}/">{% trans "Jobs" %}</a>
-        <span class="b-sep"><span>::</span></span>
-        <a href="{{ object.get_url_path }}">{{ object.position }}</a>
-        {% block breadcrumbs_details %}
-        {% endblock %}
-    </div>
-{% endblock %}
-
-{% block extrabody %}
+{% block extrabody_old %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
 {% endblock %}
 
