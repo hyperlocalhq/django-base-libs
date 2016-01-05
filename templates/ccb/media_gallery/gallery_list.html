@@ -47,7 +47,7 @@
                             {% include_parsed "media_gallery/lists/gallery_item.html" %}
                         {% endfor %}
                     </div>
-                    {#% include "utils/includes/pagination.html" %#}
+                    {% include "utils/includes/pagination.html" %}
                 {% else %}
                     <p>{% trans "No objects found within the selected conditions." %}</p>
                 {% endif %}
