@@ -183,6 +183,7 @@ def gallery_list(request, queryset, show="", paginate_by=None, order_by=None, pa
             'results_per_page': paginate_by,
             'has_next': current_page.has_next(),
             'has_previous': current_page.has_previous(),
+            'current_page': current_page,
             'page': page,
             'next': next_page_number,
             'previous': previous_page_number,
