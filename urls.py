@@ -851,7 +851,7 @@ urlpatterns += i18n_patterns(
     url(r'^grappelli/', include('grappelli.urls')),
 
     url(r'^dashboard/$', login_required(
-        TemplateView.as_view(template_name='accounts/my_profile/view_profile.html')),
+        TemplateView.as_view(template_name='accounts/my_profile/dashboard.html')),
         name="dashboard"),
     url(r'^my-profile/$', "ccb.apps.site_specific.views.my_profile", name="my_profile"),
     url(r'^my-profile/memos/$', 'jetson.apps.memos.views.memos',
