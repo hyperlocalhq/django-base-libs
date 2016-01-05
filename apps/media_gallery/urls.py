@@ -7,7 +7,7 @@ from ccb.apps.media_gallery.models import MediaGallery
 gallery_list_info = {
     'queryset': MediaGallery.objects.all(),
     'template_name': 'media_gallery/gallery_list.html',
-    'paginate_by': 15,
+    'paginate_by': 24,
     'allow_empty': True,
 }
 

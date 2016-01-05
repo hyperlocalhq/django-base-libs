@@ -100,7 +100,7 @@ def bulletin_list(request, **kwargs):
         request,
         queryset=kwargs['queryset'],
         template_name=template,
-        paginate_by=10,
+        paginate_by=24,
         extra_context=extra_context,
         context_processors=(prev_next_processor,),
         httpstate_prefix="bulletin_list",

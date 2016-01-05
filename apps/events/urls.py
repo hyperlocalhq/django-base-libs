@@ -9,7 +9,7 @@ from ccb.apps.media_gallery.sites import PortfolioSite
 event_list_info = {
     'queryset': Event.objects.all(),
     'template_name': 'events/event_list.html',
-    'paginate_by': 10,
+    'paginate_by': 24,
     'allow_empty': True,
     'context_processors': (prev_next_processor,),
 }

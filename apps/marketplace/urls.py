@@ -7,7 +7,7 @@ from jetson.apps.utils.context_processors import prev_next_processor
 job_offer_list_info = {
     'queryset': JobOffer.objects.all(),
     'template_name': 'marketplace/job_offer_list.html',
-    'paginate_by': 20,
+    'paginate_by': 24,
     'allow_empty': True,
     'context_processors': (prev_next_processor,),
     'order_by': "published_from_desc",

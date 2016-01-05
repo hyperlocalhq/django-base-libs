@@ -14,7 +14,7 @@ member_list_info = {
         status="published",
         ),
     'template_name': 'network/member_list.html',
-    'paginate_by': 20,
+    'paginate_by': 24,
     'allow_empty': True,
     'context_processors': (prev_next_processor,),
 }
@@ -24,7 +24,7 @@ member_detail_info = {
         content_type__model__in=["person", "institution"],
         ),
     'template_name': '',
-    'paginate_by': 20,
+    'paginate_by': 24,
     'allow_empty': True,
     'context_processors': (prev_next_processor,),
     'slug_field': "slug",
@@ -33,7 +33,7 @@ member_detail_info = {
 event_list_info = {
     'queryset': Event.objects.all(),
     'template_name': 'network/member_event_list.html',
-    'paginate_by': 10,
+    'paginate_by': 24,
     'allow_empty': True,
     'context_processors': (prev_next_processor,),
 }
