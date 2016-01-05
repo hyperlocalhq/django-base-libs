@@ -22,7 +22,7 @@
         {% if object.medium %}
             <dl class="input-fields">
                 <dt>{% trans "Medium" %}</dt>
-                <dd><div class="text-field">{{ object.medium.get_title|escape }}</div></dd>
+                <dd><div class="text-field">{{ object.medium|escape }}</div></dd>
             </dl>
         {% endif %}
 
@@ -68,7 +68,7 @@
 
         {% if object.get_published_date %}
             <dl class="input-fields">
-                <dt>{% trans "published" %}</dt>
+                <dt>{% trans "Published" %}</dt>
                 <dd><div class="text-field">{{ object.get_published_date|date:_("DATE_FORMAT") }}</div></dd>
             </dl>
         {% endif %}
@@ -96,14 +96,14 @@
 
         {% if object.pages %}
             <dl class="input-fields">
-                <dt>{% trans "pages" %}</dt>
+                <dt>{% trans "Pages" %}</dt>
                 <dd><div class="text-field">{{ object.pages }}</div></dd>
             </dl>
         {% endif %}
 
         {% if object.filesize %}
             <dl class="input-fields">
-                <dt>{% trans "filesize" %}</dt>
+                <dt>{% trans "Filesize" %}</dt>
                 <dd><div class="text-field">{{ object.filesize }}</div></dd>
             </dl>
         {% endif %}
