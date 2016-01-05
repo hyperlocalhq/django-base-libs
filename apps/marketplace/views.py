@@ -217,11 +217,11 @@ def jobs_talent_in_berlin(request):
     from django.core.paginator import Paginator, InvalidPage, EmptyPage
 
     try:
-        paginate_by = int(request.GET.get('paginate_by', 50))
+        paginate_by = int(request.GET.get('paginate_by', 24))
     except ValueError as e:
-        paginate_by = 50
-    if paginate_by > 50:
-        paginate_by = 50
+        paginate_by = 24
+    if paginate_by > 54:
+        paginate_by = 54
 
     qs = JobOffer.published_objects.filter(
         talent_in_berlin=True,

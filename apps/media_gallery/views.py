@@ -85,7 +85,7 @@ def gallery_list(request, queryset, show="", paginate_by=None, order_by=None, pa
         "paginate_by",
         request.httpstate.get(
             "paginate_galleries_by",
-            paginate_by or 30
+            paginate_by or 24
         )
     )
     paginate_by = int(paginate_by)

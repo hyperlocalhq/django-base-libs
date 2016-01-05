@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+#footer {
+    background: $black;
+    color: $white;
+    
+    > .container {
+        padding-top: 70px;
+        padding-bottom: 70px;
+        
+        > .row {
+            margin: 0 -10px;
+            
+            > div {
+                padding-left: 10px;
+                padding-right: 10px;
+                margin-bottom: 30px;
+            }
+        }
+    }
+    
+    h3 {
+        font-family: $font-2, $font-family-1;
+        font-weight: $font-bold;
+        text-transform: uppercase;
+        font-size: 1em;
+        line-height: 180%;
+        color: $white;
+        border-bottom: 2px solid $grey;
+        margin: 0 0 20px 0;
+    }
+    
+    a.textlink {
+        display: block;
+        font-family: $font-2, $font-family-1;
+        font-weight: $font-regular;
+        font-size: 1em;
+        line-height: 173%;
+        color: $white;
+        &:hover, &:focus, &:active {
+            color: $grey-light;
+        }
+    }
+    
+    .fawesome.button {
+        background: $cyan;
+        
+        &:hover, &:focus, &:active {
+            background:$grey-light;
+        }
+    }
+}

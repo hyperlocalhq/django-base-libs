@@ -9,7 +9,7 @@ from ccb.apps.resources.views import _document_list_filter
 document_list_info = {
     'queryset': Document.objects.filter(status__in=("published", "published_commercial")),
     'template_name': 'resources/documents/document_list.html',
-    'paginate_by': 10,
+    'paginate_by': 24,
     'allow_empty': True,
     'context_processors': (prev_next_processor,),
 }
