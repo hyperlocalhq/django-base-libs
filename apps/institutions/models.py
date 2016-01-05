@@ -3,6 +3,7 @@
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.contenttypes.models import ContentType
+from django.core.urlresolvers import reverse
 
 from actstream import action
 
@@ -33,6 +34,15 @@ class Institution(InstitutionBase):
     )
 
     objects = InstitutionManagerExtended()
+
+    def get_url_path(self):
+        try:
+            path = reverse("member_detail", kwargs={'slug': self.slug})
+        except:
+            # the apphook is not attached yet
+            return ""
+        else:
+            return path
 
     def create_default_group(self):
         PersonGroup = models.get_model("groups_networks", "PersonGroup")

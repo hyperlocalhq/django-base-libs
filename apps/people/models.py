@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 from django.utils.translation import ugettext_lazy as _
+from django.core.urlresolvers import reverse
 
 from jetson.apps.people.base import *
 
@@ -46,6 +47,15 @@ class Person(PersonBase):
     completeness = models.SmallIntegerField(_("Completeness in %"), default=0)
 
     objects = PersonManagerExtended()
+
+    def get_url_path(self):
+        try:
+            path = reverse("member_detail", kwargs={'slug': self.user.username})
+        except:
+            # the apphook is not attached yet
+            return ""
+        else:
+            return path
 
     def get_creative_sectors(self):
         return self.creative_sectors.all()
