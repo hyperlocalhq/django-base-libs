@@ -19,7 +19,7 @@ from jetson.apps.utils.decorators import login_required
 from jetson.apps.utils.views import object_list, object_detail, show_form_step
 from jetson.apps.memos.models import Memo, MEMO_TOKEN_NAME
 from ccb.apps.marketplace.forms import ADD_JOB_OFFER_FORM_STEPS, JobOfferSearchForm
-from ccb.apps.marketplace.models import JobOffer, URL_ID_JOB_OFFERS
+from ccb.apps.marketplace.models import JobOffer, JobSector, URL_ID_JOB_OFFERS
 from jetson.apps.structure.models import Category
 
 class JobOfferFeed(Feed):
@@ -56,8 +56,8 @@ def job_offer_list(request, criterion="", slug="", show="", title="", category_s
 
     category = None
     if category_slug:
-        category = get_object_or_404(Category, slug=category_slug)
-        kwargs['queryset'] = kwargs['queryset'].filter(categories__tree_id=category.tree_id)
+        category = get_object_or_404(JobSector, slug=category_slug)
+        kwargs['queryset'] = kwargs['queryset'].filter(job_sectors__tree_id=category.tree_id)
 
     if not (kwargs.has_key('feed') and kwargs['feed'] == True):
         kwargs['queryset'] = kwargs['queryset'].only("id", "published_from",
