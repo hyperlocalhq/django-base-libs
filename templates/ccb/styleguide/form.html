@@ -694,6 +694,63 @@
             If you don't want the user to be able to switch between editing and disabled mode, remove the class "switch" of the ".fieldset" tag.<br/>
             If you structure an entry in row and col-...-... and you want the columns to collapse in disabled mode (like in the birthday field), give the row the class "collapse".<br/>
             To hide an element in disabled mode give it the class "hide".</p>
+            <br/>
+            <br/>
+            <br/>
+            <div class="fieldset not-editable ">
+                <fieldset>
+                    <h2>Headlline</h2>
+                    <h3>Subheadline</h3>
+                    <dl class="input-fields">
+                        <dt>Section</dt>
+                        <dd><div class="text-field">Value</div></dd>
+                    </dl>
+                    <dl class="input-fields">
+                        <dt>Section</dt>
+                        <dd>
+                            <div class="text-field">
+                                <div>Value 1</div>
+                                <div>Value 2</div>
+                            </div>
+                        </dd>
+                    </dl>
+                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                </fieldset>
+            </div>
+<pre>&lt;div class="fieldset not-editable ">
+    &lt;fieldset>
+        &lt;h2>Headlline&lt;/h2>
+        &lt;h3>Subheadline&lt;/h3>
+        &lt;dl class="input-fields">
+            &lt;dt>Section&lt;/dt>
+            &lt;dd>&lt;div class="text-field">Value&lt;/div>&lt;/dd>
+        &lt;/dl>
+        &lt;dl class="input-fields">
+            &lt;dt>Section&lt;/dt>
+            &lt;dd>
+                &lt;div class="text-field">
+                    &lt;div>Value 1&lt;/div>
+                    &lt;div>Value 2&lt;/div>
+                &lt;/div>
+            &lt;/dd>
+        &lt;/dl>
+    &lt;/fieldset>
+&lt;/div></pre>
+            <br/>
+            <br/>
+            <br/>
+            <div class="fieldset not-editable ">
+                <fieldset>
+                    <h2>Headlline</h2>
+                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                </fieldset>
+            </div>
+<pre>&lt;div class="fieldset not-editable ">
+    &lt;fieldset>
+        &lt;h2>Headlline&lt;/h2>
+        &lt;p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.&lt;/p>
+    &lt;/fieldset>
+&lt;/div></pre>
         </div>
     </div>
 {% endblock %}

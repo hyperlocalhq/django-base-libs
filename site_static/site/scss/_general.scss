@@ -678,6 +678,17 @@ span.button {
     }
 }
 
+.button-group-left-navi {
+    
+    .button {
+        margin-bottom: 10px;
+        
+        .is-xs & {
+            margin-right: 3%;
+        }
+    }
+}
+
 ul.button-list {
     list-style: none;
     margin: 0;

@@ -830,7 +830,7 @@ $(document).ready(function() {
         
         me.$main = $main;
         me.$sticky = $('.sticky', me.$main);
-        me.$image = $('img', me.$main).not('.info img');
+        me.$image = $('img', me.$main).not('.info img').not('.profile img');
         me.$headline = $('h1', me.$main);
         me.$info = $('.info', me.$main);
         me.$info_container = $('.info > .container', me.$main);

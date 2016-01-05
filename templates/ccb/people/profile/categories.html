@@ -1,5 +1,76 @@
 {% load i18n base_tags auth_extended %}
 
+<div class="fieldset not-editable ">
+    <fieldset>
+        <h2>{% trans "Categories" %}</h2>
+        
+        {% if object.get_creative_sectors %}
+            <dl class="input-fields">
+                <dt>
+                    {% with object.get_creative_sectors|length as count %}
+                        {% ifequal count 1 %}
+                            {% trans "Creative Sector" %}
+                        {% else %}
+                            {% trans "Creative Sectors" %}
+                        {% endifequal %}
+                    {% endwith %}
+                </dt>
+                <dd>
+                    <div class="text-field">
+                        {% for cat in object.get_creative_sectors %}
+                            <div>{{ cat.get_title|escape }}</div>
+                        {% endfor %}
+                    </div>
+                </dd>
+            </dl>
+        {% endif %}
+        
+        {% if object.get_context_categories %}
+            <dl class="input-fields">
+                <dt>
+                    {% with object.get_context_categories|length as count %}
+                        {% ifequal count 1 %}
+                            {% trans "Context Category" %}
+                        {% else %}
+                            {% trans "Context Categories" %}
+                        {% endifequal %}
+                    {% endwith %}
+                </dt>
+                <dd>
+                    <div class="text-field">
+                        {% for cat in object.get_context_categories %}
+                            <div>{{ cat.get_title|escape }}</div>
+                        {% endfor %}
+                    </div>
+                </dd>
+            </dl>
+        {% endif %}
+        
+        {% if object.get_categories %}
+            <dl class="input-fields">
+                <dt>
+                    {% with object.get_categories|length as count %}
+                        {% ifequal count 1 %}
+                            {% trans "Category" %}
+                        {% else %}
+                            {% trans "Categories" %}
+                        {% endifequal %}
+                    {% endwith %}
+                </dt>
+                <dd>
+                    <div class="text-field">
+                        {% for cat in object.get_categories %}
+                            <div>{{ cat.title|escape }}</div>
+                        {% endfor %}
+                    </div>
+                </dd>
+            </dl>
+        {% endif %}
+        
+    </fieldset>
+</div>
+
+{% comment %}
 <h6 class="section-header">
     {% trans "Categories" %}
 </h6>
@@ -70,3 +141,4 @@
         </dl>
     {% endif %}
 </div>
+{% endcomment %}

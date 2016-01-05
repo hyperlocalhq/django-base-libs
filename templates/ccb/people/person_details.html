@@ -1,9 +1,5 @@
 {% extends "people/details_base.html" %}
-{% load i18n base_tags auth_extended compressed compressed_jetson %}
-
-{% block doctype %}
-    <!DOCTYPE html SYSTEM "{{ website_url }}{{ jetson_media_url|slice:"1:" }}dtd/xhtml1-iframe.dtd">
-{% endblock %}
+{% load i18n base_tags auth_extended compressed %}
 
 {% block open_graph %}
     <meta property="og:title" content="{{ object.get_title }}"/>
@@ -11,14 +7,56 @@
     {% if object.image %}
         <meta property="og:image" content="{{ website_url|slice:":-1" }}{{ UPLOADS_URL }}{{ object.image.path }}"/>
     {% else %}
-        <meta property="og:image" content="{{ website_url|slice:":-1" }}{{ STATIC_URL }}site/img/website/c_logo.png"/>
+        <meta property="og:image" content="{{ website_url|slice:":-1" }}{{ STATIC_URL }}site/img/default/ccb_logo.gif"/>
     {% endif %}
     <meta property="og:url" content="{{ object.get_url }}"/>
-    <meta property="og:site_name" content="Creative City Berlin"/>
+    <meta property="og:site_name" content="{{ site_settings.site.name }}"/>
     <meta property="og:description" content="{{ object.description|striptags|truncatewords:20|escape }}"/>
 {% endblock %}
 
 {% block details %}
+
+    <div class="row profile-header">
+        <div class="col-xs-12">
+            <div class="statistics">
+                <div class="statistic">
+                    <canvas class="fawesome fa-percentage big" data-value="65" data-color-active="#00cdff" data-color-inactive="#c7e2ea">
+                        <div class="fawesome fa-circle big"></div>
+                    </canvas> 
+                    <div class="text">{% blocktrans with amount='<b>65%</b>' %}{{ amount }} completed{% endblocktrans %}</div>
+                </div>
+                <div class="statistic">
+                    <div class="fawesome fa-man big"></div>
+                    <div class="text">{% blocktrans with amount='<b>16</b>' %}{{ amount }} Follower{% endblocktrans %}</div>
+                </div>
+                <div class="statistic">
+                    <div class="fawesome fa-list-short big"></div>
+                    <div class="text">{% blocktrans with amount='<b>3</b>' %}On {{ amount }} curated lists{% endblocktrans %}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include "people/profile/contact.html" %}
+        
+    {% include "people/profile/description.html" %}
+    
+    {% include "people/profile/details.html" %}
+    
+    {% include "people/profile/categories.html" %}
+    
+{% endblock %}
+
+
+{% block breadcrumbs %}
+    <li><a href="/{{ URL_ID_PEOPLE }}/">{% trans "People" %}</a></li>
+    <li>{{ object.get_title }}</li>
+    </div>
+{% endblock %}
+
+
+
+{% block details_old %}
     <div id="dyn_avatar" class="dyn_section">
         {% include "people/profile/avatar.html" %}
     </div>
@@ -70,16 +108,8 @@
 
 {% endblock %}
 
-{% block breadcrumbs %}
-    <div class="breadcrumbs">
-        <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span>
-        <a href="/{{ URL_ID_PEOPLE }}/">{% trans "People" %}</a>
-        <span class="b-sep"><span>::</span></span><span>{{ object.get_title }}</span>
-    </div>
-{% endblock %}
 
-{% block extrabody %}
+{% block extrabody_old %}
     {{ block.super }}
     {% if_has_perm "people.change_person" object %}
         {% compressed_js "person_details" %}

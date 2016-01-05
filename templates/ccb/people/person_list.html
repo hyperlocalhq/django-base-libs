@@ -1,6 +1,5 @@
-{% extends base_template|default:"base.html" %}
-{% load i18n base_tags navigation_tags infoblocks uni_form_tags %}
-
+{% extends base_template|default:"base_redesign.html" %}
+{% load i18n base_tags navigation_tags infoblocks uni_form_tags image_modifications memos individual_relations groups_networks browsing favorites %}
 
 {% block extrahead %}
     {% if view_type == "map" %}
@@ -12,15 +11,159 @@
     {% endif %}
 {% endblock %}
 
-
 {% block title %}{% trans "People" %}{% endblock %}
 
+{% block body_class %}list{% endblock %}
 
-{% block headline %}
+{% block content %}
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{% trans "People" %}</h1>
+                </div>
+            </div>
+        </div>
+        <div class="menu tabs">
+            <div class="container">
+                <div class="row">
+                    <div class="hidden-xs col-sm-4 col-md-3 headline">
+                        <h2>{% trans "People" %}</h2>
+                    </div>
+                    <div class="navi">
+                        <nav>
+                            <ul>
+                                {% children_of "people" using "navigation/children_in_tabs.html" %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="header-search">
+                    <div class="fawesome fa-search"><span class="text hidden-xs">{% trans 'Search' %}</span></div>
+                    <div class="button-group hidden-xs">
+                        <div class="fawesome fa-list button active" data-body-class="list" data-body-class-group="profiles"></div>
+                        <div class="fawesome fa-grid button" data-body-class="grid" data-body-class-group="profiles"></div>
+                    </div>
+                    <div class="result">8.843<span class="text">{% trans 'Profiles' %}</span></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                
+                Place filter here!
+                
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                {% if object_list %}
+                    {% include "utils/abc_filters.html" %}
+                
+                    <div class="row profile-grid profile-list">
+                        
+                        {% for object in object_list %}
+                        
+                            <div class="col-xs-12 col-sm-6 col-md-4">
+                                <div class="wrapper">
+                                    <a class="content" href="{{ object.get_url_path }}">
+                                        {% if object.image %}
+                                            <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}" alt="{{ object.get_title|escape }}"/>
+                                        {% else %}
+                                            <img src="{{ STATIC_URL }}site/img/placeholder/profile.png" alt="{{ object.get_title|escape }}"/>
+                                        {% endif %}
+                                        <div class="text">
+                                            <h2>{{ object.get_title|escape }}</h2>
+                                            <h3>
+                                                {% if object.occupation %}object.occupation{% endif %}
+                                                {% if object.get_creative_sectors %}
+                                                    <span class="feature">
+                                                        {% for cat in object.get_creative_sectors %}
+                                                            {{ cat.get_title|escape }}{% if not forloop.last %}, {% endif %}
+                                                        {% endfor %}
+                                                    </span>
+                                                {% endif %}
+                                            </h3>
+                                            <ul>
+                                                <li>201 <span class="feature">{% trans "Follower" %}</span></li>
+                                                <li>8 <span class="feature">{% trans "Curated lists" %}</span></li>
+                                            </ul>
+                                        </div>
+                                    </a>
+                                    <div class="button-group">
+                                        {% if request.user.is_authenticated %}
+                                            {% if object.is_addable_to_memos %}
+                                                {% adding2memos for object using "memos/memo_icon.html" %}
+                                            {% endif %}
+                                            {% if object.is_addable_to_favorites or object.is_removable_from_favorites %}
+                                                {% with object|get_context_item as context_item %}
+                                                    {% adding2favorites for context_item using "generic/favorite_contact_icon.html" %}
+                                                {% endwith %}
+                                            {% endif %}
+                                            {% if object.is_contactable %}
+                                                <a href="{{ object.get_url_path }}message/" class="fawesome fa-email button"><span class="sr-only">{% trans "Send a mail" %}</span></a>
+                                            {% endif %}
+                                        {% else %}
+                                            {% adding2memos for object using "memos/memo_icon.html" %}
+                                            <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-contact button"><span class="sr-only">{% trans "Contact" %}</span></a>
+                                            <a href="/login/?goto_next={{ person.get_url_path }}message/"  class="fawesome fa-email button"><span class="sr-only">{% trans "Send a mail" %}</span></a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                        {% endfor %}
+                        
+                    </div>
+                    {% include "utils/includes/pagination.html" %}
+                    
+                {% else %}
+                    <p>{% trans "No objects found within the selected conditions." %}</p>
+                {% endif %}
+            </div>
+        </div>
+        
+    </div>
+{% endblock %}
+
+{% block breadcrumbs %}
+    {% if not show %}
+        <li>{% trans "People" %}</li>
+    {% endif %}
+    {% if show == "/memos" %}
+        <li><a href="/{{ URL_ID_PEOPLE }}/">{% trans "People" %}</a></li>
+        <li>{% trans "Memos" %}</li>
+    {% endif %}
+    {% if show == "/contacts" %}
+        <li><a href="/{{ URL_ID_PEOPLE }}/">{% trans "People" %}</a></li>
+        <li>{% trans "Contacts" %}</li>
+    {% endif %}
+    {% if show == "/relationships" %}
+        <li><a href="/{{ URL_ID_PEOPLE }}/">{% trans "People" %}</a></li>
+        <li>{% trans "Confirmed Contacts" %}</li>
+    {% endif %}
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/pagination.js"></script>
+{% endblock %}
+
+
+
+
+
+{% block headline_old %}
     <h1>{% trans "People" %}</h1>
 {% endblock %}
 
-{% block sidebar-a %}
+{% block sidebar-a_old %}
     <div class="sidebar-box nav_expanded" id="block_filter_{{ LANGUAGE_CODE }}">
         <h5>
             <a href="#" class="open_but">
@@ -45,7 +188,7 @@
     </div>
 {% endblock %}
 
-{% block content %}
+{% block content_old %}
     {% block tabs %}
         <div id="tabs">
             {% children_of "people" using "navigation/children_in_tabs.html" %}
@@ -82,31 +225,7 @@
     {% endif %}
 {% endblock %}
 
-{% block breadcrumbs %}
-    <div class="breadcrumbs">
-        <a href="/">{% trans "Home" %}</a>
-        {% if not show %}
-            <span class="b-sep"><span>::</span></span><span>{% trans "People" %}</span>
-        {% endif %}
-        {% if show == "/memos" %}
-            <span class="b-sep"><span>::</span></span>
-            <a href="/{{ URL_ID_PEOPLE }}/">{% trans "People" %}</a>
-            <span class="b-sep"><span>::</span></span><span>{% trans "Memos" %}</span>
-        {% endif %}
-        {% if show == "/contacts" %}
-            <span class="b-sep"><span>::</span></span>
-            <a href="/{{ URL_ID_PEOPLE }}/">{% trans "People" %}</a>
-            <span class="b-sep"><span>::</span></span><span>{% trans "Contacts" %}</span>
-        {% endif %}
-        {% if show == "/relationships" %}
-            <span class="b-sep"><span>::</span></span>
-            <a href="/{{ URL_ID_PEOPLE }}/">{% trans "People" %}</a>
-            <span class="b-sep"><span>::</span></span><span>{% trans "Confirmed Contacts" %}</span>
-        {% endif %}
-    </div>
-{% endblock %}
-
-{% block extrabody %}
+{% block extrabody_old %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/individual_relations.js"></script>
     {% if view_type == "map" %}

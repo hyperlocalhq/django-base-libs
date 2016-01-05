@@ -1,5 +1,83 @@
 {% load i18n base_tags auth_extended %}
 
+{% if object.get_contacts %}
+    <div class="fieldset not-editable ">
+        <fieldset>
+            <h2>{% trans "Contact Data" %}</h2>
+            {% for contact in object.get_contacts %}
+                
+                    
+                        {% if contact.location_title %}<h3>{{ contact.location_title }}</h3>{% endif %}
+                        <dl class="input-fields">
+                            {% with contact.postal_address as address %}
+                                {% if address.street_address or address.street_address2 or address.street_address3 %}
+                                    <dt>{% trans 'Address' %}</dt>
+                                    <dd>
+                                        <div class="text-field">
+                                            {% if address.street_address %}<div>{{ address.street_address|escape }}</div>{% endif %}
+                                            {% if address.street_address2 %}<div>{{ address.street_address2|escape }}</div>{% endif %}
+                                            {% if address.street_address3 %}<div>{{ address.street_address3|escape }}</div>{% endif %}
+                                        </div>
+                                    </dd>
+                                {% endif %}
+                                {% if address.postal_code or address.city %}
+                                    <dt>{% trans 'ZIP, City' %}</dt>
+                                    <dd>
+                                        <div class="text-field">
+                                            {% if address.postal_code %}{{ address.postal_code|escape }} {% endif %}
+                                            {% if address.city %}{{ address.city|escape }}{% endif %}
+                                        </div>
+                                    </dd>
+                                {% endif %}
+                                {% if address.country %}
+                                    <dt>{% trans 'Country' %}</dt>
+                                    <dd><div class="text-field">{{ address.country.get_name }}</div></dd>
+                                {% endif %}
+                            {% endwith %}
+                        </dl>
+                        
+                    
+                    {% if contact.get_phones %}
+                        <dl class="input-fields">
+                            {% for phone in contact.get_phones %}
+                                <dt>{% if phone.type %}{{ phone.type }}{% else %}{% trans 'Phone' %}{% endif %}</dt>
+                                <dd>
+                                    <div class="text-field">
+                                        <a href="tel:+{{ phone.country }}{{ phone.area }}{{ phone.number }}">+{{ phone.country }}-{{ phone.area }}-{{ phone.number }}</a>
+                                    </div>
+                                </dd>
+                            {% endfor %}
+                        </dl>
+                    {% endif %}
+                    
+                    {% if contact.get_urls %}
+                        <dl class="input-fields">
+                            {% for url in contact.get_urls %}
+                                <dt>{% if url.type %}{{ url.type }}{% else %}{% trans 'Website' %}{% endif %}</dt>
+                                <dd>
+                                    <div class="text-field">
+                                        <a href="{{ url.link|escape }}" onclick="open_new_window(event)" target="_blank">{{ url.link }}</a>
+                                    </div>
+                                </dd>
+                            {% endfor %}
+                        </dl>
+                    {% endif %}
+                    
+                    {% if contact.get_ims %}
+                        <dl class="input-fields">
+                            {% for im in contact.get_ims %}
+                                <dt>{{ im.type }}</dt>
+                                <dd><div class="text-field">{{ im.address }}</div></dd>
+                            {% endfor %}
+                        </dl>
+                    {% endif %}
+                    
+            {% endfor %}
+        </fieldset>
+    </div>
+{% endif %} 
+
+{% comment %}
 <div class="section-details {% if not forloop.last %}address_field{% else %}address_field_last{% endif %}">
     <div class="adr">
         <dl>
@@ -75,3 +153,4 @@
     </div>
 </div>
 
+{% endcomment %}

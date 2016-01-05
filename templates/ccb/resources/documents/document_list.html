@@ -1,22 +1,128 @@
-{% extends base_template|default:"base.html" %}
-{% load i18n base_tags navigation_tags auth_extended uni_form_tags %}
-
-
-{% block extrahead %}
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
-{% endblock %}
+{% extends base_template|default:"base_redesign.html" %}
+{% load i18n base_tags navigation_tags auth_extended uni_form_tags image_modifications memos individual_relations groups_networks browsing favorites %}
 
 
 {% block title %}{% trans "Infolinks" %}{% endblock %}
 
+{% block content %}
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{% trans "Infolinks" %}</h1>
+                </div>
+            </div>
+        </div>
+        <div class="menu">
+            <div class="container">
+                <div class="row">
+                    <div class="hidden-xs col-sm-4 col-md-3 headline">
+                        <h2>{% trans "Infolinks" %}</h2>
+                    </div>
+                    <div class="navi">
+                        <nav>
+                            <ul>
+                                {% children_of "documents" using "navigation/children_in_tabs.html" %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                
+                Place filter here!
+                
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                {% if object_list %}
+                    {% include "utils/abc_filters.html" %}
+                    <div class="row event-list">
+                        {% for object in object_list %}
+                            <div class="col-xs-12">
+                                <div class="wrapper">
+                                    <a class="content" href="{{ object.get_url_path }}">
+                                        {% if object.image %}
+                                            <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"list" }}" alt="{{ object.get_title|escape }}"/>
+                                        {% else %}
+                                            <img src="{{ STATIC_URL }}site/img/placeholder/institution.png" alt="{{ object.get_title|escape }}"/>
+                                        {% endif %}
+                                        <div class="text">
+                                            <h3>{{ object.document_type.get_title|escape }}</h3>
+                                            <h2>{{ object.get_title|escape }}</h2>
+                                            <p></p>
+                                        </div>
+                                    </a>
+                                    {% if object.url_link %}
+                                        <a class="website" href="{{ object.url_link|escape }}" target="_blank">{{ object.url_link|truncatechars:50 }}</a>
+                                    {% endif %}
+                                    <div class="button-group">
+                                        {% if request.user.is_authenticated %}
+                                            {% adding2memos for object using "memos/memo_icon.html" %}
+                                        {% else %}
+                                            {% adding2memos for object using "memos/memo_icon.html" %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% include "utils/includes/pagination.html" %}
+                
+                {% else %}
+                    <p>{% trans "No objects found within the selected conditions." %}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 
-{% block headline %}
+{% endblock %}
+
+{% block breadcrumbs %}
+    {% if not show %}
+        <li>{% trans "Infolinks" %}</li>
+    {% endif %}
+    {% if show == "/memos" %}
+        <li><a href="/{{ URL_ID_DOCUMENTS }}/">{% trans "Infolinks" %}</a></li>
+        <li>{% trans "Memos" %}</li>
+    {% endif %}
+    {% if show == "/favorites" %}
+        <li><a href="/{{ URL_ID_DOCUMENTS }}/">{% trans "Infolinks" %}</a></li>
+        <li>{% trans "Favorites" %}</li>
+    {% endif %}
+    {% if show == "/own-documents" %}
+        <li><a href="/{{ URL_ID_DOCUMENTS }}/">{% trans "Infolinks" %}</a></li>
+        <li>{% trans "Own infolinks" %}</li>
+    {% endif %}
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/event-list.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/pagination.js"></script>
+{% endblock %}
+
+
+
+
+{% block extrahead_old %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+{% endblock %}
+
+
+
+
+{% block headline_old %}
     <h1>{% trans "Infolinks" %}</h1>
     {% comment %}<!--<h2>{% trans "Support Programmes" %}</h2>-->{% endcomment %}
 {% endblock %}
 
 
-{% block sidebar-a %}
+{% block sidebar-a_old %}
     <div class="sidebar-box nav_expanded" id="block_filter_{{ LANGUAGE_CODE }}">
         <h5>
             <a href="#" class="open_but">
@@ -37,7 +143,7 @@
     </div>
 {% endblock %}
 
-{% block content %}
+{% block content_old %}
     {% block tabs %}
         <div id="tabs">
             {% children_of "documents" using "navigation/children_in_tabs.html" %}
@@ -58,30 +164,6 @@
     {% endif %}
 {% endblock %}
 
-{% block breadcrumbs %}
-    <div class="breadcrumbs">
-        <a href="/">{% trans "Home" %}</a>
-        {% if not show %}
-            <span class="b-sep"><span>::</span></span><span>{% trans "Infolinks" %}</span>
-        {% endif %}
-        {% if show == "/memos" %}
-            <span class="b-sep"><span>::</span></span>
-            <a href="/{{ URL_ID_DOCUMENTS }}/">{% trans "Infolinks" %}</a>
-            <span class="b-sep"><span>::</span></span><span>{% trans "Memos" %}</span>
-        {% endif %}
-        {% if show == "/favorites" %}
-            <span class="b-sep"><span>::</span></span>
-            <a href="/{{ URL_ID_DOCUMENTS }}/">{% trans "Infolinks" %}</a>
-            <span class="b-sep"><span>::</span></span><span>{% trans "Favorites" %}</span>
-        {% endif %}
-        {% if show == "/own-documents" %}
-            <span class="b-sep"><span>::</span></span>
-            <a href="/{{ URL_ID_DOCUMENTS }}/">{% trans "Infolinks" %}</a>
-            <span class="b-sep"><span>::</span></span><span>{% trans "Own infolinks" %}</span>
-        {% endif %}
-    </div>
-{% endblock %}
-
-{% block extrabody %}
+{% block extrabody_old %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
 {% endblock %}

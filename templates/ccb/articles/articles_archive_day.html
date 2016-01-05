@@ -10,7 +10,7 @@
                 {% include "articles/articles_brief.html" %}
             {% endfor %}
         </div>
-        {% include "utils/includes/sorting_and_pagination.html" %}
+        {% include "utils/includes/pagination.html" %}
     {% endif %}
 {% endblock %}
 
@@ -20,3 +20,8 @@
     <li><a href="/news/{{ day|date:"Y" }}/{{ day|date:"m" }}/">{{ day|datefmt:"MMM" }} </a></li>
     <li>{{ day|date:"d" }}</li>
 {% endblock %}
+
+ {% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/pagination.js"></script>
+ {% endblock %}

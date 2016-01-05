@@ -15,7 +15,7 @@
                 {% endif %}
             {% endfor %}
         </div>
-        {% include "utils/includes/sorting_and_pagination.html" %}
+        {% include "utils/includes/pagination.html" %}
     {% endif %}
 {% endblock %}
 
@@ -26,5 +26,7 @@
 
 
 {% block javascript %}
+    {{ block.super }}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/job-list.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/pagination.js"></script>
 {% endblock %}

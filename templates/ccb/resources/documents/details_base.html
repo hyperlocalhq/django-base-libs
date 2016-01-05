@@ -1,19 +1,120 @@
-{% extends "base.html" %}
-{% load i18n base_tags navigation_tags auth_extended %}
-
-{% block title %}{{ object.get_title|escape }}{% endblock %}
-
-{% block headline %}
-    <h1>{{ object.get_title }}</h1>
-{% endblock %}
+{% extends "base_redesign.html" %}
+{% load i18n base_tags navigation_tags auth_extended image_modifications navigation_tags browsing favorites memos individual_relations %}
 
 {% block meta_description %}
+    {{ block.super }}
     <meta name="description" content="{{ object.get_description|striptags|truncatewords:100 }}..."/>
 {% endblock %}
 
-{% block bodyclass %}object-details{% endblock %}
+{% block title %}{{ object.get_title|escape }}{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="/{{ URL_ID_DOCUMENTS }}/">{% trans "Infolinks" %}</a></li>
+    <li><a href="{{ object.get_url_path }}">{{ object.get_title|truncatewords:5 }}</a></li>
+    {% block breadcrumbs_details %}
+    {% endblock %}
+{% endblock %}
 
 {% block content %}
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{% trans "Infolink" %}</h1>
+                    <div class="profile">
+                        
+    {% if object.image %}
+        <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if_has_perm "resources.change_document" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ object.get_title|escape }}"/>
+    {% else %}
+        <img src="{{ STATIC_URL }}site/img/placeholder/institution.png" alt="{{ object.get_title|escape }}"/>
+    {% endif %}
+    
+                        <div class="content">
+                            <h2>{{ object.get_title|escape }}</h2>
+                            <h3>{{ object.document_type.get_title|escape }}</h3>
+                            <div class="buttons">
+                    
+    {% if request.user.is_authenticated %}
+        {% adding2memos for object %}
+    {% else %}
+        {% adding2memos for object %}
+    {% endif %}
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="menu">
+            <div class="container">
+                <div class="row">
+                    <div class="hidden-xs col-sm-4 col-md-3 headline">
+                        <h2>{% trans "Infolink" %}</h2>
+                    </div>
+                    <div class="navi">
+                        <nav>
+                            <ul>
+                                {% children_of "document" using "navigation/children_in_tabs.html" %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <div class="profile-image">
+                    
+                    {#% if request.path == object.get_url_path %#}
+                        {% if_has_perm "resources.change_document" object %}
+                            <a href="{% cropping_url object.image.path "ad" request object.get_url_path %}" class="fawesome fa-edit recrop-link">
+                        {% end_if_has_perm %}
+                    {#% endif %#}
+                    
+    {% if object.image %}
+        <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if_has_perm "resources.change_document" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ object.get_title|escape }}"/>
+    {% else %}
+        <img src="{{ STATIC_URL }}site/img/placeholder/institution.png" alt="{{ object.get_title|escape }}"/>
+    {% endif %}
+    
+                    {#% if request.path == object.get_url_path %#}
+                        {% if_has_perm "resources.change_document" object %}
+                            </a>
+                        {% end_if_has_perm %}
+                    {#% endif %#}
+                    
+                    
+    {% if request.user.is_authenticated %}
+        {% adding2memos for object %}
+    {% else %}
+        {% adding2memos for object %}
+    {% endif %}
+    
+                </div>
+                    
+                {% block sidebar %}
+                {% endblock %}
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                {% block details %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+{% block headline_old %}
+    <h1>{{ object.get_title }}</h1>
+{% endblock %}
+
+{% block content_old %}
     {% block tabs %}
         <div id="tabs">
             {% children_of "document" using "navigation/children_in_tabs.html" %}
@@ -31,24 +132,11 @@
         </div>
     </div>
 
-    {% block details %}
+    {% block details_old %}
     {% endblock %}
 {% endblock %}
 
-{% block breadcrumbs %}
-    <div class="breadcrumbs">
-        <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span>
-        <a href="/{{ URL_ID_DOCUMENTS }}/">{% trans "Infolinks" %}</a>
-        <span class="b-sep"><span>::</span></span>
-        <a
-            href="{{ object.get_url_path }}">{{ object.get_title|truncatewords:5 }}</a>
-        {% block breadcrumbs_details %}
-        {% endblock %}
-    </div>
-{% endblock %}
-
-{% block extrabody %}
+{% block extrabody_old %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
 {% endblock %}
 

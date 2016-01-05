@@ -1,9 +1,5 @@
 {% if links %}
-    <ul>
-        {% for link in links %}
-            <li class="{% if link.is_promoted %} promoted{% endif %}{% if link.is_login_required %} login-required{% endif %}{% if forloop.last %} last_item{% endif %}{% if link.is_highlighted %} active{% endif %}">
-                <a href="{{ link.url }}"{% if link.is_highlighted %} class="active"{% endif %}>{{ link.text|escape }}</a>
-            </li>
-        {% endfor %}
-    </ul>
+    {% for link in links %}
+        <a href="{{ link.url }}" class="fawesome button text {{ link.icon }} {% if link.is_highlighted %}active{% endif %}{% if link.is_promoted %} promoted{% endif %}{% if link.is_login_required %} login-required{% endif %}"><span class="text">{{ link.text|escape }}</span></a>
+    {% endfor %}
 {% endif %}

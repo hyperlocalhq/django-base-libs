@@ -17,7 +17,7 @@
     
     height: 281px;
     position: relative;
-    margin-bottom: 72px;
+    margin-bottom: 20px;
     
     .is-md & {
         height: 229px;
@@ -36,34 +36,13 @@
         height: 100%;
     }
     
-    h2 {
-        margin: -15px 0 0;
-        
-        .is-sm & {
-            margin-top: -7px;
-        }
-        
-        .is-xs & {
-            margin: 0;
-        }
-    }
-    
-    h3 {
-        font-family: $font-2, $font-family-1;
-        font-weight: $font-regular;
-        font-size: 1.2em;
-        line-height: 167%;
-        color: $black;
-        text-transform: none;
-        margin: 0;
-    }
-    
     .statistics {
         clear: both;
         overflow: hidden;
         position: absolute;
         left: 15px;
-        bottom: -5px;
+        top: 50%;
+        margin-top: -40px;
         
         .is-xs & {
             margin-top: 20px;

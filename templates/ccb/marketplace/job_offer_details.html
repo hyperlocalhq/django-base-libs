@@ -1,34 +1,15 @@
 {% extends "marketplace/details_base.html" %}
-{% load i18n base_tags auth_extended compressed compressed_jetson %}
-
-{% block doctype %}
-    <!DOCTYPE html SYSTEM "{{ website_url }}{{ jetson_media_url|slice:"1:" }}dtd/xhtml1-iframe.dtd">
-{% endblock %}
+{% load i18n base_tags auth_extended compressed %}
 
 {% block details %}
-    <div id="dyn_details" class="dyn_section">
-        {% include "marketplace/profile/details.html" %}
-    </div>
-    <hr/>
+    
+    {% include "marketplace/profile/details.html" %}
 
-    {% if object.are_contacts_displayed %}
-        <div id="address">
-            {% if object.get_contacts %}
-                {% with object.get_contacts.0 as contact %}
-                    <div id="dyn_contact" class="dyn_section">
-                        {% include "marketplace/profile/contact.html" %}
-                    </div>
-                {% endwith %}
-            {% endif %}
-        </div>
-    {% endif %}
-    <hr/>
+    {% include "marketplace/profile/contact.html" %}
 
-    <div id="dyn_categories" class="dyn_section">
-        {% include "marketplace/profile/categories.html" %}
-    </div>
-    <hr/>
+    {% include "marketplace/profile/categories.html" %}
 
+    {% comment %}
     {% if object.postal_address.get_geoposition.latitude %}
         <div id="dyn_map">
             <h6 class="section-header">
@@ -40,19 +21,16 @@
             </div>
         </div>
     {% endif %}
+    {% endcomment %}
 
 {% endblock %}
 
 {% block breadcrumbs %}
-    <div class="breadcrumbs">
-        <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span>
-        <a href="/{{ URL_ID_JOB_OFFERS }}/">{% trans "Jobs" %}</a>
-        <span class="b-sep"><span>::</span></span><span>{{ object.position }}</span>
-    </div>
+    <li><a href="/{{ URL_ID_JOB_OFFERS }}/">{% trans "Jobs" %}</a></li>
+    <li>{{ object.position }}</li>
 {% endblock %}
 
-{% block extrabody %}
+{% block extrabody_old %}
     {{ block.super }}
     {% if_has_perm "marketplace.change_joboffer" object %}
         {% compressed_js "job_offer_details" %}

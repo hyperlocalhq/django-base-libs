@@ -169,7 +169,7 @@
     &lt;div class="col-xs-12 col-sm-6 col-md-4">
         &lt;div class="wrapper">
             &lt;a class="content" href="#">
-                &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ list_profile.image|modified_path:"profile" }}" alt="&#123;{ list_profile.get_title|escape }}/>
+                &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ list_profile.image|modified_path:"profile" }}" alt="&#123;{ list_profile.get_title|escape }}"/>
                 &lt;div class="text">
                     &lt;h2>Max Mustermann&lt;/h2>
                     &lt;h3>Art Director &lt;span class="feature">Grafikdesign, Produktdesign&lt;/span>&lt;/h3>
@@ -264,7 +264,7 @@
     &lt;div class="col-xs-12 col-sm-6 col-md-3">
         &lt;div class="wrapper">
             &lt;a class="content" href="#">
-                &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ list_profile.image|modified_path:"profile" }}" alt="&#123;{ list_profile.get_title|escape }}/>
+                &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ list_profile.image|modified_path:"profile" }}" alt="&#123;{ list_profile.get_title|escape }}"/>
                 &lt;div class="name">
                     &lt;h2>Max &lt;br/>Mustermann&lt;/h2>
                 &lt;/div>
@@ -328,7 +328,7 @@
 <pre>&lt;div class="row event-grid">
     &lt;div class="col-xs-12 col-sm-4 col-md-3">
         &lt;a class="content tap-hover tap-hover-trigger" href="#">
-            &lt;img src="http://placehold.it/540x540&text=image"/>
+            &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ event.image|modified_path:"event_row" }}" alt="&#123;{ event.get_title|escape }}"/>
             &lt;h2>Titel der Veranstaltung&lt;/h2>
             &lt;p>&lt;time datetime="2015-12-12">Sa, 12. Dez. 2015&lt;/time>Location Name&lt;/p>
         &lt;/a>
@@ -632,7 +632,7 @@
     &lt;div class="col-xs-12">
         &lt;div class="wrapper">
             &lt;a class="content" href="#">
-                &lt;img src="http://placehold.it/200x208&text=image">
+                &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ list_event.image|modified_path:"list" }}" alt="&#123;{ list_event.get_title|escape }}"/>
                 &lt;div class="text">
                     &lt;h3>Rubrik&lt;/h3>
                     &lt;h2>Titel der Veranstaltung&lt;/h2>
@@ -719,6 +719,32 @@
     &lt;/div>
     ... keep adding col blocks
 &lt;/div></pre>
+                <br/>
+                <br/>
+                <br/>
+                <p class="uppercase underline">Pagination</p>
+                <p>Requirements:<br/>
+                    &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/pagination.js">&lt;/script><br/>
+                </p>
+                <div class="pagination">
+                    <ul class="button-list">
+                        <li><a title="{% trans 'First Page' %}" href="#" class="fawesome fa-left-double"><span class="sr-only">{% trans 'First Page' %}</span></a></li>
+                        <li class="prev_next"><a title="{% trans 'Previous Page' %}" href="#" class="fawesome fa-left"><span class="sr-only">{% trans 'Previous Page' %}</span></a></li>
+                        <li class="page"><a title="{% blocktrans with pagenum=1 num_pages=10 %}Page {{ pagenum }} of {{ num_pages }}{% endblocktrans %}" href="#">1</a></li>
+                        <li class="page"><a title="{% blocktrans with pagenum=2 num_pages=10 %}Page {{ pagenum }} of {{ num_pages }}{% endblocktrans %}" href="#">2</a></li>
+                        <li class="page"><a title="{% blocktrans with pagenum=3 num_pages=10 %}Page {{ pagenum }} of {{ num_pages }}{% endblocktrans %}" href="#">3</a></li>
+                        <li class="page"><a title="{% blocktrans with pagenum=4 num_pages=10 %}Page {{ pagenum }} of {{ num_pages }}{% endblocktrans %}" href="#">4</a></li>
+                        <li class="page"><a title="{% blocktrans with pagenum=5 num_pages=10 %}Page {{ pagenum }} of {{ num_pages }}{% endblocktrans %}" href="#">5</a></li>
+                        <li class="page"><a title="{% blocktrans with pagenum=6 num_pages=10 %}Page {{ pagenum }} of {{ num_pages }}{% endblocktrans %}" href="#">6</a></li>
+                        <li class="page"><a title="{% blocktrans with pagenum=7 num_pages=10 %}Page {{ pagenum }} of {{ num_pages }}{% endblocktrans %}" href="#">7</a></li>
+                        <li class="page"><a title="{% blocktrans with pagenum=8 num_pages=10 %}Page {{ pagenum }} of {{ num_pages }}{% endblocktrans %}" href="#">8</a></li>
+                        <li class="page"><a title="{% blocktrans with pagenum=9 num_pages=10 %}Page {{ pagenum }} of {{ num_pages }}{% endblocktrans %}" href="#">9</a></li>
+                        <li class="page"><a title="{% blocktrans with pagenum=10 num_pages=10 %}Page {{ pagenum }} of {{ num_pages }}{% endblocktrans %}" href="#">10</a></li>
+                        <li class="prev_next"><a title="{% trans 'Next Page' %}" href="#" class="fawesome fa-right"><span class="sr-only">{% trans 'Next Page' %}</span></a></li>
+                        <li><a title="{% trans 'Last Page' %}" href="#" class="fawesome fa-right-double"><span class="sr-only">{% trans 'Last Page' %}</span></a></li>
+                    </ul>
+                </div>
+<pre>&#123;% include "utils/includes/pagination.html" %}</pre>
                 <br/>
                 <br/>
                 <br/>
@@ -854,8 +880,6 @@
             <div class="col-xs-12 col-sm-8 col-md-9">
                 <div class="row profile-header">
                     <div class="col-xs-12">
-                        <h2>Max Mustermann</h2>
-                        <h3>Grafikdesign, Produktdesign</h3>
                         <div class="statistics">
                             <div class="statistic">
                                 <canvas class="fawesome fa-percentage big" data-value="65" data-color-active="#00cdff" data-color-inactive="#c7e2ea">
@@ -884,8 +908,6 @@
                 <p>Place the code inside the elements area of a navigation layout block.</p>
 <pre>&lt;div class="row profile-header">
     &lt;div class="col-xs-12">
-        &lt;h2>Max Mustermann&lt;/h2>
-        &lt;h3>Grafikdesign, Produktdesign&lt;/h3>
         &lt;div class="statistics">
             &lt;div class="statistic">
                 &lt;canvas class="fawesome fa-percentage big" data-value="65" data-color-active="#00cdff" data-color-inactive="#c7e2ea">
@@ -922,7 +944,6 @@
             <div class="col-xs-12 col-sm-8 col-md-9">
                 <div class="row project-header">
                     <div class="col-xs-12">
-                        <h2>Max Mustermann: {% trans 'Projects' %}</h2>
                         <div class="button-group top-right">
                             <a href="#" class="fawesome fa-grid button after"><span class="text">{% trans 'Show all' %}</span></a>
                         </div>
@@ -945,7 +966,6 @@
                 <p>Place the code inside the elements area of a navigation layout block.</p>
 <pre>&lt;div class="row project-header">
     &lt;div class="col-xs-12">
-        &lt;h2>Max Mustermann: {% trans 'Projects' %}&lt;/h2>
         &lt;div class="button-group top-right">
             &lt;a href="#" class="fawesome fa-grid button after">&lt;span class="text">{% trans 'Show all' %}&lt;/span>&lt;/a>
         &lt;/div>
@@ -970,6 +990,161 @@
 data-popup-image-src="&#123;{ article.image }}" alt="..."/>
 &lt;h5 class="caption">Caption&lt;/h5>   &lt;-- use it only beneath an image</pre>
                 <p>If the image doesn't have a caption, leave the &lt;h5> tag empty or remove it entirely.</p>
+                <br/>
+                <br/>
+                <br/>
+                <p class="uppercase underline">Blog grid</p>
+                <p>Requirements:<br/>
+                    &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/blog-grid.js">&lt;/script><br/>
+                </p>
+                <br/>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                
+                Navigation
+                
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                <div class="row blog-grid">
+                    <div class="col-xs-12">
+                        <a class="content" href="#">
+                            <img class="hidden-xs" src="http://placehold.it/850x485&text=image"/>
+                            <img class="visible-xs" src="http://placehold.it/410x305&text=image"/>
+                            <div class="subline">
+                                <h3><time datetime="2015-10-08 17:45:00" class="hidden-xs">08. Oktober 2015, 17:45</time><time datetime="2015-10-08 17:45:00" class="visible-xs">08. Okt. 2015, 17:45</time></h3>
+                                <div class="statistics">
+                                    <div class="fawesome fa-comment smaller"><span class="text">3</span></div>
+                                    <div class="fawesome fa-favorite smaller"><span class="text">126</span></div>
+                                    <div class="fawesome fa-more smaller"><span class="text">17</span></div>
+                                </div>
+                            </div>
+                            <h2>Headline latest Blog Post: Lorem ipsum dolor sit amet, consetetur sadipscing elitr</h2>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <a class="content" href="#">
+                            <img src="http://placehold.it/410x500&text=image"/>
+                            <div class="subline">
+                                <h3><time datetime="2015-10-08 17:45:00">08. Okt. 2015, 17:45</time></h3>
+                                <div class="statistics">
+                                    <div class="fawesome fa-comment smaller"><span class="text">3</span></div>
+                                    <div class="fawesome fa-favorite smaller"><span class="text">126</span></div>
+                                    <div class="fawesome fa-more smaller"><span class="text">17</span></div>
+                                </div>
+                            </div>
+                            <h2>Headline next Blog Post: Lorem ipsum dolor sit amet, consetetur sadipscing elitr</h2>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <a class="content" href="#">
+                            <div class="subline">
+                                <h3><time datetime="2015-10-08 17:45:00">08. Okt. 2015, 17:45</time></h3>
+                                <div class="statistics">
+                                    <div class="fawesome fa-comment smaller"><span class="text">3</span></div>
+                                    <div class="fawesome fa-favorite smaller"><span class="text">126</span></div>
+                                    <div class="fawesome fa-more smaller"><span class="text">17</span></div>
+                                </div>
+                            </div>
+                            <h2>Headline next Blog Post: Lorem ipsum dolor sit amet, consetetur sadipscing elitr</h2>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <a class="content" href="#">
+                            <img src="http://placehold.it/410x250&text=image"/>
+                            <div class="subline">
+                                <h3><time datetime="2015-10-08 17:45:00">08. Okt. 2015, 17:45</time></h3>
+                                <div class="statistics">
+                                    <div class="fawesome fa-comment smaller"><span class="text">3</span></div>
+                                    <div class="fawesome fa-favorite smaller"><span class="text">126</span></div>
+                                    <div class="fawesome fa-more smaller"><span class="text">17</span></div>
+                                </div>
+                            </div>
+                            <h2>Headline next Blog Post: Lorem ipsum dolor sit amet, consetetur sadipscing elitr</h2>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <a class="content" href="#">
+                            <div class="subline">
+                                <h3><time datetime="2015-10-08 17:45:00">08. Okt. 2015, 17:45</time></h3>
+                                <div class="statistics">
+                                    <div class="fawesome fa-comment smaller"><span class="text">3</span></div>
+                                    <div class="fawesome fa-favorite smaller"><span class="text">126</span></div>
+                                    <div class="fawesome fa-more smaller"><span class="text">17</span></div>
+                                </div>
+                            </div>
+                            <h2>Headline next Blog Post: Lorem ipsum dolor sit amet, consetetur sadipscing elitr</h2>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <br/>
+                <p>Place the code inside the elements area of a navigation layout block.</p>
+<pre>&lt;div class="row blog-grid">
+    &lt;div class="col-xs-12">
+        &lt;a class="content" href="#">
+            &lt;img class="hidden-xs" src="&#123;{ UPLOADS_URL }}&#123;{ blog.image|modified_path:"blog_grid_big" }}" alt="&#123;{ blog.get_title|escape }}"/>
+            &lt;img class="visible-xs" src="&#123;{ UPLOADS_URL }}&#123;{ blog.image|modified_path:"blog_grid_small" }}" alt="&#123;{ blog.get_title|escape }}"/>
+            &lt;div class="subline">
+                &lt;h3>&lt;time class="hidden-xs" datetime="2015-10-08 17:45:00">08. Oktober 2015, 17:45&lt;/time>&lt;time class="visible-xs" datetime="2015-10-08 17:45:00">08. Okt. 2015, 17:45&lt;/time>&lt;/h3>
+                &lt;div class="statistics">
+                    &lt;div class="fawesome fa-comment smaller">&lt;span class="text">3&lt;/span>&lt;/div>
+                    &lt;div class="fawesome fa-favorite smaller">&lt;span class="text">126&lt;/span>&lt;/div>
+                    &lt;div class="fawesome fa-more smaller">&lt;span class="text">17&lt;/span>&lt;/div>
+                &lt;/div>
+            &lt;/div>
+            &lt;h2>Headline latest Blog Post: Lorem ipsum dolor sit amet, consetetur sadipscing elitr&lt;/h2>
+            &lt;p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.&lt;/p>
+        &lt;/a>
+    &lt;/div>
+    &lt;div class="col-xs-12 col-sm-6">
+        &lt;a class="content" href="#">
+            &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ blog.image|modified_path:"blog_grid_small" }}" alt="&#123;{ blog.get_title|escape }}"/>
+            &lt;div class="subline">
+                &lt;h3>&lt;time datetime="2015-10-08 17:45:00">08. Okt. 2015, 17:45&lt;/time>&lt;/h3>
+                &lt;div class="statistics">
+                    &lt;div class="fawesome fa-comment smaller">&lt;span class="text">3&lt;/span>&lt;/div>
+                    &lt;div class="fawesome fa-favorite smaller">&lt;span class="text">126&lt;/span>&lt;/div>
+                    &lt;div class="fawesome fa-more smaller">&lt;span class="text">17&lt;/span>&lt;/div>
+                &lt;/div>
+            &lt;/div>
+            &lt;h2>Headline next Blog Post: Lorem ipsum dolor sit amet, consetetur sadipscing elitr&lt;/h2>
+            &lt;p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.&lt;/p>
+        &lt;/a>
+    &lt;/div>
+    &lt;div class="col-xs-12 col-sm-6">
+        &lt;a class="content" href="#">
+            &lt;div class="subline">
+                &lt;h3>&lt;time datetime="2015-10-08 17:45:00">08. Okt. 2015, 17:45&lt;/time>&lt;/h3>
+                &lt;div class="statistics">
+                    &lt;div class="fawesome fa-comment smaller">&lt;span class="text">3&lt;/span>&lt;/div>
+                    &lt;div class="fawesome fa-favorite smaller">&lt;span class="text">126&lt;/span>&lt;/div>
+                    &lt;div class="fawesome fa-more smaller">&lt;span class="text">17&lt;/span>&lt;/div>
+                &lt;/div>
+            &lt;/div>
+            &lt;h2>Headline next Blog Post: Lorem ipsum dolor sit amet, consetetur sadipscing elitr&lt;/h2>
+            &lt;p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.&lt;/p>
+        &lt;/a>
+    &lt;/div>
+    ... keep adding col blocks
+    
+&lt;/div></pre>
+                <br/>
+                <p>Please notice the differences between the first col block and the others!!!</p>
                 <br/>
                 <br/>
                 <br/>
@@ -1074,7 +1249,7 @@ data-popup-image-src="&#123;{ article.image }}" alt="..."/>
     &lt;div class="col-xs-12 col-sm-6">
         &lt;div class="wrapper tap-hover">
             &lt;a class="content tap-hover-trigger" href="#">
-                &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ grid_project.image|modified_path:"project_grid" }}" alt="&#123;{ grid_project.get_title|escape }}/>
+                &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ grid_project.image|modified_path:"project_grid" }}" alt="&#123;{ grid_project.get_title|escape }}"/>
                 &lt;h2>Hier steht mehr zum Projekt.&lt;/h2>
             &lt;/a>
             &lt;div class="button-group">
@@ -1199,7 +1374,7 @@ data-popup-image-src="&#123;{ article.image }}" alt="..."/>
     &lt;!-- One Column Element -->
     &lt;div class="col-xs-6 col-md-3">
         &lt;a class="content" href="#">
-            &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ grid_navi.image|modified_path:"navi_grid_small" }}" alt="&#123;{ grid_navi.get_title|escape }}/>
+            &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ grid_navi.image|modified_path:"navi_grid_small" }}" alt="&#123;{ grid_navi.get_title|escape }}"/>
             &lt;h2>Participate&lt;/h2>
             &lt;p>Erstelle dein Portfolio&lt;br/>und vernetze dich mit anderen&lt;/p>
         &lt;/a>
@@ -1207,14 +1382,14 @@ data-popup-image-src="&#123;{ article.image }}" alt="..."/>
     &lt;!-- One Column Element -->
     &lt;div class="col-xs-6 col-md-3">
         &lt;a class="content" href="#">
-            &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ grid_navi.image|modified_path:"navi_grid_small" }}" alt="&#123;{ grid_navi.get_title|escape }}/>
+            &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ grid_navi.image|modified_path:"navi_grid_small" }}" alt="&#123;{ grid_navi.get_title|escape }}"/>
             &lt;h2>Connect&lt;/h2>
         &lt;/a>
     &lt;/div>
     &lt;!-- Two Columns Element -->
     &lt;div class="col-xs-12 col-md-6">
         &lt;a class="content" href="#">
-            &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ grid_navi.image|modified_path:"navi_grid_big" }}" alt="&#123;{ grid_navi.get_title|escape }}/>
+            &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ grid_navi.image|modified_path:"navi_grid_big" }}" alt="&#123;{ grid_navi.get_title|escape }}"/>
             &lt;h2>Get&lt;br/>funding&lt;/h2>
             &lt;p>Erstelle dein Portfolio&lt;br/>und vernetze dich mit anderen&lt;/p>
         &lt;/a>
@@ -1343,7 +1518,7 @@ data-popup-image-src="&#123;{ article.image }}" alt="..."/>
         &lt;div class="col-xs-12 slide">
             &lt;a class="content" href="#">
                 &lt;span class="image-hover-bg">
-                    &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ slide.image|modified_path:"portfolio_slide" }}" alt="&#123;{ slide.get_title|escape }}/>
+                    &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ slide.image|modified_path:"portfolio_slide" }}" alt="&#123;{ slide.get_title|escape }}"/>
                 &lt;/span>
                 &lt;h2>Hier steht mehr zum Portfolio.&lt;/h2>
             &lt;/a>
@@ -1395,7 +1570,7 @@ data-popup-image-src="&#123;{ article.image }}" alt="..."/>
             <div class="col-xs-12">
                 <pre>&lt;div class="slider fullside" data-speed="600" data-timer="4000">
     &lt;div class="slide">
-        &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ slide.image|modified_path:"home_slide" }}" alt="&#123;{ slide.get_title|escape }}/>
+        &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ slide.image|modified_path:"home_slide" }}" alt="&#123;{ slide.get_title|escape }}"/>
         &lt;div class="container">
             &lt;div class="row">
                 &lt;div class="col-xs-12">
@@ -1618,7 +1793,7 @@ data-popup-image-src="&#123;{ article.image }}" alt="..."/>
         <div class="row">
             <div class="col-xs-12">
                 <pre>&lt;div class="header">
-    &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ header.image|modified_path:"header" }}" alt="&#123;{ header.get_title|escape }}/>
+    &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ header.image|modified_path:"header" }}" alt="&#123;{ header.get_title|escape }}"/>
     &lt;div class="container">
         &lt;div class="row">
             &lt;div class="col-xs-12">
@@ -1673,7 +1848,7 @@ data-popup-image-src="&#123;{ article.image }}" alt="..."/>
         <div class="row">
             <div class="col-xs-12">
                 <pre>&lt;div class="header large-image">
-    &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ header.image|modified_path:"home_slide" }}" alt="&#123;{ header.get_title|escape }}/>
+    &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ header.image|modified_path:"home_slide" }}" alt="&#123;{ header.get_title|escape }}"/>
 &lt;/div>
 &lt;div class="header beneath">
     &lt;div class="container">
@@ -1775,7 +1950,7 @@ data-popup-image-src="&#123;{ article.image }}" alt="..."/>
                     &lt;div class="row slider portfolio">
                         &lt;div class="wrapper">
                             &lt;div class="col-xs-12 slide">
-                                &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ slide.image|modified_path:"portfolio_slide" }}" alt="&#123;{ slide.get_title|escape }}/>
+                                &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ slide.image|modified_path:"portfolio_slide" }}" alt="&#123;{ slide.get_title|escape }}"/>
                             &lt;/div>
                             ... keep adding slides
                         &lt;/div>
@@ -1796,6 +1971,103 @@ data-popup-image-src="&#123;{ article.image }}" alt="..."/>
             &lt;div class="row">
                 &lt;div class="hidden-xs col-sm-4 col-md-3 headline">
                     &lt;h2>Header&lt;/h2>
+                &lt;/div>
+                &lt;div class="navi">
+                    &lt;nav>
+                        &lt;ul>
+                            &lt;li>&lt;a href="javascript:void();">Menu Link #1&lt;/a>&lt;/li>
+                            &lt;li>&lt;a href="javascript:void();">Menu Link #2&lt;/a>&lt;/li>
+                            &lt;li>&lt;a href="javascript:void();">Menu Link #3&lt;/a>&lt;/li>
+                            &lt;li>&lt;a href="javascript:void();">Menu Link #4&lt;/a>&lt;/li>
+                            &lt;li>&lt;a href="javascript:void();">Menu Link #5&lt;/a>&lt;/li>
+                        &lt;/ul>
+                    &lt;/nav>
+                &lt;/div>
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+&lt;/div></pre>
+                <br/>
+                <br/>
+                <br/>
+                <p class="underline"><span class="uppercase">Header</span> with profile info</p>
+                <p>The header tag gets the class "has-content" if an info tag exists.</p>
+                <br/>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{% trans 'Persons' %}</h1>
+                    <div class="profile">
+                        <img src="http://placehold.it/270x281&text=image"/>
+                        <div class="content">
+                            <h2>Max Musterman</h2>
+                            <h3>Illustration, Freelancer</h3>
+                            <div class="buttons">
+                                <button class="fawesome fa-bookmark button text switch on"><span class="text">Bookmark</span></button>
+                                <button class="fawesome fa-favorite button text switch"><span class="text">Appreciate</span></button>
+                                <a class="fawesome fa-more button text" href="#"><span class="text">Share</span></a>
+                                <a class="fawesome fa-bullhorn button text" href="#"><span class="text">Blogpost</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="menu tabs">
+            <div class="container">
+                <div class="row">
+                    <div class="hidden-xs col-sm-4 col-md-3 headline">
+                        <h2>Max Musterman</h2>
+                    </div>
+                    <div class="navi">
+                        <nav>
+                            <ul>
+                                <li><a href="javascript:void();">Menu Link #1</a></li>
+                                <li><a href="javascript:void();">Menu Link #2</a></li>
+                                <li><a href="javascript:void();">Menu Link #3</a></li>
+                                <li><a href="javascript:void();">Menu Link #4</a></li>
+                                <li><a href="javascript:void();">Menu Link #5</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+<pre>&lt;div class="header">
+    &lt;div class="container">
+        &lt;div class="row">
+            &lt;div class="col-xs-12">
+                &lt;h1>&#123;% trans 'Persons' %}&lt;/h1>
+                &lt;div class="profile">
+                    &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ list_profile.image|modified_path:"profile" }}" alt="&#123;{ list_profile.get_title|escape }}"/>
+                    &lt;div class="content">
+                        &lt;h2>Max Musterman&lt;/h2>
+                        &lt;h3>Illustration, Freelancer&lt;/h3>
+                        &lt;div class="buttons">
+                            &lt;button class="fawesome fa-bookmark button text switch on">&lt;span class="text">Bookmark&lt;/span>&lt;/button>
+                            &lt;button class="fawesome fa-favorite button text switch">&lt;span class="text">Appreciate&lt;/span>&lt;/button>
+                            &lt;a class="fawesome fa-more button text" href="#">&lt;span class="text">Share&lt;/span>&lt;/a>
+                            &lt;a class="fawesome fa-bullhorn button text" href="#">&lt;span class="text">Blogpost&lt;/span>&lt;/a>
+                        &lt;/div>
+                    &lt;/div>
+                &lt;/div>
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    &lt;div class="menu tabs">
+        &lt;div class="container">
+            &lt;div class="row">
+                &lt;div class="hidden-xs col-sm-4 col-md-3 headline">
+                    &lt;h2>Max Musterman&lt;/h2>
                 &lt;/div>
                 &lt;div class="navi">
                     &lt;nav>
@@ -1858,7 +2130,7 @@ data-popup-image-src="&#123;{ article.image }}" alt="..."/>
             <div class="col-xs-12">
 <pre>&lt;div class="header">
     &lt;div class="sticky">
-        &lt;img src="http://placehold.it/2002x770&text=image"/>
+        &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ header.image|modified_path:"header" }}" alt="&#123;{ header.get_title|escape }}"/>
         &lt;div class="container">
             &lt;div class="row">
                 &lt;div class="col-xs-12">
@@ -1896,6 +2168,7 @@ data-popup-image-src="&#123;{ article.image }}" alt="..."/>
 {% endblock %}
 
 {% block javascript %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/blog-grid.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/projects-grid.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/navi-grid.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/twitter-wall.js"></script>

@@ -145,7 +145,7 @@
         
         &.text {
             width: 100%;
-            max-width: 230px;
+            max-width: 270px;
             height: 2.56em;
             line-height: 261%;
             display: inline-block;
@@ -155,6 +155,7 @@
             background: $white-dirty;
             padding: 0;
             border-radius: 1.33em;
+            text-align: left;
             
             .is-xs & {
                 position: relative;
@@ -183,7 +184,7 @@
                 border-radius: 50%;
                 background: $grey;
                 color: $white;
-                margin-right: 1em;
+                margin-right: 10%;
                 margin-top: 1px;
                 
                 .is-xs & {
@@ -856,6 +857,9 @@ canvas.fawesome {
 .fawesome.fa-calender-plus:before {
     content: "\f271";
 }
+.fawesome.fa-calender-minus:before {
+    content: "\f272";
+}
 .fawesome.fa-favorite:before {
     content: "\f005";
 }
@@ -961,6 +965,40 @@ canvas.fawesome {
 .fawesome.fa-news:before {
     content: "\f1ea";
 }
+.fawesome.fa-comment:before {
+    content: "\f075";
+}
+.fawesome.fa-left-double:before {
+    content: "\f100";
+}
+.fawesome.fa-right-double:before {
+    content: "\f101";
+}
+.fawesome.fa-up-double:before {
+    content: "\f102";
+}
+.fawesome.fa-down-double:before {
+    content: "\f103";
+}
+.fawesome.fa-contact:before {
+    content: "\f234";
+}
+.fawesome.fa-thumb-up:before {
+    content: "\f087";
+}
+.fawesome.fa-thumb-down:before {
+    content: "\f088";
+}
+.fawesome.fa-fist:before {
+    content: "\f255";
+}
+.fawesome.fa-note:before {
+    content: "\f24a";
+}
+.fawesome.fa-group:before {
+    content: "\f0c0";
+}
+
 
 
 
@@ -1064,6 +1102,9 @@ canvas.fawesome {
 .fawesome.fa-calender-plus.after:after {
     content: "\f271";
 }
+.fawesome.fa-calender-minus.after:after {
+    content: "\f272";
+}
 .fawesome.fa-favorite.after:after {
     content: "\f005";
 }
@@ -1162,4 +1203,37 @@ canvas.fawesome {
 }
 .fawesome.fa-news.after:after {
     content: "\f1ea";
+}
+.fawesome.fa-comment.after:after {
+    content: "\f075";
+}
+.fawesome.fa-left-double.after:after {
+    content: "\f100";
+}
+.fawesome.fa-right-double.after:after {
+    content: "\f101";
+}
+.fawesome.fa-up-double.after:after {
+    content: "\f102";
+}
+.fawesome.fa-down-double.after:after {
+    content: "\f103";
+}
+.fawesome.fa-contact.after:after {
+    content: "\f234";
+}
+.fawesome.fa-thumb-up.after:after {
+    content: "\f087";
+}
+.fawesome.fa-thumb-down.after:after {
+    content: "\f088";
+}
+.fawesome.fa-fist.after:after {
+    content: "\f255";
+}
+.fawesome.fa-note.after:after {
+    content: "\f24a";
+}
+.fawesome.fa-group.after:after {
+    content: "\f0c0";
 }

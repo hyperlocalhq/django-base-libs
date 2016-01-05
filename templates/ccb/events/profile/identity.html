@@ -1,14 +1,25 @@
 {% load i18n base_tags babel %}
 
-<h6 class="section-header">{% trans "Details" %}</h6>
-<div class="section-details">
 
-    <dl>
-        <dt>{% trans "Title" %}</dt>
-        <dd>{{ object.title }}</dd>
-    </dl>
-    <dl>
-        <dt>{% trans "Event type" %}</dt>
-        <dd>{{ object.event_type.title }}</dd>
-    </dl>
+
+<div class="fieldset not-editable ">
+    <fieldset>
+        <h2>{% trans "Details" %}</h2>
+            
+        <dl class="input-fields">
+            <dt>{% trans "Title" %}</dt>
+            <dd><div class="text-field">{{ object.title }}</div></dd>
+        </dl>
+        <dl class="input-fields">
+            <dt>{% trans "Event type" %}</dt>
+            <dd><div class="text-field">{{ object.event_type.title }}</div></dd>
+        </dl>
+        
+        {% if object.get_locality_type %}
+            <dl class="input-fields">
+                <dt>{% trans "Location" %}</dt>
+                <dd><div class="text-field">{{ object.get_locality_type.title|escape }}</div></dd>
+            </dl>
+        {% endif %}
+    </fieldset>
 </div>

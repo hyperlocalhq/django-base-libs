@@ -273,7 +273,20 @@ the bottom</pre>
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <h1>Personen</h1>
+                    <h1>{% trans 'Persons' %}</h1>
+                    <div class="profile">
+                        <img src="http://placehold.it/270x281&text=image"/>
+                        <div class="content">
+                            <h2>Max Musterman</h2>
+                            <h3>Illustration, Freelancer</h3>
+                            <div class="buttons">
+                                <button class="fawesome fa-bookmark button text switch on"><span class="text">Bookmark</span></button>
+                                <button class="fawesome fa-favorite button text switch"><span class="text">Appreciate</span></button>
+                                <a class="fawesome fa-more button text" href="#"><span class="text">Share</span></a>
+                                <a class="fawesome fa-bullhorn button text" href="#"><span class="text">Blogpost</span></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -281,7 +294,7 @@ the bottom</pre>
             <div class="container">
                 <div class="row">
                     <div class="hidden-xs col-sm-4 col-md-3 headline">
-                        <h2>Personen</h2>
+                        <h2>Max Musterman</h2>
                     </div>
                     <div class="navi">
                         <nav>
@@ -302,19 +315,12 @@ the bottom</pre>
         <div class="row">
             <div class="col-xs-12 col-sm-4 col-md-3">
                 
-                <div class="row profile-image">
-                    <div class="col-xs-4 col-sm-12">
-                        <img src="http://placehold.it/270x281&text=image"/>
-                    </div>
-                    <div class="col-xs-8 col-sm-12">
-                        <p class="hidden-xs">{% trans 'Get connected!' %}</p>
-                        <div class="button-group">
-                            <a class="fawesome fa-bookmark button" href="#"></a>
-                            <a class="fawesome fa-favorite button" href="#"></a>
-                            <a class="fawesome fa-plus-circle button" href="#"></a>
-                            <a class="fawesome fa-more button" href="#"></a>
-                        </div>
-                    </div>
+                <div class="profile-image">
+                    <img src="http://placehold.it/270x281&text=image"/>
+                    <button class="fawesome fa-bookmark button text switch on"><span class="text">Bookmark</span></button>
+                    <button class="fawesome fa-favorite button text switch"><span class="text">Appreciate</span></button>
+                    <a class="fawesome fa-more button text" href="#"><span class="text">Share</span></a>
+                    <a class="fawesome fa-bullhorn button text" href="#"><span class="text">Blogpost</span></a>
                 </div>
                 
             </div>
@@ -322,8 +328,6 @@ the bottom</pre>
                 
                 <div class="row profile-header">
                     <div class="col-xs-12">
-                        <h2>Max Mustermann</h2>
-                        <h3>Grafikdesign, Produktdesign</h3>
                         <div class="statistics">
                             <div class="statistic">
                                 <canvas class="fawesome fa-percentage big" data-value="65" data-color-active="#00cdff" data-color-inactive="#c7e2ea">
@@ -357,27 +361,11 @@ the bottom</pre>
         <div class="row">
             <div class="col-xs-12 col-sm-4 col-md-3">
                 
-                <div class="row profile-image">
-                    <div class="col-xs-4 col-sm-12">
-                        <img src="http://placehold.it/270x281&text=image"/>
-                    </div>
-                    <div class="col-xs-8 col-sm-12">
-                        <p class="hidden-xs">{% trans 'Get connected!' %}</p>
-                        <div class="button-group">
-                            <a class="fawesome fa-bookmark button" href="#"></a>
-                            <a class="fawesome fa-favorite button" href="#"></a>
-                            <a class="fawesome fa-plus-circle button" href="#"></a>
-                            <a class="fawesome fa-more button" href="#"></a>
-                        </div>
-                    </div>
-                </div>
-                
             </div>
             <div class="col-xs-12 col-sm-8 col-md-9">
                 
                 <div class="row project-header">
                     <div class="col-xs-12">
-                        <h2>Max Mustermann: {% trans 'Projects' %}</h2>
                         <div class="button-group top-right">
                             <a href="#" class="fawesome fa-grid button after"><span class="text">{% trans 'Show all' %}</span></a>
                         </div>

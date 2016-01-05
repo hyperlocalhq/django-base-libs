@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+// @options -t compressed style.scss ../css/style.css
+
 @import 'constants';
 @import 'fonts';
 @import 'fawesome';
@@ -19,12 +21,14 @@
 @import 'job-columns';
 @import 'news-columns';
 @import 'article-list';
-@import 'event-list';
+@import 'event-list'; 
 @import 'event-grid';
 @import 'comment-list';
+@import 'blog-grid';
 @import 'image-popup';
 @import 'twitter-wall';
 @import 'slider';
 @import 'search';
 @import 'header';
 @import 'accordion';
+@import 'pagination';

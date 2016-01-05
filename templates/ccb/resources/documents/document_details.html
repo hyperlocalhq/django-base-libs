@@ -1,11 +1,25 @@
 {% extends "resources/documents/details_base.html" %}
-{% load i18n base_tags auth_extended compressed compressed_jetson %}
-
-{% block doctype %}
-    <!DOCTYPE html SYSTEM "{{ website_url }}{{ jetson_media_url|slice:"1:" }}dtd/xhtml1-iframe.dtd">
-{% endblock %}
+{% load i18n base_tags auth_extended compressed %}
 
 {% block details %}
+
+    {% include "resources/documents/profile/description.html" %}
+    
+    {% include "resources/documents/profile/details.html" %}
+    
+    {% include "resources/documents/profile/categories.html" %}
+
+{% endblock %}
+
+{% block breadcrumbs %}
+        <li><a href="/{{ URL_ID_DOCUMENTS }}/">{% trans "Infolinks" %}</a></li>
+        <li>{{ object.get_title|truncatewords:5 }}</li>
+{% endblock %}
+
+
+
+
+{% block details_old %}
 
     <div class="docdetail">
         <div id="dyn_avatar" class="dyn_section">
@@ -29,16 +43,7 @@
     </div>
 {% endblock %}
 
-{% block breadcrumbs %}
-    <div class="breadcrumbs">
-        <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span>
-        <a href="/{{ URL_ID_DOCUMENTS }}/">{% trans "Infolinks" %}</a>
-        <span class="b-sep"><span>::</span></span><span>{{ object.get_title|truncatewords:5 }}</span>
-    </div>
-{% endblock %}
-
-{% block extrabody %}
+{% block extrabody_old %}
     {{ block.super }}
     {% if_has_perm "resources.change_document" object %}
         {% compressed_js "document_details" %}
