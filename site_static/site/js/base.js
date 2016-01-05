@@ -585,6 +585,7 @@ $(document).ready(function() {
         me.$header = $('#header');
         me.$content = $('#body');
         me.$breadcrunbs = $('#breadcrumbs');
+        me.$footer = $('#footer');
         me.$body = $('body');
         me.$window = $(window);
         
@@ -707,9 +708,9 @@ $(document).ready(function() {
         me.$main.css('min-height', content_height + 'px');
         
         if (!me.$body.hasClass('is-xs')) {
-            me.$main.css('margin-bottom', me.$breadcrunbs.height() + 'px');
+            me.$main.css('margin-bottom', me.$breadcrunbs.height() + me.$footer.height() + 'px');
         } else {
-            me.$main.css('margin-bottom', '');
+            me.$main.css('margin-bottom', me.$footer.height() + 'px');
         }
     }
     
