@@ -1,63 +1,46 @@
 {% extends "accounts/my_profile/base.html" %}
 {% load i18n base_tags uni_form_tags crispy_forms_tags %}
 
-{% block headline %}
-    <h1>
-        {% trans "My Profile" %}
-    </h1>
-    <h2 class="sub">
-        {% trans "Delete Profile" %}
-    </h2>
+{% block title %}
+    {% trans "Delete my profile" %}
 {% endblock %}
 
 {% block content %}
-    <div class="suggest">
-        {% if deleted_institutions %}
-            {% for inst in deleted_institutions %}
-                <p>{% blocktrans with inst.get_title as title %}Your institutional profile "{{ title }}" was
-                    successfully deleted{% endblocktrans %}</p>
-            {% endfor %}
-        {% endif %}
-        <div class="to_hide">
-            <div id="warning_message">
-                <p>{% trans "Attention! This action is permanent and you can't undo it." %}</p>
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{% block headline %}
+                        {% trans "Delete my profile" %}
+                    {% endblock %}</h1>
+                </div>
             </div>
         </div>
-        {#% crispy form %#}
-        <form id="delete_profile_form" class="uniForm" action="." method="post">{% csrf_token %}
-            <fieldset class="inlineLabels">
-                <h3>{{ form.profiles.label }}</h3>
-                {{ form.profiles|as_uni_field }}
-                {% if form.profiles.errors %}
-                    <p class="error"
-                        id="id_profiles_error_container">{{ form.profiles.errors|join:"<br />"|safe }}</p>{% endif %}
-                {{ form.non_field_errors }}
-                <div class="cleaner"></div>
+    </div>
 
-                <h3>{% trans "Additional Options" %}</h3>
-                {{ form.delete_events|as_uni_field }}
-                {{ form.delete_job_offers|as_uni_field }}
-                <div class="buttonHolder">
-                    <input type="button" class="secondaryAction" onclick="history.go(-1)"
-                        value="{% filter upper %}{% trans "Back" %}{% endfilter %}"/>
-                    <input class="primaryAction" id="delete_profile" type="submit"
-                        value="{% filter upper %}{% trans "Delete" %}{% endfilter %}"/>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                {% if deleted_institutions %}
+                    {% for inst in deleted_institutions %}
+                        <p>{% blocktrans with inst.get_title as title %}Your institutional profile "{{ title }}" was
+                            successfully deleted{% endblocktrans %}</p>
+                    {% endfor %}
+                {% endif %}
+                <div class="to_hide">
+                    <div id="warning_message">
+                        <p>{% trans "Attention! This action is permanent and you can't undo it." %}</p>
+                    </div>
                 </div>
-            </fieldset>
-        </form>
+                {% crispy form "ccb_form" %}
+            </div>
+        </div>
     </div>
 {% endblock %}
 
-{% block breadcrumbs %}
-    <div class="breadcrumbs">
-        <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span>
-        <a href="/my-profile/">{% trans "My profile" %}</a>
-        <span class="b-sep"><span>::</span></span><span>{% trans "Delete profile" %}</span>
-    </div>
-{% endblock %}
-
-{% block extrabody %}
+{% block javascript %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/delete_profile.js"></script>
 {% endblock %}
 
