@@ -8,42 +8,56 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <h1>{% ifequal request.user object.user %}{% trans "My Profile" %}{% else %}{% trans "Person" %}{% endifequal %}</h1>
+                    <h1>{% ifequal request.user object.user %}{% trans "My Profile" %}{% else %}
+                        {% trans "Person" %}{% endifequal %}</h1>
                     <div class="profile">
-                        
-    {% if object.image %}
-        <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if_has_perm "people.change_person" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ object.get_title|escape }}"/>
-    {% else %}
-        <img src="{{ STATIC_URL }}site/img/placeholder/profile.png" alt="{{ object.get_title|escape }}"/>
-    {% endif %}
-    
+
+                        {% if object.image %}
+                            <img src="
+                                {{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if_has_perm "people.change_person" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}"
+                                alt="{{ object.get_title|escape }}"/>
+                        {% else %}
+                            <img src="{{ STATIC_URL }}site/img/placeholder/profile.png"
+                                alt="{{ object.get_title|escape }}"/>
+                        {% endif %}
+
                         <div class="content">
                             <h2>{{ object.get_title|escape }}</h2>
                             <h3>{{ object.occupation }}</h3>
                             <div class="buttons">
-                                
-    {% ifequal request.user object.user %}
-        {% navigation_links "menu_activities" %}
-    {% else %}
-        {% if request.user.is_authenticated %}
-            {% if object.is_addable_to_favorites %}
-                {% with object|get_context_item as context_item %}
-                    {% adding2favorites for context_item using "generic/favorite_contact.html" %}
-                {% endwith %}
-            {% endif %}
-            {% if object.is_addable_to_memos %}{% adding2memos for object %}{% endif %}
-            {#% adding_individual_relation with object %#}
-            {% if person.is_contactable %}<a href="{{ person.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "send Email" %}</span></a>{% endif %}
-            {% if request.user.is_staff and perms.people.change_person %}
-                <a href="/admin/people/person/{{ object.id }}/" class="fawesome fa-edit button text hidden-xs" onclick="open_new_window(event)"><span class="text">{% trans "edit Person" %}</span></a>
-            {% endif %}
-        {% else %}
-            {% adding2memos for object %}
-            <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-contact button text"><span class="text">{% trans "Contact" %}</span></a>
-            {% if object.is_contactable %}<a href="/login/?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "send Email" %}</span></a>{% endif %}
-        {% endif %}
-    {% endifequal %}
-    
+
+                                {% ifequal request.user object.user %}
+                                    {% navigation_links "menu_activities" %}
+                                {% else %}
+                                    {% if request.user.is_authenticated %}
+                                        {% if object.is_addable_to_favorites %}
+                                            {% with object|get_context_item as context_item %}
+                                                {% adding2favorites for context_item using "generic/favorite_contact.html" %}
+                                            {% endwith %}
+                                        {% endif %}
+                                        {% if object.is_addable_to_memos %}{% adding2memos for object %}{% endif %}
+                                        {#% adding_individual_relation with object %#}
+                                        {% if person.is_contactable %}
+                                            <a href="{{ person.get_url_path }}message/"
+                                                class="fawesome fa-email button text">
+                                                <span class="text">{% trans "send Email" %}</span></a>{% endif %}
+                                        {% if request.user.is_staff and perms.people.change_person %}
+                                            <a href="/admin/people/person/{{ object.id }}/"
+                                                class="fawesome fa-edit button text hidden-xs"
+                                                onclick="open_new_window(event)">
+                                                <span class="text">{% trans "edit Person" %}</span></a>
+                                        {% endif %}
+                                    {% else %}
+                                        {% adding2memos for object %}
+                                        <a href="/login/?goto_next={{ request.path }}"
+                                            class="fawesome fa-contact button text">
+                                            <span class="text">{% trans "Contact" %}</span></a>
+                                        {% if object.is_contactable %}
+                                            <a href="/login/?goto_next={{ object.get_url_path }}message/"
+                                                class="fawesome fa-email button text">
+                                                <span class="text">{% trans "send Email" %}</span></a>{% endif %}
+                                    {% endif %}
+                                {% endifequal %}
                             </div>
                         </div>
                     </div>
@@ -54,7 +68,13 @@
             <div class="container">
                 <div class="row">
                     <div class="hidden-xs col-sm-4 col-md-3 headline">
-                        <h2>{% ifequal request.user object.user %}{% trans "My Profile" %}{% else %}{% trans "Person" %}{% endifequal %}</h2>
+                        <h2>
+                            {% ifequal request.user object.user %}
+                                {% trans "My Profile" %}
+                            {% else %}
+                                {% trans "Person" %}
+                            {% endifequal %}
+                        </h2>
                     </div>
                     <div class="navi">
                         <nav>
@@ -71,49 +91,60 @@
         <div class="row">
             <div class="col-xs-12 col-sm-4 col-md-3">
                 <div class="profile-image">
-                    
                     {#% if request.path == object.get_url_path %#}
-                        {% if_has_perm "people.change_person" object %}
-                            <a href="{% cropping_url object.image.path "ad" request object.get_url_path %}" class="fawesome fa-edit recrop-link">
-                        {% end_if_has_perm %}
+                    {% if_has_perm "people.change_person" object %}
+                        <a href="{% cropping_url object.image.path "ad" request object.get_url_path %}"
+                            class="fawesome fa-edit recrop-link">
+                    {% end_if_has_perm %}
                     {#% endif %#}
-                    
-    {% if object.image %}
-        <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if_has_perm "people.change_person" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ object.get_title|escape }}"/>
-    {% else %}
-        <img src="{{ STATIC_URL }}site/img/placeholder/profile.png" alt="{{ object.get_title|escape }}"/>
-    {% endif %}
-    
+
+                    {% if object.image %}
+                        <img src="
+                            {{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if_has_perm "people.change_person" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}"
+                            alt="{{ object.get_title|escape }}"/>
+                    {% else %}
+                        <img src="{{ STATIC_URL }}site/img/placeholder/profile.png"
+                            alt="{{ object.get_title|escape }}"/>
+                    {% endif %}
+
                     {#% if request.path == object.get_url_path %#}
-                        {% if_has_perm "people.change_person" object %}
-                            </a>
-                        {% end_if_has_perm %}
+                    {% if_has_perm "people.change_person" object %}
+                        </a>
+                    {% end_if_has_perm %}
                     {#% endif %#}
-    
-    {% ifequal request.user object.user %}
-        {% navigation_links "menu_activities" %}
-    {% else %}
-        {% if request.user.is_authenticated %}
-            {% if object.is_addable_to_favorites or object.is_removable_from_favorites %}
-                {% with object|get_context_item as context_item %}
-                    {% adding2favorites for context_item using "generic/favorite_contact.html" %}
-                {% endwith %}
-            {% endif %}
-            {% if object.is_addable_to_memos %}{% adding2memos for object %}{% endif %}
-            {#% adding_individual_relation with object %#}
-            {% if object.is_contactable %}<a href="{{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "send Email" %}</span></a>{% endif %}
-            {% if request.user.is_staff and perms.people.change_person %}
-                <a href="/admin/people/person/{{ object.id }}/" class="fawesome fa-edit button text" onclick="open_new_window(event)"><span class="text">{% trans "edit Person" %}</span></a>
-            {% endif %}
-        {% else %}
-            {% adding2memos for object %}
-            <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-contact button text"><span class="text">{% trans "Contact" %}</span></a>
-            {% if object.is_contactable %}<a href="/login/?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "send Email" %}</span></a>{% endif %}
-        {% endif %}
-    {% endifequal %}
-    
+
+                    {% ifequal request.user object.user %}
+                        {% navigation_links "menu_activities" %}
+                    {% else %}
+                        {% if request.user.is_authenticated %}
+                            {% if object.is_addable_to_favorites or object.is_removable_from_favorites %}
+                                {% with object|get_context_item as context_item %}
+                                    {% adding2favorites for context_item using "generic/favorite_contact.html" %}
+                                {% endwith %}
+                            {% endif %}
+                            {% if object.is_addable_to_memos %}{% adding2memos for object %}{% endif %}
+                            {#% adding_individual_relation with object %#}
+                            {% if object.is_contactable %}
+                                <a href="{{ object.get_url_path }}message/" class="fawesome fa-email button text"><span
+                                    class="text">{% trans "send Email" %}</span></a>{% endif %}
+                            {% if request.user.is_staff and perms.people.change_person %}
+                                <a href="/admin/people/person/{{ object.id }}/"
+                                    class="fawesome fa-edit button text"
+                                    onclick="open_new_window(event)"><span class="text">{% trans "edit Person" %}</span>
+                                </a>
+                            {% endif %}
+                        {% else %}
+                            {% adding2memos for object %}
+                            <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-contact button text"><span
+                                class="text">{% trans "Contact" %}</span></a>
+                            {% if object.is_contactable %}
+                                <a href="/login/?goto_next={{ object.get_url_path }}message/"
+                                    class="fawesome fa-email button text">
+                                    <span class="text">{% trans "send Email" %}</span></a>{% endif %}
+                        {% endif %}
+                    {% endifequal %}
                 </div>
-                
+
                 {% block sidebar %}
                 {% endblock %}
             </div>
@@ -125,10 +156,6 @@
     </div>
 {% endblock %}
 
-
-
-
-
 {% block headline_old %}
     {% blocktrans with request.user.profile.get_title|escape as user %}
         <h1>Hello,</h1>
@@ -138,7 +165,6 @@
 {% block object-title_old %}
     <h2>{{ object.title }}</h2>
 {% endblock %}
-
 
 {% block object-content_old %}{% endblock %}
 
