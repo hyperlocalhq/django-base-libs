@@ -1,15 +1,15 @@
-{% extends "base.html" %}
-{% load base_tags i18n %}
+{% extends "ccb/tracker/ticket_base.html" %}
+{% load i18n %}
 
-{% block title %}{% trans 'Feedback' %}{% endblock %}
-
-
-{% block headline %}
-    <h1>{% trans "FEEDBACK" %}</h1>
+{% block title %}
+    {% trans 'Feedback' %}
 {% endblock %}
 
+{% block headline %}
+    {% trans "FEEDBACK" %}
+{% endblock %}
 
-{% block content %}
-    <p>{% trans "Thank you for informing us - we will work on it immediately!" %}</p>
+{% block form %}
+    {% trans "Thank you for informing us - we will work on it immediately!" %}
 {% endblock %}
 
