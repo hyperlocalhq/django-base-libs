@@ -271,17 +271,20 @@ class SimpleRegistrationForm(SimpleRegistrationFormBase):
             ),
             layout.Fieldset(
                 _("Categories"),
-                layout.Div(layout.Field("categories", template="bootstrap3/custom_widgets/checkboxselectmultipletree.html")),
+                layout.Field("categories", template="ccb_form/custom_widgets/checkboxselectmultipletree.html"),
+                css_class="no-label",
             ),
             layout.Fieldset(
                 _("Confirmation"),
                 "privacy_policy",
                 "terms_of_use",
                 "prevent_spam",
-                *self.newsletter_field_names
+                *self.newsletter_field_names,
+                css_class="no-label"
             ),
             bootstrap.FormActions(
                 layout.Submit('submit', _('Create account')),
+                css_class='button-group form-buttons',
             )
         )
 
@@ -396,6 +399,10 @@ class EmailOrUsernameAuthentication(AuthenticationForm):
                 "email_or_username",
                 "password",
                 "login_as",
+                bootstrap.FormActions(
+                    layout.Submit('submit', _('Login')),
+                    css_class='button-group form-buttons',
+                )
             ),
             layout.HTML("""
                 {% load i18n %}
@@ -404,9 +411,6 @@ class EmailOrUsernameAuthentication(AuthenticationForm):
                 <input type="hidden" name="post_data" value="{{ post_data }}" />
                 <input type="hidden" name="goto_next" value="{% if goto_next == "/" %}/dashboard/{% else %}{% if goto_next %}{{ goto_next }}{% else %}/dashboard/{% endif %}{% endif %}" />
             """),
-            bootstrap.FormActions(
-                layout.Submit('submit', _('Log in')),
-            )
         )
         super(EmailOrUsernameAuthentication, self).__init__(*args, **kwargs)
         del self.fields['username']
@@ -420,10 +424,11 @@ class EmailOrUsernameAuthentication(AuthenticationForm):
                 "email_or_username",
                 "password",
                 "login_as",
+                bootstrap.FormActions(
+                    layout.Submit('submit', _('Login')),
+                    css_class='button-group form-buttons',
+                )
             ),
-            bootstrap.FormActions(
-                layout.Submit('submit', _('Login')),
-            )
         )
 
     def clean(self):

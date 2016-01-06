@@ -4,6 +4,33 @@
 .error {
     color: $form-error;
     font-weight: $font-bold;
+    
+    h4 {
+        color: $form-error;
+        font-family: $font-2, $font-family-1;
+        font-weight: $font-bold;
+        text-transform: none;
+        font-size: 1.2em;
+        line-height: 140%;
+        margin-bottom: 5px;
+        
+        .is-xs {
+            font-size: 1.07em;
+            line-height: 138%;
+        }
+    }
+    
+    ul {
+        list-style: none;
+        li {
+            display: block;
+            margin-bottom: 2px;
+        }
+    }
+}
+
+.help {
+    
 }
     
 input {
@@ -65,6 +92,28 @@ input {
         }
     }
 
+    &.error {
+        input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="number"], input[type="range"], input[type="color"] {
+            background: $form-error-background;
+            
+            &::-webkit-input-placeholder {
+                color: $form-error-placeholder;
+                opacity: 1;
+            }
+            &:-moz-placeholder {
+                color: $form-error-placeholder;
+                opacity: 1;
+            }
+            &::-moz-placeholder {
+                color: $form-error-placeholder;
+                opacity: 1;
+            }
+            &:-ms-input-placeholder {
+                color: $form-error-placeholder;
+                opacity: 1;
+            }            
+        }
+    }
     
     input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="number"], input[type="range"], input[type="color"] {
         width: 100%;
@@ -203,6 +252,31 @@ input {
         }
     }
     
+    &.error {
+        input[type="text"].input-file-display {
+            &[disabled], fieldset[disabled] & {
+                background: $form-error-background;
+                
+                &::-webkit-input-placeholder {
+                    color: $form-error-placeholder;
+                    opacity: 1;
+                }
+                &:-moz-placeholder {
+                    color: $form-error-placeholder;
+                    opacity: 1;
+                }
+                &::-moz-placeholder {
+                    color: $form-error-placeholder;
+                    opacity: 1;
+                }
+                &:-ms-input-placeholder {
+                    color: $form-error-placeholder;
+                    opacity: 1;
+                } 
+            }
+        }
+    }
+    
     // the text input which displays the selected file
     input[type="text"].input-file-display {
         &[disabled], fieldset[disabled] & {
@@ -335,7 +409,28 @@ input {
     // end file input style
     /////////////////////////////
     
-    
+    &.error {
+        textarea {
+            background: $form-error-background;
+            
+            &::-webkit-input-placeholder {
+                color: $form-error-placeholder;
+                opacity: 1;
+            }
+            &:-moz-placeholder {
+                color: $form-error-placeholder;
+                opacity: 1;
+            }
+            &::-moz-placeholder {
+                color: $form-error-placeholder;
+                opacity: 1;
+            }
+            &:-ms-input-placeholder {
+                color: $form-error-placeholder;
+                opacity: 1;
+            }            
+        }
+    }
     
     textarea {
         width: 100%;
@@ -810,6 +905,31 @@ input {
         }
     }
     
+    &.error {
+        input[type="text"].select-display {
+            &[disabled], fieldset[disabled] & {
+                background: $form-error-background;
+                
+                &::-webkit-input-placeholder {
+                    color: $form-error-placeholder;
+                    opacity: 1;
+                }
+                &:-moz-placeholder {
+                    color: $form-error-placeholder;
+                    opacity: 1;
+                }
+                &::-moz-placeholder {
+                    color: $form-error-placeholder;
+                    opacity: 1;
+                }
+                &:-ms-input-placeholder {
+                    color: $form-error-placeholder;
+                    opacity: 1;
+                }                  
+            }
+        }
+    }
+    
     // the text input which displays the selected options
     input[type="text"].select-display {
         
@@ -1151,8 +1271,7 @@ input {
                 }
             }
         }
-    }
-    
+    }    
         
     &.editable, &.not-editable {
             
@@ -1455,8 +1574,24 @@ input {
                 }
             }
         }
+    }
         
-        
+    
+    &.no-label {
+        fieldset {
+            > dl.input-fields {
+                > dt {
+                    display: none;
+                }
+                > dd {
+                    width: 100%;
+                    
+                    > ul.accordion {
+                        margin-left: 10px;
+                    }
+                }
+            }
+        }
     }
 }
 

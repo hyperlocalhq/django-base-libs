@@ -1,7 +1,24 @@
 {% extends "people/details_base.html" %}
 {% load i18n base_tags uni_form_tags crispy_forms_tags %}
 
-{% block headline %}
+
+{% block details %}
+    <h2>{% trans "Privacy Settings" %}</h2> 
+    <p class="intro">{% trans "Here you can specify personal data to be displayed in your profile to the public." %}</p>
+    <br/>
+    {% crispy form "ccb_form" %}
+{% endblock %}
+
+
+{% block breadcrumbs %}
+    <li><a href="/my-profile/">{% trans "My profile" %}</a></li>
+    <li><span>{% trans "Privacy settings" %}</span></li>
+{% endblock %}
+
+
+
+
+{% block headline_old %}
     <h1>
         {% trans "My Profile" %}
     </h1>
@@ -10,7 +27,7 @@
     </h2>
 {% endblock %}
 
-{% block content %}
+{% block content_old %}
     <div class="suggest">
         <p>
             {% trans "Here you can specify personal data to be displayed in your profile to the public." %}
@@ -41,15 +58,6 @@
                 </div>
             </fieldset>
         </form>
-    </div>
-{% endblock %}
-
-{% block breadcrumbs %}
-    <div class="breadcrumbs">
-        <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span>
-        <a href="/my-profile/">{% trans "My profile" %}</a>
-        <span class="b-sep"><span>::</span></span><span>{% trans "Privacy settings" %}</span>
     </div>
 {% endblock %}
 

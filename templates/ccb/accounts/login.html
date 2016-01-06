@@ -1,16 +1,58 @@
-{% extends base_template|default:"base.html" %}
+{% extends base_template|default:"ccb/accounts/account_base.html" %}
 {% load base_tags i18n uni_form_tags crispy_forms_tags %}
 
-{% block title %}{% trans "login" %}{% endblock %}
+{% block title %}{% trans "Login" %}{% endblock %}
 
 {% block headline %}
-    <h1>{% trans "login" %}</h1>
+    {% trans "Login" %}
 {% endblock %}
 
-{% block sidebar-a %}&nbsp;{% endblock %}
-{% block sidebar-b %}&nbsp;{% endblock %}
+{% block form %}
+    <form action="/{{ LANGUAGE_CODE }}/facebook/link/" method="post" class="uniForm">
+        {% csrf_token %}
+        <div class="fieldset editable">
+            <fieldset>
+                <h2>Facebook</h2>
+                <p>
+                    {% trans "Are you on Facebook?" %}<br/>
+                    {% trans "Login with Facebook will be available soon." %}
+                </p>
 
-{% block content %}
+                <div class="button-group form-buttons">
+                    <input type="hidden" name="access_token" value=""/>
+                    <input type="hidden" name="uid" value=""/>
+                    <input type="hidden" name="goto_next" value="{% ifequal goto_next root_dir %}/dashboard/{% else %}{% if goto_next %}{{ goto_next }}{% else %}/dashboard/{% endif %}{% endifequal %}" />
+                </div>
+            </fieldset>
+        </div>
+    </form>
+    
+    {% crispy form "ccb_form" %}
+    
+    <form>
+        <div class="fieldset editable">
+            <fieldset>
+                <h2>{% trans 'Register' %}</h2>
+                <p>
+                    {% trans "Haven't you got an account yet?" %}
+                </p>
+
+                <div class="button-group form-buttons">
+                    <input class="button primary" type="button" onclick="window.redirect('/register/')"
+                        value="{% filter upper %}{% trans 'Create Account' %}{% endfilter %}"/>
+                </div>
+            </fieldset>
+        </div>
+    </form>
+{% endblock %}
+
+
+
+
+{% block sidebar-a_old %}&nbsp;{% endblock %}
+{% block sidebar-b_old %}&nbsp;{% endblock %}
+
+{% block content_old %}
     <form action="/{{ LANGUAGE_CODE }}/facebook/link/" method="post" class="uniForm">{% csrf_token %}
         <fieldset class="inlineLabels">
             <p class="disclaimer">

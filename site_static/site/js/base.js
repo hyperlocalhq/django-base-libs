@@ -17,6 +17,10 @@
 
 $(document).ready(function() {
     
+    window.redirect = function(url) {
+        location.href = url;   
+    }
+    
     
     /**
      * Sniffs for the width of the browser window.
@@ -110,6 +114,8 @@ $(document).ready(function() {
         this.me = me;
         
         me.$main = $main;
+        me.adjustLevel();
+        
         me.$children = $('> .accordion-inside', me.$main);
         me.$parents = me.$main.add(me.$main.parents('.accordion'));
         me.is_animating = false;
@@ -128,6 +134,50 @@ $(document).ready(function() {
         
         
         if (me.$parents.length == 1) $(window).resize(function() {me.onResize();});
+    }
+    
+    Accordion.prototype.adjustLevel = function() {
+        
+        var me = this.me;
+        
+        if (me.$main.hasClass('adjust-level') && me.$main.hasClass('boxes')) {
+            
+            me.$main.removeClass('adjust-level');
+            
+            var current_level = 0;
+            var parents = [];
+            parents.push(me.$main);
+            
+            $('> li', me.$main).each(function() {
+                
+                var $li = $(this);
+                var $parent = parents[parents.length-1];
+                
+                var level = parseInt($li.attr('data-level'));
+                if (!level) level = 0;
+                
+                if (level > current_level) {
+                    
+                    current_level = level;   
+                    $li.addClass('accordion-inside accordion-trigger');
+                    $('> div.input-field.box', $li).addClass('accordion-trigger');
+                    
+                    var $new_parent = $('<ul class="accordion boxes"></ul>');
+                    $li.append($new_parent);
+                    new Accordion($new_parent);
+                    
+                    parents.push($new_parent);
+                    
+                } else if (level < current_level) {
+                    
+                    current_level = level;  
+                    parents.pop();
+                    $parent = parents[parents.length-1];
+                }
+                
+                $parent.append($li);
+            });
+        }
     }
     
     Accordion.prototype.init = function() {

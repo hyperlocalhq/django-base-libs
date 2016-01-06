@@ -40,7 +40,7 @@
         color: $cyan !important;
     }
     
-    &.button {
+    &.button, &.btn {
         height: auto;
         border: none;
         display: block;
@@ -107,7 +107,7 @@
             }
         }
         
-        &.primary {
+        &.primary, &.btn-primary {
             background: transparent;
             color: $button-primary;
             &:hover, &:focus, &.focus {
@@ -116,7 +116,7 @@
             }
         }
         
-        &.success {
+        &.success, &.btn-success {
             background: transparent;
             color: $button-success;
             &:hover, &:focus, &.focus {
@@ -125,7 +125,7 @@
             }
         }
         
-        &.warning {
+        &.warning, &.btn-warning {
             background: transparent;
             color: $button-warning;
             &:hover, &:focus, &.focus {
@@ -134,7 +134,7 @@
             }
         }
         
-        &.danger {
+        &.danger, &.btn-danger {
             background: transparent;
             color: $button-danger;
             &:hover, &:focus, &.focus {
@@ -366,7 +366,7 @@
                 background: $cyan;
             }
             
-            &.primary {
+            &.primary, &.btn-primary {
                 background: $button-primary;
                 color: $white;
                 &:hover, &:focus, &.focus {
@@ -375,7 +375,7 @@
                 }
             }
             
-            &.success {
+            &.success, &.btn-success {
                 background: $button-success;
                 color: $white;
                 &:hover, &:focus, &.focus {
@@ -384,7 +384,7 @@
                 }
             }
             
-            &.warning {
+            &.warning, &.btn-warning {
                 background: $button-warning;
                 color: $white;
                 &:hover, &:focus, &.focus {
@@ -393,7 +393,7 @@
                 }
             }
             
-            &.danger {
+            &.danger, &.btn-danger {
                 background: $button-danger;
                 color: $white;
                 &:hover, &:focus, &.focus {
@@ -417,7 +417,7 @@
                 color: $white;
             }
             
-            &.primary {
+            &.primary, &.btn-primary {
                 background: $button-primary;
                 color: $black;
                 &:hover, &:focus, &.focus {
@@ -426,7 +426,7 @@
                 }
             }
             
-            &.success {
+            &.success, &.btn-success {
                 background: $button-success;
                 color: $black;
                 &:hover, &:focus, &.focus {
@@ -435,7 +435,7 @@
                 }
             }
             
-            &.warning {
+            &.warning, &.btn-warning {
                 background: $button-warning;
                 color: $black;
                 &:hover, &:focus, &.focus {
@@ -444,7 +444,7 @@
                 }
             }
             
-            &.danger {
+            &.danger, &.btn-danger {
                 background: $button-danger;
                 color: $black;
                 &:hover, &:focus, &.focus {
@@ -499,7 +499,7 @@
             }
         }
         
-        &.button {
+        &.button, &.btn {
             .text {
                 font-size: 1em;
             }
@@ -525,14 +525,14 @@
                 font-size: 1.73em;
             }
         }
-        &.button.round {
+        &.button.round, &.btn.round {
             width: 3.6em;
             .is-xs & {
                 width: 2.67em;
             }
         }
         
-        &.button {
+        &.button, &.btn {
             .text {
                 font-size: 0.75em;
                 .is-xs & {
@@ -562,14 +562,14 @@
                 font-size: 1.27em;
             }
         }
-        &.button.round {
+        &.button.round, &.btn.round {
             width: 2.67em;
             .is-xs & {
                 width: 2.53em;
             }
         }
         
-        &.button {
+        &.button, &.btn {
             .text {
                 font-size: 0.61em;
             }
@@ -581,7 +581,7 @@
         }
     }
     
-    .button-group.top-right &.button, .button-group.bottom-right &.button {
+    .button-group.top-right &.button, .button-group.bottom-right &.button, .button-group.top-right &.btn, .button-group.bottom-right &.btn {
         
         line-height: 1.8em;
         margin-right: 1.5em;
@@ -601,7 +601,7 @@
         }
     }
         
-    .button-group &.button {
+    .button-group &.button, .button-group &.btn {
         display: inline-block;
         
         margin-right: 1.85em;
@@ -658,7 +658,7 @@
             content: none !important;
         }
         
-        &.button {
+        &.button, &.btn {
             .text {
                 margin-left: 0px;
                 margin-right: 10px;

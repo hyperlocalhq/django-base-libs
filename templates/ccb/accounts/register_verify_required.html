@@ -1,14 +1,23 @@
-{% extends "base.html" %}
+{% extends "ccb/accounts/account_base.html" %}
 {% load base_tags i18n %}
 
+{% block title %}{% trans "Create Account" %}{% endblock %}
+
 {% block headline %}
-    <h1>{% trans "You're almost there." %}</h1>
+    {% trans "Create Account" %}
 {% endblock %}
 
-{% block sidebar-a %}&nbsp;{% endblock %}
-{% block sidebar-b %}&nbsp;{% endblock %}
-{% block title %}{% trans "You're almost there." %}{% endblock %}
-{% block content %}
+{% block form %}
+    <h2>{% trans "You're almost there." %}</h2>
+    <p>{% trans "In order to complete registration, we need to confirm you entered a valid e-mail address. You should be getting a confirmation e-mail very shortly. It will contain instructions on how to finalize your registration." %}</p>
+    <p><strong>{% trans "Please also check your Spam folder to make sure that our message has not been filtered out." %}</strong></p>
+{% endblock %}
+
+
+
+{% block sidebar-a_old %}&nbsp;{% endblock %}
+{% block sidebar-b_old %}&nbsp;{% endblock %}
+{% block content_old %}
     <div>
         <p>{% trans "In order to complete registration, we need to confirm you entered a valid e-mail address. You should be getting a confirmation e-mail very shortly. It will contain instructions on how to finalize your registration." %}</p>
 

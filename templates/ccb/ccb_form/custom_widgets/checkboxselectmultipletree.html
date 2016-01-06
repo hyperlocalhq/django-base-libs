@@ -1,0 +1,30 @@
+{% load crispy_forms_filters %}
+{% load l10n %}
+
+<dd>
+    {% include 'ccb_form/layout/field_errors.html' %}
+    <ul class="accordion boxes adjust-level">
+        {% for choice_value, choice_instance in field.field.choices %}
+            <li data-level="{{ choice_instance.level }}"><div class="input-field box {{ field_class }} {{ inline_class }}"><input id="id_{{ field.html_name }}_{{ forloop.counter }}" name="{{ field.html_name }}" type="checkbox" {% if choice_value in field.value or choice_value|stringformat:"s" in field.value or choice_value|stringformat:"s" == field.value|stringformat:"s" %} checked="checked"{% endif %} value="{{ choice_value|unlocalize }}" {{ field.field.widget.attrs|flatatt }}/><label for="id_{{ field.html_name }}_{{ forloop.counter }}">{{ choice_instance }}</label></div></li>
+        {% endfor %}
+    </ul>
+    {% include 'ccb_form/layout/help_text.html' %}
+</dd>
+
+{% comment %}
+<div class="checkbox-group">
+    {% include 'bootstrap3/layout/field_errors_block.html' %}
+
+    {% for choice_value, choice_instance in field.field.choices %}
+        <div class="form-group {{ field_class }} level-{{ choice_instance.level }}"{% if flat_attrs %} {{ flat_attrs|safe }}{% endif %}>
+            <div class="checkbox{% if inline_class %}-{{ inline_class }}{% endif %}">
+                <label>
+                    <input type="checkbox"{% if choice_value in field.value or choice_value|stringformat:"s" in field.value or choice_value|stringformat:"s" == field.value|stringformat:"s" %} checked="checked"{% endif %} name="{{ field.html_name }}" id="id_{{ field.html_name }}_{{ forloop.counter }}" value="{{ choice_value|unlocalize }}" {{ field.field.widget.attrs|flatatt }}>{{ choice_instance }}
+                </label>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% include 'bootstrap3/layout/help_text.html' %}
+</div>
+{% endcomment %}

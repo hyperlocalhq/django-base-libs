@@ -566,7 +566,7 @@ dl {
     }
 }
 
-.button {
+.button, .btn {
     height: 2.67em;
     line-height: 261%;
     display: inline-block;
@@ -597,7 +597,7 @@ dl {
         border-color: $button-default-border-actvie;
     }
     
-    &.primary {
+    &.primary, &.btn-primary {
         background: $button-primary;
         border-color: $button-primary-border;
         &:hover, &:focus, &.focus {
@@ -606,7 +606,7 @@ dl {
         }
     }
     
-    &.success {
+    &.success, &.btn-success {
         background: $button-success;
         border-color: $button-success-border;
         &:hover, &:focus, &.focus {
@@ -615,7 +615,7 @@ dl {
         }
     }
     
-    &.warning {
+    &.warning, &.btn-warning {
         background: $button-warning;
         border-color: $button-warning-border;
         &:hover, &:focus, &.focus {
@@ -624,7 +624,7 @@ dl {
         }
     }
     
-    &.danger {
+    &.danger, &.btn-danger {
         background: $button-danger;
         border-color: $button-danger-border;
         &:hover, &:focus, &.focus {
@@ -634,7 +634,7 @@ dl {
     }
 }
 
-span.button {
+span.button, span.btn {
     font-size: 18px;
     .is-xs & {
         font-size: 16px;
@@ -669,7 +669,7 @@ span.button {
         right: 0px;
     }
     
-    .button {
+    .button, .btn {
         margin-right: 2em;
         margin-bottom: 10px;
         &:last-child {
@@ -680,7 +680,7 @@ span.button {
 
 .button-group-left-navi {
     
-    .button {
+    .button, .btn {
         margin-bottom: 10px;
         
         .is-xs & {

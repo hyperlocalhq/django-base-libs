@@ -1,17 +1,23 @@
-{% extends "base.html" %}
-
+{% extends "ccb/accounts/account_base.html" %}
 {% load base_tags i18n uni_form_tags uni_form_field %}
 
-{% block title %}{% trans "login" %}{% endblock %}
+{% block title %}{% trans "Login" %}{% endblock %}
 
 {% block headline %}
-    <h1>{% trans "login" %}</h1>
+    {% trans "Login" %}
 {% endblock %}
 
-{% block sidebar-a %}&nbsp;{% endblock %}
-{% block sidebar-b %}&nbsp;{% endblock %}
+{% block form %}
+    {#% crispy form "ccb_form" %#}
+{% endblock %}
 
-{% block content %}
+
+
+
+{% block sidebar-a_old %}&nbsp;{% endblock %}
+{% block sidebar-b_old %}&nbsp;{% endblock %}
+
+{% block content_old %}
     <div class="field_layout">
         <form action="{{ app_path }}" method="post" class="uniForm">{% csrf_token %}
             <fieldset class="inlineLabels">

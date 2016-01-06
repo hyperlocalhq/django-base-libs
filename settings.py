@@ -844,6 +844,7 @@ RECAPTCHA_USE_SSL = False
 ### DJANGO CRISPY FORMS ###
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+CRISPY_ALLOWED_TEMPLATE_PACKS = ('bootstrap3', 'ccb_form')
 
 ### DJANGO CMS ###
 

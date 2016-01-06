@@ -1,18 +1,24 @@
-{% extends "base.html" %}
+{% extends "ccb/accounts/account_base.html" %}
 {% load base_tags i18n browsing uni_form_tags crispy_forms_tags %}
 
 {% block title %}{% trans "Create Account" %}{% endblock %}
 
 {% block headline %}
-    <h1>{% trans "Create Account" %}</h1>
+    {% trans "Create Account" %}
 {% endblock %}
 
-{% block sidebar-a %}&nbsp;{% endblock %}
+{% block form %}
+    {% crispy form "ccb_form" %}
+{% endblock %}
 
-{% block sidebar-b %}&nbsp;{% endblock %}
 
-{% block content %}
-    {% crispy form %}
+
+{% block sidebar-a_old %}&nbsp;{% endblock %}
+
+{% block sidebar-b_old %}&nbsp;{% endblock %}
+
+{% block content_old %}    
+    
     {% comment %}
     <form action="{{ app_path }}" class="uniForm" method="post">{% csrf_token %}
         <fieldset class="inlineLabels">
@@ -69,7 +75,7 @@
     {% endcomment %}
 {% endblock %}
 
-{% block extrabody %}
+{% block extrabody_old %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/categories.js"></script>
 {% endblock %}
 
