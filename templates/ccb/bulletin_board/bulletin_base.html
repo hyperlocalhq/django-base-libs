@@ -1,0 +1,67 @@
+{% extends "base_redesign.html" %}
+{% load i18n base_tags navigation_tags cache infoblocks uni_form_filters %}
+
+{% comment %}
+{% block extrahead %}
+    {% if not my_list %}
+        <link
+            rel="alternate"
+            type="application/rss+xml"
+            title="Projektboerse RSS"
+            href="{{ website_url|slice:":-1" }}{% url "bulletin_rss" %}{% filter force_escape %}{% append_to_get sort_by="" no_path %}{% endfilter %}"
+        />
+    {% endif %}
+{% endblock %}
+{% endcomment %}
+
+{% block extrahead %}
+    <link
+        rel="alternate"
+        type="application/rss+xml"
+        title="{% trans "RSS Feed of CCB Marketplace" %}"
+        href="{{ website_url }}{{ LANGUAGE_CODE }}{{ request.path }}feed/rss/
+            {% filter force_escape %}{% append_to_get page=0,paginate_by=0,sort_by=0 no_path %}{% endfilter %}"
+    />
+    <link
+        rel="alternate"
+        type="application/atom+xml"
+        title="{% trans "Atom Feed of CCB Marketplace" %}"
+        href="{{ website_url }}{{ LANGUAGE_CODE }}{{ request.path }}feed/atom/
+            {% filter force_escape %}{% append_to_get page=0,paginate_by=0,sort_by=0 no_path %}{% endfilter %}"
+    />
+    {% if view_type == "map" %}
+        <script type="text/javascript">
+            //<![CDATA[
+            var aGeopositions = [];
+            //]]>
+        </script>
+    {% endif %}
+{% endblock %}
+
+
+{% block title %}
+    {% trans "Bulletin Board" %}
+{% endblock %}
+
+{% block content %}
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{% trans "Marketplace" %}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                {% block details %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
