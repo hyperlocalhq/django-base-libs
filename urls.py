@@ -414,6 +414,20 @@ urlpatterns += patterns(
     url(r'^helper/site-visitors/$', "ccb.apps.site_specific.views.site_visitors"),
 )
 
+if 'rosetta' in settings.INSTALLED_APPS:
+    urlpatterns += i18n_patterns(
+        '',
+        url(r'^rosetta/', include('rosetta.urls')),
+    )
+
+if settings.DEBUG:
+    import debug_toolbar
+
+    urlpatterns += patterns(
+        '',
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    )
+
 urlpatterns += i18n_patterns(
     '',
     url(r'^recrop/', include('jetson.apps.image_mods.urls')),
@@ -908,7 +922,7 @@ urlpatterns += i18n_patterns(
         'jetson.apps.utils.views.feed', latest_published_objects_feeds),
 
     # sitemaps
-    url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
+    #url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
 
     ## begin TODO: remove these URLs after migrating apps to django-cms
     url(r'^portfolios/((?P<show>favorites|memos|featured)/)?$',
@@ -996,22 +1010,7 @@ urlpatterns += i18n_patterns(
     }),
 
     url(r'^select2/', include('django_select2.urls')),
-    url(r'^relaunch2015/sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap',
-        {'sitemaps': {'cmspages': CMSSitemap}}),
-    url(r'^relaunch2015/', include('cms.urls')),
+    url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': {'cmspages': CMSSitemap}}),
     url(r'^activity/', include('actstream.urls')),
+    url(r'^', include('cms.urls')),
 )
-
-if 'rosetta' in settings.INSTALLED_APPS:
-    urlpatterns += i18n_patterns(
-        '',
-        url(r'^rosetta/', include('rosetta.urls')),
-    )
-
-if settings.DEBUG:
-    import debug_toolbar
-
-    urlpatterns += patterns(
-        '',
-        url(r'^__debug__/', include(debug_toolbar.urls)),
-    )
