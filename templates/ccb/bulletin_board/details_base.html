@@ -1,0 +1,59 @@
+{% extends "base_redesign.html" %}
+{% load i18n base_tags auth_extended bulletin_board_tags compressed compressed_jetson site_specific image_modifications browsing %}
+
+{% block meta_tags %}
+    {% if LANGUAGE_CODE == "de" %}
+        <meta name="keywords" lang="de" content="Markthalle, Markt, Kultur, Kreativwirtschaft, Kunst, Medien, Design, Praktikum, Praktika, Berlin"/>
+        <meta name="description" lang="de" content="Markthalle für die Kultur- und Kreativwirtschaft in Berlin"/>
+    {% else %}
+        <meta name="keywords" lang="en-us" content="marketplace, market, exchange, Berlin, culture, art, creative industries, media, design, internships, internship"/>
+        <meta name="description" lang="en-us" content="Marketplace for the cultural sector and the creative industries in Berlin"/>
+    {% endif %}
+{% endblock %}
+
+
+{% block title %}
+    {{ object.get_title|escape }}
+{% endblock %}
+
+{% block content %}
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{% trans "Marketplace" %}</h1>
+                    <h2>{{ object.position }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                {% block details %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="/{{ URL_ID_BULLETIN_BOARD }}/">
+        {% trans "Marketplace" %}
+    </a></li>
+    <li><a href="{{ object.get_url_path }}">
+        {{ object.position }}
+    </a></li>
+    {% block breadcrumbs_details %}
+    {% endblock %}
+{% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+    <script
+        type="text/javascript"
+        src="{{ STATIC_URL }}site/js/website/generic.js"
+    ></script>
+{% endblock %}
