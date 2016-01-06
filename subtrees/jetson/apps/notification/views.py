@@ -100,17 +100,16 @@ def notification_settings(request):
         "rows": settings_table,
     }
 
-    # TODO: uncomment when ready
-    # if request.method == "POST":
-    #     form = NoticeSettingsForm(request.user, data=request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         return redirect(".")
-    # else:
-    #     form = NoticeSettingsForm(request.user)
+    if request.method == "POST":
+        form = NoticeSettingsForm(request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(".")
+    else:
+        form = NoticeSettingsForm(request.user)
 
     return render_to_response("notification/settings.html", {
-        # "form": form, # TODO: uncomment when ready
+        "form": form,
         "notices": notices,
         "notice_types": notice_types,
         "notice_settings": notice_settings,

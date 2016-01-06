@@ -1,81 +1,57 @@
 {% extends "people/details_base.html" %}
-
 {% load i18n babel crispy_forms_tags %}
-
-{% block head_title %}{% trans "Notices" %}{% endblock %}
 
 {% block extra_head %}
     <link rel="alternate" type="application/atom+xml" title="Notices Feed"
         href="{% url 'notification_feed_for_user' %}"/>
 {% endblock %}
 
-{% block title %}{% trans "Notification Settings" %}{% endblock %}
+{% block head_title %}
+    {% trans "Notices" %}
+{% endblock %}
 
-{% block headline %}
-    <h1>
-        {% trans "My Profile" %}
-    </h1>
-    <h2 class="sub">
-        {% trans "Notification Settings" %}
-    </h2>
+{% block title %}
+    {% trans "Notification Settings" %}
 {% endblock %}
 
 {% block content %}
-    <div>
-        <p class="disclaimer">
-            {% blocktrans with user.email as email %}The chosen notices will be sent to {{ email }}.{% endblocktrans %}
-        </p>
-        {% if user.is_staff %}
-            <p class="disclaimer">{% blocktrans %}Settings marked with "(Staff)" are only visible to staff members.{% endblocktrans %}</p>
-        {% endif %}
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>
+                        {% block headline %}
+                            {% trans "Notification Settings" %}
+                        {% endblock %}
+                    </h1>
+                </div>
+            </div>
+        </div>
     </div>
 
-    {#% crispy form %#}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                <div>
+                    <p class="disclaimer">
+                        {% blocktrans with user.email as email %}The chosen notices will be sent to {{ email }}
+                            .{% endblocktrans %}
+                    </p>
+                    {% if user.is_staff %}
+                        <p class="disclaimer">{% blocktrans %}Settings marked with "(Staff)" are only visible to staff
+                            members.{% endblocktrans %}</p>
+                    {% endif %}
+                </div>
 
-    <form method="post" action="" class="uniForm">{% csrf_token %}
-        {% regroup notice_settings.rows by category as notice_settings_rows %}
-        {% for group in notice_settings_rows %}
-            <fieldset class="inlineLabels">
-                <h3>
-                    {{ group.grouper|default:_("Unspecified") }}
-                </h3>
-                {% for row in group.list %}
-                    <div class="ctrlHolder noLabel">
-                        {% for cell in row.cells %}
-                            <ul>
-                                <li>
-                                    <label for="id_{{ cell.1.prefix }}-{{ cell.1.frequency.name }}">
-                                        <strong>{{ row.notice_type.get_display }}</strong>
-                                        {% if not row.notice_type.is_public %}
-                                            ({% trans "Staff" %})
-                                        {% endif %}
-                                    </label>
-                                    {{ cell.1.frequency }}
-                                </li>
-                            </ul>
-                            <div class="formHint">
-                                {{ row.notice_type.get_description }}
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endfor %}
-            </fieldset>
-        {% endfor %}
-        <div class="buttonHolder">
-            <input type="submit" value="{% trans "Change" %}" class="primaryAction"/>
+                {% crispy form "ccb_form" %}
+
+                <script>
+                    $('legend').css('font-weight', "bold"); // DEBUG
+                </script>
+            </div>
         </div>
-    </form>
-    <script>
-    $('legend').css('font-weight', "bold"); // DEBUG
-    </script>
-{% endblock %}
-
-{% block breadcrumbs %}
-    <div class="breadcrumbs">
-        <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span>
-        <a href="/my-profile/">{% trans "My profile" %}</a>
-        <span class="b-sep"><span>::</span></span><span>{% trans "Notification settings" %}</span>
     </div>
 {% endblock %}
 
