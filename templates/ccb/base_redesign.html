@@ -81,7 +81,7 @@
             
             <div id="header">
                 <div class="wrapper">
-                    <a href="{% url 'splash_page' %}"><img class="logo" src="{{ STATIC_URL }}site/img/default/ccb_logo.gif" alt="Creative City Berlin" /></a>
+                    <a href="/{{ LANGUAGE_CODE }}/"><img class="logo" src="{{ STATIC_URL }}site/img/default/ccb_logo.gif" alt="Creative City Berlin" /></a>
                     <button class="fawesome fa-menu button navigation"><span class="sr-only">{% trans 'toggle menu' %}</span></button>
                     <button class="fawesome fa-search button header-search"><span class="sr-only">{% trans 'search entire website' %}</span></button>
                     <a href="{% url 'login' %}" class="fawesome fa-man button"><span class="sr-only">{% trans 'login' %}</span></a>
@@ -106,7 +106,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <ul>
-                            <li><a href="{% url 'splash_page' %}" class="fawesome fa-home"><span class="sr-only">{% trans "Home" %}</span></a></li>
+                            <li><a href="/{{ LANGUAGE_CODE }}/" class="fawesome fa-home"><span class="sr-only">{% trans "Home" %}</span></a></li>
                             {% block breadcrumbs %}
                                 {% show_breadcrumb 1 %}
                             {% endblock %}
