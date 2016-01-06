@@ -189,15 +189,18 @@ def member_detail(request, slug, creative_sector_slug="", **kwargs):
     item = get_object_or_404(
         ContextItem,
         content_type__model__in=["person", "institution"],
-        status="published",
         slug=slug,
     )
     if item.is_person():
+        if not request.user.has_perm("people.change_person", item.content_object) and item.status not in ("published", "published_commercial"):
+            return access_denied(request)
         kwargs['queryset'] = Person.objects.all()
         kwargs['template_name'] = 'people/person_details.html'
         kwargs['slug_field'] = 'user__username'
         kwargs['slug'] = slug
     else:
+        if not request.user.has_perm("institutions.change_institution", item.content_object) and item.status not in ("published", "published_commercial"):
+            return access_denied(request)
         kwargs['queryset'] = Institution.objects.all()
         kwargs['template_name'] = 'institutions/institution_details.html'
         kwargs['slug_field'] = 'slug'

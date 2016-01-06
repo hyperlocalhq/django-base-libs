@@ -180,6 +180,7 @@ INSTALLED_APPS = [
     "ccb.apps.network",
     "ccb.apps.navigation",
     "ccb.apps.bulletin_board",
+    "ccb.apps.metro",
     "ccb",  # just for i18n in Javascript
     "actstream",
 ]

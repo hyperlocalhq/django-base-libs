@@ -4,9 +4,11 @@
     <div class="sidebar" id="activities-container">
         <h1>Recent User Activities</h1>
         {% if stream %}
+            <ul>
             {% for s in stream %}
                 <li class="list-group-item">{{ s }}</li>
             {% endfor %}
+            </ul>
         {% else %}
             <div class="alert alert-info" role="alert">
                 <strong>No activities</strong>

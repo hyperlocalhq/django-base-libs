@@ -38,6 +38,13 @@ def is_deletable_event(context):
     )
 
 
+def is_current_person(context):
+    return (
+        context['request'].user.is_authenticated() and
+        context.get('object', None) == context['request'].user.profile
+    )
+
+
 # TODO: 1) add more conditions where to show what for anonymous users.
 # TODO: 2) maybe show some links with login required as teasers.
 # TODO: 3) add badges for some of the links with object count.
@@ -96,6 +103,14 @@ navigation_links = {
     ],
 
     'member': [
+        {
+            'url_de': '/de/dashboard/',
+            'url_en': '/en/dashboard/',
+            'text_de': 'Dashboard',
+            'text_en': 'Dashboard',
+            'should_be_shown': is_current_person,
+            'highlight_pattern': r'^/(de|en)/dashboard/$',
+        },
         {
             'url_de': '/de/relaunch2015/network/member/{{ object.slug }}/',
             'url_en': '/en/relaunch2015/network/member/{{ object.slug }}/',

@@ -68,7 +68,7 @@ urlpatterns = [
         name="register_confirm",
     ),
     url(
-        r'^password_reset/$',
+        r'^password-reset/$',
         'django.contrib.auth.views.password_reset',
         {
             'template_name': 'accounts/password_reset_form.html',
@@ -78,7 +78,7 @@ urlpatterns = [
         name="password_reset",
     ),
     url(
-        r'^password_reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$',
+        r'^password-reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$',
         'django.contrib.auth.views.password_reset_confirm',
         {
             'template_name': 'accounts/password_reset_confirm.html',
@@ -87,13 +87,13 @@ urlpatterns = [
         name="password_reset_confirm",
     ),
     url(
-        r'^password_reset/done/$',
+        r'^password-reset/done/$',
         'django.contrib.auth.views.password_reset_done',
         {'template_name': 'accounts/password_reset_done.html'},
         name="password_reset_done",
     ),
     url(
-        r'^password_reset/complete/$',
+        r'^password-reset/complete/$',
         'django.contrib.auth.views.password_reset_complete',
         {'template_name': 'accounts/password_reset_complete.html'},
         name="password_reset_complete",
@@ -108,7 +108,7 @@ urlpatterns = [
         name="password_change"
     ),
     url(
-        r'^password_change/done/$',
+        r'^password-change/done/$',
         'django.contrib.auth.views.password_change_done',
         {'template_name': 'accounts/password_change_done.html'},
         name='password_change_done',
@@ -117,11 +117,14 @@ urlpatterns = [
         'ccb.apps.accounts.views.ajax_auth',
         name='ajax-auth'
     ),
-    url(r'^user_stream', views.user_stream, name='user_stream'),
-    url(r'^actor_stream', views.actor_stream, name='actor_stream'),
-    url(r'^action_object_stream', views.action_object_stream, name='action_object_stream'),
-    url(r'^target_stream', views.target_stream, name='target_stream'),
-    url(r'^model_stream', views.model_stream, name='model_stream'),
-    url(r'^any_stream', views.any_stream, name='any_stream'),
+    # activity stream
+    url(r'^dashboard/$', views.dashboard, name='dashboard'),
+    url(r'^user-stream/$', views.user_stream, name='user_stream'),
+    url(r'^actor-stream/$', views.actor_stream, name='actor_stream'),
+    url(r'^action-object-stream/$', views.action_object_stream, name='action_object_stream'),
+    url(r'^target-stream/$', views.target_stream, name='target_stream'),
+    url(r'^model-stream/$', views.model_stream, name='model_stream'),
+    url(r'^any-stream/$', views.any_stream, name='any_stream'),
+
     url(r'', include('social.apps.django_app.urls', namespace='social')),
 ]
