@@ -67,7 +67,7 @@ class ContextCategoryOptions(TreeEditor):
 
 class CategoryOptions(TreeEditor):
     save_on_top = True
-    list_display = ['actions_column', 'indented_short_title']
+    list_display = ['actions_column', 'indented_short_title', 'slug']
 
     fieldsets = [(None, {'fields': ('parent',)}), ]
     fieldsets += get_admin_lang_section(_("Title"), ['title'])

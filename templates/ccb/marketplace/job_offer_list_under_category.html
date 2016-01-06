@@ -1,0 +1,33 @@
+{% extends "marketplace/job_offer_base.html" %}
+{% load i18n auth_extended uni_form_tags %}
+
+{% block details %}
+    <h1>{{ category.title }}</h1>{# TODO: replace with a header image #}
+    {% if not object_list %}
+        <p>{% trans "No objects found within the selected conditions." %}</p>
+    {% else %}
+        <div class="row job-list">
+            {% for job_offer in object_list %}
+                {% if view_type == "listed" %}
+                    {% include "marketplace/lists/job_offer_listed.html" %}
+                {% endif %}
+                {% if view_type == "map" %}
+                    {% include "marketplace/lists/job_offer_mapped.html" %}
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% include "utils/includes/pagination.html" %}
+    {% endif %}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <li>{% trans "Jobs" %}</li>
+{% endblock %}
+
+
+
+{% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/job-list.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/pagination.js"></script>
+{% endblock %}
