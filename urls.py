@@ -240,7 +240,7 @@ sitemaps = {
 urlpatterns = i18n_patterns(
     '',
     # root
-    url(r'^$', 'ccb.apps.site_specific.views.splash_page', name="splash_page"),
+    #url(r'^$', 'ccb.apps.site_specific.views.splash_page', name="splash_page"),
 
     # global js settings
     url(r'^jssettings/$', 'jetson.apps.utils.views.direct_to_js_template',

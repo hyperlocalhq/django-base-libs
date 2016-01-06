@@ -852,6 +852,7 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = ('bootstrap3', 'ccb_form')
 execfile(os.path.join(JETSON_PATH, "jetson/settings/cms.py"), globals(), locals())
 
 CMS_TEMPLATES = (
+    ('cms/start.html', 'Start Page'),
     ('cms/page.html', 'Page'),
     ('cms/feature.html', 'Page with Feature')
 )
