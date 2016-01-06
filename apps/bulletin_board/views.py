@@ -34,7 +34,7 @@ TOKENIZATION_SUMMAND = models.get_app("bulletin_board").TOKENIZATION_SUMMAND
 
 
 @never_cache
-def bulletin_list(request, category_slug=None, **kwargs):
+def bulletin_list(request, category_slug=None, template_name="bulletin_board/bulletin_list.html", **kwargs):
     kwargs['queryset'] = Bulletin.published_objects.order_by("-creation_date")
 
     category = None
@@ -100,12 +100,10 @@ def bulletin_list(request, category_slug=None, **kwargs):
     #    'source_list': reverse("bulletin_list"),
     #}
 
-    template = "bulletin_board/bulletin_list.html"
-
     return object_list(
         request,
         queryset=kwargs['queryset'],
-        template_name=template,
+        template_name=template_name,
         paginate_by=24,
         extra_context=extra_context,
         context_processors=(prev_next_processor,),
