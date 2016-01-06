@@ -36,7 +36,7 @@ class ModelSearchForm(_SearchForm):
                 "",
                     layout.Div(
                         layout.Field(self.QUERY_PARAM_NAME, css_class="input-block-level"),
-                        layout.Field(self.MODELS_PARAM_NAME, template="bootstrap/layout/dropdown_checkboxselectmultiple.html"),
+                        layout.Field(self.MODELS_PARAM_NAME),
                         css_class="input-block-wrapper"
                     ),
                     layout.Div(
