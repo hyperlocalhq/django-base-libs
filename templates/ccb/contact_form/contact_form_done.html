@@ -1,15 +1,14 @@
-{% extends "base.html" %}
-{% load base_tags i18n %}
+{% extends "ccb/contact_form/contact_base.html" %}
+{% load i18n %}
 
-{% block title %}{% trans 'Contact' %}{% endblock %}
-
-{% block headline %}
-    <h1>{% trans "Creative City Berlin" %}</h1>
-    <h2 class="sub">
-        {% trans "Thank you for your message" %}
-    </h2>
+{% block title %}
+    {% trans 'Contact' %}
 {% endblock %}
 
-{% block content %}
-    <p class="suggest">{% blocktrans %}Thank you for your message - we will contact you soon!{% endblocktrans %}</p>
+{% block headline %}
+    {% trans "Thank you for your message" %}
+{% endblock %}
+
+{% block form %}
+    {% blocktrans %}Thank you for your message - we will contact you soon!{% endblocktrans %}
 {% endblock %}
