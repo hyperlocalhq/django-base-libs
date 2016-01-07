@@ -1,7 +1,6 @@
 # -*- coding: UTF-8 -*-
 import hashlib
 import json
-import facebook
 
 from django.apps import apps
 from django.core.urlresolvers import reverse
@@ -14,26 +13,23 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpRespons
 from django.contrib.auth.models import User
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.sites.models import Site, RequestSite
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import login as auth_login
 from django.conf import settings
 from django.shortcuts import render
-
 import actstream.models
-
 from base_libs.utils.misc import get_unique_value
 from base_libs.utils.betterslugify import better_slugify
 from base_libs.utils.crypt import decryptString
 from base_libs.utils.misc import get_installed
-
 from jetson.apps.utils.decorators import login_required
 from jetson.apps.configuration.models import SiteSettings
 from jetson.apps.mailing.views import send_email_using_template, Recipient
-
+from jetson.apps.utils.views import object_list
+from jetson.apps.utils.context_processors import prev_next_processor
 from social.backends.oauth import BaseOAuth1, BaseOAuth2
 from social.backends.google import GooglePlusAuth
 from social.backends.utils import load_backends
 from social.apps.django_app.utils import psa
-
 from ccb.apps.accounts.forms import EmailOrUsernameAuthentication
 from ccb.apps.accounts.forms import SimpleRegistrationForm
 from ccb.apps.accounts.forms import PrivacySettingsForm
@@ -116,8 +112,10 @@ def login(request, template_name='registration/login.html',
         context_instance=RequestContext(request),
     )
 
+
 def social_login(request):
     return render(request, "accounts/social_login.html", social_auth_context())
+
 
 @never_cache
 def social_connection_link(request):
@@ -271,6 +269,7 @@ def social_connection_register(request):
 def social_connections(request):
     return render(request, "accounts/social_connections.html", social_auth_context())
 
+
 @transaction.atomic
 @never_cache
 def register(request, *arguments, **keywords):
@@ -386,7 +385,20 @@ def change_privacy_settings(request):
     }, context_instance=RequestContext(request))
 
 
+def dashboard(request, **kwargs):
+    kwargs.setdefault('paginate_by', 24)
+    kwargs.setdefault('allow_empty', True)
+    kwargs.setdefault('context_processors', (prev_next_processor,))
+    kwargs.setdefault('template_name', 'accounts/my_profile/dashboard.html')
+    kwargs.setdefault('queryset', actstream.models.user_stream(request.user, with_user_activity=True))
+    kwargs['extra_context'] = {
+        'object': request.user.profile,
+    }
+    return object_list(request, **kwargs)
 
+
+@login_required
+@never_cache
 def user_stream(request):
     """
     Render the template showing recent activitiy of the user, using actstream
@@ -397,10 +409,13 @@ def user_stream(request):
     template = "ccb/accounts/activities/user_stream.html"
     context = {
         # show the latest 20 activities
-        "stream":stream[:20]
+        "stream": stream[:20]
     }
     return render(request, template, context)
 
+
+@login_required
+@never_cache
 def actor_stream(request):
     """
     Render the template showing recent activitiy of the user, using actstream
@@ -411,10 +426,13 @@ def actor_stream(request):
     template = "ccb/accounts/activities/actor_stream.html"
     context = {
         # show the latest 20 activities
-        "stream":stream[:20]
+        "stream": stream[:20]
     }
     return render(request, template, context)
 
+
+@login_required
+@never_cache
 def action_object_stream(request):
     """
     Render the template showing recent activitiy of the user, using actstream
@@ -425,10 +443,13 @@ def action_object_stream(request):
     template = "ccb/accounts/activities/action_object_stream.html"
     context = {
         # show the latest 20 activities
-        "stream":stream[:20]
+        "stream": stream[:20]
     }
     return render(request, template, context)
 
+
+@login_required
+@never_cache
 def target_stream(request):
     """
     Render the template showing recent activitiy of the user, using actstream
@@ -439,10 +460,13 @@ def target_stream(request):
     template = "ccb/accounts/activities/target_stream.html"
     context = {
         # show the latest 20 activities
-        "stream":stream[:20]
+        "stream": stream[:20]
     }
     return render(request, template, context)
 
+
+@login_required
+@never_cache
 def model_stream(request):
     """
     Render the template showing recent activitiy of the user, using actstream
@@ -453,10 +477,13 @@ def model_stream(request):
     template = "ccb/accounts/activities/model_stream.html"
     context = {
         # show the latest 20 activities
-        "stream":stream[:20]
+        "stream": stream[:20]
     }
     return render(request, template, context)
 
+
+@login_required
+@never_cache
 def any_stream(request):
     """
     Render the template showing recent activitiy of the user, using actstream
@@ -467,7 +494,6 @@ def any_stream(request):
     template = "ccb/accounts/activities/any_stream.html"
     context = {
         # show the latest 20 activities
-        "stream":stream[:20]
+        "stream": stream[:20]
     }
     return render(request, template, context)
-

@@ -20,39 +20,52 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <h1>{% ifequal request.user object.user %}{% trans "My Institution" %}{% else %}{% trans "Institution" %}{% endifequal %}</h1>
+                    <h1>{% ifequal request.user object.user %}{% trans "My Institution" %}{% else %}
+                        {% trans "Institution" %}{% endifequal %}</h1>
                     <div class="profile">
-                        
-    {% if object.image %}
-        <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if_has_perm "institutions.change_institution" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ object.title|escape }}"/>
-    {% else %}
-        <img src="{{ STATIC_URL }}site/img/placeholder/profile.png" alt="{{ object.title|escape }}"/>
-    {% endif %}
-    
+
+                        {% if object.image %}
+                            <img src="
+                                {{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if_has_perm "institutions.change_institution" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}"
+                                alt="{{ object.title|escape }}"/>
+                        {% else %}
+                            <img src="{{ STATIC_URL }}site/img/placeholder/profile.png"
+                                alt="{{ object.title|escape }}"/>
+                        {% endif %}
+
                         <div class="content">
                             <h2>{{ object.title }}</h2>
                             <h3>{{ object.title2 }}</h3>
                             <div class="buttons">
-    
-    
-    {% if request.user.is_authenticated %}
-        {% if object.is_addable_to_favorites or object.is_removable_from_favorites %}
-            {% with object|get_context_item as context_item %}
-                {% adding2favorites for context_item using "generic/favorite_contact.html" %}
-            {% endwith %}
-        {% endif %}
-        {% if object.is_addable_to_memos %}{% adding2memos for object %}{% endif %}
-        {% if object.is_contactable %}<a href="{{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "send Email" %}</span></a>{% endif %}
-        {% if request.user.is_staff and perms.institutions.change_institution %}
-            <a href="/admin/institutions/institution/{{ institution.id }}/" class="fawesome fa-edit button text" onclick="open_new_window(event)"><span class="text">{% trans "edit Institution" %}</span></a>
-        {% endif %}
-    {% else %}
-        {% adding2memos for object %}
-        <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-contact button text"><span class="text">{% trans "Contact" %}</span></a>
-        {% if object.is_contactable %}<a href="/login/?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "send Email" %}</span></a>{% endif %}
-    {% endif %}
-    
-                                
+
+
+                                {% if request.user.is_authenticated %}
+                                    {% if object.is_addable_to_favorites or object.is_removable_from_favorites %}
+                                        {% with object|get_context_item as context_item %}
+                                            {% adding2favorites for context_item using "generic/favorite_contact.html" %}
+                                        {% endwith %}
+                                    {% endif %}
+                                    {% if object.is_addable_to_memos %}{% adding2memos for object %}{% endif %}
+                                    {% if object.is_contactable %}
+                                        <a href="{{ object.get_url_path }}message/"
+                                            class="fawesome fa-email button text">
+                                            <span class="text">{% trans "send Email" %}</span></a>{% endif %}
+                                    {% if request.user.is_staff and perms.institutions.change_institution %}
+                                        <a href="/admin/institutions/institution/{{ institution.id }}/"
+                                            class="fawesome fa-edit button text"
+                                            onclick="open_new_window(event)">
+                                            <span class="text">{% trans "edit Institution" %}</span></a>
+                                    {% endif %}
+                                {% else %}
+                                    {% adding2memos for object %}
+                                    <a href="/login/?goto_next={{ request.path }}"
+                                        class="fawesome fa-contact button text">
+                                        <span class="text">{% trans "Contact" %}</span></a>
+                                    {% if object.is_contactable %}
+                                        <a href="/login/?goto_next={{ object.get_url_path }}message/"
+                                            class="fawesome fa-email button text">
+                                            <span class="text">{% trans "send Email" %}</span></a>{% endif %}
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -63,7 +76,8 @@
             <div class="container">
                 <div class="row">
                     <div class="hidden-xs col-sm-4 col-md-3 headline">
-                        <h2>{% ifequal request.user object.user %}{% trans "My Profile" %}{% else %}{% trans "Institution" %}{% endifequal %}</h2>
+                        <h2>{% ifequal request.user object.user %}{% trans "My Profile" %}{% else %}
+                            {% trans "Institution" %}{% endifequal %}</h2>
                     </div>
                     <div class="navi">
                         <nav>
@@ -80,45 +94,57 @@
         <div class="row">
             <div class="col-xs-12 col-sm-4 col-md-3">
                 <div class="profile-image">
-                    
+
                     {#% if request.path == object.get_url_path %#}
-                        {% if_has_perm "institutions.change_institution" object %}
-                            <a href="{% cropping_url object.image.path "ad" request object.get_url_path %}" class="fawesome fa-edit recrop-link">
-                        {% end_if_has_perm %}
+                    {% if_has_perm "institutions.change_institution" object %}
+                        <a href="{% cropping_url object.image.path "ad" request object.get_url_path %}"
+                            class="fawesome fa-edit recrop-link">
+                    {% end_if_has_perm %}
                     {#% endif %#}
-                    
-    {% if object.image %}
-        <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if_has_perm "institutions.change_institution" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ object.title|escape }}"/>
-    {% else %}
-        <img src="{{ STATIC_URL }}site/img/placeholder/profile.png" alt="{{ object.title|escape }}"/>
-    {% endif %}
-                    
+
+                    {% if object.image %}
+                        <img src="
+                            {{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if_has_perm "institutions.change_institution" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}"
+                            alt="{{ object.title|escape }}"/>
+                    {% else %}
+                        <img src="{{ STATIC_URL }}site/img/placeholder/profile.png" alt="{{ object.title|escape }}"/>
+                    {% endif %}
+
                     {#% if request.path == object.get_url_path %#}
-                        {% if_has_perm "institutions.change_institution" object %}
-                            </a>
-                        {% end_if_has_perm %}
+                    {% if_has_perm "institutions.change_institution" object %}
+                        </a>
+                    {% end_if_has_perm %}
                     {#% endif %#}
-    
-    
-    {% if request.user.is_authenticated %}
-        {% if object.is_addable_to_favorites or object.is_removable_from_favorites %}
-            {% with object|get_context_item as context_item %}
-                {% adding2favorites for context_item using "generic/favorite_contact.html" %}
-            {% endwith %}
-        {% endif %}
-        {% if object.is_addable_to_memos %}{% adding2memos for object %}{% endif %}
-        {% if object.is_contactable %}<a href="{{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "send Email" %}</span></a>{% endif %}
-        {% if request.user.is_staff and perms.institutions.change_institution %}
-            <a href="/admin/institutions/institution/{{ institution.id }}/" class="fawesome fa-edit button text" onclick="open_new_window(event)"><span class="text">{% trans "edit Institution" %}</span></a>
-        {% endif %}
-    {% else %}
-        {% adding2memos for object %}
-        <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-contact button text"><span class="text">{% trans "Contact" %}</span></a>
-        {% if object.is_contactable %}<a href="/login/?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "send Email" %}</span></a>{% endif %}
-    {% endif %}
-    
+
+
+                    {% if request.user.is_authenticated %}
+                        {% if object.is_addable_to_favorites or object.is_removable_from_favorites %}
+                            {% with object|get_context_item as context_item %}
+                                {% adding2favorites for context_item using "generic/favorite_contact.html" %}
+                            {% endwith %}
+                        {% endif %}
+                        {% if object.is_addable_to_memos %}{% adding2memos for object %}{% endif %}
+                        {% if object.is_contactable %}
+                            <a href="{{ object.get_url_path }}message/" class="fawesome fa-email button text"><span
+                                class="text">{% trans "send Email" %}</span></a>{% endif %}
+                        {% if request.user.is_staff and perms.institutions.change_institution %}
+                            <a href="/admin/institutions/institution/{{ institution.id }}/"
+                                class="fawesome fa-edit button text"
+                                onclick="open_new_window(event)">
+                                <span class="text">{% trans "edit Institution" %}</span></a>
+                        {% endif %}
+                    {% else %}
+                        {% adding2memos for object %}
+                        <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-contact button text"><span
+                            class="text">{% trans "Contact" %}</span></a>
+                        {% if object.is_contactable %}
+                            <a href="/login/?goto_next={{ object.get_url_path }}message/"
+                                class="fawesome fa-email button text"><span class="text">{% trans "send Email" %}</span>
+                            </a>{% endif %}
+                    {% endif %}
+
                 </div>
-                
+
                 {% block sidebar %}
                 {% endblock %}
             </div>
@@ -128,14 +154,18 @@
             </div>
         </div>
     </div>
-    
+
 {% endblock %}
 
 
 
 {% block breadcrumbs %}
-    <li><a href="/{{ URL_ID_INSTITUTIONS }}/">{% trans "Institutions" %}</a></li>
-    <li><a href="{{ object.get_url_path }}">{{ object.get_title }}</a></li>
+    <li>
+        <a href="/{{ URL_ID_INSTITUTIONS }}/">{% trans "Institutions" %}</a>
+    </li>
+    <li>
+        <a href="{{ object.get_url_path }}">{{ object.get_title }}</a>
+    </li>
     {% block breadcrumbs_details %}
     {% endblock %}
 {% endblock %}

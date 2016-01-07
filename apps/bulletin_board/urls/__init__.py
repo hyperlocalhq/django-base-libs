@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 from django.conf.urls import patterns, url
 
-from .feeds import BulletinFeed
+from ccb.apps.bulletin_board.feeds import BulletinFeed
 
 urlpatterns = patterns('ccb.apps.bulletin_board.views',
     url(r'^$', 'bulletin_list', name='bulletin_list'),

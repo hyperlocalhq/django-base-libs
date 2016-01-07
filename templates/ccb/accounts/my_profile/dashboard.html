@@ -1,5 +1,6 @@
-{% extends "accounts/my_profile/base.html" %}
-{% load i18n base_tags infoblocks %}
+{% extends "people/details_base.html" %}
+{#% extends "accounts/my_profile/base.html" %#}
+{% load i18n base_tags infoblocks image_modifications %}
 
 {% block title %}{% trans "Dashboard" %}{% endblock %}
 
@@ -10,20 +11,46 @@
         <div class="infoblock">
             {% infoblock "user_dashboard_msg_ccb" %}
         </div>
-        <hr class="hidden"/>
 
-        <div class="myprofile-box">
-            <div class="p-gallery">
-                {% include_parsed "media_gallery/includes/random_featured_galleries.html" %}
-            </div>
-            <div class="p-content">
-                {% include_parsed "resources/includes/latest_published_documents.html" %}
+        {% if object_list %}
+            <h2>{% trans "Activities" %}</h2>
+            <div>
+                {% for action in object_list %}
+                    <div>
+                        {% if action.action_object.image %}
+                            <img src="{{ MEDIA_URL }}{{ action.action_object.image|modified_path:"whatever" }}" alt="" />
+                        {% else %}
+                            {# TODO: do we need different placeholders depending on the type? #}
+                            {% if action.action_object.is_institution %}
+                                <img src="http://placehold.it/350x150?text=Institution" alt="" />
+                            {% else %}
+                                <img src="http://placehold.it/350x150?text=Other+Object" alt="" />
+                            {% endif %}
+                        {% endif %}
+                        {{ action.actor.profile.get_title }}{# "Super Admin" #}
+                        {% trans action.verb %}{# "added institution" #}
 
-                {% include_parsed "events/includes/latest_published_events.html" with 3 as amount %}
+                        {{ action.action_object.title }}{# "TEST" #}
+                        {% blocktrans with timesince=action.timesince %}{{ timesince }} ago{% endblocktrans %}{# "2 weeks, 3 days ago" #}
+                    </div>
+                {% endfor %}
             </div>
-            {% include_parsed "people/includes/latest_published_people.html" %}
-            {% include_parsed "institutions/includes/latest_published_institutions.html" %}
-        </div>
+            {% include "utils/includes/pagination.html" %}
+        {% else %}
+            {# No activities. Show something else. #}
+            <div class="myprofile-box">
+                <div class="p-gallery">
+                    {% include "media_gallery/includes/random_featured_galleries.html" %}
+                </div>
+                <div class="p-content">
+                    {% include "resources/includes/latest_published_documents.html" %}
+
+                    {% include "events/includes/latest_published_events.html" with amount=3 %}
+                </div>
+                {% include "people/includes/latest_published_people.html" %}
+                {% include "institutions/includes/latest_published_institutions.html" %}
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
 

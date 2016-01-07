@@ -240,7 +240,7 @@ sitemaps = {
 urlpatterns = i18n_patterns(
     '',
     # root
-    url(r'^$', 'ccb.apps.site_specific.views.splash_page', name="splash_page"),
+    #url(r'^$', 'ccb.apps.site_specific.views.splash_page', name="splash_page"),
 
     # global js settings
     url(r'^jssettings/$', 'jetson.apps.utils.views.direct_to_js_template',
@@ -413,6 +413,20 @@ urlpatterns += patterns(
 
     url(r'^helper/site-visitors/$', "ccb.apps.site_specific.views.site_visitors"),
 )
+
+if 'rosetta' in settings.INSTALLED_APPS:
+    urlpatterns += i18n_patterns(
+        '',
+        url(r'^rosetta/', include('rosetta.urls')),
+    )
+
+if settings.DEBUG:
+    import debug_toolbar
+
+    urlpatterns += patterns(
+        '',
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    )
 
 urlpatterns += i18n_patterns(
     '',
@@ -850,9 +864,6 @@ urlpatterns += i18n_patterns(
     url(r'^admin/', include('jetson.apps.extendedadmin.urls')),
     url(r'^grappelli/', include('grappelli.urls')),
 
-    url(r'^dashboard/$', login_required(
-        TemplateView.as_view(template_name='accounts/my_profile/dashboard.html')),
-        name="dashboard"),
     url(r'^my-profile/$', "ccb.apps.site_specific.views.my_profile", name="my_profile"),
     url(r'^my-profile/memos/$', 'jetson.apps.memos.views.memos',
         {'template_name': 'memos/memos.html'}),
@@ -911,7 +922,7 @@ urlpatterns += i18n_patterns(
         'jetson.apps.utils.views.feed', latest_published_objects_feeds),
 
     # sitemaps
-    url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
+    #url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
 
     ## begin TODO: remove these URLs after migrating apps to django-cms
     url(r'^portfolios/((?P<show>favorites|memos|featured)/)?$',
@@ -999,22 +1010,7 @@ urlpatterns += i18n_patterns(
     }),
 
     url(r'^select2/', include('django_select2.urls')),
-    url(r'^relaunch2015/sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap',
-        {'sitemaps': {'cmspages': CMSSitemap}}),
-    url(r'^relaunch2015/', include('cms.urls')),
+    url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': {'cmspages': CMSSitemap}}),
     url(r'^activity/', include('actstream.urls')),
+    url(r'^', include('cms.urls')),
 )
-
-if 'rosetta' in settings.INSTALLED_APPS:
-    urlpatterns += i18n_patterns(
-        '',
-        url(r'^rosetta/', include('rosetta.urls')),
-    )
-
-if settings.DEBUG:
-    import debug_toolbar
-
-    urlpatterns += patterns(
-        '',
-        url(r'^__debug__/', include(debug_toolbar.urls)),
-    )

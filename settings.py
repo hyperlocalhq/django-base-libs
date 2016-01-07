@@ -180,6 +180,7 @@ INSTALLED_APPS = [
     "ccb.apps.network",
     "ccb.apps.navigation",
     "ccb.apps.bulletin_board",
+    "ccb.apps.metro",
     "ccb",  # just for i18n in Javascript
     "actstream",
 ]
@@ -851,6 +852,7 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = ('bootstrap3', 'ccb_form')
 execfile(os.path.join(JETSON_PATH, "jetson/settings/cms.py"), globals(), locals())
 
 CMS_TEMPLATES = (
+    ('cms/start.html', 'Start Page'),
     ('cms/page.html', 'Page'),
     ('cms/feature.html', 'Page with Feature')
 )
