@@ -1,10 +1,10 @@
 {% load base_tags i18n %}
-<div class="buttonHolder">
+<div class="button-group form-buttons">
     {% if not steps.0.current %}
-        <input type="submit" class="secondaryAction" value="{% filter upper %}{% trans "Reset" %}{% endfilter %}"
+        <input type="submit" class="button" value="{% filter upper %}{% trans "Reset" %}{% endfilter %}"
             name="reset"/>
-        <input type="button" class="secondaryAction" value="{% filter upper %}{% trans "Previous" %}{% endfilter %}"
+        <input type="button" class="button" value="{% filter upper %}{% trans "Previous" %}{% endfilter %}"
             onclick="window.redirect(document.location.pathname + '?step=' + ({{ form_step_data.step_counter|default:"0" }} - 1))"/>
     {% endif %}
-    <input type="submit" class="primaryAction" value="{% filter upper %}{% trans "Next" %}{% endfilter %}"/>
+    <input type="submit" class="button primary" value="{% filter upper %}{% trans "Next" %}{% endfilter %}"/>
 </div>
