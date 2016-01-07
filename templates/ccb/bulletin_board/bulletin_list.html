@@ -1,8 +1,14 @@
-{% extends "bulletin_board/bulletin_base.html" %}
+{% extends "base_sidebar.html" %}
 {% load i18n base_tags %}
 
-{% block title %}{% trans "Marketplace" %}{% endblock %}
- 
+{% block title %}
+    {% trans "Marketplace" %}
+{% endblock %}
+
+{% block headline %}
+    {% trans "Marketplace" %}
+{% endblock %}
+
 {% block breadcrumbs %}
     <li>{% trans "Marketplace" %}</li>
 {% endblock %}

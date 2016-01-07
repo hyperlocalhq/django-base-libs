@@ -1,4 +1,4 @@
-{% extends "ccb/accounts/account_base.html" %}
+{% extends "base_sidebar.html" %}
 {% load base_tags i18n browsing uni_form_tags crispy_forms_tags %}
 
 {% block title %}{% trans "Create Account" %}{% endblock %}
@@ -7,7 +7,7 @@
     {% trans "Create Account" %}
 {% endblock %}
 
-{% block form %}
+{% block details %}
     {% crispy form "ccb_form" %}
 {% endblock %}
 
