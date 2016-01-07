@@ -86,7 +86,7 @@ def login(request, template_name='registration/login.html',
                 #     redirect_to = smart_str(get_website_url(redirect_to))
                 if request.is_ajax():
                     return HttpResponse("redirect=%s" % redirect_to)
-                return HttpResponseRedirect(redirect_to)
+                return redirect(redirect_to)
     else:
         data = {
             'email_or_username': request.GET.get('login_as', ''),
