@@ -854,7 +854,7 @@ execfile(os.path.join(JETSON_PATH, "jetson/settings/cms.py"), globals(), locals(
 CMS_TEMPLATES = (
     ('cms/start.html', 'Start Page'),
     ('cms/page.html', 'Page'),
-    ('cms/feature.html', 'Page with Feature')
+    ('cms/page_sidebar.html', 'Page with Sidebar')
 )
 
 CMS_LANGUAGES = {
