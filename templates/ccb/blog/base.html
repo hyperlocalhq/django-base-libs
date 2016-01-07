@@ -19,10 +19,18 @@
 {% endblock %}
 
 {% block content %}
-    {% if not object %}
-        {% infoblock "blog_intro" using "blocks/highlighted_infoblock.html" %}
-    {% endif %}
-
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{% trans "Blog" %}</h1>
+                    {% if not object %}
+                        {% infoblock "blog_intro" using "blocks/highlighted_infoblock.html" %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </header>
     {% block details %}
     {% endblock %}
 {% endblock %}

@@ -22,7 +22,8 @@ feed_dict = dict(
     atom=AtomFeed(),
     )
 
-urlpatterns = patterns('jetson.apps.blog.views',
+urlpatterns = patterns(
+    'jetson.apps.blog.views',
     
     # mind the order of the url-patterns!!!!!
     

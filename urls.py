@@ -935,13 +935,13 @@ urlpatterns += i18n_patterns(
     url(r'^styleguide/', include('jetson.apps.styleguide.urls')),
 
     # blog! (must be placed after admin urls!!!!!!)
-    url(r'^(?P<object_url_part>([^/]+/[^/]+/)?)(?P<url_identifier>blog)/',
-        include('jetson.apps.blog.urls'),
-        {
-            'only_for_this_site': True,
-            'include': [None, URL_ID_PERSON, URL_ID_INSTITUTION],
-        }
-        ),
+    # url(r'^(?P<object_url_part>([^/]+/[^/]+/)?)(?P<url_identifier>blog)/',
+    #     include('jetson.apps.blog.urls'),
+    #     {
+    #         'only_for_this_site': True,
+    #         'include': [None, URL_ID_PERSON, URL_ID_INSTITUTION],
+    #     }
+    #     ),
 
     url(r'^kreativarbeiten/$', lambda request: redirect("/kreativarbeiten/blog/")),
 
