@@ -225,11 +225,24 @@ class ClaimForm(dynamicforms.Form):
                 _('Claim'),
                 'name',
                 'email',
-                layout.Row(
-                    layout.Div(layout.HTML(_('Phone')), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"),
-                    layout.Div('phone_country', css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"),
-                    layout.Div('phone_area', css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"),
-                    layout.Div('phone_number', css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"),
+                layout.MultiField(
+                    _("Phone"),
+                    layout.Field(
+                        "phone_country",
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template="ccb_form/multifield.html"
+                    ),
+                    layout.Field(
+                        "phone_area",
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template="ccb_form/multifield.html"
+                    ),
+                    layout.Field(
+                        "phone_number",
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template="ccb_form/multifield.html"
+                    ),
+                    css_class="show-labels"
                 ),
                 'best_time_to_call',
                 'role',
@@ -242,7 +255,6 @@ class ClaimForm(dynamicforms.Form):
                 layout.Submit('submit', _('Send'))
             )
         )
-
 
     def save(self):
         # do character encoding
@@ -302,7 +314,6 @@ class InvitationForm(dynamicforms.Form):
                 layout.Submit('submit', _('Send'))
             )
         )
-
 
     def send(self):
         from jetson.apps.mailing.views import send_email_using_template
