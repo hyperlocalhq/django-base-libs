@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_sidebar.html" %}
 {% load i18n base_tags babel %}
 {% block title %}{{ flatpage.get_title|escape }}{% endblock %}
 {% block headline %}
@@ -9,7 +9,7 @@
             Creative City Berlin
         {% endif %}
     </h1>
-    <h2 class="sub">
+    <h2>
         {% if "/knowledge/"|in_list:request.path %}
             {% trans "Knowledge" %}
         {% else %}
@@ -18,18 +18,11 @@
     </h2>
 {% endblock %}
 
-{% block content %}
-    <div class="flatpage-content">
-        {{ flatpage.get_content }}
-    </div>
+{% block details %}
+    {{ flatpage.get_content }}
 {% endblock %}
 
 {% block breadcrumbs %}
-    <div class="breadcrumbs">
-        <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span>
-        <a href="{{ rel_root_dir }}">{% trans "Overview" %}</a>
-        <span class="b-sep"><span>::</span></span><span class="b-sep"><span>::</span></span>
-    </div>
+    <li><a href="{{ rel_root_dir }}">{% trans "Overview" %}</a></li>
 {% endblock %}
 

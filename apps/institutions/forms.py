@@ -286,15 +286,17 @@ class MainDataForm(dynamicforms.Form):
                 "district",  # hidden field
                 "street_address",
                 "street_address2",
-                layout.Row(
-                    layout.Div(
+                layout.MultiField(
+                    string_concat(_('ZIP'), "*, ", _('City'), "*"),
+                    layout.Field(
                         "postal_code",
-                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                        css_class = "col-xs-12 col-sm-5 col-md-4 col-lg-3"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "city",
-                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                        css_class = "col-xs-12 col-sm-7 col-md-8 col-lg-9"
                     ),
+                    field_template = "multifield.html"
                 ),
                 "country",
                 layout.HTML("""{% include "bootstrap3/custom_widgets/editable_map.html" %}"""),

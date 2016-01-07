@@ -19,11 +19,8 @@
     category_list   List of faq categories
 -->{% endcomment %}
 
-{% block extrahead %}
-    {{ block.super }}
-{% endblock %}
 
-{% block sidebar-a %}
+{% block sidebar %}
     <div class="sidebar-box">
         <h5>
             <b>{% trans "Questions and Answers" %}</b>
@@ -133,37 +130,14 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    <div class="breadcrumbs">
-        <a href="/">{% trans "Home" %}</a>
-        {% if category_path %}
-            <span class="b-sep"><span>::</span></span>
-            <a {% if not root_category %}class="active_toplevel"{% endif %}
-                href="{{ container.get_url_path }}">{{ container.title }}</a>
+    {% if category_path %}
+        <li><a {% if not root_category %}class="active_toplevel"{% endif %} href="{{ container.get_url_path }}">{{ container.title }}</a></li>
+    {% endif %}
+    {% for category in category_path %}
+        {% if category.has_link %}
+            <li><a {% ifequal root_category category %} class="active"{% endifequal %} href="{{ category.get_url_path }}">{{ category.short_title }}</a></li>
         {% else %}
-            <span class="b-sep"><span>::</span></span><span>{{ container.title }}</span>
+            <li>{{ category.short_title }}</li>
         {% endif %}
-        {% for category in category_path %}
-            {% if forloop.last %}
-                {% if category.has_link %}
-                    <span class="b-sep"><span>::</span></span><span>{{ category.short_title }}</span>
-                {% else %}
-                    <span class="b-sep"><span>::</span></span><span>{{ category.short_title }}</span>
-                {% endif %}
-            {% else %}
-                {% if category.has_link %}
-                    <span class="b-sep"><span>::</span></span>
-                    <a {% ifequal root_category category %} class="active"{% endifequal %}
-                        href="{{ category.get_url_path }}">{{ category.short_title }}</a>
-                {% else %}
-                    <span class="b-sep"><span>::</span></span>
-                    <a {% ifequal root_category category %} class="active"{% endifequal %}
-                        href="#">{{ category.short_title }}</a>
-                {% endif %}
-            {% endif %}
-        {% endfor %}
-    </div>
-{% endblock %}
-
-{% block extrabody %}
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/faqs.js"></script>
+    {% endfor %}
 {% endblock %}

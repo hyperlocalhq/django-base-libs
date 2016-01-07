@@ -1,15 +1,13 @@
-{% extends "base.html" %}
+{% extends "base_sidebar.html" %}
 {% load base_tags i18n %}
 
 {% block title %}{% trans 'Contact' %}{% endblock %}
 
 {% block headline %}
     <h1>{% trans "Creative City Berlin" %}</h1>
-    <h2 class="sub">
-        {% trans "Thank you for your message" %}
-    </h2>
+    <h2>{% trans "Thank you for your message" %}</h2>
 {% endblock %}
 
-{% block content %}
-    <p class="suggest">{% blocktrans %}Thank you for your message - we will contact you soon!{% endblocktrans %}</p>
+{% block details %}
+    <p class="intro">{% blocktrans %}Thank you for your message - we will contact you soon!{% endblocktrans %}</p>
 {% endblock %}

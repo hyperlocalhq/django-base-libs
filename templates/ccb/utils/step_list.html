@@ -1,4 +1,26 @@
 {% load i18n %}
+
+<nav>
+    <ul class="accordion navi-box">
+        <li class="accordion-inside accordion-trigger opened">
+            <div class="accordion-trigger head">{% trans "Steps" %}</div>
+            <ul class="accordion navi-box">
+                {% for step in steps %}
+                    <li>
+                        {% if step.filled or step.active %}
+                            <a href="?step={{ forloop.counter }}" {% if step.current %}class="active"{% endif %}>{{ forloop.counter }}. {{ step.title|escape }}</a>
+                        {% else %}
+                            <span class="disbaled {% if step.current %}active{% endif %}">{{ forloop.counter }}. {{ step.title|escape }}</span>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li></li>
+    </ul>
+</nav>
+
+{% comment %}
 <div class="sidebar-box">
     <h5>
         <b>{% trans "Steps" %}</b>
@@ -37,4 +59,4 @@
         {% endfor %}
     </div>
 </div>
-
+{% endcomment %}

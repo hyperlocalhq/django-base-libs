@@ -24,22 +24,30 @@ ul.navi-box {
             padding: 10px 45px 10px 20px;
         }
         
-        a {
+        a, .disbaled {
             display: block;
             font-weight: $font-regular;
             font-size: 0.93em;
-            line-height: 271.43%;
+            line-height: 140%;
             margin: 0 20px;
-            padding: 0;
+            padding: 9px 0;
             color: $grey-dark;
             border-bottom: 1px solid $grey-light;
             
-            &:hover, &:focus, &.active {
-                color: $black;
-            }
             &.active {
+                color: $black;
                 font-weight: $font-bold;
             }
+        }
+        
+        a {
+            &:hover, &:focus {
+                color: $black;
+            }            
+        }
+        
+        .disbaled {
+            cursor: default;
         }
             
         &.accordion-inside {

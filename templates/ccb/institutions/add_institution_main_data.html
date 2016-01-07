@@ -1,24 +1,37 @@
-{% extends "base.html" %}
+{% extends "ccb/institutions/add_base.html" %}
 {% load base_tags i18n uni_form_tags crispy_forms_tags %}
-
-{% block doctype %}
-    <!DOCTYPE html SYSTEM "{{ website_url }}{{ jetson_media_url|slice:"1:" }}dtd/xhtml1-iframe.dtd">
-{% endblock %}
 
 {% block title %}{% trans "Registration" %} - {% trans "Institution" %}{% endblock %}
 
-{% block headline %}
+{% block sidebar %}
+    {% include "utils/step_list.html" %}
+{% endblock %}
+
+{% block details %}
+    {% crispy form "ccb_form" %}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="/{{ URL_ID_INSTITUTIONS }}/">{% trans "Institutions" %}</a></li>
+    <li>{% trans "Add new institution" %}</li>
+{% endblock %}
+
+
+
+
+
+{% block headline_old %}
     <h1>{% trans "Registration" %}</h1>
     <h2 class="sub">{% trans "Institution" %}</h2>
 {% endblock %}
 
-{% block sidebar-a %}
+{% block sidebar-a_old %}
     {% include "utils/step_list.html" %}
 {% endblock %}
 
-{% block sidebar-b %}{% endblock %}
+{% block sidebar-b_old %}{% endblock %}
 
-{% block content %}
+{% block content_old %}
     {#% crispy form %#}
 
     <form action="" method="post" class="uniForm">{% csrf_token %}
@@ -49,16 +62,7 @@
     </form>
 {% endblock %}
 
-{% block breadcrumbs %}
-    <div class="breadcrumbs">
-        <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span>
-        <a href="/{{ URL_ID_INSTITUTIONS }}/">{% trans "Institutions" %}</a>
-        <span class="b-sep"><span>::</span></span><span>{% trans "Add new institution" %}</span>
-    </div>
-{% endblock %}
-
-{% block extrabody %}
+{% block extrabody_old %}
     <script type="text/javascript"
         src="http://maps.google.com/maps/api/js?language={{ LANGUAGE_CODE }}&amp;region=DE"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/contact_details.js"></script>
