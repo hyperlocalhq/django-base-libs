@@ -214,7 +214,11 @@ class EventBase(CreationModificationMixin, UrlMixin):
     """
 
     title = MultilingualCharField(_("Title"), max_length=255)
-    slug = models.CharField(_("Slug for URIs"), max_length=255)
+    slug = models.CharField(
+        _("Slug for URIs"),
+        max_length=255,
+        db_index=True
+    )
     description = MultilingualTextField(_("Description"), blank=True)
     image = FileBrowseField(_('Image'), max_length=200, directory="%s/" % URL_ID_EVENTS,
                             extensions=['.jpg', '.jpeg', '.gif', '.png', '.tif', '.tiff'], blank=True)
