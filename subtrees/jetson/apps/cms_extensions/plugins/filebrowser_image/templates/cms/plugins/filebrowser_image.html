@@ -1,4 +1,4 @@
-{% load image_modifications %}
+{% load image_mods_tags %}
 <div class="cms-plugin-filebrowser-image">
     {% if object.mod %}
         <img src="{{ MEDIA_URL }}{{ object.image|modified_path:object.mod.sysname }}" alt="{{ object.alt|escape }}"{% if object.css_class %} class="{{ object.css_class }}"{% endif %} />

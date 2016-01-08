@@ -1,4 +1,4 @@
-{% load i18n base_tags babel comments image_modifications memos favorites %}
+{% load i18n base_tags babel comments image_mods_tags memos favorites %}
 <a href="{{ object.content_object.get_url_path }}portfolio/album/{{ object.get_token }}/">
     {% if object.cover_image %}
         <img width="184" height="184" src="{{ UPLOADS_URL }}{{ object.cover_image.path|modified_path:"glist" }}"

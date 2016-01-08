@@ -1,4 +1,4 @@
-{% load base_tags image_modifications i18n %}
+{% load base_tags image_mods_tags i18n %}
 {% with obj as job_offer %}
     <div>{% trans "Type" %}: {{ job_offer.job_type.title|escape }}</div>
     <div>{% trans "Qualification" %}: {{ job_offer.qualification.title|escape }}</div>

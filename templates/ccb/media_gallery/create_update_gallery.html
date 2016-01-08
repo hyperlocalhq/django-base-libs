@@ -1,5 +1,5 @@
 {% extends "media_gallery/portfolio_base.html" %}
-{% load i18n base_tags auth_extended infoblocks image_modifications crispy_forms_tags %}
+{% load i18n base_tags auth_extended infoblocks image_mods_tags crispy_forms_tags %}
 
 {% block object_controls %}
     <a href="{{ object.get_url_path }}portfolio/manage/">{% trans "All projects" %}</a>

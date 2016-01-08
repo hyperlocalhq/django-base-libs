@@ -1,4 +1,4 @@
-{% load i18n static image_modifications %}
+{% load i18n static image_mods_tags %}
 <input id="{{ final_attrs.id }}" type="text" class="vFileBrowseField" name="{{ final_attrs.name }}" value="{{ value.path }}" /><a href="javascript:FileBrowser.show('{{ final_attrs.id }}', '{{ url }}?pop=1{% if final_attrs.directory %}&amp;dir={{ final_attrs.directory|urlencode|urlencode }}{% endif %}{% if final_attrs.format %}&amp;type={{ final_attrs.format }}{% endif %}');" class="fb_show"></a>
 {% if value.filetype == "Image" %}
     {% with value.path|modified_path:"filebrowser_thumbnail" as thumbnail_version %}

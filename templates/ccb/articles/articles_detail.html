@@ -1,5 +1,5 @@
 {% extends "articles/articles_base.html" %}
-{% load base_tags blog babel i18n auth_extended image_modifications %}
+{% load base_tags blog babel i18n auth_extended image_mods_tags %}
 
 {% block meta_tags %}
     <meta name="description" content="{{ article.get_rendered_content|striptags|truncatewords:100 }}..."/>
