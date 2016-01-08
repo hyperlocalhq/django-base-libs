@@ -20,7 +20,17 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{{ category.title }}</h1>{# TODO: replace with a header image #}
+    <div class="header">
+        {% load slideshows_tags %}
+        {% slideshow "bulletin_list" using "slideshows/header.html" %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{{ category.title }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--<div>
         <p class="item">
             <a href="{% url "bulletin_rss" %}{% filter force_escape %}{% append_to_get sort_by="" no_path %}{% endfilter %}" class="btn btn-primary">RSS abonnieren</a>

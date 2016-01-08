@@ -5,6 +5,11 @@
     {% trans "Marketplace" %}
 {% endblock %}
 
+{% block header_image %}
+    {% load slideshows_tags %}
+    {% slideshow "bulletin_list" using "slideshows/header.html" %}
+{% endblock %}
+
 {% block headline %}
     <h1>{% trans "Marketplace" %}</h1>
 {% endblock %}
@@ -27,12 +32,6 @@
 
 {% block javascript %}
     {{ block.super }}
-    <script
-        type="text/javascript"
-        src="{{ STATIC_URL }}site/js/website/generic.js"
-    ></script>
-    <script
-        type="text/javascript"
-        src="{{ STATIC_URL }}site/js/website/listing.js"
-    ></script>
+    <script src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script src="{{ STATIC_URL }}site/js/website/listing.js"></script>
 {% endblock %}

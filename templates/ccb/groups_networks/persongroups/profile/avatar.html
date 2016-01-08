@@ -1,4 +1,4 @@
-{% load i18n base_tags auth_extended image_modifications %}
+{% load i18n base_tags auth_extended image_mods_tags %}
 {% if object.image %}
     <div class="image_container">
         <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"ad" }}{% if_has_perm "people.change_person" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}"

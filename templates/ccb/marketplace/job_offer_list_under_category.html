@@ -2,7 +2,17 @@
 {% load i18n auth_extended uni_form_tags %}
 
 {% block details %}
-    <h1>{{ category.title }}</h1>{# TODO: replace with a header image #}
+    <div class="header">
+        {% load slideshows_tags %}
+        {% slideshow "job_offer_list" using "slideshows/header.html" %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{% trans "Jobs" %}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
     {% if not object_list %}
         <p>{% trans "No objects found within the selected conditions." %}</p>
     {% else %}

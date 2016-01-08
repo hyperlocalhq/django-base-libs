@@ -9,3 +9,10 @@ class ArticleAppHook(CMSApp):
     urls = ["ccb.apps.articles.urls"]
 
 apphook_pool.register(ArticleAppHook)
+
+# class InterviewsAppHook(CMSApp):
+#     name = _("Articles")
+#     urls = ["ccb.apps.articles.urls"]
+#
+# apphook_pool.register(InterviewsAppHook)
+

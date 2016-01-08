@@ -1,4 +1,4 @@
-{% load i18n image_modifications %}
+{% load i18n image_mods_tags %}
 <p class="preview-img">
     {% if media_file.splash_image_path %}
         <img src="{{ UPLOADS_URL }}{{ media_file.splash_image_path|modified_path:"gp" }}" alt="{{ object.get_title|escape }}"/>

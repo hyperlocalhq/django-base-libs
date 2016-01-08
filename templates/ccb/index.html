@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n base_tags navigation_tags infoblocks babel articles image_modifications %}
+{% load i18n base_tags navigation_tags infoblocks babel articles image_mods_tags %}
 
 {% block extrahead %}
     <style type="text/css">
@@ -37,7 +37,7 @@
 {% endblock %}
 
 {% block content %}
-    {% load slideshows %}
+    {% load slideshows_tags %}
     {% if LANGUAGE_CODE == "en" %}
         {% slideshow "start_page_en" %}
     {% else %}

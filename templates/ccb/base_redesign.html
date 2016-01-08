@@ -6,7 +6,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
             
-        <title>{% block title %}{% endblock %}{{ site_settings.site.name }}</title>
+        <title>{% block title %}{% endblock %} - {{ site_settings.site.name }}</title>
         
         {% block meta_tags %}
             {{ site_settings.get_meta_tags|safe }}
