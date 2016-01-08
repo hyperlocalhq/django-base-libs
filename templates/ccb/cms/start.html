@@ -1,8 +1,38 @@
-{% extends "cms/base_cms.html" %}
-{% load cms_tags %}
+{% extends "base_redesign.html" %}
+{% load cms_tags i18n %}
 
 {% block title %}{% page_attribute "page_title" %}{% endblock title %}
 
 {% block content %}
+    <div class="header">
+        {% load slideshows_tags %}
+        {% slideshow "start_page" using "slideshows/header.html" %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{% trans "Make this city happen!" %}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="row navi-grid">
+                    {% load metro_tags %}
+                    {% metro_tile "start_page_1" %}
+                    {% metro_tile "start_page_2" %}
+                    {% metro_tile "start_page_3" %}
+                    {% metro_tile "start_page_4" %}
+                    {% metro_tile "start_page_5" %}
+                    {% metro_tile "start_page_6" %}
+                    {% metro_tile "start_page_7" %}
+                    {% metro_tile "start_page_8" %}
+                </div>
+            </div>
+        </div>
+    </div>
+
     {% placeholder "content" %}
 {% endblock content %}

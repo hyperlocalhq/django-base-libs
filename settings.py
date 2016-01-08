@@ -292,6 +292,10 @@ ADMIN_APP_INDEX = (
                 'models': ("Slideshow",),
                 'icon': 'images',
             }),
+            ('metro', {
+                'models': ("Tile",),
+                'icon': 'images',
+            }),
         )
     }, {
         'title': _('Community'),
