@@ -136,12 +136,12 @@ def event_list(request, criterion="", slug="", show="", start_date=None, end_dat
 
     form = EventSearchForm(data=request.REQUEST)
     if form.is_valid():
-        cs = form.cleaned_data['creative_sector']
+        cs = form.cleaned_data['category']
         if cs:
             kwargs['queryset'] = kwargs['queryset'].filter(
-                creative_sectors__lft__gte=cs.lft,
-                creative_sectors__rght__lte=cs.rght,
-                creative_sectors__tree_id=cs.tree_id,
+                categories__lft__gte=cs.lft,
+                categories__rght__lte=cs.rght,
+                categories__tree_id=cs.tree_id,
             ).distinct()
         et = form.cleaned_data['event_type']
         if et:

@@ -1,5 +1,9 @@
 {% extends "marketplace/job_offer_base.html" %}
-{% load i18n auth_extended uni_form_tags %}
+{% load i18n auth_extended uni_form_tags crispy_forms_tags %}
+
+{% block sidebar %}
+    {% crispy form "ccb_form" %}
+{% endblock %}
 
 {% block details %}
     {% if not object_list %}

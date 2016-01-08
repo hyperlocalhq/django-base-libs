@@ -20,7 +20,7 @@
 
 {% block details %}
     <div id="create_update_gallery">
-        {% crispy form %}
+        {% crispy form "ccb_form" %}
     </div>
     {% if gallery.pk %}
         <script type="text/javascript">

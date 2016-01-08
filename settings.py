@@ -20,7 +20,13 @@ execfile(os.path.join(JETSON_PATH, "jetson/settings/base.py"), globals(), locals
 ### DOMAINS ###
 
 SESSION_COOKIE_DOMAIN = "www.creative-city-berlin.de"
-STAGING_DOMAIN = "test.creative-city-berlin.de"
+STAGING_DOMAIN = "ccb.jetsonproject.org"
+
+ALLOWED_HOSTS = [
+    "www.creative-city-berlin.de",
+    "creative-city-berlin.de",
+    "ccb.jetsonproject.org",
+]
 
 ### EMAILS ###
 
@@ -110,7 +116,7 @@ INSTALLED_APPS = [
     'sekizai',  # for javascript and css management
     # for the admin skin. You **must** add 'djangocms_admin_style' in the list **before** 'django.contrib.admin'.
     'reversion',
-    #'aldryn_search',
+    'aldryn_search',
 
     ### django-cms plug-ins ###
     'djangocms_column',
@@ -730,7 +736,7 @@ HAYSTACK_CONNECTIONS = {
         'POST_LIMIT': 128 * 1024 * 1024,
         'INCLUDE_SPELLING': True,
         'BATCH_SIZE': 100,
-        'URL': 'http://www.creative-city-berlin.de/de/suche/',
+        'URL': 'http://www.creative-city-berlin.de/de/search/',
     },
     'en': {
         'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
@@ -744,9 +750,9 @@ HAYSTACK_CONNECTIONS = {
 }
 
 HAYSTACK_ROUTERS = ['ccb.apps.search.router.LanguageRouter']
-#ALDRYN_SEARCH_LANGUAGE_FROM_ALIAS = lambda alias: alias
-#ALDRYN_SEARCH_INDEX_BASE_CLASS = "ccb.apps.search.search_indexes.CMSPageIndexBase"  # custom index base for pages
-#ALDRYN_SEARCH_REGISTER_APPHOOK = False  # we'll use a custom app hook for search
+ALDRYN_SEARCH_LANGUAGE_FROM_ALIAS = lambda alias: alias
+ALDRYN_SEARCH_INDEX_BASE_CLASS = "ccb.apps.search.search_indexes.CMSPageIndexBase"  # custom index base for pages
+ALDRYN_SEARCH_REGISTER_APPHOOK = False  # we'll use a custom app hook for search
 
 ### MULTILINGUAL URLS ###
 

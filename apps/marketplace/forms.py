@@ -612,6 +612,26 @@ class JobOfferSearchForm(dynamicforms.Form):
         required=False,
     )
 
+    def __init__(self, *args, **kwargs):
+        super(JobOfferSearchForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "GET"
+        self.helper.form_id = "object_list_filter_form"
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Filter"),
+                "job_sector",
+                "job_type",
+                "qualification",
+                "keywords",
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Search')),
+            )
+        )
+
     def get_query(self):
         from django.template.defaultfilters import urlencode
         if self.is_valid():

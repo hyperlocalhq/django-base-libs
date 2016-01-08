@@ -26,6 +26,8 @@ from jetson.apps.location.models import Address, LocalityType
 from jetson.apps.optionset.models import PhoneType, EmailType, URLType
 from jetson.apps.utils.forms import ModelMultipleChoiceTreeField
 
+from ccb.apps.site_specific.models import ContextItem
+
 from mptt.forms import TreeNodeChoiceField
 
 from crispy_forms.helper import FormHelper
@@ -1757,11 +1759,11 @@ ADD_EVENT_FORM_STEPS = {
 
 
 class EventSearchForm(dynamicforms.Form):
-    creative_sector = TreeNodeChoiceField(
+    category = TreeNodeChoiceField(
         empty_label=_("All"),
-        label=_("Creative Sector"),
+        label=_("Category"),
         required=False,
-        queryset=get_related_queryset(Event, "creative_sectors"),
+        queryset=get_related_queryset(ContextItem, "categories"),
     )
     event_type = TreeNodeChoiceField(
         empty_label=_("All"),
@@ -1783,6 +1785,27 @@ class EventSearchForm(dynamicforms.Form):
         label=_("Featured events only"),
         required=False,
     )
+
+    def __init__(self, *args, **kwargs):
+        super(EventSearchForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "GET"
+        self.helper.form_id = "object_list_filter_form"
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Filter"),
+                "category",
+                "event_type",
+                "locality_type",
+                "keywords",
+                "is_featured",
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Search')),
+            )
+        )
 
     def get_query(self):
         from django.template.defaultfilters import urlencode
