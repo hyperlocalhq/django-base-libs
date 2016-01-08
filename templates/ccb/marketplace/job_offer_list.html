@@ -6,17 +6,6 @@
 {% endblock %}
 
 {% block details %}
-    <div class="header">
-        {% load slideshows_tags %}
-        {% slideshow "job_offer_list" using "slideshows/header.html" %}
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h1>{% trans "Jobs" %}</h1>
-                </div>
-            </div>
-        </div>
-    </div>
     {% if not object_list %}
         <p>{% trans "No objects found within the selected conditions." %}</p>
     {% else %}
