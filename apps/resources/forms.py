@@ -1,4 +1,6 @@
 # -*- coding: UTF-8 -*-
+from crispy_forms import layout, bootstrap
+from crispy_forms.helper import FormHelper
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from mptt.forms import TreeNodeChoiceField
@@ -28,6 +30,25 @@ class DocumentSearchForm(dynamicforms.Form):
         required=False,
         queryset=get_related_queryset(Document, "document_type"),
     )
+
+    def __init__(self, *args, **kwargs):
+        super(DocumentSearchForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "GET"
+        self.helper.form_id = "object_list_filter_form"
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Filter"),
+                "creative_sector",
+                "context_category",
+                "document_type",
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Search')),
+            )
+        )
 
     def get_query(self):
         from django.template.defaultfilters import urlencode
