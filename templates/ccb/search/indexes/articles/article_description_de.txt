@@ -1,9 +1,0 @@
-{% load base_tags %}
-{% if object.language == "de" %}
-    {% filter decode_entities %}
-        {% autoescape off %}
-            {{ object.description|striptags }}
-            {{ object.content|striptags }}
-        {% endautoescape %}
-    {% endfilter %}
-{% endif %}

@@ -1,6 +1,0 @@
-{% load base_tags %}
-{% filter decode_entities %}
-    {% autoescape off %}
-        {{ object.description|striptags }}
-    {% endautoescape %}
-{% endfilter %}

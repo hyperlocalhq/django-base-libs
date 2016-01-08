@@ -1,9 +1,0 @@
-{% load base_tags %}
-{% filter decode_entities %}
-    {% autoescape off %}
-        {{ object.title }}
-        {{ object.subtitle }}
-        {{ object.description }}
-        {{ object.content }}
-    {% endautoescape %}
-{% endfilter %}
