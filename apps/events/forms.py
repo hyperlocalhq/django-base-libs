@@ -1463,7 +1463,7 @@ class CategoriesForm(dynamicforms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Categories"),
-                layout.Div(layout.Field("categories", template="bootstrap3/custom_widgets/checkboxselectmultipletree.html")),
+                layout.Div(layout.Field("categories", template="ccb_form/custom_widgets/checkboxselectmultipletree.html")),
             ),
             layout.Fieldset(
                 _("Tags"),

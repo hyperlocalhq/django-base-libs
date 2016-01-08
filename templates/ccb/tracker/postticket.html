@@ -1,4 +1,4 @@
-{% extends "ccb/tracker/ticket_base.html" %}
+{% extends "base_sidebar.html" %}
 {% load i18n %}
 
 {% block title %}
@@ -6,10 +6,10 @@
 {% endblock %}
 
 {% block headline %}
-    {% trans "FEEDBACK" %}
+    <h1>{% trans "FEEDBACK" %}</h1>
 {% endblock %}
 
-{% block form %}
+{% block details %}
     {% trans "Thank you for informing us - we will work on it immediately!" %}
 {% endblock %}
 

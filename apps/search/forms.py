@@ -19,7 +19,7 @@ class ModelSearchForm(_SearchForm):
 
     def __init__(self, *args, **kwargs):
         super(ModelSearchForm, self).__init__(*args, **kwargs)
-        self.fields[self.QUERY_PARAM_NAME].label = u""
+        self.fields[self.QUERY_PARAM_NAME].label = _('Search')
         self.fields[self.MODELS_PARAM_NAME] = forms.MultipleChoiceField(
             choices=model_choices(),
             required=False,
@@ -34,8 +34,11 @@ class ModelSearchForm(_SearchForm):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 "",
-                layout.Field(self.QUERY_PARAM_NAME),
-                layout.Field(self.MODELS_PARAM_NAME),
+                layout.Div(
+                    layout.Field(self.QUERY_PARAM_NAME, css_class="input-block-level"),
+                    layout.Field(self.MODELS_PARAM_NAME),
+                    css_class="input-block-wrapper"
+                ),
                 layout.Div(
                     layout.Submit('submit', _('search')),
                     css_class="button-group form-buttons"

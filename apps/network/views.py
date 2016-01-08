@@ -188,7 +188,7 @@ def member_list(request, creative_sector_slug="", show="", list_filter=_member_l
 def member_detail(request, slug, creative_sector_slug="", **kwargs):
     item = get_object_or_404(
         ContextItem,
-        content_type__model__in=["person", "institution"],
+        content_type__model__in=("person", "institution"),
         slug=slug,
     )
     if item.is_person():
@@ -219,18 +219,28 @@ def member_events_list(request, slug, **kwargs):
     """
     Lists the institution's events
     """
-    item = get_object_or_404(ContextItem, slug=slug)
-    if item.is_institution():
+    item = get_object_or_404(
+        ContextItem,
+        content_type__model__in=("person", "institution"),
+        slug=slug,
+    )
+    if item.is_person():
+        if not request.user.has_perm("people.change_person", item.content_object) and item.status not in ("published", "published_commercial"):
+            return access_denied(request)
+        person = item.content_object
+        kwargs['queryset'] = kwargs['queryset'].filter(
+            models.Q(organizing_person=person)
+        ).order_by('-creation_date')
+        kwargs['template_name'] = 'people/person_events.html'
+    else:
+        if not request.user.has_perm("institutions.change_institution", item.content_object) and item.status not in ("published", "published_commercial"):
+            return access_denied(request)
         institution = item.content_object
         kwargs['queryset'] = kwargs['queryset'].filter(
             models.Q(organizing_institution=institution) |
             models.Q(venue=institution),
         ).order_by('-creation_date')
-    elif item.is_person():
-        person = item.content_object
-        kwargs['queryset'] = kwargs['queryset'].filter(
-            models.Q(organizing_person=person)
-        ).order_by('-creation_date')
+        kwargs['template_name'] = 'institutions/institution_events.html'
 
     kwargs.setdefault("extra_context", {})
     kwargs['extra_context']['object'] = item.content_object

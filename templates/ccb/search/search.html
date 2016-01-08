@@ -1,11 +1,12 @@
-{% extends "ccb/search/search_base.html" %}
+{% extends "base_sidebar.html" %}
 {% load i18n crispy_forms_tags %}
+
 {% block title %}
     {% trans 'SEARCH' %}
 {% endblock %}
 
 {% block headline %}
-    {% trans "SEARCH" %}
+    <h1>{% trans "SEARCH" %}</h1>
 {% endblock %}
 
 {% block extrahead %}
@@ -17,7 +18,7 @@
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/search.js"></script>
 {% endblock %}
 
-{% block form %}
+{% block details %}
     {% crispy form "ccb_form" %}
     <script>
         $('label').click(function (e) {

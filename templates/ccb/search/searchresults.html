@@ -1,4 +1,4 @@
-{% extends "ccb/search/search_base.html" %}
+{% extends "base_sidebar.html" %}
 {% load i18n %}
 
 {% block title %}
@@ -6,10 +6,10 @@
 {% endblock %}
 
 {% block headline %}
-    {% trans "search results" %}
+    <h1>{% trans "search results" %}</h1>
 {% endblock %}
 
-{% block form %}
+{% block details %}
     {% if object_list %}
         {% include_parsed "utils/includes/sorting_and_pagination.html" with "under-tabs" as css_class %}
         <div id="object_list">

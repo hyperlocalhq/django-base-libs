@@ -1,13 +1,13 @@
-{% extends base_template|default:"ccb/accounts/account_base.html" %}
+{% extends base_template|default:"base_sidebar.html" %}
 {% load base_tags i18n uni_form_tags crispy_forms_tags %}
 
 {% block title %}{% trans "Login" %}{% endblock %}
 
 {% block headline %}
-    {% trans "Login" %}
+    <h1>{% trans "Login" %}</h1>
 {% endblock %}
 
-{% block form %}
+{% block details %}
     <form action="/{{ LANGUAGE_CODE }}/facebook/link/" method="post" class="uniForm">
         {% csrf_token %}
         <div class="fieldset editable">

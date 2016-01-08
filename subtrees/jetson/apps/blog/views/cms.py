@@ -216,8 +216,9 @@ def get_blog_params(request, post_slug=None, **kwargs):
     in the rendered templates or for other purposes.
     """
     base_template = None
-    obj = request.current_page
+    # obj = request.current_page
     url_identifier = request.current_page.get_path()
+    obj = None
     current_post = None
     site = None
     if kwargs.has_key('only_for_this_site'):
