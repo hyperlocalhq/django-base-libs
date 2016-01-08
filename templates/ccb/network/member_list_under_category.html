@@ -37,7 +37,10 @@
                         <div class="fawesome fa-list button active" data-body-class="list" data-body-class-group="profiles"></div>
                         <div class="fawesome fa-grid button" data-body-class="grid" data-body-class-group="profiles"></div>
                     </div>
-                    <div class="result">8.843<span class="text">{% trans 'Profiles' %}</span></div>
+                    <div class="result">
+                        {% load babel %}{{ current_page.paginator.count|numberfmt }}
+                        <span class="text">{% trans 'Profiles' %}</span>
+                    </div>
                 </div>
             </div>
         </div>
