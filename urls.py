@@ -379,6 +379,7 @@ urlpatterns += patterns(
         r'description|'
         r'categories|'
         r'avatar|'
+        r'contact|'
         r'additional_info'
         r')/$' % (
             URL_ID_JOB_OFFER,

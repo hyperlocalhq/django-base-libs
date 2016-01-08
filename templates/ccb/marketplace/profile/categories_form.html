@@ -1,32 +1,5 @@
 {% load i18n base_tags auth_extended uni_form_tags crispy_forms_tags %}
 <div class="profile_infos">
     <h5 class="edit_subline">{% trans "edit categories" %}</h5>
-
-    {#% crispy form %#}
-
-    <form class="uniForm" action="/helper/edit-{{ URL_ID_JOB_OFFER }}-profile/{{ object.get_secure_id }}/categories/"
-        method="post" enctype="multipart/form-data" target="hidden_iframe" class="uniForm">{% csrf_token %}
-        <fieldset class="inlineLabels">
-            <div class="nav_expanded" id="CI_{{ LANGUAGE_CODE }}_search">
-                <h3 class="{% if not form.object_types %}no-padding-top{% endif %}">
-                    <a href="#" class="open_but">
-                        <b>{% trans "job sector" %}</b>
-                        <span class="pic"></span>
-                    </a>
-                </h3>
-                <fieldset class="fieldset_categories">
-                    <div class="hidable">
-                        {{ form.job_sectors|as_uni_field }}
-                    </div>
-                </fieldset>
-            </div>
-            <p class="disclaimer">{% blocktrans %}Is some category missing? You can <a href="/ticket/new-category/">suggest it here</a>.{% endblocktrans %}</p>
-            {{ form.tags|as_uni_field }}
-            <div class="buttonHolder">
-                <input type="submit" class="primaryAction" value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
-                <input type="button" class="secondaryAction"
-                    value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel"/>
-            </div>
-        </fieldset>
-    </form>
+    {% crispy form "ccb_form" %}
 </div>

@@ -3,38 +3,6 @@
     <h5 class="edit_subline">{% trans "upload a photo" %}</h5>
 
     <div class="field_layout">
-
-        {#% crispy form %#}
-
-        <form action="/helper/edit-{{ URL_ID_INSTITUTION }}-profile/{{ object.slug }}/avatar/" method="post"
-            enctype="multipart/form-data" target="hidden_iframe" class="uniForm">{% csrf_token %}
-            <fieldset class="inlineLabels">
-                <div class="ctrlHolder">
-                    <p class="label">
-                        {% if object.image %}
-                            <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"ap" }}"
-                                alt="{{ object.get_title|escape }}"/>
-                        {% else %}
-                            <img src="{{ DEFAULT_FORM_LOGO_4_INSTITUTION }}" alt="{{ object.get_title|escape }}"/>
-                        {% endif %}
-                    </p>
-                    {{ form.media_file.error_tag }}
-                    <ul>
-                        <li>
-                            <label for="id_media_file">
-                                {{ form.media_file|with_class }}
-                            </label>
-                        </li>
-                    </ul>
-                    <p class="formHint">{{ form.media_file.help_text }}</p>
-                </div>
-                <div class="buttonHolder">
-                    <input type="submit" class="primaryAction"
-                        value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
-                    <input type="button" class="secondaryAction"
-                        value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel"/>
-                </div>
-            </fieldset>
-        </form>
+        {% crispy form "ccb_form" %}
     </div>
 </div>

@@ -1397,6 +1397,11 @@ input {
                         }
                     }
                 }
+                
+                img.avatar {
+                    width: 270px;
+                    margin-top: 20px;
+                }
             }
         }
         
@@ -1601,10 +1606,10 @@ input {
     &.no-label {
         fieldset {
             > dl.input-fields {
-                > dt {
+                dt {
                     display: none;
                 }
-                > dd {
+                dd {
                     width: 100%;
                     
                     > ul.accordion {

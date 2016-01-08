@@ -8,9 +8,9 @@
                 {% for step in steps %}
                     <li>
                         {% if step.filled or step.active %}
-                            <a href="?step={{ forloop.counter }}" {% if step.current %}class="active"{% endif %}>{{ forloop.counter }}. {{ step.title|escape }}</a>
+                            <a href="?step={{ forloop.counter }}" {% if step.current %}class="active"{% endif %}><div class="counter">{{ forloop.counter }}.</div><div>{{ step.title|escape }}</div></a>
                         {% else %}
-                            <span class="disbaled {% if step.current %}active{% endif %}">{{ forloop.counter }}. {{ step.title|escape }}</span>
+                            <div class="disbaled {% if step.current %}active{% endif %}"><div class="counter">{{ forloop.counter }}.</div><div>{{ step.title|escape }}</div></div>
                         {% endif %}
                     </li>
                 {% endfor %}

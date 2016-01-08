@@ -1,7 +1,22 @@
 {% extends "base_sidebar.html" %}
-{% load base_tags i18n %}
+{% load base_tags i18n crispy_forms_tags %}
+
+{% block title %}{% trans "Registration" %} - {% trans "Institution" %}{% endblock %}
 
 {% block headline %}
     <h1>{% trans "Registration" %}</h1>
     <h2>{% trans "Institution" %}</h2>
+{% endblock %}
+
+{% block sidebar %}
+    {% include "utils/step_list.html" %}
+{% endblock %}
+
+{% block details %}
+    {% crispy form "ccb_form" %}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="/{{ URL_ID_INSTITUTIONS }}/">{% trans "Institutions" %}</a></li>
+    <li>{% trans "Add new institution" %}</li>
 {% endblock %}

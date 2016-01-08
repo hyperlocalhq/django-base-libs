@@ -1,20 +1,5 @@
 {% extends "ccb/institutions/add_base.html" %}
-{% load base_tags i18n uni_form_tags crispy_forms_tags %}
-
-{% block title %}{% trans "Registration" %} - {% trans "Institution" %}{% endblock %}
-
-{% block sidebar %}
-    {% include "utils/step_list.html" %}
-{% endblock %}
-
-{% block details %}
-    {% crispy form "ccb_form" %}
-{% endblock %}
-
-{% block breadcrumbs %}
-    <li><a href="/{{ URL_ID_INSTITUTIONS }}/">{% trans "Institutions" %}</a></li>
-    <li>{% trans "Add new institution" %}</li>
-{% endblock %}
+{% load base_tags i18n %}
 
 
 
@@ -34,6 +19,7 @@
 {% block content_old %}
     {#% crispy form %#}
 
+    {% comment %}
     <form action="" method="post" class="uniForm">{% csrf_token %}
         <fieldset class="inlineLabels">
             <h3>{% trans "Institution" %}</h3>
@@ -60,6 +46,7 @@
             </div>
         </fieldset>
     </form>
+    {% endcomment %}
 {% endblock %}
 
 {% block extrabody_old %}

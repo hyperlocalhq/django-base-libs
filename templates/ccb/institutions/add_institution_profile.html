@@ -1,21 +1,25 @@
-{% extends "base.html" %}
-{% load base_tags i18n uni_form_tags uni_form_field crispy_forms_tags %}
+{% extends "ccb/institutions/add_base.html" %}
+{% load base_tags i18n %}
 
-{% block title %}{% trans "Registration" %} - {% trans "Institution" %}{% endblock %}
 
-{% block headline %}
+
+
+
+{% block headline_old %}
     <h1>{% trans "Registration" %}</h1>
     <h2 class="sub">{% trans "Institution" %}</h2>
 {% endblock %}
 
-{% block sidebar-a %}
+{% block sidebar-a_old %}
     {% include "utils/step_list.html" %}
 {% endblock %}
 
-{% block sidebar-b %}
+{% block sidebar-b_old %}
 {% endblock %}
 
-{% block content %}
+{% block content_old %}
+
+    {% comment %}
     <div class="reg">
         {#% crispy form %#}
         <form action="" method="post" enctype="multipart/form-data" class="uniForm">{% csrf_token %}
@@ -46,18 +50,11 @@
             </fieldset>
         </form>
     </div>
+    
+    {% endcomment %}
 {% endblock %}
 
-{% block breadcrumbs %}
-    <div class="breadcrumbs">
-        <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span>
-        <a href="/{{ URL_ID_INSTITUTIONS }}/">{% trans "Institutions" %}</a>
-        <span class="b-sep"><span>::</span></span><span>{% trans "Add new institution" %}</span>
-    </div>
-{% endblock %}
-
-{% block extrabody %}
+{% block extrabody_old %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/registration.js"></script>
 {% endblock %}
 
