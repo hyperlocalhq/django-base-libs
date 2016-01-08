@@ -34,15 +34,12 @@ class ModelSearchForm(_SearchForm):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 "",
-                    layout.Div(
-                        layout.Field(self.QUERY_PARAM_NAME, css_class="input-block-level"),
-                        layout.Field(self.MODELS_PARAM_NAME),
-                        css_class="input-block-wrapper"
-                    ),
-                    layout.Div(
-                        layout.Submit('submit', _('search')),
-                        css_class="btn-group"
-                    ),
+                layout.Field(self.QUERY_PARAM_NAME),
+                layout.Field(self.MODELS_PARAM_NAME),
+                layout.Div(
+                    layout.Submit('submit', _('search')),
+                    css_class="button-group form-buttons"
+                ),
             ),
         )
 
