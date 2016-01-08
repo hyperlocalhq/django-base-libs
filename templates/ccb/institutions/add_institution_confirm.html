@@ -1,8 +1,64 @@
 {% extends "ccb/institutions/add_base.html" %}
 {% load base_tags i18n site_specific %}
 
+{% block headline %}
+    <h1>{% trans "Registration" %}</h1>
+    <h2>{% trans "Institution" %} - {% trans "Confirm Entered Data" %}</h2>
+{% endblock %}
+
 {% block details %}
     <form action="" method="post" class="uniForm">{% csrf_token %}
+        <div class="fieldset not-editable ">
+            <fieldset>
+                <h2>{% trans 'Main Data' %}</h2>
+                <dl class="input-fields">
+                    <dt>{% trans "Institution Name" %}</dt>
+                    <dd><div class="text-field">{{ form_step_data.0.institution_name }} {{ form_step_data.0.institution_name2 }}</div></dd>
+                    <dd class="clearfix"></dd>
+                    <dt>{% trans "Legal Form" %}</dt>
+                    <dd><div class="text-field">{{ form_step_data.0.get_legal_form_display }}</div></dd>
+                    <dd class="clearfix"></dd>
+                    <dt>{% trans "Location type" %}</dt>
+                    <dd><div class="text-field">{{ form_step_data.0.get_location_type_display }}</div></dd>
+                    <dd class="clearfix"></dd>
+                    {% if form_step_data.0.location_title %}
+                        <dt>{% trans "Location title" %}</dt>
+                        <dd><div class="text-field">{{ form_step_data.0.location_title }}</div></dd>
+                        <dd class="clearfix"></dd>
+                    {% endif %}
+                    <dt>{% trans "Address" %}</dt>
+                    <dd><div class="text-field">
+                        <div>{{ form_step_data.0.street_address|escape }}</div>
+                        {% if form_step_data.0.street_address2 %}
+                            <div>{{ form_step_data.0.street_address2|escape }}</div>
+                        {% endif %}
+                        <div>{{ form_step_data.0.postal_code|escape }} {{ form_step_data.0.city|escape }}</div>
+                        <div>{{ form_step_data.0.get_country_display }}</div>
+                    </div></dd>
+                    <dd class="clearfix"></dd>
+                    {% if form_step_data.0.phone_number %}
+                        <dt>{% trans "Phone" %}</dt>
+                        <dd><div class="text-field">+{{ form_step_data.0.phone_country }}-{{ form_step_data.0.phone_area }}-{{ form_step_data.0.phone_number }}</div></dd>
+                        <dd class="clearfix"></dd>
+                    {% endif %}
+                    {% if form_step_data.0.fax_number %}
+                        <dt>{% trans "Fax" %}</dt>
+                        <dd><div class="text-field">+{{ form_step_data.0.fax_country }}-{{ form_step_data.0.fax_area }}-{{ form_step_data.0.fax_number }}</div></dd>
+                        <dd class="clearfix"></dd>
+                    {% endif %}
+                    {% if form_step_data.0.mobile_number %}
+                        <dt>{% trans "Mobile" %}</dt>
+                        <dd><div class="text-field">+{{ form_step_data.0.mobile_country }}-{{ form_step_data.0.mobile_area }}-{{ form_step_data.0.mobile_number }}</div></dd>
+                        <dd class="clearfix"></dd>
+                    {% endif %}
+                </dl>
+            </fieldset>
+        </div>
+        <div class="fieldset not-editable ">
+            <fieldset>
+                <h2>{% trans 'Profile Data' %}</h2>
+            </fieldset>
+        </div>
         {% include "utils/step_buttons_reg.html" %}
     </form>
 {% endblock %}

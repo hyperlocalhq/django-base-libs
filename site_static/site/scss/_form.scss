@@ -1402,6 +1402,14 @@ input {
                     width: 270px;
                     margin-top: 20px;
                 }
+                
+                &.clearfix {
+                    display: block;
+                    width: 100%;
+                    float: none;
+                    margin: 0;
+                    padding: 0;
+                }
             }
         }
         
