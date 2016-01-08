@@ -594,16 +594,22 @@
                                     </div>
                                 </div>
                             </dd>
+                            <dd class="clearfix"></dd>
                             <dt>Name</dt>
                             <dd><div class="input-field text"><input type="text" placeholder="Placeholder"/></div></dd>
+                            <dd class="clearfix"></dd>
                             <dt>Beschreibung</dt>
                             <dd><div class="input-field text"><textarea placeholder="Placeholder"></textarea></div></dd>
+                            <dd class="clearfix"></dd>
                             <dt>Datei</dt>
                             <dd><div class="input-field file"><input type="file" placeholder="{% trans 'No file selected' %}"/></div></dd>
+                            <dd class="clearfix"></dd>
                             <dt>Wahl</dt>
                             <dd><div class="input-field box"><input id="fieldset-choice-1" type="checkbox"/><label for="fieldset-choice-1">Wirklich?</label></div></dd>
+                            <dd class="clearfix"></dd>
                             <dt>Schalter</dt>
                             <dd><div class="input-field box"><input id="fieldset-switch-1" type="checkbox" class="switch"/><label for="fieldset-switch-1">Aus / An</label></div></dd>
+                            <dd class="clearfix"></dd>
                             <dt>Auswahl</dt>
                             <dd>
                                 <div class="input-field select">
@@ -620,6 +626,7 @@
                                     </select>
                                 </div>
                             </dd>
+                            <dd class="clearfix"></dd>
                             <dt>Verschachtelt</dt>
                             <dd>
                                 <ul class="accordion boxes">
@@ -636,6 +643,7 @@
                                     <li><div class="input-field box"><input id="fieldset-accordion-5" type="radio" name="accordion-group"/><label for="fieldset-accordion-5">Nicht-Bildende Kunst</label></div></li>
                                 </ul>
                             </dd>
+                            <dd class="clearfix"></dd>
                         </dl>
                         <div class="button-group form-buttons hide">
                             <button class="cancel button">{% trans 'Cancel' %}</button>
@@ -681,16 +689,22 @@
                         &lt;/div>
                     &lt;/div>
                 &lt;/dd>
+                &lt;dd class="clearfix">&lt;/dd>
                 &lt;dt>Name&lt;/dt>
                 &lt;dd>&lt;div class="input-field text">&lt;input type="text" placeholder="Placeholder"/>&lt;/div>&lt;/dd>
+                &lt;dd class="clearfix">&lt;/dd>
                 &lt;dt>Beschreibung&lt;/dt>
                 &lt;dd>&lt;div class="input-field text">&lt;textarea placeholder="Placeholder">&lt;/textarea>&lt;/div>&lt;/dd>
+                &lt;dd class="clearfix">&lt;/dd>
                 &lt;dt>Datei&lt;/dt>
                 &lt;dd>&lt;div class="input-field file">&lt;input type="file" placeholder="&#123;% trans 'No file selected' %}"/>&lt;/div>&lt;/dd>
+                &lt;dd class="clearfix">&lt;/dd>
                 &lt;dt>Wahl&lt;/dt>
                 &lt;dd>&lt;div class="input-field box">&lt;input id="fieldset-choice-1" type="checkbox"/>&lt;label for="fieldset-choice-1">Wirklich?&lt;/label>&lt;/div>&lt;/dd>
+                &lt;dd class="clearfix">&lt;/dd>
                 &lt;dt>Schalter&lt;/dt>
                 &lt;dd>&lt;div class="input-field box">&lt;input id="fieldset-switch-1" type="checkbox" class="switch"/>&lt;label for="fieldset-switch-1">Aus / An&lt;/label>&lt;/div>&lt;/dd>
+                &lt;dd class="clearfix">&lt;/dd>
                 &lt;dt>Auswahl&lt;/dt>
                 &lt;dd>
                     &lt;div class="input-field select">
@@ -701,12 +715,14 @@
                         &lt;/select>
                     &lt;/div>
                 &lt;/dd>
+                &lt;dd class="clearfix">&lt;/dd>
                 &lt;dt>Verschachtelt&lt;/dt>
                 &lt;dd>
                     &lt;ul class="accordion boxes">
                         ...
                     &lt;/ul>
                 &lt;/dd>
+                &lt;dd class="clearfix">&lt;/dd>
             &lt;/dl>
             &lt;div class="button-group form-buttons hide">
                 &lt;button class="cancel button">&#123;% trans 'Cancel' %}&lt;/button>
@@ -715,7 +731,8 @@
         &lt;/fieldset>
     &lt;/div>
 &lt;/form></pre>
-            <p>If you want to start with the editing view of the fieldset, remove the "disabled" property of the fieldset tag.<br/>
+            <p><b>Always put a "&lt;dd class="clearfix">&lt;/dd>" after a "&lt;dd>&lt;/dd>" tag!</b><br/>
+            If you want to start with the editing view of the fieldset, remove the "disabled" property of the fieldset tag.<br/>
             If you don't want the user to be able to switch between editing and disabled mode, remove the class "switch" of the ".fieldset" tag.<br/>
             If you structure an entry in row and col-...-... and you want the columns to collapse in disabled mode (like in the birthday field), give the row the class "collapse".<br/>
             To hide an element in disabled mode give it the class "hide".</p>
@@ -729,6 +746,7 @@
                     <dl class="input-fields">
                         <dt>Section</dt>
                         <dd><div class="text-field">Value</div></dd>
+                        <dd class="clearfix"></dd>                        
                     </dl>
                     <dl class="input-fields">
                         <dt>Section</dt>
@@ -738,6 +756,7 @@
                                 <div>Value 2</div>
                             </div>
                         </dd>
+                        <dd class="clearfix"></dd>
                     </dl>
                     <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
                 </fieldset>
@@ -749,6 +768,7 @@
         &lt;dl class="input-fields">
             &lt;dt>Section&lt;/dt>
             &lt;dd>&lt;div class="text-field">Value&lt;/div>&lt;/dd>
+            &lt;dd class="clearfix">&lt;/dd>
         &lt;/dl>
         &lt;dl class="input-fields">
             &lt;dt>Section&lt;/dt>
@@ -758,9 +778,11 @@
                     &lt;div>Value 2&lt;/div>
                 &lt;/div>
             &lt;/dd>
+            &lt;dd class="clearfix">&lt;/dd>
         &lt;/dl>
     &lt;/fieldset>
 &lt;/div></pre>
+            <p><b>Always put a "&lt;dd class="clearfix">&lt;/dd>" after a "&lt;dd>&lt;/dd>" tag!</b><br/></p>
             <br/>
             <br/>
             <br/>
