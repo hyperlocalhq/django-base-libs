@@ -99,6 +99,7 @@
             <p><a href="{{ article.external_url }}" target="_blank">{% trans "Read full article" %}</a></p>
         {% endif %}
 
+        {% comment %}
         {% if article.creative_sectors.count %}
             <p>{% trans "Categories" %}:
                 {% for cs in article.creative_sectors.all %}
@@ -107,9 +108,22 @@
                 {% endfor %}
             </p>
         {% endif %}
-        
+        {% endcomment %}
+
+        <p>{% trans "Category" %}:
+            {% if article.article_type.get_root.slug == "interviews" %}
+                <a href="{% url "article_archive_for_interviews_by_type" type_sysname=article.article_type.slug %}">{{ article.article_type.title }}</a>
+            {% else %}
+                <a href="{% url "article_archive_for_news_by_type" type_sysname=article.article_type.slug %}">{{ article.article_type.title }}</a>
+            {% endif %}
+        </p>
+
         <div class="button-group padding-40">
-            <a href="/{{ LANGUAGE_CODE }}/news/feeds/rss/" class="fawesome fa-rss smaller button"><span class="sr-only">rss</span></a>
+            {% if article.article_type.get_root.slug == "interviews" %}
+                <a href="{% url "article_feed_for_interviews" feed_type="rss" %}" class="fawesome fa-rss smaller button"><span class="sr-only">rss</span></a>
+            {% else %}
+                <a href="{% url "article_feed_for_news" feed_type="rss" %}" class="fawesome fa-rss smaller button"><span class="sr-only">rss</span></a>
+            {% endif %}
         </div>
 
     </div>

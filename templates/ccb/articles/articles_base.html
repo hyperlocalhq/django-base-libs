@@ -1,5 +1,5 @@
 {% extends "base_redesign.html" %}
-{% load i18n base_tags navigation_tags cache infoblocks %}
+{% load i18n base_tags navigation_tags cache infoblocks cms_tags %}
 
 {% block extrahead %}
     {{ block.super }}
@@ -8,31 +8,24 @@
 
 
 {% block title %}
-    {% if article_type %}
-        {{ article_type.get_title|escape }} - 
-    {% else %}
-        {% if creative_sector %}
-            {{ creative_sector.get_title|escape }} - 
-        {% else %}
-            {% trans "News" %} - 
-        {% endif %}
-    {% endif %}
+    {% page_attribute "page_title" %}
 {% endblock %}
 
 
 {% block content %}
     <div class="header">
         {% load slideshows_tags %}
-        {% slideshow "article_list" using "slideshows/header.html" %}
+        {% if root_article_type.slug == "interviews" %}
+            {% slideshow "article_list_interviews" using "slideshows/header.html" %}
+        {% else %}
+            {% slideshow "article_list_news" using "slideshows/header.html" %}
+        {% endif %}
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    {% if article_type %}
-                        <h1>{{ article_type.get_title|escape }}</h1>
-                    {% elif creative_sector.get_title %}
-                        <h1>{{ creative_sector.get_title|escape }}</h1>
-                    {% else %}
-                        <h1>{% trans "News" %}</h1>
+                    <h1>{% page_attribute "page_title" %}</h1>
+                    {% if article_type and not article_type.is_root_node %}
+                        <h2>{{ article_type.title }}</h2>
                     {% endif %}
                 </div>
             </div>

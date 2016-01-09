@@ -883,24 +883,6 @@ urlpatterns += i18n_patterns(
     # accounts and registration
     url(r'^', include('ccb.apps.accounts.urls')),
 
-    # begin TODO: remote these URLs after migrating app to django-cms
-    # articles
-    url(r'^news/', include('ccb.apps.articles.urls')),
-    # end
-
-    url(r'^creative-sector/$',
-        'ccb.apps.site_specific.views.redirect_to_creative_sector',
-        ),
-
-    # articles for creative sector overview
-    url(r'^creative-sector/(?P<creative_sector_slug>[^/]+)/$',
-        TemplateView.as_view(template_name='site_specific/creative_sector_overview.html')
-        ),
-
-    url(r'^creative-sector/[^/]+/(?P<url>.*)$',
-        'jetson.apps.flatpages.views.flatpage'
-        ),
-
     url(r'^contact/', include("jetson.apps.contact_form.urls")),
 
     url(r'^invite/$', "ccb.apps.site_specific.views.invite", name="invite"),
@@ -922,27 +904,8 @@ urlpatterns += i18n_patterns(
         URL_ID_PEOPLE),
         'jetson.apps.utils.views.feed', latest_published_objects_feeds),
 
-    # sitemaps
-    #url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
-
-    ## begin TODO: remove these URLs after migrating apps to django-cms
-    url(r'^portfolios/((?P<show>favorites|memos|featured)/)?$',
-        'ccb.apps.media_gallery.views.gallery_list', gallery_list_info),
-    url(r'^portfolios/feeds/(?P<feed_type>.*)/$', 'jetson.apps.utils.views.feed',
-        latest_media_galleries),
-    ## end
-
     # style guide
     url(r'^styleguide/', include('jetson.apps.styleguide.urls')),
-
-    # blog! (must be placed after admin urls!!!!!!)
-    # url(r'^(?P<object_url_part>([^/]+/[^/]+/)?)(?P<url_identifier>blog)/',
-    #     include('jetson.apps.blog.urls'),
-    #     {
-    #         'only_for_this_site': True,
-    #         'include': [None, URL_ID_PERSON, URL_ID_INSTITUTION],
-    #     }
-    #     ),
 
     url(r'^kreativarbeiten/$', lambda request: redirect("/kreativarbeiten/blog/")),
 

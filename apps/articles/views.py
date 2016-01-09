@@ -9,6 +9,7 @@ from django.db.models.fields import DateTimeField
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import get_language
+from django.shortcuts import redirect
 
 from base_libs.models.base_libs_settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
 from base_libs.middleware import get_current_language
@@ -45,7 +46,11 @@ def get_articles(
         queryset = queryset.filter(creative_sectors__slug=creative_sector_slug)
 
     if type_sysname and type_sysname != 'all':
-        queryset = queryset.filter(article_type__slug=type_sysname)
+        article_type = ArticleType.objects.get(slug=type_sysname)
+        if article_type.is_root_node():
+            queryset = queryset.filter(article_type__tree_id=article_type.tree_id)
+        else:
+            queryset = queryset.filter(article_type=article_type)
 
     if only_features:
         queryset = queryset.filter(is_featured=True)
@@ -153,12 +158,18 @@ def article_archive_index(
     if not extra_context:
         extra_context = {}
     extra_context['article_filter'] = 'latest'
-    extra_context['rel_root_dir'] = reverse("article_archive")
 
+    root_article_type = article_type = None
     try:
-        extra_context['article_type'] = ArticleType.objects.get(slug=type_sysname)
+        article_type = extra_context['article_type'] = ArticleType.objects.get(slug=type_sysname)
+        root_article_type = extra_context['root_article_type'] = extra_context['article_type'].get_root()
     except Exception:
         pass
+    if root_article_type and root_article_type.slug == "interviews":
+        extra_context['rel_root_dir'] = reverse("article_archive_for_interviews")
+    else:
+        extra_context['rel_root_dir'] = reverse("article_archive_for_news")
+
     try:
         extra_context['creative_sector'] = Term.objects.get(slug=creative_sector_slug)
     except Exception:
@@ -199,11 +210,13 @@ def article_archive_index(
                        template_object_name=template_object_name, content_type=content_type)
 
 
-def article_archive_non_interviews(request, creative_sector_slug, **kwargs):
+def article_archive_news(request, creative_sector_slug, **kwargs):
     if request.LANGUAGE_CODE == "en":
-        kwargs['queryset'] = Article.site_published_objects_all_languages.non_interviews()
+        kwargs['queryset'] = Article.site_published_objects_all_languages.news()
     else:
-        kwargs['queryset'] = Article.site_published_objects.non_interviews()
+        kwargs['queryset'] = Article.site_published_objects.news()
+    if "type_sysname" in kwargs and kwargs['type_sysname'] != 'all':
+        kwargs['queryset'] = kwargs['queryset'].filter(article_type__slug=kwargs['type_sysname'])
     return article_archive_index(request, creative_sector_slug, **kwargs)
 
 
@@ -212,6 +225,16 @@ def article_archive_interviews(request, creative_sector_slug, **kwargs):
         kwargs['queryset'] = Article.site_published_objects_all_languages.interviews()
     else:
         kwargs['queryset'] = Article.site_published_objects.interviews()
+    if "type_sysname" in kwargs and kwargs['type_sysname'] != 'all':
+        kwargs['queryset'] = kwargs['queryset'].filter(article_type__slug=kwargs['type_sysname'])
+    return article_archive_index(request, creative_sector_slug, **kwargs)
+
+
+def article_archive_non_interviews(request, creative_sector_slug, **kwargs):
+    if request.LANGUAGE_CODE == "en":
+        kwargs['queryset'] = Article.site_published_objects_all_languages.non_interviews()
+    else:
+        kwargs['queryset'] = Article.site_published_objects.non_interviews()
     return article_archive_index(request, creative_sector_slug, **kwargs)
 
 
@@ -254,11 +277,18 @@ def article_archive_year(
     if not extra_context:
         extra_context = {}
     extra_context['article_filter'] = year
-    extra_context['rel_root_dir'] = reverse("article_archive")
+
+    root_article_type = article_type = None
     try:
-        extra_context['article_type'] = ArticleType.objects.get(slug=type_sysname)
+        article_type = extra_context['article_type'] = ArticleType.objects.get(slug=type_sysname)
+        root_article_type = extra_context['root_article_type'] = extra_context['article_type'].get_root()
     except Exception:
         pass
+    if root_article_type and root_article_type.slug == "interviews":
+        extra_context['rel_root_dir'] = reverse("article_archive_for_interviews")
+    else:
+        extra_context['rel_root_dir'] = reverse("article_archive_for_news")
+
     try:
         extra_context['creative_sector'] = Term.objects.get(slug=creative_sector_slug)
     except Exception:
@@ -339,12 +369,18 @@ def article_archive_month(
     if not extra_context:
         extra_context = {}
     extra_context['article_filter'] = str(year) + str(month)
-    extra_context['rel_root_dir'] = reverse("article_archive")
 
+    root_article_type = article_type = None
     try:
-        extra_context['article_type'] = ArticleType.objects.get(slug=type_sysname)
+        article_type = extra_context['article_type'] = ArticleType.objects.get(slug=type_sysname)
+        root_article_type = extra_context['root_article_type'] = extra_context['article_type'].get_root()
     except Exception:
         pass
+    if root_article_type and root_article_type.slug == "interviews":
+        extra_context['rel_root_dir'] = reverse("article_archive_for_interviews")
+    else:
+        extra_context['rel_root_dir'] = reverse("article_archive_for_news")
+
     try:
         extra_context['creative_sector'] = Term.objects.get(slug=creative_sector_slug)
     except Exception:
@@ -442,12 +478,17 @@ def article_archive_day(
         extra_context = {}
     extra_context['article_filter'] = str(year) + str(month)
 
-    extra_context['rel_root_dir'] = reverse("article_archive")
-
+    root_article_type = article_type = None
     try:
-        extra_context['article_type'] = ArticleType.objects.get(slug=type_sysname)
+        article_type = extra_context['article_type'] = ArticleType.objects.get(slug=type_sysname)
+        root_article_type = extra_context['root_article_type'] = extra_context['article_type'].get_root()
     except Exception:
         pass
+    if root_article_type and root_article_type.slug == "interviews":
+        extra_context['rel_root_dir'] = reverse("article_archive_for_interviews")
+    else:
+        extra_context['rel_root_dir'] = reverse("article_archive_for_news")
+
     try:
         extra_context['creative_sector'] = Term.objects.get(slug=creative_sector_slug)
     except Exception:
@@ -537,14 +578,12 @@ def article_object_detail(
     try:
         article = queryset.get(slug=article_slug)
     except Exception:
-        return HttpResponseRedirect(reverse("article_archive"))
+        return redirect("article_archive_for_news")
     else:
         article.increase_views()
 
     if not extra_context:
         extra_context = {}
-
-    extra_context['rel_root_dir'] = reverse("article_archive")
 
     extra_context['links_to_articles'] = queryset.filter(
         article_type=article.article_type,
@@ -552,10 +591,17 @@ def article_object_detail(
         slug=article_slug,
     ).order_by("-published_from")[0:5]
 
+    root_article_type = article_type = None
     try:
-        extra_context['article_type'] = ArticleType.objects.get(slug=type_sysname)
+        article_type = extra_context['article_type'] = ArticleType.objects.get(slug=type_sysname)
+        root_article_type = extra_context['root_article_type'] = extra_context['article_type'].get_root()
     except Exception:
         pass
+    if root_article_type and root_article_type.slug == "interviews":
+        extra_context['rel_root_dir'] = reverse("article_archive_for_interviews")
+    else:
+        extra_context['rel_root_dir'] = reverse("article_archive_for_news")
+
     try:
         extra_context['creative_sector'] = Term.objects.get(slug=creative_sector_slug)
     except Exception:
@@ -587,7 +633,7 @@ def article_feed(
     creative_sector_slug,
     type_sysname=None,
     status=STATUS_CODE_PUBLISHED,
-    num_latest=5,
+    num_latest=20,
     date_field='published_from',
     **kwargs
 ):
@@ -595,19 +641,19 @@ def article_feed(
     wrapper for feeds
     """
     queryset = get_articles(creative_sector_slug, type_sysname, status)
-    queryset = queryset.order_by('-' + date_field)[:num_latest]
 
-    if not kwargs:
-        kwargs = {}
-
-    kwargs['queryset'] = queryset
     try:
         kwargs['article_type'] = ArticleType.objects.get(slug=type_sysname)
+        kwargs['root_article_type'] = kwargs['article_type'].get_root()
     except Exception:
         pass
+
     try:
         kwargs['creative_sector'] = Term.objects.get(slug=creative_sector_slug)
     except Exception:
         pass
+
+    queryset = queryset.order_by('-' + date_field)[:num_latest]
+    kwargs['queryset'] = queryset
 
     return feed(request, feed_type, **kwargs)
