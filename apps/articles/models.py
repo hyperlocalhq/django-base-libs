@@ -45,11 +45,17 @@ class PublishedArticleAllLanguagesManager(PublishingMixinPublishedManager):
     def featured_news(self):
         return self.filter(is_featured=True).order_by("-creation_date")
 
+    def news(self):
+        article_type = ArticleType.objects.get(slug="news")
+        return self.filter(article_type__tree_id=article_type.tree_id)
+
     def interviews(self):
-        return self.filter(article_type__slug="interviews")
+        article_type = ArticleType.objects.get(slug="interviews")
+        return self.filter(article_type__tree_id=article_type.tree_id)
 
     def non_interviews(self):
-        return self.exclude(article_type__slug="interviews")
+        article_type = ArticleType.objects.get(slug="interviews")
+        return self.exclude(article_type__tree_id=article_type.tree_id)
 
 
 class PublishedArticleManager(PublishingMixinPublishedManager):
@@ -59,11 +65,17 @@ class PublishedArticleManager(PublishingMixinPublishedManager):
             language=get_current_language(),
         )
 
+    def news(self):
+        article_type = ArticleType.objects.get(slug="news")
+        return self.filter(article_type__tree_id=article_type.tree_id)
+
     def interviews(self):
-        return self.filter(article_type__slug="interviews")
+        article_type = ArticleType.objects.get(slug="interviews")
+        return self.filter(article_type__tree_id=article_type.tree_id)
 
     def non_interviews(self):
-        return self.exclude(article_type__slug="interviews")
+        article_type = ArticleType.objects.get(slug="interviews")
+        return self.exclude(article_type__tree_id=article_type.tree_id)
 
 
 class DraftArticleManager(PublishingMixinDraftManager):
@@ -104,12 +116,23 @@ class Article(ArticleBase, MultiSiteMixin):
     site_draft_objects = DraftArticleManager()
 
     def get_url_path(self):
-        """ returns an absolute url with the creative sector slug passed to this method """
-        # from django.conf import settings
-        return "/news/%s/%s/" % (
-            self.published_from.strftime("%Y/%m/%d").lower(),
-            self.slug,
-        )
+        article_type = self.article_type.get_root()
+        kwargs = {
+            'article_slug': self.slug,
+            'year': str(self.published_from.year),
+            'month': str(self.published_from.month),
+            'day': str(self.published_from.day),
+        }
+        url_path = ""
+        try:
+            if article_type.slug == "news":
+                url_path = reverse("article_object_detail_for_news", kwargs=kwargs)
+            elif article_type.slug == "interviews":
+                url_path = reverse("article_object_detail_for_interviews", kwargs=kwargs)
+        except:
+            pass
+        return url_path
+
 
     def get_newer_published(self):
         try:

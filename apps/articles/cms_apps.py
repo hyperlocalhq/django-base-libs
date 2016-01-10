@@ -5,14 +5,19 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class ArticleAppHook(CMSApp):
-    name = _("Articles")
-    urls = ["ccb.apps.articles.urls"]
+    name = _("Articles - Deprecated")
+    urls = ["ccb.apps.articles.urls.news"]
 
 apphook_pool.register(ArticleAppHook)
 
-# class InterviewsAppHook(CMSApp):
-#     name = _("Articles")
-#     urls = ["ccb.apps.articles.urls"]
-#
-# apphook_pool.register(InterviewsAppHook)
+class NewsAppHook(CMSApp):
+    name = _("Articles - News")
+    urls = ["ccb.apps.articles.urls.news"]
 
+apphook_pool.register(NewsAppHook)
+
+class InterviewsAppHook(CMSApp):
+    name = _("Articles - Interviews")
+    urls = ["ccb.apps.articles.urls.interviews"]
+
+apphook_pool.register(InterviewsAppHook)

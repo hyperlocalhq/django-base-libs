@@ -864,7 +864,19 @@ execfile(os.path.join(JETSON_PATH, "jetson/settings/cms.py"), globals(), locals(
 CMS_TEMPLATES = (
     ('cms/start.html', 'Start Page'),
     ('cms/page.html', 'Page'),
-    ('cms/page_sidebar.html', 'Page with Sidebar')
+    ('cms/page_sidebar.html', 'Page with Sidebar'),
+    ('cms/page_sidebar_under_architecture.html', 'Page with Sidebar - Architecture'),
+    ('cms/page_sidebar_under_visual_arts.html', 'Page with Sidebar - Visual Arts'),
+    ('cms/page_sidebar_under_design.html', 'Page with Sidebar - Design'),
+    ('cms/page_sidebar_under_event_industry.html', 'Page with Sidebar - Event Industry'),
+    ('cms/page_sidebar_under_film_broadcast.html', 'Page with Sidebar - Film & Broadcast'),
+    ('cms/page_sidebar_under_photography.html', 'Page with Sidebar - Photography'),
+    ('cms/page_sidebar_under_games_interactive.html', 'Page with Sidebar - Games & Interactive'),
+    ('cms/page_sidebar_under_literature_publishing.html', 'Page with Sidebar - Literature & Publishing'),
+    ('cms/page_sidebar_under_fashion_textile.html', 'Page with Sidebar - Fashion & Textile'),
+    ('cms/page_sidebar_under_music.html', 'Page with Sidebar - Music'),
+    ('cms/page_sidebar_under_theatre_dance.html', 'Page with Sidebar - Theatre & Dance'),
+    ('cms/page_sidebar_under_advertising_pr.html', 'Page with Sidebar - Advertising & PR'),
 )
 
 CMS_LANGUAGES = {
