@@ -18,12 +18,20 @@ class Document(DocumentBase):
         related_name="creative_industry_documents",
         blank=True,
     )
+    categories = TreeManyToManyField(
+        Category,
+        verbose_name=_("categories"),
+        blank=True
+    )
     is_featured = models.BooleanField(_("Featured"), default=False)
 
     objects = DocumentManagerExtended()
 
     def get_creative_sectors(self):
         return self.creative_sectors.all()
+
+    def get_categories(self):
+        return self.categories.all()
 
     def is_addable_to_favorites(self, user=None):
         ContextItem = models.get_model("site_specific", "ContextItem")
