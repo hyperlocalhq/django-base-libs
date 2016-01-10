@@ -1,6 +1,8 @@
 {% extends base_template|default:"base_sidebar.html" %}
 {% load i18n base_tags cms_tags menu_tags navigation_tags infoblocks uni_form_tags image_mods_tags memos individual_relations groups_networks browsing favorites crispy_forms_tags %}
 
+{% block title %}{% page_attribute "page_title" %} - {{ category.title }}{% endblock %}
+
 {% block extrahead %}
     {% if view_type == "map" %}
         <script type="text/javascript">
@@ -11,7 +13,7 @@
     {% endif %}
 {% endblock %}
 
-{% block title %}{% page_attribute "page_title" %} - {{ category.title }}{% endblock %}
+{% block body_class %}list{% endblock %}
 
 {% block header_image %}
     {% load slideshows_tags %}
