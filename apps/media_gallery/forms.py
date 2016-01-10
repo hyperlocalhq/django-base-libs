@@ -11,7 +11,7 @@ from base_libs.forms.fields import ImageField, VideoField, AudioField
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
-IMAGE_MIN_DIMENSIONS = getattr(settings, "GALLERY_IMAGE_MIN_DIMENSIONS", (100, 100))
+IMAGE_MIN_DIMENSIONS = getattr(settings, "GALLERY_IMAGE_MIN_DIMENSIONS", (850, 400))
 STR_IMAGE_MIN_DIMENSIONS = "%s x %s" % IMAGE_MIN_DIMENSIONS
 
 PortfolioSettings = models.get_model("media_gallery", "PortfolioSettings")
@@ -59,36 +59,39 @@ class ImageFileForm(PortfolioFileForm):
             'enctype': "multipart/form-data",
         }
         self.helper.layout = layout.Layout(
-            layout.Fieldset(
-                _("Upload Image"),
-                layout.HTML("""{% include "media_gallery/includes/media_file_image_preview.html" %}"""),
-                "media_file",
-                layout.HTML("""
-                    {% include "media_gallery/includes/upload_and_continue.html" %}
-                    {% include "media_gallery/includes/switch_to_external.html" %}
-                """),
-                css_id="upload_media_file",
-            ),
-            layout.Fieldset(
-                _("Link to External Image"),
-                layout.HTML("""{% include "media_gallery/includes/media_file_image_preview.html" %}"""),
-                layout.Field("external_url", placeholder="http://"),
-                layout.HTML("""
-                    {% include "media_gallery/includes/upload_and_continue.html" %}
-                    {% include "media_gallery/includes/switch_to_upload.html" %}
-                """),
-                css_id="link_to_media_file",
-                css_class="to_hide",
-            ),
-            layout.Fieldset(
-                _("Description"),
-                "title_de",
-                "description_de",
-                "title_en",
-                "description_en",
-            ),
-            bootstrap.FormActions(
-                layout.Submit("submit", _("Save")),
+            layout.Div (
+                layout.Fieldset(
+                    _("Upload Image"),
+                    layout.HTML("""{% include "media_gallery/includes/media_file_image_preview.html" %}"""),
+                    "media_file",
+                    layout.HTML("""
+                        {% include "media_gallery/includes/upload_and_continue.html" %}
+                        {% include "media_gallery/includes/switch_to_external.html" %}
+                    """),
+                    css_class="upload_media_file",
+                ),
+                layout.Fieldset(
+                    _("Link to External Image"),
+                    layout.HTML("""{% include "media_gallery/includes/media_file_image_preview.html" %}"""),
+                    layout.Field("external_url", placeholder="http://"),
+                    layout.HTML("""
+                        {% include "media_gallery/includes/upload_and_continue.html" %}
+                        {% include "media_gallery/includes/switch_to_upload.html" %}
+                    """),
+                    css_class="link_to_media_file",
+                ),
+                layout.Fieldset(
+                    _("Description"),
+                    "title_de",
+                    "description_de",
+                    "title_en",
+                    "description_en",
+                ),
+                bootstrap.FormActions(
+                    layout.Submit("submit", _("Save"), css_class = "prepend-cancel"),
+                    css_class = "button-group form-buttons"
+                ),
+                css_class = "media-upload"
             )
         )
 
@@ -132,42 +135,45 @@ class VideoFileForm(PortfolioFileForm):
             'enctype': "multipart/form-data",
         }
         self.helper.layout = layout.Layout(
-            layout.Fieldset(
-                _("Upload Video"),
-                layout.HTML("""{% include "media_gallery/includes/media_file_image_preview.html" %}"""),
-                "media_file",
-                layout.HTML("""
-                    {% include "media_gallery/includes/upload_and_continue.html" %}
-                    {% include "media_gallery/includes/switch_to_external.html" %}
-                """),
-                css_id="upload_media_file",
-            ),
-            layout.Fieldset(
-                _("Link to External Video"),
-                layout.HTML("""{% include "media_gallery/includes/media_file_image_preview.html" %}"""),
-                layout.Field("external_url", placeholder="http://"),
-                layout.HTML("""
-                    {% include "media_gallery/includes/upload_and_continue.html" %}
-                    {% include "media_gallery/includes/switch_to_upload.html" %}
-                """),
-                css_id="link_to_media_file",
-                css_class="to_hide",
-            ),
-            layout.Fieldset(
-                _("Upload Illustration"),
-                layout.HTML("""{% include "media_gallery/includes/splash_image_preview.html" %}"""),
-                "splash_image_file",
-                layout.HTML("""{% include "media_gallery/includes/upload_and_continue.html" %}"""),
-            ),
-            layout.Fieldset(
-                _("Description"),
-                "title_de",
-                "description_de",
-                "title_en",
-                "description_en",
-            ),
-            bootstrap.FormActions(
-                layout.Submit("submit", _("Save")),
+            layout.Div(
+                layout.Fieldset(
+                    _("Upload Video"),
+                    layout.HTML("""{% include "media_gallery/includes/media_file_image_preview.html" %}"""),
+                    "media_file",
+                    layout.HTML("""
+                        {% include "media_gallery/includes/upload_and_continue.html" %}
+                        {% include "media_gallery/includes/switch_to_external.html" %}
+                    """),
+                    css_class="upload_media_file",
+                ),
+                layout.Fieldset(
+                    _("Link to External Video"),
+                    layout.HTML("""{% include "media_gallery/includes/media_file_image_preview.html" %}"""),
+                    layout.Field("external_url", placeholder="http://"),
+                    layout.HTML("""
+                        {% include "media_gallery/includes/upload_and_continue.html" %}
+                        {% include "media_gallery/includes/switch_to_upload.html" %}
+                    """),
+                    css_class="link_to_media_file",
+                ),
+                layout.Fieldset(
+                    _("Upload Illustration"),
+                    layout.HTML("""{% include "media_gallery/includes/splash_image_preview.html" %}"""),
+                    "splash_image_file",
+                    layout.HTML("""{% include "media_gallery/includes/upload_and_continue.html" %}"""),
+                ),
+                layout.Fieldset(
+                    _("Description"),
+                    "title_de",
+                    "description_de",
+                    "title_en",
+                    "description_en",
+                ),
+                bootstrap.FormActions(
+                    layout.Submit("submit", _("Save"), css_class = "prepend-cancel"),
+                    css_class = "button-group form-buttons"
+                ),
+                css_class = "media-upload"
             )
         )
 
@@ -211,42 +217,45 @@ class AudioFileForm(PortfolioFileForm):
             'enctype': "multipart/form-data",
         }
         self.helper.layout = layout.Layout(
-            layout.Fieldset(
-                _("Upload Audio"),
-                layout.HTML("""{% include "media_gallery/includes/media_file_image_preview.html" %}"""),
-                "media_file",
-                layout.HTML("""
-                    {% include "media_gallery/includes/upload_and_continue.html" %}
-                    {% include "media_gallery/includes/switch_to_external.html" %}
-                """),
-                css_id="upload_media_file",
-            ),
-            layout.Fieldset(
-                _("Link to External Audio"),
-                layout.HTML("""{% include "media_gallery/includes/media_file_image_preview.html" %}"""),
-                layout.Field("external_url", placeholder="http://"),
-                layout.HTML("""
-                    {% include "media_gallery/includes/upload_and_continue.html" %}
-                    {% include "media_gallery/includes/switch_to_upload.html" %}
-                """),
-                css_id="link_to_media_file",
-                css_class="to_hide",
-            ),
-            layout.Fieldset(
-                _("Upload Illustration"),
-                layout.HTML("""{% include "media_gallery/includes/splash_image_preview.html" %}"""),
-                "splash_image_file",
-                layout.HTML("""{% include "media_gallery/includes/upload_and_continue.html" %}"""),
-            ),
-            layout.Fieldset(
-                _("Description"),
-                "title_de",
-                "description_de",
-                "title_en",
-                "description_en",
-            ),
-            bootstrap.FormActions(
-                layout.Submit("submit", _("Save")),
+            layout.Div(
+                layout.Fieldset(
+                    _("Upload Audio"),
+                    layout.HTML("""{% include "media_gallery/includes/media_file_image_preview.html" %}"""),
+                    "media_file",
+                    layout.HTML("""
+                        {% include "media_gallery/includes/upload_and_continue.html" %}
+                        {% include "media_gallery/includes/switch_to_external.html" %}
+                    """),
+                    css_class="upload_media_file",
+                ),
+                layout.Fieldset(
+                    _("Link to External Audio"),
+                    layout.HTML("""{% include "media_gallery/includes/media_file_image_preview.html" %}"""),
+                    layout.Field("external_url", placeholder="http://"),
+                    layout.HTML("""
+                        {% include "media_gallery/includes/upload_and_continue.html" %}
+                        {% include "media_gallery/includes/switch_to_upload.html" %}
+                    """),
+                    css_class="link_to_media_file",
+                ),
+                layout.Fieldset(
+                    _("Upload Illustration"),
+                    layout.HTML("""{% include "media_gallery/includes/splash_image_preview.html" %}"""),
+                    "splash_image_file",
+                    layout.HTML("""{% include "media_gallery/includes/upload_and_continue.html" %}"""),
+                ),
+                layout.Fieldset(
+                    _("Description"),
+                    "title_de",
+                    "description_de",
+                    "title_en",
+                    "description_en",
+                ),
+                bootstrap.FormActions(
+                    layout.Submit("submit", _("Save"), css_class = "prepend-cancel"),
+                    css_class = "button-group form-buttons"
+                ),
+                css_class = "media-upload"
             )
         )
 

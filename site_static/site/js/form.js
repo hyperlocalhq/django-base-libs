@@ -121,7 +121,7 @@ $(document).ready(function() {
         
         me.$wrapper = $('<div class="input-file-display-wrapper"></div>');
         me.$display = $('<input type="text" class="input-file-display" disabled="disabled"/>');
-        me.$button = $('<div class="button input-file-button">'+trans["Upload"]+'</div>');
+        me.$button = $('<div class="button input-file-button">'+trans["Choose"]+'</div>');
         
         
         if (me.$main.hasClass('default')) me.$button.addClass('default');

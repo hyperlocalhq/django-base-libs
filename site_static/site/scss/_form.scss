@@ -1410,6 +1410,10 @@ input {
                     margin: 0;
                     padding: 0;
                 }
+                
+                &.no-label {
+                    width: 100%;
+                }
             }
         }
         
@@ -1429,8 +1433,9 @@ input {
         }
         
         .form-buttons {
-            margin: 40px 10% 0 0;
+            margin: 40px 10% 0 0 !important;
             float: right;
+            text-align: right;
             
             .is-sm &, .is-md & {
                     margin-right: 0;

@@ -1,3 +1,10 @@
+/**
+ * Handles the functionality of the opening hours input page.
+ *
+ * @author Daniel Lehmann
+ */
+
+
 (function() {
 
     function OpeningHours($main) {
