@@ -1,58 +1,39 @@
-{% extends "people/details_base.html" %}
-{% load i18n babel crispy_forms_tags %}
+{% extends "base_sidebar.html" %}
+{% load i18n base_tags crispy_forms_tags %}
+
+{% block title %}
+    {% trans "Notification Settings" %}
+{% endblock %}
 
 {% block extra_head %}
     <link rel="alternate" type="application/atom+xml" title="Notices Feed"
         href="{% url 'notification_feed_for_user' %}"/>
 {% endblock %}
 
-{% block head_title %}
-    {% trans "Notices" %}
+{% block headline %}
+    <h1>{% trans "Notification Settings" %}</h1>
 {% endblock %}
 
-{% block title %}
-    {% trans "Notification Settings" %}
+{% block sidebar %}
+    {% include "site_specific/blocks/sidebar_settings.html" %}
 {% endblock %}
 
-{% block content %}
-    <div class="header">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h1>
-                        {% block headline %}
-                            {% trans "Notification Settings" %}
-                        {% endblock %}
-                    </h1>
-                </div>
-            </div>
-        </div>
+{% block details %}
+    <div>
+        <p class="disclaimer">
+            {% blocktrans with user.email as email %}The chosen notices will be sent to {{ email }}
+                .{% endblocktrans %}
+        </p>
+        {% if user.is_staff %}
+            <p class="disclaimer">{% blocktrans %}Settings marked with "(Staff)" are only visible to staff
+                members.{% endblocktrans %}</p>
+        {% endif %}
     </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-4 col-md-3">
-            </div>
-            <div class="col-xs-12 col-sm-8 col-md-9">
-                <div>
-                    <p class="disclaimer">
-                        {% blocktrans with user.email as email %}The chosen notices will be sent to {{ email }}
-                            .{% endblocktrans %}
-                    </p>
-                    {% if user.is_staff %}
-                        <p class="disclaimer">{% blocktrans %}Settings marked with "(Staff)" are only visible to staff
-                            members.{% endblocktrans %}</p>
-                    {% endif %}
-                </div>
-
-                {% crispy form "ccb_form" %}
-
-                <script>
-                    $('legend').css('font-weight', "bold"); // DEBUG
-                </script>
-            </div>
-        </div>
-    </div>
+    {% crispy form "ccb_form" %}
 {% endblock %}
 
-
+{% block breadcrumbs %}
+    <li><a href="{% url "dashboard" %}">{% trans "My Profile" %}</a></li>
+    <li>{% trans "Notification Settings" %}</li>
+{% endblock %}

@@ -1,18 +1,10 @@
 {% load i18n base_tags navigation_tags %}
-<div class="sidebar-box nav_expanded" id="settings_{{ LANGUAGE_CODE }}">
-    <h5>
-        <a href="#" class="open_but">
-            <b>{% trans "Settings" %}</b>
-            <span class="pic"></span>
-        </a>
-    </h5>
-
-    <div class="hidable">
-        {% comment %}
-            {% filter remove_empty_lists %}
-                {% children_of "menu_settings" %}
-            {% endfilter %}
-        {% endcomment %}
-        {% navigation_links "menu_settings" %}
-    </div>
-</div>
+<nav>
+    <ul class="accordion navi-box">
+        <li class="accordion-inside accordion-trigger opened">
+            <div class="accordion-trigger head">{% trans "Settings" %}</div>
+            {% navigation_links "menu_settings" using "navigation/includes/navigation_links_in_a_box.html" %}
+        </li>
+        <li></li>
+    </ul>
+</nav>

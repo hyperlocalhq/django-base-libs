@@ -380,14 +380,14 @@ navigation_links = {
             'should_be_shown': for_authenticated_only,
             'highlight_pattern': r'^/(de|en)/notification/settings/',
         },
-        {
-            'url_de': '/de/social-connections/',
-            'url_en': '/en/social-connections/',
-            'text_de': 'Soziale Verbindungen',
-            'text_en': 'Social Connections',
-            'should_be_shown': for_authenticated_only,
-            'highlight_pattern': r'^/(de|en)/social-connections/',
-        },
+        # {
+        #     'url_de': '/de/social-connections/',
+        #     'url_en': '/en/social-connections/',
+        #     'text_de': 'Soziale Verbindungen',
+        #     'text_en': 'Social Connections',
+        #     'should_be_shown': for_authenticated_only,
+        #     'highlight_pattern': r'^/(de|en)/social-connections/',
+        # },
         {
             'url_de': '/de/my-profile/privacy/',
             'url_en': '/en/my-profile/privacy/',

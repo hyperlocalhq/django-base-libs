@@ -4,6 +4,10 @@
 
 {% block title %}{% trans "Dashboard" %}{% endblock %}
 
+{% block sidebar %}
+    {% include "site_specific/blocks/sidebar_settings.html" %}
+{% endblock %}
+
 {% block details %}
     <div class="dashboard">
         {{ block.super }}
@@ -54,28 +58,6 @@
     </div>
 {% endblock %}
 
-
-
-{% block content_old %}
-    <div class="dashboard">
-        {{ block.super }}
-        <hr/>
-        <div class="infoblock">
-            {% infoblock "user_dashboard_msg_ccb" %}
-        </div>
-        <hr class="hidden"/>
-
-        <div class="myprofile-box">
-            <div class="p-gallery">
-                {% include_parsed "media_gallery/includes/random_featured_galleries.html" %}
-            </div>
-            <div class="p-content">
-                {% include_parsed "resources/includes/latest_published_documents.html" %}
-
-                {% include_parsed "events/includes/latest_published_events.html" with 3 as amount %}
-            </div>
-            {% include_parsed "people/includes/latest_published_people.html" %}
-            {% include_parsed "institutions/includes/latest_published_institutions.html" %}
-        </div>
-    </div>
+{% block breadcrumbs %}
+    <li>{% trans "My Profile" %}</li>
 {% endblock %}

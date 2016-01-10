@@ -86,7 +86,11 @@
                     <a href="/{{ LANGUAGE_CODE }}/"><img class="logo" src="{{ STATIC_URL }}site/img/default/ccb_logo.gif" alt="Creative City Berlin" /></a>
                     <button class="fawesome fa-menu button navigation"><span class="sr-only">{% trans 'toggle menu' %}</span></button>
                     <button class="fawesome fa-search button header-search"><span class="sr-only">{% trans 'search entire website' %}</span></button>
-                    <a href="{% url 'login' %}" class="fawesome fa-man button"><span class="sr-only">{% trans 'login' %}</span></a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'dashboard' %}" class="fawesome fa-man button"><span class="sr-only">{% trans 'dashboard' %}</span></a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="fawesome fa-man button"><span class="sr-only">{% trans 'login' %}</span></a>
+                    {% endif %}
                     <div class="input-field select languages">
                         <select id="language-header" required>
                             <option>--------</option>

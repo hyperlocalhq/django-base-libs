@@ -1,0 +1,7 @@
+{% if links %}
+    <ul class="accordion navi-box">
+    {% for link in links %}
+        <li><a href="{{ link.url }}" class="{% if link.is_highlighted %}active{% endif %}{% if link.is_promoted %} promoted{% endif %}{% if link.is_login_required %} login-required{% endif %}"><span class="text">{{ link.text|escape }}</span></a></li>
+    {% endfor %}
+    </ul>
+{% endif %}

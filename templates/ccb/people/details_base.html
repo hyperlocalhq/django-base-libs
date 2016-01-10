@@ -104,6 +104,7 @@
     
     {% ifequal request.user object.user %}
         {% navigation_links "menu_activities" %}
+
     {% else %}
         {% if request.user.is_authenticated %}
             {% if object.is_addable_to_favorites or object.is_removable_from_favorites %}
