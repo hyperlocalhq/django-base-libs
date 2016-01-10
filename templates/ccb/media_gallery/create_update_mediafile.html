@@ -2,21 +2,9 @@
 {% load i18n base_tags auth_extended infoblocks image_mods_tags uni_form_tags uni_form_field crispy_forms_tags %}
 
 {% block details %}
-    <div id="create_update_mediafile">
-        <div class="portfolio">
-            {% crispy form "ccb_form" %}
-        </div>
-        <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/portfolio_change.js"></script>
-        <script type="text/javascript">
-            (function ($) {
-                $(document).ready(function () {
-                    $('<input type="button" class="secondaryAction" value="' + gettext('Cancel') + '">').click(function () {
-                        redirect("../manage/");
-                    }).prependTo(
-                        $(":submit").parent()
-                    );
-                })
-            }(jQuery));
-        </script>
-    </div>
+    {% crispy form "ccb_form" %}
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/media_upload.js"></script>
 {% endblock %}
