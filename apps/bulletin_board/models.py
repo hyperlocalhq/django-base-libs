@@ -143,7 +143,7 @@ class Bulletin(CreationModificationMixin, UrlMixin):
     categories = TreeManyToManyField(
         "structure.Category",
         verbose_name=_("Categories"),
-        related_name="creative_industry_bulletin",
+        related_name="creative_industry_bulletins",
         blank=True,
     )
         
