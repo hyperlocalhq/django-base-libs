@@ -1,3 +1,11 @@
 {% extends "ccb/events/add_event_base.html" %}
 {% load base_tags i18n uni_form_tags uni_form_field crispy_forms_tags %}
 
+{% block extrahead %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery.autocomplete.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery.bgiframe.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery.dimensions.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/autocomplete.js"></script>
+{% endblock %}
