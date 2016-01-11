@@ -1,118 +1,128 @@
 {% load i18n base_tags auth_extended %}
 
 
-{% if object.are_contacts_displayed and object.get_contacts %}
-    <div class="fieldset not-editable ">
-        <fieldset>
-            <h2>{% trans "Contact Data" %}</h2>
-            {% for contact in object.get_contacts %}
-                
-                    {% if object.is_address_displayed %}
+{% if object.are_contacts_displayed or perms.people.change_person %}
+    {% if object.get_contacts or perms.people.change_person %}
+        <div class="fieldset {% if_has_perm "people.change_person" object %}editable switch{% else %}not-editable{% end_if_has_perm %}" data-edit-url="{% url 'edit_profile' object_type='person' slug=object.slug %}contact/">
+            <fieldset disabled>
+                <h2>{% trans "Contact Data" %}</h2>
+                {% for contact in object.get_contacts %}
                     
-                        {% if contact.location_title %}<h3>{{ contact.location_title }}</h3>{% endif %}
-                        <dl class="input-fields">
-                            {% if contact.institution_id %}
-                                <dt>{% trans 'Institution' %}</dt>
-                                <dd>
-                                    <div class="text-field">
-                                        {% ifequal contact.institution.status.sysname "draft" %}
-                                            {{ contact.institution.get_title|escape }}
-                                        {% else %}
-                                            <a href="{{ contact.institution.get_url_path }}">{{ contact.institution.get_title|escape }}</a>
-                                        {% endifequal %}
-                                    </div>
-                                </dd>
-                            {% endif %}
-                            {% with contact.postal_address as address %}
-                                {% if address.street_address or address.street_address2 or address.street_address3 %}
-                                    <dt>{% trans 'Address' %}</dt>
-                                    <dd>
-                                        <div class="text-field">
-                                            {% if address.street_address %}<div>{{ address.street_address|escape }}</div>{% endif %}
-                                            {% if address.street_address2 %}<div>{{ address.street_address2|escape }}</div>{% endif %}
-                                            {% if address.street_address3 %}<div>{{ address.street_address3|escape }}</div>{% endif %}
-                                        </div>
-                                    </dd>
-                                {% endif %}
-                                {% if address.postal_code or address.city %}
-                                    <dt>{% trans 'ZIP, City' %}</dt>
-                                    <dd>
-                                        <div class="text-field">
-                                            {% if address.postal_code %}{{ address.postal_code|escape }} {% endif %}
-                                            {% if address.city %}{{ address.city|escape }}{% endif %}
-                                        </div>
-                                    </dd>
-                                {% endif %}
-                                {% if address.country %}
-                                    <dt>{% trans 'Country' %}</dt>
-                                    <dd><div class="text-field">{{ address.country.get_name }}</div></dd>
-                                {% endif %}
-                            {% endwith %}
-                        </dl>
+                        {% if object.is_address_displayed %}
                         
-                    {% else %}
-                    
-                        {% if contact.location_title %}
-                            <h3>{{ contact.location_title }}</h3>
+                            {% if contact.location_title %}<h3>{{ contact.location_title }}</h3>{% endif %}
+                            <dl class="input-fields">
+                                {% if contact.institution_id %}
+                                    <dt>{% trans 'Institution' %}</dt>
+                                    <dd>
+                                        <div class="text-field">
+                                            {% ifequal contact.institution.status.sysname "draft" %}
+                                                {{ contact.institution.get_title|escape }}
+                                            {% else %}
+                                                <a href="{{ contact.institution.get_url_path }}">{{ contact.institution.get_title|escape }}</a>
+                                            {% endifequal %}
+                                        </div>
+                                    </dd>
+                                    <dd class="clearfix"></dd>
+                                {% endif %}
+                                {% with contact.postal_address as address %}
+                                    {% if address.street_address or address.street_address2 or address.street_address3 %}
+                                        <dt>{% trans 'Address' %}</dt>
+                                        <dd>
+                                            <div class="text-field">
+                                                {% if address.street_address %}<div>{{ address.street_address|escape }}</div>{% endif %}
+                                                {% if address.street_address2 %}<div>{{ address.street_address2|escape }}</div>{% endif %}
+                                                {% if address.street_address3 %}<div>{{ address.street_address3|escape }}</div>{% endif %}
+                                            </div>
+                                        </dd>
+                                        <dd class="clearfix"></dd>
+                                    {% endif %}
+                                    {% if address.postal_code or address.city %}
+                                        <dt>{% trans 'ZIP, City' %}</dt>
+                                        <dd>
+                                            <div class="text-field">
+                                                {% if address.postal_code %}{{ address.postal_code|escape }} {% endif %}
+                                                {% if address.city %}{{ address.city|escape }}{% endif %}
+                                            </div>
+                                        </dd>
+                                        <dd class="clearfix"></dd>
+                                    {% endif %}
+                                    {% if address.country %}
+                                        <dt>{% trans 'Country' %}</dt>
+                                        <dd><div class="text-field">{{ address.country.get_name }}</div></dd>
+                                        <dd class="clearfix"></dd>
+                                    {% endif %}
+                                {% endwith %}
+                            </dl>
+                            
                         {% else %}
-                            <h3>{{ contact.location_type }}</h3>
+                        
+                            {% if contact.location_title %}
+                                <h3>{{ contact.location_title }}</h3>
+                            {% else %}
+                                <h3>{{ contact.location_type }}</h3>
+                            {% endif %}
+                            
+                            {% if contact.institution_id %}
+                                <dl class="input-fields">
+                                    <dt>{% trans 'Institution' %}</dt>
+                                    <dd>
+                                        <div class="text-field">
+                                            {% ifequal contact.institution.status.sysname "draft" %}
+                                                {{ contact.institution.get_title|escape }}
+                                            {% else %}
+                                                <a href="{{ contact.institution.get_url_path }}">{{ contact.institution.get_title|escape }}</a>
+                                            {% endifequal %}
+                                        </div>
+                                    </dd>
+                                    <dd class="clearfix"></dd>
+                                </dl>
+                            {% endif %}
+                                
                         {% endif %}
                         
-                        {% if contact.institution_id %}
+                        {% if contact.get_phones %}
                             <dl class="input-fields">
-                                <dt>{% trans 'Institution' %}</dt>
-                                <dd>
-                                    <div class="text-field">
-                                        {% ifequal contact.institution.status.sysname "draft" %}
-                                            {{ contact.institution.get_title|escape }}
-                                        {% else %}
-                                            <a href="{{ contact.institution.get_url_path }}">{{ contact.institution.get_title|escape }}</a>
-                                        {% endifequal %}
-                                    </div>
-                                </dd>
+                                {% for phone in contact.get_phones %}
+                                    <dt>{% if phone.type %}{{ phone.type }}{% else %}{% trans 'Phone' %}{% endif %}</dt>
+                                    <dd>
+                                        <div class="text-field">
+                                            <a href="tel:+{{ phone.country }}{{ phone.area }}{{ phone.number }}">+{{ phone.country }}-{{ phone.area }}-{{ phone.number }}</a>
+                                        </div>
+                                    </dd>
+                                    <dd class="clearfix"></dd>
+                                {% endfor %}
                             </dl>
                         {% endif %}
-                            
-                    {% endif %}
-                    
-                    {% if contact.get_phones %}
-                        <dl class="input-fields">
-                            {% for phone in contact.get_phones %}
-                                <dt>{% if phone.type %}{{ phone.type }}{% else %}{% trans 'Phone' %}{% endif %}</dt>
-                                <dd>
-                                    <div class="text-field">
-                                        <a href="tel:+{{ phone.country }}{{ phone.area }}{{ phone.number }}">+{{ phone.country }}-{{ phone.area }}-{{ phone.number }}</a>
-                                    </div>
-                                </dd>
-                            {% endfor %}
-                        </dl>
-                    {% endif %}
-                    
-                    {% if contact.get_urls %}
-                        <dl class="input-fields">
-                            {% for url in contact.get_urls %}
-                                <dt>{% if url.type %}{{ url.type }}{% else %}{% trans 'Website' %}{% endif %}</dt>
-                                <dd>
-                                    <div class="text-field">
-                                        <a href="{{ url.link|escape }}" onclick="open_new_window(event)" target="_blank">{{ url.link }}</a>
-                                    </div>
-                                </dd>
-                            {% endfor %}
-                        </dl>
-                    {% endif %}
-                    
-                    {% if contact.get_ims %}
-                        <dl class="input-fields">
-                            {% for im in contact.get_ims %}
-                                <dt>{{ im.type }}</dt>
-                                <dd><div class="text-field">{{ im.address }}</div></dd>
-                            {% endfor %}
-                        </dl>
-                    {% endif %}
-                    
-            {% endfor %}
-        </fieldset>
-    </div>
+                        
+                        {% if contact.get_urls %}
+                            <dl class="input-fields">
+                                {% for url in contact.get_urls %}
+                                    <dt>{% if url.type %}{{ url.type }}{% else %}{% trans 'Website' %}{% endif %}</dt>
+                                    <dd>
+                                        <div class="text-field">
+                                            <a href="{{ url.link|escape }}" onclick="open_new_window(event)" target="_blank">{{ url.link }}</a>
+                                        </div>
+                                    </dd>
+                                    <dd class="clearfix"></dd>
+                                {% endfor %}
+                            </dl>
+                        {% endif %}
+                        
+                        {% if contact.get_ims %}
+                            <dl class="input-fields">
+                                {% for im in contact.get_ims %}
+                                    <dt>{{ im.type }}</dt>
+                                    <dd><div class="text-field">{{ im.address }}</div></dd>
+                                    <dd class="clearfix"></dd>
+                                {% endfor %}
+                            </dl>
+                        {% endif %}
+                        
+                {% endfor %}
+            </fieldset>
+        </div>
+    {% endif %}
 {% endif %}
 
 

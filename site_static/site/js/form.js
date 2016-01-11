@@ -33,6 +33,17 @@ $(document).ready(function() {
         }
     });
     
+    // toggle visibility functionality
+    $('.toggle-visibility').click(function() {
+        
+        var $button = $(this);
+        var show = $button.attr('data-toggle-show');
+        var hide = $button.attr('data-toggle-hide');
+        
+        $(hide).removeClass('hidden').css('display', 'none');
+        $(show).removeClass('hidden').css('display', '');
+    });
+    
     
     // auto size of textareas
     function TextArea($main) {
