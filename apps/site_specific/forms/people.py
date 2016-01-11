@@ -518,7 +518,7 @@ class ContactForm(dynamicforms.Form):
                 "location_title",
                 
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Institution"), '</h3></dd>')),
-                layout.Field("institution", wrapper_class="institution-select"),
+                layout.Field("institution", wrapper_class="institution-select autocomplete"),
                 layout.HTML("""{% load i18n %}
                     <dt class="institution-select"> </dt><dd class="institution-select"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-input" data-toggle-hide=".institution-select">{% trans "Not listed? Enter manually" %}</a></dd>
                 """),
