@@ -1,8 +1,2 @@
 {% load i18n base_tags auth_extended uni_form_tags crispy_forms_tags %}
-<div class="profile_infos">
-    <h5 class="edit_subline">{% trans "Opening Hours Edit" %}</h5>
-
-    <div class="field_layout">
-        {% crispy form "ccb_form" %}
-    </div>
-</div>
+{% crispy form "ccb_form" %}

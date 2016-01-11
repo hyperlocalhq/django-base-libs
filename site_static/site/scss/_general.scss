@@ -16,6 +16,10 @@ body {
     overflow: hidden;
     position: relative;
     
+    &.iframe {
+        padding: 5px;
+    }
+    
     .content-wrapper {
         margin-bottom: 50px;
         position: relative;
@@ -670,7 +674,7 @@ span.button, span.btn {
     }
     
     .button, .btn {
-        margin-right: 2em;
+        margin-right: 0.5em;
         margin-bottom: 10px;
         &:last-child {
             margin-right: 0 !important;

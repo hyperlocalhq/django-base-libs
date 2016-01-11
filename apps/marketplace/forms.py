@@ -236,15 +236,19 @@ class MainDataForm(dynamicforms.Form):
                 _("Address"),
                 "street_address",
                 "street_address2",
-                layout.Row(
-                    layout.Div(
+                layout.MultiField(
+                    _("Location"),
+                    layout.Field(
                         "postal_code",
-                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                        wrapper_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                        template="ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "city",
-                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                        wrapper_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                        template="ccb_form/multifield.html"
                     ),
+                    css_class="show-labels"
                 ),
                 "country",
             ),
@@ -255,41 +259,43 @@ class MainDataForm(dynamicforms.Form):
             ),
             layout.Fieldset(
                 _("Contact info"),
-                layout.Row(
-                    layout.Div(
-                        layout.HTML(_("Phone")),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
-                    ),
-                    layout.Div(
+                layout.MultiField(
+                    _("Phone"),
+                    layout.Field(
                         "phone_country",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template="ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "phone_area",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template="ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "phone_number",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template="ccb_form/multifield.html"
                     ),
+                    css_class="show-labels"
                 ),
-                layout.Row(
-                    layout.Div(
-                        layout.HTML(_("Fax")),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
-                    ),
-                    layout.Div(
+                layout.MultiField(
+                    _("Fax"),
+                    layout.Field(
                         "fax_country",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template="ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "fax_area",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template="ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "fax_number",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template="ccb_form/multifield.html"
                     ),
+                    css_class="show-labels"
                 ),
                 "email0_address",
                 "publish_emails",
@@ -297,23 +303,24 @@ class MainDataForm(dynamicforms.Form):
             ),
             layout.Fieldset(
                 _("Publishing"),
-                layout.Row(
-                    layout.Div(
-                        layout.HTML(_("Publish until")),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
-                    ),
-                    layout.Div(
+                layout.MultiField(
+                    _("Publish until"),
+                    layout.Field(
                         "end_dd",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template="ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "end_mm",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template="ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "end_yyyy",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template="ccb_form/multifield.html"
                     ),
+                    css_class="show-labels"
                 ),
             ),
             bootstrap.FormActions(

@@ -32,6 +32,7 @@ from filebrowser.fields import FileBrowseField
 
 from jetson.apps.structure.models import Term
 from jetson.apps.structure.models import ContextCategory
+from jetson.apps.structure.models import Category
 from jetson.apps.i18n.models import Language
 from jetson.apps.utils.models import MONTH_CHOICES
 from jetson.apps.image_mods.models import FileManager

@@ -1,7 +1,7 @@
 {% load i18n base_tags auth_extended %}
 
-<div class="fieldset not-editable ">
-    <fieldset>
+<div class="fieldset {% if_has_perm "institutions.change_institution" object %}editable switch{% else %}not-editable{% end_if_has_perm %}" data-edit-url="{% url 'edit_profile' object_type='institution' slug=object.slug %}categories/">
+    <fieldset disabled>
         <h2>{% trans "Categories" %}</h2>
         
         {% if object.get_creative_sectors %}
@@ -22,6 +22,7 @@
                         {% endfor %}
                     </div>
                 </dd>
+                <dd class="clearfix"></dd>
             </dl>
         {% endif %}
         
@@ -43,6 +44,7 @@
                         {% endfor %}
                     </div>
                 </dd>
+                <dd class="clearfix"></dd>
             </dl>
         {% endif %}
         
@@ -64,6 +66,7 @@
                         {% endfor %}
                     </div>
                 </dd>
+                <dd class="clearfix"></dd>
             </dl>
         {% endif %}
         
@@ -83,6 +86,7 @@
                         {% endfor %}
                     </div>
                 </dd>
+                <dd class="clearfix"></dd>
             </dl>    
         {% endif %}
         

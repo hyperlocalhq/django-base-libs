@@ -49,6 +49,20 @@ $(document).ready(function() {
             }
         }); 
         
+        if (!new_width_sniffer && window.frameElement) {
+            
+            var $parent = $(window.parent.document.body);
+            if ($parent.hasClass('is-xs')) {
+                new_width_sniffer = 'is-xs';
+            } else if ($parent.hasClass('is-sm')) {
+                new_width_sniffer = 'is-sm';
+            } else if ($parent.hasClass('is-md')) {
+                new_width_sniffer = 'is-md';
+            } else if ($parent.hasClass('is-lg')) {
+                new_width_sniffer = 'is-lg';
+            }
+        }
+        
         if (new_width_sniffer && new_width_sniffer != current_width_sniffer) {
             var $body = $('body').removeClass(current_width_sniffer);
             current_width_sniffer = new_width_sniffer; 
@@ -118,6 +132,7 @@ $(document).ready(function() {
         
         me.$children = $('> .accordion-inside', me.$main);
         me.$parents = me.$main.add(me.$main.parents('.accordion'));
+        me.$window = $(window);
         me.is_animating = false;
         
         me.$children.each(function() {
@@ -133,7 +148,10 @@ $(document).ready(function() {
         setTimeout(function() {me.init();}, 0);
         
         
-        if (me.$parents.length == 1) $(window).resize(function() {me.onResize();});
+        if (me.$parents.length == 1) {
+            me.width = me.$window.width();
+            $(window).resize(function() {me.onResize();});
+        }
     }
     
     Accordion.prototype.adjustLevel = function() {
@@ -366,6 +384,9 @@ $(document).ready(function() {
     Accordion.prototype.onResize = function() {
         
         var me = this;
+        
+        if (me.$window.width() == me.width) return;
+        me.width = me.$window.width();
         
         me.$main.removeClass('initialised');
         me.$main.data('accordion-initialised', false);
@@ -625,6 +646,9 @@ $(document).ready(function() {
      */
     function Navigation($main) {
         
+        if (!$main.length) return;
+        
+        
         var me = this;
         this.me = me;
         
@@ -789,6 +813,9 @@ $(document).ready(function() {
      * Handles the main header of the page (the black top part with the logo).
      */
     function MainHeader($main) {
+        
+        if (!$main.length) return;
+        
         
         var me = this;
         this.me = me;

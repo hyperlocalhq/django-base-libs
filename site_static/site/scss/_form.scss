@@ -1307,6 +1307,10 @@ input {
             color: $grey-darker;
             letter-spacing: 0.07em;
             font-weight: $font-black;
+            
+            &.section {
+                margin-top: 80px;
+            }
         }
         
         dl.input-fields {
@@ -1347,6 +1351,7 @@ input {
                 padding: 24px 20px 10px 0;
                 margin: 0 0px 10px 0;
                 
+                word-break: break-all;
                 word-wrap: break-word;
                 
                 .is-xs & {
@@ -1638,4 +1643,103 @@ input {
     }
 }
 
+.iframe-edit {
+    width: 100%;
+    display: none;
+    border: none;
+    margin: -5px;
+}
 
+
+
+// autocomplete plugin
+.ac_results {
+    
+    font-family: $font-2, $font-family-1;
+    font-weight: $font-regular;
+    font-size: 1.2em;
+    line-height: 133%;
+    border: 1px solid $grey;
+    border-radius: 4px;
+    box-shadow: $form-box-shadow;
+    background: $white;
+        
+    .is-xs & {
+        font-size: 1.07em;
+    }
+    
+    ul {
+        
+        li {
+            width: 100%;
+            padding: 7px 5px 7px 1em;
+            cursor: pointer;
+            
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            
+            &:hover, &.focus {
+                background: $cyan;
+            }
+            
+        }
+    }
+}
+
+dd.autocomplete {
+    
+    .input-field {
+        position: relative;
+        
+        &:after {
+            display: inline-block;
+            visibility: hidden;
+            position: absolute;
+            top: 17px;
+            right: 15px;
+            font: normal normal normal 14px/1 FontAwesome;
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding: 0px;
+            margin: 0px;
+            vertical-align: bottom;
+            font-weight: 400;
+            font-size: 2.4em;
+            content: "\f0d7";
+            cursor: pointer;
+            color: $grey-darker;
+            
+            content: "\f110";
+            
+            -webkit-transition: -webkit-transform 1000s;
+            -moz-transition: -moz-transform 1000s;
+            transition: -ms-transform 1000s;
+            transition: transform 1000s;
+            
+            -ms-transform: rotate(0deg);
+            -moz-transform: rotate(0deg);
+            transform: rotate(0deg);
+            
+            .is-xs & {
+                right: 8px;
+                top: 13px;
+                font-size: 2em;
+            }
+        }
+        
+        &.ac_loading {
+            &:after {
+                visibility: visible;
+                -ms-transform: rotate(999999deg);
+                -moz-transform: rotate(999999deg);
+                transform: rotate(999999deg);
+            }
+        }
+        
+    }
+}

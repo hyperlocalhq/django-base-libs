@@ -837,7 +837,7 @@ class OpeningHoursPaymentForm(dynamicforms.Form):
                 "show_breaks",
                 layout.HTML("""{% load i18n %}
                     <dt></dt><dd><p><a id="apply_to_all_days" href="#">{% trans "Apply to all days" %}</a></p></dd>
-                    <div>&nbsp;</div>
+                    <dd class="clearfix">&nbsp;</dd>
                 """),
                 
                 layout.MultiField(
@@ -875,7 +875,7 @@ class OpeningHoursPaymentForm(dynamicforms.Form):
                     css_class = "show-labels break closed_tue"
                 ),
                 
-                layout.HTML("""<div>&nbsp;</div>"""),
+                layout.HTML("""<dd class="clearfix">&nbsp;</dd>"""),
                 
                 layout.MultiField(
                     _("Wednesday"),
@@ -912,7 +912,7 @@ class OpeningHoursPaymentForm(dynamicforms.Form):
                     css_class = "show-labels break closed_wed"
                 ),
                 
-                layout.HTML("""<div>&nbsp;</div>"""),
+                layout.HTML("""<dd class="clearfix">&nbsp;</dd>"""),
                 
                 layout.MultiField(
                     _("Thursday"),
@@ -949,7 +949,7 @@ class OpeningHoursPaymentForm(dynamicforms.Form):
                     css_class = "show-labels break closed_thu"
                 ),
                 
-                layout.HTML("""<div>&nbsp;</div>"""),
+                layout.HTML("""<dd class="clearfix">&nbsp;</dd>"""),
                 
                 layout.MultiField(
                     _("Friday"),
@@ -986,7 +986,7 @@ class OpeningHoursPaymentForm(dynamicforms.Form):
                     css_class = "show-labels break closed_fri"
                 ),
                 
-                layout.HTML("""<div>&nbsp;</div>"""),
+                layout.HTML("""<dd class="clearfix">&nbsp;</dd>"""),
                 
                 layout.MultiField(
                     _("Saturday"),
@@ -1023,7 +1023,7 @@ class OpeningHoursPaymentForm(dynamicforms.Form):
                     css_class = "show-labels break closed_sat"
                 ),
                 
-                layout.HTML("""<div>&nbsp;</div>"""),
+                layout.HTML("""<dd class="clearfix">&nbsp;</dd>"""),
                 
                 layout.MultiField(
                     _("Sunday"),
@@ -1060,7 +1060,7 @@ class OpeningHoursPaymentForm(dynamicforms.Form):
                     css_class = "show-labels break closed_sun"
                 ),
                 
-                layout.HTML("""<div>&nbsp;</div>"""),
+                layout.HTML("""<dd class="clearfix">&nbsp;</dd>"""),
 
                 "exceptions_de",
                 "exceptions_en",

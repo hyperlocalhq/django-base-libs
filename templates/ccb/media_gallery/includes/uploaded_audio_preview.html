@@ -9,5 +9,5 @@
     <param name="flashvars" value="config={playList:[{ url: '{{ UPLOADS_URL }}{{ media_file.path }}', overlay: '
 
 
-        {% if media_file.splash_image_path %}{{ UPLOADS_URL }}{{ media_file.splash_image_path|modified_path:"gp" }}{% else %}{{ media_file.get_splash_image_url }}{% endif %}' }], showPlayListButtons: false, loop: false, autoPlay: false, hideControls: true, showFullScreenButton: false, showMenu: false, showLoopButton: false, initialScale: 'orig', autoBuffering: false }"/>
+        {% if media_file.splash_image_path %}{{ UPLOADS_URL }}{{ media_file.splash_image_path|modified_path:"article" }}{% else %}{{ media_file.get_splash_image_url }}{% endif %}' }], showPlayListButtons: false, loop: false, autoPlay: false, hideControls: true, showFullScreenButton: false, showMenu: false, showLoopButton: false, initialScale: 'orig', autoBuffering: false }"/>
 </object>
