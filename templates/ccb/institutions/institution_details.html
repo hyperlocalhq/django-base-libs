@@ -20,7 +20,7 @@
 
 
 {% block details %}
-
+    {% comment %}
     <div class="row profile-header">
         <div class="col-xs-12">
             <div class="statistics">
@@ -41,7 +41,8 @@
             </div>
         </div>
     </div>
-    
+    {% endcomment %}
+
     {% include "institutions/profile/identity.html" %}
 
     {% include "institutions/profile/contact.html" %}
