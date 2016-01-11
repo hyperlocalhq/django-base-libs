@@ -92,7 +92,7 @@ class BlogPostForm(dynamicforms.Form):
             '''),
             bootstrap.FormActions(
                 layout.Submit('submit_preview', _('Preview')),
-                layout.Button('submit_cancel', _('Cancel')),
+                layout.Submit('submit_cancel', _('Cancel')),
             ),
         )
 
