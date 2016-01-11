@@ -37,7 +37,7 @@
                     <dd class="clearfix"></dd>
 
                     {% if form_step_data.step_main_data.qualifications %}
-                        <dt>{% trans "Qualification" %}:</dt>
+                        <dt>{% trans "Qualification" %}</dt>
                         <dd><div class="text-field">
                             {% for q in form_step_data.step_main_data.qualifications %}
                             {% if not forloop.first and not forloop.last %}, {% endif %}
@@ -136,7 +136,7 @@
             </fieldset>
         </div>
 
-        {% get_job_sectors form_step_data.step_categories as job_sectors %}
+        {% with form_step_data.step_categories.job_sectors as job_sectors %}
         {% if job_sectors or form_step_data.step_categories.tags %}
             <div class="fieldset not-editable">
                 <fieldset>
@@ -170,6 +170,7 @@
             </div>
 
         {% endif %}
+        {% endwith %}
 
         {% crispy form "ccb_form" %}
 
