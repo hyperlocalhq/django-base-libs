@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-15 15:59+0100\n"
+"POT-Creation-Date: 2016-01-11 17:33+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,8 @@ msgstr ""
 #: subtrees/jetson/apps/articles/admin.py:28
 #: subtrees/jetson/apps/blocks/admin.py:20
 #: subtrees/jetson/apps/faqs/admin.py:40 subtrees/jetson/apps/faqs/admin.py:63
-#: subtrees/jetson/apps/faqs/admin.py:94 subtrees/jetson/apps/forum/admin.py:39
+#: subtrees/jetson/apps/faqs/admin.py:94
+#: subtrees/jetson/apps/forum/admin.py:39
 #: subtrees/jetson/apps/forum/admin.py:57
 #: subtrees/jetson/apps/forum/admin.py:69
 #: subtrees/jetson/apps/forum/admin.py:82
@@ -101,7 +102,8 @@ msgstr ""
 #: subtrees/jetson/apps/events/base.py:222
 #: subtrees/jetson/apps/events/base.py:440
 #: subtrees/jetson/apps/external_services/models.py:15
-#: subtrees/jetson/apps/faqs/admin.py:26 subtrees/jetson/apps/forum/admin.py:24
+#: subtrees/jetson/apps/faqs/admin.py:26
+#: subtrees/jetson/apps/forum/admin.py:24
 #: subtrees/jetson/apps/forum/forms.py:19
 #: subtrees/jetson/apps/forum/forms.py:57
 #: subtrees/jetson/apps/groups_networks/admin.py:23
@@ -135,8 +137,8 @@ msgstr ""
 #: subtrees/jetson/apps/permissions/admin.py:37
 #: subtrees/jetson/apps/resources/admin.py:22
 #: subtrees/jetson/apps/resources/admin.py:29
-#: subtrees/jetson/apps/resources/base.py:78
-#: subtrees/jetson/apps/resources/base.py:165
+#: subtrees/jetson/apps/resources/base.py:79
+#: subtrees/jetson/apps/resources/base.py:166
 #: subtrees/jetson/apps/structure/admin.py:23
 #: subtrees/jetson/apps/structure/admin.py:37
 #: subtrees/jetson/apps/structure/admin.py:54
@@ -171,7 +173,7 @@ msgstr ""
 #: subtrees/jetson/apps/navigation/admin.py:38
 #: subtrees/jetson/apps/notification/models.py:75
 #: subtrees/jetson/apps/people/base.py:294
-#: subtrees/jetson/apps/resources/base.py:167
+#: subtrees/jetson/apps/resources/base.py:168
 #: subtrees/jetson/apps/tracker/forms.py:50
 #: subtrees/jetson/projects/basic_project/apps/events/south_migrations/0001_initial.py:22
 #: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_details.html:8
@@ -180,7 +182,6 @@ msgstr ""
 #: subtrees/jetson/templates/default/groups_networks/persongroups/profile/description_form.html:7
 #: subtrees/jetson/templates/default/institutions/add_institution_profile.html:29
 #: subtrees/jetson/templates/default/institutions/profile/description_form.html:7
-#: subtrees/jetson/templates/default/media_gallery/includes/media_file_change.html:105
 #: subtrees/jetson/templates/default/people/profile/description_form.html:7
 #: subtrees/jetson/templates/default/resources/documents/profile/description_form.html:7
 msgid "Description"
@@ -315,7 +316,7 @@ msgstr ""
 #: subtrees/jetson/apps/navigation/models.py:50
 #: subtrees/jetson/apps/navigation/south_migrations/0001_initial.py:17
 #: subtrees/jetson/apps/people/base.py:179
-#: subtrees/jetson/apps/resources/base.py:91
+#: subtrees/jetson/apps/resources/base.py:92
 #: subtrees/jetson/apps/structure/models.py:70
 #: subtrees/jetson/apps/structure/models.py:129
 msgid "sort order"
@@ -386,7 +387,7 @@ msgstr ""
 #: subtrees/jetson/apps/permissions/models.py:169
 #: subtrees/jetson/apps/permissions/south_migrations/0001_initial.py:31
 #: subtrees/jetson/apps/permissions/south_migrations/0002_auto__chg_field_rowlevelpermission_owner_content_type__chg_field_rowle.py:56
-#: subtrees/jetson/apps/resources/base.py:103
+#: subtrees/jetson/apps/resources/base.py:104
 #: subtrees/jetson/apps/structure/models.py:23
 #: subtrees/jetson/apps/structure/models.py:83
 #: subtrees/jetson/apps/structure/models.py:141
@@ -505,7 +506,7 @@ msgid "Posts"
 msgstr ""
 
 #: subtrees/jetson/apps/blog/cms_apps.py:8
-msgid "Blogs"
+msgid "Global Blog"
 msgstr ""
 
 #: subtrees/jetson/apps/blog/feeds.py:25
@@ -555,7 +556,7 @@ msgstr ""
 #: subtrees/jetson/apps/mailchimp/models.py:58
 #: subtrees/jetson/apps/mailchimp/models.py:199
 #: subtrees/jetson/apps/people/base.py:299
-#: subtrees/jetson/apps/resources/base.py:189
+#: subtrees/jetson/apps/resources/base.py:190
 #: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_status.html:3
 #: subtrees/jetson/templates/default/accounts/reg_confirm.html:405
 msgid "Status"
@@ -766,68 +767,68 @@ msgid "%(tag)s tag was given a badly formatted option: '%(option)s'"
 msgstr ""
 
 #: subtrees/jetson/apps/blog/views/__init__.py:254
-#: subtrees/jetson/apps/blog/views/cms.py:253
+#: subtrees/jetson/apps/blog/views/cms.py:254
 msgid "Jan"
 msgstr ""
 
 #: subtrees/jetson/apps/blog/views/__init__.py:254
-#: subtrees/jetson/apps/blog/views/cms.py:253
+#: subtrees/jetson/apps/blog/views/cms.py:254
 msgid "Feb"
 msgstr ""
 
 #: subtrees/jetson/apps/blog/views/__init__.py:254
-#: subtrees/jetson/apps/blog/views/cms.py:253
+#: subtrees/jetson/apps/blog/views/cms.py:254
 msgid "Mar"
 msgstr ""
 
 #: subtrees/jetson/apps/blog/views/__init__.py:254
-#: subtrees/jetson/apps/blog/views/cms.py:253
+#: subtrees/jetson/apps/blog/views/cms.py:254
 msgid "Apr"
 msgstr ""
 
 #: subtrees/jetson/apps/blog/views/__init__.py:254
-#: subtrees/jetson/apps/blog/views/cms.py:253
+#: subtrees/jetson/apps/blog/views/cms.py:254
 #: subtrees/jetson/apps/utils/models.py:22
 msgid "May"
 msgstr ""
 
 #: subtrees/jetson/apps/blog/views/__init__.py:254
-#: subtrees/jetson/apps/blog/views/cms.py:253
+#: subtrees/jetson/apps/blog/views/cms.py:254
 msgid "Jun"
 msgstr ""
 
 #: subtrees/jetson/apps/blog/views/__init__.py:255
-#: subtrees/jetson/apps/blog/views/cms.py:254
+#: subtrees/jetson/apps/blog/views/cms.py:255
 msgid "Jul"
 msgstr ""
 
 #: subtrees/jetson/apps/blog/views/__init__.py:255
-#: subtrees/jetson/apps/blog/views/cms.py:254
+#: subtrees/jetson/apps/blog/views/cms.py:255
 msgid "Aug"
 msgstr ""
 
 #: subtrees/jetson/apps/blog/views/__init__.py:255
-#: subtrees/jetson/apps/blog/views/cms.py:254
+#: subtrees/jetson/apps/blog/views/cms.py:255
 msgid "Sep"
 msgstr ""
 
 #: subtrees/jetson/apps/blog/views/__init__.py:255
-#: subtrees/jetson/apps/blog/views/cms.py:254
+#: subtrees/jetson/apps/blog/views/cms.py:255
 msgid "Oct"
 msgstr ""
 
 #: subtrees/jetson/apps/blog/views/__init__.py:255
-#: subtrees/jetson/apps/blog/views/cms.py:254
+#: subtrees/jetson/apps/blog/views/cms.py:255
 msgid "Nov"
 msgstr ""
 
 #: subtrees/jetson/apps/blog/views/__init__.py:255
-#: subtrees/jetson/apps/blog/views/cms.py:254
+#: subtrees/jetson/apps/blog/views/cms.py:255
 msgid "Dec"
 msgstr ""
 
 #: subtrees/jetson/apps/blog/views/__init__.py:489
-#: subtrees/jetson/apps/blog/views/cms.py:538
+#: subtrees/jetson/apps/blog/views/cms.py:539
 msgid "Comments are disabled"
 msgstr ""
 
@@ -858,7 +859,7 @@ msgstr ""
 #: subtrees/jetson/apps/people/base.py:755
 #: subtrees/jetson/apps/people/base.py:760
 #: subtrees/jetson/apps/people/base.py:765
-#: subtrees/jetson/apps/resources/base.py:170
+#: subtrees/jetson/apps/resources/base.py:171
 #: subtrees/jetson/templates/admin/filebrowser/detail.html:134
 #: subtrees/jetson/templates/default/resources/documents/document_list.html:43
 #: subtrees/jetson/templates/default/resources/documents/document_simplesearchresults.html:46
@@ -967,7 +968,7 @@ msgstr ""
 #: subtrees/jetson/apps/media_gallery/base.py:89
 #: subtrees/jetson/apps/people/base.py:295
 #: subtrees/jetson/apps/public_filebrowser/settings.py:120
-#: subtrees/jetson/apps/resources/base.py:187
+#: subtrees/jetson/apps/resources/base.py:188
 #: subtrees/jetson/apps/structure/models.py:25
 #: subtrees/jetson/apps/structure/models.py:85
 #: subtrees/jetson/apps/structure/models.py:144
@@ -1422,8 +1423,8 @@ msgstr ""
 #: subtrees/jetson/apps/comments/views/comments.py:519
 #: subtrees/jetson/apps/events/forms.py:893
 #: subtrees/jetson/apps/events/forms.py:899
-#: subtrees/jetson/apps/utils/views.py:900
-#: subtrees/jetson/apps/utils/views.py:960
+#: subtrees/jetson/apps/utils/views.py:933
+#: subtrees/jetson/apps/utils/views.py:993
 #: subtrees/jetson/templates/admin/admin/cms/page/permissions.html:46
 #: subtrees/jetson/templates/admin/rosetta/languages.html:33
 #: subtrees/jetson/templates/admin/rosetta/pofile.html:50
@@ -1807,7 +1808,7 @@ msgstr ""
 #: subtrees/jetson/apps/messaging/models.py:23
 #: subtrees/jetson/apps/messaging/south_migrations/0001_initial.py:28
 #: subtrees/jetson/apps/messaging/south_migrations/0004_auto__chg_field_internalmessage_body__chg_field_internalmessage_modifi.py:89
-#: subtrees/jetson/apps/resources/base.py:49
+#: subtrees/jetson/apps/resources/base.py:50
 msgid "Draft"
 msgstr ""
 
@@ -2009,7 +2010,7 @@ msgstr ""
 #: subtrees/jetson/apps/groups_networks/base.py:59
 #: subtrees/jetson/apps/institutions/base.py:69
 #: subtrees/jetson/apps/people/base.py:112
-#: subtrees/jetson/apps/resources/base.py:50
+#: subtrees/jetson/apps/resources/base.py:51
 #: subtrees/jetson/templates/admin/extendedadmin/document_change.html:281
 msgid "Published"
 msgstr ""
@@ -2018,7 +2019,7 @@ msgstr ""
 #: subtrees/jetson/apps/groups_networks/base.py:60
 #: subtrees/jetson/apps/institutions/base.py:71
 #: subtrees/jetson/apps/people/base.py:113
-#: subtrees/jetson/apps/resources/base.py:52
+#: subtrees/jetson/apps/resources/base.py:53
 msgid "Not Listed"
 msgstr ""
 
@@ -2038,7 +2039,7 @@ msgstr ""
 #: subtrees/jetson/apps/institutions/base.py:129
 #: subtrees/jetson/apps/optionset/models.py:35
 #: subtrees/jetson/apps/optionset/south_migrations/0001_initial.py:98
-#: subtrees/jetson/apps/resources/base.py:79
+#: subtrees/jetson/apps/resources/base.py:80
 msgid "Sort Order"
 msgstr ""
 
@@ -2058,7 +2059,7 @@ msgstr ""
 #: subtrees/jetson/apps/groups_networks/base.py:178
 #: subtrees/jetson/apps/institutions/base.py:194
 #: subtrees/jetson/apps/marketplace/base.py:119
-#: subtrees/jetson/apps/resources/base.py:145
+#: subtrees/jetson/apps/resources/base.py:146
 msgid "Creation date"
 msgstr ""
 
@@ -2073,7 +2074,7 @@ msgstr ""
 #: subtrees/jetson/apps/institutions/base.py:199
 #: subtrees/jetson/apps/marketplace/base.py:129
 #: subtrees/jetson/apps/people/base.py:238
-#: subtrees/jetson/apps/resources/base.py:150
+#: subtrees/jetson/apps/resources/base.py:151
 msgid "Alphabetical"
 msgstr ""
 
@@ -3006,14 +3007,14 @@ msgid "Member of"
 msgstr ""
 
 #: subtrees/jetson/apps/extendedadmin/forms.py:464
-#: subtrees/jetson/apps/resources/base.py:172
+#: subtrees/jetson/apps/resources/base.py:173
 #: subtrees/jetson/templates/admin/extendedadmin/document_change.html:246
 #: subtrees/jetson/templates/admin/extendedadmin/document_change.html:390
 msgid "Authors"
 msgstr ""
 
 #: subtrees/jetson/apps/extendedadmin/forms.py:469
-#: subtrees/jetson/apps/resources/base.py:174
+#: subtrees/jetson/apps/resources/base.py:175
 msgid "Publisher"
 msgstr ""
 
@@ -3709,7 +3710,7 @@ msgstr ""
 #: subtrees/jetson/apps/groups_networks/base.py:234
 #: subtrees/jetson/apps/institutions/base.py:226
 #: subtrees/jetson/apps/people/base.py:297
-#: subtrees/jetson/apps/resources/base.py:185
+#: subtrees/jetson/apps/resources/base.py:186
 #: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_categories.html:28
 msgid "Context categories"
 msgstr ""
@@ -4683,8 +4684,8 @@ msgid "Medium-Low"
 msgstr ""
 
 #: subtrees/jetson/apps/image_mods/models.py:62
-#: subtrees/jetson/apps/resources/base.py:86
-#: subtrees/jetson/apps/resources/base.py:169
+#: subtrees/jetson/apps/resources/base.py:87
+#: subtrees/jetson/apps/resources/base.py:170
 msgid "Medium"
 msgstr ""
 
@@ -5301,7 +5302,7 @@ msgid "Institutions"
 msgstr ""
 
 #: subtrees/jetson/apps/institutions/base.py:70
-#: subtrees/jetson/apps/resources/base.py:51
+#: subtrees/jetson/apps/resources/base.py:52
 msgid "Published-Commercial"
 msgstr ""
 
@@ -5332,7 +5333,7 @@ msgid "Title (second line)"
 msgstr ""
 
 #: subtrees/jetson/apps/institutions/base.py:216
-#: subtrees/jetson/apps/resources/base.py:166
+#: subtrees/jetson/apps/resources/base.py:167
 msgid "Slug"
 msgstr ""
 
@@ -6521,7 +6522,6 @@ msgid "You can link to a GIF, JPG, or PNG image."
 msgstr ""
 
 #: subtrees/jetson/apps/media_gallery/forms.py:72
-#: subtrees/jetson/templates/default/media_gallery/includes/media_file_change.html:9
 msgid "Upload Image"
 msgstr ""
 
@@ -6534,7 +6534,6 @@ msgid ""
 msgstr ""
 
 #: subtrees/jetson/apps/media_gallery/forms.py:95
-#: subtrees/jetson/templates/default/media_gallery/includes/media_file_change.html:46
 msgid "Link to External Image"
 msgstr ""
 
@@ -6584,7 +6583,6 @@ msgstr ""
 #: subtrees/jetson/templates/default/institutions/profile/details_form.html:56
 #: subtrees/jetson/templates/default/institutions/profile/identity_form.html:21
 #: subtrees/jetson/templates/default/institutions/profile/opening_hours_form.html:206
-#: subtrees/jetson/templates/default/media_gallery/includes/media_file_change.html:137
 #: subtrees/jetson/templates/default/people/profile/avatar_form.html:26
 #: subtrees/jetson/templates/default/people/profile/categories_form.html:14
 #: subtrees/jetson/templates/default/people/profile/contact_form.html:184
@@ -6611,7 +6609,6 @@ msgstr ""
 #: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:448
 #: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:413
 #: subtrees/jetson/templates/admin/extendedadmin/person_change.html:575
-#: subtrees/jetson/templates/default/media_gallery/includes/media_file_change.html:138
 msgid "Save and add another"
 msgstr ""
 
@@ -6634,7 +6631,6 @@ msgid ""
 msgstr ""
 
 #: subtrees/jetson/apps/media_gallery/forms.py:190
-#: subtrees/jetson/templates/default/media_gallery/includes/media_file_change.html:15
 msgid "Upload Video"
 msgstr ""
 
@@ -6643,7 +6639,6 @@ msgid "You can upload only FLV files."
 msgstr ""
 
 #: subtrees/jetson/apps/media_gallery/forms.py:213
-#: subtrees/jetson/templates/default/media_gallery/includes/media_file_change.html:52
 msgid "Link to External Video"
 msgstr ""
 
@@ -6662,7 +6657,6 @@ msgid "You can link to an MP3 file."
 msgstr ""
 
 #: subtrees/jetson/apps/media_gallery/forms.py:330
-#: subtrees/jetson/templates/default/media_gallery/includes/media_file_change.html:12
 msgid "Upload Audio"
 msgstr ""
 
@@ -6671,7 +6665,6 @@ msgid "You can upload only MP3 files."
 msgstr ""
 
 #: subtrees/jetson/apps/media_gallery/forms.py:353
-#: subtrees/jetson/templates/default/media_gallery/includes/media_file_change.html:49
 msgid "Link to External Audio"
 msgstr ""
 
@@ -7582,8 +7575,6 @@ msgstr ""
 
 #: subtrees/jetson/apps/public_filebrowser/views.py:268
 #: subtrees/jetson/templates/admin/filebrowser/index.html:82
-#: subtrees/jetson/templates/default/media_gallery/includes/media_file_change.html:34
-#: subtrees/jetson/templates/default/media_gallery/includes/media_file_change.html:99
 #: subtrees/jetson/templates/default/public_filebrowser/index.html:55
 #: subtrees/jetson/templates/default/public_filebrowser/upload.html:105
 msgid "Upload"
@@ -7681,79 +7672,79 @@ msgstr ""
 msgid "reminders"
 msgstr ""
 
-#: subtrees/jetson/apps/resources/base.py:44
+#: subtrees/jetson/apps/resources/base.py:45
 msgid "Resources"
 msgstr ""
 
-#: subtrees/jetson/apps/resources/base.py:87
+#: subtrees/jetson/apps/resources/base.py:88
 msgid "Mediums"
 msgstr ""
 
-#: subtrees/jetson/apps/resources/base.py:108
+#: subtrees/jetson/apps/resources/base.py:109
 msgid "document type"
 msgstr ""
 
-#: subtrees/jetson/apps/resources/base.py:109
+#: subtrees/jetson/apps/resources/base.py:110
 msgid "document types"
 msgstr ""
 
-#: subtrees/jetson/apps/resources/base.py:168
+#: subtrees/jetson/apps/resources/base.py:169
 msgid "Document type"
 msgstr ""
 
-#: subtrees/jetson/apps/resources/base.py:171
+#: subtrees/jetson/apps/resources/base.py:172
 msgid "Document file"
 msgstr ""
 
-#: subtrees/jetson/apps/resources/base.py:173
+#: subtrees/jetson/apps/resources/base.py:174
 msgid "External authors"
 msgstr ""
 
-#: subtrees/jetson/apps/resources/base.py:173
+#: subtrees/jetson/apps/resources/base.py:174
 msgid "Comma-separated list"
 msgstr ""
 
-#: subtrees/jetson/apps/resources/base.py:175
+#: subtrees/jetson/apps/resources/base.py:176
 msgid "Year of Publishing"
 msgstr ""
 
-#: subtrees/jetson/apps/resources/base.py:176
+#: subtrees/jetson/apps/resources/base.py:177
 msgid "Month of Publishing"
 msgstr ""
 
-#: subtrees/jetson/apps/resources/base.py:177
+#: subtrees/jetson/apps/resources/base.py:178
 msgid "Day of Publishing"
 msgstr ""
 
-#: subtrees/jetson/apps/resources/base.py:178
+#: subtrees/jetson/apps/resources/base.py:179
 msgid "Playing time"
 msgstr ""
 
-#: subtrees/jetson/apps/resources/base.py:179
+#: subtrees/jetson/apps/resources/base.py:180
 msgid "ISBN-10"
 msgstr ""
 
-#: subtrees/jetson/apps/resources/base.py:180
+#: subtrees/jetson/apps/resources/base.py:181
 msgid "ISBN-13"
 msgstr ""
 
-#: subtrees/jetson/apps/resources/base.py:181
+#: subtrees/jetson/apps/resources/base.py:182
 msgid "Pages"
 msgstr ""
 
-#: subtrees/jetson/apps/resources/base.py:182
+#: subtrees/jetson/apps/resources/base.py:183
 msgid "File size (MB)"
 msgstr ""
 
-#: subtrees/jetson/apps/resources/base.py:183
+#: subtrees/jetson/apps/resources/base.py:184
 msgid "Languages"
 msgstr ""
 
-#: subtrees/jetson/apps/resources/base.py:197
+#: subtrees/jetson/apps/resources/base.py:198
 msgid "document"
 msgstr ""
 
-#: subtrees/jetson/apps/resources/base.py:198
+#: subtrees/jetson/apps/resources/base.py:199
 msgid "documents"
 msgstr ""
 
@@ -8001,16 +7992,16 @@ msgstr ""
 msgid "December"
 msgstr ""
 
-#: subtrees/jetson/apps/utils/views.py:544
+#: subtrees/jetson/apps/utils/views.py:559
 msgid ""
 "There are errors in this form. Please correct them and try to save again."
 msgstr ""
 
-#: subtrees/jetson/apps/utils/views.py:926
+#: subtrees/jetson/apps/utils/views.py:959
 msgid "0-9"
 msgstr ""
 
-#: subtrees/jetson/apps/utils/views.py:961
+#: subtrees/jetson/apps/utils/views.py:994
 msgid "Topical"
 msgstr ""
 
@@ -9251,7 +9242,6 @@ msgstr ""
 #: subtrees/jetson/templates/default/accounts/my_profile/privacy_settings.html:68
 #: subtrees/jetson/templates/default/events/claim_event_done.html:10
 #: subtrees/jetson/templates/default/institutions/claim_institution_done.html:10
-#: subtrees/jetson/templates/default/media_gallery/includes/media_file_change.html:135
 #: subtrees/jetson/templates/default/messaging/new_message.html:63
 #: subtrees/jetson/templates/default/resources/documents/claim_document_done.html:10
 msgid "Back"
@@ -11532,7 +11522,6 @@ msgid "Add new audio"
 msgstr ""
 
 #: subtrees/jetson/templates/default/media_gallery/includes/gallery_slideshow.html:47
-#: subtrees/jetson/templates/default/media_gallery/includes/media_file_change.html:144
 msgid "Thumbnails"
 msgstr ""
 
@@ -11542,22 +11531,6 @@ msgstr ""
 
 #: subtrees/jetson/templates/default/media_gallery/includes/gallery_slideshow.html:68
 msgid "There are no media files uploaded."
-msgstr ""
-
-#: subtrees/jetson/templates/default/media_gallery/includes/media_file_change.html:38
-msgid "Use an externally hosted media file."
-msgstr ""
-
-#: subtrees/jetson/templates/default/media_gallery/includes/media_file_change.html:71
-msgid "Save and Show"
-msgstr ""
-
-#: subtrees/jetson/templates/default/media_gallery/includes/media_file_change.html:75
-msgid "Upload a media file instead."
-msgstr ""
-
-#: subtrees/jetson/templates/default/media_gallery/includes/media_file_change.html:82
-msgid "Upload Illustration"
 msgstr ""
 
 #: subtrees/jetson/templates/default/media_gallery/includes/media_file_delete.html:5
