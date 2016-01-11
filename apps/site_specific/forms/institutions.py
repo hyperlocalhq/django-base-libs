@@ -78,19 +78,21 @@ class IdentityForm(dynamicforms.Form):
         }
         self.helper.form_method = "POST"
         self.helper.attrs = {
-            'target': "hidden_iframe",
             'enctype': "multipart/form-data",
         }
         self.helper.layout = layout.Layout(
             layout.Fieldset(
-                _("Name"),
+                _("Identity"),
                 "title",
                 "title2",
+                bootstrap.FormActions(
+                    layout.Button('cancel', _('Cancel'), css_class="cancel"),
+                    layout.Submit('submit', _('Save')),
+                    css_class = "button-group form-buttons"
+                ),
+                
+                css_class = "switch on"
             ),
-            bootstrap.FormActions(
-                layout.Button('cancel', _('Cancel')),
-                layout.Submit('submit', _('Save')),
-            )
         )
 
     def save(self):

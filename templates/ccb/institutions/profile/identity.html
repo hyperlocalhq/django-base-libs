@@ -1,4 +1,14 @@
 {% load i18n base_tags auth_extended %}
-<div class="section-details">
-    <p><strong>{{ object.get_title }}</strong></p>
-</div>
+{% if perms.institutions.change_institution %}
+    <div class="fieldset {% if_has_perm "institutions.change_institution" object %}editable switch{% else %}not-editable{% end_if_has_perm %}" data-edit-url="{% url 'edit_profile' object_type='institution' slug=object.slug %}identity/">
+        <fieldset disabled>
+            <h2>{% trans "Identity" %}</h2>
+            <dl class="input-fields">
+                <dt>{% trans "Name" %}</dt>
+                <dd><div class="text-field">
+                    <div>{{ object.title|escape }}</div>
+                    <div>{{ object.title2|escape }}</div>
+                </div></dd>
+            </dl>
+    </div>
+{% endif %}
