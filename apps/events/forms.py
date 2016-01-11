@@ -437,13 +437,15 @@ class MainDataForm(dynamicforms.Form):
             ),
             layout.Fieldset(
                 _("Organizing institution"),
-                "organizing_institution",
+                layout.Field("organizing_institution", wrapper_class="institution-select autocomplete"),
                 layout.HTML("""{% load i18n %}
-                <p>
-                    <a id="id_org_inst_not_listed" href="#">{% trans "Not listed? Enter manually" %}</a>
-                </p>
+                    <dt class="institution-select"> </dt><dd class="institution-select"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-input" data-toggle-hide=".institution-select">{% trans "Not listed? Enter manually" %}</a></dd>
                 """),
-                css_id="id_block_org_inst_select",
+
+                layout.Field("organizer_title", wrapper_class="institution-input hidden"),
+                layout.HTML("""{% load i18n %}
+                    <dt class="institution-input hidden"> </dt><dd class="institution-input hidden"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-select" data-toggle-hide=".institution-input">{% trans "Back to selection" %}</a></dd>
+                """),
             ),
             layout.Fieldset(
                 _("Organizer address"),
