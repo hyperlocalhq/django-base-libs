@@ -225,28 +225,28 @@ navigation_links = {
 
     'bulletin_board': [
         {
-            'url_de': '/de/market-place/',
-            'url_en': '/en/market-place/',
+            'url_de': '/de/marketplace/',
+            'url_en': '/en/marketplace/',
             'text_de': 'Alle',
             'text_en': 'All',
             'should_be_shown': for_all,
-            'highlight_pattern': r'^/(de|en)/market-place/$',
+            'highlight_pattern': r'^/(de|en)/marketplace/$',
         },
         {
-            'url_de': '/de/market-place/my-bulletins/',
-            'url_en': '/en/market-place/my-bulletins/',
+            'url_de': '/de/marketplace/my-bulletins/',
+            'url_en': '/en/marketplace/my-bulletins/',
             'text_de': 'Meine Inserate',
             'text_en': 'My Bulletins',
             'should_be_shown': for_authenticated_only,
-            'highlight_pattern': r'^/(de|en)/market-place/my-bulletins/$',
+            'highlight_pattern': r'^/(de|en)/marketplace/my-bulletins/$',
         },
         {
-            'url_de': '/de/market-place/add/',
-            'url_en': '/en/market-place/add/',
+            'url_de': '/de/marketplace/add/',
+            'url_en': '/en/marketplace/add/',
             'text_de': 'Inserat eintragen',
             'text_en': 'Add a Bulletin',
             'should_be_shown': for_authenticated_only,
-            'highlight_pattern': r'^/(de|en)/market-place/add/$',
+            'highlight_pattern': r'^/(de|en)/marketplace/add/$',
         },
     ],
 
