@@ -13,9 +13,9 @@ class TileAdmin(ExtendedModelAdmin):
     list_display_links = ('id', '__unicode__',)
 
     fieldsets = [
-        (None, {'fields': ["sysname", "path", "link"]}),
+        (None, {'fields': ["sysname", "path"]}),
     ]
-    fieldsets += get_admin_lang_section(None, ['title', 'description'])
+    fieldsets += get_admin_lang_section(None, ['link', 'title', 'description'])
 
 
 admin.site.register(Tile, TileAdmin)
