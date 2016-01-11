@@ -1,11 +1,34 @@
 {% extends "base_sidebar.html" %}
-{% load base_tags i18n crispy_forms_tags %}
+{% load base_tags cms_tags navigation_tags i18n crispy_forms_tags %}
 
-{% block title %}{% trans "Registration" %} - {% trans "Institution" %}{% endblock %}
+{% block title %}{% trans "New Institution" %}{% endblock %}
+
+{% block header_image %}
+    {% load slideshows_tags %}
+    {% slideshow "member_list" using "slideshows/header.html" %}
+{% endblock %}
 
 {% block headline %}
-    <h1>{% trans "Registration" %}</h1>
-    <h2>{% trans "Institution" %}</h2>
+    <h1>{% page_attribute "page_title" %}</h1>
+{% endblock %}
+
+{% block tabs %}
+    <div class="menu tabs">
+        <div class="container">
+            <div class="row">
+                <div class="hidden-xs col-sm-4 col-md-3 headline">
+                    <h2>{% trans "Network" %}</h2>
+                </div>
+                <div class="navi">
+                    <nav>
+                        <ul>
+                            {% navigation_links "members" using "navigation/includes/navigation_links_in_tabs.html" %}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block sidebar %}
@@ -13,6 +36,7 @@
 {% endblock %}
 
 {% block details %}
+    <h2>{% trans "New Institution" %}</h2>
     {% crispy form "ccb_form" %}
 {% endblock %}
 
