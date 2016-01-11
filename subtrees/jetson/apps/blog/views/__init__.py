@@ -395,23 +395,23 @@ class BlogPostFormPreviewHandler(FormPreviewHandler):
     def get_edit_data(self, obj):
         from tagging.utils import edit_string_for_tags, get_tag_list
         return {
-            'title' : obj.title,
-            'body' : obj.body,
-            'tags' : edit_string_for_tags(get_tag_list(obj.tags)),
-            'enable_comment_form' : obj.enable_comment_form,
-            'status' : obj.status,
-            'published_from' : obj.published_from, 
-            'published_till' : obj.published_till,
+            'title': obj.title,
+            'body': obj.body,
+            'tags': edit_string_for_tags(get_tag_list(obj.tags)),
+            'enable_comment_form': obj.enable_comment_form,
+            'status': obj.status,
+            'published_from': obj.published_from,
+            'published_till': obj.published_till,
         }
         
     def redirect(self, action):
         if action == ID_ACTION_DELETE:
-            return HttpResponseRedirect(self.container.get_url())
+            return HttpResponseRedirect(self.container.get_url_path())
                         
         if self.current_post and self.current_post.status == STATUS_CODE_PUBLISHED:
-            return HttpResponseRedirect(self.current_post.get_url())
+            return HttpResponseRedirect(self.current_post.get_url_path())
         else:
-            return HttpResponseRedirect(self.container.get_url())
+            return HttpResponseRedirect(self.container.get_url_path())
         
     def cancel(self, action):
         return self.redirect(action)

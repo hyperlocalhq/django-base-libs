@@ -294,7 +294,7 @@ class FormPreviewHandler(FormHandler):
         if form.is_valid():
             context['hash_field'] = self._check_name('hash')
             context['hash_value'] = self.security_hash(request, form)
-            context['form_preview'] = True,
+            context['form_preview'] = True
             t = loader.get_template(self.get_preview_template(self.use_ajax))
         else:
             t = loader.get_template(self.get_form_template(self.use_ajax))

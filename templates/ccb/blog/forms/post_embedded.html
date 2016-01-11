@@ -1,7 +1,7 @@
 {% load base_tags i18n auth_extended blog uni_form_tags crispy_forms_tags %}
 
 <div class="first-item-txt" id="popup_content">
-    <form action="" method="post" class="uniForm">{% csrf_token %}
+    <form action="" method="post">{% csrf_token %}
         {% if form_preview %}
             <div class="preview">
                 <div class="headline">
@@ -21,7 +21,7 @@
                     {% trans "Save" as non_draft %}
                     {% with yesno_args=''|add:draft|add:','|add:non_draft|upper %}
                         <input
-                            type="submit" class="primaryAction" id="post" name="{{ post_stage_field }}"
+                            type="submit" class="btn btn-primary" id="post" name="{{ post_stage_field }}"
                             value='{{ post.is_draft|yesno:yesno_args }}'
                             />
                     {% endwith %}
@@ -29,9 +29,9 @@
                 </div>
             </div>
         {% endif %}
+        {% crispy form "ccb_form" %}
 
-        {#% crispy form %#}
-
+        {% comment %}
         <fieldset class="inlineLabels">
             <h3>
                 {% ifequal form_action "new" %}
@@ -57,12 +57,12 @@
                     value="{% filter upper %}{% trans 'Preview' %}{% endfilter %}"/>
                 <input id="id_cancel" type="submit" class="secondaryAction" name="{{ cancel_stage_field }}"
                     value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
-                {% comment %}this one is used for security reasons -->{% endcomment %}
                 <input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}"/>
                 <input type="hidden" name="goto_next"
                     value="{% if goto_next %}{{ goto_next }}{% else %}/blog/{% endif %}"/>
             </div>
         </fieldset>
+        {% endcomment %}
     </form>
 </div>
 

@@ -22,9 +22,6 @@
     <meta name="description" content="{{ object.get_description|striptags|truncatewords:100 }}..."/>
 {% endblock %}
 
-
-
-
 {% block headline %}
     <h1>
         {% if object.is_person %}
@@ -179,49 +176,21 @@
             </div>
         </div>
     {% endif %}
-{% endblock %}
 
-{% block content_old %}
-    {% block tabs %}
-        <div id="tabs">
-            {% comment %}
-                {% if object.is_person %}
-                    {% children_of "person" using "navigation/children_in_tabs.html" %}
-                {% elif object.is_institution %}
-                    {% children_of "institution" using "navigation/children_in_tabs.html" %}
-                {% endif %}
-            {% endcomment %}
-            {% navigation_links "member" using "navigation/includes/navigation_links_in_tabs.html" %}
-        </div>
-    {% endblock %}
-    <div class="toolbox">
-        {% include "site_specific/count_of.html" %}
-        <div class="icons">
-            {% block object_controls %}
-                {% if object.is_person %}
-                    {% with object as person %}
-                        {% include "people/controls.html" %}
-                    {% endwith %}
-                {% elif object.is_institution %}
-                    {% with object as institution %}
-                        {% include "institutions/controls.html" %}
-                    {% endwith %}
-                {% endif %}
-                <a class="addthis_button"
-                    href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07">
-                    <span><span></span></span></a>
-            {% endblock %}
-            {% block additional_controls %}
-            {% endblock %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                {% block sidebar %}
+                {% endblock %}
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                {% block details %}
+                {% endblock %}
+            </div>
         </div>
     </div>
-    <div id="details">
-        {% block details %}
-        {% endblock %}
-    </div>
-    <hr class="hidden"/>
-{% endblock %}
 
+{% endblock %}
 
 {% block extrabody_old %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>

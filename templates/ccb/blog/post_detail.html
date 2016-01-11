@@ -3,7 +3,7 @@
 
 <div class="toolbox clearfix">
     <div class="entry-controls">
-        <a class="rss" href="{{ container.get_url }}{% if type %}{{ type.sysname }}/{% endif %}feeds/rss/"><span><span>RSS</span></span>
+        <a class="rss" href="{{ container.get_url_path }}{% if type %}{{ type.sysname }}/{% endif %}feeds/rss/"><span><span>RSS</span></span>
         </a>
         <a class="addthis_button"
             href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07"><span><span>Share</span></span>
@@ -38,7 +38,7 @@
             | {% blocktrans with post.author as author %}by <b>{{ author }}</b>{% endblocktrans %}
             {% endcomment %}
             {% get_comment_list for blog.post object.id as comment_list %} <span> |</span>
-            <a href="{{ post.get_url }}#comments">
+            <a href="{{ post.get_url_path }}#comments">
                 {% if not comment_list|length %}
                     {% trans "No comments" %}
                 {% else %}
@@ -64,7 +64,7 @@
             <span>{% trans "Tags" %}: </span>
             {% for tag in object.get_tags %}
                 {% if not forloop.first %}|{% endif %}
-                <a href="{{ container.get_url }}tag/{{ tag.slug }}/">{{ tag.name }} </a>
+                <a href="{{ container.get_url_path }}tag/{{ tag.slug }}/">{{ tag.name }} </a>
             {% endfor %}
         </div>
     {% endif %}
@@ -72,14 +72,14 @@
         {% if_has_perm "blog.change_blog_posts" object.blog %}
             <li id="editPost_{{ object.slug }}" class="editPost">
                 <a title="{% trans "edit" %}"
-                    href="{{ object.get_url }}edit/"><span><span>{% trans "edit" %}</span></span></a>
+                    href="{{ object.get_url_path }}edit/"><span><span>{% trans "edit" %}</span></span></a>
             </li>
         {% end_if_has_perm %}
 
         {% if_has_perm "blog.delete_blog_posts" object.blog %}
             <li id="deletePost_{{ object.slug }}" class="deletePost">
                 <a title="{% trans "delete" %}"
-                    href="{{ object.get_url }}delete/"><span><span>{% trans "delete" %}</span></span></a>
+                    href="{{ object.get_url_path }}delete/"><span><span>{% trans "delete" %}</span></span></a>
             </li>
         {% end_if_has_perm %}
     </ul>
@@ -138,20 +138,20 @@
                                 <li id="refuseComment_{{ comment.id }}" class="refuseComment">
                                     <a
                                         class="refuseComment_but"
-                                        href="{{ object.get_url }}comment/{{ comment.id }}/refuse/">
+                                        href="{{ object.get_url_path }}comment/{{ comment.id }}/refuse/">
                                         <span><span>{% trans "Refuse" %}</span></span></a>
                                 </li>
                                 <li id="markAsSpamComment_{{ comment.id }}" class="markAsSpamComment">
                                     <a
                                         class="markAsSpamComment_but"
-                                        href="{{ object.get_url }}comment/{{ comment.id }}/mark_as_spam/">
+                                        href="{{ object.get_url_path }}comment/{{ comment.id }}/mark_as_spam/">
                                         <span><span>{% trans "Mark as Spam" %}</span></span></a>
                                 </li>
                             {% else %}
                                 <li id="acceptComment_{{ comment.id }}" class="acceptComment">
                                     <a
                                         class="acceptComment_but"
-                                        href="{{ object.get_url }}comment/{{ comment.id }}/accept/">
+                                        href="{{ object.get_url_path }}comment/{{ comment.id }}/accept/">
                                         <span><span>{% trans "Accept" %}</span></span></a>
                                 </li>
                             {% endif %}

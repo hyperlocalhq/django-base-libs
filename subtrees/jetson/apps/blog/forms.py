@@ -91,8 +91,8 @@ class BlogPostForm(dynamicforms.Form):
                 />
             '''),
             bootstrap.FormActions(
-                layout.Submit('submit', _('Preview')),
-                layout.Button('button', _('Cancel').upper()),
+                layout.Submit('submit_preview', _('Preview')),
+                layout.Button('submit_cancel', _('Cancel')),
             ),
         )
 
