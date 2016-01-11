@@ -70,7 +70,7 @@
     <nav>
         <ul class="accordion navi-box">
             <li class="accordion-inside accordion-trigger opened">
-                <div class="accordion-trigger head">{% trans "Architecture" %}</div>
+                <div class="accordion-trigger head">{{ category.title }}</div>
                 <ul class="accordion navi-box">
                     {% show_sub_menu 3 3 1 "cms/includes/menu_cms.html" %}
                 </ul>
