@@ -128,10 +128,10 @@
                             <a href="{{ object.get_url_path }}message/" class="fawesome fa-email button text"><span
                                 class="text">{% trans "send Email" %}</span></a>{% endif %}
                         {% if request.user.is_staff and perms.institutions.change_institution %}
-                            <a href="/admin/institutions/institution/{{ institution.id }}/"
+                            <a href="/admin/institutions/institution/{{ object.id }}/"
                                 class="fawesome fa-edit button text"
-                                onclick="open_new_window(event)">
-                                <span class="text">{% trans "edit Institution" %}</span></a>
+                                target="_blank">
+                                <span class="text">{% trans "Edit Institution" %}</span></a>
                         {% endif %}
                     {% else %}
                         {% adding2memos for object %}
