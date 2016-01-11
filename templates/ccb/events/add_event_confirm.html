@@ -1,68 +1,61 @@
-{% extends "base.html" %}
+{% extends "ccb/events/add_event_base.html" %}
 {% load base_tags i18n site_specific events %}
 
 {% block title %}{% trans "Registration" %} - {% trans "Event" %}{% endblock %}
 
 {% block headline %}
     <h1>{% trans "Registration" %}</h1>
-    <h2 class="sub">{% trans "Event" %}</h2>
+    <h2>{% trans "Event" %} - {% trans "Confirm Entered Data" %}</h2>
 {% endblock %}
 
-{% block sidebar-a %}
-    {% include "utils/step_list.html" %}
-{% endblock %}
+{% block details %}
+    <form action="" method="post" class="uniForm">{% csrf_token %}
 
-{% block sidebar-b %}{% endblock %}
+        <h3>{{ form_step_data.step_main_data.title_de }}{% if form_step_data.step_main_data.title_en %} /
+            {{ form_step_data.step_main_data.title_en }}{% endif %}</h3>
+        <h4 class="type">
+            {% with form_step_data.step_main_data as form0 %}
+                {% for t in form0.sets.event_times %}
+                    {% get_date_period_formatted from t.start_yyyy t.start_mm t.start_dd to t.end_yyyy t.end_mm t.end_dd as event_period %}
+                    {{ event_period }}{% if not forloop.last %}; {% endif %}
+                {% endfor %}
+            {% endwith %}
+        </h4>
 
-{% block content %}
-    {% comment %}<!-- TODO: remove the comment to see all available data
-    <pre>{{ form_step_data|pprint|escape }}</pre>
-    -->{% endcomment %}
-    <div class="reg confirm">
-        <form action="" method="post" class="uniForm">{% csrf_token %}
-            <h3 class="begin">{% trans "Confirm Entered Data" %}</h3>
-
-            <h3>{{ form_step_data.step_main_data.title_de }}{% if form_step_data.step_main_data.title_en %} /
-                {{ form_step_data.step_main_data.title_en }}{% endif %}</h3>
-            <h4 class="type">
-                {% with form_step_data.step_main_data as form0 %}
-                    {% for t in form0.sets.event_times %}
-                        {% get_date_period_formatted from t.start_yyyy t.start_mm t.start_dd to t.end_yyyy t.end_mm t.end_dd as event_period %}
-                        {{ event_period }}{% if not forloop.last %}; {% endif %}
-                    {% endfor %}
-                {% endwith %}
-            </h4>
-
-            <div class="events_profile reg-block">
-                <img
-                    src="{% if form_step_data.step_event_profile.image %}/helper/tmpimage/{{ form_step_data.step_event_profile.image.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/{% else %}{{ DEFAULT_FORM_LOGO_4_EVENT }}{% endif %}"
-                    alt="{% trans "Image" %}"/>
-            </div>
-            {% ifequal LANGUAGE_CODE "de" %}
-                <p class="events_profile_txt">{{ form_step_data.step_event_profile.description_de }}</p>
+        <div class="events_profile reg-block">
+            {% if form_step_data.step_event_profile.image %}
+                <img class="avatar"
+                    src="/helper/tmpimage/{{ form_step_data.step_event_profile.image.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/"
+                    alt="{{ object.get_title|escape }}"/>
             {% else %}
-                <p class="events_profile_txt">{{ form_step_data.step_event_profile.description_en }}</p>
-            {% endifequal %}
+                <img class="avatar" src="{{ DEFAULT_FORM_LOGO_4_EVENT }}" alt="{{ object.get_title|escape }}"/>
+            {% endif %}
+        </div>
+        {% ifequal LANGUAGE_CODE "de" %}
+            <p class="events_profile_txt">{{ form_step_data.step_event_profile.description_de }}</p>
+        {% else %}
+            <p class="events_profile_txt">{{ form_step_data.step_event_profile.description_en }}</p>
+        {% endifequal %}
 
-            <div class="cleaner"></div>
-            <h3>{% trans "Event Details" %}</h3>
-
-            <div class="check">
-                <dl>
-                    <dt>{% trans "Address" %}:</dt>
+        <div class="fieldset not-editable">
+            <fieldset>
+                <h2>{% trans "Event Details" %}</h2>
+                <dl class="input-fields">
+                    <dt>{% trans "Address" %}</dt>
                     <dd>
                         <address>
                             {% if form_step_data.step_main_data.venue %}
-                                {% get_institution form_step_data.step_main_data.venue as venue %}
+                                {% with form_step_data.step_main_data.venue as venue %}
 
-                                <a href="{{ venue.get_url_path }}">{{ venue.get_title }}</a><br/>
-                                {% with venue.get_primary_contact as venue_contact %}
-                                    {{ venue_contact.street_address|escape }}<br/>
-                                    {% if venue_contact.street_address2 %}
-                                        {{ venue_contact.street_address2|escape }}<br/>
-                                    {% endif %}
-                                    {{ venue_contact.postal_code|escape }} {{ venue_contact.city|escape }}<br/>
-                                    {{ venue_contact.country_name }}
+                                    <a href="{{ venue.get_url_path }}">{{ venue.get_title }}</a><br/>
+                                    {% with venue.get_primary_contact as venue_contact %}
+                                        {{ venue_contact.street_address|escape }}<br/>
+                                        {% if venue_contact.street_address2 %}
+                                            {{ venue_contact.street_address2|escape }}<br/>
+                                        {% endif %}
+                                        {{ venue_contact.postal_code|escape }} {{ venue_contact.city|escape }}<br/>
+                                        {{ venue_contact.country_name }}
+                                    {% endwith %}
                                 {% endwith %}
                             {% else %}
                                 {{ form_step_data.step_main_data.venue_title }}<br/>
@@ -76,52 +69,54 @@
                             {% endif %}
                         </address>
                     </dd>
-                </dl>
-                <dl>
+                    <dd class="clearfix"></dd>
+
                     {% if form_step_data.step_main_data.phone_number %}
-                        <dt>{% trans "Phone" %}:</dt>
+                        <dt>{% trans "Phone" %}</dt>
                         <dd>+{% if form_step_data.step_main_data.phone_country %}
                             {{ form_step_data.step_main_data.phone_country }}{% else %}
                             49{% endif %}
                             -{{ form_step_data.step_main_data.phone_area }}-{{ form_step_data.step_main_data.phone_number }}</dd>
+                        <dd class="clearfix"></dd>
                     {% endif %}
 
                     {% if form_step_data.step_main_data.fax_number %}
-                        <dt>{% trans "Fax" %}:</dt>
+                        <dt>{% trans "Fax" %}</dt>
                         <dd>+{% if form_step_data.step_main_data.fax_country %}
                             {{ form_step_data.step_main_data.fax_country }}{% else %}
                             49{% endif %}
                             -{{ form_step_data.step_main_data.fax_area }}-{{ form_step_data.step_main_data.fax_number }}</dd>
+                        <dd class="clearfix"></dd>
                     {% endif %}
-                </dl>
-                <dl>
+
                     {% if form_step_data.step_main_data.email0_address %}
-                        <dt>{% trans "Email" %}:</dt>
+                        <dt>{% trans "Email" %}</dt>
                         <dd>{{ form_step_data.step_main_data.email0_address }}</dd>
+                        <dd class="clearfix"></dd>
                     {% endif %}
+
                     {% if form_step_data.step_main_data.email0_address %}
-                        <dt>{% trans "Homepage" %}:</dt>
+                        <dt>{% trans "Homepage" %}</dt>
                         <dd>
                             <a href="{{ form_step_data.step_main_data.url0_link }}">{{ form_step_data.step_main_data.url0_link }}</a>
                         </dd>
+                        <dd class="clearfix"></dd>
                     {% endif %}
-                </dl>
 
-                {% if form_step_data.step_fees_opening_hours.fees_de or form_step_data.step_fees_opening_hours.fees_en %}
-                    <dl>
-                        <dt>{% trans "Fees" %}:</dt>
+                    {% if form_step_data.step_fees_opening_hours.fees_de or form_step_data.step_fees_opening_hours.fees_en %}
+                        <dt>{% trans "Fees" %}</dt>
                         <dd>{{ form_step_data.step_fees_opening_hours.fees_de }}
                             {% if form_step_data.step_fees_opening_hours.fees_en %}<br/>
                                 {{ form_step_data.step_fees_opening_hours.fees_en }}{% endif %}</dd>
-                    </dl>
-                {% endif %}
+                        <dd class="clearfix"></dd>
+                    {% endif %}
 
-                {% if form_step_data.step_fees_opening_hours.mon_open or form_step_data.step_fees_opening_hours.mon_is_closed or form_step_data.step_fees_opening_hours.tue_open or form_step_data.step_fees_opening_hours.tue_is_closed or form_step_data.step_fees_opening_hours.wed_open or form_step_data.step_fees_opening_hours.wed_is_closed or form_step_data.step_fees_opening_hours.thu_open or form_step_data.step_fees_opening_hours.thu_is_closed or form_step_data.step_fees_opening_hours.fri_open or form_step_data.step_fees_opening_hours.fri_is_closed or form_step_data.step_fees_opening_hours.sat_open or form_step_data.step_fees_opening_hours.sat_is_closed or form_step_data.step_fees_opening_hours.sun_open or form_step_data.step_fees_opening_hours.sun_is_closed %}
-                    <dl>
-                        <dt>{% trans "Opening Hours" %}:</dt>
+                    {% if form_step_data.step_fees_opening_hours.mon_open or form_step_data.step_fees_opening_hours.mon_is_closed or form_step_data.step_fees_opening_hours.tue_open or form_step_data.step_fees_opening_hours.tue_is_closed or form_step_data.step_fees_opening_hours.wed_open or form_step_data.step_fees_opening_hours.wed_is_closed or form_step_data.step_fees_opening_hours.thu_open or form_step_data.step_fees_opening_hours.thu_is_closed or form_step_data.step_fees_opening_hours.fri_open or form_step_data.step_fees_opening_hours.fri_is_closed or form_step_data.step_fees_opening_hours.sat_open or form_step_data.step_fees_opening_hours.sat_is_closed or form_step_data.step_fees_opening_hours.sun_open or form_step_data.step_fees_opening_hours.sun_is_closed %}
+
+                        <dt>{% trans "Opening Hours" %}</dt>
                         <dd class="time">
                             {% if form_step_data.step_fees_opening_hours.mon_open or form_step_data.step_fees_opening_hours.mon_is_closed %}
-                                {% trans "Monday" %}:
+                                {% trans "Monday" %}
                                 {% if form_step_data.step_fees_opening_hours.mon_is_closed %}
                                     {% trans "closed" %}
                                 {% else %}
@@ -139,7 +134,7 @@
                                 <br/>
                             {% endif %}
                             {% if form_step_data.step_fees_opening_hours.tue_open or form_step_data.step_fees_opening_hours.tue_is_closed %}
-                                {% trans "Tuesday" %}:
+                                {% trans "Tuesday" %}
                                 {% if form_step_data.step_fees_opening_hours.tue_is_closed %}
                                     {% trans "closed" %}
                                 {% else %}
@@ -158,7 +153,7 @@
                             {% endif %}
 
                             {% if form_step_data.step_fees_opening_hours.wed_open or form_step_data.step_fees_opening_hours.wed_is_closed %}
-                                {% trans "Wednesday" %}:
+                                {% trans "Wednesday" %}
                                 {% if form_step_data.step_fees_opening_hours.wed_is_closed %}
                                     {% trans "closed" %}
                                 {% else %}
@@ -177,7 +172,7 @@
                             {% endif %}
 
                             {% if form_step_data.step_fees_opening_hours.thu_open or form_step_data.step_fees_opening_hours.thu_is_closed %}
-                                {% trans "Thursday" %}:
+                                {% trans "Thursday" %}
                                 {% if form_step_data.step_fees_opening_hours.thu_is_closed %}
                                     {% trans "closed" %}
                                 {% else %}
@@ -196,7 +191,7 @@
                             {% endif %}
 
                             {% if form_step_data.step_fees_opening_hours.fri_open or form_step_data.step_fees_opening_hours.fri_is_closed %}
-                                {% trans "Friday" %}:
+                                {% trans "Friday" %}
                                 {% if form_step_data.step_fees_opening_hours.fri_is_closed %}
                                     {% trans "closed" %}
                                 {% else %}
@@ -215,7 +210,7 @@
                             {% endif %}
 
                             {% if form_step_data.step_fees_opening_hours.sat_open or form_step_data.step_fees_opening_hours.sat_is_closed %}
-                                {% trans "Saturday" %}:
+                                {% trans "Saturday" %}
                                 {% if form_step_data.step_fees_opening_hours.sat_is_closed %}
                                     {% trans "closed" %}
                                 {% else %}
@@ -234,7 +229,7 @@
                             {% endif %}
 
                             {% if form_step_data.step_fees_opening_hours.sun_open or form_step_data.step_fees_opening_hours.sun_is_closed %}
-                                {% trans "Sunday" %}:
+                                {% trans "Sunday" %}
                                 {% if form_step_data.step_fees_opening_hours.sun_is_closed %}
                                     {% trans "closed" %}
                                 {% else %}
@@ -252,46 +247,33 @@
                                 <br/>
                             {% endif %}
                         </dd>
-                    </dl>
-                {% endif %}
-            </div>
-
-            <div class="cleaner"></div>
-            <h3 class="checkline">{% trans "Additional Information" %}</h3>
-
-            {% comment %}<!--
-            {% if form_step_data.step_main_data.related_events %}
-            <div class="check">
-                <dl>
-                    <dt>{% trans "Related events" %}:</dt>
-                    <dd>
-                    {% for ev in form_step_data.step_main_data.related_events %}
-                        <a href="{{ ev.get_url_path }}">{{ ev.get_title }}</a><br />
-                    {% endfor %}
-                    </dd>
+                        <dd class="clearfix"></dd>
+                    {% endif %}
                 </dl>
-            </div>
-            {% endif %}
-            -->{% endcomment %}
-            <div class="check">
-                <dl>
-                    <dt>{% trans "Organizer" %}:</dt>
+            </fieldset>
+        </div>
+        <div class="fieldset not-editable">
+            <fieldset>
+                <h2>{% trans "Additional Information" %}</h2>
+                <dl class="input-fields">
+                    <dt>{% trans "Organizer" %}</dt>
                     <dd>
                         {% ifequal form_step_data.step_main_data.organizer_ind "1" %}
                             <address>
                                 {% if form_step_data.step_main_data.organizing_institution %}
-                                    {% get_institution form_step_data.step_main_data.organizing_institution as organizing_institution %}
+                                    {% with form_step_data.step_main_data.organizing_institution as organizing_institution %}
 
-                                    <a href="{{ organizing_institution.get_url_path }}">{{ organizing_institution.get_title }}</a>
-                                    <br/>
-                                    {% with organizing_institution.get_primary_contact as organizing_institution_contact %}
-                                        {{ organizing_institution_contact.street_address|escape }}<br/>
-                                        {% if organizing_institution_contact.street_address2 %}
-                                            {{ organizing_institution_contact.street_address2|escape }}<br/>
-                                        {% endif %}
-                                        {{ organizing_institution_contact.postal_code|escape }}
-                                        {{ organizing_institution_contact.city|escape }}<br/>
-                                        {{ organizing_institution_contact.country_name }}
+                                        <a href="{{ organizing_institution.get_url_path }}">{{ organizing_institution.get_title }}</a>
+                                        <br/>
+                                        {% with organizing_institution.get_primary_contact as organizing_institution_contact %}
+                                            {{ organizing_institution_contact.street_address|escape }}<br/>
+                                            {% if organizing_institution_contact.street_address2 %}
+                                                {{ organizing_institution_contact.street_address2|escape }}<br/>
+                                            {% endif %}
+                                            {{ organizing_institution_contact.postal_code|escape }}
+                                            {{ organizing_institution_contact.city|escape }}<br/>
+                                            {{ organizing_institution_contact.country_name }}
+                                        {% endwith %}
                                     {% endwith %}
                                 {% else %}
                                     {{ form_step_data.step_main_data.organizer_title }}<br/>
@@ -306,21 +288,24 @@
                             <a href="{{ request.user.profile.get_url_path }}">{{ request.user.profile.get_title }}</a>
                         {% endifequal %}
                     </dd>
+                    <dd class="clearfix"></dd>
                 </dl>
-            </div>
+            </fieldset>
+        </div>
 
-            <div class="cleaner"></div>
-            <h3>{% trans "Category" %}</h3>
-            <div class="check">
-                <dl>
-                    <dt>{% trans "Categories" %}:</dt>
+        <div class="fieldset not-editable">
+            <fieldset>
+                <h2>{% trans "Category" %}</h2>
+                <dl class="input-fields">
+
+                    <dt>{% trans "Categories" %}</dt>
                     <dd>
                         {% for cat in form_step_data.step_categories.categories %}
                             {{ cat.title }}{% if not forloop.last %}, {% endif %}
                         {% endfor %}
                     </dd>
                     {% if form_step_data.step_categories.tags %}
-                        <dt>{% trans "Tags" %}:</dt>
+                        <dt>{% trans "Tags" %}</dt>
                         <dd>
                             {% with form_step_data.step_categories.tags|slice:"-2:" as trailing_coma %}
                                 {% ifequal trailing_coma ", " %}
@@ -331,25 +316,11 @@
                             {% endwith %}
                         </dd>
                     {% endif %}
+
                 </dl>
-            </div>
-            <div id="line_end_fieldset_no_marge"></div>
-            {% include "utils/step_buttons_reg.html" %}
-            <div class="cleaner"></div>
-        </form>
-    </div>
-{% endblock %}
+            </fieldset>
+        </div>
 
-{% block breadcrumbs %}
-    <div class="breadcrumbs">
-        <a href="/">{% trans "Home" %}</a>
-        <span class="b-sep"><span>::</span></span>
-        <a href="/{{ URL_ID_EVENTS }}/">{% trans "Events" %}</a>
-        <span class="b-sep"><span>::</span></span><span>{% trans "Add new event" %}</span>
-    </div>
+        {% include "utils/step_buttons_reg.html" %}
+    </form>
 {% endblock %}
-
-{% block extrabody %}
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/add_event.js"></script>
-{% endblock %}
-
