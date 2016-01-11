@@ -353,17 +353,20 @@ class MappedItemManager(models.Manager):
                     item = self.model(content_type=ctype, object_id=obj.id)
                 item.lat = address_dict['latitude']
                 item.lng = address_dict['longitude']
-                # use search/indexes for rendering
-                current_language = get_current_language()
-                for lang_code, lang_name in settings.LANGUAGES:
-                    activate(lang_code)
-                    field_name = "rendered_%s" % lang_code
-                    template_name = 'search/indexes/%s/%s_%s.txt' % (
-                        obj._meta.app_label, obj._meta.module_name, field_name)
-                    t = loader.get_template(template_name)
-                    html = t.render(Context({'object': obj}))
-                    setattr(item, field_name, html)
-                activate(current_language)
+
+                item.rendered_de = item.rendered_en = unicode(obj)
+                # TODO: restore the rendered_individualcontact etc templates if MappedItem is going to be used in the future
+                # # use search/indexes for rendering
+                # current_language = get_current_language()
+                # for lang_code, lang_name in settings.LANGUAGES:
+                #     activate(lang_code)
+                #     field_name = "rendered_%s" % lang_code
+                #     template_name = 'search/indexes/%s/%s_%s.txt' % (
+                #         obj._meta.app_label, obj._meta.module_name, field_name)
+                #     t = loader.get_template(template_name)
+                #     html = t.render(Context({'object': obj}))
+                #     setattr(item, field_name, html)
+                # activate(current_language)
                 try:
                     item.save()
                 except Exception:
