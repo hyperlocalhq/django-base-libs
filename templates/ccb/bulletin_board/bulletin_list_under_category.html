@@ -12,12 +12,11 @@
 {% block body_class %}list{% endblock %}
 
 {% block breadcrumbs %}
-    <a href="/">{% trans "Home" %}</a>
     {% if my_list %}
-        <a href="{% url "bulletin_list" %}">{% trans "Bulletin Board" %}</a>
-        <span>{% trans "My Bulletins" %}</span>
+        <li><a href="{% url "bulletin_list" %}">{% trans "Bulletin Board" %}</a></li>
+        <li>{% trans "My Bulletins" %}</li>
     {% else %}
-        <span>{% trans "Bulletin Board" %}</span>
+        <li>{% trans "Bulletin Board" %}</li>
     {% endif %}
 {% endblock %}
 

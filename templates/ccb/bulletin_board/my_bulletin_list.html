@@ -1,5 +1,5 @@
 {% extends "bulletin_board/bulletin_list.html" %}
-{% load i18n base_tags auth_extended navigation_tags uni_form_tags infoblocks site_specific bulletin_board_tags %}
+{% load i18n base_tags cms_tags auth_extended navigation_tags uni_form_tags infoblocks site_specific bulletin_board_tags %}
 
 {% block extrahead %}
     <link rel="alternate" type="application/rss+xml" title="Projektboerse RSS" href="{{ website_url|slice:":-1" }}{% url "bulletin_rss" %}{% filter force_escape %}{% append_to_get sort_by="" no_path %}{% endfilter %}" />
@@ -8,13 +8,12 @@
 {% block title %}Meine Inserate{% endblock %}
  
 {% block breadcrumbs %}
-    <a href="/">{% trans "Home" %}</a>
-    <a href="{% url "bulletin_list" %}">Projektbörse</a>
-    <span>Meine Inserate</span>
+    <li><a href="{% url "bulletin_list" %}">{% page_attribute "page_title" %}</a></li>
+    <li>{% trans "My Bulletins" %}</li>
 {% endblock %}
 
-{% block content %}
-    {% block tabs %}
+{% block content_old %}
+    {% block tabs_old %}
         <div id="tabs">
             {% navigation_links "bulletin_board" using "navigation/includes/navigation_links_in_tabs.html" %}
         </div>
@@ -36,7 +35,7 @@
     </div>
 {% endblock %}
 
-{% block filter %}
+{% block sidebar %}
     <div class="dyn_facet">
         <h3>Status</h3>
         <ul>

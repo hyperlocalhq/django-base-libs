@@ -1,8 +1,8 @@
 {% extends "base_sidebar.html" %}
-{% load i18n base_tags crispy_forms_tags navigation_tags %}
+{% load i18n base_tags cms_tags crispy_forms_tags navigation_tags %}
 
 {% block title %}
-    {% trans "Marketplace" %}
+    {% page_attribute "page_title" %}
 {% endblock %}
 
 {% block header_image %}
@@ -11,11 +11,11 @@
 {% endblock %}
 
 {% block headline %}
-    <h1>{% trans "Marketplace" %}</h1>
+    <h1>{% page_attribute "page_title" %}</h1>
 {% endblock %}
 
 {% block breadcrumbs %}
-    <li>{% trans "Marketplace" %}</li>
+    <li>{% page_attribute "page_title" %}</li>
 {% endblock %}
 
 {% block tabs %}
@@ -23,7 +23,7 @@
         <div class="container">
             <div class="row">
                 <div class="hidden-xs col-sm-4 col-md-3 headline">
-                    <h2>{% trans "Marketplace" %}</h2>
+                    <h2>{% page_attribute "page_title" %}</h2>
                 </div>
                 <div class="navi">
                     <nav>

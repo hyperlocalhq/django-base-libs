@@ -1,5 +1,5 @@
-{% extends "base.html" %}
-{% load i18n image_mods_tags base_tags crispy_forms_tags %}
+{% extends "bulletin_board/bulletin_list.html" %}
+{% load i18n image_mods_tags cms_tags base_tags crispy_forms_tags %}
 
 {% block bodyclass %}count{% endblock %}
 
@@ -29,27 +29,21 @@
 {% endblock %}
  
 {% block breadcrumbs %}
-    <a href="/">{% trans "Home" %}</a>
-    <a href="{% url "bulletin_list" %}">{% trans "Bulletin Board" %}</a>
+    <li><a href="{% url "bulletin_list" %}">{% page_attribute "page_title" %}</a></li>
+    <li>{% trans "My Bulletins" %}</li>
     {% if bulletin %}
-        <span>{{ bulletin.title }} ({% if bulletin.status == "published" %}{% trans "Published" %}{% else %}{% trans "Draft" %}{% endif %})</span>
+        <li>{{ bulletin.title }} ({% if bulletin.status == "published" %}{% trans "Published" %}{% else %}{% trans "Draft" %}{% endif %})</li>
     {% else %}
-        <span>{% trans "Create Bulletin" %}</span>
+        <li>{% trans "Create Bulletin" %}</li>
     {% endif %}
 {% endblock %}
 
-{% block sidebar-a %}
+{% block sidebar %}
     {% include "utils/step_list.html" %}
 {% endblock %}
 
-{% block content %}
-    <div id="bulletin_change">
-        <div class="container">
-            <div class="content">
-                {% crispy form %}
-            </div>
-        </div>
-    </div>
+{% block details %}
+    {% crispy form "ccb_form" %}
 
     <script>
         var translatable_file_uploader_options = {
