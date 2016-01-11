@@ -22,37 +22,39 @@
                 <h2>{% trans "Main Data" %}</h2>
                 <dl class="input-fields">
                     {% if institution or form_step_data.step_main_data.offering_institution_title %}
-                        <dt>{% trans "Institution/Company" %}:</dt>
-                        <dd>
+                        <dt>{% trans "Institution/Company" %}</dt>
+                        <dd><div class="text-field">
                             {% if institution %}
                                 <a href="{{ institution.get_url_path }}">{{ institution.get_title }}</a>
                             {% else %}
                                 {{ form_step_data.step_main_data.offering_institution_title }}
                             {% endif %}
-                        </dd>
+                        </div></dd>
                     {% endif %}
 
-                    <dt>{% trans "Job type" %}:</dt>
-                    <dd>{{ form_step_data.step_main_data.job_type }}</dd>
+                    <dt>{% trans "Job type" %}</dt>
+                    <dd><div class="text-field">{{ form_step_data.step_main_data.job_type }}</div></dd>
                     <dd class="clearfix"></dd>
 
                     {% if form_step_data.step_main_data.qualifications %}
                         <dt>{% trans "Qualification" %}:</dt>
-                        <dd>{% for q in form_step_data.step_main_data.qualifications %}
+                        <dd><div class="text-field">
+                            {% for q in form_step_data.step_main_data.qualifications %}
                             {% if not forloop.first and not forloop.last %}, {% endif %}
                             {% if forloop.last and not forloop.first %} {% trans "or" %} {% endif %}
                             {% if forloop.first %}{{ q.title|capfirst }}{% else %}{{ q.title|lower }}
-                            {% endif %}{% endfor %}</dd>
+                            {% endif %}{% endfor %}
+                        </div></dd>
                         <dd class="clearfix"></dd>
                     {% endif %}
 
-                    <dt>{% trans "Description" %}:</dt>
-                    <dd>{{ form_step_data.step_main_data.description|urlize|linebreaksbr }}</dd>
+                    <dt>{% trans "Description" %}</dt>
+                    <dd><div class="text-field">{{ form_step_data.step_main_data.description|urlize|linebreaksbr }}</div></dd>
                     <dd class="clearfix"></dd>
 
                     {% if form_step_data.step_main_data.end_date %}
                         <dt>{% trans "Published till" %}</dt>
-                        <dd>{{ form_step_data.step_main_data.end_date|datefmt:"medium" }}</dd>
+                        <dd><div class="text-field">{{ form_step_data.step_main_data.end_date|datefmt:"medium" }}</div></dd>
                         <dd class="clearfix"></dd>
                     {% endif %}
                 </dl>
@@ -63,9 +65,8 @@
             <fieldset>
                 <h2>{% trans "Contact Info" %}</h2>
                 <dl class="input-fields">
-                    <dt>{% trans "Address" %}:</dt>
-                    <dd>
-                        <address>
+                    <dt>{% trans "Address" %}</dt>
+                    <dd><div class="text-field">
                             {% if institution or form_step_data.step_main_data.offering_institution_title %}
                                 {% if institution %}
                                     {{ institution.get_title }}
@@ -79,56 +80,56 @@
                             {% endif %}
                             {{ form_step_data.step_main_data.postal_code|escape }} {{ form_step_data.step_main_data.city|escape }}<br/>
                             {{ form_step_data.step_main_data.get_country_display }}
-                        </address>
-                    </dd>
+                    </div></dd>
                     <dd class="clearfix"></dd>
 
                     {% ifequal form_step_data.step_main_data.contact_person_ind "0" %}
                         <dt>{% trans "Contact Person" %}</dt>
-                        <dd>
+                        <dd><div class="text-field">
                             <a href="{{ request.user.profile.get_url_path }}">{{ request.user.profile.get_title }}</a>
-                        </dd>
+                        </div></dd>
                         <dd class="clearfix"></dd>
                     {% else %}
                         {% if form_step_data.step_main_data.contact_person_name %}
                             <dt>{% trans "Contact Person" %}</dt>
-                            <dd>{{ form_step_data.step_main_data.contact_person_name }}</dd>
+                            <dd><div class="text-field">{{ form_step_data.step_main_data.contact_person_name }}</div></dd>
                             <dd class="clearfix"></dd>
                         {% endif %}
                     {% endifequal %}
 
                     {% if form_step_data.step_main_data.phone_number %}
                         <dt>{% trans "Phone" %}:</dt>
-                        <dd>+{% if form_step_data.step_main_data.phone_country %}
+                        <dd><div class="text-field">
+                            +{% if form_step_data.step_main_data.phone_country %}
                             {{ form_step_data.step_main_data.phone_country }}{% else %}
                             49{% endif %}
                             -{{ form_step_data.step_main_data.phone_area }}-{{ form_step_data.step_main_data.phone_number }}
-                        </dd>
+                        </div></dd>
                         <dd class="clearfix"></dd>
                     {% endif %}
 
                     {% if form_step_data.step_main_data.fax_number %}
                         <dt>{% trans "Fax" %}:</dt>
-                        <dd>+{% if form_step_data.step_main_data.fax_country %}
+                        <dd><div class="text-field">
+                            +{% if form_step_data.step_main_data.fax_country %}
                             {{ form_step_data.step_main_data.fax_country }}{% else %}
                             49{% endif %}
                             -{{ form_step_data.step_main_data.fax_area }}-{{ form_step_data.step_main_data.fax_number }}
-                        </dd>
+                        </div></dd>
                         <dd class="clearfix"></dd>
                     {% endif %}
 
                     {% if form_step_data.step_main_data.email0_address %}
                         <dt>{% trans "Email" %}:</dt>
-                        <dd>{{ form_step_data.step_main_data.email0_address }}
-                        </dd>
+                        <dd><div class="text-field">{{ form_step_data.step_main_data.email0_address }}</div></dd>
                         <dd class="clearfix"></dd>
                     {% endif %}
 
                     {% if form_step_data.step_main_data.email0_address %}
                         <dt>{% trans "Homepage" %}:</dt>
-                        <dd>
+                        <dd><div class="text-field">
                             <a href="{{ form_step_data.step_main_data.url0_link }}">{{ form_step_data.step_main_data.url0_link }}</a>
-                        </dd>
+                        </div></dd>
                         <dd class="clearfix"></dd>
                     {% endif %}
                 </dl>
@@ -143,17 +144,17 @@
                     <dl class="input-fields">
                         {% if job_sectors %}
                             <dt>{% trans "Job Sector" %}:</dt>
-                            <dd>
+                            <dd><div class="text-field">
                                 {% for job_sector in job_sectors %}
                                     {{ job_sector.title }}{% if not forloop.last %}, {% endif %}
                                 {% endfor %}
-                            </dd>
+                            </div></dd>
                             <dd class="clearfix"></dd>
                         {% endif %}
 
                         {% if form_step_data.step_categories.tags %}
                             <dt>{% trans "Tags" %}:</dt>
-                            <dd>
+                            <dd><div class="text-field">
                                 {% with form_step_data.step_categories.tags|slice:"-2:" as trailing_coma %}
                                     {% ifequal trailing_coma ", " %}
                                         {{ form_step_data.step_categories.tags|slice:"0:-2" }}
@@ -161,7 +162,7 @@
                                         {{ form_step_data.step_categories.tags }}
                                     {% endifequal %}
                                 {% endwith %}
-                            </dd>
+                            </div></dd>
                             <dd class="clearfix"></dd>
                         {% endif %}
                     </dl>

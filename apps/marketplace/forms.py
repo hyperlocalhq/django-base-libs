@@ -213,24 +213,16 @@ class MainDataForm(dynamicforms.Form):
                 "description",
             ),
             layout.Fieldset(
-                _("Institution/Company"),
-                "offering_institution",
+                _("Institution"),
+                layout.Field("offering_institution", wrapper_class="institution-select autocomplete"),
                 layout.HTML("""{% load i18n %}
-                    <p class="disclaimer">
-                        <a id="link_enter_institution" href="#block_institution_title_input">{% trans "Not listed? Enter manually" %}</a>
-                    </p>
+                    <dt class="institution-select"> </dt><dd class="institution-select"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-input" data-toggle-hide=".institution-select">{% trans "Not listed? Enter manually" %}</a></dd>
                 """),
-                css_id="block_institution_select",
-            ),
-            layout.Fieldset(
-                _("Institution/Company"),
-                "offering_institution_title",
+                
+                layout.Field("offering_institution_title", wrapper_class="institution-input hidden"),
                 layout.HTML("""{% load i18n %}
-                    <p class="disclaimer">
-                        <a id="link_enter_institution" href="#block_institution_select">{% trans "Back to selection" %}</a>
-                    </p>
+                    <dt class="institution-input hidden"> </dt><dd class="institution-input hidden"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-select" data-toggle-hide=".institution-input">{% trans "Back to selection" %}</a></dd>
                 """),
-                css_id="block_institution_title_input",
             ),
             layout.Fieldset(
                 _("Address"),
@@ -324,7 +316,7 @@ class MainDataForm(dynamicforms.Form):
                 ),
             ),
             bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
+                layout.HTML("""{% include "utils/step_buttons_reg.html" %}"""),
             )
         )
 
@@ -352,6 +344,7 @@ class MainDataForm(dynamicforms.Form):
 
 
 class CategoriesForm(dynamicforms.Form):
+
     job_sectors = forms.ModelMultipleChoiceField(
         queryset=get_related_queryset(JobOffer, "job_sectors"),
         required=True,
@@ -382,14 +375,12 @@ class CategoriesForm(dynamicforms.Form):
                 _("Categories"),
                 "job_sectors",
                 layout.HTML("""{% load i18n %}
-                    <p class="disclaimer">{% blocktrans %}Is some category missing? You can <a href="/ticket/new-category/">suggest it here</a>.{% endblocktrans %}</p>
+                    <p class="disclaimer">{% blocktrans %}Is some category missing? You can <a href="/ticket/new-category/" target="_blank">suggest it here</a>.{% endblocktrans %}</p>
                 """),
                 "tags",
             ),
             bootstrap.FormActions(
-                layout.Submit('reset', _('Reset')),
-                layout.HTML("""{% include "bootstrap3/custom_widgets/previous_button.html" %}"""),
-                layout.Submit('submit', _('Next')),
+                layout.HTML("""{% include "utils/step_buttons_reg.html" %}"""),
             )
         )
 
@@ -425,11 +416,6 @@ class ReportForm(dynamicforms.Form):
                 "report_kulturmanagement",
                 "report_talent_in_berlin",
             ),
-            bootstrap.FormActions(
-                layout.Submit('reset', _('Reset')),
-                layout.HTML("""{% include "bootstrap3/custom_widgets/previous_button.html" %}"""),
-                layout.Submit('submit', _('Next')),
-            )
         )
 
 
