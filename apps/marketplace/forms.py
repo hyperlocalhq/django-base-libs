@@ -5,6 +5,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.template import loader
 from django.utils.dates import MONTHS
+from django.utils.translation import string_concat
 from django.conf import settings
 from django.db import models
 from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
@@ -229,18 +230,17 @@ class MainDataForm(dynamicforms.Form):
                 "street_address",
                 "street_address2",
                 layout.MultiField(
-                    _("Location"),
+                    string_concat(_('ZIP'), "*, ", _('City'), "*"),
                     layout.Field(
                         "postal_code",
-                        wrapper_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-                        template="ccb_form/multifield.html"
+                        wrapper_class = "col-xs-4 col-sm-5 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "city",
-                        wrapper_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-                        template="ccb_form/multifield.html"
-                    ),
-                    css_class="show-labels"
+                        wrapper_class = "col-xs-8 col-sm-7 col-md-9 col-lg-9",
+                        template = "ccb_form/multifield.html"
+                    )
                 ),
                 "country",
             ),
