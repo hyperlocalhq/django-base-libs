@@ -24,11 +24,11 @@
 
         <div class="events_profile reg-block">
             {% if form_step_data.step_event_profile.image %}
-            <img class="avatar"
-                src="/helper/tmpimage/{{ form_step_data.step_event_profile.image.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/"
-                alt="{{ object.get_title|escape }}"/>
+                <img class="avatar"
+                    src="/helper/tmpimage/{{ form_step_data.step_event_profile.image.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/"
+                    alt="{{ object.get_title|escape }}"/>
             {% else %}
-            <img class="avatar" src="{{ DEFAULT_FORM_LOGO_4_EVENT }}" alt="{{ object.get_title|escape }}"/>
+                <img class="avatar" src="{{ DEFAULT_FORM_LOGO_4_EVENT }}" alt="{{ object.get_title|escape }}"/>
             {% endif %}
         </div>
         {% ifequal LANGUAGE_CODE "de" %}
@@ -41,20 +41,21 @@
             <fieldset>
                 <h2>{% trans "Event Details" %}</h2>
                 <dl class="input-fields">
-                    <dt>{% trans "Address" %}:</dt>
+                    <dt>{% trans "Address" %}</dt>
                     <dd>
                         <address>
                             {% if form_step_data.step_main_data.venue %}
-                                {% get_institution form_step_data.step_main_data.venue as venue %}
+                                {% with form_step_data.step_main_data.venue as venue %}
 
-                                <a href="{{ venue.get_url_path }}">{{ venue.get_title }}</a><br/>
-                                {% with venue.get_primary_contact as venue_contact %}
-                                    {{ venue_contact.street_address|escape }}<br/>
-                                    {% if venue_contact.street_address2 %}
-                                        {{ venue_contact.street_address2|escape }}<br/>
-                                    {% endif %}
-                                    {{ venue_contact.postal_code|escape }} {{ venue_contact.city|escape }}<br/>
-                                    {{ venue_contact.country_name }}
+                                    <a href="{{ venue.get_url_path }}">{{ venue.get_title }}</a><br/>
+                                    {% with venue.get_primary_contact as venue_contact %}
+                                        {{ venue_contact.street_address|escape }}<br/>
+                                        {% if venue_contact.street_address2 %}
+                                            {{ venue_contact.street_address2|escape }}<br/>
+                                        {% endif %}
+                                        {{ venue_contact.postal_code|escape }} {{ venue_contact.city|escape }}<br/>
+                                        {{ venue_contact.country_name }}
+                                    {% endwith %}
                                 {% endwith %}
                             {% else %}
                                 {{ form_step_data.step_main_data.venue_title }}<br/>
@@ -71,7 +72,7 @@
                     <dd class="clearfix"></dd>
 
                     {% if form_step_data.step_main_data.phone_number %}
-                        <dt>{% trans "Phone" %}:</dt>
+                        <dt>{% trans "Phone" %}</dt>
                         <dd>+{% if form_step_data.step_main_data.phone_country %}
                             {{ form_step_data.step_main_data.phone_country }}{% else %}
                             49{% endif %}
@@ -80,7 +81,7 @@
                     {% endif %}
 
                     {% if form_step_data.step_main_data.fax_number %}
-                        <dt>{% trans "Fax" %}:</dt>
+                        <dt>{% trans "Fax" %}</dt>
                         <dd>+{% if form_step_data.step_main_data.fax_country %}
                             {{ form_step_data.step_main_data.fax_country }}{% else %}
                             49{% endif %}
@@ -89,13 +90,13 @@
                     {% endif %}
 
                     {% if form_step_data.step_main_data.email0_address %}
-                        <dt>{% trans "Email" %}:</dt>
+                        <dt>{% trans "Email" %}</dt>
                         <dd>{{ form_step_data.step_main_data.email0_address }}</dd>
                         <dd class="clearfix"></dd>
                     {% endif %}
 
                     {% if form_step_data.step_main_data.email0_address %}
-                        <dt>{% trans "Homepage" %}:</dt>
+                        <dt>{% trans "Homepage" %}</dt>
                         <dd>
                             <a href="{{ form_step_data.step_main_data.url0_link }}">{{ form_step_data.step_main_data.url0_link }}</a>
                         </dd>
@@ -103,7 +104,7 @@
                     {% endif %}
 
                     {% if form_step_data.step_fees_opening_hours.fees_de or form_step_data.step_fees_opening_hours.fees_en %}
-                        <dt>{% trans "Fees" %}:</dt>
+                        <dt>{% trans "Fees" %}</dt>
                         <dd>{{ form_step_data.step_fees_opening_hours.fees_de }}
                             {% if form_step_data.step_fees_opening_hours.fees_en %}<br/>
                                 {{ form_step_data.step_fees_opening_hours.fees_en }}{% endif %}</dd>
@@ -112,10 +113,10 @@
 
                     {% if form_step_data.step_fees_opening_hours.mon_open or form_step_data.step_fees_opening_hours.mon_is_closed or form_step_data.step_fees_opening_hours.tue_open or form_step_data.step_fees_opening_hours.tue_is_closed or form_step_data.step_fees_opening_hours.wed_open or form_step_data.step_fees_opening_hours.wed_is_closed or form_step_data.step_fees_opening_hours.thu_open or form_step_data.step_fees_opening_hours.thu_is_closed or form_step_data.step_fees_opening_hours.fri_open or form_step_data.step_fees_opening_hours.fri_is_closed or form_step_data.step_fees_opening_hours.sat_open or form_step_data.step_fees_opening_hours.sat_is_closed or form_step_data.step_fees_opening_hours.sun_open or form_step_data.step_fees_opening_hours.sun_is_closed %}
 
-                        <dt>{% trans "Opening Hours" %}:</dt>
+                        <dt>{% trans "Opening Hours" %}</dt>
                         <dd class="time">
                             {% if form_step_data.step_fees_opening_hours.mon_open or form_step_data.step_fees_opening_hours.mon_is_closed %}
-                                {% trans "Monday" %}:
+                                {% trans "Monday" %}
                                 {% if form_step_data.step_fees_opening_hours.mon_is_closed %}
                                     {% trans "closed" %}
                                 {% else %}
@@ -133,7 +134,7 @@
                                 <br/>
                             {% endif %}
                             {% if form_step_data.step_fees_opening_hours.tue_open or form_step_data.step_fees_opening_hours.tue_is_closed %}
-                                {% trans "Tuesday" %}:
+                                {% trans "Tuesday" %}
                                 {% if form_step_data.step_fees_opening_hours.tue_is_closed %}
                                     {% trans "closed" %}
                                 {% else %}
@@ -152,7 +153,7 @@
                             {% endif %}
 
                             {% if form_step_data.step_fees_opening_hours.wed_open or form_step_data.step_fees_opening_hours.wed_is_closed %}
-                                {% trans "Wednesday" %}:
+                                {% trans "Wednesday" %}
                                 {% if form_step_data.step_fees_opening_hours.wed_is_closed %}
                                     {% trans "closed" %}
                                 {% else %}
@@ -171,7 +172,7 @@
                             {% endif %}
 
                             {% if form_step_data.step_fees_opening_hours.thu_open or form_step_data.step_fees_opening_hours.thu_is_closed %}
-                                {% trans "Thursday" %}:
+                                {% trans "Thursday" %}
                                 {% if form_step_data.step_fees_opening_hours.thu_is_closed %}
                                     {% trans "closed" %}
                                 {% else %}
@@ -190,7 +191,7 @@
                             {% endif %}
 
                             {% if form_step_data.step_fees_opening_hours.fri_open or form_step_data.step_fees_opening_hours.fri_is_closed %}
-                                {% trans "Friday" %}:
+                                {% trans "Friday" %}
                                 {% if form_step_data.step_fees_opening_hours.fri_is_closed %}
                                     {% trans "closed" %}
                                 {% else %}
@@ -209,7 +210,7 @@
                             {% endif %}
 
                             {% if form_step_data.step_fees_opening_hours.sat_open or form_step_data.step_fees_opening_hours.sat_is_closed %}
-                                {% trans "Saturday" %}:
+                                {% trans "Saturday" %}
                                 {% if form_step_data.step_fees_opening_hours.sat_is_closed %}
                                     {% trans "closed" %}
                                 {% else %}
@@ -228,7 +229,7 @@
                             {% endif %}
 
                             {% if form_step_data.step_fees_opening_hours.sun_open or form_step_data.step_fees_opening_hours.sun_is_closed %}
-                                {% trans "Sunday" %}:
+                                {% trans "Sunday" %}
                                 {% if form_step_data.step_fees_opening_hours.sun_is_closed %}
                                     {% trans "closed" %}
                                 {% else %}
@@ -255,23 +256,24 @@
             <fieldset>
                 <h2>{% trans "Additional Information" %}</h2>
                 <dl class="input-fields">
-                    <dt>{% trans "Organizer" %}:</dt>
+                    <dt>{% trans "Organizer" %}</dt>
                     <dd>
                         {% ifequal form_step_data.step_main_data.organizer_ind "1" %}
                             <address>
                                 {% if form_step_data.step_main_data.organizing_institution %}
-                                    {% get_institution form_step_data.step_main_data.organizing_institution as organizing_institution %}
+                                    {% with form_step_data.step_main_data.organizing_institution as organizing_institution %}
 
-                                    <a href="{{ organizing_institution.get_url_path }}">{{ organizing_institution.get_title }}</a>
-                                    <br/>
-                                    {% with organizing_institution.get_primary_contact as organizing_institution_contact %}
-                                        {{ organizing_institution_contact.street_address|escape }}<br/>
-                                        {% if organizing_institution_contact.street_address2 %}
-                                            {{ organizing_institution_contact.street_address2|escape }}<br/>
-                                        {% endif %}
-                                        {{ organizing_institution_contact.postal_code|escape }}
-                                        {{ organizing_institution_contact.city|escape }}<br/>
-                                        {{ organizing_institution_contact.country_name }}
+                                        <a href="{{ organizing_institution.get_url_path }}">{{ organizing_institution.get_title }}</a>
+                                        <br/>
+                                        {% with organizing_institution.get_primary_contact as organizing_institution_contact %}
+                                            {{ organizing_institution_contact.street_address|escape }}<br/>
+                                            {% if organizing_institution_contact.street_address2 %}
+                                                {{ organizing_institution_contact.street_address2|escape }}<br/>
+                                            {% endif %}
+                                            {{ organizing_institution_contact.postal_code|escape }}
+                                            {{ organizing_institution_contact.city|escape }}<br/>
+                                            {{ organizing_institution_contact.country_name }}
+                                        {% endwith %}
                                     {% endwith %}
                                 {% else %}
                                     {{ form_step_data.step_main_data.organizer_title }}<br/>
@@ -296,14 +298,14 @@
                 <h2>{% trans "Category" %}</h2>
                 <dl class="input-fields">
 
-                    <dt>{% trans "Categories" %}:</dt>
+                    <dt>{% trans "Categories" %}</dt>
                     <dd>
                         {% for cat in form_step_data.step_categories.categories %}
                             {{ cat.title }}{% if not forloop.last %}, {% endif %}
                         {% endfor %}
                     </dd>
                     {% if form_step_data.step_categories.tags %}
-                        <dt>{% trans "Tags" %}:</dt>
+                        <dt>{% trans "Tags" %}</dt>
                         <dd>
                             {% with form_step_data.step_categories.tags|slice:"-2:" as trailing_coma %}
                                 {% ifequal trailing_coma ", " %}
