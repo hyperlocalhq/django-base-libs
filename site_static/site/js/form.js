@@ -1005,6 +1005,7 @@ $(document).ready(function() {
     });
     
     
+    
     // fieldset functionalities
     function Fieldset($main) {
         
@@ -1016,17 +1017,52 @@ $(document).ready(function() {
         me.font_size_correction = 0.65;
         
         me.$main = $main;
+        me.$body = $('body');
+        me.$window = $(window);
+        me.width = -1;
+        me.height = -1;
+        me.child = null;
+        
+        me.init();
+        
+        $(window).resize(function() {me.onResize();});
+    }
+    
+    Fieldset.iframe_counter = 0;
+    
+    Fieldset.prototype.init = function() {
+     
+        var me = this.me;
+        
         me.$fieldset = $('fieldset', me.$main);
         me.$files = $('.input-field input[type="file"]', me.$fieldset);
         me.$selects = $('.input-field select', me.$fieldset);
         me.$collapse_selects = $('.row.collapse > * select', me.$fieldset);
         me.$textareas = $('.input-field textarea', me.$fieldset);
         
-        if (me.$main.hasClass('editable')) me.editable();
         
-        $(window).resize(function() {me.onResize();});
+        me.iframe_id = -1;
+        me.edit_url = me.$main.attr('data-edit-url');
+        me.parent = window.frameElement;
+        if (me.parent) {
+            var id = me.parent.id.split("-")[1];
+            if (window.parent.iframe_fieldset) {
+                me.parent = window.parent.iframe_fieldset[id];
+                me.parent.child = me;
+                window.setInterval(function() {me.checkHeight();}, 100);
+            } else me.parent = null;
+        }
         
-        me.collapseColumns();
+        
+        if (me.parent && me.$fieldset.prop('disabled')) {
+            
+            me.parent.replaceMainMarkup(me.$main.html());
+            
+        } else {
+                
+            if (me.$main.hasClass('editable')) me.editable();
+            
+        }
     }
     
     Fieldset.prototype.editable = function() {
@@ -1039,50 +1075,136 @@ $(document).ready(function() {
             me.$main.addClass('disabled');
         }
         
-        var toggle = function(me, event, disable) {
+        
+        // the toggle is done by loading the edit markup
+        // into an iframe, not by switching style classes
+        if (me.edit_url) {
             
-            var disabled = (typeof disable == "undefined") ? me.$fieldset.get(0).disabled : !disable;
-            
-            if (disabled) {
-                
-                me.edit_button.removeClass('fa-edit');
-                me.edit_button.addClass('fa-close');
-                me.$fieldset.prop('disabled', false);
-                me.$main.removeClass('disabled');
-                $('.sr-only', me.edit_button).text(trans['close']);
-                
-            } else {
-                
-                me.edit_button.addClass('fa-edit');
-                me.edit_button.removeClass('fa-close');
-                me.$fieldset.prop('disabled', true);
-                me.$main.addClass('disabled');
-                $('.sr-only', me.edit_button).text(trans['edit']);
+            if (me.$iframe) {
+                me.$iframe.remove();
+                window.iframe_fieldset[me.iframe_id] = null;
             }
             
-            me.$files.each(function() {
-                $(this).data('InputFile').setDisabled(!disabled);  
-            })
+            me.iframe_id = Fieldset.iframe_counter;
+            Fieldset.iframe_counter++;
             
-            me.$selects.each(function() {
-                $(this).data('SelectBox').setDisabled(!disabled);  
-            })
+            me.$iframe = $('<iframe src="'+me.edit_url+'" class="iframe-edit" id="fieldset-'+me.iframe_id+'" frameborder="0" scrolling="no"></iframe>');
+            me.$main.after(me.$iframe);   
             
-            me.$textareas.each(function() {
-                $(this).data('TextArea').resize();  
-            })
+            if (!window.iframe_fieldset) window.iframe_fieldset = [];
+            window.iframe_fieldset[me.iframe_id] = me;
             
-            me.collapseColumns();
-            
-            return false;            
         }
         
         me.edit_button = $('<button class="edit-button button fawesome fa-'+button+' smaller primary"><span class="sr-only">'+trans[button]+'</span></button>');
-        me.edit_button.click(function(e) {return toggle(me, e);});
-        $('.cancel', me.$main).click(function(e) {return toggle(me, e, true);});
+        me.edit_button.click(function(e) {me.toggle(); return false;});
+        $('.cancel', me.$main).click(function(e) {me.toggle(true); return false;});
         
         
         if (me.$main.hasClass('switch')) me.$main.prepend(me.edit_button);
+        
+        me.onResize();
+    }
+    
+    Fieldset.prototype.toggle = function(disable) {
+        
+        var me = this;
+        
+        // you are in an iframe
+        // let the parent do the work
+        if (me.parent) {
+            me.parent.toggle(true);
+            return;
+        }
+            
+        // your edit markup is in an iframe
+        // toggle display of iframe and none iframe markup
+        if (me.edit_url) {
+            
+            if (disable) {
+                me.$iframe.css('display', '');
+                me.$main.css('display', '');
+            } else {
+                me.$iframe.css('display', 'block');
+                me.$main.css('display', 'none');
+                window.setTimeout(function() {me.child.sizeParentIFrame();}, 0);
+            }
+            
+            return;
+        }
+        
+        
+        // do the toggle by switching style classes
+        var disabled = (typeof disable == "undefined") ? me.$fieldset.get(0).disabled : !disable;
+        
+        if (disabled) {
+            
+            me.edit_button.removeClass('fa-edit');
+            me.edit_button.addClass('fa-close');
+            me.$fieldset.prop('disabled', false);
+            me.$main.removeClass('disabled');
+            $('.sr-only', me.edit_button).text(trans['close']);
+            
+        } else {
+            
+            me.edit_button.addClass('fa-edit');
+            me.edit_button.removeClass('fa-close');
+            me.$fieldset.prop('disabled', true);
+            me.$main.addClass('disabled');
+            $('.sr-only', me.edit_button).text(trans['edit']);
+        }
+        
+        me.$files.each(function() {
+            $(this).data('InputFile').setDisabled(!disabled);  
+        })
+        
+        me.$selects.each(function() {
+            $(this).data('SelectBox').setDisabled(!disabled);  
+        })
+        
+        me.$textareas.each(function() {
+            $(this).data('TextArea').resize();  
+        })
+        
+        me.collapseColumns();
+        
+    }
+    
+    Fieldset.prototype.checkHeight = function() {
+     
+        var me = this.me;
+        
+        if (me.height != me.$body.height()) {
+            me.height = me.$body.height();
+            me.onResize();
+        }
+    }
+    
+    Fieldset.prototype.sizeIFrame = function(height) {
+        
+        var me = this.me;
+        
+        if (!me.$iframe) return;
+        
+        me.$iframe.height(height);
+    }
+    
+    Fieldset.prototype.sizeParentIFrame = function() {
+     
+        var me = this.me;
+        
+        if (me.parent) {
+            me.parent.sizeIFrame(me.$body.height());
+        }   
+    }
+    
+    Fieldset.prototype.replaceMainMarkup = function(markup) {
+     
+        var me = this.me;
+        
+        me.$main.html(markup);
+        me.init();
+        me.toggle(true);
     }
     
     Fieldset.prototype.collapseColumns = function() {
@@ -1117,6 +1239,15 @@ $(document).ready(function() {
         var me = this.me;
         
         me.collapseColumns();
+        me.sizeParentIFrame();
+        
+        if (me.width == me.$window.width()) return;
+        me.width = me.$window.width();
+        
+        if (me.$iframe) {
+            me.$iframe.css('width', '');
+            me.$iframe.width(me.$iframe.width() - 10);
+        }
     }
     
     $('.fieldset').each(function() {

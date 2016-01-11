@@ -1,7 +1,7 @@
 {% load i18n image_mods_tags %}
 <p class="preview-img">
     {% if gallery.cover_image %}
-        <img src="{{ UPLOADS_URL }}{{ gallery.cover_image|modified_path:"gp" }}"
+        <img src="{{ UPLOADS_URL }}{{ gallery.cover_image|modified_path:"article" }}"
             alt="{% trans "Album cover" %}"/>
         <a href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/delete-cover/">
             {% trans "Delete image" %}

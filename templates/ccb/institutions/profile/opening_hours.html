@@ -2,8 +2,8 @@
 
 
 {% if object.are_opening_hours_displayed %}
-    <div class="fieldset not-editable ">
-        <fieldset>
+    <div class="fieldset {% if_has_perm "institutions.change_institution" object %}editable switch{% else %}not-editable{% end_if_has_perm %}" data-edit-url="{% url 'edit_profile' object_type='institution' slug=object.slug %}opening_hours/">
+        <fieldset disabled>
             <h2>{% trans "Opening hours" %}</h2>
         
             {% if object.has_opening_hours %}
@@ -31,6 +31,7 @@
                                 {% trans "closed" %}
                             {% endif %}
                         </div></dd>
+                        <dd class="clearfix"></dd>
                      {% endfor %}
                 </dl>
                 
@@ -38,6 +39,7 @@
                     <dl class="input-fields">
                         <dt></dt>
                         <dd><div class="text-field">{{ object.get_rendered_exceptions }}</div></dd>
+                        <dd class="clearfix"></dd>
                     </dl>
                 {% endif %}
                 
@@ -47,6 +49,7 @@
                 <dl class="input-fields">
                     <dt></dt>
                     <dd><div class="text-field">{% trans "Visiting by appointment." %}</div></dd>
+                    <dd class="clearfix"></dd>
                 </dl>
             {% endif %}
     

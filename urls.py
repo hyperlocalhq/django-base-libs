@@ -363,7 +363,7 @@ urlpatterns += patterns(
 
     url(r'^helper/edit-(?P<object_type>%s|%s|%s|%s|%s|%s)-profile/(?P<slug>[^/]+)/$' % (
         URL_ID_JOB_OFFER, URL_ID_EVENT, URL_ID_DOCUMENT, URL_ID_PERSONGROUP, URL_ID_INSTITUTION, URL_ID_PERSON),
-        'ccb.apps.site_specific.views.edit_profile'),
+        'ccb.apps.site_specific.views.edit_profile', name="edit_profile"),
 
     url(
         r'^helper/edit-(?P<object_type>%s|%s|%s|%s|%s|%s)-profile/'

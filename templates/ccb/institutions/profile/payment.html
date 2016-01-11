@@ -1,15 +1,16 @@
 {% load i18n base_tags auth_extended %}
 
 
-{% if object.are_payments_displayed %}
-    <div class="fieldset not-editable ">
-        <fieldset>
+{% if object.are_payments_displayed or perms.institutions.change_institution %}
+    <div class="fieldset {% if_has_perm "institutions.change_institution" object %}editable switch{% else %}not-editable{% end_if_has_perm %}" data-edit-url="{% url 'edit_profile' object_type='institution' slug=object.slug %}payment/">
+        <fieldset disabled>
             <h2>{% trans "Payment" %}</h2>
         
             {% if object.get_supported_payments %}
                 <dl class="input-fields">
                     <dt>{% trans "Supported Payment" %}</dt>
                     <dd><div class="text-field">{{ object.get_supported_payments|join:", " }}</div></dd>
+                    <dd class="clearfix"></dd>
                 </dl>
             {% endif %}
     

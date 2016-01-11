@@ -1307,6 +1307,10 @@ input {
             color: $grey-darker;
             letter-spacing: 0.07em;
             font-weight: $font-black;
+            
+            &.section {
+                margin-top: 80px;
+            }
         }
         
         dl.input-fields {
@@ -1638,4 +1642,9 @@ input {
     }
 }
 
-
+.iframe-edit {
+    width: 100%;
+    display: none;
+    border: none;
+    margin: -5px;
+}
