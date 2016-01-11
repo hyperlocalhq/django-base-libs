@@ -1,7 +1,7 @@
 {% load i18n base_tags auth_extended %}
 
 {% if object.get_contacts or perms.institutions.change_institution %}
-    <div class="fieldset {% if_has_perm "institutions.change_institution" object %}editable switch{% else %}not-editable{% end_if_has_perm %}" data-edit-url="{% url 'edit_profile' object_type='institution' slug=object.slug %}contact/">
+    <div class="fieldset {% if_has_perm "institutions.change_institution" object %}editable switch{% else %}not-editable{% end_if_has_perm %}" data-edit-url="{% url 'edit_profile' object_type='institution' slug=object.slug %}contact/0/">
         <fieldset disabled>
             <h2>{% trans "Contact Data" %}</h2>
             {% for contact in object.get_contacts %}
