@@ -1,6 +1,6 @@
 {% extends "media_gallery/portfolio_base.html" %}
 {% load i18n base_tags babel auth_extended infoblocks image_mods_tags %}
-{% load memos favorites %}
+{% load favorites %}
 
 {% block open_graph %}
     <meta property="og:title" content="{{ gallery.get_title }}"/>
@@ -31,10 +31,7 @@
 {% block object_controls %}
     <ul class="toolbar">
         {% if user.is_authenticated %}
-            <li class="memo">{% adding2memos for gallery %}</li>
             <li class="favorites">{% adding2favorites for gallery %}</li>
-        {% else %}
-            <li class="memo">{% adding2memos for gallery %}</li>
         {% endif %}
     </ul>
     <a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07">Share</a>

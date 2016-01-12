@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% comment %}<!-- UNUSED -->{% endcomment %}
-{% load i18n memos base_tags auth_extended configurable_blocks %}
+{% load i18n base_tags auth_extended configurable_blocks %}
 
 {% block headline %}
     <h1>
@@ -47,9 +47,6 @@
         <div class="hidable">
             <ul>
                 <li>
-                    <a href="/my-profile/memos/">{% trans "All" %}</a>
-                </li>
-                <li>
                     <a href="/browse/feeds/rss/{{ LANGUAGE_CODE }}/?{{ query|escape }}">{% trans "News" %}</a>
                 </li>
                 <li>
@@ -88,9 +85,6 @@
 
         <div class="hidable">
             <ul>
-                <li>
-                    <a href="/my-profile/memos/">{% trans "Profile" %}</a>
-                </li>
                 <li>
                     <a href="/browse/feeds/rss/{{ LANGUAGE_CODE }}/?{{ query|escape }}">{% trans "Messages" %} (<span
                         id="memo_count">{{ request|get_memo_count }}</span>)

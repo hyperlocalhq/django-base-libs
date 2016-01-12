@@ -1,5 +1,5 @@
 {% extends "base_redesign.html" %}
-{% load i18n base_tags auth_extended image_mods_tags navigation_tags browsing favorites memos individual_relations %}
+{% load i18n base_tags auth_extended image_mods_tags navigation_tags browsing favorites individual_relations %}
 
 {% block title %}
     {% ifequal request.user object.user %}
@@ -43,14 +43,12 @@
                     {% adding2favorites for context_item using "generic/favorite_contact.html" %}
                 {% endwith %}
             {% endif %}
-            {% if object.is_addable_to_memos %}{% adding2memos for object %}{% endif %}
             {% adding_individual_relation with object %}
             {% if person.is_contactable %}<a href="{{ person.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "send Email" %}</span></a>{% endif %}
             {% if request.user.is_staff and perms.people.change_person %}
                 <a href="/admin/people/person/{{ object.id }}/" class="fawesome fa-edit button text hidden-xs" onclick="open_new_window(event)"><span class="text">{% trans "edit Person" %}</span></a>
             {% endif %}
         {% else %}
-            {% adding2memos for object %}
             <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-contact button text"><span class="text">{% trans "Contact" %}</span></a>
             {% if object.is_contactable %}<a href="/login/?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "send Email" %}</span></a>{% endif %}
         {% endif %}
@@ -123,7 +121,6 @@
                 <a href="/admin/people/person/{{ object.id }}/" class="fawesome fa-edit button text" target="_blank"><span class="text">{% trans "Edit Person" %}</span></a>
             {% endif %}
         {% else %}
-            {% adding2memos for object %}
             <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-contact button text"><span class="text">{% trans "Contact" %}</span></a>
             {% if object.is_contactable %}<a href="/login/?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>{% endif %}
         {% endif %}

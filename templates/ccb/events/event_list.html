@@ -35,9 +35,6 @@
 {% block breadcrumbs %}
     {% if not show %}
         <li>{% trans "Events" %}</li>
-    {% elif show == "/memos" %}
-        <li><a href="/{{ URL_ID_EVENTS }}/">{% trans "Events" %}</a></li>
-        <li>{% trans "Memos" %}</li>
     {% elif show == "/favorites" %}
         <li><a href="/{{ URL_ID_EVENTS }}/">{% trans "Events" %}</a></li>
         <li>{% trans "Favorites" %}</li>

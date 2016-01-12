@@ -1,5 +1,5 @@
 {% extends "base_redesign.html" %}
-{% load i18n base_tags navigation_tags babel memos %}
+{% load i18n base_tags navigation_tags babel %}
 
 {% block meta_tags %}
     {% if LANGUAGE_CODE == "de" %}
@@ -40,12 +40,9 @@
                 
                 <div class="button-group-left-navi">
                     {% if request.user.is_authenticated %}
-                        {% adding2memos for object %}
                         {% if request.user.is_staff and perms.marketplace.change_joboffer %}
                             <a href="/admin/marketplace/joboffer/{{ object.pk }}/" class="fawesome fa-edit button text" onclick="open_new_window(event)"><span class="text">{% trans "edit Job Offer" %}</span></a>
                         {% endif %}
-                    {% else %}
-                        {% adding2memos for object %}
                     {% endif %}
                 </div>
                 

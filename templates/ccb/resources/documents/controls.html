@@ -1,9 +1,8 @@
-{% load i18n base_tags navigation_tags memos groups_networks browsing favorites %}
+{% load i18n base_tags navigation_tags groups_networks browsing favorites %}
 {% with forloop.counter as counter %}
     {% with document|get_context_item as context_item %}
         <ul class="toolbar">
             {% if user.is_authenticated %}
-                <li class="memo">{% adding2memos for document %}</li>
                 {% comment %}<!--<li class="favorites">{% adding2favorites for context_item %}</li>-->{% endcomment %}
                 {% if request.user.is_staff %}
                     {% if perms.resources.change_document %}
@@ -15,9 +14,6 @@
                         </li>
                     {% endif %}
                 {% endif %}
-            {% else %}
-                <li class="memo">{% adding2memos for document %}</li>
-                {% comment %}<!--<li class="favorites login-required"><a href="/login/?goto_next={{ request.path }}" title="{% trans "Add to favorites" %}"><span>{% trans "Add to favorites" %} ({% trans "login request" %})</span></a></li>-->{% endcomment %}
             {% endif %}
         </ul>
     {% endwith %}

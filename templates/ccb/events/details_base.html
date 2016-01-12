@@ -1,5 +1,5 @@
 {% extends "base_redesign.html" %}
-{% load i18n base_tags auth_extended image_mods_tags navigation_tags babel memos browsing favorites individual_relations %}
+{% load i18n base_tags auth_extended image_mods_tags navigation_tags babel browsing favorites individual_relations %}
 
 {% block title %}{{ object.get_title|escape }}{% endblock %}
 
@@ -26,7 +26,6 @@
                             <h2>{{ object.get_title }}</h2>
                             <div class="buttons">
                                 {% if request.user.is_authenticated %}
-                                    {% adding2memos for object %}
                                     {% with object|get_context_item as context_item %}
                                         {% adding2favorites for context_item %}
                                     {% endwith %}
@@ -34,7 +33,6 @@
                                         <a href="/admin/events/event/{{ object.id }}/" class="fawesome fa-edit button text hidden-xs" onclick="open_new_window(event)"><span class="text">{% trans "edit Event" %}</span></a>
                                     {% endif %}
                                 {% else %}
-                                    {% adding2memos for object %}
                                     <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-favorite button text" ><span class="text">{% trans "Favorite" %}</span></a>
                                 {% endif %}
                             </div>
@@ -68,7 +66,6 @@
                     {#% endif %#}
                 
                     {% if request.user.is_authenticated %}
-                        {% adding2memos for object %}
                         {% with object|get_context_item as context_item %}
                             {% adding2favorites for context_item %}
                         {% endwith %}
@@ -76,7 +73,6 @@
                             <a href="/admin/events/event/{{ object.id }}/" class="fawesome fa-edit button text" onclick="open_new_window(event)"><span class="text">{% trans "edit Event" %}</span></a>
                         {% endif %}
                     {% else %}
-                        {% adding2memos for object %}
                         <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-favorite button text" ><span class="text">{% trans "Favorite" %}</span></a>
                     {% endif %}
                     

@@ -1,8 +1,7 @@
-{% load i18n base_tags navigation_tags memos %}
+{% load i18n base_tags navigation_tags %}
 {% with forloop.counter|default:0 as counter %}
     <ul class="toolbar">
         {% if request.user.is_authenticated %}
-            <li class="memo">{% adding2memos for job_offer %}</li>
             {% if request.user.is_staff %}
                 {% if perms.marketplace.change_joboffer %}
                     <li class="admin_edit">
@@ -13,8 +12,6 @@
                     </li>
                 {% endif %}
             {% endif %}
-        {% else %}
-            <li class="memo">{% adding2memos for job_offer %}</li>
         {% endif %}
     </ul>
 {% endwith %}

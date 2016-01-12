@@ -1,5 +1,5 @@
 {% extends base_template|default:"base_sidebar.html" %}
-{% load i18n base_tags cms_tags menu_tags navigation_tags infoblocks uni_form_tags image_mods_tags memos individual_relations groups_networks browsing favorites crispy_forms_tags %}
+{% load i18n base_tags cms_tags menu_tags navigation_tags infoblocks uni_form_tags image_mods_tags individual_relations groups_networks browsing favorites crispy_forms_tags %}
 
 {% block title %}{% page_attribute "page_title" %} - {{ category.title }}{% endblock %}
 
@@ -125,9 +125,6 @@
                         </a>
                         <div class="button-group">
                             {% if request.user.is_authenticated %}
-                                {% if object.is_addable_to_memos %}
-                                    {% adding2memos for object using "memos/memo_icon.html" %}
-                                {% endif %}
                                 {% if object.is_addable_to_favorites or object.is_removable_from_favorites %}
                                     {% with object|get_context_item as context_item %}
                                         {% adding2favorites for context_item using "generic/favorite_contact_icon.html" %}
@@ -137,7 +134,6 @@
                                     <a href="{{ object.get_url_path }}message/" class="fawesome fa-email button"><span class="sr-only">{% trans "Send a mail" %}</span></a>
                                 {% endif %}
                             {% else %}
-                                {% adding2memos for object using "memos/memo_icon.html" %}
                                 <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-contact button"><span class="sr-only">{% trans "Contact" %}</span></a>
                                 <a href="/login/?goto_next={{ person.get_url_path }}message/"  class="fawesome fa-email button"><span class="sr-only">{% trans "Send a mail" %}</span></a>
                             {% endif %}
@@ -158,10 +154,6 @@
 {% block breadcrumbs %}
     {% if not show %}
         <li>{% trans "People" %}</li>
-    {% endif %}
-    {% if show == "/memos" %}
-        <li><a href="/{{ URL_ID_PEOPLE }}/">{% trans "People" %}</a></li>
-        <li>{% trans "Memos" %}</li>
     {% endif %}
     {% if show == "/contacts" %}
         <li><a href="/{{ URL_ID_PEOPLE }}/">{% trans "People" %}</a></li>

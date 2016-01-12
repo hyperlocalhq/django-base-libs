@@ -1,5 +1,5 @@
 {% extends "base_redesign.html" %}
-{% load i18n base_tags auth_extended image_mods_tags navigation_tags browsing favorites memos individual_relations %}
+{% load i18n base_tags auth_extended image_mods_tags navigation_tags browsing favorites individual_relations %}
 
 {% block title %}
     {% if request.user.profile|in_list:object.get_groups.0.get_owners %}
@@ -137,7 +137,6 @@
                                 <span class="text">{% trans "Edit Institution" %}</span></a>
                         {% endif %}
                     {% else %}
-                        {% adding2memos for object %}
                         <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-contact button text"><span
                             class="text">{% trans "Contact" %}</span></a>
                         {% if object.is_contactable %}

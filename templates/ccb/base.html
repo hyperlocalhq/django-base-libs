@@ -1,6 +1,6 @@
 {% block doctype %}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">{% endblock %}
-{% load i18n base_tags navigation_tags browsing account_specific memos bookmarks messaging infoblocks cache compressed cms_tags sekizai_tags menu_tags %}
+{% load i18n base_tags navigation_tags browsing account_specific bookmarks messaging infoblocks cache compressed cms_tags sekizai_tags menu_tags %}
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{{ LANGUAGE_CODE }}" lang="{{ LANGUAGE_CODE }}"
     xmlns:og="http://ogp.me/ns#">
     <head>
@@ -369,12 +369,6 @@
                                     {% block sidebar-b %}
                                         {% comment %}<!--
                         <ul class="toolbar">
-                            <li class="memos">
-                                <a href="/my-profile/memos/" title="{% trans "Memos" %}">
-                                    <span class="item_title"><b>{% trans "Memos" %}:</b> </span>
-                                    <span class="item_count">{{ request|get_memo_count }}</span>
-                                </a>
-                            </li>
                             {% if request.user.is_authenticated %}
                                 <li class="messages">
                                     <a href="/my-messages/" title="{% trans "New Messages" %}">

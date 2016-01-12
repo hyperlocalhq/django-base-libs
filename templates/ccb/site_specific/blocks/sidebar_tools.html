@@ -1,4 +1,4 @@
-{% load i18n base_tags navigation_tags memos browsing favorites %}
+{% load i18n base_tags navigation_tags browsing favorites %}
 <div class="sidebar-box nav_collapsed" id="add_box">
     <h5>
         <a href="#" class="open_but">
@@ -14,7 +14,6 @@
                     {% if user.is_authenticated %}
                         <li class="add_sidebar">{% adding2favorites for context_item using "generic/sidebar_favorite.html" %}</li>
                     {% endif %}
-                    <li class="note_sidebar">{% adding2memos for context_item using "memos/sidebar_memo.html" %}</li>
                     {% if object.is_person %}
                         <li class="posting">
                             <a href="{{ object.content_object.get_url_path }}message/"
@@ -89,11 +88,6 @@
             {% endwith %}{% endwith %}
         {% else %}
             <ul>
-                <li class="note_sidebar">
-                    <a href="/my-profile/memos/"><span class="pic"></span>{% trans "memos" %}
-                        (<span id="memo_count">{{ request.httpstate.memos|length }}</span>)
-                    </a>
-                </li>
                 {% if request.user.is_authenticated %}
                     <li class="add_sidebar">
                         <a href="/my-profile/favorites/"><span

@@ -1,5 +1,5 @@
 {% extends "base_redesign.html" %}
-{% load i18n base_tags navigation_tags auth_extended image_mods_tags navigation_tags browsing favorites memos individual_relations %}
+{% load i18n base_tags navigation_tags auth_extended image_mods_tags navigation_tags browsing favorites individual_relations %}
 
 {% block meta_description %}
     {{ block.super }}
@@ -33,14 +33,6 @@
                             <h2>{{ object.get_title|escape }}</h2>
                             <h3>{{ object.document_type.get_title|escape }}</h3>
                             <div class="buttons">
-                    
-    {% if request.user.is_authenticated %}
-        {% adding2memos for object %}
-    {% else %}
-        {% adding2memos for object %}
-    {% endif %}
-                                
-                                
                             </div>
                         </div>
                     </div>
@@ -86,14 +78,6 @@
                             </a>
                         {% end_if_has_perm %}
                     {#% endif %#}
-                    
-                    
-    {% if request.user.is_authenticated %}
-        {% adding2memos for object %}
-    {% else %}
-        {% adding2memos for object %}
-    {% endif %}
-    
                 </div>
                     
                 {% block sidebar %}

@@ -1,11 +1,8 @@
-{% load i18n base_tags navigation_tags memos individual_relations groups_networks browsing favorites %}
+{% load i18n base_tags navigation_tags individual_relations groups_networks browsing favorites %}
 {% with forloop.counter|default:0 as counter %}
     {% with person|get_context_item as context_item %}
         <ul class="toolbar">
             {% if request.user.is_authenticated %}
-                {% if person.is_addable_to_memos %}
-                    <li class="memo">{% adding2memos for person %}</li>
-                {% endif %}
                 {% if person.is_addable_to_favorites %}
                     <li class="favorites">{% adding2favorites for context_item using "generic/favorite_contact.html" %}</li>
                 {% endif %}
@@ -30,7 +27,6 @@
                     {% endif %}
                 {% endif %}
             {% else %}
-                <li class="memo">{% adding2memos for person %}</li>
                 <li class="favorites login-required">
                     <a href="/login/?goto_next={{ request.path }}"
                         title="{% trans "Add to contacts" %}">
