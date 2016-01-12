@@ -127,7 +127,6 @@ class IdentityForm(dynamicforms.Form):
         }
         self.helper.form_method = "POST"
         self.helper.attrs = {
-            'target': "hidden_iframe",
             'enctype': "multipart/form-data",
         }
         self.helper.layout = layout.Layout(
@@ -136,11 +135,12 @@ class IdentityForm(dynamicforms.Form):
                 "title_en",
                 "title_de",
                 "event_type",
+                bootstrap.FormActions(
+                    layout.Button('cancel', _('Cancel')),
+                    layout.Submit('submit', _('Save')),
+                ),
+                css_class="switch on",
             ),
-            bootstrap.FormActions(
-                layout.Button('cancel', _('Cancel')),
-                layout.Submit('submit', _('Save')),
-            )
         )
 
     def save(self):
@@ -182,7 +182,6 @@ class DescriptionForm(dynamicforms.Form):
         }
         self.helper.form_method = "POST"
         self.helper.attrs = {
-            'target': "hidden_iframe",
             'enctype': "multipart/form-data",
         }
         self.helper.layout = layout.Layout(
@@ -190,11 +189,12 @@ class DescriptionForm(dynamicforms.Form):
                 _("Description"),
                 "description_en",
                 "description_de",
+                bootstrap.FormActions(
+                    layout.Button('cancel', _('Cancel')),
+                    layout.Submit('submit', _('Save')),
+                ),
+                css_class="switch on",
             ),
-            bootstrap.FormActions(
-                layout.Button('cancel', _('Cancel')),
-                layout.Submit('submit', _('Save')),
-            )
         )
 
     def save(self):
@@ -229,7 +229,6 @@ class AvatarForm(dynamicforms.Form):
         }
         self.helper.form_method = "POST"
         self.helper.attrs = {
-            'target': "hidden_iframe",
             'enctype': "multipart/form-data",
         }
         self.helper.layout = layout.Layout(
@@ -243,11 +242,12 @@ class AvatarForm(dynamicforms.Form):
                     {% endif %}
                 """),
                 "media_file",
+                bootstrap.FormActions(
+                    layout.Button('cancel', _('Cancel')),
+                    layout.Submit('submit', _('Save')),
+                ),
+                css_class="switch on",
             ),
-            bootstrap.FormActions(
-                layout.Button('cancel', _('Cancel')),
-                layout.Submit('submit', _('Save')),
-            )
         )
 
     def save(self):
@@ -496,7 +496,6 @@ class ContactForm(dynamicforms.Form):
         }
         self.helper.form_method = "POST"
         self.helper.attrs = {
-            'target': "hidden_iframe",
             'enctype': "multipart/form-data",
         }
         self.helper.layout = layout.Layout(
@@ -504,9 +503,7 @@ class ContactForm(dynamicforms.Form):
                 _("Institution"),
                 "venue",
                 "venue_title",
-            ),
-            layout.Fieldset(
-                _("Address"),
+                layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Address"), '</h3></dd>')),
                 "latitude",  # hidden field
                 "longitude",  # hidden field
                 "district",  # hidden field
@@ -524,10 +521,7 @@ class ContactForm(dynamicforms.Form):
                 ),
                 "country",
                 layout.HTML("""{% include "bootstrap3/custom_widgets/editable_map.html" %}"""),
-                css_id="fieldset_institution_select",
-            ),
-            layout.Fieldset(
-                _("Phones"),
+                layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Phones"), '</h3></dd>')),
                 layout.Row(
                     layout.Div(
                         layout.HTML(_("Phone")),
@@ -582,15 +576,11 @@ class ContactForm(dynamicforms.Form):
                         css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
                     ),
                 ),
-            ),
-            layout.Fieldset(
-                _("Emails"),
+                layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Emails"), '</h3></dd>')),
                 "email0",
                 "email1",
                 "email2",
-            ),
-            layout.Fieldset(
-                _("Websites"),
+                layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Websites"), '</h3></dd>')),
                 layout.Row(
                     layout.Div(
                         "url0_type",
@@ -621,9 +611,7 @@ class ContactForm(dynamicforms.Form):
                         css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
                     ),
                 ),
-            ),
-            layout.Fieldset(
-                _("Instant Messengers"),
+                layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Instant Messengers"), '</h3></dd>')),
                 layout.Row(
                     layout.Div(
                         "im0_type",
@@ -654,11 +642,12 @@ class ContactForm(dynamicforms.Form):
                         css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
                     ),
                 ),
+                bootstrap.FormActions(
+                    layout.Button('cancel', _('Cancel')),
+                    layout.Submit('submit', _('Save')),
+                ),
+                css_class = "switch on",
             ),
-            bootstrap.FormActions(
-                layout.Button('cancel', _('Cancel')),
-                layout.Submit('submit', _('Save')),
-            )
         )
 
     def clean(self):
@@ -799,7 +788,6 @@ class OrganizerForm(dynamicforms.Form):
         }
         self.helper.form_method = "POST"
         self.helper.attrs = {
-            'target': "hidden_iframe",
             'enctype': "multipart/form-data",
         }
         self.helper.layout = layout.Layout(
@@ -809,11 +797,12 @@ class OrganizerForm(dynamicforms.Form):
                 "organizer_title",
                 "organizer_url_link",
                 "is_organized_by_myself",
+                bootstrap.FormActions(
+                    layout.Button('cancel', _('Cancel')),
+                    layout.Submit('submit', _('Save')),
+                ),
+                css_class="switch on",
             ),
-            bootstrap.FormActions(
-                layout.Button('cancel', _('Cancel')),
-                layout.Submit('submit', _('Save')),
-            )
         )
 
     def save(self):
@@ -847,7 +836,6 @@ class AdditionalInfoForm(dynamicforms.Form):
         widget=forms.Textarea(),
         max_length=500,
     )
-
     related_events = forms.ModelMultipleChoiceField(
         label=_("Related Events"),
         queryset=get_related_queryset(Event, "related_events").all(),
@@ -871,7 +859,6 @@ class AdditionalInfoForm(dynamicforms.Form):
         }
         self.helper.form_method = "POST"
         self.helper.attrs = {
-            'target': "hidden_iframe",
             'enctype': "multipart/form-data",
         }
         self.helper.layout = layout.Layout(
@@ -880,11 +867,12 @@ class AdditionalInfoForm(dynamicforms.Form):
                 "additional_info_de",
                 "additional_info_en",
                 "related_events",
+                bootstrap.FormActions(
+                    layout.Button('cancel', _('Cancel')),
+                    layout.Submit('submit', _('Save')),
+                ),
+                css_class="switch on",
             ),
-            bootstrap.FormActions(
-                layout.Button('cancel', _('Cancel')),
-                layout.Submit('submit', _('Save')),
-            )
         )
 
     def save(self):
@@ -921,7 +909,6 @@ class EventTimesForm(dynamicforms.Form):
         }
         self.helper.form_method = "POST"
         self.helper.attrs = {
-            'target': "hidden_iframe",
             'enctype': "multipart/form-data",
         }
         self.helper.layout = layout.Layout(
@@ -945,12 +932,13 @@ class EventTimesForm(dynamicforms.Form):
                     {% endwith %}
                 </div>
                 """),
+                bootstrap.FormActions(
+                    layout.Button('cancel', _('Cancel')),
+                    layout.Submit('submit', _('Save')),
+                ),
                 css_id="event_times_fieldset",
+                css_class="switch on",
             ),
-            bootstrap.FormActions(
-                layout.Button('cancel', _('Cancel')),
-                layout.Submit('submit', _('Save')),
-            )
         )
 
     def save(self):
@@ -1512,7 +1500,6 @@ class FeesOpeningHoursForm(dynamicforms.Form):
         }
         self.helper.form_method = "POST"
         self.helper.attrs = {
-            'target': "hidden_iframe",
             'enctype': "multipart/form-data",
         }
         self.helper.layout = layout.Layout(
@@ -1520,9 +1507,8 @@ class FeesOpeningHoursForm(dynamicforms.Form):
                 _("Fees"),
                 "fees_de",
                 "fees_en",
-            ),
-            layout.Fieldset(
-                string_concat(_("Opening Time"), " - ",  _("Closing Time")),
+                layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Opening Time"), " - ",  _("Closing Time"), '</h3></dd>')),
+                string_concat(),
                 layout.Row(
                     layout.Div(
                         layout.HTML(_("Monday")),
@@ -1789,11 +1775,12 @@ class FeesOpeningHoursForm(dynamicforms.Form):
                 ),
                 "exceptions_de",
                 "exceptions_en",
+                bootstrap.FormActions(
+                    layout.Button('cancel', _('Cancel')),
+                    layout.Submit('submit', _('Save')),
+                ),
+                css_class="switch on",
             ),
-            bootstrap.FormActions(
-                layout.Button('cancel', _('Cancel')),
-                layout.Submit('submit', _('Save')),
-            )
         )
 
     def clean(self):
@@ -1900,22 +1887,20 @@ class CategoriesForm(dynamicforms.Form):
         }
         self.helper.form_method = "POST"
         self.helper.attrs = {
-            'target': "hidden_iframe",
             'enctype': "multipart/form-data",
         }
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Categories"),
                 layout.Div(layout.Field("categories", template="ccb_form/custom_widgets/checkboxselectmultipletree.html")),
-            ),
-            layout.Fieldset(
-                _("Tags"),
+                layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Tags"), '</h3></dd>')),
                 "tags",
+                bootstrap.FormActions(
+                    layout.Button('cancel', _('Cancel')),
+                    layout.Submit('submit', _('Save')),
+                ),
+                css_class="switch on",
             ),
-            bootstrap.FormActions(
-                layout.Button('cancel', _('Cancel')),
-                layout.Submit('submit', _('Save')),
-            )
         )
 
     def save(self, *args, **kwargs):

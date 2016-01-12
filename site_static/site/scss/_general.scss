@@ -21,7 +21,7 @@ body {
     }
     
     .content-wrapper {
-        margin-bottom: 50px;
+        margin-bottom: 60px;
         position: relative;
         top: 0;
         left: 0;
@@ -474,6 +474,25 @@ p {
             .is-xs & {
                 margin-right: 10px;
             }
+        }
+    }
+}
+
+div.claim {
+    
+    text-align: center;
+    margin-bottom: 30px;
+    
+    p {
+        font-size: 1.6em;
+        font-weight: $font-bold;
+        line-height: 133%;
+        color: $black;
+        padding: 10px 0;
+        
+        .is-xs & {
+            font-size: 1.2em;
+            padding: 5px 0;
         }
     }
 }

@@ -21,6 +21,12 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+        
+    margin-bottom: 100px;
+    
+    .is-xs & {
+        margin-bottom: 60px;
+    }
     
     > div {
         padding-bottom: 20px;

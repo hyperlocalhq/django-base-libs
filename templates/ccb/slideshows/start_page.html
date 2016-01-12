@@ -1,0 +1,15 @@
+{% load i18n base_tags auth_extended image_mods_tags %}
+<div class="slider fullside" data-speed="600" data-timer="4000">
+    {% for slide in slides %}
+        <div class="slide">
+            <img src="{{ UPLOADS_URL }}{{ slide.path.path|modified_path:"home_slide" }}" alt="{{ slide.alt }}"/>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h1>{{ slide.title|escape }}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

@@ -28,6 +28,12 @@
         margin-right: 0px;
         position: relative;
         
+        margin-bottom: 100px;
+        
+        .is-xs & {
+            margin-bottom: 60px;
+        }
+        
         .wrapper > div {
             padding-left: 5px;
             padding-right: 5px;
@@ -212,6 +218,11 @@
         position: relative;
         width: 100%;
         overflow: hidden;
+        margin-bottom: 100px;
+        
+        .is-xs & {
+            margin-bottom: 60px;
+        }
         
         .slide {
             width: 100%;

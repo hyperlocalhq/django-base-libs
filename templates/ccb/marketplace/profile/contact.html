@@ -1,10 +1,11 @@
 {% load i18n base_tags auth_extended %}
 
 {% if object.are_contacts_displayed and object.get_contacts %}
-    <div class="fieldset not-editable ">
-        <fieldset>
+    <div
+        class="fieldset {% if_has_perm "marketplace.change_job_offer" object %}editable switch{% else %}not-editable{% end_if_has_perm %}"
+        data-edit-url="{% url 'edit_profile' object_type='job' slug=object.get_secure_id %}contact/0/">
+        <fieldset disabled>
             <h2>{% trans "Contact Data" %}</h2>
-            
             {% if object.offering_institution_title or object.offering_institution %}
                 <dl class="input-fields">
                     <dt>{% trans "Institution" %}</dt>
@@ -15,6 +16,7 @@
                             {{ object.offering_institution_title }}
                         {% endif %}
                     </div></dd>
+                    <dd class="clearfix"></dd>
                 </dl>
             {% endif %}
             
@@ -45,6 +47,7 @@
                             {% endif %}
                             {% endcomment %}
                         </div></dd>
+                        <dd class="clearfix"></dd>
                     </dl>
                 {% endif %}
             {% endwith %}
@@ -59,6 +62,7 @@
                             {{ object.contact_person_name }}
                         {% endif %}
                     </div></dd>
+                    <dd class="clearfix"></dd>
                 </dl>
             {% endif %}
             
@@ -74,6 +78,7 @@
                     {% else %}
                         <dd><div class="text-field"><a href="/login/?goto_next={{ request.path }}">{% trans "Login to see e-mail." %}</a></div></dd>
                     {% endif %}
+                    <dd class="clearfix"></dd>
                 </dl>
             {% endif %}
             
@@ -86,7 +91,8 @@
                                 <a href="tel:+{{ phone.country }}{{ phone.area }}{{ phone.number }}">+{{ phone.country }}-{{ phone.area }}-{{ phone.number }}</a>
                             </div>
                         </dd>
-                    {% endfor %}
+                        <dd class="clearfix"></dd>
+            {% endfor %}
                 </dl>
             {% endif %}
                     
@@ -100,7 +106,8 @@
                                 {% if object.is_commercial %}(€){% endif %}
                             </div>
                         </dd>
-                    {% endfor %}
+                        <dd class="clearfix"></dd>
+                {% endfor %}
                 </dl>
             {% endif %}
                     
@@ -109,6 +116,7 @@
                     {% for im in object.get_ims %}
                         <dt>{{ im.type }}</dt>
                         <dd><div class="text-field">{{ im.address }}</div></dd>
+                        <dd class="clearfix"></dd>
                     {% endfor %}
                 </dl>
             {% endif %}
