@@ -9,6 +9,17 @@
 {% endblock %}
 
 {% block details %}
+    {% if form_step_data.step_main_data.venue %}
+        {% load_obj events.EventType form_step_data.step_main_data.event_type as event_type %}
+    {% endif %}
+    {% if form_step_data.step_main_data.venue %}
+        {% load_obj institutions.institution form_step_data.step_main_data.venue as venue %}
+    {% endif %}
+
+    {% if form_step_data.step_main_data.organizing_institution %}
+        {% load_obj institutions.institution form_step_data.step_main_data.organizing_institution as institution %}
+    {% endif %}
+
     <h2>{% trans "New Event" %}</h2>
     <form action="" method="post" class="uniForm">{% csrf_token %}
 
@@ -37,7 +48,7 @@
                     <dt>{% trans "Event Type" %}</dt>
                     <dd>
                         <div class="text-field">
-                            {{ form_step_data.step_main_data.event_type.get_title }}
+                            {{ event_type }}
                         </div>
                     </dd>
                     <dd class="clearfix"></dd>
@@ -55,37 +66,34 @@
                     </dd>
                     <dd class="clearfix"></dd>
 
-                    <dt>{% trans "Venue" %}</dt>
-                    <dd>
-                        <div class="text-field">
-                            {% if form_step_data.step_main_data.venue %}
-                                {{ form_step_data.step_main_data.venue.get_title }}
-                            {% else %}
-                                {{ form_step_data.step_main_data.venue_title }}
-                            {% endif %}
-                        </div>
-                    </dd>
-                    <dd class="clearfix"></dd>
+                    {% if venue or form_step_data.step_main_data.venue_title %}
+                        <dt>{% trans "Venue" %}</dt>
+                        <dd>
+                            <div class="text-field">
+                                {% if venue %}
+                                    {{ venue.get_title }}
+                                {% else %}
+                                    {{ form_step_data.step_main_data.venue_title }}
+                                {% endif %}
+                            </div>
+                        </dd>
+                        <dd class="clearfix"></dd>
+                    {% endif %}
 
                     <dt>{% trans "Address" %}</dt>
                     <dd>
                         <div class="text-field">
                             <address>
-                                {% if form_step_data.step_main_data.venue %}
-                                    {% with form_step_data.step_main_data.venue as venue %}
-
-                                        <a href="{{ venue.get_url_path }}">{{ venue.get_title }}</a><br/>
-                                        {% with venue.get_primary_contact as venue_contact %}
-                                            {{ venue_contact.street_address|escape }}<br/>
-                                            {% if venue_contact.street_address2 %}
-                                                {{ venue_contact.street_address2|escape }}<br/>
-                                            {% endif %}
-                                            {{ venue_contact.postal_code|escape }} {{ venue_contact.city|escape }}<br/>
-                                            {{ venue_contact.country_name }}
-                                        {% endwith %}
+                                {% if venue %}
+                                    {% with venue.get_primary_contact as venue_contact %}
+                                        {{ venue_contact.street_address|escape }}<br/>
+                                        {% if venue_contact.street_address2 %}
+                                            {{ venue_contact.street_address2|escape }}<br/>
+                                        {% endif %}
+                                        {{ venue_contact.postal_code|escape }} {{ venue_contact.city|escape }}<br/>
+                                        {{ venue_contact.country_name }}
                                     {% endwith %}
                                 {% else %}
-                                    {{ form_step_data.step_main_data.venue_title }}<br/>
                                     {{ form_step_data.step_main_data.street_address|escape }}<br/>
                                     {% if form_step_data.step_main_data.street_address2 %}
                                         {{ form_step_data.step_main_data.street_address2|escape }}<br/>
@@ -150,20 +158,18 @@
                         <div class="text-field">
                             {% ifequal form_step_data.step_main_data.organizer_ind "1" %}
                                 <address>
-                                    {% if form_step_data.step_main_data.organizing_institution %}
-                                        {% with form_step_data.step_main_data.organizing_institution as organizing_institution %}
+                                    {% if institution %}
 
-                                            <a href="{{ organizing_institution.get_url_path }}">{{ organizing_institution.get_title }}</a>
-                                            <br/>
-                                            {% with organizing_institution.get_primary_contact as organizing_institution_contact %}
-                                                {{ organizing_institution_contact.street_address|escape }}<br/>
-                                                {% if organizing_institution_contact.street_address2 %}
-                                                    {{ organizing_institution_contact.street_address2|escape }}<br/>
-                                                {% endif %}
-                                                {{ organizing_institution_contact.postal_code|escape }}
-                                                {{ organizing_institution_contact.city|escape }}<br/>
-                                                {{ organizing_institution_contact.country_name }}
-                                            {% endwith %}
+                                        <a href="{{ institution.get_url_path }}">{{ institution.get_title }}</a>
+                                        <br/>
+                                        {% with institution.get_primary_contact as institution_contact %}
+                                            {{ institution_contact.street_address|escape }}<br/>
+                                            {% if institution_contact.street_address2 %}
+                                                {{ institution_contact.street_address2|escape }}<br/>
+                                            {% endif %}
+                                            {{ institution_contact.postal_code|escape }}
+                                            {{ institution_contact.city|escape }}<br/>
+                                            {{ institution_contact.country_name }}
                                         {% endwith %}
                                     {% else %}
                                         {{ form_step_data.step_main_data.organizer_title }}<br/>
