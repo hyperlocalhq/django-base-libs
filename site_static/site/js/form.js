@@ -4,18 +4,117 @@
  * @author Daniel Lehmann
  */
 
+ 
+window.addToFormInit = function(func) {
+    window.addToFormInit.functions.push(func);   
+}
+window.addToFormInit.functions = [];
+ 
+ 
 $(document).ready(function() {
     
     
-    // the input prefix highlighting
-    $('.input-field input[type="text"], .input-field input[type="password"], .input-field input[type="email"], .input-field input[type="url"], .input-field input[type="search"], .input-field input[type="tel"], .input-field input[type="number"], .input-field input[type="file"]').each(function() {
+    // adds the functionality of all form elements
+    // add the class "dont-add-form-functionality" to an element or one of its parents to not add form functionality to it
+    function initFormElementsFunctionality($scope) {
         
-        var $field = $(this);
-        var $prefix = $field.parent().prev('.input-prefix');
+    
+        $('.input-field input[type="text"], .input-field input[type="password"], .input-field input[type="email"], .input-field input[type="url"], .input-field input[type="search"], .input-field input[type="tel"], .input-field input[type="number"], .input-field input[type="file"]', $scope).each(function() {
+            
+            var $element = $(this);
+            var dont = $element.hasClass('dont-add-form-functionality');
+            if (!dont) dont = ($element.closest('.dont-add-form-functionality').length);
+            
+            if (!dont) new Prefix($element); 
+        });
+        
+        
+        $('.toggle-visibility', $scope).each(function() {
+            
+            var $element = $(this);
+            var dont = $element.hasClass('dont-add-form-functionality');
+            if (!dont) dont = ($element.closest('.dont-add-form-functionality').length);
+            
+            if (!dont) new ToggleVisibility($element); 
+        });
+    
+        $('.dynamic-entries', $scope).each(function() {
+            
+            var $element = $(this);
+            var dont = $element.hasClass('dont-add-form-functionality');
+            if (!dont) dont = ($element.closest('.dont-add-form-functionality').length);
+            
+            if (!dont) new DynamicEntries($element); 
+        });
+    
+        $('.input-field textarea', $scope).each(function() {
+            
+            var $element = $(this);
+            var dont = $element.hasClass('dont-add-form-functionality');
+            if (!dont) dont = ($element.closest('.dont-add-form-functionality').length);
+            
+            if (!dont) new TextArea($element); 
+        });
+        
+        $('.input-field.box', $scope).each(function() {
+            
+            var $element = $(this);
+            var dont = $element.hasClass('dont-add-form-functionality');
+            if (!dont) dont = ($element.closest('.dont-add-form-functionality').length);
+            
+            if (!dont) new InputBox($element); 
+        });
+    
+        $('.input-field input[type="file"]', $scope).each(function() {
+            
+            var $element = $(this);
+            var dont = $element.hasClass('dont-add-form-functionality');
+            if (!dont) dont = ($element.closest('.dont-add-form-functionality').length);
+            
+            if (!dont) new InputFile($element); 
+        });
+        
+        $('.input-field select', $scope).each(function() {
+            
+            var $element = $(this);
+            var dont = $element.hasClass('dont-add-form-functionality');
+            if (!dont) dont = ($element.closest('.dont-add-form-functionality').length);
+            
+            if (!dont) new SelectBox($element); 
+        });
+        
+        $('.fieldset', $scope).each(function() {
+            
+            var $element = $(this);
+            var dont = $element.hasClass('dont-add-form-functionality');
+            if (!dont) dont = ($element.closest('.dont-add-form-functionality').length);
+            
+            if (!dont) new Fieldset($element); 
+        });
+    
+    
+        for (var i=0, length = window.addToFormInit.functions.length; i<length; i++) {
+            window.addToFormInit.functions[i]();   
+        }   
+    }
+    
+    
+    
+    
+    
+    // the input prefix highlighting
+    function Prefix($main) {
+        
+        var me = this;
+        this.me = me;
+        
+        me.$main = $main;
+        
+        var $prefix = me.$main.parent().prev('.input-prefix');
         
         if ($prefix.length) {
          
-            $field.data('$prefix', $prefix);
+            me.$main.data('$prefix', $prefix);
             
             var onFocus = function() {
                 var $field = $(this);
@@ -28,21 +127,163 @@ $(document).ready(function() {
                 $field.data('$prefix').removeClass('focus-readonly focus');
             }
             
-            $field.focus(onFocus);
-            $field.blur(onBlur);
+            me.$main.focus(onFocus);
+            me.$main.blur(onBlur);
         }
-    });
+    }
+    
     
     // toggle visibility functionality
-    $('.toggle-visibility').click(function() {
+    function ToggleVisibility($main) {
         
-        var $button = $(this);
-        var show = $button.attr('data-toggle-show');
-        var hide = $button.attr('data-toggle-hide');
+        var me = this;
+        this.me = me;
         
-        $(hide).removeClass('hidden').css('display', 'none');
-        $(show).removeClass('hidden').css('display', '');
-    });
+        me.$main = $main;
+        
+        me.show = me.$main.attr('data-toggle-show');
+        me.hide = me.$main.attr('data-toggle-hide');
+        
+        $(me.show).each(function() {
+            
+            var $element = $(this);
+            if (!$element.hasClass('toggle-check')) $element = $('.toggle-check', $element);
+            
+            if ($element.length) {
+                if ($element.val()) {
+                    me.onClick();
+                    return false;
+                }
+            }
+        });
+        
+        me.$main.click(function() {me.onClick(); return false;});
+    }
+    
+    ToggleVisibility.prototype.onClick = function() {
+        
+        var me = this.me;
+        
+        $(me.hide).removeClass('hidden').css('display', 'none');
+        $(me.show).removeClass('hidden').css('display', '');
+    }
+    
+    
+    // handles forms with a dynamic amount of entries
+    function DynamicEntries($main) {
+        
+        var me = this;
+        this.me = me;
+        
+        me.$main = $main;
+        me.id = me.$main.attr('id');
+        me.$empty = $('#'+me.id+'_empty .entry');
+        me.$entries = $('.entry', me.$main);
+        me.$total = $('id_'+me.id+'-TOTAL_FORMS');
+        
+        me.buttons = [];
+        
+        me.total = me.$total.val();
+        me.initial = $('id_'+me.id+'-INITIAL_FORMS').val();
+        me.min = $('id_'+me.id+'-MIN_NUM_FORMS').val();
+        me.max = $('id_'+me.id+'-MAX_NUM_FORMS').val();
+        
+        if (!me.total) me.total = me.$entries.length;
+        if (!me.initial) me.initial = 0;
+        if (!me.min) me.min = 0;
+        if (!me.max) me.max = 1000;
+        
+        me.addButtons();
+    }
+    
+    DynamicEntries.prototype.add = function() {
+     
+        var me = this.me;
+        
+        var $new = me.$empty.clone(true, true);
+        
+        me.$entries.last().after($new);
+        
+        me.$entries = $('.entry', me.$main);
+        me.renumber();
+        me.addButtons();
+        
+        initFormElementsFunctionality($new);
+    }
+    
+    DynamicEntries.prototype.remove = function($button) {
+     
+        var me = this.me;
+        
+        var $entry = $button.closest('.entry');
+        $entry.remove();
+        
+        me.$entries = $('.entry', me.$main);
+        me.renumber();
+        me.addButtons();
+    }
+    
+    DynamicEntries.prototype.addButtons = function() {
+     
+        var me = this.me;
+        
+        for (var i=0, length = me.buttons.length; i<length; i++) {
+            me.buttons[i].remove();
+        }
+        
+        me.buttons = [];
+        
+        me.$entries.each(function(index) {
+           
+            var last = (index == me.$entries.length - 1);
+            var $entry = $(this);
+            var $button = $('<button class="dynamic-button fawesome button form ' + (last ? 'fa-plus positive' : 'fa-minus negative') + '"></button>');
+            
+            if (last) $button.click(function() {me.add(); return false;});
+            else $button.click(function() {me.remove($(this)); return false;});
+            
+            if (last && index != me.max) $entry.append($button);
+            if (!last && me.$entries.length > me.min) $entry.append($button);
+            
+        });
+    }
+    
+    DynamicEntries.prototype.renumber = function() {
+     
+        var me = this.me;
+        
+        me.$entries.each(function(index) {
+            
+            var $entry = $(this);
+            
+            $entry.find('input, select, textarea').each(function() {
+                
+                var $field = $(this);
+                
+                if ($field.attr("id")) {
+                    $field.attr("id", $field.attr("id").replace(/-(\d+)-/, "-" + index + "-"));
+                    $field.attr("id", $field.attr("id").replace(/-(__prefix__)-/, "-" + index + "-"));
+                }
+                
+                if ($field.attr("name")) {
+                    $field.attr("name", $field.attr("name").replace(/-(\d+)-/, "-" + index + "-"));
+                    $field.attr("name", $field.attr("name").replace(/-(__prefix__)-/, "-" + index + "-"));
+                }
+            });
+            
+            $entry.find('label').each(function() {
+                
+                var $field = $(this);
+                if ($field.attr("for")) {
+                    $field.attr("for", $field.attr("for").replace(/-(\d+)-/, "-" + index + "-"));
+                    $field.attr("for", $field.attr("for").replace(/-(__prefix__)-/, "-" + index + "-"));
+                }
+            });
+            
+        });
+        
+        me.$total.val(me.$entries.length);
+    }
     
     
     // auto size of textareas
@@ -80,10 +321,6 @@ $(document).ready(function() {
         me.$main.height(me.$main.get(0).scrollHeight - padding); 
     }
     
-    $('.input-field textarea').each(function() {
-        new TextArea($(this)); 
-    });
-    
     
     // making sure the label height fits for a check box or radio button
     function InputBox($main) {
@@ -109,10 +346,6 @@ $(document).ready(function() {
         
         me.$main.css('min-height', (me.$label.height() + me.padding) + 'px');
     }
-    
-    $('.input-field.box').each(function() {
-        new InputBox($(this)); 
-    });
     
     
     // styling and functionality of file inputs
@@ -243,10 +476,6 @@ $(document).ready(function() {
         me.$display.removeClass('focus');
         me.$button.removeClass('focus');
     }
-    
-    $('.input-field input[type="file"]').each(function() {
-        new InputFile($(this)); 
-    });
     
     
     
@@ -1011,10 +1240,6 @@ $(document).ready(function() {
         }
     }
     
-    $('.input-field select').each(function() {
-        new SelectBox($(this)); 
-    });
-    
     
     
     // fieldset functionalities
@@ -1261,8 +1486,7 @@ $(document).ready(function() {
         }
     }
     
-    $('.fieldset').each(function() {
-        new Fieldset($(this)); 
-    });
+    
+    initFormElementsFunctionality();
 });
 

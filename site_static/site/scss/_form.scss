@@ -1743,3 +1743,27 @@ dd.autocomplete {
         
     }
 }
+
+.dynamic-entries {
+    .entry {
+        
+        position: relative;
+        display: inline-block;
+        
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid $grey;
+        
+        .dynamic-button {
+            position: absolute;
+            top: 0px;
+            right: 20px;
+        }
+        
+        &:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+    }
+}

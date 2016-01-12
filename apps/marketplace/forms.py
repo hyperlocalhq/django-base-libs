@@ -220,7 +220,7 @@ class MainDataForm(dynamicforms.Form):
                     <dt class="institution-select"> </dt><dd class="institution-select"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-input" data-toggle-hide=".institution-select">{% trans "Not listed? Enter manually" %}</a></dd>
                 """),
                 
-                layout.Field("offering_institution_title", wrapper_class="institution-input hidden"),
+                layout.Field("offering_institution_title", wrapper_class="institution-input hidden", css_class="toggle-check"),
                 layout.HTML("""{% load i18n %}
                     <dt class="institution-input hidden"> </dt><dd class="institution-input hidden"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-select" data-toggle-hide=".institution-input">{% trans "Back to selection" %}</a></dd>
                 """),

@@ -24,11 +24,9 @@
 
         <div class="events_profile reg-block">
             {% if form_step_data.step_event_profile.image %}
-                <img class="avatar"
-                    src="/helper/tmpimage/{{ form_step_data.step_event_profile.image.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/"
-                    alt="{{ object.get_title|escape }}"/>
+                <img class="avatar" src="/helper/tmpimage/{{ form_step_data.step_event_profile.image.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/" alt="{{ object.get_title|escape }}"/>
             {% else %}
-                <img class="avatar" src="{{ DEFAULT_FORM_LOGO_4_EVENT }}" alt="{{ object.get_title|escape }}"/>
+                <img class="avatar" src="{{ STATIC_URL }}site/img/placeholder/event.png" alt="{{ object.get_title|escape }}"/>
             {% endif %}
         </div>
         {% ifequal LANGUAGE_CODE "de" %}
