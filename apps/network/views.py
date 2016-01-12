@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.contenttypes.models import ContentType
 from django.views.decorators.cache import never_cache
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import User
 
 from base_libs.views import access_denied
 
@@ -18,6 +19,8 @@ from ccb.apps.people.models import Person
 from ccb.apps.institutions.models import Institution
 from ccb.apps.site_specific.models import ContextItem
 from ccb.apps.events.views import event_list
+
+from actstream.models import following
 
 from .forms import MemberSearchForm
 
@@ -47,6 +50,27 @@ def _member_list_filter(request, queryset, show):
             tables=tables,
             where=condition,
         ).distinct()
+    elif show == "followees":
+        if not request.user.is_authenticated():
+            raise Http404
+        followees = following(request.user)
+        conditions = models.Q()
+        institution_ct = ContentType.objects.get_for_model(Institution)
+        person_ct = ContentType.objects.get_for_model(Person)
+        for followee in followees:
+            if isinstance(followee, Institution):
+                ct = institution_ct
+                object_id = followee.pk
+            elif isinstance(followee, User):
+                ct = person_ct
+                object_id = followee.profile.pk
+            else:
+                continue
+            conditions |= models.Q(
+                content_type=ct,
+                object_id=object_id,
+            )
+        queryset = queryset.filter(conditions)
     elif show == "relationships":
         if not request.user.is_authenticated():
             raise Http404

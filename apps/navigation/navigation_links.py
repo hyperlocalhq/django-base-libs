@@ -61,12 +61,12 @@ navigation_links = {
             'highlight_pattern': r'^/(de|en)/network/$',
         },
         {
-            'url_de': '/de/network/favorites/',
-            'url_en': '/en/network/favorites/',
-            'text_de': 'Favoriten',
-            'text_en': 'Favorites',
+            'url_de': '/de/network/followees/',
+            'url_en': '/en/network/followees/',
+            'text_de': 'Folgenden',
+            'text_en': 'Followees',
             'should_be_shown': for_all,
-            'highlight_pattern': r'^/(de|en)/network/favorites/$',
+            'highlight_pattern': r'^/(de|en)/network/followees/$',
         },
         {
             'url_de': '/de/network/own-institutions/',
