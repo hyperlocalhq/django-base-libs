@@ -125,17 +125,17 @@ class DetailsForm(dynamicforms.Form):
                 "description",
                 layout.MultiField(
                     _("Publish until"),
-                    layout.Div(
+                    layout.Field(
                         "end_dd",
                         wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "end_mm",
                         wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "end_yyyy",
                         wrapper_class="col-xs-12 col-sm-6 col-md-6 col-lg-6",
                         template = "ccb_form/multifield.html",
