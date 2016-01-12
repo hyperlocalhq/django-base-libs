@@ -90,10 +90,10 @@
                                         <div class="text">
                                             <h2>{{ object.get_title|escape }}</h2>
                                             <h3>
-                                                {% if object.occupation %}object.occupation{% endif %}
-                                                {% if object.get_creative_sectors %}
+                                                {% if object.occupation %}{{ object.occupation }}{% endif %}
+                                                {% if object.get_categories %}
                                                     <span class="feature">
-                                                        {% for cat in object.get_creative_sectors %}
+                                                        {% for cat in object.get_categories %}
                                                             {{ cat.get_title|escape }}{% if not forloop.last %}, {% endif %}
                                                         {% endfor %}
                                                     </span>

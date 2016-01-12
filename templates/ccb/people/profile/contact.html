@@ -2,7 +2,7 @@
 
 
 {% if object.are_contacts_displayed or perms.people.change_person %}
-    {% if object.get_contacts or perms.people.change_person %}
+    {% if object.get_contacts and perms.people.change_person %}{# TODO: change "and" to "or" when it is possible to add new contact by JavaScript #}
         <div class="fieldset {% if_has_perm "people.change_person" object %}editable switch{% else %}not-editable{% end_if_has_perm %}" data-edit-url="{% url 'edit_profile' object_type='person' slug=object.slug %}contact/0/">
             <fieldset disabled>
                 <h2>{% trans "Contact Data" %}</h2>

@@ -61,7 +61,6 @@ STR_MIN_LOGO_SIZE = "%sx%s" % MIN_LOGO_SIZE
 # Collect translatable strings
 _("Not listed? Enter manually")
 _("Back to selection")
-_('Is some category missing? You can <a href="/ticket/new-category/" target="_blank">suggest it here</a>.')
 
 
 # TODO: each form could be ModelForm. Each formset could be ModelFormSet.
@@ -989,10 +988,7 @@ class CategoriesForm(dynamicforms.Form):
                 _("Categories"),
                 
                 layout.Field("categories", template="ccb_form/custom_widgets/checkboxselectmultipletree.html"),
-                layout.HTML("""{% load i18n %}
-                    <dd class="no-lable">{% blocktrans %}Is some category missing? You can <a href="/ticket/new-category/" target="_blank">suggest it here</a>.{% endblocktrans %}</dd>
-                """),
-                
+
                 bootstrap.FormActions(
                     layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),

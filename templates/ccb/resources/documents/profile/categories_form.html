@@ -6,9 +6,6 @@
         method="post" enctype="multipart/form-data" target="hidden_iframe">{% csrf_token %}
         <fieldset class="inlineLabels">
             {% include "site_specific/categories/categories.html" %}
-            <p class="disclaimer">{% blocktrans %}Is some category missing? You can
-                <a href="/ticket/new-category/">suggest it here</a>.{% endblocktrans %}</p>
-
             <div class="buttonHolder">
                 <input type="submit" class="primaryAction" value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
                 <input type="button" class="secondaryAction"
