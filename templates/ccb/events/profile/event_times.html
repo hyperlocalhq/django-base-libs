@@ -1,27 +1,35 @@
 {% load i18n base_tags auth_extended babel %}
 
 {% if object.has_start_date or object.has_end_date %}
-    <div class="fieldset not-editable ">
-        <fieldset>
-            <h2>{% trans "Event Times" %}</h2>
-            
-            <dl class="input-fields">
-                <dt>{% trans "When" %}</dt>
-                <dd><div class="text-field">
-                    {% if event_time %}
-                        {% with event_time as time %}
-                            <div>{% include "events/includes/event_time.html" %}</div>
-                        {% endwith %}
-                        <div><a href="{{ event_time.event.get_absolute_url }}#event-occurrences">{% trans "See all occurrences" %}</a></div>
-                    {% else %}
-                        {% for time in object.eventtime_set.all %}
-                            <div>{% include "events/includes/event_time.html" %}</div>
-                        {% endfor %}
-                    {% endif %}
-                </div></dd>
-                <dd class="clearfix"></dd>
-            </dl>
-        </fieldset>
-    </div>
+    {% if object.are_contacts_displayed and object.get_contacts %}
+        <div
+            class="fieldset {% if_has_perm "events.change_event" object %}editable switch{% else %}not-editable{% end_if_has_perm %}"
+            data-edit-url="{% url 'edit_profile' object_type='event' slug=object.slug %}contact/0/">
+            <fieldset disabled>
+                <h2>{% trans "Event Times" %}</h2>
+
+                <dl class="input-fields">
+                    <dt>{% trans "When" %}</dt>
+                    <dd>
+                        <div class="text-field">
+                            {% if event_time %}
+                                {% with event_time as time %}
+                                    <div>{% include "events/includes/event_time.html" %}</div>
+                                {% endwith %}
+                                <div>
+                                    <a href="{{ event_time.event.get_absolute_url }}#event-occurrences">{% trans "See all occurrences" %}</a>
+                                </div>
+                            {% else %}
+                                {% for time in object.eventtime_set.all %}
+                                    <div>{% include "events/includes/event_time.html" %}</div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </dd>
+                    <dd class="clearfix"></dd>
+                </dl>
+            </fieldset>
+        </div>
+    {% endif %}
 {% endif %}
 
