@@ -21,6 +21,7 @@ def create_ticket(request, concern=None, content_type_id=None, object_id=None,
         data = request.POST.copy()
         data.update(request.FILES)
         form = TicketForm(
+            request=request,
             concern=concern,
             content_type_id=content_type_id,
             object_id=object_id,
@@ -35,6 +36,7 @@ def create_ticket(request, concern=None, content_type_id=None, object_id=None,
             }, context_instance=RequestContext(request))
     else:
         form = TicketForm(
+            request=request,
             concern=concern,
             content_type_id=content_type_id,
             object_id=object_id,
