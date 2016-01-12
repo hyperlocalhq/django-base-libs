@@ -132,12 +132,12 @@ class DetailsForm(dynamicforms.Form):
                     ),
                     layout.Field(
                         "end_mm",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-5 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "end_yyyy",
-                        wrapper_class="col-xs-12 col-sm-6 col-md-6 col-lg-6",
+                        wrapper_class="col-xs-12 col-sm-4 col-md-6 col-lg-6",
                         template = "ccb_form/multifield.html",
                     ),
                 ),
@@ -545,76 +545,82 @@ class ContactForm(dynamicforms.Form):
                 "email2",
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Websites"), '</h3></dd>')),
                 layout.MultiField(
+                    ' ',
                     layout.Field(
                         "url0_type",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "url0_link",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
                     ),
                 ),
                 layout.MultiField(
+                    ' ',
                     layout.Field(
                         "url1_type",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "url1_link",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
                     ),
                 ),
                 layout.MultiField(
+                    ' ',
                     layout.Field(
                         "url2_type",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
                     ),
-                    layout.MultiField(
+                    layout.Field(
                         "url2_link",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
                     ),
                 ),
                 layout.HTML(
                     string_concat('<dd class="no-label"><h3 class="section">', _("Instant Messengers"), '</h3></dd>')),
                 layout.MultiField(
+                    ' ',
                     layout.Field(
                         "im0_type",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "im0_address",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
                     ),
                 ),
                 layout.MultiField(
+                    ' ',
                     layout.Field(
                         "im1_type",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "im1_address",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
                     ),
                 ),
                 layout.MultiField(
+                    ' ',
                     layout.Field(
                         "im2_type",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "im2_address",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
                     ),
                 ),

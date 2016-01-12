@@ -47,6 +47,16 @@
                 </dl>
             {% endif %}
 
+            {% if object.description %}
+                <dl class="input-fields">
+                    <dt>{% trans "Description" %}</dt>
+                    <dd>
+                        <div class="text-field">{{ object.description|urlize|linebreaks|mark_first_and_last:"p" }}</div>
+                    </dd>
+                    <dd class="clearfix"></dd>
+                </dl>
+            {% endif %}
+
             {% if object.published_till %}
                 <dl class="input-fields">
                     <dt>{% trans "Published till" %}</dt>
@@ -57,13 +67,6 @@
                 </dl>
             {% endif %}
 
-        </fieldset>
-    </div>
-
-    <div class="fieldset not-editable">
-        <fieldset>
-            <h2>{% trans "Description" %}</h2>
-            {{ object.description|urlize|linebreaks|mark_first_and_last:"p" }}
         </fieldset>
     </div>
 {% endif %}
