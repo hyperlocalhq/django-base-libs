@@ -9,122 +9,185 @@
 {% block details %}
     <h2>{% trans "New Institution" %}</h2>
     <form action="" method="post" class="uniForm">{% csrf_token %}
-    
+
         <div class="fieldset not-editable ">
             <fieldset>
                 <h2>{% trans 'Main Data' %}</h2>
                 <dl class="input-fields">
                     <dt>{% trans "Institution Name" %}</dt>
-                    <dd><div class="text-field">{{ form_step_data.0.institution_name }} {{ form_step_data.0.institution_name2 }}</div></dd>
+                    <dd>
+                        <div class="text-field">{{ form_step_data.0.institution_name }} {{ form_step_data.0.institution_name2 }}</div>
+                    </dd>
                     <dd class="clearfix"></dd>
+
                     <dt>{% trans "Legal Form" %}</dt>
-                    <dd><div class="text-field">{{ form_step_data.0.get_legal_form_display }}</div></dd>
+                    <dd>
+                        <div class="text-field">{{ form_step_data.0.get_legal_form_display }}</div>
+                    </dd>
                     <dd class="clearfix"></dd>
+
                     <dt>{% trans "Location type" %}</dt>
-                    <dd><div class="text-field">{{ form_step_data.0.get_location_type_display }}</div></dd>
+                    <dd>
+                        <div class="text-field">{{ form_step_data.0.get_location_type_display }}</div>
+                    </dd>
                     <dd class="clearfix"></dd>
+
                     {% if form_step_data.0.location_title %}
                         <dt>{% trans "Location title" %}</dt>
-                        <dd><div class="text-field">{{ form_step_data.0.location_title }}</div></dd>
+                        <dd>
+                            <div class="text-field">{{ form_step_data.0.location_title }}</div>
+                        </dd>
                         <dd class="clearfix"></dd>
                     {% endif %}
+
                     <dt>{% trans "Address" %}</dt>
-                    <dd><div class="text-field">
-                        <div>{{ form_step_data.0.street_address|escape }}</div>
-                        {% if form_step_data.0.street_address2 %}
-                            <div>{{ form_step_data.0.street_address2|escape }}</div>
-                        {% endif %}
-                        <div>{{ form_step_data.0.postal_code|escape }} {{ form_step_data.0.city|escape }}</div>
-                        <div>{{ form_step_data.0.get_country_display }}</div>
-                    </div></dd>
+                    <dd>
+                        <div class="text-field">
+                            <div>{{ form_step_data.0.street_address|escape }}</div>
+                            {% if form_step_data.0.street_address2 %}
+                                <div>{{ form_step_data.0.street_address2|escape }}</div>
+                            {% endif %}
+                            <div>{{ form_step_data.0.postal_code|escape }} {{ form_step_data.0.city|escape }}</div>
+                            <div>{{ form_step_data.0.get_country_display }}</div>
+                        </div>
+                    </dd>
                     <dd class="clearfix"></dd>
+
                     {% if form_step_data.0.phone_number %}
                         <dt>{% trans "Phone" %}</dt>
-                        <dd><div class="text-field">+{{ form_step_data.0.phone_country }}-{{ form_step_data.0.phone_area }}-{{ form_step_data.0.phone_number }}</div></dd>
+                        <dd>
+                            <div class="text-field">
+                                +{{ form_step_data.0.phone_country }}-{{ form_step_data.0.phone_area }}-{{ form_step_data.0.phone_number }}</div>
+                        </dd>
                         <dd class="clearfix"></dd>
                     {% endif %}
+
                     {% if form_step_data.0.fax_number %}
                         <dt>{% trans "Fax" %}</dt>
-                        <dd><div class="text-field">+{{ form_step_data.0.fax_country }}-{{ form_step_data.0.fax_area }}-{{ form_step_data.0.fax_number }}</div></dd>
+                        <dd>
+                            <div class="text-field">
+                                +{{ form_step_data.0.fax_country }}-{{ form_step_data.0.fax_area }}-{{ form_step_data.0.fax_number }}</div>
+                        </dd>
                         <dd class="clearfix"></dd>
                     {% endif %}
+
                     {% if form_step_data.0.mobile_number %}
                         <dt>{% trans "Mobile" %}</dt>
-                        <dd><div class="text-field">+{{ form_step_data.0.mobile_country }}-{{ form_step_data.0.mobile_area }}-{{ form_step_data.0.mobile_number }}</div></dd>
+                        <dd>
+                            <div class="text-field">
+                                +{{ form_step_data.0.mobile_country }}-{{ form_step_data.0.mobile_area }}-{{ form_step_data.0.mobile_number }}</div>
+                        </dd>
                         <dd class="clearfix"></dd>
                     {% endif %}
+
                     {% if form_step_data.0.email0 or form_step_data.0.email1 or form_step_data.0.email2 %}
                         <dt>{% trans "Emails" %}</dt>
-                        <dd><div class="text-field">
-                            {% if form_step_data.0.email0 %}
-                                <div>{{ form_step_data.0.email0 }}</div>
-                            {% endif %}
-                            {% if form_step_data.0.email1 %}
-                                <div>{{ form_step_data.0.email1 }}</div>
-                            {% endif %}
-                            {% if form_step_data.0.email2 %}
-                                <div>{{ form_step_data.0.email2 }}</div>
-                            {% endif %}
-                        </div></dd>
+                        <dd>
+                            <div class="text-field">
+                                {% if form_step_data.0.email0 %}
+                                    <div>{{ form_step_data.0.email0 }}</div>
+                                {% endif %}
+                                {% if form_step_data.0.email1 %}
+                                    <div>{{ form_step_data.0.email1 }}</div>
+                                {% endif %}
+                                {% if form_step_data.0.email2 %}
+                                    <div>{{ form_step_data.0.email2 }}</div>
+                                {% endif %}
+                            </div>
+                        </dd>
                         <dd class="clearfix"></dd>
                     {% endif %}
+
                     {% if form_step_data.0.url0_link or form_step_data.0.url1_link or form_step_data.0.url2_link %}
                         <dt>{% trans "Websites" %}</dt>
-                        <dd><div class="text-field">
-                            {% if form_step_data.0.url0_link %}
-                                <div>{% if form_step_data.0.url0_type %}{{ form_step_data.0.get_url0_type_display }}{% else %}{% trans "Website" %}{% endif %}: {{ form_step_data.0.url0_link }}</div>
-                            {% endif %}
-                            {% if form_step_data.0.url1_link %}
-                                <div>{% if form_step_data.0.url1_type %}{{ form_step_data.0.get_url1_type_display }}{% else %}{% trans "Website" %}{% endif %}: {{ form_step_data.0.url1_link }}</div>
-                            {% endif %}
-                            {% if form_step_data.0.url2_link %}
-                                <div>{% if form_step_data.0.url2_type %}{{ form_step_data.0.get_url2_type_display }}{% else %}{% trans "Website" %}{% endif %}: {{ form_step_data.0.url2_link }}</div>
-                            {% endif %}
-                        </div></dd>
+                        <dd>
+                            <div class="text-field">
+                                {% if form_step_data.0.url0_link %}
+                                    <div>{% if form_step_data.0.url0_type %}
+                                        {{ form_step_data.0.get_url0_type_display }}{% else %}
+                                        {% trans "Website" %}{% endif %}: {{ form_step_data.0.url0_link }}</div>
+                                {% endif %}
+                                {% if form_step_data.0.url1_link %}
+                                    <div>{% if form_step_data.0.url1_type %}
+                                        {{ form_step_data.0.get_url1_type_display }}{% else %}
+                                        {% trans "Website" %}{% endif %}: {{ form_step_data.0.url1_link }}</div>
+                                {% endif %}
+                                {% if form_step_data.0.url2_link %}
+                                    <div>{% if form_step_data.0.url2_type %}
+                                        {{ form_step_data.0.get_url2_type_display }}{% else %}
+                                        {% trans "Website" %}{% endif %}: {{ form_step_data.0.url2_link }}</div>
+                                {% endif %}
+                            </div>
+                        </dd>
                         <dd class="clearfix"></dd>
                     {% endif %}
+
                     {% if form_step_data.0.im0_address or form_step_data.0.im1_address or form_step_data.0.im2_address %}
                         <dt>{% trans "Instant Messengers" %}</dt>
-                        <dd><div class="text-field">
-                            {% if form_step_data.0.im0_address %}
-                                <div>{% if form_step_data.0.im0_type %}{{ form_step_data.0.get_im0_type_display }}{% else %}{% trans "Instant Messenger" %}{% endif %}: {{ form_step_data.0.im0_address }}</div>
-                            {% endif %}
-                            {% if form_step_data.0.im1_address %}
-                                <div>{% if form_step_data.0.im1_type %}{{ form_step_data.0.get_im1_type_display }}{% else %}{% trans "Instant Messenger" %}{% endif %}: {{ form_step_data.0.im1_address }}</div>
-                            {% endif %}
-                            {% if form_step_data.0.im2_address %}
-                                <div>{% if form_step_data.0.im2_type %}{{ form_step_data.0.get_im2_type_display }}{% else %}{% trans "Instant Messenger" %}{% endif %}: {{ form_step_data.0.im2_address }}</div>
-                            {% endif %}
-                        </div></dd>
+                        <dd>
+                            <div class="text-field">
+                                {% if form_step_data.0.im0_address %}
+                                    <div>{% if form_step_data.0.im0_type %}
+                                        {{ form_step_data.0.get_im0_type_display }}{% else %}
+                                        {% trans "Instant Messenger" %}{% endif %}: {{ form_step_data.0.im0_address }}</div>
+                                {% endif %}
+                                {% if form_step_data.0.im1_address %}
+                                    <div>{% if form_step_data.0.im1_type %}
+                                        {{ form_step_data.0.get_im1_type_display }}{% else %}
+                                        {% trans "Instant Messenger" %}{% endif %}: {{ form_step_data.0.im1_address }}</div>
+                                {% endif %}
+                                {% if form_step_data.0.im2_address %}
+                                    <div>{% if form_step_data.0.im2_type %}
+                                        {{ form_step_data.0.get_im2_type_display }}{% else %}
+                                        {% trans "Instant Messenger" %}{% endif %}: {{ form_step_data.0.im2_address }}</div>
+                                {% endif %}
+                            </div>
+                        </dd>
                         <dd class="clearfix"></dd>
                     {% endif %}
                 </dl>
             </fieldset>
         </div>
-        
+
         <div class="fieldset not-editable ">
             <fieldset>
                 <h2>{% trans 'Profile Data' %}</h2>
                 <dl class="input-fields">
                     {% if form_step_data.1.description_de %}
                         <dt>{% trans "Description (German)" %}</dt>
-                        <dd><div class="text-field">{{ form_step_data.1.description_de }}</div></dd>
+                        <dd>
+                            <div class="text-field">{{ form_step_data.1.description_de }}</div>
+                        </dd>
                         <dd class="clearfix"></dd>
                     {% endif %}
+
                     {% if form_step_data.1.description_en %}
                         <dt>{% trans "Description (English)" %}</dt>
-                        <dd><div class="text-field">{{ form_step_data.1.description_en }}</div></dd>
+                        <dd>
+                            <div class="text-field">{{ form_step_data.1.description_en }}</div>
+                        </dd>
                         <dd class="clearfix"></dd>
                     {% endif %}
+
                     {% if form_step_data.1.avatar %}
-                        <dt>{% trans "Profile photo" %}</dt><dd><img class="avatar" src="/helper/tmpimage/{{ form_step_data.1.avatar.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/" alt="{{ object.get_title|escape }}"/></dd>
+                        <dt>{% trans "Profile photo" %}</dt>
+                        <dd>
+                            <img class="avatar"
+                                src="/helper/tmpimage/{{ form_step_data.1.avatar.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/"
+                                alt="{{ object.get_title|escape }}"/>
+                        </dd>
                     {% else %}
-                        <dt>{% trans "Profile photo" %}</dt><dd><img class="avatar" src="{{ STATIC_URL }}site/img/placeholder/institution.png" alt="{{ object.get_title|escape }}"/></dd>
+                        <dt>{% trans "Profile photo" %}</dt>
+                        <dd>
+                            <img class="avatar"
+                                src="{{ STATIC_URL }}site/img/placeholder/institution.png"
+                                alt="{{ object.get_title|escape }}"/>
+                        </dd>
                     {% endif %}
                 </dl>
             </fieldset>
         </div>
-        
+
         {% if form_step_data.2.mon_open or form_step_data.2.mon_is_closed or form_step_data.2.tue_open or form_step_data.2.tue_is_closed or form_step_data.2.wed_open or form_step_data.2.wed_is_closed or form_step_data.2.thu_open or form_step_data.2.thu_is_closed or form_step_data.2.fri_open or form_step_data.2.fri_is_closed or form_step_data.2.sat_open or form_step_data.2.sat_is_closed or form_step_data.2.sun_open or form_step_data.2.sun_is_closed or form_step_data.2.exceptions_de or form_step_data.2.exceptions_en or form_step_data.2.is_appointment_based %}
             <div class="fieldset not-editable ">
                 <fieldset>
@@ -132,612 +195,277 @@
                     <dl class="input-fields">
                         {% if form_step_data.2.mon_open or form_step_data.2.mon_is_closed %}
                             <dt>{% trans "Monday" %}</dt>
-                            <dd><div class="text-field">
-                                {% if form_step_data.2.mon_is_closed %}
-                                    {% trans "closed" %}
-                                {% else %}
-                                    <div>
-                                        {{ form_step_data.2.mon_open|time:_("TIME_FORMAT") }}
-                                        {% if form_step_data.2.mon_break_close %}
-                                            - {{ form_step_data.2.mon_break_close|time:_("TIME_FORMAT") }}
-                                            </div><div>
-                                            {{ form_step_data.2.mon_break_open|time:_("TIME_FORMAT") }}
-                                            - {{ form_step_data.2.mon_close|time:_("TIME_FORMAT") }}
-                                        {% else %}
-                                            - {{ form_step_data.2.mon_close|time:_("TIME_FORMAT") }}
-                                        {% endif %}
-                                    </div>
-                                {% endif %}
-                            </div></dd>
+                            <dd>
+                                <div class="text-field">
+                                    {% if form_step_data.2.mon_is_closed %}
+                                        {% trans "closed" %}
+                                    {% else %}
+                                        <div>
+                                            {{ form_step_data.2.mon_open|time:_("TIME_FORMAT") }}
+                                            {% if form_step_data.2.mon_break_close %}
+                                                - {{ form_step_data.2.mon_break_close|time:_("TIME_FORMAT") }}
+                                                </div>
+                                                <div>
+                                                {{ form_step_data.2.mon_break_open|time:_("TIME_FORMAT") }}
+                                                - {{ form_step_data.2.mon_close|time:_("TIME_FORMAT") }}
+                                            {% else %}
+                                                - {{ form_step_data.2.mon_close|time:_("TIME_FORMAT") }}
+                                            {% endif %}
+                                            </div>
+                                    {% endif %}
+                                </div>
+                            </dd>
                             <dd class="clearfix"></dd>
                         {% endif %}
+
                         {% if form_step_data.2.tue_open or form_step_data.2.tue_is_closed %}
                             <dt>{% trans "Tuesday" %}</dt>
-                            <dd><div class="text-field">
-                                {% if form_step_data.2.tue_is_closed %}
-                                    {% trans "closed" %}
-                                {% else %}
-                                    <div>
-                                        {{ form_step_data.2.tue_open|time:_("TIME_FORMAT") }}
-                                        {% if form_step_data.2.tue_break_close %}
-                                            - {{ form_step_data.2.tue_break_close|time:_("TIME_FORMAT") }}
-                                            </div><div>
-                                            {{ form_step_data.2.tue_break_open|time:_("TIME_FORMAT") }}
-                                            - {{ form_step_data.2.tue_close|time:_("TIME_FORMAT") }}
-                                        {% else %}
-                                            - {{ form_step_data.2.tue_close|time:_("TIME_FORMAT") }}
-                                        {% endif %}
-                                    </div>
-                                {% endif %}
-                            </div></dd>
+                            <dd>
+                                <div class="text-field">
+                                    {% if form_step_data.2.tue_is_closed %}
+                                        {% trans "closed" %}
+                                    {% else %}
+                                        <div>
+                                            {{ form_step_data.2.tue_open|time:_("TIME_FORMAT") }}
+                                            {% if form_step_data.2.tue_break_close %}
+                                                - {{ form_step_data.2.tue_break_close|time:_("TIME_FORMAT") }}
+                                                </div>
+                                                <div>
+                                                {{ form_step_data.2.tue_break_open|time:_("TIME_FORMAT") }}
+                                                - {{ form_step_data.2.tue_close|time:_("TIME_FORMAT") }}
+                                            {% else %}
+                                                - {{ form_step_data.2.tue_close|time:_("TIME_FORMAT") }}
+                                            {% endif %}
+                                            </div>
+                                    {% endif %}
+                                </div>
+                            </dd>
                             <dd class="clearfix"></dd>
                         {% endif %}
+
                         {% if form_step_data.2.wed_open or form_step_data.2.wed_is_closed %}
                             <dt>{% trans "Wednesday" %}</dt>
-                            <dd><div class="text-field">
-                                {% if form_step_data.2.wed_is_closed %}
-                                    {% trans "closed" %}
-                                {% else %}
-                                    <div>
-                                        {{ form_step_data.2.wed_open|time:_("TIME_FORMAT") }}
-                                        {% if form_step_data.2.wed_break_close %}
-                                            - {{ form_step_data.2.wed_break_close|time:_("TIME_FORMAT") }}
-                                            </div><div>
-                                            {{ form_step_data.2.wed_break_open|time:_("TIME_FORMAT") }}
-                                            - {{ form_step_data.2.wed_close|time:_("TIME_FORMAT") }}
-                                        {% else %}
-                                            - {{ form_step_data.2.wed_close|time:_("TIME_FORMAT") }}
-                                        {% endif %}
-                                    </div>
-                                {% endif %}
-                            </div></dd>
+                            <dd>
+                                <div class="text-field">
+                                    {% if form_step_data.2.wed_is_closed %}
+                                        {% trans "closed" %}
+                                    {% else %}
+                                        <div>
+                                            {{ form_step_data.2.wed_open|time:_("TIME_FORMAT") }}
+                                            {% if form_step_data.2.wed_break_close %}
+                                                - {{ form_step_data.2.wed_break_close|time:_("TIME_FORMAT") }}
+                                                </div>
+                                                <div>
+                                                {{ form_step_data.2.wed_break_open|time:_("TIME_FORMAT") }}
+                                                - {{ form_step_data.2.wed_close|time:_("TIME_FORMAT") }}
+                                            {% else %}
+                                                - {{ form_step_data.2.wed_close|time:_("TIME_FORMAT") }}
+                                            {% endif %}
+                                            </div>
+                                    {% endif %}
+                                </div>
+                            </dd>
                             <dd class="clearfix"></dd>
                         {% endif %}
+
                         {% if form_step_data.2.thu_open or form_step_data.2.thu_is_closed %}
                             <dt>{% trans "Thursday" %}</dt>
-                            <dd><div class="text-field">
-                                {% if form_step_data.2.thu_is_closed %}
-                                    {% trans "closed" %}
-                                {% else %}
-                                    <div>
-                                        {{ form_step_data.2.thu_open|time:_("TIME_FORMAT") }}
-                                        {% if form_step_data.2.thu_break_close %}
-                                            - {{ form_step_data.2.thu_break_close|time:_("TIME_FORMAT") }}
-                                            </div><div>
-                                            {{ form_step_data.2.thu_break_open|time:_("TIME_FORMAT") }}
-                                            - {{ form_step_data.2.thu_close|time:_("TIME_FORMAT") }}
-                                        {% else %}
-                                            - {{ form_step_data.2.thu_close|time:_("TIME_FORMAT") }}
-                                        {% endif %}
-                                    </div>
-                                {% endif %}
-                            </div></dd>
+                            <dd>
+                                <div class="text-field">
+                                    {% if form_step_data.2.thu_is_closed %}
+                                        {% trans "closed" %}
+                                    {% else %}
+                                        <div>
+                                            {{ form_step_data.2.thu_open|time:_("TIME_FORMAT") }}
+                                            {% if form_step_data.2.thu_break_close %}
+                                                - {{ form_step_data.2.thu_break_close|time:_("TIME_FORMAT") }}
+                                                </div>
+                                                <div>
+                                                {{ form_step_data.2.thu_break_open|time:_("TIME_FORMAT") }}
+                                                - {{ form_step_data.2.thu_close|time:_("TIME_FORMAT") }}
+                                            {% else %}
+                                                - {{ form_step_data.2.thu_close|time:_("TIME_FORMAT") }}
+                                            {% endif %}
+                                            </div>
+                                    {% endif %}
+                                </div>
+                            </dd>
                             <dd class="clearfix"></dd>
                         {% endif %}
+
                         {% if form_step_data.2.fri_open or form_step_data.2.fri_is_closed %}
                             <dt>{% trans "Friday" %}</dt>
-                            <dd><div class="text-field">
-                                {% if form_step_data.2.fri_is_closed %}
-                                    {% trans "closed" %}
-                                {% else %}
-                                    <div>
-                                        {{ form_step_data.2.fri_open|time:_("TIME_FORMAT") }}
-                                        {% if form_step_data.2.fri_break_close %}
-                                            - {{ form_step_data.2.fri_break_close|time:_("TIME_FORMAT") }}
-                                            </div><div>
-                                            {{ form_step_data.2.fri_break_open|time:_("TIME_FORMAT") }}
-                                            - {{ form_step_data.2.fri_close|time:_("TIME_FORMAT") }}
-                                        {% else %}
-                                            - {{ form_step_data.2.fri_close|time:_("TIME_FORMAT") }}
-                                        {% endif %}
-                                    </div>
-                                {% endif %}
-                            </div></dd>
+                            <dd>
+                                <div class="text-field">
+                                    {% if form_step_data.2.fri_is_closed %}
+                                        {% trans "closed" %}
+                                    {% else %}
+                                        <div>
+                                            {{ form_step_data.2.fri_open|time:_("TIME_FORMAT") }}
+                                            {% if form_step_data.2.fri_break_close %}
+                                                - {{ form_step_data.2.fri_break_close|time:_("TIME_FORMAT") }}
+                                                </div>
+                                                <div>
+                                                {{ form_step_data.2.fri_break_open|time:_("TIME_FORMAT") }}
+                                                - {{ form_step_data.2.fri_close|time:_("TIME_FORMAT") }}
+                                            {% else %}
+                                                - {{ form_step_data.2.fri_close|time:_("TIME_FORMAT") }}
+                                            {% endif %}
+                                            </div>
+                                    {% endif %}
+                                </div>
+                            </dd>
                             <dd class="clearfix"></dd>
                         {% endif %}
+
                         {% if form_step_data.2.sat_open or form_step_data.2.sat_is_closed %}
                             <dt>{% trans "Saturday" %}</dt>
-                            <dd><div class="text-field">
-                                {% if form_step_data.2.sat_is_closed %}
-                                    {% trans "closed" %}
-                                {% else %}
-                                    <div>
-                                        {{ form_step_data.2.sat_open|time:_("TIME_FORMAT") }}
-                                        {% if form_step_data.2.sat_break_close %}
-                                            - {{ form_step_data.2.sat_break_close|time:_("TIME_FORMAT") }}
-                                            </div><div>
-                                            {{ form_step_data.2.sat_break_open|time:_("TIME_FORMAT") }}
-                                            - {{ form_step_data.2.sat_close|time:_("TIME_FORMAT") }}
-                                        {% else %}
-                                            - {{ form_step_data.2.sat_close|time:_("TIME_FORMAT") }}
-                                        {% endif %}
-                                    </div>
-                                {% endif %}
-                            </div></dd>
+                            <dd>
+                                <div class="text-field">
+                                    {% if form_step_data.2.sat_is_closed %}
+                                        {% trans "closed" %}
+                                    {% else %}
+                                        <div>
+                                            {{ form_step_data.2.sat_open|time:_("TIME_FORMAT") }}
+                                            {% if form_step_data.2.sat_break_close %}
+                                                - {{ form_step_data.2.sat_break_close|time:_("TIME_FORMAT") }}
+                                                </div>
+                                                <div>
+                                                {{ form_step_data.2.sat_break_open|time:_("TIME_FORMAT") }}
+                                                - {{ form_step_data.2.sat_close|time:_("TIME_FORMAT") }}
+                                            {% else %}
+                                                - {{ form_step_data.2.sat_close|time:_("TIME_FORMAT") }}
+                                            {% endif %}
+                                            </div>
+                                    {% endif %}
+                                </div>
+                            </dd>
                             <dd class="clearfix"></dd>
                         {% endif %}
+
                         {% if form_step_data.2.sun_open or form_step_data.2.sun_is_closed %}
                             <dt>{% trans "Sunday" %}</dt>
-                            <dd><div class="text-field">
-                                {% if form_step_data.2.sun_is_closed %}
-                                    {% trans "closed" %}
-                                {% else %}
-                                    <div>
-                                        {{ form_step_data.2.sun_open|time:_("TIME_FORMAT") }}
-                                        {% if form_step_data.2.sun_break_close %}
-                                            - {{ form_step_data.2.sun_break_close|time:_("TIME_FORMAT") }}
-                                            </div><div>
-                                            {{ form_step_data.2.sun_break_open|time:_("TIME_FORMAT") }}
-                                            - {{ form_step_data.2.sun_close|time:_("TIME_FORMAT") }}
-                                        {% else %}
-                                            - {{ form_step_data.2.sun_close|time:_("TIME_FORMAT") }}
-                                        {% endif %}
-                                    </div>
-                                {% endif %}
-                            </div></dd>
+                            <dd>
+                                <div class="text-field">
+                                    {% if form_step_data.2.sun_is_closed %}
+                                        {% trans "closed" %}
+                                    {% else %}
+                                        <div>
+                                            {{ form_step_data.2.sun_open|time:_("TIME_FORMAT") }}
+                                            {% if form_step_data.2.sun_break_close %}
+                                                - {{ form_step_data.2.sun_break_close|time:_("TIME_FORMAT") }}
+                                                </div>
+                                                <div>
+                                                {{ form_step_data.2.sun_break_open|time:_("TIME_FORMAT") }}
+                                                - {{ form_step_data.2.sun_close|time:_("TIME_FORMAT") }}
+                                            {% else %}
+                                                - {{ form_step_data.2.sun_close|time:_("TIME_FORMAT") }}
+                                            {% endif %}
+                                            </div>
+                                    {% endif %}
+                                </div>
+                            </dd>
                             <dd class="clearfix"></dd>
                         {% endif %}
+
                         {% if form_step_data.2.exceptions_de %}
                             <dt>{% trans "Exceptions for working hours (German)" %}</dt>
-                            <dd><div class="text-field">{{ form_step_data.2.exceptions_de }}</div></dd>
+                            <dd>
+                                <div class="text-field">{{ form_step_data.2.exceptions_de }}</div>
+                            </dd>
                             <dd class="clearfix"></dd>
                         {% endif %}
+
                         {% if form_step_data.2.exceptions_en %}
                             <dt>{% trans "Exceptions for working hours (English)" %}</dt>
-                            <dd><div class="text-field">{{ form_step_data.2.exceptions_en }}</div></dd>
+                            <dd>
+                                <div class="text-field">{{ form_step_data.2.exceptions_en }}</div>
+                            </dd>
                             <dd class="clearfix"></dd>
                         {% endif %}
+
                         {% if form_step_data.2.is_appointment_based %}
                             <dt>{% trans "Visiting by Appointment" %}</dt>
-                            <dd><div class="text-field">{% trans "yes" %}</div></dd>
+                            <dd>
+                                <div class="text-field">{% trans "yes" %}</div>
+                            </dd>
                             <dd class="clearfix"></dd>
                         {% endif %}
+
                         {% if form_step_data.2.is_card_visa_ok or form_step_data.2.is_card_mastercard_ok or form_step_data.2.is_card_americanexpress_ok or form_step_data.2.is_paypal_ok or form_step_data.2.is_cash_ok or form_step_data.2.is_transaction_ok or form_step_data.2.is_prepayment_ok or form_step_data.2.is_on_delivery_ok or form_step_data.2.is_invoice_ok or form_step_data.2.is_ec_maestro_ok or form_step_data.2.is_giropay_ok %}
                             <dt>{% trans "Payment" %}</dt>
-                            <dd><div class="text-field">
-                                {% if form_step_data.2.is_card_visa_ok %}
-                                    <div>{% trans "Visa" %}</div>
-                                {% endif %}
-                                {% if form_step_data.2.is_card_mastercard_ok %}
-                                    <div>{% trans "MasterCard" %}</div>
-                                {% endif %}
-                                {% if form_step_data.2.is_card_americanexpress_ok %}
-                                    <div>{% trans "American Express" %}</div>
-                                {% endif %}
-                                {% if form_step_data.2.is_paypal_ok %}
-                                    <div>{% trans "PayPal" %}</div>
-                                {% endif %}
-                                {% if form_step_data.2.is_cash_ok %}
-                                    <div>{% trans "Cash" %}</div>
-                                {% endif %}
-                                {% if form_step_data.2.is_transaction_ok %}
-                                    <div>{% trans "Bank transfer" %}</div>
-                                {% endif %}
-                                {% if form_step_data.2.is_prepayment_ok %}
-                                    <div>{% trans "Prepayment" %}</div>
-                                {% endif %}
-                                {% if form_step_data.2.is_on_delivery_ok %}
-                                    <div>{% trans "Payment on delivery" %}</div>
-                                {% endif %}
-                                {% if form_step_data.2.is_invoice_ok %}
-                                    <div>{% trans "Invoice" %}</div>
-                                {% endif %}
-                                {% if form_step_data.2.is_ec_maestro_ok %}
-                                    <div>{% trans "EC Maestro" %}</div>
-                                {% endif %}
-                                {% if form_step_data.2.is_giropay_ok %}
-                                    <div>{% trans "Giropay" %}</div>
-                                {% endif %}
-                            </div></dd>
+                            <dd>
+                                <div class="text-field">
+                                    {% if form_step_data.2.is_card_visa_ok %}
+                                        <div>{% trans "Visa" %}</div>
+                                    {% endif %}
+                                    {% if form_step_data.2.is_card_mastercard_ok %}
+                                        <div>{% trans "MasterCard" %}</div>
+                                    {% endif %}
+                                    {% if form_step_data.2.is_card_americanexpress_ok %}
+                                        <div>{% trans "American Express" %}</div>
+                                    {% endif %}
+                                    {% if form_step_data.2.is_paypal_ok %}
+                                        <div>{% trans "PayPal" %}</div>
+                                    {% endif %}
+                                    {% if form_step_data.2.is_cash_ok %}
+                                        <div>{% trans "Cash" %}</div>
+                                    {% endif %}
+                                    {% if form_step_data.2.is_transaction_ok %}
+                                        <div>{% trans "Bank transfer" %}</div>
+                                    {% endif %}
+                                    {% if form_step_data.2.is_prepayment_ok %}
+                                        <div>{% trans "Prepayment" %}</div>
+                                    {% endif %}
+                                    {% if form_step_data.2.is_on_delivery_ok %}
+                                        <div>{% trans "Payment on delivery" %}</div>
+                                    {% endif %}
+                                    {% if form_step_data.2.is_invoice_ok %}
+                                        <div>{% trans "Invoice" %}</div>
+                                    {% endif %}
+                                    {% if form_step_data.2.is_ec_maestro_ok %}
+                                        <div>{% trans "EC Maestro" %}</div>
+                                    {% endif %}
+                                    {% if form_step_data.2.is_giropay_ok %}
+                                        <div>{% trans "Giropay" %}</div>
+                                    {% endif %}
+                                </div>
+                            </dd>
                             <dd class="clearfix"></dd>
                         {% endif %}
                     </dl>
                 </fieldset>
             </div>
         {% endif %}
-        
+
         <div class="fieldset not-editable ">
             <fieldset>
                 <h2>{% trans 'Categories' %}</h2>
                 <dl class="input-fields">
                     <dt>{% trans "Categories" %}</dt>
-                    <dd><div class="text-field">
-                        {% for cat in form_step_data.3.categories %}
-                            <div>{{ cat.title }}</div>
-                        {% endfor %}
-                    </div></dd>
+                    <dd>
+                        <div class="text-field">
+                            {% for cat in form_step_data.3.categories %}
+                                <div>{{ cat.title }}</div>
+                            {% endfor %}
+                        </div>
+                    </dd>
                     <dd class="clearfix"></dd>
+
                     <dt>{% trans "Institution Types" %}</dt>
-                    <dd><div class="text-field">
-                        {% for cat in form_step_data.3.institution_types %}
-                            <div>{{ cat.title }}</div>
-                        {% endfor %}
-                    </div></dd>
+                    <dd>
+                        <div class="text-field">
+                            {% for cat in form_step_data.3.institution_types %}
+                                <div>{{ cat.title }}</div>
+                            {% endfor %}
+                        </div>
+                    </dd>
                     <dd class="clearfix"></dd>
+
                 </dl>
             </fieldset>
         </div>
-                    
+
         {% include "utils/step_buttons_reg.html" %}
     </form>
-{% endblock %}
-
-
-
-
-
-{% block headline_old %}
-    <h1>{% trans "Registration" %}</h1>
-    <h2 class="sub">{% trans "Institution" %}</h2>
-{% endblock %}
-
-{% block sidebar-a_old %}
-    {% include "utils/step_list.html" %}
-{% endblock %}
-
-{% block sidebar-b_old %}
-{% endblock %}
-
-{% block content_old %}
-    {% comment %}
-    <div class="reg confirm">
-        <form action="" method="post" class="uniForm">{% csrf_token %}
-            <fieldset class="inlineLabels">
-                <h5>{% trans "Confirm Entered Data" %}</h5>
-
-                <h3>
-                    {{ form_step_data.0.institution_name }} {{ form_step_data.0.institution_name2 }}
-                </h3>
-
-                <div>
-                    <h2><span class="fn">{{ form_step_data.0.first_name }} {{ form_step_data.0.last_name }}</span></h2>
-                    {% if form_step_data.0.occupation %}
-                        <h4 class="type">{{ form_step_data.0.occupation }}</h4>
-                    {% endif %}
-
-                    <div class="events_profile">
-                        <img
-                            src="{% if form_step_data.1.avatar %}/helper/tmpimage/{{ form_step_data.1.avatar.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/{% else %}{{ DEFAULT_FORM_LOGO_4_INSTITUTION }}{% endif %}"
-                            alt="{% trans "Image" %}"/>
-                    </div>
-                    {% ifequal LANGUAGE_CODE "de" %}
-                        <p class="events_profile_txt">{{ form_step_data.1.description_de }}</p>
-                    {% else %}
-                        <p class="events_profile_txt">{{ form_step_data.1.description_en }}</p>
-                    {% endifequal %}
-                </div>
-                {{ form_step_data.0.location_title }}
-                <div class="cleaner"></div>
-                <h5 class="checkline">
-                    <a href="#">{% trans "Contact" %}</a>
-                </h5>
-
-                <div class="check">
-                    <dl>
-                        <dt>
-                            {% if form_step_data.0.location_type %}
-                                {{ form_step_data.0.get_location_type_display }}:
-                            {% else %}
-                                {% trans "Address" %}:
-                            {% endif %}
-                        </dt>
-                        <dd>
-                            <address>
-                                {{ form_step_data.0.street_address|escape }},
-                                {% if form_step_data.0.street_address2 %}
-                                    {{ form_step_data.0.street_address2|escape }},
-                                {% endif %}
-                                {{ form_step_data.0.postal_code|escape }} {{ form_step_data.0.city|escape }},
-                                {{ form_step_data.0.get_country_display }}
-                            </address>
-                        </dd>
-                    </dl>
-                    {% if form_step_data.0.phone_country or form_step_data.0.fax_number or form_step_data.0.mobile_number %}
-                        <dl>
-                            {% if form_step_data.0.phone_number %}
-                                <dt>{% trans "Phone" %}:</dt>
-                                <dd>
-                                    +{{ form_step_data.0.phone_country }}-{{ form_step_data.0.phone_area }}-{{ form_step_data.0.phone_number }}</dd>
-                            {% endif %}
-
-                            {% if form_step_data.0.fax_number %}
-                                <dt>{% trans "Fax" %}:</dt>
-                                <dd>
-                                    +{{ form_step_data.0.fax_country }}-{{ form_step_data.0.fax_area }}-{{ form_step_data.0.fax_number }}</dd>
-                            {% endif %}
-
-                            {% if form_step_data.0.mobile_number %}
-                                <dt>{% trans "Mobile" %}:</dt>
-                                <dd>
-                                    +{{ form_step_data.0.mobile_country }}-{{ form_step_data.0.mobile_area }}-{{ form_step_data.0.mobile_number }}</dd>
-                            {% endif %}
-                        </dl>
-                    {% endif %}
-                    {% if form_step_data.0.email0 or form_step_data.0.email1 or form_step_data.0.email2 %}
-                        <dl>
-                            {% if form_step_data.0.email0 %}
-                                <dt>{% trans "E-mail Add" %}:</dt>
-                                <dd>
-                                    <a href="form_step_data.0.email0">{{ form_step_data.0.email0 }}</a>
-                                </dd>
-                            {% endif %}
-
-                            {% if form_step_data.0.email1 %}
-                                <dt>{% trans "E-mail Add" %}:</dt>
-                                <dd>
-                                    <a href="form_step_data.0.email1">
-                                        {{ form_step_data.0.email1 }}
-                                    </a>
-                                </dd>
-                            {% endif %}
-
-                            {% if form_step_data.0.email2 %}
-                                <dt>{% trans "E-mail Add" %}:</dt>
-                                <dd>
-                                    <a href="form_step_data.0.email2">{{ form_step_data.0.email2 }}</a>
-                                </dd>
-                            {% endif %}
-                        </dl>
-                    {% endif %}
-                    {% if form_step_data.0.url0_link or form_step_data.0.url1_link or form_step_data.0.url2_link %}
-                        <dl>
-                            {% if form_step_data.0.url0_link %}
-                                {% if form_step_data.0.url0_type %}
-                                    <dt>{{ form_step_data.0.get_url0_type_display }}:</dt>
-                                {% else %}
-                                    <dt>{% trans "Website" %}:</dt>
-                                {% endif %}
-                                <dd>{{ form_step_data.0.url0_link }}</dd>
-                            {% endif %}
-
-                            {% if form_step_data.0.url1_link %}
-                                {% if form_step_data.0.url1_type %}
-                                    <dt>{{ form_step_data.0.get_url1_type_display }}:</dt>
-                                {% else %}
-                                    <dt>{% trans "Website" %}:</dt>
-                                {% endif %}
-                                <dd>{{ form_step_data.0.url1_link }}</dd>
-                            {% endif %}
-
-                            {% if form_step_data.0.url2_link %}
-                                {% if form_step_data.0.url0_type %}
-                                    <dt>{{ form_step_data.0.get_url2_type_display }}:</dt>
-                                {% else %}
-                                    <dt>{% trans "Website" %}:</dt>
-                                {% endif %}
-                                <dd>{{ form_step_data.0.url2_link }}</dd>
-                            {% endif %}
-                        </dl>
-                    {% endif %}
-                    {% if form_step_data.0.im0_address or form_step_data.0.im1_address or form_step_data.0.im2_address %}
-                        <dl>
-                            {% if form_step_data.0.im0_address %}
-                                {% if form_step_data.0.im0_type %}
-                                    <dt>{{ form_step_data.0.get_im0_type_display }}:</dt>
-                                {% else %}
-                                    <dt>{% trans "Instant Messager" %}:</dt>
-                                {% endif %}
-                                <dd>{{ form_step_data.0.im0_address }}</dd>
-                            {% endif %}
-                            {% if form_step_data.0.im1_address %}
-                                {% if form_step_data.0.im1_type %}
-                                    <dt>{{ form_step_data.0.get_im1_type_display }}:</dt>
-                                {% else %}
-                                    <dt>{% trans "Instant Messager" %}:</dt>
-                                {% endif %}
-                                <dd>{{ form_step_data.0.im1_address }}</dd>
-                            {% endif %}
-
-                            {% if form_step_data.0.im2_address %}
-                                {% if form_step_data.0.im2_type %}
-                                    <dt>{{ form_step_data.0.get_im2_type_display }}:</dt>
-                                {% else %}
-                                    <dt>{% trans "Instant Messager" %}:</dt>
-                                {% endif %}
-                                <dd>{{ form_step_data.0.im2_address }}</dd>
-                            {% endif %}
-                        </dl>
-                    {% endif %}
-
-                    {% if form_step_data.2.mon_open or form_step_data.2.mon_is_closed or form_step_data.2.tue_open or form_step_data.2.tue_is_closed or form_step_data.2.wed_open or form_step_data.2.wed_is_closed or form_step_data.2.thu_open or form_step_data.2.thu_is_closed or form_step_data.2.fri_open or form_step_data.2.fri_is_closed or form_step_data.2.sat_open or form_step_data.2.sat_is_closed or form_step_data.2.sun_open or form_step_data.2.sun_is_closed or form_step_data.2.is_card_visa_ok or form_step_data.2.is_card_mastercard_ok or form_step_data.2.is_card_americanexpress_ok or form_step_data.2.is_paypal_ok or form_step_data.2.is_cash_ok or form_step_data.2.is_transaction_ok or form_step_data.2.is_prepayment_ok or form_step_data.2.is_on_delivery_ok or form_step_data.2.is_invoice_ok or form_step_data.2.is_ec_maestro_ok or form_step_data.2.is_giropay_ok %}
-                        <dl>
-                            <dt>{% trans "OPENING HOURS" %}:</dt>
-                            <dd class="time">
-                                {% if form_step_data.2.mon_open or form_step_data.2.mon_is_closed %}
-                                    {% trans "Monday" %}:
-                                    {% if form_step_data.2.mon_is_closed %}
-                                        {% trans "closed" %}
-                                    {% else %}
-                                        {{ form_step_data.2.mon_open|time:_("TIME_FORMAT") }}
-                                        {% if form_step_data.2.mon_break_close %}
-                                            - {{ form_step_data.2.mon_break_close|time:_("TIME_FORMAT") }},
-                                            {{ form_step_data.2.mon_break_open|time:_("TIME_FORMAT") }}
-                                            - {{ form_step_data.2.mon_close|time:_("TIME_FORMAT") }}
-                                        {% else %}
-                                            - {{ form_step_data.2.mon_close|time:_("TIME_FORMAT") }}
-                                        {% endif %}
-                                    {% endif %}
-                                    <br/>
-                                {% endif %}
-                                {% if form_step_data.2.tue_open or form_step_data.2.tue_is_closed %}
-                                    {% trans "Tuesday" %}:
-                                    {% if form_step_data.2.tue_is_closed %}
-                                        {% trans "closed" %}
-                                    {% else %}
-                                        {{ form_step_data.2.tue_open|time:_("TIME_FORMAT") }}
-                                        {% if form_step_data.2.tue_break_close %}
-                                            - {{ form_step_data.2.tue_break_close|time:_("TIME_FORMAT") }},
-                                            {{ form_step_data.2.tue_break_open|time:_("TIME_FORMAT") }}
-                                            - {{ form_step_data.2.tue_close|time:_("TIME_FORMAT") }}
-                                        {% else %}
-                                            - {{ form_step_data.2.tue_close|time:_("TIME_FORMAT") }}
-                                        {% endif %}
-                                    {% endif %}
-                                    <br/>
-                                {% endif %}
-
-                                {% if form_step_data.2.wed_open or form_step_data.2.wed_is_closed %}
-                                    {% trans "Wednesday" %}:
-                                    {% if form_step_data.2.wed_is_closed %}
-                                        {% trans "closed" %}
-                                    {% else %}
-                                        {{ form_step_data.2.wed_open|time:_("TIME_FORMAT") }}
-                                        {% if form_step_data.2.wed_break_close %}
-                                            - {{ form_step_data.2.wed_break_close|time:_("TIME_FORMAT") }},
-                                            {{ form_step_data.2.wed_break_open|time:_("TIME_FORMAT") }}
-                                            - {{ form_step_data.2.wed_close|time:_("TIME_FORMAT") }}
-                                        {% else %}
-                                            - {{ form_step_data.2.wed_close|time:_("TIME_FORMAT") }}
-                                        {% endif %}
-                                    {% endif %}
-                                    <br/>
-                                {% endif %}
-
-                                {% if form_step_data.2.thu_open or form_step_data.2.thu_is_closed %}
-                                    {% trans "Thursday" %}:
-                                    {% if form_step_data.2.thu_is_closed %}
-                                        {% trans "closed" %}
-                                    {% else %}
-                                        {{ form_step_data.2.thu_open|time:_("TIME_FORMAT") }}
-                                        {% if form_step_data.2.thu_break_close %}
-                                            - {{ form_step_data.2.thu_break_close|time:_("TIME_FORMAT") }},
-                                            {{ form_step_data.2.thu_break_open|time:_("TIME_FORMAT") }}
-                                            - {{ form_step_data.2.thu_close|time:_("TIME_FORMAT") }}
-                                        {% else %}
-                                            - {{ form_step_data.2.thu_close|time:_("TIME_FORMAT") }}
-                                        {% endif %}
-                                    {% endif %}
-                                    <br/>
-                                {% endif %}
-
-                                {% if form_step_data.2.fri_open or form_step_data.2.fri_is_closed %}
-                                    {% trans "Friday" %}:
-                                    {% if form_step_data.2.fri_is_closed %}
-                                        {% trans "closed" %}
-                                    {% else %}
-                                        {{ form_step_data.2.fri_open|time:_("TIME_FORMAT") }}
-                                        {% if form_step_data.2.fri_break_close %}
-                                            - {{ form_step_data.2.fri_break_close|time:_("TIME_FORMAT") }},
-                                            {{ form_step_data.2.fri_break_open|time:_("TIME_FORMAT") }}
-                                            - {{ form_step_data.2.fri_close|time:_("TIME_FORMAT") }}
-                                        {% else %}
-                                            - {{ form_step_data.2.fri_close|time:_("TIME_FORMAT") }}
-                                        {% endif %}
-                                    {% endif %}
-                                    <br/>
-                                {% endif %}
-
-                                {% if form_step_data.2.sat_open or form_step_data.2.sat_is_closed %}
-                                    {% trans "Saturday" %}:
-                                    {% if form_step_data.2.sat_is_closed %}
-                                        {% trans "closed" %}
-                                    {% else %}
-                                        {{ form_step_data.2.sat_open|time:_("TIME_FORMAT") }}
-                                        {% if form_step_data.2.sat_break_close %}
-                                            - {{ form_step_data.2.sat_break_close|time:_("TIME_FORMAT") }},
-                                            {{ form_step_data.2.sat_break_open|time:_("TIME_FORMAT") }}
-                                            - {{ form_step_data.2.sat_close|time:_("TIME_FORMAT") }}
-                                        {% else %}
-                                            - {{ form_step_data.2.sat_close|time:_("TIME_FORMAT") }}
-                                        {% endif %}
-                                    {% endif %}
-                                    <br/>
-                                {% endif %}
-
-                                {% if form_step_data.2.sun_open or form_step_data.2.sun_is_closed %}
-                                    {% trans "Sunday" %}:
-                                    {% if form_step_data.2.sun_is_closed %}
-                                        {% trans "closed" %}
-                                    {% else %}
-                                        {{ form_step_data.2.sun_open|time:_("TIME_FORMAT") }}
-                                        {% if form_step_data.2.sun_break_close %}
-                                            - {{ form_step_data.2.sun_break_close|time:_("TIME_FORMAT") }},
-                                            {{ form_step_data.2.sun_break_open|time:_("TIME_FORMAT") }}
-                                            - {{ form_step_data.2.sun_close|time:_("TIME_FORMAT") }}
-                                        {% else %}
-                                            - {{ form_step_data.2.sun_close|time:_("TIME_FORMAT") }}
-                                        {% endif %}
-                                    {% endif %}
-                                    <br/>
-                                {% endif %}
-                            </dd>
-                        </dl>
-                    {% endif %}
-
-                    {% if form_step_data.2.is_card_visa_ok or form_step_data.2.is_card_mastercard_ok or form_step_data.2.is_card_americanexpress_ok or form_step_data.2.is_paypal_ok or form_step_data.2.is_cash_ok or form_step_data.2.is_transaction_ok or form_step_data.2.is_prepayment_ok or form_step_data.2.is_on_delivery_ok or form_step_data.2.is_invoice_ok or form_step_data.2.is_ec_maestro_ok or form_step_data.2.is_giropay_ok %}
-                        <dl>
-                            <dt>{% trans "PAYMENT" %}:</dt>
-                            <dd>
-                                {% if form_step_data.2.is_card_visa_ok %}
-                                    {% trans "Visa" %}<br/>
-                                {% endif %}
-                                {% if form_step_data.2.is_card_mastercard_ok %}
-                                    {% trans "MasterCard" %}<br/>
-                                {% endif %}
-                                {% if form_step_data.2.is_card_americanexpress_ok %}
-                                    {% trans "American Express" %}<br/>
-                                {% endif %}
-                                {% if form_step_data.2.is_paypal_ok %}
-                                    {% trans "PayPal" %}<br/>
-                                {% endif %}
-                                {% if form_step_data.2.is_cash_ok %}
-                                    {% trans "Cash" %}<br/>
-                                {% endif %}
-                                {% if form_step_data.2.is_transaction_ok %}
-                                    {% trans "Bank transfer" %}<br/>
-                                {% endif %}
-                                {% if form_step_data.2.is_prepayment_ok %}
-                                    {% trans "Prepayment" %}<br/>
-                                {% endif %}
-                                {% if form_step_data.2.is_on_delivery_ok %}
-                                    {% trans "Payment on delivery" %}<br/>
-                                {% endif %}
-                                {% if form_step_data.2.is_invoice_ok %}
-                                    {% trans "Invoice" %}<br/>
-                                {% endif %}
-                                {% if form_step_data.2.is_ec_maestro_ok %}
-                                    {% trans "EC Maestro" %}<br/>
-                                {% endif %}
-                                {% if form_step_data.2.is_giropay_ok %}
-                                    {% trans "Giropay" %}<br/>
-                                {% endif %}
-
-                            </dd>
-                        </dl>
-                    {% endif %}
-
-                    <div class="cleaner"></div>
-                    <h5 class="checkline">
-                        <a href="#">{% trans "Category" %}</a>
-                    </h5>
-                    <div class="check">
-                        <dl>
-                            <dt>
-                                {% trans "Categories" %}:
-                            </dt>
-                            <dd>
-                                {% for cat in form_step_data.3.categories %}
-                                    {{ cat.title }}{% if not forloop.last %}, {% endif %}
-                                {% endfor %}
-                            </dd>
-                            <dt>{% trans "Institution Types" %}:</dt>
-                            <dd>
-                                {% for object_type in form_step_data.3.institution_types %}
-                                    {{ object_type.title }}{% if not forloop.last %}, {% endif %}
-                                {% endfor %}
-                            </dd>
-                        </dl>
-                    </div>
-                </div>
-                {% include "utils/step_buttons_reg.html" %}
-                <div class="cleaner"></div>
-            </fieldset>
-        </form>
-    </div>
-    {% endcomment %}
-{% endblock %}
-
-
-{% block extrabody_old %}
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/registration.js"></script>
 {% endblock %}
