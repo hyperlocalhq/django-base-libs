@@ -112,7 +112,6 @@ class DetailsForm(dynamicforms.Form):
         }
         self.helper.form_method = "POST"
         self.helper.attrs = {
-            'target': "hidden_iframe",
             'enctype': "multipart/form-data",
         }
         self.helper.layout = layout.Layout(
@@ -438,7 +437,6 @@ class ContactForm(dynamicforms.Form):
         }
         self.helper.form_method = "POST"
         self.helper.attrs = {
-            'target': "hidden_iframe",
             'enctype': "multipart/form-data",
         }
         self.helper.layout = layout.Layout(
@@ -719,7 +717,6 @@ class CategoriesForm(dynamicforms.Form):
         }
         self.helper.form_method = "POST"
         self.helper.attrs = {
-            'target': "hidden_iframe",
             'enctype': "multipart/form-data",
         }
         self.helper.layout = layout.Layout(

@@ -127,7 +127,6 @@ class IdentityForm(dynamicforms.Form):
         }
         self.helper.form_method = "POST"
         self.helper.attrs = {
-            'target': "hidden_iframe",
             'enctype': "multipart/form-data",
         }
         self.helper.layout = layout.Layout(
@@ -182,7 +181,6 @@ class DescriptionForm(dynamicforms.Form):
         }
         self.helper.form_method = "POST"
         self.helper.attrs = {
-            'target': "hidden_iframe",
             'enctype': "multipart/form-data",
         }
         self.helper.layout = layout.Layout(
@@ -229,7 +227,6 @@ class AvatarForm(dynamicforms.Form):
         }
         self.helper.form_method = "POST"
         self.helper.attrs = {
-            'target': "hidden_iframe",
             'enctype': "multipart/form-data",
         }
         self.helper.layout = layout.Layout(
@@ -496,7 +493,6 @@ class ContactForm(dynamicforms.Form):
         }
         self.helper.form_method = "POST"
         self.helper.attrs = {
-            'target': "hidden_iframe",
             'enctype': "multipart/form-data",
         }
         self.helper.layout = layout.Layout(
@@ -799,7 +795,6 @@ class OrganizerForm(dynamicforms.Form):
         }
         self.helper.form_method = "POST"
         self.helper.attrs = {
-            'target': "hidden_iframe",
             'enctype': "multipart/form-data",
         }
         self.helper.layout = layout.Layout(
@@ -871,7 +866,6 @@ class AdditionalInfoForm(dynamicforms.Form):
         }
         self.helper.form_method = "POST"
         self.helper.attrs = {
-            'target': "hidden_iframe",
             'enctype': "multipart/form-data",
         }
         self.helper.layout = layout.Layout(
@@ -921,7 +915,6 @@ class EventTimesForm(dynamicforms.Form):
         }
         self.helper.form_method = "POST"
         self.helper.attrs = {
-            'target': "hidden_iframe",
             'enctype': "multipart/form-data",
         }
         self.helper.layout = layout.Layout(
@@ -1512,7 +1505,6 @@ class FeesOpeningHoursForm(dynamicforms.Form):
         }
         self.helper.form_method = "POST"
         self.helper.attrs = {
-            'target': "hidden_iframe",
             'enctype': "multipart/form-data",
         }
         self.helper.layout = layout.Layout(
@@ -1900,7 +1892,6 @@ class CategoriesForm(dynamicforms.Form):
         }
         self.helper.form_method = "POST"
         self.helper.attrs = {
-            'target': "hidden_iframe",
             'enctype': "multipart/form-data",
         }
         self.helper.layout = layout.Layout(
