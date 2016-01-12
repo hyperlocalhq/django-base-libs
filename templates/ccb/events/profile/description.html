@@ -3,7 +3,7 @@
 {% if object.are_contacts_displayed and object.get_contacts %}
     <div
         class="fieldset {% if_has_perm "events.change_event" object %}editable switch{% else %}not-editable{% end_if_has_perm %}"
-        data-edit-url="{% url 'edit_profile' object_type='event' slug=object.slug %}contact/0/">
+        data-edit-url="{% url 'edit_profile' object_type='event' slug=object.slug %}description/">
         <fieldset disabled>
             <h2>{% trans "Description" %}</h2>
             {{ object.get_rendered_description }}
