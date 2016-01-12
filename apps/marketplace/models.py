@@ -140,7 +140,7 @@ def job_offer_created(sender, instance, **kwargs):
                     instance=instance,
                     on_site=False,
                 )
-                action.send(instance.contact_person.user, verb="looking for", action_object=instance)
+                action.send(instance.contact_person.user, verb="became contact person for", action_object=instance)
 
 
 models.signals.post_save.connect(job_offer_created, sender=JobOffer)
