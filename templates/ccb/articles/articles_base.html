@@ -1,5 +1,5 @@
 {% extends "base_redesign.html" %}
-{% load i18n base_tags navigation_tags cache infoblocks cms_tags %}
+{% load i18n base_tags menu_tags navigation_tags cache infoblocks cms_tags %}
 
 {% block extrahead %}
     {{ block.super }}
@@ -35,9 +35,17 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-4 col-md-3">
-                
-                
-                
+                <nav>
+                    <ul class="accordion navi-box">
+                        <li class="accordion-inside accordion-trigger opened">
+                            <div class="accordion-trigger head">{% page_attribute "page_title" %}</div>
+                            <ul class="accordion navi-box">
+                                {% show_sub_menu 2 2 1 "cms/includes/menu_cms.html" %}
+                            </ul>
+                        </li>
+                        <li></li>
+                    </ul>
+                </nav>
             </div>
             <div class="col-xs-12 col-sm-8 col-md-9">
                 
