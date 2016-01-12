@@ -46,7 +46,7 @@ EVENT_TYPE_CHOICES = XChoiceList(get_related_queryset(Event, "event_type"))
 ORGANIZING_INSTITUTION_CHOICES = XChoiceList(get_related_queryset(Event, "organizing_institution"))
 URL_TYPE_CHOICES = XChoiceList(get_related_queryset(Event, "url0_type"))
 
-YEARS_CHOICES = [("", _("Year"))] + [(i, i) for i in range(2008, 2040)]
+YEARS_CHOICES = [("", _("Year"))] + [(i, i) for i in range(2016, 2040)]
 MONTHS_CHOICES = [("", _("Month"))] + MONTHS.items()
 DAYS_CHOICES = [("", _("Day"))] + [(i, i) for i in range(1, 32)]
 HOURS_CHOICES = [("", _("HH"))] + [(i, u"%02d" % i) for i in range(0, 24)]
@@ -211,7 +211,7 @@ class MainDataForm(dynamicforms.Form):
 
     email0_address = forms.EmailField(
         required=False,
-        label=_("E-mail"),
+        label=_("Email"),
     )
 
     url0_link = forms.URLField(
@@ -865,7 +865,7 @@ class ProfileForm(dynamicforms.Form):
                 _("Photo"),
                 layout.HTML("""{% load image_modifications %}
                     {% if form_step_data.step_event_profile.image %}
-                        <dt>""" + (_("Cover Image") + "") + """</dt><dd><img class="avatar" src="/helper/tmpimage/{{ form_step_data.step_event_profile.image.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/" alt="{{ object.get_title|escape }}"/></dd>
+                        <dt>""" + (_("Image") + "") + """</dt><dd><img class="avatar" src="/helper/tmpimage/{{ form_step_data.step_event_profile.image.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/" alt="{{ object.get_title|escape }}"/></dd>
                     {% else %}
                         <dt>""" + (_("Image") + "") + """</dt><dd><img src="{{ STATIC_URL }}site/img/placeholder/event.png" alt="{{ object.get_title|escape }}"/>
 </dd>
