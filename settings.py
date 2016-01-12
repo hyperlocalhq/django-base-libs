@@ -187,6 +187,7 @@ INSTALLED_APPS = [
     "ccb.apps.navigation",
     "ccb.apps.bulletin_board",
     "ccb.apps.metro",
+    "ccb.apps.partners",
     "ccb",  # just for i18n in Javascript
     "actstream",
 ]
@@ -294,6 +295,10 @@ ADMIN_APP_INDEX = (
             }),
             ('metro', {
                 'models': ("Tile",),
+                'icon': 'images',
+            }),
+            ('partners', {
+                'models': ("PartnerCategory",),
                 'icon': 'images',
             }),
         )
