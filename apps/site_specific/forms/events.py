@@ -135,11 +135,12 @@ class IdentityForm(dynamicforms.Form):
                 "title_en",
                 "title_de",
                 "event_type",
+                bootstrap.FormActions(
+                    layout.Button('cancel', _('Cancel')),
+                    layout.Submit('submit', _('Save')),
+                ),
+                css_class="switch on",
             ),
-            bootstrap.FormActions(
-                layout.Button('cancel', _('Cancel')),
-                layout.Submit('submit', _('Save')),
-            )
         )
 
     def save(self):
@@ -188,11 +189,12 @@ class DescriptionForm(dynamicforms.Form):
                 _("Description"),
                 "description_en",
                 "description_de",
+                bootstrap.FormActions(
+                    layout.Button('cancel', _('Cancel')),
+                    layout.Submit('submit', _('Save')),
+                ),
+                css_class="switch on",
             ),
-            bootstrap.FormActions(
-                layout.Button('cancel', _('Cancel')),
-                layout.Submit('submit', _('Save')),
-            )
         )
 
     def save(self):
@@ -240,11 +242,12 @@ class AvatarForm(dynamicforms.Form):
                     {% endif %}
                 """),
                 "media_file",
+                bootstrap.FormActions(
+                    layout.Button('cancel', _('Cancel')),
+                    layout.Submit('submit', _('Save')),
+                ),
+                css_class="switch on",
             ),
-            bootstrap.FormActions(
-                layout.Button('cancel', _('Cancel')),
-                layout.Submit('submit', _('Save')),
-            )
         )
 
     def save(self):
@@ -650,11 +653,12 @@ class ContactForm(dynamicforms.Form):
                         css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
                     ),
                 ),
+                bootstrap.FormActions(
+                    layout.Button('cancel', _('Cancel')),
+                    layout.Submit('submit', _('Save')),
+                ),
+                css_class = "switch on",
             ),
-            bootstrap.FormActions(
-                layout.Button('cancel', _('Cancel')),
-                layout.Submit('submit', _('Save')),
-            )
         )
 
     def clean(self):
@@ -804,11 +808,12 @@ class OrganizerForm(dynamicforms.Form):
                 "organizer_title",
                 "organizer_url_link",
                 "is_organized_by_myself",
+                bootstrap.FormActions(
+                    layout.Button('cancel', _('Cancel')),
+                    layout.Submit('submit', _('Save')),
+                ),
+                css_class="switch on",
             ),
-            bootstrap.FormActions(
-                layout.Button('cancel', _('Cancel')),
-                layout.Submit('submit', _('Save')),
-            )
         )
 
     def save(self):
@@ -842,7 +847,6 @@ class AdditionalInfoForm(dynamicforms.Form):
         widget=forms.Textarea(),
         max_length=500,
     )
-
     related_events = forms.ModelMultipleChoiceField(
         label=_("Related Events"),
         queryset=get_related_queryset(Event, "related_events").all(),
@@ -874,11 +878,12 @@ class AdditionalInfoForm(dynamicforms.Form):
                 "additional_info_de",
                 "additional_info_en",
                 "related_events",
+                bootstrap.FormActions(
+                    layout.Button('cancel', _('Cancel')),
+                    layout.Submit('submit', _('Save')),
+                ),
+                css_class="switch on",
             ),
-            bootstrap.FormActions(
-                layout.Button('cancel', _('Cancel')),
-                layout.Submit('submit', _('Save')),
-            )
         )
 
     def save(self):
@@ -939,11 +944,12 @@ class EventTimesForm(dynamicforms.Form):
                 </div>
                 """),
                 css_id="event_times_fieldset",
+                bootstrap.FormActions(
+                    layout.Button('cancel', _('Cancel')),
+                    layout.Submit('submit', _('Save')),
+                ),
+                css_class="switch on",
             ),
-            bootstrap.FormActions(
-                layout.Button('cancel', _('Cancel')),
-                layout.Submit('submit', _('Save')),
-            )
         )
 
     def save(self):
@@ -1781,11 +1787,12 @@ class FeesOpeningHoursForm(dynamicforms.Form):
                 ),
                 "exceptions_de",
                 "exceptions_en",
+                bootstrap.FormActions(
+                    layout.Button('cancel', _('Cancel')),
+                    layout.Submit('submit', _('Save')),
+                ),
+                css_class="switch on",
             ),
-            bootstrap.FormActions(
-                layout.Button('cancel', _('Cancel')),
-                layout.Submit('submit', _('Save')),
-            )
         )
 
     def clean(self):
@@ -1902,11 +1909,12 @@ class CategoriesForm(dynamicforms.Form):
             layout.Fieldset(
                 _("Tags"),
                 "tags",
+                bootstrap.FormActions(
+                    layout.Button('cancel', _('Cancel')),
+                    layout.Submit('submit', _('Save')),
+                ),
+                css_class="switch on",
             ),
-            bootstrap.FormActions(
-                layout.Button('cancel', _('Cancel')),
-                layout.Submit('submit', _('Save')),
-            )
         )
 
     def save(self, *args, **kwargs):

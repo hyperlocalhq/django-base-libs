@@ -139,11 +139,12 @@ class DetailsForm(dynamicforms.Form):
                         css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
                     ),
                 ),
+                bootstrap.FormActions(
+                    layout.Button('cancel', _('Cancel')),
+                    layout.Submit('submit', _('Save')),
+                ),
+                css_class="switch on",
             ),
-            bootstrap.FormActions(
-                layout.Button('cancel', _('Cancel')),
-                layout.Submit('submit', _('Save')),
-            )
         )
 
     def save(self):
@@ -611,11 +612,12 @@ class ContactForm(dynamicforms.Form):
                         css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
                     ),
                 ),
+                bootstrap.FormActions(
+                    layout.Button('cancel', _('Cancel')),
+                    layout.Submit('submit', _('Save')),
+                ),
+                css_class = "switch on",
             ),
-            bootstrap.FormActions(
-                layout.Button('cancel', _('Cancel')),
-                layout.Submit('submit', _('Save')),
-            )
         )
 
     def save(self):
@@ -724,11 +726,12 @@ class CategoriesForm(dynamicforms.Form):
                 _("Categories"),
                 "job_sectors",
                 "tags",
+                bootstrap.FormActions(
+                    layout.Button('cancel', _('Cancel')),
+                    layout.Submit('submit', _('Save')),
+                ),
+                css_class="switch on",
             ),
-            bootstrap.FormActions(
-                layout.Button('cancel', _('Cancel')),
-                layout.Submit('submit', _('Save')),
-            )
         )
 
     def save(self, *args, **kwargs):
