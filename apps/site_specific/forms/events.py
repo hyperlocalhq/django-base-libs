@@ -594,12 +594,12 @@ class ContactForm(dynamicforms.Form):
                     ' ',
                     layout.Field(
                         "url0_type",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "url0_link",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
                     ),
                 ),
@@ -607,12 +607,12 @@ class ContactForm(dynamicforms.Form):
                     ' ',
                     layout.Field(
                         "url1_type",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "url1_link",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
                     ),
                 ),
@@ -620,12 +620,12 @@ class ContactForm(dynamicforms.Form):
                     ' ',
                     layout.Field(
                         "url2_type",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "url2_link",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
                     ),
                 ),
@@ -635,12 +635,12 @@ class ContactForm(dynamicforms.Form):
                     ' ',
                     layout.Field(
                         "im0_type",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "im0_address",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
                     ),
                 ),
@@ -648,12 +648,12 @@ class ContactForm(dynamicforms.Form):
                     ' ',
                     layout.Field(
                         "im1_type",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "im1_address",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
                     ),
                 ),
@@ -661,12 +661,12 @@ class ContactForm(dynamicforms.Form):
                     ' ',
                     layout.Field(
                         "im2_type",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "im2_address",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
                     ),
                 ),
