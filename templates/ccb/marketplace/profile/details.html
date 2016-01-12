@@ -3,7 +3,7 @@
 {% if object.are_contacts_displayed and object.get_contacts %}
     <div
         class="fieldset {% if_has_perm "marketplace.change_job_offer" object %}editable switch{% else %}not-editable{% end_if_has_perm %}"
-        data-edit-url="{% url 'edit_profile' object_type='job' slug=object.get_secure_id %}contact/0/">
+        data-edit-url="{% url 'edit_profile' object_type='job' slug=object.get_secure_id %}details/">
         <fieldset disabled>
             <h2>{% trans "Details" %}</h2>
 
