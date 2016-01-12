@@ -142,8 +142,9 @@ class DetailsForm(dynamicforms.Form):
                     ),
                 ),
                 bootstrap.FormActions(
-                    layout.Button('cancel', _('Cancel')),
+                    layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
+                    css_class = "button-group form-buttons"
                 ),
                 css_class="switch on",
             ),
@@ -618,8 +619,9 @@ class ContactForm(dynamicforms.Form):
                     ),
                 ),
                 bootstrap.FormActions(
-                    layout.Button('cancel', _('Cancel')),
+                    layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
+                    css_class = "button-group form-buttons"
                 ),
                 css_class="switch on",
             ),
@@ -732,8 +734,9 @@ class CategoriesForm(dynamicforms.Form):
                 "job_sectors",
                 "tags",
                 bootstrap.FormActions(
-                    layout.Button('cancel', _('Cancel')),
+                    layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
+                    css_class = "button-group form-buttons"
                 ),
                 css_class="switch on",
             ),

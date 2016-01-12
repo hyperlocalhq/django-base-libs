@@ -136,8 +136,9 @@ class IdentityForm(dynamicforms.Form):
                 "title_de",
                 "event_type",
                 bootstrap.FormActions(
-                    layout.Button('cancel', _('Cancel')),
+                    layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
+                    css_class = "button-group form-buttons"
                 ),
                 css_class="switch on",
             ),
@@ -190,8 +191,9 @@ class DescriptionForm(dynamicforms.Form):
                 "description_en",
                 "description_de",
                 bootstrap.FormActions(
-                    layout.Button('cancel', _('Cancel')),
+                    layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
+                    css_class = "button-group form-buttons"
                 ),
                 css_class="switch on",
             ),
@@ -243,8 +245,9 @@ class AvatarForm(dynamicforms.Form):
                 """),
                 "media_file",
                 bootstrap.FormActions(
-                    layout.Button('cancel', _('Cancel')),
+                    layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
+                    css_class = "button-group form-buttons"
                 ),
                 css_class="switch on",
             ),
@@ -662,8 +665,9 @@ class ContactForm(dynamicforms.Form):
                     ),
                 ),
                 bootstrap.FormActions(
-                    layout.Button('cancel', _('Cancel')),
+                    layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
+                    css_class = "button-group form-buttons"
                 ),
                 css_class="switch on",
             ),
@@ -817,8 +821,9 @@ class OrganizerForm(dynamicforms.Form):
                 "organizer_url_link",
                 "is_organized_by_myself",
                 bootstrap.FormActions(
-                    layout.Button('cancel', _('Cancel')),
+                    layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
+                    css_class = "button-group form-buttons"
                 ),
                 css_class="switch on",
             ),
@@ -887,8 +892,9 @@ class AdditionalInfoForm(dynamicforms.Form):
                 "additional_info_en",
                 "related_events",
                 bootstrap.FormActions(
-                    layout.Button('cancel', _('Cancel')),
+                    layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
+                    css_class = "button-group form-buttons"
                 ),
                 css_class="switch on",
             ),
@@ -953,8 +959,9 @@ class EventTimesForm(dynamicforms.Form):
                 </div>
                 """),
                 bootstrap.FormActions(
-                    layout.Button('cancel', _('Cancel')),
+                    layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
+                    css_class = "button-group form-buttons"
                 ),
                 css_id="event_times_fieldset",
                 css_class="switch on",
@@ -1785,8 +1792,9 @@ class FeesOpeningHoursForm(dynamicforms.Form):
                 "exceptions_de",
                 "exceptions_en",
                 bootstrap.FormActions(
-                    layout.Button('cancel', _('Cancel')),
+                    layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
+                    css_class = "button-group form-buttons"
                 ),
                 css_class="switch on",
             ),
@@ -1906,8 +1914,9 @@ class CategoriesForm(dynamicforms.Form):
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Tags"), '</h3></dd>')),
                 "tags",
                 bootstrap.FormActions(
-                    layout.Button('cancel', _('Cancel')),
+                    layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
+                    css_class = "button-group form-buttons"
                 ),
                 css_class="switch on",
             ),
