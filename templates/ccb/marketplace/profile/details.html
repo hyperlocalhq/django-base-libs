@@ -8,11 +8,13 @@
         <dl class="input-fields">
             <dt>{% trans "Position" %}</dt>
             <dd><div class="text-field">{{ object.position }}</div></dd>
+            <dd class="clearfix"></dd>
         </dl>
         
         <dl class="input-fields">
             <dt>{% trans "Job Type" %}</dt>
             <dd><div class="text-field">{{ object.job_type.title }}</div></dd>
+            <dd class="clearfix"></dd>
         </dl>
 
         {% if object.qualifications.count %}
@@ -23,6 +25,7 @@
                         {{ q.title|capfirst }}
                     {% endfor %}
                 </div></dd>
+                <dd class="clearfix"></dd>
             </dl>
         {% endif %}
         
@@ -30,13 +33,15 @@
             <dl class="input-fields">
                 <dt>{% trans "Location" %}</dt>
                 <dd><div class="text-field">{{ object.get_locality_type.title|escape }}</div></dd>
-            </dl>
+                <dd class="clearfix"></dd>
+        </dl>
         {% endif %}
         
         {% if object.published_till %}
             <dl class="input-fields">
                 <dt>{% trans "Published till" %}</dt>
                 <dd><div class="text-field">{{ object.published_till|datefmt:"medium" }}</div></dd>
+                <dd class="clearfix"></dd>
             </dl>
         {% endif %}
         

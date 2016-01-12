@@ -9,6 +9,7 @@
                 <dl class="input-fields">
                     <dt>{% trans "Additional Info" %}</dt>
                     <dd><div class="text-field">{{ object.get_additional_info|safe }}</div></dd>
+                    <dd class="clearfix"></dd>
                 </dl>
             {% endif %}
 
@@ -20,6 +21,7 @@
                             <div><a href="{{ ev.get_url_path }}">{{ ev.get_title }}</a></div>
                         {% endfor %}
                     </div></dd>
+                    <dd class="clearfix"></dd>
                 </dl>
             {% endif %}
 

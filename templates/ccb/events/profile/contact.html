@@ -16,6 +16,7 @@
                             {{ object.venue_title }}
                         {% endif %}
                     </div></dd>
+                    <dd class="clearfix"></dd>
                 </dl>
             {% endif %}
             
@@ -45,6 +46,7 @@
                             {% endif %}
                             {% endcomment %}
                         </div></dd>
+                        <dd class="clearfix"></dd>
                     </dl>
                 {% endif %}
             {% endwith %}
@@ -58,6 +60,7 @@
                                 <a href="tel:+{{ phone.country }}{{ phone.area }}{{ phone.number }}">+{{ phone.country }}-{{ phone.area }}-{{ phone.number }}</a>
                             </div>
                         </dd>
+                        <dd class="clearfix"></dd>
                     {% endfor %}
                 </dl>
             {% endif %}
@@ -71,6 +74,7 @@
                                 <a href="{{ url.link|escape }}" onclick="open_new_window(event)" target="_blank">{{ url.link }}</a>
                             </div>
                         </dd>
+                        <dd class="clearfix"></dd>
                     {% endfor %}
                 </dl>
             {% endif %}
@@ -80,6 +84,7 @@
                     {% for im in object.get_ims %}
                         <dt>{{ im.type }}</dt>
                         <dd><div class="text-field">{{ im.address }}</div></dd>
+                        <dd class="clearfix"></dd>
                     {% endfor %}
                 </dl>
             {% endif %}

@@ -22,6 +22,7 @@
                         {% endfor %}
                     </div>
                 </dd>
+                <dd class="clearfix"></dd>
             </dl>
         {% endif %}
         
@@ -29,6 +30,7 @@
             <dl class="input-fields">
                 <dt>{% trans "Tags" %}</dt>
                 <dd><div class="text-field">{{ object.get_tags|join:", " }}</div></dd>
+                <dd class="clearfix"></dd>
             </dl>
         {% endif %}
         

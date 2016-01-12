@@ -15,6 +15,7 @@
                             {{ object.offering_institution_title }}
                         {% endif %}
                     </div></dd>
+                    <dd class="clearfix"></dd>
                 </dl>
             {% endif %}
             
@@ -45,6 +46,7 @@
                             {% endif %}
                             {% endcomment %}
                         </div></dd>
+                        <dd class="clearfix"></dd>
                     </dl>
                 {% endif %}
             {% endwith %}
@@ -59,6 +61,7 @@
                             {{ object.contact_person_name }}
                         {% endif %}
                     </div></dd>
+                    <dd class="clearfix"></dd>
                 </dl>
             {% endif %}
             
@@ -74,6 +77,7 @@
                     {% else %}
                         <dd><div class="text-field"><a href="/login/?goto_next={{ request.path }}">{% trans "Login to see e-mail." %}</a></div></dd>
                     {% endif %}
+                    <dd class="clearfix"></dd>
                 </dl>
             {% endif %}
             
@@ -86,7 +90,8 @@
                                 <a href="tel:+{{ phone.country }}{{ phone.area }}{{ phone.number }}">+{{ phone.country }}-{{ phone.area }}-{{ phone.number }}</a>
                             </div>
                         </dd>
-                    {% endfor %}
+                        <dd class="clearfix"></dd>
+            {% endfor %}
                 </dl>
             {% endif %}
                     
@@ -100,7 +105,8 @@
                                 {% if object.is_commercial %}(€){% endif %}
                             </div>
                         </dd>
-                    {% endfor %}
+                        <dd class="clearfix"></dd>
+                {% endfor %}
                 </dl>
             {% endif %}
                     
@@ -109,6 +115,7 @@
                     {% for im in object.get_ims %}
                         <dt>{{ im.type }}</dt>
                         <dd><div class="text-field">{{ im.address }}</div></dd>
+                        <dd class="clearfix"></dd>
                     {% endfor %}
                 </dl>
             {% endif %}

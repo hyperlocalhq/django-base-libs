@@ -20,13 +20,15 @@
                                 {% endif %}
                             {% endif %}
                     </div></dd>
-                </dl>            
+                    <dd class="clearfix"></dd>
+                </dl>
             {% endif %}
 
             {% if object.organizing_person %}
                 <dl class="input-fields">
                     <dt>{% trans "Organizing Person" %}</dt>
                     <dd><div class="text-field"><a href="{{ object.organizing_person.get_url_path }}">{{ object.organizing_person.get_title|escape }}</a></div></dd>
+                    <dd class="clearfix"></dd>
                 </dl>
             {% endif %}
 
