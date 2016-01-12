@@ -125,12 +125,17 @@ class TicketForm(dynamicforms.Form):
             "https://www.google.com/recaptcha/api/siteverify",
             {
                 "secret": settings.RECAPTCHA_SECRET_KEY,
-                "response": self.data["g-recaptcha-response"],
+                "response": self.request.POST["g-recaptcha-response"],
                 "remoteip": get_client_ip(self.request),
             },
         ).json()
         if not result["success"]:
-            raise forms.ValidationError(RECAPTCHA_ERROR_CODES[result["error-codes"][0]])
+            raise forms.ValidationError(
+                RECAPTCHA_ERROR_CODES.get(
+                    result.get("error-codes", []).get(0, None),
+                    _("reCAPTCHA Error")
+                )
+            )
         return cleaned
 
     def save(self):

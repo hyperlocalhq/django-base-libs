@@ -8,9 +8,11 @@ from ccb.apps.tracker.forms import TicketForm
 
 
 @never_cache
-def create_ticket(request, concern=None, content_type_id=None, object_id=None,
-                  template_name='tracker/createticket.html',
-                  template_done_name='tracker/postticket.html'):
+def create_ticket(
+        request, concern=None, content_type_id=None, object_id=None,
+        template_name='tracker/createticket.html',
+        template_done_name='tracker/postticket.html',
+):
     """
     Displays the trouble ticket form and handles the associated action
     """
@@ -18,15 +20,13 @@ def create_ticket(request, concern=None, content_type_id=None, object_id=None,
 
     if request.method == 'POST':
 
-        data = request.POST.copy()
-        data.update(request.FILES)
         form = TicketForm(
             request=request,
             concern=concern,
             content_type_id=content_type_id,
             object_id=object_id,
             url=redirect_to,
-            data=data
+            data=request.POST
         )
 
         if form.is_valid():
