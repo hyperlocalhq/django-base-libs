@@ -229,11 +229,8 @@ def institution_added(sender, instance, **kwargs):
     from jetson.apps.notification import models as notification
 
     user = get_current_user()
-
     if user:
         action.send(user, verb="added institution", action_object=instance)
-    else:
-        action.send(instance, verb="was added")
 
     # TODO: fix this when re-enabling celery
     return
