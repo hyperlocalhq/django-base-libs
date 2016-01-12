@@ -503,9 +503,7 @@ class ContactForm(dynamicforms.Form):
                 _("Institution"),
                 "venue",
                 "venue_title",
-            ),
-            layout.Fieldset(
-                _("Address"),
+                layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Address"), '</h3></dd>')),
                 "latitude",  # hidden field
                 "longitude",  # hidden field
                 "district",  # hidden field
@@ -523,10 +521,7 @@ class ContactForm(dynamicforms.Form):
                 ),
                 "country",
                 layout.HTML("""{% include "bootstrap3/custom_widgets/editable_map.html" %}"""),
-                css_id="fieldset_institution_select",
-            ),
-            layout.Fieldset(
-                _("Phones"),
+                layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Phones"), '</h3></dd>')),
                 layout.Row(
                     layout.Div(
                         layout.HTML(_("Phone")),
@@ -581,15 +576,11 @@ class ContactForm(dynamicforms.Form):
                         css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
                     ),
                 ),
-            ),
-            layout.Fieldset(
-                _("Emails"),
+                layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Emails"), '</h3></dd>')),
                 "email0",
                 "email1",
                 "email2",
-            ),
-            layout.Fieldset(
-                _("Websites"),
+                layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Websites"), '</h3></dd>')),
                 layout.Row(
                     layout.Div(
                         "url0_type",
@@ -620,9 +611,7 @@ class ContactForm(dynamicforms.Form):
                         css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
                     ),
                 ),
-            ),
-            layout.Fieldset(
-                _("Instant Messengers"),
+                layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Instant Messengers"), '</h3></dd>')),
                 layout.Row(
                     layout.Div(
                         "im0_type",
@@ -1518,9 +1507,8 @@ class FeesOpeningHoursForm(dynamicforms.Form):
                 _("Fees"),
                 "fees_de",
                 "fees_en",
-            ),
-            layout.Fieldset(
-                string_concat(_("Opening Time"), " - ",  _("Closing Time")),
+                layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Opening Time"), " - ",  _("Closing Time"), '</h3></dd>')),
+                string_concat(),
                 layout.Row(
                     layout.Div(
                         layout.HTML(_("Monday")),
@@ -1905,9 +1893,7 @@ class CategoriesForm(dynamicforms.Form):
             layout.Fieldset(
                 _("Categories"),
                 layout.Div(layout.Field("categories", template="ccb_form/custom_widgets/checkboxselectmultipletree.html")),
-            ),
-            layout.Fieldset(
-                _("Tags"),
+                layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Tags"), '</h3></dd>')),
                 "tags",
                 bootstrap.FormActions(
                     layout.Button('cancel', _('Cancel')),

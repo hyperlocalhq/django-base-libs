@@ -4,6 +4,7 @@ import datetime
 from django.db import models
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import string_concat
 from django.conf import settings
 from django.utils.dates import MONTHS
 from base_libs.forms import dynamicforms
@@ -447,24 +448,15 @@ class ContactForm(dynamicforms.Form):
                 layout.HTML("""{% load i18n %}
                     <button id="id_institution_enter" class="btn btn-link">{% trans "Not listed? Enter manually" %}</button>
                 """),
-                css_id="fieldset_institution_select",
-            ),
-            layout.Fieldset(
-                _("Institution/Company"),
+                layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Institution/Company"), '</h3></dd>')),
                 "offering_institution_title",
                 layout.HTML("""{% load i18n %}
                     <button id="id_institution_select" class="btn btn-link">{% trans "Back to selection" %}</button>
                 """),
-                css_id="fieldset_institution_enter",
-                css_class="hidden",
-            ),
-            layout.Fieldset(
-                _("Contact person"),
+                layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Contact person"), '</h3></dd>')),
                 "contact_person_ind",
                 "contact_person_name",
-            ),
-            layout.Fieldset(
-                _("Address"),
+                layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Address"), '</h3></dd>')),
                 "latitude",  # hidden field
                 "longitude",  # hidden field
                 "district",  # hidden field
@@ -482,10 +474,7 @@ class ContactForm(dynamicforms.Form):
                 ),
                 "country",
                 layout.HTML("""{% include "bootstrap3/custom_widgets/editable_map.html" %}"""),
-                css_id="fieldset_institution_select",
-            ),
-            layout.Fieldset(
-                _("Phones"),
+                layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Phones"), '</h3></dd>')),
                 layout.Row(
                     layout.Div(
                         layout.HTML(_("Phone")),
@@ -540,15 +529,11 @@ class ContactForm(dynamicforms.Form):
                         css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
                     ),
                 ),
-            ),
-            layout.Fieldset(
-                _("Emails"),
+                layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Emails"), '</h3></dd>')),
                 "email0",
                 "email1",
                 "email2",
-            ),
-            layout.Fieldset(
-                _("Websites"),
+                layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Websites"), '</h3></dd>')),
                 layout.Row(
                     layout.Div(
                         "url0_type",
@@ -579,9 +564,7 @@ class ContactForm(dynamicforms.Form):
                         css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
                     ),
                 ),
-            ),
-            layout.Fieldset(
-                _("Instant Messengers"),
+                layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Instant Messengers"), '</h3></dd>')),
                 layout.Row(
                     layout.Div(
                         "im0_type",
