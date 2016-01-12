@@ -634,5 +634,3 @@ def institution_claimed(sender, instance, **kwargs):
     )
     if instance.user:
         action.send(instance.user, verb="claimed", action_object=instance)
-    else:
-        action.send(instance, verb="was claimed")

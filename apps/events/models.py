@@ -90,6 +90,10 @@ def event_created(sender, instance, **kwargs):
             # organizing institution, venue, and organizing person as favorite.
             sent_recipient_pks = []
 
+            user = get_current_user()
+            if user:
+                action.send(user, verb="added event", action_object=instance)
+
             if instance.venue:
                 # get users who favorited the venue where the event is happening
                 # and who haven't received notifications yet
@@ -172,7 +176,7 @@ def event_created(sender, instance, **kwargs):
                     instance=instance,
                     on_site=False,
                 )
-                action.send(instance.organizing_person, verb="created event", action_object=instance)
+                action.send(instance.organizing_person.user, verb="organized event", action_object=instance)
 
 
 models.signals.post_save.connect(event_created, sender=Event)
