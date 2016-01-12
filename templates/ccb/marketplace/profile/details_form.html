@@ -1,5 +1,2 @@
 {% load i18n base_tags auth_extended uni_form_tags uni_form_field crispy_forms_tags %}
-<div class="profile_infos">
-    <h5 class="edit_subline">{% trans "Edit Job Details" %}</h5>
-    {% crispy form "ccb_form" %}
-</div>
+{% crispy form "ccb_form" %}
