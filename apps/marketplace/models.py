@@ -82,6 +82,10 @@ def job_offer_created(sender, instance, **kwargs):
             # organizing institution, venue, and organizing person as favorite.
             sent_recipient_pks = []
 
+            user = get_current_user()
+            if user:
+                action.send(user, verb="added job offer", action_object=instance)
+
             if instance.offering_institution:
                 # get users who favorited the offering_institution where the job_offer is happening
                 # and who haven't received notifications yet
