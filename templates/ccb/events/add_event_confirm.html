@@ -83,26 +83,24 @@
                     <dt>{% trans "Address" %}</dt>
                     <dd>
                         <div class="text-field">
-                            <address>
-                                {% if venue %}
-                                    {% with venue.get_primary_contact as venue_contact %}
-                                        {{ venue_contact.street_address|escape }}<br/>
-                                        {% if venue_contact.street_address2 %}
-                                            {{ venue_contact.street_address2|escape }}<br/>
-                                        {% endif %}
-                                        {{ venue_contact.postal_code|escape }} {{ venue_contact.city|escape }}<br/>
-                                        {{ venue_contact.country_name }}
-                                    {% endwith %}
-                                {% else %}
-                                    {{ form_step_data.step_main_data.street_address|escape }}<br/>
-                                    {% if form_step_data.step_main_data.street_address2 %}
-                                        {{ form_step_data.step_main_data.street_address2|escape }}<br/>
+                            {% if venue %}
+                                {% with venue.get_primary_contact as venue_contact %}
+                                    {{ venue_contact.street_address|escape }}<br/>
+                                    {% if venue_contact.street_address2 %}
+                                        {{ venue_contact.street_address2|escape }}<br/>
                                     {% endif %}
-                                    {{ form_step_data.step_main_data.postal_code|escape }}
-                                    {{ form_step_data.step_main_data.city|escape }}<br/>
-                                    {{ form_step_data.step_main_data.get_country_display }}
+                                    {{ venue_contact.postal_code|escape }} {{ venue_contact.city|escape }}<br/>
+                                    {{ venue_contact.country_name }}
+                                {% endwith %}
+                            {% else %}
+                                {{ form_step_data.step_main_data.street_address|escape }}<br/>
+                                {% if form_step_data.step_main_data.street_address2 %}
+                                    {{ form_step_data.step_main_data.street_address2|escape }}<br/>
                                 {% endif %}
-                            </address>
+                                {{ form_step_data.step_main_data.postal_code|escape }}
+                                {{ form_step_data.step_main_data.city|escape }}<br/>
+                                {{ form_step_data.step_main_data.get_country_display }}
+                            {% endif %}
                         </div>
                     </dd>
                     <dd class="clearfix"></dd>
