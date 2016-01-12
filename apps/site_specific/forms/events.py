@@ -136,8 +136,9 @@ class IdentityForm(dynamicforms.Form):
                 "title_de",
                 "event_type",
                 bootstrap.FormActions(
-                    layout.Button('cancel', _('Cancel')),
+                    layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
+                    css_class = "button-group form-buttons"
                 ),
                 css_class="switch on",
             ),
@@ -190,8 +191,9 @@ class DescriptionForm(dynamicforms.Form):
                 "description_en",
                 "description_de",
                 bootstrap.FormActions(
-                    layout.Button('cancel', _('Cancel')),
+                    layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
+                    css_class = "button-group form-buttons"
                 ),
                 css_class="switch on",
             ),
@@ -243,8 +245,9 @@ class AvatarForm(dynamicforms.Form):
                 """),
                 "media_file",
                 bootstrap.FormActions(
-                    layout.Button('cancel', _('Cancel')),
+                    layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
+                    css_class = "button-group form-buttons"
                 ),
                 css_class="switch on",
             ),
@@ -509,144 +512,164 @@ class ContactForm(dynamicforms.Form):
                 "district",  # hidden field
                 "street_address",
                 "street_address2",
-                layout.Row(
-                    layout.Div(
+                layout.MultiField(
+                    string_concat(_('ZIP'), "*, ", _('City'), "*"),
+                    layout.Field(
                         "postal_code",
-                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                        wrapper_class="col-xs-4 col-sm-5 col-md-3 col-lg-3",
+                        template="ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "city",
-                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-                    ),
+                        wrapper_class="col-xs-8 col-sm-7 col-md-9 col-lg-9",
+                        template="ccb_form/multifield.html"
+                    )
                 ),
                 "country",
                 layout.HTML("""{% include "bootstrap3/custom_widgets/editable_map.html" %}"""),
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Phones"), '</h3></dd>')),
-                layout.Row(
-                    layout.Div(
-                        layout.HTML(_("Phone")),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
-                    ),
-                    layout.Div(
+                layout.MultiField(
+                    _("Phone"),
+                    layout.Field(
                         "phone_country",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template="ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "phone_area",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template="ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "phone_number",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template="ccb_form/multifield.html"
                     ),
+                    css_class="show-labels"
                 ),
-                layout.Row(
-                    layout.Div(
-                        layout.HTML(_("Fax")),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
-                    ),
-                    layout.Div(
+                layout.MultiField(
+                    _("Fax"),
+                    layout.Field(
                         "fax_country",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template="ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "fax_area",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template="ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "fax_number",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template="ccb_form/multifield.html"
                     ),
+                    css_class="show-labels"
                 ),
-                layout.Row(
-                    layout.Div(
-                        layout.HTML(_("Fax")),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
-                    ),
-                    layout.Div(
+                layout.MultiField(
+                    _("Mobile"),
+                    layout.Field(
                         "mobile_country",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template="ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "mobile_area",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template="ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "mobile_number",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template="ccb_form/multifield.html"
                     ),
+                    css_class="show-labels"
                 ),
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Emails"), '</h3></dd>')),
                 "email0",
                 "email1",
                 "email2",
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Websites"), '</h3></dd>')),
-                layout.Row(
-                    layout.Div(
+                layout.MultiField(
+                    layout.Field(
                         "url0_type",
-                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "url0_link",
-                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
                 ),
-                layout.Row(
-                    layout.Div(
+                layout.MultiField(
+                    layout.Field(
                         "url1_type",
-                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "url1_link",
-                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
                 ),
-                layout.Row(
-                    layout.Div(
+                layout.MultiField(
+                    layout.Field(
                         "url2_type",
-                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "url2_link",
-                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
                 ),
-                layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Instant Messengers"), '</h3></dd>')),
-                layout.Row(
-                    layout.Div(
+                layout.HTML(
+                    string_concat('<dd class="no-label"><h3 class="section">', _("Instant Messengers"), '</h3></dd>')),
+                layout.MultiField(
+                    layout.Field(
                         "im0_type",
-                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "im0_address",
-                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
                 ),
-                layout.Row(
-                    layout.Div(
+                layout.MultiField(
+                    layout.Field(
                         "im1_type",
-                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "im1_address",
-                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
                 ),
-                layout.Row(
-                    layout.Div(
+                layout.MultiField(
+                    layout.Field(
                         "im2_type",
-                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "im2_address",
-                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
                 ),
                 bootstrap.FormActions(
-                    layout.Button('cancel', _('Cancel')),
+                    layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
+                    css_class = "button-group form-buttons"
                 ),
-                css_class = "switch on",
+                css_class="switch on",
             ),
         )
 
@@ -798,8 +821,9 @@ class OrganizerForm(dynamicforms.Form):
                 "organizer_url_link",
                 "is_organized_by_myself",
                 bootstrap.FormActions(
-                    layout.Button('cancel', _('Cancel')),
+                    layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
+                    css_class = "button-group form-buttons"
                 ),
                 css_class="switch on",
             ),
@@ -868,8 +892,9 @@ class AdditionalInfoForm(dynamicforms.Form):
                 "additional_info_en",
                 "related_events",
                 bootstrap.FormActions(
-                    layout.Button('cancel', _('Cancel')),
+                    layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
+                    css_class = "button-group form-buttons"
                 ),
                 css_class="switch on",
             ),
@@ -895,6 +920,7 @@ class EventTimesForm(dynamicforms.Form):
     """
     Dummy form for using together with a formset of EventTimeForm
     """
+
     # TODO: ensure that empty form is also provided and implement JavaScripts
 
     def __init__(self, event, index, *args, **kwargs):
@@ -933,8 +959,9 @@ class EventTimesForm(dynamicforms.Form):
                 </div>
                 """),
                 bootstrap.FormActions(
-                    layout.Button('cancel', _('Cancel')),
+                    layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
+                    css_class = "button-group form-buttons"
                 ),
                 css_id="event_times_fieldset",
                 css_class="switch on",
@@ -1045,94 +1072,91 @@ class EventTimeForm(dynamicforms.Form):
         self.helper.layout = layout.Layout(
             layout.Div(
                 "label",
-                layout.Row(
-                    layout.Div(
-                        layout.HTML(_("Start")),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
-                    ),
-                    layout.Div(
+                layout.MultiField(
+                    _("Start"),
+                    layout.Field(
                         "start_dd",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template="ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "start_mm",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template="ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "start_yyyy",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-12 col-sm-6 col-md-6 col-lg-6",
+                        template = "ccb_form/multifield.html",
                     ),
                 ),
-                layout.Row(
-                    layout.Div(
-                        layout.HTML("&nbsp;"),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
-                    ),
-                    layout.Div(
+                layout.MultiField(
+                    layout.Field(
                         "start_hh",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "start_ii",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         layout.HTML("&nbsp;"),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
                 ),
-                layout.Row(
-                    layout.Div(
-                        layout.HTML("&nbsp;"),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
-                    ),
-                    layout.Div(
+                layout.MultiField(
+                    layout.Field(
                         "is_all_day",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "has_end_date",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         layout.HTML("&nbsp;"),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
                 ),
-                layout.Row(
-                    layout.Div(
-                        layout.HTML(_("End")),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
-                    ),
-                    layout.Div(
+                layout.MultiField(
+                    _("End"),
+                    layout.Field(
                         "end_dd",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "end_mm",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "end_yyyy",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
                 ),
-                layout.Row(
-                    layout.Div(
-                        layout.HTML("&nbsp;"),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
-                    ),
-                    layout.Div(
+                layout.MultiField(
+                    layout.Field(
                         "end_hh",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "end_ii",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         layout.HTML("&nbsp;"),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
                 ),
             )
@@ -1187,8 +1211,6 @@ class EventTimeForm(dynamicforms.Form):
 
         if self.cleaned_data.get('end_hh', None) and not self.cleaned_data.get('end_ii', None):
             self.cleaned_data['end_ii'] = '0'
-
-
 
         # if start time is specified, day, month and year must be specified
         if self.cleaned_data.get('start_hh', None):
@@ -1507,22 +1529,22 @@ class FeesOpeningHoursForm(dynamicforms.Form):
                 _("Fees"),
                 "fees_de",
                 "fees_en",
-                layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Opening Time"), " - ",  _("Closing Time"), '</h3></dd>')),
+                layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Opening Time"), " - ",
+                                          _("Closing Time"), '</h3></dd>')),
                 string_concat(),
-                layout.Row(
-                    layout.Div(
-                        layout.HTML(_("Monday")),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
-                    ),
-                    layout.Div(
+                layout.MultiField(
+                    _("Monday"),
+                    layout.Field(
                         "mon_open0",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "mon_close0",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "mon_is_closed",
                         "show_breaks",
                         layout.HTML("""{% load i18n %}
@@ -1530,254 +1552,249 @@ class FeesOpeningHoursForm(dynamicforms.Form):
                                 <a id="id_apply_all_days" href="#">{% trans "Apply to all days" %}</a>
                             </p>
                         """),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
                 ),
-                layout.Row(
-                    layout.Div(
-                        layout.HTML("&nbsp;"),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
-                    ),
-                    layout.Div(
+                layout.MultiField(
+                    layout.Field(
                         "mon_open1",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "mon_close1",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         layout.HTML("&nbsp;"),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
                 ),
 
-                layout.Row(
-                    layout.Div(
-                        layout.HTML(_("Tuesday")),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
-                    ),
-                    layout.Div(
+                layout.MultiField(
+                    _("Tuesday"),
+                    layout.Field(
                         "tue_open0",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "tue_close0",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "tue_is_closed",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
                 ),
-                layout.Row(
-                    layout.Div(
-                        layout.HTML("&nbsp;"),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
-                    ),
-                    layout.Div(
+                layout.MultiField(
+                    layout.Field(
                         "tue_open1",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "tue_close1",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         layout.HTML("&nbsp;"),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
                 ),
 
-                layout.Row(
-                    layout.Div(
-                        layout.HTML(_("Wednesday")),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
-                    ),
-                    layout.Div(
+                layout.MultiField(
+                    _("Wednesday"),
+                    layout.Field(
                         "wed_open0",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "wed_close0",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "wed_is_closed",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
                 ),
-                layout.Row(
-                    layout.Div(
-                        layout.HTML("&nbsp;"),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
-                    ),
-                    layout.Div(
+                layout.MultiField(
+                    layout.Field(
                         "wed_open1",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "wed_close1",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         layout.HTML("&nbsp;"),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
                 ),
 
-                layout.Row(
-                    layout.Div(
-                        layout.HTML(_("Thursday")),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
-                    ),
-                    layout.Div(
+                layout.MultiField(
+                    _("Thursday"),
+                    layout.Field(
                         "thu_open0",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "thu_close0",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "thu_is_closed",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
                 ),
-                layout.Row(
-                    layout.Div(
-                        layout.HTML("&nbsp;"),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
-                    ),
-                    layout.Div(
+                layout.MultiField(
+                    layout.Field(
                         "thu_open1",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "thu_close1",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         layout.HTML("&nbsp;"),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
                 ),
 
-                layout.Row(
-                    layout.Div(
-                        layout.HTML(_("Friday")),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
-                    ),
-                    layout.Div(
+                layout.MultiField(
+                    _("Friday"),
+                    layout.Field(
                         "fri_open0",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "fri_close0",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "fri_is_closed",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
                 ),
-                layout.Row(
-                    layout.Div(
-                        layout.HTML("&nbsp;"),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
-                    ),
-                    layout.Div(
+                layout.MultiField(
+                    layout.Field(
                         "fri_open1",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "fri_close1",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         layout.HTML("&nbsp;"),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
                 ),
 
-                layout.Row(
-                    layout.Div(
-                        layout.HTML(_("Saturday")),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
-                    ),
-                    layout.Div(
+                layout.MultiField(
+                    _("Saturday"),
+                    layout.Field(
                         "sat_open0",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "sat_close0",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "sat_is_closed",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
                 ),
-                layout.Row(
-                    layout.Div(
-                        layout.HTML("&nbsp;"),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
-                    ),
-                    layout.Div(
+                layout.MultiField(
+                    layout.Field(
                         "sat_open1",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "sat_close1",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         layout.HTML("&nbsp;"),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
                 ),
 
-                layout.Row(
-                    layout.Div(
-                        layout.HTML(_("Sunday")),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
-                    ),
-                    layout.Div(
+                layout.MultiField(
+                    _("Sunday"),
+                    layout.Field(
                         "sun_open0",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "sun_close0",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "sun_is_closed",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
                 ),
-                layout.Row(
-                    layout.Div(
-                        layout.HTML("&nbsp;"),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
-                    ),
-                    layout.Div(
+                layout.MultiField(
+                    layout.Field(
                         "sun_open1",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         "sun_close1",
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
-                    layout.Div(
+                    layout.Field(
                         layout.HTML("&nbsp;"),
-                        css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        template = "ccb_form/multifield.html"
                     ),
                 ),
                 "exceptions_de",
                 "exceptions_en",
                 bootstrap.FormActions(
-                    layout.Button('cancel', _('Cancel')),
+                    layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
+                    css_class = "button-group form-buttons"
                 ),
                 css_class="switch on",
             ),
@@ -1788,9 +1805,9 @@ class FeesOpeningHoursForm(dynamicforms.Form):
         for week_day in WEEK_DAYS:
             # here, we apply opening hours and do some checks
             if self.cleaned_data.get(week_day + '_open0', None) and \
-                    self.cleaned_data.get(week_day + '_open1', None) and \
-                    self.cleaned_data.get(week_day + '_close0', None) and \
-                    self.cleaned_data.get(week_day + '_close1', None):
+                self.cleaned_data.get(week_day + '_open1', None) and \
+                self.cleaned_data.get(week_day + '_close0', None) and \
+                self.cleaned_data.get(week_day + '_close1', None):
 
                 if self.cleaned_data[week_day + '_open1'] < self.cleaned_data[week_day + '_close0']:
                     self._errors[week_day + '_open1'] = [
@@ -1804,7 +1821,7 @@ class FeesOpeningHoursForm(dynamicforms.Form):
                     self.cleaned_data[week_day + '_close'] = self.cleaned_data[week_day + '_close1']
 
             elif self.cleaned_data.get(week_day + '_open0', None) and \
-                    self.cleaned_data.get(week_day + '_close0', None):
+                self.cleaned_data.get(week_day + '_close0', None):
                 self.cleaned_data[week_day + '_open'] = self.cleaned_data[week_day + '_open0']
                 self.cleaned_data[week_day + '_close'] = self.cleaned_data[week_day + '_close0']
 
@@ -1892,12 +1909,14 @@ class CategoriesForm(dynamicforms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Categories"),
-                layout.Div(layout.Field("categories", template="ccb_form/custom_widgets/checkboxselectmultipletree.html")),
+                layout.Div(
+                    layout.Field("categories", template="ccb_form/custom_widgets/checkboxselectmultipletree.html")),
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Tags"), '</h3></dd>')),
                 "tags",
                 bootstrap.FormActions(
-                    layout.Button('cancel', _('Cancel')),
+                    layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
+                    css_class = "button-group form-buttons"
                 ),
                 css_class="switch on",
             ),

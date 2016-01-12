@@ -233,3 +233,18 @@ class Bulletin(CreationModificationMixin, UrlMixin):
 
     def can_be_changed(self, user):
         return user.has_perm("bulletin_board.change_bulletin", self) or user.is_authenticated() and self.creator == user
+
+
+def bulletin_created(sender, instance, **kwargs):
+    from actstream import action
+    from base_libs.middleware import get_current_user
+
+    if kwargs.get('created', False):
+        user = get_current_user()
+        if user:
+            action.send(user, verb="added bulletin", action_object=instance)
+
+        if instance.institution:
+            action.send(instance.institution, verb="added bulletin", action_object=instance)
+
+models.signals.post_save.connect(bulletin_created, sender=Bulletin)
