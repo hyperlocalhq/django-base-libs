@@ -545,6 +545,7 @@ class ContactForm(dynamicforms.Form):
                 "email2",
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Websites"), '</h3></dd>')),
                 layout.MultiField(
+                    ' ',
                     layout.Field(
                         "url0_type",
                         wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
@@ -557,6 +558,7 @@ class ContactForm(dynamicforms.Form):
                     ),
                 ),
                 layout.MultiField(
+                    ' ',
                     layout.Field(
                         "url1_type",
                         wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
@@ -569,6 +571,7 @@ class ContactForm(dynamicforms.Form):
                     ),
                 ),
                 layout.MultiField(
+                    ' ',
                     layout.Field(
                         "url2_type",
                         wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
@@ -583,6 +586,7 @@ class ContactForm(dynamicforms.Form):
                 layout.HTML(
                     string_concat('<dd class="no-label"><h3 class="section">', _("Instant Messengers"), '</h3></dd>')),
                 layout.MultiField(
+                    ' ',
                     layout.Field(
                         "im0_type",
                         wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
@@ -595,6 +599,7 @@ class ContactForm(dynamicforms.Form):
                     ),
                 ),
                 layout.MultiField(
+                    ' ',
                     layout.Field(
                         "im1_type",
                         wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
@@ -607,6 +612,7 @@ class ContactForm(dynamicforms.Form):
                     ),
                 ),
                 layout.MultiField(
+                    ' ',
                     layout.Field(
                         "im2_type",
                         wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
