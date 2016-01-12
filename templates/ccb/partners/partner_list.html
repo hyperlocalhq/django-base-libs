@@ -1,0 +1,27 @@
+{% extends "base_sidebar.html" %}
+{% load i18n base_tags cms_tags %}
+
+{% block title %}{% page_attribute "page_title" %}{% endblock %}
+
+{% block headline %}
+     <h1>{% page_attribute "page_title" %}</h1>
+{% endblock %}
+
+{% block details %}
+    {% for cat in partner_categories %}
+        <h4>{{ cat.title }}</h4>
+        <div class="clearfix">
+            <div class="list penta-col">
+                {% for partner in cat.get_published_partners %}
+                    {% if partner.website_url %}
+                        <a class="item logo-{{ partner.id }}" href="{{ partner.website_url }}">
+                            <img alt="{{ partner.title }}" src="{{ MEDIA_URL }}{{ partner.image }}" />
+                        </a>
+                    {% else %}
+                        <img alt="{{ partner.title }}" src="{{ MEDIA_URL }}{{ partner.image }}" />
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

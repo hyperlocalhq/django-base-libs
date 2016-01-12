@@ -6,10 +6,13 @@
 {% endblock %}
 
 {% block headline %}
-    <h1>{% trans "FEEDBACK" %}</h1>
+    <h1>{% trans 'Feedback' %}</h1>
 {% endblock %}
 
 {% block details %}
-    {% trans "Thank you for informing us - we will work on it immediately!" %}
+    <p>{% trans "Thank you for informing us - we will work on it immediately!" %}</p>
 {% endblock %}
 
+{% block breadcrumbs %}
+    <li>{% trans 'Feedback' %}</li>
+{% endblock %}

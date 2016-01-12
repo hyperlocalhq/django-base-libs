@@ -32,9 +32,6 @@
         <form action="" class="search_form" method="post">
             <div class="field_layout">
                 {% include "site_specific/categories/categories.html" %} 
-                <div class="message_suggest_category">
-                    {% blocktrans %}Is some category missing? You can <a href="/ticket/new-category/">suggest it here</a>.{% endblocktrans %}
-                </div>
                 <div class="space_correction_more">
                     {% include "utils/step_buttons_reg.html" %}
                 </div>

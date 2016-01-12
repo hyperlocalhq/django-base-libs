@@ -50,7 +50,6 @@ STR_MIN_LOGO_SIZE = "%sx%s" % MIN_LOGO_SIZE
 # Collect translatable strings
 _("Not listed? Enter manually")
 _("Back to selection")
-_('Is some category missing? You can <a href="/ticket/new-category/">suggest it here</a>.')
 
 # TODO: each form could be ModelForm. Each formset could be ModelFormSet.
 class DetailsForm(dynamicforms.Form):
@@ -727,9 +726,6 @@ class CategoriesForm(dynamicforms.Form):
             layout.Fieldset(
                 _("Categories"),
                 "job_sectors",
-                layout.HTML("""{% load i18n %}
-                    <p class="disclaimer">{% blocktrans %}Is some category missing? You can <a href="/ticket/new-category/">suggest it here</a>.{% endblocktrans %}</p>
-                """),
                 "tags",
             ),
             bootstrap.FormActions(

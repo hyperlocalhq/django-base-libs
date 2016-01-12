@@ -3,51 +3,7 @@
 <div class="fieldset {% if_has_perm "institutions.change_institution" object %}editable switch{% else %}not-editable{% end_if_has_perm %}" data-edit-url="{% url 'edit_profile' object_type='institution' slug=object.slug %}categories/">
     <fieldset disabled>
         <h2>{% trans "Categories" %}</h2>
-        
-        {% if object.get_creative_sectors %}
-            <dl class="input-fields">
-                <dt>
-                    {% with object.get_creative_sectors|length as count %}
-                        {% ifequal count 1 %}
-                            {% trans "Creative Sector" %}
-                        {% else %}
-                            {% trans "Creative Sectors" %}
-                        {% endifequal %}
-                    {% endwith %}
-                </dt>
-                <dd>
-                    <div class="text-field">
-                        {% for cat in object.get_creative_sectors %}
-                            <div>{{ cat.get_title|escape }}</div>
-                        {% endfor %}
-                    </div>
-                </dd>
-                <dd class="clearfix"></dd>
-            </dl>
-        {% endif %}
-        
-        {% if object.get_context_categories %}
-            <dl class="input-fields">
-                <dt>
-                    {% with object.get_context_categories|length as count %}
-                        {% ifequal count 1 %}
-                            {% trans "Context Category" %}
-                        {% else %}
-                            {% trans "Context Categories" %}
-                        {% endifequal %}
-                    {% endwith %}
-                </dt>
-                <dd>
-                    <div class="text-field">
-                        {% for cat in object.get_context_categories %}
-                            <div>{{ cat.get_title|escape }}</div>
-                        {% endfor %}
-                    </div>
-                </dd>
-                <dd class="clearfix"></dd>
-            </dl>
-        {% endif %}
-        
+
         {% if object.get_categories %}
             <dl class="input-fields">
                 <dt>

@@ -6,9 +6,14 @@
 {% endblock %}
 
 {% block headline %}
-    <h1>{% trans "FEEDBACK" %}</h1>
+    <h1>{% trans 'Feedback' %}</h1>
 {% endblock %}
 
 {% block details %}
     {% crispy form "ccb_form" %}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <li>{% trans 'Feedback' %}</li>
 {% endblock %}

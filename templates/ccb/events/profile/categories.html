@@ -4,28 +4,7 @@
 <div class="fieldset not-editable ">
     <fieldset>
         <h2>{% trans "Categories" %}</h2>
-        
-        {% if object.get_creative_sectors %}
-            <dl class="input-fields">
-                <dt>
-                    {% with object.get_creative_sectors|length as sectors_count %}
-                        {% ifequal sectors_count 1 %}
-                            {% trans "Creative Sector" %}
-                        {% else %}
-                            {% trans "Creative Sectors" %}
-                        {% endifequal %}
-                    {% endwith %}
-                </dt>
-                <dd>
-                    <div class="text-field">
-                        {% for cat in object.get_creative_sectors %}
-                            <div>{{ cat.get_title|escape }}</div>
-                        {% endfor %}
-                    </div>
-                </dd>
-            </dl>
-        {% endif %}
-        
+
         {% if object.get_categories %}
             <dl class="input-fields">
                 <dt>

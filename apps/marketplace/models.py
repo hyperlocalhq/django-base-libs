@@ -82,6 +82,10 @@ def job_offer_created(sender, instance, **kwargs):
             # organizing institution, venue, and organizing person as favorite.
             sent_recipient_pks = []
 
+            user = get_current_user()
+            if user:
+                action.send(user, verb="added job offer", action_object=instance)
+
             if instance.offering_institution:
                 # get users who favorited the offering_institution where the job_offer is happening
                 # and who haven't received notifications yet
@@ -136,7 +140,7 @@ def job_offer_created(sender, instance, **kwargs):
                     instance=instance,
                     on_site=False,
                 )
-                action.send(instance.contact_person, verb="looking for", action_object=instance)
+                action.send(instance.contact_person.user, verb="became contact person for", action_object=instance)
 
 
 models.signals.post_save.connect(job_offer_created, sender=JobOffer)

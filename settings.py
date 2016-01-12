@@ -187,6 +187,7 @@ INSTALLED_APPS = [
     "ccb.apps.navigation",
     "ccb.apps.bulletin_board",
     "ccb.apps.metro",
+    "ccb.apps.partners",
     "ccb",  # just for i18n in Javascript
     "actstream",
 ]
@@ -294,6 +295,10 @@ ADMIN_APP_INDEX = (
             }),
             ('metro', {
                 'models': ("Tile",),
+                'icon': 'images',
+            }),
+            ('partners', {
+                'models': ("PartnerCategory",),
                 'icon': 'images',
             }),
         )
@@ -852,6 +857,9 @@ RECAPTCHA_PUBLIC_KEY = '6LfWkt8SAAAAAPnRowSBDg1GJOk6umAqdwVcpUFK'
 RECAPTCHA_PRIVATE_KEY = '6LfWkt8SAAAAABAOx3-qsJYDt76jSpUlIkg8ZgcD'
 RECAPTCHA_USE_SSL = False
 
+RECAPTCHA_SITE_KEY = "6LdUIhUTAAAAAPzqpanSC53BVXrkLzPNZ9_ItKKn"
+RECAPTCHA_SECRET_KEY = "6LdUIhUTAAAAAEuAAai-3CZp3cEevEiSWBvkSWM4"
+
 ### DJANGO CRISPY FORMS ###
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
@@ -1012,6 +1020,8 @@ ACTSTREAM_SETTINGS = {
     'USE_JSONFIELD': True,
     'GFK_FETCH_DEPTH': 1,
 }
+
+
 
 ### LOCAL SETTINGS ###
 
