@@ -1,38 +1,11 @@
 {% extends "people/details_base.html" %}
-{% load i18n base_tags uni_form_tags %}
+{% load i18n base_tags uni_form_tags crispy_forms_tags %}
 
 
 {% block details %}
     <div class="first-item">
         {% if form %}
-            <form action="" method="post" class="uniForm">{% csrf_token %}
-                <fieldset class="inlineLabels">
-                    <h3>
-                        {% trans "Write a message to" %} {{ object.get_title|escape }}
-                    </h3>
-                    {{ form.subject|as_uni_field }}
-                    {{ form.body|as_uni_field }}
-                    {{ form.prevent_spam }}
-                    {% if form.prevent_spam.errors %}
-                        <li>
-                            <p class="error">
-                                {{ form.prevent_spam.errors|join:", " }}
-                            </p>
-                        </li>
-                    {% endif %}
-
-                    {% if form.sender_name %}
-                        {{ form.sender_name|as_uni_field }}
-                    {% endif %}
-                    {% if form.sender_email %}
-                        {{ form.sender_email|as_uni_field }}
-                    {% endif %}
-                    <div class="buttonHolder">
-                        <input class="primaryAction" type="submit"
-                            value="{% filter upper %}{% trans "Send message" %}{% endfilter %}" id="id_submit"/>
-                    </div>
-                </fieldset>
-            </form>
+            {% crispy form "ccb_form" %}
         {% else %}
             <form action="{{ object.get_url_path }}" method="get" class="uniForm">
                 <div id="okMsg">

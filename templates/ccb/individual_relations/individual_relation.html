@@ -15,8 +15,8 @@
     <a href="#Edit-Relationship" rel="nofollow" class="fawesome fa-group button text" onclick="IndividualRelationManager.edit('{{ user.username }}');  window.cancelEvent(event);" id="individual_relation_edit_{{ user.username }}"><span class="text">{% trans "Edit" %}</span></a>
 {% endif %}
 {% if user.profile.is_contact_blockable %}
-    <a href="#Block-Contact" rel="nofollow" class="fawesome fa-bullhorn button text switch" onclick="IndividualRelationManager.block('{{ user.username }}');  window.cancelEvent(event);" id="individual_relation_block_{{ user.username }}"><span class="text">{% blocktrans with user.profile.get_title as person_name %}Blog{% endblocktrans %}</span></a>
+    <a href="#Block-Contact" rel="nofollow" class="fawesome fa-bullhorn button text switch" onclick="IndividualRelationManager.block('{{ user.username }}');  window.cancelEvent(event);" id="individual_relation_block_{{ user.username }}"><span class="text">{% blocktrans with user.profile.get_title as person_name %}Block{% endblocktrans %}</span></a>
 {% endif %}
 {% if user.profile.is_contact_unblockable %}
-    <a href="#Unblock-Contact" rel="nofollow" class="fawesome fa-bullhorn button text switch on" onclick="IndividualRelationManager.unblock('{{ user.username }}'); window.cancelEvent(event);" id="individual_relation_unblock_{{ user.username }}"><span class="text">{% blocktrans with user.profile.get_title as person_name %}Unblog{% endblocktrans %}</span></a>
+    <a href="#Unblock-Contact" rel="nofollow" class="fawesome fa-bullhorn button text switch on" onclick="IndividualRelationManager.unblock('{{ user.username }}'); window.cancelEvent(event);" id="individual_relation_unblock_{{ user.username }}"><span class="text">{% blocktrans with user.profile.get_title as person_name %}Unblock{% endblocktrans %}</span></a>
 {% endif %}
