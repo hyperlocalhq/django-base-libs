@@ -577,7 +577,7 @@ class ContactForm(dynamicforms.Form):
                         wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
                     ),
-                    layout.MultiField(
+                    layout.Field(
                         "url2_link",
                         wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
                         template = "ccb_form/multifield.html"
