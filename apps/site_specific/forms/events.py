@@ -1932,7 +1932,7 @@ class CategoriesForm(dynamicforms.Form):
                     layout.Submit('submit', _('Save')),
                     css_class = "button-group form-buttons"
                 ),
-                css_class="switch on",
+                css_class="switch on no-label",
             ),
         )
 
