@@ -11,41 +11,40 @@ Usage in any template:
     
 -->{% endcomment %}
 
-<div class="dragging_handle">
-    <h5>{% trans "New Galleries" %}</h5>
-    <a
-        href="/portfolios/?order_by=creation_date_desc">{% trans "more..." %}</a>
-</div>
-<div class="draggable_block_media">
-    <div class="galleries">
-        {% with amount|default:3 as amount %}
-            {% get_objects all media_gallery.MediaGallery amount as newest_objects %}
-            {% if newest_objects %}
+{% with amount|default:5 as amount %}
+    {% get_objects all media_gallery.MediaGallery amount as newest_objects %}
+    {% if newest_objects %}
+    
+        <div class="row slider portfolio">
+            <div class="wrapper">
+        
                 {% for gallery in newest_objects %}
                     {% with gallery.content_object as content_object %}
-                        <div>
-                            <a href="{{ content_object.get_url_path }}portfolio/">
-                                {% if gallery.mediafile_set.count %}
-                                    <img width="155px" height="155px" alt="{{ content_object.get_title|escape }}"
-                                        src="{{ gallery.mediafile_set.all.0.get_list_image_url }}"/>
-                                {% endif %}
+            
+                        <div class="col-xs-12 slide">
+                            <a class="content" href="{{ content_object.get_url_path }}portfolio/">
+                                <span class="image-hover-bg">
+                                    {% if gallery.mediafile_set.count %}
+                                        <img src="{{ UPLOADS_URL }}{{ gallery.mediafile_set.all.0.get_list_image_url|modified_path:"portfolio_slide" }}" alt="{{ content_object.get_title|escape }}"/>
+                                    {% else %}
+                                        <img src="{{ STATIC_URL }}site/img/placeholder/infolink_square.png" alt="{{ content_object.get_title|escape }}"/>
+                                    {% endif %}
+                                </span>
+                                <h2>{{ content_object.get_title }}</h2>
                             </a>
-                            <h5>
-                                <a href="{{ content_object.get_url_path }}portfolio/">
-                                    {{ content_object.get_title }}
-                                </a>
-                            </h5>
-                            {% if gallery.description %}
-                                <p>
-                                    {{ gallery.description }}
-                                </p>
-                            {% endif %}
+                            <div class="button-group">
+                                <a href="#" class="fawesome fa-favorite button"></a>
+                                <a href="#" class="fawesome fa-more button"></a>
+                            </div>
                         </div>
+                
                     {% endwith %}
                 {% endfor %}
-            {% else %}
-                <p>{% trans "There are no galleries." %}</p>
-            {% endif %}
-        {% endwith %}
-    </div>
-</div>
+        
+            </div>
+        </div>
+        
+    {% else %}
+        <p class="intro">{% trans "There are no portfolios." %}</p>
+    {% endif %}
+{% endwith %}
