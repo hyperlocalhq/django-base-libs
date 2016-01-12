@@ -5,6 +5,7 @@ from django import forms
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
+from django.utils.translation import string_concat
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
@@ -130,12 +131,17 @@ class TicketForm(dynamicforms.Form):
             },
         ).json()
         if not result["success"]:
-            raise forms.ValidationError(
-                RECAPTCHA_ERROR_CODES.get(
-                    result.get("error-codes", []).get(0, None),
-                    _("reCAPTCHA Error")
-                )
-            )
+            raise forms.ValidationError(_("reCAPTCHA Error."))
+            # raise forms.ValidationError(
+            #     string_concat(
+            #         _("reCAPTCHA Error."),
+            #         " ",
+            #         RECAPTCHA_ERROR_CODES.get(
+            #             result.get("error-codes", [None])[0],
+            #             "",
+            #         )
+            #     )
+            # )
         return cleaned
 
     def save(self):
