@@ -1923,14 +1923,13 @@ class CategoriesForm(dynamicforms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Categories"),
-                layout.Div(
-                    layout.Field("categories", template="ccb_form/custom_widgets/checkboxselectmultipletree.html")),
+                layout.Field("categories", template="ccb_form/custom_widgets/checkboxselectmultipletree.html"),
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Tags"), '</h3></dd>')),
                 "tags",
                 bootstrap.FormActions(
                     layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
-                    css_class = "button-group form-buttons"
+                    css_class="button-group form-buttons"
                 ),
                 css_class="switch on no-label",
             ),
