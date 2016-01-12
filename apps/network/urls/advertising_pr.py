@@ -8,7 +8,6 @@ CATEGORY_SLUG = "werbung-pr"
 member_list_info = {
     'queryset': ContextItem.objects.filter(
         content_type__model__in=["person", "institution"],
-        status="published",
         ),
     'template_name': 'network/member_list_under_category.html',
     'paginate_by': 24,

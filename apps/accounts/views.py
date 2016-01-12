@@ -58,7 +58,7 @@ def login(request, template_name='registration/login.html',
           redirect_field_name=getattr(settings, "REDIRECT_FIELD_NAME", REDIRECT_FIELD_NAME)):
     """Displays the login form and handles the login action."""
     site_settings = SiteSettings.objects.get_current()
-    redirect_to = request.REQUEST.get(redirect_field_name, '')
+    redirect_to = request.REQUEST.get(redirect_field_name, 'dashboard')
     if request.method == "POST":
         form = EmailOrUsernameAuthentication(request, data=request.POST)
         if form.is_valid():
@@ -70,13 +70,9 @@ def login(request, template_name='registration/login.html',
             login_as = request.REQUEST.get("login_as", "")
             if user.is_superuser and login_as:
                 if "@" in login_as:
-                    login_as_user = User.objects.get(
-                        email=login_as,
-                    )
+                    login_as_user = get_object_or_404(User, email=login_as)
                 else:
-                    login_as_user = User.objects.get(
-                        username=login_as,
-                    )
+                    login_as_user = get_object_or_404(User, username=login_as)
                 login_as_user.backend = user.backend
                 user = login_as_user
             auth_login(request, user)

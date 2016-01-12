@@ -11,8 +11,7 @@ from ccb.apps.events.models import Event, URL_ID_EVENTS
 member_list_info = {
     'queryset': ContextItem.objects.filter(
         content_type__model__in=["person", "institution"],
-        status="published",
-        ),
+    ),
     'template_name': 'network/member_list.html',
     'paginate_by': 24,
     'allow_empty': True,
@@ -22,7 +21,7 @@ member_list_info = {
 member_detail_info = {
     'queryset': ContextItem.objects.filter(
         content_type__model__in=["person", "institution"],
-        ),
+    ),
     'template_name': '',
     'paginate_by': 24,
     'allow_empty': True,
