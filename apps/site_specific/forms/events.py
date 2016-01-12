@@ -943,11 +943,11 @@ class EventTimesForm(dynamicforms.Form):
                     {% endwith %}
                 </div>
                 """),
-                css_id="event_times_fieldset",
                 bootstrap.FormActions(
                     layout.Button('cancel', _('Cancel')),
                     layout.Submit('submit', _('Save')),
                 ),
+                css_id="event_times_fieldset",
                 css_class="switch on",
             ),
         )
