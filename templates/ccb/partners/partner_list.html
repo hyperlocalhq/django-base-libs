@@ -15,10 +15,10 @@
                 {% for partner in cat.get_published_partners %}
                     {% if partner.website_url %}
                         <a class="item logo-{{ partner.id }}" href="{{ partner.website_url }}">
-                            <img alt="partner.title" src="{{ MEDIA_URL }}{{ partner.image }}" />
+                            <img alt="{{ partner.title }}" src="{{ MEDIA_URL }}{{ partner.image }}" />
                         </a>
                     {% else %}
-                        <img alt="partner.title" src="{{ MEDIA_URL }}{{ partner.image }}" />
+                        <img alt="{{ partner.title }}" src="{{ MEDIA_URL }}{{ partner.image }}" />
                     {% endif %}
                 {% endfor %}
             </div>
