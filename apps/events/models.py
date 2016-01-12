@@ -172,7 +172,7 @@ def event_created(sender, instance, **kwargs):
                     instance=instance,
                     on_site=False,
                 )
-                action.send(instance.organizing_person, verb="created event", action_object=instance)
+                action.send(instance.organizing_person.user, verb="organized event", action_object=instance)
 
 
 models.signals.post_save.connect(event_created, sender=Event)
