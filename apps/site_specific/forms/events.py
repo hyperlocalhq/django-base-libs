@@ -1564,6 +1564,7 @@ class FeesOpeningHoursForm(dynamicforms.Form):
                     ),
                 ),
                 layout.MultiField(
+                    ' ',
                     layout.Field(
                         "mon_open1",
                         wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
@@ -1600,6 +1601,7 @@ class FeesOpeningHoursForm(dynamicforms.Form):
                     ),
                 ),
                 layout.MultiField(
+                    ' ',
                     layout.Field(
                         "tue_open1",
                         wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
@@ -1636,6 +1638,7 @@ class FeesOpeningHoursForm(dynamicforms.Form):
                     ),
                 ),
                 layout.MultiField(
+                    ' ',
                     layout.Field(
                         "wed_open1",
                         wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
@@ -1672,6 +1675,7 @@ class FeesOpeningHoursForm(dynamicforms.Form):
                     ),
                 ),
                 layout.MultiField(
+                    ' ',
                     layout.Field(
                         "thu_open1",
                         wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
@@ -1708,6 +1712,7 @@ class FeesOpeningHoursForm(dynamicforms.Form):
                     ),
                 ),
                 layout.MultiField(
+                    ' ',
                     layout.Field(
                         "fri_open1",
                         wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
