@@ -504,8 +504,16 @@ class ContactForm(dynamicforms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Contact Data"),
-                "venue",
-                "venue_title",
+                layout.HTML(
+                    string_concat('<dd class="no-label"><h3 class="section">', _("Institution/Company"), '</h3></dd>')),
+                layout.Field("venue", wrapper_class="institution-select autocomplete"),
+                layout.HTML("""{% load i18n %}
+                    <dt class="institution-select"> </dt><dd class="institution-select"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-input" data-toggle-hide=".institution-select">{% trans "Not listed? Enter manually" %}</a></dd>
+                """),
+                layout.Field("venue_title", wrapper_class="institution-input hidden", css_class="toggle-check"),
+                layout.HTML("""{% load i18n %}
+                    <dt class="institution-input hidden"> </dt><dd class="institution-input hidden"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-select" data-toggle-hide=".institution-input">{% trans "Back to selection" %}</a></dd>
+                """),
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Address"), '</h3></dd>')),
                 "latitude",  # hidden field
                 "longitude",  # hidden field
@@ -822,9 +830,15 @@ class OrganizerForm(dynamicforms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Organizer"),
-                "organizing_institution",
-                "organizer_title",
-                "organizer_url_link",
+                layout.Field("organizing_institution", wrapper_class="institution-select autocomplete"),
+                layout.HTML("""{% load i18n %}
+                    <dt class="institution-select"> </dt><dd class="institution-select"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-input" data-toggle-hide=".institution-select">{% trans "Not listed? Enter manually" %}</a></dd>
+                """),
+                layout.Field("organizer_title", wrapper_class="institution-input hidden", css_class="toggle-check"),
+                layout.Field("organizer_url_link", wrapper_class="institution-input hidden"),
+                layout.HTML("""{% load i18n %}
+                    <dt class="institution-input hidden"> </dt><dd class="institution-input hidden"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-select" data-toggle-hide=".institution-input">{% trans "Back to selection" %}</a></dd>
+                """),
                 "is_organized_by_myself",
                 bootstrap.FormActions(
                     layout.Button('cancel', _('Cancel'), css_class="cancel"),
