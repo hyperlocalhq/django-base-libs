@@ -11,6 +11,6 @@ bulletin_list_info = {
 }
 
 urlpatterns = patterns('ccb.apps.bulletin_board.views',
-    url(r'^$', 'bulletin_list', bulletin_list_info, name='bulletin_list'),
-    url(r'^rss/$', BulletinFeed(category_slug=CATEGORY_SLUG), name='bulletin_rss'),
+    url(r'^$', 'bulletin_list', bulletin_list_info),
+    url(r'^rss/$', BulletinFeed(category_slug=CATEGORY_SLUG)),
 )
