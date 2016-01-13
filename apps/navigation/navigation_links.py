@@ -147,16 +147,16 @@ navigation_links = {
 
     'portfolios': [
         {
-            'url_de': '/de/portfolios/featured/',
-            'url_en': '/en/portfolios/featured/',
+            'url_de': '/de/portfolios/',
+            'url_en': '/en/portfolios/',
             'text_de': 'Featured',
             'text_en': 'Featured',
             'should_be_shown': for_all,
             'highlight_pattern': r'^/(de|en)/portfolios/featured/$',
         },
         {
-            'url_de': '/de/portfolios/',
-            'url_en': '/en/portfolios/',
+            'url_de': '/de/portfolios/all/',
+            'url_en': '/en/portfolios/all/',
             'text_de': 'Alle',
             'text_en': 'All',
             'should_be_shown': for_all,

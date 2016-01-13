@@ -4,7 +4,7 @@ from jetson.apps.media_gallery.views import *
 from base_libs.models.models import STATUS_CODE_PUBLISHED
 
 
-def gallery_list(request, queryset, show="", paginate_by=None, order_by=None, page=None,
+def gallery_list(request, queryset, show="featured", paginate_by=None, order_by=None, page=None,
                  allow_empty=False, template_name=None, template_loader=loader,
                  extra_context=None, context_processors=None, template_object_name='object',
                  content_type=None, pages_to_display=10, query=""):

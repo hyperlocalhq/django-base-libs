@@ -31,7 +31,7 @@ member_detail_info = {
 
 event_list_info = {
     'queryset': Event.objects.all(),
-    'template_name': 'network/member_event_list.html',
+    'template_name': '',  # template name is defined in the view
     'paginate_by': 24,
     'allow_empty': True,
     'context_processors': (prev_next_processor,),
