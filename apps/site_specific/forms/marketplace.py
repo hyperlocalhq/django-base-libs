@@ -445,7 +445,7 @@ class ContactForm(dynamicforms.Form):
         }
         self.helper.layout = layout.Layout(
             layout.Fieldset(
-                _("Institution/Company"),
+                _("Contact Data"),
                 "offering_institution",
                 layout.HTML("""{% load i18n %}
                     <button id="id_institution_enter" class="btn btn-link">{% trans "Not listed? Enter manually" %}</button>

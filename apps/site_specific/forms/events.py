@@ -503,7 +503,7 @@ class ContactForm(dynamicforms.Form):
         }
         self.helper.layout = layout.Layout(
             layout.Fieldset(
-                _("Institution"),
+                _("Contact Data"),
                 "venue",
                 "venue_title",
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Address"), '</h3></dd>')),
@@ -1533,7 +1533,7 @@ class FeesOpeningHoursForm(dynamicforms.Form):
         }
         self.helper.layout = layout.Layout(
             layout.Fieldset(
-                _("Fees"),
+                _("Fees &amp; Opening Hours"),
                 "fees_de",
                 "fees_en",
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">',
