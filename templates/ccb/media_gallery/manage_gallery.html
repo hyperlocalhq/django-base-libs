@@ -5,6 +5,14 @@
 {% block sidebar %}
     
     {{ block.super }}
+    
+
+    <p>
+        <b>{{ gallery.get_status_display }}</b><br/>
+        Created: {{ gallery.creation_date|datefmt:"medium" }}<br/>
+        Last Edited: {{ gallery.modified_date|datefmt:"medium" }}<br/>
+    </p>
+    
 
     <div class="button-group">
         <a class="fawesome fa-image button text" href="/{{ LANGUAGE_CODE }}{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/add/image/" >
@@ -37,13 +45,6 @@
     {% elif gallery.mediafile_set.count %}
         <img src="{{ gallery.mediafile_set.all.0.get_list_image_url|modified_path:"article" }}" alt=""/>
     {% endif %}
-    
-
-    <p>
-        {{ gallery.get_status_display }}</span><br/>
-        Created: {{ gallery.creation_date|datefmt:"medium" }}<br/>
-        Last Edited: {{ gallery.modified_date|datefmt:"medium" }}<br/>
-    </p>
     
     {% if gallery.mediafile_set.count %}
         {% for media_file in gallery.mediafile_set.all %}
