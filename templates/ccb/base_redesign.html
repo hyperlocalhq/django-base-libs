@@ -88,15 +88,11 @@
                 <div class="buttons visible-xs">
                     <button class="fawesome fa-search button header-search"><span class="sr-only">{% trans 'search entire website' %}</span></button>
                     <div class="input-field select languages">
-                        <select id="language-navi" required>
-                            <option>--------</option>
-                            <option value="{% page_language_url de %}" {% if LANGUAGE_CODE == "de" %} selected="selected" {% endif %}>DE</option>
-                            <option value="{% page_language_url en %}" {% if LANGUAGE_CODE == "en" %} selected="selected" {% endif %}>EN</option>
-                        </select>
+                        {% language_chooser "utils/includes/navi_language_chooser.html" %}
                     </div>
                 </div>
                 <ul class="accordion">
-                    {% show_menu 1 3 3 3 "navigation/main_navigation.html" %}
+                    {% show_menu_below_id "start_page" 0 3 3 3 "navigation/main_navigation.html" %}
                 </ul>
             </nav>
         </div>
@@ -149,24 +145,22 @@
                     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                         <h3>{% trans 'Follow Us' %}</h3>
                         <div class="button-group">
-                            <a href="#" class="fawesome fa-twitter button small round"><span class="sr-only">Follow us on Twitter</span></a>
-                            <a href="#" class="fawesome fa-facebook button small round"><span class="sr-only">Follow us on Facebook</span></a>
-                            <a href="#" class="fawesome fa-googleplus button small round"><span class="sr-only">Follow us on Google+</span></a>
-                            <a href="#" class="fawesome fa-youtube button small round"><span class="sr-only">Follow us on Youtube</span></a>
+                            <a href="http://www.twitter.com/CREATIVEBERLIN" class="fawesome fa-twitter button small round" target="_blank"><span class="sr-only">{% trans "Follow us on Twitter" %}</span></a>
+                            <a href="https://www.facebook.com/creativeberlin/" class="fawesome fa-facebook button small round" target="_blank"><span class="sr-only">{% trans "Follow us on Facebook" %}</span></a>
+                            <a href="#" class="fawesome fa-googleplus button small round" target="_blank"><span class="sr-only">{% trans "Follow us on Google+" %}</span></a>
+                            <a href="#" class="fawesome fa-youtube button small round" target="_blank"><span class="sr-only">{% trans "Follow us on Youtube" %}</span></a>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                         <h3>{% trans 'Bookmark / Share' %}</h3>
                         <div class="button-group">
-                            <a href="#" class="fawesome fa-twitter button small round"><span class="sr-only">Share on Twitter</span></a>
-                            <a href="#" class="fawesome fa-facebook button small round"><span class="sr-only">Share on Facebook</span></a>
+                            <a href="#" class="fawesome fa-twitter button small round"><span class="sr-only">{% trans "Share on Twitter" %}</span></a>
+                            <a href="#" class="fawesome fa-facebook button small round"><span class="sr-only">{% trans "Share on Facebook" %}</span></a>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                         <h3>{% trans 'Links' %}</h3>
-                        <a href="#" class="textlink">Textlink</a>
-                        <a href="#" class="textlink">Textlink</a>
-                        <a href="#" class="textlink">Textlink</a>
+                        {% show_menu_below_id "meta" 0 1 1 1 "navigation/meta_navigation.html" %}
                     </div>
                 </div>
                 <div class="row">
