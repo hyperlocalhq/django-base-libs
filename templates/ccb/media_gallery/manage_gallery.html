@@ -48,6 +48,13 @@
     {% if gallery.mediafile_set.count %}
         {% for media_file in gallery.mediafile_set.all %}
         
+            
+            {% if media_file.get_recroppable_thumbnail_path %}
+                <a href="{% cropping_url f.get_recroppable_thumbnail_path "gt" request request.path %}">{% trans "Adjust image" %}</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+             {% endif %}
+             <a href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/{{ f.get_token }}/">{% trans "Settings" %}</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+             <a href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/{{ f.get_token }}/delete/">{% trans "Delete" %}</a>
+             
             {{ media_file.get_representation }}
             {% if media_file.title %}
                 <h5 class="caption">{{ media_file.title }}</h5>
@@ -55,12 +62,6 @@
             {% if media_file.description %}
                 {{ media_file.description|decode_entities|linebreaks }}
             {% endif %}
-            
-            {% if f.get_recroppable_thumbnail_path %}
-                <a href="{% cropping_url f.get_recroppable_thumbnail_path "gt" request request.path %}">{% trans "Adjust image" %}</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-             {% endif %}
-             <a href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/{{ f.get_token }}/">{% trans "Settings" %}</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-             <a href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/{{ f.get_token }}/delete/">{% trans "Delete" %}</a>
                 
         {% endfor %}
     {% else %}
