@@ -2,7 +2,7 @@
 {#% extends "accounts/my_profile/base.html" %#}
 {% load i18n base_tags infoblocks image_mods_tags %}
 
- {% block body_class %} list {% endblock %}
+{% block body_class %} list {% endblock %}
 
 {% block title %}{% trans "Dashboard" %}{% endblock %}
 
@@ -12,36 +12,48 @@
 
 {% block details %}
 
-        {% infoblock "user_dashboard_msg_ccb" %}
+    {% infoblock "user_dashboard_msg_ccb" %}
 
-        {% if object_list %}
-        
-            <h2>{% trans "Activities" %}</h2>
-            
-            <div class="row profile-grid profile-list dashboard">
-                {% for action in object_list %} 
-                    <div class="col-xs-12 col-sm-6 col-md-4">
-                        <div class="wrapper">
-                            <a class="content" href="{% if action.action_object.get_url_path %}{{ action.action_object.get_url_path }}{% else %}{{ action.actor.profile.get_url_path }}{% endif %}">
-                                {% if action.actor.profile.image %}
-                                    <img src="{{ UPLOADS_URL }}{{  action.actor.profile.image|modified_path:"profile" }}" alt="{{ action.action_object.title|escape }}"/>
-                                {% else %}
-                                    <img src="{{ STATIC_URL }}site/img/placeholder/profile.png" alt="{{ action.action_object.title|escape }}"/>
-                                {% endif %}
-                                <div class="text">
-                                    <h2>{{ action.actor.profile.get_title }}</h2>
-                                    <h3>{% trans action.verb %}</h3>
-                                    <div class="dashboard-details">
-                                        <h3>{{ action.action_object.title|escape }}</h3>
-                                        
+    {% if object_list %}
+
+        <h2>{% trans "Activities" %}</h2>
+
+        <div class="row profile-grid profile-list dashboard">
+            {% for action in object_list %}
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="wrapper">
+                        <a class="content" href="{% if action.action_object.get_url_path %}{{ action.action_object.get_url_path }}{% elif action.target.get_url_path %}{{ action.target.get_url_path }}{% else %}{{ action.actor.profile.get_url_path }}{% endif %}">
+                            {% if action.actor.profile.image %}
+                                <img src="{{ UPLOADS_URL }}{{ action.actor.profile.image|modified_path:"profile" }}"
+                                    alt="{{ action.action_object.title|escape }}"/>
+                            {% else %}
+                                <img src="{{ STATIC_URL }}site/img/placeholder/profile.png"
+                                    alt="{{ action.action_object.title|escape }}"/>
+                            {% endif %}
+                            <div class="text">
+                                <h2>{{ action.actor.profile.get_title }}</h2>
+                                <h3>{% trans action.verb %}</h3>
+                                <div class="dashboard-details">
+                                    {% if action.action_object %}
+                                        <h3>
+                                            {% if action.action_object.title %}
+                                                {{ action.action_object.title|escape }}
+                                            {% else %}
+                                                {{ action.action_object.position }}
+                                            {% endif %}
+
+                                        </h3>
+
                                         {% if action.action_object.image %}
-                                            <img src="{{ UPLOADS_URL }}{{  action.action_object.image|modified_path:"dashboard" }}" alt="{{ action.action_object.title|escape }}"/>
+                                            <img src="
+                                            {{ UPLOADS_URL }}{{ action.action_object.image|modified_path:"dashboard" }}"
+                                                alt="{{ action.action_object.title|escape }}"/>
                                         {% endif %}
-                                    
+
                                         {% if action.action_object.is_institution %}
-                                        
+
                                         {% elif action.action_object.is_event %}
-                                        
+
                                             {% with action.action_object.get_future_occurrences as times %}
                                                 {% if times %}
                                                     <div class="event-times">
@@ -52,69 +64,110 @@
                                                         {% endfor %}
                                                     </div>
                                                 {% endif %}
-                                            {% endwith %}                                        
-                                        
-                                        {% elif action.action_object.is_person %}
-                                        
-                                        {% elif action.action_object.is_media_gallery %}
-                                        
-                                        {% elif action.action_object.is_job_offer %}
-                                        
-                                        {% endif %}
-                                        
-                                    </div>
-                                </div>
-                                <div class="dashboard-time">
-                                    {% blocktrans with timesince=action.timesince %}{{ timesince }} ago{% endblocktrans %}{# "2 weeks, 3 days ago" #}
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-            
-            {% include "utils/includes/pagination.html" %}
-            
-        {% else %}
-        
-            {# No activities. Show something else. #}
-                
-            <br/>
-            <br/>
-                
-            <div class="claim">
-                <div class="fawesome fa-heart big"></div>
-                <p>{% trans "What's new? Latest Portfolios" %}</p>
-            </div>
-            
-            {% include "media_gallery/includes/latest_published_galleries.html" %}
-            
-                
-            {#% include "resources/includes/latest_published_documents.html" %#}
-            
-            <div class="claim">
-                <div class="fawesome fa-news big"></div>
-                <p>{% trans "New Events" %}</p>
-            </div>
+                                            {% endwith %}
 
-            {% include "events/includes/latest_published_events.html" %}
-            
-            <div class="claim">
-                <div class="fawesome fa-hand-down big"></div>
-                <p>{% trans "Welcome: The new members of Creative City Berlin" %}</p>
-            </div>
-                
-            {% include "people/includes/latest_published_people.html" %}
-            
-            <div class="claim">
-                <div class="fawesome fa-home big"></div>
-                <p>{% trans "New institutions at Creative City Berlin" %}</p>
-            </div>
-            
-            {% include "institutions/includes/latest_published_institutions.html" %}
-            
-        {% endif %}
-        
+                                        {% elif action.action_object.is_person %}
+
+                                        {% elif action.action_object.is_media_gallery %}
+
+                                        {% elif action.action_object.is_job_offer %}
+
+                                        {% endif %}
+                                    {% else %}
+                                        <h3>
+                                            {% if action.target.title %}
+                                                {{ action.target.title|escape }}
+                                            {% else %}
+                                                {{ action.target.profile.get_title }}
+                                            {% endif %}
+                                        </h3>
+
+                                        {% if action.target.image %}
+                                            <img src="
+                                            {{ UPLOADS_URL }}{{ action.target.image|modified_path:"dashboard" }}"
+                                                alt="{{ action.target.title|escape }}"/>
+                                        {% endif %}
+
+                                        {% if action.target.is_institution %}
+
+                                        {% elif action.target.is_event %}
+
+                                            {% with action.target.get_future_occurrences as times %}
+                                                {% if times %}
+                                                    <div class="event-times">
+                                                        {% for time in times %}
+                                                            {% if forloop.counter0 < 5 %}
+                                                                <div class="event-time">{{ time.start|date:"D, d.m.Y H:i" }}</div>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </div>
+                                                {% endif %}
+                                            {% endwith %}
+
+                                        {% elif action.target.is_person %}
+
+                                        {% elif action.target.is_media_gallery %}
+
+                                        {% elif action.target.is_job_offer %}
+
+                                        {% endif %}
+                                    {% endif %}
+
+
+                                </div>
+                            </div>
+                            <div class="dashboard-time">
+                                {% blocktrans with timesince=action.timesince %}{{ timesince }}
+                                    ago{% endblocktrans %}{# "2 weeks, 3 days ago" #}
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% include "utils/includes/pagination.html" %}
+
+    {% else %}
+
+        {# No activities. Show something else. #}
+
+        <br/>
+        <br/>
+
+        <div class="claim">
+            <div class="fawesome fa-heart big"></div>
+            <p>{% trans "What's new? Latest Portfolios" %}</p>
+        </div>
+
+        {% include "media_gallery/includes/latest_published_galleries.html" %}
+
+
+        {#% include "resources/includes/latest_published_documents.html" %#}
+
+        <div class="claim">
+            <div class="fawesome fa-news big"></div>
+            <p>{% trans "New Events" %}</p>
+        </div>
+
+        {% include "events/includes/latest_published_events.html" %}
+
+        <div class="claim">
+            <div class="fawesome fa-hand-down big"></div>
+            <p>{% trans "Welcome: The new members of Creative City Berlin" %}</p>
+        </div>
+
+        {% include "people/includes/latest_published_people.html" %}
+
+        <div class="claim">
+            <div class="fawesome fa-home big"></div>
+            <p>{% trans "New institutions at Creative City Berlin" %}</p>
+        </div>
+
+        {% include "institutions/includes/latest_published_institutions.html" %}
+
+    {% endif %}
+
 {% endblock %}
 
 {% block breadcrumbs %}
