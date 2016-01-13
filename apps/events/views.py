@@ -180,70 +180,71 @@ def event_list(request, criterion="", slug="", show="", start_date=None, end_dat
     queryset = kwargs['queryset']
 
     date_filter = None
-    if start_date:
-        try:  # convert a string of a format "YYYYMMDD" to date
-            start_date = datetime(*strptime(start_date, "%Y%m%d")[:3])
-        except ValueError:
-            raise Http404, ugettext("Naughty hacker!")
-
-        if end_date:
+    if show != "related":
+        if start_date:
             try:  # convert a string of a format "YYYYMMDD" to date
-                end_date = datetime(*strptime(end_date, "%Y%m%d")[:3])
+                start_date = datetime(*strptime(start_date, "%Y%m%d")[:3])
             except ValueError:
                 raise Http404, ugettext("Naughty hacker!")
 
-        if not (end_date or unlimited):
-            end_date = start_date + timedelta(days=1)
-    else:
-        start_date = datetime.now()
+            if end_date:
+                try:  # convert a string of a format "YYYYMMDD" to date
+                    end_date = datetime(*strptime(end_date, "%Y%m%d")[:3])
+                except ValueError:
+                    raise Http404, ugettext("Naughty hacker!")
 
-    if start_date and end_date:
-        """
-        Get events which start date is within the selected range
-        -----[--selected range--]----- time ->
-                   [-event-]
-                          [-event-]
-        """
-        date_filter = models.Q(
-            start__gte=start_date,
-            start__lte=end_date,
-        )
-        """
-        .. which started before and will end after the selected range
-        -----[-selected range-]------- time ->
-           [------event---------]
-        """
-        date_filter |= models.Q(
-            start__lte=start_date,
-            end__gte=end_date,
-        )
-        """
-        .. or which end date is within the selected range
-        -----[--selected range--]----- time ->
-                 [-event-]
-          [-event-]
-        """
-        date_filter |= models.Q(
-            end__gte=start_date,
-            end__lte=end_date,
-        )
-    else:
-        """
-        Get events which start date is after the selected start
-        -----[--selected start-------- time ->
-                [-event-]
-        """
-        date_filter = models.Q(
-            start__gte=start_date,
-        )
-        """
-        .. or which end date is after the selected start
-        -----[--selected start-------- time ->
-           [-event-]
-        """
-        date_filter |= models.Q(
-            end__gte=start_date,
-        )
+            if not (end_date or unlimited):
+                end_date = start_date + timedelta(days=1)
+        else:
+            start_date = datetime.now()
+
+        if start_date and end_date:
+            """
+            Get events which start date is within the selected range
+            -----[--selected range--]----- time ->
+                       [-event-]
+                              [-event-]
+            """
+            date_filter = models.Q(
+                start__gte=start_date,
+                start__lte=end_date,
+            )
+            """
+            .. which started before and will end after the selected range
+            -----[-selected range-]------- time ->
+               [------event---------]
+            """
+            date_filter |= models.Q(
+                start__lte=start_date,
+                end__gte=end_date,
+            )
+            """
+            .. or which end date is within the selected range
+            -----[--selected range--]----- time ->
+                     [-event-]
+              [-event-]
+            """
+            date_filter |= models.Q(
+                end__gte=start_date,
+                end__lte=end_date,
+            )
+        else:
+            """
+            Get events which start date is after the selected start
+            -----[--selected start-------- time ->
+                    [-event-]
+            """
+            date_filter = models.Q(
+                start__gte=start_date,
+            )
+            """
+            .. or which end date is after the selected start
+            -----[--selected start-------- time ->
+               [-event-]
+            """
+            date_filter |= models.Q(
+                end__gte=start_date,
+            )
 
     if date_filter:
         event_pks = list(EventTime.objects.filter(date_filter).values_list(
