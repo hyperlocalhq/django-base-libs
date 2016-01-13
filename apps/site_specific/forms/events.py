@@ -1536,32 +1536,29 @@ class FeesOpeningHoursForm(dynamicforms.Form):
                 _("Fees"),
                 "fees_de",
                 "fees_en",
-                layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Opening Time"), " - ",
+                layout.HTML(string_concat('<dd class="no-label"><h3 class="section">',
+                                          _("Opening Time"), " - ",
                                           _("Closing Time"), '</h3></dd>')),
                 string_concat(),
                 layout.MultiField(
                     _("Monday"),
                     layout.Field(
                         "mon_open0",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3 closed_mon",
                         template="ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "mon_close0",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3 closed_mon",
                         template="ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "mon_is_closed",
-                        "show_breaks",
-                        layout.HTML("""{% load i18n %}
-                            <p>
-                                <a id="id_apply_all_days" href="#">{% trans "Apply to all days" %}</a>
-                            </p>
-                        """),
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
+                        wrapper_class="col-xs-12 col-sm-6 col-md-6 col-lg-6",
+                        template="ccb_form/multifield.html",
+                        css_class="closed mon"
                     ),
+                    css_class="show-labels"
                 ),
                 layout.MultiField(
                     ' ',
@@ -1575,30 +1572,34 @@ class FeesOpeningHoursForm(dynamicforms.Form):
                         wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
                         template="ccb_form/multifield.html"
                     ),
-                    layout.Field(
-                        layout.HTML("&nbsp;"),
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
-                    ),
+                    css_class="show-labels break closed_mon"
                 ),
+
+                "show_breaks",
+                layout.HTML("""{% load i18n %}
+                    <dt></dt><dd><p><a id="apply_to_all_days" href="#">{% trans "Apply to all days" %}</a></p></dd>
+                    <dd class="clearfix">&nbsp;</dd>
+                """),
 
                 layout.MultiField(
                     _("Tuesday"),
                     layout.Field(
                         "tue_open0",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3 closed_tue",
                         template="ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "tue_close0",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3 closed_tue",
                         template="ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "tue_is_closed",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
+                        wrapper_class="col-xs-12 col-sm-6 col-md-6 col-lg-6",
+                        template="ccb_form/multifield.html",
+                        css_class="closed tue"
                     ),
+                    css_class="show-labels"
                 ),
                 layout.MultiField(
                     ' ',
@@ -1612,30 +1613,30 @@ class FeesOpeningHoursForm(dynamicforms.Form):
                         wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
                         template="ccb_form/multifield.html"
                     ),
-                    layout.Field(
-                        layout.HTML("&nbsp;"),
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
-                    ),
+                    css_class="show-labels break closed_tue"
                 ),
+
+                layout.HTML("""<dd class="clearfix">&nbsp;</dd>"""),
 
                 layout.MultiField(
                     _("Wednesday"),
                     layout.Field(
                         "wed_open0",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3 closed_wed",
                         template="ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "wed_close0",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3 closed_wed",
                         template="ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "wed_is_closed",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
+                        wrapper_class="col-xs-12 col-sm-6 col-md-6 col-lg-6",
+                        template="ccb_form/multifield.html",
+                        css_class="closed wed"
                     ),
+                    css_class="show-labels"
                 ),
                 layout.MultiField(
                     ' ',
@@ -1649,30 +1650,30 @@ class FeesOpeningHoursForm(dynamicforms.Form):
                         wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
                         template="ccb_form/multifield.html"
                     ),
-                    layout.Field(
-                        layout.HTML("&nbsp;"),
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
-                    ),
+                    css_class="show-labels break closed_wed"
                 ),
+
+                layout.HTML("""<dd class="clearfix">&nbsp;</dd>"""),
 
                 layout.MultiField(
                     _("Thursday"),
                     layout.Field(
                         "thu_open0",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3 closed_thu",
                         template="ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "thu_close0",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3 closed_thu",
                         template="ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "thu_is_closed",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
+                        wrapper_class="col-xs-12 col-sm-6 col-md-6 col-lg-6",
+                        template="ccb_form/multifield.html",
+                        css_class="closed thu"
                     ),
+                    css_class="show-labels"
                 ),
                 layout.MultiField(
                     ' ',
@@ -1686,30 +1687,30 @@ class FeesOpeningHoursForm(dynamicforms.Form):
                         wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
                         template="ccb_form/multifield.html"
                     ),
-                    layout.Field(
-                        layout.HTML("&nbsp;"),
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
-                    ),
+                    css_class="show-labels break closed_thu"
                 ),
+
+                layout.HTML("""<dd class="clearfix">&nbsp;</dd>"""),
 
                 layout.MultiField(
                     _("Friday"),
                     layout.Field(
                         "fri_open0",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3 closed_fri",
                         template="ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "fri_close0",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3 closed_fri",
                         template="ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "fri_is_closed",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
+                        wrapper_class="col-xs-12 col-sm-6 col-md-6 col-lg-6",
+                        template="ccb_form/multifield.html",
+                        css_class="closed fri"
                     ),
+                    css_class="show-labels"
                 ),
                 layout.MultiField(
                     ' ',
@@ -1723,30 +1724,30 @@ class FeesOpeningHoursForm(dynamicforms.Form):
                         wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
                         template="ccb_form/multifield.html"
                     ),
-                    layout.Field(
-                        layout.HTML("&nbsp;"),
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
-                    ),
+                    css_class="show-labels break closed_fri"
                 ),
+
+                layout.HTML("""<dd class="clearfix">&nbsp;</dd>"""),
 
                 layout.MultiField(
                     _("Saturday"),
                     layout.Field(
                         "sat_open0",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3 closed_sat",
                         template="ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "sat_close0",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3 closed_sat",
                         template="ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "sat_is_closed",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
+                        wrapper_class="col-xs-12 col-sm-6 col-md-6 col-lg-6",
+                        template="ccb_form/multifield.html",
+                        css_class="closed sat"
                     ),
+                    css_class="show-labels"
                 ),
                 layout.MultiField(
                     ' ',
@@ -1760,30 +1761,30 @@ class FeesOpeningHoursForm(dynamicforms.Form):
                         wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
                         template="ccb_form/multifield.html"
                     ),
-                    layout.Field(
-                        layout.HTML("&nbsp;"),
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
-                    ),
+                    css_class="show-labels break closed_sat"
                 ),
+
+                layout.HTML("""<dd class="clearfix">&nbsp;</dd>"""),
 
                 layout.MultiField(
                     _("Sunday"),
                     layout.Field(
                         "sun_open0",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3 closed_sun",
                         template="ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "sun_close0",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
+                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3 closed_sun",
                         template="ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "sun_is_closed",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
+                        wrapper_class="col-xs-12 col-sm-6 col-md-6 col-lg-6",
+                        template="ccb_form/multifield.html",
+                        css_class="closed sun"
                     ),
+                    css_class="show-labels"
                 ),
                 layout.MultiField(
                     ' ',
@@ -1797,12 +1798,11 @@ class FeesOpeningHoursForm(dynamicforms.Form):
                         wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
                         template="ccb_form/multifield.html"
                     ),
-                    layout.Field(
-                        layout.HTML("&nbsp;"),
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
-                    ),
+                    css_class="show-labels break closed_sun"
                 ),
+
+                layout.HTML("""<dd class="clearfix">&nbsp;</dd>"""),
+
                 "exceptions_de",
                 "exceptions_en",
                 bootstrap.FormActions(
