@@ -16,6 +16,7 @@
         {% endif %}
                     
         <div class="row event-list">
+            {% include "utils/includes/sorting.html" %}
             {% for event in object_list %}
                 {% with event.get_nearest_occurrence as date %}
                     {% ifchanged date.start|date:'D, d. m. Y' %}<h2 class="date">{{ date.start|date:'D, d. m. Y' }}</h2>{% endifchanged %}

@@ -126,15 +126,15 @@ class EventManager(models.Manager):
 
     def get_sort_order_mapper(self):
         sort_order_mapper = {
-            'creation_date_desc': (
-                1,
-                _('Creation date'),
-                ['-creation_date'],
-            ),
             'start_date_asc': (
-                2,
+                1,
                 _('Start date'),
                 ['start', ],
+            ),
+            'creation_date_desc': (
+                2,
+                _('Creation date'),
+                ['-creation_date'],
             ),
             'alphabetical_asc': (
                 3,
