@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 import os
 import shutil
-from datetime import datetime, time
+from datetime import datetime, time, date
 
 from django.db import models
 from django import forms
@@ -14,8 +14,8 @@ from django.conf import settings
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
-#from base_libs.forms.fields import AutocompleteModelChoiceField
-from base_libs.forms.fields import AutocompleteField
+from base_libs.forms.fields import AutocompleteModelChoiceField
+#from base_libs.forms.fields import AutocompleteField
 from base_libs.utils.misc import get_related_queryset
 from base_libs.middleware.threadlocals import get_current_user
 from base_libs.forms.fields import ImageField
@@ -63,7 +63,7 @@ class BulletinForm(forms.ModelForm):
     #)
     
     end_yyyy = forms.ChoiceField(
-        required=True,
+        required=False,
         choices=YEARS_CHOICES,
         label=_("Start Year"),
     )
@@ -104,8 +104,8 @@ class BulletinForm(forms.ModelForm):
     #    input_formats=('%H:%M',),
     #    widget=forms.TimeInput(format='%H:%M')
     #)
-    #institution = AutocompleteModelChoiceField(
-    institution = AutocompleteField(
+    institution = AutocompleteModelChoiceField(
+    #institution = AutocompleteField(
         required=False,
         label=_("Institution"),
         app="institutions",
@@ -306,7 +306,7 @@ class BulletinForm(forms.ModelForm):
         phone = self.cleaned_data.get('phone')
 
         if not (email or phone):
-            msg = _("Please enter a either email or phone.")
+            msg = _("Please enter either email or phone.")
             self._errors["email"] = self.error_class([msg])
             self._errors["phone"] = self.error_class([msg])
 
@@ -323,11 +323,11 @@ class BulletinForm(forms.ModelForm):
                         del self._errors[field_name]
             
             
-        # start date must be valid!
+        # end date must be valid!
         published_till_date = None
-        end_yyyy = self.cleaned_data.get('start_yyyy', None)
-        end_mm = self.cleaned_data.get('start_mm', None)
-        end_dd = self.cleaned_data.get('start_dd', None)
+        end_yyyy = self.cleaned_data.get('end_yyyy', None)
+        end_mm = self.cleaned_data.get('end_mm', None)
+        end_dd = self.cleaned_data.get('end_dd', None)
 
         # any error handling is overwritten!
         if self._errors.get('end_yyyy', False):
@@ -336,34 +336,34 @@ class BulletinForm(forms.ModelForm):
             del self._errors['end_mm']
         if self._errors.get('end_dd', False):
             del self._errors['end_dd']
-
-        if end_dd:
-            if not end_mm:
-                self._errors['end_dd'] = [_("Please enter a valid month.")]
                 
         try:
-            published_till_date = datetime.date(int(end_yyyy), int(end_mm or 1), int(end_dd or 1))
+            if end_yyyy or end_mm or end_dd:
+                published_till_date = date(int(end_yyyy), int(end_mm), int(end_dd))
         except Exception:
             self._errors['end_dd'] = [_("Please enter a valid date.")]
+            self._errors['end_mm'] = [_(" ")]
+            self._errors['end_yyyy'] = [_(" ")]
             
         
-        # start time or "all day must be entered"
         published_till_time = None
+        end_hh = self.cleaned_data.get('end_hh', None)
+        end_ii = self.cleaned_data.get('end_ii', None)
+        
         if 'end_hh' in self._errors or 'end_ii' in self._errors:
             self._errors['end_dd'] = [_("Please enter a valid time using format 'HH:MM'")]
 
-        if self.cleaned_data.get('end_hh', None) and not self.cleaned_data.get('end_ii', None):
-            self.cleaned_data['end_ii'] = '0'
-
-        # if start time is specified, day, month and year must be specified
-        if self.cleaned_data.get('end_hh', None):
+        # if end time is specified, day, month and year must be specified
+        if end_hh:
             if not (end_yyyy and end_mm and end_dd):
                 self._errors['end_hh'] = [_("If you choose a time, please enter a valid day, month and year.")]
                 
         try:
-            published_till_time = datetime.time(int(end_hh), int(end_ii or 0))
+            if end_hh or end_ii:
+                published_till_time = time(int(end_hh), int(end_ii or 0))
         except Exception:
             self._errors['end_hh'] = [_("Please enter a valid time.")]
+            self._errors['end_ii'] = [_(" ")]
 
         return self.cleaned_data
 
@@ -443,7 +443,8 @@ def save_data(form_steps, form_step_data, instance=None):
     # institution data
     institution = None
     if form_step_data['bulletin_data'].get('institution', None):
-        institution = Institution.objects.get(pk=form_step_data['bulletin_data']['institution'])
+        #institution = Institution.objects.get(pk=form_step_data['bulletin_data']['institution'])
+        institution = form_step_data['bulletin_data']['institution']
         institution_title = institution.get_title()
         institution_url = institution.get_url_path()
     else:
@@ -463,15 +464,20 @@ def save_data(form_steps, form_step_data, instance=None):
     for fname in fields:
         setattr(instance, fname, form_step_data['bulletin_data'][fname])
         
-    if form_step_data['bulletin_data']['published_till_date']:
-        if form_step_data['bulletin_data']['published_till_time']:
+    instance.published_till = None
+    if form_step_data['bulletin_data']['end_yyyy']:
+        published_till_date = date(int(form_step_data['bulletin_data']['end_yyyy']), int(form_step_data['bulletin_data']['end_mm']), int(form_step_data['bulletin_data']['end_dd']))
+    
+        if form_step_data['bulletin_data']['end_hh']:
+            published_till_time = time(int(form_step_data['bulletin_data']['end_hh']), int(form_step_data['bulletin_data']['end_ii']))
+            
             instance.published_till = datetime.combine(
-                form_step_data['bulletin_data']['published_till_date'],
-                form_step_data['bulletin_data']['published_till_time'],
+                published_till_date,
+                published_till_time,
             )
         else:
             instance.published_till = datetime.combine(
-                form_step_data['bulletin_data']['published_till_date'],
+                published_till_date,
                 time(0,0),
             )
 
