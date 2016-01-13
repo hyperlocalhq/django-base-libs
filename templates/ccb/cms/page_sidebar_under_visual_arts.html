@@ -3,6 +3,17 @@
 
 {% block title %}{% page_attribute "page_title" %} - {% trans "Visual Arts" %}{% endblock title %}
 
+{% block css %}{# TODO: remove this when "Zahlen & Fakten" is reworked with Document plugin #}
+    <style type="text/css">
+    .facts td {
+        vertical-align: top;
+    }
+    .facts img {
+        margin-right: 20px;
+    }
+    </style>
+{% endblock %}
+
 {% block header_image %}
     {% load slideshows_tags %}
     {% slideshow "visual_arts" using "slideshows/header.html" %}
