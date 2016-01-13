@@ -17,6 +17,7 @@ from base_libs.models.models import UrlMixin
 from base_libs.models.models import ObjectRelationMixin
 from base_libs.models.models import SlugMixin
 from base_libs.models import CreationModificationDateMixin
+from base_libs.models.query import ExtendedQuerySet
 from base_libs.middleware import get_current_language, get_current_user
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
@@ -64,10 +65,38 @@ class ContextItemManager(models.Manager):
         self._search_fields = fields
 
     def get_queryset(self):
-        """
-        fulltext search functionality
-        """
-        return SearchQuerySet(self.model, None, self._search_fields)
+        return ExtendedQuerySet(self.model)
+
+    # def get_queryset(self):
+    #     """
+    #     fulltext search functionality
+    #     """
+    #     return SearchQuerySet(self.model, None, self._search_fields)
+
+    def get_sort_order_mapper(self):
+        sort_order_mapper = {
+            'creation_date_desc': (
+                1,
+                _('Creation date (newest first)'),
+                ['-creation_date'],
+            ),
+            'creation_date_asc': (
+                2,
+                _('Creation date (oldest first)'),
+                ['creation_date'],
+            ),
+            'alphabetical_asc': (
+                3,
+                _('Alphabetical (A-Z)'),
+                ['title'],
+            ),
+            'alphabetical_desc': (
+                4,
+                _('Alphabetical (Z-A)'),
+                ['title'],
+            ),
+        }
+        return sort_order_mapper
 
     def _get_title_fields(self, prefix=''):
         language = get_current_language()
@@ -312,6 +341,7 @@ class ContextItem(CreationModificationDateMixin, ContextItemObjectRelation, UrlM
         return nof
 
     def get_saved_by(self):
+        from ccb.apps.favorites.models import Favorite
         ct = ContentType.objects.get_for_model(ContextItem)
         nof = Favorite.objects.filter(content_type__exact=ct, object_id__exact=self.id).count()
         return nof

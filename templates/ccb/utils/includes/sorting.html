@@ -1,15 +1,14 @@
 {% load base_tags babel i18n auth_extended %}
 
-<form action="" class="to_show secondaryForm">
+<form action="">
     {% if sort_order_map %}
-        <div class="ctrlHolder">
-            <select class="list_sorting">
-                {% for item in sort_order_map %}
-                    <option value="{{ item.0 }}"{% ifequal order_by item.0 %}
-                        selected="selected"{% endifequal %}>{{ item.1 }}</option>
-                {% endfor %}
-            </select>
-        </div>
+        <select class="list_sorting" name="order_by">
+            {% for item in sort_order_map %}
+                <option value="{{ item.0 }}"{% ifequal order_by item.0 %}
+                    selected="selected"{% endifequal %}>{{ item.1 }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="btn btn-primary">{% trans "Sort" %}</button>
     {% endif %}
 </form>
 
