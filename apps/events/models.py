@@ -69,10 +69,12 @@ class Event(ComplexEventBase):
     def is_public(self):
         return self.status == "published"
 
-
 class EventTime(ComplexEventTimeBase):
-    pass
-
+    def closest_start(self):
+        now = datetime.now()
+        if self.start and self.start < now:
+            return now
+        return self.start
 
 # Notify appropriate users about new events from contacts and favorite institutions
 def event_created(sender, instance, **kwargs):
