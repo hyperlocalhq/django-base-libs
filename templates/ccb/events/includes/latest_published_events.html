@@ -17,7 +17,7 @@ Usage in any template:
         <div class="row event-grid">
             {% for event in newest_objects %}
                 <div class="col-xs-12 col-sm-6 col-md-3">
-                    <a class="content tap-hover tap-hover-trigger" href="#">
+                    <a class="content tap-hover tap-hover-trigger" href="{{ event.get_url_path }}">
                         <img src="{{ UPLOADS_URL }}{{ event.image|modified_path:"event_row" }}" alt="{{ event.get_title|escape }}"/>
                         <h2>event.get_title|escape</h2>
                         {% with event.get_nearest_occurrence as date %}
