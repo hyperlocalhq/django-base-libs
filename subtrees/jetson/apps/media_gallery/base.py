@@ -263,6 +263,9 @@ class MediaGalleryBase(ObjectRelationMixin(is_required=True), CreationModificati
         if self.mediafile_set.count():
             return self.mediafile_set.all()[0].get_recroppable_thumbnail_path()
         return ""
+        
+    def is_media_gallery(self):
+        return True
 
 
 class MediaFileBase(CreationModificationMixin):
