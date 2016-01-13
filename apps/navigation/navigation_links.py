@@ -152,7 +152,7 @@ navigation_links = {
             'text_de': 'Featured',
             'text_en': 'Featured',
             'should_be_shown': for_all,
-            'highlight_pattern': r'^/(de|en)/portfolios/featured/$',
+            'highlight_pattern': r'^/(de|en)/portfolios/$',
         },
         {
             'url_de': '/de/portfolios/all/',
@@ -160,7 +160,7 @@ navigation_links = {
             'text_de': 'Alle',
             'text_en': 'All',
             'should_be_shown': for_all,
-            'highlight_pattern': r'^/(de|en)/portfolios/$',
+            'highlight_pattern': r'^/(de|en)/portfolios/all/$',
         },
         {
             'url_de': '/de/portfolios/favorites/',

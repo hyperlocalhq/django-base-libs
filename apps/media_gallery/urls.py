@@ -30,7 +30,7 @@ urlpatterns = (
         'ccb.apps.media_gallery.views.gallery_list',
         gallery_list_info,
         ),
-    url(r'^(?P<show>featured)/$',
+    url(r'^(?P<show>all)/$',
         'ccb.apps.media_gallery.views.gallery_list',
         gallery_list_info,
         ),
