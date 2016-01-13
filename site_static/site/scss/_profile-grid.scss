@@ -385,4 +385,76 @@
             }
         }
     }
+    
+    &.profile-list.dashboard {
+    
+        > div {
+            a.content {
+                
+                .is-xs & {
+                    padding-bottom: 15px;
+                }
+                
+                .text, .name {
+        
+                    h3 {
+                        color: $grey;
+                        padding: 9px 5px 9px 0;
+                        text-transform: uppercase;
+                        font-weight: $font-regular;
+                        
+                        .is-xs & {
+                            margin-bottom: 10px;
+                        }
+                    }
+                    
+                    .dashboard-details {
+                        
+                        h3 {
+                            color: $black;
+                            padding: 0 5px 9px 0;
+                            text-transform: none;
+                            font-weight: $font-bold;
+                            
+                            .is-xs & {
+                                padding-bottom: 0;
+                                margin-bottom: 5px;
+                            }
+                        }
+                        
+                        .event-times {
+                            margin: 5px 0;
+                            
+                            .is-xs & {
+                                margin-top: 0;
+                            }
+                            .event-time {
+                                color: $black;
+                                font-size: 1.2em;
+                                
+                                .is-xs & {
+                                    font-size: 1em;
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+                
+                .dashboard-time {
+                    color: $grey;
+                    font-size: 1em;
+                    position: absolute;
+                    top: 15px;
+                    right: 5px;
+                    
+                    .is-xs & {
+                        top: inherit;
+                        bottom: 0;
+                        right: 0;
+                    }
+                }
+            }
+        }
+    }
 }

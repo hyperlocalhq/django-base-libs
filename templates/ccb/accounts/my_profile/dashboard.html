@@ -2,6 +2,8 @@
 {#% extends "accounts/my_profile/base.html" %#}
 {% load i18n base_tags infoblocks image_mods_tags %}
 
+ {% block body_class %} list {% endblock %}
+
 {% block title %}{% trans "Dashboard" %}{% endblock %}
 
 {% block sidebar %}
@@ -15,27 +17,62 @@
         {% if object_list %}
         
             <h2>{% trans "Activities" %}</h2>
-            <div>
-                {% for action in object_list %}
-                    <div>
-                        {% if action.action_object.image %}
-                            <img src="{{ MEDIA_URL }}{{ action.action_object.image|modified_path:"whatever" }}" alt="" />
-                        {% else %}
-                            {# TODO: do we need different placeholders depending on the type? #}
-                            {% if action.action_object.is_institution %}
-                                <img src="http://placehold.it/350x150?text=Institution" alt="" />
-                            {% else %}
-                                <img src="http://placehold.it/350x150?text=Other+Object" alt="" />
-                            {% endif %}
-                        {% endif %}
-                        {{ action.actor.profile.get_title }}{# "Super Admin" #}
-                        {% trans action.verb %}{# "added institution" #}
-
-                        {{ action.action_object.title }}{# "TEST" #}
-                        {% blocktrans with timesince=action.timesince %}{{ timesince }} ago{% endblocktrans %}{# "2 weeks, 3 days ago" #}
+            
+            <div class="row profile-grid profile-list dashboard">
+                {% for action in object_list %} 
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="wrapper">
+                            <a class="content" href="{% if action.action_object.get_url_path %}{{ action.action_object.get_url_path }}{% else %}{{ action.actor.profile.get_url_path }}{% endif %}">
+                                {% if action.actor.profile.image %}
+                                    <img src="{{ UPLOADS_URL }}{{  action.actor.profile.image|modified_path:"profile" }}" alt="{{ action.action_object.title|escape }}"/>
+                                {% else %}
+                                    <img src="{{ STATIC_URL }}site/img/placeholder/profile.png" alt="{{ action.action_object.title|escape }}"/>
+                                {% endif %}
+                                <div class="text">
+                                    <h2>{{ action.actor.profile.get_title }}</h2>
+                                    <h3>{% trans action.verb %}</h3>
+                                    <div class="dashboard-details">
+                                        <h3>{{ action.action_object.title|escape }}</h3>
+                                        
+                                        {% if action.action_object.image %}
+                                            <img src="{{ UPLOADS_URL }}{{  action.action_object.image|modified_path:"dashboard" }}" alt="{{ action.action_object.title|escape }}"/>
+                                        {% endif %}
+                                    
+                                        {% if action.action_object.is_institution %}
+                                        
+                                        {% elif action.action_object.is_event %}
+                                        
+                                            {% with action.action_object.get_future_occurrences as times %}
+                                                {% if times %}
+                                                    <div class="event-times">
+                                                        {% for time in times %}
+                                                            {% if forloop.counter0 < 5 %}
+                                                                <div class="event-time">{{ time.start|date:"D, d.m.Y H:i" }}</div>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </div>
+                                                {% endif %}
+                                            {% endwith %}                                        
+                                        
+                                        {% elif action.action_object.is_person %}
+                                        
+                                        {% elif action.action_object.is_media_gallery %}
+                                        
+                                        {% elif action.action_object.is_job_offer %}
+                                        
+                                        {% endif %}
+                                        
+                                    </div>
+                                </div>
+                                <div class="dashboard-time">
+                                    {% blocktrans with timesince=action.timesince %}{{ timesince }} ago{% endblocktrans %}{# "2 weeks, 3 days ago" #}
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
+            
             {% include "utils/includes/pagination.html" %}
             
         {% else %}
