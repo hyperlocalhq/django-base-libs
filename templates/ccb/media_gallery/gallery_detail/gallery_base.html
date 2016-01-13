@@ -35,11 +35,12 @@
 
 {% block details %}
     <h2>{{ gallery.title }}</h2>
-    {{ gallery.description|linebreaks }}
 
     {% if gallery.cover_image %}
         <img src="{{ UPLOADS_URL }}{{ gallery.cover_image.path|modified_path:"article" }}" alt=""/>
     {% endif %}
+    
+    {{ gallery.description|linebreaks }}
     
     {% block gallery_detail %}
     {% endblock %}
