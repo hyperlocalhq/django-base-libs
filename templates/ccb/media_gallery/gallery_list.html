@@ -44,6 +44,7 @@
             </div>
             <div class="col-xs-12 col-sm-8 col-md-9">
                 {% if object_list %}
+                    {% include "utils/includes/sorting.html" %}
                     <div class="row projects-grid">
                         {% for object in object_list %}
                             {% include_parsed "media_gallery/lists/gallery_item.html" %}
