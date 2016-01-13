@@ -131,7 +131,7 @@ class IdentityForm(dynamicforms.Form):
         }
         self.helper.layout = layout.Layout(
             layout.Fieldset(
-                _("Name"),
+                _("Details"),
                 "title_en",
                 "title_de",
                 "event_type",
