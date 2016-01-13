@@ -15,13 +15,13 @@
     
 
     <div class="button-group">
-        <a class="fawesome fa-image button text" href="/{{ LANGUAGE_CODE }}{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/add/image/" >
+        <a class="fawesome fa-image button text" href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/add/image/" >
             <span class="text">{% trans "Add image" %}</span>
         </a><br class="hidden-xs" />
-        <a class="fawesome fa-video button text" href="/{{ LANGUAGE_CODE }}{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/add/video/" >
+        <a class="fawesome fa-video button text" href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/add/video/" >
             <span class="text">{% trans "Add video" %}</span>
         </a><br class="hidden-xs"/>
-        <a class="fawesome fa-audio button text" href="/{{ LANGUAGE_CODE }}{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/add/audio/" >
+        <a class="fawesome fa-audio button text" href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/add/audio/" >
             <span class="text">{% trans "Add audio" %}</span>
         </a>
         <br class="hidden-xs"/><br class="hidden-xs"/>
@@ -51,10 +51,10 @@
         
             
             {% if media_file.get_recroppable_thumbnail_path %}
-                <a href="{% cropping_url f.get_recroppable_thumbnail_path "gt" request request.path %}">{% trans "Adjust image" %}</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                <a href="{% cropping_url media_file.get_recroppable_thumbnail_path "gt" request request.path %}">{% trans "Adjust image" %}</a>&nbsp;&nbsp;|&nbsp;&nbsp;
              {% endif %}
-             <a href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/{{ f.get_token }}/">{% trans "Settings" %}</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-             <a href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/{{ f.get_token }}/delete/">{% trans "Delete" %}</a>
+             <a href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/{{ media_file.get_token }}/">{% trans "Settings" %}</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+             <a href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/{{ media_file.get_token }}/delete/">{% trans "Delete" %}</a>
              
             {{ media_file.get_representation }}
             {% if media_file.title %}
