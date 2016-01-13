@@ -26,9 +26,8 @@
                     <div class="col-xs-12 col-sm-4 col-md-3 {% if forloop.counter0|divisibleby:4 %}hidden-sm{% endif %}">
                         {% if partner.website_url %}
                             <a class="content tap-hover tap-hover-trigger logo-{{ partner.id }}"
-                                href="{{ partner.website_url }}">
+                                href="{{ partner.website_url }}" target="_blank">
                                 <img alt="{{ partner.title }}" src="{{ MEDIA_URL }}{{ partner.image }}"/>
-                                <h2>{{ partner.title }}</h2>
                             </a>
                         {% else %}
                             <img alt="{{ partner.title }}" src="{{ MEDIA_URL }}{{ partner.image }}"/>
