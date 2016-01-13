@@ -57,20 +57,23 @@ def _member_list_filter(request, queryset, show):
         conditions = models.Q()
         institution_ct = ContentType.objects.get_for_model(Institution)
         person_ct = ContentType.objects.get_for_model(Person)
-        for followee in followees:
-            if isinstance(followee, Institution):
-                ct = institution_ct
-                object_id = followee.pk
-            elif isinstance(followee, User):
-                ct = person_ct
-                object_id = followee.profile.pk
-            else:
-                continue
-            conditions |= models.Q(
-                content_type=ct,
-                object_id=object_id,
-            )
-        queryset = queryset.filter(conditions)
+        if followees:
+            for followee in followees:
+                if isinstance(followee, Institution):
+                    ct = institution_ct
+                    object_id = followee.pk
+                elif isinstance(followee, User):
+                    ct = person_ct
+                    object_id = followee.profile.pk
+                else:
+                    continue
+                conditions |= models.Q(
+                    content_type=ct,
+                    object_id=object_id,
+                )
+            queryset = queryset.filter(conditions)
+        else:
+            queryset = queryset.none()
     elif show == "relationships":
         if not request.user.is_authenticated():
             raise Http404
