@@ -1,5 +1,5 @@
 {% block doctype %}<!DOCTYPE html>{% endblock %}
-{% load i18n base_tags cms_tags menu_tags sekizai_tags%}
+{% load i18n base_tags cms_tags menu_tags sekizai_tags %}
 <html lang="{{ LANGUAGE_CODE }}">
     <head>
 
@@ -68,8 +68,8 @@
                     <div class="input-field select languages">
                         <select id="language-navi" required>
                             <option>--------</option>
-                            <option value="{% translate_url "de" %}" {% if LANGUAGE_CODE == "de" %} selected="selected" {% endif %}>DE</option>
-                            <option value="{% translate_url "en" %}" {% if LANGUAGE_CODE == "en" %} selected="selected" {% endif %}>EN</option>
+                            <option value="{% page_language_url de %}" {% if LANGUAGE_CODE == "de" %} selected="selected" {% endif %}>DE</option>
+                            <option value="{% page_language_url en %}" {% if LANGUAGE_CODE == "en" %} selected="selected" {% endif %}>EN</option>
                         </select>
                     </div>
                 </div>
@@ -92,11 +92,7 @@
                         <a href="{% url 'login' %}" class="fawesome fa-man button"><span class="sr-only">{% trans 'login' %}</span></a>
                     {% endif %}
                     <div class="input-field select languages">
-                        <select id="language-header" required>
-                            <option>--------</option>
-                            <option value="{% translate_url "de" %}" {% if LANGUAGE_CODE == "de" %} selected="selected" {% endif %}>DE</option>
-                            <option value="{% translate_url "en" %}" {% if LANGUAGE_CODE == "en" %} selected="selected" {% endif %}>EN</option>
-                        </select>
+                        {% language_chooser "utils/includes/language_chooser.html" %}
                     </div>
                 </div>
             </div>
