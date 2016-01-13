@@ -446,16 +446,17 @@ class ContactForm(dynamicforms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Contact Data"),
-                "offering_institution",
-                layout.HTML("""{% load i18n %}
-                    <button id="id_institution_enter" class="btn btn-link">{% trans "Not listed? Enter manually" %}</button>
-                """),
                 layout.HTML(
                     string_concat('<dd class="no-label"><h3 class="section">', _("Institution/Company"), '</h3></dd>')),
-                "offering_institution_title",
+                layout.Field("offering_institution", wrapper_class="institution-select autocomplete"),
                 layout.HTML("""{% load i18n %}
-                    <button id="id_institution_select" class="btn btn-link">{% trans "Back to selection" %}</button>
+                    <dt class="institution-select"> </dt><dd class="institution-select"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-input" data-toggle-hide=".institution-select">{% trans "Not listed? Enter manually" %}</a></dd>
                 """),
+                layout.Field("offering_institution_title", wrapper_class="institution-input hidden", css_class="toggle-check"),
+                layout.HTML("""{% load i18n %}
+                    <dt class="institution-input hidden"> </dt><dd class="institution-input hidden"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-select" data-toggle-hide=".institution-input">{% trans "Back to selection" %}</a></dd>
+                """),
+
                 layout.HTML(
                     string_concat('<dd class="no-label"><h3 class="section">', _("Contact person"), '</h3></dd>')),
                 "contact_person_ind",
