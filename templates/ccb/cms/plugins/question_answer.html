@@ -2,11 +2,11 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h2 class="panel-title">
+    <p class="panel-title intro">
       <a class="collapsed" data-toggle="collapse" data-parent="#faq-accordion" href="#q_{{ object.question|slugify }}">
         {{ object.question|disarm_user_input|striptags }}
       </a>
-    </h2>
+    </p>
   </div>
   <div id="q_{{ object.question|slugify }}" class="panel-collapse collapse">
     <div class="panel-body">
