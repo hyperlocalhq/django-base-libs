@@ -25,7 +25,7 @@ Usage in any template:
                             <a class="content" href="{{ content_object.get_url_path }}portfolio/">
                                 <span class="image-hover-bg">
                                     {% if gallery.mediafile_set.count %}
-                                        <img src="{{ UPLOADS_URL }}{{ gallery.mediafile_set.all.0.get_list_image_url|modified_path:"portfolio_slide" }}" alt="{{ content_object.get_title|escape }}"/>
+                                        <img src="{{ UPLOADS_URL }}{{ gallery.mediafile_set.all.0.path|modified_path:"portfolio_slide" }}" alt="{{ content_object.get_title|escape }}"/>
                                     {% else %}
                                         <img src="{{ STATIC_URL }}site/img/placeholder/infolink_square.png" alt="{{ content_object.get_title|escape }}"/>
                                     {% endif %}
