@@ -1,10 +1,12 @@
 {% load i18n %}
-<div class="map_container">
-    <div class="map_canvas">
+<div class="dyn_set_map">
+    <div class="map_canvas" style="height:300px">
         <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
     </div>
-    <div class="button-group form-buttons hide">
-        <button id="dyn_locate_geo" class="btn">{% trans "Locate on map" %}</button>
-        <button id="dyn_remove_geo" class="btn">{% trans "Remove from map" %}</button>
+    <div class="form-actions">
+        <input type="button" class="locate_address btn btn-primary" value="{% trans "Locate on map" %}"/>&zwnj;
+        <input type="button" class="remove_geo btn btn-primary" value="{% trans "Remove from map" %}"/>&zwnj;
+    </div>
+    <div class="map_locations">
     </div>
 </div>

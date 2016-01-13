@@ -17,10 +17,17 @@
     <script src="{{ STATIC_URL }}site/js/jquery/jquery.autosize-min.js"></script>
     <script src="{{ STATIC_URL }}site/js/jquery/jquery.charCount.js"></script>
     <script src="{{ STATIC_URL }}site/js/website/form.js"></script>
-    {% endcomment %}
     <script src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery.bgiframe.min.js"></script>
     <script src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery.autocomplete.js"></script>
     <script src="{{ STATIC_URL }}site/js/website/autocomplete.js"></script>
+    {% endcomment %}
+
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery.autocomplete.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery.bgiframe.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/autocomplete.js"></script>
+
 {% endblock %}
 
 {% block headline %}
@@ -45,6 +52,7 @@
 {% block details %}
     {% crispy form "ccb_form" %}
 
+    {% comment %}
     <script>
         var translatable_file_uploader_options = {
             template: '<div class="qq-uploader">' +
@@ -84,12 +92,13 @@
         */
         $(".qq-uploader").click(function(){ $(".qq-upload-button input").click() });
     </script>
-    {% comment %}
+    {% comment_old %}
     <script src="{{ STATIC_URL }}site/js/website/change_bulletin.js"></script>
-    {% endcomment %}
+    {% endcomment_old %}
     <script>
         $(document).ready(function ($) {
             $('.control-group.error:first').find(':input').focus();
         });
     </script>
+    {% endcomment %}
 {% endblock %}

@@ -371,9 +371,6 @@ class MainDataForm(dynamicforms.Form):
                 "country",
                 "latitude",  # hidden field
                 "longitude",  # hidden field
-            ),
-            layout.Fieldset(
-                _("Map"),
                 layout.HTML("""{% include "ccb_form/custom_widgets/editable_map.html" %}"""),
             ),
             layout.Fieldset(
