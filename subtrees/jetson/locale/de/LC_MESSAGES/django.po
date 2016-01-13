@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Django 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-11 17:33+0100\n"
+"POT-Creation-Date: 2016-01-13 21:11+0100\n"
 "PO-Revision-Date: 2012-04-04 22:05+0100\n"
 "Last-Translator: Aidas Bendoraitis <bendoraitis@studio38.de>\n"
 "Language-Team: \n"
@@ -628,7 +628,7 @@ msgstr "Vorschau"
 #: subtrees/jetson/templates/default/comments/preview.html:106
 #: subtrees/jetson/templates/default/events/profile/additional_info_form.html:13
 #: subtrees/jetson/templates/default/events/profile/avatar_form.html:25
-#: subtrees/jetson/templates/default/events/profile/categories_form.html:13
+#: subtrees/jetson/templates/default/events/profile/categories_form.html:9
 #: subtrees/jetson/templates/default/events/profile/contact_form.html:196
 #: subtrees/jetson/templates/default/events/profile/description_form.html:26
 #: subtrees/jetson/templates/default/events/profile/event_times_form.html:15
@@ -666,7 +666,7 @@ msgstr "Vorschau"
 #: subtrees/jetson/templates/default/individual_relations/individual_relation_unblock.html:6
 #: subtrees/jetson/templates/default/institutions/add_institution_main_data.html:209
 #: subtrees/jetson/templates/default/institutions/profile/avatar_form.html:25
-#: subtrees/jetson/templates/default/institutions/profile/categories_form.html:13
+#: subtrees/jetson/templates/default/institutions/profile/categories_form.html:9
 #: subtrees/jetson/templates/default/institutions/profile/contact_form.html:196
 #: subtrees/jetson/templates/default/institutions/profile/description_form.html:26
 #: subtrees/jetson/templates/default/institutions/profile/details_form.html:55
@@ -676,7 +676,7 @@ msgstr "Vorschau"
 #: subtrees/jetson/templates/default/messaging/delete_message.html:15
 #: subtrees/jetson/templates/default/messaging/messages_list.html:114
 #: subtrees/jetson/templates/default/people/profile/avatar_form.html:25
-#: subtrees/jetson/templates/default/people/profile/categories_form.html:13
+#: subtrees/jetson/templates/default/people/profile/categories_form.html:9
 #: subtrees/jetson/templates/default/people/profile/contact_form.html:182
 #: subtrees/jetson/templates/default/people/profile/description_form.html:26
 #: subtrees/jetson/templates/default/people/profile/details_form.html:55
@@ -1460,8 +1460,8 @@ msgstr ""
 #: subtrees/jetson/apps/utils/views.py:933
 #: subtrees/jetson/apps/utils/views.py:993
 #: subtrees/jetson/templates/admin/admin/cms/page/permissions.html:46
-#: subtrees/jetson/templates/admin/rosetta/languages.html:33
-#: subtrees/jetson/templates/admin/rosetta/pofile.html:50
+#: subtrees/jetson/templates/admin/rosetta/languages_with_grappelli.html:33
+#: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:50
 #: subtrees/jetson/templates/default/public_filebrowser/include/filter.html:28
 #: subtrees/jetson/templates/default/site_specific/blocks/sidebar_info.html:6
 msgid "All"
@@ -4964,7 +4964,7 @@ msgid "Image Modification"
 msgstr "Bild Modifikation "
 
 #: subtrees/jetson/apps/image_mods/models.py:591
-#: subtrees/jetson/templates/admin/rosetta/pofile.html:93
+#: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:93
 msgid "Original"
 msgstr "Original"
 
@@ -6708,7 +6708,7 @@ msgstr "Bild vom Internet verlinken"
 #: subtrees/jetson/templates/default/accounts/my_profile/privacy_settings.html:69
 #: subtrees/jetson/templates/default/events/profile/additional_info_form.html:12
 #: subtrees/jetson/templates/default/events/profile/avatar_form.html:26
-#: subtrees/jetson/templates/default/events/profile/categories_form.html:14
+#: subtrees/jetson/templates/default/events/profile/categories_form.html:10
 #: subtrees/jetson/templates/default/events/profile/contact_form.html:198
 #: subtrees/jetson/templates/default/events/profile/description_form.html:27
 #: subtrees/jetson/templates/default/events/profile/event_times_form.html:14
@@ -6729,14 +6729,14 @@ msgstr "Bild vom Internet verlinken"
 #: subtrees/jetson/templates/default/individual_relations/individual_relation_edit.html:50
 #: subtrees/jetson/templates/default/institutions/add_institution_main_data.html:211
 #: subtrees/jetson/templates/default/institutions/profile/avatar_form.html:26
-#: subtrees/jetson/templates/default/institutions/profile/categories_form.html:14
+#: subtrees/jetson/templates/default/institutions/profile/categories_form.html:10
 #: subtrees/jetson/templates/default/institutions/profile/contact_form.html:198
 #: subtrees/jetson/templates/default/institutions/profile/description_form.html:27
 #: subtrees/jetson/templates/default/institutions/profile/details_form.html:56
 #: subtrees/jetson/templates/default/institutions/profile/identity_form.html:21
 #: subtrees/jetson/templates/default/institutions/profile/opening_hours_form.html:206
 #: subtrees/jetson/templates/default/people/profile/avatar_form.html:26
-#: subtrees/jetson/templates/default/people/profile/categories_form.html:14
+#: subtrees/jetson/templates/default/people/profile/categories_form.html:10
 #: subtrees/jetson/templates/default/people/profile/contact_form.html:184
 #: subtrees/jetson/templates/default/people/profile/description_form.html:27
 #: subtrees/jetson/templates/default/people/profile/details_form.html:56
@@ -8297,8 +8297,8 @@ msgstr "Alle Einträge schliessen"
 #: subtrees/jetson/templates/admin/extendedadmin/job_offer_change_base.html:68
 #: subtrees/jetson/templates/admin/extendedadmin/person_change.html:53
 #: subtrees/jetson/templates/admin/extendedadmin/person_mail.html:29
-#: subtrees/jetson/templates/admin/rosetta/languages.html:10
-#: subtrees/jetson/templates/admin/rosetta/pofile.html:20
+#: subtrees/jetson/templates/admin/rosetta/languages_with_grappelli.html:10
+#: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:20
 msgid "Home"
 msgstr "Home"
 
@@ -8432,7 +8432,7 @@ msgid "List of pages"
 msgstr "Liste der Seiten"
 
 #: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:14
-#: subtrees/jetson/templates/admin/rosetta/pofile.html:66
+#: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:66
 #: subtrees/jetson/templates/default/public_filebrowser/include/toolbar.html:17
 msgid "Search"
 msgstr "Suche"
@@ -9177,13 +9177,13 @@ msgstr "Bild Version"
 msgid "Debug"
 msgstr ""
 
-#: subtrees/jetson/templates/admin/rosetta/languages.html:5
-#: subtrees/jetson/templates/admin/rosetta/languages.html:11
-#: subtrees/jetson/templates/admin/rosetta/languages.html:25
+#: subtrees/jetson/templates/admin/rosetta/languages_with_grappelli.html:5
+#: subtrees/jetson/templates/admin/rosetta/languages_with_grappelli.html:11
+#: subtrees/jetson/templates/admin/rosetta/languages_with_grappelli.html:25
 msgid "Language selection"
 msgstr "Sprachauswahl"
 
-#: subtrees/jetson/templates/admin/rosetta/languages.html:19
+#: subtrees/jetson/templates/admin/rosetta/languages_with_grappelli.html:19
 msgid ""
 "Couldn't load the specified language file. This usually happens when using "
 "the Encrypted Cookies Session Storage backend on Django 1.4 or higher.<br/"
@@ -9191,142 +9191,142 @@ msgid ""
 "your settings file should fix this."
 msgstr ""
 
-#: subtrees/jetson/templates/admin/rosetta/languages.html:30
+#: subtrees/jetson/templates/admin/rosetta/languages_with_grappelli.html:30
 msgid "Project"
 msgstr "Projekte"
 
-#: subtrees/jetson/templates/admin/rosetta/languages.html:31
+#: subtrees/jetson/templates/admin/rosetta/languages_with_grappelli.html:31
 msgid "Third party"
 msgstr ""
 
-#: subtrees/jetson/templates/admin/rosetta/languages.html:47
+#: subtrees/jetson/templates/admin/rosetta/languages_with_grappelli.html:47
 msgid "Application"
 msgstr "Anwendung"
 
-#: subtrees/jetson/templates/admin/rosetta/languages.html:48
+#: subtrees/jetson/templates/admin/rosetta/languages_with_grappelli.html:48
 msgid "Progress"
 msgstr "Fortschritt"
 
-#: subtrees/jetson/templates/admin/rosetta/languages.html:49
+#: subtrees/jetson/templates/admin/rosetta/languages_with_grappelli.html:49
 msgid "Messages"
 msgstr "Nachrichten"
 
-#: subtrees/jetson/templates/admin/rosetta/languages.html:50
+#: subtrees/jetson/templates/admin/rosetta/languages_with_grappelli.html:50
 msgid "Translated"
 msgstr ""
 
 # D:\svn\jetson_src\jetson_reorganized\jetson\externals\libs\babel\messages\tests\mofile.py:67
 # D:\svn\jetson_src\jetson_reorganized\jetson\externals\libs\babel\messages\tests\mofile.py:68
-#: subtrees/jetson/templates/admin/rosetta/languages.html:51
-#: subtrees/jetson/templates/admin/rosetta/pofile.html:96
+#: subtrees/jetson/templates/admin/rosetta/languages_with_grappelli.html:51
+#: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:96
 msgid "Fuzzy"
 msgstr "Unscharf"
 
-#: subtrees/jetson/templates/admin/rosetta/languages.html:52
+#: subtrees/jetson/templates/admin/rosetta/languages_with_grappelli.html:52
 msgid "Obsolete"
 msgstr ""
 
-#: subtrees/jetson/templates/admin/rosetta/languages.html:53
+#: subtrees/jetson/templates/admin/rosetta/languages_with_grappelli.html:53
 msgid "File"
 msgstr "Datei"
 
-#: subtrees/jetson/templates/admin/rosetta/languages.html:76
+#: subtrees/jetson/templates/admin/rosetta/languages_with_grappelli.html:76
 msgid "Nothing to translate!"
 msgstr ""
 
-#: subtrees/jetson/templates/admin/rosetta/languages.html:77
+#: subtrees/jetson/templates/admin/rosetta/languages_with_grappelli.html:77
 msgid ""
 "You haven't specified any languages in your settings file, or haven't yet "
 "generated a batch of translation catalogs."
 msgstr ""
 
-#: subtrees/jetson/templates/admin/rosetta/languages.html:78
+#: subtrees/jetson/templates/admin/rosetta/languages_with_grappelli.html:78
 #, python-format
 msgid ""
 "Please refer to <a href=\"%(i18n_doc_link)s\">Django's I18N documentation</"
 "a> for a guide on how to set up internationalization for your project."
 msgstr ""
 
-#: subtrees/jetson/templates/admin/rosetta/pofile.html:9
+#: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:9
 msgid "Pick another file"
 msgstr ""
 
-#: subtrees/jetson/templates/admin/rosetta/pofile.html:10
+#: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:10
 msgid "Download this catalog"
 msgstr "Download dieses Kataloges"
 
-#: subtrees/jetson/templates/admin/rosetta/pofile.html:23
+#: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:23
 #, python-format
 msgid "Progress: %(percent_translated)s%%"
 msgstr ""
 
-#: subtrees/jetson/templates/admin/rosetta/pofile.html:31
+#: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:31
 msgid "File is read-only: download the file when done editing!"
 msgstr ""
 
-#: subtrees/jetson/templates/admin/rosetta/pofile.html:36
+#: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:36
 msgid ""
 "Some items in your last translation block couldn't be saved: this usually "
 "happens when the catalog file changes on disk after you last loaded it."
 msgstr ""
 
-#: subtrees/jetson/templates/admin/rosetta/pofile.html:42
+#: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:42
 #, python-format
 msgid "Translate into %(rosetta_i18n_lang_name)s"
 msgstr ""
 
-#: subtrees/jetson/templates/admin/rosetta/pofile.html:47
+#: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:47
 msgid "Untranslated only"
 msgstr "Nur nicht übersetzte"
 
-#: subtrees/jetson/templates/admin/rosetta/pofile.html:48
+#: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:48
 msgid "Translated only"
 msgstr "Nur übersetzte"
 
 # D:\svn\jetson_src\jetson_reorganized\jetson\externals\libs\babel\messages\tests\mofile.py:67
 # D:\svn\jetson_src\jetson_reorganized\jetson\externals\libs\babel\messages\tests\mofile.py:68
-#: subtrees/jetson/templates/admin/rosetta/pofile.html:49
+#: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:49
 msgid "Fuzzy only"
 msgstr "Nur unscharf"
 
-#: subtrees/jetson/templates/admin/rosetta/pofile.html:97
+#: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:97
 msgid "Occurrences(s)"
 msgstr ""
 
-#: subtrees/jetson/templates/admin/rosetta/pofile.html:111
-#: subtrees/jetson/templates/admin/rosetta/pofile.html:114
-#: subtrees/jetson/templates/admin/rosetta/pofile.html:129
-#: subtrees/jetson/templates/admin/rosetta/pofile.html:132
+#: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:111
+#: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:114
+#: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:129
+#: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:132
 msgid "Context hint"
 msgstr ""
 
-#: subtrees/jetson/templates/admin/rosetta/pofile.html:139
+#: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:139
 msgid "suggest"
 msgstr "Vorschlagen"
 
-#: subtrees/jetson/templates/admin/rosetta/pofile.html:150
+#: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:150
 #, python-format
 msgid "%(more_count)s more"
 msgid_plural "%(more_count)s more"
 msgstr[0] "%(more_count)s mehr"
 msgstr[1] "%(more_count)s mehr"
 
-#: subtrees/jetson/templates/admin/rosetta/pofile.html:160
+#: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:160
 msgid "Skip to page:"
 msgstr "Direkt zu Seite:"
 
-#: subtrees/jetson/templates/admin/rosetta/pofile.html:173
+#: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:173
 msgid "Displaying:"
 msgstr "Anzeigen:"
 
-#: subtrees/jetson/templates/admin/rosetta/pofile.html:177
+#: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:177
 #, fuzzy, python-format
 msgid "%(hits)s/%(message_number)s message"
 msgid_plural "%(hits)s/%(message_number)s messages"
 msgstr[0] "%(hits)s/%(message_number)s Nachricht"
 msgstr[1] "%(hits)s/%(message_number)s Nachrichten"
 
-#: subtrees/jetson/templates/admin/rosetta/pofile.html:189
+#: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:189
 msgid "Save and translate next block"
 msgstr ""
 
@@ -9717,20 +9717,6 @@ msgstr ""
 "Herzlichen Dank für Ihre Anmeldung. Soeben wurde eine eMail an die von Ihnen "
 "angegebene Adresse geschickt. Benutzen Sie den Link in dieser Mail um Ihr "
 "Konto bei Interactive-City-Berlin zu aktivieren."
-
-#: subtrees/jetson/templates/default/accounts/reg_categories.html:36
-#: subtrees/jetson/templates/default/events/add_event_categories.html:29
-#: subtrees/jetson/templates/default/events/profile/categories_form.html:9
-#: subtrees/jetson/templates/default/groups_networks/persongroups/add_group_categories.html:31
-#: subtrees/jetson/templates/default/institutions/add_institution_categories.html:31
-#: subtrees/jetson/templates/default/institutions/profile/categories_form.html:9
-#: subtrees/jetson/templates/default/people/profile/categories_form.html:9
-msgid ""
-"Is some category missing? You can <a href=\"/ticket/new-category/\">suggest "
-"it here</a>."
-msgstr ""
-"Fehlt Ihnen eine Kategorie? Sie können sie uns <a href=\"/ticket/new-"
-"category/\">hier</a> zur Aufnahme vorschlagen."
 
 #: subtrees/jetson/templates/default/accounts/reg_choose_type.html:8
 #: subtrees/jetson/templates/default/accounts/reg_choose_type.html:23
@@ -12537,6 +12523,13 @@ msgid ""
 msgstr ""
 "Geben Sie die Anfangsbuchstaben des %(lookup_field)s ein, um eine "
 "entsprechende Auswahl anzuzeigen."
+
+#~ msgid ""
+#~ "Is some category missing? You can <a href=\"/ticket/new-category/"
+#~ "\">suggest it here</a>."
+#~ msgstr ""
+#~ "Fehlt Ihnen eine Kategorie? Sie können sie uns <a href=\"/ticket/new-"
+#~ "category/\">hier</a> zur Aufnahme vorschlagen."
 
 #, fuzzy
 #~| msgid "Blog"
