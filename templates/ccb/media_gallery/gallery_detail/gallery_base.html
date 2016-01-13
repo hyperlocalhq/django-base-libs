@@ -49,6 +49,11 @@
 
 
 
+{% block breadcrumbs_details %}
+    <li><a href="{{ object.get_url_path }}portfolio/">{% trans "Portfolio" %}</a></li>
+    <li>{{ gallery.title }}</li>
+{% endblock %}
+
 
 {% block extrahead_old %}
     {{ block.super }}

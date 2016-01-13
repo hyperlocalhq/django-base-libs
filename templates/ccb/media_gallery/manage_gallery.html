@@ -74,7 +74,8 @@
 
 {% block breadcrumbs_details %}
     <li><a href="{{ object.get_url_path }}portfolio/">{% trans "Portfolio" %}</a></li>
-    <li>{{ gallery.title }}</li>
+    <li><a href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/">{{ gallery.title }}</a></li>
+    <li>{% trans "Manage" %}</li>
 {% endblock %}
 
 
