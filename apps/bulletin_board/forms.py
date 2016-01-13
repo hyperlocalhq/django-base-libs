@@ -6,15 +6,19 @@ from datetime import datetime, time
 from django.db import models
 from django import forms
 from django.utils.translation import ugettext_lazy as _, ugettext
+from django.utils.translation import string_concat
+from django.utils.dates import MONTHS
 from django.shortcuts import redirect
 from django.conf import settings
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
-from base_libs.forms.fields import AutocompleteModelChoiceField
+#from base_libs.forms.fields import AutocompleteModelChoiceField
+from base_libs.forms.fields import AutocompleteField
 from base_libs.utils.misc import get_related_queryset
 from base_libs.middleware.threadlocals import get_current_user
+from base_libs.forms.fields import ImageField
 
 from mptt.forms import TreeNodeChoiceField
 
@@ -26,30 +30,82 @@ from .models import TYPE_CHOICES, STATUS_CHOICES
 
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 
+
+YEARS_CHOICES = [("", _("Year"))] + [(i, i) for i in range(2016, 2040)]
+MONTHS_CHOICES = [("", _("Month"))] + MONTHS.items()
+DAYS_CHOICES = [("", _("Day"))] + [(i, i) for i in range(1, 32)]
+HOURS_CHOICES = [("", _("HH"))] + [(i, u"%02d" % i) for i in range(0, 24)]
+MINUTES_CHOICES = [("", _("MM"))] + [(i, u"%02d" % i) for i in range(0, 60, 5)]
+
+LOGO_SIZE = (850, 480)
+STR_LOGO_SIZE = "%sx%s" % (850, 480)
+
 # translatable strings to collect
 _("Please enable JavaScript to use file uploader.")
 _(u"Available formats are JPG, GIF, and PNG. Minimal size is 290 × 290 px.")
         
+
+
         
 class BulletinForm(forms.ModelForm):
-    image_path = forms.CharField(
-        max_length=255,
-        widget=forms.HiddenInput(),
+    #image_path = forms.CharField(
+    #    max_length=255,
+    #    widget=forms.HiddenInput(),
+    #    required=False,
+    #)
+    
+    image_path = ImageField(
+        label=' ',
+        help_text=_(
+            "You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px.") % STR_LOGO_SIZE,
         required=False,
+        min_dimensions=LOGO_SIZE,
     )
-    published_till_date = forms.DateField(
-        label=_("Published till date"),
+    
+    end_yyyy = forms.ChoiceField(
+        required=True,
+        choices=YEARS_CHOICES,
+        label=_("Start Year"),
+    )
+
+    end_mm = forms.ChoiceField(
         required=False,
-        input_formats=('%Y-%m-%d',),
-        widget=forms.DateInput(format='%Y-%m-%d')
+        choices=MONTHS_CHOICES,
+        label=_("Start Month"),
     )
-    published_till_time = forms.TimeField(
-        label=_("Published till time"),
+
+    end_dd = forms.ChoiceField(
         required=False,
-        input_formats=('%H:%M',),
-        widget=forms.TimeInput(format='%H:%M')
+        choices=DAYS_CHOICES,
+        label=_("Start Day"),
     )
-    institution = AutocompleteModelChoiceField(
+
+    end_hh = forms.ChoiceField(
+        required=False,
+        choices=HOURS_CHOICES,
+        label=_("Start Hours"),
+    )
+
+    end_ii = forms.ChoiceField(
+        required=False,
+        choices=MINUTES_CHOICES,
+        label=_("Start Minutes"),
+    )
+    
+    #published_till_date = forms.DateField(
+    #    label=_("Published till date"),
+    #    required=False,
+    #    input_formats=('%Y-%m-%d',),
+    #    widget=forms.DateInput(format='%Y-%m-%d')
+    #)
+    #published_till_time = forms.TimeField(
+    #    label=_("Published till time"),
+    #    required=False,
+    #    input_formats=('%H:%M',),
+    #    widget=forms.TimeInput(format='%H:%M')
+    #)
+    #institution = AutocompleteModelChoiceField(
+    institution = AutocompleteField(
         required=False,
         label=_("Institution"),
         app="institutions",
@@ -110,8 +166,11 @@ class BulletinForm(forms.ModelForm):
             if self.instance.published_till:
                 #published_till = timezone.localtime(self.instance.published_till)
                 published_till = self.instance.published_till
-                self.fields['published_till_date'].initial = published_till.date()
-                self.fields['published_till_time'].initial = published_till.time()
+                self.fields['end_dd'].initial = published_till.date().day
+                self.fields['end_mm'].initial = published_till.date().month
+                self.fields['end_yyyy'].initial = published_till.date().year
+                self.fields['end_hh'].initial = published_till.time().hour
+                self.fields['end_ii'].initial = published_till.time().minute
 
         self.helper.layout = layout.Layout(
             layout.Fieldset(
@@ -123,68 +182,120 @@ class BulletinForm(forms.ModelForm):
             layout.Fieldset(
                 _("Categories"),
                 layout.Field("bulletin_category"),
-                layout.Div(layout.Field("categories", template="ccb_form/custom_widgets/checkboxselectmultipletree.html")),
+                layout.HTML(string_concat('<dt>', _("Categories"), '</dt>')),
+                layout.Field("categories", template="ccb_form/custom_widgets/checkboxselectmultipletree.html"),
                 layout.Field("locality_type"),
             ),
             layout.Fieldset(
                 _("Image"),
-                layout.HTML(u"""{% load i18n image_modifications %}
-                    <div id="image_preview">
-                        {% if object.image %}
-                            <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"ad" }}?now={% now "YmdHis" %}" alt="" />
-                        {% else %}
-                            {% if object.image_path %}
-                                <img src="{{ UPLOADS_URL }}{{ object.image_path|modified_path:"ad" }}?now={% now "YmdHis" %}" alt="" />
-                            {% endif %}
-                        {% endif %}
-                    </div>
-                    <div id="image_uploader">
-                        <noscript>
-                            <p>{% trans "Please enable JavaScript to use file uploader." %}</p>
-                        </noscript>
-                    </div>
-                    <p id="image_help_text" class="help-block">{% trans "Available formats are JPG, GIF, and PNG." %}</p>
-                    <div class="control-group error"><div class="messages help-block"></div></div>
+                layout.HTML("""{% load image_modifications %}
+                    {% if form_step_data.bulletin_data.image_path %}
+                        <dt>"""+(_("Image")+"")+"""</dt><dd><img class="avatar" src="/helper/tmpimage/{{ form_step_data.bulletin_data.image_path.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/" alt="{{ object.get_title|escape }}"/></dd>
+                    {% else %}
+                        <dt>"""+(_("Image")+"")+"""</dt><dd><img src="{{ STATIC_URL }}site/img/placeholder/image.png" alt="{{ object.get_title|escape }}"/></dd>
+                    {% endif %}
                 """),
-                layout.Field("image_description"),
-                layout.Field("image_path"),
-                css_id="profile_image_upload",
+                "image_path",
+                "image_description",
+                
+                #layout.HTML(u"""{% load i18n image_modifications %}
+                #    <div id="image_preview">
+                #        {% if object.image %}
+                #            <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"ad" }}?now={% now "YmdHis" %}" alt="" />
+                #        {% else %}
+                #            {% if object.image_path %}
+                #                <img src="{{ UPLOADS_URL }}{{ object.image_path|modified_path:"ad" }}?now={% now "YmdHis" %}" alt="" />
+                #            {% endif %}
+                #        {% endif %}
+                #    </div>
+                #    <div id="image_uploader">
+                #        <noscript>
+                #            <p>{% trans "Please enable JavaScript to use file uploader." %}</p>
+                #        </noscript>
+                #    </div>
+                #    <p id="image_help_text" class="help-block">{% trans "Available formats are JPG, GIF, and PNG." %}</p>
+                #    <div class="control-group error"><div class="messages help-block"></div></div>
+                #"""),
+                #layout.Field("image_description"),
+                #layout.Field("image_path"),
+                #css_id="profile_image_upload",
             ),
             layout.Fieldset(
                 _("Contact"),
-                layout.Div(
-                    layout.Field("institution"),
-                    css_id="block_institution_selection",
-                ),
-                layout.Div(
-                    layout.Field("institution_title"),
-                    layout.Field("institution_url"),
-                    css_id="block_institution_title",
-                ),
+                
+                layout.Field("institution", wrapper_class="institution-select autocomplete"),
+                layout.HTML("""{% load i18n %}
+                    <dt class="institution-select"> </dt><dd class="institution-select"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-input" data-toggle-hide=".institution-select">{% trans "Not listed? Enter manually" %}</a></dd>
+                <dd class="clearfix"></dd>
+                """),
+                    
+                layout.Field("institution_title", wrapper_class="institution-input hidden", css_class="toggle-check"),
+                layout.Field("institution_url", wrapper_class="institution-input hidden"),
+                layout.HTML("""{% load i18n %}
+                    <dt class="institution-input hidden"> </dt><dd class="institution-input hidden"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-select" data-toggle-hide=".institution-input">{% trans "Back to selection" %}</a></dd>
+                <dd class="clearfix"></dd>
+                """),
+                
+                
                 layout.Field("contact_person"),
                 layout.Field("phone"),
                 layout.Field("email"),
             ),
             layout.Fieldset(
                 _("Publishing date and time"),
-                layout.Div(
-                    layout.Div(
-                        layout.Field("published_till_date", autocomplete="off"),
-                        css_class="col-md-6",
+                layout.MultiField(
+                    _("Date"),
+                    layout.Field(
+                        "end_dd",
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template = "ccb_form/multifield.html",
+                        placeholder = _('Day')
                     ),
-                    layout.Div(
-                        layout.Field("published_till_time", autocomplete="off"),
-                        css_class="col-md-6",
+                    layout.Field(
+                        "end_mm",
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template = "ccb_form/multifield.html",
+                        placeholder = _('Month')
                     ),
-                    css_class="row",
+                    layout.Field(
+                        "end_yyyy",
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template = "ccb_form/multifield.html",
+                        placeholder = _('Year')
+                    ),
                 ),
+                layout.MultiField(
+                    "Time",
+                    layout.Field(
+                        "end_hh",
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template = "ccb_form/multifield.html",
+                        placeholder = _('Hour')
+                    ),
+                    layout.Field(
+                        "end_ii",
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template = "ccb_form/multifield.html",
+                        placeholder = _("Minute")
+                    ),
+                ),
+                #layout.MultiField(
+                #    layout.Div(
+                #        layout.Field("published_till_date", autocomplete="off"),
+                #        css_class="col-md-6",
+                #    ),
+                #    layout.Div(
+                #        layout.Field("published_till_time", autocomplete="off"),
+                #        css_class="col-md-6",
+                #    ),
+                #    css_class="row",
+                #),
             ),
             layout.Field("status"),
             layout.Field("reload_page"),
 
             bootstrap.FormActions(
-                layout.Submit('reset', _('Reset')),
-                layout.Submit('submit', _('Next')),
+                layout.HTML("""{% include "utils/step_buttons_reg.html" %}"""),
             )
         )
 
@@ -196,6 +307,48 @@ class BulletinForm(forms.ModelForm):
             msg = _("Please enter a either email or phone.")
             self._errors["email"] = self.error_class([msg])
             self._errors["phone"] = self.error_class([msg])
+
+        # start date must be valid!
+        published_till_date = None
+        end_yyyy = self.cleaned_data.get('start_yyyy', None)
+        end_mm = self.cleaned_data.get('start_mm', None)
+        end_dd = self.cleaned_data.get('start_dd', None)
+
+        # any error handling is overwritten!
+        if self._errors.get('end_yyyy', False):
+            del self._errors['end_yyyy']
+        if self._errors.get('end_mm', False):
+            del self._errors['end_mm']
+        if self._errors.get('end_dd', False):
+            del self._errors['end_dd']
+
+        if end_dd:
+            if not end_mm:
+                self._errors['end_dd'] = [_("Please enter a valid month.")]
+                
+        try:
+            published_till_date = datetime.date(int(end_yyyy), int(end_mm or 1), int(end_dd or 1))
+        except Exception:
+            self._errors['end_dd'] = [_("Please enter a valid date.")]
+            
+        
+        # start time or "all day must be entered"
+        published_till_time = None
+        if 'end_hh' in self._errors or 'end_ii' in self._errors:
+            self._errors['end_dd'] = [_("Please enter a valid time using format 'HH:MM'")]
+
+        if self.cleaned_data.get('end_hh', None) and not self.cleaned_data.get('end_ii', None):
+            self.cleaned_data['end_ii'] = '0'
+
+        # if start time is specified, day, month and year must be specified
+        if self.cleaned_data.get('end_hh', None):
+            if not (end_yyyy and end_mm and end_dd):
+                self._errors['end_hh'] = [_("If you choose a time, please enter a valid day, month and year.")]
+                
+        try:
+            published_till_time = datetime.time(int(end_hh), int(end_ii or 0))
+        except Exception:
+            self._errors['end_hh'] = [_("Please enter a valid time.")]
 
         return self.cleaned_data
 
@@ -278,7 +431,7 @@ def save_data(form_steps, form_step_data, instance=None):
     ]
     for fname in fields:
         setattr(instance, fname, form_step_data['bulletin_data'][fname])
-
+        
     if form_step_data['bulletin_data']['published_till_date']:
         if form_step_data['bulletin_data']['published_till_time']:
             instance.published_till = datetime.combine(
@@ -297,23 +450,41 @@ def save_data(form_steps, form_step_data, instance=None):
     for cat in form_step_data['bulletin_data']['categories']:
         instance.categories.add(cat)
 
-    rel_dir = "bulletin_board/"
-    if form_step_data['bulletin_data']['image_path']:
-        tmp_path = form_step_data['bulletin_data']['image_path']
-        abs_tmp_path = os.path.join(settings.MEDIA_ROOT, tmp_path)
+    #rel_dir = "bulletin_board/"
+    #if form_step_data['bulletin_data']['image_path']:
+    #    tmp_path = form_step_data['bulletin_data']['image_path']
+    #    abs_tmp_path = os.path.join(settings.MEDIA_ROOT, tmp_path)
 
-        fname, fext = os.path.splitext(tmp_path)
-        filename = datetime.now().strftime("%Y%m%d%H%M%S") + fext
-        dest_path = "".join((rel_dir, filename))
-        FileManager.path_exists(os.path.join(settings.MEDIA_ROOT, rel_dir))
-        abs_dest_path = os.path.join(settings.MEDIA_ROOT, dest_path)
+    #    fname, fext = os.path.splitext(tmp_path)
+    #    filename = datetime.now().strftime("%Y%m%d%H%M%S") + fext
+    #    dest_path = "".join((rel_dir, filename))
+    #    FileManager.path_exists(os.path.join(settings.MEDIA_ROOT, rel_dir))
+    #    abs_dest_path = os.path.join(settings.MEDIA_ROOT, dest_path)
 
-        shutil.copy2(abs_tmp_path, abs_dest_path)
+    #    shutil.copy2(abs_tmp_path, abs_dest_path)
 
-        os.remove(abs_tmp_path)
-        instance.image = dest_path
+    #    os.remove(abs_tmp_path)
+    #    instance.image = dest_path
+    #    instance.save()
+
+    
+
+    media_file = form_step_data['bulletin_data'].get('image_path', '')
+    if media_file:
+        tmp_path = os.path.join(settings.PATH_TMP, media_file['tmp_filename'])
+        f = open(tmp_path, 'r')
+        filename = tmp_path.rsplit("/", 1)[1]
+        image_mods.FileManager.save_file_for_object(
+            instance,
+            filename,
+            f.read(),
+            subpath="bulletin_board/"
+        )
+        f.close()
+        
         instance.save()
-
+    
+    
     return form_step_data
 
 
