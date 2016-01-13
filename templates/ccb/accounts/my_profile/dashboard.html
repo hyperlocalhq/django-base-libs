@@ -9,14 +9,11 @@
 {% endblock %}
 
 {% block details %}
-    <div class="dashboard">
-        {{ block.super }}
-        <hr/>
-        <div class="infoblock">
-            {% infoblock "user_dashboard_msg_ccb" %}
-        </div>
+
+        {% infoblock "user_dashboard_msg_ccb" %}
 
         {% if object_list %}
+        
             <h2>{% trans "Activities" %}</h2>
             <div>
                 {% for action in object_list %}
@@ -40,22 +37,47 @@
                 {% endfor %}
             </div>
             {% include "utils/includes/pagination.html" %}
+            
         {% else %}
+        
             {# No activities. Show something else. #}
-            <div class="myprofile-box">
-                <div class="p-gallery">
-                    {% include "media_gallery/includes/random_featured_galleries.html" %}
-                </div>
-                <div class="p-content">
-                    {% include "resources/includes/latest_published_documents.html" %}
-
-                    {% include "events/includes/latest_published_events.html" with amount=3 %}
-                </div>
-                {% include "people/includes/latest_published_people.html" %}
-                {% include "institutions/includes/latest_published_institutions.html" %}
+                
+            <br/>
+            <br/>
+                
+            <div class="claim">
+                <div class="fawesome fa-heart big"></div>
+                <p>{% trans "What's new? Latest Portfolios" %}</p>
             </div>
+            
+            {% include "media_gallery/includes/latest_published_galleries.html" %}
+            
+                
+            {#% include "resources/includes/latest_published_documents.html" %#}
+            
+            <div class="claim">
+                <div class="fawesome fa-news big"></div>
+                <p>{% trans "New Events" %}</p>
+            </div>
+
+            {% include "events/includes/latest_published_events.html" %}
+            
+            <div class="claim">
+                <div class="fawesome fa-hand-down big"></div>
+                <p>{% trans "Welcome: The new members of Creative City Berlin" %}</p>
+            </div>
+                
+            {% include "people/includes/latest_published_people.html" %}
+            
+            <div class="claim">
+                <div class="fawesome fa-home big"></div>
+                <p>{% trans "New institutions at Creative City Berlin" %}</p>
+            </div>
+            
+            {% include "institutions/includes/latest_published_institutions.html" %}
+            
         {% endif %}
-    </div>
+        
 {% endblock %}
 
 {% block breadcrumbs %}

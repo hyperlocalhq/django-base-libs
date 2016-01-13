@@ -20,6 +20,12 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+        
+    margin-bottom: 60px;
+    
+    .is-xs & {
+        margin-bottom: 30px; 
+    }
     
     a.content {
         width: 100%;

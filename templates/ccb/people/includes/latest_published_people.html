@@ -1,4 +1,4 @@
-{% load i18n base_tags site_specific image_mods_tags %}
+{% load i18n base_tags site_specific image_mods_tags favorites %}
 {% comment %}<!--
 Usage in any template:
     {% load base_tags %}
@@ -32,9 +32,11 @@ Usage in any template:
                             </div>
                         </a>
                         <div class="button-group">
-                            <a href="#" class="fawesome fa-bookmark button"></a>
-                            <a href="#" class="fawesome fa-favorite button"></a>
-                            <a href="#" class="fawesome fa-plus-circle button"></a>
+                            {% if request.user.is_authenticated %}
+                                {% adding2favorites for person using "generic/favorite_icon.html" %}
+                            {% else %}
+                                <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-favorite button"><span class="sr-only">{% trans "Add to favorites" %}</span></a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

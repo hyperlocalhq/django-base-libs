@@ -605,7 +605,7 @@
         display: inline-block;
         
         margin-right: 1.85em;
-        margin-bottom: 0;
+        //margin-bottom: 0;
         
         .is-xs & {
             margin-right: 1.25em;
@@ -998,6 +998,15 @@ canvas.fawesome {
 .fawesome.fa-group:before {
     content: "\f0c0";
 }
+.fawesome.fa-audio:before {
+    content: "\f028";
+}
+.fawesome.fa-video:before {
+    content: "\f03d";
+}
+.fawesome.fa-image:before {
+    content: "\f030";
+}
 
 
 
@@ -1236,4 +1245,13 @@ canvas.fawesome {
 }
 .fawesome.fa-group.after:after {
     content: "\f0c0";
+}
+.fawesome.fa-audio.after:after {
+    content: "\f028";
+}
+.fawesome.fa-video.after:after {
+    content: "\f03d";
+}
+.fawesome.fa-image.after:after {
+    content: "\f030";
 }

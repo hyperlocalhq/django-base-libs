@@ -6,18 +6,56 @@
     <meta property="og:title" content="{{ gallery.get_title }}"/>
     <meta property="og:type" content="album"/>
     {% if gallery.cover_image %}
-        <meta property="og:image" content="
-                {{ website_url|slice:":-1" }}{{ UPLOADS_URL }}{{ gallery.cover_image.path|modified_path:"glist" }}"/>
+        <meta property="og:image" content="{{ website_url|slice:":-1" }}{{ UPLOADS_URL }}{{ gallery.cover_image.path }}"/>
+    {% elif gallery.mediafile_set.all.0.get_list_image_url %}
+        <meta property="og:image" content="{{ website_url|slice:":-1" }}{{ gallery.mediafile_set.all.0.get_list_image_url }}"/>
     {% else %}
-        <meta property="og:image"
-            content="{{ website_url|slice:":-1" }}{{ gallery.mediafile_set.all.0.get_list_image_url }}"/>
+        <meta property="og:image" content="{{ website_url|slice:":-1" }}{{ STATIC_URL }}site/img/default/ccb_logo.gif"/>
     {% endif %}
     <meta property="og:url" content="{{ gallery.get_url }}"/>
-    <meta property="og:site_name" content="Creative City Berlin"/>
+    <meta property="og:site_name" content="{{ site_settings.site.name }}"/>
     <meta property="og:description" content="{{ gallery.get_title }} {% trans "of" %} {{ gallery.content_object }}"/>
 {% endblock %}
 
-{% block extrahead %}
+
+{% block sidebar %}
+    
+    {{ block.super }}
+
+    <div class="button-group">
+        {% if perms.media_gallery.change_media_gallery %}
+            <a class="fawesome fa-edit button text" href="{{ request.path }}manage/" >
+                <span class="text">{% trans "Manage Project" %}</span>
+            </a>
+        {% endif %}
+        <br/><br/>
+    </div>
+
+{% endblock %}
+
+{% block details %}
+    <h2>{{ gallery.title }}</h2>
+
+    {% if gallery.cover_image %}
+        <img src="{{ UPLOADS_URL }}{{ gallery.cover_image.path|modified_path:"article" }}" alt=""/>
+    {% endif %}
+    
+    {{ gallery.description|linebreaks }}
+    
+    {% block gallery_detail %}
+    {% endblock %}
+    
+{% endblock %}
+
+
+
+{% block breadcrumbs_details %}
+    <li><a href="{{ object.get_url_path }}portfolio/">{% trans "Portfolio" %}</a></li>
+    <li>{{ gallery.title }}</li>
+{% endblock %}
+
+
+{% block extrahead_old %}
     {{ block.super }}
     <script type="text/javascript">
         // preloading portfolio images
@@ -28,7 +66,7 @@
     </script>
 {% endblock %}
 
-{% block object_controls %}
+{% block object_controls_old %}
     <ul class="toolbar">
         {% if user.is_authenticated %}
             <li class="favorites">{% adding2favorites for gallery %}</li>
@@ -37,12 +75,12 @@
     <a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07">Share</a>
 {% endblock %}
 
-{% block details %}
+{% block details_old %}
     <h4>{{ gallery.title }}</h4>
     <div>{{ gallery.description|linebreaks }}</div>
 
     <div class="gallery-detail">
-        {% block gallery_detail %}
+        {% block gallery_detail_old %}
         {% endblock %}
     </div>
 

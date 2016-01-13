@@ -14,10 +14,11 @@
                 <div id="gmap" style="width: 584px; height: 272px; position: relative; float: left"></div>
             </div>
         {% endif %}
+                    
         <div class="row event-list">
             {% for event in object_list %}
                 {% with event.get_nearest_occurrence as date %}
-                    {% ifchanged %}<h2 class="date">{{ date|date:'D, d. m. Y' }}</h2>{% endifchanged %}
+                    {% ifchanged date.start|date:'D, d. m. Y' %}<h2 class="date">{{ date.start|date:'D, d. m. Y' }}</h2>{% endifchanged %}
                 {% endwith %}
                 {% if view_type == "icons" %}
                     {% include "events/lists/event_icons.html" %}
@@ -28,7 +29,8 @@
                 {% endif %}
             {% endfor %}
         </div>
-        {% include "utils/includes/sorting_and_pagination.html" %}
+        
+        {% include "utils/includes/pagination.html" %}
     {% endif %}
 {% endblock %}
 
@@ -44,9 +46,11 @@
     {% endif %}
 {% endblock %}
 
-
 {% block javascript %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/event-list.js"></script>
+{% endblock %}
+
+{% block javascript_old %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/ui.datepicker-de.js"></script>
     {% if view_type == "map" %}
