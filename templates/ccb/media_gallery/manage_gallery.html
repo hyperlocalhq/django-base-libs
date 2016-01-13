@@ -1,11 +1,86 @@
 {% extends "media_gallery/portfolio_base.html" %}
 {% load i18n base_tags auth_extended infoblocks babel image_mods_tags %}
 
-{% block object_controls %}
+
+{% block sidebar %}
+    
+    {{ block.super }}
+
+    <div class="button-group">
+        <a class="fawesome fa-image button text" href="/{{ LANGUAGE_CODE }}{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/add/image/" >
+            <span class="text">{% trans "Add image" %}</span>
+        </a><br class="hidden-xs" />
+        <a class="fawesome fa-video button text" href="/{{ LANGUAGE_CODE }}{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/add/video/" >
+            <span class="text">{% trans "Add video" %}</span>
+        </a><br class="hidden-xs"/>
+        <a class="fawesome fa-audio button text" href="/{{ LANGUAGE_CODE }}{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/add/audio/" >
+            <span class="text">{% trans "Add audio" %}</span>
+        </a>
+        <br class="hidden-xs"/><br class="hidden-xs"/>
+        <a class="fawesome button fa-edit text" href="{{ object.get_url_path }}portfolio/album/{{ gallery.get_token }}/change/">
+            <span class="text">{% trans "Settings" %}</span>
+        </a>
+        <a class="fawesome button fa-close text" href="{{ object.get_url_path }}portfolio/album/{{ gallery.get_token }}/delete/">
+            <span class="text">{% trans "Delete" %}</span>
+        </a>
+        <br/><br/>
+    </div>
+
+{% endblock %}
+
+
+{% block details %}
+    <h2>{{ gallery.title }}</h2>
+    
+    {% if gallery.cover_image %}
+        <img width="75" height="75" src="{{ UPLOADS_URL }}{{ gallery.cover_image.path|modified_path:"article" }}" alt=""/>
+    {% elif gallery.mediafile_set.count %}
+        <img width="75" height="75" src="{{ gallery.mediafile_set.all.0.get_list_image_url|modified_path:"article" }}" alt=""/>
+    {% endif %}
+    
+
+    <p>
+        {{ gallery.get_status_display }}</span><br/>
+        Created: {{ gallery.creation_date|datefmt:"medium" }}<br/>
+        Last Edited: {{ gallery.modified_date|datefmt:"medium" }}<br/>
+    </p>
+    
+    {% if gallery.mediafile_set.count %}
+        {% for media_file in gallery.mediafile_set.all %}
+        
+            {{ media_file.get_representation }}
+            {% if media_file.title %}
+                <h5 class="caption">{{ media_file.title }}</h5>
+            {% endif %}
+            {% if media_file.description %}
+                {{ media_file.description|decode_entities|linebreaks }}
+            {% endif %}
+            
+            {% if f.get_recroppable_thumbnail_path %}
+                <a href="{% cropping_url f.get_recroppable_thumbnail_path "gt" request request.path %}">{% trans "Adjust image" %}</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+             {% endif %}
+             <a href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/{{ f.get_token }}/">{% trans "Settings" %}</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+             <a href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/{{ f.get_token }}/delete/">{% trans "Delete" %}</a>
+                
+        {% endfor %}
+    {% else %}
+        <p>{% trans "There are no media files uploaded." %}</p>
+    {% endif %}
+                
+{% endblock %}
+
+
+{% block breadcrumbs_details %}
+    <li><a href="{{ object.get_url_path }}portfolio/">{% trans "Portfolio" %}</a></li>
+    <li>{{ gallery.title }}</li>
+{% endblock %}
+
+
+{% block object_controls_old %}
     <a href="{{ object.get_url_path }}portfolio/manage/">{% trans "All projects" %}</a>
 {% endblock %}
 
-{% block additional_controls %}
+{% block additional_controls_old %}
     <div class="media_nav">
         <div class="right">
             <a class="portfolio-manage active"
@@ -18,7 +93,7 @@
     </div>
 {% endblock %}
 
-{% block details %}
+{% block details_old %}
     <div id="gallery">
         <div id="gallery_presentation" class="{{ gallery.get_status_display|lower }}">
             <h4>{{ gallery.title }}</h4>
@@ -311,11 +386,5 @@
 
     </script>
 
-{% endblock %}
-
-{% block breadcrumbs_details %}
-    <span class="b-sep"><span>::</span></span>
-    <a href="{{ object.get_url_path }}portfolio/">{% trans "Portfolio" %}</a>
-    <span class="b-sep"><span>::</span></span><span>{{ gallery.title }}</span>
 {% endblock %}
 

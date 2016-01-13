@@ -1,10 +1,27 @@
 {% extends "media_gallery/portfolio_base.html" %}
-{% load i18n base_tags auth_extended infoblocks image_mods_tags %}
+{% load i18n base_tags auth_extended infoblocks image_mods_tags favorites %}
 
 
 {% block details %}
     {% if not published_gallery_list %}
-        {% trans "There haven't been any files uploaded yet." %}
+            
+        {% if_has_perm "people.change_person" object %}
+            <div class="row projects-grid">
+                <div class="col-xs-12 col-sm-6">
+                    <div class="wrapper">
+                        <a class="content" href="{{ request.path }}album/add/">
+                            <div class="upload-project">
+                                <div class="fawesome fa-rocket"></div>
+                                <h3>{% trans 'Do you have something new?' %}<br/>{% trans 'Upload project' %}</h3>
+                            </div>    
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p>{% trans "There haven't been any files uploaded yet." %}</p>
+        {% end_if_has_perm %}
+        
     {% else %}    
     
         <div class="row projects-grid">
@@ -13,12 +30,19 @@
                 <div class="col-xs-12 col-sm-6">
                     <div class="wrapper tap-hover">
                         <a class="content tap-hover-trigger" href="{{ item.content_object.get_url_path }}portfolio/album/{{ item.get_token }}/">
-                            <img src="{{ UPLOADS_URL }}{{ item.cover_image.path|modified_path:"project_grid" }}" alt=""/>
+                            {% if item.cover_image %}
+                                <img src="{{ UPLOADS_URL }}{{ item.cover_image.path|modified_path:"project_grid" }}" alt=""/>
+                            {% else %}
+                                <img src="{{ STATIC_URL }}site/img/placeholder/infolink_square.png" alt=""/>
+                            {% endif %}
                             <h2>{{ item.title|escape }}</h2>
                         </a>
                         <div class="button-group">
-                            <a href="#" class="fawesome fa-favorite button"></a>
-                            <a href="#" class="fawesome fa-more button"></a>
+                            {% if request.user.is_authenticated %}
+                                {% adding2favorites for item using "generic/favorite_icon.html" %}
+                            {% else %}
+                                <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-favorite button"><span class="sr-only">{% trans "Add to favorites" %}</span></a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -27,7 +51,7 @@
             {% if_has_perm "people.change_person" object %}
                 <div class="col-xs-12 col-sm-6">
                     <div class="wrapper">
-                        <a class="content" href="#">
+                        <a class="content" href="{{ request.path }}album/add/">
                             <div class="upload-project">
                                 <div class="fawesome fa-rocket"></div>
                                 <h3>{% trans 'Do you have something new?' %}<br/>{% trans 'Upload project' %}</h3>

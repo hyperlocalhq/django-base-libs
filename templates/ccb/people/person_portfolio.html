@@ -1,13 +1,17 @@
 {% extends "people/details_base.html" %}
 {% load base_tags image_mods_tags %}
 
+{#% not used -> media_gallery/portfolio_overview instead %#}
+
 {% block open_graph %}
     <meta property="og:title" content="{{ gallery.get_title }}"/>
     <meta property="og:type" content="album"/>
     {% if gallery.cover_image %}
-        <meta property="og:image" content="http://www.creative-city-berlin.de{{ UPLOADS_URL }}{{ gallery.cover_image.path|modified_path:"glist" }}"/>
-    {% else %}
+        <meta property="og:image" content="{{ website_url|slice:":-1" }}{{ UPLOADS_URL }}{{ gallery.cover_image.path }}"/>
+    {% elif gallery.mediafile_set.all.0.get_list_image_url %}
         <meta property="og:image" content="{{ gallery.mediafile_set.all.0.get_list_image_url }}"/>
+    {% else %}
+        <meta property="og:image" content="{{ website_url|slice:":-1" }}{{ STATIC_URL }}site/img/default/ccb_logo.gif"/>
     {% endif %}
     <meta property="og:url" content="{{ gallery.get_url }}"/>
     <meta property="og:site_name" content="{{ site_settings.site.name }}"/>
@@ -15,7 +19,7 @@
 
 
 {% block details %}
-    {% if list_of_files %}
+    {% if published_gallery_list %}
     
         <div class="row projects-grid">
             
