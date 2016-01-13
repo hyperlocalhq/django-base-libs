@@ -163,6 +163,7 @@ $(document).ready(function() {
             me.$main.removeClass('adjust-level');
             
             var current_level = 0;
+            var $last_li = null;
             var parents = [];
             parents.push(me.$main);
             
@@ -177,11 +178,11 @@ $(document).ready(function() {
                 if (level > current_level) {
                     
                     current_level = level;   
-                    $li.addClass('accordion-inside accordion-trigger');
-                    $('> div.input-field.box', $li).addClass('accordion-trigger');
+                    $last_li.addClass('accordion-inside accordion-trigger');
+                    $('> div.input-field.box', $last_li).addClass('accordion-trigger');
                     
                     var $new_parent = $('<ul class="accordion boxes"></ul>');
-                    $li.append($new_parent);
+                    $last_li.append($new_parent);
                     new Accordion($new_parent);
                     
                     parents.push($new_parent);
@@ -190,9 +191,12 @@ $(document).ready(function() {
                     
                     current_level = level;  
                     parents.pop();
-                    $parent = parents[parents.length-1];
+                    
                 }
                 
+                $last_li = $li;
+                
+                $parent = parents[parents.length-1];
                 $parent.append($li);
             });
         }
