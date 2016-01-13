@@ -82,15 +82,15 @@
                                             <img src="{{ UPLOADS_URL }}{{ object.content_object.image|modified_path:"profile" }}" alt="{{ object.get_title|escape }}"/>
                                         {% else %}
                                             {% if object.is_institution %}
-                                                <img src="{{ STATIC_URL }}site/img/placeholder/institution.png" alt="{{ object.get_title|escape }}"/>
+                                                <img src="{{ STATIC_URL }}site/img/placeholder/institution.png" alt="{{ object.content_object.get_title|escape }}"/>
                                             {% else %}
-                                                <img src="{{ STATIC_URL }}site/img/placeholder/profile.png" alt="{{ object.get_title|escape }}"/>
+                                                <img src="{{ STATIC_URL }}site/img/placeholder/profile.png" alt="{{ object.content_object.get_title|escape }}"/>
                                             {% endif %}
                                         {% endif %}
                                         <div class="text">
-                                            <h2>{{ object.get_title|escape }}</h2>
+                                            <h2>{{ object.content_object.get_title|escape }}</h2>
                                             <h3>
-                                                {% if object.occupation %}{{ object.occupation }}{% endif %}
+                                                {% if object.content_object.occupation %}{{ object.content_object.occupation }}{% endif %}
                                                 {% if object.get_categories %}
                                                     <span class="feature">
                                                         {% for cat in object.get_categories %}
@@ -180,10 +180,10 @@
         <div id="object_list">
             {% for member in object_list %}
                 {% if view_type == "icons" %}
-                    {% include_parsed "network/lists/member_icons.html" with "vcard" as extra_css_classes %}
+                    {% include "network/lists/member_icons.html" with extra_css_classes="vcard" %}
                 {% endif %}
                 {% if view_type == "map" %}
-                    {% include_parsed "network/lists/member_mapped.html" with "vcard" as extra_css_classes %}
+                    {% include "network/lists/member_mapped.html" with extra_css_classes="vcard" %}
                 {% endif %}
             {% endfor %}
         </div>
