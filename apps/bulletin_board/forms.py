@@ -54,13 +54,13 @@ class BulletinForm(forms.ModelForm):
     #    required=False,
     #)
     
-    image_path = ImageField(
-        label=' ',
-        help_text=_(
-            "You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px.") % STR_LOGO_SIZE,
-        required=False,
-        min_dimensions=LOGO_SIZE,
-    )
+    #image_path = ImageField(
+    #    label=' ',
+    #    help_text=_(
+    #        "You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px.") % STR_LOGO_SIZE,
+    #    required=False,
+    #    min_dimensions=LOGO_SIZE,
+    #)
     
     end_yyyy = forms.ChoiceField(
         required=True,
@@ -140,7 +140,8 @@ class BulletinForm(forms.ModelForm):
             'bulletin_type', 'bulletin_category', 'categories', 'title', 'description', 'locality_type',
             'institution', 'institution_title', 'institution_url',
             'contact_person', 'phone', 'email',
-            'image_description', 'status',
+            #'image_description', 
+            'status',
         ]
 
     def __init__(self, *args, **kwargs):
@@ -186,17 +187,17 @@ class BulletinForm(forms.ModelForm):
                 layout.Field("categories", template="ccb_form/custom_widgets/checkboxselectmultipletree.html"),
                 layout.Field("locality_type"),
             ),
-            layout.Fieldset(
-                _("Image"),
-                layout.HTML("""{% load image_modifications %}
-                    {% if form_step_data.bulletin_data.image_path %}
-                        <dt>"""+(_("Image")+"")+"""</dt><dd><img class="avatar" src="/helper/tmpimage/{{ form_step_data.bulletin_data.image_path.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/" alt="{{ object.get_title|escape }}"/></dd>
-                    {% else %}
-                        <dt>"""+(_("Image")+"")+"""</dt><dd><img src="{{ STATIC_URL }}site/img/placeholder/image.png" alt="{{ object.get_title|escape }}"/></dd>
-                    {% endif %}
-                """),
-                "image_path",
-                "image_description",
+            #layout.Fieldset(
+            #    _("Image"),
+            #    layout.HTML("""{% load image_modifications %}
+            #        {% if form_step_data.bulletin_data.image_path %}
+            #            <dt>"""+(_("Image")+"")+"""</dt><dd><img class="avatar" src="/helper/tmpimage/{{ form_step_data.bulletin_data.image_path.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/" alt="{{ object.get_title|escape }}"/></dd>
+            #        {% else %}
+            #            <dt>"""+(_("Image")+"")+"""</dt><dd><img src="{{ STATIC_URL }}site/img/placeholder/image.png" alt="{{ object.get_title|escape }}"/></dd>
+            #        {% endif %}
+            #    """),
+            #    "image_path",
+            #    "image_description",
                 
                 #layout.HTML(u"""{% load i18n image_modifications %}
                 #    <div id="image_preview">
@@ -219,7 +220,7 @@ class BulletinForm(forms.ModelForm):
                 #layout.Field("image_description"),
                 #layout.Field("image_path"),
                 #css_id="profile_image_upload",
-            ),
+            #),
             layout.Fieldset(
                 _("Contact"),
                 
@@ -241,6 +242,7 @@ class BulletinForm(forms.ModelForm):
                 layout.Field("phone"),
                 layout.Field("email"),
             ),
+            
             layout.Fieldset(
                 _("Publishing date and time"),
                 layout.MultiField(
@@ -308,6 +310,19 @@ class BulletinForm(forms.ModelForm):
             self._errors["email"] = self.error_class([msg])
             self._errors["phone"] = self.error_class([msg])
 
+            
+        if self.cleaned_data.get('institution_title', None):
+            del self._errors['institution']
+        else:
+            if self.cleaned_data.get('institution', None):
+                for field_name in [
+                    'institution_title',
+                    'institution_url',
+                ]:
+                    if self._errors.get(field_name, False):
+                        del self._errors[field_name]
+            
+            
         # start date must be valid!
         published_till_date = None
         end_yyyy = self.cleaned_data.get('start_yyyy', None)
@@ -367,7 +382,8 @@ def load_data(instance=None):
             'bulletin_type', 'bulletin_category', 'title', 'description', 'locality_type',
             'institution', 'institution_title', 'institution_url',
             'contact_person', 'phone', 'email',
-            'image_description', 'status',
+            #'image_description', 
+            'status',
         ]
         for fname in fields:
             form_step_data['bulletin_data'][fname] = getattr(instance, fname)
@@ -423,11 +439,26 @@ def save_data(form_steps, form_step_data, instance=None):
         else:
             instance = Bulletin()
 
+    
+    # institution data
+    institution = None
+    if form_step_data['bulletin_data'].get('institution', None):
+        institution = Institution.objects.get(pk=form_step_data['bulletin_data']['institution'])
+        institution_title = institution.get_title()
+        institution_url = institution.get_url_path()
+    else:
+        institution_title = form_step_data['bulletin_data'].get('institution_title', None)
+        institution_url = form_step_data['bulletin_data'].get('institution_title', None)
+        
+    instance.institution = institution  
+    instance.institution_title = institution_title  
+    instance.institution_url = institution_url  
+            
     fields = [
         'bulletin_type', 'bulletin_category', 'title', 'description', 'locality_type',
-        'institution', 'institution_title', 'institution_url',
         'contact_person', 'phone', 'email',
-        'image_description', 'status',
+        #'image_description', 
+        'status',
     ]
     for fname in fields:
         setattr(instance, fname, form_step_data['bulletin_data'][fname])
@@ -469,20 +500,20 @@ def save_data(form_steps, form_step_data, instance=None):
 
     
 
-    media_file = form_step_data['bulletin_data'].get('image_path', '')
-    if media_file:
-        tmp_path = os.path.join(settings.PATH_TMP, media_file['tmp_filename'])
-        f = open(tmp_path, 'r')
-        filename = tmp_path.rsplit("/", 1)[1]
-        image_mods.FileManager.save_file_for_object(
-            instance,
-            filename,
-            f.read(),
-            subpath="bulletin_board/"
-        )
-        f.close()
+    #media_file = form_step_data['bulletin_data'].get('image_path', '')
+    #if media_file:
+    #    tmp_path = os.path.join(settings.PATH_TMP, media_file['tmp_filename'])
+    #    f = open(tmp_path, 'r')
+    #    filename = tmp_path.rsplit("/", 1)[1]
+    #    image_mods.FileManager.save_file_for_object(
+    #        instance,
+    #        filename,
+    #        f.read(),
+    #        subpath="bulletin_board/"
+    #    )
+    #    f.close()
         
-        instance.save()
+    #    instance.save()
     
     
     return form_step_data
