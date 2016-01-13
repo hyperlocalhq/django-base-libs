@@ -21,9 +21,9 @@
     <div class="container">
         <div class="row event-grid">
             {% for cat in partner_categories %}
-                <h4>{{ cat.title }}</h4>
+                <h2>{{ cat.title }}</h2>
                 {% for partner in cat.get_published_partners %}
-                    <div class="col-xs-12 col-sm-4 col-md-3 {% if forloop.counter0|divisibleby:4 %}hidden-sm{% endif %}">
+                    <div class="col-xs-6 col-sm-4 col-md-3 {% if forloop.counter0|divisibleby:4 %}hidden-sm{% endif %}">
                         {% if partner.website_url %}
                             <a class="content tap-hover tap-hover-trigger logo-{{ partner.id }}"
                                 href="{{ partner.website_url }}" target="_blank">
