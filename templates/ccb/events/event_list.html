@@ -16,9 +16,12 @@
         {% endif %}
                     
         <div class="row event-list">
+            {% include "utils/includes/sorting.html" %}
             {% for event in object_list %}
-                {% with event.get_nearest_occurrence as date %}
-                    {% ifchanged date.start|date:'D, d. m. Y' %}<h2 class="date">{{ date.start|date:'D, d. m. Y' }}</h2>{% endifchanged %}
+                {% with event_time=event.get_nearest_occurrence %}
+                    {% ifchanged event_time.closest_start|date:'D, d. m. Y' %}
+                        <h2 class="date">{{ event_time.closest_start|date:'D, d. m. Y' }}</h2>
+                    {% endifchanged %}
                 {% endwith %}
                 {% if view_type == "icons" %}
                     {% include "events/lists/event_icons.html" %}

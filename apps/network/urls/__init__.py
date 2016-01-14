@@ -41,7 +41,7 @@ event_list_info = {
 urlpatterns = [
     url(r'^$', 'ccb.apps.network.views.member_list',
         member_list_info),
-    url(r'^(?P<show>contacts|followees|memos|own-institutions|relationships)/$',
+    url(r'^(?P<show>contacts|following|memos|own-institutions|relationships)/$',
         'ccb.apps.network.views.member_list',
         member_list_info),
     url(

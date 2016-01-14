@@ -346,8 +346,8 @@ class MediaGalleryForm(dynamicforms.Form):
             layout.Fieldset(
                 _("Change Album") if gallery.pk else _("Create Album"),
                 layout.HTML("""{% load image_modifications %}
-                    {% if object.cover_image %}
-                        <dt>""" + (_("Cover Image") + "") + """</dt><dd><img class="avatar" src="/helper/tmpimage/{{ object.cover_image.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/" alt="{{ object.get_title|escape }}"/></dd>
+                    {% if gallery.cover_image %}
+                        <dt>""" + (_("Cover Image") + "") + """</dt><dd><img class="avatar" src="{{ MEDIA_URL}}{{ gallery.cover_image|modified_path:"article" }}" alt="{{ gallery.get_title|escape }}"/></dd>
                     {% else %}
                         <dt>""" + (_("Cover Image") + "") + """</dt><dd><img class="avatar" src="{{ STATIC_URL }}site/img/placeholder/article_list.png" alt="{{ object.get_title|escape }}"/></dd>
                     {% endif %}

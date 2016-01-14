@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_redesign.html" %}
 
 {% load i18n base_tags image_mods_tags %}
 
@@ -150,33 +150,67 @@
 
 {% block title %}{% trans "Adjust Image" %}{% endblock %}
 
-{% block headline %}
-    <h1>{% trans "Adjust Image" %}</h1>
-{% endblock %}
-
-
 {% block content %}
-    <form action="" method="post" class="uniForm">{% csrf_token %}
-        <div class="image-version">
-            <img id="cropbox"
-                src="{% url 'image_mods_cropping_preview' bgcolor=form.bgcolor.data|slice:"1:" %}?orig_path={{ orig_path }}&amp;sysname={{ mod.sysname }}"
-                alt=""/>
-        </div>
-        <p>{% trans "Press ESC to switch to the default selection area and default canvas color." %}</p>
-
-        <div class="form_field">
-            {{ form.bgcolor.label_tag }}
-            {{ form.bgcolor }}
-            {{ form.bgcolor.errors }}
-            <div id="colorSelector">
-                <div style="background-color: {{ form.bgcolor.data }};"></div>
+    <div class="header">
+        {% block header_image %}
+        {% endblock %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{% trans "Adjust Image" %}</h1>
+                </div>
             </div>
         </div>
-        <div class="buttonHolder">
-            {{ form.x1 }}{{ form.y1 }}{{ form.x2 }}{{ form.y2 }}
-            <input type="submit" value="{% trans "Crop and save" %}" class="primaryAction"/>
-            <input type="button" value="{% trans "Cancel" %}" class="secondaryAction" onclick="parent.history.back()"/>
-            <input type="hidden" name="post" value="yes"/>
+        {% block tabs %}
+        {% endblock %}
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <form action="" method="post" class="uniForm">{% csrf_token %}
+                    <div class="fieldset editable">
+                        <fieldset>
+                            <h2>{% trans "Adjust Image" %}</h2>
+                            <dl class="input-fields">
+                                <dt>
+                                    {% trans "Crop image" %}
+                                </dt>
+                                <dd>
+                                    <div class="image-version">
+
+                                        <img id="cropbox"
+                                            src="{% url 'image_mods_cropping_preview' bgcolor=form.bgcolor.data|slice:"1:" %}?orig_path={{ orig_path }}&amp;sysname={{ mod.sysname }}"
+                                            alt=""/>
+                                    </div>
+                                    <p>{% trans "Press ESC to switch to the default selection area and default canvas color." %}</p>
+                                </dd>
+                                <dt>
+                                    {% trans "Color Selector" %}
+                                </dt>
+                                <dd>
+                                    <div class="form_field">
+                                        {{ form.bgcolor }}
+                                        {{ form.bgcolor.errors }}
+                                        <div id="colorSelector">
+                                            <div style="background-color: {{ form.bgcolor.data }};"></div>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </fieldset>
+                    </div>
+
+                    <div class="buttonHolder">
+                        {{ form.x1 }}{{ form.y1 }}{{ form.x2 }}{{ form.y2 }}
+                        <input type="submit" value="{% trans "Crop and save" %}" class="button primary"/>
+                        <input type="button"
+                            value="{% trans "Cancel" %}"
+                            class="button"
+                            onclick="parent.history.back()"/>
+                        <input type="hidden" name="post" value="yes"/>
+                    </div>
+                </form>
+            </div>
         </div>
-    </form>
+    </div>
 {% endblock %}

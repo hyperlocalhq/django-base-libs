@@ -50,7 +50,7 @@ def _member_list_filter(request, queryset, show):
             tables=tables,
             where=condition,
         ).distinct()
-    elif show == "followees":
+    elif show == "following":
         if not request.user.is_authenticated():
             raise Http404
         followees = following(request.user)

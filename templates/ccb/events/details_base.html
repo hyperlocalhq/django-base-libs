@@ -15,22 +15,43 @@
                 <div class="col-xs-12">
                     <h1>{% trans "Event" %}</h1>
                     <div class="profile">
-                        
+
                         {% if object.image %}
-                            <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if_has_perm "events.change_event" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ object.title|escape }}"/>
+                            <img src="
+
+                                {{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if_has_perm "events.change_event" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}"
+                                alt="{{ object.title|escape }}"/>
                         {% else %}
-                            <img src="{{ STATIC_URL }}site/img/placeholder/profile.png" alt="{{ object.title|escape }}"/>
+                            <img src="{{ STATIC_URL }}site/img/placeholder/profile.png"
+                                alt="{{ object.title|escape }}"/>
                         {% endif %}
-                        
+
                         <div class="content">
                             <h2>{{ object.get_title }}</h2>
+
+                            {% if event_time %}
+                                <h4>
+                                    {% with event_time as time %}
+                                        <div>{% include "events/includes/event_time.html" %}</div>
+                                    {% endwith %}
+                                </h4>
+                            {% else %}
+                                <h4>
+                                    {% with object.get_nearest_occurrence as time %}
+                                        <div>{% include "events/includes/event_time.html" %}</div>
+                                    {% endwith %}
+                                </h4>
+                            {% endif %}
+
                             <div class="buttons">
                                 {% if request.user.is_authenticated %}
                                     {% with object|get_context_item as context_item %}
                                         {% adding2favorites for context_item %}
                                     {% endwith %}
                                 {% else %}
-                                    <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-favorite button text" ><span class="text">{% trans "Favorite" %}</span></a>
+                                    <a href="/login/?goto_next={{ request.path }}"
+                                        class="fawesome fa-favorite button text">
+                                        <span class="text">{% trans "Favorite" %}</span></a>
                                 {% endif %}
                             </div>
                         </div>
@@ -43,35 +64,43 @@
         <div class="row">
             <div class="col-xs-12 col-sm-4 col-md-3">
                 <div class="profile-image">
-                    
+
                     {#% if request.path == object.get_url_path %#}
-                        {% if_has_perm "institutions.change_institution" object %}
-                            <a href="{% cropping_url object.image.path "ad" request object.get_url_path %}" class="fawesome fa-edit recrop-link">
-                        {% end_if_has_perm %}
+                    {% if_has_perm "institutions.change_institution" object %}
+                        <a href="{% cropping_url object.image.path "ad" request object.get_url_path %}"
+                            class="fawesome fa-edit recrop-link">
+                    {% end_if_has_perm %}
                     {#% endif %#}
-                    
+
                     {% if object.image %}
-                        <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if_has_perm "events.change_event" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ object.title|escape }}"/>
+                        <img src="
+
+
+
+
+                            {{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if_has_perm "events.change_event" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}"
+                            alt="{{ object.title|escape }}"/>
                     {% else %}
                         <img src="{{ STATIC_URL }}site/img/placeholder/profile.png" alt="{{ object.title|escape }}"/>
                     {% endif %}
-                    
+
                     {#% if request.path == object.get_url_path %#}
-                        {% if_has_perm "institutions.change_institution" object %}
-                            </a>
-                        {% end_if_has_perm %}
+                    {% if_has_perm "institutions.change_institution" object %}
+                        </a>
+                    {% end_if_has_perm %}
                     {#% endif %#}
-                
+
                     {% if request.user.is_authenticated %}
                         {% with object|get_context_item as context_item %}
                             {% adding2favorites for context_item %}
                         {% endwith %}
                     {% else %}
-                        <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-favorite button text" ><span class="text">{% trans "Favorite" %}</span></a>
+                        <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-favorite button text"><span
+                            class="text">{% trans "Favorite" %}</span></a>
                     {% endif %}
-                    
+
                 </div>
-                
+
             </div>
             <div class="col-xs-12 col-sm-8 col-md-9">
                 {% block details %}
@@ -83,8 +112,12 @@
 
 
 {% block breadcrumbs %}
-    <li><a href="/{{ URL_ID_EVENTS }}/">{% trans "Events" %}</a></li>
-    <li><a href="{{ object.get_url_path }}">{{ object.get_title }}</a></li>
+    <li>
+        <a href="/{{ URL_ID_EVENTS }}/">{% trans "Events" %}</a>
+    </li>
+    <li>
+        <a href="{{ object.get_url_path }}">{{ object.get_title }}</a>
+    </li>
     {% block breadcrumbs_details %}
     {% endblock %}
 {% endblock %}
