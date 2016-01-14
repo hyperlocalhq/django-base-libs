@@ -6,7 +6,7 @@
         <select name="order_by" required>
             <option>--------</option>
             {% for item in sort_order_map %}
-                <option value="{{ item.0 }}"{% ifequal order_by item.0 %} selected="selected"{% endifequal %}>{{ item.1 }}</option>
+                <option value="{{ item.0 }}"{% ifequal order_by item.0 %} selected="selected"{% endifequal %}{% if order_by|add:"0" == "" and forloop.first %} selected="selected"{% endif %} >{{ item.1 }}</option>
             {% endfor %}
         </select>
     </div>

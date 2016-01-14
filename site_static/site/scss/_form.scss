@@ -94,7 +94,7 @@ input {
     
     #sorting_form & {
         padding: 0 0 20px;
-        max-width: 200px;
+        max-width: 300px;
         
         .is-xs & {
             max-width: 100%;
@@ -1158,6 +1158,11 @@ input {
         }
         
         #sorting_form & {
+            
+            input {
+                padding: 0 30px 0 1em;
+            }
+            
             &:after {
                 display: inline-block;
                 font-size: 1.8em;
