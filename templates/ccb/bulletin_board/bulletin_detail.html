@@ -16,6 +16,8 @@
 
     
     {% if object.description %}
+        <h5>{% trans 'Description' %}</h5>
+        <div class="line"></div>
         <p>{{ object.get_description|urlize|linebreaks }}</p>
     {% endif %}
     
