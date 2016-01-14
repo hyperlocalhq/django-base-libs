@@ -82,15 +82,22 @@
                     line-height: 140%;
                     color: $cyan;
                     text-transform: uppercase;
-                    padding: 0 20px 20px 0px;
+                    padding: 0 50px 20px 0px;
                     margin: -5px 0 0 0;
                     
                     time {
                         font-weight: $font-light;
                         color: $black;
                         padding-left: 15px;
+                        .is-sm & {
+                            display: block;
+                            padding-left: 0;
+                            padding-top: 2x;
+                        }
                         .is-xs & {
-                            padding-left: 10px;
+                            display: block;
+                            padding-left: 0;
+                            padding-top: 2x;
                         }
                     }
                     
@@ -130,6 +137,77 @@
                     text-transform: uppercase;
                     font-size: 0.73em;
                     font-weight: $font-bold;
+                }
+            }
+        }
+        
+        .button-group {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            
+            .is-sm & {
+                top: 3px;
+                right: 10px;
+            }
+            
+            .is-xs & {
+                position: absolute;
+                top: 5px;
+                right: 5px;
+            }
+            
+            .button {
+                padding: 0;
+                background: none;
+                border-radius: 0;
+                color: $grey-light;
+                font-size: inherit;
+                display: none; 
+                margin-left: 20px;
+                margin-right: 0;
+                margin-bottom: 0;
+                width: auto;
+                
+                .is-sm & {
+                    margin-left: 15px;
+                }
+                
+                .is-xs & {
+                    display: inline-block;
+                }
+                
+                &:hover, &:focus {
+                    color: $black;
+                }
+                &:before {
+                    font-size: 2em;
+                    line-height: 100%;
+                    
+                    .is-sm & {
+                        font-size: 1.67em;
+                    }
+                    
+                    .is-xs & {
+                        font-size: 1.67em;
+                    }
+                }
+                &.active {
+                    display: inline-block;
+                }
+                &:first-child {
+                    margin-left: 0;
+                }
+            }
+        }
+            
+        .wrapper {
+            position: relative;
+            &:hover {
+                .button-group {
+                    .button {
+                        display: inline-block;
+                    }
                 }
             }
         }

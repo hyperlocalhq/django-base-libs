@@ -1,4 +1,4 @@
-{% load i18n base_tags babel navigation_tags articles image_mods_tags %}
+{% load i18n base_tags babel navigation_tags articles image_mods_tags favorites %}
 
 
 
@@ -31,6 +31,13 @@
                 <div>{% trans 'Read on' %}</div>
             </div>
         </a>
+        <div class="button-group">
+            {% if request.user.is_authenticated %}
+                {% adding2favorites for list_article using "generic/favorite_icon.html" %}
+            {% else %}
+                <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-favorite button"><span class="sr-only">{% trans "Add to favorites" %}</span></a>
+            {% endif %}
+        </div>
     </div>
 </div>
                 

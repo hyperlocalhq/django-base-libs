@@ -68,8 +68,3 @@
         <p class="intro">{% trans "No objects found within the selected conditions." %}</p>
     {% endif %}
 {% endblock %}
-
-{% block javascript %}
-    {{ block.super }}
-    <script src="{{ STATIC_URL }}site/js/website/listing.js"></script>
-{% endblock %}

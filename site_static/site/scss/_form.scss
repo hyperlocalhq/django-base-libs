@@ -143,6 +143,12 @@ input {
             line-height: 260%;
         }
         
+        #filter_form & {
+            border-radius: 0;
+            font-size: 1.07em;
+            line-height: 200%;
+        }
+        
         &.error {
             background: $form-error-background;
             
@@ -577,6 +583,19 @@ input {
             
             .is-xs & {
                 font-size: 1.07em;
+            }
+            
+            #filter_form & {
+                font-size: 1em;
+                
+                .is-xs & {
+                    font-size: 1em;
+                }
+                
+                &:before {
+                    margin-top: -14px;
+                    margin-right: 5px;
+                }
             }
 
             &:before {

@@ -1457,6 +1457,27 @@ class InstitutionSearchForm(dynamicforms.Form):
         queryset=LocalityType.objects.order_by("tree_id", "lft"),
     )
 
+    def __init__(self, *args, **kwargs):
+        super(InstitutionSearchForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "GET"
+        self.helper.form_id = "filter_form"
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Filter"),
+                layout.Field("creative_sector", template = "ccb_form/custom_widgets/filter_field.html"),
+                layout.Field("context_category", template = "ccb_form/custom_widgets/filter_field.html"),
+                layout.Field("institution_type", template = "ccb_form/custom_widgets/filter_field.html"),
+                layout.Field("locality_type", template = "ccb_form/custom_widgets/filter_field.html"),
+                template = "ccb_form/custom_widgets/filter.html"
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Search')),
+            )
+        )
+
     def get_query(self):
         from django.template.defaultfilters import urlencode
         if self.is_valid():

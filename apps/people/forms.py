@@ -6,6 +6,9 @@ from mptt.forms import TreeNodeChoiceField
 from base_libs.forms import dynamicforms
 from base_libs.utils.misc import get_related_queryset
 
+from crispy_forms.helper import FormHelper
+from crispy_forms import layout, bootstrap
+
 from jetson.apps.location.models import LocalityType
 from jetson.apps.utils.forms import ModelChoiceTreeField
 
@@ -38,6 +41,27 @@ class PersonSearchForm(dynamicforms.Form):
         required=False,
         queryset=LocalityType.objects.order_by("tree_id", "lft"),
     )
+
+    def __init__(self, *args, **kwargs):
+        super(PersonSearchForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "GET"
+        self.helper.form_id = "filter_form"
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Filter"),
+                layout.Field("creative_sector", template = "ccb_form/custom_widgets/filter_field.html"),
+                layout.Field("context_category", template = "ccb_form/custom_widgets/filter_field.html"),
+                layout.Field("individual_type", template = "ccb_form/custom_widgets/filter_field.html"),
+                layout.Field("locality_type", template = "ccb_form/custom_widgets/filter_field.html"),
+                template = "ccb_form/custom_widgets/filter.html"
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Search')),
+            )
+        )
 
     def get_query(self):
         from django.template.defaultfilters import urlencode

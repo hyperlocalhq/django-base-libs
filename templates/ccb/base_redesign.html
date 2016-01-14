@@ -66,6 +66,18 @@
             trans["Choose"] = '{% trans "Choose" %}';
             trans["edit"] = '{% trans "edit" %}';
             trans["close"] = '{% trans "close" %}';
+            
+            trans["Add to favorites"] = '{% trans "Add to favorites" %}';
+            trans["It's your favorite"] = "{% trans "It's your favorite" %}";
+            trans["Remove from favorites"] = '{% trans "Remove from favorites" %}';
+            
+            trans["Add contact"] = '{% trans "Add contact" %}';
+            trans["It's your contact"] = "{% trans "It's your contact" %}";
+            trans["Remove contact"] = '{% trans "Remove contact" %}';
+            
+            trans["Add to Memo"] = '{% trans "Add to Memo" %}';
+            trans["Remove Memo"] = '{% trans "Remove Memo" %}';
+        
             {% block translations %}{% endblock %}
             
         </script>
@@ -74,6 +86,7 @@
         <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.mobile.custom.min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}site/js/form.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}site/js/base.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/generic.js"></script>
         <script type="text/javascript" src="{% url 'jssettings' %}"></script>
 
         {% block extrahead %}
