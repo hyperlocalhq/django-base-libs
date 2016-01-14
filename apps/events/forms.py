@@ -1779,10 +1779,10 @@ class EventSearchForm(dynamicforms.Form):
         required=False,
         queryset=LocalityType.objects.order_by("tree_id", "lft"),
     )
-    keywords = forms.CharField(
-        label=_("Keyword(s)"),
-        required=False,
-    )
+    # keywords = forms.CharField(
+    #     label=_("Keyword(s)"),
+    #     required=False,
+    # )
     is_featured = forms.BooleanField(
         label=_("Featured events only"),
         required=False,
@@ -1803,7 +1803,7 @@ class EventSearchForm(dynamicforms.Form):
                 layout.Field("locality_type", template="ccb_form/custom_widgets/filter_field.html"),
                 template="ccb_form/custom_widgets/filter.html"
             ),
-            "keywords",
+            # "keywords",
             "is_featured",
             bootstrap.FormActions(
                 layout.Submit('submit', _('Search')),

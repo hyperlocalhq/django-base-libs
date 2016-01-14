@@ -155,8 +155,9 @@ def event_list(request, criterion="", slug="", show="", start_date=None, end_dat
             )
 
         lt = form.cleaned_data['locality_type']
-        kw = form.cleaned_data['keywords']
-        if lt or kw:
+        # kw = form.cleaned_data['keywords']
+        # if lt or kw:
+        if lt:
 
             context_item_qs = ContextItem.objects.filter(
                 content_type__app_label="events",
@@ -168,8 +169,8 @@ def event_list(request, criterion="", slug="", show="", start_date=None, end_dat
                     locality_type__rght__lte=lt.rght,
                     locality_type__tree_id=lt.tree_id,
                 ).distinct()
-            if kw:
-                context_item_qs = context_item_qs.search(kw)
+            # if kw:
+            #     context_item_qs = context_item_qs.search(kw)
 
             event_pks = list(context_item_qs.values_list("object_id", flat=True))
 
