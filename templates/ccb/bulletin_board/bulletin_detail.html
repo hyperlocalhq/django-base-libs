@@ -21,6 +21,31 @@
         <p>{{ object.get_description|urlize|linebreaks }}</p>
     {% endif %}
     
+    {% if object.description %}
+        <h5>{% trans 'Contact' %}</h5>
+        <div class="line"></div>
+        <p>
+            {% if object.institution %}
+                {% if object.institution.status == "published" %}
+                    <a href="{{ object.institution.get_url_path }}">{{ object.institution.title }}</a>
+                {% else %}
+                    {{ object.institution.title }}
+                {% endif %}
+                <br/>
+            {% endif %}
+            {% if object.contact_person %}
+                {{ object.contact_person }}<br/>
+            {% endif %}
+            {% if object.phone %}
+                {% trans "Phone" %}: {{ object.phone }}<br/>
+            {% endif %}
+            {% if object.email %}
+                {% trans "Email" %}: <a href="mailto:{{ object.email }}">{{ object.email }}</a>
+            {% endif %}
+            
+        </p>
+    {% endif %}
+    
     {% if object.external_url and object.content_provider %}
             <p><a href="{{ object.external_url }}" target="_blank">{% blocktrans with content_provider_title=object.content_provider.title %}More info at {{ content_provider_title }}{% endblocktrans %}</a></p>
     {% endif %}
