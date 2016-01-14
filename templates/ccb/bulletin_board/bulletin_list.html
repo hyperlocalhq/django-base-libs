@@ -43,9 +43,12 @@
 
 {% block details %}
     {% if object_list %}
-        {% for bulletin in object_list %}
-            {% include_parsed "bulletin_board/lists/bulletin_list_item.html" %}
-        {% endfor %}
+        <div class="row article-list">
+            {% for bulletin in object_list %}
+                {% include_parsed "bulletin_board/lists/bulletin_list_item.html" %}
+            {% endfor %}
+        </div>
+            
     {% else %}
         <p class="intro">{% trans "No objects found within the selected conditions." %}</p>
     {% endif %}

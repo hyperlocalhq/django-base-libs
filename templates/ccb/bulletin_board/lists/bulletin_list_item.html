@@ -1,27 +1,28 @@
 {% load i18n base_tags babel image_mods_tags %}
 
+<div class="col-xs-12">
+    <div class="wrapper">
+        <a class="content" href="{{ bulletin.get_url_path }}{% if bulletin.status == "draft" %}?preview=1{% endif %}">
+            {% if bulletin.image %}
+                <img src="{{ UPLOADS_URL }}{{ bulletin.image|modified_path:"list" }}" alt="{{ bulletin.get_title|escape }}"/>
+            {% else %}
+                <img src=" {{ STATIC_URL }}site/img/placeholder/job.png" alt="{{ bulletin.get_title|escape }}"/>
+            {% endif %}
+            <div class="text">
+                <h3>{% if bulletin.bulletin_type %}{{ bulletin.bulletin_type }}{% if bulletin.category %} {{ bulletin.category }}{% endif %} {% elif bulletin.category %}{{ bulletin.category }} {% endif %}<time>{% trans "Published till" %} {{ bulletin.published_till|date:"d. m. Y H:i" }}</time></h3>
+                <h2>{{ bulletin.get_title|escape }}</h2>
+                <p>{% if bulletin.description %}{{ bulletin.get_description|striptags|truncatewords:20 }}{% endif %}</p>
+                <div>{% trans 'Read on' %}</div>
+            </div>
+        </a>
+    </div>
+</div>
 
 
-{% block object_image_old %}
-    <a href="{{ bulletin.get_url_path }}">
-        {% if bulletin.image %}
-            <img alt="{{ bulletin.get_title|escape }}" src="{{ UPLOADS_URL }}{{ bulletin.image|modified_path:"al" }}" />
-        {% else %}
-            <img alt="{{ bulletin.get_title|escape }}" src="{{ STATIC_URL }}site/img/website/placeholder/default/news.png" />
-        {% endif %}
-    </a>
-{% endblock %}
-
-{% block object_title_old %}
-    {{ bulletin.get_title|escape }}
-    {% if show_status %}<small>({{ bulletin.get_status_display }})</small>{% endif %}
-{% endblock %}
-
-{% block object_absolute_url_old %}{{ bulletin.get_url_path }}{% if bulletin.status == "draft" %}?preview=1{% endif %}{% endblock %}
-
-{% block object_content_old %}
+{% comment %}
 	
-    {% if bulletin.description %}<div class="type">{{ bulletin.get_description|linebreaks|truncatewords_html:40 }}</div>{% endif %}
+{% if show_status %}{{ bulletin.get_status_display }} {% endif %}
+
     <address class="location">
         {% if bulletin.institution %}
             <span>
@@ -42,13 +43,5 @@
             <span><a href="mailto:{{ bulletin.email }}">{{ bulletin.email }}</a></span>
         {% endif %}
     </address>
-    {% if bulletin.bulletin_type %}
-        <p class="bulletin-type-category">{{ bulletin.get_type }}{% if bulletin.category %} {{ bulletin.category }}{% endif %}</p>
-    {% else %}
-        {% if bulletin.category %}<p class="bulletin-type-category">{{ bulletin.category }}</p>{% endif %}
-    {% endif %}
-    {% if my_list %}
-        <div></br>{% trans "Published till" %} {{ bulletin.published_till|date:"d. m. Y H:i" }}</div>
-    {% endif %}
-{% endblock %}
+{% endcomment %}
 
