@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 from django.db import models
+from django.apps import apps
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
 
@@ -17,7 +18,7 @@ def get_search_indexes(language):
     :return: like ((Museum, MuseumIndex), (Exhibition, ExhibitionIndex), ...)
     """
     unified_index = connections[language].get_unified_index()
-    for model in models.get_models():
+    for model in apps.get_models():
         try:
             index = unified_index.get_index(model)
         except NotHandled:
@@ -34,7 +35,7 @@ class DictionaryCache(object):
         if not self.models and not self.indexes:
             language = get_current_language()
             for model, index in get_search_indexes(language):
-                model_str = "%s.%s" % (model._meta.app_label, model._meta.module_name)
+                model_str = "%s.%s" % (model._meta.app_label, model._meta.model_name)
                 self.models[model_str] = getattr(index, "short_name", "other")
                 self.indexes[self.models[model_str]] = model_str
         return self.models, self.indexes
@@ -68,7 +69,7 @@ class ModelChoiceCache(object):
         ], key=lambda x: x[2])
         self.sorted_models = [
             (
-                get_model_short_name("%s.%s" % (m[0]._meta.app_label, m[0]._meta.module_name)),
+                get_model_short_name("%s.%s" % (m[0]._meta.app_label, m[0]._meta.model_name)),
                 capfirst(unicode(m[1])),
             )
             for m in model_list

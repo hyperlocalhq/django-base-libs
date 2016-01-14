@@ -762,6 +762,7 @@ HAYSTACK_ROUTERS = ['ccb.apps.search.router.LanguageRouter']
 ALDRYN_SEARCH_LANGUAGE_FROM_ALIAS = lambda alias: alias
 ALDRYN_SEARCH_INDEX_BASE_CLASS = "ccb.apps.search.search_indexes.CMSPageIndexBase"  # custom index base for pages
 ALDRYN_SEARCH_REGISTER_APPHOOK = False  # we'll use a custom app hook for search
+ALDRYN_SEARCH_CMS_PAGE = False
 
 ### MULTILINGUAL URLS ###
 

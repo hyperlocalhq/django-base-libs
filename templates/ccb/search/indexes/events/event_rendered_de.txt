@@ -1,60 +1,6 @@
-{% load base_tags image_modifications babel %}
-<div class="searchinfo"><h5><a href="{{ object.get_url_path }}">{{ object.title_de }}</a></h5>
-{% if object.has_start_date or object.has_end_date %}
-    <p><span class="date">{% if object.has_start_date and object.has_end_date and object.get_start_date != object.get_end_date %}
-        {% if object.get_start_date %}
-            <abbr class="dtstart" title="{{ object.get_start_date|date:"Y-m-d" }}">
-                {{ object.get_start_date|datefmt:"long" }}
-            </abbr>
-        {% else %}
-             <abbr class="dtstart" title="{{ object.start_yyyy }}-{{ object.start_mm|default:"01" }}-01">
-                {% if object.start_mm %}
-                    {{ object.get_start_mm_display }}
-                {% endif %}                    
-                {{ object.start_yyyy }}
-            </abbr>
-        {% endif %}
-            -
-        {% if object.get_end_date %}
-            <abbr class="dtend" title="{{ object.get_end_date|date:"Y-m-d" }}">
-                {{ object.get_end_date|datefmt:"long" }}
-            </abbr>
-        {% else %}
-            <abbr class="dtend" title="{{ object.end_yyyy }}-{{ object.end_mm|default:"01" }}-01">
-                {% if object.end_mm %}{{ object.get_end_mm_display }}{% endif %}
-                {{ object.end_yyyy }}
-            </abbr>
-        {% endif %}
-    {% else %}
-        {% if object.has_start_date %}
-            {% if object.get_start_date %}
-                <abbr class="dtstart" title="{{ object.get_start_date|date:"Y-m-d" }}">
-                    {{ object.get_start_date|datefmt:"long" }}
-                    {{ object.get_start_date|time:"H:i" }}
-                </abbr>
-            {% else %}
-                 <abbr class="dtstart" title="{{ object.start_yyyy }}-{{ object.start_mm|default:"01" }}-01">
-                    {% if object.start_mm %}
-                        {{ object.get_start_mm_display }}
-                    {% endif %}                    
-                    {{ object.start_yyyy }}
-                </abbr>
-            {% endif %}
-        {% endif %}
-        {% if object.has_end_date %}{% ifnotequal object.get_start_date object.get_end_date %}
-            -
-            {% if object.get_end_date %}
-                <abbr class="dtend" title="{{ object.get_end_date|date:"Y-m-d" }}">
-                    {{ object.get_end_date|datefmt:"long" }}
-                    {{ object.get_end_date|time:"H:i" }}
-                </abbr>
-            {% else %}
-                <abbr class="dtend" title="{{ object.end_yyyy }}-{{ object.end_mm|default:"01" }}-01">
-                    {% if object.end_mm %}{{ object.get_end_mm_display }}{% endif %}
-                    {{ object.end_yyyy }}
-                </abbr>
-            {% endif %}
-        {% endifnotequal %}{% endif %}
-    {% endif %}</span></p>
-{% endif %}
-<p>{{ object.postal_address }}</p></div>
+{% load base_tags %}
+<div class="search-result">
+    <a href="{{ object.get_url_path }}">
+        <h5>{{ object.title }}</h5>
+    </a>
+</div>
