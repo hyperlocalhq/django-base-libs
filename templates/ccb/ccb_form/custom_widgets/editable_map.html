@@ -3,9 +3,11 @@
     <div class="map_canvas" style="height:300px">
         <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
     </div>
-    <div class="form-actions">
-        <input type="button" class="locate_address btn btn-primary" value="{% trans "Locate on map" %}"/>&zwnj;
-        <input type="button" class="remove_geo btn btn-primary" value="{% trans "Remove from map" %}"/>&zwnj;
+    <div class="form-actions-wrapper">
+        <div class="form-actions button-group form-buttons">
+            <input type="button" class="locate_address btn btn-primary" value="{% trans "Locate on map" %}"/>&zwnj;
+            <input type="button" class="remove_geo btn btn-primary" value="{% trans "Remove from map" %}"/>&zwnj;
+        </div>
     </div>
     <div class="map_locations">
     </div>
