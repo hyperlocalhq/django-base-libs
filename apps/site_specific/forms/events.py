@@ -504,8 +504,7 @@ class ContactForm(dynamicforms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Contact Data"),
-                layout.HTML(
-                    string_concat('<dd class="no-label"><h3 class="section">', _("Institution/Company"), '</h3></dd>')),
+                layout.HTML(string_concat('<dd class="no-label"><h3>', _("Institution/Company"), '</h3></dd>')),
                 layout.Field("venue", wrapper_class="institution-select autocomplete"),
                 layout.HTML("""{% load i18n %}
                     <dt class="institution-select"> </dt><dd class="institution-select"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-input" data-toggle-hide=".institution-select">{% trans "Not listed? Enter manually" %}</a></dd>
@@ -599,7 +598,7 @@ class ContactForm(dynamicforms.Form):
                 "email2",
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Websites"), '</h3></dd>')),
                 layout.MultiField(
-                    ' ',
+                    string_concat(_('Type'), ", ", _('Url')),
                     layout.Field(
                         "url0_type",
                         wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
@@ -612,7 +611,7 @@ class ContactForm(dynamicforms.Form):
                     ),
                 ),
                 layout.MultiField(
-                    ' ',
+                    string_concat(_('Type'), ", ", _('Url')),
                     layout.Field(
                         "url1_type",
                         wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
@@ -625,7 +624,7 @@ class ContactForm(dynamicforms.Form):
                     ),
                 ),
                 layout.MultiField(
-                    ' ',
+                    string_concat(_('Type'), ", ", _('Url')),
                     layout.Field(
                         "url2_type",
                         wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
@@ -640,7 +639,7 @@ class ContactForm(dynamicforms.Form):
                 layout.HTML(
                     string_concat('<dd class="no-label"><h3 class="section">', _("Instant Messengers"), '</h3></dd>')),
                 layout.MultiField(
-                    ' ',
+                    string_concat(_('Type'), ", ", _('Address')),
                     layout.Field(
                         "im0_type",
                         wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
@@ -653,7 +652,7 @@ class ContactForm(dynamicforms.Form):
                     ),
                 ),
                 layout.MultiField(
-                    ' ',
+                    string_concat(_('Type'), ", ", _('Address')),
                     layout.Field(
                         "im1_type",
                         wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
@@ -666,7 +665,7 @@ class ContactForm(dynamicforms.Form):
                     ),
                 ),
                 layout.MultiField(
-                    ' ',
+                    string_concat(_('Type'), ", ", _('Address')),
                     layout.Field(
                         "im2_type",
                         wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
@@ -962,18 +961,16 @@ class EventTimesForm(dynamicforms.Form):
                 _("Event Times"),
                 layout.HTML("""{% load crispy_forms_tags i18n %}
                 {{ formsets.event_times.management_form }}
-                <div id="event_times">
+                <div id="event_times" class="dynamic-entries">
                     {% for event_time_form in formsets.event_times.forms %}
-                        <div class="event_time formset-form tabular-inline">
-                            {% crispy event_time_form %}
-                        </div>
+                        {% crispy event_time_form "ccb_form" %}
                     {% endfor %}
                 </div>
                 <!-- used by javascript -->
-                <div id="event_times_empty_form" class="event_time formset-form tabular-inline" style="display: none">
+                <div id="event_times_empty" style="display: none" class="dont-add-form-functionality">
                     {% with formsets.event_times.empty_form as event_time_form %}
                         {% if event_time_form %}
-                            {% crispy event_time_form %}
+                            {% crispy event_time_form "ccb_form" %}
                         {% endif %}
                     {% endwith %}
                 </div>
@@ -983,8 +980,7 @@ class EventTimesForm(dynamicforms.Form):
                     layout.Submit('submit', _('Save')),
                     css_class="button-group form-buttons"
                 ),
-                css_id="event_times_fieldset",
-                css_class="switch on",
+                css_class="switch on event-times",
             ),
         )
 
@@ -1075,10 +1071,10 @@ class EventTimeForm(dynamicforms.Form):
         label=_("All Day")
     )
 
-    has_end_date = forms.BooleanField(
-        required=False,
-        label=_("Event has an end date")
-    )
+    #has_end_date = forms.BooleanField(
+    #    required=False,
+    #    label=_("Event has an end date")
+    #)
 
     def __init__(self, event, index, *args, **kwargs):
         super(EventTimeForm, self).__init__(*args, **kwargs)
@@ -1096,90 +1092,92 @@ class EventTimeForm(dynamicforms.Form):
                     _("Start"),
                     layout.Field(
                         "start_dd",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template = "ccb_form/multifield.html",
+                        placeholder = _('Day')
                     ),
                     layout.Field(
                         "start_mm",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template = "ccb_form/multifield.html",
+                        placeholder = _('Month')
                     ),
                     layout.Field(
                         "start_yyyy",
-                        wrapper_class="col-xs-12 col-sm-6 col-md-6 col-lg-6",
-                        template="ccb_form/multifield.html",
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template = "ccb_form/multifield.html",
+                        placeholder = _('Year')
                     ),
                 ),
                 layout.MultiField(
+                    " ",
                     layout.Field(
                         "start_hh",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template = "ccb_form/multifield.html",
+                        placeholder = _('Hour')
                     ),
                     layout.Field(
                         "start_ii",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template = "ccb_form/multifield.html",
+                        placeholder = _("Minute")
                     ),
-                    layout.Field(
-                        layout.HTML("&nbsp;"),
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
-                    ),
+                    css_class = "hours"
                 ),
                 layout.MultiField(
+                    " ",
                     layout.Field(
                         "is_all_day",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
+                        wrapper_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                        template = "ccb_form/multifield.html",
+                        css_class = "is-all-day"
                     ),
                     layout.Field(
                         "has_end_date",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
-                    ),
-                    layout.Field(
-                        layout.HTML("&nbsp;"),
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
+                        wrapper_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                        template = "ccb_form/multifield.html"
                     ),
                 ),
                 layout.MultiField(
                     _("End"),
                     layout.Field(
                         "end_dd",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template = "ccb_form/multifield.html",
+                        placeholder = _("Day")
                     ),
                     layout.Field(
                         "end_mm",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template = "ccb_form/multifield.html",
+                        placeholder = _("Month")
                     ),
                     layout.Field(
                         "end_yyyy",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template = "ccb_form/multifield.html",
+                        placeholder = _("Year")
                     ),
                 ),
                 layout.MultiField(
-                    ' ',
+                    " ",
                     layout.Field(
                         "end_hh",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template = "ccb_form/multifield.html",
+                        placeholder = _("Hour")
                     ),
                     layout.Field(
                         "end_ii",
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template = "ccb_form/multifield.html",
+                        placeholder = _("Minute")
                     ),
-                    layout.Field(
-                        layout.HTML("&nbsp;"),
-                        wrapper_class="col-xs-6 col-sm-3 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
-                    ),
+                    css_class = "hours"
                 ),
+                
+                css_class = "entry"
             )
         )
 
@@ -1330,18 +1328,22 @@ class FeesOpeningHoursForm(dynamicforms.Form):
     mon_open0 = forms.TimeField(
         label=_("opens"),
         required=False,
+        widget=forms.TimeInput(format = '%H:%M'),
     )
     mon_close0 = forms.TimeField(
         label=_("closes"),
         required=False,
+        widget=forms.TimeInput(format = '%H:%M'),
     )
     mon_open1 = forms.TimeField(
         label=_("opens again"),
         required=False,
+        widget=forms.TimeInput(format = '%H:%M'),
     )
     mon_close1 = forms.TimeField(
         label=_("closes"),
         required=False,
+        widget=forms.TimeInput(format = '%H:%M'),
     )
     mon_is_closed = forms.BooleanField(
         label=_("Closed"),
@@ -1352,18 +1354,22 @@ class FeesOpeningHoursForm(dynamicforms.Form):
     tue_open0 = forms.TimeField(
         label=_("opens"),
         required=False,
+        widget=forms.TimeInput(format = '%H:%M'),
     )
     tue_close0 = forms.TimeField(
         label=_("closes"),
         required=False,
+        widget=forms.TimeInput(format = '%H:%M'),
     )
     tue_open1 = forms.TimeField(
         label=_("opens again"),
         required=False,
+        widget=forms.TimeInput(format = '%H:%M'),
     )
     tue_close1 = forms.TimeField(
         label=_("closes"),
         required=False,
+        widget=forms.TimeInput(format = '%H:%M'),
     )
     tue_is_closed = forms.BooleanField(
         label=_("Closed"),
@@ -1374,18 +1380,22 @@ class FeesOpeningHoursForm(dynamicforms.Form):
     wed_open0 = forms.TimeField(
         label=_("opens"),
         required=False,
+        widget=forms.TimeInput(format = '%H:%M'),
     )
     wed_close0 = forms.TimeField(
         label=_("closes"),
         required=False,
+        widget=forms.TimeInput(format = '%H:%M'),
     )
     wed_open1 = forms.TimeField(
         label=_("opens again"),
         required=False,
+        widget=forms.TimeInput(format = '%H:%M'),
     )
     wed_close1 = forms.TimeField(
         label=_("closes"),
         required=False,
+        widget=forms.TimeInput(format = '%H:%M'),
     )
     wed_is_closed = forms.BooleanField(
         label=_("Closed"),
@@ -1396,18 +1406,22 @@ class FeesOpeningHoursForm(dynamicforms.Form):
     thu_open0 = forms.TimeField(
         label=_("opens"),
         required=False,
+        widget=forms.TimeInput(format = '%H:%M'),
     )
     thu_close0 = forms.TimeField(
         label=_("closes"),
         required=False,
+        widget=forms.TimeInput(format = '%H:%M'),
     )
     thu_open1 = forms.TimeField(
         label=_("opens again"),
         required=False,
+        widget=forms.TimeInput(format = '%H:%M'),
     )
     thu_close1 = forms.TimeField(
         label=_("closes"),
         required=False,
+        widget=forms.TimeInput(format = '%H:%M'),
     )
     thu_is_closed = forms.BooleanField(
         label=_("Closed"),
@@ -1418,18 +1432,22 @@ class FeesOpeningHoursForm(dynamicforms.Form):
     fri_open0 = forms.TimeField(
         label=_("opens"),
         required=False,
+        widget=forms.TimeInput(format = '%H:%M'),
     )
     fri_close0 = forms.TimeField(
         label=_("closes"),
         required=False,
+        widget=forms.TimeInput(format = '%H:%M'),
     )
     fri_open1 = forms.TimeField(
         label=_("opens again"),
         required=False,
+        widget=forms.TimeInput(format = '%H:%M'),
     )
     fri_close1 = forms.TimeField(
         label=_("closes"),
         required=False,
+        widget=forms.TimeInput(format = '%H:%M'),
     )
     fri_is_closed = forms.BooleanField(
         label=_("Closed"),
@@ -1440,18 +1458,22 @@ class FeesOpeningHoursForm(dynamicforms.Form):
     sat_open0 = forms.TimeField(
         label=_("opens"),
         required=False,
+        widget=forms.TimeInput(format = '%H:%M'),
     )
     sat_close0 = forms.TimeField(
         label=_("closes"),
         required=False,
+        widget=forms.TimeInput(format = '%H:%M'),
     )
     sat_open1 = forms.TimeField(
         label=_("opens again"),
         required=False,
+        widget=forms.TimeInput(format = '%H:%M'),
     )
     sat_close1 = forms.TimeField(
         label=_("closes"),
         required=False,
+        widget=forms.TimeInput(format = '%H:%M'),
     )
     sat_is_closed = forms.BooleanField(
         label=_("Closed"),
@@ -1462,17 +1484,21 @@ class FeesOpeningHoursForm(dynamicforms.Form):
     sun_open0 = forms.TimeField(
         label=_("opens"),
         required=False,
+        widget=forms.TimeInput(format = '%H:%M'),
     )
     sun_close0 = forms.TimeField(
         label=_("closes"),
         required=False,
+        widget=forms.TimeInput(format = '%H:%M'),
     )
     sun_open1 = forms.TimeField(
         label=_("opens again"),
         required=False,
+        widget=forms.TimeInput(format = '%H:%M'),
     )
     sun_close1 = forms.TimeField(
         label=_("closes"),
+        widget=forms.TimeInput(format = '%H:%M'),
         required=False,
     )
     sun_is_closed = forms.BooleanField(
@@ -1824,7 +1850,7 @@ class FeesOpeningHoursForm(dynamicforms.Form):
                     layout.Submit('submit', _('Save')),
                     css_class="button-group form-buttons"
                 ),
-                css_class="switch on",
+                css_class="switch on opening-hours",
             ),
         )
 

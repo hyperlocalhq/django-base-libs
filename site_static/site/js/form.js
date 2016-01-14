@@ -202,7 +202,7 @@ $(document).ready(function() {
     }
     
     DynamicEntries.prototype.add = function() {
-     
+        
         var me = this.me;
         
         var $new = me.$empty.clone(true, true);
