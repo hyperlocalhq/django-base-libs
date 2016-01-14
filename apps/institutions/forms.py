@@ -21,6 +21,7 @@ from jetson.apps.location.models import LocalityType
 from jetson.apps.location.models import Address
 from jetson.apps.optionset.models import PhoneType
 from jetson.apps.utils.forms import ModelMultipleChoiceTreeField
+from jetson.apps.utils.forms import ModelChoiceTreeField
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
@@ -1431,25 +1432,25 @@ ADD_INSTITUTION_FORM_STEPS = {
 
 
 class InstitutionSearchForm(dynamicforms.Form):
-    creative_sector = TreeNodeChoiceField(
+    creative_sector = ModelChoiceTreeField(
         empty_label=_("All"),
         label=_("Creative Sector"),
         required=False,
         queryset=get_related_queryset(Institution, "creative_sectors"),
     )
-    context_category = TreeNodeChoiceField(
+    context_category = ModelChoiceTreeField(
         empty_label=_("All"),
         label=_("Business Category"),
         required=False,
         queryset=get_related_queryset(Institution, "context_categories"),
     )
-    institution_type = TreeNodeChoiceField(
+    institution_type = ModelChoiceTreeField(
         empty_label=_("All"),
         label=_("Type"),
         required=False,
         queryset=get_related_queryset(Institution, "institution_types"),
     )
-    locality_type = TreeNodeChoiceField(
+    locality_type = ModelChoiceTreeField(
         empty_label=_("All"),
         label=_("Location Type"),
         required=False,

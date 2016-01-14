@@ -13,6 +13,8 @@ from mptt.forms import TreeNodeChoiceField
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
+from jetson.apps.utils.forms import ModelChoiceTreeField
+
 
 OBJECT_TYPE_CHOICES = (
     ('', _("All")),
@@ -21,13 +23,13 @@ OBJECT_TYPE_CHOICES = (
 )
 
 class MemberSearchForm(dynamicforms.Form):
-    category = TreeNodeChoiceField(
+    category = ModelChoiceTreeField(
         empty_label=_("All"),
         label=_("Category"),
         required=False,
         queryset=get_related_queryset(ContextItem, "categories"),
     )
-    locality_type = TreeNodeChoiceField(
+    locality_type = ModelChoiceTreeField(
         empty_label=_("All"),
         label=_("Locality Type"),
         required=False,
@@ -49,10 +51,10 @@ class MemberSearchForm(dynamicforms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Filter"),
-                layout.Field("category", template = "ccb_form/custom_widgets/filter_field.html"),
-                layout.Field("locality_type", template = "ccb_form/custom_widgets/filter_field.html"),
-                layout.Field("object_type", template = "ccb_form/custom_widgets/filter_field.html"),
-                template = "ccb_form/custom_widgets/filter.html"
+                layout.Field("category", template="ccb_form/custom_widgets/filter_field.html"),
+                layout.Field("locality_type", template="ccb_form/custom_widgets/filter_field.html"),
+                layout.Field("object_type", template="ccb_form/custom_widgets/filter_field.html"),
+                template="ccb_form/custom_widgets/filter.html"
             ),
             bootstrap.FormActions(
                 layout.Submit('submit', _('Search')),

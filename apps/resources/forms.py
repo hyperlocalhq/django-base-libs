@@ -5,6 +5,8 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from mptt.forms import TreeNodeChoiceField
 
+from jetson.apps.utils.forms import ModelChoiceTreeField
+
 from base_libs.utils.misc import get_related_queryset
 from base_libs.forms import dynamicforms
 
@@ -12,19 +14,19 @@ Document = models.get_model("resources", "Document")
 
 
 class DocumentSearchForm(dynamicforms.Form):
-    creative_sector = TreeNodeChoiceField(
+    creative_sector = ModelChoiceTreeField(
         empty_label=_("All"),
         label=_("Creative Sector"),
         required=False,
         queryset=get_related_queryset(Document, "creative_sectors"),
     )
-    context_category = TreeNodeChoiceField(
+    context_category = ModelChoiceTreeField(
         empty_label=_("All"),
         label=_("Business Category"),
         required=False,
         queryset=get_related_queryset(Document, "context_categories"),
     )
-    document_type = TreeNodeChoiceField(
+    document_type = ModelChoiceTreeField(
         empty_label=_("All"),
         label=_("Type"),
         required=False,

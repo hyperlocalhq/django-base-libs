@@ -426,6 +426,14 @@ navigation_links = {
             'should_be_shown': for_authenticated_only,
             'highlight_pattern': r'^/(de|en)/my-profile/delete/',
         },
+        {
+            'url_de': '/de/logout/',
+            'url_en': '/en/logout/',
+            'text_de': 'Abmelden',
+            'text_en': 'Logout',
+            'should_be_shown': for_authenticated_only,
+            'highlight_pattern': r'^/(de|en)/logout/',
+        },
     ],
 
     'kreativarbeiten': [

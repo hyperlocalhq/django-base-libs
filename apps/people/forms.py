@@ -10,31 +10,32 @@ from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
 from jetson.apps.location.models import LocalityType
+from jetson.apps.utils.forms import ModelChoiceTreeField
 
 Person = models.get_model("people", "Person")
 Term = models.get_model("structure", "Term")
 
 
 class PersonSearchForm(dynamicforms.Form):
-    creative_sector = TreeNodeChoiceField(
+    creative_sector = ModelChoiceTreeField(
         empty_label=_("All"),
         label=_("Creative Sector"),
         required=False,
         queryset=get_related_queryset(Person, "creative_sectors"),
     )
-    context_category = TreeNodeChoiceField(
+    context_category = ModelChoiceTreeField(
         empty_label=_("All"),
         label=_("Business Category"),
         required=False,
         queryset=get_related_queryset(Person, "context_categories"),
     )
-    individual_type = TreeNodeChoiceField(
+    individual_type = ModelChoiceTreeField(
         empty_label=_("All"),
         label=_("Type"),
         required=False,
         queryset=get_related_queryset(Person, "individual_type"),
     )
-    locality_type = TreeNodeChoiceField(
+    locality_type = ModelChoiceTreeField(
         empty_label=_("All"),
         label=_("Location Type"),
         required=False,
