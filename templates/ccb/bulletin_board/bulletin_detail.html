@@ -21,7 +21,7 @@
         <p>{{ object.get_description|urlize|linebreaks }}</p>
     {% endif %}
     
-    {% if object.description %}
+    {% if object.institution or object.contact_person or object.phone or object.email %}
         <h5>{% trans 'Contact' %}</h5>
         <div class="line"></div>
         <p>
@@ -42,7 +42,6 @@
             {% if object.email %}
                 {% trans "Email" %}: <a href="mailto:{{ object.email }}">{{ object.email }}</a>
             {% endif %}
-            
         </p>
     {% endif %}
     
