@@ -2,6 +2,30 @@
 {% load image_mods_tags bulletin_board_tags i18n %}
 
 {% block details %}
+
+    <h3>{% if bulletin.bulletin_type %}{{ bulletin.bulletin_type }}{% if bulletin.category %} {{ bulletin.category }}{% endif %} {% elif bulletin.category %}{{ bulletin.category }} {% endif %}{% if bulletin.published_till %}<time>{% trans "Published till" %} {{ bulletin.published_till|date:"d. m. Y H:i" }}</time>{% endif %}</h3>
+
+    <h2>{{ object.get_title }}</h2>
+
+    {% if object.image %}
+        <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"article" }}" alt="{{ object.get_title|escape }}" />
+        {% if object.image_description %}
+            <h5 class="caption">{{ object.image_description }}</h5>
+        {% endif %}
+    {% endif %}
+
+    
+    {% if object.description %}
+        <p>{{ object.get_description|urlize|linebreaks }}</p>
+    {% endif %}
+    
+    {% if object.external_url and object.content_provider %}
+            <p><a href="{{ object.external_url }}" target="_blank">{% blocktrans with content_provider_title=object.content_provider.title %}More info at {{ content_provider_title }}{% endblocktrans %}</a></p>
+    {% endif %}
+            
+{% endblock %}
+
+{% block details_old %}
     <div class="head">
         <div id="dyn_avatar" class="dyn_section bulletin_avatar">
             <div class="article_img">
