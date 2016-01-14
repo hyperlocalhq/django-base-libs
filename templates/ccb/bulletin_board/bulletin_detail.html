@@ -36,12 +36,25 @@
             {% if object.contact_person %}
                 {{ object.contact_person }}<br/>
             {% endif %}
+            {% if object.locality_type %}
+                {{ object.locality_type }}<br/>
+            {% endif %}
             {% if object.phone %}
                 {% trans "Phone" %}: {{ object.phone }}<br/>
             {% endif %}
             {% if object.email %}
                 {% trans "Email" %}: <a href="mailto:{{ object.email }}">{{ object.email }}</a>
             {% endif %}
+        </p>
+    {% endif %}
+    
+    {% if object.categories.all %}
+        <h5>{% trans 'Categories' %}</h5>
+        <div class="line"></div>
+        <p>
+            {% for item in object.categories.all %}
+                {{ item }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
         </p>
     {% endif %}
     
