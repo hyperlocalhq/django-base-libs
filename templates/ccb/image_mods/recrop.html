@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_sidebar.html" %}
 
 {% load i18n base_tags image_mods_tags %}
 
@@ -155,7 +155,7 @@
 {% endblock %}
 
 
-{% block content %}
+{% block details %}
     <form action="" method="post" class="uniForm">{% csrf_token %}
         <div class="image-version">
             <img id="cropbox"
