@@ -48,6 +48,10 @@
                                             <img src="
                                             {{ UPLOADS_URL }}{{ action.action_object.image|modified_path:"dashboard" }}"
                                                 alt="{{ action.action_object.title|escape }}"/>
+                                        {% elif action.action_object.profile.image %}
+                                            <img src="
+                                            {{ UPLOADS_URL }}{{ action.action_object.profile.image|modified_path:"dashboard" }}"
+                                                alt="{{ action.action_object.profile.get_title }}"/>
                                         {% endif %}
 
                                         {% if action.action_object.is_institution %}
@@ -86,6 +90,10 @@
                                             <img src="
                                             {{ UPLOADS_URL }}{{ action.target.image|modified_path:"dashboard" }}"
                                                 alt="{{ action.target.title|escape }}"/>
+                                        {% elif action.target.profile.image %}
+                                            <img src="
+                                            {{ UPLOADS_URL }}{{ action.target.profile.image|modified_path:"dashboard" }}"
+                                                alt="{{ action.target.profile.get_title }}"/>
                                         {% endif %}
 
                                         {% if action.target.is_institution %}
