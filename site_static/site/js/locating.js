@@ -1,6 +1,12 @@
 /* global self:false, jQuery:false, google:false */
 
-var gettext = self.gettext || function (val) {return val;};
+var gettext = function (val) {
+    
+    var return_val = trans[val];
+    if (!return_val || return_val == "") return_val = val;
+    
+    return return_val;
+};
 
 (function ($, undefined) {
     self.reinit_maps = function () {
@@ -54,6 +60,8 @@ var gettext = self.gettext || function (val) {return val;};
             }
             function autocompleteAddress(results) {
                 var $foundLocations = $('.map_locations', $context).html('');
+                var $foundLocations_ul = $('<ul></ul>');
+                $foundLocations.append($foundLocations_ul);
                 var i, len = results.length;
 
                 // console.log(JSON.stringify(results, null, 4));
@@ -69,12 +77,12 @@ var gettext = self.gettext || function (val) {return val;};
                                 updateLatitudeAndLongitude(point.lat(), point.lng());
                                 updateMarker(point.lat(), point.lng());
                                 $foundLocations.hide();
-                            }).appendTo($('<li>').appendTo($foundLocations));
+                            }).appendTo($('<li>').appendTo($foundLocations_ul));
                         }
                         $('<a href="">' + gettext('None of the listed') + '</a>').click(function (e) {
                             e.preventDefault();
                             $foundLocations.hide();
-                        }).appendTo($('<li>').appendTo($foundLocations));
+                        }).appendTo($('<li>').appendTo($foundLocations_ul));
                         $foundLocations.show();
                     } else {
                         $foundLocations.hide();
