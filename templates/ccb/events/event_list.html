@@ -14,9 +14,10 @@
                 <div id="gmap" style="width: 584px; height: 272px; position: relative; float: left"></div>
             </div>
         {% endif %}
+        
+        {% include "utils/includes/sorting.html" %}
                     
         <div class="row event-list">
-            {% include "utils/includes/sorting.html" %}
             {% for event in object_list %}
                 {% with event_time=event.get_nearest_occurrence %}
                     {% ifchanged event_time.closest_start|date:'D, d. m. Y' %}

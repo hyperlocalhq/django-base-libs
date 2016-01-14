@@ -98,6 +98,14 @@ $(document).ready(function() {
             new Filter($element); 
         });
     
+        $('#sorting_form', $scope).each(function() {
+            
+            var $element = $(this);
+            new Sorting($element); 
+        });
+        
+        
+    
         for (var i=0, length = window.addToFormInit.functions.length; i<length; i++) {
             window.addToFormInit.functions[i]();   
         }   
@@ -1537,6 +1545,39 @@ $(document).ready(function() {
         me.$submit.click();
         
         return false;
+    }
+    
+    function Sorting($main) {
+        
+        var me = this;
+        this.me = me;
+        
+        me.$main = $main;
+        me.$submit = $('button', me.$main);
+        me.$select = $('select', me.$main);
+        
+        me.value = me.$select.val();
+        
+        me.init();
+    }
+    
+    Sorting.prototype.init = function() {
+     
+        var me = this;
+        
+        me.$submit.css('display', 'none');
+        me.$select.on('closed', function() {me.onChange();});
+    }
+    
+    Sorting.prototype.onChange = function() {
+     
+        var me = this;
+        
+        var value = me.$select.val();
+        
+        if (value != me.value) {
+            me.$submit.click();
+        }
     }
     
     

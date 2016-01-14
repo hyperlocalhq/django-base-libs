@@ -91,6 +91,15 @@ input {
             padding: 5px 2px 10px 0px;
         }
     }
+    
+    #sorting_form & {
+        padding: 0 0 20px;
+        max-width: 200px;
+        
+        .is-xs & {
+            max-width: 100%;
+        }
+    }
 
     &.error {
         input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="number"], input[type="range"], input[type="color"] {
@@ -1035,6 +1044,16 @@ input {
                 }
             }
         }
+        
+        #sorting_form & {
+            height: 2.25em;
+            font-size: 1.07em;
+            line-height: 212.5%;
+            color: $grey;
+            margin: 0 10px 15px 0;
+            border: 1px solid $grey;
+            border-radius: 0;
+        }
     }
     
     // the options
@@ -1094,7 +1113,7 @@ input {
         overflow: auto;
         display: none;
         
-        .is-xs & {
+        .is-xs &, #sorting_form & {
             font-size: 1.07em;
         }
     }
@@ -1135,6 +1154,16 @@ input {
                 right: 12px;
                 top: 7px;
                 font-size: 2em;
+            }
+        }
+        
+        #sorting_form & {
+            &:after {
+                display: inline-block;
+                font-size: 1.8em;
+                content: "\f107";
+                top: 5px;
+                right: 10px;
             }
         }
         
@@ -1766,4 +1795,15 @@ dd.autocomplete {
             border-bottom: none;
         }
     }
+}
+
+#sorting_form {
+    
+    button {
+        display: none;
+    }
+}
+
+#filter_form {
+    margin-bottom: 15px;
 }
