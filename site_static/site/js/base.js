@@ -535,7 +535,9 @@ $(document).ready(function() {
         me.$layer = $('#search-layer');
         me.$search = $('.fa-search', me.$layer);
         me.$close = $('.fa-close', me.$layer);
-        me.$input = $('input', me.$layer);
+        me.$input = $('input#search_form_input', me.$layer);
+        me.$type = $('input#search_form_type', me.$layer);
+        me.$form = $('form', me.$layer);
         me.$body = $('body');
         me.$window = $(window);
         
@@ -590,7 +592,15 @@ $(document).ready(function() {
         event.stopImmediatePropagation();
         event.preventDefault();
         
-        alert('implement search action in base.js');
+        var type = me.$search.attr('data-type');
+        if (type) {
+            me.$type.val(type);
+            me.$type.prop('disabled', false);
+        } else {
+            me.$type.prop('disabled', true);
+        }
+        
+        me.$form.submit();
         
     }
     

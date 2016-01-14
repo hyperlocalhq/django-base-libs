@@ -195,7 +195,10 @@
         
         <div id="search-layer" class="layer">
             <div class="wrapper">
-                <input placeholder="{% trans 'Enter your search term ...' %}"/>
+                <form action="/search/" method="get">
+                    <input id="search_form_input" placeholder="{% trans 'Enter your search term ...' %}" name="q" />
+                    <input id="search_form_type" type="hidden" name="t" value="" disabled="disabled" />
+                </form>
                 <div class="button-group">
                     <div class="fawesome fa-search button"><span class="sr-only">{% trans 'search' %}</span></div>
                     <div class="fawesome fa-close button"><span class="sr-only">{% trans 'close' %}</span></div>
