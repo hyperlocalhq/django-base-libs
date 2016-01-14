@@ -18,6 +18,7 @@
 
 {% block headline %}
     <h1>{% page_attribute "page_title" %}</h1>
+    {% if show_status %}<h2>{{ bulletin.get_status_display }}</h2>{% endif %}
 {% endblock %}
 
 {% block tabs %}
