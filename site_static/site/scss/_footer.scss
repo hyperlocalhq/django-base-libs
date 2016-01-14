@@ -3,6 +3,7 @@
 #footer {
     background: $black;
     color: $white;
+    overflow: hidden;
     
     > .container {
         padding-top: 70px;
@@ -47,6 +48,20 @@
         
         &:hover, &:focus, &:active {
             background:$grey-light;
+        }
+    }
+    
+    .footer-logo {
+        height: 80px;
+        width: auto;
+        margin: 0;
+        display: inline-block;
+        float: left;
+        
+        .is-xs & {
+            height: auto;
+            max-height: 80px;
+            max-width: 100%;
         }
     }
 }
