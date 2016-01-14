@@ -447,7 +447,7 @@ class ContactForm(dynamicforms.Form):
             layout.Fieldset(
                 _("Contact Data"),
                 layout.HTML(
-                    string_concat('<dd class="no-label"><h3 class="section">', _("Institution/Company"), '</h3></dd>')),
+                    string_concat('<dd class="no-label"><h3>', _("Institution/Company"), '</h3></dd>')),
                 layout.Field("offering_institution", wrapper_class="institution-select autocomplete"),
                 layout.HTML("""{% load i18n %}
                     <dt class="institution-select"> </dt><dd class="institution-select"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-input" data-toggle-hide=".institution-select">{% trans "Not listed? Enter manually" %}</a></dd>
@@ -455,6 +455,7 @@ class ContactForm(dynamicforms.Form):
                 layout.Field("offering_institution_title", wrapper_class="institution-input hidden", css_class="toggle-check"),
                 layout.HTML("""{% load i18n %}
                     <dt class="institution-input hidden"> </dt><dd class="institution-input hidden"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-select" data-toggle-hide=".institution-input">{% trans "Back to selection" %}</a></dd>
+                    <dd class="clearfix"></dd>
                 """),
 
                 layout.HTML(

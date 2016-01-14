@@ -1,7 +1,6 @@
 {% load i18n base_tags auth_extended babel %}
 
-{% if object.are_fees_displayed or object.are_opening_hours_displayed %}
-    {% if object.are_contacts_displayed and object.get_contacts %}
+{% if object.has_fees or object.has_opening_hours or perms.events.change_event %}
         <div
             class="fieldset {% if_has_perm "events.change_event" object %}editable switch{% else %}not-editable{% end_if_has_perm %}"
             data-edit-url="{% url 'edit_profile' object_type='event' slug=object.slug %}fees_opening_hours/">
@@ -58,7 +57,6 @@
 
             </fieldset>
         </div>
-    {% endif %}
 {% endif %}
 
 

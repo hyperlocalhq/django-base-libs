@@ -1,7 +1,7 @@
 {% load i18n base_tags auth_extended %}
 
 
-{% if object.are_contacts_displayed and object.get_contacts %}
+{% if object.get_categories or object.get_tags or object.get_locality_type or perms.events.change_event %}
     <div
         class="fieldset {% if_has_perm "events.change_event" object %}editable switch{% else %}not-editable{% end_if_has_perm %}"
         data-edit-url="{% url 'edit_profile' object_type='event' slug=object.slug %}categories/">
@@ -22,7 +22,7 @@
                     <dd>
                         <div class="text-field">
                             {% for cat in object.get_categories %}
-                                <div>{{ cat.get_title|escape }}</div>
+                                <div>{{ cat.title|escape }}</div>
                             {% endfor %}
                         </div>
                     </dd>
@@ -39,6 +39,18 @@
                     <dd class="clearfix"></dd>
                 </dl>
             {% endif %}
+            
+            {% comment %}
+            {% if object.get_locality_type %}
+                <dl class="input-fields">
+                    <dt>{% trans "Location" %}</dt>
+                    <dd>
+                        <div class="text-field">{{ object.get_locality_type.title|escape }}</div>
+                    </dd>
+                    <dd class="clearfix"></dd>
+                </dl>
+            {% endif %}
+            {% endcomment %}
 
         </fieldset>
     </div>

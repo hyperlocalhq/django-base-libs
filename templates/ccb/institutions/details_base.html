@@ -29,7 +29,7 @@
                                 {{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if_has_perm "institutions.change_institution" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}"
                                 alt="{{ object.title|escape }}"/>
                         {% else %}
-                            <img src="{{ STATIC_URL }}site/img/placeholder/profile.png"
+                            <img src="{{ STATIC_URL }}site/img/placeholder/institution.png"
                                 alt="{{ object.title|escape }}"/>
                         {% endif %}
 
@@ -107,7 +107,7 @@
                         <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if_has_perm "institutions.change_institution" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}"
                             alt="{{ object.title|escape }}"/>
                     {% else %}
-                        <img src="{{ STATIC_URL }}site/img/placeholder/profile.png" alt="{{ object.title|escape }}"/>
+                        <img src="{{ STATIC_URL }}site/img/placeholder/institution.png" alt="{{ object.title|escape }}"/>
                     {% endif %}
 
                     {#% if request.path == object.get_url_path %#}

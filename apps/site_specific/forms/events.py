@@ -837,6 +837,7 @@ class OrganizerForm(dynamicforms.Form):
                 layout.Field("organizer_url_link", wrapper_class="institution-input hidden"),
                 layout.HTML("""{% load i18n %}
                     <dt class="institution-input hidden"> </dt><dd class="institution-input hidden"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-select" data-toggle-hide=".institution-input">{% trans "Back to selection" %}</a></dd>
+                    <dd class="clearfix"></dd>
                 """),
                 "is_organized_by_myself",
                 bootstrap.FormActions(

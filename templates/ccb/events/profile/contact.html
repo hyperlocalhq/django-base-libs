@@ -1,7 +1,7 @@
 {% load i18n base_tags auth_extended %}
 
 
-{% if object.are_contacts_displayed and object.get_contacts %}
+{% if object.venue_title or object.venue or object.postal_address or object.get_phones or object.get_urls or object.get_ims or perms.events.change_event %}
     <div
         class="fieldset {% if_has_perm "events.change_event" object %}editable switch{% else %}not-editable{% end_if_has_perm %}"
         data-edit-url="{% url 'edit_profile' object_type='event' slug=object.slug %}contact/">
