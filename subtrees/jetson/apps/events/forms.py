@@ -28,6 +28,7 @@ from tagging_autocomplete.widgets import TagAutocomplete
 
 from jetson.apps.location.models import Address, LocalityType
 from jetson.apps.optionset.models import PhoneType, EmailType, URLType
+from jetson.apps.utils.forms import ModelChoiceTreeField
 
 from mptt.forms import TreeNodeChoiceField
 
@@ -895,7 +896,7 @@ class EventSearchForm(dynamicforms.Form):
         required=False,
         queryset=get_related_queryset(Event, "event_type"),
         )
-    locality_type = TreeNodeChoiceField(
+    locality_type = ModelChoiceTreeField(
         empty_label=_("All"),
         label=_("Location Type"),
         required=False,
@@ -918,4 +919,3 @@ class EventSearchForm(dynamicforms.Form):
             for (k, v) in cleaned.items()
             if v
             ])
-

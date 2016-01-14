@@ -7,7 +7,11 @@
     <div class="child accordion-trigger">{{ field.label }}</div>
     <ul class="accordion">
         {% for choice_value, choice_instance in choices %}
-            <li><a href="javascript:void(0);" data-value="{{ choice_value }}" {% if value == choice_value|add:"0" or value == choice_value %}class="active"{% endif %}>{{ choice_instance.title }}</a></li>
+            {% if choice_instance.level == 0 %}
+                <li data-level="{{ choice_instance.level }}"><a href="javascript:void(0);" data-value="{{ choice_value }}" {% if value == choice_value|add:"0" or value == choice_value %}class="active"{% endif %}>{{ choice_instance.title }}</a></li>
+            {% else %}
+                <li data-level="{{ choice_instance.level }}"><a href="javascript:void(0);" data-value="{{ choice_value }}" {% if value == choice_value|add:"0" or value == choice_value %}class="active"{% endif %}>{% if choice_instance.level == 1 %} - {% endif %}{{ choice_instance.title }}</a></li>
+            {% endif %}
         {% endfor %}
     </ul>
 </li>

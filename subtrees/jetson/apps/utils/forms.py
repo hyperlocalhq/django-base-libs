@@ -87,3 +87,8 @@ class ModelMultipleChoiceTreeField(forms.ModelMultipleChoiceField):
 
     def label_from_instance(self, obj):
         return obj
+
+
+class ModelChoiceTreeField(forms.ModelChoiceField):
+    def label_from_instance(self, obj):
+        return obj

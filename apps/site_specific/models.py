@@ -93,7 +93,7 @@ class ContextItemManager(models.Manager):
             'alphabetical_desc': (
                 4,
                 _('Alphabetical (Z-A)'),
-                ['title'],
+                ['-title'],
             ),
         }
         return sort_order_mapper

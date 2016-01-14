@@ -219,8 +219,9 @@ class MainDataForm(dynamicforms.Form):
                 layout.HTML("""{% load i18n %}
                     <dt class="institution-select"> </dt><dd class="institution-select"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-input" data-toggle-hide=".institution-select">{% trans "Not listed? Enter manually" %}</a></dd>
                 """),
-                
-                layout.Field("offering_institution_title", wrapper_class="institution-input hidden", css_class="toggle-check"),
+
+                layout.Field("offering_institution_title", wrapper_class="institution-input hidden",
+                             css_class="toggle-check"),
                 layout.HTML("""{% load i18n %}
                     <dt class="institution-input hidden"> </dt><dd class="institution-input hidden"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-select" data-toggle-hide=".institution-input">{% trans "Back to selection" %}</a></dd>
                 """),
@@ -233,13 +234,13 @@ class MainDataForm(dynamicforms.Form):
                     string_concat(_('ZIP'), "*, ", _('City'), "*"),
                     layout.Field(
                         "postal_code",
-                        wrapper_class = "col-xs-4 col-sm-5 col-md-3 col-lg-3",
-                        template = "ccb_form/multifield.html"
+                        wrapper_class="col-xs-4 col-sm-5 col-md-3 col-lg-3",
+                        template="ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "city",
-                        wrapper_class = "col-xs-8 col-sm-7 col-md-9 col-lg-9",
-                        template = "ccb_form/multifield.html"
+                        wrapper_class="col-xs-8 col-sm-7 col-md-9 col-lg-9",
+                        template="ccb_form/multifield.html"
                     )
                 ),
                 "country",
@@ -344,7 +345,6 @@ class MainDataForm(dynamicforms.Form):
 
 
 class CategoriesForm(dynamicforms.Form):
-
     job_sectors = forms.ModelMultipleChoiceField(
         queryset=get_related_queryset(JobOffer, "job_sectors"),
         required=True,
@@ -615,10 +615,10 @@ class JobOfferSearchForm(dynamicforms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Filter"),
-                layout.Field("job_sector", template = "ccb_form/custom_widgets/filter_field.html"),
-                layout.Field("job_type", template = "ccb_form/custom_widgets/filter_field.html"),
-                layout.Field("qualification", template = "ccb_form/custom_widgets/filter_field.html"),
-                template = "ccb_form/custom_widgets/filter.html"
+                layout.Field("job_sector", template="ccb_form/custom_widgets/filter_field.html"),
+                layout.Field("job_type", template="ccb_form/custom_widgets/filter_field.html"),
+                layout.Field("qualification", template="ccb_form/custom_widgets/filter_field.html"),
+                template="ccb_form/custom_widgets/filter.html"
             ),
             layout.Field("keywords"),
             bootstrap.FormActions(
@@ -635,6 +635,6 @@ class JobOfferSearchForm(dynamicforms.Form):
                     ("%s=%s" % (k, urlencode(isinstance(v, models.Model) and v.pk or v)))
                     for (k, v) in cleaned.items()
                     if v
-                ]
+                    ]
             )
         return ""
