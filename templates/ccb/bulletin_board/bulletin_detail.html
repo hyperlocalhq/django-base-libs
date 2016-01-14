@@ -40,9 +40,11 @@
                 {{ object.locality_type }}<br/>
             {% endif %}
             {% if object.phone %}
+                <br/>
                 {% trans "Phone" %}: {{ object.phone }}<br/>
             {% endif %}
             {% if object.email %}
+                {% if not object.phone %}<br/>{% endif %}
                 {% trans "Email" %}: <a href="mailto:{{ object.email }}">{{ object.email }}</a>
             {% endif %}
         </p>
