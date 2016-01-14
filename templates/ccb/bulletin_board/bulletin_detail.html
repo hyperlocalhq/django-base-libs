@@ -1,6 +1,21 @@
 {% extends "bulletin_board/details_base.html" %}
 {% load image_mods_tags bulletin_board_tags i18n %}
 
+{% block sidebar %}
+    
+    {{ block.super }}
+
+    <div class="button-group">
+        {% if request.user.is_authenticated and object|can_be_changed:request.user %}
+            <a class="fawesome fa-edit button text" href="{% url "change_bulletin" token=object.get_token %}" >
+                <span class="text">{% trans "Manage Bulletin" %}</span>
+            </a>
+        {% endif %}
+        <br/><br/>
+    </div>
+{% endblock %}
+
+
 {% block details %}
 
     <h3>{% if object.bulletin_type %}{{ object.bulletin_type }}{% if object.category %} {{ object.category }}{% endif %} {% elif object.category %}{{ object.category }} {% endif %}{% if object.published_till %}<time>{% trans "Published till" %} {{ object.published_till|date:"d. m. Y H:i" }}</time>{% endif %}</h3>
