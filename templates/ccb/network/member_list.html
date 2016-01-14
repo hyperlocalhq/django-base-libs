@@ -95,7 +95,7 @@
                                                 {% if object.get_categories %}
                                                     <span class="feature">
                                                         {% for cat in object.get_categories %}
-                                                            {{ cat.get_title|escape }}{% if not forloop.last %}, {% endif %}
+                                                            {{ cat.title|escape }}{% if not forloop.last %}, {% endif %}
                                                         {% endfor %}
                                                     </span>
                                                 {% endif %}
