@@ -1,7 +1,6 @@
-{% with object as pagetitle %}
-    <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <a href="/de/relaunch2015/{% if pagetitle.path %}{{ pagetitle.path }}/{% endif %}">
-            <h3>{{ pagetitle.title }}</h3>
-        </a>
-    </div>
-{% endwith %}
+{% load base_tags %}
+<div class="search-result">
+    <a href="/de/{% if object.path %}{{ object.path }}/{% endif %}">
+        <h5>{{ object.title }}</h5>
+    </a>
+</div>
