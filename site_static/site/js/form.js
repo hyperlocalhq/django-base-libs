@@ -92,6 +92,11 @@ $(document).ready(function() {
             if (!dont) new Fieldset($element); 
         });
     
+        $('#filter_form', $scope).each(function() {
+            
+            var $element = $(this);
+            new Filter($element); 
+        });
     
         for (var i=0, length = window.addToFormInit.functions.length; i<length; i++) {
             window.addToFormInit.functions[i]();   
@@ -1484,6 +1489,54 @@ $(document).ready(function() {
             me.$iframe.css('width', '');
             me.$iframe.width(me.$iframe.width() - 10);
         }
+    }
+    
+    function Filter($main) {
+        
+        var me = this;
+        this.me = me;
+        
+        me.$main = $main;
+        me.$submit = $('#submit-id-submit', me.$main);
+        me.$links = $('a', me.$main);
+        me.$checks = $('input[type="checkbox"]', me.$main);
+        
+        me.init();
+    }
+    
+    Filter.prototype.init = function() {
+     
+        var me = this;
+        
+        me.$submit.css('display', 'none');
+        
+        me.$checks.change(function() {me.onCheck();});
+        me.$links.click(function(e) {me.onClick(e, $(this));});
+    }
+    
+    Filter.prototype.onCheck = function() {
+        
+        var me = this;
+        
+        me.$submit.click();
+    }
+    
+    Filter.prototype.onClick = function(event, $link) {
+        
+        event.preventDefault();
+        
+        var me = this;
+        
+        var value = $link.attr('data-value');
+        var $li = $link.closest('li.accordion-inside');
+        var name = $li.attr('id');
+        
+        var $input = $('input', $li);
+        $input.val(value);
+        
+        me.$submit.click();
+        
+        return false;
     }
     
     

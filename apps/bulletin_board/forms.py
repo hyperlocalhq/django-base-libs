@@ -595,19 +595,20 @@ class BulletinSearchForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(BulletinSearchForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.helper.form_action = "."
+        self.helper.form_action = ""
         self.helper.form_method = "GET"
-        self.helper.form_id = ""
+        self.helper.form_id = "filter_form"
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Filter"),
-                "category",
-                "locality_type",
-                "bulletin_type",
-                "bulletin_category",
+                layout.Field("category", template = "ccb_form/custom_widgets/filter_field.html"),
+                layout.Field("locality_type", template = "ccb_form/custom_widgets/filter_field.html"),
+                layout.Field("bulletin_type", template = "ccb_form/custom_widgets/filter_field.html"),
+                layout.Field("bulletin_category", template = "ccb_form/custom_widgets/filter_field.html"),
+                template = "ccb_form/custom_widgets/filter.html"
             ),
             bootstrap.FormActions(
-                layout.Submit('submit', _('Filter')),
+                layout.Submit('submit', _('Search')),
             )
         )
 
