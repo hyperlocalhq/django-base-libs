@@ -7,8 +7,10 @@
         <a class="content" href="{{ list_article.get_url_path }}">
             {% if list_article.image %}
                 <img src="{{ UPLOADS_URL }}{{ list_article.image|modified_path:"list" }}" alt="{{ list_article.get_title|escape }}"/>
-            {% else %}
-                <img src="http://placehold.it/200x208&text=image">
+                {% comment %}
+                    {% else %}
+                        <img src="http://placehold.it/200x208&text=image">
+                {% endcomment %}
             {% endif %}
             <div class="text">
                 <h3>

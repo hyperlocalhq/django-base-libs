@@ -10,13 +10,12 @@ from aldryn_search.base import AldrynIndexBase
 
 Article = apps.get_model("articles", "Article")
 Event = apps.get_model("events", "Event")
-FlatPage = apps.get_model("flatpages", "FlatPage")
 Institution = apps.get_model("institutions", "Institution")
 JobOffer = apps.get_model("marketplace", "JobOffer")
 Person = apps.get_model("people", "Person")
 Document = apps.get_model("resources", "Document")
 Post = apps.get_model("blog", "Post")
-QuestionAnswer = apps.get_model("faqs", "QuestionAnswer")
+Bulletin = apps.get_model("bulletin_board", "Bulletin")
 MediaGallery = apps.get_model("media_gallery", "MediaGallery")
 
 
@@ -385,10 +384,58 @@ class PostIndex(AldrynIndexBase, indexes.Indexable):
         return self.get_model().published_objects.all()
 
 
+class BulletinIndex(AldrynIndexBase, indexes.Indexable):
+    INDEX_TITLE = True
+    rendered_en = indexes.CharField(use_template=True, indexed=False)
+    rendered_de = indexes.CharField(use_template=True, indexed=False)
+
+    order = 9
+    short_name = "bulletin"
+    verbose_name = _("Bulletin Board")
+
+    def get_url(self, obj):
+        return obj.get_url()
+
+    def get_title(self, obj):
+        return obj.title
+
+    def get_description(self, obj):
+        return obj.description
+
+    def get_search_data(self, obj, language, request):
+        if language == "default":
+            language = settings.LANGUAGE_CODE
+        strings = [
+            force_unicode(getattr(obj, field))
+            for field in (
+                "title",
+                "description",
+                "contact_person",
+                "institution_title",
+            )
+        ]
+        if obj.institution:
+            strings.append(obj.institution.title)
+        if obj.bulletin_category:
+            strings.append(getattr(obj.bulletin_category, "title_%s" % language))
+        for cat in obj.categories.all():
+            strings.append(getattr(cat, "title_%s" % language))
+
+        return "\n".join(strings)
+
+    def get_model(self):
+        return Bulletin
+
+    def get_index_queryset(self, language=None):
+        if language == "default":
+            return self.get_model().objects.none()
+        return self.get_model().objects.filter(status="published")
+
+
 class CMSPageIndexBase(AldrynIndexBase):
     rendered_en = indexes.CharField(use_template=False, indexed=False)
     rendered_de = indexes.CharField(use_template=False, indexed=False)
 
-    order = 9
+    order = 10
     short_name = "page"
     verbose_name = _("Editorial Content")

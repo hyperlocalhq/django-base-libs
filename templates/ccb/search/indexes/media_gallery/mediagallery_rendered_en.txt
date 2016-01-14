@@ -1,5 +1,7 @@
-<div class="searchinfo">
-<h5><a href="{{ object.get_url_path }}">{{ object.title_en }}</a></h5>
-<p>{{ object.content_object.get_title }}</p>
+{% load base_tags %}
+<div class="search-result">
+    <a href="{{ object.get_url_path }}">
+        <h5>{{ object.title_en }}</h5>
+        <p>{{ object.content_object.get_title }}</p>
+    </a>
 </div>
-
