@@ -433,8 +433,8 @@ class BulletinIndex(AldrynIndexBase, indexes.Indexable):
 
 
 class CMSPageIndexBase(AldrynIndexBase):
-    rendered_en = indexes.CharField(use_template=False, indexed=False)
-    rendered_de = indexes.CharField(use_template=False, indexed=False)
+    rendered_en = indexes.CharField(use_template=True, indexed=False)
+    rendered_de = indexes.CharField(use_template=True, indexed=False)
 
     order = 10
     short_name = "page"
