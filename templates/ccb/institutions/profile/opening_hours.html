@@ -1,7 +1,7 @@
 {% load i18n base_tags auth_extended babel %}
 
 
-{% if object.are_opening_hours_displayed %}
+{% if object.has_opening_hours or object.is_appointment_based or perms.institutions.change_institution %}
     <div class="fieldset {% if_has_perm "institutions.change_institution" object %}editable switch{% else %}not-editable{% end_if_has_perm %}" data-edit-url="{% url 'edit_profile' object_type='institution' slug=object.slug %}opening_hours/">
         <fieldset disabled>
             <h2>{% trans "Opening hours" %}</h2>

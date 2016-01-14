@@ -1,8 +1,7 @@
 {% load i18n base_tags auth_extended %}
 
 
-{% if object.organizing_institution or object.organizer_title or object.organizing_person %}
-    {% if object.are_contacts_displayed and object.get_contacts %}
+{% if object.organizing_institution or object.organizer_title or object.organizing_person or perms.events.change_event %}
         <div
             class="fieldset {% if_has_perm "events.change_event" object %}editable switch{% else %}not-editable{% end_if_has_perm %}"
             data-edit-url="{% url 'edit_profile' object_type='event' slug=object.slug %}organizer/">
@@ -43,6 +42,5 @@
 
             </fieldset>
         </div>
-    {% endif %}
 {% endif %}
 

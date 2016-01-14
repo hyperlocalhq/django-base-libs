@@ -1,6 +1,6 @@
 {% load i18n base_tags auth_extended %}
 
-{% if object.gender or object.get_birthday and object.is_birthday_displayed or object.nationality or object.degree or object.occupation or object.individual_type or object.interests or object.get_spoken_languages or object.preferred_language or object.get_locality_type or perms.people.change_person %}
+{% if object.gender or object.get_birthday and object.is_birthday_displayed or object.nationality or object.degree or object.individual_type or object.interests or object.get_spoken_languages or object.preferred_language or object.get_locality_type or perms.people.change_person %}
     <div class="fieldset {% if_has_perm "people.change_person" object %}editable switch{% else %}not-editable{% end_if_has_perm %}" data-edit-url="{% url 'edit_profile' object_type='person' slug=object.slug %}details/">
         <fieldset disabled>
             <h2>{% trans "Details" %}</h2>
