@@ -563,7 +563,7 @@ $(document).ready(function() {
         me.$wrapper = $('<div class="select-display-wrapper"></div>');
         me.$display = $('<input type="text" class="select-display"'+disabled+'/>');
         me.$dropdown_wrapper = $('<div class="select-dropdown-wrapper"></div>');
-        me.$dropdown = $('<div class="select-dropdown"></div>');
+        me.$dropdown = $('<div class="select-dropdown" style="display:none;"></div>');
         
         me.$display.attr('placeholder', me.$main.attr('placeholder'));
         
@@ -737,7 +737,7 @@ $(document).ready(function() {
      * The actual select box got focus.
      */
     SelectBox.prototype.onSelectFocus = function() {
-     
+        
         var me = this.me;
         me.$display.addClass('focus'); 
         
@@ -982,6 +982,7 @@ $(document).ready(function() {
         if (me.readonly) return;
         
         var dropdown_display = me.$dropdown.css('display');
+        if (typeof dropdown_display == "undefined") dropdown_display = "none";
         me.$dropdown.css('display', 'block');
         
         
