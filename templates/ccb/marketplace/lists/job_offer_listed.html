@@ -1,4 +1,4 @@
-{% load babel %}
+{% load i18n babel favorites %}
 
 
 <div class="col-xs-12">
@@ -44,8 +44,11 @@
             {% endif %}
         {% endwith %}
         <div class="button-group">
-            <a href="#" class="fawesome fa-more button"></a>
-            <a href="#" class="fawesome fa-bookmark button"></a>
+            {% if request.user.is_authenticated %}
+                {% adding2favorites for job_offer using "generic/favorite_icon.html" %}
+            {% else %}
+                <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-favorite button"><span class="sr-only">{% trans "Add to favorites" %}</span></a>
+            {% endif %}
         </div>
     </div>
 </div>

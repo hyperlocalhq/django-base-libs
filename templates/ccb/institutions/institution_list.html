@@ -1,5 +1,5 @@
 {% extends base_template|default:"base_redesign.html" %}
-{% load i18n base_tags auth_extended navigation_tags uni_form_tags infoblocks image_mods_tags individual_relations groups_networks browsing favorites %}
+{% load i18n base_tags auth_extended navigation_tags uni_form_tags infoblocks image_mods_tags individual_relations groups_networks browsing favorites crispy_forms_tags %}
 
 {% block extrahead %}
     {% if view_type == "map" %}
@@ -62,12 +62,11 @@
         
         <div class="row">
             <div class="col-xs-12 col-sm-4 col-md-3">
-                
-                Place filter here!
-                
+                {% crispy form "ccb_form" %}                
             </div>
             <div class="col-xs-12 col-sm-8 col-md-9">
                 {% if object_list %}
+                    {% include "utils/includes/sorting.html" %}
                     {% include "utils/abc_filters.html" %}
                 
                     <div class="row profile-grid profile-list">
@@ -100,21 +99,6 @@
                                             </ul>
                                         </div>
                                     </a>
-                                    <div class="button-group">
-                                        {% if request.user.is_authenticated %}
-                                            {% if object.is_addable_to_favorites or object.is_removable_from_favorites %}
-                                                {% with object|get_context_item as context_item %}
-                                                    {% adding2favorites for context_item using "generic/favorite_contact_icon.html" %}
-                                                {% endwith %}
-                                            {% endif %}
-                                            {% if object.is_contactable %}
-                                                <a href="{{ object.get_url_path }}message/" class="fawesome fa-email button"><span class="sr-only">{% trans "Send a mail" %}</span></a>
-                                            {% endif %}
-                                        {% else %}
-                                            <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-contact button"><span class="sr-only">{% trans "Contact" %}</span></a>
-                                            <a href="/login/?goto_next={{ person.get_url_path }}message/"  class="fawesome fa-email button"><span class="sr-only">{% trans "Send a mail" %}</span></a>
-                                        {% endif %}
-                                    </div>
                                 </div>
                             </div>
 
