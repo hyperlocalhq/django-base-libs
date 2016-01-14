@@ -19,7 +19,7 @@
 {% endblock %}
 
 {% block tabs %}
-    <div class="menu">
+    <div class="menu tabs">
         <div class="container">
             <div class="row">
                 <div class="hidden-xs col-sm-4 col-md-3 headline">
@@ -44,17 +44,14 @@
 {% block details %}
     {% if object_list %}
         {% for bulletin in object_list %}
-            {% include_parsed "bulletin_board/lists/bulletin_list_item.html" with "vevent" as extra_css_classes %}
+            {% include_parsed "bulletin_board/lists/bulletin_list_item.html" %}
         {% endfor %}
     {% else %}
-        <p class="nothing">
-            {% trans "No objects found within the selected conditions." %}
-        </p>
+        <p class="intro">{% trans "No objects found within the selected conditions." %}</p>
     {% endif %}
 {% endblock %}
 
 {% block javascript %}
     {{ block.super }}
-    <script src="{{ STATIC_URL }}site/js/website/generic.js"></script>
     <script src="{{ STATIC_URL }}site/js/website/listing.js"></script>
 {% endblock %}

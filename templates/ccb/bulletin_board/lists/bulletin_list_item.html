@@ -1,7 +1,8 @@
-{% extends "utils/lists/base_context_item.html" %}
 {% load i18n base_tags babel image_mods_tags %}
 
-{% block object_image %}
+
+
+{% block object_image_old %}
     <a href="{{ bulletin.get_url_path }}">
         {% if bulletin.image %}
             <img alt="{{ bulletin.get_title|escape }}" src="{{ UPLOADS_URL }}{{ bulletin.image|modified_path:"al" }}" />
@@ -11,14 +12,14 @@
     </a>
 {% endblock %}
 
-{% block object_title %}
+{% block object_title_old %}
     {{ bulletin.get_title|escape }}
     {% if show_status %}<small>({{ bulletin.get_status_display }})</small>{% endif %}
 {% endblock %}
 
-{% block object_absolute_url %}{{ bulletin.get_url_path }}{% if bulletin.status == "draft" %}?preview=1{% endif %}{% endblock %}
+{% block object_absolute_url_old %}{{ bulletin.get_url_path }}{% if bulletin.status == "draft" %}?preview=1{% endif %}{% endblock %}
 
-{% block object_content %}
+{% block object_content_old %}
 	
     {% if bulletin.description %}<div class="type">{{ bulletin.get_description|linebreaks|truncatewords_html:40 }}</div>{% endif %}
     <address class="location">

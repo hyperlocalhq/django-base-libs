@@ -2,6 +2,7 @@
 {% load i18n base_tags cms_tags navigation_tags auth_extended bulletin_board_tags compressed compressed_jetson site_specific image_mods_tags browsing %}
 
 {% block meta_tags %}
+    {{ super.block }}
     {% if LANGUAGE_CODE == "de" %}
         <meta name="keywords" lang="de" content="Markthalle, Markt, Kultur, Kreativwirtschaft, Kunst, Medien, Design, Praktikum, Praktika, Berlin"/>
         <meta name="description" lang="de" content="Markthalle für die Kultur- und Kreativwirtschaft in Berlin"/>
@@ -39,17 +40,13 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    <li><a href="/{{ URL_ID_BULLETIN_BOARD }}/">
-        {% trans "Marketplace" %}
-    </a></li>
-    <li><a href="{{ object.get_url_path }}">
-        {{ object.title }}
-    </a></li>
+    <li><a href="/{{ URL_ID_BULLETIN_BOARD }}/">{% trans "Marketplace" %}</a></li>
+    <li><a href="{{ object.get_url_path }}">{{ object.title }}</a></li>
     {% block breadcrumbs_details %}
     {% endblock %}
 {% endblock %}
 
-{% block javascript %}
+{% block javascript_old %}
     {{ block.super }}
     <script
         type="text/javascript"
