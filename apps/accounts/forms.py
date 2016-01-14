@@ -390,28 +390,6 @@ class EmailOrUsernameAuthentication(AuthenticationForm):
     )
 
     def __init__(self, *args, **kwargs):
-        self.helper = FormHelper()
-        self.helper.form_action = "login"
-        self.helper.form_method = "POST"
-        self.helper.layout = layout.Layout(
-            layout.Fieldset(
-                _("Login"),
-                "email_or_username",
-                "password",
-                "login_as",
-                bootstrap.FormActions(
-                    layout.Submit('submit', _('Login')),
-                    css_class='button-group form-buttons',
-                )
-            ),
-            layout.HTML("""
-                {% load i18n %}
-                <p><a href="/password_reset/">{% trans "Forgotten your password?" %}</a></p>
-                <input type="hidden" name="this_is_the_login_form" value="1" />
-                <input type="hidden" name="post_data" value="{{ post_data }}" />
-                <input type="hidden" name="goto_next" value="{% if goto_next == "/" %}/dashboard/{% else %}{% if goto_next %}{{ goto_next }}{% else %}/dashboard/{% endif %}{% endif %}" />
-            """),
-        )
         super(EmailOrUsernameAuthentication, self).__init__(*args, **kwargs)
         del self.fields['username']
 
@@ -424,6 +402,13 @@ class EmailOrUsernameAuthentication(AuthenticationForm):
                 "email_or_username",
                 "password",
                 "login_as",
+                layout.HTML("""
+                    {% load i18n %}
+                    <p><a href="{% url "password_reset" %}">{% trans "Forgotten your password?" %}</a></p>
+                    <input type="hidden" name="this_is_the_login_form" value="1" />
+                    <input type="hidden" name="post_data" value="{{ post_data }}" />
+                    <input type="hidden" name="goto_next" value="{% if goto_next == "/" %}/dashboard/{% else %}{% if goto_next %}{{ goto_next }}{% else %}/dashboard/{% endif %}{% endif %}" />
+                """),
                 bootstrap.FormActions(
                     layout.Submit('submit', _('Login')),
                     css_class='button-group form-buttons',
