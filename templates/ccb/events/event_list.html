@@ -1,6 +1,21 @@
 {% extends "events/event_base.html" %}
 {% load events auth_extended uni_form_tags i18n infoblocks base_tags crispy_forms_tags %}
 
+{% block search_bar %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="header-search">
+                <div class="fawesome fa-search" data-type="event"><span class="text hidden-xs">{% trans 'Search' %}</span></div>
+
+                <div class="result">
+                    {% load babel %}{{ current_page.paginator.count|numberfmt }}
+                    <span class="text">{% trans 'Events' %}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
 {% block sidebar %}
     {% crispy form "ccb_form" %}
 {% endblock %}

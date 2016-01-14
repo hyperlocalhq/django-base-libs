@@ -34,6 +34,9 @@
     <h1>{% trans "Bulletin Board" %}</h1>
     <h2>{% trans "New Bulletin" %}</h2>
 {% endblock %}
+
+{% block search_bar %}
+{% endblock %}
  
 {% block breadcrumbs %}
     <li><a href="{% url "bulletin_list" %}">{% page_attribute "page_title" %}</a></li>

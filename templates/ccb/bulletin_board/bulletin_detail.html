@@ -8,7 +8,7 @@
     <div class="button-group">
         {% if request.user.is_authenticated and object|can_be_changed:request.user %}
             <a class="fawesome fa-edit button text" href="{% url "change_bulletin" token=object.get_token %}" >
-                <span class="text">{% trans "Manage Bulletin" %}</span>
+                <span class="text">{% trans "Edit Bulletin" %}</span>
             </a>
         {% endif %}
         <br/><br/>

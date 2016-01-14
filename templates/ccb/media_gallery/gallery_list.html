@@ -39,6 +39,20 @@
         </div>
     </div>
     <div class="container">
+        
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="header-search">
+                    <div class="fawesome fa-search" data-type="gallery"><span class="text hidden-xs">{% trans 'Search' %}</span></div>
+
+                    <div class="result">
+                        {% load babel %}{{ current_page.paginator.count|numberfmt }}
+                        <span class="text">{% trans 'Portfolios' %}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <div class="row">
             <div class="col-xs-12 col-sm-4 col-md-3">
             </div>

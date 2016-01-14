@@ -14,6 +14,21 @@
     <h1>{% page_attribute "page_title" %}</h1>
 {% endblock %}
 
+{% block search_bar %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="header-search">
+                <div class="fawesome fa-search" data-type="bulletin"><span class="text hidden-xs">{% trans 'Search' %}</span></div>
+
+                <div class="result">
+                    {% load babel %}{{ current_page.paginator.count|numberfmt }}
+                    <span class="text">{% trans 'Bulletins' %}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
 {% block breadcrumbs %}
     <li>{% page_attribute "page_title" %}</li>
 {% endblock %}

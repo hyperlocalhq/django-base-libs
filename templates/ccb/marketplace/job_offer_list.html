@@ -1,6 +1,22 @@
 {% extends "marketplace/job_offer_base.html" %}
 {% load i18n auth_extended uni_form_tags crispy_forms_tags %}
 
+
+{% block search_bar %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="header-search">
+                <div class="fawesome fa-search" data-type="job"><span class="text hidden-xs">{% trans 'Search' %}</span></div>
+
+                <div class="result">
+                    {% load babel %}{{ current_page.paginator.count|numberfmt }}
+                    <span class="text">{% trans 'Jobs' %}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
 {% block sidebar %}
     {% crispy form "ccb_form" %}
 {% endblock %}
