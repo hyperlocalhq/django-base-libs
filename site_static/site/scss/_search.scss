@@ -194,6 +194,12 @@
     
     .search-result {
         
+        a {
+            &:hover, &:active, &:focus {
+                color: $cyan-dark;
+            }
+        }
+        
         h5 {
             margin: 10px 0;
         }
@@ -201,16 +207,22 @@
         p {
             margin-bottom: 10px;
             margin-top: -10px;
+            font-size: 1.2em;
         }
     }
     
     p {
         margin-bottom: 30px;
         margin-top: 20px;
+        font-size: 1em;
         overflow: hidden;
         
         a.button {
             float: right;
+            color: $white;
+            &:hover, &:active, &:focus {
+                color: $white;
+            }
         }
     }
 }
