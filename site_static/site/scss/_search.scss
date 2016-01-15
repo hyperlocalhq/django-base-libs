@@ -197,6 +197,10 @@
         a {
             &:hover, &:active, &:focus {
                 color: $cyan-dark;
+                
+                h5, p {
+                    color: $cyan-dark;
+                }
             }
         }
         
