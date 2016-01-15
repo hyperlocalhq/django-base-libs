@@ -34,7 +34,7 @@ Usage in any template:
                             </a>
                             <div class="button-group">
                                 {% if request.user.is_authenticated %}
-                                    <li class="favorites">{% adding2favorites for content_object using "generic/favorite.html" %}</li>
+                                    <li class="favorites">{% adding2favorites for content_object using "generic/favorite_icon.html" %}</li>
                                 {% else %}
                                     <li class="favorites login-required">
                                         <a href="/login/?goto_next={{ request.path }}"
