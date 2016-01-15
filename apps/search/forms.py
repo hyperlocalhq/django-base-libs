@@ -24,7 +24,7 @@ class ModelSearchForm(_SearchForm):
             choices=model_choices(),
             required=False,
             label=_('Search In'),
-            widget=forms.CheckboxSelectMultiple
+            widget=forms.SelectMultiple
         )
         self.helper = FormHelper()
         self.helper.form_action = reverse("haystack_search")
@@ -33,12 +33,9 @@ class ModelSearchForm(_SearchForm):
 
         self.helper.layout = layout.Layout(
             layout.Fieldset(
-                "",
-                layout.Div(
-                    layout.Field(self.QUERY_PARAM_NAME, css_class="input-block-level"),
-                    layout.Field(self.MODELS_PARAM_NAME),
-                    css_class="input-block-wrapper"
-                ),
+                _("Inquiry"),
+                layout.Field(self.QUERY_PARAM_NAME),
+                layout.Field(self.MODELS_PARAM_NAME, placeholder=_('Narrow down your search ...')),
                 layout.Div(
                     layout.Submit('submit', _('search')),
                     css_class="button-group form-buttons"

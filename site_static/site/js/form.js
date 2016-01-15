@@ -504,6 +504,16 @@ $(document).ready(function() {
         me.dropdown_border = 2;
         
         me.$main = $main;
+        
+        // making sure that there is an empty option at the beginning
+        var $first_option = $('option', me.$main).first();
+        var first_val = $first_option.attr('value');
+        if (first_val && first_val != "") {
+            $first_option.before($('<option>--------</option>'));   
+        }
+        
+        
+        
         me.$body = $('#body');
         me.$window = $(window);
         
@@ -548,15 +558,7 @@ $(document).ready(function() {
         me.closing_dropdown = null;
         me.required_adapted = false;
         
-        
-        if (me.readonly) {
-            var $options = $('option', me.$main);
-            $options.each(function(index) {
-                var $option = $(this);
-                if ($option.prop('selected')) me.option_selected[index] = true;
-                else me.option_selected[index] = false;
-            });
-        }
+  
         
         
         var disabled = (me.autoload) ? '' : ' disabled="disabled"';
@@ -567,11 +569,24 @@ $(document).ready(function() {
         
         me.$display.attr('placeholder', me.$main.attr('placeholder'));
         
+        
         if (!me.disabled && !me.readonly) {
             me.fillDropdown();
         }
         
+        
+        if (me.readonly || me.multiple) {
+            var $options = $('option', me.$main);
+            $options.each(function(index) {
+                var $option = $(this);
+                if ($option.prop('selected')) me.option_selected[index] = true;
+                else me.option_selected[index] = false;
+            });
+        }
+        
         me.$display.attr('value', me.getValue());
+        
+        
         
         if (me.$main.hasClass("error")) me.$display.addClass('error');
         if (me.readonly) {
@@ -617,6 +632,9 @@ $(document).ready(function() {
         
         
         me.$window.resize(function() {me.onResize();});
+        
+        
+        me.$main.closest('form').submit(function() {me.onFormSubmit();});
         
         
         me.$main.data('SelectBox', me);
@@ -1062,7 +1080,7 @@ $(document).ready(function() {
     /**
      * Marks the selected options in the dropdown of the pseudo select box.
      * Also adds the focus class to the currently active option in the droppdown
-     * and scrolls the dropdown, so that the option is visible in the dropdown.
+     * and scrolls the dropdown so that the option is visible in the dropdown.
      */
     SelectBox.prototype.selectSelectedOptions = function() {
         
@@ -1179,8 +1197,34 @@ $(document).ready(function() {
      
         var me = this.me;
         if (me.readonly) return;
+        
+        
+        // unselecting a possible selected empty first option
+        var $first_option = $('option', me.$main).first();
+        var first_val = $first_option.attr('value');
+        if (!(first_val && first_val != "") && $first_option.prop('selected')) {
+            $first_option.prop('selected', false);
+        }
+        
+        
+        
         me.$dropdown.css('display', 'none');
         me.$main.trigger('closed');
+    }
+    
+    /**
+     * The form gets submited
+     */
+    SelectBox.prototype.onFormSubmit = function() {
+     
+        var me = this;
+        
+        if (me.closing_dropdown) {
+            clearTimeout(me.closing_dropdown);
+            me.closing_dropdown = null;
+        }
+        
+        me.closeDropdown();
     }
     
     /**

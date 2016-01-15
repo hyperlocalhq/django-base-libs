@@ -9,15 +9,6 @@
     <h1>{% trans "SEARCH" %}</h1>
 {% endblock %}
 
-{% block extrahead %}
-    <style>
-        span.highlighted {
-            background: yellow;
-        }
-    </style>
-    <script src="{{ STATIC_URL }}site/js/website/search.js"></script>
-{% endblock %}
-
 {% block details %}
     {% crispy form "ccb_form" %}
     <script>
@@ -80,8 +71,4 @@
         </h4>
     {% endif %}
 
-{% endblock %}
-
-{% block javascript %}
-    <script src="{{ STATIC_URL }}site/js/website/listing_search.js"></script>
 {% endblock %}
