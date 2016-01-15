@@ -1,21 +1,12 @@
 {% load cms_tags base_tags %}
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <p class="panel-title intro">
-      <a class="collapsed" data-toggle="collapse"
-          data-parent="#faq-accordion"
-          href="#q_{{ object.question|slugify }}_{{ object.id }}"
-      >
-        {{ object.question|disarm_user_input|striptags }}
-      </a>
-    </p>
-  </div>
-  <div id="q_{{ object.question|slugify }}_{{ object.id }}" class="panel-collapse collapse">
-    <div class="panel-body">
-      <div class="answer lead">
-        {{ object.get_rendered_answer|disarm_user_input|safe }}
-      </div>
-    </div>
-  </div>
+<div class="faq-wrapper">
+    <ul class="accordion faq-item">
+        <li class="accordion-inside accordion-trigger">
+            <a name="faq_{{ object.question|slugify }}_{{ object.id }}" class="accordion-trigger">{{ object.question|disarm_user_input|striptags }}</a>
+            <ul class="accordion">
+                <li class="faq-content">{{ object.get_rendered_answer|disarm_user_input|safe }}</li>
+            </ul>
+        </li>
+    </ul>
 </div>
