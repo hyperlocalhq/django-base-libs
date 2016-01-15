@@ -178,3 +178,30 @@
         }
     }
 }
+
+
+.search-page {
+    
+    h2 {
+        .amount {
+            a {
+                font-size: 0.5em;
+            }
+        }
+    }
+    
+    .search-result {
+        
+        h5 {
+            margin: 10px 0;
+        }
+    }
+    
+    p {
+        overflow: hidden;
+        
+        a.button {
+            float: right;
+        }
+    }
+}
