@@ -33,8 +33,16 @@ Usage in any template:
                                 <h2>{{ content_object.get_title }}</h2>
                             </a>
                             <div class="button-group">
-                                <a href="#" class="fawesome fa-favorite button"></a>
-                                <a href="#" class="fawesome fa-more button"></a>
+                                {% if request.user.is_authenticated %}
+                                    <li class="favorites">{% adding2favorites for content_object using "generic/favorite.html" %}</li>
+                                {% else %}
+                                    <li class="favorites login-required">
+                                        <a href="/login/?goto_next={{ request.path }}"
+                                            title="{% trans "Add to favorites" %}">
+                                            <span><span>{% trans "Add to favorites" %} ({% trans "login request" %})</span></span>
+                                        </a>
+                                    </li>
+                                {% endif %}
                             </div>
                         </div>
                 
