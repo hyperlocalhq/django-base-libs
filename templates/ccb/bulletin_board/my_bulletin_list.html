@@ -13,11 +13,6 @@
 {% endblock %}
 
 {% block content_old %}
-    {% block tabs_old %}
-        <div id="tabs">
-            {% navigation_links "bulletin_board" using "navigation/includes/navigation_links_in_tabs.html" %}
-        </div>
-    {% endblock %}
     <div id="object_list">
         {% if object_list %}
             {% for bulletin in object_list %}

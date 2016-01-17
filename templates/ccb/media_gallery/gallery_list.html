@@ -91,12 +91,6 @@
 {% endblock %}
 
 {% block content_old %}
-    {% block tabs %}
-        <div id="tabs">
-            {#% children_of "portfolios" using "navigation/children_in_tabs.html" %#}
-            {% navigation_links "portfolios" using "navigation/includes/navigation_links_in_tabs.html" %}
-        </div>
-    {% endblock %}
 
     {% if object_list %}
         <div class="sorting-and-pagination clearfix under-tabs">

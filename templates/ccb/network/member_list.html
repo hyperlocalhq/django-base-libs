@@ -159,13 +159,6 @@
 {% endblock %}
 
 {% block content_old %}
-    {% block tabs %}
-        <div id="tabs">
-            {#% children_of "people" using "navigation/children_in_tabs.html" %#}
-            {% navigation_links "members" using "navigation/includes/navigation_links_in_tabs.html" %}
-        </div>
-        <hr class="hidden"/>
-    {% endblock %}
     {% if object_list %}
         {% include_parsed "utils/includes/sorting_and_pagination.html" with "under-tabs" as css_class %}
         {% include "utils/abc_filters.html" %}

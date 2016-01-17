@@ -73,11 +73,6 @@
 {% endblock %}
 
 {% block content_old %}
-    {% block tabs %}
-        <div id="tabs">
-            {% children_of "job_offer" using "navigation/children_in_tabs.html" %}
-        </div>
-    {% endblock %}
     <div class="toolbox">
         {% include "site_specific/count_of.html" %}
         <div class="icons">

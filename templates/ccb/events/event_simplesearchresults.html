@@ -14,11 +14,6 @@
 
 {% block content %}
     <div class="list">
-        {% block tabs %}
-            <div id="tabs">
-                {% children_of "events" using "navigation/children_in_tabs.html" %}
-            </div>
-        {% endblock %}
 
         {% if object_list %}
             {% include_parsed "utils/includes/sorting_and_pagination.html" with "under-tabs" as css_class %}
