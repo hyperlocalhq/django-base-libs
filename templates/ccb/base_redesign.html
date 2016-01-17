@@ -145,7 +145,7 @@
                         <ul>
                             <li><a href="/{{ LANGUAGE_CODE }}/" class="fawesome fa-home"><span class="sr-only">{% trans "Home" %}</span></a></li>
                             {% block breadcrumbs %}
-                                {% show_breadcrumb 1 %}
+                                {% show_breadcrumb 1 "navigation/breadcrumb.html" %}
                             {% endblock %}
                         </ul>
                     </div>
