@@ -35,7 +35,7 @@ $(document).ready(function() {
      * Sniffs for the width of the browser window.
      * Sets the class "is-xs", "is-sm", "is-md" or "is-lg" to the body tag accordingly to the current width.
      */
-    var current_width_sniffer = 'is-nothing';
+    var current_width_sniffer = 'is-xs';
     var widthSniffer = function() {
        
         var new_width_sniffer = false;

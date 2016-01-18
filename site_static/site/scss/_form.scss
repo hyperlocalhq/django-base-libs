@@ -45,9 +45,14 @@ input {
     
     p {
         font-size: 1em;
-        line-height: 100%;
+        line-height: 140%;
         margin: 0;
         padding: 0;
+    }
+    
+    a {
+        word-break: break-word;
+        word-wrap: break-word;
     }
     
     .is-xs & {
@@ -56,7 +61,7 @@ input {
     
         p {
             font-size: 1em;
-            line-height: 100%;
+            line-height: 138%;
             margin: 0;
             padding: 0;
         }
@@ -1361,6 +1366,11 @@ input {
             color: $grey-darker;
             letter-spacing: 0.07em;
             font-weight: $font-black;
+            
+            .is-xs & {
+                font-size: 1.07em;
+                margin-bottom: 20px;
+            }
             
             &.section {
                 margin-top: 80px;
