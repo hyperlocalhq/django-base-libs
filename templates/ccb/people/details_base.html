@@ -50,6 +50,9 @@
                                         {% adding_individual_relation with object %}
                                     {% endcomment %}
                                     {% if object.is_contactable %}<a href="{{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>{% endif %}
+                                    {% if request.user.is_staff and perms.people.change_person %}
+                                        <a href="/admin/people/person/{{ object.id }}/" class="fawesome fa-edit button text"><span class="text">{% trans "Edit Person" %}</span></a>
+                                    {% endif %}
                             
                                 {% else %}
                         
@@ -125,6 +128,9 @@
                                 {% adding_individual_relation with object %}
                             {% endcomment %}
                             {% if object.is_contactable %}<a href="{{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>{% endif %}
+                            {% if request.user.is_staff and perms.people.change_person %}
+                                <a href="/admin/people/person/{{ object.id }}/" class="fawesome fa-edit button text"><span class="text">{% trans "Edit Person" %}</span></a>
+                            {% endif %}
                             
                         {% else %}
                         
@@ -138,14 +144,6 @@
     
                 </div>
                 
-                <div class="button-group">
-                    {% block sidebar_buttons %}
-                        {% if request.user.is_staff and perms.people.change_person %}
-                            <a href="/admin/people/person/{{ object.id }}/" class="fawesome fa-edit button text"><span class="text">{% trans "Edit Person" %}</span></a>
-                        {% endif %}
-                    {% endblock %}
-                    <br/><br/>
-                </div>
                 
                 
                 {% block sidebar %}
