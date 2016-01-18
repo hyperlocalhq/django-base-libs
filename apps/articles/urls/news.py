@@ -15,6 +15,12 @@ urlpatterns = patterns(
         name="article_archive_for_news",
         ),
 
+    url(r'^favorites/$',
+        'article_archive_news',
+        dict(creative_sector_slug='all', paginate_by=24, num_latest=None, type_sysname='news', show="favorites"),
+        name="article_archive_favoorites_for_news",
+        ),
+
     url(r'^category/(?P<type_sysname>[^/]+)/$',
         'article_archive_news',
         dict(creative_sector_slug='all', paginate_by=24, num_latest=None),
