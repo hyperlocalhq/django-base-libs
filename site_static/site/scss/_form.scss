@@ -1362,6 +1362,11 @@ input {
             letter-spacing: 0.07em;
             font-weight: $font-black;
             
+            .is-xs & {
+                font-size: 1.07em;
+                margin-bottom: 20px;
+            }
+            
             &.section {
                 margin-top: 80px;
             }
