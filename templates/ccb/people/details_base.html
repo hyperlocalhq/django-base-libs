@@ -1,5 +1,5 @@
 {% extends "base_redesign.html" %}
-{% load i18n base_tags auth_extended image_mods_tags navigation_tags browsing favorites individual_relations %}
+{% load i18n base_tags auth_extended image_mods_tags navigation_tags browsing favorites individual_relations activity_tags %}
 
 {% block title %}
     {% ifequal request.user object.user %}
@@ -34,25 +34,32 @@
                             <h3>{{ object.occupation }}</h3>
                             <div class="buttons">
                                 
-    {% ifequal request.user object.user %}
-        {% navigation_links "menu_activities" %}
-    {% else %}
-        {% if request.user.is_authenticated %}
-            {% if object.is_addable_to_favorites %}
-                {% with object|get_context_item as context_item %}
-                    {% adding2favorites for context_item using "generic/favorite_contact.html" %}
-                {% endwith %}
-            {% endif %}
-            {% adding_individual_relation with object %}
-            {% if person.is_contactable %}<a href="{{ person.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "send Email" %}</span></a>{% endif %}
-            {% if request.user.is_staff and perms.people.change_person %}
-                <a href="/admin/people/person/{{ object.id }}/" class="fawesome fa-edit button text hidden-xs" onclick="open_new_window(event)"><span class="text">{% trans "edit Person" %}</span></a>
-            {% endif %}
-        {% else %}
-            <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-contact button text"><span class="text">{% trans "Contact" %}</span></a>
-            {% if object.is_contactable %}<a href="/login/?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "send Email" %}</span></a>{% endif %}
-        {% endif %}
-    {% endifequal %}
+                            {% ifequal request.user object.user %}
+                                {% navigation_links "menu_activities" %}
+                            {% else %}
+                                {% if request.user.is_authenticated %}
+                        
+                                    <a rel="nofollow" class="fawesome fa-more button text switch{% if request.user|is_following:object.user %} on{% endif %}" href="{% follow_all_url object.user %}?next={{ request.path }}"><span class="text">
+                                        {% if request.user|is_following:object.user %}
+                                            {% trans "Unfollow" %}
+                                        {% else %}
+                                            {% trans "Follow" %}
+                                        {% endif %}
+                                    </span></a>
+                                    {% comment %}
+                                        {% adding_individual_relation with object %}
+                                    {% endcomment %}
+                                    {% if object.is_contactable %}<a href="{{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>{% endif %}
+                            
+                                {% else %}
+                        
+                                    <a rel="nofollow" class="fawesome fa-more button text switch" href="/login/?goto_next={% follow_all_url object.user %}%3Fnext%3D{{ request.path }}">{% trans "Follow" %}</a>
+                                    {% if object.is_contactable %}
+                                        <a href="/login/?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>
+                                    {% endif %}
+                            
+                                {% endif %}
+                            {% endifequal %}
     
                             </div>
                         </div>
@@ -100,33 +107,43 @@
                         {% end_if_has_perm %}
                     {#% endif %#}
     
-    {% ifequal request.user object.user %}
-        {% navigation_links "menu_activities" %}
+                    {% ifequal request.user object.user %}
+                    
+                        {% navigation_links "menu_activities" %}
 
-    {% else %}
-        {% if request.user.is_authenticated %}
-            {% load activity_tags %}
-            <a rel="nofollow" class="fawesome fa-contact button text switch{% if request.user|is_following:object.user %} on{% endif %}" href="{% follow_all_url object.user %}?next={{ request.path }}">
-                {% if request.user|is_following:object.user %}
-                    {% trans "Unfollow" %}
-                {% else %}
-                    {% trans "Follow" %}
-                {% endif %}
-            </a>
-            {% comment %}
-                {% adding_individual_relation with object %}
-            {% endcomment %}
-            {% if object.is_contactable %}<a href="{{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>{% endif %}
-            {% if request.user.is_staff and perms.people.change_person %}
-                <a href="/admin/people/person/{{ object.id }}/" class="fawesome fa-edit button text" target="_blank"><span class="text">{% trans "Edit Person" %}</span></a>
-            {% endif %}
-        {% else %}
-            <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-contact button text"><span class="text">{% trans "Contact" %}</span></a>
-            {% if object.is_contactable %}<a href="/login/?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>{% endif %}
-        {% endif %}
-    {% endifequal %}
+                    {% else %}
+                        {% if request.user.is_authenticated %}
+                        
+                            <a rel="nofollow" class="fawesome fa-more button text switch{% if request.user|is_following:object.user %} on{% endif %}" href="{% follow_all_url object.user %}?next={{ request.path }}"><span class="text">
+                                {% if request.user|is_following:object.user %}
+                                    {% trans "Unfollow" %}
+                                {% else %}
+                                    {% trans "Follow" %}
+                                {% endif %}
+                            </span></a>
+                            {% comment %}
+                                {% adding_individual_relation with object %}
+                            {% endcomment %}
+                            {% if object.is_contactable %}<a href="{{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>{% endif %}
+                            
+                        {% else %}
+                        
+                            <a rel="nofollow" class="fawesome fa-more button text switch" href="/login/?goto_next={% follow_all_url object.user %}%3Fnext%3D{{ request.path }}">{% trans "Follow" %}</a>
+                            {% if object.is_contactable %}
+                                <a href="/login/?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>
+                            {% endif %}
+                            
+                        {% endif %}
+                    {% endifequal %}
     
                 </div>
+                
+                <div class="button-group">
+                    {% if request.user.is_staff and perms.people.change_person %}
+                        <a href="/admin/people/person/{{ object.id }}/" class="fawesome fa-edit button text" target="_blank"><span class="text">{% trans "Edit Person" %}</span></a>
+                    {% endif %}
+                </div>
+                
                 
                 {% block sidebar %}
                 {% endblock %}

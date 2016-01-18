@@ -59,24 +59,26 @@
                                         {% navigation_links "menu_activities" %}
                                     {% else %}
                                         {% if request.user.is_authenticated %}
-                                            {% load activity_tags %}
-                                            <a rel="nofollow" class="fawesome fa-contact button text switch{% if request.user|is_following:object.user %} on{% endif %}" href="{% follow_all_url object.user %}?next={{ request.path }}">
+                                
+                                            <a rel="nofollow" class="fawesome fa-more button text switch{% if request.user|is_following:object.user %} on{% endif %}" href="{% follow_all_url object.user %}?next={{ request.path }}"><span class="text">
                                                 {% if request.user|is_following:object.user %}
                                                     {% trans "Unfollow" %}
                                                 {% else %}
                                                     {% trans "Follow" %}
                                                 {% endif %}
-                                            </a>
+                                            </span></a>
                                             {% comment %}
                                                 {% adding_individual_relation with object %}
                                             {% endcomment %}
                                             {% if object.is_contactable %}<a href="{{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>{% endif %}
-                                            {% if request.user.is_staff and perms.people.change_person %}
-                                                <a href="/admin/people/person/{{ object.id }}/" class="fawesome fa-edit button text" target="_blank"><span class="text">{% trans "Edit Person" %}</span></a>
-                                            {% endif %}
+                                    
                                         {% else %}
-                                            <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-contact button text"><span class="text">{% trans "Contact" %}</span></a>
-                                            {% if object.is_contactable %}<a href="/login/?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "send Email" %}</span></a>{% endif %}
+                                
+                                            <a rel="nofollow" class="fawesome fa-more button text switch" href="/login/?goto_next={% follow_all_url object.user %}%3Fnext%3D{{ request.path }}">{% trans "Follow" %}</a>
+                                            {% if object.is_contactable %}
+                                                <a href="/login/?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>
+                                            {% endif %}
+                                    
                                         {% endif %}
                                     {% endifequal %}
 
@@ -128,33 +130,23 @@
 
 
                                     {% if request.user.is_authenticated %}
-                                        {% load activity_tags %}
-                                        <a rel="nofollow" class="fawesome fa-contact button text switch{% if request.user|is_following:object %} on{% endif %}" href="{% follow_all_url object %}?next={{ request.path }}">
+                                        <a rel="nofollow" class="fawesome fa-more button text switch{% if request.user|is_following:object %} on{% endif %}" href="{% follow_all_url object %}?next={{ request.path }}"><span class="text">
                                             {% if request.user|is_following:object %}
                                                 {% trans "Unfollow" %}
                                             {% else %}
                                                 {% trans "Follow" %}
                                             {% endif %}
-                                        </a>
+                                        </span></a>
                                         {% if object.is_contactable %}
-                                            <a href="{{ object.get_url_path }}message/"
-                                                class="fawesome fa-email button text">
-                                                <span class="text">{% trans "Send Email" %}</span></a>{% endif %}
-                                        {% if request.user.is_staff and perms.institutions.change_institution %}
-                                            <a href="/admin/institutions/institution/{{ institution.id }}/"
-                                                class="fawesome fa-edit button text"
-                                                target="_blank">
-                                                <span class="text">{% trans "Edit Institution" %}</span></a>
+                                            <a href="{{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>
                                         {% endif %}
                                     {% else %}
-                                        <a href="/login/?goto_next={{ request.path }}"
-                                            class="fawesome fa-contact button text">
-                                            <span class="text">{% trans "Contact" %}</span></a>
+                                        <a rel="nofollow" class="fawesome fa-more button text switch" href="/login/?goto_next={% follow_all_url object.user %}%3Fnext%3D{{ request.path }}">{% trans "Follow" %}</a>
                                         {% if object.is_contactable %}
-                                            <a href="/login/?goto_next={{ object.get_url_path }}message/"
-                                                class="fawesome fa-email button text">
-                                                <span class="text">{% trans "send Email" %}</span></a>{% endif %}
+                                            <a href="/login/?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>
+                                        {% endif %}
                                     {% endif %}
+                                
                                 </div>
                             </div>
                         </div>
