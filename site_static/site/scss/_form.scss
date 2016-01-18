@@ -1405,7 +1405,7 @@ input {
                 padding: 24px 20px 10px 0;
                 margin: 0 0px 10px 0;
                 
-                word-break: break-all;
+                word-break: break-word;
                 word-wrap: break-word;
                 
                 .is-xs & {
@@ -1449,7 +1449,7 @@ input {
                             position: absolute;
                             top: -15px;
                             color: $grey; 
-                            word-break: break-all;
+                            word-break: break-word;
                             word-wrap: break-word;
                             overflow: hidden;
                             height: 1.1em;

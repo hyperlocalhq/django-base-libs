@@ -157,6 +157,7 @@ small {
     text-decoration: underline;
 }
 .word-wrap {
+    word-break: break-word;
     word-wrap: break-word;
 }
 .no-select {
@@ -814,6 +815,7 @@ ul.button-list {
     color: $white;
     text-transform: uppercase;
     display: block;
+    word-break: break-word;
     word-wrap: break-word;
     cursor: default;
     

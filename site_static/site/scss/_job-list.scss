@@ -179,6 +179,7 @@
             a.website {
                 margin-right: 125px;
                 word-break: break-word;
+                word-wrap: break-word;
                 
                 .is-xs & {
                     margin-right: 0;
@@ -194,7 +195,8 @@
             margin-right: 20px;
             position: absolute;
             left: 0;
-            word-break: break-all;
+            word-break: break-word;
+            word-wrap: break-word;
             
             .is-sm & {
                 font-size: 1.07em;
