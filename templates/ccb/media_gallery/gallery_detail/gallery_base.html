@@ -18,18 +18,21 @@
 {% endblock %}
 
 
-{% block sidebar %}
+{% block sidebar_buttons %}
+
+    {% if request.user.is_authenticated %}
+        {% adding2favorites for gallery %}
+    {% else %}
+        <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-favorite button"><span class="sr-only">{% trans "Favorite" %}</span></a>
+    {% endif %}
+
+    {% if perms.media_gallery.change_media_gallery %}
+        <a class="fawesome fa-folder-open button text" href="{{ request.path }}manage/" >
+            <span class="text">{% trans "Manage Project" %}</span>
+        </a>
+    {% endif %}
     
     {{ block.super }}
-
-    <div class="button-group">
-        {% if perms.media_gallery.change_media_gallery %}
-            <a class="fawesome fa-edit button text" href="{{ request.path }}manage/" >
-                <span class="text">{% trans "Manage Project" %}</span>
-            </a>
-        {% endif %}
-        <br/><br/>
-    </div>
 
 {% endblock %}
 

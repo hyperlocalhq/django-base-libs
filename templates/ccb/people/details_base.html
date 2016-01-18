@@ -139,9 +139,12 @@
                 </div>
                 
                 <div class="button-group">
-                    {% if request.user.is_staff and perms.people.change_person %}
-                        <a href="/admin/people/person/{{ object.id }}/" class="fawesome fa-edit button text" target="_blank"><span class="text">{% trans "Edit Person" %}</span></a>
-                    {% endif %}
+                    {% block sidebar_buttons %}
+                        {% if request.user.is_staff and perms.people.change_person %}
+                            <a href="/admin/people/person/{{ object.id }}/" class="fawesome fa-edit button text"><span class="text">{% trans "Edit Person" %}</span></a>
+                        {% endif %}
+                    {% endblock %}
+                    <br/><br/>
                 </div>
                 
                 

@@ -132,9 +132,12 @@
                 </div>
 
                 <div class="button-group">
-                    {% if request.user.is_staff and perms.institutions.change_institution %}
-                        <a href="/admin/institutions/institution/{{ object.id }}/" class="fawesome fa-edit button text"><span class="text">{% trans "Edit Institution" %}</span></a>
-                    {% endif %}
+                    {% block sidebar_buttons %}
+                        {% if request.user.is_staff and perms.institutions.change_institution %}
+                            <a href="/admin/institutions/institution/{{ object.id }}/" class="fawesome fa-edit button text"><span class="text">{% trans "Edit Institution" %}</span></a>
+                        {% endif %}
+                    {% endblock %}
+                    <br/><br/>
                 </div>
                         
                 {% block sidebar %}

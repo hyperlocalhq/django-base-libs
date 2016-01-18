@@ -605,11 +605,11 @@
     .button-group &.button, .button-group &.btn {
         display: inline-block;
         
-        margin-right: 1.85em;
+        //margin-right: 1.85em;
         //margin-bottom: 0;
         
         .is-xs & {
-            margin-right: 1.25em;
+            //margin-right: 1.25em;
         }
         &.big {
             margin-right: 2.4em;
@@ -1011,6 +1011,9 @@ canvas.fawesome {
 .fawesome.fa-image:before {
     content: "\f030";
 }
+.fawesome.fa-folder-open:before {
+    content: "\f07c";
+}
 
 
 
@@ -1261,4 +1264,7 @@ canvas.fawesome {
 }
 .fawesome.fa-image.after:after {
     content: "\f030";
+}
+.fawesome.fa-folder-open.after:after {
+    content: "\f07c";
 }
