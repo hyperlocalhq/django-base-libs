@@ -72,7 +72,7 @@
                                             {% endcomment %}
                                             {% if object.is_contactable %}<a href="{{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>{% endif %}
                                             {% if request.user.is_staff and perms.people.change_person %}
-                                                <a href="/admin/people/person/{{ object.id }}/" class="fawesome fa-edit button text"><span class="text">{% trans "Edit Person" %}</span></a>
+                                                <a href="/admin/people/person/{{ object.id }}/" class="fawesome fa-edit button text" target="_blank"><span class="text">{% trans "Edit Person" %}</span></a>
                                             {% endif %}
                                     
                                         {% else %}
@@ -144,7 +144,7 @@
                                             <a href="{{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>
                                         {% endif %}
                                         {% if request.user.is_staff and perms.institutions.change_institution %}
-                                            <a href="/admin/institutions/institution/{{ object.id }}/" class="fawesome fa-edit button text"><span class="text">{% trans "Edit Institution" %}</span></a>
+                                            <a href="/admin/institutions/institution/{{ object.id }}/" class="fawesome fa-edit button text" target="_blank"><span class="text">{% trans "Edit Institution" %}</span></a>
                                         {% endif %}
                                     {% else %}
                                         <a rel="nofollow" class="fawesome fa-more button text switch" href="/login/?goto_next={% follow_all_url object.user %}%3Fnext%3D{{ request.path }}">{% trans "Follow" %}</a>
