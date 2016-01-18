@@ -131,11 +131,12 @@
                                     {% endwith %}
                                 {% endif %}
                                 {% if object.is_contactable %}
-                                    <a href="{{ object.get_url_path }}message/" class="fawesome fa-email button"><span class="sr-only">{% trans "Send a mail" %}</span></a>
+                                    <a href="{{ object.get_url_path }}message/" class="fawesome fa-email button"><span class="sr-only">{% trans "Send Email" %}</span></a>
                                 {% endif %}
-                            {% else %}
-                                <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-contact button"><span class="sr-only">{% trans "Contact" %}</span></a>
-                                <a href="/login/?goto_next={{ person.get_url_path }}message/"  class="fawesome fa-email button"><span class="sr-only">{% trans "Send a mail" %}</span></a>
+                            {% else %}                      
+                                {% if object.is_contactable %}
+                                    <a href="/login/?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>
+                                {% endif %}
                             {% endif %}
                         </div>
                     </div>
