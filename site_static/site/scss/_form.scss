@@ -50,6 +50,11 @@ input {
         padding: 0;
     }
     
+    a {
+        word-break: break-word;
+        word-wrap: break-word;
+    }
+    
     .is-xs & {
         padding: 4px 2px 10px 0px;
         font-size: 1.07em;
