@@ -316,6 +316,9 @@
     h1 {
         margin: 50px 0;
         text-transform: uppercase;
+        word-break: break-word;
+        word-wrap: break-word;
+        
         .is-xs & {
             margin: 36px 0;
         }
