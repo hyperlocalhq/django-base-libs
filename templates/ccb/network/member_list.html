@@ -110,11 +110,6 @@
                                     </a>
                                     <div class="button-group">
                                         {% if request.user.is_authenticated %}
-                                            {% if object.is_addable_to_favorites or object.is_removable_from_favorites %}
-                                                {% with object|get_context_item as context_item %}
-                                                    {% adding2favorites for context_item using "generic/favorite_contact_icon.html" %}
-                                                {% endwith %}
-                                            {% endif %}
                                             {% if object.is_contactable %}
                                                 <a href="{{ object.get_url_path }}message/" class="fawesome fa-email button"><span class="sr-only">{% trans "Send Email" %}</span></a>
                                             {% endif %}
