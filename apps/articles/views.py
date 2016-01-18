@@ -2,30 +2,31 @@
 import datetime
 import time
 
-from django.db import models
+from django.apps import apps
 from django.template import loader
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404
 from django.db.models.fields import DateTimeField
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import get_language
 from django.shortcuts import redirect
-
+from django.contrib.contenttypes.models import ContentType
 from base_libs.models.base_libs_settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
 from base_libs.middleware import get_current_language
 from base_libs.utils.misc import get_related_queryset
+from base_libs.views import access_denied
 from jetson.apps.utils.views import object_list, object_detail, feed
 from jetson.apps.structure.models import Term
 
-Article = models.get_model("articles", "Article")
-ArticleType = models.get_model("articles", "ArticleType")
+Article = apps.get_model("articles", "Article")
+ArticleType = apps.get_model("articles", "ArticleType")
 
 
 def get_articles(
-    creative_sector_slug,
-    type_sysname=None,
-    status=STATUS_CODE_PUBLISHED,
-    only_features=False,
+        creative_sector_slug,
+        type_sysname=None,
+        status=STATUS_CODE_PUBLISHED,
+        only_features=False,
 ):
     """
     forms a queryset for Articles using some optional filters
@@ -90,12 +91,12 @@ def get_creative_sectors():
 
 
 def get_most_read_articles(
-    creative_sector_slug,
-    type_sysname=None,
-    status=STATUS_CODE_PUBLISHED,
-    date_field='published_from',
-    allow_future=False,
-    num_latest=5,
+        creative_sector_slug,
+        type_sysname=None,
+        status=STATUS_CODE_PUBLISHED,
+        date_field='published_from',
+        allow_future=False,
+        num_latest=5,
 ):
     """
     forms a queryset for Articles using some optional filters
@@ -113,24 +114,25 @@ def get_most_read_articles(
 
 
 def article_archive_index(
-    request,
-    creative_sector_slug,
-    type_sysname=None,
-    status=STATUS_CODE_PUBLISHED,
-    only_features=False,
-    date_field='published_from',
-    num_latest=15,
-    paginate_by=None,
-    page=None,
-    allow_empty=True,
-    template_name=None,
-    template_loader=loader,
-    extra_context=None,
-    context_processors=None,
-    template_object_name='article',
-    content_type=None,
-    allow_future=False,
-    **kwargs
+        request,
+        creative_sector_slug,
+        type_sysname=None,
+        status=STATUS_CODE_PUBLISHED,
+        only_features=False,
+        date_field='published_from',
+        num_latest=15,
+        paginate_by=None,
+        page=None,
+        allow_empty=True,
+        template_name=None,
+        template_loader=loader,
+        extra_context=None,
+        context_processors=None,
+        template_object_name='article',
+        content_type=None,
+        allow_future=False,
+        show="all",
+        **kwargs
 ):
     """
     Top-level archive of article objects.
@@ -148,6 +150,21 @@ def article_archive_index(
     else:
         queryset = get_articles(creative_sector_slug, type_sysname, status, only_features=only_features)
     archives = get_archives(queryset)
+
+    if show == "favorites":
+        if not request.user.is_authenticated():
+            return access_denied(request)
+        tables = ["favorites_favorite"]
+        condition = [
+            "favorites_favorite.user_id = %d" % request.user.id,
+            "favorites_favorite.object_id = articles_article.id",
+            "favorites_favorite.content_type_id = %d" % ContentType.objects.get_for_model(Article).pk,
+        ]
+        queryset = queryset.extra(
+            tables=tables,
+            where=condition,
+        ).distinct()
+
 
     # TODO!!!! check some permissions
     # if extra_context.has_key('article_filter'):
@@ -190,10 +207,9 @@ def article_archive_index(
         raise Http404, "No object available"
 
     if date_list:
+        queryset = queryset.order_by('-' + date_field)
         if num_latest:
-            queryset = queryset.order_by('-' + date_field)[:num_latest]
-        else:
-            queryset = queryset.order_by('-' + date_field)
+            queryset = queryset[:num_latest]
     else:
         queryset = Article.objects.none()
 
@@ -203,11 +219,14 @@ def article_archive_index(
     if request.is_ajax():
         extra_context['base_template'] = "base_ajax.html"
 
-    return object_list(request, queryset,
-                       paginate_by=paginate_by, page=page, allow_empty=allow_empty,
-                       template_name=template_name, template_loader=template_loader,
-                       extra_context=extra_context, context_processors=context_processors,
-                       template_object_name=template_object_name, content_type=content_type)
+    return object_list(
+        request, queryset,
+        paginate_by=paginate_by, page=page, allow_empty=allow_empty,
+        template_name=template_name, template_loader=template_loader,
+        extra_context=extra_context, context_processors=context_processors,
+        template_object_name=template_object_name, content_type=content_type,
+        **kwargs
+    )
 
 
 def article_archive_news(request, creative_sector_slug, **kwargs):
@@ -217,6 +236,7 @@ def article_archive_news(request, creative_sector_slug, **kwargs):
         kwargs['queryset'] = Article.site_published_objects.news()
     if "type_sysname" in kwargs and kwargs['type_sysname'] != 'all':
         kwargs['queryset'] = kwargs['queryset'].filter(article_type__slug=kwargs['type_sysname'])
+    kwargs['httpstate_prefix'] = "news"
     return article_archive_index(request, creative_sector_slug, **kwargs)
 
 
@@ -227,6 +247,7 @@ def article_archive_interviews(request, creative_sector_slug, **kwargs):
         kwargs['queryset'] = Article.site_published_objects.interviews()
     if "type_sysname" in kwargs and kwargs['type_sysname'] != 'all':
         kwargs['queryset'] = kwargs['queryset'].filter(article_type__slug=kwargs['type_sysname'])
+    kwargs['httpstate_prefix'] = "interviews"
     return article_archive_index(request, creative_sector_slug, **kwargs)
 
 
@@ -239,24 +260,24 @@ def article_archive_non_interviews(request, creative_sector_slug, **kwargs):
 
 
 def article_archive_year(
-    request,
-    year,
-    creative_sector_slug,
-    type_sysname=None,
-    status=STATUS_CODE_PUBLISHED,
-    date_field='published_from',
-    paginate_by=None,
-    page=None,
-    allow_empty=True,
-    template_name=None,
-    template_loader=loader,
-    extra_context=None,
-    context_processors=None,
-    template_object_name='article',
-    content_type=None,
-    allow_future=False,
-    make_object_list=True,
-    **kwargs
+        request,
+        year,
+        creative_sector_slug,
+        type_sysname=None,
+        status=STATUS_CODE_PUBLISHED,
+        date_field='published_from',
+        paginate_by=None,
+        page=None,
+        allow_empty=True,
+        template_name=None,
+        template_loader=loader,
+        extra_context=None,
+        context_processors=None,
+        template_object_name='article',
+        content_type=None,
+        allow_future=False,
+        make_object_list=True,
+        **kwargs
 ):
     """
     Context:
@@ -328,33 +349,38 @@ def article_archive_year(
     if request.is_ajax():
         extra_context['base_template'] = "base_ajax.html"
 
-    return object_list(request, queryset,
-                       paginate_by=paginate_by, page=page, allow_empty=allow_empty,
-                       template_name=template_name, template_loader=template_loader,
-                       extra_context=extra_context, context_processors=context_processors,
-                       template_object_name=template_object_name, content_type=content_type)
+    kwargs.setdefault('httpstate_prefix', type_sysname)
+
+    return object_list(
+        request, queryset,
+        paginate_by=paginate_by, page=page, allow_empty=allow_empty,
+        template_name=template_name, template_loader=template_loader,
+        extra_context=extra_context, context_processors=context_processors,
+        template_object_name=template_object_name, content_type=content_type,
+        **kwargs
+    )
 
 
 def article_archive_month(
-    request,
-    year,
-    month,
-    creative_sector_slug,
-    type_sysname=None,
-    status=STATUS_CODE_PUBLISHED,
-    date_field='published_from',
-    paginate_by=None,
-    page=None,
-    allow_empty=True,
-    month_format='%m',
-    template_name=None,
-    template_loader=loader,
-    extra_context=None,
-    context_processors=None,
-    template_object_name='article',
-    content_type=None,
-    allow_future=False,
-    **kwargs
+        request,
+        year,
+        month,
+        creative_sector_slug,
+        type_sysname=None,
+        status=STATUS_CODE_PUBLISHED,
+        date_field='published_from',
+        paginate_by=None,
+        page=None,
+        allow_empty=True,
+        month_format='%m',
+        template_name=None,
+        template_loader=loader,
+        extra_context=None,
+        context_processors=None,
+        template_object_name='article',
+        content_type=None,
+        allow_future=False,
+        **kwargs
 ):
     """
     Context:
@@ -433,35 +459,40 @@ def article_archive_month(
     if request.is_ajax():
         extra_context['base_template'] = "base_ajax.html"
 
-    return object_list(request, queryset,
-                       paginate_by=paginate_by, page=page, allow_empty=allow_empty,
-                       template_name=template_name, template_loader=template_loader,
-                       extra_context=extra_context, context_processors=context_processors,
-                       template_object_name=template_object_name, content_type=content_type)
+    kwargs.setdefault('httpstate_prefix', type_sysname)
+
+    return object_list(
+        request, queryset,
+        paginate_by=paginate_by, page=page, allow_empty=allow_empty,
+        template_name=template_name, template_loader=template_loader,
+        extra_context=extra_context, context_processors=context_processors,
+        template_object_name=template_object_name, content_type=content_type,
+        **kwargs
+    )
 
 
 def article_archive_day(
-    request,
-    year,
-    month,
-    day,
-    creative_sector_slug,
-    type_sysname=None,
-    status=STATUS_CODE_PUBLISHED,
-    date_field='published_from',
-    paginate_by=None,
-    page=None,
-    allow_empty=True,
-    month_format='%m',
-    day_format='%d',
-    template_name=None,
-    template_loader=loader,
-    extra_context=None,
-    context_processors=None,
-    template_object_name='article',
-    content_type=None,
-    allow_future=False,
-    **kwargs
+        request,
+        year,
+        month,
+        day,
+        creative_sector_slug,
+        type_sysname=None,
+        status=STATUS_CODE_PUBLISHED,
+        date_field='published_from',
+        paginate_by=None,
+        page=None,
+        allow_empty=True,
+        month_format='%m',
+        day_format='%d',
+        template_name=None,
+        template_loader=loader,
+        extra_context=None,
+        context_processors=None,
+        template_object_name='article',
+        content_type=None,
+        allow_future=False,
+        **kwargs
 ):
     """
     Article daily archive view.
@@ -536,34 +567,39 @@ def article_archive_day(
     if request.is_ajax():
         extra_context['base_template'] = "base_ajax.html"
 
-    return object_list(request, queryset,
-                       paginate_by=paginate_by, page=page, allow_empty=allow_empty,
-                       template_name=template_name, template_loader=template_loader,
-                       extra_context=extra_context, context_processors=context_processors,
-                       template_object_name=template_object_name, content_type=content_type)
+    kwargs.setdefault('httpstate_prefix', type_sysname)
+
+    return object_list(
+        request, queryset,
+        paginate_by=paginate_by, page=page, allow_empty=allow_empty,
+        template_name=template_name, template_loader=template_loader,
+        extra_context=extra_context, context_processors=context_processors,
+        template_object_name=template_object_name, content_type=content_type,
+        **kwargs
+    )
 
 
 def article_object_detail(
-    request,
-    year,
-    month,
-    day,
-    creative_sector_slug,
-    article_slug,
-    type_sysname=None,
-    status=STATUS_CODE_PUBLISHED,
-    date_field='published_from',
-    month_format='%m',
-    day_format='%d',
-    template_name=None,
-    template_loader=loader,
-    template_name_field=None,
-    extra_context=None,
-    context_processors=None,
-    template_object_name='article',
-    content_type=None,
-    allow_future=False,
-    **kwargs
+        request,
+        year,
+        month,
+        day,
+        creative_sector_slug,
+        article_slug,
+        type_sysname=None,
+        status=STATUS_CODE_PUBLISHED,
+        date_field='published_from',
+        month_format='%m',
+        day_format='%d',
+        template_name=None,
+        template_loader=loader,
+        template_name_field=None,
+        extra_context=None,
+        context_processors=None,
+        template_object_name='article',
+        content_type=None,
+        allow_future=False,
+        **kwargs
 ):
     """
     Detail view from year/month/day/slug 
@@ -612,6 +648,8 @@ def article_object_detail(
     if template_name is None:
         template_name = 'articles/articles_detail.html'
 
+    kwargs.setdefault('httpstate_prefix', type_sysname)
+
     return object_detail(
         request, queryset, year, month, day,
         object_id=None,
@@ -624,18 +662,19 @@ def article_object_detail(
         context_processors=context_processors,
         template_object_name=template_object_name,
         content_type=content_type,
+        **kwargs
     )
 
 
 def article_feed(
-    request,
-    feed_type,
-    creative_sector_slug,
-    type_sysname=None,
-    status=STATUS_CODE_PUBLISHED,
-    num_latest=20,
-    date_field='published_from',
-    **kwargs
+        request,
+        feed_type,
+        creative_sector_slug,
+        type_sysname=None,
+        status=STATUS_CODE_PUBLISHED,
+        num_latest=20,
+        date_field='published_from',
+        **kwargs
 ):
     """
     wrapper for feeds

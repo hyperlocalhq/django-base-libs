@@ -14,6 +14,12 @@ urlpatterns = patterns(
         dict(creative_sector_slug='all', paginate_by=24, num_latest=None, type_sysname='interviews'),
         name="article_archive_for_interviews",
         ),
+    url(r'^favorites/$',
+        'article_archive_interviews',
+        dict(creative_sector_slug='all', paginate_by=24, num_latest=None, type_sysname='interviews', show="favorites"),
+        name="article_archive_favoorites_for_interviews",
+        ),
+
     url(r'^category/(?P<type_sysname>[^/]+)/$',
         'article_archive_interviews',
         dict(creative_sector_slug='all', paginate_by=24, num_latest=None),

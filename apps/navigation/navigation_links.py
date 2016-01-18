@@ -148,6 +148,46 @@ navigation_links = {
         # },
     ],
 
+    'news': [
+        {
+            'url_de': '/de/news/',
+            'url_en': '/en/news/',
+            'text_de': 'Alle',
+            'text_en': 'All',
+            'should_be_shown': for_all,
+            'highlight_pattern': r'^/(de|en)/news/($|category/)',
+        },
+        {
+            'url_de': '/de/news/favorites/',
+            'url_en': '/en/news/favorites/',
+            'text_de': 'Favoriten',
+            'text_en': 'Favorites',
+            'should_be_shown': for_all,
+            'highlight_pattern': r'^/(de|en)/news/favorites/$',
+            'is_login_required': True,
+        },
+    ],
+
+    'interviews': [
+        {
+            'url_de': '/de/ccb-magazin/',
+            'url_en': '/en/ccb-magazine/',
+            'text_de': 'Alle',
+            'text_en': 'All',
+            'should_be_shown': for_all,
+            'highlight_pattern': r'^/(de|en)/ccb-magazine?/($|category/)',
+        },
+        {
+            'url_de': '/de/ccb-magazin/favorites/',
+            'url_en': '/en/ccb-magazine/favorites/',
+            'text_de': 'Favoriten',
+            'text_en': 'Favorites',
+            'should_be_shown': for_all,
+            'highlight_pattern': r'^/(de|en)/ccb-magazine?/favorites/$',
+            'is_login_required': True,
+        },
+    ],
+
     'portfolios': [
         {
             'url_de': '/de/portfolios/',
