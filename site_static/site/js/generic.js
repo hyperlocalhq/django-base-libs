@@ -3,10 +3,12 @@
     self.FavoriteManager = {
         sContextItemType: "",
         sSlug: "",
-        sInnerTextToAdd: trans["Add to favorites"],
+        sInnerTextToAdd: trans["Favorite"],
         sTitleToAdd: trans["Add to favorites"],
-        sInnerTextToRemove: trans["It's your favorite"],
+        sInnerTextToRemove: trans["Favorite"],
         sTitleToRemove: trans["Remove from favorites"],
+        
+        
         init: function() {
             var oSelf = self.FavoriteManager; 
             var aUrlBits = window.website.path.substr(1).split("/");
@@ -50,25 +52,36 @@
         },
         showResults: function(oData, iCounter) {
             var oSelf = self.FavoriteManager;
-            var $oEl = $("#adding_to_favorites_" + iCounter);
-            if (oData) {
-                $oSpan = $oEl.children("span:first");
-                if (oData["action"] == "added") {
-                    $oEl.attr({
-                        title: oSelf.sTitleToRemove
-                    }).addClass("active");
-                    $oSpan.html(oSelf.sInnerTextToRemove);
-                } else {
-                    $oEl.attr({
-                        title: oSelf.sTitleToAdd
-                    }).removeClass("active");
-                    $oSpan.html(oSelf.sInnerTextToAdd);
+            var $oEl_class = $(".adding_to_favorites_" + iCounter);
+            
+            $oEl_class.each(function() {
+               var $oEl = $(this);
+               
+                if (oData) {
+                    $oSpan = $oEl.children("span:first");
+                    if (oData["action"] == "added") {
+                        $oEl.attr({
+                            title: oSelf.sTitleToRemove
+                        }).addClass("active").addClass("on");
+                        
+                        if ($oSpan.hasClass('sr-only')) $oSpan.html(oSelf.sTitleToRemove);
+                        else $oSpan.html(oSelf.sInnerTextToRemove);
+                    } else {
+                        $oEl.attr({
+                            title: oSelf.sTitleToAdd
+                        }).removeClass("active").removeClass("on");
+                        
+                        if ($oSpan.hasClass('sr-only')) $oSpan.html(oSelf.sTitleToAdd);
+                        else $oSpan.html(oSelf.sInnerTextToAdd); 
+                    }
+                    if (oData["count"] != undefined) {
+                        $oEl.children(".favorites_count").text(oData["count"]);
+                    }
                 }
-                if (oData["count"] != undefined) {
-                    $oEl.children(".favorites_count").text(oData["count"]);
-                }
-            }
-            $oEl.removeClass("progress").css({cursor: "pointer"});
+                $oEl.removeClass("progress").css({cursor: "pointer"});
+               
+            });
+            
             var sLang = window.settings.lang;
             $("#activity_" + sLang).load(
                 location.pathname + " #activity_" + sLang,

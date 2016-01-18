@@ -263,14 +263,15 @@
                     }
                 }
                 
-                &.on {
+                &.on, &.active {
                     position: relative;
                     background: $cyan-light;
+                    color: $grey-dark !important;
                     
                     &:after {
                         font-size: 2em;
                         content: "\f057";
-                        color: $cyan;
+                        color: $cyan !important;
                         position: absolute;
                         top: 6px;
                         right: 8px;
@@ -290,7 +291,7 @@
                         background: $white-dirty;
                         
                         &:after {
-                            color: $grey-dark;
+                            color: $grey-dark !important;
                             opacity: 1;
                             
                             .is-xs & {

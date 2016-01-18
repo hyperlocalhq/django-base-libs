@@ -11,6 +11,8 @@
                     {% else %}
                         <img src="http://placehold.it/200x208&text=image">
                 {% endcomment %}
+            {% else %}
+                <img src="{{ STATIC_URL }}site/img/placeholder/infolink.png" alt="{{ list_article.get_title|escape }}"/>
             {% endif %}
             <div class="text">
                 <h3>

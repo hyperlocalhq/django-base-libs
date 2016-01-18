@@ -1,5 +1,5 @@
 {% extends "articles/articles_base.html" %}
-{% load base_tags blog babel i18n auth_extended image_mods_tags %}
+{% load base_tags blog babel i18n auth_extended image_mods_tags favorites %}
 
 {% block meta_tags %}
     <meta name="description" content="{{ article.get_rendered_content|striptags|truncatewords:100 }}..."/>
@@ -26,6 +26,18 @@
     <meta property="og:url" content="{{ article.get_url }}"/>
     <meta property="og:site_name" content="Creative City Berlin"/>
     <meta property="og:description" content='{{ content|striptags|truncatewords:20|escape }}'/>
+{% endblock %}
+
+{% block sidebar %}
+    <div class="button-group">
+        {% if request.user.is_authenticated %}
+            {% adding2favorites for article %}
+        {% else %}
+            <a href="/login/?goto_next={{ request.path }}"
+                class="fawesome fa-favorite button text">
+                <span class="text">{% trans "Favorite" %}</span></a>
+        {% endif %}
+    </div>
 {% endblock %}
 
 {% block details %}

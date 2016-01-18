@@ -1,5 +1,5 @@
 {% extends "base_redesign.html" %}
-{% load i18n base_tags navigation_tags babel %}
+{% load i18n base_tags navigation_tags babel favorites %}
 
 {% block meta_tags %}
     {% if LANGUAGE_CODE == "de" %}
@@ -38,7 +38,15 @@
         <div class="row">
             <div class="col-xs-12 col-sm-4 col-md-3">
                 
-                <div class="button-group-left-navi">
+                <div class="button-group">
+                    {% if request.user.is_authenticated %}
+                        {% adding2favorites for object %}
+                    {% else %}
+                        <a href="/login/?goto_next={{ request.path }}"
+                            class="fawesome fa-favorite button text">
+                            <span class="text">{% trans "Favorite" %}</span></a>
+                    {% endif %}
+                                
                     {% if request.user.is_authenticated %}
                         {% if request.user.is_staff and perms.marketplace.change_joboffer %}
                             <a href="/admin/marketplace/joboffer/{{ object.pk }}/" class="fawesome fa-edit button text" onclick="open_new_window(event)"><span class="text">{% trans "edit Job Offer" %}</span></a>

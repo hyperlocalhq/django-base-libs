@@ -95,8 +95,7 @@
                             {% adding2favorites for context_item %}
                         {% endwith %}
                     {% else %}
-                        <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-favorite button text"><span
-                            class="text">{% trans "Favorite" %}</span></a>
+                        <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-favorite button text"><span class="text">{% trans "Favorite" %}</span></a>
                     {% endif %}
 
                 </div>
