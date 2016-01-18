@@ -94,6 +94,9 @@
         {% block extrahead %}
         {% endblock %}
         
+        {% block extra_head %}
+        {% endblock %}
+        
     </head>
     <body class="{% block body_class %}{% endblock %}">
         {% cms_toolbar %}
@@ -238,6 +241,9 @@
         {% endblock %}
         
         {% render_block "js" %}
+        
+        {% block extra_body %}
+        {% endblock %}
         
     </body>
 </html>
