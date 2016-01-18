@@ -31,7 +31,6 @@ from base_libs.models.base_libs_settings import MARKUP_HTML_WYSIWYG
 
 from jetson.apps.utils.views import object_list
 from jetson.apps.utils.decorators import login_required
-from jetson.apps.utils.views import feed
 
 from jetson.apps.blog.models import Blog, Post
 
@@ -468,10 +467,10 @@ def blog_feed(request, object_url_part, url_identifier,
     else:
         context['object_id'] = None
         
-    if not kwargs:
-        kwargs = {}
     kwargs.update(context)
-    return feed(request, feed_type, **kwargs)
+    feed = kwargs[feed_type]
+
+    return feed(**kwargs)(request)
 
 @never_cache
 def blog_post_comment(request, object_url_part, url_identifier, 

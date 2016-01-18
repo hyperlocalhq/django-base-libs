@@ -14,11 +14,11 @@ class RssFeed(Feed):
     # title and description templates for displaying the feeds
     title_template = "blog/feeds/feed_title.html"
     description_template = "blog/feeds/feed_description.html"
-    
-    def get_object(self, request, *args, **kwargs):
+
+    def __init__(self, **kwargs):
+        Feed.__init__(self)
         self.kwargs = kwargs
-        return None
-        
+
     def title(self):
         obj = self.kwargs.get('object', None)
         if obj:
