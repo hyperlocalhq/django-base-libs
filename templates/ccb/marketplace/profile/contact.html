@@ -1,9 +1,9 @@
 {% load i18n base_tags auth_extended %}
 
 {% with object.postal_address as address %}
-    {% if object.offering_institution_title or object.offering_institution or address.street_address or address.postal_code or address.country or object.contact_person or object.contact_person_name or object.get_emails or object.get_phones or object.get_urls or object.get_ims or perms.marketplace.change_job_offer %}
+    {% if object.offering_institution_title or object.offering_institution or address.street_address or address.postal_code or address.country or object.contact_person or object.contact_person_name or object.get_emails or object.get_phones or object.get_urls or object.get_ims or object.is_editable %}
         <div
-            class="fieldset {% if_has_perm "marketplace.change_job_offer" object %}editable switch{% else %}not-editable{% end_if_has_perm %}"
+            class="fieldset {% if object.is_editable %}editable switch{% else %}not-editable{% endif %}"
             data-edit-url="{% url 'edit_profile' object_type='job' slug=object.get_secure_id %}contact/">
             <fieldset disabled>
                 <h2>{% trans "Contact Data" %}</h2>

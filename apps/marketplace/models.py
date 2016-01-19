@@ -56,6 +56,12 @@ class JobOffer(JobOfferBase):
         except Exception:
             return None
 
+    def is_editable(self, user=None):
+        if not hasattr(self, "_is_editable_cache"):
+            user = get_current_user(user) or AnonymousUser()
+            self._is_editable_cache = user.has_perm("marketplace.change_joboffer", self)
+        return self._is_editable_cache
+
     def is_deletable(self, user=None):
         if not hasattr(self, "_is_deletable_cache"):
             user = get_current_user(user) or AnonymousUser()

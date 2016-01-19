@@ -319,7 +319,7 @@ class ContactForm(dynamicforms.Form):
         label=_("Postal Code"),
     )
     country = forms.ChoiceField(
-        required=True,
+        required=True,  # TODO: find out why empty country selection doesn't throw an error
         choices=Address._meta.get_field("country").get_choices(),
         label=_("Country"),
     )
@@ -765,7 +765,7 @@ class ContactForm(dynamicforms.Form):
         Address.objects.set_for(
             event,
             "postal_address",
-            country=data.get("country", ""),
+            country=data.get("country", None),
             district=data.get("district", ""),
             city=data.get("city", ""),
             street_address=data.get("street_address", ""),

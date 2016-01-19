@@ -1,9 +1,9 @@
 {% load i18n base_tags auth_extended %}
 
 
-{% if object.get_categories or object.get_tags or object.get_locality_type or perms.events.change_event %}
+{% if object.get_categories or object.get_tags or object.get_locality_type or object.is_editable %}
     <div
-        class="fieldset {% if_has_perm "events.change_event" object %}editable switch{% else %}not-editable{% end_if_has_perm %}"
+        class="fieldset {% if object.is_editable %}editable switch{% else %}not-editable{% endif %}"
         data-edit-url="{% url 'edit_profile' object_type='event' slug=object.slug %}categories/">
         <fieldset disabled>
             <h2>{% trans "Categories" %}</h2>

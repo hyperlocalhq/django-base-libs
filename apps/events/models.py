@@ -60,6 +60,12 @@ class Event(ComplexEventBase):
             )
         return self._are_are_fees_displayed_cache
 
+    def is_editable(self, user=None):
+        if not hasattr(self, "_is_editable_cache"):
+            user = get_current_user(user) or AnonymousUser()
+            self._is_editable_cache = user.has_perm("events.change_event", self)
+        return self._is_editable_cache
+
     def is_deletable(self, user=None):
         if not hasattr(self, "_is_deletable_cache"):
             user = get_current_user(user) or AnonymousUser()
