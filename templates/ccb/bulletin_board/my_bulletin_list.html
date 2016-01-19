@@ -12,24 +12,6 @@
     <li>{% trans "My Bulletins" %}</li>
 {% endblock %}
 
-{% block content_old %}
-    <div id="object_list">
-        {% if object_list %}
-            {% for bulletin in object_list %}
-                {% include_parsed "bulletin_board/lists/bulletin_list_item.html" with "vevent" as extra_css_classes and 1 as show_status %}
-            {% endfor %}
-        {% else %}
-            <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>
-        {% endif %}
-    </div>
-    <div class="sorting_menu under-tabs">
-        <form action="" method="get">
-            {% include "utils/includes/paginate_by.html" %}
-            {% include "utils/includes/pagination.html" %}
-        </form>
-    </div>
-{% endblock %}
-
 {% block sidebar %}
     <ul class="accordion filter-box">
         <li><div class="head">{% trans 'Filter' %}</div></li>

@@ -1,64 +1,6 @@
 {% extends base_template %}
 {% load i18n base_tags auth_extended infoblocks image_mods_tags %}
 
-{% block sidebar-a_old %}
-    <div id="cat_portfolio" class="nav_expanded sidebar-box ">
-        <h5>
-            <a class="open_but" href="#Collapse-Expand">
-                <b>{% trans "Portfolio" %}</b>
-                <span class="pic"></span>
-            </a>
-        </h5>
-
-        <div class="hidable">
-            {% regroup published_gallery_list by section as regrouped_published_gallery_list %}
-            <ul>
-                {% for section in regrouped_published_gallery_list %}
-                    {% if section.grouper and section.grouper.show_title %}
-                        <li>{{ section.grouper.title }}
-                            <ul>
-                                {% for item in section.list %}
-                                    <li{% if gallery == item %} class="active"{% endif %}>
-                                        <a
-                                            href="{{ object.get_url_path }}portfolio/album/{{ item.get_token }}/"
-                                            {% if gallery == item %} class="active"{% endif %}>{{ item.title }}</a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </li>
-                    {% else %}
-                        {% for item in section.list %}
-                            <li{% if gallery == item %} class="active"{% endif %}>
-                                <a
-                                    href="{{ object.get_url_path }}portfolio/album/{{ item.get_token }}/"
-                                    {% if gallery == item %} class="active"{% endif %}>{{ item.title }}</a>
-                            </li>
-                        {% endfor %}
-                    {% endif %}
-                {% endfor %}
-                {% if can_manage_portfolio %}
-                    <li>{% trans "Administration" %}
-                        <ul>
-                            <li{% if view_name == "create_update_gallery" %} class="active"{% endif %}>
-                                <a
-                                    href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/add/"
-                                    {% if view_name == "manage_galleries" %}
-                                        class="active"{% endif %}>{% trans "Add Project" %}</a>
-                            </li>
-                            <li{% if view_name == "manage_galleries" %} class="active"{% endif %}>
-                                <a
-                                    href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/manage/"
-                                    {% if view_name == "manage_galleries" %}
-                                        class="active"{% endif %}>{% trans "Manage Portfolio" %}</a>
-                            </li>
-                        </ul>
-                    </li>
-                {% endif %}
-            </ul>
-        </div>
-    </div>
-{% endblock %}
-
 {% block breadcrumbs_details %}
     <li>{% trans "Portfolio" %}</li>
 {% endblock %}

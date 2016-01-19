@@ -147,18 +147,3 @@
         </div>
     </div>
 {% endblock %}
-
-{% block headline_old %}
-    {% blocktrans with request.user.profile.get_title|escape as user %}
-        <h1>Hello,</h1>
-        <h2 class="sub">{{ user }}</h2>{% endblocktrans %}
-{% endblock %}
-
-{% block object-title_old %}
-    <h2>{{ object.title }}</h2>
-{% endblock %}
-
-{% block object-content_old %}{% endblock %}
-
-{% block content_old %}
-{% endblock %}

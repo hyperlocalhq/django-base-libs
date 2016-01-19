@@ -63,29 +63,3 @@
     {{ block.super }}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/projects-grid.js"></script>
 {% endblock %}
-
-
-
-{% block extrahead_old %}
-    {{ block.super }}
-    <script type="text/javascript">
-        // preloading portfolio images
-        {% for f in list_of_files %}
-            var oImg_{{ forloop.counter0 }} = new Image();
-            oImg_{{ forloop.counter0 }}.src = "{{ UPLOADS_URL }}{{ f.path|modified_path:"gd" }}";
-        {% endfor %}
-    </script>
-{% endblock %}
-
-
-{% block details_old %}
-    {% include_parsed "media_gallery/includes/gallery_slideshow.html" with "people.change_person" as permission_name %}
-{% endblock %}
-
-{% block extrabody_old %}
-    {{ block.super }}
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery/jquery.popup.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/portfolio.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/comment.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/gallery_comments.js"></script>
-{% endblock %}
