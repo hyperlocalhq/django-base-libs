@@ -1022,7 +1022,7 @@ ACTSTREAM_SETTINGS = {
     'GFK_FETCH_DEPTH': 1,
 }
 
-
+ROSETTA_STORAGE_CLASS = 'rosetta.storage.SessionRosettaStorage'
 
 ### LOCAL SETTINGS ###
 
