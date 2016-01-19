@@ -23,21 +23,6 @@
                     </a>
                 </h5>
             {% else %}
-                {% comment %}<!--
-                {% if object.is_participation_addable %}
-                    <h5 id="featured_participate">
-                        <a href="#">
-                        <span class="pic">
-                            <b>
-                                {% trans "Join this event" %}
-                            </b>
-                        </span>
-                        </a>
-                    </h5>
-                    
-                {% else %}
-                {% endif %}
-                -->{% endcomment %}
                 {% if object.are_members_invitable %}
                     <h5 id="featured_invite_members">
                         <a href="{{ object.get_url_path }}members/invite/">

@@ -73,11 +73,6 @@
     <br/>
 
     {% if event.get_contacts %}
-        {% comment %}<!--
-        {% for phone in event.get_contacts.0.get_phones %}
-            <p>{% if phone.type %}<span>{{ phone.type }}:</span> {% endif %}+{{ phone.country }}-{{ phone.area }}-{{ phone.number }}</p>
-        {% endfor %}
-        -->{% endcomment %}
         {% for url in event.get_contacts.0.get_urls %}
             <span>
                 {% if url.type %}{{ url.type }}: {% endif %}<a class="url" href="{{ url.link|escape }}"
@@ -87,17 +82,6 @@
             </span>
         {% endfor %}
     {% endif %}
-    {% comment %}<!--
-    {% if event.get_description %}
-        {% with event.get_description|striptags|truncatewords:"60" as filtered_desc %}{% with filtered_desc|truncatewords:"40" as shortened_desc %}
-        <span class="description hidable">{{ shortened_desc }}
-            {% ifnotequal shortened_desc filtered_desc %}
-            <a href="{{ event.get_url_path }}">{% trans "read more" %}</a>
-            {% endifnotequal %}
-        </span>
-        {% endwith %}{% endwith %}
-    {% endif %}
-    -->{% endcomment %}
 {% endblock %}
 
 {% block object_controls %}

@@ -3,9 +3,6 @@
 <ul class="search-navi">
 	{% for item in abc_list %}
 		{% ifnotequal item.2 0 %}
-			{% comment %}<!--
-			<li class="active{% if item.3 %} on{% endif %}{% if forloop.first %} all_items{% endif %}"><a href="{{ path_without_page }}{% if query %}?{{ query }}{% endif %}{% ifnotequal item.0 "all"%}{% if query %}&{% else %}?{% endif %}by-abc={{ item.0 }}{% endifnotequal %}">{{ item.1 }}</a></li>	
-			-->{% endcomment %}
 			<li class="abc_filter{% if forloop.first %} first_item{% endif %}">
                 <a id="id_abc_filter_{{ item.0 }}" {% if item.3 %}class="active"{% endif %} href="{% append_to_get by-abc=item.0 %}">{{ item.1 }}</a>
             </li>

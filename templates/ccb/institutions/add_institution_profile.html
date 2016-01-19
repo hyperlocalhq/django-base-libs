@@ -19,39 +19,6 @@
 
 {% block content_old %}
 
-    {% comment %}
-    <div class="reg">
-        {#% crispy form %#}
-        <form action="" method="post" enctype="multipart/form-data" class="uniForm">{% csrf_token %}
-            <fieldset class="inlineLabels">
-                <h3>{% trans "Description" %}</h3>
-                {{ form.description_de|as_uni_field }}
-                {{ form.description_en|as_uni_field }}
-
-                <h3>{% trans "Photo" %}</h3>
-
-                <div class="ctrlHolder">
-                    <p class="label">
-                        <img
-                            src="{% if form_step_data.1.avatar %}/helper/tmpimage/{{ form_step_data.1.avatar.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/{% else %}{{ DEFAULT_FORM_LOGO_4_INSTITUTION }}{% endif %}"
-                            alt="{% trans "Image" %}"/>
-                    </p>
-                    {{ form.avatar.error_tag }}
-                    <ul>
-                        <li>
-                            <label for="id_avatar">
-                                {{ form.avatar|with_class }}
-                            </label>
-                        </li>
-                    </ul>
-                    <p class="formHint">{{ form.avatar.help_text }}</p>
-                </div>
-                {% include "utils/step_buttons_reg.html" %}
-            </fieldset>
-        </form>
-    </div>
-    
-    {% endcomment %}
 {% endblock %}
 
 {% block extrabody_old %}

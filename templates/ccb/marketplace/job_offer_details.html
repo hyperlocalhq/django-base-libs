@@ -9,20 +9,6 @@
 
     {% include "marketplace/profile/categories.html" %}
 
-    {% comment %}
-    {% if object.postal_address.get_geoposition.latitude %}
-        <div id="dyn_map">
-            <h6 class="section-header">
-                {% trans "Map" %}
-            </h6>
-
-            <div class="section-details">
-                <div id="gmap_view"></div>
-            </div>
-        </div>
-    {% endif %}
-    {% endcomment %}
-
 {% endblock %}
 
 {% block breadcrumbs %}

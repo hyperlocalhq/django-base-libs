@@ -89,12 +89,10 @@
         <div class="row">
             <div class="col-xs-12 col-sm-4 col-md-3">
                 <div class="profile-image">
-                    {#% if request.path == object.get_url_path %#}
                     {% if_has_perm "people.change_person" object %}
                         <a href="{% cropping_url object.image.path "ad" request object.get_url_path %}"
                             class="fawesome fa-edit recrop-link">
                     {% end_if_has_perm %}
-                    {#% endif %#}
 
                     {% if object.image %}
                         <img src="
@@ -105,11 +103,9 @@
                             alt="{{ object.get_title|escape }}"/>
                     {% endif %}
 
-                    {#% if request.path == object.get_url_path %#}
                     {% if_has_perm "people.change_person" object %}
                         </a>
                     {% end_if_has_perm %}
-                    {#% endif %#}
 
                     {% ifequal request.user object.user %}
                         {% navigation_links "menu_activities" %}

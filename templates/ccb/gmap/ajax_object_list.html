@@ -5,13 +5,6 @@
     <div id="object_list">
         {% for result in object_list %}
             <div class="list-item expanded {{ extra_css_classes|default:"" }}">
-                {% comment %}<!--
-            {% if LANGUAGE_CODE == "en" %}
-                {{ result.get_stored_fields.rendered_en|safe }}
-            {% else %}
-                {{ result.get_stored_fields.rendered_de|safe }}
-            {% endif %}
-            -->{% endcomment %}
                 {% if LANGUAGE_CODE == "en" %}
                     {{ result.rendered_en|safe }}
                 {% else %}
@@ -22,11 +15,6 @@
                     (function (undefined) {
                         var iIndex = aGeopositions.length;
                         aGeopositions[iIndex] = {
-                            {% comment %}/*
-                            latitude: {{ result.get_stored_fields.latitude }},
-                            longitude: {{ result.get_stored_fields.longitude }},
-                            content: '<div>{% if LANGUAGE_CODE == "en" %}{{ result.get_stored_fields.rendered_en|safe|escapejs }}{% else %}{{ result.get_stored_fields.rendered_de|safe|escapejs }}{% endif %}</div>'
-                            */{% endcomment %}
                             latitude: {{ result.lat }},
                             longitude: {{ result.lng }},
                             content: '<div>{% if LANGUAGE_CODE == "en" %}{{ result.rendered_en|safe|escapejs }}{% else %}{{ result.rendered_de|safe|escapejs }}{% endif %}</div>'

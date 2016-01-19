@@ -32,7 +32,6 @@
                         <li class="website"><a href="{{ object.content_object.url_link|escape }}" onclick="open_new_window(event)"><span class="pic"></span>{% trans "open website" %}</a></li>
                     {% endif %}
                 {% endif %}
-                {% comment %} <li class="rss"><a href="#"><span class="pic"></span>{% trans "subscribe to feed" %}</a></li> {% endcomment %}
                 {% comment %}
                     TODO: fix vcards
                     {% if object.is_institution or object.is_person %}

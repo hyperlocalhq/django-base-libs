@@ -16,29 +16,6 @@
 
 {% block details %}
 
-    {% comment %}
-    <div class="row profile-header">
-        <div class="col-xs-12">
-            <div class="statistics">
-                <div class="statistic">
-                    <canvas class="fawesome fa-percentage big" data-value="65" data-color-active="#00cdff" data-color-inactive="#c7e2ea">
-                        <div class="fawesome fa-circle big"></div>
-                    </canvas> 
-                    <div class="text">{% blocktrans with amount='<b>65%</b>' %}{{ amount }} completed{% endblocktrans %}</div>
-                </div>
-                <div class="statistic">
-                    <div class="fawesome fa-man big"></div>
-                    <div class="text">{% blocktrans with amount='<b>16</b>' %}{{ amount }} Follower{% endblocktrans %}</div>
-                </div>
-                <div class="statistic">
-                    <div class="fawesome fa-list-short big"></div>
-                    <div class="text">{% blocktrans with amount='<b>3</b>' %}On {{ amount }} curated lists{% endblocktrans %}</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endcomment %}
-
     {% include "people/profile/identity.html" %}
     
     {% include "people/profile/contact.html" %}

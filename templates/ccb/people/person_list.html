@@ -93,12 +93,6 @@
                                                     </span>
                                                 {% endif %}
                                             </h3>
-                                            {% comment %}
-                                            <ul>
-                                                <li>201 <span class="feature">{% trans "Follower" %}</span></li>
-                                                <li>8 <span class="feature">{% trans "Curated lists" %}</span></li>
-                                            </ul>
-                                            {% endcomment %}
                                         </div>
                                     </a>
                                     <div class="button-group">
@@ -167,10 +161,6 @@
         <form method="get" id="object_list_filter_form" class="uniForm hidable">
             <div class="object_search_form">
                 {{ form.creative_sector|as_uni_field }}
-                {% comment %}<!--
-                {{ form.individual_type|as_uni_field }}
-                {{ form.locality_type|as_uni_field }}
-                -->{% endcomment %}
                 {{ form.context_category|as_uni_field }}
                 <div class="col one-line last">
                     <input type="submit" class="primaryAction" value="{% trans "Search" %}"/>

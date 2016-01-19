@@ -154,11 +154,6 @@
                                     <img alt="Initiative Kultur- &amp; Kreativwirtschaft der Bundesregierung"
                                         src="{{ STATIC_URL }}site/img/kreativarbeiten/banner-ikkb.png"/>
                                 </a>
-                                {% comment %}
-                    <a href="http://www.rkw-kompetenzzentrum.de/" class="banner">
-                        <img alt="RKW Kompetenzzentrum" src="{{ STATIC_URL }}site/img/kreativarbeiten/banner-rkw.png" />
-                    </a>
-                    {% endcomment %}
                                 <a href="http://kompetenzzentrum.u-institut.de/" class="banner">
                                     <img alt="Kompetenzzentrum Kultur- und Kreativwirtschaft des Bundes"
                                         src="{{ STATIC_URL }}site/img/kreativarbeiten/banner-kkb.png"/>
@@ -169,7 +164,6 @@
                             <div class="col3_content clearfix">
                                 {% block tabs %}
                                     <div id="tabs">
-                                        {#% children_of "kreativarbeiten" using "navigation/children_in_tabs.html" %#}
                                         {% navigation_links "kreativarbeiten" using "navigation/includes/navigation_links_in_tabs.html" %}
                                         <div></div>
                                     </div>
@@ -227,23 +221,6 @@
                                     </div>
                                     <script type="text/javascript"
                                         src="{{ STATIC_URL }}site/js/website/kreativarbeiten_news.js"></script>
-
-                                    {% comment %}<!--
-                    <div class="sidebar-box nav_expanded" id="cat_twitter_updates">
-                        <h5>
-                            <a href="#Collapse-Expand" class="open_but">
-                                <b>{% trans "Twitter Updates" %}</b>
-                                <span class="pic"></span>
-                            </a>
-                        </h5>
-                        <div class="sector-select hidable">
-                            <ul id="tweets">
-                                <li><a href="http://www.twitter.com/dirkkiefer" onclick="open_new_window(event)"><img src="http://twitter-badges.s3.amazonaws.com/follow_us-b.png" alt="Follow Dirk Kiefer on Twitter"/></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/kreativarbeiten_twitter.js"></script>
-                    -->{% endcomment %}
                                 </div>
                             </div>
                             <div class="col3">

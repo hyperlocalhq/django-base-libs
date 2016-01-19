@@ -21,14 +21,8 @@
 	{% comment %} DISPLAY FAQS {% endcomment %}
 	{% if THIS_IS_USED_AS_A_COMMENT_root_category %}
 		{% if cat.has_faqs %}
-			{% comment %}
-			{% if not cat.faqs_on_separate_page %}
-			{% endcomment %}
 				{% get_faqs for cat.id as faqs %}
 				{% include_selected "questions_answers_list.html" for object under "faqs" %}
-			{% comment %}				
-			{% endif %}
-			{% endcomment %}
 		{% endif %}
 	{% endif %}		
 	

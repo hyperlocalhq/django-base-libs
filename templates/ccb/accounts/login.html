@@ -8,26 +8,6 @@
 {% endblock %}
 
 {% block details %}
-    {% comment %}
-    <form action="/{{ LANGUAGE_CODE }}/facebook/link/" method="post" class="uniForm">
-        {% csrf_token %}
-        <div class="fieldset editable">
-            <fieldset>
-                <h2>Facebook</h2>
-                <p>
-                    {% trans "Are you on Facebook?" %}<br/>
-                    {% trans "Login with Facebook will be available soon." %}
-                </p>
-
-                <div class="button-group form-buttons">
-                    <input type="hidden" name="access_token" value=""/>
-                    <input type="hidden" name="uid" value=""/>
-                    <input type="hidden" name="goto_next" value="{% ifequal goto_next root_dir %}/dashboard/{% else %}{% if goto_next %}{{ goto_next }}{% else %}/dashboard/{% endif %}{% endifequal %}" />
-                </div>
-            </fieldset>
-        </div>
-    </form>
-    {% endcomment %}
 
     {% crispy form "ccb_form" %}
     

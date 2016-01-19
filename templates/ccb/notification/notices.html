@@ -18,24 +18,12 @@
 {% block details %}
     {% if notices %}
         <div>
-            <div>
-                {% comment %}<!--<input id="id_choose_all"  type="checkbox" />
-            <select id="id_action" name="sender" size="1">
-                <option selected="selected" value="none">{% trans "Action..." %}</option>
-                <option value="delete">{% trans "delete" %}</option>
-            </select>-->{% endcomment %}
-            </div>
             <a class="mark_all right"
                 href="{% url 'notification_mark_all_seen' %}">{% trans "Mark all unseen notices seen" %}</a>
         </div>
         {% regroup notices by added.date as notices_by_date %}
 
         {% for date in notices_by_date %}
-            {% comment %}<!--
-            <div class="subline">
-                <h5>{{ date.grouper|datefmt }}</h5>
-            </div>
-            -->{% endcomment %}
             {% for notice in date.list %}
                 <div class="list-notices">
                 <div>

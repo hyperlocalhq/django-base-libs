@@ -3,11 +3,6 @@
 
 {% block details %}
     <div class="network">
-        {% comment %}
-            <span class="facts">{% trans "institution type" %}:</span> 
-            <span class="output">{% for institution_type in object.get_institution_types %}{% if not forloop.first %}, {% endif %}{{ institution_type.get_title|escape }}{% endfor %}</span>
-        {% endcomment %}
-
         <div class="content_facts">
 
             <div class="column_01">

@@ -5,7 +5,6 @@
     
     <ul class="grp-tools">
         {% if contact_form.show_url %}<li class="grp-viewsite-link-container"><a href="../../../r/{{ contact_form.instance.content_type_id }}/{{ contact_form.instance.id }}/" class="grp-icon grp-viewsite-link" title="{% trans 'View on Site' %}" target="_blank"></a></li>{% endif %}
-        {% comment %}{% if inline_admin_formset.opts.sortable %}<li class="drag-handler-container"><a href="javascript://" class="icon drag-handler" title="{% trans 'Move Item' %}"></a></li>{% endif %}{% endcomment %}
         {% if contact_formset.can_delete %}
             {% if contact_form.instance.pk %}
                 <li class="grp-delete-handler-container">{{ contact_form.DELETE }}<a href="javascript://" class="grp-icon grp-delete-handler" title="{% trans 'Delete Item' %}"></a></li>

@@ -22,36 +22,6 @@
 {% block sidebar-b_old %}{% endblock %}
 
 {% block content_old %}
-    {#% crispy form %#}
-
-    {% comment %}
-    <form action="" method="post" class="uniForm">{% csrf_token %}
-        <fieldset class="inlineLabels">
-            <h3>{% trans "Institution" %}</h3>
-            {{ form.institution_name|as_uni_field }}
-            {{ form.institution_name2|as_uni_field }}
-            {{ form.legal_form|as_uni_field }}
-
-            <h3>{% trans "Address" %} - {% trans "Institution" %}</h3>
-            {{ form.location_type|as_uni_field }}
-            {{ form.location_title|as_uni_field }}
-
-            {% include "uni_form/includes/postal_address.html" %}
-
-            {% include "uni_form/includes/phone.html" %}
-            {% include "uni_form/includes/fax.html" %}
-            {% include "uni_form/includes/mobile.html" %}
-
-            {% include "uni_form/includes/emails.html" %}
-            {% include "uni_form/includes/websites.html" %}
-            {% include "uni_form/includes/ims.html" %}
-
-            <div class="buttonHolder">
-                <input type="submit" class="primaryAction" value="{% filter upper %}{% trans "Next" %}{% endfilter %}"/>
-            </div>
-        </fieldset>
-    </form>
-    {% endcomment %}
 {% endblock %}
 
 {% block extrabody_old %}

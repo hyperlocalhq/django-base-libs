@@ -4,24 +4,6 @@
 {% block bodyclass %}count{% endblock %}
 
 {% block extrahead %}
-    {% comment %}
-    <link href="{{ STATIC_URL }}site/css/datepicker.css" rel="stylesheet" media="screen" type="text/css" />
-    <link href="{{ STATIC_URL }}site/css/timepicker.css" rel="stylesheet" media="screen" type="text/css" />
-    <link href="{{ STATIC_URL }}site/css/fileuploader.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="{{ STATIC_URL }}site/css/jquery.selectbox.css" rel="stylesheet" media="screen" type="text/css" />
-    <script src="{{ STATIC_URL }}site/js/jquery/jquery-ui.min.js"></script>
-    <script src="{{ STATIC_URL }}ajaxuploader/js/fileuploader.js"></script>
-    <script src="{{ STATIC_URL }}site/js/bootstrap-jetson-datepicker.js"></script>
-    <script src="{{ STATIC_URL }}site/js/bootstrap-jetson-timepicker.js"></script>
-    <script src="{{ STATIC_URL }}site/js/jquery/jquery.selectbox-0.2.min.js"></script>
-    <script src="{{ STATIC_URL }}site/js/jquery/jquery.autosize-min.js"></script>
-    <script src="{{ STATIC_URL }}site/js/jquery/jquery.charCount.js"></script>
-    <script src="{{ STATIC_URL }}site/js/website/form.js"></script>
-    <script src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery.bgiframe.min.js"></script>
-    <script src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery.autocomplete.js"></script>
-    <script src="{{ STATIC_URL }}site/js/website/autocomplete.js"></script>
-    {% endcomment %}
-
     {{ block.super }}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery.autocomplete.js"></script>
@@ -54,54 +36,4 @@
 
 {% block details %}
     {% crispy form "ccb_form" %}
-
-    {% comment %}
-    <script>
-        var translatable_file_uploader_options = {
-            template: '<div class="qq-uploader">' +
-                '<div class="qq-upload-drop-area"><span>{% trans "Drop image here" %}</span></div>' +
-                '<div class="qq-upload-button"><i class="icon-arrow-up icon-white"></i> {% trans "Upload Image" %}</div>' +
-                '<ul class="qq-upload-list"></ul>' +
-            '</div>',
-            // template for one item in file list
-            fileTemplate: '<li>' +
-                '<span class="qq-upload-file"></span>' +
-                '<span class="qq-upload-spinner"></span>' +
-                '<span class="qq-upload-size"></span>' +
-                '<a class="qq-upload-cancel" href="#">{% trans "Cancel" %}</a>' +
-                '<span class="qq-upload-failed-text">{% trans "Failed" %}</span>' +
-            '</li>',
-            messages: {
-                typeError: '{% trans "{file} has invalid extension. Only {extensions} are allowed." %}',
-                sizeError: '{% trans "{file} is too large, maximum file size is {sizeLimit}." %}',
-                minSizeError: '{% trans "{file} is too small, minimum file size is {minSizeLimit}." %}',
-                emptyError: '{% trans "{file} is empty, please select files again without it." %}',
-                filesLimitError: '{% trans "No more than {filesLimit} files are allowed to be uploaded." %}',
-                onLeave: '{% trans "The files are being uploaded, if you leave now the upload will be cancelled." %}'
-            }
-        };
-        // $("select").not('[name*="__prefix__"]').selectbox();
-        /*
-        $('.dateinput').datepicker({
-            format: 'yyyy-mm-dd',
-            weekStart: 1
-        })
-        $('.timeinput').timepicker({
-            str_hours: '{% trans "Hours" %}',
-            str_minutes: '{% trans "Minutes" %}',
-            str_confirm: '{% trans "Confirm" %}',
-            str_close: '{% trans "Close" %}',
-        });
-        */
-        $(".qq-uploader").click(function(){ $(".qq-upload-button input").click() });
-    </script>
-    {% comment_old %}
-    <script src="{{ STATIC_URL }}site/js/website/change_bulletin.js"></script>
-    {% endcomment_old %}
-    <script>
-        $(document).ready(function ($) {
-            $('.control-group.error:first').find(':input').focus();
-        });
-    </script>
-    {% endcomment %}
 {% endblock %}

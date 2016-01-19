@@ -1,15 +1,4 @@
 {% load i18n base_tags image_mods_tags %}
-{% comment %}<!--
-Usage in any template:
-    {% load base_tags %}
-
-    Simple:
-    {% include_parsed "articles/includes/featured_published_articles.html" %}
-
-    Customized:
-    {% include_parsed "articles/includes/featured_published_articles.html" with 5 as amount %}
-
--->{% endcomment %}
 
 {% with amount|default:4 as amount %}
     {% get_objects published_objects.all bulletin_board.bulletin amount as featured_objects %}

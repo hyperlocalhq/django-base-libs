@@ -26,9 +26,6 @@
             {% if contact %}
                 {% if person.is_address_displayed %}
                     {% with contact.postal_address as postal_address %}
-                        {% comment %}<!--
-                        <a href="/vcard/{{ person|content_type_id }}/{{ person.id }}">vcard</a>
-                        -->{% endcomment %}
                         {% if postal_address.street_address or postal_address.country_name %}
                         <address class="adr">
                             {% if contact.institution %}

@@ -1,8 +1,5 @@
 {% load i18n base_tags babel %}
 {% ifequal forloop.first forloop.last %}{% endifequal %}
-{% if time.label %}
-{#    <span class="type">{{ time.label }}:</span>#}
-{% endif %}
 {% ifnotequal object.eventtime_set.count 1 %}
     <a href="{{ time.event.get_url_path }}{{ time.get_secure_id }}/">
 {% endifnotequal %}

@@ -19,21 +19,3 @@
     <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/jquery.cookie.js"></script>
     <script type="text/javascript" src="{{ jetson_media_url }}js/admin/mptt_tree.js"></script>
 {% endblock %}
-
-
-{% comment %}
-{% block filters %}
-	{% if cl.has_filters %}
-		<div id="changelist-filter">
-			<h2>{% trans 'Shortcuts' %}</h2>
-			<ul>
-				<li><a id="collapse_entire_tree" href="#">{% trans 'Collapse tree' %}</a></li>
-				<li><a id="open_entire_tree" href="#">{% trans 'Expand tree' %}</a></li>
-			</ul>
-
-			<h2>{% trans 'Filter' %}</h2>
-			{% for spec in cl.filter_specs %}{% admin_list_filter cl spec %}{% endfor %}
-		</div>
-	{% endif %}
-{% endblock %}
-{% endcomment %}

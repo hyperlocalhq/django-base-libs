@@ -18,13 +18,11 @@
                 <h2>{{ event.get_title|escape }}</h2>
 
                 <p>
-{#                  <a href="{{ event.venue.get_url_path }}">#}
                     {% if event.venue %}
                         {{ event.venue.title }}
                     {% else %}
                         {{ event.venue_title }}
                     {% endif %}
-{#                   </a>#}
                     {% if event.postal_address %}
                         {% with event.postal_address.get_dict as postal_address %}
                             {% if postal_address.street_address or postal_address.country_name %}
@@ -58,12 +56,6 @@
                     {% endif %}
                     
                 </p>
-{#                <p>#}
-{#                    {% for time in event.eventtime_set.all %}#}
-{#                        {% include "events/includes/event_time.html" %}#}
-{#                        {% if not forloop.last %}<br/>{% endif %}#}
-{#                    {% endfor %}#}
-{#                </p>#}
             </div>
         </a>
         

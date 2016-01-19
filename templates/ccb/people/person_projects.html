@@ -108,14 +108,6 @@
                                 {% endif %}
                             </dl>
                         {% endfor %}
-                        {% comment %}
-                        {% for email in contact.get_emails %}
-                            {% if forloop.first %} <dl> {% endif %}
-                                {% if email.type %}<dt>{{ email.type }}:</dt>{% endif %}
-                                <dd><a class="email" href="{{ "mailto:"|encode_string }}{{ email.address|encode_string }}">{{ email.address|encode_string }}</a></dd>
-                            {% if forloop.last %} </dl> {% endif %}             
-                        {% endfor %}
-              {% endcomment %}
                         {% for im in contact.get_ims %}
                             <h4>{{ im.type }}:</h4>
                             <dl>

@@ -3,7 +3,6 @@
 
 {% block details %}
     {% if not article_list %}
-        {% comment %}<!-- <span class="nothing">{% trans "No articles are available" %}</span> -->{% endcomment %}
     {% else %}
     <div class="overview">
         {% for article in article_list %}

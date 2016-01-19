@@ -12,7 +12,7 @@
     -->{% endcomment %}
 	<div class="breadcrumbs">	        	
  
-        <ul  {% comment %}<!--class="toolbar"-->{% endcomment %}>
+        <ul>
             {% if current_forum %}
                 <li id="newForum_{{ current_forum.slug }}" class="new_link">
                     <a href="{{ current_forum.get_url }}new/" title="{% trans "New" %}">

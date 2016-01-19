@@ -43,38 +43,6 @@
 {% endblock %}
 
 {% block details %}
-
-    {% comment %}
-    <div class="toolbox clearfix">
-        <div class="entry-controls">
-            <a class="rss" href="/{{ LANGUAGE_CODE }}/news/feeds/rss/"><span><span>RSS</span></span></a>
-            <a class="addthis_button"
-                href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07"><span><span></span></span>
-            </a>
-        </div>
-        <div class="newer-older">
-            {% if article.get_newer_published %}
-                <a class="newer" href="{{ article.get_newer_published.get_url_path }}">
-                    <span class="hidden">Newer</span>
-                </a>
-            {% else %}
-                <span class="newer">
-                    <span class="hidden">Newer</span>
-                </span>
-            {% endif %}
-            {% if article.get_older_published %}
-                <a class="older" href="{{ article.get_older_published.get_url_path }}">
-                    <span class="hidden">Older</span>
-                </a>
-            {% else %}
-                <span class="older">
-                    <span class="hidden">Older</span>
-                </span>
-            {% endif %}
-        </div>
-    </div>
-    {% endcomment %}
-    
     <h3>
         {% if article.content_provider %}
             {% if article.content_provider.url %}
@@ -113,17 +81,6 @@
             <p><a href="{{ article.external_url }}" target="_blank">{% trans "Read full article" %}</a></p>
         {% endif %}
 
-        {% comment %}
-        {% if article.creative_sectors.count %}
-            <p>{% trans "Categories" %}:
-                {% for cs in article.creative_sectors.all %}
-                    {% if not forloop.first %}|{% endif %}
-                    <a href="/news/creative-sector/{{ cs.slug }}/">{{ cs.title }}</a>
-                {% endfor %}
-            </p>
-        {% endif %}
-        {% endcomment %}
-
         <p>{% trans "Category" %}:
             {% if article.article_type.get_root.slug == "interviews" %}
                 <a href="{% url "article_archive_for_interviews_by_type" type_sysname=article.article_type.slug %}">{{ article.article_type.title }}</a>
@@ -152,15 +109,6 @@
             <p class="color-black bold">{% trans 'Also a good read' %}</p>
         </div>
     
-        {% comment %}
-            {% if article.is_interview %}
-                <h5>{% trans "Additional Interviews" %}</h5>
-            {% endif %}
-            {% if article.is_news %}
-                <h5>{% trans "Additional News" %}</h5>
-            {% endif %}
-        {% endcomment %}
-        
         <div class="row article-list">
             {% for list_article in links_to_articles %}
                 {% include "articles/articles_brief.html" %}

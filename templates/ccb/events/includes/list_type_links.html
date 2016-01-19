@@ -5,7 +5,6 @@
             href="{{ request.path }}?view_type=icons&amp;paginate_by=5&amp;{{ form.get_query|escape }}"
             title="{% trans "Icon View" %}"><span>{% trans "Icon View" %}</span></a>
     </li>
-    {% comment %}<!--<li class="view-listed{% ifequal view_type "listed" %} active{% endifequal %}"><a href="{{ request.path }}?view_type=listed&amp;paginate_by=20&amp;{{ form.get_query|escape }}" title="{% trans "List View" %}"><span>{% trans "List View" %}</span></a></li>-->{% endcomment %}
     <li class="view-map{% ifequal view_type "map" %} active{% endifequal %}">
         <a
             href="{{ request.path }}?view_type=map&amp;paginate_by=20&amp;{{ form.get_query|escape }}"

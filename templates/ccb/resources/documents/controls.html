@@ -3,7 +3,6 @@
     {% with document|get_context_item as context_item %}
         <ul class="toolbar">
             {% if user.is_authenticated %}
-                {% comment %}<!--<li class="favorites">{% adding2favorites for context_item %}</li>-->{% endcomment %}
                 {% if request.user.is_staff %}
                     {% if perms.resources.change_document %}
                         <li class="admin_edit">

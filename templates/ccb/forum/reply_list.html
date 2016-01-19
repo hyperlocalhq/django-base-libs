@@ -98,7 +98,7 @@
 
             <div>
                 <p>{{ reply.message|safe }}</p>
-                <ul  {% comment %}<!--class="toolbar"-->{% endcomment %}>
+                <ul>
                     <li id="newReply_{{ reply.slug }}" class="reply_link">
                         <a href="{{ reply.get_url }}new/" title="{% trans "Reply" %}">
                             <span>{% trans "Reply" %}</span>

@@ -39,7 +39,6 @@
                 {% if can_manage_portfolio %}
                     <li>{% trans "Administration" %}
                         <ul>
-                            {% comment %}<!--<li{% if view_name == "portfolio_settings" %} class="active"{% endif %}><a href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/settings/"{% if view_name == "portfolio_settings" %} class="active"{% endif %}>{% trans "Portfolio Settings" %}</a></li>-->{% endcomment %}
                             <li{% if view_name == "create_update_gallery" %} class="active"{% endif %}>
                                 <a
                                     href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/add/"

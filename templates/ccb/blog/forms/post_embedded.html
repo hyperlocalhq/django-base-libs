@@ -30,39 +30,6 @@
             </div>
         {% endif %}
         {% crispy form "ccb_form" %}
-
-        {% comment %}
-        <fieldset class="inlineLabels">
-            <h3>
-                {% ifequal form_action "new" %}
-                    {% trans "Post To the Blog" %}
-                {% else %}
-                    {% ifequal form_action "edit" %}
-                        {% trans "Edit Post" %}
-                    {% endifequal %}
-                {% endifequal %}
-            </h3>
-            {{ form.title|as_uni_field }}
-            <div class="ctrlHolder{% if form.body.errors %} error{% endif %}">
-                {{ form.body.errors }}
-                <strong>{{ form.body.label }}*</strong><br/>
-                {{ form.body }}
-            </div>
-            {{ form.tags|as_uni_field }}
-            {{ form.status|as_uni_field }}
-            {{ form.enable_comment_form|as_uni_field }}
-
-            <div class="buttonHolder" class="space_correction_more">
-                <input id="id_preview" class="primaryAction" type="submit" name="{{ preview_stage_field }}"
-                    value="{% filter upper %}{% trans 'Preview' %}{% endfilter %}"/>
-                <input id="id_cancel" type="submit" class="secondaryAction" name="{{ cancel_stage_field }}"
-                    value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
-                <input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}"/>
-                <input type="hidden" name="goto_next"
-                    value="{% if goto_next %}{{ goto_next }}{% else %}/blog/{% endif %}"/>
-            </div>
-        </fieldset>
-        {% endcomment %}
     </form>
 </div>
 

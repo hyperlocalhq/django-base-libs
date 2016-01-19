@@ -330,36 +330,6 @@
                                             &nbsp;
                                         {% endif %}
 
-                                        {% comment %}<!--
-                        <div class="sidebar-box data_search_{{ LANGUAGE_CODE }} nav_collapsed" id="cat_data_search">
-                            <h5><a href="#" class="open_but">
-                                <b>{% trans "Extended Search" %}</b>
-                                <span class="pic"></span>
-                            </a></h5>   
-                            <div id="dyn_search" class="hidable">
-                                <ul>
-                                    <li>
-                                        <p>{% trans "By adjusting the selectable database fields you can refine your search results:" %}</p>
-                                        <form method="get" action="/simplesearch/" class="uniForm">
-                                            <div>
-                                                {% load ajax_search %}
-                                                <div id="dyn_search_selections">
-                                                    {% show_search_selections %}
-                                                </div>
-                                                <div class="buttonHolder">
-                                                    <input type="submit" class="primaryAction" value="{% filter upper %}{% trans "search" %}{% endfilter %}" />
-                                                </div> 
-                                            </div>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        {% bookmarks %}
-                        
-                        {% infoblock "social_profiles" using "blocks/transparent_sidebar_infoblock.html" %}
-                        -->{% endcomment %}
                                     {% endblock %}
                                 </div>
                             </div>
@@ -367,39 +337,6 @@
                                 <div class="col2_content clearfix">
                                     <h4 class="hidden" id="user_navigation">{% trans "User Navigaton" %}</h4>
                                     {% block sidebar-b %}
-                                        {% comment %}<!--
-                        <ul class="toolbar">
-                            {% if request.user.is_authenticated %}
-                                <li class="messages">
-                                    <a href="/my-messages/" title="{% trans "New Messages" %}">
-                                        <span class="item_title"><b>{% trans "New Messages" %}:</b> </span>
-                                        <span class="item_count">{{ request|get_new_message_count }}</span>
-                                    </a>
-                                </li>
-                                <li class="contacts">
-                                    <a href="/{{ URL_ID_PEOPLE }}/requested/?by-status=pending" title="{% trans "Unconfirmed Contacts" %}">
-                                        <span class="item_title"><b>{% trans "Unconfirmed Contacts" %}:</b> </span>
-                                        <span class="item_count">{{ request|get_unconfirmed_contact_count }}</span>
-                                    </a>
-                                </li>
-                            {% endif %}
-                            <li class="language-switcher right">
-                                <div id="languages">
-                                    <div id="switcher_to_en">
-                                        <a title="English" class="en" href="/en{{ request.get_full_path }}">{% ifequal LANGUAGE_CODE "en" %}<span class="active">{% endifequal %}<img src="{{ STATIC_URL }}site/img/website/buttons/flag.png" alt="EN" />{% ifequal LANGUAGE_CODE "en" %}</span>{% endifequal %}</a>
-                                    </div>
-                                    <div id="switcher_to_de">
-                                         <a title="Deutsch" class="de" href="/de{{ request.get_full_path }}">{% ifequal LANGUAGE_CODE "de" %}<span class="active">{% endifequal %}<img src="{{ STATIC_URL }}site/img/website/buttons/flag.png" alt="DE" />{% ifequal LANGUAGE_CODE "de" %}</span>{% endifequal %}</a>
-                                    </div>
-                                </div> 
-                            </li>
-                        </ul>
-                        
-                        {% infoblock "startpage_badge" using "blocks/wide_sidebar_infoblock.html" %}
-                        
-                        {% include "site_specific/blocks/sidebar_featured_button.html" %}
-                        -->{% endcomment %}
-
                                         {% if request.user.is_authenticated %}
                                             {% include "site_specific/blocks/sidebar_account.html" %}
                                             {% include "site_specific/blocks/sidebar_activities.html" %}
@@ -407,10 +344,6 @@
                                         {% else %}
                                             {% include "site_specific/blocks/sidebar_login.html" %}
                                         {% endif %}
-
-                                        {% comment %}<!--
-                        {% include "site_specific/blocks/sidebar_statistics.html" %}
-                        -->{% endcomment %}
 
                                         <div id="site_visitors"></div>
 

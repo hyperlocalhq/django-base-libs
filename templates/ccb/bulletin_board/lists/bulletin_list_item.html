@@ -24,31 +24,3 @@
         </div>
     </div>
 </div>
-
-
-{% comment %}
-	
-{% if show_status %}{{ bulletin.get_status_display }} {% endif %}
-
-    <address class="location">
-        {% if bulletin.institution %}
-            <span>
-                {% if bulletin.institution.status == "published" %}
-                    <a href="{{ bulletin.institution.get_url_path }}">{{ bulletin.institution.title }}</a>
-                {% else %}
-                    {{ bulletin.institution.title }}
-                {% endif %}
-            </span>
-        {% endif %}
-        {% if bulletin.contact_person %}
-            <span>{{ bulletin.contact_person }}</span>
-        {% endif %}
-        {% if bulletin.phone %}
-            <span>{{ bulletin.phone }}</span>
-        {% endif %}
-        {% if bulletin.email %}
-            <span><a href="mailto:{{ bulletin.email }}">{{ bulletin.email }}</a></span>
-        {% endif %}
-    </address>
-{% endcomment %}
-

@@ -87,17 +87,6 @@
                 {% endwith %}{% endwith %}</a><br/></span>
         {% endfor %}
     {% endif %}
-    {% comment %}<!--
-    {% if institution.get_description %}
-        {% with institution.get_description|striptags|truncatewords:"60" as filtered_desc %}{% with filtered_desc|truncatewords:"40" as shortened_desc %}
-        <span class="hidable description">{{ shortened_desc }}
-            {% ifnotequal shortened_desc filtered_desc %}
-            <a href="{{ institution.get_url_path }}">{% trans "read more" %}</a>
-            {% endifnotequal %}
-        </span>
-        {% endwith %}{% endwith %}
-    {% endif %}
-    -->{% endcomment %}
 {% endblock %}
 
 {% block object_controls %}

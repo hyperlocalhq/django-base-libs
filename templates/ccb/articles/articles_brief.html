@@ -7,10 +7,6 @@
         <a class="content" href="{{ list_article.get_url_path }}">
             {% if list_article.image %}
                 <img src="{{ UPLOADS_URL }}{{ list_article.image|modified_path:"list" }}" alt="{{ list_article.get_title|escape }}"/>
-                {% comment %}
-                    {% else %}
-                        <img src="http://placehold.it/200x208&text=image">
-                {% endcomment %}
             {% else %}
                 <img src="{{ STATIC_URL }}site/img/placeholder/infolink.png" alt="{{ list_article.get_title|escape }}"/>
             {% endif %}
@@ -44,36 +40,3 @@
 </div>
                 
 
-{% comment %}
-<div class="list-item{% if forloop.first %} first-item{% endif %}{% if forloop.last %} last-item{% endif %}"
-    onclick="redirect('{{ article.get_url_path }}')">
-    <p class="date">{{ article.published_from|datefmt:"long" }}</p>
-
-    <h3>
-        <a href="{{ article.get_url_path }}">{{ article.get_title }}</a>
-    </h3>
-    {% if article.image %}
-        <img class="left" src="{{ UPLOADS_URL }}{{ article.image|modified_path:"nt" }}"
-            alt="{{ article.get_title|escape }}"/>
-    {% endif %}
-    <p>
-        {% if article.description %}
-            {% parse article.get_rendered_description as description %}
-        {% else %}
-            {% parse article.get_rendered_content as description %}
-        {% endif %}
-        {{ description|wordwrap:30|striptags|truncatewords:"40" }}
-        <a href="{{ article.get_url_path }}">{% trans "Read more" %}</a>
-    </p>
-    {% if article.creative_sectors.count %}
-        <div class="post-meta">
-            <p><span>{% trans "Categories" %}: </span>
-                {% for cs in article.creative_sectors.all %}
-                    {% if not forloop.first %}|{% endif %}
-                    <a href="/news/creative-sector/{{ cs.slug }}/">{{ cs.title }}</a>
-                {% endfor %}
-            </p>
-        </div>
-    {% endif %}
-</div>
-{% endcomment %}

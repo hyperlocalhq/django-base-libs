@@ -32,31 +32,3 @@
         </fieldset>
     </div>
 {% endif %}
-
-{% comment %}
-<h6 class="section-header">
-    {% trans "Details" %}
-</h6>
-<div class="section-details">
-    {% if object.legal_form %}
-        <dl>
-            <dt>{% trans "Legal Form" %}</dt>
-            <dd>{{ object.legal_form }}</dd>
-        </dl>
-    {% endif %}
-
-    {% if object.establishment_yyyy %}
-        <dl>
-            <dt>{% trans "Established at" %}</dt>
-            <dd>{{ object.establishment_yyyy }} {{ object.get_establishment_mm_display }}</dd>
-        </dl>
-    {% endif %}
-
-    {% if object.nof_employees %}
-        <dl>
-            <dt>{% trans "Number of Employees" %}</dt>
-            <dd>{{ object.nof_employees }}</dd>
-        </dl>
-    {% endif %}
-</div>
-{% endcomment %}

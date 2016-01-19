@@ -28,16 +28,6 @@
                             </li>
                         </ul>
                     </li>
-                    {% comment %}<!--
-                    <li>{% trans "My Settings" %}<ul>
-                        <li><a href="/password_change/">{% trans "Change password" %}</a></li>
-                        <li><a href="/my-profile/">{% trans "Profile settings" %}</a></li>
-                        <li><a href="/my-profile/">{% trans "Notifications" %}</a></li>
-                        <li><a href="/my-profile/">{% trans "Newsletter" %}</a></li>
-                        <li><a href="/my-profile/privacy/">{% trans "Privacy" %}</a></li>
-                        <li><a href="/my-profile/">{% trans "Language settings" %}</a></li>
-                    </ul></li>
-                    -->{% endcomment %}
                 {% endif %}
                 {% children_of "my_account" using "navigation/my_account.html" %}
             </ul>

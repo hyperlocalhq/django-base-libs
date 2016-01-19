@@ -5,10 +5,6 @@
     <div id="info"></div>
     {% include "site_specific/count_of.html" %}
     <div class="info-facts">
-        {% comment %}
-            <span class="facts">{% trans "institution type" %}:</span> 
-            <span class="output">{% for institution_type in object.get_institution_types %}{% if not forloop.first %}, {% endif %}{{ institution_type.get_title|escape }}{% endfor %}</span>
-        {% endcomment %}
     </div>
     <div class="content_facts">
 
@@ -96,23 +92,6 @@
                             </dl>
                         {% endif %}
                         {% endfor %}
-
-
-
-                        {% comment %}
-                        {% for email in contact.get_emails %}
-                            {% if forloop.first %}
-                                <h4>{% trans "E-Mail" %}</h4>
-                                <dl>
-                            {% endif %}
-                                {% if email.type %}<dt>{{ email.type }}:</dt>{% endif %}<dd><a class="email" href="{{ "mailto:"|encode_string }}{{ email.address|encode_string }}">{{ email.address|encode_string }}</a></dd>
-                            {% if forloop.last %}
-                                </dl>
-                            {% endif %}             
-                        {% endfor %}
-                {% endcomment %}
-
-
 
                         {% for ims in contact.get_ims %}
                             {% if forloop.first %}

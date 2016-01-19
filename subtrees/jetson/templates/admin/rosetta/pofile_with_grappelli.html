@@ -73,15 +73,6 @@
     </div>
     <div id="changelist" class="module{% if rosetta_i18n_lang_bidi %} rtl{% endif %}">
         <div id="toolbar">
-        {% comment %}
-        {% if rosetta_settings.ENABLE_TRANSLATION_SUGGESTIONS %}
-        <form id="translate-all">
-            <div>
-                <input type="submit" class="googleall" value="{% trans "Suggest All Translations" %}" />
-            </div>
-        </form>
-        {% endif %}
-        {% endcomment %}
         </div>
 
         <form method="post" action="" class="clearfix">

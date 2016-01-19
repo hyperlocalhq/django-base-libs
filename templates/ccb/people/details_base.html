@@ -46,9 +46,6 @@
                                             {% trans "Follow" %}
                                         {% endif %}
                                     </span></a>
-                                    {% comment %}
-                                        {% adding_individual_relation with object %}
-                                    {% endcomment %}
                                     {% if object.is_contactable %}<a href="{{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>{% endif %}
                                     {% if request.user.is_staff and perms.people.change_person %}
                                         <a href="/admin/people/person/{{ object.id }}/" class="fawesome fa-edit button text" target="_blank"><span class="text">{% trans "Edit Person" %}</span></a>
@@ -92,24 +89,20 @@
             <div class="col-xs-12 col-sm-4 col-md-3">
                 <div class="profile-image">
                     
-                    {#% if request.path == object.get_url_path %#}
                         {% if_has_perm "people.change_person" object %}
                             <a href="{% cropping_url object.image.path "ad" request object.get_url_path %}" class="fawesome fa-edit recrop-link">
                         {% end_if_has_perm %}
-                    {#% endif %#}
-                    
+
     {% if object.image %}
         <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if_has_perm "people.change_person" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ object.get_title|escape }}"/>
     {% else %}
         <img src="{{ STATIC_URL }}site/img/placeholder/profile.png" alt="{{ object.get_title|escape }}"/>
     {% endif %}
     
-                    {#% if request.path == object.get_url_path %#}
                         {% if_has_perm "people.change_person" object %}
                             </a>
                         {% end_if_has_perm %}
-                    {#% endif %#}
-    
+
                     {% ifequal request.user object.user %}
                     
                         {% navigation_links "menu_activities" %}
@@ -124,9 +117,6 @@
                                     {% trans "Follow" %}
                                 {% endif %}
                             </span></a>
-                            {% comment %}
-                                {% adding_individual_relation with object %}
-                            {% endcomment %}
                             {% if object.is_contactable %}<a href="{{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>{% endif %}
                             {% if request.user.is_staff and perms.people.change_person %}
                                 <a href="/admin/people/person/{{ object.id }}/" class="fawesome fa-edit button text" target="_blank"><span class="text">{% trans "Edit Person" %}</span></a>

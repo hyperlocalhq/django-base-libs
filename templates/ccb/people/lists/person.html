@@ -26,9 +26,6 @@
             {% if contact %}
                 {% if person.is_address_displayed %}
                     {% with contact.postal_address as postal_address %}
-                        {% comment %}<!--
-                        <a href="/vcard/{{ person|content_type_id }}/{{ person.id }}">vcard</a>
-                        -->{% endcomment %}
                         {% if postal_address.street_address or postal_address.country_name %}
                             <address class="adr">
                                 {% if contact.institution %}
@@ -102,18 +99,6 @@
             {% endfor %}
         {% endwith %}
     {% endif %}
-    {% comment %}<!--
-    {% if person.get_description %}
-        {% with person.get_description|striptags|truncatewords:"60" as filtered_desc %}{% with filtered_desc|truncatewords:"40" as shortened_desc %}
-        <span class="description hidable">
-            {{ shortened_desc }}
-            {% ifnotequal shortened_desc filtered_desc %}
-                <a href="{{ person.get_url_path }}">{% trans "read more" %}</a>
-            {% endifnotequal %}
-        </span>
-        {% endwith %}{% endwith %}
-    {% endif %}
-    --> {% endcomment %}
 {% endblock %}
 
 {% block object_controls %}

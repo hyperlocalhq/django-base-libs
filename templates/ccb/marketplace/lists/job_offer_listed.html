@@ -13,20 +13,6 @@
                 </h3>
                 <h2>{{ job_offer.position }}</h2>
                 <p>
-                    {% comment %}
-                    {% if job_offer.get_urls %}
-                        <p>
-{#                            <a href="{{ job_offer.get_urls.0.link }}"{% if job_offer.get_urls.0.type %}#}
-{#                                class="link-{{ job_offer.get_urls.0.type.slug }}"{% endif %}>#}
-                                {% with job_offer.get_urls.0.link|slice:":40" as sliced %}{{ sliced }}
-                                    {% ifnotequal job_offer.get_urls.0.link sliced %}...
-                                    {% endifnotequal %}{% endwith %}
-{#                            </a>#}
-                            {% if job_offer.is_commercial %}(€){% endif %}
-                        </p>
-                    {% endif %}
-                    {% endcomment %}
-                    
                     {{ job_offer.get_description|striptags|truncatewords:20 }}
                 </p>
                 {% if job_offer.job_sectors.all %}
