@@ -131,7 +131,7 @@ class BulletinForm(forms.ModelForm):
     categories = ModelMultipleChoiceTreeField(
         label=_("Categories"),
         required=False,
-        queryset=get_related_queryset(Bulletin, "categories"),
+        queryset=get_related_queryset(Bulletin, "categories").filter(level=0),
     )
 
     class Meta:
@@ -563,7 +563,7 @@ class BulletinSearchForm(forms.Form):
         empty_label=_("All"),
         label=_("Category"),
         required=False,
-        queryset=get_related_queryset(Bulletin, "categories"),
+        queryset=get_related_queryset(Bulletin, "categories").filter(level=0),
     )
         
     locality_type = TreeNodeChoiceField(

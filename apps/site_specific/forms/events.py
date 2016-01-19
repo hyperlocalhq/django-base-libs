@@ -1944,7 +1944,7 @@ class FeesOpeningHoursForm(dynamicforms.Form):
 class CategoriesForm(dynamicforms.Form):
     categories = ModelMultipleChoiceTreeField(
         label=_("Categories"),
-        queryset=get_related_queryset(Event, "categories"),
+        queryset=get_related_queryset(Event, "categories").filter(level=0),
         required=True,
     )
 

@@ -1444,7 +1444,7 @@ class FeesForm(dynamicforms.Form):
 class CategoriesForm(dynamicforms.Form):
     categories = ModelMultipleChoiceTreeField(
         label=_("Categories"),
-        queryset=get_related_queryset(Event, "categories"),
+        queryset=get_related_queryset(Event, "categories").filter(level=0),
         required=True,
     )
 
@@ -1765,7 +1765,7 @@ class EventSearchForm(dynamicforms.Form):
         empty_label=_("All"),
         label=_("Category"),
         required=False,
-        queryset=get_related_queryset(ContextItem, "categories"),
+        queryset=get_related_queryset(ContextItem, "categories").filter(level=0),
     )
     event_type = ModelChoiceTreeField(
         empty_label=_("All"),
