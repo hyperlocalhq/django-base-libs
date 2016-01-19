@@ -47,7 +47,6 @@ IM_TYPE_CHOICES = XChoiceList(get_related_queryset(IndividualContact, 'im0_type'
 LOCATION_TYPE_CHOICES = XChoiceList(get_related_queryset(IndividualContact, "location_type"))
 INDIVIDUAL_TYPE_CHOICES = XChoiceList(get_related_queryset(Person, "individual_type"))
 
-
 PREFERRED_LANGUAGE_CHOICES = XChoiceList(
     get_related_queryset(Person, 'preferred_language'),
     null_choice_text=_("- Please select -"),
@@ -105,10 +104,10 @@ class IdentityForm(dynamicforms.Form):
                 bootstrap.FormActions(
                     layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
-                    css_class = "button-group form-buttons"
+                    css_class="button-group form-buttons"
                 ),
-                
-                css_class = "switch on"
+
+                css_class="switch on"
             ),
         )
 
@@ -124,6 +123,7 @@ class IdentityForm(dynamicforms.Form):
 
     def get_extra_context(self):
         return {}
+
 
 class DescriptionForm(dynamicforms.Form):
     description_en = forms.CharField(
@@ -152,7 +152,6 @@ class DescriptionForm(dynamicforms.Form):
         }
         self.helper.form_method = "POST"
         self.helper.attrs = {
-            'target': "hidden_iframe",
             'enctype': "multipart/form-data",
         }
         self.helper.layout = layout.Layout(
@@ -160,11 +159,14 @@ class DescriptionForm(dynamicforms.Form):
                 _("Description"),
                 "description_en",
                 "description_de",
-            ),
-            bootstrap.FormActions(
-                layout.Button('cancel', _('Cancel')),
-                layout.Submit('submit', _('Save')),
-            )
+                 bootstrap.FormActions(
+                    layout.Button('cancel', _('Cancel'), css_class="cancel"),
+                    layout.Submit('submit', _('Save')),
+                    css_class="button-group form-buttons"
+                ),
+
+                css_class="switch on"
+           ),
         )
 
     def save(self):
@@ -176,6 +178,7 @@ class DescriptionForm(dynamicforms.Form):
 
     def get_extra_context(self):
         return {}
+
 
 class AvatarForm(dynamicforms.Form):
     media_file = ImageField(
@@ -233,6 +236,7 @@ class AvatarForm(dynamicforms.Form):
 
     def get_extra_context(self):
         return {}
+
 
 class ContactForm(dynamicforms.Form):
     location_type = forms.ChoiceField(
@@ -511,11 +515,11 @@ class ContactForm(dynamicforms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _('Contact Data'),
-                
+
                 layout.HTML(string_concat('<dd class="no-label"><h3>', _("Location"), '</h3></dd>')),
                 "location_type",
                 "location_title",
-                
+
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Institution"), '</h3></dd>')),
                 layout.Field("institution", wrapper_class="institution-select autocomplete"),
                 layout.HTML("""{% load i18n %}
@@ -526,7 +530,7 @@ class ContactForm(dynamicforms.Form):
                 layout.HTML("""{% load i18n %}
                     <dt class="institution-input hidden"> </dt><dd class="institution-input hidden"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-select" data-toggle-hide=".institution-input">{% trans "Back to selection" %}</a></dd>
                 """),
-                
+
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Address"), '</h3></dd>')),
                 "latitude",  # hidden field
                 "longitude",  # hidden field
@@ -537,94 +541,94 @@ class ContactForm(dynamicforms.Form):
                     string_concat(_('ZIP'), ", ", _('City')),
                     layout.Field(
                         "postal_code",
-                        wrapper_class = "col-xs-4 col-sm-5 col-md-3 col-lg-3",
-                        template = "ccb_form/multifield.html"
+                        wrapper_class="col-xs-4 col-sm-5 col-md-3 col-lg-3",
+                        template="ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "city",
-                        wrapper_class = "col-xs-8 col-sm-7 col-md-9 col-lg-9",
-                        template = "ccb_form/multifield.html"
+                        wrapper_class="col-xs-8 col-sm-7 col-md-9 col-lg-9",
+                        template="ccb_form/multifield.html"
                     )
                 ),
                 "country",
-                #layout.HTML("""{% include "bootstrap3/custom_widgets/editable_map.html" %}"""),
-                
+                # layout.HTML("""{% include "bootstrap3/custom_widgets/editable_map.html" %}"""),
+
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Phones"), '</h3></dd>')),
                 layout.MultiField(
                     _("Phone"),
                     layout.Field(
                         "phone_country",
                         wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
-                        template = "ccb_form/multifield.html"
+                        template="ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "phone_area",
                         wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
-                        template = "ccb_form/multifield.html"
+                        template="ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "phone_number",
                         wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
-                        template = "ccb_form/multifield.html"
+                        template="ccb_form/multifield.html"
                     ),
-                    css_class = "show-labels"
+                    css_class="show-labels"
                 ),
                 layout.MultiField(
                     _("Fax"),
                     layout.Field(
                         "fax_country",
                         wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
-                        template = "ccb_form/multifield.html"
+                        template="ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "fax_area",
                         wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
-                        template = "ccb_form/multifield.html"
+                        template="ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "fax_number",
                         wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
-                        template = "ccb_form/multifield.html"
+                        template="ccb_form/multifield.html"
                     ),
-                    css_class = "show-labels"
+                    css_class="show-labels"
                 ),
                 layout.MultiField(
                     _("Mobile"),
                     layout.Field(
                         "mobile_country",
                         wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
-                        template = "ccb_form/multifield.html"
+                        template="ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "mobile_area",
                         wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
-                        template = "ccb_form/multifield.html"
+                        template="ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "mobile_number",
                         wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
-                        template = "ccb_form/multifield.html"
+                        template="ccb_form/multifield.html"
                     ),
-                    css_class = "show-labels"
+                    css_class="show-labels"
                 ),
-                
+
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Emails"), '</h3></dd>')),
                 "email0",
                 "email1",
                 "email2",
-                
+
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Websites"), '</h3></dd>')),
                 layout.MultiField(
                     string_concat(_('Type'), ", ", _('Url')),
                     layout.Field(
                         "url0_type",
                         wrapper_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-                        template = "ccb_form/multifield.html"
+                        template="ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "url0_link",
                         wrapper_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-                        template = "ccb_form/multifield.html"
+                        template="ccb_form/multifield.html"
                     ),
                 ),
                 layout.MultiField(
@@ -632,12 +636,12 @@ class ContactForm(dynamicforms.Form):
                     layout.Field(
                         "url1_type",
                         wrapper_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-                        template = "ccb_form/multifield.html"
+                        template="ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "url1_link",
                         wrapper_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-                        template = "ccb_form/multifield.html"
+                        template="ccb_form/multifield.html"
                     ),
                 ),
                 layout.MultiField(
@@ -645,27 +649,28 @@ class ContactForm(dynamicforms.Form):
                     layout.Field(
                         "url2_type",
                         wrapper_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-                        template = "ccb_form/multifield.html"
+                        template="ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "url2_link",
                         wrapper_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-                        template = "ccb_form/multifield.html"
+                        template="ccb_form/multifield.html"
                     ),
                 ),
-                
-                layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Instant Messengers"), '</h3></dd>')),
+
+                layout.HTML(
+                    string_concat('<dd class="no-label"><h3 class="section">', _("Instant Messengers"), '</h3></dd>')),
                 layout.MultiField(
                     string_concat(_('Type'), ", ", _('Address')),
                     layout.Field(
                         "im0_type",
                         wrapper_class="col-xs-6 col-sm-6 col-md-4 col-lg-4",
-                        template = "ccb_form/multifield.html"
+                        template="ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "im0_address",
                         wrapper_class="col-xs-6 col-sm-6 col-md-8 col-lg-8",
-                        template = "ccb_form/multifield.html"
+                        template="ccb_form/multifield.html"
                     ),
                 ),
                 layout.MultiField(
@@ -673,12 +678,12 @@ class ContactForm(dynamicforms.Form):
                     layout.Field(
                         "im1_type",
                         wrapper_class="col-xs-6 col-sm-6 col-md-4 col-lg-4",
-                        template = "ccb_form/multifield.html"
+                        template="ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "im1_address",
                         wrapper_class="col-xs-6 col-sm-6 col-md-8 col-lg-8",
-                        template = "ccb_form/multifield.html"
+                        template="ccb_form/multifield.html"
                     ),
                 ),
                 layout.MultiField(
@@ -686,23 +691,23 @@ class ContactForm(dynamicforms.Form):
                     layout.Field(
                         "im2_type",
                         wrapper_class="col-xs-6 col-sm-6 col-md-4 col-lg-4",
-                        template = "ccb_form/multifield.html"
+                        template="ccb_form/multifield.html"
                     ),
                     layout.Field(
                         "im2_address",
                         wrapper_class="col-xs-6 col-sm-6 col-md-8 col-lg-8",
-                        template = "ccb_form/multifield.html"
+                        template="ccb_form/multifield.html"
                     ),
                 ),
-                
+
                 bootstrap.FormActions(
-                    layout.Button('cancel', _('Cancel'), css_class = "cancel"),
+                    layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('save_as_primary', _('Save as Primary')),
                     layout.Submit('submit', _('Save')),
-                    css_class = "button-group form-buttons"
+                    css_class="button-group form-buttons"
                 ),
-                
-                css_class = "switch on"
+
+                css_class="switch on"
             ),
         )
 
@@ -847,6 +852,7 @@ class ContactForm(dynamicforms.Form):
             contact = person.get_contacts()[index]
         return {'contact': contact}
 
+
 class DetailsForm(dynamicforms.Form):
     individual_type = forms.ChoiceField(
         required=False,
@@ -909,7 +915,7 @@ class DetailsForm(dynamicforms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Details"),
-                
+
                 "individual_type",
                 "salutation",
                 "nationality",
@@ -918,32 +924,32 @@ class DetailsForm(dynamicforms.Form):
                     _("Birthday"),
                     layout.Field(
                         "birthday_dd",
-                        wrapper_class = "col-xs-4 col-sm-4 col-md-4 col-lg-4",
-                        template = "ccb_form/multifield.html",
-                        placeholder = _("Day")
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template="ccb_form/multifield.html",
+                        placeholder=_("Day")
                     ),
                     layout.Field(
                         "birthday_mm",
-                        wrapper_class = "col-xs-4 col-sm-4 col-md-4 col-lg-4",
-                        template = "ccb_form/multifield.html",
-                        placeholder = _("Month")
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template="ccb_form/multifield.html",
+                        placeholder=_("Month")
                     ),
                     layout.Field(
                         "birthday_yyyy",
-                        wrapper_class = "col-xs-4 col-sm-4 col-md-4 col-lg-4",
-                        template = "ccb_form/multifield.html",
-                        placeholder = _("Year")
+                        wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",
+                        template="ccb_form/multifield.html",
+                        placeholder=_("Year")
                     ),
                 ),
-                
+
                 bootstrap.FormActions(
                     layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
-                    css_class = "button-group form-buttons"
+                    css_class="button-group form-buttons"
                 ),
-                
-                css_class = "switch on"
-                
+
+                css_class="switch on"
+
             ),
         )
 
@@ -961,6 +967,7 @@ class DetailsForm(dynamicforms.Form):
 
     def get_extra_context(self):
         return {}
+
 
 class CategoriesForm(dynamicforms.Form):
     categories = ModelMultipleChoiceTreeField(
@@ -986,16 +993,16 @@ class CategoriesForm(dynamicforms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Categories"),
-                
+
                 layout.Field("categories", template="ccb_form/custom_widgets/checkboxselectmultipletree.html"),
 
                 bootstrap.FormActions(
                     layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
-                    css_class = "button-group form-buttons"
+                    css_class="button-group form-buttons"
                 ),
-                
-                css_class = "switch on no-label"
+
+                css_class="switch on no-label"
             ),
         )
 
@@ -1009,6 +1016,7 @@ class CategoriesForm(dynamicforms.Form):
 
     def get_extra_context(self):
         return {}
+
 
 profile_forms = {
     'identity': IdentityForm,
