@@ -446,23 +446,15 @@ ADMIN_APP_INDEX = (
 
 ### CACHING ###
 
-if not DEVELOPMENT_MODE and False:
-    CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-            'LOCATION': '127.0.0.1:11211',
-            'KEY_PREFIX': "ccb_production_",
-            'TIMEOUT': 300,
-            'MAX_ENTRIES': 400,
-        }
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
+        'LOCATION': '127.0.0.1:11211',
+        'KEY_PREFIX': "ccb_production_",
+        'TIMEOUT': 300,
+        'MAX_ENTRIES': 400,
     }
-else:
-    CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-        }
-    }
-
+}
 
 ### FILEBROWSER ###
 
@@ -1021,8 +1013,6 @@ ACTSTREAM_SETTINGS = {
     'USE_JSONFIELD': True,
     'GFK_FETCH_DEPTH': 1,
 }
-
-ROSETTA_STORAGE_CLASS = 'rosetta.storage.SessionRosettaStorage'
 
 ### LOCAL SETTINGS ###
 
