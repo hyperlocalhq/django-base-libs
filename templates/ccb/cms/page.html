@@ -3,6 +3,17 @@
 
 {% block title %}{% page_attribute "page_title" %}{% endblock title %}
 
+{% block css %}{# TODO: remove this when "Zahlen & Fakten" is reworked with Document plugin #}
+    .facts td {
+        vertical-align: top;
+        padding-bottom: 20px;
+    }
+    .facts img {
+        margin-right: 20px;
+        border: 1px solid #aeaeae;
+    }
+{% endblock %}
+
 {% block content %}
     <div class="header">
         <div class="container">
