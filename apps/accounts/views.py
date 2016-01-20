@@ -381,6 +381,8 @@ def change_privacy_settings(request):
     }, context_instance=RequestContext(request))
 
 
+@login_required
+@never_cache
 def dashboard(request, **kwargs):
     kwargs.setdefault('paginate_by', 24)
     kwargs.setdefault('allow_empty', True)

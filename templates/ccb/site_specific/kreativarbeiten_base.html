@@ -62,7 +62,7 @@
                             self.open_popup(
                                 gettext("Login"),
                                 584, 460,
-                                "/" + settings.lang + "/login/?goto_next=" + sGotoNext,
+                                "{% url 'login' %}?goto_next=" + sGotoNext,
                                 false,
                                 false
                             );

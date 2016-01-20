@@ -3,7 +3,7 @@
     <h5><b>{% trans "Login" %}</b></h5>
 
     <div class="hidable">
-        <form method="post" action="/{{ LANGUAGE_CODE }}/login/" class="uniForm">{% csrf_token %}
+        <form method="post" action="{% url 'login' %}" class="uniForm">{% csrf_token %}
             <!--{{ request.session.set_test_cookie }}-->
             {% csrf_token %}
             <div class="ctrlHolder">

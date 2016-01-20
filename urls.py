@@ -95,21 +95,21 @@ simplesearch_dict = {
     'context_processors': (prev_next_processor,),
 }
 
-institution_list_info = {
-    'queryset': Institution.objects.order_by('title'),
-    'template_name': 'institutions/institution_list.html',
-    'paginate_by': 10,
-    'allow_empty': True,
-    'context_processors': (prev_next_processor,),
-}
-
-institution_details_info = {
-    'queryset': Institution.objects.all(),
-    'slug_field': 'slug',
-    'template_name': 'institutions/institution_details.html',
-    'context_processors': (prev_next_processor,),
-    'context_item_type': URL_ID_INSTITUTION,
-}
+# institution_list_info = {
+#     'queryset': Institution.objects.order_by('title'),
+#     'template_name': 'institutions/institution_list.html',
+#     'paginate_by': 10,
+#     'allow_empty': True,
+#     'context_processors': (prev_next_processor,),
+# }
+#
+# institution_details_info = {
+#     'queryset': Institution.objects.all(),
+#     'slug_field': 'slug',
+#     'template_name': 'institutions/institution_details.html',
+#     'context_processors': (prev_next_processor,),
+#     'context_item_type': URL_ID_INSTITUTION,
+# }
 
 # begin TODO: remote these variables after migrating app to django-cms
 document_list_info = {
@@ -165,21 +165,21 @@ job_offer_details_info = {
 }
 # end
 
-person_list_info = {
-    'queryset': Person.objects.select_related().order_by('auth_user.username'),
-    'template_name': 'people/person_list.html',
-    'paginate_by': 10,
-    'allow_empty': True,
-    'context_processors': (prev_next_processor,),
-}
-
-person_details_info = {
-    'queryset': Person.objects.all(),
-    'slug_field': 'user__username',
-    'template_name': 'people/person_details.html',
-    'context_processors': (prev_next_processor,),
-    'context_item_type': URL_ID_PERSON,
-}
+# person_list_info = {
+#     'queryset': Person.objects.select_related().order_by('auth_user.username'),
+#     'template_name': 'people/person_list.html',
+#     'paginate_by': 10,
+#     'allow_empty': True,
+#     'context_processors': (prev_next_processor,),
+# }
+#
+# person_details_info = {
+#     'queryset': Person.objects.all(),
+#     'slug_field': 'user__username',
+#     'template_name': 'people/person_details.html',
+#     'context_processors': (prev_next_processor,),
+#     'context_item_type': URL_ID_PERSON,
+# }
 
 # begin TODO: remote these variables after migrating app to django-cms
 gallery_list_info = {
@@ -432,118 +432,118 @@ if settings.DEBUG:
 urlpatterns += i18n_patterns(
     '',
     url(r'^recrop/', include('jetson.apps.image_mods.urls')),
-    url(r'^%s/$' % URL_ID_INSTITUTIONS,
-        _project_name + '.apps.institutions.views.institution_list',
-        dict(list_filter=_institution_list_filter, **institution_list_info)),
-    url(r'^%s/(?P<show>favorites|memos|own-%s)/$' % (URL_ID_INSTITUTIONS, URL_ID_INSTITUTIONS),
-        _project_name + '.apps.institutions.views.institution_list',
-        dict(list_filter=_institution_list_filter, **institution_list_info)),
-    url(r'^%s/add/$' % URL_ID_INSTITUTIONS,
-        _project_name + '.apps.institutions.views.add_institution'),
+    # url(r'^%s/$' % URL_ID_INSTITUTIONS,
+    #     _project_name + '.apps.institutions.views.institution_list',
+    #     dict(list_filter=_institution_list_filter, **institution_list_info)),
+    # url(r'^%s/(?P<show>favorites|memos|own-%s)/$' % (URL_ID_INSTITUTIONS, URL_ID_INSTITUTIONS),
+    #     _project_name + '.apps.institutions.views.institution_list',
+    #     dict(list_filter=_institution_list_filter, **institution_list_info)),
+    # url(r'^%s/add/$' % URL_ID_INSTITUTIONS,
+    #     _project_name + '.apps.institutions.views.add_institution'),
 
     # details of institution, events, documents or persons
-    url(r'^%s/(?P<slug>[^/]+)/$' % URL_ID_INSTITUTION, object_detail,
-        institution_details_info),
-    url(r'^%s/(?P<slug>[^/]+)/map/$' % URL_ID_INSTITUTION, object_detail,
-        dict(institution_details_info, template_name="institutions/institution_map.html")),
-    url(r'^%s/(?P<slug>[^/]+)/network/$' % URL_ID_INSTITUTION, object_detail,
-        dict(institution_details_info, template_name="institutions/institution_network.html")),
-    url(r'^%s/(?P<slug>[^/]+)/network/staff/$' % URL_ID_INSTITUTION,
-        _project_name + '.apps.institutions.views.institution_staff_list',
-        dict(person_list_info, template_name="institutions/institution_staff.html")),
-    url(r'^%s/(?P<slug>[^/]+)/network/partners/$' % URL_ID_INSTITUTION,
-        _project_name + '.apps.institutions.views.institution_partners_list',
-        dict(institution_list_info, template_name="institutions/institution_partners.html")),
-    url(r'^%s/(?P<slug>[^/]+)/network/%s/$' % (URL_ID_INSTITUTION, URL_ID_PERSONGROUPS),
-        _project_name + '.apps.institutions.views.institution_groups_list',
-        dict(group_list_info, template_name="institutions/institution_groups.html")),
-
-    url(
-        r'^%s/(?P<slug>[^/]+)/%s/' % (URL_ID_INSTITUTION, URL_ID_PORTFOLIO),
-        include(PortfolioSite(
-            object_detail_dict=institution_details_info,
-            app_name="institutions",
-            name="institution",
-        ).urls),
-    ),
-
-    url(r'^%s/(?P<slug>[^/]+)/projects/$' % URL_ID_INSTITUTION, object_detail,
-        dict(institution_details_info,
-             template_name="institutions/institution_projects.html")),
-
-    url(
-        r'^%s/(?P<slug>[^/]+)/%s/'
-        r'('
-        r'(?P<start_date>\d{8})'
-        r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
-        r')?'
-        r'$' % (URL_ID_INSTITUTION, URL_ID_EVENTS),
-        _project_name + '.apps.institutions.views.institution_events_list',
-        dict(
-            event_list_info,
-            template_name="institutions/institution_events.html",
-        ),
-        name="institution_events_list"
-    ),
-    url(
-        r'^%s/(?P<slug>[^/]+)/%s/'
-        r'('
-        r'(?P<start_date>\d{8})'
-        r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
-        r')?'
-        r'ical/$' % (URL_ID_INSTITUTION, URL_ID_EVENTS),
-        _project_name + '.apps.institutions.views.institution_events_list_ical',
-        dict(
-            event_list_info,
-            template_name="institutions/institution_events.html",
-        )
-    ),
-    url(
-        r'^%s/(?P<slug>[^/]+)/%s/'
-        r'('
-        r'(?P<start_date>\d{8})'
-        r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
-        r')?'
-        r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_INSTITUTION, URL_ID_EVENTS),
-        _project_name + '.apps.institutions.views.institution_events_list_feed',
-        dict(
-            event_list_info,
-            template_name="institutions/institution_events.html",
-        )
-    ),
-
-    url(
-        r'^%s/(?P<slug>[^/]+)/%s/'
-        r'$' % (URL_ID_INSTITUTION, URL_ID_JOB_OFFERS),
-        _project_name + '.apps.institutions.views.institution_job_offer_list',
-        dict(
-            job_offer_list_info,
-            template_name="institutions/institution_job_offers.html",
-        ),
-        name="institution_job_offer_list"
-    ),
-    url(
-        r'^%s/(?P<slug>[^/]+)/%s/'
-        r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_INSTITUTION, URL_ID_JOB_OFFERS),
-        _project_name + '.apps.institutions.views.institution_job_offer_list_feed',
-        dict(
-            job_offer_list_info,
-            template_name="institutions/institution_job_offers.html",
-        )
-    ),
-
-    url(r'^%s/(?P<slug>[^/]+)/reviews/$' % URL_ID_INSTITUTION, object_detail,
-        dict(institution_details_info, template_name="institutions/institution_reviews.html")),
-    url(r'^%s/(?P<slug>[^/]+)/message/$' % URL_ID_INSTITUTION,
-        'jetson.apps.messaging.views.contact',
-        dict(institution_details_info, template_name='institutions/institution_message.html')),
-    url(r'^%s/(?P<slug>[^/]+)/message/alldone/$' % URL_ID_INSTITUTION,
-        'jetson.apps.messaging.views.contact_done',
-        dict(institution_details_info, template_name='institutions/institution_message.html')),
-
-    url(r'^%s/(?P<slug>[^/]+)/invite/' % URL_ID_INSTITUTION,
-        'ccb.apps.groups_networks.views.invite_institution_members',
-        ),
+    # url(r'^%s/(?P<slug>[^/]+)/$' % URL_ID_INSTITUTION, object_detail,
+    #     institution_details_info),
+    # url(r'^%s/(?P<slug>[^/]+)/map/$' % URL_ID_INSTITUTION, object_detail,
+    #     dict(institution_details_info, template_name="institutions/institution_map.html")),
+    # url(r'^%s/(?P<slug>[^/]+)/network/$' % URL_ID_INSTITUTION, object_detail,
+    #     dict(institution_details_info, template_name="institutions/institution_network.html")),
+    # url(r'^%s/(?P<slug>[^/]+)/network/staff/$' % URL_ID_INSTITUTION,
+    #     _project_name + '.apps.institutions.views.institution_staff_list',
+    #     dict(person_list_info, template_name="institutions/institution_staff.html")),
+    # url(r'^%s/(?P<slug>[^/]+)/network/partners/$' % URL_ID_INSTITUTION,
+    #     _project_name + '.apps.institutions.views.institution_partners_list',
+    #     dict(institution_list_info, template_name="institutions/institution_partners.html")),
+    # url(r'^%s/(?P<slug>[^/]+)/network/%s/$' % (URL_ID_INSTITUTION, URL_ID_PERSONGROUPS),
+    #     _project_name + '.apps.institutions.views.institution_groups_list',
+    #     dict(group_list_info, template_name="institutions/institution_groups.html")),
+    #
+    # url(
+    #     r'^%s/(?P<slug>[^/]+)/%s/' % (URL_ID_INSTITUTION, URL_ID_PORTFOLIO),
+    #     include(PortfolioSite(
+    #         object_detail_dict=institution_details_info,
+    #         app_name="institutions",
+    #         name="institution",
+    #     ).urls),
+    # ),
+    #
+    # url(r'^%s/(?P<slug>[^/]+)/projects/$' % URL_ID_INSTITUTION, object_detail,
+    #     dict(institution_details_info,
+    #          template_name="institutions/institution_projects.html")),
+    #
+    # url(
+    #     r'^%s/(?P<slug>[^/]+)/%s/'
+    #     r'('
+    #     r'(?P<start_date>\d{8})'
+    #     r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
+    #     r')?'
+    #     r'$' % (URL_ID_INSTITUTION, URL_ID_EVENTS),
+    #     _project_name + '.apps.institutions.views.institution_events_list',
+    #     dict(
+    #         event_list_info,
+    #         template_name="institutions/institution_events.html",
+    #     ),
+    #     name="institution_events_list"
+    # ),
+    # url(
+    #     r'^%s/(?P<slug>[^/]+)/%s/'
+    #     r'('
+    #     r'(?P<start_date>\d{8})'
+    #     r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
+    #     r')?'
+    #     r'ical/$' % (URL_ID_INSTITUTION, URL_ID_EVENTS),
+    #     _project_name + '.apps.institutions.views.institution_events_list_ical',
+    #     dict(
+    #         event_list_info,
+    #         template_name="institutions/institution_events.html",
+    #     )
+    # ),
+    # url(
+    #     r'^%s/(?P<slug>[^/]+)/%s/'
+    #     r'('
+    #     r'(?P<start_date>\d{8})'
+    #     r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
+    #     r')?'
+    #     r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_INSTITUTION, URL_ID_EVENTS),
+    #     _project_name + '.apps.institutions.views.institution_events_list_feed',
+    #     dict(
+    #         event_list_info,
+    #         template_name="institutions/institution_events.html",
+    #     )
+    # ),
+    #
+    # url(
+    #     r'^%s/(?P<slug>[^/]+)/%s/'
+    #     r'$' % (URL_ID_INSTITUTION, URL_ID_JOB_OFFERS),
+    #     _project_name + '.apps.institutions.views.institution_job_offer_list',
+    #     dict(
+    #         job_offer_list_info,
+    #         template_name="institutions/institution_job_offers.html",
+    #     ),
+    #     name="institution_job_offer_list"
+    # ),
+    # url(
+    #     r'^%s/(?P<slug>[^/]+)/%s/'
+    #     r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_INSTITUTION, URL_ID_JOB_OFFERS),
+    #     _project_name + '.apps.institutions.views.institution_job_offer_list_feed',
+    #     dict(
+    #         job_offer_list_info,
+    #         template_name="institutions/institution_job_offers.html",
+    #     )
+    # ),
+    #
+    # url(r'^%s/(?P<slug>[^/]+)/reviews/$' % URL_ID_INSTITUTION, object_detail,
+    #     dict(institution_details_info, template_name="institutions/institution_reviews.html")),
+    # url(r'^%s/(?P<slug>[^/]+)/message/$' % URL_ID_INSTITUTION,
+    #     'jetson.apps.messaging.views.contact',
+    #     dict(institution_details_info, template_name='institutions/institution_message.html')),
+    # url(r'^%s/(?P<slug>[^/]+)/message/alldone/$' % URL_ID_INSTITUTION,
+    #     'jetson.apps.messaging.views.contact_done',
+    #     dict(institution_details_info, template_name='institutions/institution_message.html')),
+    #
+    # url(r'^%s/(?P<slug>[^/]+)/invite/' % URL_ID_INSTITUTION,
+    #     'ccb.apps.groups_networks.views.invite_institution_members',
+    #     ),
 
     # begin TODO: remote these URLs after migrating app to django-cms
     url(r'^%s/$' % URL_ID_DOCUMENTS, _project_name + '.apps.resources.views.document_list',
@@ -651,40 +651,40 @@ urlpatterns += i18n_patterns(
     ),
     # end
 
-    url(r'^%s/$' % URL_ID_PEOPLE, _project_name + '.apps.people.views.person_list',
-        dict(list_filter=_person_list_filter, **person_list_info)),
-    url(r'^%s/(?P<show>contacts|relationships|memos)/$' % URL_ID_PEOPLE,
-        _project_name + '.apps.people.views.person_list',
-        dict(list_filter=_person_list_filter, **person_list_info)),
-    url(
-        r'^%s/(?P<show>invitations|requested|requests)/$' % URL_ID_PEOPLE,
-        _project_name + '.apps.people.views.person_invitation_list',
-        dict(person_list_info, template_name="people/person_invitations_list.html")
-    ),
-
-    url(r'^%s/(?P<slug>[^/]+)/$' % URL_ID_PERSON, object_detail, person_details_info),
-    url(r'^%s/(?P<slug>[^/]+)/map/$' % URL_ID_PERSON, object_detail,
-        dict(person_details_info, template_name="people/person_map.html")),
-    url(r'^%s/(?P<slug>[^/]+)/network/$' % URL_ID_PERSON, object_detail,
-        dict(person_details_info, template_name="people/person_network.html")),
-    url(r'^%s/(?P<slug>[^/]+)/network/person_contacts/$' % URL_ID_PERSON,
-        _project_name + '.apps.people.views.person_person_contacts_list',
-        dict(person_list_info, template_name="people/person_person_contacts.html")),
-    url(r'^%s/(?P<slug>[^/]+)/network/institution_contacts/$' % URL_ID_PERSON,
-        _project_name + '.apps.people.views.person_institution_contacts_list',
-        dict(institution_list_info, template_name="people/person_institution_contacts.html")),
-    url(r'^%s/(?P<slug>[^/]+)/network/%s/$' % (URL_ID_PERSON, URL_ID_PERSONGROUPS),
-        _project_name + '.apps.people.views.person_groups_list',
-        dict(group_list_info, template_name="people/person_groups.html")),
-
-    url(
-        r'^%s/(?P<slug>[^/]+)/%s/' % (URL_ID_PERSON, URL_ID_PORTFOLIO),
-        include(PortfolioSite(
-            object_detail_dict=person_details_info,
-            app_name="people",
-            name="person",
-        ).urls),
-    ),
+    # url(r'^%s/$' % URL_ID_PEOPLE, _project_name + '.apps.people.views.person_list',
+    #     dict(list_filter=_person_list_filter, **person_list_info)),
+    # url(r'^%s/(?P<show>contacts|relationships|memos)/$' % URL_ID_PEOPLE,
+    #     _project_name + '.apps.people.views.person_list',
+    #     dict(list_filter=_person_list_filter, **person_list_info)),
+    # url(
+    #     r'^%s/(?P<show>invitations|requested|requests)/$' % URL_ID_PEOPLE,
+    #     _project_name + '.apps.people.views.person_invitation_list',
+    #     dict(person_list_info, template_name="people/person_invitations_list.html")
+    # ),
+    #
+    # url(r'^%s/(?P<slug>[^/]+)/$' % URL_ID_PERSON, object_detail, person_details_info),
+    # url(r'^%s/(?P<slug>[^/]+)/map/$' % URL_ID_PERSON, object_detail,
+    #     dict(person_details_info, template_name="people/person_map.html")),
+    # url(r'^%s/(?P<slug>[^/]+)/network/$' % URL_ID_PERSON, object_detail,
+    #     dict(person_details_info, template_name="people/person_network.html")),
+    # url(r'^%s/(?P<slug>[^/]+)/network/person_contacts/$' % URL_ID_PERSON,
+    #     _project_name + '.apps.people.views.person_person_contacts_list',
+    #     dict(person_list_info, template_name="people/person_person_contacts.html")),
+    # url(r'^%s/(?P<slug>[^/]+)/network/institution_contacts/$' % URL_ID_PERSON,
+    #     _project_name + '.apps.people.views.person_institution_contacts_list',
+    #     dict(institution_list_info, template_name="people/person_institution_contacts.html")),
+    # url(r'^%s/(?P<slug>[^/]+)/network/%s/$' % (URL_ID_PERSON, URL_ID_PERSONGROUPS),
+    #     _project_name + '.apps.people.views.person_groups_list',
+    #     dict(group_list_info, template_name="people/person_groups.html")),
+    #
+    # url(
+    #     r'^%s/(?P<slug>[^/]+)/%s/' % (URL_ID_PERSON, URL_ID_PORTFOLIO),
+    #     include(PortfolioSite(
+    #         object_detail_dict=person_details_info,
+    #         app_name="people",
+    #         name="person",
+    #     ).urls),
+    # ),
 
     # begin TODO: remote these URLs after migrating app to django-cms
     url(r'^%s/create-berlin-jobboard/$' % URL_ID_JOB_OFFERS,
@@ -726,62 +726,62 @@ urlpatterns += i18n_patterns(
     ),
     # end
 
-    url(r'^%s/(?P<slug>[^/]+)/projects/$' % URL_ID_PERSON, object_detail,
-        dict(person_details_info, template_name="people/person_projects.html")),
-    url(
-        r'^%s/(?P<slug>[^/]+)/%s/'
-        r'('
-        r'(?P<start_date>\d{8})'
-        r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
-        r')?'
-        r'$' % (URL_ID_PERSON, URL_ID_EVENTS),
-        _project_name + '.apps.people.views.person_events_list',
-        dict(event_list_info, template_name="people/person_events.html"),
-        name="person_events_list"
-    ),
-    url(
-        r'^%s/(?P<slug>[^/]+)/%s/'
-        r'('
-        r'(?P<start_date>\d{8})'
-        r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
-        r')?'
-        r'ical/$' % (URL_ID_PERSON, URL_ID_EVENTS),
-        _project_name + '.apps.people.views.person_events_list_ical',
-        dict(event_list_info, template_name="people/person_events.html")
-    ),
-    url(
-        r'^%s/(?P<slug>[^/]+)/%s/'
-        r'('
-        r'(?P<start_date>\d{8})'
-        r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
-        r')?'
-        r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_PERSON, URL_ID_EVENTS),
-        _project_name + '.apps.people.views.person_events_list_feed',
-        dict(event_list_info, template_name="people/person_events.html")
-    ),
-
-    url(
-        r'^%s/(?P<slug>[^/]+)/%s/'
-        r'$' % (URL_ID_PERSON, URL_ID_JOB_OFFERS),
-        _project_name + '.apps.people.views.person_job_offer_list',
-        dict(job_offer_list_info, template_name="people/person_job_offers.html"),
-        name="person_job_offer_list"
-    ),
-    url(
-        r'^%s/(?P<slug>[^/]+)/%s/'
-        r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_PERSON, URL_ID_JOB_OFFERS),
-        _project_name + '.apps.people.views.person_job_offer_list_feed',
-        dict(job_offer_list_info, template_name="people/person_job_offers.html")
-    ),
-
-    url(r'^%s/(?P<slug>[^/]+)/reviews/$' % URL_ID_PERSON, object_detail,
-        dict(person_details_info, template_name="people/person_reviews.html")),
-    url(r'^%s/(?P<slug>[^/]+)/message/$' % URL_ID_PERSON,
-        'jetson.apps.messaging.views.contact',
-        dict(person_details_info, template_name='people/person_message.html')),
-    url(r'^%s/(?P<slug>[^/]+)/message/alldone/$' % URL_ID_PERSON,
-        'jetson.apps.messaging.views.contact_done',
-        dict(person_details_info, template_name='people/person_message.html')),
+    # url(r'^%s/(?P<slug>[^/]+)/projects/$' % URL_ID_PERSON, object_detail,
+    #     dict(person_details_info, template_name="people/person_projects.html")),
+    # url(
+    #     r'^%s/(?P<slug>[^/]+)/%s/'
+    #     r'('
+    #     r'(?P<start_date>\d{8})'
+    #     r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
+    #     r')?'
+    #     r'$' % (URL_ID_PERSON, URL_ID_EVENTS),
+    #     _project_name + '.apps.people.views.person_events_list',
+    #     dict(event_list_info, template_name="people/person_events.html"),
+    #     name="person_events_list"
+    # ),
+    # url(
+    #     r'^%s/(?P<slug>[^/]+)/%s/'
+    #     r'('
+    #     r'(?P<start_date>\d{8})'
+    #     r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
+    #     r')?'
+    #     r'ical/$' % (URL_ID_PERSON, URL_ID_EVENTS),
+    #     _project_name + '.apps.people.views.person_events_list_ical',
+    #     dict(event_list_info, template_name="people/person_events.html")
+    # ),
+    # url(
+    #     r'^%s/(?P<slug>[^/]+)/%s/'
+    #     r'('
+    #     r'(?P<start_date>\d{8})'
+    #     r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
+    #     r')?'
+    #     r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_PERSON, URL_ID_EVENTS),
+    #     _project_name + '.apps.people.views.person_events_list_feed',
+    #     dict(event_list_info, template_name="people/person_events.html")
+    # ),
+    #
+    # url(
+    #     r'^%s/(?P<slug>[^/]+)/%s/'
+    #     r'$' % (URL_ID_PERSON, URL_ID_JOB_OFFERS),
+    #     _project_name + '.apps.people.views.person_job_offer_list',
+    #     dict(job_offer_list_info, template_name="people/person_job_offers.html"),
+    #     name="person_job_offer_list"
+    # ),
+    # url(
+    #     r'^%s/(?P<slug>[^/]+)/%s/'
+    #     r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_PERSON, URL_ID_JOB_OFFERS),
+    #     _project_name + '.apps.people.views.person_job_offer_list_feed',
+    #     dict(job_offer_list_info, template_name="people/person_job_offers.html")
+    # ),
+    #
+    # url(r'^%s/(?P<slug>[^/]+)/reviews/$' % URL_ID_PERSON, object_detail,
+    #     dict(person_details_info, template_name="people/person_reviews.html")),
+    # url(r'^%s/(?P<slug>[^/]+)/message/$' % URL_ID_PERSON,
+    #     'jetson.apps.messaging.views.contact',
+    #     dict(person_details_info, template_name='people/person_message.html')),
+    # url(r'^%s/(?P<slug>[^/]+)/message/alldone/$' % URL_ID_PERSON,
+    #     'jetson.apps.messaging.views.contact_done',
+    #     dict(person_details_info, template_name='people/person_message.html')),
 
     url(r'^%s/$' % URL_ID_PERSONGROUPS, 'ccb.apps.groups_networks.views.persongroup_list',
         group_list_info),

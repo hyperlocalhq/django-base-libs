@@ -22,8 +22,8 @@
                 <a href="/admin/people/person/{{ object.id }}/" class="fawesome fa-edit button text" onclick="open_new_window(event)"><span class="text">{% trans "edit Person" %}</span></a>
             {% endif %}
         {% else %}
-            <a href="/login/?goto_next={{ request.path }}" class="fawesome fa-contact button text"><span class="text">{% trans "Contact" %}</span></a>
-            {% if object.is_contactable %}<a href="/login/?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "send Email" %}</span></a>{% endif %}
+            <a href="{% url 'login' %}?goto_next={{ request.path }}" class="fawesome fa-contact button text"><span class="text">{% trans "Contact" %}</span></a>
+            {% if object.is_contactable %}<a href="{% url 'login' %}?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "send Email" %}</span></a>{% endif %}
         {% endif %}
     {% endifequal %}
 </div>
