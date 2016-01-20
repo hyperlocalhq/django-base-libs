@@ -9,16 +9,10 @@
 
 {% block content %}
     <p>{% trans "Sorry, you are not allowed to access this page." %}</p>
-    <form action="">
-        <div class="fieldset editable">
-            <fieldset>
-                <div class="buttonHolder">
-                    <input type="button" class="btn" value="{% trans "Back" %}"
-                        onclick="window.history.go(-1)" />
-                </div>
-            </fieldset>
-        </div>
-    </form>
+    <p>
+        <input type="button" class="btn" value="{% trans "Back" %}"
+            onclick="window.history.go(-1)" />
+    </p>
 {% endblock %}
 
 {% block breadcrumbs %}
