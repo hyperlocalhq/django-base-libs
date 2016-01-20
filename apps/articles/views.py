@@ -234,7 +234,7 @@ def article_archive_news(request, creative_sector_slug, **kwargs):
         kwargs['queryset'] = Article.site_published_objects_all_languages.news()
     else:
         kwargs['queryset'] = Article.site_published_objects.news()
-    if "type_sysname" in kwargs and kwargs['type_sysname'] != 'all':
+    if "type_sysname" in kwargs and kwargs['type_sysname'] != 'news':
         kwargs['queryset'] = kwargs['queryset'].filter(article_type__slug=kwargs['type_sysname'])
     kwargs['httpstate_prefix'] = "news"
     return article_archive_index(request, creative_sector_slug, **kwargs)
@@ -245,7 +245,7 @@ def article_archive_interviews(request, creative_sector_slug, **kwargs):
         kwargs['queryset'] = Article.site_published_objects_all_languages.interviews()
     else:
         kwargs['queryset'] = Article.site_published_objects.interviews()
-    if "type_sysname" in kwargs and kwargs['type_sysname'] != 'all':
+    if "type_sysname" in kwargs and kwargs['type_sysname'] != 'interviews':
         kwargs['queryset'] = kwargs['queryset'].filter(article_type__slug=kwargs['type_sysname'])
     kwargs['httpstate_prefix'] = "interviews"
     return article_archive_index(request, creative_sector_slug, **kwargs)
