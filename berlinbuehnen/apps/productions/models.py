@@ -823,6 +823,8 @@ class Event(CreationModificationMixin, UrlMixin):
     event_status = models.CharField(_("Event status"), max_length=20, choices=EVENT_STATUS_CHOICES, blank=True)
     ticket_status = models.CharField(_("Ticket status"), max_length=20, choices=TICKET_STATUS_CHOICES, blank=True)
 
+    language_and_subtitles = models.ForeignKey(LanguageAndSubtitles, verbose_name=_("Language / Subtitles"), blank=True, null=True)
+
     free_entrance = models.BooleanField(_("Free entrance"))
     price_from = models.DecimalField(_(u"Price from (€). Seperate cents by a point."), max_digits=5, decimal_places=2, blank=True, null=True)
     price_till = models.DecimalField(_(u"Price till (€). Seperate cents by a point."), max_digits=5, decimal_places=2, blank=True, null=True)
@@ -1002,6 +1004,9 @@ class Event(CreationModificationMixin, UrlMixin):
             return self.eventinvolvement_set.all().order_by('sort_order')
         # return self.production.productioninvolvement_set.all().order_by('involvement_type__title_%s' % lang_code, 'involvement_role_%s' % lang_code, 'involvement_instrument_%s' % lang_code, 'sort_order')
         return self.production.productioninvolvement_set.all().order_by('sort_order')
+
+    def ev_or_prod_language_and_subtitles(self):
+        return self.language_and_subtitles or self.production.language_and_subtitles
 
     def _get_first_image(self):
         if not hasattr(self, '_first_image_cache'):

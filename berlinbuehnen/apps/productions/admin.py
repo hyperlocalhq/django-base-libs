@@ -152,11 +152,11 @@ class ProductionAdmin(ExtendedModelAdmin):
     fieldsets += [(None, {'fields': ('slug', )}),]
     fieldsets += [(_("Location"), {'fields': ['in_program_of', 'ensembles', 'play_locations', 'play_stages', 'organizers', 'in_cooperation_with']}),]
     fieldsets += [(_("Free Location"), {'fields': ['location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude']}),]
-    fieldsets += [(_("Relations"), {'fields': ['categories', 'festivals', 'language_and_subtitles', 'related_productions']}),]
+    fieldsets += [(_("Relations"), {'fields': ['categories', 'festivals', 'related_productions']}),]
     fieldsets += get_admin_lang_section(_("Description"), ['description', 'teaser', 'work_info', 'contents', 'press_text', 'credits'])
     fieldsets += get_admin_lang_section(_("Imported"), ['concert_program', 'supporting_program', 'remarks', 'duration_text', 'subtitles_text', 'age_text'])
     fieldsets += [(_("Prices"), {'fields': ['price_from', 'price_till', 'free_entrance', 'tickets_website', get_admin_lang_section(_("Price information"), ['price_information'])]}),]
-    fieldsets += [(_("Additional details"), {'fields': ['characteristics', get_admin_lang_section(_("Other characteristics"), ['other_characteristics',]), 'age_from', 'age_till', 'edu_offer_website']}),]
+    fieldsets += [(_("Additional details"), {'fields': ['language_and_subtitles', 'characteristics', get_admin_lang_section(_("Other characteristics"), ['other_characteristics',]), 'age_from', 'age_till', 'edu_offer_website']}),]
     fieldsets += [(_("Sponsors"), {'fields': ['sponsors',]}),]
     fieldsets += [(_("Status"), {'fields': ['show_among_others', 'no_overwriting', 'newsletter', 'status',]}),]
 
@@ -331,7 +331,7 @@ class EventAdmin(ExtendedModelAdmin):
     fieldsets += get_admin_lang_section(_("Imported"), ['concert_program', 'supporting_program', 'remarks', 'duration_text', 'subtitles_text', 'age_text'])
     fieldsets += [(_("Prices"), {'fields': ['price_from', 'price_till', 'free_entrance', 'tickets_website', get_admin_lang_section(_("Price information"), ['price_information'])]}),]
     fieldsets += [(_("Sponsors"), {'fields': ['sponsors',]}),]
-    fieldsets += [(_("Additional details"), {'fields': ['event_status', 'ticket_status', 'characteristics', get_admin_lang_section(_("Other characteristics"), ['other_characteristics',])]}),]
+    fieldsets += [(_("Additional details"), {'fields': ['event_status', 'ticket_status', 'language_and_subtitles', 'characteristics', get_admin_lang_section(_("Other characteristics"), ['other_characteristics',])]}),]
     raw_id_fields = ['production']
     filter_horizontal = ['play_locations', 'play_stages', 'characteristics', 'sponsors']
     inlines = [

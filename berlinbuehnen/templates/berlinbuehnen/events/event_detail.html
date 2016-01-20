@@ -157,11 +157,11 @@
                                                     {% if event.ev_or_prod_teaser %}{{ event.ev_or_prod_teaser }}{% endif %}
                                                     {{ event.ev_or_prod_description }}
                                                 </div>
-                                                {% if event.production.language_and_subtitles or event.humanized_duration or event.ev_or_prod_duration_text or event.pauses or event.production.website %}
+                                                {% if event.ev_or_prod_language_and_subtitles or event.humanized_duration or event.ev_or_prod_duration_text or event.pauses or event.production.website %}
                                                     <dl class="listing">
-                                                        {% if event.production.language_and_subtitles %}
+                                                        {% if event.ev_or_prod_language_and_subtitles %}
                                                             <dt>{% trans "Language" %}</dt>
-                                                            <dd>{{ event.production.language_and_subtitles }}</dd>
+                                                            <dd>{{ event.ev_or_prod_language_and_subtitles }}</dd>
                                                         {% endif %}
                                                         {% if event.humanized_duration or event.ev_or_prod_duration_text %}
                                                             <dt>{% trans "Duration" %}</dt>

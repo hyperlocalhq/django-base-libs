@@ -435,6 +435,7 @@ class DescriptionForm(autocomplete_light.ModelForm):
     class Meta:
         model = Event
         fields = [
+            "language_and_subtitles",
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -599,6 +600,14 @@ class DescriptionForm(autocomplete_light.ModelForm):
                 layout.Field('remarks_%s' % lang_code),
                 css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
             ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
+        fieldset_content.append(layout.Row(
+            layout.Div(
+                'language_and_subtitles',
+                #'related_productions',
+                css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12",
+            ),
+            css_class="row-md",
         ))
         layout_blocks.append(layout.Fieldset(
             _("Description"),

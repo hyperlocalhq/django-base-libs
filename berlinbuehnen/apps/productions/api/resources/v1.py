@@ -473,6 +473,8 @@ class EventResource(ModelResource):
     images = fields.ToManyField(EventImageResource, attribute=(lambda bundle: bundle.obj.eventimage_set.exclude(copyright_restrictions="protected")), full=True, null=True, blank=True)
     pdfs = fields.ToManyField(EventPDFResource, "eventpdf_set", full=True)
 
+    language_and_subtitles = fields.ToOneField(LanguageAndSubtitlesResource, "language_and_subtitles", null=True, blank=True, full=True)
+
     sponsors = fields.ToManyField(SponsorResource, "sponsors", full=True)
 
     class Meta(BaseMetaForModelResource):
