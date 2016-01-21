@@ -1625,6 +1625,153 @@ $(document).ready(function() {
         }
     }
     
+    function EditIframe($main) {
+        
+        var me = this;
+        this.me = me;
+        
+        me.$main = $main;
+        me.id = me.$main.attr('id');
+        me.$wrapper = $('.'+me.id);
+        me.iframe_id = -1;
+        me.$window = $(window);
+        me.width = -1;
+        
+        $(window).resize(function() {me.onResize();});
+        
+        me.init();
+    }
+    
+    EditIframe.prototype.init = function() {
+     
+        var me = this;
+        
+        me.$wrapper.each(function() {
+           
+            var $this = $(this);
+            var url = $this.attr('data-edit-url');
+            
+            if (url) {
+                
+                $this.addClass('editable');
+                $this.off().click(function() {me.onEdit(url);});
+                
+            } else {
+                
+                $('*[data-edit-url]', $this).each(function() {
+                    var $link = $(this);
+                    var url = $link.attr('data-edit-url');
+                    if (url) {
+                        $this.addClass('editable');
+                        $link.click(function() {me.onEdit(url);});
+                    }
+                });
+                
+            }
+        });
+        
+    }
+    
+    EditIframe.prototype.onEdit = function(url) {
+                    
+        var me = this;
+        
+        if (me.$iframe) {
+            me.$iframe.remove();
+            me.child = null;
+            window.iframe_fieldset[me.iframe_id] = null;
+        }
+        
+        me.iframe_id = Fieldset.iframe_counter;
+        Fieldset.iframe_counter++;
+        
+        me.$iframe = $('<iframe src="'+url+'" class="iframe-edit" id="fieldset-'+me.iframe_id+'" frameborder="0" scrolling="no"></iframe>');
+        me.$main.append(me.$iframe);   
+        
+        if (!window.iframe_fieldset) window.iframe_fieldset = [];
+        window.iframe_fieldset[me.iframe_id] = me;
+        
+        me.toggle();
+    }
+    
+    EditIframe.prototype.toggle = function(disable) {
+        
+        var me = this;
+            
+        if (me.$iframe) {
+            if (disable) {
+                me.$iframe.css('display', '');
+            } else {
+                me.$iframe.css('display', 'block');
+                window.setTimeout(function() {me.sizeChild();}, 50);
+            }
+        }
+    }
+    
+    EditIframe.prototype.sizeChild = function() {
+     
+        var me = this;
+        
+        if (me.child) {
+            me.child.sizeParentIFrame();
+        } else {
+            window.setTimeout(function() {me.sizeChild();}, 50);
+        }
+    }
+    
+    EditIframe.prototype.sizeIFrame = function(height) {
+        
+        var me = this.me;
+        
+        if (me.$iframe) {
+            me.$iframe.height(height);
+        }
+    }
+    
+    EditIframe.prototype.replaceMainMarkup = function(markup) {
+        
+        var me = this.me;
+        
+        var $html = $(markup);
+        var $replacements = $('.replace', $html);
+        
+        $replacements.each(function() {
+            
+            var $replacement = $(this);
+            var id = $replacement.attr('id');
+            
+            $('#'+id, me.$wrapper).each(function() {
+            
+                var $old = $(this);
+                $old.after($replacement);
+                $old.remove();
+            
+            });
+        });
+        
+        me.init();
+        me.toggle(true);
+    }
+    
+    EditIframe.prototype.onResize = function() {
+     
+        var me = this.me;
+        
+        if (me.width == me.$window.width()) return;
+        me.width = me.$window.width();
+        
+        if (me.$iframe) {
+            me.$iframe.css('width', '');
+            me.$iframe.width(me.$iframe.width() - 10);
+        }
+    }
+    
+    $('.edit-iframe').each(function() {
+        
+        var $element = $(this);
+        new EditIframe($element); 
+    });
+    
     
     initFormElementsFunctionality();
 });

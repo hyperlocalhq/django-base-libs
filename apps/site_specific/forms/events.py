@@ -49,7 +49,7 @@ IM_TYPE_CHOICES = XChoiceList(get_related_queryset(Event, 'im0_type'))
 EVENT_TYPE_CHOICES = XChoiceList(get_related_queryset(Event, "event_type"))
 
 LOGO_SIZE = getattr(settings, "LOGO_SIZE", (100, 100))
-MIN_LOGO_SIZE = getattr(settings, "MIN_LOGO_SIZE", (100, 100))
+MIN_LOGO_SIZE = getattr(settings, "LOGO_SIZE", (100, 100))
 STR_LOGO_SIZE = "%sx%s" % LOGO_SIZE
 STR_MIN_LOGO_SIZE = "%sx%s" % MIN_LOGO_SIZE
 
@@ -249,9 +249,9 @@ class AvatarForm(dynamicforms.Form):
                 _("Avatar"),
                 layout.HTML("""{% load image_modifications %}
                     {% if object.image %}
-                        <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"ap" }}" alt="{{ object.get_title|escape }}"/>
+                        <dt>""" + (_("Image") + "") + """</dt><dd><img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}" alt="{{ object.get_title|escape }}"/></dd>
                     {% else %}
-                        <img src="{{ DEFAULT_FORM_LOGO_4_EVENT }}" alt="{{ object.get_title|escape }}"/>
+                        <dt>""" + (_("Image") + "") + """</dt><dd><img src="{{ STATIC_URL }}site/img/placeholder/event.png" alt="{{ object.get_title|escape }}"/></dd>
                     {% endif %}
                 """),
                 "media_file",

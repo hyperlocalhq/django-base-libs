@@ -342,7 +342,7 @@
             position: relative;
         }
         
-        img {
+        .edit-avatar {
             display: none;
             width: 30%;
             float: left;
@@ -350,6 +350,10 @@
             
             .is-xs & {
                 display: block;
+                
+                img {
+                    margin-bottom: 0;
+                }
             }
         }
         

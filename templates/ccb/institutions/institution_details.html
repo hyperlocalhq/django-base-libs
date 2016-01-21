@@ -20,6 +20,11 @@
 
 
 {% block details %}
+
+    {% if object.is_editable %}
+        <div id="avatar-edit-frame" class="edit-iframe"></div>
+    {% endif %}
+    
     {% include "institutions/profile/identity.html" %}
 
     {% include "institutions/profile/contact.html" %}

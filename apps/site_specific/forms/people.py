@@ -53,9 +53,9 @@ PREFERRED_LANGUAGE_CHOICES = XChoiceList(
 )
 
 LOGO_SIZE = getattr(settings, "LOGO_SIZE", (100, 100))
-MIN_LOGO_SIZE = getattr(settings, "MIN_LOGO_SIZE", (100, 100))
+MIN_LOGO_SIZE = getattr(settings, "LOGO_SIZE", (100, 100))
 STR_LOGO_SIZE = "%sx%s" % LOGO_SIZE
-STR_MIN_LOGO_SIZE = "%sx%s" % MIN_LOGO_SIZE
+STR_MIN_LOGO_SIZE = "%sx%s" % LOGO_SIZE
 
 # Collect translatable strings
 _("Not listed? Enter manually")
@@ -201,7 +201,6 @@ class AvatarForm(dynamicforms.Form):
         }
         self.helper.form_method = "POST"
         self.helper.attrs = {
-            'target': "hidden_iframe",
             'enctype': "multipart/form-data",
         }
         self.helper.layout = layout.Layout(
@@ -209,17 +208,20 @@ class AvatarForm(dynamicforms.Form):
                 _("Avatar"),
                 layout.HTML("""{% load image_modifications %}
                     {% if object.image %}
-                        <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"ap" }}" alt="{{ object.get_title|escape }}"/>
+                        <dt>""" + (_("Image") + "") + """</dt><dd><img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}" alt="{{ object.get_title|escape }}"/></dd>
                     {% else %}
-                        <img src="{{ DEFAULT_FORM_LOGO_4_PERSON }}" alt="{{ object.get_title|escape }}"/>
+                        <dt>""" + (_("Image") + "") + """</dt><dd><img src="{{ STATIC_URL }}site/img/placeholder/profile.png" alt="{{ object.get_title|escape }}"/></dd>
                     {% endif %}
                 """),
                 "media_file",
+                bootstrap.FormActions(
+                    layout.Button('cancel', _('Cancel'), css_class="cancel"),
+                    layout.Submit('submit', _('Save')),
+                    css_class="button-group form-buttons"
+                ),
+
+                css_class="switch on"
             ),
-            bootstrap.FormActions(
-                layout.Button('cancel', _('Cancel')),
-                layout.Submit('submit', _('Save')),
-            )
         )
 
     def save(self):

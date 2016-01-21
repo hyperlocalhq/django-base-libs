@@ -290,6 +290,13 @@ h1 {
         font-size: 2.13em;
         line-height: 110%;
     }
+    
+    a {
+        color: $black;
+        &:hover, &:focus, &:active {
+            color: $black;
+        }
+    }
 }
 
 h2 {

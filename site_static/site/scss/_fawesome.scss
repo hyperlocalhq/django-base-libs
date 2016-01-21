@@ -1014,6 +1014,9 @@ canvas.fawesome {
 .fawesome.fa-folder-open:before {
     content: "\f07c";
 }
+.fawesome.fa-crop:before {
+    content: "\f125";
+}
 
 
 
@@ -1267,4 +1270,7 @@ canvas.fawesome {
 }
 .fawesome.fa-folder-open.after:after {
     content: "\f07c";
+}
+.fawesome.fa-crop.after:after {
+    content: "\f125";
 }

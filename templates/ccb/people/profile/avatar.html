@@ -1,29 +1,14 @@
 {% load i18n base_tags auth_extended image_mods_tags navigation_tags browsing favorites individual_relations %}
+<div class="fieldset">
+    <fieldset disabled>
+        {% if object.image %}
+            <a id="profile-image-link-header" href="{% cropping_url object.image.path "profile" request object.get_url_path %}" class="fawesome fa-crop small recrop-link replace"></a>
+            <img id="profile-image-header" src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if object.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ object.get_title|escape }}" class="replace"/>
 
-<div class="profile-image">
-    {% if object.image %}
-        <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if_has_perm "people.change_person" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ object.get_title|escape }}"/>
-    {% else %}
-        <img src="{{ STATIC_URL }}site/img/placeholder/profile.png" alt="{{ object.get_title|escape }}"/>
-    {% endif %}
-    
-    {% ifequal request.user object.user %}
-        {% navigation_links "menu_activities" %}
-    {% else %}
-        {% if request.user.is_authenticated %}
-            {% if object.is_addable_to_favorites %}
-                {% with object|get_context_item as context_item %}
-                    {% adding2favorites for context_item using "generic/favorite_contact.html" %}
-                {% endwith %}
-            {% endif %}
-            {% adding_individual_relation with object %}
-            {% if person.is_contactable %}<a href="{{ person.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "send Email" %}</span></a>{% endif %}
-            {% if request.user.is_staff and perms.people.change_person %}
-                <a href="/admin/people/person/{{ object.id }}/" class="fawesome fa-edit button text" onclick="open_new_window(event)"><span class="text">{% trans "edit Person" %}</span></a>
-            {% endif %}
-        {% else %}
-            <a href="{% url 'login' %}?goto_next={{ request.path }}" class="fawesome fa-contact button text"><span class="text">{% trans "Contact" %}</span></a>
-            {% if object.is_contactable %}<a href="{% url 'login' %}?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "send Email" %}</span></a>{% endif %}
+            <a id="profile-image-link-sidebar" href="{% cropping_url object.image.path "profile" request object.get_url_path %}" class="fawesome fa-crop recrop-link replace"></a>
+            <img id="profile-image-sidebar" src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if_has_perm "people.change_person" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ object.get_title|escape }}" class="replace"/>
         {% endif %}
-    {% endifequal %}
+    </fieldset>
 </div>
+                            
+                                
