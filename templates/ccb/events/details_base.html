@@ -13,7 +13,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <h1>{% trans "Event" %}</h1>
+                    <h1>
+                        <a href="{% page_url request.current_page %}">
+                            {% page_attribute "page_title" request.current_page %}
+                        </a>
+                    </h1>
                     <div class="profile">
 
                         {% if object.image %}
