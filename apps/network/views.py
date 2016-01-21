@@ -154,7 +154,7 @@ def member_list(request, creative_sector_slug="", show="", list_filter=_member_l
             | models.Q(content_type__model="institution", object_id__in=institutions_ids)
         )
 
-    form = MemberSearchForm(data=request.REQUEST)
+    form = MemberSearchForm(category, data=request.REQUEST)
 
     facets = {
         'selected': {},
