@@ -789,6 +789,8 @@ $(document).ready(function() {
      
         var me = this.me;
         
+        if (!me.$body.hasClass('navigation-open')) return;
+        
         var top = me.getTop();
         
         if (top < me.top) {
