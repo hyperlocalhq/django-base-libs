@@ -147,17 +147,7 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    {% if not show %}
-        <li>{% page_attribute "page_title" %}</li>
-    {% endif %}
-    {% if show == "/contacts" %}
-        <li><a href="{% url 'member_list_global' %}">{% page_attribute "page_title" %}</a></li>
-        <li>{% trans "Contacts" %}</li>
-    {% endif %}
-    {% if show == "/relationships" %}
-        <li><a href="{% url 'member_list_global' %}">{% page_attribute "page_title" %}</a></li>
-        <li>{% trans "Confirmed Contacts" %}</li>
-    {% endif %}
+    {% show_breadcrumb 1 "navigation/breadcrumb.html" %}
 {% endblock %}
 
 {% block javascript %}
