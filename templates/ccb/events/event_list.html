@@ -1,5 +1,5 @@
 {% extends "events/event_base.html" %}
-{% load events auth_extended uni_form_tags i18n infoblocks base_tags crispy_forms_tags %}
+{% load events auth_extended uni_form_tags i18n infoblocks base_tags crispy_forms_tags cms_tags %}
 
 {% block search_bar %}
     <div class="row">
@@ -55,12 +55,12 @@
 
 {% block breadcrumbs %}
     {% if not show %}
-        <li>{% trans "Events" %}</li>
+        <li>{% page_attribute "page_title" %}</li>
     {% elif show == "/favorites" %}
-        <li><a href="/{{ URL_ID_EVENTS }}/">{% trans "Events" %}</a></li>
+        <li><a href="{% url 'event_list_global' %}">{% page_attribute "page_title" %}</a></li>
         <li>{% trans "Favorites" %}</li>
     {% elif show == "/own-events" %}
-        <li><a href="/{{ URL_ID_EVENTS }}/">{% trans "Events" %}</a></li>
+        <li><a href="{% url 'event_list_global' %}">{% page_attribute "page_title" %}</a></li>
         <li>{% trans "Own events" %}</li>
     {% endif %}
 {% endblock %}

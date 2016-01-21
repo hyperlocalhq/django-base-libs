@@ -2,6 +2,8 @@
 
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import AnonymousUser
+from django.core.urlresolvers import reverse
+
 from mptt.fields import TreeManyToManyField
 from actstream import action
 
@@ -74,6 +76,18 @@ class Event(ComplexEventBase):
 
     def is_public(self):
         return self.status == "published"
+
+    def get_url_path(self):
+        try:
+            path = reverse("event_detail", kwargs={
+                'slug': self.slug,
+            })
+        except:
+            # the apphook is not attached yet
+            return ""
+        else:
+            return path
+
 
 class EventTime(ComplexEventTimeBase):
     def closest_start(self):

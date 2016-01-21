@@ -297,7 +297,9 @@
         var $current_element = $(me.$elements.get(me.current_element));
         
         
-        var $images = $('img', me.$main);
+        var $images = $('img', me.$main).filter(function() {
+            return $(this).css('display') == 'block';  
+        });
         $images.css('width', '').css('height', '');
         if (me.$body.hasClass('is-xs')) {
             $images.each(function() {
@@ -322,7 +324,9 @@
         me.$elements.each(function() {
             
             var $element = $(this);
-            var $image = $('img', $element);
+            var $image = $('img', $element).filter(function() {
+                return $(this).css('display') == 'block';  
+            });
             var $text = $('.container', $element);
             
             $element.css('top', top + 'px');

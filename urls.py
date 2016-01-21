@@ -563,92 +563,92 @@ urlpatterns += i18n_patterns(
     # end
 
     # begin TODO: remote these URLs after migrating app to django-cms
-    url(
-        r'^%s/'
-        r'((?P<show>favorites|memos|own-%s)/)?'
-        r'('
-        r'(?P<start_date>\d{8})'
-        r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
-        r')?'
-        r'$' % (URL_ID_EVENTS, URL_ID_EVENTS),
-        _project_name + '.apps.events.views.event_list',
-        event_list_info,
-        name="event_list_global",
-    ),
-    url(
-        r'^%s/'
-        r'((?P<show>favorites|memos|own-%s)/)?'
-        '('
-        r'(?P<start_date>\d{8})'
-        r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
-        r')?'
-        r'ical/$' % (URL_ID_EVENTS, URL_ID_EVENTS),
-        _project_name + '.apps.events.views.event_list_ical',
-        event_list_info,
-    ),
-    url(
-        r'^%s/'
-        r'((?P<show>favorites|memos|own-%s)/)?'
-        '('
-        r'(?P<start_date>\d{8})'
-        r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
-        r')?'
-        r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_EVENTS, URL_ID_EVENTS),
-        _project_name + '.apps.events.views.event_list_feed',
-        event_list_info,
-    ),
-    url(r'^%s/add/$' % URL_ID_EVENTS, _project_name + '.apps.events.views.add_event'),
-
-    # events have their dates prefixed (or not, if there aren't any)
-    url(
-        r'^%s/(?P<slug>[^/]+)/((?P<event_time>\d+)/)?$' % URL_ID_EVENT,
-        _project_name + '.apps.events.views.event_detail',
-        event_details_info,
-    ),
-    url(
-        r'^%s/(?P<slug>[^/]+)/claim/$' % URL_ID_EVENT,
-        'ccb.apps.site_specific.views.claim_object',
-        {'ot_url_part': URL_ID_EVENT},
-    ),
-    url(
-        r'^%s/(?P<slug>[^/]+)/delete/$' % URL_ID_EVENT,
-        'ccb.apps.site_specific.views.delete_object',
-        {'ot_url_part': URL_ID_EVENT},
-    ),
-    url(
-        r'^%s/(?P<slug>[^/]+)/map/$' % URL_ID_EVENT,
-        object_detail,
-        dict(event_details_info, template_name="events/event_map.html"),
-    ),
-    url(
-        r'^%s/(?P<slug>[^/]+)/reviews/$' % URL_ID_EVENT,
-        object_detail,
-        dict(
-            event_details_info,
-            template_name="events/event_reviews.html",
-        ),
-    ),
-    url(
-        r'^%s/(?P<slug>[^/]+)/network/$' % URL_ID_EVENT,
-        object_detail,
-        dict(
-            event_details_info,
-            template_name="events/event_network.html",
-        ),
-    ),
-    url(
-        r'^%s/(?P<slug>[^/]+)/((?P<event_time>\d+)/)?ical/$' % URL_ID_EVENT,
-        _project_name + '.apps.events.views.event_ical',
-    ),
-
-    url(
-        r'^%s/(?P<slug>[^/]+)/%s/' % (URL_ID_EVENT, URL_ID_PORTFOLIO),
-        include(PortfolioSite(
-            object_detail_dict=event_details_info,
-            app_name="events",
-            name="event",
-        ).urls),
-    ),
+    # url(
+    #     r'^%s/'
+    #     r'((?P<show>favorites|memos|own-%s)/)?'
+    #     r'('
+    #     r'(?P<start_date>\d{8})'
+    #     r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
+    #     r')?'
+    #     r'$' % (URL_ID_EVENTS, URL_ID_EVENTS),
+    #     _project_name + '.apps.events.views.event_list',
+    #     event_list_info,
+    #     name="event_list_global",
+    # ),
+    # url(
+    #     r'^%s/'
+    #     r'((?P<show>favorites|memos|own-%s)/)?'
+    #     '('
+    #     r'(?P<start_date>\d{8})'
+    #     r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
+    #     r')?'
+    #     r'ical/$' % (URL_ID_EVENTS, URL_ID_EVENTS),
+    #     _project_name + '.apps.events.views.event_list_ical',
+    #     event_list_info,
+    # ),
+    # url(
+    #     r'^%s/'
+    #     r'((?P<show>favorites|memos|own-%s)/)?'
+    #     '('
+    #     r'(?P<start_date>\d{8})'
+    #     r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
+    #     r')?'
+    #     r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_EVENTS, URL_ID_EVENTS),
+    #     _project_name + '.apps.events.views.event_list_feed',
+    #     event_list_info,
+    # ),
+    # url(r'^%s/add/$' % URL_ID_EVENTS, _project_name + '.apps.events.views.add_event'),
+    #
+    # # events have their dates prefixed (or not, if there aren't any)
+    # url(
+    #     r'^%s/(?P<slug>[^/]+)/((?P<event_time>\d+)/)?$' % URL_ID_EVENT,
+    #     _project_name + '.apps.events.views.event_detail',
+    #     event_details_info,
+    # ),
+    # url(
+    #     r'^%s/(?P<slug>[^/]+)/claim/$' % URL_ID_EVENT,
+    #     'ccb.apps.site_specific.views.claim_object',
+    #     {'ot_url_part': URL_ID_EVENT},
+    # ),
+    # url(
+    #     r'^%s/(?P<slug>[^/]+)/delete/$' % URL_ID_EVENT,
+    #     'ccb.apps.site_specific.views.delete_object',
+    #     {'ot_url_part': URL_ID_EVENT},
+    # ),
+    # url(
+    #     r'^%s/(?P<slug>[^/]+)/map/$' % URL_ID_EVENT,
+    #     object_detail,
+    #     dict(event_details_info, template_name="events/event_map.html"),
+    # ),
+    # url(
+    #     r'^%s/(?P<slug>[^/]+)/reviews/$' % URL_ID_EVENT,
+    #     object_detail,
+    #     dict(
+    #         event_details_info,
+    #         template_name="events/event_reviews.html",
+    #     ),
+    # ),
+    # url(
+    #     r'^%s/(?P<slug>[^/]+)/network/$' % URL_ID_EVENT,
+    #     object_detail,
+    #     dict(
+    #         event_details_info,
+    #         template_name="events/event_network.html",
+    #     ),
+    # ),
+    # url(
+    #     r'^%s/(?P<slug>[^/]+)/((?P<event_time>\d+)/)?ical/$' % URL_ID_EVENT,
+    #     _project_name + '.apps.events.views.event_ical',
+    # ),
+    #
+    # url(
+    #     r'^%s/(?P<slug>[^/]+)/%s/' % (URL_ID_EVENT, URL_ID_PORTFOLIO),
+    #     include(PortfolioSite(
+    #         object_detail_dict=event_details_info,
+    #         app_name="events",
+    #         name="event",
+    #     ).urls),
+    # ),
     # end
 
     # url(r'^%s/$' % URL_ID_PEOPLE, _project_name + '.apps.people.views.person_list',
@@ -686,44 +686,45 @@ urlpatterns += i18n_patterns(
     #     ).urls),
     # ),
 
-    # begin TODO: remote these URLs after migrating app to django-cms
     url(r'^%s/create-berlin-jobboard/$' % URL_ID_JOB_OFFERS,
         _project_name + '.apps.marketplace.views.job_board'),
     url(r'^%s/talent-in-berlin/$' % URL_ID_JOB_OFFERS,
         _project_name + '.apps.marketplace.views.jobs_talent_in_berlin'),
-    url(r'^%s/add/$' % URL_ID_JOB_OFFERS,
-        _project_name + '.apps.marketplace.views.add_job_offer'),
-    url(
-        r'^%s/'
-        r'((?P<show>memos|internships|jobs|all|own-%s)/)?'
-        r'$' % (URL_ID_JOB_OFFERS, URL_ID_JOB_OFFERS),
-        _project_name + '.apps.marketplace.views.job_offer_list',
-        job_offer_list_info,
-        name="job_offer_list_global",
-    ),
-    url(
-        r'^%s/'
-        r'((?P<show>memos|internships|jobs|all|own-%s)/)?'
-        r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_JOB_OFFERS, URL_ID_JOB_OFFERS),
-        _project_name + '.apps.marketplace.views.job_offer_list_feed',
-        job_offer_list_info,
-    ),
 
-    url(
-        r'^%s/(?P<secure_id>\d+)/$' % URL_ID_JOB_OFFER,
-        _project_name + '.apps.marketplace.views.job_offer_detail',
-        job_offer_details_info,
-    ),
-    url(
-        r'^%s/(?P<slug>[^/]+)/delete/$' % URL_ID_JOB_OFFER,
-        'ccb.apps.site_specific.views.delete_object',
-        {'ot_url_part': URL_ID_JOB_OFFER},
-    ),
-    url(
-        r'^%s/(?P<secure_id>[^/]+)/map/$' % URL_ID_JOB_OFFER,
-        _project_name + '.apps.marketplace.views.job_offer_detail',
-        dict(job_offer_details_info, template_name="marketplace/job_offer_map.html"),
-    ),
+    # begin TODO: remote these URLs after migrating app to django-cms
+    # url(r'^%s/add/$' % URL_ID_JOB_OFFERS,
+    #     _project_name + '.apps.marketplace.views.add_job_offer'),
+    # url(
+    #     r'^%s/'
+    #     r'((?P<show>memos|internships|jobs|all|own-%s)/)?'
+    #     r'$' % (URL_ID_JOB_OFFERS, URL_ID_JOB_OFFERS),
+    #     _project_name + '.apps.marketplace.views.job_offer_list',
+    #     job_offer_list_info,
+    #     name="job_offer_list_global",
+    # ),
+    # url(
+    #     r'^%s/'
+    #     r'((?P<show>memos|internships|jobs|all|own-%s)/)?'
+    #     r'feed/(?P<feed_type>[^/]+)/$' % (URL_ID_JOB_OFFERS, URL_ID_JOB_OFFERS),
+    #     _project_name + '.apps.marketplace.views.job_offer_list_feed',
+    #     job_offer_list_info,
+    # ),
+    #
+    # url(
+    #     r'^%s/(?P<secure_id>\d+)/$' % URL_ID_JOB_OFFER,
+    #     _project_name + '.apps.marketplace.views.job_offer_detail',
+    #     job_offer_details_info,
+    # ),
+    # url(
+    #     r'^%s/(?P<slug>[^/]+)/delete/$' % URL_ID_JOB_OFFER,
+    #     'ccb.apps.site_specific.views.delete_object',
+    #     {'ot_url_part': URL_ID_JOB_OFFER},
+    # ),
+    # url(
+    #     r'^%s/(?P<secure_id>[^/]+)/map/$' % URL_ID_JOB_OFFER,
+    #     _project_name + '.apps.marketplace.views.job_offer_detail',
+    #     dict(job_offer_details_info, template_name="marketplace/job_offer_map.html"),
+    # ),
     # end
 
     # url(r'^%s/(?P<slug>[^/]+)/projects/$' % URL_ID_PERSON, object_detail,
@@ -843,13 +844,13 @@ urlpatterns += i18n_patterns(
         'ccb.apps.groups_networks.views.confirm_invitation'),
 
     # used for wrapping the reviews see
-    url(r'^(%s|%s|%s|%s|%s)/(?P<slug>[^/]+)/post/$' % (
-        URL_ID_EVENT, URL_ID_DOCUMENT, URL_ID_PERSONGROUP, URL_ID_INSTITUTION, URL_ID_PERSON),
-        'ccb.apps.site_specific.views.wrap_post_comment'),
-
-    url(r'^(%s|%s|%s|%s|%s)/(?P<slug>[^/]+)/deletereview/(?P<id>\d+)/$' % (
-        URL_ID_EVENT, URL_ID_DOCUMENT, URL_ID_PERSONGROUP, URL_ID_INSTITUTION, URL_ID_PERSON),
-        'ccb.apps.site_specific.views.delete_review'),
+    # url(r'^(%s|%s|%s|%s|%s)/(?P<slug>[^/]+)/post/$' % (
+    #     URL_ID_EVENT, URL_ID_DOCUMENT, URL_ID_PERSONGROUP, URL_ID_INSTITUTION, URL_ID_PERSON),
+    #     'ccb.apps.site_specific.views.wrap_post_comment'),
+    #
+    # url(r'^(%s|%s|%s|%s|%s)/(?P<slug>[^/]+)/deletereview/(?P<id>\d+)/$' % (
+    #     URL_ID_EVENT, URL_ID_DOCUMENT, URL_ID_PERSONGROUP, URL_ID_INSTITUTION, URL_ID_PERSON),
+    #     'ccb.apps.site_specific.views.delete_review'),
 
     # i18n
     url(r'^i18n/setlang/$', 'jetson.apps.utils.views.set_language'),

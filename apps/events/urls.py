@@ -75,6 +75,7 @@ urlpatterns = (
         r'$',
         'ccb.apps.events.views.event_detail',
         event_details_info,
+        name="event_detail",
     ),
     url(
         r'^'
