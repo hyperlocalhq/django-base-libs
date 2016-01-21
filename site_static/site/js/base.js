@@ -98,37 +98,66 @@ $(document).ready(function() {
      *
      * Now style the (.hover) class to look like the pseudo (:hover) class.
      */
-    function tapHover(event) {
+    
+    function TapHover($main) {
+     
+        var me = this;
+        this.me = me;
         
-        var $link = $(this);
+        me.$main = $main;
+        me.$hover = (me.$main.data('$tap-hover')) ? me.$main.data('$tap-hover') : me.$main;
+        me.$all_trigger = $('.tap-hover-trigger');
+        me.$all_hover = $('.tap-hover');
         
-        var $hover = $link;
-        if ($link.data('$tap-hover')) {
-            
-            $hover = $link.data('$tap-hover');   
-            
-        } else if (!$link.hasClass('tap-hover')) {
-            
-            $('.tap-hover').removeClass("hover");
-            return;
+        me.$main.on('touchend', function(e) {return me.onTouch(e);});
+        me.$main.on('click', function(e) {return me.onClick(e);});
+        
+        if (!TapHover.window_set) {
+            TapHover.window_set = true;
+            $(window).on('click', function() {me.onWindow();});
         }
+    }
+    
+    TapHover.window_set = false;
+    
+    TapHover.prototype.onTouch = function(event) {
+     
+        var me = this;
         
-        
-        if ($hover.hasClass('hover')) {
-            
-            return true;
-            
+        if (me.$main.hasClass('touch-active')) {
+            me.$all_trigger.removeClass('touch-active');
+            me.$all_hover.removeClass("hover");
         } else {
-            
-            $('.tap-hover').removeClass("hover");
-            $hover.addClass("hover");
+            me.$all_trigger.removeClass('touch-active');
+            me.$all_hover.removeClass("hover");
+            me.$main.addClass('touch-active');
+            me.$hover.addClass("hover");
             event.preventDefault();
             return false;
         }
     }
-    $('.tap-hover-trigger').on('touchstart', tapHover);
-    $(window).on('touchstart click', tapHover);
     
+    TapHover.prototype.onClick = function(event) {
+     
+        var me = this;
+        
+        if (me.$main.hasClass('touch-active')) {
+            event.preventDefault();
+            return false;
+        }
+    }
+    
+    TapHover.prototype.onWindow = function() {
+     
+        var me = this;
+        
+        me.$all_trigger.removeClass('touch-active');
+        me.$all_hover.removeClass("hover");
+    }
+   
+    $('.tap-hover-trigger').each(function() {
+        new TapHover($(this)); 
+    });
     
     
     function Accordion($main) {
