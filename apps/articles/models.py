@@ -27,8 +27,16 @@ class ArticleContentProvider(models.Model):
         return force_unicode(self.title)
 
 
+class ArticleTypeManager(TreeManager):
+    def under_news(self):
+        return self.filter(parent__slug="news")
+
+    def under_interviews(self):
+        return self.filter(parent__slug="interviews")
+
+
 class ArticleType(ArticleTypeBase):
-    objects = TreeManager()
+    objects = ArticleTypeManager()
 
     def save(self, *args, **kwargs):
         if not self.pk:
