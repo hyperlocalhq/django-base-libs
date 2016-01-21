@@ -148,14 +148,14 @@
 
 {% block breadcrumbs %}
     {% if not show %}
-        <li>{% trans "People" %}</li>
+        <li>{% page_attribute "page_title" %}</li>
     {% endif %}
     {% if show == "/contacts" %}
-        <li><a href="/{{ URL_ID_PEOPLE }}/">{% trans "People" %}</a></li>
+        <li><a href="{% url 'member_list_global' %}">{% page_attribute "page_title" %}</a></li>
         <li>{% trans "Contacts" %}</li>
     {% endif %}
     {% if show == "/relationships" %}
-        <li><a href="/{{ URL_ID_PEOPLE }}/">{% trans "People" %}</a></li>
+        <li><a href="{% url 'member_list_global' %}">{% page_attribute "page_title" %}</a></li>
         <li>{% trans "Confirmed Contacts" %}</li>
     {% endif %}
 {% endblock %}

@@ -13,10 +13,10 @@
 
 {% block breadcrumbs %}
     {% if my_list %}
-        <li><a href="{% url "bulletin_list" %}">{% trans "Bulletin Board" %}</a></li>
+        <li><a href="{% url "bulletin_list" %}">{% page_attribute "page_title" %}</a></li>
         <li>{% trans "My Bulletins" %}</li>
     {% else %}
-        <li>{% trans "Bulletin Board" %}</li>
+        <li>{% page_attribute "page_title" %}</li>
     {% endif %}
 {% endblock %}
 

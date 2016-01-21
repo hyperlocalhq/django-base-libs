@@ -41,6 +41,6 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    <li><a href="/{{ URL_ID_INSTITUTIONS }}/">{% trans "Institutions" %}</a></li>
+    <li><a href="{% url 'member_list_global' %}">{% page_attribute "page_title" %}</a></li>
     <li>{% trans "Add new institution" %}</li>
 {% endblock %}

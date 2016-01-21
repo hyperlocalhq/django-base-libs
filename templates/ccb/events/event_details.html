@@ -1,5 +1,5 @@
 {% extends "events/details_base.html" %}
-{% load i18n base_tags auth_extended events compressed %}
+{% load i18n base_tags auth_extended events compressed cms_tags %}
 
 
 {% block details %}
@@ -23,6 +23,6 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    <li><a href="/{{ URL_ID_EVENTS }}/">{% trans "Events" %}</a></li>
+    <li><a href="{% url 'event_list_global' %}">{% page_attribute "page_title" %}</a></li>
     <li>{{ object.get_title }}</li>
 {% endblock %}

@@ -1,5 +1,5 @@
 {% extends "marketplace/job_offer_base.html" %}
-{% load i18n auth_extended uni_form_tags %}
+{% load i18n auth_extended uni_form_tags cms_tags %}
 
 {% block details %}
     <div class="header">
@@ -31,7 +31,7 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    <li>{% trans "Jobs" %}</li>
+    <li>{% page_attribute "page_title" %}</li>
 {% endblock %}
 
 
