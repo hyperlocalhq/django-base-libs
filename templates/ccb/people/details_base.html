@@ -1,5 +1,5 @@
 {% extends "base_redesign.html" %}
-{% load i18n base_tags auth_extended image_mods_tags navigation_tags browsing favorites individual_relations activity_tags %}
+{% load i18n base_tags auth_extended image_mods_tags navigation_tags browsing favorites individual_relations activity_tags cms_tags %}
 
 {% block title %}
     {% ifequal request.user object.user %}
@@ -20,7 +20,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <h1>{% ifequal request.user object.user %}{% trans "My Profile" %}{% else %}{% trans "Person" %}{% endifequal %}</h1>
+                    <h1>
+                        {% ifequal request.user object.user %}
+                            {% trans "My Profile" %}
+                        {% else %}
+                            <a href="{% page_url request.current_page %}">
+                                {% page_attribute "page_title" request.current_page %}
+                            </a>
+                        {% endifequal %}
+                    </h1>
                     <div class="profile">
                     
                         <div class="edit-avatar avatar-edit-frame">
@@ -149,7 +157,7 @@
 
 
 {% block breadcrumbs %}
-    <li><a href="/{{ URL_ID_PEOPLE }}/">{% trans "People" %}</a></li>
+    <li><a href="{% url 'member_list_global' %}">{% page_attribute "page_title" %}</a></li>
     <li><a href="{{ object.get_url_path }}">{{ object.get_title }}</a></li>
     {% block breadcrumbs_details %}
     {% endblock %}

@@ -1,5 +1,5 @@
 {% extends base_template|default:"base_redesign.html" %}
-{% load i18n base_tags auth_extended navigation_tags uni_form_tags infoblocks image_mods_tags individual_relations groups_networks browsing favorites crispy_forms_tags %}
+{% load i18n base_tags auth_extended navigation_tags uni_form_tags infoblocks image_mods_tags individual_relations groups_networks browsing favorites crispy_forms_tags cms_tags %}
 
 {% block extrahead %}
     {% if view_type == "map" %}
@@ -127,14 +127,14 @@
 
 {% block breadcrumbs %}
     {% if not show %}
-        <li>{% trans "Institutions" %}</li>
+        <li>{% page_attribute "page_title" %}</li>
     {% endif %}
     {% if show == "/favorites" %}
-        <li><a href="/{{ URL_ID_INSTITUTIONS }}/">{% trans "Institutions" %}</a></li>
+        <li><a href="{% url 'member_list_global' %}">{% page_attribute "page_title" %}</a></li>
         <li>{% trans "Favorites" %}</li>
     {% endif %}
     {% if show == "/own-institutions" %}
-        <li><a href="/{{ URL_ID_INSTITUTIONS }}/">{% trans "Institutions" %}</a></li>
+        <li><a href="{% url 'member_list_global' %}">{% page_attribute "page_title" %}</a></li>
         <li>{% trans "Own institutions" %}</li>
     {% endif %}
 {% endblock %}

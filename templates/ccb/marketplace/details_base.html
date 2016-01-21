@@ -1,5 +1,5 @@
 {% extends "base_redesign.html" %}
-{% load i18n base_tags navigation_tags babel favorites %}
+{% load i18n base_tags navigation_tags babel favorites cms_tags %}
 
 {% block meta_tags %}
     {% if LANGUAGE_CODE == "de" %}
@@ -28,7 +28,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <h1>{% trans "Job" %}</h1>
+                    <h1>
+                        <a href="{% page_url request.current_page %}">
+                            {% page_attribute "page_title" request.current_page %}
+                        </a>
+                    </h1>
                     <h2>{{ object.position }}</h2>
                 </div>
             </div>
@@ -64,7 +68,7 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    <li><a href="/{{ URL_ID_JOB_OFFERS }}/">{% trans "Jobs" %}</a></li>
+    <li><a href="{% url 'job_offer_list_global' %}">{% page_attribute "page_title" %}</a></li>
     <li><a href="{{ object.get_url_path }}">{{ object.position }}</a></li>
     {% block breadcrumbs_details %}
     {% endblock %}

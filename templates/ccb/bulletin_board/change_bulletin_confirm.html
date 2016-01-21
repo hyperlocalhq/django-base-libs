@@ -1,9 +1,9 @@
 {% extends "bulletin_board/change_bulletin.html" %}
-{% load i18n image_mods_tags base_tags crispy_forms_tags %}
+{% load i18n image_mods_tags base_tags crispy_forms_tags cms_tags %}
 
 
 {% block headline %}
-    <h1>{% trans "Bulletin Board" %}</h1>
+    <h1>{% page_attribute "page_title" %}</h1>
     <h2>{% trans "New Bulletin" %} - {% trans "Confirm Entered Data" %}</h2>
 {% endblock %}
 

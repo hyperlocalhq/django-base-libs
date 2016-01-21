@@ -87,6 +87,7 @@ urlpatterns = (
     url(r'^job/(?P<secure_id>\d+)/$',
         'ccb.apps.marketplace.views.job_offer_detail',
         job_offer_details_info,
+        name="job_offer_detail",
         ),
     url(r'^job/(?P<slug>[^/]+)/delete/$',
         'ccb.apps.site_specific.views.delete_object',

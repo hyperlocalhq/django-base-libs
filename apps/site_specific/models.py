@@ -254,7 +254,7 @@ class ContextItem(CreationModificationDateMixin, ContextItemObjectRelation, UrlM
         blank=True,
     )
 
-    locality_type = TreeForeignKey("location.LocalityType", verbose_name=_("Locality type"), blank=True, null=True)
+    locality_type = TreeForeignKey("location.LocalityType", verbose_name=_("Locality type"), blank=True, null=True, on_delete=models.SET_NULL)
 
     status = models.CharField(max_length=20, blank=True)
 

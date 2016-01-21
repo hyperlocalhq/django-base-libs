@@ -147,17 +147,7 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    {% if not show %}
-        <li>{% trans "People" %}</li>
-    {% endif %}
-    {% if show == "/contacts" %}
-        <li><a href="/{{ URL_ID_PEOPLE }}/">{% trans "People" %}</a></li>
-        <li>{% trans "Contacts" %}</li>
-    {% endif %}
-    {% if show == "/relationships" %}
-        <li><a href="/{{ URL_ID_PEOPLE }}/">{% trans "People" %}</a></li>
-        <li>{% trans "Confirmed Contacts" %}</li>
-    {% endif %}
+    {% show_breadcrumb 1 "navigation/breadcrumb.html" %}
 {% endblock %}
 
 {% block javascript %}

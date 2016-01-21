@@ -2,6 +2,8 @@
 
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import AnonymousUser
+from django.core.urlresolvers import reverse
+
 from actstream import action
 
 from jetson.apps.marketplace.base import *
@@ -71,6 +73,16 @@ class JobOffer(JobOfferBase):
     def is_public(self):
         return self.status == "published"
 
+    def get_url_path(self):
+        try:
+            path = reverse("job_offer_detail", kwargs={
+                'secure_id': self.get_secure_id(),
+            })
+        except:
+            # the apphook is not attached yet
+            return ""
+        else:
+            return path
 
 # Notify appropriate users about new job offers from contacts and favorite institutions
 def job_offer_created(sender, instance, **kwargs):

@@ -1,5 +1,5 @@
 {% extends base_template|default:"articles/articles_base.html" %}
-{% load base_tags blog babel i18n auth_extended %}
+{% load base_tags blog babel i18n auth_extended cms_tags %}
 
 {% block search_bar %}
     <div class="row">
@@ -30,12 +30,9 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    {% if creative_sector %}
-        <li><a href="/news/">{% trans "News" %}</a></li>
-        <li>{{ creative_sector.get_title }}</li>
-    {% else %}
-        <li>{% trans "News" %}</li>
-    {% endif %}
+    <li><a href="{% page_url request.current_page %}">{% page_attribute "page_title" %}</a></li>
+    {% block breadcrumbs_details %}
+    {% endblock %}
 {% endblock %}
 
  {% block javascript %}

@@ -1,0 +1,8 @@
+{% load i18n base_tags %}
+
+{% get_objects under_news articles.ArticleType as article_types %}
+{% for at in article_types %}
+    <li{% if article_type == at or article.article_type == at %} class="active"{% endif %}>
+        <a{% if article_type == at or article.article_type == at %} class="active"{% endif %} href="{% url "article_archive_for_news_by_type" type_sysname=at.slug %}">{{ at.title }}</a>
+    </li>
+{% endfor %}

@@ -152,7 +152,8 @@ class Bulletin(CreationModificationMixin, UrlMixin):
         verbose_name=_("Locality type"),
         blank=True,
         null=True, 
-        related_name="locality_bulletin"
+        related_name="locality_bulletin",
+        on_delete=models.SET_NULL,
     )
 
     published_from = models.DateTimeField(

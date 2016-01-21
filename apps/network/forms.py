@@ -41,8 +41,11 @@ class MemberSearchForm(dynamicforms.Form):
         required=False,
     )
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, root_category, *args, **kwargs):
         super(MemberSearchForm, self).__init__(*args, **kwargs)
+        self.root_category = root_category
+        if root_category:
+            self.fields['category'].queryset = self.fields['category'].queryset.filter(tree_id=root_category.tree_id)
 
         self.helper = FormHelper()
         self.helper.form_action = ""
@@ -51,7 +54,7 @@ class MemberSearchForm(dynamicforms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Filter"),
-                layout.Field("category", template="ccb_form/custom_widgets/filter_field.html"),
+                layout.Field("category", template="ccb_form/custom_widgets/category_filter_field.html"),
                 layout.Field("locality_type", template="ccb_form/custom_widgets/filter_field.html"),
                 layout.Field("object_type", template="ccb_form/custom_widgets/filter_field.html"),
                 template="ccb_form/custom_widgets/filter.html"

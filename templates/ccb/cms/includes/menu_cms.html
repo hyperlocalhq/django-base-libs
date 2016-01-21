@@ -6,7 +6,7 @@
         {% if child.children %} dropdown{% endif %}">
         {% if child.children %}
             <a class="dropdown-toggle{% if child.selected %} active{% endif %}" data-toggle="dropdown" href="#">
-                {{ child.get_menu_title }} <span class="caret"></span>
+                {{ child.get_menu_title }}<span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
                 {% show_menu from_level to_level extra_inactive extra_active template "" "" child %}

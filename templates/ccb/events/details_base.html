@@ -1,5 +1,5 @@
 {% extends "base_redesign.html" %}
-{% load i18n base_tags auth_extended image_mods_tags navigation_tags babel browsing favorites individual_relations %}
+{% load i18n base_tags auth_extended image_mods_tags navigation_tags babel browsing favorites individual_relations cms_tags %}
 
 {% block title %}{{ object.get_title|escape }}{% endblock %}
 
@@ -13,7 +13,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <h1>{% trans "Event" %}</h1>
+                    <h1>
+                        <a href="{% page_url request.current_page %}">
+                            {% page_attribute "page_title" request.current_page %}
+                        </a>
+                    </h1>
                     <div class="profile">
 
                         <div class="edit-avatar avatar-edit-frame">
@@ -97,7 +101,7 @@
 
 {% block breadcrumbs %}
     <li>
-        <a href="/{{ URL_ID_EVENTS }}/">{% trans "Events" %}</a>
+        <a href="{% url 'event_list_global' %}">{% page_attribute "page_title" %}</a>
     </li>
     <li>
         <a href="{{ object.get_url_path }}">{{ object.get_title }}</a>

@@ -1,5 +1,5 @@
 {% extends base_template|default:"base.html" %}
-{% load i18n base_tags babel navigation_tags individual_relations groups_networks %}
+{% load i18n base_tags babel navigation_tags individual_relations groups_networks cms_tags %}
 
 {% block extrahead %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
@@ -7,10 +7,10 @@
 {% endblock %}
 
 
-{% block title %}{% trans "People" %}{% endblock %}
+{% block title %}{% page_attribute "page_title" %}{% endblock %}
 
 {% block headline %}
-    <h1>{% trans "People" %}</h1>
+    <h1>{% page_attribute "page_title" %}</h1>
 {% endblock %}
 
 {% block content %}
@@ -27,10 +27,10 @@
         <div>
             {% include_parsed "utils/includes/sorting_and_pagination.html" with "under-tabs" as css_class %}
             <div class="invitation-status">
-                <a href="/{{ URL_ID_PEOPLE }}/requests/?by-status={{ active_status_filter }}"
+                <a href="/{% url 'member_list_global' %}/requests/?by-status={{ active_status_filter }}"
                     {% ifequal active_link "requests" %}class="active"{% endifequal %}>{% trans "Sent invitations " %}</a>
                 |
-                <a href="/{{ URL_ID_PEOPLE }}/requested/?by-status={{ active_status_filter }}"
+                <a href="/{% url 'member_list_global' %}/requested/?by-status={{ active_status_filter }}"
                     {% ifequal active_link "requested" %}class="active"{% endifequal %}>{% trans "Requests to confirm" %}</a>
             </div>
         </div>
@@ -73,17 +73,17 @@
         <a href="/">{% trans "Home" %}</a>
         {% if show == "/invitations" %}
             <span class="b-sep"><span>::</span></span>
-            <a href="/people/">{% trans "People" %}</a>
+            <a href="{% url 'member_list_global' %}">{% page_attribute "page_title" %}</a>
             <span class="b-sep"><span>::</span></span><span>{% trans "Invitations" %}</span>
         {% endif %}
         {% if show == "/requests" %}
             <span class="b-sep"><span>::</span></span>
-            <a href="/people/">{% trans "People" %}</a>
+            <a href="{% url 'member_list_global' %}">{% page_attribute "page_title" %}</a>
             <span class="b-sep"><span>::</span></span><span>{% trans "Sent invitations" %}</span>
         {% endif %}
         {% if show == "/requested" %}
             <span class="b-sep"><span>::</span></span>
-            <a href="/people/">{% trans "People" %}</a>
+            <a href="{% url 'member_list_global' %}">{% page_attribute "page_title" %}</a>
             <span class="b-sep"><span>::</span></span><span>{% trans "Requests to confirm" %}</span>
         {% endif %}
     </div>
