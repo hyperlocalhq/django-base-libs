@@ -1477,16 +1477,17 @@ $(document).ready(function() {
                     me.$next = $('<a href="javascript:void(0);" class="fawesome fa-right-bold big button"></a>');
                     me.$prev = $('<a href="javascript:void(0);" class="fawesome fa-left-bold big button"></a>');
                     
-                    me.$next.click(function() {me.next();});
-                    me.$prev.click(function() {me.prev();});
+                    me.$next.click(function(e) {me.next(e);});
+                    me.$prev.click(function(e) {me.prev(e);});
                     
                     me.$navi.append(me.$next);
                     me.$navi.append(me.$prev);
                  }
             }
             me.$navi.off();
-            me.$navi.on("swiperight", function() {me.prev();});
-            me.$navi.on("swipeleft", function() {me.next();});
+            me.$navi.on("swiperight", function(e) {me.prev(e);});
+            me.$navi.on("swipeleft", function(e) {me.next(e);});
+            me.$navi.click(function() {me.close();});
         }    
         
         
@@ -1568,9 +1569,11 @@ $(document).ready(function() {
         me.is_open = false;
     }
     
-    ImagePopup.prototype.next = function() {
+    ImagePopup.prototype.next = function(event) {
         
         var me = this.me;
+        
+        if (event) event.stopImmediatePropagation();
         
         if (!me.gallery) return;
         if (me.animating) return;
@@ -1590,9 +1593,11 @@ $(document).ready(function() {
         });
     }
     
-    ImagePopup.prototype.prev = function() {
+    ImagePopup.prototype.prev = function(event) {
         
         var me = this.me;
+        
+        if (event) event.stopImmediatePropagation();
         
         if (!me.gallery) return;
         if (me.animating) return;
