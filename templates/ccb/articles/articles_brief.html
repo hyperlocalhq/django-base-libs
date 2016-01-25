@@ -4,6 +4,7 @@
 
 <div class="col-xs-12">
     <div class="wrapper">
+            {{ list_article.article_type.slug }}
         <a class="content" href="{{ list_article.get_url_path }}">
             {% if list_article.article_type.slug == "industry-news-and-market-trends" or list_article.article_type.slug == "ausschreibungen-und-wettbewerbe" or list_article.article_type.slug == "studies-and-publications" or list_article.article_type.slug == "surveys" %}
                 <div class="text no-image">
