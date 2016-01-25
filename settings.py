@@ -727,7 +727,7 @@ HAYSTACK_CONNECTIONS = {
         'PATH': os.path.join(PATH_TMP, "whoosh_index", "default"),
         'STORAGE': 'file',
         'POST_LIMIT': 128 * 1024 * 1024,
-        'INCLUDE_SPELLING': True,
+        'INCLUDE_SPELLING': False,
         'BATCH_SIZE': 100,
     },
     'de': {
@@ -735,7 +735,7 @@ HAYSTACK_CONNECTIONS = {
         'PATH': os.path.join(PATH_TMP, "whoosh_index", "de"),
         'STORAGE': 'file',
         'POST_LIMIT': 128 * 1024 * 1024,
-        'INCLUDE_SPELLING': True,
+        'INCLUDE_SPELLING': False,
         'BATCH_SIZE': 100,
         'URL': 'http://www.creative-city-berlin.de/de/search/',
     },
@@ -744,12 +744,13 @@ HAYSTACK_CONNECTIONS = {
         'PATH': os.path.join(PATH_TMP, "whoosh_index", "en"),
         'STORAGE': 'file',
         'POST_LIMIT': 128 * 1024 * 1024,
-        'INCLUDE_SPELLING': True,
+        'INCLUDE_SPELLING': False,
         'BATCH_SIZE': 100,
         'URL': 'http://www.creative-city-berlin.de/en/search/',
     },
 }
 
+HAYSTACK_ITERATOR_LOAD_PER_QUERY = 100
 HAYSTACK_ROUTERS = ['ccb.apps.search.router.LanguageRouter']
 ALDRYN_SEARCH_LANGUAGE_FROM_ALIAS = lambda alias: alias
 ALDRYN_SEARCH_INDEX_BASE_CLASS = "ccb.apps.search.search_indexes.CMSPageIndexBase"  # custom index base for pages
