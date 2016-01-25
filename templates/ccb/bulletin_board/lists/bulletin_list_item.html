@@ -3,15 +3,10 @@
 <div class="col-xs-12">
     <div class="wrapper">
         <a class="content" href="{{ bulletin.get_url_path }}{% if bulletin.status == "draft" %}?preview=1{% endif %}">
-            {% if bulletin.image %}
-                <img src="{{ UPLOADS_URL }}{{ bulletin.image|modified_path:"list" }}" alt="{{ bulletin.get_title|escape }}"/>
-            {% else %}
-                <img src=" {{ STATIC_URL }}site/img/placeholder/infolink.png" alt="{{ bulletin.get_title|escape }}"/>
-            {% endif %}
-            <div class="text">
+            <div class="text no-image">
                 <h3>{% if bulletin.bulletin_type %}{{ bulletin.bulletin_type }}{% if bulletin.category %} {{ bulletin.category }}{% endif %} {% elif bulletin.category %}{{ bulletin.category }} {% endif %}{% if bulletin.published_till %}<time>{% trans "Published till" %} {{ bulletin.published_till|date:"d. m. Y H:i" }}</time>{% endif %}</h3>
                 <h2>{{ bulletin.get_title|escape }}</h2>
-                <p>{% if bulletin.description %}{{ bulletin.get_description|striptags|truncatewords:20 }}{% endif %}</p>
+                <p>{% if bulletin.description %}{{ bulletin.get_description|striptags|truncatewords:25 }}{% endif %}</p>
                 <div>{% trans 'Read on' %}</div>
             </div>
         </a>

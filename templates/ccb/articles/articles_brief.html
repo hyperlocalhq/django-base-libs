@@ -5,12 +5,16 @@
 <div class="col-xs-12">
     <div class="wrapper">
         <a class="content" href="{{ list_article.get_url_path }}">
-            {% if list_article.image %}
-                <img src="{{ UPLOADS_URL }}{{ list_article.image|modified_path:"list" }}" alt="{{ list_article.get_title|escape }}"/>
+            {% if list_article.article_type.slug == "industry-news-and-market-trends" or list_article.article_type.slug == "ausschreibungen-und-wettbewerbe" or list_article.article_type.slug == "studies-and-publications" or list_article.article_type.slug == "surveys" %}
+                <div class="text no-image">
             {% else %}
-                <img src="{{ STATIC_URL }}site/img/placeholder/infolink.png" alt="{{ list_article.get_title|escape }}"/>
+                {% if list_article.image %}
+                    <img src="{{ UPLOADS_URL }}{{ list_article.image|modified_path:"list" }}" alt="{{ list_article.get_title|escape }}"/>
+                {% else %}
+                    <img src="{{ STATIC_URL }}site/img/placeholder/infolink.png" alt="{{ list_article.get_title|escape }}"/>
+                {% endif %}
+                <div class="text">
             {% endif %}
-            <div class="text">
                 <h3>
                     {% if list_article.content_provider %}
                         {{ list_article.content_provider.title }}
@@ -24,7 +28,11 @@
                 <h2>{{ list_article.get_title|striptags|escape }}</h2>
                 <p>
                     {% parse list_article.get_rendered_content as content %}
-                    {{ content|striptags|truncatewords:"10" }}
+                    {% if list_article.article_type.slug == "industry-news-and-market-trends" or list_article.article_type.slug == "ausschreibungen-und-wettbewerbe" or list_article.article_type.slug == "studies-and-publications" or list_article.article_type.slug == "surveys" %}
+                        {{ content|striptags|truncatewords:"25" }}
+                    {% else %}
+                        {{ content|striptags|truncatewords:"10" }}
+                    {% endif %}
                 </p>
                 <div>{% trans 'Read on' %}</div>
             </div>
