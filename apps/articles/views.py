@@ -9,7 +9,7 @@ from django.db.models.fields import DateTimeField
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import get_language
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.contrib.contenttypes.models import ContentType
 from base_libs.models.base_libs_settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
 from base_libs.middleware import get_current_language
@@ -47,7 +47,7 @@ def get_articles(
         queryset = queryset.filter(creative_sectors__slug=creative_sector_slug)
 
     if type_sysname and type_sysname != 'all':
-        article_type = ArticleType.objects.get(slug=type_sysname)
+        article_type = get_object_or_404(ArticleType, slug=type_sysname)
         if article_type.is_root_node():
             queryset = queryset.filter(article_type__tree_id=article_type.tree_id)
         else:
