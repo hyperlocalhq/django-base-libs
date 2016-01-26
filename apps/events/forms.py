@@ -133,7 +133,7 @@ class MainDataForm(dynamicforms.Form):
     )
     """
     venue = forms.CharField(
-        required=False,
+        required=True,
         label=_("Venue"),
         help_text=_("Please enter a letter to display a list of available venues"),
         widget=forms.Select(choices=[]),
@@ -1547,6 +1547,7 @@ def save_data(form_steps, form_step_data):
 
     # venue data
     venue = None
+    venue_title = ''
     if step_main_data.get('venue', None):
         venue = Institution.objects.get(pk=step_main_data['venue'])
         #venue_title = venue.get_title()

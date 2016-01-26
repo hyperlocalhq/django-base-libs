@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 import datetime
+import ast
 
 from django.db import models
 from django import forms
@@ -942,21 +943,42 @@ class AdditionalInfoForm(dynamicforms.Form):
         widget=forms.Textarea(),
         max_length=500,
     )
+    """
     related_events = forms.ModelMultipleChoiceField(
         label=_("Related Events"),
         queryset=get_related_queryset(Event, "related_events").all(),
         required=False,
         help_text="",
     )
+    """
+    related_events = forms.CharField(
+        required=False,
+        label=_("Related Events"),
+        help_text=_("Please enter a letter to display a list of available events"),
+        widget=forms.SelectMultiple(choices=[]),
+    )
 
     def __init__(self, event, index, *args, **kwargs):
         super(AdditionalInfoForm, self).__init__(*args, **kwargs)
         self.event = event
         self.index = index
-        self.fields['related_events'].initial = event.related_events.values_list("pk", flat=True)
+        related_events = event.related_events.values_list("pk", flat=True)
+        self.fields['related_events'].initial = related_events
         self.fields['related_events'].help_text = ""
         self.fields['additional_info_en'].initial = event.additional_info_en
         self.fields['additional_info_de'].initial = event.additional_info_de
+                
+        # add option of choosen selections for autoload fields
+        if related_events:
+            for ev in related_events:
+                ev_choice = Event.objects.get(pk=ev)
+                self.fields['related_events'].widget.choices=[(ev_choice.id, ev_choice.title)]       
+            
+        # add option of choosen selections for autoload fields on error reload of page
+        #if self.data.get('related_events', None):
+        #    for ev in ast.literal_eval(self.data['related_events']):
+        #        ev_choice = Event.objects.get(pk=ev)
+        #        self.fields['related_events'].widget.choices=[(ev_choice.id, ev_choice.title)]
 
         self.helper = FormHelper()
         self.helper.form_action = "/helper/edit-%(URL_ID_EVENT)s-profile/%(slug)s/additional_info/" % {
@@ -972,7 +994,13 @@ class AdditionalInfoForm(dynamicforms.Form):
                 _("Additional Info"),
                 "additional_info_de",
                 "additional_info_en",
-                "related_events",
+                layout.Field(
+                    "related_events",
+                    data_load_url="/helper/autocomplete/events/get_related_events/title/get_postal_address/",
+                    data_load_start="1",
+                    data_load_max="20",
+                    css_class="autoload"
+                ),
                 bootstrap.FormActions(
                     layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
@@ -990,7 +1018,7 @@ class AdditionalInfoForm(dynamicforms.Form):
         event.additional_info_de = data['additional_info_de']
         event.save()
         event.related_events.clear()
-        for ev in data['related_events']:
+        for ev in ast.literal_eval(data['related_events']):
             event.related_events.add(ev)
         return event
 

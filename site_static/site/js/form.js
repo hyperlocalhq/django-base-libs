@@ -523,6 +523,13 @@ $(document).ready(function() {
         me.multiple = me.$main.prop('multiple');
         me.required = me.$main.prop('required');
         
+        if (me.autoload && me.multiple) {
+            me.autoload_multiple = true;
+            me.multiple = false;
+        } else {
+            me.autoload_multiple = false;
+        }
+        
         me.$main.parents('fieldset').each(function() {
             if ($(this).prop('disabled')) me.disabled = true;
         });
@@ -1392,7 +1399,9 @@ $(document).ready(function() {
                     
                     var display = entry[0];
                     if (entry[2]) display += "<br>" + entry[2];
-                    var $option = $('<option value="'+entry[1]+'" data-display="'+display+'">'+entry[0]+'</option>');
+                    var $option = $('<option>'+entry[0]+'</option>');
+                    $option.attr('value', entry[1]);
+                    $option.attr('data-display', display);
                     me.$main.append($option);
                     
                     if (entry[0] == me.loading_value) value = entry[1];
