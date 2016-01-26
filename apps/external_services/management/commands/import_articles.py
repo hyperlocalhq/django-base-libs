@@ -42,6 +42,7 @@ class Command(NoArgsCommand):
             response = requests.get(
                 s.url,
                 allow_redirects=True,
+                verify=False,
                 headers={
                     'User-Agent': 'Creative City Berlin',
                 }
