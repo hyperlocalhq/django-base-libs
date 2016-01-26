@@ -261,6 +261,8 @@ class ContactForm(dynamicforms.Form):
                       required display descriptione for the
                       autocomplete field
     """
+    
+    """
     institution = AutocompleteField(
         required=False,
         label=_("Institution"),
@@ -276,6 +278,14 @@ class ContactForm(dynamicforms.Form):
             "highlight": False,
         },
     )
+    """
+    institution = forms.CharField(
+        required=False,
+        label=_("Institution"),
+        help_text=_("Please enter a letter to display a list of available institutions"),
+        widget=forms.Select(choices=[]),
+    )
+    
     institution_title = forms.CharField(
         required=False,
         label=_("Institution Title"),
@@ -503,6 +513,17 @@ class ContactForm(dynamicforms.Form):
                 self.fields['email0'].initial = contact.email0_address
                 self.fields['email1'].initial = contact.email1_address
                 self.fields['email2'].initial = contact.email2_address
+                
+                # add option of choosen selections for autoload fields
+                if contact.institution_id:
+                    institution = Institution.objects.get(pk=contact.institution_id)
+                    self.fields['institution'].widget.choices=[(institution.id, institution.title)]
+            
+        # add option of choosen selections for autoload fields on error reload of page
+        if self.data.get('institution', None):
+            institution = Institution.objects.get(pk=self.data.get('institution', None))
+            self.fields['institution'].widget.choices=[(institution.id, institution.title)]
+                    
 
         self.helper = FormHelper()
         self.helper.form_action = "/helper/edit-%(URL_ID_PERSON)s-profile/%(username)s/contact/%(index)s/" % {
@@ -523,7 +544,14 @@ class ContactForm(dynamicforms.Form):
                 "location_title",
 
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Institution"), '</h3></dd>')),
-                layout.Field("institution", wrapper_class="institution-select autocomplete"),
+                layout.Field(
+                    "institution", 
+                    data_load_url="/helper/autocomplete/institutions/get_all_institutions/title/get_address_string/",
+                    data_load_start="1",
+                    data_load_max="20",
+                    wrapper_class="institution-select", 
+                    css_class="autoload"
+                ),
                 layout.HTML("""{% load i18n %}
                     <dt class="institution-select"> </dt><dd class="institution-select"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-input" data-toggle-hide=".institution-select">{% trans "Not listed? Enter manually" %}</a></dd>
                 """),
@@ -712,6 +740,7 @@ class ContactForm(dynamicforms.Form):
                 css_class="switch on"
             ),
         )
+    
 
     def save(self):
         person = self.person

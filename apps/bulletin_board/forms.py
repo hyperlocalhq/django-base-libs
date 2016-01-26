@@ -28,6 +28,8 @@ from jetson.apps.utils.forms import ModelMultipleChoiceTreeField
 from .models import Bulletin, BulletinCategory
 from .models import TYPE_CHOICES, STATUS_CHOICES
 
+Institution = models.get_model("institutions", "Institution")
+
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 
 
@@ -104,6 +106,7 @@ class BulletinForm(forms.ModelForm):
     #    input_formats=('%H:%M',),
     #    widget=forms.TimeInput(format='%H:%M')
     #)
+    """
     institution = AutocompleteModelChoiceField(
     #institution = AutocompleteField(
         required=False,
@@ -122,6 +125,14 @@ class BulletinForm(forms.ModelForm):
             "extraParams": {'noescape':'1',},
         },
     )
+    """
+    institution = forms.CharField(
+        required=False,
+        label=_("Institution"),
+        help_text=_("Please enter a letter to display a list of available institutions"),
+        widget=forms.Select(choices=[]),
+    )
+    
     locality_type = TreeNodeChoiceField(
         empty_label=_("All"),
         label=_("Location Type"),
@@ -138,7 +149,8 @@ class BulletinForm(forms.ModelForm):
         model = Bulletin
         fields = [
             'bulletin_type', 'bulletin_category', 'categories', 'title', 'description', 'locality_type',
-            'institution', 'institution_title', 'institution_url',
+            #'institution', 
+            'institution_title', 'institution_url',
             'contact_person', 'phone', 'email',
             #'image_description', 
             'status',
@@ -146,6 +158,18 @@ class BulletinForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(BulletinForm, self).__init__(*args, **kwargs)
+                
+        # add option of already choosen selections on multistep forms for autoload fields
+        initial = kwargs.get("initial", None)
+        if initial:
+            if initial.get('institution', None):
+                institution = Institution.objects.get(pk=initial.get('institution', None))
+                self.fields['institution'].widget.choices=[(institution.id, institution.title)]
+        
+        # add option of choosen selections for autoload fields on error reload of page
+        if self.data.get('institution', None):
+            institution = Institution.objects.get(pk=self.data.get('institution', None))
+            self.fields['institution'].widget.choices=[(institution.id, institution.title)]
 
         self.helper = FormHelper()
         self.helper.form_action = ""
@@ -224,7 +248,14 @@ class BulletinForm(forms.ModelForm):
             layout.Fieldset(
                 _("Contact"),
                 
-                layout.Field("institution", wrapper_class="institution-select autocomplete"),
+                layout.Field(
+                    "institution", 
+                    data_load_url="/helper/autocomplete/institutions/get_published_institutions/title/get_address_string/",
+                    data_load_start="1",
+                    data_load_max="20",
+                    wrapper_class="institution-select",
+                    css_class="autoload"
+                ),
                 layout.HTML("""{% load i18n %}
                     <dt class="institution-select"> </dt><dd class="institution-select"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-input" data-toggle-hide=".institution-select">{% trans "Not listed? Enter manually" %}</a></dd>
                 <dd class="clearfix"></dd>
@@ -380,7 +411,8 @@ def load_data(instance=None):
 
         fields = [
             'bulletin_type', 'bulletin_category', 'title', 'description', 'locality_type',
-            'institution', 'institution_title', 'institution_url',
+            'institution', 
+            'institution_title', 'institution_url',
             'contact_person', 'phone', 'email',
             #'image_description', 
             'status',
@@ -442,11 +474,13 @@ def save_data(form_steps, form_step_data, instance=None):
     
     # institution data
     institution = None
+    institution_title = ''
+    institution_url = ''
     if form_step_data['bulletin_data'].get('institution', None):
-        #institution = Institution.objects.get(pk=form_step_data['bulletin_data']['institution'])
-        institution = form_step_data['bulletin_data']['institution']
-        institution_title = institution.get_title()
-        institution_url = institution.get_url_path()
+        institution = Institution.objects.get(pk=form_step_data['bulletin_data']['institution'])
+        #institution = form_step_data['bulletin_data']['institution']
+        #institution_title = institution.get_title()
+        #institution_url = institution.get_url_path()
     else:
         institution_title = form_step_data['bulletin_data'].get('institution_title', None)
         institution_url = form_step_data['bulletin_data'].get('institution_title', None)
@@ -465,7 +499,7 @@ def save_data(form_steps, form_step_data, instance=None):
         setattr(instance, fname, form_step_data['bulletin_data'][fname])
         
     instance.published_till = None
-    if form_step_data['bulletin_data']['end_yyyy']:
+    if form_step_data['bulletin_data'].get('end_yyyy', None):
         published_till_date = date(int(form_step_data['bulletin_data']['end_yyyy']), int(form_step_data['bulletin_data']['end_mm']), int(form_step_data['bulletin_data']['end_dd']))
     
         if form_step_data['bulletin_data']['end_hh']:

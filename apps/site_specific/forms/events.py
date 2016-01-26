@@ -281,6 +281,8 @@ class AvatarForm(dynamicforms.Form):
 
 
 class ContactForm(dynamicforms.Form):
+
+    """
     venue = AutocompleteField(
         label=_("Venue/Institution"),
         required=False,
@@ -295,6 +297,13 @@ class ContactForm(dynamicforms.Form):
             "mustMatch": 1,
             "highlight": False,
         }
+    )
+    """
+    venue = forms.CharField(
+        required=False,
+        label=_("Venue"),
+        help_text=_("Please enter a letter to display a list of available venues"),
+        widget=forms.Select(choices=[]),
     )
 
     venue_title = forms.CharField(
@@ -502,6 +511,16 @@ class ContactForm(dynamicforms.Form):
             self.fields['email0'].initial = contact.email0_address
             self.fields['email1'].initial = contact.email1_address
             self.fields['email2'].initial = contact.email2_address
+                
+            # add option of choosen selections for autoload fields
+            if event.venue_id:
+                institution = Institution.objects.get(pk=event.venue_id)
+                self.fields['venue'].widget.choices=[(institution.id, institution.title)]
+        
+        # add option of choosen selections for autoload fields on error reload of page
+        if self.data.get('venue', None):
+            institution = Institution.objects.get(pk=self.data.get('venue', None))
+            self.fields['venue'].widget.choices=[(institution.id, institution.title)]
 
         self.helper = FormHelper()
         self.helper.form_action = "/helper/edit-%(URL_ID_EVENT)s-profile/%(slug)s/contact/" % {
@@ -516,7 +535,14 @@ class ContactForm(dynamicforms.Form):
             layout.Fieldset(
                 _("Contact Data"),
                 layout.HTML(string_concat('<dd class="no-label"><h3>', _("Institution/Company"), '</h3></dd>')),
-                layout.Field("venue", wrapper_class="institution-select autocomplete"),
+                layout.Field(
+                    "venue", 
+                    data_load_url="/helper/autocomplete/events/get_venues/title/get_address_string/",
+                    data_load_start="1",
+                    data_load_max="20",
+                    wrapper_class="institution-select",
+                    css_class="autoload"
+                ),
                 layout.HTML("""{% load i18n %}
                     <dt class="institution-select"> </dt><dd class="institution-select"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-input" data-toggle-hide=".institution-select">{% trans "Not listed? Enter manually" %}</a></dd>
                 """),
@@ -784,6 +810,7 @@ class OrganizerForm(dynamicforms.Form):
     """
     A form for the informaton who or what institution organizes the event
     """
+    """
     organizing_institution = AutocompleteField(
         required=False,
         label=_("Organizing institution"),
@@ -798,6 +825,13 @@ class OrganizerForm(dynamicforms.Form):
             "mustMatch": 1,
             "highlight": False,
         }
+    )
+    """
+    organizing_institution = forms.CharField(
+        required=False,
+        label=_("Organizing institution"),
+        help_text=_("Please enter a letter to display a list of available institutions"),
+        widget=forms.Select(choices=[]),
     )
 
     organizer_title = forms.CharField(
@@ -827,6 +861,16 @@ class OrganizerForm(dynamicforms.Form):
         if event.creator and current_user != event.creator:
             self.fields['is_organized_by_myself'].label = _(
                 "Organized by %s") % event.creator.profile.get_title()
+                
+        # add option of choosen selections for autoload fields
+        if event.organizing_institution_id:
+            institution = Institution.objects.get(pk=event.organizing_institution_id)
+            self.fields['organizing_institution'].widget.choices=[(institution.id, institution.title)]       
+            
+        # add option of choosen selections for autoload fields on error reload of page
+        if self.data.get('organizing_institution', None):
+            institution = Institution.objects.get(pk=self.data.get('organizing_institution', None))
+            self.fields['organizing_institution'].widget.choices=[(institution.id, institution.title)]
 
         self.helper = FormHelper()
         self.helper.form_action = "/helper/edit-%(URL_ID_EVENT)s-profile/%(slug)s/organizer/" % {
@@ -840,7 +884,14 @@ class OrganizerForm(dynamicforms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Organizer"),
-                layout.Field("organizing_institution", wrapper_class="institution-select autocomplete"),
+                layout.Field(
+                    "organizing_institution", 
+                    data_load_url="/helper/autocomplete/events/get_organizing_institutions/title/get_address_string/",
+                    data_load_start="1",
+                    data_load_max="20",
+                    wrapper_class="institution-select",
+                    css_class="autoload"
+                ),
                 layout.HTML("""{% load i18n %}
                     <dt class="institution-select"> </dt><dd class="institution-select"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-input" data-toggle-hide=".institution-select">{% trans "Not listed? Enter manually" %}</a></dd>
                 """),

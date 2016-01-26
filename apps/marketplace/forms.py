@@ -75,6 +75,7 @@ class MainDataForm(dynamicforms.Form):
         widget=forms.Textarea(attrs={'class': 'vSystemTextField'}),
     )
 
+    """
     offering_institution = AutocompleteField(
         required=False,
         label=_("Offering institution"),
@@ -89,6 +90,13 @@ class MainDataForm(dynamicforms.Form):
             "mustMatch": 1,
             "highlight": False,
         },
+    )
+    """
+    offering_institution = forms.CharField(
+        required=False,
+        label=_("Offering institution"),
+        help_text=_("Please enter a letter to display a list of available institutions"),
+        widget=forms.Select(choices=[]),
     )
 
     offering_institution_title = forms.CharField(
@@ -198,6 +206,19 @@ class MainDataForm(dynamicforms.Form):
         self.fields['end_yyyy'].initial = six_weeks_from_now.year
         self.fields['end_mm'].initial = six_weeks_from_now.month
         self.fields['end_dd'].initial = six_weeks_from_now.day
+                
+        # add option of already choosen selections on multistep forms for autoload fields
+        initial = kwargs.get("initial", None)
+        if initial:
+            if initial.get('offering_institution', None):
+                institution = Institution.objects.get(pk=initial.get('offering_institution', None))
+                self.fields['offering_institution'].widget.choices=[(institution.id, institution.title)]
+        
+        # add option of choosen selections for autoload fields on error reload of page
+        if self.data.get('offering_institution', None):
+            institution = Institution.objects.get(pk=self.data.get('offering_institution', None))
+            self.fields['offering_institution'].widget.choices=[(institution.id, institution.title)]
+        
 
         self.helper = FormHelper()
         self.helper.form_action = ""
@@ -215,7 +236,14 @@ class MainDataForm(dynamicforms.Form):
             ),
             layout.Fieldset(
                 _("Institution"),
-                layout.Field("offering_institution", wrapper_class="institution-select autocomplete"),
+                layout.Field(
+                    "offering_institution", 
+                    data_load_url="/helper/autocomplete/marketplace/get_institutions/title/get_address_string/",
+                    data_load_start="1",
+                    data_load_max="20",
+                    wrapper_class="institution-select",
+                    css_class="autoload"
+                ),
                 layout.HTML("""{% load i18n %}
                     <dt class="institution-select"> </dt><dd class="institution-select"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-input" data-toggle-hide=".institution-select">{% trans "Not listed? Enter manually" %}</a></dd>
                 """),

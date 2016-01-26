@@ -67,10 +67,10 @@
                 <fieldset>
                     <h2>{% trans "Contact" %}</h2>
                     <dl class="input-fields">
-                        {% if form_step_data.bulletin_data.institution or form_step_data.bulletin_data.institution_title %}
+                        {% if institution or form_step_data.bulletin_data.institution_title %}
                             <dt>{% trans "Institution" %}</dt>
-                            {% if form_step_data.bulletin_data.institution %}
-                                <dd><div class="text-field">{{ form_step_data.bulletin_data.institution.title }}</div></dd>
+                            {% if institution %}
+                                <dd><div class="text-field">{{ institution.get_title }}</div></dd>
                                 <dd class="clearfix"></dd>
                             {% else %}
                                 <dd><div class="text-field">{{ form_step_data.bulletin_data.institution_title }}</div></dd>

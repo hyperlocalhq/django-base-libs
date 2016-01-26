@@ -22,6 +22,8 @@ from crispy_forms import layout, bootstrap
 
 image_mods = models.get_app("image_mods")
 
+Institution = models.get_model("institutions", "Institution")
+
 YEARS_CHOICES = [("", _("Year"))] + [(i, i) for i in range(2008, 2040)]
 MONTHS_CHOICES = [("", _("Month"))] + MONTHS.items()
 DAYS_CHOICES = [("", _("Day"))] + [(i, i) for i in range(1, 32)]
@@ -183,6 +185,7 @@ class DetailsForm(dynamicforms.Form):
 
 
 class ContactForm(dynamicforms.Form):
+    """
     offering_institution = AutocompleteField(
         required=False,
         label=_("Offering institution"),
@@ -198,6 +201,14 @@ class ContactForm(dynamicforms.Form):
             "highlight": False,
         },
     )
+    """
+    offering_institution = forms.CharField(
+        required=False,
+        label=_("Offering institution"),
+        help_text=_("Please enter a letter to display a list of available institutions"),
+        widget=forms.Select(choices=[]),
+    )
+    
     offering_institution_title = forms.CharField(
         required=False,
         label=_("Institution/Company Title"),
@@ -433,6 +444,16 @@ class ContactForm(dynamicforms.Form):
             self.fields['email1'].initial = contact.email1_address
             self.fields['email2'].initial = contact.email2_address
             self.fields['publish_emails'].initial = contact.publish_emails
+                
+            # add option of choosen selections for autoload fields
+            if job_offer.offering_institution_id:
+                institution = Institution.objects.get(pk=job_offer.offering_institution_id)
+                self.fields['offering_institution'].widget.choices=[(institution.id, institution.title)]   
+            
+        # add option of choosen selections for autoload fields on error reload of page
+        if self.data.get('offering_institution', None):
+            institution = Institution.objects.get(pk=self.data.get('offering_institution', None))
+            self.fields['offering_institution'].widget.choices=[(institution.id, institution.title)]
 
         self.helper = FormHelper()
         self.helper.form_action = "/helper/edit-%(URL_ID_JOB_OFFER)s-profile/%(slug)s/contact/" % {
@@ -448,7 +469,14 @@ class ContactForm(dynamicforms.Form):
                 _("Contact Data"),
                 layout.HTML(
                     string_concat('<dd class="no-label"><h3>', _("Institution/Company"), '</h3></dd>')),
-                layout.Field("offering_institution", wrapper_class="institution-select autocomplete"),
+                layout.Field(
+                    "offering_institution", 
+                    data_load_url="/helper/autocomplete/marketplace/get_institutions/title/get_address_string/",
+                    data_load_start="1",
+                    data_load_max="20",
+                    wrapper_class="institution-select",
+                    css_class="autoload"
+                ),
                 layout.HTML("""{% load i18n %}
                     <dt class="institution-select"> </dt><dd class="institution-select"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-input" data-toggle-hide=".institution-select">{% trans "Not listed? Enter manually" %}</a></dd>
                 """),
