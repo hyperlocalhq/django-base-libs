@@ -2,8 +2,8 @@
 
 {# TODO: remove the ugly hack with reverse_id, when attachable menus work stably #}
 {% for child in children %}
-    <li class="{% if child.children %}accordion-inside accordion-trigger{% endif %} {% if child.selected %}active{% endif %} {% if child.ancestor %}opened{% endif %}">
-        {% if child.children or child.attr.reverse_id == "news" or child.attr.reverse_id == "interviews"%}
+    <li class="{% if child.children or child.attr.reverse_id == "news" or child.attr.reverse_id == "interviews" %}accordion-inside accordion-trigger{% endif %} {% if child.selected %}active{% endif %} {% if child.ancestor %}opened{% endif %}">
+        {% if child.children or child.attr.reverse_id == "news" or child.attr.reverse_id == "interviews" %}
             <span class="accordion-trigger {% if child.selected %}active{% endif %}">{{ child.get_menu_title }}</span>
             <ul class="accordion">
                 {% if child.attr.reverse_id == "news" %}
