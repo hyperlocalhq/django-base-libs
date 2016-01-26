@@ -6,4 +6,5 @@ date >> ${CRON_LOG_FILE}
 
 cd ${PROJECT_PATH}
 . bin/activate
-python /usr/local/www/apache24/data/creative-city-berlin.de/project/ccb/scripts/daily_tasks.py >> ${CRON_LOG_FILE}  2>&1
+cd project/ccb
+python manage.py daily_tasks --verbosity=2 --traceback >> ${CRON_LOG_FILE}  2>&1
