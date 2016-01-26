@@ -109,13 +109,14 @@ class Command(NoArgsCommand):
 
     def handle_noargs(self, **options):
         from django.db import models
+        from django.apps import apps
 
         verbosity = int(options.get('verbosity', NORMAL))
 
         # 2-tuple of "app_name.model_name" and a callable returning the object to edit, if a link is broken
         models_to_check = (
-            ("faqs.FaqCategory", (lambda o: o)),
-            ("faqs.QuestionAnswer", (lambda o: o)),
+            #("faqs.FaqCategory", (lambda o: o)),
+            #("faqs.QuestionAnswer", (lambda o: o)),
             # ("articles.Article", (lambda o: o)),
             ("resources.Document", (lambda o: o)),
             # ("events.Event", (lambda o: o)),
@@ -127,7 +128,7 @@ class Command(NoArgsCommand):
 
         # traverse models
         for app_model, get_obj in models_to_check:
-            model = models.get_model(*app_model.split("."))
+            model = apps.get_model(*app_model.split("."))
             if verbosity > NORMAL:
                 print "Checking %s model..." % model.__name__
             # traverse instances
