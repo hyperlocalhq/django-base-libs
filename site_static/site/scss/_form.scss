@@ -1148,6 +1148,12 @@ input {
         width: 100%;
         position: relative;
         padding-right: 10px;
+        
+        &.autoload {
+            .select-index-0 {
+                display: none;
+            }
+        }
     }
     
     // a wrapper for the text input
@@ -1206,10 +1212,15 @@ input {
         &.autoload.loading {
             &:after {
                 content: "\f110";
+                top: 10px;
                 right: 10px;
+                width: auto;
+                height: auto;
+                padding: 0;
                 
                 .is-xs & {
                     right: 8px;
+                    top: 7px;
                 }
                 
                 -webkit-transition: -webkit-transform 1000s;

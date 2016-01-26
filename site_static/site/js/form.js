@@ -523,6 +523,13 @@ $(document).ready(function() {
         me.multiple = me.$main.prop('multiple');
         me.required = me.$main.prop('required');
         
+        if (me.autoload && me.multiple) {
+            me.autoload_multiple = true;
+            me.multiple = false;
+        } else {
+            me.autoload_multiple = false;
+        }
+        
         me.$main.parents('fieldset').each(function() {
             if ($(this).prop('disabled')) me.disabled = true;
         });
@@ -534,11 +541,15 @@ $(document).ready(function() {
             
             me.load_url = me.$main.attr('data-load-url');
             me.load_start = parseInt(me.$main.attr('data-load-start'));
+            me.load_limit = parseInt(me.$main.attr('data-load-max'));
             if (!me.load_start) me.load_start = 2;
             if (me.load_start < 1) me.load_start = 1;
+            if (!me.load_limit) me.load_limit = 20;
             
             me.loading = false;
             me.loading_value = '';
+            me.loading_timeout = null;
+            me.loading_cache = [];
             
             if (me.readonly || me.disabled) {
                 me.autoload = false;
@@ -601,6 +612,10 @@ $(document).ready(function() {
         if (me.autoload) {
             me.$display.addClass('autoload');
             me.$wrapper.addClass('autoload');
+            me.$dropdown_wrapper.addClass('autoload');
+            me.$display.attr('autocomplete', 'nope');
+            me.$display.attr('autocorrect', 'off');
+            me.$display.attr('autocapitalize', 'off');
         }
         
         me.$main.addClass('select-hide');
@@ -626,8 +641,13 @@ $(document).ready(function() {
             me.$wrapper.click(function() {me.onClick();});
         }
         
-        if (me.autoload) {
+        if (me.autoload) {        
+            me.$main.keyup(function(e) {return me.onSelectKeyup(e);});
+            me.$main.keydown(function(e) {return me.onSelectKeydown(e);});
+            me.$display.keydown(function(e) {return me.onInputKeydown(e);});
+            
             me.$display.keyup(function() {me.onInputChange();});   
+            me.$display.blur(function() {me.onSelectBlur();});
         }
         
         
@@ -720,6 +740,99 @@ $(document).ready(function() {
         }
         
         return true;
+    }
+    
+    /**
+     * A key of a autoload select field got pressed.
+     * Checking if the up key was pressed to switch the focus to the input field.
+     */
+    SelectBox.prototype.onSelectKeyup = function(event) {
+        
+        var me = this.me;
+        
+        if (me.autoload) {
+         
+            if (event.which == 38) {
+            
+                var $option = $('option', me.$main).first();
+                if ($option.prop('selected')) {
+                
+                    event.stopPropagation();
+                    event.preventDefault();
+                
+                    me.$display.val(me.loading_value);
+                    me.$display.focus();
+                    me.openDropdown();
+                
+                    return false;
+                }
+            }
+        }
+    }
+    
+    /**
+     * A key of a autoload select field got pressed.
+     * Checking if the down key was pressed to switch the focus to the input field.
+     */
+    SelectBox.prototype.onSelectKeydown = function(event) {
+        
+        var me = this.me;
+        
+        if (me.autoload) {
+         
+            if (event.which == 40) {
+            
+                var $options = $('option', me.$main);
+                var $option = $options.last();
+                if ($option.prop('selected')) {
+                
+                    $options.first().prop('selected', true);
+                    
+                    event.stopPropagation();
+                    event.preventDefault();
+                
+                    me.$display.val(me.loading_value);
+                    me.$display.focus();
+                    me.openDropdown();
+                
+                    return false;
+                }
+            }
+        }
+    }
+    
+    /**
+     * A key of a autoload input field got pressed.
+     * Checking if the down or up key was pressed to switch the focus to the dropdown.
+     */
+    SelectBox.prototype.onInputKeydown = function(event) {
+        
+        var me = this.me;
+        
+        if (me.autoload && !me.loading) {
+         
+            if (event.which == 38 || event.which == 40) {
+            
+                event.stopPropagation();
+                event.preventDefault();
+                
+                var $option = (event.which == 40) ? $($('option', me.$main).get(1)) : $('option', me.$main).last();
+                $option.prop('selected', true);
+                me.onSelectChange();
+                me.$main.focus();
+                
+                return false;
+            }
+        }
+        
+        
+        if (event.which == 13) {
+            
+            event.stopPropagation();
+            event.preventDefault();
+            
+            return false;
+        }
     }
     
     /**
@@ -978,7 +1091,8 @@ $(document).ready(function() {
             
             var $option = $(this);
             var multiple = (me.multiple) ? ' multiple' : '';
-            var $element = $('<div class="select-option select-index-'+index+multiple+'">'+$option.text()+'</div>');
+            var text = ($option.attr('data-display')) ? $option.attr('data-display') : $option.text();
+            var $element = $('<div class="select-option select-index-'+index+multiple+'">'+text+'</div>');
             me.$dropdown.append($element);
             
             $element.click(function() {me.onOptionClick($(this));});
@@ -1129,23 +1243,30 @@ $(document).ready(function() {
             // setting focus to the newly changed option
             $('.select-option', me.$dropdown).removeClass('focus');
             var $display_option = $('.select-index-'+me.option_focus, me.$dropdown);
-            $display_option.addClass('focus');
             
-            // make sure the focused option is visible in the dropdown
-            var dropdown_height = me.$dropdown.height();
-            var scroll_top = me.$dropdown.scrollTop();
-            var option_height = $display_option.height() + me.option_padding;
-            var option_top = $display_option.position().top;
-            
-            if (option_top + option_height > dropdown_height) {
-                scroll_top =  option_top - dropdown_height + option_height + scroll_top;
-            } else if (option_top < 0) {
-                scroll_top += option_top;
+            if ($display_option) {
+                $display_option.addClass('focus');
+                
+                // make sure the focused option is visible in the dropdown
+                var dropdown_height = me.$dropdown.height();
+                var scroll_top = me.$dropdown.scrollTop();
+                var option_height = $display_option.height() + me.option_padding;
+                var option_position = $display_option.position();
+                
+                if (option_position) {
+                    var option_top = $display_option.position().top;
+                    
+                    if (option_top + option_height > dropdown_height) {
+                        scroll_top =  option_top - dropdown_height + option_height + scroll_top;
+                    } else if (option_top < 0) {
+                        scroll_top += option_top;
+                    }
+                    
+                    if ($display_option.css('display') != 'none') me.$dropdown.scrollTop(scroll_top);
+                    
+                    me.option_focused = me.option_focus;
+                }
             }
-            
-            me.$dropdown.scrollTop(scroll_top);
-            
-            me.option_focused = me.option_focus;
         }
     }
     
@@ -1198,16 +1319,25 @@ $(document).ready(function() {
         var me = this.me;
         if (me.readonly) return;
         
+        var $first_option = $('option', me.$main).first();
+        
+        if (me.autoload) {
+            $first_option.html('');
+            var first_val = $first_option.attr('value');
+            if (!first_val) {
+                $first_option.attr('value', '');
+                $first_option.val('');            
+            }
+        }
         
         // unselecting a possible selected empty first option
-        var $first_option = $('option', me.$main).first();
         var first_val = $first_option.attr('value');
         if (!(first_val && first_val != "") && $first_option.prop('selected')) {
             $first_option.prop('selected', false);
         }
         
         
-        
+        me.loading_value = "";
         me.$dropdown.css('display', 'none');
         me.$main.trigger('closed');
     }
@@ -1252,49 +1382,114 @@ $(document).ready(function() {
         
         var onSuccess = function(options) {
             
-            // TODO: repopulate the selection box and call me.fillDropdown();
+            console.log(options);
+            
+            me.loading_cache[me.loading_value] = options;
+            
+            me.$main.html('');
+            
+            var lines = options.split("\n");
+            var has_entry = false;
+            var value = false;
+            for (var i=0, length=lines.length; i<length; i++) {
+                var entry = lines[i].split("|");   
+                
+                if (entry[0].length >= 1) {
+                    if (entry.length == 1) entry[1] = entry[0];
+                    
+                    var display = entry[0];
+                    if (entry[2]) display += "<br>" + entry[2];
+                    var $option = $('<option>'+entry[0]+'</option>');
+                    $option.attr('value', entry[1]);
+                    $option.attr('data-display', display);
+                    me.$main.append($option);
+                    
+                    if (entry[0] == me.loading_value) value = entry[1];
+                    has_entry = true;
+                }
+            }
+            
+            if (has_entry) {
+                if (value === false) me.$main.prepend($('<option>'+me.loading_value+'</option>'));
+                else me.$main.prepend($('<option value="'+value+'">'+me.loading_value+'</option>'));
+            }
+            
+            me.fillDropdown();
+            
+            if (has_entry) {
+                //me.$main.focus();
+                me.openDropdown();
+            }
+            
+            
+            me.$display.val(me.loading_value);
+            //me.$display.focus();
             
             me.loading = false;
             me.$wrapper.removeClass('loading spin');
-            
-            var value = me.$display.get(0).value;
-            if (value != me.loading_value) me.onInputChange();
             
         }
         
         var onError = function() {
             
+            console.log('error');
+            
             me.loading = false;
             me.$wrapper.removeClass('loading spin');
+        }
+        
+        var load = function() {
             
-            var value = me.$display.get(0).value;
-            if (value != me.loading_value) me.onInputChange();
+            window.clearTimeout(me.loading_timeout);
+            me.loading_timeout = null;
+            
+            me.loading = true;
+            
+            me.closeDropdown();
+            me.loading_value = value;
+            
+            if (typeof me.loading_cache[value] != "undefined") {
+                
+                onSuccess(me.loading_cache[value]);
+                
+            } else {
+            
+                me.$wrapper.addClass('loading');
+                setTimeout(function() {me.$wrapper.addClass('spin');}, 10);
+            
+                $.ajax({
+                    type: "GET", 
+                    url: me.load_url, 
+                    data: { 
+                        q:value, 
+                        limit:me.load_limit, 
+                        cache:Math.round(Math.random()*1000000) 
+                    }, 
+                    cache: false, 
+                    async: true
+                    
+                }).done(function(options) {onSuccess(options);}).fail(function() {onError();});
+                
+            }
+            
+        }
+        
+        
+        
+        if (me.loading) {
+            me.$display.get(0).value = me.loading_value;
         }
         
         var value = me.$display.get(0).value;
-        
-        if (value.length >= me.load_start && !me.loading) {
+        if (value.length >= me.load_start && !me.loading) {    
             
-            // checking if the value is actual a chosen option
-            var exists = false;
-            var $options = $('option', me.$main);
-            $options.each(function(index) {
-                if ($(this).text() == value) {
-                    exists = true;
-                    return false;
-                }
-            });
+            if (me.loading_value == value) return;
+                
+            if (me.loading_timeout) {
+                window.clearTimeout(me.loading_timeout);   
+            }
             
-            if (exists) return;
-            
-            
-            me.loading = true;
-            me.loading_value = value;
-            
-            me.$wrapper.addClass('loading');
-            setTimeout(function() {me.$wrapper.addClass('spin');}, 10);
-		
-		    $.ajax({type: "POST", url: me.load_url, data: { value:value, cache:Math.round(Math.random()*1000000) }, cache: false, async: true}).done(onSuccess).fail(onError);
+            me.loading_timeout = window.setTimeout(function() {load();}, 400);
         }
     }
     

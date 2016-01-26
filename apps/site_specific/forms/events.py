@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 import datetime
+import ast
 
 from django.db import models
 from django import forms
@@ -281,6 +282,8 @@ class AvatarForm(dynamicforms.Form):
 
 
 class ContactForm(dynamicforms.Form):
+
+    """
     venue = AutocompleteField(
         label=_("Venue/Institution"),
         required=False,
@@ -295,6 +298,13 @@ class ContactForm(dynamicforms.Form):
             "mustMatch": 1,
             "highlight": False,
         }
+    )
+    """
+    venue = forms.CharField(
+        required=False,
+        label=_("Venue"),
+        help_text=_("Please enter a letter to display a list of available venues"),
+        widget=forms.Select(choices=[]),
     )
 
     venue_title = forms.CharField(
@@ -502,6 +512,16 @@ class ContactForm(dynamicforms.Form):
             self.fields['email0'].initial = contact.email0_address
             self.fields['email1'].initial = contact.email1_address
             self.fields['email2'].initial = contact.email2_address
+                
+            # add option of choosen selections for autoload fields
+            if event.venue_id:
+                institution = Institution.objects.get(pk=event.venue_id)
+                self.fields['venue'].widget.choices=[(institution.id, institution.title)]
+        
+        # add option of choosen selections for autoload fields on error reload of page
+        if self.data.get('venue', None):
+            institution = Institution.objects.get(pk=self.data.get('venue', None))
+            self.fields['venue'].widget.choices=[(institution.id, institution.title)]
 
         self.helper = FormHelper()
         self.helper.form_action = "/helper/edit-%(URL_ID_EVENT)s-profile/%(slug)s/contact/" % {
@@ -516,7 +536,14 @@ class ContactForm(dynamicforms.Form):
             layout.Fieldset(
                 _("Contact Data"),
                 layout.HTML(string_concat('<dd class="no-label"><h3>', _("Institution/Company"), '</h3></dd>')),
-                layout.Field("venue", wrapper_class="institution-select autocomplete"),
+                layout.Field(
+                    "venue", 
+                    data_load_url="/helper/autocomplete/events/get_venues/title/get_address_string/",
+                    data_load_start="1",
+                    data_load_max="20",
+                    wrapper_class="institution-select",
+                    css_class="autoload"
+                ),
                 layout.HTML("""{% load i18n %}
                     <dt class="institution-select"> </dt><dd class="institution-select"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-input" data-toggle-hide=".institution-select">{% trans "Not listed? Enter manually" %}</a></dd>
                 """),
@@ -784,6 +811,7 @@ class OrganizerForm(dynamicforms.Form):
     """
     A form for the informaton who or what institution organizes the event
     """
+    """
     organizing_institution = AutocompleteField(
         required=False,
         label=_("Organizing institution"),
@@ -798,6 +826,13 @@ class OrganizerForm(dynamicforms.Form):
             "mustMatch": 1,
             "highlight": False,
         }
+    )
+    """
+    organizing_institution = forms.CharField(
+        required=False,
+        label=_("Organizing institution"),
+        help_text=_("Please enter a letter to display a list of available institutions"),
+        widget=forms.Select(choices=[]),
     )
 
     organizer_title = forms.CharField(
@@ -827,6 +862,16 @@ class OrganizerForm(dynamicforms.Form):
         if event.creator and current_user != event.creator:
             self.fields['is_organized_by_myself'].label = _(
                 "Organized by %s") % event.creator.profile.get_title()
+                
+        # add option of choosen selections for autoload fields
+        if event.organizing_institution_id:
+            institution = Institution.objects.get(pk=event.organizing_institution_id)
+            self.fields['organizing_institution'].widget.choices=[(institution.id, institution.title)]       
+            
+        # add option of choosen selections for autoload fields on error reload of page
+        if self.data.get('organizing_institution', None):
+            institution = Institution.objects.get(pk=self.data.get('organizing_institution', None))
+            self.fields['organizing_institution'].widget.choices=[(institution.id, institution.title)]
 
         self.helper = FormHelper()
         self.helper.form_action = "/helper/edit-%(URL_ID_EVENT)s-profile/%(slug)s/organizer/" % {
@@ -840,7 +885,14 @@ class OrganizerForm(dynamicforms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Organizer"),
-                layout.Field("organizing_institution", wrapper_class="institution-select autocomplete"),
+                layout.Field(
+                    "organizing_institution", 
+                    data_load_url="/helper/autocomplete/events/get_organizing_institutions/title/get_address_string/",
+                    data_load_start="1",
+                    data_load_max="20",
+                    wrapper_class="institution-select",
+                    css_class="autoload"
+                ),
                 layout.HTML("""{% load i18n %}
                     <dt class="institution-select"> </dt><dd class="institution-select"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-input" data-toggle-hide=".institution-select">{% trans "Not listed? Enter manually" %}</a></dd>
                 """),
@@ -891,21 +943,42 @@ class AdditionalInfoForm(dynamicforms.Form):
         widget=forms.Textarea(),
         max_length=500,
     )
+    """
     related_events = forms.ModelMultipleChoiceField(
         label=_("Related Events"),
         queryset=get_related_queryset(Event, "related_events").all(),
         required=False,
         help_text="",
     )
+    """
+    related_events = forms.CharField(
+        required=False,
+        label=_("Related Events"),
+        help_text=_("Please enter a letter to display a list of available events"),
+        widget=forms.SelectMultiple(choices=[]),
+    )
 
     def __init__(self, event, index, *args, **kwargs):
         super(AdditionalInfoForm, self).__init__(*args, **kwargs)
         self.event = event
         self.index = index
-        self.fields['related_events'].initial = event.related_events.values_list("pk", flat=True)
+        related_events = event.related_events.values_list("pk", flat=True)
+        self.fields['related_events'].initial = related_events
         self.fields['related_events'].help_text = ""
         self.fields['additional_info_en'].initial = event.additional_info_en
         self.fields['additional_info_de'].initial = event.additional_info_de
+                
+        # add option of choosen selections for autoload fields
+        if related_events:
+            for ev in related_events:
+                ev_choice = Event.objects.get(pk=ev)
+                self.fields['related_events'].widget.choices=[(ev_choice.id, ev_choice.title)]       
+            
+        # add option of choosen selections for autoload fields on error reload of page
+        #if self.data.get('related_events', None):
+        #    for ev in ast.literal_eval(self.data['related_events']):
+        #        ev_choice = Event.objects.get(pk=ev)
+        #        self.fields['related_events'].widget.choices=[(ev_choice.id, ev_choice.title)]
 
         self.helper = FormHelper()
         self.helper.form_action = "/helper/edit-%(URL_ID_EVENT)s-profile/%(slug)s/additional_info/" % {
@@ -921,7 +994,13 @@ class AdditionalInfoForm(dynamicforms.Form):
                 _("Additional Info"),
                 "additional_info_de",
                 "additional_info_en",
-                "related_events",
+                layout.Field(
+                    "related_events",
+                    data_load_url="/helper/autocomplete/events/get_related_events/title/get_postal_address/",
+                    data_load_start="1",
+                    data_load_max="20",
+                    css_class="autoload"
+                ),
                 bootstrap.FormActions(
                     layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
@@ -939,7 +1018,7 @@ class AdditionalInfoForm(dynamicforms.Form):
         event.additional_info_de = data['additional_info_de']
         event.save()
         event.related_events.clear()
-        for ev in data['related_events']:
+        for ev in ast.literal_eval(data['related_events']):
             event.related_events.add(ev)
         return event
 

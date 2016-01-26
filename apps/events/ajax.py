@@ -27,6 +27,25 @@ def get_all_events(search):
         })
 
     return queryset
+    
+
+def get_related_events(search):
+    language = get_current_language()
+    
+    if not search or len(search) < 1:
+        return Event.objects.none()
+        
+    model = Event
+    field_name = "related_events"
+    f = model._meta.get_field(field_name)
+    queryset = f.rel.to._default_manager.complex_filter(f.rel.limit_choices_to)
+    
+    if search != "all":
+        queryset = queryset.filter(**{
+            'title_%s__istartswith' % language: search,
+            })
+        
+    return queryset
 
 
 if Institution:

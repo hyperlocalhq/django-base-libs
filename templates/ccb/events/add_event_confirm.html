@@ -71,7 +71,7 @@
                         <dd>
                             <div class="text-field">
                                 {% if venue %}
-                                    {{ venue.get_title }}
+                                    <a href="{{ venue.get_url_path }}">{{ venue.get_title }}</a>
                                 {% else %}
                                     {{ form_step_data.step_main_data.venue_title }}
                                 {% endif %}
@@ -155,25 +155,23 @@
                     <dd>
                         <div class="text-field">
                             {% ifequal form_step_data.step_main_data.organizer_ind "1" %}
-                                <address>
-                                    {% if institution %}
+                                {% if institution %}
 
-                                        <a href="{{ institution.get_url_path }}">{{ institution.get_title }}</a>
-                                        <br/>
-                                        {% with institution.get_primary_contact as institution_contact %}
-                                            {{ institution_contact.street_address|escape }}<br/>
-                                            {% if institution_contact.street_address2 %}
-                                                {{ institution_contact.street_address2|escape }}<br/>
-                                            {% endif %}
-                                            {{ institution_contact.postal_code|escape }}
-                                            {{ institution_contact.city|escape }}<br/>
-                                            {{ institution_contact.country_name }}
-                                        {% endwith %}
-                                    {% else %}
-                                        {{ form_step_data.step_main_data.organizer_title }}<br/>
-                                        <a href="{{ form_step_data.step_main_data.organizer_url_link }}">{{ form_step_data.step_main_data.organizer_url_link }}</a>
-                                    {% endif %}
-                                </address>
+                                    <a href="{{ institution.get_url_path }}">{{ institution.get_title }}</a>
+                                    <br/>
+                                    {% with institution.get_primary_contact as institution_contact %}
+                                        {{ institution_contact.street_address|escape }}<br/>
+                                        {% if institution_contact.street_address2 %}
+                                            {{ institution_contact.street_address2|escape }}<br/>
+                                        {% endif %}
+                                        {{ institution_contact.postal_code|escape }}
+                                        {{ institution_contact.city|escape }}<br/>
+                                        {{ institution_contact.country_name }}
+                                    {% endwith %}
+                                {% else %}
+                                    {{ form_step_data.step_main_data.organizer_title }}<br/>
+                                    <a href="{{ form_step_data.step_main_data.organizer_url_link }}">{{ form_step_data.step_main_data.organizer_url_link }}</a>
+                                {% endif %}
                             {% endifequal %}
                             {% ifequal form_step_data.step_main_data.organizer_ind "0" %}
                                 {% trans "Organizer is venue" %}
