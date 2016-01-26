@@ -135,11 +135,6 @@ def job_offer_list(request, criterion="", slug="", show="", title="", category_s
                 qualifications=ql,
             )
 
-        kw = form.cleaned_data['keywords']
-        kwargs['queryset'] = kwargs['queryset'].filter(
-            tags__icontains=kw,
-        )
-
     queryset = kwargs['queryset']
 
     # abc_list = get_abc_list(queryset, "position", abc_filter)

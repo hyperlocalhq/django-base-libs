@@ -8,16 +8,21 @@ from django.utils.dates import MONTHS
 from django.utils.translation import string_concat
 from django.conf import settings
 from django.db import models
+
 from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
 from base_libs.forms import dynamicforms
 from base_libs.forms.fields import AutocompleteField
 from base_libs.middleware import get_current_user
 from base_libs.utils.misc import get_related_queryset
+
 from tagging.forms import TagField
 from tagging_autocomplete.widgets import TagAutocomplete
+
 from jetson.apps.location.models import Address
 from jetson.apps.optionset.models import PhoneType, EmailType, URLType
 from jetson.apps.mailing.views import Recipient, send_email_using_template
+from jetson.apps.utils.forms import ModelChoiceTreeField
+
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
@@ -610,13 +615,13 @@ ADD_JOB_OFFER_FORM_STEPS = {
 
 
 class JobOfferSearchForm(dynamicforms.Form):
-    job_sector = forms.ModelChoiceField(
+    job_sector = ModelChoiceTreeField(
         empty_label=_("All"),
         label=_("Job Sector"),
         required=False,
         queryset=get_related_queryset(JobOffer, "job_sectors"),
     )
-    job_type = forms.ModelChoiceField(
+    job_type = ModelChoiceTreeField(
         empty_label=_("All"),
         label=_("Job Type"),
         required=False,
@@ -627,10 +632,6 @@ class JobOfferSearchForm(dynamicforms.Form):
         label=_("Qualification"),
         required=False,
         queryset=get_related_queryset(JobOffer, "qualifications"),
-    )
-    keywords = forms.CharField(
-        label=_("Keyword(s)"),
-        required=False,
     )
 
     def __init__(self, *args, **kwargs):
@@ -648,7 +649,6 @@ class JobOfferSearchForm(dynamicforms.Form):
                 layout.Field("qualification", template="ccb_form/custom_widgets/filter_field.html"),
                 template="ccb_form/custom_widgets/filter.html"
             ),
-            layout.Field("keywords"),
             bootstrap.FormActions(
                 layout.Submit('submit', _('Search')),
             ),

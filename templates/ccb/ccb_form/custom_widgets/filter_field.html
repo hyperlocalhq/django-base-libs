@@ -8,9 +8,9 @@
     <ul class="accordion">
         {% for choice_value, choice_instance in choices %}
             {% if choice_instance.level == 0 %}
-                <li data-level="{{ choice_instance.level }}"><a href="javascript:void(0);" data-value="{{ choice_value }}" {% if value == choice_value|add:"0" or value == choice_value %}class="active"{% endif %}>{{ choice_instance.title }}</a></li>
+                <li data-level="{{ choice_instance.level }}"><a href="javascript:void(0);" data-value="{{ choice_value }}" {% if value == choice_value|add:"0" or value == choice_value %}class="active"{% endif %}>{{ choice_instance }}</a></li>
             {% else %}
-                <li data-level="{{ choice_instance.level }}"><a href="javascript:void(0);" data-value="{{ choice_value }}" {% if value == choice_value|add:"0" or value == choice_value %}class="active"{% endif %}>{% if choice_instance.level == 1 %} - {% endif %}{{ choice_instance.title }}</a></li>
+                <li data-level="{{ choice_instance.level }}"><a href="javascript:void(0);" data-value="{{ choice_value }}" {% if value == choice_value|add:"0" or value == choice_value %}class="active"{% endif %}>{% if choice_instance.level == 1 %} - {% endif %}{{ choice_instance }}</a></li>
             {% endif %}
         {% endfor %}
     </ul>
