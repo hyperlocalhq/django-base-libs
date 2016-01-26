@@ -3,6 +3,7 @@
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import AnonymousUser
 from django.core.urlresolvers import reverse
+from django.utils.encoding import force_text
 
 from mptt.fields import TreeManyToManyField
 from actstream import action
@@ -192,7 +193,7 @@ def event_created(sender, instance, **kwargs):
                         "object_description": instance.description,
                         "object_creator_url": instance.organizing_person.get_url(),
                         "object_creator_title": instance.organizing_person.title,
-                        "object_title": instance.get_title(),
+                        "object_title": force_text(instance.get_title()),
                         "object_url": instance.get_url(),
                     },
                     instance=instance,
