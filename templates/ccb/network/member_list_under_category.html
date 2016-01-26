@@ -85,6 +85,7 @@
 {% block details %}
     <h2>{% page_attribute "page_title" %}</h2>
     {% if object_list %}
+        {% include "utils/includes/sorting.html" %}
         {% include "utils/abc_filters.html" %}
 
         <div class="row profile-grid profile-list">
@@ -110,7 +111,7 @@
                                     {% if object.get_categories %}
                                         <span class="feature">
                                             {% for cat in object.get_categories %}
-                                                {{ cat.get_title|escape }}{% if not forloop.last %}, {% endif %}
+                                                {{ cat.title|escape }}{% if not forloop.last %}, {% endif %}
                                             {% endfor %}
                                         </span>
                                     {% endif %}

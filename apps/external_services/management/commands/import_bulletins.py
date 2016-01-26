@@ -96,6 +96,13 @@ class Command(NoArgsCommand):
 
                 bulletin.title = get_value(node_bulletin, "title")
 
+                bulletin_type = get_value(node_bulletin, "type")
+                if bulletin_type in ("suche", "search"):
+                    bulletin_type = "searching"
+                else:
+                    bulletin_type = "offering"
+                bulletin.bulletin_type = bulletin_type
+
                 content = get_value(node_bulletin, "content:encoded") or get_value(node_bulletin, "description")
                 bulletin.description = html_to_plain_text(content)
 
