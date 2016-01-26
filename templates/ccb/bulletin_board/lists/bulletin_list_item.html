@@ -4,7 +4,7 @@
     <div class="wrapper">
         <a class="content" href="{{ bulletin.get_url_path }}{% if bulletin.status == "draft" %}?preview=1{% endif %}">
             <div class="text no-image">
-                <h3>{% if bulletin.bulletin_type %}{{ bulletin.bulletin_type }}{% if bulletin.category %} {{ bulletin.category }}{% endif %} {% elif bulletin.category %}{{ bulletin.category }} {% endif %}{% if bulletin.published_till %}<time>{% trans "Published till" %} {{ bulletin.published_till|date:"d. m. Y H:i" }}</time>{% endif %}</h3>
+                <h3>{% if bulletin.bulletin_type %}{{ bulletin.bulletin_type }}{% if bulletin.category %} {{ bulletin.category }}{% endif %} {% elif bulletin.category %}{{ bulletin.category }} {% endif %}{% if bulletin.published_from %}<time>{{ bulletin.published_from|date:"d. m. Y" }}</time>{% endif %}</h3>
                 <h2>{{ bulletin.get_title|escape }}</h2>
                 <p>{% if bulletin.description %}{{ bulletin.get_description|striptags|truncatewords:25 }}{% endif %}</p>
                 <div>{% trans 'Read on' %}</div>
