@@ -5,6 +5,7 @@ SHELL=/usr/local/bin/bash
 00 01 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/cleanup.bsh
 30 01 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/daily_tasks.bsh
 15 * * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/import_articles.bsh
+20 * * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/import_bulletins.bsh
 15 02 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/import_from_berlinstartupjobs.bsh
 20 02 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/import_from_creativeset.bsh
 25 02 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/import_from_kulturmanagement.bsh
