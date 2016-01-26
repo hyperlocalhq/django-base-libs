@@ -63,7 +63,7 @@
                 {% include "bulletin_board/lists/bulletin_list_item.html" %}
             {% endfor %}
         </div>
-            
+        {% include "utils/includes/pagination.html" %}
     {% else %}
         <p class="intro">{% trans "No objects found within the selected conditions." %}</p>
     {% endif %}
