@@ -127,7 +127,7 @@ class Command(NoArgsCommand):
 
                 bulletin.contact_person = get_value(node_bulletin, "dc:creator")
 
-                bulletin.external_url = get_value(node_bulletin, "link")
+                bulletin.external_url = get_value(node_bulletin, "link") or get_value(node_bulletin, "source_url")
 
                 # bulletin.bulletin_type = default_bulletin_type
 

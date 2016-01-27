@@ -44,7 +44,7 @@ class BulletinAdmin(ExtendedModelAdmin):
 
 class BulletinImportSource_Inline(ExtendedStackedInline):
     model = BulletinImportSource
-    extra = 1
+    extra = 0
     fieldsets = (
         (None, {
             'fields': ('title', 'url', 'sysname', 'content_provider',)
@@ -53,6 +53,7 @@ class BulletinImportSource_Inline(ExtendedStackedInline):
             'fields': ('default_categories', 'default_status')
         }),
     )
+    filter_horizontal = ('default_categories',)
 
 
 class BulletinContentProviderAdmin(ExtendedModelAdmin):

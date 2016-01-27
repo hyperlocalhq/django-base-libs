@@ -68,6 +68,7 @@ class BulletinImportSource(Service):
     default_categories = TreeManyToManyField(
         "structure.Category",
         verbose_name=_("Categories"),
+        limit_choices_to={'level': 0},
         help_text=_("Categories to apply to the imported bulletins by default."),
         blank=True,
         null=True,
