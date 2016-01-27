@@ -1242,6 +1242,30 @@ input {
         }
     }    
     
+    // styling of the selected items of a multiple autoload select box
+    .autoload-multiple {
+        a {
+            display: inline-block;
+            padding: 5px 10px 5px 15px;
+            margin: 0 5px 5px 0;
+            border-radius: 1em;
+            line-height: 130%;
+            background: $grey-bright;
+            color:$grey-dark;
+            
+            &:hover, &:active, &:focus {
+                background: $cyan;
+                color:$grey-dark;
+            }
+            
+            &:after {
+                content: "\f00d";
+                font-size: 1.3em;
+                padding-left: 10px;
+            }
+        }
+    }
+    
     // end select box styling
     ///////////////////////////////
     

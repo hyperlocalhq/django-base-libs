@@ -962,23 +962,20 @@ class AdditionalInfoForm(dynamicforms.Form):
         super(AdditionalInfoForm, self).__init__(*args, **kwargs)
         self.event = event
         self.index = index
-        related_events = event.related_events.values_list("pk", flat=True)
-        self.fields['related_events'].initial = related_events
+        self.fields['related_events'].initial = event.related_events.values_list("pk", flat=True)
         self.fields['related_events'].help_text = ""
         self.fields['additional_info_en'].initial = event.additional_info_en
         self.fields['additional_info_de'].initial = event.additional_info_de
                 
-        # add option of choosen selections for autoload fields
-        if related_events:
-            for ev in related_events:
-                ev_choice = Event.objects.get(pk=ev)
-                self.fields['related_events'].widget.choices=[(ev_choice.id, ev_choice.title)]       
+        # add option of choosen selections for multiple autoload fields
+        self.fields['related_events'].widget.choices=event.related_events.values_list("pk","title")
             
-        # add option of choosen selections for autoload fields on error reload of page
+        # add option of choosen selections for multiple autoload fields on error reload of page
         #if self.data.get('related_events', None):
+        #   self.fields['related_events'].widget.choices=[]
         #    for ev in ast.literal_eval(self.data['related_events']):
         #        ev_choice = Event.objects.get(pk=ev)
-        #        self.fields['related_events'].widget.choices=[(ev_choice.id, ev_choice.title)]
+        #        self.fields['related_events'].widget.choices.append((ev_choice.id, ev_choice.title))
 
         self.helper = FormHelper()
         self.helper.form_action = "/helper/edit-%(URL_ID_EVENT)s-profile/%(slug)s/additional_info/" % {
