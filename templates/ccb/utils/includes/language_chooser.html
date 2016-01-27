@@ -3,7 +3,7 @@
     <select id="language-header" required>
         <option>--------</option>
         {% for language in languages %}
-            <option value="{% page_language_url language.0 %}" {% if current_language == language.0 %} selected="selected" {% endif %}">{{ language.1|upper }}</option>
+            <option value="{% page_language_url language.0 %}" {% if current_language == language.0 %} selected="selected" {% endif %}>{{ language.1|upper }}</option>
         {% endfor %}
     </select>
 {% endif %}
