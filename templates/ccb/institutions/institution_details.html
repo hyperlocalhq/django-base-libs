@@ -20,6 +20,35 @@
 
 
 {% block details %}
+    {% if object.is_editable %}
+        <div class="row profile-header">
+            <div class="col-xs-12">
+                <div class="statistics">
+                    <div class="statistic">
+                        <canvas class="fawesome fa-percentage big" data-value="{{ object.completeness }}" data-color-active="#00cdff" data-color-inactive="#c7e2ea">
+                            <div class="fawesome fa-circle big"></div>
+                        </canvas>
+                        {% parse "<b>{{ object.completeness }}%</b>" as completeness %}
+                        <div class="text">{% blocktrans with amount=completeness %}{{ amount }} completed{% endblocktrans %}</div>
+                    </div>
+                    <div class="statistic">
+                        {% load followers_tags %}
+                        {% with followers_count=object|followers_count %}
+                            {% parse "<b>{{ followers_count }}</b>" as followers_count_formated %}
+                            <div class="fawesome fa-man big"></div>
+                            <div class="text">{% blocktrans count followers_count as amount %}{{ followers_count_formated }} follower{% plural %}{{ followers_count_formated }} followers{% endblocktrans %}</div>
+                        {% endwith %}
+                    </div>
+                    {% comment %} TODO: uncomment and adapt when curated lists are implemented
+                    <div class="statistic">
+                        <div class="fawesome fa-list-short big"></div>
+                        <div class="text">{% blocktrans with amount='<b>3</b>' %}On {{ amount }} curated lists{% endblocktrans %}</div>
+                    </div>
+                    {% endcomment %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
 
     {% if object.is_editable %}
         <div id="avatar-edit-frame" class="edit-iframe"></div>
