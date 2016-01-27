@@ -526,6 +526,7 @@ $(document).ready(function() {
         if (me.autoload && me.multiple) {
             me.autoload_multiple = true;
             me.multiple = false;
+            me.autoload_multiple_options = [];
         } else {
             me.autoload_multiple = false;
         }
@@ -537,7 +538,6 @@ $(document).ready(function() {
         if (me.autoload) {
             
             me.multiple = false;
-            me.$main.prop('multiple', false);
             
             me.load_url = me.$main.attr('data-load-url');
             me.load_start = parseInt(me.$main.attr('data-load-start'));
@@ -579,6 +579,15 @@ $(document).ready(function() {
         me.$dropdown = $('<div class="select-dropdown" style="display:none;"></div>');
         
         me.$display.attr('placeholder', me.$main.attr('placeholder'));
+        
+        if (me.autoload_multiple) {
+            me.$autoload_multiple = $('<div class="autoload-multiple"></div>');
+            me.writeAutoloadMultipleValues();
+        }
+        
+        if (me.autoload) {
+            me.$main.prop('multiple', false);
+        }
         
         
         if (!me.disabled && !me.readonly) {
@@ -623,6 +632,9 @@ $(document).ready(function() {
         
         me.$wrapper.append(me.$display);
         me.$main.after(me.$wrapper);
+        if (me.autoload_multiple) {
+            me.$main.before(me.$autoload_multiple);
+        }
         
         me.$dropdown_wrapper.append(me.$dropdown);
         if (!me.disabled && !me.readonly) {
@@ -734,7 +746,16 @@ $(document).ready(function() {
                     }
                 });
                 
-            } else me.toggleDropdown();
+            } else {
+                
+                me.writeAutoloadMultipleValues();
+                me.toggleDropdown();
+                
+                if (me.autoload_multiple) {
+                    me.$display.val('');
+                }
+                
+            }
             
             return false;
         }
@@ -1289,6 +1310,7 @@ $(document).ready(function() {
             me.positionDropdown();
             
         } else {
+            
             me.$dropdown.css('display', 'none');
             me.$main.trigger('closed');
         }
@@ -1315,9 +1337,11 @@ $(document).ready(function() {
      * Calls the Avengers ... what do you think ;-)
      */
     SelectBox.prototype.closeDropdown = function() {
-     
+        
         var me = this.me;
         if (me.readonly) return;
+          
+        me.writeAutoloadMultipleValues();
         
         var $first_option = $('option', me.$main).first();
         
@@ -1355,6 +1379,7 @@ $(document).ready(function() {
         }
         
         me.closeDropdown();
+        me.setAutoloadMultipleValues();
     }
     
     /**
@@ -1382,7 +1407,7 @@ $(document).ready(function() {
         
         var onSuccess = function(options) {
             
-            console.log(options);
+            //console.log(options);
             
             me.loading_cache[me.loading_value] = options;
             
@@ -1396,6 +1421,14 @@ $(document).ready(function() {
                 
                 if (entry[0].length >= 1) {
                     if (entry.length == 1) entry[1] = entry[0];
+                    
+                    if (me.autoload_multiple) {
+                        for (var o=0, o_length=me.autoload_multiple_options.length; o<o_length; o++) {
+                            var $option = me.autoload_multiple_options[o];
+                            if (entry[1] == $option.attr('value')) break;
+                        }
+                        if (o < o_length) continue;
+                    }
                     
                     var display = entry[0];
                     if (entry[2]) display += "<br>" + entry[2];
@@ -1489,8 +1522,89 @@ $(document).ready(function() {
                 window.clearTimeout(me.loading_timeout);   
             }
             
-            me.loading_timeout = window.setTimeout(function() {load();}, 400);
+            me.loading_timeout = window.setTimeout(function() {load();}, 800);
         }
+    }
+    
+    /**
+     * Writes the selected values of a multiple autoload field above the select box.
+     */
+    SelectBox.prototype.writeAutoloadMultipleValues = function() {
+     
+        var me = this.me;
+        
+        if (!me.autoload_multiple) return;
+        
+        me.$autoload_multiple.html('');
+        
+        var $options = $('option', me.$main);
+        $options.each(function(index) {
+            var $option = $(this);
+            
+            if (index == 0) {
+                var html = $option.html();
+                $option.html('');
+                var value = $option.attr('value');
+                $option.html(html);
+                if (!value) return true;
+            }
+            
+            if ($option.prop('selected')) {
+                
+                for (var o=0, length=me.autoload_multiple_options.length; o<length; o++) {
+                    if (me.autoload_multiple_options[o].attr('value') == $option.attr('value')) break;
+                }
+                if (o == length) me.autoload_multiple_options.push($option);
+                
+                $option.detach();
+            }
+        });
+        
+        for (var i=0, length=me.autoload_multiple_options.length; i<length; i++) {
+         
+            var $option = me.autoload_multiple_options[i];
+            
+            var $link = $('<a href="javascript:void(0);" data-index="'+i+'" class="fawesome">'+$option.html()+'</a>');
+            $link.click(function() {me.removeAutoloadMultipleValue($(this));});
+            me.$autoload_multiple.append($link);
+        }
+        
+        //me.$display.val('');
+    }
+    
+    /**
+     * Removes an item of a multiple autoload field from the list of selected items.
+     * 
+     * @param   $link   the jQuery object of the link representing the item
+     */
+    SelectBox.prototype.removeAutoloadMultipleValue = function($link) {
+     
+        var me = this.me;
+        
+        var index = $link.attr('data-index');
+        
+        me.autoload_multiple_options.splice(index, 1);
+        
+        me.writeAutoloadMultipleValues();
+    }
+    
+    /**
+     * Sets the selected values in the actual select box.
+     */
+    SelectBox.prototype.setAutoloadMultipleValues = function() {
+     
+        var me = this.me;
+        
+        if (!me.autoload_multiple) return;
+        
+        me.writeAutoloadMultipleValues(); 
+        me.$main.prop('multiple', true);
+        
+        for (var i=0, length=me.autoload_multiple_options.length; i<length; i++) {
+            var $option = me.autoload_multiple_options[i];
+            $option.prop('selected');
+            me.$main.append($option);
+        };
     }
     
     
