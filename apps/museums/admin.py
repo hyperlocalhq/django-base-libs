@@ -4,6 +4,10 @@ from django.contrib import admin
 from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _, ugettext
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.models import User
+from django.conf.urls import patterns, include, url
+from django import forms
 
 from filebrowser.settings import URL_FILEBROWSER_MEDIA
 
@@ -82,6 +86,14 @@ class MediaFileInline(ExtendedStackedInline):
     sortable_field_name = "sort_order"
 
 
+class OwnersForm(forms.Form):
+    users = forms.ModelMultipleChoiceField(
+        label=_("Users"),
+        queryset=User.objects.filter(is_active=True),
+        required=False,
+    )
+
+
 class MuseumAdmin(ExtendedModelAdmin):
     class Media:
         js = (
@@ -132,13 +144,61 @@ class MuseumAdmin(ExtendedModelAdmin):
         
     def get_owners_list(self, obj):
         owners_list = []
+        manage_owners_link = '<br /><a href="%s/owners/"><span>%s</span></a>' % (obj.pk, ugettext('Manage owners'))
         for o in obj.get_owners():
             owners_list.append('<a href="/admin/auth/user/%s/">%s</a>' % (o.pk, o.username))
         if owners_list:
-            return '<br />'.join(owners_list)
-        return '<a href="/claiming-invitation/?museum_id=%s">%s</a>' % (obj.pk, ugettext("Invite owners"))
+            return '<br />'.join(owners_list) + manage_owners_link
+        return '<a href="/claiming-invitation/?museum_id=%s">%s</a>%s' % (obj.pk, ugettext("Invite owners"), manage_owners_link)
     get_owners_list.allow_tags = True
     get_owners_list.short_description = _("Owners")
         
-        
+    def owners_view(self, request, museum_id):
+        from base_libs.views.views import access_denied
+        museum = get_object_or_404(Museum, pk=museum_id)
+
+        if not request.user.has_perm('museums.change_museum', museum):
+            return access_denied(request)
+
+        if request.method == "POST":
+            form = OwnersForm(request.POST)
+            if form.is_valid():
+                existing_owners = set(museum.get_owners())
+                changed_owners = set(form.cleaned_data['users'])
+
+                removed_owners = existing_owners - changed_owners
+                new_owners = changed_owners - existing_owners
+
+                for u in removed_owners:
+                    museum.remove_owner(u)
+                    for e in museum.event_set.all():
+                        e.remove_owner(u)
+                    for e in museum.exhibition_set.all():
+                        e.remove_owner(u)
+
+                for u in new_owners:
+                    museum.set_owner(u)
+                    for e in museum.event_set.all():
+                        e.set_owner(u)
+                    for e in museum.exhibition_set.all():
+                        e.set_owner(u)
+                return redirect('../../?id__exact=%d' % museum.pk)
+        else:
+            form = OwnersForm(initial={
+                'users': museum.get_owners()
+            })
+
+        return render(request, 'admin/owners.html', {
+            'museum': museum,
+            'original': museum,
+            'app_label': Museum._meta.app_label,
+            'opts': Museum._meta,
+            'form': form,
+            'title': ugettext('The owners of %(museum)s') % {'museum': museum},
+        })
+
+    def get_urls(self):
+        urls = super(MuseumAdmin, self).get_urls()
+        return patterns('', url(r'^(?P<museum_id>\d+)/owners/$', self.owners_view)) + urls
+
 admin.site.register(Museum, MuseumAdmin)
