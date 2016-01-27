@@ -40,12 +40,15 @@ def get_value(parent_node, descendant_tagname=None):
         node = parent_node
     val = u""
     try:
-        if node.firstChild.nodeType in (
-            Node.TEXT_NODE,
-            Node.CDATA_SECTION_NODE,
-            ):
-            val = force_text(node.firstChild.data.strip())
-    except: 
+        val = u"".join([
+            force_text(n.data.strip())
+            for n in node.childNodes
+            if n.nodeType in (
+                Node.TEXT_NODE,
+                Node.CDATA_SECTION_NODE,
+            )
+        ])
+    except:
         pass
     # convert quotes to more usual format
     val = val.replace(u"", u"„")

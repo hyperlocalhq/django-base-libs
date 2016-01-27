@@ -10,24 +10,25 @@ class Command(NoArgsCommand):
     def handle_noargs(self, **options):
         verbosity = int(options.get('verbosity', NORMAL))
 
+        import re
+        import requests
         from xml.dom.minidom import parseString
         from dateutil.parser import parse as parse_datetime
-        from urllib2 import URLError
 
+        from django.apps import apps
         from django.db import models
         from django.core.exceptions import MultipleObjectsReturned
 
         from base_libs.utils.misc import get_related_queryset
         from base_libs.utils.betterslugify import better_slugify
         from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED, MARKUP_HTML_WYSIWYG
-        from base_libs.utils.client import Connection
 
         from jetson.apps.external_services.utils import get_value
         from jetson.apps.external_services.utils import date_de_to_en
 
-        Article = models.get_model("articles", "Article")
-        ArticleImportSource = models.get_model("external_services", "ArticleImportSource")
-        ObjectMapper = models.get_model("external_services", "ObjectMapper")
+        Article = apps.get_model("articles", "Article")
+        ArticleImportSource = apps.get_model("external_services", "ArticleImportSource")
+        ObjectMapper = apps.get_model("external_services", "ObjectMapper")
 
         default_article_type = get_related_queryset(
             Article,
@@ -38,16 +39,22 @@ class Command(NoArgsCommand):
         articles_failed = []
 
         for s in ArticleImportSource.objects.all():
-            c = Connection(s.url)
-            try:
-                r = c.send_request()
-            except URLError:
+            response = requests.get(
+                s.url,
+                allow_redirects=True,
+                verify=False,
+                headers={
+                    'User-Agent': 'Creative City Berlin',
+                }
+            )
+            if response.status_code != 200:
                 services_failed.append(s)
                 continue
-            data = r.read()
+            data = response.content
 
             # quick fix of broken feeds
             data = data.replace("& ", "&amp; ")
+            data = re.sub(r'<trackback:ping>[\s\S]*?</trackback:ping>', '', data)  # remove dasauge-specific invalid tags
 
             try:
                 xml_doc = parseString(data)

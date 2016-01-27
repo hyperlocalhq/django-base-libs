@@ -39,10 +39,11 @@
         {% block open_graph %}
             <meta property="og:title" content="{{ site_settings.site.name }}"/>
             <meta property="og:type" content="website"/>
-            <meta property="og:image" content="{{ website_url|slice:":-1" }}{{ STATIC_URL }}site/img/default/ccb_logo.gif"/>
-            <meta property="og:url" content="http://www.creative-city-berlin.de/"/>
-            <meta property="og:site_name" content="Creative City Berlin"/>
-            <meta property="og:description" content="{% trans "Portal for the cultural sector and the creative industries" %}"/>
+            <meta property="og:image" content="{{ website_url|slice:":-1" }}{{ STATIC_URL }}site/img/default/ccb_og.png" />
+            <meta property="og:url" content="http://www.creative-city-berlin.de/{{ LANGUAGE_CODE }}/" />
+            <meta property="og:site_name" content="Creative City Berlin" />
+            <meta property="og:description" content="{% trans "Portal for the cultural sector and the creative industries" %}" />
+            <meta property="fb:app_id" content="217188838296370" />
         {% endblock %}
         
         <link href='https://fonts.googleapis.com/css?family=Lato:400,400italic,700,700italic,300,300italic,900' rel='stylesheet' type='text/css'>

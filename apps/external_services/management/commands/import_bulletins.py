@@ -10,25 +10,33 @@ class Command(NoArgsCommand):
     def handle_noargs(self, **options):
         verbosity = int(options.get('verbosity', NORMAL))
 
+        import requests
+
         from xml.dom.minidom import parseString
         from dateutil.parser import parse as parse_datetime
-        from urllib2 import URLError
 
+        from django.apps import apps
         from django.db import models
         from django.core.exceptions import MultipleObjectsReturned
 
-        from base_libs.utils.misc import get_related_queryset
-        from base_libs.utils.betterslugify import better_slugify
-        from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED, MARKUP_HTML_WYSIWYG
-        from base_libs.utils.client import Connection
+        from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
         from base_libs.utils.misc import html_to_plain_text
 
         from jetson.apps.external_services.utils import get_value
         from jetson.apps.external_services.utils import date_de_to_en
 
-        Bulletin = models.get_model("bulletin_board", "Bulletin")
-        BulletinImportSource = models.get_model("external_services", "BulletinImportSource")
-        ObjectMapper = models.get_model("external_services", "ObjectMapper")
+        Bulletin = apps.get_model("bulletin_board", "Bulletin")
+        BulletinCategory = apps.get_model("bulletin_board", "BulletinCategory")
+        BulletinImportSource = apps.get_model("external_services", "BulletinImportSource")
+        ObjectMapper = apps.get_model("external_services", "ObjectMapper")
+
+        BULLETIN_CATEGORY_MAPPER = {
+            'partner': BulletinCategory.objects.get(slug="partner"),
+            'know how': BulletinCategory.objects.get(slug="know-how"),
+            'material resources': BulletinCategory.objects.get(slug="material-resources"),
+            'facilities': BulletinCategory.objects.get(slug="facilities"),
+            'other': BulletinCategory.objects.get(slug="other"),
+        }
 
         # default_bulletin_type = get_related_queryset(
         #     Bulletin,
@@ -39,13 +47,18 @@ class Command(NoArgsCommand):
         bulletins_failed = []
 
         for s in BulletinImportSource.objects.all():
-            c = Connection(s.url)
-            try:
-                r = c.send_request()
-            except URLError:
+            response = requests.get(
+                s.url,
+                allow_redirects=True,
+                verify=False,
+                headers={
+                    'User-Agent': 'Creative City Berlin',
+                }
+            )
+            if response.status_code != 200:
                 services_failed.append(s)
                 continue
-            data = r.read()
+            data = response.content
 
             # quick fix of broken feeds
             data = data.replace("& ", "&amp; ")
@@ -60,6 +73,7 @@ class Command(NoArgsCommand):
                 external_id = (
                     get_value(node_bulletin, "guid")  # if guid is not provided
                     or get_value(node_bulletin, "link")  # use link as external_id
+                    or get_value(node_bulletin, "source_url") # use source_url as external_id
                 )
                 change_date = parse_datetime(
                     date_de_to_en(get_value(node_bulletin, "pubDate") or get_value(node_bulletin, "dc:date")),
@@ -96,6 +110,16 @@ class Command(NoArgsCommand):
 
                 bulletin.title = get_value(node_bulletin, "title")
 
+                bulletin_type = get_value(node_bulletin, "type")
+                if bulletin_type in ("suche", "search"):
+                    bulletin_type = "searching"
+                else:
+                    bulletin_type = "offering"
+                bulletin.bulletin_type = bulletin_type
+
+                bulletin_category_str = get_value(node_bulletin, "category")
+                bulletin.bulletin_category = BULLETIN_CATEGORY_MAPPER.get(bulletin_category_str.lower(), None)
+
                 content = get_value(node_bulletin, "content:encoded") or get_value(node_bulletin, "description")
                 bulletin.description = html_to_plain_text(content)
 
@@ -112,6 +136,9 @@ class Command(NoArgsCommand):
 
                 # set content provider
                 bulletin.content_provider = s.content_provider
+
+                # TODO: save image
+                image_url = get_value(node_bulletin, "image_url")
 
                 try:
                     bulletin.save()
@@ -141,6 +168,6 @@ class Command(NoArgsCommand):
             print "Services failed: %d" % len(services_failed)
             for s in services_failed:
                 print "    %s" % s.url
-            print "Articles failed: %d" % len(bulletins_failed)
+            print "Bulletins failed: %d" % len(bulletins_failed)
             for a in bulletins_failed:
                 print "    %s" % a.external_url

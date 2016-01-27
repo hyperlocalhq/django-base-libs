@@ -32,6 +32,7 @@ class Institution(InstitutionBase):
         verbose_name=_("categories"),
         blank=True
     )
+    completeness = models.SmallIntegerField(_("Completeness in %"), default=0)
 
     objects = InstitutionManagerExtended()
 
@@ -221,6 +222,18 @@ class Institution(InstitutionBase):
             institution_added(Institution, self)
 
     save.alters_data = True
+
+    def calculate_completeness(self):
+        progress = 0
+        if self.title:
+            progress += 25
+        if self.image:
+            progress += 25
+        if self.description:
+            progress += 25
+        if self.institutionalcontact_set.count():
+            progress += 25
+        self.completeness = progress
 
 
 class InstitutionalContact(InstitutionalContactBase):

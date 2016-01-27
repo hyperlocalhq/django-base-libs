@@ -2,7 +2,6 @@
 
 import os
 import sys
-import time
 import datetime
 
 
@@ -37,12 +36,21 @@ def update_expired_events():
 
 
 def update_people_completeness():
-    from django.db import models
+    from django.apps import apps
 
-    Person = models.get_model("people", "Person")
+    Person = apps.get_model("people", "Person")
     for p in Person.objects.all():
         p.calculate_completeness()
         p.save()
+
+
+def update_institutions_completeness():
+    from django.apps import apps
+
+    Institution = apps.get_model("institutions", "Institution")
+    for inst in Institution.objects.all():
+        inst.calculate_completeness()
+        inst.save()
 
 
 def main():
@@ -51,6 +59,7 @@ def main():
     remove_expired_httpstates()
     update_expired_events()
     update_people_completeness()
+    update_institutions_completeness()
 
 
 if __name__ == '__main__':

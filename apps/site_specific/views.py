@@ -143,7 +143,7 @@ def get_browse_queryset(request, use_httpstate=False, **kwargs):
         selected_cats.append(v)
     kwargs['queryset'] = queryset
     if selected_cats:
-        if not 'extra_context' in kwargs:
+        if 'extra_context' not in kwargs:
             kwargs['extra_context'] = {}
         kwargs['extra_context']['selected_browsing_cats'] = selected_cats
 

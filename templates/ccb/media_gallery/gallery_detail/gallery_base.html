@@ -42,9 +42,11 @@
 {% block details %}
     <h2>{{ gallery.title }}</h2>
 
-    {% if gallery.cover_image %}
-        <img src="{{ UPLOADS_URL }}{{ gallery.cover_image.path|modified_path:"article" }}" alt=""/>
-    {% endif %}
+    {% comment %}
+        {% if gallery.cover_image %}
+            <img src="{{ UPLOADS_URL }}{{ gallery.cover_image.path|modified_path:"article" }}" alt=""/>
+        {% endif %}
+    {% endcomment %}
     
     {{ gallery.description|linebreaks }}
     

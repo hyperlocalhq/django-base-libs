@@ -75,23 +75,28 @@ class ContextItemManager(models.Manager):
 
     def get_sort_order_mapper(self):
         sort_order_mapper = {
-            'creation_date_desc': (
+            'completeness': (
                 1,
+                _('Completeness (complete first)'),
+                ['-completeness', '-creation_date'],
+            ),
+            'creation_date_desc': (
+                2,
                 _('Creation date (newest first)'),
                 ['-creation_date'],
             ),
             'creation_date_asc': (
-                2,
+                3,
                 _('Creation date (oldest first)'),
                 ['creation_date'],
             ),
             'alphabetical_asc': (
-                3,
+                4,
                 _('Alphabetical (A-Z)'),
                 ['title'],
             ),
             'alphabetical_desc': (
-                4,
+                5,
                 _('Alphabetical (Z-A)'),
                 ['-title'],
             ),
@@ -164,6 +169,9 @@ class ContextItemManager(models.Manager):
 
         if hasattr(obj, "get_locality_type"):
             item.locality_type = obj.get_locality_type()
+
+        if hasattr(obj, "completeness"):
+            item.completeness = obj.completeness
 
         # now fill in additional fields for search ....
 
@@ -255,6 +263,8 @@ class ContextItem(CreationModificationDateMixin, ContextItemObjectRelation, UrlM
     )
 
     locality_type = TreeForeignKey("location.LocalityType", verbose_name=_("Locality type"), blank=True, null=True, on_delete=models.SET_NULL)
+
+    completeness = models.SmallIntegerField(_("Completeness in %"), default=0)
 
     status = models.CharField(max_length=20, blank=True)
 

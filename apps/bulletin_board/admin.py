@@ -25,7 +25,7 @@ class BulletinCategoryAdmin(ExtendedModelAdmin):
 
 
 class BulletinAdmin(ExtendedModelAdmin):
-    list_display = ["title", "bulletin_type", "bulletin_category", "creator", "creation_date", "published_from", "published_till", "status"]
+    list_display = ["title", "bulletin_type", "bulletin_category", "content_provider", "creator", "creation_date", "published_from", "published_till", "status"]
     list_filter = ["bulletin_type", "bulletin_category", "categories", "status"]
     search_fields = ["title", "description", "contact_person", "creator__username"]
     list_editable = ["status"]
