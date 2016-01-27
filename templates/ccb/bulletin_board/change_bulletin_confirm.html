@@ -27,6 +27,11 @@
                     <dt>{% trans "Bulletin Type" %}</dt>
                     <dd><div class="text-field">{{ form_step_data.bulletin_data.bulletin_type }}</div></dd>
                     <dd class="clearfix"></dd>
+                    {% if form_step_data.bulletin_data.external_url %}
+                        <dt>{% trans "External URL" %}</dt>
+                        <dd><div class="text-field"><a href="{{ form_step_data.bulletin_data.external_url }}" target="_blank">{{ form_step_data.bulletin_data.external_url }}</a></div></dd>
+                        <dd class="clearfix"></dd>
+                    {% endif %}
                 </dl>
             </fieldset>
         </div>

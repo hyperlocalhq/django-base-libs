@@ -145,6 +145,7 @@ class BulletinForm(forms.ModelForm):
             'institution_title', 'institution_url',
             'contact_person', 'phone', 'email',
             # 'image_description',
+            'external_url',
             'status',
         ]
 
@@ -195,6 +196,7 @@ class BulletinForm(forms.ModelForm):
                 layout.Field("title"),
                 layout.Field("description"),
                 layout.Field("bulletin_type"),
+                layout.Field("external_url"),
             ),
             layout.Fieldset(
                 _("Categories"),
@@ -266,7 +268,7 @@ class BulletinForm(forms.ModelForm):
             ),
 
             layout.Fieldset(
-                _("Publishing date and time"),
+                _("Publish until date and time"),
                 layout.MultiField(
                     _("Date"),
                     layout.Field(
@@ -404,6 +406,7 @@ def load_data(instance=None):
             'institution_title', 'institution_url',
             'contact_person', 'phone', 'email',
             # 'image_description',
+            'external_url',
             'status',
         ]
         for fname in fields:
@@ -482,6 +485,7 @@ def save_data(form_steps, form_step_data, instance=None):
     fields = [
         'bulletin_type', 'bulletin_category', 'title', 'description', 'locality_type',
         'contact_person', 'phone', 'email',
+        'external_url',
         # 'image_description',
         'status',
     ]

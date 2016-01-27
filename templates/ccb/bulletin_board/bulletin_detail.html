@@ -83,7 +83,9 @@
     {% endif %}
     
     {% if object.external_url and object.content_provider %}
-            <p><a href="{{ object.external_url }}" target="_blank">{% blocktrans with content_provider_title=object.content_provider.title %}More info at {{ content_provider_title }}{% endblocktrans %}</a></p>
+        <p><a href="{{ object.external_url }}" target="_blank">{% blocktrans with content_provider_title=object.content_provider.title %}More info at {{ content_provider_title }}{% endblocktrans %}</a></p>
+    {% elif object.external_url %}
+        <p><a href="{{ object.external_url }}" target="_blank">{% trans "More info" %}</a></p>
     {% endif %}
-            
+
 {% endblock %}
