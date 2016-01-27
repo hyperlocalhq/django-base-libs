@@ -1298,13 +1298,14 @@ class EventTimeForm(dynamicforms.Form):
         if self._errors.get('start_dd', False):
             del self._errors['start_dd']
 
-        if start_dd:
-            if not start_mm:
-                self._errors['start_dd'] = [_("Please enter a valid month.")]
-        try:
-            start_date = datetime.date(int(start_yyyy), int(start_mm or 1), int(start_dd or 1))
-        except Exception:
-            self._errors['start_dd'] = [_("Please enter a valid date.")]
+        if start_yyyy or start_mm or start_dd:
+            if start_dd:
+                if not start_mm:
+                    self._errors['start_dd'] = [_("Please enter a valid month.")]
+                try:
+                    start_date = datetime.date(int(start_yyyy), int(start_mm or 1), int(start_dd or 1))
+                except Exception:
+                    self._errors['start_dd'] = [_("Please enter a valid date.")]
 
         # start time or "all day must be entered"
         if 'start_hh' in self._errors or 'start_ii' in self._errors:

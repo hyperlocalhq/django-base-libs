@@ -192,14 +192,14 @@ $(document).ready(function() {
         me.id = me.$main.attr('id');
         me.$empty = $('#'+me.id+'_empty .entry');
         me.$entries = $('.entry', me.$main);
-        me.$total = $('id_'+me.id+'-TOTAL_FORMS');
+        me.$total = $('#id_'+me.id+'-TOTAL_FORMS');
         
         me.buttons = [];
         
         me.total = me.$total.val();
-        me.initial = $('id_'+me.id+'-INITIAL_FORMS').val();
-        me.min = $('id_'+me.id+'-MIN_NUM_FORMS').val();
-        me.max = $('id_'+me.id+'-MAX_NUM_FORMS').val();
+        me.initial = $('#id_'+me.id+'-INITIAL_FORMS').val();
+        me.min = $('#id_'+me.id+'-MIN_NUM_FORMS').val();
+        me.max = $('#id_'+me.id+'-MAX_NUM_FORMS').val();
         
         if (!me.total) me.total = me.$entries.length;
         if (!me.initial) me.initial = 0;
@@ -296,6 +296,7 @@ $(document).ready(function() {
         });
         
         me.$total.val(me.$entries.length);
+        me.total = me.$entries.length;
     }
     
     
