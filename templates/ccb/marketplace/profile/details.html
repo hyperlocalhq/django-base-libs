@@ -1,72 +1,70 @@
 {% load i18n base_tags babel auth_extended %}
 
-{% if object.is_editable %}
-    <div
-        class="fieldset {% if object.is_editable %}editable switch{% else %}not-editable{% endif %}"
-        data-edit-url="{% url 'edit_profile' object_type='job' slug=object.get_secure_id %}details/">
-        <fieldset disabled>
-            <h2>{% trans "Details" %}</h2>
+<div
+    class="fieldset {% if object.is_editable %}editable switch{% else %}not-editable{% endif %}"
+    data-edit-url="{% url 'edit_profile' object_type='job' slug=object.get_secure_id %}details/">
+    <fieldset disabled>
+        <h2>{% trans "Details" %}</h2>
 
+        <dl class="input-fields">
+            <dt>{% trans "Position" %}</dt>
+            <dd>
+                <div class="text-field">{{ object.position }}</div>
+            </dd>
+            <dd class="clearfix"></dd>
+        </dl>
+
+        <dl class="input-fields">
+            <dt>{% trans "Job Type" %}</dt>
+            <dd>
+                <div class="text-field">{{ object.job_type.title }}</div>
+            </dd>
+            <dd class="clearfix"></dd>
+        </dl>
+
+        {% if object.qualifications.count %}
             <dl class="input-fields">
-                <dt>{% trans "Position" %}</dt>
+                <dt>{% trans "Qualification" %}</dt>
                 <dd>
-                    <div class="text-field">{{ object.position }}</div>
+                    <div class="text-field">
+                        {% for q in object.qualifications.all %}
+                            {{ q.title|capfirst }}
+                        {% endfor %}
+                    </div>
                 </dd>
                 <dd class="clearfix"></dd>
             </dl>
+        {% endif %}
 
+        {% if object.get_locality_type %}
             <dl class="input-fields">
-                <dt>{% trans "Job Type" %}</dt>
+                <dt>{% trans "Location" %}</dt>
                 <dd>
-                    <div class="text-field">{{ object.job_type.title }}</div>
+                    <div class="text-field">{{ object.get_locality_type.title|escape }}</div>
                 </dd>
                 <dd class="clearfix"></dd>
             </dl>
+        {% endif %}
 
-            {% if object.qualifications.count %}
-                <dl class="input-fields">
-                    <dt>{% trans "Qualification" %}</dt>
-                    <dd>
-                        <div class="text-field">
-                            {% for q in object.qualifications.all %}
-                                {{ q.title|capfirst }}
-                            {% endfor %}
-                        </div>
-                    </dd>
-                    <dd class="clearfix"></dd>
-                </dl>
-            {% endif %}
+        {% if object.get_description %}
+            <dl class="input-fields">
+                <dt>{% trans "Description" %}</dt>
+                <dd>
+                    <div class="text-field">{{ object.get_description|urlize|linebreaks|mark_first_and_last:"p" }}</div>
+                </dd>
+                <dd class="clearfix"></dd>
+            </dl>
+        {% endif %}
 
-            {% if object.get_locality_type %}
-                <dl class="input-fields">
-                    <dt>{% trans "Location" %}</dt>
-                    <dd>
-                        <div class="text-field">{{ object.get_locality_type.title|escape }}</div>
-                    </dd>
-                    <dd class="clearfix"></dd>
-                </dl>
-            {% endif %}
+        {% if object.published_till %}
+            <dl class="input-fields">
+                <dt>{% trans "Published till" %}</dt>
+                <dd>
+                    <div class="text-field">{{ object.published_till|datefmt:"medium" }}</div>
+                </dd>
+                <dd class="clearfix"></dd>
+            </dl>
+        {% endif %}
 
-            {% if object.description %}
-                <dl class="input-fields">
-                    <dt>{% trans "Description" %}</dt>
-                    <dd>
-                        <div class="text-field">{{ object.description|urlize|linebreaks|mark_first_and_last:"p" }}</div>
-                    </dd>
-                    <dd class="clearfix"></dd>
-                </dl>
-            {% endif %}
-
-            {% if object.published_till %}
-                <dl class="input-fields">
-                    <dt>{% trans "Published till" %}</dt>
-                    <dd>
-                        <div class="text-field">{{ object.published_till|datefmt:"medium" }}</div>
-                    </dd>
-                    <dd class="clearfix"></dd>
-                </dl>
-            {% endif %}
-
-        </fieldset>
-    </div>
-{% endif %}
+    </fieldset>
+</div>
