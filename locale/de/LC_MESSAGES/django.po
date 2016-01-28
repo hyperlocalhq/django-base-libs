@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Django 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-01-13 21:10+0100\n"
-"PO-Revision-Date: 2016-01-14 19:23+0053\n"
-"Last-Translator: Josephine Natalie Weisflog <j.weisflog@kulturprojekte-berlin.de>\n"
+"PO-Revision-Date: 2016-01-25 19:22+0053\n"
+"Last-Translator: Reinhard Knobelspies <knobelspies@mac.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -116,8 +116,8 @@ msgid ""
 "This username is already used for another account. But you can use \"%s\" as"
 " your username."
 msgstr ""
-"Dieser Benutzername wird bereits für ein anderes Konto verwendet. Aber Sie "
-"können \"%s\" als Benutzername verwenden."
+"Dieser Benutzername wird bereits für ein anderes Konto verwendet. Aber Du "
+"kannst \"%s\" als Benutzername verwenden."
 
 #: apps/accounts/forms.py:161
 msgid "The confirmed password doesn't match the password."
@@ -182,7 +182,7 @@ msgid ""
 "sensitive."
 msgstr ""
 "Bitte gib eine korrekte E-Mail und ein korrektes Passwort ein. Achte dabei "
-"auf Groß- und Kleinschreibung"
+"auf Groß- und Kleinschreibung."
 
 #: apps/accounts/forms.py:369 apps/accounts/forms.py:454
 msgid "This account is inactive."
@@ -193,8 +193,8 @@ msgid ""
 "Your Web browser doesn't appear to have cookies enabled. Cookies are "
 "required for logging in."
 msgstr ""
-"Es sieht so aus, als wären in deinem Browser Cookies deaktiviert. Cookies "
-"sind notwendig, um sich einzuloggen."
+"Es sieht so aus, als wären in Deinem Browser Cookies deaktiviert. Cookies "
+"sind notwendig, damit Du Dich einloggen kannst."
 
 #: apps/accounts/forms.py:382 apps/accounts/forms.py:386
 #: templates/ccb/site_specific/blocks/sidebar_login.html:10
@@ -206,7 +206,7 @@ msgid ""
 "Please enter a correct email or username and password. Note that both fields"
 " are case-sensitive."
 msgstr ""
-"Bitte gib eine korrekte E-Mail oder einen korrekten Benutzername und ein "
+"Bitte gib eine korrekte E-Mail oder einen korrekten Benutzernamen und ein "
 "korrektes Passwort ein. Achte dabei auf Groß- und Kleinschreibung."
 
 #: apps/accounts/forms.py:484
@@ -288,17 +288,17 @@ msgid ""
 "Please enter your old password, for security's sake, and then enter your new"
 " password twice so we can verify you typed it in correctly."
 msgstr ""
-"Bitte geben Sie aus Sicherheitsgründen erst Ihr altes Kennwort und darunter "
-"dann zweimal (um sicherzustellen, dass Sie es korrekt eingegeben haben) das "
-"neue Kennwort ein."
+"Bitte gib aus Sicherheitsgründen erst Dein altes Kennwort und darunter dann "
+"zwei Mal (um sicherzustellen, dass Du es korrekt eingegeben hast) das neue "
+"Kennwort ein."
 
 #: apps/accounts/forms.py:555
 msgid ""
 "Forgot your password? Enter your e-mail address below, and we’ll send you an"
 " e-mail with a link which allows you to set up a new password."
 msgstr ""
-"Haben Sie Ihr Kennwort vergessen? Geben Sie einfach Ihre hinterlegte E-Mail-"
-"Adresse ein und wir senden Ihnen ein neues Kennwort per E-Mail zu."
+"Hast Du Dein Kennwort vergessen? Gib einfach Deine hinterlegte E-Mail-"
+"Adresse ein und wir senden Dir ein neues Kennwort per E-Mail zu."
 
 #: apps/accounts/forms.py:556
 #: templates/ccb/accounts/password_reset_confirm.html:27
@@ -306,8 +306,8 @@ msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
 msgstr ""
-"Bitte geben Sie aus Sicherheitsgründen Ihr Kennwort zweimal ein (um "
-"sicherzustellen, dass Sie es korrekt eingegeben haben)"
+"Bitte gib aus Sicherheitsgründen Dein Kennwort zwei Mal ein (um "
+"sicherzustellen, dass Du es korrekt eingegeben hast)."
 
 #: apps/accounts/forms.py:564 apps/accounts/forms.py:599
 #: templates/ccb/accounts/password_change_done.html:22
@@ -811,10 +811,9 @@ msgid "Minute"
 msgstr "Minute"
 
 #: apps/bulletin_board/forms.py:309
-#, fuzzy
 #| msgid "Please enter a either email or phone."
 msgid "Please enter either email or phone."
-msgstr "Bitte geben Sie eine Email oder Telefonnummer an."
+msgstr "Bitte gib eine E-Mail oder Telefonnummer an."
 
 #: apps/bulletin_board/forms.py:344 apps/events/forms.py:770
 #: apps/site_specific/forms/events.py:1221
@@ -827,27 +826,24 @@ msgid " "
 msgstr ""
 
 #: apps/bulletin_board/forms.py:354
-#, fuzzy
 #| msgid ""
 #| "Please enter a valid time using format 'HH:MM' or choose 'All Day'"
 msgid "Please enter a valid time using format 'HH:MM'"
 msgstr ""
-"Bitte machen Sie Ihre Zeitangabe im Format 'HH:MM' oder wählen Sie "
-"'Ganztägig'."
+"Bitte mache Deine Zeitangabe im Format 'HH:MM' oder wähle 'Ganztägig'."
 
 #: apps/bulletin_board/forms.py:359 apps/events/forms.py:788
 #: apps/events/forms.py:818 apps/site_specific/forms/events.py:1239
 #: apps/site_specific/forms/events.py:1269
 msgid "If you choose a time, please enter a valid day, month and year."
 msgstr ""
-"Wenn Sie eine Zeit auswählen, ergänzen Sie bitte auch die entsprechenden "
-"Angaben zu Tag, Monat und Jahr."
+"Wenn Due eine Zeit auswählst, ergänze bitte auch die entsprechenden Angaben "
+"zu Tag, Monat und Jahr."
 
 #: apps/bulletin_board/forms.py:365
-#, fuzzy
 #| msgid "Please enter a valid date."
 msgid "Please enter a valid time."
-msgstr "Bitte ein gültiges Datum eingeben."
+msgstr "Bitte gib ein gültiges Datum ein."
 
 #: apps/bulletin_board/forms.py:542
 msgid "bulletin data"
@@ -1159,8 +1155,8 @@ msgstr "Veranstaltungsort"
 #: apps/site_specific/forms/events.py:276
 msgid "Please enter a letter to display a list of available venues"
 msgstr ""
-"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl "
-"der verfügbaren Veranstaltungsorte angezeigt zu bekommen."
+"Bitte gib einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der "
+"verfügbaren Veranstaltungsorte angezeigt zu bekommen."
 
 #: apps/events/admin.py:105 apps/events/base.py:485 apps/events/forms.py:230
 #: apps/events/forms.py:423 apps/site_specific/forms/events.py:779
@@ -1174,8 +1170,8 @@ msgstr "Veranstalter (Institution)"
 #: apps/site_specific/forms/people.py:261
 msgid "Please enter a letter to display a list of available institutions"
 msgstr ""
-"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl "
-"der verfügbaren Institutionen angezeigt zu bekommen."
+"Bitte gib einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der "
+"verfügbaren Institutionen angezeigt zu bekommen."
 
 #: apps/events/admin.py:126 apps/events/base.py:500
 msgid "Organizing person"
@@ -1184,8 +1180,8 @@ msgstr "Veranstalter (Person)"
 #: apps/events/admin.py:127
 msgid "Please enter a letter to display a list of available people"
 msgstr ""
-"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl "
-"der verfügbaren Personen angezeigt zu bekommen."
+"Bitte gib einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der "
+"verfügbaren Personen angezeigt zu bekommen."
 
 #: apps/events/admin.py:147
 msgid "Related events"
@@ -1194,8 +1190,8 @@ msgstr "Verwandte Veranstaltungen"
 #: apps/events/admin.py:148
 msgid "Please enter a letter to display a list of available events"
 msgstr ""
-"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl "
-"der verfügbaren Veranstaltungen angezeigt zu bekommen."
+"Bitte gib einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der "
+"verfügbaren Veranstaltungen angezeigt zu bekommen."
 
 #: apps/events/admin.py:172 apps/events/forms.py:164
 #: apps/institutions/forms.py:131 apps/marketplace/forms.py:129
@@ -1211,8 +1207,8 @@ msgstr "Land"
 #: apps/events/admin.py:173
 msgid "Please enter a letter to display a list of available countries"
 msgstr ""
-"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl "
-"der verfügbaren Ländern angezeigt zu bekommen."
+"Bitte gib einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der "
+"verfügbaren Länder angezeigt zu bekommen."
 
 #: apps/events/admin.py:223 templates/ccb/styleguide/elements.html:566
 msgid "Time"
@@ -1539,8 +1535,7 @@ msgstr "Ich selbst bin Veranstalter"
 #: apps/site_specific/forms/marketplace.py:52
 #: apps/site_specific/forms/people.py:62
 msgid "Not listed? Enter manually"
-msgstr ""
-"Nicht aufgelistet? Tragen Sie Ihr(e) Institution/Unternehmen selbst ein."
+msgstr "Nicht aufgelistet? Trage Dein(e) Institution/Unternehmen selbst ein."
 
 #: apps/events/forms.py:74 apps/events/forms.py:355
 #: apps/institutions/forms.py:238 apps/institutions/forms.py:248
@@ -1758,14 +1753,13 @@ msgstr "Bitte einen gültigen Monat eingeben."
 #: apps/events/forms.py:774 apps/site_specific/forms/events.py:1225
 msgid "Please enter a valid time using format 'HH:MM' or choose 'All Day'"
 msgstr ""
-"Bitte machen Sie Ihre Zeitangabe im Format 'HH:MM' oder wählen Sie "
-"'Ganztägig'."
+"Bitte mache Deine Zeitangabe im Format 'HH:MM' oder wähle 'Ganztägig'."
 
 #: apps/events/forms.py:809 apps/marketplace/forms.py:336
 #: apps/site_specific/forms/events.py:1260
 msgid "If you want to specify an end date, please enter a valid one."
 msgstr ""
-"Wenn Sie einen Endzeitpunkt auswählen, muss er ein gültiges Format haben."
+"Wenn Due einen Endzeitpunkt auswählen, muss er ein gültiges Format haben."
 
 #: apps/events/forms.py:813 apps/site_specific/forms/events.py:1264
 msgid "End date must be after start date."
@@ -2109,7 +2103,7 @@ msgstr "Sonntag"
 #: apps/site_specific/forms/institutions.py:1576
 #: apps/site_specific/forms/institutions.py:1587
 msgid "Please enter a closing time."
-msgstr "Bitte geben Sie die Schließzeit an."
+msgstr "Bitte gib die Schließzeit an."
 
 #: apps/events/forms.py:1409 apps/events/forms.py:1420
 #: apps/institutions/forms.py:1163 apps/institutions/forms.py:1174
@@ -2132,7 +2126,7 @@ msgstr "Bitte angeben, ab wann geöffnet ist."
 #: apps/events/forms.py:1428 apps/institutions/forms.py:1181
 #: apps/site_specific/forms/institutions.py:1598
 msgid "When specifying breaks, you must enter all data."
-msgstr "Wenn Sie Pausen angeben wollen, müssen alle Felder ausgefüllt sein."
+msgstr "Wenn Du Pausen angeben willst, müssen alle Felder ausgefüllt sein."
 
 #: apps/events/forms.py:1432 apps/institutions/forms.py:1185
 #: apps/site_specific/forms/events.py:1842
@@ -2577,7 +2571,7 @@ msgstr "Registrierung erforderlich"
 
 #: apps/institutions/forms.py:117
 msgid "Postal code is required"
-msgstr "Schreiben Sie eine Bewertung"
+msgstr "Schreibe eine Bewertung."
 
 #: apps/institutions/forms.py:189 apps/institutions/forms.py:347
 #: apps/site_specific/forms/events.py:379
@@ -2821,7 +2815,7 @@ msgid ""
 "Is some category missing? You can <a href=\"/ticket/new-category/\">suggest "
 "it here</a>."
 msgstr ""
-"Fehlt Ihnen eine Kategorie? Sie können sie uns <a href=\"/ticket/new-"
+"Fehlt Dir eine Kategorie? Du kannst sie uns <a href=\"/ticket/new-"
 "category/\">hier</a> zur Aufnahme vorschlagen."
 
 #: apps/marketplace/forms.py:47
@@ -2829,8 +2823,8 @@ msgid ""
 "Please activate the checkboxes if you want to send your jobposting to one of"
 " our partners."
 msgstr ""
-"Wenn Sie ihr Stellenangebot an unsere Partner weiterleiten möchten, "
-"aktivieren Sie bitte die Kästchen."
+"Wenn Du Dein Stellenangebot an unsere Partner weiterleiten möchten, "
+"aktiviere bitte die Kästchen."
 
 #: apps/marketplace/forms.py:55 apps/site_specific/forms/marketplace.py:60
 #: templates/ccb/marketplace/add_job_offer_confirm.html:27
@@ -2956,7 +2950,7 @@ msgstr "Bilddatei"
 
 #: apps/media_gallery/forms.py:48
 msgid "You can link to a GIF, JPG, or PNG image."
-msgstr "Sie können eine GIF-, JPG- oder PNG-Datei verlinken."
+msgstr "Du kannst eine GIF-, JPG- oder PNG-Datei verlinken."
 
 #: apps/media_gallery/forms.py:64
 msgid "Upload Image"
@@ -3024,8 +3018,8 @@ msgid ""
 "You can only link to GIF, JPG, and PNG files. This image format is not "
 "supported."
 msgstr ""
-"Sie können nur GIF-, JPG- und PNG-Dateien verlinken. Das Dateiformat wird "
-"nicht unterstützt."
+"Das Dateiformat wird nicht unterstützt. Du kannst nur GIF-, JPG- und PNG-"
+"Dateien verlinken. "
 
 #: apps/media_gallery/forms.py:109 apps/media_gallery/forms.py:115
 #: apps/media_gallery/forms.py:198
@@ -3034,7 +3028,7 @@ msgstr "Videodatei"
 
 #: apps/media_gallery/forms.py:110
 msgid "You can upload only FLV files."
-msgstr "Sie können nur FLV-Dateien hochladen."
+msgstr "Du kannst nur FLV-Dateien hochladen."
 
 #: apps/media_gallery/forms.py:117
 msgid ""
@@ -3042,7 +3036,7 @@ msgid ""
 "http://www.youtube.com/watch?v=rd2izv5JBcE or http://youtu.be/rd2izv5JBcE) "
 "or Vimeo video (e.g. http://vimeo.com/17853047)."
 msgstr ""
-"Sie können eine FLV-Datei oder ein YouTube-Video (z.B. "
+"Du kannst nur eine FLV-Datei oder ein YouTube-Video (z.B. "
 "http://www.youtube.com/watch?v=rd2izv5JBcE) verlinken."
 
 #: apps/media_gallery/forms.py:121 apps/media_gallery/forms.py:203
@@ -3072,7 +3066,7 @@ msgstr "Bild hochladen"
 #: apps/media_gallery/forms.py:186
 msgid ""
 "You can only link to FLV files, Youtube video pages or Vimeo video pages."
-msgstr "Sie können nur FLV-Videos oder YouTube-Seiten verlinken."
+msgstr "Du kannst nur FLV-Videos oder YouTube-Seiten verlinken."
 
 #: apps/media_gallery/forms.py:192
 msgid "Audio File"
@@ -3080,11 +3074,11 @@ msgstr "Audiodatei"
 
 #: apps/media_gallery/forms.py:193
 msgid "You can upload only MP3 files."
-msgstr "Sie können nur MP3-Dateien hochladen."
+msgstr "Du kannst nur MP3-Dateien hochladen."
 
 #: apps/media_gallery/forms.py:199
 msgid "You can link to an MP3 file."
-msgstr "Sie können nur MP3-Dateien verlinken."
+msgstr "Du kannst nur MP3-Dateien verlinken."
 
 #: apps/media_gallery/forms.py:205
 #, python-format
@@ -3105,7 +3099,7 @@ msgstr "Audio vom Internet verlinken"
 
 #: apps/media_gallery/forms.py:266
 msgid "You can only link to MP3 files. This is not MP3."
-msgstr "Sie können nur MP3-Dateien verlinken."
+msgstr "Du kannst nur MP3-Dateien verlinken."
 
 #: apps/media_gallery/forms.py:272 apps/media_gallery/models.py:39
 #: templates/ccb/media_gallery/portfolio_settings.html:10
@@ -3407,7 +3401,7 @@ msgstr ""
 
 #: apps/network/cms_apps.py:22
 msgid "Visual Arts - Network"
-msgstr ""
+msgstr "Bildende Kunst - Profile"
 
 #: apps/network/cms_apps.py:29
 msgid "Design - Network"
@@ -3498,54 +3492,45 @@ msgid "Object Type"
 msgstr "Objekt-Typ"
 
 #: apps/partners/admin.py:26 apps/partners/admin.py:63
-#, fuzzy
 #| msgid "Image"
 msgid "Images"
-msgstr "Bild"
+msgstr "Bilder"
 
 #: apps/partners/admin.py:50
-#, fuzzy
 #| msgid "Draft"
 msgid "draft"
 msgstr "Entwurf"
 
 #: apps/partners/admin.py:52 apps/partners/cms_apps.py:8
 #: apps/partners/models.py:54
-#, fuzzy
 #| msgid "Partner"
 msgid "Partners"
 msgstr "Partner"
 
 #: apps/partners/models.py:15
-#, fuzzy
 #| msgid "Not listed? Enter manually"
 msgid "Not listed at partners"
-msgstr ""
-"Nicht aufgelistet? Tragen Sie Ihr(e) Institution/Unternehmen selbst ein."
+msgstr "Nicht aufgelistet? Trage Dein(e) Institution/Unternehmen selbst ein."
 
 #: apps/partners/models.py:33
-#, fuzzy
 #| msgid "context category"
 msgid "Partner category"
-msgstr "Geschäftsfeld"
+msgstr ""
 
 #: apps/partners/models.py:34
-#, fuzzy
 #| msgid "Item categories"
 msgid "Partner categories"
 msgstr "Kategorien"
 
 #: apps/partners/models.py:44
-#, fuzzy
 #| msgid "Website"
 msgid "Website URL"
 msgstr "Website"
 
 #: apps/partners/models.py:45
-#, fuzzy
 #| msgid "Delete image"
 msgid "Default Image"
-msgstr "Bild löschen"
+msgstr ""
 
 #: apps/partners/models.py:53
 #: templates/ccb/site_specific/blocks/sidebar_info.html:19
@@ -3952,16 +3937,16 @@ msgstr "Hauptsprache"
 #: apps/site_specific/forms/groups_networks.py:210
 #: apps/site_specific/forms/resources.py:145
 msgid "Please choose at least one creative sector."
-msgstr "Bitte wählen Sie mindestens einen Kreativbereich aus."
+msgstr "Bitte wähle mindestens einen Kreativbereich aus."
 
 #: apps/site_specific/forms/groups_networks.py:230
 #: apps/site_specific/forms/resources.py:165
 msgid "Please choose at least one context category."
-msgstr "Bitte wählen Sie mindestens ein Geschäftsfeld aus."
+msgstr "Bitte wähle mindestens ein Geschäftsfeld aus."
 
 #: apps/site_specific/forms/groups_networks.py:250
 msgid "Please choose at least one object type."
-msgstr "Bitte wählen Sie mindestens eine Objektart."
+msgstr "Bitte wähle mindestens eine Objektart."
 
 #: apps/site_specific/forms/institutions.py:85
 #: apps/site_specific/forms/people.py:101
@@ -4109,8 +4094,8 @@ msgstr "Empfänger-Email"
 #: apps/site_specific/forms/misc.py:294
 msgid "Enter an email of a person you want to invite to this website."
 msgstr ""
-"Bitte geben Sie die E-Mail-Adrsse einer Person ein, die Sie zu dieser "
-"Website einladen möchten."
+"Bitte gib die E-Mail-Adrsse einer Person ein, die Du zu dieser Website "
+"einladen möchtest."
 
 #: apps/site_specific/forms/misc.py:309
 #: templates/ccb/groups_networks/confirm_invitation_to_institution.html:32
@@ -4165,7 +4150,7 @@ msgstr "Löschen"
 
 #: apps/site_specific/forms/misc.py:398
 msgid "You haven't selected anything to delete."
-msgstr "Sie haben nichts zu löschen ausgewählt."
+msgstr "Du hast nichts zu löschen ausgewählt."
 
 #: apps/site_specific/forms/misc.py:400
 msgid "Superuser's profile cannot be deleted."
@@ -4443,7 +4428,7 @@ msgstr "Objekt ist nicht verfügbar"
 
 #: apps/site_specific/views.py:257
 msgid "You are not allowed to access the required object"
-msgstr "Sie besitzen keine Berechtigung zum Löschen"
+msgstr "Du besitzt keine Berechtigung zum Löschen."
 
 #: apps/slideshows/models.py:12
 msgid "Slideshows"
@@ -4946,7 +4931,7 @@ msgstr ""
 
 #: subtrees/base_libs/base_libs/models/models.py:420
 msgid "Please select the related object."
-msgstr "Bitte wählen Sie mindestens eine Objektart."
+msgstr "Bitte wähle mindestens eine Objektart."
 
 #: subtrees/base_libs/base_libs/models/models.py:449
 #: subtrees/base_libs/base_libs/models/models.py:463
@@ -5467,7 +5452,7 @@ msgstr "Zugang verweigert"
 
 #: templates/ccb/403.html:17
 msgid "Sorry, you are not allowed to access this page."
-msgstr "Sie besitzen keine Berechtigung für diese Seite."
+msgstr "Du besitzt keine Berechtigung für diese Seite."
 
 #: templates/ccb/403.html:25 templates/ccb/404.html:24
 #: templates/ccb/accounts/500.html:24
@@ -5492,9 +5477,9 @@ msgid ""
 "click the back button to continue with what you were doing."
 msgstr ""
 "Die gewünschte Seite wurde möglicherweise umbenannt oder entfernt oder die "
-"Seite ist gerade nicht erreichbar. Wenn Sie uns darüber informieren wollen, "
-"können Sie dies gerne über unser Vorschlagsformular tun. Alternativ werden "
-"Sie über die Taste \"Zurück\" auf die vorherige Seite weitergeleitet."
+"Seite ist gerade nicht erreichbar. Wenn Du uns darüber informieren willst, "
+"kannst Du dies gerne über unser Vorschlagsformular tun. Alternativ wirst Du "
+"über die Taste \"Zurück\" auf die vorherige Seite weitergeleitet."
 
 #: templates/ccb/404.html:27
 msgid "report"
@@ -5526,7 +5511,7 @@ msgstr "Ihr Benutzername ist: %(username)s"
 msgid ""
 "You can log in at: http://www.creative-city-berlin.de/login/?goto_next=/"
 msgstr ""
-"Sie können sich nun anmelden unter: http://www.creative-city-"
+"Du kannst Dich nun anmelden unter: http://www.creative-city-"
 "berlin.de/login/?goto_next=/"
 
 #: templates/ccb/accounts/account_creation_email.html:8
@@ -5548,24 +5533,24 @@ msgid ""
 "You're receiving this e-mail because you (or someone using your email "
 "address) is attempting to create an account at "
 msgstr ""
-"Sie erhalten diese Mail, weil Sie für folgende Website ein neues Konto "
-"erstellt haben (oder jemand hat Ihre E-Mail Adresse benutzt):"
+"Du erhältst diese Mail, weil Du für folgende Website ein neues Profil "
+"erstellt hast (oder jemand hat Deine E-Mail-Adresse benutzt):"
 
 #: templates/ccb/accounts/account_verification_email.html:4
 msgid ""
 "To verify your e-mail address and continue the registration process, please "
 "click the link below:"
 msgstr ""
-"Um Ihre E-Mail Adresse zu bestätigen und Ihre Registrierung abschließen zu "
-"können, klicken Sie bitte auf den folgenden Link:"
+"Um Deine E-Mail-Adresse zu bestätigen und Deine Registrierung abschließen zu"
+" können, klicke bitte auf den folgenden Link:"
 
 #: templates/ccb/accounts/account_verification_email.html:8
 msgid ""
 "If you have no idea what this e-mail is referring to, simply ignore it and no account will be created\n"
 "    with your e-mail address."
 msgstr ""
-"Wenn Sie nicht wissen, worauf sich diese E-Mail bezieht, ignorieren Sie sie "
-"einfach, und es wird kein Benutzerkonto mit Ihrer E-Mail-Adresse erstellt."
+"Wenn Du nicht weißt, worauf sich diese E-Mail bezieht, ignoriere sie "
+"einfach, und es wird kein Benutzerkonto mit Deiner E-Mail-Adresse erstellt."
 
 #: templates/ccb/accounts/account_verification_email.html:11
 #, python-format
@@ -5631,7 +5616,7 @@ msgstr "Benutzerprofil erstellen"
 
 #: templates/ccb/accounts/login.html:64
 msgid "Are you on Facebook?"
-msgstr "Sind Sie bei Facebook?"
+msgstr "Bist Du bei Facebook?"
 
 #: templates/ccb/accounts/login.html:65
 msgid "Login with Facebook will be available soon."
@@ -5661,7 +5646,7 @@ msgstr "Anmelden"
 #: templates/ccb/accounts/login_and_link.html:24
 #: templates/ccb/facebook_app/login.html:18
 msgid "Login to link your profiles"
-msgstr "Loggen Sie sich ein, um Ihre Konten zu verbinden"
+msgstr "Logge Dich ein, um Deine Konten zu verbinden."
 
 #: templates/ccb/accounts/my_profile/base.html:4
 #: templates/ccb/accounts/my_profile/base.html:11
@@ -5742,7 +5727,6 @@ msgstr ""
 
 #: templates/ccb/accounts/my_profile/dashboard.html:50
 #: templates/ccb/cms/start.html:37
-#, fuzzy
 #| msgid "Manage Portfolio"
 msgid "What's new? Latest Portfolios"
 msgstr "Was gibt's Neues? Neueste Portfolios"
@@ -5757,16 +5741,14 @@ msgstr "Neue Termine"
 
 #: templates/ccb/accounts/my_profile/dashboard.html:67
 #: templates/ccb/cms/start.html:47
-#, fuzzy
 #| msgid "Welcome to Creative City Berlin"
 msgid "Welcome: The new members of Creative City Berlin"
 msgstr "Willkommen! Die Neuen auf Creative City Berlin"
 
 #: templates/ccb/accounts/my_profile/dashboard.html:74
-#, fuzzy
 #| msgid "Welcome to Creative City Berlin"
 msgid "New institutions at Creative City Berlin"
-msgstr "Willkommen bei Creative City Berlin"
+msgstr "Neue Unternehmen & Institutionen auf Creative City Berlin"
 
 #: templates/ccb/accounts/my_profile/delete_profile.html:5
 #: templates/ccb/accounts/my_profile/delete_profile.html:14
@@ -5797,7 +5779,7 @@ msgstr "Profil gelöscht"
 msgid ""
 "Your profile has been deleted. You can now browse the website anonymously."
 msgstr ""
-"Dein Profil wurde gelöscht. Sie können diese Website jetzt anonym besuchen."
+"Dein Profil wurde gelöscht. Du kannst diese Website jetzt anonym besuchen."
 
 #: templates/ccb/accounts/my_profile/privacy_settings.html:5
 #: templates/ccb/accounts/my_profile/privacy_settings.html:9
@@ -5809,8 +5791,8 @@ msgid ""
 "Here you can specify personal data to be displayed in your profile to the "
 "public."
 msgstr ""
-"Hier können Sie angeben, welche Ihrer persönlichen Daten Sie veröffentlichen"
-" wollen"
+"Hier kannst Du angeben, welche Deiner persönlichen Daten Du veröffentlichen "
+"willst."
 
 #: templates/ccb/accounts/my_profile/privacy_settings.html:23
 msgid "Privacy settings"
@@ -5832,7 +5814,7 @@ msgstr "Kennwort zurücksetzen vollständig"
 
 #: templates/ccb/accounts/password_reset_complete.html:18
 msgid "Your password has been set. You may go ahead and log in now."
-msgstr "Ihr Kennwort wurde geändert. Sie können sich jetzt einloggen."
+msgstr "Dein Kennwort wurde geändert. Du kannst Dich jetzt einloggen."
 
 #: templates/ccb/accounts/password_reset_confirm.html:10
 msgid "Password reset unsuccessful"
@@ -5852,7 +5834,7 @@ msgid ""
 "used.  Please request a new password reset."
 msgstr ""
 "Der Kennwort-zurücksetzen-Link war ungültig – vermutlich weil er bereits "
-"einmal benutzt wurde. Bitte lassen Sie Ihr Kennwort erneut zurücksetzen."
+"einmal benutzt wurde. Bitte lasse Dein Kennwort erneut zurücksetzen."
 
 #: templates/ccb/accounts/password_reset_done.html:4
 #: templates/ccb/accounts/password_reset_done.html:7
@@ -5864,8 +5846,8 @@ msgid ""
 "We've e-mailed you a link that allows you to set up a new password. You "
 "should be receiving it shortly. "
 msgstr ""
-"Wir haben Ihnen soeben per E-Mail einen Link zugeschickt, über den Sie ein "
-"neues Kennwort einrichten können."
+"Wir haben Dir soeben per E-Mail einen Link zugeschickt, über den Du ein "
+"neues Kennwort einrichten kannst."
 
 #: templates/ccb/accounts/password_reset_email.html:3
 #, python-format
@@ -5873,30 +5855,30 @@ msgid ""
 "You're receiving this e-mail because you requested a password reset for your user account at\n"
 "        %(site_name)s."
 msgstr ""
-"Sie erhalten diese Mail, weil Sie ein neues Kennwort für ihr Benutzerkonto "
-"bei %(site_name)s angefordert haben."
+"Du erhältst diese Mail, weil Du ein neues Kennwort für Dein Benutzerkonto "
+"bei %(site_name)s angefordert hast."
 
 #: templates/ccb/accounts/password_reset_email.html:6
 msgid "Please go to the following page and choose a new password:"
-msgstr "Bitte gehen Sie zu folgender Seite und wählen Sie ein neues Kennwort:"
+msgstr "Bitte gehe zu folgender Seite und wähle ein neues Kennwort:"
 
 #: templates/ccb/accounts/password_reset_email.html:13
 #, python-format
 msgid ""
 "Your username, in case you've forgotten is\n"
 "        %(username)s"
-msgstr "Ihr Benutzername ist %(username)s, falls Sie ihn vergessen haben"
+msgstr "Dein Benutzername ist %(username)s, falls Du ihn vergessen hast"
 
 #: templates/ccb/accounts/password_reset_email.html:16
 msgid "Thanks for using our site!"
-msgstr "Vielen Dank, dass Sie unsere Seite besuchen!"
+msgstr "Vielen Dank, dass Du unsere Seite nutzt!"
 
 #: templates/ccb/accounts/register_and_link.html:24
 #, python-format
 msgid ""
 "Create a Creative City Berlin account to link with your %(backend)s account."
 msgstr ""
-"Erstellen Sie ein Konto auf CreativeCityBerlin mit Ihrem %(backend)s Konto."
+"Erstelle ein Profil auf Creative City Berlin mit Deinem %(backend)s Konto."
 
 #: templates/ccb/accounts/register_and_link.html:43
 #: templates/ccb/articles/articles_base.html:126
@@ -5915,7 +5897,7 @@ msgstr "Ihre Registrierung ist vollständig"
 
 #: templates/ccb/accounts/register_verify_required.html:11
 msgid "You're almost there."
-msgstr "Sie haben es fast geschafft"
+msgstr "Du hast es fast geschafft."
 
 #: templates/ccb/accounts/register_verify_required.html:12
 #: templates/ccb/accounts/register_verify_required.html:22
@@ -5924,16 +5906,16 @@ msgid ""
 "e-mail address. You should be getting a confirmation e-mail very shortly. It"
 " will contain instructions on how to finalize your registration."
 msgstr ""
-"Willkommen bei CreativeCityBerlin! Sie erhalten in Kürze eine "
-"Bestätigungsnachricht mit weiteren Informationen an ihre angegebene E-Mail-"
-"Adresse, um Ihre Registrierung abzuschließen. "
+"Willkommen bei Creative City Berlin! Du erhältst in Kürze eine "
+"Bestätigungsnachricht mit weiteren Informationen an Deine angegebene E-Mail-"
+"Adresse, um Deine Registrierung abzuschließen. "
 
 #: templates/ccb/accounts/register_verify_required.html:13
 #: templates/ccb/accounts/register_verify_required.html:25
 msgid ""
 "Please also check your Spam folder to make sure that our message has not "
 "been filtered out."
-msgstr "Bitte schauen Sie auch in Ihren Spamordner nach der Bestätigungsmail."
+msgstr "Bitte schau auch in Deinem Spamordner nach der Bestätigungsmail."
 
 #: templates/ccb/accounts/social_login.html:12
 #: templates/ccb/accounts/social_login.html:16
@@ -5951,8 +5933,8 @@ msgid ""
 "You are connecting with %(backend)s for the first time. Do you already have "
 "an account on Creative City Berlin?"
 msgstr ""
-"Sie melden sich zum ersten Mal mit %(backend)s an. Haben Sie bereits ein "
-"Konto bei CreativeCityBerlin, das Sie damit verbinden wollen?"
+"Du meldest Dich zum ersten Mal mit %(backend)s an. Hast Du bereits ein "
+"Profil bei Creative City Berlin, das Du damit verbinden willst?"
 
 #: templates/ccb/accounts/unlinked_user.html:20
 #: templates/ccb/facebook_app/new_facebook_user.html:20
@@ -6091,7 +6073,7 @@ msgstr "Navigation"
 
 #: templates/ccb/base.html:463
 msgid "Follow us on"
-msgstr "Folgen Sie uns auf"
+msgstr "Folge uns auf"
 
 #: templates/ccb/base.html:484 templates/ccb/base_redesign.html:159
 msgid "Bookmark / Share"
@@ -6161,11 +6143,11 @@ msgstr ""
 
 #: templates/ccb/base_redesign.html:150
 msgid "Follow Us"
-msgstr "Folgen Sie uns auf"
+msgstr "Folge uns auf"
 
 #: templates/ccb/base_redesign.html:185 templates/ccb/styleguide/base.html:255
 msgid "Enter your search term ..."
-msgstr "Geben Sie Ihren Suchbegriff ein"
+msgstr "Gib Deinen Suchbegriff ein"
 
 #: templates/ccb/blog/base.html:11 templates/ccb/blog/base.html.py:26
 #: templates/ccb/blog/blog.html:156 templates/ccb/blog/blog.html.py:158
@@ -6191,7 +6173,7 @@ msgstr "Entwürfe"
 #: templates/ccb/media_gallery/comments/popups/comment_accept.html:6
 #: templates/ccb/site_specific/blogs/popups/comment_accept.html:6
 msgid "Do you really want to accept this comment?"
-msgstr "Wollen Sie diesen Kommentar wirklich akzeptieren?"
+msgstr "Willst Du diesen Kommentar wirklich akzeptieren?"
 
 #: templates/ccb/blog/comments/accept_embedded.html:10
 #: templates/ccb/groups_networks/confirm_invitation_to_institution.html:99
@@ -6237,7 +6219,7 @@ msgstr "Vorschau"
 #: templates/ccb/media_gallery/comments/popups/comment_markasspam.html:5
 #: templates/ccb/site_specific/blogs/popups/comment_markasspam.html:5
 msgid "Do you really want to mark this comment as spam?"
-msgstr "Wollen Sie diesen Kommentar wirklich als Werbung markieren?"
+msgstr "Willst Du diesen Kommentar wirklich als Werbung markieren?"
 
 #: templates/ccb/blog/comments/mark_as_spam_embedded.html:13
 #: templates/ccb/media_gallery/comments/markasspam.html:22
@@ -6252,7 +6234,7 @@ msgstr "Als Spam markieren"
 #: templates/ccb/media_gallery/comments/refuse.html:16
 #: templates/ccb/site_specific/blogs/popups/comment_refuse.html:7
 msgid "Do you really want to refuse this comment?"
-msgstr "Wollen Sie diesen Kommentar wirklich ablehnen?"
+msgstr "Willst Du diesen Kommentar wirklich ablehnen?"
 
 #: templates/ccb/blog/comments/refuse_embedded.html:13
 #: templates/ccb/media_gallery/comments/popups/comment_refuse.html:12
@@ -6267,7 +6249,7 @@ msgstr "Ablehnen"
 #: templates/ccb/forum/forms/confirm_delete_embedded.html:6
 #, python-format
 msgid "Do you really want to delete \"%(delete_object)s\"?"
-msgstr "Wollen Sie \"%(delete_object)s\" wirklich löschen?"
+msgstr "Willst Du \"%(delete_object)s\" wirklich löschen?"
 
 #: templates/ccb/blog/forms/post_embedded.html:20
 msgid "Save as Draft"
@@ -6564,7 +6546,7 @@ msgstr "Tanz & Theater"
 #: templates/ccb/cms/page_sidebar_under_visual_arts.html:23
 #: templates/ccb/cms/page_sidebar_under_visual_arts.html:30
 msgid "Visual Arts"
-msgstr ""
+msgstr "Bildende Kunst"
 
 #: templates/ccb/cms/plugins/document.html:16
 #: templates/ccb/resources/documents/profile/details.html:64
@@ -6583,14 +6565,13 @@ msgstr ""
 "Berlins Portal für Künstler, Kulturschaffende und die Kreativwirtschaft"
 
 #: templates/ccb/cms/start.html:57
-#, fuzzy
 #| msgid "Follow Us"
 msgid "Follow us"
-msgstr "Folgen Sie uns auf"
+msgstr "Folge uns auf"
 
 #: templates/ccb/comments/form.html:7 templates/ccb/comments/preview.html:76
 msgid "Post a review"
-msgstr "Schreiben Sie eine Bewertung"
+msgstr "Schreibe eine Bewertung"
 
 #: templates/ccb/comments/form.html:14 templates/ccb/comments/preview.html:92
 #: templates/ccb/site_specific/creative_sectors/creative_sector_details.html:120
@@ -6628,7 +6609,7 @@ msgstr "Die Bewertung veröffentlichen"
 
 #: templates/ccb/comments/preview.html:78
 msgid "Or edit your review"
-msgstr "Oder ändern sie die Bewertung"
+msgstr "Oder ändere die Bewertung"
 
 #: templates/ccb/comments/preview.html:115
 msgid "Preview revised review"
@@ -6663,9 +6644,9 @@ msgid ""
 "subscribing to our Newsletter. Of course you can unsubscribe later at any "
 "point."
 msgstr ""
-"Mit unserem Newsletter werden Sie regelmäßig über aktuelle Themen und "
-"Updates auf CreativeCityBerlin informiert. Sie können diesen "
-"selbstvertändlich jederzeit wieder abbestellen."
+"Mit unserem Newsletter wirst Du regelmäßig über aktuelle Themen und Updates "
+"auf Creative City Berlin informiert. Du kannst ihn selbstverständlich "
+"jederzeit wieder abbestellen."
 
 #: templates/ccb/email_campaigns/infosubscription_done.html:4
 #: templates/ccb/email_campaigns/infosubscription_done.html:8
@@ -6704,10 +6685,9 @@ msgid "Add new event"
 msgstr "Neuen Event hinzufügen"
 
 #: templates/ccb/events/add_event_confirm.html:23
-#, fuzzy
 #| msgid "New Events"
 msgid "New Event"
-msgstr "Neue Termine"
+msgstr "Neuer Termin"
 
 #: templates/ccb/events/add_event_confirm.html:179
 msgid "Organizer is venue"
@@ -6845,7 +6825,8 @@ msgstr "Zurück"
 #: templates/ccb/institutions/claim_institution_done.html:14
 #: templates/ccb/resources/documents/claim_document_done.html:14
 msgid "We have received your claiming request and will contact you soon."
-msgstr "Wir haben Ihre Anfrage erhalten und werden Sie in Kürze kontaktieren."
+msgstr ""
+"Wir haben Deine Anfrage erhalten und werden Dich in Kürze kontaktieren."
 
 #: templates/ccb/events/controls.html:11 templates/ccb/events/controls.html:12
 msgid "Edit Event"
@@ -6887,7 +6868,7 @@ msgstr "ICalendar-Datei herunterladen"
 msgid ""
 "Are you sure you want to delete the event \"\n"
 "                %(title)s\"?"
-msgstr "Wollen Sie den Event \"%(title)s\" wirklich löschen?"
+msgstr "Willst Du den Event \"%(title)s\" wirklich löschen?"
 
 #: templates/ccb/events/details_base.html:33
 #: templates/ccb/events/details_base.html:70
@@ -6967,7 +6948,7 @@ msgstr ""
 #: templates/ccb/people/person_reviews.html:63
 #: templates/ccb/resources/documents/document_reviews.html:45
 msgid "Post a review (login required)"
-msgstr "Schreiben Sie eine Bewertung"
+msgstr "Schreibe eine Bewertung"
 
 #: templates/ccb/events/includes/latest_published_events.html:32
 #: templates/ccb/events/includes/latest_published_events_index.html:39
@@ -7054,7 +7035,7 @@ msgstr ""
 #: templates/ccb/facebook_app/manage_connections.html:19
 msgid "You can login to CreativeCityBerlin with this Facebook account:"
 msgstr ""
-"Sie können sich mit diesem Facebook-Konto bei CreativeCityBerlin einloggen:"
+"Du kannst Dich mit diesem Facebook-Konto bei Creative City Berlin einloggen:"
 
 # #-#-#-#-#  django.pot (PACKAGE VERSION)  #-#-#-#-#
 # D:\svn\jetson_src\jetson_reorganized\jetson\templates\default\forum\thread_list.html.py:36
@@ -7076,7 +7057,7 @@ msgstr "Trennen"
 
 #: templates/ccb/facebook_app/manage_connections.html:41
 msgid "Connect your Creative City Berlin account with Facebook."
-msgstr "Verbinden Sie Ihr Konto bei CreativeCityBerlin mit Facebook."
+msgstr "Verbinde Dein Profil bei Creative City Berlin mit Facebook."
 
 #: templates/ccb/facebook_app/manage_pages.html:17
 msgid "Linked Institution"
@@ -7110,8 +7091,7 @@ msgstr "Nicht verbundene Institution"
 
 #: templates/ccb/facebook_app/manage_pages.html:52
 msgid "Connect your institution to Facebook page."
-msgstr ""
-"Verbinden Sie Ihre Institution mit der Facebook-Seite der Institution."
+msgstr "Verbinde Deinee Institution mit der Facebook-Seite der Institution."
 
 #: templates/ccb/facebook_app/new_facebook_user.html:5
 #: templates/ccb/facebook_app/new_facebook_user.html:8
@@ -7123,13 +7103,12 @@ msgid ""
 "You are connecting with facebook for the first time. Do you already have an "
 "account on Creative City Berlin?"
 msgstr ""
-"Sie melden sich zum ersten Mal mit Facebook an. Haben Sie bereits ein Konto "
-"bei CreativeCityBerlin, das Sie damit verbinden wollen?"
+"Du meldest Dich zum ersten Mal mit Facebook an. Hast Du bereits ein Profil "
+"bei Creative City Berlin, das Du damit verbinden willst?"
 
 #: templates/ccb/facebook_app/register.html:16
 msgid "Create a CreativeCityBerlin account to link with your facebook."
-msgstr ""
-"Erstellen Sie ein Konto auf CreativeCityBerlin mit Ihrem Facebook-Link."
+msgstr "Erstelle ein Konto auf Creative City Berlin mit Deinem Facebook-Link."
 
 #: templates/ccb/facebook_app/sync_portfolio.html:6
 #: templates/ccb/facebook_app/sync_portfolio.html:16
@@ -7199,7 +7178,7 @@ msgstr "Bewertungen"
 
 #: templates/ccb/form.html:27
 msgid "Enter your data"
-msgstr "Geben Sie Ihre Daten ein"
+msgstr "Gib Deine Daten ein"
 
 #: templates/ccb/forum/forms/confirm_delete.html:15
 #: templates/ccb/forum/forms/forum.html:16
@@ -7449,7 +7428,7 @@ msgstr "Sichern"
 
 #: templates/ccb/generic/bookmarklist.html:59
 msgid "You have no bookmarks in your bookmark list."
-msgstr "Sie haben keine gespeicherten Lesezeichen in Ihrer Liste."
+msgstr "Du hast keine gespeicherten Lesezeichen in Deiner Liste."
 
 #: templates/ccb/generic/bookmarks.html:23
 msgid "Save this bookmark"
@@ -7492,7 +7471,7 @@ msgstr "Als Favorit hinzugefügt"
 
 #: templates/ccb/generic/favorites.html:21
 msgid "You haven't any favorites."
-msgstr "Sie haben noch keine Favoriten"
+msgstr "Du hast noch keine Favoriten"
 
 #: templates/ccb/generic/ratings.html:6
 msgid "Rate this 1 star out of 5"
@@ -7534,7 +7513,7 @@ msgstr "Kreativatlas Berlin"
 
 #: templates/ccb/gmap/object_list.html:26
 msgid "Double click the map to set the location of interest."
-msgstr "Doppelklicken Sie auf die Karte, um die Umgebung anzuzeigen."
+msgstr "Doppelklicke auf die Karte, um die Umgebung anzuzeigen."
 
 #: templates/ccb/groups_networks/confirm_invitation_to_institution.html:15
 #: templates/ccb/groups_networks/confirm_invitation_to_institution.html:18
@@ -7550,7 +7529,7 @@ msgid ""
 "You\n"
 "                    have been invited to %(institution_title)s by %(inviter_title)s."
 msgstr ""
-"Sie sind von %(inviter_title)s zu %(institution_title)s eingeladen worden."
+"Du bist von %(inviter_title)s zu %(institution_title)s eingeladen worden."
 
 #: templates/ccb/groups_networks/confirm_invitation_to_institution.html:39
 #: templates/ccb/individual_relations/confirm_invitation_to_contacts.html:43
@@ -7655,7 +7634,7 @@ msgstr ""
 msgid ""
 "Do you really want to accept the\n"
 "            invitation to %(group_name)s?"
-msgstr "Wollen Sie die Einladung für %(group_name)s wirklich annehmen?"
+msgstr "Willst Du die Einladung für %(group_name)s wirklich annehmen?"
 
 #: templates/ccb/groups_networks/group_membership_accept-user.html:4
 #, python-format
@@ -7663,7 +7642,7 @@ msgid ""
 "Do\n"
 "            you really want to accept %(person_name)s to %(group_name)s?"
 msgstr ""
-"Wollen Sie die Person %(person_name)s für %(group_name)s wirklich annehmen?"
+"Willst Du die Person %(person_name)s für %(group_name)s wirklich annehmen?"
 
 #: templates/ccb/groups_networks/group_membership_cancel-user.html:4
 #, python-format
@@ -7672,7 +7651,7 @@ msgid ""
 "            you really want to cancel the invitation of %(person_name)s to join %(group_name)s\n"
 "            ?"
 msgstr ""
-"Wollen Sie die Einladung an %(person_name)s für %(group_name)s wirklich "
+"Willst Du die Einladung an %(person_name)s für %(group_name)s wirklich "
 "rückgängig machen?"
 
 #: templates/ccb/groups_networks/group_membership_cancel.html:4
@@ -7681,21 +7660,21 @@ msgid ""
 "Do you really want to cancel the\n"
 "            request for joining %(group_name)s?"
 msgstr ""
-"Wollen Sie die Einladung für %(group_name)s wirklich rückgängig machen?"
+"Willst Du die Einladung für %(group_name)s wirklich rückgängig machen?"
 
 #: templates/ccb/groups_networks/group_membership_deny-group.html:4
 #, python-format
 msgid ""
 "Do you really want to deny the\n"
 "            invitation to %(group_name)s?"
-msgstr "Wollen Sie die Einladung für %(group_name)s wirklich ablehnen?"
+msgstr "Willst Du die Einladung für %(group_name)s wirklich ablehnen?"
 
 #: templates/ccb/groups_networks/group_membership_deny-user.html:4
 #, python-format
 msgid ""
 "Do\n"
 "            you really want to deny %(person_name)s to %(group_name)s?"
-msgstr "Wollen Sie die %(person_name)s für %(group_name)s wirklich ablehnen?"
+msgstr "Willst Du die %(person_name)s für %(group_name)s wirklich ablehnen?"
 
 #: templates/ccb/groups_networks/group_membership_edit.html:5
 msgid "Title within the group"
@@ -7712,7 +7691,7 @@ msgstr "Teilnehmen"
 msgid ""
 "Do\n"
 "            you really want to remove %(person_name)s from the members of %(group_name)s?"
-msgstr "Wollen Sie wirklich %(person_name)s aus %(group_name)s entfernen?"
+msgstr "Willst Du wirklich %(person_name)s aus %(group_name)s entfernen?"
 
 #: templates/ccb/groups_networks/group_membership_remove-user.html:9
 #: templates/ccb/individual_relations/individual_relation_edit.html:26
@@ -7725,7 +7704,7 @@ msgstr "Entfernen"
 msgid ""
 "Do you really want to leave\n"
 "            %(group_name)s?"
-msgstr "Wollen Sie %(group_name)s wirklich verlassen?"
+msgstr "Willst Du %(group_name)s wirklich verlassen?"
 
 #: templates/ccb/groups_networks/group_membership_remove.html:9
 msgid "Leave"
@@ -7736,7 +7715,7 @@ msgstr "Verlassen"
 msgid ""
 "Do you really want to join\n"
 "            %(group_name)s?"
-msgstr "Wollen Sie wirklich %(group_name)s beitreten?"
+msgstr "Willst Du wirklich %(group_name)s beitreten?"
 
 #: templates/ccb/groups_networks/includes/latest_published_persongroups.html:16
 #: templates/ccb/site_specific/blocks/block_sector_new_groups.html:3
@@ -8035,7 +8014,7 @@ msgstr "Keine Personen in dieser Auswahl"
 
 #: templates/ccb/groups_networks/persongroups/invite_group_members.html:22
 msgid "You have no more contacts to invite."
-msgstr "Sie haben keine weiteren Kontakte einzuladen."
+msgstr "Du hast keine weiteren Kontakte einzuladen."
 
 #: templates/ccb/groups_networks/persongroups/invite_group_members.html:29
 msgid "Choose people to invite"
@@ -8086,7 +8065,7 @@ msgid ""
 "Is some      category missing? You can\n"
 "                    <a href=\"/ticket/new-category/\">suggest it here</a>."
 msgstr ""
-"Fehlt ihnen eine Kategorie? Sie können sie uns <a href=\"/ticket/new-"
+"Fehlt Dir eine Kategorie? Du kannst sie uns <a href=\"/ticket/new-"
 "category/\">hier</a> zur Aufnahme vorschlagen."
 
 #: templates/ccb/groups_networks/persongroups/profile/contact.html:33
@@ -8190,7 +8169,7 @@ msgid ""
 "You have been invited to\n"
 "                    the confirmed contacts of %(inviter_title)s."
 msgstr ""
-"Sie wurden von %(inviter_title)s zu dessen bestätigten Kontakten eingeladen."
+"Du wurdest von %(inviter_title)s zu dessen bestätigten Kontakten eingeladen."
 
 #: templates/ccb/individual_relations/confirm_invitation_to_contacts.html:38
 #, python-format
@@ -8218,7 +8197,7 @@ msgstr "Blockierung aufheben"
 msgid ""
 "Do you really want to block\n"
 "            %(person_name)s?"
-msgstr "Wollen Sie %(person_name)s wirklich blockieren?"
+msgstr "Willst Du %(person_name)s wirklich blockieren?"
 
 #: templates/ccb/individual_relations/individual_relation_cancel.html:4
 #, python-format
@@ -8226,7 +8205,7 @@ msgid ""
 "Do you really want to\n"
 "            cancel the invitation for %(person_name)s?"
 msgstr ""
-"Wollen Sie die Einladung für %(person_name)s wirklich rückgängig machen?"
+"Willst Du die Einladung für %(person_name)s wirklich rückgängig machen?"
 
 #: templates/ccb/individual_relations/individual_relation_edit.html:5
 msgid "Relation"
@@ -8242,7 +8221,7 @@ msgid ""
 "Do you really want to\n"
 "            remove relations to %(person_name)s?"
 msgstr ""
-"Wollen Sie die Kontaktbestätigung zu %(person_name)s wirklich rückgängig "
+"Willst Du die Kontaktbestätigung zu %(person_name)s wirklich rückgängig "
 "machen?"
 
 #: templates/ccb/individual_relations/individual_relation_unblock.html:4
@@ -8251,7 +8230,7 @@ msgid ""
 "Do you really want to\n"
 "            unblock %(person_name)s?"
 msgstr ""
-"Wollen Sie die Blockierung von %(person_name)s wirklich rückgängig machen?"
+"Willst Du die Blockierung von %(person_name)s wirklich rückgängig machen?"
 
 #: templates/ccb/individual_relations/lists/person_invitation.html:40
 #: templates/ccb/individual_relations/lists/person_invitation.html:41
@@ -8265,10 +8244,9 @@ msgstr "Person bearbeiten"
 #: templates/ccb/institutions/add_base.html:39
 #: templates/ccb/institutions/add_institution_confirm.html:10
 #: templates/ccb/marketplace/add_job_offer_confirm.html:20
-#, fuzzy
 #| msgid "New Institutions"
 msgid "New Institution"
-msgstr "Neue Institutionen"
+msgstr "Neue Institution"
 
 #: templates/ccb/institutions/add_base.html:45
 msgid "Add new institution"
@@ -8311,20 +8289,18 @@ msgstr "Meine Institution"
 #: templates/ccb/network/details_base.html:65
 #: templates/ccb/network/details_base.html:135
 #: templates/ccb/people/details_base.html:111
-#, fuzzy
 #| msgid "Follower"
 msgid "Unfollow"
-msgstr "Folgende"
+msgstr "Nicht länger folgen"
 
 #: templates/ccb/institutions/details_base.html:48
 #: templates/ccb/institutions/details_base.html:126
 #: templates/ccb/network/details_base.html:67
 #: templates/ccb/network/details_base.html:137
 #: templates/ccb/people/details_base.html:113
-#, fuzzy
 #| msgid "Follower"
 msgid "Follow"
-msgstr "Folgende"
+msgstr "Folgen"
 
 #: templates/ccb/institutions/details_base.html:54
 #: templates/ccb/institutions/details_base.html:68
@@ -8333,7 +8309,6 @@ msgstr "Folgende"
 #: templates/ccb/network/details_base.html:143
 #: templates/ccb/people/details_base.html:120
 #: templates/ccb/people/details_base.html:126
-#, fuzzy
 #| msgid "send Email"
 msgid "Send Email"
 msgstr "E-Mail senden"
@@ -8478,8 +8453,8 @@ msgid ""
 "Receive the latest and greatest news about CreativeCityBerlin with "
 "subscribing to our Newsletter."
 msgstr ""
-"Mit unserem Newsletter werden Sie regelmäßig über aktuelle Themen und "
-"Updates auf CreativeCityBerlin informiert."
+"Mit unserem Newsletter wirst Du regelmäßig über aktuelle Themen und Updates "
+"auf Creative City Berlin informiert."
 
 #: templates/ccb/marketplace/add_job_offer_base.html:21
 msgid "Add new job offer"
@@ -8495,7 +8470,6 @@ msgid "or"
 msgstr "oder"
 
 #: templates/ccb/marketplace/add_job_offer_confirm.html:62
-#, fuzzy
 #| msgid "Institution/Company"
 msgid "Institution / Company"
 msgstr "Institution / Unternehmen"
@@ -8517,7 +8491,7 @@ msgid ""
 "                \"?"
 msgstr ""
 "\n"
-"Sie sind sicher, dass Sie das Jobangebot als %(position)s  bei \"%(institution_title)s\" löschen wollen?"
+"Bist Du sicher, dass Du das Jobangebot als %(position)s  bei \"%(institution_title)s\" löschen willst?"
 
 #: templates/ccb/marketplace/details_base.html:44
 msgid "edit Job Offer"
@@ -8559,7 +8533,7 @@ msgstr ""
 
 #: templates/ccb/marketplace/profile/contact.html:80
 msgid "Login to see e-mail."
-msgstr "Sie müssen eingeloggt sein, um die E-Mail zu sehen."
+msgstr "Du musst eingeloggt sein, um die E-Mail zu sehen."
 
 #: templates/ccb/media_gallery/comments/accept.html:5
 msgid "Accept Comment"
@@ -8601,7 +8575,7 @@ msgid ""
 "Do you really want to delete the\n"
 "                album \"%(gallery_title)s\" and its media files?"
 msgstr ""
-"Wollen Sie wirklich das Album \"%(gallery_title)s\" und dessen enthaltene "
+"Willst Du wirklich das Album \"%(gallery_title)s\" und dessen enthaltene "
 "Medien-Dateien löschen?"
 
 #: templates/ccb/media_gallery/delete_gallery_cover.html:6
@@ -8611,7 +8585,7 @@ msgid ""
 "            custom cover for the album \"%(gallery_title)s\" and to use the first image of the album as a cover\n"
 "            instead?"
 msgstr ""
-"Wollen Sie wirklich das ausgewählte Titelbild für das Album "
+"Willst Du wirklich das ausgewählte Titelbild für das Album "
 "\"%(gallery_title)s\"löschen und stattdessen das erste Bild des Albums "
 "verwenden?"
 
@@ -8619,12 +8593,12 @@ msgstr ""
 msgid ""
 "Do you really want to delete the image of the landing\n"
 "            page?"
-msgstr "Wollen Sie wirklich das Bild der Startseite löschen?"
+msgstr "Willst Du wirklich das Bild der Startseite löschen?"
 
 #: templates/ccb/media_gallery/delete_mediafile.html:7
 #: templates/ccb/media_gallery/includes/delete_media_file.html:10
 msgid "Do you really want to delete this media file?"
-msgstr "Wollen Sie diese Datei wirklich löschen?"
+msgstr "Willst Du diese Datei wirklich löschen?"
 
 #: templates/ccb/media_gallery/delete_section.html:8
 #, python-format
@@ -8632,7 +8606,7 @@ msgid ""
 "Do you really want to delete\n"
 "                    portfolio section \"%(section_title)s\" and albums in it?"
 msgstr ""
-"Wollen Sie wirklich den Portfolio-Abschnitt \"%(section_title)s\" und alle "
+"Willst Du wirklich den Portfolio-Abschnitt \"%(section_title)s\" und alle "
 "enthaltenen Dateien löschen?"
 
 #: templates/ccb/media_gallery/delete_section.html:11
@@ -8640,7 +8614,7 @@ msgid ""
 "Do you really want to delete the untitled portfolio section and\n"
 "                    albums in it?"
 msgstr ""
-"Wollen Sie wirklich den Portfolio-Abschnitt und alle enthaltenen Dateien "
+"Willst Du wirklich den Portfolio-Abschnitt und alle enthaltenen Dateien "
 "löschen?"
 
 #: templates/ccb/media_gallery/feeds/feed_title.html:1
@@ -8649,7 +8623,6 @@ msgid "of"
 msgstr ""
 
 #: templates/ccb/media_gallery/gallery_detail/gallery_base.html:28
-#, fuzzy
 #| msgid "Manage Portfolio"
 msgid "Manage Project"
 msgstr "Portfolio bearbeiten"
@@ -8704,7 +8677,7 @@ msgstr "Bild löschen"
 msgid ""
 "Do you really want to delete the media\n"
 "                file \"%(title)s\"?"
-msgstr "Wollen Sie die Datei \"%(title)s\" wirklich löschen?"
+msgstr "Willst Du die Datei \"%(title)s\" wirklich löschen?"
 
 #: templates/ccb/media_gallery/includes/gallery_slideshow.html:10
 msgid "in progress..."
@@ -8723,10 +8696,9 @@ msgid "Next media file"
 msgstr "Nächste Datei"
 
 #: templates/ccb/media_gallery/includes/latest_published_galleries.html:49
-#, fuzzy
 #| msgid "There are no public groups."
 msgid "There are no portfolios."
-msgstr "Keine veröffentlichten Gruppen vorhanden."
+msgstr "Keine veröffentlichten Portfolios vorhanden."
 
 #: templates/ccb/media_gallery/includes/media_file_delete.html:5
 msgid "Delete Media File"
@@ -8771,19 +8743,16 @@ msgid "Add album"
 msgstr "Album hinzufügen"
 
 #: templates/ccb/media_gallery/manage_gallery.html:19
-#, fuzzy
 #| msgid "Add new image"
 msgid "Add image"
 msgstr "Neues Bild hinzufügen"
 
 #: templates/ccb/media_gallery/manage_gallery.html:22
-#, fuzzy
 #| msgid "Add new video"
 msgid "Add video"
 msgstr "Neues Video hinzufügen"
 
 #: templates/ccb/media_gallery/manage_gallery.html:25
-#, fuzzy
 #| msgid "Add new audio"
 msgid "Add audio"
 msgstr "Neues Audio hinzufügen"
@@ -8845,7 +8814,7 @@ msgstr "Es wurden keine Dateien hochgeladen."
 
 #: templates/ccb/media_gallery/portfolio_overview.html:131
 msgid "You need to upload an image."
-msgstr "Sie müssen ein Bild hochladen."
+msgstr "Du musst ein Bild hochladen."
 
 #: templates/ccb/memos/memo.html:4 templates/ccb/memos/memo.html.py:6
 #: templates/ccb/memos/memo_icon.html:4 templates/ccb/memos/memo_icon.html:6
@@ -8860,7 +8829,7 @@ msgstr "Merkliste"
 
 #: templates/ccb/memos/memos.html:43
 msgid "You haven't selected any objects to memorize."
-msgstr "Sie haben keine Einträge für die Merkliste ausgewählt."
+msgstr "Du hast keine Einträge für die Merkliste ausgewählt."
 
 #: templates/ccb/memos/sidebar_memo.html:7
 #: templates/ccb/memos/sidebar_memo.html:9
@@ -9359,7 +9328,7 @@ msgstr[1] ""
 msgid ""
 " Do you really want to delete the post '%(title_t)s\n"
 "                '?"
-msgstr "Wollen Sie den Beitrag '%(title_t)s' wirklich löschen?"
+msgstr "Willst Du den Beitrag '%(title_t)s' wirklich löschen?"
 
 #: templates/ccb/site_specific/browsing.html:11
 msgid "BROWSE"
@@ -9385,7 +9354,7 @@ msgstr "Geschäftsfeld"
 
 #: templates/ccb/site_specific/compatibility.html:5
 msgid "Upgrade your browser"
-msgstr "Aktualisieren Sie Ihren Browser"
+msgstr "Aktualisiere Deinen Browser"
 
 #: templates/ccb/site_specific/context_categories.html:7
 #: templates/ccb/site_specific/creative_sectors.html:7
@@ -9486,7 +9455,7 @@ msgstr "Kategorien"
 
 #: templates/ccb/site_specific/popups/choose_profile.html:4
 msgid "Please choose the profile"
-msgstr "Bitte wählen Sie das gewünschte Profil aus."
+msgstr "Bitte wähle das gewünschte Profil aus."
 
 #: templates/ccb/site_specific/popups/choose_profile.html:17
 msgid "Go"
@@ -9496,14 +9465,14 @@ msgstr "Weiter"
 msgid ""
 "Do you really want to delete\n"
 "            the avatar?"
-msgstr "Wollen Sie dieses Profilbild wirklich löschen?"
+msgstr "Willst Du dieses Profilbild wirklich löschen?"
 
 #: templates/ccb/site_specific/popups/delete_contact.html:4
 #, python-format
 msgid ""
 "Do you really want to delete\n"
 "            the contact \"%(postal_address)s\"?"
-msgstr "Wollen Sie die Kontaktdaten \"%(postal_address)s\" wirklich löschen?"
+msgstr "Willst Du die Kontaktdaten \"%(postal_address)s\" wirklich löschen?"
 
 #: templates/ccb/site_specific/review_delete.html:4
 #: templates/ccb/site_specific/review_delete.html:7
@@ -9634,7 +9603,7 @@ msgstr "Instant Messenger"
 
 #: templates/ccb/utils/captcha.html:12
 msgid "Enter the security code from the image above"
-msgstr "Wiederholen Sie den angezeigten Bildcode in nachstehendem Feld"
+msgstr "Wiederhole den angezeigten Bildcode in nachstehendem Feld"
 
 #: templates/ccb/utils/includes/sorting.html:11
 #, fuzzy
