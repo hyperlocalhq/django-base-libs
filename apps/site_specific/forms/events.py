@@ -1176,6 +1176,7 @@ class EventTimeForm(dynamicforms.Form):
         self.helper.layout = layout.Layout(
             layout.Div(
                 "label",
+                "DELETE",
                 layout.MultiField(
                     _("Start"),
                     layout.Field(
@@ -1306,6 +1307,8 @@ class EventTimeForm(dynamicforms.Form):
                     start_date = datetime.date(int(start_yyyy), int(start_mm or 1), int(start_dd or 1))
                 except Exception:
                     self._errors['start_dd'] = [_("Please enter a valid date.")]
+        else:
+            self._errors['start_dd'] = [_("Please enter a valid date.")]
 
         # start time or "all day must be entered"
         if 'start_hh' in self._errors or 'start_ii' in self._errors:
@@ -1371,17 +1374,17 @@ class EventTimeForm(dynamicforms.Form):
 
         time.label = cleaned['label'] or None
 
-        time.start_yyyy = cleaned['start_yyyy'] or None
-        time.start_mm = cleaned['start_mm'] or None
-        time.start_dd = cleaned['start_dd'] or None
-        time.start_hh = cleaned['start_hh'] or None
-        time.start_ii = cleaned['start_ii'] or None
+        time.start_yyyy = cleaned.get('start_yyyy', None) or None
+        time.start_mm = cleaned.get('start_mm', None) or None
+        time.start_dd = cleaned.get('start_dd', None) or None
+        time.start_hh = cleaned.get('start_hh', None) or None
+        time.start_ii = cleaned.get('start_ii', None) or None
 
-        time.end_yyyy = cleaned['end_yyyy'] or None
-        time.end_mm = cleaned['end_mm'] or None
-        time.end_dd = cleaned['end_dd'] or None
-        time.end_hh = cleaned['end_hh'] or None
-        time.end_ii = cleaned['end_ii'] or None
+        time.end_yyyy = cleaned.get('end_yyyy', None) or None
+        time.end_mm = cleaned.get('end_mm', None) or None
+        time.end_dd = cleaned.get('end_dd', None) or None
+        time.end_hh = cleaned.get('end_hh', None) or None
+        time.end_ii = cleaned.get('end_ii', None) or None
         time.is_all_day = cleaned.get('is_all_day', False)
 
         time.save()

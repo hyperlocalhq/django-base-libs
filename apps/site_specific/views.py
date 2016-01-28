@@ -472,9 +472,8 @@ def edit_profile(request, object_type, slug, section_name="", index=None):
                 saved_instance_pks = []
                 for f in formset.forms:
                     if (
-                                hasattr(f, "cleaned_data")
-                            and f.cleaned_data
-                        and not f.cleaned_data.get("DELETE", False)
+                        f.is_valid() and
+                        not f.cleaned_data.get("DELETE", False)
                     ):
                         obj = f.save()
                         saved_instance_pks.append(obj.pk)
