@@ -1,15 +1,16 @@
 {% extends base_template|default:"base_redesign.html" %}
-{% load i18n base_tags navigation_tags auth_extended uni_form_tags image_mods_tags individual_relations groups_networks browsing favorites crispy_forms_tags %}
+{% load i18n base_tags navigation_tags auth_extended image_mods_tags favorites crispy_forms_tags cms_tags %}
 
-
-{% block title %}{% trans "Infolinks" %}{% endblock %}
+{% block title %}{% page_attribute "page_title" %}{% endblock %}
 
 {% block content %}
     <div class="header">
+        {% load slideshows_tags %}
+        {% slideshow "document_list" using "slideshows/header.html" %}
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <h1>{% trans "Infolinks" %}</h1>
+                    <h1>{% page_attribute "page_title" %}</h1>
                 </div>
             </div>
         </div>
@@ -17,12 +18,12 @@
             <div class="container">
                 <div class="row">
                     <div class="hidden-xs col-sm-4 col-md-3 headline">
-                        <h2>{% trans "Infolinks" %}</h2>
+                        <h2>{% page_attribute "page_title" %}</h2>
                     </div>
                     <div class="navi">
                         <nav>
                             <ul>
-                                {% children_of "documents" using "navigation/children_in_tabs.html" %}
+                                {% navigation_links "documents" using "navigation/includes/navigation_links_in_tabs.html" %}
                             </ul>
                         </nav>
                     </div>
@@ -39,7 +40,9 @@
             </div>
             <div class="col-xs-12 col-sm-8 col-md-9">
                 {% if object_list %}
+                    {% include "utils/includes/sorting.html" %}
                     {% include "utils/abc_filters.html" %}
+
                     <div class="row event-list">
                         {% for object in object_list %}
                             <div class="col-xs-12">
@@ -56,11 +59,6 @@
                                             <p></p>
                                         </div>
                                     </a>
-                                    {% if object.url_link %}
-                                        <a class="website" href="{{ object.url_link|escape }}" target="_blank">{{ object.url_link|truncatechars:50 }}</a>
-                                    {% endif %}
-                                    <div class="button-group">
-                                    </div>
                                 </div>
                             </div>
                         {% endfor %}
@@ -78,7 +76,7 @@
 
 {% block breadcrumbs %}
     {% if not show %}
-        <li>{% trans "Infolinks" %}</li>
+        <li>{% page_attribute "page_title" %}</li>
     {% endif %}
     {% if show == "/favorites" %}
         <li><a href="/{{ URL_ID_DOCUMENTS }}/">{% trans "Infolinks" %}</a></li>
@@ -91,6 +89,6 @@
 {% endblock %}
 
 {% block javascript %}
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/event-list.js"></script>
+{#    <script type="text/javascript" src="{{ STATIC_URL }}site/js/event-list.js"></script>#}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/pagination.js"></script>
 {% endblock %}

@@ -14,17 +14,11 @@ Document = models.get_model("resources", "Document")
 
 
 class DocumentSearchForm(dynamicforms.Form):
-    creative_sector = ModelChoiceTreeField(
+    category = ModelChoiceTreeField(
         empty_label=_("All"),
-        label=_("Creative Sector"),
+        label=_("Category"),
         required=False,
-        queryset=get_related_queryset(Document, "creative_sectors"),
-    )
-    context_category = ModelChoiceTreeField(
-        empty_label=_("All"),
-        label=_("Business Category"),
-        required=False,
-        queryset=get_related_queryset(Document, "context_categories"),
+        queryset=get_related_queryset(Document, "categories").filter(level=0),
     )
     document_type = ModelChoiceTreeField(
         empty_label=_("All"),
@@ -39,13 +33,13 @@ class DocumentSearchForm(dynamicforms.Form):
         self.helper = FormHelper()
         self.helper.form_action = ""
         self.helper.form_method = "GET"
-        self.helper.form_id = "object_list_filter_form"
+        self.helper.form_id = "filter_form"
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Filter"),
-                "creative_sector",
-                "context_category",
-                "document_type",
+                layout.Field("category", template="ccb_form/custom_widgets/category_filter_field.html"),
+                layout.Field("document_type", template="ccb_form/custom_widgets/document_type_filter_field.html"),
+                template="ccb_form/custom_widgets/filter.html"
             ),
             bootstrap.FormActions(
                 layout.Submit('submit', _('Search')),
