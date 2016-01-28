@@ -11,6 +11,7 @@ class Command(NoArgsCommand):
         verbosity = int(options.get('verbosity', NORMAL))
 
         import requests
+        from datetime import datetime, timedelta
 
         from xml.dom.minidom import parseString
         from dateutil.parser import parse as parse_datetime
@@ -79,7 +80,7 @@ class Command(NoArgsCommand):
                     date_de_to_en(get_value(node_bulletin, "pubDate") or get_value(node_bulletin, "dc:date")),
                     ignoretz=True,
                 )
-
+                status = ""
                 # get or create bulletin
                 mapper = None
                 try:
@@ -101,12 +102,21 @@ class Command(NoArgsCommand):
                         # if bulletin was deleted after import,
                         # don't import it again
                         continue
+                    status = bulletin.status
+                    if status == "expired":
+                        status = s.default_status
+                    # update bulletin without changing the modified_date
+                    Bulletin.objects.filter(id=bulletin.pk).update(
+                        published_till=datetime.now() + timedelta(days=1),
+                        status=status,
+                    )
                     if bulletin.modified_date:
-                        if bulletin.modified_date > change_date or bulletin.status == STATUS_CODE_PUBLISHED:
+                        if bulletin.modified_date > change_date or bulletin.status == "published":
                             continue
 
                 bulletin.orig_published = change_date
                 bulletin.published_from = change_date
+                bulletin.published_till = datetime.now() + timedelta(days=1)
 
                 bulletin.title = get_value(node_bulletin, "title")
 
@@ -132,7 +142,7 @@ class Command(NoArgsCommand):
                 # bulletin.bulletin_type = default_bulletin_type
 
                 # set status
-                bulletin.status = s.default_status
+                bulletin.status = status or s.default_status
 
                 # set content provider
                 bulletin.content_provider = s.content_provider

@@ -33,6 +33,7 @@ STATUS_CHOICES = (
     ('draft', _("Draft")),
     ('published', _("Published")),
     ('import', _("Imported")),
+    ('expired', _("Expired")),
 )
 
 TOKENIZATION_SUMMAND = 75623 # used to hide the ids of bulletins
