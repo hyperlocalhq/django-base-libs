@@ -29,7 +29,10 @@
         
         
         $('<input type="button" class="button" value="' + trans['Cancel'] + '">').click(function () {
-            redirect("../manage/");
+            var path = location.href.split('/');
+            var old = parseInt(path[path.length-2]);
+            if (old) redirect("../manage/");
+            else redirect("../../manage/");
         }).prependTo(
             $(".prepend-cancel").parent()
         );

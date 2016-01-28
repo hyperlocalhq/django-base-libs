@@ -12,13 +12,15 @@
         .image-version {
             border: 1px solid #D4D4D4;
             background: #fff;
-            width: {{ cp_mod.width }}px;
-            height: {{ cp_mod.height }}px;
+            //width: {{ cp_mod.width }}px;
+            //height: {{ cp_mod.height }}px;
         }
 
         #cropbox {
-            width: {{ cp_mod.width }}px;
-            height: {{ cp_mod.height }}px;
+            //width: {{ cp_mod.width }}px;
+            //height: {{ cp_mod.height }}px;
+            width: auto;
+            height: auto;
         }
 
         .colorpicker input {
@@ -42,12 +44,16 @@
         }
 
         .colorpicker {
-            z-index: 300;
+            z-index: 90;
         }
 
     </style>
 
-    <script type="text/javascript" src="{{ jetson_media_url }}Jcrop/js/jquery.Jcrop.min.js"></script>
+{% endblock %}
+
+{% block javascript %}
+
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery/jquery.Jcrop.js"></script>
     <script type="text/javascript" src="{{ jetson_media_url }}colorpicker/js/colorpicker.js"></script>
     <script type="text/javascript">
         //<![CDATA[
@@ -70,10 +76,10 @@
                     setDefault();
                     return
                 }
-                $('#id_x1').val(c.x);
-                $('#id_y1').val(c.y);
-                $('#id_x2').val(c.x2);
-                $('#id_y2').val(c.y2);
+                $('#id_x1').val(Math.round(c.x));
+                $('#id_y1').val(Math.round(c.y));
+                $('#id_x2').val(Math.round(c.x2));
+                $('#id_y2').val(Math.round(c.y2));
             }
 
             function setDefault() {
@@ -97,18 +103,28 @@
                     $(this).attr("src", sSrc);
                 });
             }
-
-            $(window).load(function () {
+            
+            function initCroping() {
+            
                 var x1 = $('#id_x1').val() || 0;
                 var y1 = $('#id_y1').val() || 0;
                 var x2 = $('#id_x2').val() || 0;
                 var y2 = $('#id_y2').val() || 0;
+                
+                var $wrapper = $('.image-version');
+                var $img = $('#cropbox');
+                
+                $img.css('display', 'none');
                 var options = {
                     onSelect: updateCoords,
                     onChange: updateCoords,
                     allowSelect: false,
-                    setSelect: [x1, y1, x2, y2]
+                    setSelect: [x1, y1, x2, y2],
+                    boxWidth: $wrapper.width(),
+                    boxHeight: $wrapper.height()
                 };
+                $img.css('display', '');
+                
                 {% if mod.width and mod.height and mod.crop %}
                     options['aspectRatio'] = {{ mod.width }} / {{ mod.height }};
                 {% endif %}
@@ -141,7 +157,17 @@
                 });
 
                 oCroppingAPI.focus();
-            });
+            }
+            
+            function onResize() {
+            
+                oCroppingAPI.destroy();
+                window.setTimeout(function() {initCroping();}, 0);
+            }
+
+            $(window).load(function () {initCroping();});
+            $(window).resize(function () {onResize();});
+            
         }(jQuery));
         //]]>
     </script>
@@ -177,13 +203,14 @@
                                 </dt>
                                 <dd>
                                     <div class="image-version">
-
-                                        <img id="cropbox"
-                                            src="{% url 'image_mods_cropping_preview' bgcolor=form.bgcolor.data|slice:"1:" %}?orig_path={{ orig_path }}&amp;sysname={{ mod.sysname }}"
-                                            alt=""/>
+                                        <img id="cropbox" src="{% url 'image_mods_cropping_preview' bgcolor=form.bgcolor.data|slice:"1:" %}?orig_path={{ orig_path }}&amp;sysname={{ mod.sysname }}" alt=""/>
                                     </div>
+                                    <br/>
                                     <p>{% trans "Press ESC to switch to the default selection area and default canvas color." %}</p>
                                 </dd>
+                                <input class="form_hidden" id="id_bgcolor" maxlength="7" name="bgcolor" type="hidden" value="#ffffff"/>
+                                {% comment %}
+                                <!--
                                 <dt>
                                     {% trans "Color Selector" %}
                                 </dt>
@@ -196,11 +223,13 @@
                                         </div>
                                     </div>
                                 </dd>
+                                -->
+                                {% endcomment %}
                             </dl>
                         </fieldset>
                     </div>
 
-                    <div class="buttonHolder">
+                    <div class="button-group form-buttons">
                         {{ form.x1 }}{{ form.y1 }}{{ form.x2 }}{{ form.y2 }}
                         <input type="submit" value="{% trans "Crop and save" %}" class="button primary"/>
                         <input type="button"
