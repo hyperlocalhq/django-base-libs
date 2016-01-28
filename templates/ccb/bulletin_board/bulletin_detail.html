@@ -25,7 +25,11 @@
 
 {% block details %}
 
-    <h3>{% if object.bulletin_type %}{{ object.bulletin_type }}{% if object.category %} {{ object.category }}{% endif %} {% elif object.category %}{{ object.category }} {% endif %}{% if object.published_from %}<time>{{ object.published_from|date:"d. m. Y" }}</time>{% endif %}</h3>
+    <h3>
+        {{ object.get_bulletin_type_display }}
+        {% if object.bulletin_category %}<span class="color-grey-dark">・</span> {{ object.bulletin_category.title }}{% endif %}
+        {% if object.published_from %}<time>{{ object.published_from|date:"d. m. Y" }}</time>{% endif %}
+    </h3>
 
     <h2>{{ object.get_title }}</h2>
 
