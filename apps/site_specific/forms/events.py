@@ -1175,8 +1175,8 @@ class EventTimeForm(dynamicforms.Form):
         self.helper.form_tag = False
         self.helper.layout = layout.Layout(
             layout.Div(
+                layout.Field("DELETE", wrapper_class="delete-entry"),
                 "label",
-                "DELETE",
                 layout.MultiField(
                     _("Start"),
                     layout.Field(
