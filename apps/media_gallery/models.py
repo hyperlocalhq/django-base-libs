@@ -2,6 +2,8 @@
 
 from django.utils.translation import ugettext_lazy as _
 
+from mptt.fields import TreeManyToManyField
+
 from jetson.apps.media_gallery.base import *
 from jetson.apps.media_gallery.base import MediaGalleryManager as MediaGalleryManagerBase
 from base_libs.models import PublishingMixin
@@ -139,6 +141,13 @@ class MediaGalleryManager(MediaGalleryManagerBase):
 
 
 class MediaGallery(MediaGalleryBase, PublishingMixin):
+    categories = TreeManyToManyField(
+        "structure.Category",
+        verbose_name=_("Categories"),
+        limit_choices_to={'level': 0},
+        blank=True,
+    )
+
     section = models.ForeignKey(Section, verbose_name=_("Section"), blank=True, null=True)
 
     objects = MediaGalleryManager()

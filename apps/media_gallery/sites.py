@@ -672,6 +672,7 @@ class PortfolioSite(object):
                 gallery.title_de = cleaned['title_de']
                 gallery.description_en = cleaned['description_en']
                 gallery.description_de = cleaned['description_de']
+                gallery.categories = cleaned['categories']
                 gallery.status = [0, 1][cleaned['published']]
 
                 if not gallery.section:
