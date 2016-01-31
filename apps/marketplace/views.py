@@ -77,6 +77,21 @@ def job_offer_list(request, criterion="", slug="", show="", title="", category_s
         kwargs['queryset'] = kwargs['queryset'].filter(
             pk__in=memos_ids,
         )
+    elif show == "favorites":
+        queryset = kwargs['queryset']
+        if not request.user.is_authenticated():
+            return access_denied(request)
+        tables = ["favorites_favorite"]
+        condition = [
+            "favorites_favorite.user_id = %d" % request.user.id,
+            "favorites_favorite.object_id = marketplace_joboffer.id",
+            "favorites_favorite.content_type_id = %d" % ContentType.objects.get_for_model(queryset.model).pk,
+        ]
+        queryset = queryset.extra(
+            tables=tables,
+            where=condition,
+        ).distinct()
+        kwargs['queryset'] = queryset
     elif not show:
         kwargs['queryset'] = kwargs['queryset'].exclude(
             job_type__is_internship=True,

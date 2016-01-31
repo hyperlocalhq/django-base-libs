@@ -251,6 +251,15 @@ navigation_links = {
             'highlight_pattern': r'^/(de|en)/jobs/all/$',
         },
         {
+            'url_de': '/de/jobs/favorites/',
+            'url_en': '/en/jobs/favorites/',
+            'text_de': 'Favoriten',
+            'text_en': 'Favorites',
+            'should_be_shown': for_all,
+            'highlight_pattern': r'^/(de|en)/jobs/favorites/$',
+            'is_login_required': True,
+        },
+        {
             'url_de': '/de/jobs/own-jobs/',
             'url_en': '/en/jobs/own-jobs/',
             'text_de': 'Meine Jobangebote',
