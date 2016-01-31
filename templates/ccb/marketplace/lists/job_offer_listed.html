@@ -39,7 +39,7 @@
         </a>
         {% with job_offer.get_urls|first as url %}
             {% if url %}
-                <a class="website" href="url.link" target="_blank">{{ url.link|truncatechars:50 }}</a>
+                <a class="website" href="{{ url.link }}" target="_blank">{{ url.link|truncatechars:50 }}</a>
             {% endif %}
         {% endwith %}
         <div class="button-group">
