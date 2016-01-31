@@ -287,6 +287,15 @@ navigation_links = {
             'highlight_pattern': r'^/(de|en)/marketplace/$',
         },
         {
+            'url_de': '/de/marketplace/favorites/',
+            'url_en': '/en/marketplace/favorites/',
+            'text_de': 'Favoriten',
+            'text_en': 'Favorites',
+            'should_be_shown': for_all,
+            'highlight_pattern': r'^/(de|en)/marketplace/favorites/$',
+            'is_login_required': True,
+        },
+        {
             'url_de': '/de/marketplace/my-bulletins/',
             'url_en': '/en/marketplace/my-bulletins/',
             'text_de': 'Meine Inserate',
