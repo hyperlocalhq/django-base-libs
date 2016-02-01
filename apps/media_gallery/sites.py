@@ -682,7 +682,6 @@ class PortfolioSite(object):
                 gallery.title_de = cleaned['title_de']
                 gallery.description_en = cleaned['description_en']
                 gallery.description_de = cleaned['description_de']
-                gallery.categories = cleaned['categories']
                 gallery.status = [0, 1][cleaned['published']]
                 gallery.categories.clear()
                 for cat in cleaned['categories']:
@@ -738,6 +737,10 @@ class PortfolioSite(object):
                     # trick not to reorder galleries on save
                     gallery.sort_order = gallery.sort_order
                 gallery.save()
+                gallery.categories.clear()
+                for cat in cleaned['categories']:
+                    gallery.categories.add(cat)
+
                 redirect_to = "%smanage/" % (
                     gallery.get_url_path(),
                 )
