@@ -50,7 +50,7 @@ class BulletinImportSource_Inline(ExtendedStackedInline):
             'fields': ('title', 'url', 'sysname', 'content_provider',)
         }),
         (_("Defaults"), {
-            'fields': ('default_categories', 'default_status')
+            'fields': ('default_categories', 'default_bulletin_category', 'default_status')
         }),
     )
     filter_horizontal = ('default_categories',)
