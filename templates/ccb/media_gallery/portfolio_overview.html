@@ -26,16 +26,16 @@
     
         <div class="row projects-grid">
             
-            {% for item in published_gallery_list %}
+            {% for item in gallery_list %}
                 <div class="col-xs-12 col-sm-6">
                     <div class="wrapper tap-hover">
                         <a class="content tap-hover-trigger" href="{{ item.content_object.get_url_path }}portfolio/album/{{ item.get_token }}/">
                             {% if item.cover_image %}
                                 <img src="{{ UPLOADS_URL }}{{ item.cover_image.path|modified_path:"project_grid" }}" alt=""/>
                             {% else %}
-                                <img src="{{ STATIC_URL }}site/img/placeholder/infolink_square.png" alt=""/>
+                                <img src="{{ STATIC_URL }}site/img/placeholder/gallery_square.png" alt="" />
                             {% endif %}
-                            <h2>{{ item.title|escape }}</h2>
+                            <h2>{{ item.title|escape }} {% if item.is_draft %}({% trans "Draft" %}){% endif %}</h2>
                         </a>
                         <div class="button-group">
                             {% if request.user.is_authenticated %}

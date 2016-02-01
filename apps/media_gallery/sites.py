@@ -72,6 +72,7 @@ class PortfolioSite(object):
         self.obj_app_name = None
         self.obj_model_name = None
         self.published_gallery_list = ()
+        self.all_gallery_list = ()
         self.extra_context = {}
 
     def check_object(self, **kwargs):
@@ -88,8 +89,13 @@ class PortfolioSite(object):
             content_type=self.obj_ct,
             object_id=self.obj.pk,
         ).order_by("section__sort_order", "sort_order")
+        self.all_gallery_list = MediaGallery.objects.filter(
+            content_type=self.obj_ct,
+            object_id=self.obj.pk,
+        ).order_by("section__sort_order", "sort_order")
         self.extra_context['object'] = self.obj
         self.extra_context['published_gallery_list'] = self.published_gallery_list
+        self.extra_context['all_gallery_list'] = self.all_gallery_list
         self.extra_context['base_template'] = "%s/details_base.html" % self.obj_app_name
 
     def has_permission(self, request):
@@ -335,10 +341,10 @@ class PortfolioSite(object):
         that the portfolio is empty for non-owner of the object
         or guide the owner to the portfolio settings and sections list. 
         """
-
+        has_permission_to_edit = self.has_permission(request)
         p_settings = PortfolioSettings.objects.get_for_object(self.obj)
 
-        if self.published_gallery_list:
+        if self.published_gallery_list and not has_permission_to_edit:
             if self.published_gallery_list.count() == 1:
                 return redirect("%(obj_url_path)s%(URL_ID_PORTFOLIO)s/album/%(gallery_token)s/" % {
                     'obj_url_path': self.obj.get_url_path(),
@@ -350,6 +356,10 @@ class PortfolioSite(object):
             'portfolio_settings': p_settings,
         }
         context_dict.update(self.extra_context)
+        if has_permission_to_edit:
+            context_dict['gallery_list'] = self.all_gallery_list
+        else:
+            context_dict['gallery_list'] = self.published_gallery_list
 
         return render_to_response(
             "media_gallery/portfolio_overview.html",
