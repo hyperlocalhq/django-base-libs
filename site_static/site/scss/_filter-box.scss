@@ -96,6 +96,33 @@ ul.filter-box {
 
                 a {
                     padding-left: 20px;
+                    
+                    &.level-0 {
+                        &.level-changed {
+                            border-top: 1px solid $grey-light;
+                        }                        
+                    }
+                    
+                    &.level-1 {
+                        padding: 3px 0 3px 40px;
+                        border-bottom: none;
+                        line-height: 133%;
+                        
+                        &.level-changed {
+                            border-top: 1px solid white;
+                            margin-top: -1px;
+                        }
+                    }
+                }
+                
+                &:first-child {
+                    a {
+                        &.level-0 {
+                            &.level-changed {
+                                border-top: none;
+                            }
+                        }
+                    }
                 }
                 
                 &:last-child {

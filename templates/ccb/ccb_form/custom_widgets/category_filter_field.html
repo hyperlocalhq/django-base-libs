@@ -8,11 +8,13 @@
     <div class="child accordion-trigger">{{ field.label }}</div>
     <ul class="accordion">
         {% for choice_value, choice_instance in choices %}
-            {% if not choice_instance.level %}
-                <li data-level="{{ choice_instance.level|default:0 }}"><a href="javascript:void(0);" data-value="{{ choice_value }}" {% if value == choice_value|add:"0" or value == choice_value %}class="active"{% endif %}>{{ choice_instance.title }}</a></li>
-            {% elif current_category and choice_instance.tree_id == current_category.tree_id %}
-                <li data-level="{{ choice_instance.level }}"><a href="javascript:void(0);" data-value="{{ choice_value }}" {% if value == choice_value|add:"0" or value == choice_value %}class="active"{% endif %}>{% if choice_instance.level == 1 %} - {% endif %}{{ choice_instance.title }}</a></li>
-            {% endif %}
+            {% with choice_instance.level|default:0 as level %}
+                {% if not choice_instance.level %}
+                    <li data-level="{{ level }}"><a href="javascript:void(0);" data-value="{{ choice_value }}" class="level-{{ level }}{% ifchanged level %} level-changed{% endifchanged %}{% if value == choice_value|add:"0" or value == choice_value %} active{% endif %}">{{ choice_instance.title }}</a></li>
+                {% elif current_category and choice_instance.tree_id == current_category.tree_id %}
+                    <li data-level="{{ level }}"><a href="javascript:void(0);" data-value="{{ choice_value }}" class="level-{{ level }}{% ifchanged level %} level-changed{% endifchanged %}{% if value == choice_value|add:"0" or value == choice_value %} active{% endif %}">{{ choice_instance.title }}</a></li>
+                {% endif %}
+            {% endwith %}
         {% endfor %}
     </ul>
 </li>
