@@ -2102,6 +2102,7 @@ profile_formsets = {
                 EventTimeForm,
                 formset=ProfileFormSet,
                 can_delete=True,
+                extra=0,
             ),
             'get_instances': lambda event: event.eventtime_set.all(),
         }
