@@ -358,7 +358,7 @@ class MediaGalleryForm(dynamicforms.Form):
                     {% if gallery.cover_image %}
                         <dt>""" + (_("Cover Image") + "") + """</dt><dd><img class="avatar" src="{{ MEDIA_URL}}{{ gallery.cover_image|modified_path:"article" }}" alt="{{ gallery.get_title|escape }}"/></dd>
                     {% else %}
-                        <dt>""" + (_("Cover Image") + "") + """</dt><dd><img class="avatar" src="{{ STATIC_URL }}site/img/placeholder/article_list.png" alt="{{ object.get_title|escape }}"/></dd>
+                        <dt>""" + (_("Cover Image") + "") + """</dt><dd><img class="avatar" src="{{ STATIC_URL }}site/img/placeholder/gallery_square.png" alt="{{ object.get_title|escape }}"/></dd>
                     {% endif %}
                 """),
                 "cover_image",
