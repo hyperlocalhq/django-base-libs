@@ -206,6 +206,8 @@ $(document).ready(function() {
         if (!me.min) me.min = 0;
         if (!me.max) me.max = 1000;
         
+        $('input, select, textarea', me.$empty).prop('disabled', true);
+        
         me.addButtons();
     }
     
@@ -214,6 +216,7 @@ $(document).ready(function() {
         var me = this.me;
         
         var $new = me.$empty.clone(true, true);
+        $('input, select, textarea', $new).prop('disabled', false);
         
         me.$entries.last().after($new);
         
@@ -229,11 +232,14 @@ $(document).ready(function() {
         var me = this.me;
         
         var $entry = $button.closest('.entry');
-        $entry.remove();
+        var $delete = $('.delete-entry input', $entry);
+        $delete.prop('checked', true);
+        $entry.addClass('deleted');
         
-        me.$entries = $('.entry', me.$main);
-        me.renumber();
-        me.addButtons();
+        //$entry.remove();
+        //me.$entries = $('.entry', me.$main);
+        //me.renumber();
+        //me.addButtons();
     }
     
     DynamicEntries.prototype.addButtons = function() {
@@ -248,17 +254,26 @@ $(document).ready(function() {
         
         me.$entries.each(function(index) {
            
-            var last = (index == me.$entries.length - 1);
             var $entry = $(this);
-            var $button = $('<button class="dynamic-button fawesome button form ' + (last ? 'fa-plus positive' : 'fa-minus negative') + '"></button>');
+            var $button = $('<button class="dynamic-button fawesome button form fa-minus negative"></button>');
+            $button.click(function() {me.remove($(this)); return false;});
             
-            if (last) $button.click(function() {me.add(); return false;});
-            else $button.click(function() {me.remove($(this)); return false;});
-            
-            if (last && index != me.max) $entry.append($button);
-            if (!last && me.$entries.length > me.min) $entry.append($button);
+            if (me.$entries.length > me.min) {
+                $entry.append($button);
+                me.buttons.push($button);
+            }
             
         });
+        
+        if (me.$entries.length < me.max) { 
+            var $button = $('<button class="dynamic-button fawesome button form fa-plus positive"></button>');
+            $button.click(function() {me.add(); return false;});
+            var $wrapper = $('<div class="add-button-wrapper"></div>');
+            $wrapper.append($button);
+            me.$main.append($wrapper);
+            me.buttons.push($wrapper);
+        }
+        
     }
     
     DynamicEntries.prototype.renumber = function() {
