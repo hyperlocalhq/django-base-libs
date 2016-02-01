@@ -397,7 +397,7 @@ class BlogPostFormPreviewHandler(FormPreviewHandler):
             'title': obj.title,
             'body': obj.body,
             'tags': edit_string_for_tags(get_tag_list(obj.tags)),
-            'enable_comment_form': obj.enable_comment_form,
+            #'enable_comment_form': obj.enable_comment_form,
             'status': obj.status,
             'published_from': obj.published_from,
             'published_till': obj.published_till,
@@ -430,7 +430,7 @@ class BlogPostFormPreviewHandler(FormPreviewHandler):
              body = cleaned['body'],
              body_markup_type = MARKUP_HTML_WYSIWYG,
              tags = cleaned['tags'],
-             enable_comment_form = cleaned['enable_comment_form'],
+             #enable_comment_form = cleaned['enable_comment_form'],
              status = cleaned['status'],
              published_from = cleaned.get('published_from', None), 
              published_till = cleaned.get('published_till', None),
@@ -444,7 +444,7 @@ class BlogPostFormPreviewHandler(FormPreviewHandler):
         post.body = cleaned['body']
         post.body_markup_type = MARKUP_HTML_WYSIWYG
         post.tags = cleaned['tags']
-        post.enable_comment_form = cleaned['enable_comment_form']
+        #post.enable_comment_form = cleaned['enable_comment_form']
         post.status = cleaned['status']
         post.published_from = cleaned.get('published_from',None)
         post.published_till = cleaned.get('published_till',None)
