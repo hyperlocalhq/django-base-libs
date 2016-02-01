@@ -73,6 +73,11 @@
                 padding: 0 115px 20px 20px;
                 margin: 0;
                 
+                .commercial {
+                    font-weight: 400;
+                    font-size: 0.9em;
+                }
+                
                 time {
                     font-weight: $font-light;
                     color: $black;
@@ -91,6 +96,23 @@
                     font-size: 0.73em;
                     padding: 0 0 20px 0;
                     line-height: 126%;
+                }
+            }
+            
+            h4 {
+                font-size: 0.9em;
+                font-weight: $font-regular;
+                color: #000;
+                padding: 0 20px 10px 20px;
+                margin: -20px 0 0 0;
+                
+                .is-sm & {
+                    margin-top: -17px;
+                }
+                
+                .is-xs & {
+                    font-size: 0.73em;
+                    padding-left: 0;
                 }
             }
             
