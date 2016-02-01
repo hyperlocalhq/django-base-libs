@@ -674,6 +674,9 @@ class PortfolioSite(object):
                 gallery.description_de = cleaned['description_de']
                 gallery.categories = cleaned['categories']
                 gallery.status = [0, 1][cleaned['published']]
+                gallery.categories.clear()
+                for cat in cleaned['categories']:
+                    gallery.categories.add( cat )
 
                 if not gallery.section:
                     if 'section' in request.REQUEST:
@@ -736,6 +739,7 @@ class PortfolioSite(object):
                 'description_en': gallery.description_en,
                 'description_de': gallery.description_de,
                 'published': gallery.status == 1,
+                'categories': gallery.categories.all(),
             }
             form = MediaGalleryForm(gallery, initial=initial)
 
