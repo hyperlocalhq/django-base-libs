@@ -164,19 +164,18 @@
             });
             
             var $current_element = $(me.$elements.get(me.current_element));
-            var wrapper_width = me.$wrapper.width();
+            var wrapper_width = me.$wrapper.width() + 2 * me.margin*2;
             var elements_length = me.$elements.length;
             
             
             // checking if second or second last element are already visible in the slider and move to next element
-            if (me.previous_element == 0 && me.previous_element != me.current_element && me.current_element < elements_length-2 && $current_element.position().left + $current_element.width() <= wrapper_width) {
+            if (me.previous_element == 0 && me.previous_element != me.current_element && me.current_element < elements_length-2 && $current_element.position().left + $current_element.width() <= wrapper_width + me.margin) {
                 me.current_element++;
                 $current_element = $(me.$elements.get(me.current_element));
             } else if (me.previous_element == elements_length-1 && me.previous_element != me.current_element && me.current_element > 0 && $current_element.position().left >= 0) {
                 me.current_element--;
                 $current_element = $(me.$elements.get(me.current_element));
             }
-            
             
             me.$elements.css('left', '');
             var current = me.current_element;
@@ -204,12 +203,11 @@
                 // if outer most right is still inside slider width
                 if (right < wrapper_width + me.margin) {
                     
-                    // calculating left position of outer most right element
-                    var $element = $(me.$elements.get(elements_length-1));
-                    left = wrapper_width - $element.width() + me.margin;
+                    right = wrapper_width + me.margin;
                     
                     // finding left position of outer most left element
-                    for (var i=0; i<current; i++) {
+                    left = right;
+                    for (var i=0, length = elements_length; i < length; i++) {
                         var $element = $(me.$elements.get(i));
                         left -= $element.width();
                     }
@@ -247,7 +245,7 @@
             }
             
             
-            if (width <= me.$wrapper.width()) { 
+            if (width <= me.$wrapper.width() + me.margin*2) { 
                 
                 me.$prev.css('display', 'none');
                 me.$next.css('display', 'none');
@@ -461,7 +459,7 @@
             if ($first.position().left >= me.margin*(-1) || me.current_element == 0) me.$prev.addClass('disabled');
             else me.$prev.removeClass('disabled');
             
-            if ($last.position().left + $last.width() <= me.$wrapper.width() + me.margin || me.current_element == me.$elements.length-1) me.$next.addClass('disabled');
+            if ($last.position().left + $last.width() <= me.$wrapper.width() + 2 * me.margin*2 + me.margin || me.current_element == me.$elements.length-1) me.$next.addClass('disabled');
             else me.$next.removeClass('disabled');
             
         }
