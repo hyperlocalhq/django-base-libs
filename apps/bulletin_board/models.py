@@ -116,19 +116,14 @@ class ExpiredBulletinManager(models.Manager):
 
 
 class ImportedBulletinManager(models.Manager):
-    def get_queryset(self):
-        ObjectMapper = apps.get_model("external_services", "ObjectMapper")
-        ContentType = apps.get_model("contenttypes", "ContentType")
-        ct = ContentType.objects.get_for_model(self.model)
-        ids = list(ObjectMapper.objects.filter(content_type=ct).values_list("object_id", flat=True))
-        return super(ImportedBulletinManager, self).get_queryset().filter(pk__in=ids)
+    # TODO: if necessary, extend this manager with functions to query, count, etc. only imported items
     def delete_with_mapper(self):
         ObjectMapper = apps.get_model("external_services", "ObjectMapper")
         ContentType = apps.get_model("contenttypes", "ContentType")
         ct = ContentType.objects.get_for_model(self.model)
-        ids = self.get_queryset().values_list("id", flat=True)
-        ObjectMapper.objects.filter(content_type=ct, object_id__in=ids).delete()
-        return self.get_queryset().delete()
+        ids = list(ObjectMapper.objects.filter(content_type=ct).values_list("object_id", flat=True))
+        ObjectMapper.objects.filter(content_type=ct).delete()
+        return self.filter(pk__in=ids).delete()
 
 
 class Bulletin(CreationModificationMixin, UrlMixin):
