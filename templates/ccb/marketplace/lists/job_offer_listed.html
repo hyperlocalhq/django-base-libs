@@ -6,7 +6,7 @@
         <a class="content" href="{{ job_offer.get_url_path }}">
             <div class="text">
                 <h3>
-                    {{ job_offer.job_type.title }} <span class="commercial">€</span>
+                    {{ job_offer.job_type.title }}
                     {% if job_offer.is_commercial %} <span class="commercial">€</span>{% endif %}                    
                     <time datetime="{{ job_offer.published_from|date:"Y-m-d" }}">
                         {{ job_offer.published_from|datefmt:"long" }}
