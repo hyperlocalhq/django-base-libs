@@ -7,6 +7,19 @@
             <div class="text">
                 <h3>
                     {{ job_offer.job_type.title }}
+                    {% if job_offer.is_commercial %} <span class="commercial">€</span>{% endif %}
+
+                    {% if job_offer.get_urls %}
+                        <a href="{{ job_offer.get_urls.0.link }}">
+                            {% with domain=job_offer.get_urls.0.domain %}
+                                {% if domain|slice:":4" == "www." %}
+                                    {{ domain|slice:"4:" }}
+                                {% else %}
+                                    {{ domain }}
+                                {% endif %}
+                            {% endwith %}
+                        </a>
+                    {% endif %}
                     <time datetime="{{ job_offer.published_from|date:"Y-m-d" }}">
                         {{ job_offer.published_from|datefmt:"long" }}
                     </time>
@@ -26,7 +39,7 @@
         </a>
         {% with job_offer.get_urls|first as url %}
             {% if url %}
-                <a class="website" href="url.link" target="_blank">{{ url.link|truncatechars:50 }}</a>
+                <a class="website" href="{{ url.link }}" target="_blank">{{ url.link|truncatechars:50 }}</a>
             {% endif %}
         {% endwith %}
         <div class="button-group">

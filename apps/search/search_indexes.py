@@ -13,63 +13,9 @@ Event = apps.get_model("events", "Event")
 Institution = apps.get_model("institutions", "Institution")
 JobOffer = apps.get_model("marketplace", "JobOffer")
 Person = apps.get_model("people", "Person")
-Document = apps.get_model("resources", "Document")
 Post = apps.get_model("blog", "Post")
 Bulletin = apps.get_model("bulletin_board", "Bulletin")
 MediaGallery = apps.get_model("media_gallery", "MediaGallery")
-
-
-class DocumentIndex(AldrynIndexBase, indexes.Indexable):
-    INDEX_TITLE = True
-    rendered_en = indexes.CharField(use_template=True, indexed=False)
-    rendered_de = indexes.CharField(use_template=True, indexed=False)
-
-    order = 1
-    short_name = "infolink"
-    verbose_name = _("Infolinks")
-
-    def get_url(self, obj):
-        return obj.get_url()
-
-    def get_title(self, obj):
-        return obj.title
-
-    def get_description(self, obj):
-        return obj.description
-
-    def get_search_data(self, obj, language, request):
-        if language == "default":
-            language = settings.LANGUAGE_CODE
-        strings = []
-        # collect multilingual data
-        strings += [
-            force_unicode(getattr(obj, field))
-            for field in (
-                "title_%s" % language,
-                "description_%s" % language,
-            )
-        ]
-        # collect non multilingual data
-        strings += [
-            force_unicode(getattr(obj, field))
-            for field in (
-                "slug",
-            )
-        ]
-        for cat in obj.get_object_types():
-            strings.append(getattr(cat, "title_%s" % language))
-        return "\n".join(strings)
-
-    def get_model(self):
-        return Document
-
-    def get_index_queryset(self, language=None):
-        """Used when the entire index for model is updated."""
-        if language == "default":
-            return self.get_model().objects.none()
-        return self.get_model().objects.filter(
-            status="published",
-        )
 
 
 class ArticleIndex(AldrynIndexBase, indexes.Indexable):
@@ -77,7 +23,7 @@ class ArticleIndex(AldrynIndexBase, indexes.Indexable):
     rendered_en = indexes.CharField(use_template=True, indexed=False)
     rendered_de = indexes.CharField(use_template=True, indexed=False)
 
-    order = 2
+    order = 7
     short_name = "news"
     verbose_name = _("News")
 
@@ -119,7 +65,7 @@ class JobOfferIndex(AldrynIndexBase, indexes.Indexable):
     rendered_en = indexes.CharField(use_template=True, indexed=False)
     rendered_de = indexes.CharField(use_template=True, indexed=False)
 
-    order = 3
+    order = 4
     short_name = "job"
     verbose_name = _("Job Offers")
 
@@ -161,7 +107,7 @@ class EventIndex(AldrynIndexBase, indexes.Indexable):
     rendered_en = indexes.CharField(use_template=True, indexed=False)
     rendered_de = indexes.CharField(use_template=True, indexed=False)
 
-    order = 4
+    order = 6
     short_name = "event"
     verbose_name = _("Events")
 
@@ -210,7 +156,7 @@ class InstitutionIndex(AldrynIndexBase, indexes.Indexable):
     rendered_en = indexes.CharField(use_template=True, indexed=False)
     rendered_de = indexes.CharField(use_template=True, indexed=False)
 
-    order = 5
+    order = 1
     short_name = "institution"
     verbose_name = _("Institutions")
 
@@ -259,7 +205,7 @@ class PersonIndex(AldrynIndexBase, indexes.Indexable):
     rendered_en = indexes.CharField(use_template=True, indexed=False)
     rendered_de = indexes.CharField(use_template=True, indexed=False)
 
-    order = 6
+    order = 2
     short_name = "person"
     verbose_name = _("People")
 
@@ -308,7 +254,7 @@ class MediaGalleryIndex(AldrynIndexBase, indexes.Indexable):
     rendered_en = indexes.CharField(use_template=True, indexed=False)
     rendered_de = indexes.CharField(use_template=True, indexed=False)
 
-    order = 7
+    order = 3
     short_name = "gallery"
     verbose_name = _("Portfolios")
 
@@ -389,7 +335,7 @@ class BulletinIndex(AldrynIndexBase, indexes.Indexable):
     rendered_en = indexes.CharField(use_template=True, indexed=False)
     rendered_de = indexes.CharField(use_template=True, indexed=False)
 
-    order = 9
+    order = 5
     short_name = "bulletin"
     verbose_name = _("Bulletin Board")
 
@@ -436,6 +382,6 @@ class CMSPageIndexBase(AldrynIndexBase):
     rendered_en = indexes.CharField(use_template=True, indexed=False)
     rendered_de = indexes.CharField(use_template=True, indexed=False)
 
-    order = 10
+    order = 9
     short_name = "page"
     verbose_name = _("Editorial Content")

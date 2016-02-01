@@ -2,14 +2,18 @@
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import string_concat
 from django import forms
 from django.conf import settings
 
 from base_libs.forms import dynamicforms
 from base_libs.forms.fields import ImageField, VideoField, AudioField
+from base_libs.utils.misc import get_related_queryset
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
+
+from jetson.apps.utils.forms import ModelMultipleChoiceTreeField
 
 IMAGE_MIN_DIMENSIONS = getattr(settings, "GALLERY_IMAGE_MIN_DIMENSIONS", (850, 400))
 STR_IMAGE_MIN_DIMENSIONS = "%s x %s" % IMAGE_MIN_DIMENSIONS
@@ -331,6 +335,11 @@ class MediaGalleryForm(dynamicforms.Form):
         required=False,
         min_dimensions=IMAGE_MIN_DIMENSIONS,
     )
+    categories = ModelMultipleChoiceTreeField(
+        label=_("Categories"),
+        required=False,
+        queryset=get_related_queryset(MediaGallery, "categories").filter(level=0),
+    )
 
     def __init__(self, gallery, *args, **kwargs):
         super(MediaGalleryForm, self).__init__(*args, **kwargs)
@@ -358,6 +367,11 @@ class MediaGalleryForm(dynamicforms.Form):
                 "title_en",
                 "description_en",
                 "published",
+                layout.HTML(string_concat('<dt>', _("Categories"), '</dt>')),
+                layout.Field(
+                    "categories",
+                    template="ccb_form/custom_widgets/checkboxselectmultipletree.html",
+                ),
             ),
             bootstrap.FormActions(
                 layout.Submit("submit", _("Save")),

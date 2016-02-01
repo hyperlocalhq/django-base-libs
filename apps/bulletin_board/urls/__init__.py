@@ -5,6 +5,10 @@ from ccb.apps.bulletin_board.feeds import BulletinFeed
 
 urlpatterns = patterns('ccb.apps.bulletin_board.views',
     url(r'^$', 'bulletin_list', name='bulletin_list'),
+    url(r'^(?P<show>favorites)/$',
+        'bulletin_list',
+        name="bulletin_list",
+        ),
     url(r'^my-bulletins', 'my_bulletin_list', name='my_bulletin_list'),
     url(r'^rss/$', BulletinFeed(), name='bulletin_rss'),
     url(r'^add/$', 'add_bulletin', name='add_bulletin'),
