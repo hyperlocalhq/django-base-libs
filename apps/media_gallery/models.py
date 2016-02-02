@@ -171,4 +171,29 @@ class MediaGallery(MediaGalleryBase, PublishingMixin):
 
 
 class MediaFile(MediaFileBase):
-    pass
+    def get_list_image_url(self):
+        if self.splash_image_path:
+            abs_path = os.path.join(UPLOADS_ROOT, self.splash_image_path.path)
+            if os.path.exists(abs_path):
+                try:
+                    url = "".join((
+                        UPLOADS_URL,
+                        image_mods.FileManager.modified_path(self.splash_image_path.path, "project_grid"),
+                        ))
+                except:
+                    pass
+                else:
+                    return url
+        if self.file_type == "i" and self.path:
+            abs_path = os.path.join(UPLOADS_ROOT, self.path.path)
+            if os.path.exists(abs_path):
+                try:
+                    url = "".join((
+                        UPLOADS_URL,
+                        image_mods.FileManager.modified_path(self.path.path, "project_grid"),
+                        ))
+                except:
+                    pass
+                else:
+                    return url
+        return ""
