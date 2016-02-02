@@ -1,8 +1,8 @@
-{% load base_tags comments i18n babel auth_extended blog navigation_tags image_mods_tags sekizai_tags %}
+{% load base_tags comments i18n babel auth_extended blog navigation_tags image_mods_tags %}
 
-<h3 class="only-time"><time datetime="{{ object.published_from|date:"Y-m-d H:i" }}">{{ object.published_from|date:"d. F Y, H:i" }}</time></h3>
-<h2>{{ object.title }}</h2>
-{{ object.get_rendered_body|disarm_user_input }}
+<h3 class="only-time"><time datetime="{{ post.published_from|date:"Y-m-d H:i" }}">{{ post.published_from|date:"d. F Y, H:i" }}</time></h3>
+<h2>{{ post.title }}</h2>
+{{ post.get_rendered_body|disarm_user_input }}
 
 <div class="button-group padding-40">
     <a href="{{ container.get_url_path }}{% if type %}{{ type.sysname }}/{% endif %}feeds/rss/" class="fawesome fa-rss smaller button"><span class="sr-only">RSS</span></a>
@@ -47,36 +47,36 @@
 <div class="entry-details clearfix">
     <div class="headline">
         <div class="blog-info">
-            <span class="date">{{ object.published_from }}</span>
+            <span class="date">{{ post.published_from }}</span>
         </div>
         <h3>
-            {{ object.title }}
+            {{ post.title }}
         </h3>
     </div>
 
-    {{ object.get_rendered_body|disarm_user_input }}
+    {{ post.get_rendered_body|disarm_user_input }}
 
-    {% if object.tags %}
+    {% if post.tags %}
         <div class="post-meta">
             <span>{% trans "Tags" %}: </span>
-            {% for tag in object.get_tags %}
+            {% for tag in post.get_tags %}
                 {% if not forloop.first %}|{% endif %}
                 <a href="{{ container.get_url_path }}tag/{{ tag.slug }}/">{{ tag.name }} </a>
             {% endfor %}
         </div>
     {% endif %}
     <ul class="toolbar right">
-        {% if_has_perm "blog.change_blog_posts" object.blog %}
-            <li id="editPost_{{ object.slug }}" class="editPost">
+        {% if_has_perm "blog.change_blog_posts" post.blog %}
+            <li id="editPost_{{ post.slug }}" class="editPost">
                 <a title="{% trans "edit" %}"
-                    href="{{ object.get_url_path }}edit/"><span><span>{% trans "edit" %}</span></span></a>
+                    href="{{ post.get_url_path }}edit/"><span><span>{% trans "edit" %}</span></span></a>
             </li>
         {% end_if_has_perm %}
 
-        {% if_has_perm "blog.delete_blog_posts" object.blog %}
-            <li id="deletePost_{{ object.slug }}" class="deletePost">
+        {% if_has_perm "blog.delete_blog_posts" post.blog %}
+            <li id="deletePost_{{ post.slug }}" class="deletePost">
                 <a title="{% trans "delete" %}"
-                    href="{{ object.get_url_path }}delete/"><span><span>{% trans "delete" %}</span></span></a>
+                    href="{{ post.get_url_path }}delete/"><span><span>{% trans "delete" %}</span></span></a>
             </li>
         {% end_if_has_perm %}
     </ul>

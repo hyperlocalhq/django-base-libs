@@ -46,7 +46,7 @@
                     {% if request.user.is_authenticated %}
                         {% adding2favorites for object %}
                     {% else %}
-                        <a href="{% url 'login' %}?goto_next={{ request.path }}"
+                        <a rel="nofollow" href="{% url 'login' %}?goto_next={{ request.path }}"
                             class="fawesome fa-favorite button text">
                             <span class="text">{% trans "Favorite" %}</span></a>
                     {% endif %}

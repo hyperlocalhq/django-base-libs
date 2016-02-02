@@ -325,7 +325,7 @@ def handle_request(request, object_url_part, url_identifier, year=None, month=No
         # TODO find a generic mechanism for incrementing views.
         post = get_object_or_404(Post, slug=post_slug)
         post.increase_views()
-        extra_context['object'] = post
+        extra_context['post'] = post
 
         return render(request, template_name, extra_context)
     

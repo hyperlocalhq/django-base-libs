@@ -8,7 +8,7 @@
                     {% adding_group_membership at persongroup %}
                 {% else %}
                     <li class="favorites">
-                        <a href="{% url 'login' %}?goto_next={{ request.path }}"
+                        <a rel="nofollow" href="{% url 'login' %}?goto_next={{ request.path }}"
                             title="{% trans "Add to favorites" %}">
                             <span>{% trans "Add to favorites" %} ({% trans "login request" %})</span></a>
                     </li>

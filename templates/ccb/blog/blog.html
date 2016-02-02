@@ -27,6 +27,36 @@
 
 {% block sidebar %}
 
+    <div class="button-group">
+        {% if_has_perm "blog.change_blog_posts" container %}
+            <a class="fawesome fa-bullhorn button text" href="{{ container.get_url_path }}new/"><span class="text">{% trans "New Blog Entry" %}</span></a>
+            <br class="hidden-xs" /><br class="hidden-xs" />
+        {% else %}
+            {% if_has_perm object_change_permission container.content_object %}
+                <a class="fawesome fa-bullhorn button text" href="{{ container.get_url_path }}new/"><span class="text">{% trans "New Blog Entry" %}</span></a>
+            {% end_if_has_perm %}
+        {% end_if_has_perm %}
+        
+        {% ifequal archive "details" %}
+        
+            {% if_has_perm "blog.change_blog_posts" post.blog %}
+                <a class="fawesome fa-edit button text" href="{{ post.get_url_path }}edit/"><span class="text">{% trans "Edit Blog Entry" %}</span></a>
+            {% end_if_has_perm %}
+            {% if_has_perm "blog.delete_blog_posts" post.blog %}
+                <a class="fawesome fa-close button text" href="{{ post.get_url_path }}delete/"><span class="text">{% trans "Delete Blog Entry" %}</span></a>
+            {% end_if_has_perm %}   
+            
+            {% if_has_perm "blog.change_blog_posts" post.blog %}
+                <br class="hidden-xs" /><br class="hidden-xs" />
+            {% else %}
+                {% if_has_perm "blog.delete_blog_posts" post.blog %}
+                    <br class="hidden-xs" /><br class="hidden-xs" />
+                {% end_if_has_perm %}
+            {% end_if_has_perm %}
+            
+        {% endifequal %}
+    </div>
+
     <ul class="accordion filter-box">
         <li><div class="head">{% trans "Archives" %}</div></li>
         
@@ -107,10 +137,10 @@
     {% endifequal %}
 
     {% ifequal archive "details" %}
-        <li><a href="{{ container.get_url_path }}{{ object.published_from|date:"Y" }}/">{{ object.published_from|date:"Y" }}</a></li>
-        <li><a href="{{ container.get_url_path }}{{ object.published_from|date:"Y" }}/{{ object.published_from|date:"m" }}/">{{ object.published_from|date:"m" }}</a></li>
-        <li><a href="{{ container.get_url_path }}{{ object.published_from|date:"Y" }}/{{ object.published_from|date:"m" }}/{{ object.published_from|date:"d" }}/">{{ object.published_from|date:"d" }}</a></li>
-        <li>{{ object.title|truncatewords:"5" }}</span></li>
+        <li><a href="{{ container.get_url_path }}{{ post.published_from|date:"Y" }}/">{{ post.published_from|date:"Y" }}</a></li>
+        <li><a href="{{ container.get_url_path }}{{ post.published_from|date:"Y" }}/{{ post.published_from|date:"m" }}/">{{ post.published_from|date:"m" }}</a></li>
+        <li><a href="{{ container.get_url_path }}{{ post.published_from|date:"Y" }}/{{ post.published_from|date:"m" }}/{{ post.published_from|date:"d" }}/">{{ post.published_from|date:"d" }}</a></li>
+        <li>{{ post.title|truncatewords:"5" }}</span></li>
     {% endifequal %}
 
     {% ifequal archive "tag_archive" %}

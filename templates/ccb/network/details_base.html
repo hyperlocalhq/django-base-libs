@@ -62,14 +62,6 @@
                                     {% ifequal request.user object.user %}
                                     
                                         {% navigation_links "menu_activities" %}
-                                
-                                        {% if_has_perm "blog.change_blog_posts" container %}
-                                            <a class="fawesome fa-bullhorn button text" href="{{ container.get_url_path }}new/"><span class="text">{% trans "New Blog Entry" %}</span></a>
-                                        {% else %}
-                                            {% if_has_perm object_change_permission container.content_object %}
-                                                <a class="fawesome fa-bullhorn button text" href="{{ container.get_url_path }}new/"><span class="text">{% trans "New Blog Entry" %}</span></a>
-                                            {% end_if_has_perm %}
-                                        {% end_if_has_perm %}
                                         
                                     {% else %}
                                     
@@ -86,20 +78,12 @@
                                             {% if request.user.is_staff and perms.people.change_person %}
                                                 <a href="/admin/people/person/{{ object.id }}/" class="fawesome fa-edit button text" target="_blank"><span class="text">{% trans "Edit Person" %}</span></a>
                                             {% endif %}
-                                
-                                            {% if_has_perm "blog.change_blog_posts" container %}
-                                                <a class="fawesome fa-bullhorn button text" href="{{ container.get_url_path }}new/"><span class="text">{% trans "New Blog Entry" %}</span></a>
-                                            {% else %}
-                                                {% if_has_perm object_change_permission container.content_object %}
-                                                    <a class="fawesome fa-bullhorn button text" href="{{ container.get_url_path }}new/"><span class="text">{% trans "New Blog Entry" %}</span></a>
-                                                {% end_if_has_perm %}
-                                            {% end_if_has_perm %}
                                     
                                         {% else %}
                                 
                                             <a rel="nofollow" class="fawesome fa-more button text switch" href="{% url 'login' %}?goto_next={% follow_all_url object.user %}%3Fnext%3D{{ request.path }}"><span class="text">{% trans "Follow" %}</span></a>
                                             {% if object.is_contactable %}
-                                                <a href="{% url 'login' %}?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>
+                                                <a rel="nofollow" href="{% url 'login' %}?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>
                                             {% endif %}
                                     
                                         {% endif %}
@@ -167,19 +151,11 @@
                                         {% if request.user.is_staff and perms.institutions.change_institution %}
                                             <a href="/admin/institutions/institution/{{ object.id }}/" class="fawesome fa-edit button text" target="_blank"><span class="text">{% trans "Edit Institution" %}</span></a>
                                         {% endif %}
-                                
-                                        {% if_has_perm "blog.change_blog_posts" container %}
-                                            <a class="fawesome fa-bullhorn button text" href="{{ container.get_url_path }}new/"><span class="text">{% trans "New Blog Entry" %}</span></a>
-                                        {% else %}
-                                            {% if_has_perm object_change_permission container.content_object %}
-                                                <a class="fawesome fa-bullhorn button text" href="{{ container.get_url_path }}new/"><span class="text">{% trans "New Blog Entry" %}</span></a>
-                                            {% end_if_has_perm %}
-                                        {% end_if_has_perm %}
                             
                                     {% else %}
                                         <a rel="nofollow" class="fawesome fa-more button text switch" href="{% url 'login' %}?goto_next={% follow_all_url object %}%3Fnext%3D{{ request.path }}"><span class="text">{% trans "Follow" %}</span></a>
                                         {% if object.is_contactable %}
-                                            <a href="{% url 'login' %}?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>
+                                            <a rel="nofollow" href="{% url 'login' %}?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>
                                         {% endif %}
                                     {% endif %}
                                 
@@ -230,14 +206,6 @@
                         {% ifequal request.user object.user %}
                         
                             {% navigation_links "menu_activities" %}
-                                
-                            {% if_has_perm "blog.change_blog_posts" container %}
-                                <a class="fawesome fa-bullhorn button text" href="{{ container.get_url_path }}new/"><span class="text">{% trans "New Blog Entry" %}</span></a>
-                            {% else %}
-                                {% if_has_perm object_change_permission container.content_object %}
-                                    <a class="fawesome fa-bullhorn button text" href="{{ container.get_url_path }}new/"><span class="text">{% trans "New Blog Entry" %}</span></a>
-                                {% end_if_has_perm %}
-                            {% end_if_has_perm %}
 
                         {% else %}
                         
@@ -254,14 +222,6 @@
                                 {% if request.user.is_staff and perms.people.change_person %}
                                     <a href="/admin/people/person/{{ object.id }}/" class="fawesome fa-edit button text" target="_blank"><span class="text">{% trans "Edit Person" %}</span></a>
                                 {% endif %}
-                                
-                                {% if_has_perm "blog.change_blog_posts" container %}
-                                    <a class="fawesome fa-bullhorn button text" href="{{ container.get_url_path }}new/">{% trans "New Blog Entry" %}</a>
-                                {% else %}
-                                    {% if_has_perm object_change_permission container.content_object %}
-                                        <a class="fawesome fa-bullhorn button text" href="{{ container.get_url_path }}new/">{% trans "New Blog Entry" %}</a>
-                                    {% end_if_has_perm %}
-                                {% end_if_has_perm %}
 
                             {% else %}
                             
@@ -304,14 +264,6 @@
                                 {% if request.user.is_staff and perms.institutions.change_institution %}
                                     <a href="/admin/institutions/institution/{{ object.id }}/" class="fawesome fa-edit button text" target="_blank"><span class="text">{% trans "Edit Institution" %}</span></a>
                                 {% endif %}
-                                
-                                {% if_has_perm "blog.change_blog_posts" container %}
-                                    <a class="fawesome fa-bullhorn button text" href="{{ container.get_url_path }}new/"><span class="text">{% trans "New Blog Entry" %}</span></a>
-                                {% else %}
-                                    {% if_has_perm object_change_permission container.content_object %}
-                                        <a class="fawesome fa-bullhorn button text" href="{{ container.get_url_path }}new/"><span class="text">{% trans "New Blog Entry" %}</span></a>
-                                    {% end_if_has_perm %}
-                                {% end_if_has_perm %}
                         
                         {% else %}
                             

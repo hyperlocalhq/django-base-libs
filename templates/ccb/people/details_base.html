@@ -67,7 +67,7 @@
                         
                                     <a rel="nofollow" class="fawesome fa-more button text switch" href="{% url 'login' %}?goto_next={% follow_all_url object.user %}%3Fnext%3D{{ request.path }}"><span class="text">{% trans "Follow" %}</span></a>
                                     {% if object.is_contactable %}
-                                        <a href="{% url 'login' %}?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>
+                                        <a rel="nofollow" href="{% url 'login' %}?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>
                                     {% endif %}
                             
                                 {% endif %}
@@ -134,7 +134,7 @@
                         
                             <a rel="nofollow" class="fawesome fa-more button text switch" href="{% url 'login' %}?goto_next={% follow_all_url object.user %}%3Fnext%3D{{ request.path }}"><span class="text">{% trans "Follow" %}</span></a>
                             {% if object.is_contactable %}
-                                <a href="{% url 'login' %}?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>
+                                <a rel="nofollow" href="{% url 'login' %}?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>
                             {% endif %}
                             
                         {% endif %}

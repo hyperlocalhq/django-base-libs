@@ -11,7 +11,7 @@
                 <div class="col-xs-12">
                     <h1>{% trans "Blog" %}</h1>
                     {% if not object %}
-                        {% infoblock "blog_intro" using "blocks/highlighted_infoblock.html" %}
+                        {% infoblock "blog_intro" using "blocks/h4_content.html" %}
                     {% endif %}
                 </div>
             </div>
@@ -20,17 +20,6 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-4 col-md-3">
-                            
-                <div class="button-group">
-                    {% if_has_perm "blog.change_blog_posts" container %}
-                        <a class="fawesome fa-bullhorn button text" href="{{ container.get_url_path }}new/"><span class="text">{% trans "New Blog Entry" %}</span></a>
-                    {% else %}
-                        {% if_has_perm object_change_permission container.content_object %}
-                            <a class="fawesome fa-bullhorn button text" href="{{ container.get_url_path }}new/"><span class="text">{% trans "New Blog Entry" %}</span></a>
-                        {% end_if_has_perm %}
-                    {% end_if_has_perm %}
-                    <br/><br/>
-                </div>
                             
                 {% block sidebar %}
                 {% endblock %}

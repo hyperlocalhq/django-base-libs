@@ -70,7 +70,7 @@
                                 {% endfor %}
                             </div></dd>
                         {% else %}
-                            <dd><div class="text-field"><a href="{% url 'login' %}?goto_next={{ request.path }}">{% trans "Login to see e-mail." %}</a></div></dd>
+                            <dd><div class="text-field"><a rel="nofollow" href="{% url 'login' %}?goto_next={{ request.path }}">{% trans "Login to see e-mail." %}</a></div></dd>
                         {% endif %}
                         <dd class="clearfix"></dd>
                     </dl>

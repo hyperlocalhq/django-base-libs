@@ -1,35 +1,31 @@
 {% load base_tags i18n auth_extended blog uni_form_tags crispy_forms_tags %}
 
-<div class="first-item-txt" id="popup_content">
-    <form action="" method="post">{% csrf_token %}
-        {% if form_preview %}
-            <div class="preview">
-                <div class="headline">
-                    <h3>{{ form.title.data }}</h3>
-                </div>
+<form action="" method="post">{% csrf_token %}
+    {% if form_preview %}
+        <h2>{{ form.title.data }}</h2>
+        {{ form.body.data|disarm_user_input }}
 
-                {{ form.body.data|disarm_user_input }}
-
-                {% if form.tags.data %}
-                    <div class="post-meta left">
-                        <span>{% trans "Tags" %}: </span>
-                        {{ form.tags.data }}
-                    </div>
-                {% endif %}
-                <div class="buttonHolder">
-                    {% trans "Save as Draft" as draft %}
-                    {% trans "Save" as non_draft %}
-                    {% with yesno_args=''|add:draft|add:','|add:non_draft|upper %}
-                        <input
-                            type="submit" class="btn btn-primary" id="post" name="{{ post_stage_field }}"
-                            value='{{ post.is_draft|yesno:yesno_args }}'
-                            />
-                    {% endwith %}
-
-                </div>
+        {% if form.tags.data %}
+            <div class="post-meta left">
+                <span>{% trans "Tags" %}: </span>
+                {{ form.tags.data }}
             </div>
         {% endif %}
-        {% crispy form "ccb_form" %}
-    </form>
-</div>
+            
+        <div class="button-group">
+            {% trans "Save as Draft" as draft %}
+            {% trans "Save" as non_draft %}
+            {% with yesno_args=''|add:draft|add:','|add:non_draft|upper %}
+                <input
+                    type="submit" class="btn btn-primary" id="post" name="{{ post_stage_field }}"
+                    value='{{ post.is_draft|yesno:yesno_args }}'
+                    />
+            {% endwith %}
+        </div>
+        
+        <br/><br/><br/>
+
+    {% endif %}
+    {% crispy form "ccb_form" %}
+</form>
 

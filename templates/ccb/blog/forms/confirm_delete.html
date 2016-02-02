@@ -1,12 +1,6 @@
 {% extends base_template %}
 {% load i18n blog base_tags %}
 
-{% block sidebar-a %}
-{% endblock %}
-
-{% block sidebar-b %}
-{% endblock %}
-
 {% block details %}
     {% include_selected "confirm_delete_embedded.html" for object under "blog/forms" %}
 {% endblock %}
