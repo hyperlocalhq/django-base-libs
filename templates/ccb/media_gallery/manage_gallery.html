@@ -47,11 +47,11 @@
 {% block details %}
     <h2>{{ gallery.title }}</h2>
 
+    {% comment %}
     {% if gallery.cover_image %}
         <img src="{{ UPLOADS_URL }}{{ gallery.cover_image.path|modified_path:"article" }}" alt=""/>
-    {% elif gallery.mediafile_set.count %}
-        <img src="{{ gallery.mediafile_set.all.0.get_list_image_url|modified_path:"article" }}" alt=""/>
     {% endif %}
+    {% endcomment %}
 
     {% if gallery.mediafile_set.count %}
         {% for media_file in gallery.mediafile_set.all %}
