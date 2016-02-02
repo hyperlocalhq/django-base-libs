@@ -11,7 +11,7 @@
             {% endif %}}
         {% endif %}
         <div class="subline">
-            <h3>{% if forloop.first %}<time class="hidden-xs" datetime="{{ post.published_from|date:"Y-m-d" }}">{{ post.published_from|date:"d.F Y, H:i" }}</time><time class="visible-xs" datetime="{{ post.published_from|date:"Y-m-d" }}">{{ post.published_from|date:"d.M.Y, H:i" }}</time>{% else %}<time datetime="{{ post.published_from|date:"Y-m-d" }}">{{ post.published_from|date:"d.M.Y, H:i" }}</time>{% endif %}</h3>
+            <h3>{% if forloop.first %}<time class="hidden-xs" datetime="{{ post.published_from|date:"Y-m-d H:i" }}">{{ post.published_from|date:"d. F Y, H:i" }}</time><time class="visible-xs" datetime="{{ post.published_from|date:"Y-m-d H:i" }}">{{ post.published_from|date:"d.M.Y, H:i" }}</time>{% else %}<time datetime="{{ post.published_from|date:"Y-m-d H:i" }}">{{ post.published_from|date:"d.M.Y, H:i" }}</time>{% endif %}</h3>
             <div class="statistics">
                 <div class="fawesome fa-comment smaller"><span class="text">3</span></div>
                 <div class="fawesome fa-favorite smaller"><span class="text">126</span></div>

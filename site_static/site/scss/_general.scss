@@ -337,6 +337,12 @@ h3 {
         }
     }
     
+    &.only-time {
+        time {
+            padding-left: 0;
+        }
+    }
+    
     a, a:hover, a:focus {
         color: $cyan;
     }

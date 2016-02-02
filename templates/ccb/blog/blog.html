@@ -107,10 +107,10 @@
     {% endifequal %}
 
     {% ifequal archive "details" %}
-        <li><a href="{{ container.get_url_path }}{{ post.published_from|date:"Y" }}/">{{ post.published_from|date:"Y" }}</a></li>
-        <li><a href="{{ container.get_url_path }}{{ post.published_from|date:"Y" }}/{{ post.published_from|date:"m" }}/">{{ post.published_from|date:"m" }}</a></li>
-        <li><a href="{{ container.get_url_path }}{{ post.published_from|date:"Y" }}/{{ post.published_from|date:"m" }}/{{ post.published_from|date:"d" }}/">{{ post.published_from|date:"d" }}</a></li>
-        <li>{{ post.title|truncatewords:"5" }}</span></li>
+        <li><a href="{{ container.get_url_path }}{{ object.published_from|date:"Y" }}/">{{ object.published_from|date:"Y" }}</a></li>
+        <li><a href="{{ container.get_url_path }}{{ object.published_from|date:"Y" }}/{{ object.published_from|date:"m" }}/">{{ object.published_from|date:"m" }}</a></li>
+        <li><a href="{{ container.get_url_path }}{{ object.published_from|date:"Y" }}/{{ object.published_from|date:"m" }}/{{ object.published_from|date:"d" }}/">{{ object.published_from|date:"d" }}</a></li>
+        <li>{{ object.title|truncatewords:"5" }}</span></li>
     {% endifequal %}
 
     {% ifequal archive "tag_archive" %}

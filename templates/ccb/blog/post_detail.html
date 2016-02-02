@@ -1,6 +1,18 @@
-{% load base_tags comments i18n babel auth_extended blog navigation_tags image_mods_tags %}
+{% load base_tags comments i18n babel auth_extended blog navigation_tags image_mods_tags sekizai_tags %}
 
-hallo
+<h3 class="only-time"><time datetime="{{ object.published_from|date:"Y-m-d H:i" }}">{{ object.published_from|date:"d. F Y, H:i" }}</time></h3>
+<h2>{{ object.title }}</h2>
+{{ object.get_rendered_body|disarm_user_input }}
+
+<div class="button-group padding-40">
+    <a href="{{ container.get_url_path }}{% if type %}{{ type.sysname }}/{% endif %}feeds/rss/" class="fawesome fa-rss smaller button"><span class="sr-only">RSS</span></a>
+    <!--<a href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07" class="fawesome fa-plus smaller button" target="_blank"><span class="sr-only">{% trans "Share" %}</span></a>-->
+</div>
+
+<div class="button-group top-right">
+    <a href="#" class="fawesome fa-favorite button"><span class="text">126</span></a>
+</div>
+
 
 {% comment %}
 <div class="toolbox clearfix">
