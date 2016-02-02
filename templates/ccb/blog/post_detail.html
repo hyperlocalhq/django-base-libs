@@ -4,6 +4,16 @@
 <h2>{{ post.title }}</h2>
 {{ post.get_rendered_body|disarm_user_input }}
 
+{% if post.tags %}
+    <div>
+        {% trans "Tags" %}: 
+        {% for tag in post.get_tags %}
+            {% if not forloop.first %}|{% endif %}
+            <a href="{{ container.get_url_path }}tag/{{ tag.slug }}/">{{ tag.name }} </a>
+        {% endfor %}
+    </div>
+{% endif %}
+
 <div class="button-group padding-40">
     <a href="{{ container.get_url_path }}{% if type %}{{ type.sysname }}/{% endif %}feeds/rss/" class="fawesome fa-rss smaller button"><span class="sr-only">RSS</span></a>
     <!--<a href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07" class="fawesome fa-plus smaller button" target="_blank"><span class="sr-only">{% trans "Share" %}</span></a>-->

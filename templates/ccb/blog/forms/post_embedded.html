@@ -6,10 +6,10 @@
         {{ form.body.data|disarm_user_input }}
 
         {% if form.tags.data %}
-            <div class="post-meta left">
-                <span>{% trans "Tags" %}: </span>
-                {{ form.tags.data }}
+            <div>
+                {% trans "Tags" %}: {{ form.tags.data }}
             </div>
+            <br/><br/>
         {% endif %}
             
         <div class="button-group">
