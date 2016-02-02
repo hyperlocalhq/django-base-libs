@@ -16,7 +16,7 @@
                 {% endif %}
             {% else %}
                 <li class="favorites login-required">
-                    <a href="{% url 'login' %}?goto_next={{ request.path }}"
+                    <a rel="nofollow" href="{% url 'login' %}?goto_next={{ request.path }}"
                         title="{% trans "Add to favorites" %}">
                         <span><span>{% trans "Add to favorites" %} ({% trans "login request" %})</span></span>
                     </a>

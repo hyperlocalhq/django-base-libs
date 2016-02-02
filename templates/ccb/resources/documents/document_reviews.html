@@ -41,7 +41,7 @@
                         {% comment_form using "comments/form.html" for resources.document object.id %}
                     </div>
                 {% else %}
-                    <a href="{% url 'login' %}?goto_next={{ request.path }}#post_review"
+                    <a rel="nofollow" href="{% url 'login' %}?goto_next={{ request.path }}#post_review"
                         title="{% trans "Post a review (login required)" %}">{% trans "Post a review (login required)" %}</a>
                 {% endif %}
             </div>
