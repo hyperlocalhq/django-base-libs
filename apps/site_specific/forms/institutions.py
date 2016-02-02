@@ -99,6 +99,7 @@ class IdentityForm(dynamicforms.Form):
         institution = self.institution
         institution.title = self.cleaned_data['title']
         institution.title2 = self.cleaned_data['title2']
+        institution.calculate_completeness()
         institution.save()
         return institution
 
@@ -154,6 +155,7 @@ class DescriptionForm(dynamicforms.Form):
         institution = self.institution
         institution.description_en = self.cleaned_data['description_en']
         institution.description_de = self.cleaned_data['description_de']
+        institution.calculate_completeness()
         institution.save()
         return institution
 
@@ -214,6 +216,8 @@ class AvatarForm(dynamicforms.Form):
                 media_file,
                 subpath="avatar/"
             )
+        institution.calculate_completeness()
+        institution.save()
         return institution
 
     def get_extra_context(self):
@@ -730,6 +734,8 @@ class ContactForm(dynamicforms.Form):
             latitude=data['latitude'],
             longitude=data['longitude'],
         )
+        institution.calculate_completeness()
+        institution.save()
         return institution
 
     def get_extra_context(self):
@@ -825,6 +831,7 @@ class DetailsForm(dynamicforms.Form):
         institution.establishment_yyyy = self.cleaned_data.get('establishment_yyyy') or None
         institution.establishment_mm = self.cleaned_data.get('establishment_mm') or None
         institution.nof_employees = self.cleaned_data['nof_employees']
+        institution.calculate_completeness()
         institution.save()
         return institution
 
@@ -1015,6 +1022,7 @@ class PaymentForm(dynamicforms.Form):
         institution.is_invoice_ok = self.cleaned_data['is_invoice_ok']
         institution.is_ec_maestro_ok = self.cleaned_data['is_ec_maestro_ok']
         institution.is_giropay_ok = self.cleaned_data['is_giropay_ok']
+        institution.calculate_completeness()
         institution.save()
         return institution
 
@@ -1638,6 +1646,7 @@ class OpeningHoursForm(dynamicforms.Form):
         institution.exceptions_de = self.cleaned_data.get('exceptions_de', '')
         institution.is_appointment_based = self.cleaned_data.get('is_appointment_based', False)
 
+        institution.calculate_completeness()
         institution.save()
         return institution
 
@@ -1706,7 +1715,9 @@ class CategoriesForm(dynamicforms.Form):
         institution.institution_types.clear()
         institution.institution_types.add(*cleaned['institution_types'])
 
-        ContextItem.objects.update_for(institution)
+        institution.calculate_completeness()
+        institution.save()
+        # ContextItem.objects.update_for(institution)
         return institution
 
     def get_extra_context(self):

@@ -1383,6 +1383,7 @@ def save_data(form_steps, form_step_data):
     # save again triggering signals
     # TODO: check what happens around institution saving: what signals are called and what notifications are created
     # minimize or rework long-lasting tasks
+    institution.calculate_completeness()
     institution.save()
 
     # this is used for redirection to the institution details page
