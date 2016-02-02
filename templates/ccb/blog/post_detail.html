@@ -1,4 +1,4 @@
-{% load base_tags comments i18n babel auth_extended blog navigation_tags image_mods_tags %}
+{% load base_tags comments i18n babel auth_extended blog navigation_tags image_mods_tags favorites %}
 
 <h3 class="only-time"><time datetime="{{ post.published_from|date:"Y-m-d H:i" }}">{{ post.published_from|date:"d. F Y, H:i" }}</time></h3>
 <h2>{{ post.title }}</h2>
@@ -10,7 +10,11 @@
 </div>
 
 <div class="button-group top-right">
-    <a href="#" class="fawesome fa-favorite button"><span class="text">126</span></a>
+    {% if request.user.is_authenticated %}
+        {% adding2favorites for post using "generic/favorite_icon_number.html" %}
+    {% else %}
+        <div class="fawesome fa-favorite button smaller" onclick="location.href='{% url 'login' %}?goto_next={{ request.path }}'; return false;"><span class="text">{{ post|get_favorites_count }}</span><span class="sr-only">{% trans "Add to favorites" %}</span></div>
+    {% endif %}
 </div>
 
 

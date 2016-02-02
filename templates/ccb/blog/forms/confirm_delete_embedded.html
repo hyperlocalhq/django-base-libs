@@ -8,14 +8,14 @@
         </fieldset>
     </div>
 
-            <div class="button-group form-buttons">
-                <input id="id_cancel" type="submit" class="button" name="{{ cancel_stage_field }}"
-                    value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
-                <input id="id_delete" class="button danger" type="submit" name="{{ delete_stage_field }}"
-                    value="{% filter upper %}{% trans 'Delete' %}{% endfilter %}"/>
-                {% comment %}this one is used for security reasons -->{% endcomment %}
-                <input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}"/>
-            </div>
+    <div class="button-group form-buttons">
+        <input id="id_cancel" type="submit" class="button" name="{{ cancel_stage_field }}"
+            value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
+        <input id="id_delete" class="button danger" type="submit" name="{{ delete_stage_field }}"
+            value="{% filter upper %}{% trans 'Delete' %}{% endfilter %}"/>
+        {% comment %}this one is used for security reasons -->{% endcomment %}
+        <input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}"/>
+    </div>
 </form>
 
 

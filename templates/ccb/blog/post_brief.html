@@ -1,4 +1,4 @@
-{% load blog babel comments base_tags i18n auth_extended %}
+{% load blog babel comments base_tags i18n auth_extended favorites %}
 
 <div class="col-xs-12 {% if not forloop.first %}col-sm-6{% endif %}">
     <a class="content" href="{{ post.get_url_path }}">
@@ -11,11 +11,13 @@
             {% endif %}}
         {% endif %}
         <div class="subline">
-            <h3>{% if forloop.first %}<time class="hidden-xs" datetime="{{ post.published_from|date:"Y-m-d H:i" }}">{{ post.published_from|date:"d. F Y, H:i" }}</time><time class="visible-xs" datetime="{{ post.published_from|date:"Y-m-d H:i" }}">{{ post.published_from|date:"d.M.Y, H:i" }}</time>{% else %}<time datetime="{{ post.published_from|date:"Y-m-d H:i" }}">{{ post.published_from|date:"d.M.Y, H:i" }}</time>{% endif %}</h3>
+            <h3>{% if forloop.first %}<time class="hidden-xs" datetime="{{ post.published_from|date:"Y-m-d H:i" }}">{{ post.published_from|date:"d. F Y, H:i" }}</time><time class="visible-xs" datetime="{{ post.published_from|date:"Y-m-d H:i" }}">{{ post.published_from|date:"d. M. Y, H:i" }}</time>{% else %}<time datetime="{{ post.published_from|date:"Y-m-d H:i" }}">{{ post.published_from|date:"d. M. Y, H:i" }}</time>{% endif %}</h3>
             <div class="statistics">
-                <div class="fawesome fa-comment smaller"><span class="text">3</span></div>
-                <div class="fawesome fa-favorite smaller"><span class="text">126</span></div>
-                <div class="fawesome fa-more smaller"><span class="text">17</span></div>
+                {% if request.user.is_authenticated %}
+                    {% adding2favorites for post using "generic/favorite_icon_number.html" %}
+                {% else %}
+                    <div class="fawesome fa-favorite button smaller" onclick="location.href='{% url 'login' %}?goto_next={{ request.path }}'; return false;"><span class="text">{{ post|get_favorites_count }}</span><span class="sr-only">{% trans "Add to favorites" %}</span></div>
+                {% endif %}
             </div>
         </div>
         <h2>{{ post.title }}</h2>

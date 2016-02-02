@@ -58,7 +58,9 @@
                var $oEl = $(this);
                
                 if (oData) {
-                    $oSpan = $oEl.children("span:first");
+                    $oSpan = $oEl.children("span").not(".dont-toggle-text").first();
+                    var $counter = $oEl.children("span.counter");
+                    
                     if (oData["action"] == "added") {
                         $oEl.attr({
                             title: oSelf.sTitleToRemove
@@ -66,6 +68,12 @@
                         
                         if ($oSpan.hasClass('sr-only')) $oSpan.html(oSelf.sTitleToRemove);
                         else $oSpan.html(oSelf.sInnerTextToRemove);
+                        
+                        if ($counter.length) {
+                            var count = parseInt($counter.text());
+                            count++;
+                            $counter.text(count);
+                        }
                     } else {
                         $oEl.attr({
                             title: oSelf.sTitleToAdd
@@ -73,6 +81,13 @@
                         
                         if ($oSpan.hasClass('sr-only')) $oSpan.html(oSelf.sTitleToAdd);
                         else $oSpan.html(oSelf.sInnerTextToAdd); 
+                        
+                        if ($counter.length) {
+                            var count = parseInt($counter.text());
+                            count--;
+                            if (count < 0) count = 0;
+                            $counter.text(count);
+                        }
                     }
                     if (oData["count"] != undefined) {
                         $oEl.children(".favorites_count").text(oData["count"]);
