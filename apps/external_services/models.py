@@ -74,6 +74,13 @@ class BulletinImportSource(Service):
         null=True,
     )
 
+    default_bulletin_category = models.ForeignKey(
+        "bulletin_board.BulletinCategory",
+        verbose_name=_("Bulletin category"),
+        blank=True,
+        null=True,
+    )
+
     default_status = models.CharField(
         _("status"),
         choices=STATUS_CHOICES,

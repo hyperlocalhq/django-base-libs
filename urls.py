@@ -257,6 +257,10 @@ urlpatterns = i18n_patterns(
         TemplateView.as_view(template_name='site_specific/compatibility.html'),
         name="compatibility"),
 
+    url(r'^500/$',
+        TemplateView.as_view(template_name='500.html'),
+        name="error_500"),
+
     # info trouble-tickets
     url(r'^ticket/$', _project_name + '.apps.tracker.views.create_ticket',
         name="create_ticket"),

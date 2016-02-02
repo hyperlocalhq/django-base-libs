@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import operator
 
 from django.db import models
+from django.apps import apps
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.utils.safestring import mark_safe
@@ -114,6 +115,17 @@ class ExpiredBulletinManager(models.Manager):
         ).exclude(status="draft").update(status="expired")
 
 
+class ImportedBulletinManager(models.Manager):
+    # TODO: if necessary, extend this manager with functions to query, count, etc. only imported items
+    def delete_with_mapper(self):
+        ObjectMapper = apps.get_model("external_services", "ObjectMapper")
+        ContentType = apps.get_model("contenttypes", "ContentType")
+        ct = ContentType.objects.get_for_model(self.model)
+        ids = list(ObjectMapper.objects.filter(content_type=ct).values_list("object_id", flat=True))
+        ObjectMapper.objects.filter(content_type=ct).delete()
+        return self.filter(pk__in=ids).delete()
+
+
 class Bulletin(CreationModificationMixin, UrlMixin):
     bulletin_type = models.CharField(_("Type"), max_length=20, choices=TYPE_CHOICES)
     bulletin_category = models.ForeignKey(BulletinCategory, verbose_name=_("Bulletin category"), blank=True, null=True)
@@ -176,6 +188,7 @@ class Bulletin(CreationModificationMixin, UrlMixin):
     objects = models.Manager()
     published_objects = PublishedBulletinManager()
     expired_objects = ExpiredBulletinManager()
+    imported_objects = ImportedBulletinManager()
 
     class Meta:
         verbose_name = _("Bulletin")
