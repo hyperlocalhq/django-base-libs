@@ -13,7 +13,4 @@
     {% include "utils/includes/pagination.html" %}
 {% endif %}
 
-{% block javascript %}
-    {{ block.super }}
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/blog-grid.js"></script>
-{% endblock %}
+<script type="text/javascript" src="{{ STATIC_URL }}site/js/blog-grid.js"></script>
