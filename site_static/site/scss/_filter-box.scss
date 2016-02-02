@@ -47,6 +47,12 @@ ul.filter-box {
             position: relative;
             padding-right: 25px;
             
+            a {
+                font-size: 1em;
+                margin: 0;
+                border-bottom: none;
+            }
+            
             &:after {                    
                 position: absolute;
                 top: 0;

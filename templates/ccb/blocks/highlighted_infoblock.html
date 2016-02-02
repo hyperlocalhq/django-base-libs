@@ -1,4 +1,6 @@
 {% load base_tags %}
+<h2>{{ content|striptags }}</h2>
+{% comment %}
 <div class="highlighted-infoblock">
     <h5>{{ title|escape }}</h5>
 
@@ -6,3 +8,4 @@
         {{ content }}
     </div>
 </div>
+{% endcomment %}

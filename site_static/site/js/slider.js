@@ -75,57 +75,241 @@
             me.stylePortfolio();
         } else if (me.$main.hasClass('fullside')) {
             me.styleFullside();
+        } else if (me.$main.hasClass('magazine')) {
+            me.styleMagazine();
         }
         
-        if (!animate) {
+        if (!me.disabled) {
             
-            me.$elements.each(function() {
-           
-                var $element = $(this);
-                $element.css('left', $element.data('left') + "px");
-            
-            });
-            
-            me.checkNextPrev();
-            
-        } else {
-            
-            me.animating = true;
-            
-            var counter = me.$elements.length;
-            
-            me.$elements.each(function() {
+            if (!animate) {
                 
-                var $element = $(this);
+                me.$elements.each(function() {
+               
+                    var $element = $(this);
+                    $element.css('left', $element.data('left') + "px");
                 
-                $element.animate({
-                    left: $element.data('left')
-                }, me.speed, function() {
-                    
-                    counter--;
-                    if (me.timeout) {
-                        clearTimeout(me.timeout);
-                        me.timeout = null;
-                    }
-                    
-                    
-                    if (counter <= 0) {
-                        
-                        me.checkNextPrev();
-                        me.animating = false;
-                        
-                        if (me.timer) {
-                            me.timeout = setTimeout(function() {me.next();}, me.timer);    
-                        }
-                    }
-                    
                 });
-            });
+                
+                me.checkNextPrev();
+                
+            } else {
+                
+                me.animating = true;
+                
+                var counter = me.$elements.length;
+                
+                me.$elements.each(function() {
+                    
+                    var $element = $(this);
+                    
+                    $element.animate({
+                        left: $element.data('left')
+                    }, me.speed, function() {
+                        
+                        counter--;
+                        if (me.timeout) {
+                            clearTimeout(me.timeout);
+                            me.timeout = null;
+                        }
+                        
+                        
+                        if (counter <= 0) {
+                            
+                            me.checkNextPrev();
+                            me.animating = false;
+                            
+                            if (me.timer) {
+                                me.timeout = setTimeout(function() {me.next();}, me.timer);    
+                            }
+                        }
+                        
+                    });
+                });
+            }
         }
         
         if (me.timer) {
             me.timeout = setTimeout(function() {me.next();}, me.timer);    
         }
+    }
+    
+    /**
+     * Styles the portfolio slider.
+     * Calculates the left positions of the elements.
+     */
+    Slider.prototype.styleMagazine = function() {
+        
+        var me = this.me;
+        
+        me.margin = 5;
+        
+        if (!me.$full_elements) me.$full_elements = $('.row-full', me.$main);
+        if (!me.$half_elements) me.$half_elements = $('.row-half', me.$main);
+        if (!me.$images) me.$images = $('img', me.$elements);
+        
+        
+        
+        if (me.$body.hasClass('is-xs')) {
+            
+            me.$elements.css('height', '');
+            me.$elements.css('left', '');
+            me.$elements.css('top', '');
+            me.$wrapper.css('height', '');
+            
+            me.$elements.each(function(index) {
+               
+                var $element = $(this);
+                
+                var $h2 = $('h2', $element);
+                $h2.css('margin-bottom', '-' + $h2.height() + 'px');
+                
+                var $h3 = $('h3', $element);
+                $h3.css('top', ($h2.position().top - $h3.height() - 5) + 'px');
+                
+            });
+            
+            if (me.$prev) {
+                me.$prev.css('display', '');
+                me.$next.css('display', '');
+            }
+            
+            me.disabled = true;
+            
+        } else {
+            
+            var wrapper_width = me.$wrapper.width() + 2 * me.margin*2;
+            
+            
+            me.$full_elements.css('height', '');
+            me.$half_elements.css('height', '');
+            $('h2', me.$elements).css('margin-bottom', '');
+            //me.$images.css('height', '');
+            
+            
+            // getting the height of the slider
+            var height = 0;
+            var full_height = 0;
+            var half_height = 0;
+            me.$full_elements.each(function() {
+                
+                var $element = $(this);
+                var element_height = $element.height() - me.margin;
+                if (full_height < element_height) full_height = element_height;
+            });
+            
+            me.$half_elements.each(function() {
+                
+                var $element = $(this);
+                var element_height = $element.height() - me.margin;
+                if (half_height < element_height) half_height = element_height;
+            });
+            half_height *= 2;
+            
+            if (full_height && half_height) height = (full_height < half_height) ? full_height : half_height;
+            else height = (full_height > half_height) ? full_height : half_height;
+            
+            if (!height) return;
+            
+            
+            
+            // setting the height of the elements
+            me.$full_elements.each(function() {
+                var $element = $(this);
+                $element.height(height);
+                //$('img', $element).height(height - me.margin*2);
+            });
+            
+            me.$half_elements.each(function() {
+                var $element = $(this);
+                var element_height = height/2;
+                $element.height(element_height);
+                //$('img', $element).height(element_height - me.margin*2);
+            });
+            
+            //me.$images.css('height', '100%');
+            
+            me.$wrapper.height(height - me.margin);
+            
+            
+            
+            // positioning the elements
+            var row = 0;
+            var top = 0;
+            var left = (row - me.current_element) * (wrapper_width/2);
+            var width = 0;
+            me.$elements.each(function(index) {
+               
+                var $element = $(this);
+                
+                $element.css('top', top+'px');
+                $element.data('left', left);
+                
+                top += $element.height();
+                
+                if (top >= height) {
+                    row++;   
+                    top = 0;
+                    width += $element.width();
+                    left = (row - me.current_element) * (wrapper_width/2);
+                }
+                
+                var $h2 = $('h2', $element);
+                var $h3 = $('h3', $element);
+                $h3.css('top', ($h2.position().top - $h3.height() - 10) + 'px');
+            });
+            if (top != 0) width += $element.width();
+            
+            
+            
+            
+            if (!me.$prev) {
+                
+                me.$prev = $('<div class="fawesome fa-left-bold prev"><span class="sr-only">previous</span></div>');
+                me.$next = $('<div class="fawesome fa-right-bold next"><span class="sr-only">next</span></div>');
+                
+                me.$main.append(me.$prev);
+                me.$main.append(me.$next);
+                
+                me.$prev.click(function(e) {me.timer = false; me.prev(e); return false;});
+                me.$next.click(function(e) {me.timer = false; me.next(e); return false;});
+                
+            }
+            
+            
+            if (width <= me.$wrapper.width() + me.margin*2) { 
+                
+                me.$prev.css('display', 'none');
+                me.$next.css('display', 'none');
+                
+            } else {
+                
+                me.$prev.css('display', 'block');
+                me.$next.css('display', 'block');
+                
+                var margin = Math.round((me.$body.width() - me.$wrapper.width()) / 2 - 1);
+                if (margin > 50) margin = 50;
+                if (me.is_header && margin > 30) margin = 30;
+                if (margin < 15) margin = 15;
+                
+                me.$prev.css('left', '-'+margin+'px');
+                me.$next.css('right', '-'+margin+'px');
+                
+                var right = me.$next.offset().left + me.$next.width();
+                if (me.$window.width() < right) {
+                    margin -= right - me.$window.width();
+                    if (margin < 15) margin = 15;
+                    me.$prev.css('left', '-'+margin+'px');
+                    me.$next.css('right', '-'+margin+'px');
+                }
+            }
+            
+            
+            me.disabled = false;
+            me.checkNextPrev();
+            
+            me.previous_element = me.current_element;
+        }
+        
     }
     
     /**
