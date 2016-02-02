@@ -3,23 +3,9 @@
 
 {% block title %}Blog{% endblock %}
 
-{% block extrahead %}
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
-{% endblock %}
-
-{% block headline %}
-    <h1>{% trans "Blog" %}</h1>
-{% endblock %}
-
-
-{% block formstart %}
-{% endblock %}
-
-{% block formclose %}
-{% endblock %}
 
 {% block content %}
-    <header>
+    <div class="header">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
@@ -30,10 +16,22 @@
                 </div>
             </div>
         </div>
-    </header>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-4 col-md-3">
+                            
+                <div class="button-group">
+                    {% if_has_perm "blog.change_blog_posts" container %}
+                        <a class="fawesome fa-bullhorn button text" href="{{ container.get_url_path }}new/"><span class="text">{% trans "New Blog Entry" %}</span></a>
+                    {% else %}
+                        {% if_has_perm object_change_permission container.content_object %}
+                            <a class="fawesome fa-bullhorn button text" href="{{ container.get_url_path }}new/"><span class="text">{% trans "New Blog Entry" %}</span></a>
+                        {% end_if_has_perm %}
+                    {% end_if_has_perm %}
+                    <br/><br/>
+                </div>
+                            
                 {% block sidebar %}
                 {% endblock %}
             </div>
@@ -46,10 +44,7 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    <div class="breadcrumbs">
-        <a href="/">{% trans "Home" %}</a>
-        {% block breadcrumbs_details %}
-        {% endblock %}
-    </div>
+    {% block breadcrumbs_details %}
+    {% endblock %}
 {% endblock %}
 

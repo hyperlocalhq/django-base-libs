@@ -289,6 +289,12 @@ def handle_request(request, year=None, month=None, day=None, post_slug=None, tag
     extra_context[settings.REDIRECT_FIELD_NAME] = request.REQUEST.get(settings.REDIRECT_FIELD_NAME, '')
     container = extra_context['container']
     
+    
+    extra_context['archive_year'] = year
+    extra_context['archive_month'] = month
+    extra_context['archive_day'] = day
+    
+    
     #check some permissions
     if status == STATUS_CODE_DRAFT:
         if not request.user.has_perm("blog.change_blog_posts", container):

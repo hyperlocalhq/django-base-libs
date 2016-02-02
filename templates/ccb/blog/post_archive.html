@@ -1,13 +1,19 @@
 {% load base_tags i18n %}
 
 {% if not post_list %}
-    <p class="nothing">{% trans "No blog entries have been posted yet" %}</p>
+    <p>{% trans "No blog entries have been posted yet" %}</p>
 {% else %}
     <div id="object_list">
-        {% for post in post_list %}
-            {% include_selected "post_brief.html" for object under "blog" %}
-        {% endfor %}
+        <div class="row blog-grid">
+            {% for post in post_list %}
+                {% include_selected "post_brief.html" for object under "blog" %}
+            {% endfor %}
+        </div>
     </div>
     {% include "utils/includes/pagination.html" %}
 {% endif %}
 
+{% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/blog-grid.js"></script>
+{% endblock %}
