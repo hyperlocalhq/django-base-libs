@@ -118,6 +118,7 @@ class IdentityForm(dynamicforms.Form):
         user.last_name = self.cleaned_data['last_name']
         person.occupation = self.cleaned_data['occupation']
         user.save()
+        person.calculate_completeness()
         person.save()
         return person
 
@@ -173,6 +174,7 @@ class DescriptionForm(dynamicforms.Form):
         person = self.person
         person.description_en = self.cleaned_data['description_en']
         person.description_de = self.cleaned_data['description_de']
+        person.calculate_completeness()
         person.save()
         return person
 
@@ -234,6 +236,8 @@ class AvatarForm(dynamicforms.Form):
                 media_file,
                 subpath="avatar/"
             )
+        person.calculate_completeness()
+        person.save()
         return person
 
     def get_extra_context(self):
@@ -872,6 +876,8 @@ class ContactForm(dynamicforms.Form):
                     latitude=data['latitude'],
                     longitude=data['longitude'],
                 )
+        person.calculate_completeness()
+        person.save()
         return person
 
     def get_extra_context(self):
@@ -993,6 +999,7 @@ class DetailsForm(dynamicforms.Form):
         person.birthday_yyyy = self.cleaned_data['birthday_yyyy'] or None
         person.nationality_id = self.cleaned_data['nationality'] or None
         person.preferred_language_id = self.cleaned_data['preferred_language'] or None
+        person.calculate_completeness()
         person.save()
         return person
 
@@ -1042,7 +1049,9 @@ class CategoriesForm(dynamicforms.Form):
         cleaned = self.cleaned_data
         person.categories.clear()
         person.categories.add(*cleaned['categories'])
-        ContextItem.objects.update_for(person)
+        person.calculate_completeness()
+        person.save()
+        # ContextItem.objects.update_for(person)
         return person
 
     def get_extra_context(self):
