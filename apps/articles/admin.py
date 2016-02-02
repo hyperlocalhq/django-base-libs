@@ -90,6 +90,11 @@ class ArticleOptions(ExtendedModelAdmin):
             ],
         }
     )]
+    fieldsets += [
+        (_("Categories"), {
+            'fields': ('categories',),
+        }),
+    ]
     filter_horizontal = ['creative_sectors', ]
     prepopulated_fields = {"slug": ("title",), }
 

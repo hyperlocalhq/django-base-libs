@@ -123,6 +123,13 @@ class Article(ArticleBase, MultiSiteMixin):
     site_published_objects_all_languages = PublishedArticleAllLanguagesManager()
     site_draft_objects = DraftArticleManager()
 
+    categories = TreeManyToManyField(
+        "structure.Category",
+        verbose_name=_("Categories"),
+        limit_choices_to={'level': 0},
+        blank=True,
+    )
+
     def get_url_path(self):
         article_type = self.article_type.get_root()
         kwargs = {
