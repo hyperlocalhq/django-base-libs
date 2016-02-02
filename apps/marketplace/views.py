@@ -59,14 +59,14 @@ def job_offer_list(request, criterion="", slug="", show="", title="", category_s
         category = get_object_or_404(JobSector, slug=category_slug)
         kwargs['queryset'] = kwargs['queryset'].filter(job_sectors__tree_id=category.tree_id)
 
-    if not (kwargs.has_key('feed') and kwargs['feed'] == True):
-        kwargs['queryset'] = kwargs['queryset'].only("id", "published_from",
-                                                     "job_type", "position", "offering_institution",
-                                                     "offering_institution_title", "is_commercial",
-                                                     "url0_type", "url0_link", "is_url0_default", "is_url0_on_hold",
-                                                     "url1_type", "url1_link", "is_url1_default", "is_url1_on_hold",
-                                                     "url2_type", "url2_link", "is_url2_default", "is_url2_on_hold"
-                                                     )
+    # if not (kwargs.has_key('feed') and kwargs['feed'] == True):
+    #     kwargs['queryset'] = kwargs['queryset'].only("id", "published_from",
+    #                                                  "job_type", "position", "offering_institution",
+    #                                                  "offering_institution_title", "is_commercial",
+    #                                                  "url0_type", "url0_link", "is_url0_default", "is_url0_on_hold",
+    #                                                  "url1_type", "url1_link", "is_url1_default", "is_url1_on_hold",
+    #                                                  "url2_type", "url2_link", "is_url2_default", "is_url2_on_hold"
+    #                                                  )
 
     if show == "memos":
         ct = ContentType.objects.get_for_model(kwargs['queryset'].model)
