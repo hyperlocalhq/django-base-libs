@@ -356,9 +356,10 @@ img.ckeditor-image {
 
 .tiny-mce img {
   margin: 0 !important;
-  height: auto;
-  width: 100%;
-  display: block;
+  height: auto !important;
+  width: 100% !important;
+  display: block !important;
+  border: none !important;
 }
 
 .tiny-mce span {
@@ -1056,9 +1057,9 @@ body.show-layer.image-layer .layer#image-layer {
 
 img {
   margin: 0 !important;
-  height: auto;
-  width: 100%;
-  display: block;
+  height: auto !important;
+  width: 100% !important;
+  display: block !important;
   border: none !important;
 }
 

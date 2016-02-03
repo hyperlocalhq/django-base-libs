@@ -265,9 +265,10 @@ img {
 .tiny-mce {
     img {
         margin: 0 !important;
-        height: auto;
-        width: 100%;
-        display: block;
+        height: auto !important;
+        width: 100% !important;
+        display: block !important;
+        border: none !important;
     }
 
     span {
