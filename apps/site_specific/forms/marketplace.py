@@ -753,7 +753,7 @@ class CategoriesForm(dynamicforms.Form):
     categories = ModelMultipleChoiceTreeField(
         label=_("Categories"),
         queryset=get_related_queryset(JobOffer, "categories").filter(level=0),
-        required=True,
+        required=False,
     )
 
     def __init__(self, job_offer, index, *args, **kwargs):
