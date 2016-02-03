@@ -183,6 +183,7 @@ $(document).ready(function() {
         me.$main.data('Accordion', me);
         me.$main.data('AccordionChild', me);
         
+        if (me.$main.hasClass('navi-box')) me.initSmallScreen();
         setTimeout(function() {me.init();}, 0);
         
         
@@ -190,6 +191,15 @@ $(document).ready(function() {
             me.width = me.$window.width();
             $(window).resize(function() {me.onResize();});
         }
+    }
+    
+    Accordion.prototype.initSmallScreen = function() {
+        
+        if (!$('body').hasClass('is-xs')) return;
+     
+        var me = this.me;
+        
+        $('li.accordion-inside', me.$main).first().removeClass('opened');
     }
     
     Accordion.prototype.adjustLevel = function() {
