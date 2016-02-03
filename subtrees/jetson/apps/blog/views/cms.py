@@ -470,7 +470,7 @@ class BlogPostFormPreviewHandler(FormPreviewHandler):
         else:
             path = self.container.get_url_path()
         expire_page(self.request, path)
-        return redirect(path)
+        return redirect(path + '?')
         
     def cancel(self, action):
         return self.redirect(action)
