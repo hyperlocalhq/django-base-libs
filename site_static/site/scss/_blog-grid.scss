@@ -60,7 +60,7 @@
             
             &:hover, &:focus {
                 background: $white-dirty;
-                box-shadow: 0px -5px 0px 5px $white-dirty;
+                box-shadow: 0px 0px 0px 5px $white-dirty;
                 .is-xs & {
                     background: transparent;
                     box-shadow: none;
