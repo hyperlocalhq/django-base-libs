@@ -27,6 +27,8 @@ from jetson.apps.utils.forms import ModelMultipleChoiceTreeField
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
+from ccb.apps.site_specific.models import ContextItem
+
 app = models.get_app("marketplace")
 JobOffer, JobSector, JobType = app.JobOffer, app.JobSector, app.JobType
 URL_ID_JOB_OFFER = app.URL_ID_JOB_OFFER
@@ -638,6 +640,12 @@ class JobOfferSearchForm(dynamicforms.Form):
         required=False,
         queryset=get_related_queryset(JobOffer, "job_sectors"),
     )
+    category = ModelChoiceTreeField(
+        empty_label=_("All"),
+        label=_("Category"),
+        required=False,
+        queryset=get_related_queryset(ContextItem, "categories").filter(level=0),
+    )
     job_type = ModelChoiceTreeField(
         empty_label=_("All"),
         label=_("Job Type"),
@@ -662,6 +670,7 @@ class JobOfferSearchForm(dynamicforms.Form):
             layout.Fieldset(
                 _("Filter"),
                 layout.Field("job_sector", template="ccb_form/custom_widgets/filter_field.html"),
+                layout.Field("category", template="ccb_form/custom_widgets/filter_field.html"),
                 layout.Field("job_type", template="ccb_form/custom_widgets/filter_field.html"),
                 layout.Field("qualification", template="ccb_form/custom_widgets/filter_field.html"),
                 template="ccb_form/custom_widgets/filter.html"

@@ -48,16 +48,21 @@ def add_job_offer(request):
 
 
 @never_cache
-def job_offer_list(request, criterion="", slug="", show="", title="", category_slug=None, **kwargs):
+def job_offer_list(request, criterion="", slug="", show="", title="", job_sector_slug=None, category_slug=None, **kwargs):
     """Displays the list of events"""
 
     # abc_list = None
     # abc_filter = request.GET.get('by-abc', None)
 
+    job_sector = None
+    if job_sector_slug:
+        job_sector = get_object_or_404(JobSector, slug=job_sector_slug)
+        kwargs['queryset'] = kwargs['queryset'].filter(job_sectors__tree_id=job_sector.tree_id)
+
     category = None
     if category_slug:
-        category = get_object_or_404(JobSector, slug=category_slug)
-        kwargs['queryset'] = kwargs['queryset'].filter(job_sectors__tree_id=category.tree_id)
+        category = get_object_or_404(Category, slug=category_slug)
+        kwargs['queryset'] = kwargs['queryset'].filter(categories__tree_id=category.tree_id)
 
     # if not (kwargs.has_key('feed') and kwargs['feed'] == True):
     #     kwargs['queryset'] = kwargs['queryset'].only("id", "published_from",
@@ -140,6 +145,13 @@ def job_offer_list(request, criterion="", slug="", show="", title="", category_s
                 job_sectors=js,
             ).distinct()
         jt = form.cleaned_data['job_type']
+        cat = form.cleaned_data['category']
+        if cat:
+            kwargs['queryset'] = kwargs['queryset'].filter(
+                categories__lft__gte=cat.lft,
+                categories__rght__lte=cat.rght,
+                categories__tree_id=cat.tree_id,
+            ).distinct()
         if jt:
             kwargs['queryset'] = kwargs['queryset'].filter(
                 job_type=jt,
@@ -171,6 +183,7 @@ def job_offer_list(request, criterion="", slug="", show="", title="", category_s
     extra_context['show'] = ("", "/%s" % show)[bool(show and show != "related")]
     extra_context['source_list'] = URL_ID_JOB_OFFERS
     extra_context['form'] = form
+    extra_context['job_sector'] = job_sector
     extra_context['category'] = category
     if request.is_ajax():
         extra_context['base_template'] = "base_ajax.html"
