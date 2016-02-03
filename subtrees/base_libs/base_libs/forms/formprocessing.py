@@ -68,6 +68,8 @@ class FormHandler(object):
         else:
             raise AttributeError, "You must provide an 'action' parameter in your %s call. Please correct." % self.__class__.__name__
 
+        self.request = request  # the request might be necessary when saving objects or redirecting
+
         # get extra params and extra inits        
         self.extra_context = self.parse_extra_params(*args, **kwargs)
         

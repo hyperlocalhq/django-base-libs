@@ -13,7 +13,7 @@ from django.conf import settings
 from django.contrib.sites.models import Site
 from django.db.models.fields import DateTimeField
 from django.utils.timezone import now as tz_now
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 
 from tagging.models import TaggedItem
 
@@ -410,13 +410,15 @@ class BlogPostFormPreviewHandler(FormPreviewHandler):
         }
         
     def redirect(self, action):
+        from base_libs.utils.cache import expire_page
         if action == ID_ACTION_DELETE:
-            return HttpResponseRedirect(self.container.get_url_path())
-                        
-        if self.current_post and self.current_post.status == STATUS_CODE_PUBLISHED:
-            return HttpResponseRedirect(self.current_post.get_url_path())
+            path = self.container.get_url_path()
+        elif self.current_post and self.current_post.status == STATUS_CODE_PUBLISHED:
+            path = self.current_post.get_url_path()
         else:
-            return HttpResponseRedirect(self.container.get_url_path())
+            path = self.container.get_url_path()
+        expire_page(self.request, path)
+        return redirect(path)
         
     def cancel(self, action):
         return self.redirect(action)
