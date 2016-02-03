@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
 from ccb.apps.resources.models import Document
 from jetson.apps.utils.views import object_detail
@@ -25,7 +25,8 @@ document_details_info = {
 urlpatterns = (
     url(r'^$',
         'ccb.apps.resources.views.document_list',
-        dict(list_filter=_document_list_filter, **document_list_info)
+        dict(list_filter=_document_list_filter, **document_list_info),
+        name="document_list_global",
         ),
     url(r'^(?P<show>favorites)/$',
         'ccb.apps.resources.views.document_list',
@@ -57,7 +58,8 @@ urlpatterns = (
         ),
     url(r'^document/(?P<slug>[^/]+)/$',
         object_detail,
-        document_details_info
+        document_details_info,
+        name="document_detail",
         ),
     url(r'^document/(?P<slug>[^/]+)/reviews/$',
         object_detail,

@@ -373,6 +373,26 @@ navigation_links = {
         },
     ],
 
+    'documents': [
+        {
+            'url_de': '/de/tenders-competitions/',
+            'url_en': '/en/tenders-competitions/',
+            'text_de': 'All',
+            'text_en': 'All',
+            'should_be_shown': for_all,
+            'highlight_pattern': r'^/(de|en)/tenders-competitions/$',
+        },
+        {
+            'url_de': '/de/tenders-competitions/favorites/',
+            'url_en': '/en/tenders-competitions/favorites/',
+            'text_de': 'Favoriten',
+            'text_en': 'Favorites',
+            'should_be_shown': for_all,
+            'highlight_pattern': r'^/(de|en)/tenders-competitions/favorites/$',
+            'is_login_required': True,
+        },
+    ],
+
     'menu_activities': [
         {
             'url_de': '/de/network/member/{{ request.user.username }}/portfolio/album/add/',

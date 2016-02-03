@@ -1,5 +1,5 @@
 {% extends "base_redesign.html" %}
-{% load i18n base_tags navigation_tags auth_extended image_mods_tags navigation_tags browsing favorites individual_relations %}
+{% load i18n base_tags navigation_tags auth_extended image_mods_tags navigation_tags browsing favorites individual_relations cms_tags %}
 
 {% block meta_description %}
     {{ block.super }}
@@ -8,49 +8,17 @@
 
 {% block title %}{{ object.get_title|escape }}{% endblock %}
 
-{% block breadcrumbs %}
-    <li><a href="/{{ URL_ID_DOCUMENTS }}/">{% trans "Infolinks" %}</a></li>
-    <li><a href="{{ object.get_url_path }}">{{ object.get_title|truncatewords:5 }}</a></li>
-    {% block breadcrumbs_details %}
-    {% endblock %}
-{% endblock %}
-
 {% block content %}
     <div class="header">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <h1>{% trans "Infolink" %}</h1>
+                    <h1><a href="{% url 'document_list_global' %}">{% page_attribute "page_title" %}</a></h1>
                     <div class="profile">
-                        
-    {% if object.image %}
-        <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if_has_perm "resources.change_document" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ object.get_title|escape }}"/>
-    {% else %}
-        <img src="{{ STATIC_URL }}site/img/placeholder/institution.png" alt="{{ object.get_title|escape }}"/>
-    {% endif %}
-    
                         <div class="content">
                             <h2>{{ object.get_title|escape }}</h2>
                             <h3>{{ object.document_type.get_title|escape }}</h3>
-                            <div class="buttons">
-                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="menu">
-            <div class="container">
-                <div class="row">
-                    <div class="hidden-xs col-sm-4 col-md-3 headline">
-                        <h2>{% trans "Infolink" %}</h2>
-                    </div>
-                    <div class="navi">
-                        <nav>
-                            <ul>
-                                {% children_of "document" using "navigation/children_in_tabs.html" %}
-                            </ul>
-                        </nav>
                     </div>
                 </div>
             </div>
@@ -60,22 +28,26 @@
         <div class="row">
             <div class="col-xs-12 col-sm-4 col-md-3">
                 <div class="profile-image">
-                    
-                        {% if_has_perm "resources.change_document" object %}
-                            <a href="{% cropping_url object.image.path "ad" request object.get_url_path %}" class="fawesome fa-edit recrop-link">
-                        {% end_if_has_perm %}
 
-    {% if object.image %}
-        <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if_has_perm "resources.change_document" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ object.get_title|escape }}"/>
-    {% else %}
-        <img src="{{ STATIC_URL }}site/img/placeholder/institution.png" alt="{{ object.get_title|escape }}"/>
-    {% endif %}
-    
-                        {% if_has_perm "resources.change_document" object %}
-                            </a>
-                        {% end_if_has_perm %}
+                    <div class="edit-avatar avatar-edit-frame">
+                        {% if object.image %}
+                            <a id="profile-image-link-sidebar" href="{% cropping_url object.image.path "profile" request object.get_url_path %}" class="fawesome fa-crop recrop-link"></a>
+                            <img id="profile-image-sidebar" src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if_has_perm "resources.change_document" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ object.get_title|escape }}"/>
+                        {% else %}
+                            <img id="profile-image-sidebar" src="{{ STATIC_URL }}site/img/placeholder/infolink.png" alt="{{ object.get_title|escape }}"/>
+                        {% endif %}
+                    </div>
+
                 </div>
-                    
+
+                {% if request.user.is_authenticated %}
+                    {% with object|get_context_item as context_item %}
+                        {% adding2favorites for context_item %}
+                    {% endwith %}
+                {% else %}
+                    <a rel="nofollow" href="{% url 'login' %}?goto_next={{ request.path }}" class="fawesome fa-favorite button text"><span class="text">{% trans "Favorite" %}</span></a>
+                {% endif %}
+
                 {% block sidebar %}
                 {% endblock %}
             </div>
