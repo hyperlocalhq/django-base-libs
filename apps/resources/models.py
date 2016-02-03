@@ -21,6 +21,7 @@ class Document(DocumentBase):
     categories = TreeManyToManyField(
         Category,
         verbose_name=_("categories"),
+        limit_choices_to={'level': 0},
         blank=True
     )
     is_featured = models.BooleanField(_("Featured"), default=False)

@@ -30,11 +30,11 @@
                 <div class="col-xs-12 col-sm-6">
                     <div class="wrapper tap-hover">
                         <a class="content tap-hover-trigger" href="{{ item.content_object.get_url_path }}portfolio/album/{{ item.get_token }}/">
-                            {% if item.cover_image %}
+                            {% if item.cover_image %}{# show the cover image... #}
                                 <img src="{{ UPLOADS_URL }}{{ item.cover_image.path|modified_path:"project_grid" }}" alt="{{ item.title|escape }}" />
-                            {% elif object.mediafile_set.count %}
-                                <img src="{{ object.mediafile_set.all.0.get_list_image_url }}" alt="{{ item.title|escape }}" />
-                            {% else %}
+                            {% elif item.mediafile_set.all.0.get_list_image_url %}{# ...or the first uploaded media file... #}
+                                <img src="{{ item.mediafile_set.all.0.get_list_image_url }}" alt="{{ item.title|escape }}" />
+                            {% else %}{# ...or if there are no media files uploaded, show the placeholder #}
                                 <img src="{{ STATIC_URL }}site/img/placeholder/gallery_square.png" alt="{{ item.title|escape }}" />
                             {% endif %}
                             <h2>{{ item.title|escape }} {% if item.is_draft %}({% trans "Draft" %}){% endif %}</h2>

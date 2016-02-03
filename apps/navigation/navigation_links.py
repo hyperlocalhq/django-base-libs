@@ -138,14 +138,14 @@ navigation_links = {
             'should_be_shown': for_all,
             'highlight_pattern': r'^/(de|en)/network/member/{{ object.slug }}/events/',
         },
-        # {
-        #     'url_de': '/de/network/member/{{ object.slug }}/blog/',
-        #     'url_en': '/en/network/member/{{ object.slug }}/blog/',
-        #     'text_de': 'Blog',
-        #     'text_en': 'Blog',
-        #     'should_be_shown': for_all,
-        #     'highlight_pattern': r'^/(de|en)/network/member/{{ object.slug }}/blog/',
-        # },
+        {
+            'url_de': '/de/network/member/{{ object.slug }}/blog/',
+            'url_en': '/en/network/member/{{ object.slug }}/blog/',
+            'text_de': 'Blog',
+            'text_en': 'Blog',
+            'should_be_shown': for_all,
+            'highlight_pattern': r'^/(de|en)/network/member/{{ object.slug }}/blog/',
+        },
     ],
 
     'news': [
