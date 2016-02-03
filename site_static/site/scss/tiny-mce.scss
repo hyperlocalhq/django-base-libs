@@ -1,0 +1,75 @@
+@charset "UTF-8";
+/* The style for the Tiny MCE */
+
+// @options -t compressed tiny-mce.scss ../css/tiny-mce.css
+
+@import 'constants';
+@import 'fonts';
+
+
+@font-face {
+    font-family: $font-2;
+    src: url('../fonts/lato/Lato-Regular.ttf');
+    font-weight: $font-regular;
+}
+
+@font-face {
+    font-family: $font-2;
+    src: url('../fonts/lato/Lato-Italic.ttf');
+    font-weight: $font-regular;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: $font-2;
+    src: url('../fonts/lato/Lato-Light.ttf');
+    font-weight: $font-light;
+}
+
+@font-face {
+    font-family: $font-2;
+    src: url('../fonts/lato/Lato-Light.ttf');
+    font-weight: $font-light;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: $font-2;
+    src: url('../fonts/lato/Lato-Bold.ttf');
+    font-weight: $font-bold;
+}
+
+@font-face {
+    font-family: $font-2;
+    src: url('../fonts/lato/Lato-Bold.ttf');
+    font-weight: $font-bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: $font-2;
+    src: url('../fonts/lato/Lato-Black.ttf');
+    font-weight: $font-black;
+}
+
+
+@import 'general';
+
+
+img {
+    margin: 0 !important;
+    height: auto !important;
+    width: 100% !important;
+    display: block !important;
+    border: none !important;
+}
+
+span {
+    font-size: 1em !important;
+}
+
+pre {
+    font-family: $font-2, $font-family-1;
+    font-size: 1em;
+    margin: 0 0 20px 0;
+}

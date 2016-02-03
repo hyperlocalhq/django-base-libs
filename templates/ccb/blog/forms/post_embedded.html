@@ -3,7 +3,9 @@
 <form action="" method="post">{% csrf_token %}
     {% if form_preview %}
         <h2>{{ form.title.data }}</h2>
-        {{ form.body.data|disarm_user_input }}
+        <div class="tiny-mce">
+            {{ form.body.data|disarm_user_input }}
+        </div>
 
         {% if form.tags.data %}
             <div>

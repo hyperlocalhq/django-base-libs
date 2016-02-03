@@ -801,6 +801,18 @@ def get_first_media(content):
 
 get_first_media = register.filter(get_first_media, is_safe=True)
 
+image_file_regex = re.compile(r'<(img) [^>]+>')
+
+def get_first_image(content):
+    """ Returns the first image or flash file from the html content """
+    m = image_file_regex.search(content)
+    media_tag = ""
+    if m:
+        media_tag = m.group()
+    return media_tag
+
+get_first_image = register.filter(get_first_image, is_safe=True)
+
 
 media_src_regex = re.compile(r'src=(["\'])([^\1]+?)\1')    
 
