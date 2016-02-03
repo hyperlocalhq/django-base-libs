@@ -279,6 +279,9 @@ def handle_request(request, year=None, month=None, day=None, post_slug=None, tag
     container        The blog container (defined by the rel. object)
 
     """
+    if "fresh" in request.GET:
+        return redirect(request.path)
+
     if not extra_context:
         extra_context = {}
 
