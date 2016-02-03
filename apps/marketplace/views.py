@@ -271,7 +271,8 @@ def jobs_talent_in_berlin(request):
             'description': job_offer.description,
             'company_logo': company_logo,
             'date': (job_offer.modified_date or job_offer.creation_date).strftime('%Y-%m-%d %H:%M'),
-            'categories': [js.title for js in job_offer.job_sectors.all()],
+            'job_sectors': [js.title for js in job_offer.job_sectors.all()],
+            'categories': [js.title for js in job_offer.categories.all()],
             'source': 'http://www.creative-city-berlin.de/',
         })
     return HttpResponse(dicttoxml(result, custom_root="job_offers", attr_type=False), content_type="text/xml")

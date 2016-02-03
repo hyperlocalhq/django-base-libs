@@ -16,7 +16,7 @@
         {% load_obj institutions.institution form_step_data.step_main_data.offering_institution as institution %}
     {% endif %}
 
-    <h2>{% trans "New Institution" %}</h2>
+    <h2>{% trans "New Job Offer" %}</h2>
     <form action="" method="post" class="uniForm">{% csrf_token %}
 
         <div class="fieldset not-editable">
@@ -168,8 +168,8 @@
             </fieldset>
         </div>
 
-        {% with form_step_data.step_categories.job_sectors as job_sectors %}
-            {% if job_sectors or form_step_data.step_categories.tags %}
+        {% with job_sectors=form_step_data.step_categories.job_sectors categories=form_step_data.step_categories.categories tags=form_step_data.step_categories.tags %}
+            {% if job_sectors or tags or categories %}
                 <div class="fieldset not-editable">
                     <fieldset>
                         <h2>{% trans "Categories" %}</h2>
@@ -186,17 +186,29 @@
                                 <dd class="clearfix"></dd>
                             {% endif %}
 
-                            {% if form_step_data.step_categories.tags %}
+                            {% if tags %}
                                 <dt>{% trans "Tags" %}:</dt>
                                 <dd>
                                     <div class="text-field">
-                                        {% with form_step_data.step_categories.tags|slice:"-2:" as trailing_coma %}
+                                        {% with tags|slice:"-2:" as trailing_coma %}
                                             {% ifequal trailing_coma ", " %}
-                                                {{ form_step_data.step_categories.tags|slice:"0:-2" }}
+                                                {{ tags|slice:"0:-2" }}
                                             {% else %}
-                                                {{ form_step_data.step_categories.tags }}
+                                                {{ tags }}
                                             {% endifequal %}
                                         {% endwith %}
+                                    </div>
+                                </dd>
+                                <dd class="clearfix"></dd>
+                            {% endif %}
+
+                            {% if categories %}
+                                <dt>{% trans "Categories" %}:</dt>
+                                <dd>
+                                    <div class="text-field">
+                                        {% for category in categories %}
+                                            {{ category.title }}{% if not forloop.last %}, {% endif %}
+                                        {% endfor %}
                                     </div>
                                 </dd>
                                 <dd class="clearfix"></dd>

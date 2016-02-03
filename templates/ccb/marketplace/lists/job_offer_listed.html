@@ -34,6 +34,13 @@
                         {% endfor %}
                     </ul>
                 {% endif %}
+                {% if job_offer.categories.all %}
+                    <ul>
+                        {% for category in job_offer.categories.all %}
+                            <li>{{ category.title }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             </div>
         </a>
         {% with job_offer.get_urls|first as url %}

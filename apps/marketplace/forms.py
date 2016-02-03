@@ -22,6 +22,7 @@ from jetson.apps.location.models import Address
 from jetson.apps.optionset.models import PhoneType, EmailType, URLType
 from jetson.apps.mailing.views import Recipient, send_email_using_template
 from jetson.apps.utils.forms import ModelChoiceTreeField
+from jetson.apps.utils.forms import ModelMultipleChoiceTreeField
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
@@ -394,6 +395,12 @@ class CategoriesForm(dynamicforms.Form):
         widget=TagAutocomplete,
     )
 
+    categories = ModelMultipleChoiceTreeField(
+        label=_("Categories"),
+        required=False,
+        queryset=get_related_queryset(JobOffer, "categories").filter(level=0),
+    )
+
     def __init__(self, *args, **kwargs):
         super(CategoriesForm, self).__init__(*args, **kwargs)
 
@@ -406,11 +413,17 @@ class CategoriesForm(dynamicforms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Categories"),
+                layout.HTML(string_concat('<dt>', _("Job Sectors"), '</dt>')),
                 "job_sectors",
                 layout.HTML("""{% load i18n %}
                     <p class="disclaimer">{% blocktrans %}Is some category missing? You can <a href="/ticket/new-category/" target="_blank">suggest it here</a>.{% endblocktrans %}</p>
                 """),
                 "tags",
+                layout.HTML(string_concat('<dt>', _("Categories"), '</dt>')),
+                layout.Field(
+                    "categories",
+                    template="ccb_form/custom_widgets/checkboxselectmultipletree.html",
+                ),
             ),
             bootstrap.FormActions(
                 layout.HTML("""{% include "utils/step_buttons_reg.html" %}"""),
@@ -543,6 +556,10 @@ def save_data(form_steps, form_step_data):
     # job sectors
     job_offer.job_sectors.clear()
     job_offer.job_sectors.add(*step_categories['job_sectors'])
+
+    # categories
+    job_offer.categories.clear()
+    job_offer.categories.add(*step_categories['categories'])
 
     # save again without triggering any signals
     job_offer.save_base(raw=True)

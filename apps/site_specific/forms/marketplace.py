@@ -15,6 +15,7 @@ from tagging.forms import TagField
 from tagging_autocomplete.widgets import TagAutocomplete
 from jetson.apps.location.models import Address
 from jetson.apps.optionset.models import PhoneType
+from jetson.apps.utils.forms import ModelMultipleChoiceTreeField
 from ccb.apps.marketplace.models import JobOffer
 from ccb.apps.marketplace.models import URL_ID_JOB_OFFER
 from crispy_forms.helper import FormHelper
@@ -749,10 +750,17 @@ class CategoriesForm(dynamicforms.Form):
         widget=TagAutocomplete,
     )
 
+    categories = ModelMultipleChoiceTreeField(
+        label=_("Categories"),
+        queryset=get_related_queryset(JobOffer, "categories").filter(level=0),
+        required=True,
+    )
+
     def __init__(self, job_offer, index, *args, **kwargs):
         super(CategoriesForm, self).__init__(*args, **kwargs)
         self.job_offer = job_offer
         self.fields['job_sectors'].initial = job_offer.job_sectors.all()
+        self.fields['categories'].initial = job_offer.categories.all()
         self.fields['tags'].initial = job_offer.tags
 
         self.helper = FormHelper()
@@ -767,8 +775,11 @@ class CategoriesForm(dynamicforms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Categories"),
+                layout.HTML(string_concat('<dt>', _("Job Sectors"), '</dt>')),
                 "job_sectors",
                 "tags",
+                layout.HTML(string_concat('<dt>', _("Categories"), '</dt>')),
+                layout.Field("categories", template="ccb_form/custom_widgets/checkboxselectmultipletree.html"),
                 bootstrap.FormActions(
                     layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
@@ -786,6 +797,9 @@ class CategoriesForm(dynamicforms.Form):
 
         job_offer.job_sectors.clear()
         job_offer.job_sectors.add(*cleaned['job_sectors'])
+
+        job_offer.categories.clear()
+        job_offer.categories.add(*cleaned['categories'])
 
         return job_offer
 
