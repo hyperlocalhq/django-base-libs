@@ -289,6 +289,12 @@ def handle_request(request, year=None, month=None, day=None, post_slug=None, tag
     extra_context[settings.REDIRECT_FIELD_NAME] = request.REQUEST.get(settings.REDIRECT_FIELD_NAME, '')
     container = extra_context['container']
     
+    
+    extra_context['archive_year'] = year
+    extra_context['archive_month'] = month
+    extra_context['archive_day'] = day
+    
+    
     #check some permissions
     if status == STATUS_CODE_DRAFT:
         if not request.user.has_perm("blog.change_blog_posts", container):
@@ -320,7 +326,7 @@ def handle_request(request, year=None, month=None, day=None, post_slug=None, tag
         # TODO find a generic mechanism for incrementing views.
         post = get_object_or_404(Post, slug=post_slug)
         post.increase_views()
-        extra_context['object'] = post
+        extra_context['post'] = post
 
         return render(request, template_name, extra_context)
     
@@ -447,7 +453,7 @@ class BlogPostFormPreviewHandler(FormPreviewHandler):
             'title' : obj.title,
             'body' : obj.body,
             'tags' : obj.tags,
-            'enable_comment_form' : obj.enable_comment_form,
+            #'enable_comment_form' : obj.enable_comment_form,
             'status' : obj.status,
             'published_from' : obj.published_from, 
             'published_till' : obj.published_till,
@@ -480,7 +486,7 @@ class BlogPostFormPreviewHandler(FormPreviewHandler):
              body = cleaned['body'],
              body_markup_type = MARKUP_HTML_WYSIWYG,
              tags = cleaned['tags'],
-             enable_comment_form = cleaned['enable_comment_form'],
+             #enable_comment_form = cleaned['enable_comment_form'],
              status = cleaned['status'],
              published_from = cleaned['published_from'], 
              published_till = cleaned['published_till'],
@@ -494,7 +500,7 @@ class BlogPostFormPreviewHandler(FormPreviewHandler):
         post.body = cleaned['body']
         post.body_markup_type = MARKUP_HTML_WYSIWYG
         post.tags = cleaned['tags']
-        post.enable_comment_form = cleaned['enable_comment_form']
+        #post.enable_comment_form = cleaned['enable_comment_form']
         post.status = cleaned['status']
         post.published_from = cleaned['published_from']
         post.published_till = cleaned['published_till']

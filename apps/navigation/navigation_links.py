@@ -138,14 +138,14 @@ navigation_links = {
             'should_be_shown': for_all,
             'highlight_pattern': r'^/(de|en)/network/member/{{ object.slug }}/events/',
         },
-        # {
-        #     'url_de': '/de/network/member/{{ object.slug }}/blog/',
-        #     'url_en': '/en/network/member/{{ object.slug }}/blog/',
-        #     'text_de': 'Blog',
-        #     'text_en': 'Blog',
-        #     'should_be_shown': for_all,
-        #     'highlight_pattern': r'^/(de|en)/network/member/{{ object.slug }}/blog/',
-        # },
+        {
+            'url_de': '/de/network/member/{{ object.slug }}/blog/',
+            'url_en': '/en/network/member/{{ object.slug }}/blog/',
+            'text_de': 'Blog',
+            'text_en': 'Blog',
+            'should_be_shown': for_all,
+            'highlight_pattern': r'^/(de|en)/network/member/{{ object.slug }}/blog/',
+        },
     ],
 
     'news': [
@@ -251,6 +251,15 @@ navigation_links = {
             'highlight_pattern': r'^/(de|en)/jobs/all/$',
         },
         {
+            'url_de': '/de/jobs/favorites/',
+            'url_en': '/en/jobs/favorites/',
+            'text_de': 'Favoriten',
+            'text_en': 'Favorites',
+            'should_be_shown': for_all,
+            'highlight_pattern': r'^/(de|en)/jobs/favorites/$',
+            'is_login_required': True,
+        },
+        {
             'url_de': '/de/jobs/own-jobs/',
             'url_en': '/en/jobs/own-jobs/',
             'text_de': 'Meine Jobangebote',
@@ -276,6 +285,15 @@ navigation_links = {
             'text_en': 'All',
             'should_be_shown': for_all,
             'highlight_pattern': r'^/(de|en)/marketplace/$',
+        },
+        {
+            'url_de': '/de/marketplace/favorites/',
+            'url_en': '/en/marketplace/favorites/',
+            'text_de': 'Favoriten',
+            'text_en': 'Favorites',
+            'should_be_shown': for_all,
+            'highlight_pattern': r'^/(de|en)/marketplace/favorites/$',
+            'is_login_required': True,
         },
         {
             'url_de': '/de/marketplace/my-bulletins/',

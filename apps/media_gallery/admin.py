@@ -24,6 +24,11 @@ class CCBMediaGalleryOptions(MediaGalleryOptions):
     fieldsets += [
         (_("Details"), {'fields': ("section", "is_featured", "sort_order"), 'classes': ["collapse closed"]}),
     ]
+    fieldsets += [
+        (_("Categories"), {
+            'fields': ('categories',),
+        }),
+    ]
     fieldsets += PublishingMixinAdminOptions.fieldsets
 
 

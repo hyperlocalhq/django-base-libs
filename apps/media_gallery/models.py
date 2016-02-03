@@ -2,6 +2,8 @@
 
 from django.utils.translation import ugettext_lazy as _
 
+from mptt.fields import TreeManyToManyField
+
 from jetson.apps.media_gallery.base import *
 from jetson.apps.media_gallery.base import MediaGalleryManager as MediaGalleryManagerBase
 from base_libs.models import PublishingMixin
@@ -139,6 +141,13 @@ class MediaGalleryManager(MediaGalleryManagerBase):
 
 
 class MediaGallery(MediaGalleryBase, PublishingMixin):
+    categories = TreeManyToManyField(
+        "structure.Category",
+        verbose_name=_("Categories"),
+        limit_choices_to={'level': 0},
+        blank=True,
+    )
+
     section = models.ForeignKey(Section, verbose_name=_("Section"), blank=True, null=True)
 
     objects = MediaGalleryManager()
@@ -162,4 +171,29 @@ class MediaGallery(MediaGalleryBase, PublishingMixin):
 
 
 class MediaFile(MediaFileBase):
-    pass
+    def get_list_image_url(self):
+        if self.splash_image_path:
+            abs_path = os.path.join(UPLOADS_ROOT, self.splash_image_path.path)
+            if os.path.exists(abs_path):
+                try:
+                    url = "".join((
+                        UPLOADS_URL,
+                        image_mods.FileManager.modified_path(self.splash_image_path.path, "project_grid"),
+                        ))
+                except:
+                    pass
+                else:
+                    return url
+        if self.file_type == "i" and self.path:
+            abs_path = os.path.join(UPLOADS_ROOT, self.path.path)
+            if os.path.exists(abs_path):
+                try:
+                    url = "".join((
+                        UPLOADS_URL,
+                        image_mods.FileManager.modified_path(self.path.path, "project_grid"),
+                        ))
+                except:
+                    pass
+                else:
+                    return url
+        return ""

@@ -15,7 +15,7 @@
             {% if request.user.is_authenticated %}
                 {% adding2favorites for object using "generic/favorite_icon.html" %}
             {% else %}
-                <a href="{% url 'login' %}?goto_next={{ request.path }}" class="fawesome fa-favorite button"><span class="sr-only">{% trans "Add to favorites" %}</span></a>
+                <a rel="nofollow" href="{% url 'login' %}?goto_next={{ request.path }}" class="fawesome fa-favorite button"><span class="sr-only">{% trans "Add to favorites" %}</span></a>
             {% endif %}
         </div>
     </div>

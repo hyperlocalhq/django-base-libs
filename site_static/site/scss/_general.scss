@@ -262,6 +262,26 @@ img {
     }
 }
 
+.tiny-mce {
+    img {
+        margin: 0 !important;
+        height: auto !important;
+        width: 100% !important;
+        display: block !important;
+        border: none !important;
+    }
+
+    span {
+        font-size: 1em !important;
+    }
+
+    pre {
+        font-family: $font-2, $font-family-1;
+        font-size: 1em;
+        margin: 0 0 20px 0;
+    }
+}
+
 .ckeditor-embed {
     width: 100%;
     display: block;
@@ -334,6 +354,12 @@ h3 {
         padding-left: 15px;
         .is-xs & {
             padding-left: 10px;
+        }
+    }
+    
+    &.only-time {
+        time {
+            padding-left: 0;
         }
     }
     

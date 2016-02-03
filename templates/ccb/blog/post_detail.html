@@ -1,6 +1,36 @@
-{% load base_tags comments i18n babel auth_extended blog navigation_tags image_mods_tags %}
+{% load base_tags comments i18n babel auth_extended blog navigation_tags image_mods_tags favorites %}
+
+<h3 class="only-time"><time datetime="{{ post.published_from|date:"Y-m-d H:i" }}">{{ post.published_from|date:"d. F Y, H:i" }}</time></h3>
+<h2>{{ post.title }}</h2>
+<div class="tiny-mce">
+    {{ post.get_rendered_body|disarm_user_input }}
+</div>
+
+{% if post.tags %}
+    <div>
+        {% trans "Tags" %}: 
+        {% for tag in post.get_tags %}
+            {% if not forloop.first %}|{% endif %}
+            <a href="{{ container.get_url_path }}tag/{{ tag.slug }}/">{{ tag.name }} </a>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<div class="button-group padding-40">
+    <a href="{{ container.get_url_path }}{% if type %}{{ type.sysname }}/{% endif %}feeds/rss/" class="fawesome fa-rss smaller button"><span class="sr-only">RSS</span></a>
+    <!--<a href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07" class="fawesome fa-plus smaller button" target="_blank"><span class="sr-only">{% trans "Share" %}</span></a>-->
+</div>
+
+<div class="button-group top-right">
+    {% if request.user.is_authenticated %}
+        {% adding2favorites for post using "generic/favorite_icon_number.html" %}
+    {% else %}
+        <div class="fawesome fa-favorite button smaller" onclick="location.href='{% url 'login' %}?goto_next={{ request.path }}'; return false;"><span class="text">{{ post|get_favorites_count }}</span><span class="sr-only">{% trans "Add to favorites" %}</span></div>
+    {% endif %}
+</div>
 
 
+{% comment %}
 <div class="toolbox clearfix">
     <div class="entry-controls">
         <a class="rss" href="{{ container.get_url_path }}{% if type %}{{ type.sysname }}/{% endif %}feeds/rss/"><span><span>RSS</span></span>
@@ -33,37 +63,38 @@
 <div class="entry-details clearfix">
     <div class="headline">
         <div class="blog-info">
-            <span class="date">{{ object.published_from }}</span>
+            <span class="date">{{ post.published_from }}</span>
         </div>
         <h3>
-            {{ object.title }}
+            {{ post.title }}
         </h3>
     </div>
 
-    {{ object.get_rendered_body|disarm_user_input }}
+    {{ post.get_rendered_body|disarm_user_input }}
 
-    {% if object.tags %}
+    {% if post.tags %}
         <div class="post-meta">
             <span>{% trans "Tags" %}: </span>
-            {% for tag in object.get_tags %}
+            {% for tag in post.get_tags %}
                 {% if not forloop.first %}|{% endif %}
                 <a href="{{ container.get_url_path }}tag/{{ tag.slug }}/">{{ tag.name }} </a>
             {% endfor %}
         </div>
     {% endif %}
     <ul class="toolbar right">
-        {% if_has_perm "blog.change_blog_posts" object.blog %}
-            <li id="editPost_{{ object.slug }}" class="editPost">
+        {% if_has_perm "blog.change_blog_posts" post.blog %}
+            <li id="editPost_{{ post.slug }}" class="editPost">
                 <a title="{% trans "edit" %}"
-                    href="{{ object.get_url_path }}edit/"><span><span>{% trans "edit" %}</span></span></a>
+                    href="{{ post.get_url_path }}edit/"><span><span>{% trans "edit" %}</span></span></a>
             </li>
         {% end_if_has_perm %}
 
-        {% if_has_perm "blog.delete_blog_posts" object.blog %}
-            <li id="deletePost_{{ object.slug }}" class="deletePost">
+        {% if_has_perm "blog.delete_blog_posts" post.blog %}
+            <li id="deletePost_{{ post.slug }}" class="deletePost">
                 <a title="{% trans "delete" %}"
-                    href="{{ object.get_url_path }}delete/"><span><span>{% trans "delete" %}</span></span></a>
+                    href="{{ post.get_url_path }}delete/"><span><span>{% trans "delete" %}</span></span></a>
             </li>
         {% end_if_has_perm %}
     </ul>
 </div>
+{% endcomment %}

@@ -128,7 +128,10 @@ class Command(NoArgsCommand):
                 bulletin.bulletin_type = bulletin_type
 
                 bulletin_category_str = get_value(node_bulletin, "category")
-                bulletin.bulletin_category = BULLETIN_CATEGORY_MAPPER.get(bulletin_category_str.lower(), None)
+                bulletin.bulletin_category = BULLETIN_CATEGORY_MAPPER.get(
+                    bulletin_category_str.lower(),
+                    s.default_bulletin_category
+                )
 
                 content = get_value(node_bulletin, "content:encoded") or get_value(node_bulletin, "description")
                 bulletin.description = html_to_plain_text(content)

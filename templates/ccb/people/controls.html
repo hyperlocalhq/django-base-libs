@@ -28,13 +28,13 @@
                 {% endif %}
             {% else %}
                 <li class="favorites login-required">
-                    <a href="{% url 'login' %}?goto_next={{ request.path }}"
+                    <a rel="nofollow" href="{% url 'login' %}?goto_next={{ request.path }}"
                         title="{% trans "Add to contacts" %}">
                         <span><span>{% trans "Add to contacts" %} ({% trans "login request" %})</span></span></a>
                 </li>
                 {% if person.is_contactable %}
                     <li class="mail login-required">
-                        <a href="{% url 'login' %}?goto_next={{ person.get_url_path }}message/"
+                        <a rel="nofollow" href="{% url 'login' %}?goto_next={{ person.get_url_path }}message/"
                             title="{% trans "Send a mail" %}">
                             <span><span>{% trans "Send a mail" %} ({% trans "login request" %})</span></span></a>
                     </li>

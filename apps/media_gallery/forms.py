@@ -2,14 +2,18 @@
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import string_concat
 from django import forms
 from django.conf import settings
 
 from base_libs.forms import dynamicforms
 from base_libs.forms.fields import ImageField, VideoField, AudioField
+from base_libs.utils.misc import get_related_queryset
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
+
+from jetson.apps.utils.forms import ModelMultipleChoiceTreeField, ModelChoiceTreeField
 
 IMAGE_MIN_DIMENSIONS = getattr(settings, "GALLERY_IMAGE_MIN_DIMENSIONS", (850, 400))
 STR_IMAGE_MIN_DIMENSIONS = "%s x %s" % IMAGE_MIN_DIMENSIONS
@@ -331,6 +335,11 @@ class MediaGalleryForm(dynamicforms.Form):
         required=False,
         min_dimensions=IMAGE_MIN_DIMENSIONS,
     )
+    categories = ModelMultipleChoiceTreeField(
+        label=_("Categories"),
+        required=False,
+        queryset=get_related_queryset(MediaGallery, "categories").filter(level=0),
+    )
 
     def __init__(self, gallery, *args, **kwargs):
         super(MediaGalleryForm, self).__init__(*args, **kwargs)
@@ -349,7 +358,7 @@ class MediaGalleryForm(dynamicforms.Form):
                     {% if gallery.cover_image %}
                         <dt>""" + (_("Cover Image") + "") + """</dt><dd><img class="avatar" src="{{ MEDIA_URL}}{{ gallery.cover_image|modified_path:"article" }}" alt="{{ gallery.get_title|escape }}"/></dd>
                     {% else %}
-                        <dt>""" + (_("Cover Image") + "") + """</dt><dd><img class="avatar" src="{{ STATIC_URL }}site/img/placeholder/article_list.png" alt="{{ object.get_title|escape }}"/></dd>
+                        <dt>""" + (_("Cover Image") + "") + """</dt><dd><img class="avatar" src="{{ STATIC_URL }}site/img/placeholder/gallery_square.png" alt="{{ object.get_title|escape }}"/></dd>
                     {% endif %}
                 """),
                 "cover_image",
@@ -358,8 +367,39 @@ class MediaGalleryForm(dynamicforms.Form):
                 "title_en",
                 "description_en",
                 "published",
+                layout.HTML(string_concat('<dt>', _("Categories"), '</dt>')),
+                layout.Field(
+                    "categories",
+                    template="ccb_form/custom_widgets/checkboxselectmultipletree.html",
+                ),
             ),
             bootstrap.FormActions(
                 layout.Submit("submit", _("Save")),
+            )
+        )
+
+
+class MediaGallerySearchForm(forms.Form):
+    category = ModelChoiceTreeField(
+        empty_label=_("All"),
+        label=_("Category"),
+        required=False,
+        queryset=get_related_queryset(MediaGallery, "categories").filter(level=0),
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(MediaGallerySearchForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "GET"
+        self.helper.form_id = "filter_form"
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Filter"),
+                layout.Field("category", template="ccb_form/custom_widgets/filter_field.html"),
+                template="ccb_form/custom_widgets/filter.html"
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Search')),
             )
         )

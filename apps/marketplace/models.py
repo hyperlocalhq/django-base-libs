@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import AnonymousUser
 from django.core.urlresolvers import reverse
 
+from mptt.fields import TreeManyToManyField
 from actstream import action
 
 from jetson.apps.marketplace.base import *
@@ -14,6 +15,13 @@ from jetson.apps.marketplace.base import *
 
 class JobOffer(JobOfferBase):
     talent_in_berlin = models.BooleanField(_("Export to www.talent-in-berlin.de"), default=False)
+
+    categories = TreeManyToManyField(
+        "structure.Category",
+        verbose_name=_("Categories"),
+        limit_choices_to={'level': 0},
+        blank=True,
+    )
 
     def get_locality_type(self):
         from jetson.apps.location.models import LocalityType

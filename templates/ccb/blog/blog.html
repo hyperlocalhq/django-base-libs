@@ -1,6 +1,6 @@
 {% extends base_template %}
 
-{% load base_tags i18n auth_extended babel blog compressed %}
+{% load base_tags i18n auth_extended babel blog %}
 
 {% comment %}<!--
     This is the main template rendered by the handle_request view in the
@@ -14,186 +14,156 @@
 -->{% endcomment %}
 
 {% ifequal archive "details" %}
-    {% block meta_description %}
+    {% block meta_tags %}
+        {{ block.super }}
         <meta name="description" content="{{ post.body|striptags|truncatewords:100 }}..."/>
     {% endblock %}
 {% endifequal %}
 
 {% block extrahead %}
     {{ block.super }}
-    <link rel="alternate" type="application/rss+xml" title="{% trans "Creative City Berlin Blog" %}"
-        href="{{ container.get_url_path }}{% if type %}{{ type.sysname }}/{% endif %}feeds/rss/"/>
-    {% compressed_js "blog" %}
+    <link rel="alternate" type="application/rss+xml" title="{% trans "Creative City Berlin Blog" %}" href="{{ container.get_url_path }}{% if type %}{{ type.sysname }}/{% endif %}feeds/rss/"/>
 {% endblock %}
 
-{% block content %}
-    {{ block.super }}
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-4 col-md-3">
+{% block sidebar %}
 
-                <div class="sidebar-box nav_expanded" id="archives_{{ LANGUAGE_CODE }}">
-                    <h5>
-                        <a href="#" class="open_but">
-                            <b>{% trans "Archives" %}</b>
-                            <span class="pic"></span>
-                        </a>
-                    </h5>
-
-                    <div class="hidable">
-                        {% for year, month_list in archives %}
-                            {% if forloop.first %}
-                                <ul>
-                                <li>
-                                    <a href="{{ container.get_url_path }}">{% trans "All" %}</a>
-                                </li>
-                            {% endif %}
-                        <li>
-                            <a href="{{ container.get_url_path }}{{ year }}/">{{ year }}</a>
-                            {% for month_index, month_name in month_list %}
-                                {% if forloop.first %}
-                                    <ul>
-                                {% endif %}
-                            <li>
-                                <a href="{{ container.get_url_path }}{{ year }}/{{ month_index }}/">
-                                    {{ month_name }}
-                                </a>
-                            </li>
-                            {% if forloop.last %}
-                                </ul>
-                            {% endif %}
-                            {% endfor %}
-                        </li>
-                        {% if forloop.last %}
-                            </ul>
-                        {% endif %}
-                        {% endfor %}
-                        {% if_has_perm "blog.change_blog_posts" container %}
-                            <ul>
-                                <li>
-                                    <a href="{{ container.get_url_path }}new/">{% trans "Add a new blog entry" %}</a>
-                                </li>
-                                <li>
-                                    <a href="{{ container.get_url_path }}drafts/">{% trans "Drafts" %}({{ nof_drafts }})</a>
-                                </li>
-                            </ul>
-                        {% else %}
-                            {% if_has_perm object_change_permission container.content_object %}
-                                <ul>
-                                    <li>
-                                        <a href="{{ container.get_url_path }}new/">{% trans "Add a new blog entry" %}</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ container.get_url_path }}drafts/">{% trans "Drafts" %}({{ nof_drafts }})</a>
-                                    </li>
-                                </ul>
-                            {% end_if_has_perm %}
-                        {% end_if_has_perm %}
-                    </div>
-                </div>
-
-                <div class="sidebar-box nav_expanded" id="block_blog_tags">
-                    <h5>
-                        <a href="#" class="open_but">
-                            <b>{% trans "Tags" %}</b>
-                            <span class="pic"></span>
-                        </a>
-                    </h5>
-
-                    <div class="hidable">
-                        {% tag_cloud_for_blog container as blog_tags %}
-                        <ul>
-                            <li>
-                                <a href="{{ container.get_url_path_path }}">{% trans "All" %}</a>
-                            </li>
-                            {% for blog_tag in blog_tags %}
-                                <li{% if tag == blog_tag.name or tag == blog_tag.slug %} class="active"{% endif %}>
-                                    <a
-                                        href="{{ container.get_url_path }}tag/{{ blog_tag.slug|iriencode }}/">{{ blog_tag.name }}</a>
-                                    ({{ blog_tag.count }})
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-8 col-md-9">
-
-                {% ifequal archive "details" %}
-                    {% include_selected "post_detail.html" for object under "blog" %}
-                {% endifequal %}
-
-                {% ifequal archive "tag_archive" %}
-                    {% include_selected "post_archive.html" for object under "blog" %}
-                {% endifequal %}
-
-                {% ifequal archive "day_archive" %}
-                    {% include_selected "post_archive_day.html" for object under "blog" %}
-                {% endifequal %}
-
-                {% ifequal archive "month_archive" %}
-                    {% include_selected "post_archive_month.html" for object under "blog" %}
-                {% endifequal %}
-
-                {% ifequal archive "year_archive" %}
-                    {% include_selected "post_archive_year.html" for object under "blog" %}
-                {% endifequal %}
-
-                {% ifequal archive "archive" %}
-                    {% include_selected "post_archive.html" for object under "blog" %}
-                {% endifequal %}
-
-            </div>
-        </div>
+    <div class="button-group">
+        {% if_has_perm "blog.change_blog_posts" container %}
+            <a class="fawesome fa-bullhorn button text" href="{{ container.get_url_path }}new/"><span class="text">{% trans "New Blog Entry" %}</span></a>
+            <br class="hidden-xs" /><br class="hidden-xs" />
+        {% else %}
+            {% if_has_perm object_change_permission container.content_object %}
+                <a class="fawesome fa-bullhorn button text" href="{{ container.get_url_path }}new/"><span class="text">{% trans "New Blog Entry" %}</span></a>
+            {% end_if_has_perm %}
+        {% end_if_has_perm %}
+        
+        {% ifequal archive "details" %}
+        
+            {% if_has_perm "blog.change_blog_posts" post.blog %}
+                <a class="fawesome fa-edit button text" href="{{ post.get_url_path }}edit/"><span class="text">{% trans "Edit Blog Entry" %}</span></a>
+            {% end_if_has_perm %}
+            {% if_has_perm "blog.delete_blog_posts" post.blog %}
+                <a class="fawesome fa-close button text" href="{{ post.get_url_path }}delete/"><span class="text">{% trans "Delete Blog Entry" %}</span></a>
+            {% end_if_has_perm %}   
+            
+            {% if_has_perm "blog.change_blog_posts" post.blog %}
+                <br class="hidden-xs" /><br class="hidden-xs" />
+            {% else %}
+                {% if_has_perm "blog.delete_blog_posts" post.blog %}
+                    <br class="hidden-xs" /><br class="hidden-xs" />
+                {% end_if_has_perm %}
+            {% end_if_has_perm %}
+            
+        {% endifequal %}
     </div>
+    
+    <ul class="accordion navi-box">
+        <li class="accordion-inside accordion-trigger opened">
+            <div class="accordion-trigger head">{% trans "Archives" %}</div>
+            <ul class="accordion filter-box">
+                <li><a href="{{ container.get_url_path }}">{% trans "All" %}</a></li>
+                
+                {% for year, month_list in archives %}                    
+                    <li class="accordion-inside accordion-trigger {% if archive_year|add:"0" == year|add:"0" %}opened{% endif %}">
+                        <div class="child accordion-trigger"><a class="{% if archive_year|add:"0" == year|add:"0" and not archive_month %}active{% endif %}" href="{{ container.get_url_path }}{{ year }}/">{{ year }}</a></div>
+                        <ul class="accordion">
+                            
+                            {% for month_index, month_name in month_list %}
+                                <li><a class="{% if archive_year|add:"0" == year|add:"0" and archive_month|add:"0" == month_index|add:"0" %}active{% endif %}" href="{{ container.get_url_path }}{{ year }}/{{ month_index }}/">{{ month_name }}</a></li>
+                            {% endfor %}
+                            
+                        </ul>
+                    </li>
+                {% endfor %}
+                
+                {% if_has_perm "blog.change_blog_posts" container %}
+                    <li><a href="{{ container.get_url_path }}drafts/">{% trans "Drafts" %} ({{ nof_drafts }})</a></li>
+                {% else %}
+                    {% if_has_perm object_change_permission container.content_object %}
+                        <li><a href="{{ container.get_url_path }}drafts/">{% trans "Drafts" %} ({{ nof_drafts }})</a></li>
+                    {% end_if_has_perm %}
+                {% end_if_has_perm %}
+            </ul>
+                
+        <li></li>
+    </ul>
+    
+    {% tag_cloud_for_blog container as blog_tags %}
+    <ul class="accordion navi-box">
+        <li class="accordion-inside accordion-trigger opened">
+            <div class="accordion-trigger head">{% trans "Tags" %}</div>
+            <ul class="accordion filter-box">
+                <li><a href="{{ container.get_url_path_path }}">{% trans "All" %}</a></li>
+                {% for blog_tag in blog_tags %}
+                    <li>
+                        <a {% if tag == blog_tag.name or tag == blog_tag.slug %} class="active"{% endif %} href="{{ container.get_url_path }}tag/{{ blog_tag.slug|iriencode }}/">{{ blog_tag.name }} ({{ blog_tag.count }})</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        <li></li>
+    </ul>
+
+{% endblock %}
+
+{% block details %}
+
+    {% ifequal archive "details" %}
+        {% include_selected "post_detail.html" for object under "blog" %}
+    {% endifequal %}
+
+    {% ifequal archive "tag_archive" %}
+        {% include_selected "post_archive.html" for object under "blog" %}
+    {% endifequal %}
+
+    {% ifequal archive "day_archive" %}
+        {% include_selected "post_archive_day.html" for object under "blog" %}
+    {% endifequal %}
+
+    {% ifequal archive "month_archive" %}
+        {% include_selected "post_archive_month.html" for object under "blog" %}
+    {% endifequal %}
+
+    {% ifequal archive "year_archive" %}
+        {% include_selected "post_archive_year.html" for object under "blog" %}
+    {% endifequal %}
+
+    {% ifequal archive "archive" %}
+        {% include_selected "post_archive.html" for object under "blog" %}
+    {% endifequal %}
 
 {% endblock %}
 
 {% block breadcrumbs_details %}
-    <span class="b-sep"><span>::</span></span>
+    
     {% ifequal post_filter "all" %}
-        <span>{% trans "Blog" %}</span>
+        <li>{% trans "Blog" %}</li>
     {% else %}
-        <a href="{{ container.get_url_path }}">{% trans "Blog" %}</a>
+        <li><a href="{{ container.get_url_path }}">{% trans "Blog" %}</a></li>
     {% endifequal %}
 
     {% ifequal archive "details" %}
-        <span class="b-sep"><span>::</span></span>
-        <a href="{{ container.get_url_path }}{{ post.published_from|date:"Y" }}/">{{ post.published_from|date:"Y" }}</a>
-        <span class="b-sep"><span>::</span></span>
-        <a href="{{ container.get_url_path }}{{ post.published_from|date:"Y" }}/{{ post.published_from|date:"m" }}/">
-            {{ post.published_from|date:"m" }}
-        </a>
-        <span class="b-sep"><span>::</span></span>
-        <a href="{{ container.get_url_path }}{{ post.published_from|date:"Y" }}/{{ post.published_from|date:"m" }}/{{ post.published_from|date:"d" }}/">
-            {{ post.published_from|date:"d" }}
-        </a>
-        <span class="b-sep"><span>::</span></span> <span>{{ post.title|truncatewords:"5" }}</span>
+        <li><a href="{{ container.get_url_path }}{{ post.published_from|date:"Y" }}/">{{ post.published_from|date:"Y" }}</a></li>
+        <li><a href="{{ container.get_url_path }}{{ post.published_from|date:"Y" }}/{{ post.published_from|date:"m" }}/">{{ post.published_from|date:"m" }}</a></li>
+        <li><a href="{{ container.get_url_path }}{{ post.published_from|date:"Y" }}/{{ post.published_from|date:"m" }}/{{ post.published_from|date:"d" }}/">{{ post.published_from|date:"d" }}</a></li>
+        <li>{{ post.title|truncatewords:"5" }}</span></li>
     {% endifequal %}
 
     {% ifequal archive "tag_archive" %}
-        <span class="b-sep"><span>::</span></span> <span>{{ tag }}</span>
+        <li>{{ tag }}</li>
     {% endifequal %}
 
     {% ifequal archive "day_archive" %}
-        <span class="b-sep"><span>::</span></span>
-        <a href="{{ container.get_url_path }}{{ day|date:"Y" }}/">{{ day|date:"Y" }}</a>
-        <span class="b-sep"><span>::</span></span>
-        <a href="{{ container.get_url_path }}{{ day|date:"Y" }}/{{ day|date:"m" }}/">{{ day|datefmt:"MMM" }} </a>
-        <span class="b-sep"><span>::</span></span> <span>{{ day|date:"d" }}</span>
+        <li><a href="{{ container.get_url_path }}{{ day|date:"Y" }}/">{{ day|date:"Y" }}</a></li>
+        <li><a href="{{ container.get_url_path }}{{ day|date:"Y" }}/{{ day|date:"m" }}/">{{ day|datefmt:"MMM" }} </a></li>
+        <li>{{ day|date:"d" }}</li>
     {% endifequal %}
 
     {% ifequal archive "month_archive" %}
-        <span class="b-sep"><span>::</span></span>
-        <a href="{{ container.get_url_path }}{{ month|date:"Y" }}/">{{ month|date:"Y" }}</a>
-        <span class="b-sep"><span>::</span></span> <span>{{ month|datefmt:"MMM" }} </span>
+        <li><a href="{{ container.get_url_path }}{{ month|date:"Y" }}/">{{ month|date:"Y" }}</a></li>
+        <li>{{ month|datefmt:"MMM" }}</li>
     {% endifequal %}
 
     {% ifequal archive "year_archive" %}
-        <span class="b-sep"><span>::</span></span> <span>{{ year }}</span>
+        <li>{{ year }}</li>
     {% endifequal %}
-{% endblock %}
-
-{% block extrabody %}
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
 {% endblock %}

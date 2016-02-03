@@ -5,6 +5,7 @@ from datetime import datetime, time
 
 #from django.utils import timezone
 from django.db import models
+from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
@@ -34,7 +35,7 @@ TOKENIZATION_SUMMAND = models.get_app("bulletin_board").TOKENIZATION_SUMMAND
 
 
 @never_cache
-def bulletin_list(request, category_slug=None, template_name="bulletin_board/bulletin_list.html", **kwargs):
+def bulletin_list(request, category_slug=None, template_name="bulletin_board/bulletin_list.html", show="", **kwargs):
     kwargs['queryset'] = Bulletin.published_objects.order_by("-published_from")
 
     category = None
@@ -44,6 +45,22 @@ def bulletin_list(request, category_slug=None, template_name="bulletin_board/bul
 
     form = BulletinSearchForm(data=request.REQUEST)
     
+    if show == "favorites":
+        queryset = kwargs['queryset']
+        if not request.user.is_authenticated():
+            return access_denied(request)
+        tables = ["favorites_favorite"]
+        condition = [
+            "favorites_favorite.user_id = %d" % request.user.id,
+            "favorites_favorite.object_id = bulletin_board_bulletin.id",
+            "favorites_favorite.content_type_id = %d" % ContentType.objects.get_for_model(queryset.model).pk,
+        ]
+        queryset = queryset.extra(
+            tables=tables,
+            where=condition,
+        ).distinct()
+        kwargs['queryset'] = queryset
+
     facets = {
         'selected': {},
         'categories': {
@@ -69,9 +86,9 @@ def bulletin_list(request, category_slug=None, template_name="bulletin_board/bul
         if lt:
             facets['selected']['locality_type'] = lt
             kwargs['queryset'] = kwargs['queryset'].filter(
-                location_type__lft__gte=lt.lft,
-                location_type__rght__lte=lt.rght,
-                location_type__tree_id=lt.tree_id,
+                locality_type__lft__gte=lt.lft,
+                locality_type__rght__lte=lt.rght,
+                locality_type__tree_id=lt.tree_id,
                 ).distinct()
                 
         bulletin_type = form.cleaned_data['bulletin_type']

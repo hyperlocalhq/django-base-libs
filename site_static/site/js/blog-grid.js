@@ -20,6 +20,7 @@
         $(document).ready(function() {me.styleIt();});
         $('img', $main).load(function() {me.styleIt();});
         me.styleIt();
+        me.styleIt(200);
     }
     
     BlogGrid.prototype.styleIt = function(delay) {

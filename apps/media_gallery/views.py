@@ -1,7 +1,9 @@
 # -*- coding: UTF-8 -*-
 
+from django.utils.translation import ugettext_lazy as _
 from jetson.apps.media_gallery.views import *
 from base_libs.models.models import STATUS_CODE_PUBLISHED
+from .forms import MediaGallerySearchForm
 
 
 def gallery_list(request, queryset, show="featured", paginate_by=None, order_by=None, page=None,
@@ -39,6 +41,17 @@ def gallery_list(request, queryset, show="featured", paginate_by=None, order_by=
         hits
             number of objects, total
     """
+
+    form = MediaGallerySearchForm(data=request.REQUEST)
+
+    if form.is_valid():
+        cat = form.cleaned_data['category']
+        if cat:
+            queryset = queryset.filter(
+                categories__lft__gte=cat.lft,
+                categories__rght__lte=cat.rght,
+                categories__tree_id=cat.tree_id,
+            ).distinct()
 
     if extra_context is None: extra_context = {}
 
@@ -206,6 +219,7 @@ def gallery_list(request, queryset, show="featured", paginate_by=None, order_by=
             c[key] = value()
         else:
             c[key] = value
+    c['form'] = form
     c['filter_field'] = filter_field
     c['filter_value'] = filter_value
     c['group_by'] = group_by

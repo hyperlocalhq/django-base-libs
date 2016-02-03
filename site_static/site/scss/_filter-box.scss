@@ -13,6 +13,10 @@ ul.filter-box {
         font-weight: $font-regular;
         border-left: 1px solid $grey-light;
         border-right: 1px solid $grey-light;
+                
+        &:after {
+            content: none !important;
+        }
         
         div.head {
             background: $grey-bright;
@@ -46,6 +50,12 @@ ul.filter-box {
         div.child {
             position: relative;
             padding-right: 25px;
+            
+            a {
+                font-size: 1em;
+                margin: 0;
+                border-bottom: none;
+            }
             
             &:after {                    
                 position: absolute;
@@ -96,6 +106,33 @@ ul.filter-box {
 
                 a {
                     padding-left: 20px;
+                    
+                    &.level-0 {
+                        &.level-changed {
+                            border-top: 1px solid $grey-light;
+                        }                        
+                    }
+                    
+                    &.level-1 {
+                        padding: 3px 0 3px 40px;
+                        border-bottom: none;
+                        line-height: 133%;
+                        
+                        &.level-changed {
+                            border-top: 1px solid white;
+                            margin-top: -1px;
+                        }
+                    }
+                }
+                
+                &:first-child {
+                    a {
+                        &.level-0 {
+                            &.level-changed {
+                                border-top: none;
+                            }
+                        }
+                    }
                 }
                 
                 &:last-child {

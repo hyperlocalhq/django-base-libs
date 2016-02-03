@@ -7,10 +7,22 @@
             <div class="text">
                 <h3>
                     {{ job_offer.job_type.title }}
+                    {% if job_offer.is_commercial %} <span class="commercial">€</span>{% endif %}                    
                     <time datetime="{{ job_offer.published_from|date:"Y-m-d" }}">
                         {{ job_offer.published_from|datefmt:"long" }}
                     </time>
                 </h3>
+                {% if job_offer.get_urls %}
+                    <h4 data-href="{{ job_offer.get_urls.0.link }}">
+                        {% with domain=job_offer.get_urls.0.domain %}
+                            {% if domain|slice:":4" == "www." %}
+                                {{ domain|slice:"4:" }}
+                            {% else %}
+                                {{ domain }}
+                            {% endif %}
+                        {% endwith %}
+                    </h4>
+                {% endif %}
                 <h2>{{ job_offer.position }}</h2>
                 <p>
                     {{ job_offer.get_description|striptags|truncatewords:20 }}
@@ -26,14 +38,14 @@
         </a>
         {% with job_offer.get_urls|first as url %}
             {% if url %}
-                <a class="website" href="url.link" target="_blank">{{ url.link|truncatechars:50 }}</a>
+                <a class="website" href="{{ url.link }}" target="_blank">{{ url.link|truncatechars:50 }}</a>
             {% endif %}
         {% endwith %}
         <div class="button-group">
             {% if request.user.is_authenticated %}
                 {% adding2favorites for job_offer using "generic/favorite_icon.html" %}
             {% else %}
-                <a href="{% url 'login' %}?goto_next={{ request.path }}" class="fawesome fa-favorite button"><span class="sr-only">{% trans "Add to favorites" %}</span></a>
+                <a rel="nofollow" href="{% url 'login' %}?goto_next={{ request.path }}" class="fawesome fa-favorite button"><span class="sr-only">{% trans "Add to favorites" %}</span></a>
             {% endif %}
         </div>
     </div>

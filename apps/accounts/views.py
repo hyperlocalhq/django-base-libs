@@ -325,6 +325,7 @@ def confirm_registration(request, encrypted_email):
     user.save()
     person = user.profile
     person.status = "published"
+    person.calculate_completeness()
     person.save()
     from django.contrib.auth import login
     login(request, user)
