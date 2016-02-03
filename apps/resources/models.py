@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 from django.utils.translation import ugettext_lazy as _
+from django.core.urlresolvers import reverse
 
 from jetson.apps.resources.base import *
 
@@ -27,6 +28,15 @@ class Document(DocumentBase):
     is_featured = models.BooleanField(_("Featured"), default=False)
 
     objects = DocumentManagerExtended()
+
+    def get_url_path(self):
+        try:
+            path = reverse("document_detail", kwargs={'slug': self.slug})
+        except:
+            # the apphook is not attached yet
+            return ""
+        else:
+            return path
 
     def get_creative_sectors(self):
         return self.creative_sectors.all()

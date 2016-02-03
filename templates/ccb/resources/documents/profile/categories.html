@@ -2,26 +2,26 @@
 
 {% if object.get_categories %}
     <div class="fieldset not-editable ">
-        <fieldset>
+        <fieldset disabled>
             <h2>{% trans "Categories" %}</h2>
-                <dl class="input-fields">
-                    <dt>
-                        {% with object.get_categories|length as sectors_count %}
-                            {% ifequal sectors_count 1 %}
-                                {% trans "Category" %}
-                            {% else %}
-                                {% trans "Categories" %}
-                            {% endifequal %}
-                        {% endwith %}
-                    </dt>
-                    <dd>
-                        <div class="text-field">
-                            {% for cat in object.get_categories %}
-                                <div>{{ cat.get_title|escape }}</div>
-                            {% endfor %}
-                        </div>
-                    </dd>
-                </dl>
+            <dl class="input-fields">
+                <dt>
+                    {% with object.get_categories|length as sectors_count %}
+                        {% ifequal sectors_count 1 %}
+                            {% trans "Category" %}
+                        {% else %}
+                            {% trans "Categories" %}
+                        {% endifequal %}
+                    {% endwith %}
+                </dt>
+                <dd>
+                    <div class="text-field">
+                        {% for cat in object.get_categories %}
+                            <div>{{ cat.title|escape }}</div>
+                        {% endfor %}
+                    </div>
+                </dd>
+            </dl>
         </fieldset>
     </div>
 {% endif %}

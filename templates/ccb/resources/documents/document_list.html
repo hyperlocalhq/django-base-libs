@@ -51,7 +51,7 @@
                                         {% if object.image %}
                                             <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"list" }}" alt="{{ object.get_title|escape }}"/>
                                         {% else %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder/institution.png" alt="{{ object.get_title|escape }}"/>
+                                            <img src="{{ STATIC_URL }}site/img/placeholder/infolink.png" alt="{{ object.get_title|escape }}"/>
                                         {% endif %}
                                         <div class="text">
                                             <h3>{{ object.document_type.get_title|escape }}</h3>
@@ -59,6 +59,14 @@
                                             <p></p>
                                         </div>
                                     </a>
+                                    <div class="button-group">
+                                        {% if request.user.is_authenticated %}
+                                            {% adding2favorites for object using "generic/favorite_icon.html" %}
+                                        {% else %}
+                                            <a rel="nofollow" href="{% url 'login' %}?goto_next={{ request.path }}" class="fawesome fa-favorite button"><span class="sr-only">{% trans "Add to favorites" %}</span></a>
+                                        {% endif %}
+                                        <!-- <a href="#" class="fawesome fa-calender-check button"></a> -->
+                                    </div>
                                 </div>
                             </div>
                         {% endfor %}
