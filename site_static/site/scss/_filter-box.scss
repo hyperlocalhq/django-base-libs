@@ -13,6 +13,10 @@ ul.filter-box {
         font-weight: $font-regular;
         border-left: 1px solid $grey-light;
         border-right: 1px solid $grey-light;
+                
+        &:after {
+            content: none !important;
+        }
         
         div.head {
             background: $grey-bright;
