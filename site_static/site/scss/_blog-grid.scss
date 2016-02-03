@@ -27,7 +27,7 @@
     
     > div {
         
-        &:first-child {
+        /*&:first-child {
             a.content {
             
                 .subline {
@@ -47,7 +47,7 @@
                     }
                 }
             }
-        }
+        }*/
         
         padding: 0;
         margin: 0;
@@ -60,8 +60,10 @@
             
             &:hover, &:focus {
                 background: $white-dirty;
+                box-shadow: 0px -5px 0px 5px $white-dirty;
                 .is-xs & {
                     background: transparent;
+                    box-shadow: none;
                 }
             }
             
@@ -76,6 +78,8 @@
             .subline {
                 border-bottom: 1px solid $grey-bright;
                 margin: 0 0 20px;
+                
+                position: relative;
             }
          
             h3 {
@@ -87,7 +91,7 @@
             }
             
             .statistics {
-                margin: 0 0 20px;
+                /*margin: 0 0 20px;
                 
                 > * {
                     display: inline-block;
@@ -104,6 +108,14 @@
                             margin-left: 0;
                         }
                     }
+                }*/
+                
+                position: absolute;
+                top: 0;
+                right: 0;
+                
+                .is-xs & {
+                    top: -5px;
                 }
             }
             
