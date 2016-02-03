@@ -148,7 +148,6 @@ class Article(ArticleBase, MultiSiteMixin):
             pass
         return url_path
 
-
     def get_newer_published(self):
         try:
             return Article.published_objects.filter(
@@ -168,3 +167,12 @@ class Article(ArticleBase, MultiSiteMixin):
             ).order_by("-published_from")[0]
         except Exception:
             return None
+
+    def get_creative_sectors(self):
+        return self.creative_sectors.all()
+
+    def get_context_categories(self):
+        return []
+
+    def get_categories(self):
+        return self.categories.all()
