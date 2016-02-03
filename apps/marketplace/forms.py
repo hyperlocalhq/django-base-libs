@@ -653,16 +653,3 @@ class JobOfferSearchForm(dynamicforms.Form):
                 layout.Submit('submit', _('Search')),
             ),
         )
-
-    def get_query(self):
-        from django.template.defaultfilters import urlencode
-        if self.is_valid():
-            cleaned = self.cleaned_data
-            return "&".join(
-                [
-                    ("%s=%s" % (k, urlencode(isinstance(v, models.Model) and v.pk or v)))
-                    for (k, v) in cleaned.items()
-                    if v
-                    ]
-            )
-        return ""

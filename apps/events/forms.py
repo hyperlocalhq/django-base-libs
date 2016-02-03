@@ -1853,7 +1853,7 @@ class EventSearchForm(dynamicforms.Form):
                 _("Filter"),
                 layout.Field("category", template="ccb_form/custom_widgets/filter_field.html"),
                 layout.Field("event_type", template="ccb_form/custom_widgets/filter_field.html"),
-                layout.Field("locality_type", template="ccb_form/custom_widgets/filter_field.html"),
+                layout.Field("locality_type", template="ccb_form/custom_widgets/locality_type_filter_field.html"),
                 template="ccb_form/custom_widgets/filter.html"
             ),
             # "keywords",
@@ -1862,16 +1862,3 @@ class EventSearchForm(dynamicforms.Form):
                 layout.Submit('submit', _('Search')),
             )
         )
-
-    def get_query(self):
-        from django.template.defaultfilters import urlencode
-        if self.is_valid():
-            cleaned = self.cleaned_data
-            return "&".join(
-                [
-                    ("%s=%s" % (k, urlencode(isinstance(v, models.Model) and v.pk or v)))
-                    for (k, v) in cleaned.items()
-                    if v
-                ]
-            )
-        return ""
