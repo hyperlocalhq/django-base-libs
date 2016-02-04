@@ -188,6 +188,8 @@ INSTALLED_APPS = [
     "ccb.apps.bulletin_board",
     "ccb.apps.metro",
     "ccb.apps.partners",
+    "ccb.apps.counselling_blog",
+    "ccb.apps.counselling_events",
     "ccb",  # just for i18n in Javascript
     "actstream",
 ]
