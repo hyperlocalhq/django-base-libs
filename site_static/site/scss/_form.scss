@@ -1581,6 +1581,48 @@ input {
         }
         
         
+        .group, .edit-group {
+            position: relative;
+            border-top: 1px solid $grey-bright;
+            margin-bottom: 20px;
+            padding-top: 20px;
+            min-height: 70px;
+            
+            dl.input-fields {
+                dt {
+                    padding-top: 7px;
+                }
+                
+                dd {
+                    padding-top: 0;
+                }
+            }
+            
+            .edit-link {
+                display: inline-block;
+                position: absolute;
+                top: 10px;
+                right: 20px;
+                
+                &.fa-minus {
+                    top: 45px;  
+                }
+            }
+            
+            &:first-of-type {
+                border-top: none;
+                padding-top: 0;
+                
+                .edit-link {
+                    top: -10px;
+                    
+                    &.fa-minus {
+                        top: 25px;
+                    }
+                }
+            }
+        }
+        
         
         &.disabled {
             
@@ -1645,6 +1687,21 @@ input {
                         opacity: 1;
                     }
                 }
+            }
+        
+        
+            .group {
+                position: relative;
+                margin-bottom: 0;
+                min-height: 0;
+                
+                .edit-link {
+                    display: none;
+                }
+            }
+            
+            .edit-group {
+                display: none;
             }
         }
     }
