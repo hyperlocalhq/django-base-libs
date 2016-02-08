@@ -733,7 +733,7 @@ $(document).ready(function() {
         me.$content.append(me.$overlay);
         
         me.top = 0;
-        me.language_value = me.$language.get(0).value;
+        me.language_value = (me.$language.length) ? me.$language.get(0).value : "de";
         
         me.$overlay.click(function() {me.$header.data('MainHeader').onNavigation();});
         me.$window.scroll(function() {me.onScroll();});
@@ -901,7 +901,7 @@ $(document).ready(function() {
         me.$wrapper.prepend('<div class="navigation-bg"></div>');
         
         me.navi_open = false;
-        me.language_value = me.$language.get(0).value;
+        me.language_value = (me.$language.length) ? me.$language.get(0).value : "de";
         
         me.$navi_button.click(function() {me.onNavigation();});
         me.$language.on('closed', function() {me.onLanguageChange();});
@@ -977,7 +977,7 @@ $(document).ready(function() {
         
         me.$main = $main;
         me.$sticky = $('.sticky', me.$main);
-        me.$image = $('img', me.$main).not('.info img').not('.profile img');
+        me.$image = $('img', me.$main).not('.info img').not('.profile img').not('.full');
         me.$headline = $('h1', me.$main);
         me.$info = $('.info', me.$main);
         me.$info_container = $('.info > .container', me.$main);

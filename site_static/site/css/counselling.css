@@ -2674,11 +2674,11 @@ body.show-layer.image-layer .layer#image-layer {
 }
 
 #footer .fawesome.button {
-  background: #b57500;
+  background: #FF7400;
 }
 
 #footer .fawesome.button:hover, #footer .fawesome.button:focus, #footer .fawesome.button:active {
-  background: #dba400;
+  background: #FF9E02;
 }
 
 #footer .footer-logo {
@@ -4504,6 +4504,239 @@ dd.autocomplete .input-field.ac_loading:after {
   opacity: 0;
 }
 
+#body .container .row.event-list {
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+#body .container .row.event-list > div {
+  padding-left: 10px;
+  padding-right: 10px;
+  float: none;
+}
+
+.row.event-list {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.row.event-list h2.date {
+  font-family: "Raleway", "sans-serif";
+  font-weight: 900;
+  font-size: 2em;
+  line-height: 127%;
+  color: #000;
+  padding: 20px 10px 10px;
+  margin: 0;
+}
+
+.row.event-list h2.date:first-child {
+  padding-top: 0;
+}
+
+.is-sm .row.event-list h2.date {
+  font-size: 1.9em;
+}
+
+.is-xs .row.event-list h2.date {
+  font-size: 1.8em;
+}
+
+.row.event-list > div a.content {
+  display: block;
+  background: #fff;
+  overflow: hidden;
+  border-bottom: 1px solid #d8d8d8;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  position: relative;
+}
+
+.row.event-list > div a.content:hover, .row.event-list > div a.content:focus {
+  background: #efefef;
+}
+
+.is-xs .row.event-list > div a.content:hover, .is-xs .row.event-list > div a.content:focus {
+  background: transparent;
+}
+
+.row.event-list > div a.content img {
+  width: 100px;
+  float: left;
+  margin-bottom: 0px;
+}
+
+.is-xs .row.event-list > div a.content img {
+  width: 80px;
+}
+
+.row.event-list > div a.content .text {
+  margin-left: 120px;
+  margin-bottom: 0px;
+}
+
+.is-xs .row.event-list > div a.content .text {
+  margin-left: 100px;
+}
+
+.row.event-list > div a.content .text h2 {
+  font-family: "Raleway", "sans-serif";
+  font-weight: 900;
+  font-size: 1.47em;
+  line-height: 127%;
+  color: #000;
+  padding: 0 20px 5px 0;
+  margin: 0;
+}
+
+.is-sm .row.event-list > div a.content .text h2 {
+  font-size: 1.4em;
+}
+
+.is-xs .row.event-list > div a.content .text h2 {
+  font-size: 1.27em;
+  padding: 0 0 5px;
+}
+
+.row.event-list > div a.content .text h3 {
+  font-family: "Lato", "sans-serif";
+  font-weight: 700;
+  font-size: 1.07em;
+  line-height: 140%;
+  color: #00cdff;
+  text-transform: uppercase;
+  padding: 0 165px 20px 0px;
+  margin: -5px 0 0 0;
+}
+
+.is-sm .row.event-list > div a.content .text h3 {
+  font-size: 1em;
+  padding: 0 135px 15px 0px;
+}
+
+.is-xs .row.event-list > div a.content .text h3 {
+  font-size: 0.73em;
+  padding: 0 0 20px 0;
+  line-height: 126%;
+  margin-top: -2px;
+}
+
+.row.event-list > div a.content .text p {
+  font-size: 1.2em;
+  line-height: 140%;
+  padding: 0 20px 0px 0;
+  margin: 0;
+  color: #000;
+}
+
+.is-sm .row.event-list > div a.content .text p {
+  font-size: 1em;
+}
+
+.is-xs .row.event-list > div a.content .text p {
+  font-size: 1.07em;
+  padding: 0 0 40px;
+  line-height: 150%;
+}
+
+.row.event-list > div a.website {
+  font-size: 1.2em;
+  line-height: 140%;
+  padding: 0;
+  margin-left: 20px;
+  margin-right: 20px;
+  position: absolute;
+  left: 100px;
+  word-break: break-word;
+  word-wrap: break-word;
+}
+
+.is-sm .row.event-list > div a.website {
+  font-size: 1.07em;
+}
+
+.is-xs .row.event-list > div a.website {
+  font-size: 1.07em;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.row.event-list > div .button-group {
+  position: absolute;
+  top: 9px;
+  right: 20px;
+}
+
+.is-sm .row.event-list > div .button-group {
+  top: 5px;
+}
+
+.is-xs .row.event-list > div .button-group {
+  position: absolute;
+  top: inherit;
+  right: inherit;
+  left: 100px;
+  bottom: 20px;
+}
+
+.row.event-list > div .button-group .button {
+  padding: 0;
+  background: none;
+  border-radius: 0;
+  color: #afaeae;
+  font-size: inherit;
+  display: none;
+  margin-left: 20px;
+  margin-right: 0;
+  margin-bottom: 0;
+  width: auto;
+}
+
+.is-sm .row.event-list > div .button-group .button {
+  margin-left: 15px;
+}
+
+.is-xs .row.event-list > div .button-group .button {
+  display: inline-block;
+}
+
+.row.event-list > div .button-group .button:hover, .row.event-list > div .button-group .button:focus {
+  color: #000;
+}
+
+.row.event-list > div .button-group .button:before {
+  font-size: 2em;
+  line-height: 100%;
+}
+
+.is-sm .row.event-list > div .button-group .button:before {
+  font-size: 1.67em;
+}
+
+.is-xs .row.event-list > div .button-group .button:before {
+  font-size: 1.67em;
+}
+
+.row.event-list > div .button-group .button.active {
+  display: inline-block;
+}
+
+.row.event-list > div .button-group .button:first-child {
+  margin-left: 0;
+}
+
+.row.event-list > div .wrapper {
+  position: relative;
+}
+
+.row.event-list > div .wrapper:hover .button-group .button {
+  display: inline-block;
+}
+
 #header {
   background: #d8d8d8;
 }
@@ -4603,7 +4836,7 @@ dd.autocomplete .input-field.ac_loading:after {
 }
 
 .is-xs #header img.logo {
-  padding: 10px 0;
+  padding: 13px 0 17px;
 }
 
 #header .languages {
@@ -5525,7 +5758,7 @@ p + h2, p + h4, p + h5 {
 }
 
 .fawesome.button.text:before, .fawesome.btn.text:before {
-  background: #b57500;
+  background: #FF7400;
   line-height: 205%;
   width: 2.00em;
   height: 2.00em;
@@ -5540,7 +5773,7 @@ p + h2, p + h4, p + h5 {
 }
 
 .fawesome.button.text:hover:before, .fawesome.button.text:focus:before, .fawesome.btn.text:hover:before, .fawesome.btn.text:focus:before {
-  background: #dba400;
+  background: #FF9E02;
 }
 
 .is-xs .fawesome.button.text, .is-xs .fawesome.btn.text {
@@ -5551,7 +5784,7 @@ p + h2, p + h4, p + h5 {
 }
 
 .is-xs .fawesome.button.text .text, .is-xs .fawesome.btn.text .text {
-  display: inherit;
+  display: initial;
 }
 
 .is-xs .fawesome.button.text:before, .is-xs .fawesome.btn.text:before {
@@ -5566,6 +5799,14 @@ p + h2, p + h4, p + h5 {
 
 .is-xs .fawesome.button.text:after, .is-xs .fawesome.btn.text:after {
   content: none !important;
+}
+
+.is-xs #header img.logo {
+  padding-left: 55px;
+}
+
+.is-xs #header.fixed img.logo {
+  padding-left: 40px;
 }
 
 .header.start-page {
@@ -5603,14 +5844,20 @@ p + h2, p + h4, p + h5 {
 
 .header .button {
   display: block;
-  position: relative;
+  position: absolute !important;
   top: 50%;
-  margin: -12px auto 0;
+  margin: -46px 0 0 -175px;
   max-width: 330px !important;
 }
 
 .is-xs .header .button {
+  position: absolute !important;
+  margin: -46px 0 0 -150px;
   max-width: 300px !important;
+}
+
+#footer a {
+  text-decoration: none;
 }
 
 .is-md #footer .footer-logo {
@@ -5696,7 +5943,7 @@ p + h2, p + h4, p + h5 {
   width: 100%;
   position: absolute;
   top: 50%;
-  color: #b57500;
+  color: #FF7400;
   text-align: center;
   margin-top: -3.73em;
   line-height: 3.73em;
@@ -5716,7 +5963,7 @@ p + h2, p + h4, p + h5 {
 }
 
 .row.navi-grid > div a.content h2 {
-  color: #b57500;
+  color: #FF7400;
   font-size: 2.13em;
   letter-spacing: 0;
   text-transform: none;
@@ -5728,20 +5975,100 @@ p + h2, p + h4, p + h5 {
 }
 
 .row.navi-grid > div a.content:hover span.fawesome, .row.navi-grid > div a.content:focus span.fawesome, .row.navi-grid > div a.content:active span.fawesome {
-  color: #dba400;
+  color: #FF9E02;
 }
 
 .row.navi-grid > div a.content:hover h2, .row.navi-grid > div a.content:focus h2, .row.navi-grid > div a.content:active h2 {
-  color: #dba400;
+  color: #FF9E02;
 }
 
-.infobox {
+.row.event-list h2.date {
+  font-family: "Raleway", "sans-serif";
+  font-weight: 900;
+  font-size: 1.2em;
+  padding-bottom: 5px;
+}
+
+.is-sm .row.event-list h2.date, .is-xs .row.event-list h2.date {
+  font-family: "Raleway", "sans-serif";
+  font-weight: 900;
+  font-size: 1.2em;
+  padding-bottom: 5px;
+}
+
+.row.event-list > div .wrapper {
+  padding: 5px 0;
+  border-bottom: 1px solid #d8d8d8;
+}
+
+.row.event-list > div a.content {
+  text-decoration: none;
+  border: none;
+}
+
+.row.event-list > div a.content .text h3 {
+  font-family: "Lato", "sans-serif";
+  font-weight: 900;
+  font-size: 0.8em;
+  color: #b57500;
+  margin: 0;
+  padding: 0 20px 5px 0;
+}
+
+.is-sm .row.event-list > div a.content .text h3, .is-xs .row.event-list > div a.content .text h3 {
+  font-family: "Lato", "sans-serif";
+  font-weight: 900;
+  font-size: 0.8em;
+  color: #b57500;
+  margin: 0;
+  padding: 0 20px 5px 0;
+}
+
+.row.event-list > div a.content .text h2 {
+  font-family: "Raleway", "sans-serif";
+  font-weight: 900;
+  font-size: 1.2em;
+  text-transform: none;
+  padding: 0 20px 10px 0;
+}
+
+.is-sm .row.event-list > div a.content .text h2, .is-xs .row.event-list > div a.content .text h2 {
+  font-family: "Raleway", "sans-serif";
+  font-weight: 900;
+  font-size: 1.2em;
+  text-transform: none;
+  padding: 0 20px 10px 0;
+}
+
+.row.event-list > div a.content .text p {
+  font-family: "Lato", "sans-serif";
+  font-weight: 400;
+  font-size: 0.93em;
+  line-height: 133%;
+  color: #444444;
+}
+
+.is-sm .row.event-list > div a.content .text p, .is-xs .row.event-list > div a.content .text p {
+  font-family: "Lato", "sans-serif";
+  font-weight: 400;
+  font-size: 0.93em;
+  line-height: 133%;
+  color: #444444;
+  padding-bottom: 0;
+}
+
+.row.event-list .button-group {
+  display: none;
+}
+
+.infobox .cms-plugin-richtext {
   width: 100%;
   background: #fff7e1;
   border: 1px solid #afaeae;
+  margin-bottom: 30px;
 }
 
-.infobox h2:first-child, .infobox h3:first-child, .infobox h4:first-child, .infobox h5:first-child, .infobox p:first-child {
+.infobox .cms-plugin-richtext h2:first-child, .infobox .cms-plugin-richtext h3:first-child, .infobox .cms-plugin-richtext h4:first-child, .infobox .cms-plugin-richtext h5:first-child, .infobox .cms-plugin-richtext p:first-child {
   background: url(../img/counselling/bg_pattern.gif);
   font-family: "Raleway", "sans-serif";
   font-weight: 900;
@@ -5753,15 +6080,15 @@ p + h2, p + h4, p + h5 {
   margin-bottom: 20px;
 }
 
-.infobox h2:last-child, .infobox h3:last-child, .infobox h4:last-child, .infobox h5:last-child, .infobox p:last-child {
+.infobox .cms-plugin-richtext h2:last-child, .infobox .cms-plugin-richtext h3:last-child, .infobox .cms-plugin-richtext h4:last-child, .infobox .cms-plugin-richtext h5:last-child, .infobox .cms-plugin-richtext p:last-child {
   margin-bottom: 40px;
 }
 
-.infobox h2, .infobox h3, .infobox h4, .infobox h5 {
+.infobox .cms-plugin-richtext h2, .infobox .cms-plugin-richtext h3, .infobox .cms-plugin-richtext h4, .infobox .cms-plugin-richtext h5 {
   padding: 0 40px;
 }
 
-.infobox p {
+.infobox .cms-plugin-richtext p {
   padding: 0 40px;
   font-weight: 700;
 }

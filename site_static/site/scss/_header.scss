@@ -112,7 +112,7 @@
             transition: width 0.4s, height 0.4s, padding 0.4s;
         
         .is-xs & {
-            padding: $header-logo-padding-xs 0;
+            padding: $header-logo-padding-top-xs 0 $header-logo-padding-bottom-xs;
         }
     }
     

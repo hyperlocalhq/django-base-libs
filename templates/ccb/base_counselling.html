@@ -104,13 +104,13 @@
         {% cms_toolbar %}
         
         <div id="navigation">
-            <nav>
+            <nav><!--
                 <div class="buttons visible-xs">
-                    <!--<button class="fawesome fa-search button header-search"><span class="sr-only">{% trans 'search entire website' %}</span></button>-->
+                    <button class="fawesome fa-search button header-search"><span class="sr-only">{% trans 'search entire website' %}</span></button>
                     <div class="input-field select languages">
                         {% language_chooser "utils/includes/navi_language_chooser.html" %}
                     </div>
-                </div>
+                </div>-->
                 <ul class="accordion">
                     {% show_menu_below_id "start_page_counselling" 0 3 3 3 "navigation/main_navigation.html" %}
                 </ul>
@@ -121,7 +121,7 @@
             
             <div id="header">
                 <div class="wrapper">
-                    <a href="{% page_url "start_page_counselling" %}"><img class="logo" src="{{ STATIC_URL }}site/img/default/ccb_logo_beta.gif" alt="Creative City Berlin" /></a>
+                    <a href="{% page_url "start_page_counselling" %}"><img class="logo" src="{{ STATIC_URL }}site/img/counselling/kwbb_logo.gif" alt="Kreativwirtschaftsberatung Berlin" /></a>
                     <button class="fawesome fa-menu button navigation"><span class="sr-only">{% trans 'toggle menu' %}</span></button>
                     <!--<button class="fawesome fa-search button header-search"><span class="sr-only">{% trans 'search entire website' %}</span></button>-->
                     {% if user.is_authenticated %}
@@ -129,9 +129,10 @@
                     {% else %}
                         <!--<a href="{% url 'login' %}" class="fawesome fa-man button"><span class="sr-only">{% trans 'login' %}</span></a>-->
                     {% endif %}
+                    <!--
                     <div class="input-field select languages">
                         {% language_chooser "utils/includes/language_chooser.html" %}
-                    </div>
+                    </div>-->
                 </div>
             </div>
                 
@@ -181,7 +182,7 @@
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                         <h3>{% trans 'Links' %}</h3>
-                        {% show_menu_below_id "meta" 0 1 1 1 "navigation/meta_navigation.html" %}
+                        {% show_menu_below_id "meta-counselling" 0 1 1 1 "navigation/meta_navigation_counselling.html" %}
                     </div>
                 </div>
                 <div class="row">

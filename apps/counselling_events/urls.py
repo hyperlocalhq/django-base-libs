@@ -18,8 +18,8 @@ event_list_info = {
 urlpatterns = [
     url(
         r'^$',
-        'ccb.apps.network.views.member_events_list',
+        'ccb.apps.counselling_events.views.counselling_events_list',
         event_list_info,
-        name="member_event_list"
+        name="counselling_event_list"
     )
 ]
