@@ -12,11 +12,11 @@ verbose_name = _("Metro")
 
 
 class Tile(SysnameMixin()):
-    path = FileBrowseField(_('File path'), max_length=255, blank=True,
-                           help_text=_("A path to a locally stored image."))
+    path = FileBrowseField(_('File path'), max_length=255, blank=True, help_text=_("A path to a locally stored image."))
     link = MultilingualURLField(_('Link'), max_length=255, blank=True)
     title = MultilingualCharField(_("Title"), max_length=200, blank=True)
     description = MultilingualPlainTextField(_("Description"), blank=True)
+    icon = models.CharField(_('Icon'), max_length=30, blank=True, help_text=_("The name of an icon (counselling version)."))
 
     class Meta:
         verbose_name = _("tile")

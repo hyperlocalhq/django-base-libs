@@ -154,16 +154,29 @@ class ContextItemManager(models.Manager):
         item.modified_date = obj.modified_date
 
         for lang_code, lang_title in settings.LANGUAGES:
-            setattr(
-                item,
-                "title_%s" % lang_code,
-                getattr(obj, "title_%s" % lang_code),
-            )
-            setattr(
-                item,
-                "description_%s" % lang_code,
-                getattr(obj, "description_%s" % lang_code),
-            )
+            try:
+                setattr(
+                    item,
+                    "title_%s" % lang_code,
+                    getattr(obj, "title_%s" % lang_code),
+                )
+                setattr(
+                    item,
+                    "description_%s" % lang_code,
+                    getattr(obj, "description_%s" % lang_code),
+                )
+            except AttributeError:
+                setattr(
+                    item,
+                    "title_%s" % lang_code,
+                    getattr(obj, "title"),
+                )
+                setattr(
+                    item,
+                    "description_%s" % lang_code,
+                    getattr(obj, "description"),
+                )
+
         item.slug = obj.slug
         item.status = obj.status
 

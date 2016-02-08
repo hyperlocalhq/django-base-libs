@@ -278,6 +278,7 @@ $(document).ready(function() {
             
             var $accordion = $('> .accordion', $child);
             if (!$child.hasClass('opened')) offset += $accordion.data('height');
+            //else alert('yo');
         });
         
         var height = me.$main.height() - offset;
@@ -723,7 +724,7 @@ $(document).ready(function() {
         me.$language = $('#language-navi', me.$main);
         me.$header = $('#header');
         me.$content = $('#body');
-        me.$breadcrunbs = $('#breadcrumbs');
+        me.$breadcrumbs = $('#breadcrumbs');
         me.$footer = $('#footer');
         me.$body = $('body');
         me.$window = $(window);
@@ -816,8 +817,8 @@ $(document).ready(function() {
         
         var me = this.me;
         
-        var header_height = (me.$body.hasClass('is-xs')) ? 70 : 114;
-        var scroll_offset = (me.$body.hasClass('is-xs')) ? 25 : 54;
+        var header_height = (me.$body.hasClass('is-xs')) ? 70 : (me.$body.hasClass('counselling') ? 78 : 114);
+        var scroll_offset = (me.$body.hasClass('is-xs')) ? 25 : (me.$body.hasClass('counselling') ? 18 : 54);
         var scroll_top = me.$window.scrollTop();
         
         scroll_top -= scroll_offset;
@@ -849,7 +850,8 @@ $(document).ready(function() {
         me.$main.css('min-height', content_height + 'px');
         
         if (!me.$body.hasClass('is-xs')) {
-            me.$main.css('margin-bottom', me.$breadcrunbs.height() + me.$footer.height() + 'px');
+            var breadcrumbs_height = (me.$breadcrumbs.length) ? me.$breadcrumbs.height() : 0;
+            me.$main.css('margin-bottom', breadcrumbs_height + me.$footer.height() + 'px');
         } else {
             me.$main.css('margin-bottom', me.$footer.height() + 'px');
         }
@@ -1022,7 +1024,7 @@ $(document).ready(function() {
         
         me.$main.css('height', '');
         
-        if (!me.$body.hasClass('is-xs')) {
+        if (!me.$body.hasClass('is-xs') || me.$body.hasClass('counselling')) {
             var image_height = me.$image.height();
             me.$main.height(image_height);
             me.$sticky.height(image_height);
