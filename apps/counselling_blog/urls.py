@@ -8,11 +8,6 @@ from jetson.apps.blog.forms import BlogPostForm
 from jetson.apps.blog.views import BlogPostFormPreviewHandler
 from jetson.apps.blog.feeds import RssFeed, AtomFeed
 
-feed_dict = dict(
-    rss=RssFeed,
-    atom=AtomFeed,
-)
-
 all_dict = dict(
     include=['member'],
     only_for_this_site=True,
@@ -22,6 +17,12 @@ all_dict = dict(
     url_identifier='blog',
     base_template='counselling_blog/base.html',
     template_app_dir='counselling_blog',
+)
+
+feed_dict = dict(
+    rss=RssFeed,
+    atom=AtomFeed,
+    **all_dict
 )
 
 urlpatterns = patterns(
