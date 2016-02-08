@@ -4,16 +4,20 @@ from jetson.apps.utils.context_processors import prev_next_processor
 from ccb.apps.events.models import Event
 
 event_list_info = {
+    'queryset': Event.objects.all(),
     'allow_empty': True,
     'context_processors': (prev_next_processor,),
-    # 'end_date': None,
     'paginate_by': 24,
-    'queryset': Event.objects.all(),
-    'slug': u'kreativwirtschaftsberatung_berlin',
-    # 'start_date': None,
-    'template_name': '',  # template name is defined in the view
-    # 'unlimited': None,
 }
+
+event_details_info = {
+    'queryset': Event.objects.all(),
+    'slug_field': 'slug',
+    'template_name': 'counselling_events/event_details.html',
+    'context_processors': (prev_next_processor,),
+    'context_item_type': 'event',
+}
+
 
 urlpatterns = [
     url(
@@ -21,5 +25,24 @@ urlpatterns = [
         'ccb.apps.counselling_events.views.counselling_events_list',
         event_list_info,
         name="counselling_event_list"
-    )
+    ),
+    url(
+        r'^'
+        r'event/'
+        r'(?P<slug>[^/]+)/'
+        r'((?P<event_time>\d+)/)?'
+        r'$',
+        'ccb.apps.counselling_events.views.counselling_event_detail',
+        event_details_info,
+        name="event_detail",
+    ),
+    url(
+        r'^'
+        r'event/'
+        r'(?P<slug>[^/]+)/'
+        r'((?P<event_time>\d+)/)?'
+        r'ical/'
+        r'$',
+        'ccb.apps.counselling_events.views.counselling_event_ical',
+    ),
 ]

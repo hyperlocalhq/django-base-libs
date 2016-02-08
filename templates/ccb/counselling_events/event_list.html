@@ -29,11 +29,11 @@
                 {% endwith %}
                 
                 {% if view_type == "icons" %}
-                    {% include "events/lists/event_icons.html" %}
+                    {% include "counselling_events/lists/event_icons.html" %}
                 {% elif view_type == "listed" %}
-                    {% include "events/lists/event_listed.html" %}
+                    {% include "counselling_events/lists/event_listed.html" %}
                 {% elif view_type == "map" %}
-                    {% include "events/lists/event_mapped.html" %}
+                    {% include "counselling_events/lists/event_mapped.html" %}
                 {% endif %}
                 
             {% endfor %}
