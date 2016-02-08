@@ -29,7 +29,7 @@
             <a rel="nofollow" href="{% url 'login' %}?goto_next={{ request.path }}" class="fawesome fa-favorite button switch text"><span class="text">{% trans "Favorite" %}</span></a>
         {% endif %}
 
-        {% if perms.media_gallery.change_media_gallery %}
+        {% if object.is_editable %}
             <a class="fawesome fa-folder-open button text" href="{{ request.path }}manage/" >
                 <span class="text">{% trans "Manage Project" %}</span>
             </a>
