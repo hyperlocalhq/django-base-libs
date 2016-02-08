@@ -9,4 +9,3 @@ class CounsellingEventsApphook(CMSApp):
     urls = ["ccb.apps.counselling_events.urls"]
 
 apphook_pool.register(CounsellingEventsApphook)
-print 'registered counselling events app'
