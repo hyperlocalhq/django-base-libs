@@ -257,7 +257,7 @@ def member_events_list(request, slug, **kwargs):
         person = item.content_object
         kwargs['queryset'] = kwargs['queryset'].filter(
             models.Q(organizing_person=person)
-        ).order_by('-creation_date')
+        ).order_by('start')
         kwargs['template_name'] = 'people/person_events.html'
     else:
         if not request.user.has_perm("institutions.change_institution", item.content_object) and item.status not in ("published", "published_commercial"):
@@ -266,7 +266,7 @@ def member_events_list(request, slug, **kwargs):
         kwargs['queryset'] = kwargs['queryset'].filter(
             models.Q(organizing_institution=institution) |
             models.Q(venue=institution),
-        ).order_by('-creation_date')
+        ).order_by('start')
         kwargs['template_name'] = 'institutions/institution_events.html'
 
     kwargs.setdefault("extra_context", {})

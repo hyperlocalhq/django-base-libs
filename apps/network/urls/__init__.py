@@ -30,7 +30,7 @@ member_detail_info = {
 }
 
 event_list_info = {
-    'queryset': Event.objects.all(),
+    'queryset': Event.objects.filter(status="published"),
     'template_name': '',  # template name is defined in the view
     'paginate_by': 24,
     'allow_empty': True,
