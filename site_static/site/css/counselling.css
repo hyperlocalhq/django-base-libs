@@ -5762,7 +5762,7 @@ p + h2, p + h4, p + h5 {
   line-height: 205%;
   width: 2.00em;
   height: 2.00em;
-  margin: 0px 10% 0px 0px;
+  margin: 0px 6% 0px 0px;
   position: relative;
   top: -2px;
   left: 1px;
@@ -5785,6 +5785,7 @@ p + h2, p + h4, p + h5 {
 
 .is-xs .fawesome.button.text .text, .is-xs .fawesome.btn.text .text {
   display: initial;
+  font-size: 0.95em;
 }
 
 .is-xs .fawesome.button.text:before, .is-xs .fawesome.btn.text:before {
@@ -5792,7 +5793,7 @@ p + h2, p + h4, p + h5 {
   height: 1.9em;
   font-size: 1.1em;
   line-height: 200%;
-  margin: 0px 10% 0px 0px;
+  margin: 0px 4% 1px 0px;
   z-index: 1;
   position: relative;
 }
