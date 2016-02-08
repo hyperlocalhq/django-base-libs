@@ -267,6 +267,7 @@ def get_archives(queryset):
     return sorted(archives.items(), reverse=True)
 
 
+@never_cache
 def handle_request(request, object_url_part, url_identifier, year=None, month=None, day=None, post_slug=None, tag=None,
                    status=STATUS_CODE_PUBLISHED, paginate_by=None, page=None, allow_future=False, allow_empty=True,
                    extra_context=None, context_processors=None, template_app_dir="blog", **kwargs):
@@ -282,9 +283,6 @@ def handle_request(request, object_url_part, url_identifier, year=None, month=No
     container        The blog container (defined by the rel. object)
 
     """
-    if "fresh" in request.GET:
-        return redirect(request.path)
-
     if not extra_context:
         extra_context = {}
     template_object_name = 'post'
@@ -431,7 +429,7 @@ class BlogPostFormPreviewHandler(FormPreviewHandler):
         else:
             path = self.container.get_url_path()
         expire_page(self.request, path)
-        return redirect(path + '?fresh')
+        return redirect(path)
 
     def cancel(self, action):
         return self.redirect(action)
