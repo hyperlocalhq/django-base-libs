@@ -1,0 +1,30 @@
+{% load base_tags comments i18n babel auth_extended blog navigation_tags image_mods_tags favorites cms_tags %}
+
+<h3 class="only-time"><time datetime="{{ post.published_from|date:"Y-m-d H:i" }}">{{ post.published_from|date:"d. F Y, H:i" }}</time></h3>
+<h2>{{ post.title }}</h2>
+<div class="tiny-mce">
+    {{ post.get_rendered_body|disarm_user_input }}
+</div>
+
+{% if post.tags %}
+    <div>
+        {% trans "Tags" %}: 
+        {% for tag in post.get_tags %}
+            {% if not forloop.first %}|{% endif %}
+            <a href="{% page_url request.current_page %}tag/{{ tag.slug }}/">{{ tag.name }} </a>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<div class="button-group padding-40">
+    <a href="{% page_url request.current_page %}{% if type %}{{ type.sysname }}/{% endif %}feeds/rss/" class="fawesome fa-rss smaller button"><span class="sr-only">RSS</span></a>
+    <!--<a href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ad8ac114ae54f07" class="fawesome fa-plus smaller button" target="_blank"><span class="sr-only">{% trans "Share" %}</span></a>-->
+</div>
+
+<div class="button-group top-right">
+    {% if request.user.is_authenticated %}
+        {% adding2favorites for post using "generic/favorite_icon_number.html" %}
+    {% else %}
+        <div class="fawesome fa-favorite button smaller" onclick="location.href='{% url 'login' %}?goto_next={{ request.path }}'; return false;"><span class="text">{{ post|get_favorites_count }}</span><span class="sr-only">{% trans "Add to favorites" %}</span></div>
+    {% endif %}
+</div>

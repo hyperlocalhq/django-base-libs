@@ -1,0 +1,169 @@
+{% extends base_template %}
+
+{% load base_tags i18n auth_extended babel blog cms_tags %}
+
+{% comment %}<!--
+    This is the main template rendered by the handle_request view in the
+    blog application. To minimize code, this is the "main template".
+     
+    context vars used:
+    
+    base_template   A "base template" used for template inheritance.
+    object          The object related to the blog (or None)
+    container       The blog container (defined by the rel. object)
+-->{% endcomment %}
+
+{% ifequal archive "details" %}
+    {% block meta_tags %}
+        {{ block.super }}
+        <meta name="description" content="{{ post.body|striptags|truncatewords:100 }}..."/>
+    {% endblock %}
+{% endifequal %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <link rel="alternate" type="application/rss+xml" title="{% trans "Creative City Berlin Blog" %}" href="{% page_url request.current_page %}{% if type %}{{ type.sysname }}/{% endif %}feeds/rss/"/>
+{% endblock %}
+
+{% block sidebar %}
+
+    <div class="button-group">
+        {% if_has_perm "blog.change_blog_posts" container %}
+            <a class="fawesome fa-bullhorn button text" href="{{ container.get_url_path }}new/"><span class="text">{% trans "New Blog Entry" %}</span></a>
+            <br class="hidden-xs" /><br class="hidden-xs" />
+        {% else %}
+            {% if_has_perm object_change_permission container.content_object %}
+                <a class="fawesome fa-bullhorn button text" href="{% page_url request.current_page %}new/"><span class="text">{% trans "New Blog Entry" %}</span></a>
+            {% end_if_has_perm %}
+        {% end_if_has_perm %}
+        
+        {% ifequal archive "details" %}
+        
+            {% if_has_perm "blog.change_blog_posts" post.blog %}
+                <a class="fawesome fa-edit button text" href="{% page_url request.current_page %}{{ post.get_relative_url }}edit/"><span class="text">{% trans "Edit Blog Entry" %}</span></a>
+            {% end_if_has_perm %}
+            {% if_has_perm "blog.delete_blog_posts" post.blog %}
+                <a class="fawesome fa-close button text" href="{% page_url request.current_page %}{{ post.get_relative_url }}delete/"><span class="text">{% trans "Delete Blog Entry" %}</span></a>
+            {% end_if_has_perm %}   
+            
+            {% if_has_perm "blog.change_blog_posts" post.blog %}
+                <br class="hidden-xs" /><br class="hidden-xs" />
+            {% else %}
+                {% if_has_perm "blog.delete_blog_posts" post.blog %}
+                    <br class="hidden-xs" /><br class="hidden-xs" />
+                {% end_if_has_perm %}
+            {% end_if_has_perm %}
+            
+        {% endifequal %}
+    </div>
+    
+    <ul class="accordion navi-box">
+        <li class="accordion-inside accordion-trigger opened">
+            <div class="accordion-trigger head">{% trans "Archives" %}</div>
+            <ul class="accordion filter-box">
+                <li><a href="{% page_url request.current_page %}">{% trans "All" %}</a></li>
+                
+                {% for year, month_list in archives %}                    
+                    <li class="accordion-inside accordion-trigger {% if archive_year|add:"0" == year|add:"0" %}opened{% endif %}">
+                        <div class="child accordion-trigger"><a class="{% if archive_year|add:"0" == year|add:"0" and not archive_month %}active{% endif %}" href="{% page_url request.current_page %}{{ year }}/">{{ year }}</a></div>
+                        <ul class="accordion">
+                            
+                            {% for month_index, month_name in month_list %}
+                                <li><a class="{% if archive_year|add:"0" == year|add:"0" and archive_month|add:"0" == month_index|add:"0" %}active{% endif %}" href="{% page_url request.current_page %}{{ year }}/{{ month_index }}/">{{ month_name }}</a></li>
+                            {% endfor %}
+                            
+                        </ul>
+                    </li>
+                {% endfor %}
+                
+                {% if_has_perm "blog.change_blog_posts" container %}
+                    <li><a href="{{ container.get_url_path }}drafts/">{% trans "Drafts" %} ({{ nof_drafts }})</a></li>
+                {% else %}
+                    {% if_has_perm object_change_permission container.content_object %}
+                        <li><a href="{% page_url request.current_page %}drafts/">{% trans "Drafts" %} ({{ nof_drafts }})</a></li>
+                    {% end_if_has_perm %}
+                {% end_if_has_perm %}
+            </ul>
+                
+        <li></li>
+    </ul>
+    
+    {% tag_cloud_for_blog container as blog_tags %}
+    <ul class="accordion navi-box">
+        <li class="accordion-inside accordion-trigger opened">
+            <div class="accordion-trigger head">{% trans "Tags" %}</div>
+            <ul class="accordion filter-box">
+                <li><a href="{{ container.get_url_path_path }}">{% trans "All" %}</a></li>
+                {% for blog_tag in blog_tags %}
+                    <li>
+                        <a {% if tag == blog_tag.name or tag == blog_tag.slug %} class="active"{% endif %} href="{% page_url request.current_page %}tag/{{ blog_tag.slug|iriencode }}/">{{ blog_tag.name }} ({{ blog_tag.count }})</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        <li></li>
+    </ul>
+
+{% endblock %}
+
+{% block details %}
+
+    {% ifequal archive "details" %}
+        {% include_selected "post_detail.html" for object under "counselling_blog" %}
+    {% endifequal %}
+
+    {% ifequal archive "tag_archive" %}
+        {% include_selected "post_archive.html" for object under "counselling_blog" %}
+    {% endifequal %}
+
+    {% ifequal archive "day_archive" %}
+        {% include_selected "post_archive_day.html" for object under "counselling_blog" %}
+    {% endifequal %}
+
+    {% ifequal archive "month_archive" %}
+        {% include_selected "post_archive_month.html" for object under "counselling_blog" %}
+    {% endifequal %}
+
+    {% ifequal archive "year_archive" %}
+        {% include_selected "post_archive_year.html" for object under "counselling_blog" %}
+    {% endifequal %}
+
+    {% ifequal archive "archive" %}
+        {% include_selected "post_archive.html" for object under "counselling_blog" %}
+    {% endifequal %}
+
+{% endblock %}
+
+{% block breadcrumbs_details %}
+    
+    {% ifequal post_filter "all" %}
+        <li>{% trans "Blog" %}</li>
+    {% else %}
+        <li><a href="{{ container.get_url_path }}">{% trans "Blog" %}</a></li>
+    {% endifequal %}
+
+    {% ifequal archive "details" %}
+        <li><a href="{% page_url request.current_page %}{{ post.published_from|date:"Y" }}/">{{ post.published_from|date:"Y" }}</a></li>
+        <li><a href="{% page_url request.current_page %}{{ post.published_from|date:"Y" }}/{{ post.published_from|date:"m" }}/">{{ post.published_from|date:"m" }}</a></li>
+        <li><a href="{% page_url request.current_page %}{{ post.published_from|date:"Y" }}/{{ post.published_from|date:"m" }}/{{ post.published_from|date:"d" }}/">{{ post.published_from|date:"d" }}</a></li>
+        <li>{{ post.title|truncatewords:"5" }}</span></li>
+    {% endifequal %}
+
+    {% ifequal archive "tag_archive" %}
+        <li>{{ tag }}</li>
+    {% endifequal %}
+
+    {% ifequal archive "day_archive" %}
+        <li><a href="{% page_url request.current_page %}{{ day|date:"Y" }}/">{{ day|date:"Y" }}</a></li>
+        <li><a href="{% page_url request.current_page %}{{ day|date:"Y" }}/{{ day|date:"m" }}/">{{ day|datefmt:"MMM" }} </a></li>
+        <li>{{ day|date:"d" }}</li>
+    {% endifequal %}
+
+    {% ifequal archive "month_archive" %}
+        <li><a href="{{ container.get_url_path }}{{ month|date:"Y" }}/">{{ month|date:"Y" }}</a></li>
+        <li>{{ month|datefmt:"MMM" }}</li>
+    {% endifequal %}
+
+    {% ifequal archive "year_archive" %}
+        <li>{{ year }}</li>
+    {% endifequal %}
+{% endblock %}

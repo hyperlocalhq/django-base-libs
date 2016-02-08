@@ -269,7 +269,7 @@ def get_archives(queryset):
 
 def handle_request(request, object_url_part, url_identifier, year=None, month=None, day=None, post_slug=None, tag=None,
                    status=STATUS_CODE_PUBLISHED, paginate_by=None, page=None, allow_future=False, allow_empty=True,
-                   extra_context=None, context_processors=None, **kwargs):
+                   extra_context=None, context_processors=None, template_app_dir="blog", **kwargs):
     """
     handles a blog request 
     We do not provide separate view functions for 
@@ -304,7 +304,11 @@ def handle_request(request, object_url_part, url_identifier, year=None, month=No
         if not request.user.has_perm("blog.change_blog_posts", container):
             return access_denied(request)
 
-    template_name = select_template_name("blog", extra_context['object'], "blog")
+    template_name = select_template_name(
+        template_name_prefix="blog",
+        obj=extra_context['object'],
+        app_dir=template_app_dir,
+    )
 
     if status == STATUS_CODE_PUBLISHED:
         queryset = Post.published_objects.filter(blog=container)

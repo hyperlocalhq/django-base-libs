@@ -20,6 +20,8 @@ all_dict = dict(
     slug='kreativwirtschaftsberatung_berlin',
     status=STATUS_CODE_PUBLISHED,
     url_identifier='blog',
+    base_template='counselling_blog/base.html',
+    template_app_dir='counselling_blog',
 )
 
 urlpatterns = patterns(
