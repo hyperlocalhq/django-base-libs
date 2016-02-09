@@ -7,7 +7,7 @@
     <div class="header start-page">
         {% load slideshows_tags %}
         {% slideshow "counselling_start" using "slideshows/start_page_counselling.html" %}
-        <a href="#" class="fawesome fa-email button text"><span class="text">{% trans 'Make an appointment' %}</span></a> 
+        <a href="{% page_url "personal_counselling" %}" class="fawesome fa-email button text"><span class="text">{% trans 'Make an appointment' %}</span></a> 
     </div>
     <div class="container">
         <div class="row">

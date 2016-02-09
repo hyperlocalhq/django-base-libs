@@ -26,36 +26,6 @@
 {% endblock %}
 
 {% block sidebar %}
-
-    <div class="button-group">
-        {% if_has_perm "blog.change_blog_posts" container %}
-            <a class="fawesome fa-bullhorn button text" href="{{ container.get_url_path }}new/"><span class="text">{% trans "New Blog Entry" %}</span></a>
-            <br class="hidden-xs" /><br class="hidden-xs" />
-        {% else %}
-            {% if_has_perm object_change_permission container.content_object %}
-                <a class="fawesome fa-bullhorn button text" href="{% page_url request.current_page %}new/"><span class="text">{% trans "New Blog Entry" %}</span></a>
-            {% end_if_has_perm %}
-        {% end_if_has_perm %}
-        
-        {% ifequal archive "details" %}
-        
-            {% if_has_perm "blog.change_blog_posts" post.blog %}
-                <a class="fawesome fa-edit button text" href="{% page_url request.current_page %}{{ post.get_relative_url }}edit/"><span class="text">{% trans "Edit Blog Entry" %}</span></a>
-            {% end_if_has_perm %}
-            {% if_has_perm "blog.delete_blog_posts" post.blog %}
-                <a class="fawesome fa-close button text" href="{% page_url request.current_page %}{{ post.get_relative_url }}delete/"><span class="text">{% trans "Delete Blog Entry" %}</span></a>
-            {% end_if_has_perm %}   
-            
-            {% if_has_perm "blog.change_blog_posts" post.blog %}
-                <br class="hidden-xs" /><br class="hidden-xs" />
-            {% else %}
-                {% if_has_perm "blog.delete_blog_posts" post.blog %}
-                    <br class="hidden-xs" /><br class="hidden-xs" />
-                {% end_if_has_perm %}
-            {% end_if_has_perm %}
-            
-        {% endifequal %}
-    </div>
     
     <ul class="accordion navi-box">
         <li class="accordion-inside accordion-trigger opened">
@@ -131,39 +101,4 @@
         {% include_selected "post_archive.html" for object under "counselling_blog" %}
     {% endifequal %}
 
-{% endblock %}
-
-{% block breadcrumbs_details %}
-    
-    {% ifequal post_filter "all" %}
-        <li>{% trans "Blog" %}</li>
-    {% else %}
-        <li><a href="{{ container.get_url_path }}">{% trans "Blog" %}</a></li>
-    {% endifequal %}
-
-    {% ifequal archive "details" %}
-        <li><a href="{% page_url request.current_page %}{{ post.published_from|date:"Y" }}/">{{ post.published_from|date:"Y" }}</a></li>
-        <li><a href="{% page_url request.current_page %}{{ post.published_from|date:"Y" }}/{{ post.published_from|date:"m" }}/">{{ post.published_from|date:"m" }}</a></li>
-        <li><a href="{% page_url request.current_page %}{{ post.published_from|date:"Y" }}/{{ post.published_from|date:"m" }}/{{ post.published_from|date:"d" }}/">{{ post.published_from|date:"d" }}</a></li>
-        <li>{{ post.title|truncatewords:"5" }}</span></li>
-    {% endifequal %}
-
-    {% ifequal archive "tag_archive" %}
-        <li>{{ tag }}</li>
-    {% endifequal %}
-
-    {% ifequal archive "day_archive" %}
-        <li><a href="{% page_url request.current_page %}{{ day|date:"Y" }}/">{{ day|date:"Y" }}</a></li>
-        <li><a href="{% page_url request.current_page %}{{ day|date:"Y" }}/{{ day|date:"m" }}/">{{ day|datefmt:"MMM" }} </a></li>
-        <li>{{ day|date:"d" }}</li>
-    {% endifequal %}
-
-    {% ifequal archive "month_archive" %}
-        <li><a href="{{ container.get_url_path }}{{ month|date:"Y" }}/">{{ month|date:"Y" }}</a></li>
-        <li>{{ month|datefmt:"MMM" }}</li>
-    {% endifequal %}
-
-    {% ifequal archive "year_archive" %}
-        <li>{{ year }}</li>
-    {% endifequal %}
 {% endblock %}
