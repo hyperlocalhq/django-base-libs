@@ -19,6 +19,11 @@
     {% endif %}
 {% endblock %}
 
+{% block headline %}
+    <h1>{% trans "Events" %}</h1>
+    <p></p>
+{% endblock %}
+
 {% block details %}
     {% if object_list %}
         <div class="row event-list">

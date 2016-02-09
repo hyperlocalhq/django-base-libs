@@ -13,10 +13,17 @@
 @import 'form';
 @import 'navi-grid';
 @import 'event-list'; 
+@import 'blog-grid';
+@import 'navi-box';
+@import 'filter-box';
 @import 'header';
 @import 'accordion';
 
 
+
+
+
+// overwriting the original styles
 
 
 img {
@@ -83,6 +90,15 @@ h2, h3 {
 
 h3 {
     font-weight: $font-semi;
+    margin-bottom: 20px;
+    
+    .is-xs & {
+        margin-bottom: 20px;
+    }
+    
+    time {
+        font-size: 0.75em;
+    }
 }
 
 h2 + h3 {
@@ -490,6 +506,50 @@ p + h2, p + h4, p + h5 {
 }
 
 
+.row.blog-grid {
+    
+    > div {
+        
+        a.content {
+            text-decoration: none;
+            
+            .subline {
+                 margin: 0 0 10px;
+            }
+            
+            h3 {
+                margin: 0 0 10px;
+            }
+            
+            h2 {
+                font-family: $font-1, $font-family-1;
+                font-weight: $font-black;
+                font-size: 1.6em;
+                letter-spacing: 0.07em;
+                line-height: 150%;
+                margin: 0 0 20px;
+                text-transform: uppercase;
+                
+                .is-md &, .is-sm & {
+                    font-size: 1.6em;   
+                    line-height: 150%;
+                }
+                
+                .is-xs & {
+                    font-size: 1.4em;   
+                    line-height: 150%;
+                }
+                
+            }
+            
+            .statistics {
+                display: none;  
+            }
+        }
+    }
+}
+
+
 .infobox {
     .cms-plugin-richtext {
         width: 100%;
@@ -511,7 +571,7 @@ p + h2, p + h4, p + h5 {
             }
             
             &:last-child {
-                margin-bottom: 40px;
+                margin-bottom: 20px;
             }
         }
         
@@ -522,6 +582,64 @@ p + h2, p + h4, p + h5 {
         p {
             padding: 0 40px;
             font-weight: $font-bold;
+        }
+    }
+}
+
+
+.fieldset.editable, .fieldset.not-editable {
+    h2 {
+        font-family: $font-1, $font-family-1;
+        font-weight: $font-semi;
+        font-size: 1.2em;
+        line-height: 111%;
+        letter-spacing: inherit;
+        border-bottom: 2px solid $grey-bright;
+        
+        .is-md &, .is-sm & {
+            font-size: 1.2em;   
+            line-height: 111%;
+            letter-spacing: inherit;
+        }
+        
+        .is-xs & {
+            font-size: 1.2em;   
+            line-height: 111%;
+            letter-spacing: inherit;
+        }
+    }
+    
+    dl.input-fields {
+        dt {
+            font-size: 0.93em;
+            line-height: 143%;
+            padding-top: 4px;
+        }
+    }
+    
+    .text-field {
+        font-size: 0.93em;
+        line-height: 143%;
+    }
+}
+
+
+ul.navi-box {
+    background: $brown-bright;
+    
+    li {
+        div.head {
+            background: url(../img/counselling/bg_pattern.gif);
+            font-family: $font-1, $font-family-1;
+            font-weight: $font-black;
+            text-transform: uppercase;
+            font-size: 1.07em;
+            color: $black;
+            letter-spacing: 0.13em;
+        }
+        
+        a {
+            text-decoration: none;
         }
     }
 }

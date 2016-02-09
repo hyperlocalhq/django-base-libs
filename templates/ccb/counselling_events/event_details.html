@@ -10,6 +10,17 @@
 
 {% block headline %}
     <h1>{{ object.title }}</h1>
+    <p>
+        {% if event_time %}
+            {% with event_time as time %}
+                {% include "counselling_events/includes/event_time.html" %}
+            {% endwith %}
+        {% else %}
+            {% with object.get_nearest_occurrence as time %}
+                {% include "counselling_events/includes/event_time.html" %}
+            {% endwith %}
+        {% endif %}
+    </p>
 {% endblock %}
 
 
@@ -18,26 +29,19 @@
     {% if object.is_editable %}
         <div id="avatar-edit-frame" class="edit-iframe"></div>
     {% endif %}
-    
-    {% include "events/profile/identity.html" %}
 
-    {% include "events/profile/contact.html" %}
+    {% include "counselling_events/profile/contact.html" %}
     
-    {% include "events/profile/description.html" %}
+    {% include "counselling_events/profile/description.html" %}
     
-    {% include "events/profile/event_times.html" %}
+    {% include "counselling_events/profile/event_times.html" %}
     
-    {% include "events/profile/fees_opening_hours.html" %}
+    {% include "counselling_events/profile/fees_opening_hours.html" %}
     
-    {% include "events/profile/organizer.html" %}
+    {% include "counselling_events/profile/organizer.html" %}
     
-    {% include "events/profile/additional_info.html" %}
+    {% include "counselling_events/profile/additional_info.html" %}
     
-    {% include "events/profile/categories.html" %}
+    {% include "counselling_events/profile/categories.html" %}
 
-{% endblock %}
-
-{% block breadcrumbs %}
-    <li><a href="{% url 'event_list_global' %}">{% page_attribute "page_title" %}</a></li>
-    <li>{{ object.get_title }}</li>
 {% endblock %}
