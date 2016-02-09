@@ -474,6 +474,22 @@ def step_main_data_initial_data(request, **kwargs):
     if institution_slug:
         institution = get_object_or_404(Institution, slug=institution_slug)
         initial_data['offering_institution'] = institution.pk
+        contact_dict = institution.get_primary_contact()
+        if contact_dict:
+            initial_data['street_address'] = contact_dict['street_address']
+            initial_data['street_address2'] = contact_dict['street_address2']
+            initial_data['city'] = contact_dict['city']
+            initial_data['postal_code'] = contact_dict['postal_code']
+            initial_data['country'] = contact_dict['country']
+            initial_data['phone_country'] = contact_dict.get('phone_country', '')
+            initial_data['phone_area'] = contact_dict.get('phone_area', '')
+            initial_data['phone_number'] = contact_dict.get('phone_number', '')
+            initial_data['fax_country'] = contact_dict.get('fax_country', '')
+            initial_data['fax_area'] = contact_dict.get('fax_area', '')
+            initial_data['fax_number'] = contact_dict.get('fax_number', '')
+            initial_data['email0_address'] = contact_dict['email0_address']
+            initial_data['url0_link'] = contact_dict['url0_link']
+
     return initial_data
 
 
