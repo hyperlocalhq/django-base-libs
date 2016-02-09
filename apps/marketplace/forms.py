@@ -8,6 +8,7 @@ from django.utils.dates import MONTHS
 from django.utils.translation import string_concat
 from django.conf import settings
 from django.db import models
+from django.shortcuts import get_object_or_404
 
 from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
 from base_libs.forms import dynamicforms
@@ -467,6 +468,15 @@ class ReportForm(dynamicforms.Form):
         )
 
 
+def step_main_data_initial_data(request, **kwargs):
+    institution_slug = request.GET.get('institution', None)
+    initial_data = {}
+    if institution_slug:
+        institution = get_object_or_404(Institution, slug=institution_slug)
+        initial_data['offering_institution'] = institution.pk
+    return initial_data
+
+
 def submit_step(current_step, form_steps, form_step_data):
     if current_step == "step_main_data":
         step_main_data = form_step_data['step_main_data']
@@ -610,6 +620,7 @@ ADD_JOB_OFFER_FORM_STEPS = {
         'title': _("main data"),
         'template': "marketplace/add_job_offer_main_data.html",
         'form': MainDataForm,
+        'initial_data': step_main_data_initial_data,
     },
     'step_categories': {
         'title': _("categories"),

@@ -489,7 +489,7 @@ FORM_STEPS = {
     'name': "form_name",                                    # required
 
     'oninit': init_func,                                    # optional;
-                                                            # passed args: instance=None;
+                                                            # passed args: instance=None, request;
                                                             # returns form_step_data
 
     'onsubmit': submit_func,                                # optional; 
@@ -497,7 +497,7 @@ FORM_STEPS = {
                                                             # returns form_step_data
 
     'on_set_extra_context': set_extra_context,              # optional,
-                                                            # passed args: current_step, request, form_steps, instance=None;
+                                                            # passed args: current_step, form_steps, form_step_data, request, instance=None;
                                                             # returns extra context dictionary
 
     'onreset': return_func,                                 # optional;
@@ -577,9 +577,9 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
 
     if not form_step_data and 'oninit' in form_steps:
         if instance:
-            form_step_data = form_steps['oninit'](instance)
+            form_step_data = form_steps['oninit'](instance=instance, request=request)
         else:
-            form_step_data = form_steps['oninit']()
+            form_step_data = form_steps['oninit'](request=request)
 
         # change all model instances to primary keys
         for step in form_step_data:
@@ -664,9 +664,9 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
     else:
         return redirect(u'%s?step=1' % request.path)
 
-
-    
     initial_data = form_steps[current_step].get('initial_data', {})
+    if callable(initial_data):
+        initial_data = initial_data(request=request)
     
     form_class = form_steps[current_step].get('form', None)
     formset_classes = form_steps[current_step].setdefault("formsets", {})
@@ -856,7 +856,7 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
     else:
         data = deepcopy(form_step_data.get(
             current_step,
-            initial_data.get(current_step, {}),
+            initial_data,
         ))
         # redefine initial data for model choice fields
         for k, v in data.items():
@@ -916,9 +916,20 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
     context.update(extra_context)
     if 'on_set_extra_context' in form_steps:
         if instance:
-            extra_context = form_steps['on_set_extra_context'](current_step, form_steps, form_step_data, instance)
+            extra_context = form_steps['on_set_extra_context'](
+                current_step=current_step,
+                form_steps=form_steps,
+                form_step_data=form_step_data,
+                instance=instance,
+                request=request,
+            )
         else:
-            extra_context = form_steps['on_set_extra_context'](current_step, form_steps, form_step_data)
+            extra_context = form_steps['on_set_extra_context'](
+                current_step=current_step,
+                form_steps=form_steps,
+                form_step_data=form_step_data,
+                request=request,
+            )
         context.update(extra_context)
     
     template_file = [form_steps[current_step].setdefault("template", "utils/newform_step.html")]
