@@ -45,6 +45,10 @@ def is_current_person(context):
     )
 
 
+def is_person(context):
+    return hasattr(context.get('object', None), 'is_person')
+
+
 # TODO: 1) add more conditions where to show what for anonymous users.
 # TODO: 2) maybe show some links with login required as teasers.
 # TODO: 3) add badges for some of the links with object count.
@@ -145,6 +149,14 @@ navigation_links = {
             'text_en': 'Blog',
             'should_be_shown': for_all,
             'highlight_pattern': r'^/(de|en)/network/member/{{ object.slug }}/blog/',
+        },
+        {
+            'url_de': '/de/network/member/{{ object.slug }}/institutions/',
+            'url_en': '/en/network/member/{{ object.slug }}/institutions/',
+            'text_de': 'Institutionen',
+            'text_en': 'Institutions',
+            'should_be_shown': is_person,
+            'highlight_pattern': r'^/(de|en)/network/member/{{ object.slug }}/institutions/',
         },
     ],
 
@@ -393,7 +405,37 @@ navigation_links = {
         },
     ],
 
-    'menu_activities': [
+    'menu_activities': [  # TODO: is this really used anywhere?
+        {
+            'url_de': '{{ object.get_url_path }}claim/',
+            'url_en': '{{ object.get_url_path }}claim/',
+            'text_de': 'Mein Unternehmen',
+            'text_en': 'Claim Institution',
+            'should_be_shown': is_claimable_institution,
+            'highlight_pattern': r'^{{ object.get_url_path }}claim/',
+            'icon': 'fa-fist',
+        },
+        {
+            'url_de': '{{ object.get_url_path }}delete/',
+            'url_en': '{{ object.get_url_path }}delete/',
+            'text_de': 'Job löschen',
+            'text_en': 'Delete Job Offer',
+            'should_be_shown': is_deletable_job_offer,
+            'highlight_pattern': r'^{{ object.get_url_path }}delete/',
+            'icon': 'fa-thumb-down',
+        },
+        {
+            'url_de': '{{ object.get_url_path }}delete/',
+            'url_en': '{{ object.get_url_path }}delete/',
+            'text_de': 'Event löschen',
+            'text_en': 'Delete Event',
+            'should_be_shown': is_deletable_event,
+            'highlight_pattern': r'^{{ object.get_url_path }}delete/',
+            'icon': 'fa-calender-minus',
+        },
+    ],
+
+    'menu_personal_activities': [
         {
             'url_de': '/de/network/member/{{ request.user.username }}/portfolio/album/add/',
             'url_en': '/en/network/member/{{ request.user.username }}/portfolio/album/add/',
@@ -444,33 +486,58 @@ navigation_links = {
             'icon': 'fa-bullhorn',
             'is_login_required': True,
         },
+    ],
 
+    'menu_institutional_activities': [
         {
-            'url_de': '{{ object.get_url_path }}claim/',
-            'url_en': '{{ object.get_url_path }}claim/',
-            'text_de': 'mein Unternehmen',
-            'text_en': 'claim Institution',
-            'should_be_shown': is_claimable_institution,
-            'highlight_pattern': r'^{{ object.get_url_path }}claim/',
-            'icon': 'fa-fist',
+            'url_de': '/de/network/member/{{ object.slug }}/portfolio/album/add/',
+            'url_en': '/en/network/member/{{ object.slug }}/portfolio/album/add/',
+            'text_de': 'Portfolio hinzufügen',
+            'text_en': 'Add new Portfolio',
+            'should_be_shown': for_all,
+            'highlight_pattern': r'^/(de|en)/network/member/{{ object.slug }}/portfolio/album/add/',
+            'icon': 'fa-rocket',
+            'is_login_required': True,
         },
         {
-            'url_de': '{{ object.get_url_path }}delete/',
-            'url_en': '{{ object.get_url_path }}delete/',
-            'text_de': 'Job löschen',
-            'text_en': 'delete Job Offer',
-            'should_be_shown': is_deletable_job_offer,
-            'highlight_pattern': r'^{{ object.get_url_path }}delete/',
-            'icon': 'fa-thumb-down',
+            'url_de': '/de/events/add/?institution={{ object.slug }}',
+            'url_en': '/en/events/add/?institution={{ object.slug }}',
+            'text_de': 'Event erstellen',
+            'text_en': 'Add new Event',
+            'should_be_shown': for_all,
+            'highlight_pattern': r'^/(de|en)/events/add/',
+            'icon': 'fa-calender-plus',
+            'is_login_required': True,
         },
         {
-            'url_de': '{{ object.get_url_path }}delete/',
-            'url_en': '{{ object.get_url_path }}delete/',
-            'text_de': 'Event löschen',
-            'text_en': 'delete Event',
-            'should_be_shown': is_deletable_event,
-            'highlight_pattern': r'^{{ object.get_url_path }}delete/',
-            'icon': 'fa-calender-minus',
+            'url_de': '/de/jobs/add/?institution={{ object.slug }}',
+            'url_en': '/en/jobs/add/?institution={{ object.slug }}',
+            'text_de': 'Job eintragen',
+            'text_en': 'Job offer',
+            'should_be_shown': for_all,
+            'highlight_pattern': r'^/(de|en)/jobs/add/',
+            'icon': 'fa-wrench',
+            'is_login_required': True,
+        },
+        {
+            'url_de': '/de/marketplace/add/?institution={{ object.slug }}',
+            'url_en': '/en/marketplace/add/?institution={{ object.slug }}',
+            'text_de': 'Projekt hinzufügen',
+            'text_en': 'Add new Projekt',
+            'should_be_shown': for_all,
+            'highlight_pattern': r'^/(de|en)/marketplace/add/',
+            'icon': 'fa-lightbulb',
+            'is_login_required': True,
+        },
+        {
+            'url_de': '/de/network/member/{{ object.slug }}/blog/new/',
+            'url_en': '/en/network/member/{{ object.slug }}/blog/new/',
+            'text_de': 'Blogbeitrag verfassen',
+            'text_en': 'Create blog post',
+            'should_be_shown': for_all,
+            'highlight_pattern': r'^/(de|en)/network/member/{{ object.slug }}/blog/new/',
+            'icon': 'fa-bullhorn',
+            'is_login_required': True,
         },
     ],
 

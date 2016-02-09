@@ -47,7 +47,7 @@
                             <div class="buttons">
                                 
                             {% ifequal request.user object.user %}
-                                {% navigation_links "menu_activities" %}
+                                {% navigation_links "menu_personal_activities" %}
                             {% else %}
                                 {% if request.user.is_authenticated %}
                         
@@ -113,7 +113,7 @@
 
                     {% ifequal request.user object.user %}
                     
-                        {% navigation_links "menu_activities" %}
+                        {% navigation_links "menu_personal_activities" %}
 
                     {% else %}
                         {% if request.user.is_authenticated %}

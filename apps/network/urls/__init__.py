@@ -4,6 +4,7 @@ from jetson.apps.utils.context_processors import prev_next_processor
 from ccb.apps.site_specific.models import ContextItem
 from ccb.apps.media_gallery.sites import PortfolioSite, URL_ID_PORTFOLIO
 from ccb.apps.events.models import Event, URL_ID_EVENTS
+from ccb.apps.institutions.models import Institution
 
 # N.B. The commented out URLs are for working views which are not linked anywhere
 # and also not styled correctly.
@@ -31,6 +32,14 @@ member_detail_info = {
 
 event_list_info = {
     'queryset': Event.objects.filter(status="published"),
+    'template_name': '',  # template name is defined in the view
+    'paginate_by': 24,
+    'allow_empty': True,
+    'context_processors': (prev_next_processor,),
+}
+
+institution_list_info = {
+    'queryset': Institution.objects.filter(status="published"),
     'template_name': '',  # template name is defined in the view
     'paginate_by': 24,
     'allow_empty': True,
@@ -122,6 +131,13 @@ urlpatterns = [
         r'feed/(?P<feed_type>[^/]+)/$' % URL_ID_EVENTS,
         'ccb.apps.network.views.member_events_list_feed',
         event_list_info,
+    ),
+
+    url(
+        r'^member/(?P<slug>[^/]+)/institutions/',
+        'ccb.apps.network.views.member_institution_list',
+        event_list_info,
+        name="member_event_list"
     ),
 
     # url(

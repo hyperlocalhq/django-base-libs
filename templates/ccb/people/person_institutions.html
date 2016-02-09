@@ -1,0 +1,74 @@
+{% extends base_template|default:"people/details_base.html" %}
+{% load events i18n base_tags navigation_tags auth_extended babel infoblocks cms_tags image_mods_tags %}
+
+{% block extrahead %}
+    {{ block.super }}
+    {% if view_type == "map" %}
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?language={{ LANGUAGE_CODE }}&amp;region=DE"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/styledinfowindow.js"></script>
+        <script type="text/javascript">
+            //<![CDATA[
+            var aGeopositions = [];
+            //]]>
+        </script>
+    {% endif %}
+{% endblock %}
+
+{% block body_class %}list{% endblock %}
+
+{% block details %}
+    {% if object_list %}
+        <div class="row profile-grid profile-list">
+            {% for institution in object_list %}
+
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="wrapper">
+                        <a class="content" href="{{ institution.get_url_path }}">
+                            {% if institution.image %}
+                                <img src="{{ UPLOADS_URL }}{{ institution.image|modified_path:"profile" }}" alt="{{ object.get_title|escape }}" />
+                            {% else %}
+                                <img src="{{ STATIC_URL }}site/img/placeholder/institution.png" alt="{{ institution.get_title|escape }}" />
+                            {% endif %}
+                            <div class="text">
+                                <h2>{{ institution.get_title|escape }}</h2>
+                                <h3>
+                                    {% if institution.get_categories %}
+                                        <span class="feature">
+                                            {% for cat in institution.get_categories %}
+                                                {{ cat.title|escape }}{% if not forloop.last %}, {% endif %}
+                                            {% endfor %}
+                                        </span>
+                                    {% endif %}
+                                </h3>
+                            </div>
+                        </a>
+                        <div class="button-group">
+                            {% if request.user.is_authenticated %}
+                                {% if institution.is_contactable %}
+                                    <a href="{{ institution.get_url_path }}message/" class="fawesome fa-email button"><span class="sr-only">{% trans "Send Email" %}</span></a>
+                                {% endif %}
+                            {% else %}
+                                {% if institution.is_contactable %}
+                                    <a rel="nofollow" href="{% url 'login' %}?goto_next={{ institution.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                
+            {% endfor %}
+        </div>
+        {% include "utils/includes/pagination.html" %}
+    {% else %}
+        <p>{% trans "No objects found within the selected conditions." %}</p>
+    {% endif %}
+{% endblock %}
+
+
+{% block breadcrumbs_details %}
+    <li>{% page_attribute "page_title" %}</li>
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/event-list.js"></script>
+{% endblock %}
