@@ -186,6 +186,10 @@
   text-align: left;
 }
 
+.is-sm .fawesome.button.text, .is-md .fawesome.button.text, .is-sm .fawesome.btn.text, .is-md .fawesome.btn.text {
+  font-size: 1em;
+}
+
 .is-xs .fawesome.button.text, .is-xs .fawesome.btn.text {
   position: relative;
   width: auto;
@@ -206,15 +210,16 @@
 
 .fawesome.button.text:before, .fawesome.btn.text:before {
   font-size: 1.22em;
-  line-height: 215%;
+  line-height: 205%;
   text-align: center;
   width: 2.05em;
   height: 2.05em;
   border-radius: 50%;
   background: #979797;
   color: #fff;
-  margin-right: 10%;
+  margin-right: 8%;
   margin-top: 1px;
+  padding-left: 0.7%;
 }
 
 .is-md .fawesome.button.text:before, .is-sm .fawesome.button.text:before, .is-md .fawesome.btn.text:before, .is-sm .fawesome.btn.text:before {
