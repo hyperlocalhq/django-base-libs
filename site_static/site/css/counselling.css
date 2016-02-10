@@ -6169,12 +6169,20 @@ p + h2, p + h4, p + h5 {
   left: 1px;
 }
 
+.is-md .fawesome.button.text:before, .is-sm .fawesome.button.text:before, .is-md .fawesome.btn.text:before, .is-sm .fawesome.btn.text:before {
+  margin-right: 6%;
+}
+
 .fawesome.button.text:hover, .fawesome.button.text:focus, .fawesome.btn.text:hover, .fawesome.btn.text:focus {
   background: #fff;
 }
 
 .fawesome.button.text:hover:before, .fawesome.button.text:focus:before, .fawesome.btn.text:hover:before, .fawesome.btn.text:focus:before {
   background: #FF9E02;
+}
+
+.is-sm .fawesome.button.text, .is-md .fawesome.button.text, .is-sm .fawesome.btn.text, .is-md .fawesome.btn.text {
+  font-size: 1.2em;
 }
 
 .is-xs .fawesome.button.text, .is-xs .fawesome.btn.text {

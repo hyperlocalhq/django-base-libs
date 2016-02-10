@@ -173,6 +173,10 @@ p + h2, p + h4, p + h5 {
         position: relative;
         top: -2px;
         left: 1px;
+                
+        .is-md &, .is-sm & {
+            margin-right: 6%;
+        }
     }
     
     &:hover, &:focus {
@@ -181,6 +185,10 @@ p + h2, p + h4, p + h5 {
         &:before {
             background: $orange-light;
         }
+    }
+            
+    .is-sm &, .is-md & {
+        font-size: 1.2em;
     }
     
     .is-xs & {
