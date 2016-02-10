@@ -6025,12 +6025,12 @@ ul.filter-box li:last-child {
 }
 
 a {
-  color: #b57500;
+  color: #FF7400;
   text-decoration: underline;
 }
 
 a:hover, a:active, a:focus {
-  color: #dba400;
+  color: #FF9E02;
   text-decoration: underline;
 }
 
@@ -6365,7 +6365,7 @@ p + h2, p + h4, p + h5 {
 
 .row.navi-grid > div a.content h2 {
   color: #FF7400;
-  font-size: 2.13em;
+  font-size: 2em !important;
   letter-spacing: 0;
   text-transform: none;
   margin-top: 10px !important;

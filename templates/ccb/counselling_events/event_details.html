@@ -1,5 +1,5 @@
 {% extends "base_sidebar_counselling.html" %}
-{% load i18n base_tags auth_extended events compressed cms_tags %}
+{% load i18n base_tags auth_extended events compressed cms_tags image_mods_tags %}
 
 {% block title %}{{ object.get_title|escape }}{% endblock %}
 
@@ -23,6 +23,15 @@
     </p>
 {% endblock %}
 
+{% block sidebar %}
+
+    {% if object.image %}
+        <img id="profile-image-sidebar" src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if object.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ object.title|escape }}"/>
+    {% else %}
+        <!-- <img id="profile-image-sidebar" src="{{ STATIC_URL }}site/img/placeholder/event.png" alt="{{ object.title|escape }}"/> -->
+    {% endif %}
+                        
+{% endblock %}
 
 {% block details %}
 

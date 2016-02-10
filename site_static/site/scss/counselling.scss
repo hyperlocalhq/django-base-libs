@@ -33,11 +33,11 @@ img {
 }
 
 a {
-    color: $brown;
+    color: $orange;
     text-decoration: underline;
     
     &:hover, &:active, &:focus {
-        color: $brown-light;
+        color: $orange-light;
         text-decoration: underline;
     }
 }
@@ -398,7 +398,7 @@ p + h2, p + h4, p + h5 {
             
             h2 {
                 color: $orange;
-                font-size: 2.13em;
+                font-size: 2em !important;
                 letter-spacing: 0;
                 text-transform: none;
                 margin-top: 10px !important;
