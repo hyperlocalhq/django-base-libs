@@ -27,6 +27,8 @@
 
 {% block sidebar %}
 
+    {{ block.super }}
+
     <div class="button-group">
         {% comment %}<!-- This link duplicates the link in the activities, so we probably don't need it here -->
         {% if_has_perm "blog.change_blog_posts" container %}

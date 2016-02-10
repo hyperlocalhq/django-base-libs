@@ -187,6 +187,10 @@
                 margin-right: 10%;
                 margin-top: 1px;
                 
+                .is-sm & {
+                    margin-right: 4%;
+                }
+                
                 .is-xs & {
                     width: 1.9em;
                     height: 1.9em;
