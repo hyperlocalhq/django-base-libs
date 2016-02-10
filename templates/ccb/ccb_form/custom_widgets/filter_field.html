@@ -2,7 +2,7 @@
 {% load l10n %}
 
 {% with html_name=field.html_name value=field.value|add:"0" choices=field.field.choices attrs=field.field.widget.attrs %}
-<li class="accordion-inside accordion-trigger" id="{{ html_name }}">
+<li class="accordion-inside accordion-trigger {% if value != 0 and value != "0" %}opened{% endif %}" id="{{ html_name }}">
     <input type="hidden" name="{{ html_name }}" value="{% if value|add:"0" != 0 %}{{ value }}{% endif %}" />
     <div class="child accordion-trigger">{{ field.label }}</div>
     <ul class="accordion">
