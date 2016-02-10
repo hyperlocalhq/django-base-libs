@@ -288,6 +288,9 @@ p + h2, p + h4, p + h5 {
         .is-md & {
             height: 65px;
         }
+        .is-sm & {
+            height: 80px;
+        }
     }
 }
 
