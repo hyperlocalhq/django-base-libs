@@ -58,6 +58,10 @@
         display: inline-block;
         float: left;
         
+        .is-sm & {
+            height: 68px;
+        }
+        
         .is-xs & {
             height: auto;
             max-height: 80px;
