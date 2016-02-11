@@ -26,7 +26,29 @@
                                         <td width="230" valign="top" rowspan="2"><a href="{{ production.get_url }}"><img src="http://www.berlin-buehnen.de/media/{{ event.first_image.path|modified_path:"newsletter_production" }}" width="216" height="149" style="padding-right:16px;" border="0" /></a></td>
                                         <td width="322" valign="top"><table width="322" cellpadding="0" cellspacing="0">
                                                     <tr>
-                                                        <td width="322" colspan="2"><a href="{{ production.get_url }}" style="color:#000; font-size:22px; font-weight:600; text-decoration:none; display:block; line-height:100%; margin-top:-2px;"><span style="color:#000; font-size:22px; font-weight:600; text-decoration:none;">{{ event.start_date|date:"D, j.n.Y" }}</span></a></td>
+                                                        <td width="322" colspan="2">
+                                                            <table  width="322" cellpadding="0" cellspacing="0" border="0">
+                                                                <tr>
+                                                                    <td valign="top" align="left">
+                                                                        <a href="{{ production.get_url }}" style="color:#000; font-size:22px; font-weight:600; text-decoration:none; display:block; line-height:100%; margin-top:-2px;"><span style="color:#000; font-size:22px; font-weight:600; text-decoration:none;">{{ event.start_date|date:"D, j.n.Y" }}</span></a>
+                                                                    </td>
+                                                                    <td valign="top" align="right" style="font-size:14px; line-height:100%; margin-top:-2px;">
+                                                                        {% if event.get_special_text and not event.is_canceled %}
+                                                                            <table cellpadding="0" cellspacing="0" border="0" height="22" style="margin:-5px 2px 0 0;">
+                                                                                <tr>
+                                                                                    <td align="right"><a href="{{ production.get_url }}" style="color:#000; text-transform:uppercase; text-decoration:none;"><img src="http://www.berlin-buehnen.de/media/newsletter/label_22px.png" width="10" height="22"/></a></td>
+                                                                                    <td width="5" style="background: #4583c8; font-size:14px;">&nbsp;</td>
+                                                                                    <td valign="middle" style="background: #4583c8;"><a href="{{ production.get_url }}" style="background: #4583c8; color: white; font-weight: 700; font-size:14px; text-transform: uppercase; text-decoration:none; display:block; padding:0; margin:0;"><span style="color:white; font-weight: 700; font-size:14px; text-transform: uppercase; text-decoration:none; display:block; padding:0; margin:0">{{ event.get_special_text }}</span></a></td>
+                                                                                    <td width="10" style="background: #4583c8; font-size:14px;">&nbsp;</td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        {% else %}
+                                                                            &nbsp;
+                                                                        {% endif %}
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td width="322" height="10" colspan="2" style="font-size:1px;">&nbsp;</td>
@@ -50,6 +72,17 @@
                                                     <tr>
                                                         <td width="322" colspan="2"><a href="{{ production.get_url }}" style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:110%;"><span style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none;">{% if production.prefix %}{{ production.prefix }} {% endif %}{{ production.title }}</span></a></td>
                                                     </tr>
+                                                    {% if event.production.get_categories %}
+                                                        <tr>
+                                                            <td width="322" colspan="2" height="14" valign="bottom"><a href="{{ production.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;"><span style="color:#000; font-size:12px; text-decoration:none;">
+                                                                {% for cat in event.production.get_categories %}
+                                                                    {% if cat.level == 0 %}
+                                                                        {% if not forloop.first %}, {% endif %}{{ cat.title }}
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            </span></a></td>
+                                                        </tr>
+                                                    {% endif %}
                                                     <tr>
                                                         <td width="322" height="4" colspan="2" style="font-size:1px;">&nbsp;</td>
                                                     </tr>

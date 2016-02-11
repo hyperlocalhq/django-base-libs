@@ -130,7 +130,7 @@ class ProductionManager(models.Manager):
         return self.filter(
             status="published",
             newsletter=True
-        )
+        ).order_by('start_date', 'start_time')
 
 
 class Production(CreationModificationMixin, UrlMixin, SlugMixin()):

@@ -67,7 +67,7 @@ class FestivalManager(models.Manager):
         return self.filter(
             status="published",
             newsletter=True
-        )
+        ).order_by('start')
 
 class Festival(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMixin):
     title = MultilingualCharField(_("Title"), max_length=255)
