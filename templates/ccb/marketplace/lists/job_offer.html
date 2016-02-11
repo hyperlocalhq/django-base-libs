@@ -27,8 +27,17 @@
         <br/>
     {% endif %}
     <div class="job-sectors hidable">
-        {% for sector in job_offer.job_sectors.all %}{{ sector.title }}{% if not forloop.last %},
-        {% endif %}{% endfor %}</div>
+        {% for sector in job_offer.job_sectors.all %}
+            {{ sector.title }}
+            {% if not forloop.last %},{% endif %}
+        {% endfor %}
+    </div>
+    <div class="categories hidable">
+        {% for category in job_offer.categories.all %}
+            {{ category.title }}
+            {% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    </div>
 {% endblock %}
 
 {% block object_controls %}

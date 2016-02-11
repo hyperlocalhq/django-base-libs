@@ -1,13 +1,13 @@
 # -*- coding: UTF-8 -*-
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 
 SILENT, NORMAL, VERBOSE = 0, 1, 2
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     help = """Imports bulletins from the bulletin-import sources"""
 
-    def handle_noargs(self, **options):
+    def handle(self, *args, **options):
         verbosity = int(options.get('verbosity', NORMAL))
 
         import requests

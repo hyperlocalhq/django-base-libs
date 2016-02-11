@@ -92,6 +92,19 @@ class JobOffer(JobOfferBase):
         else:
             return path
 
+    def get_content_provider(self):
+        if not hasattr(self, "_content_provider"):
+            from django.contrib.contenttypes.models import ContentType
+            from jetson.apps.external_services.models import ObjectMapper
+            mappers = ObjectMapper.objects.filter(
+                content_type=ContentType.objects.get_for_model(self),
+                object_id=self.pk,
+            )
+            self._content_provider = None
+            if mappers:
+                self._content_provider = mappers[0].service
+        return self._content_provider
+
 # Notify appropriate users about new job offers from contacts and favorite institutions
 def job_offer_created(sender, instance, **kwargs):
     from django.contrib.sites.models import Site

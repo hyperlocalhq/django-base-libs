@@ -19,6 +19,7 @@ from ccb.apps.people.models import Person
 from ccb.apps.institutions.models import Institution
 from ccb.apps.site_specific.models import ContextItem
 from ccb.apps.events.views import event_list
+from ccb.apps.institutions.views import institution_list
 
 from actstream.models import following
 
@@ -244,7 +245,7 @@ def member_detail(request, slug, creative_sector_slug="", **kwargs):
 @never_cache
 def member_events_list(request, slug, **kwargs):
     """
-    Lists the institution's events
+    Lists the person's or institution's events
     """
     item = get_object_or_404(
         ContextItem,
@@ -257,7 +258,7 @@ def member_events_list(request, slug, **kwargs):
         person = item.content_object
         kwargs['queryset'] = kwargs['queryset'].filter(
             models.Q(organizing_person=person)
-        ).order_by('-creation_date')
+        ).order_by('start')
         kwargs['template_name'] = 'people/person_events.html'
     else:
         if not request.user.has_perm("institutions.change_institution", item.content_object) and item.status not in ("published", "published_commercial"):
@@ -266,7 +267,7 @@ def member_events_list(request, slug, **kwargs):
         kwargs['queryset'] = kwargs['queryset'].filter(
             models.Q(organizing_institution=institution) |
             models.Q(venue=institution),
-        ).order_by('-creation_date')
+        ).order_by('start')
         kwargs['template_name'] = 'institutions/institution_events.html'
 
     kwargs.setdefault("extra_context", {})
@@ -284,3 +285,24 @@ def member_events_list_ical(request, slug, **kwargs):
 def member_events_list_feed(request, slug, **kwargs):
     return member_events_list(request, slug, feed=True, **kwargs)
 
+
+@never_cache
+def member_institution_list(request, slug, **kwargs):
+    """
+    Lists the person's institutions
+    """
+    item = get_object_or_404(
+        ContextItem,
+        content_type__model="person",
+        slug=slug,
+    )
+    if not request.user.has_perm("people.change_person", item.content_object) and item.status not in ("published", "published_commercial"):
+        return access_denied(request)
+    person = item.content_object
+    kwargs['queryset'] = person.get_institutions()
+    kwargs['template_name'] = 'people/person_institutions.html'
+
+    kwargs.setdefault("extra_context", {})
+    kwargs['extra_context']['object'] = person
+    kwargs['title'] = _("Institutions of %s") % person.get_title()
+    return object_list(request, **kwargs)

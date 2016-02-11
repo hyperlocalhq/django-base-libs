@@ -142,19 +142,10 @@ def document_list(
 
         form = DocumentSearchForm(data=request.REQUEST)
         if form.is_valid():
-            cs = form.cleaned_data['creative_sector']
-            if cs:
+            cat = form.cleaned_data['category']
+            if cat:
                 queryset = queryset.filter(
-                    creative_sectors__lft__gte=cs.lft,
-                    creative_sectors__rght__lte=cs.rght,
-                    creative_sectors__tree_id=cs.tree_id,
-                ).distinct()
-            cc = form.cleaned_data['context_category']
-            if cc:
-                queryset = queryset.filter(
-                    context_categories__lft__gte=cc.lft,
-                    context_categories__rght__lte=cc.rght,
-                    context_categories__tree_id=cc.tree_id,
+                    categories__tree_id=cat.tree_id,
                 ).distinct()
             dt = form.cleaned_data['document_type']
             if dt:

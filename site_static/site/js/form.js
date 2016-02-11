@@ -37,6 +37,15 @@ $(document).ready(function() {
             
             if (!dont) new ToggleVisibility($element); 
         });
+        
+        $('.radio-toggle', $scope).each(function() {
+            
+            var $element = $(this);
+            var dont = $element.hasClass('dont-add-form-functionality');
+            if (!dont) dont = ($element.closest('.dont-add-form-functionality').length);
+            
+            if (!dont) new RadioToggle($element); 
+        });
     
         $('.dynamic-entries', $scope).each(function() {
             
@@ -179,6 +188,52 @@ $(document).ready(function() {
         
         $(me.hide).removeClass('hidden').css('display', 'none');
         $(me.show).removeClass('hidden').css('display', '');
+    }
+    
+    
+    // toggle visibility depending on the status of a radio button group
+    function RadioToggle($main) {
+        
+        var me = this;
+        this.me = me;
+        
+        me.$main = $main;
+        
+        me.radio_name = me.$main.attr('data-radio-name');
+        me.radio_indexes = me.$main.attr('data-radio-index').split(',');
+        me.$radio = $('input[name="'+me.radio_name+'"]');
+        
+        me.$radio.change(function() {me.toggle();});
+        
+        me.toggle();
+    }
+    
+    RadioToggle.prototype.toggle = function() {
+     
+        var me = this;
+        
+        var checked = -1;
+        me.$radio.each(function(index) {
+           
+            var $this = $(this);
+            
+            if ($this.prop('checked')) {
+                checked = index;
+                return false;
+            }
+            
+        });
+        
+        var display = 'none';
+        for (var i=0, length=me.radio_indexes.length; i<length; i++) {
+            if (me.radio_indexes[i] == checked) {
+                display = '';
+                break;
+            }
+        }
+        
+        me.$main.css('display', display);
+        
     }
     
     

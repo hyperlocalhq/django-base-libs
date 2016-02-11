@@ -1,0 +1,78 @@
+{% load babel i18n image_mods_tags favorites cms_tags %}
+
+
+<div class="col-xs-12">
+    <div class="wrapper">
+        <a class="content" href="{% page_url request.current_page %}event/{{ event.slug }}/">
+            {% if event.image %}
+                <img src="{{ UPLOADS_URL }}{{ event.image|modified_path:"list" }}" alt="{{ event.get_title|escape }}"/>
+            {% else %}
+                <img src="{{ STATIC_URL }}site/img/placeholder/event_list.png">
+            {% endif %}
+            <div class="text">
+                <h3>
+                    {% if event.event_type %}
+                        {{ event.event_type }}
+                    {% endif %}
+                </h3>
+                <h2>{{ event.get_title|escape }}</h2>
+
+                <p>
+                    {% if event.venue %}
+                        {{ event.venue.title }}
+                    {% else %}
+                        {{ event.venue_title }}
+                    {% endif %}
+                    {% if event.postal_address %}
+                        {% with event.postal_address.get_dict as postal_address %}
+                            {% if postal_address.street_address or postal_address.country_name %}
+                                    <br/>
+                                    
+                                    {% if postal_address.street_address %}
+                                        <span class="seperator">{{ postal_address.street_address|escape }}</span>
+                                    {% endif %}
+                                    {% if postal_address.street_address2 %}
+                                        <span class="seperator">{{ postal_address.street_address2|escape }}</span>
+                                    {% endif %}
+                                    {% if postal_address.street_address3 %}
+                                        <span class="seperator">{{ postal_address.street_address3|escape }}</span>
+                                    {% endif %}
+                                    {% if postal_address.postal_code %}
+                                        <span class="seperator">{{ postal_address.postal_code|escape }} {{ postal_address.city|escape }}</span>
+                                    {% endif %}
+                                    {% if postal_address.country_name %}
+                                        <span class="seperator">{{ postal_address.country_name }}</span>
+                                    {% endif %}
+                                    
+                                    {% if date %}
+                                        <br/>
+                                    {% endif %}
+                            {% endif %}
+                        {% endwith %}
+                    {% endif %}
+                    
+                    {% if date %}
+                        {% trans 'Date' %}: {{ date|date:'G:i' }} - {{ date.end|date:'G:i' }}
+                    {% endif %}
+                    
+                </p>
+            </div>
+        </a>
+        
+        {% with event.get_urls|first as url %}
+            {% if url %}
+                <a class="website" href="url.link" target="_blank">{{ url.link|truncatechars:50 }}</a>
+            {% endif %}
+        {% endwith %}
+        
+        <div class="button-group">
+            {% if request.user.is_authenticated %}
+                {% adding2favorites for event using "generic/favorite_icon.html" %}
+            {% else %}
+                <a rel="nofollow" href="{% url 'login' %}?goto_next={{ request.path }}" class="fawesome fa-favorite button"><span class="sr-only">{% trans "Add to favorites" %}</span></a>
+            {% endif %}
+            <!-- <a href="#" class="fawesome fa-calender-check button"></a> -->
+        </div>
+    </div>
+</div>
+

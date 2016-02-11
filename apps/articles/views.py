@@ -18,6 +18,8 @@ from base_libs.views import access_denied
 from jetson.apps.utils.views import object_list, object_detail, feed
 from jetson.apps.structure.models import Term
 
+from .forms import ArticleSearchForm
+
 Article = apps.get_model("articles", "Article")
 ArticleType = apps.get_model("articles", "ArticleType")
 
@@ -149,6 +151,17 @@ def article_archive_index(
         queryset = kwargs.pop("queryset")
     else:
         queryset = get_articles(creative_sector_slug, type_sysname, status, only_features=only_features)
+
+    form = ArticleSearchForm(data=request.REQUEST)
+    if form.is_valid():
+        cat = form.cleaned_data['category']
+        if cat:
+            queryset = queryset.filter(
+                categories__lft__gte=cat.lft,
+                categories__rght__lte=cat.rght,
+                categories__tree_id=cat.tree_id,
+            ).distinct()
+
     archives = get_archives(queryset)
 
     if show == "favorites":
@@ -213,6 +226,7 @@ def article_archive_index(
     else:
         queryset = Article.objects.none()
 
+    extra_context['form'] = form
     extra_context['archives'] = archives
     extra_context['creative_sectors'] = get_creative_sectors()
     extra_context['date_list'] = date_list
@@ -294,6 +308,17 @@ def article_archive_year(
                 
     """
     queryset = get_articles(creative_sector_slug, type_sysname, status)
+
+    form = ArticleSearchForm(data=request.REQUEST)
+    if form.is_valid():
+        cat = form.cleaned_data['category']
+        if cat:
+            queryset = queryset.filter(
+                categories__lft__gte=cat.lft,
+                categories__rght__lte=cat.rght,
+                categories__tree_id=cat.tree_id,
+            ).distinct()
+
     archives = get_archives(queryset)
     if not extra_context:
         extra_context = {}
@@ -342,6 +367,7 @@ def article_archive_year(
 
     queryset = queryset.order_by('-' + date_field)
 
+    extra_context['form'] = form
     extra_context['archives'] = archives
     extra_context['creative_sectors'] = get_creative_sectors()
     extra_context['date_list'] = month_has_posts_list
@@ -391,6 +417,17 @@ def article_archive_month(
         article_list:     list of articles published in the given month
     """
     queryset = get_articles(creative_sector_slug, type_sysname, status)
+
+    form = ArticleSearchForm(data=request.REQUEST)
+    if form.is_valid():
+        cat = form.cleaned_data['category']
+        if cat:
+            queryset = queryset.filter(
+                categories__lft__gte=cat.lft,
+                categories__rght__lte=cat.rght,
+                categories__tree_id=cat.tree_id,
+            ).distinct()
+
     archives = get_archives(queryset)
     if not extra_context:
         extra_context = {}
@@ -450,6 +487,7 @@ def article_archive_month(
     day_list = queryset.filter(**lookup_kwargs).dates(date_field, 'day')
     queryset = queryset.order_by('-' + date_field)
 
+    extra_context['form'] = form
     extra_context['archives'] = archives
     extra_context['creative_sectors'] = get_creative_sectors()
     extra_context['month'] = date
@@ -504,6 +542,17 @@ def article_archive_day(
         article_list:   list of articles published at the given day
     """
     queryset = get_articles(creative_sector_slug, type_sysname, status)
+
+    form = ArticleSearchForm(data=request.REQUEST)
+    if form.is_valid():
+        cat = form.cleaned_data['category']
+        if cat:
+            queryset = queryset.filter(
+                categories__lft__gte=cat.lft,
+                categories__rght__lte=cat.rght,
+                categories__tree_id=cat.tree_id,
+            ).distinct()
+
     archives = get_archives(queryset)
     if not extra_context:
         extra_context = {}
@@ -559,6 +608,7 @@ def article_archive_day(
 
     queryset = queryset.order_by('-' + date_field)
 
+    extra_context['form'] = form
     extra_context['archives'] = archives
     extra_context['creative_sectors'] = get_creative_sectors()
     extra_context['day'] = date

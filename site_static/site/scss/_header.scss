@@ -5,7 +5,7 @@
 // the languages dropdown
 
 #header {
-    background: $black;
+    background: $header-bg;
 }
 
 #header, #navigation {    
@@ -20,14 +20,14 @@
         .select-display-wrapper {
             &:after {
                 content: "\f107";
-                color: $white;
+                color: $header-font;
                 font-size: 1.33em;
                 padding: 9px 5px 0 0;
             }
         }
         .select-display {
-            color: $white;
-            background: $black;
+            color: $header-font;
+            background: $header-bg;
             border: none;
             border-radius: 0;
             padding-right: 25px;
@@ -39,9 +39,9 @@
             }
         }
         .select-dropdown {
-            background: $black;
-            color: $white;
-            border: 1px solid $grey-dark;
+            background: $header-bg;
+            color: $header-font;
+            border: 1px solid $header-border;
             border-radius: 0;
             box-shadow: none;
             
@@ -57,31 +57,31 @@
 
 #header {
     width: 100%;
-    height: 114px;
+    height: $header-height;
     position: relative;
     
     .is-xs & {
-        height: 70px;
+        height: $header-height-xs;
     }
     
     .wrapper {
         width: 100%;
-        height: 114px;
-        background: $black;
+        height: $header-height;
+        background: $header-bg;
         text-align: center;
         z-index: 100;
         position: absolute;
-        top: -114px;
+        top: -$header-height;
         left: 0;
-        margin-top: 114px;
+        margin-top: $header-height;
     
         -webkit-transition: top 0.4s, left 0.4s, margin-top 0.4s;
         transition: top 0.4s, left 0.4s, margin-top 0.4s;
         
         .is-xs & {
-            height: 70px;
-            top: -70px;
-            margin-top: 70px;
+            height: $header-height-xs;
+            top: -$header-height-xs;
+            margin-top: $header-height-xs;
         }
     
         .navigation-open & {
@@ -94,7 +94,7 @@
         .navigation-bg {
             height: 100%;
             width: $navi-space-width;
-            background: $black;
+            background: $header-bg;
             position: absolute;
             top: 0;
             left: -$navi-space-width;
@@ -106,18 +106,18 @@
         width: auto;
         height: 100%;
         margin: 0;
-        padding: 15px 0;
+        padding: $header-logo-padding 0;
     
             -webkit-transition: width 0.4s, height 0.4s, padding 0.4s;
             transition: width 0.4s, height 0.4s, padding 0.4s;
         
         .is-xs & {
-            padding: 10px 0;
+            padding: $header-logo-padding-top-xs 0 $header-logo-padding-bottom-xs;
         }
     }
     
     .languages {
-        top: 37px;
+        top: $header-language-button-top;
         right: 40px;        
         
         .is-xs & {
@@ -126,15 +126,15 @@
     }
     
     .button {
-        color: white;
+        color: $header-font;
         position: absolute;
-        top: 40px;
+        top: $header-navi-button-top;
     
         -webkit-transition: top 0.4s, left 0.4s;
         transition: top 0.4s, left 0.4s;
         
         .is-xs & {
-            top: 21px;
+            top: $header-navi-button-top-xs;
             
             &:before {
                 -webkit-transition: font-size 0.4s;
@@ -175,7 +175,7 @@
         
         .wrapper {
             position: fixed;
-            top: -54px;
+            top: $header-fixed-top;
             left: 0;
             margin: 0;
     
@@ -183,7 +183,7 @@
             transition: top 0.4s, left 0.4s;
             
             .is-xs & {
-                top: -25px;
+                top: $header-fixed-top-xs;
             }
             
             .navigation-open & {
@@ -195,21 +195,21 @@
         }
         
         img.logo {
-            padding: 60px 0 5px;
+            padding: $header-fixed-logo-padding 0 5px;
     
                 -webkit-transition: none;
                 transition: none;
             
             .is-xs & {
-                padding: 31px 0 5px;
+                padding: $header-fixed-logo-padding-xs 0 5px;
             }
         }
         
         .button {
-            top: 62px;
+            top: $header-fixed-navi-button-top;
             
             .is-xs & {
-                top: 31px;
+                top: $header-fixed-navi-button-top-xs;
                 
                 &:before {
                     font-size: 1.33em;    
@@ -221,7 +221,7 @@
         }
         
         .languages {
-            top: 59px;
+            top: $header-fixed-language-button-top;
         }
     }
 }
@@ -357,12 +357,6 @@
             }
         }
         
-        .content {
-            .is-xs & {
-                padding-bottom: 45px;
-            }
-        }
-        
         h2 {
             margin: 0;
             
@@ -392,11 +386,9 @@
         }
         
         .buttons {
-            position: absolute;
             bottom: 0;
             margin-left: 30%;
-            padding-left: 3.5%;
-            padding-bottom: 3.5%;
+            padding: 10px 29.5% 0px 3.5%;
             width: 100%;
             display: none;
             
@@ -407,6 +399,7 @@
             > * {
                 display: inline-block;
                 margin-right: 3%;
+                margin-bottom: 10px;
                 
                 &:last-child {
                     margin-right: 0;

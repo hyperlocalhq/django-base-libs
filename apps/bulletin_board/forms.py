@@ -390,7 +390,7 @@ class BulletinForm(forms.ModelForm):
         return self.cleaned_data
 
 
-def load_data(instance=None):
+def load_data(instance=None, **kwargs):
     form_step_data = {}
     if instance:
         form_step_data = {
@@ -449,7 +449,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
     return form_step_data
 
 
-def set_extra_context(current_step, form_steps, form_step_data, instance=None):
+def set_extra_context(current_step, form_steps, form_step_data, instance=None, **kwargs):
     if "_pk" in form_step_data:
         return {'bulletin': Bulletin.objects.get(pk=form_step_data['_pk'])}
     return {}
@@ -635,21 +635,10 @@ class BulletinSearchForm(forms.Form):
                 layout.Field("bulletin_type", template="ccb_form/custom_widgets/filter_field.html"),
                 layout.Field("bulletin_category", template="ccb_form/custom_widgets/filter_field.html"),
                 layout.Field("category", template="ccb_form/custom_widgets/filter_field.html"),
-                layout.Field("locality_type", template="ccb_form/custom_widgets/filter_field.html"),
+                layout.Field("locality_type", template="ccb_form/custom_widgets/locality_type_filter_field.html"),
                 template="ccb_form/custom_widgets/filter.html"
             ),
             bootstrap.FormActions(
                 layout.Submit('submit', _('Search')),
             )
         )
-
-    def get_query(self):
-        from django.template.defaultfilters import urlencode
-        if self.is_valid():
-            cleaned = self.cleaned_data
-            return "&".join([
-                                ("%s=%s" % (k, urlencode(isinstance(v, models.Model) and v.pk or v)))
-                                for (k, v) in cleaned.items()
-                                if v
-                                ])
-        return ""

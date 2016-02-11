@@ -30,7 +30,11 @@ ALLOWED_HOSTS = [
 
 ### EMAILS ###
 
-MANAGERS = ADMINS = (
+MANAGERS = (
+    ("Creative City Berlin", "ccb-contact@kulturprojekte-berlin.de"),
+)
+
+ADMINS = (
     ("Aidas Bendoraitis", "bendoraitis@studio38.de"),
     ("Tiago Henriques", "henriques@studio38.de"),
     ("Reinhard Knobelspies", "knobelspies@studio38.de"),
@@ -40,7 +44,7 @@ CONTENT_ADMINS = (
     ("Creative City Berlin", "ccb-contact@kulturprojekte-berlin.de"),
 )
 
-DEFAULT_FROM_EMAIL = "contact@creative-city-berlin.de"
+DEFAULT_FROM_EMAIL = "ccb-contact@kulturprojekte-berlin.de"
 
 
 ### DIRS AND URLS ###
@@ -188,6 +192,8 @@ INSTALLED_APPS = [
     "ccb.apps.bulletin_board",
     "ccb.apps.metro",
     "ccb.apps.partners",
+    "ccb.apps.counselling_blog",
+    "ccb.apps.counselling_events",
     "ccb",  # just for i18n in Javascript
     "actstream",
 ]
@@ -879,6 +885,10 @@ CMS_TEMPLATES = (
     ('cms/page_sidebar_under_music.html', 'Page with Sidebar - Music'),
     ('cms/page_sidebar_under_theatre_dance.html', 'Page with Sidebar - Theatre & Dance'),
     ('cms/page_sidebar_under_advertising_pr.html', 'Page with Sidebar - Advertising & PR'),
+    
+    ('cms/start_counselling.html', 'Start Page Counselling'),
+    ('cms/page_counselling.html', 'Page Counselling'),
+    ('cms/page_sidebar_counselling.html', 'Page Counselling with Sidebar'),
 )
 
 CMS_LANGUAGES = {

@@ -39,6 +39,28 @@
                 </dl>
             {% endif %}
 
+            {% if object.categories.count %}
+                <dl class="input-fields">
+                    <dt>
+                        {% with object.categories.count as categories_count %}
+                            {% ifequal categories_count 1 %}
+                                {% trans "Category" %}
+                            {% else %}
+                                {% trans "Categories" %}
+                            {% endifequal %}
+                        {% endwith %}
+                    </dt>
+                    <dd>
+                        <div class="text-field">
+                            {% for cat in object.categories.all %}
+                                <div>{{ cat.title|escape }}</div>
+                            {% endfor %}
+                        </div>
+                    </dd>
+                    <dd class="clearfix"></dd>
+                </dl>
+            {% endif %}
+
         </fieldset>
     </div>
 {% endif %}

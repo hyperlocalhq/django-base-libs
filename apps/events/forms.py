@@ -10,9 +10,9 @@ from django.utils.dates import MONTHS
 from django.conf import settings
 from django.db import models
 from django.utils.encoding import force_unicode
+from django.shortcuts import get_object_or_404
 from base_libs.forms import dynamicforms
 from base_libs.forms.fields import ImageField
-from base_libs.forms.fields import AutocompleteField
 from base_libs.middleware import get_current_user
 from base_libs.utils.misc import get_related_queryset, XChoiceList
 from base_libs.utils.misc import get_unique_value
@@ -278,29 +278,27 @@ class MainDataForm(dynamicforms.Form):
         #            for obj in initial_related_events
         #            ]
         super(MainDataForm, self).__init__(*args, **kwargs)
-                
+
         # add option of already choosen selections on multistep forms for autoload fields
         initial = kwargs.get("initial", None)
         if initial:
             if initial.get('venue', None):
                 institution = Institution.objects.get(pk=initial.get('venue', None))
-                self.fields['venue'].widget.choices=[(institution.id, institution.title)]
-                
+                self.fields['venue'].widget.choices = [(institution.id, institution.title)]
+
             if initial.get('organizing_institution', None):
                 institution = Institution.objects.get(pk=initial.get('organizing_institution', None))
-                self.fields['organizing_institution'].widget.choices=[(institution.id, institution.title)]
-            
-        
+                self.fields['organizing_institution'].widget.choices = [(institution.id, institution.title)]
+
+
         # add option of choosen selections for autoload fields on error reload of page
         if self.data.get('venue', None):
             institution = Institution.objects.get(pk=self.data.get('venue', None))
-            self.fields['venue'].widget.choices=[(institution.id, institution.title)]
-                
+            self.fields['venue'].widget.choices = [(institution.id, institution.title)]
+
         if self.data.get('organizing_institution', None):
             institution = Institution.objects.get(pk=self.data.get('organizing_institution', None))
-            self.fields['organizing_institution'].widget.choices=[(institution.id, institution.title)]
-            
-            
+            self.fields['organizing_institution'].widget.choices = [(institution.id, institution.title)]
 
         self.helper = FormHelper()
         self.helper.form_action = ""
@@ -338,7 +336,7 @@ class MainDataForm(dynamicforms.Form):
             layout.Fieldset(
                 _("Venue"),
                 layout.Field(
-                    "venue", 
+                    "venue",
                     data_load_url="/helper/autocomplete/events/get_venues/title/get_address_string/",
                     data_load_start="1",
                     data_load_max="20",
@@ -461,7 +459,7 @@ class MainDataForm(dynamicforms.Form):
             layout.Fieldset(
                 _("Organizing institution"),
                 layout.Field(
-                    "organizing_institution", 
+                    "organizing_institution",
                     data_load_url="/helper/autocomplete/events/get_organizing_institutions/title/get_address_string/",
                     data_load_start="1",
                     data_load_max="20",
@@ -477,6 +475,9 @@ class MainDataForm(dynamicforms.Form):
                 layout.HTML("""{% load i18n %}
                     <dt class="institution-input hidden"> </dt><dd class="institution-input hidden"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-select" data-toggle-hide=".institution-input">{% trans "Back to selection" %}</a></dd>
                 """),
+                css_class="radio-toggle",
+                data_radio_name="organizer_ind",
+                data_radio_index="1",
             ),
             # layout.Fieldset(
             #    _("Organizer address"),
@@ -1533,6 +1534,16 @@ class CategoriesForm(dynamicforms.Form):
         )
 
 
+def step_main_data_initial_data(request, **kwargs):
+    institution_slug = request.GET.get('institution', None)
+    initial_data = {}
+    if institution_slug:
+        institution = get_object_or_404(Institution, slug=institution_slug)
+        initial_data['venue'] = institution.pk
+        initial_data['organizing_institution'] = institution.pk
+    return initial_data
+
+
 def submit_step(current_step, form_steps, form_step_data):
     return form_step_data
 
@@ -1550,7 +1561,7 @@ def save_data(form_steps, form_step_data):
     venue_title = ''
     if step_main_data.get('venue', None):
         venue = Institution.objects.get(pk=step_main_data['venue'])
-        #venue_title = venue.get_title()
+        # venue_title = venue.get_title()
     else:
         venue_title = step_main_data.get('venue_title', None)
 
@@ -1776,8 +1787,11 @@ ADD_EVENT_FORM_STEPS = {
             'event_times': formset_factory(
                 EventTimeForm,
                 can_delete=True,
+                min_num=1,
+                extra=0,
             ),
         },
+        'initial_data': step_main_data_initial_data,
     },
     'step_event_profile': {
         'title': _("event profile"),
@@ -1853,7 +1867,7 @@ class EventSearchForm(dynamicforms.Form):
                 _("Filter"),
                 layout.Field("category", template="ccb_form/custom_widgets/filter_field.html"),
                 layout.Field("event_type", template="ccb_form/custom_widgets/filter_field.html"),
-                layout.Field("locality_type", template="ccb_form/custom_widgets/filter_field.html"),
+                layout.Field("locality_type", template="ccb_form/custom_widgets/locality_type_filter_field.html"),
                 template="ccb_form/custom_widgets/filter.html"
             ),
             # "keywords",
@@ -1862,16 +1876,3 @@ class EventSearchForm(dynamicforms.Form):
                 layout.Submit('submit', _('Search')),
             )
         )
-
-    def get_query(self):
-        from django.template.defaultfilters import urlencode
-        if self.is_valid():
-            cleaned = self.cleaned_data
-            return "&".join(
-                [
-                    ("%s=%s" % (k, urlencode(isinstance(v, models.Model) and v.pk or v)))
-                    for (k, v) in cleaned.items()
-                    if v
-                ]
-            )
-        return ""

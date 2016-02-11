@@ -86,9 +86,9 @@ def bulletin_list(request, category_slug=None, template_name="bulletin_board/bul
         if lt:
             facets['selected']['locality_type'] = lt
             kwargs['queryset'] = kwargs['queryset'].filter(
-                location_type__lft__gte=lt.lft,
-                location_type__rght__lte=lt.rght,
-                location_type__tree_id=lt.tree_id,
+                locality_type__lft__gte=lt.lft,
+                locality_type__rght__lte=lt.rght,
+                locality_type__tree_id=lt.tree_id,
                 ).distinct()
                 
         bulletin_type = form.cleaned_data['bulletin_type']

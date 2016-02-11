@@ -47,7 +47,7 @@
                             <div class="buttons">
                                 
                             {% ifequal request.user object.user %}
-                                {% navigation_links "menu_activities" %}
+                                {% navigation_links "menu_personal_activities" %}
                             {% else %}
                                 {% if request.user.is_authenticated %}
                         
@@ -101,19 +101,19 @@
             <div class="col-xs-12 col-sm-4 col-md-3">
                 <div class="profile-image">
                     
-                        <div class="edit-avatar avatar-edit-frame">
-                            <a href="javascript:void(0);" data-edit-url="{% url 'edit_profile' object_type='person' slug=object.slug %}avatar/" class="fawesome fa-edit edit-image-link"></a>
-                            {% if object.image %}
-                                <a id="profile-image-link-sidebar" href="{% cropping_url object.image.path "profile" request object.get_url_path %}" class="fawesome fa-crop recrop-link"></a>
-                                <img id="profile-image-sidebar" src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if_has_perm "people.change_person" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ object.get_title|escape }}"/>
-                            {% else %}
-                                <img id="profile-image-sidebar" src="{{ STATIC_URL }}site/img/placeholder/profile.png" alt="{{ object.get_title|escape }}"/>
-                            {% endif %}
-                        </div>
+                    <div class="edit-avatar avatar-edit-frame">
+                        <a href="javascript:void(0);" data-edit-url="{% url 'edit_profile' object_type='person' slug=object.slug %}avatar/" class="fawesome fa-edit edit-image-link"></a>
+                        {% if object.image %}
+                            <a id="profile-image-link-sidebar" href="{% cropping_url object.image.path "profile" request object.get_url_path %}" class="fawesome fa-crop recrop-link"></a>
+                            <img id="profile-image-sidebar" src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if_has_perm "people.change_person" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ object.get_title|escape }}"/>
+                        {% else %}
+                            <img id="profile-image-sidebar" src="{{ STATIC_URL }}site/img/placeholder/profile.png" alt="{{ object.get_title|escape }}"/>
+                        {% endif %}
+                    </div>
 
                     {% ifequal request.user object.user %}
                     
-                        {% navigation_links "menu_activities" %}
+                        {% navigation_links "menu_personal_activities" %}
 
                     {% else %}
                         {% if request.user.is_authenticated %}
@@ -141,8 +141,6 @@
                     {% endifequal %}
     
                 </div>
-                
-                
                 
                 {% block sidebar %}
                 {% endblock %}

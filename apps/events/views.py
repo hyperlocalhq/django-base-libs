@@ -3,6 +3,7 @@ import re
 from datetime import datetime, timedelta
 from time import strptime
 
+from django.apps import apps
 from django.db import models
 from django.db import transaction
 from django.utils.translation import ugettext_lazy as _, ugettext
@@ -21,8 +22,8 @@ from ccb.apps.events.utils import create_ics
 from ccb.apps.events.models import URL_ID_EVENTS, SECURITY_SUMMAND
 from ccb.apps.events.forms import ADD_EVENT_FORM_STEPS, EventSearchForm
 
-Event = models.get_model("events", "Event")
-EventTime = models.get_model("events", "EventTime")
+Event = apps.get_model("events", "Event")
+EventTime = apps.get_model("events", "EventTime")
 
 
 class EventFeed(Feed):

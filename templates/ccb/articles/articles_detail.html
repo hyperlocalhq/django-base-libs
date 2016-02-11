@@ -1,5 +1,5 @@
 {% extends "articles/articles_base.html" %}
-{% load base_tags blog babel i18n auth_extended image_mods_tags favorites %}
+{% load base_tags blog babel i18n auth_extended image_mods_tags favorites fb_tags %}
 
 {% block meta_tags %}
     <meta name="description" content="{{ article.get_rendered_content|striptags|truncatewords:100 }}..."/>
@@ -73,6 +73,11 @@
 
         {% if article.image %}
             <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"article" }}" alt="{{ article.get_title|escape }}"/>
+            {% with article.image|file_description as file_desc %}
+                {% if file_desc.author %}
+                    <H5 CLASS="caption">{% trans "Photo" %}: {{ file_desc.author }}</H5>
+                {% endif %}
+            {% endwith %}
         {% endif %}
 
         {% parse article.get_rendered_content %}

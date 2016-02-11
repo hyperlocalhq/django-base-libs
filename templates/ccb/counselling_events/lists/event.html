@@ -1,0 +1,90 @@
+{% extends "utils/lists/base_context_item.html" %}
+{% load i18n base_tags babel image_mods_tags %}
+
+{% block object_image %}
+    <a href="{{ event.get_url_path }}">
+        {% if event.image %}
+            <img alt="{{ event.get_title|escape }}" src="{{ UPLOADS_URL }}{{ event.image|modified_path:"al" }}"/>
+        {% else %}
+            <span class="event-date_list">
+                <span>
+                    {% if event.get_nearest_occurrence %}
+                        {% with event.get_nearest_occurrence as time %}
+                            {{ time.start_dd|default:1|stringformat:"02d" }}.
+                            {{ time.start_mm|default:1|stringformat:"02d" }}<br/>
+                            {{ time.start_yyyy|default:"0000" }}
+                        {% endwith %}
+                    {% endif %}
+                </span>
+            </span>
+        {% endif %}
+    </a>
+{% endblock %}
+
+{% block object_title %}
+    <a class="summary" href="{{ event.get_url_path }}">{{ event.get_title|escape }}</a>
+{% endblock %}
+
+{% block object_absolute_url %}{{ event.get_url_path }}{% endblock %}
+
+{% block object_col1 %}
+    {% if event.postal_address %}
+        {% with event.postal_address.get_dict as postal_address %}
+            {% if postal_address.street_address or postal_address.country_name %}
+                <address class="hidable location">
+                    {% if event.venue %}
+                        <a href="{{ event.venue.get_url_path }}">
+                            {{ event.venue.title }}<br/>
+                        </a>
+                    {% else %}
+                        {{ event.venue_title }}<br/>
+                    {% endif %}
+                    {% if postal_address.street_address %}
+                        {{ postal_address.street_address|escape }}<br/>
+                    {% endif %}
+                    {% if postal_address.street_address2 %}
+                        {{ postal_address.street_address2|escape }}<br/>
+                    {% endif %}
+                    {% if postal_address.street_address3 %}
+                        {{ postal_address.street_address3|escape }}<br/>
+                    {% endif %}
+                    {% if postal_address.postal_code %}
+                        {{ postal_address.postal_code|escape }} {{ postal_address.city|escape }}<br/>
+                    {% endif %}
+                    {% if postal_address.country_name %}
+                        {{ postal_address.country_name }}<br/>
+                    {% endif %}
+                </address>
+            {% endif %}
+        {% endwith %}
+    {% endif %}
+{% endblock %}
+
+{% block object_col2 %}
+    {% if event.event_type %}
+        <div class="object-type">{{ event.event_type.get_title|escape }}</div>
+    {% endif %}
+
+    {% if event.label %}<span>{{ event.label }}: </span>{% endif %}
+    {% for time in event.eventtime_set.all %}
+        {% include "events/includes/event_time.html" %}
+        {% if not forloop.last %}<br/>{% endif %}
+    {% endfor %}
+    <br/>
+
+    {% if event.get_contacts %}
+        {% for url in event.get_contacts.0.get_urls %}
+            <span>
+                {% if url.type %}{{ url.type }}: {% endif %}<a class="url" href="{{ url.link|escape }}"
+                onclick="open_new_window(event)">
+                {% with url.link|slice:"0:27"|escape as sliced %}{{ sliced }}{% with url.link|escape as not_sliced %}
+                    {% ifnotequal sliced url.link|escape %}...{% endifnotequal %}{% endwith %}{% endwith %}</a><br/>
+            </span>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
+{% block object_controls %}
+    {% include "events/controls.html" %}
+{% endblock %}
+

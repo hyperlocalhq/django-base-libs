@@ -1,5 +1,5 @@
 {% extends "resources/documents/details_base.html" %}
-{% load i18n base_tags auth_extended compressed %}
+{% load i18n base_tags auth_extended cms_tags %}
 
 {% block details %}
 
@@ -12,6 +12,6 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-        <li><a href="/{{ URL_ID_DOCUMENTS }}/">{% trans "Infolinks" %}</a></li>
-        <li>{{ object.get_title|truncatewords:5 }}</li>
+    <li><a href="{% url 'document_list_global' %}">{% page_attribute "page_title" %}</a></li>
+    <li>{{ object.get_title|truncatewords:5 }}</li>
 {% endblock %}

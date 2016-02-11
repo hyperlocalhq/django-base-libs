@@ -27,16 +27,9 @@
 
 {% block sidebar %}
 
+    {{ block.super }}
+
     <div class="button-group">
-        {% if_has_perm "blog.change_blog_posts" container %}
-            <a class="fawesome fa-bullhorn button text" href="{{ container.get_url_path }}new/"><span class="text">{% trans "New Blog Entry" %}</span></a>
-            <br class="hidden-xs" /><br class="hidden-xs" />
-        {% else %}
-            {% if_has_perm object_change_permission container.content_object %}
-                <a class="fawesome fa-bullhorn button text" href="{{ container.get_url_path }}new/"><span class="text">{% trans "New Blog Entry" %}</span></a>
-            {% end_if_has_perm %}
-        {% end_if_has_perm %}
-        
         {% ifequal archive "details" %}
         
             {% if_has_perm "blog.change_blog_posts" post.blog %}
@@ -84,7 +77,7 @@
                     {% end_if_has_perm %}
                 {% end_if_has_perm %}
             </ul>
-                
+        </li>        
         <li></li>
     </ul>
     
@@ -100,6 +93,7 @@
                     </li>
                 {% endfor %}
             </ul>
+        </li>
         <li></li>
     </ul>
 

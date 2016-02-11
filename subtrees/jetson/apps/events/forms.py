@@ -910,12 +910,3 @@ class EventSearchForm(dynamicforms.Form):
         label=_("Featured events only"),
         required=False,
         )
-    
-    def get_query(self):
-        from django.template.defaultfilters import urlencode
-        cleaned = self.cleaned_data
-        return "&".join([
-            ("%s=%s" % (k, urlencode(isinstance(v, models.Model) and v.pk or v)))
-            for (k, v) in cleaned.items()
-            if v
-            ])
