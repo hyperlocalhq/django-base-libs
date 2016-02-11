@@ -1073,7 +1073,7 @@ msgstr "Eigentümer"
 #: .\berlinbuehnen\apps\education\admin.py:166
 #, python-format
 msgid "The owners of %(department)s"
-msgstr "Besitzer von Abteilungen"
+msgstr "Besitzer von %(department)s"
 
 #: .\berlinbuehnen\apps\education\admin.py:231
 #: .\berlinbuehnen\apps\productions\admin.py:154
@@ -1148,7 +1148,7 @@ msgstr "Bühnen"
 #: .\berlinbuehnen\apps\education\admin.py:303
 #, python-format
 msgid "The owners of %(project)s"
-msgstr "Eigentümer von Projekten"
+msgstr "Eigentümer von %(project)s"
 
 #: .\berlinbuehnen\apps\education\autocomplete_light_registry.py:14
 msgid "Start typing to choose an educational department"
@@ -2610,7 +2610,7 @@ msgstr "Veranstalter"
 #: .\berlinbuehnen\apps\festivals\admin.py:140
 #, python-format
 msgid "The owners of %(festival)s"
-msgstr "Festivaleigentümer"
+msgstr "Eigentümer von %(festival)s"
 
 #: .\berlinbuehnen\apps\festivals\autocomplete_light_registry.py:14
 msgid "Start typing to choose a festival"
@@ -3056,7 +3056,7 @@ msgstr "Karte"
 #: .\berlinbuehnen\apps\marketplace\admin.py:208
 #, python-format
 msgid "The owners of %(job_offer)s"
-msgstr "Jobanbieter"
+msgstr "Anbieter von %(job_offer)s"
 
 #: .\berlinbuehnen\apps\marketplace\cms_app.py:8
 msgid "Marketplace"
@@ -3287,7 +3287,7 @@ msgstr ""
 #: .\berlinbuehnen\apps\productions\admin.py:240
 #, python-format
 msgid "The owners of %(production)s"
-msgstr "Produktion(en)eigentümer"
+msgstr "Eigentümer von %(production)s"
 
 #: .\berlinbuehnen\apps\productions\admin.py:327
 msgid "Main Data"
@@ -4877,7 +4877,7 @@ msgstr "Datum und Uhrzeit hinzufügen"
 
 #: .\berlinbuehnen\templates\berlinbuehnen\education\projects\forms\description_form.html.py:138
 msgid "Add member"
-msgstr "Bühne hinzufügen"
+msgstr "Person hinzufügen"
 
 #: .\berlinbuehnen\templates\berlinbuehnen\education\projects\forms\description_form.html.py:193
 #: .\berlinbuehnen\templates\berlinbuehnen\productions\events\description_form.html.py:243
