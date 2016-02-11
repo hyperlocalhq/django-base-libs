@@ -99,30 +99,38 @@
                                                                     <div class="row">
                     
                                                                         <!-- date -->
-                                                                        {% with project.get_next_date as date %}
+                                                                        {% with event=project.get_next_event %}
                                                                             <div class="list-item-head-date col-xs-12 col-sm-4">
                                                                                 <div class="row">
-                                                                                    {% if date %}
+                                                                                    {% if event.start %}
+                                                                                        {% comment %}
                                                                                         <div class="list-item-head-date-day col-xs-3 col-sm-12">
                                                                                             {{ date|date:"D" }}
                                                                                         </div>
+                                                                                        {% endcomment %}
                                                                                         <div class="list-item-head-date-month col-xs-3 col-sm-12">
-                                                                                                <span class="hidden-xs">{{ date|date:"j. F" }}</span>
-                                                                                                <span class="visible-xs">{{ date|date:"j. M" }}</span>
+                                                                                            <span class="hidden-xs">
+                                                                                                {{ event.start|date:"j. F" }}
+                                                                                                {% if event.end %} - {{ event.end|date:"j. F" }}{% endif %}
+                                                                                            </span>
+                                                                                            <span class="visible-xs">
+                                                                                                {{ event.start|date:"j. M" }}
+                                                                                                {% if event.end %} - {{ event.end|date:"j. M" }}{% endif %}
+                                                                                            </span>
                                                                                         </div>
                                                                                     {% else %}
                                                                                         <div class="list-item-head-date-none col-xs-3 col-sm-12">
                                                                                             {% trans "continuous project" %}
                                                                                         </div>
                                                                                     {% endif %}
-                                                                                    <div class="list-item-head-date-type col-xs-3 col-sm-12 {% if not date %}no-date{% endif %}">
+                                                                                    <div class="list-item-head-date-type col-xs-3 col-sm-12 {% if not event.start %}no-date{% endif %}">
                                                                                         {% for format in project.format.all %}
                                                                                             <span>{{ format.title }}</span>
                                                                                         {% endfor %}
                                                                                     </div>
-                                                                                    {% if date %}
+                                                                                    {% if event.start %}
                                                                                         <div class="list-item-head-date-time col-xs-3 col-sm-12">
-                                                                                            {{ date|time:"H:i" }}
+                                                                                            {{ event.start|time:"H:i" }}
                                                                                         </div>
                                                                                     {% endif %}
                                                                                     <div class="list-item-head-date-icons col-xs-3 col-sm-12">
