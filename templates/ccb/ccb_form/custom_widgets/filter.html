@@ -1,5 +1,9 @@
-<ul class="accordion filter-box">
-    <li><div class="head">{% if legend %}{{ legend|safe }}{% else %}Filter{% endif %}</div></li>
-    {{ fields|safe }} 
+<ul class="accordion navi-box">
+    <li class="accordion-inside accordion-trigger opened">
+        <div class="accordion-trigger head">{% if legend %}{{ legend|safe }}{% else %}Filter{% endif %}</div>
+        <ul class="accordion filter-box">
+            {{ fields|safe }} 
+        </ul>
+    </li>
     <li></li>
 </ul>

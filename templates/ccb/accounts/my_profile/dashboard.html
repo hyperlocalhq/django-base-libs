@@ -178,3 +178,8 @@
 {% block breadcrumbs %}
     <li>{% trans "My Profile" %}</li>
 {% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/slider.js"></script>
+{% endblock %}

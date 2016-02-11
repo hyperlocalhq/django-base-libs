@@ -157,6 +157,10 @@
             border-radius: 1.33em;
             text-align: left;
             
+            .is-sm &, .is-md & {
+                font-size: 1em;
+            }
+            
             .is-xs & {
                 position: relative;
                 width: auto;
@@ -177,15 +181,20 @@
             
             &:before {
                 font-size: 1.22em;
-                line-height: 215%;
+                line-height: 205%;
                 text-align: center;
                 width: 2.05em;
                 height: 2.05em;
                 border-radius: 50%;
                 background: $grey;
                 color: $white;
-                margin-right: 10%;
+                margin-right: 8%;
                 margin-top: 1px;
+                padding-left: 0.7%;
+                
+                .is-md &, .is-sm & {
+                    margin-right: 4%;
+                }
                 
                 .is-xs & {
                     width: 1.9em;

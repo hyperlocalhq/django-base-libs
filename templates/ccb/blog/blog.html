@@ -27,19 +27,9 @@
 
 {% block sidebar %}
 
-    <div class="button-group">
-        {% comment %}<!-- This link duplicates the link in the activities, so we probably don't need it here -->
-        {% if_has_perm "blog.change_blog_posts" container %}
-            <a class="fawesome fa-bullhorn button text" href="{{ container.get_url_path }}new/"><span class="text">{% trans "New Blog Entry" %}</span></a>
-            <br class="hidden-xs" /><br class="hidden-xs" />
-        {% else %}
-            {% if_has_perm object_change_permission container.content_object %}
-                <a class="fawesome fa-bullhorn button text" href="{{ container.get_url_path }}new/"><span class="text">{% trans "New Blog Entry" %}</span></a>
-            {% end_if_has_perm %}
-            <br class="hidden-xs" /><br class="hidden-xs" />
-        {% end_if_has_perm %}
-        {% endcomment %}
+    {{ block.super }}
 
+    <div class="button-group">
         {% ifequal archive "details" %}
         
             {% if_has_perm "blog.change_blog_posts" post.blog %}
@@ -87,7 +77,7 @@
                     {% end_if_has_perm %}
                 {% end_if_has_perm %}
             </ul>
-                
+        </li>        
         <li></li>
     </ul>
     
@@ -103,6 +93,7 @@
                     </li>
                 {% endfor %}
             </ul>
+        </li>
         <li></li>
     </ul>
 
