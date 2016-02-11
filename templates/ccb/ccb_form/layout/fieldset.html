@@ -1,5 +1,5 @@
-<div class="fieldset editable {{ fieldset.css_class }}">
-    <fieldset {% if fieldset.css_id %}id="{{ fieldset.css_id }}"{% endif %} {{ fieldset.flat_attrs|safe }}>
+<div class="fieldset editable {{ fieldset.css_class }}" {{ fieldset.flat_attrs|safe }}>
+    <fieldset {% if fieldset.css_id %}id="{{ fieldset.css_id }}"{% endif %}>
         {% if legend %}<h2>{{ legend|safe }}</h2>{% endif %}
         <dl class="input-fields">
             {{ fields|safe }} 

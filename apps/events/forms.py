@@ -475,6 +475,9 @@ class MainDataForm(dynamicforms.Form):
                 layout.HTML("""{% load i18n %}
                     <dt class="institution-input hidden"> </dt><dd class="institution-input hidden"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-select" data-toggle-hide=".institution-input">{% trans "Back to selection" %}</a></dd>
                 """),
+                css_class="radio-toggle",
+                data_radio_name="organizer_ind",
+                data_radio_index="1",
             ),
             # layout.Fieldset(
             #    _("Organizer address"),
