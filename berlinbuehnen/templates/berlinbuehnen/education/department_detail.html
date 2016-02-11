@@ -111,11 +111,11 @@
                                                                                         <div class="list-item-head-date-month col-xs-3 col-sm-12">
                                                                                             <span class="hidden-xs">
                                                                                                 {{ event.start|date:"j. F" }}
-                                                                                                {% if event.end %} - {{ event.end|date:"j. F" }}{% endif %}
+                                                                                                {% if event.end %} - <br /> {{ event.end|date:"j. F" }}{% endif %}
                                                                                             </span>
                                                                                             <span class="visible-xs">
                                                                                                 {{ event.start|date:"j. M" }}
-                                                                                                {% if event.end %} - {{ event.end|date:"j. M" }}{% endif %}
+                                                                                                {% if event.end %} - <br />{{ event.end|date:"j. M" }}{% endif %}
                                                                                             </span>
                                                                                         </div>
                                                                                     {% else %}
