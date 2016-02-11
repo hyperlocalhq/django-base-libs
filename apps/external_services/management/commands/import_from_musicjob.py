@@ -8,6 +8,8 @@ class Command(BaseCommand):
     help = """Imports job offers from www.music-job.com"""
 
     def handle(self, *args, **options):
+        return  # TODO: music job links are somewhat broken
+
         verbosity = int(options.get('verbosity', NORMAL))
 
         import requests
