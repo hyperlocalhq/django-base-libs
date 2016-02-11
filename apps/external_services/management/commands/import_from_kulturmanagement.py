@@ -1,18 +1,14 @@
 # -*- coding: UTF-8 -*-
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 
 SILENT, NORMAL, VERBOSE = 0, 1, 2
 
 
-class Command(NoArgsCommand):
-    def handle(self, *args, **options):
-        pass
-
+class Command(BaseCommand):
     help = """Imports job offers from Kulturmanagement.net"""
 
-    def handle_noargs(self, **options):
+    def handle(self, *args, **options):
         verbosity = int(options.get('verbosity', NORMAL))
-
         import requests
         from xml.dom.minidom import parseString
 
