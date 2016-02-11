@@ -30,7 +30,11 @@ ALLOWED_HOSTS = [
 
 ### EMAILS ###
 
-MANAGERS = ADMINS = (
+MANAGERS = (
+    ("Creative City Berlin", "ccb-contact@kulturprojekte-berlin.de"),
+)
+
+ADMINS = (
     ("Aidas Bendoraitis", "bendoraitis@studio38.de"),
     ("Tiago Henriques", "henriques@studio38.de"),
     ("Reinhard Knobelspies", "knobelspies@studio38.de"),
@@ -40,7 +44,7 @@ CONTENT_ADMINS = (
     ("Creative City Berlin", "ccb-contact@kulturprojekte-berlin.de"),
 )
 
-DEFAULT_FROM_EMAIL = "contact@creative-city-berlin.de"
+DEFAULT_FROM_EMAIL = "ccb-contact@kulturprojekte-berlin.de"
 
 
 ### DIRS AND URLS ###
