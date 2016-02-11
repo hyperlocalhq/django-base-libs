@@ -73,9 +73,25 @@
                 padding: 0 115px 20px 20px;
                 margin: 0;
                 
+                .content-provider {
+                    text-transform: none;
+                    color: $grey-dark;
+                }
+                
                 .commercial {
                     font-weight: 400;
-                    font-size: 0.9em;
+                    font-size: 1em;
+                    width: 1.2em;
+                    height: 1.2em;
+                    display: inline-block;
+                    color: $white;
+                    background: $cyan;
+                    border-radius: 50%;
+                    text-align: center;
+                    line-height: 1.1em;
+                    padding-right: 1px;
+                    position: relative;
+                    top: -1px;
                 }
                 
                 time {

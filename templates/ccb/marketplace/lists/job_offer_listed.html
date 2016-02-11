@@ -8,8 +8,8 @@
                 <div class="text">
                     <h3>
                         {{ job_offer.job_type.title }}
-                        {% if job_offer.get_content_provider %}<span class="color-grey-dark">・ {{ job_offer.get_content_provider.title }}</span>{% endif %}
-                        {% if job_offer.is_commercial %}<span class="color-grey-dark">・ <span class="commercial">€</span>{% endif %}
+                        {% if job_offer.get_content_provider %}<span class="content-provider">・ {{ job_offer.get_content_provider.title }}</span>{% endif %}
+                        {% if job_offer.is_commercial %}<span class="content-provider">・ <span class="commercial">€</span>{% endif %}
                         <time datetime="{{ job_offer.published_from|date:"Y-m-d" }}">
                             {{ job_offer.published_from|datefmt:"long" }}
                         </time>
