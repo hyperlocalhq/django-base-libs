@@ -1,16 +1,13 @@
 # -*- coding: UTF-8 -*-
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 
 SILENT, NORMAL, VERBOSE = 0, 1, 2
 
 
-class Command(NoArgsCommand):
-    def handle(self, *args, **options):
-        pass
-
+class Command(BaseCommand):
     help = """Imports job offers from Creativeset.net"""
 
-    def handle_noargs(self, **options):
+    def handle(self, *args, **options):
         verbosity = int(options.get('verbosity', NORMAL))
 
         import requests
@@ -18,19 +15,19 @@ class Command(NoArgsCommand):
         from xml.dom.minidom import parseString
         from dateutil.parser import parse as parse_datetime
 
-        from django.db import models
+        from django.apps import apps
 
         from base_libs.utils.misc import html_to_plain_text
         from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
 
         from jetson.apps.external_services.utils import get_value
 
-        Address = models.get_model("location", "Address")
-        JobOffer = models.get_model("marketplace", "JobOffer")
-        JobType = models.get_model("marketplace", "JobType")
-        ObjectMapper = models.get_model("external_services", "ObjectMapper")
-        Service = models.get_model("external_services", "Service")
-        URLType = models.get_model("optionset", "URLType")
+        Address = apps.get_model("location", "Address")
+        JobOffer = apps.get_model("marketplace", "JobOffer")
+        JobType = apps.get_model("marketplace", "JobType")
+        ObjectMapper = apps.get_model("external_services", "ObjectMapper")
+        Service = apps.get_model("external_services", "Service")
+        URLType = apps.get_model("optionset", "URLType")
 
         s, created = Service.objects.get_or_create(
             sysname="creativeset",
