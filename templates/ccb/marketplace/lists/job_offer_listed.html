@@ -3,47 +3,37 @@
 
 <div class="col-xs-12">
     <div class="wrapper">
-        <a class="content" href="{{ job_offer.get_url_path }}">
-            <div class="text">
-                <h3>
-                    {{ job_offer.job_type.title }}
-                    {% if job_offer.is_commercial %} <span class="commercial">€</span>{% endif %}                    
-                    <time datetime="{{ job_offer.published_from|date:"Y-m-d" }}">
-                        {{ job_offer.published_from|datefmt:"long" }}
-                    </time>
-                </h3>
-                {% if job_offer.get_urls %}
-                    <h4 data-href="{{ job_offer.get_urls.0.link }}">
-                        {% with domain=job_offer.get_urls.0.domain %}
-                            {% if domain|slice:":4" == "www." %}
-                                {{ domain|slice:"4:" }}
-                            {% else %}
-                                {{ domain }}
-                            {% endif %}
-                        {% endwith %}
-                    </h4>
-                {% endif %}
-                <h2>{{ job_offer.position }}</h2>
-                <p>
-                    {{ job_offer.get_description|striptags|truncatewords:20 }}
-                </p>
-                {% if job_offer.job_sectors.all %}
-                    <ul>
-                        {% for sector in job_offer.job_sectors.all %}
-                            <li>{{ sector.title }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-                {% if job_offer.categories.all %}
-                    <ul>
-                        {% for category in job_offer.categories.all %}
-                            <li>{{ category.title }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            </div>
-        </a>
-        {% with job_offer.get_urls|first as url %}
+        {% with url=job_offer.get_urls|first %}
+            <a class="content" href="{{ job_offer.get_url_path }}">
+                <div class="text">
+                    <h3>
+                        {{ job_offer.job_type.title }}
+                        {% if job_offer.get_content_provider %}<span class="color-grey-dark">・ {{ job_offer.get_content_provider.title }}</span>{% endif %}
+                        {% if job_offer.is_commercial %}<span class="color-grey-dark">・ <span class="commercial">€</span>{% endif %}
+                        <time datetime="{{ job_offer.published_from|date:"Y-m-d" }}">
+                            {{ job_offer.published_from|datefmt:"long" }}
+                        </time>
+                    </h3>
+                    <h2>{{ job_offer.position }}</h2>
+                    <p>
+                        {{ job_offer.get_description|striptags|truncatewords:20 }}
+                    </p>
+                    {% if job_offer.job_sectors.all %}
+                        <ul>
+                            {% for sector in job_offer.job_sectors.all %}
+                                <li>{{ sector.title }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    {% if job_offer.categories.all %}
+                        <ul>
+                            {% for category in job_offer.categories.all %}
+                                <li>{{ category.title }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </a>
             {% if url %}
                 <a class="website" href="{{ url.link }}" target="_blank">{{ url.link|truncatechars:50 }}</a>
             {% endif %}
