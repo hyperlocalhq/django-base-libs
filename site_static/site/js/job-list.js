@@ -47,6 +47,7 @@
                 var margin = 5;
                 
                 $website.css('top', ($p.position().top + $p.height()) + margin + 'px');
+                $p.css('margin-bottom', ($website.height() + margin) + 'px');
                 $ul.css('margin-top', ($website.height() + margin) + 'px');
                 
             }
