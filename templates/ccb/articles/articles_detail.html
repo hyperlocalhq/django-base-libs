@@ -74,7 +74,9 @@
         {% if article.image %}
             <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"article" }}" alt="{{ article.get_title|escape }}"/>
             {% with article.image|file_description as file_desc %}
-                {% if file_desc.author %}
+                {% if article.image_description %}
+                    <H5 CLASS="caption">{{ article.image_description|striptags }}</H5>
+                {% elif file_desc.author %}
                     <H5 CLASS="caption">{% trans "Photo" %}: {{ file_desc.author }}</H5>
                 {% endif %}
             {% endwith %}
