@@ -1146,6 +1146,14 @@ canvas.fawesome.big {
   content: "\f0eb";
 }
 
+.fawesome.fa-key:before {
+  content: "\f084";
+}
+
+.fawesome.fa-book:before {
+  content: "\f02d";
+}
+
 .fawesome.fa-whatsapp.after:after {
   content: "\f232";
 }
@@ -1488,6 +1496,14 @@ canvas.fawesome.big {
 
 .fawesome.fa-lightbulb.after:after {
   content: "\f0eb";
+}
+
+.fawesome.fa-key.after:after {
+  content: "\f084";
+}
+
+.fawesome.fa-book.after:after {
+  content: "\f02d";
 }
 
 body {
@@ -4805,12 +4821,12 @@ dd.autocomplete .input-field.ac_loading:after {
   margin-bottom: 30px;
 }
 
-.row.blog-grid > div a.content:hover, .row.blog-grid > div a.content:focus {
+.row.blog-grid > div a.content:hover, .row.blog-grid > div a.content:focus, .row.blog-grid > div a.content:active {
   background: #efefef;
   box-shadow: 0px 0px 0px 5px #efefef;
 }
 
-.is-xs .row.blog-grid > div a.content:hover, .is-xs .row.blog-grid > div a.content:focus {
+.is-xs .row.blog-grid > div a.content:hover, .is-xs .row.blog-grid > div a.content:focus, .is-xs .row.blog-grid > div a.content:active {
   background: transparent;
   box-shadow: none;
 }

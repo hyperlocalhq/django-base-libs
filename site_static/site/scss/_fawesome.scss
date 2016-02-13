@@ -1032,6 +1032,12 @@ canvas.fawesome {
 .fawesome.fa-lightbulb:before {
     content: "\f0eb";
 }
+.fawesome.fa-key:before {
+    content: "\f084";
+}
+.fawesome.fa-book:before {
+    content: "\f02d";
+}
 
 
 
@@ -1294,4 +1300,10 @@ canvas.fawesome {
 }
 .fawesome.fa-lightbulb.after:after {
     content: "\f0eb";
+}
+.fawesome.fa-key.after:after {
+    content: "\f084";
+}
+.fawesome.fa-book.after:after {
+    content: "\f02d";
 }
