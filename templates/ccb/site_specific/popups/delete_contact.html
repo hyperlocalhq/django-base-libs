@@ -2,16 +2,16 @@
 {% load i18n %}
 
 {% block content %}
-    <form action="" method="post" class="uniForm">{% csrf_token %}
+    <form action="" method="post">{% csrf_token %}
         <div class="fieldset editable">
             <fieldset>
                 <h2>{% trans "Delete contact?" %}</h2>
                 {% if contact.postal_address %}
-                    <h3>{% blocktrans %}Do you really want to delete the contact "{{ contact.postal_address }}"?{% endblocktrans %}</h3>
+                    <h3>{% blocktrans with contact_title=contact.postal_address %}Do you really want to delete the contact "{{ contact_title }}"?{% endblocktrans %}</h3>
                 {% elif contact.location_title %}
-                    <h3>{% blocktrans %}Do you really want to delete the contact "{{ contact.location_title }}"?{% endblocktrans %}</h3>
+                    <h3>{% blocktrans with contact_title=contact.location_title %}Do you really want to delete the contact "{{ contact_title }}"?{% endblocktrans %}</h3>
                 {% elif contact.institution_id %}
-                    <h3>{% blocktrans %}Do you really want to delete the contact "{{ contact.institution.get_title|escape }}"?{% endblocktrans %}</h3>
+                    <h3>{% blocktrans with contact_title=contact.institution.get_title|escape %}Do you really want to delete the contact "{{ contact_title }}"?{% endblocktrans %}</h3>
                 {% endif %}
                 <div class="button-group form-buttons">
                     <input class="button cancel" name="cancel" type="button" value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>

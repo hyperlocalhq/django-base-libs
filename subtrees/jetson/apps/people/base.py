@@ -489,8 +489,8 @@ class PersonBase(CreationModificationDateMixin, UrlMixin):
         return self.user.email
     get_email.short_description = _('E-mail address')
     
-    def get_contacts(self):
-        if not hasattr(self, "_contacts_cache"):
+    def get_contacts(self, cache=True):
+        if not hasattr(self, "_contacts_cache") or not cache:
             self._contacts_cache = self.individualcontact_set.order_by('-is_primary', 'id')
         return self._contacts_cache
     
