@@ -96,4 +96,16 @@
             }
         }
     }
+    
+    &.magazine {
+        a.content {
+            h2 {
+                top: 45%;
+            }
+            p {
+                font-size: 1.2em;
+                top: 45%;
+            }
+        }
+    }
 }

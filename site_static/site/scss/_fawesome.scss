@@ -1038,6 +1038,9 @@ canvas.fawesome {
 .fawesome.fa-book:before {
     content: "\f02d";
 }
+.fawesome.fa-questionmark:before {
+    content: "\f059";
+}
 
 
 
@@ -1306,4 +1309,7 @@ canvas.fawesome {
 }
 .fawesome.fa-book.after:after {
     content: "\f02d";
+}
+.fawesome.fa-questionmark.after:after {
+    content: "\f059";
 }
