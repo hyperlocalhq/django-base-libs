@@ -42,7 +42,7 @@
                 cursor: "wait"
             });
             $.get(
-                "/helper/favorite/" + iCTId + "/" + oObjId + "/",
+                "/" + window.settings.lang + "/helper/favorite/" + iCTId + "/" + oObjId + "/",
                 function(oData) {
                     self.FavoriteManager.showResults(oData, iCounter);
                 },
@@ -120,7 +120,7 @@
                 cursor: "wait"
             });
             $.get(
-                "/helper/favorite/" + iCTId + "/" + oObjId + "/",
+                "/" + window.settings.lang + "/helper/favorite/" + iCTId + "/" + oObjId + "/",
                 function(oData) {
                     self.FavoriteContactManager.showResults(oData, iCounter);
                 },
@@ -164,7 +164,7 @@
                 cursor:"wait"
             });
             $.get(
-                "/helper/memo/" + iCTId + "/" + oObjId + "/",
+                "/" + window.settings.lang + "/helper/memo/" + iCTId + "/" + oObjId + "/",
                 function(oData) {
                     self.MemoManager.showResults(oData, iCounter);
                 },

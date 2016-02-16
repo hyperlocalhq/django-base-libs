@@ -14,6 +14,7 @@ from django.shortcuts import get_object_or_404
 from base_libs.forms import dynamicforms
 from base_libs.forms.fields import ImageField
 from base_libs.middleware import get_current_user
+from base_libs.middleware.threadlocals import get_current_language
 from base_libs.utils.misc import get_related_queryset, XChoiceList
 from base_libs.utils.misc import get_unique_value
 from base_libs.utils.betterslugify import better_slugify
@@ -337,7 +338,7 @@ class MainDataForm(dynamicforms.Form):
                 _("Venue"),
                 layout.Field(
                     "venue",
-                    data_load_url="/helper/autocomplete/events/get_venues/title/get_address_string/",
+                    data_load_url="/%s/helper/autocomplete/events/get_venues/title/get_address_string/" % get_current_language(),
                     data_load_start="1",
                     data_load_max="20",
                     wrapper_class="venue-select",
@@ -460,7 +461,7 @@ class MainDataForm(dynamicforms.Form):
                 _("Organizing institution"),
                 layout.Field(
                     "organizing_institution",
-                    data_load_url="/helper/autocomplete/events/get_organizing_institutions/title/get_address_string/",
+                    data_load_url="/%s/helper/autocomplete/events/get_organizing_institutions/title/get_address_string/" % get_current_language(),
                     data_load_start="1",
                     data_load_max="20",
                     wrapper_class="institution-select",
@@ -909,7 +910,7 @@ class ProfileForm(dynamicforms.Form):
                 _("Photo"),
                 layout.HTML("""{% load image_modifications %}
                     {% if form_step_data.step_event_profile.image %}
-                        <dt>""" + (_("Image") + "") + """</dt><dd><img class="avatar" src="/helper/tmpimage/{{ form_step_data.step_event_profile.image.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/" alt="{{ object.get_title|escape }}"/></dd>
+                        <dt>""" + (_("Image") + "") + """</dt><dd><img class="avatar" src="/{{ LANGUAGE_CODE }}/helper/tmpimage/{{ form_step_data.step_event_profile.image.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/" alt="{{ object.get_title|escape }}"/></dd>
                     {% else %}
                         <dt>""" + (_("Image") + "") + """</dt><dd><img src="{{ STATIC_URL }}site/img/placeholder/event.png" alt="{{ object.get_title|escape }}"/>
 </dd>

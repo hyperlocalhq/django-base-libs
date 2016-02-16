@@ -14,6 +14,7 @@ from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
 from base_libs.forms import dynamicforms
 from base_libs.forms.fields import AutocompleteField
 from base_libs.middleware import get_current_user
+from base_libs.middleware.threadlocals import get_current_language
 from base_libs.utils.misc import get_related_queryset
 
 from tagging.forms import TagField
@@ -247,7 +248,7 @@ class MainDataForm(dynamicforms.Form):
                 _("Institution"),
                 layout.Field(
                     "offering_institution", 
-                    data_load_url="/helper/autocomplete/marketplace/get_institutions/title/get_address_string/",
+                    data_load_url="/%s/helper/autocomplete/marketplace/get_institutions/title/get_address_string/" % get_current_language(),
                     data_load_start="1",
                     data_load_max="20",
                     wrapper_class="institution-select",

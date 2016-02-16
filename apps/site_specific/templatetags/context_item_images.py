@@ -6,11 +6,13 @@ register = template.Library()
 ### FILTERS ###
 
 def get_avatar_url(obj, dimensions):
+    from base_libs.middleware.threadlocals import get_current_language
     url = ""
     if hasattr(obj, "get_original_image_rel_path"):
         path = obj.get_original_image_rel_path()
         if path:
-            url = "/helper/tmpimage/%s/?path=%s" % (
+            url = "/%s/helper/tmpimage/%s/?path=%s" % (
+                get_current_language(),
                 dimensions,
                 path,
             )

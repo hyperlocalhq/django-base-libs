@@ -416,8 +416,8 @@ class InstitutionBase(CreationModificationDateMixin, UrlMixin, OpeningHoursMixin
                 contact_dict.pop('_phones_cache', '')
         return contact_dict
     
-    def get_contacts(self):
-        if not hasattr(self, "_contacts_cache"):
+    def get_contacts(self, cache=True):
+        if not hasattr(self, "_contacts_cache") or not cache:
             self._contacts_cache = self.institutionalcontact_set.order_by('-is_primary', 'id')
         return self._contacts_cache
         

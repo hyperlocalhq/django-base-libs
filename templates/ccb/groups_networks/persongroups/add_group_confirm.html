@@ -41,7 +41,7 @@
                     </li>
                     <li>
                         <img class="confirm left"
-                            src="{% if form_step_data.2.avatar %}/helper/tmpimage/{{ form_step_data.2.avatar.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/{% else %}{{ DEFAULT_FORM_LOGO_4_PERSONGROUP }}{% endif %}"
+                            src="{% if form_step_data.2.avatar %}/{{ LANGUAGE_CODE }}/helper/tmpimage/{{ form_step_data.2.avatar.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/{% else %}{{ DEFAULT_FORM_LOGO_4_PERSONGROUP }}{% endif %}"
                             alt="{% trans "Image" %}"/>
                         {% ifequal LANGUAGE_CODE "de" %}
                             <div>{{ form_step_data.2.description_de }}</div>

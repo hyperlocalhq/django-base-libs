@@ -10,6 +10,7 @@ from base_libs.forms import dynamicforms
 from base_libs.forms.fields import ImageField
 from base_libs.utils.misc import get_related_queryset, XChoiceList
 from base_libs.forms.fields import AutocompleteField
+from base_libs.middleware.threadlocals import get_current_language
 
 from jetson.apps.location.models import Address
 from jetson.apps.optionset.models import PhoneType
@@ -88,10 +89,6 @@ class IdentityForm(dynamicforms.Form):
             self.fields['occupation'].initial = person.occupation
 
         self.helper = FormHelper()
-        # self.helper.form_action = "/helper/edit-%(URL_ID_PERSON)s-profile/%(username)s/identity/" % {
-        #     'URL_ID_PERSON': URL_ID_PERSON,
-        #     'username': self.person.user.username,
-        # }
         self.helper.form_action = ""
         self.helper.form_method = "POST"
         self.helper.attrs = {
@@ -149,10 +146,6 @@ class DescriptionForm(dynamicforms.Form):
             self.fields['description_de'].initial = person.description_de
 
         self.helper = FormHelper()
-        # self.helper.form_action = "/helper/edit-%(URL_ID_PERSON)s-profile/%(username)s/description/" % {
-        #     'URL_ID_PERSON': URL_ID_PERSON,
-        #     'username': self.person.user.username,
-        # }
         self.helper.form_action = ""
         self.helper.form_method = "POST"
         self.helper.attrs = {
@@ -200,10 +193,6 @@ class AvatarForm(dynamicforms.Form):
         self.index = index
 
         self.helper = FormHelper()
-        # self.helper.form_action = "/helper/edit-%(URL_ID_PERSON)s-profile/%(username)s/avatar/" % {
-        #     'URL_ID_PERSON': URL_ID_PERSON,
-        #     'username': self.person.user.username,
-        # }
         self.helper.form_action = ""
         self.helper.form_method = "POST"
         self.helper.attrs = {
@@ -534,11 +523,6 @@ class ContactForm(dynamicforms.Form):
                     
 
         self.helper = FormHelper()
-        # self.helper.form_action = "/helper/edit-%(URL_ID_PERSON)s-profile/%(username)s/contact/%(index)s/" % {
-        #     'URL_ID_PERSON': URL_ID_PERSON,
-        #     'username': self.person.user.username,
-        #     'index': self.index,
-        # }
         self.helper.form_action = ""
         self.helper.form_method = "POST"
         self.helper.attrs = {
@@ -555,7 +539,7 @@ class ContactForm(dynamicforms.Form):
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Institution"), '</h3></dd>')),
                 layout.Field(
                     "institution", 
-                    data_load_url="/helper/autocomplete/institutions/get_all_institutions/title/get_address_string/",
+                    data_load_url="/%s/helper/autocomplete/institutions/get_all_institutions/title/get_address_string/" % get_current_language(),
                     data_load_start="1",
                     data_load_max="20",
                     wrapper_class="institution-select", 
@@ -907,7 +891,7 @@ class ContactForm(dynamicforms.Form):
         contact = getattr(self, "contact", None)
         if index is not None and index.isdigit():
             index = int(index)
-            contact = person.get_contacts()[index]
+            contact = person.get_contacts(cache=False)[index]
         return {'contact': contact}
 
     def get_success_response(self):
@@ -965,10 +949,6 @@ class DetailsForm(dynamicforms.Form):
             self.fields['preferred_language'].initial = person.preferred_language_id
 
         self.helper = FormHelper()
-        # self.helper.form_action = "/helper/edit-%(URL_ID_PERSON)s-profile/%(username)s/details/" % {
-        #     'URL_ID_PERSON': URL_ID_PERSON,
-        #     'username': self.person.user.username,
-        # }
         self.helper.form_action = ""
         self.helper.form_method = "POST"
         self.helper.attrs = {
@@ -1045,10 +1025,6 @@ class CategoriesForm(dynamicforms.Form):
         self.fields['categories'].initial = self.person.categories.all()
 
         self.helper = FormHelper()
-        # self.helper.form_action = "/helper/edit-%(URL_ID_PERSON)s-profile/%(username)s/categories/" % {
-        #     'URL_ID_PERSON': URL_ID_PERSON,
-        #     'username': self.person.user.username,
-        # }
         self.helper.form_action = ""
         self.helper.form_method = "POST"
         self.helper.attrs = {

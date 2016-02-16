@@ -2,7 +2,7 @@
 {% comment %}<!-- UNUSED -->{% endcomment %}
 <h5 class="edit_subline">{% trans "edit contact data" %}</h5>
 <div class="field_layout contact_edit">
-    <form action="/helper/edit-{{ URL_ID_PERSONGROUP }}-profile/{{ object.slug }}/contact/{{ index }}/" method="post"
+    <form action="/{{ LANGUAGE_CODE }}/helper/edit-{{ URL_ID_PERSONGROUP }}-profile/{{ object.slug }}/contact/{{ index }}/" method="post"
         enctype="multipart/form-data" target="hidden_iframe">{% csrf_token %}
         {{ form.latitude }}
         {{ form.longitude }}
