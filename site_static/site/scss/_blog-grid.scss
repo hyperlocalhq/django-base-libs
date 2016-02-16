@@ -58,7 +58,7 @@
             border-bottom: 3px solid $black;
             margin-bottom: 30px;
             
-            &:hover, &:focus {
+            &:hover, &:focus, &:active {
                 background: $white-dirty;
                 box-shadow: 0px 0px 0px 5px $white-dirty;
                 .is-xs & {
@@ -70,9 +70,16 @@
             img {
                 width: 100% !important;
                 height: auto !important;
-                margin: 0 0 20px 0 !important;
+                margin: 0 0 35px 0 !important;
                 border: none !important;
                 display: block !important;
+                
+                &.logo {
+                    width: auto !important;
+                    max-width: 100%;
+                    max-height: 50px;
+                    margin: -5px 0 25px 0 !important;
+                }
             }
             
             .subline {
@@ -146,4 +153,28 @@
         }
     }
     
+}
+
+.partner {
+    background: $white-dirty;
+    padding-bottom: 50px;
+    margin-bottom: 30px;
+    
+    .fawesome {
+        color: $black;
+        margin: 50px 0 0;
+    }
+    
+    h2 {
+        font-family: $font-2, $font-family-1;
+        font-weight: $font-bold;
+        font-size: 1.6em;
+        line-height: 133%;
+        margin: 10px 0 60px;
+        color: $black;
+        .is-xs & {
+            font-size: 1.07em;
+            line-height: 125%;
+        }
+    }
 }

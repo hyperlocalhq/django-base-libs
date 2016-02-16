@@ -15,6 +15,7 @@
         me.$blocks = $('.col-xs-12', me.$main);
         me.$body = $('body');
         
+        me.is_magazine = me.$main.hasClass('magazine');
         
         $(window).resize(function() {me.styleIt(200);});
         $(document).ready(function() {me.styleIt();});
@@ -67,7 +68,7 @@
             
             heights[column] += $block.height();
             
-            if (index == 0) {
+            if (index == 0 && !me.is_magazine) {
                 for (var i=1, length = heights.length; i<length; i++) {
                     heights[i] = heights[0];
                 }

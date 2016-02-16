@@ -341,6 +341,62 @@
                 <br/>
                 <br/>
                 <br/>
+                <p class="uppercase underline">Event row / Magazine Specials</p>
+                <p>Requirements:<br/>
+                    &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/event-grid.js">&lt;/script>
+                </p>
+                <br/>
+                <br/>
+            </div>
+        </div>
+        <div class="row event-grid magazine">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <a class="content tap-hover tap-hover-trigger" href="#">
+                    <img src="http://placehold.it/540x540&text=image"/>
+                    <h2>Titel</h2>
+                    <p>At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <a class="content tap-hover tap-hover-trigger" href="#">
+                    <img src="http://placehold.it/540x540&text=image"/>
+                    <h2>Titel</h2>
+                    <p>At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <a class="content tap-hover tap-hover-trigger" href="#">
+                    <img src="http://placehold.it/540x540&text=image"/>
+                    <h2>Titel</h2>
+                    <p>At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-3 hidden-sm">
+                <a class="content tap-hover tap-hover-trigger" href="#">
+                    <img src="http://placehold.it/540x540&text=image"/>
+                    <h2>Titel</h2>
+                    <p>At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+<pre>&lt;div class="row event-grid magazine">
+    &lt;div class="col-xs-12 col-sm-4 col-md-3">
+        &lt;a class="content tap-hover tap-hover-trigger" href="#">
+            &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ event.image|modified_path:"event_row" }}" alt="&#123;{ event.get_title|escape }}"/>
+            &lt;h2>Titel&lt;/h2>
+            &lt;p>At vero eos et accusam et justo duo dolores et ea rebum.&lt;/p>
+        &lt;/a>
+    &lt;/div>
+    ... the col block 3 more times
+    
+    Add to the 4th block the class "hidden-sm"!!!
+&lt;/div></pre>
+                <p>Add to the 4th col block the class "hidden-sm"!!!</p>
+                <br/>
+                <br/>
+                <br/>
                 <p class="uppercase underline">Job list</p>
                 <p>The col-xs-12 tag gets the class "has-bubble" if a bubble tag exists inside.</p>
                 <p>Requirements:<br/>
@@ -1130,6 +1186,214 @@ data-popup-image-src="&#123;{ article.image }}" alt="..."/>
                 <br/>
                 <br/>
                 <br/>
+                <p class="uppercase underline">Blog grid / Magazine</p>
+                <p>Requirements:<br/>
+                    &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/blog-grid.js">&lt;/script><br/>
+                </p>
+                <br/>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="row blog-grid magazine">
+                    <div class="col-xs-12 col-sm-4">
+                        <a class="content" href="#">
+                            <img src="http://placehold.it/410x500&text=image"/>
+                            <div class="subline">
+                                <h3><time datetime="2015-10-08 17:45:00">08. Okt. 2015, 17:45</time></h3>
+                                <div class="statistics">
+                                    <div class="fawesome fa-comment smaller button"><span class="text">3</span></div>
+                                </div>
+                            </div>
+                            <h2>Headline next Blog Post: Lorem ipsum dolor sit amet, consetetur sadipscing elitr</h2>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        <a class="content" href="#">
+                            <div class="subline">
+                                <h3><time datetime="2015-10-08 17:45:00">08. Okt. 2015, 17:45</time></h3>
+                                <div class="statistics">
+                                    <div class="fawesome fa-comment smaller button"><span class="text">3</span></div>
+                                </div>
+                            </div>
+                            <h2>Headline next Blog Post: Lorem ipsum dolor sit amet, consetetur sadipscing elitr</h2>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        <a class="content" href="#">
+                            <img src="http://placehold.it/410x250&text=image"/>
+                            <div class="subline">
+                                <h3><time datetime="2015-10-08 17:45:00">08. Okt. 2015, 17:45</time></h3>
+                                <div class="statistics">
+                                    <div class="fawesome fa-comment smaller button"><span class="text">3</span></div>
+                                </div>
+                            </div>
+                            <h2>Headline next Blog Post: Lorem ipsum dolor sit amet, consetetur sadipscing elitr</h2>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        <a class="content" href="#">
+                            <div class="subline">
+                                <h3><time datetime="2015-10-08 17:45:00">08. Okt. 2015, 17:45</time></h3>
+                                <div class="statistics">
+                                    <div class="fawesome fa-comment smaller button"><span class="text">3</span></div>
+                                </div>
+                            </div>
+                            <h2>Headline next Blog Post: Lorem ipsum dolor sit amet, consetetur sadipscing elitr</h2>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <br/>
+<pre>&lt;div class="row blog-grid magazine">
+    &lt;div class="col-xs-12 col-sm-4">
+        &lt;a class="content" href="#">
+            &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ blog.image|modified_path:"blog_grid_small" }}" alt="&#123;{ blog.get_title|escape }}"/>
+            &lt;div class="subline">
+                &lt;h3>&lt;time datetime="2015-10-08 17:45:00">08. Okt. 2015, 17:45&lt;/time>&lt;/h3>
+                &lt;div class="statistics">
+                    &lt;div class="fawesome fa-comment smaller button">&lt;span class="text">3&lt;/span>&lt;/div>
+                &lt;/div>
+            &lt;/div>
+            &lt;h2>Headline next Blog Post: Lorem ipsum dolor sit amet, consetetur sadipscing elitr&lt;/h2>
+            &lt;p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.&lt;/p>
+        &lt;/a>
+    &lt;/div>
+    &lt;div class="col-xs-12 col-sm-4">
+        &lt;a class="content" href="#">
+            &lt;div class="subline">
+                &lt;h3>&lt;time datetime="2015-10-08 17:45:00">08. Okt. 2015, 17:45&lt;/time>&lt;/h3>
+                &lt;div class="statistics">
+                    &lt;div class="fawesome fa-comment smaller button">&lt;span class="text">3&lt;/span>&lt;/div>
+                &lt;/div>
+            &lt;/div>
+            &lt;h2>Headline next Blog Post: Lorem ipsum dolor sit amet, consetetur sadipscing elitr&lt;/h2>
+            &lt;p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.&lt;/p>
+        &lt;/a>
+    &lt;/div>
+    ... keep adding col blocks
+    
+&lt;/div></pre>
+                <br/>
+                <br/>
+                <br/>
+                <p class="uppercase underline">Blog grid / Partners</p>
+                <p>Requirements:<br/>
+                    &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/blog-grid.js">&lt;/script><br/>
+                </p>
+                <br/>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="partner">
+        <div class="container">
+            <div class="fawesome fa-comments-mono big center"></div>
+            <h2 class="center">{% trans 'From our Partner' %}</h2>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="row blog-grid magazine">
+                        <div class="col-xs-12 col-sm-4">
+                            <a class="content" href="#">
+                                <img src="http://placehold.it/410x500&text=image"/>
+                                <div class="subline">
+                                    <h3><time datetime="2015-10-08 17:45:00">08. Okt. 2015, 17:45</time></h3>
+                                    <img class="logo" src="http://placehold.it/100x50&text=logo"/>
+                                </div>
+                                <h2>Headline next Blog Post: Lorem ipsum dolor sit amet, consetetur sadipscing elitr</h2>
+                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                            </a>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                            <a class="content" href="#">
+                                <div class="subline">
+                                    <h3><time datetime="2015-10-08 17:45:00">08. Okt. 2015, 17:45</time></h3>
+                                    <img class="logo" src="http://placehold.it/100x50&text=logo"/>
+                                </div>
+                                <h2>Headline next Blog Post: Lorem ipsum dolor sit amet, consetetur sadipscing elitr</h2>
+                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                            </a>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                            <a class="content" href="#">
+                                <img src="http://placehold.it/410x250&text=image"/>
+                                <div class="subline">
+                                    <h3><time datetime="2015-10-08 17:45:00">08. Okt. 2015, 17:45</time></h3>
+                                    <img class="logo" src="http://placehold.it/100x50&text=logo"/>
+                                </div>
+                                <h2>Headline next Blog Post: Lorem ipsum dolor sit amet, consetetur sadipscing elitr</h2>
+                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                            </a>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                            <a class="content" href="#">
+                                <div class="subline">
+                                    <h3><time datetime="2015-10-08 17:45:00">08. Okt. 2015, 17:45</time></h3>
+                                    <img class="logo" src="http://placehold.it/100x50&text=logo"/>
+                                </div>
+                                <h2>Headline next Blog Post: Lorem ipsum dolor sit amet, consetetur sadipscing elitr</h2>
+                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <br/>
+<pre>&lt;div class="partner">
+    &lt;div class="container">
+        &lt;div class="fawesome fa-comments-mono big center">&lt;/div>
+        &lt;h2 class="center">{% trans 'From our Partner' %}&lt;/h2>
+        &lt;div class="row">
+            &lt;div class="col-xs-12">
+                &lt;div class="row blog-grid magazine">
+                    &lt;div class="col-xs-12 col-sm-4">
+                        &lt;a class="content" href="#">
+                            &lt;img src="http://placehold.it/410x500&text=image"/>
+                            &lt;div class="subline">
+                                &lt;h3>&lt;time datetime="2015-10-08 17:45:00">08. Okt. 2015, 17:45&lt;/time>&lt;/h3>
+                                &lt;img class="logo" src="http://placehold.it/100x50&text=logo"/>
+                            &lt;/div>
+                            &lt;h2>Headline next Blog Post: Lorem ipsum dolor sit amet, consetetur sadipscing elitr&lt;/h2>
+                            &lt;p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.&lt;/p>
+                        &lt;/a>
+                    &lt;/div>
+                    &lt;div class="col-xs-12 col-sm-4">
+                        &lt;a class="content" href="#">
+                            &lt;div class="subline">
+                                &lt;h3>&lt;time datetime="2015-10-08 17:45:00">08. Okt. 2015, 17:45&lt;/time>&lt;/h3>
+                                &lt;img class="logo" src="http://placehold.it/100x50&text=logo"/>
+                            &lt;/div>
+                            &lt;h2>Headline next Blog Post: Lorem ipsum dolor sit amet, consetetur sadipscing elitr&lt;/h2>
+                            &lt;p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.&lt;/p>
+                        &lt;/a>
+                    &lt;/div>
+                    ... keep adding col blocks
+                    
+                &lt;/div>
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+&lt;/div></pre>
+                <br/>
+                <br/>
+                <br/>
                 <p class="uppercase underline">Projects grid</p>
                 <p>Requirements:<br/>
                     &lt;script type="text/javascript" src="&#123;{ STATIC_URL }}site/js/projects-grid.js">&lt;/script><br/>
@@ -1377,6 +1641,142 @@ data-popup-image-src="&#123;{ article.image }}" alt="..."/>
         &lt;/a>
     &lt;/div>
     ... and so on
+&lt;/div></pre>
+                <br/>
+                <br/>
+                <br/>
+                <p class="uppercase underline">Magazine grid</p>
+                <br/>
+                <br/>
+            </div>
+        </div>
+        <div class="row magazine-grid">
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <a class="content" href="#">
+                    <h2 class="fa-man fawesome">{% trans "Player of the week" %}</h2>
+                    <img src="http://placehold.it/320x210&text=image" />
+                    <h4><time datetime="2015-12-12 17:45:00">14. DEZ. 2015, 17:45</time></h4>
+                    <h3>Anja Braunschweig</h3>
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <a class="content" href="#">
+                    <h2 class="fa-key fawesome">{% trans "At home with ..." %}</h2>
+                    <img src="http://placehold.it/320x210&text=image" />
+                    <h4><time datetime="2015-12-12 17:45:00">14. DEZ. 2015, 17:45</time></h4>
+                    <h3>Anja Braunschweig</h3>
+                </a>
+            </div>
+            <div class="clearfix visible-sm"></div>
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <a class="content" href="#">
+                    <h2 class="fa-lightbulb fawesome">{% trans "Innovation & Vision" %}</h2>
+                    <img src="http://placehold.it/320x210&text=image" />
+                    <h4><time datetime="2015-12-12 17:45:00">14. DEZ. 2015, 17:45</time></h4>
+                    <h3>Anja Braunschweig</h3>
+                </a>
+            </div>
+            <div class="clearfix visible-md visible-lg"></div>
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <a class="content" href="#">
+                    <h2 class="fa-lightbulb fawesome">{% trans "Knowlege & Analysis" %}</h2>
+                    <img src="http://placehold.it/320x210&text=image" />
+                    <h4><time datetime="2015-12-12 17:45:00">14. DEZ. 2015, 17:45</time></h4>
+                    <h3>Anja Braunschweig</h3>
+                </a>
+            </div>
+            <div class="clearfix visible-sm"></div>
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <a class="content" href="#">
+                    <h2 class="fa-book fawesome">{% trans "Between the lines" %}</h2>
+                    <img src="http://placehold.it/320x210&text=image" />
+                    <h4><time datetime="2015-12-12 17:45:00">14. DEZ. 2015, 17:45</time></h4>
+                    <h3>Anja Braunschweig</h3>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <pre>
+&lt;div class="row magazine-grid">
+    &lt;div class="col-xs-12 col-sm-6 col-md-4">
+        &lt;a class="content" href="#">
+            &lt;h2 class="fa-man fawesome">{% trans "Player of the week" %}&lt;/h2>
+            &lt;img src="http://placehold.it/320x210&text=image" />
+            &lt;h4>&lt;time datetime="2015-12-12 17:45:00">14. DEZ. 2015, 17:45&lt;/time>&lt;/h4>
+            &lt;h3>Anja Braunschweig&lt;/h3>
+        &lt;/a>
+    &lt;/div>
+    &lt;div class="col-xs-12 col-sm-6 col-md-4">
+        &lt;a class="content" href="#">
+            &lt;h2 class="fa-key fawesome">{% trans "At home with ..." %}&lt;/h2>
+            &lt;img src="http://placehold.it/320x210&text=image" />
+            &lt;h4>&lt;time datetime="2015-12-12 17:45:00">14. DEZ. 2015, 17:45&lt;/time>&lt;/h4>
+            &lt;h3>Anja Braunschweig&lt;/h3>
+        &lt;/a>
+    &lt;/div>
+    &lt;div class="clearfix visible-sm">&lt;/div>
+    &lt;div class="col-xs-12 col-sm-6 col-md-4">
+        &lt;a class="content" href="#">
+            &lt;h2 class="fa-lightbulb fawesome">{% trans "Innovation & Vision" %}&lt;/h2>
+            &lt;img src="http://placehold.it/320x210&text=image" />
+            &lt;h4>&lt;time datetime="2015-12-12 17:45:00">14. DEZ. 2015, 17:45&lt;/time>&lt;/h4>
+            &lt;h3>Anja Braunschweig&lt;/h3>
+        &lt;/a>
+    &lt;/div>
+    &lt;div class="clearfix visible-md visible-lg">&lt;/div>
+    &lt;div class="col-xs-12 col-sm-6 col-md-4">
+        &lt;a class="content" href="#">
+            &lt;h2 class="fa-lightbulb fawesome">{% trans "Knowlege & Analysis" %}&lt;/h2>
+            &lt;img src="http://placehold.it/320x210&text=image" />
+            &lt;h4>&lt;time datetime="2015-12-12 17:45:00">14. DEZ. 2015, 17:45&lt;/time>&lt;/h4>
+            &lt;h3>Anja Braunschweig&lt;/h3>
+        &lt;/a>
+    &lt;/div>
+    &lt;div class="clearfix visible-sm">&lt;/div>
+    &lt;div class="col-xs-12 col-sm-6 col-md-4">
+        &lt;a class="content" href="#">
+            &lt;h2 class="fa-book fawesome">{% trans "Between the lines" %}&lt;/h2>
+            &lt;img src="http://placehold.it/320x210&text=image" />
+            &lt;h4>&lt;time datetime="2015-12-12 17:45:00">14. DEZ. 2015, 17:45&lt;/time>&lt;/h4>
+            &lt;h3>Anja Braunschweig&lt;/h3>
+        &lt;/a>
+    &lt;/div>
+    ... keep adding col blocks.
+&lt;/div></pre>
+                <p>Notice the clearfix every second (visible-sm) and every third (visible-md visible-lg) block.</p>
+                <br/>
+                <br/>
+                <br/>
+                <p class="uppercase underline">Question of the Week</p>
+                <br/>
+                <br/>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="question-of-the-week">
+        <div class="container">
+            <div class="fawesome fa-questionmark big center"></div>
+            <h2 class="center">{% trans 'Question of the Week' %}</h2>
+            <dl>
+                <dt>Frage: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ?</dt>
+                <dd>At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</dd>
+            </dl>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <pre>&lt;div class="question-of-the-week">
+    &lt;div class="container">
+        &lt;div class="fawesome fa-questionmark big center">&lt;/div>
+        &lt;h2 class="center">{% trans 'Question of the Week' %}&lt;/h2>
+        &lt;dl>
+            &lt;dt>Frage: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ?&lt;/dt>
+            &lt;dd>At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.&lt;/dd>
+        &lt;/dl>
+    &lt;/div>
 &lt;/div></pre>
                 <br/>
                 <br/>
