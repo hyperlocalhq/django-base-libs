@@ -118,6 +118,9 @@ class Article(ArticleBase, MultiSiteMixin):
         null=True,
     )
 
+    featured_in_magazine = models.BooleanField(_("Featured in magazine"), default=False)
+    importance_in_magazine = models.PositiveIntegerField(_("Importance in magazine"), default=0, help_text=_("The bigger the number, the more up-front it will be shown in the magazine overview"))
+
     objects = models.Manager()
     site_published_objects = PublishedArticleManager()
     site_published_objects_all_languages = PublishedArticleAllLanguagesManager()

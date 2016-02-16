@@ -58,14 +58,17 @@ class ArticleOptions(ExtendedModelAdmin):
         'published_from',
         # 'published_till',
         'views', 'article_type', 'language',
+        'featured_in_magazine', 'importance_in_magazine',
     ]
     list_display_links = ['title']
     list_filter = (
         'sites', 'content_provider', 'published_from',
         # 'published_till',
         'status', 'is_featured', 'article_type', 'language',
+        'featured_in_magazine',
     )
     search_fields = ('title', 'description', 'content', 'author__username')
+    list_editable = ['featured_in_magazine', 'importance_in_magazine']
 
     fieldsets = [(None, {'fields': ('article_type', 'creative_sectors')}), ]
     fieldsets += [(_("Article"), {'fields': ['title', 'subtitle', 'content', 'description', 'language']})]
@@ -95,6 +98,8 @@ class ArticleOptions(ExtendedModelAdmin):
             'fields': ('categories',),
         }),
     ]
+    fieldsets += [(_('Magazine'), {'fields': ('featured_in_magazine', 'importance_in_magazine')}), ]
+
     filter_horizontal = ['creative_sectors', ]
     prepopulated_fields = {"slug": ("title",), }
 
