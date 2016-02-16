@@ -1082,6 +1082,10 @@ canvas.fawesome.big {
   content: "\f0e6";
 }
 
+.fawesome.fa-comments-mono:before {
+  content: "\f086";
+}
+
 .fawesome.fa-left-double:before {
   content: "\f100";
 }
@@ -1436,6 +1440,10 @@ canvas.fawesome.big {
 
 .fawesome.fa-comments.after:after {
   content: "\f0e6";
+}
+
+.fawesome.fa-comments-mono.after:after {
+  content: "\f086";
 }
 
 .fawesome.fa-left-double.after:after {
@@ -4842,9 +4850,16 @@ dd.autocomplete .input-field.ac_loading:after {
 .row.blog-grid > div a.content img {
   width: 100% !important;
   height: auto !important;
-  margin: 0 0 20px 0 !important;
+  margin: 0 0 35px 0 !important;
   border: none !important;
   display: block !important;
+}
+
+.row.blog-grid > div a.content img.logo {
+  width: auto !important;
+  max-width: 100%;
+  max-height: 50px;
+  margin: -5px 0 25px 0 !important;
 }
 
 .row.blog-grid > div a.content .subline {
@@ -4912,6 +4927,31 @@ dd.autocomplete .input-field.ac_loading:after {
 
 .row.blog-grid > div a.content p {
   margin: 0 0 20px;
+}
+
+.partner {
+  background: #efefef;
+  padding-bottom: 50px;
+  margin-bottom: 30px;
+}
+
+.partner .fawesome {
+  color: #000;
+  margin: 50px 0 0;
+}
+
+.partner h2 {
+  font-family: "Lato", "sans-serif";
+  font-weight: 700;
+  font-size: 1.6em;
+  line-height: 133%;
+  margin: 10px 0 60px;
+  color: #000;
+}
+
+.is-xs .partner h2 {
+  font-size: 1.07em;
+  line-height: 125%;
 }
 
 ul.navi-box {
