@@ -822,11 +822,12 @@ MAILING_CONTENT_TYPE_CHOICES = (
     ('image_and_text', _("Image and text")),
     ('text', _("Text only")),
     ('news', _("News")),
+    ('tenders_and_competititions', _("Tenders and Competitions")),
     ('events', _("Events")),
-    ('documents', _("Infolinks")),
     ('portfolios', _("Portfolios")),
-    ('people', _("People")),
-    ('institutions', _("Institutions")),
+    ('interviews', _("Magazine")),
+    ('jobs_and_bulletins', _("Jobs and Bulletins")),
+    ('people', _("Profiles")),
 )
 
 TIME_INPUT_FORMATS = ('%H:%M:%S', '%H:%M', '%H.%M')

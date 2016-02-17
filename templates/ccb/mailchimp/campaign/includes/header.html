@@ -1,0 +1,6 @@
+{% load image_mods_tags %}
+{% with slide=slides.0 %}
+    {% if slide %}
+        <img src="{{ website_url|slice:"0:-1" }}{{ UPLOADS_URL }}{{ slide.path|modified_path:"newsletter_header" }}" />
+    {% endif %}
+{% endwith %}

@@ -8,16 +8,11 @@
             </td>
             <td colspan="2" align="right" valign="bottom">
                 <!-- VIEW MORE link goes here -->
-                <a title=""
-                    class="proceed"
-                    href="http://www.creative-city-berlin.de/portfolios/featured/"
-                    target="_blank">more
-                    …
-                </a>
+                <a title="" class="proceed" href="http://www.creative-city-berlin.de/en/portfolios/" target="_blank">more…</a>
             </td>
         </tr>
         <tr>
-            {% get_objects newest_featured media_gallery.MediaGallery 4 as newest_objects %}
+            {% get_objects newest_featured media_gallery.MediaGallery 6 as newest_objects %}
             {% for gallery in newest_objects %}
                 {% with gallery.content_object as content_object %}
                     <td valign="top"
