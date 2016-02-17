@@ -159,7 +159,11 @@ class ContextCategory(MPTTModel,  SlugMixin(), SysnameMixin()):
         order_insertion_by = ['sort_order']
         
     def __unicode__(self):
-        return self.title
+        level = self.get_level()
+        return u'{} {}'.format(
+            '-'*level,
+            self.title.title(),
+        )
 
     def get_title(self, prefix="", postfix=""):
         return self.title
