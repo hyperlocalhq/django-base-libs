@@ -370,7 +370,7 @@ class LegalFormOptions(ExtendedModelAdmin):
 class InstitutionOptions(ExtendedModelAdmin):
     save_on_top = True
     list_display = ('title', 'get_admin_links_to_owners', 'slug', 'creation_date', 'status')
-    list_filter = ('creation_date', 'status',)
+    list_filter = ('creation_date', 'status', 'context_categories')
     search_fields = ('title', 'title2', 'slug')
     ordering = ('-creation_date',)
     actions = ["publish", "publish_commercial", mailchimp_subscribe, merge_selected]
