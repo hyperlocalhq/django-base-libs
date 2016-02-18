@@ -173,7 +173,7 @@ urlpatterns = [
     ),
 
     url(r'^(?P<object_url_part>member/(?P<slug>[^/]+)/)(?P<url_identifier>blog)/',
-        include('jetson.apps.blog.urls'),
+        include('ccb.apps.blog.urls'),
         {
             'only_for_this_site': True,
             'include': ["member"],

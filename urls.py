@@ -914,7 +914,7 @@ urlpatterns += i18n_patterns(
 
     url(r'^kreativarbeiten/$', lambda request: redirect("/kreativarbeiten/blog/")),
 
-    url(r'^kreativarbeiten/blog/', include('jetson.apps.blog.urls'),
+    url(r'^kreativarbeiten/blog/', include('ccb.apps.blog.urls'),
         {
             'url_identifier': "kreativarbeiten/blog",
             'object_url_part': None,

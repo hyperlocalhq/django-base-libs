@@ -749,6 +749,7 @@ def article_feed(
 
 
 def magazine_overview(request):
+    from ccb.apps.blog.models import Post
     context = {
         'articles_under_player_of_the_week': Article.published_objects.filter(
             featured_in_magazine=True,
@@ -778,5 +779,6 @@ def magazine_overview(request):
             featured_in_magazine=True,
             article_type__slug="articles-from-our-network-partners",
         ).order_by("-importance_in_magazine"),
+        'blog_posts': Post.published_objects.featured_in_magazine(),
     }
     return render(request, "articles/magazine_overview.html", context)

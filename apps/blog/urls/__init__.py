@@ -1,28 +1,25 @@
-from django.conf.urls import *
+# -*- coding: utf-8 -*-
+from django.conf.urls import patterns
 from base_libs.forms.formprocessing import ID_ACTION_NEW
 from base_libs.forms.formprocessing import ID_ACTION_EDIT
 from base_libs.forms.formprocessing import ID_ACTION_DELETE
-from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
+from base_libs.models.base_libs_settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
 
 from ccb.apps.blog.forms import BlogPostForm
 from ccb.apps.blog.views import BlogPostFormPreviewHandler
 from ccb.apps.blog.feeds import RssFeed, AtomFeed
 
 all_dict = dict(
-    include=['member'],
-    only_for_this_site=True,
-    object_url_part="member/kreativwirtschaftsberatung_berlin",
-    slug='kreativwirtschaftsberatung_berlin',
     status=STATUS_CODE_PUBLISHED,
-    url_identifier='blog',
-    base_template='counselling_blog/base.html',
-    template_app_dir='counselling_blog',
+)
+
+drafts_dict = dict(
+    status=STATUS_CODE_DRAFT,
 )
 
 feed_dict = dict(
     rss=RssFeed,
     atom=AtomFeed,
-    **all_dict
 )
 
 urlpatterns = patterns(
@@ -32,6 +29,9 @@ urlpatterns = patterns(
 
     # display blog overview
     (r'^all/$', 'handle_request', all_dict),
+
+    # drafts
+    (r'^drafts/$', 'handle_request', drafts_dict),
 
     # public posts
     (r'^/?$', 'handle_request', all_dict),
@@ -62,7 +62,7 @@ urlpatterns = patterns(
     (r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<post_slug>[0-9A-Za-z-_]+)/(?P<action>%s|%s)/$' % (
     ID_ACTION_EDIT, ID_ACTION_DELETE), BlogPostFormPreviewHandler(BlogPostForm, use_ajax=False)),
 
-    # comments TODO has to be reworked when new comment app is availabale in django 1.1
+    # comments TODO has to be reworked when new comment app is availabale in django 1.1 
     (r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<post_slug>[0-9A-Za-z-_]+)/comments/add/$',
      'blog_post_comment', {'use_ajax': False}),
     (r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<post_slug>[0-9A-Za-z-_]+)/comments/add_ajax/$',

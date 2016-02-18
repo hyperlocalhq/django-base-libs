@@ -164,12 +164,12 @@ INSTALLED_APPS = [
     "jetson.apps.bookmarks",
     "jetson.apps.profanity_filter",
     "jetson.apps.messaging",
-    "jetson.apps.blog",
     "jetson.apps.comments",
     "jetson.apps.compress_jetson",
     "jetson.apps.mailchimp",
 
     ### ccb-specific apps ###
+    "ccb.apps.blog",
     "ccb.apps.people",
     "ccb.apps.institutions",
     "ccb.apps.resources",
