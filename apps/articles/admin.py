@@ -138,7 +138,7 @@ class ArticleImportSource_Inline(ExtendedStackedInline):
 
 class ArticleContentProviderOptions(ExtendedModelAdmin):
     list_display = ['title', 'url']
-    fieldsets = [(None, {'fields': ('title', 'url')}), ]
+    fieldsets = [(None, {'fields': ('title', 'url', 'image')}), ]
     inlines = [ArticleImportSource_Inline]
 
 

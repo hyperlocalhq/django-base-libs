@@ -17,6 +17,7 @@ from jetson.apps.structure.models import Term
 class ArticleContentProvider(models.Model):
     title = models.CharField(_("Title"), max_length=50)
     url = URLField(_("URL"), blank=True)
+    image = FileBrowseField(_("Image"), max_length=255, directory="content_partners/", extensions=['.jpg', '.jpeg', '.gif', '.png'], blank=True)
 
     class Meta:
         verbose_name = _("article-content provider")
