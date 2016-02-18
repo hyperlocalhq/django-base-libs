@@ -339,7 +339,7 @@ class InstitutionBase(CreationModificationDateMixin, UrlMixin, OpeningHoursMixin
         
     def get_locality_type(self):
         from jetson.apps.location.models import LocalityType
-        contacts = self.get_contacts()
+        contacts = self.get_contacts(cache=False)
         if contacts and contacts[0].postal_address:
             postal_address = contacts[0].postal_address
             if postal_address.country_id != "DE":
@@ -487,7 +487,7 @@ class InstitutionBase(CreationModificationDateMixin, UrlMixin, OpeningHoursMixin
         """ used by ContextItemManager """
         search_data = []
         # add urls
-        contacts = self.get_contacts()
+        contacts = self.get_contacts(cache=False)
         if contacts:
             for contact in contacts:
                 for url in contact.get_urls():
