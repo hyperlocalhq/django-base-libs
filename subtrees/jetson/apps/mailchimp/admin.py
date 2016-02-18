@@ -2,18 +2,9 @@
 from django import forms
 from django.db import models
 from django.contrib import admin
-from django.utils.translation import ugettext_lazy as _, ugettext, get_language, activate
-from django.http import HttpResponseRedirect, HttpResponse
-from functools import update_wrapper
-from django.utils.encoding import force_unicode
-from django.utils.text import capfirst, get_text_list
-from django.core.urlresolvers import reverse
-from django.shortcuts import render_to_response
-from django.template import RequestContext
-from django.template.loader import get_template, Context
-from django.contrib.contenttypes.models import ContentType
-from django.conf import settings
-from django.views.decorators.cache import never_cache
+from django.utils.translation import ugettext_lazy as _, ugettext
+from django.http import HttpResponse
+from django.shortcuts import render
 from django.forms.util import ErrorList
 from django.conf.urls import *
 from django.contrib.admin.util import unquote
@@ -26,9 +17,6 @@ from base_libs.admin import ExtendedStackedInline
 
 from jetson.apps.mailchimp.models import Settings, Subscription, MList, Campaign, MailingContentBlock
 from jetson.apps.mailchimp.utils import sync_mc_list
-from jetson.apps.mailing.models import EmailMessage
-from jetson.apps.history.models import ExtendedLogEntry
-from jetson.apps.history.default_settings import A_CUSTOM1, AS_PUBLIC
 
 class SettingsAdmin(admin.ModelAdmin):
     list_display = ('api_key', 'double_optin', 'update_existing', 'send_welcome', 'delete_member', 'send_goodbye')
@@ -165,11 +153,11 @@ class CampaignAdmin(ExtendedModelAdmin):
 
     def template_content(self, request, template_name):
         from django.shortcuts import render_to_response
-        return render_to_response(
+        return render(
+            request,
             "mailchimp/campaign/includes/%s.html" % template_name,
-            {},
-            context_instance=RequestContext(request),
-            )
+            {}
+        )
         
     def preview(self, request, object_id):
         obj = self.get_object(request, unquote(object_id))

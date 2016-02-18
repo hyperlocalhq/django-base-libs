@@ -1,4 +1,4 @@
-{% load base_tags image_mods_tags %}
+{% load base_tags image_mods_tags i18n %}
 <table class="news" width="600" border="0" cellspacing="0" cellpadding="0">
     <tbody>
         <tr style="background-color: #E8EDF0">
@@ -8,7 +8,7 @@
             </td>
             <td align="right" valign="bottom" width="175">
                 <!-- VIEW MORE link goes here -->
-                <a title="" class="proceed" href="http://www.creative-city-berlin.de/en/ccb-magazin/" target="_blank">more…</a>
+                <a title="" class="proceed" href="http://www.creative-city-berlin.de/{{ LANGUAGE_CODE }}/ccb-magazin/" target="_blank">{% trans "more" %}…</a>
             </td>
         </tr>
         <tr>
