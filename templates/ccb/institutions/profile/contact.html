@@ -1,16 +1,13 @@
 {% load i18n base_tags auth_extended %}
 
 {% if object.get_contacts or object.is_editable %}
-    <div
-        class="fieldset {% if object.is_editable %}editable switch{% else %}not-editable{% endif %}"
-        data-edit-url="{% url 'edit_profile' object_type='institution' slug=object.slug %}contact/{% if object.get_contacts %}0/{% endif %}">
+    <div class="fieldset {% if object.is_editable %}editable switch{% else %}not-editable{% endif %}">
+        <!-- data-edit-url="{% url 'edit_profile' object_type='institution' slug=object.slug %}contact/{% if object.get_contacts %}0/{% endif %}" -->
         <fieldset disabled>
             <h2>{% trans "Contact Data" %}</h2>
             {% for contact in object.get_contacts %}
+                <div class="group">
                 
-                    {% if not forloop.first %}
-                        <div>&nbsp;</div>
-                    {% endif %}
                     
                     {% if contact.location_title %}<h3>{{ contact.location_title }}</h3>{% endif %}
                     <dl class="input-fields">
@@ -82,8 +79,20 @@
                             {% endfor %}
                         </dl>
                     {% endif %}
+
+                    {% if object.is_editable %}
+                        <button rel="nofollow" class="fawesome fa-edit button form positive edit-link" data-edit-url="{% url 'change_profile_contact' object_type='institution' slug=object.slug index=forloop.counter0 %}"><span class="sr-only">{% trans "edit contact" %}</span></button>
+                        <button rel="nofollow" class="fawesome fa-minus button form negative edit-link" data-edit-url="{% url 'delete_profile_contact' object_type='institution' slug=object.slug index=forloop.counter0 %}"><span class="sr-only">{% trans "delete contact" %}</span></button>
+                    {% endif %}
                     
+                </div>
             {% endfor %}
+            
+            {% if object.is_editable %}
+                <div class="edit-group">
+                    <button rel="nofollow" class="fawesome fa-plus button form positive edit-link" data-edit-url="{% url 'add_profile_contact' object_type='institution' slug=object.slug %}"><span class="sr-only">{% trans "add contact" %}</span></button>
+                </div>
+            {% endif %}
         </fieldset>
     </div>
 {% endif %} 

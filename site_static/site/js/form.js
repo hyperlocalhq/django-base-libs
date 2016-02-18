@@ -578,7 +578,10 @@ $(document).ready(function() {
         
         // making sure that there is an empty option at the beginning
         var $first_option = $('option', me.$main).first();
+        var first_html = $first_option.html();
+        $first_option.html('');
         var first_val = $first_option.attr('value');
+        $first_option.html(first_html);
         if (first_val && first_val != "") {
             $first_option.before($('<option>--------</option>'));   
         }
@@ -1414,19 +1417,28 @@ $(document).ready(function() {
           
         me.writeAutoloadMultipleValues();
         
-        var $first_option = $('option', me.$main).first();
+        var $options = $('option', me.$main)
+        
+        var $first_option = $options.first();
+        var first_html = $first_option.html();
+        $first_option.html('');
         
         if (me.autoload) {
-            $first_option.html('');
             var first_val = $first_option.attr('value');
             if (!first_val) {
                 $first_option.attr('value', '');
                 $first_option.val('');            
             }
+            
+            // input field is empty -> unselect everything
+            if (!me.autoload_multiple && me.$display.val() == "") {
+                $options.prop('selected', false);
+            }
         }
         
         // unselecting a possible selected empty first option
         var first_val = $first_option.attr('value');
+        $first_option.html(first_html);
         if (!(first_val && first_val != "") && $first_option.prop('selected')) {
             $first_option.prop('selected', false);
         }

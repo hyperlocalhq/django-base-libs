@@ -574,7 +574,7 @@ class ContactForm(dynamicforms.Form):
                     )
                 ),
                 "country",
-                # layout.HTML("""{% include "bootstrap3/custom_widgets/editable_map.html" %}"""),
+                layout.HTML("""{% include "ccb_form/custom_widgets/editable_map.html" %}"""),
 
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Phones"), '</h3></dd>')),
                 layout.MultiField(
