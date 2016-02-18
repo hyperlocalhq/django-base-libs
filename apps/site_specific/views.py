@@ -1032,7 +1032,7 @@ def kreativarbeiten_contact_form(request,
 
 def kreativarbeiten_best_practice(request):
     from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
-    from jetson.apps.blog.views import handle_request
+    from ccb.apps.blog.views import handle_request
 
     all_dict = {
         'url_identifier': "kreativarbeiten/blog",

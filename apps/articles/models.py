@@ -17,6 +17,7 @@ from jetson.apps.structure.models import Term
 class ArticleContentProvider(models.Model):
     title = models.CharField(_("Title"), max_length=50)
     url = URLField(_("URL"), blank=True)
+    image = FileBrowseField(_("Image"), max_length=255, directory="content_partners/", extensions=['.jpg', '.jpeg', '.gif', '.png'], blank=True)
 
     class Meta:
         verbose_name = _("article-content provider")
@@ -50,16 +51,27 @@ class PublishedArticleAllLanguagesManager(PublishingMixinPublishedManager):
             sites=Site.objects.get_current(),
         )
 
-    def featured_news(self):
-        return self.filter(is_featured=True).order_by("-creation_date")
-
     def news(self):
         article_type = ArticleType.objects.get(slug="news")
         return self.filter(article_type__tree_id=article_type.tree_id)
 
+    def news_featured_in_newsletter(self):
+        return self.news().filter(
+            featured_in_newsletter=True,
+        ).order_by("-importance_in_newsletter")
+
     def interviews(self):
         article_type = ArticleType.objects.get(slug="interviews")
         return self.filter(article_type__tree_id=article_type.tree_id)
+
+    def interviews_featured_in_newsletter(self):
+        return self.interviews().filter(
+            featured_in_newsletter=True,
+        ).order_by("-importance_in_newsletter")
+
+    def tenders_and_competitions(self):
+        article_type = ArticleType.objects.get(slug="tenders-competitions")
+        return self.filter(article_type=article_type)
 
     def non_interviews(self):
         article_type = ArticleType.objects.get(slug="interviews")
@@ -117,6 +129,12 @@ class Article(ArticleBase, MultiSiteMixin):
         blank=True,
         null=True,
     )
+
+    featured_in_magazine = models.BooleanField(_("Featured in magazine"), default=False)
+    importance_in_magazine = models.PositiveIntegerField(_("Importance in magazine"), default=0, help_text=_("The bigger the number, the more up-front it will be shown in the magazine overview"))
+
+    featured_in_newsletter = models.BooleanField(_("Featured in newsletter"), default=False)
+    importance_in_newsletter = models.PositiveIntegerField(_("Importance in newsletter"), default=0, help_text=_("The bigger the number, the more up-front it will be shown in the newsletter"))
 
     objects = models.Manager()
     site_published_objects = PublishedArticleManager()

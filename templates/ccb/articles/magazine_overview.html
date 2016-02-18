@@ -1,0 +1,48 @@
+{% extends "base_redesign.html" %}
+{% load cms_tags %}
+
+{% block title %}{% page_attribute "page_title" %}{% endblock %}
+
+{% block content %}
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{% page_attribute "page_title" %}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                {% for article in articles_under_player_of_the_week|slice:":1" %}
+                    <h3><a href="{{ article.get_url_path }}">{{ article.title }}</a></h3>
+                {% endfor %}
+                {% for article in articles_under_when_i_moved_to_berlin|slice:":1" %}
+                    <h3><a href="{{ article.get_url_path }}">{{ article.title }}</a></h3>
+                {% endfor %}
+                {% for article in articles_under_innovation_and_vision|slice:":1" %}
+                    <h3><a href="{{ article.get_url_path }}">{{ article.title }}</a></h3>
+                {% endfor %}
+                {% for article in articles_under_at_home_with|slice:":1" %}
+                    <h3><a href="{{ article.get_url_path }}">{{ article.title }}</a></h3>
+                {% endfor %}
+                {% for article in articles_under_knowledge_and_analysis|slice:":1" %}
+                    <h3><a href="{{ article.get_url_path }}">{{ article.title }}</a></h3>
+                {% endfor %}
+                {% for article in articles_under_specials|slice:":1" %}
+                    <h3><a href="{{ article.get_url_path }}">{{ article.title }}</a></h3>
+                {% endfor %}
+                {% for article in articles_under_articles_from_our_network_partners|slice:":1" %}
+                    <h3><a href="{{ article.get_url_path }}">{{ article.title }}</a></h3>
+                {% endfor %}
+                {% for post in blog_posts|slice:":3" %}
+                    <h3><a href="{{ post.get_url_path }}">{{ post.title }}</a></h3>
+                {% endfor %}
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6">
+            </div>
+        </div>
+    </div>
+{% endblock %}

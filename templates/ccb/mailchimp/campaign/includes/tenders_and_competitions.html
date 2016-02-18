@@ -4,16 +4,16 @@
         <tr style="background-color: #E8EDF0">
             <td align="left" valign="bottom">
                 <!-- title goes here -->
-                <h3><span>CULTURE NEWS</span> FROM BERLIN</h3>
+                <h3><span>TENDERS AND COMPETITIONS</span></h3>
             </td>
             <td align="right" valign="bottom" width="175">
                 <!-- VIEW MORE link goes here -->
-                <a title="" class="proceed" href="http://www.creative-city-berlin.de/{{ LANGUAGE_CODE }}/news/" target="_blank">{% trans "more" %}…</a>
+                <a title="" class="proceed" href="http://www.creative-city-berlin.de/{{ LANGUAGE_CODE }}/news/category/tenders-competitions/" target="_blank">{% trans "more" %}…</a>
             </td>
         </tr>
         <tr>
             <td align="left" valign="top" width="600" colspan="2">
-                {% get_objects site_published_objects_all_languages.news_featured_in_newsletter articles.Article 8 as articles %}
+                {% get_objects site_published_objects_all_languages.tenders_and_competitions articles.Article 4 as articles %}
                 {% for article in articles %}
                     {% if article.description %}
                         {% parse article.get_rendered_description as description %}

@@ -1,14 +1,14 @@
-{% load base_tags image_mods_tags %}
+{% load base_tags image_mods_tags i18n %}
 <table class="people" width="600" border="0" cellspacing="0" cellpadding="0">
     <tbody>
         <tr style="background-color: #E8EDF0">
             <td align="left" valign="bottom">
                 <!-- title goes here -->
-                <h3><span>New</span> People</h3>
+                <h3><span>New</span> Profiles</h3>
             </td>
             <td align="right" valign="bottom" width="175">
                 <!-- VIEW MORE link goes here -->
-                <a title="" class="proceed" href="http://www.creative-city-berlin.de/people/" target="_blank">mehr…</a>
+                <a title="" class="proceed" href="http://www.creative-city-berlin.de/{{ LANGUAGE_CODE }}/network/" target="_blank">{% trans "more" %}…</a>
             </td>
         </tr>
         <tr>
@@ -16,7 +16,7 @@
                 <table width="600" border="0" cellspacing="0" cellpadding="0">
                     <tbody>
                         <tr>
-                            {% get_objects latest_published_with_avatars people.Person 16 as newest_objects %}
+                            {% get_objects latest_published_with_avatars people.Person 12 as newest_objects %}
                             {% for person in newest_objects %}
                                 <td align="left" valign="top" width="74"
                                     style="border-right:1px #E8EDF0 solid; border-bottom:1px #E8EDF0 solid; background-color: #f1f4f6;">

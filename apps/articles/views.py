@@ -9,7 +9,7 @@ from django.db.models.fields import DateTimeField
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import get_language
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, render
 from django.contrib.contenttypes.models import ContentType
 from base_libs.models.base_libs_settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
 from base_libs.middleware import get_current_language
@@ -746,3 +746,39 @@ def article_feed(
     kwargs['queryset'] = queryset
 
     return feed(request, feed_type, **kwargs)
+
+
+def magazine_overview(request):
+    from ccb.apps.blog.models import Post
+    context = {
+        'articles_under_player_of_the_week': Article.published_objects.filter(
+            featured_in_magazine=True,
+            article_type__slug="player-of-the-week",
+        ).order_by("-importance_in_magazine"),
+        'articles_under_when_i_moved_to_berlin': Article.published_objects.filter(
+            featured_in_magazine=True,
+            article_type__slug="when-i-moved-to-berlin",
+        ).order_by("-importance_in_magazine"),
+        'articles_under_innovation_and_vision': Article.published_objects.filter(
+            featured_in_magazine=True,
+            article_type__slug="innovation-and-vision",
+        ).order_by("-importance_in_magazine"),
+        'articles_under_at_home_with': Article.published_objects.filter(
+            featured_in_magazine=True,
+            article_type__slug="at-home-with",
+        ).order_by("-importance_in_magazine"),
+        'articles_under_knowledge_and_analysis': Article.published_objects.filter(
+            featured_in_magazine=True,
+            article_type__slug="knowledge-and-analysis",
+        ).order_by("-importance_in_magazine"),
+        'articles_under_specials': Article.published_objects.filter(
+            featured_in_magazine=True,
+            article_type__slug="specials",
+        ).order_by("-importance_in_magazine"),
+        'articles_under_articles_from_our_network_partners': Article.published_objects.filter(
+            featured_in_magazine=True,
+            article_type__slug="articles-from-our-network-partners",
+        ).order_by("-importance_in_magazine"),
+        'blog_posts': Post.published_objects.featured_in_magazine(),
+    }
+    return render(request, "articles/magazine_overview.html", context)

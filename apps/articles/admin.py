@@ -58,14 +58,22 @@ class ArticleOptions(ExtendedModelAdmin):
         'published_from',
         # 'published_till',
         'views', 'article_type', 'language',
+        'featured_in_magazine', 'importance_in_magazine',
+        'featured_in_newsletter', 'importance_in_newsletter',
     ]
     list_display_links = ['title']
     list_filter = (
         'sites', 'content_provider', 'published_from',
         # 'published_till',
         'status', 'is_featured', 'article_type', 'language',
+        'featured_in_magazine',
+        'featured_in_newsletter',
     )
     search_fields = ('title', 'description', 'content', 'author__username')
+    list_editable = [
+        'featured_in_magazine', 'importance_in_magazine',
+        'featured_in_newsletter', 'importance_in_newsletter',
+    ]
 
     fieldsets = [(None, {'fields': ('article_type', 'creative_sectors')}), ]
     fieldsets += [(_("Article"), {'fields': ['title', 'subtitle', 'content', 'description', 'language']})]
@@ -95,6 +103,11 @@ class ArticleOptions(ExtendedModelAdmin):
             'fields': ('categories',),
         }),
     ]
+    fieldsets += [(_('Magazine & Newsleter'), {'fields': (
+        'featured_in_magazine', 'importance_in_magazine',
+        'featured_in_newsletter', 'importance_in_newsletter',
+    )}), ]
+
     filter_horizontal = ['creative_sectors', ]
     prepopulated_fields = {"slug": ("title",), }
 
@@ -125,7 +138,7 @@ class ArticleImportSource_Inline(ExtendedStackedInline):
 
 class ArticleContentProviderOptions(ExtendedModelAdmin):
     list_display = ['title', 'url']
-    fieldsets = [(None, {'fields': ('title', 'url')}), ]
+    fieldsets = [(None, {'fields': ('title', 'url', 'image')}), ]
     inlines = [ArticleImportSource_Inline]
 
 
