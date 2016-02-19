@@ -129,6 +129,7 @@ class Article(ArticleBase, MultiSiteMixin):
         blank=True,
         null=True,
     )
+    alternative_title = models.CharField(_("Alternative Title, used by the CCB Magazine"), max_length=200, default="", blank=True)
 
     featured_in_magazine = models.BooleanField(_("Featured in magazine"), default=False)
     importance_in_magazine = models.PositiveIntegerField(_("Importance in magazine"), default=0, help_text=_("The bigger the number, the more up-front it will be shown in the magazine overview"))
@@ -147,6 +148,10 @@ class Article(ArticleBase, MultiSiteMixin):
         limit_choices_to={'level': 0},
         blank=True,
     )
+    def get_alternative_title(self):
+        if self.alternative_title != "":
+            return self.alternative_title
+        return self.title
 
     def get_url_path(self):
         article_type = self.article_type.get_root()

@@ -76,7 +76,7 @@ class ArticleOptions(ExtendedModelAdmin):
     ]
 
     fieldsets = [(None, {'fields': ('article_type', 'creative_sectors')}), ]
-    fieldsets += [(_("Article"), {'fields': ['title', 'subtitle', 'content', 'description', 'language']})]
+    fieldsets += [(_("Article"), {'fields': ['title', 'alternative_title', 'subtitle', 'content', 'description', 'language']})]
     fieldsets += [(None, {'fields': ('slug', 'sites', 'is_featured',), }), ]
     fieldsets += [(_('Import'), {'fields': ('content_provider', 'external_url', 'is_excerpt')}), ]
     fieldsets += PublishingMixinAdminOptions.fieldsets

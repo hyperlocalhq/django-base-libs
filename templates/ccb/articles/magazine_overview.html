@@ -21,30 +21,30 @@
                         <div class="col-xs-12 col-sm-6 row-full slide">
                             <a class="content" href="#">
                                 <span class="image-hover-bg">
-                                    <img src="{{ UPLOADS_URL }}{{ player.image|modified_path:"magazine_slide_big" }}"  alt="{{ player.get_title|escape }}"/>
+                                    <img src="{{ UPLOADS_URL }}{{ player.image|modified_path:"magazine_slide_big" }}"  alt="{{ player.get_alternative_title|escape }}"/>
                                 </span>
                                 <h3>{% trans 'Player of the week' %}:</h3>
-                                <h2>{{ player.get_title }}</h2>
+                                <h2>{{ player.get_alternative_title }}</h2>
                             </a>
                         </div>
                         {% if home %}
                             <div class="col-xs-12 col-sm-6 row-half slide">
                                 <a class="content" href="#">
                                     <span class="image-hover-bg">
-                                        <img src="{{ UPLOADS_URL }}{{ home.image|modified_path:"magazine_slide_small" }}"  alt="{{ home.get_title|escape }}"/>
+                                        <img src="{{ UPLOADS_URL }}{{ home.image|modified_path:"magazine_slide_small" }}"  alt="{{ home.get_alternative_title|escape }}"/>
                                     </span>
                                     <h3>{% trans 'At home with' %} ...</h3>
-                                    <h2>{{ home.get_title }}</h2>
+                                    <h2>{{ home.get_alternative_title }}</h2>
                                 </a>
                             </div>
                         {% elif berlin %}
                             <div class="col-xs-12 col-sm-6 row-half slide">
                                 <a class="content" href="#">
                                     <span class="image-hover-bg">
-                                        <img src="{{ UPLOADS_URL }}{{ berlin.image|modified_path:"magazine_slide_small" }}"  alt="{{ berlin.get_title|escape }}"/>
+                                        <img src="{{ UPLOADS_URL }}{{ berlin.image|modified_path:"magazine_slide_small" }}"  alt="{{ berlin.get_alternative_title|escape }}"/>
                                     </span>
                                     <h3>{% trans 'When I moved to Berlin' %}:</h3>
-                                    <h2>{{ berlin.get_title }}</h2>
+                                    <h2>{{ berlin.get_alternative_title }}</h2>
                                 </a>
                             </div>
                         {% endif %}
@@ -52,20 +52,20 @@
                             <div class="col-xs-12 col-sm-6 row-half slide">
                                 <a class="content" href="#">
                                     <span class="image-hover-bg">
-                                        <img src="{{ UPLOADS_URL }}{{ knowledge.image|modified_path:"magazine_slide_small" }}"  alt="{{ knowledge.get_title|escape }}"/>
+                                        <img src="{{ UPLOADS_URL }}{{ knowledge.image|modified_path:"magazine_slide_small" }}"  alt="{{ knowledge.get_alternative_title|escape }}"/>
                                     </span>
                                     <h3>{% trans 'Knowledge & Analysis' %}:</h3>
-                                    <h2>{{ knowledge.get_title }}</h2>
+                                    <h2>{{ knowledge.get_alternative_title }}</h2>
                                 </a>
                             </div>
                         {% elif innovation %}
                             <div class="col-xs-12 col-sm-6 row-half slide">
                                 <a class="content" href="#">
                                     <span class="image-hover-bg">
-                                        <img src="{{ UPLOADS_URL }}{{ innovation.image|modified_path:"magazine_slide_small" }}"  alt="{{ innovation.get_title|escape }}"/>
+                                        <img src="{{ UPLOADS_URL }}{{ innovation.image|modified_path:"magazine_slide_small" }}"  alt="{{ innovation.get_alternative_title|escape }}"/>
                                     </span>
                                     <h3>{% trans 'Innovation & Vision' %}:</h3>
-                                    <h2>{{ innovation.get_title }}</h2>
+                                    <h2>{{ innovation.get_alternative_title }}</h2>
                                 </a>
                             </div>
                         {% endif %}
@@ -77,10 +77,10 @@
                         <div class="col-xs-12 col-sm-6 row-full slide">
                             <a class="content" href="#">
                                 <span class="image-hover-bg">
-                                    <img src="{{ UPLOADS_URL }}{{ player.image|modified_path:"magazine_slide_big" }}"  alt="{{ player.get_title|escape }}"/>
+                                    <img src="{{ UPLOADS_URL }}{{ player.image|modified_path:"magazine_slide_big" }}"  alt="{{ player.get_alternative_title|escape }}"/>
                                 </span>
                                 <h3>{% trans 'Player of the week' %}:</h3>
-                                <h2>{{ player.get_title }}</h2>
+                                <h2>{{ player.get_alternative_title }}</h2>
                             </a>
                         </div>   
                     {% endif %}
@@ -93,20 +93,20 @@
                                 <div class="col-xs-12 col-sm-6 row-half slide">
                                     <a class="content" href="#">
                                         <span class="image-hover-bg">
-                                            <img src="{{ UPLOADS_URL }}{{ home.image|modified_path:"magazine_slide_small" }}"  alt="{{ home.get_title|escape }}"/>
+                                            <img src="{{ UPLOADS_URL }}{{ home.image|modified_path:"magazine_slide_small" }}"  alt="{{ home.get_alternative_title|escape }}"/>
                                         </span>
                                         <h3>{% trans 'At home with' %} ...</h3>
-                                        <h2>{{ home.get_title }}</h2>
+                                        <h2>{{ home.get_alternative_title }}</h2>
                                     </a>
                                 </div>
                             {% elif berlin %}
                                 <div class="col-xs-12 col-sm-6 row-half slide">
                                     <a class="content" href="#">
                                         <span class="image-hover-bg">
-                                            <img src="{{ UPLOADS_URL }}{{ berlin.image|modified_path:"magazine_slide_small" }}"  alt="{{ berlin.get_title|escape }}"/>
+                                            <img src="{{ UPLOADS_URL }}{{ berlin.image|modified_path:"magazine_slide_small" }}"  alt="{{ berlin.get_alternative_title|escape }}"/>
                                         </span>
                                         <h3>{% trans 'When I moved to Berlin' %}:</h3>
-                                        <h2>{{ berlin.get_title }}</h2>
+                                        <h2>{{ berlin.get_alternative_title }}</h2>
                                     </a>
                                 </div>
                             {% endif %}
@@ -114,20 +114,20 @@
                                 <div class="col-xs-12 col-sm-6 row-half slide">
                                     <a class="content" href="#">
                                         <span class="image-hover-bg">
-                                            <img src="{{ UPLOADS_URL }}{{ knowledge.image|modified_path:"magazine_slide_small" }}"  alt="{{ knowledge.get_title|escape }}"/>
+                                            <img src="{{ UPLOADS_URL }}{{ knowledge.image|modified_path:"magazine_slide_small" }}"  alt="{{ knowledge.get_alternative_title|escape }}"/>
                                         </span>
                                         <h3>{% trans 'Knowledge & Analysis' %}:</h3>
-                                        <h2>{{ knowledge.get_title }}</h2>
+                                        <h2>{{ knowledge.get_alternative_title }}</h2>
                                     </a>
                                 </div>
                             {% elif innovation %}
                                 <div class="col-xs-12 col-sm-6 row-half slide">
                                     <a class="content" href="#">
                                         <span class="image-hover-bg">
-                                            <img src="{{ UPLOADS_URL }}{{ innovation.image|modified_path:"magazine_slide_small" }}"  alt="{{ innovation.get_title|escape }}"/>
+                                            <img src="{{ UPLOADS_URL }}{{ innovation.image|modified_path:"magazine_slide_small" }}"  alt="{{ innovation.get_alternative_title|escape }}"/>
                                         </span>
                                         <h3>{% trans 'Innovation & Vision' %}:</h3>
-                                        <h2>{{ innovation.get_title }}</h2>
+                                        <h2>{{ innovation.get_alternative_title }}</h2>
                                     </a>
                                 </div>
                             {% endif %}
@@ -140,10 +140,10 @@
                         <div class="col-xs-12 col-sm-6 row-full slide">
                             <a class="content" href="#">
                                 <span class="image-hover-bg">
-                                    <img src="{{ UPLOADS_URL }}{{ player.image|modified_path:"magazine_slide_big" }}"  alt="{{ player.get_title|escape }}"/>
+                                    <img src="{{ UPLOADS_URL }}{{ player.image|modified_path:"magazine_slide_big" }}"  alt="{{ player.get_alternative_title|escape }}"/>
                                 </span>
                                 <h3>{% trans 'Player of the week' %}:</h3>
-                                <h2>{{ player.get_title }}</h2>
+                                <h2>{{ player.get_alternative_title }}</h2>
                             </a>
                         </div>   
                     {% endif %}
@@ -156,20 +156,20 @@
                                 <div class="col-xs-12 col-sm-6 row-half slide">
                                     <a class="content" href="#">
                                         <span class="image-hover-bg">
-                                            <img src="{{ UPLOADS_URL }}{{ home.image|modified_path:"magazine_slide_small" }}"  alt="{{ home.get_title|escape }}"/>
+                                            <img src="{{ UPLOADS_URL }}{{ home.image|modified_path:"magazine_slide_small" }}"  alt="{{ home.get_alternative_title|escape }}"/>
                                         </span>
                                         <h3>{% trans 'At home with' %} ...</h3>
-                                        <h2>{{ home.get_title }}</h2>
+                                        <h2>{{ home.get_alternative_title }}</h2>
                                     </a>
                                 </div>
                             {% elif berlin %}
                                 <div class="col-xs-12 col-sm-6 row-half slide">
                                     <a class="content" href="#">
                                         <span class="image-hover-bg">
-                                            <img src="{{ UPLOADS_URL }}{{ berlin.image|modified_path:"magazine_slide_small" }}"  alt="{{ berlin.get_title|escape }}"/>
+                                            <img src="{{ UPLOADS_URL }}{{ berlin.image|modified_path:"magazine_slide_small" }}"  alt="{{ berlin.get_alternative_title|escape }}"/>
                                         </span>
                                         <h3>{% trans 'When I moved to Berlin' %}:</h3>
-                                        <h2>{{ berlin.get_title }}</h2>
+                                        <h2>{{ berlin.get_alternative_title }}</h2>
                                     </a>
                                 </div>
                             {% endif %}
@@ -177,20 +177,20 @@
                                 <div class="col-xs-12 col-sm-6 row-half slide">
                                     <a class="content" href="#">
                                         <span class="image-hover-bg">
-                                            <img src="{{ UPLOADS_URL }}{{ knowledge.image|modified_path:"magazine_slide_small" }}"  alt="{{ knowledge.get_title|escape }}"/>
+                                            <img src="{{ UPLOADS_URL }}{{ knowledge.image|modified_path:"magazine_slide_small" }}"  alt="{{ knowledge.get_alternative_title|escape }}"/>
                                         </span>
                                         <h3>{% trans 'Knowledge & Analysis' %}:</h3>
-                                        <h2>{{ knowledge.get_title }}</h2>
+                                        <h2>{{ knowledge.get_alternative_title }}</h2>
                                     </a>
                                 </div>
                             {% elif innovation %}
                                 <div class="col-xs-12 col-sm-6 row-half slide">
                                     <a class="content" href="#">
                                         <span class="image-hover-bg">
-                                            <img src="{{ UPLOADS_URL }}{{ innovation.image|modified_path:"magazine_slide_small" }}"  alt="{{ innovation.get_title|escape }}"/>
+                                            <img src="{{ UPLOADS_URL }}{{ innovation.image|modified_path:"magazine_slide_small" }}"  alt="{{ innovation.get_alternative_title|escape }}"/>
                                         </span>
                                         <h3>{% trans 'Innovation & Vision' %}:</h3>
-                                        <h2>{{ innovation.get_title }}</h2>
+                                        <h2>{{ innovation.get_alternative_title }}</h2>
                                     </a>
                                 </div>
                             {% endif %}
@@ -203,10 +203,10 @@
                         <div class="col-xs-12 col-sm-6 row-full slide">
                             <a class="content" href="#">
                                 <span class="image-hover-bg">
-                                    <img src="{{ UPLOADS_URL }}{{ player.image|modified_path:"magazine_slide_big" }}"  alt="{{ player.get_title|escape }}"/>
+                                    <img src="{{ UPLOADS_URL }}{{ player.image|modified_path:"magazine_slide_big" }}"  alt="{{ player.get_alternative_title|escape }}"/>
                                 </span>
                                 <h3>{% trans 'Player of the week' %}:</h3>
-                                <h2>{{ player.get_title }}</h2>
+                                <h2>{{ player.get_alternative_title }}</h2>
                             </a>
                         </div>   
                     {% endif %}
@@ -219,20 +219,20 @@
                                 <div class="col-xs-12 col-sm-6 row-half slide">
                                     <a class="content" href="#">
                                         <span class="image-hover-bg">
-                                            <img src="{{ UPLOADS_URL }}{{ home.image|modified_path:"magazine_slide_small" }}"  alt="{{ home.get_title|escape }}"/>
+                                            <img src="{{ UPLOADS_URL }}{{ home.image|modified_path:"magazine_slide_small" }}"  alt="{{ home.get_alternative_title|escape }}"/>
                                         </span>
                                         <h3>{% trans 'At home with' %} ...</h3>
-                                        <h2>{{ home.get_title }}</h2>
+                                        <h2>{{ home.get_alternative_title }}</h2>
                                     </a>
                                 </div>
                             {% elif berlin %}
                                 <div class="col-xs-12 col-sm-6 row-half slide">
                                     <a class="content" href="#">
                                         <span class="image-hover-bg">
-                                            <img src="{{ UPLOADS_URL }}{{ berlin.image|modified_path:"magazine_slide_small" }}"  alt="{{ berlin.get_title|escape }}"/>
+                                            <img src="{{ UPLOADS_URL }}{{ berlin.image|modified_path:"magazine_slide_small" }}"  alt="{{ berlin.get_alternative_title|escape }}"/>
                                         </span>
                                         <h3>{% trans 'When I moved to Berlin' %}:</h3>
-                                        <h2>{{ berlin.get_title }}</h2>
+                                        <h2>{{ berlin.get_alternative_title }}</h2>
                                     </a>
                                 </div>
                             {% endif %}
@@ -240,20 +240,20 @@
                                 <div class="col-xs-12 col-sm-6 row-half slide">
                                     <a class="content" href="#">
                                         <span class="image-hover-bg">
-                                            <img src="{{ UPLOADS_URL }}{{ knowledge.image|modified_path:"magazine_slide_small" }}"  alt="{{ knowledge.get_title|escape }}"/>
+                                            <img src="{{ UPLOADS_URL }}{{ knowledge.image|modified_path:"magazine_slide_small" }}"  alt="{{ knowledge.get_alternative_title|escape }}"/>
                                         </span>
                                         <h3>{% trans 'Knowledge & Analysis' %}:</h3>
-                                        <h2>{{ knowledge.get_title }}</h2>
+                                        <h2>{{ knowledge.get_alternative_title }}</h2>
                                     </a>
                                 </div>
                             {% elif innovation %}
                                 <div class="col-xs-12 col-sm-6 row-half slide">
                                     <a class="content" href="#">
                                         <span class="image-hover-bg">
-                                            <img src="{{ UPLOADS_URL }}{{ innovation.image|modified_path:"magazine_slide_small" }}"  alt="{{ innovation.get_title|escape }}"/>
+                                            <img src="{{ UPLOADS_URL }}{{ innovation.image|modified_path:"magazine_slide_small" }}"  alt="{{ innovation.get_alternative_title|escape }}"/>
                                         </span>
                                         <h3>{% trans 'Innovation & Vision' %}:</h3>
-                                        <h2>{{ innovation.get_title }}</h2>
+                                        <h2>{{ innovation.get_alternative_title }}</h2>
                                     </a>
                                 </div>
                             {% endif %}
@@ -273,8 +273,8 @@
             {% for article in articles_under_player_of_the_week|slice:":1" %}
                 <div class="col-xs-12 col-sm-4 col-md-3 {% if forloop.counter == 4 %}hidden-sm{% endif %}">
                     <a class="content tap-hover tap-hover-trigger" href="{{ article.get_url_path }}">
-                        <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"event_row" }}" alt="{{ article.get_title|escape }}"/>
-                        <h2>{{ article.get_title }}</h2>
+                        <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"event_row" }}" alt="{{ article.get_alternative_title|escape }}"/>
+                        <h2>{{ article.get_alternative_title }}</h2>
                         {% parse article.get_rendered_content as content %}
                         <p>{{ content|striptags|truncatewords:"10" }}</p>
                     </a>
@@ -283,8 +283,8 @@
             {% for article in articles_under_when_i_moved_to_berlin|slice:":1" %}
                 <div class="col-xs-12 col-sm-4 col-md-3 {% if forloop.counter == 4 %}hidden-sm{% endif %}">
                     <a class="content tap-hover tap-hover-trigger" href="{{ article.get_url_path }}">
-                        <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"event_row" }}" alt="{{ article.get_title|escape }}"/>
-                        <h2>{{ article.get_title }}</h2>
+                        <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"event_row" }}" alt="{{ article.get_alternative_title|escape }}"/>
+                        <h2>{{ article.get_alternative_title }}</h2>
                         {% parse article.get_rendered_content as content %}
                         <p>{{ content|striptags|truncatewords:"10" }}</p>
                     </a>
@@ -293,8 +293,8 @@
             {% for article in articles_under_innovation_and_vision|slice:":1" %}
                 <div class="col-xs-12 col-sm-4 col-md-3 {% if forloop.counter == 4 %}hidden-sm{% endif %}">
                     <a class="content tap-hover tap-hover-trigger" href="{{ article.get_url_path }}">
-                        <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"event_row" }}" alt="{{ article.get_title|escape }}"/>
-                        <h2>{{ article.get_title }}</h2>
+                        <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"event_row" }}" alt="{{ article.get_alternative_title|escape }}"/>
+                        <h2>{{ article.get_alternative_title }}</h2>
                         {% parse article.get_rendered_content as content %}
                         <p>{{ content|striptags|truncatewords:"10" }}</p>
                     </a>
@@ -303,8 +303,8 @@
             {% for article in articles_under_specials|slice:":1" %}
                 <div class="col-xs-12 col-sm-4 col-md-3 {% if forloop.counter == 4 %}hidden-sm{% endif %}">
                     <a class="content tap-hover tap-hover-trigger" href="{{ article.get_url_path }}">
-                        <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"event_row" }}" alt="{{ article.get_title|escape }}"/>
-                        <h2>{{ article.get_title }}</h2>
+                        <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"event_row" }}" alt="{{ article.get_alternative_title|escape }}"/>
+                        <h2>{{ article.get_alternative_title }}</h2>
                         {% parse article.get_rendered_content as content %}
                         <p>{{ content|striptags|truncatewords:"10" }}</p>
                     </a>
@@ -321,9 +321,9 @@
                 <div class="col-xs-12 col-sm-6 col-md-4">
                     <a class="content" href="{{ article.get_url_path }}">
                         <h2 class="fa-man fawesome">{% trans 'Player of the week' %}</h2>
-                        <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"magazine_grid" }}"  alt="{{ article.get_title|escape }}"/>
+                        <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"magazine_grid" }}"  alt="{{ article.get_alternative_title|escape }}"/>
                         <h4><time datetime="{{article.published_from|date:"Y-m-d"}}">{{ article.published_from|date:"m. b. Y, H:i" }}</time></h4>
-                        <h3>{{ article.get_title }}</h3>
+                        <h3>{{ article.get_alternative_title }}</h3>
                     </a>
                 </div>
             {% endfor %}
@@ -332,9 +332,9 @@
                 <div class="col-xs-12 col-sm-6 col-md-4">
                     <a class="content" href="{{ article.get_url_path }}">
                         <h2 class="fa-key fawesome">{% trans 'At home with' %} ...</h2>
-                        <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"magazine_grid" }}"  alt="{{ article.get_title|escape }}"/>
+                        <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"magazine_grid" }}"  alt="{{ article.get_alternative_title|escape }}"/>
                         <h4><time datetime="{{article.published_from|date:"Y-m-d"}}">{{ article.published_from|date:"m. b. Y, H:i" }}</time></h4>
-                        <h3>{{ article.get_title }}</h3>
+                        <h3>{{ article.get_alternative_title }}</h3>
                     </a>
                 </div>
             {% endfor %}
@@ -343,9 +343,9 @@
                 <div class="col-xs-12 col-sm-6 col-md-4">
                     <a class="content" href="{{ article.get_url_path }}">
                         <h2 class="fa-lightbulb  fawesome">{% trans 'Knowledge & Analysis' %}</h2>
-                        <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"magazine_grid" }}"  alt="{{ article.get_title|escape }}"/>
+                        <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"magazine_grid" }}"  alt="{{ article.get_alternative_title|escape }}"/>
                         <h4><time datetime="{{article.published_from|date:"Y-m-d"}}">{{ article.published_from|date:"m. b. Y, H:i" }}</time></h4>
-                        <h3>{{ article.get_title }}</h3>
+                        <h3>{{ article.get_alternative_title }}</h3>
                     </a>
                 </div>
             {% endfor %}
@@ -354,9 +354,9 @@
                 <div class="col-xs-12 col-sm-6 col-md-4">
                     <a class="content" href="{{ article.get_url_path }}">
                         <h2 class="fa-home fawesome">{% trans 'When I moved to Berlin' %}</h2>
-                        <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"magazine_grid" }}"  alt="{{ article.get_title|escape }}"/>
+                        <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"magazine_grid" }}"  alt="{{ article.get_alternative_title|escape }}"/>
                         <h4><time datetime="{{article.published_from|date:"Y-m-d"}}">{{ article.published_from|date:"m. b. Y, H:i" }}</time></h4>
-                        <h3>{{ article.get_title }}</h3>
+                        <h3>{{ article.get_alternative_title }}</h3>
                     </a>
                 </div>
             {% endfor %}
@@ -365,9 +365,9 @@
                 <div class="col-xs-12 col-sm-6 col-md-4">
                     <a class="content" href="{{ article.get_url_path }}">
                         <h2 class="fa-lightbulb fawesome">{% trans 'Innovation & Vision' %}</h2>
-                        <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"magazine_grid" }}"  alt="{{ article.get_title|escape }}"/>
+                        <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"magazine_grid" }}"  alt="{{ article.get_alternative_title|escape }}"/>
                         <h4><time datetime="{{article.published_from|date:"Y-m-d"}}">{{ article.published_from|date:"m. b. Y, H:i" }}</time></h4>
-                        <h3>{{ article.get_title }}</h3>
+                        <h3>{{ article.get_alternative_title }}</h3>
                     </a>
                 </div>
             {% endfor %}
@@ -402,7 +402,7 @@
                                 <div class="col-xs-12 col-sm-4">
                                     <a class="content" href="{{ article.get_url_path }}">
                                         {% if article.image %}
-                                            <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"blog_grid_small" }}" alt="{{ article.get_title|escape }}"/>
+                                            <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"blog_grid_small" }}" alt="{{ article.get_alternative_title|escape }}"/>
                                         {% endif %}
                                         <div class="subline">
                                             <h3><time datetime="{{article.published_from|date:"Y-m-d"}}">{{ article.published_from|date:"m. b. Y, H:i" }}</time></h3>
@@ -410,7 +410,7 @@
                                                 <img class="logo" src="{{ UPLOADS_URL }}{{ article.content_provider.image|modified_path:"blog_grid_logo" }}" alt="{{ article.content_provider.title|escape }}" />
                                             {% endif %}
                                         </div>
-                                        <h2>{{ article.get_title }}</h2>
+                                        <h2>{{ article.get_alternative_title }}</h2>
                                         {% parse article.get_rendered_content as content %}
                                         <p>{{ content|striptags|truncatewords:"25" }}</p>
                                     </a>
