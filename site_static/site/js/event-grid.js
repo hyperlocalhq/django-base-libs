@@ -17,6 +17,7 @@
         $(window).resize(function() {me.styleIt(200);});
         $(document).ready(function() {me.styleIt();});
         me.styleIt();       
+        me.styleIt(300);
     }
     
     EventGrid.prototype.styleIt = function(delay) {
