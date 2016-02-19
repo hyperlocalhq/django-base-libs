@@ -629,6 +629,7 @@ CLAIM_CLASS_MAPPER = {
 }
 
 
+@login_required
 def claim_object(request, **kwargs):
     """
     processes a "claim" request
@@ -678,8 +679,6 @@ def claim_object(request, **kwargs):
         'object': obj
     }, context_instance=RequestContext(request))
 
-
-claim_object = login_required(claim_object)
 
 DELETE_CLASS_MAPPER = {
     URL_ID_EVENT: {

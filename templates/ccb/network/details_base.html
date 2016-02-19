@@ -269,6 +269,8 @@
                                     <a href="{% url 'login' %}?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>
                                 {% endif %}
                             {% endif %}
+                            {% navigation_links "menu_object_activities" %}
+
                         {% endif %}
 
                     {% endif %}

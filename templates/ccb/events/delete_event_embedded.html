@@ -1,18 +1,19 @@
-{% load i18n base_tags auth_extended events %}
+{% load i18n base_tags auth_extended %}
+<form action="" method="post">{% csrf_token %}
+    <div class="fieldset not-editable">
+        <fieldset>
+            <h2>{% trans "Delete Event" %}</h2>
+            <p>
+                {% blocktrans with title=object.title %}Are you sure you want to delete the event "{{ title }}"?{% endblocktrans %}
+            </p>
 
-<div id="popup_content">
-    <form action="" method="post" class="uniForm">{% csrf_token %}
-        <fieldset class="inlineLabels">
-            <p class="disclaimer">{% blocktrans with object.title as title %}Are you sure you want to delete the event "
-                {{ title }}"?{% endblocktrans %}</p>
-
-            <div class="buttonHolder">
-                <input class="primaryAction" id="delete_profile" type="submit"
-                    value="{% filter upper %}{% trans "Delete" %}{% endfilter %}"/>
-                <input name="cancel" type="button" class="secondaryAction"{% if not request.is_ajax %}
-                    onclick="history.go(-1)"{% endif %}
-                    value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}"/>
+            <div class="button-group form-buttons">
+                <input name="cancel" type="button" class="button cancel"
+                    {% if not request.is_ajax %} onclick="history.go(-1)"{% endif %}
+                    value="{% trans "Cancel" %}" />
+                <input class="button danger" type="submit"
+                    value="{% trans "Delete" %}" />
             </div>
         </fieldset>
-    </form>
-</div>
+    </div>
+</form>

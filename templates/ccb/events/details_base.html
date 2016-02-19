@@ -87,6 +87,8 @@
                         <a rel="nofollow" href="{% url 'login' %}?goto_next={{ request.path }}" class="fawesome fa-favorite button text"><span class="text">{% trans "Favorite" %}</span></a>
                     {% endif %}
 
+                    {% navigation_links "menu_object_activities" %}
+
                 </div>
 
             </div>

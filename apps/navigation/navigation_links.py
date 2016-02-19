@@ -405,7 +405,7 @@ navigation_links = {
         },
     ],
 
-    'menu_activities': [  # TODO: is this really used anywhere?
+    'menu_object_activities': [
         {
             'url_de': '{{ object.get_url_path }}claim/',
             'url_en': '{{ object.get_url_path }}claim/',

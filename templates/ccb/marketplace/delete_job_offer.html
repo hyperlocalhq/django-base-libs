@@ -1,10 +1,6 @@
 {% extends "marketplace/details_base.html" %}
 {% load i18n base_tags auth_extended %}
 
-{% block doctype %}
-    <!DOCTYPE html SYSTEM "{{ website_url }}{{ jetson_media_url|slice:"1:" }}dtd/xhtml1-iframe.dtd">
-{% endblock %}
-
-{% block content %}
+{% block details %}
     {% include "marketplace/delete_job_offer_embedded.html" %}
 {% endblock %}

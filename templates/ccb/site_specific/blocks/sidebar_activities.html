@@ -1,4 +1,4 @@
-{% load i18n base_tags navigation_tags %}
+{% load i18n base_tags %}
 <div class="sidebar-box nav_expanded" id="activities_{{ LANGUAGE_CODE }}">
     <h5>
         <a href="#" class="open_but">
@@ -8,6 +8,7 @@
     </h5>
 
     <div class="hidable">
-        {% navigation_links "menu_activities" %}
+        {% load navigation_tags %}
+        {% navigation_links "menu_object_activities" %}
     </div>
 </div>
