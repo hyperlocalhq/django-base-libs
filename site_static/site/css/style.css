@@ -6940,12 +6940,16 @@ ul.filter-box li:last-child {
 }
 
 .is-md .row.event-grid.magazine a.content h2 {
-  font-size: 1.6em;
+  font-size: 1.5em;
 }
 
 .row.event-grid.magazine a.content p {
   font-size: 1.2em;
   top: 45%;
+}
+
+.is-md .row.event-grid.magazine a.content p {
+  font-size: 1.07em;
 }
 
 #body .container .row.comment-list {
