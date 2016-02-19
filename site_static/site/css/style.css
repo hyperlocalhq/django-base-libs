@@ -6939,6 +6939,10 @@ ul.filter-box li:last-child {
   top: 45%;
 }
 
+.is-md .row.event-grid.magazine a.content h2 {
+  font-size: 1.6em;
+}
+
 .row.event-grid.magazine a.content p {
   font-size: 1.2em;
   top: 45%;
@@ -7830,8 +7834,13 @@ img[data-popup-image-src] {
   color: #afaeae;
 }
 
+.is-md .slider.magazine.row h2 {
+  font-size: 2em;
+}
+
 .is-sm .slider.magazine.row h2 {
   bottom: 30px;
+  font-size: 2em;
 }
 
 .is-sm .slider.magazine.row h3 {

@@ -103,6 +103,9 @@
         a.content {
             h2 {
                 top: 45%;
+                .is-md & {
+                    font-size: 1.6em;
+                }
             }
             p {
                 font-size: 1.2em;
