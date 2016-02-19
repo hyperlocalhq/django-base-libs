@@ -163,7 +163,7 @@
                 
                 var $h2 = $('h2', $element);
                 var h2_height = $h2.height();
-                var h2_margin = (h2_height > element_height/2 - 5) ? element_height/2 - 5 : h2_height;
+                var h2_margin = (h2_height > element_height/2 - 10) ? element_height/2 - 10 : h2_height;
                 $h2.css('margin-bottom', '-' + h2_margin + 'px');
                 
                 var $h3 = $('h3', $element);
