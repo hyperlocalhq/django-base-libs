@@ -1881,6 +1881,27 @@ h2 {
   margin-bottom: 25px;
 }
 
+h2.icon {
+  font-family: "Lato", "sans-serif";
+  font-weight: 700;
+  font-size: 1.6em;
+  line-height: 133%;
+  margin: 10px 0 60px;
+  color: #000;
+}
+
+.is-sm h2.icon {
+  font-size: 1.6em;
+  line-height: 133%;
+  margin: 10px 0 60px;
+}
+
+.is-xs h2.icon {
+  font-size: 1.07em;
+  line-height: 125%;
+  margin: 10px 0 60px;
+}
+
 h3 {
   font-family: "Lato", "sans-serif";
   font-weight: 700;

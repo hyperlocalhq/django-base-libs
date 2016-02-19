@@ -337,6 +337,28 @@ h2 {
         line-height: 115%;
         margin-bottom: 25px;
     }
+    
+    &.icon {
+        font-family: $font-2, $font-family-1;
+        font-weight: $font-bold;
+        font-size: 1.6em;
+        line-height: 133%;
+        margin: 10px 0 60px;
+        color: $black;
+    
+        .is-sm & {
+            font-size: 1.6em;
+            line-height: 133%;
+            margin: 10px 0 60px;
+        }
+        
+        .is-xs & {
+            font-size: 1.07em;
+            line-height: 125%;
+            margin: 10px 0 60px;
+        }
+        
+    }
 }
    
 h3 {
