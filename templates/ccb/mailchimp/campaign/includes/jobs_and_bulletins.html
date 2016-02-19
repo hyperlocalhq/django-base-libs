@@ -1,0 +1,32 @@
+{% load base_tags image_mods_tags i18n %}
+<table class="news" width="600" border="0" cellspacing="0" cellpadding="0">
+    <tbody>
+        <tr style="background-color: #E8EDF0">
+            <td align="left" valign="bottom">
+                <!-- title goes here -->
+                <h3><span>JOBS</span> AND MARKETPLACE</h3>
+            </td>
+            <td align="right" valign="bottom" width="175">
+                <!-- VIEW MORE link goes here -->
+                <a title="" class="proceed" href="http://www.creative-city-berlin.de/{{ LANGUAGE_CODE }}/jobs/" target="_blank">{% trans "more" %}…</a>
+                <a title="" class="proceed" href="http://www.creative-city-berlin.de/{{ LANGUAGE_CODE }}/marketplace/" target="_blank">{% trans "more" %}…</a>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" valign="top" width="600" colspan="2">
+                {% get_objects objects.latest_published marketplace.JobOffer 3 as job_offers %}
+                {% get_objects published_objects.all bulletin_board.Bulletin 3 as bulletins %}
+                <ul>
+                    {% for job_offer in job_offers %}
+                        <li><a href="{{ job_offer.get_url }}">{{ job_offer.position }}</a></li>
+                    {% endfor %}
+                </ul>
+                <ul>
+                    {% for bulletin in bulletins %}
+                        <li><a href="{{ bulletin.get_url }}">{{ bulletin.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>

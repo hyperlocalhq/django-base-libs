@@ -56,6 +56,9 @@
                             <a href="/admin/marketplace/joboffer/{{ object.pk }}/" class="fawesome fa-edit button text" onclick="open_new_window(event)"><span class="text">{% trans "edit Job Offer" %}</span></a>
                         {% endif %}
                     {% endif %}
+
+                    {% navigation_links "menu_object_activities" %}
+
                 </div>
                 
             </div>

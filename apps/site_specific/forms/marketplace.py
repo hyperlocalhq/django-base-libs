@@ -11,6 +11,8 @@ from base_libs.forms import dynamicforms
 from base_libs.utils.misc import get_related_queryset, XChoiceList
 from base_libs.forms.fields import AutocompleteField
 from base_libs.middleware import get_current_user
+from base_libs.middleware.threadlocals import get_current_language
+
 from tagging.forms import TagField
 from tagging_autocomplete.widgets import TagAutocomplete
 from jetson.apps.location.models import Address
@@ -111,10 +113,7 @@ class DetailsForm(dynamicforms.Form):
                 self.fields['end_dd'].initial = job_offer.published_till.day
 
         self.helper = FormHelper()
-        self.helper.form_action = "/helper/edit-%(URL_ID_JOB_OFFER)s-profile/%(slug)s/details/" % {
-            'URL_ID_JOB_OFFER': URL_ID_JOB_OFFER,
-            'slug': self.job_offer.get_secure_id(),
-        }
+        self.helper.form_action = ""
         self.helper.form_method = "POST"
         self.helper.attrs = {
             'enctype': "multipart/form-data",
@@ -457,10 +456,7 @@ class ContactForm(dynamicforms.Form):
             self.fields['offering_institution'].widget.choices=[(institution.id, institution.title)]
 
         self.helper = FormHelper()
-        self.helper.form_action = "/helper/edit-%(URL_ID_JOB_OFFER)s-profile/%(slug)s/contact/" % {
-            'URL_ID_JOB_OFFER': URL_ID_JOB_OFFER,
-            'slug': self.job_offer.get_secure_id(),
-        }
+        self.helper.form_action = ""
         self.helper.form_method = "POST"
         self.helper.attrs = {
             'enctype': "multipart/form-data",
@@ -472,7 +468,7 @@ class ContactForm(dynamicforms.Form):
                     string_concat('<dd class="no-label"><h3>', _("Institution/Company"), '</h3></dd>')),
                 layout.Field(
                     "offering_institution", 
-                    data_load_url="/helper/autocomplete/marketplace/get_institutions/title/get_address_string/",
+                    data_load_url="/%s/helper/autocomplete/marketplace/get_institutions/title/get_address_string/" % get_current_language(),
                     data_load_start="1",
                     data_load_max="20",
                     wrapper_class="institution-select",
@@ -764,10 +760,7 @@ class CategoriesForm(dynamicforms.Form):
         self.fields['tags'].initial = job_offer.tags
 
         self.helper = FormHelper()
-        self.helper.form_action = "/helper/edit-%(URL_ID_JOB_OFFER)s-profile/%(slug)s/categories/" % {
-            'URL_ID_JOB_OFFER': URL_ID_JOB_OFFER,
-            'slug': self.job_offer.get_secure_id(),
-        }
+        self.helper.form_action = ""
         self.helper.form_method = "POST"
         self.helper.attrs = {
             'enctype': "multipart/form-data",

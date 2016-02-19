@@ -4,7 +4,7 @@
     <h5 class="edit_subline">{% trans "edit Description data" %}</h5>
 
     <div class="field_layout description">
-        <form action="/helper/edit-{{ URL_ID_PERSONGROUP }}-profile/{{ object.slug }}/description/" method="post"
+        <form action="/{{ LANGUAGE_CODE }}/helper/edit-{{ URL_ID_PERSONGROUP }}-profile/{{ object.slug }}/description/" method="post"
             enctype="multipart/form-data" target="hidden_iframe" class="left">{% csrf_token %}
             <fieldset class="fieldset_end">
                 <legend>{% trans "Description" %}</legend>

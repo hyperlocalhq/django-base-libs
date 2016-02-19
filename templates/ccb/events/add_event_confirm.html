@@ -215,7 +215,7 @@
                         <dd>
                             {% if form_step_data.step_event_profile.image %}
                                 <img class="avatar"
-                                    src="/helper/tmpimage/{{ form_step_data.step_event_profile.image.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/"
+                                    src="/{{ LANGUAGE_CODE }}/helper/tmpimage/{{ form_step_data.step_event_profile.image.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/"
                                     alt="{{ object.get_title|escape }}"/>
                             {% else %}
                                 <img class="avatar"

@@ -139,6 +139,9 @@ class MediaGalleryManager(MediaGalleryManagerBase):
     def newest_featured(self):
         return self.featured().order_by("-creation_date")
 
+    def random_featured(self):
+        return self.featured().order_by("?")
+
 
 class MediaGallery(MediaGalleryBase, PublishingMixin):
     categories = TreeManyToManyField(

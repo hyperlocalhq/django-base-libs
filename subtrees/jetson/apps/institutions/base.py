@@ -339,7 +339,7 @@ class InstitutionBase(CreationModificationDateMixin, UrlMixin, OpeningHoursMixin
         
     def get_locality_type(self):
         from jetson.apps.location.models import LocalityType
-        contacts = self.get_contacts()
+        contacts = self.get_contacts(cache=False)
         if contacts and contacts[0].postal_address:
             postal_address = contacts[0].postal_address
             if postal_address.country_id != "DE":
@@ -416,8 +416,8 @@ class InstitutionBase(CreationModificationDateMixin, UrlMixin, OpeningHoursMixin
                 contact_dict.pop('_phones_cache', '')
         return contact_dict
     
-    def get_contacts(self):
-        if not hasattr(self, "_contacts_cache"):
+    def get_contacts(self, cache=True):
+        if not hasattr(self, "_contacts_cache") or not cache:
             self._contacts_cache = self.institutionalcontact_set.order_by('-is_primary', 'id')
         return self._contacts_cache
         
@@ -487,7 +487,7 @@ class InstitutionBase(CreationModificationDateMixin, UrlMixin, OpeningHoursMixin
         """ used by ContextItemManager """
         search_data = []
         # add urls
-        contacts = self.get_contacts()
+        contacts = self.get_contacts(cache=False)
         if contacts:
             for contact in contacts:
                 for url in contact.get_urls():

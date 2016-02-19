@@ -14,6 +14,7 @@ from crispy_forms import layout, bootstrap
 # from base_libs.forms.fields import AutocompleteField
 from base_libs.utils.misc import get_related_queryset
 from base_libs.middleware.threadlocals import get_current_user
+from base_libs.middleware.threadlocals import get_current_language
 
 from mptt.forms import TreeNodeChoiceField
 
@@ -209,7 +210,7 @@ class BulletinForm(forms.ModelForm):
             #    _("Image"),
             #    layout.HTML("""{% load image_modifications %}
             #        {% if form_step_data.bulletin_data.image_path %}
-            #            <dt>"""+(_("Image")+"")+"""</dt><dd><img class="avatar" src="/helper/tmpimage/{{ form_step_data.bulletin_data.image_path.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/" alt="{{ object.get_title|escape }}"/></dd>
+            #            <dt>"""+(_("Image")+"")+"""</dt><dd><img class="avatar" src="/{{ LANGUAGE_CODE }}/helper/tmpimage/{{ form_step_data.bulletin_data.image_path.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/" alt="{{ object.get_title|escape }}"/></dd>
             #        {% else %}
             #            <dt>"""+(_("Image")+"")+"""</dt><dd><img src="{{ STATIC_URL }}site/img/placeholder/image.png" alt="{{ object.get_title|escape }}"/></dd>
             #        {% endif %}
@@ -244,7 +245,7 @@ class BulletinForm(forms.ModelForm):
 
                 layout.Field(
                     "institution",
-                    data_load_url="/helper/autocomplete/institutions/get_published_institutions/title/get_address_string/",
+                    data_load_url="/%s/helper/autocomplete/institutions/get_published_institutions/title/get_address_string/" % get_current_language(),
                     data_load_start="1",
                     data_load_max="20",
                     wrapper_class="institution-select",

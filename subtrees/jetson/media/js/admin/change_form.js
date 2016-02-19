@@ -9,7 +9,7 @@
 			return false;
 		});
 		var new_slug = true;
-		if($('#id_slug')[0].value){
+		if($('#id_slug').val()){
 			new_slug = false;
 		}
 
@@ -53,12 +53,14 @@
 
 		$("#id_title").focus();
 
+        /*
 		var template = $.query.get('template');
 		if(template) {
 			$('#id_template').find("option").each(function() {
 				this.selected = template == this.value;
 			});
 		}
+		*/
 		$("#id_slug").change(function() { this._changed = true; });
 		$('#id_title').change(function() {this._changed = true; });
 		$('#id_published').change(function() {this._changed = true; });

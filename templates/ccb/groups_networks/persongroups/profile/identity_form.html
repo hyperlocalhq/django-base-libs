@@ -4,7 +4,7 @@
     <div class="field_layout synonym">
         <h3>{% trans "Name" %}</h3>
 
-        <form action="/helper/edit-{{ URL_ID_PERSONGROUP }}-profile/{{ object.slug }}/identity/" method="post"
+        <form action="/{{ LANGUAGE_CODE }}/helper/edit-{{ URL_ID_PERSONGROUP }}-profile/{{ object.slug }}/identity/" method="post"
             enctype="multipart/form-data" target="hidden_iframe">{% csrf_token %}
             <div>
                 <div class="left">

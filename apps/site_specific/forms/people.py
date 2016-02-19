@@ -4,11 +4,13 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import string_concat
 from django.conf import settings
+from django.shortcuts import redirect
 
 from base_libs.forms import dynamicforms
 from base_libs.forms.fields import ImageField
 from base_libs.utils.misc import get_related_queryset, XChoiceList
 from base_libs.forms.fields import AutocompleteField
+from base_libs.middleware.threadlocals import get_current_language
 
 from jetson.apps.location.models import Address
 from jetson.apps.optionset.models import PhoneType
@@ -87,10 +89,7 @@ class IdentityForm(dynamicforms.Form):
             self.fields['occupation'].initial = person.occupation
 
         self.helper = FormHelper()
-        self.helper.form_action = "/helper/edit-%(URL_ID_PERSON)s-profile/%(username)s/identity/" % {
-            'URL_ID_PERSON': URL_ID_PERSON,
-            'username': self.person.user.username,
-        }
+        self.helper.form_action = ""
         self.helper.form_method = "POST"
         self.helper.attrs = {
             'enctype': "multipart/form-data",
@@ -147,10 +146,7 @@ class DescriptionForm(dynamicforms.Form):
             self.fields['description_de'].initial = person.description_de
 
         self.helper = FormHelper()
-        self.helper.form_action = "/helper/edit-%(URL_ID_PERSON)s-profile/%(username)s/description/" % {
-            'URL_ID_PERSON': URL_ID_PERSON,
-            'username': self.person.user.username,
-        }
+        self.helper.form_action = ""
         self.helper.form_method = "POST"
         self.helper.attrs = {
             'enctype': "multipart/form-data",
@@ -197,10 +193,7 @@ class AvatarForm(dynamicforms.Form):
         self.index = index
 
         self.helper = FormHelper()
-        self.helper.form_action = "/helper/edit-%(URL_ID_PERSON)s-profile/%(username)s/avatar/" % {
-            'URL_ID_PERSON': URL_ID_PERSON,
-            'username': self.person.user.username,
-        }
+        self.helper.form_action = ""
         self.helper.form_method = "POST"
         self.helper.attrs = {
             'enctype': "multipart/form-data",
@@ -477,7 +470,7 @@ class ContactForm(dynamicforms.Form):
         if not args and not kwargs:  # if nothing is posted
             if index is not None and index.isdigit():
                 index = int(index)
-                contact = person.get_contacts()[index]
+                contact = person.get_contacts(cache=False)[index]
                 postal_address = contact.postal_address
                 if postal_address:
                     geopos = postal_address.get_geoposition()
@@ -518,23 +511,19 @@ class ContactForm(dynamicforms.Form):
                 self.fields['email1'].initial = contact.email1_address
                 self.fields['email2'].initial = contact.email2_address
                 
-                # add option of choosen selections for autoload fields
+                # add option of chosen selections for autoload fields
                 if contact.institution_id:
                     institution = Institution.objects.get(pk=contact.institution_id)
                     self.fields['institution'].widget.choices=[(institution.id, institution.title)]
             
-        # add option of choosen selections for autoload fields on error reload of page
+        # add option of chosen selections for autoload fields on error reload of page
         if self.data.get('institution', None):
             institution = Institution.objects.get(pk=self.data.get('institution', None))
             self.fields['institution'].widget.choices=[(institution.id, institution.title)]
                     
 
         self.helper = FormHelper()
-        self.helper.form_action = "/helper/edit-%(URL_ID_PERSON)s-profile/%(username)s/contact/%(index)s/" % {
-            'URL_ID_PERSON': URL_ID_PERSON,
-            'username': self.person.user.username,
-            'index': self.index,
-        }
+        self.helper.form_action = ""
         self.helper.form_method = "POST"
         self.helper.attrs = {
             'enctype': "multipart/form-data",
@@ -550,7 +539,7 @@ class ContactForm(dynamicforms.Form):
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Institution"), '</h3></dd>')),
                 layout.Field(
                     "institution", 
-                    data_load_url="/helper/autocomplete/institutions/get_all_institutions/title/get_address_string/",
+                    data_load_url="/%s/helper/autocomplete/institutions/get_all_institutions/title/get_address_string/" % get_current_language(),
                     data_load_start="1",
                     data_load_max="20",
                     wrapper_class="institution-select", 
@@ -585,7 +574,7 @@ class ContactForm(dynamicforms.Form):
                     )
                 ),
                 "country",
-                # layout.HTML("""{% include "bootstrap3/custom_widgets/editable_map.html" %}"""),
+                layout.HTML("""{% include "ccb_form/custom_widgets/editable_map.html" %}"""),
 
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Phones"), '</h3></dd>')),
                 layout.MultiField(
@@ -745,24 +734,27 @@ class ContactForm(dynamicforms.Form):
             ),
         )
     
-
     def save(self):
         person = self.person
         index = self.index
         data = self.cleaned_data
         save_as_primary = bool(data.get("save_as_primary", False))
-        if save_as_primary:
-            IndividualContact.objects.filter(person=person).update(is_primary=False)
-        elif not person.get_contacts():
-            save_as_primary = True
         institution_title = data.get('institution_title', '')
         institution = None
-        institution_id = None
-        if institution_title:
+        institution_id = data.get('institution', None)
+
+        if institution_id:
+            try:
+                institution = Institution.objects.get(
+                    pk=institution_id,
+                )
+            except Institution.DoesNotExist:
+                pass
+
+        if not institution and institution_title:
             institution = Institution.objects.create(
                 title=institution_title
             )
-            institution_id = institution.id
             if hasattr(institution, "create_default_group"):
                 person_group = institution.create_default_group()
                 person_group.content_object = institution
@@ -774,12 +766,19 @@ class ContactForm(dynamicforms.Form):
                     confirmer=person.user,
                     is_accepted=True,
                 )
+
         if index is not None and index.isdigit():  # change
             index = int(index)
-            contact = person.get_contacts()[index]
+            contact = person.get_contacts(cache=False)[index]
+
+            if save_as_primary:
+                IndividualContact.objects.filter(person=person).update(is_primary=False)
+            elif not person.get_contacts(cache=False):
+                save_as_primary = True
+
             contact.location_type_id = data.get('location_type', '')
             contact.location_title = data.get('location_title', '')
-            contact.institution_id = institution_id or data.get('institution', None)
+            contact.institution = institution
             contact.phone0_type = PhoneType.objects.get(slug='phone')
             contact.phone0_country = data.get('phone_country', '')
             contact.phone0_area = data.get('phone_area', '')
@@ -807,13 +806,19 @@ class ContactForm(dynamicforms.Form):
             contact.email0_address = data.get('email0', '')
             contact.email1_address = data.get('email1', '')
             contact.email2_address = data.get('email2', '')
-            contact.is_primary = save_as_primary
+            contact.is_primary = contact.is_primary or save_as_primary
             contact.save()
         else:  # create new
+
+            if save_as_primary:
+                IndividualContact.objects.filter(person=person).update(is_primary=False)
+            elif not person.get_contacts(cache=False):
+                save_as_primary = True
+
             contact = person.individualcontact_set.create(
                 location_type_id=data['location_type'] or None,
                 location_title=data.get('location_title', ''),
-                institution_id=institution_id or data.get('institution', None),
+                institution=institution,
                 phone0_type=PhoneType.objects.get(slug='phone'),
                 phone0_country=data.get('phone_country', ''),
                 phone0_area=data.get('phone_area', ''),
@@ -886,8 +891,11 @@ class ContactForm(dynamicforms.Form):
         contact = getattr(self, "contact", None)
         if index is not None and index.isdigit():
             index = int(index)
-            contact = person.get_contacts()[index]
+            contact = person.get_contacts(cache=False)[index]
         return {'contact': contact}
+
+    def get_success_response(self):
+        return redirect("show_profile_contacts", object_type='person', slug=self.person.user.username)
 
 
 class DetailsForm(dynamicforms.Form):
@@ -941,10 +949,7 @@ class DetailsForm(dynamicforms.Form):
             self.fields['preferred_language'].initial = person.preferred_language_id
 
         self.helper = FormHelper()
-        self.helper.form_action = "/helper/edit-%(URL_ID_PERSON)s-profile/%(username)s/details/" % {
-            'URL_ID_PERSON': URL_ID_PERSON,
-            'username': self.person.user.username,
-        }
+        self.helper.form_action = ""
         self.helper.form_method = "POST"
         self.helper.attrs = {
             'enctype': "multipart/form-data",
@@ -1020,10 +1025,7 @@ class CategoriesForm(dynamicforms.Form):
         self.fields['categories'].initial = self.person.categories.all()
 
         self.helper = FormHelper()
-        self.helper.form_action = "/helper/edit-%(URL_ID_PERSON)s-profile/%(username)s/categories/" % {
-            'URL_ID_PERSON': URL_ID_PERSON,
-            'username': self.person.user.username,
-        }
+        self.helper.form_action = ""
         self.helper.form_method = "POST"
         self.helper.attrs = {
             'enctype': "multipart/form-data",

@@ -4,9 +4,9 @@ from base_libs.forms.formprocessing import ID_ACTION_EDIT
 from base_libs.forms.formprocessing import ID_ACTION_DELETE
 from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
 
-from jetson.apps.blog.forms import BlogPostForm
-from jetson.apps.blog.views import BlogPostFormPreviewHandler
-from jetson.apps.blog.feeds import RssFeed, AtomFeed
+from ccb.apps.blog.forms import BlogPostForm
+from ccb.apps.blog.views import BlogPostFormPreviewHandler
+from ccb.apps.blog.feeds import RssFeed, AtomFeed
 
 all_dict = dict(
     include=['member'],
@@ -26,7 +26,7 @@ feed_dict = dict(
 )
 
 urlpatterns = patterns(
-    'jetson.apps.blog.views',
+    'ccb.apps.blog.views',
 
     # mind the order of the url-patterns!!!!!
 

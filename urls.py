@@ -323,7 +323,7 @@ urlpatterns += patterns(
 urlpatterns += staticfiles_urlpatterns()
 
 ### HELPERS (system urls not visible directly for the users) ###
-urlpatterns += patterns(
+urlpatterns += i18n_patterns(
     '',  # no views specified
     # ajax lookups
     url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),
@@ -369,6 +369,15 @@ urlpatterns += patterns(
         URL_ID_JOB_OFFER, URL_ID_EVENT, URL_ID_DOCUMENT, URL_ID_PERSONGROUP, URL_ID_INSTITUTION, URL_ID_PERSON),
         'ccb.apps.site_specific.views.edit_profile', name="edit_profile"),
 
+    url(r'^helper/edit-(?P<object_type>%s|%s)-profile/(?P<slug>[^/]+)/contact/$' % (
+        URL_ID_INSTITUTION, URL_ID_PERSON), 'ccb.apps.site_specific.views.show_contacts', name="show_profile_contacts"),
+    url(r'^helper/edit-(?P<object_type>%s|%s)-profile/(?P<slug>[^/]+)/contact/add/$' % (
+        URL_ID_INSTITUTION, URL_ID_PERSON), 'ccb.apps.site_specific.views.edit_profile', {'section_name': 'contact'}, name="add_profile_contact"),
+    url(r'^helper/edit-(?P<object_type>%s|%s)-profile/(?P<slug>[^/]+)/contact/(?P<index>\d+)/$' % (
+        URL_ID_INSTITUTION, URL_ID_PERSON), 'ccb.apps.site_specific.views.edit_profile', {'section_name': 'contact'}, name="change_profile_contact"),
+    url(r'^helper/edit-(?P<object_type>%s|%s)-profile/(?P<slug>[^/]+)/contact/(?P<index>\d+)/delete/$' % (
+        URL_ID_INSTITUTION, URL_ID_PERSON), 'ccb.apps.site_specific.views.delete_contact', name="delete_profile_contact"),
+
     url(
         r'^helper/edit-(?P<object_type>%s|%s|%s|%s|%s|%s)-profile/'
         r'(?P<slug>[^/]+)/(?P<section_name>'
@@ -397,9 +406,11 @@ urlpatterns += patterns(
     ),
     url(r'^helper/edit-(?P<object_type>%s|%s)-profile/(?P<slug>[^/]+)/(?P<section_name>contact)/$' % (
         URL_ID_JOB_OFFER, URL_ID_EVENT), 'ccb.apps.site_specific.views.edit_profile'),
-    url(r'^helper/edit-(?P<object_type>%s|%s)-profile/(?P<slug>[^/]+)/(?P<section_name>contact)/(?P<index>[^/]+)/$' % (
-        URL_ID_INSTITUTION, URL_ID_PERSON), 'ccb.apps.site_specific.views.edit_profile'),
-    url(r'^helper/(?P<object_type>%s|%s|%s|%s)-profile/(?P<slug>[^/]+)/contact/(?P<index>[^/]+)/$' % (
+    url(r'^helper/edit-(?P<object_type>%s|%s)-profile/(?P<slug>[^/]+)/(?P<section_name>contact)/add/$' % (
+        URL_ID_JOB_OFFER, URL_ID_EVENT), 'ccb.apps.site_specific.views.edit_profile'),
+
+    # TODO: check if the following rule is being used anywhere
+    url(r'^helper/(?P<object_type>%s|%s|%s|%s)-profile/(?P<slug>[^/]+)/contact/(?P<index>\d+)/$' % (
         URL_ID_JOB_OFFER, URL_ID_EVENT, URL_ID_INSTITUTION, URL_ID_PERSON,),
         'ccb.apps.site_specific.views.show_contact'),
 
@@ -914,7 +925,7 @@ urlpatterns += i18n_patterns(
 
     url(r'^kreativarbeiten/$', lambda request: redirect("/kreativarbeiten/blog/")),
 
-    url(r'^kreativarbeiten/blog/', include('jetson.apps.blog.urls'),
+    url(r'^kreativarbeiten/blog/', include('ccb.apps.blog.urls'),
         {
             'url_identifier': "kreativarbeiten/blog",
             'object_url_part': None,

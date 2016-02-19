@@ -173,7 +173,7 @@
                         <dt>{% trans "Profile photo" %}</dt>
                         <dd>
                             <img class="avatar"
-                                src="/helper/tmpimage/{{ form_step_data.1.avatar.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/"
+                                src="/{{ LANGUAGE_CODE }}/helper/tmpimage/{{ form_step_data.1.avatar.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/"
                                 alt="{{ object.get_title|escape }}"/>
                         </dd>
                     {% else %}

@@ -372,7 +372,7 @@ class PersonBase(CreationModificationDateMixin, UrlMixin):
         
     def get_locality_type(self):
         from jetson.apps.location.models import LocalityType
-        contacts = self.get_contacts()
+        contacts = self.get_contacts(cache=False)
         if contacts and contacts[0].postal_address:
             postal_address = contacts[0].postal_address
             if postal_address.country_id != "DE":
@@ -489,8 +489,8 @@ class PersonBase(CreationModificationDateMixin, UrlMixin):
         return self.user.email
     get_email.short_description = _('E-mail address')
     
-    def get_contacts(self):
-        if not hasattr(self, "_contacts_cache"):
+    def get_contacts(self, cache=True):
+        if not hasattr(self, "_contacts_cache") or not cache:
             self._contacts_cache = self.individualcontact_set.order_by('-is_primary', 'id')
         return self._contacts_cache
     
@@ -543,7 +543,7 @@ class PersonBase(CreationModificationDateMixin, UrlMixin):
         return ", ".join(address_components)
         
     def has_multiple_contacts(self):
-        return self.get_contacts().count()>1
+        return self.get_contacts(cache=False).count() > 1
         
     def get_neighborhoods(self):
         if not hasattr(self, '_neighborhoods_cache'):
@@ -679,7 +679,7 @@ class PersonBase(CreationModificationDateMixin, UrlMixin):
     def get_additional_search_data(self):
         """ used by ContextItemManager """
         search_data = []
-        contacts = self.get_contacts()
+        contacts = self.get_contacts(cache=False)
         if contacts:
             for contact in contacts:
                 # add urls

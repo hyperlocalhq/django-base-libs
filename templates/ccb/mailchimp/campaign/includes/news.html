@@ -1,19 +1,19 @@
-{% load base_tags image_mods_tags %}
+{% load base_tags image_mods_tags i18n %}
 <table class="news" width="600" border="0" cellspacing="0" cellpadding="0">
     <tbody>
         <tr style="background-color: #E8EDF0">
             <td align="left" valign="bottom">
                 <!-- title goes here -->
-                <h3><span>NEWS</span> AUS BERLIN</h3>
+                <h3><span>CULTURE NEWS</span> FROM BERLIN</h3>
             </td>
             <td align="right" valign="bottom" width="175">
                 <!-- VIEW MORE link goes here -->
-                <a title="" class="proceed" href="http://www.creative-city-berlin.de/news/" target="_blank">more …</a>
+                <a title="" class="proceed" href="http://www.creative-city-berlin.de/{{ LANGUAGE_CODE }}/news/" target="_blank">{% trans "more" %}…</a>
             </td>
         </tr>
         <tr>
             <td align="left" valign="top" width="600" colspan="2">
-                {% get_objects site_published_objects_all_languages.featured_news articles.Article 3 as articles %}
+                {% get_objects site_published_objects_all_languages.news_featured_in_newsletter articles.Article 8 as articles %}
                 {% for article in articles %}
                     {% if article.description %}
                         {% parse article.get_rendered_description as description %}

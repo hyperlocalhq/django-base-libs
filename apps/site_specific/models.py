@@ -664,16 +664,7 @@ def institution_claimed(sender, instance, **kwargs):
         submitter_url = instance.user.profile.get_absolute_url()
     else:
         submitter_url = "http://%s/admin/site_specific/claimrequest/" % Site.objects.get_current().domain
-    '''
-    recipients = set(ns.user
-        for ns in notification.NoticeSetting.objects.filter(
-        notice_type__sysname="institution_claimed",
-        send=True,
-        medium="1",
-        ))
-    '''
-    recipients = User.objects.all()
-    # '''
+    recipients = User.objects.filter(is_staff=True, is_active=True)
     notification.send(
         recipients,
         "institution_claimed",
@@ -685,5 +676,6 @@ def institution_claimed(sender, instance, **kwargs):
         instance=instance.content_object,
         on_site=False,
     )
-    if instance.user:
-        action.send(instance.user, verb="claimed", action_object=instance)
+    ## this activity is admin-specific, so we don't need to track it on the frontend
+    # if instance.user:
+    #     action.send(instance.user, verb="claimed", action_object=instance)

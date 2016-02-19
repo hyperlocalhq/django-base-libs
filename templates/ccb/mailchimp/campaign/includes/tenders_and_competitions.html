@@ -1,0 +1,111 @@
+{% load base_tags image_mods_tags i18n %}
+<table class="news" width="600" border="0" cellspacing="0" cellpadding="0">
+    <tbody>
+        <tr style="background-color: #E8EDF0">
+            <td align="left" valign="bottom">
+                <!-- title goes here -->
+                <h3><span>TENDERS AND COMPETITIONS</span></h3>
+            </td>
+            <td align="right" valign="bottom" width="175">
+                <!-- VIEW MORE link goes here -->
+                <a title="" class="proceed" href="http://www.creative-city-berlin.de/{{ LANGUAGE_CODE }}/news/category/tenders-competitions/" target="_blank">{% trans "more" %}…</a>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" valign="top" width="600" colspan="2">
+                {% get_objects site_published_objects_all_languages.tenders_and_competitions articles.Article 4 as articles %}
+                {% for article in articles %}
+                    {% if article.description %}
+                        {% parse article.get_rendered_description as description %}
+                    {% else %}
+                        {% parse article.get_rendered_content as description %}
+                    {% endif %}
+
+                    {% if article.image or description|get_first_media|get_media_src %}
+                        <table class="news_image" width="600" border="0" cellspacing="0" cellpadding="0">
+                            <tbody>
+                                <tr>
+                                    <td align="left" valign="top" width="149"
+                                        style="background-color: #f1f4f6; border-right:1px #E8EDF0 solid;">
+                                        {% if article.image %}
+                                            <a href="{{ article.get_url }}" target="_blank">
+                                                <img
+                                                    src="http://www.creative-city-berlin.de/media/{{ article.image|modified_path:"nl_n" }}"
+                                                    alt="" width="149" height="">
+                                            </a>
+                                        {% else %}
+                                            {% with description|get_first_media|get_media_src as image_src %}
+                                                {% if "http" in image_src %}
+                                                    <a href="{{ article.get_url }}" target="_blank">
+                                                        <img
+                                                            src="{{ description|get_first_media|get_media_src }}" alt=""
+                                                            width="149" height="">
+                                                    </a>
+                                                {% else %}
+                                                    <a href="{{ article.get_url }}" target="_blank">
+                                                        <img
+                                                            src="http://www.creative-city-berlin.de{{ description|get_first_media|get_media_src }}"
+                                                            alt="" width="149" height="">
+                                                    </a>
+                                                {% endif %}
+                                            {% endwith %}
+                                        {% endif %}
+                                    </td>
+                                    <td align="left" valign="top" width="450" colspan="1">
+                                        <table width="450" border="0" cellspacing="0" cellpadding="20">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <h4>{{ article.title }}</h4>
+
+                                                        <p>{{ description|striptags|truncatewords:"30" }}</p>
+                                                        <a href="{{ article.get_url }}" target="_blank" class="more">
+                                                            more …
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <table class="news" width="600" border="0" cellspacing="0" cellpadding="0">
+                            <tbody>
+                                <tr>
+                                    <td align="left" valign="top" width="600" colspan="2">
+                                        <table width="600" border="0" cellspacing="0" cellpadding="20">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="border-top:1px #dbe5e8 solid;">
+                                                        <h4>{{ article.title }}</h4>
+
+                                                        <p>{{ description|striptags|truncatewords:"30" }}</p>
+                                                        <a href="{{ article.get_url }}" target="_blank" class="more">
+                                                            more…
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    {% endif %}
+                {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <img
+                    src="http://www.creative-city-berlin.de/static/0/site/img/newsletter/ccb_newsletter_shadow.png"
+                    alt=""
+                    width="600"
+                    height="20"
+                    border="no"/>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -102,7 +102,7 @@
   width: 1.2em;
   height: 1.2em;
   font-size: 1em;
-  line-height: 1.2em;
+  line-height: 1.25em;
   color: #fff;
   border: 1px solid black;
   border-radius: 50%;
@@ -128,6 +128,13 @@
 .fawesome.button.form.negative:hover:before, .fawesome.button.form.negative:hover:after, .fawesome.button.form.negative.active:before, .fawesome.button.form.negative.active:after, .fawesome.button.form.negative:focus:before, .fawesome.button.form.negative:focus:after, .fawesome.button.form.negative.focus:before, .fawesome.button.form.negative.focus:after, .fawesome.btn.form.negative:hover:before, .fawesome.btn.form.negative:hover:after, .fawesome.btn.form.negative.active:before, .fawesome.btn.form.negative.active:after, .fawesome.btn.form.negative:focus:before, .fawesome.btn.form.negative:focus:after, .fawesome.btn.form.negative.focus:before, .fawesome.btn.form.negative.focus:after {
   background: #ff0000;
   border-color: #c70202;
+}
+
+.fawesome.button.form.fa-edit:before, .fawesome.button.form.fa-edit:after, .fawesome.btn.form.fa-edit:before, .fawesome.btn.form.fa-edit:after {
+  height: 1.5em;
+  font-size: 0.8em;
+  width: 1.5em;
+  line-height: 1.5em;
 }
 
 .fawesome.button.primary, .fawesome.button.btn-primary, .fawesome.btn.primary, .fawesome.btn.btn-primary {
@@ -4275,6 +4282,46 @@ input:focus {
   margin: 0;
 }
 
+.fieldset.editable .group, .fieldset.editable .edit-group, .fieldset.not-editable .group, .fieldset.not-editable .edit-group {
+  position: relative;
+  border-top: 1px solid #d8d8d8;
+  margin-bottom: 20px;
+  padding-top: 20px;
+  min-height: 70px;
+}
+
+.fieldset.editable .group dl.input-fields dt, .fieldset.editable .edit-group dl.input-fields dt, .fieldset.not-editable .group dl.input-fields dt, .fieldset.not-editable .edit-group dl.input-fields dt {
+  padding-top: 7px;
+}
+
+.fieldset.editable .group dl.input-fields dd, .fieldset.editable .edit-group dl.input-fields dd, .fieldset.not-editable .group dl.input-fields dd, .fieldset.not-editable .edit-group dl.input-fields dd {
+  padding-top: 0;
+}
+
+.fieldset.editable .group .edit-link, .fieldset.editable .edit-group .edit-link, .fieldset.not-editable .group .edit-link, .fieldset.not-editable .edit-group .edit-link {
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+
+.fieldset.editable .group .edit-link.fa-minus, .fieldset.editable .edit-group .edit-link.fa-minus, .fieldset.not-editable .group .edit-link.fa-minus, .fieldset.not-editable .edit-group .edit-link.fa-minus {
+  top: 45px;
+}
+
+.fieldset.editable .group:first-of-type, .fieldset.editable .edit-group:first-of-type, .fieldset.not-editable .group:first-of-type, .fieldset.not-editable .edit-group:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.fieldset.editable .group:first-of-type .edit-link, .fieldset.editable .edit-group:first-of-type .edit-link, .fieldset.not-editable .group:first-of-type .edit-link, .fieldset.not-editable .edit-group:first-of-type .edit-link {
+  top: -10px;
+}
+
+.fieldset.editable .group:first-of-type .edit-link.fa-minus, .fieldset.editable .edit-group:first-of-type .edit-link.fa-minus, .fieldset.not-editable .group:first-of-type .edit-link.fa-minus, .fieldset.not-editable .edit-group:first-of-type .edit-link.fa-minus {
+  top: 25px;
+}
+
 .fieldset.editable.disabled, .fieldset.not-editable.disabled {
   background: none;
   box-shadow: none;
@@ -4334,6 +4381,20 @@ input:focus {
 
 .fieldset.editable.disabled.switch:hover .edit-button, .fieldset.not-editable.disabled.switch:hover .edit-button {
   opacity: 1;
+}
+
+.fieldset.editable.disabled .group, .fieldset.not-editable.disabled .group {
+  position: relative;
+  margin-bottom: 0;
+  min-height: 0;
+}
+
+.fieldset.editable.disabled .group .edit-link, .fieldset.not-editable.disabled .group .edit-link {
+  display: none;
+}
+
+.fieldset.editable.disabled .edit-group, .fieldset.not-editable.disabled .edit-group {
+  display: none;
 }
 
 .fieldset.not-editable {

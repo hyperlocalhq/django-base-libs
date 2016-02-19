@@ -161,6 +161,12 @@ urlpatterns = [
     # ),
     # url(r'^member/(?P<slug>[^/]+)/reviews/$', 'ccb.apps.network.views.member_detail',
     #     dict(member_detail_info, template_name="institutions/institution_reviews.html")),
+
+    url(r'^member/(?P<slug>[^/]+)/claim/$',
+        'ccb.apps.site_specific.views.claim_object',
+        {'ot_url_part': 'institution'},
+    ),
+
     url(r'^member/(?P<slug>[^/]+)/message/$',
         'jetson.apps.messaging.views.contact',
         dict(member_detail_info, template_name='network/member_message.html')),
@@ -173,7 +179,7 @@ urlpatterns = [
     ),
 
     url(r'^(?P<object_url_part>member/(?P<slug>[^/]+)/)(?P<url_identifier>blog)/',
-        include('jetson.apps.blog.urls'),
+        include('ccb.apps.blog.urls'),
         {
             'only_for_this_site': True,
             'include': ["member"],

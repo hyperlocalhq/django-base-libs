@@ -165,12 +165,8 @@
                                             <tbody>
                                                 <tr style="background-color: #E8EDF0" valign="bottom">
                                                     <td>
-                                                        <a href="http://www.creative-city-berlin.de/" target="_blank">
-                                                            <img
-                                                                src="http://www.creative-city-berlin.de/static/0/site/img/newsletter/ccb_newsletter_logo_2.png"
-                                                                alt="Auszeichnung k&uuml;nstlerischer Projektr&auml;ume und &ndash;initiativen im Bereich Bildende Kunst im Jahr 2012"
-                                                                width="600" height="110" border="no"/>
-                                                        </a>
+                                                        {% load slideshows_tags %}
+                                                        {% slideshow "newsletter_header_en" using "mailchimp/campaign/includes/header.html" %}
                                                     </td>
                                                 </tr>
                                             </tbody>

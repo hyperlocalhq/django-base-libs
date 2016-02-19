@@ -578,7 +578,10 @@ $(document).ready(function() {
         
         // making sure that there is an empty option at the beginning
         var $first_option = $('option', me.$main).first();
+        var first_html = $first_option.html();
+        $first_option.html('');
         var first_val = $first_option.attr('value');
+        $first_option.html(first_html);
         if (first_val && first_val != "") {
             $first_option.before($('<option>--------</option>'));   
         }
@@ -1414,19 +1417,28 @@ $(document).ready(function() {
           
         me.writeAutoloadMultipleValues();
         
-        var $first_option = $('option', me.$main).first();
+        var $options = $('option', me.$main)
+        
+        var $first_option = $options.first();
+        var first_html = $first_option.html();
+        $first_option.html('');
         
         if (me.autoload) {
-            $first_option.html('');
             var first_val = $first_option.attr('value');
             if (!first_val) {
                 $first_option.attr('value', '');
                 $first_option.val('');            
             }
+            
+            // input field is empty -> unselect everything
+            if (!me.autoload_multiple && me.$display.val() == "") {
+                $options.prop('selected', false);
+            }
         }
         
         // unselecting a possible selected empty first option
         var first_val = $first_option.attr('value');
+        $first_option.html(first_html);
         if (!(first_val && first_val != "") && $first_option.prop('selected')) {
             $first_option.prop('selected', false);
         }
@@ -1704,6 +1716,13 @@ $(document).ready(function() {
     
     Fieldset.iframe_counter = 0;
     
+    /**
+     * Initialises the fieldset.
+     * Checks if the fieldset wrapper has the attribute 'data-edit-url' for loading the editable content into an iframe.
+     * Also checks for .edit-links inside the fieldset which are used to load editable content into an iframe.
+     *
+     * Creates a connection between the Fieldset class inside an iframe and the Fieldset class which created the iframe.
+     */
     Fieldset.prototype.init = function() {
      
         var me = this.me;
@@ -1714,11 +1733,15 @@ $(document).ready(function() {
         me.$collapse_selects = $('.row.collapse > * select', me.$fieldset);
         me.$textareas = $('.input-field textarea', me.$fieldset);
         
+        me.iframe_buttons = $('.edit-link', me.$main);
+        me.iframe_buttons.click(function() {return me.onOpenIFrame($(this));});
         
         me.iframe_id = -1;
-        me.edit_url = me.$main.attr('data-edit-url');
+        me.has_main_iframe = false;
         me.parent = window.frameElement;
+        
         if (me.parent) {
+            // creating a possible connection between an iframe and its parent
             var id = me.parent.id.split("-")[1];
             if (window.parent.iframe_fieldset) {
                 me.parent = window.parent.iframe_fieldset[id];
@@ -1729,6 +1752,7 @@ $(document).ready(function() {
         
         
         if (me.parent && me.$fieldset.prop('disabled')) {
+            // the fieldset is in an iframe and is not editable which means it is a new markup for the parent
             
             me.parent.replaceMainMarkup(me.$main.html());
             
@@ -1739,6 +1763,11 @@ $(document).ready(function() {
         }
     }
     
+    /**
+     * Does the necessary stuff for editable fieldsets.
+     * Creates the iframe if the fieldset wrapper has the 'data-edit-url' attribute.
+     * Also creates the edit button for switching between editing and not editing view.
+     */
     Fieldset.prototype.editable = function() {
         
         var me = this.me;
@@ -1750,24 +1779,11 @@ $(document).ready(function() {
         }
         
         
-        // the toggle is done by loading the edit markup
+        // the toggle is done by loading the editable content
         // into an iframe, not by switching style classes
-        if (me.edit_url) {
-            
-            if (me.$iframe) {
-                me.$iframe.remove();
-                window.iframe_fieldset[me.iframe_id] = null;
-            }
-            
-            me.iframe_id = Fieldset.iframe_counter;
-            Fieldset.iframe_counter++;
-            
-            me.$iframe = $('<iframe src="'+me.edit_url+'" class="iframe-edit" id="fieldset-'+me.iframe_id+'" frameborder="0" scrolling="no"></iframe>');
-            me.$main.after(me.$iframe);   
-            
-            if (!window.iframe_fieldset) window.iframe_fieldset = [];
-            window.iframe_fieldset[me.iframe_id] = me;
-            
+        if (me.$main.attr('data-edit-url')) {
+            me.has_main_iframe = true;
+            me.createIFrame(me.$main.attr('data-edit-url'));
         }
         
         me.edit_button = $('<button class="edit-button button fawesome fa-'+button+' smaller primary"><span class="sr-only">'+trans[button]+'</span></button>');
@@ -1780,20 +1796,79 @@ $(document).ready(function() {
         me.onResize();
     }
     
-    Fieldset.prototype.toggle = function(disable) {
+    /**
+     * Creates an iframe with editable content.
+     *
+     * @param   url     the src of the iframe
+     */
+    Fieldset.prototype.createIFrame = function(url) {
+        
+        var me = this.me;
+            
+        if (me.$iframe) {
+            me.$iframe.remove();
+            window.iframe_fieldset[me.iframe_id] = null;
+        }
+        
+        me.iframe_id = Fieldset.iframe_counter;
+        Fieldset.iframe_counter++;
+        
+        me.child = null;
+        me.$iframe = $('<iframe src="'+url+'" class="iframe-edit" id="fieldset-'+me.iframe_id+'" frameborder="0" scrolling="no"></iframe>');
+        me.$main.after(me.$iframe);   
+        
+        if (!window.iframe_fieldset) window.iframe_fieldset = [];
+        window.iframe_fieldset[me.iframe_id] = me;
+    }
+    
+    /**
+     * A link got clicked which is supposed to open an iframe with editable content.
+     * The links are marked with the class 'edit-link'.
+     * The link has to have the src of the iframe in the attribute 'data-edit-url'.
+     * Works only if the fieldset wrapper itself doesn't have an attribute 'data-edit-url' for a main iframe.
+     */
+    Fieldset.prototype.onOpenIFrame = function($link) {
+     
+        var me = this.me;
+        
+        var url = $link.attr('data-edit-url');
+        if (!url) return true;
+        
+        me.createIFrame(url);
+        
+        me.$iframe.css('display', 'block');
+        me.$main.css('display', 'none');
+        
+        var interval = window.setInterval(function() {
+            if (me.child) {
+                window.clearInterval(interval);
+                me.child.sizeParentIFrame();
+            }
+        }, 100);
+        
+        return false;
+    }
+    
+    /**
+     * Switches the edit view on/off.
+     * 
+     * param    disable         true for "off" otherwise "on"
+     * param    iframe_call     the call came from the child iframe
+     */
+    Fieldset.prototype.toggle = function(disable, iframe_call) {
         
         var me = this;
         
         // you are in an iframe
         // let the parent do the work
         if (me.parent) {
-            me.parent.toggle(true);
+            me.parent.toggle(true, true);
             return;
         }
             
-        // your edit markup is in an iframe
-        // toggle display of iframe and none iframe markup
-        if (me.edit_url) {
+        // your editable content is in an iframe
+        // toggle display of iframe and its parent
+        if (me.has_main_iframe || iframe_call) {
             
             if (disable) {
                 me.$iframe.css('display', '');
@@ -1844,6 +1919,10 @@ $(document).ready(function() {
         
     }
     
+    /**
+     * Checks if the height of the window changed.
+     * Calls onResize().
+     */
     Fieldset.prototype.checkHeight = function() {
      
         var me = this.me;
@@ -1854,6 +1933,9 @@ $(document).ready(function() {
         }
     }
     
+    /**
+     * Sets the height of the iframe.
+     */
     Fieldset.prototype.sizeIFrame = function(height) {
         
         var me = this.me;
@@ -1863,6 +1945,9 @@ $(document).ready(function() {
         me.$iframe.height(height);
     }
     
+    /**
+     * If the fieldset is the iframe, calls parent.sizeIFrame().
+     */
     Fieldset.prototype.sizeParentIFrame = function() {
      
         var me = this.me;
@@ -1872,15 +1957,21 @@ $(document).ready(function() {
         }   
     }
     
+    /**
+     * A child iframe safed its data successfuly and sends the new markup for the parent fieldset.
+     */
     Fieldset.prototype.replaceMainMarkup = function(markup) {
      
         var me = this.me;
         
         me.$main.html(markup);
         me.init();
-        me.toggle(true);
+        me.toggle(true, true);
     }
     
+    /**
+     * Collapses columns in disabled view if so defined.
+     */
     Fieldset.prototype.collapseColumns = function() {
      
         var me = this.me;
@@ -1908,6 +1999,9 @@ $(document).ready(function() {
         }
     }
     
+    /**
+     * Resets the style if necessary at a resize of the window.
+     */
     Fieldset.prototype.onResize = function() {
      
         var me = this.me;

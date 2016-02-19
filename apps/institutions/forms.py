@@ -498,7 +498,7 @@ class ProfileForm(dynamicforms.Form):
                 _("Photo"),
                 layout.HTML("""{% load image_modifications %}
                     {% if form_step_data.1.avatar %}
-                        <dt>"""+(_("Profile photo")+"")+"""</dt><dd><img class="avatar" src="/helper/tmpimage/{{ form_step_data.1.avatar.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/" alt="{{ object.get_title|escape }}"/></dd>
+                        <dt>"""+(_("Profile photo")+"")+"""</dt><dd><img class="avatar" src="/{{ LANGUAGE_CODE }}/helper/tmpimage/{{ form_step_data.1.avatar.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/" alt="{{ object.get_title|escape }}"/></dd>
                     {% else %}
                         <dt>"""+(_("Profile photo")+"")+"""</dt><dd><img class="avatar" src="{{ STATIC_URL }}site/img/placeholder/institution.png" alt="{{ object.get_title|escape }}"/></dd>
                     {% endif %}

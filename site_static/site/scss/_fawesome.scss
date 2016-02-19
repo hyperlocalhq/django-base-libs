@@ -74,7 +74,7 @@
                 width: 1.2em;
                 height: 1.2em;
                 font-size: 1em;
-                line-height: 1.2em;
+                line-height: 1.25em;
                 color: $white;
                 border: 1px solid black;
                 border-radius: 50%;
@@ -103,6 +103,15 @@
                         background: $button-form-negative-active;
                         border-color: $button-form-negative-active-border;
                     }
+                }
+            }
+            
+            &.fa-edit {
+                &:before, &:after {
+                    height: 1.5em;
+                    font-size: 0.8em;
+                    width: 1.5em;
+                    line-height: 1.5em;
                 }
             }
         }

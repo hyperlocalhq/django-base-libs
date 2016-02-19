@@ -1,6 +1,5 @@
 # -*- coding: UTF-8 -*-
 import datetime
-import ast
 
 from django.db import models
 from django import forms
@@ -15,6 +14,8 @@ from base_libs.forms.fields import ImageField
 from base_libs.utils.misc import get_related_queryset, XChoiceList
 from base_libs.forms.fields import AutocompleteField
 from base_libs.middleware import get_current_user
+from base_libs.middleware.threadlocals import get_current_language
+
 from tagging.forms import TagField
 from tagging_autocomplete.widgets import TagAutocomplete
 from jetson.apps.location.models import Address
@@ -133,10 +134,7 @@ class IdentityForm(dynamicforms.Form):
             self.fields['event_type'].initial = event.event_type_id
 
         self.helper = FormHelper()
-        self.helper.form_action = "/helper/edit-%(URL_ID_EVENT)s-profile/%(slug)s/identity/" % {
-            'URL_ID_EVENT': URL_ID_EVENT,
-            'slug': self.event.slug,
-        }
+        self.helper.form_action = ""
         self.helper.form_method = "POST"
         self.helper.attrs = {
             'enctype': "multipart/form-data",
@@ -189,10 +187,7 @@ class DescriptionForm(dynamicforms.Form):
             self.fields['description_de'].initial = event.description_de
 
         self.helper = FormHelper()
-        self.helper.form_action = "/helper/edit-%(URL_ID_EVENT)s-profile/%(slug)s/description/" % {
-            'URL_ID_EVENT': URL_ID_EVENT,
-            'slug': self.event.slug,
-        }
+        self.helper.form_action = ""
         self.helper.form_method = "POST"
         self.helper.attrs = {
             'enctype': "multipart/form-data",
@@ -237,10 +232,7 @@ class AvatarForm(dynamicforms.Form):
         self.index = index
 
         self.helper = FormHelper()
-        self.helper.form_action = "/helper/edit-%(URL_ID_EVENT)s-profile/%(slug)s/avatar/" % {
-            'URL_ID_EVENT': URL_ID_EVENT,
-            'slug': self.event.slug,
-        }
+        self.helper.form_action = ""
         self.helper.form_method = "POST"
         self.helper.attrs = {
             'enctype': "multipart/form-data",
@@ -524,10 +516,7 @@ class ContactForm(dynamicforms.Form):
             self.fields['venue'].widget.choices=[(institution.id, institution.title)]
 
         self.helper = FormHelper()
-        self.helper.form_action = "/helper/edit-%(URL_ID_EVENT)s-profile/%(slug)s/contact/" % {
-            'URL_ID_EVENT': URL_ID_EVENT,
-            'slug': self.event.slug,
-        }
+        self.helper.form_action = ""
         self.helper.form_method = "POST"
         self.helper.attrs = {
             'enctype': "multipart/form-data",
@@ -538,7 +527,7 @@ class ContactForm(dynamicforms.Form):
                 layout.HTML(string_concat('<dd class="no-label"><h3>', _("Institution/Company"), '</h3></dd>')),
                 layout.Field(
                     "venue", 
-                    data_load_url="/helper/autocomplete/events/get_venues/title/get_address_string/",
+                    data_load_url="/%s/helper/autocomplete/events/get_venues/title/get_address_string/" % get_current_language(),
                     data_load_start="1",
                     data_load_max="20",
                     wrapper_class="institution-select",
@@ -874,10 +863,7 @@ class OrganizerForm(dynamicforms.Form):
             self.fields['organizing_institution'].widget.choices=[(institution.id, institution.title)]
 
         self.helper = FormHelper()
-        self.helper.form_action = "/helper/edit-%(URL_ID_EVENT)s-profile/%(slug)s/organizer/" % {
-            'URL_ID_EVENT': URL_ID_EVENT,
-            'slug': self.event.slug,
-        }
+        self.helper.form_action = ""
         self.helper.form_method = "POST"
         self.helper.attrs = {
             'enctype': "multipart/form-data",
@@ -887,7 +873,7 @@ class OrganizerForm(dynamicforms.Form):
                 _("Organizer"),
                 layout.Field(
                     "organizing_institution", 
-                    data_load_url="/helper/autocomplete/events/get_organizing_institutions/title/get_address_string/",
+                    data_load_url="/%s/helper/autocomplete/events/get_organizing_institutions/title/get_address_string/" % get_current_language(),
                     data_load_start="1",
                     data_load_max="20",
                     wrapper_class="institution-select",
@@ -943,45 +929,16 @@ class AdditionalInfoForm(dynamicforms.Form):
         widget=forms.Textarea(),
         max_length=500,
     )
-    """
-    related_events = forms.ModelMultipleChoiceField(
-        label=_("Related Events"),
-        queryset=get_related_queryset(Event, "related_events").all(),
-        required=False,
-        help_text="",
-    )
-    """
-    related_events = forms.CharField(
-        required=False,
-        label=_("Related Events"),
-        help_text=_("Please enter a letter to display a list of available events"),
-        widget=forms.SelectMultiple(choices=[]),
-    )
 
     def __init__(self, event, index, *args, **kwargs):
         super(AdditionalInfoForm, self).__init__(*args, **kwargs)
         self.event = event
         self.index = index
-        self.fields['related_events'].initial = event.related_events.values_list("pk", flat=True)
-        self.fields['related_events'].help_text = ""
         self.fields['additional_info_en'].initial = event.additional_info_en
         self.fields['additional_info_de'].initial = event.additional_info_de
                 
-        # add option of choosen selections for multiple autoload fields
-        self.fields['related_events'].widget.choices=event.related_events.values_list("pk","title")
-            
-        # add option of choosen selections for multiple autoload fields on error reload of page
-        #if self.data.get('related_events', None):
-        #   self.fields['related_events'].widget.choices=[]
-        #    for ev in ast.literal_eval(self.data['related_events']):
-        #        ev_choice = Event.objects.get(pk=ev)
-        #        self.fields['related_events'].widget.choices.append((ev_choice.id, ev_choice.title))
-
         self.helper = FormHelper()
-        self.helper.form_action = "/helper/edit-%(URL_ID_EVENT)s-profile/%(slug)s/additional_info/" % {
-            'URL_ID_EVENT': URL_ID_EVENT,
-            'slug': self.event.slug,
-        }
+        self.helper.form_action = ""
         self.helper.form_method = "POST"
         self.helper.attrs = {
             'enctype': "multipart/form-data",
@@ -991,13 +948,6 @@ class AdditionalInfoForm(dynamicforms.Form):
                 _("Additional Info"),
                 "additional_info_de",
                 "additional_info_en",
-                layout.Field(
-                    "related_events",
-                    data_load_url="/helper/autocomplete/events/get_related_events/title/get_postal_address/",
-                    data_load_start="1",
-                    data_load_max="20",
-                    css_class="autoload"
-                ),
                 bootstrap.FormActions(
                     layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
@@ -1014,9 +964,6 @@ class AdditionalInfoForm(dynamicforms.Form):
         event.additional_info_en = data['additional_info_en']
         event.additional_info_de = data['additional_info_de']
         event.save()
-        event.related_events.clear()
-        for ev in ast.literal_eval(data['related_events']):
-            event.related_events.add(ev)
         return event
 
     def get_extra_context(self):
@@ -1036,10 +983,7 @@ class EventTimesForm(dynamicforms.Form):
         self.index = index
 
         self.helper = FormHelper()
-        self.helper.form_action = "/helper/edit-%(URL_ID_EVENT)s-profile/%(slug)s/event_times/" % {
-            'URL_ID_EVENT': URL_ID_EVENT,
-            'slug': self.event.slug,
-        }
+        self.helper.form_action = ""
         self.helper.form_method = "POST"
         self.helper.attrs = {
             'enctype': "multipart/form-data",
@@ -1655,10 +1599,7 @@ class FeesOpeningHoursForm(dynamicforms.Form):
         self.fields['show_breaks'].initial = show_breaks
 
         self.helper = FormHelper()
-        self.helper.form_action = "/helper/edit-%(URL_ID_EVENT)s-profile/%(slug)s/fees_opening_hours/" % {
-            'URL_ID_EVENT': URL_ID_EVENT,
-            'slug': self.event.slug,
-        }
+        self.helper.form_action = ""
         self.helper.form_method = "POST"
         self.helper.attrs = {
             'enctype': "multipart/form-data",
@@ -2044,10 +1985,7 @@ class CategoriesForm(dynamicforms.Form):
         self.fields['tags'].initial = event.tags
 
         self.helper = FormHelper()
-        self.helper.form_action = "/helper/edit-%(URL_ID_EVENT)s-profile/%(slug)s/categories/" % {
-            'URL_ID_EVENT': URL_ID_EVENT,
-            'slug': self.event.slug,
-        }
+        self.helper.form_action = ""
         self.helper.form_method = "POST"
         self.helper.attrs = {
             'enctype': "multipart/form-data",

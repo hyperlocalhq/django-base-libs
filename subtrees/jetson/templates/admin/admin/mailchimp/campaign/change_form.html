@@ -162,24 +162,23 @@
 
                     function update_content(responseText) {
                         $oContent.val(responseText);
-                        $oContentMarkupType.val("hw");
-                        $oContentMarkupType.change();
-                        //var oEditor = tinyMCE.getInstanceById($oContent.attr("id"));
-                        //if (oEditor) {
-                        //    oEditor.setContent(responseText);
-                        //}
+                        if ($oContentMarkupType.val() != "hw") {
+                            $oContentMarkupType.val("hw");
+                            $oContentMarkupType.change();
+                        }
+                        CKEDITOR.instances[$oContent.attr("id")].setData(responseText);
                     }
                     if ($oContentType.val()) {
                         if ($oContent.val()) {
                             if (confirm(gettext("Do you really want to replace the content of this block?"))) {
                                 $.get(
-                                    "/admin/mailchimp/campaign/template-content/" + $oContentType.val() + "/",
+                                    "/" + window.settings.lang + "/admin/mailchimp/campaign/template-content/" + $oContentType.val() + "/",
                                     update_content
                                 );
                             }
                         } else {
                             $.get(
-                                "/admin/mailchimp/campaign/template-content/" + $oContentType.val() + "/",
+                                "/" + window.settings.lang + "/admin/mailchimp/campaign/template-content/" + $oContentType.val() + "/",
                                 update_content
                             );
                         }

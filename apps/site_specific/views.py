@@ -9,14 +9,14 @@ from django.contrib.contenttypes.models import ContentType
 from django.template import loader, RequestContext
 from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
+from django.shortcuts import render
+from django.shortcuts import redirect
 from django.conf import settings
 # json related stuff
 from django.contrib.admin.views.decorators import staff_member_required
 from django.views.decorators.cache import never_cache
 from django.core.urlresolvers import reverse
 from django.contrib.auth import logout
-
-image_mods = models.get_app("image_mods")
 
 from base_libs.middleware import get_current_language
 from base_libs.utils.misc import get_installed
@@ -46,6 +46,8 @@ from ccb.apps.site_specific.forms import InvitationForm
 from ccb.apps.site_specific.forms import ProfileDeletionForm
 from ccb.apps.site_specific.forms import ObjectDeletionForm
 from ccb.apps.site_specific.forms import KreativArbeitenContactForm
+
+image_mods = models.get_app("image_mods")
 
 BROWSING_CRITERIA = {
     "creative-sector": Term.objects.filter(
@@ -416,6 +418,56 @@ def popup_window(request, window_type):
 
 
 @never_cache
+def show_contacts(request, object_type, slug):
+    try:
+        specifics = TYPE_2_MODEL[object_type]
+        obj = specifics['model'].objects.get(**{specifics['slug_field']: slug})
+    except Exception:
+        raise Http404()
+    section_template = "%s/profile/contact.html" % specifics['template_folder']
+    return render(
+        request,
+        "%s/profile/helper.html" % specifics['template_folder'],
+        {
+            'object': obj,
+            'section_template': section_template,
+        }
+    )
+
+
+@never_cache
+def delete_contact(request, object_type, slug, index):
+    try:
+        index = int(index)
+        specifics = TYPE_2_MODEL[object_type]
+        obj = specifics['model'].objects.get(**{specifics['slug_field']: slug})
+        contact = obj.get_contacts()[index]
+    except Exception:
+        raise Http404("Object not found")
+    if not request.user.has_perm(
+            "%s.change_%s" % (
+            type(obj)._meta.app_label,
+            type(obj).__name__.lower(),
+        ),
+        obj,
+    ):
+        raise Http404("You don't have appropriate permissions for this action.")
+    if request.method == "POST":
+        contact.delete()
+        return redirect("show_profile_contacts", object_type=object_type, slug=slug)
+    return render(
+        request,
+        "site_specific/popups/delete_contact.html",
+        {
+            'object': obj,
+            'contact': contact,
+            'context_item_type': object_type,
+            'slug': slug,
+        }
+    )
+
+
+@never_cache
 def edit_profile(request, object_type, slug, section_name="", index=None):
     specifics = TYPE_2_MODEL[object_type]
 
@@ -487,6 +539,8 @@ def edit_profile(request, object_type, slug, section_name="", index=None):
                 section_name,
             )
             show_form = False
+            if hasattr(form, "get_success_response"):
+                return form.get_success_response()
     else:
         form = form_class(instance, index)
 
@@ -575,6 +629,7 @@ CLAIM_CLASS_MAPPER = {
 }
 
 
+@login_required
 def claim_object(request, **kwargs):
     """
     processes a "claim" request
@@ -624,8 +679,6 @@ def claim_object(request, **kwargs):
         'object': obj
     }, context_instance=RequestContext(request))
 
-
-claim_object = login_required(claim_object)
 
 DELETE_CLASS_MAPPER = {
     URL_ID_EVENT: {
@@ -978,7 +1031,7 @@ def kreativarbeiten_contact_form(request,
 
 def kreativarbeiten_best_practice(request):
     from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
-    from jetson.apps.blog.views import handle_request
+    from ccb.apps.blog.views import handle_request
 
     all_dict = {
         'url_identifier': "kreativarbeiten/blog",

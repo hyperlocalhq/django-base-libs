@@ -17,6 +17,7 @@
                     </dl>
                 {% endif %}
 
+                {% comment %}
                 {% if object.related_events.count %}
                     <dl class="input-fields">
                         <dt>{% trans "Related Events" %}</dt>
@@ -32,7 +33,7 @@
                         <dd class="clearfix"></dd>
                     </dl>
                 {% endif %}
-
+                {% endcomment %}
             </fieldset>
         </div>
 {% endif %}
