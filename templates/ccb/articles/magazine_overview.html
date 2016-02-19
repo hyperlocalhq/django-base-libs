@@ -72,8 +72,8 @@
                     {% endif %}
                 {% endwith %}
                 
-                {% with player=articles_under_player_of_the_week|slice:"2:3"|first home=articles_under_at_home_with|slice:"2:3"|first  berlin=articles_under_when_i_moved_to_berlin|slice:"2:3"|first knowledge=articles_under_knowledge_and_analysis|slice:"2:3"|first innovation=articles_under_innovation_and_vision|slice:"2:3"|first %}
-                    {% if player and home or berlin and knowledge or innovation %}
+                {% with player=articles_under_player_of_the_week|slice:"2:3"|first %}
+                    {% if player %}
                         <div class="col-xs-12 col-sm-6 row-full slide">
                             <a class="content" href="#">
                                 <span class="image-hover-bg">
@@ -82,48 +82,55 @@
                                 <h3>{% trans 'Player of the week' %}:</h3>
                                 <h2>{{ player.get_title }}</h2>
                             </a>
-                        </div>
-                        {% if home %}
-                            <div class="col-xs-12 col-sm-6 row-half slide">
-                                <a class="content" href="#">
-                                    <span class="image-hover-bg">
-                                        <img src="{{ UPLOADS_URL }}{{ home.image|modified_path:"magazine_slide_small" }}"  alt="{{ home.get_title|escape }}"/>
-                                    </span>
-                                    <h3>{% trans 'At home with' %} ...</h3>
-                                    <h2>{{ home.get_title }}</h2>
-                                </a>
-                            </div>
-                        {% elif berlin %}
-                            <div class="col-xs-12 col-sm-6 row-half slide">
-                                <a class="content" href="#">
-                                    <span class="image-hover-bg">
-                                        <img src="{{ UPLOADS_URL }}{{ berlin.image|modified_path:"magazine_slide_small" }}"  alt="{{ berlin.get_title|escape }}"/>
-                                    </span>
-                                    <h3>{% trans 'When I moved to Berlin' %}:</h3>
-                                    <h2>{{ berlin.get_title }}</h2>
-                                </a>
-                            </div>
-                        {% endif %}
-                        {% if knowledge %}
-                            <div class="col-xs-12 col-sm-6 row-half slide">
-                                <a class="content" href="#">
-                                    <span class="image-hover-bg">
-                                        <img src="{{ UPLOADS_URL }}{{ knowledge.image|modified_path:"magazine_slide_small" }}"  alt="{{ knowledge.get_title|escape }}"/>
-                                    </span>
-                                    <h3>{% trans 'Knowledge & Analysis' %}:</h3>
-                                    <h2>{{ knowledge.get_title }}</h2>
-                                </a>
-                            </div>
-                        {% elif innovation %}
-                            <div class="col-xs-12 col-sm-6 row-half slide">
-                                <a class="content" href="#">
-                                    <span class="image-hover-bg">
-                                        <img src="{{ UPLOADS_URL }}{{ innovation.image|modified_path:"magazine_slide_small" }}"  alt="{{ innovation.get_title|escape }}"/>
-                                    </span>
-                                    <h3>{% trans 'Innovation & Vision' %}:</h3>
-                                    <h2>{{ innovation.get_title }}</h2>
-                                </a>
-                            </div>
+                        </div>   
+                    {% endif %}
+                {% endwith %}
+                
+                {% with home=articles_under_at_home_with|slice:"2:3"|first  berlin=articles_under_when_i_moved_to_berlin|slice:"2:3"|first knowledge=articles_under_knowledge_and_analysis|slice:"2:3"|first innovation=articles_under_innovation_and_vision|slice:"2:3"|first %}
+                    {% if home or berlin %}
+                        {% if knowledge or innovation %}
+                            {% if home %}
+                                <div class="col-xs-12 col-sm-6 row-half slide">
+                                    <a class="content" href="#">
+                                        <span class="image-hover-bg">
+                                            <img src="{{ UPLOADS_URL }}{{ home.image|modified_path:"magazine_slide_small" }}"  alt="{{ home.get_title|escape }}"/>
+                                        </span>
+                                        <h3>{% trans 'At home with' %} ...</h3>
+                                        <h2>{{ home.get_title }}</h2>
+                                    </a>
+                                </div>
+                            {% elif berlin %}
+                                <div class="col-xs-12 col-sm-6 row-half slide">
+                                    <a class="content" href="#">
+                                        <span class="image-hover-bg">
+                                            <img src="{{ UPLOADS_URL }}{{ berlin.image|modified_path:"magazine_slide_small" }}"  alt="{{ berlin.get_title|escape }}"/>
+                                        </span>
+                                        <h3>{% trans 'When I moved to Berlin' %}:</h3>
+                                        <h2>{{ berlin.get_title }}</h2>
+                                    </a>
+                                </div>
+                            {% endif %}
+                            {% if knowledge %}
+                                <div class="col-xs-12 col-sm-6 row-half slide">
+                                    <a class="content" href="#">
+                                        <span class="image-hover-bg">
+                                            <img src="{{ UPLOADS_URL }}{{ knowledge.image|modified_path:"magazine_slide_small" }}"  alt="{{ knowledge.get_title|escape }}"/>
+                                        </span>
+                                        <h3>{% trans 'Knowledge & Analysis' %}:</h3>
+                                        <h2>{{ knowledge.get_title }}</h2>
+                                    </a>
+                                </div>
+                            {% elif innovation %}
+                                <div class="col-xs-12 col-sm-6 row-half slide">
+                                    <a class="content" href="#">
+                                        <span class="image-hover-bg">
+                                            <img src="{{ UPLOADS_URL }}{{ innovation.image|modified_path:"magazine_slide_small" }}"  alt="{{ innovation.get_title|escape }}"/>
+                                        </span>
+                                        <h3>{% trans 'Innovation & Vision' %}:</h3>
+                                        <h2>{{ innovation.get_title }}</h2>
+                                    </a>
+                                </div>
+                            {% endif %}
                         {% endif %}
                     {% endif %}
                 {% endwith %}
