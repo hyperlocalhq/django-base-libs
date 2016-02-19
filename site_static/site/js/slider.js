@@ -237,9 +237,10 @@
             var top = 0;
             var left = (row - me.current_element) * (wrapper_width/2);
             var width = 0;
+            var $element = null;
             me.$elements.each(function(index) {
                
-                var $element = $(this);
+                $element = $(this);
                 
                 $element.css('top', top+'px');
                 $element.data('left', left);
@@ -257,7 +258,7 @@
                 var $h3 = $('h3', $element);
                 $h3.css('top', ($h2.position().top - $h3.height() - 10) + 'px');
             });
-            if (top != 0) width += $element.width();
+            if (top != 0 && $element) width += $element.width();
             
             
             
