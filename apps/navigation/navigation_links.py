@@ -49,6 +49,50 @@ def is_person(context):
     return hasattr(context.get('object', None), 'is_person')
 
 
+def show_member_portfolio(context):
+    from django.contrib.contenttypes.models import ContentType
+    from ccb.apps.media_gallery.models import MediaGallery
+    obj = context.get("object", None)
+    if obj and getattr(obj, "is_editable", lambda: False)():
+        return True
+    ct = ContentType.objects.get_for_model(obj)
+    return MediaGallery.published_objects.filter(content_type=ct, object_id=obj.pk).exists()
+
+
+def show_member_events(context):
+    from django.db import models
+    from ccb.apps.events.models import Event
+    obj = context.get("object", None)
+    if obj and getattr(obj, "is_editable", lambda: False)():
+        return True
+    if getattr(obj, 'is_person', lambda: False)():
+        return Event.objects.filter(organizing_person=obj).exists()
+    else:
+        return Event.objects.filter(models.Q(organizing_institution=obj) | models.Q(venue=obj)).exists()
+
+
+def show_member_blog(context):
+    from django.contrib.contenttypes.models import ContentType
+    from ccb.apps.blog.models import Blog, Post
+    obj = context.get("object", None)
+    if obj and getattr(obj, "is_editable", lambda: False)():
+        return True
+    ct = ContentType.objects.get_for_model(obj)
+    blogs = Blog.objects.filter(content_type=ct, object_id=obj.pk)
+    if blogs:
+        return Post.published_objects.filter(blog=blogs[0]).exists()
+    return False
+
+
+def show_member_institutions(context):
+    obj = context.get("object", None)
+    if not getattr(obj, 'is_person', lambda: False)():
+        return False
+    if obj and getattr(obj, "is_editable", lambda: False)():
+        return True
+    return obj.get_institutions().exists()
+
+
 # TODO: 1) add more conditions where to show what for anonymous users.
 # TODO: 2) maybe show some links with login required as teasers.
 # TODO: 3) add badges for some of the links with object count.
@@ -131,7 +175,7 @@ navigation_links = {
             'url_en': '/en/network/member/{{ object.slug }}/portfolio/',
             'text_de': 'Portfolio',
             'text_en': 'Portfolio',
-            'should_be_shown': for_all,
+            'should_be_shown': show_member_portfolio,
             'highlight_pattern': r'^/(de|en)/network/member/{{ object.slug }}/portfolio/',
         },
         {
@@ -139,7 +183,7 @@ navigation_links = {
             'url_en': '/en/network/member/{{ object.slug }}/events/',
             'text_de': 'Events',
             'text_en': 'Events',
-            'should_be_shown': for_all,
+            'should_be_shown': show_member_events,
             'highlight_pattern': r'^/(de|en)/network/member/{{ object.slug }}/events/',
         },
         {
@@ -147,7 +191,7 @@ navigation_links = {
             'url_en': '/en/network/member/{{ object.slug }}/blog/',
             'text_de': 'Blog',
             'text_en': 'Blog',
-            'should_be_shown': for_all,
+            'should_be_shown': show_member_blog,
             'highlight_pattern': r'^/(de|en)/network/member/{{ object.slug }}/blog/',
         },
         {
@@ -155,7 +199,7 @@ navigation_links = {
             'url_en': '/en/network/member/{{ object.slug }}/institutions/',
             'text_de': 'Institutionen',
             'text_en': 'Institutions',
-            'should_be_shown': is_person,
+            'should_be_shown': show_member_institutions,
             'highlight_pattern': r'^/(de|en)/network/member/{{ object.slug }}/institutions/',
         },
     ],
