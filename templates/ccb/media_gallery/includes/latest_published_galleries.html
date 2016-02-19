@@ -12,7 +12,7 @@ Usage in any template:
 -->{% endcomment %}
 
 {% with amount|default:5 as amount %}
-    {% get_objects newest_featured media_gallery.MediaGallery amount as newest_objects %}
+    {% get_objects random_featured media_gallery.MediaGallery amount as newest_objects %}
     {% if newest_objects %}
     
         <div class="row slider portfolio">
