@@ -16,7 +16,7 @@
         <div class="row slider magazine">
             <div class="wrapper">
                 
-                {% with player=articles_under_player_of_the_week|slice:"1:2"|first home=articles_under_at_home_with|slice:"1:2"|first  berlin=articles_under_when_i_moved_to_berlin|slice:"1:2"|first knowledge=articles_under_knowledge_and_analysis|slice:"1:2"|first innovation=articles_under_innovation_and_vision|slice:"1:2"|first %}
+                {% with player=articles_under_player_of_the_week|slice:"1:2"|first home=articles_under_at_home_with|slice:":1"|first  berlin=articles_under_when_i_moved_to_berlin|slice:"1:2"|first knowledge=articles_under_knowledge_and_analysis|slice:":1"|first innovation=articles_under_innovation_and_vision|slice:"1:2"|first %}
                     {% if player and home or berlin and knowledge or innovation %}
                         <div class="col-xs-12 col-sm-6 row-full slide">
                             <a class="content" href="#">
@@ -86,7 +86,7 @@
                     {% endif %}
                 {% endwith %}
                 
-                {% with home=articles_under_at_home_with|slice:"2:3"|first  berlin=articles_under_when_i_moved_to_berlin|slice:"2:3"|first knowledge=articles_under_knowledge_and_analysis|slice:"2:3"|first innovation=articles_under_innovation_and_vision|slice:"2:3"|first %}
+                {% with home=articles_under_at_home_with|slice:"1:2"|first  berlin=articles_under_when_i_moved_to_berlin|slice:"2:3"|first knowledge=articles_under_knowledge_and_analysis|slice:"1:2"|first innovation=articles_under_innovation_and_vision|slice:"2:3"|first %}
                     {% if home or berlin %}
                         {% if knowledge or innovation %}
                             {% if home %}
@@ -149,7 +149,7 @@
                     {% endif %}
                 {% endwith %}
                 
-                {% with home=articles_under_at_home_with|slice:"3:4"|first  berlin=articles_under_when_i_moved_to_berlin|slice:"3:4"|first knowledge=articles_under_knowledge_and_analysis|slice:"3:4"|first innovation=articles_under_innovation_and_vision|slice:"3:4"|first %}
+                {% with home=articles_under_at_home_with|slice:"2:3"|first  berlin=articles_under_when_i_moved_to_berlin|slice:"3:4"|first knowledge=articles_under_knowledge_and_analysis|slice:"2:3"|first innovation=articles_under_innovation_and_vision|slice:"3:4"|first %}
                     {% if home or berlin %}
                         {% if knowledge or innovation %}
                             {% if home %}
@@ -212,7 +212,7 @@
                     {% endif %}
                 {% endwith %}
                 
-                {% with home=articles_under_at_home_with|slice:"4:5"|first  berlin=articles_under_when_i_moved_to_berlin|slice:"4:5"|first knowledge=articles_under_knowledge_and_analysis|slice:"4:5"|first innovation=articles_under_innovation_and_vision|slice:"4:5"|first %}
+                {% with home=articles_under_at_home_with|slice:"3:4"|first  berlin=articles_under_when_i_moved_to_berlin|slice:"4:5"|first knowledge=articles_under_knowledge_and_analysis|slice:"3:4"|first innovation=articles_under_innovation_and_vision|slice:"4:5"|first %}
                     {% if home or berlin %}
                         {% if knowledge or innovation %}
                             {% if home %}
@@ -263,8 +263,58 @@
                 
             </div>
         </div>
+    
         
         
+        <div class="fawesome fa-news big center"></div>
+        <h2 class="center icon">{% trans 'Also a good read' %}</h2>
+        
+        <div class="row event-grid magazine">
+            {% for article in articles_under_player_of_the_week|slice:":1" %}
+                <div class="col-xs-12 col-sm-4 col-md-3 {% if forloop.counter == 4 %}hidden-sm{% endif %}">
+                    <a class="content tap-hover tap-hover-trigger" href="{{ article.get_url_path }}">
+                        <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"event_row" }}" alt="{{ article.get_title|escape }}"/>
+                        <h2>{{ article.get_title }}</h2>
+                        {% parse article.get_rendered_content as content %}
+                        <p>{{ content|striptags|truncatewords:"10" }}</p>
+                    </a>
+                </div>
+            {% endfor %}
+            {% for article in articles_under_when_i_moved_to_berlin|slice:":1" %}
+                <div class="col-xs-12 col-sm-4 col-md-3 {% if forloop.counter == 4 %}hidden-sm{% endif %}">
+                    <a class="content tap-hover tap-hover-trigger" href="{{ article.get_url_path }}">
+                        <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"event_row" }}" alt="{{ article.get_title|escape }}"/>
+                        <h2>{{ article.get_title }}</h2>
+                        {% parse article.get_rendered_content as content %}
+                        <p>{{ content|striptags|truncatewords:"10" }}</p>
+                    </a>
+                </div>
+            {% endfor %}
+            {% for article in articles_under_innovation_and_vision|slice:":1" %}
+                <div class="col-xs-12 col-sm-4 col-md-3 {% if forloop.counter == 4 %}hidden-sm{% endif %}">
+                    <a class="content tap-hover tap-hover-trigger" href="{{ article.get_url_path }}">
+                        <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"event_row" }}" alt="{{ article.get_title|escape }}"/>
+                        <h2>{{ article.get_title }}</h2>
+                        {% parse article.get_rendered_content as content %}
+                        <p>{{ content|striptags|truncatewords:"10" }}</p>
+                    </a>
+                </div>
+            {% endfor %}
+            {% for article in articles_under_specials|slice:":1" %}
+                <div class="col-xs-12 col-sm-4 col-md-3 {% if forloop.counter == 4 %}hidden-sm{% endif %}">
+                    <a class="content tap-hover tap-hover-trigger" href="{{ article.get_url_path }}">
+                        <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"event_row" }}" alt="{{ article.get_title|escape }}"/>
+                        <h2>{{ article.get_title }}</h2>
+                        {% parse article.get_rendered_content as content %}
+                        <p>{{ content|striptags|truncatewords:"10" }}</p>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+             
+        
+        
+        {% comment %}
         <div class="row magazine-grid">
             
             {% for article in articles_under_player_of_the_week|slice:":1" %}
@@ -323,6 +373,8 @@
             {% endfor %}
         
         </div>
+        {% endcomment %}
+        
     </div>
     
     {% comment %}
@@ -337,29 +389,6 @@
         </div>
     </div>
     {% endcomment %}
-    
-        
-    {% if articles_under_specials %}
-        <div class="container">
-        
-            <div class="fawesome fa-gift big center"></div>
-            <h2 class="center icon">{% trans 'CCB Magazine Specials' %}</h2>
-            
-            <div class="row event-grid magazine">
-                {% for article in articles_under_specials|slice:":4" %}
-                    <div class="col-xs-12 col-sm-4 col-md-3 {% if forloop.counter == 4 %}hidden-sm{% endif %}">
-                        <a class="content tap-hover tap-hover-trigger" href="{{ article.get_url_path }}">
-                            <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"event_row" }}" alt="{{ article.get_title|escape }}"/>
-                            <h2>{{ article.get_title }}</h2>
-                            {% parse article.get_rendered_content as content %}
-                            <p>{{ content|striptags|truncatewords:"10" }}</p>
-                        </a>
-                    </div>
-                {% endfor %}
-            </div>
-            
-        </div>        
-    {% endif %}
         
     {% if articles_under_articles_from_our_network_partners %}
         <div class="partner">
