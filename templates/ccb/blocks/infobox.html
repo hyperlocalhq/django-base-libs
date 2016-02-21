@@ -1,0 +1,11 @@
+{% load base_tags i18n %}
+<ul class="accordion info-box">
+    <li class="accordion-inside accordion-trigger opened">
+        <div class="accordion-trigger head">{% if title %}{{ title|escape }}{% else %}{% trans 'Info & Help' %}{% endif %}</div>
+        <ul class="accordion content">
+            <li>
+                {{ content }}
+            </li>
+        </ul>
+    </li>
+</ul>

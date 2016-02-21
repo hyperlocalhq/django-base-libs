@@ -1,5 +1,5 @@
 {% extends base_template|default:"base_redesign.html" %}
-{% load i18n base_tags auth_extended navigation_tags crispy_forms_tags %}
+{% load i18n base_tags auth_extended navigation_tags crispy_forms_tags infoblocks %}
 
 {% block extrahead %}
     <link rel="alternate"
@@ -71,6 +71,7 @@
             <div class="col-xs-12 col-sm-4 col-md-3">
                 {% block sidebar %}
                     {% crispy form "ccb_form" %}
+                    {% infoblock "portfolios_infobox" using "blocks/infobox.html" %}
                 {% endblock %}
             </div>
             <div class="col-xs-12 col-sm-8 col-md-9">

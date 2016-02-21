@@ -1,5 +1,5 @@
 {% extends "marketplace/job_offer_base.html" %}
-{% load i18n auth_extended uni_form_tags crispy_forms_tags cms_tags %}
+{% load i18n auth_extended uni_form_tags crispy_forms_tags cms_tags infoblocks %}
 
 
 {% block search_bar %}
@@ -19,6 +19,7 @@
 
 {% block sidebar %}
     {% crispy form "ccb_form" %}
+    {% infoblock "jobs_infobox" using "blocks/infobox.html" %}
 {% endblock %}
 
 {% block details %}

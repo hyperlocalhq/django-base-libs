@@ -1,5 +1,5 @@
 {% extends "base_sidebar.html" %}
-{% load i18n base_tags cms_tags crispy_forms_tags navigation_tags %}
+{% load i18n base_tags cms_tags crispy_forms_tags navigation_tags infoblocks %}
 
 {% block title %}
     {% page_attribute "page_title" %}
@@ -54,6 +54,7 @@
 
 {% block sidebar %}
     {% crispy form "ccb_form" %}
+    {% infoblock "bulletinboard_infobox" using "blocks/infobox.html" %}
 {% endblock %}
 
 {% block details %}
