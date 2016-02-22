@@ -122,8 +122,6 @@ def job_offer_created(sender, instance, **kwargs):
             sent_recipient_pks = []
 
             user = get_current_user()
-            if user:
-                action.send(user, verb="added job offer", action_object=instance)
 
             if instance.offering_institution:
                 # get users who favorited the offering_institution where the job_offer is happening
@@ -153,8 +151,7 @@ def job_offer_created(sender, instance, **kwargs):
                     on_site=False,
                 )
                 action.send(instance.offering_institution, verb="looking for", action_object=instance)
-
-            if instance.contact_person:
+            elif instance.contact_person:
                 # get users who favorited the person organizing this job_offer
                 # and who haven't received notifications yet
                 ci = ContextItem.objects.get_for(
@@ -179,7 +176,9 @@ def job_offer_created(sender, instance, **kwargs):
                     instance=instance,
                     on_site=False,
                 )
-                action.send(instance.contact_person.user, verb="became contact person for", action_object=instance)
+                action.send(instance.contact_person.user, verb="looking for", action_object=instance)
+            elif user:
+                action.send(user, verb="added job offer", action_object=instance)
 
 
 models.signals.post_save.connect(job_offer_created, sender=JobOffer)

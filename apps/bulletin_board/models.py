@@ -261,10 +261,10 @@ def bulletin_created(sender, instance, **kwargs):
 
     if kwargs.get('created', False):
         user = get_current_user()
-        if user:
-            action.send(user, verb="added bulletin", action_object=instance)
-
         if instance.institution:
             action.send(instance.institution, verb="added bulletin", action_object=instance)
+        elif user:
+            action.send(user, verb="added bulletin", action_object=instance)
+
 
 models.signals.post_save.connect(bulletin_created, sender=Bulletin)

@@ -114,8 +114,6 @@ def event_created(sender, instance, **kwargs):
             sent_recipient_pks = []
 
             user = get_current_user()
-            if user:
-                action.send(user, verb="added event", action_object=instance)
 
             if instance.venue:
                 # get users who favorited the venue where the event is happening
@@ -173,8 +171,7 @@ def event_created(sender, instance, **kwargs):
                     on_site=False,
                 )
                 action.send(instance.organizing_institution, verb="organizing event", action_object=instance)
-
-            if instance.organizing_person:
+            elif instance.organizing_person:
                 # get users who favorited the person organizing this event
                 # and who haven't received notifications yet
                 ci = ContextItem.objects.get_for(
@@ -200,6 +197,9 @@ def event_created(sender, instance, **kwargs):
                     on_site=False,
                 )
                 action.send(instance.organizing_person.user, verb="organizing event", action_object=instance)
+            elif user:
+                action.send(user, verb="added event", action_object=instance)
+
 
 
 models.signals.post_save.connect(event_created, sender=Event)
