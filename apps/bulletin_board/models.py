@@ -9,6 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.utils.safestring import mark_safe
 from django.utils.functional import lazy
+from django.template.defaultfilters import slugify
 from datetime import datetime
 
 from filebrowser.fields import FileBrowseField
@@ -195,6 +196,9 @@ class Bulletin(CreationModificationMixin, UrlMixin):
         verbose_name_plural = _("Bulletins")
         ordering = ("-creation_date",)
 
+    def __repr__(self):
+        return slugify(self.title)
+
     def __unicode__(self):
         return self.title
 
@@ -257,10 +261,10 @@ def bulletin_created(sender, instance, **kwargs):
 
     if kwargs.get('created', False):
         user = get_current_user()
-        if user:
-            action.send(user, verb="added bulletin", action_object=instance)
-
         if instance.institution:
             action.send(instance.institution, verb="added bulletin", action_object=instance)
+        elif user:
+            action.send(user, verb="added bulletin", action_object=instance)
+
 
 models.signals.post_save.connect(bulletin_created, sender=Bulletin)

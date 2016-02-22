@@ -36,7 +36,7 @@ TOKENIZATION_SUMMAND = models.get_app("bulletin_board").TOKENIZATION_SUMMAND
 
 @never_cache
 def bulletin_list(request, category_slug=None, template_name="bulletin_board/bulletin_list.html", show="", **kwargs):
-    kwargs['queryset'] = Bulletin.published_objects.order_by("-published_from")
+    kwargs.setdefault('queryset', Bulletin.published_objects.order_by("-published_from"))
 
     category = None
     if category_slug:

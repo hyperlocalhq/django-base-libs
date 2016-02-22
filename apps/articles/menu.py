@@ -27,7 +27,9 @@ class InterviewsMenu(CMSAttachMenu):
 
     def get_nodes(self, request):
         article_type = ArticleType.objects.get(slug="interviews")
-        nodes = []
+        nodes = [
+            NavigationNode(_("Overview"), reverse("magazine_overview"), 0)
+        ]
         for at in article_type.get_children():
             nodes.append(NavigationNode(at.title, reverse("article_archive_for_interviews_by_type", kwargs={'type_sysname': at.slug}), at.id))
         return nodes

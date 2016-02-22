@@ -1,6 +1,10 @@
 {% load i18n base_tags %}
 
 {% get_objects under_interviews articles.ArticleType as article_types %}
+{% url "magazine_overview" as magazine_overview_url %}
+<li{% if request.path == magazine_overview_url %} class="active"{% endif %}>
+    <a{% if request.path == magazine_overview_url %} class="active"{% endif %} href="{{ magazine_overview_url }}">{% trans "Overview" %}</a>
+</li>
 {% for at in article_types %}
     <li{% if article_type == at or article.article_type == at %} class="active"{% endif %}>
         <a{% if article_type == at or article.article_type == at %} class="active"{% endif %} href="{% url "article_archive_for_interviews_by_type" type_sysname=at.slug %}">{{ at.title }}</a>

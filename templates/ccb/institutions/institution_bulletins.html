@@ -17,14 +17,9 @@
     {% if not object_list %}
         <p>{% trans "No objects found within the selected conditions." %}</p>
     {% else %}
-        <div class="row job-list">
-            {% for job_offer in object_list %}
-                {% if view_type == "listed" %}
-                    {% include "marketplace/lists/job_offer_listed.html" %}
-                {% endif %}
-                {% if view_type == "map" %}
-                    {% include "marketplace/lists/job_offer_mapped.html" %}
-                {% endif %}
+        <div class="row event-list">
+            {% for bulletin in object_list %}
+                {% include "bulletin_board/lists/bulletin_list_item.html" %}
             {% endfor %}
         </div>
         {% include "utils/includes/pagination.html" %}
