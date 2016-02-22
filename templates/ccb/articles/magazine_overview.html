@@ -17,57 +17,61 @@
             <div class="wrapper">
                 
                 {% with player=articles_under_player_of_the_week|slice:"1:2"|first home=articles_under_at_home_with|slice:":1"|first  berlin=articles_under_when_i_moved_to_berlin|slice:"1:2"|first knowledge=articles_under_knowledge_and_analysis|slice:":1"|first innovation=articles_under_innovation_and_vision|slice:"1:2"|first %}
-                    {% if player and home or berlin and knowledge or innovation %}
-                        <div class="col-xs-12 col-sm-6 row-full slide">
-                            <a class="content" href="#">
-                                <span class="image-hover-bg">
-                                    <img src="{{ UPLOADS_URL }}{{ player.image|modified_path:"magazine_slide_big_2" }}"  alt="{{ player.get_alternative_title|escape }}"/>
-                                </span>
-                                <h3>{% trans 'Player of the week' %}:</h3>
-                                <h2>{{ player.get_alternative_title }}</h2>
-                            </a>
-                        </div>
-                        {% if home %}
-                            <div class="col-xs-12 col-sm-6 row-half slide">
-                                <a class="content" href="#">
-                                    <span class="image-hover-bg">
-                                        <img src="{{ UPLOADS_URL }}{{ home.image|modified_path:"magazine_slide_small_2" }}"  alt="{{ home.get_alternative_title|escape }}"/>
-                                    </span>
-                                    <h3>{% trans 'At home with' %} ...</h3>
-                                    <h2>{{ home.get_alternative_title }}</h2>
-                                </a>
-                            </div>
-                        {% elif berlin %}
-                            <div class="col-xs-12 col-sm-6 row-half slide">
-                                <a class="content" href="#">
-                                    <span class="image-hover-bg">
-                                        <img src="{{ UPLOADS_URL }}{{ berlin.image|modified_path:"magazine_slide_small_2" }}"  alt="{{ berlin.get_alternative_title|escape }}"/>
-                                    </span>
-                                    <h3>{% trans 'When I moved to Berlin' %}:</h3>
-                                    <h2>{{ berlin.get_alternative_title }}</h2>
-                                </a>
-                            </div>
-                        {% endif %}
-                        {% if knowledge %}
-                            <div class="col-xs-12 col-sm-6 row-half slide">
-                                <a class="content" href="#">
-                                    <span class="image-hover-bg">
-                                        <img src="{{ UPLOADS_URL }}{{ knowledge.image|modified_path:"magazine_slide_small_2" }}"  alt="{{ knowledge.get_alternative_title|escape }}"/>
-                                    </span>
-                                    <h3>{% trans 'Knowledge & Analysis' %}:</h3>
-                                    <h2>{{ knowledge.get_alternative_title }}</h2>
-                                </a>
-                            </div>
-                        {% elif innovation %}
-                            <div class="col-xs-12 col-sm-6 row-half slide">
-                                <a class="content" href="#">
-                                    <span class="image-hover-bg">
-                                        <img src="{{ UPLOADS_URL }}{{ innovation.image|modified_path:"magazine_slide_small_2" }}"  alt="{{ innovation.get_alternative_title|escape }}"/>
-                                    </span>
-                                    <h3>{% trans 'Innovation & Vision' %}:</h3>
-                                    <h2>{{ innovation.get_alternative_title }}</h2>
-                                </a>
-                            </div>
+                    {% if player %}
+                        {% if home or berlin %}
+                            {% if knowledge or innovation %}
+                                <div class="col-xs-12 col-sm-6 row-full slide">
+                                    <a class="content" href="{{ player.get_url_path }}">
+                                        <span class="image-hover-bg">
+                                            <img src="{{ UPLOADS_URL }}{{ player.image|modified_path:"magazine_slide_big_2" }}"  alt="{{ player.get_alternative_title|escape }}"/>
+                                        </span>
+                                        <h3>{% trans 'Player of the week' %}:</h3>
+                                        <h2>{{ player.get_alternative_title }}</h2>
+                                    </a>
+                                </div>
+                                {% if home %}
+                                    <div class="col-xs-12 col-sm-6 row-half slide">
+                                        <a class="content" href="{{ home.get_url_path }}">
+                                            <span class="image-hover-bg">
+                                                <img src="{{ UPLOADS_URL }}{{ home.image|modified_path:"magazine_slide_small_2" }}"  alt="{{ home.get_alternative_title|escape }}"/>
+                                            </span>
+                                            <h3>{% trans 'At home with' %} ...</h3>
+                                            <h2>{{ home.get_alternative_title }}</h2>
+                                        </a>
+                                    </div>
+                                {% elif berlin %}
+                                    <div class="col-xs-12 col-sm-6 row-half slide">
+                                        <a class="content" href="{{ berlin.get_url_path }}">
+                                            <span class="image-hover-bg">
+                                                <img src="{{ UPLOADS_URL }}{{ berlin.image|modified_path:"magazine_slide_small_2" }}"  alt="{{ berlin.get_alternative_title|escape }}"/>
+                                            </span>
+                                            <h3>{% trans 'When I moved to Berlin' %}:</h3>
+                                            <h2>{{ berlin.get_alternative_title }}</h2>
+                                        </a>
+                                    </div>
+                                {% endif %}
+                                {% if knowledge %}
+                                    <div class="col-xs-12 col-sm-6 row-half slide">
+                                        <a class="content" href="{{ knowledge.get_url_path }}">
+                                            <span class="image-hover-bg">
+                                                <img src="{{ UPLOADS_URL }}{{ knowledge.image|modified_path:"magazine_slide_small_2" }}"  alt="{{ knowledge.get_alternative_title|escape }}"/>
+                                            </span>
+                                            <h3>{% trans 'Knowledge & Analysis' %}:</h3>
+                                            <h2>{{ knowledge.get_alternative_title }}</h2>
+                                        </a>
+                                    </div>
+                                {% elif innovation %}
+                                    <div class="col-xs-12 col-sm-6 row-half slide">
+                                        <a class="content" href="{{ innovation.get_url_path }}">
+                                            <span class="image-hover-bg">
+                                                <img src="{{ UPLOADS_URL }}{{ innovation.image|modified_path:"magazine_slide_small_2" }}"  alt="{{ innovation.get_alternative_title|escape }}"/>
+                                            </span>
+                                            <h3>{% trans 'Innovation & Vision' %}:</h3>
+                                            <h2>{{ innovation.get_alternative_title }}</h2>
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
                         {% endif %}
                     {% endif %}
                 {% endwith %}
@@ -75,7 +79,7 @@
                 {% with player=articles_under_player_of_the_week|slice:"2:3"|first %}
                     {% if player %}
                         <div class="col-xs-12 col-sm-6 row-full slide">
-                            <a class="content" href="#">
+                            <a class="content" href="{{ player.get_url_path }}">
                                 <span class="image-hover-bg">
                                     <img src="{{ UPLOADS_URL }}{{ player.image|modified_path:"magazine_slide_big_2" }}"  alt="{{ player.get_alternative_title|escape }}"/>
                                 </span>
@@ -91,7 +95,7 @@
                         {% if knowledge or innovation %}
                             {% if home %}
                                 <div class="col-xs-12 col-sm-6 row-half slide">
-                                    <a class="content" href="#">
+                                    <a class="content" href="{{ home.get_url_path }}">
                                         <span class="image-hover-bg">
                                             <img src="{{ UPLOADS_URL }}{{ home.image|modified_path:"magazine_slide_small_2" }}"  alt="{{ home.get_alternative_title|escape }}"/>
                                         </span>
@@ -101,7 +105,7 @@
                                 </div>
                             {% elif berlin %}
                                 <div class="col-xs-12 col-sm-6 row-half slide">
-                                    <a class="content" href="#">
+                                    <a class="content" href="{{ berlin.get_url_path }}">
                                         <span class="image-hover-bg">
                                             <img src="{{ UPLOADS_URL }}{{ berlin.image|modified_path:"magazine_slide_small_2" }}"  alt="{{ berlin.get_alternative_title|escape }}"/>
                                         </span>
@@ -112,7 +116,7 @@
                             {% endif %}
                             {% if knowledge %}
                                 <div class="col-xs-12 col-sm-6 row-half slide">
-                                    <a class="content" href="#">
+                                    <a class="content" href="{{ knowledge.get_url_path }}">
                                         <span class="image-hover-bg">
                                             <img src="{{ UPLOADS_URL }}{{ knowledge.image|modified_path:"magazine_slide_small_2" }}"  alt="{{ knowledge.get_alternative_title|escape }}"/>
                                         </span>
@@ -122,7 +126,7 @@
                                 </div>
                             {% elif innovation %}
                                 <div class="col-xs-12 col-sm-6 row-half slide">
-                                    <a class="content" href="#">
+                                    <a class="content" href="{{ innovation.get_url_path }}">
                                         <span class="image-hover-bg">
                                             <img src="{{ UPLOADS_URL }}{{ innovation.image|modified_path:"magazine_slide_small_2" }}"  alt="{{ innovation.get_alternative_title|escape }}"/>
                                         </span>
@@ -138,7 +142,7 @@
                 {% with player=articles_under_player_of_the_week|slice:"3:4"|first %}
                     {% if player %}
                         <div class="col-xs-12 col-sm-6 row-full slide">
-                            <a class="content" href="#">
+                            <a class="content" href="{{ player.get_url_path }}">
                                 <span class="image-hover-bg">
                                     <img src="{{ UPLOADS_URL }}{{ player.image|modified_path:"magazine_slide_big_2" }}"  alt="{{ player.get_alternative_title|escape }}"/>
                                 </span>
@@ -154,7 +158,7 @@
                         {% if knowledge or innovation %}
                             {% if home %}
                                 <div class="col-xs-12 col-sm-6 row-half slide">
-                                    <a class="content" href="#">
+                                    <a class="content" href="{{ home.get_url_path }}">
                                         <span class="image-hover-bg">
                                             <img src="{{ UPLOADS_URL }}{{ home.image|modified_path:"magazine_slide_small_2" }}"  alt="{{ home.get_alternative_title|escape }}"/>
                                         </span>
@@ -164,7 +168,7 @@
                                 </div>
                             {% elif berlin %}
                                 <div class="col-xs-12 col-sm-6 row-half slide">
-                                    <a class="content" href="#">
+                                    <a class="content" href="{{ berlin.get_url_path }}">
                                         <span class="image-hover-bg">
                                             <img src="{{ UPLOADS_URL }}{{ berlin.image|modified_path:"magazine_slide_small_2" }}"  alt="{{ berlin.get_alternative_title|escape }}"/>
                                         </span>
@@ -175,7 +179,7 @@
                             {% endif %}
                             {% if knowledge %}
                                 <div class="col-xs-12 col-sm-6 row-half slide">
-                                    <a class="content" href="#">
+                                    <a class="content" href="{{ knowledge.get_url_path }}">
                                         <span class="image-hover-bg">
                                             <img src="{{ UPLOADS_URL }}{{ knowledge.image|modified_path:"magazine_slide_small_2" }}"  alt="{{ knowledge.get_alternative_title|escape }}"/>
                                         </span>
@@ -185,7 +189,7 @@
                                 </div>
                             {% elif innovation %}
                                 <div class="col-xs-12 col-sm-6 row-half slide">
-                                    <a class="content" href="#">
+                                    <a class="content" href="{{ innovation.get_url_path }}">
                                         <span class="image-hover-bg">
                                             <img src="{{ UPLOADS_URL }}{{ innovation.image|modified_path:"magazine_slide_small_2" }}"  alt="{{ innovation.get_alternative_title|escape }}"/>
                                         </span>
@@ -201,7 +205,7 @@
                 {% with player=articles_under_player_of_the_week|slice:"4:5"|first %}
                     {% if player %}
                         <div class="col-xs-12 col-sm-6 row-full slide">
-                            <a class="content" href="#">
+                            <a class="content" href="{{ player.get_url_path }}">
                                 <span class="image-hover-bg">
                                     <img src="{{ UPLOADS_URL }}{{ player.image|modified_path:"magazine_slide_big_2" }}"  alt="{{ player.get_alternative_title|escape }}"/>
                                 </span>
@@ -217,7 +221,7 @@
                         {% if knowledge or innovation %}
                             {% if home %}
                                 <div class="col-xs-12 col-sm-6 row-half slide">
-                                    <a class="content" href="#">
+                                    <a class="content" href="{{ home.get_url_path }}">
                                         <span class="image-hover-bg">
                                             <img src="{{ UPLOADS_URL }}{{ home.image|modified_path:"magazine_slide_small_2" }}"  alt="{{ home.get_alternative_title|escape }}"/>
                                         </span>
@@ -227,7 +231,7 @@
                                 </div>
                             {% elif berlin %}
                                 <div class="col-xs-12 col-sm-6 row-half slide">
-                                    <a class="content" href="#">
+                                    <a class="content" href="{{ berlin.get_url_path }}">
                                         <span class="image-hover-bg">
                                             <img src="{{ UPLOADS_URL }}{{ berlin.image|modified_path:"magazine_slide_small_2" }}"  alt="{{ berlin.get_alternative_title|escape }}"/>
                                         </span>
@@ -238,7 +242,7 @@
                             {% endif %}
                             {% if knowledge %}
                                 <div class="col-xs-12 col-sm-6 row-half slide">
-                                    <a class="content" href="#">
+                                    <a class="content" href="{{ knowledge.get_url_path }}">
                                         <span class="image-hover-bg">
                                             <img src="{{ UPLOADS_URL }}{{ knowledge.image|modified_path:"magazine_slide_small_2" }}"  alt="{{ knowledge.get_alternative_title|escape }}"/>
                                         </span>
@@ -248,7 +252,7 @@
                                 </div>
                             {% elif innovation %}
                                 <div class="col-xs-12 col-sm-6 row-half slide">
-                                    <a class="content" href="#">
+                                    <a class="content" href="{{ innovation.get_url_path }}">
                                         <span class="image-hover-bg">
                                             <img src="{{ UPLOADS_URL }}{{ innovation.image|modified_path:"magazine_slide_small_2" }}"  alt="{{ innovation.get_alternative_title|escape }}"/>
                                         </span>
