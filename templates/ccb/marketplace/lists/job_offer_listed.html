@@ -34,7 +34,7 @@
                     {% endif %}
                 </div>
             </a>
-            {% if url %}
+            {% if url and False %}{# FIXME: the website link is not styled correctly #}
                 <a class="website" href="{{ url.link }}" target="_blank">{{ url.link|truncatechars:50 }}</a>
             {% endif %}
         {% endwith %}

@@ -343,13 +343,13 @@ def member_bulletins_list(request, slug, **kwargs):
         if not request.user.has_perm("people.change_person", item.content_object) and item.status not in ("published", "published_commercial"):
             return access_denied(request)
         person = item.content_object
-        kwargs['queryset'] = kwargs['queryset'].filter(creator=person.user).order_by('start')
+        kwargs['queryset'] = kwargs['queryset'].filter(creator=person.user).order_by("-published_from")
         kwargs['template_name'] = 'people/person_bulletins.html'
     else:
         if not request.user.has_perm("institutions.change_institution", item.content_object) and item.status not in ("published", "published_commercial"):
             return access_denied(request)
         institution = item.content_object
-        kwargs['queryset'] = kwargs['queryset'].filter(institution=institution).order_by('start')
+        kwargs['queryset'] = kwargs['queryset'].filter(institution=institution).order_by("-published_from")
         kwargs['template_name'] = 'institutions/institution_bulletins.html'
 
     kwargs.setdefault("extra_context", {})
