@@ -15,28 +15,19 @@
 
 
 {% block details %}
-    {% include "site_specific/count_of.html" %}
-    {% url "person_job_offer_list" slug=object.slug as base_url %}
-    {% if object_list %}
-        {% include "utils/includes/sorting_and_pagination.html" %}
-
-        {% for job_offer in object_list %}
-            {% if forloop.first %}
-                <table class="job_offers">
-            {% endif %}
-
-        {% include_parsed "marketplace/lists/job_offer_list.html" %}
-
-        {% if forloop.last %}
-            </table>
-        {% endif %}
-        {% endfor %}
-        <hr class="hidden"/>
-        {% include "utils/includes/sorting_and_pagination.html" %}
-
+    {% if not object_list %}
+        <p>{% trans "No objects found within the selected conditions." %}</p>
     {% else %}
-        <p class="nothing">{% blocktrans with object.get_title as person_title %}There were no jobs offered by
-            {{ person_title }} found within the selected conditions.{% endblocktrans %}</p>
+        <div class="row job-list">
+            {% for job_offer in object_list %}
+                {% if view_type == "listed" %}
+                    {% include "marketplace/lists/job_offer_listed.html" %}
+                {% endif %}
+                {% if view_type == "map" %}
+                    {% include "marketplace/lists/job_offer_mapped.html" %}
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% include "utils/includes/pagination.html" %}
     {% endif %}
 {% endblock %}
-

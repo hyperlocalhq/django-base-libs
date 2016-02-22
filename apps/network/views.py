@@ -17,8 +17,12 @@ from jetson.apps.utils.views import filter_abc
 
 from ccb.apps.people.models import Person
 from ccb.apps.institutions.models import Institution
+from ccb.apps.marketplace.models import JobOffer
+from ccb.apps.bulletin_board.models import Bulletin
 from ccb.apps.site_specific.models import ContextItem
 from ccb.apps.events.views import event_list
+from ccb.apps.marketplace.views import job_offer_list
+from ccb.apps.bulletin_board.views import bulletin_list
 from ccb.apps.institutions.views import institution_list
 
 from actstream.models import following
@@ -284,6 +288,84 @@ def member_events_list_ical(request, slug, **kwargs):
 @never_cache
 def member_events_list_feed(request, slug, **kwargs):
     return member_events_list(request, slug, feed=True, **kwargs)
+
+
+@never_cache
+def member_jobs_list(request, slug, **kwargs):
+    """
+    Lists the person's or institution's jobs
+    """
+    item = get_object_or_404(
+        ContextItem,
+        content_type__model__in=("person", "institution"),
+        slug=slug,
+    )
+    if item.is_person():
+        if not request.user.has_perm("people.change_person", item.content_object) and item.status not in ("published", "published_commercial"):
+            return access_denied(request)
+        person = item.content_object
+        kwargs['queryset'] = kwargs['queryset'].filter(creator=person.user).order_by('start')
+        kwargs['template_name'] = 'people/person_job_offers.html'
+    else:
+        if not request.user.has_perm("institutions.change_institution", item.content_object) and item.status not in ("published", "published_commercial"):
+            return access_denied(request)
+        institution = item.content_object
+        kwargs['queryset'] = kwargs['queryset'].filter(offering_institution=institution).order_by('start')
+        kwargs['template_name'] = 'institutions/institution_job_offers.html'
+
+    kwargs.setdefault("extra_context", {})
+    kwargs['extra_context']['object'] = item.content_object
+    kwargs['title'] = _("Jobs by/at %s") % item.content_object.get_title()
+    return job_offer_list(request, show="related", **kwargs)
+
+
+@never_cache
+def member_jobs_list_ical(request, slug, **kwargs):
+    return member_jobs_list(request, slug, ical=True, **kwargs)
+
+
+@never_cache
+def member_jobs_list_feed(request, slug, **kwargs):
+    return member_jobs_list(request, slug, feed=True, **kwargs)
+
+
+@never_cache
+def member_bulletins_list(request, slug, **kwargs):
+    """
+    Lists the person's or institution's bulletins
+    """
+    item = get_object_or_404(
+        ContextItem,
+        content_type__model__in=("person", "institution"),
+        slug=slug,
+    )
+    if item.is_person():
+        if not request.user.has_perm("people.change_person", item.content_object) and item.status not in ("published", "published_commercial"):
+            return access_denied(request)
+        person = item.content_object
+        kwargs['queryset'] = kwargs['queryset'].filter(creator=person.user).order_by('start')
+        kwargs['template_name'] = 'people/person_bulletins.html'
+    else:
+        if not request.user.has_perm("institutions.change_institution", item.content_object) and item.status not in ("published", "published_commercial"):
+            return access_denied(request)
+        institution = item.content_object
+        kwargs['queryset'] = kwargs['queryset'].filter(institution=institution).order_by('start')
+        kwargs['template_name'] = 'institutions/institution_bulletins.html'
+
+    kwargs.setdefault("extra_context", {})
+    kwargs['extra_context']['object'] = item.content_object
+    kwargs['title'] = _("Bulletins by/at %s") % item.content_object.get_title()
+    return bulletin_list(request, show="related", **kwargs)
+
+
+@never_cache
+def member_bulletins_list_ical(request, slug, **kwargs):
+    return member_bulletins_list(request, slug, ical=True, **kwargs)
+
+
+@never_cache
+def member_bulletins_list_feed(request, slug, **kwargs):
+    return member_bulletins_list(request, slug, feed=True, **kwargs)
 
 
 @never_cache

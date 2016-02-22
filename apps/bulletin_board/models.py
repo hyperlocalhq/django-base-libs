@@ -9,6 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.utils.safestring import mark_safe
 from django.utils.functional import lazy
+from django.template.defaultfilters import slugify
 from datetime import datetime
 
 from filebrowser.fields import FileBrowseField
@@ -194,6 +195,9 @@ class Bulletin(CreationModificationMixin, UrlMixin):
         verbose_name = _("Bulletin")
         verbose_name_plural = _("Bulletins")
         ordering = ("-creation_date",)
+
+    def __repr__(self):
+        return slugify(self.title)
 
     def __unicode__(self):
         return self.title
