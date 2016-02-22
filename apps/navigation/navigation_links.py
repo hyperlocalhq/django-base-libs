@@ -71,6 +71,30 @@ def show_member_events(context):
         return Event.objects.filter(models.Q(organizing_institution=obj) | models.Q(venue=obj)).exists()
 
 
+def show_member_jobs(context):
+    from django.db import models
+    from ccb.apps.marketplace.models import JobOffer
+    obj = context.get("object", None)
+    if obj and getattr(obj, "is_editable", lambda: False)():
+        return True
+    if getattr(obj, 'is_person', lambda: False)():
+        return JobOffer.objects.filter(creator=obj.user).exists()
+    else:
+        return JobOffer.objects.filter(offering_institution=obj).exists()
+
+
+def show_member_bulletins(context):
+    from django.db import models
+    from ccb.apps.bulletin_board.models import Bulletin
+    obj = context.get("object", None)
+    if obj and getattr(obj, "is_editable", lambda: False)():
+        return True
+    if getattr(obj, 'is_person', lambda: False)():
+        return Bulletin.objects.filter(creator=obj.user).exists()
+    else:
+        return Bulletin.objects.filter(institution=obj).exists()
+
+
 def show_member_blog(context):
     from django.contrib.contenttypes.models import ContentType
     from ccb.apps.blog.models import Blog, Post
@@ -181,10 +205,26 @@ navigation_links = {
         {
             'url_de': '/de/network/member/{{ object.slug }}/events/',
             'url_en': '/en/network/member/{{ object.slug }}/events/',
-            'text_de': 'Events',
+            'text_de': 'Termine',
             'text_en': 'Events',
             'should_be_shown': show_member_events,
             'highlight_pattern': r'^/(de|en)/network/member/{{ object.slug }}/events/',
+        },
+        {
+            'url_de': '/de/network/member/{{ object.slug }}/jobs/',
+            'url_en': '/en/network/member/{{ object.slug }}/jobs/',
+            'text_de': 'Jobs',
+            'text_en': 'Jobs',
+            'should_be_shown': show_member_jobs,
+            'highlight_pattern': r'^/(de|en)/network/member/{{ object.slug }}/jobs/',
+        },
+        {
+            'url_de': '/de/network/member/{{ object.slug }}/bulletins/',
+            'url_en': '/en/network/member/{{ object.slug }}/bulletins/',
+            'text_de': 'Inserate',
+            'text_en': 'Bulletins',
+            'should_be_shown': show_member_bulletins,
+            'highlight_pattern': r'^/(de|en)/network/member/{{ object.slug }}/bulletins/',
         },
         {
             'url_de': '/de/network/member/{{ object.slug }}/blog/',
