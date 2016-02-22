@@ -1,6 +1,10 @@
 {% extends "base_redesign.html" %}
 {% load cms_tags i18n image_mods_tags base_tags %}
 
+{% block title %}
+    {% page_attribute "page_title" %}
+{% endblock %}
+
 {% block content %}
     <div class="header">
         <div class="container">

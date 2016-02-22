@@ -1,5 +1,9 @@
 {% extends "articles/articles_base.html" %}
-{% load base_tags blog babel i18n auth_extended image_mods_tags favorites fb_tags %}
+{% load base_tags blog babel i18n auth_extended image_mods_tags favorites fb_tags cms_tags %}
+
+{% block title %}
+    {{ article.get_title|escape }} - {% page_attribute "page_title" %}
+{% endblock %}
 
 {% block meta_tags %}
     <meta name="description" content="{{ article.get_rendered_content|striptags|truncatewords:100 }}..."/>
