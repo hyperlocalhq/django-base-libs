@@ -70,8 +70,8 @@ FILE_UPLOAD_PERMISSIONS = 0777
 ### LANGUAGES ###
 
 LANGUAGES = (
-    ('en', gettext('English')),
-    ('de', gettext('German')),
+    ("en", gettext("English")),
+    ("de", gettext("German")),
 )
 
 LANGUAGE_CODE = "de"
@@ -114,23 +114,23 @@ INSTALLED_APPS = [
     "bootstrap_pagination",
 
     ### django-cms ###
-    'cms',  # django CMS itself
-    'treebeard',  # utilities for implementing a tree
-    'menus',  # helper for model independent hierarchical website navigation
-    'sekizai',  # for javascript and css management
-    # for the admin skin. You **must** add 'djangocms_admin_style' in the list **before** 'django.contrib.admin'.
-    'reversion',
-    'aldryn_search',
+    "cms",  # django CMS itself
+    "treebeard",  # utilities for implementing a tree
+    "menus",  # helper for model independent hierarchical website navigation
+    "sekizai",  # for javascript and css management
+    # for the admin skin. You **must** add "djangocms_admin_style" in the list **before** "django.contrib.admin".
+    "reversion",
+    "aldryn_search",
 
     ### django-cms plug-ins ###
-    'djangocms_column',
-    'djangocms_file',
-    'djangocms_flash',
-    'djangocms_inherit',
-    'djangocms_link',
-    'djangocms_style',
-    'djangocms_teaser',
-    'djangocms_video',
+    "djangocms_column",
+    "djangocms_file",
+    "djangocms_flash",
+    "djangocms_inherit",
+    "djangocms_link",
+    "djangocms_style",
+    "djangocms_teaser",
+    "djangocms_video",
 
     ### plug-ins for django-cms ###
     "jetson.apps.cms_extensions.plugins.richtext",
@@ -200,26 +200,27 @@ INSTALLED_APPS = [
 
 MIDDLEWARE_CLASSES = [
     "django.middleware.common.CommonMiddleware",
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    'django.middleware.csrf.CsrfViewMiddleware',
+    "django.middleware.csrf.CsrfViewMiddleware",
     "jetson.apps.httpstate.middleware.HttpStateMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "babeldjango.middleware.LocaleMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    "django.contrib.auth.middleware.SessionAuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "jetson.apps.flatpages.middleware.FlatpageMiddleware",
     "base_libs.middleware.threadlocals.ThreadLocalsMiddleware",
     "django.contrib.admindocs.middleware.XViewMiddleware",
     "jetson.apps.utils.middleware.generic.AdminScriptUpdateMiddleware",
     "django.contrib.redirects.middleware.RedirectFallbackMiddleware",
-    #'django.middleware.clickjacking.XFrameOptionsMiddleware', # we can't have this, because KB is using some content from Kreativ Arbeiten section in an iframe
-    'cms.middleware.user.CurrentUserMiddleware',
-    'cms.middleware.page.CurrentPageMiddleware',
-    'cms.middleware.toolbar.ToolbarMiddleware',
-    'cms.middleware.language.LanguageCookieMiddleware',
+    #"django.middleware.clickjacking.XFrameOptionsMiddleware", # we can"t have this, because KB is using some content from Kreativ Arbeiten section in an iframe
+    "cms.middleware.user.CurrentUserMiddleware",
+    "cms.middleware.page.CurrentPageMiddleware",
+    "cms.middleware.toolbar.ToolbarMiddleware",
+    "cms.middleware.language.LanguageCookieMiddleware",
     "ccb.apps.accounts.middleware.MySocialAuthExceptionMiddleware",
+    "base_libs.middleware.traceback.UserTracebackMiddleware",
 ]
 # if not DEVELOPMENT_MODE:
 #    MIDDLEWARE_CLASSES.insert(0, "django.middleware.cache.UpdateCacheMiddleware")
@@ -227,14 +228,14 @@ MIDDLEWARE_CLASSES = [
 
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.contrib.messages.context_processors.messages',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.request',
-    'django.core.context_processors.media',
-    'django.core.context_processors.static',
-    'sekizai.context_processors.sekizai',
-    'cms.context_processors.cms_settings',
+    "django.contrib.auth.context_processors.auth",
+    "django.contrib.messages.context_processors.messages",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.request",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "sekizai.context_processors.sekizai",
+    "cms.context_processors.cms_settings",
     "jetson.apps.configuration.context_processors.configuration",
     "jetson.apps.utils.context_processors.general",
     "ccb.apps.media_gallery.context_processors.media_gallery",
@@ -245,8 +246,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "ccb.apps.groups_networks.context_processors.groups_networks",
     "ccb.apps.marketplace.context_processors.marketplace",
     "ccb.apps.site_specific.context_processors.site_specific",
-    'social.apps.django_app.context_processors.backends',
-    'social.apps.django_app.context_processors.login_redirect',
+    "social.apps.django_app.context_processors.backends",
+    "social.apps.django_app.context_processors.login_redirect",
 )
 
 SECRET_KEY = "*z-g$creativeberlinio@_qt9efb5dge+(64aeq4$!gk+62nsyqlgqpf8l6"
@@ -258,192 +259,192 @@ ROOT_URLCONF = "ccb.urls"
 
 ADMIN_APP_INDEX = (
     {
-        'title': _('Content'),
-        'apps': (
-            ('cms', {
-                'models': ('Page',),
+        "title": _("Content"),
+        "apps": (
+            ("cms", {
+                "models": ("Page",),
             }),
-            ('events', {
-                'models': ("EventType", "EventTimeLabel", "Event",),
-                'icon': 'date',
+            ("events", {
+                "models": ("EventType", "EventTimeLabel", "Event",),
+                "icon": "date",
             }),
-            ('resources', {
-                'models': ("DocumentType", "Medium", "Document",),
-                'icon': 'link',
+            ("resources", {
+                "models": ("DocumentType", "Medium", "Document",),
+                "icon": "link",
             }),
-            ('articles', {
-                'models': ("ArticleContentProvider", "ArticleType", "Article",),
-                'icon': 'page_white_text',
+            ("articles", {
+                "models": ("ArticleContentProvider", "ArticleType", "Article",),
+                "icon": "page_white_text",
             }),
-            ('blog', {
-                'models': ("Blog", "Post"),
-                'icon': 'page_white_edit',
+            ("blog", {
+                "models": ("Blog", "Post"),
+                "icon": "page_white_edit",
             }),
-            ('flatpages', {
-                'models': ("FlatPage",),
-                'icon': 'page_white',
+            ("flatpages", {
+                "models": ("FlatPage",),
+                "icon": "page_white",
             }),
-            ('blocks', {
-                'models': ("InfoBlock",),
-                'icon': 'brick',
+            ("blocks", {
+                "models": ("InfoBlock",),
+                "icon": "brick",
             }),
-            ('faqs', {
-                'models': ("FaqContainer", "FaqCategory", "QuestionAnswer"),
-                'icon': 'help',
+            ("faqs", {
+                "models": ("FaqContainer", "FaqCategory", "QuestionAnswer"),
+                "icon": "help",
             }),
-            ('media_gallery', {
-                'models': ("PortfolioSettings", "Section", "MediaGallery",),
-                'icon': 'images',
+            ("media_gallery", {
+                "models": ("PortfolioSettings", "Section", "MediaGallery",),
+                "icon": "images",
             }),
-            ('slideshows', {
-                'models': ("Slideshow",),
-                'icon': 'images',
+            ("slideshows", {
+                "models": ("Slideshow",),
+                "icon": "images",
             }),
-            ('metro', {
-                'models': ("Tile",),
-                'icon': 'images',
+            ("metro", {
+                "models": ("Tile",),
+                "icon": "images",
             }),
-            ('partners', {
-                'models': ("PartnerCategory",),
-                'icon': 'images',
-            }),
-        )
-    }, {
-        'title': _('Community'),
-        'apps': (
-            ('people', {
-                'models': ("IndividualType", "Person",),
-                'icon': 'user',
-            }),
-            ('institutions', {
-                'models': ("LegalForm", "InstitutionType", "Institution",),
-                'icon': 'building',
-            }),
-            ('marketplace', {
-                'models': ("JobOffer", "JobSector", "JobType", "JobQualification",),
-                'icon': 'page_white',
-            }),
-            ('bulletin_board', {
-                'models': ("BulletinContentProvider", "BulletinCategory", "Bulletin",),
-                'icon': 'page_white',
-            }),
-            ('auth', {
-                'verbose_name': _("Authentication & Authorization"),
-                'models': ("Group", "User"),
-                'icon': 'key',
-            }),
-            ('individual_relations', {
-                'models': ("IndividualRelationType", "IndividualRelation",),
-            }),
-            ('favorites', {
-                'models': ("Favorite",),
-                'icon': 'heart',
-            }),
-            ('bookmarks', {
-                'models': ("Bookmark",),
-                'icon': 'flag_red',
-            }),
-            ('memos', {
-                'models': ("MemoCollection",),
-                'icon': 'note',
-            }),
-            ('groups_networks', {
-                'models': ("GroupType", "PersonGroup", "GroupMembership"),
-                'icon': 'group',
+            ("partners", {
+                "models": ("PartnerCategory",),
+                "icon": "images",
             }),
         )
     }, {
-        'title': _('Commerce'),
-        'apps': ()
-    }, {
-        'title': _('Campaign'),
-        'apps': (
-            ('mailing', {
-                'models': ("EmailMessage", "EmailTemplate", "EmailTemplatePlaceholder",),
-                'icon': 'email',
+        "title": _("Community"),
+        "apps": (
+            ("people", {
+                "models": ("IndividualType", "Person",),
+                "icon": "user",
             }),
-            ('messaging', {
-                'models': ("InternalMessage",),
+            ("institutions", {
+                "models": ("LegalForm", "InstitutionType", "Institution",),
+                "icon": "building",
             }),
-            ('mailchimp', {
-                'models': ("Settings", "MList", "Subscription", "Campaign",),
-                'icon': 'transmit',
+            ("marketplace", {
+                "models": ("JobOffer", "JobSector", "JobType", "JobQualification",),
+                "icon": "page_white",
+            }),
+            ("bulletin_board", {
+                "models": ("BulletinContentProvider", "BulletinCategory", "Bulletin",),
+                "icon": "page_white",
+            }),
+            ("auth", {
+                "verbose_name": _("Authentication & Authorization"),
+                "models": ("Group", "User"),
+                "icon": "key",
+            }),
+            ("individual_relations", {
+                "models": ("IndividualRelationType", "IndividualRelation",),
+            }),
+            ("favorites", {
+                "models": ("Favorite",),
+                "icon": "heart",
+            }),
+            ("bookmarks", {
+                "models": ("Bookmark",),
+                "icon": "flag_red",
+            }),
+            ("memos", {
+                "models": ("MemoCollection",),
+                "icon": "note",
+            }),
+            ("groups_networks", {
+                "models": ("GroupType", "PersonGroup", "GroupMembership"),
+                "icon": "group",
             }),
         )
     }, {
-        'title': _('Configure'),
-        'apps': (
-            ('navigation', {
-                'models': ("NavigationLink",),
+        "title": _("Commerce"),
+        "apps": ()
+    }, {
+        "title": _("Campaign"),
+        "apps": (
+            ("mailing", {
+                "models": ("EmailMessage", "EmailTemplate", "EmailTemplatePlaceholder",),
+                "icon": "email",
             }),
-            # ('chronograph', {
-            #    'models':("Job", "Log",),
+            ("messaging", {
+                "models": ("InternalMessage",),
+            }),
+            ("mailchimp", {
+                "models": ("Settings", "MList", "Subscription", "Campaign",),
+                "icon": "transmit",
+            }),
+        )
+    }, {
+        "title": _("Configure"),
+        "apps": (
+            ("navigation", {
+                "models": ("NavigationLink",),
+            }),
+            # ("chronograph", {
+            #    "models":("Job", "Log",),
             #    }),
-            ('structure', {
-                'models': ("Vocabulary", "Term", "ContextCategory", "Category"),
+            ("structure", {
+                "models": ("Vocabulary", "Term", "ContextCategory", "Category"),
             }),
-            ('image_mods', {
-                'verbose_name': _("Media"),
-                'models': ("ImageModificationGroup", "ImageModification", "ImageCropping",),
+            ("image_mods", {
+                "verbose_name": _("Media"),
+                "models": ("ImageModificationGroup", "ImageModification", "ImageCropping",),
             }),
-            ('contact_form', {
-                'models': ("ContactFormCategory",),
+            ("contact_form", {
+                "models": ("ContactFormCategory",),
             }),
-            ('sites', {
-                'verbose_name': _("Sites"),
-                'models': ("Site",),
+            ("sites", {
+                "verbose_name": _("Sites"),
+                "models": ("Site",),
             }),
-            ('configuration', {
-                'models': ("SiteSettings",),
+            ("configuration", {
+                "models": ("SiteSettings",),
             }),
-            ('redirects', {
-                'verbose_name': _("Redirects"),
-                'models': ("Redirect",),
+            ("redirects", {
+                "verbose_name": _("Redirects"),
+                "models": ("Redirect",),
             }),
-            ('i18n', {
-                'models': ("Country", "Area", "Language", "CountryLanguage", "Phone", "Nationality", "TimeZone"),
+            ("i18n", {
+                "models": ("Country", "Area", "Language", "CountryLanguage", "Phone", "Nationality", "TimeZone"),
             }),
-            ('optionset', {
-                'models': (
+            ("optionset", {
+                "models": (
                     "Prefix", "Salutation", "IndividualLocationType", "InstitutionalLocationType", "PhoneType",
                     "EmailType",
                     "URLType", "IMType"),
             }),
         )
     }, {
-        'title': _('Connect'),
-        'apps': (
-            ('external_services', {
-                'models': ("Service", "ArticleImportSource", "ServiceActionLog", "ObjectMapper"),
+        "title": _("Connect"),
+        "apps": (
+            ("external_services", {
+                "models": ("Service", "ArticleImportSource", "ServiceActionLog", "ObjectMapper"),
             }),
         )
     }, {
-        'title': _('Control'),
-        'apps': (
-            ('comments', {
-                'verbose_name': _("Comments"),
-                'models': ('Comment', 'ModeratorDeletion', 'ModeratorDeletionReason',)
+        "title": _("Control"),
+        "apps": (
+            ("comments", {
+                "verbose_name": _("Comments"),
+                "models": ("Comment", "ModeratorDeletion", "ModeratorDeletionReason",)
             }),
-            ('profanity_filter', {
-                'models': ("SwearWord", "SwearingCase",),
+            ("profanity_filter", {
+                "models": ("SwearWord", "SwearingCase",),
             }),
-            ('site_specific', {
-                'models': ("ClaimRequest", "Visit", "ContextItem"),
+            ("site_specific", {
+                "models": ("ClaimRequest", "Visit", "ContextItem"),
             }),
-            ('tracker', {
-                'models': ("Concern", "Ticket",),
+            ("tracker", {
+                "models": ("Concern", "Ticket",),
             }),
-            ('grappelli', {
-                'models': ("Bookmark", "Navigation", "Help", "HelpItem",),
+            ("grappelli", {
+                "models": ("Bookmark", "Navigation", "Help", "HelpItem",),
             }),
-            ('notification', {
-                'models': ("NoticeTypeCategory", "NoticeType", "NoticeEmailTemplate", "Notice", "Digest",),
+            ("notification", {
+                "models": ("NoticeTypeCategory", "NoticeType", "NoticeEmailTemplate", "Notice", "Digest",),
             }),
-            ('location', {
-                'models': ("Address", "LocalityType",),
+            ("location", {
+                "models": ("Address", "LocalityType",),
             }),
-            ('actstream', {
-                'models': ("Action", "Follow",),
+            ("actstream", {
+                "models": ("Action", "Follow",),
             }),
         )
     }
@@ -453,12 +454,12 @@ ADMIN_APP_INDEX = (
 ### CACHING ###
 
 CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
-        'LOCATION': '127.0.0.1:11211',
-        'KEY_PREFIX': "ccb_production_",
-        'TIMEOUT': 300,
-        'MAX_ENTRIES': 400,
+    "default": {
+        "BACKEND": "django.core.cache.backends.memcached.PyLibMCCache",
+        "LOCATION": "127.0.0.1:11211",
+        "KEY_PREFIX": "ccb_production_",
+        "TIMEOUT": 300,
+        "MAX_ENTRIES": 400,
     }
 }
 
@@ -467,17 +468,17 @@ CACHES = {
 execfile(os.path.join(JETSON_PATH, "jetson/settings/filebrowser.py"))
 
 FILEBROWSER_VERSIONS = {
-    'fb_thumb': {'verbose_name': 'Admin Thumbnail', 'width': 60, 'height': 60, 'opts': 'crop upscale'},
-    'nd': {'verbose_name': 'News Default (163px)', 'width': 163, 'height': 156, 'opts': 'crop upscale'},
-    'nt': {'verbose_name': 'News Thumbnail (75px)', 'width': 163, 'height': 100, 'opts': 'crop upscale'},
+    "fb_thumb": {"verbose_name": "Admin Thumbnail", "width": 60, "height": 60, "opts": "crop upscale"},
+    "nd": {"verbose_name": "News Default (163px)", "width": 163, "height": 156, "opts": "crop upscale"},
+    "nt": {"verbose_name": "News Thumbnail (75px)", "width": 163, "height": 100, "opts": "crop upscale"},
 }
-FILEBROWSER_ADMIN_VERSIONS = ['nd', 'nt']
+FILEBROWSER_ADMIN_VERSIONS = ["nd", "nt"]
 FILEBROWSER_MEDIA_URL = UPLOADS_URL = "/media/"
 FILEBROWSER_STRICT_PIL = True
 
 ### SEARCH ###
 
-SPHINX_SERVER = 'localhost'  # Sphinx server address, default is localhost
+SPHINX_SERVER = "localhost"  # Sphinx server address, default is localhost
 SPHINX_PORT = 3312  # Sphinx server port, default is 3312
 
 SEARCH_ENGINE = "MySqlFulltext"  # one of these: "MySqlFulltext", "Proprietary", "Sphinx"
@@ -485,8 +486,8 @@ SEARCH_ENGINE = "MySqlFulltext"  # one of these: "MySqlFulltext", "Proprietary",
 
 ### MAILING ###
 
-MAILING_DEFAULT_FROM_NAME = 'Creative City Berlin'
-MAILING_DEFAULT_FROM_EMAIL = 'ccb-contact@kulturprojekte-berlin.de'
+MAILING_DEFAULT_FROM_NAME = "Creative City Berlin"
+MAILING_DEFAULT_FROM_EMAIL = "ccb-contact@kulturprojekte-berlin.de"
 
 
 ### GRAPPELLI ###
@@ -500,8 +501,8 @@ execfile(os.path.join(JETSON_PATH, "jetson/settings/pipeline.py"))
 PIPELINE_ROOT = os.path.join(PROJECT_PATH, "ccb", "site_static")
 PIPELINE = False
 
-PIPELINE_CSS['screen'] = {
-    'source_filenames': (
+PIPELINE_CSS["screen"] = {
+    "source_filenames": (
         "site/yaml/core/base.css",
         "site/css/screen/basemod.css",
         "site/css/screen/uni-form.css",
@@ -513,11 +514,11 @@ PIPELINE_CSS['screen'] = {
         "site/css/screen/icons.css",
         "site/css/screen/portfolio.css",
     ),
-    'output_filename': "site/css/screen/screen_compressed.css",
-    'extra_context': {'media': "screen"},
+    "output_filename": "site/css/screen/screen_compressed.css",
+    "extra_context": {"media": "screen"},
 }
-PIPELINE_CSS['kreativarbeiten'] = {
-    'source_filenames': (
+PIPELINE_CSS["kreativarbeiten"] = {
+    "source_filenames": (
         "site/yaml/core/base.css",
         "site/css/screen/basemod.css",
         "site/css/screen/uni-form.css",
@@ -530,64 +531,64 @@ PIPELINE_CSS['kreativarbeiten'] = {
         "site/css/screen/portfolio.css",
         "site/css/exceptions/kreativarbeiten.css",
     ),
-    'output_filename': "site/css/exceptions/kreativarbeiten_compressed.css",
-    'extra_context': {'media': "screen"},
+    "output_filename": "site/css/exceptions/kreativarbeiten_compressed.css",
+    "extra_context": {"media": "screen"},
 }
-PIPELINE_CSS['screen_ie'] = {
-    'source_filenames': (
+PIPELINE_CSS["screen_ie"] = {
+    "source_filenames": (
         "site/yaml/core/iehacks.css",
         "site/css/patches/patch_layout.css",
     ),
-    'output_filename': "site/css/screen/screen_ie_compressed.css",
-    'extra_context': {'media': "screen"},
+    "output_filename": "site/css/screen/screen_ie_compressed.css",
+    "extra_context": {"media": "screen"},
 }
-PIPELINE_CSS['print'] = {
-    'source_filenames': (
+PIPELINE_CSS["print"] = {
+    "source_filenames": (
         "site/css/print/print.css",
     ),
-    'output_filename': "site/css/print/print_compressed.css",
-    'extra_context': {'media': "print"},
+    "output_filename": "site/css/print/print_compressed.css",
+    "extra_context": {"media": "print"},
 }
 
-PIPELINE_JS['common'] = {
-    'source_filenames': (
+PIPELINE_JS["common"] = {
+    "source_filenames": (
         "site/js/collapse.js",
         "site/js/website/common.js",
     ),
-    'output_filename': 'site/js/website/common_compressed.js',
+    "output_filename": "site/js/website/common_compressed.js",
 }
 
-PIPELINE_JS['common'] = {
-    'source_filenames': (
+PIPELINE_JS["common"] = {
+    "source_filenames": (
         "site/js/collapse.js",
         "site/js/website/common.js",
     ),
-    'output_filename': 'site/js/website/common_compressed.js',
+    "output_filename": "site/js/website/common_compressed.js",
 }
 
-PIPELINE_JS['person_details'] = {
-    'source_filenames': (
+PIPELINE_JS["person_details"] = {
+    "source_filenames": (
         "site/js/website/categories.js",
         "site/js/website/gmaps_for_address.js",
         "site/js/website/contact_details.js",
         "site/js/website/profile.js",
     ),
-    'output_filename': 'site/js/website/person_details_compressed.js',
+    "output_filename": "site/js/website/person_details_compressed.js",
 }
 
-PIPELINE_JS['institution_details'] = {
-    'source_filenames': (
+PIPELINE_JS["institution_details"] = {
+    "source_filenames": (
         "site/js/website/categories.js",
         "site/js/website/gmaps_for_address.js",
         "site/js/website/contact_details.js",
         "site/js/website/profile.js",
         "site/js/website/opening_hours.js",
     ),
-    'output_filename': 'site/js/website/institution_details_compressed.js',
+    "output_filename": "site/js/website/institution_details_compressed.js",
 }
 
-PIPELINE_JS['event_details'] = {
-    'source_filenames': (
+PIPELINE_JS["event_details"] = {
+    "source_filenames": (
         "site/js/website/categories.js",
         "site/js/website/gmaps_for_address.js",
         "site/js/website/contact_details.js",
@@ -597,19 +598,19 @@ PIPELINE_JS['event_details'] = {
         "site/js/website/formsets.js",
         "site/js/website/multipleselectautocomplete.js",
     ),
-    'output_filename': 'site/js/website/event_details_compressed.js',
+    "output_filename": "site/js/website/event_details_compressed.js",
 }
 
-PIPELINE_JS['document_details'] = {
-    'source_filenames': (
+PIPELINE_JS["document_details"] = {
+    "source_filenames": (
         "site/js/website/categories.js",
         "site/js/website/profile.js",
     ),
-    'output_filename': 'site/js/website/document_details_compressed.js',
+    "output_filename": "site/js/website/document_details_compressed.js",
 }
 
-PIPELINE_JS['job_offer_details'] = {
-    'source_filenames': (
+PIPELINE_JS["job_offer_details"] = {
+    "source_filenames": (
         "site/js/website/categories.js",
         "site/js/website/contact_details.js",
         "site/js/website/gmaps_for_address.js",
@@ -617,85 +618,85 @@ PIPELINE_JS['job_offer_details'] = {
         "site/js/website/formsets.js",
         "site/js/website/multipleselectautocomplete.js",
     ),
-    'output_filename': 'site/js/website/job_offer_details_compressed.js',
+    "output_filename": "site/js/website/job_offer_details_compressed.js",
 }
 
-PIPELINE_JS['map'] = {
-    'source_filenames': (
+PIPELINE_JS["map"] = {
+    "source_filenames": (
         "site/js/website/map.js",
     ),
-    'output_filename': 'site/js/website/map_compressed.js',
+    "output_filename": "site/js/website/map_compressed.js",
 }
 
-PIPELINE_JS['blog'] = {
-    'source_filenames': (
+PIPELINE_JS["blog"] = {
+    "source_filenames": (
         "site/js/website/comment.js",
         "site/js/website/blog.js",
     ),
-    'output_filename': 'site/js/website/blog_compressed.js',
+    "output_filename": "site/js/website/blog_compressed.js",
 }
 
-PIPELINE_JS['autocomplete'] = {
-    'source_filenames': (
+PIPELINE_JS["autocomplete"] = {
+    "source_filenames": (
         "site/js/jquery/autocomplete_1.0/jquery.bgiframe.min.js",
         "site/js/jquery/autocomplete_1.0/jquery.autocomplete.js",
         "site/js/website/autocomplete.js",
     ),
-    'output_filename': 'site/js/jquery/autocomplete_compressed.js',
+    "output_filename": "site/js/jquery/autocomplete_compressed.js",
 }
 
-COMPRESS_JETSON_JS['admin_person_change'] = {
-    'source_filenames': (
+COMPRESS_JETSON_JS["admin_person_change"] = {
+    "source_filenames": (
         "js/admin/person_change.js",
     ),
-    'output_filename': 'js/admin/person_change_compressed.js',
+    "output_filename": "js/admin/person_change_compressed.js",
 }
 
-COMPRESS_JETSON_JS['admin_institution_change'] = {
-    'source_filenames': (
+COMPRESS_JETSON_JS["admin_institution_change"] = {
+    "source_filenames": (
         "js/admin/institution_change.js",
     ),
-    'output_filename': 'js/admin/institution_change_compressed.js',
+    "output_filename": "js/admin/institution_change_compressed.js",
 }
 
-COMPRESS_JETSON_JS['autocomplete'] = {
-    'source_filenames': (
+COMPRESS_JETSON_JS["autocomplete"] = {
+    "source_filenames": (
         "js/jquery/autocomplete_1.0/jquery.bgiframe.min.js",
         "js/jquery/autocomplete_1.0/jquery.autocomplete.js",
         "js/website/autocomplete.js",
     ),
-    'output_filename': 'js/jquery/autocomplete_compressed.js',
+    "output_filename": "js/jquery/autocomplete_compressed.js",
 }
 
-COMPRESS_JETSON_JS['admin_event_change'] = {
-    'source_filenames': (
+COMPRESS_JETSON_JS["admin_event_change"] = {
+    "source_filenames": (
         "js/admin/event_change.js",
     ),
-    'output_filename': 'js/admin/event_change_compressed.js',
+    "output_filename": "js/admin/event_change_compressed.js",
 }
 
-COMPRESS_JETSON_JS['admin_document_change'] = {
-    'source_filenames': (
+COMPRESS_JETSON_JS["admin_document_change"] = {
+    "source_filenames": (
         "js/admin/document_change.js",
     ),
-    'output_filename': 'js/admin/document_change_compressed.js',
+    "output_filename": "js/admin/document_change_compressed.js",
 }
 
-COMPRESS_JETSON_JS['admin_job_offer_change'] = {
-    'source_filenames': (
+COMPRESS_JETSON_JS["admin_job_offer_change"] = {
+    "source_filenames": (
         "js/admin/job_offer_change.js",
     ),
-    'output_filename': 'js/admin/job_offer_change_compressed.js',
+    "output_filename": "js/admin/job_offer_change_compressed.js",
 }
 
-COMPRESS_JETSON_JS['jquery_plugins'] = {
-    'source_filenames': (
+COMPRESS_JETSON_JS["jquery_plugins"] = {
+    "source_filenames": (
         "js/jquery/jquery.ba-hashchange.min.js",
         "js/jquery/jquery.cookie.js",
         "js/jquery/jquery.popup.js",
         "js/jquery/uni-form.jquery.min.js",
     ),
-    'output_filename': 'js/jquery/jquery_plugins_compressed.js',
+    "output_filename": "js/jquery/jquery_plugins_compressed.js",
 }
 
 
@@ -728,39 +729,39 @@ PROFANITY_MODELS_NOT_TO_CHECK = (
 ### HAYSTACK ###
 
 HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        'PATH': os.path.join(PATH_TMP, "whoosh_index", "default"),
-        'STORAGE': 'file',
-        'POST_LIMIT': 128 * 1024 * 1024,
-        'INCLUDE_SPELLING': False,
-        'BATCH_SIZE': 100,
+    "default": {
+        "ENGINE": "haystack.backends.whoosh_backend.WhooshEngine",
+        "PATH": os.path.join(PATH_TMP, "whoosh_index", "default"),
+        "STORAGE": "file",
+        "POST_LIMIT": 128 * 1024 * 1024,
+        "INCLUDE_SPELLING": False,
+        "BATCH_SIZE": 100,
     },
-    'de': {
-        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        'PATH': os.path.join(PATH_TMP, "whoosh_index", "de"),
-        'STORAGE': 'file',
-        'POST_LIMIT': 128 * 1024 * 1024,
-        'INCLUDE_SPELLING': False,
-        'BATCH_SIZE': 100,
-        'URL': 'http://www.creative-city-berlin.de/de/search/',
+    "de": {
+        "ENGINE": "haystack.backends.whoosh_backend.WhooshEngine",
+        "PATH": os.path.join(PATH_TMP, "whoosh_index", "de"),
+        "STORAGE": "file",
+        "POST_LIMIT": 128 * 1024 * 1024,
+        "INCLUDE_SPELLING": False,
+        "BATCH_SIZE": 100,
+        "URL": "http://www.creative-city-berlin.de/de/search/",
     },
-    'en': {
-        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        'PATH': os.path.join(PATH_TMP, "whoosh_index", "en"),
-        'STORAGE': 'file',
-        'POST_LIMIT': 128 * 1024 * 1024,
-        'INCLUDE_SPELLING': False,
-        'BATCH_SIZE': 100,
-        'URL': 'http://www.creative-city-berlin.de/en/search/',
+    "en": {
+        "ENGINE": "haystack.backends.whoosh_backend.WhooshEngine",
+        "PATH": os.path.join(PATH_TMP, "whoosh_index", "en"),
+        "STORAGE": "file",
+        "POST_LIMIT": 128 * 1024 * 1024,
+        "INCLUDE_SPELLING": False,
+        "BATCH_SIZE": 100,
+        "URL": "http://www.creative-city-berlin.de/en/search/",
     },
 }
 
 HAYSTACK_ITERATOR_LOAD_PER_QUERY = 100
-HAYSTACK_ROUTERS = ['ccb.apps.search.router.LanguageRouter']
+HAYSTACK_ROUTERS = ["ccb.apps.search.router.LanguageRouter"]
 ALDRYN_SEARCH_LANGUAGE_FROM_ALIAS = lambda alias: alias
 ALDRYN_SEARCH_INDEX_BASE_CLASS = "ccb.apps.search.search_indexes.CMSPageIndexBase"  # custom index base for pages
-ALDRYN_SEARCH_REGISTER_APPHOOK = False  # we'll use a custom app hook for search
+ALDRYN_SEARCH_REGISTER_APPHOOK = False  # we"ll use a custom app hook for search
 #ALDRYN_SEARCH_CMS_PAGE = False
 
 ### MULTILINGUAL URLS ###
@@ -773,7 +774,7 @@ execfile(os.path.join(JETSON_PATH, "jetson/settings/multilingual_urls.py"))
 APPEND_SLASH = True
 
 THIRD_PARTY_EMAILS = {
-    'kulturmanagement.net': "jobs@kulturmanagement.net",
+    "kulturmanagement.net": "jobs@kulturmanagement.net",
 }
 
 CREATIVESET_COMPANY_ID = 632
@@ -819,22 +820,22 @@ TWITTER_ACCESS_TOKEN = "21031007-meNXTMlI5yPA7KGU3eiYUsfaVOYWAo0FiJB0alpxX"
 TWITTER_ACCESS_TOKEN_SECRET = "mOg8VE4SdCseexvdqjOKdWc0dJe6ALbWA89nLsdIMLk"
 
 MAILING_CONTENT_TYPE_CHOICES = (
-    ('image_and_text', _("Image and text")),
-    ('text', _("Text only")),
-    ('news', _("News")),
-    ('tenders_and_competitions', _("Tenders and Competitions")),
-    ('events', _("Events")),
-    ('portfolios', _("Portfolios")),
-    ('interviews', _("Magazine")),
-    ('jobs_and_bulletins', _("Jobs and Bulletins")),
-    ('people', _("Profiles")),
+    ("image_and_text", _("Image and text")),
+    ("text", _("Text only")),
+    ("news", _("News")),
+    ("tenders_and_competitions", _("Tenders and Competitions")),
+    ("events", _("Events")),
+    ("portfolios", _("Portfolios")),
+    ("interviews", _("Magazine")),
+    ("jobs_and_bulletins", _("Jobs and Bulletins")),
+    ("people", _("Profiles")),
 )
 
-TIME_INPUT_FORMATS = ('%H:%M:%S', '%H:%M', '%H.%M')
+TIME_INPUT_FORMATS = ("%H:%M:%S", "%H:%M", "%H.%M")
 
 ### CELERY ###
 
-CELERY_RESULT_BACKEND = 'database'
+CELERY_RESULT_BACKEND = "database"
 # For scheduled jobs. 
 CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
 CELERY_TRACK_STARTED = True
@@ -854,8 +855,8 @@ djcelery.setup_loader()
 
 ### CAPTCHA ###
 
-RECAPTCHA_PUBLIC_KEY = '6LfWkt8SAAAAAPnRowSBDg1GJOk6umAqdwVcpUFK'
-RECAPTCHA_PRIVATE_KEY = '6LfWkt8SAAAAABAOx3-qsJYDt76jSpUlIkg8ZgcD'
+RECAPTCHA_PUBLIC_KEY = "6LfWkt8SAAAAAPnRowSBDg1GJOk6umAqdwVcpUFK"
+RECAPTCHA_PRIVATE_KEY = "6LfWkt8SAAAAABAOx3-qsJYDt76jSpUlIkg8ZgcD"
 RECAPTCHA_USE_SSL = False
 
 RECAPTCHA_SITE_KEY = "6LdUIhUTAAAAAPzqpanSC53BVXrkLzPNZ9_ItKKn"
@@ -863,55 +864,55 @@ RECAPTCHA_SECRET_KEY = "6LdUIhUTAAAAAEuAAai-3CZp3cEevEiSWBvkSWM4"
 
 ### DJANGO CRISPY FORMS ###
 
-CRISPY_TEMPLATE_PACK = 'bootstrap3'
-CRISPY_ALLOWED_TEMPLATE_PACKS = ('bootstrap3', 'ccb_form')
+CRISPY_TEMPLATE_PACK = "bootstrap3"
+CRISPY_ALLOWED_TEMPLATE_PACKS = ("bootstrap3", "ccb_form")
 
 ### DJANGO CMS ###
 
 execfile(os.path.join(JETSON_PATH, "jetson/settings/cms.py"), globals(), locals())
 
 CMS_TEMPLATES = (
-    ('cms/start.html', 'Start Page'),
-    ('cms/page.html', 'Page'),
-    ('cms/page_sidebar.html', 'Page with Sidebar'),
-    ('cms/page_sidebar_under_architecture.html', 'Page with Sidebar - Architecture'),
-    ('cms/page_sidebar_under_visual_arts.html', 'Page with Sidebar - Visual Arts'),
-    ('cms/page_sidebar_under_design.html', 'Page with Sidebar - Design'),
-    ('cms/page_sidebar_under_event_industry.html', 'Page with Sidebar - Event Industry'),
-    ('cms/page_sidebar_under_film_broadcast.html', 'Page with Sidebar - Film & Broadcast'),
-    ('cms/page_sidebar_under_photography.html', 'Page with Sidebar - Photography'),
-    ('cms/page_sidebar_under_games_interactive.html', 'Page with Sidebar - Games & Interactive'),
-    ('cms/page_sidebar_under_literature_publishing.html', 'Page with Sidebar - Literature & Publishing'),
-    ('cms/page_sidebar_under_fashion_textile.html', 'Page with Sidebar - Fashion & Textile'),
-    ('cms/page_sidebar_under_music.html', 'Page with Sidebar - Music'),
-    ('cms/page_sidebar_under_theatre_dance.html', 'Page with Sidebar - Theatre & Dance'),
-    ('cms/page_sidebar_under_advertising_pr.html', 'Page with Sidebar - Advertising & PR'),
+    ("cms/start.html", "Start Page"),
+    ("cms/page.html", "Page"),
+    ("cms/page_sidebar.html", "Page with Sidebar"),
+    ("cms/page_sidebar_under_architecture.html", "Page with Sidebar - Architecture"),
+    ("cms/page_sidebar_under_visual_arts.html", "Page with Sidebar - Visual Arts"),
+    ("cms/page_sidebar_under_design.html", "Page with Sidebar - Design"),
+    ("cms/page_sidebar_under_event_industry.html", "Page with Sidebar - Event Industry"),
+    ("cms/page_sidebar_under_film_broadcast.html", "Page with Sidebar - Film & Broadcast"),
+    ("cms/page_sidebar_under_photography.html", "Page with Sidebar - Photography"),
+    ("cms/page_sidebar_under_games_interactive.html", "Page with Sidebar - Games & Interactive"),
+    ("cms/page_sidebar_under_literature_publishing.html", "Page with Sidebar - Literature & Publishing"),
+    ("cms/page_sidebar_under_fashion_textile.html", "Page with Sidebar - Fashion & Textile"),
+    ("cms/page_sidebar_under_music.html", "Page with Sidebar - Music"),
+    ("cms/page_sidebar_under_theatre_dance.html", "Page with Sidebar - Theatre & Dance"),
+    ("cms/page_sidebar_under_advertising_pr.html", "Page with Sidebar - Advertising & PR"),
     
-    ('cms/start_counselling.html', 'Start Page Counselling'),
-    ('cms/page_counselling.html', 'Page Counselling'),
-    ('cms/page_sidebar_counselling.html', 'Page Counselling with Sidebar'),
+    ("cms/start_counselling.html", "Start Page Counselling"),
+    ("cms/page_counselling.html", "Page Counselling"),
+    ("cms/page_sidebar_counselling.html", "Page Counselling with Sidebar"),
 )
 
 CMS_LANGUAGES = {
-    'default': {
-        'public': True,
-        'hide_untranslated': False,
-        'redirect_on_fallback': True,
+    "default": {
+        "public": True,
+        "hide_untranslated": False,
+        "redirect_on_fallback": True,
     },
     1: [
         {
-            'public': True,
-            'code': 'de',
-            'hide_untranslated': False,
-            'name': gettext('de'),
-            'redirect_on_fallback': True,
+            "public": True,
+            "code": "de",
+            "hide_untranslated": False,
+            "name": gettext("de"),
+            "redirect_on_fallback": True,
         },
         {
-            'public': True,
-            'code': 'en',
-            'hide_untranslated': False,
-            'name': gettext('en'),
-            'redirect_on_fallback': True,
+            "public": True,
+            "code": "en",
+            "hide_untranslated": False,
+            "name": gettext("en"),
+            "redirect_on_fallback": True,
         },
     ],
 }
@@ -921,21 +922,21 @@ CMS_PERMISSION = True
 CMS_PLACEHOLDER_CONF = {}
 
 MIGRATION_MODULES = {
-    'cms': 'cms.migrations',
-    'menus': 'menus.migrations',
+    "cms": "cms.migrations",
+    "menus": "menus.migrations",
 
-    # Add also the following modules if you're using these plugins:
-    'djangocms_file': 'djangocms_file.migrations_django',
-    'djangocms_flash': 'djangocms_flash.migrations_django',
-    'djangocms_googlemap': 'djangocms_googlemap.migrations_django',
-    'djangocms_inherit': 'djangocms_inherit.migrations_django',
-    'djangocms_link': 'djangocms_link.migrations_django',
-    'djangocms_picture': 'djangocms_picture.migrations_django',
-    'djangocms_snippet': 'djangocms_snippet.migrations_django',
-    'djangocms_teaser': 'djangocms_teaser.migrations_django',
-    'djangocms_video': 'djangocms_video.migrations_django',
-    'djangocms_style': 'djangocms_style.migrations_django',
-    'djangocms_column': 'djangocms_column.migrations_django',
+    # Add also the following modules if you"re using these plugins:
+    "djangocms_file": "djangocms_file.migrations_django",
+    "djangocms_flash": "djangocms_flash.migrations_django",
+    "djangocms_googlemap": "djangocms_googlemap.migrations_django",
+    "djangocms_inherit": "djangocms_inherit.migrations_django",
+    "djangocms_link": "djangocms_link.migrations_django",
+    "djangocms_picture": "djangocms_picture.migrations_django",
+    "djangocms_snippet": "djangocms_snippet.migrations_django",
+    "djangocms_teaser": "djangocms_teaser.migrations_django",
+    "djangocms_video": "djangocms_video.migrations_django",
+    "djangocms_style": "djangocms_style.migrations_django",
+    "djangocms_column": "djangocms_column.migrations_django",
 }
 
 ### PERSISTENT DATABASE CONNECTIONS ###
@@ -945,85 +946,85 @@ CONN_MAX_AGE = 600
 ### SOCIAL AUTHENTICATION ###
 
 AUTHENTICATION_BACKENDS = (
-    #'social.backends.behance.BehanceOAuth2',
-    #'social.backends.disqus.DisqusOAuth2',
-    'social.backends.facebook.FacebookOAuth2',
-    #'social.backends.flickr.FlickrOAuth',
-    #'social.backends.google.GoogleOAuth',
-    #'social.backends.google.GoogleOAuth2',
-    #'social.backends.google.GooglePlusAuth',
-    #'social.backends.google.GoogleOpenIdConnect',
-    #'social.backends.instagram.InstagramOAuth2',
-    #'social.backends.linkedin.LinkedinOAuth',
-    #'social.backends.linkedin.LinkedinOAuth2',
-    #'social.backends.mixcloud.MixcloudOAuth2',
-    #'social.backends.open_id.OpenIdAuth',
-    #'social.backends.soundcloud.SoundcloudOAuth2',
-    #'social.backends.spotify.SpotifyOAuth2',
-    #'social.backends.tumblr.TumblrOAuth',
-    #'social.backends.twitter.TwitterOAuth',
-    #'social.backends.xing.XingOAuth',
-    #'social.backends.yahoo.YahooOAuth',
-    #'social.backends.yahoo.YahooOpenId',
-    #'social.backends.vimeo.VimeoOAuth1',
+    #"social.backends.behance.BehanceOAuth2",
+    #"social.backends.disqus.DisqusOAuth2",
+    "social.backends.facebook.FacebookOAuth2",
+    #"social.backends.flickr.FlickrOAuth",
+    #"social.backends.google.GoogleOAuth",
+    #"social.backends.google.GoogleOAuth2",
+    #"social.backends.google.GooglePlusAuth",
+    #"social.backends.google.GoogleOpenIdConnect",
+    #"social.backends.instagram.InstagramOAuth2",
+    #"social.backends.linkedin.LinkedinOAuth",
+    #"social.backends.linkedin.LinkedinOAuth2",
+    #"social.backends.mixcloud.MixcloudOAuth2",
+    #"social.backends.open_id.OpenIdAuth",
+    #"social.backends.soundcloud.SoundcloudOAuth2",
+    #"social.backends.spotify.SpotifyOAuth2",
+    #"social.backends.tumblr.TumblrOAuth",
+    #"social.backends.twitter.TwitterOAuth",
+    #"social.backends.xing.XingOAuth",
+    #"social.backends.yahoo.YahooOAuth",
+    #"social.backends.yahoo.YahooOpenId",
+    #"social.backends.vimeo.VimeoOAuth1",
     "jetson.apps.permissions.backends.RowLevelPermissionsBackend",
     "jetson.apps.utils.backends.EmailBackend",
-    'social.backends.username.UsernameAuth',
-    'django.contrib.auth.backends.ModelBackend',
+    "social.backends.username.UsernameAuth",
+    "django.contrib.auth.backends.ModelBackend",
 )
 
-AUTH_USER_MODEL = 'auth.User'
+AUTH_USER_MODEL = "auth.User"
 
-LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = 'dashboard'
-URL_PATH = ''
-SOCIAL_AUTH_STRATEGY = 'social.strategies.django_strategy.DjangoStrategy'
-SOCIAL_AUTH_STORAGE = 'social.apps.django_app.default.models.DjangoStorage'
+LOGIN_URL = "/login/"
+LOGIN_REDIRECT_URL = "dashboard"
+URL_PATH = ""
+SOCIAL_AUTH_STRATEGY = "social.strategies.django_strategy.DjangoStrategy"
+SOCIAL_AUTH_STORAGE = "social.apps.django_app.default.models.DjangoStorage"
 SOCIAL_AUTH_GOOGLE_OAUTH_SCOPE = [
-    'https://www.googleapis.com/auth/drive',
-    'https://www.googleapis.com/auth/userinfo.profile'
+    "https://www.googleapis.com/auth/drive",
+    "https://www.googleapis.com/auth/userinfo.profile"
 ]
-SOCIAL_AUTH_USERNAME_FORM_HTML = 'username_signup.html'
+SOCIAL_AUTH_USERNAME_FORM_HTML = "username_signup.html"
 
 SOCIAL_AUTH_FACEBOOK_KEY = "217188838296370"
 SOCIAL_AUTH_FACEBOOK_SECRET = "66548a2c23317f70ff1e20bd982a5f68"
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_SCOPE = ["email"]
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-  'fields': 'id, name, email, first_name, last_name',
+  "fields": "id, name, email, first_name, last_name",
 }
 
 SOCIAL_AUTH_PIPELINE = (
-    'social.pipeline.social_auth.social_details',
-    'social.pipeline.social_auth.social_uid',
-    'social.pipeline.social_auth.auth_allowed',
-    'social.pipeline.social_auth.social_user',
-    'social.pipeline.user.get_username',
-    #'example.app.pipeline.require_email',
-    #'social.pipeline.mail.mail_validation',
-    'ccb.apps.accounts.pipeline.login_or_registration',
-    'ccb.apps.accounts.pipeline.create_user',
-    'social.pipeline.social_auth.associate_user',
-    #'social.pipeline.debug.debug',
-    'social.pipeline.social_auth.load_extra_data',
-    'social.pipeline.user.user_details',
-    #'social.pipeline.debug.debug',
+    "social.pipeline.social_auth.social_details",
+    "social.pipeline.social_auth.social_uid",
+    "social.pipeline.social_auth.auth_allowed",
+    "social.pipeline.social_auth.social_user",
+    "social.pipeline.user.get_username",
+    #"example.app.pipeline.require_email",
+    #"social.pipeline.mail.mail_validation",
+    "ccb.apps.accounts.pipeline.login_or_registration",
+    "ccb.apps.accounts.pipeline.create_user",
+    "social.pipeline.social_auth.associate_user",
+    #"social.pipeline.debug.debug",
+    "social.pipeline.social_auth.load_extra_data",
+    "social.pipeline.user.user_details",
+    #"social.pipeline.debug.debug",
 )
 
 SOCIAL_AUTH_DISCONNECT_PIPELINE = (
-    #'social.pipeline.disconnect.allowed_to_disconnect',
-    'social.pipeline.disconnect.get_entries',
-    'social.pipeline.disconnect.revoke_tokens',
-    'social.pipeline.disconnect.disconnect'
+    #"social.pipeline.disconnect.allowed_to_disconnect",
+    "social.pipeline.disconnect.get_entries",
+    "social.pipeline.disconnect.revoke_tokens",
+    "social.pipeline.disconnect.disconnect"
 )
 
 ### DJANGO ACTIVITY STREAM ###
 
 ACTSTREAM_SETTINGS = {
-    'MANAGER': 'actstream.managers.ActionManager',
-    'FETCH_RELATIONS': True,
-    'USE_PREFETCH': True,
-    'USE_JSONFIELD': True,
-    'GFK_FETCH_DEPTH': 1,
+    "MANAGER": "actstream.managers.ActionManager",
+    "FETCH_RELATIONS": True,
+    "USE_PREFETCH": True,
+    "USE_JSONFIELD": True,
+    "GFK_FETCH_DEPTH": 1,
 }
 
 ### LOCAL SETTINGS ###
