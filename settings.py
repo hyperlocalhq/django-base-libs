@@ -823,7 +823,7 @@ MAILING_CONTENT_TYPE_CHOICES = (
     ("image_and_text", _("Image and text")),
     ("text", _("Text only")),
     ("news", _("News")),
-    ("tenders_and_competitions", _("Tenders and Compet.")),
+    ("tenders_and_compet", _("Tenders and Competitions")),
     ("events", _("Events")),
     ("portfolios", _("Portfolios")),
     ("interviews", _("Magazine")),
