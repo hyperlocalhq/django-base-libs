@@ -52,55 +52,55 @@
                                         </tr>
                                         <tr>
                                             <td valign="top" style="font-family:Arial, Helvetica, sans-serif;font-size:12px; line-height:16px; color:#000000; vertical-align:top;">
-                                                
-                                                {% if event.has_start_date or event.has_end_date %}
-                                                    {% if event.has_start_date and event.has_end_date and event.get_start_date != event.get_end_date %}
-                                                        {% if event.get_start_date %}
-                                                            {{ event.get_start_date|date:"d.m.Y" }}
-                                                        {% else %}
-                                                            {% if event.start_mm %}
-                                                                {{ event.get_start_mm_display }}
-                                                            {% endif %}
-                                                            {{ event.start_yyyy }}
-                                                        {% endif %}
-                                                        –
-                                                        {% if event.get_end_date %}
-                                                            {{ event.get_end_date|date:"d.m.Y" }}
-                                                        {% else %}
-                                                            {% if event.end_mm %}
-                                                                {{ event.get_end_mm_display }}
-                                                            {% endif %}
-                                                            {{ event.end_yyyy }}
-                                                        {% endif %}
-                                                    {% else %}
-                                                        {% if event.has_start_date %}
+                                                <span class="apple-link-date">
+                                                    {% if event.has_start_date or event.has_end_date %}
+                                                        {% if event.has_start_date and event.has_end_date and event.get_start_date != event.get_end_date %}
                                                             {% if event.get_start_date %}
                                                                 {{ event.get_start_date|date:"d.m.Y" }}
-                                                                {{ event.get_start_date|time:"H:i" }}
                                                             {% else %}
                                                                 {% if event.start_mm %}
                                                                     {{ event.get_start_mm_display }}
                                                                 {% endif %}
                                                                 {{ event.start_yyyy }}
                                                             {% endif %}
-                                                        {% endif %}
-                                                        {% if event.has_end_date %}
-                                                            {% ifnotequal event.get_start_date event.get_end_date %}
-                                                                –
-                                                                {% if event.get_end_date %}
-                                                                    {{ event.get_end_date|date:"d.m.Y" }}
-                                                                    {{ event.get_end_date|time:"H:i" }}
-                                                                {% else %}
-                                                                    {% if event.end_mm %}
-                                                                        {{ event.get_end_mm_display }}
-                                                                    {% endif %}
-                                                                    {{ event.end_yyyy }}
+                                                            –
+                                                            {% if event.get_end_date %}
+                                                                {{ event.get_end_date|date:"d.m.Y" }}
+                                                            {% else %}
+                                                                {% if event.end_mm %}
+                                                                    {{ event.get_end_mm_display }}
                                                                 {% endif %}
-                                                            {% endifnotequal %}
+                                                                {{ event.end_yyyy }}
+                                                            {% endif %}
+                                                        {% else %}
+                                                            {% if event.has_start_date %}
+                                                                {% if event.get_start_date %}
+                                                                    {{ event.get_start_date|date:"d.m.Y" }}
+                                                                    {{ event.get_start_date|time:"H:i" }}
+                                                                {% else %}
+                                                                    {% if event.start_mm %}
+                                                                        {{ event.get_start_mm_display }}
+                                                                    {% endif %}
+                                                                    {{ event.start_yyyy }}
+                                                                {% endif %}
+                                                            {% endif %}
+                                                            {% if event.has_end_date %}
+                                                                {% ifnotequal event.get_start_date event.get_end_date %}
+                                                                    –
+                                                                    {% if event.get_end_date %}
+                                                                        {{ event.get_end_date|date:"d.m.Y" }}
+                                                                        {{ event.get_end_date|time:"H:i" }}
+                                                                    {% else %}
+                                                                        {% if event.end_mm %}
+                                                                            {{ event.get_end_mm_display }}
+                                                                        {% endif %}
+                                                                        {{ event.end_yyyy }}
+                                                                    {% endif %}
+                                                                {% endifnotequal %}
+                                                            {% endif %}
                                                         {% endif %}
                                                     {% endif %}
-                                                {% endif %}
-                                                
+                                                </span>
                                                 <br /> 
                                                 {{ event.venue.get_title|default:event.venue_title }} 
                                                 <br /> 
