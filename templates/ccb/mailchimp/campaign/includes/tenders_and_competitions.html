@@ -1,111 +1,70 @@
 {% load base_tags image_mods_tags i18n %}
-<table class="news" width="600" border="0" cellspacing="0" cellpadding="0">
-    <tbody>
-        <tr style="background-color: #E8EDF0">
-            <td align="left" valign="bottom">
-                <!-- title goes here -->
-                <h3><span>TENDERS AND COMPETITIONS</span></h3>
-            </td>
-            <td align="right" valign="bottom" width="175">
-                <!-- VIEW MORE link goes here -->
-                <a title="" class="proceed" href="http://www.creative-city-berlin.de/{{ LANGUAGE_CODE }}/news/category/tenders-competitions/" target="_blank">{% trans "more" %}…</a>
-            </td>
-        </tr>
-        <tr>
-            <td align="left" valign="top" width="600" colspan="2">
-                {% get_objects site_published_objects_all_languages.tenders_and_competitions articles.Article 4 as articles %}
-                {% for article in articles %}
-                    {% if article.description %}
-                        {% parse article.get_rendered_description as description %}
-                    {% else %}
-                        {% parse article.get_rendered_content as description %}
-                    {% endif %}
 
-                    {% if article.image or description|get_first_media|get_media_src %}
-                        <table class="news_image" width="600" border="0" cellspacing="0" cellpadding="0">
-                            <tbody>
-                                <tr>
-                                    <td align="left" valign="top" width="149"
-                                        style="background-color: #f1f4f6; border-right:1px #E8EDF0 solid;">
-                                        {% if article.image %}
-                                            <a href="{{ article.get_url }}" target="_blank">
-                                                <img
-                                                    src="http://www.creative-city-berlin.de/media/{{ article.image|modified_path:"nl_n" }}"
-                                                    alt="" width="149" height="">
-                                            </a>
-                                        {% else %}
-                                            {% with description|get_first_media|get_media_src as image_src %}
-                                                {% if "http" in image_src %}
-                                                    <a href="{{ article.get_url }}" target="_blank">
-                                                        <img
-                                                            src="{{ description|get_first_media|get_media_src }}" alt=""
-                                                            width="149" height="">
-                                                    </a>
-                                                {% else %}
-                                                    <a href="{{ article.get_url }}" target="_blank">
-                                                        <img
-                                                            src="http://www.creative-city-berlin.de{{ description|get_first_media|get_media_src }}"
-                                                            alt="" width="149" height="">
-                                                    </a>
-                                                {% endif %}
-                                            {% endwith %}
-                                        {% endif %}
-                                    </td>
-                                    <td align="left" valign="top" width="450" colspan="1">
-                                        <table width="450" border="0" cellspacing="0" cellpadding="20">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <h4>{{ article.title }}</h4>
 
-                                                        <p>{{ description|striptags|truncatewords:"30" }}</p>
-                                                        <a href="{{ article.get_url }}" target="_blank" class="more">
-                                                            more …
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    {% else %}
-                        <table class="news" width="600" border="0" cellspacing="0" cellpadding="0">
-                            <tbody>
-                                <tr>
-                                    <td align="left" valign="top" width="600" colspan="2">
-                                        <table width="600" border="0" cellspacing="0" cellpadding="20">
-                                            <tbody>
-                                                <tr>
-                                                    <td style="border-top:1px #dbe5e8 solid;">
-                                                        <h4>{{ article.title }}</h4>
+<!-- Chapter -->
 
-                                                        <p>{{ description|striptags|truncatewords:"30" }}</p>
-                                                        <a href="{{ article.get_url }}" target="_blank" class="more">
-                                                            more…
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    {% endif %}
-                {% endfor %}
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <img
-                    src="http://www.creative-city-berlin.de/static/0/site/img/newsletter/ccb_newsletter_shadow.png"
-                    alt=""
-                    width="600"
-                    height="20"
-                    border="no"/>
-            </td>
-        </tr>
-    </tbody>
+<table width="600" height="80" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" style="mso-table-lspace:0pt;mso-table-rspace:0pt;padding:0px;margin:0px; border-collapse:collapse;">
+  <tr>
+    <td height="20"><span style="font-size:2px;">&nbsp;</span></td>
+  </tr>
+  <tr>
+    <td height="40" align="center" style="border-collapse:collapse;border-bottom:1px solid #AAAAAA; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#000000; text-transform:uppercase;">{% trans 'Tenders and <b>Competitions</b>' %}</td>
+  </tr>
+  <tr>
+    <td height="20"><span style="font-size:2px;">&nbsp;</span></td>
+  </tr>
 </table>
+
+            
+<!-- 2 Columns Text -->
+<table width="600" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" style="mso-table-lspace:0pt;mso-table-rspace:0pt;padding:0px;margin:0px; border-collapse:collapse;">
+    {% get_objects site_published_objects_all_languages.tenders_and_competitions articles.Article 8 as articles %}
+    {% for article in articles %}
+    
+        {% if article.description %}
+            {% parse article.get_rendered_description as description %}
+        {% else %}
+            {% parse article.get_rendered_content as description %}
+        {% endif %}
+    
+        {% if forloop.counter0|divisibleby:2 %}
+            <tr>
+                <!-- 1. Column -->
+                <td width="290" valign="top">
+        {% else %}
+                </td>
+                <td width="20"><span style="font-size:2px;">&nbsp;</span></td>
+                
+                <!-- 2. Column -->
+                <td width="290" valign="top">
+        {% endif %}
+                
+                <!-- Entry -->
+                    <table width="290" cellspacing="0" cellpadding="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;padding:0px;margin:0px; border-collapse:collapse;">
+                        <tr>
+                            <td valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; font-weight:bold; line-height:20px; color:#000000;">
+                                {{ article.title }}
+                            </td>
+                        </tr>
+                            <td style="font-family:Arial, Helvetica, sans-serif;font-size:12px; line-height:20px; color:#787878;">
+                                {{ description|striptags|truncatewords:"15" }}
+                            </td>
+                        <tr>
+                            <td style="font-family:Arial, Helvetica, sans-serif;font-size:12px; line-height:20px;">
+                                <a href="{{ article.get_url }}" style="color:#00bcee; text-decoration:none">{% trans 'more' %}...</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="20"><span style="font-size:2px;">&nbsp;</span></td>
+                        </tr>
+                    </table>
+                    
+        {% if forloop.counter1|divisibleby:2 or forloop.last %}       
+                </td>
+            </tr>
+        {% endif %}
+        
+    {% endfor %}
+</table>
+            
+

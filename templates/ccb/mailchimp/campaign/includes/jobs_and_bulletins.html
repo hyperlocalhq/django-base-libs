@@ -1,4 +1,87 @@
 {% load base_tags image_mods_tags i18n %}
+
+<!-- Chapter -->
+
+<table width="600" height="80" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" style="mso-table-lspace:0pt;mso-table-rspace:0pt;padding:0px;margin:0px; border-collapse:collapse;">
+  <tr>
+    <td height="20"><span style="font-size:2px;">&nbsp;</span></td>
+  </tr>
+  <tr>
+    <td height="40" align="center" style="border-collapse:collapse;border-bottom:1px solid #AAAAAA; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#000000; text-transform:uppercase;">{% trans 'Jobs and <b>Marketplace</b>' %}</td>
+  </tr>
+  <tr>
+    <td height="20"><span style="font-size:2px;">&nbsp;</span></td>
+  </tr>
+</table>
+
+            
+<!-- 2 Columns Text -->
+<table width="600" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" style="mso-table-lspace:0pt;mso-table-rspace:0pt;padding:0px;margin:0px; border-collapse:collapse;">
+    
+    {% get_objects objects.latest_published marketplace.JobOffer 4 as job_offers %}
+    {% get_objects published_objects.all bulletin_board.Bulletin 4 as bulletins %}
+    
+    {% for article in job_offers|add:bulletins %}
+    
+        {% if article.description %}
+            {% parse article.get_rendered_description as description %}
+        {% else %}
+            {% parse article.get_rendered_content as description %}
+        {% endif %}
+    
+        {% if forloop.counter0|divisibleby:2 %}
+            <tr>
+                <!-- 1. Column -->
+                <td width="290" valign="top">
+        {% else %}
+                </td>
+                <td width="20"><span style="font-size:2px;">&nbsp;</span></td>
+                
+                <!-- 2. Column -->
+                <td width="290" valign="top">
+        {% endif %}
+                
+                <!-- Entry -->
+                    <table width="290" cellspacing="0" cellpadding="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;padding:0px;margin:0px; border-collapse:collapse;">
+                        <tr>
+                            <td valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; font-weight:bold; line-height:20px; color:#000000;">
+                                {% if article.position %}
+                                    {{ article.position }}
+                                {% else %}
+                                    {{ article.title }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                            <td style="font-family:Arial, Helvetica, sans-serif;font-size:12px; line-height:20px; color:#787878;">
+                                {{ description|striptags|truncatewords:"15" }}
+                            </td>
+                        <tr>
+                            <td style="font-family:Arial, Helvetica, sans-serif;font-size:12px; line-height:20px;">
+                                <a href="{{ article.get_url }}" style="color:#00bcee; text-decoration:none">{% trans 'more' %}...</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="20"><span style="font-size:2px;">&nbsp;</span></td>
+                        </tr>
+                    </table>
+                    
+        {% if forloop.counter1|divisibleby:2 or forloop.last %}       
+                </td>
+            </tr>
+        {% endif %}
+        
+    {% endfor %}
+</table>
+            
+
+
+
+
+
+
+
+
+
 <table class="news" width="600" border="0" cellspacing="0" cellpadding="0">
     <tbody>
         <tr style="background-color: #E8EDF0">
