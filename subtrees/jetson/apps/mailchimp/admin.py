@@ -165,7 +165,7 @@ class CampaignAdmin(ExtendedModelAdmin):
         return HttpResponse(html)
 
     def get_preview_link(self, obj):
-        return '<a href="%d/preview" target="_blank">%s</a>' % (obj.pk, ugettext("Preview"))
+        return '<a href="%d/preview/" target="_blank">%s</a>' % (obj.pk, ugettext("Preview"))
     get_preview_link.short_description = _("Preview")
     get_preview_link.allow_tags = True
 

@@ -336,7 +336,8 @@ class BulletinForm(forms.ModelForm):
             self._errors["phone"] = self.error_class([msg])
 
         if self.cleaned_data.get('institution_title', None):
-            del self._errors['institution']
+            if self._errors.get('institution', False):
+                del self._errors['institution']
         else:
             if self.cleaned_data.get('institution', None):
                 for field_name in [
