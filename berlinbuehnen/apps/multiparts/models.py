@@ -11,16 +11,15 @@ from base_libs.utils.misc import get_translation
 
 class ParentManager(models.Manager):
     def accessible_to(self, user):
-        from jetson.apps.permissions.models import PerObjectGroup
+        from berlinbuehnen.apps.locations.models import Location
         if user.has_perm("productions.change_production"):
             return self.get_query_set()
-        ids = PerObjectGroup.objects.filter(
-            content_type__app_label="multiparts",
-            content_type__model="parent",
-            sysname__startswith="owners",
-            users=user,
-        ).values_list("object_id", flat=True)
-        return self.get_query_set().filter(pk__in=ids)
+
+        owned_locations = Location.objects.owned_by(user=user)
+        return self.get_query_set().filter(
+            models.Q(production__in_program_of__in=owned_locations) |
+            models.Q(production__play_locations__in=owned_locations)
+        ).exclude(production__status="trashed").distinct()
 
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup

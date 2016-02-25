@@ -30,7 +30,7 @@ class OwnersForm(forms.Form):
 
 
 class ParentAdmin(ExtendedModelAdmin):
-    list_display = ('production', 'creation_date', 'modified_date', 'get_children', 'get_owners_list')
+    list_display = ('production', 'creation_date', 'modified_date', 'get_children')
     search_fields = ('production__title',)
 
     raw_id_fields = ['production']

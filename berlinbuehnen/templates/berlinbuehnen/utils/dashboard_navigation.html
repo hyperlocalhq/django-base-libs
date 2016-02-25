@@ -71,7 +71,7 @@
         <ul class="nav navbar-nav">
           <li{% if request.path == "/de/dashboard/" or  request.path == "/en/dashboard/" %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/">{% trans "Overview" %}</a></li>
           <li{% if "/whats-on/" in request.path or "/productions/" in request.path or "/spielplan/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/productions/">{% trans "Productions" %}</a></li>
-          <li{% if "/mehrteiler/" in request.path or "/multipart/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/multiparts/">{% trans "Multipart Productions" %}</a></li>
+          <li{% if "/mehrteiler/" in request.path or "/multiparts/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/multiparts/">{% trans "Multipart Productions" %}</a></li>
           <li{% if "/stages-and-companies/" in request.path or "/locations/" in request.path or "/buehnen-und-ensembles/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/locations/">{% trans "Theaters" %}</a></li>
           <li{% if "/festivals/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/festivals/">{% trans "Festivals" %}</a></li>
           <li{% if "/jobs/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/jobs/">{% trans "Jobs" %}</a></li>

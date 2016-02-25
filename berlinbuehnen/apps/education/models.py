@@ -39,16 +39,14 @@ TOKENIZATION_SUMMAND = 56436  # used to hide the ids of media files
 
 class DepartmentManager(models.Manager):
     def accessible_to(self, user):
-        from jetson.apps.permissions.models import PerObjectGroup
+        from berlinbuehnen.apps.locations.models import Location
         if user.has_perm("education.change_department"):
             return self.get_query_set().exclude(status="trashed")
-        ids = PerObjectGroup.objects.filter(
-            content_type__app_label="education",
-            content_type__model="department",
-            sysname__startswith="owners",
-            users=user,
-        ).values_list("object_id", flat=True)
-        return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
+
+        owned_locations = Location.objects.owned_by(user=user)
+        return self.get_query_set().filter(
+            location__in=owned_locations,
+        ).exclude(status="trashed")
 
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
@@ -332,16 +330,13 @@ class ProjectFormat(CreationModificationDateMixin, SlugMixin()):
         
 class ProjectManager(models.Manager):
     def accessible_to(self, user):
-        from jetson.apps.permissions.models import PerObjectGroup
+        from berlinbuehnen.apps.locations.models import Location
         if user.has_perm("education.change_project"):
             return self.get_query_set().exclude(status="trashed")
-        ids = PerObjectGroup.objects.filter(
-            content_type__app_label="education",
-            content_type__model="project",
-            sysname__startswith="owners",
-            users=user,
-        ).values_list("object_id", flat=True)
-        return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
+        owned_locations = Location.objects.owned_by(user=user)
+        return self.get_query_set().filter(
+            departments__location__in=owned_locations,
+        ).exclude(status="trashed").distinct()
 
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup

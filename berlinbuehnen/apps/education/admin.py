@@ -100,7 +100,7 @@ class DepartmentAdmin(ExtendedModelAdmin):
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
         )
 
-    list_display = ('title', 'creation_date', 'modified_date', 'get_owners_list', 'status')
+    list_display = ('title', 'creation_date', 'modified_date', 'status')
     list_editable = ('status', )
     list_filter = ('status', )
 
@@ -219,7 +219,7 @@ class ProjectVideoInline(ExtendedStackedInline):
 
 
 class ProjectAdmin(ExtendedModelAdmin):
-    list_display = ('title_de', 'get_locations', 'get_owners_list', 'creation_date', 'modified_date', 'status')
+    list_display = ('title_de', 'get_locations', 'creation_date', 'modified_date', 'status')
     list_editable = ('status',)
     search_fields = ('title_de', 'title_en')
     list_filter = ["creation_date", "modified_date", 'status']
