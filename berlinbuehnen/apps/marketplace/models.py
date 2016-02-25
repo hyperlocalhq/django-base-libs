@@ -196,3 +196,18 @@ class JobOffer(CreationModificationMixin, UrlMixin):
     def get_secure_id(self):
         return int(self.pk) + SECURITY_SUMMAND
 
+    def is_editable(self, user=None):
+        from django.contrib.auth.models import AnonymousUser
+        from base_libs.middleware.threadlocals import get_current_user
+        if not hasattr(self, "_is_editable_cache"):
+            user = get_current_user(user) or AnonymousUser()
+            self._is_editable_cache = user.has_perm("marketplace.change_joboffer", self)
+        return self._is_editable_cache
+
+    def is_deletable(self, user=None):
+        from django.contrib.auth.models import AnonymousUser
+        from base_libs.middleware.threadlocals import get_current_user
+        if not hasattr(self, "_is_deletable_cache"):
+            user = get_current_user(user) or AnonymousUser()
+            self._is_deletable_cache = user.has_perm("marketplace.delete_joboffer", self)
+        return self._is_deletable_cache

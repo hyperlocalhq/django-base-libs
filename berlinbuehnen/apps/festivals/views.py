@@ -98,7 +98,7 @@ def festival_detail(request, slug):
     if "preview" in request.REQUEST:
         qs = Festival.objects.all()
         obj = get_object_or_404(qs, slug=slug)
-        if not request.user.has_perm("festivals.change_festival", obj):
+        if not obj.is_editable():
             return access_denied(request)
     else:
         qs = Festival.objects.filter(status="published")
@@ -116,7 +116,7 @@ def festival_events(request, slug):
     if "preview" in request.REQUEST:
         qs = Festival.objects.all()
         obj = get_object_or_404(qs, slug=slug)
-        if not request.user.has_perm("festivals.change_festival", obj):
+        if not obj.is_editable():
             return access_denied(request)
     else:
         qs = Festival.objects.filter(status="published")
@@ -158,7 +158,7 @@ def add_festival(request):
 @login_required
 def change_festival(request, slug):
     instance = get_object_or_404(Festival, slug=slug)
-    if not request.user.has_perm("festivals.change_festival", instance):
+    if not instance.is_editable():
         return access_denied(request)
     return show_form_step(request, FESTIVAL_FORM_STEPS, extra_context={'festival': instance}, instance=instance);
 
@@ -167,7 +167,7 @@ def change_festival(request, slug):
 @login_required
 def delete_festival(request, slug):
     instance = get_object_or_404(Festival, slug=slug)
-    if not request.user.has_perm("festivals.delete_festival", instance):
+    if not instance.is_deletable():
         return access_denied(request)
     if request.method == "POST" and request.is_ajax():
         instance.status = "trashed"
@@ -180,7 +180,7 @@ def delete_festival(request, slug):
 @login_required
 def change_festival_status(request, slug):
     instance = get_object_or_404(Festival, slug=slug)
-    if not request.user.has_perm("festivals.change_festival", instance):
+    if not instance.is_editable():
         return access_denied(request)
     if request.method == "POST" and request.is_ajax() and request.POST['status'] in ("draft", "published", "not_listed"):
         instance.status = request.POST['status']
@@ -193,7 +193,7 @@ def change_festival_status(request, slug):
 @login_required
 def duplicate_festival(request, slug):
     festival = get_object_or_404(Festival, slug=slug)
-    if not request.user.has_perm("festivals.change_festival", festival) or not request.user.has_perm("festivals.add_festival"):
+    if not festival.is_editable() or not request.user.has_perm("festivals.add_festival"):
         return access_denied(request)
     if request.method == "POST" and request.is_ajax():
         new_festival = festival.duplicate()
@@ -226,7 +226,7 @@ def update_mediafile_ordering(tokens, festival):
 @login_required
 def image_overview(request, slug):
     instance = get_object_or_404(Festival, slug=slug)
-    if not request.user.has_perm("festivals.change_festival", instance):
+    if not instance.is_editable():
         return access_denied(request)
 
     if "ordering" in request.POST and request.is_ajax():
@@ -241,7 +241,7 @@ def image_overview(request, slug):
 @login_required
 def create_update_image(request, slug, mediafile_token="", **kwargs):
     instance = get_object_or_404(Festival, slug=slug)
-    if not request.user.has_perm("festivals.change_festival", instance):
+    if not instance.is_editable():
         return access_denied(request)
 
     rel_dir = "festivals/%s/" % instance.slug
@@ -376,7 +376,7 @@ def create_update_image(request, slug, mediafile_token="", **kwargs):
 @login_required
 def delete_image(request, slug, mediafile_token="", **kwargs):
     instance = get_object_or_404(Festival, slug=slug)
-    if not request.user.has_perm("festivals.change_festival", instance):
+    if not instance.is_editable():
         return access_denied(request)
 
     filters = {
@@ -445,7 +445,7 @@ def update_pdf_ordering(tokens, festival):
 @login_required
 def pdf_overview(request, slug):
     festival = get_object_or_404(Festival, slug=slug)
-    if not request.user.has_perm("festivals.change_festival", festival):
+    if not festival.is_editable():
         return access_denied(request)
 
     if "ordering" in request.POST and request.is_ajax():
@@ -462,7 +462,7 @@ def pdf_overview(request, slug):
 @login_required
 def create_update_pdf(request, slug, mediafile_token="", **kwargs):
     festival = get_object_or_404(Festival, slug=slug)
-    if not request.user.has_perm("festivals.change_festival", festival):
+    if not festival.is_editable():
         return access_denied(request)
 
     rel_dir = "festivals/%s/" % festival.slug
@@ -594,7 +594,7 @@ def create_update_pdf(request, slug, mediafile_token="", **kwargs):
 @login_required
 def delete_pdf(request, slug, mediafile_token="", **kwargs):
     festival = get_object_or_404(Festival, slug=slug)
-    if not request.user.has_perm("festivals.change_festival", festival):
+    if not festival.is_editable():
         return access_denied(request)
 
     filters = {

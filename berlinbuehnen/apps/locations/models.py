@@ -278,6 +278,22 @@ class Location(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
         return self._first_image_cache
     first_image = property(_get_first_image)
 
+    def is_editable(self, user=None):
+        from django.contrib.auth.models import AnonymousUser
+        from base_libs.middleware.threadlocals import get_current_user
+        if not hasattr(self, "_is_editable_cache"):
+            user = get_current_user(user) or AnonymousUser()
+            self._is_editable_cache = user.has_perm("locations.change_location", self)
+        return self._is_editable_cache
+
+    def is_deletable(self, user=None):
+        from django.contrib.auth.models import AnonymousUser
+        from base_libs.middleware.threadlocals import get_current_user
+        if not hasattr(self, "_is_deletable_cache"):
+            user = get_current_user(user) or AnonymousUser()
+            self._is_deletable_cache = user.has_perm("locations.delete_location", self)
+        return self._is_deletable_cache
+
 
 class Stage(CreationModificationMixin, SlugMixin()):
     location = models.ForeignKey(Location, verbose_name=_("Location"))

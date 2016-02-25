@@ -44,10 +44,10 @@
                     <!-- image -->
                     <div class="list-item-head-image img hidden-xs col-sm-8">
                         {% if event.first_image %}
-                            <img src="{{ MEDIA_URL }}{{ event.first_image.path|modified_path:"list_image" }}{% if_has_perm "events.change_event" event %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.production.title|escape }}" />
+                            <img src="{{ MEDIA_URL }}{{ event.first_image.path|modified_path:"list_image" }}{% if event.production.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ event.production.title|escape }}" />
                         {% elif event.ev_or_prod_images %}
                             {% with event.ev_or_prod_images|first as image %}
-                                <img src="{{ MEDIA_URL }}{{ image.path|modified_path:"list_image" }}{% if_has_perm "events.change_event" event %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.production.title|escape }}" />
+                                <img src="{{ MEDIA_URL }}{{ image.path|modified_path:"list_image" }}{% if event.production.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ event.production.title|escape }}" />
                             {% endwith %}
                         {% else %}
                             <img src="{{ STATIC_URL }}site/img/placeholder_event.png" />

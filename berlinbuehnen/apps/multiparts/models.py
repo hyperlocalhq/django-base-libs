@@ -108,6 +108,23 @@ class Parent(CreationModificationMixin, UrlMixin):
             return []
         return role.users.all()
 
+    def is_editable(self, user=None):
+        from django.contrib.auth.models import AnonymousUser
+        from base_libs.middleware.threadlocals import get_current_user
+        if not hasattr(self, "_is_editable_cache"):
+            user = get_current_user(user) or AnonymousUser()
+            if user.has_perm("multiparts.change_parent", self):
+                return True
+            # return True when the first editable location is found
+            self._is_editable_cache = any((
+                location.is_editable()
+                for locations in (self.production.in_program_of.all(), self.production.play_locations.all())
+                for location in locations
+            ))
+        return self._is_editable_cache
+
+    def is_deletable(self, user=None):
+        return self.is_editable(user=user)
 
 
 class Part(models.Model):

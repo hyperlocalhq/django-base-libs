@@ -30,8 +30,8 @@
                                         <a href="{{ festival.get_url_path }}">
                                             {% if festival.first_image %}
                                                 <span class="grid-item-image">
-                                                    {% if not festival.featured %}<img class="hidden-xs no-print" src="{{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"mazery_image" }}{% if_has_perm "festival.change_festival" festival %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.production.title|escape }}" />{% endif %}
-                                                    <img class="{% if not festival.featured %} visible-xs {% endif %} no-print" src="{{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"gallery_image" }}{% if_has_perm "festival.change_festival" festival %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.production.title|escape }}" />
+                                                    {% if not festival.featured %}<img class="hidden-xs no-print" src="{{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"mazery_image" }}{% if festival.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ festival.title|escape }}" />{% endif %}
+                                                    <img class="{% if not festival.featured %} visible-xs {% endif %} no-print" src="{{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"gallery_image" }}{% if festival.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ festival.title|escape }}" />
                                                     {% if request.user.is_authenticated %}
                                                         {% adding2favorites for festival using "favorites/includes/favorite_grid.html" %}
                                                     {% else %}

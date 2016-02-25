@@ -37,11 +37,11 @@
                             <!-- headlines -->
                             <header>
                                 <h1>{{ department.title }}
-                                    {% if_has_perm "education.change_department" object %}
+                                    {% if object.is_editable %}
                                         {% if not request.is_mobile %}
                                             <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{% url "change_department" slug=department.slug %}">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>
                                         {% endif %}
-                                    {% end_if_has_perm %}
+                                    {% endif %}
                                 </h1>
                             </header>
                             
@@ -151,9 +151,9 @@
                                                                         <!-- image -->
                                                                         <div class="list-item-head-image img hidden-xs col-sm-8">
                                                                             {% if project.first_image %}
-                                                                                <img src="{{ MEDIA_URL }}{{ project.first_image.path|modified_path:"list_image" }}{% if_has_perm "education.change_project" project %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ project.title|escape }}" />
+                                                                                <img src="{{ MEDIA_URL }}{{ project.first_image.path|modified_path:"list_image" }}{% if project.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ project.title|escape }}" />
                                                                             {% elif department.first_image %}
-                                                                                <img src="{{ MEDIA_URL }}{{ department.first_image.path|modified_path:"list_image" }}{% if_has_perm "education.change_project" project %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ project.title|escape }}" />
+                                                                                <img src="{{ MEDIA_URL }}{{ department.first_image.path|modified_path:"list_image" }}{% if project.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ project.title|escape }}" />
                                                                             {% else %}
                                                                                 <img src="{{ STATIC_URL }}site/img/placeholder_event.png" />
                                                                             {% endif %}

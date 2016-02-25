@@ -133,7 +133,7 @@ class DepartmentAdmin(ExtendedModelAdmin):
         from base_libs.views.views import access_denied
         department = get_object_or_404(Department, pk=department_id)
 
-        if not request.user.has_perm('education.change_department', department):
+        if not department.is_editable():
             return access_denied(request)
 
         if request.method == "POST":
@@ -271,7 +271,7 @@ class ProjectAdmin(ExtendedModelAdmin):
         from base_libs.views.views import access_denied
         project = get_object_or_404(Project, pk=project_id)
 
-        if not request.user.has_perm('education.change_project', project):
+        if not project.is_editable():
             return access_denied(request)
 
         if request.method == "POST":

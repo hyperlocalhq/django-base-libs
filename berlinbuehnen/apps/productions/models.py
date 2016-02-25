@@ -545,6 +545,19 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
         return target_prod
     duplicate.alters_data = True
 
+    def is_editable(self, user=None):
+        if not hasattr(self, "_is_editable_cache"):
+            # return True when the first editable location is found
+            self._is_editable_cache = any((
+                location.is_editable()
+                for locations in (self.in_program_of.all(), self.play_locations.all())
+                for location in locations
+            ))
+        return self._is_editable_cache
+
+    def is_deletable(self, user=None):
+        return self.is_editable(user=user)
+
 
 class ProductionSocialMediaChannel(models.Model):
     production = models.ForeignKey(Production)

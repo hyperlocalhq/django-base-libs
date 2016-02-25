@@ -43,11 +43,9 @@
                                     <a href="{% url 'location_list_map' %}#object_id={{ location.id }}" class="fawesome map" data-toggle="tooltip" data-placement="top" title="{% trans "Show on map" %}" data-tooltip-left="-6"><span class="sr-only">{% trans "Show on map" %}</span></a>
                                 </div>
                                 <h1>{{ location.title }}
-                                    {% if_has_perm "locations.change_location" object %}
-                                        {% if not request.is_mobile %}
-                                            <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>
-                                        {% endif %}
-                                    {% end_if_has_perm %}
+                                    {% if object.is_editable and not request.is_mobile %}
+                                        <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>
+                                    {% endif %}
                                 </h1>
                                 {% if location.subtitle %}
                                     <h2>{{ location.subtitle }}</h2>

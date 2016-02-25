@@ -40,12 +40,12 @@
                                             <span class="icon icon-eye-open"></span>
                                             <span class="sr-only">{% trans "Preview" %}</span>
                                         </a>
-                                        {% if_has_perm "productions.delete_production" production %}
+                                        {% if production.is_deletable %}
                                             <a href="{{ event.get_url_path }}delete/{% if '/add/' in request.get_full_path %}?new_production=1{% endif %}" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Delete" %}" class="btn btn-sm btn-icon btn-link delete" data-object-title="{{ production.title }} {{ event.start_date|date:"j. F Y" }}, {{ event.start_time|time:"H:i" }}" data-object-type="{% trans "Event" %}">
                                                 <span class="icon icon-remove"></span>
                                                 <span class="sr-only">{% trans "Remove" %}</span>
                                             </a>
-                                        {% end_if_has_perm %}
+                                        {% endif %}
                                     </td>
                                 </tr>
                             {% endfor %}

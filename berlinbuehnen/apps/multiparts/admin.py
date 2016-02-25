@@ -56,7 +56,7 @@ class ParentAdmin(ExtendedModelAdmin):
         from base_libs.views.views import access_denied
         multipart = get_object_or_404(Parent, pk=multipart_id)
 
-        if not request.user.has_perm('productions.change_production', multipart):
+        if not multipart.is_editable():
             return access_denied(request)
 
         if request.method == "POST":

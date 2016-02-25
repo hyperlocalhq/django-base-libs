@@ -108,7 +108,7 @@ class FestivalAdmin(ExtendedModelAdmin):
         from base_libs.views.views import access_denied
         festival = get_object_or_404(Festival, pk=festival_id)
 
-        if not request.user.has_perm('festivals.change_festival', festival):
+        if not festival.is_editable():
             return access_denied(request)
 
         if request.method == "POST":

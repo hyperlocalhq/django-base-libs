@@ -210,7 +210,7 @@ def location_detail(request, slug):
     if "preview" in request.REQUEST:
         qs = Location.objects.all()
         obj = get_object_or_404(qs, slug=slug)
-        if not request.user.has_perm("locations.change_location", obj):
+        if not obj.is_editable():
             return access_denied(request)
     else:
         qs = Location.objects.filter(status__in=("published", "not_listed"))
@@ -228,7 +228,7 @@ def location_detail_ajax(request, slug):
     if "preview" in request.REQUEST:
         qs = Location.objects.all()
         obj = get_object_or_404(qs, slug=slug)
-        if not request.user.has_perm("locations.change_location", obj):
+        if not obj.is_editable():
             return access_denied(request)
     else:
         qs = Location.objects.filter(status__in=("published", "not_listed"))
@@ -254,7 +254,7 @@ def add_location(request):
 @login_required
 def change_location(request, slug):
     instance = get_object_or_404(Location, slug=slug)
-    if not request.user.has_perm("locations.change_location", instance):
+    if not instance.is_editable():
         return access_denied(request)
     return show_form_step(request, LOCATION_FORM_STEPS, extra_context={'location': instance}, instance=instance);
 
@@ -263,7 +263,7 @@ def change_location(request, slug):
 @login_required
 def delete_location(request, slug):
     instance = get_object_or_404(Location, slug=slug)
-    if not request.user.has_perm("locations.delete_location", instance):
+    if not instance.is_deletable():
         return access_denied(request)
     if request.method == "POST" and request.is_ajax():
         instance.status = "trashed"
@@ -276,7 +276,7 @@ def delete_location(request, slug):
 @login_required
 def change_location_status(request, slug):
     instance = get_object_or_404(Location, slug=slug)
-    if not request.user.has_perm("locations.change_location", instance):
+    if not instance.is_editable():
         return access_denied(request)
     if request.method == "POST" and request.is_ajax() and request.POST['status'] in ("draft", "published", "not_listed"):
         instance.status = request.POST['status']
@@ -310,7 +310,7 @@ def update_mediafile_ordering(tokens, location):
 @login_required
 def image_overview(request, slug):
     instance = get_object_or_404(Location, slug=slug)
-    if not request.user.has_perm("locations.change_location", instance):
+    if not instance.is_editable():
         return access_denied(request)
 
     if "ordering" in request.POST and request.is_ajax():
@@ -325,7 +325,7 @@ def image_overview(request, slug):
 @login_required
 def create_update_image(request, slug, mediafile_token="", **kwargs):
     instance = get_object_or_404(Location, slug=slug)
-    if not request.user.has_perm("locations.change_location", instance):
+    if not instance.is_editable():
         return access_denied(request)
 
     rel_dir = "locations/%s/" % instance.slug
@@ -460,7 +460,7 @@ def create_update_image(request, slug, mediafile_token="", **kwargs):
 @login_required
 def delete_image(request, slug, mediafile_token="", **kwargs):
     instance = get_object_or_404(Location, slug=slug)
-    if not request.user.has_perm("locations.change_location", instance):
+    if not instance.is_editable():
         return access_denied(request)
 
     filters = {

@@ -47,7 +47,7 @@
                                     <!-- image -->
                                     <span class="grid-item-image img">
                                         {% if location.first_image %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ location.first_image.path|modified_path:"detail_image" }}{% if_has_perm "location.change_location" location %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ location.title|escape }}" />
+                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ location.first_image.path|modified_path:"detail_image" }}{% if location.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ location.title|escape }}" />
                                         {% else %}
                                             <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
                                         {% endif %}

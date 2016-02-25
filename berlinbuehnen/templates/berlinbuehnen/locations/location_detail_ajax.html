@@ -5,7 +5,7 @@
     <a class="map-description-content"  href="{{ location.get_url_path }}">
         
         {% if location.first_image %}
-            <img src="{{ MEDIA_URL }}{{ location.first_image.path|modified_path:"detail_image" }}{% if_has_perm "location.change_location" location %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ location.title|escape }}" />
+            <img src="{{ MEDIA_URL }}{{ location.first_image.path|modified_path:"detail_image" }}{% if location.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ location.title|escape }}" />
         {% endif %}
                                       
         <h1>{{ location.title }} </h1>

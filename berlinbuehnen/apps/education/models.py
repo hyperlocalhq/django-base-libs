@@ -200,6 +200,12 @@ class Department(CreationModificationMixin, UrlMixin, SlugMixin()):
             return result
         return None
 
+    def is_editable(self, user=None):
+        return self.location.is_editable(user=user)
+
+    def is_deletable(self, user=None):
+        return self.is_editable(user=user)
+
 
 class DepartmentMember(CreationModificationDateMixin):
     department = models.ForeignKey(Department, verbose_name=_("Department"))
@@ -531,6 +537,15 @@ class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
         
     def get_published_departments(self):
         return self.departments.filter(status="published")
+
+    def is_editable(self, user=None):
+        if not hasattr(self, "_is_editable_cache"):
+            # return True when the first editable department is found
+            self._is_editable_cache = any((department.is_editable() for department in self.departments.all()))
+        return self._is_editable_cache
+
+    def is_deletable(self, user=None):
+        return self.is_editable(user=user)
 
 
 class ProjectTime(CreationModificationMixin, UrlMixin):

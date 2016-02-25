@@ -273,6 +273,23 @@ class Festival(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
         return target_festival
     duplicate.alters_data = True
 
+    def is_editable(self, user=None):
+        from django.contrib.auth.models import AnonymousUser
+        from base_libs.middleware.threadlocals import get_current_user
+        if not hasattr(self, "_is_editable_cache"):
+            user = get_current_user(user) or AnonymousUser()
+            if user.has_perm("festivals.change_festival", self):
+                return True
+            # return True when the first editable location is found
+            self._is_editable_cache = any((
+                location.is_editable()
+                for location in self.organizers.all()
+            ))
+        return self._is_editable_cache
+
+    def is_deletable(self, user=None):
+        return self.is_editable(user=user)
+
 
 class Image(CreationModificationDateMixin):
     festival = models.ForeignKey(Festival, verbose_name=_("Festival"))

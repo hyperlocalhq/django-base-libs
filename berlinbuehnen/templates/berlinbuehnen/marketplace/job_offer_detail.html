@@ -40,11 +40,9 @@
                                     {% endif %}
                                 </div>-->
                                 <h1>{{ job_offer.position }}
-                                    {% if_has_perm "job_offers.change_job_offer" object %}
-                                        {% if not request.is_mobile %}
-                                            <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>
-                                        {% endif %}
-                                    {% end_if_has_perm %}
+                                    {% if object.is_editable and not request.is_mobile %}
+                                        <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>
+                                    {% endif %}
                                 </h1>
                             </header>
                             

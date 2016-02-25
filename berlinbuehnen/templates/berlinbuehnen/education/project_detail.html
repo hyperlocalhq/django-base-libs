@@ -85,11 +85,11 @@
                                     {% endif %}
                                 </div>
                                 <h1>{{ project.title }}
-                                    {% if_has_perm "education.change_project" project %}
+                                    {% if project.is_editable %}
                                         {% if not request.is_mobile %}
                                             <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{% url "change_project" slug=project.slug %}">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>
                                         {% endif %}
-                                    {% end_if_has_perm %}
+                                    {% endif %}
                                 </h1>
                                 {% if project.subtitle %}
                                     <h2>{{ project.subtitle }}</h2>

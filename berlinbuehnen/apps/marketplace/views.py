@@ -118,7 +118,7 @@ def job_offer_detail(request, secure_id):
     if "preview" in request.REQUEST:
         qs = JobOffer.objects.all()
         obj = get_object_or_404(qs, pk=secure_id-SECURITY_SUMMAND)
-        if not request.user.has_perm("marketplace.change_joboffer", obj):
+        if not obj.is_editable():
             return access_denied(request)
     else:
         qs = JobOffer.objects.filter(status__in=("published", "not_listed"))
@@ -156,7 +156,7 @@ def add_job_offer(request):
 def change_job_offer(request, secure_id):
     secure_id = int(secure_id)
     instance = get_object_or_404(JobOffer, pk=secure_id-SECURITY_SUMMAND)
-    if not request.user.has_perm("marketplace.change_joboffer", instance):
+    if not instance.is_editable():
         return access_denied(request)
 
     if request.method == "POST":
@@ -174,7 +174,7 @@ def change_job_offer(request, secure_id):
 def delete_job_offer(request, secure_id):
     secure_id = int(secure_id)
     instance = get_object_or_404(JobOffer, pk=secure_id-SECURITY_SUMMAND)
-    if not request.user.has_perm("marketplace.delete_joboffer", instance):
+    if not instance.is_deletable():
         return access_denied(request)
     if request.method == "POST" and request.is_ajax():
         instance.status = "trashed"
@@ -188,7 +188,7 @@ def delete_job_offer(request, secure_id):
 def change_job_offer_status(request, secure_id):
     secure_id = int(secure_id)
     instance = get_object_or_404(JobOffer, pk=secure_id-SECURITY_SUMMAND)
-    if not request.user.has_perm("marketplace.change_joboffer", instance):
+    if not instance.is_editable():
         return access_denied(request)
     if request.method == "POST" and request.is_ajax() and request.POST['status'] in ("draft", "published", "not_listed"):
         instance.status = request.POST['status']

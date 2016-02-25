@@ -208,7 +208,7 @@ class ProductionAdmin(ExtendedModelAdmin):
         from base_libs.views.views import access_denied
         production = get_object_or_404(Production, pk=production_id)
 
-        if not request.user.has_perm('productions.change_production', production):
+        if not production.is_editable():
             return access_denied(request)
 
         if request.method == "POST":
