@@ -1211,7 +1211,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             setattr(instance, fname, form_step_data[current_step][fname])
 
         if not instance.slug:
-            instance.slug = get_unique_value(Production, better_slugify(instance.title_de), instance_pk=instance.pk)
+            instance.slug = get_unique_value(Production, better_slugify(instance.title_de) or u"production", instance_pk=instance.pk)
 
         instance.save()
 
