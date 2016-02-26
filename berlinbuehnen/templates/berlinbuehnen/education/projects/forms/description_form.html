@@ -167,9 +167,11 @@
             
             // Initial state
             var $total_forms = $('#id_members-TOTAL_FORMS');
+            /*
             if ($total_forms.val() == "0") {
                 $('#add_member').click();
             }
+            */
 
             $(
                 '<a class="add btn btn-primary" id="add_social" href="#">{% trans "Add social media channel" %}</a>'
@@ -185,9 +187,11 @@
 
             // Initial state
             var $total_forms = $('#id_social-TOTAL_FORMS');
+            /*
             if ($total_forms.val() == "0") {
                 $('#add_social').click();
             }
+            */
 
             $(
                 '<a class="add btn btn-primary" id="add_sponsors" href="#">{% trans "Add sponsor" %}</a>'
@@ -203,9 +207,11 @@
 
             // Initial state
             var $total_forms = $('#id_sponsors-TOTAL_FORMS');
+            /*
             if ($total_forms.val() == "0") {
                 $('#add_sponsors').click();
             }
+            */
           
             $('.enter_person').on('click', function(e) {
                 e.preventDefault();

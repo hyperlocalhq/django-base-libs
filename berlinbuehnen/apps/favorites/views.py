@@ -232,7 +232,7 @@ def send_user_favorites_by_email(request, user_token, **kwargs):
         form = FavoritesByEmailForm(data=request.POST)
         if form.is_valid():
             cleaned = form.cleaned_data
-            sender_name, sender_email = settings.MANAGERS[0]
+            sender_name, sender_email = cleaned['sender_name'], cleaned['sender_email']  # settings.MANAGERS[0]
             user_favorites_view = get_website_url(reverse('user_favorites', kwargs={'user_token': user_token}))
             send_email_using_template(
                 recipients_list=[Recipient(name=cleaned['recipient_name'], email=cleaned['recipient_email'])],

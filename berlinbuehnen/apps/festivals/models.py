@@ -40,17 +40,15 @@ TOKENIZATION_SUMMAND = 56436  # used to hide the ids of media files
 
 class FestivalManager(models.Manager):
     def accessible_to(self, user):
-        from jetson.apps.permissions.models import PerObjectGroup
+        from berlinbuehnen.apps.locations.models import Location
         if user.has_perm("festivals.change_production"):
             return self.get_query_set().exclude(status="trashed")
-        ids = PerObjectGroup.objects.filter(
-            content_type__app_label="festivals",
-            content_type__model="festival",
-            sysname__startswith="owners",
-            users=user,
-        ).values_list("object_id", flat=True)
-        return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
-        
+
+        owned_locations = Location.objects.owned_by(user=user)
+        return self.get_query_set().filter(
+            organizers__in=owned_locations,
+        ).exclude(status="trashed").distinct()
+
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
         if user.has_perm("festivals.change_festival"):
@@ -68,6 +66,7 @@ class FestivalManager(models.Manager):
             status="published",
             newsletter=True
         ).order_by('start')
+
 
 class Festival(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMixin):
     title = MultilingualCharField(_("Title"), max_length=255)
@@ -272,6 +271,23 @@ class Festival(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
             target_festival.set_owner(owner)
         return target_festival
     duplicate.alters_data = True
+
+    def is_editable(self, user=None):
+        from django.contrib.auth.models import AnonymousUser
+        from base_libs.middleware.threadlocals import get_current_user
+        if not hasattr(self, "_is_editable_cache"):
+            user = get_current_user(user) or AnonymousUser()
+            if user.has_perm("festivals.change_festival", self):
+                return True
+            # return True when the first editable location is found
+            self._is_editable_cache = any((
+                location.is_editable()
+                for location in self.organizers.all()
+            ))
+        return self._is_editable_cache
+
+    def is_deletable(self, user=None):
+        return self.is_editable(user=user)
 
 
 class Image(CreationModificationDateMixin):

@@ -52,7 +52,7 @@ def update_video_ordering(tokens, project):
 @login_required
 def video_overview(request, slug):
     instance = get_object_or_404(Project, slug=slug)
-    if not request.user.has_perm("education.change_project", instance):
+    if not instance.is_editable():
         return access_denied(request)
 
     if "ordering" in request.POST and request.is_ajax():
@@ -67,7 +67,7 @@ def video_overview(request, slug):
 @login_required
 def create_update_video(request, slug, mediafile_token="", **kwargs):
     instance = get_object_or_404(Project, slug=slug)
-    if not request.user.has_perm("education.change_project", instance):
+    if not instance.is_editable():
         return access_denied(request)
 
     if mediafile_token:
@@ -152,7 +152,7 @@ def create_update_video(request, slug, mediafile_token="", **kwargs):
 @login_required
 def delete_video(request, slug, mediafile_token="", **kwargs):
     instance = get_object_or_404(Project, slug=slug)
-    if not request.user.has_perm("education.change_project", instance):
+    if not instance.is_editable():
         return access_denied(request)
 
     filters = {
@@ -213,7 +213,7 @@ def update_image_ordering(tokens, project):
 @login_required
 def image_overview(request, slug):
     instance = get_object_or_404(Project, slug=slug)
-    if not request.user.has_perm("education.change_project", instance):
+    if not instance.is_editable():
         return access_denied(request)
 
     if "ordering" in request.POST and request.is_ajax():
@@ -228,7 +228,7 @@ def image_overview(request, slug):
 @login_required
 def create_update_image(request, slug, mediafile_token="", **kwargs):
     instance = get_object_or_404(Project, slug=slug)
-    if not request.user.has_perm("education.change_project", instance):
+    if not instance.is_editable():
         return access_denied(request)
 
     rel_dir = "education/projects/%s/" % instance.slug
@@ -363,7 +363,7 @@ def create_update_image(request, slug, mediafile_token="", **kwargs):
 @login_required
 def delete_image(request, slug, mediafile_token="", **kwargs):
     instance = get_object_or_404(Project, slug=slug)
-    if not request.user.has_perm("education.change_project", instance):
+    if not instance.is_editable():
         return access_denied(request)
 
     filters = {
@@ -430,7 +430,7 @@ def update_pdf_ordering(tokens, project):
 @login_required
 def pdf_overview(request, slug):
     instance = get_object_or_404(Project, slug=slug)
-    if not request.user.has_perm("education.change_project", instance):
+    if not instance.is_editable():
         return access_denied(request)
 
     if "ordering" in request.POST and request.is_ajax():
@@ -445,7 +445,7 @@ def pdf_overview(request, slug):
 @login_required
 def create_update_pdf(request, slug, mediafile_token="", **kwargs):
     instance = get_object_or_404(Project, slug=slug)
-    if not request.user.has_perm("education.change_project", instance):
+    if not instance.is_editable():
         return access_denied(request)
 
     rel_dir = "education/projects/%s/" % instance.slug
@@ -576,7 +576,7 @@ def create_update_pdf(request, slug, mediafile_token="", **kwargs):
 @login_required
 def delete_pdf(request, slug, mediafile_token="", **kwargs):
     instance = get_object_or_404(Project, slug=slug)
-    if not request.user.has_perm("education.change_project", instance):
+    if not instance.is_editable():
         return access_denied(request)
 
     filters = {

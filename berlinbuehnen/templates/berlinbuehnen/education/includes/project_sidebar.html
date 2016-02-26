@@ -6,17 +6,37 @@
                 <div class="accordion-item-content">
                     <ul class="dates">
                         {% if not project.has_events %}
-                            <p>{% trans "continuous project" %}</p>
+                            <li>
+                                {% trans "continuous project" %}
+                                {% if project.tickets_website %}
+                                    <span class="tickets-wrapper"><a class="fawesome tickets" href="{{ project.tickets_website }}" target="_blank" data-toggle="tooltip" data-placement="right" title="{% trans "Tickets" %}"><span class="sr-only">{% trans "Tickets" %}</span></a></span>
+                                {% endif %}
+                            </li>
                         {% else %}
                             {% for ev in project.get_next_events %}
                                 <li>
                                     {% if ev == event %}
-                                        <span class="date-wrapper"><span class="date">{{ ev.start|date:"j. M Y" }}</span></span><span class="time-wrapper"><span class="time">{{ ev.start|time:"H:i" }}</span></span>
+                                        <span class="date-wrapper varying-width"><span class="date">
+                                            {{ ev.start|date:"j. M Y" }}
+                                            {% if ev.end %} - {{ ev.end|date:"j. M Y" }}{% endif %}
+                                        </span></span>
+                                        <span class="time-wrapper">
+                                            <span class="time">{{ ev.start|time:"H:i" }}</span>
+                                        </span>
                                     {% else %}
-                                        <a class="black" href="{% url "project_event_detail" slug=project.slug event_id=ev.id %}"><span class="date-wrapper"><span class="date">{{ ev.start|date:"j. M Y" }}</span></span><span class="time-wrapper"><span class="time">{{ ev.start|time:"H:i" }}</span></span></a>
+                                        <a class="black" href="{% url "project_event_detail" slug=project.slug event_id=ev.id %}">
+                                            <span class="date-wrapper varying-width"><span class="date">
+                                                {{ ev.start|date:"j. M Y" }}
+                                                {% if ev.end %} - {{ ev.end|date:"j. M Y" }}{% endif %}
+                                            </span></span>
+                                            <span class="time-wrapper">
+                                                <span class="time">{{ ev.start|time:"H:i" }}</span>
+                                            </span>
+                                        </a>
                                     {% endif %}
+
                                     {% if project.tickets_website %}
-                                        <span class="tickets-wrapper"><a class="fawesome tickets" href="{{ project.tickets_website }}" target="_blank" data-toggle="tooltip" data-placement="right" title="{% trans "Tickets" %}"><span class="sr-only">{% trans "Tickets" %}</span></a></span>
+                                        <span class="tickets-wrapper"><a class="fawesome tickets" href="{{ project.tickets_website }}" target="_blank" data-toggle="tooltip" data-placement="left" title="{% trans "Tickets" %}"><span class="sr-only">{% trans "Tickets" %}</span></a></span>
                                     {% endif %}
                                 </li>
                             {% endfor %}

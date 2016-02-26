@@ -168,7 +168,7 @@ class JobOfferAdmin(ExtendedModelAdmin):
         from base_libs.views.views import access_denied
         job_offer = get_object_or_404(JobOffer, pk=job_offer_id)
 
-        if not request.user.has_perm('job_offers.change_job_offer', job_offer):
+        if not job_offer.is_editable():
             return access_denied(request)
 
         if request.method == "POST":

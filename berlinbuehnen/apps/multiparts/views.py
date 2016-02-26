@@ -137,7 +137,7 @@ def add_multipart(request):
 
 def change_multipart(request, slug):
     parent = get_object_or_404(Parent, production__slug=slug)
-    if not request.user.has_perm("multiparts.change_parent", parent):
+    if not parent.is_editable():
         return access_denied(request)
 
     if request.REQUEST.get('reset'):
@@ -193,7 +193,7 @@ def change_multipart(request, slug):
 @login_required
 def delete_multipart(request, slug):
     parent = get_object_or_404(Parent, production__slug=slug)
-    if not request.user.has_perm("multiparts.delete_parent", parent):
+    if not parent.is_deletable():
         return access_denied(request)
     if request.method == "POST" and request.is_ajax():
         parent.delete()

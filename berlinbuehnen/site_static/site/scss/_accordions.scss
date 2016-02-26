@@ -162,9 +162,13 @@
                 .date-wrapper, .time-wrapper {
                     margin: 0;
                     display: inline-block;
+                    white-space: nowrap;
                 }
                 .date-wrapper {
                     width: 110px;
+                    &.varying-width {
+                        width: auto!important;
+                    }
                 }
                 .time-wrapper {
                     width: 55px;

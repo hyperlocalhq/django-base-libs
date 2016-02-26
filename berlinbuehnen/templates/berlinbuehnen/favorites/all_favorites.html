@@ -71,7 +71,7 @@
                                     <!-- image -->
                                     <span class="grid-item-image img">
                                         {% if location.first_image %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ location.first_image.path|modified_path:"detail_image" }}{% if_has_perm "location.change_location" location %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.production.title|escape }}" />
+                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ location.first_image.path|modified_path:"detail_image" }}{% if location.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ location.title|escape }}" />
                                         {% else %}
                                             <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
                                         {% endif %}
@@ -103,7 +103,7 @@
                                     <!-- image -->
                                     <span class="grid-item-image img">
                                         {% if production.first_image %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ production.first_image.path|modified_path:"detail_image" }}{% if_has_perm "production.change_production" production %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.production.title|escape }}" />
+                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ production.first_image.path|modified_path:"detail_image" }}{% if production.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ event.production.title|escape }}" />
                                         {% else %}
                                             <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
                                         {% endif %}
@@ -142,7 +142,7 @@
                                     <!-- image -->
                                     <span class="grid-item-image img">
                                         {% if festival.first_image %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"detail_image" }}{% if_has_perm "festival.change_festival" festival %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.festival.title|escape }}" />
+                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"detail_image" }}{% if festival.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ festival.title|escape }}" />
                                         {% else %}
                                             <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
                                         {% endif %}
@@ -177,9 +177,9 @@
                                     <span class="grid-item-image img">
                                         {% with project.get_first_department as department %}
                                             {% if project.first_image %}
-                                                <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ project.first_image.path|modified_path:"detail_image" }}{% if_has_perm "project.change_project" project %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.project.title|escape }}" />
+                                                <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ project.first_image.path|modified_path:"detail_image" }}{% if project.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ project.title|escape }}" />
                                             {% elif department.first_image %}
-                                                <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png"" data-original="{{ MEDIA_URL }}{{ department.first_image.path|modified_path:"detail_image" }}{% if_has_perm "project.change_project" project %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.project.title|escape }}" />
+                                                <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ department.first_image.path|modified_path:"detail_image" }}{% if department.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ project.title|escape }}" />
                                             {% else %}
                                                 <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
                                             {% endif %}

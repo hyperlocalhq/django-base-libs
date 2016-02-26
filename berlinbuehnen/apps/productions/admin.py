@@ -142,7 +142,7 @@ class OwnersForm(forms.Form):
 
 
 class ProductionAdmin(ExtendedModelAdmin):
-    list_display = ('title_de', 'get_locations', 'get_import_source', 'get_external_id', 'get_owners_list', 'creation_date', 'modified_date', 'show_among_others', 'no_overwriting', 'newsletter', 'status')
+    list_display = ('title_de', 'get_locations', 'get_import_source', 'get_external_id', 'creation_date', 'modified_date', 'show_among_others', 'no_overwriting', 'newsletter', 'status')
     list_editable = ('show_among_others', 'no_overwriting', 'newsletter', 'status')
     search_fields = ('title_de', 'title_en')
     list_filter = ['show_among_others', 'no_overwriting', "creation_date", "modified_date", 'import_source', 'newsletter', 'status']
@@ -208,7 +208,7 @@ class ProductionAdmin(ExtendedModelAdmin):
         from base_libs.views.views import access_denied
         production = get_object_or_404(Production, pk=production_id)
 
-        if not request.user.has_perm('productions.change_production', production):
+        if not production.is_editable():
             return access_denied(request)
 
         if request.method == "POST":

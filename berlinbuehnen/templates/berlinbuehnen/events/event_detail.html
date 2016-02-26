@@ -125,11 +125,9 @@
                                     </div>
                                     {% if event.production.ensembles %}<h3>{{ event.production.ensembles }}</h3>{% endif %}
                                     <h1>{% if event.production.prefix %}{{ event.production.prefix }} {% endif %}{{ event.production.title }}
-                                        {% if_has_perm "productions.change_production" object %}
-                                            {% if not request.is_mobile %}
-                                                <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{% url "change_production" slug=event.production.slug %}">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>
-                                            {% endif %}
-                                        {% end_if_has_perm %}
+                                        {% if object.is_editable and not request.is_mobile %}
+                                            <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{% url "change_production" slug=event.production.slug %}">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>
+                                        {% endif %}
                                     </h1>
                                     {% if event.production.subtitle %}
                                         <h2>{{ event.production.subtitle }}</h2>
@@ -187,11 +185,9 @@
                                                             <div class="multipart">
                                                                 <div class="multipart-header">
                                                                     <h1>{% if part.production.prefix %}{{ part.production.prefix }} {% endif %}{{ part.production.title }}
-                                                                        {% if_has_perm "productions.change_production" part.production %}
-                                                                            {% if not request.is_mobile %}
-                                                                                <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{% url "change_production" slug=part.production.slug %}">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>
-                                                                            {% endif %}
-                                                                        {% end_if_has_perm %}
+                                                                        {% if part.production.is_editable and not request.is_mobile %}
+                                                                            <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{% url "change_production" slug=part.production.slug %}">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>
+                                                                        {% endif %}
                                                                     </h1>
                                                                     {% if part.production.subtitle %}
                                                                         <h2>{{ part.production.subtitle }}</h2>

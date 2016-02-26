@@ -105,16 +105,15 @@ class ProductionCharacteristics(CreationModificationDateMixin, SlugMixin()):
 
 class ProductionManager(models.Manager):
     def accessible_to(self, user):
-        from jetson.apps.permissions.models import PerObjectGroup
+        from berlinbuehnen.apps.locations.models import Location
         if user.has_perm("productions.change_production"):
             return self.get_query_set().exclude(status="trashed")
-        ids = PerObjectGroup.objects.filter(
-            content_type__app_label="productions",
-            content_type__model="production",
-            sysname__startswith="owners",
-            users=user,
-        ).values_list("object_id", flat=True)
-        return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
+
+        owned_locations = Location.objects.owned_by(user=user)
+        return self.get_query_set().filter(
+            models.Q(in_program_of__in=owned_locations) |
+            models.Q(play_locations__in=owned_locations)
+        ).exclude(status="trashed").distinct()
 
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
@@ -544,6 +543,19 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
             target_prod.set_owner(owner)
         return target_prod
     duplicate.alters_data = True
+
+    def is_editable(self, user=None):
+        if not hasattr(self, "_is_editable_cache"):
+            # return True when the first editable location is found
+            self._is_editable_cache = any((
+                location.is_editable()
+                for locations in (self.in_program_of.all(), self.play_locations.all())
+                for location in locations
+            ))
+        return self._is_editable_cache
+
+    def is_deletable(self, user=None):
+        return self.is_editable(user=user)
 
 
 class ProductionSocialMediaChannel(models.Model):

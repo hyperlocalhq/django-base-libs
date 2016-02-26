@@ -171,7 +171,7 @@ class LocationAdmin(ExtendedModelAdmin):
         from base_libs.views.views import access_denied
         location = get_object_or_404(Location, pk=location_id)
 
-        if not request.user.has_perm('locations.change_location', location):
+        if not location.is_editable():
             return access_denied(request)
 
         if request.method == "POST":

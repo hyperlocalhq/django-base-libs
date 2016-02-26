@@ -35,7 +35,7 @@ def project_detail(request, slug, event_id=None):
     if "preview" in request.REQUEST:
         qs = Project.objects.all()
         obj = get_object_or_404(qs, slug=slug)
-        if not request.user.has_perm("education.change_project", obj):
+        if not obj.is_editable():
             return access_denied(request)
     else:
         qs = Project.objects.filter(status="published")
@@ -76,7 +76,7 @@ def add_project(request):
 @login_required
 def change_project(request, slug):
     instance = get_object_or_404(Project, slug=slug)
-    if not request.user.has_perm("education.change_project", instance):
+    if not instance.is_editable():
         return access_denied(request)
     return show_form_step(request, PROJECT_FORM_STEPS, extra_context={'project': instance}, instance=instance);
 
@@ -85,7 +85,7 @@ def change_project(request, slug):
 @login_required
 def delete_project(request, slug):
     instance = get_object_or_404(Project, slug=slug)
-    if not request.user.has_perm("education.delete_project", instance):
+    if not instance.is_deletable():
         return access_denied(request)
     if request.method == "POST" and request.is_ajax():
         instance.status = "trashed"
@@ -98,7 +98,7 @@ def delete_project(request, slug):
 @login_required
 def change_project_status(request, slug):
     instance = get_object_or_404(Project, slug=slug)
-    if not request.user.has_perm("education.change_project", instance):
+    if not instance.is_editable():
         return access_denied(request)
     if request.method == "POST" and request.is_ajax() and request.POST['status'] in ("draft", "published", "not_listed"):
         instance.status = request.POST['status']

@@ -80,7 +80,7 @@ def department_detail(request, slug):
     if "preview" in request.REQUEST:
         qs = Department.objects.all()
         obj = get_object_or_404(qs, slug=slug)
-        if not request.user.has_perm("education.change_department", obj):
+        if not obj.is_editable():
             return access_denied(request)
     else:
         qs = Department.objects.filter(status="published")
@@ -106,7 +106,7 @@ def add_department(request):
 @login_required
 def change_department(request, slug):
     instance = get_object_or_404(Department, slug=slug)
-    if not request.user.has_perm("education.change_department", instance):
+    if not instance.is_editable():
         return access_denied(request)
     return show_form_step(request, DEPARTMENT_FORM_STEPS, extra_context={'department': instance}, instance=instance);
 
@@ -115,7 +115,7 @@ def change_department(request, slug):
 @login_required
 def delete_department(request, slug):
     instance = get_object_or_404(Department, slug=slug)
-    if not request.user.has_perm("education.delete_department", instance):
+    if not instance.is_deletable():
         return access_denied(request)
     if request.method == "POST" and request.is_ajax():
         instance.status = "trashed"
@@ -128,7 +128,7 @@ def delete_department(request, slug):
 @login_required
 def change_department_status(request, slug):
     instance = get_object_or_404(Department, slug=slug)
-    if not request.user.has_perm("education.change_department", instance):
+    if not instance.is_editable():
         return access_denied(request)
     if request.method == "POST" and request.is_ajax() and request.POST['status'] in ("draft", "published", "not_listed"):
         instance.status = request.POST['status']

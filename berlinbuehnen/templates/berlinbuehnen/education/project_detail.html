@@ -26,7 +26,7 @@
 {% endblock %}
 
 {% block content %}
-    {% with object as project %}
+    {% with project=object %}
         <div id="project" class="content details">
             <div class="container main-container">
                 <div class="row">
@@ -40,7 +40,11 @@
                             <header>
                                 <ul class="header-top icons-space">
                                     {% if event %}
-                                        <li><time>{{ event.start|date:"l, j. F Y" }}{{ event.start|time:", H:i" }}</time></li>
+                                        <li><time>
+                                            {{ event.start|date:"l, j. F Y" }}
+                                            {% if event.end %} - {{ event.end|date:"l, j. F Y" }}{% endif %},
+                                            {{ event.start|time:"H:i" }}
+                                        </time></li>
                                     {% endif %}
                                     {% if project.location_title %}
                                         <li>
@@ -81,11 +85,11 @@
                                     {% endif %}
                                 </div>
                                 <h1>{{ project.title }}
-                                    {% if_has_perm "education.change_project" project %}
+                                    {% if project.is_editable %}
                                         {% if not request.is_mobile %}
                                             <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{% url "change_project" slug=project.slug %}">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>
                                         {% endif %}
-                                    {% end_if_has_perm %}
+                                    {% endif %}
                                 </h1>
                                 {% if project.subtitle %}
                                     <h2>{{ project.subtitle }}</h2>

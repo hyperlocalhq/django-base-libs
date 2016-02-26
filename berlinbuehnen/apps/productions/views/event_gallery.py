@@ -54,7 +54,7 @@ def update_video_ordering(tokens, event):
 def video_overview(request, slug, event_id):
     production = get_object_or_404(Production, slug=slug)
     event = get_object_or_404(Event, pk=event_id, production=production)
-    if not request.user.has_perm("productions.change_production", production):
+    if not production.is_editable():
         return access_denied(request)
 
     if "ordering" in request.POST and request.is_ajax():
@@ -73,7 +73,7 @@ def video_overview(request, slug, event_id):
 def create_update_video(request, slug, event_id, mediafile_token="", **kwargs):
     production = get_object_or_404(Production, slug=slug)
     event = get_object_or_404(Event, pk=event_id, production=production)
-    if not request.user.has_perm("productions.change_production", production):
+    if not production.is_editable():
         return access_denied(request)
 
     if mediafile_token:
@@ -160,7 +160,7 @@ def create_update_video(request, slug, event_id, mediafile_token="", **kwargs):
 def delete_video(request, slug, event_id, mediafile_token="", **kwargs):
     production = get_object_or_404(Production, slug=slug)
     event = get_object_or_404(Event, pk=event_id, production=production)
-    if not request.user.has_perm("productions.change_production", production):
+    if not production.is_editable():
         return access_denied(request)
 
     filters = {
@@ -221,7 +221,7 @@ def update_streaming_ordering(tokens, event):
 def streaming_overview(request, slug, event_id):
     production = get_object_or_404(Production, slug=slug)
     event = get_object_or_404(Event, pk=event_id, production=production)
-    if not request.user.has_perm("productions.change_production", production):
+    if not production.is_editable():
         return access_denied(request)
 
     if "ordering" in request.POST and request.is_ajax():
@@ -240,7 +240,7 @@ def streaming_overview(request, slug, event_id):
 def create_update_streaming(request, slug, event_id, mediafile_token="", **kwargs):
     production = get_object_or_404(Production, slug=slug)
     event = get_object_or_404(Event, pk=event_id, production=production)
-    if not request.user.has_perm("productions.change_production", production):
+    if not production.is_editable():
         return access_denied(request)
 
     if mediafile_token:
@@ -328,7 +328,7 @@ def create_update_streaming(request, slug, event_id, mediafile_token="", **kwarg
 def delete_streaming(request, slug, event_id, mediafile_token="", **kwargs):
     production = get_object_or_404(Production, slug=slug)
     event = get_object_or_404(Event, pk=event_id, production=production)
-    if not request.user.has_perm("productions.change_production", production):
+    if not production.is_editable():
         return access_denied(request)
 
     filters = {
@@ -391,7 +391,7 @@ def update_image_ordering(tokens, event):
 def image_overview(request, slug, event_id):
     production = get_object_or_404(Production, slug=slug)
     event = get_object_or_404(Event, pk=event_id, production=production)
-    if not request.user.has_perm("productions.change_production", production):
+    if not production.is_editable():
         return access_denied(request)
 
     if "ordering" in request.POST and request.is_ajax():
@@ -407,7 +407,7 @@ def image_overview(request, slug, event_id):
 def create_update_image(request, slug, event_id, mediafile_token="", **kwargs):
     production = get_object_or_404(Production, slug=slug)
     event = get_object_or_404(Event, pk=event_id, production=production)
-    if not request.user.has_perm("productions.change_production", production):
+    if not production.is_editable():
         return access_denied(request)
 
     rel_dir = "productions/%s/" % production.slug
@@ -545,7 +545,7 @@ def create_update_image(request, slug, event_id, mediafile_token="", **kwargs):
 def delete_image(request, slug, event_id, mediafile_token="", **kwargs):
     production = get_object_or_404(Production, slug=slug)
     event = get_object_or_404(Event, pk=event_id, production=production)
-    if not request.user.has_perm("productions.change_production", production):
+    if not production.is_editable():
         return access_denied(request)
 
     filters = {
@@ -616,7 +616,7 @@ def update_pdf_ordering(tokens, event):
 def pdf_overview(request, slug, event_id):
     production = get_object_or_404(Production, slug=slug)
     event = get_object_or_404(Event, pk=event_id, production=production)
-    if not request.user.has_perm("productions.change_production", production):
+    if not production.is_editable():
         return access_denied(request)
 
     if "ordering" in request.POST and request.is_ajax():
@@ -635,7 +635,7 @@ def pdf_overview(request, slug, event_id):
 def create_update_pdf(request, slug, event_id, mediafile_token="", **kwargs):
     production = get_object_or_404(Production, slug=slug)
     event = get_object_or_404(Event, pk=event_id, production=production)
-    if not request.user.has_perm("productions.change_production", production):
+    if not production.is_editable():
         return access_denied(request)
 
     rel_dir = "productions/%s/" % production.slug
@@ -768,7 +768,7 @@ def create_update_pdf(request, slug, event_id, mediafile_token="", **kwargs):
 def delete_pdf(request, slug, event_id, mediafile_token="", **kwargs):
     production = get_object_or_404(Production, slug=slug)
     event = get_object_or_404(Event, pk=event_id, production=production)
-    if not request.user.has_perm("productions.change_production", production):
+    if not production.is_editable():
         return access_denied(request)
 
     filters = {

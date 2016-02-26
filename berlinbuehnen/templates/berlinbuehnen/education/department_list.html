@@ -38,7 +38,7 @@
                                     <!-- image -->
                                     <span class="grid-item-image img">
                                         {% if department.first_image %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ department.first_image.path|modified_path:"detail_image" }}{% if_has_perm "department.change_department" department %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ department.title|escape }}" />                                 
+                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ department.first_image.path|modified_path:"detail_image" }}{% if department.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ department.title|escape }}" />
                                         {% else %}
                                             <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
                                         {% endif %}

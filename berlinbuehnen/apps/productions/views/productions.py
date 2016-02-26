@@ -212,7 +212,7 @@ def event_detail(request, slug, event_id=None):
     if event_id:
         production = get_object_or_404(Production, slug=slug)
         obj = get_object_or_404(qs, production__slug=slug, pk=event_id)
-        if obj.production.status not in ('published', 'expired') and not request.user.has_perm("productions.change_production", production):
+        if obj.production.status not in ('published', 'expired') and not production.is_editable():
             return access_denied(request)
     else:
         production = get_object_or_404(Production, slug=slug)
@@ -245,7 +245,7 @@ def add_production(request):
 @login_required
 def change_production(request, slug):
     instance = get_object_or_404(Production, slug=slug)
-    if not request.user.has_perm("productions.change_production", instance):
+    if not instance.is_editable():
         return access_denied(request)
     return show_form_step(request, PRODUCTION_FORM_STEPS, extra_context={'production': instance}, instance=instance);
 
@@ -254,7 +254,7 @@ def change_production(request, slug):
 @login_required
 def delete_production(request, slug):
     instance = get_object_or_404(Production, slug=slug)
-    if not request.user.has_perm("productions.delete_production", instance):
+    if not instance.is_deletable():
         return access_denied(request)
     if request.method == "POST" and request.is_ajax():
         instance.status = "trashed"
@@ -267,7 +267,7 @@ def delete_production(request, slug):
 @login_required
 def change_production_status(request, slug):
     instance = get_object_or_404(Production, slug=slug)
-    if not request.user.has_perm("productions.change_production", instance):
+    if not instance.is_editable():
         return access_denied(request)
     if request.method == "POST" and request.is_ajax() and request.POST['status'] in ("draft", "published", "not_listed", "expired"):
         instance.status = request.POST['status']
@@ -280,7 +280,7 @@ def change_production_status(request, slug):
 @login_required
 def duplicate_production(request, slug):
     production = get_object_or_404(Production, slug=slug)
-    if not request.user.has_perm("productions.change_production", production) or not request.user.has_perm("productions.add_production"):
+    if not production.is_editable() or not request.user.has_perm("productions.add_production"):
         return access_denied(request)
     if request.method == "POST" and request.is_ajax():
         new_production = production.duplicate()
@@ -294,7 +294,7 @@ def duplicate_production(request, slug):
 @login_required
 def events_overview(request, slug):
     production = get_object_or_404(Production, slug=slug)
-    if not request.user.has_perm("productions.change_production", production):
+    if not production.is_editable():
         return access_denied(request)
 
     return render(request, "productions/events/overview.html", {'production': production})
@@ -304,7 +304,7 @@ def events_overview(request, slug):
 @login_required
 def add_events(request, slug):
     production = get_object_or_404(Production, slug=slug)
-    if not request.user.has_perm("productions.change_production", production):
+    if not production.is_editable():
         return access_denied(request)
 
     if request.REQUEST.get('reset'):
@@ -333,7 +333,7 @@ def add_events(request, slug):
 def change_event_basic_info(request, slug, event_id):
     production = get_object_or_404(Production, slug=slug)
     event = get_object_or_404(Event, pk=event_id, production=production)
-    if not request.user.has_perm("productions.change_production", production):
+    if not production.is_editable():
         return access_denied(request)
 
     if request.REQUEST.get('reset'):
@@ -373,7 +373,7 @@ def change_event_basic_info(request, slug, event_id):
 def change_event_description(request, slug, event_id):
     production = get_object_or_404(Production, slug=slug)
     event = get_object_or_404(Event, pk=event_id, production=production)
-    if not request.user.has_perm("productions.change_production", production):
+    if not production.is_editable():
         return access_denied(request)
 
     if request.REQUEST.get('reset'):
@@ -668,7 +668,7 @@ def change_event_description(request, slug, event_id):
 def change_event_gallery(request, slug, event_id):
     production = get_object_or_404(Production, slug=slug)
     event = get_object_or_404(Event, pk=event_id, production=production)
-    if not request.user.has_perm("productions.change_production", production):
+    if not production.is_editable():
         return access_denied(request)
 
     if request.REQUEST.get('reset'):
@@ -697,7 +697,7 @@ def change_event_gallery(request, slug, event_id):
 def delete_event(request, slug, event_id):
     production = get_object_or_404(Production, slug=slug)
     event = get_object_or_404(Event, pk=event_id, production=production)
-    if not request.user.has_perm("productions.delete_production", event.production):
+    if not event.production.is_deletable():
         return access_denied(request)
     if request.method == "POST" and request.is_ajax():
         event.delete()
