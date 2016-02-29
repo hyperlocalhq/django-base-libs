@@ -125,7 +125,7 @@
                                     </div>
                                     {% if event.production.ensembles %}<h3>{{ event.production.ensembles }}</h3>{% endif %}
                                     <h1>{% if event.production.prefix %}{{ event.production.prefix }} {% endif %}{{ event.production.title }}
-                                        {% if object.is_editable and not request.is_mobile %}
+                                        {% if event.production.is_editable and not request.is_mobile %}
                                             <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{% url "change_production" slug=event.production.slug %}">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>
                                         {% endif %}
                                     </h1>
