@@ -9,10 +9,10 @@ import csv
 
 from django.core.management.base import NoArgsCommand
 from django.utils.encoding import smart_str, force_unicode
-from django.utils.text import slugify
 from django.db import models
 
 from base_libs.utils.misc import get_unique_value
+from base_libs.utils.betterslugify import better_slugify
 
 from berlinbuehnen.apps.productions.models import ProductionCategory
 from berlinbuehnen.apps.productions.models import ProductionCharacteristics
@@ -678,7 +678,7 @@ class ImportFromCulturebaseBase(object):
             prod.title_en = title_en or title_de
             prod.website_de = prod.website_en = self.get_child_text(prod_node, 'Url')
 
-            prod.slug = get_unique_value(Production, slugify(prod.title_de), instance_pk=prod.pk)
+            prod.slug = get_unique_value(Production, better_slugify(prod.title_de) or u"production", instance_pk=prod.pk)
 
             ticket_node = prod_node.find('./%(prefix)sTicket' % self.helper_dict)
             if ticket_node is not None:

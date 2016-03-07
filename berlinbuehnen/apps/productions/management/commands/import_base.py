@@ -12,9 +12,9 @@ from decimal import Decimal, InvalidOperation
 from django.db import models
 from django.conf import settings
 from django.utils.encoding import smart_str, force_unicode
-from django.utils.text import slugify
 
 from base_libs.utils.misc import get_unique_value
+from base_libs.utils.betterslugify import better_slugify
 
 from berlinbuehnen.apps.productions.models import ProductionCategory
 from berlinbuehnen.apps.productions.models import ProductionCharacteristics
@@ -772,7 +772,7 @@ class ImportFromHeimatBase(object):
             prod.title_en = title_en or title_de
             prod.website_de = prod.website_en = prod_node.get('url')
 
-            prod.slug = get_unique_value(Production, slugify(prod.title_de), instance_pk=prod.pk)
+            prod.slug = get_unique_value(Production, better_slugify(prod.title_de) or u"production", instance_pk=prod.pk)
 
             self.parse_and_use_texts(prod_node, prod)
 
