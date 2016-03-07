@@ -142,7 +142,7 @@ class OwnersForm(forms.Form):
 
 
 class ProductionAdmin(ExtendedModelAdmin):
-    list_display = ('title_de', 'get_locations', 'get_import_source', 'get_external_id', 'creation_date', 'modified_date', 'show_among_others', 'no_overwriting', 'newsletter', 'status')
+    list_display = ('title_de', 'get_locations', 'get_import_source', 'get_external_id', 'get_owners_list', 'get_editors_list', 'creation_date', 'modified_date', 'show_among_others', 'no_overwriting', 'newsletter', 'status')
     list_editable = ('show_among_others', 'no_overwriting', 'newsletter', 'status')
     search_fields = ('title_de', 'title_en')
     list_filter = ['show_among_others', 'no_overwriting', "creation_date", "modified_date", 'import_source', 'newsletter', 'status']
@@ -194,15 +194,31 @@ class ProductionAdmin(ExtendedModelAdmin):
     get_external_id.short_description = _("External ID")
 
     def get_owners_list(self, obj):
-        owners_list = []
+        owners_list = set()
         manage_owners_link = '<a href="%s/owners/"><span>%s</span></a>' % (obj.pk, ugettext('Manage owners'))
         for o in obj.get_owners():
-            owners_list.append('<a href="/admin/auth/user/%s/">%s</a>' % (o.pk, o.username))
+            owners_list.add('<a href="/admin/auth/user/%s/">%s</a>' % (o.pk, o.username))
         if owners_list:
-            return '<br />'.join(owners_list) + '<br />' +  manage_owners_link
+            return '<br />'.join(owners_list) + '<br />' + manage_owners_link
         return manage_owners_link
     get_owners_list.allow_tags = True
     get_owners_list.short_description = _("Owners")
+
+    def get_editors_list(self, obj):
+        owners_list = set()
+        for o in obj.get_owners():
+            owners_list.add('<a href="/admin/auth/user/%s/">%s</a>' % (o.pk, o.username))
+        for location in obj.in_program_of.all():
+            for o in location.get_owners():
+                owners_list.add('<a href="/admin/auth/user/%s/">%s</a>' % (o.pk, o.username))
+        for location in obj.play_locations.all():
+            for o in location.get_owners():
+                owners_list.add('<a href="/admin/auth/user/%s/">%s</a>' % (o.pk, o.username))
+        if owners_list:
+            return '<br />'.join(owners_list)
+        return ''
+    get_editors_list.allow_tags = True
+    get_editors_list.short_description = _("Editors")
 
     def owners_view(self, request, production_id):
         from base_libs.views.views import access_denied

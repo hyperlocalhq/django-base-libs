@@ -109,10 +109,15 @@ class ProductionManager(models.Manager):
         if user.has_perm("productions.change_production"):
             return self.get_query_set().exclude(status="trashed")
 
+        owned_production_ids = self.owned_by(user=user).values_list("pk", flat=True)
+
         owned_locations = Location.objects.owned_by(user=user)
         return self.get_query_set().filter(
-            models.Q(in_program_of__in=owned_locations) |
-            models.Q(play_locations__in=owned_locations)
+            models.Q(
+                models.Q(in_program_of__in=owned_locations) |
+                models.Q(play_locations__in=owned_locations)
+            ) |
+            models.Q(pk__in=owned_production_ids)
         ).exclude(status="trashed").distinct()
 
     def owned_by(self, user):
@@ -545,9 +550,12 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     duplicate.alters_data = True
 
     def is_editable(self, user=None):
+        from django.contrib.auth.models import AnonymousUser
+        from base_libs.middleware.threadlocals import get_current_user
         if not hasattr(self, "_is_editable_cache"):
-            # return True when the first editable location is found
-            self._is_editable_cache = any((
+            # return True when user has permissions to edit this production or the first editable location is found
+            user = get_current_user(user) or AnonymousUser()
+            self._is_editable_cache = user.has_perm("productions.change_production", self) or any((
                 location.is_editable()
                 for locations in (self.in_program_of.all(), self.play_locations.all())
                 for location in locations
