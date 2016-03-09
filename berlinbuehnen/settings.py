@@ -180,6 +180,7 @@ INSTALLED_APPS = (
     "haystack",
     "ajaxuploader",
     "debug_toolbar",
+    "raven.contrib.django.raven_compat",
 
     ### Required CMS Django 2.4.1 apps ###
     "cms",
@@ -668,6 +669,61 @@ if not DEBUG:
     # use a write-through cache – every write to the cache will also be written to the database.
     # Session reads only use the database if the data is not already in the cache.
     SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+
+### SENTRY ###
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'root': {
+        'level': 'WARNING',
+        'handlers': ['sentry'],
+    },
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s '
+                      '%(process)d %(thread)d %(message)s'
+        },
+    },
+    'handlers': {
+        'sentry': {
+            'level': 'ERROR',
+            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
+            'tags': {'custom-tag': 'x'},
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        }
+    },
+    'loggers': {
+        'django.db.backends': {
+            'level': 'ERROR',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+        'raven': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+        'sentry.errors': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+    },
+}
+
+import raven
+
+RAVEN_CONFIG = {
+    'dsn': 'http://e3688d60c44f414fb5d13c5a455f5354:c337ee733e004b6a91600d78558b0056@sentry.jetsonproject.org/7',
+    # If you are using git, you can also automatically configure the
+    # release based on the git info.
+    'release': raven.fetch_git_sha(os.path.dirname(os.path.dirname(__file__))),
+}
 
 ### LOCAL SETTINGS ###
 
