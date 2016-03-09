@@ -112,6 +112,7 @@ INSTALLED_APPS = [
     "captcha",
     "social.apps.django_app.default",
     "bootstrap_pagination",
+    "raven.contrib.django.raven_compat",
 
     ### django-cms ###
     "cms",  # django CMS itself
@@ -1025,6 +1026,61 @@ ACTSTREAM_SETTINGS = {
     "USE_PREFETCH": True,
     "USE_JSONFIELD": True,
     "GFK_FETCH_DEPTH": 1,
+}
+
+### SENTRY ###
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'root': {
+        'level': 'WARNING',
+        'handlers': ['sentry'],
+    },
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s '
+                      '%(process)d %(thread)d %(message)s'
+        },
+    },
+    'handlers': {
+        'sentry': {
+            'level': 'ERROR',
+            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
+            'tags': {'custom-tag': 'x'},
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        }
+    },
+    'loggers': {
+        'django.db.backends': {
+            'level': 'ERROR',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+        'raven': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+        'sentry.errors': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+    },
+}
+
+import raven
+
+RAVEN_CONFIG = {
+    'dsn': 'http://ffc5ae7c26dd49ed8f14ca113cb0f7de:29e74466fdaa4af7a245f7a3eae16543@sentry.jetsonproject.org/2',
+    # If you are using git, you can also automatically configure the
+    # release based on the git info.
+    'release': raven.fetch_git_sha(os.path.dirname(__file__)),
 }
 
 ### LOCAL SETTINGS ###
