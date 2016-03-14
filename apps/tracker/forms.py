@@ -122,6 +122,8 @@ class TicketForm(dynamicforms.Form):
 
     def clean(self):
         cleaned = self.cleaned_data
+        if "g-recaptcha-response" not in self.request.POST:
+            raise forms.ValidationError(_("reCAPTCHA Error."))
         result = requests.post(
             "https://www.google.com/recaptcha/api/siteverify",
             {
@@ -132,16 +134,6 @@ class TicketForm(dynamicforms.Form):
         ).json()
         if not result["success"]:
             raise forms.ValidationError(_("reCAPTCHA Error."))
-            # raise forms.ValidationError(
-            #     string_concat(
-            #         _("reCAPTCHA Error."),
-            #         " ",
-            #         RECAPTCHA_ERROR_CODES.get(
-            #             result.get("error-codes", [None])[0],
-            #             "",
-            #         )
-            #     )
-            # )
         return cleaned
 
     def save(self):
