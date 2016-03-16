@@ -25,10 +25,11 @@ ArticleType = apps.get_model("articles", "ArticleType")
 
 
 def get_articles(
-        creative_sector_slug,
+        creative_sector_slug='all',
         type_sysname=None,
         status=STATUS_CODE_PUBLISHED,
         only_features=False,
+        ignore_language=False,
 ):
     """
     forms a queryset for Articles using some optional filters
@@ -36,7 +37,7 @@ def get_articles(
     current_language = get_current_language()
 
     if status == STATUS_CODE_PUBLISHED:
-        if current_language == "de":
+        if current_language == "de" and not ignore_language:
             queryset = Article.site_published_objects.select_related()
         else:
             queryset = Article.site_published_objects_all_languages.select_related()
@@ -57,8 +58,6 @@ def get_articles(
 
     if only_features:
         queryset = queryset.filter(is_featured=True)
-
-    # queryset = queryset.filter(language=get_current_language())
 
     return queryset
 
@@ -657,7 +656,7 @@ def article_object_detail(
     Context:
         article:      the article to be detailed
     """
-    queryset = get_articles(creative_sector_slug, type_sysname, status)
+    queryset = get_articles(creative_sector_slug, type_sysname, status, ignore_language=True)
     archives = get_archives(queryset)
 
     # get the requested article to update the "views field"
@@ -751,31 +750,31 @@ def article_feed(
 def magazine_overview(request):
     from ccb.apps.blog.models import Post
     context = {
-        'articles_under_player_of_the_week': Article.published_objects.filter(
+        'articles_under_player_of_the_week': get_articles().filter(
             featured_in_magazine=True,
             article_type__slug="player-of-the-week",
         ).order_by("-importance_in_magazine"),
-        'articles_under_when_i_moved_to_berlin': Article.published_objects.filter(
+        'articles_under_when_i_moved_to_berlin': get_articles().filter(
             featured_in_magazine=True,
             article_type__slug="when-i-moved-to-berlin",
         ).order_by("-importance_in_magazine"),
-        'articles_under_innovation_and_vision': Article.published_objects.filter(
+        'articles_under_innovation_and_vision': get_articles().filter(
             featured_in_magazine=True,
             article_type__slug="innovation-and-vision",
         ).order_by("-importance_in_magazine"),
-        'articles_under_at_home_with': Article.published_objects.filter(
+        'articles_under_at_home_with': get_articles().filter(
             featured_in_magazine=True,
             article_type__slug="at-home-with",
         ).order_by("-importance_in_magazine"),
-        'articles_under_knowledge_and_analysis': Article.published_objects.filter(
+        'articles_under_knowledge_and_analysis': get_articles().filter(
             featured_in_magazine=True,
             article_type__slug="knowledge-and-analysis",
         ).order_by("-importance_in_magazine"),
-        'articles_under_specials': Article.published_objects.filter(
+        'articles_under_specials': get_articles().filter(
             featured_in_magazine=True,
             article_type__slug="specials",
         ).order_by("-importance_in_magazine"),
-        'articles_under_articles_from_our_network_partners': Article.published_objects.filter(
+        'articles_under_articles_from_our_network_partners': get_articles().filter(
             featured_in_magazine=True,
             article_type__slug="articles-from-our-network-partners",
         ).order_by("-importance_in_magazine"),
