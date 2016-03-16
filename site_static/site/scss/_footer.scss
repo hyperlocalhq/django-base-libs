@@ -58,14 +58,16 @@
         display: inline-block;
         float: left;
         
-        .is-sm & {
-            height: 68px;
-        }
-        
         .is-xs & {
             height: auto;
             max-height: 80px;
             max-width: 100%;
         }
+    }
+    
+    .white-bg {
+        background: $white;
+        overflow: hidden;
+        display: inline-block;
     }
 }

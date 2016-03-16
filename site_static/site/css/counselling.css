@@ -2791,14 +2791,16 @@ body.show-layer.image-layer .layer#image-layer {
   float: left;
 }
 
-.is-sm #footer .footer-logo {
-  height: 68px;
-}
-
 .is-xs #footer .footer-logo {
   height: auto;
   max-height: 80px;
   max-width: 100%;
+}
+
+#footer .white-bg {
+  background: #fff;
+  overflow: hidden;
+  display: inline-block;
 }
 
 .error {
