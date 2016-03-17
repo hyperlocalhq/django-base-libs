@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 import re
 from django import template
+from itertools import chain
 
 register = template.Library()
 
@@ -35,3 +36,7 @@ def status_count(bt, facets={}):
         ).distinct()
     
     return qs.count()
+
+@register.filter
+def merge_with(bulletins, jobs):
+    return list(chain(bulletins, jobs))

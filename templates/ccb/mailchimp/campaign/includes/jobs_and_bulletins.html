@@ -1,4 +1,4 @@
-{% load base_tags image_mods_tags i18n %}
+{% load base_tags image_mods_tags i18n bulletin_board_tags %}
 
 <!-- Chapter -->
 
@@ -21,14 +21,18 @@
     {% get_objects objects.latest_published marketplace.JobOffer 4 as job_offers %}
     {% get_objects published_objects.all bulletin_board.Bulletin 4 as bulletins %}
     
-    {% with job_offers|add:bulletins as articles %}
+    {% with job_offers|merge_with:bulletins as articles %}
         {% for article in articles %}
+        
+            {% comment %}
         
             {% if article.description %}
                 {% parse article.get_rendered_description as description %}
             {% else %}
                 {% parse article.get_rendered_content as description %}
             {% endif %}
+            
+            {% endcomment %}
         
             {% if forloop.counter0|divisibleby:2 %}
                 <tr>
@@ -54,7 +58,7 @@
                                 </td>
                             </tr>
                                 <td style="font-family:Arial, Helvetica, sans-serif;font-size:12px; line-height:20px; color:#787878;">
-                                    {{ description|striptags|truncatewords:"15" }}
+                                    {{ article.description|striptags|truncatewords:"15" }}
                                 </td>
                             <tr>
                                 <td style="font-family:Arial, Helvetica, sans-serif;font-size:12px; line-height:20px;">
