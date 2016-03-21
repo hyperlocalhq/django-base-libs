@@ -181,6 +181,7 @@ INSTALLED_APPS = (
     "ajaxuploader",
     "debug_toolbar",
     "raven.contrib.django.raven_compat",
+    "bootstrap_pagination",
 
     ### Required CMS Django 2.4.1 apps ###
     "cms",
