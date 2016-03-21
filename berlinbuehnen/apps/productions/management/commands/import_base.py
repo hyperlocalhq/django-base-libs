@@ -822,11 +822,12 @@ class ImportFromHeimatBase(object):
                     if not image_url.startswith('http'):
                         continue
 
+                    image_external_id = "prod-%s-%s" % (prod.pk, image_url)
                     image_mapper = None
                     try:
                         # get image model instance from saved mapper
                         image_mapper = self.service.objectmapper_set.get(
-                            external_id=image_url,
+                            external_id=image_external_id,
                             content_type__app_label="productions",
                             content_type__model="productionimage",
                         )
@@ -871,7 +872,7 @@ class ImportFromHeimatBase(object):
                         if not image_mapper:
                             image_mapper = ObjectMapper(
                                 service=self.service,
-                                external_id=image_url,
+                                external_id=image_external_id,
                             )
                             image_mapper.content_object = mf
                             image_mapper.save()
@@ -1055,11 +1056,12 @@ class ImportFromHeimatBase(object):
                         if not image_url.startswith('http'):
                             continue
 
+                        image_external_id = "event-%s-%s" % (event.pk, image_url)
                         image_mapper = None
                         try:
                             # get image model instance from saved mapper
                             image_mapper = self.service.objectmapper_set.get(
-                                external_id=image_url,
+                                external_id=image_external_id,
                                 content_type__app_label="productions",
                                 content_type__model="eventimage",
                             )
@@ -1104,7 +1106,7 @@ class ImportFromHeimatBase(object):
                             if not image_mapper:
                                 image_mapper = ObjectMapper(
                                     service=self.service,
-                                    external_id=image_url,
+                                    external_id=image_external_id,
                                 )
                                 image_mapper.content_object = mf
                                 image_mapper.save()
