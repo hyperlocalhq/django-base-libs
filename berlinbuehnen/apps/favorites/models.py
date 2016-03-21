@@ -24,7 +24,7 @@ class FavoriteManager(models.Manager):
         ))
 
     def update_favorites_counts(self):
-        from templatetags.favorites import get_favorites_count
+        from templatetags.favorites_tags import get_favorites_count
         for favorite in self.get_query_set():
             instance = favorite.content_object
             if hasattr(instance, "favorites_count"):

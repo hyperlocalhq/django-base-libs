@@ -33,8 +33,9 @@ Favorite = models.get_model("favorites", "Favorite")
 FavoriteListOptions = models.get_model("favorites", "FavoriteListOptions")
 
 Location = models.get_model("locations", "Location")
-Production = models.get_model("productions", "Production")
+Event = models.get_model("productions", "Event")
 Festival = models.get_model("festivals", "Festival")
+Department = models.get_model("education", "Department")
 Project = models.get_model("education", "Project")
 
 from .templatetags.favorites_tags import get_favorites_count
@@ -109,15 +110,21 @@ def user_favorites(request, user_token, **kwargs):
         user__pk=user_id,
     ).values_list("object_id", flat=True))
 
-    production_ids = list(Favorite.objects.filter(
+    event_ids = list(Favorite.objects.filter(
         content_type__app_label="productions",
-        content_type__model="production",
+        content_type__model="event",
         user__pk=user_id,
     ).values_list("object_id", flat=True))
 
     festival_ids = list(Favorite.objects.filter(
         content_type__app_label="festivals",
         content_type__model="festival",
+        user__pk=user_id,
+    ).values_list("object_id", flat=True))
+
+    department_ids = list(Favorite.objects.filter(
+        content_type__app_label="education",
+        content_type__model="department",
         user__pk=user_id,
     ).values_list("object_id", flat=True))
 
@@ -129,8 +136,9 @@ def user_favorites(request, user_token, **kwargs):
 
     favorites = dict((
         ('locations', Location.objects.filter(id__in=location_ids, status="published")),
-        ('productions', Production.objects.filter(id__in=production_ids, status="published")),
+        ('events', Event.objects.filter(id__in=event_ids, production__status="published")),
         ('festivals', Festival.objects.filter(id__in=festival_ids, status="published")),
+        ('departments', Department.objects.filter(id__in=department_ids, status="published")),
         ('projects', Project.objects.filter(id__in=project_ids, status="published")),
     ))
 
@@ -157,8 +165,9 @@ def user_favorites(request, user_token, **kwargs):
             # )
 
     favorites['locations'] = favorites['locations'].distinct()
-    favorites['productions'] = favorites['productions'].distinct()
+    favorites['events'] = favorites['events'].distinct()
     favorites['festivals'] = favorites['festivals'].distinct()
+    favorites['departments'] = favorites['departments'].distinct()
     favorites['projects'] = favorites['projects'].distinct()
 
     if latitude and longitude:

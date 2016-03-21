@@ -29,7 +29,7 @@
                             </div>
                             <div class="list-item-head-date-icons col-xs-3 col-sm-12">
                                 {% if request.user.is_authenticated %}
-                                    {% adding2favorites for event.production using "favorites/includes/favorite_detail.html" %}
+                                    {% adding2favorites for event using "favorites/includes/favorite_detail.html" %}
                                 {% else %}
                                     {% login2favorites using "favorites/includes/favorite_detail_login.html" %}
                                 {% endif %}

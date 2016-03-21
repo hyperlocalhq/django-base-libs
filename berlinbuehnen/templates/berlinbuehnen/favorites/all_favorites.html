@@ -26,7 +26,7 @@
         <div class="container">
             <div class="row">
                 <header>
-                    {% if favorites.locations or favorites.productions or favorites.festivals or favorites.projects %}
+                    {% if favorites.locations or favorites.events or favorites.festivals or favorites.departments or favorites.projects %}
                         <div class="header-icons no-print">
                             {% if request.user.is_authenticated %}
                                 {% if request.user.id == user_id or request.user.is_staff %}
@@ -66,7 +66,7 @@
                         <h2 class="section">{% trans "Theaters" %}</h2>
                         <div class="grid favorites-grid row">
                             {% for location in favorites.locations %}
-                                <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item-favorite" href="{{ location.get_url_path }}">
+                                <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item-favorite" href="{{ location.get_url_path }}" target="_blank">
 
                                     <!-- image -->
                                     <span class="grid-item-image img">
@@ -93,41 +93,44 @@
                         </div>
                     </div>
                 {% endif %}
-                {% if favorites.productions %}
+                {% if favorites.events %}
                     <div class="col-xs-12 print-padding">
-                        <h2 class="section">{% trans "Productions" %}</h2>
+                        <h2 class="section">{% trans "Events" %}</h2>
                         <div class="grid favorites-grid row">
-                            {% for production in favorites.productions %}
-                                <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item-favorite" href="{{ production.get_url_path }}">
+                            {% for event in favorites.events %}
+                                {% with production=event.production %}
+                                    <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item-favorite" href="{{ event.get_url_path }}" target="_blank">
 
-                                    <!-- image -->
-                                    <span class="grid-item-image img">
-                                        {% if production.first_image %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ production.first_image.path|modified_path:"detail_image" }}{% if production.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ event.production.title|escape }}" />
-                                        {% else %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
+                                        <!-- image -->
+                                        <span class="grid-item-image img">
+                                            {% if production.first_image %}
+                                                <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ production.first_image.path|modified_path:"detail_image" }}{% if production.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ event.production.title|escape }}" />
+                                            {% else %}
+                                                <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
+                                            {% endif %}
+                                            {% if request.user.is_authenticated %}
+                                                {% adding2favorites for event using "favorites/includes/favorite_grid.html" %}
+                                            {% endif %}
+                                        </span>
+
+                                        {% if production.location_title %}
+                                            <h4>{{ production.location_title }}</h4>
+                                        {% elif production.play_locations.exists %}
+                                            <h4>{% for stage in production.play_locations.all %}<span>{{ stage.title }}</span>{% endfor %}</h4>
+                                        {% elif production.in_program_of.exists %}
+                                            <h4>{% for stage in production.in_program_of.all %}<span>{{ stage.title }}</span>{% endfor %}</h4>
                                         {% endif %}
-                                        {% if request.user.is_authenticated %}
-                                            {% adding2favorites for production using "favorites/includes/favorite_grid.html" %}
+                                        {% if production.title %}<h2>{{ production.title }}</h2>{% endif %}
+                                        {% if production.subtitle %}<h3>{{ production.subtitle }}</h3>{% endif %}
+                                        <h3>{{ event.start_date|date:"j. F" }} {{ event.start_time|date:"H:i" }}</h3>
+                                        {% if production.teaser %}
+                                            <div class="copy">{{ production.get_rendered_teaser }}</div>
+                                        {% elif production.description %}
+                                            <div class="copy">{{ production.get_rendered_description|striptags|truncatewords:20 }}</div>
                                         {% endif %}
-                                    </span>
 
-                                    {% if production.location_title %}
-                                        <h4>{{ production.location_title }}</h4>
-                                    {% elif production.play_locations.exists %}
-                                        <h4>{% for stage in production.play_locations.all %}<span>{{ stage.title }}</span>{% endfor %}</h4>
-                                    {% elif production.in_program_of.exists %}
-                                        <h4>{% for stage in production.in_program_of.all %}<span>{{ stage.title }}</span>{% endfor %}</h4>
-                                    {% endif %}
-                                    {% if production.title %}<h2>{{ production.title }}</h2>{% endif %}
-                                    {% if production.subtitle %}<h3>{{ production.subtitle }}</h3>{% endif %}
-                                    {% if production.teaser %}
-                                        <div class="copy">{{ production.get_rendered_teaser }}</div>
-                                    {% elif production.description %}
-                                        <div class="copy">{{ production.get_rendered_description|striptags|truncatewords:20 }}</div>
-                                    {% endif %}
-
-                                </a>
+                                    </a>
+                                {% endwith %}
                             {% endfor %}
                         </div>
                     </div>
@@ -137,7 +140,7 @@
                         <h2 class="section">{% trans "Festivals" %}</h2>
                         <div class="grid favorites-grid row">
                             {% for festival in favorites.festivals %}
-                                <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item-favorite" href="{{ festival.get_url_path }}">
+                                <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item-favorite" href="{{ festival.get_url_path }}" target="_blank">
 
                                     <!-- image -->
                                     <span class="grid-item-image img">
@@ -166,12 +169,43 @@
                         </div>
                     </div>
                 {% endif %}
+                {% if favorites.departments %}
+                    <div class="col-xs-12 print-padding">
+                        <h2 class="section">{% trans "Educational Departments" %}</h2>
+                        <div class="grid favorites-grid row">
+                            {% for department in favorites.departments %}
+                                <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item-favorite" href="{{ department.get_url_path }}" target="_blank">
+
+                                    <!-- image -->
+                                    <span class="grid-item-image img">
+                                        {% if department.first_image %}
+                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ location.first_image.path|modified_path:"detail_image" }}{% if location.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ location.title|escape }}" />
+                                        {% else %}
+                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
+                                        {% endif %}
+                                        {% if request.user.is_authenticated %}
+                                            {% adding2favorites for department using "favorites/includes/favorite_grid.html" %}
+                                        {% endif %}
+                                    </span>
+
+                                    {% if department.title %}<h2>{{ department.title }}</h2>{% endif %}
+                                    {% if department.teaser %}
+                                        <div class="copy">{{ department.get_rendered_teaser }}</div>
+                                    {% elif location.department %}
+                                        <div class="copy">{{ department.get_rendered_description|striptags|truncatewords:20 }}</div>
+                                    {% endif %}
+
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
                 {% if favorites.projects %}
                     <div class="col-xs-12 print-padding">
                         <h2 class="section">{% trans "Educational Projects" %}</h2>
                         <div class="grid favorites-grid row">
                             {% for project in favorites.projects %}
-                                <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item-favorite" href="{{ project.get_url_path }}">
+                                <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item-favorite" href="{{ project.get_url_path }}" target="_blank">
 
                                     <!-- image -->
                                     <span class="grid-item-image img">

@@ -54,7 +54,7 @@
                                         {% if request.user.is_authenticated %}
                                             {% adding2favorites for location using "favorites/includes/favorite_grid.html" %}
                                         {% else %}
-                                            {% login2favorites  using "favorites/includes/favorite_grid_login.html" %}
+                                            {% login2favorites using "favorites/includes/favorite_grid_login.html" %}
                                         {% endif %}
                                     </span>
                                     
