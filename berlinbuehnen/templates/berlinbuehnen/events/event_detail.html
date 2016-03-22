@@ -226,6 +226,22 @@
                                             <!-- main sidebar -->
                                             <div class="col-xs-12 col-md-4 right">
                                                 <div class="accordion sidebar-accordion">
+                                                    {% with event.get_festivals as festivals %}
+                                                        {% if festivals %}
+                                                            <div class="accordion-item">
+                                                                <h4 class="accordion-item-head open">{% trans "Belongs to festival" %}</h4>
+                                                                <div class="accordion-item-content">
+                                                                    {% for festival in festivals %}
+                                                                        <a class="black block" href="{{ festival.get_url_path }}">
+                                                                            <strong>{{ festival.title }}</strong>
+                                                                        </a>
+                                                                    {% endfor %}
+                                                                </div>
+                                                            </div>
+                                                        {% endif %}
+                                                    {% endwith %}
+
+
                                                     <div class="accordion-item">
                                                         <h4 class="accordion-item-head open">{% trans "Dates" %}</h4>
                                                         <div class="accordion-item-content">
