@@ -570,6 +570,16 @@ navigation_links = {
             'icon': 'fa-bullhorn',
             'is_login_required': True,
         },
+        {
+            'url_de': '/de/network/add-institution/',
+            'url_en': '/en/network/add-institution/',
+            'text_de': 'Institution hinzufügen',
+            'text_en': 'Add institution',
+            'should_be_shown': for_all,
+            'highlight_pattern': r'^/(de|en)/network/add-institution/',
+            'icon': 'fa-home',
+            'is_login_required': True,
+        },
     ],
 
     'menu_institutional_activities': [
