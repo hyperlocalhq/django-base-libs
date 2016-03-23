@@ -1,15 +1,18 @@
 # -*- coding: UTF-8 -*-
+from datetime import datetime, timedelta
+from time import strptime
 
 from django.apps import apps
 from django.db import models
 from django.shortcuts import get_object_or_404
+from django.http import Http404
 from django.views.decorators.cache import never_cache
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, ugettext
 from django.http import HttpResponse
 
 from base_libs.views import access_denied
 
-from jetson.apps.utils.views import object_detail
+from jetson.apps.utils.views import object_list, object_detail
 
 from ccb.apps.site_specific.models import ContextItem
 from ccb.apps.events.views import event_list
@@ -19,40 +22,66 @@ from ccb.apps.events.utils import create_ics
 Event = apps.get_model("events", "Event")
 EventTime = apps.get_model("events", "EventTime")
 
+@never_cache
+def event_list(request, criterion="", slug="", show="", start_date=None, end_date=None, unlimited=False, title="",
+               **kwargs):
+    """Displays the list of events"""
+
+    queryset = kwargs['queryset']
+
+    extra_context = kwargs.setdefault("extra_context", {})
+    extra_context['show'] = ("", "/%s" % show)[bool(show and show != "related")]
+    extra_context['today'] = datetime.now()
+    if request.is_ajax():
+        extra_context['base_template'] = "base_ajax.html"
+    kwargs['extra_context'] = extra_context
+    kwargs['httpstate_prefix'] = "counselling_events"
+    kwargs['queryset'] = queryset
+
+    return object_list(request, **kwargs)
+
 
 @never_cache
 def counselling_events_list(request, **kwargs):
     """
     Lists the institution's events
     """
+    queryset = kwargs['queryset']
+
     item = get_object_or_404(
         ContextItem,
-        content_type__model__in=("person", "institution"),
+        content_type__model="institution",
         slug=u'kreativwirtschaftsberatung_berlin',
     )
-    if item.is_person():
-        if not request.user.has_perm("people.change_person", item.content_object) and item.status not in (
-        "published", "published_commercial"):
-            return access_denied(request)
-        person = item.content_object
-        kwargs['queryset'] = kwargs['queryset'].filter(
-            models.Q(organizing_person=person)
-        ).order_by('-creation_date')
-    else:
-        if not request.user.has_perm("institutions.change_institution", item.content_object) and item.status not in (
-        "published", "published_commercial"):
-            return access_denied(request)
-        institution = item.content_object
-        kwargs['queryset'] = kwargs['queryset'].filter(
-            models.Q(organizing_institution=institution) |
-            models.Q(venue=institution),
-        ).order_by('-creation_date')
+    if not request.user.has_perm("institutions.change_institution", item.content_object) and item.status not in (
+    "published", "published_commercial"):
+        return access_denied(request)
+
+    institution = item.content_object
+    queryset = queryset.filter(
+        models.Q(event__organizing_institution=institution) |
+        models.Q(event__venue=institution),
+    ).extra(
+        select={
+            'present_then_past': 'CASE WHEN events_eventtime.end<CURDATE() THEN 1 ELSE 0 END'
+        },
+    ).order_by('present_then_past', 'start')
 
     kwargs['template_name'] = 'counselling_events/event_list.html'
     kwargs.setdefault("extra_context", {})
     kwargs['extra_context']['object'] = item.content_object
     kwargs['title'] = _("Events by/at %s") % item.content_object.get_title()
-    return event_list(request, show="related", **kwargs)
+
+
+    extra_context = kwargs.setdefault("extra_context", {})
+    extra_context['today'] = datetime.now()
+    if request.is_ajax():
+        extra_context['base_template'] = "base_ajax.html"
+    kwargs['extra_context'] = extra_context
+    kwargs['httpstate_prefix'] = "counselling_events"
+    kwargs['queryset'] = queryset
+
+    return object_list(request, **kwargs)
 
 
 def counselling_event_detail(request, event_time=None, ical=False, *args, **kwargs):

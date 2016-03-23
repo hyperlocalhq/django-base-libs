@@ -27,20 +27,11 @@
 {% block details %}
     {% if object_list %}
         <div class="row event-list">
-            {% for event in object_list %}
-            
-                {% with event.get_nearest_occurrence as date %}
+            {% for date in object_list %}
+                {% with event=date.event %}
                     {% ifchanged date.start|date:'D, d. m. Y' %}<h2 class="date">{{ date.start|date:'D, d. m. Y' }}</h2>{% endifchanged %}
+                    {% include "counselling_events/lists/event.html" %}
                 {% endwith %}
-                
-                {% if view_type == "icons" %}
-                    {% include "counselling_events/lists/event_icons.html" %}
-                {% elif view_type == "listed" %}
-                    {% include "counselling_events/lists/event_listed.html" %}
-                {% elif view_type == "map" %}
-                    {% include "counselling_events/lists/event_mapped.html" %}
-                {% endif %}
-                
             {% endfor %}
         </div>
         {% include "utils/includes/pagination.html" %}
