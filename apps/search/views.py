@@ -26,28 +26,30 @@ class SearchView(haystack_views.SearchView):
         result_groups = []
 
         if self.form.is_valid():
-            for short_name, verbose_name in model_choices():
-                if self.form.cleaned_data[self.form.MODELS_PARAM_NAME] and short_name not in self.form.cleaned_data[self.form.MODELS_PARAM_NAME]:
-                    continue
-                app_model = indexes[short_name]  # e.g. "museums.museum"
-                results = self.results.filter(django_ct=app_model)
-                length = results.count()
-                if length and results:
-                    d = {
-                        'short_name': short_name,
-                        'verbose_name': verbose_name,
-                        'count': length,
-                        'results': results[:self.limit] if self.limit else results,
-                    }
-                    if self.limit is None and short_name in self.form.cleaned_data[self.form.MODELS_PARAM_NAME]:
-                        paginator = Paginator(results, self.results_per_page)
-                        try:
-                            page = paginator.page(int(self.request.GET.get('page', 1)))
-                        except:
-                            raise Http404
-                        d['paginator'] = paginator
-                        d['page'] = page
-                    result_groups.append(d)
+            cleaned_data = getattr(self.form, 'cleaned_data', {})
+            if cleaned_data:
+                for short_name, verbose_name in model_choices():
+                    if cleaned_data[self.form.MODELS_PARAM_NAME] and short_name not in cleaned_data[self.form.MODELS_PARAM_NAME]:
+                        continue
+                    app_model = indexes[short_name]  # e.g. "museums.museum"
+                    results = self.results.filter(django_ct=app_model)
+                    length = results.count()
+                    if length and results:
+                        d = {
+                            'short_name': short_name,
+                            'verbose_name': verbose_name,
+                            'count': length,
+                            'results': results[:self.limit] if self.limit else results,
+                        }
+                        if self.limit is None and short_name in cleaned_data[self.form.MODELS_PARAM_NAME]:
+                            paginator = Paginator(results, self.results_per_page)
+                            try:
+                                page = paginator.page(int(self.request.GET.get('page', 1)))
+                            except:
+                                raise Http404
+                            d['paginator'] = paginator
+                            d['page'] = page
+                        result_groups.append(d)
 
         context = {
             'query': self.query,
