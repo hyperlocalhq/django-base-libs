@@ -63,9 +63,10 @@ def counselling_events_list(request, **kwargs):
         models.Q(event__venue=institution),
     ).extra(
         select={
-            'present_then_past': 'CASE WHEN events_eventtime.end<CURDATE() THEN 1 ELSE 0 END'
+            'present_then_past': 'CASE WHEN events_eventtime.end<CURDATE() THEN 1 ELSE 0 END',
+            'distance': 'ABS(DATEDIFF(events_eventtime.start, CURDATE()))',
         },
-    ).order_by('present_then_past', 'start')
+    ).order_by('present_then_past', 'distance')
 
     kwargs['template_name'] = 'counselling_events/event_list.html'
     kwargs.setdefault("extra_context", {})
