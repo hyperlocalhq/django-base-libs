@@ -45,7 +45,7 @@ def _get_archive(container, queryset, extra_context, allow_future, allow_empty):
     """
     date_field = 'published_from'
     if not allow_future:
-        queryset = queryset.filter(**{'%s__lte' % date_field: tz_now()})
+        queryset = queryset.filter(**{'%s__lte' % date_field: tz_now().replace(microsecond=0)})
 
     date_list = queryset.dates(date_field, 'year')[::-1]
     extra_context['date_list'] = date_list
@@ -70,7 +70,7 @@ def _get_year_archive(year, container, queryset, extra_context, allow_future, al
     year:          This year
     """
     date_field = 'published_from'
-    now = tz_now()
+    now = tz_now().replace(microsecond=0)
 
     lookup_kwargs = {'%s__year' % date_field: year}
 
@@ -123,7 +123,7 @@ def _get_month_archive(year, month, container, queryset, extra_context, allow_fu
     """ Only bother to check current date if the month isn't in
      the past and future objects are requested."""
     if last_day >= tz_now().date() and not allow_future:
-        lookup_kwargs['%s__lte' % date_field] = tz_now()
+        lookup_kwargs['%s__lte' % date_field] = tz_now().replace(microsecond=0)
     queryset = queryset.filter(**lookup_kwargs)
     if not queryset and not allow_empty:
         raise Http404
@@ -162,7 +162,7 @@ def _get_day_archive(year, month, day, container, queryset, extra_context, allow
         raise Http404
 
     model = queryset.model
-    now = tz_now()
+    now = tz_now().replace(microsecond=0)
 
     if isinstance(model._meta.get_field(date_field), DateTimeField):
         lookup_kwargs = {'%s__range' % date_field: (
