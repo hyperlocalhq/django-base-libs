@@ -18,6 +18,7 @@ class Command(BaseCommand):
         from django.apps import apps
         from django.db import models
         from django.core.exceptions import MultipleObjectsReturned
+        from django.db import IntegrityError
 
         from base_libs.utils.misc import get_related_queryset
         from base_libs.utils.betterslugify import better_slugify
@@ -134,7 +135,10 @@ class Command(BaseCommand):
                 # set sites
                 article.sites.clear()
                 for site in s.default_sites.all():
-                    article.sites.add(site)
+                    try:
+                        article.sites.add(site)
+                    except IntegrityError:  # let's ignore the mysterious database integrity error
+                        pass
 
                 # set creative sectors
                 article.creative_sectors.clear()
