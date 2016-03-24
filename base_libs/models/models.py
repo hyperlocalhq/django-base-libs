@@ -182,7 +182,7 @@ class PublishingMixinPublishedManager(models.Manager):
             published_till=None,
             ))
         conditions.append(models.Q(
-            published_from__lt=now,
+            published_from__lte=now,
             published_till=None,
             ))
         conditions.append(models.Q(
@@ -190,7 +190,7 @@ class PublishingMixinPublishedManager(models.Manager):
             published_till__gt=now,
             ))
         conditions.append(models.Q(
-            published_from__lt=now,
+            published_from__lte=now,
             published_till__gt=now,
             ))
         return super(
