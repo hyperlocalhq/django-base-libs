@@ -143,7 +143,18 @@ class Command(BaseCommand):
                 # set creative sectors
                 article.creative_sectors.clear()
                 for cs in s.default_creative_sectors.all():
-                    article.creative_sectors.add(cs)
+                    try:
+                        article.creative_sectors.add(cs)
+                    except IntegrityError:  # let's ignore the mysterious database integrity error
+                        pass
+
+                # set categories
+                article.categories.clear()
+                for cat in s.default_categories.all():
+                    try:
+                        article.categories.add(cat)
+                    except IntegrityError:  # let's ignore the mysterious database integrity error
+                        pass
 
                 if verbosity > NORMAL:
                     print article.__dict__

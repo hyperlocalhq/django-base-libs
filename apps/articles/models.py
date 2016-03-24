@@ -109,7 +109,7 @@ class DraftArticleManager(PublishingMixinDraftManager):
 class Article(ArticleBase, MultiSiteMixin):
     creative_sectors = TreeManyToManyField(
         Term,
-        verbose_name=_("Creative sectors"),
+        verbose_name=_("Creative sectors (deprecated)"),
         limit_choices_to={'vocabulary__sysname': 'categories_creativesectors'},
         related_name="creative_sector_articles",
         blank=True,

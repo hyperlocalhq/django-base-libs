@@ -75,7 +75,7 @@ class ArticleOptions(ExtendedModelAdmin):
         'featured_in_newsletter', 'importance_in_newsletter',
     ]
 
-    fieldsets = [(None, {'fields': ('article_type', 'creative_sectors')}), ]
+    fieldsets = [(None, {'fields': ('article_type', 'categories', 'creative_sectors')}), ]
     fieldsets += [(_("Article"), {'fields': ['title', 'alternative_title', 'subtitle', 'content', 'description', 'language']})]
     fieldsets += [(None, {'fields': ('slug', 'sites', 'is_featured',), }), ]
     fieldsets += [(_('Import'), {'fields': ('content_provider', 'external_url', 'is_excerpt')}), ]
@@ -98,17 +98,12 @@ class ArticleOptions(ExtendedModelAdmin):
             ],
         }
     )]
-    fieldsets += [
-        (_("Categories"), {
-            'fields': ('categories',),
-        }),
-    ]
     fieldsets += [(_('Magazine & Newsleter'), {'fields': (
         'featured_in_magazine', 'importance_in_magazine',
         'featured_in_newsletter', 'importance_in_newsletter',
     )}), ]
 
-    filter_horizontal = ['creative_sectors', ]
+    filter_horizontal = ['categories', 'creative_sectors', 'sites']
     prepopulated_fields = {"slug": ("title",), }
 
     def imported_from(self, obj):
@@ -131,9 +126,10 @@ class ArticleImportSource_Inline(ExtendedStackedInline):
             'fields': ('title', 'url', 'sysname', 'content_provider', 'are_excerpts')
         }),
         (_("Defaults"), {
-            'fields': ('default_sites', 'default_creative_sectors', 'default_status')
+            'fields': ('default_sites', 'default_categories', 'default_creative_sectors', 'default_status')
         }),
     )
+    filter_horizontal = ['default_categories', 'default_creative_sectors', 'default_sites']
 
 
 class ArticleContentProviderOptions(ExtendedModelAdmin):

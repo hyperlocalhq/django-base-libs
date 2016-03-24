@@ -28,11 +28,20 @@ class ArticleImportSource(Service):
 
     default_creative_sectors = TreeManyToManyField(
         "structure.Term",
-        verbose_name=_("Creative sectors"),
+        verbose_name=_("Creative sectors (deprecated)"),
         help_text=_("Creative sectors to apply to the imported articles by default."),
         limit_choices_to={'vocabulary__sysname': 'categories_creativesectors'},
         related_name="cs_ais",
         db_column="default_cs",
+        blank=True,
+        null=True,
+    )
+
+    default_categories = TreeManyToManyField(
+        "structure.Category",
+        verbose_name=_("Categories"),
+        limit_choices_to={'level': 0},
+        help_text=_("Categories to apply to the imported articles by default."),
         blank=True,
         null=True,
     )
