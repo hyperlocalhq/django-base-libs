@@ -2,6 +2,7 @@
 import re
 import datetime
 import time
+from datetime import timedelta
 
 from django.template import loader
 from django.template import RequestContext
@@ -45,7 +46,7 @@ def _get_archive(container, queryset, extra_context, allow_future, allow_empty):
     """
     date_field = 'published_from'
     if not allow_future:
-        queryset = queryset.filter(**{'%s__lte' % date_field: tz_now().replace(microsecond=0)})
+        queryset = queryset.filter(**{'%s__lte' % date_field: tz_now().replace(microsecond=0) + timedelta(seconds=1)})
 
     date_list = queryset.dates(date_field, 'year')[::-1]
     extra_context['date_list'] = date_list
