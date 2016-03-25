@@ -45,7 +45,7 @@ def _get_archive(container, queryset, extra_context, allow_future, allow_empty):
     """
     date_field = 'published_from'
     if not allow_future:
-        queryset = queryset.filter(**{'%s__lte' % date_field: tz_now().replace(microsecond=0) + timedelta(seconds=60)})
+        queryset = queryset.filter(**{'%s__lte' % date_field: tz_now()})
 
     date_list = queryset.dates(date_field, 'year')[::-1]
     extra_context['date_list'] = date_list
