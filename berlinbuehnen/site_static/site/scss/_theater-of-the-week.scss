@@ -103,7 +103,7 @@
                 float: left;
                 
                 &:after {
-                    content: ", ";
+                    content: ",\00a0";
                 }
             }
         }

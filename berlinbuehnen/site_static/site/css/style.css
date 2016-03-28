@@ -5445,7 +5445,7 @@ select {
 }
 
 .article .article-content-cms .img_and_desc .title:after {
-  content: ", ";
+  content: ",\00a0";
 }
 
 .is-xs .article .main-container {
@@ -5562,7 +5562,7 @@ select {
 }
 
 .theater-of-the-week .article-content-cms .img_and_desc .title:after {
-  content: ", ";
+  content: ",\00a0";
 }
 
 .top-widgets-wrapper .theater-of-the-week-widget-wrapper .top-widget-button-up-wrapper {
