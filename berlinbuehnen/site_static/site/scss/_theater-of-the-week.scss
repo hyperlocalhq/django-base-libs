@@ -109,11 +109,11 @@
             
             .author {
                 &:before {
-                    content: "Foto: \00a0";
+                    content: "Foto:\00a0";
                 }
                 
                 .lang_en &:before {
-                    content: "Photo: \00a0";
+                    content: "Photo:\00a0";
                 }
             }
         }
