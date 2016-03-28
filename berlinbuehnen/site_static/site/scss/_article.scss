@@ -123,6 +123,23 @@
             font-size: 0.875em;
         }
     }
+    
+    .article-content-cms {
+        .img_and_desc {
+            .author, .title {
+                font-size: 0.9em;
+                font-weight: $regular;
+            }
+            
+            .title {
+                float: left;
+                
+                &:after {
+                    content: ", ";
+                }
+            }
+        }
+    }
 }
 
 
