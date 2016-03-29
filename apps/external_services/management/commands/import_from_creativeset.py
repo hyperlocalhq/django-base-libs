@@ -16,6 +16,7 @@ class Command(BaseCommand):
         from dateutil.parser import parse as parse_datetime
 
         from django.apps import apps
+        from django.db import IntegrityError
 
         from base_libs.utils.misc import html_to_plain_text
         from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
@@ -160,7 +161,10 @@ class Command(BaseCommand):
                 except Exception:
                     pass
                 else:
-                    job_offer.job_sectors.add(job_sector)
+                    try:
+                        job_offer.job_sectors.add(job_sector)
+                    except IntegrityError:
+                        pass
 
             # add job qualifications
 
@@ -175,7 +179,10 @@ class Command(BaseCommand):
                 except Exception:
                     pass
                 else:
-                    job_offer.qualifications.add(qualification)
+                    try:
+                        job_offer.qualifications.add(qualification)
+                    except IntegrityError:
+                        pass
 
             # add address
 
