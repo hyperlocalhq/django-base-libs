@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from django.utils.encoding import force_unicode, smart_str
 from django.conf import settings
 from django.apps import apps
+from django.db import IntegrityError
 from mptt.fields import TreeForeignKey, TreeManyToManyField
 from actstream import action
 
@@ -230,11 +231,22 @@ class ContextItemManager(models.Manager):
         # item.object_types.add(*list(obj.get_object_types()))
         item.context_categories.clear()
         context_categories = list(obj.get_context_categories())
-        item.context_categories.add(*context_categories)
+        try:
+            item.context_categories.add(*context_categories)
+        except IntegrityError:
+            pass
+
         item.creative_sectors.clear()
-        item.creative_sectors.add(*list(obj.get_creative_sectors()))
+        try:
+            item.creative_sectors.add(*list(obj.get_creative_sectors()))
+        except IntegrityError:
+            pass
+
         item.categories.clear()
-        item.categories.add(*list(obj.get_categories()))
+        try:
+            item.categories.add(*list(obj.get_categories()))
+        except IntegrityError:
+            pass
 
         return item
 
