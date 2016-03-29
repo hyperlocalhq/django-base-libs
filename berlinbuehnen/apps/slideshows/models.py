@@ -24,7 +24,7 @@ class Slideshow(SysnameMixin()):
     def __unicode__(self):
         return self.sysname
 
-class Slide(models.Model):
+class Slide(PublishingMixin, models.Model):
     slideshow = models.ForeignKey(Slideshow, verbose_name=_("Slideshow"), default=0)
     path = FileBrowseField(_('File path'), max_length=255, blank=True, directory="slideshows/", help_text=_("A path to a locally stored image or video."))
     link = models.CharField(_('Link'), max_length=255, blank=True)

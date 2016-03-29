@@ -27,6 +27,7 @@ class Slide_Inline(ExtendedStackedInline):
     fieldsets += [
         (None, {'fields': ["path", "link", "highlight"] }),
         ]
+    fieldsets += [(None, {'fields': ["published_from", "published_till"]} ),]
     fieldsets += [(None, {'fields': ("sort_order", )}),]
     classes = ('collapse open',)
     inline_classes = ('collapse open',)
