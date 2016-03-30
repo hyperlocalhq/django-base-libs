@@ -4,20 +4,23 @@ import base64
 from Crypto.Cipher import DES
 from django.utils.encoding import force_unicode, smart_str
 
+
 def cryptString(plain, key=''):
-    '''
+    """
+    Takes a unicode string and returns an encrypted ASCII cipher
+
     >>> decryptString(cryptString('the quick brown fox jumps over the lazy dog.', 'abcdefgh'), 'abcdefgh')
     u'the quick brown fox jumps over the lazy dog.'
 
     >>> decryptString(cryptString('', 'abcdefgh'), 'abcdefgh')
     u''
 
-    >>> decryptString(cryptString(u'ãêç', 'abcdefgh'), 'abcdefgh')
-    u'ãêç'
-    '''
+    >>> u'äöüß€' == decryptString(cryptString(u'äöüß€', 'abcdefgh'), 'abcdefgh')
+    True
+    """
     plain = smart_str(plain)
-    padded_length = len(plain)+8 - len(plain)%8
-    plain = plain.ljust(padded_length,"\0")
+    padded_length = len(plain) + 8 - len(plain) % 8
+    plain = plain.ljust(padded_length, "\0")
     if not key:
         from django.conf import settings
         key = settings.SECRET_KEY[:8]
@@ -26,7 +29,11 @@ def cryptString(plain, key=''):
     base64_cipher = base64.b64encode(cipher, "_-").strip()
     return base64_cipher
 
+
 def decryptString(cipher, key=''):
+    """
+    Takes an encrypted ASCII cipher and returns a decrypted unicode string
+    """
     if not key:
         from django.conf import settings
         key = settings.SECRET_KEY[:8]
@@ -35,6 +42,8 @@ def decryptString(cipher, key=''):
     plain = force_unicode(plain)
     return plain
 
+
 if __name__ == "__main__":
     import doctest
+
     doctest.testmod()
