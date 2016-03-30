@@ -78,7 +78,7 @@ def show_member_jobs(context):
     if obj and getattr(obj, "is_editable", lambda: False)():
         return True
     if getattr(obj, 'is_person', lambda: False)():
-        return JobOffer.objects.filter(creator=obj.user).exists()
+        return JobOffer.objects.filter(creator=obj.user, offering_institution=None, offering_institution_title="").exists()
     else:
         return JobOffer.objects.filter(offering_institution=obj).exists()
 
@@ -90,7 +90,7 @@ def show_member_bulletins(context):
     if obj and getattr(obj, "is_editable", lambda: False)():
         return True
     if getattr(obj, 'is_person', lambda: False)():
-        return Bulletin.objects.filter(creator=obj.user).exists()
+        return Bulletin.objects.filter(creator=obj.user, institution=None, institution_title="", content_provider=None).exists()
     else:
         return Bulletin.objects.filter(institution=obj).exists()
 

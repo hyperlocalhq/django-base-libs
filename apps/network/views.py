@@ -304,7 +304,7 @@ def member_jobs_list(request, slug, **kwargs):
         if not request.user.has_perm("people.change_person", item.content_object) and item.status not in ("published", "published_commercial"):
             return access_denied(request)
         person = item.content_object
-        kwargs['queryset'] = kwargs['queryset'].filter(creator=person.user).order_by('start')
+        kwargs['queryset'] = kwargs['queryset'].filter(creator=person.user, offering_institution=None, offering_institution_title="").order_by('start')
         kwargs['template_name'] = 'people/person_job_offers.html'
     else:
         if not request.user.has_perm("institutions.change_institution", item.content_object) and item.status not in ("published", "published_commercial"):
@@ -343,7 +343,7 @@ def member_bulletins_list(request, slug, **kwargs):
         if not request.user.has_perm("people.change_person", item.content_object) and item.status not in ("published", "published_commercial"):
             return access_denied(request)
         person = item.content_object
-        kwargs['queryset'] = kwargs['queryset'].filter(creator=person.user).order_by("-published_from")
+        kwargs['queryset'] = kwargs['queryset'].filter(creator=person.user, institution=None, institution_title="", content_provider=None).order_by("-published_from")
         kwargs['template_name'] = 'people/person_bulletins.html'
     else:
         if not request.user.has_perm("institutions.change_institution", item.content_object) and item.status not in ("published", "published_commercial"):
