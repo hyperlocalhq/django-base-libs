@@ -2901,8 +2901,9 @@ strong {
   opacity: 1;
 }
 
-.is-xs #footer img {
-  margin-bottom: 20px;
+#footer .white-bg {
+  display: inline-block;
+  background: white;
 }
 
 select {
