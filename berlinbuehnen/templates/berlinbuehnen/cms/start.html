@@ -26,8 +26,11 @@
                 <div class="col-xs-12 print-padding">
                     {% get_objects published_upcoming productions.Event 4 as newest_events %}
                     <div id="main_list" class="list row print-small">
+                        <br/>
                         {% for event in newest_events %}
+                            {% comment %}
                             {% ifchanged event.start_date %}<h1 class="list-headline">{{ event.start_date|date:"D, j. F Y" }}</h1>{% endifchanged %}
+                            {% endcomment %}
                             <div class="list-item col-xs-12">
                                 <div class="row">
 

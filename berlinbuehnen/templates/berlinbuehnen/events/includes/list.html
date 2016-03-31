@@ -1,7 +1,10 @@
 {% load i18n image_modifications base_tags tagging_tags production_tags favorites_tags auth_extended %}
 
+<br/>
 {% for event in object_list %}
+    {% comment %}
     {% ifchanged event.start_date %}<h1 class="list-headline">{{ event.start_date|date:"D, j. F Y" }}</h1>{% endifchanged %}
+    {% endcomment %} 
     <div class="list-item col-xs-12">
         <div class="row">
             
