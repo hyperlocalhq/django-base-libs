@@ -6391,12 +6391,16 @@ select {
   display: block;
   float: left;
   width: auto;
-  height: 90px;
+  height: 125px;
   margin-right: 2%;
   margin-bottom: 10px;
   padding-right: 2%;
   white-space: nowrap;
   border-right: 1px solid #ebebeb;
+}
+
+#sponsors .container > div:first-of-type {
+  height: 90px;
 }
 
 #sponsors .container > div a {
