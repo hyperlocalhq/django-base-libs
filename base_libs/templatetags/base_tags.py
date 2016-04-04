@@ -5,6 +5,7 @@ import re
 import urllib
 from htmlentitydefs import name2codepoint
 from django.db import models
+from django.apps import apps
 from django import template
 from django.conf import settings
 from django.template import loader, RequestContext, Template
@@ -129,7 +130,7 @@ def do_load_obj(parser, token):
         appname, modelname = appmodel.split(".")
     except ValueError:
         raise template.TemplateSyntaxError, "%r tag requires application name and model name separated by a dot" % (token.contents[0], token.contents[0])
-    model = models.get_model(appname, modelname)
+    model = apps.get_model(appname, modelname)
     return LoadObjNode(model, object_id, var_name)
 
 class LoadObjNode(template.Node):
@@ -172,7 +173,7 @@ def do_get_all_objects(parser, token):
     except ValueError:
         raise template.TemplateSyntaxError, "%r tag requires application name and model name separated by a dot" % (token.contents[0], token.contents[0])
     #from django.conf import settings
-    model = models.get_model(appname, modelname)
+    model = apps.get_model(appname, modelname)
     return GetAllObjectsNode(model, var_name)
 
 class GetAllObjectsNode(template.Node):
@@ -206,7 +207,7 @@ def do_get_latest_published_objects(parser, token):
         appname, modelname = appmodel.split(".")
     except ValueError:
         raise template.TemplateSyntaxError, "get_latest_published_objects tag requires application name and model name separated by a dot"
-    model = models.get_model(appname, modelname)
+    model = apps.get_model(appname, modelname)
     return LatestPublishedObjectsNode(model, amount, var_name)
 
 class LatestPublishedObjectsNode(template.Node):
@@ -252,7 +253,7 @@ def do_get_objects(parser, token):
         appname, modelname = appmodel.split(".")
     except ValueError:
         raise template.TemplateSyntaxError, "get_objects tag requires application name and model name separated by a dot"
-    model = models.get_model(appname, modelname)
+    model = apps.get_model(appname, modelname)
     return ObjectsNode(model, manager_method, amount, var_name)
 
 class ObjectsNode(template.Node):

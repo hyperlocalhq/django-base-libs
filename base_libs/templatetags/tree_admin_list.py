@@ -1,7 +1,6 @@
 """
 overriding admin views for tree items
 """
-from django.contrib.admin.views.main import EMPTY_CHANGELIST_VALUE
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.utils import dateformat
@@ -13,6 +12,14 @@ from django.utils.encoding import smart_unicode, force_unicode
 from django.template import Library
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.admin.templatetags.admin_list import result_headers, _boolean_icon
+
+def get_empty_value_display(cl):
+    if hasattr(cl.model_admin, 'get_empty_value_display'):
+        return cl.model_admin.get_empty_value_display()
+    else:
+        # Django < 1.9
+        from django.contrib.admin.views.main import EMPTY_CHANGELIST_VALUE
+        return EMPTY_CHANGELIST_VALUE
 
 register = Library()
 
@@ -48,7 +55,7 @@ def tree_items_for_result(cl, result):
                 else:
                     result_repr = smart_unicode(value)
             except (AttributeError, ObjectDoesNotExist):
-                result_repr = EMPTY_CHANGELIST_VALUE
+                result_repr = get_empty_value_display(cl)
             else:
                 # Strip HTML tags in the resulting text, except if the
                 # function has an "allow_tags" attribute set to True.
@@ -63,7 +70,7 @@ def tree_items_for_result(cl, result):
                 if field_val is not None:
                     result_repr = escape(getattr(result, f.name))
                 else:
-                    result_repr = EMPTY_CHANGELIST_VALUE
+                    result_repr = get_empty_value_display(cl)
             # Dates and times are special: They're formatted in a certain way.
             elif isinstance(f, models.DateField) or isinstance(f, models.TimeField):
                 if field_val:
@@ -77,7 +84,7 @@ def tree_items_for_result(cl, result):
                     else:
                         result_repr = capfirst(dateformat.format(field_val, date_format))
                 else:
-                    result_repr = EMPTY_CHANGELIST_VALUE
+                    result_repr = get_empty_value_display(cl)
                 row_class = ' class="nowrap"'
             # Booleans are special: We use images.
             elif isinstance(f, models.BooleanField) or isinstance(f, models.NullBooleanField):
@@ -87,11 +94,11 @@ def tree_items_for_result(cl, result):
                 if field_val is not None:
                     result_repr = ('%%.%sf' % f.decimal_places) % field_val
                 else:
-                    result_repr = EMPTY_CHANGELIST_VALUE
+                    result_repr = get_empty_value_display(cl)
             # Fields with choices are special: Use the representation
             # of the choice.
             elif f.choices:
-                result_repr = dict(f.choices).get(field_val, EMPTY_CHANGELIST_VALUE)
+                result_repr = dict(f.choices).get(field_val, get_empty_value_display(cl))
             else:
                 result_repr = escape(field_val)
         if force_unicode(result_repr) == '':
