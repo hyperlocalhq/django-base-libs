@@ -48,18 +48,16 @@ class IncludeSelectNode(template.Node):
             try:
                 t = select_template(param_list)
             except:
-                if settings.TEMPLATE_DEBUG:
-                    raise
-            return t.render(context) 
+                raise
+            return t.render(context)
         # the second case (see below)
         elif self.case == 1:
             # the param list should look like [<<template>>, <<obj>>, <<app_dir>>]
             try:
                 t = select_template_for_object(param_list[0], param_list[1], param_list[2])
             except:
-                if settings.TEMPLATE_DEBUG:
-                    raise
-            return t.render(context) 
+                raise
+            return t.render(context)
         return ""
 
 def do_include_selected(parser, token):

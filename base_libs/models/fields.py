@@ -44,7 +44,7 @@ class ExtendedTextField(TextField):
         widget_attrs['class'] += " hasMarkupType"
         return form_field
     
-    def contribute_to_class(self, cls, name): 
+    def contribute_to_class(self, cls, name, virtual_only=False):
         # generate an additional select field for selecting the markup type
         if True or not cls._meta.abstract:
             try: # the field shouldn't be already added (for south)
@@ -201,7 +201,7 @@ class MultilingualCharField(models.Field):
     def get_internal_type(self):
         return "CharField"
     
-    def contribute_to_class(self, cls, name):
+    def contribute_to_class(self, cls, name, virtual_only=False):
         # generate language specific fields dynamically
         if not cls._meta.abstract:
             for language in settings.LANGUAGES:
@@ -296,7 +296,7 @@ class MultilingualTextField(models.Field):
     def get_internal_type(self): 
         return "TextField"
 
-    def contribute_to_class(self, cls, name): 
+    def contribute_to_class(self, cls, name, virtual_only=False):
         # generate language specific fields dynamically
         if not cls._meta.abstract:
             for language in settings.LANGUAGES:
@@ -505,7 +505,7 @@ class PositionField(models.IntegerField):
             collection = (collection,)
         self.collection = collection
 
-    def contribute_to_class(self, cls, name):
+    def contribute_to_class(self, cls, name, virtual_only=False):
         super(PositionField, self).contribute_to_class(cls, name)
         for constraint in cls._meta.unique_together:
             if self.name in constraint:
