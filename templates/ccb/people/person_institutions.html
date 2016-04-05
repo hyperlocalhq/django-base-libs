@@ -49,7 +49,7 @@
                                 {% endif %}
                             {% else %}
                                 {% if institution.is_contactable %}
-                                    <a rel="nofollow" href="{% url 'login' %}?goto_next={{ institution.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>
+                                    <a rel="nofollow" href="{% url 'login' %}?goto_next={{ institution.get_url_path }}message/" class="fawesome fa-email button"><span class="sr-only">{% trans "Send Email" %}</span></a>
                                 {% endif %}
                             {% endif %}
                         </div>

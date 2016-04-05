@@ -5,10 +5,12 @@
     height: 50px;
     background: $white-dirty;
     position: relative;
-    z-index: 200;
+    z-index: 80;
+    overflow: hidden;
     
     ul {
         list-style: none;
+        width: 10000px;
         li {
             font-family: $font-2, $font-family-1;
             font-weight: $font-regular;

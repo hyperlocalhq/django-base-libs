@@ -2734,11 +2734,13 @@ body.show-layer.image-layer .layer#image-layer {
   height: 50px;
   background: #efefef;
   position: relative;
-  z-index: 200;
+  z-index: 80;
+  overflow: hidden;
 }
 
 #breadcrumbs ul {
   list-style: none;
+  width: 10000px;
 }
 
 #breadcrumbs ul li {
