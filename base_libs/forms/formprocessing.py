@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 import re
-from django import forms
+import pickle
 from django.template import loader
 from django.template.context import RequestContext
 from django.http import HttpResponse, Http404, HttpResponseRedirect, HttpResponseForbidden
-
-from django.conf import settings
-from django.shortcuts import render_to_response
-
-from django.contrib.formtools.utils import form_hmac
-
 from django.utils.translation import ugettext_lazy as _
+from django.utils.crypto import salted_hmac
+from django.utils import six
+
 
 # action names for standard actions. Do not Edit!!!
 ID_ACTION_NEW = "new"
@@ -20,8 +18,30 @@ ALLOWED_ACTIONS = [ID_ACTION_NEW, ID_ACTION_EDIT, ID_ACTION_DELETE]
 
 AUTO_ID = 'form_%s' # Each form here uses this as its auto_id parameter.
 
+def form_hmac(form):
+    """
+    Calculates a security hash for the given Form instance.
+    """
+    data = []
+    for bf in form:
+        # Get the value from the form data. If the form allows empty or hasn't
+        # changed then don't call clean() to avoid trigger validation errors.
+        if form.empty_permitted and not form.has_changed():
+            value = bf.data or ''
+        else:
+            value = bf.field.clean(bf.data) or ''
+        if isinstance(value, six.string_types):
+            value = value.strip()
+        data.append((bf.name, value))
+
+    pickled = pickle.dumps(data, pickle.HIGHEST_PROTOCOL)
+    key_salt = 'django.contrib.formtools'
+    return salted_hmac(key_salt, pickled).hexdigest()
+
+
 def methodNotImplementedError(method, instance):
     raise NotImplementedError, 'You must define a %s method on your %s subclass.' % (method, instance.__class__.__name__)
+
 
 class FormHandler(object):
     """

@@ -14,11 +14,12 @@ def select_template_for_object(template_name, obj, app_dir):
     tries to get a template from some object-template dir.
     If this one does not exist, return a default template.
     """
-    obj_template_name = ""
+    templates_to_check = ["%s/%s" % (app_dir, template_name)]
     if obj:
-        obj_template_name = "%s%s/%s" % \
-            (get_template_dir_from_object(obj), app_dir, template_name)
-    return select_template([obj_template_name, "%s/%s" % (app_dir, template_name)])
+        templates_to_check = [
+            "%s%s/%s" % (get_template_dir_from_object(obj), app_dir, template_name)
+        ] + templates_to_check
+    return select_template(templates_to_check)
     
 def select_template_name(template_name_prefix, obj, app_dir, use_embedded=False):
     """
@@ -30,7 +31,5 @@ def select_template_name(template_name_prefix, obj, app_dir, use_embedded=False)
         template_name = "%s_embedded" % template_name_prefix
     t = select_template_for_object("%s.html" % template_name, obj, app_dir)
     if t:
-        return t.name
+        return t.origin.name  # TODO: check if this works well
     return ""
-
-    
