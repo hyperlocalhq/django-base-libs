@@ -14,6 +14,8 @@ from django.utils.safestring import mark_safe
 from django.conf import settings
 from django.db import connection, models
 from django.db.models.signals import post_delete, post_save
+from django.utils.translation import get_language
+from django.utils.translation import string_concat
 
 try:
     from django.utils.timezone import now as tz_now
@@ -183,96 +185,59 @@ class MultilingualProxy(object):
             obj.__dict__[_language_field_name(self._field.attname, language)] = value
 
 
-class MultilingualCharField(models.Field):
-
-    description = _("Multilingual string (up to %(max_length)s)")
+class MultilingualCharField(models.CharField):
 
     def __init__(self, verbose_name=None, **kwargs):
-        
-        self._blank = kwargs.get('blank', False)
-        self._editable = kwargs.get('editable', True)
-        
-        # inits for the needed dummy field (see below)
-        kwargs['editable'] = False
-        kwargs['null'] = True
-        kwargs['blank'] = self._blank
+
+        self._blank = kwargs.get("blank", False)
+        self._editable = kwargs.get("editable", True)
+
         super(MultilingualCharField, self).__init__(verbose_name, **kwargs)
 
-    def get_internal_type(self):
-        return "CharField"
-    
     def contribute_to_class(self, cls, name, virtual_only=False):
         # generate language specific fields dynamically
-        if not cls._meta.abstract:
-            for language in settings.LANGUAGES:
-                try: # the field shouldn't be already added (for south)
-                    cls._meta.get_field(_language_field_name(name, language[0]))
-                except models.FieldDoesNotExist:
-                    pass
-                else:
-                    continue
-                
-                if language[0] == settings.LANGUAGE_CODE:
-                    _blank = self._blank
-                else:
-                    _blank = True
+        for lang_code, lang_name in settings.LANGUAGES:
+            if lang_code == settings.LANGUAGE_CODE:
+                _blank = self._blank
+            else:
+                _blank = True
 
-                localized_field = models.CharField(
-                    self.verbose_name, 
-                    name=_language_field_name(name, language[0]),  # self.name,
-                    primary_key=self.primary_key,
-                    max_length=self.max_length, 
-                    unique=self.unique, 
-                    blank=_blank, 
-                    null=False, # we ignore the null argument!
-                    db_index=self.db_index,
-                    rel=self.rel, 
-                    default=self.default or "", 
-                    editable=self._editable,
-                    serialize=self.serialize, 
-                    choices=self.choices, 
-                    help_text=self.help_text,
-                    db_column=None, 
-                    db_tablespace=self.db_tablespace 
-                    )
-                localized_field.south_field_triple = lambda: (
-                    "django.db.models.fields.CharField",
-                    [repr(force_unicode(localized_field.verbose_name))],
-                    dict(
-                        primary_key=repr(localized_field.primary_key),
-                        max_length=repr(localized_field.max_length),
-                        unique=repr(localized_field.unique),
-                        blank=repr(localized_field.blank),
-                        null=repr(localized_field.null),
-                        db_index=repr(localized_field.db_index),
-                        default=repr(isinstance(localized_field.default, basestring) and localized_field.default or ""),
-                        editable=repr(localized_field.editable),
-                        choices=repr(localized_field.choices),
-                        db_column=repr(localized_field.db_column),
-                        db_tablespace=repr(localized_field.db_tablespace),
-                        ))
-                localized_field.contribute_to_class(
-                    cls,
-                    _language_field_name(name, language[0]),
-                    )
+            localized_field = models.CharField(
+                string_concat(self.verbose_name, " (%s)" % lang_code),
+                name=self.name,
+                primary_key=self.primary_key,
+                max_length=self.max_length,
+                unique=self.unique,
+                blank=_blank,
+                null=False,  # we ignore the null argument!
+                db_index=self.db_index,
+                rel=self.rel,
+                default=self.default or "",
+                editable=self._editable,
+                serialize=self.serialize,
+                choices=self.choices,
+                help_text=self.help_text,
+                db_column=None,
+                db_tablespace=self.db_tablespace
+            )
+            localized_field.contribute_to_class(
+                cls,
+                "%s_%s" % (name, lang_code),
+            )
 
-        """ 
-        unfortunately, the field itself must have a database column.
-        In our case, this column is empty. If we do not create a 
-        database column named <<name>>, the Admin will not work!
-        But we make the dummy database column not editable, blank=true
-        in the init method
-        """
-        try:  # the field shouldn't be already added
-            cls._meta.get_field(name)
-        except models.FieldDoesNotExist:
-            pass
-        else:
-            cls._meta.local_fields.remove(cls._meta.get_field(name))
-            # TODO: find why the field has already been added as CharField
-        super(MultilingualCharField, self).contribute_to_class(cls, name)
-        # override with proxy
-        setattr(cls, name, MultilingualProxy(self))
+        #self.set_attributes_from_name(name)
+        #self.model = cls
+        #cls._meta.add_field(self, virtual=True)
+        #super(MultilingualCharField, self).contribute_to_class(cls, name, virtual_only=True)
+
+        def translated_value(self):
+            language = get_language()
+            val = self.__dict__["%s_%s" % (name, language)]
+            if not val:
+                val = self.__dict__["%s_%s" % (name, settings.LANGUAGE_CODE)]
+            return val
+
+        setattr(cls, name, property(translated_value))
 
 
 class MultilingualTextField(models.Field):
