@@ -18,7 +18,7 @@
             
 <!-- 2 Columns Text -->
 <table width="600" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" style="mso-table-lspace:0pt;mso-table-rspace:0pt;padding:0px;margin:0px; border-collapse:collapse;">
-    {% get_objects site_published_objects_all_languages.tenders_and_competitions articles.Article 8 as articles %}
+    {% get_objects site_published_objects_all_languages.tenders_and_competitions_in_newsletter articles.Article 8 as articles %}
     {% for article in articles %}
     
         {% if article.description %}
@@ -51,7 +51,7 @@
                             </td>
                         <tr>
                             <td style="font-family:Arial, Helvetica, sans-serif;font-size:12px; line-height:20px;">
-                                <a href="{{ article.get_url }}" style="color:#00bcee; text-decoration:none">{% trans 'more' %}...</a>
+                                <a href="{{ article.get_url }}" style="color:#00bcee; text-decoration:none" target="_blank">{% trans 'more' %}...</a>
                             </td>
                         </tr>
                         <tr>
@@ -68,3 +68,12 @@
 </table>
             
 
+
+
+<!-- Link more -->
+<table width="600" height="30" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" style="mso-table-lspace:0pt;mso-table-rspace:0pt;padding:0px;margin:0px; border-collapse:collapse;">
+  <tr>
+    <td style="font-family:Arial, Helvetica, sans-serif;font-size:12px; line-height:20px; text-align:right;"><a href="http://www.creative-city-berlin.de/{{ LANGUAGE_CODE }}/news/category/tenders-competitions/" style="color:#00bcee; text-decoration:none" target="_blank">{% trans 'all tenders and competitions' %}...</a>
+    </td>
+  </tr>
+</table>

@@ -24,7 +24,7 @@
             <tr>
         {% endif %}
                 
-                <td width="100" height="100"><a href="{{ person.get_url }}"><img width="100" height="100" style="border: 0;" src="{% if person.image %}http://www.creative-city-berlin.de/media/{{ person.image|modified_path:"newsletter_profile" }}{% else %}http://www.creative-city-berlin.de/media/newsletter-static/profile.png{% endif %}" alt=""/></a></td>
+                <td width="100" height="100"><a href="{{ person.get_url }}" target="_blank"><img width="100" height="100" style="border: 0;" src="{% if person.image %}http://www.creative-city-berlin.de/media/{{ person.image|modified_path:"newsletter_profile" }}{% else %}http://www.creative-city-berlin.de/media/newsletter-static/profile.png{% endif %}" alt=""/></a></td>
     
         {% if forloop.counter|divisibleby:6 or forloop.last %}
             </tr>
@@ -36,7 +36,7 @@
  <!-- Link more -->
 <table width="600" height="30" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" style="mso-table-lspace:0pt;mso-table-rspace:0pt;padding:0px;margin:0px; border-collapse:collapse;">
   <tr>
-    <td style="font-family:Arial, Helvetica, sans-serif;font-size:12px; line-height:20px; text-align:right;"><a href="http://www.creative-city-berlin.de/{{ LANGUAGE_CODE }}/network/" style="color:#00bcee; text-decoration:none">{% trans 'more' %}...</a>
+    <td style="font-family:Arial, Helvetica, sans-serif;font-size:12px; line-height:20px; text-align:right;"><a href="http://www.creative-city-berlin.de/{{ LANGUAGE_CODE }}/network/" style="color:#00bcee; text-decoration:none" target="_blank">{% trans 'all profiles' %}...</a>
     </td>
   </tr>
 </table>

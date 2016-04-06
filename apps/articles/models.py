@@ -72,6 +72,11 @@ class PublishedArticleAllLanguagesManager(PublishingMixinPublishedManager):
     def tenders_and_competitions(self):
         article_type = ArticleType.objects.get(slug="tenders-competitions")
         return self.filter(article_type=article_type)
+        
+    def tenders_and_competitions_in_newsletter(self):
+        return self.tenders_and_competitions().filter(
+            featured_in_newsletter=True,
+        ).order_by("-importance_in_newsletter")
 
     def non_interviews(self):
         article_type = ArticleType.objects.get(slug="interviews")

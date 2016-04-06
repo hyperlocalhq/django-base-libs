@@ -50,7 +50,7 @@
                             </td>
                         <tr>
                             <td style="font-family:Arial, Helvetica, sans-serif;font-size:12px; line-height:20px;">
-                                <a href="{{ article.get_url }}" style="color:#00bcee; text-decoration:none">{% trans 'more' %}...</a>
+                                <a href="{{ article.get_url }}" style="color:#00bcee; text-decoration:none" target="_blank">{% trans 'more' %}...</a>
                             </td>
                         </tr>
                         <tr>
@@ -66,3 +66,12 @@
     {% endfor %}
 </table>
             
+
+
+<!-- Link more -->
+<table width="600" height="30" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" style="mso-table-lspace:0pt;mso-table-rspace:0pt;padding:0px;margin:0px; border-collapse:collapse;">
+  <tr>
+    <td style="font-family:Arial, Helvetica, sans-serif;font-size:12px; line-height:20px; text-align:right;"><a href="http://www.creative-city-berlin.de/{{ LANGUAGE_CODE }}/news/" style="color:#00bcee; text-decoration:none" target="_blank">{% trans 'all news' %}...</a>
+    </td>
+  </tr>
+</table>
