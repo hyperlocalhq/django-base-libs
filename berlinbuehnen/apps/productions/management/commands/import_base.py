@@ -717,6 +717,14 @@ class ImportFromHeimatBase(object):
         instance.work_info_en = u"\n".join([text for text in (werkinfo_kurz_en, werkinfo_gesamt_en, hintergrundinformation_en) if text])
         instance.work_info_en_markup_type = 'pt'
 
+        # exception for the Schaubuehne and alike
+        if not instance.subtitles_text_de:
+            instance.subtitles_text_de = self.get_child_text(xml_node, 'language_and_subtitles')
+        if not instance.subtitles_text_en:
+            instance.subtitles_text_en = self.get_child_text(xml_node, 'language_and_subtitles')
+
+
+
     def save_page(self, root_node):
         from filebrowser.models import FileDescription
         ObjectMapper = models.get_model("external_services", "ObjectMapper")
