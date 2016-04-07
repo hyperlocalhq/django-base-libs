@@ -6,7 +6,7 @@ import warnings
 import sys
 from datetime import datetime
 
-from django.db.models.fields import TextField
+from django.db.models.fields import TextField, NOT_PROVIDED
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import force_unicode
 from django.utils.html import escape, linebreaks, urlize
@@ -195,6 +195,10 @@ class MultilingualCharField(models.CharField):
         super(MultilingualCharField, self).__init__(verbose_name, **kwargs)
 
     def contribute_to_class(self, cls, name, virtual_only=False):
+        default = ""
+        if self.default != NOT_PROVIDED:
+            default = self.default
+
         # generate language specific fields dynamically
         for lang_code, lang_name in settings.LANGUAGES:
             if lang_code == settings.LANGUAGE_CODE:
@@ -212,7 +216,7 @@ class MultilingualCharField(models.CharField):
                 null=False,  # we ignore the null argument!
                 db_index=self.db_index,
                 rel=self.rel,
-                default=self.default or "",
+                default=default,
                 editable=self._editable,
                 serialize=self.serialize,
                 choices=self.choices,
@@ -224,11 +228,6 @@ class MultilingualCharField(models.CharField):
                 cls,
                 "%s_%s" % (name, lang_code),
             )
-
-        #self.set_attributes_from_name(name)
-        #self.model = cls
-        #cls._meta.add_field(self, virtual=True)
-        #super(MultilingualCharField, self).contribute_to_class(cls, name, virtual_only=True)
 
         def translated_value(self):
             language = get_language()
@@ -247,99 +246,56 @@ class MultilingualTextField(models.Field):
     _field_class = ExtendedTextField
     
     def __init__(self, verbose_name=None, **kwargs):
-        
-        self._blank = kwargs.get('blank', False)
-        self._editable = kwargs.get('editable', True)
-        
-        # inits for the needed dummy field (see below)
-        kwargs['editable'] = False
-        kwargs['null'] = True
-        kwargs['default'] = kwargs.get('default', "") or ""
-        kwargs['blank'] = self._blank
-        super(MultilingualTextField, self).__init__(verbose_name, **kwargs)
 
-    def get_internal_type(self): 
-        return "TextField"
+        self._blank = kwargs.get("blank", False)
+        self._editable = kwargs.get("editable", True)
+
+        super(MultilingualTextField, self).__init__(verbose_name, **kwargs)
 
     def contribute_to_class(self, cls, name, virtual_only=False):
         # generate language specific fields dynamically
-        if not cls._meta.abstract:
-            for language in settings.LANGUAGES:
-                
-                try: # the field shouldn't be already added (for south)
-                    cls._meta.get_field(_language_field_name(name, language[0]))
-                except models.FieldDoesNotExist:
-                    pass
-                else:
-                    continue
-                
-                if language[0] == settings.LANGUAGE_CODE:
-                    _blank = self._blank
-                else:
-                    _blank = True
 
-                verbose_name = "%s" % force_unicode(self.verbose_name)
-                 
-                localized_field = self._field_class(
-                    verbose_name,
-                    name=_language_field_name(name, language[0]),  # self.name,
-                    primary_key=self.primary_key,
-                    max_length=self.max_length,
-                    unique=self.unique,
-                    blank=_blank,
-                    null=True, # we ignore the null argument!
-                    db_index=self.db_index,
-                    rel=self.rel,
-                    default=self.default or "",
-                    editable=self._editable,
-                    serialize=self.serialize,
-                    unique_for_date=self.unique_for_date,
-                    unique_for_month=self.unique_for_month,
-                    unique_for_year=self.unique_for_year,
-                    choices=self.choices,
-                    help_text=self.help_text,
-                    db_column=None,
-                    db_tablespace=self.db_tablespace
-                    )
-                localized_field.south_field_triple = lambda: (
-                    hasattr(models, type(localized_field).__name__) and ("django.db.models.fields.%s" % type(localized_field).__name__) or "base_libs.models.fields.%s" % type(localized_field).__name__,
-                    [repr(force_unicode(localized_field.verbose_name))],
-                    dict(
-                        primary_key=repr(localized_field.primary_key),
-                        max_length=repr(localized_field.max_length),
-                        unique=repr(localized_field.unique),
-                        blank=repr(localized_field.blank),
-                        db_index=repr(localized_field.db_index),
-                        rel=repr(localized_field.rel),
-                        unique_for_date=repr(localized_field.unique_for_date),
-                        unique_for_month=repr(localized_field.unique_for_month),
-                        unique_for_year=repr(localized_field.unique_for_year),
-                        choices=repr(localized_field.choices),
-                        db_column=repr(localized_field.db_column),
-                        db_tablespace=repr(localized_field.db_tablespace),
-                        ))
-                localized_field.contribute_to_class(
-                    cls,
-                    _language_field_name(name, language[0])
-                    )
+        default = ""
+        if self.default != NOT_PROVIDED:
+            default = self.default
 
-        """ 
-        unfortunately, the field itself must have a database column.
-        In our case, this column is empty. If we do not create a 
-        database column named <<name>>, the Admin will not work!
-        But we make the dummy database column not editable, blank=true
-        in the init method
-        """
-        try:  # the field shouldn't be already added
-            cls._meta.get_field(name)
-        except models.FieldDoesNotExist:
-            pass
-        else:
-            cls._meta.local_fields.remove(cls._meta.get_field(name))
-            # TODO: find why the field has already been added as ExtendedTextField
-        super(MultilingualTextField, self).contribute_to_class(cls, name)
-        # override with proxy 
-        setattr(cls, name, MultilingualProxy(self))
+        for lang_code, lang_name in settings.LANGUAGES:
+            if lang_code == settings.LANGUAGE_CODE:
+                _blank = self._blank
+            else:
+                _blank = True
+
+            localized_field = self._field_class(
+                string_concat(self.verbose_name, " (%s)" % lang_code),
+                name=self.name,
+                primary_key=self.primary_key,
+                max_length=self.max_length,
+                unique=self.unique,
+                blank=_blank,
+                null=False,  # we ignore the null argument!
+                db_index=self.db_index,
+                rel=self.rel,
+                default=default,
+                editable=self._editable,
+                serialize=self.serialize,
+                choices=self.choices,
+                help_text=self.help_text,
+                db_column=None,
+                db_tablespace=self.db_tablespace
+            )
+            localized_field.contribute_to_class(
+                cls,
+                "%s_%s" % (name, lang_code),
+            )
+
+        def translated_value(self):
+            language = get_language()
+            val = self.__dict__["%s_%s" % (name, language)]
+            if not val:
+                val = self.__dict__["%s_%s" % (name, settings.LANGUAGE_CODE)]
+            return val
+
+        setattr(cls, name, property(translated_value))
 
         # overwrite the get_rendered_*
         def get_rendered_wrapper(name):
