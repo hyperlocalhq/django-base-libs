@@ -251,9 +251,6 @@ def institution_added(sender, instance, **kwargs):
     if user:
         action.send(user, verb="added institution", action_object=instance)
 
-    # TODO: fix this when re-enabling celery
-    return
-
     creator_url = user.profile.get_url() if user else get_website_url() + "admin/"
     creator_title = user.profile.get_title() if user else ugettext("System")
 
