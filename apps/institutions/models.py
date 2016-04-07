@@ -254,7 +254,7 @@ def institution_added(sender, instance, **kwargs):
     creator_url = user.profile.get_url() if user else get_website_url() + "admin/"
     creator_title = user.profile.get_title() if user else ugettext("System")
 
-    recipients = User.objects.all()
+    recipients = User.objects.filter(is_staff=True)
 
     notification.send(
         recipients,

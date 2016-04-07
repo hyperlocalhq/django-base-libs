@@ -109,9 +109,7 @@ class JobOffer(JobOfferBase):
 def job_offer_created(sender, instance, **kwargs):
     from django.contrib.sites.models import Site
     from django.contrib.auth.models import User
-
     from jetson.apps.notification import models as notification
-
     from ccb.apps.site_specific.models import ContextItem
 
     if 'created' in kwargs:
@@ -162,6 +160,7 @@ def job_offer_created(sender, instance, **kwargs):
                     favorite__content_type__model="contextitem",
                     favorite__object_id=ci.pk,
                 ).exclude(pk__in=sent_recipient_pks)
+                sent_recipient_pks += list(recipients.values_list("pk", flat=True))
 
                 notification.send(
                     recipients,
@@ -178,6 +177,28 @@ def job_offer_created(sender, instance, **kwargs):
                 )
                 action.send(instance.contact_person.user, verb="looking for", action_object=instance)
             elif user:
+                ci = ContextItem.objects.get_for(
+                    user.profile,
+                )
+                recipients = User.objects.filter(
+                    favorite__content_type__app_label="site_specific",
+                    favorite__content_type__model="contextitem",
+                    favorite__object_id=ci.pk,
+                ).exclude(pk__in=sent_recipient_pks)
+
+                notification.send(
+                    recipients,
+                    "job_offer_by_contact",
+                    {
+                        "object_description": instance.description,
+                        "object_creator_url": user.profile.get_url(),
+                        "object_creator_title": user.profile.title,
+                        "object_title": instance.position,
+                        "object_url": instance.get_url(),
+                    },
+                    instance=instance,
+                    on_site=False,
+                )
                 action.send(user, verb="added job offer", action_object=instance)
 
 

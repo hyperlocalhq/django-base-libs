@@ -13,6 +13,7 @@ from django.template.defaultfilters import slugify
 from datetime import datetime
 
 from filebrowser.fields import FileBrowseField
+from actstream import action
 
 from base_libs.models.models import SlugMixin
 from base_libs.models.models import CreationModificationMixin
@@ -256,14 +257,68 @@ class Bulletin(CreationModificationMixin, UrlMixin):
 
 
 def bulletin_created(sender, instance, **kwargs):
-    from actstream import action
+    from django.contrib.sites.models import Site
+    from django.contrib.auth.models import User
+    from jetson.apps.notification import models as notification
+    from ccb.apps.site_specific.models import ContextItem
     from base_libs.middleware import get_current_user
+    from django.utils.encoding import force_text
 
     if kwargs.get('created', False):
+        sent_recipient_pks = []
         user = get_current_user()
+
         if instance.institution:
+            # get users who favorited the institution where the job_offer is happening
+            # and who haven't received notifications yet
+            ci = ContextItem.objects.get_for(
+                instance.institution,
+            )
+            # get users who favorited the institution organizing this job_offer
+            recipients = User.objects.filter(
+                favorite__content_type__app_label="site_specific",
+                favorite__content_type__model="contextitem",
+                favorite__object_id=ci.pk,
+            ).exclude(pk__in=sent_recipient_pks)
+            sent_recipient_pks += list(recipients.values_list("pk", flat=True))
+
+            notification.send(
+                recipients,
+                "bulletin_by_favorite_institution",
+                {
+                    "object_description": instance.description,
+                    "object_creator_url": instance.institution.get_url(),
+                    "object_creator_title": instance.institution.title,
+                    "object_title": force_text(instance.get_title()),
+                    "object_url": instance.get_url(),
+                },
+                instance=instance,
+                on_site=False,
+            )
             action.send(instance.institution, verb="added bulletin", action_object=instance)
         elif user:
+            ci = ContextItem.objects.get_for(
+                user.profile,
+            )
+            recipients = User.objects.filter(
+                favorite__content_type__app_label="site_specific",
+                favorite__content_type__model="contextitem",
+                favorite__object_id=ci.pk,
+            ).exclude(pk__in=sent_recipient_pks)
+
+            notification.send(
+                recipients,
+                "bulletin_by_contact",
+                {
+                    "object_description": instance.description,
+                    "object_creator_url": user.profile.get_url(),
+                    "object_creator_title": user.profile.title,
+                    "object_title": force_text(instance.get_title()),
+                    "object_url": instance.get_url(),
+                },
+                instance=instance,
+                on_site=False,
+            )
             action.send(user, verb="added bulletin", action_object=instance)
 
 
