@@ -9,14 +9,13 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-22 15:12+0100\n"
-"PO-Revision-Date: 2016-02-22 11:31+0053\n"
-"Last-Translator: Josephine Natalie Weisflog <j.weisflog@kulturprojekte-"
-"berlin.de>\n"
+"PO-Revision-Date: 2016-03-10 17:20+0053\n"
+"Last-Translator: Josephine Natalie Weisflog <j.weisflog@kulturprojekte-berlin.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "X-Translated-Using: django-rosetta 0.7.6\n"
 
 #: apps/accounts/forms.py:54 apps/accounts/forms.py:339
@@ -106,8 +105,8 @@ msgstr ""
 #: apps/accounts/forms.py:154
 #, python-format
 msgid ""
-"This username is already used for another account. But you can use \"%s\" as "
-"your username."
+"This username is already used for another account. But you can use \"%s\" as"
+" your username."
 msgstr ""
 
 #: apps/accounts/forms.py:161
@@ -198,8 +197,8 @@ msgstr ""
 
 #: apps/accounts/forms.py:437
 msgid ""
-"Please enter a correct email or username and password. Note that both fields "
-"are case-sensitive."
+"Please enter a correct email or username and password. Note that both fields"
+" are case-sensitive."
 msgstr ""
 
 #: apps/accounts/forms.py:469
@@ -266,14 +265,14 @@ msgstr ""
 
 #: apps/accounts/forms.py:539
 msgid ""
-"Please enter your old password, for security's sake, and then enter your new "
-"password twice so we can verify you typed it in correctly."
+"Please enter your old password, for security's sake, and then enter your new"
+" password twice so we can verify you typed it in correctly."
 msgstr ""
 
 #: apps/accounts/forms.py:540
 msgid ""
-"Forgot your password? Enter your e-mail address below, and we’ll send you an "
-"e-mail with a link which allows you to set up a new password."
+"Forgot your password? Enter your e-mail address below, and we’ll send you an"
+" e-mail with a link which allows you to set up a new password."
 msgstr ""
 
 #: apps/accounts/forms.py:541
@@ -585,8 +584,8 @@ msgstr ""
 
 #: apps/articles/models.py:122
 msgid ""
-"If this article is an excerpt, the link in the list of articles will lead to "
-"the external URL."
+"If this article is an excerpt, the link in the list of articles will lead to"
+" the external URL."
 msgstr ""
 
 #: apps/articles/models.py:124 apps/bulletin_board/models.py:146
@@ -735,8 +734,8 @@ msgstr ""
 
 #: apps/blog/forms.py:28
 msgid ""
-"Use commas to separate your tags. Tags can have multiple words. For example: "
-"'one, two, three apples' would define three tags."
+"Use commas to separate your tags. Tags can have multiple words. For example:"
+" 'one, two, three apples' would define three tags."
 msgstr ""
 
 #: apps/blog/forms.py:32
@@ -3134,8 +3133,8 @@ msgstr ""
 
 #: apps/marketplace/forms.py:57
 msgid ""
-"Please activate the checkboxes if you want to send your jobposting to one of "
-"our partners."
+"Please activate the checkboxes if you want to send your jobposting to one of"
+" our partners."
 msgstr ""
 
 #: apps/marketplace/forms.py:65 apps/site_specific/forms/marketplace.py:65
@@ -3203,8 +3202,8 @@ msgstr ""
 
 #: apps/marketplace/forms.py:440
 msgid ""
-"Report to <a href=\"http://kulturmanagement.net\" target=\"_blank"
-"\">Kulturmanagement.net</a>"
+"Report to <a href=\"http://kulturmanagement.net\" "
+"target=\"_blank\">Kulturmanagement.net</a>"
 msgstr ""
 
 #: apps/marketplace/forms.py:450
@@ -3345,9 +3344,9 @@ msgstr ""
 
 #: apps/media_gallery/forms.py:121
 msgid ""
-"You can link to a FLV file, Youtube video (e.g. http://www.youtube.com/watch?"
-"v=rd2izv5JBcE or http://youtu.be/rd2izv5JBcE) or Vimeo video (e.g. http://"
-"vimeo.com/17853047)."
+"You can link to a FLV file, Youtube video (e.g. "
+"http://www.youtube.com/watch?v=rd2izv5JBcE or http://youtu.be/rd2izv5JBcE) "
+"or Vimeo video (e.g. http://vimeo.com/17853047)."
 msgstr ""
 
 #: apps/media_gallery/forms.py:125 apps/media_gallery/forms.py:207
@@ -4451,8 +4450,8 @@ msgstr ""
 msgid ""
 "Longitude (Long.) is the angle east or west of an arbitrary point on Earth "
 "from Greenwich (UK), which is the international zero-longitude point "
-"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction "
-"to east) and -180 (direction to west)."
+"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction"
+" to east) and -180 (direction to west)."
 msgstr ""
 
 #: apps/site_specific/models.py:448
@@ -4856,7 +4855,8 @@ msgid "Please enter at least one valid e-mail address"
 msgstr ""
 
 #: subtrees/base_libs/base_libs/forms/fields.py:361
-msgid "Select a valid choice. That choice is not one of the available choices."
+msgid ""
+"Select a valid choice. That choice is not one of the available choices."
 msgstr ""
 
 #: subtrees/base_libs/base_libs/forms/fields.py:445
@@ -4875,7 +4875,8 @@ msgstr ""
 #: subtrees/base_libs/base_libs/forms/fields.py:456
 #, python-format
 msgid ""
-"The media file is too small. The minimal dimensions are %(width)dx%(height)d."
+"The media file is too small. The minimal dimensions are "
+"%(width)dx%(height)d."
 msgstr ""
 
 #: subtrees/base_libs/base_libs/forms/fields.py:460
@@ -5471,10 +5472,8 @@ msgstr ""
 #: templates/admin/admin/people/person/mailchimp_subscribe_selected.html:21
 #, python-format
 msgid ""
-"Deleting the %(object_name)s would result in deleting related objects, but "
-"your\n"
-"                    account doesn't have permission to delete the following "
-"types of objects:"
+"Deleting the %(object_name)s would result in deleting related objects, but your\n"
+"                    account doesn't have permission to delete the following types of objects:"
 msgstr ""
 
 #: templates/admin/admin/institutions/institution/mailchimp_subscribe_selected.html:35
@@ -5622,8 +5621,7 @@ msgstr ""
 #: templates/ccb/accounts/account_creation_email.html:2
 #, python-format
 msgid ""
-"Welcome to %(site_name)s, the premier online destination for first hand "
-"information about the Creative\n"
+"Welcome to %(site_name)s, the premier online destination for first hand information about the Creative\n"
 "    Sector in Berlin."
 msgstr ""
 
@@ -5639,8 +5637,7 @@ msgstr ""
 
 #: templates/ccb/accounts/account_creation_email.html:8
 msgid ""
-"Enjoy the site, and do let us know if you have comments, concerns, "
-"suggestions, or other\n"
+"Enjoy the site, and do let us know if you have comments, concerns, suggestions, or other\n"
 "    feedback!"
 msgstr ""
 
@@ -5664,8 +5661,7 @@ msgstr ""
 
 #: templates/ccb/accounts/account_verification_email.html:8
 msgid ""
-"If you have no idea what this e-mail is referring to, simply ignore it and "
-"no account will be created\n"
+"If you have no idea what this e-mail is referring to, simply ignore it and no account will be created\n"
 "    with your e-mail address."
 msgstr ""
 
@@ -5783,7 +5779,7 @@ msgstr ""
 #: templates/ccb/accounts/my_profile/dashboard.html:148
 #: templates/ccb/cms/start.html:37
 msgid "What's new? Latest Portfolios"
-msgstr ""
+msgstr "Featured Portfolios"
 
 #: templates/ccb/accounts/my_profile/dashboard.html:155
 #: templates/ccb/events/includes/nearest_published_events.html:18
@@ -5901,8 +5897,7 @@ msgstr ""
 #: templates/ccb/accounts/password_reset_email.html:3
 #, python-format
 msgid ""
-"You're receiving this e-mail because you requested a password reset for your "
-"user account at\n"
+"You're receiving this e-mail because you requested a password reset for your user account at\n"
 "        %(site_name)s."
 msgstr ""
 
@@ -5935,9 +5930,9 @@ msgstr ""
 
 #: templates/ccb/accounts/register_verify_required.html:12
 msgid ""
-"In order to complete registration, we need to confirm you entered a valid e-"
-"mail address. You should be getting a confirmation e-mail very shortly. It "
-"will contain instructions on how to finalize your registration."
+"In order to complete registration, we need to confirm you entered a valid "
+"e-mail address. You should be getting a confirmation e-mail very shortly. It"
+" will contain instructions on how to finalize your registration."
 msgstr ""
 
 #: templates/ccb/accounts/register_verify_required.html:13
@@ -7201,8 +7196,7 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                                        <a href=\"%(person_url)sportfolio/fb-"
-"sync/\">Synchronize personal portfolio</a>\n"
+"                                        <a href=\"%(person_url)sportfolio/fb-sync/\">Synchronize personal portfolio</a>\n"
 "                                        ."
 msgstr ""
 
@@ -7224,11 +7218,9 @@ msgstr ""
 msgid ""
 "\n"
 "                                    Institution\n"
-"                                    <a href=\"%(institution_url)s\">"
-"\"%(institution_title)s\"</a> is linked\n"
+"                                    <a href=\"%(institution_url)s\">\"%(institution_title)s\"</a> is linked\n"
 "                                    to facebook page\n"
-"                                    <a href=\"%(fb_page_url)s\">"
-"\"%(fb_page_name)s\"</a>\n"
+"                                    <a href=\"%(fb_page_url)s\">\"%(fb_page_name)s\"</a>\n"
 "                                    ."
 msgstr ""
 
@@ -7236,8 +7228,7 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                                        <a href="
-"\"%(institution_url)sportfolio/fb-sync/\">Synchronize institution's\n"
+"                                        <a href=\"%(institution_url)sportfolio/fb-sync/\">Synchronize institution's\n"
 "                                            portfolio\n"
 "                                        </a>."
 msgstr ""
@@ -7431,8 +7422,7 @@ msgstr ""
 msgid ""
 "\n"
 "                                Created on\n"
-"                                <a href=\"%(url)s\">%(creation_date)s</a> "
-"by\n"
+"                                <a href=\"%(url)s\">%(creation_date)s</a> by\n"
 "                                <a href=\"%(creator_url)s\">%(creator)s</a>\n"
 "                            "
 msgstr ""
@@ -7529,10 +7519,8 @@ msgstr ""
 msgid ""
 "\n"
 "                                    Created on\n"
-"                                    <a href=\"%(url)s\">%(creation_date)s</"
-"a> by\n"
-"                                    <a href=\"%(creator_url)s\">%(creator)s</"
-"a>\n"
+"                                    <a href=\"%(url)s\">%(creation_date)s</a> by\n"
+"                                    <a href=\"%(creator_url)s\">%(creator)s</a>\n"
 "                                "
 msgstr ""
 
@@ -7670,8 +7658,7 @@ msgstr ""
 #, python-format
 msgid ""
 "You\n"
-"                    have been invited to %(institution_title)s by "
-"%(inviter_title)s."
+"                    have been invited to %(institution_title)s by %(inviter_title)s."
 msgstr ""
 
 #: templates/ccb/groups_networks/confirm_invitation_to_institution.html:39
@@ -7696,16 +7683,14 @@ msgstr ""
 #: templates/ccb/groups_networks/confirm_invitation_to_institution.html:80
 msgid ""
 "I accept\n"
-"                            <a href=\"/privacy/\" onclick="
-"\"open_new_window(event)\">the privacy policy</a>\n"
+"                            <a href=\"/privacy/\" onclick=\"open_new_window(event)\">the privacy policy</a>\n"
 "                            ."
 msgstr ""
 
 #: templates/ccb/groups_networks/confirm_invitation_to_institution.html:91
 msgid ""
 "I accept\n"
-"                            <a href=\"/terms-of-use/\" onclick="
-"\"open_new_window(event)\">the terms of use</a>\n"
+"                            <a href=\"/terms-of-use/\" onclick=\"open_new_window(event)\">the terms of use</a>\n"
 "                            ."
 msgstr ""
 
@@ -7778,8 +7763,7 @@ msgstr ""
 #, python-format
 msgid ""
 "Do\n"
-"            you really want to cancel the invitation of %(person_name)s to "
-"join %(group_name)s\n"
+"            you really want to cancel the invitation of %(person_name)s to join %(group_name)s\n"
 "            ?"
 msgstr ""
 
@@ -7818,8 +7802,7 @@ msgstr ""
 #, python-format
 msgid ""
 "Do\n"
-"            you really want to remove %(person_name)s from the members of "
-"%(group_name)s?"
+"            you really want to remove %(person_name)s from the members of %(group_name)s?"
 msgstr ""
 
 #: templates/ccb/groups_networks/group_membership_remove-user.html:9
@@ -8708,8 +8691,7 @@ msgstr ""
 #, python-format
 msgid ""
 "Do you really want to delete the\n"
-"            custom cover for the album \"%(gallery_title)s\" and to use the "
-"first image of the album as a cover\n"
+"            custom cover for the album \"%(gallery_title)s\" and to use the first image of the album as a cover\n"
 "            instead?"
 msgstr ""
 
@@ -9016,8 +8998,7 @@ msgid ""
 "\n"
 "%(message)s\n"
 "\n"
-"To see other notices or change how you receive notifications, please go to "
-"%(notices_url)s.\n"
+"To see other notices or change how you receive notifications, please go to %(notices_url)s.\n"
 msgstr ""
 
 #: templates/ccb/notification/email_subject.txt:1
@@ -9361,8 +9342,7 @@ msgid ""
 "                        "
 msgid_plural ""
 "\n"
-"                            %(unregistered_visitors_count)s unregistered "
-"visitors"
+"                            %(unregistered_visitors_count)s unregistered visitors"
 msgstr[0] ""
 msgstr[1] ""
 
