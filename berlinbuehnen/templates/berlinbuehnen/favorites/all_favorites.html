@@ -66,29 +66,32 @@
                         <h2 class="section">{% trans "Theaters" %}</h2>
                         <div class="grid favorites-grid row">
                             {% for location in favorites.locations %}
-                                <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item-favorite" href="{{ location.get_url_path }}" target="_blank">
+                                <div class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item-favorite">
+                                    <a href="{{ location.get_url_path }}" target="_blank">
 
-                                    <!-- image -->
-                                    <span class="grid-item-image img">
-                                        {% if location.first_image %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ location.first_image.path|modified_path:"detail_image" }}{% if location.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ location.title|escape }}" />
-                                        {% else %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
+                                        <!-- image -->
+                                        <span class="grid-item-image img">
+                                            {% if location.first_image %}
+                                                <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ location.first_image.path|modified_path:"detail_image" }}{% if location.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ location.title|escape }}" />
+                                            {% else %}
+                                                <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
+                                            {% endif %}
+                                            {% if request.user.is_authenticated %}
+                                                {% adding2favorites for location using "favorites/includes/favorite_grid.html" %}
+                                            {% endif %}
+                                        </span>
+
+                                        {% if location.title %}<h2>{{ location.title }}</h2>{% endif %}
+                                        {% if location.subtitle %}<h3>{{ location.subtitle }}</h3>{% endif %}
+                                        {% if location.teaser %}
+                                            <div class="copy">{{ location.get_rendered_teaser }}</div>
+                                        {% elif location.description %}
+                                            <div class="copy">{{ location.get_rendered_description|striptags|truncatewords:20 }}</div>
                                         {% endif %}
-                                        {% if request.user.is_authenticated %}
-                                            {% adding2favorites for location using "favorites/includes/favorite_grid.html" %}
-                                        {% endif %}
-                                    </span>
 
-                                    {% if location.title %}<h2>{{ location.title }}</h2>{% endif %}
-                                    {% if location.subtitle %}<h3>{{ location.subtitle }}</h3>{% endif %}
-                                    {% if location.teaser %}
-                                        <div class="copy">{{ location.get_rendered_teaser }}</div>
-                                    {% elif location.description %}
-                                        <div class="copy">{{ location.get_rendered_description|striptags|truncatewords:20 }}</div>
-                                    {% endif %}
-
-                                </a>
+                                    </a>
+                                    <a href="{% url "event_list" %}?locations={{ location.pk }}" class="fawesome more" target="_blank">{% trans "to schedule" %}</a>
+                                </div>
                             {% endfor %}
                         </div>
                     </div>

@@ -1,7 +1,8 @@
 from django.conf import settings
-from django.db.models import get_model
+from django.db.models import get_model, Q
 from django.template import loader, Template, Context
 from django import template
+from datetime import datetime
 
 from berlinbuehnen.apps.slideshows.models import Slideshow
 
@@ -39,9 +40,13 @@ class SlideshowRenderer(template.Node):
             template_path = template.resolve_variable(self.template_path, context)
         except:
             template_path = ""
+            
+        now = datetime.today()
+        slides = slideshow.slide_set.filter(Q(published_from__lte = now) | Q(published_from__isnull = True), Q(published_till__gt = now) | Q(published_till__isnull = True)).order_by("sort_order")
+            
         context_vars = context
         context_vars.push()
-        context_vars['slides'] = slideshow.slide_set.order_by("sort_order")
+        context_vars['slides'] = slides
         output = loader.render_to_string(template_path or "slideshows/top_slideshow.html", context_vars)
         context_vars.pop()
         return output
