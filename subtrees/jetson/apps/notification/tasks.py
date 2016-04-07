@@ -1,4 +1,4 @@
-from celery import task
+from celery import shared_task
 
 from django.db import models
 from django.template import Context
@@ -33,7 +33,7 @@ def get_notification_setting(user, notice_type, medium):
         setting.save()
         return setting
 
-@task
+@shared_task
 def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct=None, instance_id=None, sender_id=None,
                  sender_name="", sender_email=""):
     """
