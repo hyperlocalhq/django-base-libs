@@ -48,52 +48,42 @@ class ExtendedTextField(TextField):
     
     def contribute_to_class(self, cls, name, virtual_only=False):
         # generate an additional select field for selecting the markup type
-        if True or not cls._meta.abstract:
-            try: # the field shouldn't be already added (for south)
-                cls._meta.get_field(name)
-            except models.FieldDoesNotExist:
-                pass
-            else:
-                return
-                
-            field_class = getattr(self.__class__, '_field_class', None)
-            if field_class != PlainTextModelField:
-                if not(hasattr(sys, "argv") and "migrate" in sys.argv and sys.argv.index("migrate") == 1):
-                    # the field shouldn't be added for south,
-                    # because south will care about it itself
-                    try:  # the field shouldn't be already added
-                        cls._meta.get_field("%s_markup_type" % name)
-                    except models.FieldDoesNotExist:
-                        pass
-                    else:
-                        cls._meta.local_fields.remove(cls._meta.get_field("%s_markup_type" % name))
+        try: # the field shouldn't be already added (for south)
+            cls._meta.get_field(name)
+        except models.FieldDoesNotExist:
+            pass
+        else:
+            return
 
-                    editable = not isinstance(self, MultilingualTextField)
+        field_class = getattr(self.__class__, '_field_class', None)
+        if field_class != PlainTextModelField:
+            if not(hasattr(sys, "argv") and "migrate" in sys.argv and sys.argv.index("migrate") == 1):
+                # the field shouldn't be added for south,
+                # because south will care about it itself
+                try:  # the field shouldn't be already added
+                    cls._meta.get_field("%s_markup_type" % name)
+                except models.FieldDoesNotExist:
+                    pass
+                else:
+                    cls._meta.local_fields.remove(cls._meta.get_field("%s_markup_type" % name))
 
-                    if not hasattr(self, 'related_markup_type_field'):
-                        # TODO: find out why the related markup type tries to be added twice
-                        self.related_markup_type_field = models.CharField(
-                            _("Markup type"),
-                            max_length=10,
-                            blank=False,
-                            choices=markup_settings.MARKUP_TYPES,
-                            default=markup_settings.DEFAULT_MARKUP_TYPE,
-                            help_text=_("You can select an appropriate markup type here"),
-                            editable=editable,
-                            )
-                        self.related_markup_type_field.south_field_triple = lambda: (
-                            "django.db.models.fields.CharField",
-                            [repr("Markup type")],
-                            dict(
-                                max_length=repr(self.related_markup_type_field.max_length),
-                                blank=repr(self.related_markup_type_field.blank),
-                                choices=repr(self.related_markup_type_field.choices),
-                                default=repr(isinstance(self.related_markup_type_field.default, basestring) and self.related_markup_type_field.default or "")
-                                ))
-                        self.related_markup_type_field.contribute_to_class(
-                            cls,
-                            "%s_markup_type" % name
-                            )
+                editable = not isinstance(self, MultilingualTextField)
+
+                if not hasattr(self, 'related_markup_type_field'):
+                    # TODO: find out why the related markup type tries to be added twice
+                    self.related_markup_type_field = models.CharField(
+                        string_concat(_("Markup type for"), " ", self.verbose_name),
+                        max_length=10,
+                        blank=False,
+                        choices=markup_settings.MARKUP_TYPES,
+                        default=markup_settings.DEFAULT_MARKUP_TYPE,
+                        help_text=_("You can select an appropriate markup type here"),
+                        editable=editable,
+                    )
+                    self.related_markup_type_field.contribute_to_class(
+                        cls,
+                        "%s_markup_type" % name
+                        )
         # create the field itself
         super(ExtendedTextField, self).contribute_to_class(cls, name)
         
