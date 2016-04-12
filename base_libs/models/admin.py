@@ -557,7 +557,10 @@ class SEOMixinAdminOptions(ExtendedModelAdmin):
     fieldsets = (
         (_("SEO"), {
             'classes': ("collapse closed",),                                             
-            'fields': get_admin_lang_section(_("Page title"), ['page_title']) + get_admin_lang_section(_("Keywords"), ['meta_keywords']) + get_admin_lang_section(_("Description"), ['meta_description',]) + [(_("Author"), {'fields': ['meta_author']}), (_("Copyright"), {'fields':['meta_copyright']})],
+            'fields': ['page_title_{}'.format(lang_code) for lang_code, lang_name in settings.LANGUAGES] +
+                ['meta_keywords_{}'.format(lang_code) for lang_code, lang_name in settings.LANGUAGES] +
+                ['meta_description_{}'.format(lang_code) for lang_code, lang_name in settings.LANGUAGES] +
+                ['meta_author', 'meta_copyright']
         }),
     )
 
