@@ -292,51 +292,8 @@ class MultilingualTextField(models.Field):
             _name = name
 
             def get_rendered(self):
-                language = get_current_language() or settings.LANGUAGE_CODE
-                
-                field_value = getattr(self, _language_field_name(_name, language))
-                mt = getattr(
-                    self,
-                    "%s_markup_type" % _language_field_name(_name, language),
-                    )
-                if not field_value:
-                    field_value = getattr(self, _language_field_name(_name, settings.LANGUAGE_CODE))
-                    mt = getattr(
-                        self,
-                        "%s_markup_type" % _language_field_name(_name, settings.LANGUAGE_CODE),
-                        )
-                    if not field_value and not self._meta.get_field(_name).blank:
-                        # No value set for mandatory field for the current language! Has the default language been changed recently?
-                        return ""
-                
-                if mt == markup_settings.MARKUP_PLAIN_TEXT:
-                    field_value = field_value.strip()
-                    if field_value:
-                        field_value = escape(field_value)
-                        try:
-                            # try to urlize if there are no invalid IPv6 URLs
-                            field_value = urlize(field_value)
-                        except ValueError:
-                            pass
-                        field_value = linebreaks(field_value)
-                elif mt == markup_settings.MARKUP_RAW_HTML:
-                    pass
-                elif mt == markup_settings.MARKUP_HTML_WYSIWYG:
-                    pass
-                elif mt == markup_settings.MARKUP_MARKDOWN:
-                    try:
-                        import markdown
-                    except ImportError:
-                        if settings.DEBUG:
-                            raise Warning("Error in {% markdown %} filter: The Python markdown library isn't installed.")
-                        return field_value
-                    else:
-                        field_value = markdown.markdown(field_value)
-
-                # remove empty paragraphs
-                field_value = field_value.replace('<p></p>', '')
-                
-                return mark_safe(field_value)
+                lang_code = get_current_language() or settings.LANGUAGE_CODE
+                return getattr(self, 'get_rendered_%s_%s' % (_name, lang_code))()
             get_rendered.needs_autoescape = False
             return get_rendered
         cls.add_to_class("get_rendered_%s" % name, get_rendered_wrapper(name))

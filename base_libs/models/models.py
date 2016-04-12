@@ -979,25 +979,13 @@ def MultilingualSlugMixin(
         else:
             blank = True
         slug_field = models.SlugField(
-            verbose_name=verbose_name,
+            verbose_name=string_concat(verbose_name, " (%s)" % lang_code),
             max_length=max_length,
             unique=unique and not unique_for,
             blank=blank,
             **kwargs
             )
         klass.add_to_class("%s_%s" % (name, lang_code), slug_field)
-
-    # dummy field
-    kwargs['editable'] = False
-    kwargs['null'] = True
-    kwargs['blank'] = _blank
-    slug_field = models.SlugField(
-        verbose_name=verbose_name,
-        max_length=max_length,
-        unique=unique and not unique_for,
-        **kwargs
-        )
-    klass.add_to_class(name, slug_field)
 
     setattr(klass, name, MultilingualProxy(slug_field))
     
