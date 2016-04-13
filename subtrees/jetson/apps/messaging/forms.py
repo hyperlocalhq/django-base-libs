@@ -212,4 +212,4 @@ def message_received(sender, instance, **kwargs):
             },
         instance=instance,
         )
-    action.send(instance.sender, verb="received message", action_object=instance)
+    action.send(instance.recipient, verb="received internal message", action_object=instance)
