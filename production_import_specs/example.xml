@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<response>
+    <meta>
+        <next>/url/to/the/next/page</next><!-- The API URL for the next page (or empty string for the last page) -->
+        <previous>/url/to/the/previous/page</previous><!-- The API URL for the previous page (or empty string for the first page) -->
+        <total_count>200</total_count><!-- How many productions are there in total? -->
+        <items_per_page>50</items_per_page><!-- What is the maximal amount of productions per page? -->
+    </meta>
+    <productions>
+        <production>
+            <id>123</id><!-- Unique production ID on your website -->
+            <creation_date>2016-04-14T16:27:38</creation_date><!-- Production creation timestamp in ISO 8601 format -->
+            <modified_date>2016-04-14T16:27:38</modified_date><!-- Production modification timestamp in ISO 8601 format -->
+            <status>published</status><!-- Publishing status, one of: "draft", "published", "not_listed", "import", "expired", "trashed" -->
+            <prefix_de></prefix_de><!-- Title prefix in German -->
+            <prefix_en></prefix_en><!-- Title prefix in English -->
+            <title_de></title_de><!-- Title in German -->
+            <title_en></title_en><!-- Title in English -->
+            <subtitle_de></subtitle_de><!-- Subtitle (Unterüberschrift) in German -->
+            <subtitle_en></subtitle_en><!-- Subtitle (Unterüberschrift) in English -->
+            <original_de></original_de><!-- Original title in German -->
+            <original_en></original_en><!-- Original title in English -->
+            <website></website><!-- A link to the your website page about this production -->
+            <description_de></description_de><!-- Plain-text description in German -->
+            <description_en></description_en><!-- Plain-text description in English -->
+            <teaser_de></teaser_de><!-- Plain-text teaser in German -->
+            <teaser_en></teaser_en><!-- Plain-text teaser in English -->
+            <work_info_de></work_info_de><!-- Plain-text work info in German -->
+            <work_info_en></work_info_en><!-- Plain-text work info in English -->
+            <contents_de></contents_de><!-- Plain-text contents in German -->
+            <contents_en></contents_en><!-- Plain-text contents in English -->
+            <press_text_de></press_text_de><!-- Plain-text press text in German -->
+            <press_text_en></press_text_en><!-- Plain-text press text in English -->
+            <credits_de></credits_de><!-- Plain-text credits in German -->
+            <credits_en></credits_en><!-- Plain-text credits in English -->
+
+            <concert_program_de></concert_program_de><!-- Plain-text concert program in German -->
+            <concert_program_en></concert_program_en><!-- Plain-text concert program in English -->
+            <supporting_program_de></supporting_program_de><!-- Plain-text supporting program in German -->
+            <supporting_program_en></supporting_program_en><!-- Plain-text supporting program in English -->
+            <remarks_de></remarks_de><!-- Plain-text remarks in German -->
+            <remarks_en></remarks_en><!-- Plain-text remarks in English -->
+            <duration_text_de></duration_text_de><!-- Plain-text information about duration in German -->
+            <duration_text_en></duration_text_en><!-- Plain-text information about duration in English -->
+            <subtitles_text_de></subtitles_text_de><!-- Plain-text information about subtitles in German -->
+            <subtitles_text_en></subtitles_text_en><!-- Plain-text information about subtitles in English -->
+            <age_text_de></age_text_de><!-- Plain-text information about the age of the audience in German -->
+            <age_text_en></age_text_en><!-- Plain-text information about the age of the audience in English -->
+
+            <ensembles></ensembles><!-- Ensemble or ensembles playing in this production -->
+            <free_entrance>False</free_entrance><!-- Is the entrance free? One of "True" or "False" -->
+            <price_from>8.00</price_from><!-- Price from in Euros (decimal, no currency sign included) -->
+            <price_till>12.00</price_till><!-- Price till in Euros (decimal, no currency sign included) -->
+            <tickets_website></tickets_website><!-- The URL of a website page where you can buy tickets to this production -->
+            <price_information_de></price_information_de><!-- Additional plain-text information about prices in German -->
+            <price_information_en></price_information_en><!-- Additional plain-text information about prices in English -->
+            <age_from></age_from><!-- Audience age from (integer) -->
+            <age_till></age_till><!-- Audience age till (integer) -->
+            <edu_offer_website></edu_offer_website><!-- The URL of a website page with educational offer -->
+
+            <in_program_of><!-- Theaters organizing this production. Check the list of available IDs at the specification -->
+                <location_id>1</location_id>
+                <location_id>2</location_id>
+                <!-- ... -->
+            </in_program_of>
+            <play_locations><!-- Theaters where this production takes place. Check the list of available IDs at the specification -->
+                <location_id>3</location_id>
+                <!-- ... -->
+            </play_locations>
+            <play_stages><!-- Stages where this production takes place. Check the list of available IDs at the specification -->
+                <stage_id>1</stage_id>
+                <!-- ... -->
+            </play_stages>
+
+            <location_title></location_title><!-- Location title (if play_locations is empty) -->
+            <street_address></street_address><!-- Street address (first line) of the location (if play_locations is empty) -->
+            <street_address2></street_address2><!-- Street address (second line) of the location (if play_locations is empty) -->
+            <postal_code></postal_code><!-- Postal code of the location (if play_locations is empty) -->
+            <city></city><!-- City of the location (if play_locations is empty) -->
+            <latitude>52.5192</latitude><!-- Latitude of the location (if play_locations is empty, decimal format) -->
+            <longitude>13.4061</longitude><!-- Longitude of the location (if play_locations is empty, decimal format) -->
+
+            <categories><!-- Categories. Check the list of available IDs at the specification -->
+                <category_id>1</category_id>
+                <category_id>2</category_id>
+                <!-- ... -->
+            </categories>
+            <characteristics><!-- Characteristics. Check the list of available IDs at the specification -->
+                <characteristic_id>1</characteristic_id>
+                <characteristic_id>2</characteristic_id>
+                <!-- ... -->
+            </characteristics>
+
+            <leaders>
+                <leader>
+                    <prefix_id>ms-dr</prefix_id><!-- One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr" -->
+                    <gender>F</gender><!-- One of: "M" for male or "F" for female -->
+                    <first_name>Erika</first_name><!-- First name of the person -->
+                    <last_name>Mustermann</last_name><!-- Last name of the person -->
+                    <function_de>Direktorin</function_de><!-- Description in German what this leader is doing for the production -->
+                    <function_en>Director</function_en><!-- Description in English what this leader is doing for the production -->
+                </leader>
+                <!-- ... -->
+            </leaders>
+            <authors>
+                <author>
+                    <prefix_id>mr</prefix_id><!-- One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr" -->
+                    <gender>M</gender><!-- One of: "M" for male or "F" for female -->
+                    <first_name>Max</first_name><!-- First name of the person -->
+                    <last_name>Mustermann</last_name><!-- Last name of the person -->
+                    <type_de>Komponist</type_de><!-- Description in German what this leader is doing for the production -->
+                    <type_en>Composer</type_en><!-- Description in English what this leader is doing for the production -->
+                </author>
+                <!-- ... -->
+            </authors>
+            <participants>
+                <participant>
+                    <prefix_id>mr</prefix_id><!-- One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr" -->
+                    <gender>M</gender><!-- One of: "M" for male or "F" for female -->
+                    <first_name>Otto</first_name><!-- First name of the person -->
+                    <last_name>Normalverbraucher</last_name><!-- Last name of the person -->
+                    <type_id>musik</type_id><!-- Involvement type ID. Check the list of available IDs at the specification -->
+                    <role_de /><!-- Role in German -->
+                    <role_en /><!-- Role in English -->
+                    <instrument_de>Klavier</instrument_de><!-- Instrument in German -->
+                    <instrument_en>Piano</instrument_en><!-- Instrument in English -->
+                </participant>
+                <participant>
+                    <prefix_id>ms</prefix_id><!-- One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr" -->
+                    <gender>F</gender><!-- One of: "M" for male or "F" for female -->
+                    <first_name>Lieschen</first_name><!-- First name of the person -->
+                    <last_name>Müller</last_name><!-- Last name of the person -->
+                    <type_id>schauspieler</type_id><!-- Involvement type ID. Check the list of available IDs at the specification -->
+                    <role_de>Rotkäppchen</role_de><!-- Role in German -->
+                    <role_en>Little Red Riding Hood</role_en><!-- Role in English -->
+                    <instrument_de /><!-- Instrument in German -->
+                    <instrument_en /><!-- Instrument in English -->
+                </participant>
+                <!-- ... -->
+            </participants>
+
+            <videos>
+                <video>
+                    <creation_date>2016-04-14T16:27:38</creation_date><!-- Creation timestamp in ISO 8601 format -->
+                    <modified_date>2016-04-14T16:27:38</modified_date><!-- Modification timestamp in ISO 8601 format -->
+                    <title_de></title_de><!-- Title in German -->
+                    <title_en></title_en><!-- Title in English -->
+                    <embed></embed><!-- HTML embed code -->
+                    <sort_order>1</sort_order><!-- Sort order of the video (integer) -->
+                </video>
+                <!-- ... -->
+            </videos>
+            <live_streams>
+                <live_stream>
+                    <creation_date>2016-04-14T16:27:38</creation_date><!-- Creation timestamp in ISO 8601 format -->
+                    <modified_date>2016-04-14T16:27:38</modified_date><!-- Modification timestamp in ISO 8601 format -->
+                    <title_de></title_de><!-- Title in German -->
+                    <title_en></title_en><!-- Title in English -->
+                    <embed></embed><!-- HTML embed code -->
+                    <sort_order>1</sort_order><!-- Sort order of the video (integer) -->
+                </live_stream>
+                <!-- ... -->
+            </live_streams>
+            <images>
+                <image>
+                    <creation_date>2016-04-14T16:27:38</creation_date><!-- Creation timestamp in ISO 8601 format -->
+                    <modified_date>2016-04-14T16:27:38</modified_date><!-- Modification timestamp in ISO 8601 format -->
+                    <url>/url/of/the/original/image</url><!-- URL of the original (largest scale) image in JPG or PNG format -->
+                    <title_de></title_de><!-- Title in German -->
+                    <title_en></title_en><!-- Title in English -->
+                    <description_de></description_de><!-- Plain-text description in German -->
+                    <description_en></description_en><!-- Plain-text description in English -->
+                    <author></author><!-- Author first and last name -->
+                    <copyright_restrictions>general_use</copyright_restrictions><!-- One of: "general_use" or "protected" -->
+                    <copyright>© 2016 example.com</copyright><!-- Copyright information -->
+                    <sort_order>1</sort_order><!-- Sort order of the image (integer) -->
+                </image>
+                <!-- ... -->
+            </images>
+            <pdfs>
+                <pdf>
+                    <creation_date>2016-04-14T16:27:38</creation_date><!-- Creation timestamp in ISO 8601 format -->
+                    <modified_date>2016-04-14T16:27:38</modified_date><!-- Modification timestamp in ISO 8601 format -->
+                    <url>/url/of/the/pdf/document</url><!-- URL of the PDF document -->
+                    <title_de></title_de><!-- Title in German -->
+                    <title_en></title_en><!-- Title in English -->
+                    <description_de></description_de><!-- Plain-text description in German -->
+                    <description_en></description_en><!-- Plain-text description in English -->
+                    <author></author><!-- Author first and last name -->
+                    <copyright>© 2016 example.com</copyright><!-- Copyright information -->
+                    <sort_order>1</sort_order><!-- Sort order of the image (integer) -->
+                </pdf>
+                <!-- ... -->
+            </pdfs>
+            <social_media>
+                <social_media_channel>
+                    <channel_type>Facebook</channel_type><!-- "Facebook", "Twitter", "Google+", etc. -->
+                    <url>https://www.facebook.com/berlinbuehnen</url><!-- URL of the social media profile -->
+                </social_media_channel>
+                <!-- ... -->
+            </social_media>
+            <language_and_subtitles_id>1</language_and_subtitles_id><!-- Language and subtitles. Check the list of available IDs at the specification -->
+            <sponsors>
+                <sponsor>
+                    <creation_date>2016-04-14T16:27:38</creation_date><!-- Creation timestamp in ISO 8601 format -->
+                    <modified_date>2016-04-14T16:27:38</modified_date><!-- Modification timestamp in ISO 8601 format -->
+                    <website>/url/of/the/sponsor/website</website><!-- URL of the sponsor website -->
+                    <image_url>/url/of/the/sponsor/logo</image_url><!-- URL of the sponsor logo -->
+                    <title_de></title_de><!-- Title in German -->
+                    <title_en></title_en><!-- Title in English -->
+                </sponsor>
+                <!-- ... -->
+            </sponsors>
+
+            <events>
+                <event>
+
+                </event>
+                <!-- ... -->
+            </events>
+        </production>
+        <!-- ... -->
+    </productions>
+</response>
