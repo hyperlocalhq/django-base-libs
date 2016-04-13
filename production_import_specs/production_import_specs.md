@@ -1,3 +1,8 @@
+# Production Import Specification #
+
+## Full featured XML example ##
+
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <response>
     <meta>
@@ -408,3 +413,4 @@
         <!-- ... -->
     </productions>
 </response>
+```
