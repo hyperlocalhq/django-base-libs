@@ -91,3 +91,4 @@ def message_received(sender, instance, **kwargs):
                 },
             instance=instance,
             )
+        action.send(instance.recipient, verb="received message", action_object=instance)
