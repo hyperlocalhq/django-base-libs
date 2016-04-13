@@ -6,13 +6,13 @@ from celery import shared_task
 start the django-celery Camera with this command:
 $ ./manage.py celery events --camera=djcelery.snapshot.Camera
 or
-$ celery -A ccb events -c djcelery.snapshot.Camera
+$ celery --app=ccb events --camera=djcelery.snapshot.Camera
 See http://docs.celeryproject.org/en/latest/userguide/monitoring.html#monitoring-snapshots for more info.
 
 start the celery daemon with this command:
-$ ./manage.py celeryd -B -l INFO
+$ ./manage.py celeryd --beat --loglevel=INFO
 or
-$ celery -A ccb worker -l info
+$ celery --app=ccb beat --loglevel=INFO
 
 queue a task with the following commands:
 >>> from ccb.apps.celerytest.tasks import *
