@@ -111,11 +111,12 @@ def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct
                 email_template_slug=sysname,
                 obj=instance,
                 obj_placeholders=extra_context,
-                sender = sender,
-                sender_name = sender_name,
-                sender_email = sender_email,
-                delete_after_sending = True,
-                )
+                sender=sender,
+                sender_name=sender_name,
+                sender_email=sender_email,
+                delete_after_sending=True,
+                send_immediately=True,
+            )
         elif notification_setting.frequency in ("daily", "weekly"):
             digest, _created = Digest.objects.get_or_create(
                 user=user,
