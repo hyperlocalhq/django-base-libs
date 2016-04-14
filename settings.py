@@ -49,10 +49,10 @@ DEFAULT_FROM_EMAIL = "ccb-contact@kulturprojekte-berlin.de"
 
 ### DIRS AND URLS ###
 
-TEMPLATE_DIRS = [
-                    os.path.join(PROJECT_PATH, "ccb", "templates", "ccb"),
-                    os.path.join(PROJECT_PATH, "ccb", "templates", "admin"),
-                ] + TEMPLATE_DIRS
+TEMPLATE_DIRS = (
+    os.path.join(PROJECT_PATH, "ccb", "templates", "ccb"),
+    os.path.join(PROJECT_PATH, "ccb", "templates", "admin"),
+) + tuple(TEMPLATE_DIRS)
 
 TEMPLATESADMIN_TEMPLATE_DIRS = TEMPLATE_DIRS
 
@@ -446,6 +446,9 @@ ADMIN_APP_INDEX = (
             }),
             ("actstream", {
                 "models": ("Action", "Follow",),
+            }),
+            ("djcelery", {
+                "models": ("CrontabSchedule", "IntervalSchedule", "PeriodicTask", "TaskState", "WorkerState"),
             }),
         )
     }
