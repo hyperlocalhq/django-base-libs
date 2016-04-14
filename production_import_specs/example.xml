@@ -96,7 +96,6 @@
             <leaders>
                 <leader>
                     <prefix_id>ms-dr</prefix_id><!-- One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr" -->
-                    <gender>F</gender><!-- One of: "M" for male or "F" for female -->
                     <first_name>Erika</first_name><!-- First name of the person -->
                     <last_name>Mustermann</last_name><!-- Last name of the person -->
                     <function_de>Direktorin</function_de><!-- Description in German what this leader is doing for the production -->
@@ -107,18 +106,15 @@
             <authors>
                 <author>
                     <prefix_id>mr</prefix_id><!-- One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr" -->
-                    <gender>M</gender><!-- One of: "M" for male or "F" for female -->
                     <first_name>Max</first_name><!-- First name of the person -->
                     <last_name>Mustermann</last_name><!-- Last name of the person -->
-                    <type_de>Komponist</type_de><!-- Description in German what this leader is doing for the production -->
-                    <type_en>Composer</type_en><!-- Description in English what this leader is doing for the production -->
+                    <type_id>komponist</type_id><!-- What did this author do in the production? One of: "komponist", "autor", "uebersetzer" -->
                 </author>
                 <!-- ... -->
             </authors>
             <participants>
                 <participant>
                     <prefix_id>mr</prefix_id><!-- One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr" -->
-                    <gender>M</gender><!-- One of: "M" for male or "F" for female -->
                     <first_name>Otto</first_name><!-- First name of the person -->
                     <last_name>Normalverbraucher</last_name><!-- Last name of the person -->
                     <type_id>musik</type_id><!-- Involvement type ID. Check the list of available IDs at the specification -->
@@ -129,7 +125,6 @@
                 </participant>
                 <participant>
                     <prefix_id>ms</prefix_id><!-- One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr" -->
-                    <gender>F</gender><!-- One of: "M" for male or "F" for female -->
                     <first_name>Lieschen</first_name><!-- First name of the person -->
                     <last_name>Müller</last_name><!-- Last name of the person -->
                     <type_id>schauspieler</type_id><!-- Involvement type ID. Check the list of available IDs at the specification -->
@@ -290,7 +285,6 @@
                     <leaders>
                         <leader>
                             <prefix_id>ms-dr</prefix_id><!-- One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr" -->
-                            <gender>F</gender><!-- One of: "M" for male or "F" for female -->
                             <first_name>Erika</first_name><!-- First name of the person -->
                             <last_name>Mustermann</last_name><!-- Last name of the person -->
                             <function_de>Direktorin</function_de><!-- Description in German what this leader is doing for the event -->
@@ -301,18 +295,15 @@
                     <authors>
                         <author>
                             <prefix_id>mr</prefix_id><!-- One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr" -->
-                            <gender>M</gender><!-- One of: "M" for male or "F" for female -->
                             <first_name>Max</first_name><!-- First name of the person -->
                             <last_name>Mustermann</last_name><!-- Last name of the person -->
-                            <type_de>Komponist</type_de><!-- Description in German what this leader is doing for the event -->
-                            <type_en>Composer</type_en><!-- Description in English what this leader is doing for the event -->
+                            <type_id>komponist</type_id><!-- What did this author do in the event? One of: "komponist", "autor", "uebersetzer" -->
                         </author>
                         <!-- ... -->
                     </authors>
                     <participants>
                         <participant>
                             <prefix_id>mr</prefix_id><!-- One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr" -->
-                            <gender>M</gender><!-- One of: "M" for male or "F" for female -->
                             <first_name>Otto</first_name><!-- First name of the person -->
                             <last_name>Normalverbraucher</last_name><!-- Last name of the person -->
                             <type_id>musik</type_id><!-- Involvement type ID. Check the list of available IDs at the specification -->
@@ -323,7 +314,6 @@
                         </participant>
                         <participant>
                             <prefix_id>ms</prefix_id><!-- One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr" -->
-                            <gender>F</gender><!-- One of: "M" for male or "F" for female -->
                             <first_name>Lieschen</first_name><!-- First name of the person -->
                             <last_name>Müller</last_name><!-- Last name of the person -->
                             <type_id>schauspieler</type_id><!-- Involvement type ID. Check the list of available IDs at the specification -->

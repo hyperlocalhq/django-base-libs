@@ -432,7 +432,153 @@ For example, if a production can be classified as "Tanz", "Ballet", and "Neue Me
 ```
 ### The Production Characteristics ###
 
+This is a list of all available characteristics with IDs to enter as values at `<characteristic_id>` of the production:
 
+- On Tour | On Tour (ID = "on-tour")
+- Gastspiel | Guest Play (ID = "gastspiel")
+- Repertoire | Repertoire (ID = "repertoire")
+- Wiederaufnahme | Replay (ID = "wiederaufnahme")
+- Uraufführung | Premiere (ID = "urauffuehrung")
+
+For example, if a production can be classified as "Gastspiel", the following XML should be set:
+
+```xml
+<characteristics>
+    <characteristic_id>gastspiel</characteristic_id>
+</characteristics>
+```
+
+### The Leaders, Authors, and Participants
+
+The `<leaders>` node contains a list of `<leader>` nodes with such content:
+
+| Node | Type | Required | Description | Example |
+|------|------|----------|-------------|---------|
+| `<prefix_id>` | string | no | One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr" | ms-dr |
+| `<first_name>` | string | yes | First name of the person | Erika |
+| `<last_name>` | string | yes | Last name of the person | Mustermann |
+| `<function_de>` | string | yes | Description in German what this leader is doing for the production | Direktorin |
+| `<function_en>` | string | yes | Description in English what this leader is doing for the production | Director |
+
+The `<authors>` node contains a list of `<author>` nodes with such content:
+
+| Node | Type | Required | Description | Example |
+|------|------|----------|-------------|---------|
+| `<prefix_id>` | string | no | One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr" | mr |
+| `<first_name>` | string | yes | First name of the person | Max |
+| `<last_name>` | string | yes | Last name of the person | Mustermann |
+| `<type_id>` | string | yes | Authorship type. One of: "komponist", "autor", "uebersetzer" | komponist |
+
+The `<participants>` node contains a list of `<participant>` nodes with such content:
+
+| Node | Type | Required | Description | Example |
+|------|------|----------|-------------|---------|
+| `<prefix_id>` | string | no | One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr" | ms-dr |
+| `<first_name>` | string | yes | First name of the person | Erika |
+| `<last_name>` | string | yes | Last name of the person | Mustermann |
+| `<type_id>` | string | yes | Involvement type ID | musik |
+| `<role_de>` | string | no | Role in German | Rotkäppchen |
+| `<role_en>` | string | no | Role in English | Little Red Riding Hood |
+| `<instrument_de>` | string | no | Instrument in German | Klavier |
+| `<instrument_en>` | string | no | Instrument in English | Piano |
+
+Involvement types and their IDs are these:
+
+- Ausstatter/-in | Decorator (ID = "ausstatter")
+- Bühnenbildner/-in | Scene builder (ID = "buhnenbildner")
+- Chor | Choir (ID = "chor")
+- Choreografie | Choreography (ID = "choreografie")
+- Dirigent/ -in | Director of an orchestra, chorus (ID = "dirigent")
+- Diskussionsteilnehmer/ -in | Discussant (ID = "diskussionsteilnehmer")
+- Dramaturgie | Dramaturgy (ID = "dramaturgie")
+- Einrichtung | arrangement (ID = "einrichtung")
+- Einstudierung | Rehearsal (ID = "einstudierung")
+- Ensemble | Ensemble (ID = "ensemble")
+- Inspizient / -in | Stage caller (ID = "inspizient")
+- Kostüme | Costumes (ID = "kostume")
+- Künstler/ -in | Artist (ID = "kuenstler")
+- Künstlerische Leitung | Artistic director (ID = "kunstlerische-leitung")
+- Licht | Light (ID = "licht")
+- Moderator/-in | Moderator (ID = "moderator")
+- Musik | Music (ID = "musik")
+- Orchester | Orchestra (ID = "orchester")
+- Performer/-in |  (ID = "performer")
+- Produktionsleitung |  (ID = "produktionsleitung")
+- Pyrothechnik | Pyrotechnic (ID = "pyrothechnik")
+- Referent/-in | Speaker (ID = "referent")
+- Regie | Direction (ID = "regie")
+- Regieassistenz | Direction assistence (ID = "regieassistenz")
+- Requisite | Prop (ID = "requisite")
+- Rezitation | Reciting (ID = "rezitation")
+- Sänger/-in | Singer (ID = "saenger")
+- Schauspieler / -in | Actor (ID = "schauspieler")
+- Solist/-in | Soloist (ID = "solist")
+- Souffleur/Souffleuse | Prompter (ID = "souffleur-souffleuse")
+- Statisterie | Background actor (ID = "statisterie")
+- Tänzer/-in | Dancer (ID = "taenzer")
+- Text | Text (ID = "text")
+- Video | Video (ID = "video")
+
+For example, the leaders, authors and participants can be defined like this:
+
+```xml
+<leaders>
+    <leader>
+        <prefix_id>ms-dr</prefix_id>
+        <first_name>Erika</first_name>
+        <last_name>Mustermann</last_name>
+        <function_de>Direktorin</function_de>
+        <function_en>Director</function_en>
+    </leader>
+</leaders>
+<authors>
+    <author>
+        <prefix_id>mr</prefix_id>
+        <first_name>Max</first_name>
+        <last_name>Mustermann</last_name>
+        <type_id>komponist</type_id>
+    </author>
+</authors>
+<participants>
+    <participant>
+        <first_name>Otto</first_name>
+        <last_name>Normalverbraucher</last_name>
+        <type_id>musik</type_id>
+        <instrument_de>Klavier</instrument_de>
+        <instrument_en>Piano</instrument_en>
+    </participant>
+    <participant>
+        <first_name>Lieschen</first_name>
+        <last_name>Müller</last_name>
+        <type_id>schauspieler</type_id>
+        <role_de>Rotkäppchen</role_de>
+        <role_en>Little Red Riding Hood</role_en>
+    </participant>
+</participants>
+```
+
+### The Event Characteristics ###
+
+This is a list of all available characteristics with IDs to enter as values at `<characteristic_id>` of the event:
+
+- Premiere | Premiere (ID = "premiere")
+- Deutsche Erstaufführung | Premiere in Germany (ID = "deutsche-erstauffuehrung")
+- Deutschsprachige Erstaufführung | Premiere in German (ID = "deutschsprachige-erstauffuehrung")
+- Berliner Premiere | Premiere in Berlin (ID = "berliner-premiere")
+- Voraufführung | Preview (ID = "vorauffuehrung")
+- zum letzten Mal in dieser Spielzeit | For the last time in the repertory season (ID = "zum-letzten-mal-dieser-spielzeit")
+- zum letzten Mal | For the last time (ID = "zum-letzten-mal")
+- Einführung | Introduction (ID = "einfuehrung")
+- Familienpreise | Family prices (ID = "familienpreise")
+
+For example, if an event can be classified as "Premiere" and "Familienpreise", the following XML should be set:
+
+```xml
+<characteristics>
+    <characteristic_id>premiere</characteristic_id>
+    <characteristic_id>familienpreise</characteristic_id>
+</characteristics>
+```
 
 ## Full featured XML example ##
 
