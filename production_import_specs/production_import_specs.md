@@ -454,7 +454,7 @@ The `<leaders>` node contains a list of `<leader>` nodes with such content:
 
 | Node | Type | Required | Description | Example |
 |------|------|----------|-------------|---------|
-| `<prefix_id>` | string | no | One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr" | ms-dr |
+| `<prefix_id>` | string | no | Prefix ID | ms-dr |
 | `<first_name>` | string | yes | First name of the person | Erika |
 | `<last_name>` | string | yes | Last name of the person | Mustermann |
 | `<function_de>` | string | yes | Description in German what this leader is doing for the production | Direktorin |
@@ -464,7 +464,7 @@ The `<authors>` node contains a list of `<author>` nodes with such content:
 
 | Node | Type | Required | Description | Example |
 |------|------|----------|-------------|---------|
-| `<prefix_id>` | string | no | One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr" | mr |
+| `<prefix_id>` | string | no | Prefix ID | mr |
 | `<first_name>` | string | yes | First name of the person | Max |
 | `<last_name>` | string | yes | Last name of the person | Mustermann |
 | `<type_id>` | string | yes | Authorship type. One of: "komponist", "autor", "uebersetzer" | komponist |
@@ -473,7 +473,7 @@ The `<participants>` node contains a list of `<participant>` nodes with such con
 
 | Node | Type | Required | Description | Example |
 |------|------|----------|-------------|---------|
-| `<prefix_id>` | string | no | One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr" | ms-dr |
+| `<prefix_id>` | string | no | Prefix ID | ms-dr |
 | `<first_name>` | string | yes | First name of the person | Erika |
 | `<last_name>` | string | yes | Last name of the person | Mustermann |
 | `<type_id>` | string | yes | Involvement type ID | musik |
@@ -481,6 +481,19 @@ The `<participants>` node contains a list of `<participant>` nodes with such con
 | `<role_en>` | string | no | Role in English | Little Red Riding Hood |
 | `<instrument_de>` | string | no | Instrument in German | Klavier |
 | `<instrument_en>` | string | no | Instrument in English | Piano |
+
+Prefixes and their IDs are these:
+
+- Herr | Mr. (ID = "mr")
+- Frau | Mrs./Ms. (ID = "ms")
+- Dr. | Dr. (ID = "dr")
+- Prof. | Prof. (ID = "prof")
+- Herr Dr. | Mr. Dr. (ID = "mr-dr")
+- Frau Dr. | Ms. Dr. (ID = "ms-dr")
+- Herr Prof. | Mr. Prof. (ID = "mr-prof")
+- Frau Prof. | Ms. Prof. (ID = "ms-prof")
+- Herr Prof. Dr. | Mr. Prof. Dr. (ID = "mr-prof-dr")
+- Frau Prof. Dr. | Ms. Prof. Dr. (ID = "ms-prof-dr")
 
 Involvement types and their IDs are these:
 
@@ -557,6 +570,31 @@ For example, the leaders, authors and participants can be defined like this:
 </participants>
 ```
 
+### Videos, Live Streams, Images, and PDF Documents ###
+
+The `<videos>` node contains a list of `<video>` nodes with such content:
+
+| Node | Type | Required | Description | Example |
+|------|------|----------|-------------|---------|
+| `<creation_date>`| string | yes | Creation timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
+| `<modified_date>` | string | no | Modification timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
+| `<title_de>` | string | yes | Title in German | |
+| `<title_en>` | string | yes | Title in English | |
+| `<embed>` | string | yes | HTML embed code | `<![CDATA[<iframe src="http://example.com/videos/45645/embed/"></iframe>]]>` |
+| `<sort_order>` | integer | yes | Sort order of the video | 1 |
+
+The `<live_streams>` node contains a list of `<live_stream>` nodes with such content:
+
+| Node | Type | Required | Description | Example |
+|------|------|----------|-------------|---------|
+| `<creation_date>`| string | yes | Creation timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
+| `<modified_date>` | string | no | Modification timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
+| `<title_de>` | string | yes | Title in German | |
+| `<title_en>` | string | yes | Title in English | |
+| `<embed>` | string | yes | HTML embed code | `<![CDATA[<iframe src="http://example.com/live-videos/45645/embed/"></iframe>]]>` |
+| `<sort_order>` | integer | yes | Sort order of the video | 1 |
+
+
 ### The Event Characteristics ###
 
 This is a list of all available characteristics with IDs to enter as values at `<characteristic_id>` of the event:
@@ -582,4 +620,4 @@ For example, if an event can be classified as "Premiere" and "Familienpreise", t
 
 ## Full featured XML example ##
 
-Finally, you can see the whole [XML example](example.xml).
+Finally, you can see the complete [XML example](example.xml).
