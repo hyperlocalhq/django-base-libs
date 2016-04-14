@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <response>
     <meta>
-        <next>http://example.com/url/to/the/next/page</next><!-- The API URL for the next page (or empty string for the last page) -->
-        <previous>http://example.com/url/to/the/previous/page</previous><!-- The API URL for the previous page (or empty string for the first page) -->
+        <next>http://example.com/api/productions/?page=3</next><!-- The API URL for the next page (or empty string for the last page) -->
+        <previous>http://example.com/api/productions/?page=1</previous><!-- The API URL for the previous page (or empty string for the first page) -->
         <total_count>200</total_count><!-- How many productions are there in total? -->
         <items_per_page>50</items_per_page><!-- What is the maximal amount of productions per page? -->
     </meta>
@@ -11,7 +11,7 @@
             <id>123</id><!-- Unique production ID on your website -->
             <creation_date>2016-04-14T16:27:38</creation_date><!-- Production creation timestamp in ISO 8601 format -->
             <modified_date>2016-04-14T16:27:38</modified_date><!-- Production modification timestamp in ISO 8601 format -->
-            <status>published</status><!-- Publishing status, one of: "draft", "published", "not_listed", "import", "expired", "trashed" -->
+            <status>published</status><!-- Publishing status, one of: "draft", "published", "not_listed", "expired", "trashed" -->
             <prefix_de></prefix_de><!-- Title prefix in German -->
             <prefix_en></prefix_en><!-- Title prefix in English -->
             <title_de></title_de><!-- Title in German -->
@@ -167,12 +167,12 @@
                 <image>
                     <creation_date>2016-04-14T16:27:38</creation_date><!-- Creation timestamp in ISO 8601 format -->
                     <modified_date>2016-04-14T16:27:38</modified_date><!-- Modification timestamp in ISO 8601 format -->
-                    <url>http://example.com/url/of/the/original/image.jpg</url><!-- URL of the original (largest scale) image in JPG or PNG format -->
+                    <url>http://example.com/media/589231.jpg</url><!-- URL of the original (largest scale) image in JPG or PNG format -->
                     <title_de></title_de><!-- Title in German -->
                     <title_en></title_en><!-- Title in English -->
                     <description_de></description_de><!-- Plain-text description in German -->
                     <description_en></description_en><!-- Plain-text description in English -->
-                    <author></author><!-- Author first and last name -->
+                    <author></author><!-- Author's first and last name -->
                     <copyright_restrictions>general_use</copyright_restrictions><!-- One of: "general_use" or "protected" -->
                     <copyright>© 2016 example.com</copyright><!-- Copyright information -->
                     <sort_order>1</sort_order><!-- Sort order of the image (integer) -->
@@ -183,12 +183,12 @@
                 <pdf>
                     <creation_date>2016-04-14T16:27:38</creation_date><!-- Creation timestamp in ISO 8601 format -->
                     <modified_date>2016-04-14T16:27:38</modified_date><!-- Modification timestamp in ISO 8601 format -->
-                    <url>http://example.com/url/of/the/pdf/document.pdf</url><!-- URL of the PDF document -->
+                    <url>http://example.com/media/564285.pdf</url><!-- URL of the PDF document -->
                     <title_de></title_de><!-- Title in German -->
                     <title_en></title_en><!-- Title in English -->
                     <description_de></description_de><!-- Plain-text description in German -->
                     <description_en></description_en><!-- Plain-text description in English -->
-                    <author></author><!-- Author first and last name -->
+                    <author></author><!-- Author's first and last name -->
                     <copyright>© 2016 example.com</copyright><!-- Copyright information -->
                     <sort_order>1</sort_order><!-- Sort order of the image (integer) -->
                 </pdf>
@@ -206,8 +206,8 @@
                 <sponsor>
                     <creation_date>2016-04-14T16:27:38</creation_date><!-- Creation timestamp in ISO 8601 format -->
                     <modified_date>2016-04-14T16:27:38</modified_date><!-- Modification timestamp in ISO 8601 format -->
-                    <website>http://example.com/url/of/the/sponsor/website</website><!-- URL of the sponsor website -->
-                    <image_url>http://example.com/url/of/the/sponsor/logo.png</image_url><!-- URL of the sponsor logo in JPG or PNG format -->
+                    <website>http://example.com/sponsor/</website><!-- URL of the sponsor website -->
+                    <image_url>http://example.com/media/sponsor-logo.png</image_url><!-- URL of the sponsor logo in JPG or PNG format -->
                     <title_de></title_de><!-- Title in German -->
                     <title_en></title_en><!-- Title in English -->
                 </sponsor>
@@ -226,11 +226,11 @@
                     <duration>3:00</duration><!-- Duration time in ISO 8601 format -->
                     <pauses>2</pauses><!-- Amount of pauses (integer) -->
 
-                    <play_locations><!-- Theaters where this production takes place. Check the list of available IDs at the specification -->
+                    <play_locations><!-- Theaters where this event takes place. Check the list of available IDs at the specification -->
                         <location_id>3</location_id>
                         <!-- ... -->
                     </play_locations>
-                    <play_stages><!-- Stages where this production takes place. Check the list of available IDs at the specification -->
+                    <play_stages><!-- Stages where this event takes place. Check the list of available IDs at the specification -->
                         <stage_id>1</stage_id>
                         <!-- ... -->
                     </play_stages>
@@ -274,7 +274,7 @@
                     <free_entrance>False</free_entrance><!-- Is the entrance free? One of "True" or "False" -->
                     <price_from>8.00</price_from><!-- Price from in Euros (decimal, no currency sign included) -->
                     <price_till>12.00</price_till><!-- Price till in Euros (decimal, no currency sign included) -->
-                    <tickets_website></tickets_website><!-- The URL of a website page where you can buy tickets to this production -->
+                    <tickets_website></tickets_website><!-- The URL of a website page where you can buy tickets to this event -->
                     <price_information_de></price_information_de><!-- Additional plain-text information about prices in German -->
                     <price_information_en></price_information_en><!-- Additional plain-text information about prices in English -->
 
@@ -293,8 +293,8 @@
                             <gender>F</gender><!-- One of: "M" for male or "F" for female -->
                             <first_name>Erika</first_name><!-- First name of the person -->
                             <last_name>Mustermann</last_name><!-- Last name of the person -->
-                            <function_de>Direktorin</function_de><!-- Description in German what this leader is doing for the production -->
-                            <function_en>Director</function_en><!-- Description in English what this leader is doing for the production -->
+                            <function_de>Direktorin</function_de><!-- Description in German what this leader is doing for the event -->
+                            <function_en>Director</function_en><!-- Description in English what this leader is doing for the event -->
                         </leader>
                         <!-- ... -->
                     </leaders>
@@ -304,8 +304,8 @@
                             <gender>M</gender><!-- One of: "M" for male or "F" for female -->
                             <first_name>Max</first_name><!-- First name of the person -->
                             <last_name>Mustermann</last_name><!-- Last name of the person -->
-                            <type_de>Komponist</type_de><!-- Description in German what this leader is doing for the production -->
-                            <type_en>Composer</type_en><!-- Description in English what this leader is doing for the production -->
+                            <type_de>Komponist</type_de><!-- Description in German what this leader is doing for the event -->
+                            <type_en>Composer</type_en><!-- Description in English what this leader is doing for the event -->
                         </author>
                         <!-- ... -->
                     </authors>
@@ -361,12 +361,12 @@
                         <image>
                             <creation_date>2016-04-14T16:27:38</creation_date><!-- Creation timestamp in ISO 8601 format -->
                             <modified_date>2016-04-14T16:27:38</modified_date><!-- Modification timestamp in ISO 8601 format -->
-                            <url>http://example.com/url/of/the/original/image.jpg</url><!-- URL of the original (largest scale) image in JPG or PNG format -->
+                            <url>http://example.com/media/876263.jpg</url><!-- URL of the original (largest scale) image in JPG or PNG format -->
                             <title_de></title_de><!-- Title in German -->
                             <title_en></title_en><!-- Title in English -->
                             <description_de></description_de><!-- Plain-text description in German -->
                             <description_en></description_en><!-- Plain-text description in English -->
-                            <author></author><!-- Author first and last name -->
+                            <author></author><!-- Author's first and last name -->
                             <copyright_restrictions>general_use</copyright_restrictions><!-- One of: "general_use" or "protected" -->
                             <copyright>© 2016 example.com</copyright><!-- Copyright information -->
                             <sort_order>1</sort_order><!-- Sort order of the image (integer) -->
@@ -377,12 +377,12 @@
                         <pdf>
                             <creation_date>2016-04-14T16:27:38</creation_date><!-- Creation timestamp in ISO 8601 format -->
                             <modified_date>2016-04-14T16:27:38</modified_date><!-- Modification timestamp in ISO 8601 format -->
-                            <url>http://example.com/url/of/the/pdf/document.pdf</url><!-- URL of the PDF document -->
+                            <url>http://example.com/media/985659.pdf</url><!-- URL of the PDF document -->
                             <title_de></title_de><!-- Title in German -->
                             <title_en></title_en><!-- Title in English -->
                             <description_de></description_de><!-- Plain-text description in German -->
                             <description_en></description_en><!-- Plain-text description in English -->
-                            <author></author><!-- Author first and last name -->
+                            <author></author><!-- Author's first and last name -->
                             <copyright>© 2016 example.com</copyright><!-- Copyright information -->
                             <sort_order>1</sort_order><!-- Sort order of the image (integer) -->
                         </pdf>
@@ -393,8 +393,8 @@
                         <sponsor>
                             <creation_date>2016-04-14T16:27:38</creation_date><!-- Creation timestamp in ISO 8601 format -->
                             <modified_date>2016-04-14T16:27:38</modified_date><!-- Modification timestamp in ISO 8601 format -->
-                            <website>http://example.com/url/of/the/sponsor/website</website><!-- URL of the sponsor website -->
-                            <image_url>http://example.com/url/of/the/sponsor/logo.png</image_url><!-- URL of the sponsor logo in JPG or PNG format -->
+                            <website>http://example.com/sponsor/</website><!-- URL of the sponsor website -->
+                            <image_url>http://example.com/media/sponsor-logo.png</image_url><!-- URL of the sponsor logo in JPG or PNG format -->
                             <title_de></title_de><!-- Title in German -->
                             <title_en></title_en><!-- Title in English -->
                         </sponsor>
