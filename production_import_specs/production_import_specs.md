@@ -1,5 +1,7 @@
 # Production Import Specification #
 
+[TOC]
+
 ## Introduction ##
 
 The Berlin Bühnen website has locations (theaters) and stages where plays happen. All plays are named as productions. Productions have general information about the play. Each production has multiple events, that is, exact dates and times when the play happens. Events might overwrite some general information of their production.
@@ -20,7 +22,7 @@ The XML for the import API should have the following structure:
 </response>
 ```
 
-## The `<meta>` Section ##
+### The Meta Section ###
 
 The `<meta>` section contains information about pagination and amount of productions, as follows:
 
@@ -31,11 +33,11 @@ The `<meta>` section contains information about pagination and amount of product
 | `<total_count>` | integer | yes | How many productions are there in total? | 521 |
 | `<items_per_page>` | integer | yes | What is the maximal amount of productions per page? | 50 |
 
-### The `<productions>` Section ###
+### The Productions Section ###
 
 The `<productions>` section contains paginated list of productions and their events. Each production is set as a `<production>` node.
 
-## The `<production>` Node ##
+## The Production Node ##
 
 The `<production>` node has the following elements:
 
@@ -93,15 +95,15 @@ The `<production>` node has the following elements:
 | `<in_program_of>` | list of `<location_id>` nodes | no | Theaters organizing this production | |
 | `<play_locations>` | list of `<location_id>` nodes | no | Theaters where this production takes place | |
 | `<play_stages>` | list of `<stage_id>` nodes | no | Stages where this production takes place | |
-| `<location_title>` | string | no | Location title (if play_locations is empty) | |
-| `<street_address>`| string | no | Street address (first line) of the location (if play_locations is empty) | |
-| `<street_address2>` | string | no | Street address (second line) of the location (if play_locations is empty) | |
-| `<postal_code>`| string | no | Postal code of the location (if play_locations is empty) | |
-| `<city>`| string | no | City of the location (if play_locations is empty) | |
-| `<latitude>`| decimal | no | Latitude of the location (if play_locations is empty) | 52.5192 |
-| `<longitude>` | decimal | no | Longitude of the location (if play_locations is empty) | 13.4061 |
+| `<location_title>` | string | no | Location title (if `<play_locations>` is empty) | |
+| `<street_address>`| string | no | Street address (first line) of the location (if `<play_locations>` is empty) | |
+| `<street_address2>` | string | no | Street address (second line) of the location (if `<play_locations>` is empty) | |
+| `<postal_code>`| string | no | Postal code of the location (if `<play_locations>` is empty) | |
+| `<city>`| string | no | City of the location (if `<play_locations>` is empty) | |
+| `<latitude>`| decimal | no | Latitude of the location (if `<play_locations>` is empty) | 52.5192 |
+| `<longitude>` | decimal | no | Longitude of the location (if `<play_locations>` is empty) | 13.4061 |
 | `<categories>` | list of `<category_id>` nodes | no | Categories | |
-| `<characteristics>`| list of `<characteristic_id>` nodes | no | Characteristics | |
+| `<characteristics>`| list of `<characteristic_id>` nodes | no | Production characteristics | |
 | `<leaders>` | list of `<leader>` nodes | no | Leaders | |
 | `<authors>` | list of `<author>` nodes | no | Authors | |
 | `<participants>` | list of `<participant>` nodes | no | Participants | |
@@ -110,11 +112,11 @@ The `<production>` node has the following elements:
 | `<images>` | list of `<image>` nodes | no | Images | |
 | `<pdfs>` | list of `<pdf>` nodes | no | PDF documents | |
 | `<social_media>` | list of `<social_media_channel>` nodes | no | Social media | |
-| `<language_and_subtitles_id>` | string | no | Language and subtitles | |
+| `<language_and_subtitles_id>` | string | no | Language and subtitles | in-deutscher-sprache |
 | `<sponsors>` | list of `<sponsor>` nodes | no | Sponsors | |
 | `<events>` | list of `<event>` nodes | no | Events | |
 
-### The Locations and Stages ###
+### The Locations and Stages for Productions or Events ###
 
 This is a list of all available locations and stages with location IDs and stage IDs to enter as values at `<location_id>` and `<stage_id>`:
 
@@ -330,7 +332,7 @@ For example, if a production is organized by "Volksbühne am Rosa-Luxemburg-Plat
 </play_stages>
 ```
 
-### The Categories ###
+### The Categories for Productions ###
 
 This is a list of all available categories and subcategories with IDs to enter as values at `<category_id>`:
 
@@ -448,7 +450,7 @@ For example, if a production can be classified as "Gastspiel", the following XML
 </characteristics>
 ```
 
-### The Leaders, Authors, and Participants
+### The Leaders, Authors, and Participants for Productions or Events ###
 
 The `<leaders>` node contains a list of `<leader>` nodes with such content:
 
@@ -570,7 +572,7 @@ For example, the leaders, authors and participants can be defined like this:
 </participants>
 ```
 
-### Videos, Live Streams, Images, and PDF Documents ###
+### Videos, Live Streams, Images, and PDF Documents for Productions or Events ###
 
 The `<videos>` node contains a list of `<video>` nodes with such content:
 
@@ -594,6 +596,230 @@ The `<live_streams>` node contains a list of `<live_stream>` nodes with such con
 | `<embed>` | string | yes | HTML embed code | `<![CDATA[<iframe src="http://example.com/live-videos/45645/embed/"></iframe>]]>` |
 | `<sort_order>` | integer | yes | Sort order of the video | 1 |
 
+The `<images>` node contains a list of `<image>` nodes with such content:
+
+| Node | Type | Required | Description | Example |
+|------|------|----------|-------------|---------|
+| `<creation_date>`| string | yes | Creation timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
+| `<modified_date>` | string | no | Modification timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
+| `<url>` | string | yes | URL of the original (large-scale) image | |
+| `<title_de>` | string | yes | Title in German | |
+| `<title_en>` | string | yes | Title in English | |
+| `<description_de>` | string | no | Plain-text description in German | |
+| `<description_en>` | string | no | Plain-text description in English | |
+| `<author>` | string | no | The name of the author | |
+| `<copyright_restrictions>` | string | yes | Permissions to use this photo. One of: "general_use" or "protected" | general_use |
+| `<copyright>` | string | no | Copyright information | © 2016 example.com |
+| `<sort_order>` | integer | yes | Sort order of the video | 1 |
+
+The `<pdfs>` node contains a list of `<pdf>` nodes with such content:
+
+| Node | Type | Required | Description | Example |
+|------|------|----------|-------------|---------|
+| `<creation_date>`| string | yes | Creation timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
+| `<modified_date>` | string | no | Modification timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
+| `<url>` | string | yes | URL of the PDF document | |
+| `<title_de>` | string | yes | Title in German | |
+| `<title_en>` | string | yes | Title in English | |
+| `<description_de>` | string | no | Plain-text description in German | |
+| `<description_en>` | string | no | Plain-text description in English | |
+| `<author>` | string | no | The name of the author | |
+| `<copyright>` | string | no | Copyright information | © 2016 example.com |
+| `<sort_order>` | integer | yes | Sort order of the video | 1 |
+
+For example, videos, live streams, images, and PDF documents can be defined like this:
+
+```xml
+<videos>
+    <video>
+        <creation_date>2016-04-14T16:27:38</creation_date>
+        <modified_date>2016-04-14T16:27:38</modified_date>
+        <title_de></title_de>
+        <title_en></title_en>
+        <embed><![CDATA[<iframe src="http://example.com/videos/45645/embed/"></iframe>]]></embed>
+        <sort_order>1</sort_order>
+    </video>
+</videos>
+<live_streams>
+    <live_stream>
+        <creation_date>2016-04-14T16:27:38</creation_date>
+        <modified_date>2016-04-14T16:27:38</modified_date>
+        <title_de></title_de>
+        <title_en></title_en>
+        <embed><![CDATA[<iframe src="http://example.com/live-videos/45645/embed/"></iframe>]]></embed>
+        <sort_order>1</sort_order>
+    </live_stream>
+</live_streams>
+<images>
+    <image>
+        <creation_date>2016-04-14T16:27:38</creation_date>
+        <modified_date>2016-04-14T16:27:38</modified_date>
+        <url>http://example.com/media/589231.jpg</url>
+        <title_de></title_de>
+        <title_en></title_en>
+        <description_de></description_de>
+        <description_en></description_en>
+        <author></author>
+        <copyright_restrictions>general_use</copyright_restrictions>
+        <copyright>© 2016 example.com</copyright>
+        <sort_order>1</sort_order>
+    </image>
+</images>
+<pdfs>
+    <pdf>
+        <creation_date>2016-04-14T16:27:38</creation_date>
+        <modified_date>2016-04-14T16:27:38</modified_date>
+        <url>http://example.com/media/564285.pdf</url>
+        <title_de></title_de>
+        <title_en></title_en>
+        <description_de></description_de>
+        <description_en></description_en>
+        <author></author>
+        <copyright>© 2016 example.com</copyright>
+        <sort_order>1</sort_order>
+    </pdf>
+</pdfs>
+```
+
+
+### Social media for Productions ###
+
+The `<social_media>` node contains a list of `<social_media_channel>` nodes with such content:
+
+| Node | Type | Required | Description | Example |
+|------|------|----------|-------------|---------|
+| `<channel_type>` | string | yes | Type of social media: "Facebook", "Twitter", "Google+", etc. | |
+| `<url>` | string | yes | URL of social media profile | https://www.facebook.com/berlinbuehnen |
+
+For example, Twitter and Facebook profiles for the production can be defined like this:
+
+```xml
+<social_media>
+    <social_media_channel>
+        <channel_type>Twitter</channel_type>
+        <url>https://twitter.com/berlinbuehnen</url>
+    </social_media_channel>
+    <social_media_channel>
+        <channel_type>Facebook</channel_type>
+        <url>https://www.facebook.com/berlinbuehnen</url>
+    </social_media_channel>
+</social_media>
+
+```
+
+### Language and subtitles for Productions or Events ###
+
+This is a list of choices for the `<language_and_subtitles_id>` node:
+
+- In englischer Sprache | In English (ID = "in-englischer-sprache")
+- Sprache kein Problem | Language no Problem (ID = "sprache-kein-problem")
+- Mit englischen Übertiteln | With English surtitles (ID = "mit-engl-uebertiteln")
+- Mit französischen Übertiteln | With French surtitles (ID = "mit-franzoesischen-uebertiteln")
+- Andere Sprache | Other Languages (ID = "andere-sprache")
+- Simultanübersetzung englisch-deutsch | Simultaneous translation English-German (ID = "simultanubersetzung-englisch-deutsch")
+- In deutscher Sprache | In German (ID = "in-deutscher-sprache")
+
+For example, if you want to tell that the language for production doesn't matter, you would use such XML:
+
+```xml
+<language_and_subtitles_id>sprache-kein-problem</language_and_subtitles_id>
+```
+
+### Sponsors for Productions or Events ###
+
+The `<sponsors>` node contains a list of `<sponsor>` nodes with such content:
+
+| Node | Type | Required | Description | Example |
+|------|------|----------|-------------|---------|
+| `<creation_date>`| string | yes | Creation timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
+| `<modified_date>` | string | no | Modification timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
+| `<website>` | string | no | URL of the sponsor website | http://example.com/sponsor/ |
+| `<image_url>` | string | no | URL of the sponsor logo in JPG or PNG format | http://example.com/media/sponsor-logo.png |
+| `<title_de>` | string | no | Title in German | &nbsp; |
+| `<title_en>` | string | no | Title in English | &nbsp; |
+
+For example, a sponsor can be defined like this:
+
+```xml
+<sponsors>
+    <sponsor>
+        <creation_date>2016-04-14T16:27:38</creation_date>
+        <modified_date>2016-04-14T16:27:38</modified_date>
+        <website>http://example.com/sponsor/</website>
+        <image_url>http://example.com/media/sponsor-logo.png</image_url>
+        <title_de>Beispiel Sponsor</title_de>
+        <title_en>Example Sponsor</title_en>
+    </sponsor>
+</sponsors>
+```
+
+## The Event Node ##
+
+Events are specific dates and times when production is happening. If an event defines an XML node or XML node structure that exists for the production, it will overwrite the value of the production, otherwise the value from the production will be used at the Berlin Bühnen website. The `<events>` node contains a list of  `<event>` nodes with such elements available:
+
+| Node | Type | Required | Description | Example |
+|------|------|----------|-------------|---------|
+| `<id>` | string or integer | yes | Unique event ID on your website | 123 |
+| `<creation_date>`| string | yes | Production creation timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
+| `<modified_date>` | string | no | Production modification timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
+| `<start_date>`| string | yes | Start date in ISO 8601 format | 2016-04-14 |
+| `<end_date>`| string | no | End date in ISO 8601 format | 2016-04-14 |
+| `<start_time>`| string | yes | Start time in ISO 8601 format | 20:00 |
+| `<end_time>`| string | no | End time in ISO 8601 format | 23:00 |
+| `<duration>`| string | no | Duration time in ISO 8601 format | 3:00 |
+| `<pauses>`| integer | no | Amount of pauses | 2 |
+| `<play_locations>` | list of `<location_id>` nodes | no | Theaters where this event takes place | |
+| `<play_stages>` | list of `<stage_id>` nodes | no | Stages where this event takes place | |
+| `<location_title>` | string | no | Location title (if `<play_locations>` is empty) | |
+| `<street_address>`| string | no | Street address (first line) of the location (if `<play_locations>` is empty) | |
+| `<street_address2>` | string | no | Street address (second line) of the location (if `<play_locations>` is empty) | |
+| `<postal_code>`| string | no | Postal code of the location (if `<play_locations>` is empty) | |
+| `<city>`| string | no | City of the location (if `<play_locations>` is empty) | |
+| `<latitude>`| decimal | no | Latitude of the location (if `<play_locations>` is empty) | 52.5192 |
+| `<longitude>` | decimal | no | Longitude of the location (if `<play_locations>` is empty) | 13.4061 |
+| `<organizers>` | string | no | Organizer or organizers of this event | |
+| `<description_de>` | string | no | Plain-text description in German | |
+| `<description_en>` | string | no | Plain-text description in English | |
+| `<teaser_de>` | string | no | Plain-text teaser in German | |
+| `<teaser_en>` | string | no | Plain-text teaser in English | |
+| `<work_info_de>` | string | no | Plain-text work info in German | |
+| `<work_info_en>` | string | no | Plain-text work info in English | |
+| `<contents_de>` | string | no | Plain-text contents in German | |
+| `<contents_en>` | string | no | Plain-text contents in English | |
+| `<press_text_de>` | string | no | Plain-text press text in German | |
+| `<press_text_en>` | string | no | Plain-text press text in English | |
+| `<credits_de>` | string | no | Plain-text credits in German | |
+| `<credits_en>` | string | no | Plain-text credits in English | |
+| `<concert_program_de>` | string | no | Plain-text concert program in German | |
+| `<concert_program_en>` | string | no | Plain-text concert program in English | |
+| `<supporting_program_de>` | string | no | Plain-text supporting program in German | |
+| `<supporting_program_en>` | string | no | Plain-text supporting program in English | |
+| `<remarks_de>` | string | no | Plain-text remarks in German | |
+| `<remarks_en>` | string | no | Plain-text remarks in English | |
+| `<duration_text_de>` | string | no | Plain-text information about duration in German | |
+| `<duration_text_en>` | string | no | Plain-text information about duration in English | |
+| `<subtitles_text_de>` | string | no | Plain-text information about subtitles in German | |
+| `<subtitles_text_en>` | string | no | Plain-text information about subtitles in English | |
+| `<age_text_de>` | string | no | Plain-text information about the age of the audience in German | |
+| `<age_text_en>` | string | no | Plain-text information about the age of the audience in English | |
+| `<free_entrance>` | string | no | Is the entrance free? One of "True" or "False" | False |
+| `<price_from>` | decimal | no | Price from in Euros (no currency sign included) | 8.00 |
+| `<price_till>` | decimal | no | Price till in Euros (no currency sign included) | 12.00 |
+| `<tickets_website>` | string | no | The URL of a website page where you can buy tickets to this production | http://example.com/tickets/ |
+| `<price_information_de>` | string | no | Additional plain-text information about prices in German | |
+| `<price_information_en>` | string | no | Additional plain-text information about prices in English | |
+| `<event_status>` | string | yes | Event status. One of: "takes_place" or "canceled" | takes_place |
+| `<ticket_status>` | string | no | Tickets' status. One of: "tickets_@_box_office" or "sold_out" | |
+| `<characteristics>`| list of `<characteristic_id>` nodes | no | Event characteristics | tickets_@_box_office |
+| `<leaders>` | list of `<leader>` nodes | no | Leaders | |
+| `<authors>` | list of `<author>` nodes | no | Authors | |
+| `<participants>` | list of `<participant>` nodes | no | Participants | |
+| `<videos>` | list of `<video>` nodes | no | Videos | |
+| `<live_streams>` | list of `<live_stream>` nodes | no | Live streams | |
+| `<images>` | list of `<image>` nodes | no | Images | |
+| `<pdfs>` | list of `<pdf>` nodes | no | PDF documents | |
+| `<language_and_subtitles_id>` | string | no | Language and subtitles | in-deutscher-sprache |
+| `<sponsors>` | list of `<sponsor>` nodes | no | Sponsors | |
 
 ### The Event Characteristics ###
 
