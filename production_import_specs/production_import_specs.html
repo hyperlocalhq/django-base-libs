@@ -42,82 +42,96 @@
 </ul>
 </li>
 <li><span class="title">
-<a href="#the-production-node" title="The Production Node">The Production Node</a>
+<a href="#productions" title="Productions">Productions</a>
 </span>
 <!--span class="number">
 4
 </span-->
 <ul>
 <li><span class="title">
-<a href="#the-locations-and-stages-for-productions-or-events" title="The Locations and Stages for Productions or Events">The Locations and Stages for Productions or Events</a>
+<a href="#the-production-node" title="The Production Node">The Production Node</a>
 </span>
 <!--span class="number">
 5
 </span-->
 </li>
 <li><span class="title">
-<a href="#the-categories-for-productions" title="The Categories for Productions">The Categories for Productions</a>
+<a href="#the-locations-and-stages-for-productions-or-events" title="The Locations and Stages for Productions or Events">The Locations and Stages for Productions or Events</a>
 </span>
 <!--span class="number">
 6
 </span-->
 </li>
 <li><span class="title">
-<a href="#the-production-characteristics" title="The Production Characteristics">The Production Characteristics</a>
+<a href="#the-categories-for-productions" title="The Categories for Productions">The Categories for Productions</a>
 </span>
 <!--span class="number">
 7
 </span-->
 </li>
 <li><span class="title">
-<a href="#the-leaders,-authors,-and-participants-for-productions-or-events" title="The Leaders, Authors, and Participants for Productions or Events">The Leaders, Authors, and Participants for Productions or Events</a>
+<a href="#the-production-characteristics" title="The Production Characteristics">The Production Characteristics</a>
 </span>
 <!--span class="number">
 8
 </span-->
 </li>
 <li><span class="title">
-<a href="#videos,-live-streams,-images,-and-pdf-documents-for-productions-or-events" title="Videos, Live Streams, Images, and PDF Documents for Productions or Events">Videos, Live Streams, Images, and PDF Documents for Productions or Events</a>
+<a href="#the-leaders,-authors,-and-participants-for-productions-or-events" title="The Leaders, Authors, and Participants for Productions or Events">The Leaders, Authors, and Participants for Productions or Events</a>
 </span>
 <!--span class="number">
 9
 </span-->
 </li>
 <li><span class="title">
-<a href="#social-media-for-productions" title="Social media for Productions">Social media for Productions</a>
+<a href="#videos,-live-streams,-images,-and-pdf-documents-for-productions-or-events" title="Videos, Live Streams, Images, and PDF Documents for Productions or Events">Videos, Live Streams, Images, and PDF Documents for Productions or Events</a>
 </span>
 <!--span class="number">
 10
 </span-->
 </li>
 <li><span class="title">
-<a href="#language-and-subtitles-for-productions-or-events" title="Language and subtitles for Productions or Events">Language and subtitles for Productions or Events</a>
+<a href="#social-media-for-productions" title="Social media for Productions">Social media for Productions</a>
 </span>
 <!--span class="number">
 11
 </span-->
 </li>
 <li><span class="title">
-<a href="#sponsors-for-productions-or-events" title="Sponsors for Productions or Events">Sponsors for Productions or Events</a>
+<a href="#language-and-subtitles-for-productions-or-events" title="Language and subtitles for Productions or Events">Language and subtitles for Productions or Events</a>
 </span>
 <!--span class="number">
 12
 </span-->
 </li>
-</ul>
-</li>
 <li><span class="title">
-<a href="#the-event-node" title="The Event Node">The Event Node</a>
+<a href="#sponsors-for-productions-or-events" title="Sponsors for Productions or Events">Sponsors for Productions or Events</a>
 </span>
 <!--span class="number">
 13
 </span-->
+</li>
+</ul>
+</li>
+<li><span class="title">
+<a href="#events" title="Events">Events</a>
+</span>
+<!--span class="number">
+14
+</span-->
 <ul>
+<li><span class="title">
+<a href="#the-event-node" title="The Event Node">The Event Node</a>
+</span>
+<!--span class="number">
+15
+</span-->
+</li>
 <li><span class="title">
 <a href="#the-event-characteristics" title="The Event Characteristics">The Event Characteristics</a>
 </span>
 <!--span class="number">
-14
+16
 </span-->
 </li>
 </ul>
@@ -126,7 +140,7 @@
 <a href="#full-featured-xml-example" title="Full featured XML example">Full featured XML example</a>
 </span>
 <!--span class="number">
-15
+17
 </span-->
 </li>
 </ul>
@@ -136,19 +150,51 @@
 <p></p><h2 id="introduction"><a name="introduction" href="#introduction"></a>Introduction</h2><p>The Berlin Bühnen website has locations (theaters) and stages where plays happen. All plays are named as productions. Productions have general information about the play. Each production has multiple events, that is, exact dates and times when the play happens. Events might overwrite some general information of their production.</p><h2 id="import-xml"><a name="import-xml" href="#import-xml"></a>Import XML</h2><p>The XML for the import API should have the following structure:</p><pre class="xml hljs"><code class="xml" data-origin="<pre><code class=&quot;xml&quot;>&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&amp;gt;
 &amp;lt;response&amp;gt;
     &amp;lt;meta&amp;gt;
-        &amp;lt;!-- ... --&amp;gt;
+        &amp;lt;!-- meta information... --&amp;gt;
     &amp;lt;/meta&amp;gt;
     &amp;lt;productions&amp;gt;
-        &amp;lt;!-- ... --&amp;gt;
+        &amp;lt;production&amp;gt;
+            &amp;lt;!-- production properties... --&amp;gt;
+            &amp;lt;events&amp;gt;
+                &amp;lt;event&amp;gt;&amp;lt;!-- event properties... --&amp;gt;&amp;lt;/event&amp;gt;
+                &amp;lt;event&amp;gt;&amp;lt;!-- event properties... --&amp;gt;&amp;lt;/event&amp;gt;
+                &amp;lt;!-- other events... --&amp;gt;
+            &amp;lt;/events&amp;gt;
+        &amp;lt;/production&amp;gt;
+        &amp;lt;production&amp;gt;
+            &amp;lt;!-- production properties... --&amp;gt;
+            &amp;lt;events&amp;gt;
+                &amp;lt;event&amp;gt;&amp;lt;!-- event properties... --&amp;gt;&amp;lt;/event&amp;gt;
+                &amp;lt;event&amp;gt;&amp;lt;!-- event properties... --&amp;gt;&amp;lt;/event&amp;gt;
+                &amp;lt;!-- other events... --&amp;gt;
+            &amp;lt;/events&amp;gt;
+        &amp;lt;/production&amp;gt;
+        &amp;lt;!-- other productions... --&amp;gt;
     &amp;lt;/productions&amp;gt;
 &amp;lt;/response&amp;gt;
 </code></pre>"><span class="hljs-pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">response</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">meta</span>&gt;</span>
-        <span class="hljs-comment">&lt;!-- ... --&gt;</span>
+        <span class="hljs-comment">&lt;!-- meta information... --&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">meta</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">productions</span>&gt;</span>
-        <span class="hljs-comment">&lt;!-- ... --&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">production</span>&gt;</span>
+            <span class="hljs-comment">&lt;!-- production properties... --&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">events</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">event</span>&gt;</span><span class="hljs-comment">&lt;!-- event properties... --&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">event</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">event</span>&gt;</span><span class="hljs-comment">&lt;!-- event properties... --&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">event</span>&gt;</span>
+                <span class="hljs-comment">&lt;!-- other events... --&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-title">events</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">production</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">production</span>&gt;</span>
+            <span class="hljs-comment">&lt;!-- production properties... --&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">events</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">event</span>&gt;</span><span class="hljs-comment">&lt;!-- event properties... --&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">event</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">event</span>&gt;</span><span class="hljs-comment">&lt;!-- event properties... --&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">event</span>&gt;</span>
+                <span class="hljs-comment">&lt;!-- other events... --&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-title">events</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">production</span>&gt;</span>
+        <span class="hljs-comment">&lt;!-- other productions... --&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">productions</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">response</span>&gt;</span>
 </code></pre><h3 id="the-meta-section"><a name="the-meta-section" href="#the-meta-section"></a>The Meta Section</h3><p>The <code>&lt;meta&gt;</code> section contains information about pagination and amount of productions, as follows:</p><table>
@@ -191,7 +237,7 @@
 <td>50</td>
 </tr>
 </tbody>
-</table><h3 id="the-productions-section"><a name="the-productions-section" href="#the-productions-section"></a>The Productions Section</h3><p>The <code>&lt;productions&gt;</code> section contains paginated list of productions and their events. Each production is set as a <code>&lt;production&gt;</code> node.</p><h2 id="the-production-node"><a name="the-production-node" href="#the-production-node"></a>The Production Node</h2><p>The <code>&lt;production&gt;</code> node has the following elements:</p><table>
+</table><h3 id="the-productions-section"><a name="the-productions-section" href="#the-productions-section"></a>The Productions Section</h3><p>The <code>&lt;productions&gt;</code> section contains paginated list of productions and their events. Each production is set as a <code>&lt;production&gt;</code> node.</p><h2 id="productions"><a name="productions" href="#productions"></a>Productions</h2><h3 id="the-production-node"><a name="the-production-node" href="#the-production-node"></a>The Production Node</h3><p>The <code>&lt;production&gt;</code> node has the following elements:</p><table>
 <thead>
 <tr>
 <th>Node</th>
@@ -1542,7 +1588,7 @@
         <span class="hljs-tag">&lt;<span class="hljs-title">title_en</span>&gt;</span>Example Sponsor<span class="hljs-tag">&lt;/<span class="hljs-title">title_en</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">sponsor</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">sponsors</span>&gt;</span>
-</code></pre><h2 id="the-event-node"><a name="the-event-node" href="#the-event-node"></a>The Event Node</h2><p>Events are specific dates and times when production is happening. If an event defines an XML node or XML node structure that exists for the production, it will overwrite the value of the production, otherwise the value from the production will be used at the Berlin Bühnen website. The <code>&lt;events&gt;</code> node contains a list of  <code>&lt;event&gt;</code> nodes with such elements available:</p><table>
+</code></pre><h2 id="events"><a name="events" href="#events"></a>Events</h2><p>Events are specific dates and times when production is happening. If an event defines an XML node or XML node structure that exists for the production, it will overwrite the value of the production, otherwise the value from the production will be used at the Berlin Bühnen website. The <code>&lt;events&gt;</code> node contains a list of  <code>&lt;event&gt;</code> nodes.</p><h3 id="the-event-node"><a name="the-event-node" href="#the-event-node"></a>The Event Node</h3><p>These elements are available for the <code>&lt;event&gt;</code> node:</p><table>
 <thead>
 <tr>
 <th>Node</th>
@@ -1879,7 +1925,7 @@
 <td><code>&lt;tickets_website&gt;</code></td>
 <td>string</td>
 <td>no</td>
-<td>The URL of a website page where you can buy tickets to this production</td>
+<td>The URL of a website page where you can buy tickets to this event</td>
 <td><a href="http://example.com/tickets/">http://example.com/tickets/</a></td>
 </tr>
 <tr>

@@ -14,10 +14,26 @@ The XML for the import API should have the following structure:
 <?xml version="1.0" encoding="utf-8"?>
 <response>
     <meta>
-        <!-- ... -->
+        <!-- meta information... -->
     </meta>
     <productions>
-		<!-- ... -->
+    	<production>
+			<!-- production properties... -->
+            <events>
+            	<event><!-- event properties... --></event>
+            	<event><!-- event properties... --></event>
+				<!-- other events... -->
+            </events>
+        </production>
+    	<production>
+			<!-- production properties... -->
+            <events>
+            	<event><!-- event properties... --></event>
+            	<event><!-- event properties... --></event>
+				<!-- other events... -->
+            </events>
+        </production>
+		<!-- other productions... -->
 	</productions>
 </response>
 ```
@@ -37,7 +53,9 @@ The `<meta>` section contains information about pagination and amount of product
 
 The `<productions>` section contains paginated list of productions and their events. Each production is set as a `<production>` node.
 
-## The Production Node ##
+## Productions ##
+
+### The Production Node ###
 
 The `<production>` node has the following elements:
 
@@ -753,9 +771,13 @@ For example, a sponsor can be defined like this:
 </sponsors>
 ```
 
-## The Event Node ##
+## Events ##
 
-Events are specific dates and times when production is happening. If an event defines an XML node or XML node structure that exists for the production, it will overwrite the value of the production, otherwise the value from the production will be used at the Berlin Bühnen website. The `<events>` node contains a list of  `<event>` nodes with such elements available:
+Events are specific dates and times when production is happening. If an event defines an XML node or XML node structure that exists for the production, it will overwrite the value of the production, otherwise the value from the production will be used at the Berlin Bühnen website. The `<events>` node contains a list of  `<event>` nodes.
+
+### The Event Node ###
+
+These elements are available for the `<event>` node:
 
 | Node | Type | Required | Description | Example |
 |------|------|----------|-------------|---------|
@@ -805,7 +827,7 @@ Events are specific dates and times when production is happening. If an event de
 | `<free_entrance>` | string | no | Is the entrance free? One of "True" or "False" | False |
 | `<price_from>` | decimal | no | Price from in Euros (no currency sign included) | 8.00 |
 | `<price_till>` | decimal | no | Price till in Euros (no currency sign included) | 12.00 |
-| `<tickets_website>` | string | no | The URL of a website page where you can buy tickets to this production | http://example.com/tickets/ |
+| `<tickets_website>` | string | no | The URL of a website page where you can buy tickets to this event | http://example.com/tickets/ |
 | `<price_information_de>` | string | no | Additional plain-text information about prices in German | |
 | `<price_information_en>` | string | no | Additional plain-text information about prices in English | |
 | `<event_status>` | string | yes | Event status. One of: "takes_place" or "canceled" | takes_place |
