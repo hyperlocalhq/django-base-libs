@@ -67,13 +67,14 @@ The `<production>` node has the following elements:
 | `<status>` | string | yes | Publishing status, one of: "draft", "published", "not_listed", "expired", "trashed" | published |
 | `<prefix_de>` | string | no | Title prefix in German | |
 | `<prefix_en>` | string | no | Title prefix in English | |
-| `<title_de>` | string | yes | Title in German | |
-| `<title_en>` | string | yes | Title in English | |
+| `<title_de>` | string | yes | Title in German | Rotkäppchen |
+| `<title_en>` | string | yes | Title in English | Little Red Riding Hood |
 | `<subtitle_de>` | string | no | Subtitle (Unterüberschrift) in German | |
 | `<subtitle_en>` | string | no | Subtitle (Unterüberschrift) in English | |
 | `<original_de>` | string | no | Original title in German | |
 | `<original_en>` | string | no | Original title in English | |
-| `<website>` | string | no | A link to the your website page about this production | |
+| `<website_de>` | string | no | A link to the your website page about this production in German | http://example.com/de/productions/2345/ |
+| `<website_en>` | string | no | A link to the your website page about this production in English | http://example.com/en/productions/2345/ |
 | `<description_de>` | string | no | Plain-text description in German | |
 | `<description_en>` | string | no | Plain-text description in English | |
 | `<teaser_de>` | string | no | Plain-text teaser in German | |
