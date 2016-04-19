@@ -480,6 +480,7 @@ The `<leaders>` node contains a list of `<leader>` nodes with such content:
 | `<last_name>` | string | yes | Last name of the person | Mustermann |
 | `<function_de>` | string | yes | Description in German what this leader is doing for the production | Direktorin |
 | `<function_en>` | string | yes | Description in English what this leader is doing for the production | Director |
+| `<sort_order>` | integer | yes | Sort order | 1 |
 
 The `<authors>` node contains a list of `<author>` nodes with such content:
 
@@ -489,6 +490,7 @@ The `<authors>` node contains a list of `<author>` nodes with such content:
 | `<first_name>` | string | yes | First name of the person | Max |
 | `<last_name>` | string | yes | Last name of the person | Mustermann |
 | `<type_id>` | string | yes | Authorship type. One of: "komponist", "autor", "uebersetzer" | komponist |
+| `<sort_order>` | integer | yes | Sort order | 1 |
 
 The `<participants>` node contains a list of `<participant>` nodes with such content:
 
@@ -502,6 +504,7 @@ The `<participants>` node contains a list of `<participant>` nodes with such con
 | `<role_en>` | string | no | Role in English | Little Red Riding Hood |
 | `<instrument_de>` | string | no | Instrument in German | Klavier |
 | `<instrument_en>` | string | no | Instrument in English | Piano |
+| `<sort_order>` | integer | yes | Sort order | 1 |
 
 Prefixes and their IDs are these:
 
@@ -563,6 +566,7 @@ For example, the leaders, authors and participants can be defined like this:
         <last_name>Mustermann</last_name>
         <function_de>Direktorin</function_de>
         <function_en>Director</function_en>
+        <sort_order>1</sort_order>
     </leader>
 </leaders>
 <authors>
@@ -571,6 +575,7 @@ For example, the leaders, authors and participants can be defined like this:
         <first_name>Max</first_name>
         <last_name>Mustermann</last_name>
         <type_id>komponist</type_id>
+        <sort_order>1</sort_order>
     </author>
 </authors>
 <participants>
@@ -580,6 +585,7 @@ For example, the leaders, authors and participants can be defined like this:
         <type_id>musik</type_id>
         <instrument_de>Klavier</instrument_de>
         <instrument_en>Piano</instrument_en>
+        <sort_order>1</sort_order>
     </participant>
     <participant>
         <first_name>Lieschen</first_name>
@@ -587,6 +593,7 @@ For example, the leaders, authors and participants can be defined like this:
         <type_id>schauspieler</type_id>
         <role_de>Rotkäppchen</role_de>
         <role_en>Little Red Riding Hood</role_en>
+        <sort_order>2</sort_order>
     </participant>
 </participants>
 ```

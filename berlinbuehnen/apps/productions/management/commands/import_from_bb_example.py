@@ -18,18 +18,6 @@ from django.conf import settings
 from base_libs.utils.misc import get_unique_value
 from base_libs.utils.betterslugify import better_slugify
 
-from berlinbuehnen.apps.productions.models import ProductionCategory
-from berlinbuehnen.apps.productions.models import ProductionCharacteristics
-from berlinbuehnen.apps.productions.models import Production
-from berlinbuehnen.apps.productions.models import ProductionImage
-from berlinbuehnen.apps.productions.models import Event
-from berlinbuehnen.apps.productions.models import EventCharacteristics
-from berlinbuehnen.apps.productions.models import EventImage
-from berlinbuehnen.apps.people.models import Person, AuthorshipType
-from berlinbuehnen.apps.sponsors.models import Sponsor
-
-from import_base import LOCATIONS_TO_SKIP, STAGE_TO_LOCATION_MAPPER, PRODUCTION_VENUES, convert_location_title, CultureBaseLocation
-from import_from_culturebase import ImportFromCulturebaseBase
 SILENT, NORMAL, VERBOSE, VERY_VERBOSE = 0, 1, 2, 3
 
 
@@ -199,13 +187,32 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
         instance.subtitles_text_en = self.get_child_text(xml_node, 'subtitles_text_en')
         instance.age_text_de = self.get_child_text(xml_node, 'age_text_de')
         instance.age_text_en = self.get_child_text(xml_node, 'age_text_en')
+        instance.price_information_de = self.get_child_text(xml_node, 'price_information_de')
+        instance.price_information_en = self.get_child_text(xml_node, 'price_information_en')
 
 
     def save_page(self, productions_node):
+        from decimal import Decimal
+        from berlinbuehnen.apps.people.models import Person
+        from berlinbuehnen.apps.people.models import Prefix
+        from berlinbuehnen.apps.people.models import AuthorshipType
+        from berlinbuehnen.apps.people.models import InvolvementType
         from berlinbuehnen.apps.locations.models import Location
         from berlinbuehnen.apps.locations.models import Stage
         from berlinbuehnen.apps.productions.models import Production
+        from berlinbuehnen.apps.productions.models import ProductionCategory
+        from berlinbuehnen.apps.productions.models import ProductionCharacteristics
+        from berlinbuehnen.apps.productions.models import ProductionVideo
+        from berlinbuehnen.apps.productions.models import ProductionLiveStream
+        from berlinbuehnen.apps.productions.models import ProductionImage
+        from berlinbuehnen.apps.productions.models import ProductionPDF
         from berlinbuehnen.apps.productions.models import Event
+        from berlinbuehnen.apps.productions.models import EventVideo
+        from berlinbuehnen.apps.productions.models import EventLiveStream
+        from berlinbuehnen.apps.productions.models import EventImage
+        from berlinbuehnen.apps.productions.models import EventPDF
+        from berlinbuehnen.apps.productions.models import LanguageAndSubtitles
+        from berlinbuehnen.apps.sponsors.models import Sponsor
 
         from filebrowser.models import FileDescription
         ObjectMapper = models.get_model("external_services", "ObjectMapper")
@@ -272,38 +279,30 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
 
             self.parse_and_use_texts(prod_node, prod)
 
-            # prod.save()
-            self.production_ids_to_keep.add(prod.pk)
+            prod.ensembles = self.get_child_text(prod_node, 'ensembles')
+            prod.organizers = self.get_child_text(prod_node, 'organizers')
+            prod.in_cooperation_with = self.get_child_text(prod_node, 'in_cooperation_with')
 
-            in_program_of_node = prod_node.find('./in_program_of')
-            if in_program_of_node:
-                for location_id_node in in_program_of_node.findall("./location_id"):
-                    try:
-                        location = Location.objects.get(pk=location_id_node.text)
-                    except Location.DoesNotExist:
-                        pass
-                    else:
-                        prod.in_program_of.add(location)
+            prod.free_entrance = (self.get_child_text(prod_node, 'free_entrance') == "True")
+            try:
+                prod.price_from = Decimal(self.get_child_text(prod_node, 'price_from'))
+            except:
+                prod.price_from = None
+            try:
+                prod.price_till = Decimal(self.get_child_text(prod_node, 'price_till'))
+            except:
+                prod.price_till = None
+            prod.tickets_website = self.get_child_text(prod_node, 'tickets_website')
+            prod.edu_offer_website = self.get_child_text(prod_node, 'edu_offer_website')
 
-            play_locations_node = prod_node.find('./play_locations')
-            if play_locations_node:
-                for location_id_node in play_locations_node.findall("./location_id"):
-                    try:
-                        location = Location.objects.get(pk=location_id_node.text)
-                    except Location.DoesNotExist:
-                        pass
-                    else:
-                        prod.play_locations.add(location)
-
-            play_stages_node = prod_node.find('./play_stages')
-            if play_stages_node:
-                for stage_id_node in play_stages_node.findall("./stage_id"):
-                    try:
-                        stage = Stage.objects.get(pk=stage_id_node.text)
-                    except Stage.DoesNotExist:
-                        pass
-                    else:
-                        prod.play_stages.add(stage)
+            try:
+                prod.age_from = int(self.get_child_text(prod_node, 'age_from'))
+            except:
+                prod.age_from = None
+            try:
+                prod.age_till = int(self.get_child_text(prod_node, 'age_till'))
+            except:
+                prod.age_till = None
 
             prod.location_title = self.get_child_text(prod_node, 'location_title')
             prod.street_address = self.get_child_text(prod_node, 'street_address')
@@ -319,13 +318,94 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
             except:
                 prod.longitude = None
 
-            for owner in self.owners:
-                prod.set_owner(owner)
+            try:
+                prod.language_and_subtitles = LanguageAndSubtitles.objects.get(slug=self.get_child_text(prod_node, 'language_and_subtitles_id'))
+            except:
+                prod.language_and_subtitles = None
+
+            prod.save()
+            self.production_ids_to_keep.add(prod.pk)
+
+            prod.in_program_of.clear()
+            for location_id_node in prod_node.findall("./in_program_of/location_id"):
+                try:
+                    location = Location.objects.get(pk=location_id_node.text)
+                except Location.DoesNotExist:
+                    pass
+                else:
+                    prod.in_program_of.add(location)
+
+            prod.play_locations.clear()
+            for location_id_node in prod_node.findall("./play_locations/location_id"):
+                try:
+                    location = Location.objects.get(pk=location_id_node.text)
+                except Location.DoesNotExist:
+                    pass
+                else:
+                    prod.play_locations.add(location)
+
+            prod.play_stages.clear()
+            for stage_id_node in prod_node.findall("./play_stages/stage_id"):
+                try:
+                    stage = Stage.objects.get(pk=stage_id_node.text)
+                except Stage.DoesNotExist:
+                    pass
+                else:
+                    prod.play_stages.add(stage)
+
+            prod.categories.clear()
+            for category_id_node in prod_node.findall("./categories/category_id"):
+                try:
+                    cat = ProductionCategory.objects.get(pk=category_id_node.text)
+                except ProductionCategory.DoesNotExist:
+                    pass
+                else:
+                    prod.categories.add(cat)
+
+            prod.characteristics.clear()
+            for ch_id_node in prod_node.findall("./characteristics/characteristic_id"):
+                try:
+                    ch = ProductionCharacteristics.objects.get(pk=ch_id_node.text)
+                except ProductionCategory.DoesNotExist:
+                    pass
+                else:
+                    prod.characteristics.add(ch)
+
+            # for owner in self.owners:
+            #     prod.set_owner(owner)
+
+            prod.productionvideo_set.all().delete()
+            for video_node in prod_node.findall("./videos/video"):
+                video = ProductionVideo(production=prod)
+                video.creation_date = parse_datetime(self.get_child_text(video_node, 'creation_date'))
+                video.modified_date = parse_datetime(self.get_child_text(video_node, 'modified_date'))
+                video.title_de = self.get_child_text(video_node, 'title_de')
+                video.title_en = self.get_child_text(video_node, 'title_en')
+                video.link_or_embed = self.get_child_text(video_node, 'embed')
+                try:
+                    video.sort_order = int(self.get_child_text(video_node, 'sort_order'))
+                except:
+                    video.sort_order = 1
+                video.save()
+
+            prod.productionlivestream_set.all().delete()
+            for video_node in prod_node.findall("./videos/video"):
+                ls = ProductionLiveStream(production=prod)
+                ls.creation_date = parse_datetime(self.get_child_text(video_node, 'creation_date'))
+                ls.modified_date = parse_datetime(self.get_child_text(video_node, 'modified_date'))
+                ls.title_de = self.get_child_text(video_node, 'title_de')
+                ls.title_en = self.get_child_text(video_node, 'title_en')
+                ls.link_or_embed = self.get_child_text(video_node, 'embed')
+                try:
+                    ls.sort_order = int(self.get_child_text(video_node, 'sort_order'))
+                except:
+                    ls.sort_order = 1
+                ls.save()
 
             if not self.skip_images:
                 image_ids_to_keep = []
-                for picture_node in prod_node.findall('./picture'):
-                    image_url = picture_node.get('url')
+                for image_node in prod_node.findall('./images/image'):
+                    image_url = self.get_child_text(image_node, 'url')
                     if not image_url.startswith('http'):
                         continue
 
@@ -357,10 +437,7 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
                             field_name="path",
                             subpath="productions/%s/gallery/" % prod.slug,
                         )
-                        if picture_node.get('publishType') == "1":
-                            mf.copyright_restrictions = "general_use"
-                        elif picture_node.get('publishType') == "3":
-                            mf.copyright_restrictions = "protected"
+                        mf.copyright_restrictions = self.get_child_text(image_node, 'copyright_restrictions') or "general_use"
                         mf.save()
                         image_ids_to_keep.append(mf.pk)
                         try:
@@ -370,10 +447,12 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
                         except:
                             file_description = FileDescription(file_path=mf.path)
 
-                        file_description.title_de = self.get_child_text(picture_node, 'title', languageId="1") or self.get_child_text(picture_node, 'text', languageId="1")
-                        file_description.title_en = self.get_child_text(picture_node, 'title', languageId="2") or self.get_child_text(picture_node, 'text', languageId="2")
-                        file_description.author = (picture_node.get('photographer') or u"").replace("Foto: ", "")
-                        file_description.copyright_limitations = picture_node.get('copyright')
+                        file_description.title_de = self.get_child_text(image_node, 'title_de')
+                        file_description.title_en = self.get_child_text(image_node, 'title_en')
+                        file_description.description_de = self.get_child_text(image_node, 'description_de')
+                        file_description.description_en = self.get_child_text(image_node, 'description_en')
+                        file_description.author = self.get_child_text(image_node, 'author')
+                        file_description.copyright_limitations = self.get_child_text(image_node, 'copyright')
                         file_description.save()
 
                         if not image_mapper:
@@ -397,60 +476,180 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
                     # delete image model instance
                     mf.delete()
 
-            prod.categories.clear()
-            for category_node in prod_node.findall('category'):
-                internal_cat_id = self.CATEGORY_MAPPER.get(int(category_node.text), None)
-                if internal_cat_id:
-                    cats = ProductionCategory.objects.filter(pk=internal_cat_id)
-                    if cats:
-                        prod.categories.add(cats[0])
-                        if cats[0].parent:
-                            prod.categories.add(cats[0].parent)
+            pdf_ids_to_keep = []
+            for pdf_node in prod_node.findall('./pdfs/pdf'):
+                pdf_url = self.get_child_text(pdf_node, 'url')
+                if not pdf_url.startswith('http'):
+                    continue
 
-            prod.characteristics.clear()
-            for status_id_node in prod_node.findall('statusId'):
-                if status_id_node.text:
-                    internal_ch_slug = self.PRODUCTION_CHARACTERISTICS_MAPPER.get(int(status_id_node.text), None)
-                    if internal_ch_slug:
-                        prod.characteristics.add(ProductionCharacteristics.objects.get(slug=internal_ch_slug))
+                pdf_external_id = "prod-%s-%s" % (prod.pk, pdf_url)
+                pdf_mapper = None
+                try:
+                    # get pdf model instance from saved mapper
+                    pdf_mapper = self.service.objectmapper_set.get(
+                        external_id=pdf_external_id,
+                        content_type__app_label="productions",
+                        content_type__model="productionpdf",
+                    )
+                except models.ObjectDoesNotExist:
+                    # or create a new exhibition and then create a mapper
+                    mf = ProductionImage(production=prod)
+                else:
+                    mf = pdf_mapper.content_object
+                    if mf:
+                        pdf_ids_to_keep.append(mf.pk)
+                    continue
+
+                filename = pdf_url.split("/")[-1]
+                pdf_response = requests.get(pdf_url)
+                if pdf_response.status_code == 200:
+                    image_mods.FileManager.save_file_for_object(
+                        mf,
+                        filename,
+                        pdf_response.content,
+                        field_name="path",
+                        subpath="productions/%s/pdfs/" % prod.slug,
+                    )
+                    mf.save()
+                    pdf_ids_to_keep.append(mf.pk)
+                    try:
+                        file_description = FileDescription.objects.filter(
+                            file_path=mf.path,
+                        ).order_by("pk")[0]
+                    except:
+                        file_description = FileDescription(file_path=mf.path)
+
+                    file_description.title_de = self.get_child_text(pdf_node, 'title_de')
+                    file_description.title_en = self.get_child_text(pdf_node, 'title_en')
+                    file_description.description_de = self.get_child_text(pdf_node, 'description_de')
+                    file_description.description_en = self.get_child_text(pdf_node, 'description_en')
+                    file_description.author = self.get_child_text(pdf_node, 'author')
+                    file_description.copyright_limitations = self.get_child_text(pdf_node, 'copyright')
+                    file_description.save()
+
+                    if not pdf_mapper:
+                        pdf_mapper = ObjectMapper(
+                            service=self.service,
+                            external_id=pdf_external_id,
+                        )
+                        pdf_mapper.content_object = mf
+                        pdf_mapper.save()
+
+            for mf in prod.productionpdf_set.exclude(id__in=pdf_ids_to_keep):
+                if mf.path:
+                    # remove the file from the file system
+                    image_mods.FileManager.delete_file(mf.path.name)
+                # delete pdf mapper
+                self.service.objectmapper_set.filter(
+                    object_id=mf.pk,
+                    content_type__app_label="productions",
+                    content_type__model="productionpdf",
+                ).delete()
+                # delete pdf model instance
+                mf.delete()
+
+
+            prod.productionleadership_set.all().delete()
+            for person_node in prod_node.findall('./leaders/leader'):
+                try:
+                    prefix = Prefix.objects.get(slug=self.get_child_text(person_node, 'prefix_id'))
+                except:
+                    prefix = None
+                first_name = self.get_child_text(person_node, 'first_name')
+                last_name = self.get_child_text(person_node, 'last_name')
+                p, created = Person.objects.get_first_or_create(
+                    prefix=prefix,
+                    first_name=first_name,
+                    last_name=last_name,
+                )
+                try:
+                    imported_sort_order = int(self.get_child_text(person_node, 'sort_order'))
+                except:
+                    imported_sort_order = 1
+                prod.productionleadership_set.create(
+                    person=p,
+                    function_de=self.get_child_text(person_node, 'function_de'),
+                    function_en=self.get_child_text(person_node, 'function_en'),
+                    imported_sort_order=imported_sort_order,
+                )
+            for sort_order, item in enumerate(prod.productionleadership_set.order_by('imported_sort_order'), 0):
+                item.sort_order = sort_order
+                item.save()
+
+            prod.productionauthorship_set.all().delete()
+            for person_node in prod_node.findall('./authors/author'):
+                try:
+                    prefix = Prefix.objects.get(slug=self.get_child_text(person_node, 'prefix_id'))
+                except:
+                    prefix = None
+                first_name = self.get_child_text(person_node, 'first_name')
+                last_name = self.get_child_text(person_node, 'last_name')
+                p, created = Person.objects.get_first_or_create(
+                    prefix=prefix,
+                    first_name=first_name,
+                    last_name=last_name,
+                )
+                try:
+                    authorship_type = AuthorshipType.objects.get(slug=self.get_child_text(person_node, 'type_id'))
+                except:
+                    authorship_type = None
+                try:
+                    imported_sort_order = int(self.get_child_text(person_node, 'sort_order'))
+                except:
+                    imported_sort_order = 1
+                prod.productionauthorship_set.create(
+                    person=p,
+                    authorship_type=authorship_type,
+                    imported_sort_order=imported_sort_order,
+                )
+            for sort_order, item in enumerate(prod.productionauthorship_set.order_by('imported_sort_order'), 0):
+                item.sort_order = sort_order
+                item.save()
 
             prod.productioninvolvement_set.all().delete()
-            for person_node in prod_node.findall('person'):
-                role_de = self.get_child_text(person_node, 'mediaText/text', languageId="1")
-                role_en = self.get_child_text(person_node, 'mediaText/text', languageId="2")
-                if not role_de and int(person_node.get('roleId')) in self.ROLE_ID_MAPPER:
-                    role_de, role_en = self.ROLE_ID_MAPPER[int(person_node.get('roleId'))]
-                for person_name in re.split(r'\s*[/,]\s*', person_node.get('personFreetext')):
-                    first_and_last_name = person_name
-                    if u" " in first_and_last_name:
-                        first_name, last_name = first_and_last_name.rsplit(" ", 1)
-                    else:
-                        first_name = ""
-                        last_name = first_and_last_name
-                    p, created = Person.objects.get_first_or_create(
-                        first_name=first_name,
-                        last_name=last_name,
-                    )
-                    prod.productioninvolvement_set.create(
-                        person=p,
-                        involvement_role_de=role_de,
-                        involvement_role_en=role_en,
-                        imported_sort_order=person_node.get('position'),
-                    )
+            for person_node in prod_node.findall('./participants/participant'):
+                try:
+                    prefix = Prefix.objects.get(slug=self.get_child_text(person_node, 'prefix_id'))
+                except:
+                    prefix = None
+                first_name = self.get_child_text(person_node, 'first_name')
+                last_name = self.get_child_text(person_node, 'last_name')
+                p, created = Person.objects.get_first_or_create(
+                    prefix=prefix,
+                    first_name=first_name,
+                    last_name=last_name,
+                )
+                try:
+                    involvement_type = InvolvementType.objects.get(slug=self.get_child_text(person_node, 'type_id'))
+                except:
+                    involvement_type = None
+                try:
+                    imported_sort_order = int(self.get_child_text(person_node, 'sort_order'))
+                except:
+                    imported_sort_order = 1
+                prod.productioninvolvement_set.create(
+                    person=p,
+                    involvement_type=involvement_type,
+                    role_de=self.get_child_text(person_node, 'role_de'),
+                    role_en=self.get_child_text(person_node, 'role_en'),
+                    instrument_de=self.get_child_text(person_node, 'instrument_de'),
+                    instrument_en=self.get_child_text(person_node, 'instrument_en'),
+                    imported_sort_order=imported_sort_order,
+                )
             for sort_order, item in enumerate(prod.productioninvolvement_set.order_by('imported_sort_order'), 0):
                 item.sort_order = sort_order
                 item.save()
 
             prod.sponsors.clear()
-            for sponsor_node in prod_node.findall('./sponsor'):
+            for sponsor_node in prod_node.findall('./sponsors/sponsor'):
                 sponsor, created = Sponsor.objects.get_or_create(
-                    title_de=self.get_child_text(sponsor_node, 'title', languageId="1"),
+                    title_de=self.get_child_text(person_node, 'title_de'),
                     defaults={
-                        'title_en': self.get_child_text(sponsor_node, 'title', languageId="2"),
-                        'website': sponsor_node.get('linkURL'),
+                        'title_en': self.get_child_text(person_node, 'title_en'),
+                        'website': self.get_child_text(person_node, 'website'),
                     }
                 )
-                image_url = sponsor_node.get('pictureURL')
+                image_url = self.get_child_text(person_node, 'image_url')
                 if image_url and created:
                     filename = image_url.split("/")[-1]
                     image_response = requests.get(image_url)
@@ -463,7 +662,7 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
                             subpath="sponsors/",
                         )
                     sponsor.save()
-                    prod.sponsors.add(sponsor)
+                prod.sponsors.add(sponsor)
 
             if not mapper:
                 mapper = ObjectMapper(
@@ -558,8 +757,8 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
 
                 if not self.skip_images:
                     image_ids_to_keep = []
-                    for picture_node in event_node.findall('picture'):
-                        image_url = self.get_child_text(picture_node, 'Url')
+                    for image_node in event_node.findall('picture'):
+                        image_url = self.get_child_text(image_node, 'Url')
                         if not image_url.startswith('http'):
                             continue
 
@@ -591,9 +790,9 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
                                 field_name="path",
                                 subpath="productions/%s/events/%s/gallery/" % (prod.slug, event.pk),
                             )
-                            if picture_node.get('publishType') == "1":
+                            if image_node.get('publishType') == "1":
                                 mf.copyright_restrictions = "general_use"
-                            elif picture_node.get('publishType') == "3":
+                            elif image_node.get('publishType') == "3":
                                 mf.copyright_restrictions = "protected"
                             mf.save()
                             image_ids_to_keep.append(mf.pk)
@@ -604,10 +803,10 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
                             except:
                                 file_description = FileDescription(file_path=mf.path)
 
-                            file_description.title_de = self.get_child_text(picture_node, 'title', languageId="1") or self.get_child_text(picture_node, 'text', languageId="1")
-                            file_description.title_en = self.get_child_text(picture_node, 'title', languageId="2") or self.get_child_text(picture_node, 'text', languageId="2")
-                            file_description.author = (picture_node.get('photographer') or u"").replace("Foto: ", "")
-                            file_description.copyright_limitations = picture_node.get('copyright')
+                            file_description.title_de = self.get_child_text(image_node, 'title', languageId="1") or self.get_child_text(image_node, 'text', languageId="1")
+                            file_description.title_en = self.get_child_text(image_node, 'title', languageId="2") or self.get_child_text(image_node, 'text', languageId="2")
+                            file_description.author = (image_node.get('photographer') or u"").replace("Foto: ", "")
+                            file_description.copyright_limitations = image_node.get('copyright')
                             file_description.save()
 
                             if not image_mapper:

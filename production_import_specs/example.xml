@@ -101,6 +101,7 @@
                     <last_name>Mustermann</last_name><!-- Last name of the person -->
                     <function_de>Direktorin</function_de><!-- Description in German what this leader is doing for the production -->
                     <function_en>Director</function_en><!-- Description in English what this leader is doing for the production -->
+                    <sort_order>1</sort_order><!-- Sort order (integer) -->
                 </leader>
                 <!-- ... -->
             </leaders>
@@ -110,6 +111,7 @@
                     <first_name>Max</first_name><!-- First name of the person -->
                     <last_name>Mustermann</last_name><!-- Last name of the person -->
                     <type_id>komponist</type_id><!-- What did this author do in the production? One of: "komponist", "autor", "uebersetzer" -->
+                    <sort_order>1</sort_order><!-- Sort order (integer) -->
                 </author>
                 <!-- ... -->
             </authors>
@@ -123,6 +125,7 @@
                     <role_en /><!-- Role in English -->
                     <instrument_de>Klavier</instrument_de><!-- Instrument in German -->
                     <instrument_en>Piano</instrument_en><!-- Instrument in English -->
+                    <sort_order>1</sort_order><!-- Sort order (integer) -->
                 </participant>
                 <participant>
                     <prefix_id>ms</prefix_id><!-- One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr" -->
@@ -133,6 +136,7 @@
                     <role_en>Little Red Riding Hood</role_en><!-- Role in English -->
                     <instrument_de /><!-- Instrument in German -->
                     <instrument_en /><!-- Instrument in English -->
+                    <sort_order>2</sort_order><!-- Sort order (integer) -->
                 </participant>
                 <!-- ... -->
             </participants>
@@ -290,6 +294,7 @@
                             <last_name>Mustermann</last_name><!-- Last name of the person -->
                             <function_de>Direktorin</function_de><!-- Description in German what this leader is doing for the event -->
                             <function_en>Director</function_en><!-- Description in English what this leader is doing for the event -->
+                            <sort_order>1</sort_order><!-- Sort order (integer) -->
                         </leader>
                         <!-- ... -->
                     </leaders>
@@ -299,6 +304,7 @@
                             <first_name>Max</first_name><!-- First name of the person -->
                             <last_name>Mustermann</last_name><!-- Last name of the person -->
                             <type_id>komponist</type_id><!-- What did this author do in the event? One of: "komponist", "autor", "uebersetzer" -->
+                            <sort_order>1</sort_order><!-- Sort order (integer) -->
                         </author>
                         <!-- ... -->
                     </authors>
@@ -312,6 +318,7 @@
                             <role_en /><!-- Role in English -->
                             <instrument_de>Klavier</instrument_de><!-- Instrument in German -->
                             <instrument_en>Piano</instrument_en><!-- Instrument in English -->
+                            <sort_order>1</sort_order><!-- Sort order (integer) -->
                         </participant>
                         <participant>
                             <prefix_id>ms</prefix_id><!-- One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr" -->
@@ -322,6 +329,7 @@
                             <role_en>Little Red Riding Hood</role_en><!-- Role in English -->
                             <instrument_de /><!-- Instrument in German -->
                             <instrument_en /><!-- Instrument in English -->
+                            <sort_order>2</sort_order><!-- Sort order (integer) -->
                         </participant>
                         <!-- ... -->
                     </participants>

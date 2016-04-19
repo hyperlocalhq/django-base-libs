@@ -918,6 +918,13 @@
 <td>Description in English what this leader is doing for the production</td>
 <td>Director</td>
 </tr>
+<tr>
+<td><code>&lt;sort_order&gt;</code></td>
+<td>integer</td>
+<td>yes</td>
+<td>Sort order</td>
+<td>1</td>
+</tr>
 </tbody>
 </table><p>The <code>&lt;authors&gt;</code> node contains a list of <code>&lt;author&gt;</code> nodes with such content:</p><table>
 <thead>
@@ -957,6 +964,13 @@
 <td>yes</td>
 <td>Authorship type. One of: “komponist”, “autor”, “uebersetzer”</td>
 <td>komponist</td>
+</tr>
+<tr>
+<td><code>&lt;sort_order&gt;</code></td>
+<td>integer</td>
+<td>yes</td>
+<td>Sort order</td>
+<td>1</td>
 </tr>
 </tbody>
 </table><p>The <code>&lt;participants&gt;</code> node contains a list of <code>&lt;participant&gt;</code> nodes with such content:</p><table>
@@ -1026,6 +1040,13 @@
 <td>Instrument in English</td>
 <td>Piano</td>
 </tr>
+<tr>
+<td><code>&lt;sort_order&gt;</code></td>
+<td>integer</td>
+<td>yes</td>
+<td>Sort order</td>
+<td>1</td>
+</tr>
 </tbody>
 </table><p>Prefixes and their IDs are these:</p><ul>
 <li>Herr | Mr. (ID = “mr”)</li><li>Frau | Mrs./Ms. (ID = “ms”)</li><li>Dr. | Dr. (ID = “dr”)</li><li>Prof. | Prof. (ID = “prof”)</li><li>Herr Dr. | Mr. Dr. (ID = “mr-dr”)</li><li>Frau Dr. | Ms. Dr. (ID = “ms-dr”)</li><li>Herr Prof. | Mr. Prof. (ID = “mr-prof”)</li><li>Frau Prof. | Ms. Prof. (ID = “ms-prof”)</li><li>Herr Prof. Dr. | Mr. Prof. Dr. (ID = “mr-prof-dr”)</li><li>Frau Prof. Dr. | Ms. Prof. Dr. (ID = “ms-prof-dr”)</li></ul><p>Involvement types and their IDs are these:</p><ul>
@@ -1036,6 +1057,7 @@
         &amp;lt;last_name&amp;gt;Mustermann&amp;lt;/last_name&amp;gt;
         &amp;lt;function_de&amp;gt;Direktorin&amp;lt;/function_de&amp;gt;
         &amp;lt;function_en&amp;gt;Director&amp;lt;/function_en&amp;gt;
+        &amp;lt;sort_order&amp;gt;1&amp;lt;/sort_order&amp;gt;
     &amp;lt;/leader&amp;gt;
 &amp;lt;/leaders&amp;gt;
 &amp;lt;authors&amp;gt;
@@ -1044,6 +1066,7 @@
         &amp;lt;first_name&amp;gt;Max&amp;lt;/first_name&amp;gt;
         &amp;lt;last_name&amp;gt;Mustermann&amp;lt;/last_name&amp;gt;
         &amp;lt;type_id&amp;gt;komponist&amp;lt;/type_id&amp;gt;
+        &amp;lt;sort_order&amp;gt;1&amp;lt;/sort_order&amp;gt;
     &amp;lt;/author&amp;gt;
 &amp;lt;/authors&amp;gt;
 &amp;lt;participants&amp;gt;
@@ -1053,6 +1076,7 @@
         &amp;lt;type_id&amp;gt;musik&amp;lt;/type_id&amp;gt;
         &amp;lt;instrument_de&amp;gt;Klavier&amp;lt;/instrument_de&amp;gt;
         &amp;lt;instrument_en&amp;gt;Piano&amp;lt;/instrument_en&amp;gt;
+        &amp;lt;sort_order&amp;gt;1&amp;lt;/sort_order&amp;gt;
     &amp;lt;/participant&amp;gt;
     &amp;lt;participant&amp;gt;
         &amp;lt;first_name&amp;gt;Lieschen&amp;lt;/first_name&amp;gt;
@@ -1060,6 +1084,7 @@
         &amp;lt;type_id&amp;gt;schauspieler&amp;lt;/type_id&amp;gt;
         &amp;lt;role_de&amp;gt;Rotkäppchen&amp;lt;/role_de&amp;gt;
         &amp;lt;role_en&amp;gt;Little Red Riding Hood&amp;lt;/role_en&amp;gt;
+        &amp;lt;sort_order&amp;gt;2&amp;lt;/sort_order&amp;gt;
     &amp;lt;/participant&amp;gt;
 &amp;lt;/participants&amp;gt;
 </code></pre>"><span class="hljs-tag">&lt;<span class="hljs-title">leaders</span>&gt;</span>
@@ -1069,6 +1094,7 @@
         <span class="hljs-tag">&lt;<span class="hljs-title">last_name</span>&gt;</span>Mustermann<span class="hljs-tag">&lt;/<span class="hljs-title">last_name</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">function_de</span>&gt;</span>Direktorin<span class="hljs-tag">&lt;/<span class="hljs-title">function_de</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">function_en</span>&gt;</span>Director<span class="hljs-tag">&lt;/<span class="hljs-title">function_en</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">sort_order</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-title">sort_order</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">leader</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">leaders</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">authors</span>&gt;</span>
@@ -1077,6 +1103,7 @@
         <span class="hljs-tag">&lt;<span class="hljs-title">first_name</span>&gt;</span>Max<span class="hljs-tag">&lt;/<span class="hljs-title">first_name</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">last_name</span>&gt;</span>Mustermann<span class="hljs-tag">&lt;/<span class="hljs-title">last_name</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">type_id</span>&gt;</span>komponist<span class="hljs-tag">&lt;/<span class="hljs-title">type_id</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">sort_order</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-title">sort_order</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">author</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">authors</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">participants</span>&gt;</span>
@@ -1086,6 +1113,7 @@
         <span class="hljs-tag">&lt;<span class="hljs-title">type_id</span>&gt;</span>musik<span class="hljs-tag">&lt;/<span class="hljs-title">type_id</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">instrument_de</span>&gt;</span>Klavier<span class="hljs-tag">&lt;/<span class="hljs-title">instrument_de</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">instrument_en</span>&gt;</span>Piano<span class="hljs-tag">&lt;/<span class="hljs-title">instrument_en</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">sort_order</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-title">sort_order</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">participant</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">participant</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">first_name</span>&gt;</span>Lieschen<span class="hljs-tag">&lt;/<span class="hljs-title">first_name</span>&gt;</span>
@@ -1093,6 +1121,7 @@
         <span class="hljs-tag">&lt;<span class="hljs-title">type_id</span>&gt;</span>schauspieler<span class="hljs-tag">&lt;/<span class="hljs-title">type_id</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">role_de</span>&gt;</span>Rotkäppchen<span class="hljs-tag">&lt;/<span class="hljs-title">role_de</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">role_en</span>&gt;</span>Little Red Riding Hood<span class="hljs-tag">&lt;/<span class="hljs-title">role_en</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">sort_order</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-title">sort_order</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">participant</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">participants</span>&gt;</span>
 </code></pre><h3 id="videos,-live-streams,-images,-and-pdf-documents-for-productions-or-events"><a name="videos,-live-streams,-images,-and-pdf-documents-for-productions-or-events" href="#videos,-live-streams,-images,-and-pdf-documents-for-productions-or-events"></a>Videos, Live Streams, Images, and PDF Documents for Productions or Events</h3><p>The <code>&lt;videos&gt;</code> node contains a list of <code>&lt;video&gt;</code> nodes with such content:</p><table>

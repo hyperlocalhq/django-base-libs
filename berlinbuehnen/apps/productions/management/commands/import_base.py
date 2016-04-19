@@ -964,7 +964,7 @@ class ImportFromHeimatBase(object):
                             subpath="sponsors/",
                         )
                     sponsor.save()
-                    prod.sponsors.add(sponsor)
+                prod.sponsors.add(sponsor)
 
             if not mapper:
                 mapper = ObjectMapper(
@@ -1209,7 +1209,7 @@ class ImportFromHeimatBase(object):
                                 subpath="sponsors/",
                             )
                         sponsor.save()
-                        event.sponsors.add(sponsor)
+                    event.sponsors.add(sponsor)
 
                 if not event_mapper:
                     event_mapper = ObjectMapper(
