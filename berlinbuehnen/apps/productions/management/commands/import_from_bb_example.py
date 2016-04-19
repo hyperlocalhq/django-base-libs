@@ -3,6 +3,7 @@
 import re
 import requests
 from xml.etree import ElementTree
+from datetime import timedelta
 from dateutil.parser import parse as parse_datetime
 from optparse import make_option
 import csv
@@ -205,12 +206,11 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
         from berlinbuehnen.apps.productions.models import ProductionVideo
         from berlinbuehnen.apps.productions.models import ProductionLiveStream
         from berlinbuehnen.apps.productions.models import ProductionImage
-        from berlinbuehnen.apps.productions.models import ProductionPDF
         from berlinbuehnen.apps.productions.models import Event
+        from berlinbuehnen.apps.productions.models import EventCharacteristics
         from berlinbuehnen.apps.productions.models import EventVideo
         from berlinbuehnen.apps.productions.models import EventLiveStream
         from berlinbuehnen.apps.productions.models import EventImage
-        from berlinbuehnen.apps.productions.models import EventPDF
         from berlinbuehnen.apps.productions.models import LanguageAndSubtitles
         from berlinbuehnen.apps.sponsors.models import Sponsor
 
@@ -222,7 +222,7 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
         prods_count = len(prod_nodes)
 
         for prod_index, prod_node in enumerate(prod_nodes, 1):
-            external_prod_id = prod_node.get('id')
+            external_prod_id = self.get_child_text(prod_node, 'id')
 
             title_de = self.get_child_text(prod_node, 'title_de').replace('\n', ' ').strip()
             title_en = self.get_child_text(prod_node, 'title_en').replace('\n', ' ').strip()
@@ -232,28 +232,24 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
 
             mapper = None
             try:
-                # get exhibition from saved mapper
+                # get production from saved mapper
                 mapper = self.service.objectmapper_set.get(
                     external_id=external_prod_id,
                     content_type__app_label="productions",
                     content_type__model="production",
                 )
             except models.ObjectDoesNotExist:
-                # or create a new exhibition and then create a mapper
+                # or create a new production and then create a mapper
                 prod = Production()
                 prod.import_source = self.service
             else:
                 prod = mapper.content_object
                 self.production_ids_to_keep.add(prod.pk)
                 if not prod or prod.status == "trashed":
-                    # if exhibition was deleted after import,
+                    # if production was deleted after import,
                     # don't import it again
                     self.stats['prods_skipped'] += 1
                     continue
-                # else:
-                #     if parse_datetime(exhibition_dict['lastaction'], ignoretz=True) < datetime.now() - timedelta(days=1):
-                #         self.stats['prods_skipped'] += 1
-                #         continue
 
             if prod.no_overwriting:
                 self.stats['prods_skipped'] += 1
@@ -675,11 +671,9 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
             else:
                 self.stats['prods_updated'] += 1
 
-            for event_node in prod_node.findall('event'):
+            for event_node in prod_node.findall('./events/event'):
 
-                external_event_id = event_node.get('foreignId')
-                if not external_event_id:
-                    external_event_id = u"%s_%s" % (external_prod_id, event_node.get('datetime'))
+                external_event_id = self.get_child_text(event_node, 'id')
 
                 event_mapper = None
                 try:
@@ -703,72 +697,140 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
 
                 event.production = prod
 
-                start_datetime = parse_datetime(event_node.get('datetime'), dayfirst=True)
-                event.start_date = start_datetime.date()
-                event.start_time = start_datetime.time()
-                duration_str = event_node.get('duration')
-                if duration_str:
-                    event.duration = int(duration_str)
-
-                price_node = event_node.find('price')
-                if price_node is not None:
-                    price_from = (price_node.get('minPrice') or u"").replace(',', '.') or None
-                    if price_from == u"Eintritt frei":
-                        event.free_entrance = True
-                    elif price_from is not None:
-                        try:
-                            # in case of price conversion errors, save the price into price_information fields
-                            Decimal(price_from)
-                        except InvalidOperation:
-                            if price_from not in event.price_information_de:
-                                event.price_information_de += '\n' + price_from
-                            if price_from not in event.price_information_en:
-                                event.price_information_en += '\n' + price_from
-                        else:
-                            event.price_from = price_from
-
-                    price_till = (price_node.get('maxPrice') or u"").replace(',', '.') or None
-                    if price_till is not None:
-                        try:
-                            # in case of price conversion errors, save the price into price_information fields
-                            Decimal(price_till)
-                        except InvalidOperation:
-                            if price_till not in event.price_information_de:
-                                event.price_information_de += '\n' + price_till
-                            if price_till not in event.price_information_en:
-                                event.price_information_en += '\n' + price_till
-                        else:
-                            event.price_till = price_till
-                    event.tickets_website = price_node.get('url')
-
-                if event_node.get('takingPlace'):
-                    flag_status = int(event_node.get('takingPlace'))
-                    if flag_status == 0:  # fällt aus
-                        event.event_status = 'canceled'
-                    elif flag_status == 1:  # findet statt
-                        event.event_status = 'takes_place'
-                    elif flag_status == 2:  # ausverkauft
-                        event.ticket_status = 'sold_out'
+                event.start_date = parse_datetime(self.get_child_text(event_node, 'start_date')).date()
+                event.start_time = parse_datetime(self.get_child_text(event_node, 'start_time')).time()
+                try:
+                    event.end_date = parse_datetime(self.get_child_text(event_node, 'end_date')).date()
+                except:
+                    event.end_date = None
+                try:
+                    event.end_time = parse_datetime(self.get_child_text(event_node, 'end_time')).time()
+                except:
+                    event.end_time = None
+                try:
+                    duration_time = parse_datetime(self.get_child_text(event_node, 'duration')).time()
+                except:
+                    duration = None
+                else:
+                    duration = timedelta(
+                        hours=duration_time.tm_hour,
+                        minutes=duration_time.tm_min,
+                        seconds=duration_time.tm_sec,
+                    ).total_seconds()
+                event.duration = duration
+                try:
+                    event.pauses = int(self.get_child_text(event_node, 'pauses'))
+                except:
+                    event.pauses = None
 
                 self.parse_and_use_texts(event_node, event)
+
+                event.organizers = self.get_child_text(event_node, 'organizers')
+
+                event.free_entrance = (self.get_child_text(event_node, 'free_entrance') == "True")
+                try:
+                    event.price_from = Decimal(self.get_child_text(event_node, 'price_from'))
+                except:
+                    event.price_from = None
+                try:
+                    event.price_till = Decimal(self.get_child_text(event_node, 'price_till'))
+                except:
+                    event.price_till = None
+                event.tickets_website = self.get_child_text(event_node, 'tickets_website')
+                event.location_title = self.get_child_text(event_node, 'location_title')
+                event.street_address = self.get_child_text(event_node, 'street_address')
+                event.street_address2 = self.get_child_text(event_node, 'street_address2')
+                event.postal_code = self.get_child_text(event_node, 'postal_code')
+                event.city = self.get_child_text(event_node, 'city')
+                try:
+                    event.latitude = float(self.get_child_text(event_node, 'latitude'))
+                except:
+                    event.latitude = None
+                try:
+                    event.longitude = float(self.get_child_text(event_node, 'longitude'))
+                except:
+                    event.longitude = None
+
+                try:
+                    event.language_and_subtitles = LanguageAndSubtitles.objects.get(slug=self.get_child_text(prod_node, 'language_and_subtitles_id'))
+                except:
+                    event.language_and_subtitles = None
+
+                event.event_status = self.get_child_text(event_node, 'event_status')
+                event.ticket_status = self.get_child_text(event_node, 'ticket_status')
 
                 event.save()
                 self.event_ids_to_keep.add(event.pk)
 
+                event.play_locations.clear()
+                for location_id_node in event_node.findall("./play_locations/location_id"):
+                    try:
+                        location = Location.objects.get(pk=location_id_node.text)
+                    except Location.DoesNotExist:
+                        pass
+                    else:
+                        event.play_locations.add(location)
+
+                event.play_stages.clear()
+                for stage_id_node in event_node.findall("./play_stages/stage_id"):
+                    try:
+                        stage = Stage.objects.get(pk=stage_id_node.text)
+                    except Stage.DoesNotExist:
+                        pass
+                    else:
+                        event.play_stages.add(stage)
+
+                event.characteristics.clear()
+                for ch_id_node in event_node.findall("./characteristics/characteristic_id"):
+                    try:
+                        ch = EventCharacteristics.objects.get(pk=ch_id_node.text)
+                    except ProductionCategory.DoesNotExist:
+                        pass
+                    else:
+                        event.characteristics.add(ch)
+
+                event.eventvideo_set.all().delete()
+                for video_node in event_node.findall("./videos/video"):
+                    video = EventVideo(event=event)
+                    video.creation_date = parse_datetime(self.get_child_text(video_node, 'creation_date'))
+                    video.modified_date = parse_datetime(self.get_child_text(video_node, 'modified_date'))
+                    video.title_de = self.get_child_text(video_node, 'title_de')
+                    video.title_en = self.get_child_text(video_node, 'title_en')
+                    video.link_or_embed = self.get_child_text(video_node, 'embed')
+                    try:
+                        video.sort_order = int(self.get_child_text(video_node, 'sort_order'))
+                    except:
+                        video.sort_order = 1
+                    video.save()
+    
+                event.eventlivestream_set.all().delete()
+                for video_node in event_node.findall("./videos/video"):
+                    ls = EventLiveStream(event=event)
+                    ls.creation_date = parse_datetime(self.get_child_text(video_node, 'creation_date'))
+                    ls.modified_date = parse_datetime(self.get_child_text(video_node, 'modified_date'))
+                    ls.title_de = self.get_child_text(video_node, 'title_de')
+                    ls.title_en = self.get_child_text(video_node, 'title_en')
+                    ls.link_or_embed = self.get_child_text(video_node, 'embed')
+                    try:
+                        ls.sort_order = int(self.get_child_text(video_node, 'sort_order'))
+                    except:
+                        ls.sort_order = 1
+                    ls.save()
+    
                 if not self.skip_images:
                     image_ids_to_keep = []
-                    for image_node in event_node.findall('picture'):
-                        image_url = self.get_child_text(image_node, 'Url')
+                    for image_node in event_node.findall('./images/image'):
+                        image_url = self.get_child_text(image_node, 'url')
                         if not image_url.startswith('http'):
                             continue
-
+    
                         image_external_id = "event-%s-%s" % (event.pk, image_url)
                         image_mapper = None
                         try:
                             # get image model instance from saved mapper
                             image_mapper = self.service.objectmapper_set.get(
                                 external_id=image_external_id,
-                                content_type__app_label="productions",
+                                content_type__app_label="events",
                                 content_type__model="eventimage",
                             )
                         except models.ObjectDoesNotExist:
@@ -779,7 +841,7 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
                             if mf:
                                 image_ids_to_keep.append(mf.pk)
                             continue
-
+    
                         filename = image_url.split("/")[-1]
                         image_response = requests.get(image_url)
                         if image_response.status_code == 200:
@@ -788,12 +850,9 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
                                 filename,
                                 image_response.content,
                                 field_name="path",
-                                subpath="productions/%s/events/%s/gallery/" % (prod.slug, event.pk),
+                                subpath="events/%s/gallery/" % event.slug,
                             )
-                            if image_node.get('publishType') == "1":
-                                mf.copyright_restrictions = "general_use"
-                            elif image_node.get('publishType') == "3":
-                                mf.copyright_restrictions = "protected"
+                            mf.copyright_restrictions = self.get_child_text(image_node, 'copyright_restrictions') or "general_use"
                             mf.save()
                             image_ids_to_keep.append(mf.pk)
                             try:
@@ -802,13 +861,15 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
                                 ).order_by("pk")[0]
                             except:
                                 file_description = FileDescription(file_path=mf.path)
-
-                            file_description.title_de = self.get_child_text(image_node, 'title', languageId="1") or self.get_child_text(image_node, 'text', languageId="1")
-                            file_description.title_en = self.get_child_text(image_node, 'title', languageId="2") or self.get_child_text(image_node, 'text', languageId="2")
-                            file_description.author = (image_node.get('photographer') or u"").replace("Foto: ", "")
-                            file_description.copyright_limitations = image_node.get('copyright')
+    
+                            file_description.title_de = self.get_child_text(image_node, 'title_de')
+                            file_description.title_en = self.get_child_text(image_node, 'title_en')
+                            file_description.description_de = self.get_child_text(image_node, 'description_de')
+                            file_description.description_en = self.get_child_text(image_node, 'description_en')
+                            file_description.author = self.get_child_text(image_node, 'author')
+                            file_description.copyright_limitations = self.get_child_text(image_node, 'copyright')
                             file_description.save()
-
+    
                             if not image_mapper:
                                 image_mapper = ObjectMapper(
                                     service=self.service,
@@ -816,85 +877,194 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
                                 )
                                 image_mapper.content_object = mf
                                 image_mapper.save()
-
-                    for mf in event.eventimage_set.exclude(pk__in=image_ids_to_keep):
+    
+                    for mf in event.eventimage_set.exclude(id__in=image_ids_to_keep):
                         if mf.path:
                             # remove the file from the file system
                             image_mods.FileManager.delete_file(mf.path.name)
                         # delete image mapper
                         self.service.objectmapper_set.filter(
                             object_id=mf.pk,
-                            content_type__app_label="productions",
+                            content_type__app_label="events",
                             content_type__model="eventimage",
                         ).delete()
                         # delete image model instance
                         mf.delete()
-
-                venue_node = event_node.find('location')
-                if venue_node is not None:
-                    location, stage = self.get_updated_location_and_stage(venue_node)
-                    if location:
-                        event.play_locations.clear()
-                        event.play_locations.add(location)
-                    #else:
-                    #    event.location_title = venue_node.text
-                    #    event.save()
-
-                    if stage:
-                        if isinstance(stage, dict):
-                            event.location_title = stage['title']
-                            event.street_address = stage.get('street_address', u'')
-                            event.postal_code = stage.get('postal_code', u'')
-                            event.city = stage.get('city', u'Berlin')
-                            event.save()
-                        else:
-                            event.play_stages.clear()
-                            event.play_stages.add(stage)
-
-                event.characteristics.clear()
-                for status_id_node in event_node.findall('statusId'):
-                    if status_id_node.text:
-                        internal_ch_slug = self.EVENT_CHARACTERISTICS_MAPPER.get(int(status_id_node.text), None)
-                        if internal_ch_slug:
-                            event.characteristics.add(EventCharacteristics.objects.get(slug=internal_ch_slug))
-
+    
+                pdf_ids_to_keep = []
+                for pdf_node in event_node.findall('./pdfs/pdf'):
+                    pdf_url = self.get_child_text(pdf_node, 'url')
+                    if not pdf_url.startswith('http'):
+                        continue
+    
+                    pdf_external_id = "event-%s-%s" % (event.pk, pdf_url)
+                    pdf_mapper = None
+                    try:
+                        # get pdf model instance from saved mapper
+                        pdf_mapper = self.service.objectmapper_set.get(
+                            external_id=pdf_external_id,
+                            content_type__app_label="events",
+                            content_type__model="eventpdf",
+                        )
+                    except models.ObjectDoesNotExist:
+                        # or create a new exhibition and then create a mapper
+                        mf = EventImage(event=event)
+                    else:
+                        mf = pdf_mapper.content_object
+                        if mf:
+                            pdf_ids_to_keep.append(mf.pk)
+                        continue
+    
+                    filename = pdf_url.split("/")[-1]
+                    pdf_response = requests.get(pdf_url)
+                    if pdf_response.status_code == 200:
+                        image_mods.FileManager.save_file_for_object(
+                            mf,
+                            filename,
+                            pdf_response.content,
+                            field_name="path",
+                            subpath="events/%s/pdfs/" % event.slug,
+                        )
+                        mf.save()
+                        pdf_ids_to_keep.append(mf.pk)
+                        try:
+                            file_description = FileDescription.objects.filter(
+                                file_path=mf.path,
+                            ).order_by("pk")[0]
+                        except:
+                            file_description = FileDescription(file_path=mf.path)
+    
+                        file_description.title_de = self.get_child_text(pdf_node, 'title_de')
+                        file_description.title_en = self.get_child_text(pdf_node, 'title_en')
+                        file_description.description_de = self.get_child_text(pdf_node, 'description_de')
+                        file_description.description_en = self.get_child_text(pdf_node, 'description_en')
+                        file_description.author = self.get_child_text(pdf_node, 'author')
+                        file_description.copyright_limitations = self.get_child_text(pdf_node, 'copyright')
+                        file_description.save()
+    
+                        if not pdf_mapper:
+                            pdf_mapper = ObjectMapper(
+                                service=self.service,
+                                external_id=pdf_external_id,
+                            )
+                            pdf_mapper.content_object = mf
+                            pdf_mapper.save()
+    
+                for mf in event.eventpdf_set.exclude(id__in=pdf_ids_to_keep):
+                    if mf.path:
+                        # remove the file from the file system
+                        image_mods.FileManager.delete_file(mf.path.name)
+                    # delete pdf mapper
+                    self.service.objectmapper_set.filter(
+                        object_id=mf.pk,
+                        content_type__app_label="events",
+                        content_type__model="eventpdf",
+                    ).delete()
+                    # delete pdf model instance
+                    mf.delete()
+    
+    
+                event.eventleadership_set.all().delete()
+                for person_node in event_node.findall('./leaders/leader'):
+                    try:
+                        prefix = Prefix.objects.get(slug=self.get_child_text(person_node, 'prefix_id'))
+                    except:
+                        prefix = None
+                    first_name = self.get_child_text(person_node, 'first_name')
+                    last_name = self.get_child_text(person_node, 'last_name')
+                    p, created = Person.objects.get_first_or_create(
+                        prefix=prefix,
+                        first_name=first_name,
+                        last_name=last_name,
+                    )
+                    try:
+                        imported_sort_order = int(self.get_child_text(person_node, 'sort_order'))
+                    except:
+                        imported_sort_order = 1
+                    event.eventleadership_set.create(
+                        person=p,
+                        function_de=self.get_child_text(person_node, 'function_de'),
+                        function_en=self.get_child_text(person_node, 'function_en'),
+                        imported_sort_order=imported_sort_order,
+                    )
+                for sort_order, item in enumerate(event.eventleadership_set.order_by('imported_sort_order'), 0):
+                    item.sort_order = sort_order
+                    item.save()
+    
+                event.eventauthorship_set.all().delete()
+                for person_node in event_node.findall('./authors/author'):
+                    try:
+                        prefix = Prefix.objects.get(slug=self.get_child_text(person_node, 'prefix_id'))
+                    except:
+                        prefix = None
+                    first_name = self.get_child_text(person_node, 'first_name')
+                    last_name = self.get_child_text(person_node, 'last_name')
+                    p, created = Person.objects.get_first_or_create(
+                        prefix=prefix,
+                        first_name=first_name,
+                        last_name=last_name,
+                    )
+                    try:
+                        authorship_type = AuthorshipType.objects.get(slug=self.get_child_text(person_node, 'type_id'))
+                    except:
+                        authorship_type = None
+                    try:
+                        imported_sort_order = int(self.get_child_text(person_node, 'sort_order'))
+                    except:
+                        imported_sort_order = 1
+                    event.eventauthorship_set.create(
+                        person=p,
+                        authorship_type=authorship_type,
+                        imported_sort_order=imported_sort_order,
+                    )
+                for sort_order, item in enumerate(event.eventauthorship_set.order_by('imported_sort_order'), 0):
+                    item.sort_order = sort_order
+                    item.save()
+    
                 event.eventinvolvement_set.all().delete()
-                for person_node in event_node.findall('person'):
-                    role_de = self.get_child_text(person_node, 'mediaText/text', languageId="1")
-                    role_en = self.get_child_text(person_node, 'mediaText/text', languageId="2")
-                    if not role_de and int(person_node.get('roleId')) in self.ROLE_ID_MAPPER:
-                        role_de, role_en = self.ROLE_ID_MAPPER[int(person_node.get('roleId'))]
-                    for person_name in re.split(r'\s*[/,]\s*', person_node.get('personFreetext')):
-                        first_and_last_name = person_name
-                        if u" " in first_and_last_name:
-                            first_name, last_name = first_and_last_name.rsplit(" ", 1)
-                        else:
-                            first_name = ""
-                            last_name = first_and_last_name
-                        p, created = Person.objects.get_first_or_create(
-                            first_name=first_name,
-                            last_name=last_name,
-                        )
-                        event.eventinvolvement_set.create(
-                            person=p,
-                            involvement_role_de=role_de,
-                            involvement_role_en=role_en,
-                            imported_sort_order=person_node.get('position'),
-                        )
+                for person_node in event_node.findall('./participants/participant'):
+                    try:
+                        prefix = Prefix.objects.get(slug=self.get_child_text(person_node, 'prefix_id'))
+                    except:
+                        prefix = None
+                    first_name = self.get_child_text(person_node, 'first_name')
+                    last_name = self.get_child_text(person_node, 'last_name')
+                    p, created = Person.objects.get_first_or_create(
+                        prefix=prefix,
+                        first_name=first_name,
+                        last_name=last_name,
+                    )
+                    try:
+                        involvement_type = InvolvementType.objects.get(slug=self.get_child_text(person_node, 'type_id'))
+                    except:
+                        involvement_type = None
+                    try:
+                        imported_sort_order = int(self.get_child_text(person_node, 'sort_order'))
+                    except:
+                        imported_sort_order = 1
+                    event.eventinvolvement_set.create(
+                        person=p,
+                        involvement_type=involvement_type,
+                        role_de=self.get_child_text(person_node, 'role_de'),
+                        role_en=self.get_child_text(person_node, 'role_en'),
+                        instrument_de=self.get_child_text(person_node, 'instrument_de'),
+                        instrument_en=self.get_child_text(person_node, 'instrument_en'),
+                        imported_sort_order=imported_sort_order,
+                    )
                 for sort_order, item in enumerate(event.eventinvolvement_set.order_by('imported_sort_order'), 0):
                     item.sort_order = sort_order
                     item.save()
-
+    
                 event.sponsors.clear()
-                for sponsor_node in event_node.findall('sponsor'):
+                for sponsor_node in event_node.findall('./sponsors/sponsor'):
                     sponsor, created = Sponsor.objects.get_or_create(
-                        title_de=self.get_child_text(sponsor_node, 'title', languageId="1"),
+                        title_de=self.get_child_text(person_node, 'title_de'),
                         defaults={
-                            'title_en': self.get_child_text(sponsor_node, 'title', languageId="2"),
-                            'website': sponsor_node.get('linkURL'),
+                            'title_en': self.get_child_text(person_node, 'title_en'),
+                            'website': self.get_child_text(person_node, 'website'),
                         }
                     )
-                    image_url = sponsor_node.get('pictureURL')
+                    image_url = self.get_child_text(person_node, 'image_url')
                     if image_url and created:
                         filename = image_url.split("/")[-1]
                         image_response = requests.get(image_url)
@@ -907,8 +1077,8 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
                                 subpath="sponsors/",
                             )
                         sponsor.save()
-                        event.sponsors.add(sponsor)
-
+                    event.sponsors.add(sponsor)
+    
                 if not event_mapper:
                     event_mapper = ObjectMapper(
                         service=self.service,
