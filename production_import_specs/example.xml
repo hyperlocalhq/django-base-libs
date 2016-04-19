@@ -115,18 +115,18 @@
             <!-- The URL of a website page with educational offer -->
             <edu_offer_website></edu_offer_website>
 
-                <!-- Theaters organizing this production. Check the list of available IDs at the specification -->
+            <!-- Theaters organizing this production. Check the list of available IDs at the specification -->
             <in_program_of>
                 <location_id>1</location_id>
                 <location_id>2</location_id>
                 <!-- ... -->
             </in_program_of>
-                <!-- Theaters where this production takes place. Check the list of available IDs at the specification -->
+            <!-- Theaters where this production takes place. Check the list of available IDs at the specification -->
             <play_locations>
                 <location_id>3</location_id>
                 <!-- ... -->
             </play_locations>
-                <!-- Stages where this production takes place. Check the list of available IDs at the specification -->
+            <!-- Stages where this production takes place. Check the list of available IDs at the specification -->
             <play_stages>
                 <stage_id>1</stage_id>
                 <!-- ... -->
@@ -147,13 +147,13 @@
             <!-- Longitude of the location (if play_locations is empty, decimal format) -->
             <longitude>13.4061</longitude>
 
-                <!-- Categories. Check the list of available IDs at the specification -->
+            <!-- Categories. Check the list of available IDs at the specification -->
             <categories>
                 <category_id>1</category_id>
                 <category_id>2</category_id>
                 <!-- ... -->
             </categories>
-                <!-- Characteristics. Check the list of available IDs at the specification -->
+            <!-- Characteristics. Check the list of available IDs at the specification -->
             <characteristics>
                 <characteristic_id>1</characteristic_id>
                 <characteristic_id>2</characteristic_id>
@@ -199,9 +199,9 @@
                     <!-- Involvement type ID. Check the list of available IDs at the specification -->
                     <type_id>musik</type_id>
                     <!-- Role in German -->
-                    <role_de />
+                    <role_de/>
                     <!-- Role in English -->
-                    <role_en />
+                    <role_en/>
                     <!-- Instrument in German -->
                     <instrument_de>Klavier</instrument_de>
                     <!-- Instrument in English -->
@@ -221,9 +221,9 @@
                     <!-- Role in English -->
                     <role_en>Little Red Riding Hood</role_en>
                     <!-- Instrument in German -->
-                    <instrument_de />
+                    <instrument_de/>
                     <!-- Instrument in English -->
-                    <instrument_en />
+                    <instrument_en/>
                 </participant>
                 <!-- ... -->
             </participants>
@@ -364,12 +364,12 @@
                     <!-- Amount of pauses (integer) -->
                     <pauses>2</pauses>
 
-                        <!-- Theaters where this event takes place. Check the list of available IDs at the specification -->
+                    <!-- Theaters where this event takes place. Check the list of available IDs at the specification -->
                     <play_locations>
                         <location_id>3</location_id>
                         <!-- ... -->
                     </play_locations>
-                        <!-- Stages where this event takes place. Check the list of available IDs at the specification -->
+                    <!-- Stages where this event takes place. Check the list of available IDs at the specification -->
                     <play_stages>
                         <stage_id>1</stage_id>
                         <!-- ... -->
@@ -460,7 +460,7 @@
                     <!-- Tickets' status. One of: "tickets_@_box_office" or "sold_out" -->
                     <ticket_status>tickets_@_box_office</ticket_status>
 
-                        <!-- Characteristics. Check the list of available IDs at the specification -->
+                    <!-- Characteristics. Check the list of available IDs at the specification -->
                     <characteristics>
                         <characteristic_id>1</characteristic_id>
                         <characteristic_id>2</characteristic_id>
@@ -506,9 +506,9 @@
                             <!-- Involvement type ID. Check the list of available IDs at the specification -->
                             <type_id>musik</type_id>
                             <!-- Role in German -->
-                            <role_de />
+                            <role_de/>
                             <!-- Role in English -->
-                            <role_en />
+                            <role_en/>
                             <!-- Instrument in German -->
                             <instrument_de>Klavier</instrument_de>
                             <!-- Instrument in English -->
@@ -528,9 +528,9 @@
                             <!-- Role in English -->
                             <role_en>Little Red Riding Hood</role_en>
                             <!-- Instrument in German -->
-                            <instrument_de />
+                            <instrument_de/>
                             <!-- Instrument in English -->
-                            <instrument_en />
+                            <instrument_en/>
                         </participant>
                         <!-- ... -->
                     </participants>
