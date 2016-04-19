@@ -85,7 +85,7 @@ start =
           element social_media_channel {
             element channel_type { xsd:NCName },
             url
-          }
+          }+
         },
         language_and_subtitles_id,
         sponsors,
@@ -152,9 +152,9 @@ start =
             pdfs,
             language_and_subtitles_id,
             sponsors
-          }
+          }+
         }
-      }
+      }+
     }
   }
 id = element id { xsd:integer }
@@ -194,10 +194,10 @@ tickets_website = element tickets_website { empty }
 price_information_de = element price_information_de { empty }
 price_information_en = element price_information_en { empty }
 location_id = element location_id { xsd:integer }
-play_locations = element play_locations { location_id }
+play_locations = element play_locations { location_id+ }
 play_stages =
   element play_stages {
-    element stage_id { xsd:integer }
+    element stage_id { xsd:integer }+
   }
 location_title = element location_title { empty }
 street_address = element street_address { empty }
@@ -218,9 +218,9 @@ leaders =
       last_name,
       element function_de { xsd:NCName },
       element function_en { xsd:NCName }
-    }
+    }+
   }
-authors = element authors { author }
+authors = element authors { author+ }
 participants =
   element participants {
     element participant {
@@ -236,25 +236,11 @@ participants =
   }
 videos =
   element videos {
-    element video {
-      creation_date,
-      modified_date,
-      title_de,
-      title_en,
-      embed,
-      sort_order
-    }
+    element video { creation_date, modified_date, title_de, title_en, embed, sort_order }+
   }
 live_streams =
   element live_streams {
-    element live_stream {
-      creation_date,
-      modified_date,
-      title_de,
-      title_en,
-      embed,
-      sort_order
-    }
+    element live_stream { creation_date, modified_date, title_de, title_en, embed, sort_order }+
   }
 images =
   element images {
@@ -270,7 +256,7 @@ images =
       element copyright_restrictions { xsd:NCName },
       copyright,
       sort_order
-    }
+    }+
   }
 pdfs =
   element pdfs {
@@ -285,11 +271,10 @@ pdfs =
       author,
       copyright,
       sort_order
-    }
+    }+
   }
 url = element url { xsd:anyURI }
-language_and_subtitles_id =
-  element language_and_subtitles_id { xsd:NCName }
+language_and_subtitles_id = element language_and_subtitles_id { xsd:NCName }
 sponsors =
   element sponsors {
     element sponsor {
@@ -299,7 +284,7 @@ sponsors =
       element image_url { xsd:anyURI },
       title_de,
       title_en
-    }
+    }+
   }
 prefix_id = element prefix_id { xsd:NCName }
 first_name = element first_name { xsd:NCName }
