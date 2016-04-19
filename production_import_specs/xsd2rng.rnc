@@ -1,0 +1,1039 @@
+default namespace = ""
+namespace a = "http://relaxng.org/ns/compatibility/annotations/1.0"
+namespace rng = "http://relaxng.org/ns/structure/1.0"
+start |= response
+response =
+  element response {
+    element meta {
+      element next {
+        ## The API URL for the next page (or empty string for the last page)
+        xsd:anyURI
+      },
+      element previous {
+        ## The API URL for the previous page (or empty string for the first page)
+        xsd:anyURI
+      },
+      element total_count {
+        ## How many productions are there in total?
+        xsd:short
+      },
+      element items_per_page {
+        ## What is the maximal amount of productions per page?
+        xsd:byte
+      }
+    },
+    element productions {
+      element production {
+        element id {
+          ## Unique production ID on your website
+          xsd:byte
+        },
+        element creation_date {
+          ## Production creation timestamp in ISO 8601 format
+          xsd:dateTime
+        },
+        element modified_date {
+          ## Production modification timestamp in ISO 8601 format
+          xsd:dateTime
+        },
+        element status {
+          ## Publishing status, one of: "draft", "published", "not_listed", "expired", "trashed"
+          xsd:string
+        },
+        element prefix_de {
+          ## Title prefix in German
+          xsd:string
+        },
+        element prefix_en {
+          ## Title prefix in English
+          xsd:string
+        },
+        element title_de {
+          ## Title in German
+          xsd:string
+        },
+        element title_en {
+          ## Title in English
+          xsd:string
+        },
+        element subtitle_de {
+          ## Subtitle (Unterüberschrift) in German
+          xsd:string
+        },
+        element subtitle_en {
+          ## Subtitle (Unterüberschrift) in English
+          xsd:string
+        },
+        element original_de {
+          ## Original title in German
+          xsd:string
+        },
+        element original_en {
+          ## Original title in English
+          xsd:string
+        },
+        element website_de {
+          ## A link to the your website page about this production in German
+          xsd:anyURI
+        },
+        element website_en {
+          ## A link to the your website page about this production in English
+          xsd:anyURI
+        },
+        element description_de {
+          ## Plain-text description in German
+          xsd:string
+        },
+        element description_en {
+          ## Plain-text description in English
+          xsd:string
+        },
+        element teaser_de {
+          ## Plain-text teaser in German
+          xsd:string
+        },
+        element teaser_en {
+          ## Plain-text teaser in English
+          xsd:string
+        },
+        element work_info_de {
+          ## Plain-text work info in German
+          xsd:string
+        },
+        element work_info_en {
+          ## Plain-text work info in English
+          xsd:string
+        },
+        element contents_de {
+          ## Plain-text contents in German
+          xsd:string
+        },
+        element contents_en {
+          ## Plain-text contents in English
+          xsd:string
+        },
+        element press_text_de {
+          ## Plain-text press text in German
+          xsd:string
+        },
+        element press_text_en {
+          ## Plain-text press text in English
+          xsd:string
+        },
+        element credits_de {
+          ## Plain-text credits in German
+          xsd:string
+        },
+        element credits_en {
+          ## Plain-text credits in English
+          xsd:string
+        },
+        element concert_program_de {
+          ## Plain-text concert program in German
+          xsd:string
+        },
+        element concert_program_en {
+          ## Plain-text concert program in English
+          xsd:string
+        },
+        element supporting_program_de {
+          ## Plain-text supporting program in German
+          xsd:string
+        },
+        element supporting_program_en {
+          ## Plain-text supporting program in English
+          xsd:string
+        },
+        element remarks_de {
+          ## Plain-text remarks in German
+          xsd:string
+        },
+        element remarks_en {
+          ## Plain-text remarks in English
+          xsd:string
+        },
+        element duration_text_de {
+          ## Plain-text information about duration in German
+          xsd:string
+        },
+        element duration_text_en {
+          ## Plain-text information about duration in English
+          xsd:string
+        },
+        element subtitles_text_de {
+          ## Plain-text information about subtitles in German
+          xsd:string
+        },
+        element subtitles_text_en {
+          ## Plain-text information about subtitles in English
+          xsd:string
+        },
+        element age_text_de {
+          ## Plain-text information about the age of the audience in German
+          xsd:string
+        },
+        element age_text_en {
+          ## Plain-text information about the age of the audience in English
+          xsd:string
+        },
+        element ensembles {
+          ## Ensemble or ensembles playing in this production
+          xsd:string
+        },
+        element organizers {
+          ## Organizer or organizers of this production
+          xsd:string
+        },
+        element in_cooperation_with {
+          ## Cooperator or cooperators
+          xsd:string
+        },
+        element free_entrance {
+          ## Is the entrance free? One of "True" or "False"
+          xsd:string
+        },
+        element price_from {
+          ## Price from in Euros (decimal, no currency sign included) Price from in Euros
+          ## (decimal, no currency sign included)
+          xsd:float
+        },
+        element price_till {
+          ## Price till in Euros (decimal, no currency sign included)
+          xsd:float
+        },
+        element tickets_website {
+          ## The URL of a website page where you can buy tickets to this production
+          xsd:string
+        },
+        element price_information_de {
+          ## Additional plain-text information about prices in German
+          xsd:string
+        },
+        element price_information_en {
+          ## Additional plain-text information about prices in English
+          xsd:string
+        },
+        element age_from {
+          ## Audience age from (integer)
+          xsd:string
+        },
+        element age_till {
+          ## Audience age till (integer)
+          xsd:string
+        },
+        element edu_offer_website {
+          ## The URL of a website page with educational offer
+          xsd:string
+        },
+        ## Theaters organizing this production. Check the list of available IDs at the
+        ## specification
+        element in_program_of {
+          element location_id { xsd:byte }*
+        },
+        ## Theaters where this production takes place. Check the list of available IDs at the
+        ## specification
+        element play_locations {
+          element location_id { xsd:byte }*
+        },
+        ## Stages where this production takes place. Check the list of available IDs at the
+        ## specification
+        element play_stages {
+          element stage_id { xsd:byte }*
+        },
+        element location_title {
+          ## Location title (if play_locations is empty)
+          xsd:string
+        },
+        element street_address {
+          ## Street address (first line) of the location (if play_locations is empty)
+          xsd:string
+        },
+        element street_address2 {
+          ## Street address (second line) of the location (if play_locations is empty)
+          xsd:string
+        },
+        element postal_code {
+          ## Postal code of the location (if play_locations is empty)
+          xsd:string
+        },
+        element city {
+          ## City of the location (if play_locations is empty)
+          xsd:string
+        },
+        element latitude {
+          ## Latitude of the location (if play_locations is empty, decimal format)
+          xsd:float
+        },
+        element longitude {
+          ## Longitude of the location (if play_locations is empty, decimal format)
+          xsd:float
+        },
+        ## Categories. Check the list of available IDs at the specification
+        element categories {
+          element category_id { xsd:byte }*
+        },
+        ## Characteristics. Check the list of available IDs at the specification
+        element characteristics {
+          element characteristic_id { xsd:byte }*
+        },
+        element leaders {
+          element leader {
+            element prefix_id {
+              ## One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof",
+              ## "ms-prof", "mr-prof-dr", "ms-prof-dr"
+              xsd:string
+            },
+            element first_name {
+              ## First name of the person
+              xsd:string
+            },
+            element last_name {
+              ## Last name of the person
+              xsd:string
+            },
+            element function_de {
+              ## Description in German what this leader is doing for the production
+              xsd:string
+            },
+            element function_en {
+              ## Description in English what this leader is doing for the production
+              xsd:string
+            }
+          }*
+        },
+        element authors {
+          element author {
+            element prefix_id {
+              ## One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof",
+              ## "ms-prof", "mr-prof-dr", "ms-prof-dr"
+              xsd:string
+            },
+            element first_name {
+              ## First name of the person
+              xsd:string
+            },
+            element last_name {
+              ## Last name of the person
+              xsd:string
+            },
+            element type_id {
+              ## What did this author do in the production? One of: "komponist", "autor",
+              ## "uebersetzer"
+              xsd:string
+            }
+          }*
+        },
+        element participants {
+          element participant {
+            element prefix_id {
+              ## One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof",
+              ## "ms-prof", "mr-prof-dr", "ms-prof-dr"
+              xsd:string
+            },
+            element first_name {
+              ## First name of the person
+              xsd:string
+            },
+            element last_name {
+              ## Last name of the person
+              xsd:string
+            },
+            element type_id {
+              ## Involvement type ID. Check the list of available IDs at the
+              ## specification
+              xsd:string
+            },
+            element role_de {
+              ## Role in German
+              xsd:string
+            },
+            element role_en {
+              ## Role in English
+              xsd:string
+            },
+            element instrument_de {
+              ## Instrument in German
+              xsd:string
+            },
+            element instrument_en {
+              ## Instrument in English
+              xsd:string
+            }
+          }*
+        },
+        element videos {
+          element video {
+            element creation_date {
+              ## Creation timestamp in ISO 8601
+              xsd:dateTime
+            },
+            element modified_date {
+              ## Modification timestamp in ISO 8601 format
+              xsd:dateTime
+            },
+            element title_de {
+              ## Title in German
+              xsd:string
+            },
+            element title_en {
+              ## Title in English
+              xsd:string
+            },
+            element embed {
+              ## HTML embed code
+              xsd:string
+            },
+            element sort_order {
+              ## Sort order of the video (integer)
+              xsd:byte
+            }
+          }*
+        },
+        element live_streams {
+          element live_stream {
+            element creation_date {
+              ## Creation timestamp in ISO 8601
+              xsd:dateTime
+            },
+            element modified_date {
+              ## Modification timestamp in ISO 8601 format
+              xsd:dateTime
+            },
+            element title_de {
+              ## Title in German
+              xsd:string
+            },
+            element title_en {
+              ## Title in English
+              xsd:string
+            },
+            element embed {
+              ## HTML embed code
+              xsd:string
+            },
+            element sort_order {
+              ## Sort order of the video (integer)
+              xsd:byte
+            }
+          }*
+        },
+        element images {
+          element image {
+            element creation_date {
+              ## Creation timestamp in ISO 8601
+              xsd:dateTime
+            },
+            element modified_date {
+              ## Modification timestamp in ISO
+              xsd:dateTime
+            },
+            element url {
+              ## URL of the original (largest scale) image in JPG or PNG format
+              xsd:anyURI
+            },
+            element title_de {
+              ## Title in German
+              xsd:string
+            },
+            element title_en {
+              ## Title in English
+              xsd:string
+            },
+            element description_de {
+              ## Plain-text description in German
+              xsd:string
+            },
+            element description_en {
+              ## Plain-text description in English
+              xsd:string
+            },
+            element author {
+              ## Author's first and last name
+              xsd:string
+            },
+            element copyright_restrictions {
+              ## One of: "general_use" or "protected"
+              xsd:string
+            },
+            element copyright {
+              ## Copyright information
+              xsd:string
+            },
+            element sort_order {
+              ## Sort order of the image (integer)
+              xsd:byte
+            }
+          }*
+        },
+        element pdfs {
+          element pdf {
+            element creation_date {
+              ## Creation timestamp in ISO 8601 format
+              xsd:dateTime
+            },
+            element modified_date {
+              ## Modification timestamp in ISO 8601 format
+              xsd:dateTime
+            },
+            element url {
+              ## URL of the PDF document
+              xsd:anyURI
+            },
+            element title_de {
+              ## Title in German
+              xsd:string
+            },
+            element title_en {
+              ## Title in English
+              xsd:string
+            },
+            element description_de {
+              ## Plain-text description in German
+              xsd:string
+            },
+            element description_en {
+              ## Plain-text description in English
+              xsd:string
+            },
+            element author {
+              ## Author's first and last name
+              xsd:string
+            },
+            element copyright {
+              ## Copyright information
+              xsd:string
+            },
+            element sort_order {
+              ## Sort order of the image (integer)
+              xsd:byte
+            }
+          }*
+        },
+        element social_media {
+          element social_media_channel {
+            element channel_type {
+              ## "Facebook", "Twitter", "Google+", etc.
+              xsd:string
+            },
+            element url {
+              ## URL of the social media profile
+              xsd:string
+            }
+          }*
+        },
+        element language_and_subtitles_id {
+          ## Language and subtitles. Check the list of available IDs at the specification
+          xsd:string
+        },
+        element sponsors {
+          element sponsor {
+            element creation_date {
+              ## Creation timestamp in ISO 8601 format
+              xsd:dateTime
+            },
+            element modified_date {
+              ## Modification timestamp in ISO 8601 format
+              xsd:dateTime
+            },
+            element website {
+              ## URL of the sponsor website
+              xsd:anyURI
+            },
+            element image_url {
+              ## URL of the sponsor logo in JPG or PNG format
+              xsd:anyURI
+            },
+            element title_de {
+              ## Title in German
+              xsd:string
+            },
+            element title_en {
+              ## Title in English
+              xsd:string
+            }
+          }*
+        },
+        element events {
+          element event {
+            element id {
+              ## Unique event ID on your website
+              xsd:byte
+            },
+            element creation_date {
+              ## Event creation timestamp in ISO 8601 format
+              xsd:dateTime
+            },
+            element modified_date {
+              ## Event modification timestamp in ISO 8601 format
+              xsd:dateTime
+            },
+            element start_date {
+              ## Start date in ISO 8601 format
+              xsd:date
+            },
+            element end_date {
+              ## End date in ISO 8601 format
+              xsd:date
+            },
+            element start_time {
+              ## Start time in ISO 8601 format
+              xsd:string
+            },
+            element end_time {
+              ## End time in ISO 8601 format
+              xsd:string
+            },
+            element duration {
+              ## Duration time in ISO 8601 format
+              xsd:string
+            },
+            element pauses {
+              ## Amount of pauses (integer)
+              xsd:byte
+            },
+            ## Theaters where this event takes place. Check the list of available IDs at
+            ## the specification specification
+            element play_locations {
+              element location_id { xsd:byte }*
+            },
+            ## Stages where this event takes place. Check the list of available IDs at the
+            ## specification
+            element play_stages {
+              element stage_id { xsd:byte }*
+            },
+            element location_title {
+              ## Location title (if play_locations is empty)
+              xsd:string
+            },
+            element street_address {
+              ## Street address (first line) of the location (if play_locations is empty)
+              xsd:string
+            },
+            element street_address2 {
+              ## Street address (second line) of the location (if play_locations is
+              ## empty)
+              xsd:string
+            },
+            element postal_code {
+              ## Postal code of the location (if play_locations is empty)
+              xsd:string
+            },
+            element city {
+              ## City of the location (if play_locations is empty)
+              xsd:string
+            },
+            element latitude {
+              ## Latitude of the location (if play_locations is empty, decimal format)
+              xsd:float
+            },
+            element longitude {
+              ## Longitude of the location (if play_locations is empty, decimal format)
+              xsd:float
+            },
+            element organizers { xsd:string },
+            element description_de {
+              ## Plain-text description in German
+              xsd:string
+            },
+            element description_en {
+              ## Plain-text description in English
+              xsd:string
+            },
+            element teaser_de {
+              ## Plain-text teaser in German
+              xsd:string
+            },
+            element teaser_en {
+              ## Plain-text teaser in English
+              xsd:string
+            },
+            element work_info_de {
+              ## Plain-text work info in German
+              xsd:string
+            },
+            element work_info_en {
+              ## Plain-text work info in English
+              xsd:string
+            },
+            element contents_de {
+              ## Plain-text contents in German
+              xsd:string
+            },
+            element contents_en {
+              ## Plain-text contents in English
+              xsd:string
+            },
+            element press_text_de {
+              ## Plain-text press text in German
+              xsd:string
+            },
+            element press_text_en {
+              ## Plain-text press text in English
+              xsd:string
+            },
+            element credits_de {
+              ## Plain-text credits in German
+              xsd:string
+            },
+            element credits_en {
+              ## Plain-text credits in English
+              xsd:string
+            },
+            element concert_program_de {
+              ## Plain-text concert program in German
+              xsd:string
+            },
+            element concert_program_en {
+              ## Plain-text concert program in English
+              xsd:string
+            },
+            element supporting_program_de {
+              ## Plain-text supporting program in German
+              xsd:string
+            },
+            element supporting_program_en {
+              ## Plain-text supporting program in English
+              xsd:string
+            },
+            element remarks_de {
+              ## Plain-text remarks in German
+              xsd:string
+            },
+            element remarks_en {
+              ## Plain-text remarks in English
+              xsd:string
+            },
+            element duration_text_de {
+              ## Plain-text information about duration in German
+              xsd:string
+            },
+            element duration_text_en {
+              ## Plain-text information about duration in English
+              xsd:string
+            },
+            element subtitles_text_de {
+              ## Plain-text information about subtitles in German
+              xsd:string
+            },
+            element subtitles_text_en {
+              ## Plain-text information about subtitles in English
+              xsd:string
+            },
+            element age_text_de {
+              ## Plain-text information about the age of the audience in German
+              xsd:string
+            },
+            element age_text_en {
+              ## Plain-text information about the age of the audience in English
+              xsd:string
+            },
+            element free_entrance {
+              ## Is the entrance free? One of "True" or "False"
+              xsd:string
+            },
+            element price_from {
+              ## Price from in Euros (decimal, no currency sign included)
+              xsd:float
+            },
+            element price_till {
+              ## Price till in Euros (decimal, no currency sign included)
+              xsd:float
+            },
+            element tickets_website {
+              ## The URL of a website page where you can buy tickets to this event
+              xsd:string
+            },
+            element price_information_de {
+              ## Additional plain-text information about prices in German
+              xsd:string
+            },
+            element price_information_en {
+              ## Additional plain-text information about prices in English
+              xsd:string
+            },
+            element event_status {
+              ## Event status. One of: "takes_place" or "canceled"
+              xsd:string
+            },
+            element ticket_status {
+              ## Tickets' status. One of: "tickets_@_box_office" or "sold_out"
+              xsd:string
+            },
+            ## Characteristics. Check the list of available IDs at the specification
+            element characteristics {
+              element characteristic_id { xsd:byte }*
+            },
+            element leaders {
+              element leader {
+                element prefix_id {
+                  ## One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr",
+                  ## "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr"
+                  xsd:string
+                },
+                element first_name {
+                  ## First name of the person
+                  xsd:string
+                },
+                element last_name {
+                  ## Last name of the person
+                  xsd:string
+                },
+                element function_de {
+                  ## Description in German what this leader is doing for the
+                  ## event
+                  xsd:string
+                },
+                element function_en {
+                  ## Description in English what this leader is doing for the
+                  ## event
+                  xsd:string
+                }
+              }*
+            },
+            element authors {
+              element author {
+                element prefix_id {
+                  ## One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr",
+                  ## "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr"
+                  xsd:string
+                },
+                element first_name {
+                  ## First name of the person
+                  xsd:string
+                },
+                element last_name {
+                  ## Last name of the person
+                  xsd:string
+                },
+                element type_id {
+                  ## What did this author do in the event? One of: "komponist",
+                  ## "autor", "uebersetzer"
+                  xsd:string
+                }
+              }*
+            },
+            element participants {
+              element participant {
+                element prefix_id {
+                  ## One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr",
+                  ## "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr"
+                  xsd:string
+                },
+                element first_name {
+                  ## First name of the person
+                  xsd:string
+                },
+                element last_name {
+                  ## Last name of the person
+                  xsd:string
+                },
+                element type_id {
+                  ## Involvement type ID. Check the list of available IDs at the
+                  ## specification
+                  xsd:string
+                },
+                element role_de {
+                  ## Role in German
+                  xsd:string
+                },
+                element role_en {
+                  ## Role in English
+                  xsd:string
+                },
+                element instrument_de {
+                  ## Instrument in German
+                  xsd:string
+                },
+                element instrument_en {
+                  ## Instrument in English
+                  xsd:string
+                }
+              }*
+            },
+            element videos {
+              element video {
+                element creation_date {
+                  ## Creation timestamp in ISO 8601 format
+                  xsd:dateTime
+                },
+                element modified_date {
+                  ## Modification timestamp in ISO 8601 format
+                  xsd:dateTime
+                },
+                element title_de {
+                  ## Title in German
+                  xsd:string
+                },
+                element title_en {
+                  ## Title in English
+                  xsd:string
+                },
+                element embed {
+                  ## HTML embed code
+                  xsd:string
+                },
+                element sort_order {
+                  ## Sort order of the video (integer)
+                  xsd:byte
+                }
+              }*
+            },
+            element live_streams {
+              element live_stream {
+                element creation_date {
+                  ## Creation timestamp in ISO 8601 format
+                  xsd:dateTime
+                },
+                element modified_date {
+                  ## Modification timestamp in ISO 8601 format
+                  xsd:dateTime
+                },
+                element title_de {
+                  ## Title in German
+                  xsd:string
+                },
+                element title_en {
+                  ## Title in English
+                  xsd:string
+                },
+                element embed {
+                  ## HTML embed code
+                  xsd:string
+                },
+                element sort_order {
+                  ## Sort order of the video (integer)
+                  xsd:byte
+                }
+              }*
+            },
+            element images {
+              element image {
+                element creation_date {
+                  ## Creation timestamp in ISO 8601 format
+                  xsd:dateTime
+                },
+                element modified_date {
+                  ## Modification timestamp in ISO 8601 format
+                  xsd:dateTime
+                },
+                element url {
+                  ## URL of the original (largest scale) image in JPG or PNG
+                  ## format
+                  xsd:anyURI
+                },
+                element title_de {
+                  ## Title in German
+                  xsd:string
+                },
+                element title_en {
+                  ## Title in English
+                  xsd:string
+                },
+                element description_de {
+                  ## Plain-text description in German
+                  xsd:string
+                },
+                element description_en {
+                  ## Plain-text description in English
+                  xsd:string
+                },
+                element author {
+                  ## Author's first and last name
+                  xsd:string
+                },
+                element copyright_restrictions {
+                  ## One of: "general_use" or "protected"
+                  xsd:string
+                },
+                element copyright {
+                  ## Copyright information
+                  xsd:string
+                },
+                element sort_order {
+                  ## Sort order of the image (integer)
+                  xsd:byte
+                }
+              }*
+            },
+            element pdfs {
+              element pdf {
+                element creation_date {
+                  ## Creation timestamp in ISO 8601 format
+                  xsd:dateTime
+                },
+                element modified_date {
+                  ## Modification timestamp in ISO 8601 format
+                  xsd:dateTime
+                },
+                element url {
+                  ## URL of the PDF document
+                  xsd:anyURI
+                },
+                element title_de {
+                  ## Title in German
+                  xsd:string
+                },
+                element title_en {
+                  ## Title in English
+                  xsd:string
+                },
+                element description_de {
+                  ## Plain-text description in German
+                  xsd:string
+                },
+                element description_en {
+                  ## Plain-text description in English
+                  xsd:string
+                },
+                element author {
+                  ## Author's first and last name
+                  xsd:string
+                },
+                element copyright {
+                  ## Copyright information
+                  xsd:string
+                },
+                element sort_order {
+                  ## Sort order of the image (integer)
+                  xsd:byte
+                }
+              }*
+            },
+            element language_and_subtitles_id {
+              ## Language and subtitles. Check the list of available IDs at the
+              ## specification
+              xsd:string
+            },
+            element sponsors {
+              element sponsor {
+                element creation_date {
+                  ## Creation timestamp in ISO 8601 format
+                  xsd:dateTime
+                },
+                element modified_date {
+                  ## Modification timestamp in ISO 8601 format
+                  xsd:dateTime
+                },
+                element website {
+                  ## URL of the sponsor website
+                  xsd:anyURI
+                },
+                element image_url {
+                  ## URL of the sponsor logo in JPG or PNG format
+                  xsd:anyURI
+                },
+                element title_de {
+                  ## Title in German
+                  xsd:string
+                },
+                element title_en {
+                  ## Title in English
+                  xsd:string
+                }
+              }*
+            }
+          }*
+        }
+      }*
+    }
+  }
