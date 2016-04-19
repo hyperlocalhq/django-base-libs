@@ -1,0 +1,532 @@
+<?xml encoding="UTF-8"?>
+
+<!ELEMENT response (meta,productions)>
+<!ATTLIST response
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT meta (next,previous,total_count,items_per_page)>
+<!ATTLIST meta
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT productions (production)+>
+<!ATTLIST productions
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT next (#PCDATA)>
+<!ATTLIST next
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT previous (#PCDATA)>
+<!ATTLIST previous
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT total_count (#PCDATA)>
+<!ATTLIST total_count
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT items_per_page (#PCDATA)>
+<!ATTLIST items_per_page
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT production (id,creation_date,modified_date,status,prefix_de,
+                      prefix_en,title_de,title_en,subtitle_de,
+                      subtitle_en,original_de,original_en,website_de,
+                      website_en,description_de,description_en,
+                      teaser_de,teaser_en,work_info_de,work_info_en,
+                      contents_de,contents_en,press_text_de,
+                      press_text_en,credits_de,credits_en,
+                      concert_program_de,concert_program_en,
+                      supporting_program_de,supporting_program_en,
+                      remarks_de,remarks_en,duration_text_de,
+                      duration_text_en,subtitles_text_de,
+                      subtitles_text_en,age_text_de,age_text_en,
+                      ensembles,organizers,in_cooperation_with,
+                      free_entrance,price_from,price_till,
+                      tickets_website,price_information_de,
+                      price_information_en,age_from,age_till,
+                      edu_offer_website,in_program_of,play_locations,
+                      play_stages,location_title,street_address,
+                      street_address2,postal_code,city,latitude,
+                      longitude,categories,characteristics,leaders,
+                      authors,participants,videos,live_streams,images,
+                      pdfs,social_media,language_and_subtitles_id,
+                      sponsors,events)>
+<!ATTLIST production
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT status (#PCDATA)>
+<!ATTLIST status
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT prefix_de EMPTY>
+<!ATTLIST prefix_de
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT prefix_en EMPTY>
+<!ATTLIST prefix_en
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT subtitle_de EMPTY>
+<!ATTLIST subtitle_de
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT subtitle_en EMPTY>
+<!ATTLIST subtitle_en
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT original_de EMPTY>
+<!ATTLIST original_de
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT original_en EMPTY>
+<!ATTLIST original_en
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT website_de (#PCDATA)>
+<!ATTLIST website_de
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT website_en (#PCDATA)>
+<!ATTLIST website_en
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT ensembles EMPTY>
+<!ATTLIST ensembles
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT in_cooperation_with EMPTY>
+<!ATTLIST in_cooperation_with
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT age_from EMPTY>
+<!ATTLIST age_from
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT age_till EMPTY>
+<!ATTLIST age_till
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT edu_offer_website EMPTY>
+<!ATTLIST edu_offer_website
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT in_program_of (location_id)+>
+<!ATTLIST in_program_of
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT categories (category_id)+>
+<!ATTLIST categories
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT social_media (social_media_channel)+>
+<!ATTLIST social_media
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT events (event)+>
+<!ATTLIST events
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT category_id (#PCDATA)>
+<!ATTLIST category_id
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT social_media_channel (channel_type,url)>
+<!ATTLIST social_media_channel
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT event (id,creation_date,modified_date,start_date,end_date,
+                 start_time,end_time,duration,pauses,play_locations,
+                 play_stages,location_title,street_address,
+                 street_address2,postal_code,city,latitude,longitude,
+                 organizers,description_de,description_en,teaser_de,
+                 teaser_en,work_info_de,work_info_en,contents_de,
+                 contents_en,press_text_de,press_text_en,credits_de,
+                 credits_en,concert_program_de,concert_program_en,
+                 supporting_program_de,supporting_program_en,remarks_de,
+                 remarks_en,duration_text_de,duration_text_en,
+                 subtitles_text_de,subtitles_text_en,age_text_de,
+                 age_text_en,free_entrance,price_from,price_till,
+                 tickets_website,price_information_de,
+                 price_information_en,event_status,ticket_status,
+                 characteristics,leaders,authors,participants,videos,
+                 live_streams,images,pdfs,language_and_subtitles_id,
+                 sponsors)>
+<!ATTLIST event
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT channel_type (#PCDATA)>
+<!ATTLIST channel_type
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT start_date (#PCDATA)>
+<!ATTLIST start_date
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT end_date (#PCDATA)>
+<!ATTLIST end_date
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT start_time (#PCDATA)>
+<!ATTLIST start_time
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT end_time (#PCDATA)>
+<!ATTLIST end_time
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT duration (#PCDATA)>
+<!ATTLIST duration
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT pauses (#PCDATA)>
+<!ATTLIST pauses
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT event_status (#PCDATA)>
+<!ATTLIST event_status
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT ticket_status (#PCDATA)>
+<!ATTLIST ticket_status
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT id (#PCDATA)>
+<!ATTLIST id
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT creation_date (#PCDATA)>
+<!ATTLIST creation_date
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT modified_date (#PCDATA)>
+<!ATTLIST modified_date
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT title_de (#PCDATA)>
+<!ATTLIST title_de
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT title_en (#PCDATA)>
+<!ATTLIST title_en
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT description_de EMPTY>
+<!ATTLIST description_de
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT description_en EMPTY>
+<!ATTLIST description_en
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT teaser_de EMPTY>
+<!ATTLIST teaser_de
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT teaser_en EMPTY>
+<!ATTLIST teaser_en
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT work_info_de EMPTY>
+<!ATTLIST work_info_de
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT work_info_en EMPTY>
+<!ATTLIST work_info_en
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT contents_de EMPTY>
+<!ATTLIST contents_de
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT contents_en EMPTY>
+<!ATTLIST contents_en
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT press_text_de EMPTY>
+<!ATTLIST press_text_de
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT press_text_en EMPTY>
+<!ATTLIST press_text_en
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT credits_de EMPTY>
+<!ATTLIST credits_de
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT credits_en EMPTY>
+<!ATTLIST credits_en
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT concert_program_de EMPTY>
+<!ATTLIST concert_program_de
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT concert_program_en EMPTY>
+<!ATTLIST concert_program_en
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT supporting_program_de EMPTY>
+<!ATTLIST supporting_program_de
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT supporting_program_en EMPTY>
+<!ATTLIST supporting_program_en
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT remarks_de EMPTY>
+<!ATTLIST remarks_de
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT remarks_en EMPTY>
+<!ATTLIST remarks_en
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT duration_text_de EMPTY>
+<!ATTLIST duration_text_de
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT duration_text_en EMPTY>
+<!ATTLIST duration_text_en
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT subtitles_text_de EMPTY>
+<!ATTLIST subtitles_text_de
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT subtitles_text_en EMPTY>
+<!ATTLIST subtitles_text_en
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT age_text_de EMPTY>
+<!ATTLIST age_text_de
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT age_text_en EMPTY>
+<!ATTLIST age_text_en
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT organizers EMPTY>
+<!ATTLIST organizers
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT free_entrance (#PCDATA)>
+<!ATTLIST free_entrance
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT price_from (#PCDATA)>
+<!ATTLIST price_from
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT price_till (#PCDATA)>
+<!ATTLIST price_till
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT tickets_website EMPTY>
+<!ATTLIST tickets_website
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT price_information_de EMPTY>
+<!ATTLIST price_information_de
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT price_information_en EMPTY>
+<!ATTLIST price_information_en
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT location_id (#PCDATA)>
+<!ATTLIST location_id
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT play_locations (location_id)+>
+<!ATTLIST play_locations
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT play_stages (stage_id)+>
+<!ATTLIST play_stages
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT stage_id (#PCDATA)>
+<!ATTLIST stage_id
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT location_title EMPTY>
+<!ATTLIST location_title
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT street_address EMPTY>
+<!ATTLIST street_address
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT street_address2 EMPTY>
+<!ATTLIST street_address2
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT postal_code EMPTY>
+<!ATTLIST postal_code
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT city EMPTY>
+<!ATTLIST city
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT latitude (#PCDATA)>
+<!ATTLIST latitude
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT longitude (#PCDATA)>
+<!ATTLIST longitude
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT characteristics (characteristic_id)+>
+<!ATTLIST characteristics
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT characteristic_id (#PCDATA)>
+<!ATTLIST characteristic_id
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT leaders (leader)+>
+<!ATTLIST leaders
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT leader (prefix_id,first_name,last_name,function_de,
+                  function_en)>
+<!ATTLIST leader
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT function_de (#PCDATA)>
+<!ATTLIST function_de
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT function_en (#PCDATA)>
+<!ATTLIST function_en
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT authors (author)+>
+<!ATTLIST authors
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT participants (participant)+>
+<!ATTLIST participants
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT participant (prefix_id,first_name,last_name,type_id,role_de,
+                       role_en,instrument_de,instrument_en)>
+<!ATTLIST participant
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT role_de (#PCDATA)>
+<!ATTLIST role_de
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT role_en (#PCDATA)>
+<!ATTLIST role_en
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT instrument_de (#PCDATA)>
+<!ATTLIST instrument_de
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT instrument_en (#PCDATA)>
+<!ATTLIST instrument_en
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT videos (video)+>
+<!ATTLIST videos
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT video (creation_date,modified_date,title_de,title_en,embed,
+                 sort_order)>
+<!ATTLIST video
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT live_streams (live_stream)+>
+<!ATTLIST live_streams
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT live_stream (creation_date,modified_date,title_de,title_en,
+                       embed,sort_order)>
+<!ATTLIST live_stream
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT images (image)+>
+<!ATTLIST images
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT image (creation_date,modified_date,url,title_de,title_en,
+                 description_de,description_en,author,
+                 copyright_restrictions,copyright,sort_order)>
+<!ATTLIST image
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT copyright_restrictions (#PCDATA)>
+<!ATTLIST copyright_restrictions
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT pdfs (pdf)+>
+<!ATTLIST pdfs
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT pdf (creation_date,modified_date,url,title_de,title_en,
+               description_de,description_en,author,copyright,
+               sort_order)>
+<!ATTLIST pdf
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT url (#PCDATA)>
+<!ATTLIST url
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT language_and_subtitles_id (#PCDATA)>
+<!ATTLIST language_and_subtitles_id
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT sponsors (sponsor)+>
+<!ATTLIST sponsors
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT sponsor (creation_date,modified_date,website,image_url,
+                   title_de,title_en)>
+<!ATTLIST sponsor
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT website (#PCDATA)>
+<!ATTLIST website
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT image_url (#PCDATA)>
+<!ATTLIST image_url
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT prefix_id (#PCDATA)>
+<!ATTLIST prefix_id
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT first_name (#PCDATA)>
+<!ATTLIST first_name
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT last_name (#PCDATA)>
+<!ATTLIST last_name
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT author (prefix_id,first_name,last_name,type_id)?>
+<!ATTLIST author
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT type_id (#PCDATA)>
+<!ATTLIST type_id
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT embed EMPTY>
+<!ATTLIST embed
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT sort_order (#PCDATA)>
+<!ATTLIST sort_order
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT copyright (#PCDATA)>
+<!ATTLIST copyright
+  xmlns CDATA #FIXED ''>
