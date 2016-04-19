@@ -1,0 +1,1495 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="meta">
+          <xs:annotation>
+            <xs:documentation>What is the maximal amount of productions per page?</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:anyURI" name="next"/>
+              <xs:element type="xs:anyURI" name="previous">
+                <xs:annotation>
+                  <xs:documentation>The API URL for the next page (or empty string for the last page)</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element type="xs:short" name="total_count">
+                <xs:annotation>
+                  <xs:documentation>The API URL for the previous page (or empty string for the first page)</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element type="xs:byte" name="items_per_page">
+                <xs:annotation>
+                  <xs:documentation>How many productions are there in total?</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="productions">
+          <xs:annotation>
+            <xs:documentation>...</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="production">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:byte" name="id"/>
+                    <xs:element type="xs:dateTime" name="creation_date">
+                      <xs:annotation>
+                        <xs:documentation>Unique production ID on your website</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:dateTime" name="modified_date">
+                      <xs:annotation>
+                        <xs:documentation>Production creation timestamp in ISO 8601 format</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="status">
+                      <xs:annotation>
+                        <xs:documentation>Production modification timestamp in ISO 8601 format</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="prefix_de">
+                      <xs:annotation>
+                        <xs:documentation>Publishing status, one of: "draft", "published", "not_listed", "expired", "trashed"</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="prefix_en">
+                      <xs:annotation>
+                        <xs:documentation>Title prefix in German</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="title_de">
+                      <xs:annotation>
+                        <xs:documentation>Title prefix in English</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="title_en">
+                      <xs:annotation>
+                        <xs:documentation>Title in German</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="subtitle_de">
+                      <xs:annotation>
+                        <xs:documentation>Title in English</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="subtitle_en">
+                      <xs:annotation>
+                        <xs:documentation>Subtitle (Unterüberschrift) in German</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="original_de">
+                      <xs:annotation>
+                        <xs:documentation>Subtitle (Unterüberschrift) in English</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="original_en">
+                      <xs:annotation>
+                        <xs:documentation>Original title in German</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:anyURI" name="website_de">
+                      <xs:annotation>
+                        <xs:documentation>Original title in English</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:anyURI" name="website_en">
+                      <xs:annotation>
+                        <xs:documentation>A link to the your website page about this production in German</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="description_de">
+                      <xs:annotation>
+                        <xs:documentation>A link to the your website page about this production in English</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="description_en">
+                      <xs:annotation>
+                        <xs:documentation>Plain-text description in German</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="teaser_de">
+                      <xs:annotation>
+                        <xs:documentation>Plain-text description in English</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="teaser_en">
+                      <xs:annotation>
+                        <xs:documentation>Plain-text teaser in German</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="work_info_de">
+                      <xs:annotation>
+                        <xs:documentation>Plain-text teaser in English</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="work_info_en">
+                      <xs:annotation>
+                        <xs:documentation>Plain-text work info in German</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="contents_de">
+                      <xs:annotation>
+                        <xs:documentation>Plain-text work info in English</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="contents_en">
+                      <xs:annotation>
+                        <xs:documentation>Plain-text contents in German</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="press_text_de">
+                      <xs:annotation>
+                        <xs:documentation>Plain-text contents in English</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="press_text_en">
+                      <xs:annotation>
+                        <xs:documentation>Plain-text press text in German</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="credits_de">
+                      <xs:annotation>
+                        <xs:documentation>Plain-text press text in English</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="credits_en">
+                      <xs:annotation>
+                        <xs:documentation>Plain-text credits in German</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="concert_program_de">
+                      <xs:annotation>
+                        <xs:documentation>Plain-text credits in English</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="concert_program_en">
+                      <xs:annotation>
+                        <xs:documentation>Plain-text concert program in German</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="supporting_program_de">
+                      <xs:annotation>
+                        <xs:documentation>Plain-text concert program in English</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="supporting_program_en">
+                      <xs:annotation>
+                        <xs:documentation>Plain-text supporting program in German</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="remarks_de">
+                      <xs:annotation>
+                        <xs:documentation>Plain-text supporting program in English</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="remarks_en">
+                      <xs:annotation>
+                        <xs:documentation>Plain-text remarks in German</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="duration_text_de">
+                      <xs:annotation>
+                        <xs:documentation>Plain-text remarks in English</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="duration_text_en">
+                      <xs:annotation>
+                        <xs:documentation>Plain-text information about duration in German</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="subtitles_text_de">
+                      <xs:annotation>
+                        <xs:documentation>Plain-text information about duration in English</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="subtitles_text_en">
+                      <xs:annotation>
+                        <xs:documentation>Plain-text information about subtitles in German</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="age_text_de">
+                      <xs:annotation>
+                        <xs:documentation>Plain-text information about subtitles in English</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="age_text_en">
+                      <xs:annotation>
+                        <xs:documentation>Plain-text information about the age of the audience in German</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="ensembles">
+                      <xs:annotation>
+                        <xs:documentation>Plain-text information about the age of the audience in English</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="organizers">
+                      <xs:annotation>
+                        <xs:documentation>Ensemble or ensembles playing in this production</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="in_cooperation_with">
+                      <xs:annotation>
+                        <xs:documentation>Organizer or organizers of this production</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="free_entrance">
+                      <xs:annotation>
+                        <xs:documentation>Cooperator or cooperators</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:float" name="price_from">
+                      <xs:annotation>
+                        <xs:documentation>Is the entrance free? One of "True" or "False"</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:float" name="price_till">
+                      <xs:annotation>
+                        <xs:documentation>Price from in Euros (decimal, no currency sign included)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="tickets_website">
+                      <xs:annotation>
+                        <xs:documentation>Price till in Euros (decimal, no currency sign included)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="price_information_de">
+                      <xs:annotation>
+                        <xs:documentation>The URL of a website page where you can buy tickets to this production</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="price_information_en">
+                      <xs:annotation>
+                        <xs:documentation>Additional plain-text information about prices in German</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="age_from">
+                      <xs:annotation>
+                        <xs:documentation>Additional plain-text information about prices in English</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="age_till">
+                      <xs:annotation>
+                        <xs:documentation>Audience age from (integer)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="edu_offer_website">
+                      <xs:annotation>
+                        <xs:documentation>Audience age till (integer)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="in_program_of">
+                      <xs:annotation>
+                        <xs:documentation>The URL of a website page with educational offer  ...</xs:documentation>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:byte" name="location_id" maxOccurs="unbounded" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>Theaters organizing this production. Check the list of available IDs at the specification</xs:documentation>
+                            </xs:annotation>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="play_locations">
+                      <xs:annotation>
+                        <xs:documentation>...</xs:documentation>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:byte" name="location_id">
+                            <xs:annotation>
+                              <xs:documentation>Theaters where this production takes place. Check the list of available IDs at the specification</xs:documentation>
+                            </xs:annotation>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="play_stages">
+                      <xs:annotation>
+                        <xs:documentation>...</xs:documentation>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:byte" name="stage_id">
+                            <xs:annotation>
+                              <xs:documentation>Stages where this production takes place. Check the list of available IDs at the specification</xs:documentation>
+                            </xs:annotation>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element type="xs:string" name="location_title"/>
+                    <xs:element type="xs:string" name="street_address">
+                      <xs:annotation>
+                        <xs:documentation>Location title (if play_locations is empty)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="street_address2">
+                      <xs:annotation>
+                        <xs:documentation>Street address (first line) of the location (if play_locations is empty)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="postal_code">
+                      <xs:annotation>
+                        <xs:documentation>Street address (second line) of the location (if play_locations is empty)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:string" name="city">
+                      <xs:annotation>
+                        <xs:documentation>Postal code of the location (if play_locations is empty)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:float" name="latitude">
+                      <xs:annotation>
+                        <xs:documentation>City of the location (if play_locations is empty)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:float" name="longitude">
+                      <xs:annotation>
+                        <xs:documentation>Latitude of the location (if play_locations is empty, decimal format)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="categories">
+                      <xs:annotation>
+                        <xs:documentation>Longitude of the location (if play_locations is empty, decimal format)  ...</xs:documentation>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:byte" name="category_id" maxOccurs="unbounded" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>Categories. Check the list of available IDs at the specification</xs:documentation>
+                            </xs:annotation>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="characteristics">
+                      <xs:annotation>
+                        <xs:documentation>...</xs:documentation>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:byte" name="characteristic_id" maxOccurs="unbounded" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>Characteristics. Check the list of available IDs at the specification</xs:documentation>
+                            </xs:annotation>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="leaders">
+                      <xs:annotation>
+                        <xs:documentation>...</xs:documentation>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="leader">
+                            <xs:annotation>
+                              <xs:documentation>Description in English what this leader is doing for the production</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="prefix_id"/>
+                                <xs:element type="xs:string" name="first_name">
+                                  <xs:annotation>
+                                    <xs:documentation>One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr"</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="last_name">
+                                  <xs:annotation>
+                                    <xs:documentation>First name of the person</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="function_de">
+                                  <xs:annotation>
+                                    <xs:documentation>Last name of the person</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="function_en">
+                                  <xs:annotation>
+                                    <xs:documentation>Description in German what this leader is doing for the production</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="authors">
+                      <xs:annotation>
+                        <xs:documentation>...</xs:documentation>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="author">
+                            <xs:annotation>
+                              <xs:documentation>What did this author do in the production? One of: "komponist", "autor", "uebersetzer"</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="prefix_id"/>
+                                <xs:element type="xs:string" name="first_name">
+                                  <xs:annotation>
+                                    <xs:documentation>One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr"</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="last_name">
+                                  <xs:annotation>
+                                    <xs:documentation>First name of the person</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="type_id">
+                                  <xs:annotation>
+                                    <xs:documentation>Last name of the person</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="participants">
+                      <xs:annotation>
+                        <xs:documentation>...</xs:documentation>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="participant" maxOccurs="unbounded" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>Instrument in English  Instrument in English</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="prefix_id"/>
+                                <xs:element type="xs:string" name="first_name">
+                                  <xs:annotation>
+                                    <xs:documentation>One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr"  One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr"</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="last_name">
+                                  <xs:annotation>
+                                    <xs:documentation>First name of the person  First name of the person</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="type_id">
+                                  <xs:annotation>
+                                    <xs:documentation>Last name of the person  Last name of the person</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="role_de">
+                                  <xs:annotation>
+                                    <xs:documentation>Involvement type ID. Check the list of available IDs at the specification  Involvement type ID. Check the list of available IDs at the specification</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="role_en">
+                                  <xs:annotation>
+                                    <xs:documentation>Role in German  Role in German</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="instrument_de">
+                                  <xs:annotation>
+                                    <xs:documentation>Role in English  Role in English</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="instrument_en">
+                                  <xs:annotation>
+                                    <xs:documentation>Instrument in German  Instrument in German</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="videos">
+                      <xs:annotation>
+                        <xs:documentation>...</xs:documentation>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="video">
+                            <xs:annotation>
+                              <xs:documentation>Sort order of the video (integer)</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:dateTime" name="creation_date"/>
+                                <xs:element type="xs:dateTime" name="modified_date">
+                                  <xs:annotation>
+                                    <xs:documentation>Creation timestamp in ISO 8601 format</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="title_de">
+                                  <xs:annotation>
+                                    <xs:documentation>Modification timestamp in ISO 8601 format</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="title_en">
+                                  <xs:annotation>
+                                    <xs:documentation>Title in German</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="embed">
+                                  <xs:annotation>
+                                    <xs:documentation>Title in English</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:byte" name="sort_order">
+                                  <xs:annotation>
+                                    <xs:documentation>HTML embed code</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="live_streams">
+                      <xs:annotation>
+                        <xs:documentation>...</xs:documentation>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="live_stream">
+                            <xs:annotation>
+                              <xs:documentation>Sort order of the video (integer)</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:dateTime" name="creation_date"/>
+                                <xs:element type="xs:dateTime" name="modified_date">
+                                  <xs:annotation>
+                                    <xs:documentation>Creation timestamp in ISO 8601 format</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="title_de">
+                                  <xs:annotation>
+                                    <xs:documentation>Modification timestamp in ISO 8601 format</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="title_en">
+                                  <xs:annotation>
+                                    <xs:documentation>Title in German</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="embed">
+                                  <xs:annotation>
+                                    <xs:documentation>Title in English</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:byte" name="sort_order">
+                                  <xs:annotation>
+                                    <xs:documentation>HTML embed code</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="images">
+                      <xs:annotation>
+                        <xs:documentation>...</xs:documentation>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="image">
+                            <xs:annotation>
+                              <xs:documentation>Sort order of the image (integer)</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:dateTime" name="creation_date"/>
+                                <xs:element type="xs:dateTime" name="modified_date">
+                                  <xs:annotation>
+                                    <xs:documentation>Creation timestamp in ISO 8601 format</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:anyURI" name="url">
+                                  <xs:annotation>
+                                    <xs:documentation>Modification timestamp in ISO 8601 format</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="title_de">
+                                  <xs:annotation>
+                                    <xs:documentation>URL of the original (largest scale) image in JPG or PNG format</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="title_en">
+                                  <xs:annotation>
+                                    <xs:documentation>Title in German</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="description_de">
+                                  <xs:annotation>
+                                    <xs:documentation>Title in English</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="description_en">
+                                  <xs:annotation>
+                                    <xs:documentation>Plain-text description in German</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="author">
+                                  <xs:annotation>
+                                    <xs:documentation>Plain-text description in English</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="copyright_restrictions">
+                                  <xs:annotation>
+                                    <xs:documentation>Author's first and last name</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="copyright">
+                                  <xs:annotation>
+                                    <xs:documentation>One of: "general_use" or "protected"</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:byte" name="sort_order">
+                                  <xs:annotation>
+                                    <xs:documentation>Copyright information</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="pdfs">
+                      <xs:annotation>
+                        <xs:documentation>...</xs:documentation>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="pdf">
+                            <xs:annotation>
+                              <xs:documentation>Sort order of the image (integer)</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:dateTime" name="creation_date"/>
+                                <xs:element type="xs:dateTime" name="modified_date">
+                                  <xs:annotation>
+                                    <xs:documentation>Creation timestamp in ISO 8601 format</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:anyURI" name="url">
+                                  <xs:annotation>
+                                    <xs:documentation>Modification timestamp in ISO 8601 format</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="title_de">
+                                  <xs:annotation>
+                                    <xs:documentation>URL of the PDF document</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="title_en">
+                                  <xs:annotation>
+                                    <xs:documentation>Title in German</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="description_de">
+                                  <xs:annotation>
+                                    <xs:documentation>Title in English</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="description_en">
+                                  <xs:annotation>
+                                    <xs:documentation>Plain-text description in German</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="author">
+                                  <xs:annotation>
+                                    <xs:documentation>Plain-text description in English</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="copyright">
+                                  <xs:annotation>
+                                    <xs:documentation>Author's first and last name</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:byte" name="sort_order">
+                                  <xs:annotation>
+                                    <xs:documentation>Copyright information</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="social_media">
+                      <xs:annotation>
+                        <xs:documentation>...</xs:documentation>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="social_media_channel">
+                            <xs:annotation>
+                              <xs:documentation>URL of the social media profile</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="channel_type"/>
+                                <xs:element type="xs:string" name="url">
+                                  <xs:annotation>
+                                    <xs:documentation>"Facebook", "Twitter", "Google+", etc.</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element type="xs:string" name="language_and_subtitles_id"/>
+                    <xs:element name="sponsors">
+                      <xs:annotation>
+                        <xs:documentation>Language and subtitles. Check the list of available IDs at the specification  ...</xs:documentation>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="sponsor">
+                            <xs:annotation>
+                              <xs:documentation>Title in English</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:dateTime" name="creation_date"/>
+                                <xs:element type="xs:dateTime" name="modified_date">
+                                  <xs:annotation>
+                                    <xs:documentation>Creation timestamp in ISO 8601 format</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:anyURI" name="website">
+                                  <xs:annotation>
+                                    <xs:documentation>Modification timestamp in ISO 8601 format</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:anyURI" name="image_url">
+                                  <xs:annotation>
+                                    <xs:documentation>URL of the sponsor website</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="title_de">
+                                  <xs:annotation>
+                                    <xs:documentation>URL of the sponsor logo in JPG or PNG format</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="title_en">
+                                  <xs:annotation>
+                                    <xs:documentation>Title in German</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="events">
+                      <xs:annotation>
+                        <xs:documentation>...</xs:documentation>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="event">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:byte" name="id"/>
+                                <xs:element type="xs:dateTime" name="creation_date">
+                                  <xs:annotation>
+                                    <xs:documentation>Unique event ID on your website</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:dateTime" name="modified_date">
+                                  <xs:annotation>
+                                    <xs:documentation>Event creation timestamp in ISO 8601 format</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:date" name="start_date">
+                                  <xs:annotation>
+                                    <xs:documentation>Event modification timestamp in ISO 8601 format</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:date" name="end_date">
+                                  <xs:annotation>
+                                    <xs:documentation>Start date in ISO 8601 format</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="start_time">
+                                  <xs:annotation>
+                                    <xs:documentation>End date in ISO 8601 format</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="end_time">
+                                  <xs:annotation>
+                                    <xs:documentation>Start time in ISO 8601 format</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="duration">
+                                  <xs:annotation>
+                                    <xs:documentation>End time in ISO 8601 format</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:byte" name="pauses">
+                                  <xs:annotation>
+                                    <xs:documentation>Duration time in ISO 8601 format</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element name="play_locations">
+                                  <xs:annotation>
+                                    <xs:documentation>Amount of pauses (integer)  ...</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element type="xs:byte" name="location_id">
+                                        <xs:annotation>
+                                          <xs:documentation>Theaters where this event takes place. Check the list of available IDs at the specification</xs:documentation>
+                                        </xs:annotation>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="play_stages">
+                                  <xs:annotation>
+                                    <xs:documentation>...</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element type="xs:byte" name="stage_id">
+                                        <xs:annotation>
+                                          <xs:documentation>Stages where this event takes place. Check the list of available IDs at the specification</xs:documentation>
+                                        </xs:annotation>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element type="xs:string" name="location_title"/>
+                                <xs:element type="xs:string" name="street_address">
+                                  <xs:annotation>
+                                    <xs:documentation>Location title (if play_locations is empty)</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="street_address2">
+                                  <xs:annotation>
+                                    <xs:documentation>Street address (first line) of the location (if play_locations is empty)</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="postal_code">
+                                  <xs:annotation>
+                                    <xs:documentation>Street address (second line) of the location (if play_locations is empty)</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="city">
+                                  <xs:annotation>
+                                    <xs:documentation>Postal code of the location (if play_locations is empty)</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:float" name="latitude">
+                                  <xs:annotation>
+                                    <xs:documentation>City of the location (if play_locations is empty)</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:float" name="longitude">
+                                  <xs:annotation>
+                                    <xs:documentation>Latitude of the location (if play_locations is empty, decimal format)</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="organizers">
+                                  <xs:annotation>
+                                    <xs:documentation>Longitude of the location (if play_locations is empty, decimal format)</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="description_de"/>
+                                <xs:element type="xs:string" name="description_en">
+                                  <xs:annotation>
+                                    <xs:documentation>Plain-text description in German</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="teaser_de">
+                                  <xs:annotation>
+                                    <xs:documentation>Plain-text description in English</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="teaser_en">
+                                  <xs:annotation>
+                                    <xs:documentation>Plain-text teaser in German</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="work_info_de">
+                                  <xs:annotation>
+                                    <xs:documentation>Plain-text teaser in English</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="work_info_en">
+                                  <xs:annotation>
+                                    <xs:documentation>Plain-text work info in German</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="contents_de">
+                                  <xs:annotation>
+                                    <xs:documentation>Plain-text work info in English</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="contents_en">
+                                  <xs:annotation>
+                                    <xs:documentation>Plain-text contents in German</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="press_text_de">
+                                  <xs:annotation>
+                                    <xs:documentation>Plain-text contents in English</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="press_text_en">
+                                  <xs:annotation>
+                                    <xs:documentation>Plain-text press text in German</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="credits_de">
+                                  <xs:annotation>
+                                    <xs:documentation>Plain-text press text in English</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="credits_en">
+                                  <xs:annotation>
+                                    <xs:documentation>Plain-text credits in German</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="concert_program_de">
+                                  <xs:annotation>
+                                    <xs:documentation>Plain-text credits in English</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="concert_program_en">
+                                  <xs:annotation>
+                                    <xs:documentation>Plain-text concert program in German</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="supporting_program_de">
+                                  <xs:annotation>
+                                    <xs:documentation>Plain-text concert program in English</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="supporting_program_en">
+                                  <xs:annotation>
+                                    <xs:documentation>Plain-text supporting program in German</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="remarks_de">
+                                  <xs:annotation>
+                                    <xs:documentation>Plain-text supporting program in English</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="remarks_en">
+                                  <xs:annotation>
+                                    <xs:documentation>Plain-text remarks in German</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="duration_text_de">
+                                  <xs:annotation>
+                                    <xs:documentation>Plain-text remarks in English</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="duration_text_en">
+                                  <xs:annotation>
+                                    <xs:documentation>Plain-text information about duration in German</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="subtitles_text_de">
+                                  <xs:annotation>
+                                    <xs:documentation>Plain-text information about duration in English</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="subtitles_text_en">
+                                  <xs:annotation>
+                                    <xs:documentation>Plain-text information about subtitles in German</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="age_text_de">
+                                  <xs:annotation>
+                                    <xs:documentation>Plain-text information about subtitles in English</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="age_text_en">
+                                  <xs:annotation>
+                                    <xs:documentation>Plain-text information about the age of the audience in German</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="free_entrance">
+                                  <xs:annotation>
+                                    <xs:documentation>Plain-text information about the age of the audience in English</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:float" name="price_from">
+                                  <xs:annotation>
+                                    <xs:documentation>Is the entrance free? One of "True" or "False"</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:float" name="price_till">
+                                  <xs:annotation>
+                                    <xs:documentation>Price from in Euros (decimal, no currency sign included)</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="tickets_website">
+                                  <xs:annotation>
+                                    <xs:documentation>Price till in Euros (decimal, no currency sign included)</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="price_information_de">
+                                  <xs:annotation>
+                                    <xs:documentation>The URL of a website page where you can buy tickets to this event</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="price_information_en">
+                                  <xs:annotation>
+                                    <xs:documentation>Additional plain-text information about prices in German</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="event_status">
+                                  <xs:annotation>
+                                    <xs:documentation>Additional plain-text information about prices in English</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element type="xs:string" name="ticket_status">
+                                  <xs:annotation>
+                                    <xs:documentation>Event status. One of: "takes_place" or "canceled"</xs:documentation>
+                                  </xs:annotation>
+                                </xs:element>
+                                <xs:element name="characteristics">
+                                  <xs:annotation>
+                                    <xs:documentation>Tickets' status. One of: "tickets_@_box_office" or "sold_out"  ...</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element type="xs:byte" name="characteristic_id" maxOccurs="unbounded" minOccurs="0">
+                                        <xs:annotation>
+                                          <xs:documentation>Characteristics. Check the list of available IDs at the specification</xs:documentation>
+                                        </xs:annotation>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="leaders">
+                                  <xs:annotation>
+                                    <xs:documentation>...</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="leader">
+                                        <xs:annotation>
+                                          <xs:documentation>Description in English what this leader is doing for the event</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element type="xs:string" name="prefix_id"/>
+                                            <xs:element type="xs:string" name="first_name">
+                                              <xs:annotation>
+                                                <xs:documentation>One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr"</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="last_name">
+                                              <xs:annotation>
+                                                <xs:documentation>First name of the person</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="function_de">
+                                              <xs:annotation>
+                                                <xs:documentation>Last name of the person</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="function_en">
+                                              <xs:annotation>
+                                                <xs:documentation>Description in German what this leader is doing for the event</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="authors">
+                                  <xs:annotation>
+                                    <xs:documentation>...</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="author">
+                                        <xs:annotation>
+                                          <xs:documentation>What did this author do in the event? One of: "komponist", "autor", "uebersetzer"</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element type="xs:string" name="prefix_id"/>
+                                            <xs:element type="xs:string" name="first_name">
+                                              <xs:annotation>
+                                                <xs:documentation>One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr"</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="last_name">
+                                              <xs:annotation>
+                                                <xs:documentation>First name of the person</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="type_id">
+                                              <xs:annotation>
+                                                <xs:documentation>Last name of the person</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="participants">
+                                  <xs:annotation>
+                                    <xs:documentation>...</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="participant" maxOccurs="unbounded" minOccurs="0">
+                                        <xs:annotation>
+                                          <xs:documentation>Instrument in English  Instrument in English</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element type="xs:string" name="prefix_id"/>
+                                            <xs:element type="xs:string" name="first_name">
+                                              <xs:annotation>
+                                                <xs:documentation>One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr"  One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr"</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="last_name">
+                                              <xs:annotation>
+                                                <xs:documentation>First name of the person  First name of the person</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="type_id">
+                                              <xs:annotation>
+                                                <xs:documentation>Last name of the person  Last name of the person</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="role_de">
+                                              <xs:annotation>
+                                                <xs:documentation>Involvement type ID. Check the list of available IDs at the specification  Involvement type ID. Check the list of available IDs at the specification</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="role_en">
+                                              <xs:annotation>
+                                                <xs:documentation>Role in German  Role in German</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="instrument_de">
+                                              <xs:annotation>
+                                                <xs:documentation>Role in English  Role in English</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="instrument_en">
+                                              <xs:annotation>
+                                                <xs:documentation>Instrument in German  Instrument in German</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="videos">
+                                  <xs:annotation>
+                                    <xs:documentation>...</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="video">
+                                        <xs:annotation>
+                                          <xs:documentation>Sort order of the video (integer)</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element type="xs:dateTime" name="creation_date"/>
+                                            <xs:element type="xs:dateTime" name="modified_date">
+                                              <xs:annotation>
+                                                <xs:documentation>Creation timestamp in ISO 8601 format</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="title_de">
+                                              <xs:annotation>
+                                                <xs:documentation>Modification timestamp in ISO 8601 format</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="title_en">
+                                              <xs:annotation>
+                                                <xs:documentation>Title in German</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="embed">
+                                              <xs:annotation>
+                                                <xs:documentation>Title in English</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:byte" name="sort_order">
+                                              <xs:annotation>
+                                                <xs:documentation>HTML embed code</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="live_streams">
+                                  <xs:annotation>
+                                    <xs:documentation>...</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="live_stream">
+                                        <xs:annotation>
+                                          <xs:documentation>Sort order of the video (integer)</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element type="xs:dateTime" name="creation_date"/>
+                                            <xs:element type="xs:dateTime" name="modified_date">
+                                              <xs:annotation>
+                                                <xs:documentation>Creation timestamp in ISO 8601 format</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="title_de">
+                                              <xs:annotation>
+                                                <xs:documentation>Modification timestamp in ISO 8601 format</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="title_en">
+                                              <xs:annotation>
+                                                <xs:documentation>Title in German</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="embed">
+                                              <xs:annotation>
+                                                <xs:documentation>Title in English</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:byte" name="sort_order">
+                                              <xs:annotation>
+                                                <xs:documentation>HTML embed code</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="images">
+                                  <xs:annotation>
+                                    <xs:documentation>...</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="image">
+                                        <xs:annotation>
+                                          <xs:documentation>Sort order of the image (integer)</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element type="xs:dateTime" name="creation_date"/>
+                                            <xs:element type="xs:dateTime" name="modified_date">
+                                              <xs:annotation>
+                                                <xs:documentation>Creation timestamp in ISO 8601 format</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:anyURI" name="url">
+                                              <xs:annotation>
+                                                <xs:documentation>Modification timestamp in ISO 8601 format</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="title_de">
+                                              <xs:annotation>
+                                                <xs:documentation>URL of the original (largest scale) image in JPG or PNG format</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="title_en">
+                                              <xs:annotation>
+                                                <xs:documentation>Title in German</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="description_de">
+                                              <xs:annotation>
+                                                <xs:documentation>Title in English</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="description_en">
+                                              <xs:annotation>
+                                                <xs:documentation>Plain-text description in German</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="author">
+                                              <xs:annotation>
+                                                <xs:documentation>Plain-text description in English</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="copyright_restrictions">
+                                              <xs:annotation>
+                                                <xs:documentation>Author's first and last name</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="copyright">
+                                              <xs:annotation>
+                                                <xs:documentation>One of: "general_use" or "protected"</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:byte" name="sort_order">
+                                              <xs:annotation>
+                                                <xs:documentation>Copyright information</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="pdfs">
+                                  <xs:annotation>
+                                    <xs:documentation>...</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="pdf">
+                                        <xs:annotation>
+                                          <xs:documentation>Sort order of the image (integer)</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element type="xs:dateTime" name="creation_date"/>
+                                            <xs:element type="xs:dateTime" name="modified_date">
+                                              <xs:annotation>
+                                                <xs:documentation>Creation timestamp in ISO 8601 format</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:anyURI" name="url">
+                                              <xs:annotation>
+                                                <xs:documentation>Modification timestamp in ISO 8601 format</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="title_de">
+                                              <xs:annotation>
+                                                <xs:documentation>URL of the PDF document</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="title_en">
+                                              <xs:annotation>
+                                                <xs:documentation>Title in German</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="description_de">
+                                              <xs:annotation>
+                                                <xs:documentation>Title in English</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="description_en">
+                                              <xs:annotation>
+                                                <xs:documentation>Plain-text description in German</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="author">
+                                              <xs:annotation>
+                                                <xs:documentation>Plain-text description in English</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="copyright">
+                                              <xs:annotation>
+                                                <xs:documentation>Author's first and last name</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:byte" name="sort_order">
+                                              <xs:annotation>
+                                                <xs:documentation>Copyright information</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element type="xs:string" name="language_and_subtitles_id"/>
+                                <xs:element name="sponsors">
+                                  <xs:annotation>
+                                    <xs:documentation>Language and subtitles. Check the list of available IDs at the specification  ...</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="sponsor">
+                                        <xs:annotation>
+                                          <xs:documentation>Title in English</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element type="xs:dateTime" name="creation_date"/>
+                                            <xs:element type="xs:dateTime" name="modified_date">
+                                              <xs:annotation>
+                                                <xs:documentation>Creation timestamp in ISO 8601 format</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:anyURI" name="website">
+                                              <xs:annotation>
+                                                <xs:documentation>Modification timestamp in ISO 8601 format</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:anyURI" name="image_url">
+                                              <xs:annotation>
+                                                <xs:documentation>URL of the sponsor website</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="title_de">
+                                              <xs:annotation>
+                                                <xs:documentation>URL of the sponsor logo in JPG or PNG format</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="title_en">
+                                              <xs:annotation>
+                                                <xs:documentation>Title in German</xs:documentation>
+                                              </xs:annotation>
+                                            </xs:element>
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

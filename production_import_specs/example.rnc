@@ -1,0 +1,311 @@
+default namespace = ""
+
+start =
+  element response {
+    element meta {
+      element next { xsd:anyURI },
+      element previous { xsd:anyURI },
+      element total_count { xsd:integer },
+      element items_per_page { xsd:integer }
+    },
+    element productions {
+      element production {
+        id,
+        creation_date,
+        modified_date,
+        element status { xsd:NCName },
+        element prefix_de { empty },
+        element prefix_en { empty },
+        title_de,
+        title_en,
+        element subtitle_de { empty },
+        element subtitle_en { empty },
+        element original_de { empty },
+        element original_en { empty },
+        element website_de { xsd:anyURI },
+        element website_en { xsd:anyURI },
+        description_de,
+        description_en,
+        teaser_de,
+        teaser_en,
+        work_info_de,
+        work_info_en,
+        contents_de,
+        contents_en,
+        press_text_de,
+        press_text_en,
+        credits_de,
+        credits_en,
+        concert_program_de,
+        concert_program_en,
+        supporting_program_de,
+        supporting_program_en,
+        remarks_de,
+        remarks_en,
+        duration_text_de,
+        duration_text_en,
+        subtitles_text_de,
+        subtitles_text_en,
+        age_text_de,
+        age_text_en,
+        element ensembles { empty },
+        organizers,
+        element in_cooperation_with { empty },
+        free_entrance,
+        price_from,
+        price_till,
+        tickets_website,
+        price_information_de,
+        price_information_en,
+        element age_from { empty },
+        element age_till { empty },
+        element edu_offer_website { empty },
+        element in_program_of { location_id+ },
+        play_locations,
+        play_stages,
+        location_title,
+        street_address,
+        street_address2,
+        postal_code,
+        city,
+        latitude,
+        longitude,
+        element categories {
+          element category_id { xsd:integer }+
+        },
+        characteristics,
+        leaders,
+        authors,
+        participants,
+        videos,
+        live_streams,
+        images,
+        pdfs,
+        element social_media {
+          element social_media_channel {
+            element channel_type { xsd:NCName },
+            url
+          }
+        },
+        language_and_subtitles_id,
+        sponsors,
+        element events {
+          element event {
+            id,
+            creation_date,
+            modified_date,
+            element start_date { xsd:NMTOKEN },
+            element end_date { xsd:NMTOKEN },
+            element start_time { xsd:NMTOKEN },
+            element end_time { xsd:NMTOKEN },
+            element duration { xsd:NMTOKEN },
+            element pauses { xsd:integer },
+            play_locations,
+            play_stages,
+            location_title,
+            street_address,
+            street_address2,
+            postal_code,
+            city,
+            latitude,
+            longitude,
+            organizers,
+            description_de,
+            description_en,
+            teaser_de,
+            teaser_en,
+            work_info_de,
+            work_info_en,
+            contents_de,
+            contents_en,
+            press_text_de,
+            press_text_en,
+            credits_de,
+            credits_en,
+            concert_program_de,
+            concert_program_en,
+            supporting_program_de,
+            supporting_program_en,
+            remarks_de,
+            remarks_en,
+            duration_text_de,
+            duration_text_en,
+            subtitles_text_de,
+            subtitles_text_en,
+            age_text_de,
+            age_text_en,
+            free_entrance,
+            price_from,
+            price_till,
+            tickets_website,
+            price_information_de,
+            price_information_en,
+            element event_status { xsd:NCName },
+            element ticket_status { text },
+            characteristics,
+            leaders,
+            authors,
+            participants,
+            videos,
+            live_streams,
+            images,
+            pdfs,
+            language_and_subtitles_id,
+            sponsors
+          }
+        }
+      }
+    }
+  }
+id = element id { xsd:integer }
+creation_date = element creation_date { xsd:NMTOKEN }
+modified_date = element modified_date { xsd:NMTOKEN }
+title_de = element title_de { text }
+title_en = element title_en { text }
+description_de = element description_de { empty }
+description_en = element description_en { empty }
+teaser_de = element teaser_de { empty }
+teaser_en = element teaser_en { empty }
+work_info_de = element work_info_de { empty }
+work_info_en = element work_info_en { empty }
+contents_de = element contents_de { empty }
+contents_en = element contents_en { empty }
+press_text_de = element press_text_de { empty }
+press_text_en = element press_text_en { empty }
+credits_de = element credits_de { empty }
+credits_en = element credits_en { empty }
+concert_program_de = element concert_program_de { empty }
+concert_program_en = element concert_program_en { empty }
+supporting_program_de = element supporting_program_de { empty }
+supporting_program_en = element supporting_program_en { empty }
+remarks_de = element remarks_de { empty }
+remarks_en = element remarks_en { empty }
+duration_text_de = element duration_text_de { empty }
+duration_text_en = element duration_text_en { empty }
+subtitles_text_de = element subtitles_text_de { empty }
+subtitles_text_en = element subtitles_text_en { empty }
+age_text_de = element age_text_de { empty }
+age_text_en = element age_text_en { empty }
+organizers = element organizers { empty }
+free_entrance = element free_entrance { xsd:NCName }
+price_from = element price_from { xsd:decimal }
+price_till = element price_till { xsd:decimal }
+tickets_website = element tickets_website { empty }
+price_information_de = element price_information_de { empty }
+price_information_en = element price_information_en { empty }
+location_id = element location_id { xsd:integer }
+play_locations = element play_locations { location_id }
+play_stages =
+  element play_stages {
+    element stage_id { xsd:integer }
+  }
+location_title = element location_title { empty }
+street_address = element street_address { empty }
+street_address2 = element street_address2 { empty }
+postal_code = element postal_code { empty }
+city = element city { empty }
+latitude = element latitude { xsd:decimal }
+longitude = element longitude { xsd:decimal }
+characteristics =
+  element characteristics {
+    element characteristic_id { xsd:integer }+
+  }
+leaders =
+  element leaders {
+    element leader {
+      prefix_id,
+      first_name,
+      last_name,
+      element function_de { xsd:NCName },
+      element function_en { xsd:NCName }
+    }
+  }
+authors = element authors { author }
+participants =
+  element participants {
+    element participant {
+      prefix_id,
+      first_name,
+      last_name,
+      type_id,
+      element role_de { text },
+      element role_en { text },
+      element instrument_de { text },
+      element instrument_en { text }
+    }+
+  }
+videos =
+  element videos {
+    element video {
+      creation_date,
+      modified_date,
+      title_de,
+      title_en,
+      embed,
+      sort_order
+    }
+  }
+live_streams =
+  element live_streams {
+    element live_stream {
+      creation_date,
+      modified_date,
+      title_de,
+      title_en,
+      embed,
+      sort_order
+    }
+  }
+images =
+  element images {
+    element image {
+      creation_date,
+      modified_date,
+      url,
+      title_de,
+      title_en,
+      description_de,
+      description_en,
+      author,
+      element copyright_restrictions { xsd:NCName },
+      copyright,
+      sort_order
+    }
+  }
+pdfs =
+  element pdfs {
+    element pdf {
+      creation_date,
+      modified_date,
+      url,
+      title_de,
+      title_en,
+      description_de,
+      description_en,
+      author,
+      copyright,
+      sort_order
+    }
+  }
+url = element url { xsd:anyURI }
+language_and_subtitles_id =
+  element language_and_subtitles_id { xsd:NCName }
+sponsors =
+  element sponsors {
+    element sponsor {
+      creation_date,
+      modified_date,
+      element website { xsd:anyURI },
+      element image_url { xsd:anyURI },
+      title_de,
+      title_en
+    }
+  }
+prefix_id = element prefix_id { xsd:NCName }
+first_name = element first_name { xsd:NCName }
+last_name = element last_name { xsd:NCName }
+author = element author { (prefix_id, first_name, last_name, type_id)? }
+type_id = element type_id { xsd:NCName }
+embed = element embed { empty }
+sort_order = element sort_order { xsd:integer }
+copyright = element copyright { text }
