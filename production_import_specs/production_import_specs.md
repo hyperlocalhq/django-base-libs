@@ -103,8 +103,8 @@ The `<production>` node has the following elements:
 | `<organizers>` | xs:string | no | Organizer or organizers of this production | |
 | `<in_cooperation_with>` | xs:string | no | Cooperator or cooperators | |
 | `<free_entrance>` | xs:string | no | Is the entrance free? One of "true" or "false" | false |
-| `<price_from>` | decimal | no | Price from in Euros (no currency sign included) | 8.00 |
-| `<price_till>` | decimal | no | Price till in Euros (no currency sign included) | 12.00 |
+| `<price_from>` | xs:decimal | no | Price from in Euros (no currency sign included) | 8.00 |
+| `<price_till>` | xs:decimal | no | Price till in Euros (no currency sign included) | 12.00 |
 | `<tickets_website>` | xs:anyURI | no | The URL of a website page where you can buy tickets to this production | http://example.com/tickets/ |
 | `<price_information_de>` | xs:string | no | Additional plain-text information about prices in German | |
 | `<price_information_en>` | xs:string | no | Additional plain-text information about prices in English | |
@@ -114,13 +114,13 @@ The `<production>` node has the following elements:
 | `<in_program_of>` | list of `<location_id>` nodes | no | Theaters organizing this production | |
 | `<play_locations>` | list of `<location_id>` nodes | no | Theaters where this production takes place | |
 | `<play_stages>` | list of `<stage_id>` nodes | no | Stages where this production takes place | |
-| `<location_title>` | string | no | Location title (if `<play_locations>` is empty) | |
-| `<street_address>`| string | no | Street address (first line) of the location (if `<play_locations>` is empty) | |
+| `<location_title>` | xs:string | no | Location title (if `<play_locations>` is empty) | |
+| `<street_address>`| xs:string | no | Street address (first line) of the location (if `<play_locations>` is empty) | |
 | `<street_address2>` | xs:string | no | Street address (second line) of the location (if `<play_locations>` is empty) | |
 | `<postal_code>`| string | no | Postal code of the location (if `<play_locations>` is empty) | |
-| `<city>`| string | no | City of the location (if `<play_locations>` is empty) | |
-| `<latitude>`| decimal | no | Latitude of the location (if `<play_locations>` is empty) | 52.5192 |
-| `<longitude>` | decimal | no | Longitude of the location (if `<play_locations>` is empty) | 13.4061 |
+| `<city>`| xs:string | no | City of the location (if `<play_locations>` is empty) | |
+| `<latitude>`| xs:decimal | no | Latitude of the location (if `<play_locations>` is empty) | 52.5192 |
+| `<longitude>` | xs:decimal | no | Longitude of the location (if `<play_locations>` is empty) | 13.4061 |
 | `<categories>` | list of `<category_id>` nodes | no | Categories | |
 | `<characteristics>`| list of `<characteristic_id>` nodes | no | Production characteristics | |
 | `<leaders>` | list of `<leader>` nodes | no | Leaders | |
@@ -477,7 +477,7 @@ The `<leaders>` node contains a list of `<leader>` nodes with such content:
 |------|------|----------|-------------|---------|
 | `<prefix_id>` | xs:string | no | Prefix ID | ms-dr |
 | `<first_name>` | xs:string | yes | First name of the person | Erika |
-| `<last_name>` | string | yes | Last name of the person | Mustermann |
+| `<last_name>` | xs:string | yes | Last name of the person | Mustermann |
 | `<function_de>` | xs:NCName | yes | Description in German what this leader is doing for the production | Direktorin |
 | `<function_en>` | xs:NCName | yes | Description in English what this leader is doing for the production | Director |
 | `<sort_order>` | xs:integer | yes | Sort order | 1 |
@@ -498,10 +498,10 @@ The `<participants>` node contains a list of `<participant>` nodes with such con
 |------|------|----------|-------------|---------|
 | `<prefix_id>` | xs:string | no | Prefix ID | ms-dr |
 | `<first_name>` | xs:string | yes | First name of the person | Erika |
-| `<last_name>` | string | yes | Last name of the person | Mustermann |
+| `<last_name>` | xs:string | yes | Last name of the person | Mustermann |
 | `<involvement_type_id>` | xs:string | yes | Involvement type ID | musik |
-| `<role_de>` | string | no | Role in German | Rotkäppchen |
-| `<role_en>` | string | no | Role in English | Little Red Riding Hood |
+| `<role_de>` | xs:string | no | Role in German | Rotkäppchen |
+| `<role_en>` | xs:string | no | Role in English | Little Red Riding Hood |
 | `<instrument_de>` | xs:string | no | Instrument in German | Klavier |
 | `<instrument_en>` | xs:string | no | Instrument in English | Piano |
 | `<sort_order>` | xs:integer | yes | Sort order | 1 |
@@ -789,7 +789,7 @@ These elements are available for the `<event>` node:
 
 | Node | Type | Required | Description | Example |
 |------|------|----------|-------------|---------|
-| `<id>` | xs:string or integer | yes | Unique event ID on your website | 123 |
+| `<id>` | xs:string or xs:integer | yes | Unique event ID on your website | 123 |
 | `<creation_date>`| xs:string | yes | Production creation timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
 | `<modified_date>` | xs:string | no | Production modification timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
 | `<start_date>`| xs:string | yes | Start date in ISO 8601 format | 2016-04-14 |
@@ -800,13 +800,13 @@ These elements are available for the `<event>` node:
 | `<pauses>`| xs:integer | no | Amount of pauses | 2 |
 | `<play_locations>` | list of `<location_id>` nodes | no | Theaters where this event takes place | |
 | `<play_stages>` | list of `<stage_id>` nodes | no | Stages where this event takes place | |
-| `<location_title>` | string | no | Location title (if `<play_locations>` is empty) | |
-| `<street_address>`| string | no | Street address (first line) of the location (if `<play_locations>` is empty) | |
+| `<location_title>` | xs:string | no | Location title (if `<play_locations>` is empty) | |
+| `<street_address>`| xs:string | no | Street address (first line) of the location (if `<play_locations>` is empty) | |
 | `<street_address2>` | xs:string | no | Street address (second line) of the location (if `<play_locations>` is empty) | |
 | `<postal_code>`| string | no | Postal code of the location (if `<play_locations>` is empty) | |
-| `<city>`| string | no | City of the location (if `<play_locations>` is empty) | |
-| `<latitude>`| decimal | no | Latitude of the location (if `<play_locations>` is empty) | 52.5192 |
-| `<longitude>` | decimal | no | Longitude of the location (if `<play_locations>` is empty) | 13.4061 |
+| `<city>`| xs:string | no | City of the location (if `<play_locations>` is empty) | |
+| `<latitude>`| xs:decimal | no | Latitude of the location (if `<play_locations>` is empty) | 52.5192 |
+| `<longitude>` | xs:decimal | no | Longitude of the location (if `<play_locations>` is empty) | 13.4061 |
 | `<organizers>` | xs:string | no | Organizer or organizers of this event | |
 | `<description_de>` | xs:string | no | Plain-text description in German | |
 | `<description_en>` | xs:string | no | Plain-text description in English | |
@@ -833,8 +833,8 @@ These elements are available for the `<event>` node:
 | `<age_text_de>` | xs:string | no | Plain-text information about the age of the audience in German | |
 | `<age_text_en>` | xs:string | no | Plain-text information about the age of the audience in English | |
 | `<free_entrance>` | xs:boolean | no | Is the entrance free? One of "true" or "false" | false |
-| `<price_from>` | decimal | no | Price from in Euros (no currency sign included) | 8.00 |
-| `<price_till>` | decimal | no | Price till in Euros (no currency sign included) | 12.00 |
+| `<price_from>` | xs:decimal | no | Price from in Euros (no currency sign included) | 8.00 |
+| `<price_till>` | xs:decimal | no | Price till in Euros (no currency sign included) | 12.00 |
 | `<tickets_website>` | xs:anyURI | no | The URL of a website page where you can buy tickets to this event | http://example.com/tickets/ |
 | `<price_information_de>` | xs:string | no | Additional plain-text information about prices in German | |
 | `<price_information_en>` | xs:string | no | Additional plain-text information about prices in English | |

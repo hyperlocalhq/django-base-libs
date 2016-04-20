@@ -210,28 +210,28 @@
 <tbody>
 <tr>
 <td><code>&lt;next&gt;</code></td>
-<td>string</td>
+<td>xs:anyURI</td>
 <td>no</td>
 <td>The API URL for the next page (or empty string for the last page)</td>
 <td><a href="http://example.com/api/productions/?page=3">http://example.com/api/productions/?page=3</a></td>
 </tr>
 <tr>
 <td><code>&lt;previous&gt;</code></td>
-<td>string</td>
+<td>xs:anyURI</td>
 <td>no</td>
 <td>The API URL for the previous page (or empty string for the first page)</td>
 <td><a href="http://example.com/api/productions/?page=1">http://example.com/api/productions/?page=1</a></td>
 </tr>
 <tr>
 <td><code>&lt;total_count&gt;</code></td>
-<td>integer</td>
+<td>xs:integer</td>
 <td>yes</td>
 <td>How many productions are there in total?</td>
 <td>521</td>
 </tr>
 <tr>
 <td><code>&lt;items_per_page&gt;</code></td>
-<td>integer</td>
+<td>xs:integer</td>
 <td>yes</td>
 <td>What is the maximal amount of productions per page?</td>
 <td>50</td>
@@ -250,350 +250,350 @@
 <tbody>
 <tr>
 <td><code>&lt;id&gt;</code></td>
-<td>string or integer</td>
+<td>xs:string or xs:integer</td>
 <td>yes</td>
 <td>Unique production ID on your website</td>
 <td>12</td>
 </tr>
 <tr>
 <td><code>&lt;creation_date&gt;</code></td>
-<td>string</td>
+<td>xs:dateTime</td>
 <td>yes</td>
 <td>Production creation timestamp in ISO 8601 format</td>
 <td>2016-04-14T16:27:38</td>
 </tr>
 <tr>
 <td><code>&lt;modified_date&gt;</code></td>
-<td>string</td>
+<td>xs:dateTime</td>
 <td>no</td>
 <td>Production modification timestamp in ISO 8601 format</td>
 <td>2016-04-14T16:27:38</td>
 </tr>
 <tr>
 <td><code>&lt;status&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>yes</td>
 <td>Publishing status, one of: “draft”, “published”, “not_listed”, “expired”, “trashed”</td>
 <td>published</td>
 </tr>
 <tr>
 <td><code>&lt;prefix_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Title prefix in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;prefix_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Title prefix in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;title_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>yes</td>
 <td>Title in German</td>
 <td>Rotkäppchen</td>
 </tr>
 <tr>
 <td><code>&lt;title_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>yes</td>
 <td>Title in English</td>
 <td>Little Red Riding Hood</td>
 </tr>
 <tr>
 <td><code>&lt;subtitle_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Subtitle (Unterüberschrift) in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;subtitle_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Subtitle (Unterüberschrift) in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;original_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Original title in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;original_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Original title in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;website_de&gt;</code></td>
-<td>string</td>
+<td>xs:anyURI</td>
 <td>no</td>
 <td>A link to the your website page about this production in German</td>
 <td><a href="http://example.com/de/productions/2345/">http://example.com/de/productions/2345/</a></td>
 </tr>
 <tr>
 <td><code>&lt;website_en&gt;</code></td>
-<td>string</td>
+<td>xs:anyURI</td>
 <td>no</td>
 <td>A link to the your website page about this production in English</td>
 <td><a href="http://example.com/en/productions/2345/">http://example.com/en/productions/2345/</a></td>
 </tr>
 <tr>
 <td><code>&lt;description_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text description in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;description_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text description in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;teaser_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text teaser in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;teaser_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text teaser in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;work_info_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text work info in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;work_info_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text work info in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;contents_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text contents in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;contents_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text contents in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;press_text_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text press text in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;press_text_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text press text in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;credits_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text credits in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;credits_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text credits in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;concert_program_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text concert program in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;concert_program_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text concert program in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;supporting_program_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text supporting program in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;supporting_program_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text supporting program in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;remarks_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text remarks in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;remarks_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text remarks in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;duration_text_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text information about duration in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;duration_text_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text information about duration in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;subtitles_text_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text information about subtitles in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;subtitles_text_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text information about subtitles in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;age_text_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text information about the age of the audience in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;age_text_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text information about the age of the audience in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;ensembles&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Ensemble or ensembles playing in this production</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;organizers&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Organizer or organizers of this production</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;in_cooperation_with&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Cooperator or cooperators</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;free_entrance&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Is the entrance free? One of “true” or “false”</td>
 <td>false</td>
 </tr>
 <tr>
 <td><code>&lt;price_from&gt;</code></td>
-<td>decimal</td>
+<td>xs:decimal</td>
 <td>no</td>
 <td>Price from in Euros (no currency sign included)</td>
 <td>8.00</td>
 </tr>
 <tr>
 <td><code>&lt;price_till&gt;</code></td>
-<td>decimal</td>
+<td>xs:decimal</td>
 <td>no</td>
 <td>Price till in Euros (no currency sign included)</td>
 <td>12.00</td>
 </tr>
 <tr>
 <td><code>&lt;tickets_website&gt;</code></td>
-<td>string</td>
+<td>xs:anyURI</td>
 <td>no</td>
 <td>The URL of a website page where you can buy tickets to this production</td>
 <td><a href="http://example.com/tickets/">http://example.com/tickets/</a></td>
 </tr>
 <tr>
 <td><code>&lt;price_information_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Additional plain-text information about prices in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;price_information_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Additional plain-text information about prices in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;age_from&gt;</code></td>
-<td>integer</td>
+<td>xs:integer</td>
 <td>no</td>
 <td>Audience age from</td>
 <td>18</td>
 </tr>
 <tr>
 <td><code>&lt;age_till&gt;</code></td>
-<td>integer</td>
+<td>xs:integer</td>
 <td>no</td>
 <td>Audience age till</td>
 <td>99</td>
 </tr>
 <tr>
 <td><code>&lt;edu_offer_website&gt;</code></td>
-<td>string</td>
+<td>xs:anyURI</td>
 <td>no</td>
 <td>The URL of a website page with educational offer</td>
 <td><a href="http://example.com/educational-offer/">http://example.com/educational-offer/</a></td>
@@ -621,21 +621,21 @@
 </tr>
 <tr>
 <td><code>&lt;location_title&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Location title (if <code>&lt;play_locations&gt;</code> is empty)</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;street_address&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Street address (first line) of the location (if <code>&lt;play_locations&gt;</code> is empty)</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;street_address2&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Street address (second line) of the location (if <code>&lt;play_locations&gt;</code> is empty)</td>
 <td></td>
@@ -649,21 +649,21 @@
 </tr>
 <tr>
 <td><code>&lt;city&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>City of the location (if <code>&lt;play_locations&gt;</code> is empty)</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;latitude&gt;</code></td>
-<td>decimal</td>
+<td>xs:decimal</td>
 <td>no</td>
 <td>Latitude of the location (if <code>&lt;play_locations&gt;</code> is empty)</td>
 <td>52.5192</td>
 </tr>
 <tr>
 <td><code>&lt;longitude&gt;</code></td>
-<td>decimal</td>
+<td>xs:decimal</td>
 <td>no</td>
 <td>Longitude of the location (if <code>&lt;play_locations&gt;</code> is empty)</td>
 <td>13.4061</td>
@@ -885,42 +885,42 @@
 <tbody>
 <tr>
 <td><code>&lt;prefix_id&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Prefix ID</td>
 <td>ms-dr</td>
 </tr>
 <tr>
 <td><code>&lt;first_name&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>yes</td>
 <td>First name of the person</td>
 <td>Erika</td>
 </tr>
 <tr>
 <td><code>&lt;last_name&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>yes</td>
 <td>Last name of the person</td>
 <td>Mustermann</td>
 </tr>
 <tr>
 <td><code>&lt;function_de&gt;</code></td>
-<td>string</td>
+<td>xs:NCName</td>
 <td>yes</td>
 <td>Description in German what this leader is doing for the production</td>
 <td>Direktorin</td>
 </tr>
 <tr>
 <td><code>&lt;function_en&gt;</code></td>
-<td>string</td>
+<td>xs:NCName</td>
 <td>yes</td>
 <td>Description in English what this leader is doing for the production</td>
 <td>Director</td>
 </tr>
 <tr>
 <td><code>&lt;sort_order&gt;</code></td>
-<td>integer</td>
+<td>xs:integer</td>
 <td>yes</td>
 <td>Sort order</td>
 <td>1</td>
@@ -939,35 +939,35 @@
 <tbody>
 <tr>
 <td><code>&lt;prefix_id&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Prefix ID</td>
 <td>mr</td>
 </tr>
 <tr>
 <td><code>&lt;first_name&gt;</code></td>
-<td>string</td>
+<td>xs:NCName</td>
 <td>yes</td>
 <td>First name of the person</td>
 <td>Max</td>
 </tr>
 <tr>
 <td><code>&lt;last_name&gt;</code></td>
-<td>string</td>
+<td>xs:NCName</td>
 <td>yes</td>
 <td>Last name of the person</td>
 <td>Mustermann</td>
 </tr>
 <tr>
 <td><code>&lt;authorship_type_id&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>yes</td>
 <td>Authorship type. One of: “komponist”, “autor”, “uebersetzer”</td>
 <td>komponist</td>
 </tr>
 <tr>
 <td><code>&lt;sort_order&gt;</code></td>
-<td>integer</td>
+<td>xs:integer</td>
 <td>yes</td>
 <td>Sort order</td>
 <td>1</td>
@@ -986,63 +986,63 @@
 <tbody>
 <tr>
 <td><code>&lt;prefix_id&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Prefix ID</td>
 <td>ms-dr</td>
 </tr>
 <tr>
 <td><code>&lt;first_name&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>yes</td>
 <td>First name of the person</td>
 <td>Erika</td>
 </tr>
 <tr>
 <td><code>&lt;last_name&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>yes</td>
 <td>Last name of the person</td>
 <td>Mustermann</td>
 </tr>
 <tr>
 <td><code>&lt;involvement_type_id&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>yes</td>
 <td>Involvement type ID</td>
 <td>musik</td>
 </tr>
 <tr>
 <td><code>&lt;role_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Role in German</td>
 <td>Rotkäppchen</td>
 </tr>
 <tr>
 <td><code>&lt;role_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Role in English</td>
 <td>Little Red Riding Hood</td>
 </tr>
 <tr>
 <td><code>&lt;instrument_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Instrument in German</td>
 <td>Klavier</td>
 </tr>
 <tr>
 <td><code>&lt;instrument_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Instrument in English</td>
 <td>Piano</td>
 </tr>
 <tr>
 <td><code>&lt;sort_order&gt;</code></td>
-<td>integer</td>
+<td>xs:integer</td>
 <td>yes</td>
 <td>Sort order</td>
 <td>1</td>
@@ -1137,42 +1137,42 @@
 <tbody>
 <tr>
 <td><code>&lt;creation_date&gt;</code></td>
-<td>string</td>
+<td>xs:dateTime</td>
 <td>yes</td>
 <td>Creation timestamp in ISO 8601 format</td>
 <td>2016-04-14T16:27:38</td>
 </tr>
 <tr>
 <td><code>&lt;modified_date&gt;</code></td>
-<td>string</td>
+<td>xs:dateTime</td>
 <td>no</td>
 <td>Modification timestamp in ISO 8601 format</td>
 <td>2016-04-14T16:27:38</td>
 </tr>
 <tr>
 <td><code>&lt;title_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>yes</td>
 <td>Title in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;title_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>yes</td>
 <td>Title in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;embed&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>yes</td>
 <td>HTML embed code</td>
 <td><code>&lt;![CDATA[&lt;iframe src="http://example.com/videos/45645/embed/"&gt;&lt;/iframe&gt;]]&gt;</code></td>
 </tr>
 <tr>
 <td><code>&lt;sort_order&gt;</code></td>
-<td>integer</td>
+<td>xs:integer</td>
 <td>yes</td>
 <td>Sort order of the video</td>
 <td>1</td>
@@ -1191,42 +1191,42 @@
 <tbody>
 <tr>
 <td><code>&lt;creation_date&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>yes</td>
 <td>Creation timestamp in ISO 8601 format</td>
 <td>2016-04-14T16:27:38</td>
 </tr>
 <tr>
 <td><code>&lt;modified_date&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Modification timestamp in ISO 8601 format</td>
 <td>2016-04-14T16:27:38</td>
 </tr>
 <tr>
 <td><code>&lt;title_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>yes</td>
 <td>Title in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;title_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>yes</td>
 <td>Title in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;embed&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>yes</td>
 <td>HTML embed code</td>
 <td><code>&lt;![CDATA[&lt;iframe src="http://example.com/live-videos/45645/embed/"&gt;&lt;/iframe&gt;]]&gt;</code></td>
 </tr>
 <tr>
 <td><code>&lt;sort_order&gt;</code></td>
-<td>integer</td>
+<td>xs:integer</td>
 <td>yes</td>
 <td>Sort order of the video</td>
 <td>1</td>
@@ -1245,77 +1245,77 @@
 <tbody>
 <tr>
 <td><code>&lt;creation_date&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>yes</td>
 <td>Creation timestamp in ISO 8601 format</td>
 <td>2016-04-14T16:27:38</td>
 </tr>
 <tr>
 <td><code>&lt;modified_date&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Modification timestamp in ISO 8601 format</td>
 <td>2016-04-14T16:27:38</td>
 </tr>
 <tr>
 <td><code>&lt;url&gt;</code></td>
-<td>string</td>
+<td>xs:anyURI</td>
 <td>yes</td>
 <td>URL of the original (large-scale) image</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;title_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>yes</td>
 <td>Title in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;title_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>yes</td>
 <td>Title in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;description_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text description in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;description_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text description in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;author&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>The name of the author</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;copyright_restrictions&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>yes</td>
 <td>Permissions to use this photo. One of: “general_use” or “protected”</td>
 <td>general_use</td>
 </tr>
 <tr>
 <td><code>&lt;copyright&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Copyright information</td>
 <td>© 2016 example.com</td>
 </tr>
 <tr>
 <td><code>&lt;sort_order&gt;</code></td>
-<td>integer</td>
+<td>xs:integer</td>
 <td>yes</td>
 <td>Sort order of the video</td>
 <td>1</td>
@@ -1334,70 +1334,70 @@
 <tbody>
 <tr>
 <td><code>&lt;creation_date&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>yes</td>
 <td>Creation timestamp in ISO 8601 format</td>
 <td>2016-04-14T16:27:38</td>
 </tr>
 <tr>
 <td><code>&lt;modified_date&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Modification timestamp in ISO 8601 format</td>
 <td>2016-04-14T16:27:38</td>
 </tr>
 <tr>
 <td><code>&lt;url&gt;</code></td>
-<td>string</td>
+<td>xs:anyURI</td>
 <td>yes</td>
 <td>URL of the PDF document</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;title_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>yes</td>
 <td>Title in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;title_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>yes</td>
 <td>Title in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;description_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text description in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;description_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text description in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;author&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>The name of the author</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;copyright&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Copyright information</td>
 <td>© 2016 example.com</td>
 </tr>
 <tr>
 <td><code>&lt;sort_order&gt;</code></td>
-<td>integer</td>
+<td>xs:integer</td>
 <td>yes</td>
 <td>Sort order of the video</td>
 <td>1</td>
@@ -1514,14 +1514,14 @@
 <tbody>
 <tr>
 <td><code>&lt;channel_type&gt;</code></td>
-<td>string</td>
+<td>xs:NCName</td>
 <td>yes</td>
 <td>Type of social media: “Facebook”, “Twitter”, “Google+”, etc.</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;url&gt;</code></td>
-<td>string</td>
+<td>xs:anyURI</td>
 <td>yes</td>
 <td>URL of social media profile</td>
 <td><a href="https://www.facebook.com/berlinbuehnen">https://www.facebook.com/berlinbuehnen</a></td>
@@ -1563,42 +1563,42 @@
 <tbody>
 <tr>
 <td><code>&lt;creation_date&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>yes</td>
 <td>Creation timestamp in ISO 8601 format</td>
 <td>2016-04-14T16:27:38</td>
 </tr>
 <tr>
 <td><code>&lt;modified_date&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Modification timestamp in ISO 8601 format</td>
 <td>2016-04-14T16:27:38</td>
 </tr>
 <tr>
 <td><code>&lt;website&gt;</code></td>
-<td>string</td>
+<td>xs:anyURI</td>
 <td>no</td>
 <td>URL of the sponsor website</td>
 <td><a href="http://example.com/sponsor/">http://example.com/sponsor/</a></td>
 </tr>
 <tr>
 <td><code>&lt;image_url&gt;</code></td>
-<td>string</td>
+<td>xs:anyURI</td>
 <td>no</td>
 <td>URL of the sponsor logo in JPG or PNG format</td>
 <td><a href="http://example.com/media/sponsor-logo.png">http://example.com/media/sponsor-logo.png</a></td>
 </tr>
 <tr>
 <td><code>&lt;title_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Title in German</td>
 <td>&nbsp;</td>
 </tr>
 <tr>
 <td><code>&lt;title_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Title in English</td>
 <td>&nbsp;</td>
@@ -1637,63 +1637,63 @@
 <tbody>
 <tr>
 <td><code>&lt;id&gt;</code></td>
-<td>string or integer</td>
+<td>xs:string or xs:integer</td>
 <td>yes</td>
 <td>Unique event ID on your website</td>
 <td>123</td>
 </tr>
 <tr>
 <td><code>&lt;creation_date&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>yes</td>
 <td>Production creation timestamp in ISO 8601 format</td>
 <td>2016-04-14T16:27:38</td>
 </tr>
 <tr>
 <td><code>&lt;modified_date&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Production modification timestamp in ISO 8601 format</td>
 <td>2016-04-14T16:27:38</td>
 </tr>
 <tr>
 <td><code>&lt;start_date&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>yes</td>
 <td>Start date in ISO 8601 format</td>
 <td>2016-04-14</td>
 </tr>
 <tr>
 <td><code>&lt;end_date&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>End date in ISO 8601 format</td>
 <td>2016-04-14</td>
 </tr>
 <tr>
 <td><code>&lt;start_time&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>yes</td>
-<td>Start time in ISO 8601 format</td>
+<td>Start time in HH:MM or HH:MM:SS format</td>
 <td>20:00</td>
 </tr>
 <tr>
 <td><code>&lt;end_time&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
-<td>End time in ISO 8601 format</td>
+<td>End time in HH:MM or HH:MM:SS format</td>
 <td>23:00</td>
 </tr>
 <tr>
 <td><code>&lt;duration&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
-<td>Duration time in ISO 8601 format</td>
+<td>Duration time in H:MM or H:MM:SS format</td>
 <td>3:00</td>
 </tr>
 <tr>
 <td><code>&lt;pauses&gt;</code></td>
-<td>integer</td>
+<td>xs:integer</td>
 <td>no</td>
 <td>Amount of pauses</td>
 <td>2</td>
@@ -1714,21 +1714,21 @@
 </tr>
 <tr>
 <td><code>&lt;location_title&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Location title (if <code>&lt;play_locations&gt;</code> is empty)</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;street_address&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Street address (first line) of the location (if <code>&lt;play_locations&gt;</code> is empty)</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;street_address2&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Street address (second line) of the location (if <code>&lt;play_locations&gt;</code> is empty)</td>
 <td></td>
@@ -1742,252 +1742,252 @@
 </tr>
 <tr>
 <td><code>&lt;city&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>City of the location (if <code>&lt;play_locations&gt;</code> is empty)</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;latitude&gt;</code></td>
-<td>decimal</td>
+<td>xs:decimal</td>
 <td>no</td>
 <td>Latitude of the location (if <code>&lt;play_locations&gt;</code> is empty)</td>
 <td>52.5192</td>
 </tr>
 <tr>
 <td><code>&lt;longitude&gt;</code></td>
-<td>decimal</td>
+<td>xs:decimal</td>
 <td>no</td>
 <td>Longitude of the location (if <code>&lt;play_locations&gt;</code> is empty)</td>
 <td>13.4061</td>
 </tr>
 <tr>
 <td><code>&lt;organizers&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Organizer or organizers of this event</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;description_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text description in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;description_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text description in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;teaser_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text teaser in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;teaser_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text teaser in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;work_info_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text work info in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;work_info_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text work info in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;contents_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text contents in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;contents_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text contents in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;press_text_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text press text in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;press_text_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text press text in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;credits_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text credits in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;credits_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text credits in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;concert_program_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text concert program in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;concert_program_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text concert program in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;supporting_program_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text supporting program in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;supporting_program_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text supporting program in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;remarks_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text remarks in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;remarks_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text remarks in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;duration_text_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text information about duration in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;duration_text_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text information about duration in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;subtitles_text_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text information about subtitles in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;subtitles_text_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text information about subtitles in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;age_text_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text information about the age of the audience in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;age_text_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Plain-text information about the age of the audience in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;free_entrance&gt;</code></td>
-<td>string</td>
+<td>xs:boolean</td>
 <td>no</td>
 <td>Is the entrance free? One of “true” or “false”</td>
 <td>false</td>
 </tr>
 <tr>
 <td><code>&lt;price_from&gt;</code></td>
-<td>decimal</td>
+<td>xs:decimal</td>
 <td>no</td>
 <td>Price from in Euros (no currency sign included)</td>
 <td>8.00</td>
 </tr>
 <tr>
 <td><code>&lt;price_till&gt;</code></td>
-<td>decimal</td>
+<td>xs:decimal</td>
 <td>no</td>
 <td>Price till in Euros (no currency sign included)</td>
 <td>12.00</td>
 </tr>
 <tr>
 <td><code>&lt;tickets_website&gt;</code></td>
-<td>string</td>
+<td>xs:anyURI</td>
 <td>no</td>
 <td>The URL of a website page where you can buy tickets to this event</td>
 <td><a href="http://example.com/tickets/">http://example.com/tickets/</a></td>
 </tr>
 <tr>
 <td><code>&lt;price_information_de&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Additional plain-text information about prices in German</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;price_information_en&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Additional plain-text information about prices in English</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;event_status&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>yes</td>
 <td>Event status. One of: “takes_place” or “canceled”</td>
 <td>takes_place</td>
 </tr>
 <tr>
 <td><code>&lt;ticket_status&gt;</code></td>
-<td>string</td>
+<td>xs:string</td>
 <td>no</td>
 <td>Tickets’ status. One of: “tickets_@_box_office” or “sold_out”</td>
 <td></td>
