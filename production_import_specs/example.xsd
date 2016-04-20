@@ -514,6 +514,7 @@
                 <xs:element ref="last_name"/>
                 <xs:element ref="function_de"/>
                 <xs:element ref="function_en"/>
+                <xs:element ref="sort_order"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -544,6 +545,7 @@
                 <xs:element ref="role_en"/>
                 <xs:element ref="instrument_de"/>
                 <xs:element ref="instrument_en"/>
+                <xs:element ref="sort_order"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -704,6 +706,7 @@
                 <xs:element ref="first_name"/>
                 <xs:element ref="last_name"/>
                 <xs:element ref="type_id"/>
+                <xs:element ref="sort_order"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
