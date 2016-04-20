@@ -108,17 +108,17 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-    <xs:element name="status">
-        <xs:simpleType>
-            <xs:restriction base="xs:NMTOKEN">
-                <xs:enumeration value="draft"/>
-                <xs:enumeration value="published"/>
-                <xs:enumeration value="not_listed"/>
-                <xs:enumeration value="expired"/>
-                <xs:enumeration value="trashed"/>
-            </xs:restriction>
-        </xs:simpleType>
-    </xs:element>
+  <xs:element name="status">
+    <xs:simpleType>
+      <xs:restriction base="xs:NMTOKEN">
+        <xs:enumeration value="draft"/>
+        <xs:enumeration value="published"/>
+        <xs:enumeration value="not_listed"/>
+        <xs:enumeration value="expired"/>
+        <xs:enumeration value="trashed"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
   <xs:element name="prefix_de">
     <xs:complexType/>
   </xs:element>
@@ -145,36 +145,36 @@
   <xs:element name="in_cooperation_with">
     <xs:complexType/>
   </xs:element>
-    <xs:element name="age_from">
+  <xs:element name="age_from">
+    <xs:simpleType>
+      <xs:union>
         <xs:simpleType>
-            <xs:union>
-                <xs:simpleType>
-                    <xs:restriction base='xs:string'>
-                        <xs:length value='0'/>
-                    </xs:restriction>
-                </xs:simpleType>
-                <xs:simpleType>
-                    <xs:restriction base='xs:integer'>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:union>
+          <xs:restriction base='xs:string'>
+            <xs:length value='0'/>
+          </xs:restriction>
         </xs:simpleType>
-    </xs:element>
-    <xs:element name="age_till">
         <xs:simpleType>
-            <xs:union>
-                <xs:simpleType>
-                    <xs:restriction base='xs:string'>
-                        <xs:length value='0'/>
-                    </xs:restriction>
-                </xs:simpleType>
-                <xs:simpleType>
-                    <xs:restriction base='xs:integer'>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:union>
+          <xs:restriction base='xs:integer'>
+          </xs:restriction>
         </xs:simpleType>
-    </xs:element>
+      </xs:union>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="age_till">
+    <xs:simpleType>
+      <xs:union>
+        <xs:simpleType>
+          <xs:restriction base='xs:string'>
+            <xs:length value='0'/>
+          </xs:restriction>
+        </xs:simpleType>
+        <xs:simpleType>
+          <xs:restriction base='xs:integer'>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:union>
+    </xs:simpleType>
+  </xs:element>
   <xs:element name="edu_offer_website" type="xs:anyURI"/>
   <xs:element name="in_program_of">
     <xs:complexType>
@@ -387,15 +387,15 @@
   <xs:element name="organizers">
     <xs:complexType/>
   </xs:element>
-    <xs:element name="free_entrance">
-        <xs:simpleType>
-            <xs:restriction base="xs:NMTOKEN">
-                <xs:enumeration value="True"/>
-                <xs:enumeration value="False"/>
-            </xs:restriction>
-        </xs:simpleType>
+  <xs:element name="free_entrance">
+    <xs:simpleType>
+      <xs:restriction base="xs:NMTOKEN">
+        <xs:enumeration value="True"/>
+        <xs:enumeration value="False"/>
+      </xs:restriction>
+    </xs:simpleType>
 
-    </xs:element>
+  </xs:element>
   <xs:element name="price_from" type="xs:decimal"/>
   <xs:element name="price_till" type="xs:decimal"/>
   <xs:element name="tickets_website" type="xs:anyURI"/>
@@ -619,22 +619,22 @@
   </xs:element>
   <xs:element name="website" type="xs:anyURI"/>
   <xs:element name="image_url" type="xs:anyURI"/>
-    <xs:element name="prefix_id">
-        <xs:simpleType>
-            <xs:restriction base="xs:NMTOKEN">
-                <xs:enumeration value="mr"/>
-                <xs:enumeration value="ms"/>
-                <xs:enumeration value="dr"/>
-                <xs:enumeration value="prof"/>
-                <xs:enumeration value="mr-dr"/>
-                <xs:enumeration value="ms-dr"/>
-                <xs:enumeration value="mr-prof"/>
-                <xs:enumeration value="ms-prof"/>
-                <xs:enumeration value="mr-prof-dr"/>
-                <xs:enumeration value="ms-prof-dr"/>
-            </xs:restriction>
-        </xs:simpleType>
-    </xs:element>
+  <xs:element name="prefix_id">
+    <xs:simpleType>
+      <xs:restriction base="xs:NMTOKEN">
+        <xs:enumeration value="mr"/>
+        <xs:enumeration value="ms"/>
+        <xs:enumeration value="dr"/>
+        <xs:enumeration value="prof"/>
+        <xs:enumeration value="mr-dr"/>
+        <xs:enumeration value="ms-dr"/>
+        <xs:enumeration value="mr-prof"/>
+        <xs:enumeration value="ms-prof"/>
+        <xs:enumeration value="mr-prof-dr"/>
+        <xs:enumeration value="ms-prof-dr"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
   <xs:element name="first_name" type="xs:NCName"/>
   <xs:element name="last_name" type="xs:NCName"/>
   <xs:element name="author">
