@@ -17,24 +17,24 @@ The XML for the import API should have the following structure:
         <!-- meta information... -->
     </meta>
     <productions>
-    	<production>
-			<!-- production properties... -->
+        <production>
+            <!-- production properties... -->
             <events>
-            	<event><!-- event properties... --></event>
-            	<event><!-- event properties... --></event>
-				<!-- other events... -->
+                <event><!-- event properties... --></event>
+                <event><!-- event properties... --></event>
+                <!-- other events... -->
             </events>
         </production>
-    	<production>
-			<!-- production properties... -->
+        <production>
+            <!-- production properties... -->
             <events>
-            	<event><!-- event properties... --></event>
-            	<event><!-- event properties... --></event>
-				<!-- other events... -->
+                <event><!-- event properties... --></event>
+                <event><!-- event properties... --></event>
+                <!-- other events... -->
             </events>
         </production>
-		<!-- other productions... -->
-	</productions>
+        <!-- other productions... -->
+    </productions>
 </response>
 ```
 

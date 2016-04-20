@@ -1,0 +1,761 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="response">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="meta"/>
+                <xs:element ref="productions"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="meta">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="next"/>
+                <xs:element ref="previous"/>
+                <xs:element ref="total_count"/>
+                <xs:element ref="items_per_page"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="next" type="xs:anyURI"/>
+    <xs:element name="previous" type="xs:anyURI"/>
+    <xs:element name="total_count" type="xs:integer"/>
+    <xs:element name="items_per_page" type="xs:integer"/>
+    <xs:element name="productions">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="production"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="production">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="id"/>
+                <xs:element ref="creation_date"/>
+                <xs:element ref="modified_date"/>
+                <xs:element ref="status"/>
+                <xs:element ref="prefix_de"/>
+                <xs:element ref="prefix_en"/>
+                <xs:element ref="title_de"/>
+                <xs:element ref="title_en"/>
+                <xs:element ref="subtitle_de"/>
+                <xs:element ref="subtitle_en"/>
+                <xs:element ref="original_de"/>
+                <xs:element ref="original_en"/>
+                <xs:element ref="website_de"/>
+                <xs:element ref="website_en"/>
+                <xs:element ref="description_de"/>
+                <xs:element ref="description_en"/>
+                <xs:element ref="teaser_de"/>
+                <xs:element ref="teaser_en"/>
+                <xs:element ref="work_info_de"/>
+                <xs:element ref="work_info_en"/>
+                <xs:element ref="contents_de"/>
+                <xs:element ref="contents_en"/>
+                <xs:element ref="press_text_de"/>
+                <xs:element ref="press_text_en"/>
+                <xs:element ref="credits_de"/>
+                <xs:element ref="credits_en"/>
+                <xs:element ref="concert_program_de"/>
+                <xs:element ref="concert_program_en"/>
+                <xs:element ref="supporting_program_de"/>
+                <xs:element ref="supporting_program_en"/>
+                <xs:element ref="remarks_de"/>
+                <xs:element ref="remarks_en"/>
+                <xs:element ref="duration_text_de"/>
+                <xs:element ref="duration_text_en"/>
+                <xs:element ref="subtitles_text_de"/>
+                <xs:element ref="subtitles_text_en"/>
+                <xs:element ref="age_text_de"/>
+                <xs:element ref="age_text_en"/>
+                <xs:element ref="ensembles"/>
+                <xs:element ref="organizers"/>
+                <xs:element ref="in_cooperation_with"/>
+                <xs:element ref="free_entrance"/>
+                <xs:element ref="price_from"/>
+                <xs:element ref="price_till"/>
+                <xs:element ref="tickets_website"/>
+                <xs:element ref="price_information_de"/>
+                <xs:element ref="price_information_en"/>
+                <xs:element ref="age_from"/>
+                <xs:element ref="age_till"/>
+                <xs:element ref="edu_offer_website"/>
+                <xs:element ref="in_program_of"/>
+                <xs:element ref="play_locations"/>
+                <xs:element ref="play_stages"/>
+                <xs:element ref="location_title"/>
+                <xs:element ref="street_address"/>
+                <xs:element ref="street_address2"/>
+                <xs:element ref="postal_code"/>
+                <xs:element ref="city"/>
+                <xs:element ref="latitude"/>
+                <xs:element ref="longitude"/>
+                <xs:element ref="categories"/>
+                <xs:element ref="characteristics"/>
+                <xs:element ref="leaders"/>
+                <xs:element ref="authors"/>
+                <xs:element ref="participants"/>
+                <xs:element ref="videos"/>
+                <xs:element ref="live_streams"/>
+                <xs:element ref="images"/>
+                <xs:element ref="pdfs"/>
+                <xs:element ref="social_media"/>
+                <xs:element ref="language_and_subtitles_id"/>
+                <xs:element ref="sponsors"/>
+                <xs:element ref="events"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="status">
+        <xs:simpleType>
+            <xs:restriction base="xs:NMTOKEN">
+                <xs:enumeration value="draft"/>
+                <xs:enumeration value="published"/>
+                <xs:enumeration value="not_listed"/>
+                <xs:enumeration value="expired"/>
+                <xs:enumeration value="trashed"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="prefix_de">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="prefix_en">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="subtitle_de">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="subtitle_en">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="original_de">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="original_en">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="website_de" type="xs:anyURI"/>
+    <xs:element name="website_en" type="xs:anyURI"/>
+    <xs:element name="ensembles">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="in_cooperation_with">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="age_from">
+        <xs:simpleType>
+            <xs:union>
+                <xs:simpleType>
+                    <xs:restriction base='xs:string'>
+                        <xs:length value='0'/>
+                    </xs:restriction>
+                </xs:simpleType>
+                <xs:simpleType>
+                    <xs:restriction base='xs:integer'>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:union>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="age_till">
+        <xs:simpleType>
+            <xs:union>
+                <xs:simpleType>
+                    <xs:restriction base='xs:string'>
+                        <xs:length value='0'/>
+                    </xs:restriction>
+                </xs:simpleType>
+                <xs:simpleType>
+                    <xs:restriction base='xs:integer'>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:union>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="edu_offer_website" type="xs:anyURI"/>
+    <xs:element name="in_program_of">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="location_id"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="categories">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="category_id"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="category_id">
+        <xs:simpleType>
+            <xs:restriction base="xs:NMTOKEN">
+                <xs:enumeration value="1"/>
+                <xs:enumeration value="2"/>
+                <xs:enumeration value="3"/>
+                <xs:enumeration value="4"/>
+                <xs:enumeration value="5"/>
+                <xs:enumeration value="11"/>
+                <xs:enumeration value="12"/>
+                <xs:enumeration value="13"/>
+                <xs:enumeration value="16"/>
+                <xs:enumeration value="17"/>
+                <xs:enumeration value="18"/>
+                <xs:enumeration value="19"/>
+                <xs:enumeration value="20"/>
+                <xs:enumeration value="22"/>
+                <xs:enumeration value="23"/>
+                <xs:enumeration value="24"/>
+                <xs:enumeration value="25"/>
+                <xs:enumeration value="27"/>
+                <xs:enumeration value="28"/>
+                <xs:enumeration value="29"/>
+                <xs:enumeration value="30"/>
+                <xs:enumeration value="31"/>
+                <xs:enumeration value="32"/>
+                <xs:enumeration value="34"/>
+                <xs:enumeration value="35"/>
+                <xs:enumeration value="36"/>
+                <xs:enumeration value="37"/>
+                <xs:enumeration value="38"/>
+                <xs:enumeration value="43"/>
+                <xs:enumeration value="44"/>
+                <xs:enumeration value="45"/>
+                <xs:enumeration value="89"/>
+                <xs:enumeration value="90"/>
+                <xs:enumeration value="94"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="social_media">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="social_media_channel"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="social_media_channel">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="channel_type"/>
+                <xs:element ref="url"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="channel_type" type="xs:NCName"/>
+    <xs:element name="events">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="event"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="event">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="id"/>
+                <xs:element ref="creation_date"/>
+                <xs:element ref="modified_date"/>
+                <xs:element ref="start_date"/>
+                <xs:element ref="end_date"/>
+                <xs:element ref="start_time"/>
+                <xs:element ref="end_time"/>
+                <xs:element ref="duration"/>
+                <xs:element ref="pauses"/>
+                <xs:element ref="play_locations"/>
+                <xs:element ref="play_stages"/>
+                <xs:element ref="location_title"/>
+                <xs:element ref="street_address"/>
+                <xs:element ref="street_address2"/>
+                <xs:element ref="postal_code"/>
+                <xs:element ref="city"/>
+                <xs:element ref="latitude"/>
+                <xs:element ref="longitude"/>
+                <xs:element ref="organizers"/>
+                <xs:element ref="description_de"/>
+                <xs:element ref="description_en"/>
+                <xs:element ref="teaser_de"/>
+                <xs:element ref="teaser_en"/>
+                <xs:element ref="work_info_de"/>
+                <xs:element ref="work_info_en"/>
+                <xs:element ref="contents_de"/>
+                <xs:element ref="contents_en"/>
+                <xs:element ref="press_text_de"/>
+                <xs:element ref="press_text_en"/>
+                <xs:element ref="credits_de"/>
+                <xs:element ref="credits_en"/>
+                <xs:element ref="concert_program_de"/>
+                <xs:element ref="concert_program_en"/>
+                <xs:element ref="supporting_program_de"/>
+                <xs:element ref="supporting_program_en"/>
+                <xs:element ref="remarks_de"/>
+                <xs:element ref="remarks_en"/>
+                <xs:element ref="duration_text_de"/>
+                <xs:element ref="duration_text_en"/>
+                <xs:element ref="subtitles_text_de"/>
+                <xs:element ref="subtitles_text_en"/>
+                <xs:element ref="age_text_de"/>
+                <xs:element ref="age_text_en"/>
+                <xs:element ref="free_entrance"/>
+                <xs:element ref="price_from"/>
+                <xs:element ref="price_till"/>
+                <xs:element ref="tickets_website"/>
+                <xs:element ref="price_information_de"/>
+                <xs:element ref="price_information_en"/>
+                <xs:element ref="event_status"/>
+                <xs:element ref="ticket_status"/>
+                <xs:element ref="characteristics"/>
+                <xs:element ref="leaders"/>
+                <xs:element ref="authors"/>
+                <xs:element ref="participants"/>
+                <xs:element ref="videos"/>
+                <xs:element ref="live_streams"/>
+                <xs:element ref="images"/>
+                <xs:element ref="pdfs"/>
+                <xs:element ref="language_and_subtitles_id"/>
+                <xs:element ref="sponsors"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="start_date" type="xs:date"/>
+    <xs:element name="end_date" type="xs:date"/>
+    <xs:simpleType name="time_hh_mm">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-1][0-9]:[0-5][0-9]"/>
+            <xs:pattern value="[0-1][0-9]:[0-5][0-9]:[0-5][0-9]"/>
+            <xs:pattern value="2[0-3]:[0-5][0-9]"/>
+            <xs:pattern value="2[0-3]:[0-5][0-9]:[0-5][0-9]"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="duration_hh_mm">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]:[0-5][0-9]"/>
+            <xs:pattern value="[0-9]:[0-5][0-9]:[0-5][0-9]"/>
+            <xs:pattern value="[0-1][0-9]:[0-5][0-9]"/>
+            <xs:pattern value="[0-1][0-9]:[0-5][0-9]:[0-5][0-9]"/>
+            <xs:pattern value="2[0-3]:[0-5][0-9]"/>
+            <xs:pattern value="2[0-3]:[0-5][0-9]:[0-5][0-9]"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:element name="start_time" type="time_hh_mm"/>
+    <xs:element name="end_time" type="time_hh_mm"/>
+    <xs:element name="duration" type="duration_hh_mm"/>
+    <xs:element name="pauses" type="xs:integer"/>
+    <xs:element name="event_status">
+        <xs:simpleType>
+            <xs:restriction base="xs:NCName">
+                <xs:enumeration value="takes_place"/>
+                <xs:enumeration value="canceled"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="ticket_status">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="tickets_@_box_office"/>
+                <xs:enumeration value="sold_out"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="id" type="xs:integer"/>
+    <xs:element name="creation_date" type="xs:dateTime"/>
+    <xs:element name="modified_date" type="xs:dateTime"/>
+    <xs:element name="title_de" type="xs:string"/>
+    <xs:element name="title_en" type="xs:string"/>
+    <xs:element name="description_de">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="description_en">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="teaser_de">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="teaser_en">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="work_info_de">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="work_info_en">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="contents_de">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="contents_en">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="press_text_de">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="press_text_en">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="credits_de">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="credits_en">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="concert_program_de">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="concert_program_en">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="supporting_program_de">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="supporting_program_en">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="remarks_de">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="remarks_en">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="duration_text_de">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="duration_text_en">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="subtitles_text_de">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="subtitles_text_en">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="age_text_de">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="age_text_en">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="organizers">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="free_entrance">
+        <xs:simpleType>
+            <xs:restriction base="xs:NMTOKEN">
+                <xs:enumeration value="True"/>
+                <xs:enumeration value="False"/>
+            </xs:restriction>
+        </xs:simpleType>
+
+    </xs:element>
+    <xs:element name="price_from" type="xs:decimal"/>
+    <xs:element name="price_till" type="xs:decimal"/>
+    <xs:element name="tickets_website" type="xs:anyURI"/>
+    <xs:element name="price_information_de">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="price_information_en">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="location_id" type="xs:integer"/>
+    <xs:element name="play_locations">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="location_id"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="play_stages">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="stage_id"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="stage_id" type="xs:integer"/>
+    <xs:element name="location_title">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="street_address">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="street_address2">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="postal_code">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="city">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="latitude" type="xs:decimal"/>
+    <xs:element name="longitude" type="xs:decimal"/>
+    <xs:element name="characteristics">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="characteristic_id"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="characteristic_id" type="xs:integer"/>
+    <xs:element name="leaders">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="leader"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="leader">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="prefix_id"/>
+                <xs:element ref="first_name"/>
+                <xs:element ref="last_name"/>
+                <xs:element ref="function_de"/>
+                <xs:element ref="function_en"/>
+                <xs:element ref="sort_order"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="function_de" type="xs:NCName"/>
+    <xs:element name="function_en" type="xs:NCName"/>
+    <xs:element name="authors">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="author"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="participants">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="participant"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="participant">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="prefix_id"/>
+                <xs:element ref="first_name"/>
+                <xs:element ref="last_name"/>
+                <xs:element ref="type_id"/>
+                <xs:element ref="role_de"/>
+                <xs:element ref="role_en"/>
+                <xs:element ref="instrument_de"/>
+                <xs:element ref="instrument_en"/>
+                <xs:element ref="sort_order"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="role_de" type="xs:string"/>
+    <xs:element name="role_en" type="xs:string"/>
+    <xs:element name="instrument_de" type="xs:string"/>
+    <xs:element name="instrument_en" type="xs:string"/>
+    <xs:element name="videos">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="video"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="video">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="creation_date"/>
+                <xs:element ref="modified_date"/>
+                <xs:element ref="title_de"/>
+                <xs:element ref="title_en"/>
+                <xs:element ref="embed"/>
+                <xs:element ref="sort_order"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="live_streams">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="live_stream"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="live_stream">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="creation_date"/>
+                <xs:element ref="modified_date"/>
+                <xs:element ref="title_de"/>
+                <xs:element ref="title_en"/>
+                <xs:element ref="embed"/>
+                <xs:element ref="sort_order"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="images">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="image"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="image">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="creation_date"/>
+                <xs:element ref="modified_date"/>
+                <xs:element ref="url"/>
+                <xs:element ref="title_de"/>
+                <xs:element ref="title_en"/>
+                <xs:element ref="description_de"/>
+                <xs:element ref="description_en"/>
+                <xs:element ref="author"/>
+                <xs:element ref="copyright_restrictions"/>
+                <xs:element ref="copyright"/>
+                <xs:element ref="sort_order"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="copyright_restrictions">
+        <xs:simpleType>
+            <xs:restriction base="xs:NMTOKEN">
+                <xs:enumeration value="general_use"/>
+                <xs:enumeration value="protected"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="pdfs">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="pdf"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="pdf">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="creation_date"/>
+                <xs:element ref="modified_date"/>
+                <xs:element ref="url"/>
+                <xs:element ref="title_de"/>
+                <xs:element ref="title_en"/>
+                <xs:element ref="description_de"/>
+                <xs:element ref="description_en"/>
+                <xs:element ref="author"/>
+                <xs:element ref="copyright"/>
+                <xs:element ref="sort_order"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="url" type="xs:anyURI"/>
+    <xs:element name="language_and_subtitles_id">
+        <xs:simpleType>
+            <xs:restriction base="xs:NMTOKEN">
+                <xs:enumeration value="in-englischer-sprache"/>
+                <xs:enumeration value="sprache-kein-problem"/>
+                <xs:enumeration value="mit-engl-uebertiteln"/>
+                <xs:enumeration value="mit-franzoesischen-uebertiteln"/>
+                <xs:enumeration value="andere-sprache"/>
+                <xs:enumeration value="simultanubersetzung-englisch-deutsch"/>
+                <xs:enumeration value="in-deutscher-sprache"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="sponsors">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="sponsor"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="sponsor">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="creation_date"/>
+                <xs:element ref="modified_date"/>
+                <xs:element ref="website"/>
+                <xs:element ref="image_url"/>
+                <xs:element ref="title_de"/>
+                <xs:element ref="title_en"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="website" type="xs:anyURI"/>
+    <xs:element name="image_url" type="xs:anyURI"/>
+    <xs:element name="prefix_id">
+        <xs:simpleType>
+            <xs:restriction base="xs:NMTOKEN">
+                <xs:enumeration value="mr"/>
+                <xs:enumeration value="ms"/>
+                <xs:enumeration value="dr"/>
+                <xs:enumeration value="prof"/>
+                <xs:enumeration value="mr-dr"/>
+                <xs:enumeration value="ms-dr"/>
+                <xs:enumeration value="mr-prof"/>
+                <xs:enumeration value="ms-prof"/>
+                <xs:enumeration value="mr-prof-dr"/>
+                <xs:enumeration value="ms-prof-dr"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="first_name" type="xs:NCName"/>
+    <xs:element name="last_name" type="xs:NCName"/>
+    <xs:element name="author">
+        <xs:complexType>
+            <xs:sequence minOccurs="0">
+                <xs:element ref="prefix_id"/>
+                <xs:element ref="first_name"/>
+                <xs:element ref="last_name"/>
+                <xs:element ref="type_id"/>
+                <xs:element ref="sort_order"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="type_id">
+        <xs:simpleType>
+            <xs:restriction base="xs:NMTOKEN">
+                <xs:enumeration value="komponist"/>
+                <xs:enumeration value="autor"/>
+                <xs:enumeration value="uebersetzer"/>
+                <xs:enumeration value="ausstatter"/>
+                <xs:enumeration value="buhnenbildner"/>
+                <xs:enumeration value="chor"/>
+                <xs:enumeration value="choreografie"/>
+                <xs:enumeration value="dirigent"/>
+                <xs:enumeration value="diskussionsteilnehmer"/>
+                <xs:enumeration value="dramaturgie"/>
+                <xs:enumeration value="einrichtung"/>
+                <xs:enumeration value="einstudierung"/>
+                <xs:enumeration value="ensemble"/>
+                <xs:enumeration value="inspizient"/>
+                <xs:enumeration value="kostume"/>
+                <xs:enumeration value="kuenstler"/>
+                <xs:enumeration value="kunstlerische-leitung"/>
+                <xs:enumeration value="licht"/>
+                <xs:enumeration value="moderator"/>
+                <xs:enumeration value="musik"/>
+                <xs:enumeration value="orchester"/>
+                <xs:enumeration value="performer"/>
+                <xs:enumeration value="produktionsleitung"/>
+                <xs:enumeration value="pyrothechnik"/>
+                <xs:enumeration value="referent"/>
+                <xs:enumeration value="regie"/>
+                <xs:enumeration value="regieassistenz"/>
+                <xs:enumeration value="requisite"/>
+                <xs:enumeration value="rezitation"/>
+                <xs:enumeration value="saenger"/>
+                <xs:enumeration value="schauspieler"/>
+                <xs:enumeration value="solist"/>
+                <xs:enumeration value="souffleur-souffleuse"/>
+                <xs:enumeration value="statisterie"/>
+                <xs:enumeration value="taenzer"/>
+                <xs:enumeration value="text"/>
+                <xs:enumeration value="video"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="embed">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="sort_order" type="xs:integer"/>
+    <xs:element name="copyright" type="xs:string"/>
+</xs:schema>
