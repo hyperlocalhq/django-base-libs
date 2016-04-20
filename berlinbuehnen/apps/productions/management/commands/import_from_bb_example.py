@@ -279,7 +279,7 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
             prod.organizers = self.get_child_text(prod_node, 'organizers')
             prod.in_cooperation_with = self.get_child_text(prod_node, 'in_cooperation_with')
 
-            prod.free_entrance = (self.get_child_text(prod_node, 'free_entrance') == "True")
+            prod.free_entrance = (self.get_child_text(prod_node, 'free_entrance') == "true")
             try:
                 prod.price_from = Decimal(self.get_child_text(prod_node, 'price_from'))
             except:
@@ -586,7 +586,7 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
                     last_name=last_name,
                 )
                 try:
-                    authorship_type = AuthorshipType.objects.get(slug=self.get_child_text(person_node, 'type_id'))
+                    authorship_type = AuthorshipType.objects.get(slug=self.get_child_text(person_node, 'authorship_type_id'))
                 except:
                     authorship_type = None
                 try:
@@ -616,7 +616,7 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
                     last_name=last_name,
                 )
                 try:
-                    involvement_type = InvolvementType.objects.get(slug=self.get_child_text(person_node, 'type_id'))
+                    involvement_type = InvolvementType.objects.get(slug=self.get_child_text(person_node, 'involvement_type_id'))
                 except:
                     involvement_type = None
                 try:
@@ -727,7 +727,7 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
 
                 event.organizers = self.get_child_text(event_node, 'organizers')
 
-                event.free_entrance = (self.get_child_text(event_node, 'free_entrance') == "True")
+                event.free_entrance = (self.get_child_text(event_node, 'free_entrance') == "true")
                 try:
                     event.price_from = Decimal(self.get_child_text(event_node, 'price_from'))
                 except:
@@ -1005,7 +1005,7 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
                         last_name=last_name,
                     )
                     try:
-                        authorship_type = AuthorshipType.objects.get(slug=self.get_child_text(person_node, 'type_id'))
+                        authorship_type = AuthorshipType.objects.get(slug=self.get_child_text(person_node, 'authorship_type_id'))
                     except:
                         authorship_type = None
                     try:
@@ -1035,7 +1035,7 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
                         last_name=last_name,
                     )
                     try:
-                        involvement_type = InvolvementType.objects.get(slug=self.get_child_text(person_node, 'type_id'))
+                        involvement_type = InvolvementType.objects.get(slug=self.get_child_text(person_node, 'involvement_type_id'))
                     except:
                         involvement_type = None
                     try:

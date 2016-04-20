@@ -876,4 +876,8 @@ For example, if an event can be classified as "Premiere" and "Familienpreise", t
 
 ## Full featured XML example ##
 
-Finally, you can see the complete [XML example](example.xml).
+Finally, you can see the complete [XML example](example.xml). You can validate your XML feed against our [XSD schema](example.xsd) at http://www.xmlvalidation.com/ or in the Terminal using the following command:
+
+```bash
+$ xmllint --schema example.xsd example.xml
+```
