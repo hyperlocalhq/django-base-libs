@@ -1,3 +1,4 @@
+MAILTO=""
 HOME=/usr/local/www/apache24/data/museumsportal-berlin.de
 PATH=/usr/local/www/apache24/data/museumsportal-berlin.de/bin:/usr/local/sbin:/usr/local/bin:/usr/iports/bin:/usr/iports/sbin:/sbin:/bin:/usr/sbin:/usr/bin
 SHELL=/usr/local/bin/bash
@@ -6,6 +7,6 @@ SHELL=/usr/local/bin/bash
 00 03 * * * /usr/local/www/apache24/data/museumsportal-berlin.de/commands/rebuild_index.bsh
 00 04 * * * /usr/local/www/apache24/data/museumsportal-berlin.de/commands/update_expired.bsh
 */5 * * * * /usr/local/www/apache24/data/museumsportal-berlin.de/commands/send_mails.bsh
-00 03 * * 0 /usr/local/www/apache24/data/museumsportal-berlin.de/commands/check_links.bsh
+00 06 * * 0 /usr/local/www/apache24/data/museumsportal-berlin.de/commands/check_links.bsh
 00 05 * * * /usr/local/www/apache24/data/museumsportal-berlin.de/commands/collect_advertising_stats.bsh
-10 06 * * * /usr/local/www/apache24/data/museumsportal-berlin.de/commands/backup_db.bsh
+30 06 * * * /usr/local/www/apache24/data/museumsportal-berlin.de/commands/backup_db.bsh

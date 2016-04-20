@@ -85,7 +85,7 @@ class Command(NoArgsCommand):
             'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36',  # User agent of Chrome
         }
         try:
-            response = requests.head(url, allow_redirects=True, headers=headers, verify=False)
+            response = requests.get(url, allow_redirects=True, headers=headers, verify=False)
             if response.status_code == 200:
                 self._checked_links[url] = True
         except requests.ConnectionError as err:
