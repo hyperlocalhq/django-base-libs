@@ -145,8 +145,36 @@
   <xs:element name="in_cooperation_with">
     <xs:complexType/>
   </xs:element>
-  <xs:element name="age_from" type="xs:integer"/>
-  <xs:element name="age_till" type="xs:integer"/>
+    <xs:element name="age_from">
+        <xs:simpleType>
+            <xs:union>
+                <xs:simpleType>
+                    <xs:restriction base='xs:string'>
+                        <xs:length value='0'/>
+                    </xs:restriction>
+                </xs:simpleType>
+                <xs:simpleType>
+                    <xs:restriction base='xs:integer'>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:union>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="age_till">
+        <xs:simpleType>
+            <xs:union>
+                <xs:simpleType>
+                    <xs:restriction base='xs:string'>
+                        <xs:length value='0'/>
+                    </xs:restriction>
+                </xs:simpleType>
+                <xs:simpleType>
+                    <xs:restriction base='xs:integer'>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:union>
+        </xs:simpleType>
+    </xs:element>
   <xs:element name="edu_offer_website" type="xs:anyURI"/>
   <xs:element name="in_program_of">
     <xs:complexType>
