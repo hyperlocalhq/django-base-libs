@@ -102,7 +102,7 @@ The `<production>` node has the following elements:
 | `<ensembles>` | string | no | Ensemble or ensembles playing in this production  | |
 | `<organizers>` | string | no | Organizer or organizers of this production | |
 | `<in_cooperation_with>` | string | no | Cooperator or cooperators | |
-| `<free_entrance>` | string | no | Is the entrance free? One of "True" or "False" | False |
+| `<free_entrance>` | string | no | Is the entrance free? One of "true" or "false" | false |
 | `<price_from>` | decimal | no | Price from in Euros (no currency sign included) | 8.00 |
 | `<price_till>` | decimal | no | Price till in Euros (no currency sign included) | 12.00 |
 | `<tickets_website>` | string | no | The URL of a website page where you can buy tickets to this production | http://example.com/tickets/ |
@@ -832,7 +832,7 @@ These elements are available for the `<event>` node:
 | `<subtitles_text_en>` | string | no | Plain-text information about subtitles in English | |
 | `<age_text_de>` | string | no | Plain-text information about the age of the audience in German | |
 | `<age_text_en>` | string | no | Plain-text information about the age of the audience in English | |
-| `<free_entrance>` | string | no | Is the entrance free? One of "True" or "False" | False |
+| `<free_entrance>` | string | no | Is the entrance free? One of "true" or "false" | false |
 | `<price_from>` | decimal | no | Price from in Euros (no currency sign included) | 8.00 |
 | `<price_till>` | decimal | no | Price till in Euros (no currency sign included) | 12.00 |
 | `<tickets_website>` | string | no | The URL of a website page where you can buy tickets to this event | http://example.com/tickets/ |
