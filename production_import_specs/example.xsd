@@ -283,9 +283,27 @@
   </xs:element>
   <xs:element name="start_date" type="xs:date"/>
   <xs:element name="end_date" type="xs:date"/>
-  <xs:element name="start_time" type="xs:time"/>
-  <xs:element name="end_time" type="xs:time"/>
-  <xs:element name="duration" type="xs:NMTOKEN"/>
+  <xs:simpleType name="time_hh_mm">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-1][0-9]:[0-5][0-9]"/>
+      <xs:pattern value="[0-1][0-9]:[0-5][0-9]:[0-5][0-9]"/>
+      <xs:pattern value="2[0-3]:[0-5][0-9]"/>
+      <xs:pattern value="2[0-3]:[0-5][0-9]:[0-5][0-9]"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="duration_hh_mm">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]:[0-5][0-9]"/>
+      <xs:pattern value="[0-9]:[0-5][0-9]:[0-5][0-9]"/>
+      <xs:pattern value="[0-1][0-9]:[0-5][0-9]"/>
+      <xs:pattern value="[0-1][0-9]:[0-5][0-9]:[0-5][0-9]"/>
+      <xs:pattern value="2[0-3]:[0-5][0-9]"/>
+      <xs:pattern value="2[0-3]:[0-5][0-9]:[0-5][0-9]"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="start_time" type="time_hh_mm"/>
+  <xs:element name="end_time" type="time_hh_mm"/>
+  <xs:element name="duration" type="duration_hh_mm"/>
   <xs:element name="pauses" type="xs:integer"/>
   <xs:element name="event_status" type="xs:NCName"/>
   <xs:element name="ticket_status" type="xs:string"/>
