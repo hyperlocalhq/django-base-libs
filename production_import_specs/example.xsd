@@ -647,7 +647,49 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="type_id" type="xs:NCName"/>
+  <xs:element name="type_id">
+    <xs:simpleType>
+      <xs:restriction base="xs:NMTOKEN">
+        <xs:enumeration value="komponist"/>
+        <xs:enumeration value="autor"/>
+        <xs:enumeration value="uebersetzer"/>
+        <xs:enumeration value="ausstatter"/>
+        <xs:enumeration value="buhnenbildner"/>
+        <xs:enumeration value="chor"/>
+        <xs:enumeration value="choreografie"/>
+        <xs:enumeration value="dirigent"/>
+        <xs:enumeration value="diskussionsteilnehmer"/>
+        <xs:enumeration value="dramaturgie"/>
+        <xs:enumeration value="einrichtung"/>
+        <xs:enumeration value="einstudierung"/>
+        <xs:enumeration value="ensemble"/>
+        <xs:enumeration value="inspizient"/>
+        <xs:enumeration value="kostume"/>
+        <xs:enumeration value="kuenstler"/>
+        <xs:enumeration value="kunstlerische-leitung"/>
+        <xs:enumeration value="licht"/>
+        <xs:enumeration value="moderator"/>
+        <xs:enumeration value="musik"/>
+        <xs:enumeration value="orchester"/>
+        <xs:enumeration value="performer"/>
+        <xs:enumeration value="produktionsleitung"/>
+        <xs:enumeration value="pyrothechnik"/>
+        <xs:enumeration value="referent"/>
+        <xs:enumeration value="regie"/>
+        <xs:enumeration value="regieassistenz"/>
+        <xs:enumeration value="requisite"/>
+        <xs:enumeration value="rezitation"/>
+        <xs:enumeration value="saenger"/>
+        <xs:enumeration value="schauspieler"/>
+        <xs:enumeration value="solist"/>
+        <xs:enumeration value="souffleur-souffleuse"/>
+        <xs:enumeration value="statisterie"/>
+        <xs:enumeration value="taenzer"/>
+        <xs:enumeration value="text"/>
+        <xs:enumeration value="video"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
   <xs:element name="embed">
     <xs:complexType/>
   </xs:element>
