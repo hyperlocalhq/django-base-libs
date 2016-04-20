@@ -44,10 +44,10 @@ The `<meta>` section contains information about pagination and amount of product
 
 | Node | Type | Required | Description | Example |
 |------|------|----------|-------------|---------|
-| `<next>` | string | no | The API URL for the next page (or empty string for the last page) | http://example.com/api/productions/?page=3 |
-| `<previous>` | string | no | The API URL for the previous page (or empty string for the first page) | http://example.com/api/productions/?page=1 |
-| `<total_count>` | integer | yes | How many productions are there in total? | 521 |
-| `<items_per_page>` | integer | yes | What is the maximal amount of productions per page? | 50 |
+| `<next>` | xs:anyURI | no | The API URL for the next page (or empty string for the last page) | http://example.com/api/productions/?page=3 |
+| `<previous>` | xs:anyURI | no | The API URL for the previous page (or empty string for the first page) | http://example.com/api/productions/?page=1 |
+| `<total_count>` | xs:integer | yes | How many productions are there in total? | 521 |
+| `<items_per_page>` | xs:integer | yes | What is the maximal amount of productions per page? | 50 |
 
 ### The Productions Section ###
 
@@ -61,62 +61,62 @@ The `<production>` node has the following elements:
 
 | Node | Type | Required | Description | Example |
 |------|------|----------|-------------|---------|
-| `<id>` | string or integer | yes | Unique production ID on your website | 12 |
-| `<creation_date>`| string | yes | Production creation timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
-| `<modified_date>` | string | no | Production modification timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
-| `<status>` | string | yes | Publishing status, one of: "draft", "published", "not_listed", "expired", "trashed" | published |
-| `<prefix_de>` | string | no | Title prefix in German | |
-| `<prefix_en>` | string | no | Title prefix in English | |
-| `<title_de>` | string | yes | Title in German | Rotkäppchen |
-| `<title_en>` | string | yes | Title in English | Little Red Riding Hood |
-| `<subtitle_de>` | string | no | Subtitle (Unterüberschrift) in German | |
-| `<subtitle_en>` | string | no | Subtitle (Unterüberschrift) in English | |
-| `<original_de>` | string | no | Original title in German | |
-| `<original_en>` | string | no | Original title in English | |
-| `<website_de>` | string | no | A link to the your website page about this production in German | http://example.com/de/productions/2345/ |
-| `<website_en>` | string | no | A link to the your website page about this production in English | http://example.com/en/productions/2345/ |
-| `<description_de>` | string | no | Plain-text description in German | |
-| `<description_en>` | string | no | Plain-text description in English | |
-| `<teaser_de>` | string | no | Plain-text teaser in German | |
-| `<teaser_en>` | string | no | Plain-text teaser in English | |
-| `<work_info_de>` | string | no | Plain-text work info in German | |
-| `<work_info_en>` | string | no | Plain-text work info in English | |
-| `<contents_de>` | string | no | Plain-text contents in German | |
-| `<contents_en>` | string | no | Plain-text contents in English | |
-| `<press_text_de>` | string | no | Plain-text press text in German | |
-| `<press_text_en>` | string | no | Plain-text press text in English | |
-| `<credits_de>` | string | no | Plain-text credits in German | |
-| `<credits_en>` | string | no | Plain-text credits in English | |
-| `<concert_program_de>` | string | no | Plain-text concert program in German | |
-| `<concert_program_en>` | string | no | Plain-text concert program in English | |
-| `<supporting_program_de>` | string | no | Plain-text supporting program in German | |
-| `<supporting_program_en>` | string | no | Plain-text supporting program in English | |
-| `<remarks_de>` | string | no | Plain-text remarks in German | |
-| `<remarks_en>` | string | no | Plain-text remarks in English | |
-| `<duration_text_de>` | string | no | Plain-text information about duration in German | |
-| `<duration_text_en>` | string | no | Plain-text information about duration in English | |
-| `<subtitles_text_de>` | string | no | Plain-text information about subtitles in German | |
-| `<subtitles_text_en>` | string | no | Plain-text information about subtitles in English | |
-| `<age_text_de>` | string | no | Plain-text information about the age of the audience in German | |
-| `<age_text_en>` | string | no | Plain-text information about the age of the audience in English | |
-| `<ensembles>` | string | no | Ensemble or ensembles playing in this production  | |
-| `<organizers>` | string | no | Organizer or organizers of this production | |
-| `<in_cooperation_with>` | string | no | Cooperator or cooperators | |
-| `<free_entrance>` | string | no | Is the entrance free? One of "true" or "false" | false |
+| `<id>` | xs:string or xs:integer | yes | Unique production ID on your website | 12 |
+| `<creation_date>`| xs:dateTime | yes | Production creation timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
+| `<modified_date>` | xs:dateTime | no | Production modification timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
+| `<status>` | xs:string | yes | Publishing status, one of: "draft", "published", "not_listed", "expired", "trashed" | published |
+| `<prefix_de>` | xs:string | no | Title prefix in German | |
+| `<prefix_en>` | xs:string | no | Title prefix in English | |
+| `<title_de>` | xs:string | yes | Title in German | Rotkäppchen |
+| `<title_en>` | xs:string | yes | Title in English | Little Red Riding Hood |
+| `<subtitle_de>` | xs:string | no | Subtitle (Unterüberschrift) in German | |
+| `<subtitle_en>` | xs:string | no | Subtitle (Unterüberschrift) in English | |
+| `<original_de>` | xs:string | no | Original title in German | |
+| `<original_en>` | xs:string | no | Original title in English | |
+| `<website_de>` | xs:anyURI | no | A link to the your website page about this production in German | http://example.com/de/productions/2345/ |
+| `<website_en>` | xs:anyURI | no | A link to the your website page about this production in English | http://example.com/en/productions/2345/ |
+| `<description_de>` | xs:string | no | Plain-text description in German | |
+| `<description_en>` | xs:string | no | Plain-text description in English | |
+| `<teaser_de>` | xs:string | no | Plain-text teaser in German | |
+| `<teaser_en>` | xs:string | no | Plain-text teaser in English | |
+| `<work_info_de>` | xs:string | no | Plain-text work info in German | |
+| `<work_info_en>` | xs:string | no | Plain-text work info in English | |
+| `<contents_de>` | xs:string | no | Plain-text contents in German | |
+| `<contents_en>` | xs:string | no | Plain-text contents in English | |
+| `<press_text_de>` | xs:string | no | Plain-text press text in German | |
+| `<press_text_en>` | xs:string | no | Plain-text press text in English | |
+| `<credits_de>` | xs:string | no | Plain-text credits in German | |
+| `<credits_en>` | xs:string | no | Plain-text credits in English | |
+| `<concert_program_de>` | xs:string | no | Plain-text concert program in German | |
+| `<concert_program_en>` | xs:string | no | Plain-text concert program in English | |
+| `<supporting_program_de>` | xs:string | no | Plain-text supporting program in German | |
+| `<supporting_program_en>` | xs:string | no | Plain-text supporting program in English | |
+| `<remarks_de>` | xs:string | no | Plain-text remarks in German | |
+| `<remarks_en>` | xs:string | no | Plain-text remarks in English | |
+| `<duration_text_de>` | xs:string | no | Plain-text information about duration in German | |
+| `<duration_text_en>` | xs:string | no | Plain-text information about duration in English | |
+| `<subtitles_text_de>` | xs:string | no | Plain-text information about subtitles in German | |
+| `<subtitles_text_en>` | xs:string | no | Plain-text information about subtitles in English | |
+| `<age_text_de>` | xs:string | no | Plain-text information about the age of the audience in German | |
+| `<age_text_en>` | xs:string | no | Plain-text information about the age of the audience in English | |
+| `<ensembles>` | xs:string | no | Ensemble or ensembles playing in this production  | |
+| `<organizers>` | xs:string | no | Organizer or organizers of this production | |
+| `<in_cooperation_with>` | xs:string | no | Cooperator or cooperators | |
+| `<free_entrance>` | xs:string | no | Is the entrance free? One of "true" or "false" | false |
 | `<price_from>` | decimal | no | Price from in Euros (no currency sign included) | 8.00 |
 | `<price_till>` | decimal | no | Price till in Euros (no currency sign included) | 12.00 |
-| `<tickets_website>` | string | no | The URL of a website page where you can buy tickets to this production | http://example.com/tickets/ |
-| `<price_information_de>` | string | no | Additional plain-text information about prices in German | |
-| `<price_information_en>` | string | no | Additional plain-text information about prices in English | |
-| `<age_from>` | integer | no | Audience age from | 18 |
-| `<age_till>` | integer | no | Audience age till | 99 |
-| `<edu_offer_website>` | string | no | The URL of a website page with educational offer | http://example.com/educational-offer/ |
+| `<tickets_website>` | xs:anyURI | no | The URL of a website page where you can buy tickets to this production | http://example.com/tickets/ |
+| `<price_information_de>` | xs:string | no | Additional plain-text information about prices in German | |
+| `<price_information_en>` | xs:string | no | Additional plain-text information about prices in English | |
+| `<age_from>` | xs:integer | no | Audience age from | 18 |
+| `<age_till>` | xs:integer | no | Audience age till | 99 |
+| `<edu_offer_website>` | xs:anyURI | no | The URL of a website page with educational offer | http://example.com/educational-offer/ |
 | `<in_program_of>` | list of `<location_id>` nodes | no | Theaters organizing this production | |
 | `<play_locations>` | list of `<location_id>` nodes | no | Theaters where this production takes place | |
 | `<play_stages>` | list of `<stage_id>` nodes | no | Stages where this production takes place | |
 | `<location_title>` | string | no | Location title (if `<play_locations>` is empty) | |
 | `<street_address>`| string | no | Street address (first line) of the location (if `<play_locations>` is empty) | |
-| `<street_address2>` | string | no | Street address (second line) of the location (if `<play_locations>` is empty) | |
+| `<street_address2>` | xs:string | no | Street address (second line) of the location (if `<play_locations>` is empty) | |
 | `<postal_code>`| string | no | Postal code of the location (if `<play_locations>` is empty) | |
 | `<city>`| string | no | City of the location (if `<play_locations>` is empty) | |
 | `<latitude>`| decimal | no | Latitude of the location (if `<play_locations>` is empty) | 52.5192 |
@@ -475,36 +475,36 @@ The `<leaders>` node contains a list of `<leader>` nodes with such content:
 
 | Node | Type | Required | Description | Example |
 |------|------|----------|-------------|---------|
-| `<prefix_id>` | string | no | Prefix ID | ms-dr |
-| `<first_name>` | string | yes | First name of the person | Erika |
+| `<prefix_id>` | xs:string | no | Prefix ID | ms-dr |
+| `<first_name>` | xs:string | yes | First name of the person | Erika |
 | `<last_name>` | string | yes | Last name of the person | Mustermann |
-| `<function_de>` | string | yes | Description in German what this leader is doing for the production | Direktorin |
-| `<function_en>` | string | yes | Description in English what this leader is doing for the production | Director |
-| `<sort_order>` | integer | yes | Sort order | 1 |
+| `<function_de>` | xs:NCName | yes | Description in German what this leader is doing for the production | Direktorin |
+| `<function_en>` | xs:NCName | yes | Description in English what this leader is doing for the production | Director |
+| `<sort_order>` | xs:integer | yes | Sort order | 1 |
 
 The `<authors>` node contains a list of `<author>` nodes with such content:
 
 | Node | Type | Required | Description | Example |
 |------|------|----------|-------------|---------|
-| `<prefix_id>` | string | no | Prefix ID | mr |
-| `<first_name>` | string | yes | First name of the person | Max |
-| `<last_name>` | string | yes | Last name of the person | Mustermann |
-| `<authorship_type_id>` | string | yes | Authorship type. One of: "komponist", "autor", "uebersetzer" | komponist |
-| `<sort_order>` | integer | yes | Sort order | 1 |
+| `<prefix_id>` | xs:string | no | Prefix ID | mr |
+| `<first_name>` | xs:NCName | yes | First name of the person | Max |
+| `<last_name>` | xs:NCName | yes | Last name of the person | Mustermann |
+| `<authorship_type_id>` | xs:string | yes | Authorship type. One of: "komponist", "autor", "uebersetzer" | komponist |
+| `<sort_order>` | xs:integer | yes | Sort order | 1 |
 
 The `<participants>` node contains a list of `<participant>` nodes with such content:
 
 | Node | Type | Required | Description | Example |
 |------|------|----------|-------------|---------|
-| `<prefix_id>` | string | no | Prefix ID | ms-dr |
-| `<first_name>` | string | yes | First name of the person | Erika |
+| `<prefix_id>` | xs:string | no | Prefix ID | ms-dr |
+| `<first_name>` | xs:string | yes | First name of the person | Erika |
 | `<last_name>` | string | yes | Last name of the person | Mustermann |
-| `<involvement_type_id>` | string | yes | Involvement type ID | musik |
+| `<involvement_type_id>` | xs:string | yes | Involvement type ID | musik |
 | `<role_de>` | string | no | Role in German | Rotkäppchen |
 | `<role_en>` | string | no | Role in English | Little Red Riding Hood |
-| `<instrument_de>` | string | no | Instrument in German | Klavier |
-| `<instrument_en>` | string | no | Instrument in English | Piano |
-| `<sort_order>` | integer | yes | Sort order | 1 |
+| `<instrument_de>` | xs:string | no | Instrument in German | Klavier |
+| `<instrument_en>` | xs:string | no | Instrument in English | Piano |
+| `<sort_order>` | xs:integer | yes | Sort order | 1 |
 
 Prefixes and their IDs are these:
 
@@ -604,54 +604,54 @@ The `<videos>` node contains a list of `<video>` nodes with such content:
 
 | Node | Type | Required | Description | Example |
 |------|------|----------|-------------|---------|
-| `<creation_date>`| string | yes | Creation timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
-| `<modified_date>` | string | no | Modification timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
-| `<title_de>` | string | yes | Title in German | |
-| `<title_en>` | string | yes | Title in English | |
-| `<embed>` | string | yes | HTML embed code | `<![CDATA[<iframe src="http://example.com/videos/45645/embed/"></iframe>]]>` |
-| `<sort_order>` | integer | yes | Sort order of the video | 1 |
+| `<creation_date>`| xs:dateTime | yes | Creation timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
+| `<modified_date>` | xs:dateTime | no | Modification timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
+| `<title_de>` | xs:string | yes | Title in German | |
+| `<title_en>` | xs:string | yes | Title in English | |
+| `<embed>` | xs:string | yes | HTML embed code | `<![CDATA[<iframe src="http://example.com/videos/45645/embed/"></iframe>]]>` |
+| `<sort_order>` | xs:integer | yes | Sort order of the video | 1 |
 
 The `<live_streams>` node contains a list of `<live_stream>` nodes with such content:
 
 | Node | Type | Required | Description | Example |
 |------|------|----------|-------------|---------|
-| `<creation_date>`| string | yes | Creation timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
-| `<modified_date>` | string | no | Modification timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
-| `<title_de>` | string | yes | Title in German | |
-| `<title_en>` | string | yes | Title in English | |
-| `<embed>` | string | yes | HTML embed code | `<![CDATA[<iframe src="http://example.com/live-videos/45645/embed/"></iframe>]]>` |
-| `<sort_order>` | integer | yes | Sort order of the video | 1 |
+| `<creation_date>`| xs:string | yes | Creation timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
+| `<modified_date>` | xs:string | no | Modification timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
+| `<title_de>` | xs:string | yes | Title in German | |
+| `<title_en>` | xs:string | yes | Title in English | |
+| `<embed>` | xs:string | yes | HTML embed code | `<![CDATA[<iframe src="http://example.com/live-videos/45645/embed/"></iframe>]]>` |
+| `<sort_order>` | xs:integer | yes | Sort order of the video | 1 |
 
 The `<images>` node contains a list of `<image>` nodes with such content:
 
 | Node | Type | Required | Description | Example |
 |------|------|----------|-------------|---------|
-| `<creation_date>`| string | yes | Creation timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
-| `<modified_date>` | string | no | Modification timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
-| `<url>` | string | yes | URL of the original (large-scale) image | |
-| `<title_de>` | string | yes | Title in German | |
-| `<title_en>` | string | yes | Title in English | |
-| `<description_de>` | string | no | Plain-text description in German | |
-| `<description_en>` | string | no | Plain-text description in English | |
-| `<author>` | string | no | The name of the author | |
-| `<copyright_restrictions>` | string | yes | Permissions to use this photo. One of: "general_use" or "protected" | general_use |
-| `<copyright>` | string | no | Copyright information | © 2016 example.com |
-| `<sort_order>` | integer | yes | Sort order of the video | 1 |
+| `<creation_date>`| xs:string | yes | Creation timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
+| `<modified_date>` | xs:string | no | Modification timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
+| `<url>` | xs:anyURI | yes | URL of the original (large-scale) image | |
+| `<title_de>` | xs:string | yes | Title in German | |
+| `<title_en>` | xs:string | yes | Title in English | |
+| `<description_de>` | xs:string | no | Plain-text description in German | |
+| `<description_en>` | xs:string | no | Plain-text description in English | |
+| `<author>` | xs:string | no | The name of the author | |
+| `<copyright_restrictions>` | xs:string | yes | Permissions to use this photo. One of: "general_use" or "protected" | general_use |
+| `<copyright>` | xs:string | no | Copyright information | © 2016 example.com |
+| `<sort_order>` | xs:integer | yes | Sort order of the video | 1 |
 
 The `<pdfs>` node contains a list of `<pdf>` nodes with such content:
 
 | Node | Type | Required | Description | Example |
 |------|------|----------|-------------|---------|
-| `<creation_date>`| string | yes | Creation timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
-| `<modified_date>` | string | no | Modification timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
-| `<url>` | string | yes | URL of the PDF document | |
-| `<title_de>` | string | yes | Title in German | |
-| `<title_en>` | string | yes | Title in English | |
-| `<description_de>` | string | no | Plain-text description in German | |
-| `<description_en>` | string | no | Plain-text description in English | |
-| `<author>` | string | no | The name of the author | |
-| `<copyright>` | string | no | Copyright information | © 2016 example.com |
-| `<sort_order>` | integer | yes | Sort order of the video | 1 |
+| `<creation_date>`| xs:string | yes | Creation timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
+| `<modified_date>` | xs:string | no | Modification timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
+| `<url>` | xs:anyURI | yes | URL of the PDF document | |
+| `<title_de>` | xs:string | yes | Title in German | |
+| `<title_en>` | xs:string | yes | Title in English | |
+| `<description_de>` | xs:string | no | Plain-text description in German | |
+| `<description_en>` | xs:string | no | Plain-text description in English | |
+| `<author>` | xs:string | no | The name of the author | |
+| `<copyright>` | xs:string | no | Copyright information | © 2016 example.com |
+| `<sort_order>` | xs:integer | yes | Sort order of the video | 1 |
 
 For example, videos, live streams, images, and PDF documents can be defined like this:
 
@@ -714,8 +714,8 @@ The `<social_media>` node contains a list of `<social_media_channel>` nodes with
 
 | Node | Type | Required | Description | Example |
 |------|------|----------|-------------|---------|
-| `<channel_type>` | string | yes | Type of social media: "Facebook", "Twitter", "Google+", etc. | |
-| `<url>` | string | yes | URL of social media profile | https://www.facebook.com/berlinbuehnen |
+| `<channel_type>` | xs:NCName | yes | Type of social media: "Facebook", "Twitter", "Google+", etc. | |
+| `<url>` | xs:anyURI | yes | URL of social media profile | https://www.facebook.com/berlinbuehnen |
 
 For example, Twitter and Facebook profiles for the production can be defined like this:
 
@@ -757,12 +757,12 @@ The `<sponsors>` node contains a list of `<sponsor>` nodes with such content:
 
 | Node | Type | Required | Description | Example |
 |------|------|----------|-------------|---------|
-| `<creation_date>`| string | yes | Creation timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
-| `<modified_date>` | string | no | Modification timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
-| `<website>` | string | no | URL of the sponsor website | http://example.com/sponsor/ |
-| `<image_url>` | string | no | URL of the sponsor logo in JPG or PNG format | http://example.com/media/sponsor-logo.png |
-| `<title_de>` | string | no | Title in German | &nbsp; |
-| `<title_en>` | string | no | Title in English | &nbsp; |
+| `<creation_date>`| xs:string | yes | Creation timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
+| `<modified_date>` | xs:string | no | Modification timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
+| `<website>` | xs:anyURI | no | URL of the sponsor website | http://example.com/sponsor/ |
+| `<image_url>` | xs:anyURI | no | URL of the sponsor logo in JPG or PNG format | http://example.com/media/sponsor-logo.png |
+| `<title_de>` | xs:string | no | Title in German | &nbsp; |
+| `<title_en>` | xs:string | no | Title in English | &nbsp; |
 
 For example, a sponsor can be defined like this:
 
@@ -789,57 +789,57 @@ These elements are available for the `<event>` node:
 
 | Node | Type | Required | Description | Example |
 |------|------|----------|-------------|---------|
-| `<id>` | string or integer | yes | Unique event ID on your website | 123 |
-| `<creation_date>`| string | yes | Production creation timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
-| `<modified_date>` | string | no | Production modification timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
-| `<start_date>`| string | yes | Start date in ISO 8601 format | 2016-04-14 |
-| `<end_date>`| string | no | End date in ISO 8601 format | 2016-04-14 |
-| `<start_time>`| string | yes | Start time in ISO 8601 format | 20:00 |
-| `<end_time>`| string | no | End time in ISO 8601 format | 23:00 |
-| `<duration>`| string | no | Duration time in ISO 8601 format | 3:00 |
-| `<pauses>`| integer | no | Amount of pauses | 2 |
+| `<id>` | xs:string or integer | yes | Unique event ID on your website | 123 |
+| `<creation_date>`| xs:string | yes | Production creation timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
+| `<modified_date>` | xs:string | no | Production modification timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
+| `<start_date>`| xs:string | yes | Start date in ISO 8601 format | 2016-04-14 |
+| `<end_date>`| xs:string | no | End date in ISO 8601 format | 2016-04-14 |
+| `<start_time>`| xs:string | yes | Start time in HH:MM or HH:MM:SS format | 20:00 |
+| `<end_time>`| xs:string | no | End time in HH:MM or HH:MM:SS format | 23:00 |
+| `<duration>`| xs:string | no | Duration time in H:MM or H:MM:SS format | 3:00 |
+| `<pauses>`| xs:integer | no | Amount of pauses | 2 |
 | `<play_locations>` | list of `<location_id>` nodes | no | Theaters where this event takes place | |
 | `<play_stages>` | list of `<stage_id>` nodes | no | Stages where this event takes place | |
 | `<location_title>` | string | no | Location title (if `<play_locations>` is empty) | |
 | `<street_address>`| string | no | Street address (first line) of the location (if `<play_locations>` is empty) | |
-| `<street_address2>` | string | no | Street address (second line) of the location (if `<play_locations>` is empty) | |
+| `<street_address2>` | xs:string | no | Street address (second line) of the location (if `<play_locations>` is empty) | |
 | `<postal_code>`| string | no | Postal code of the location (if `<play_locations>` is empty) | |
 | `<city>`| string | no | City of the location (if `<play_locations>` is empty) | |
 | `<latitude>`| decimal | no | Latitude of the location (if `<play_locations>` is empty) | 52.5192 |
 | `<longitude>` | decimal | no | Longitude of the location (if `<play_locations>` is empty) | 13.4061 |
-| `<organizers>` | string | no | Organizer or organizers of this event | |
-| `<description_de>` | string | no | Plain-text description in German | |
-| `<description_en>` | string | no | Plain-text description in English | |
-| `<teaser_de>` | string | no | Plain-text teaser in German | |
-| `<teaser_en>` | string | no | Plain-text teaser in English | |
-| `<work_info_de>` | string | no | Plain-text work info in German | |
-| `<work_info_en>` | string | no | Plain-text work info in English | |
-| `<contents_de>` | string | no | Plain-text contents in German | |
-| `<contents_en>` | string | no | Plain-text contents in English | |
-| `<press_text_de>` | string | no | Plain-text press text in German | |
-| `<press_text_en>` | string | no | Plain-text press text in English | |
-| `<credits_de>` | string | no | Plain-text credits in German | |
-| `<credits_en>` | string | no | Plain-text credits in English | |
-| `<concert_program_de>` | string | no | Plain-text concert program in German | |
-| `<concert_program_en>` | string | no | Plain-text concert program in English | |
-| `<supporting_program_de>` | string | no | Plain-text supporting program in German | |
-| `<supporting_program_en>` | string | no | Plain-text supporting program in English | |
-| `<remarks_de>` | string | no | Plain-text remarks in German | |
-| `<remarks_en>` | string | no | Plain-text remarks in English | |
-| `<duration_text_de>` | string | no | Plain-text information about duration in German | |
-| `<duration_text_en>` | string | no | Plain-text information about duration in English | |
-| `<subtitles_text_de>` | string | no | Plain-text information about subtitles in German | |
-| `<subtitles_text_en>` | string | no | Plain-text information about subtitles in English | |
-| `<age_text_de>` | string | no | Plain-text information about the age of the audience in German | |
-| `<age_text_en>` | string | no | Plain-text information about the age of the audience in English | |
-| `<free_entrance>` | string | no | Is the entrance free? One of "true" or "false" | false |
+| `<organizers>` | xs:string | no | Organizer or organizers of this event | |
+| `<description_de>` | xs:string | no | Plain-text description in German | |
+| `<description_en>` | xs:string | no | Plain-text description in English | |
+| `<teaser_de>` | xs:string | no | Plain-text teaser in German | |
+| `<teaser_en>` | xs:string | no | Plain-text teaser in English | |
+| `<work_info_de>` | xs:string | no | Plain-text work info in German | |
+| `<work_info_en>` | xs:string | no | Plain-text work info in English | |
+| `<contents_de>` | xs:string | no | Plain-text contents in German | |
+| `<contents_en>` | xs:string | no | Plain-text contents in English | |
+| `<press_text_de>` | xs:string | no | Plain-text press text in German | |
+| `<press_text_en>` | xs:string | no | Plain-text press text in English | |
+| `<credits_de>` | xs:string | no | Plain-text credits in German | |
+| `<credits_en>` | xs:string | no | Plain-text credits in English | |
+| `<concert_program_de>` | xs:string | no | Plain-text concert program in German | |
+| `<concert_program_en>` | xs:string | no | Plain-text concert program in English | |
+| `<supporting_program_de>` | xs:string | no | Plain-text supporting program in German | |
+| `<supporting_program_en>` | xs:string | no | Plain-text supporting program in English | |
+| `<remarks_de>` | xs:string | no | Plain-text remarks in German | |
+| `<remarks_en>` | xs:string | no | Plain-text remarks in English | |
+| `<duration_text_de>` | xs:string | no | Plain-text information about duration in German | |
+| `<duration_text_en>` | xs:string | no | Plain-text information about duration in English | |
+| `<subtitles_text_de>` | xs:string | no | Plain-text information about subtitles in German | |
+| `<subtitles_text_en>` | xs:string | no | Plain-text information about subtitles in English | |
+| `<age_text_de>` | xs:string | no | Plain-text information about the age of the audience in German | |
+| `<age_text_en>` | xs:string | no | Plain-text information about the age of the audience in English | |
+| `<free_entrance>` | xs:boolean | no | Is the entrance free? One of "true" or "false" | false |
 | `<price_from>` | decimal | no | Price from in Euros (no currency sign included) | 8.00 |
 | `<price_till>` | decimal | no | Price till in Euros (no currency sign included) | 12.00 |
-| `<tickets_website>` | string | no | The URL of a website page where you can buy tickets to this event | http://example.com/tickets/ |
-| `<price_information_de>` | string | no | Additional plain-text information about prices in German | |
-| `<price_information_en>` | string | no | Additional plain-text information about prices in English | |
-| `<event_status>` | string | yes | Event status. One of: "takes_place" or "canceled" | takes_place |
-| `<ticket_status>` | string | no | Tickets' status. One of: "tickets_@_box_office" or "sold_out" | |
+| `<tickets_website>` | xs:anyURI | no | The URL of a website page where you can buy tickets to this event | http://example.com/tickets/ |
+| `<price_information_de>` | xs:string | no | Additional plain-text information about prices in German | |
+| `<price_information_en>` | xs:string | no | Additional plain-text information about prices in English | |
+| `<event_status>` | xs:string | yes | Event status. One of: "takes_place" or "canceled" | takes_place |
+| `<ticket_status>` | xs:string | no | Tickets' status. One of: "tickets_@_box_office" or "sold_out" | |
 | `<characteristics>`| list of `<characteristic_id>` nodes | no | Event characteristics | tickets_@_box_office |
 | `<leaders>` | list of `<leader>` nodes | no | Leaders | |
 | `<authors>` | list of `<author>` nodes | no | Authors | |
