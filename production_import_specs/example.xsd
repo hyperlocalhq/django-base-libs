@@ -585,7 +585,19 @@
     </xs:complexType>
   </xs:element>
   <xs:element name="url" type="xs:anyURI"/>
-  <xs:element name="language_and_subtitles_id" type="xs:NCName"/>
+  <xs:element name="language_and_subtitles_id">
+    <xs:simpleType>
+      <xs:restriction base="xs:NMTOKEN">
+        <xs:enumeration value="in-englischer-sprache"/>
+        <xs:enumeration value="sprache-kein-problem"/>
+        <xs:enumeration value="mit-engl-uebertiteln"/>
+        <xs:enumeration value="mit-franzoesischen-uebertiteln"/>
+        <xs:enumeration value="andere-sprache"/>
+        <xs:enumeration value="simultanubersetzung-englisch-deutsch"/>
+        <xs:enumeration value="in-deutscher-sprache"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
   <xs:element name="sponsors">
     <xs:complexType>
       <xs:sequence>
