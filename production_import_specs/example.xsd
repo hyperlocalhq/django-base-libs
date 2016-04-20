@@ -498,7 +498,22 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="characteristic_id" type="xs:integer"/>
+    <xs:element name="characteristic_id">
+        <xs:simpleType>
+            <xs:restriction base="xs:NMTOKEN">
+                <xs:enumeration value="premiere"/>
+                <xs:enumeration value="deutsche-erstauffuehrung"/>
+                <xs:enumeration value="deutschsprachige-erstauffuehrung"/>
+                <xs:enumeration value="berliner-premiere"/>
+                <xs:enumeration value="vorauffuehrung"/>
+                <xs:enumeration value="zum-letzten-mal-dieser-spielzeit"/>
+                <xs:enumeration value="zum-letzten-mal"/>
+                <xs:enumeration value="einfuehrung"/>
+                <xs:enumeration value="familienpreise"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+
     <xs:element name="leaders">
         <xs:complexType>
             <xs:sequence>
