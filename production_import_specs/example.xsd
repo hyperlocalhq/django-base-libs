@@ -369,7 +369,15 @@
   <xs:element name="organizers">
     <xs:complexType/>
   </xs:element>
-  <xs:element name="free_entrance" type="xs:boolean"/>
+    <xs:element name="free_entrance">
+        <xs:simpleType>
+            <xs:restriction base="xs:NMTOKEN">
+                <xs:enumeration value="True"/>
+                <xs:enumeration value="False"/>
+            </xs:restriction>
+        </xs:simpleType>
+
+    </xs:element>
   <xs:element name="price_from" type="xs:decimal"/>
   <xs:element name="price_till" type="xs:decimal"/>
   <xs:element name="tickets_website" type="xs:anyURI"/>
