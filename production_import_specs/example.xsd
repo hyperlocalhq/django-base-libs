@@ -547,7 +547,7 @@
                 <xs:element ref="prefix_id"/>
                 <xs:element ref="first_name"/>
                 <xs:element ref="last_name"/>
-                <xs:element ref="type_id"/>
+                <xs:element ref="involvement_type_id"/>
                 <xs:element ref="role_de"/>
                 <xs:element ref="role_en"/>
                 <xs:element ref="instrument_de"/>
@@ -712,17 +712,23 @@
                 <xs:element ref="prefix_id"/>
                 <xs:element ref="first_name"/>
                 <xs:element ref="last_name"/>
-                <xs:element ref="type_id"/>
+                <xs:element ref="authorship_type_id"/>
                 <xs:element ref="sort_order"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="type_id">
+    <xs:element name="authorship_type_id">
         <xs:simpleType>
             <xs:restriction base="xs:NMTOKEN">
                 <xs:enumeration value="komponist"/>
                 <xs:enumeration value="autor"/>
                 <xs:enumeration value="uebersetzer"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="involvement_type_id">
+        <xs:simpleType>
+            <xs:restriction base="xs:NMTOKEN">
                 <xs:enumeration value="ausstatter"/>
                 <xs:enumeration value="buhnenbildner"/>
                 <xs:enumeration value="chor"/>

@@ -489,7 +489,7 @@ The `<authors>` node contains a list of `<author>` nodes with such content:
 | `<prefix_id>` | string | no | Prefix ID | mr |
 | `<first_name>` | string | yes | First name of the person | Max |
 | `<last_name>` | string | yes | Last name of the person | Mustermann |
-| `<type_id>` | string | yes | Authorship type. One of: "komponist", "autor", "uebersetzer" | komponist |
+| `<authorship_type_id>` | string | yes | Authorship type. One of: "komponist", "autor", "uebersetzer" | komponist |
 | `<sort_order>` | integer | yes | Sort order | 1 |
 
 The `<participants>` node contains a list of `<participant>` nodes with such content:
@@ -499,7 +499,7 @@ The `<participants>` node contains a list of `<participant>` nodes with such con
 | `<prefix_id>` | string | no | Prefix ID | ms-dr |
 | `<first_name>` | string | yes | First name of the person | Erika |
 | `<last_name>` | string | yes | Last name of the person | Mustermann |
-| `<type_id>` | string | yes | Involvement type ID | musik |
+| `<involvement_type_id>` | string | yes | Involvement type ID | musik |
 | `<role_de>` | string | no | Role in German | Rotkäppchen |
 | `<role_en>` | string | no | Role in English | Little Red Riding Hood |
 | `<instrument_de>` | string | no | Instrument in German | Klavier |
@@ -574,7 +574,7 @@ For example, the leaders, authors and participants can be defined like this:
         <prefix_id>mr</prefix_id>
         <first_name>Max</first_name>
         <last_name>Mustermann</last_name>
-        <type_id>komponist</type_id>
+        <authorship_type_id>komponist</authorship_type_id>
         <sort_order>1</sort_order>
     </author>
 </authors>
@@ -582,7 +582,7 @@ For example, the leaders, authors and participants can be defined like this:
     <participant>
         <first_name>Otto</first_name>
         <last_name>Normalverbraucher</last_name>
-        <type_id>musik</type_id>
+        <involvement_type_id>musik</involvement_type_id>
         <instrument_de>Klavier</instrument_de>
         <instrument_en>Piano</instrument_en>
         <sort_order>1</sort_order>
@@ -590,7 +590,7 @@ For example, the leaders, authors and participants can be defined like this:
     <participant>
         <first_name>Lieschen</first_name>
         <last_name>Müller</last_name>
-        <type_id>schauspieler</type_id>
+        <involvement_type_id>schauspieler</involvement_type_id>
         <role_de>Rotkäppchen</role_de>
         <role_en>Little Red Riding Hood</role_en>
         <sort_order>2</sort_order>
