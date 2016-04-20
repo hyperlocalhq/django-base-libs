@@ -599,7 +599,14 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="copyright_restrictions" type="xs:NCName"/>
+  <xs:element name="copyright_restrictions">
+    <xs:simpleType>
+      <xs:restriction base="xs:NMTOKEN">
+        <xs:enumeration value="general_use"/>
+        <xs:enumeration value="protected"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
   <xs:element name="pdfs">
     <xs:complexType>
       <xs:sequence>
