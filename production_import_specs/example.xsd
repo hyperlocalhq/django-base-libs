@@ -344,8 +344,22 @@
   <xs:element name="end_time" type="time_hh_mm"/>
   <xs:element name="duration" type="duration_hh_mm"/>
   <xs:element name="pauses" type="xs:integer"/>
-  <xs:element name="event_status" type="xs:NCName"/>
-  <xs:element name="ticket_status" type="xs:string"/>
+  <xs:element name="event_status">
+    <xs:simpleType>
+      <xs:restriction base="xs:NCName">
+        <xs:enumeration value="takes_place"/>
+        <xs:enumeration value="canceled"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="ticket_status">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="tickets_@_box_office"/>
+        <xs:enumeration value="sold_out"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
   <xs:element name="id" type="xs:integer"/>
   <xs:element name="creation_date" type="xs:dateTime"/>
   <xs:element name="modified_date" type="xs:dateTime"/>
