@@ -15,13 +15,21 @@ var gettext = function (val) {
             if ($(this).data('initialized')) {
                 return;
             }
+            
+            $(this).html('');
+            
             var $context = $(this).closest('fieldset');
             // don't apply maps for hidden forms
-            if ($('[id^="id_"][id$="latitude"]', $context).attr('id').indexOf('__prefix__') !== -1) {
+            var $test = $('[id^="id_"][id$="latitude"]', $context);
+            if ($test.length && $test.attr('id').indexOf('__prefix__') !== -1) {
                 return;
             }
+            
             var gMap;
             var gMarker;
+            var gAllMarker = [];
+            var gAllInfowindows = [];
+            var showing_marker = 0;
 
             function getAddress4search() {
                 var address = [];
@@ -52,6 +60,44 @@ var gettext = function (val) {
                     updateLatitudeAndLongitude(point.lat(), point.lng());
                 });
             }
+            
+            function updateAllMarker(lat, lng, title, institution, address) {
+                var over = address;
+                var click = address;
+                if (institution) {
+                    over = institution + " \n" + over;
+                    click = institution + " <br/>" + click;
+                }
+                if (title && title.toLowerCase() != institution.toLowerCase()) {
+                    over = title + " \n" + over;
+                    click = title + " <br/>" + click;
+                }
+                
+                
+                var point = new google.maps.LatLng(lat, lng);
+                var marker = new google.maps.Marker({
+                    position: point,
+                    map: gMap,
+                    //title: name
+                });
+                
+                var infowindow = new google.maps.InfoWindow({
+                    content: click
+                });
+                marker.addListener('click', function() {
+                    infowindow.open(gMap, marker);
+                });
+                marker.addListener('mouseover', function() {
+                    infowindow.open(gMap, marker);
+                });
+                
+                gAllMarker.push(marker);
+                gAllInfowindows.push(infowindow);
+                
+                gAllInfowindows[showing_marker].open(gMap, gAllMarker[showing_marker]);
+                gMap.panTo(gAllMarker[showing_marker].position, 15);
+            }
+            
             function updateLatitudeAndLongitude(lat, lng) {
                 lat = Math.round(lat * 1000000) / 1000000;
                 lng = Math.round(lng * 1000000) / 1000000;
@@ -145,6 +191,23 @@ var gettext = function (val) {
                 gMarker.setMap(null);
                 gMarker = null;
             });
+            
+            $('.next-location', $context).click(function () {
+                
+                var $this = $(this);
+                
+                showing_marker++;
+                if (showing_marker >= gAllMarker.length) showing_marker = 0;
+                
+                for (var i=0, length=gAllInfowindows.length; i<length; i++) {
+                    gAllInfowindows[i].close();
+                }
+                
+                gAllInfowindows[showing_marker].open(gMap, gAllMarker[showing_marker]);
+                gMap.panTo(gAllMarker[showing_marker].position, 15);
+                
+                $this.blur();
+            });
 
             gMap = new google.maps.Map($('.map_canvas', $context).get(0), {
                 scrollwheel: false,
@@ -162,8 +225,36 @@ var gettext = function (val) {
             var $lng = $('[id^="id_"][id$="longitude"]', $context);
             if ($lat.val() && $lng.val()) {
                 updateMarker($lat.val(), $lng.val());
+            } else {
+                var counter = 0;
+                var found = false;
+                do {
+                    found = false;
+                    var $lat = $('[id^="id_"][id$="latitude_'+counter+'"]', $context);
+                    var $lng = $('[id^="id_"][id$="longitude_'+counter+'"]', $context);
+                    var $title = $('[id^="id_"][id$="title_'+counter+'"]', $context);
+                    var $institution = $('[id^="id_"][id$="institution_'+counter+'"]', $context);
+                    var $address = $('[id^="id_"][id$="address_'+counter+'"]', $context);
+                    if ($lat.val() && $lng.val()) {
+                        updateAllMarker($lat.val(), $lng.val(), $title.val(), $institution.val(), $address.val());
+                        found = true;
+                        counter++;
+                    }
+                } while (found);
             }
 
+            if (gAllMarker.length < 2) {
+                $('.next-location', $context).css('display', 'none');
+            } else {
+                $('.next-location', $context).css('display', '');
+            }
+            
+            if (gAllMarker.length == 0) {
+                $(this).closest('.static-map').css('display', 'none');
+            } else {
+                $(this).closest('.static-map').css('display', '');
+            }
+            
             $(this).data('initialized', true);
             $(this).data('gmap', gMap);
         });

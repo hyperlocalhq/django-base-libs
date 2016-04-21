@@ -1,0 +1,26 @@
+{% load i18n base_tags auth_extended %}
+
+{% if object.get_contacts or object.is_editable %}
+    <div class="static-map">
+        <div class="fieldset {% if object.is_editable %}editable{% else %}not-editable{% endif %}">
+            <fieldset disabled>
+                
+                {% for contact in object.get_contacts %}
+                    {% if contact.postal_address.get_geoposition.get_latitude and contact.postal_address.get_geoposition.get_longitude %}
+                        <input class="form_hidden" id="id_latitude_{{ forloop.counter0 }}" name="map_latitude" type="hidden" value="{{ contact.postal_address.get_geoposition.get_latitude }}"/>
+                        <input class="form_hidden" id="id_longitude_{{ forloop.counter0 }}" name="map_longitude" type="hidden" value="{{ contact.postal_address.get_geoposition.get_longitude }}"/>
+                        <input class="form_hidden" id="id_title_{{ forloop.counter0 }}" name="map_title" type="hidden" value="{{ contact.location_title|escape }}"/>
+                        <input class="form_hidden" id="id_address_{{ forloop.counter0 }}" name="map_address" type="hidden" value="{{ contact.postal_address|escape }}"/>
+                        <input class="form_hidden" id="id_institution_{{ forloop.counter0 }}" name="map_institution" type="hidden" value="{% if contact.institution_id %}{{ contact.institution.get_title|escape }}{% endif %}"/>
+                    {% endif %}
+                {% endfor %}
+                
+                <h2>{% trans "Map" %}</h2>
+                <div class="map_canvas" style="height:300px">
+                    <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
+                </div>
+                <a class="fawesome fa-right smaller after next-location" href="javascript:void(0);" ><span class="text">{% trans "next location" %}</span></a>
+            </fieldset>
+        </div>
+    </div>
+{% endif %}
