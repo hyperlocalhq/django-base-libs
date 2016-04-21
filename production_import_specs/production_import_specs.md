@@ -117,7 +117,7 @@ The `<production>` node has the following elements:
 | `<location_title>` | xs:string | no | Location title (if `<play_locations>` is empty) | |
 | `<street_address>`| xs:string | no | Street address (first line) of the location (if `<play_locations>` is empty) | |
 | `<street_address2>` | xs:string | no | Street address (second line) of the location (if `<play_locations>` is empty) | |
-| `<postal_code>`| string | no | Postal code of the location (if `<play_locations>` is empty) | |
+| `<postal_code>`| xs:string | no | Postal code of the location (if `<play_locations>` is empty) | |
 | `<city>`| xs:string | no | City of the location (if `<play_locations>` is empty) | |
 | `<latitude>`| xs:decimal | no | Latitude of the location (if `<play_locations>` is empty) | 52.5192 |
 | `<longitude>` | xs:decimal | no | Longitude of the location (if `<play_locations>` is empty) | 13.4061 |
@@ -131,7 +131,7 @@ The `<production>` node has the following elements:
 | `<images>` | list of `<image>` nodes | no | Images | |
 | `<pdfs>` | list of `<pdf>` nodes | no | PDF documents | |
 | `<social_media>` | list of `<social_media_channel>` nodes | no | Social media | |
-| `<language_and_subtitles_id>` | string | no | Language and subtitles | in-deutscher-sprache |
+| `<language_and_subtitles_id>` | xs:string | no | Language and subtitles | in-deutscher-sprache |
 | `<sponsors>` | list of `<sponsor>` nodes | no | Sponsors | |
 | `<events>` | list of `<event>` nodes | no | Events | |
 
@@ -714,7 +714,7 @@ The `<social_media>` node contains a list of `<social_media_channel>` nodes with
 
 | Node | Type | Required | Description | Example |
 |------|------|----------|-------------|---------|
-| `<channel_type>` | xs:NCName | yes | Type of social media: "Facebook", "Twitter", "Google+", etc. | |
+| `<channel_type>` | xs:NCName | yes | Type of social media: "Facebook", "Twitter", "Google+", etc. | Facebook |
 | `<url>` | xs:anyURI | yes | URL of social media profile | https://www.facebook.com/berlinbuehnen |
 
 For example, Twitter and Facebook profiles for the production can be defined like this:
@@ -848,7 +848,7 @@ These elements are available for the `<event>` node:
 | `<live_streams>` | list of `<live_stream>` nodes | no | Live streams | |
 | `<images>` | list of `<image>` nodes | no | Images | |
 | `<pdfs>` | list of `<pdf>` nodes | no | PDF documents | |
-| `<language_and_subtitles_id>` | string | no | Language and subtitles | in-deutscher-sprache |
+| `<language_and_subtitles_id>` | xs:string | no | Language and subtitles | in-deutscher-sprache |
 | `<sponsors>` | list of `<sponsor>` nodes | no | Sponsors | |
 
 ### The Event Characteristics ###
