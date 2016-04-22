@@ -27,9 +27,9 @@ var gettext = function (val) {
             
             var gMap;
             var gMarker;
-            var gAllMarker = [];
-            var gAllInfowindows = [];
-            var showing_marker = 0;
+            var gStaticMapMarker = [];
+            var gStaticMapInfowindows = [];
+            var active_marker = 0;
 
             function getAddress4search() {
                 var address = [];
@@ -61,7 +61,7 @@ var gettext = function (val) {
                 });
             }
             
-            function updateAllMarker(lat, lng, title, institution, address) {
+            function setStaticMapMarker(lat, lng, title, institution, address) {
                 var over = address;
                 var click = address;
                 if (institution) {
@@ -91,11 +91,11 @@ var gettext = function (val) {
                     infowindow.open(gMap, marker);
                 });
                 
-                gAllMarker.push(marker);
-                gAllInfowindows.push(infowindow);
+                gStaticMapMarker.push(marker);
+                gStaticMapInfowindows.push(infowindow);
                 
-                gAllInfowindows[showing_marker].open(gMap, gAllMarker[showing_marker]);
-                gMap.panTo(gAllMarker[showing_marker].position, 15);
+                gStaticMapInfowindows[active_marker].open(gMap, gStaticMapMarker[active_marker]);
+                gMap.panTo(gStaticMapMarker[active_marker].position, 15);
             }
             
             function updateLatitudeAndLongitude(lat, lng) {
@@ -196,15 +196,15 @@ var gettext = function (val) {
                 
                 var $this = $(this);
                 
-                showing_marker++;
-                if (showing_marker >= gAllMarker.length) showing_marker = 0;
+                active_marker++;
+                if (active_marker >= gStaticMapMarker.length) active_marker = 0;
                 
-                for (var i=0, length=gAllInfowindows.length; i<length; i++) {
-                    gAllInfowindows[i].close();
+                for (var i=0, length=gStaticMapInfowindows.length; i<length; i++) {
+                    gStaticMapInfowindows[i].close();
                 }
                 
-                gAllInfowindows[showing_marker].open(gMap, gAllMarker[showing_marker]);
-                gMap.panTo(gAllMarker[showing_marker].position, 15);
+                gStaticMapInfowindows[active_marker].open(gMap, gStaticMapMarker[active_marker]);
+                gMap.panTo(gStaticMapMarker[active_marker].position, 15);
                 
                 $this.blur();
             });
@@ -236,20 +236,20 @@ var gettext = function (val) {
                     var $institution = $('[id^="id_"][id$="institution_'+counter+'"]', $context);
                     var $address = $('[id^="id_"][id$="address_'+counter+'"]', $context);
                     if ($lat.val() && $lng.val()) {
-                        updateAllMarker($lat.val(), $lng.val(), $title.val(), $institution.val(), $address.val());
+                        setStaticMapMarker($lat.val(), $lng.val(), $title.val(), $institution.val(), $address.val());
                         found = true;
                         counter++;
                     }
                 } while (found);
             }
 
-            if (gAllMarker.length < 2) {
+            if (gStaticMapMarker.length < 2) {
                 $('.next-location', $context).css('display', 'none');
             } else {
                 $('.next-location', $context).css('display', '');
             }
             
-            if (gAllMarker.length == 0) {
+            if (gStaticMapMarker.length == 0) {
                 $(this).closest('.static-map').css('display', 'none');
             } else {
                 $(this).closest('.static-map').css('display', '');

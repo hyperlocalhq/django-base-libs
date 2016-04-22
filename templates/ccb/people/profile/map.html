@@ -1,6 +1,6 @@
 {% load i18n base_tags auth_extended %}
 
-{% if object.get_contacts or object.is_editable %}
+{% if object.get_contacts %}
     <div class="static-map">
         <div class="fieldset {% if object.is_editable %}editable{% else %}not-editable{% endif %}">
             <fieldset disabled>

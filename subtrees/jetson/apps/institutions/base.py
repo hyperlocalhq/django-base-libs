@@ -288,10 +288,11 @@ class InstitutionBase(CreationModificationDateMixin, UrlMixin, OpeningHoursMixin
         return "/%s/%s/" % (URL_ID_INSTITUTION, self.slug)        
     
     def get_title(self):
-        return ("%s %s" % (
-            force_unicode(self.title),
-            force_unicode(self.title2),
-            )).strip()
+        return u", ".join([force_unicode(item) for item in (self.title, self.title2) if item]).strip()
+        #return ("%s %s" % (
+        #    force_unicode(self.title),
+        #    force_unicode(self.title2),
+        #    )).strip()
 
     def get_slug(self):
         return self.slug
