@@ -50,7 +50,7 @@
             <dl class="input-fields">
                 <dt>{% trans "Description" %}</dt>
                 <dd>
-                    <div class="text-field">{{ object.get_description|urlize|linebreaks|mark_first_and_last:"p" }}</div>
+                    <div class="text-field">{{ object.get_description|urlize|linebreaksbr|mark_first_and_last:"p" }}</div>
                 </dd>
                 <dd class="clearfix"></dd>
             </dl>
