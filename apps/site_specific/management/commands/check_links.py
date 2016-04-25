@@ -117,7 +117,7 @@ class Command(NoArgsCommand):
         if self.verbosity > NORMAL:
             print "Checking CMS pages..."
 
-        for p in Page.objects.filter(publisher_is_draft=False):
+        for p in Page.objects.public():
             fields_with_broken_links = []
             for ph in p.placeholders.all():
                 for pl in ph.get_plugins_list():
