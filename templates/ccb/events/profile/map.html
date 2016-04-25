@@ -1,0 +1,22 @@
+{% load i18n base_tags auth_extended %}
+
+{% if object.postal_address.get_geoposition.get_latitude and object.postal_address.get_geoposition.get_longitude %}
+    <div class="static-map">
+        <div class="fieldset {% if object.is_editable %}editable{% else %}not-editable{% endif %}">
+            <fieldset disabled>
+                
+                <input class="form_hidden" id="id_latitude_0" name="map_latitude" type="hidden" value="{{ object.postal_address.get_geoposition.get_latitude }}"/>
+                <input class="form_hidden" id="id_longitude_0" name="map_longitude" type="hidden" value="{{ object.postal_address.get_geoposition.get_longitude }}"/>
+                <input class="form_hidden" id="id_title_0" name="map_title" type="hidden" value="{{ object.location_title|escape }}"/>
+                <input class="form_hidden" id="id_address_0" name="map_address" type="hidden" value="{{ object.postal_address|escape }}"/>
+                <input class="form_hidden" id="id_institution_0" name="map_institution" type="hidden" value="{% if object.venue_title or object.venue %}{% if object.venue %}{{ object.venue.title|escape }}{% else %}{{ object.venue_title }}{% endif %}{% endif %}"/>
+                
+                <h2>{% trans "Map" %}</h2>
+                <div class="map_canvas" style="height:300px">
+                    <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
+                </div>
+                <a class="fawesome fa-right smaller after next-location" href="javascript:void(0);" ><span class="text">{% trans "next location" %}</span></a>
+            </fieldset>
+        </div>
+    </div>
+{% endif %}

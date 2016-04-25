@@ -2734,11 +2734,13 @@ body.show-layer.image-layer .layer#image-layer {
   height: 50px;
   background: #efefef;
   position: relative;
-  z-index: 200;
+  z-index: 80;
+  overflow: hidden;
 }
 
 #breadcrumbs ul {
   list-style: none;
+  width: 10000px;
 }
 
 #breadcrumbs ul li {
@@ -4647,6 +4649,10 @@ dd.autocomplete .input-field.ac_loading:after {
 
 .dyn_set_map .map_locations ul li {
   padding: 2px;
+}
+
+.static-map .next-location {
+  float: right;
 }
 
 #body .container .row.profile-grid {
