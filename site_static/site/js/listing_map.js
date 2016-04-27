@@ -285,7 +285,9 @@ var oMap;
             oSWPoint.lat() + 0.005,
             oSWPoint.lng() + 0.005
         ));
-        oMap.fitBounds(oBounds);
+        if (oMap) {
+            oMap.fitBounds(oBounds);
+        }
     }
 
     $(window).load(function() {
