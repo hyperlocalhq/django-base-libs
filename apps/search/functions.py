@@ -56,23 +56,25 @@ class ModelChoiceCache(object):
     """
     Model choices used in the search form
     """
-    sorted_models = []  # like [('museums', 'Museums'), ('exhibitions', 'Exhibitions'),...]
+    sorted_models = []  # like [('museums.museum', 'Museums'), ('exhibitions.exhibition', 'Exhibitions'),...]
+    model_list = []
 
     def __call__(self, site=None):
-        if not self.sorted_models:
+        if not self.model_list:
             language = get_current_language()
 
-            model_list = sorted([
+            self.model_list = sorted([
                 (m, getattr(k, "verbose_name", _("Other Content")), getattr(k, "order", 10))
                 for m, k in get_search_indexes(language)
             ], key=lambda x: x[2])
-            self.sorted_models = [
-                (
-                    get_model_short_name("%s.%s" % (m[0]._meta.app_label, m[0]._meta.module_name)),
-                    capfirst(unicode(m[1])),
-                )
-                for m in model_list
-            ]
+
+        self.sorted_models = [
+            (
+                get_model_short_name("%s.%s" % (m[0]._meta.app_label, m[0]._meta.module_name)),
+                capfirst(unicode(m[1])),
+            )
+            for m in self.model_list
+        ]
 
         return self.sorted_models
 
