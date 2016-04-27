@@ -12,6 +12,7 @@ from .models import CuratedList, ListItem
 class ListItemInline(admin.StackedInline):
     model = ListItem
     extra = 0
+    sortable_field_name = "sort_order"
     fieldsets = ObjectRelationMixinAdminOptions().fieldsets + [
         (None, {'fields': ['sort_order']}),
     ]
