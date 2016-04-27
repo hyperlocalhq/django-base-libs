@@ -9,7 +9,7 @@
             <div class="item col-xs-12 col-sm-6 col-md-6 col-lg-6" data-href="{{ object.get_url_path }}slideshow/#{{ forloop.counter0 }}">
               <div class="img-detail">
                 <a href="{{ object.get_url_path }}slideshow/#{{ forloop.counter0 }}">
-                  <img src="{{ STATIC_URL }}site/img/placeholder_detail.gif" data-original="{{ MEDIA_URL }}{{ mf.path|modified_image:"max" }}" alt="" title="{{ file_desc.description|remove_newlines|escape }}" />
+                  <img src="{{ STATIC_URL }}site/img/placeholder_detail.gif" data-original="{{ MEDIA_URL }}{{ mf.path|modified_path:"max" }}" alt="" title="{{ file_desc.description|remove_newlines|escape }}" />
                 </a>
               </div>
               <!--
