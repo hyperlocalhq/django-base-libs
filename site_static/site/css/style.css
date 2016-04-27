@@ -5456,3 +5456,12 @@ p a {
 .ad_banner .headline-up {
   margin-top: -17px !important;
   margin-bottom: 2px !important; }
+
+.carousel-control .icon-next {
+  background: #000 url("../img/icons/inv/right.png") center right no-repeat; }
+  .carousel-control .icon-next::before {
+    content: ""; }
+.carousel-control .icon-prev {
+  background: #000 url("../img/icons/inv/left.png") center left no-repeat; }
+  .carousel-control .icon-prev::before {
+    content: ""; }

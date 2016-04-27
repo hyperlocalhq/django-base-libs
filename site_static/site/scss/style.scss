@@ -376,3 +376,22 @@ p a{font-weight: 700; }
     margin-bottom: 2px !important;
   }
 }
+
+.carousel-control {
+  .right {
+    .icon-next {
+      background: #000 url("../img/icons/inv/right.png") center right no-repeat;
+      &::before {
+        content: "";
+      }
+    }
+  }
+  .left {
+    .icon-prev {
+      background: #000 url("../img/icons/inv/left.png") center left no-repeat;
+      &::before {
+        content: "";
+      }
+    }
+  }
+}
