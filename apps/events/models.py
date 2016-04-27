@@ -89,6 +89,10 @@ class Event(ComplexEventBase):
         else:
             return path
 
+    @staticmethod
+    def autocomplete_search_fields():
+        return ["id__iexact"] + ["title_{}__icontains".format(lang_code) for lang_code, lang_name in settings.LANGUAGES]
+
 
 class EventTime(ComplexEventTimeBase):
     def closest_start(self):
@@ -96,6 +100,7 @@ class EventTime(ComplexEventTimeBase):
         if self.start and self.start < now:
             return now
         return self.start
+
 
 # Notify appropriate users about new events from contacts and favorite institutions
 def event_created(sender, instance, **kwargs):

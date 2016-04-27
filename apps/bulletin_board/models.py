@@ -254,6 +254,10 @@ class Bulletin(CreationModificationMixin, UrlMixin):
     def can_be_changed(self, user):
         return user.has_perm("bulletin_board.change_bulletin", self) or user.is_authenticated() and self.creator == user
 
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("id__iexact", "title__icontains",)
+
 
 def bulletin_created(sender, instance, **kwargs):
     from actstream import action

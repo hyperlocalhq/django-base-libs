@@ -12,9 +12,12 @@ from .models import CuratedList, ListItem
 class ListItemInline(admin.StackedInline):
     model = ListItem
     extra = 0
-    fieldsets = ObjectRelationMixinAdminOptions().fieldsets + get_admin_lang_section(_("Representation"), ['representation']) + [
+    fieldsets = ObjectRelationMixinAdminOptions().fieldsets + [
         (None, {'fields': ['sort_order']}),
     ]
+    autocomplete_lookup_fields = {
+        'generic': [['content_type', 'object_id']],
+    }
 
 
 class CuratedListAdmin(admin.ModelAdmin):
@@ -32,5 +35,6 @@ class CuratedListAdmin(admin.ModelAdmin):
     def get_list_item_count(self, obj):
         return obj.listitem_set.count()
     get_list_item_count.short_description = _("List Items")
+
 
 admin.site.register(CuratedList, CuratedListAdmin)

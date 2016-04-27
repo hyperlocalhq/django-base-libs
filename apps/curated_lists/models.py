@@ -30,7 +30,17 @@ class CuratedList(CreationModificationDateMixin, SlugMixin(unique=False)):
         return self.title
 
 
-class ListItem(CreationModificationDateMixin, ObjectRelationMixin(), UrlMixin):
+limit_content_type_choices_to = (
+    models.Q(app_label="articles", model="article") |
+    models.Q(app_label="blog", model="post") |
+    models.Q(app_label="bulletin_board", model="bulletin") |
+    models.Q(app_label="events", model="event") |
+    models.Q(app_label="institutions", model="institution") |
+    models.Q(app_label="marketplace", model="joboffer") |
+    models.Q(app_label="people", model="person")
+)
+
+class ListItem(CreationModificationDateMixin, ObjectRelationMixin(limit_content_type_choices_to=limit_content_type_choices_to), UrlMixin):
     curated_list = models.ForeignKey(CuratedList, verbose_name=_("Curated list"))
     representation = MultilingualCharField(_("Representation"), max_length=255, blank=True)
     sort_order = models.IntegerField(_("Sort order"), blank=True, default=0)

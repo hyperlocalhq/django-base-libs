@@ -3,6 +3,7 @@
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import AnonymousUser
 from django.core.urlresolvers import reverse
+from django.utils.text import slugify
 
 from mptt.fields import TreeManyToManyField
 from actstream import action
@@ -104,6 +105,11 @@ class JobOffer(JobOfferBase):
             if mappers:
                 self._content_provider = mappers[0].service
         return self._content_provider
+
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("id__iexact", "position__icontains",)
+
 
 # Notify appropriate users about new job offers from contacts and favorite institutions
 def job_offer_created(sender, instance, **kwargs):
