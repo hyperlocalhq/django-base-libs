@@ -5,7 +5,7 @@
     <div class="container relative">
       <div id="meta" class="pull-right">
         <ul class="nav navbar-nav navbar-search hidden-xs">
-          <li>
+          <li class="hidden-sm">
             <form method="get" action="#"><input class="input-block-level textinput textInput form-control form_text" type="text" value="" /></form>
           </li>
           <li>
@@ -81,6 +81,7 @@
           {% endcomment %}
           <div id="user-menu" class="pull-left hidden-xs">
             <a class="btn btn-info" href="/{{ LANGUAGE_CODE }}/login/">{% trans "Login" %}</a>
+            <a class="btn btn-info signup" href="/{{ LANGUAGE_CODE }}/signup/">{% trans "Signup" %}</a>
           </div>
         {% endif %}
 
