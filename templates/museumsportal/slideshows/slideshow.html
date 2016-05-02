@@ -14,8 +14,11 @@
 
         {% for slide in slides %}
           <div class="item {% if forloop.first %}active{% endif %}">
-            <a class="img" href="{{ slide.link }}">
+            <a class="x-img" href="{{ slide.link }}">
+              {% comment %}
               <img src="{{ STATIC_URL }}site/img/placeholder_slideshow.gif" data-original="{{ UPLOADS_URL }}{{ slide.path|modified_path:"slideshow" }}" alt="" />
+              {% endcomment %}
+              <img src="{{ UPLOADS_URL }}{{ slide.path|modified_path:"slideshow" }}" alt="" class="loaded" />
               <div class="carousel-caption">
                 <h2><b>{{ slide.title|striptags }}</b><br/>
                 {{ slide.subtitle|striptags }}</h2>
@@ -43,18 +46,20 @@
         });
         $('.carousel').each(function() {
             var $carousel = $(this);
+            /*
             $('.active img', $carousel).lazyload({
                 load : function(element, el_left, settings){
                     $(this).closest('.img').addClass('loaded');
                 }
             });
-            $carousel.carousel({interval: 5000}).on('slid.bs.carousel', function () {
+            */
+            $carousel.carousel({interval: 5000});/*.on('slid.bs.carousel', function () {
                 $('.active img', $carousel).lazyload({
                     load : function(element, el_left, settings){
                         $(this).closest('.img').addClass('loaded');
                     }
                 });
-            });
+            });*/
             $carousel.hammer().on('swipeleft', function() {
                 $carousel.carousel('next');
             });
