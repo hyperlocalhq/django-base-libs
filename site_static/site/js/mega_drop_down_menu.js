@@ -31,7 +31,13 @@ $(window).load(function() {
         'menu-mostre': 'mega_exhibitions',
         'menu-manifestazioni-culturali': 'mega_events',
         'menu-visite-guidate': 'mega_workshops',
-        'menu-organizza-la-tua-visita': 'mega_plan_your_visit'
+        'menu-organizza-la-tua-visita': 'mega_plan_your_visit',
+        // tr
+        'menu-muzeler': 'mega_museums',
+        'menu-sergiler': 'mega_exhibitions',
+        'menu-etkinlikler': 'mega_events',
+        'menu-rehberli-turlar-ve-atolyeler': 'mega_workshops',
+        'menu-planlamak-organize-etmek': 'mega_plan_your_visit'
     };
 
 	var Datepicker = function(element, picker, options){
