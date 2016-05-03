@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Django 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-07 10:55+0200\n"
-"PO-Revision-Date: 2016-04-07 10:49+0053\n"
+"POT-Creation-Date: 2016-04-21 12:21+0200\n"
+"PO-Revision-Date: 2016-04-07 11:07+0053\n"
 "Last-Translator: Super Admin <jetsonadmin@studio38.de>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -8898,6 +8898,18 @@ msgstr "Kontakt hinzufügen"
 msgid "Established at"
 msgstr "Gründungsdatum"
 
+#: .\templates\ccb\institutions\profile\map.html:18
+#: .\templates\ccb\people\profile\map.html:18
+msgid "Map"
+msgstr "Karte"
+
+#: .\templates\ccb\institutions\profile\map.html:22
+#: .\templates\ccb\people\profile\map.html:22
+#, fuzzy
+#| msgid "Main location"
+msgid "next location"
+msgstr "Hauptstandort"
+
 #: .\templates\ccb\institutions\profile\opening_hours.html:51
 msgid "Visiting by appointment."
 msgstr "Termin nach Vereinbarung."
@@ -8913,34 +8925,28 @@ msgid "Featured <b>Events</b>"
 msgstr "Nur gefeaturte Events"
 
 #: .\templates\ccb\mailchimp\campaign\includes\events.html:122
-#, fuzzy
-#| msgid "Join this event"
 msgid "To the event"
-msgstr "An Termin teilnehmen"
+msgstr "Zum Event"
 
 #: .\templates\ccb\mailchimp\campaign\includes\events.html:151
 msgid "all events"
 msgstr "alle Events"
 
 #: .\templates\ccb\mailchimp\campaign\includes\interviews.html:11
-#, fuzzy
-#| msgid "From the <b>Magazine</b>"
 msgid "From the <b>CCB Magazine</b>"
 msgstr "Aus dem <b>CCB Magazin</b>"
 
 #: .\templates\ccb\mailchimp\campaign\includes\interviews.html:69
 msgid "To the interview"
-msgstr ""
+msgstr "Zum Interview"
 
 #: .\templates\ccb\mailchimp\campaign\includes\interviews.html:97
 msgid "all articles"
 msgstr "alle Artikel"
 
 #: .\templates\ccb\mailchimp\campaign\includes\jobs_and_bulletins.html:10
-#, fuzzy
-#| msgid "Jobs and <b>Marketplace</b>"
 msgid "Jobs &amp; <b>Marketplace</b>"
-msgstr "Jobs & <b>Projekte</b>"
+msgstr "Jobs &amp; <b>Projekte</b>"
 
 #: .\templates\ccb\mailchimp\campaign\includes\jobs_and_bulletins.html:90
 msgid "all jobs"
@@ -8951,14 +8957,12 @@ msgid "all bulletins"
 msgstr "alle Inserate"
 
 #: .\templates\ccb\mailchimp\campaign\includes\news.html:10
-#, fuzzy
-#| msgid "Culture News <b>Berlin</b>"
 msgid "Culture News from <b>Berlin</b>"
 msgstr "News aus <b>Berlin</b>"
 
 #: .\templates\ccb\mailchimp\campaign\includes\news.html:74
 msgid "all news"
-msgstr ""
+msgstr "alle News"
 
 #: .\templates\ccb\mailchimp\campaign\includes\people.html:10
 msgid "New <b>Profiles</b>"
@@ -8977,10 +8981,8 @@ msgid "all portfolios"
 msgstr "alle Portfolios"
 
 #: .\templates\ccb\mailchimp\campaign\includes\tenders_and_compet.html:11
-#, fuzzy
-#| msgid "Tenders and <b>Competitions</b>"
 msgid "Tenders &amp; <b>Competitions</b>"
-msgstr "Ausschreibungen & <b>Wettbewerbe</b>"
+msgstr "Ausschreibungen &amp; <b>Wettbewerbe</b>"
 
 #: .\templates\ccb\mailchimp\campaign\includes\tenders_and_compet.html:76
 msgid "all tenders and competitions"
@@ -10212,9 +10214,6 @@ msgstr ""
 
 #~ msgid "Add a new blog entry"
 #~ msgstr "Neuen Blogbeitrag hinzufügen"
-
-#~ msgid "Map"
-#~ msgstr "Karte"
 
 #~ msgid "Today"
 #~ msgstr "Heute"
@@ -11485,9 +11484,6 @@ msgstr ""
 
 #~ msgid "Edit Profile"
 #~ msgstr "Profil bearbeiten"
-
-#~ msgid "Main location"
-#~ msgstr "Hauptstandort"
 
 #~ msgid "Additional address"
 #~ msgstr "Zusätzliche Adresse"

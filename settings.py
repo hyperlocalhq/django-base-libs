@@ -195,6 +195,7 @@ INSTALLED_APPS = [
     "ccb.apps.partners",
     "ccb.apps.counselling_blog",
     "ccb.apps.counselling_events",
+    "ccb.apps.curated_lists",
     "ccb",  # just for i18n in Javascript
     "actstream",
 ]
@@ -308,6 +309,9 @@ ADMIN_APP_INDEX = (
             ("partners", {
                 "models": ("PartnerCategory",),
                 "icon": "images",
+            }),
+            ("curated_lists", {
+                "models": ("CuratedList",),
             }),
         )
     }, {

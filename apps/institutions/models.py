@@ -235,6 +235,10 @@ class Institution(InstitutionBase):
             progress += 25
         self.completeness = progress
 
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("id__iexact", "title__icontains",)
+
 
 class InstitutionalContact(InstitutionalContactBase):
     def is_public(self):

@@ -171,3 +171,6 @@ class Post(CreationModificationMixin, PublishingMixin, ViewsMixin, UrlMixin, Slu
         except:
             return None
             
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("id__iexact", "title__icontains",)

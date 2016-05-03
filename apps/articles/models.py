@@ -204,3 +204,8 @@ class Article(ArticleBase, MultiSiteMixin):
 
     def get_categories(self):
         return self.categories.all()
+
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("id__iexact", "title__icontains",)
+

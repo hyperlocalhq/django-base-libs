@@ -87,6 +87,10 @@ class Person(PersonBase):
             progress += 25
         self.completeness = progress
 
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("id__iexact", "user__username__icontains", "user__first_name__icontains", "user__last_name__icontains",)
+
 
 class IndividualContact(IndividualContactBase):
     def is_public(self):
