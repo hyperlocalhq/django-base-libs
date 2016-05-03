@@ -211,7 +211,7 @@ MIDDLEWARE_CLASSES = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.auth.middleware.SessionAuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
-    "jetson.apps.flatpages.middleware.FlatpageMiddleware",
+    #"jetson.apps.flatpages.middleware.FlatpageMiddleware",
     "base_libs.middleware.threadlocals.ThreadLocalsMiddleware",
     "django.contrib.admindocs.middleware.XViewMiddleware",
     "jetson.apps.utils.middleware.generic.AdminScriptUpdateMiddleware",
