@@ -12,6 +12,7 @@ class Command(BaseCommand):
 
         import re
         import requests
+        from requests.exceptions import ConnectionError
         from xml.dom.minidom import parseString
         from dateutil.parser import parse as parse_datetime
 
@@ -40,14 +41,19 @@ class Command(BaseCommand):
         articles_failed = []
 
         for s in ArticleImportSource.objects.all():
-            response = requests.get(
-                s.url,
-                allow_redirects=True,
-                verify=False,
-                headers={
-                    'User-Agent': 'Creative City Berlin',
-                }
-            )
+            try:
+                response = requests.get(
+                    s.url,
+                    allow_redirects=True,
+                    verify=False,
+                    headers={
+                        'User-Agent': 'Creative City Berlin',
+                    }
+                )
+            except ConnectionError:
+                services_failed.append(s)
+                continue
+
             if response.status_code != 200:
                 services_failed.append(s)
                 continue
