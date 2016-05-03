@@ -40,7 +40,7 @@ On FreeBSD, both Celery processes are managed by supervisorctl. Here are some ex
 
     # supervisorctl tail celery_beat stderr
     ...
-    
+
 Remember that for MailHog intercept sent emails, you need to configure Django for it. Add the following to your local_settings.py:
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'localhost'
@@ -82,7 +82,7 @@ ef = AutoFixture(Event, field_values={
     'organizing_person': aidas,
 })
 jf = AutoFixture(JobOffer, field_values={
-    'offering_institution': hskf,
+    'offering_institution': studio38,
     'contact_person': aidas,
 })
 bf = AutoFixture(Bulletin, field_values={
