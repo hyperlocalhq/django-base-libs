@@ -86,7 +86,7 @@ class ImportFromCulturebaseBase(object):
 
     PRODUCTION_CHARACTERISTICS_MAPPER = {
         1: '',  # Premiere
-        2: 'wiederaufname',  # Wiederaufnahme
+        2: 'wiederaufnahme',  # Wiederaufnahme
         3: '',  # Vorauffuhrung
         5: '',  # Publikumsgespräch
         6: 'gastspiel',  # Gastspiel
