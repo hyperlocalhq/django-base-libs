@@ -14,6 +14,7 @@ from datetime import datetime
 
 from filebrowser.fields import FileBrowseField
 from actstream import action
+from actstream.models import following, followers
 
 from base_libs.models.models import SlugMixin
 from base_libs.models.models import CreationModificationMixin
@@ -279,11 +280,7 @@ def bulletin_created(sender, instance, **kwargs):
                 instance.institution,
             )
             # get users who favorited the institution organizing this job_offer
-            recipients = User.objects.filter(
-                favorite__content_type__app_label="site_specific",
-                favorite__content_type__model="contextitem",
-                favorite__object_id=ci.pk,
-            ).exclude(pk__in=sent_recipient_pks)
+            recipients = followers(instance.institution)
             sent_recipient_pks += list(recipients.values_list("pk", flat=True))
 
             notification.send(
@@ -304,11 +301,11 @@ def bulletin_created(sender, instance, **kwargs):
             ci = ContextItem.objects.get_for(
                 user.profile,
             )
-            recipients = User.objects.filter(
-                favorite__content_type__app_label="site_specific",
-                favorite__content_type__model="contextitem",
-                favorite__object_id=ci.pk,
-            ).exclude(pk__in=sent_recipient_pks)
+            recipients = [
+                recipient
+                for recipient in followers(user)
+                if recipient.pk not in sent_recipient_pks
+            ]
 
             notification.send(
                 recipients,

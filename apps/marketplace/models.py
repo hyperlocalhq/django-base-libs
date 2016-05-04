@@ -7,6 +7,7 @@ from django.utils.text import slugify
 
 from mptt.fields import TreeManyToManyField
 from actstream import action
+from actstream.models import following, followers
 
 from jetson.apps.marketplace.base import *
 
@@ -134,11 +135,7 @@ def job_offer_created(sender, instance, **kwargs):
                     instance.offering_institution,
                 )
                 # get users who favorited the institution organizing this job_offer
-                recipients = User.objects.filter(
-                    favorite__content_type__app_label="site_specific",
-                    favorite__content_type__model="contextitem",
-                    favorite__object_id=ci.pk,
-                ).exclude(pk__in=sent_recipient_pks)
+                recipients = followers(instance.offering_institution)
                 sent_recipient_pks += list(recipients.values_list("pk", flat=True))
 
                 notification.send(
@@ -161,11 +158,11 @@ def job_offer_created(sender, instance, **kwargs):
                 ci = ContextItem.objects.get_for(
                     instance.contact_person,
                 )
-                recipients = User.objects.filter(
-                    favorite__content_type__app_label="site_specific",
-                    favorite__content_type__model="contextitem",
-                    favorite__object_id=ci.pk,
-                ).exclude(pk__in=sent_recipient_pks)
+                recipients = [
+                    recipient
+                    for recipient in followers(instance.contact_person.user)
+                    if recipient.pk not in sent_recipient_pks
+                ]
                 sent_recipient_pks += list(recipients.values_list("pk", flat=True))
 
                 notification.send(
@@ -186,11 +183,11 @@ def job_offer_created(sender, instance, **kwargs):
                 ci = ContextItem.objects.get_for(
                     user.profile,
                 )
-                recipients = User.objects.filter(
-                    favorite__content_type__app_label="site_specific",
-                    favorite__content_type__model="contextitem",
-                    favorite__object_id=ci.pk,
-                ).exclude(pk__in=sent_recipient_pks)
+                recipients = [
+                    recipient
+                    for recipient in followers(user)
+                    if recipient.pk not in sent_recipient_pks
+                ]
 
                 notification.send(
                     recipients,

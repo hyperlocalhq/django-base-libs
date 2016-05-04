@@ -7,6 +7,7 @@ from django.utils.encoding import force_text
 
 from mptt.fields import TreeManyToManyField
 from actstream import action
+from actstream.models import following, followers
 
 from ccb.apps.events.base import *
 
@@ -127,11 +128,7 @@ def event_created(sender, instance, **kwargs):
                 ci = ContextItem.objects.get_for(
                     institution,
                 )
-                recipients = User.objects.filter(
-                    favorite__content_type__app_label="site_specific",
-                    favorite__content_type__model="contextitem",
-                    favorite__object_id=ci.pk,
-                ).exclude(pk__in=sent_recipient_pks)
+                recipients = followers(institution)
                 sent_recipient_pks += list(recipients.values_list("pk", flat=True))
 
                 notification.send(
@@ -154,11 +151,11 @@ def event_created(sender, instance, **kwargs):
                 ci = ContextItem.objects.get_for(
                     instance.organizing_person,
                 )
-                recipients = User.objects.filter(
-                    favorite__content_type__app_label="site_specific",
-                    favorite__content_type__model="contextitem",
-                    favorite__object_id=ci.pk,
-                ).exclude(pk__in=sent_recipient_pks)
+                recipients = [
+                    recipient
+                    for recipient in followers(instance.organizing_person.user)
+                    if recipient.pk not in sent_recipient_pks
+                ]
                 sent_recipient_pks += list(recipients.values_list("pk", flat=True))
 
                 notification.send(
@@ -179,11 +176,11 @@ def event_created(sender, instance, **kwargs):
                 ci = ContextItem.objects.get_for(
                     user.profile,
                 )
-                recipients = User.objects.filter(
-                    favorite__content_type__app_label="site_specific",
-                    favorite__content_type__model="contextitem",
-                    favorite__object_id=ci.pk,
-                ).exclude(pk__in=sent_recipient_pks)
+                recipients = [
+                    recipient
+                    for recipient in followers(user)
+                    if recipient.pk not in sent_recipient_pks
+                ]
 
                 notification.send(
                     recipients,
@@ -199,7 +196,6 @@ def event_created(sender, instance, **kwargs):
                     on_site=False,
                 )
                 action.send(user, verb="added event", action_object=instance)
-
 
 
 models.signals.post_save.connect(event_created, sender=Event)
