@@ -22,16 +22,20 @@ def get_notification_setting(user, notice_type, medium):
     notification = models.get_app("notification")
     NoticeSetting = notification.NoticeSetting
     NOTICE_MEDIA_DEFAULTS = notification.NOTICE_MEDIA_DEFAULTS
-    try:
-        return NoticeSetting.objects.get(user=user, notice_type=notice_type, medium=medium)
-    except NoticeSetting.DoesNotExist:
+    settings = NoticeSetting.objects.filter(user=user, notice_type=notice_type, medium=medium)
+    if len(settings) == 0:
         if NOTICE_MEDIA_DEFAULTS[medium] <= notice_type.default:
             frequency = "immediately"
         else:
             frequency = "never"
         setting = NoticeSetting(user=user, notice_type=notice_type, medium=medium, frequency=frequency)
         setting.save()
-        return setting
+    else:
+        setting = settings[0]
+        if len(settings) > 1:
+            for repeated_setting in settings[1:]:
+                repeated_setting.delete()
+    return setting
 
 @shared_task
 def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct=None, instance_id=None, sender_id=None,
