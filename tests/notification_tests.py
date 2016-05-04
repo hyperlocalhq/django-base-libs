@@ -70,12 +70,22 @@ from jetson.apps.messaging.models import InternalMessage
 from ccb.apps.tracker.models import Ticket
 
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth.models import User
 
+from jetson.apps.notification.models import NoticeType
+from jetson.apps.notification.tasks import get_notification_setting
+
+reinhard_user = User.objects.get(username='reinhard_knobelspies')
+aidas_user = User.objects.get(username='aidas')
 reinhard = Person.objects.get(user__username='reinhard_knobelspies')
 aidas = Person.objects.get(user__username='aidas')
+
 studio38 = Institution.objects.get(title='studio 38')
 studio38_content_type = ContentType.objects.get_for_model(studio38)
 
+pf = AutoFixture(Person, field_values={
+    'user': aidas_user,
+})
 ef = AutoFixture(Event, field_values={
     'organizing_institution': studio38,
     'venue': studio38,
@@ -116,11 +126,33 @@ tf = AutoFixture(Ticket, field_values={
     'object_id': studio38.pk,
 })
 
+ps = pf.create(4)
+frequencies = '''never immediately daily weekly'''.split()
+people_frequencies = zip(ps, frequencies)
+
+notice_types = list(NoticeType.objects.all())
+settings = []
+for p, frequency in people_frequencies:
+    p.person_repr = 'Person with email frequency "{}"'.format(frequency)
+    p.status = 'published'
+    p.save()
+    for notice_type in notice_types:
+        setting = get_notification_setting(p.user, notice_type, "1")
+        setting.frequency = frequency
+        setting.save()
+        settings += [(
+            setting.frequency,
+            setting.user,
+            setting.notice_type,
+            setting.medium,
+        )]
+
 e = ef.create(1)[0]
 j = jf.create(1)[0]
 b = bf.create(1)[0]
-ii = iif.create(1)[0]
+#ii = iif.create(1)[0]
 c = cf.create(1)[0]
-ir = irf.create(1)[0]
+#ir = irf.create(1)[0]
 m = mf.create(1)[0]
 t = tf.create(1)[0]
+
