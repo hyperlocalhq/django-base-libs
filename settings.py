@@ -443,7 +443,16 @@ ADMIN_APP_INDEX = (
                 "models": ("Bookmark", "Navigation", "Help", "HelpItem",),
             }),
             ("notification", {
-                "models": ("NoticeTypeCategory", "NoticeType", "NoticeEmailTemplate", "Notice", "Digest",),
+                "models": (
+                    "NoticeTypeCategory",
+                    "NoticeType",
+                    "NoticeEmailTemplate",
+                    "Notice",
+                    "Digest",
+                    "DigestNotice",
+                    "NoticeSetting",
+                    "ObservedItem",
+                ),
             }),
             ("location", {
                 "models": ("Address", "LocalityType",),
