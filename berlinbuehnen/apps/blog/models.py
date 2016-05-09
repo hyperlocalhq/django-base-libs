@@ -138,7 +138,7 @@ class Post(CreationModificationMixin, PublishingMixin, ViewsMixin, UrlMixin, Slu
     def get_newer_published(self):
         try:
             return Post.published_objects.filter(
-                published_from__gt=self.published_from,
+                published_from__gte=self.published_from,
                 pk__gt=self.pk,
                 blog=self.blog,
                 ).order_by("published_from")[0]
@@ -148,7 +148,7 @@ class Post(CreationModificationMixin, PublishingMixin, ViewsMixin, UrlMixin, Slu
     def get_older_published(self):
         try:
             return Post.published_objects.filter(
-                published_from__lt=self.published_from,
+                published_from__lte=self.published_from,
                 pk__lt=self.pk,
                 blog=self.blog,
                 ).order_by("-published_from")[0]
