@@ -294,6 +294,26 @@ class Location(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
             self._is_deletable_cache = user.has_perm("locations.delete_location", self)
         return self._is_deletable_cache
 
+    def get_previous_item(self):
+        try:
+            return Location.objects.filter(
+                ~models.Q(pk=self.pk),
+                title__lt=self.title,
+                status="published",
+            ).order_by("-title")[0]
+        except:
+            return None
+
+    def get_next_item(self):
+        try:
+            return Location.objects.filter(
+                ~models.Q(pk=self.pk),
+                title__gt=self.title,
+                status="published",
+            ).order_by("title")[0]
+        except:
+            return None
+
 
 class Stage(CreationModificationMixin, SlugMixin()):
     location = models.ForeignKey(Location, verbose_name=_("Location"))

@@ -565,6 +565,34 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     def is_deletable(self, user=None):
         return self.is_editable(user=user)
 
+    def get_next_item(self):
+        lang_code = settings.LANGUAGE_CODE
+        field_name = 'title_{}'.format(lang_code)
+        try:
+            return Production.objects.filter(
+                ~models.Q(pk=self.pk),
+                status="published",
+                **{
+                    '{}__gt'.format(field_name): getattr(self, field_name)
+                }
+            ).order_by(field_name)[0]
+        except:
+            return None
+
+    def get_previous_item(self):
+        lang_code = settings.LANGUAGE_CODE
+        field_name = 'title_{}'.format(lang_code)
+        try:
+            return Production.objects.filter(
+                ~models.Q(pk=self.pk),
+                status="published",
+                **{
+                    '{}__lt'.format(field_name): getattr(self, field_name)
+                }
+            ).order_by('-{}'.format(field_name))[0]
+        except:
+            return None
+
 
 class ProductionSocialMediaChannel(models.Model):
     production = models.ForeignKey(Production)
@@ -1058,7 +1086,13 @@ class Event(CreationModificationMixin, UrlMixin):
         if len(festivals):
             return festivals
         return False
-            
+
+    def get_previous_item(self):
+        return self.production.get_previous_item()
+
+    def get_next_item(self):
+        return self.production.get_next_item()
+
 
 class EventSocialMediaChannel(models.Model):
     event = models.ForeignKey(Event)

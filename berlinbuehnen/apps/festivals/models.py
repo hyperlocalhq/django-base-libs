@@ -289,6 +289,26 @@ class Festival(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
     def is_deletable(self, user=None):
         return self.is_editable(user=user)
 
+    def get_previous_item(self):
+        try:
+            return Festival.objects.filter(
+                ~models.Q(pk=self.pk),
+                start__lt=self.start,
+                status="published",
+                ).order_by("-start")[0]
+        except:
+            return None
+
+    def get_next_item(self):
+        try:
+            return Festival.objects.filter(
+                ~models.Q(pk=self.pk),
+                start__gt=self.start,
+                status="published",
+                ).order_by("start")[0]
+        except:
+            return None
+
 
 class Image(CreationModificationDateMixin):
     festival = models.ForeignKey(Festival, verbose_name=_("Festival"))

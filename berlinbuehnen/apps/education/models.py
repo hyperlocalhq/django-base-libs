@@ -15,6 +15,7 @@ from base_libs.models.fields import MultilingualTextField
 from base_libs.models.fields import URLField
 from base_libs.utils.misc import get_translation
 from base_libs.models.fields import PositionField
+from base_libs.middleware.threadlocals import get_current_language
 
 from berlinbuehnen.apps.locations.models import Location, District
 
@@ -203,6 +204,34 @@ class Department(CreationModificationMixin, UrlMixin, SlugMixin()):
 
     def is_deletable(self, user=None):
         return self.is_editable(user=user)
+
+    def get_next_item(self):
+        lang_code = settings.LANGUAGE_CODE
+        field_name = 'title_{}'.format(lang_code)
+        try:
+            return Department.objects.filter(
+                ~models.Q(pk=self.pk),
+                status="published",
+                **{
+                    '{}__gt'.format(field_name): getattr(self, field_name)
+                }
+            ).order_by(field_name)[0]
+        except:
+            return None
+
+    def get_previous_item(self):
+        lang_code = settings.LANGUAGE_CODE
+        field_name = 'title_{}'.format(lang_code)
+        try:
+            return Department.objects.filter(
+                ~models.Q(pk=self.pk),
+                status="published",
+                **{
+                    '{}__lt'.format(field_name): getattr(self, field_name)
+                }
+            ).order_by('-{}'.format(field_name))[0]
+        except:
+            return None
 
 
 class DepartmentMember(CreationModificationDateMixin):
@@ -541,6 +570,28 @@ class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
 
     def is_deletable(self, user=None):
         return self.is_editable(user=user)
+
+    def get_previous_item(self):
+        try:
+            return Project.objects.filter(
+                ~models.Q(pk=self.pk),
+                creation_date__lt=self.creation_date,
+                status="published",
+                departments__in=self.departments.all(),
+            ).order_by("-creation_date")[0]
+        except Exception as e:
+            return None
+
+    def get_next_item(self):
+        try:
+            return Project.objects.filter(
+                ~models.Q(pk=self.pk),
+                creation_date__gt=self.creation_date,
+                status="published",
+                departments__in=self.departments.all(),
+            ).order_by("creation_date")[0]
+        except Exception as e:
+            return None
 
 
 class ProjectTime(CreationModificationMixin, UrlMixin):

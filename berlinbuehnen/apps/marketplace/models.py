@@ -211,3 +211,23 @@ class JobOffer(CreationModificationMixin, UrlMixin):
             user = get_current_user(user) or AnonymousUser()
             self._is_deletable_cache = user.has_perm("marketplace.delete_joboffer", self)
         return self._is_deletable_cache
+
+    def get_previous_item(self):
+        try:
+            return JobOffer.objects.filter(
+                ~models.Q(pk=self.pk),
+                creation_date__lt=self.creation_date,
+                status="published",
+                ).order_by("-creation_date")[0]
+        except:
+            return None
+
+    def get_next_item(self):
+        try:
+            return JobOffer.objects.filter(
+                ~models.Q(pk=self.pk),
+                creation_date__gt=self.creation_date,
+                status="published",
+                ).order_by("creation_date")[0]
+        except:
+            return None
