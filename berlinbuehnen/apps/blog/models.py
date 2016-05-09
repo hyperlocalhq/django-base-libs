@@ -1,4 +1,6 @@
 # -*- coding: UTF-8 -*-
+from datetime import datetime
+
 from django.db import models
 from django.db import connection
 from django.contrib.contenttypes.models import ContentType
@@ -153,3 +155,20 @@ class Post(CreationModificationMixin, PublishingMixin, ViewsMixin, UrlMixin, Slu
         except:
             return None
             
+    def get_previous_item(self):
+        previous_items = Blog.published_objects.filter(
+            blog=self.blog,
+            published_from__lt=self.published_from,
+        ).order_by("-published_from")[:1]
+        if previous_items:
+            return previous_items[0]
+        return None
+
+    def get_next_item(self):
+        next_items = Blog.published_objects.filter(
+            blog=self.blog,
+            published_from__gt=self.published_from,
+        ).order_by("published_from")[:1]
+        if next_items:
+            return next_items[0]
+        return None

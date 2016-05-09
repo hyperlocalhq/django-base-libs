@@ -671,6 +671,8 @@ if not DEBUG:
     # Session reads only use the database if the data is not already in the cache.
     SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 
+DISABLE_CONTEXT_PROCESSORS = True
+
 ### SENTRY ###
 
 LOGGING = {
