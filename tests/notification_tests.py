@@ -83,9 +83,7 @@ aidas = Person.objects.get(user__username='aidas')
 studio38 = Institution.objects.get(title='studio 38')
 studio38_content_type = ContentType.objects.get_for_model(studio38)
 
-pf = AutoFixture(Person, field_values={
-    'user': aidas_user,
-})
+uf = AutoFixture(User)
 ef = AutoFixture(Event, field_values={
     'organizing_institution': studio38,
     'venue': studio38,
@@ -126,18 +124,20 @@ tf = AutoFixture(Ticket, field_values={
     'object_id': studio38.pk,
 })
 
-ps = pf.create(4)
-frequencies = '''never immediately daily weekly'''.split()
-people_frequencies = zip(ps, frequencies)
-
 notice_types = list(NoticeType.objects.all())
 settings = []
-for p, frequency in people_frequencies:
-    p.person_repr = 'Person with email frequency "{}"'.format(frequency)
-    p.status = 'published'
-    p.save()
+us = uf.create(4)
+frequencies = '''never immediately daily weekly'''.split()
+user_frequencies = zip(us, frequencies)
+for user, frequency in user_frequencies:
+    user.username = 'notify_{}'.format(frequency)
+    user.save()
+    person = Person.objects.get(user=user)
+    person.person_repr = user.username
+    person.status = 'published'
+    person.save()
     for notice_type in notice_types:
-        setting = get_notification_setting(p.user, notice_type, "1")
+        setting = get_notification_setting(user, notice_type, "1")
         setting.frequency = frequency
         setting.save()
         settings += [(
