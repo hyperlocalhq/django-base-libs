@@ -123,11 +123,7 @@ def event_created(sender, instance, **kwargs):
                 institution = instance.organizing_institution
                 if institution != instance.venue:
                     institution = instance.venue
-                # get users who favorited the institution organizing this event
-                # and who haven't received notifications yet
-                ci = ContextItem.objects.get_for(
-                    institution,
-                )
+                # get users who follow the institution hosting this event
                 recipients = followers(institution)
                 sent_recipient_pks += [recipient.pk for recipient in recipients]
 
@@ -146,11 +142,8 @@ def event_created(sender, instance, **kwargs):
                 )
                 action.send(institution, verb="hosting event", action_object=instance)
             elif instance.organizing_person:
-                # get users who favorited the person organizing this event
+                # get users who follow the person organizing this event
                 # and who haven't received notifications yet
-                ci = ContextItem.objects.get_for(
-                    instance.organizing_person,
-                )
                 recipients = [
                     recipient
                     for recipient in followers(instance.organizing_person.user)
@@ -173,9 +166,8 @@ def event_created(sender, instance, **kwargs):
                 )
                 action.send(instance.organizing_person.user, verb="organizing event", action_object=instance)
             elif user:
-                ci = ContextItem.objects.get_for(
-                    user.profile,
-                )
+                # get users who follow the user creating this event
+                # and who haven't received notifications yet
                 recipients = [
                     recipient
                     for recipient in followers(user)

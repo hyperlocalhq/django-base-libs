@@ -129,12 +129,7 @@ def job_offer_created(sender, instance, **kwargs):
             user = get_current_user()
 
             if instance.offering_institution:
-                # get users who favorited the offering_institution where the job_offer is happening
-                # and who haven't received notifications yet
-                ci = ContextItem.objects.get_for(
-                    instance.offering_institution,
-                )
-                # get users who favorited the institution organizing this job_offer
+                # get users who follow the institution offering this job
                 recipients = followers(instance.offering_institution)
                 sent_recipient_pks += [recipient.pk for recipient in recipients]
 
@@ -153,11 +148,8 @@ def job_offer_created(sender, instance, **kwargs):
                 )
                 action.send(instance.offering_institution, verb="looking for", action_object=instance)
             elif instance.contact_person:
-                # get users who favorited the person organizing this job_offer
+                # get users who follow the contact person for this job
                 # and who haven't received notifications yet
-                ci = ContextItem.objects.get_for(
-                    instance.contact_person,
-                )
                 recipients = [
                     recipient
                     for recipient in followers(instance.contact_person.user)
@@ -180,9 +172,8 @@ def job_offer_created(sender, instance, **kwargs):
                 )
                 action.send(instance.contact_person.user, verb="looking for", action_object=instance)
             elif user:
-                ci = ContextItem.objects.get_for(
-                    user.profile,
-                )
+                # get users who follow the user who created this job
+                # and who haven't received notifications yet
                 recipients = [
                     recipient
                     for recipient in followers(user)

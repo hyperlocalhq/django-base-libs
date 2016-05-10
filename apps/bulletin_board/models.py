@@ -274,12 +274,7 @@ def bulletin_created(sender, instance, **kwargs):
         user = get_current_user()
 
         if instance.institution:
-            # get users who favorited the institution where the job_offer is happening
-            # and who haven't received notifications yet
-            ci = ContextItem.objects.get_for(
-                instance.institution,
-            )
-            # get users who favorited the institution organizing this job_offer
+            # get users who follow the institution offering this bulletin
             recipients = followers(instance.institution)
             sent_recipient_pks += [recipient.pk for recipient in recipients]
 
@@ -298,9 +293,8 @@ def bulletin_created(sender, instance, **kwargs):
             )
             action.send(instance.institution, verb="added bulletin", action_object=instance)
         elif user:
-            ci = ContextItem.objects.get_for(
-                user.profile,
-            )
+            # get users who follow the user who created this bulletin
+            # and who haven't received notifications yet
             recipients = [
                 recipient
                 for recipient in followers(user)
