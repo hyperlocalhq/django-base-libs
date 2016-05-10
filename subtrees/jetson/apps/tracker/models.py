@@ -156,7 +156,7 @@ def ticket_reported(sender, instance, **kwargs):
                         Site.objects.get_current().domain,
                         instance.id,
                         )
-                recipients = User.objects.all()
+                recipients = User.objects.filter(is_staff=True, is_active=True)
                 notification.send(
                     recipients,
                     "ticket_reported",
