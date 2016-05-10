@@ -137,6 +137,8 @@ frequencies = '''never immediately daily weekly'''.split()
 user_frequencies = zip(us, frequencies)
 for user, frequency in user_frequencies:
     user.username = 'notify_{}'.format(frequency)
+    user.is_staff = True
+    user.is_active = True
     user.save()
     follow(user, studio38)
     follow(user, aidas)
@@ -158,9 +160,9 @@ for user, frequency in user_frequencies:
 e = ef.create(1)[0]
 j = jf.create(1)[0]
 b = bf.create(1)[0]
-#ii = iif.create(1)[0]
 c = cf.create(1)[0]
-#ir = irf.create(1)[0]
 m = mf.create(1)[0]
 t = tf.create(1)[0]
+#ii = iif.create(1)[0]
+#ir = irf.create(1)[0]
 
