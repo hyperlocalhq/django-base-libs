@@ -136,7 +136,7 @@ def job_offer_created(sender, instance, **kwargs):
                 )
                 # get users who favorited the institution organizing this job_offer
                 recipients = followers(instance.offering_institution)
-                sent_recipient_pks += list(recipients.values_list("pk", flat=True))
+                sent_recipient_pks += [recipient.pk for recipient in recipients]
 
                 notification.send(
                     recipients,
@@ -163,7 +163,7 @@ def job_offer_created(sender, instance, **kwargs):
                     for recipient in followers(instance.contact_person.user)
                     if recipient.pk not in sent_recipient_pks
                 ]
-                sent_recipient_pks += list(recipients.values_list("pk", flat=True))
+                sent_recipient_pks += [recipient.pk for recipient in recipients]
 
                 notification.send(
                     recipients,

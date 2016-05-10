@@ -129,7 +129,7 @@ def event_created(sender, instance, **kwargs):
                     institution,
                 )
                 recipients = followers(institution)
-                sent_recipient_pks += list(recipients.values_list("pk", flat=True))
+                sent_recipient_pks += [recipient.pk for recipient in recipients]
 
                 notification.send(
                     recipients,
@@ -156,7 +156,7 @@ def event_created(sender, instance, **kwargs):
                     for recipient in followers(instance.organizing_person.user)
                     if recipient.pk not in sent_recipient_pks
                 ]
-                sent_recipient_pks += list(recipients.values_list("pk", flat=True))
+                sent_recipient_pks += [recipient.pk for recipient in recipients]
 
                 notification.send(
                     recipients,

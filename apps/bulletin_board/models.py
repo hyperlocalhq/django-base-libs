@@ -281,7 +281,7 @@ def bulletin_created(sender, instance, **kwargs):
             )
             # get users who favorited the institution organizing this job_offer
             recipients = followers(instance.institution)
-            sent_recipient_pks += list(recipients.values_list("pk", flat=True))
+            sent_recipient_pks += [recipient.pk for recipient in recipients]
 
             notification.send(
                 recipients,
