@@ -12,7 +12,7 @@ class Command(BaseCommand):
 
         import re
         import requests
-        from requests.exceptions import ConnectionError
+        from requests.exceptions import ConnectionError, ReadTimeout
         from xml.dom.minidom import parseString
         from dateutil.parser import parse as parse_datetime
 
@@ -50,7 +50,7 @@ class Command(BaseCommand):
                         'User-Agent': 'Creative City Berlin',
                     }
                 )
-            except ConnectionError:
+            except (ConnectionError, ReadTimeout):
                 services_failed.append(s)
                 continue
 
