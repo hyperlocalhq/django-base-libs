@@ -77,10 +77,14 @@ from django.contrib.auth.models import User
 from jetson.apps.notification.models import NoticeType
 from jetson.apps.notification.tasks import get_notification_setting
 
+from base_libs.middleware.threadlocals import set_current_user
+
 reinhard_user = User.objects.get(username='reinhard_knobelspies')
 aidas_user = User.objects.get(username='aidas')
 reinhard = Person.objects.get(user__username='reinhard_knobelspies')
 aidas = Person.objects.get(user__username='aidas')
+
+set_current_user(aidas_user)
 
 studio38 = Institution.objects.get(title='studio 38')
 studio38_content_type = ContentType.objects.get_for_model(studio38)
