@@ -59,6 +59,8 @@ To check whether object creation results in sending emails, open the MailHog web
 
 from autofixture import AutoFixture
 
+from actstream.actions import follow
+
 from ccb.apps.people.models import Person
 from ccb.apps.events.models import Event
 from ccb.apps.marketplace.models import JobOffer
@@ -132,6 +134,8 @@ user_frequencies = zip(us, frequencies)
 for user, frequency in user_frequencies:
     user.username = 'notify_{}'.format(frequency)
     user.save()
+    follow(user, studio38)
+    follow(user, aidas)
     person = Person.objects.get(user=user)
     person.person_repr = user.username
     person.status = 'published'
