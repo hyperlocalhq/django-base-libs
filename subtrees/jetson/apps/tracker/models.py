@@ -7,7 +7,6 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.template.defaultfilters import urlize
 from django.utils.timezone import now as tz_now
-from actstream import action
 
 from base_libs.models.models import ObjectRelationMixin
 from base_libs.utils.user import get_user_title
@@ -157,7 +156,7 @@ def ticket_reported(sender, instance, **kwargs):
                         Site.objects.get_current().domain,
                         instance.id,
                         )
-                recipients = User.objects.all()
+                recipients = User.objects.filter(is_staff=True, is_active=True)
                 notification.send(
                     recipients,
                     "ticket_reported",

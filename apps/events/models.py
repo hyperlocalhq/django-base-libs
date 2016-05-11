@@ -7,6 +7,7 @@ from django.utils.encoding import force_text
 
 from mptt.fields import TreeManyToManyField
 from actstream import action
+from actstream.models import following, followers
 
 from ccb.apps.events.base import *
 
@@ -106,9 +107,7 @@ class EventTime(ComplexEventTimeBase):
 def event_created(sender, instance, **kwargs):
     from django.contrib.sites.models import Site
     from django.contrib.auth.models import User
-
     from jetson.apps.notification import models as notification
-
     from ccb.apps.site_specific.models import ContextItem
 
     if 'created' in kwargs:
@@ -120,73 +119,37 @@ def event_created(sender, instance, **kwargs):
 
             user = get_current_user()
 
-            if instance.venue:
-                # get users who favorited the venue where the event is happening
-                # and who haven't received notifications yet
-                ci = ContextItem.objects.get_for(
-                    instance.venue,
-                )
-                # get users who favorited the institution organizing this event
-                recipients = User.objects.filter(
-                    favorite__content_type__app_label="site_specific",
-                    favorite__content_type__model="contextitem",
-                    favorite__object_id=ci.pk,
-                ).exclude(pk__in=sent_recipient_pks)
-                sent_recipient_pks += list(recipients.values_list("pk", flat=True))
-
-                notification.send(
-                    recipients,
-                    "event_by_favorite_institution",
-                    {
-                        "object_description": instance.description,
-                        "object_creator_url": instance.venue.get_url(),
-                        "object_creator_title": instance.venue.title,
-                        "object_title": unicode(instance.title),
-                        "object_url": instance.get_url(),
-                    },
-                    instance=instance,
-                    on_site=False,
-                )
-                action.send(instance.venue, verb="hosting event", action_object=instance)
-
             if instance.organizing_institution:
-                # get users who favorited the institution organizing this event
-                # and who haven't received notifications yet
-                ci = ContextItem.objects.get_for(
-                    instance.organizing_institution,
-                )
-                recipients = User.objects.filter(
-                    favorite__content_type__app_label="site_specific",
-                    favorite__content_type__model="contextitem",
-                    favorite__object_id=ci.pk,
-                ).exclude(pk__in=sent_recipient_pks)
-                sent_recipient_pks += list(recipients.values_list("pk", flat=True))
+                institution = instance.organizing_institution
+                if institution != instance.venue:
+                    institution = instance.venue
+                # get users who follow the institution hosting this event
+                recipients = followers(institution)
+                sent_recipient_pks += [recipient.pk for recipient in recipients]
 
                 notification.send(
                     recipients,
                     "event_by_favorite_institution",
                     {
                         "object_description": instance.description,
-                        "object_creator_url": instance.organizing_institution.get_url(),
-                        "object_creator_title": instance.organizing_institution.title,
+                        "object_creator_url": institution.get_url(),
+                        "object_creator_title": institution.title,
                         "object_title": unicode(instance.title),
                         "object_url": instance.get_url(),
                     },
                     instance=instance,
                     on_site=False,
                 )
-                action.send(instance.organizing_institution, verb="organizing event", action_object=instance)
+                action.send(institution, verb="hosting event", action_object=instance)
             elif instance.organizing_person:
-                # get users who favorited the person organizing this event
+                # get users who follow the person organizing this event
                 # and who haven't received notifications yet
-                ci = ContextItem.objects.get_for(
-                    instance.organizing_person,
-                )
-                recipients = User.objects.filter(
-                    favorite__content_type__app_label="site_specific",
-                    favorite__content_type__model="contextitem",
-                    favorite__object_id=ci.pk,
-                ).exclude(pk__in=sent_recipient_pks)
+                recipients = [
+                    recipient
+                    for recipient in followers(instance.organizing_person.user)
+                    if recipient.pk not in sent_recipient_pks
+                ]
+                sent_recipient_pks += [recipient.pk for recipient in recipients]
 
                 notification.send(
                     recipients,
@@ -203,8 +166,28 @@ def event_created(sender, instance, **kwargs):
                 )
                 action.send(instance.organizing_person.user, verb="organizing event", action_object=instance)
             elif user:
-                action.send(user, verb="added event", action_object=instance)
+                # get users who follow the user creating this event
+                # and who haven't received notifications yet
+                recipients = [
+                    recipient
+                    for recipient in followers(user)
+                    if recipient.pk not in sent_recipient_pks
+                ]
 
+                notification.send(
+                    recipients,
+                    "event_by_contact",
+                    {
+                        "object_description": instance.description,
+                        "object_creator_url": user.profile.get_url(),
+                        "object_creator_title": user.profile.title,
+                        "object_title": force_text(instance.get_title()),
+                        "object_url": instance.get_url(),
+                    },
+                    instance=instance,
+                    on_site=False,
+                )
+                action.send(user, verb="added event", action_object=instance)
 
 
 models.signals.post_save.connect(event_created, sender=Event)

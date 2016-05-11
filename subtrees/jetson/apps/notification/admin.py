@@ -24,9 +24,9 @@ class NoticeTypeCategoryAdmin(admin.ModelAdmin):
 
 class NoticeTypeAdmin(admin.ModelAdmin):
     save_on_top = True
-    list_display = ('sysname', 'display', 'description', 'category', 'default', 'is_public')
+    list_display = ('sysname', 'display', 'description', 'category', 'sort_order', 'default', 'is_public')
     list_filter = ('category', 'is_public', 'default')
-
+    list_editable = ('sort_order',)
     fieldsets = [(None, {'fields': ('category', 'sysname',)}),]
     fieldsets += get_admin_lang_section(_("Contents"), ['display', 'description', 'message_template'])
     fieldsets += [
@@ -72,4 +72,5 @@ admin.site.register(NoticeEmailTemplate, NoticeEmailTemplateAdmin)
 admin.site.register(NoticeSetting, NoticeSettingAdmin)
 admin.site.register(Notice, NoticeAdmin)
 admin.site.register(Digest, DigestAdmin)
-#admin.site.register(ObservedItem,ObservedItemOptions)
+admin.site.register(ObservedItem, ObservedItemOptions)
+admin.site.register(DigestNotice)

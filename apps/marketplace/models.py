@@ -7,6 +7,7 @@ from django.utils.text import slugify
 
 from mptt.fields import TreeManyToManyField
 from actstream import action
+from actstream.models import following, followers
 
 from jetson.apps.marketplace.base import *
 
@@ -115,9 +116,7 @@ class JobOffer(JobOfferBase):
 def job_offer_created(sender, instance, **kwargs):
     from django.contrib.sites.models import Site
     from django.contrib.auth.models import User
-
     from jetson.apps.notification import models as notification
-
     from ccb.apps.site_specific.models import ContextItem
 
     if 'created' in kwargs:
@@ -130,18 +129,9 @@ def job_offer_created(sender, instance, **kwargs):
             user = get_current_user()
 
             if instance.offering_institution:
-                # get users who favorited the offering_institution where the job_offer is happening
-                # and who haven't received notifications yet
-                ci = ContextItem.objects.get_for(
-                    instance.offering_institution,
-                )
-                # get users who favorited the institution organizing this job_offer
-                recipients = User.objects.filter(
-                    favorite__content_type__app_label="site_specific",
-                    favorite__content_type__model="contextitem",
-                    favorite__object_id=ci.pk,
-                ).exclude(pk__in=sent_recipient_pks)
-                sent_recipient_pks += list(recipients.values_list("pk", flat=True))
+                # get users who follow the institution offering this job
+                recipients = followers(instance.offering_institution)
+                sent_recipient_pks += [recipient.pk for recipient in recipients]
 
                 notification.send(
                     recipients,
@@ -158,16 +148,14 @@ def job_offer_created(sender, instance, **kwargs):
                 )
                 action.send(instance.offering_institution, verb="looking for", action_object=instance)
             elif instance.contact_person:
-                # get users who favorited the person organizing this job_offer
+                # get users who follow the contact person for this job
                 # and who haven't received notifications yet
-                ci = ContextItem.objects.get_for(
-                    instance.contact_person,
-                )
-                recipients = User.objects.filter(
-                    favorite__content_type__app_label="site_specific",
-                    favorite__content_type__model="contextitem",
-                    favorite__object_id=ci.pk,
-                ).exclude(pk__in=sent_recipient_pks)
+                recipients = [
+                    recipient
+                    for recipient in followers(instance.contact_person.user)
+                    if recipient.pk not in sent_recipient_pks
+                ]
+                sent_recipient_pks += [recipient.pk for recipient in recipients]
 
                 notification.send(
                     recipients,
@@ -184,6 +172,27 @@ def job_offer_created(sender, instance, **kwargs):
                 )
                 action.send(instance.contact_person.user, verb="looking for", action_object=instance)
             elif user:
+                # get users who follow the user who created this job
+                # and who haven't received notifications yet
+                recipients = [
+                    recipient
+                    for recipient in followers(user)
+                    if recipient.pk not in sent_recipient_pks
+                ]
+
+                notification.send(
+                    recipients,
+                    "job_offer_by_contact",
+                    {
+                        "object_description": instance.description,
+                        "object_creator_url": user.profile.get_url(),
+                        "object_creator_title": user.profile.title,
+                        "object_title": instance.position,
+                        "object_url": instance.get_url(),
+                    },
+                    instance=instance,
+                    on_site=False,
+                )
                 action.send(user, verb="added job offer", action_object=instance)
 
 

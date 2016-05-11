@@ -13,6 +13,8 @@ from django.template.defaultfilters import slugify
 from datetime import datetime
 
 from filebrowser.fields import FileBrowseField
+from actstream import action
+from actstream.models import following, followers
 
 from base_libs.models.models import SlugMixin
 from base_libs.models.models import CreationModificationMixin
@@ -260,14 +262,58 @@ class Bulletin(CreationModificationMixin, UrlMixin):
 
 
 def bulletin_created(sender, instance, **kwargs):
-    from actstream import action
+    from django.contrib.sites.models import Site
+    from django.contrib.auth.models import User
+    from jetson.apps.notification import models as notification
+    from ccb.apps.site_specific.models import ContextItem
     from base_libs.middleware import get_current_user
+    from django.utils.encoding import force_text
 
     if kwargs.get('created', False):
+        sent_recipient_pks = []
         user = get_current_user()
+
         if instance.institution:
+            # get users who follow the institution offering this bulletin
+            recipients = followers(instance.institution)
+            sent_recipient_pks += [recipient.pk for recipient in recipients]
+
+            notification.send(
+                recipients,
+                "bulletin_by_favorite_institution",
+                {
+                    "object_description": instance.description,
+                    "object_creator_url": instance.institution.get_url(),
+                    "object_creator_title": instance.institution.title,
+                    "object_title": force_text(instance.get_title()),
+                    "object_url": instance.get_url(),
+                },
+                instance=instance,
+                on_site=False,
+            )
             action.send(instance.institution, verb="added bulletin", action_object=instance)
         elif user:
+            # get users who follow the user who created this bulletin
+            # and who haven't received notifications yet
+            recipients = [
+                recipient
+                for recipient in followers(user)
+                if recipient.pk not in sent_recipient_pks
+            ]
+
+            notification.send(
+                recipients,
+                "bulletin_by_contact",
+                {
+                    "object_description": instance.description,
+                    "object_creator_url": user.profile.get_url(),
+                    "object_creator_title": user.profile.title,
+                    "object_title": force_text(instance.get_title()),
+                    "object_url": instance.get_url(),
+                },
+                instance=instance,
+                on_site=False,
+            )
             action.send(user, verb="added bulletin", action_object=instance)
 
 

@@ -688,6 +688,5 @@ def institution_claimed(sender, instance, **kwargs):
         instance=instance.content_object,
         on_site=False,
     )
-    ## this activity is admin-specific, so we don't need to track it on the frontend
-    # if instance.user:
-    #     action.send(instance.user, verb="claimed", action_object=instance)
+    if instance.user:
+        action.send(instance.user, verb="claimed", action_object=instance)

@@ -1,4 +1,4 @@
-from celery import task
+from celery import shared_task
 
 from django.db import models
 from django.template import Context
@@ -37,7 +37,7 @@ def get_notification_setting(user, notice_type, medium):
                 repeated_setting.delete()
     return setting
 
-@task
+@shared_task
 def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct=None, instance_id=None, sender_id=None,
                  sender_name="", sender_email=""):
     """
@@ -48,6 +48,16 @@ def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct
     """
     if not extra_context:
         extra_context = {}
+
+    with open('send_to_user.log', 'a') as f:
+        f.write(
+            'sending notification {sysname} for user {user_id} with sender {sender_id} for instance {instance_id}\n'.format(
+                sysname=sysname,
+                user_id=user_id,
+                sender_id=sender_id,
+                instance_id=instance_id,
+            )
+        )
 
     ContentType = models.get_model("contenttypes", "ContentType")
     Site = models.get_model("sites", "Site")
@@ -115,11 +125,12 @@ def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct
                 email_template_slug=sysname,
                 obj=instance,
                 obj_placeholders=extra_context,
-                sender = sender,
-                sender_name = sender_name,
-                sender_email = sender_email,
-                delete_after_sending = True,
-                )
+                sender=sender,
+                sender_name=sender_name,
+                sender_email=sender_email,
+                delete_after_sending=True,
+                send_immediately=True,
+            )
         elif notification_setting.frequency in ("daily", "weekly"):
             digest, _created = Digest.objects.get_or_create(
                 user=user,

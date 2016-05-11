@@ -49,10 +49,10 @@ DEFAULT_FROM_EMAIL = "ccb-contact@kulturprojekte-berlin.de"
 
 ### DIRS AND URLS ###
 
-TEMPLATE_DIRS = [
-                    os.path.join(PROJECT_PATH, "ccb", "templates", "ccb"),
-                    os.path.join(PROJECT_PATH, "ccb", "templates", "admin"),
-                ] + TEMPLATE_DIRS
+TEMPLATE_DIRS = (
+    os.path.join(PROJECT_PATH, "ccb", "templates", "ccb"),
+    os.path.join(PROJECT_PATH, "ccb", "templates", "admin"),
+) + tuple(TEMPLATE_DIRS)
 
 TEMPLATESADMIN_TEMPLATE_DIRS = TEMPLATE_DIRS
 
@@ -443,13 +443,25 @@ ADMIN_APP_INDEX = (
                 "models": ("Bookmark", "Navigation", "Help", "HelpItem",),
             }),
             ("notification", {
-                "models": ("NoticeTypeCategory", "NoticeType", "NoticeEmailTemplate", "Notice", "Digest",),
+                "models": (
+                    "NoticeTypeCategory",
+                    "NoticeType",
+                    "NoticeEmailTemplate",
+                    "Notice",
+                    "Digest",
+                    "DigestNotice",
+                    "NoticeSetting",
+                    "ObservedItem",
+                ),
             }),
             ("location", {
                 "models": ("Address", "LocalityType",),
             }),
             ("actstream", {
                 "models": ("Action", "Follow",),
+            }),
+            ("djcelery", {
+                "models": ("CrontabSchedule", "IntervalSchedule", "PeriodicTask", "TaskState", "WorkerState"),
             }),
         )
     }
@@ -842,23 +854,32 @@ DISABLE_CONTEXT_PROCESSORS = True
 
 ### CELERY ###
 
-CELERY_RESULT_BACKEND = "database"
-# For scheduled jobs. 
-CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
-CELERY_TRACK_STARTED = True
-CELERY_SEND_EVENTS = True
-CELERYD_LOG_FILE = os.path.join(PROJECT_PATH, "ccb/tmp/celery.log")
-
-BROKER_URL = "django://"
-BROKER_HOST = "localhost"
-BROKER_PORT = 5672
-BROKER_USER = "guest"
-BROKER_PASSWORD = "guest"
-BROKER_VHOST = "/"
-
 import djcelery
-
 djcelery.setup_loader()
+
+BROKER_URL = "localhost"
+BROKER_BACKEND = "redis"
+BROKER_USER = ""
+BROKER_PASSWORD = ""
+# BROKER_VHOST = "0"
+
+REDIS_HOST = "localhost"
+REDIS_PORT = 6379
+REDIS_DB = 0
+REDIS_CONNECT_RETRY = True
+
+BROKER_TRANSPORT_OPTIONS = {
+    'fanout_prefix': True,
+    'visibility_timeout': 3600
+}
+
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_RESULT_BACKEND = "djcelery.backends.database:DatabaseBackend"
+CELERY_SEND_EVENTS = True
+CELERY_TASK_RESULT_EXPIRES = 10
+CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
 
 ### CAPTCHA ###
 
@@ -1049,6 +1070,11 @@ LOGGING = {
                       '%(process)d %(thread)d %(message)s'
         },
     },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
     'handlers': {
         'sentry': {
             'level': 'ERROR',
@@ -1059,9 +1085,20 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'verbose'
-        }
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'filters': ['require_debug_false'],
+            'include_html': True,
+        },
     },
     'loggers': {
+        'django': {
+            'handlers': [],
+            'propagate': True,
+            'level': 'INFO',
+        },
         'django.db.backends': {
             'level': 'ERROR',
             'handlers': ['console'],
