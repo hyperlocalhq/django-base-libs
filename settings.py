@@ -850,6 +850,8 @@ MAILING_CONTENT_TYPE_CHOICES = (
 
 TIME_INPUT_FORMATS = ("%H:%M:%S", "%H:%M", "%H.%M")
 
+DISABLE_CONTEXT_PROCESSORS = True
+
 ### CELERY ###
 
 import djcelery

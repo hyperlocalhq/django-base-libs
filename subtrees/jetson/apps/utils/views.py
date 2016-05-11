@@ -299,7 +299,7 @@ def object_list(request, queryset,
     the queryset directly to the httpstate. So we take a list (current_queryset_list)
     """
 
-    if context_processors:
+    if context_processors and not getattr(settings, "DISABLE_CONTEXT_PROCESSORS", False):
         queryset_index_dict = {}
         index = 0
         prev_next_use_content_object = extra_context.get('prev_next_use_content_object', False)
@@ -325,10 +325,10 @@ def object_list(request, queryset,
         request.httpstate['current_queryset_index_dict'] = queryset_index_dict
         request.httpstate['last_query_string'] = request.META['QUERY_STRING']
 
-    fields_to_select = [queryset.model._meta.pk.name] + queryset.query.extra_select.keys() + queryset.query.aggregate_select.keys()
-    request.httpstate['current_queryset_pk_list'] = [d[queryset.model._meta.pk.name] for d in queryset.values(*fields_to_select)]
-    request.httpstate['current_queryset_model'] = u"%s.%s" % (queryset.model._meta.app_label, queryset.model.__name__)
-    
+        fields_to_select = [queryset.model._meta.pk.name] + queryset.query.extra_select.keys() + queryset.query.aggregate_select.keys()
+        request.httpstate['current_queryset_pk_list'] = [d[queryset.model._meta.pk.name] for d in queryset.values(*fields_to_select)]
+        request.httpstate['current_queryset_model'] = u"%s.%s" % (queryset.model._meta.app_label, queryset.model.__name__)
+
     if paginate and paginate_by:
         paginator = CustomPaginator(queryset, paginate_by, first_page_delta=first_page_delta)
         if not page:
