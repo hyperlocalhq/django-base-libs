@@ -341,6 +341,44 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
             ).order_by("-creation_date")
         return self._cached_related_products
 
+    def get_previous_item(self):
+        # The previous item will be taken by selecting all previous items ordered descending and getting the first item from the queryset.
+        # To order items correctly in the queryset, we attach a sort order column combined of closest workshop date, closest workshop time, and zero-padded primary key
+        try:
+            current_sort_order = "{:%Y-%m-%d} {:%H:%M:%S}-{:010d}".format(self.closest_workshop_date, self.closest_workshop_time, self.pk)
+            return Workshop.objects.filter(
+                ~models.Q(pk=self.pk),
+                status="published",
+            ).extra(
+                select={
+                    'sort_order': "CONCAT(closest_workshop_date, ' ', closest_workshop_time, '-', LPAD(id, 10, '0'))"
+                },
+                where=["CONCAT(closest_workshop_date, ' ', closest_workshop_time, '-', LPAD(id, 10, '0')) < %s"],
+                params=[current_sort_order],
+                order_by=['-sort_order'],
+            )[0]
+        except Exception as e:
+            return None
+
+    def get_next_item(self):
+        # The next item will be taken by selecting all next items ordered ascending and getting the first item from the queryset.
+        # To order items correctly in the queryset, we attach a sort order column combined of closest workshop date, closest workshop time, and zero-padded primary key
+        try:
+            current_sort_order = "{:%Y-%m-%d} {:%H:%M:%S}-{:010d}".format(self.closest_workshop_date, self.closest_workshop_time, self.pk)
+            return Workshop.objects.filter(
+                ~models.Q(pk=self.pk),
+                status="published",
+            ).extra(
+                select={
+                    'sort_order': "CONCAT(closest_workshop_date, ' ', closest_workshop_time, '-', LPAD(id, 10, '0'))"
+                },
+                where=["CONCAT(closest_workshop_date, ' ', closest_workshop_time, '-', LPAD(id, 10, '0')) > %s"],
+                params=[current_sort_order],
+                order_by=['sort_order'],
+            )[0]
+        except Exception as e:
+            return None
+
 
 class WorkshopTime(models.Model):
 

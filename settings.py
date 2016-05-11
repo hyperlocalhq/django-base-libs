@@ -823,6 +823,8 @@ ROSETTA_STORAGE_CLASS = "rosetta.storage.SessionRosettaStorage"
 
 USE_TZ = True
 
+DISABLE_CONTEXT_PROCESSORS = True
+
 ### SENTRY ###
 
 LOGGING = {

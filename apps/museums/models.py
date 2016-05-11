@@ -439,6 +439,34 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             ).order_by("-creation_date")
         return self._cached_related_products
 
+    def get_next_item(self):
+        lang_code = settings.LANGUAGE_CODE
+        field_name = 'title_{}'.format(lang_code)
+        try:
+            return Museum.objects.filter(
+                ~models.Q(pk=self.pk),
+                status="published",
+                **{
+                    '{}__gt'.format(field_name): getattr(self, field_name)
+                }
+            ).order_by(field_name)[0]
+        except:
+            return None
+
+    def get_previous_item(self):
+        lang_code = settings.LANGUAGE_CODE
+        field_name = 'title_{}'.format(lang_code)
+        try:
+            return Museum.objects.filter(
+                ~models.Q(pk=self.pk),
+                status="published",
+                **{
+                    '{}__lt'.format(field_name): getattr(self, field_name)
+                }
+            ).order_by('-{}'.format(field_name))[0]
+        except:
+            return None
+
 
 class Season(OpeningHoursMixin):
     museum = models.ForeignKey(Museum)
