@@ -1068,6 +1068,11 @@ LOGGING = {
                       '%(process)d %(thread)d %(message)s'
         },
     },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
     'handlers': {
         'sentry': {
             'level': 'ERROR',
@@ -1078,9 +1083,20 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'verbose'
-        }
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'filters': ['require_debug_false'],
+            'include_html': True,
+        },
     },
     'loggers': {
+        'django': {
+            'handlers': ['mail_admins'],
+            'propagate': True,
+            'level': 'INFO',
+        },
         'django.db.backends': {
             'level': 'ERROR',
             'handlers': ['console'],
