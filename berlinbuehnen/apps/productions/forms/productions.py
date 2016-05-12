@@ -1544,3 +1544,40 @@ PRODUCTION_FORM_STEPS = {
     'name': 'production_editing',
     'default_path': ["basic", "description", "gallery", "events"],
 }
+
+
+class ProductionDuplicateForm(forms.ModelForm):
+    class Meta:
+        model = Production
+        fields = ['title_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES]
+
+    def __init__(self, *args, **kwargs):
+        super(ProductionDuplicateForm, self).__init__(*args, **kwargs)
+
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            for f in [
+                'title_%s' % lang_code,
+            ]:
+                self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
+
+        self.helper = FormHelper()
+        self.helper.form_action = "."
+        self.helper.form_method = "POST"
+
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("New Production Title"),
+                layout.Row(
+                    css_class="row-md",
+                    *[layout.Div(
+                        layout.Field('title_%s' % lang_code),
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+                ),
+                css_class="fieldset-basic-info",
+            ),
+            bootstrap.FormActions(
+                PrimarySubmit('submit', _('Duplicate')),
+                css_class="hidden",
+            ),
+        )

@@ -474,7 +474,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     def get_images(self):
         return self.productionimage_set.all()
             
-    def duplicate(self):
+    def duplicate(self, new_values={}):
         import os
         from distutils.dir_util import copy_tree
         from filebrowser.models import FileDescription
@@ -482,7 +482,11 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
         source_prod = self
         target_prod = Production.objects.get(pk=self.pk)
         target_prod.pk = None
-        target_prod.slug = get_unique_value(Production, better_slugify(source_prod.title_de))
+
+        for key, value in new_values.items():
+            setattr(target_prod, key, value)
+
+        target_prod.slug = get_unique_value(Production, better_slugify(target_prod.title_de))
         target_prod.start_date = None
         target_prod.start_time = None
         target_prod.creation_date = None

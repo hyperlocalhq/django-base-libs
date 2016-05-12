@@ -8,15 +8,11 @@
                     {% trans "Do you really want to duplicate this item?" %}
                 </div>
                 <div class="modal-body">
-                    
-                    <p class="lead"> 
-                        <small class="object-type"></small><br/>
-                        <b class="object-title"></b>
-                    </p>
+                    <div class="modal-form"></div>
                 </div>
                 <div class="modal-footer">
-                    <button id="button-id-confirm-duplication" class="btn btn-lg btn-primary">{% trans "Yes, Please" %}</button>
-                    <button name="cancel" class="btn btn-lg btn-default" data-dismiss="modal" aria-hidden="true">{% trans "No, Thanks" %}</button>
+                    <button id="button-id-confirm-duplication" class="btn btn-lg btn-primary">{% trans "Duplicate" %}</button>
+                    <button name="cancel" class="btn btn-lg btn-default" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>
                 </div>
             </div>
         </div>
@@ -32,19 +28,35 @@ $(function() {
         var object_title = $(this).data("object-title");
         var object_type = $(this).data("object-type");
 
-        $('.object-title', $modal).html(object_title);
-        $('.object-type', $modal).html(object_type);
+        //$('.object-title', $modal).html(object_title);
+        //$('.object-type', $modal).html(object_type);
 
-        $modal.modal('show');
         var duplicate_url = $(this).attr('href');
-        $('#button-id-confirm-duplication').click(function() {
-            $.post(duplicate_url, {}).done(function(data) {
-                $modal.modal('hide');
-                if (data) {
-                    location.href = data;
+        $('.modal-form', $modal).load(duplicate_url, function() {
+            $modal.modal('show');
+            $('.modal-form form', $modal).submit(function(e) {
+                e.preventDefault();
+            })
+        });
+        $('#button-id-confirm-duplication').click(function(e) {
+            e.preventDefault();
+            $.post(duplicate_url, {
+                title_de: $('.modal-form [name="title_de"]', $modal).val(),
+                title_en: $('.modal-form [name="title_en"]', $modal).val(),
+                csrfmiddlewaretoken: $('.form [name="csrfmiddlewaretoken"]', $modal).val()
+            }).done(function(data) {
+                if (data.indexOf('<') == -1) {
+                    if (data) {
+                        $modal.modal('hide');
+                        location.href = data;
+                    }
+                } else {
+                    var $form = $(data);
+                    if ($form.is('form')) { // validation error, so update form
+                        $('.modal-form', $modal).html('').append($form);
+                    }
                 }
             });
-            return false;
         });
         return false;
     });

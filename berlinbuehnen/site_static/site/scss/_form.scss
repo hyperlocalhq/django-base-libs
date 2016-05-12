@@ -1683,7 +1683,7 @@ select {
       .modal-footer {
         .btn {
             &:hover {
-                color: black;   
+                color: white;
             }
             &.btn-primary {
                 &:hover {
@@ -1696,7 +1696,29 @@ select {
   }
 }
 
-
+#duplicateConfirmation {
+  .modal-centered {
+    .inner {
+      width: 800px;
+      legend {
+        color: #fff;
+        font-size: 17px;
+        margin-bottom: 1.5em;
+      }
+      label {
+        color: #fff;
+        font-size: 1em;
+      }
+      input {
+        background: #fff;
+        color: #000;
+      }
+      .help-block {
+        color: #fff;
+      }
+    }
+  }
+}
 .dashboard-table {
   .status {
     width: 150px;

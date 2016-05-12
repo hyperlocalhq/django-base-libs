@@ -24,7 +24,7 @@ from jetson.apps.utils.decorators import login_required
 
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 
-from berlinbuehnen.apps.productions.forms.productions import PRODUCTION_FORM_STEPS
+from berlinbuehnen.apps.productions.forms.productions import PRODUCTION_FORM_STEPS, ProductionDuplicateForm
 from berlinbuehnen.apps.productions.forms.events import AddEventsForm
 from berlinbuehnen.apps.productions.forms.events import BasicInfoForm as EventBasicInfoForm
 from berlinbuehnen.apps.productions.forms.events import DescriptionForm as EventDescriptionForm, EventLeadershipFormset, EventAuthorshipFormset, EventInvolvementFormset, SocialMediaChannelFormset, SponsorFormset
@@ -40,7 +40,6 @@ from berlinbuehnen.apps.productions.models import ProductionLeadership, Producti
 from berlinbuehnen.apps.productions.models import Event, ProductionVideo, ProductionLiveStream, EventImage, ProductionPDF
 from berlinbuehnen.apps.productions.models import EventLeadership, EventAuthorship, EventInvolvement, EventSocialMediaChannel
 from berlinbuehnen.apps.productions.models import ProductionCategory, LanguageAndSubtitles, ProductionCharacteristics, EventCharacteristics
-
 
 class EventFilterForm(forms.Form):
     date = forms.DateField(
@@ -282,10 +281,14 @@ def duplicate_production(request, slug):
     production = get_object_or_404(Production, slug=slug)
     if not production.is_editable() or not request.user.has_perm("productions.add_production"):
         return access_denied(request)
-    if request.method == "POST" and request.is_ajax():
-        new_production = production.duplicate()
-        return HttpResponse(reverse("change_production", kwargs={'slug': new_production.slug}))
-    return redirect(production)
+    if request.method == "POST":
+        form = ProductionDuplicateForm(request.POST)
+        if form.is_valid():
+            new_production = production.duplicate(new_values=form.cleaned_data)
+            return HttpResponse(reverse("change_production", kwargs={'slug': new_production.slug}))
+    else:
+        form = ProductionDuplicateForm(instance=production)
+    return render(request, "productions/forms/duplication_form.html", {'form': form})
 
 
 ### EVENTS MANAGEMENT ###
