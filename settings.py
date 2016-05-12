@@ -16,17 +16,10 @@ PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
 execfile(os.path.join(JETSON_PATH, "jetson/settings/base.py"), globals(), locals())
 
-
 ### DOMAINS ###
 
 SESSION_COOKIE_DOMAIN = "www.creative-city-berlin.de"
 STAGING_DOMAIN = "ccb.jetsonproject.org"
-
-ALLOWED_HOSTS = [
-    "www.creative-city-berlin.de",
-    "creative-city-berlin.de",
-    "ccb.jetsonproject.org",
-]
 
 ### EMAILS ###
 
