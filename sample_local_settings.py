@@ -1,3 +1,6 @@
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -14,25 +17,41 @@ DATABASES = {
     }
 }
 
-HTTPS_PROTOCOL = "http"
-
-SUBDOMAINS_SUPPORTED = False
+PREPEND_WWW = False
 
 SESSION_COOKIE_DOMAIN = "127.0.0.1"
 PORT = ":8000"
 
+ALLOWED_HOSTS = [
+    "www.creative-city-berlin.de",
+    "creative-city-berlin.de",
+    # "ccb.jetsonproject.org",
+    # 'localhost',
+    # '127.0.0.1',
+]
+
+HTTPS_PROTOCOL = "http"
+
+SUBDOMAINS_SUPPORTED = False
+
 FACEBOOK_APP_ID = ""
 FACEBOOK_APP_SECRET = ""
-SOCIAL_AUTH_FACEBOOK_KEY = ""
-SOCIAL_AUTH_FACEBOOK_SECRET = ""
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+## Email settings
 
-DEBUG = TEMPLATE_DEBUG = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+# Using port 1025 to send test emails to MailHog.
+# To start MailHog, just enter the following command into the command-line:
+# $ MailHog
+# If go and MailHog are not installed, install go:
+# $ pkg install go
+# then install MailHog:
+# $ go get github.com/mailhog/MailHog
+# remember to set $GOPATH, and to add $GOPATH/bin to your PATH
 
-PREPEND_WWW = False
-
-ALLOWED_HOSTS = ['127.0.0.1']
+## Caching
 
 CACHES = {
     'default': {
@@ -43,6 +62,8 @@ CACHES = {
         'MAX_ENTRIES': 400,
     }
 }
+
+## Disable Sentry when running on staging
 
 RAVEN_CONFIG = {
     'dsn': None,
