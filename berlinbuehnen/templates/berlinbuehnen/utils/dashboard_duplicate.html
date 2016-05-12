@@ -28,9 +28,6 @@ $(function() {
         var object_title = $(this).data("object-title");
         var object_type = $(this).data("object-type");
 
-        //$('.object-title', $modal).html(object_title);
-        //$('.object-type', $modal).html(object_type);
-
         var duplicate_url = $(this).attr('href');
         $('.modal-form', $modal).load(duplicate_url, function() {
             $modal.modal('show');

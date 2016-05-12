@@ -222,7 +222,7 @@ class Festival(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
         return self._first_image_cache
     first_image = property(_get_first_image)
 
-    def duplicate(self):
+    def duplicate(self, new_values={}):
         import os
         from distutils.dir_util import copy_tree
         from filebrowser.models import FileDescription
@@ -230,7 +230,11 @@ class Festival(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
         source_festival = self
         target_festival = Festival.objects.get(pk=self.pk)
         target_festival.pk = None
-        target_festival.slug = get_unique_value(Festival, better_slugify(source_festival.title_de))
+
+        for key, value in new_values.items():
+            setattr(target_festival, key, value)
+
+        target_festival.slug = get_unique_value(Festival, better_slugify(target_festival.title_de))
         target_festival.creation_date = None
         target_festival.modified_date = None
         target_festival.status = "draft"

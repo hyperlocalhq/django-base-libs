@@ -28,7 +28,7 @@ from .models import FestivalPDF
 from berlinbuehnen.apps.festivals.forms.gallery import PDFForm, PDFDeletionForm
 from berlinbuehnen.apps.productions.models import Event
 
-from .forms.festivals import FESTIVAL_FORM_STEPS
+from .forms.festivals import FESTIVAL_FORM_STEPS, FestivalDuplicateForm
 from .forms.gallery import ImageFileForm, ImageDeletionForm
 
 from jetson.apps.image_mods.models import FileManager
@@ -195,10 +195,14 @@ def duplicate_festival(request, slug):
     festival = get_object_or_404(Festival, slug=slug)
     if not festival.is_editable() or not request.user.has_perm("festivals.add_festival"):
         return access_denied(request)
-    if request.method == "POST" and request.is_ajax():
-        new_festival = festival.duplicate()
-        return HttpResponse(reverse("change_festival", kwargs={'slug': new_festival.slug}))
-    return redirect(festival)
+    if request.method == "POST":
+        form = FestivalDuplicateForm(request.POST)
+        if form.is_valid():
+            new_festival = festival.duplicate(new_values=form.cleaned_data)
+            return HttpResponse(reverse("change_festival", kwargs={'slug': new_festival.slug}))
+    else:
+        form = FestivalDuplicateForm(instance=festival)
+    return render(request, "festivals/forms/duplication_form.html", {'form': form})
 
 
 ### MEDIA FILE MANAGEMENT ###
