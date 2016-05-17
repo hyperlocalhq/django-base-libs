@@ -101,6 +101,8 @@
                                             <span class="icon icon-eye-open"></span>
                                             <span class="sr-only">{% trans "Preview" %}</span>
                                         </a>
+                                        {% comment %}
+                                        <!-- TODO: activate duplication of education projects when needed -->
                                         {% if_has_perm "education.add_project" %}
                                         <a href="{% url 'duplicate_project' slug=project.slug %}"
                                             data-toggle="tooltip"
@@ -114,6 +116,7 @@
                                             <span class="sr-only">{% trans "Duplicate" %}</span>
                                         </a>
                                         {% end_if_has_perm %}
+                                        {% endcomment %}
                                         {% if project.is_deletable %}
                                         <a href="{% url 'delete_project' slug=project.slug %}"
                                             data-toggle="tooltip"
