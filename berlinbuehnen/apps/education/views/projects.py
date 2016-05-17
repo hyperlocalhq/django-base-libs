@@ -10,6 +10,7 @@ from django.views.decorators.cache import never_cache
 from django.http import HttpResponse
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render, redirect
+from django.core.urlresolvers import reverse
 
 from base_libs.views.views import access_denied
 
@@ -21,7 +22,7 @@ from jetson.apps.utils.views import show_form_step
 from jetson.apps.utils.decorators import login_required
 
 from berlinbuehnen.apps.education.models import Project, ProjectTime
-from berlinbuehnen.apps.education.forms.projects import PROJECT_FORM_STEPS
+from berlinbuehnen.apps.education.forms.projects import PROJECT_FORM_STEPS, ProjectDuplicateForm
 
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 
@@ -105,6 +106,22 @@ def change_project_status(request, slug):
         instance.save()
         return HttpResponse("OK")
     return redirect(instance.get_url_path())
+
+
+@never_cache
+@login_required
+def duplicate_project(request, slug):
+    project = get_object_or_404(Project, slug=slug)
+    if not project.is_editable() or not request.user.has_perm("education.add_project"):
+        return access_denied(request)
+    if request.method == "POST":
+        form = ProjectDuplicateForm(request.POST)
+        if form.is_valid():
+            new_project = project.duplicate(new_values=form.cleaned_data)
+            return HttpResponse(reverse("change_project", kwargs={'slug': new_project.slug}))
+    else:
+        form = ProjectDuplicateForm(instance=project)
+    return render(request, "education/projects/forms/duplication_form.html", {'form': form})
 
 
 # ### MEDIA FILE MANAGEMENT ###

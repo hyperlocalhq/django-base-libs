@@ -16,6 +16,8 @@ from base_libs.models.fields import URLField
 from base_libs.utils.misc import get_translation
 from base_libs.models.fields import PositionField
 from base_libs.middleware.threadlocals import get_current_language
+from base_libs.utils.misc import get_unique_value
+from base_libs.utils.betterslugify import better_slugify
 
 from berlinbuehnen.apps.locations.models import Location, District
 
@@ -561,6 +563,72 @@ class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
         
     def get_published_departments(self):
         return self.departments.filter(status="published")
+
+    def duplicate(self, new_values={}):
+        import os
+        from distutils.dir_util import copy_tree
+        from filebrowser.models import FileDescription
+        # copy the model
+        source_proj = self
+        target_proj = Project.objects.get(pk=self.pk)
+        target_proj.pk = None
+
+        for key, value in new_values.items():
+            setattr(target_proj, key, value)
+
+        target_proj.slug = get_unique_value(Project, better_slugify(target_proj.title_de))
+        target_proj.status = "draft"
+        target_proj.save()
+
+        # add m2m relationships
+        target_proj.departments = source_proj.departments.all()
+        target_proj.sponsors = source_proj.sponsors.all()
+        target_proj.target_groups = source_proj.target_groups.all()
+        target_proj.formats = source_proj.formats.all()
+
+        # copy media directory
+        source_media_dir = "education/projects/%s" % source_proj.slug
+        target_media_dir = "education/projects/%s" % target_proj.slug
+        abs_source_media_path = os.path.join(settings.MEDIA_ROOT, source_media_dir)
+        abs_target_media_path = os.path.join(settings.MEDIA_ROOT, target_media_dir)
+        if os.path.exists(abs_source_media_path):
+            copy_tree(abs_source_media_path, abs_target_media_path)
+        for file_desc in FileDescription.objects.filter(file_path__startswith=source_media_dir):
+            file_desc.pk = None
+            file_desc.file_path = file_desc.file_path.path.replace(source_media_dir, target_media_dir)
+            file_desc.save()
+        # add m2o relationships
+        for social_media in source_proj.projectsocialmediachannel_set.all():
+            social_media.pk = None
+            social_media.project = target_proj
+            social_media.save()
+        for video in source_proj.projectvideo_set.all():
+            video.pk = None
+            video.project = target_proj
+            video.save()
+        for time in source_proj.projecttime_set.all():
+            time.pk = None
+            time.project = target_proj
+            time.save()
+        for image in source_proj.projectimage_set.all():
+            image.pk = None
+            image.path = image.path.path.replace(source_media_dir, target_media_dir)
+            image.project = target_proj
+            image.save()
+        for pdf in source_proj.projectpdf_set.all():
+            pdf.pk = None
+            pdf.path = pdf.path.path.replace(source_media_dir, target_media_dir)
+            pdf.project = target_proj
+            pdf.save()
+        for member in source_proj.projectmember_set.all():
+            member.pk = None
+            member.project = target_proj
+            member.save()
+
+        # set ownership
+        for owner in source_proj.get_owners():
+            target_proj.set_owner(owner)
+        return target_proj
 
     def is_editable(self, user=None):
         if not hasattr(self, "_is_editable_cache"):
