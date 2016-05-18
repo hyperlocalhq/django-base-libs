@@ -299,6 +299,8 @@ urlpatterns = i18n_patterns(
     # info vCard
     url(r'^vcard/(?P<content_type_id>[0-9]+)/(?P<object_id>[0-9]+)/$',
         'ccb.apps.site_specific.views.get_vcard', name="vcard"),
+
+    url(r'kreativkultur/events/$', 'ccb.apps.kreativkultur.views.event_list'),
 )
 
 urlpatterns += patterns(

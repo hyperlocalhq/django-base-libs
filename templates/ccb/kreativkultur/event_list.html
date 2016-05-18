@@ -1,13 +1,13 @@
 {% load babel i18n image_mods_tags favorites %}
 
-
+{% for event in object_list %}
 <div class="col-xs-12">
     <div class="wrapper">
-        <a class="content" href="{{ event.get_url_path }}">
+        <a class="content" href="{{ event.get_url }}" target="_blank">
             {% if event.image %}
-                <img src="{{ UPLOADS_URL }}{{ event.image|modified_path:"list" }}" alt="{{ event.get_title|escape }}"/>
+                <img src="http://www.creative-city-berlin.de{{ UPLOADS_URL }}{{ event.image|modified_path:"list" }}" alt="{{ event.get_title|escape }}"/>
             {% else %}
-                <img src="{{ STATIC_URL }}site/img/placeholder/event_list.png">
+                <img src="http://www.creative-city-berlin.de{{ STATIC_URL }}site/img/placeholder/event_list.png">
             {% endif %}
             <div class="text">
                 <h3>
@@ -15,7 +15,21 @@
                         {{ event.event_type }}
                     {% endif %}
                 </h3>
-                <h2>{{ event.get_title|escape }}</h2>
+                <h2>{{ event.title|escape }}</h2>
+                <span class="event-date">
+                    {% if event.get_nearest_occurrence %}
+                        {% with event.get_nearest_occurrence as time %}
+                            {{ time.start_dd|default:1|stringformat:"02d" }}.
+                            {{ time.start_mm|default:1|stringformat:"02d" }}<br/>
+                            {{ time.start_yyyy|default:"0000" }}
+                        {% endwith %}
+                    {% endif %}
+                </span>
+
+
+                {% if event.organizing_institution %}
+                    <p>{% trans "Organized by" %}: {{ event.organizing_institution.title }}</p>
+                {% endif %}
 
                 <p>
                     {% if event.venue %}
@@ -27,7 +41,7 @@
                         {% with event.postal_address.get_dict as postal_address %}
                             {% if postal_address.street_address or postal_address.country_name %}
                                     <br/>
-                                    
+
                                     {% if postal_address.street_address %}
                                         <span class="seperator">{{ postal_address.street_address|escape }}</span>
                                     {% endif %}
@@ -43,36 +57,26 @@
                                     {% if postal_address.country_name %}
                                         <span class="seperator">{{ postal_address.country_name }}</span>
                                     {% endif %}
-                                    
+
                                     {% if date %}
                                         <br/>
                                     {% endif %}
                             {% endif %}
                         {% endwith %}
                     {% endif %}
-                    
-                    {% if date %}
-                        {% trans 'Date' %}: {{ date|date:'G:i' }} - {{ date.end|date:'G:i' }}
-                    {% endif %}
-                    
+
                 </p>
             </div>
         </a>
-        
+
         {% with event.get_urls|first as url %}
             {% if url %}
                 <a class="website" href="{{ url.link }}" target="_blank">{{ url.link|truncatechars:50 }}</a>
             {% endif %}
         {% endwith %}
-        
-        <div class="button-group">
-            {% if request.user.is_authenticated %}
-                {% adding2favorites for event using "generic/favorite_icon.html" %}
-            {% else %}
-                <a rel="nofollow" href="{% url 'login' %}?goto_next={{ request.path }}" class="fawesome fa-favorite button"><span class="sr-only">{% trans "Add to favorites" %}</span></a>
-            {% endif %}
-            <!-- <a href="#" class="fawesome fa-calender-check button"></a> -->
-        </div>
+
     </div>
 </div>
 
+
+{% endfor %}
