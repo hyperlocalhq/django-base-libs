@@ -5,22 +5,20 @@
         <div class="event">
             <div class="row">
                 <div class="content">
-                    <a class="content" href="{{ event.get_url }}" target="_blank">
+                    <a href="{{ event.get_url }}" target="_blank">
                         <div class="col-md-3 column">
                             {% if event.image %}
                                 <img src="http://www.creative-city-berlin.de{{ UPLOADS_URL }}{{ event.image|modified_path:"list" }}" alt="{{ event.get_title|escape }}"/>
                             {% else %}
-                                <img src="http://www.creative-city-berlin.de{{ STATIC_URL }}site/img/placeholder/event_list.png">
+                                <img src="http://www.creative-city-berlin.de{{ STATIC_URL }}site/img/placeholder/event_list.png"/>
                             {% endif %}
                         </div>
                         <div class="col-md-9 column">
                             {% if event.get_nearest_occurrence %}
                                 <div class="event-date">
-                                        {% with event.get_nearest_occurrence as time %}
-                                            {{ time.start_dd|default:1|stringformat:"02d" }}.
-                                            {{ time.start_mm|default:1|stringformat:"02d" }}<br/>
-                                            {{ time.start_yyyy|default:"0000" }}
-                                        {% endwith %}
+                                    {% with event.get_nearest_occurrence as time %}
+                                        {{ time.start_dd|default:1|stringformat:"02d" }}.{{ time.start_mm|default:1|stringformat:"02d" }}. {{ time.start_yyyy|default:"0000" }}
+                                    {% endwith %}
                                 </div>
                             {% endif %}
                             {% if event.event_type %}
