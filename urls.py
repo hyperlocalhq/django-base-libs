@@ -301,6 +301,7 @@ urlpatterns = i18n_patterns(
         'ccb.apps.site_specific.views.get_vcard', name="vcard"),
 
     url(r'kreativkultur/events/$', 'ccb.apps.kreativkultur.views.event_list'),
+    url(r'kreativkultur/events/js/$', 'ccb.apps.kreativkultur.views.event_list_js'),
 )
 
 urlpatterns += patterns(
