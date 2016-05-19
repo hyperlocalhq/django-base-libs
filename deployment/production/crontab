@@ -8,4 +8,5 @@ SHELL=/usr/local/bin/bash
 */5 * * * * /usr/local/www/apache24/data/berlin-buehnen.de/commands/import_from_grips_theater.bsh
 00 04 * * * /usr/local/www/apache24/data/berlin-buehnen.de/commands/rebuild_index.bsh
 30 04 * * * /usr/local/www/apache24/data/berlin-buehnen.de/commands/export_productions_to_excel.bsh
+00 05 * * * /usr/local/www/apache24/data/berlin-buehnen.de/commands/collect_advertising_stats.bsh
 00 06 * * * /usr/local/www/apache24/data/berlin-buehnen.de/commands/backup_db.bsh
