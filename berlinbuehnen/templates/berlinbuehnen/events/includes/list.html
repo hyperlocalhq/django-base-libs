@@ -105,7 +105,7 @@
                     {% if event.production.ensembles %}<h3 {% if event.get_special_text or event.is_canceled %} class="short" {% endif %}>{{ event.production.ensembles }}</h3>{% endif %}
                     {% if event.production.title %}<h2 {% if event.get_special_text or event.is_canceled %} class="short" {% endif %}>{% if event.production.prefix %}{{ event.production.prefix }} {% endif %}{{ event.production.title }}</h2>{% endif %}
                     {% if event.production.subtitle %}<h3>{{ event.production.subtitle }}</h3>
-                    {% elif event.ev_or_prod_subtitles_text %}<h3>{{ event.ev_or_prod_subtitles_text }}</h3>{% endif %}
+                    {% elif event.ev_or_prod_subtitles_text %}<h3>{{ event.ev_or_prod_subtitles_text|striptags }}</h3>{% endif %}
                     {% if event.production.original %}<h3>{{ event.production.original }}</h3>{% endif %}
                     {% if event.production.language_and_subtitles %}<h3>{{ event.production.language_and_subtitles }}</h3>{% endif %}
                     {% if event.ev_or_prod_teaser %}<div class="copy">{{ event.ev_or_prod_teaser }}</div>{% endif %}
