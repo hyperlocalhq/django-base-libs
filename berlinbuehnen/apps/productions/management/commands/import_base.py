@@ -199,9 +199,9 @@ class ImportFromHeimatBase(object):
         7013: 43,  # Klassik
         #7017: 14,  # Komödie
         7019: 69,  # Konferenz
-        6998: 17,  # Konzertante Vorstellung
+        6998: 17,  # Konzertante Vorstellung -> Konzertante Aufführung
         7020: 15,  # Lesung
-        7000: 14,  # Liederabend
+        7000: 44,  # Liederabend
         7014: 18,  # Musical
         7018: 79,  # Neue Medien
         6996: 45,  # Neue Musik
@@ -215,12 +215,12 @@ class ImportFromHeimatBase(object):
         7005: 47,  # Rock
         7028: 16,  # Schauspiel
         7025: 53,  # Show
-        7023: 5,  # Sonstige Musik
+        7023: 5,  # Sonstige Musik -> Konzert
         6989: 48,  # Soul
-        7011: 49,  # Special
+        7011: 81,  # Special
         6997: 27,  # Tanztheater
         7027: 54,  # Variete
-        7021: 70,  # Vortrag
+        7021: 73,  # Vortrag
         7004: 82,  # Workshop
     }
     PRODUCTION_CHARACTERISTICS_MAPPER = {
