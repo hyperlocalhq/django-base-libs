@@ -13,6 +13,7 @@ from urllib import url2pathname
 from django.core.management.base import NoArgsCommand
 from django.utils.encoding import smart_str, force_unicode
 from django.utils.text import slugify
+from django.utils.html import strip_tags
 from django.db import models
 from django.conf import settings
 
@@ -76,8 +77,8 @@ class LocalFileAdapter(requests.adapters.BaseAdapter):
         pass
 
 
-class Command(NoArgsCommand, ImportFromCulturebaseBase):
-    help = "Imports productions and events from Culturebase / Deutsche Oper Berlin"
+class ImportToBerlinBuehnenBase(NoArgsCommand):
+    help = "Base command to extend to imports productions and events to Berlin Buehnen"
 
     DEFAULT_PUBLISHING_STATUS = "import"
     production_ids_to_keep = set()
@@ -86,16 +87,13 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
     def handle_noargs(self, *args, **options):
         self.verbosity = int(options.get("verbosity", NORMAL))
         self.skip_images = options.get('skip_images')
+        self.define_service()
+        self.import_productions()
 
-        Service = models.get_model("external_services", "Service")
+    def define_service(self):
+        raise NotImplementedError("The define_service() method should be implemented.")
 
-        self.service, created = Service.objects.get_or_create(
-            sysname="bb_example",
-            defaults={
-                'url': "file://{}/production_import_specs/example.xml".format(settings.PROJECT_PATH),
-                'title': u"Berlin Bühnen Import API Example",
-            },
-        )
+    def import_productions(self):
 
         requests_session = requests.session()
         requests_session.mount('file://', LocalFileAdapter())
@@ -191,7 +189,6 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
         instance.price_information_de = self.get_child_text(xml_node, 'price_information_de')
         instance.price_information_en = self.get_child_text(xml_node, 'price_information_en')
 
-
     def save_page(self, productions_node):
         from decimal import Decimal
         from berlinbuehnen.apps.people.models import Person
@@ -260,14 +257,14 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
                 continue
 
             prod.status = self.get_child_text(prod_node, 'status') or self.DEFAULT_PUBLISHING_STATUS
-            prod.title_de = title_de
-            prod.title_en = title_en or title_de
-            prod.prefix_de = self.get_child_text(prod_node, 'prefix_de')
-            prod.prefix_en = self.get_child_text(prod_node, 'prefix_en')
-            prod.subtitle_de = self.get_child_text(prod_node, 'subtitle_de')
-            prod.subtitle_en = self.get_child_text(prod_node, 'subtitle_en')
-            prod.original_de = self.get_child_text(prod_node, 'original_de')
-            prod.original_en = self.get_child_text(prod_node, 'original_en')
+            prod.title_de = strip_tags(title_de.replace('<br />', ' '))
+            prod.title_en = strip_tags((title_en or title_de).replace('<br />', ' '))
+            prod.prefix_de = strip_tags(self.get_child_text(prod_node, 'prefix_de').replace('<br />', ' '))
+            prod.prefix_en = strip_tags(self.get_child_text(prod_node, 'prefix_en').replace('<br />', ' '))
+            prod.subtitle_de = strip_tags(self.get_child_text(prod_node, 'subtitle_de').replace('<br />', ' '))
+            prod.subtitle_en = strip_tags(self.get_child_text(prod_node, 'subtitle_en').replace('<br />', ' '))
+            prod.original_de = strip_tags(self.get_child_text(prod_node, 'original_de').replace('<br />', ' '))
+            prod.original_en = strip_tags(self.get_child_text(prod_node, 'original_en').replace('<br />', ' '))
             prod.website_de = self.get_child_text(prod_node, 'website_de')
             prod.website_en = self.get_child_text(prod_node, 'website_en')
 
@@ -361,8 +358,8 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
             prod.characteristics.clear()
             for ch_id_node in prod_node.findall("./characteristics/characteristic_id"):
                 try:
-                    ch = ProductionCharacteristics.objects.get(pk=ch_id_node.text)
-                except ProductionCategory.DoesNotExist:
+                    ch = ProductionCharacteristics.objects.get(slug=ch_id_node.text)
+                except ProductionCharacteristics.DoesNotExist:
                     pass
                 else:
                     prod.characteristics.add(ch)
@@ -626,10 +623,10 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
                 prod.productioninvolvement_set.create(
                     person=p,
                     involvement_type=involvement_type,
-                    role_de=self.get_child_text(person_node, 'role_de'),
-                    role_en=self.get_child_text(person_node, 'role_en'),
-                    instrument_de=self.get_child_text(person_node, 'instrument_de'),
-                    instrument_en=self.get_child_text(person_node, 'instrument_en'),
+                    involvement_role_de=self.get_child_text(person_node, 'role_de'),
+                    involvement_role_en=self.get_child_text(person_node, 'role_en'),
+                    involvement_instrument_de=self.get_child_text(person_node, 'instrument_de'),
+                    involvement_instrument_en=self.get_child_text(person_node, 'instrument_en'),
                     imported_sort_order=imported_sort_order,
                 )
             for sort_order, item in enumerate(prod.productioninvolvement_set.order_by('imported_sort_order'), 0):
@@ -639,13 +636,11 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
             prod.sponsors.clear()
             for sponsor_node in prod_node.findall('./sponsors/sponsor'):
                 sponsor, created = Sponsor.objects.get_or_create(
-                    title_de=self.get_child_text(person_node, 'title_de'),
-                    defaults={
-                        'title_en': self.get_child_text(person_node, 'title_en'),
-                        'website': self.get_child_text(person_node, 'website'),
-                    }
+                    title_de=self.get_child_text(sponsor_node, 'title_de'),
+                    title_en=self.get_child_text(sponsor_node, 'title_en'),
+                    website=self.get_child_text(sponsor_node, 'website'),
                 )
-                image_url = self.get_child_text(person_node, 'image_url')
+                image_url = self.get_child_text(sponsor_node, 'image_url')
                 if image_url and created:
                     filename = image_url.split("/")[-1]
                     image_response = requests.get(image_url)
@@ -699,25 +694,38 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
 
                 event.start_date = parse_datetime(self.get_child_text(event_node, 'start_date')).date()
                 event.start_time = parse_datetime(self.get_child_text(event_node, 'start_time')).time()
-                try:
-                    event.end_date = parse_datetime(self.get_child_text(event_node, 'end_date')).date()
-                except:
-                    event.end_date = None
-                try:
-                    event.end_time = parse_datetime(self.get_child_text(event_node, 'end_time')).time()
-                except:
-                    event.end_time = None
-                try:
-                    duration_time = parse_datetime(self.get_child_text(event_node, 'duration')).time()
-                except:
-                    duration = None
-                else:
-                    duration = timedelta(
-                        hours=duration_time.tm_hour,
-                        minutes=duration_time.tm_min,
-                        seconds=duration_time.tm_sec,
-                    ).total_seconds()
+
+                event.end_date = None
+                end_date = self.get_child_text(event_node, 'end_date')
+                if end_date:
+                    try:
+                        event.end_date = parse_datetime(end_date).date()
+                    except:
+                        pass
+
+                event.end_time = None
+                end_time = self.get_child_text(event_node, 'end_time')
+                if end_time:
+                    try:
+                        event.end_time = parse_datetime().time()
+                    except:
+                        pass
+
+                duration = None
+                duration_str = self.get_child_text(event_node, 'duration')
+                if duration_str:
+                    try:
+                        duration_time = parse_datetime(duration_str).time()
+                    except:
+                        pass
+                    else:
+                        duration = timedelta(
+                            hours=duration_time.hour,
+                            minutes=duration_time.minute,
+                            seconds=duration_time.second,
+                        ).total_seconds()
                 event.duration = duration
+
                 try:
                     event.pauses = int(self.get_child_text(event_node, 'pauses'))
                 except:
@@ -783,8 +791,8 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
                 event.characteristics.clear()
                 for ch_id_node in event_node.findall("./characteristics/characteristic_id"):
                     try:
-                        ch = EventCharacteristics.objects.get(pk=ch_id_node.text)
-                    except ProductionCategory.DoesNotExist:
+                        ch = EventCharacteristics.objects.get(slug=ch_id_node.text)
+                    except EventCharacteristics.DoesNotExist:
                         pass
                     else:
                         event.characteristics.add(ch)
@@ -1045,10 +1053,10 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
                     event.eventinvolvement_set.create(
                         person=p,
                         involvement_type=involvement_type,
-                        role_de=self.get_child_text(person_node, 'role_de'),
-                        role_en=self.get_child_text(person_node, 'role_en'),
-                        instrument_de=self.get_child_text(person_node, 'instrument_de'),
-                        instrument_en=self.get_child_text(person_node, 'instrument_en'),
+                        involvement_role_de=self.get_child_text(person_node, 'role_de'),
+                        involvement_role_en=self.get_child_text(person_node, 'role_en'),
+                        involvement_instrument_de=self.get_child_text(person_node, 'instrument_de'),
+                        involvement_instrument_en=self.get_child_text(person_node, 'instrument_en'),
                         imported_sort_order=imported_sort_order,
                     )
                 for sort_order, item in enumerate(event.eventinvolvement_set.order_by('imported_sort_order'), 0):
@@ -1058,13 +1066,11 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
                 event.sponsors.clear()
                 for sponsor_node in event_node.findall('./sponsors/sponsor'):
                     sponsor, created = Sponsor.objects.get_or_create(
-                        title_de=self.get_child_text(person_node, 'title_de'),
-                        defaults={
-                            'title_en': self.get_child_text(person_node, 'title_en'),
-                            'website': self.get_child_text(person_node, 'website'),
-                        }
+                        title_de=self.get_child_text(sponsor_node, 'title_de'),
+                        title_en=self.get_child_text(sponsor_node, 'title_en'),
+                        website=self.get_child_text(sponsor_node, 'website'),
                     )
-                    image_url = self.get_child_text(person_node, 'image_url')
+                    image_url = self.get_child_text(sponsor_node, 'image_url')
                     if image_url and created:
                         filename = image_url.split("/")[-1]
                         image_response = requests.get(image_url)
