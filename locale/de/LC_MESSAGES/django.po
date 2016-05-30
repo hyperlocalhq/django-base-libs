@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-02-12 16:37+0100\n"
-"PO-Revision-Date: 2015-10-08 17:01+0053\n"
+"PO-Revision-Date: 2016-01-29 12:15+0053\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1593,7 +1593,7 @@ msgstr "Die nächsten 30 Tage"
 #: apps/events/forms/event.py:44 apps/exhibitions/forms/exhibition.py:66
 #: apps/workshops/forms/workshop.py:45
 msgid "Museum from the list <b>(active)</b> / <a href=\"#\">Free location</a>"
-msgstr "Gelistetes Museum <b>(aktiv)</b> / <a href=\"#\">Sonstiger Ort</a>"
+msgstr "Gelistetes Museum* <b>(aktiv)</b> / <a href=\"#\">Sonstiger Ort*</a>"
 
 #: apps/events/forms/event.py:80 apps/exhibitions/forms/exhibition.py:91
 #: apps/workshops/forms/workshop.py:81
@@ -1608,7 +1608,7 @@ msgstr "PDF-Dokument auf Englisch löschen"
 #: apps/events/forms/event.py:133 apps/exhibitions/forms/exhibition.py:159
 #: apps/workshops/forms/workshop.py:145
 msgid "Free location <b>(active)</b> / <a href=\"#\">Museum from the list</a>"
-msgstr "Sonstiger Ort <b>(aktiv)</b> / <a href=\"#\">Gelistetes Museum</a>"
+msgstr "Sonstiger Ort *<b>(aktiv)</b> / <a href=\"#\">Gelistetes Museum*</a>"
 
 #: apps/events/forms/event.py:185 apps/exhibitions/forms/exhibition.py:227
 #: apps/museums/forms/museum.py:82 apps/shop/forms.py:132
@@ -5213,7 +5213,7 @@ msgstr "Zur Serie"
 
 #: templates/museumsportal/cms/magazine_third.html:18
 msgid "To the Magazin"
-msgstr "Zum MuseumsSommer"
+msgstr "Zum Magazin"
 
 #: templates/museumsportal/cms/magazine_third.html:32
 msgid "Additional Contents"
