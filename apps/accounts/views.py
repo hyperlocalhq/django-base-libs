@@ -20,6 +20,7 @@ from .forms import EmailOrUsernameAuthentication
 from .forms import RegistrationForm
 
 from base_libs.utils.misc import get_website_url
+from base_libs.middleware.threadlocals import get_current_language
 from base_libs.utils.crypt import cryptString, decryptString
 
 User = models.get_model("auth", "User")
@@ -54,7 +55,7 @@ def login(request, template_name='registration/login.html', redirect_field_name=
             if request.is_ajax():
                 return HttpResponse("redirect=%s" % redirect_to)
             if user.groups.filter(name="Museum Owners").count():
-                return redirect("dashboard")
+                return redirect('/{}/dashboard/'.format(get_current_language()))
             return redirect(redirect_to)
     else:
         data = {
@@ -82,6 +83,10 @@ def login(request, template_name='registration/login.html', redirect_field_name=
 
 @never_cache
 def register(request):
+    from mailsnake import MailSnake, EmailAlreadySubscribedException
+    from jetson.apps.mailchimp.models import MList
+    from jetson.apps.mailchimp.models import Subscription
+    from jetson.apps.mailchimp.models import Settings
 
     if request.method == "POST":
         form = RegistrationForm(request.POST)
@@ -115,7 +120,45 @@ def register(request):
                 send_immediately=True,
             )
 
-            return redirect('/signup/almost-done/')
+            try:
+                s = Settings.objects.get()
+            except Exception:
+                pass
+            else:
+                ms = MailSnake(s.api_key)
+                for ml in MList.site_objects.filter(is_public=True):
+                    if cleaned['newsletter_%s' % ml.pk]:
+                        if s.double_optin:
+                            status = "pending"
+                        else:
+                            status = "subscribed"
+                        try:
+                            sub = Subscription.objects.create(
+                                subscriber=u,
+                                ip=request.META['REMOTE_ADDR'],
+                                mailinglist=ml,
+                                status=status,
+                            )
+                        except:
+                            pass
+                        else:
+                            if ml.mailchimp_id:
+                                try:
+                                    ms.listSubscribe(
+                                        id=ml.mailchimp_id,
+                                        email_address=sub.email,
+                                        merge_vars={
+                                            'FNAME': sub.first_name,
+                                            'LNAME': sub.last_name,
+                                        },
+                                        double_optin=s.double_optin,
+                                        update_existing=s.update_existing,
+                                        send_welcome=s.send_welcome,
+                                    )
+                                except EmailAlreadySubscribedException:
+                                    pass
+
+            return redirect('/{}/signup/almost-done/'.format(get_current_language()))
     else:
         form = RegistrationForm()
     context = {
@@ -133,7 +176,7 @@ def confirm_registration(request, encrypted_email):
         raise Http404
     user = authenticate(email=email)
     if not user:
-        return redirect('/signup/')
+        return redirect('/{}/signup/'.format(get_current_language()))
     user.is_active = True
     user.save()
     from django.contrib.auth import login
@@ -153,5 +196,4 @@ def confirm_registration(request, encrypted_email):
         sender_email=sender_email,
         send_immediately=True,
     )
-    return redirect('/signup/welcome/')
-
+    return redirect('/{}/signup/welcome/'.format(get_current_language()))

@@ -6,8 +6,12 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import ugettext as _
 from django.contrib.auth import authenticate
 
+from base_libs.middleware.threadlocals import get_current_language
+
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
+
+from jetson.apps.mailchimp.models import MList
 
 User = models.get_model("auth", "User")
 
@@ -91,6 +95,26 @@ class RegistrationForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
 
+        self.fields['privacy_policy'] = forms.BooleanField(
+            required=True,
+            label=_("I accept <a href=\"/%(lang_code)s/privacy/\" target=\"_blank\">the privacy policy</a>.") % {'lang_code': get_current_language()},
+        )
+        self.fields['terms_of_use'] = forms.BooleanField(
+            required=True,
+            label=_("I accept <a href=\"/%(lang_code)s/terms-of-use/\" target=\"_blank\">the terms of use</a>.") % {'lang_code': get_current_language()},
+        )
+
+        self.newsletter_fields = []
+        self.newsletter_field_names = []
+        for ml in MList.site_objects.filter(is_public=True):
+            f = self.fields['newsletter_%s' % ml.pk] = forms.BooleanField(
+                label=_("I want to subscribe to %s.") % ml.title,
+                initial=True,
+                required=False,
+            )
+            self.newsletter_fields.append(("newsletter_%s" % ml.pk, f))
+            self.newsletter_field_names.append("newsletter_%s" % ml.pk)
+
         self.helper = FormHelper()
         self.helper.form_action = ""
         self.helper.form_method = "POST"
@@ -107,6 +131,9 @@ class RegistrationForm(forms.Form):
 
                 "password",
                 "confirm_password",
+                "privacy_policy",
+                "terms_of_use",
+                *self.newsletter_field_names
             ),
             bootstrap.FormActions(
                 layout.Submit('submit', _('Signup')),
