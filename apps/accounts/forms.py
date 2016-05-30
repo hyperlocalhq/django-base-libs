@@ -30,7 +30,7 @@ class EmailOrUsernameAuthentication(AuthenticationForm):
             max_length=75,
         )
         del self.fields['username']
-        # self.fields['password'].help_text = """<a href="/password_reset/">%s</a>""" % _("Forgot password?")
+        self.fields['password'].help_text = """<a href="/password-reset/">%s</a>""" % _("Forgot password?")
 
         self.helper = FormHelper()
         self.helper.form_action = ""
@@ -170,7 +170,8 @@ password_change_form_helper.layout = layout.Layout(
     layout.Fieldset(
         "", # no legend
         "old_password",
-        layout.Row("new_password1", "new_password2"),
+        "new_password1",
+        "new_password2",
     ),
     bootstrap.FormActions(
         layout.Submit('submit', _('Confirm')),
@@ -199,7 +200,8 @@ password_reset_change_form_helper.layout = layout.Layout(
         layout.HTML("""{% load i18n %}
             <p>{% trans "Please enter your new password twice so we can verify you typed it in correctly." %}</p>
         """),
-        layout.Row("new_password1", "new_password2"),
+        "new_password1",
+        "new_password2",
     ),
     bootstrap.FormActions(
         layout.Submit('submit', _('Change my password')),
