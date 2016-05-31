@@ -246,6 +246,7 @@ INSTALLED_APPS = (
     "museumsportal.apps.mega_menu",
     "museumsportal.apps.mailing",
     "museumsportal.apps.tracker",
+    "museumsportal.apps.accounts",
 )
 
 
@@ -300,6 +301,10 @@ ADMIN_APP_INDEX = (
                 'verbose_name': gettext("Authentication"),
                 'models': ("Group", "User",),
                 'icon': 'key',
+            }),
+            ('accounts', {
+                'verbose_name': gettext("Privacy Settings"),
+                'models': ("PrivacySettings",),
             }),
             ('permissions', {
                 'models': ('PerObjectGroup','RowLevelPermission',),

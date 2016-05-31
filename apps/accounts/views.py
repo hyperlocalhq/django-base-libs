@@ -16,12 +16,17 @@ from django.utils.translation import ugettext_lazy as _
 from museumsportal.apps.mailing.recipient import Recipient
 from museumsportal.apps.mailing.views import send_email_using_template
 
+from .models import PrivacySettings
 from .forms import EmailOrUsernameAuthentication
 from .forms import RegistrationForm
+from .forms import PrivacySettingsForm
+from .forms import ProfileForm
 
 from base_libs.utils.misc import get_website_url
 from base_libs.middleware.threadlocals import get_current_language
 from base_libs.utils.crypt import cryptString, decryptString
+
+from jetson.apps.utils.decorators import login_required
 
 User = models.get_model("auth", "User")
 
@@ -54,9 +59,9 @@ def login(request, template_name='registration/login.html', redirect_field_name=
             #    redirect_to = smart_str(get_website_url(redirect_to))
             if request.is_ajax():
                 return HttpResponse("redirect=%s" % redirect_to)
-            if user.groups.filter(name="Museum Owners").count():
-                return redirect('/{}/dashboard/'.format(get_current_language()))
-            return redirect(redirect_to)
+            if redirect_to:
+                return redirect(redirect_to)
+            return redirect('/{}/dashboard/'.format(get_current_language()))
     else:
         data = {
             'email_or_username': request.GET.get('login_as', ''),
@@ -96,7 +101,7 @@ def register(request):
             # get or create a user
             u = User()
             u.email = cleaned['email']
-            u.username = cleaned['email'][:30]
+            u.username = cleaned['username']
             # u.first_name = cleaned['first_name']
             # u.last_name = cleaned['last_name']
             u.set_password(cleaned['password'])
@@ -197,3 +202,33 @@ def confirm_registration(request, encrypted_email):
         send_immediately=True,
     )
     return redirect('/{}/signup/welcome/'.format(get_current_language()))
+
+
+@never_cache
+@login_required
+def change_privacy_settings(request):
+    try:
+        privacy_settings = request.user.privacysettings
+    except:
+        privacy_settings = PrivacySettings(user=request.user)
+    if request.method == "POST":
+        form = PrivacySettingsForm(data=request.POST, instance=privacy_settings)
+        if form.is_valid():
+            form.save()
+            return redirect('/{}/dashboard/'.format(request.LANGUAGE_CODE))
+    else:
+        form = PrivacySettingsForm(instance=privacy_settings)
+    return render(request, "accounts/privacy_settings.html", {'form': form})
+
+
+@never_cache
+@login_required
+def change_profile(request):
+    if request.method == "POST":
+        form = ProfileForm(data=request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('/{}/dashboard/'.format(request.LANGUAGE_CODE))
+    else:
+        form = ProfileForm(instance=request.user)
+    return render(request, "accounts/profile.html", {'form': form})

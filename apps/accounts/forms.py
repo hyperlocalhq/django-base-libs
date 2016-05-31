@@ -13,7 +13,10 @@ from crispy_forms import layout, bootstrap
 
 from jetson.apps.mailchimp.models import MList
 
+from .models import PrivacySettings
+
 User = models.get_model("auth", "User")
+
 
 class EmailOrUsernameAuthentication(AuthenticationForm):
     login_as = forms.CharField(
@@ -38,7 +41,7 @@ class EmailOrUsernameAuthentication(AuthenticationForm):
 
         self.helper.layout = layout.Layout(
             layout.Fieldset(
-                "", # no legend
+                "",  # no legend
                 layout.Field("email_or_username", autocomplete="off"),
                 "password",
             ),
@@ -57,7 +60,8 @@ class EmailOrUsernameAuthentication(AuthenticationForm):
             else:
                 self.user_cache = authenticate(username=email_or_username, password=password)
             if self.user_cache is None:
-                raise forms.ValidationError(_("Please enter a correct email or username and password. Note that both fields are case-sensitive."))
+                raise forms.ValidationError(_(
+                    "Please enter a correct email or username and password. Note that both fields are case-sensitive."))
             elif not self.user_cache.is_active:
                 raise forms.ValidationError(_("This account is inactive."))
 
@@ -65,16 +69,13 @@ class EmailOrUsernameAuthentication(AuthenticationForm):
 
 
 class RegistrationForm(forms.Form):
-
-    # Simplified signup ->
-
-    # username = forms.RegexField(
-    #     label=_("Username for login"),
-    #     max_length=30,
-    #     regex=r'^[\w.@+-]+$',
-    #     help_text = _("Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."),
-    #     error_messages = {'invalid': _("This value may contain only letters, numbers and @/./+/-/_ characters.")}
-    #     )
+    username = forms.RegexField(
+        label=_("Username for login"),
+        max_length=30,
+        regex=r'^[\w.@+-]+$',
+        help_text = _("Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."),
+        error_messages = {'invalid': _("This value may contain only letters, numbers and @/./+/-/_ characters.")}
+    )
     # first_name = forms.CharField(
     #     label=_("First name"),
     #     )
@@ -97,11 +98,13 @@ class RegistrationForm(forms.Form):
 
         self.fields['privacy_policy'] = forms.BooleanField(
             required=True,
-            label=_("I accept <a href=\"/%(lang_code)s/privacy/\" target=\"_blank\">the privacy policy</a>.") % {'lang_code': get_current_language()},
+            label=_("I accept <a href=\"/%(lang_code)s/privacy/\" target=\"_blank\">the privacy policy</a>.") % {
+                'lang_code': get_current_language()},
         )
         self.fields['terms_of_use'] = forms.BooleanField(
             required=True,
-            label=_("I accept <a href=\"/%(lang_code)s/terms-of-use/\" target=\"_blank\">the terms of use</a>.") % {'lang_code': get_current_language()},
+            label=_("I accept <a href=\"/%(lang_code)s/terms-of-use/\" target=\"_blank\">the terms of use</a>.") % {
+                'lang_code': get_current_language()},
         )
 
         self.newsletter_fields = []
@@ -121,19 +124,29 @@ class RegistrationForm(forms.Form):
 
         self.helper.layout = layout.Layout(
             layout.Fieldset(
-                "", # no legend
-
-                # "username",
-                # "first_name",
-                # "last_name",
-
-                layout.Field("email", autocomplete="off"),
-
-                "password",
-                "confirm_password",
-                "privacy_policy",
-                "terms_of_use",
-                *self.newsletter_field_names
+                "",  # no legend
+                layout.Row(
+                    layout.Div(
+                        layout.Field("email", autocomplete="off"),
+                        "username",
+                        # "first_name",
+                        # "last_name",
+                        css_class="col-xs-12 col-sm-6 col-md-6 col-lg-6",
+                    ),
+                    layout.Div(
+                        "password",
+                        "confirm_password",
+                        css_class="col-xs-12 col-sm-6 col-md-6 col-lg-6",
+                    )
+                ),
+                layout.Row(
+                    layout.Div(
+                        "privacy_policy",
+                        "terms_of_use",
+                        css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12",
+                        *self.newsletter_field_names
+                    )
+                )
             ),
             bootstrap.FormActions(
                 layout.Submit('submit', _('Signup')),
@@ -163,12 +176,71 @@ class RegistrationForm(forms.Form):
             raise forms.ValidationError(_("The two password fields didn't match."))
         return confirm_password
 
+
+class PrivacySettingsForm(forms.ModelForm):
+    class Meta:
+        model = PrivacySettings
+        fields = ("display_to_public", "display_username")
+
+    def __init__(self, *args, **kwargs):
+        super(PrivacySettingsForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                "",  # no legend
+                "display_to_public",
+                "display_username",
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Save')),
+            )
+        )
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name']
+
+    def __init__(self, *args, **kwargs):
+        super(ProfileForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                "",  # no legend
+
+                "username",
+                "first_name",
+                "last_name",
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Save')),
+            )
+        )
+
+    def clean_username(self):
+        username = self.cleaned_data.get("username", "")
+        try:
+            User.objects.get(username=username).exclude(pk=self.instance.pk)
+        except User.DoesNotExist:
+            return username
+        raise forms.ValidationError(_("A user with that username already exists."))
+
+
 password_change_form_helper = FormHelper()
 password_change_form_helper.form_action = ""
 password_change_form_helper.form_method = "POST"
 password_change_form_helper.layout = layout.Layout(
     layout.Fieldset(
-        "", # no legend
+        "",  # no legend
         "old_password",
         "new_password1",
         "new_password2",
@@ -183,7 +255,7 @@ password_reset_form_helper.form_action = ""
 password_reset_form_helper.form_method = "POST"
 password_reset_form_helper.layout = layout.Layout(
     layout.Fieldset(
-        "", # no legend
+        "",  # no legend
         "email",
     ),
     bootstrap.FormActions(
@@ -196,7 +268,7 @@ password_reset_change_form_helper.form_action = ""
 password_reset_change_form_helper.form_method = "POST"
 password_reset_change_form_helper.layout = layout.Layout(
     layout.Fieldset(
-        "", # no legend
+        "",  # no legend
         layout.HTML("""{% load i18n %}
             <p>{% trans "Please enter your new password twice so we can verify you typed it in correctly." %}</p>
         """),

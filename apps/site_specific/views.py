@@ -17,10 +17,10 @@ from jetson.apps.favorites.models import Favorite
 from museumsportal.apps.mailing.recipient import Recipient
 from museumsportal.apps.mailing.views import send_email_using_template
 
-from forms import ClaimingInvitationForm
-from forms import ClaimingRegisterForm
-from forms import ClaimingLoginForm
-from forms import ClaimingConfirmForm
+from .forms import ClaimingInvitationForm
+from .forms import ClaimingRegisterForm
+from .forms import ClaimingLoginForm
+from .forms import ClaimingConfirmForm
 
 from ajaxuploader.views import AjaxFileUploader
 from ajaxuploader.backends.default_storage import DefaultStorageUploadBackend
@@ -36,25 +36,28 @@ Event = models.get_model("events", "Event")
 Workshop = models.get_model("workshops", "Workshop")
 ShopProduct = models.get_model("shop", "ShopProduct")
 
-from forms import ExhibitionFilterForm, EventFilterForm, WorkshopFilterForm, ShopFilterForm
+from .forms import ExhibitionFilterForm, EventFilterForm, WorkshopFilterForm, ShopFilterForm
 
 
 @never_cache
 @login_required
 def dashboard(request):
-    owned_museums = Museum.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")[:3]
-    owned_exhibitions = Exhibition.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")[:3]
-    owned_events = Event.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")[:3]
-    owned_workshops = Workshop.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")[:3]
-    owned_products = ShopProduct.objects.owned_by(request.user).filter(status__in=("published", "draft")).order_by("-modified_date", "-creation_date")[:3]
-    context = {
-        'owned_museums': owned_museums,
-        'owned_exhibitions': owned_exhibitions,
-        'owned_events': owned_events,
-        'owned_workshops': owned_workshops,
-        'owned_products': owned_products,
-    }
-    return render(request, "accounts/dashboard.html", context)
+    if request.user.is_superuser or request.user.groups.filter(name__in=("Museum Owners", "Shop Admins")):
+        owned_museums = Museum.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")[:3]
+        owned_exhibitions = Exhibition.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")[:3]
+        owned_events = Event.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")[:3]
+        owned_workshops = Workshop.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")[:3]
+        owned_products = ShopProduct.objects.owned_by(request.user).filter(status__in=("published", "draft")).order_by("-modified_date", "-creation_date")[:3]
+        context = {
+            'owned_museums': owned_museums,
+            'owned_exhibitions': owned_exhibitions,
+            'owned_events': owned_events,
+            'owned_workshops': owned_workshops,
+            'owned_products': owned_products,
+        }
+        return render(request, "accounts/dashboard_admin.html", context)
+    else:
+        return render(request, "accounts/dashboard.html")
 
     
 @never_cache

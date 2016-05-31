@@ -22,4 +22,6 @@ urlpatterns = patterns("",
     url(r'^password-reset/complete/$', 'django.contrib.auth.views.password_reset_complete', {'template_name': 'accounts/password_reset_complete.html'}),
     url(r'^password-change/$', 'django.contrib.auth.views.password_change', {'template_name': 'accounts/password_change_form.html', 'extra_context': {'form_helper': password_change_form_helper}}),
     url(r'^password-change/done/$', 'django.contrib.auth.views.password_change_done', {'template_name': 'accounts/password_change_done.html'}),
+    url(r'^privacy-settings/$', 'museumsportal.apps.accounts.views.change_privacy_settings', name="change_privacy_settings"),
+    url(r'^change-profile/$', 'museumsportal.apps.accounts.views.change_profile', name="change_profile"),
 )

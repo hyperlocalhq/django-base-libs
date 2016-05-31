@@ -5457,11 +5457,14 @@ p a {
   margin-top: -17px !important;
   margin-bottom: 2px !important; }
 
-.carousel-control .icon-next {
+.carousel-control .right .icon-next {
   background: #000 url("../img/icons/inv/right.png") center right no-repeat; }
-  .carousel-control .icon-next::before {
+  .carousel-control .right .icon-next::before {
     content: ""; }
-.carousel-control .icon-prev {
+.carousel-control .left .icon-prev {
   background: #000 url("../img/icons/inv/left.png") center left no-repeat; }
-  .carousel-control .icon-prev::before {
+  .carousel-control .left .icon-prev::before {
     content: ""; }
+
+.btn:first-letter {
+  text-transform: none; }

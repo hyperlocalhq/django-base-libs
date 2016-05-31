@@ -45,15 +45,17 @@
 
 {% block toolbar %}{% cms_toolbar %}{% endblock %}
 
-<div class="modal-centered">
-    <div class="cell">
-        <div class="inner">
-            {% block content %}
-            {% endblock %}
+{% block modal_content %}
+    <div class="modal-centered">
+        <div class="cell">
+            <div class="inner">
+                {% block content %}
+                {% endblock %}
+            </div>
         </div>
     </div>
-</div>
-    
+{% endblock %}
+
 
 {% render_block "js" %}
 {{ site_settings.extra_body|safe }}
