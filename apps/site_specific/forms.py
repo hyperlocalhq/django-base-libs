@@ -243,3 +243,39 @@ class WorkshopFilterForm(forms.Form):
             layout.Submit('submit', _('Filter')),
         )
 
+
+class ProfileDeletionForm(forms.Form):
+
+    def __init__(self, user, *args, **kwargs):
+        super(ProfileDeletionForm, self).__init__(*args, **kwargs)
+        self.user = user
+
+        self.fields['profile'] = forms.BooleanField(
+            required=True,
+            label=user.username,
+        )
+
+        self.helper = FormHelper()
+        self.helper.form_action = "."
+        self.helper.form_method = "POST"
+        self.helper.form_id = "delete_profile_form"
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                "",
+                'profile',
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Delete'))
+            )
+        )
+
+    def clean_profile(self):
+        value = self.cleaned_data.get('profile', False)
+        if not value:
+            raise forms.ValidationError(_("You haven't selected anything to delete."))
+        if self.user.is_superuser:
+            raise forms.ValidationError(_("Superuser's profile cannot be deleted."))
+        return value
+
+    def delete(self):
+        self.user.delete()

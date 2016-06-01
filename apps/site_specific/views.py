@@ -10,6 +10,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import authenticate
 from django.utils.translation import ugettext_lazy as _
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth import logout
 
 from jetson.apps.utils.decorators import login_required
 from jetson.apps.favorites.models import Favorite
@@ -21,6 +22,7 @@ from .forms import ClaimingInvitationForm
 from .forms import ClaimingRegisterForm
 from .forms import ClaimingLoginForm
 from .forms import ClaimingConfirmForm
+from .forms import ProfileDeletionForm
 
 from ajaxuploader.views import AjaxFileUploader
 from ajaxuploader.backends.default_storage import DefaultStorageUploadBackend
@@ -473,3 +475,23 @@ def favorite_workshops(request, **kwargs):
     return render(request, "favorites/favorite_workshops.html", {
         'favorites': favorites,
     })
+
+
+@never_cache
+@login_required
+def delete_profile(request):
+    context = {}
+    if request.method == "POST":
+        form = ProfileDeletionForm(request.user, request.POST)
+        if form.is_valid():
+            # delete chosen profiles
+            form.delete()
+            # if user deleted, logout
+            logout(request)
+            return redirect("delete_profile_done")
+    else:
+        form = ProfileDeletionForm(request.user)
+
+    context['form'] = form
+
+    return render(request, 'accounts/delete_profile.html', context)

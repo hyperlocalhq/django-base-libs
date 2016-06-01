@@ -140,6 +140,8 @@ urlpatterns += i18n_patterns('',
     url(r'^my-profile/favorites/exhibitions/$', 'museumsportal.apps.site_specific.views.favorite_exhibitions', name="favorite_exhibitions"),
     url(r'^my-profile/favorites/events/$', 'museumsportal.apps.site_specific.views.favorite_events', name="favorite_events"),
     url(r'^my-profile/favorites/guided-tours/$', 'museumsportal.apps.site_specific.views.favorite_workshops', name="favorite_workshops"),
+    url(r'^my-profile/delete/$', 'museumsportal.apps.site_specific.views.delete_profile'),
+    url(r'^my-profile/delete/done/$', TemplateView.as_view(template_name='accounts/delete_profile_done.html'), name="delete_profile_done"),
 
     url(r'^rosetta/', include('rosetta.urls')),
     url(r'^admin/', include(admin.site.urls)),

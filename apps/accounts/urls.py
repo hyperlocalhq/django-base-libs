@@ -10,7 +10,7 @@ from museumsportal.apps.accounts.forms import password_reset_form_helper
 from museumsportal.apps.accounts.forms import password_reset_change_form_helper
 
 urlpatterns = patterns("",
-    url(r'^login/$', 'museumsportal.apps.accounts.views.login', {'template_name': 'accounts/login.html', 'redirect_to': '/'}, name="login"),
+    url(r'^login/$', 'museumsportal.apps.accounts.views.login', {'template_name': 'accounts/login.html'}, name="login"),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': "/"}, name="logout"),
     url(r'^signup/$', 'museumsportal.apps.accounts.views.register' ),
     url(r'^signup/almost-done/$', TemplateView.as_view(template_name='accounts/register_verify_required.html')),
@@ -23,5 +23,5 @@ urlpatterns = patterns("",
     url(r'^password-change/$', 'django.contrib.auth.views.password_change', {'template_name': 'accounts/password_change_form.html', 'extra_context': {'form_helper': password_change_form_helper}}),
     url(r'^password-change/done/$', 'django.contrib.auth.views.password_change_done', {'template_name': 'accounts/password_change_done.html'}),
     url(r'^privacy-settings/$', 'museumsportal.apps.accounts.views.change_privacy_settings', name="change_privacy_settings"),
-    url(r'^change-profile/$', 'museumsportal.apps.accounts.views.change_profile', name="change_profile"),
+    url(r'^my-profile/change/$', 'museumsportal.apps.accounts.views.change_profile', name="change_profile"),
 )

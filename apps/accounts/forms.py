@@ -229,7 +229,7 @@ class ProfileForm(forms.ModelForm):
     def clean_username(self):
         username = self.cleaned_data.get("username", "")
         try:
-            User.objects.get(username=username).exclude(pk=self.instance.pk)
+            User.objects.filter(username=username).exclude(pk=self.instance.pk).get()
         except User.DoesNotExist:
             return username
         raise forms.ValidationError(_("A user with that username already exists."))

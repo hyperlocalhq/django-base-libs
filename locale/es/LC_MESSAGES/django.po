@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-31 18:59+0200\n"
+"POT-Creation-Date: 2016-06-01 18:10+0200\n"
 "PO-Revision-Date: 2015-04-27 19:08+0053\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,188 +19,194 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.2\n"
 
-#: settings.py:256 apps/advertising/models.py:196 apps/blocks/models.py:39
+#: settings.py:257 apps/advertising/models.py:196 apps/blocks/models.py:39
 #: apps/mailchimp/admin.py:124 apps/mailchimp/admin.py:135
 #: apps/mailchimp/models.py:381
 msgid "Content"
 msgstr "Contenido"
 
-#: settings.py:297
+#: settings.py:298
 msgid "Community"
 msgstr "Comunidad"
 
-#: settings.py:300
+#: settings.py:301
 msgid "Authentication"
 msgstr "Autenticación"
 
-#: settings.py:311
+#: settings.py:306 apps/accounts/models.py:12 apps/accounts/models.py:13
+#: templates/museumsportal/utils/navigation.html:75
+#, fuzzy
+msgid "Privacy Settings"
+msgstr "Configuración"
+
+#: settings.py:316
 msgid "Twitter Wall"
 msgstr "Muro Twitter"
 
-#: settings.py:320 apps/mailchimp/models.py:201
+#: settings.py:325 apps/mailchimp/models.py:201
 msgid "Campaign"
 msgstr "Campaña"
 
-#: settings.py:336
+#: settings.py:341
 msgid "Configure"
 msgstr "Configurar"
 
-#: settings.py:342
+#: settings.py:347
 msgid "Media"
 msgstr "Medios"
 
-#: settings.py:346
+#: settings.py:351
 msgid "Sites"
 msgstr "Páginas"
 
-#: settings.py:367
+#: settings.py:372
 #, fuzzy
 msgid "Control"
 msgstr "Introducción"
 
-#: settings.py:475
+#: settings.py:480
 msgid "Typehead"
 msgstr ""
 
-#: settings.py:480
+#: settings.py:485
 msgid "Top Image"
 msgstr ""
 
-#: settings.py:485 apps/editorial/cms_plugins.py:109
+#: settings.py:490 apps/editorial/cms_plugins.py:109
 #: apps/editorial/models.py:89
 msgid "Intro"
 msgstr "Introducción"
 
-#: settings.py:490 apps/editorial/cms_plugins.py:28
+#: settings.py:495 apps/editorial/cms_plugins.py:28
 msgid "Main Content"
 msgstr "Contenido general"
 
-#: settings.py:495
+#: settings.py:500
 msgid "Ad"
 msgstr ""
 
-#: settings.py:500 apps/editorial/models.py:75
+#: settings.py:505 apps/editorial/models.py:75
 msgid "Footnotes"
 msgstr "Anotación"
 
-#: settings.py:505
+#: settings.py:510
 msgid "editorial notices"
 msgstr "Comentarios de la redacción"
 
-#: settings.py:510
+#: settings.py:515
 msgid "Plan & Organize - First"
 msgstr "Planear & Organizar - Primero"
 
-#: settings.py:515
+#: settings.py:520
 msgid "Series Items Featured"
 msgstr "Serie de artículos activos"
 
-#: settings.py:520
+#: settings.py:525
 msgid "Series Items"
 msgstr "Serie de artículos"
 
-#: settings.py:525
+#: settings.py:530
 msgid "Jewish Museum"
 msgstr "Museo Judío"
 
-#: settings.py:530
+#: settings.py:535
 msgid "Series Exhibitions"
 msgstr "Serie de Exposiciones"
 
-#: settings.py:535
+#: settings.py:540
 msgid "Series Images"
 msgstr "Serie de Imágenes"
 
-#: settings.py:540
+#: settings.py:545
 msgid "Start Page Content"
 msgstr "Contenido de la página inicial"
 
-#: settings.py:545 apps/mega_menu/admin.py:27
+#: settings.py:550 apps/mega_menu/admin.py:27
 msgid "Left Column"
 msgstr "Columna izquierda"
 
-#: settings.py:550 apps/mega_menu/admin.py:28
+#: settings.py:555 apps/mega_menu/admin.py:28
 msgid "Center Column"
 msgstr "Columna mediana"
 
-#: settings.py:555 apps/mega_menu/admin.py:29
+#: settings.py:560 apps/mega_menu/admin.py:29
 msgid "Right Column"
 msgstr "Columna derecha"
 
-#: settings.py:560
+#: settings.py:565
 msgid "Featured Magazin"
 msgstr "Revista publicada"
 
-#: settings.py:565
+#: settings.py:570
 msgid "Start page left"
 msgstr "Página inicial izquierda"
 
-#: settings.py:569
+#: settings.py:574
 msgid "Start page center"
 msgstr "Página inicial mediana"
 
-#: settings.py:573
+#: settings.py:578
 msgid "Start page right"
 msgstr "Página inicial derecha"
 
-#: settings.py:578
+#: settings.py:583
 msgid "Default"
 msgstr "Incumplimiento"
 
-#: settings.py:579
+#: settings.py:584
 msgid "Homepage"
 msgstr "Página inicial"
 
-#: settings.py:581
+#: settings.py:586
 msgid "Plan & Organize – First"
 msgstr "Planear & Organizar - Primero"
 
-#: settings.py:582
+#: settings.py:587
 msgid "Plan & Organize - Second"
 msgstr "Planear & Organizar - Segundo"
 
-#: settings.py:583
+#: settings.py:588
 msgid "Plan & Organize - Third"
 msgstr "Planear & Organizar - Tercero"
 
-#: settings.py:585
+#: settings.py:590
 msgid "Magazine – First"
 msgstr "Revista - Primera"
 
-#: settings.py:586
+#: settings.py:591
 #, fuzzy
 msgid "Magazine – First with ad"
 msgstr "Revista - Primera"
 
-#: settings.py:587
+#: settings.py:592
 msgid "Magazine – Second"
 msgstr "Revista - Segunda"
 
-#: settings.py:588
+#: settings.py:593
 msgid "Magazine – Second - Featured"
 msgstr "Revista - Segunda - Configurada"
 
-#: settings.py:589
+#: settings.py:594
 msgid "Magazine - Third"
 msgstr "Revista - Tercera"
 
-#: settings.py:590
+#: settings.py:595
 msgid "Magazine – Special Event"
 msgstr "Revista - Evento Especial"
 
-#: settings.py:592
+#: settings.py:597
 msgid "Shop – Overview"
 msgstr "Tienda - Sinopsis"
 
-#: settings.py:593
+#: settings.py:598
 msgid "Shop – First"
 msgstr "Tienda - Primera"
 
-#: settings.py:595
+#: settings.py:600
 msgid "Dashboard Default"
 msgstr ""
 
-#: settings.py:813 apps/exhibitions/cms_app.py:8
+#: settings.py:818 apps/exhibitions/cms_app.py:8
 #: apps/exhibitions/models.py:211 apps/internal_links/admin.py:39
 #: apps/internal_links/models.py:26 apps/search/search_indexes.py:98
 #: templates/museumsportal/accounts/dashboard_admin.html:37
@@ -218,11 +224,11 @@ msgstr ""
 msgid "Exhibitions"
 msgstr "Exposiciones"
 
-#: settings.py:814 templates/museumsportal/cms/includes/start_de.html:39
+#: settings.py:819 templates/museumsportal/cms/includes/start_de.html:39
 msgid "Magazine"
 msgstr "Revista"
 
-#: settings.py:815 apps/events/cms_app.py:8 apps/internal_links/admin.py:43
+#: settings.py:820 apps/events/cms_app.py:8 apps/internal_links/admin.py:43
 #: apps/internal_links/models.py:27 apps/search/search_indexes.py:159
 #: templates/museumsportal/accounts/dashboard_admin.html:101
 #: templates/museumsportal/accounts/dashboard_events.html:36
@@ -241,130 +247,120 @@ msgstr "Revista"
 msgid "Events"
 msgstr "Eventos"
 
-#: settings.py:816
+#: settings.py:821
 msgid "Social"
 msgstr "Sociál"
 
-#: settings.py:817
+#: settings.py:822
 msgid "Image authorship"
 msgstr "Autoría de imagen"
 
-#: apps/accounts/forms.py:21 apps/accounts/forms.py:30
+#: apps/accounts/forms.py:23 apps/accounts/forms.py:32
 #: apps/site_specific/forms.py:84
 msgid "Email or Username"
 msgstr ""
 
-#: apps/accounts/forms.py:34
+#: apps/accounts/forms.py:36
 #, fuzzy
 msgid "Forgot password?"
 msgstr "Ha olvidado su contraseña?"
 
-#: apps/accounts/forms.py:47 apps/site_specific/forms.py:110
+#: apps/accounts/forms.py:49 apps/site_specific/forms.py:110
 #: templates/museumsportal/accounts/login.html:10
-#: templates/museumsportal/accounts/register.html:24
+#: templates/museumsportal/accounts/register.html:26
 #: templates/museumsportal/site_specific/claiming_confirmation.html:22
 #: templates/museumsportal/utils/dashboard_navigation.html:38
 #: templates/museumsportal/utils/header.html:34
-#: templates/museumsportal/utils/navigation.html:85
+#: templates/museumsportal/utils/navigation.html:89
 msgid "Login"
 msgstr ""
 
-#: apps/accounts/forms.py:62 apps/site_specific/forms.py:123
+#: apps/accounts/forms.py:64 apps/site_specific/forms.py:123
 msgid ""
 "Please enter a correct email or username and password. Note that both fields "
 "are case-sensitive."
 msgstr ""
 
-#: apps/accounts/forms.py:64 apps/site_specific/forms.py:125
+#: apps/accounts/forms.py:66 apps/site_specific/forms.py:125
 msgid "This account is inactive."
 msgstr ""
 
-#: apps/accounts/forms.py:71 apps/accounts/forms.py:180
+#: apps/accounts/forms.py:73
 msgid "Username for login"
 msgstr ""
 
-#: apps/accounts/forms.py:74 apps/accounts/forms.py:183
+#: apps/accounts/forms.py:76
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
 
-#: apps/accounts/forms.py:75 apps/accounts/forms.py:184
+#: apps/accounts/forms.py:77
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
 
-#: apps/accounts/forms.py:84 apps/museums/models.py:133
+#: apps/accounts/forms.py:86 apps/museums/models.py:133
 #: apps/site_specific/forms.py:43 apps/tracker/forms.py:38
 #: templates/museumsportal/exhibitions/exhibition_detail.html:255
 #: templates/museumsportal/museums/museum_detail.html:205
 msgid "Email"
 msgstr "Correo electrónico"
 
-#: apps/accounts/forms.py:86 apps/site_specific/forms.py:45
+#: apps/accounts/forms.py:88 apps/site_specific/forms.py:45
 #: apps/site_specific/forms.py:89
 msgid "Password"
 msgstr ""
 
-#: apps/accounts/forms.py:90 apps/site_specific/forms.py:49
+#: apps/accounts/forms.py:92 apps/site_specific/forms.py:49
 msgid "Confirm password"
 msgstr ""
 
-#: apps/accounts/forms.py:99
+#: apps/accounts/forms.py:101
 #, python-format
 msgid ""
 "I accept <a href=\"/%(lang_code)s/privacy/\" target=\"_blank\">the privacy "
 "policy</a>."
 msgstr ""
 
-#: apps/accounts/forms.py:104
+#: apps/accounts/forms.py:106
 #, python-format
 msgid ""
 "I accept <a href=\"/%(lang_code)s/terms-of-use/\" target=\"_blank\">the "
 "terms of use</a>."
 msgstr ""
 
-#: apps/accounts/forms.py:112
+#: apps/accounts/forms.py:114
 #, python-format
 msgid "I want to subscribe to %s."
 msgstr ""
 
-#: apps/accounts/forms.py:150 apps/site_specific/forms.py:70
+#: apps/accounts/forms.py:152 apps/site_specific/forms.py:70
 #: templates/museumsportal/accounts/register.html:4
 #: templates/museumsportal/site_specific/claiming_confirmation.html:31
-#: templates/museumsportal/utils/navigation.html:86
+#: templates/museumsportal/utils/navigation.html:90
 msgid "Signup"
 msgstr ""
 
-#: apps/accounts/forms.py:160 apps/accounts/forms.py:221
+#: apps/accounts/forms.py:162 apps/accounts/forms.py:235
 msgid "A user with that username already exists."
 msgstr ""
 
-#: apps/accounts/forms.py:168
+#: apps/accounts/forms.py:170
 msgid "A user with that email already exists."
 msgstr ""
 
-#: apps/accounts/forms.py:174 apps/site_specific/forms.py:78
+#: apps/accounts/forms.py:176 apps/site_specific/forms.py:78
 msgid "The two password fields didn't match."
 msgstr ""
 
-#: apps/accounts/forms.py:187 apps/mailchimp/forms.py:25
-#: apps/mailchimp/models.py:52
-msgid "First name"
-msgstr "Nombre"
-
-#: apps/accounts/forms.py:191 apps/mailchimp/forms.py:30
-#: apps/mailchimp/models.py:53
-msgid "Last name"
-msgstr "Apellido"
-
-#: apps/accounts/forms.py:211 apps/events/forms/event.py:800
-#: apps/exhibitions/forms/exhibition.py:879 apps/media_gallery/forms.py:120
-#: apps/media_gallery/forms.py:260 apps/media_gallery/forms.py:400
-#: apps/museums/forms/museum.py:1135 apps/shop/forms.py:203
-#: apps/workshops/forms/workshop.py:857
+#: apps/accounts/forms.py:199 apps/accounts/forms.py:225
+#: apps/events/forms/event.py:800 apps/exhibitions/forms/exhibition.py:879
+#: apps/media_gallery/forms.py:120 apps/media_gallery/forms.py:260
+#: apps/media_gallery/forms.py:400 apps/museums/forms/museum.py:1135
+#: apps/shop/forms.py:203 apps/workshops/forms/workshop.py:857
 #: templates/museumsportal/image_mods/recrop.html:171
 msgid "Save"
 msgstr "Guardar"
 
-#: apps/accounts/forms.py:235 apps/site_specific/forms.py:145
+#: apps/accounts/forms.py:249 apps/site_specific/forms.py:145
 #: templates/museumsportal/events/forms/basic_info_form.html:173
 #: templates/museumsportal/events/forms/basic_info_form.html:201
 #: templates/museumsportal/events/forms/times_form.html:46
@@ -380,14 +376,35 @@ msgstr "Guardar"
 msgid "Confirm"
 msgstr ""
 
-#: apps/accounts/forms.py:248
+#: apps/accounts/forms.py:262
 #: templates/museumsportal/accounts/password_reset_confirm.html:8
 #: templates/museumsportal/accounts/password_reset_done.html:8
 msgid "Reset password"
 msgstr "Restablecimiento de contraseña"
 
-#: apps/accounts/forms.py:265
+#: apps/accounts/forms.py:279
 msgid "Change my password"
+msgstr ""
+
+#: apps/accounts/models.py:7
+#, fuzzy
+msgid "User"
+msgstr "Usuarios"
+
+#: apps/accounts/models.py:8
+msgid "Display profile to public"
+msgstr ""
+
+#: apps/accounts/models.py:9
+msgid "Display username instead of full name"
+msgstr ""
+
+#: apps/accounts/views.py:219
+msgid "Your privacy settings have been successfully saved."
+msgstr ""
+
+#: apps/accounts/views.py:233
+msgid "Your profile has been successfully saved."
 msgstr ""
 
 #: apps/advertising/admin.py:26 apps/advertising/admin.py:32
@@ -1311,7 +1328,7 @@ msgstr "Detalles"
 #: templates/museumsportal/search/search_old.html:13
 #: templates/museumsportal/search/search_old.html:17
 #: templates/museumsportal/utils/navigation.html:14
-#: templates/museumsportal/utils/navigation.html:147
+#: templates/museumsportal/utils/navigation.html:151
 msgid "Search"
 msgstr "Buscar"
 
@@ -2140,7 +2157,8 @@ msgstr "Rapar imagen"
 #: apps/events/forms/gallery.py:27 apps/events/forms/gallery.py:213
 #: apps/exhibitions/forms/gallery.py:27 apps/exhibitions/forms/gallery.py:213
 #: apps/museums/forms/gallery.py:27 apps/museums/forms/gallery.py:214
-#: apps/workshops/forms/gallery.py:27 apps/workshops/forms/gallery.py:214
+#: apps/site_specific/forms.py:268 apps/workshops/forms/gallery.py:27
+#: apps/workshops/forms/gallery.py:214
 #: templates/museumsportal/accounts/dashboard_admin.html:72
 #: templates/museumsportal/accounts/dashboard_admin.html:137
 #: templates/museumsportal/accounts/dashboard_admin.html:197
@@ -2769,6 +2787,14 @@ msgstr "Sincronizar lista"
 #: apps/mailchimp/models.py:229
 msgid "Mailing list"
 msgstr "Lista de direcciones"
+
+#: apps/mailchimp/forms.py:25 apps/mailchimp/models.py:52
+msgid "First name"
+msgstr "Nombre"
+
+#: apps/mailchimp/forms.py:30 apps/mailchimp/models.py:53
+msgid "Last name"
+msgstr "Apellido"
 
 #: apps/mailchimp/forms.py:35
 msgid "Your email"
@@ -4141,6 +4167,14 @@ msgstr ""
 msgid "Filter"
 msgstr "Filtro"
 
+#: apps/site_specific/forms.py:275
+msgid "You haven't selected anything to delete."
+msgstr ""
+
+#: apps/site_specific/forms.py:277
+msgid "Superuser's profile cannot be deleted."
+msgstr ""
+
 #: apps/site_specific/models.py:12
 msgid "Caption"
 msgstr ""
@@ -4149,11 +4183,11 @@ msgstr ""
 msgid "Description (will be used as alt attribute)"
 msgstr ""
 
-#: apps/site_specific/views.py:244
+#: apps/site_specific/views.py:246
 msgid "Wrong invitation code."
 msgstr ""
 
-#: apps/site_specific/views.py:248
+#: apps/site_specific/views.py:250
 msgid "Museum doesn't exist."
 msgstr ""
 
@@ -4828,6 +4862,7 @@ msgid "Please, select a location in the map!"
 msgstr "Escoge un lugar en el mapa, po favor!"
 
 #: templates/museumsportal/accounts/dashboard.html:5
+#: templates/museumsportal/utils/navigation.html:56
 msgid "Dashboard"
 msgstr ""
 
@@ -4835,7 +4870,6 @@ msgstr ""
 #: templates/museumsportal/utils/dashboard_header.html:14
 #: templates/museumsportal/utils/dashboard_navigation.html:16
 #: templates/museumsportal/utils/header.html:14
-#: templates/museumsportal/utils/navigation.html:57
 msgid "Input Mask"
 msgstr ""
 
@@ -5078,6 +5112,36 @@ msgstr ""
 msgid "Add Product"
 msgstr "Añadir Producto"
 
+#: templates/museumsportal/accounts/delete_profile.html:5
+#: templates/museumsportal/accounts/delete_profile.html:10
+#: templates/museumsportal/accounts/delete_profile_done.html:11
+#, fuzzy
+msgid "Delete my profile"
+msgstr "Eliminar miembro"
+
+#: templates/museumsportal/accounts/delete_profile.html:13
+msgid "Attention! This action is permanent and you can't undo it."
+msgstr ""
+
+#: templates/museumsportal/accounts/delete_profile.html:16
+#: templates/museumsportal/accounts/delete_profile_done.html:20
+#: templates/museumsportal/accounts/login.html:17
+#: templates/museumsportal/accounts/password_change_form.html:13
+#: templates/museumsportal/accounts/privacy_settings.html:19
+#: templates/museumsportal/accounts/profile.html:19
+#: templates/museumsportal/accounts/register.html:27
+msgid "Back to start page"
+msgstr ""
+
+#: templates/museumsportal/accounts/delete_profile_done.html:16
+msgid "Profile deleted"
+msgstr ""
+
+#: templates/museumsportal/accounts/delete_profile_done.html:19
+msgid ""
+"Your profile has been deleted. You can now browse the website anonymously."
+msgstr ""
+
 #: templates/museumsportal/accounts/login.html:6
 msgid "login"
 msgstr "Iniciar"
@@ -5096,18 +5160,13 @@ msgstr "No tiene cuenta?"
 msgid "Sign Up"
 msgstr "Apuntarse"
 
-#: templates/museumsportal/accounts/login.html:17
-#: templates/museumsportal/accounts/register.html:25
-msgid "Back to start page"
-msgstr ""
-
 #: templates/museumsportal/accounts/password_change_done.html:4
 msgid "Password change successful"
 msgstr ""
 
 #: templates/museumsportal/accounts/password_change_done.html:8
 #: templates/museumsportal/accounts/password_change_form.html:8
-#: templates/museumsportal/utils/navigation.html:73
+#: templates/museumsportal/utils/navigation.html:74
 msgid "Change password"
 msgstr ""
 
@@ -5194,7 +5253,19 @@ msgstr ""
 msgid "You want to try again?"
 msgstr "Quiere probar otra vez?"
 
-#: templates/museumsportal/accounts/register.html:24
+#: templates/museumsportal/accounts/privacy_settings.html:6
+#: templates/museumsportal/accounts/privacy_settings.html:10
+#, fuzzy
+msgid "Change Privacy Settings"
+msgstr "Página de configuración"
+
+#: templates/museumsportal/accounts/profile.html:6
+#: templates/museumsportal/accounts/profile.html:10
+#, fuzzy
+msgid "Change Profile"
+msgstr "Contraseña "
+
+#: templates/museumsportal/accounts/register.html:26
 #: templates/museumsportal/site_specific/claiming_confirmation.html:22
 msgid "Already have an account?"
 msgstr "Ya tiene cuenta?"
@@ -6296,7 +6367,7 @@ msgstr ""
 #: templates/museumsportal/utils/dashboard_header.html:24
 #: templates/museumsportal/utils/dashboard_navigation.html:27
 #: templates/museumsportal/utils/header.html:23
-#: templates/museumsportal/utils/navigation.html:74
+#: templates/museumsportal/utils/navigation.html:78
 msgid "Logout"
 msgstr "Fin de sesión"
 
@@ -6379,6 +6450,16 @@ msgstr "Vuelva a la lista"
 msgid "toggle map"
 msgstr ""
 
+#: templates/museumsportal/utils/navigation.html:73
+#, fuzzy
+msgid "Change profile"
+msgstr "Guardar archivo"
+
+#: templates/museumsportal/utils/navigation.html:76
+#, fuzzy
+msgid "Delete profile"
+msgstr "Borrar"
+
 #: templates/museumsportal/workshops/filter_workshops.html:6
 msgid "Bookable group offer"
 msgstr "Propuesta Grupo para reservar"
@@ -6435,10 +6516,6 @@ msgstr "Añadir otra fecha"
 #: templates/museumsportal/workshops/forms/times_form.html:86
 msgid "Add batch workshop times"
 msgstr ""
-
-#, fuzzy
-#~ msgid "Change Password"
-#~ msgstr "Contraseña "
 
 #~ msgid ""
 #~ "Please also check your Spam folder to make sure that our message has not "

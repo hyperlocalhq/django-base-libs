@@ -12,6 +12,7 @@ from django.utils.encoding import smart_str
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import authenticate
 from django.utils.translation import ugettext_lazy as _
+from django.contrib import messages
 
 from museumsportal.apps.mailing.recipient import Recipient
 from museumsportal.apps.mailing.views import send_email_using_template
@@ -31,7 +32,7 @@ from jetson.apps.utils.decorators import login_required
 User = models.get_model("auth", "User")
 
 @never_cache
-def login(request, template_name='registration/login.html', redirect_field_name=getattr(settings, "REDIRECT_FIELD_NAME", REDIRECT_FIELD_NAME), redirect_to=""):
+def login(request, template_name='registration/login.html', redirect_field_name=getattr(settings, "REDIRECT_FIELD_NAME", REDIRECT_FIELD_NAME), redirect_to="dashboard"):
     "Displays the login form and handles the login action."
     redirect_to = request.REQUEST.get(redirect_field_name, '') or redirect_to
     if request.method == "POST":
@@ -215,7 +216,8 @@ def change_privacy_settings(request):
         form = PrivacySettingsForm(data=request.POST, instance=privacy_settings)
         if form.is_valid():
             form.save()
-            return redirect('/{}/dashboard/'.format(request.LANGUAGE_CODE))
+            messages.success(request, _('Your privacy settings have been successfully saved.'))
+            return redirect(request.path)
     else:
         form = PrivacySettingsForm(instance=privacy_settings)
     return render(request, "accounts/privacy_settings.html", {'form': form})
@@ -228,7 +230,8 @@ def change_profile(request):
         form = ProfileForm(data=request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('/{}/dashboard/'.format(request.LANGUAGE_CODE))
+            messages.success(request, _('Your profile has been successfully saved.'))
+            return redirect(request.path)
     else:
         form = ProfileForm(instance=request.user)
     return render(request, "accounts/profile.html", {'form': form})

@@ -53,8 +53,8 @@
 				        <span class="caret black"></span>
               </button>
               <ul class="dropdown-menu pull-right" role="menu">
+                <li><a href="/{{ LANGUAGE_CODE }}/dashboard/">{% trans "Dashboard" %}</a></li>
                 {% if request.user|in_group:"Museum Owners" or request.user.is_superuser %}
-                  <li><a href="/{{ LANGUAGE_CODE }}/dashboard/">{% trans "Input Mask" %}</a></li>
                   <li class="divider"></li>
                   <li><a href="/{{ LANGUAGE_CODE }}/dashboard/exhibitions/">{% trans "Exhibitions" %}</a></li>
                   <li><a href="/{{ LANGUAGE_CODE }}/dashboard/events/">{% trans "Events" %}</a></li>
@@ -70,7 +70,11 @@
                   <li><a href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">{% trans "Favorites" %}</a></li>
                   <li class="divider"></li>
                 {% endif %}
+                <li><a href="/{{ LANGUAGE_CODE }}/my-profile/change/">{% trans "Change profile" %}</a></li>
                 <li><a href="/{{ LANGUAGE_CODE }}/password-change/">{% trans "Change password" %}</a></li>
+                <li><a href="/{{ LANGUAGE_CODE }}/privacy-settings/">{% trans "Privacy Settings" %}</a></li>
+                <li><a href="/{{ LANGUAGE_CODE }}/my-profile/delete/">{% trans "Delete profile" %}</a></li>
+                <li class="divider"></li>
                 <li><a href="/{{ LANGUAGE_CODE }}/logout/">{% trans "Logout" %}</a></li>
               </ul>
             </div>
