@@ -476,7 +476,7 @@ The `<leaders>` node contains a list of `<leader>` nodes with such content:
 | Node | Type | Required | Description | Example |
 |------|------|----------|-------------|---------|
 | `<prefix_id>` | xs:string | no | Prefix ID | ms-dr |
-| `<first_name>` | xs:string | yes | First name of the person | Erika |
+| `<first_name>` | xs:string | no | First name of the person | Erika |
 | `<last_name>` | xs:string | yes | Last name of the person | Mustermann |
 | `<function_de>` | xs:NCName | yes | Description in German what this leader is doing for the production | Direktorin |
 | `<function_en>` | xs:NCName | yes | Description in English what this leader is doing for the production | Director |
@@ -487,8 +487,8 @@ The `<authors>` node contains a list of `<author>` nodes with such content:
 | Node | Type | Required | Description | Example |
 |------|------|----------|-------------|---------|
 | `<prefix_id>` | xs:string | no | Prefix ID | mr |
-| `<first_name>` | xs:NCName | yes | First name of the person | Max |
-| `<last_name>` | xs:NCName | yes | Last name of the person | Mustermann |
+| `<first_name>` | xs:string | no | First name of the person | Max |
+| `<last_name>` | xs:string | yes | Last name of the person | Mustermann |
 | `<authorship_type_id>` | xs:string | yes | Authorship type. One of: "komponist", "autor", "uebersetzer" | komponist |
 | `<sort_order>` | xs:integer | yes | Sort order | 1 |
 
@@ -497,7 +497,7 @@ The `<participants>` node contains a list of `<participant>` nodes with such con
 | Node | Type | Required | Description | Example |
 |------|------|----------|-------------|---------|
 | `<prefix_id>` | xs:string | no | Prefix ID | ms-dr |
-| `<first_name>` | xs:string | yes | First name of the person | Erika |
+| `<first_name>` | xs:string | no | First name of the person | Erika |
 | `<last_name>` | xs:string | yes | Last name of the person | Mustermann |
 | `<involvement_type_id>` | xs:string | yes | Involvement type ID | musik |
 | `<role_de>` | xs:string | no | Role in German | Rotkäppchen |
