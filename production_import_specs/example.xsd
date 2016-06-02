@@ -94,9 +94,9 @@
                 <xs:element ref="longitude"/>
                 <xs:element ref="categories"/>
                 <xs:element ref="characteristics"/>
-                <xs:element ref="leaders"/>
-                <xs:element ref="authors"/>
-                <xs:element ref="participants"/>
+                <xs:element ref="leaders" minOccurs="0"/>
+                <xs:element ref="authors" minOccurs="0"/>
+                <xs:element ref="participants" minOccurs="0"/>
                 <xs:element ref="videos"/>
                 <xs:element ref="live_streams"/>
                 <xs:element ref="images"/>
