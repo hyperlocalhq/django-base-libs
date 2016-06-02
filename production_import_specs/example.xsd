@@ -976,8 +976,8 @@
             </xs:restriction>
         </xs:simpleType>
     </xs:element>
-    <xs:element name="first_name" type="xs:NCName"/>
-    <xs:element name="last_name" type="xs:NCName"/>
+    <xs:element name="first_name" type="xs:string"/>
+    <xs:element name="last_name" type="xs:string"/>
     <xs:element name="authorship_type_id">
         <xs:simpleType>
             <xs:restriction base="xs:NMTOKEN">
