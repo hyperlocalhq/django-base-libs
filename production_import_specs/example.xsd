@@ -779,7 +779,7 @@
             <xs:sequence>
                 <xs:element ref="prefix_id" minOccurs="0"/>
                 <xs:element ref="first_name"/>
-                <xs:element ref="last_name" minOccurs="0"/>
+                <xs:element ref="last_name"/>
                 <xs:element ref="function_de"/>
                 <xs:element ref="function_en"/>
                 <xs:element ref="sort_order"/>
@@ -800,7 +800,7 @@
             <xs:sequence minOccurs="0">
                 <xs:element ref="prefix_id" minOccurs="0"/>
                 <xs:element ref="first_name"/>
-                <xs:element ref="last_name" minOccurs="0"/>
+                <xs:element ref="last_name"/>
                 <xs:element ref="authorship_type_id"/>
                 <xs:element ref="sort_order"/>
             </xs:sequence>
@@ -818,7 +818,7 @@
             <xs:sequence>
                 <xs:element ref="prefix_id" minOccurs="0"/>
                 <xs:element ref="first_name"/>
-                <xs:element ref="last_name" minOccurs="0"/>
+                <xs:element ref="last_name"/>
                 <xs:element ref="involvement_type_id"/>
                 <xs:element ref="role_de"/>
                 <xs:element ref="role_en"/>
