@@ -871,10 +871,10 @@
             <xs:sequence>
                 <xs:element ref="creation_date"/>
                 <xs:element ref="modified_date" minOccurs="0"/>
-                <xs:element ref="website"/>
-                <xs:element ref="image_url"/>
-                <xs:element ref="title_de"/>
-                <xs:element ref="title_en"/>
+                <xs:element ref="website" minOccurs="0"/>
+                <xs:element ref="image_url" minOccurs="0"/>
+                <xs:element ref="title_de" minOccurs="0"/>
+                <xs:element ref="title_en" minOccurs="0"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
