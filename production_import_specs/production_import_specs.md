@@ -102,7 +102,7 @@ The `<production>` node has the following elements:
 | `<ensembles>` | xs:string | no | Ensemble or ensembles playing in this production  | |
 | `<organizers>` | xs:string | no | Organizer or organizers of this production | |
 | `<in_cooperation_with>` | xs:string | no | Cooperator or cooperators | |
-| `<free_entrance>` | xs:string | no | Is the entrance free? One of "true" or "false" | false |
+| `<free_entrance>` | xs:boolean | no | Is the entrance free? One of "true" or "false" | false |
 | `<price_from>` | xs:decimal | no | Price from in Euros (no currency sign included) | 8.00 |
 | `<price_till>` | xs:decimal | no | Price till in Euros (no currency sign included) | 12.00 |
 | `<tickets_website>` | xs:anyURI | no | The URL of a website page where you can buy tickets to this production | http://example.com/tickets/ |
