@@ -11,7 +11,7 @@ class Command(ImportToBerlinBuehnenBase):
         self.service, created = Service.objects.get_or_create(
             sysname="bb_schlosspark_theater_prods",
             defaults={
-                'url': "http://www.schlossparktheater.ist-im-web.de/export/berlinbuehnen.php",
+                'url': "http://www.schlossparktheater.de/export/berlinbuehnen.php",
                 'title': u"BB Schlosspark Theater Productions",
             },
         )

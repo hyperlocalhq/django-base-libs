@@ -29,9 +29,9 @@ echo "Importing from Schaubuehne" >> ${CRON_LOG_FILE}
 date >> ${CRON_LOG_FILE}
 python manage.py import_from_schaubuehne --traceback >> ${CRON_LOG_FILE}  2>&1
 
-echo "Importing from Schlosspark Theater" >> ${CRON_LOG_FILE}
+echo "Importing from Schlosspark Theater (New)" >> ${CRON_LOG_FILE}
 date >> ${CRON_LOG_FILE}
-python manage.py import_from_schlosspark_theater --traceback >> ${CRON_LOG_FILE}  2>&1
+python manage.py import_from_schlosspark_theater_new --traceback >> ${CRON_LOG_FILE}  2>&1
 
 echo "Importing from Sophiensaele" >> ${CRON_LOG_FILE}
 date >> ${CRON_LOG_FILE}
