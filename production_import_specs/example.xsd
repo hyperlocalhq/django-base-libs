@@ -94,9 +94,9 @@
                 <xs:element ref="longitude"/>
                 <xs:element ref="categories"/>
                 <xs:element ref="characteristics"/>
-                <xs:element ref="leaders"/>
-                <xs:element ref="authors"/>
-                <xs:element ref="participants"/>
+                <xs:element ref="leaders" minOccurs="0"/>
+                <xs:element ref="authors" minOccurs="0"/>
+                <xs:element ref="participants" minOccurs="0"/>
                 <xs:element ref="videos"/>
                 <xs:element ref="live_streams"/>
                 <xs:element ref="images"/>
@@ -359,9 +359,9 @@
                 <xs:element ref="event_status"/>
                 <xs:element ref="ticket_status"/>
                 <xs:element ref="characteristics"/>
-                <xs:element ref="leaders"/>
-                <xs:element ref="authors"/>
-                <xs:element ref="participants"/>
+                <xs:element ref="leaders" minOccurs="0"/>
+                <xs:element ref="authors" minOccurs="0"/>
+                <xs:element ref="participants" minOccurs="0"/>
                 <xs:element ref="videos"/>
                 <xs:element ref="live_streams"/>
                 <xs:element ref="images"/>
@@ -777,7 +777,7 @@
     <xs:element name="leader">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="prefix_id"/>
+                <xs:element ref="prefix_id" minOccurs="0"/>
                 <xs:element ref="first_name"/>
                 <xs:element ref="last_name"/>
                 <xs:element ref="function_de"/>
@@ -795,6 +795,17 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    <xs:element name="author">
+        <xs:complexType>
+            <xs:sequence minOccurs="0">
+                <xs:element ref="prefix_id" minOccurs="0"/>
+                <xs:element ref="first_name"/>
+                <xs:element ref="last_name"/>
+                <xs:element ref="authorship_type_id"/>
+                <xs:element ref="sort_order"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="participants">
         <xs:complexType>
             <xs:sequence>
@@ -805,7 +816,7 @@
     <xs:element name="participant">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="prefix_id"/>
+                <xs:element ref="prefix_id" minOccurs="0"/>
                 <xs:element ref="first_name"/>
                 <xs:element ref="last_name"/>
                 <xs:element ref="involvement_type_id"/>
@@ -967,17 +978,6 @@
     </xs:element>
     <xs:element name="first_name" type="xs:NCName"/>
     <xs:element name="last_name" type="xs:NCName"/>
-    <xs:element name="author">
-        <xs:complexType>
-            <xs:sequence minOccurs="0">
-                <xs:element ref="prefix_id"/>
-                <xs:element ref="first_name"/>
-                <xs:element ref="last_name"/>
-                <xs:element ref="authorship_type_id"/>
-                <xs:element ref="sort_order"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
     <xs:element name="authorship_type_id">
         <xs:simpleType>
             <xs:restriction base="xs:NMTOKEN">
