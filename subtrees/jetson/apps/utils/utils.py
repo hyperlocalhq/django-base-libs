@@ -30,7 +30,7 @@ def get_git_changeset(media_root, prefix="", postfix=""):
     try:
         timestamp = datetime.datetime.utcfromtimestamp(int(timestamp))
     except ValueError:
-        return None
+        return "".join((prefix, "0", postfix))
     changeset = timestamp.strftime('%Y%m%d%H%M%S')
     if changeset:
         changeset = "".join((prefix, changeset, postfix))
