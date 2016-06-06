@@ -109,11 +109,13 @@ class CreatorMixin(BaseModel):
     """
     Abstract base class with a "creator" Field
     """
-    creator = models.ForeignKey(User, 
+    creator = models.ForeignKey(
+        User,
         verbose_name=_("creator"), 
         related_name="%(class)s_creator",
         null=True,
-        editable=False
+        editable=False,
+        on_delete = models.SET_NULL,
     )
     
     def save(self, *args, **kwargs):
@@ -130,11 +132,13 @@ class ModifierMixin(BaseModel):
     """
     Abstract base class with a "modifier" Field
     """
-    modifier = models.ForeignKey(User, 
+    modifier = models.ForeignKey(
+        User,
         verbose_name=_("modifier"), 
         related_name="%(class)s_modifier",
         null=True,
-        editable=False
+        editable=False,
+        on_delete=models.SET_NULL,
     )
     
     def save(self, *args, **kwargs):
@@ -215,8 +219,9 @@ class PublishingMixin(BaseModel):
         blank=True, 
         verbose_name=_("author"), 
         related_name="%(class)s_author",
-        help_text =_("If you do not select an author, you will be the author!"),
-        )
+        help_text=_("If you do not select an author, you will be the author!"),
+        on_delete=models.SET_NULL,
+    )
 
     published_from = models.DateTimeField(
         _("publishing date"), 

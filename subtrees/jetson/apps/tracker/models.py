@@ -50,11 +50,11 @@ class Ticket(models.Model):
     # one of the fields, submitter_name and submitter is mandatory. If a user is logged in,
     # submitter is filled in as the logged in user, otherwise, the "submitter" must provide a 
     # name (see the save method below).  
-    submitter = models.ForeignKey(User, blank=True, null=True,  verbose_name=_("submitter"), related_name="ticket_submitter")
+    submitter = models.ForeignKey(User, blank=True, null=True, verbose_name=_("submitter"), related_name="ticket_submitter", on_delete=models.SET_NULL)
     submitter_name = models.CharField('name',  max_length=80) 
     submitter_email = models.EmailField('email') 
     
-    modifier = models.ForeignKey(User, blank=True, null=True,  verbose_name=_("modifier"), related_name="ticket_modifier")
+    modifier = models.ForeignKey(User, blank=True, null=True, verbose_name=_("modifier"), related_name="ticket_modifier", on_delete=models.SET_NULL)
     
     description = models.TextField(_("description"))
     status = models.IntegerField(_("status"), default=1, choices=STATUS_CODES)
