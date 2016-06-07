@@ -2,14 +2,14 @@
 {% load cms_tags %}
 {% block bodyclass %}default{% endblock %}
 
-{% block title %}{% page_attribute "title" as title %}{% page_attribute "page_title" as page_title %}{{ page_title|default:title|escape|add:" -" }}{% endblock %}
+{% block title %}{% page_attribute "title" as title %}{% page_attribute "page_title" as page_title %}{{ page_title|default:title|escape|add:" – " }}{% endblock %}
 
 {% block meta_tags %}
     {% page_attribute "meta_description" as meta_description %}
     {% page_attribute "meta_keywords" as meta_keywords %}
     {% if meta_description or meta_keywords %}
-        <meta name="description" content="{{ meta_description|escape }}" />
-        <meta name="keywords" content="{{ meta_keywords|escape }}" />
+        <meta name="description" lang="{{ LANGUAGE_CODE }}" content="{{ meta_description|escape }}" />
+        <meta name="keywords" lang="{{ LANGUAGE_CODE }}" content="{{ meta_keywords|escape }}" />
     {% else %}
         {{ site_settings.get_meta_tags|safe }}
     {% endif %}

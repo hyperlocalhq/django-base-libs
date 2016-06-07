@@ -1,4 +1,4 @@
-{% extends request.current_page.template|default:"cms/default.html" %}
+{% extends "cms/default.html" %}
 {% load base_tags babel i18n auth_extended articles_tags infoblocks image_modifications crispy_forms_tags %}
 
 {% block content %}

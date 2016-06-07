@@ -1,6 +1,13 @@
 {% extends "base.html" %}
-{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites_tags education_tags production_tags %}
-{% block title %}{% trans "Educational Project" %} – {{ object.title }} – {% endblock %}
+{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites_tags education_tags production_tags cms_tags %}
+
+{% block title %}{% trans "Educational Department" %} – {{ object.title }} – {% endblock %}
+
+{% block meta_tags %}
+    <meta name="description" lang="{{ LANGUAGE_CODE }}" content="{{ object.title }} – {% page_attribute "title" as title %}{% page_attribute "page_title" as page_title %}{{ page_title|default:title|escape }} – Berlin Bühnen" />
+    {{ site_settings.get_meta_keywords|safe }}
+{% endblock %}
+
 {% block bodyclass %}project-detail{% endblock %}
 
 {% block open_graph %}

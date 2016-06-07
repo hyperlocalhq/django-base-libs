@@ -1,11 +1,11 @@
-{% extends "base.html" %}
+{% extends "cms/default.html" %}
 {% load i18n base_tags %}
 
 {% block extrahead %}
     <link rel="alternate" type="application/rss+xml" title="{% trans "Subscribe to the news" %}" href="{% url "theater_of_the_week_feed" feed_type="rss" %}" />
 {% endblock %}
 
-{% block title %}{% trans "Theater of the week" %} -{% endblock %}		
+{% block title %}{% trans "Theater of the week" %} – {% endblock %}
 
 {% block content %}
     <div class="content theater-of-the-week">

@@ -1,9 +1,8 @@
-{% extends "base.html" %}
+{% extends "cms/default.html" %}
 {% load url from future %}
 {% load i18n image_modifications base_tags tagging_tags production_tags favorites_tags auth_extended %}
-{% block title %}{% trans "Events" %} - {% endblock %}
-{% block bodyclass %}event-list no-transition{% endblock %}
 
+{% block bodyclass %}event-list no-transition{% endblock %}
 
 {% block js %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/list.js" defer="defer"></script>

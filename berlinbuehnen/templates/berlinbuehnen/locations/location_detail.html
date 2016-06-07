@@ -1,7 +1,14 @@
 {% extends "base.html" %}
-{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites_tags production_tags %}
+{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites_tags production_tags cms_tags %}
+
 {% block title %}{% trans "Location" %} – {{ object.title }} – {% endblock %}
+
 {% block bodyclass %}location-detail{% endblock %}
+
+{% block meta_tags %}
+    <meta name="description" lang="{{ LANGUAGE_CODE }}" content="{{ object.title }} – {% page_attribute "title" as title %}{% page_attribute "page_title" as page_title %}{{ page_title|default:title|escape }} – Berlin Bühnen" />
+    {{ site_settings.get_meta_keywords|safe }}
+{% endblock %}
 
 {% block open_graph %}
     <meta property="og:title" content="{{ object.title }}" />
