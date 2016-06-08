@@ -26,6 +26,7 @@ from .models import ProductionPDF
 from .models import ProductionLeadership
 from .models import ProductionAuthorship
 from .models import ProductionInvolvement
+from .models import ProductionSponsor
 from .models import EventCharacteristics
 from .models import Event
 from .models import EventSocialMediaChannel
@@ -36,6 +37,7 @@ from .models import EventPDF
 from .models import EventLeadership
 from .models import EventAuthorship
 from .models import EventInvolvement
+from .models import EventSponsor
 
 
 class LanguageAndSubtitlesAdmin(ExtendedModelAdmin):
@@ -133,6 +135,14 @@ class ProductionInvolvementInline(ExtendedStackedInline):
     inline_classes = ('grp-collapse grp-open',)
 
 
+class ProductionSponsorInline(ExtendedStackedInline):
+    model = ProductionSponsor
+    extra = 0
+    fieldsets = get_admin_lang_section(_("Title"), ['title'])
+    fieldsets += [(None, {'fields': ('website', 'image')}),]
+    inline_classes = ('grp-collapse grp-open',)
+
+
 class OwnersForm(forms.Form):
     users = forms.ModelMultipleChoiceField(
         label=_("Users"),
@@ -157,14 +167,14 @@ class ProductionAdmin(ExtendedModelAdmin):
     fieldsets += get_admin_lang_section(_("Imported"), ['concert_program', 'supporting_program', 'remarks', 'duration_text', 'subtitles_text', 'age_text'])
     fieldsets += [(_("Prices"), {'fields': ['price_from', 'price_till', 'free_entrance', 'tickets_website', get_admin_lang_section(_("Price information"), ['price_information'])]}),]
     fieldsets += [(_("Additional details"), {'fields': ['language_and_subtitles', 'characteristics', get_admin_lang_section(_("Other characteristics"), ['other_characteristics',]), 'age_from', 'age_till', 'edu_offer_website']}),]
-    fieldsets += [(_("Sponsors"), {'fields': ['sponsors',]}),]
     fieldsets += [(_("Status"), {'fields': ['show_among_others', 'no_overwriting', 'newsletter', 'status',]}),]
 
-    filter_horizontal = ['in_program_of', 'play_locations', 'play_stages', 'categories', 'festivals', 'related_productions', 'characteristics', 'sponsors']
+    filter_horizontal = ['in_program_of', 'play_locations', 'play_stages', 'categories', 'festivals', 'related_productions', 'characteristics']
     inlines = [
         ProductionSocialMediaChannelInline,
         ProductionVideoInline, ProductionLiveStreamInline, ProductionImageInline, ProductionPDFInline,
         ProductionLeadershipInline, ProductionAuthorshipInline, ProductionInvolvementInline,
+        ProductionSponsorInline,
     ]
 
     def get_locations(self, obj):
@@ -335,6 +345,14 @@ class EventInvolvementInline(ExtendedStackedInline):
     inline_classes = ('grp-collapse grp-open',)
 
 
+class EventSponsorInline(ExtendedStackedInline):
+    model = EventSponsor
+    extra = 0
+    fieldsets = get_admin_lang_section(_("Title"), ['title'])
+    fieldsets += [(None, {'fields': ('website', 'image')}),]
+    inline_classes = ('grp-collapse grp-open',)
+
+
 class EventAdmin(ExtendedModelAdmin):
     list_display = ['title', 'start_date', 'start_time']
     search_fields = ['production__title']
@@ -346,14 +364,14 @@ class EventAdmin(ExtendedModelAdmin):
     fieldsets += get_admin_lang_section(_("Description"), ['description', 'teaser', 'work_info', 'contents', 'press_text', 'credits'])
     fieldsets += get_admin_lang_section(_("Imported"), ['concert_program', 'supporting_program', 'remarks', 'duration_text', 'subtitles_text', 'age_text'])
     fieldsets += [(_("Prices"), {'fields': ['price_from', 'price_till', 'free_entrance', 'tickets_website', get_admin_lang_section(_("Price information"), ['price_information'])]}),]
-    fieldsets += [(_("Sponsors"), {'fields': ['sponsors',]}),]
     fieldsets += [(_("Additional details"), {'fields': ['event_status', 'ticket_status', 'language_and_subtitles', 'characteristics', get_admin_lang_section(_("Other characteristics"), ['other_characteristics',])]}),]
     raw_id_fields = ['production']
-    filter_horizontal = ['play_locations', 'play_stages', 'characteristics', 'sponsors']
+    filter_horizontal = ['play_locations', 'play_stages', 'characteristics']
     inlines = [
         EventSocialMediaChannelInline,
         EventVideoInline, EventLiveStreamInline, EventImageInline, EventPDFInline,
         EventLeadershipInline, EventAuthorshipInline, EventInvolvementInline,
+        EventSponsorInline,
     ]
 
     def title(self, obj):

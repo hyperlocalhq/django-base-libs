@@ -799,3 +799,18 @@ class ProjectVideo(CreationModificationDateMixin):
     @staticmethod
     def token_to_pk(token):
         return int(token) - TOKENIZATION_SUMMAND
+
+
+class ProjectSponsor(CreationModificationDateMixin):
+    project = models.ForeignKey(Project, verbose_name=_("Project"), on_delete=models.CASCADE)
+    title = MultilingualCharField(_("Title"), max_length=255, blank=True)
+    image = FileBrowseField(_("Image"), max_length=255, directory="education/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image."), blank=True)
+    website = URLField(_("Website"), blank=True)
+
+    class Meta:
+        ordering = ["title"]
+        verbose_name = _("Sponsor")
+        verbose_name_plural = _("Sponsors")
+
+    def __unicode__(self):
+        return self.title or (self.image and self.image.filename) or self.pk

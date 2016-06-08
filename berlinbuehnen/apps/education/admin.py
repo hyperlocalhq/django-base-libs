@@ -14,7 +14,6 @@ from base_libs.models.admin import get_admin_lang_section
 
 from filebrowser.settings import URL_FILEBROWSER_MEDIA
 
-from berlinbuehnen.apps.locations.models import Location
 from .models import Image
 from .models import SocialMediaChannel
 from .models import PDF
@@ -29,6 +28,7 @@ from .models import ProjectPDF
 from .models import ProjectVideo
 from .models import ProjectTargetGroup
 from .models import ProjectFormat
+from .models import ProjectSponsor
 
 
 class OwnersForm(forms.Form):
@@ -218,6 +218,14 @@ class ProjectVideoInline(ExtendedStackedInline):
     inline_classes = ('grp-collapse grp-open',)
 
 
+class ProjectSponsorInline(ExtendedStackedInline):
+    model = ProjectSponsor
+    extra = 0
+    fieldsets = get_admin_lang_section(_("Title"), ['title'])
+    fieldsets += [(None, {'fields': ('website', 'image')}),]
+    inline_classes = ('grp-collapse grp-open',)
+
+
 class ProjectAdmin(ExtendedModelAdmin):
     list_display = ('title_de', 'get_locations', 'creation_date', 'modified_date', 'status')
     list_editable = ('status',)
@@ -233,10 +241,9 @@ class ProjectAdmin(ExtendedModelAdmin):
     fieldsets += get_admin_lang_section(_("Description"), ['description', 'special_conditions', 'remarks', 'cooperation', 'supporters', 'participant_count'])
     fieldsets += [(_("Prices"), {'fields': ['free_entrance', 'tickets_website', get_admin_lang_section(_("Price information"), ['prices'])]}),]
     fieldsets += [(_("Additional details"), {'fields': ['age_from', 'age_till', 'needs_teachers', 'target_groups', 'formats']})]
-    fieldsets += [(_("Sponsors"), {'fields': ['sponsors',]}),]
     fieldsets += [(_("Status"), {'fields': ['status',]}),]
 
-    filter_horizontal = ['departments', 'sponsors', 'target_groups', 'formats']
+    filter_horizontal = ['departments', 'target_groups', 'formats']
     inlines = [
         ProjectTimeInline,
         ProjectMemberInline,
@@ -244,6 +251,7 @@ class ProjectAdmin(ExtendedModelAdmin):
         ProjectImageInline,
         ProjectPDFInline,
         ProjectVideoInline,
+        ProjectSponsorInline,
     ]
 
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}

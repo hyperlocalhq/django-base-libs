@@ -30,8 +30,8 @@ from berlinbuehnen.apps.education.models import ProjectImage
 from berlinbuehnen.apps.education.models import ProjectSocialMediaChannel
 from berlinbuehnen.apps.education.models import ProjectPDF
 from berlinbuehnen.apps.education.models import ProjectVideo
+from berlinbuehnen.apps.education.models import ProjectSponsor
 from berlinbuehnen.apps.people.models import Person
-from berlinbuehnen.apps.sponsors.models import Sponsor
 
 from jetson.apps.image_mods.models import FileManager
 
@@ -41,6 +41,7 @@ EXCLUDED_LANGUAGES = set(dict(settings.LANGUAGES).keys()) - set(dict(FRONTEND_LA
 from berlinbuehnen.utils.forms import PrimarySubmit
 from berlinbuehnen.utils.forms import SecondarySubmit
 from berlinbuehnen.utils.forms import InlineFormSet
+from berlinbuehnen.utils.forms import timestamp_str
 
 import autocomplete_light
 
@@ -709,21 +710,17 @@ class SocialMediaChannelForm(forms.ModelForm):
 SocialMediaChannelFormset = inlineformset_factory(Project, ProjectSocialMediaChannel, form=SocialMediaChannelForm, formset=InlineFormSet, extra=0)
 
 
-class SponsorForm(autocomplete_light.ModelForm):
-    id = forms.IntegerField(
-        widget=forms.HiddenInput(),
-        required=False,
-    )
+class ProjectSponsorForm(autocomplete_light.ModelForm):
     media_file_path = forms.CharField(
         widget=forms.HiddenInput(),
         required=False,
     )
 
     class Meta:
-        model = Sponsor
+        model = ProjectSponsor
 
     def __init__(self, *args, **kwargs):
-        super(SponsorForm, self).__init__(*args, **kwargs)
+        super(ProjectSponsorForm, self).__init__(*args, **kwargs)
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             for f in [
@@ -778,7 +775,7 @@ class SponsorForm(autocomplete_light.ModelForm):
             *fieldset_content
         )
 
-SponsorFormset = formset_factory(form=SponsorForm, extra=0, can_delete=True)
+ProjectSponsorFormset = inlineformset_factory(Project, ProjectSponsor, form=ProjectSponsorForm, formset=InlineFormSet, extra=0)
 
 
 class GalleryForm(forms.ModelForm):
@@ -892,7 +889,7 @@ def load_data(instance=None):
             social_media_channel_dict['url'] = social_media_channel.url
             form_step_data['description']['sets']['social'].append(social_media_channel_dict)
 
-        for sponsor in instance.sponsors.all():
+        for sponsor in instance.projectsponsor_set.all():
             sponsor_dict = {}
             sponsor_dict['id'] = sponsor.pk
             sponsor_dict['website'] = sponsor.website
@@ -1061,30 +1058,32 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             fields += [
                 'title_%s' % lang_code,
             ]
-        instance.sponsors.clear()
+
+        sponsor_ids_to_keep = []
         for sponsor_dict in form_step_data['description']['sets']['sponsors']:
             if sponsor_dict['id']:
                 try:
-                    sponsor = Sponsor.objects.get(
+                    sponsor = ProjectSponsor.objects.get(
                         pk=sponsor_dict['id'],
+                        project=instance,
                     )
                 except models.ObjectDoesNotExist:
                     continue
             else:
-                sponsor = Sponsor()
+                sponsor = ProjectSponsor(project=instance)
             if sponsor_dict['media_file_path'] and sponsor.image:
                 # delete the old file
                 try:
                     FileManager.delete_file(sponsor.image.path)
                 except OSError:
                     pass
-            rel_dir = "sponsors/"
+            rel_dir = "education/projects/{}/sponsors/".format(instance.slug)
             if sponsor_dict['media_file_path']:
                 tmp_path = sponsor_dict['media_file_path']
                 abs_tmp_path = os.path.join(settings.MEDIA_ROOT, tmp_path)
 
                 fname, fext = os.path.splitext(tmp_path)
-                filename = datetime.now().strftime("%Y%m%d%H%M%S") + fext
+                filename = timestamp_str() + fext
                 dest_path = "".join((rel_dir, filename))
                 FileManager.path_exists(os.path.join(settings.MEDIA_ROOT, rel_dir))
                 abs_dest_path = os.path.join(settings.MEDIA_ROOT, dest_path)
@@ -1099,7 +1098,8 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 setattr(sponsor, fname, sponsor_dict[fname])
             sponsor.save()
             sponsor_dict['id'] = sponsor.pk
-            instance.sponsors.add(sponsor)
+            sponsor_ids_to_keep.append(sponsor.pk)
+        instance.projectsponsor_set.exclude(pk__in=sponsor_ids_to_keep).delete()
 
     return form_step_data
 
@@ -1142,7 +1142,7 @@ PROJECT_FORM_STEPS = {
         'formsets': {
             'members': ProjectMemberFormset,
             'social': SocialMediaChannelFormset,
-            'sponsors': SponsorFormset,
+            'sponsors': ProjectSponsorFormset,
         }
     },
     'gallery': {

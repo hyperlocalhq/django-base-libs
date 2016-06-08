@@ -18,9 +18,8 @@ from berlinbuehnen.utils.forms import PrimarySubmit
 from berlinbuehnen.utils.forms import SecondarySubmit
 from berlinbuehnen.utils.forms import InlineFormSet
 
-from berlinbuehnen.apps.productions.models import Event, EventLeadership, EventAuthorship, EventInvolvement, EventSocialMediaChannel
+from berlinbuehnen.apps.productions.models import Event, EventLeadership, EventAuthorship, EventInvolvement, EventSocialMediaChannel, EventSponsor
 from berlinbuehnen.apps.people.models import Person
-from berlinbuehnen.apps.sponsors.models import Sponsor
 
 import autocomplete_light
 
@@ -1106,22 +1105,17 @@ class SocialMediaChannelForm(forms.ModelForm):
 SocialMediaChannelFormset = inlineformset_factory(Event, EventSocialMediaChannel, form=SocialMediaChannelForm, formset=InlineFormSet, extra=0)
 
 
-class SponsorForm(autocomplete_light.ModelForm):
-    id = forms.IntegerField(
-        widget=forms.HiddenInput(),
-        required=False,
-    )
+class EventSponsorForm(autocomplete_light.ModelForm):
     media_file_path = forms.CharField(
         widget=forms.HiddenInput(),
         required=False,
     )
 
     class Meta:
-        model = Sponsor
-        exclude = ['image']
+        model = EventSponsor
 
     def __init__(self, *args, **kwargs):
-        super(SponsorForm, self).__init__(*args, **kwargs)
+        super(EventSponsorForm, self).__init__(*args, **kwargs)
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             for f in [
@@ -1176,7 +1170,7 @@ class SponsorForm(autocomplete_light.ModelForm):
             *fieldset_content
         )
 
-SponsorFormset = formset_factory(form=SponsorForm, extra=0, can_delete=True)
+EventSponsorFormset = inlineformset_factory(Event, EventSponsor, form=EventSponsorForm, formset=InlineFormSet, extra=0)
 
 
 class GalleryForm(forms.ModelForm):

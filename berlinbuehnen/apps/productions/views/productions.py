@@ -27,19 +27,20 @@ FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 from berlinbuehnen.apps.productions.forms.productions import PRODUCTION_FORM_STEPS, ProductionDuplicateForm
 from berlinbuehnen.apps.productions.forms.events import AddEventsForm
 from berlinbuehnen.apps.productions.forms.events import BasicInfoForm as EventBasicInfoForm
-from berlinbuehnen.apps.productions.forms.events import DescriptionForm as EventDescriptionForm, EventLeadershipFormset, EventAuthorshipFormset, EventInvolvementFormset, SocialMediaChannelFormset, SponsorFormset
+from berlinbuehnen.apps.productions.forms.events import DescriptionForm as EventDescriptionForm, EventLeadershipFormset, EventAuthorshipFormset, EventInvolvementFormset, SocialMediaChannelFormset, EventSponsorFormset
 from berlinbuehnen.apps.productions.forms.events import GalleryForm
 
 from jetson.apps.image_mods.models import FileManager
 from filebrowser.models import FileDescription
 
 from berlinbuehnen.apps.locations.models import Location
-from berlinbuehnen.apps.sponsors.models import Sponsor
 from berlinbuehnen.apps.productions.models import Production, ProductionImage
 from berlinbuehnen.apps.productions.models import ProductionLeadership, ProductionAuthorship, ProductionInvolvement, ProductionSocialMediaChannel
 from berlinbuehnen.apps.productions.models import Event, ProductionVideo, ProductionLiveStream, EventImage, ProductionPDF
 from berlinbuehnen.apps.productions.models import EventLeadership, EventAuthorship, EventInvolvement, EventSocialMediaChannel
-from berlinbuehnen.apps.productions.models import ProductionCategory, LanguageAndSubtitles, ProductionCharacteristics, EventCharacteristics
+from berlinbuehnen.apps.productions.models import ProductionCategory, LanguageAndSubtitles, ProductionCharacteristics, EventCharacteristics, EventSponsor
+from berlinbuehnen.utils.forms import timestamp_str
+
 
 class EventFilterForm(forms.Form):
     date = forms.DateField(
@@ -409,10 +410,11 @@ def change_event_description(request, slug, event_id):
             prefix="social",
             instance=event,
         )
-        sponsor_formset = SponsorFormset(
+        sponsor_formset = EventSponsorFormset(
             data=request.POST,
             prefix="sponsors",
-            initial=[s.__dict__ for s in Sponsor.objects.filter(event=event)],
+            instance=event,
+            #initial=[s.__dict__ for s in EventSponsor.objects.filter(event=event)],
         )
 
         if form.is_valid() and leadership_formset.is_valid() and authorship_formset.is_valid() and involvement_formset.is_valid() and social_formset.is_valid() and sponsor_formset.is_valid():
@@ -465,7 +467,7 @@ def change_event_description(request, slug, event_id):
                     ids_to_keep.append(obj.pk)
             event.eventsocialmediachannel_set.exclude(pk__in=ids_to_keep).delete()
 
-            event.sponsors.clear()
+            ids_to_keep = []
             for frm in sponsor_formset.forms:
                 if (
                     frm.has_changed()
@@ -476,22 +478,30 @@ def change_event_description(request, slug, event_id):
                     sponsor_dict = frm.cleaned_data
                     if sponsor_dict['id']:
                         # ensure that image is saved to the updated instance
-                        sponsor = Sponsor.objects.get(pk=sponsor_dict['id'])
-                        obj.id = sponsor_dict['id']
+                        sponsor_id = sponsor_dict['id']
+                        if isinstance(sponsor_id, EventSponsor):
+                            # TODO: find a reason why sponsor_dict['id'] returns the instance, not the id
+                            sponsor_id = sponsor_id.pk
+                        sponsor = EventSponsor.objects.get(
+                            pk=sponsor_id,
+                            event=event,
+                        )
+                        obj.id = sponsor_id
                         obj.image = sponsor.image
+                    obj.event = event
                     if sponsor_dict['media_file_path'] and obj.image:
                         # delete the old file
                         try:
                             FileManager.delete_file(obj.image.path)
                         except OSError:
                             pass
-                    rel_dir = "sponsors/"
+                    rel_dir = "productions/{}/sponsors/".format(production.slug)
                     if sponsor_dict['media_file_path']:
                         tmp_path = sponsor_dict['media_file_path']
                         abs_tmp_path = os.path.join(settings.MEDIA_ROOT, tmp_path)
 
                         fname, fext = os.path.splitext(tmp_path)
-                        filename = datetime.now().strftime("%Y%m%d%H%M%S") + fext
+                        filename = timestamp_str() + fext
                         dest_path = "".join((rel_dir, filename))
                         FileManager.path_exists(os.path.join(settings.MEDIA_ROOT, rel_dir))
                         abs_dest_path = os.path.join(settings.MEDIA_ROOT, dest_path)
@@ -503,7 +513,9 @@ def change_event_description(request, slug, event_id):
                         sponsor_dict['media_file_path'] = u""
 
                     obj.save()
-                    event.sponsors.add(obj)
+                    ids_to_keep.append(obj.pk)
+
+            event.eventsponsor_set.exclude(pk__in=ids_to_keep).delete()
 
             if request.REQUEST.get('new_production'):
                 return redirect(reverse("add_production") + '?step=4')
@@ -617,39 +629,28 @@ def change_event_description(request, slug, event_id):
             initial=initial,
         )
 
-        if Sponsor.objects.filter(event=event).count():
-            sponsors = list(Sponsor.objects.filter(event=event))
+        if EventSponsor.objects.filter(event=event).count():
+            sponsors = event.eventsponsor_set.all()
             initial = []
             for obj in sponsors:
                 initial.append({
-                    'id': obj.id,
+                    'id': obj.pk,
                     'title_de': obj.title_de,
                     'title_en': obj.title_en,
                     'website': obj.website,
                 })
-            sponsor_formset = SponsorFormset(
+            sponsor_formset = EventSponsorFormset(
                 prefix="sponsors",
+                instance=event,
                 initial=initial,
             )
             for obj, frm in zip(sponsors, sponsor_formset.forms):
                 frm.instance = obj
         else:
-            sponsors = list(Sponsor.objects.filter(production=production))
-            initial = []
-            for obj in sponsors:
-                initial.append({
-                    'id': obj.id,
-                    'title_de': obj.title_de,
-                    'title_en': obj.title_en,
-                    'website': obj.website,
-                })
-            sponsor_formset = SponsorFormset(
+            sponsor_formset = EventSponsorFormset(
                 prefix="sponsors",
-                initial=initial,
+                instance=event,
             )
-            for obj, frm in zip(sponsors, sponsor_formset.forms):
-                frm.instance = obj
-
 
     return render(request, "productions/events/description_form.html", {
         'production': production,

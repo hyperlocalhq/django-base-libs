@@ -34,6 +34,7 @@ from berlinbuehnen.apps.productions.models import ProductionPDF
 from berlinbuehnen.apps.productions.models import ProductionLeadership
 from berlinbuehnen.apps.productions.models import ProductionAuthorship
 from berlinbuehnen.apps.productions.models import ProductionInvolvement
+from berlinbuehnen.apps.productions.models import ProductionSponsor
 
 from berlinbuehnen.apps.productions.models import EventCharacteristics
 from berlinbuehnen.apps.productions.models import Event
@@ -45,8 +46,7 @@ from berlinbuehnen.apps.productions.models import EventPDF
 from berlinbuehnen.apps.productions.models import EventLeadership
 from berlinbuehnen.apps.productions.models import EventAuthorship
 from berlinbuehnen.apps.productions.models import EventInvolvement
-
-from berlinbuehnen.apps.sponsors.api.resources.v1 import SponsorResource
+from berlinbuehnen.apps.productions.models import EventSponsor
 
 
 def valid_XML_char_ordinal(i):
@@ -276,6 +276,27 @@ class ProductionInvolvementResource(ModelResource):
         return bundle
 
 
+class ProductionSponsorResource(ModelResource):
+    class Meta(BaseMetaForModelResource):
+        queryset = ProductionSponsor.objects.all()
+        resource_name = 'production_sponsor'
+        fields = [
+            'id',
+            'creation_date', 'modified_date',
+            'title_de', 'title_en',
+            'website',
+        ]
+
+    def dehydrate(self, bundle):
+        if bundle.obj.image:
+            bundle.data['image_url'] = "".join((
+                get_website_url(),
+                settings.MEDIA_URL[1:],
+                bundle.obj.image.path,
+                ))
+        return bundle
+
+
 class EventCharacteristicsResource(ModelResource):
     class Meta(BaseMetaForModelResource):
         queryset = EventCharacteristics.objects.all()
@@ -458,6 +479,26 @@ class EventInvolvementResource(ModelResource):
         return bundle
 
 
+class EventSponsorResource(ModelResource):
+    class Meta(BaseMetaForModelResource):
+        queryset = EventSponsor.objects.all()
+        resource_name = 'event_sponsor'
+        fields = [
+            'id',
+            'creation_date', 'modified_date',
+            'title_de', 'title_en',
+            'website',
+        ]
+
+    def dehydrate(self, bundle):
+        if bundle.obj.image:
+            bundle.data['image_url'] = "".join((
+                get_website_url(),
+                settings.MEDIA_URL[1:],
+                bundle.obj.image.path,
+                ))
+        return bundle
+
 class EventResource(ModelResource):
     play_locations = fields.ToManyField(LocationResource, "play_locations")
     play_stages = fields.ToManyField(StageResource, "play_stages")
@@ -475,7 +516,7 @@ class EventResource(ModelResource):
 
     language_and_subtitles = fields.ToOneField(LanguageAndSubtitlesResource, "language_and_subtitles", null=True, blank=True, full=True)
 
-    sponsors = fields.ToManyField(SponsorResource, "sponsors", full=True)
+    sponsors = fields.ToManyField(EventSponsorResource, "eventsponsor_set", full=True)
 
     class Meta(BaseMetaForModelResource):
         queryset = Event.objects.all()
@@ -557,7 +598,7 @@ class ProductionResource(ModelResource):
 
     language_and_subtitles = fields.ToOneField(LanguageAndSubtitlesResource, "language_and_subtitles", null=True, blank=True, full=True)
 
-    sponsors = fields.ToManyField(SponsorResource, "sponsors", full=True)
+    sponsors = fields.ToManyField(ProductionSponsorResource, "productionsponsor_set", full=True)
 
     events = fields.ToManyField(EventResource, "event_set", full=True)
 

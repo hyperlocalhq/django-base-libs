@@ -203,15 +203,16 @@ class ImportToBerlinBuehnenBase(NoArgsCommand):
         from berlinbuehnen.apps.productions.models import ProductionVideo
         from berlinbuehnen.apps.productions.models import ProductionLiveStream
         from berlinbuehnen.apps.productions.models import ProductionImage
+        from berlinbuehnen.apps.productions.models import ProductionSponsor
         from berlinbuehnen.apps.productions.models import Event
         from berlinbuehnen.apps.productions.models import EventCharacteristics
         from berlinbuehnen.apps.productions.models import EventVideo
         from berlinbuehnen.apps.productions.models import EventLiveStream
         from berlinbuehnen.apps.productions.models import EventImage
+        from berlinbuehnen.apps.productions.models import EventSponsor
         from berlinbuehnen.apps.productions.models import LanguageAndSubtitles
-        from berlinbuehnen.apps.sponsors.models import Sponsor
-
         from filebrowser.models import FileDescription
+
         ObjectMapper = models.get_model("external_services", "ObjectMapper")
         image_mods = models.get_app("image_mods")
 
@@ -633,15 +634,25 @@ class ImportToBerlinBuehnenBase(NoArgsCommand):
                 item.sort_order = sort_order
                 item.save()
 
-            prod.sponsors.clear()
+            # delete old sponsors
+            for sponsor in prod.productionsponsor_set.all():
+                if sponsor.image:
+                    try:
+                        image_mods.FileManager.delete_file(sponsor.image.path)
+                    except OSError:
+                        pass
+                sponsor.delete()
+            # add new sponsors
             for sponsor_node in prod_node.findall('./sponsors/sponsor'):
-                sponsor, created = Sponsor.objects.get_or_create(
+                sponsor = ProductionSponsor(
+                    production=prod,
                     title_de=self.get_child_text(sponsor_node, 'title_de'),
                     title_en=self.get_child_text(sponsor_node, 'title_en'),
                     website=self.get_child_text(sponsor_node, 'website'),
                 )
+                sponsor.save()
                 image_url = self.get_child_text(sponsor_node, 'image_url')
-                if image_url and created:
+                if image_url:
                     filename = image_url.split("/")[-1]
                     image_response = requests.get(image_url)
                     if image_response.status_code == 200:
@@ -650,10 +661,8 @@ class ImportToBerlinBuehnenBase(NoArgsCommand):
                             filename,
                             image_response.content,
                             field_name="image",
-                            subpath="sponsors/",
+                            subpath="productions/{}/sponsors/".format(prod.slug),
                         )
-                    sponsor.save()
-                prod.sponsors.add(sponsor)
 
             if not mapper:
                 mapper = ObjectMapper(
@@ -1062,16 +1071,26 @@ class ImportToBerlinBuehnenBase(NoArgsCommand):
                 for sort_order, item in enumerate(event.eventinvolvement_set.order_by('imported_sort_order'), 0):
                     item.sort_order = sort_order
                     item.save()
-    
-                event.sponsors.clear()
+
+                # delete old sponsors
+                for sponsor in event.eventsponsor_set.all():
+                    if sponsor.image:
+                        try:
+                            image_mods.FileManager.delete_file(sponsor.image.path)
+                        except OSError:
+                            pass
+                    sponsor.delete()
+                # add new sponsors
                 for sponsor_node in event_node.findall('./sponsors/sponsor'):
-                    sponsor, created = Sponsor.objects.get_or_create(
+                    sponsor = EventSponsor(
+                        event=event,
                         title_de=self.get_child_text(sponsor_node, 'title_de'),
                         title_en=self.get_child_text(sponsor_node, 'title_en'),
                         website=self.get_child_text(sponsor_node, 'website'),
                     )
+                    sponsor.save()
                     image_url = self.get_child_text(sponsor_node, 'image_url')
-                    if image_url and created:
+                    if image_url:
                         filename = image_url.split("/")[-1]
                         image_response = requests.get(image_url)
                         if image_response.status_code == 200:
@@ -1080,11 +1099,9 @@ class ImportToBerlinBuehnenBase(NoArgsCommand):
                                 filename,
                                 image_response.content,
                                 field_name="image",
-                                subpath="sponsors/",
+                                subpath="productions/{}/sponsors/".format(event.production.slug),
                             )
-                        sponsor.save()
-                    event.sponsors.add(sponsor)
-    
+
                 if not event_mapper:
                     event_mapper = ObjectMapper(
                         service=self.service,

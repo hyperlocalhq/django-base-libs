@@ -997,17 +997,20 @@ class Event(CreationModificationMixin, UrlMixin):
     ### sponsors ###
 
     def ev_or_prod_sponsors(self):
-        if self.pk and self.sponsors.exists():
-            sponsors = self.sponsors.all()
-        else:
-            sponsors = self.production.sponsors.all()
+        if not hasattr(self, "_ev_or_prod_sponsors_cache"):
+            if self.pk and self.eventsponsor_set.exists():
+                sponsors = self.eventsponsor_set.all()
+            else:
+                sponsors = self.production.productionsponsor_set.all()
+
+            final = []
+            for sponsor in sponsors:
+                if sponsor.image or sponsor.title:
+                    final.append(sponsor)
+
+            self._ev_or_prod_sponsors_cache = final
             
-        final = []
-        for sponsor in sponsors:
-            if sponsor.image or sponsor.title:
-                final.append(sponsor)
-            
-        return final
+        return self._ev_or_prod_sponsors_cache
 
     ### media ###
 
@@ -1299,3 +1302,33 @@ class EventInvolvement(CreationModificationDateMixin):
         if self.involvement_type:
             return getattr(self.involvement_type, 'title_%s' % lang_code)
         return getattr(self, 'another_type_%s' % lang_code, '') or getattr(self, 'involvement_role_%s' % lang_code, '') or getattr(self, 'involvement_instrument_%s' % lang_code, '')
+
+
+class ProductionSponsor(CreationModificationDateMixin):
+    production = models.ForeignKey(Production, verbose_name=_("Production"), on_delete=models.CASCADE)
+    title = MultilingualCharField(_("Title"), max_length=255, blank=True)
+    image = FileBrowseField(_("Image"), max_length=255, directory="productions/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image."), blank=True)
+    website = URLField(_("Website"), blank=True)
+
+    class Meta:
+        ordering = ["title"]
+        verbose_name = _("Sponsor")
+        verbose_name_plural = _("Sponsors")
+
+    def __unicode__(self):
+        return self.title or (self.image and self.image.filename) or self.pk
+
+
+class EventSponsor(CreationModificationDateMixin):
+    event = models.ForeignKey(Event, verbose_name=_("Event"), on_delete=models.CASCADE)
+    title = MultilingualCharField(_("Title"), max_length=255, blank=True)
+    image = FileBrowseField(_("Image"), max_length=255, directory="events/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image."), blank=True)
+    website = URLField(_("Website"), blank=True)
+
+    class Meta:
+        ordering = ["title"]
+        verbose_name = _("Sponsor")
+        verbose_name_plural = _("Sponsors")
+
+    def __unicode__(self):
+        return self.title or (self.image and self.image.filename) or self.pk

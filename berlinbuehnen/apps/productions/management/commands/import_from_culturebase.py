@@ -18,11 +18,12 @@ from berlinbuehnen.apps.productions.models import ProductionCategory
 from berlinbuehnen.apps.productions.models import ProductionCharacteristics
 from berlinbuehnen.apps.productions.models import Production
 from berlinbuehnen.apps.productions.models import ProductionImage
+from berlinbuehnen.apps.productions.models import ProductionSponsor
 from berlinbuehnen.apps.productions.models import Event
 from berlinbuehnen.apps.productions.models import EventCharacteristics
 from berlinbuehnen.apps.productions.models import EventImage
+from berlinbuehnen.apps.productions.models import EventSponsor
 from berlinbuehnen.apps.people.models import Person, AuthorshipType
-from berlinbuehnen.apps.sponsors.models import Sponsor
 
 from import_base import LOCATIONS_TO_SKIP, STAGE_TO_LOCATION_MAPPER, PRODUCTION_VENUES, convert_location_title, CultureBaseLocation
 
@@ -893,9 +894,17 @@ class ImportFromCulturebaseBase(object):
                 item.sort_order = sort_order
                 item.save()
 
-            prod.sponsors.clear()
+            # delete old sponsors
+            for sponsor in prod.productionsponsor_set.all():
+                if sponsor.image:
+                    try:
+                        image_mods.FileManager.delete_file(sponsor.image.path)
+                    except OSError:
+                        pass
+                sponsor.delete()
+            # add new sponsors
             for sponsor_node in prod_node.findall('./%(prefix)sSponsor' % self.helper_dict):
-                sponsor = Sponsor()
+                sponsor = ProductionSponsor(production=prod)
                 sponsor.title_de = self.get_child_text(sponsor_node, 'Description', Language="de")
                 sponsor.title_en = self.get_child_text(sponsor_node, 'Description', Language="en")
                 sponsor.website = self.get_child_text(sponsor_node, 'Url')
@@ -909,9 +918,8 @@ class ImportFromCulturebaseBase(object):
                         filename,
                         image_response.content,
                         field_name="image",
-                        subpath="sponsors/",
+                        subpath="productions/{}/sponsors/".format(prod.slug),
                     )
-                prod.sponsors.add(sponsor)
 
             if not mapper:
                 mapper = ObjectMapper(

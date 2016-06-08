@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from itertools import chain
+from datetime import datetime
 
 from django import forms
 from django.forms.models import BaseInlineFormSet
@@ -87,3 +88,11 @@ class ModelMultipleChoiceTreeField(forms.ModelMultipleChoiceField):
 
     def label_from_instance(self, obj):
         return obj
+
+
+def timestamp_str(dt=datetime.now):
+    from time import sleep
+    sleep(0.001)  # ensure that two consequent timestamps are unique
+    if callable(dt):
+        dt = dt()
+    return dt.strftime("%Y%m%d%H%M%S") + ("000" + str(int(round(dt.microsecond / 1000))))[-4:]
