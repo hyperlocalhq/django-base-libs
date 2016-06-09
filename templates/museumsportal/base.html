@@ -94,6 +94,7 @@
     {% endblock %}
 
     <div id="body">
+        {{ request.current_page.pk|pprint|escape }}
       {% block content %}
       {% endblock %}
     </div>

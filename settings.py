@@ -43,6 +43,16 @@ FRONTEND_LANGUAGES = (
     ('en', u"English"),
 )
 
+OPEN_GRAPH_LOCALE_CHOICES = (
+    ('de_DE', u"Deutsch"),
+    ('en_US', u"English"),
+    ('fr_FR', u"Français"),
+    ('pl_PL', u"Polski"),
+    ('tr_TR', u"Türkçe"),
+    ('es_ES', u"Español"),
+    ('it_IT', u"Italiano"),
+)
+
 LANGUAGE_CODE = "de"
 
 SITE_ID = 1
@@ -141,7 +151,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'base_libs.middleware.threadlocals.ThreadLocalsMiddleware',
     #"cms.middleware.multilingual.MultilingualURLMiddleware",
-    #"jetson.apps.cms_extensions.middleware.MultilingualURLMiddleware",
+    #"museumsportal.apps.cms_extensions.middleware.MultilingualURLMiddleware",
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
@@ -204,11 +214,6 @@ INSTALLED_APPS = (
 
     ### jetson apps ###
     "jetson.apps.i18n",
-    "jetson.apps.cms_extensions",
-    "jetson.apps.cms_extensions.plugins.richtext",
-    "jetson.apps.cms_extensions.plugins.filebrowser_image",
-    "jetson.apps.cms_extensions.plugins.gmap",
-    "jetson.apps.cms_extensions.plugins.headline",
     "jetson.apps.image_mods",
     "jetson.apps.httpstate",
     "jetson.apps.history",
@@ -247,6 +252,11 @@ INSTALLED_APPS = (
     "museumsportal.apps.mailing",
     "museumsportal.apps.tracker",
     "museumsportal.apps.accounts",
+    "museumsportal.apps.cms_extensions",
+    "museumsportal.apps.cms_extensions.plugins.richtext",
+    "museumsportal.apps.cms_extensions.plugins.filebrowser_image",
+    "museumsportal.apps.cms_extensions.plugins.gmap",
+    "museumsportal.apps.cms_extensions.plugins.headline",
 )
 
 
