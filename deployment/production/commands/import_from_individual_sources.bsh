@@ -33,6 +33,10 @@ echo "Importing from Schlosspark Theater (New)" >> ${CRON_LOG_FILE}
 date >> ${CRON_LOG_FILE}
 python manage.py import_from_schlosspark_theater_new --traceback >> ${CRON_LOG_FILE}  2>&1
 
+echo "Importing from Konzerthaus (New)" >> ${CRON_LOG_FILE}
+date >> ${CRON_LOG_FILE}
+python manage.py import_from_konzerthaus_new --traceback >> ${CRON_LOG_FILE}  2>&1
+
 echo "Importing from Sophiensaele" >> ${CRON_LOG_FILE}
 date >> ${CRON_LOG_FILE}
 python manage.py import_from_sophiensaele --traceback >> ${CRON_LOG_FILE}  2>&1
