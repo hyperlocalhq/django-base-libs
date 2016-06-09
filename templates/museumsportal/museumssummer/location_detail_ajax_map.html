@@ -11,18 +11,8 @@
       <header>
         <h1>{{ location.title }} </h1>
         {% if location.subtitle %}
-        <h2>{{ location.subtitle }}</h2>
+          <h2>{{ location.subtitle }}</h2>
         {% endif %}
-
-        {% comment %}
-        <a href="{{ exhibition.location.get_url_path }}"><h3>
-          {% if location.parent %}
-            {{ location.parent.street_address }}
-          {% else %} 
-            {{ location.street_address }}
-          {% endif %}
-        </h3></a>
-        {% endcomment %}
 
         <p>
           <small>
@@ -37,7 +27,7 @@
 
       {% if location.cover_image %}
         <div id="cover_img">
-          <a class="img" href="{{ location.get_url_path }}">
+          <a class="img" href="{{ location.link_url }}">
             <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ location.cover_image|modified_path:"location_list" }}{% if_has_perm "locations.change_location" location %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
           </a>
         </div>
