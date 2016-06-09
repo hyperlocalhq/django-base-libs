@@ -69,7 +69,7 @@ class Location(CreationModificationDateMixin, SlugMixin(), UrlMixin):
 
     def get_url_path(self):
         try:
-            path = reverse("location_detail", kwargs={'slug': self.slug})
+            path = reverse("location_detail_ajax_map", kwargs={'slug': self.slug})
         except:
             # the apphook is not attached yet
             return ""

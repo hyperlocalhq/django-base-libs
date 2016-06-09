@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 
 urlpatterns = patterns('museumsportal.apps.museums.views',
     url(r'^$', 'museum_list', name='museum_list'),
