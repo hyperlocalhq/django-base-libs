@@ -1,6 +1,6 @@
 {% load base_tags i18n image_modifications tagging_tags babel auth_extended fb_tags infoblocks favorites %}
 
-{% with object as museum %}
+{% with object as location %}
   <button id="cancel-description" class="cancel btn btn-info btn-lg">
     <span class="icon icon-remove"></span>
     <span class="sr-only">{% trans "close" %}</span>
@@ -9,50 +9,32 @@
   <div class="map-ajax-detail">
     <article>
       <header>
-        <h1>{{ museum.title }} </h1>
-        {% if museum.subtitle %}
-        <h2>{{ museum.subtitle }}</h2>
+        <h1>{{ location.title }} </h1>
+        {% if location.subtitle %}
+          <h2>{{ location.subtitle }}</h2>
         {% endif %}
-
-        {% comment %}
-        <a href="{{ exhibition.museum.get_url_path }}"><h3>
-          {% if museum.parent %}
-            {{ museum.parent.street_address }}
-          {% else %} 
-            {{ museum.street_address }}
-          {% endif %}
-        </h3></a>
-        {% endcomment %}
 
         <p>
           <small>
-          {% if museum.parent %}
-            <span class="nobr">{{ museum.parent.street_address }},</span>
-            {% if museum.parent.street_address2 %}
-              <span class="nobr">{{ museum.parent.street_address2 }},</span>
+            <span class="nobr">{{ location.street_address }},</span>
+            {% if location.street_address2 %}
+              <span class="nobr">{{ location.street_address2 }},</span>
             {% endif %}
-            <span class="nobr">{{ museum.parent.postal_code }} {{ museum.parent.city }}</span>
-          {% else %}
-            <span class="nobr">{{ museum.street_address }},</span>
-            {% if museum.street_address2 %}
-              <span class="nobr">{{ museum.street_address2 }},</span>
-            {% endif %}
-            <span class="nobr">{{ museum.postal_code }} {{ museum.city }}</span>
-          {% endif %}
+            <span class="nobr">{{ location.postal_code }} {{ location.city }}</span>
           </small>
         </p>
       </header>
 
-      {% if museum.cover_image %}
+      {% if location.cover_image %}
         <div id="cover_img">
-          <a class="img" href="{{ museum.get_url_path }}">
-            <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ museum.cover_image|modified_path:"museum_list" }}{% if_has_perm "museums.change_museum" museum %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+          <a class="img" href="{{ location.link_url }}">
+            <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ location.cover_image|modified_path:"location_list" }}{% if_has_perm "locations.change_location" location %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
           </a>
         </div>
       {% endif %}
 
       <div class="opening-hours">
-        {% with museum.get_current_season as season %}
+        {% with location.get_current_season as season %}
           {% if season %}
             {% if season.is_appointment_based %}
               <dl>
@@ -94,8 +76,10 @@
         {% endwith %}
       </div>
 
-      <p>{{ museum.get_rendered_description|striptags|truncatewords:"35"|urlize }}</p>
-      <a class="btn btn-default" href="{{ museum.get_url_path }}">{% trans "more" %}</a>
+      <p>{{ location.get_rendered_description|striptags|truncatewords:"35"|urlize }}</p>
+      {% if location.link_url %}
+        <a class="btn btn-default" href="{{ location.link_url }}">{% trans "more" %}</a>
+      {% endif %}
     </article>
   </div>
 {% endwith %}

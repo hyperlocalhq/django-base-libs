@@ -239,6 +239,7 @@ INSTALLED_APPS = (
     "museumsportal.apps.external_services",
     "museumsportal.apps.internal_links",
     "museumsportal.apps.shop",
+    "museumsportal.apps.museumssummer",
 
     # the following apps are copied and converted from jetson
     "museumsportal.apps.mailchimp",
@@ -274,6 +275,9 @@ ADMIN_APP_INDEX = (
             }),
             ('museums', {
                 'models': ('MuseumCategory','MuseumService','AccessibilityOption', 'Museum',),
+            }),
+            ('museumssummer', {
+                'models': ('Location',),
             }),
             ('exhibitions', {
                 'models': ('ExhibitionCategory','Exhibition',),

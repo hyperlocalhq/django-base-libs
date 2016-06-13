@@ -95,8 +95,8 @@ var oMap;
         var lat_max = -500, long_max = -500;
         var aPoints = [];
 
-        var oMarkerImgDefault = new google.maps.MarkerImage(self.settings.STATIC_URL + 'site/img/marker_default.png', null, null, null, new google.maps.Size(25,35));
-        var oMarkerImgSelected = new google.maps.MarkerImage(self.settings.STATIC_URL + 'site/img/marker_selected.png', null, null, null, new google.maps.Size(25,35));
+        var oMarkerImgDefault = new google.maps.MarkerImage(self.MARKER_DEFAULT_IMAGE_PATH || self.settings.STATIC_URL + 'site/img/marker_default.png', null, null, null, new google.maps.Size(25,35));
+        var oMarkerImgSelected = new google.maps.MarkerImage(self.MARKER_SELECTED_IMAGE_PATH || self.settings.STATIC_URL + 'site/img/marker_selected.png', null, null, null, new google.maps.Size(25,35));
 
         var oActiveMarker = null;
 
