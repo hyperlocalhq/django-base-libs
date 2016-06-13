@@ -43,15 +43,15 @@ FRONTEND_LANGUAGES = (
     ('en', u"English"),
 )
 
-OPEN_GRAPH_LOCALE_CHOICES = (
-    ('de_DE', u"Deutsch"),
-    ('en_US', u"English"),
-    ('fr_FR', u"Français"),
-    ('pl_PL', u"Polski"),
-    ('tr_TR', u"Türkçe"),
-    ('es_ES', u"Español"),
-    ('it_IT', u"Italiano"),
-)
+OPEN_GRAPH_LOCALE_MAPPER = {
+    'de': 'de_DE',
+    'en': 'en_US',
+    'fr': 'fr_FR',
+    'pl': 'pl_PL',
+    'tr': 'tr_TR',
+    'es': 'es_ES',
+    'it': 'it_IT',
+}
 
 LANGUAGE_CODE = "de"
 

@@ -53,6 +53,7 @@ PagePermissionInlineAdmin.classes = ['grp-collapse', 'grp-closed']
 class CMSPageOpenGraphInline(admin.StackedInline):
     model = CMSPageOpenGraph
     classes = ['grp-collapse', 'grp-closed']
+    extra = 0
 
 PageAdmin.inlines.append(CMSPageOpenGraphInline)
 

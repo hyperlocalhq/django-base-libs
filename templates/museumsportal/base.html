@@ -13,7 +13,36 @@
 {% endblock %}
 
 {% block open_graph %}
+    {% with open_graph_settings=request.current_page.open_graph_settings %}
+        {% if open_graph_settings %}
+            {# Open Graph settings from CMS page #}
+            <meta property="og:title" content="{{ open_graph_settings.og_title }}"/>
+            <meta property="og:type" content="{{ open_graph_settings.og_type }}" />
+            {% if open_graph_settings.og_image %}
+                <meta property="og:image" content="{{ website_url|slice:":-1" }}{{ MEDIA_URL }}{{ open_graph_settings.og_image|modified_path:"og" }}" />
+            {% else %}
+                <meta property="og:image" content="{{ website_url|slice:":-1" }}{{ STATIC_URL }}site/img/logo/museumsportal-og.jpg" />
+            {% endif %}
+            <meta property="og:image:type" content="image/jpeg" />
+            <meta property="og:image:width" content="600" />
+            <meta property="og:image:height" content="600" />
+            <meta property="og:description" content="{{ open_graph_settings.og_description|escape }}" />
+        {% else %}
+            {# Default Open Graph settings #}
+            <meta property="og:title" content="Museumsportal Berlin"/>
+            <meta property="og:type" content="website" />
+            <meta property="og:image" content="{{ website_url|slice:":-1" }}{{ STATIC_URL }}site/img/logo/museumsportal-og.jpg" />
+            <meta property="og:image:type" content="image/jpeg" />
+            <meta property="og:image:width" content="600" />
+            <meta property="og:image:height" content="600" />
+            <meta property="og:description" content="{{ site_settings.meta_description|escape }}" />
+        {% endif %}
+    {% endwith %}
 {% endblock %}
+<meta property="og:url" content="http://www.museumsportal-berlin.de{{ request.path }}" />
+<meta property="og:site_name" content="Museumsportal Berlin" />
+<meta property="og:locale" content="{{ OPEN_GRAPH_LOCALE }}" />
+{# <meta property="fb:app_id" content="" /> #}
 
 {% block stylesheet %}
   <link href="{{ STATIC_URL }}site/css/bootstrap/bootstrap.css" rel="stylesheet" media="screen, print" type="text/css" />
@@ -94,7 +123,6 @@
     {% endblock %}
 
     <div id="body">
-        {{ request.current_page.pk|pprint|escape }}
       {% block content %}
       {% endblock %}
     </div>
