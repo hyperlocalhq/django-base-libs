@@ -498,7 +498,7 @@ The `<participants>` node contains a list of `<participant>` nodes with such con
 |------|------|----------|-------------|---------|
 | `<prefix_id>` | xs:string | no | Prefix ID | ms-dr |
 | `<first_name>` | xs:string | no | First name of the person | Erika |
-| `<last_name>` | xs:string | yes | Last name of the person | Mustermann |
+| `<last_name>` | xs:string | yes | Last name of the person or a title of a group | Mustermann |
 | `<involvement_type_id>` | xs:string | no | Involvement type ID | musik |
 | `<role_de>` | xs:string | no | Role in German | Rotkäppchen |
 | `<role_en>` | xs:string | no | Role in English | Little Red Riding Hood |
