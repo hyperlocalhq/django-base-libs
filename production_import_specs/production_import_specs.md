@@ -499,12 +499,14 @@ The `<participants>` node contains a list of `<participant>` nodes with such con
 | `<prefix_id>` | xs:string | no | Prefix ID | ms-dr |
 | `<first_name>` | xs:string | no | First name of the person | Erika |
 | `<last_name>` | xs:string | yes | Last name of the person | Mustermann |
-| `<involvement_type_id>` | xs:string | yes | Involvement type ID | musik |
+| `<involvement_type_id>` | xs:string | no | Involvement type ID | musik |
 | `<role_de>` | xs:string | no | Role in German | Rotkäppchen |
 | `<role_en>` | xs:string | no | Role in English | Little Red Riding Hood |
 | `<instrument_de>` | xs:string | no | Instrument in German | Klavier |
 | `<instrument_en>` | xs:string | no | Instrument in English | Piano |
 | `<sort_order>` | xs:integer | yes | Sort order | 1 |
+
+Either `<involvement_type_id>`, or `<role_*>`, or `<instrument_*>` should be provided.
 
 Prefixes and their IDs are these:
 

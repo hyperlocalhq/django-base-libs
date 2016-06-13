@@ -739,7 +739,7 @@
                 <xs:element ref="prefix_id" minOccurs="0"/>
                 <xs:element ref="first_name" minOccurs="0"/>
                 <xs:element ref="last_name"/>
-                <xs:element ref="involvement_type_id"/>
+                <xs:element ref="involvement_type_id" minOccurs="0"/>
                 <xs:element ref="role_de" minOccurs="0"/>
                 <xs:element ref="role_en" minOccurs="0"/>
                 <xs:element ref="instrument_de" minOccurs="0"/>
