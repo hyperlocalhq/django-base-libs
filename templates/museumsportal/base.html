@@ -3,10 +3,10 @@
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
 <title>{% block title %}{% endblock %} Museumsportal Berlin</title>
-<link rel="icon" href="{{ STATIC_URL }}site/img/favicon.ico" type="image/png">
+<link rel="icon" href="{{ STATIC_URL }}site/img/favicon.ico" type="image/png" />
 
 {% block meta_tags %}
   {{ site_settings.get_meta_tags|safe }}
@@ -26,10 +26,12 @@
             <meta property="og:description" content="{{ open_graph_settings.og_description|escape }}" />
         {% else %}
             {# Default Open Graph settings #}
-            <meta property="og:title" content="Museumsportal Berlin"/>
-            <meta property="og:type" content="website" />
+            {% page_attribute "title" as title %}
+            {% page_attribute "meta_description" as meta_description %}
+            <meta property="og:title" content="{{ title|default:"Museumsportal Berlin" }}" />
+            <meta property="og:type" content="{{ title|yesno:"article,website" }}" />
             <meta property="og:image" content="http://{{ request.get_host }}{{ STATIC_URL }}site/img/logo/museumsportal-og.jpg" />
-            <meta property="og:description" content="{{ site_settings.meta_description|escape }}" />
+            <meta property="og:description" content="{{ meta_description|default:site_settings.meta_description|escape }}" />
         {% endif %}
         <meta property="og:image:type" content="image/jpeg" />
         <meta property="og:image:width" content="600" />
