@@ -8,10 +8,11 @@
     {% if object.image %}
       <meta property="og:image" content="{{ current_website_url }}{{ MEDIA_URL }}{{ object.image|modified_path:"og" }}" />
     {% else %}
-      <meta property="og:image" content="{{ current_website_url }}{{ STATIC_URL }}site/img/museumsportal_opengraph.png" />
+      <meta property="og:image" content="{{ current_website_url }}{{ STATIC_URL }}site/img/logo/museumsportal-og.jpg" />
     {% endif %}
-    <meta property="og:url" content="{{ object.get_url }}" />
-    <meta property="og:site_name" content="Museumsportal Berlin" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="600" />
+    <meta property="og:image:height" content="600" />
     <meta property="og:description" content="{{ object.get_rendered_description|striptags|truncatewords:20|escape }}" />
 {% endblock %}
 
