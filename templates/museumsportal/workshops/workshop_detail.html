@@ -6,10 +6,10 @@
 {% block open_graph %}
     <meta property="og:title" content="{{ object.title }}" />
     <meta property="og:type" content="article" />
-    {% if object.image %}
-      <meta property="og:image" content="{{ current_website_url }}{{ MEDIA_URL }}{{ object.image|modified_path:"og" }}" />
+    {% if object.cover_image %}
+      <meta property="og:image" content="http://{{ request.get_host }}{{ MEDIA_URL }}{{ object.cover_image|modified_path:"og" }}" />
     {% else %}
-      <meta property="og:image" content="{{ current_website_url }}{{ STATIC_URL }}site/img/logo/museumsportal-og.jpg" />
+      <meta property="og:image" content="http://{{ request.get_host }}{{ STATIC_URL }}site/img/logo/museumsportal-og.jpg" />
     {% endif %}
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="600" />
