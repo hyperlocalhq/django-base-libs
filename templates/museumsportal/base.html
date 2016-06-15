@@ -188,6 +188,9 @@
               </a>
             </div>
             <ul>
+              <li{% if request.current_page.reverse_id == "uber_uns" %} class="active"{% endif %}>
+                <a href="{% page_url "uber_uns" %}">{% page_attribute "menu_title" "uber_uns" %}</a>
+              </li>
               <li{% if request.current_page.reverse_id == "impressum" %} class="active"{% endif %}>
                 <a href="{% page_url "impressum" %}">{% page_attribute "menu_title" "impressum" %}</a>
               </li>
