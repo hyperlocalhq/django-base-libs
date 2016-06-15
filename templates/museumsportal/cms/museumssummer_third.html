@@ -14,13 +14,14 @@
             {% placeholder "main_content" %}
           </div>
           <div  class="magazine-detail-buttons">
-            <a class="btn btn-info btn-lg" href='..'>{% trans "To the Series" %}</a>
-            <a class="btn btn-info btn-lg" href='../..'>{% trans "To the Magazin" %}</a>
+            <a class="btn btn-info btn-lg" href="..">{% trans "To the Theme" %}</a>
+            <a class="btn btn-info btn-lg" href="../..">{% trans "To the Museums Summer" %}</a>
+            <a class="btn btn-info btn-lg" href="{% url "location_list_map" %}">{% trans "To the Map" %}</a>
           </div>
         </div>
         <div class="hidden-xs hidden-sm col-md-4 col-lg-4">
           {% placeholder "marginal_content" %}
-          <ul id="side_nav">{% show_menu_below_id "magazin" 0 100 0 100 "menu/side_menu.html" %}</ul>
+          <ul id="side_nav">{% show_menu_below_id "museumssommer" 0 100 0 100 "menu/side_menu.html" %}</ul>
         </div>
       </div>
     </div>
