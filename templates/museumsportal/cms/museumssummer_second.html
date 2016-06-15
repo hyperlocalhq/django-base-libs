@@ -17,6 +17,10 @@
 		<div class="container">
 			<div class="row row-md{% if not request.toolbar.edit_mode %} isotope{% endif %} featured">
 				{% with "cms/plugins/editorial_content/ec_magazine_secondlevel_featured_item.html" as editorial_content_template %}
+					{% placeholder "magazine_overview" %}{# TODO: remove when plugins are moved out of this placeholder #}
+					{% placeholder "main_content" %}{# TODO: remove when plugins are moved out of this placeholder #}
+					{% placeholder "marginal_content" %}{# TODO: remove when plugins are moved out of this placeholder #}
+
 				    {% placeholder "series_items_featured" %}
 				{% endwith %}
 			</div>
