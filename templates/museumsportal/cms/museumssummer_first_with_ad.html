@@ -17,15 +17,15 @@
 	    			</div>
                 </div>
 				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-					<a href="{% page_url "museumssommer_quiz" %}"><img src="{{ STATIC_URL }}site/img/museumssummer_quiz.png" class="img-responsive" /></a>
+					<a href="{% page_url "museumssommer_quiz" %}"><img src="{{ STATIC_URL }}site/img/museumssummer_quiz_de.png" class="img-responsive" /></a>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-					<h2>{% trans "Here you can see all museums at a glance" %}</h2>
+					<h2><img alt="{% trans "Here you can see all museums at a glance" %}" src="{{ STATIC_URL }}site/img/museumssummer_all_museums_de.png" class="img-responsive" /></h2>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-					<a href="{% url "location_list_map" %}"><img src="{{ STATIC_URL }}site/img/museumssummer_map.png" class="img-responsive" /></a>
+					<a href="{% url "location_list_map" %}"><img src="{{ STATIC_URL }}site/img/museumssummer_map_de.png" class="img-responsive" /></a>
 				</div>
 			</div>
 			<div class="row{% if not request.toolbar.edit_mode %} isotope{% endif %}">
