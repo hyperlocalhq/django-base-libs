@@ -608,6 +608,13 @@ CMS_TEMPLATES = [
     ('cms/magazine_third.html', gettext(u'Magazine - Third')),
     ('cms/magazine_special_event.html', gettext(u'Magazine – Special Event')),
 
+    ('cms/museumssummer_first.html', gettext(u'Museums Summer – First')),
+    ('cms/museumssummer_first_with_ad.html', gettext(u'Museums Summer – First with ad')),
+    ('cms/museumssummer_second.html', gettext(u'Museums Summer – Second')),
+    ('cms/museumssummer_second_featured.html', gettext(u'Museums Summer – Second - Featured')),
+    ('cms/museumssummer_third.html', gettext(u'Museums Summer - Third')),
+    ('cms/museumssummer_special_event.html', gettext(u'Museums Summer – Special Event')),
+
     ('cms/shop_overview.html', gettext(u'Shop – Overview')),
     ('cms/shop_first.html', gettext(u'Shop – First')),
 
