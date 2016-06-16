@@ -6,47 +6,47 @@
         <title>Creative City Berlin – {{ campaign.subject }}</title>
         <meta name="description" content=""/>
         <meta name="keywords" content=""/>
-        
+
         <style type="text/css">
-        
+
             a {
                 color:#00bcee; text-decoration:none
             }
-            
+
             .apple-link-date a {
                 font-family:Arial, Helvetica, sans-serif;
-                font-size:12px; 
-                line-height:16px; 
+                font-size:12px;
+                line-height:16px;
                 color:#000000;
                 text-decoration: none;
             }
-            
+
             .apple-link-address a {
                 font-family:Arial, Helvetica, sans-serif;
-                font-size:12px; 
-                font-weight:normal; 
-                line-height:20px; 
+                font-size:12px;
+                font-weight:normal;
+                line-height:20px;
                 color:#afaeae;
                 text-decoration: none;
             }
         </style>
     </head>
     <body style="font-smoothing: antialiased; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-font-smoothing: antialiased; -o-font-smoothing: antialiased; width:100% !important; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; margin:0; padding:0; background-color:#d7d9df;">
-        
+
 <!--Center Content-->
 <table width="100%" height="100%" cellspacing="0" cellpadding="0" style="margin:0;padding:0;width:100%!important; border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;background-color:#d7d9df;color:#787878;-webkit-text-size-adjust:none;font-family:Arial, Helvetica, sans-serif;font-size:12px; line-height:18px;">
   <tr>
     <td height="50"><span style="font-size:2px;">&nbsp;</span></td>
   <tr>
     <td align="center" style="border-collapse:collapse;"><!--Container white Outline -->
-      
+
       <table width="620" cellspacing="0" cellpadding="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;">
         <tr>
-          <td  style="border:10px solid #FFFFFF;"><!-- Content Starts here --> 
+          <td  style="border:10px solid #FFFFFF;"><!-- Content Starts here -->
             <!-- Header, Logo, Links -->
-            
-            
-            
+
+
+
             <table width="600" cellspacing="0" cellpadding="0" bgcolor="#000000" style="mso-table-lspace:0pt;mso-table-rspace:0pt;padding:0px;margin:0px;">
               <tr>
                 <td width="20"><span style="font-size:2px;">&nbsp;</span></td>
@@ -59,15 +59,15 @@
                 <td width="20"><span style="font-size:2px;">&nbsp;</span></td>
               </tr>
             </table>
-            
-            
+
+
             <!-- Full Size Image -->
             {% load slideshows_tags %}
             {% slideshow "newsletter_header_de" using "mailchimp/campaign/includes/header.html" %}
-            
-            
+
+
             <!-- Full Size Text -->
-            
+
             <table width="600" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" style="mso-table-lspace:0pt;mso-table-rspace:0pt;padding:0px;margin:0px;">
               <tr>
                 <td colspan="3" height="20"><span style="font-size:2px;">&nbsp;</span></td>
@@ -81,21 +81,21 @@
               </tr>
             </table>
 
-            
-            
+
+
             {% for block in campaign.mailingcontentblock_set.all %}
                 {{ block.get_rendered_content|force_full_urls }}
             {% endfor %}
-            
-            
-                          
+
+
+
               <!-- Footer -->
               <table width="600" height="40" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" style="mso-table-lspace:0pt;mso-table-rspace:0pt;padding:0px;margin:0px; border-collapse:collapse;">
               <tr>
                 <td width="600"><span style="font-size:2px; line-height:40px;">&nbsp;</span></td>
               </tr>
               </table>
-              
+
               <table width="600" height="60" cellspacing="0" cellpadding="0" bgcolor="#000000" style="mso-table-lspace:0pt;mso-table-rspace:0pt;padding:0px;margin:0px; border-collapse:collapse;">
               <tr>
                 <td width="20"><span style="font-size:2px;">&nbsp;</span>
@@ -187,19 +187,36 @@
                                     Klosterstraße 68<br />
                                     10179 Berlin<br /><br />
                                 </span>
-                                <span style="color:#ffffff;">Präsentiert von:</span><br />
-                                Kulturprojekte Berlin<br /><br />
-                                <span style="color:#ffffff;">Gefördert von:</span><br />
-                                Projekt Zukunft / Be Berlin / European Union / EFRE
-                                
-                          </td>
+                                <span style="color:#ffffff;">Präsentiert von:</span><br /><br/>
+                                <a href="http://www.kulturprojekte-berlin.de/" target="_blank">
+                                    <img width="92" height="40" src="http://www.creative-city-berlin.de/static/0/site/img/footer/kpb_logo.gif" alt="Kulturprojekte Berlin" />
+                                </a><br /><br />
+                                <span style="color:#ffffff;">Gefördert von:</span><br /><br/>
+                                <div style="background:#ffffff;">
+                                    <a href="http://www.berlin.de/sen/wirtschaft/gruenden-und-foerdern/europaeische-strukturfonds/efre/" target="_blank">
+                                        <img width="105" height="40" src="http://www.creative-city-berlin.de/static/0/site/img/footer/eu_logo.gif" alt="EU"/>
+                                    </a>
+                                    <a href="https://www.berlin.de/sen/kultur/foerderung/eu-foerderung/efre/foerderperiode-2007-2013/artikel.81646.php" target="_blank">
+                                        <img width="61" height="40" src="http://www.creative-city-berlin.de/static/0/site/img/footer/efre_2013-2015.gif" alt="EFRE" class="footer-logo" />
+                                    </a>
+                                    <a href="https://www.berlin.de/sen/kultur/foerderung/eu-foerderung/efre/foerderperiode-2014-2020/artikel.81647.php" target="_blank">
+                                        <img width="87" height="40" src="http://www.creative-city-berlin.de/static/0/site/img/footer/inp_2016-2018.gif" alt="Innovatives Potential KULTUR" class="footer-logo" />
+                                    </a>
+                                    <a href="http://www.berlin.de/projektzukunft/" target="_blank">
+                                        <img width="98" height="40" src="http://www.creative-city-berlin.de/static/0/site/img/footer/projektzukunft.gif" alt="Projektzukunft" class="footer-logo" />
+                                    </a>
+                                    <a href="http://www.berlin.de/sen/kultur/" target="_blank">
+                                        <img width="47" height="40" src="http://www.creative-city-berlin.de/static/0/site/img/footer/be_berlin.gif" alt="Be Berlin" class="footer-logo" />
+                                    </a>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td height="20"><span style="font-size:2px;">&nbsp;</span>
                             </td>
                         </tr>
                     </table>
-                
+
                 </td>
                 <td width="20"><span style="font-size:2px;">&nbsp;</span>
                 </td>
@@ -210,7 +227,7 @@
             </td>
         </tr>
       </table>
-      
+
       </td>
   </tr>
 </table>

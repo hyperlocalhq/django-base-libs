@@ -868,6 +868,7 @@ BROKER_TRANSPORT_OPTIONS = {
     'fanout_prefix': True,
     'visibility_timeout': 3600
 }
+BROKER_POOL_LIMIT = 0
 
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
