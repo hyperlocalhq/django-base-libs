@@ -1,6 +1,14 @@
 {% extends "bulletin_board/details_base.html" %}
 {% load image_mods_tags bulletin_board_tags i18n favorites %}
 
+{% block open_graph %}
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{ object.get_title }}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="http://{{ request.get_host }}{{ STATIC_URL }}site/img/default/ccb_opengraph.jpg" />
+    <meta property="og:description" content="{{ object.get_description|striptags|truncatewords:20|escape }}" />
+{% endblock %}
+
 {% block sidebar %}
     
     {{ block.super }}

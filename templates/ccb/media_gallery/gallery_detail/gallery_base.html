@@ -3,18 +3,16 @@
 {% load favorites %}
 
 {% block open_graph %}
-    <meta property="og:title" content="{{ gallery.get_title }}"/>
-    <meta property="og:type" content="album"/>
+    <meta property="og:title" content="{{ gallery.get_title }}" />
+    <meta property="og:type" content="album" />
     {% if gallery.cover_image %}
-        <meta property="og:image" content="{{ website_url|slice:":-1" }}{{ UPLOADS_URL }}{{ gallery.cover_image.path }}"/>
+        <meta property="og:image" content="http://{{ request.get_host }}{{ MEDIA_URL }}{{ gallery.cover_image.path }}" />
     {% elif gallery.mediafile_set.all.0.get_list_image_url %}
-        <meta property="og:image" content="{{ website_url|slice:":-1" }}{{ gallery.mediafile_set.all.0.get_list_image_url }}"/>
+        <meta property="og:image" content="http://{{ request.get_host }}{{ gallery.mediafile_set.all.0.get_list_image_url }}" />
     {% else %}
-        <meta property="og:image" content="{{ website_url|slice:":-1" }}{{ STATIC_URL }}site/img/default/ccb_logo.gif"/>
+        <meta property="og:image" content="http://{{ request.get_host }}{{ STATIC_URL }}site/img/default/ccb_opengraph.jpg" />
     {% endif %}
-    <meta property="og:url" content="{{ gallery.get_url }}"/>
-    <meta property="og:site_name" content="{{ site_settings.site.name }}"/>
-    <meta property="og:description" content="{{ gallery.get_title }} {% trans "of" %} {{ gallery.content_object }}"/>
+    <meta property="og:description" content="{{ gallery.get_title }} {% trans "of" %} {{ gallery.content_object }}" />
 {% endblock %}
 
 

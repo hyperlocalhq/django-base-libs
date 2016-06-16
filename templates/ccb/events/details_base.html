@@ -3,6 +3,18 @@
 
 {% block title %}{{ object.get_title|escape }}{% endblock %}
 
+{% block open_graph %}
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{ object.get_title }}" />
+    <meta property="og:type" content="article" />
+    {% if object.image %}
+        <meta property="og:image" content="http://{{ request.get_host }}{{ MEDIA_URL }}{{ object.image|modified_path:"og" }}" />
+    {% else %}
+        <meta property="og:image" content="http://{{ request.get_host }}{{ STATIC_URL }}site/img/default/ccb_opengraph.jpg" />
+    {% endif %}
+    <meta property="og:description" content="{{ object.get_description|striptags|truncatewords:20|escape }}" />
+{% endblock %}
+
 {% block meta_tags %}
     {{ block.super }}
     <meta name="description" content="{{ object.get_description|striptags|truncatewords:100 }}..."/>

@@ -67,6 +67,11 @@ LANGUAGES = (
     ("de", gettext("German")),
 )
 
+OPEN_GRAPH_LOCALE_MAPPER = {
+    'de': 'de_DE',
+    'en': 'en_US',
+}
+
 LANGUAGE_CODE = "de"
 
 
@@ -127,14 +132,11 @@ INSTALLED_APPS = [
     "djangocms_video",
 
     ### plug-ins for django-cms ###
-    "jetson.apps.cms_extensions.plugins.richtext",
-    "jetson.apps.cms_extensions.plugins.filebrowser_image",
-    "jetson.apps.cms_extensions.plugins.gmap",
-    "jetson.apps.cms_extensions.plugins.headline",
+    "ccb.apps.cms_extensions.plugins.richtext",
+    "ccb.apps.cms_extensions.plugins.filebrowser_image",
+    "ccb.apps.cms_extensions.plugins.gmap",
+    "ccb.apps.cms_extensions.plugins.headline",
     "ccb.apps.editorial",
-
-    ### base libs ###
-    # "base_libs",
 
     ### jetson apps ###
     "jetson.apps.image_mods",
@@ -189,6 +191,7 @@ INSTALLED_APPS = [
     "ccb.apps.counselling_blog",
     "ccb.apps.counselling_events",
     "ccb.apps.curated_lists",
+    "ccb.apps.cms_extensions",
     "ccb",  # just for i18n in Javascript
     "actstream",
 ]

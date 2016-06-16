@@ -1,5 +1,5 @@
 {% block doctype %}<!DOCTYPE html>{% endblock %}
-{% load i18n base_tags cms_tags menu_tags sekizai_tags %}
+{% load i18n base_tags cms_tags menu_tags sekizai_tags image_mods_tags %}
 <html lang="{{ LANGUAGE_CODE }}">
     <head>
 
@@ -37,18 +37,36 @@
         <meta name="msapplication-square310x310logo" content="{{ STATIC_URL }}site/favicons/mstile-310x310.png" />
 
         {% block open_graph %}
-            <meta property="og:title" content="{{ site_settings.site.name }}"/>
-            <meta property="og:type" content="website"/>
-            <meta property="og:image" content="{{ website_url|slice:":-1" }}{{ STATIC_URL }}site/img/default/ccb_opengraph.jpg" />
-            <meta property="og:image:type" content="image/jpeg" />
-            <meta property="og:image:width" content="600" />
-            <meta property="og:image:height" content="600" />
-            <meta property="og:url" content="http://www.creative-city-berlin.de/{{ LANGUAGE_CODE }}/" />
-            <meta property="og:site_name" content="Creative City Berlin" />
-            <meta property="og:description" content="{% trans "Portal for the cultural sector and the creative industries" %}" />
-            <meta property="fb:app_id" content="217188838296370" />
+            {% with open_graph_settings=request.current_page.get_title_obj.opengraph %}
+                {% if open_graph_settings %}
+                    {# Open Graph settings from CMS page #}
+                    <meta property="og:title" content="{{ open_graph_settings.og_title }}"/>
+                    <meta property="og:type" content="{{ open_graph_settings.og_type }}" />
+                    {% if open_graph_settings.og_image %}
+                        <meta property="og:image" content="http://{{ request.get_host }}{{ MEDIA_URL }}{{ open_graph_settings.og_image|modified_path:"og" }}" />
+                    {% else %}
+                        <meta property="og:image" content="http://{{ request.get_host }}{{ STATIC_URL }}site/img/logo/museumsportal-og.jpg" />
+                    {% endif %}
+                    <meta property="og:description" content="{{ open_graph_settings.og_description|escape }}" />
+                {% else %}
+                    {# Default Open Graph settings #}
+                    {% page_attribute "title" as title %}
+                    {% page_attribute "meta_description" as meta_description %}
+                    <meta property="og:title" content="{{ title|default:"Creative City Berlin" }}" />
+                    <meta property="og:type" content="{{ title|yesno:"article,website" }}" />
+                    <meta property="og:image" content="http://{{ request.get_host }}{{ STATIC_URL }}site/img/default/ccb_opengraph.jpg" />
+                    <meta property="og:description" content="{{ meta_description|default:site_settings.meta_description|escape }}" />
+                {% endif %}
+                <meta property="og:image:type" content="image/jpeg" />
+                <meta property="og:image:width" content="600" />
+                <meta property="og:image:height" content="600" />
+            {% endwith %}
         {% endblock %}
-        
+        <meta property="og:url" content="http://{{ request.get_host }}{{ request.path }}" />
+        <meta property="og:site_name" content="Creative City Berlin" />
+        <meta property="og:locale" content="{{ OPEN_GRAPH_LOCALE }}" />
+        <meta property="fb:app_id" content="217188838296370" />
+
         <link href='https://fonts.googleapis.com/css?family=Lato:400,400italic,700,700italic,300,300italic,900' rel='stylesheet' type='text/css'>
         <link href="{{ STATIC_URL }}site/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen, print" type="text/css" />
         <link href="{{ STATIC_URL }}site/css/style.css" rel="stylesheet" media="screen, print" type="text/css" />

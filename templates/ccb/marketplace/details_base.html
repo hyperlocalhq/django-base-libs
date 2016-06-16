@@ -11,10 +11,18 @@
     {% endif %}
 {% endblock %}
 
+{% block open_graph %}
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{ object.position }} @ {% if object.offering_institution or object.offering_institution_title %}{% if object.offering_institution %}{{ object.offering_institution.get_title }}{% else %}{{ object.offering_institution_title }}{% endif %}{% endif %}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="http://{{ request.get_host }}{{ STATIC_URL }}site/img/default/ccb_opengraph.jpg" />
+    <meta property="og:description" content="{{ object.get_description|striptags|truncatewords:20|escape }}" />
+{% endblock %}
 
 {% block title %}
-    {{ object.position }} @ 
+    {{ object.position }}
     {% if object.offering_institution or object.offering_institution_title %}
+        @
         {% if object.offering_institution %}
             {{ object.offering_institution.get_title }}
         {% else %}

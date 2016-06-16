@@ -24,8 +24,7 @@
             {% block open_graph %}
                 <meta property="og:title" content="Creative City Berlin"/>
                 <meta property="og:type" content="website"/>
-                <meta property="og:image"
-                    content="http://www.creative-city-berlin.de{{ STATIC_URL }}site/img/website/c_logo.png"/>
+                <meta property="og:image" content="http://{{ request.get_host }}{{ STATIC_URL }}site/img/default/ccb_opengraph.jpg" />
                 <meta property="og:url" content="http://www.creative-city-berlin.de/"/>
                 <meta property="og:site_name" content="Creative City Berlin"/>
                 <meta property="og:description"

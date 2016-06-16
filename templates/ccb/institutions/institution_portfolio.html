@@ -3,15 +3,12 @@
 
 {% block open_graph %}
     <meta property="og:title" content="{{ gallery.get_title }}"/>
-    <meta property="og:type" content="album"/>
+    <meta property="og:type" content="album" />
     {% if gallery.cover_image %}
-        <meta property="og:image" content="http://www.creative-city-berlin.de
-                {{ UPLOADS_URL }}{{ gallery.cover_image.path|modified_path:"glist" }}"/>
+        <meta property="og:image" content="http://{{ request.get_host }}{{ MEDIA_URL }}{{ gallery.cover_image|modified_path:"og" }}"/>
     {% else %}
         <meta property="og:image" content="{{ gallery.mediafile_set.all.0.get_list_image_url }}"/>
     {% endif %}
-    <meta property="og:url" content="{{ gallery.get_url }}"/>
-    <meta property="og:site_name" content="Creative City Berlin"/>
 {% endblock %}
 
 {% block extrahead %}
