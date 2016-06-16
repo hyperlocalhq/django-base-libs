@@ -607,8 +607,8 @@ class ProductionResource(ModelResource):
             'in_program_of', 'play_locations', 'play_stages', 'categories', 'characteristics',
             'productionleadership_set__person', 'productionauthorship_set__person', 'productionauthorship_set__authorship_type', 'productioninvolvement_set__person', 'productioninvolvement_set__involvement_type',
             'productionvideo_set', 'productionlivestream_set', 'productionimage_set', 'productionpdf_set',
-            'productionsocialmediachannel_set', 'language_and_subtitles', 'sponsors',
-            'event_set__play_locations', 'event_set__play_stages', 'event_set__characteristics', 'event_set__sponsors',
+            'productionsocialmediachannel_set', 'language_and_subtitles',
+            'event_set__play_locations', 'event_set__play_stages', 'event_set__characteristics',
             'event_set__eventleadership_set__person', 'event_set__eventauthorship_set__person', 'event_set__eventauthorship_set__authorship_type', 'event_set__eventinvolvement_set__person', 'event_set__eventinvolvement_set__involvement_type',
             'event_set__eventvideo_set', 'event_set__eventlivestream_set', 'event_set__eventimage_set', 'event_set__eventpdf_set',
         )
