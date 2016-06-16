@@ -18,8 +18,6 @@
     {% else %}
         <meta property="og:image" content="{{ current_website_url }}{{ STATIC_URL }}site/img/berlinbuehnen_opengraph.png" />
     {% endif %}
-    <meta property="og:url" content="{{ object.get_url }}" />
-    <meta property="og:site_name" content="Berlin Bühnen" />
     <meta property="og:description" content="{{ object.get_rendered_description|striptags|truncatewords:20|escape }}" />
 {% endblock %}
 

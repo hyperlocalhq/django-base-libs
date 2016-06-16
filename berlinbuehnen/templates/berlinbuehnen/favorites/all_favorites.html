@@ -13,11 +13,9 @@
 
 {% block title %}{% trans "Favorites" %}{% endblock %}
 {% block open_graph %}
-    <meta property="og:url" content="{{ request.build_absolute_uri  }}" />
     <meta property="og:image" content="http://www.berlin-buehnen.de/media/logo_berlinbuehnen_fb_v3.png" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="{{ list_options.title|default:_("Favorites") }}" />
-    <meta property="og:site_name" content="{{ list_options.title|default:_("Favorites") }}" />
     {% if list_options.description_striped %}<meta property="og:description" content="{{ list_options.description_striped|urlize|striptags }}" />{% endif %}
 {% endblock %}
 

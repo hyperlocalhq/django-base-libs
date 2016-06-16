@@ -39,6 +39,11 @@ FRONTEND_LANGUAGES = (
     ('en', u"English"),
 )
 
+OPEN_GRAPH_LOCALE_MAPPER = {
+    'de': 'de_DE',
+    'en': 'en_US',
+}
+
 LANGUAGE_CODE = "de"
 
 SITE_ID = 1
@@ -206,11 +211,6 @@ INSTALLED_APPS = (
 
     ### jetson apps ###
     "jetson.apps.i18n",
-    "jetson.apps.cms_extensions",
-    "jetson.apps.cms_extensions.plugins.richtext",
-    "jetson.apps.cms_extensions.plugins.filebrowser_image",
-    "jetson.apps.cms_extensions.plugins.gmap",
-    "jetson.apps.cms_extensions.plugins.headline",
     "jetson.apps.image_mods",
     "jetson.apps.httpstate",
     "jetson.apps.history",
@@ -244,6 +244,11 @@ INSTALLED_APPS = (
     "berlinbuehnen.apps.accounts",
     "berlinbuehnen.apps.favorites",
     "berlinbuehnen.apps.site_specific",
+    "berlinbuehnen.apps.cms_extensions",
+    "berlinbuehnen.apps.cms_extensions.plugins.richtext",
+    "berlinbuehnen.apps.cms_extensions.plugins.filebrowser_image",
+    "berlinbuehnen.apps.cms_extensions.plugins.gmap",
+    "berlinbuehnen.apps.cms_extensions.plugins.headline",
 )
 
 

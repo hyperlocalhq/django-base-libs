@@ -9,10 +9,8 @@
 {% endblock %}
 
 {% block open_graph %}
-    <meta property="og:url" content="{{ request.build_absolute_uri  }}" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="{{ article.title|escape }}" />
-    <meta property="og:site_name" content="{{ article.title|escape }}" />
     {% if article.image %}
         <meta property="og:image" content="http://www.berlin-buehnen.de{{ UPLOADS_URL }}{{ article.image|modified_path:"detail_image" }}" />
     {% endif %}
