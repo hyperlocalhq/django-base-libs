@@ -1,6 +1,6 @@
 {% extends "cms/museumssummer_base.html" %}
 {% load cms_tags menu_tags i18n %}
-{% block bodyclass %}magazine-secondlevel{% endblock %}
+{% block bodyclass %}magazine-secondlevel museumssommer{% endblock %}
 
 {% block content %}
 	<div class="content">
@@ -10,7 +10,7 @@
 					{% placeholder "intro" %}
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-					<a href="{% url "location_list_map" %}"><img alt="{% trans "To the Map" %}" src="{{ STATIC_URL }}site/img/museumssummer_map_de.png" class="img-responsive" /></a>
+					<a href="{% page_url "museumssommer_map" %}"><img alt="{% trans "Map" %}" src="{{ STATIC_URL }}site/img/museumssummer/map_{% if LANGUAGE_CODE == "de" %}de{% else %}en{% endif %}.png" class="img-responsive" /></a>
 				</div>
 			</div>
 		</div>

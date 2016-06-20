@@ -1,12 +1,18 @@
 {% extends "cms/museumssummer_base.html" %}
 {% load cms_tags i18n %}
+{% block bodyclass %}museumssommer{% endblock %}
 
 {% block content %}
 	<div class="content">
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="relative">
+                        <img class="img-responsive" alt="{% page_attribute "title" %}" src="{{ STATIC_URL }}site/img/museumssummer/logo_{% if LANGUAGE_CODE == "de" %}de{% else %}en{% endif %}.png" />
+                        <h1>{% page_attribute "title" %}</h1>
+                    </div>
 					{% placeholder "intro" %}
+                    {% placeholder "ad" %}
 				</div>
 			</div>
 			<div class="row">
@@ -16,15 +22,14 @@
     				</div>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-					<a href="{% page_url "museumssommer_quiz" %}"><img alt="{% trans "To the Quiz" %}" src="{{ STATIC_URL }}site/img/museumssummer_quiz_de.png" class="img-responsive" /></a>
+					<a href="{% page_url "museumssommer_quiz" %}"><img alt="{% trans "Quiz" %}" src="{{ STATIC_URL }}site/img/museumssummer/quiz_{% if LANGUAGE_CODE == "de" %}de{% else %}en{% endif %}.png" class="img-responsive" /></a>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-					<h2><img alt="{% trans "Here you can see all museums at a glance" %}" src="{{ STATIC_URL }}site/img/museumssummer_all_museums_de.png" class="img-responsive" /></h2>
-				</div>
 				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-					<a href="{% url "location_list_map" %}"><img alt="{% trans "To the Map" %}" src="{{ STATIC_URL }}site/img/museumssummer_map_de.png" class="img-responsive" /></a>
+                </div>
+				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+					<a href="{% page_url "museumssommer_map" %}"><img alt="{% trans "Map" %}" src="{{ STATIC_URL }}site/img/museumssummer/map_{% if LANGUAGE_CODE == "de" %}de{% else %}en{% endif %}.png" class="img-responsive" /></a>
 				</div>
 			</div>
 			<div class="row{% if not request.toolbar.edit_mode %} isotope{% endif %}">
