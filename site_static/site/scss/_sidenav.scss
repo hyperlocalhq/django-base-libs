@@ -1,3 +1,5 @@
+// main:style.scss
+
 #side_nav {
   a {
     padding-left: 25px !important;
@@ -11,6 +13,7 @@
     > a {
       background-color: #f2f2f2 !important;
       color: black !important;
+      font-weight: bold;
       // padding-top: 8px;
       // padding-bottom: 8px;
       // margin-top: -2px;
@@ -20,7 +23,7 @@
   li {
     list-style: none !important;
   }
-  
+
  > li {
     border: none;
     border-bottom: 5px solid white;
