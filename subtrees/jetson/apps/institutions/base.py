@@ -281,11 +281,11 @@ class InstitutionBase(CreationModificationDateMixin, UrlMixin, OpeningHoursMixin
         
     def get_absolute_url(self):
         from django.conf import settings
-        return "%s%s/%s/" % (get_website_url(), URL_ID_INSTITUTION, self.slug)        
+        return "%snetwork/member/%s/" % (get_website_url(), self.slug)
     
     def get_url_path(self):
         from django.conf import settings
-        return "/%s/%s/" % (URL_ID_INSTITUTION, self.slug)        
+        return "/network/member/%s/" % (self.slug, )
     
     def get_title(self):
         return u", ".join([force_unicode(item) for item in (self.title, self.title2) if item]).strip()
