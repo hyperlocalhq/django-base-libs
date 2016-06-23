@@ -351,7 +351,7 @@ class PersonBase(CreationModificationDateMixin, UrlMixin):
         return "%snetwork/member/%s/" % (get_website_url(), self.user.username)
     
     def get_url_path(self):
-        return "/network/member/%s/" % (URL_ID_PERSON, self.user.username)
+        return "/network/member/%s/" % (self.user.username, )
     
     def get_context_categories(self):
         return self.context_categories.all()
