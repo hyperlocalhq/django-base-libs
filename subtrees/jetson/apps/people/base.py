@@ -348,10 +348,10 @@ class PersonBase(CreationModificationDateMixin, UrlMixin):
         return False
     
     def get_absolute_url(self):
-        return "%s%s/%s/" % (get_website_url(), URL_ID_PERSON, self.user.username)
+        return "%snetwork/member/%s/" % (get_website_url(), self.user.username)
     
     def get_url_path(self):
-        return "/%s/%s/" % (URL_ID_PERSON, self.user.username)
+        return "/network/member/%s/" % (URL_ID_PERSON, self.user.username)
     
     def get_context_categories(self):
         return self.context_categories.all()
