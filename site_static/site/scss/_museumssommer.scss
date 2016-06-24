@@ -1,0 +1,32 @@
+// main:style.scss
+
+.museumssommer {
+
+    .museumssommer-button {
+        display: block;
+        width: 100%;
+        overflow: hidden;
+
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+
+            &:last-child {
+                display: none;
+            }
+        }
+
+        &:hover, &:active, &:focus {
+            img {
+                display: none;
+                opacity: 1;
+
+                &:last-child {
+                    display: block;
+                }
+            }
+        }
+    }
+
+}
