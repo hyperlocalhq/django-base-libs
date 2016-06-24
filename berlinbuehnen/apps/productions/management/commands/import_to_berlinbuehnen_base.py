@@ -123,7 +123,7 @@ class ImportToBerlinBuehnenBase(NoArgsCommand):
             r = requests_session.get(next_page)
             if r.status_code != 200:
                 print(u"Error status: %s" % r.status_code)
-                return
+                break # we want to show summary even if at some point the import breaks
             root_node = ElementTree.fromstring(r.content)
             next_page = self.get_child_text(root_node.find('./meta'), "next")
             productions_node = root_node.find('./productions')
