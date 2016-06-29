@@ -136,8 +136,6 @@
                                     </h1>
                                     {% if event.production.subtitle %}
                                         <h2>{{ event.production.subtitle }}</h2>
-                                    {% elif event.ev_or_prod_subtitles_text %}
-                                        <h2>{{ event.ev_or_prod_subtitles_text|disarm_user_input }}</h2>
                                     {% endif %}
                                     {% if event.production.original %}<h2>{{ event.production.original }}</h2>{% endif %}
                                 </header>
@@ -160,11 +158,14 @@
                                                     {% if event.ev_or_prod_teaser %}{{ event.ev_or_prod_teaser }}{% endif %}
                                                     {{ event.ev_or_prod_description }}
                                                 </div>
-                                                {% if event.ev_or_prod_language_and_subtitles or event.humanized_duration or event.ev_or_prod_duration_text or event.pauses or event.production.website %}
+                                                {% if event.ev_or_prod_language_and_subtitles or event.humanized_duration or event.ev_or_prod_duration_text or event.pauses or event.production.website or event.ev_or_prod_subtitles_text %}
                                                     <dl class="listing">
                                                         {% if event.ev_or_prod_language_and_subtitles %}
                                                             <dt>{% trans "Language" %}</dt>
                                                             <dd>{{ event.ev_or_prod_language_and_subtitles }}</dd>
+                                                        {% elif event.ev_or_prod_subtitles_text %}
+                                                            <dt>{% trans "Language" %}</dt>
+                                                            <dd>{{ event.ev_or_prod_subtitles_text|disarm_user_input|removetags:"h1 h2 h3 h4 h5 h6 p" }}</dd>
                                                         {% endif %}
                                                         {% if event.humanized_duration or event.ev_or_prod_duration_text %}
                                                             <dt>{% trans "Duration" %}</dt>
