@@ -1117,7 +1117,7 @@ LOGGING = {
 import raven
 
 RAVEN_CONFIG = {
-    'dsn': 'http://ffc5ae7c26dd49ed8f14ca113cb0f7de:29e74466fdaa4af7a245f7a3eae16543@sentry.jetsonproject.org/2',
+    'dsn': 'http://ffc5ae7c26dd49ed8f14ca113cb0f7de:29e74466fdaa4af7a245f7a3eae16543@46.101.101.159/2',
     # If you are using git, you can also automatically configure the
     # release based on the git info.
     'release': raven.fetch_git_sha(os.path.dirname(__file__)),
