@@ -19,27 +19,65 @@
     {% endif %}
 {% endblock %}
 
-{% block headline %}
-    <h1>{% trans "Events" %}</h1>
-    <p></p>
-{% endblock %}
-
-{% block details %}
-    {% if object_list %}
-        <div class="row event-list">
-            {% for date in object_list %}
-                {% with event=date.event %}
-                    {% ifchanged date.start|date:'D, d. m. Y' %}<h2 class="date">{{ date.start|date:'D, d. m. Y' }}</h2>{% endifchanged %}
-                    {% include "counselling_events/lists/event.html" %}
-                {% endwith %}
-            {% endfor %}
+{% block content %}
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{% trans "Events" %}</h1>
+                    <p></p>
+                </div>
+            </div>
         </div>
-        {% include "utils/includes/pagination.html" %}
-    {% else %}
-        <p>{% trans "No objects found within the selected conditions." %}</p>
-    {% endif %}
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                {% if object_list %}
+                    <div class="row event-list">
+                        {% for date in object_list %}
+                            {% with event=date.event %}
+                                {% ifchanged date.present_then_past %}
+                                    {% if date.present_then_past == 1 %}
+                                        {# When switching from current to past events, display the header again #}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{% trans "Past Events" %}</h1>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                <div class="row event-list">
+                                    {% endif %}
+                                {% endifchanged %}
+                                {% ifchanged date.start|date:'D, d. m. Y' %}<h2 class="date">{{ date.start|date:'D, d. m. Y' }}</h2>{% endifchanged %}
+                                {% include "counselling_events/lists/event.html" %}
+                            {% endwith %}
+                        {% endfor %}
+                    </div>
+                    {% include "utils/includes/pagination.html" %}
+                {% else %}
+                    <p>{% trans "No objects found within the selected conditions." %}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
-
 
 {% block javascript %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/event-list.js"></script>
