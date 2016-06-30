@@ -32,6 +32,7 @@ class CuratedList(
     title = MultilingualCharField(_("Title"), max_length=255)
     sort_order = models.IntegerField(_("Sort order"), blank=True, default=0)
     privacy = models.CharField(_("Privacy"), max_length=20, choices=PRIVACY_CHOICES, default="public")
+    is_featured = models.BooleanField(_("Featured"), default=False)
 
     class Meta:
         verbose_name = _("Curated List")
