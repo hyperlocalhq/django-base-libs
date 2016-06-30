@@ -41,7 +41,6 @@
         {% endblock %} -->
         <div class="article-content row">
             <div class="col-xs-12  col-md-8">
-                <div class="article-date">{{ article.published_from|datefmt:"long" }}</div>
                 {% if article.category.title %}<h2 class="article-category">{{ article.category.title }}</h2>{% endif %}
                 <h1>{{ article.title|escape }}</h1>
                 {% if article.subtitle %}
