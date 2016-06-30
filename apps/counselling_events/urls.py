@@ -4,7 +4,7 @@ from jetson.apps.utils.context_processors import prev_next_processor
 from ccb.apps.events.models import Event, EventTime
 
 event_list_info = {
-    'queryset': EventTime.objects.all(),
+    'queryset': EventTime.objects.filter(event__status__in=["published", "expired"]),
     'allow_empty': True,
     'context_processors': (prev_next_processor,),
     'paginate_by': 24,
