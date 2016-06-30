@@ -144,7 +144,8 @@ def event_list(request, year=None, month=None, day=None):
         if cats:
             facets['selected']['language_and_subtitles'] = cats
             qs = qs.filter(
-                production__language_and_subtitles__in=cats,
+                models.Q(language_and_subtitles__in=cats) |
+                models.Q(production__language_and_subtitles__in=cats),
             ).distinct()
             
         prodcats = form.cleaned_data['production_characteristics']
