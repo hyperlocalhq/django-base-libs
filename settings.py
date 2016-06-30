@@ -508,6 +508,12 @@ MAILING_DEFAULT_FROM_EMAIL = "ccb-contact@kulturprojekte-berlin.de"
 execfile(os.path.join(JETSON_PATH, "jetson/settings/grappelli.py"))
 GRAPPELLI_ADMIN_HEADLINE = "Creative City Admin"
 
+GRAPPELLI_AUTOCOMPLETE_SEARCH_FIELDS = {
+    "auth": {
+        "user": ("id__iexact", "username__icontains", "first_name__icontains", "last_name__icontains", "email__icontains",)
+    }
+}
+
 ### COMPRESS ###
 
 execfile(os.path.join(JETSON_PATH, "jetson/settings/pipeline.py"))

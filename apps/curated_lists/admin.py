@@ -22,16 +22,20 @@ class ListItemInline(admin.StackedInline):
 
 
 class CuratedListAdmin(admin.ModelAdmin):
-    list_display = ['title', 'owner', 'get_list_item_count', 'privacy', 'sort_order']
+    list_display = ['title', 'owner_content_object', 'get_list_item_count', 'privacy', 'sort_order']
     list_editable = ['privacy', 'sort_order']
     list_filter = ['privacy']
     inlines = [ListItemInline]
 
     fieldsets = get_admin_lang_section(_("Title"), ['title']) + [
-        (None, {'fields': ['slug', 'owner', 'privacy', 'sort_order']}),
+        (None, {'fields': ['slug', 'owner_content_type', 'owner_object_id', 'privacy', 'sort_order']}),
     ]
 
     prepopulated_fields = {'slug': ('title_{}'.format(settings.LANGUAGE_CODE),)}
+
+    autocomplete_lookup_fields = {
+        'generic': [['owner_content_type', 'owner_object_id']],
+    }
 
     def get_list_item_count(self, obj):
         return obj.listitem_set.count()

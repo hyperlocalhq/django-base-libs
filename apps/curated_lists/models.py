@@ -14,9 +14,21 @@ PRIVACY_CHOICES = (
     ("public", _("Public")),
 )
 
+limit_owner_content_type_choices_to = (
+    models.Q(app_label="institutions", model="institution") |
+    models.Q(app_label="auth", model="user")
+)
 
-class CuratedList(CreationModificationDateMixin, SlugMixin(unique=False)):
-    owner = models.ForeignKey("auth.User", verbose_name=_("Owner"), blank=True, null=True)
+
+class CuratedList(
+        CreationModificationDateMixin,
+        SlugMixin(unique=False),
+        ObjectRelationMixin(
+            prefix="owner",
+            prefix_verbose=_("Owner"),
+            limit_content_type_choices_to=limit_owner_content_type_choices_to
+        )
+    ):
     title = MultilingualCharField(_("Title"), max_length=255)
     sort_order = models.IntegerField(_("Sort order"), blank=True, default=0)
     privacy = models.CharField(_("Privacy"), max_length=20, choices=PRIVACY_CHOICES, default="public")
@@ -30,7 +42,7 @@ class CuratedList(CreationModificationDateMixin, SlugMixin(unique=False)):
         return self.title
 
 
-limit_content_type_choices_to = (
+limit_item_content_type_choices_to = (
     models.Q(app_label="articles", model="article") |
     models.Q(app_label="blog", model="post") |
     models.Q(app_label="bulletin_board", model="bulletin") |
@@ -40,7 +52,7 @@ limit_content_type_choices_to = (
     models.Q(app_label="people", model="person")
 )
 
-class ListItem(CreationModificationDateMixin, ObjectRelationMixin(limit_content_type_choices_to=limit_content_type_choices_to), UrlMixin):
+class ListItem(CreationModificationDateMixin, ObjectRelationMixin(limit_content_type_choices_to=limit_item_content_type_choices_to), UrlMixin):
     curated_list = models.ForeignKey(CuratedList, verbose_name=_("Curated list"))
     representation = MultilingualCharField(_("Representation"), max_length=255, blank=True)
     sort_order = models.IntegerField(_("Sort order"), blank=True, default=0)
