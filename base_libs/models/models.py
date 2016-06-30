@@ -18,6 +18,7 @@ from django.utils.safestring import mark_safe
 from django.template.defaultfilters import escape
 from django.db.models.fields import NOT_PROVIDED
 from django.utils.translation import string_concat
+from django.utils.translation import get_language
 
 try:
     from django.utils.timezone import now as tz_now
@@ -26,7 +27,6 @@ except:
  
 from babel.numbers import format_currency
 
-from base_libs.models.fields import MultilingualProxy
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
 from base_libs.models.fields import ExtendedTextField # needed for south to work
@@ -987,8 +987,15 @@ def MultilingualSlugMixin(
             )
         klass.add_to_class("%s_%s" % (name, lang_code), slug_field)
 
-    setattr(klass, name, MultilingualProxy(slug_field))
-    
+    def translated_value(self):
+        language = get_language()
+        val = self.__dict__["%s_%s" % (name, language)]
+        if not val:
+            val = self.__dict__["%s_%s" % (name, settings.LANGUAGE_CODE)]
+        return val
+
+    setattr(klass, name, property(translated_value))
+
     return klass    
 
 class ContentBaseMixinDraftManager(PublishingMixinDraftManager):
