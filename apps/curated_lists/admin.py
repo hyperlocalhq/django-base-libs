@@ -5,6 +5,7 @@ from django.conf import settings
 
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.models.admin import ObjectRelationMixinAdminOptions
+from base_libs.admin import ExtendedModelAdmin
 
 from .models import CuratedList, ListItem
 
@@ -21,14 +22,14 @@ class ListItemInline(admin.StackedInline):
     }
 
 
-class CuratedListAdmin(admin.ModelAdmin):
+class CuratedListAdmin(ExtendedModelAdmin):
     list_display = ['title', 'owner_content_object', 'get_list_item_count', 'privacy', 'is_featured', 'sort_order']
     list_editable = ['privacy', 'is_featured', 'sort_order']
     list_filter = ['privacy']
     inlines = [ListItemInline]
 
-    fieldsets = get_admin_lang_section(_("Title"), ['title']) + [
-        (None, {'fields': ['slug']}),
+    fieldsets = get_admin_lang_section(_("Title and Description"), ['title', 'description']) + [
+        (None, {'fields': ['slug', 'image']}),
         (_("Owner"), {'fields': ['owner_content_type', 'owner_object_id']}),
         (_("Publishing"), {'fields': ['privacy', 'is_featured', 'sort_order']}),
     ]

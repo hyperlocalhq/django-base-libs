@@ -4,8 +4,10 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import get_language, activate
 from django.conf import settings
 
+from filebrowser.fields import FileBrowseField
+
 from base_libs.models.models import CreationModificationDateMixin, SlugMixin, ObjectRelationMixin, UrlMixin
-from base_libs.models.fields import MultilingualCharField
+from base_libs.models.fields import MultilingualCharField, MultilingualTextField
 
 verbose_name = _("Curated Lists")
 
@@ -30,6 +32,8 @@ class CuratedList(
         )
     ):
     title = MultilingualCharField(_("Title"), max_length=255)
+    description = MultilingualTextField(_("Description"), blank=True)
+    image = FileBrowseField(_('Profile image'), max_length=255, directory="curated_lists/", extensions=['.jpg', '.jpeg', '.gif', '.png'], blank=True)
     sort_order = models.IntegerField(_("Sort order"), blank=True, default=0)
     privacy = models.CharField(_("Privacy"), max_length=20, choices=PRIVACY_CHOICES, default="public")
     is_featured = models.BooleanField(_("Featured"), default=False)
