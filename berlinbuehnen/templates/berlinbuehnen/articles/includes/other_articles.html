@@ -6,7 +6,9 @@
                 <img src="{{ MEDIA_URL }}{{ article.image|modified_path:"list_image" }}" class="hidden-xs"/>
                 <img src="{{ MEDIA_URL }}{{ article.image|modified_path:"news_image" }}" class="visible-xs"/>
             {% endif %}
-            <span class="article-more-list-date">{{ article.published_from|datefmt:"long" }}{% if article.category.title %}<span>{{ article.category.title }}</span>{% endif %}</span>
+            {% if article.category.title %}
+                <span class="article-more-list-date">{{ article.category.title }}</span>
+            {% endif %}
             <h6>{{ article.get_title }}</h6>
             <p>
                 {% if article.description %}
