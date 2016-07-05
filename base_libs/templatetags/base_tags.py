@@ -637,12 +637,12 @@ def remove_from_query(context, *args, **kwargs):
         if not key in args:
             for value in value_list:
                 # skip key-value pairs mentioned in kwargs
-                if not (key in kwargs and value == unicode(kwargs[key])):
+                if not (key in kwargs and unicode(value) == unicode(kwargs[key])):
                     query_params.append((key, value))
     # empty values will be removed
-    query_string = u""
+    query_string = u"?"
     if len(query_params):
-        query_string += u"?%s" % urllib.urlencode([
+        query_string = u"?%s" % urllib.urlencode([
             (key, force_str(value)) for (key, value) in query_params if value
         ]).replace("&", "&amp;")
     return query_string
