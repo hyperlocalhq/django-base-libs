@@ -17,6 +17,7 @@ from django.forms.models import (BaseModelForm, BaseModelFormSet, fields_for_mod
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.core.exceptions import ImproperlyConfigured
+from django.db.models.fields import FieldDoesNotExist
 
 try:
     from django.utils.encoding import force_text
@@ -292,12 +293,14 @@ def _declared_fieldsets(self):
                         new_fields.extend(traverse_fields(field))
                 else:
                     # it's a field name
-                    if isinstance(
-                        model._meta.get_field(field),
-                        ExtendedTextField,
-                        ):
-                        if "%s_markup_type" % field not in fields:
-                            new_fields.append("%s_markup_type" % field)
+                    try:
+                        f = model._meta.get_field(field)
+                    except FieldDoesNotExist: # allow readonly methods instead of fields
+                        pass
+                    else:
+                        if isinstance(f, ExtendedTextField):
+                            if "%s_markup_type" % field not in fields:
+                                new_fields.append("%s_markup_type" % field)
                     new_fields.append(field)
             return new_fields
             
