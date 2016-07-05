@@ -46,7 +46,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='curatedlist',
             name='image',
-            field=filebrowser.fields.FileBrowseField(max_length=255, verbose_name='Profile image', blank=True),
+            field=filebrowser.fields.FileBrowseField(max_length=255, verbose_name='Image', blank=True),
             preserve_default=True,
         ),
     ]

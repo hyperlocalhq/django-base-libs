@@ -1,0 +1,49 @@
+{% extends "base_redesign.html" %}
+{% load i18n base_tags image_modifications tagging_tags sekizai_tags cms_tags %}
+
+{% block title %}{% page_attribute "title" %}{% endblock %}
+
+
+{% block content %}
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{% page_attribute "page_title" %}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                {% static_placeholder "featured_curated_lists" %}
+            </div>
+        </div>
+        <div class="row">
+            {% if object_list %}
+                {% for curated_list in object_list %}
+                    <div class="box col-xs-4">
+                        <a href="{{ curated_list.get_url_path }}">
+                            <h3>
+                                {% if curated_list.title %}
+                                    {{ curated_list.title }}
+                                {% else %}
+                                    {% blocktrans with first_name=curated_list.user.first_name last_name=curated_list.user.last_name %}The route of {{ first_name }} {{ last_name }}{% endblocktrans %}
+                                {% endif %}
+                            </h3>
+                            {% if curated_list.image %}
+                                <img class="img-responsive" src="{{ MEDIA_URL }}{{ curated_list.image|modified_path:"overview_image" }}" alt="{{ curated_list.title }}" />
+                            {% endif %}
+                            <div class="count">{% blocktrans count counter=curated_list.get_item_count %}1 item{% plural %}{{ counter }} items{% endblocktrans %}</div>
+                        </a>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="box col-xs-12">
+                    <h3>{% trans "There are no featured curated lists." %}</h3>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
