@@ -102,6 +102,13 @@ def better_slugify(value, remove_stopwords=True, slugify=True, max_words=None):
     for umlaut, replacement in umlauts.iteritems():
         value = unicode(value.replace(umlaut, replacement))
 
+    try:
+        from unidecode import unidecode
+    except ImportError:
+        pass
+    else:
+        value = unidecode(value)
+
     # and slugify
     if slugify:
         value = django_slugify(value)
