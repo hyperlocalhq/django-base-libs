@@ -677,16 +677,19 @@ def institution_claimed(sender, instance, **kwargs):
     else:
         submitter_url = "http://%s/admin/site_specific/claimrequest/" % Site.objects.get_current().domain
     recipients = User.objects.filter(is_staff=True, is_active=True)
-    notification.send(
-        recipients,
-        "institution_claimed",
-        {
-            "object_description": instance.comments,
-            "object_creator_url": submitter_url,
-            "object_creator_title": submitter_name,
-        },
-        instance=instance.content_object,
-        on_site=False,
-    )
+    try:
+        notification.send(
+            recipients,
+            "institution_claimed",
+            {
+                "object_description": instance.comments,
+                "object_creator_url": submitter_url,
+                "object_creator_title": submitter_name,
+            },
+            instance=instance.content_object,
+            on_site=False,
+        )
+    except: # error sending notifications
+        pass
     if instance.user:
-        action.send(instance.user, verb="claimed", action_object=instance)
+        action.send(instance.user, verb="claimed", action_object=instance.content_object)
