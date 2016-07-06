@@ -3,7 +3,7 @@
 
 
 {% block details %}
-    {% if not published_gallery_list %}
+    {% if not gallery_list %}
             
         {% if_has_perm "people.change_person" object %}
             <div class="row projects-grid">
