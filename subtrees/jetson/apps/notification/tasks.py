@@ -7,6 +7,7 @@ from django.utils.encoding import force_unicode
 from django.template import Template
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 
 from jetson.apps.people.functions import get_user_language
 
@@ -68,9 +69,12 @@ def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct
     
     instance = None
     if instance_ct and instance_id:
-        instance = ContentType.objects.get(
-            pk=instance_ct,
+        try:
+            instance = ContentType.objects.get(
+                pk=instance_ct,
             ).get_object_for_this_type(pk=instance_id)
+        except ObjectDoesNotExist:
+            return  # Object does not exist anymore. Skip the notification
         
     sender = None
     if sender_id:
