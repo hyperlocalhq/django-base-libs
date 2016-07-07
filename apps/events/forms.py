@@ -562,7 +562,8 @@ class MainDataForm(dynamicforms.Form):
 
         # if venue is selected, the venue_title etc need not to be filled in and vice versa!
         if self.cleaned_data.get('venue_title', None):
-            del self._errors['venue']
+            if 'venue' in self._errors:
+                del self._errors['venue']
         else:
             if self.cleaned_data.get('venue', None):
                 for field_name in [
