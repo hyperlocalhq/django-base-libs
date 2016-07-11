@@ -183,7 +183,7 @@ $(document).ready(function() {
         me.$main.data('Accordion', me);
         me.$main.data('AccordionChild', me);
 
-        if (me.$main.hasClass('navi-box')) me.initSmallScreen();
+        if (me.$main.hasClass('navi-box') || me.$main.hasClass('info-box')) me.initSmallScreen();
         setTimeout(function() {me.init();}, 0);
 
 
