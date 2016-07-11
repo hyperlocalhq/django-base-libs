@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-15 18:31+0200\n"
+"POT-Creation-Date: 2016-07-11 18:32+0200\n"
 "PO-Revision-Date: 2016-06-14 14:32+0053\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -198,43 +198,38 @@ msgid "Museums Summer – First"
 msgstr ""
 
 #: settings.py:612
-#, fuzzy
-msgid "Museums Summer – First with ad"
-msgstr "Magazin - Serie - 1. Ebene"
-
-#: settings.py:613
 msgid "Museums Summer – Second"
 msgstr ""
 
-#: settings.py:614
+#: settings.py:613
 #, fuzzy
 msgid "Museums Summer – Second - Featured"
 msgstr "Magazin - Featured Serie"
 
-#: settings.py:615
+#: settings.py:614
 msgid "Museums Summer - Third"
 msgstr ""
 
-#: settings.py:616
+#: settings.py:615
 #, fuzzy
 msgid "Museums Summer – Special Event"
 msgstr "Magazin - Serie - 2. Ebene"
 
-#: settings.py:618
+#: settings.py:617
 #, fuzzy
 msgid "Shop – Overview"
 msgstr "Magazin - Übersicht"
 
-#: settings.py:619
+#: settings.py:618
 msgid "Shop – First"
 msgstr "Shop - 1. Ebene"
 
-#: settings.py:621
+#: settings.py:620
 #, fuzzy
 msgid "Dashboard Default"
 msgstr "Zurück zur Übersicht"
 
-#: settings.py:839 apps/exhibitions/cms_app.py:8
+#: settings.py:838 apps/exhibitions/cms_app.py:8
 #: apps/exhibitions/models.py:211 apps/internal_links/admin.py:39
 #: apps/internal_links/models.py:26 apps/search/search_indexes.py:98
 #: templates/museumsportal/accounts/dashboard_admin.html:37
@@ -252,11 +247,11 @@ msgstr "Zurück zur Übersicht"
 msgid "Exhibitions"
 msgstr "Ausstellungen"
 
-#: settings.py:840 templates/museumsportal/cms/includes/start_de.html:39
+#: settings.py:839 templates/museumsportal/cms/includes/start_de.html:39
 msgid "Magazine"
 msgstr "Magazin"
 
-#: settings.py:841 apps/events/cms_app.py:8 apps/internal_links/admin.py:43
+#: settings.py:840 apps/events/cms_app.py:8 apps/internal_links/admin.py:43
 #: apps/internal_links/models.py:27 apps/search/search_indexes.py:159
 #: templates/museumsportal/accounts/dashboard_admin.html:101
 #: templates/museumsportal/accounts/dashboard_events.html:36
@@ -275,12 +270,12 @@ msgstr "Magazin"
 msgid "Events"
 msgstr "Veranstaltungen"
 
-#: settings.py:842
+#: settings.py:841
 #, fuzzy
 msgid "Social"
 msgstr "Social-Media Kanal"
 
-#: settings.py:843
+#: settings.py:842
 msgid "Image authorship"
 msgstr "Copyright / Fotograf"
 
@@ -851,6 +846,8 @@ msgstr ""
 #: templates/admin/admin/museums/museum/change_form.html:47
 #: templates/admin/admin/museumssummer/location/change_form.html:47
 #: templates/admin/admin/workshops/workshop/change_form.html:51
+#: templates/museumsportal/cms/museumssummer_first.html:32
+#: templates/museumsportal/cms/museumssummer_second.html:13
 msgid "Map"
 msgstr "Karte"
 
@@ -5739,30 +5736,21 @@ msgstr "Zum Magazin"
 msgid "Additional Contents"
 msgstr "Weitere Artikel"
 
-#: templates/museumsportal/cms/museumssummer_first.html:19
-#: templates/museumsportal/cms/museumssummer_first_with_ad.html:20
-msgid "To the Quiz"
-msgstr "Zum Quiz"
-
-#: templates/museumsportal/cms/museumssummer_first.html:24
-#: templates/museumsportal/cms/museumssummer_first_with_ad.html:25
-msgid "Here you can see all museums at a glance"
-msgstr "Hier finden Sie alle Museen auf einen Blick"
-
-#: templates/museumsportal/cms/museumssummer_first.html:27
-#: templates/museumsportal/cms/museumssummer_first_with_ad.html:28
-#: templates/museumsportal/cms/museumssummer_second.html:13
-#: templates/museumsportal/cms/museumssummer_third.html:19
-msgid "To the Map"
-msgstr "Zur Karte"
+#: templates/museumsportal/cms/museumssummer_first.html:25
+msgid "Quiz"
+msgstr ""
 
 #: templates/museumsportal/cms/museumssummer_third.html:17
 msgid "To the Theme"
 msgstr "Zur Rubrik"
 
 #: templates/museumsportal/cms/museumssummer_third.html:18
-msgid "To the Museums Summer"
+msgid "To the MuseumSummer"
 msgstr "Zum MuseumsSommer"
+
+#: templates/museumsportal/cms/museumssummer_third.html:19
+msgid "To the Map"
+msgstr "Zur Karte"
 
 #: templates/museumsportal/cms/start.html:23
 msgid "Login for Museums"
@@ -6842,6 +6830,16 @@ msgstr "Weiteres Datum eintragen "
 #: templates/museumsportal/workshops/forms/times_form.html:86
 msgid "Add batch workshop times"
 msgstr "Terminserie anlegen"
+
+#, fuzzy
+#~ msgid "Museums Summer – First with ad"
+#~ msgstr "Magazin - Serie - 1. Ebene"
+
+#~ msgid "To the Quiz"
+#~ msgstr "Zum Quiz"
+
+#~ msgid "Here you can see all museums at a glance"
+#~ msgstr "Hier finden Sie alle Museen auf einen Blick"
 
 #~ msgid ""
 #~ "In order to complete registration, we need to confirm you entered a valid "

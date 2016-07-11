@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-15 18:34+0200\n"
+"POT-Creation-Date: 2016-07-11 18:34+0200\n"
 "PO-Revision-Date: 2014-07-18 16:39+0100\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -200,42 +200,37 @@ msgid "Museums Summer – First"
 msgstr ""
 
 #: settings.py:612
-#, fuzzy
-msgid "Museums Summer – First with ad"
-msgstr "Magazyn"
-
-#: settings.py:613
 msgid "Museums Summer – Second"
 msgstr ""
 
-#: settings.py:614
+#: settings.py:613
 #, fuzzy
 msgid "Museums Summer – Second - Featured"
 msgstr "Magazyn"
 
-#: settings.py:615
+#: settings.py:614
 msgid "Museums Summer - Third"
 msgstr ""
 
-#: settings.py:616
+#: settings.py:615
 #, fuzzy
 msgid "Museums Summer – Special Event"
 msgstr "Magazyn"
 
-#: settings.py:618
+#: settings.py:617
 #, fuzzy
 msgid "Shop – Overview"
 msgstr "Sklep"
 
-#: settings.py:619
+#: settings.py:618
 msgid "Shop – First"
 msgstr "Sklep"
 
-#: settings.py:621
+#: settings.py:620
 msgid "Dashboard Default"
 msgstr ""
 
-#: settings.py:839 apps/exhibitions/cms_app.py:8
+#: settings.py:838 apps/exhibitions/cms_app.py:8
 #: apps/exhibitions/models.py:211 apps/internal_links/admin.py:39
 #: apps/internal_links/models.py:26 apps/search/search_indexes.py:98
 #: templates/museumsportal/accounts/dashboard_admin.html:37
@@ -253,11 +248,11 @@ msgstr ""
 msgid "Exhibitions"
 msgstr "Wystawy"
 
-#: settings.py:840 templates/museumsportal/cms/includes/start_de.html:39
+#: settings.py:839 templates/museumsportal/cms/includes/start_de.html:39
 msgid "Magazine"
 msgstr "Magazyn"
 
-#: settings.py:841 apps/events/cms_app.py:8 apps/internal_links/admin.py:43
+#: settings.py:840 apps/events/cms_app.py:8 apps/internal_links/admin.py:43
 #: apps/internal_links/models.py:27 apps/search/search_indexes.py:159
 #: templates/museumsportal/accounts/dashboard_admin.html:101
 #: templates/museumsportal/accounts/dashboard_events.html:36
@@ -276,11 +271,11 @@ msgstr "Magazyn"
 msgid "Events"
 msgstr "Wydarzenia"
 
-#: settings.py:842
+#: settings.py:841
 msgid "Social"
 msgstr ""
 
-#: settings.py:843
+#: settings.py:842
 msgid "Image authorship"
 msgstr ""
 
@@ -833,6 +828,8 @@ msgstr ""
 #: templates/admin/admin/museums/museum/change_form.html:47
 #: templates/admin/admin/museumssummer/location/change_form.html:47
 #: templates/admin/admin/workshops/workshop/change_form.html:51
+#: templates/museumsportal/cms/museumssummer_first.html:32
+#: templates/museumsportal/cms/museumssummer_second.html:13
 msgid "Map"
 msgstr "Mapa"
 
@@ -5960,32 +5957,22 @@ msgstr "Do magazynu"
 msgid "Additional Contents"
 msgstr ""
 
-#: templates/museumsportal/cms/museumssummer_first.html:19
-#: templates/museumsportal/cms/museumssummer_first_with_ad.html:20
-#, fuzzy
-msgid "To the Quiz"
-msgstr "Do magazynu"
-
-#: templates/museumsportal/cms/museumssummer_first.html:24
-#: templates/museumsportal/cms/museumssummer_first_with_ad.html:25
-msgid "Here you can see all museums at a glance"
+#: templates/museumsportal/cms/museumssummer_first.html:25
+msgid "Quiz"
 msgstr ""
-
-#: templates/museumsportal/cms/museumssummer_first.html:27
-#: templates/museumsportal/cms/museumssummer_first_with_ad.html:28
-#: templates/museumsportal/cms/museumssummer_second.html:13
-#: templates/museumsportal/cms/museumssummer_third.html:19
-#, fuzzy
-msgid "To the Map"
-msgstr "Do magazynu"
 
 #: templates/museumsportal/cms/museumssummer_third.html:17
 msgid "To the Theme"
 msgstr ""
 
 #: templates/museumsportal/cms/museumssummer_third.html:18
-msgid "To the Museums Summer"
+msgid "To the MuseumSummer"
 msgstr ""
+
+#: templates/museumsportal/cms/museumssummer_third.html:19
+#, fuzzy
+msgid "To the Map"
+msgstr "Do magazynu"
 
 #: templates/museumsportal/cms/start.html:23
 msgid "Login for Museums"
@@ -7063,6 +7050,14 @@ msgstr ""
 #: templates/museumsportal/workshops/forms/times_form.html:86
 msgid "Add batch workshop times"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Museums Summer – First with ad"
+#~ msgstr "Magazyn"
+
+#, fuzzy
+#~ msgid "To the Quiz"
+#~ msgstr "Do magazynu"
 
 #, fuzzy
 #~ msgid "to shop"
