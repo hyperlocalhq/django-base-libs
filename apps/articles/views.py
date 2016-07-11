@@ -22,6 +22,7 @@ from .forms import ArticleSearchForm
 
 Article = apps.get_model("articles", "Article")
 ArticleType = apps.get_model("articles", "ArticleType")
+Category = apps.get_model("structure", "Category")
 
 
 def get_articles(
@@ -44,7 +45,7 @@ def get_articles(
     elif status == STATUS_CODE_DRAFT:
         queryset = Article.site_draft_objects.select_related()
     else:
-        raise NotImplementedError, "You provided an unknown status. Cannot continue."
+        raise NotImplementedError("You provided an unknown status. Cannot continue.")
 
     if creative_sector_slug and creative_sector_slug != 'all':
         queryset = queryset.filter(creative_sectors__slug=creative_sector_slug)
@@ -133,6 +134,7 @@ def article_archive_index(
         content_type=None,
         allow_future=False,
         show="all",
+        category_slug="",
         **kwargs
 ):
     """
@@ -151,15 +153,25 @@ def article_archive_index(
     else:
         queryset = get_articles(creative_sector_slug, type_sysname, status, only_features=only_features)
 
+    category = None
+    if category_slug:
+        category = Category.objects.get(slug=category_slug)
+
     form = ArticleSearchForm(data=request.REQUEST)
-    if form.is_valid():
-        cat = form.cleaned_data['category']
-        if cat:
-            queryset = queryset.filter(
-                categories__lft__gte=cat.lft,
-                categories__rght__lte=cat.rght,
-                categories__tree_id=cat.tree_id,
-            ).distinct()
+    if category:
+        queryset = queryset.filter(
+            categories__lft__gte=category.lft,
+            categories__rght__lte=category.rght,
+            categories__tree_id=category.tree_id,
+        ).distinct()
+    elif form.is_valid():
+            cat = form.cleaned_data['category']
+            if cat:
+                queryset = queryset.filter(
+                    categories__lft__gte=cat.lft,
+                    categories__rght__lte=cat.rght,
+                    categories__tree_id=cat.tree_id,
+                ).distinct()
 
     archives = get_archives(queryset)
 
@@ -216,7 +228,7 @@ def article_archive_index(
 
     date_list = queryset.dates(date_field, 'year')[::-1]
     if not date_list and not allow_empty:
-        raise Http404, "No object available"
+        raise Http404("No object available")
 
     if date_list:
         queryset = queryset.order_by('-' + date_field)
@@ -229,6 +241,7 @@ def article_archive_index(
     extra_context['archives'] = archives
     extra_context['creative_sectors'] = get_creative_sectors()
     extra_context['date_list'] = date_list
+    extra_context['category'] = category
     if request.is_ajax():
         extra_context['base_template'] = "base_ajax.html"
 
@@ -723,12 +736,17 @@ def article_feed(
         status=STATUS_CODE_PUBLISHED,
         num_latest=20,
         date_field='published_from',
+        category_slug="",
         **kwargs
 ):
     """
     wrapper for feeds
     """
-    queryset = get_articles(creative_sector_slug, type_sysname, status)
+    category = None
+    if category_slug:
+        category = Category.objects.get(slug=category_slug)
+
+    queryset = get_articles(creative_sector_slug, type_sysname, status, category=category)
 
     try:
         kwargs['article_type'] = ArticleType.objects.get(slug=type_sysname)
