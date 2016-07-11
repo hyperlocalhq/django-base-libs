@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 from django.conf.urls import patterns, url
 
-from apps.media_gallery.feeds import MediaGalleryRssFeed, MediaGalleryAtomFeed
+from ccb.apps.media_gallery.feeds import MediaGalleryRssFeed, MediaGalleryAtomFeed
 from ccb.apps.media_gallery.models import MediaGallery
 
 gallery_list_info = {
@@ -18,24 +18,29 @@ latest_media_galleries = {
 }
 
 urlpatterns = (
-    url(r'^$',
+    url(
+        r'^$',
         'ccb.apps.media_gallery.views.gallery_list',
         gallery_list_info,
-        ),
-    url(r'^(?P<show>favorites)/$',
+    ),
+    url(
+        r'^(?P<show>favorites)/$',
         'ccb.apps.media_gallery.views.gallery_list',
         gallery_list_info,
-        ),
-    url(r'^(?P<show>memos)/$',
+    ),
+    url(
+        r'^(?P<show>memos)/$',
         'ccb.apps.media_gallery.views.gallery_list',
         gallery_list_info,
-        ),
-    url(r'^(?P<show>all)/$',
+    ),
+    url(
+        r'^(?P<show>all)/$',
         'ccb.apps.media_gallery.views.gallery_list',
         gallery_list_info,
-        ),
-    url(r'^feeds/(?P<feed_type>.*)/$',
+    ),
+    url(
+        r'^feeds/(?P<feed_type>.*)/$',
         'jetson.apps.utils.views.feed',
         latest_media_galleries,
-        ),
+    ),
 )

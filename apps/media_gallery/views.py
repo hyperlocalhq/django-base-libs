@@ -4,12 +4,13 @@ from django.utils.translation import ugettext_lazy as _
 from jetson.apps.media_gallery.views import *
 from base_libs.models.models import STATUS_CODE_PUBLISHED
 from .forms import MediaGallerySearchForm
+from jetson.apps.structure.models import Category
 
 
 def gallery_list(request, queryset, show="featured", paginate_by=None, order_by=None, page=None,
                  allow_empty=False, template_name=None, template_loader=loader,
                  extra_context=None, context_processors=None, template_object_name='object',
-                 content_type=None, pages_to_display=10, query=""):
+                 content_type=None, pages_to_display=10, query="", category_slug=""):
     queryset = queryset.distinct().extra(
         where=("(SELECT COUNT(*) FROM media_gallery_mediafile WHERE gallery_id=media_gallery_mediagallery.id) > 0",),
     )
@@ -44,7 +45,17 @@ def gallery_list(request, queryset, show="featured", paginate_by=None, order_by=
 
     form = MediaGallerySearchForm(data=request.REQUEST)
 
-    if form.is_valid():
+    category = None
+    if category_slug:
+        category = Category.objects.get(slug=category_slug)
+
+    if category:
+        queryset = queryset.filter(
+            categories__lft__gte=category.lft,
+            categories__rght__lte=category.rght,
+            categories__tree_id=category.tree_id,
+        ).distinct()
+    elif form.is_valid():
         cat = form.cleaned_data['category']
         if cat:
             queryset = queryset.filter(
@@ -53,7 +64,10 @@ def gallery_list(request, queryset, show="featured", paginate_by=None, order_by=
                 categories__tree_id=cat.tree_id,
             ).distinct()
 
-    if extra_context is None: extra_context = {}
+    if extra_context is None:
+        extra_context = {}
+
+    extra_context['category'] = category
 
     sort_order_map = getattr(queryset, "get_sort_order_map", lambda: None)()
     sort_order_mapper = getattr(queryset, "get_sort_order_mapper", lambda: None)()
