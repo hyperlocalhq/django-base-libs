@@ -86,12 +86,6 @@
     {% endif %}
 {% endblock %}
 
-{% block breadcrumbs %}
-    <li><a href="{% page_url request.current_page %}">{% page_attribute "page_title" %}</a></li>
-    {% block breadcrumbs_details %}
-    {% endblock %}
-{% endblock %}
-
  {% block javascript %}
     {{ block.super }}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/pagination.js"></script>
