@@ -742,11 +742,19 @@ def article_feed(
     """
     wrapper for feeds
     """
+    queryset = get_articles(creative_sector_slug, type_sysname, status)
+
     category = None
     if category_slug:
         category = Category.objects.get(slug=category_slug)
+        kwargs['category'] = category
 
-    queryset = get_articles(creative_sector_slug, type_sysname, status, category=category)
+    if category:
+        queryset = queryset.filter(
+            categories__lft__gte=category.lft,
+            categories__rght__lte=category.rght,
+            categories__tree_id=category.tree_id,
+        ).distinct()
 
     try:
         kwargs['article_type'] = ArticleType.objects.get(slug=type_sysname)

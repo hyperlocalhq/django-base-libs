@@ -125,7 +125,7 @@ def feed(request, feed_type, language="de", **kwargs):
         getting the appropriate Feeds from the <<Feedclass>>
     """
     if not kwargs:
-        raise Http404, "No feeds are registered."
+        raise Http404("No feeds are registered.")
     
     try:
         feed_slug, param = feed_type.split('/', 1)

@@ -22,14 +22,27 @@ class ArticleRssFeed(Feed):
         Site = models.get_model("sites", "Site")
 
         if 'article_type' in self.kwargs:
-            title = ugettext("%(site)s %(article_type)s") % {
-                'site': Site.objects.get_current().name,
-                'article_type': force_unicode(self.kwargs['article_type'].title),
-            }
+            if 'category' in self.kwargs:
+                title = ugettext("%(category)s %(article_type)s at %(site)s") % {
+                    'site': Site.objects.get_current().name,
+                    'article_type': force_unicode(self.kwargs['article_type'].title),
+                    'category': force_unicode(self.kwargs['category'].title),
+                }
+            else:
+                title = ugettext("%(site)s %(article_type)s") % {
+                    'site': Site.objects.get_current().name,
+                    'article_type': force_unicode(self.kwargs['article_type'].title),
+                }
         else:
-            title = ugettext("%(site)s News") % {
-                'site': Site.objects.get_current().name,
-            }
+            if 'category' in self.kwargs:
+                title = ugettext("%(category)s News at %(site)s") % {
+                    'site': Site.objects.get_current().name,
+                    'category': force_unicode(self.kwargs['category'].title),
+                }
+            else:
+                title = ugettext("%(site)s News") % {
+                    'site': Site.objects.get_current().name,
+                }
         return title
 
     def description(self, obj):
