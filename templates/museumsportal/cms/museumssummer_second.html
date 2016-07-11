@@ -5,12 +5,12 @@
 {% block content %}
 	<div class="content">
 		<div class="container">
-			<div class="row"> 
+			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
 					{% placeholder "intro" %}
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-					<a href="{% page_url "museumssommer_map" %}"><img alt="{% trans "Map" %}" src="{{ STATIC_URL }}site/img/museumssummer/map_{% if LANGUAGE_CODE == "de" %}de{% else %}en{% endif %}.png" class="img-responsive" /></a>
+					<a class="museumssommer-button" href="{% page_url "museumssommer_map" %}"><img alt="{% trans "Map" %}" src="{{ STATIC_URL }}site/img/museumssummer/map_{% if LANGUAGE_CODE == "de" %}de{% else %}en{% endif %}.png" /><img alt="{% trans "Map" %}" src="{{ STATIC_URL }}site/img/museumssummer/map_hover_{% if LANGUAGE_CODE == "de" %}de{% else %}en{% endif %}.png" /></a>
 				</div>
 			</div>
 		</div>
@@ -25,7 +25,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="content">
 		<div class="container">
 			<div class="row row-md{% if not request.toolbar.edit_mode %} isotope{% endif %} nonfeatured">

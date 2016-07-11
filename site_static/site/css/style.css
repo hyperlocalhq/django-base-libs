@@ -6818,9 +6818,12 @@ a:hover .icon-social-instagram {
 .museumssommer .relative h1 {
   position: absolute;
   left: 0;
-  top: 0; }
+  top: 0;
+}
+
 .museumssommer a:hover img {
-  opacity: .75; }
+  opacity: .75;
+}
 
 #favorites #filters {
   margin-top: 20px;
@@ -6868,6 +6871,31 @@ a:hover .icon-social-instagram {
   background-color: #efefef;
   position: relative;
   border-bottom: 10px solid white;
+}
+
+.museumssommer .museumssommer-button {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+}
+
+.museumssommer .museumssommer-button img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.museumssommer .museumssommer-button img:last-child {
+  display: none;
+}
+
+.museumssommer .museumssommer-button:hover img, .museumssommer .museumssommer-button:active img, .museumssommer .museumssommer-button:focus img {
+  display: none;
+  opacity: 1;
+}
+
+.museumssommer .museumssommer-button:hover img:last-child, .museumssommer .museumssommer-button:active img:last-child, .museumssommer .museumssommer-button:focus img:last-child {
+  display: block;
 }
 
 .language-chooser-mobile {
