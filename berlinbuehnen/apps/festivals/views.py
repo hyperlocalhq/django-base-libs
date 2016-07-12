@@ -87,7 +87,7 @@ def festival_list(request, year=None, month=None, day=None):
         request,
         queryset=qs,
         template_name="festivals/festival_list.html",
-        paginate_by=24,
+        paginate_by=50,
         extra_context=extra_context,
         httpstate_prefix="festival_list",
         context_processors=(prev_next_processor,),
