@@ -58,7 +58,7 @@ urlpatterns = (
         r'^'
         r'((?P<show>favorites|memos|own-events)/)?'
         + OPTIONAL_DATE_REGEX +
-        r'feed/'
+        r'feeds/'
         r'(?P<feed_type>[^/]+)/'
         r'$',
         'ccb.apps.events.views.event_list_feed',

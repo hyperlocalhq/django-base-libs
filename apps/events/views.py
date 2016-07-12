@@ -6,6 +6,7 @@ from time import strptime
 from django.apps import apps
 from django.db import models
 from django.db import transaction
+from django import forms
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.shortcuts import get_object_or_404
 from django.http import Http404, HttpResponse
@@ -44,16 +45,23 @@ class EventFeed(Feed):
 
 
 @never_cache
-def event_list(request, criterion="", slug="", show="", start_date=None, end_date=None, unlimited=False, title="",
+def event_list(request, criterion="", slug="", show="", start_date=None, end_date=None, unlimited=False, title="", category_slug="",
                **kwargs):
     """Displays the list of events"""
     ContextItem = models.get_model("site_specific", "ContextItem")
+    Category = models.get_model("structure", "Category")
 
     # abc_list = None
     # abc_filter = request.GET.get('by-abc', None)
 
+    queryset = kwargs['queryset']
+
+    category = None
+    if category_slug:
+        category = Category.objects.get(slug=category_slug)
+
     if not 'feed' in kwargs or not kwargs['feed'] is True:
-        kwargs['queryset'] = kwargs['queryset'].defer(
+        queryset = queryset.defer(
             "description", "description_de", "description_en",
             "description_de_markup_type", "description_en_markup_type",
             "exceptions", "exceptions_de", "exceptions_en",
@@ -96,7 +104,7 @@ def event_list(request, criterion="", slug="", show="", start_date=None, end_dat
                 where=condition,
             ).distinct().values("object_id")
             ]
-        kwargs['queryset'] = kwargs['queryset'].filter(
+        queryset = queryset.filter(
             models.Q(pk__in=fav_event_ids) |
             models.Q(venue__pk__in=fav_inst_ids) |
             models.Q(organizing_institution__pk__in=fav_inst_ids) |
@@ -108,7 +116,7 @@ def event_list(request, criterion="", slug="", show="", start_date=None, end_dat
             collection__token=request.COOKIES.get(MEMO_TOKEN_NAME, None),
             content_type=ct,
         ).values_list("object_id", flat=True)
-        kwargs['queryset'] = kwargs['queryset'].filter(
+        queryset = queryset.filter(
             pk__in=memos_ids,
         )
     elif show == "own-%s" % URL_ID_EVENTS:
@@ -122,36 +130,46 @@ def event_list(request, criterion="", slug="", show="", start_date=None, end_dat
                 content_type=ct,
             ).distinct().values("object_id")
             ]
-        kwargs['queryset'] = kwargs['queryset'].filter(
+        queryset = queryset.filter(
             models.Q(creator=request.user)
             | models.Q(organizing_person=request.user.profile)
             | models.Q(organizing_institution__pk__in=owned_inst_ids)
-        )
-        kwargs['queryset'] = kwargs['queryset'].filter(
+        ).filter(
             status="published",
         )
     elif show != "related":
-        kwargs['queryset'] = kwargs['queryset'].filter(
+        queryset = queryset.filter(
             status="published",
         )
 
+    if category:
+        queryset = queryset.filter(
+            categories__lft__gte=category.lft,
+            categories__rght__lte=category.rght,
+            categories__tree_id=category.tree_id,
+        ).distinct()
+
     form = EventSearchForm(data=request.REQUEST)
+    if category:
+        del form.fields['category']
+
     if form.is_valid():
-        cs = form.cleaned_data['category']
-        if cs:
-            kwargs['queryset'] = kwargs['queryset'].filter(
-                categories__lft__gte=cs.lft,
-                categories__rght__lte=cs.rght,
-                categories__tree_id=cs.tree_id,
-            ).distinct()
+        if not category:
+            cs = form.cleaned_data['category']
+            if cs:
+                queryset = queryset.filter(
+                    categories__lft__gte=cs.lft,
+                    categories__rght__lte=cs.rght,
+                    categories__tree_id=cs.tree_id,
+                ).distinct()
         et = form.cleaned_data['event_type']
         if et:
-            kwargs['queryset'] = kwargs['queryset'].filter(
+            queryset = queryset.filter(
                 event_type=et,
             )
         is_featured = form.cleaned_data['is_featured']
         if is_featured:
-            kwargs['queryset'] = kwargs['queryset'].filter(
+            queryset = queryset.filter(
                 is_featured=True,
             )
 
@@ -175,11 +193,9 @@ def event_list(request, criterion="", slug="", show="", start_date=None, end_dat
 
             event_pks = list(context_item_qs.values_list("object_id", flat=True))
 
-            kwargs['queryset'] = kwargs['queryset'].filter(
+            queryset = queryset.filter(
                 pk__in=event_pks,
             )
-
-    queryset = kwargs['queryset']
 
     date_filter = None
     if show != "related":
@@ -187,13 +203,13 @@ def event_list(request, criterion="", slug="", show="", start_date=None, end_dat
             try:  # convert a string of a format "YYYYMMDD" to date
                 start_date = datetime(*strptime(start_date, "%Y%m%d")[:3])
             except ValueError:
-                raise Http404, ugettext("Naughty hacker!")
+                raise Http404(ugettext("Naughty hacker!"))
 
             if end_date:
                 try:  # convert a string of a format "YYYYMMDD" to date
                     end_date = datetime(*strptime(end_date, "%Y%m%d")[:3])
                 except ValueError:
-                    raise Http404, ugettext("Naughty hacker!")
+                    raise Http404(ugettext("Naughty hacker!"))
 
             if not (end_date or unlimited):
                 end_date = start_date + timedelta(days=1)
@@ -274,6 +290,7 @@ def event_list(request, criterion="", slug="", show="", start_date=None, end_dat
     extra_context['source_list'] = URL_ID_EVENTS
     extra_context['today'] = datetime.now()
     extra_context['form'] = form
+    extra_context['category'] = category
     if request.is_ajax():
         extra_context['base_template'] = "base_ajax.html"
     kwargs['extra_context'] = extra_context
