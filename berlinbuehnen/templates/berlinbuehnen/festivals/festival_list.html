@@ -20,18 +20,28 @@
                 {% month_slider id='main_monthslider' %}
                 
                 <div class="col-xs-12 print-padding">
-                    
+
                     <!-- the list -->
                     {% if object_list %}
                         <div id="main_list" class="grid festival-grid mazery-grid row">
                             {% for festival in object_list %}
-                                <div class="grid-item {% if festival.featured %} featured {% endif %}{% if not festival.first_image %} no-image {% endif %} col-xs-12 col-sm-6 col-md-4 grid-item-favorite" data-start="{{ festival.start|date:"U" }}" {% if festival.end %}data-end="{{ festival.end|date:"U" }}"{% else %}data-end="{{ festival.start|date:"U" }}"{% endif %}>
+                                <div class="grid-item {% if festival.featured %} featured {% endif %}{% if not festival.first_image %} no-image {% endif %} col-xs-12 col-sm-6 col-md-4 grid-item-favorite"
+                                    data-start="{{ festival.start|date:"U" }}"
+                                    {% if festival.end %}data-end="{{ festival.end|date:"U" }}"
+                                        {% else %}data-end="{{ festival.start|date:"U" }}"{% endif %}>
                                     <div class="row">
                                         <a href="{{ festival.get_url_path }}">
                                             {% if festival.first_image %}
                                                 <span class="grid-item-image">
-                                                    {% if not festival.featured %}<img class="hidden-xs no-print" src="{{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"mazery_image" }}{% if festival.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ festival.title|escape }}" />{% endif %}
-                                                    <img class="{% if not festival.featured %} visible-xs {% endif %} no-print" src="{{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"gallery_image" }}{% if festival.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ festival.title|escape }}" />
+                                                    {% if not festival.featured %}
+                                                        <img class="hidden-xs no-print"
+                                                            src="
+                                                                {{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"mazery_image" }}{% if festival.is_editable %}?now={% now "YmdHis" %}{% endif %}"
+                                                            alt="{{ festival.title|escape }}"/>{% endif %}
+                                                    <img class="{% if not festival.featured %} visible-xs {% endif %} no-print"
+                                                        src="
+                                                            {{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"gallery_image" }}{% if festival.is_editable %}?now={% now "YmdHis" %}{% endif %}"
+                                                        alt="{{ festival.title|escape }}"/>
                                                     {% if request.user.is_authenticated %}
                                                         {% adding2favorites for festival using "favorites/includes/favorite_grid.html" %}
                                                     {% else %}
@@ -39,28 +49,39 @@
                                                     {% endif %}
                                                 </span>
                                             {% endif %}
-                                            
-                                            {% if festival.title %}<h2>{{ festival.title }}</h2>{% endif %}
-                                            {% if festival.subtitle %}<h3>{{ festival.subtitle }}</h3>{% endif %}
-                                            {% if festival.start %}<h4><time>{{ festival.start|date:"j.m.Y" }}</time>{% if festival.end and festival.start != festival.end %} &nbsp;–&nbsp; <time>{{ festival.end|date:"j.m.Y" }}</time>{% endif %}</h4>{% endif %}
+
+                                            {% if festival.title %}
+                                                <h2>{{ festival.title }}</h2>{% endif %}
+                                            {% if festival.subtitle %}
+                                                <h3>{{ festival.subtitle }}</h3>{% endif %}
+                                            {% if festival.start %}
+                                                <h4>
+                                                    <time>{{ festival.start|date:"j.m.Y" }}</time>
+                                                    {% if festival.end and festival.start != festival.end %} &nbsp;–
+                                                        &nbsp;
+                                                        <time>{{ festival.end|date:"j.m.Y" }}</time>{% endif %}
+                                                </h4>{% endif %}
                                             {% if festival.organizers.all %}
-                                                    <dl>
-                                                        <dt>{% trans "Organizer" %}</dt>
-                                                        {% for location in festival.organizers.all %}
-                                                            <dd>
-                                                                {{ location.title }}
-                                                            </dd>
-                                                        {% endfor %}
-                                                    </dl>
+                                                <dl>
+                                                    <dt>{% trans "Organizer" %}</dt>
+                                                    {% for location in festival.organizers.all %}
+                                                        <dd>
+                                                            {{ location.title }}
+                                                        </dd>
+                                                    {% endfor %}
+                                                </dl>
                                             {% endif %}
-                                            {% if festival.description %}<p class="copy">{{ festival.get_rendered_description|striptags|wordwrap:30|truncatewords:"30" }}</p>{% endif %}
+                                            {% if festival.description %}
+                                                <p class="copy">{{ festival.get_rendered_description|striptags|wordwrap:30|truncatewords:"30" }}</p>{% endif %}
                                         </a>
                                     </div>
-                                </div>  
+                                </div>
                             {% endfor %}
                         </div>
+                        {% include "utils/pagination.html" %}
+                    {% else %}
+                        {% include "utils/container_empty.html" %}
                     {% endif %}
-                        
                 </div>
             </div>
         </div>
