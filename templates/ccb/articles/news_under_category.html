@@ -5,8 +5,7 @@
 
 {% block body_class %}list{% endblock %}
 
-{% block meta_tags %}
-    {{ block.super }}
+{% block extrahead %}
     <link rel="alternate" type="application/rss+xml" title="{% blocktrans with category_title=category.title %}{{ category_title }} News at Creative City Berlin{% endblocktrans %}" href="{{ request.path }}feeds/rss/" />
 {% endblock %}
 

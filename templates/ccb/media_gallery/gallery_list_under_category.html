@@ -6,11 +6,8 @@
 {% block extrahead %}
     <link rel="alternate"
         type="application/rss+xml"
-        title="{% trans "Creative City Berlin Portfolios" %}"
-        href="/{{ LANGUAGE_CODE }}/portfolios/feeds/rss/"/>
-    <!--<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
-    <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/starrating/jquery.MetaData.js"></script>
-    <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/starrating/jquery.rating.js"></script>-->
+        title="{% blocktrans with category_title=category.title %}{{ category_title }} Portfolios at Creative City Berlin{% endblocktrans %}"
+        href="{{ request.path }}feeds/rss/"/>
 {% endblock %}
 
 {% block header_image %}
