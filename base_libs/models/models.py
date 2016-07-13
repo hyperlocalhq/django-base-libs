@@ -587,9 +587,8 @@ class MultiSiteContainerMixin(ObjectRelationMixin(), UrlMixin):
          Site, 
          verbose_name=_("Sites"),
          blank=True, 
-         null=True,
          help_text=_("Please select some sites, this container relates to. If you do not select any site, the container applies to all sites."),
-         )
+    )
     
     sysname = models.CharField(
        _("URL Identifier"), 
