@@ -252,16 +252,28 @@ class Command(NoArgsCommand):
                 if isinstance(data_dict['openings'], list):
                     season = Season(exhibition=exhibition)
                     for day_index, times in enumerate(data_dict['openings']):
-                        from_time = times['start_h'] + ':' + times['start_min']
-                        till_time = times['ende_h'] + ':' + times['ende_min']
+                        start_h = times['start_h']
+                        if start_h == "24":
+                            start_h = "0"
+                        ende_h = times['ende_h']
+                        if ende_h == "24":
+                            ende_h = "0"
+                        from_time = start_h + ':' + times['start_min']
+                        till_time = ende_h + ':' + times['ende_min']
                         setattr(season, "%s_open" % weekdays[int(day_index)], parse_datetime(from_time).time())
                         setattr(season, "%s_close" % weekdays[int(day_index)], parse_datetime(till_time).time())
                     season.save()
                 elif isinstance(data_dict['openings'], dict):
                     season = Season(exhibition=exhibition)
                     for day_index, times in data_dict['openings'].items():
-                        from_time = times['start_h'] + ':' + times['start_min']
-                        till_time = times['ende_h'] + ':' + times['ende_min']
+                        start_h = times['start_h']
+                        if start_h == "24":
+                            start_h = "0"
+                        ende_h = times['ende_h']
+                        if ende_h == "24":
+                            ende_h = "0"
+                        from_time = start_h + ':' + times['start_min']
+                        till_time = ende_h + ':' + times['ende_min']
                         setattr(season, "%s_open" % weekdays[int(day_index)], parse_datetime(from_time).time())
                         setattr(season, "%s_close" % weekdays[int(day_index)], parse_datetime(till_time).time())
                     season.save()
