@@ -63,22 +63,6 @@ class EmailOrUsernameAuthentication(AuthenticationForm):
 
 class RegistrationForm(forms.Form):
 
-    # Simplified signup ->
-
-    # username = forms.RegexField(
-    #     label=_("Username for login"),
-    #     max_length=30,
-    #     regex=r'^[\w.@+-]+$',
-    #     help_text = _("Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."),
-    #     error_messages = {'invalid': _("This value may contain only letters, numbers and @/./+/-/_ characters.")}
-    #     )
-    # first_name = forms.CharField(
-    #     label=_("First name"),
-    #     )
-    # last_name = forms.CharField(
-    #     label=_("Last name"),
-    #     )
-
     email = forms.EmailField(label=_("Email"))
     password = forms.CharField(
         label=_("Password"),
@@ -92,17 +76,29 @@ class RegistrationForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
 
+        lang_code = get_current_language()
+        if lang_code == 'de':
+            privacy_policy_link = '/de/meta/datenschutzerklarung/'
+            terms_and_conditions_link = '/en/meta/nutzungsbedingungen/'
+        else:
+            privacy_policy_link = '/en/meta/data-protection-guidelines/'
+            terms_and_conditions_link = '/en/meta/terms-conditions/'
+
         self.fields['privacy_policy'] = forms.BooleanField(
             required=True,
             label=_(
-                "I accept <a href=\"/en/meta/data-protection-guidelines/\" target=\"_blank\">the data protection guidelines</a>."
-            ),
+                "I accept the <a href=\"%(privacy_policy_link)s\" target=\"_blank\">data protection guidelines</a>."
+            ) % {
+                "privacy_policy_link": privacy_policy_link,
+            },
         )
         self.fields['terms_of_use'] = forms.BooleanField(
             required=True,
             label=_(
-                "I accept <a href=\"/en/meta/terms-conditions/\" target=\"_blank\">the terms and conditions</a>."
-            ),
+                "I accept the <a href=\"%(terms_and_conditions_link)s\" target=\"_blank\">terms and conditions</a>."
+            ) % {
+                "terms_and_conditions_link": terms_and_conditions_link,
+            },
         )
 
         self.helper = FormHelper()
