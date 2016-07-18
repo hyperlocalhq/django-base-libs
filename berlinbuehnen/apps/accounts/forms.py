@@ -5,6 +5,7 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import ugettext as _
 from django.contrib.auth import authenticate
+from base_libs.middleware.threadlocals import get_current_language
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
@@ -91,22 +92,44 @@ class RegistrationForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
 
+        self.fields['privacy_policy'] = forms.BooleanField(
+            required=True,
+            label=_(
+                "I accept <a href=\"/en/meta/data-protection-guidelines/\" target=\"_blank\">the data protection guidelines</a>."
+            ),
+        )
+        self.fields['terms_of_use'] = forms.BooleanField(
+            required=True,
+            label=_(
+                "I accept <a href=\"/en/meta/terms-conditions/\" target=\"_blank\">the terms and conditions</a>."
+            ),
+        )
+
         self.helper = FormHelper()
         self.helper.form_action = ""
         self.helper.form_method = "POST"
 
         self.helper.layout = layout.Layout(
             layout.Fieldset(
-                "", # no legend
-
-                # "username",
-                # "first_name",
-                # "last_name",
-
-                layout.Field("email", autocomplete="off"),
-
-                "password",
-                "confirm_password",
+                "",  # no legend
+                layout.Row(
+                    layout.Div(
+                        layout.Field("email", autocomplete="off"),
+                        css_class="col-xs-12",
+                    ),
+                    layout.Div(
+                        "password",
+                        "confirm_password",
+                        css_class="col-xs-12",
+                    )
+                ),
+                layout.Row(
+                    layout.Div(
+                        "privacy_policy",
+                        "terms_of_use",
+                        css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12",
+                    )
+                )
             ),
             bootstrap.FormActions(
                 layout.Submit('submit', _('Signup')),
