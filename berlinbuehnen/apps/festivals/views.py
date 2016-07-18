@@ -111,6 +111,7 @@ def festival_detail(request, slug):
         context_processors=(prev_next_processor,),
     )
 
+
 def festival_events(request, slug):
 
     if "preview" in request.REQUEST:
@@ -128,8 +129,18 @@ def festival_events(request, slug):
     # exclude the parts of multipart productions
     qs = qs.filter(production__part=None)
     
-    qs = qs.filter(production__festivals=obj, start_date__gte = obj.start, start_date__lte = obj.end)
-    
+    # show only events that belong to the festival
+    qs = qs.filter(
+        production__festivals=obj,
+        start_date__gte=obj.start,
+        start_date__lte=obj.end,
+    )
+
+    # show only upcoming events
+    qs = qs.filter(
+        start_date__gte=datetime.now(),
+    )
+
     qs = qs.order_by('start_date', 'start_time', 'production__title_%s' % request.LANGUAGE_CODE)
     
     extra_context = {}
