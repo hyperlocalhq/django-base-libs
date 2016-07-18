@@ -932,9 +932,8 @@ msgid "Comments are disabled"
 msgstr ""
 
 #: berlinbuehnen/apps/cms_extensions/models.py:43
-#, fuzzy
 msgid "Page"
-msgstr "Nächster Termin"
+msgstr "Seite"
 
 #: berlinbuehnen/apps/cms_extensions/models.py:45
 msgid "No HTML and no new lines"
@@ -1001,7 +1000,6 @@ msgid "map title"
 msgstr "Titel"
 
 #: berlinbuehnen/apps/cms_extensions/plugins/gmap/models.py:13
-#, fuzzy
 msgid "address"
 msgstr "Adresse"
 
@@ -1014,16 +1012,14 @@ msgid "city"
 msgstr ""
 
 #: berlinbuehnen/apps/cms_extensions/plugins/gmap/models.py:17
-#, fuzzy
 msgid "additional content"
-msgstr "Zusätzlicher Inhalt"
+msgstr "zusätzlicher Inhalt"
 
 #: berlinbuehnen/apps/cms_extensions/plugins/gmap/models.py:18
 msgid "zoom level"
 msgstr ""
 
 #: berlinbuehnen/apps/cms_extensions/plugins/gmap/models.py:20
-#, fuzzy
 msgid "latitude"
 msgstr "Breitengrad"
 
@@ -1032,7 +1028,6 @@ msgid "Use latitude & longitude to fine tune the map possiton."
 msgstr ""
 
 #: berlinbuehnen/apps/cms_extensions/plugins/gmap/models.py:22
-#, fuzzy
 msgid "longitude"
 msgstr "Langengrad"
 
@@ -1087,9 +1082,8 @@ msgid "Tab title"
 msgstr "Titel"
 
 #: berlinbuehnen/apps/cms_extensions/plugins/jquery_ui_tab/models.py:16
-#, fuzzy
 msgid "content"
-msgstr "Content"
+msgstr "Inhalt"
 
 #: berlinbuehnen/apps/cms_extensions/plugins/richtext/cms_plugins.py:14
 msgid "Rich Text"
@@ -4624,37 +4618,31 @@ msgstr "Veröffentlichen"
 
 #: berlinbuehnen/templates/berlinbuehnen/bootstrap_pagination/pagination.html:6
 #: berlinbuehnen/templates/berlinbuehnen/bootstrap_pagination/pagination.html:10
-#, fuzzy
 msgid "First Page"
-msgstr "Vorname"
+msgstr "Erste Seite"
 
 #: berlinbuehnen/templates/berlinbuehnen/bootstrap_pagination/pagination.html:17
 #: berlinbuehnen/templates/berlinbuehnen/bootstrap_pagination/pagination.html:21
-#, fuzzy
 msgid "Previous Page"
-msgstr "zurück"
+msgstr "vorherige Seite"
 
 #: berlinbuehnen/templates/berlinbuehnen/bootstrap_pagination/pagination.html:28
-#, fuzzy
 msgid "Current Page"
-msgstr "Aktuelle Auswahl"
+msgstr "Aktuelle Seite"
 
 #: berlinbuehnen/templates/berlinbuehnen/bootstrap_pagination/pagination.html:32
-#, fuzzy, python-format
 msgid "Page %(pagenum)s of %(num_pages)s"
-msgstr "Seite %(pnumber)s von %(pages)s"
+msgstr "Seite %(pagenum)s von %(num_pages)s"
 
 #: berlinbuehnen/templates/berlinbuehnen/bootstrap_pagination/pagination.html:39
 #: berlinbuehnen/templates/berlinbuehnen/bootstrap_pagination/pagination.html:43
-#, fuzzy
 msgid "Next Page"
-msgstr "Nächster Termin"
+msgstr "Nächste Seite"
 
 #: berlinbuehnen/templates/berlinbuehnen/bootstrap_pagination/pagination.html:50
 #: berlinbuehnen/templates/berlinbuehnen/bootstrap_pagination/pagination.html:54
-#, fuzzy
 msgid "Last Page"
-msgstr "Zuletzt geändert"
+msgstr "Letzte Seite"
 
 #: berlinbuehnen/templates/berlinbuehnen/cms/start.html:15
 msgid "Login for Theaters"
@@ -5823,9 +5811,8 @@ msgid "Do you really want to delete this item?"
 msgstr "Möchten Sie dieses Objekt wirklich löschen?"
 
 #: berlinbuehnen/templates/berlinbuehnen/utils/dashboard_duplicate.html:8
-#, fuzzy
 msgid "Do you really want to duplicate this item?"
-msgstr "Möchten Sie dieses Objekt wirklich löschen?"
+msgstr "Möchten Sie dieses Objekt wirklich duplizieren?"
 
 #: berlinbuehnen/templates/berlinbuehnen/utils/dashboard_navigation.html:25
 #: berlinbuehnen/templates/berlinbuehnen/utils/header.html:62
