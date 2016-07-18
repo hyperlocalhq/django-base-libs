@@ -79,7 +79,7 @@ class RegistrationForm(forms.Form):
         lang_code = get_current_language()
         if lang_code == 'de':
             privacy_policy_link = '/de/meta/datenschutzerklarung/'
-            terms_and_conditions_link = '/en/meta/nutzungsbedingungen/'
+            terms_and_conditions_link = '/de/meta/nutzungsbedingungen/'
         else:
             privacy_policy_link = '/en/meta/data-protection-guidelines/'
             terms_and_conditions_link = '/en/meta/terms-conditions/'
