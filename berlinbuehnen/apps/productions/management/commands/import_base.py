@@ -613,11 +613,13 @@ class ImportFromHeimatBase(object):
                     instance.duration_text_de = text_de
                 if text_en:
                     instance.duration_text_en = text_en
-            elif text_cat_id == 25:  # Übertitel
+            elif text_cat_id == 25:  # Übertitel - this is a subtitle, not subtitles
                 if text_de:
-                    instance.subtitles_text_de = text_de
+                    instance.subtitles_text_de = ""
+                    instance.subtitle_de = text_de
                 if text_en:
-                    instance.subtitles_text_en = text_en
+                    instance.subtitles_text_en = ""
+                    instance.subtitle_en = text_en
             elif text_cat_id == 26:  # Werbezeile
                 if text_de:
                     werbezeile_de = text_de
