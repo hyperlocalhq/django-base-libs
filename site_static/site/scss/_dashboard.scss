@@ -212,11 +212,19 @@ textarea.form-control {resize: vertical; }
 select {
   visibility: hidden;
 }
-.dashboard .container {
-  max-width: 940px;
-  min-width: 940px;
-  width: 940px;
+.dashboard {
+  .container {
+    max-width: 940px;
+    min-width: 940px;
+    width: 940px;
+  }
+  #form-meta {
+    .form-control {
+      min-height: 40px;
+    }
+  }
 }
+
 .dashboard-table {
   width: 100%;
   margin-bottom: 10px;
@@ -242,7 +250,7 @@ select {
     td {
       &:nth-child(2n),
       &:nth-child(3n),
-      &:nth-child(4n) { 
+      &:nth-child(4n) {
         width: 1%;
         white-space: nowrap;
       }
@@ -259,7 +267,7 @@ select {
       background-clip: padding-box;      /* Firefox 4, Safari 5, Opera 10, IE 9 */
       background-image: url("../img/trns-1.png");
 
-      .status { 
+      .status {
         margin-bottom: -2px;
         height: 24px;
         width: 115px;
@@ -298,7 +306,7 @@ select {
         .sbSelector{
           font-size: 13px !important;
           line-height: 24px !important;
-          width: 100%; 
+          width: 100%;
           box-sizing: border-box;
           -moz-box-sizing: border-box;
         }
@@ -316,9 +324,9 @@ select {
   }
   .all {color: $blue !important; font-size: 13px !important; line-height: 24px !important;
   &:hover { color: black !important;}
-   } 
-    
-  .icon-last-edited { 
+   }
+
+  .icon-last-edited {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -331,7 +339,7 @@ select {
     background-image: url("../img/icons/edit.png");
     opacity: 0.35;
     margin-top: 0px;
-  } 
+  }
   .add {
     position: absolute;
     right: 0px;
@@ -340,7 +348,7 @@ select {
     line-height: 32px !important;
     background-color: rgba(0,0,0,0.075);
     background-color: $blue;
-    margin-bottom: 4px; 
+    margin-bottom: 4px;
     display: block;
     padding: 0px;
     padding-right: 30px;
@@ -364,11 +372,11 @@ select {
       li:hover .actions { opacity: 1; }
       .actions {opacity: 0.25; }
     }
-    
+
 
     > li {
       position: relative;
-      
+
       &:hover {
         .status {
           opacity: 1;
@@ -381,7 +389,7 @@ select {
           }
         }
       }
-      .status { 
+      .status {
         position: absolute;
         top: 8px;
         right: 80px;
@@ -413,7 +421,7 @@ select {
         .sbSelector{
           font-size: 13px !important;
           line-height: 24px !important;
-          width: 100%; 
+          width: 100%;
           box-sizing: border-box;
           -moz-box-sizing: border-box;
         }
@@ -451,8 +459,8 @@ select {
         }
 
         h3 ,h5 { display: inline-block; font-size: 16px !important;}
-        h5   { font-weight: 300; 
-          opacity: 0.5; 
+        h5   { font-weight: 300;
+          opacity: 0.5;
           position: relative;
           top: -2px;
           font-size: 13px !important;}

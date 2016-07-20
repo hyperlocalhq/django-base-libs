@@ -38,7 +38,7 @@ Event = models.get_model("events", "Event")
 Workshop = models.get_model("workshops", "Workshop")
 ShopProduct = models.get_model("shop", "ShopProduct")
 
-from .forms import ExhibitionFilterForm, EventFilterForm, WorkshopFilterForm, ShopFilterForm
+from .forms import ExhibitionFilterForm, EventFilterForm, WorkshopFilterForm, ShopFilterForm, MuseumFilterForm
 
 
 @never_cache
@@ -67,9 +67,12 @@ def dashboard(request):
 def dashboard_shopproducts(request):
     owned_shop_qs = ShopProduct.objects.owned_by(request.user).filter(status__in=("published", "draft")).order_by("-modified_date", "-creation_date")
 
-    status = None
+    status = "published"
     form = ShopFilterForm(request.REQUEST)
     if form.is_valid():
+        query = form.cleaned_data['query']
+        if query:
+            owned_shop_qs = owned_shop_qs.filter(models.Q(title_de__icontains=query) | models.Q(title_en__icontains=query))
         status = form.cleaned_data['status'] or "published"
         owned_shop_qs = owned_shop_qs.filter(status=status)
         
@@ -95,6 +98,17 @@ def dashboard_shopproducts(request):
 @login_required
 def dashboard_museums(request):
     owned_museum_qs = Museum.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")
+
+    status = "published"
+    form = MuseumFilterForm(request.REQUEST)
+    if form.is_valid():
+        query = form.cleaned_data['query']
+        if query:
+            owned_museum_qs = owned_museum_qs.filter(
+                models.Q(title_de__icontains=query) | models.Q(title_en__icontains=query))
+        status = form.cleaned_data['status'] or "published"
+        owned_museum_qs = owned_museum_qs.filter(status=status)
+
     paginator = Paginator(owned_museum_qs, 50)
     page_number = request.GET.get('page', 1)
     try:
@@ -106,6 +120,8 @@ def dashboard_museums(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         page = paginator.page(paginator.num_pages)
     context = {
+        'form': form,
+        'status': status,
         'page': page,
     }
     return render(request, "accounts/dashboard_museums.html", context)
@@ -116,9 +132,13 @@ def dashboard_museums(request):
 def dashboard_exhibitions(request):
     owned_exhibition_qs = Exhibition.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")
 
-    status = None
+    status = "published"
     form = ExhibitionFilterForm(request.REQUEST)
     if form.is_valid():
+        query = form.cleaned_data['query']
+        if query:
+            owned_exhibition_qs = owned_exhibition_qs.filter(
+                models.Q(title_de__icontains=query) | models.Q(title_en__icontains=query))
         status = form.cleaned_data['status'] or "published"
         owned_exhibition_qs = owned_exhibition_qs.filter(status=status)
 
@@ -146,9 +166,13 @@ def dashboard_exhibitions(request):
 def dashboard_events(request):
     owned_event_qs = Event.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")
 
-    status = None
+    status = "published"
     form = EventFilterForm(request.REQUEST)
     if form.is_valid():
+        query = form.cleaned_data['query']
+        if query:
+            owned_event_qs = owned_event_qs.filter(
+                models.Q(title_de__icontains=query) | models.Q(title_en__icontains=query))
         status = form.cleaned_data['status'] or "published"
         owned_event_qs = owned_event_qs.filter(status=status)
 
@@ -176,9 +200,13 @@ def dashboard_events(request):
 def dashboard_workshops(request):
     owned_workshop_qs = Workshop.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")
 
-    status = None
+    status = "published"
     form = WorkshopFilterForm(request.REQUEST)
     if form.is_valid():
+        query = form.cleaned_data['query']
+        if query:
+            owned_workshop_qs = owned_workshop_qs.filter(
+                models.Q(title_de__icontains=query) | models.Q(title_en__icontains=query))
         status = form.cleaned_data['status'] or "published"
         owned_workshop_qs = owned_workshop_qs.filter(status=status)
 

@@ -72,7 +72,7 @@
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav">
           {% if not request.user|in_group:"Shop Admins" or request.user.is_superuser %}
-            <li{% if request.path == "/dashboard/" %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/">{% trans "Overview" %}</a></li>
+            <li{% if request.path|slice:"3:" == "/dashboard/" %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/">{% trans "Overview" %}</a></li>
           {% endif %}
           {% if request.user|in_group:"Museum Owners" or request.user.is_superuser %}
 

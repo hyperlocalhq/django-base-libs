@@ -150,6 +150,11 @@ class ClaimingConfirmForm(forms.Form):
 
 
 class ShopFilterForm(forms.Form):
+    query = forms.CharField(
+        label=_("Search"),
+        required=False,
+        widget=forms.TextInput(),
+    )
     status = forms.ChoiceField(
         label=_("Status"),
         choices=(
@@ -167,12 +172,18 @@ class ShopFilterForm(forms.Form):
         self.helper.form_action = ""
         self.helper.form_method = "GET"
         self.helper.layout = layout.Layout(
+            "query",
             "status",
             layout.Submit('submit', _('Filter')),
         )
 
 
 class ExhibitionFilterForm(forms.Form):
+    query = forms.CharField(
+        label=_("Search"),
+        required=False,
+        widget=forms.TextInput(),
+    )
     status = forms.ChoiceField(
         label=_("Status"),
         choices=(
@@ -191,12 +202,18 @@ class ExhibitionFilterForm(forms.Form):
         self.helper.form_action = ""
         self.helper.form_method = "GET"
         self.helper.layout = layout.Layout(
+            "query",
             "status",
             layout.Submit('submit', _('Filter')),
         )
 
 
 class EventFilterForm(forms.Form):
+    query = forms.CharField(
+        label=_("Search"),
+        required=False,
+        widget=forms.TextInput(),
+    )
     status = forms.ChoiceField(
         label=_("Status"),
         choices=(
@@ -215,12 +232,18 @@ class EventFilterForm(forms.Form):
         self.helper.form_action = ""
         self.helper.form_method = "GET"
         self.helper.layout = layout.Layout(
+            "query",
             "status",
             layout.Submit('submit', _('Filter')),
         )
 
 
 class WorkshopFilterForm(forms.Form):
+    query = forms.CharField(
+        label=_("Search"),
+        required=False,
+        widget=forms.TextInput(),
+    )
     status = forms.ChoiceField(
         label=_("Status"),
         choices=(
@@ -239,6 +262,36 @@ class WorkshopFilterForm(forms.Form):
         self.helper.form_action = ""
         self.helper.form_method = "GET"
         self.helper.layout = layout.Layout(
+            "query",
+            "status",
+            layout.Submit('submit', _('Filter')),
+        )
+
+
+class MuseumFilterForm(forms.Form):
+    query = forms.CharField(
+        label=_("Search"),
+        required=False,
+        widget=forms.TextInput(),
+    )
+    status = forms.ChoiceField(
+        label=_("Status"),
+        choices=(
+            ('published', _("Published")),
+            ('draft', _("Draft")),
+        ),
+        required=False,
+        initial="published",
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(MuseumFilterForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "GET"
+        self.helper.layout = layout.Layout(
+            "query",
             "status",
             layout.Submit('submit', _('Filter')),
         )
