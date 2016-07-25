@@ -355,6 +355,7 @@ class ImportToBerlinBuehnenBase(NoArgsCommand):
                     pass
                 else:
                     prod.categories.add(cat)
+            prod.fix_categories()
 
             prod.characteristics.clear()
             for ch_id_node in prod_node.findall("./characteristics/characteristic_id"):

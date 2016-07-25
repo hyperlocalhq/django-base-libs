@@ -1230,6 +1230,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.categories.clear()
         for cat in form_step_data['basic']['categories']:
             instance.categories.add(cat)
+        instance.fix_categories()
 
         if not instance.get_owners():
             current_user = get_current_user()

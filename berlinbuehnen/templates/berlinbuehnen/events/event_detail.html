@@ -73,7 +73,7 @@
 
 {% block content %}
     {% with object as event %}
-        {% with event.production.get_multiparts as multiparts %}
+        {% with event.production.get_parts as parts %}
             <div id="event" class="content details">
                 <div class="container main-container">
                     <div class="row">
@@ -185,9 +185,9 @@
                                                     </dl>
                                                 {% endif %}
                                                 
-                                                {% if multiparts %}
+                                                {% if parts %}
                                                     <div class="multiparts">
-                                                        {% for part in multiparts %}
+                                                        {% for part in parts %}
                                                             <div class="multipart">
                                                                 <div class="multipart-header">
                                                                     <h1>{% if part.production.prefix %}{{ part.production.prefix }} {% endif %}{{ part.production.title }}
@@ -577,7 +577,7 @@
                                         <div class="row">
                                             <div class="col-xs-12 full">
                                                 <div class="accordion accordion-autoclose content-accordion">
-                                                    {% if not multiparts %}
+                                                    {% if not parts %}
                                                         {% if event.ev_or_prod_leaderships %}
                                                             <div class="accordion-item">
                                                                 <h4 class="accordion-item-head">{% trans "Staff" %}</h4>
@@ -606,11 +606,11 @@
                                                             </div>
                                                         {% endif %}
                                                     {% else %}
-                                                        {% if event.production.has_multiparts_leaderships %}
+                                                        {% if event.production.has_parts_leaderships %}
                                                             <div class="accordion-item">
                                                                 <h4 class="accordion-item-head">{% trans "Staff" %}</h4>
                                                                 <div class="accordion-item-content">
-                                                                    {% for part in multiparts %}
+                                                                    {% for part in parts %}
                                                                         {% with part.production.get_leaderships as plain_leaderships %}
                                                                             {% if plain_leaderships %}
                                                                                 <div class="multipart">
@@ -634,7 +634,7 @@
                                                         {% endif %}
                                                     {% endif %}
                                                     
-                                                    {% if not multiparts %}
+                                                    {% if not parts %}
                                                         {% if event.ev_or_prod_involvements %}
                                                             <div class="accordion-item">
                                                                 <h4 class="accordion-item-head">{% trans "Cast" %}</h4>
@@ -665,11 +665,11 @@
                                                             </div>
                                                         {% endif %}
                                                     {% else %}
-                                                        {% if event.production.has_multiparts_involvements %}
+                                                        {% if event.production.has_parts_involvements %}
                                                             <div class="accordion-item">
                                                                 <h4 class="accordion-item-head">{% trans "Cast" %}</h4>
                                                                 <div class="accordion-item-content">
-                                                                    {% for part in multiparts %}
+                                                                    {% for part in parts %}
                                                                         {% with part.production.get_involvements as plain_involvements %}
                                                                             {%  if plain_involvements %}
                                                                                 <div class="multipart">
@@ -695,7 +695,7 @@
                                                         {% endif %}
                                                     {% endif %}
                                                         
-                                                    {% if not multiparts %}
+                                                    {% if not parts %}
                                                         {% if event.ev_or_prod_authorships %}
                                                             <div class="accordion-item">
                                                                 <h4 class="accordion-item-head">{% trans "Author" %} / {% trans "Composer" %}</h4>
@@ -724,11 +724,11 @@
                                                             </div>
                                                         {% endif %}
                                                     {% else %}
-                                                        {% if event.production.has_multiparts_authorships %}
+                                                        {% if event.production.has_parts_authorships %}
                                                             <div class="accordion-item">
                                                                 <h4 class="accordion-item-head">{% trans "Authors" %}</h4>
                                                                 <div class="accordion-item-content">
-                                                                    {% for part in multiparts %}
+                                                                    {% for part in parts %}
                                                                         {% with part.production.get_authorships as plain_authorships %}
                                                                             {%  if plain_authorships %}
                                                                                 <div class="multipart">
@@ -833,7 +833,7 @@
                                                 </div>
                                                 
                                                 <!-- Gallery -->
-                                                {% if event.ev_or_prod_videos or event.ev_or_prod_images or event.production.has_multiparts_videos or event.production.has_multiparts_images %}
+                                                {% if event.ev_or_prod_videos or event.ev_or_prod_images or event.production.has_parts_videos or event.production.has_parts_images %}
                                                     <div class="gallery row">
                                                         <h4 class="gallery-head">{% trans "Gallery" %}</h4>
                                                         {% if event.ev_or_prod_videos %}
@@ -841,8 +841,8 @@
                                                                 <div class="col-xs-12 col-md-8 video gallery-item">{{ video.get_embed|safe }}</div>
                                                             {% endfor %}
                                                         {% endif %}
-                                                        {% if event.production.has_multiparts_videos %}
-                                                            {% for part in multiparts %}
+                                                        {% if event.production.has_parts_videos %}
+                                                            {% for part in parts %}
                                                                 {% for video in part.production.get_videos %}
                                                                     <div class="col-xs-12 col-md-8 video gallery-item">{{ video.get_embed|safe }}</div>
                                                                 {% endfor %}
@@ -873,8 +873,8 @@
                                                                 </div>
                                                             {% endfor %}
                                                         {% endif %}
-                                                        {% if event.production.has_multiparts_images %}
-                                                            {% for part in multiparts %}
+                                                        {% if event.production.has_parts_images %}
+                                                            {% for part in parts %}
                                                                 {% for image in part.production.get_images %}
                                                                     <div class="col-xs-12 col-sm-6 col-md-4 image gallery-item img chevron">
                                                                         {% with image.path|file_description as file_desc %}

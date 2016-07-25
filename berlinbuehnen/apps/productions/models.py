@@ -333,47 +333,24 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
             
         now_date = timestamp.date()
         now_time = timestamp.time()
-        events = self.event_set.filter(start_date__gte=now_date).order_by('start_date')
+        events = list(self.event_set.filter(start_date__gte=now_date).order_by('start_date'))
         
         while len(events) and events[0].start_date == now_date and events[0].start_time < now_time:
             del events[0]
         
         return events 
-        
+
+    def fix_categories(self):
+        # for all children categories of this production add the parent category to the database
+        for child_cat in self.categories.filter(level=1):
+            self.categories.add(child_cat.parent)
+    fix_categories.alters_data = True
+
     def get_categories(self):
-    
-        categories = []
-        parent_categories = self.categories.all()
-        multiparts = self.get_multiparts()
-        
-        if multiparts:
-            for cat in parent_categories:
-                categories.append(cat)
-            for part in multiparts:
-                found_main = -1
-                for cat in part.production.categories.all():
-                
-                    if cat.level == 0:
-                        found_main = -1
-                        
-                    found_index = -1
-                    for index, category in enumerate(categories):
-                        if category.pk == cat.pk:
-                            found_index = index
-                            break
-                            
-                    if found_index == -1:
-                        if found_main >= 0:
-                            categories.insert(found_main+1, cat)
-                        else:
-                            categories.append(cat)
-                    else:
-                        if cat.level == 0:
-                            found_main = found_index
-        
-        else:
-            categories = parent_categories
-        
+        # get the categories of this production and of its parts if this production is a multipart
+        categories = ProductionCategory.objects.filter(
+            production__pk__in=[self.pk] + [part.production_id for part in self.get_parts()]
+        )
         return categories
 
     def get_import_source(self):
@@ -399,77 +376,67 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     
     def is_multipart(self):
         try:
-            return self.multipart
+            return bool(self.multipart)
         except:
-            return None
+            return False
             
-    def get_multiparts(self):
+    def get_parts(self):
         try:
             return self.multipart.part_set.all()
         except:
-            return None
+            return []
             
-    def has_multiparts_leaderships(self):
-        multiparts = self.get_multiparts()
+    def has_parts_leaderships(self):
+        multiparts = self.get_parts()
         if multiparts:
             for part in multiparts:
                 if part.production.get_leaderships().exists():
                     return True
-            return False
-        else:
-            return False
-            
+        return False
+
     def get_leaderships(self):
         return self.productionleadership_set.all().order_by('sort_order')
 
-    def has_multiparts_involvements(self):
-        multiparts = self.get_multiparts()
+    def has_parts_involvements(self):
+        multiparts = self.get_parts()
         if multiparts:
             for part in multiparts:
                 if part.production.get_involvements().exists():
                     return True
-            return False
-        else:
-            return False
-        
+        return False
+
     def get_involvements(self):
         return self.productioninvolvement_set.all().order_by('sort_order')
 
-    def has_multiparts_authorships(self):
-        multiparts = self.get_multiparts()
+    def has_parts_authorships(self):
+        multiparts = self.get_parts()
         if multiparts:
             for part in multiparts:
                 if part.production.get_authorships().exists():
                     return True
-            return False
-        else:
-            return False
-        
+        return False
+
     def get_authorships(self):
         return self.productionauthorship_set.all().order_by('sort_order')
 
-    def has_multiparts_videos(self):
-        multiparts = self.get_multiparts()
+    def has_parts_videos(self):
+        multiparts = self.get_parts()
         if multiparts:
             for part in multiparts:
                 if part.production.get_videos().exists():
                     return True
-            return False
-        else:
-            return False
-        
+        return False
+
     def get_videos(self):
         return self.productionvideo_set.all()
 
-    def has_multiparts_images(self):
-        multiparts = self.get_multiparts()
+    def has_parts_images(self):
+        multiparts = self.get_parts()
         if multiparts:
             for part in multiparts:
                 if part.production.get_images().exists():
                     return True
-            return False
-        else:
-            return False
+        return False
 
     def get_images(self):
         return self.productionimage_set.all()
