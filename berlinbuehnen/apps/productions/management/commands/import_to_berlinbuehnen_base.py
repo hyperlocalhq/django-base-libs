@@ -1,21 +1,15 @@
 # -*- coding: UTF-8 -*-
-
-import re
 import requests
 from xml.etree import ElementTree
 from datetime import timedelta
 from dateutil.parser import parse as parse_datetime
-from optparse import make_option
-import csv
 import os
 from urllib import url2pathname
 
 from django.core.management.base import NoArgsCommand
 from django.utils.encoding import smart_str, force_unicode
-from django.utils.text import slugify
 from django.utils.html import strip_tags
 from django.db import models
-from django.conf import settings
 
 from base_libs.utils.misc import get_unique_value
 from base_libs.utils.betterslugify import better_slugify
