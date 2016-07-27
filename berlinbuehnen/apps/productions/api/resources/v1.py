@@ -583,7 +583,7 @@ class ProductionResource(ModelResource):
     play_locations = fields.ToManyField(LocationResource, "play_locations")
     play_stages = fields.ToManyField(StageResource, "play_stages")
 
-    categories = fields.ToManyField(ProductionCategoryResource, attribute=lambda bundle: bundle.obj.get_categories(), full=True)
+    categories = fields.ToManyField(ProductionCategoryResource, attribute=lambda bundle: bundle.obj.get_categories(), full=True, null=True, blank=True)
     characteristics = fields.ToManyField(ProductionCharacteristicsResource, "characteristics", full=True)
 
     leaders = fields.ToManyField(ProductionLeadershipResource, "productionleadership_set", full=True)
