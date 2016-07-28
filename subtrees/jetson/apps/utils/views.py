@@ -723,7 +723,8 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
                     field_value = form_step_data[current_step][field.name]
                 except KeyError:
                     field_value = None
-                if hasattr(field.field, 'choices') and field.field.choices:
+                # create get_XXX_display for all selection fields except model-choice fields and alike
+                if hasattr(field.field, 'choices') and not hasattr(field.field, 'queryset') and field.field.choices:
                     d = dict([
                         (str(k), unicode(v))
                         for k, v in field.field.choices
@@ -757,8 +758,8 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
                     ):
                         cleaned_data = dict(form.cleaned_data)
                         for field in form:
-                            # create get_XXX_display for all selection fields
-                            if hasattr(field.field, 'choices') and field.field.choices:
+                            # create get_XXX_display for all selection fields except model-choice fields and alike
+                            if hasattr(field.field, 'choices') and not hasattr(field.field, 'queryset') and field.field.choices:
                                 k = cleaned_data.get(field.name, '') or ''
                                 if not isinstance(k, (list, models.Model)):
                                     d = dict([
