@@ -6,14 +6,14 @@
 @import 'bootstrap';
 @import 'header';
 @import 'footer';
-@import 'form'; 
+@import 'form';
 @import 'default';
 @import 'article';
 @import 'theater-of-the-week';
 @import 'details';
 @import 'slider';
 @import 'date_slider';
-@import 'month_slider'; 
+@import 'month_slider';
 @import 'accordions';
 @import 'gallery';
 @import 'list';
@@ -156,7 +156,7 @@ h3 {
     margin-bottom: 16px;
 }
 
-    
+
 h1.bottom-line {
     padding-bottom: 8px !important;
     border-bottom: 4px solid black;
@@ -175,7 +175,7 @@ h1.bottom-line {
 header {
     margin-bottom: 24px;
     position: relative;
-    
+
     .header-icons {
         -webkit-touch-callout: none;
         -webkit-user-select: none;
@@ -201,18 +201,18 @@ header {
             }
         }
     }
-    
+
     .is-xs & {
         .header-icons {
             right: 5px;
         }
     }
 }
-    
+
 .headline-link {
     color: black;
     &:hover {
-        color: black; 
+        color: black;
     }
     &:focus {
         color: black;
@@ -231,7 +231,7 @@ header {
 }
 
 .section-head { position: relative; }
-.section-head:before { 
+.section-head:before {
   display: block;
   content: " ";
   margin-top: -85px;
@@ -290,7 +290,7 @@ dl {
   &.break-word {
     dd {
         word-wrap: break-word;
-        word-break: break-all;    
+        word-break: break-all;
     }
   }
 }
@@ -302,7 +302,7 @@ dl {
 
 .break-word {
     word-wrap: break-word;
-    word-break: break-all;    
+    word-break: break-all;
 }
 
 // dl + p { margin-top: 10px; }
@@ -400,7 +400,7 @@ em { color: black; font-style: italic; }
 
 .ad_banner {
   .headline-up {
-    margin-top: -17px !important; 
+    margin-top: -17px !important;
     margin-bottom: 2px !important;
   }
 }
@@ -476,7 +476,7 @@ em { color: black; font-style: italic; }
     }
 }
 
-    
+
 #to-top {
     position: fixed;
     bottom: 0px;
@@ -514,9 +514,9 @@ em { color: black; font-style: italic; }
         color: #FFF;
     }
 }
-    
+
 .empty-container {
-    padding: 50px 8px;    
+    padding: 50px 8px;
 }
 
 .tooltip {
@@ -527,16 +527,22 @@ em { color: black; font-style: italic; }
         box-shadow: 0 0 1px 1px rgba(0,0,0,0.3);
         text-transform: none;
     }
-    
+
     &.right {
         .tooltip-arrow {
             left: 5px;
         }
     }
-    
+
     &.left {
         .tooltip-arrow {
             right: 5px;
         }
+    }
+}
+
+.cms-plugin-richtext {
+    ul {
+        margin-left: 25px;
     }
 }
