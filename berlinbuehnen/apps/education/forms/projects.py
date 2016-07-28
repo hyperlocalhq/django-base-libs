@@ -775,6 +775,13 @@ class ProjectSponsorForm(autocomplete_light.ModelForm):
             *fieldset_content
         )
 
+    def clean_media_file_path(self):
+        data = self.cleaned_data['media_file_path']
+        if ".." in data:
+            raise forms.ValidationError(_("Double dots are not allowed in the file name."))
+        return data
+
+
 ProjectSponsorFormset = inlineformset_factory(Project, ProjectSponsor, form=ProjectSponsorForm, formset=InlineFormSet, extra=0)
 
 

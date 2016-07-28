@@ -587,6 +587,12 @@ class BasicInfoForm(forms.ModelForm):
             *layout_blocks
         )
 
+    def clean_logo_path(self):
+        data = self.cleaned_data['logo_path']
+        if ".." in data:
+            raise forms.ValidationError(_("Double dots are not allowed in the file name."))
+        return data
+
 
 class SocialMediaChannelForm(forms.ModelForm):
     class Meta:
