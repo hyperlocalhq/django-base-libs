@@ -207,3 +207,10 @@ class ShopProductForm(autocomplete_light.ModelForm):
         self.helper.layout = layout.Layout(
             *layout_blocks
         )
+
+    def clean_image_path(self):
+        data = self.cleaned_data['image_path']
+        if ".." in data:
+            raise forms.ValidationError(_("Double dots are not allowed in the file name."))
+        return data
+

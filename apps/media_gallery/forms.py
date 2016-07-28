@@ -130,6 +130,12 @@ class ImageFileForm(PortfolioFileForm):
         ]
         self.helper.layout = layout.Layout(*layout_bits)
 
+    def clean_media_file_path(self):
+        data = self.cleaned_data['media_file_path']
+        if ".." in data:
+            raise forms.ValidationError(_("Double dots are not allowed in the file name."))
+        return data
+
     def clean_external_url(self):
         external_url = self.cleaned_data['external_url']
         if external_url:
@@ -270,6 +276,18 @@ class VideoFileForm(PortfolioFileForm):
         ]
         self.helper.layout = layout.Layout(*layout_bits)
 
+    def clean_media_file_path(self):
+        data = self.cleaned_data['media_file_path']
+        if ".." in data:
+            raise forms.ValidationError(_("Double dots are not allowed in the file name."))
+        return data
+
+    def clean_splash_image_file_path(self):
+        data = self.cleaned_data['splash_image_file_path']
+        if ".." in data:
+            raise forms.ValidationError(_("Double dots are not allowed in the file name."))
+        return data
+
     def clean_external_url(self):
         external_url = self.cleaned_data['external_url']
         if external_url:
@@ -409,6 +427,18 @@ class AudioFileForm(PortfolioFileForm):
             ),
         ]
         self.helper.layout = layout.Layout(*layout_bits)
+
+    def clean_media_file_path(self):
+        data = self.cleaned_data['media_file_path']
+        if ".." in data:
+            raise forms.ValidationError(_("Double dots are not allowed in the file name."))
+        return data
+
+    def clean_splash_image_file_path(self):
+        data = self.cleaned_data['splash_image_file_path']
+        if ".." in data:
+            raise forms.ValidationError(_("Double dots are not allowed in the file name."))
+        return data
 
     def clean_external_url(self):
         external_url = self.cleaned_data['external_url']

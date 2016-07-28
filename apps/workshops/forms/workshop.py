@@ -351,6 +351,18 @@ class BasicInfoForm(ModelForm):
             *layout_blocks
         )
 
+    def clean_pdf_document_de_path(self):
+        data = self.cleaned_data['pdf_document_de_path']
+        if ".." in data:
+            raise forms.ValidationError(_("Double dots are not allowed in the file name."))
+        return data
+
+    def clean_pdf_document_en_path(self):
+        data = self.cleaned_data['pdf_document_en_path']
+        if ".." in data:
+            raise forms.ValidationError(_("Double dots are not allowed in the file name."))
+        return data
+
     def clean(self):
         cleaned_data = super(BasicInfoForm, self).clean()
         if not cleaned_data.get("museum") and not cleaned_data.get("location_name"):

@@ -176,6 +176,12 @@ class ImageFileForm(forms.Form):
             *layout_blocks
         )
 
+    def clean_media_file_path(self):
+        data = self.cleaned_data['media_file_path']
+        if ".." in data:
+            raise forms.ValidationError(_("Double dots are not allowed in the file name."))
+        return data
+
     def clean(self):
         cleaned = self.cleaned_data
         if not cleaned.get("media_file_path") and not self.media_file_obj:
