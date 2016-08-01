@@ -771,9 +771,16 @@ def culturebase_export_productions(request, location_slug):
 
 API_CHANGELOG = [
     {
+        'date': datetime(2016, 8, 1, 12, 0),
+        'changes': [
+            u"Documentation introduction added.",
+            u"Documentation updated regarding determining play location(s) of an event.",
+        ],
+    },
+    {
         'date': datetime(2016, 1, 20, 12, 0),
         'changes': [
-            u"Field <strong>language_and_subtitles</strong> added to events",
+            u"Field <strong>language_and_subtitles</strong> added to events.",
         ],
     },
     {
@@ -791,56 +798,56 @@ API_CHANGELOG = [
     {
         'date': datetime(2015, 10, 12, 12, 0),
         'changes': [
-            u"Field <strong>copyright</strong> added to production and event images",
-            u"Field <strong>photographer</strong> added to production and event images",
-            u"Field <strong>copyright</strong> added to production and event pdfs",
+            u"Field <strong>copyright</strong> added to production and event images.",
+            u"Field <strong>photographer</strong> added to production and event images.",
+            u"Field <strong>copyright</strong> added to production and event pdfs.",
         ],
     },
     {
         'date': datetime(2015, 8, 11, 12, 0),
         'changes': [
-            u"Custom location added to production with fields: <strong>location_title</strong>, <strong>street_address</strong>, <strong>street_address2</strong>, <strong>postal_code</strong>, <strong>city</strong>, <strong>country</strong>, <strong>latitude</strong>, <strong>longitude</strong>",
+            u"Custom location added to production with fields: <strong>location_title</strong>, <strong>street_address</strong>, <strong>street_address2</strong>, <strong>postal_code</strong>, <strong>city</strong>, <strong>country</strong>, <strong>latitude</strong>, <strong>longitude</strong>.",
         ],
     },
     {
         'date': datetime(2015, 7, 9, 12, 0),
         'changes': [
-            u"Field <strong>event_status</strong> added to events",
-            u"Field <strong>ticket_status</strong> added to events",
-            u"Field <strong>list_image_url</strong> added to production and event images",
+            u"Field <strong>event_status</strong> added to events.",
+            u"Field <strong>ticket_status</strong> added to events.",
+            u"Field <strong>list_image_url</strong> added to production and event images.",
         ],
     },
     {
         'date': datetime(2015, 6, 16, 12, 0),
         'changes': [
-            u"Filtering productions by <strong>in_program_of</strong>",
-            u"Filtering productions by <strong>play_locations</strong>",
-            u"Filtering productions by <strong>status</strong>",
-            u"Filtering productions by <strong>categories</strong>",
-            u"Filtering productions by <strong>creation_date</strong>",
-            u"Filtering productions by <strong>modified_date</strong>",
+            u"Filtering productions by <strong>in_program_of</strong>.",
+            u"Filtering productions by <strong>play_locations</strong>.",
+            u"Filtering productions by <strong>status</strong>.",
+            u"Filtering productions by <strong>categories</strong>.",
+            u"Filtering productions by <strong>creation_date</strong>.",
+            u"Filtering productions by <strong>modified_date</strong>.",
         ],
     },
     {
         'date': datetime(2015, 4, 2, 12, 0),
         'changes': [
-            u"Field <strong>concert_programm_de</strong> changed to <strong>concert_program_de</strong>",
-            u"Field <strong>concert_programm_en</strong> changed to <strong>concert_program_en</strong>",
-            u"Field <strong>supporting_programm_de</strong> changed to <strong>supporting_program_de</strong>",
-            u"Field <strong>supporting_programm_en</strong> changed to <strong>supporting_program_en</strong>",
+            u"Field <strong>concert_programm_de</strong> changed to <strong>concert_program_de</strong>.",
+            u"Field <strong>concert_programm_en</strong> changed to <strong>concert_program_en</strong>.",
+            u"Field <strong>supporting_programm_de</strong> changed to <strong>supporting_program_de</strong>.",
+            u"Field <strong>supporting_programm_en</strong> changed to <strong>supporting_program_en</strong>.",
         ],
     },
     {
         'date': datetime(2015, 4, 2, 12, 0),
-        'changes': [u"Field <strong>sort_order</strong> added to media files"],
+        'changes': [u"Field <strong>sort_order</strong> added to media files."],
     },
     {
         'date': datetime(2015, 3, 23, 12, 0),
-        'changes': [u"Field <strong>organizer_title</strong> changed to <strong>organizers</strong> at events"],
+        'changes': [u"Field <strong>organizer_title</strong> changed to <strong>organizers</strong> at events."],
     },
     {
         'date': datetime(2015, 3, 12, 12, 0),
-        'changes': [u"Location, production, and event export"],
+        'changes': [u"Location, production, and event export."],
     },
 ]
 
