@@ -169,6 +169,15 @@
                 right: 20px;
             }
         }
+        &.user-avatar {
+            right: 130px;
+            width: 39px;
+            height: 39px;
+            display:inline-block;
+            .is-xs & {
+                right: 20px;
+            }
+        }
     }
     
     &.fixed {
