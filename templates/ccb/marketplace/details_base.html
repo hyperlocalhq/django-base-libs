@@ -58,7 +58,11 @@
                             class="fawesome fa-favorite button text">
                             <span class="text">{% trans "Favorite" %}</span></a>
                     {% endif %}
-                                
+                    <a rel="nofollow" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}" class="fawesome fa-facebook button text social-sharing"><span class="text">{% trans "Share on Facebook" %}</span></a>
+                    <a rel="nofollow" target="_blank" href="http://twitter.com/home?status={{ object.position|urlencode }}+{{ request.build_absolute_uri|urlencode }}" class="fawesome fa-twitter button text social-sharing"><span class="text">{% trans "Tweet" %}</span></a>
+                    <a rel="nofollow" target="_blank" href="https://plus.google.com/share?url={{ request.build_absolute_uri|urlencode }}" class="fawesome fa-googleplus button text social-sharing"><span class="text">{% trans "Share on Google+" %}</span></a>
+                    <a rel="nofollow" href="mailto:?subject={{ object.position|urlencode }}&amp;body={{ request.build_absolute_uri|urlencode }}" class="fawesome fa-email button text"><span class="text">{% trans "Email to a friend" %}</span></a>
+
                     {% if request.user.is_authenticated %}
                         {% if request.user.is_staff and perms.marketplace.change_joboffer %}
                             <a href="/admin/marketplace/joboffer/{{ object.pk }}/" class="fawesome fa-edit button text" onclick="open_new_window(event)"><span class="text">{% trans "edit Job Offer" %}</span></a>

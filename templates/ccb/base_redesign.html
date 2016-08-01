@@ -110,7 +110,6 @@
         <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.mobile.custom.min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}site/js/form.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}site/js/base.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}site/js/generic.js"></script>
         <script type="text/javascript" src="{% url 'jssettings' %}"></script>
 
         {{ site_settings.extra_head|safe }}
@@ -277,6 +276,8 @@
         {% endblock %}
 
         {% render_block "js" %}
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/generic.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/social-sharing.min.js"></script>
 
         {{ site_settings.extra_body|safe }}
 
