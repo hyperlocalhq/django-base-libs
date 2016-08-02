@@ -240,6 +240,7 @@ INSTALLED_APPS = (
     "museumsportal.apps.internal_links",
     "museumsportal.apps.shop",
     "museumsportal.apps.museumssummer",
+    "museumsportal.apps.tips",
 
     # the following apps are copied and converted from jetson
     "museumsportal.apps.mailchimp",
@@ -290,6 +291,9 @@ ADMIN_APP_INDEX = (
             }),
             ('slideshows', {
                 'models': ('Slideshow',),
+            }),
+            ('tips', {
+                'models': ('TipOfTheDay',),
             }),
             ('internal_links', {
                 'models': ('LinkGroup',),
