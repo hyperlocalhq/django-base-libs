@@ -47,6 +47,40 @@
   </div>
 {% endwith %}
 
+{% comment TODO: Style this according to the design at https://trello.com/c/BE7w3HeF/361-365-24-tagestipps %}
+  <div class="container">
+    <div class="row row-md">
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <div class="start-content">
+          <h2 class="caps">{% trans "Tips of the Day" %}</h2>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <div class="start-content">
+          <h3 class="caps">Berlin<br />365/24</h3>
+        </div>
+      </div>
+    </div>
+    <div class="row row-md">
+      {% get_objects upcoming tips.tipoftheday 3 as upcoming_tips_of_the_day %}
+      {% for tip in upcoming_tips_of_the_day %}
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+          <a href="{{ tip.content_object.get_url_path }}">
+            <img src="{{ MEDIA_URL }}{{ tip.image|modified_path:"editorial" }}" alt="{{ tip.title }}" />
+            <h4>
+                {{ tip.day|date:"D, j. M" }}
+                {% if tip.starting_time %} | {{ tip.starting_time|date:"H:i" }}{% endif %}
+            </h4>
+            <h4>{{ tip.event_type }} <strong>{{ tip.title }}</strong></h4>
+            <h5>{{ tip.subtitle }}</h5>
+            <p>{{ tip.location_title }}</p>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endcomment %}
+
 <div class="content hidden-xs">
   <div class="container">
     <div class="row">

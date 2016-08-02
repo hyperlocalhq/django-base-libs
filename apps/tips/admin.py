@@ -55,9 +55,11 @@ class TipOfTheDayAdmin(ObjectRelationMixinAdminOptions()):
 
         data = {}
 
+        data['image'] = ""
         if content_object.cover_image:
             data['image'] = content_object.cover_image.path
 
+        data['starting_time'] = ""
         if ct.model.lower() == "event":
             t = content_object.get_closest_event_time()
             if t and t.start is not None:
