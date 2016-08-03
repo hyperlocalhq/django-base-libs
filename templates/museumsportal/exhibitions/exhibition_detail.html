@@ -245,7 +245,7 @@
                           {% if organizer.organizing_museum.website %}
                             <dl>
                               <dt>{% trans "Website" %} </dt>
-                              <dd><a href="{{ exhibition.website }}">{{ organizer.organizing_museum.website|humanize_url:"20" }}</a></dd>
+                              <dd><a href="{{ exhibition.organizing_museum.website }}">{{ organizer.organizing_museum.website|humanize_url:"20" }}</a></dd>
                             </dl>
                           {% endif %}
 
@@ -300,14 +300,15 @@
                           <dd class="pull-right">+{{ exhibition.museum.fax_country }} ({{ exhibition.museum.fax_area }}) {{ exhibition.museum.fax_number }}</dd>
                         </dl>
                       {% endif %}
-
-                      {% if exhibition.website %}
-                        <dl class="oneline">
-                          <dt class="pull-left">{% trans "Website" %} </dt>
-                          <dd class="pull-right"><a href="{{ exhibition.website }}">{{ exhibition.website|humanize_url:"20" }}</a></dd>
-                        </dl>
-                      {% endif %}
                     {% endif %}
+
+                    {% if exhibition.website %}
+                      <dl class="oneline">
+                        <dt class="pull-left">{% trans "Website" %} </dt>
+                        <dd class="pull-right"><a href="{{ exhibition.website }}">{{ exhibition.website|humanize_url:"20" }}</a></dd>
+                      </dl>
+                    {% endif %}
+
                   </div>
                 </div>
               </div>
