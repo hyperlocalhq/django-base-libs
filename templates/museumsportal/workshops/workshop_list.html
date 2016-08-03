@@ -5,126 +5,195 @@
 {% block bodyclass %}workshop-list{% endblock %}
 
 {% block js %}
-  <script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
-  <script type="text/javascript" src="{{ STATIC_URL }}site/js/list.min.js"></script>
-  <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
-  <script type="text/javascript">
-      var str_filter_selection = "{% trans "Filter selection" %}";
-  </script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/list.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
+    <script type="text/javascript">
+        var str_filter_selection = "{% trans "Filter selection" %}";
+    </script>
 {% endblock %}
 
 {% block content %}
-  <div class="content">
-    <div class="container">
-      <header class="list-header clearfix">
-        <h4 class="visible-xs">{% trans "Guided Tours, Workshops and educational offers" %}</h4>
+    <div class="content">
+        <div class="container">
+            <header class="list-header clearfix">
+                <h4 class="visible-xs">{% trans "Guided Tours, Workshops and educational offers" %}</h4>
 
-        <div class="list-controls">
-          <a class="btn btn-info pull-right" href="{% url "workshop_list_map" %}">{% trans "Show map" %}</a>
-          <div class="btn-group pull-left" style="margin-right: 15px;">
-            <button id="toggle-list-filter" class="btn btn-info"  data-parent="#list-filter" data-toggle="collapse" data-target="#list-filter">{% trans "filter" %}<span class="caret black"></span></button>
-            <button id="filter-reset" type="button" class="filter-reset btn btn-info">{% trans "Reset" %}</button>
-          </div>
-          <ul id="filter-summary" class="pull-left">
-            {% if facets.selected.abc or facets.selected.category or facets.selected.suitable_for_children or facets.selected.free_admission or facets.selected.calendar or facets.selected.selected_date %}
-              <li><b>{% trans "Filter selection" %}:</b></li>
-              {% if facets.selected.abc %}<li data-param="abc" data-value="{{ facets.selected.abc }}"><a href="{% append_to_get abc="" %}">{{ facets.selected.abc }}</a></li>{% endif %}
-              {% if facets.selected.is_for_wheelchaired %}<li data-param="is_for_wheelchaired" data-value="1"><a href="{% append_to_get is_for_wheelchaired="" %}">{% trans "For people in wheelchairs" %}</a></li>{% endif %}
-              {% if facets.selected.is_for_deaf %}<li data-param="is_for_deaf" data-value="1"><a href="{% append_to_get is_for_deaf="" %}">{% trans "For deaf people" %}</a></li>{% endif %}
-              {% if facets.selected.is_for_blind %}<li data-param="is_for_blind" data-value="1"><a href="{% append_to_get is_for_blind="" %}">{% trans "For blind people" %}</a></li>{% endif %}
-              {% if facets.selected.is_for_learning_difficulties %}<li data-param="is_for_learning_difficulties" data-value="1"><a href="{% append_to_get is_for_learning_difficulties="" %}">{% trans "For people with learning difficulties" %}</a></li>{% endif %}
-              {% if facets.selected.smart %}<li data-param="smart" data-value="{{ facets.selected.smart.0 }}"><a href="{% append_to_get smart="" %}">{{ facets.selected.smart.1 }}</a></li>{% endif %}
-              {% if facets.selected.calendar %}<li data-param="calendar" data-value="{{ facets.selected.calendar.0 }}"><a href="{% append_to_get calendar="" %}">{{ facets.selected.calendar.1 }}</a></li>{% endif %}
-              {% if facets.selected.selected_date %}<li data-param="selected_date" data-value="{{ facets.selected.selected_date|date:"Y-m-d" }}"><a href="{% append_to_get selected_date="" %}">{{ facets.selected.selected_date }}</a></li>{% endif %}
-            {% endif %}
-          </ul>
-        </div>
-      </header>
-    </div>
-
-    <div id="list-filter" class="collapse">
-      <div>
-        <div class="container relative">
-          <button class="cancel btn btn-info btn-lg btn-icon"  data-parent="#list-filter" data-toggle="collapse" data-target="#list-filter">
-            <span class="icon icon-remove"></span>
-            <span class="sr-only">{% trans "close" %}</span>
-          </button>
-          {% include "utils/filter_workshops.html" %}
-        </div>
-      </div>
-    </div>
-
-    <div id="list">
-      <div class="container">
-
-        <div id="notices" class="hidden-xs">
-          <h6 class="block-label">{% trans "Editors Recommendations" %}</h6>
-          <div class="row row-sm">
-            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">{% infoblock "workshop_notice_1" %}</div>
-            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">{% infoblock "workshop_notice_2" %}</div>
-            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 hidden-xs">{% infoblock "workshop_notice_3" %}</div>
-            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 hidden-sm hidden-xs">{% infoblock "workshop_notice_4" %}</div>
-          </div>
-        </div>
-
-        <div id="container">
-          <div class="row row-md list">
-            {% if page == 1 %}
-              <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12 hidden-xs">
-                {% load advertising_tags %}
-                {% random_zone_ad 'workshops' %}
-              </div>
-            {% endif %}
-
-            {% if object_list %}
-              {% for workshop in object_list %}
-                {% tags_for_object workshop as tags %}
-                <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12" data-filter-categories="initial_{{ workshop.title|slugify|slice:"0:1" }}{% for cat in workshop.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if workshop.has_group_offer %} has_group_offer{% endif %}{% if workshop.is_for_preschool %} is_for_preschool{% endif %}{% if workshop.is_for_primary_school %} is_for_primary_school{% endif %}{% if workshop.is_for_youth %} is_for_youth{% endif %}{% if workshop.is_for_families %} is_for_families{% endif %}{% if workshop.is_for_wheelchaired %} is_for_wheelchaired{% endif %}{% if workshop.is_for_deaf %} is_for_deaf{% endif %}{% if workshop.is_for_blind %} is_for_blind{% endif %}{% if workshop.is_for_learning_difficulties %} is_for_learning_difficulties{% endif %}{% if workshop.is_for_dementia_sufferers %} is_for_dementia_sufferers{% endif %}{% if workshop.free_admission %} is_free_admission{% endif %}{% if workshop.is_today %} is_today{% endif %}{% if workshop.is_tomorrow %} is_tomorrow{% endif %}{% if workshop.is_within_7_days %} is_within_7_days{% endif %}{% if workshop.is_within_30_days %} is_within_30_days{% endif %}" style="cursor: pointer" data-description-src="{{ workshop.get_url_path }}ajax/">
-                  <a href="{{ workshop.get_url_path }}{% if facets.selected.selected_date%}?selected_date={{ facets.selected.selected_date|date:"Y-m-d" }}{% endif %}">
-                    <!-- <h4>{{ workshop.workshop_type }} {% with workshop.get_closest_workshop_time as workshop_time %}{{ workshop_time.workshop_date|date:"j. F Y" }}{{ workshop_time.start|time:"H:i" }}{% endwith %}</h4> -->
-
-                    {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
-                      <h4>{% for t in workshop.types.all %}{{ t.title }}{% if not forloop.last %}, {% else %}:{% endif %}{% endfor %} {% trans "Bookable Offer" %}. {{ workshop.get_particularities|join:'. ' }}</h4>
-                    {% else %}
-                      <h4>{% for t in workshop.types.all %}{{ t.title }}{% if not forloop.last %}, {% else %}:{% endif %}{% endfor %}
-                      {% if facets.selected.selected_date %}
-                        {% with workshop|get_selected_date:facets.selected.selected_date as workshop_time %}
-                        {{ workshop_time.workshop_date|date:"j. F Y" }}
-                        {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}.
-                        {% endwith %}
-                      {% else %}
-                        {% with workshop.get_closest_workshop_time as workshop_time %}
-                        {{ workshop_time.workshop_date|date:"j. F Y" }}
-                        {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}.
-                        {% endwith %}
-                      {% endif %}
-                      {{ workshop.get_particularities|join:'. ' }}
-                      </h4>
-                    {% endif %}
-
-                    <h3>{{ workshop.title }}</h3>
-                    <h4>{{ workshop.subtitle }}</h4>
-                    {% if workshop.exhibition %}
-                    <h5>{% blocktrans with workshop.exhibition.title as exhibition_title %}Accompanying program for exhibition "{{ exhibition_title }}"{% endblocktrans %}:
-                      <span class="from_date">{{ workshop.exhibition.start|date:"d.m.Y" }}</span> {% if workshop.exhibition.permanent %}{% trans "until further notice" %}{% else %}{% if workshop.exhibition.end %}{% trans "till" %} {{ workshop.exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %}
-                    </h5>
-                    {% endif %}
-                    {% if workshop.location_name %}
-                    <h5>{{ workshop.location_name }}</h5>
-                    {% else %}
-                    <h5>{{ workshop.museum.title }}</h5>
-                    {% endif %}
-                  </a>
-                  <div class="description"></div>
+                <div class="list-controls">
+                    <a class="btn btn-info pull-right" href="{% url "workshop_list_map" %}">{% trans "Show map" %}</a>
+                    <div class="btn-group pull-left" style="margin-right: 15px;">
+                        <button id="toggle-list-filter"
+                            class="btn btn-info"
+                            data-parent="#list-filter"
+                            data-toggle="collapse"
+                            data-target="#list-filter">
+                            {% trans "filter" %}<span class="caret black"></span>
+                        </button>
+                        <button id="filter-reset"
+                            type="button"
+                            class="filter-reset btn btn-info">
+                            {% trans "Reset" %}
+                        </button>
+                    </div>
+                    <ul id="filter-summary" class="pull-left">
+                        {% if facets.selected.abc or facets.selected.category or facets.selected.suitable_for_children or facets.selected.free_admission or facets.selected.calendar or facets.selected.selected_date %}
+                            <li><b>{% trans "Filter selection" %}:</b></li>
+                            {% if facets.selected.abc %}
+                                <li data-param="abc" data-value="{{ facets.selected.abc }}">
+                                    <a href="{% append_to_get abc="" %}">{{ facets.selected.abc }}</a>
+                                </li>
+                            {% endif %}
+                            {% if facets.selected.is_for_wheelchaired %}
+                                <li data-param="is_for_wheelchaired" data-value="1">
+                                    <a href="{% append_to_get is_for_wheelchaired="" %}">{% trans "For people in wheelchairs" %}</a>
+                                </li>
+                            {% endif %}
+                            {% if facets.selected.is_for_deaf %}
+                                <li data-param="is_for_deaf" data-value="1">
+                                    <a href="{% append_to_get is_for_deaf="" %}">{% trans "For deaf people" %}</a>
+                                </li>
+                            {% endif %}
+                            {% if facets.selected.is_for_blind %}
+                                <li data-param="is_for_blind" data-value="1">
+                                    <a href="{% append_to_get is_for_blind="" %}">{% trans "For blind people" %}</a>
+                                </li>
+                            {% endif %}
+                            {% if facets.selected.is_for_learning_difficulties %}
+                                <li data-param="is_for_learning_difficulties" data-value="1">
+                                    <a href="{% append_to_get is_for_learning_difficulties="" %}">{% trans "For people with learning difficulties" %}</a>
+                                </li>
+                            {% endif %}
+                            {% if facets.selected.smart %}
+                                <li data-param="smart" data-value="{{ facets.selected.smart.0 }}">
+                                    <a href="{% append_to_get smart="" %}">{{ facets.selected.smart.1 }}</a>
+                                </li>
+                            {% endif %}
+                            {% if facets.selected.calendar %}
+                                <li data-param="calendar" data-value="{{ facets.selected.calendar.0 }}">
+                                    <a href="{% append_to_get calendar="" %}">{{ facets.selected.calendar.1 }}</a>
+                                </li>
+                            {% endif %}
+                            {% if facets.selected.selected_date %}
+                                <li data-param="selected_date"
+                                    data-value="{{ facets.selected.selected_date|date:"Y-m-d" }}">
+                                    <a href="{% append_to_get selected_date="" %}">{{ facets.selected.selected_date }}</a>
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                    </ul>
                 </div>
-              {% endfor %}
-              {% include "utils/pagination.html" %}
-            {% else %}
-              {% include "utils/container_empty.html" %}
-            {% endif %}
-          </div>
+            </header>
         </div>
-      </div>
+
+        <div id="list-filter" class="collapse">
+            <div>
+                <div class="container relative">
+                    <button class="cancel btn btn-info btn-lg btn-icon"
+                        data-parent="#list-filter"
+                        data-toggle="collapse"
+                        data-target="#list-filter">
+                        <span class="icon icon-remove"></span>
+                        <span class="sr-only">{% trans "close" %}</span>
+                    </button>
+                    {% include "utils/filter_workshops.html" %}
+                </div>
+            </div>
+        </div>
+
+        <div id="list">
+            <div class="container">
+
+                <div id="notices" class="hidden-xs">
+                    <h6 class="block-label">{% trans "Editors Recommendations" %}</h6>
+                    <div class="row row-sm">
+                        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">{% infoblock "workshop_notice_1" %}</div>
+                        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">{% infoblock "workshop_notice_2" %}</div>
+                        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 hidden-xs">{% infoblock "workshop_notice_3" %}</div>
+                        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 hidden-sm hidden-xs">{% infoblock "workshop_notice_4" %}</div>
+                    </div>
+                </div>
+
+                <div id="container">
+                    <div class="row row-md list">
+                        {% if page == 1 %}
+                            <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12 hidden-xs">
+                                {% load advertising_tags %}
+                                {% random_zone_ad 'workshops' %}
+                            </div>
+                        {% endif %}
+
+                        {% if object_list %}
+                            {% for workshop in object_list %}
+                                {% tags_for_object workshop as tags %}
+                                <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12"
+                                    data-filter-categories="initial_{{ workshop.title|slugify|slice:"0:1" }}{% for cat in workshop.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if workshop.has_group_offer %} has_group_offer{% endif %}{% if workshop.is_for_preschool %} is_for_preschool{% endif %}{% if workshop.is_for_primary_school %} is_for_primary_school{% endif %}{% if workshop.is_for_youth %} is_for_youth{% endif %}{% if workshop.is_for_families %} is_for_families{% endif %}{% if workshop.is_for_wheelchaired %} is_for_wheelchaired{% endif %}{% if workshop.is_for_deaf %} is_for_deaf{% endif %}{% if workshop.is_for_blind %} is_for_blind{% endif %}{% if workshop.is_for_learning_difficulties %} is_for_learning_difficulties{% endif %}{% if workshop.is_for_dementia_sufferers %} is_for_dementia_sufferers{% endif %}{% if workshop.free_admission %} is_free_admission{% endif %}{% if workshop.is_today %} is_today{% endif %}{% if workshop.is_tomorrow %} is_tomorrow{% endif %}{% if workshop.is_within_7_days %} is_within_7_days{% endif %}{% if workshop.is_within_30_days %} is_within_30_days{% endif %}"
+                                    style="cursor: pointer"
+                                    data-description-src="{{ workshop.get_url_path }}ajax/">
+                                    <a href="{{ workshop.get_url_path }}{% if facets.selected.selected_date %}?selected_date={{ facets.selected.selected_date|date:"Y-m-d" }}{% endif %}">
+                                        <!-- <h4>{{ workshop.workshop_type }} {% with workshop.get_closest_workshop_time as workshop_time %}{{ workshop_time.workshop_date|date:"j. F Y" }}{{ workshop_time.start|time:"H:i" }}{% endwith %}</h4> -->
+
+                                        {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
+                                            <h4>{% for t in workshop.types.all %}{{ t.title }}{% if not forloop.last %},
+                                            {% else %}:
+                                            {% endif %}{% endfor %} {% trans "Bookable Offer" %}. {{ workshop.get_particularities|join:'. ' }}</h4>
+                                        {% else %}
+                                            <h4>
+                                                {% for t in workshop.types.all %}
+                                                    {{ t.title }}{% if not forloop.last %}, {% else %}:{% endif %}
+                                                {% endfor %}
+                                                {% if facets.selected.selected_date %}
+                                                    {% with workshop|get_selected_date:facets.selected.selected_date as workshop_time %}
+                                                        {{ workshop_time.workshop_date|date:"j. F Y" }}
+                                                        {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %}
+                                                            {% trans "till" %}
+                                                            {{ workshop_time.end|time:"H:i" }}{% endif %}
+                                                        {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}.
+                                                    {% endwith %}
+                                                {% else %}
+                                                    {% with workshop.get_closest_workshop_time as workshop_time %}
+                                                        {{ workshop_time.workshop_date|date:"j. F Y" }}
+                                                        {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %}
+                                                            {% trans "till" %}
+                                                            {{ workshop_time.end|time:"H:i" }}{% endif %}
+                                                        {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}.
+                                                    {% endwith %}
+                                                {% endif %}
+                                                {{ workshop.get_particularities|join:'. ' }}
+                                            </h4>
+                                        {% endif %}
+
+                                        <h3>{{ workshop.title }}</h3>
+                                        <h4>{{ workshop.subtitle }}</h4>
+                                        {% if workshop.exhibition %}
+                                            <h5>{% blocktrans with workshop.exhibition.title as exhibition_title %}
+                                                Accompanying program for exhibition "{{ exhibition_title }}
+                                                "{% endblocktrans %}:
+                                                <span class="from_date">{{ workshop.exhibition.start|date:"d.m.Y" }}</span>
+                                                {% if workshop.exhibition.permanent %}
+                                                    {% trans "until further notice" %}
+                                                {% else %}
+                                                    {% if workshop.exhibition.end %}{% trans "till" %}
+                                                        {{ workshop.exhibition.end|date:"d.m.Y" }}
+                                                    {% endif %}
+                                                {% endif %}
+                                            </h5>
+                                        {% endif %}
+                                        {% if workshop.location_name %}
+                                            <h5>{{ workshop.location_name }}</h5>
+                                        {% else %}
+                                            <h5>{{ workshop.museum.title }}</h5>
+                                        {% endif %}
+                                    </a>
+                                    <div class="description"></div>
+                                </div>
+                            {% endfor %}
+                            {% include "utils/pagination.html" %}
+                        {% else %}
+                            {% include "utils/container_empty.html" %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 {% endblock %}
