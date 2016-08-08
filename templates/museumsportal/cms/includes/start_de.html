@@ -67,7 +67,7 @@
                             {{ tip.day|date:"D, j. M" }}
                             {% if tip.starting_time %} | {{ tip.starting_time|date:"H:i" }}{% endif %}
                         </strong></h4>
-                        <h4>{{ tip.event_type }}<strong> {{ tip.title }}</strong></h4>
+                        <h4><strong>{{ tip.title }}</strong> {{ tip.event_type }}</h4>
                         {% if tip.subtitle %}<h4>{{ tip.subtitle }}</h4>{% endif %}
                         {% if tip.location_title %}<p>{{ tip.location_title }}</p>{% endif %}
                     </a>
