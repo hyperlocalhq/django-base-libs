@@ -36,6 +36,38 @@
   </div>
 {% endwith %}
 
+<div class="container tips-365">
+    <div class="tips-365-wrapper">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                <h2 class="headline">{% trans "Tips of the Day" %}</h2>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                <img src="{{ STATIC_URL }}site/img/tips_365.png"/>
+            </div>
+        </div>
+        <div class="row">
+            {% get_objects upcoming tips.tipoftheday 3 as upcoming_tips_of_the_day %}
+            {% for tip in upcoming_tips_of_the_day %}
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 {% if forloop.counter|divisibleby:3 %}hidden-sm{% endif %}">
+                    <a href="{{ tip.content_object.get_url_path }}">
+                        <img src="{{ MEDIA_URL }}{{ tip.image|modified_path:"editorial" }}" alt="{{ tip.title }}" />
+                        <div class="copy">
+                            <h4><strong>
+                                {{ tip.day|date:"D, j. M" }}
+                                {% if tip.starting_time %} | {{ tip.starting_time|date:"H:i" }}{% endif %}
+                            </strong></h4>
+                            <h4><strong>{{ tip.title }}</strong> {{ tip.event_type }}</h4>
+                            {% if tip.subtitle %}<h4>{{ tip.subtitle }}</h4>{% endif %}
+                            {% if tip.location_title %}<p>{{ tip.location_title }}</p>{% endif %}
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
 <div class="content">
   <div class="container">
     <div class="row">
@@ -60,7 +92,7 @@
     <div id="kurze_zeit">
         <h2 class="catHead">Featured Exhibitions</h2>
         {% placeholder "right_column" %}
-        
+
         <div id="twitterfeed">
             <h2 class="catHead">Twitterfeed</h2>
             <div class="sector-select hidable">
