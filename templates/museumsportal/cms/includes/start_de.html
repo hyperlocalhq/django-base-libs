@@ -63,13 +63,15 @@
                 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 {% if forloop.counter|divisibleby:3 %}hidden-sm{% endif %}">
                     <a href="{{ tip.content_object.get_url_path }}">
                         <img src="{{ MEDIA_URL }}{{ tip.image|modified_path:"editorial" }}" alt="{{ tip.title }}" />
-                        <h4><strong>
-                            {{ tip.day|date:"D, j. M" }}
-                            {% if tip.starting_time %} | {{ tip.starting_time|date:"H:i" }}{% endif %}
-                        </strong></h4>
-                        <h4><strong>{{ tip.title }}</strong> {{ tip.event_type }}</h4>
-                        {% if tip.subtitle %}<h4>{{ tip.subtitle }}</h4>{% endif %}
-                        {% if tip.location_title %}<p>{{ tip.location_title }}</p>{% endif %}
+                        <div class="copy">
+                            <h4><strong>
+                                {{ tip.day|date:"D, j. M" }}
+                                {% if tip.starting_time %} | {{ tip.starting_time|date:"H:i" }}{% endif %}
+                            </strong></h4>
+                            <h4><strong>{{ tip.title }}</strong> {{ tip.event_type }}</h4>
+                            {% if tip.subtitle %}<h4>{{ tip.subtitle }}</h4>{% endif %}
+                            {% if tip.location_title %}<p>{{ tip.location_title }}</p>{% endif %}
+                        </div>
                     </a>
                 </div>
             {% endfor %}
