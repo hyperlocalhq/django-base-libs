@@ -88,7 +88,8 @@ class WorkshopAdmin(ExtendedModelAdmin):
     
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
     filter_horizontal = ("types", "languages", )
-    
+    ordering = ("-creation_date",)
+
     inlines = [WorkshopTimeInline, MediaFileInline, OrganizerInline]
     
     def is_geoposition_set(self, obj):

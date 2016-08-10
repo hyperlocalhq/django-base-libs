@@ -91,7 +91,8 @@ class EventAdmin(ExtendedModelAdmin):
     
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
     filter_horizontal = ("categories", "languages")
-    
+
+    ordering = ("-creation_date",)
     inlines = [EventTimeInline, MediaFileInline, OrganizerInline]
     
     def is_geoposition_set(self, obj):

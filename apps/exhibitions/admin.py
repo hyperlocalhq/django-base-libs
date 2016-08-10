@@ -140,7 +140,8 @@ class ExhibitionAdmin(ExtendedModelAdmin):
     
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
     filter_horizontal = ("categories",)
-    
+    ordering = ("-creation_date",)
+
     inlines = [OrganizerInline, SeasonInline, MediaFileInline]
 
     def is_geoposition_set(self, obj):

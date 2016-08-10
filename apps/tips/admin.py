@@ -58,6 +58,8 @@ class TipOfTheDayAdmin(ObjectRelationMixinAdminOptions()):
         data['image'] = ""
         if content_object.cover_image:
             data['image'] = content_object.cover_image.path
+        elif content_object.museum and content_object.museum.cover_image:
+            data['image'] = content_object.museum.cover_image.path
 
         data['starting_time'] = ""
         if ct.model.lower() == "event":
@@ -76,7 +78,7 @@ class TipOfTheDayAdmin(ObjectRelationMixinAdminOptions()):
             data[field_name] = getattr(content_object, field_name) or getattr(content_object, 'title_{}'.format(settings.LANGUAGE_CODE))
             field_name = 'subtitle_{}'.format(lang_code)
             data[field_name] = getattr(content_object, field_name) or getattr(content_object, 'subtitle_{}'.format(settings.LANGUAGE_CODE))
-            data['location_title_{}'.format(lang_code)] = getattr(content_object.museum, 'title_{}'.format(lang_code), '') or getattr(content_object, 'location_title', '')
+            data['location_title_{}'.format(lang_code)] = getattr(content_object.museum, 'title_{}'.format(lang_code), '') or getattr(content_object, 'location_name', '')
             if ct.model.lower() == "event":
                 data['event_type_{}'.format(lang_code)] = ", ".join([
                     getattr(cat, 'title_{}'.format(lang_code), '') or getattr(cat, 'title_{}'.format(settings.LANGUAGE_CODE), '')
