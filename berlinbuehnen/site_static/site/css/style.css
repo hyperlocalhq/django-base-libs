@@ -6140,12 +6140,13 @@ select {
   color: #4583c8;
 }
 
-.slider.festivals .slider-head div {
+.slider.festivals .slider-head div, .slider.productions .slider-head div {
   padding-right: 0;
   padding-top: 5px;
+  padding-left: 0;
 }
 
-.slider.festivals .slider-head .more {
+.slider.festivals .slider-head .more, .slider.productions .slider-head .more {
   float: right !important;
 }
 
@@ -8942,6 +8943,61 @@ span.pin a {
 
 .gmap.map-only #map-sidebar-wrapper {
   right: -380px;
+}
+
+.education_info {
+  margin-top: 60px;
+}
+
+.education_info .education-head {
+  padding-bottom: 3px !important;
+  border-bottom: 4px solid black;
+  margin: 0 0 20px;
+  text-transform: uppercase;
+}
+
+.education_info .education-head div {
+  padding-right: 0;
+  padding-top: 5px;
+}
+
+.education_info .education-head h4 {
+  font-size: 1.375em;
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
+}
+
+.education_info .education-head a {
+  float: right;
+  color: black;
+}
+
+.education_info .education-head a:hover {
+  color: #4583c8;
+}
+
+.education_info h3.department-title {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.education_info .main {
+  margin-bottom: 30px;
+}
+
+.education_info .department-link {
+  margin-top: 15px;
+}
+
+.education_info .department-link a {
+  color: black;
+  text-transform: uppercase;
+}
+
+.education_info .department-link a:hover {
+  color: #4583c8;
 }
 
 html {
