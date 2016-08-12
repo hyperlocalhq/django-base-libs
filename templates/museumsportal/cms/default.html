@@ -17,3 +17,28 @@
 		</div>
 	</div>
 {% endblock %}
+
+{% block js %}
+	{{ block.super }}
+	<script type="text/javascript">
+		$( document ).ready(function() {
+
+			var counter = 0;
+			$('.editorial-content').each(function() {
+
+				var $this = $(this);
+
+				if ($this.next().hasClass('editorial-content')) counter++;
+				else counter = 0;
+
+				if (counter != 0) {
+					if (counter%2 == 0) $this.after('<div class="clearfix visible-sm"></div>');
+					if (counter%3 == 0) $this.after('<div class="clearfix visible-md"></div>');
+					if (counter%4 == 0) $this.after('<div class="clearfix visible-lg"></div>');
+				}
+
+			});
+
+		});
+	</script>
+{% endblock %}
