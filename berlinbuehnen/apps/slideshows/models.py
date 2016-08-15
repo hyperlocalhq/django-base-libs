@@ -1,8 +1,7 @@
 # -*- coding: UTF-8 -*-
-import re
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
-from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext_lazy as _, ugettext
+from django.utils import timezone
 
 from base_libs.models import SysnameMixin
 from base_libs.models import PublishingMixin
@@ -14,6 +13,7 @@ from filebrowser.fields import FileBrowseField
 
 verbose_name = _("Slideshows")
 
+
 class Slideshow(SysnameMixin()):
     
     class Meta:
@@ -23,6 +23,7 @@ class Slideshow(SysnameMixin()):
         
     def __unicode__(self):
         return self.sysname
+
 
 class Slide(PublishingMixin, models.Model):
     slideshow = models.ForeignKey(Slideshow, verbose_name=_("Slideshow"), default=0)
@@ -41,4 +42,12 @@ class Slide(PublishingMixin, models.Model):
         ordering = ['sort_order']
         
     def __unicode__(self):
-        return unicode(self.path)
+        return u"{} ({})".format(unicode(self.path), ugettext("Shown now") if self.is_shown_now() else ugettext("Not shown now"))
+
+    def is_shown_now(self):
+        now = timezone.now()
+        if self.published_from and now < self.published_from:
+            return False
+        if self.published_till and self.published_till < now:
+            return False
+        return True

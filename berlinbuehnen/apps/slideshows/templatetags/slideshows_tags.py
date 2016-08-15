@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db.models import get_model, Q
 from django.template import loader, Template, Context
 from django import template
-from datetime import datetime
+from django.utils import timezone
 
 from berlinbuehnen.apps.slideshows.models import Slideshow
 
@@ -23,9 +23,11 @@ def do_slideshow(parser, token):
 
 class SlideshowRenderer(template.Node):
     """ {% slideshow <sysname> [using <template_path>] %} """
+
     def __init__(self, sysname, template_path):
         self.sysname = sysname
         self.template_path = template_path
+
     def render(self, context):
         try:
             sysname = template.resolve_variable(self.sysname, context)
@@ -41,8 +43,11 @@ class SlideshowRenderer(template.Node):
         except:
             template_path = ""
             
-        now = datetime.today()
-        slides = slideshow.slide_set.filter(Q(published_from__lte = now) | Q(published_from__isnull = True), Q(published_till__gt = now) | Q(published_till__isnull = True)).order_by("sort_order")
+        now = timezone.now()
+        slides = slideshow.slide_set.filter(
+            Q(published_from__lte=now) | Q(published_from__isnull=True),
+            Q(published_till__gt=now) | Q(published_till__isnull=True)
+        ).order_by("sort_order")
             
         context_vars = context
         context_vars.push()
