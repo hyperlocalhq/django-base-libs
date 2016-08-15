@@ -7,32 +7,38 @@ register = template.Library()
 
 @register.inclusion_tag('festivals/includes/month_slider.html', takes_context=True)
 def month_slider(context, id=''):
-    
+
     today = datetime.today()
-    
+
     months = []
     for i in range(1, 13):
         months += [date(2015, i, 1)]
-    
+
     return {
         'today': today,
         'id': id,
         'months': months,
         'STATIC_URL': context['STATIC_URL'],
     }
-    
+
 
 @register.inclusion_tag('festivals/includes/festivals_slider.html', takes_context=True)
-def festivals_slider(context):
+def festivals_slider(context, location=None):
     from berlinbuehnen.apps.festivals.models import Festival
-    
+
     today = datetime.today()
-    
-    festivals = Festival.objects.filter(
-        slideshow = True,
-        end__gte = today,
-    ).order_by('start', 'end')
-        
+
+    if location:
+        festivals = Festival.objects.filter(
+            end__gte = today,
+            organizers = location
+        ).order_by('start', 'end')
+    else:
+        festivals = Festival.objects.filter(
+            slideshow = True,
+            end__gte = today,
+        ).order_by('start', 'end')
+
     return {
         'festivals': festivals,
         'MEDIA_URL': context['MEDIA_URL'],

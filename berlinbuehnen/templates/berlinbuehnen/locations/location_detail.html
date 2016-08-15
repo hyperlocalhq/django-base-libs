@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites_tags production_tags cms_tags %}
+{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites_tags production_tags festival_tags education_tags cms_tags %}
 
 {% block title %}{% trans "Location" %} – {{ object.title }} – {% endblock %}
 
@@ -36,7 +36,7 @@
                     <div class="col-xs-12 print-padding">
                         <a class="fawesome back uc no-print" href="{% url 'location_list' %}">{% trans "back to overview" %}</a>
                         <article>
-                            
+
                             <!-- headlines -->
                             <header>
                                 <div class="header-icons no-print">
@@ -56,12 +56,12 @@
                                     <h2>{{ location.subtitle }}</h2>
                                 {% endif %}
                             </header>
-                            
+
                             <!-- main  part (including sidebar) -->
                             <div class="main">
                                 <div class="container">
                                     <div class="row">
-                                        
+
                                         <!-- main content -->
                                         <div class="col-xs-12 col-md-8 left">
                                             {% if location.first_image %}
@@ -71,23 +71,23 @@
                                                 {{ location.get_rendered_description }}
                                             </div>
                                         </div>
-                                        
+
                                         <!-- main sidebar -->
                                         <div class="col-xs-12 col-md-4 right">
                                             {% include "locations/includes/sidebar.html" %}
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
-                                    
-                            
+
+
                             <!-- additional content (accordion) -->
                             <div class="additional">
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-xs-12 full">
-                                            
+
                                             <!-- Gallery -->
                                             {% if location.image_set.exists %}
                                                 <div class="gallery row">
@@ -117,16 +117,20 @@
                                                     {% endfor %}
                                                 </div>
                                             {% endif %}
-                                            
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </article>
-                        
+
                         <!-- event slider -->
                         {% other_productions current_location=location %}
+
+                        {% festivals_slider location=location %}
+
+                        {% education_info location=location %}
                     </div>
                 </div>
             </div>

@@ -56,7 +56,7 @@ def location_list(request, year=None, month=None, day=None):
     qs = Location.objects.filter(status="published")
 
     form = LocationFilterForm(data=request.REQUEST)
-    
+
     facets = {
         'selected': {},
         'categories': {
@@ -66,9 +66,9 @@ def location_list(request, year=None, month=None, day=None):
             'districts': District.objects.all(),
         },
     }
-            
+
     abc_list = get_abc_list(qs, "title_%s" % request.LANGUAGE_CODE)
-    
+
     if form.is_valid():
         #cats = form.cleaned_data['services']
         #if cats:
@@ -80,7 +80,7 @@ def location_list(request, year=None, month=None, day=None):
         #    #    qs = qs.filter(
         #    #        services=cat,
         #    #    ).distinct()
-                
+
         #cats = form.cleaned_data['accessibility']
         #if cats:
         #    facets['selected']['accessibility'] = cats
@@ -91,14 +91,14 @@ def location_list(request, year=None, month=None, day=None):
         #    #    qs = qs.filter(
         #    #        accessibility_options=cat,
         #    #    ).distinct()
-            
+
         cats = form.cleaned_data['categories']
         if cats:
             facets['selected']['categories'] = cats
             qs = qs.filter(
                 categories__in=cats,
             ).distinct()
-            
+
         cats = form.cleaned_data['districts']
         if cats:
             facets['selected']['districts'] = cats
@@ -106,7 +106,7 @@ def location_list(request, year=None, month=None, day=None):
                 models.Q(districts__in=cats) |
                 models.Q(stage__district__in=cats)
             ).distinct()
-                
+
 
     abc_filter = request.GET.get('abc', None)
     if abc_filter:
@@ -121,7 +121,7 @@ def location_list(request, year=None, month=None, day=None):
     # }).order_by("title_uni")
 
     #qs = qs.prefetch_related("season_set", "mediafile_set", "categories", "accessibility_options").defer("tags")
-    
+
     extra_context = {}
     extra_context['form'] = form
     extra_context['abc_list'] = abc_list
@@ -505,4 +505,3 @@ def delete_image(request, slug, mediafile_token="", **kwargs):
         "locations/gallery/delete_image.html",
         context_dict,
     )
-
