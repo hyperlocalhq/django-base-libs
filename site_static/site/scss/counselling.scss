@@ -12,7 +12,7 @@
 @import 'footer';
 @import 'form';
 @import 'navi-grid';
-@import 'event-list'; 
+@import 'event-list';
 @import 'blog-grid';
 @import 'navi-box';
 @import 'filter-box';
@@ -35,7 +35,7 @@ img {
 a {
     color: $orange;
     text-decoration: underline;
-    
+
     &:hover, &:active, &:focus {
         color: $orange-light;
         text-decoration: underline;
@@ -47,7 +47,7 @@ p {
     line-height: 143%;
     color: $grey-dark;
     margin: 0 0 20px 0;
-    
+
     .is-md &, .is-sm &, .is-xs & {
         font-size: 0.93em;
         line-height: 143%;
@@ -61,7 +61,7 @@ h1 {
     color: $black;
     line-height: 180%;
     text-transform: uppercase;
-    
+
     .is-sm &, .is-xs & {
         font-size: 1.33em;
         line-height: 180%;
@@ -76,14 +76,14 @@ h2, h3 {
     letter-spacing: 0.07em;
     line-height: 150%;
     text-transform: uppercase;
-    
+
     .is-md &, .is-sm & {
-        font-size: 1.6em;   
+        font-size: 1.6em;
         line-height: 150%;
     }
-    
+
     .is-xs & {
-        font-size: 1.4em;   
+        font-size: 1.4em;
         line-height: 150%;
     }
 }
@@ -91,11 +91,11 @@ h2, h3 {
 h3 {
     font-weight: $font-semi;
     margin-bottom: 20px;
-    
+
     .is-xs & {
         margin-bottom: 20px;
     }
-    
+
     time {
         font-size: 0.75em;
     }
@@ -103,9 +103,9 @@ h3 {
 
 h2 + h3 {
     margin-top: -30px;
-    
+
     .is-xs & {
-        margin-top: -25px;   
+        margin-top: -25px;
     }
 }
 
@@ -116,7 +116,7 @@ h4 {
     color: $grey-dark;
     line-height: 111%;
     margin-bottom: 20px;
-    
+
     .is-sm &, .is-xs & {
         font-size: 1.2em;
         line-height: 111%;
@@ -130,7 +130,7 @@ h5 {
     color: $grey-dark;
     line-height: 111%;
     margin-bottom: 15px;
-    
+
     .is-sm &, .is-xs & {
         font-size: 1em;
         line-height: 111%;
@@ -142,9 +142,9 @@ p + h2, p + h4, p + h5 {
 }
 
 .line, hr {
-    background: $grey-bright;   
+    background: $grey-bright;
     margin: 40px 0 60px;
-    
+
     .is-sm &, .is-xs & {
         margin: 40px 0 60px;
     }
@@ -163,7 +163,7 @@ p + h2, p + h4, p + h5 {
     background: rgba(255, 255, 255, 0.5);
     border: 1px solid $white;
     text-decoration: none;
-    
+
     &:before {
         background: $orange;
         line-height: 205%;
@@ -173,35 +173,35 @@ p + h2, p + h4, p + h5 {
         position: relative;
         top: -2px;
         left: 1px;
-                
+
         .is-md &, .is-sm & {
             margin-right: 6%;
         }
     }
-    
+
     &:hover, &:focus {
         background: $white;
-        
+
         &:before {
             background: $orange-light;
         }
     }
-            
+
     .is-sm &, .is-md & {
         font-size: 1.2em;
     }
-    
+
     .is-xs & {
         width: 100%;
         height: 2.2em;
         line-height: 225%;
         border-radius: 1.33em;
-        
+
         .text {
             display: initial;
             font-size: 0.95em;
         }
-        
+
         &:before {
             width: 1.9em;
             height: 1.9em;
@@ -211,7 +211,7 @@ p + h2, p + h4, p + h5 {
             z-index: 1;
             position: relative;
         }
-        
+
         &:after {
             content: none !important;
         }
@@ -225,7 +225,7 @@ p + h2, p + h4, p + h5 {
             padding-left: 55px;
         }
     }
-    
+
     &.fixed {
         img.logo {
             .is-xs & {
@@ -237,19 +237,19 @@ p + h2, p + h4, p + h5 {
 
 
 .header {
-    
+
     &.start-page {
         text-align: center;
     }
-        
+
     .is-xs & {
         margin-bottom: 40px;
-        
+
         > img {
             display: block;
         }
     }
-    
+
     p {
         font-family: $font-1 $font-family-1;
         font-weight: $font-semi;
@@ -257,27 +257,27 @@ p + h2, p + h4, p + h5 {
         color: $black;
         line-height: 180%;
         text-transform: uppercase;
-        
+
         .is-sm &, .is-xs & {
             font-size: 1.33em;
         }
     }
-    
+
     h1 + p {
         margin-top: -50px;
-        
+
         .is-xs & {
             margin-top: -40px;
         }
     }
-    
+
     .button {
         display: block;
         position: absolute !important;
         top: 50%;
         margin: -46px 0 0 -175px;
         max-width: 330px !important;
-        
+
         .is-xs & {
             position: absolute !important;
             margin: -46px 0 0 -150px;
@@ -287,11 +287,11 @@ p + h2, p + h4, p + h5 {
 }
 
 #footer {
-    
+
     a {
         text-decoration: none;
     }
-    
+
     .footer-logo {
         .is-md & {
             height: 65px;
@@ -305,23 +305,23 @@ p + h2, p + h4, p + h5 {
 .content-startpage {
     padding: 0 150px;
     margin-bottom: 60px;
-    
+
     .is-md & {
         padding: 0 100px;
     }
-    
+
     .is-sm &, .is-xs & {
         padding: 0;
     }
-    
+
     h2 {
         text-align: center;
     }
-    
+
     p {
         font-size: 1em;
         line-height: 147%;
-        
+
         .is-md &, .is-sm &, .is-xs & {
             font-size: 1em;
             line-height: 147%;
@@ -333,7 +333,7 @@ p + h2, p + h4, p + h5 {
     h2 {
         text-align: center;
         margin-bottom: 60px;
-        
+
         .is-xs & {
             margin-bottom: 30px;
         }
@@ -342,11 +342,11 @@ p + h2, p + h4, p + h5 {
     .row {
         padding: 0;
         margin: 0;
-        
+
         > div {
             padding: 0;
             margin: 0;
-            
+
             img {
                 width: 100%;
                 padding: 0;
@@ -358,29 +358,29 @@ p + h2, p + h4, p + h5 {
 
 
 
-.row.navi-grid { 
-    
+.row.navi-grid {
+
     margin: 60px 0 40px;
-    
+
     .is-xs & {
         margin: 60px 0 40px;
     }
-    
+
     > div {
-    
+
         a.content {
             width: 100%;
             height: 225px;
             background: url(../img/counselling/bg_pattern.gif);
-            
+
             .is-md & {
                 height: 185px;
             }
-            
+
             .is-xs & {
                 height: 150px;
             }
-            
+
             span.fawesome {
                 display: block;
                 width: 100%;
@@ -390,11 +390,11 @@ p + h2, p + h4, p + h5 {
                 text-align: center;
                 margin-top: -3.73em;
                 line-height: 3.73em;
-                
+
                 &:before {
                     font-size: 3.73em;
                 }
-                
+
                 .is-xs & {
                     margin-top: -3em;
                     line-height: 3em;
@@ -403,19 +403,19 @@ p + h2, p + h4, p + h5 {
                     }
                 }
             }
-            
+
             h2 {
                 color: $orange;
                 font-size: 2em !important;
                 letter-spacing: 0;
                 text-transform: none;
                 margin-top: 10px !important;
-                
+
                 .is-xs & {
                     font-size: 1.7em !important;
                 }
             }
-            
+
             &:hover, &:focus, &:active {
                 span.fawesome {
                     color: $orange-light;
@@ -430,13 +430,13 @@ p + h2, p + h4, p + h5 {
 
 
 .row.event-list {
-    
+
     h2.date {
         font-family: $font-1, $font-family-1;
         font-weight: $font-black;
         font-size: 1.2em;
         padding-bottom: 5px;
-        
+
         .is-sm &, .is-xs & {
             font-family: $font-1, $font-family-1;
             font-weight: $font-black;
@@ -444,19 +444,19 @@ p + h2, p + h4, p + h5 {
             padding-bottom: 5px;
         }
     }
-        
+
     > div {
         .wrapper {
-            padding: 5px 0;    
+            padding: 5px 0;
             border-bottom: 1px solid $grey-bright;
         }
-        
+
         a.content {
             text-decoration: none;
             border: none;
-            
+
             .text {
-                
+
                 h3 {
                     font-family: $font-2, $font-family-1;
                     font-weight: $font-black;
@@ -464,7 +464,7 @@ p + h2, p + h4, p + h5 {
                     color: $brown;
                     margin: 0;
                     padding: 0 20px 5px 0;
-                    
+
                     .is-sm &, .is-xs & {
                         font-family: $font-2, $font-family-1;
                         font-weight: $font-black;
@@ -474,14 +474,14 @@ p + h2, p + h4, p + h5 {
                         padding: 0 20px 5px 0;
                     }
                 }
-                
+
                 h2 {
                     font-family: $font-1, $font-family-1;
                     font-weight: $font-black;
                     font-size: 1.2em;
                     text-transform: none;
                     padding: 0 20px 10px 0;
-                    
+
                     .is-sm &, .is-xs & {
                         font-family: $font-1, $font-family-1;
                         font-weight: $font-black;
@@ -490,14 +490,14 @@ p + h2, p + h4, p + h5 {
                         padding: 0 20px 10px 0;
                     }
                 }
-                
+
                 p {
                     font-family: $font-2, $font-family-1;
                     font-weight: $font-regular;
                     font-size: 0.93em;
                     line-height: 133%;
                     color: $grey-dark;
-                    
+
                     .is-sm &, .is-xs & {
                         font-family: $font-2, $font-family-1;
                         font-weight: $font-regular;
@@ -510,7 +510,7 @@ p + h2, p + h4, p + h5 {
             }
         }
     }
-    
+
     .button-group {
         display: none;
     }
@@ -518,20 +518,20 @@ p + h2, p + h4, p + h5 {
 
 
 .row.blog-grid {
-    
+
     > div {
-        
+
         a.content {
             text-decoration: none;
-            
+
             .subline {
                  margin: 0 0 10px;
             }
-            
+
             h3 {
                 margin: 0 0 10px;
             }
-            
+
             h2 {
                 font-family: $font-1, $font-family-1;
                 font-weight: $font-black;
@@ -540,21 +540,21 @@ p + h2, p + h4, p + h5 {
                 line-height: 150%;
                 margin: 0 0 20px;
                 text-transform: uppercase;
-                
+
                 .is-md &, .is-sm & {
-                    font-size: 1.6em;   
+                    font-size: 1.6em;
                     line-height: 150%;
                 }
-                
+
                 .is-xs & {
-                    font-size: 1.4em;   
+                    font-size: 1.4em;
                     line-height: 150%;
                 }
-                
+
             }
-            
+
             .statistics {
-                display: none;  
+                display: none;
             }
         }
     }
@@ -567,7 +567,7 @@ p + h2, p + h4, p + h5 {
         background: $brown-bright;
         border: 1px solid $grey-light;
         margin-bottom: 30px;
-        
+
         h2, h3, h4, h5, p {
             &:first-child {
                 background: url(../img/counselling/bg_pattern.gif);
@@ -580,16 +580,16 @@ p + h2, p + h4, p + h5 {
                 padding: 8px 40px 5px;
                 margin-bottom: 20px;
             }
-            
+
             &:last-child {
                 margin-bottom: 20px;
             }
         }
-        
+
         h2, h3, h4, h5 {
             padding: 0 40px;
         }
-        
+
         p {
             padding: 0 40px;
             font-weight: $font-bold;
@@ -606,20 +606,20 @@ p + h2, p + h4, p + h5 {
         line-height: 111%;
         letter-spacing: inherit;
         border-bottom: 2px solid $grey-bright;
-        
+
         .is-md &, .is-sm & {
-            font-size: 1.2em;   
+            font-size: 1.2em;
             line-height: 111%;
             letter-spacing: inherit;
         }
-        
+
         .is-xs & {
-            font-size: 1.2em;   
+            font-size: 1.2em;
             line-height: 111%;
             letter-spacing: inherit;
         }
     }
-    
+
     dl.input-fields {
         dt {
             font-size: 0.93em;
@@ -627,7 +627,7 @@ p + h2, p + h4, p + h5 {
             padding-top: 4px;
         }
     }
-    
+
     .text-field {
         font-size: 0.93em;
         line-height: 143%;
@@ -637,7 +637,7 @@ p + h2, p + h4, p + h5 {
 
 ul.navi-box {
     background: $brown-bright;
-    
+
     li {
         div.head {
             background: url(../img/counselling/bg_pattern.gif);
@@ -648,9 +648,13 @@ ul.navi-box {
             color: $black;
             letter-spacing: 0.13em;
         }
-        
+
         a {
             text-decoration: none;
         }
     }
+}
+
+.accordion .accordion-trigger {
+    cursor: default;
 }
