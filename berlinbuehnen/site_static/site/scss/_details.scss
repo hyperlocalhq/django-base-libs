@@ -1,3 +1,5 @@
+// main:style.scss
+
 @charset "utf-8";
 
 
@@ -16,7 +18,7 @@
 }
 
 .details {
-    
+
     .back {
         color: black;
         font-weight: $light;
@@ -26,7 +28,7 @@
             color: $blue;
         }
     }
-    
+
     .social_link_list {
         list-style:none;
         margin-top: 20px;
@@ -50,9 +52,9 @@
             }
         }
     }
-    
-    header { 
-        
+
+    header {
+
         ul.header-top {
             width: 100%;
             list-style: none;
@@ -78,7 +80,7 @@
                         margin: 0;
                     }
                 }
-                
+
                 dl {
                     margin-top: 0;
                     display: inline;
@@ -130,7 +132,7 @@
         }
     }
     .main {
-        
+
         .container {
             padding-left: 0;
             padding-right: 0;
@@ -142,7 +144,7 @@
         dl.listing {
             word-wrap: break-word;
             word-break: break-all;
-            
+
             p {
                 display: inline;
                 padding-right: 5px;
@@ -155,24 +157,39 @@
             .sponsor {
                 display: inline-block;
                 margin: 15px 35px 0 0;
-            }  
+            }
         }
         .multipart {
             margin-top: 10px;
             margin-bottom: 25px;
-            
+
             &:last-child {
                 margin-bottom: 0;
             }
-            
+
             h1 {
                 font-weight: $light;
                 text-transform: uppercase;
                 margin-bottom: 10px;
             }
-            
+
             dl {
                 margin-top: 0;
+            }
+        }
+
+
+        .more-date {
+            margin-top: 5px;
+            margin-bottom: 30px;
+            float: right;
+
+            a {
+                text-transform: uppercase;
+                color: black;
+                &:hover {
+                    color: $blue;
+                }
             }
         }
     }
@@ -187,20 +204,20 @@
                 width: 100%;
             }
         }
-        
+
         .multipart {
             margin-top: 50px;
-            
+
             .multipart-header {
                 margin-bottom: 16px;
             }
-            
+
             h1 {
                 font-weight: $light;
                 text-transform: uppercase;
                 margin-bottom: 5px;
             }
-            
+
             h2 {
                 font-weight: $regular;
                 font-size: 1.125em;
@@ -228,26 +245,26 @@
             }
             &:after {
                 content: ":";
-                padding-right: 2px; 
+                padding-right: 2px;
             }
             &:before {
-                content:"\A"; 
+                content:"\A";
                 white-space:pre;
                 display:block;
-                line-height: 10px;    
+                line-height: 10px;
             }
             &:first-child {
                 &:before {
-                    content: none; 
+                    content: none;
                     white-space:normal;
                     display:inline;
-                    line-height: inherit;  
+                    line-height: inherit;
                 }
             }
             &.empty {
                 &:after {
                     content: none;
-                    padding-right: 0; 
+                    padding-right: 0;
                 }
             }
             &.block {
@@ -284,10 +301,10 @@
             }
             dd {
                 &:after {
-                    content:"\A"; 
+                    content:"\A";
                     white-space:pre;
                     display:block;
-                    line-height: 1px;  
+                    line-height: 1px;
                 }
             }
         }
@@ -349,9 +366,9 @@
             color: white;
         }
     }
-    
+
 }
-    
+
 #location.details, #job_offer.details {
     header {
         h1 {
@@ -384,7 +401,7 @@
         }
         header {
             .header-icons {
-                right: -5px;     
+                right: -5px;
             }
         }
     }

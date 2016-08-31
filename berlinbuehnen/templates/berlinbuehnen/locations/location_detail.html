@@ -25,6 +25,7 @@
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/accordion.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/gallery.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/slider.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/add_to_calender_1.5_atc.min.js" defer="defer"></script>
     {% include "utils/favorites_scripts.html" %}
 {% endblock %}
 
@@ -88,35 +89,7 @@
                                     <div class="row">
                                         <div class="col-xs-12 full">
 
-                                            <!-- Gallery -->
-                                            {% if location.image_set.exists %}
-                                                <div class="gallery row">
-                                                    <h4 class="gallery-head">{% trans "Gallery" %}</h4>
-                                                    {% for image in location.image_set.all %}
-                                                        <div class="col-xs-12 col-sm-6 col-md-4 image gallery-item img chevron">
-                                                            {% with image.path|file_description as file_desc %}
-                                                                <img class="gallery-image" src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"gallery_image" }}" alt="{% if file_desc.description %}{{ file_desc.description|escape }}{% endif %}" width="100%" data-image-big="{{ MEDIA_URL }}{{ image.path }}" />{% pin image=image description=location.title %}
-                                                                <div class="gallery-image-text">
-                                                                    <div class="gallery-image-text-description">
-                                                                        {% if file_desc.title %}
-                                                                            <span class="gallery-image-text-description-title">{{ file_desc.title }}</span>
-                                                                        {% endif %}
-                                                                        {% if file_desc.description %}
-                                                                            <span class="gallery-image-text-description-copy">{{ file_desc.description }}</span>
-                                                                        {% endif %}
-                                                                        {% if file_desc.author %}
-                                                                            <span class="gallery-image-text-description-author">{% trans "Photo" %}: {{ file_desc.author }}</span>
-                                                                        {% endif %}
-                                                                    </div>
-                                                                    {% if file_desc.copyright_limitations %}
-                                                                        <div class="gallery-image-text-copyright">{% trans "Copyright" %}: {{ file_desc.copyright_limitations }}</div>
-                                                                    {% endif %}
-                                                                </div>
-                                                            {% endwith %}
-                                                        </div>
-                                                    {% endfor %}
-                                                </div>
-                                            {% endif %}
+                                            {% schedule_of_location location=location %}
 
                                         </div>
                                     </div>
@@ -125,12 +98,45 @@
 
                         </article>
 
+
                         <!-- event slider -->
                         {% other_productions current_location=location %}
 
                         {% festivals_slider location=location %}
 
                         {% education_info location=location %}
+
+
+                        <!-- Gallery -->
+                        {% if location.image_set.exists %}
+                            <div class="gallery row">
+                                <h4 class="gallery-head">{% trans "Gallery" %}</h4>
+                                {% for image in location.image_set.all %}
+                                    <div class="col-xs-12 col-sm-6 col-md-4 image gallery-item img chevron">
+                                        {% with image.path|file_description as file_desc %}
+                                            <img class="gallery-image" src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"gallery_image" }}" alt="{% if file_desc.description %}{{ file_desc.description|escape }}{% endif %}" width="100%" data-image-big="{{ MEDIA_URL }}{{ image.path }}" />{% pin image=image description=location.title %}
+                                            <div class="gallery-image-text">
+                                                <div class="gallery-image-text-description">
+                                                    {% if file_desc.title %}
+                                                        <span class="gallery-image-text-description-title">{{ file_desc.title }}</span>
+                                                    {% endif %}
+                                                    {% if file_desc.description %}
+                                                        <span class="gallery-image-text-description-copy">{{ file_desc.description }}</span>
+                                                    {% endif %}
+                                                    {% if file_desc.author %}
+                                                        <span class="gallery-image-text-description-author">{% trans "Photo" %}: {{ file_desc.author }}</span>
+                                                    {% endif %}
+                                                </div>
+                                                {% if file_desc.copyright_limitations %}
+                                                    <div class="gallery-image-text-copyright">{% trans "Copyright" %}: {{ file_desc.copyright_limitations }}</div>
+                                                {% endif %}
+                                            </div>
+                                        {% endwith %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
                     </div>
                 </div>
             </div>

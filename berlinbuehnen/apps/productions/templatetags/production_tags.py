@@ -7,7 +7,6 @@ from urllib import urlencode
 from filebrowser.models import FileDescription
 from django.utils.translation import ugettext as _
 
-
 register = template.Library()
 
 @register.inclusion_tag('productions/includes/other_productions.html', takes_context=True)
@@ -169,4 +168,31 @@ def add_to_calender(context, event):
         'end_date': end_date,
         'end_time': end_time,
         'description': description
+    }
+
+@register.inclusion_tag('productions/includes/schedule_of_location.html', takes_context=True)
+def schedule_of_location(context, location, amount=4):
+    from berlinbuehnen.apps.productions.models import Event
+
+    timestamp = datetime.now()
+
+    locations = [location]
+
+    qs = Event.objects.filter(
+        models.Q(end_date__gte=timestamp.date()) | models.Q(end_date=None, start_date__gte=timestamp.date()),
+        models.Q(play_locations__in=locations) | models.Q(production__in_program_of__in=locations) | models.Q(production__play_locations__in=locations),
+        production__status="published"
+    )
+
+    today = datetime.today()
+    qs = qs.exclude(
+        start_date__exact=today,
+        start_time__lt=today,
+    ).distinct()
+
+    return {
+        'location': location,
+        'newest_events': qs[:amount],
+        'request': context['request'],
+        'MEDIA_URL': context['MEDIA_URL']
     }

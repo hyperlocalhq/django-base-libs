@@ -1,3 +1,5 @@
+// main:style.scss
+
 @charset "utf-8";
 
 
@@ -8,21 +10,21 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    
+
     margin: 0;
     padding: 0;
-    
+
     .list {
         margin:0 !important;
         padding:0 !important;
     }
 
-    
+
     .row {
         margin: 0;
         padding: 0;
     }
-    
+
     .list-headline {
         font-weight: $light;
         font-size: 2em;
@@ -31,14 +33,22 @@
         padding-bottom: 15px;
         margin-bottom: 0;
         border-bottom: 1px solid black;
+
+        .calender-headline {
+            font-size: 0.917em;
+            font-weight: $bold;
+            padding: 0 0 3px 0;
+            margin: 0 0 10px 0;
+            border-bottom: 4px solid black;
+        }
     }
-    
+
     .list-item {
         margin: 0;
         padding: 0;
         border-bottom: 1px solid black;
         cursor: pointer;
-        
+
         .list-item-head {
             margin: 0;
             padding: 0;
@@ -47,7 +57,7 @@
             &.only-image {
                 max-width: 148px;
             }
-            
+
             .list-item-head-date {
                 margin: 10px 0 0;
                 padding: 0;
@@ -79,7 +89,7 @@
                     font-weight: 600;
                     font-size: 0.75em;
                     line-height: 12px;
-                    text-transform: uppercase;                    
+                    text-transform: uppercase;
                 }
                 .list-item-head-date-type {
                     height: 32px;
@@ -155,13 +165,13 @@
                 }
             }
         }
-        
+
         .list-item-body {
             margin: 0;
             padding: 0;
             height: 148px;
             overflow: hidden;
-            
+
             a {
                 display: block;
                 width: 100%;
@@ -172,18 +182,18 @@
                     color: black;
                 }
             }
-            
+
             dl, h2, h3, h4 {
                 width: auto;
                 &.short {
                     width: 72%;
                 }
             }
-            
+
             dl, h2, h3, h4, div.copy, div.target {
                 margin: 0 0 0 15px !important;
             }
-            
+
             dl {
                 float: none;
                 padding-top: 10px;
@@ -216,7 +226,7 @@
                     }
                 }
             }
-            
+
             h2 {
                 font-weight: $bold;
                 font-size: 1.125em;
@@ -224,7 +234,7 @@
                 padding-bottom: 5px;
                 text-transform: uppercase;
             }
-            
+
             h3 {
                 font-weight: $regular;
                 font-size: 0.9em;
@@ -233,14 +243,14 @@
                     padding-bottom: 5px;
                 }
             }
-            
+
             h4 {
                 font-weight: $regular;
                 font-size: 1em;
                 line-height: 125%;
                 padding-top: 10px;
             }
-            
+
             p {
                 padding: 0;
                 font-size:0.9em;
@@ -248,7 +258,7 @@
                     margin: 0;
                 }
             }
-            
+
             div.target {
                 font-size: 0.9em;
                 margin-top: 5px !important;
@@ -263,7 +273,7 @@
                     }
                 }
             }
-            
+
             .extra {
                 background: $blue;
                 position: absolute;
@@ -296,12 +306,12 @@
                 }
             }
         }
-        
+
         &:hover {
             background-color: #eee;
         }
     }
-    
+
     &.location-list {
         .list-item {
             .list-item-head {
@@ -321,10 +331,14 @@
 }
 
 .additional-list {
-    
+
     position: relative;
     margin-bottom: 80px;
-    
+
+    &.calender-list {
+        margin-bottom: 0;
+    }
+
     .additional-list-head {
         font-weight: $light;
         font-size: 2em;
@@ -332,12 +346,12 @@
         padding: 8px 0;
         border-top: 2px solid black;
         border-bottom: 2px solid black;
-                
+
         &.margin-bottom-none {
             margin-bottom: 0;
         }
     }
-    
+
     .additional-list-more {
         font-size: 1em;
         color: black;
@@ -351,11 +365,11 @@
             padding-left: 5px;
         }
     }
-    
+
     .list-headline {
         font-size: 1.5em;
     }
-    
+
     dd.festivals {
         display: none;
     }
@@ -365,19 +379,19 @@ body.is-xs {
     .list {
         margin-left: -20px;
         margin-right: -20px;
-        
+
         &.additional-list {
             margin-left: 0px;
             margin-right: 0px;
         }
-                
+
         .list-item {
-            
+
             .list-item-head {
                 max-width: none;
                 height: 50px;
                 border-bottom: 1px solid #ccc;
-                
+
                 .list-item-head-date {
                     margin: 0;
                     position: absolute;
@@ -448,7 +462,7 @@ body.is-xs {
             padding-bottom: 40px;
             height: auto;
             max-height: 350px;
-            
+
             dl, h2, h3, h4, div.copy {
                 margin: 0 0 0 5px  !important;
                 width: auto;
@@ -456,15 +470,15 @@ body.is-xs {
                     width: auto;
                 }
             }
-            
+
             div.target {
                 margin: 5px 0 0 5px  !important;
                 width: auto;
                 &.short {
                     width: auto;
-                }                
+                }
             }
-            
+
             .extra {
                 top: inherit;
                 bottom: -40px;
@@ -495,7 +509,7 @@ body.is-xs {
             }
         }
     }
-    
+
     &.location-list {
         .list-item {
             .list-item-head {
@@ -503,7 +517,7 @@ body.is-xs {
             }
         }
     }
-    
+
     &.safari {
         .list-item-head-date {
             top: 2px !important;
@@ -512,7 +526,7 @@ body.is-xs {
             }
             .list-item-head-date-time {
                 font-size: 3.05em !important;
-                top: 12px !important;   
+                top: 12px !important;
             }
             .list-item-head-date-icons {
                 top: 21px !important;
@@ -520,4 +534,3 @@ body.is-xs {
         }
     }
 }
-

@@ -5878,6 +5878,21 @@ select {
   margin-top: 0;
 }
 
+.details .additional .more-date {
+  margin-top: 5px;
+  margin-bottom: 30px;
+  float: right;
+}
+
+.details .additional .more-date a {
+  text-transform: uppercase;
+  color: black;
+}
+
+.details .additional .more-date a:hover {
+  color: #4583c8;
+}
+
 .details .left {
   padding-left: 10px;
   padding-right: 10px;
@@ -7239,6 +7254,14 @@ select {
   border-bottom: 1px solid black;
 }
 
+.list .list-headline .calender-headline {
+  font-size: 0.917em;
+  font-weight: 700;
+  padding: 0 0 3px 0;
+  margin: 0 0 10px 0;
+  border-bottom: 4px solid black;
+}
+
 .list .list-item {
   margin: 0;
   padding: 0;
@@ -7546,6 +7569,10 @@ select {
 .additional-list {
   position: relative;
   margin-bottom: 80px;
+}
+
+.additional-list.calender-list {
+  margin-bottom: 0;
 }
 
 .additional-list .additional-list-head {

@@ -330,15 +330,15 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     def get_future_occurrences(self, timestamp=tz_now):
         if callable(timestamp):
             timestamp = timestamp()
-            
+
         now_date = timestamp.date()
         now_time = timestamp.time()
         events = list(self.event_set.filter(start_date__gte=now_date).order_by('start_date'))
-        
+
         while len(events) and events[0].start_date == now_date and events[0].start_time < now_time:
             del events[0]
-        
-        return events 
+
+        return events
 
     def fix_categories(self):
         # for all children categories of this production add the parent category to the database
@@ -373,19 +373,19 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
                 self._first_image_cache = qs[0]
         return self._first_image_cache
     first_image = property(_get_first_image)
-    
+
     def is_multipart(self):
         try:
             return bool(self.multipart)
         except:
             return False
-            
+
     def get_parts(self):
         try:
             return self.multipart.part_set.all()
         except:
             return []
-            
+
     def has_parts_leaderships(self):
         multiparts = self.get_parts()
         if multiparts:
@@ -440,7 +440,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
 
     def get_images(self):
         return self.productionimage_set.all()
-            
+
     def duplicate(self, new_values={}):
         import os
         from distutils.dir_util import copy_tree
@@ -577,13 +577,13 @@ class ProductionSocialMediaChannel(models.Model):
 
     def __unicode__(self):
         return self.channel_type
-        
+
     def get_class(self):
         social = self.channel_type.lower()
         if social == "google+":
             return u"googleplus"
         return social
-        
+
 
 class ProductionVideo(CreationModificationDateMixin):
     production = models.ForeignKey(Production, verbose_name=_("Production"))
@@ -786,21 +786,21 @@ class EventManager(models.Manager):
     def published_upcoming(self, timestamp=tz_now):
         if callable(timestamp):
             timestamp = timestamp()
-        
+
         qs = self.filter(
             models.Q(end_date__gte=timestamp.date()) |
             models.Q(end_date=None, start_date__gte=timestamp.date()),
             production__status="published",
         )
-        
+
         today = datetime.today()
         qs = qs.exclude(
             start_date__exact=today,
             start_time__lt=today,
         ).distinct()
-        
+
         return qs
-        
+
 
 class Event(CreationModificationMixin, UrlMixin):
     production = models.ForeignKey(Production, verbose_name=_("Production"))
@@ -976,7 +976,7 @@ class Event(CreationModificationMixin, UrlMixin):
                     final.append(sponsor)
 
             self._ev_or_prod_sponsors_cache = final
-            
+
         return self._ev_or_prod_sponsors_cache
 
     ### media ###
@@ -995,7 +995,7 @@ class Event(CreationModificationMixin, UrlMixin):
         if self.pk and self.eventpdf_set.exists():
             return self.eventpdf_set.all()
         return self.production.productionpdf_set.all()
-        
+
     def ev_or_prod_social_media(self):
         if self.pk and self.eventsocialmediachannel_set.exists():
             return self.eventsocialmediachannel_set.all()
@@ -1048,10 +1048,10 @@ class Event(CreationModificationMixin, UrlMixin):
         if ch:
             return ch[0].title
         return u""
-        
+
     def is_canceled(self):
         return self.event_status == 'canceled'
-        
+
     def get_festivals(self):
         festivals = []
         for festival in self.production.festivals.all().filter(status="published"):
@@ -1080,7 +1080,7 @@ class EventSocialMediaChannel(models.Model):
 
     def __unicode__(self):
         return self.channel_type
-        
+
     def get_class(self):
         social = self.channel_type.lower()
         if social == "google+":
