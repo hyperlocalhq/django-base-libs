@@ -60,6 +60,11 @@ IMG_URL = "%simg/website/" % MEDIA_URL
 FILE_UPLOAD_TEMP_DIR = SESSION_FILE_PATH = PATH_TMP
 FILE_UPLOAD_PERMISSIONS = 0777
 
+LOCALE_PATHS = [
+    os.path.join(PROJECT_PATH, "ccb", "locale"),
+    os.path.join(JETSON_PATH, "jetson", "locale"),
+]
+
 ### LANGUAGES ###
 
 LANGUAGES = (
