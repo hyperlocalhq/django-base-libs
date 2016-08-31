@@ -150,7 +150,7 @@
                     <a class="content" href="{{ article.get_url_path }}">
                         <h2 class="fa-man fawesome">{% trans 'Player of the week' %}</h2>
                         <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"magazine_grid" }}"  alt="{{ article.get_alternative_title|escape }}"/>
-                        <h4><time datetime="{{article.published_from|date:"Y-m-d"}}">{{ article.published_from|date:"m. b. Y, H:i" }}</time></h4>
+                        <h4><time datetime="{{ article.published_from|date:"Y-m-d" }}">{{ article.published_from|date:"j. M. Y, H:i" }}</time></h4>
                         <h3>{{ article.get_alternative_title }}</h3>
                     </a>
                 </div>
@@ -161,7 +161,7 @@
                     <a class="content" href="{{ article.get_url_path }}">
                         <h2 class="fa-key fawesome">{% trans 'At home with' %} ...</h2>
                         <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"magazine_grid" }}"  alt="{{ article.get_alternative_title|escape }}"/>
-                        <h4><time datetime="{{article.published_from|date:"Y-m-d"}}">{{ article.published_from|date:"m. b. Y, H:i" }}</time></h4>
+                        <h4><time datetime="{{ article.published_from|date:"Y-m-d" }}">{{ article.published_from|date:"j. M. Y, H:i" }}</time></h4>
                         <h3>{{ article.get_alternative_title }}</h3>
                     </a>
                 </div>
@@ -172,7 +172,7 @@
                     <a class="content" href="{{ article.get_url_path }}">
                         <h2 class="fa-lightbulb  fawesome">{% trans 'Knowledge & Analysis' %}</h2>
                         <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"magazine_grid" }}"  alt="{{ article.get_alternative_title|escape }}"/>
-                        <h4><time datetime="{{article.published_from|date:"Y-m-d"}}">{{ article.published_from|date:"m. b. Y, H:i" }}</time></h4>
+                        <h4><time datetime="{{ article.published_from|date:"Y-m-d" }}">{{ article.published_from|date:"j. M. Y, H:i" }}</time></h4>
                         <h3>{{ article.get_alternative_title }}</h3>
                     </a>
                 </div>
@@ -183,7 +183,7 @@
                     <a class="content" href="{{ article.get_url_path }}">
                         <h2 class="fa-home fawesome">{% trans 'When I moved to Berlin' %}</h2>
                         <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"magazine_grid" }}"  alt="{{ article.get_alternative_title|escape }}"/>
-                        <h4><time datetime="{{article.published_from|date:"Y-m-d"}}">{{ article.published_from|date:"m. b. Y, H:i" }}</time></h4>
+                        <h4><time datetime="{{ article.published_from|date:"Y-m-d" }}">{{ article.published_from|date:"j. M. Y, H:i" }}</time></h4>
                         <h3>{{ article.get_alternative_title }}</h3>
                     </a>
                 </div>
@@ -194,7 +194,7 @@
                     <a class="content" href="{{ article.get_url_path }}">
                         <h2 class="fa-lightbulb fawesome">{% trans 'Innovation & Vision' %}</h2>
                         <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"magazine_grid" }}"  alt="{{ article.get_alternative_title|escape }}"/>
-                        <h4><time datetime="{{article.published_from|date:"Y-m-d"}}">{{ article.published_from|date:"m. b. Y, H:i" }}</time></h4>
+                        <h4><time datetime="{{ article.published_from|date:"Y-m-d" }}">{{ article.published_from|date:"j. M. Y, H:i" }}</time></h4>
                         <h3>{{ article.get_alternative_title }}</h3>
                     </a>
                 </div>
@@ -233,7 +233,7 @@
                                             <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"blog_grid_small" }}" alt="{{ article.get_alternative_title|escape }}"/>
                                         {% endif %}
                                         <div class="subline">
-                                            <h3><time datetime="{{article.published_from|date:"Y-m-d"}}">{{ article.published_from|date:"m. b. Y, H:i" }}</time></h3>
+                                            <h3><time datetime="{{ article.published_from|date:"Y-m-d" }}">{{ article.published_from|date:"j. M. Y, H:i" }}</time></h3>
                                             {% if article.content_provider.image %}
                                                 <img class="logo" src="{{ UPLOADS_URL }}{{ article.content_provider.image|modified_path:"blog_grid_logo" }}" alt="{{ article.content_provider.title|escape }}" />
                                             {% endif %}
@@ -265,7 +265,7 @@
                                 {{ post.body|get_first_image|safe }}
                             {% endif %}
                             <div class="subline">
-                                <h3><time datetime="{{post.published_from|date:"Y-m-d"}}">{{ post.published_from|date:"m. b. Y, H:i" }}</time></h3>
+                                <h3><time datetime="{{ post.published_from|date:"Y-m-d" }}">{{ post.published_from|date:"j. M. Y, H:i" }}</time></h3>
                             </div>
                             <h2>{{ post.title }}</h2>
                             <p>{{ post.body|disarm_user_input|wordwrap:30|striptags|safe|truncatewords:"25" }}</p>
