@@ -5471,6 +5471,17 @@ ul.filter-box li:last-child {
   right: 20px;
 }
 
+#header .button.user-avatar {
+  right: 130px;
+  width: 39px;
+  height: 39px;
+  display: inline-block;
+}
+
+.is-xs #header .button.user-avatar {
+  right: 20px;
+}
+
 #header.fixed .wrapper {
   position: fixed;
   top: -18px;
@@ -6772,4 +6783,8 @@ ul.navi-box li div.head {
 
 ul.navi-box li a {
   text-decoration: none;
+}
+
+.accordion .accordion-trigger {
+  cursor: default;
 }
