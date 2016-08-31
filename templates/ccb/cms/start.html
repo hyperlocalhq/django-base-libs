@@ -10,13 +10,13 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                
+
                 <div class="claim">
-                    <div class="fawesome fa-eye big"></div>
+                    <a class="fawesome fa-eye big color-black color-over-black" href="{% if current_language == "en" %}/en/good-to-know/about-creative-city-berlin/{% else %}/de/das-wichtigste-im-ueberblick/was-ist-creative-city-berlin/{% endif %}"></a>
                     <p>{% trans "Berlin's portal for people engaged in the cultural sector" %}</p>
                 </div>
 
-    
+
                 <div class="row navi-grid">
                     {% load metro_tags %}
                     {% metro_tile "start_page_1" %}
@@ -30,28 +30,28 @@
                     {% metro_tile "start_page_9" %}
                     {% metro_tile "start_page_10" %}
                 </div>
-                
-                
+
+
                 <div class="claim">
-                    <div class="fawesome fa-heart big"></div>
+                    <a class="fawesome fa-heart big color-black color-over-black" href="{% if current_language == "en" %}/en/portfolios/{% else %}/de/portfolios/{% endif %}"></a>
                     <p>{% trans "What's new? Latest Portfolios" %}</p>
                 </div>
-                
+
                 {% include "media_gallery/includes/latest_published_galleries.html" %}
-                
+
                 <br/>
                 <br/>
-                
+
                 <div class="claim">
-                    <div class="fawesome fa-hand-down big"></div>
+                    <a class="fawesome fa-hand-down big color-black color-over-black" href="{% if current_language == "en" %}/en/network/{% else %}/de/network/{% endif %}"></a>
                     <p>{% trans "Welcome: The new members of Creative City Berlin" %}</p>
                 </div>
-                
+
                 {% include "people/includes/latest_published_people_start.html" %}
-                
+
                 <br/>
                 <br/>
-                
+
                 <div class="claim">
                     <div class="fawesome fa-eye big"></div>
                     <p>{% trans "Follow us" %}</p>
@@ -61,7 +61,7 @@
                     <a href="http://www.twitter.com/CREATIVEBERLIN" class="fawesome fa-twitter button round" target="_blank"><span class="sr-only">Twitter</span></a>
                     <a href="https://www.facebook.com/creativeberlin/" class="fawesome fa-facebook button round" target="_blank"><span class="sr-only">Facebook</span></a>
                 </div>
-                
+
             </div>
         </div>
     </div>
