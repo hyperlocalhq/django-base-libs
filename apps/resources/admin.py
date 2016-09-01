@@ -36,7 +36,7 @@ class MediumOptions(ExtendedModelAdmin):
 
 class DocumentOptions(admin.ModelAdmin):
     save_on_top = True
-    list_display = ['title', 'document_type', 'url_link', 'status', 'is_featured']
+    list_display = ['title', 'document_type', 'start', 'end', 'url_link', 'status', 'is_featured']
     list_filter = ('document_type', 'medium', 'status', 'is_featured', 'creative_sectors', 'context_categories')
     search_fields = ['title']
 

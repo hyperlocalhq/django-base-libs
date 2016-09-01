@@ -12,6 +12,8 @@ class DocumentManagerExtended(DocumentManager):
 
 
 class Document(DocumentBase):
+    start = models.DateField(_("Start"), blank=True, null=True)
+    end = models.DateField(_("End"), blank=True, null=True)
     creative_sectors = TreeManyToManyField(
         Term,
         verbose_name=_("Creative sectors"),

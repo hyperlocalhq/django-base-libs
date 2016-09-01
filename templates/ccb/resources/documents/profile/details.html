@@ -1,14 +1,24 @@
-{% load i18n base_tags auth_extended %}
+{% load i18n base_tags auth_extended babel %}
 
 
 <div class="fieldset not-editable ">
     <fieldset>
         <h2>{% trans "Details" %}</h2>
         
+        {% if object.end %}
+            <dl class="input-fields">
+                <dt>{% trans "Deadline" %}</dt>
+                <dd><div class="text-field">
+                    {% if object.start %}<time datetime="{{ object.start|date:"Y-m-d" }}">{{ object.start|datefmt:"long" }}</time> - {% endif %}
+                    <time datetime="{{ object.end|date:"Y-m-d" }}">{{ object.end|datefmt:"long" }}</time>
+                </div></dd>
+            </dl>
+        {% endif %}
+
         {% if object.url_link %}
             <dl class="input-fields">
                 <dt>{% trans "Website" %}</dt>
-                <dd><div class="text-field"><a href="{{ object.url_link|escape }}" onclick="open_new_window(event)">{{ object.url_link }}</a></div></dd>
+                <dd><div class="text-field"><a href="{{ object.url_link|escape }}" target="_blank">{{ object.url_link }}</a></div></dd>
             </dl>
         {% endif %}
 

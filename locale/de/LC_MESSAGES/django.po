@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Django 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-01 15:21+0200\n"
+"POT-Creation-Date: 2016-09-01 19:52+0200\n"
 "PO-Revision-Date: 2016-08-30 12:23+0053\n"
 "Last-Translator: Super Admin <jetsonadmin@studio38.de>\n"
 "Language-Team: \n"
@@ -1418,9 +1418,10 @@ msgstr "Entwurf"
 #: apps/events/base.py:56 apps/external_services/models.py:14
 #: apps/external_services/models.py:73 apps/media_gallery/forms.py:328
 #: apps/partners/models.py:14 apps/partners/models.py:20
+#: templates/admin/extendedadmin/document_change.html:311
 #: templates/ccb/bulletin_board/change_bulletin.html:27
 #: templates/ccb/media_gallery/manage_galleries.html:7
-#: templates/ccb/resources/documents/profile/details.html:71
+#: templates/ccb/resources/documents/profile/details.html:81
 msgid "Published"
 msgstr "Veröffentlicht"
 
@@ -1503,7 +1504,7 @@ msgstr "Projektbörse Kategorien"
 #: apps/site_specific/forms/people.py:700
 #: apps/site_specific/forms/people.py:713
 #: templates/ccb/marketplace/feeds/feed_description.html:3
-#: templates/ccb/resources/documents/profile/details.html:17
+#: templates/ccb/resources/documents/profile/details.html:27
 #: templates/ccb/site_specific/object_categories.html:46
 msgid "Type"
 msgstr "Art"
@@ -1818,6 +1819,7 @@ msgstr "Titel und Beschreibung"
 #: apps/site_specific/forms/people.py:729
 #: apps/site_specific/forms/people.py:989
 #: apps/site_specific/forms/people.py:1041
+#: templates/admin/extendedadmin/document_change.html:432
 #: templates/ccb/blog/forms/post_embedded.html:19
 #: templates/ccb/counselling_blog/forms/post_embedded.html:19
 #: templates/ccb/form.html:20 templates/ccb/forum/forms/forum_embedded.html:16
@@ -1859,7 +1861,7 @@ msgid "Privacy"
 msgstr "Privatsphäre"
 
 #: apps/curated_lists/models.py:44 apps/events/models.py:28
-#: apps/resources/models.py:28
+#: apps/resources/models.py:30
 msgid "Featured"
 msgstr "Featured"
 
@@ -1897,6 +1899,9 @@ msgid "Question and Answer"
 msgstr "Fragen und Antworten"
 
 #: apps/editorial/cms_plugins.py:38 apps/editorial/models.py:45
+#: templates/admin/extendedadmin/document_change.html:66
+#: templates/admin/extendedadmin/document_change.html:106
+#: templates/admin/extendedadmin/document_change.html:126
 msgid "Document"
 msgstr "Dokument"
 
@@ -1930,6 +1935,7 @@ msgstr "PDF URL"
 
 #: apps/editorial/models.py:46 apps/resources/cms_apps.py:8
 #: apps/site_specific/feeds.py:91
+#: templates/admin/extendedadmin/document_change.html:65
 msgid "Documents"
 msgstr "Dokumente"
 
@@ -2067,13 +2073,14 @@ msgid "Slug for URIs"
 msgstr "URL-Pfadname"
 
 #: apps/events/base.py:226 apps/events/base.py:827 apps/events/base.py:834
-#: apps/events/forms.py:692 apps/site_specific/forms/events.py:1125
+#: apps/events/forms.py:692 apps/resources/models.py:15
+#: apps/site_specific/forms/events.py:1125
 #: templates/ccb/uni_form/includes/event_time.html:8
 msgid "Start"
 msgstr "Beginn"
 
 #: apps/events/base.py:227 apps/events/forms.py:743
-#: apps/site_specific/forms/events.py:1176
+#: apps/resources/models.py:16 apps/site_specific/forms/events.py:1176
 #: templates/ccb/uni_form/includes/event_time.html:68
 msgid "End"
 msgstr "Ende"
@@ -2137,6 +2144,7 @@ msgid "Organizer URL"
 msgstr "Website des Veranstalters"
 
 #: apps/events/base.py:517 apps/site_specific/forms/events.py:948
+#: templates/admin/extendedadmin/document_change.html:258
 #: templates/admin/extendedadmin/job_offer_change.html:146
 #: templates/ccb/counselling_events/profile/additional_info.html:6
 #: templates/ccb/counselling_events/profile/additional_info.html:10
@@ -2545,7 +2553,7 @@ msgstr "PLZ"
 #: templates/ccb/institutions/profile/contact.html:62
 #: templates/ccb/marketplace/profile/contact.html:96
 #: templates/ccb/people/profile/contact.html:100
-#: templates/ccb/resources/documents/profile/details.html:10
+#: templates/ccb/resources/documents/profile/details.html:20
 msgid "Website"
 msgstr "Website"
 
@@ -2990,7 +2998,7 @@ msgstr "Eintritt und Öffnungszeiten"
 #: apps/events/forms.py:1809 apps/events/models.py:40
 #: apps/groups_networks/models.py:19 apps/institutions/forms.py:1416
 #: apps/institutions/models.py:32 apps/marketplace/forms.py:643
-#: apps/people/models.py:44 apps/resources/models.py:24
+#: apps/people/models.py:44 apps/resources/models.py:26
 #: templates/ccb/events/add_event_confirm.html:416
 msgid "categories"
 msgstr "Kategorien"
@@ -3005,7 +3013,7 @@ msgstr ""
 
 #: apps/events/models.py:33 apps/groups_networks/models.py:12
 #: apps/institutions/models.py:25 apps/people/models.py:37
-#: apps/resources/models.py:17 apps/site_specific/models.py:277
+#: apps/resources/models.py:19 apps/site_specific/models.py:277
 #: templates/admin/extendedadmin/includes/fieldset_categories.html:37
 msgid "Creative sectors"
 msgstr "Kreativbereiche"
@@ -3241,7 +3249,7 @@ msgstr "Fragen/Antworten"
 #: templates/ccb/generic/favorites.html:10
 #: templates/ccb/generic/favorites.html:14
 #: templates/ccb/institutions/institution_list.html:135
-#: templates/ccb/resources/documents/document_list.html:91
+#: templates/ccb/resources/documents/document_list.html:90
 msgid "Favorites"
 msgstr "Favoriten"
 
@@ -4909,7 +4917,7 @@ msgstr "Institutions-Website"
 #: templates/ccb/groups_networks/persongroups/profile/contact_form.html:12
 #: templates/ccb/marketplace/emails/new_job_offer.html:166
 #: templates/ccb/marketplace/profile/details.html:41
-#: templates/ccb/resources/documents/profile/details.html:132
+#: templates/ccb/resources/documents/profile/details.html:142
 #: templates/ccb/site_specific/object_categories.html:58
 msgid "Location"
 msgstr "Standort"
@@ -4942,7 +4950,7 @@ msgid "Document Type"
 msgstr "Dokument-Art"
 
 #: apps/site_specific/forms/resources.py:102
-#: templates/ccb/resources/documents/profile/details.html:24
+#: templates/ccb/resources/documents/profile/details.html:34
 msgid "Medium"
 msgstr "Medium"
 
@@ -5379,6 +5387,7 @@ msgstr ""
 #: templates/admin/admin/institutions/institution/mailchimp_subscribe_selected.html:9
 #: templates/admin/admin/institutions/institution/merge_selected.html:19
 #: templates/admin/admin/people/person/mailchimp_subscribe_selected.html:9
+#: templates/admin/extendedadmin/document_change.html:63
 #: templates/ccb/base.html:374 templates/ccb/base_counselling.html:154
 #: templates/ccb/base_redesign.html:173
 #: templates/ccb/flatpages/education_links.html:18
@@ -5436,15 +5445,53 @@ msgstr ""
 msgid "Yes, I'm sure"
 msgstr ""
 
-#: templates/admin/extendedadmin/includes/fieldset_categories.html:5
-msgid "Categories & tags"
-msgstr "Kategorien & Tags"
+#: templates/admin/extendedadmin/document_change.html:66
+msgid "Add"
+msgstr "Hinzufügen"
 
+#: templates/admin/extendedadmin/document_change.html:75
+msgid "History"
+msgstr "Verlauf"
+
+#: templates/admin/extendedadmin/document_change.html:78
+#: templates/ccb/individual_relations/individual_relation_edit.html:8
+msgid "Permissions"
+msgstr "Zugriffsrechte"
+
+#: templates/admin/extendedadmin/document_change.html:82
+msgid "View on site"
+msgstr "Auf der Website anzeigen"
+
+#: templates/admin/extendedadmin/document_change.html:98
+msgid "Please correct the error below."
+msgid_plural "Please correct the errors below."
+msgstr[0] "Bitte folgenden Fehler korrigieren."
+msgstr[1] "Bitte folgende Fehler korrigieren"
+
+#: templates/admin/extendedadmin/document_change.html:266
 #: templates/admin/extendedadmin/includes/fieldset_categories.html:22
 #: templates/admin/extendedadmin/includes/fieldset_categories.html:54
 #: templates/admin/extendedadmin/includes/fieldset_categories.html:86
 msgid "Add Another"
 msgstr "Weiteres hinzufügen"
+
+#: templates/admin/extendedadmin/document_change.html:276
+#: templates/admin/extendedadmin/document_change.html:420
+#: templates/ccb/resources/documents/profile/details.html:53
+msgid "Authors"
+msgstr "Autoren"
+
+#: templates/admin/extendedadmin/document_change.html:433
+msgid "Save and add another"
+msgstr "Sichern und weiteres hinzufügen"
+
+#: templates/admin/extendedadmin/document_change.html:434
+msgid "Save and continue editing"
+msgstr "Sichern und weiter bearbeiten"
+
+#: templates/admin/extendedadmin/includes/fieldset_categories.html:5
+msgid "Categories & tags"
+msgstr "Kategorien & Tags"
 
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:3
 msgid "Fees & Opening Hours"
@@ -6608,7 +6655,7 @@ msgstr "Mehr Informationen"
 #: templates/ccb/people/person_list.html:119
 #: templates/ccb/people/person_person_contacts.html:21
 #: templates/ccb/people/person_simplesearchresults.html:35
-#: templates/ccb/resources/documents/document_list.html:77
+#: templates/ccb/resources/documents/document_list.html:76
 #: templates/ccb/resources/documents/document_simplesearchresults.html:33
 #: templates/ccb/search/searchresults.html:20
 #: templates/ccb/search/simplesearchresults.html:38
@@ -6751,13 +6798,13 @@ msgid "Visual Arts"
 msgstr "Bildende Kunst"
 
 #: templates/ccb/cms/plugins/document.html:16
-#: templates/ccb/resources/documents/profile/details.html:64
+#: templates/ccb/resources/documents/profile/details.html:74
 msgid "Publisher"
 msgstr "Anbieter"
 
 #: templates/ccb/cms/plugins/document.html:21
 #: templates/ccb/cms/plugins/document.html:24
-#: templates/ccb/resources/documents/profile/details.html:32
+#: templates/ccb/resources/documents/profile/details.html:42
 msgid "Download"
 msgstr "Download"
 
@@ -6807,7 +6854,7 @@ msgstr "Vorschau"
 #: templates/ccb/groups_networks/persongroups/profile/details.html:16
 #: templates/ccb/people/person_projects.html:132
 #: templates/ccb/people/profile/details.html:18
-#: templates/ccb/resources/documents/profile/details.html:72
+#: templates/ccb/resources/documents/profile/details.html:82
 msgid "DATE_FORMAT"
 msgstr "j. F Y"
 
@@ -7614,7 +7661,7 @@ msgid "Recent threads"
 msgstr "Letzte Themen"
 
 #: templates/ccb/forum/forum_list_level_1.html:90
-#: templates/ccb/resources/documents/profile/details.html:41
+#: templates/ccb/resources/documents/profile/details.html:51
 msgid "Author"
 msgstr "Autor"
 
@@ -8142,7 +8189,7 @@ msgid "Settings"
 msgstr "Einstellungen"
 
 #: templates/ccb/groups_networks/persongroups/add_group_main_data.html:88
-#: templates/ccb/resources/documents/profile/details.html:116
+#: templates/ccb/resources/documents/profile/details.html:126
 msgid "Language"
 msgstr "Sprache"
 
@@ -8533,10 +8580,6 @@ msgstr ""
 #: templates/ccb/individual_relations/individual_relation_edit.html:5
 msgid "Relation"
 msgstr "Beziehung"
-
-#: templates/ccb/individual_relations/individual_relation_edit.html:8
-msgid "Permissions"
-msgstr "Zugriffsrechte"
 
 #: templates/ccb/individual_relations/individual_relation_remove.html:4
 #, python-format
@@ -9494,50 +9537,50 @@ msgstr "Sprachen"
 msgid "Edit Infolink"
 msgstr "Infolink bearbeiten"
 
-#: templates/ccb/resources/documents/document_list.html:90
-#: templates/ccb/resources/documents/document_list.html:94
+#: templates/ccb/resources/documents/document_list.html:89
+#: templates/ccb/resources/documents/document_list.html:93
 #: templates/ccb/resources/documents/document_simplesearchresults.html:9
 #: templates/ccb/resources/documents/document_simplesearchresults.html:12
 msgid "Infolinks"
 msgstr "Infolinks"
 
-#: templates/ccb/resources/documents/document_list.html:95
+#: templates/ccb/resources/documents/document_list.html:94
 msgid "Own infolinks"
 msgstr "Eigene Infolinks"
 
-#: templates/ccb/resources/documents/profile/details.html:31
+#: templates/ccb/resources/documents/profile/details.html:10
+msgid "Deadline"
+msgstr "Bewerbungsfrist"
+
+#: templates/ccb/resources/documents/profile/details.html:41
 msgid "File"
 msgstr "Filter"
 
-#: templates/ccb/resources/documents/profile/details.html:43
-msgid "Authors"
-msgstr "Autoren"
-
-#: templates/ccb/resources/documents/profile/details.html:57
+#: templates/ccb/resources/documents/profile/details.html:67
 msgid "External authors"
 msgstr "Externe Autoren"
 
-#: templates/ccb/resources/documents/profile/details.html:78
+#: templates/ccb/resources/documents/profile/details.html:88
 msgid "playing time"
 msgstr "Spieldauer"
 
-#: templates/ccb/resources/documents/profile/details.html:85
+#: templates/ccb/resources/documents/profile/details.html:95
 msgid "ISBN 10"
 msgstr "ISBN-10"
 
-#: templates/ccb/resources/documents/profile/details.html:92
+#: templates/ccb/resources/documents/profile/details.html:102
 msgid "ISBN 13"
 msgstr "ISBN-13"
 
-#: templates/ccb/resources/documents/profile/details.html:99
+#: templates/ccb/resources/documents/profile/details.html:109
 msgid "Pages"
 msgstr "Seiten"
 
-#: templates/ccb/resources/documents/profile/details.html:106
+#: templates/ccb/resources/documents/profile/details.html:116
 msgid "Filesize"
 msgstr "Dateigröße"
 
-#: templates/ccb/resources/documents/profile/details.html:118
+#: templates/ccb/resources/documents/profile/details.html:128
 msgid "Languages"
 msgstr "Sprachen"
 
@@ -10640,9 +10683,6 @@ msgstr ""
 #~ msgid "Save and Show"
 #~ msgstr "Speichern und zeigen"
 
-#~ msgid "Save and add another"
-#~ msgstr "Sichern und weiteres hinzufügen"
-
 #~ msgid "Unspecified"
 #~ msgstr "keine Angabe"
 
@@ -11283,11 +11323,6 @@ msgstr ""
 #~ msgid "Object types"
 #~ msgstr "Objekt-Typen"
 
-#~ msgid "Please correct the error below."
-#~ msgid_plural "Please correct the errors below."
-#~ msgstr[0] "Bitte folgenden Fehler korrigieren."
-#~ msgstr[1] "Bitte folgende Fehler korrigieren"
-
 #~ msgid "Username:"
 #~ msgstr "Benutzername:"
 
@@ -11562,9 +11597,6 @@ msgstr ""
 
 #~ msgid "Additional address"
 #~ msgstr "Zusätzliche Adresse"
-
-#~ msgid "Add"
-#~ msgstr "Hinzufügen"
 
 #~ msgid "Delete address"
 #~ msgstr "Adresse löschen"
@@ -11961,17 +11993,8 @@ msgstr ""
 #~ msgid "Registration required"
 #~ msgstr "Registrierung erforderlich"
 
-#~ msgid "History"
-#~ msgstr "Verlauf"
-
 #~ msgid "Edit Permissions"
 #~ msgstr "Zugriffsrechte ändern"
-
-#~ msgid "View on site"
-#~ msgstr "Auf der Website anzeigen"
-
-#~ msgid "Save and continue editing"
-#~ msgstr "Sichern und weiter bearbeiten"
 
 #~ msgid "Document File"
 #~ msgstr "Infolink-Datei"

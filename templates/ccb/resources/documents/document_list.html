@@ -1,5 +1,5 @@
 {% extends base_template|default:"base_redesign.html" %}
-{% load i18n base_tags navigation_tags auth_extended image_mods_tags favorites crispy_forms_tags cms_tags %}
+{% load i18n base_tags navigation_tags auth_extended image_mods_tags favorites crispy_forms_tags cms_tags babel %}
 
 {% block title %}{% page_attribute "page_title" %}{% endblock %}
 
@@ -43,18 +43,18 @@
                     {% include "utils/includes/sorting.html" %}
                     {% include "utils/abc_filters.html" %}
 
-                    <div class="row event-list">
+                    <div class="row article-list">
                         {% for object in object_list %}
                             <div class="col-xs-12">
                                 <div class="wrapper">
                                     <a class="content" href="{{ object.get_url_path }}">
-                                        {% if object.image %}
-                                            <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"list" }}" alt="{{ object.get_title|escape }}"/>
-                                        {% else %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder/infolink.png" alt="{{ object.get_title|escape }}"/>
-                                        {% endif %}
-                                        <div class="text">
-                                            <h3>{{ object.document_type.get_title|escape }}</h3>
+                                        <div class="text no-image">
+                                            <h3>
+                                                {{ object.document_type.get_title|escape }}
+                                                {% if object.end %}
+                                                    <time datetime="{% if object.start %}{{ object.start|date:"Y-m-d" }}/{% endif %}{{ object.end|date:"Y-m-d" }}">{% if object.start %}{{ object.start|datefmt:"long" }} - {% endif %}{{ object.end|datefmt:"long" }}</time>
+                                                {% endif %}
+                                            </h3>
                                             <h2>{{ object.get_title|escape }}</h2>
                                             <p></p>
                                         </div>
@@ -65,7 +65,6 @@
                                         {% else %}
                                             <a rel="nofollow" href="{% url 'login' %}?goto_next={{ request.path }}" class="fawesome fa-favorite button"><span class="sr-only">{% trans "Add to favorites" %}</span></a>
                                         {% endif %}
-                                        <!-- <a href="#" class="fawesome fa-calender-check button"></a> -->
                                     </div>
                                 </div>
                             </div>
