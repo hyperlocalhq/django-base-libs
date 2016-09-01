@@ -2,6 +2,7 @@
 
 from __future__ import unicode_literals
 import operator
+from datetime import datetime
 
 from django.db import models
 from django.apps import apps
@@ -10,7 +11,7 @@ from django.core.urlresolvers import reverse
 from django.utils.safestring import mark_safe
 from django.utils.functional import lazy
 from django.template.defaultfilters import slugify
-from datetime import datetime
+from django.contrib.auth.models import AnonymousUser
 
 from filebrowser.fields import FileBrowseField
 from actstream import action
@@ -23,6 +24,7 @@ from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import PositionField
 from base_libs.models.fields import URLField
 from base_libs.middleware import get_current_language
+from base_libs.middleware import get_current_user
 
 from mptt.fields import TreeForeignKey, TreeManyToManyField
 
@@ -255,6 +257,21 @@ class Bulletin(CreationModificationMixin, UrlMixin):
 
     def can_be_changed(self, user):
         return user.has_perm("bulletin_board.change_bulletin", self) or user.is_authenticated() and self.creator == user
+
+    def is_bulletin(self):
+        return True
+
+    def is_editable(self, user=None):
+        if not hasattr(self, "_is_editable_cache"):
+            user = get_current_user(user) or AnonymousUser()
+            self._is_editable_cache = user.has_perm("bulletin_board.change_bulletin", self) or user.is_authenticated() and self.creator == user
+        return self._is_editable_cache
+
+    def is_deletable(self, user=None):
+        if not hasattr(self, "_is_deletable_cache"):
+            user = get_current_user(user) or AnonymousUser()
+            self._is_deletable_cache = user.has_perm("bulletin_board.delete_bulletin", self) or user.is_authenticated() and self.creator == user
+        return self._is_deletable_cache
 
     @staticmethod
     def autocomplete_search_fields():

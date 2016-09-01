@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-31 16:13+0200\n"
+"POT-Creation-Date: 2016-09-01 15:21+0200\n"
 "PO-Revision-Date: 2016-03-10 17:20+0053\n"
 "Last-Translator: Josephine Natalie Weisflog <j.weisflog@kulturprojekte-"
 "berlin.de>\n"
@@ -20,10 +20,10 @@ msgstr ""
 "X-Translated-Using: django-rosetta 0.7.6\n"
 
 #: apps/accounts/forms.py:54 apps/accounts/forms.py:339
-#: apps/bulletin_board/models.py:144 apps/events/forms.py:217
+#: apps/bulletin_board/models.py:146 apps/events/forms.py:217
 #: apps/site_specific/forms/misc.py:146 apps/site_specific/models.py:557
 #: apps/tracker/forms.py:52
-#: templates/ccb/bulletin_board/bulletin_detail.html:86
+#: templates/ccb/bulletin_board/bulletin_detail.html:88
 #: templates/ccb/bulletin_board/change_bulletin_confirm.html:101
 #: templates/ccb/events/add_event_confirm.html:135
 #: templates/ccb/marketplace/add_job_offer_confirm.html:140
@@ -125,7 +125,7 @@ msgstr ""
 #: apps/accounts/forms.py:236 apps/accounts/forms.py:273
 #: apps/articles/models.py:152 apps/bulletin_board/admin.py:35
 #: apps/bulletin_board/forms.py:136 apps/bulletin_board/forms.py:203
-#: apps/bulletin_board/forms.py:205 apps/bulletin_board/models.py:161
+#: apps/bulletin_board/forms.py:205 apps/bulletin_board/models.py:163
 #: apps/editorial/models.py:39 apps/events/forms.py:1501
 #: apps/events/forms.py:1525 apps/external_services/models.py:42
 #: apps/external_services/models.py:79 apps/institutions/forms.py:1205
@@ -146,7 +146,7 @@ msgstr ""
 #: apps/site_specific/forms/people.py:1035 apps/site_specific/models.py:286
 #: templates/admin/extendedadmin/includes/fieldset_categories.html:7
 #: templates/admin/extendedadmin/includes/fieldset_categories.html:101
-#: templates/ccb/bulletin_board/bulletin_detail.html:92
+#: templates/ccb/bulletin_board/bulletin_detail.html:94
 #: templates/ccb/bulletin_board/change_bulletin_confirm.html:41
 #: templates/ccb/bulletin_board/change_bulletin_confirm.html:49
 #: templates/ccb/counselling_events/profile/categories.html:7
@@ -210,7 +210,7 @@ msgstr ""
 #: apps/bulletin_board/forms.py:244
 #: templates/ccb/accounts/my_profile/base.html:52
 #: templates/ccb/accounts/my_profile/base.html:131
-#: templates/ccb/bulletin_board/bulletin_detail.html:63
+#: templates/ccb/bulletin_board/bulletin_detail.html:65
 #: templates/ccb/bulletin_board/change_bulletin_confirm.html:73
 #: templates/ccb/flatpages/contact.html:8
 #: templates/ccb/flatpages/contact.html:11
@@ -330,7 +330,7 @@ msgstr ""
 msgid "Additional Content"
 msgstr ""
 
-#: apps/articles/admin.py:90 apps/bulletin_board/models.py:137
+#: apps/articles/admin.py:90 apps/bulletin_board/models.py:139
 #: apps/cms_extensions/models.py:45 apps/curated_lists/forms.py:16
 #: apps/curated_lists/models.py:40 apps/editorial/models.py:29
 #: apps/events/base.py:222 apps/events/forms.py:906
@@ -342,7 +342,7 @@ msgstr ""
 #: apps/site_specific/forms/marketplace.py:79
 #: apps/site_specific/forms/people.py:156 apps/site_specific/models.py:275
 #: apps/slideshows/models.py:31 apps/tracker/forms.py:65
-#: templates/ccb/bulletin_board/bulletin_detail.html:57
+#: templates/ccb/bulletin_board/bulletin_detail.html:59
 #: templates/ccb/bulletin_board/change_bulletin_confirm.html:23
 #: templates/ccb/counselling_events/profile/description.html:6
 #: templates/ccb/events/profile/description.html:8
@@ -555,8 +555,8 @@ msgstr ""
 
 #: apps/articles/models.py:18 apps/blog/forms.py:20
 #: apps/bulletin_board/admin.py:20 apps/bulletin_board/forms.py:196
-#: apps/bulletin_board/models.py:47 apps/bulletin_board/models.py:60
-#: apps/bulletin_board/models.py:136 apps/cms_extensions/models.py:44
+#: apps/bulletin_board/models.py:49 apps/bulletin_board/models.py:62
+#: apps/bulletin_board/models.py:138 apps/cms_extensions/models.py:44
 #: apps/cms_extensions/plugins/headline/models.py:9
 #: apps/curated_lists/forms.py:12 apps/curated_lists/models.py:39
 #: apps/editorial/models.py:28 apps/events/admin.py:36 apps/events/admin.py:67
@@ -578,7 +578,7 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: apps/articles/models.py:19 apps/bulletin_board/models.py:48
+#: apps/articles/models.py:19 apps/bulletin_board/models.py:50
 #: apps/events/base.py:550 apps/events/base.py:555 apps/events/base.py:560
 #: apps/events/forms.py:74 apps/institutions/forms.py:211
 #: apps/institutions/forms.py:220 apps/institutions/forms.py:229
@@ -600,7 +600,7 @@ msgid "URL"
 msgstr ""
 
 #: apps/articles/models.py:20 apps/bulletin_board/admin.py:36
-#: apps/bulletin_board/models.py:146 apps/cms_extensions/models.py:46
+#: apps/bulletin_board/models.py:148 apps/cms_extensions/models.py:46
 #: apps/cms_extensions/plugins/filebrowser_image/cms_plugins.py:14
 #: apps/cms_extensions/plugins/filebrowser_image/models.py:14
 #: apps/curated_lists/models.py:41 apps/editorial/models.py:36
@@ -629,7 +629,7 @@ msgstr ""
 msgid "Creative sectors (deprecated)"
 msgstr ""
 
-#: apps/articles/models.py:124 apps/bulletin_board/models.py:151
+#: apps/articles/models.py:124 apps/bulletin_board/models.py:153
 #: templates/ccb/bulletin_board/change_bulletin_confirm.html:31
 msgid "External URL"
 msgstr ""
@@ -648,11 +648,11 @@ msgid ""
 "the external URL."
 msgstr ""
 
-#: apps/articles/models.py:129 apps/bulletin_board/models.py:149
+#: apps/articles/models.py:129 apps/bulletin_board/models.py:151
 msgid "Originally published"
 msgstr ""
 
-#: apps/articles/models.py:133 apps/bulletin_board/models.py:154
+#: apps/articles/models.py:133 apps/bulletin_board/models.py:156
 #: apps/external_services/models.py:58 apps/external_services/models.py:103
 msgid "Content provider"
 msgstr ""
@@ -752,7 +752,7 @@ msgstr ""
 msgid "Posts"
 msgstr ""
 
-#: apps/blog/admin.py:73 settings.py:848
+#: apps/blog/admin.py:73 settings.py:853
 msgid "Magazine"
 msgstr ""
 
@@ -804,7 +804,7 @@ msgid "Body"
 msgstr ""
 
 #: apps/blog/forms.py:37 apps/bulletin_board/forms.py:623
-#: apps/bulletin_board/models.py:189 apps/events/base.py:229
+#: apps/bulletin_board/models.py:191 apps/events/base.py:229
 #: apps/partners/admin.py:28 apps/partners/admin.py:65
 #: apps/partners/models.py:27 apps/partners/models.py:47
 #: apps/site_specific/admin.py:38 apps/site_specific/forms/people.py:905
@@ -816,7 +816,7 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: apps/blog/forms.py:43 apps/bulletin_board/models.py:177
+#: apps/blog/forms.py:43 apps/bulletin_board/models.py:179
 msgid "publishing date"
 msgstr ""
 
@@ -883,6 +883,7 @@ msgstr ""
 #: templates/ccb/blog/comments/refuse_embedded.html:15
 #: templates/ccb/blog/forms/confirm_delete_embedded.html:13
 #: templates/ccb/blog/post_delete.html:18
+#: templates/ccb/bulletin_board/delete_bulletin.html:16
 #: templates/ccb/comments/preview.html:117
 #: templates/ccb/confirm_delete.html:17
 #: templates/ccb/counselling_blog/comments/accept_embedded.html:12
@@ -1053,7 +1054,7 @@ msgstr ""
 msgid "Publishing"
 msgstr ""
 
-#: apps/bulletin_board/cms_apps.py:8 apps/bulletin_board/models.py:29
+#: apps/bulletin_board/cms_apps.py:8 apps/bulletin_board/models.py:31
 #: apps/search/search_indexes.py:340
 msgid "Bulletin Board"
 msgstr ""
@@ -1312,20 +1313,20 @@ msgstr ""
 msgid "Bulletin Type"
 msgstr ""
 
-#: apps/bulletin_board/forms.py:617 apps/bulletin_board/models.py:67
+#: apps/bulletin_board/forms.py:617 apps/bulletin_board/models.py:69
 #: templates/ccb/bulletin_board/change_bulletin_confirm.html:44
 msgid "Bulletin Category"
 msgstr ""
 
-#: apps/bulletin_board/models.py:32
+#: apps/bulletin_board/models.py:34
 msgid "Searching"
 msgstr ""
 
-#: apps/bulletin_board/models.py:33
+#: apps/bulletin_board/models.py:35
 msgid "Offering"
 msgstr ""
 
-#: apps/bulletin_board/models.py:37 apps/bulletin_board/views.py:346
+#: apps/bulletin_board/models.py:39 apps/bulletin_board/views.py:354
 #: apps/events/base.py:55 apps/external_services/models.py:13
 #: apps/external_services/models.py:72 apps/partners/models.py:13
 #: apps/partners/models.py:19
@@ -1334,7 +1335,7 @@ msgstr ""
 msgid "Draft"
 msgstr ""
 
-#: apps/bulletin_board/models.py:38 apps/bulletin_board/views.py:345
+#: apps/bulletin_board/models.py:40 apps/bulletin_board/views.py:353
 #: apps/events/base.py:56 apps/external_services/models.py:14
 #: apps/external_services/models.py:73 apps/media_gallery/forms.py:328
 #: apps/partners/models.py:14 apps/partners/models.py:20
@@ -1344,35 +1345,35 @@ msgstr ""
 msgid "Published"
 msgstr ""
 
-#: apps/bulletin_board/models.py:39 apps/events/base.py:58
+#: apps/bulletin_board/models.py:41 apps/events/base.py:58
 #: apps/external_services/models.py:74
 msgid "Imported"
 msgstr ""
 
-#: apps/bulletin_board/models.py:40 apps/events/base.py:59
+#: apps/bulletin_board/models.py:42 apps/events/base.py:59
 msgid "Expired"
 msgstr ""
 
-#: apps/bulletin_board/models.py:51
+#: apps/bulletin_board/models.py:53
 msgid "bulletin-content provider"
 msgstr ""
 
-#: apps/bulletin_board/models.py:52
+#: apps/bulletin_board/models.py:54
 msgid "bulletin-content providers"
 msgstr ""
 
-#: apps/bulletin_board/models.py:61 apps/curated_lists/models.py:42
+#: apps/bulletin_board/models.py:63 apps/curated_lists/models.py:42
 #: apps/curated_lists/models.py:112 apps/media_gallery/models.py:93
 #: apps/partners/models.py:26 apps/partners/models.py:46
 #: apps/slideshows/models.py:33
 msgid "Sort order"
 msgstr ""
 
-#: apps/bulletin_board/models.py:68
+#: apps/bulletin_board/models.py:70
 msgid "Bulletin Categories"
 msgstr ""
 
-#: apps/bulletin_board/models.py:133 apps/cms_extensions/models.py:47
+#: apps/bulletin_board/models.py:135 apps/cms_extensions/models.py:47
 #: apps/institutions/forms.py:207 apps/institutions/forms.py:216
 #: apps/institutions/forms.py:225 apps/institutions/forms.py:234
 #: apps/institutions/forms.py:244 apps/institutions/forms.py:254
@@ -1428,25 +1429,25 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: apps/bulletin_board/models.py:134 apps/external_services/models.py:88
+#: apps/bulletin_board/models.py:136 apps/external_services/models.py:88
 msgid "Bulletin category"
 msgstr ""
 
-#: apps/bulletin_board/models.py:140
+#: apps/bulletin_board/models.py:142
 msgid "Institution title"
 msgstr ""
 
-#: apps/bulletin_board/models.py:141
+#: apps/bulletin_board/models.py:143
 #: templates/ccb/bulletin_board/change_bulletin_confirm.html:84
 msgid "Institution URL"
 msgstr ""
 
-#: apps/bulletin_board/models.py:142 apps/marketplace/forms.py:287
+#: apps/bulletin_board/models.py:144 apps/marketplace/forms.py:287
 #: apps/site_specific/forms/marketplace.py:487
 msgid "Contact person"
 msgstr ""
 
-#: apps/bulletin_board/models.py:143 apps/events/forms.py:72
+#: apps/bulletin_board/models.py:145 apps/events/forms.py:72
 #: apps/events/forms.py:198 apps/events/forms.py:417
 #: apps/institutions/forms.py:162 apps/institutions/forms.py:310
 #: apps/marketplace/forms.py:162 apps/marketplace/forms.py:294
@@ -1458,7 +1459,7 @@ msgstr ""
 #: apps/site_specific/forms/marketplace.py:513
 #: apps/site_specific/forms/misc.py:229 apps/site_specific/forms/people.py:358
 #: apps/site_specific/forms/people.py:581
-#: templates/ccb/bulletin_board/bulletin_detail.html:82
+#: templates/ccb/bulletin_board/bulletin_detail.html:84
 #: templates/ccb/bulletin_board/change_bulletin_confirm.html:96
 #: templates/ccb/counselling_events/profile/contact.html:56
 #: templates/ccb/events/add_event_confirm.html:109
@@ -1482,35 +1483,35 @@ msgstr ""
 msgid "Phone"
 msgstr ""
 
-#: apps/bulletin_board/models.py:147
+#: apps/bulletin_board/models.py:149
 msgid "Image Description"
 msgstr ""
 
-#: apps/bulletin_board/models.py:169 apps/site_specific/models.py:290
+#: apps/bulletin_board/models.py:171 apps/site_specific/models.py:290
 msgid "Locality type"
 msgstr ""
 
-#: apps/bulletin_board/models.py:180
+#: apps/bulletin_board/models.py:182
 msgid ""
 "If not provided and the status is set to 'published', the entry will be "
 "published immediately."
 msgstr ""
 
-#: apps/bulletin_board/models.py:183
+#: apps/bulletin_board/models.py:185
 msgid "published until"
 msgstr ""
 
-#: apps/bulletin_board/models.py:186
+#: apps/bulletin_board/models.py:188
 msgid ""
 "If not provided and the status is set to 'published', the entry will be "
 "published forever."
 msgstr ""
 
-#: apps/bulletin_board/models.py:197
+#: apps/bulletin_board/models.py:199
 msgid "Bulletin"
 msgstr ""
 
-#: apps/bulletin_board/models.py:198
+#: apps/bulletin_board/models.py:200
 #: templates/ccb/bulletin_board/bulletin_list.html:25
 #: templates/ccb/bulletin_board/bulletin_list_under_category.html:67
 msgid "Bulletins"
@@ -1893,7 +1894,7 @@ msgstr ""
 
 #: apps/events/base.py:50 apps/events/cms_apps.py:8
 #: apps/search/search_indexes.py:112 apps/site_specific/feeds.py:94
-#: settings.py:846 templates/ccb/counselling_events/event_list.html:27
+#: settings.py:851 templates/ccb/counselling_events/event_list.html:27
 #: templates/ccb/events/add_event_base.html:7
 #: templates/ccb/events/event_base.html:35
 #: templates/ccb/events/event_base.html:43
@@ -2892,7 +2893,7 @@ msgid ""
 "of articles will lead to the external URL if full content is not provided."
 msgstr ""
 
-#: apps/external_services/models.py:22 settings.py:395
+#: apps/external_services/models.py:22 settings.py:400
 msgid "Sites"
 msgstr ""
 
@@ -3559,7 +3560,7 @@ msgid "Cover"
 msgstr ""
 
 #: apps/media_gallery/cms_apps.py:8 apps/search/search_indexes.py:259
-#: settings.py:847 templates/ccb/media_gallery/gallery_list.html:14
+#: settings.py:852 templates/ccb/media_gallery/gallery_list.html:14
 #: templates/ccb/media_gallery/gallery_list.html:24
 #: templates/ccb/media_gallery/gallery_list.html:35
 #: templates/ccb/media_gallery/gallery_list.html:62
@@ -4215,7 +4216,7 @@ msgstr ""
 msgid "Other Content 2"
 msgstr ""
 
-#: apps/search/search_indexes.py:28 settings.py:844
+#: apps/search/search_indexes.py:28 settings.py:849
 #: templates/ccb/articles/articles_archive.html:12
 #: templates/ccb/articles/articles_archive_day.html:12
 #: templates/ccb/articles/articles_archive_day.html:33
@@ -4530,7 +4531,7 @@ msgid "Role"
 msgstr ""
 
 #: apps/site_specific/forms/misc.py:196 apps/site_specific/models.py:564
-#: settings.py:426 templates/ccb/styleguide/layout.html:425
+#: settings.py:431 templates/ccb/styleguide/layout.html:425
 msgid "Comments"
 msgstr ""
 
@@ -4598,7 +4599,9 @@ msgstr ""
 
 #: apps/site_specific/forms/misc.py:391
 #: templates/ccb/blog/forms/confirm_delete_embedded.html:15
-#: templates/ccb/blog/post_delete.html:17 templates/ccb/confirm_delete.html:15
+#: templates/ccb/blog/post_delete.html:17
+#: templates/ccb/bulletin_board/delete_bulletin.html:18
+#: templates/ccb/confirm_delete.html:15
 #: templates/ccb/counselling_blog/forms/confirm_delete_embedded.html:15
 #: templates/ccb/counselling_blog/post_delete.html:17
 #: templates/ccb/events/delete_event_embedded.html:15
@@ -5046,83 +5049,83 @@ msgstr ""
 msgid "%s ago"
 msgstr ""
 
-#: settings.py:66
+#: settings.py:71
 msgid "English"
 msgstr ""
 
-#: settings.py:67
+#: settings.py:72
 msgid "German"
 msgstr ""
 
-#: settings.py:260 templates/ccb/media_gallery/manage_galleries.html:93
+#: settings.py:265 templates/ccb/media_gallery/manage_galleries.html:93
 msgid "Content"
 msgstr ""
 
-#: settings.py:314
+#: settings.py:319
 msgid "Community"
 msgstr ""
 
-#: settings.py:333
+#: settings.py:338
 msgid "Authentication & Authorization"
 msgstr ""
 
-#: settings.py:358
+#: settings.py:363
 msgid "Commerce"
 msgstr ""
 
-#: settings.py:361
+#: settings.py:366
 msgid "Campaign"
 msgstr ""
 
-#: settings.py:376
+#: settings.py:381
 msgid "Configure"
 msgstr ""
 
-#: settings.py:388 templates/ccb/media_gallery/create_update_mediafile.html:14
+#: settings.py:393 templates/ccb/media_gallery/create_update_mediafile.html:14
 msgid "Media"
 msgstr ""
 
-#: settings.py:402
+#: settings.py:407
 msgid "Redirects"
 msgstr ""
 
-#: settings.py:416 templates/ccb/facebook_app/manage_connections.html:48
+#: settings.py:421 templates/ccb/facebook_app/manage_connections.html:48
 #: templates/ccb/facebook_app/manage_pages.html:71
 msgid "Connect"
 msgstr ""
 
-#: settings.py:423
+#: settings.py:428
 msgid "Control"
 msgstr ""
 
-#: settings.py:842
+#: settings.py:847
 msgid "Image and text"
 msgstr ""
 
-#: settings.py:843
+#: settings.py:848
 msgid "Text only"
 msgstr ""
 
-#: settings.py:845
+#: settings.py:850
 msgid "Tenders and Competitions"
 msgstr ""
 
-#: settings.py:849
+#: settings.py:854
 msgid "Jobs and Bulletins"
 msgstr ""
 
-#: settings.py:850 templates/ccb/network/member_list.html:60
+#: settings.py:855 templates/ccb/network/member_list.html:60
 #: templates/ccb/network/member_list_under_category.html:62
 #: templates/ccb/people/person_list.html:57
 #: templates/ccb/styleguide/elements.html:71
 msgid "Profiles"
 msgstr ""
 
-#: settings.py:938
+#: settings.py:943
 msgid "de"
 msgstr ""
 
-#: settings.py:945
+#: settings.py:950
 msgid "en"
 msgstr ""
 
@@ -6284,12 +6287,12 @@ msgstr ""
 msgid "Edit Bulletin"
 msgstr ""
 
-#: templates/ccb/bulletin_board/bulletin_detail.html:102
+#: templates/ccb/bulletin_board/bulletin_detail.html:104
 #, python-format
 msgid "More info at %(content_provider_title)s"
 msgstr ""
 
-#: templates/ccb/bulletin_board/bulletin_detail.html:104
+#: templates/ccb/bulletin_board/bulletin_detail.html:106
 msgid "More info"
 msgstr ""
 
@@ -6387,6 +6390,15 @@ msgstr ""
 #: templates/ccb/marketplace/emails/new_job_offer.html:24
 #: templates/ccb/marketplace/profile/details.html:61
 msgid "Published till"
+msgstr ""
+
+#: templates/ccb/bulletin_board/delete_bulletin.html:8
+msgid "Delete Bulletin"
+msgstr ""
+
+#: templates/ccb/bulletin_board/delete_bulletin.html:10
+#, python-format
+msgid "Are you sure you want to delete the bulletin \"%(title)s\"?"
 msgstr ""
 
 #: templates/ccb/cms/base_cms.html:20

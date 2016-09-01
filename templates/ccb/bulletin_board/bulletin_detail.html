@@ -1,5 +1,5 @@
 {% extends "bulletin_board/details_base.html" %}
-{% load image_mods_tags bulletin_board_tags i18n favorites %}
+{% load image_mods_tags bulletin_board_tags i18n favorites navigation_tags %}
 
 {% block open_graph %}
     <!-- Open Graph -->
@@ -30,6 +30,8 @@
                 <span class="text">{% trans "Edit Bulletin" %}</span>
             </a>
         {% endif %}
+        {% navigation_links "menu_object_activities" %}
+
         <br/><br/>
     </div>
 {% endblock %}

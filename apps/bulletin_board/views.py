@@ -316,13 +316,21 @@ def delete_bulletin(request, token):
     instance = get_object_or_404(Bulletin, pk=int(token) - TOKENIZATION_SUMMAND)
     if request.user != instance.creator and not request.user.has_perm("bulletin_board.delete_bulletin", instance):
         return access_denied(request)
-    if request.method == "POST" and request.is_ajax():
-        instance.delete()
-        return HttpResponse("OK")
-    if instance.status == "published":
-        return redirect(instance)
+
+    context = {
+        'object': instance,
+    }
+    if request.method == "POST":
+        form = forms.Form(request.POST)  # dummy form. we just care about the csrf token
+        if form.is_valid():
+            instance.delete()
+            return redirect("my_bulletin_list")
     else:
-        return redirect("dashboard")
+        form = forms.Form()  # dummy form. we just care about the csrf token
+
+    context['form'] = form
+
+    return render(request, 'bulletin_board/delete_bulletin.html', context)
 
 
 @never_cache

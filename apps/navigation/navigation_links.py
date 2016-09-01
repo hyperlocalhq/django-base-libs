@@ -38,6 +38,14 @@ def is_deletable_event(context):
     )
 
 
+def is_deletable_bulletin(context):
+    return (
+        'object' in context and
+        getattr(context['object'], "is_bulletin", lambda: False)() and
+        getattr(context['object'], "is_deletable", lambda: False)()
+    )
+
+
 def is_current_person(context):
     return (
         context['request'].user.is_authenticated() and
@@ -517,6 +525,15 @@ navigation_links = {
             'highlight_pattern': r'^{{ object.get_url_path }}delete/',
             'icon': 'fa-calender-minus',
         },
+        {
+            'url_de': '{{ object.get_url_path }}delete/',
+            'url_en': '{{ object.get_url_path }}delete/',
+            'text_de': 'Inserat löschen',
+            'text_en': 'Delete Bulletin',
+            'should_be_shown': is_deletable_bulletin,
+            'highlight_pattern': r'^{{ object.get_url_path }}delete/',
+            'icon': 'fa-thumb-down',
+        },
     ],
 
     'menu_personal_activities': [
@@ -553,8 +570,8 @@ navigation_links = {
         {
             'url_de': '/de/marketplace/add/',
             'url_en': '/en/marketplace/add/',
-            'text_de': 'Projekt hinzufügen',
-            'text_en': 'Add new Projekt',
+            'text_de': 'Inserat hinzufügen',
+            'text_en': 'Add new Bulletin',
             'should_be_shown': for_all,
             'highlight_pattern': r'^/(de|en)/marketplace/add/',
             'icon': 'fa-lightbulb',
@@ -616,8 +633,8 @@ navigation_links = {
         {
             'url_de': '/de/marketplace/add/?institution={{ object.slug }}',
             'url_en': '/en/marketplace/add/?institution={{ object.slug }}',
-            'text_de': 'Projekt hinzufügen',
-            'text_en': 'Add new Projekt',
+            'text_de': 'Inserat hinzufügen',
+            'text_en': 'Add new Bulletin',
             'should_be_shown': for_all,
             'highlight_pattern': r'^/(de|en)/marketplace/add/',
             'icon': 'fa-lightbulb',
