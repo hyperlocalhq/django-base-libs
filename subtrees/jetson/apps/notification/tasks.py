@@ -1,4 +1,4 @@
-from celery import shared_task
+from datetime import datetime
 
 from django.db import models
 from django.template import Context
@@ -12,6 +12,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from jetson.apps.people.functions import get_user_language
 
 from base_libs.utils.misc import get_installed
+
+from huey.contrib.djhuey import db_task, task, crontab, periodic_task
 
 send_email_using_template = get_installed("mailing.views.send_email_using_template")
 Recipient = get_installed("mailing.recipient.Recipient")
@@ -38,7 +40,7 @@ def get_notification_setting(user, notice_type, medium):
                 repeated_setting.delete()
     return setting
 
-@shared_task
+@db_task()
 def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct=None, instance_id=None, sender_id=None,
                  sender_name="", sender_email=""):
     """
@@ -47,6 +49,10 @@ def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct
     
     Called by notification.send()
     """
+    print('{} - invoked send_to_user'.format(
+        datetime.now(),
+    ))
+
     if not extra_context:
         extra_context = {}
 

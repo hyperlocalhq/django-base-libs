@@ -85,7 +85,6 @@ LANGUAGE_CODE = "de"
 INSTALLED_APPS = [
     ### third-party apps ###
     "crispy_forms",
-    # "django_extensions",
     "filebrowser",
     "grappelli",
 
@@ -110,8 +109,6 @@ INSTALLED_APPS = [
     "uni_form",
     "mptt",
     "picklefield",
-    "djcelery",
-    "kombu.transport.django",
     "captcha",
     "social.apps.django_app.default",
     "bootstrap_pagination",
@@ -186,7 +183,7 @@ INSTALLED_APPS = [
     "ccb.apps.media_gallery",
     "ccb.apps.slideshows",
     "ccb.apps.faqs",
-    "ccb.apps.celerytest",
+    "ccb.apps.async_test",
     "ccb.apps.accounts",
     "ccb.apps.network",
     "ccb.apps.navigation",
@@ -199,6 +196,7 @@ INSTALLED_APPS = [
     "ccb.apps.cms_extensions",
     "ccb",  # just for i18n in Javascript
     "actstream",
+    "huey.contrib.djhuey",
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -212,12 +210,10 @@ MIDDLEWARE_CLASSES = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.auth.middleware.SessionAuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
-    #"jetson.apps.flatpages.middleware.FlatpageMiddleware",
     "base_libs.middleware.threadlocals.ThreadLocalsMiddleware",
     "django.contrib.admindocs.middleware.XViewMiddleware",
     "jetson.apps.utils.middleware.generic.AdminScriptUpdateMiddleware",
     "django.contrib.redirects.middleware.RedirectFallbackMiddleware",
-    #"django.middleware.clickjacking.XFrameOptionsMiddleware", # we can"t have this, because KB is using some content from Kreativ Arbeiten section in an iframe
     "cms.middleware.user.CurrentUserMiddleware",
     "cms.middleware.page.CurrentPageMiddleware",
     "cms.middleware.toolbar.ToolbarMiddleware",
@@ -225,9 +221,6 @@ MIDDLEWARE_CLASSES = [
     "ccb.apps.accounts.middleware.MySocialAuthExceptionMiddleware",
     "base_libs.middleware.traceback.UserTracebackMiddleware",
 ]
-# if not DEVELOPMENT_MODE:
-#    MIDDLEWARE_CLASSES.insert(0, "django.middleware.cache.UpdateCacheMiddleware")
-#    MIDDLEWARE_CLASSES.append("django.middleware.cache.FetchFromCacheMiddleware")
 
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -383,9 +376,6 @@ ADMIN_APP_INDEX = (
             ("navigation", {
                 "models": ("NavigationLink",),
             }),
-            # ("chronograph", {
-            #    "models":("Job", "Log",),
-            #    }),
             ("structure", {
                 "models": ("Vocabulary", "Term", "ContextCategory", "Category"),
             }),
@@ -460,9 +450,6 @@ ADMIN_APP_INDEX = (
             }),
             ("actstream", {
                 "models": ("Action", "Follow",),
-            }),
-            ("djcelery", {
-                "models": ("CrontabSchedule", "IntervalSchedule", "PeriodicTask", "TaskState", "WorkerState"),
             }),
         )
     }
@@ -859,36 +846,6 @@ TIME_INPUT_FORMATS = ("%H:%M:%S", "%H:%M", "%H.%M")
 
 DISABLE_CONTEXT_PROCESSORS = True
 
-### CELERY ###
-
-import djcelery
-djcelery.setup_loader()
-
-BROKER_URL = "localhost"
-BROKER_BACKEND = "redis"
-BROKER_USER = ""
-BROKER_PASSWORD = ""
-# BROKER_VHOST = "0"
-
-REDIS_HOST = "localhost"
-REDIS_PORT = 6379
-REDIS_DB = 0
-REDIS_CONNECT_RETRY = True
-
-BROKER_TRANSPORT_OPTIONS = {
-    'fanout_prefix': True,
-    'visibility_timeout': 3600
-}
-BROKER_POOL_LIMIT = 0
-
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_RESULT_BACKEND = "djcelery.backends.database:DatabaseBackend"
-CELERY_SEND_EVENTS = True
-CELERY_TASK_RESULT_EXPIRES = 10
-CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
-
 ### CAPTCHA ###
 
 RECAPTCHA_PUBLIC_KEY = "6LfWkt8SAAAAAPnRowSBDg1GJOk6umAqdwVcpUFK"
@@ -923,7 +880,7 @@ CMS_TEMPLATES = (
     ("cms/page_sidebar_under_music.html", "Page with Sidebar - Music"),
     ("cms/page_sidebar_under_theatre_dance.html", "Page with Sidebar - Theatre & Dance"),
     ("cms/page_sidebar_under_advertising_pr.html", "Page with Sidebar - Advertising & PR"),
-    
+
     ("cms/start_counselling.html", "Start Page Counselling"),
     ("cms/page_counselling.html", "Page Counselling"),
     ("cms/page_sidebar_counselling.html", "Page Counselling with Sidebar"),
@@ -982,27 +939,7 @@ CONN_MAX_AGE = 600
 ### SOCIAL AUTHENTICATION ###
 
 AUTHENTICATION_BACKENDS = (
-    #"social.backends.behance.BehanceOAuth2",
-    #"social.backends.disqus.DisqusOAuth2",
     "social.backends.facebook.FacebookOAuth2",
-    #"social.backends.flickr.FlickrOAuth",
-    #"social.backends.google.GoogleOAuth",
-    #"social.backends.google.GoogleOAuth2",
-    #"social.backends.google.GooglePlusAuth",
-    #"social.backends.google.GoogleOpenIdConnect",
-    #"social.backends.instagram.InstagramOAuth2",
-    #"social.backends.linkedin.LinkedinOAuth",
-    #"social.backends.linkedin.LinkedinOAuth2",
-    #"social.backends.mixcloud.MixcloudOAuth2",
-    #"social.backends.open_id.OpenIdAuth",
-    #"social.backends.soundcloud.SoundcloudOAuth2",
-    #"social.backends.spotify.SpotifyOAuth2",
-    #"social.backends.tumblr.TumblrOAuth",
-    #"social.backends.twitter.TwitterOAuth",
-    #"social.backends.xing.XingOAuth",
-    #"social.backends.yahoo.YahooOAuth",
-    #"social.backends.yahoo.YahooOpenId",
-    #"social.backends.vimeo.VimeoOAuth1",
     "jetson.apps.permissions.backends.RowLevelPermissionsBackend",
     "jetson.apps.utils.backends.EmailBackend",
     "social.backends.username.UsernameAuth",
@@ -1035,19 +972,14 @@ SOCIAL_AUTH_PIPELINE = (
     "social.pipeline.social_auth.auth_allowed",
     "social.pipeline.social_auth.social_user",
     "social.pipeline.user.get_username",
-    #"example.app.pipeline.require_email",
-    #"social.pipeline.mail.mail_validation",
     "ccb.apps.accounts.pipeline.login_or_registration",
     "ccb.apps.accounts.pipeline.create_user",
     "social.pipeline.social_auth.associate_user",
-    #"social.pipeline.debug.debug",
     "social.pipeline.social_auth.load_extra_data",
     "social.pipeline.user.user_details",
-    #"social.pipeline.debug.debug",
 )
 
 SOCIAL_AUTH_DISCONNECT_PIPELINE = (
-    #"social.pipeline.disconnect.allowed_to_disconnect",
     "social.pipeline.disconnect.get_entries",
     "social.pipeline.disconnect.revoke_tokens",
     "social.pipeline.disconnect.disconnect"
@@ -1148,6 +1080,37 @@ if DEBUG:
 
     INSTALLED_APPS += [
         "debug_toolbar",
-        # "memcache_toolbar",
     ]
     execfile(os.path.join(JETSON_PATH, "jetson/settings/debug_toolbar.py"))
+
+HUEY = {
+    'name': DATABASES['default']['NAME'],  # Use db name for huey.
+    'result_store': True,  # Store return values of tasks.
+    'events': True,  # Consumer emits events allowing real-time monitoring.
+    'store_none': False,  # If a task returns None, do not save to results.
+    # 'always_eager': DEBUG,  # If DEBUG=True, run synchronously.
+    'always_eager': False,
+    'store_errors': True,  # Store error info if task throws exception.
+    'blocking': False,  # Poll the queue rather than do blocking pop.
+    'connection': {
+        'host': 'localhost',
+        'port': 6379,
+        'db': 0,
+        'connection_pool': None,  # Definitely you should use pooling!
+        # ... tons of other options, see redis-py for details.
+
+        # huey-specific connection parameters.
+        'read_timeout': 1,  # If not polling (blocking pop), use timeout.
+        'max_errors': 1000,  # Only store the 1000 most recent errors.
+    },
+    'consumer': {
+        'workers': 1,
+        'worker_type': 'thread',
+        'initial_delay': 0.1,  # Smallest polling interval, same as -d.
+        'backoff': 1.15,  # Exponential backoff using this rate, -b.
+        'max_delay': 10.0,  # Max possible polling interval, -m.
+        'utc': True,  # Treat ETAs and schedules as UTC datetimes.
+        'scheduler_interval': 1,  # Check schedule every second, -s.
+        'periodic': True,  # Enable crontab feature.
+    },
+}

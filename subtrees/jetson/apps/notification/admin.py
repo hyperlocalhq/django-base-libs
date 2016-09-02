@@ -41,6 +41,7 @@ class NoticeEmailTemplateAdmin(admin.ModelAdmin):
 
 class NoticeSettingAdmin(admin.ModelAdmin):
     save_on_top = True
+    list_filter = ('notice_type', 'medium', 'frequency')
     list_display = ('id', 'user', 'notice_type', 'medium', 'frequency')
 
 class NoticeAdmin(admin.ModelAdmin):
