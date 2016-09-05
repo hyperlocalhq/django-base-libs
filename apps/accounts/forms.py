@@ -246,7 +246,7 @@ class SimpleRegistrationForm(SimpleRegistrationFormBase):
         for ml in MList.site_objects.filter(is_public=True):
             f = self.fields['newsletter_%s' % ml.pk] = forms.BooleanField(
                 label=_("I want to subscribe to %s.") % ml.title,
-                initial=True,
+                initial=False,
                 required=False,
             )
             self.newsletter_fields.append(("newsletter_%s" % ml.pk, f))
