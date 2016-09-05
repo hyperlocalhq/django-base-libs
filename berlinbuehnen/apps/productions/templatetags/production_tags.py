@@ -194,5 +194,6 @@ def schedule_of_location(context, location, amount=4):
         'location': location,
         'newest_events': qs[:amount],
         'request': context['request'],
-        'MEDIA_URL': context['MEDIA_URL']
+        'MEDIA_URL': context['MEDIA_URL'],
+        'STATIC_URL': context['STATIC_URL']
     }
