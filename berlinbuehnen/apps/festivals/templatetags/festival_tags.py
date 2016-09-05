@@ -31,12 +31,14 @@ def festivals_slider(context, location=None):
     if location:
         festivals = Festival.objects.filter(
             end__gte = today,
-            organizers = location
+            organizers = location,
+            status = "published"
         ).order_by('start', 'end')
     else:
         festivals = Festival.objects.filter(
             slideshow = True,
             end__gte = today,
+            status = "published"
         ).order_by('start', 'end')
 
     return {
