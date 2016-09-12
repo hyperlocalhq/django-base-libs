@@ -100,8 +100,8 @@ class MuseumAdmin(ExtendedModelAdmin):
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
             )
     save_on_top = True
-    list_display = ('id', 'title', 'subtitle', 'get_owners_list', 'creation_date', 'status', 'participates_in_langenacht', 'is_geoposition_set', 'favorites_count')
-    list_editable = ('status', 'participates_in_langenacht')
+    list_display = ('id', 'title', 'subtitle', 'get_owners_list', 'creation_date', 'status', 'participates_in_langenacht', 'participates_in_berlinartweek', 'is_geoposition_set', 'favorites_count')
+    list_editable = ('status', 'participates_in_langenacht', 'participates_in_berlinartweek')
     list_display_links = ('title', )
     list_filter = ('creation_date', 'status', 'categories', 'open_on_mondays', 'free_entrance', 'linkgroup')
     search_fields = ('title', 'subtitle', 'slug')
@@ -129,7 +129,7 @@ class MuseumAdmin(ExtendedModelAdmin):
         'service_diaper_changing_table',
     ]})]
     fieldsets += get_admin_lang_section(_("Search"), ['search_keywords',])
-    fieldsets += [(_("Status"), {'fields': ('participates_in_langenacht', 'status',)}),]
+    fieldsets += [(_("Status"), {'fields': ('participates_in_langenacht', 'participates_in_berlinartweek', 'status',)}),]
     
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
     filter_horizontal = ("categories", "accessibility_options")
