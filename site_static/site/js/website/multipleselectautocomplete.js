@@ -1,9 +1,9 @@
 self.MutipleSelectAutoCompleteManager = {
-    init: function() {
-        $('select[multiple]:visible').each(function() {
+    init: function () {
+        $('select[multiple]:visible').each(function () {
             var valuesList = [];
             var valuesIDsMap = {};
-            $('option', this).each(function() {
+            $('option', this).each(function () {
                 if (!$(this).attr('value')) return;
                 valuesList.push($(this).text());
                 valuesIDsMap[$(this).text()] = $(this).attr('value');
@@ -18,13 +18,13 @@ self.MutipleSelectAutoCompleteManager = {
             var $input = $('#' + inputFieldID);
             $input.autocomplete(valuesList, {
                 selectFirst: false,
-                highlight: false, 
+                highlight: false,
                 max: 20,
                 minChars: 1,
                 mustMatch: 1,
                 matchContains: true
             });
-            $input.result(function(event, data, formatted) {
+            $input.result(function (event, data, formatted) {
                 var id = valuesIDsMap[data];
                 if (id) {
                     $('#' + selectedListID).append('<li>' + data + '<a href="#" class="closebutton" /></li>');
@@ -35,12 +35,12 @@ self.MutipleSelectAutoCompleteManager = {
                     event.preventDefault();
                 }
             });
-            $('option[selected]', this).each(function() {
+            $('option[selected]', this).each(function () {
                 $('#' + selectedListID).append('<li>' + $(this).text() + '<a href="#" class="closebutton" /></li>');
                 $('#' + selectedListID + ' li:last').data('id', $(this).attr('value'));
             });
             $(this).hide();
-            $('#' + selectedListID + ' a.closebutton').live('click', function(event) {
+            $('#' + selectedListID + ' a.closebutton').live('click', function (event) {
                 var li = $(this).parents('li:first');
                 var id = li.data('id');
                 li.remove();
@@ -49,19 +49,19 @@ self.MutipleSelectAutoCompleteManager = {
             });
         });
     },
-    
-    destruct: function() {
+
+    destruct: function () {
         self.MutipleSelectAutoCompleteManager = null;
     }
-    
+
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
     self.MutipleSelectAutoCompleteManager.init();
 });
 
 
-$(window).unload(function() {
+$(window).unload(function () {
     self.MutipleSelectAutoCompleteManager.destruct();
 });
 
