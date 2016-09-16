@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-01 19:52+0200\n"
+"POT-Creation-Date: 2016-09-16 15:40+0200\n"
 "PO-Revision-Date: 2016-03-10 17:20+0053\n"
 "Last-Translator: Josephine Natalie Weisflog <j.weisflog@kulturprojekte-"
 "berlin.de>\n"
@@ -342,6 +342,9 @@ msgstr ""
 #: apps/site_specific/forms/marketplace.py:79
 #: apps/site_specific/forms/people.py:156 apps/site_specific/models.py:275
 #: apps/slideshows/models.py:31 apps/tracker/forms.py:65
+#: subtrees/base_libs/base_libs/models/admin.py:556
+#: subtrees/base_libs/base_libs/models/admin.py:565
+#: subtrees/base_libs/base_libs/models/models.py:1056
 #: templates/ccb/bulletin_board/bulletin_detail.html:59
 #: templates/ccb/bulletin_board/change_bulletin_confirm.html:23
 #: templates/ccb/counselling_events/profile/description.html:6
@@ -468,6 +471,9 @@ msgstr ""
 #: apps/network/forms.py:27 apps/network/forms.py:33 apps/people/forms.py:20
 #: apps/people/forms.py:26 apps/people/forms.py:32 apps/people/forms.py:38
 #: apps/resources/forms.py:18 apps/resources/forms.py:24
+#: subtrees/base_libs/base_libs/admin/filters.py:67
+#: subtrees/base_libs/base_libs/models/models.py:466
+#: subtrees/base_libs/base_libs/models/models.py:612
 #: templates/ccb/blog/blog.html:82 templates/ccb/blog/blog.html.py:114
 #: templates/ccb/bulletin_board/change_bulletin_confirm.html:62
 #: templates/ccb/bulletin_board/my_bulletin_list.html:20
@@ -752,7 +758,7 @@ msgstr ""
 msgid "Posts"
 msgstr ""
 
-#: apps/blog/admin.py:73 settings.py:853
+#: apps/blog/admin.py:73 settings.py:840
 msgid "Magazine"
 msgstr ""
 
@@ -777,8 +783,7 @@ msgstr ""
 #: apps/blog/forms.py:25 apps/events/forms.py:1507 apps/events/forms.py:1530
 #: apps/marketplace/forms.py:395 apps/site_specific/forms/events.py:1973
 #: apps/site_specific/forms/events.py:1997
-#: apps/site_specific/forms/marketplace.py:742
-#: templates/ccb/blog/blog.html:112
+#: apps/site_specific/forms/marketplace.py:742 templates/ccb/blog/blog.html:112
 #: templates/ccb/blog/forms/post_embedded.html:12
 #: templates/ccb/blog/post_detail.html:11
 #: templates/ccb/counselling_blog/blog.html:65
@@ -817,6 +822,7 @@ msgid "Status"
 msgstr ""
 
 #: apps/blog/forms.py:43 apps/bulletin_board/models.py:179
+#: subtrees/base_libs/base_libs/models/models.py:227
 msgid "publishing date"
 msgstr ""
 
@@ -884,8 +890,7 @@ msgstr ""
 #: templates/ccb/blog/forms/confirm_delete_embedded.html:13
 #: templates/ccb/blog/post_delete.html:18
 #: templates/ccb/bulletin_board/delete_bulletin.html:16
-#: templates/ccb/comments/preview.html:117
-#: templates/ccb/confirm_delete.html:17
+#: templates/ccb/comments/preview.html:117 templates/ccb/confirm_delete.html:17
 #: templates/ccb/counselling_blog/comments/accept_embedded.html:12
 #: templates/ccb/counselling_blog/comments/form_embedded.html:66
 #: templates/ccb/counselling_blog/comments/mark_as_spam_embedded.html:15
@@ -948,8 +953,7 @@ msgstr ""
 #: templates/ccb/site_specific/popups/delete_avatar.html:10
 #: templates/ccb/site_specific/popups/delete_contact.html:17
 #: templates/ccb/site_specific/review_delete.html:22
-#: templates/ccb/styleguide/base.html:33
-#: templates/ccb/styleguide/form.html:649
+#: templates/ccb/styleguide/base.html:33 templates/ccb/styleguide/form.html:649
 msgid "Cancel"
 msgstr ""
 
@@ -966,6 +970,8 @@ msgstr ""
 #: apps/blog/models.py:29 apps/blog/models.py:88 apps/events/base.py:100
 #: apps/events/base.py:429 apps/faqs/models.py:28 apps/faqs/models.py:89
 #: apps/navigation/models.py:63 apps/tracker/models.py:38
+#: subtrees/base_libs/base_libs/admin/tree_editor.py:222
+#: subtrees/base_libs/base_libs/models/models.py:1029
 msgid "title"
 msgstr ""
 
@@ -983,6 +989,7 @@ msgid "blogs"
 msgstr ""
 
 #: apps/blog/models.py:89 apps/events/base.py:605
+#: subtrees/tagging/tagging/models.py:480
 msgid "tags"
 msgstr ""
 
@@ -1003,36 +1010,46 @@ msgid "blog posts"
 msgstr ""
 
 #: apps/blog/templatetags/blog.py:73
+#: subtrees/tagging/tagging/templatetags/tagging_tags.py:141
 #, python-format
 msgid "%s tag requires either three or between five and seven arguments"
 msgstr ""
 
 #: apps/blog/templatetags/blog.py:75
+#: subtrees/tagging/tagging/templatetags/tagging_tags.py:91
+#: subtrees/tagging/tagging/templatetags/tagging_tags.py:143
+#: subtrees/tagging/tagging/templatetags/tagging_tags.py:198
 #, python-format
 msgid "second argument to %s tag must be 'as'"
 msgstr ""
 
 #: apps/blog/templatetags/blog.py:79
+#: subtrees/tagging/tagging/templatetags/tagging_tags.py:94
+#: subtrees/tagging/tagging/templatetags/tagging_tags.py:147
 #, python-format
 msgid "if given, fourth argument to %s tag must be 'with'"
 msgstr ""
 
 #: apps/blog/templatetags/blog.py:87
+#: subtrees/tagging/tagging/templatetags/tagging_tags.py:155
 #, python-format
 msgid "%(tag)s tag's '%(option)s' option was not a valid integer: '%(value)s'"
 msgstr ""
 
 #: apps/blog/templatetags/blog.py:96
+#: subtrees/tagging/tagging/templatetags/tagging_tags.py:164
 #, python-format
 msgid "%(tag)s tag's '%(option)s' option was not a valid choice: '%(value)s'"
 msgstr ""
 
 #: apps/blog/templatetags/blog.py:102
+#: subtrees/tagging/tagging/templatetags/tagging_tags.py:170
 #, python-format
 msgid "%(tag)s tag was given an invalid option: '%(option)s'"
 msgstr ""
 
 #: apps/blog/templatetags/blog.py:107
+#: subtrees/tagging/tagging/templatetags/tagging_tags.py:175
 #, python-format
 msgid "%(tag)s tag was given a badly formatted option: '%(option)s'"
 msgstr ""
@@ -1329,7 +1346,8 @@ msgstr ""
 #: apps/bulletin_board/models.py:39 apps/bulletin_board/views.py:354
 #: apps/events/base.py:55 apps/external_services/models.py:13
 #: apps/external_services/models.py:72 apps/partners/models.py:13
-#: apps/partners/models.py:19
+#: apps/partners/models.py:19 subtrees/base_libs/base_libs/models/models.py:212
+#: subtrees/base_libs/base_libs/models/models.py:272
 #: templates/ccb/bulletin_board/change_bulletin.html:27
 #: templates/ccb/media_gallery/portfolio_overview.html:40
 msgid "Draft"
@@ -1339,6 +1357,8 @@ msgstr ""
 #: apps/events/base.py:56 apps/external_services/models.py:14
 #: apps/external_services/models.py:73 apps/media_gallery/forms.py:328
 #: apps/partners/models.py:14 apps/partners/models.py:20
+#: subtrees/base_libs/base_libs/models/models.py:213
+#: subtrees/base_libs/base_libs/models/models.py:267
 #: templates/admin/extendedadmin/document_change.html:311
 #: templates/ccb/bulletin_board/change_bulletin.html:27
 #: templates/ccb/media_gallery/manage_galleries.html:7
@@ -1493,16 +1513,19 @@ msgid "Locality type"
 msgstr ""
 
 #: apps/bulletin_board/models.py:182
+#: subtrees/base_libs/base_libs/models/models.py:230
 msgid ""
 "If not provided and the status is set to 'published', the entry will be "
 "published immediately."
 msgstr ""
 
 #: apps/bulletin_board/models.py:185
+#: subtrees/base_libs/base_libs/models/models.py:233
 msgid "published until"
 msgstr ""
 
 #: apps/bulletin_board/models.py:188
+#: subtrees/base_libs/base_libs/models/models.py:236
 msgid ""
 "If not provided and the status is set to 'published', the entry will be "
 "published forever."
@@ -1628,6 +1651,7 @@ msgid "Tab title"
 msgstr ""
 
 #: apps/cms_extensions/plugins/jquery_ui_tab/models.py:16
+#: subtrees/base_libs/base_libs/models/models.py:1032
 msgid "content"
 msgstr ""
 
@@ -1708,6 +1732,7 @@ msgstr ""
 #: apps/site_specific/forms/people.py:729
 #: apps/site_specific/forms/people.py:989
 #: apps/site_specific/forms/people.py:1041
+#: subtrees/base_libs/base_libs/models/admin.py:27
 #: templates/admin/extendedadmin/document_change.html:432
 #: templates/ccb/blog/forms/post_embedded.html:19
 #: templates/ccb/counselling_blog/forms/post_embedded.html:19
@@ -1883,12 +1908,13 @@ msgstr ""
 msgid "Publish selected events"
 msgstr ""
 
-#: apps/events/admin.py:336
+#: apps/events/admin.py:336 subtrees/base_libs/base_libs/admin/options.py:583
 #, python-format
 msgid "Add %s"
 msgstr ""
 
 #: apps/events/admin.py:370
+#: subtrees/base_libs/base_libs/admin/tree_editor.py:161
 #, python-format
 msgid "%(name)s object with primary key %(key)r does not exist."
 msgstr ""
@@ -1900,7 +1926,7 @@ msgstr ""
 
 #: apps/events/base.py:50 apps/events/cms_apps.py:8
 #: apps/search/search_indexes.py:112 apps/site_specific/feeds.py:94
-#: settings.py:851 templates/ccb/counselling_events/event_list.html:27
+#: settings.py:838 templates/ccb/counselling_events/event_list.html:27
 #: templates/ccb/events/add_event_base.html:7
 #: templates/ccb/events/event_base.html:35
 #: templates/ccb/events/event_base.html:43
@@ -1941,7 +1967,8 @@ msgstr ""
 msgid "Alphabetical"
 msgstr ""
 
-#: apps/events/base.py:218
+#: apps/events/base.py:218 subtrees/base_libs/base_libs/models/models.py:815
+#: subtrees/base_libs/base_libs/models/models.py:913
 msgid "Slug for URIs"
 msgstr ""
 
@@ -1952,8 +1979,8 @@ msgstr ""
 msgid "Start"
 msgstr ""
 
-#: apps/events/base.py:227 apps/events/forms.py:743
-#: apps/resources/models.py:16 apps/site_specific/forms/events.py:1176
+#: apps/events/base.py:227 apps/events/forms.py:743 apps/resources/models.py:16
+#: apps/site_specific/forms/events.py:1176
 #: templates/ccb/uni_form/includes/event_time.html:68
 msgid "End"
 msgstr ""
@@ -1984,6 +2011,7 @@ msgstr ""
 
 #: apps/events/base.py:417 apps/faqs/models.py:77 apps/faqs/models.py:234
 #: apps/navigation/models.py:50
+#: subtrees/base_libs/base_libs/models/models.py:695
 msgid "sort order"
 msgstr ""
 
@@ -2347,6 +2375,7 @@ msgstr ""
 
 #: apps/events/forms.py:145 apps/site_specific/forms/misc.py:140
 #: apps/site_specific/models.py:556 apps/tracker/forms.py:45
+#: subtrees/tagging/tagging/admin.py:20
 #: templates/ccb/groups_networks/persongroups/profile/identity_form.html:6
 #: templates/ccb/institutions/profile/identity.html:7
 #: templates/ccb/people/profile/identity.html:9
@@ -2529,6 +2558,7 @@ msgid "Morning/Afternoon"
 msgstr ""
 
 #: apps/events/forms.py:951 apps/institutions/forms.py:526
+#: subtrees/base_libs/base_libs/models/models.py:1110
 #: templates/ccb/institutions/add_institution_confirm.html:388
 msgid "Visiting by Appointment"
 msgstr ""
@@ -2564,19 +2594,19 @@ msgid "opens"
 msgstr ""
 
 #: apps/events/forms.py:962 apps/events/forms.py:972 apps/events/forms.py:988
-#: apps/events/forms.py:998 apps/events/forms.py:1014
-#: apps/events/forms.py:1024 apps/events/forms.py:1040
-#: apps/events/forms.py:1050 apps/events/forms.py:1066
-#: apps/events/forms.py:1076 apps/events/forms.py:1092
-#: apps/events/forms.py:1102 apps/events/forms.py:1118
-#: apps/events/forms.py:1128 apps/institutions/forms.py:537
-#: apps/institutions/forms.py:547 apps/institutions/forms.py:563
-#: apps/institutions/forms.py:573 apps/institutions/forms.py:589
-#: apps/institutions/forms.py:599 apps/institutions/forms.py:615
-#: apps/institutions/forms.py:625 apps/institutions/forms.py:641
-#: apps/institutions/forms.py:651 apps/institutions/forms.py:667
-#: apps/institutions/forms.py:677 apps/institutions/forms.py:693
-#: apps/institutions/forms.py:703 apps/site_specific/forms/events.py:1370
+#: apps/events/forms.py:998 apps/events/forms.py:1014 apps/events/forms.py:1024
+#: apps/events/forms.py:1040 apps/events/forms.py:1050
+#: apps/events/forms.py:1066 apps/events/forms.py:1076
+#: apps/events/forms.py:1092 apps/events/forms.py:1102
+#: apps/events/forms.py:1118 apps/events/forms.py:1128
+#: apps/institutions/forms.py:537 apps/institutions/forms.py:547
+#: apps/institutions/forms.py:563 apps/institutions/forms.py:573
+#: apps/institutions/forms.py:589 apps/institutions/forms.py:599
+#: apps/institutions/forms.py:615 apps/institutions/forms.py:625
+#: apps/institutions/forms.py:641 apps/institutions/forms.py:651
+#: apps/institutions/forms.py:667 apps/institutions/forms.py:677
+#: apps/institutions/forms.py:693 apps/institutions/forms.py:703
+#: apps/site_specific/forms/events.py:1370
 #: apps/site_specific/forms/events.py:1380
 #: apps/site_specific/forms/events.py:1396
 #: apps/site_specific/forms/events.py:1406
@@ -2651,14 +2681,13 @@ msgstr ""
 msgid "opens again"
 msgstr ""
 
-#: apps/events/forms.py:977 apps/events/forms.py:1003
-#: apps/events/forms.py:1029 apps/events/forms.py:1055
-#: apps/events/forms.py:1081 apps/events/forms.py:1107
-#: apps/events/forms.py:1133 apps/institutions/forms.py:552
-#: apps/institutions/forms.py:578 apps/institutions/forms.py:604
-#: apps/institutions/forms.py:630 apps/institutions/forms.py:656
-#: apps/institutions/forms.py:682 apps/institutions/forms.py:708
-#: apps/site_specific/forms/events.py:1385
+#: apps/events/forms.py:977 apps/events/forms.py:1003 apps/events/forms.py:1029
+#: apps/events/forms.py:1055 apps/events/forms.py:1081
+#: apps/events/forms.py:1107 apps/events/forms.py:1133
+#: apps/institutions/forms.py:552 apps/institutions/forms.py:578
+#: apps/institutions/forms.py:604 apps/institutions/forms.py:630
+#: apps/institutions/forms.py:656 apps/institutions/forms.py:682
+#: apps/institutions/forms.py:708 apps/site_specific/forms/events.py:1385
 #: apps/site_specific/forms/events.py:1411
 #: apps/site_specific/forms/events.py:1437
 #: apps/site_specific/forms/events.py:1463
@@ -2715,6 +2744,7 @@ msgstr ""
 #: apps/events/forms.py:1167 apps/institutions/forms.py:804
 #: apps/site_specific/forms/events.py:1617
 #: apps/site_specific/forms/institutions.py:1283
+#: subtrees/base_libs/base_libs/models/models.py:1169
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:100
 #: templates/ccb/events/add_event_confirm.html:262
 #: templates/ccb/institutions/add_institution_confirm.html:197
@@ -2725,6 +2755,7 @@ msgstr ""
 #: apps/events/forms.py:1208 apps/institutions/forms.py:845
 #: apps/site_specific/forms/events.py:1658
 #: apps/site_specific/forms/institutions.py:1324
+#: subtrees/base_libs/base_libs/models/models.py:1170
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:101
 #: templates/ccb/events/add_event_confirm.html:282
 #: templates/ccb/institutions/add_institution_confirm.html:222
@@ -2735,6 +2766,7 @@ msgstr ""
 #: apps/events/forms.py:1245 apps/institutions/forms.py:882
 #: apps/site_specific/forms/events.py:1695
 #: apps/site_specific/forms/institutions.py:1361
+#: subtrees/base_libs/base_libs/models/models.py:1171
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:102
 #: templates/ccb/events/add_event_confirm.html:303
 #: templates/ccb/institutions/add_institution_confirm.html:247
@@ -2745,6 +2777,7 @@ msgstr ""
 #: apps/events/forms.py:1282 apps/institutions/forms.py:919
 #: apps/site_specific/forms/events.py:1732
 #: apps/site_specific/forms/institutions.py:1398
+#: subtrees/base_libs/base_libs/models/models.py:1172
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:103
 #: templates/ccb/events/add_event_confirm.html:324
 #: templates/ccb/institutions/add_institution_confirm.html:272
@@ -2755,6 +2788,7 @@ msgstr ""
 #: apps/events/forms.py:1319 apps/institutions/forms.py:956
 #: apps/site_specific/forms/events.py:1769
 #: apps/site_specific/forms/institutions.py:1435
+#: subtrees/base_libs/base_libs/models/models.py:1173
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:104
 #: templates/ccb/events/add_event_confirm.html:345
 #: templates/ccb/institutions/add_institution_confirm.html:297
@@ -2765,6 +2799,7 @@ msgstr ""
 #: apps/events/forms.py:1356 apps/institutions/forms.py:993
 #: apps/site_specific/forms/events.py:1806
 #: apps/site_specific/forms/institutions.py:1472
+#: subtrees/base_libs/base_libs/models/models.py:1174
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:105
 #: templates/ccb/events/add_event_confirm.html:366
 #: templates/ccb/institutions/add_institution_confirm.html:322
@@ -2775,6 +2810,7 @@ msgstr ""
 #: apps/events/forms.py:1393 apps/institutions/forms.py:1030
 #: apps/site_specific/forms/events.py:1843
 #: apps/site_specific/forms/institutions.py:1509
+#: subtrees/base_libs/base_libs/models/models.py:1175
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:106
 #: templates/ccb/events/add_event_confirm.html:387
 #: templates/ccb/institutions/add_institution_confirm.html:347
@@ -2826,8 +2862,7 @@ msgid "Separate tags with commas."
 msgstr ""
 
 #: apps/events/forms.py:1785 apps/institutions/forms.py:1396
-#: apps/marketplace/forms.py:637
-#: templates/ccb/events/add_event_confirm.html:28
+#: apps/marketplace/forms.py:637 templates/ccb/events/add_event_confirm.html:28
 #: templates/ccb/groups_networks/persongroups/add_group_confirm.html:56
 msgid "main data"
 msgstr ""
@@ -2901,7 +2936,10 @@ msgid ""
 "of articles will lead to the external URL if full content is not provided."
 msgstr ""
 
-#: apps/external_services/models.py:22 settings.py:400
+#: apps/external_services/models.py:22 settings.py:390
+#: subtrees/base_libs/base_libs/models/admin.py:517
+#: subtrees/base_libs/base_libs/models/models.py:594
+#: subtrees/base_libs/base_libs/models/models.py:617
 msgid "Sites"
 msgstr ""
 
@@ -2919,6 +2957,7 @@ msgstr ""
 
 #: apps/external_services/models.py:50 apps/external_services/models.py:94
 #: apps/tracker/models.py:74 apps/tracker/models.py:126
+#: subtrees/base_libs/base_libs/models/models.py:240
 #: templates/ccb/groups_networks/persongroups/profile/details.html:44
 msgid "status"
 msgstr ""
@@ -3022,7 +3061,7 @@ msgstr ""
 msgid "container"
 msgstr ""
 
-#: apps/faqs/models.py:91
+#: apps/faqs/models.py:91 subtrees/base_libs/base_libs/models/models.py:1031
 msgid "short title"
 msgstr ""
 
@@ -3568,7 +3607,7 @@ msgid "Cover"
 msgstr ""
 
 #: apps/media_gallery/cms_apps.py:8 apps/search/search_indexes.py:259
-#: settings.py:852 templates/ccb/media_gallery/gallery_list.html:14
+#: settings.py:839 templates/ccb/media_gallery/gallery_list.html:14
 #: templates/ccb/media_gallery/gallery_list.html:24
 #: templates/ccb/media_gallery/gallery_list.html:35
 #: templates/ccb/media_gallery/gallery_list.html:62
@@ -4224,7 +4263,7 @@ msgstr ""
 msgid "Other Content 2"
 msgstr ""
 
-#: apps/search/search_indexes.py:28 settings.py:849
+#: apps/search/search_indexes.py:28 settings.py:836
 #: templates/ccb/articles/articles_archive.html:12
 #: templates/ccb/articles/articles_archive_day.html:12
 #: templates/ccb/articles/articles_archive_day.html:33
@@ -4251,6 +4290,8 @@ msgid "Editorial Content"
 msgstr ""
 
 #: apps/site_specific/admin.py:29
+#: subtrees/base_libs/base_libs/models/admin.py:133
+#: subtrees/base_libs/base_libs/models/models.py:422
 msgid "Related object"
 msgstr ""
 
@@ -4539,7 +4580,7 @@ msgid "Role"
 msgstr ""
 
 #: apps/site_specific/forms/misc.py:196 apps/site_specific/models.py:564
-#: settings.py:431 templates/ccb/styleguide/layout.html:425
+#: settings.py:421 templates/ccb/styleguide/layout.html:425
 msgid "Comments"
 msgstr ""
 
@@ -5017,6 +5058,7 @@ msgid "submitter email"
 msgstr ""
 
 #: apps/tracker/models.py:68 apps/tracker/models.py:122
+#: subtrees/base_libs/base_libs/models/models.py:137
 msgid "modifier"
 msgstr ""
 
@@ -5065,76 +5107,681 @@ msgstr ""
 msgid "German"
 msgstr ""
 
-#: settings.py:265 templates/ccb/media_gallery/manage_galleries.html:93
+#: settings.py:258 subtrees/base_libs/base_libs/models/admin.py:513
+#: subtrees/base_libs/base_libs/models/models.py:1049
+#: templates/ccb/media_gallery/manage_galleries.html:93
 msgid "Content"
 msgstr ""
 
-#: settings.py:319
+#: settings.py:312
 msgid "Community"
 msgstr ""
 
-#: settings.py:338
+#: settings.py:331
 msgid "Authentication & Authorization"
 msgstr ""
 
-#: settings.py:363
+#: settings.py:356
 msgid "Commerce"
 msgstr ""
 
-#: settings.py:366
+#: settings.py:359
 msgid "Campaign"
 msgstr ""
 
-#: settings.py:381
+#: settings.py:374
 msgid "Configure"
 msgstr ""
 
-#: settings.py:393 templates/ccb/media_gallery/create_update_mediafile.html:14
+#: settings.py:383 templates/ccb/media_gallery/create_update_mediafile.html:14
 msgid "Media"
 msgstr ""
 
-#: settings.py:407
+#: settings.py:397
 msgid "Redirects"
 msgstr ""
 
-#: settings.py:421 templates/ccb/facebook_app/manage_connections.html:48
+#: settings.py:411 templates/ccb/facebook_app/manage_connections.html:48
 #: templates/ccb/facebook_app/manage_pages.html:71
 msgid "Connect"
 msgstr ""
 
-#: settings.py:428
+#: settings.py:418
 msgid "Control"
 msgstr ""
 
-#: settings.py:847
+#: settings.py:834
 msgid "Image and text"
 msgstr ""
 
-#: settings.py:848
+#: settings.py:835
 msgid "Text only"
 msgstr ""
 
-#: settings.py:850
+#: settings.py:837
 msgid "Tenders and Competitions"
 msgstr ""
 
-#: settings.py:854
+#: settings.py:841
 msgid "Jobs and Bulletins"
 msgstr ""
 
-#: settings.py:855 templates/ccb/network/member_list.html:60
+#: settings.py:842 templates/ccb/network/member_list.html:60
 #: templates/ccb/network/member_list_under_category.html:62
 #: templates/ccb/people/person_list.html:57
 #: templates/ccb/styleguide/elements.html:71
 msgid "Profiles"
 msgstr ""
 
-#: settings.py:943
+#: settings.py:900
 msgid "de"
 msgstr ""
 
-#: settings.py:950
+#: settings.py:907
 msgid "en"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/admin/tree_editor.py:172
+#: subtrees/base_libs/base_libs/admin/tree_editor.py:282
+#, python-format
+msgid "%s has been moved to a new position."
+msgstr ""
+
+#: subtrees/base_libs/base_libs/admin/tree_editor.py:181
+#, python-format
+msgid "Move: %s"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/admin/tree_editor.py:286
+msgid "Did not understand moving instruction."
+msgstr ""
+
+#: subtrees/base_libs/base_libs/forms/fields.py:172
+msgid ""
+"The data transfer didn't pass the security test. You are considered as a "
+"spambot."
+msgstr ""
+
+#: subtrees/base_libs/base_libs/forms/fields.py:203
+msgid "Please enter a valid e-mail address"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/forms/fields.py:210
+#: subtrees/base_libs/base_libs/forms/fields.py:235
+#, python-format
+msgid "\"%(email)s\" is not a valid e-mail address"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/forms/fields.py:220
+msgid "Please enter at least one valid e-mail address"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/forms/fields.py:361
+msgid "Select a valid choice. That choice is not one of the available choices."
+msgstr ""
+
+#: subtrees/base_libs/base_libs/forms/fields.py:445
+msgid ""
+"The file you uploaded was either not an image, was corrupted, or contained "
+"unsupported properties. Please save it for web without interlacing and try "
+"again."
+msgstr ""
+
+#: subtrees/base_libs/base_libs/forms/fields.py:446
+#: subtrees/base_libs/base_libs/forms/fields.py:536
+#: subtrees/base_libs/base_libs/forms/fields.py:578
+msgid "File type of the uploaded file is invalid."
+msgstr ""
+
+#: subtrees/base_libs/base_libs/forms/fields.py:456
+#, python-format
+msgid ""
+"The media file is too small. The minimal dimensions are %(width)dx%(height)d."
+msgstr ""
+
+#: subtrees/base_libs/base_libs/forms/fields.py:460
+#, python-format
+msgid ""
+"The ratio of the dimensions is too large. The maximal allowed ratio is %d:1."
+msgstr ""
+
+#: subtrees/base_libs/base_libs/forms/fields.py:461
+#: subtrees/base_libs/base_libs/forms/fields.py:544
+#: subtrees/base_libs/base_libs/forms/fields.py:586
+#, python-format
+msgid "The media file is too large. The maximal allowed file size is %s."
+msgstr ""
+
+#: subtrees/base_libs/base_libs/forms/fields.py:535
+msgid ""
+"Upload a valid video. The file you uploaded was either not a video or a "
+"corrupted video."
+msgstr ""
+
+#: subtrees/base_libs/base_libs/forms/fields.py:577
+msgid ""
+"Upload a valid audio file. The file you uploaded was either not an audio or "
+"a corrupted audio."
+msgstr ""
+
+#: subtrees/base_libs/base_libs/forms/formprocessing.py:330
+msgid ""
+"Security check failed. Maybe your form has been tampered. Please try again."
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/admin.py:28
+msgid "Save and Add Another"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/admin.py:29
+msgid "Hello"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/admin.py:91
+msgid "Publish Status"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/admin.py:177
+#: subtrees/base_libs/base_libs/models/models.py:394
+#: subtrees/base_libs/base_libs/models/models.py:397
+msgid "Content Object"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/admin.py:226
+msgid "If you provide an object ID, you must specify a content type."
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/admin.py:232
+msgid "For a given content type, you must specify an object id."
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/admin.py:239
+msgid "No object with the given content type, object id exists."
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/admin.py:259
+msgid "If you provide an object ID, you must choose a content type."
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/admin.py:275
+#: subtrees/base_libs/base_libs/models/admin.py:339
+msgid "Related Object, Sites and URL Identifier"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/admin.py:328
+#: subtrees/base_libs/base_libs/models/admin.py:394
+msgid "There already exists a container with these properties."
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/admin.py:445
+msgid "Database error"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/admin.py:500
+msgid ""
+"This parent is not allowed, as it creates a cyclical reference. Please "
+"select a different parent."
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/admin.py:537
+#: templates/ccb/styleguide/form.html:650
+msgid "Publish"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/admin.py:554
+msgid "Meta tags"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/admin.py:556
+#: subtrees/base_libs/base_libs/models/admin.py:565
+#: subtrees/base_libs/base_libs/models/models.py:1055
+msgid "Keywords"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/admin.py:556
+#: subtrees/base_libs/base_libs/models/admin.py:565
+#: subtrees/base_libs/base_libs/models/models.py:1057
+#: templates/ccb/forum/forum_list_level_1.html:90
+#: templates/ccb/resources/documents/profile/details.html:51
+msgid "Author"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/admin.py:556
+#: subtrees/base_libs/base_libs/models/admin.py:565
+#: subtrees/base_libs/base_libs/models/models.py:1058
+msgid "Copyright"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/admin.py:563
+msgid "SEO"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/admin.py:565
+msgid "Page title"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/base_libs_settings.py:13
+msgid "HTML WYSIWYG"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/base_libs_settings.py:14
+msgid "Plain Text"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/base_libs_settings.py:15
+msgid "Raw HTML"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/base_libs_settings.py:16
+msgid "Markdown"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/fields.py:34
+msgid "Text field with additional capabilities for editing."
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/fields.py:74
+msgid "Markup type"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/fields.py:79
+msgid "You can select an appropriate markup type here"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/fields.py:140
+msgid "Model field for Textarea which won't be converted to RTE"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/fields.py:188
+#, python-format
+msgid "Multilingual string (up to %(max_length)s)"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/fields.py:285
+msgid "Multilingual Text"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/fields.py:447
+msgid "Plain text Multilingual text fields"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:59
+msgid "creation date"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:86
+msgid "modified date"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:114
+msgid "creator"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:220
+msgid "author"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:222
+msgid "If you do not select an author, you will be the author!"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:279
+msgid "views"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:351
+msgid "allow comments"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:352
+msgid "close comments"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:395
+msgid "Related object's type (model)"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:398
+msgid "'s type (model)"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:417
+msgid "Please select the type (model) for the relation, you want to build."
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:425
+msgid "Please select the related object."
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:454
+#: subtrees/base_libs/base_libs/models/models.py:468
+#: subtrees/base_libs/base_libs/models/models.py:483
+msgid "Site"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:457
+#: subtrees/base_libs/base_libs/models/models.py:484
+msgid "Restrict this object only for the selected site"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:499
+msgid "URL identifier"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:501
+#: subtrees/base_libs/base_libs/models/models.py:603
+msgid ""
+"Please specify an additional URL identifier for the container here. The "
+"provided name must be the last part of the calling url, which wants to "
+"access the container. For example, if you have a FAQ-Container and you want "
+"to use the url 'http://www.example.com/gettinghelp/faqs/', the URL "
+"identifier must be 'faqs'. For different URL identifiers, you can create "
+"multiple containers for the same related object and site. Note, that the "
+"site, the related object and the URL identifier must be unique together."
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:597
+msgid ""
+"Please select some sites, this container relates to. If you do not select "
+"any site, the container applies to all sites."
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:601
+msgid "URL Identifier"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:660
+msgid "Roots Node does not exist. Please create one."
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:708
+msgid "path"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:899
+msgid "Sysname"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:900
+msgid "Do not change this value!"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1030
+msgid "subtitle"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1055
+msgid "Separate keywords by comma."
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1103
+msgid "page title"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1112
+msgid "Opens on Monday"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1113
+msgid "Break Starts on Monday"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1114
+msgid "Break Ends on Monday"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1115
+msgid "Closes on Monday"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1117
+msgid "Opens on Tuesday"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1118
+msgid "Break Starts on Tuesday"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1119
+msgid "Break Ends on Tuesday"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1120
+msgid "Closes on Tuesday"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1122
+msgid "Opens on Wednesday"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1123
+msgid "Break Starts on Wednesday"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1124
+msgid "Break Ends on Wednesday"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1125
+msgid "Closes on Wednesday"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1127
+msgid "Opens on Thursday"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1128
+msgid "Break Starts on Thursday"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1129
+msgid "Break Ends on Thursday"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1130
+msgid "Closes on Thursday"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1132
+msgid "Opens on Friday"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1133
+msgid "Break Starts on Friday"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1134
+msgid "Break Ends on Friday"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1135
+msgid "Closes on Friday"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1137
+msgid "Opens on Saturday"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1138
+msgid "Break Starts on Saturday"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1139
+msgid "Break Ends on Saturday"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1140
+msgid "Closes on Saturday"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1142
+msgid "Opens on Sunday"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1143
+msgid "Break Starts on Sunday"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1144
+msgid "Break Ends on Sunday"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1145
+msgid "Closes on Sunday"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1147
+#: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:249
+#: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:275
+msgid "Exceptions for working hours"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1237
+msgid "Fee Label"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1243
+msgid "Fee Amount"
+msgstr ""
+
+#: subtrees/base_libs/base_libs/models/models.py:1252
+msgid "Registration Required"
+msgstr ""
+
+#: subtrees/tagging/tagging/admin.py:11
+#, python-format
+msgid "Name (%s)"
+msgstr ""
+
+#: subtrees/tagging/tagging/fields.py:22
+msgid "Separate different tags by comma"
+msgstr ""
+
+#: subtrees/tagging/tagging/fields.py:67
+#, python-format
+msgid "%s can only be set on instances."
+msgstr ""
+
+#: subtrees/tagging/tagging/forms.py:20
+msgid "Multiple tags were given."
+msgstr ""
+
+#: subtrees/tagging/tagging/forms.py:23
+#, python-format
+msgid "A tag may be no more than %s characters long."
+msgstr ""
+
+#: subtrees/tagging/tagging/forms.py:39
+#, python-format
+msgid "Each tag may be no more than %s characters long."
+msgstr ""
+
+#: subtrees/tagging/tagging/models.py:58
+#, python-format
+msgid "No tags were given: \"%s\"."
+msgstr ""
+
+#: subtrees/tagging/tagging/models.py:60
+#, python-format
+msgid "Multiple tags were given: \"%s\"."
+msgstr ""
+
+#: subtrees/tagging/tagging/models.py:473
+msgid "name"
+msgstr ""
+
+#: subtrees/tagging/tagging/models.py:479
+#: subtrees/tagging/tagging/models.py:494
+msgid "tag"
+msgstr ""
+
+#: subtrees/tagging/tagging/models.py:495
+msgid "content type"
+msgstr ""
+
+#: subtrees/tagging/tagging/models.py:496
+msgid "object id"
+msgstr ""
+
+#: subtrees/tagging/tagging/models.py:504
+msgid "tagged item"
+msgstr ""
+
+#: subtrees/tagging/tagging/models.py:505
+msgid "tagged items"
+msgstr ""
+
+#: subtrees/tagging/tagging/templatetags/tagging_tags.py:19
+#, python-format
+msgid "tags_for_model tag was given an invalid model: %s"
+msgstr ""
+
+#: subtrees/tagging/tagging/templatetags/tagging_tags.py:32
+#, python-format
+msgid "tag_cloud_for_model tag was given an invalid model: %s"
+msgstr ""
+
+#: subtrees/tagging/tagging/templatetags/tagging_tags.py:56
+#, python-format
+msgid "tagged_objects tag was given an invalid model: %s"
+msgstr ""
+
+#: subtrees/tagging/tagging/templatetags/tagging_tags.py:89
+#, python-format
+msgid "%s tag requires either three or five arguments"
+msgstr ""
+
+#: subtrees/tagging/tagging/templatetags/tagging_tags.py:96
+#, python-format
+msgid "if given, fifth argument to %s tag must be 'counts'"
+msgstr ""
+
+#: subtrees/tagging/tagging/templatetags/tagging_tags.py:196
+#, python-format
+msgid "%s tag requires exactly three arguments"
+msgstr ""
+
+#: subtrees/tagging/tagging/templatetags/tagging_tags.py:221
+#, python-format
+msgid "%s tag requires exactly five arguments"
+msgstr ""
+
+#: subtrees/tagging/tagging/templatetags/tagging_tags.py:223
+#, python-format
+msgid "second argument to %s tag must be 'in'"
+msgstr ""
+
+#: subtrees/tagging/tagging/templatetags/tagging_tags.py:225
+#, python-format
+msgid "fourth argument to %s tag must be 'as'"
+msgstr ""
+
+#: subtrees/tagging/tagging/utils.py:185
+msgid ""
+"If a list or tuple of tags is provided, they must all be tag names, Tag "
+"objects or Tag ids."
+msgstr ""
+
+#: subtrees/tagging/tagging/utils.py:187
+msgid "The tag input given was invalid."
+msgstr ""
+
+#: subtrees/tagging/tagging/utils.py:232
+#, python-format
+msgid "Invalid distribution algorithm specified: %s."
+msgstr ""
+
+#: subtrees/tagging/tagging/views.py:33
+msgid "tagged_object_list must be called with a queryset or a model."
+msgstr ""
+
+#: subtrees/tagging/tagging/views.py:39
+msgid "tagged_object_list must be called with a tag."
+msgstr ""
+
+#: subtrees/tagging/tagging/views.py:43
+#, python-format
+msgid "No Tag found matching \"%s\"."
 msgstr ""
 
 #: templates/admin/admin/includes/navigation.html:9
@@ -5295,11 +5942,6 @@ msgstr ""
 
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:173
 msgid "Closes"
-msgstr ""
-
-#: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:249
-#: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:275
-msgid "Exceptions for working hours"
 msgstr ""
 
 #: templates/admin/extendedadmin/includes/fieldset_status.html:4
@@ -5760,8 +6402,7 @@ msgstr ""
 
 #: templates/ccb/articles/articles_brief.html:44
 #: templates/ccb/base_counselling.html:75 templates/ccb/base_redesign.html:93
-#: templates/ccb/blog/post_brief.html:14
-#: templates/ccb/blog/post_detail.html:28
+#: templates/ccb/blog/post_brief.html:14 templates/ccb/blog/post_detail.html:28
 #: templates/ccb/bulletin_board/lists/bulletin_list_item.html:22
 #: templates/ccb/counselling_blog/post_brief.html:14
 #: templates/ccb/events/controls.html:20 templates/ccb/events/controls.html:21
@@ -5801,8 +6442,8 @@ msgstr ""
 
 #: templates/ccb/articles/articles_detail.html:44
 #: templates/ccb/base_counselling.html:179
-#: templates/ccb/base_counselling.html:180
-#: templates/ccb/base_redesign.html:197 templates/ccb/base_redesign.html:198
+#: templates/ccb/base_counselling.html:180 templates/ccb/base_redesign.html:197
+#: templates/ccb/base_redesign.html:198
 #: templates/ccb/bulletin_board/bulletin_detail.html:23
 #: templates/ccb/events/details_base.html:101
 #: templates/ccb/marketplace/details_base.html:61
@@ -6019,8 +6660,7 @@ msgstr ""
 #: templates/ccb/curated_lists/curated_list_detail.html:111
 #: templates/ccb/curated_lists/curated_list_detail.html:129
 #: templates/ccb/curated_lists/curated_list_detail.html:177
-#: templates/ccb/styleguide/base.html:36
-#: templates/ccb/styleguide/base.html:258
+#: templates/ccb/styleguide/base.html:36 templates/ccb/styleguide/base.html:258
 #: templates/ccb/styleguide/base.html:268
 msgid "close"
 msgstr ""
@@ -6066,52 +6706,47 @@ msgid "Remove Memo"
 msgstr ""
 
 #: templates/ccb/base_counselling.html:109
-#: templates/ccb/base_counselling.html:126
-#: templates/ccb/base_redesign.html:126 templates/ccb/base_redesign.html:143
-#: templates/ccb/styleguide/base.html:55 templates/ccb/styleguide/base.html:76
+#: templates/ccb/base_counselling.html:126 templates/ccb/base_redesign.html:126
+#: templates/ccb/base_redesign.html:143 templates/ccb/styleguide/base.html:55
+#: templates/ccb/styleguide/base.html:76
 msgid "search entire website"
 msgstr ""
 
-#: templates/ccb/base_counselling.html:125
-#: templates/ccb/base_redesign.html:142 templates/ccb/styleguide/base.html:75
+#: templates/ccb/base_counselling.html:125 templates/ccb/base_redesign.html:142
+#: templates/ccb/styleguide/base.html:75
 msgid "toggle menu"
 msgstr ""
 
-#: templates/ccb/base_counselling.html:128
-#: templates/ccb/base_redesign.html:146 templates/ccb/base_redesign.html:148
+#: templates/ccb/base_counselling.html:128 templates/ccb/base_redesign.html:146
+#: templates/ccb/base_redesign.html:148
 msgid "dashboard"
 msgstr ""
 
-#: templates/ccb/base_counselling.html:130
-#: templates/ccb/base_redesign.html:151
+#: templates/ccb/base_counselling.html:130 templates/ccb/base_redesign.html:151
 #: templates/ccb/facebook_app/login.html:5
 #: templates/ccb/facebook_app/login.html:8
 #: templates/ccb/styleguide/base.html:77
 msgid "login"
 msgstr ""
 
-#: templates/ccb/base_counselling.html:169
-#: templates/ccb/base_redesign.html:187
+#: templates/ccb/base_counselling.html:169 templates/ccb/base_redesign.html:187
 msgid "Follow Us"
 msgstr ""
 
-#: templates/ccb/base_counselling.html:171
-#: templates/ccb/base_redesign.html:189
+#: templates/ccb/base_counselling.html:171 templates/ccb/base_redesign.html:189
 msgid "Follow us on Twitter"
 msgstr ""
 
-#: templates/ccb/base_counselling.html:172
-#: templates/ccb/base_redesign.html:190
+#: templates/ccb/base_counselling.html:172 templates/ccb/base_redesign.html:190
 msgid "Follow us on Facebook"
 msgstr ""
 
-#: templates/ccb/base_counselling.html:178
-#: templates/ccb/base_redesign.html:196
+#: templates/ccb/base_counselling.html:178 templates/ccb/base_redesign.html:196
 msgid "Share on Twitter"
 msgstr ""
 
-#: templates/ccb/base_counselling.html:224
-#: templates/ccb/base_redesign.html:252 templates/ccb/styleguide/base.html:255
+#: templates/ccb/base_counselling.html:224 templates/ccb/base_redesign.html:252
+#: templates/ccb/styleguide/base.html:255
 msgid "Enter your search term ..."
 msgstr ""
 
@@ -7353,11 +7988,6 @@ msgstr ""
 # D:\svn\jetson_src\jetson_reorganized\jetson\templates\default\forum\forum_list_level_1.html.py:73
 #: templates/ccb/forum/forum_list_level_1.html:80
 msgid "Recent threads"
-msgstr ""
-
-#: templates/ccb/forum/forum_list_level_1.html:90
-#: templates/ccb/resources/documents/profile/details.html:51
-msgid "Author"
 msgstr ""
 
 #: templates/ccb/forum/forum_list_level_1.html:92
@@ -9222,7 +9852,7 @@ msgstr ""
 msgid "There are no public infolinks."
 msgstr ""
 
-#: templates/ccb/search/search.html:5 templates/ccb/search/search.html:11
+#: templates/ccb/search/search.html:5 templates/ccb/search/search.html.py:11
 msgid "SEARCH"
 msgstr ""
 
@@ -9654,10 +10284,6 @@ msgstr ""
 
 #: templates/ccb/styleguide/form.html:398
 msgid "Please start typing"
-msgstr ""
-
-#: templates/ccb/styleguide/form.html:650
-msgid "Publish"
 msgstr ""
 
 #: templates/ccb/styleguide/layout.html:303
