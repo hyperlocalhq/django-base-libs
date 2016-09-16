@@ -12,7 +12,6 @@
                 </h3>
                 <h2>{{ bulletin.get_title|escape }}</h2>
                 <p>{% if bulletin.description %}{{ bulletin.get_description|striptags|truncatewords:25 }}{% endif %}</p>
-                <div>{% trans 'Read on' %}</div>
             </div>
         </a>
         <div class="button-group">
