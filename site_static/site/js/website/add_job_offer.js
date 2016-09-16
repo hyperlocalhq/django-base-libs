@@ -73,14 +73,17 @@
 
         completeContact: function () {
             var oSelf = self.JobOfferMainDataManager;
+            var url;
             if ($(this).val()) {
+                url = "/helper/" + settings.URL_ID_JOB_OFFER + "/" + settings.URL_ID_INSTITUTION + "_attrs/" + $("#id_offering_institution").val() + "/";
                 $.get(
-                    "/helper/" + settings.URL_ID_JOB_OFFER + "/" + settings.URL_ID_INSTITUTION + "_attrs/" + $("#id_offering_institution").val() + "/",
+                    url,
                     self.JobOfferMainDataManager.fillInContactData,
                     'json'
                 );
                 return false;
             }
+            // console.log(url);
         },
 
         fillInContactData: function (oData) {

@@ -24,7 +24,7 @@
             $("#id_venue_select").click(function () {
                 oSelf.manageVenueBlocks("selectVenue");
                 $("#id_block_venue_name_input input").val("");
-                $("#id_block_venue_address_input input").val("");
+                $("#id_block_input input").val("");
                 $("#id_block_venue_contact_input input").val("");
                 return false;
             });
@@ -116,22 +116,22 @@
                 case "selectVenue":
                     $("#id_block_venue_select").show();
                     $("#id_block_venue_name_input").hide();
-                    $("#id_block_venue_address_input").hide();
-                    $("#id_block_venue_address_display").hide();
+                    $("#id_block_input").hide();
+                    $("#id_block_display").hide();
                     $("#id_block_venue_contact_input").hide();
                     break;
                 case "noVenueSelected":
                     $("#id_block_venue_select").hide();
                     $("#id_block_venue_name_input").show();
-                    $("#id_block_venue_address_input").show();
-                    $("#id_block_venue_address_display").hide();
+                    $("#id_block_input").show();
+                    $("#id_block_display").hide();
                     $("#id_block_venue_contact_input").show();
                     break;
                 case "venueSelected":
                     $("#id_block_venue_select").hide();
                     $("#id_block_venue_name_input").hide();
-                    $("#id_block_venue_address_input").hide();
-                    $("#id_block_venue_address_display").show();
+                    $("#id_block_input").hide();
+                    $("#id_block_display").show();
                     $("#id_block_venue_contact_input").show();
                     break;
                 default:
@@ -199,15 +199,25 @@
             oSelf.manageVenueBlocks("venueSelected");
 
             // fill in data
-            oSelf.setText($("#id_venue_address_title"), oData.title);
-            oSelf.setText($("#id_venue_address_street_address"), oData.street_address);
-            if (oData.street_address2)
-                oSelf.setText($("#id_venue_address_street_address2"), oData.street_address2);
-            else
-                $("#id_venue_address_street_address2").hide();
-            oSelf.setText($("#id_venue_address_postal_code"), oData.postal_code);
-            oSelf.setText($("#id_venue_address_city"), oData.city);
-            oSelf.setText($("#id_venue_address_country"), oData.country_name);
+            if (!$('#id_street_address').val()) {
+                $('#id_street_address').val(oData.street_address);
+            }
+            if (!$('#id_street_address2').val()) {
+                if (oData.street_address2) {
+                    $('#id_street_address2').val(oData.street_address2);
+                } else {
+                    $('#id_street_address2').val('');
+                }
+            }
+            if (!$('#id_postal_code').val()) {
+                $('#id_postal_code').val(oData.postal_code);
+            }
+            if (!$('#id_city').val()) {
+                $('#id_city').val(oData.city);
+            }
+            if (!$('#id_country').val()) {
+                $('#id_country').val(oData.country.iso2_code);
+            }
 
             $("#id_latitude").val(oData.latitude);
             $("#id_longitude").val(oData.longitude);
