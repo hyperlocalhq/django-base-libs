@@ -904,11 +904,6 @@ urlpatterns += i18n_patterns(
 
     url(r'^contact/', include("jetson.apps.contact_form.urls")),
 
-    url(r'^invite/$', "ccb.apps.site_specific.views.invite", name="invite"),
-    url(r'^invite/done/$',
-        TemplateView.as_view(template_name="site_specific/invitation_done.html"),
-        name="invite_done"),
-
     url(r'^notification/', include("jetson.apps.notification.urls")),
 
     # claiming
