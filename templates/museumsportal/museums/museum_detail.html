@@ -66,13 +66,13 @@
                 <a href="{{ exhibition.museum.get_url_path }}"><h3>
                   {% if museum.parent %}
                     {{ museum.parent.street_address }}
-                  {% else %} 
+                  {% else %}
                     {{ museum.street_address }}
                   {% endif %}
                 </h3></a>
                 {% endcomment %}
               </header>
-              
+
               <!-- ======= Tools ======= -->
 
               <div class="tools clearfix">
@@ -96,6 +96,7 @@
                   <span class="sr-only">{% trans "Share on Facebook" %}</span>
                 </button>
 
+                {% comment %}
                 {% if museum.participates_in_berlinartweek %}
                   <a target="_blank" class="pull-right" href="http://www.berlinartweek.de/{% if LANGUAGE_CODE == "de" %}de{% else %}en{% endif %}/berlin-art-week.html">
                     <img src="{{ STATIC_URL }}site/img/berlin-art-week-banner.jpg" alt="Berlin Art Week" height="40" />
@@ -103,6 +104,12 @@
                 {% elif museum.participates_in_langenacht %}
                   <a target="_blank" class="pull-right" href="http://www.lange-nacht-der-museen.de/{% if LANGUAGE_CODE == "de" %}de/museen/{% else %}en/museums/{% endif %}{{ museum.slug }}/">
                     <img src="{{ STATIC_URL }}site/img/langenacht-banner.png" alt="Lange Nacht der Museen" height="40" />
+                  </a>
+                {% endif %}
+                {% endcomment %}
+                {% if museum.participates_in_emop %}
+                  <a target="_blank" class="pull-right" href="http://www.emop-berlin.eu/{% if LANGUAGE_CODE == "de" %}de/{% else %}en/{% endif %}">
+                    <img src="{{ STATIC_URL }}site/img/emop-banner.jpg" alt="EUROPEAN MONTH OF PHOTOGRAPHY BERLIN" height="40" />
                   </a>
                 {% endif %}
               </div>
@@ -259,7 +266,7 @@
                               {% for same_hours in opening_hours %}
                                 <dl>
                                   <dt>
-                                    {% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %} 
+                                    {% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}
                                   </dt>
                                   {% if same_hours.list.0.open %}
                                   <dd>

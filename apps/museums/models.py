@@ -57,12 +57,12 @@ TOKENIZATION_SUMMAND = 56436 # used to hide the ids of media files
 class MuseumCategory(MPTTModel, CreationModificationDateMixin, SlugMixin()):
     parent = TreeForeignKey('self', blank=True, null=True)
     title = MultilingualCharField(_('Title'), max_length=200)
-    
+
     objects = TreeManager()
-    
+
     def __unicode__(self):
         return self.title
-        
+
     class Meta:
         ordering = ["tree_id", "lft"]
         verbose_name = _("Category")
@@ -78,10 +78,10 @@ class AccessibilityOption(CreationModificationDateMixin, SlugMixin()):
     title = MultilingualCharField(_('Title'), max_length=200)
     image = FileBrowseField(_('Image'), max_length=255, directory="accessibility/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True)
     sort_order = models.IntegerField(_("Sort Order"), default=0)
-    
+
     def __unicode__(self):
         return self.title
-        
+
     class Meta:
         ordering = ['sort_order']
         verbose_name = _("Accessibility option")
@@ -104,7 +104,7 @@ class MuseumManager(models.Manager):
 
 class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     parent = models.ForeignKey("self", verbose_name=_("Parent museum"), blank=True, null=True)
-    
+
     title = MultilingualCharField(_("Name"), max_length=255)
     subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
     description = MultilingualTextField(_("Description"), blank=True)
@@ -120,7 +120,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     street_address2 = models.CharField(_("Street address (second line)"), max_length=255, blank=True)
     postal_code = models.CharField(_("Postal code"), max_length=255)
     city = models.CharField(_("City"), default="Berlin", max_length=255)
-    country = models.CharField(_("Country"), choices=COUNTRY_CHOICES, default='de', max_length=255)    
+    country = models.CharField(_("Country"), choices=COUNTRY_CHOICES, default='de', max_length=255)
     latitude = models.FloatField(_("Latitude"), help_text=_("Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90)."), blank=True, null=True)
     longitude = models.FloatField(_("Longitude"), help_text=_("Longitude (Long.) is the angle east or west of an arbitrary point on Earth from Greenwich (UK), which is the international zero-longitude point (longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction to east) and -180 (direction to west)."), blank=True, null=True)
 
@@ -140,7 +140,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     service_phone_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
 
     open_on_mondays = models.BooleanField(_("Open on Mondays"))
-    
+
     # prices
     free_entrance = models.BooleanField(_("Free entrance"))
     admission_price = models.DecimalField(_(u"Admission price (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
@@ -157,14 +157,14 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     accessibility = MultilingualTextField(_("Accessibility"), blank=True)
     mobidat = MultilingualTextField(_("Mobidat"), blank=True)
     accessibility_options = models.ManyToManyField(AccessibilityOption, verbose_name=_("Accessibility options"), blank=True)
-    
+
     service_shop = models.BooleanField(_("Museum Shop"), blank=True)
     service_restaurant = models.BooleanField(_("Restaurant"), blank=True)
     service_cafe = models.BooleanField(_("Cafe"), blank=True)
     service_library = models.BooleanField(_("Library"), blank=True)
     service_archive = models.BooleanField(_("Archive"), blank=True)
     service_diaper_changing_table = models.BooleanField(_("Diaper changing table"), blank=True)
-    
+
     has_audioguide = models.BooleanField(_("Audioguide"), blank=True)
     has_audioguide_de = models.BooleanField(_("German"), blank=True)
     has_audioguide_en = models.BooleanField(_("English"), blank=True)
@@ -179,28 +179,29 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
 
     participates_in_langenacht = models.BooleanField(_("Participates in Lange Nacht"), default=False)
     participates_in_berlinartweek = models.BooleanField(_("Participates in Berlin Art Week"), default=False)
+    participates_in_emop = models.BooleanField(_("Participates in EMOP"), default=False)
 
     search_keywords = MultilingualPlainTextField(_("Search keywords"), blank=True)
 
     favorites_count = models.PositiveIntegerField(_("Favorites count"), editable=False, default=0)
 
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
-    
+
     objects = MuseumManager()
-    
+
     row_level_permissions = True
-    
+
     def __unicode__(self):
         return self.title
 
     def is_museum(self):
         return True
-        
+
     class Meta:
         ordering = ['title']
         verbose_name = _("Museum")
         verbose_name_plural = _("Museums")
-        
+
     def get_url_path(self):
         try:
             path = reverse("museum_detail", kwargs={'slug': self.slug})
@@ -225,7 +226,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         if self.service_diaper_changing_table:
             services.append(_("Diaper changing table"))
         return services
-    
+
     def get_audioguide_languages(self):
         langs = []
         if self.has_audioguide_de:
@@ -245,7 +246,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         if self.audioguide_other_languages:
             langs.extend(self.audioguide_other_languages.split(","))
         return langs
-    
+
     def get_museums_with_the_same_categories(self):
         categories = list(self.categories.all().values_list("pk", flat=True))
         museums = Museum.objects.filter(
@@ -253,7 +254,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             status="published",
         ).exclude(pk=self.pk).distinct()
         return museums
-        
+
     def get_tags(self):
         return Tag.objects.get_for_object(self)
 
@@ -264,7 +265,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             if getattr(self, fn)
         ])
     get_address.short_description = _("Address")
-    
+
     def is_open_until(self, weekday, closing_time):
         """
         weekday := "mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun"
@@ -279,51 +280,51 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         if self._actual_season:
             return closing_time <= getattr(self._actual_season, "%s_close" % weekday, time(0, 0))
         return False
-        
+
     # open till 20:00
     def is_open_on_mon_till_20(self):
         return self.is_open_until("mon", time(20, 0))
-    
+
     def is_open_on_tue_till_20(self):
         return self.is_open_until("tue", time(20, 0))
-    
+
     def is_open_on_wed_till_20(self):
         return self.is_open_until("wed", time(20, 0))
-    
+
     def is_open_on_thu_till_20(self):
         return self.is_open_until("thu", time(20, 0))
-    
+
     def is_open_on_fri_till_20(self):
         return self.is_open_until("fri", time(20, 0))
-    
+
     def is_open_on_sat_till_20(self):
         return self.is_open_until("sat", time(20, 0))
-    
+
     def is_open_on_sun_till_20(self):
         return self.is_open_until("sun", time(20, 0))
-    
+
     # open till 22:00
     def is_open_on_mon_till_22(self):
         return self.is_open_until("mon", time(22, 0))
-    
+
     def is_open_on_tue_till_22(self):
         return self.is_open_until("tue", time(22, 0))
-    
+
     def is_open_on_wed_till_22(self):
         return self.is_open_until("wed", time(22, 0))
-    
+
     def is_open_on_thu_till_22(self):
         return self.is_open_until("thu", time(22, 0))
-    
+
     def is_open_on_fri_till_22(self):
         return self.is_open_until("fri", time(22, 0))
-    
+
     def is_open_on_sat_till_22(self):
         return self.is_open_until("sat", time(22, 0))
-    
+
     def is_open_on_sun_till_22(self):
         return self.is_open_until("sun", time(22, 0))
-    
+
     def set_owner(self, user):
         ContentType = models.get_model("contenttypes", "ContentType")
         PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
@@ -342,15 +343,15 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
                 setattr(role, "title_%s" % lang_code, get_translation("Owners", language=lang_code))
             role.content_object = self
             role.save()
-        
+
             RowLevelPermission.objects.create_default_row_permissions(
                 model_instance=self,
                 owner=role,
             )
-        
+
         if not role.users.filter(pk=user.pk).count():
             role.users.add(user)
-            
+
     def remove_owner(self, user):
         ContentType = models.get_model("contenttypes", "ContentType")
         PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
@@ -391,10 +392,10 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         return Exhibition.objects.filter(
             models.Q(museum=self) | models.Q(organizer__organizing_museum=self)
         ).distinct().order_by("-start")
-        
+
     def get_published_exhibitions(self):
         return self.get_exhibitions().filter(status="published")
-        
+
     def get_events(self):
         Event = models.get_model("events", "Event")
         return Event.objects.filter(
@@ -410,7 +411,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         return Workshop.objects.filter(
             models.Q(museum=self) | models.Q(organizer__organizing_museum=self)
         ).distinct().order_by('closest_workshop_date', 'closest_workshop_time', 'title_%s' % language)
-            
+
     def get_published_workshops(self):
         return self.get_workshops().filter(status="published")
 
@@ -475,12 +476,12 @@ class Season(OpeningHoursMixin):
     start = models.DateField(_("Start"))
     end = models.DateField(_("End"))
     last_entry = MultilingualCharField(_("Last entry"), max_length=255, blank=True)
-    
+
     def __unicode__(self):
         if self.start and self.end:
             return u"%s - %s" % (self.start.strftime('%Y-%m-%d'), self.end.strftime('%Y-%m-%d'))
         return u""
-        
+
     class Meta:
         ordering = ('start',)
         verbose_name = _("Season")
@@ -516,7 +517,7 @@ class Season(OpeningHoursMixin):
     def is_current(self):
         today = datetime.today().date()
         return self.start <= today <= self.end
-        
+
     def is_open(self, selected_date):
         WEEKDAYS = ("mon", "tue", "wed", "thu", "fri", "sat", "sun")
         if getattr(self, "%s_open" % WEEKDAYS[selected_date.weekday()]):
@@ -534,12 +535,12 @@ class SpecialOpeningTime(models.Model):
 
     is_closed = models.BooleanField(_("Closed"))
     is_regular = models.BooleanField(_("Regular Opening hours"))
-    
+
     opening = models.TimeField(_('Opens'), blank=True, null=True)
     break_close = models.TimeField(_('Break Starts'), blank=True, null=True)
     break_open = models.TimeField(_('Break Ends'), blank=True, null=True)
     closing = models.TimeField(_('Closes'), blank=True, null=True)
-    
+
     exceptions = MultilingualTextField(_('Exceptions for working hours'), blank=True)
 
     def __unicode__(self):
@@ -549,13 +550,13 @@ class SpecialOpeningTime(models.Model):
         if self.day_label:
             result += u" - " + self.day_label
         return result
-    
+
     class Meta:
         ordering = ("yyyy", "mm", "dd")
         verbose_name = _("Special opening time")
         verbose_name_plural = _("Special Opening hours")
-        
-        
+
+
 class MediaFile(CreationModificationDateMixin):
     museum = models.ForeignKey(Museum, verbose_name=_("Museum"))
     path = FileBrowseField(_('File path'), max_length=255, directory="museums/", help_text=_("A path to a locally stored image, video, or audio file."))
@@ -565,7 +566,7 @@ class MediaFile(CreationModificationDateMixin):
         ordering = ["sort_order", "creation_date"]
         verbose_name = _("Media File")
         verbose_name_plural = _("Media Files")
-        
+
     def __unicode__(self):
         if self.path:
             return self.path.path
@@ -586,12 +587,11 @@ class SocialMediaChannel(models.Model):
     museum = models.ForeignKey(Museum)
     channel_type = models.CharField(_("Social media type"), max_length=255, help_text=_("e.g. twitter, facebook, etc."))
     url = URLField(_("URL"), max_length=255)
-    
+
     class Meta:
         ordering = ['channel_type']
         verbose_name = _("Social media channel")
         verbose_name_plural = _("Social media channels")
-        
+
     def __unicode__(self):
         return self.channel_type
-

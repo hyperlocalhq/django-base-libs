@@ -26,13 +26,13 @@ SocialMediaChannel = models.get_model("museums", "SocialMediaChannel")
 
 
 class MuseumCategoryAdmin(TreeEditor, ExtendedModelAdmin):
-        
+
     save_on_top = True
     list_display = ['actions_column', 'indented_short_title', ]
-    
+
     fieldsets = get_admin_lang_section(_("Title"), ['title'])
     fieldsets += [(None, {'fields': ('slug', 'parent')}),]
-    
+
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
 
 
@@ -40,13 +40,13 @@ admin.site.register(MuseumCategory, MuseumCategoryAdmin)
 
 
 class AccessibilityOptionAdmin(ExtendedModelAdmin):
-        
+
     save_on_top = True
     list_display = ['title', 'icon']
-    
+
     fieldsets = get_admin_lang_section(_("Title"), ['title'])
     fieldsets += [(None, {'fields': ('slug', 'image', 'sort_order', )}),]
-    
+
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
 
     def icon(self, obj):
@@ -100,16 +100,16 @@ class MuseumAdmin(ExtendedModelAdmin):
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
             )
     save_on_top = True
-    list_display = ('id', 'title', 'subtitle', 'get_owners_list', 'creation_date', 'status', 'participates_in_langenacht', 'participates_in_berlinartweek', 'is_geoposition_set', 'favorites_count')
-    list_editable = ('status', 'participates_in_langenacht', 'participates_in_berlinartweek')
+    list_display = ('id', 'title', 'subtitle', 'get_owners_list', 'creation_date', 'status', 'participates_in_langenacht', 'participates_in_berlinartweek', 'participates_in_emop', 'is_geoposition_set', 'favorites_count')
+    list_editable = ('status', 'participates_in_langenacht', 'participates_in_berlinartweek', 'participates_in_emop')
     list_display_links = ('title', )
     list_filter = ('creation_date', 'status', 'categories', 'open_on_mondays', 'free_entrance', 'linkgroup')
     search_fields = ('title', 'subtitle', 'slug')
-    
+
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'description',])
     fieldsets += [(None, {'fields': ('slug', )}),]
     fieldsets += [(_("Categories"), {'fields': ('categories', 'tags', 'open_on_mondays', 'is_for_children')}),]
-    fieldsets += [(_("Prices"), {'fields': ('free_entrance', 'member_of_museumspass', 
+    fieldsets += [(_("Prices"), {'fields': ('free_entrance', 'member_of_museumspass',
         'admission_price', get_admin_lang_section(_("Price info"), ['admission_price_info']),
         'reduced_price', get_admin_lang_section(_("Price info"), ['reduced_price_info']),
         'show_group_ticket', get_admin_lang_section(_("Price info"), ['group_ticket']),
@@ -121,7 +121,7 @@ class MuseumAdmin(ExtendedModelAdmin):
     fieldsets += [(_("Mediation offer"), {'fields': ('has_audioguide', (_("Audioguide languages"), {'fields': ('has_audioguide_de', 'has_audioguide_en', 'has_audioguide_fr', 'has_audioguide_it', 'has_audioguide_sp', 'has_audioguide_pl', 'has_audioguide_tr', 'audioguide_other_languages')}), 'has_audioguide_for_children', 'has_audioguide_for_learning_difficulties')}),]
     fieldsets += [(_("Accessibility"), {'fields': ['accessibility_options', get_admin_lang_section(_("Explanation"), ['accessibility', 'mobidat'])]})]
     fieldsets += [(_("Services"), {'fields': [
-        'service_shop', 
+        'service_shop',
         'service_restaurant',
         'service_cafe',
         'service_library',
@@ -129,19 +129,19 @@ class MuseumAdmin(ExtendedModelAdmin):
         'service_diaper_changing_table',
     ]})]
     fieldsets += get_admin_lang_section(_("Search"), ['search_keywords',])
-    fieldsets += [(_("Status"), {'fields': ('participates_in_langenacht', 'participates_in_berlinartweek', 'status',)}),]
-    
+    fieldsets += [(_("Status"), {'fields': ('participates_in_langenacht', 'participates_in_berlinartweek', 'participates_in_emop', 'status',)}),]
+
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
     filter_horizontal = ("categories", "accessibility_options")
-    
+
     inlines = [SeasonInline, SpecialOpeningTimeInline, SocialMediaChannelInline, MediaFileInline]
 
     def is_geoposition_set(self, obj):
         return bool(obj.latitude)
     is_geoposition_set.boolean = True
     is_geoposition_set.short_description = _("Geoposition?")
-        
-        
+
+
     def get_owners_list(self, obj):
         owners_list = []
         manage_owners_link = '<br /><a href="%s/owners/"><span>%s</span></a>' % (obj.pk, ugettext('Manage owners'))
@@ -152,7 +152,7 @@ class MuseumAdmin(ExtendedModelAdmin):
         return '<a href="/claiming-invitation/?museum_id=%s">%s</a>%s' % (obj.pk, ugettext("Invite owners"), manage_owners_link)
     get_owners_list.allow_tags = True
     get_owners_list.short_description = _("Owners")
-        
+
     def owners_view(self, request, museum_id):
         from base_libs.views.views import access_denied
         museum = get_object_or_404(Museum, pk=museum_id)
