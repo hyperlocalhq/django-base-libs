@@ -7,7 +7,7 @@ import os
 from urllib import url2pathname
 
 from django.core.management.base import NoArgsCommand
-from django.utils.encoding import smart_str, force_unicode
+from django.utils.encoding import force_unicode
 from django.utils.html import strip_tags
 from django.db import models
 
@@ -71,12 +71,15 @@ class LocalFileAdapter(requests.adapters.BaseAdapter):
         pass
 
 
-class ImportToBerlinBuehnenBase(NoArgsCommand):
-    help = "Base command to extend to imports productions and events to Berlin Buehnen"
+class ImportToBerlinBuehnenBaseXML(NoArgsCommand):
+    """Base command to extend to import productions and events to Berlin Buehnen in XML format"""
+    help = "Import based on http://www.berlin-buehnen.de/media/docs/import-specification/production_import_specs.html"
 
     DEFAULT_PUBLISHING_STATUS = "import"
+    DEFAULT_IN_PROGRAM_OF_LOCATION_ID = None
     production_ids_to_keep = set()
     event_ids_to_keep = set()
+    service = None
 
     def handle_noargs(self, *args, **options):
         self.verbosity = int(options.get("verbosity", NORMAL))
@@ -85,6 +88,7 @@ class ImportToBerlinBuehnenBase(NoArgsCommand):
         self.import_productions()
 
     def define_service(self):
+        """Override this method to define self.service as an instance of external_services.Service model."""
         raise NotImplementedError("The define_service() method should be implemented.")
 
     def import_productions(self):
@@ -93,7 +97,7 @@ class ImportToBerlinBuehnenBase(NoArgsCommand):
         requests_session.mount('file://', LocalFileAdapter())
 
         if self.verbosity >= NORMAL:
-            print u"=== Importing Productions ==="
+            self.stdout.write(u"=== Importing Productions ===")
 
         self.stats = {
             'prods_added': 0,
@@ -106,7 +110,7 @@ class ImportToBerlinBuehnenBase(NoArgsCommand):
 
         r = requests_session.get(self.service.url)
         if r.status_code != 200:
-            print(u"Error status: %s" % r.status_code)
+            self.stderr.write(u"Error status: %s" % r.status_code)
             return
         root_node = ElementTree.fromstring(r.content)
         next_page = self.get_child_text(root_node.find('./meta'), "next")
@@ -116,7 +120,7 @@ class ImportToBerlinBuehnenBase(NoArgsCommand):
         while(next_page):
             r = requests_session.get(next_page)
             if r.status_code != 200:
-                print(u"Error status: %s" % r.status_code)
+                self.stderr.write(u"Error status: %s" % r.status_code)
                 break # we want to show summary even if at some point the import breaks
             root_node = ElementTree.fromstring(r.content)
             next_page = self.get_child_text(root_node.find('./meta'), "next")
@@ -124,13 +128,12 @@ class ImportToBerlinBuehnenBase(NoArgsCommand):
             self.save_page(productions_node)
 
         if self.verbosity >= NORMAL:
-            print u"Productions added: %d" % self.stats['prods_added']
-            print u"Productions updated: %d" % self.stats['prods_updated']
-            print u"Productions skipped: %d" % self.stats['prods_skipped']
-            print u"Events added: %d" % self.stats['events_added']
-            print u"Events updated: %d" % self.stats['events_updated']
-            print u"Events skipped: %d" % self.stats['events_skipped']
-            print
+            self.stdout.write(u"Productions added: %d" % self.stats['prods_added'])
+            self.stdout.write(u"Productions updated: %d" % self.stats['prods_updated'])
+            self.stdout.write(u"Productions skipped: %d" % self.stats['prods_skipped'])
+            self.stdout.write(u"Events added: %d" % self.stats['events_added'])
+            self.stdout.write(u"Events updated: %d" % self.stats['events_updated'])
+            self.stdout.write(u"Events skipped: %d" % self.stats['events_skipped'])
 
     def get_child_text(self, node, tag, **attrs):
         """
@@ -220,7 +223,7 @@ class ImportToBerlinBuehnenBase(NoArgsCommand):
             title_en = self.get_child_text(prod_node, 'title_en').replace('\n', ' ').strip()
 
             if self.verbosity >= NORMAL:
-                print "%d/%d %s | %s" % (prod_index, prods_count, smart_str(title_de), smart_str(title_en))
+                self.stdout.write(u"%d/%d %s | %s" % (prod_index, prods_count, title_de, title_en))
 
             mapper = None
             try:
@@ -263,7 +266,7 @@ class ImportToBerlinBuehnenBase(NoArgsCommand):
             prod.website_de = self.get_child_text(prod_node, 'website_de')
             prod.website_en = self.get_child_text(prod_node, 'website_en')
 
-            prod.slug = get_unique_value(Production, better_slugify(prod.title_de) or u"production", instance_pk=prod.pk)
+            prod.slug = get_unique_value(Production, better_slugify(prod.title_de)[:200] or u"production", instance_pk=prod.pk)
 
             self.parse_and_use_texts(prod_node, prod)
 
@@ -315,6 +318,13 @@ class ImportToBerlinBuehnenBase(NoArgsCommand):
             self.production_ids_to_keep.add(prod.pk)
 
             prod.in_program_of.clear()
+            if self.DEFAULT_IN_PROGRAM_OF_LOCATION_ID:
+                try:
+                    location = Location.objects.get(pk=self.DEFAULT_IN_PROGRAM_OF_LOCATION_ID)
+                except Location.DoesNotExist:
+                    pass
+                else:
+                    prod.in_program_of.add(location)
             for location_id_node in prod_node.findall("./in_program_of/location_id"):
                 try:
                     location = Location.objects.get(pk=location_id_node.text)
@@ -325,12 +335,13 @@ class ImportToBerlinBuehnenBase(NoArgsCommand):
 
             prod.play_locations.clear()
             for location_id_node in prod_node.findall("./play_locations/location_id"):
-                try:
-                    location = Location.objects.get(pk=location_id_node.text)
-                except Location.DoesNotExist:
-                    pass
-                else:
-                    prod.play_locations.add(location)
+                if not self.DEFAULT_IN_PROGRAM_OF_LOCATION_ID or self.DEFAULT_IN_PROGRAM_OF_LOCATION_ID != int(location_id_node.text):
+                    try:
+                        location = Location.objects.get(pk=location_id_node.text)
+                    except Location.DoesNotExist:
+                        pass
+                    else:
+                        prod.play_locations.add(location)
 
             prod.play_stages.clear()
             for stage_id_node in prod_node.findall("./play_stages/stage_id"):
@@ -378,15 +389,15 @@ class ImportToBerlinBuehnenBase(NoArgsCommand):
                 video.save()
 
             prod.productionlivestream_set.all().delete()
-            for video_node in prod_node.findall("./videos/video"):
+            for live_stream_node in prod_node.findall("./live_streams/live_stream"):
                 ls = ProductionLiveStream(production=prod)
-                ls.creation_date = parse_datetime(self.get_child_text(video_node, 'creation_date'))
-                ls.modified_date = parse_datetime(self.get_child_text(video_node, 'modified_date'))
-                ls.title_de = self.get_child_text(video_node, 'title_de')
-                ls.title_en = self.get_child_text(video_node, 'title_en')
-                ls.link_or_embed = self.get_child_text(video_node, 'embed')
+                ls.creation_date = parse_datetime(self.get_child_text(live_stream_node, 'creation_date'))
+                ls.modified_date = parse_datetime(self.get_child_text(live_stream_node, 'modified_date'))
+                ls.title_de = self.get_child_text(live_stream_node, 'title_de')
+                ls.title_en = self.get_child_text(live_stream_node, 'title_en')
+                ls.link_or_embed = self.get_child_text(live_stream_node, 'embed')
                 try:
-                    ls.sort_order = int(self.get_child_text(video_node, 'sort_order'))
+                    ls.sort_order = int(self.get_child_text(live_stream_node, 'sort_order'))
                 except:
                     ls.sort_order = 1
                 ls.save()
@@ -776,12 +787,13 @@ class ImportToBerlinBuehnenBase(NoArgsCommand):
 
                 event.play_locations.clear()
                 for location_id_node in event_node.findall("./play_locations/location_id"):
-                    try:
-                        location = Location.objects.get(pk=location_id_node.text)
-                    except Location.DoesNotExist:
-                        pass
-                    else:
-                        event.play_locations.add(location)
+                    if not self.DEFAULT_IN_PROGRAM_OF_LOCATION_ID or self.DEFAULT_IN_PROGRAM_OF_LOCATION_ID != int(location_id_node.text):
+                        try:
+                            location = Location.objects.get(pk=location_id_node.text)
+                        except Location.DoesNotExist:
+                            pass
+                        else:
+                            event.play_locations.add(location)
 
                 event.play_stages.clear()
                 for stage_id_node in event_node.findall("./play_stages/stage_id"):

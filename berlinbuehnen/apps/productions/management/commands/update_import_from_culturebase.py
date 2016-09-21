@@ -24,7 +24,7 @@ from berlinbuehnen.apps.productions.models import EventImage
 from berlinbuehnen.apps.people.models import Person, AuthorshipType
 from berlinbuehnen.apps.sponsors.models import Sponsor
 
-from import_base import LOCATIONS_TO_SKIP, STAGE_TO_LOCATION_MAPPER, PRODUCTION_VENUES, convert_location_title, CultureBaseLocation
+from _import_from_heimat_base_xml import LOCATIONS_TO_SKIP, STAGE_TO_LOCATION_MAPPER, PRODUCTION_VENUES, convert_location_title, CultureBaseLocation
 
 SILENT, NORMAL, VERBOSE, VERY_VERBOSE = 0, 1, 2, 3
 

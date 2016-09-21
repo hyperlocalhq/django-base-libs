@@ -1,10 +1,10 @@
 # -*- coding: UTF-8 -*-
 from django.db import models
 from django.conf import settings
-from .import_to_berlinbuehnen_base import ImportToBerlinBuehnenBase
+from ._import_to_berlinbuehnen_base_xml import ImportToBerlinBuehnenBaseXML
 
 
-class Command(ImportToBerlinBuehnenBase):
+class Command(ImportToBerlinBuehnenBaseXML):
 
     def define_service(self):
         Service = models.get_model("external_services", "Service")

@@ -7,7 +7,7 @@ from optparse import make_option
 from django.core.management.base import NoArgsCommand
 from django.db import models
 
-from import_base import ImportFromHeimatBase
+from _import_from_heimat_base_xml import ImportFromHeimatBase
 
 SILENT, NORMAL, VERBOSE, VERY_VERBOSE = 0, 1, 2, 3
 
