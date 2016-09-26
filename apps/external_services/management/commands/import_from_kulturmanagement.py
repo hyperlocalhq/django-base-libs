@@ -24,7 +24,6 @@ class Command(BaseCommand):
         JobQualification = models.get_model("marketplace", "JobQualification")
         ObjectMapper = models.get_model("external_services", "ObjectMapper")
         Service = models.get_model("external_services", "Service")
-        URLType = models.get_model("optionset", "URLType")
 
         s, created = Service.objects.get_or_create(
             sysname="kulturmanagement",
@@ -39,14 +38,6 @@ class Command(BaseCommand):
             defaults={
                 'title_en': "N/A",
                 'title_de': "N/A",
-            },
-        )
-
-        default_urltype, created = URLType.objects.get_or_create(
-            slug="kulturmanagementnet",
-            defaults={
-                'title_en': "Kulturmanagement.net",
-                'title_de': "Kulturmanagement.net",
             },
         )
 
@@ -86,7 +77,6 @@ class Command(BaseCommand):
                 job_offer.description = "N/A"
 
                 job_offer.url0_link = get_value(node_job, "Detaillink")
-                job_offer.url0_type = default_urltype
                 if "v__exdet" in job_offer.url0_link:
                     job_offer.is_commercial = True
 

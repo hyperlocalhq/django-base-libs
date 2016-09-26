@@ -27,7 +27,6 @@ class Command(BaseCommand):
         JobType = apps.get_model("marketplace", "JobType")
         ObjectMapper = apps.get_model("external_services", "ObjectMapper")
         Service = apps.get_model("external_services", "Service")
-        URLType = apps.get_model("optionset", "URLType")
 
         s, created = Service.objects.get_or_create(
             sysname="theaterjobs",
@@ -42,14 +41,6 @@ class Command(BaseCommand):
             defaults={
                 'title_en': "Full-time",
                 'title_de': "Vollzeit",
-            },
-        )
-
-        default_urltype, created = URLType.objects.get_or_create(
-            slug="theaterjobs",
-            defaults={
-                'title_en': "theaterjobs.de",
-                'title_de': "theaterjobs.de",
             },
         )
 
@@ -110,7 +101,6 @@ class Command(BaseCommand):
             job_offer.job_type = default_job_type
 
             job_offer.url0_link = get_value(node_job, "link")
-            job_offer.url0_type = default_urltype
             job_offer.is_commercial = True
 
             if change_date:

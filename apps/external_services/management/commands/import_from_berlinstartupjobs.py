@@ -29,7 +29,6 @@ class Command(BaseCommand):
         JobType = apps.get_model("marketplace", "JobType")
         ObjectMapper = apps.get_model("external_services", "ObjectMapper")
         Service = apps.get_model("external_services", "Service")
-        URLType = apps.get_model("optionset", "URLType")
 
         job_sector_online_it, created = JobSector.objects.get_or_create(
             slug="online-it",
@@ -190,14 +189,6 @@ class Command(BaseCommand):
             },
         )
 
-        default_urltype, created = URLType.objects.get_or_create(
-            slug="berlinstartupjobs",
-            defaults={
-                'title_en': "berlinstartupjobs.com",
-                'title_de': "berlinstartupjobs.com",
-            },
-        )
-
         s, created = Service.objects.get_or_create(
             sysname="berlinstartupjobs",
             defaults={
@@ -268,7 +259,6 @@ class Command(BaseCommand):
                 job_offer.job_type = feed_settings['job_type']
 
                 job_offer.url0_link = get_first(node_job, "link").getAttribute("href")
-                job_offer.url0_type = default_urltype
                 job_offer.is_commercial = False
 
                 if change_date:

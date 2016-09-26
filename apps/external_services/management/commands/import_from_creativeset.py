@@ -28,7 +28,6 @@ class Command(BaseCommand):
         JobType = apps.get_model("marketplace", "JobType")
         ObjectMapper = apps.get_model("external_services", "ObjectMapper")
         Service = apps.get_model("external_services", "Service")
-        URLType = apps.get_model("optionset", "URLType")
 
         s, created = Service.objects.get_or_create(
             sysname="creativeset",
@@ -43,14 +42,6 @@ class Command(BaseCommand):
             defaults={
                 'title_en': "Full-time",
                 'title_de': "Vollzeit",
-            },
-        )
-
-        default_urltype, created = URLType.objects.get_or_create(
-            slug="creativesetnet",
-            defaults={
-                'title_en': "Creativeset.net",
-                'title_de': "Creativeset.net",
             },
         )
 
@@ -111,7 +102,6 @@ class Command(BaseCommand):
             job_offer.offering_institution_title = get_value(node_job, "company_name")
 
             job_offer.url0_link = get_value(node_job, "link")
-            job_offer.url0_type = default_urltype
 
             if change_date:
                 job_offer.published_from = change_date
