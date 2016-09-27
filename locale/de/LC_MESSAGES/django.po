@@ -7,13 +7,13 @@ msgstr ""
 "Project-Id-Version: Django 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-09-16 15:40+0200\n"
-"PO-Revision-Date: 2016-09-15 16:54+0053\n"
+"PO-Revision-Date: 2016-09-27 12:44+0053\n"
 "Last-Translator: Laura Casadevall <casadeluxe@web.de>\n"
 "Language-Team: \n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "X-Poedit-Bookmarks: 415,61,1810,230,1014,1069,-1,-1,-1,-1\n"
 "X-Translated-Using: django-rosetta 0.7.6\n"
 
@@ -111,8 +111,8 @@ msgstr "Jetzt kostenlos Profil erstellen"
 #: apps/accounts/forms.py:154
 #, python-format
 msgid ""
-"This username is already used for another account. But you can use \"%s\" as "
-"your username."
+"This username is already used for another account. But you can use \"%s\" as"
+" your username."
 msgstr ""
 "Dieser Benutzername wird bereits für ein anderes Konto verwendet. Aber Du "
 "kannst \"%s\" als Benutzername verwenden."
@@ -209,8 +209,8 @@ msgstr "E-Mail oder Benutzername"
 
 #: apps/accounts/forms.py:437
 msgid ""
-"Please enter a correct email or username and password. Note that both fields "
-"are case-sensitive."
+"Please enter a correct email or username and password. Note that both fields"
+" are case-sensitive."
 msgstr ""
 "Bitte gib eine korrekte E-Mail oder einen korrekten Benutzernamen und ein "
 "korrektes Passwort ein. Achte dabei auf Groß- und Kleinschreibung."
@@ -279,8 +279,8 @@ msgstr "Instant Messenger veröffentlichen"
 
 #: apps/accounts/forms.py:539
 msgid ""
-"Please enter your old password, for security's sake, and then enter your new "
-"password twice so we can verify you typed it in correctly."
+"Please enter your old password, for security's sake, and then enter your new"
+" password twice so we can verify you typed it in correctly."
 msgstr ""
 "Bitte gib aus Sicherheitsgründen erst Dein altes Kennwort und darunter dann "
 "zwei Mal (um sicherzustellen, dass Du es korrekt eingegeben hast) das neue "
@@ -288,8 +288,8 @@ msgstr ""
 
 #: apps/accounts/forms.py:540
 msgid ""
-"Forgot your password? Enter your e-mail address below, and we’ll send you an "
-"e-mail with a link which allows you to set up a new password."
+"Forgot your password? Enter your e-mail address below, and we’ll send you an"
+" e-mail with a link which allows you to set up a new password."
 msgstr ""
 "Hast Du Dein Kennwort vergessen? Gib einfach Deine hinterlegte E-Mail-"
 "Adresse ein und wir senden Dir ein neues Kennwort per E-Mail zu."
@@ -699,8 +699,8 @@ msgstr "Auszug"
 
 #: apps/articles/models.py:127
 msgid ""
-"If this article is an excerpt, the link in the list of articles will lead to "
-"the external URL."
+"If this article is an excerpt, the link in the list of articles will lead to"
+" the external URL."
 msgstr ""
 "Wenn dieser Artikel ein Auszug ist, wird der Link in der Liste der Artikel "
 "auf die externe URL führen."
@@ -772,7 +772,7 @@ msgstr "Apr"
 #: apps/articles/views.py:71 apps/blog/views/__init__.py:256
 #: apps/blog/views/cms.py:256
 msgid "May"
-msgstr "Tag"
+msgstr "Mai"
 
 #: apps/articles/views.py:71 apps/blog/views/__init__.py:256
 #: apps/blog/views/cms.py:256
@@ -845,7 +845,8 @@ msgstr "Letzte Posts"
 #: apps/blog/forms.py:25 apps/events/forms.py:1507 apps/events/forms.py:1530
 #: apps/marketplace/forms.py:395 apps/site_specific/forms/events.py:1973
 #: apps/site_specific/forms/events.py:1997
-#: apps/site_specific/forms/marketplace.py:742 templates/ccb/blog/blog.html:112
+#: apps/site_specific/forms/marketplace.py:742
+#: templates/ccb/blog/blog.html:112
 #: templates/ccb/blog/forms/post_embedded.html:12
 #: templates/ccb/blog/post_detail.html:11
 #: templates/ccb/counselling_blog/blog.html:65
@@ -862,11 +863,12 @@ msgstr "Stichworte"
 
 #: apps/blog/forms.py:28
 msgid ""
-"Use commas to separate your tags. Tags can have multiple words. For example: "
-"'one, two, three apples' would define three tags."
+"Use commas to separate your tags. Tags can have multiple words. For example:"
+" 'one, two, three apples' would define three tags."
 msgstr ""
 "Nutze Kommas, um Deine Stichworte zu trennen. Stichworte können mehrere "
-"Worte enthalen. Für \"eins, zwei, drei Äpfel\" würde drei Stichworte ergeben."
+"Worte enthalen. Für \"eins, zwei, drei Äpfel\" würde drei Stichworte "
+"ergeben."
 
 #: apps/blog/forms.py:32
 msgid "Body"
@@ -956,7 +958,8 @@ msgstr "Vorschau"
 #: templates/ccb/blog/forms/confirm_delete_embedded.html:13
 #: templates/ccb/blog/post_delete.html:18
 #: templates/ccb/bulletin_board/delete_bulletin.html:16
-#: templates/ccb/comments/preview.html:117 templates/ccb/confirm_delete.html:17
+#: templates/ccb/comments/preview.html:117
+#: templates/ccb/confirm_delete.html:17
 #: templates/ccb/counselling_blog/comments/accept_embedded.html:12
 #: templates/ccb/counselling_blog/comments/form_embedded.html:66
 #: templates/ccb/counselling_blog/comments/mark_as_spam_embedded.html:15
@@ -1019,7 +1022,8 @@ msgstr "Vorschau"
 #: templates/ccb/site_specific/popups/delete_avatar.html:10
 #: templates/ccb/site_specific/popups/delete_contact.html:17
 #: templates/ccb/site_specific/review_delete.html:22
-#: templates/ccb/styleguide/base.html:33 templates/ccb/styleguide/form.html:649
+#: templates/ccb/styleguide/base.html:33
+#: templates/ccb/styleguide/form.html:649
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -1289,7 +1293,7 @@ msgstr "Beginn Monat"
 #: apps/bulletin_board/forms.py:75 apps/events/base.py:824
 #: apps/events/forms.py:630 apps/site_specific/forms/events.py:1056
 msgid "Start Day"
-msgstr "Beginn Tag"
+msgstr "Start Datum"
 
 #: apps/bulletin_board/forms.py:81 apps/events/forms.py:636
 #: apps/site_specific/forms/events.py:1062
@@ -1333,7 +1337,7 @@ msgstr ""
 #: apps/bulletin_board/forms.py:131 apps/events/forms.py:1847
 #: apps/institutions/forms.py:1456 apps/people/forms.py:39
 msgid "Location Type"
-msgstr "Standortkategorie"
+msgstr "Standort"
 
 #: apps/bulletin_board/forms.py:272
 #, fuzzy
@@ -1379,7 +1383,8 @@ msgstr ""
 
 #: apps/bulletin_board/forms.py:378
 msgid "Please enter a valid time using format 'HH:MM'"
-msgstr "Bitte mache Deine Zeitangabe im Format 'HH:MM' oder wähle 'Ganztägig'."
+msgstr ""
+"Bitte mache Deine Zeitangabe im Format 'HH:MM' oder wähle 'Ganztägig'."
 
 #: apps/bulletin_board/forms.py:383 apps/events/forms.py:837
 #: apps/events/forms.py:867 apps/site_specific/forms/events.py:1273
@@ -1427,7 +1432,8 @@ msgstr "Biete"
 #: apps/bulletin_board/models.py:39 apps/bulletin_board/views.py:354
 #: apps/events/base.py:55 apps/external_services/models.py:13
 #: apps/external_services/models.py:72 apps/partners/models.py:13
-#: apps/partners/models.py:19 subtrees/base_libs/base_libs/models/models.py:212
+#: apps/partners/models.py:19
+#: subtrees/base_libs/base_libs/models/models.py:212
 #: subtrees/base_libs/base_libs/models/models.py:272
 #: templates/ccb/bulletin_board/change_bulletin.html:27
 #: templates/ccb/media_gallery/portfolio_overview.html:40
@@ -1591,7 +1597,7 @@ msgstr "Bildbeschreibung"
 
 #: apps/bulletin_board/models.py:171 apps/site_specific/models.py:290
 msgid "Locality type"
-msgstr "Standortkategorie"
+msgstr "Standort"
 
 #: apps/bulletin_board/models.py:182
 #: subtrees/base_libs/base_libs/models/models.py:230
@@ -2000,7 +2006,7 @@ msgstr ""
 
 #: apps/events/admin.py:147
 msgid "Related events"
-msgstr "Verwandte Veranstaltungen"
+msgstr "Verknüpfte Veranstaltungen"
 
 #: apps/events/admin.py:148
 msgid "Please enter a letter to display a list of available events"
@@ -2066,7 +2072,7 @@ msgstr "%s ändern"
 #: templates/ccb/site_specific/kreativarbeiten_events.html:63
 #: templates/ccb/styleguide/layout.html:304
 msgid "Events"
-msgstr "Termine"
+msgstr "Events"
 
 #: apps/events/base.py:57
 msgid "Not Listed"
@@ -2086,7 +2092,7 @@ msgstr "Terminkategorien"
 
 #: apps/events/base.py:131
 msgid "Start date"
-msgstr "Beginn Tag"
+msgstr "Start Datum"
 
 #: apps/events/base.py:136
 msgid "Creation date"
@@ -2108,8 +2114,8 @@ msgstr "URL-Pfadname"
 msgid "Start"
 msgstr "Beginn"
 
-#: apps/events/base.py:227 apps/events/forms.py:743 apps/resources/models.py:16
-#: apps/site_specific/forms/events.py:1176
+#: apps/events/base.py:227 apps/events/forms.py:743
+#: apps/resources/models.py:16 apps/site_specific/forms/events.py:1176
 #: templates/ccb/uni_form/includes/event_time.html:68
 msgid "End"
 msgstr "Ende"
@@ -2124,7 +2130,7 @@ msgstr "Veranstaltungen"
 
 #: apps/events/base.py:306 apps/events/base.py:318
 msgid "Start Date"
-msgstr "Beginn Tag"
+msgstr "Start Datum"
 
 #: apps/events/base.py:327 apps/events/base.py:339
 msgid "End Date"
@@ -2266,7 +2272,7 @@ msgstr "(dot)"
 #: templates/ccb/events/add_event_confirm.html:4
 #: templates/ccb/events/add_event_confirm.html:8
 msgid "Event"
-msgstr "Termin"
+msgstr "Event"
 
 #: apps/events/base.py:825
 msgid "Start Hour"
@@ -2524,7 +2530,7 @@ msgstr "Titel (Englisch)"
 #: apps/site_specific/forms/events.py:124
 #: templates/ccb/events/add_event_confirm.html:48
 msgid "Event Type"
-msgstr "Terminart"
+msgstr "Veranstaltungsformat"
 
 #: apps/events/forms.py:145 apps/site_specific/forms/misc.py:140
 #: apps/site_specific/models.py:556 apps/tracker/forms.py:45
@@ -2628,7 +2634,8 @@ msgstr "Bitte einen gültigen Monat eingeben."
 
 #: apps/events/forms.py:823 apps/site_specific/forms/events.py:1259
 msgid "Please enter a valid time using format 'HH:MM' or choose 'All Day'"
-msgstr "Bitte mache Deine Zeitangabe im Format 'HH:MM' oder wähle 'Ganztägig'."
+msgstr ""
+"Bitte mache Deine Zeitangabe im Format 'HH:MM' oder wähle 'Ganztägig'."
 
 #: apps/events/forms.py:858 apps/marketplace/forms.py:375
 #: apps/site_specific/forms/events.py:1294
@@ -2749,19 +2756,19 @@ msgid "opens"
 msgstr "Offen ab"
 
 #: apps/events/forms.py:962 apps/events/forms.py:972 apps/events/forms.py:988
-#: apps/events/forms.py:998 apps/events/forms.py:1014 apps/events/forms.py:1024
-#: apps/events/forms.py:1040 apps/events/forms.py:1050
-#: apps/events/forms.py:1066 apps/events/forms.py:1076
-#: apps/events/forms.py:1092 apps/events/forms.py:1102
-#: apps/events/forms.py:1118 apps/events/forms.py:1128
-#: apps/institutions/forms.py:537 apps/institutions/forms.py:547
-#: apps/institutions/forms.py:563 apps/institutions/forms.py:573
-#: apps/institutions/forms.py:589 apps/institutions/forms.py:599
-#: apps/institutions/forms.py:615 apps/institutions/forms.py:625
-#: apps/institutions/forms.py:641 apps/institutions/forms.py:651
-#: apps/institutions/forms.py:667 apps/institutions/forms.py:677
-#: apps/institutions/forms.py:693 apps/institutions/forms.py:703
-#: apps/site_specific/forms/events.py:1370
+#: apps/events/forms.py:998 apps/events/forms.py:1014
+#: apps/events/forms.py:1024 apps/events/forms.py:1040
+#: apps/events/forms.py:1050 apps/events/forms.py:1066
+#: apps/events/forms.py:1076 apps/events/forms.py:1092
+#: apps/events/forms.py:1102 apps/events/forms.py:1118
+#: apps/events/forms.py:1128 apps/institutions/forms.py:537
+#: apps/institutions/forms.py:547 apps/institutions/forms.py:563
+#: apps/institutions/forms.py:573 apps/institutions/forms.py:589
+#: apps/institutions/forms.py:599 apps/institutions/forms.py:615
+#: apps/institutions/forms.py:625 apps/institutions/forms.py:641
+#: apps/institutions/forms.py:651 apps/institutions/forms.py:667
+#: apps/institutions/forms.py:677 apps/institutions/forms.py:693
+#: apps/institutions/forms.py:703 apps/site_specific/forms/events.py:1370
 #: apps/site_specific/forms/events.py:1380
 #: apps/site_specific/forms/events.py:1396
 #: apps/site_specific/forms/events.py:1406
@@ -2836,13 +2843,14 @@ msgstr "Geschlossen ab"
 msgid "opens again"
 msgstr "Öffnet wieder"
 
-#: apps/events/forms.py:977 apps/events/forms.py:1003 apps/events/forms.py:1029
-#: apps/events/forms.py:1055 apps/events/forms.py:1081
-#: apps/events/forms.py:1107 apps/events/forms.py:1133
-#: apps/institutions/forms.py:552 apps/institutions/forms.py:578
-#: apps/institutions/forms.py:604 apps/institutions/forms.py:630
-#: apps/institutions/forms.py:656 apps/institutions/forms.py:682
-#: apps/institutions/forms.py:708 apps/site_specific/forms/events.py:1385
+#: apps/events/forms.py:977 apps/events/forms.py:1003
+#: apps/events/forms.py:1029 apps/events/forms.py:1055
+#: apps/events/forms.py:1081 apps/events/forms.py:1107
+#: apps/events/forms.py:1133 apps/institutions/forms.py:552
+#: apps/institutions/forms.py:578 apps/institutions/forms.py:604
+#: apps/institutions/forms.py:630 apps/institutions/forms.py:656
+#: apps/institutions/forms.py:682 apps/institutions/forms.py:708
+#: apps/site_specific/forms/events.py:1385
 #: apps/site_specific/forms/events.py:1411
 #: apps/site_specific/forms/events.py:1437
 #: apps/site_specific/forms/events.py:1463
@@ -3011,15 +3019,16 @@ msgstr "Wenn Du Pausen angeben willst, müssen alle Felder ausgefüllt sein."
 msgid ""
 "An opening time after break must not be before the closing time to break."
 msgstr ""
-"Die Öffnungszeit nach der Pause darf nicht vor der Schließzeit vor der Pause "
-"liegen."
+"Die Öffnungszeit nach der Pause darf nicht vor der Schließzeit vor der Pause"
+" liegen."
 
 #: apps/events/forms.py:1508
 msgid "Separate tags with commas."
 msgstr "Stichwort durch Kommas trennen."
 
 #: apps/events/forms.py:1785 apps/institutions/forms.py:1396
-#: apps/marketplace/forms.py:637 templates/ccb/events/add_event_confirm.html:28
+#: apps/marketplace/forms.py:637
+#: templates/ccb/events/add_event_confirm.html:28
 #: templates/ccb/groups_networks/persongroups/add_group_confirm.html:56
 msgid "main data"
 msgstr "Hauptinformation"
@@ -3110,8 +3119,8 @@ msgstr ""
 #: apps/external_services/models.py:32
 msgid "Creative sectors to apply to the imported articles by default."
 msgstr ""
-"Kreativbereiche, die standardmäßig auf importierte Artikel angewendet werden "
-"sollen."
+"Kreativbereiche, die standardmäßig auf importierte Artikel angewendet werden"
+" sollen."
 
 #: apps/external_services/models.py:44
 #, fuzzy
@@ -3406,7 +3415,7 @@ msgstr "Rechtsform"
 #: templates/ccb/bulletin_board/change_bulletin_confirm.html:57
 #: templates/ccb/institutions/add_institution_confirm.html:29
 msgid "Location type"
-msgstr "Standortkategorie"
+msgstr "Standort"
 
 #: apps/institutions/forms.py:96 apps/site_specific/forms/institutions.py:227
 #: apps/site_specific/forms/people.py:298
@@ -3672,13 +3681,13 @@ msgid ""
 "Is some category missing? You can <a href=\"/ticket/new-category/\">suggest "
 "it here</a>."
 msgstr ""
-"Fehlt Dir eine Kategorie? Du kannst sie uns <a href=\"/ticket/new-category/"
-"\">hier</a> zur Aufnahme vorschlagen."
+"Fehlt Dir eine Kategorie? Du kannst sie uns <a href=\"/ticket/new-"
+"category/\">hier</a> zur Aufnahme vorschlagen."
 
 #: apps/marketplace/forms.py:57
 msgid ""
-"Please activate the checkboxes if you want to send your jobposting to one of "
-"our partners."
+"Please activate the checkboxes if you want to send your jobposting to one of"
+" our partners."
 msgstr ""
 "Wenn Du Dein Stellenangebot an unsere Partner weiterleiten möchten, "
 "aktiviere bitte die Kästchen."
@@ -3748,19 +3757,19 @@ msgstr "Jobbereiche"
 
 #: apps/marketplace/forms.py:440
 msgid ""
-"Report to <a href=\"http://kulturmanagement.net\" target=\"_blank"
-"\">Kulturmanagement.net</a>"
+"Report to <a href=\"http://kulturmanagement.net\" "
+"target=\"_blank\">Kulturmanagement.net</a>"
 msgstr ""
-"Auch bei <a href=\"http://www.kulturmanagement.net/\" onclick="
-"\"open_new_window(event)\">Kulturmanagement.net</a> veröffentlichen."
+"Auch bei <a href=\"http://www.kulturmanagement.net/\" "
+"onclick=\"open_new_window(event)\">Kulturmanagement.net</a> veröffentlichen."
 
 #: apps/marketplace/forms.py:450
 msgid ""
 "Report to <a href=\"http://www.talent-in-berlin.de\" target=\"_blank"
 "\">talent-in-berlin.de</a>"
 msgstr ""
-"Auch bei <a href=\"http://www.talent-in-berlin.de\" onclick="
-"\"open_new_window(event)\">talent-in-berlin.de</a> veröffentlichen."
+"Auch bei <a href=\"http://www.talent-in-berlin.de\" "
+"onclick=\"open_new_window(event)\">talent-in-berlin.de</a> veröffentlichen."
 
 #: apps/marketplace/forms.py:462
 msgid "Report job offer"
@@ -3920,12 +3929,12 @@ msgstr "Du kannst nur FLV-Dateien hochladen."
 
 #: apps/media_gallery/forms.py:121
 msgid ""
-"You can link to a FLV file, Youtube video (e.g. http://www.youtube.com/watch?"
-"v=rd2izv5JBcE or http://youtu.be/rd2izv5JBcE) or Vimeo video (e.g. http://"
-"vimeo.com/17853047)."
+"You can link to a FLV file, Youtube video (e.g. "
+"http://www.youtube.com/watch?v=rd2izv5JBcE or http://youtu.be/rd2izv5JBcE) "
+"or Vimeo video (e.g. http://vimeo.com/17853047)."
 msgstr ""
-"Du kannst nur eine FLV-Datei oder ein YouTube-Video (z.B. http://www.youtube."
-"com/watch?v=rd2izv5JBcE) verlinken."
+"Du kannst nur eine FLV-Datei oder ein YouTube-Video (z.B. "
+"http://www.youtube.com/watch?v=rd2izv5JBcE) verlinken."
 
 #: apps/media_gallery/forms.py:125 apps/media_gallery/forms.py:207
 msgid "Illustration File"
@@ -4562,7 +4571,7 @@ msgstr "Letzte veröffentlichte %(object)s @ %(site)s"
 #: apps/site_specific/forms/institutions.py:183
 #: apps/site_specific/forms/people.py:203
 msgid "Avatar"
-msgstr "Avatar"
+msgstr "Profilbild"
 
 #: apps/site_specific/forms/events.py:304
 msgid "Venue/Institution Title"
@@ -4608,7 +4617,7 @@ msgstr "Weitere Informationen Deutsch (max. 500 Zeichen)"
 #: templates/ccb/events/add_event_confirm.html:56
 #: templates/ccb/events/profile/event_times.html:8
 msgid "Event Times"
-msgstr "Termin Zeiten"
+msgstr "Event Zeiten"
 
 #: apps/site_specific/forms/events.py:1609
 #: templates/ccb/counselling_events/profile/fees_opening_hours.html:6
@@ -4852,11 +4861,11 @@ msgstr "Einladung"
 
 #: apps/site_specific/forms/misc.py:347
 msgid "Delete related events"
-msgstr "Verwandte Events löschen"
+msgstr "Verknüpfte Events löschen"
 
 #: apps/site_specific/forms/misc.py:351
 msgid "Delete related job offers"
-msgstr "Verwandte Stellenangebote löschen"
+msgstr "Verknüpfte Stellenangebote löschen"
 
 #: apps/site_specific/forms/misc.py:371 apps/site_specific/forms/misc.py:382
 msgid "Profiles to delete"
@@ -5038,8 +5047,8 @@ msgstr "Längengrad"
 msgid ""
 "Longitude (Long.) is the angle east or west of an arbitrary point on Earth "
 "from Greenwich (UK), which is the international zero-longitude point "
-"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction "
-"to east) and -180 (direction to west)."
+"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction"
+" to east) and -180 (direction to west)."
 msgstr ""
 "Längengrad (längs) ist der Winkel nach Osten oder Westen von einem "
 "beliebigen Punkt auf der Erde aus Greenwich (Vereinigtes Königreich), die "
@@ -5434,6 +5443,8 @@ msgid ""
 "The data transfer didn't pass the security test. You are considered as a "
 "spambot."
 msgstr ""
+"Dieser Datentransfer hat unseren Sicherheitscheck nicht bestanden und wird "
+"als spam bewertet."
 
 #: subtrees/base_libs/base_libs/forms/fields.py:203
 msgid "Please enter a valid e-mail address"
@@ -5451,7 +5462,8 @@ msgid "Please enter at least one valid e-mail address"
 msgstr "Bitte ein gültiges Datum eingeben."
 
 #: subtrees/base_libs/base_libs/forms/fields.py:361
-msgid "Select a valid choice. That choice is not one of the available choices."
+msgid ""
+"Select a valid choice. That choice is not one of the available choices."
 msgstr ""
 
 #: subtrees/base_libs/base_libs/forms/fields.py:445
@@ -5470,7 +5482,8 @@ msgstr ""
 #: subtrees/base_libs/base_libs/forms/fields.py:456
 #, python-format
 msgid ""
-"The media file is too small. The minimal dimensions are %(width)dx%(height)d."
+"The media file is too small. The minimal dimensions are "
+"%(width)dx%(height)d."
 msgstr ""
 
 #: subtrees/base_libs/base_libs/forms/fields.py:460
@@ -6072,10 +6085,8 @@ msgstr "Mehrere Veranstaltungen löschen"
 #: templates/admin/admin/people/person/mailchimp_subscribe_selected.html:21
 #, python-format
 msgid ""
-"Deleting the %(object_name)s would result in deleting related objects, but "
-"your\n"
-"                    account doesn't have permission to delete the following "
-"types of objects:"
+"Deleting the %(object_name)s would result in deleting related objects, but your\n"
+"                    account doesn't have permission to delete the following types of objects:"
 msgstr ""
 
 #: templates/admin/admin/institutions/institution/mailchimp_subscribe_selected.html:35
@@ -6265,8 +6276,7 @@ msgstr "Zurück"
 #: templates/ccb/accounts/account_creation_email.html:2
 #, python-format
 msgid ""
-"Welcome to %(site_name)s, the premier online destination for first hand "
-"information about the Creative\n"
+"Welcome to %(site_name)s, the premier online destination for first hand information about the Creative\n"
 "    Sector in Berlin."
 msgstr ""
 "Willkommen bei %(site_name)s, dem umfassenden Informationsportal für die "
@@ -6281,13 +6291,12 @@ msgstr "Ihr Benutzername ist: %(username)s"
 msgid ""
 "You can log in at: http://www.creative-city-berlin.de/login/?goto_next=/"
 msgstr ""
-"Du kannst Dich nun einloggen unter: http://www.creative-city-berlin.de/"
-"login/?goto_next=/"
+"Du kannst Dich nun einloggen unter: http://www.creative-city-"
+"berlin.de/login/?goto_next=/"
 
 #: templates/ccb/accounts/account_creation_email.html:8
 msgid ""
-"Enjoy the site, and do let us know if you have comments, concerns, "
-"suggestions, or other\n"
+"Enjoy the site, and do let us know if you have comments, concerns, suggestions, or other\n"
 "    feedback!"
 msgstr ""
 "Wir freuen uns über Deinen Besuch der Seite und über Deine Kommentare, "
@@ -6312,13 +6321,12 @@ msgid ""
 "To verify your e-mail address and continue the registration process, please "
 "click the link below:"
 msgstr ""
-"Um Deine E-Mail-Adresse zu bestätigen und Deine Registrierung abschließen zu "
-"können, klicke bitte auf den folgenden Link:"
+"Um Deine E-Mail-Adresse zu bestätigen und Deine Registrierung abschließen zu"
+" können, klicke bitte auf den folgenden Link:"
 
 #: templates/ccb/accounts/account_verification_email.html:8
 msgid ""
-"If you have no idea what this e-mail is referring to, simply ignore it and "
-"no account will be created\n"
+"If you have no idea what this e-mail is referring to, simply ignore it and no account will be created\n"
 "    with your e-mail address."
 msgstr ""
 "Wenn Du nicht weißt, worauf sich diese E-Mail bezieht, ignoriere sie "
@@ -6453,7 +6461,7 @@ msgstr "Featured Portfolios"
 #: templates/ccb/events/includes/published_featured_events.html:18
 #: templates/ccb/site_specific/blocks/block_sector_new_events.html:3
 msgid "New Events"
-msgstr "Neue Termine"
+msgstr "Neue Events"
 
 #: templates/ccb/accounts/my_profile/dashboard.html:270
 #: templates/ccb/cms/start.html:47
@@ -6482,7 +6490,8 @@ msgstr "Ihr institutionelles Profil \"%(title)s\" wurde erfolgreich gelöscht"
 #: templates/ccb/accounts/my_profile/delete_profile.html:35
 msgid "Attention! This action is permanent and you can't undo it."
 msgstr ""
-"Achtung! Diese Aktion ist dauerhaft und kann nicht rückgängig gemacht werden."
+"Achtung! Diese Aktion ist dauerhaft und kann nicht rückgängig gemacht "
+"werden."
 
 #: templates/ccb/accounts/my_profile/delete_profile_done.html:20
 msgid "Profile deleted"
@@ -6533,7 +6542,7 @@ msgstr "Dein Kennwort wurde geändert. Du kannst Dich jetzt einloggen."
 #: templates/ccb/facebook_app/login.html:37
 #: templates/ccb/site_specific/blocks/sidebar_login.html:27
 msgid "Log in"
-msgstr "Log-in"
+msgstr "Login"
 
 #: templates/ccb/accounts/password_reset_confirm.html:10
 msgid "Password reset unsuccessful"
@@ -6571,8 +6580,7 @@ msgstr ""
 #: templates/ccb/accounts/password_reset_email.html:3
 #, python-format
 msgid ""
-"You're receiving this e-mail because you requested a password reset for your "
-"user account at\n"
+"You're receiving this e-mail because you requested a password reset for your user account at\n"
 "        %(site_name)s."
 msgstr ""
 "Du erhältst diese Mail, weil Du ein neues Kennwort für Dein Benutzerkonto "
@@ -6607,9 +6615,9 @@ msgstr "Du hast es fast geschafft."
 
 #: templates/ccb/accounts/register_verify_required.html:12
 msgid ""
-"In order to complete registration, we need to confirm you entered a valid e-"
-"mail address. You should be getting a confirmation e-mail very shortly. It "
-"will contain instructions on how to finalize your registration."
+"In order to complete registration, we need to confirm you entered a valid "
+"e-mail address. You should be getting a confirmation e-mail very shortly. It"
+" will contain instructions on how to finalize your registration."
 msgstr ""
 "Willkommen bei Creative City Berlin! Du erhältst in Kürze eine "
 "Bestätigungsnachricht mit weiteren Informationen an Deine angegebene E-Mail-"
@@ -6682,7 +6690,8 @@ msgstr "weiter"
 
 #: templates/ccb/articles/articles_brief.html:44
 #: templates/ccb/base_counselling.html:75 templates/ccb/base_redesign.html:93
-#: templates/ccb/blog/post_brief.html:14 templates/ccb/blog/post_detail.html:28
+#: templates/ccb/blog/post_brief.html:14
+#: templates/ccb/blog/post_detail.html:28
 #: templates/ccb/bulletin_board/lists/bulletin_list_item.html:22
 #: templates/ccb/counselling_blog/post_brief.html:14
 #: templates/ccb/events/controls.html:20 templates/ccb/events/controls.html:21
@@ -6722,8 +6731,8 @@ msgstr "Favorit"
 
 #: templates/ccb/articles/articles_detail.html:44
 #: templates/ccb/base_counselling.html:179
-#: templates/ccb/base_counselling.html:180 templates/ccb/base_redesign.html:197
-#: templates/ccb/base_redesign.html:198
+#: templates/ccb/base_counselling.html:180
+#: templates/ccb/base_redesign.html:197 templates/ccb/base_redesign.html:198
 #: templates/ccb/bulletin_board/bulletin_detail.html:23
 #: templates/ccb/events/details_base.html:101
 #: templates/ccb/marketplace/details_base.html:61
@@ -6941,7 +6950,8 @@ msgstr "Bearbeiten"
 #: templates/ccb/curated_lists/curated_list_detail.html:111
 #: templates/ccb/curated_lists/curated_list_detail.html:129
 #: templates/ccb/curated_lists/curated_list_detail.html:177
-#: templates/ccb/styleguide/base.html:36 templates/ccb/styleguide/base.html:258
+#: templates/ccb/styleguide/base.html:36
+#: templates/ccb/styleguide/base.html:258
 #: templates/ccb/styleguide/base.html:268
 msgid "close"
 msgstr "schließen"
@@ -6993,51 +7003,56 @@ msgid "Remove Memo"
 msgstr "Aus Merkliste löschen"
 
 #: templates/ccb/base_counselling.html:109
-#: templates/ccb/base_counselling.html:126 templates/ccb/base_redesign.html:126
-#: templates/ccb/base_redesign.html:143 templates/ccb/styleguide/base.html:55
-#: templates/ccb/styleguide/base.html:76
+#: templates/ccb/base_counselling.html:126
+#: templates/ccb/base_redesign.html:126 templates/ccb/base_redesign.html:143
+#: templates/ccb/styleguide/base.html:55 templates/ccb/styleguide/base.html:76
 msgid "search entire website"
 msgstr "Suche auf der gesamten Seite"
 
-#: templates/ccb/base_counselling.html:125 templates/ccb/base_redesign.html:142
-#: templates/ccb/styleguide/base.html:75
+#: templates/ccb/base_counselling.html:125
+#: templates/ccb/base_redesign.html:142 templates/ccb/styleguide/base.html:75
 msgid "toggle menu"
 msgstr ""
 
-#: templates/ccb/base_counselling.html:128 templates/ccb/base_redesign.html:146
-#: templates/ccb/base_redesign.html:148
+#: templates/ccb/base_counselling.html:128
+#: templates/ccb/base_redesign.html:146 templates/ccb/base_redesign.html:148
 msgid "dashboard"
 msgstr ""
 
-#: templates/ccb/base_counselling.html:130 templates/ccb/base_redesign.html:151
+#: templates/ccb/base_counselling.html:130
+#: templates/ccb/base_redesign.html:151
 #: templates/ccb/facebook_app/login.html:5
 #: templates/ccb/facebook_app/login.html:8
 #: templates/ccb/styleguide/base.html:77
 msgid "login"
 msgstr "Log-in"
 
-#: templates/ccb/base_counselling.html:169 templates/ccb/base_redesign.html:187
+#: templates/ccb/base_counselling.html:169
+#: templates/ccb/base_redesign.html:187
 msgid "Follow Us"
 msgstr "Folge uns auf"
 
-#: templates/ccb/base_counselling.html:171 templates/ccb/base_redesign.html:189
+#: templates/ccb/base_counselling.html:171
+#: templates/ccb/base_redesign.html:189
 #, fuzzy
 #| msgid "Follow us on"
 msgid "Follow us on Twitter"
 msgstr "Folge uns auf"
 
-#: templates/ccb/base_counselling.html:172 templates/ccb/base_redesign.html:190
+#: templates/ccb/base_counselling.html:172
+#: templates/ccb/base_redesign.html:190
 #, fuzzy
 #| msgid "Follow us on"
 msgid "Follow us on Facebook"
 msgstr "Folge uns auf"
 
-#: templates/ccb/base_counselling.html:178 templates/ccb/base_redesign.html:196
+#: templates/ccb/base_counselling.html:178
+#: templates/ccb/base_redesign.html:196
 msgid "Share on Twitter"
 msgstr ""
 
-#: templates/ccb/base_counselling.html:224 templates/ccb/base_redesign.html:252
-#: templates/ccb/styleguide/base.html:255
+#: templates/ccb/base_counselling.html:224
+#: templates/ccb/base_redesign.html:252 templates/ccb/styleguide/base.html:255
 msgid "Enter your search term ..."
 msgstr "Gib Deinen Suchbegriff ein"
 
@@ -7148,7 +7163,7 @@ msgstr "Ablehnen"
 #: templates/ccb/blog/forms/confirm_delete_embedded.html:6
 #: templates/ccb/counselling_blog/forms/confirm_delete_embedded.html:6
 msgid "Delete Blog Entry?"
-msgstr ""
+msgstr "Blogbeitrag löschen"
 
 #: templates/ccb/blog/forms/confirm_delete_embedded.html:7
 #: templates/ccb/confirm_delete.html:10
@@ -7536,7 +7551,8 @@ msgstr "Vielen Dank"
 #: templates/ccb/contact_form/contact_form_done.html:11
 #: templates/ccb/site_specific/kreativarbeiten_contact_form_done.html:14
 msgid "Thank you for your message - we will contact you soon!"
-msgstr "Vielen Dank für Ihre Nachricht! Wir werden schnellstmöglich antworten!"
+msgstr ""
+"Vielen Dank für Ihre Nachricht! Wir werden schnellstmöglich antworten!"
 
 #: templates/ccb/counselling_events/event_list.html:7
 #: templates/ccb/institutions/institution_events.html:7
@@ -7556,7 +7572,7 @@ msgstr "Vergangene Veranstaltungen"
 
 #: templates/ccb/counselling_events/profile/additional_info.html:20
 msgid "Related Events"
-msgstr "Verwandte Veranstaltungen"
+msgstr "Verknüpfte Veranstaltungen"
 
 #: templates/ccb/counselling_events/profile/event_times.html:9
 #: templates/ccb/events/profile/event_times.html:11
@@ -7795,11 +7811,11 @@ msgstr "Anmeldung"
 #: templates/ccb/events/add_event_base.html:8
 #: templates/ccb/events/add_event_confirm.html:23
 msgid "New Event"
-msgstr "Neuer Termin"
+msgstr "Neues Event"
 
 #: templates/ccb/events/add_event_base.html:21
 msgid "Add new event"
-msgstr "Neuen Event hinzufügen"
+msgstr "Neues Event hinzufügen"
 
 #: templates/ccb/events/add_event_confirm.html:177
 msgid "Organizer is venue"
@@ -8030,7 +8046,7 @@ msgstr "Schreibe eine Bewertung"
 #: templates/ccb/events/includes/published_featured_events.html:132
 #: templates/ccb/site_specific/blocks/block_sector_new_events.html:29
 msgid "There are no public events."
-msgstr "Keine veröffentlichten Termine vorhanden."
+msgstr "Keine veröffentlichten Events vorhanden."
 
 #: templates/ccb/events/includes/latest_published_events_index.html:16
 msgid "Upcoming"
@@ -8084,8 +8100,7 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                                        <a href=\"%(person_url)sportfolio/fb-"
-"sync/\">Synchronize personal portfolio</a>\n"
+"                                        <a href=\"%(person_url)sportfolio/fb-sync/\">Synchronize personal portfolio</a>\n"
 "                                        ."
 msgstr ""
 "\n"
@@ -8110,24 +8125,19 @@ msgstr "Verbundene Institution"
 msgid ""
 "\n"
 "                                    Institution\n"
-"                                    <a href=\"%(institution_url)s\">"
-"\"%(institution_title)s\"</a> is linked\n"
+"                                    <a href=\"%(institution_url)s\">\"%(institution_title)s\"</a> is linked\n"
 "                                    to facebook page\n"
-"                                    <a href=\"%(fb_page_url)s\">"
-"\"%(fb_page_name)s\"</a>\n"
+"                                    <a href=\"%(fb_page_url)s\">\"%(fb_page_name)s\"</a>\n"
 "                                    ."
 msgstr ""
 "\n"
-"Ihre Institution <a href=\"%(institution_url)s\">\"%(institution_title)s\"</"
-"a> ist verknüpft mit der Facebook-Seite <a href=\"%(fb_page_url)s\">"
-"\"%(fb_page_name)s\"</a>."
+"Ihre Institution <a href=\"%(institution_url)s\">\"%(institution_title)s\"</a> ist verknüpft mit der Facebook-Seite <a href=\"%(fb_page_url)s\">\"%(fb_page_name)s\"</a>."
 
 #: templates/ccb/facebook_app/manage_pages.html:30
 #, python-format
 msgid ""
 "\n"
-"                                        <a href="
-"\"%(institution_url)sportfolio/fb-sync/\">Synchronize institution's\n"
+"                                        <a href=\"%(institution_url)sportfolio/fb-sync/\">Synchronize institution's\n"
 "                                            portfolio\n"
 "                                        </a>."
 msgstr ""
@@ -8296,8 +8306,7 @@ msgstr "Letzte Posts"
 msgid ""
 "\n"
 "                                Created on\n"
-"                                <a href=\"%(url)s\">%(creation_date)s</a> "
-"by\n"
+"                                <a href=\"%(url)s\">%(creation_date)s</a> by\n"
 "                                <a href=\"%(creator_url)s\">%(creator)s</a>\n"
 "                            "
 msgstr ""
@@ -8403,10 +8412,8 @@ msgstr ""
 msgid ""
 "\n"
 "                                    Created on\n"
-"                                    <a href=\"%(url)s\">%(creation_date)s</"
-"a> by\n"
-"                                    <a href=\"%(creator_url)s\">%(creator)s</"
-"a>\n"
+"                                    <a href=\"%(url)s\">%(creation_date)s</a> by\n"
+"                                    <a href=\"%(creator_url)s\">%(creator)s</a>\n"
 "                                "
 msgstr ""
 "\n"
@@ -8540,8 +8547,7 @@ msgstr "Einladung annehmen"
 #, python-format
 msgid ""
 "You\n"
-"                    have been invited to %(institution_title)s by "
-"%(inviter_title)s."
+"                    have been invited to %(institution_title)s by %(inviter_title)s."
 msgstr ""
 "Du bist von %(inviter_title)s zu %(institution_title)s eingeladen worden."
 
@@ -8567,22 +8573,20 @@ msgstr "Anmeldedaten"
 #: templates/ccb/groups_networks/confirm_invitation_to_institution.html:80
 msgid ""
 "I accept\n"
-"                            <a href=\"/privacy/\" onclick="
-"\"open_new_window(event)\">the privacy policy</a>\n"
+"                            <a href=\"/privacy/\" onclick=\"open_new_window(event)\">the privacy policy</a>\n"
 "                            ."
 msgstr ""
-"Ja, ich bin mit den <a href=\"/privacy/\" onclick="
-"\"open_new_window(event)\">Datenschutzrichtlinien</a> einverstanden"
+"Ja, ich bin mit den <a href=\"/privacy/\" "
+"onclick=\"open_new_window(event)\">Datenschutzrichtlinien</a> einverstanden"
 
 #: templates/ccb/groups_networks/confirm_invitation_to_institution.html:91
 msgid ""
 "I accept\n"
-"                            <a href=\"/terms-of-use/\" onclick="
-"\"open_new_window(event)\">the terms of use</a>\n"
+"                            <a href=\"/terms-of-use/\" onclick=\"open_new_window(event)\">the terms of use</a>\n"
 "                            ."
 msgstr ""
-"Ja, ich bin mit den <a href=\"/terms-of-use/\" onclick="
-"\"open_new_window(event)\">Nutzungsbedingungen</a> einverstanden"
+"Ja, ich bin mit den <a href=\"/terms-of-use/\" "
+"onclick=\"open_new_window(event)\">Nutzungsbedingungen</a> einverstanden"
 
 #: templates/ccb/groups_networks/group_membership.html:4
 msgid "Join Group"
@@ -8664,8 +8668,7 @@ msgstr ""
 #, python-format
 msgid ""
 "Do\n"
-"            you really want to cancel the invitation of %(person_name)s to "
-"join %(group_name)s\n"
+"            you really want to cancel the invitation of %(person_name)s to join %(group_name)s\n"
 "            ?"
 msgstr ""
 "Willst Du die Einladung an %(person_name)s für %(group_name)s wirklich "
@@ -8676,7 +8679,8 @@ msgstr ""
 msgid ""
 "Do you really want to cancel the\n"
 "            request for joining %(group_name)s?"
-msgstr "Willst Du die Einladung für %(group_name)s wirklich rückgängig machen?"
+msgstr ""
+"Willst Du die Einladung für %(group_name)s wirklich rückgängig machen?"
 
 #: templates/ccb/groups_networks/group_membership_deny-group.html:4
 #, python-format
@@ -8706,8 +8710,7 @@ msgstr "Teilnehmen"
 #, python-format
 msgid ""
 "Do\n"
-"            you really want to remove %(person_name)s from the members of "
-"%(group_name)s?"
+"            you really want to remove %(person_name)s from the members of %(group_name)s?"
 msgstr "Willst Du wirklich %(person_name)s aus %(group_name)s entfernen?"
 
 #: templates/ccb/groups_networks/group_membership_remove-user.html:9
@@ -9052,7 +9055,7 @@ msgstr "Bild anpassen"
 #: templates/ccb/groups_networks/persongroups/profile/avatar_form.html:5
 #: templates/ccb/resources/documents/profile/avatar_form.html:3
 msgid "upload a photo"
-msgstr "Photo hochladen"
+msgstr "Foto hochladen"
 
 #: templates/ccb/groups_networks/persongroups/profile/categories.html:29
 msgid "Context Categories"
@@ -9068,8 +9071,8 @@ msgid ""
 "Is some      category missing? You can\n"
 "                    <a href=\"/ticket/new-category/\">suggest it here</a>."
 msgstr ""
-"Fehlt Dir eine Kategorie? Du kannst sie uns <a href=\"/ticket/new-category/"
-"\">hier</a> zur Aufnahme vorschlagen."
+"Fehlt Dir eine Kategorie? Du kannst sie uns <a href=\"/ticket/new-"
+"category/\">hier</a> zur Aufnahme vorschlagen."
 
 #: templates/ccb/groups_networks/persongroups/profile/contact.html:33
 msgid "Show on the map"
@@ -9692,8 +9695,7 @@ msgstr ""
 #, python-format
 msgid ""
 "Do you really want to delete the\n"
-"            custom cover for the album \"%(gallery_title)s\" and to use the "
-"first image of the album as a cover\n"
+"            custom cover for the album \"%(gallery_title)s\" and to use the first image of the album as a cover\n"
 "            instead?"
 msgstr ""
 "Willst Du wirklich das ausgewählte Titelbild für das Album "
@@ -10015,8 +10017,7 @@ msgid ""
 "\n"
 "%(message)s\n"
 "\n"
-"To see other notices or change how you receive notifications, please go to "
-"%(notices_url)s.\n"
+"To see other notices or change how you receive notifications, please go to %(notices_url)s.\n"
 msgstr ""
 
 #: templates/ccb/notification/email_subject.txt:1
@@ -10365,8 +10366,7 @@ msgid ""
 "                        "
 msgid_plural ""
 "\n"
-"                            %(unregistered_visitors_count)s unregistered "
-"visitors"
+"                            %(unregistered_visitors_count)s unregistered visitors"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -10702,7 +10702,8 @@ msgstr "Nachricht"
 
 #: templates/ccb/tracker/postticket.html:13
 msgid "Thank you for informing us - we will work on it immediately!"
-msgstr "Vielen Dank für Ihren Hinweis! Wir kümmern uns schnellstmöglich darum!"
+msgstr ""
+"Vielen Dank für Ihren Hinweis! Wir kümmern uns schnellstmöglich darum!"
 
 #: templates/ccb/uni_form/includes/event_time.html:58
 msgid "Event has an end date"
@@ -10748,8 +10749,8 @@ msgstr ""
 #~ "There were no jobs offered by\n"
 #~ "            %(person_title)s found within the selected conditions."
 #~ msgstr ""
-#~ "Es wurden keine Jobangebote von %(person_title)s gefunden mit den "
-#~ "gewählten Kriterien."
+#~ "Es wurden keine Jobangebote von %(person_title)s gefunden mit den gewählten "
+#~ "Kriterien."
 
 #~ msgid "New Blog Entry"
 #~ msgstr "Log-Eintrag"
@@ -10779,8 +10780,7 @@ msgstr ""
 #~ "<h2 class=\"sub\">%(user)s</h2>"
 
 #~ msgid ""
-#~ "Create a Creative City Berlin account to link with your %(backend)s "
-#~ "account."
+#~ "Create a Creative City Berlin account to link with your %(backend)s account."
 #~ msgstr ""
 #~ "Erstelle ein Profil auf Creative City Berlin mit Deinem %(backend)s Konto."
 
@@ -10929,8 +10929,7 @@ msgstr ""
 
 #~ msgid ""
 #~ "Is some category missing? You can\n"
-#~ "                            <a href=\"/ticket/new-category/\">suggest it "
-#~ "here</a>."
+#~ "                            <a href=\"/ticket/new-category/\">suggest it here</a>."
 #~ msgstr ""
 #~ "Fehlt Ihnen eine Kategorie? Sie können sie uns <a href=\"/ticket/new-"
 #~ "category/\">hier</a> zur Aufnahme vorschlagen."
@@ -11009,12 +11008,11 @@ msgstr ""
 #~ msgstr "Altes Kennwort:"
 
 #~ msgid ""
-#~ "Forgot your Password? Enter your E-Mail address below, and we’ll send you "
-#~ "an E-Mail with\n"
+#~ "Forgot your Password? Enter your E-Mail address below, and we’ll send you an E-Mail with\n"
 #~ "                    a link which allows you to set up a new password."
 #~ msgstr ""
-#~ "Haben Sie Ihr Kennwort vergessen? Geben Sie einfach Ihre hinterlegte E-"
-#~ "Mail-Adresse ein und wir senden Ihnen ein neues Kennwort per E-Mail zu."
+#~ "Haben Sie Ihr Kennwort vergessen? Geben Sie einfach Ihre hinterlegte E-Mail-"
+#~ "Adresse ein und wir senden Ihnen ein neues Kennwort per E-Mail zu."
 
 #~ msgid "Additional News"
 #~ msgstr "Weitere News"
@@ -11064,8 +11062,7 @@ msgstr ""
 
 #~ msgid ""
 #~ "Is some category missing? You can\n"
-#~ "                    <a href=\"/ticket/new-category/\">suggest it here</"
-#~ "a>\n"
+#~ "                    <a href=\"/ticket/new-category/\">suggest it here</a>\n"
 #~ "                    ."
 #~ msgstr ""
 #~ "Fehlt Ihnen eine Kategorie? Sie können sie uns <a href=\"/ticket/new-"
@@ -11165,9 +11162,9 @@ msgstr ""
 #~ msgstr "Geben Sie ein Wort zur Suche ein"
 
 #~ msgid ""
-#~ "We are constantly working to improve and expand this website with regard "
-#~ "to both usability and content. If you have a suggestion, we are happy to "
-#~ "hear about it."
+#~ "We are constantly working to improve and expand this website with regard to "
+#~ "both usability and content. If you have a suggestion, we are happy to hear "
+#~ "about it."
 #~ msgstr ""
 #~ "Wir arbeiten permanent an Erweiterungen und Verbesserungen dieser Site in "
 #~ "Bezug auf Inhalte und Anwenderfreundlichkeit. Wir freuen uns auf Ihre "
@@ -11207,8 +11204,7 @@ msgstr ""
 #~ msgstr "Pfad"
 
 #~ msgid ""
-#~ "All that goes after '/', for example: 'about/contact/'. Make sure to have "
-#~ "trailing slash.\n"
+#~ "All that goes after '/', for example: 'about/contact/'. Make sure to have trailing slash.\n"
 #~ "            Use '*' for all pages."
 #~ msgstr ""
 #~ "Alles nach '/', Beispiel: 'about/contact/'. Wichtig: vor und nach dem "
@@ -11239,8 +11235,8 @@ msgstr ""
 #~ msgstr "Bestätigung"
 
 #~ msgid ""
-#~ "IMPORTANT: The provided email address must be valid! You will receive "
-#~ "your account data via this address."
+#~ "IMPORTANT: The provided email address must be valid! You will receive your "
+#~ "account data via this address."
 #~ msgstr ""
 #~ "WICHTIG: Die angegebene Email-Adresse muss gültig sein! Sie erhalten Ihre "
 #~ "Kontodaten über diese Adresse zugesandt."
@@ -11312,8 +11308,8 @@ msgstr ""
 #~ "activate your acount at Creative City Berlin."
 #~ msgstr ""
 #~ "Herzlichen Dank für Ihre Anmeldung. Soeben wurde eine E-Mail an die von "
-#~ "Ihnen angegebene Adresse geschickt. Benutzen Sie den Link in dieser Mail, "
-#~ "um Ihr Konto zu aktivieren."
+#~ "Ihnen angegebene Adresse geschickt. Benutzen Sie den Link in dieser Mail, um"
+#~ " Ihr Konto zu aktivieren."
 
 #~ msgid ""
 #~ "Is some category missing? You can\n"
@@ -11327,15 +11323,15 @@ msgstr ""
 #~ msgstr "Kontoart auswählen"
 
 #~ msgid ""
-#~ "Please select a suitable account type. You can either register yourself "
-#~ "just as a single person or you can also register as an owner of a group, "
+#~ "Please select a suitable account type. You can either register yourself just"
+#~ " as a single person or you can also register as an owner of a group, "
 #~ "organization or other institution. Your personal account can also be "
 #~ "enhanced at a later point."
 #~ msgstr ""
-#~ "Bitte wählen Sie unter den angegebenen Kontoarten die für Sie passende "
-#~ "aus. Sie können sich als Einzelperson ebenso registrieren lassen wie auch "
-#~ "als Gruppe, Organisation oder sonstige Institution. Diese können Sie "
-#~ "Ihrem persönlichen Konto auch zu einem späteren Zeitpunkt noch hinzufügen."
+#~ "Bitte wählen Sie unter den angegebenen Kontoarten die für Sie passende aus. "
+#~ "Sie können sich als Einzelperson ebenso registrieren lassen wie auch als "
+#~ "Gruppe, Organisation oder sonstige Institution. Diese können Sie Ihrem "
+#~ "persönlichen Konto auch zu einem späteren Zeitpunkt noch hinzufügen."
 
 #~ msgid "Create Individual Account"
 #~ msgstr "Personenkonto anlegen"
@@ -11357,8 +11353,7 @@ msgstr ""
 
 #~ msgid ""
 #~ "I accept\n"
-#~ "                        <a href=\"/privacy/\" onclick="
-#~ "\"open_new_window(event)\">the privacy policy</a>\n"
+#~ "                        <a href=\"/privacy/\" onclick=\"open_new_window(event)\">the privacy policy</a>\n"
 #~ "                        ."
 #~ msgstr ""
 #~ "Ja, ich bin mit den <a href=\"/privacy/\">Datenschutzrichtlinien</a> "
@@ -11366,8 +11361,7 @@ msgstr ""
 
 #~ msgid ""
 #~ "I accept\n"
-#~ "                        <a href=\"/terms-of-use/\" onclick="
-#~ "\"open_new_window(event)\">the terms of use</a>\n"
+#~ "                        <a href=\"/terms-of-use/\" onclick=\"open_new_window(event)\">the terms of use</a>\n"
 #~ "                        ."
 #~ msgstr ""
 #~ "Ja, ich bin mit den <a href=\"/terms-of-use/\">Nutzungsbedingungen</a> "
@@ -11390,8 +11384,7 @@ msgstr ""
 
 #~ msgid ""
 #~ "I accept\n"
-#~ "                    <a href=\"/privacy/\" onclick="
-#~ "\"open_new_window(event)\">the privacy policy</a>\n"
+#~ "                    <a href=\"/privacy/\" onclick=\"open_new_window(event)\">the privacy policy</a>\n"
 #~ "                    ."
 #~ msgstr ""
 #~ "Ja, ich bin mit den <a href=\"/privacy/\">Datenschutzrichtlinien</a> "
@@ -11399,8 +11392,7 @@ msgstr ""
 
 #~ msgid ""
 #~ "I accept\n"
-#~ "                    <a href=\"/terms-of-use/\" onclick="
-#~ "\"open_new_window(event)\">the terms of use</a>\n"
+#~ "                    <a href=\"/terms-of-use/\" onclick=\"open_new_window(event)\">the terms of use</a>\n"
 #~ "                    ."
 #~ msgstr ""
 #~ "Ja, ich bin mit den <a href=\"/terms-of-use/\">Nutzungsbedingungen</a> "
@@ -11507,46 +11499,38 @@ msgstr ""
 
 #~ msgid ""
 #~ "\n"
-#~ "\t\t\t\t\t\t\t\tCreated on <a href=\"%(url)s\">%(creation_date)s</a> by "
-#~ "<a href=\"%(creator_url)s\">%(creator)s</a>\n"
+#~ "\t\t\t\t\t\t\t\tCreated on <a href=\"%(url)s\">%(creation_date)s</a> by <a href=\"%(creator_url)s\">%(creator)s</a>\n"
 #~ "\t\t\t\t\t\t\t"
 #~ msgstr ""
 #~ "\n"
-#~ "\t\t\t\t\t\t\t\tErstellt am <a href=\"%(url)s\">%(creation_date)s</a> von "
-#~ "<a href=\"%(creator_url)s\">%(creator)s</a>\n"
+#~ "\t\t\t\t\t\t\t\tErstellt am <a href=\"%(url)s\">%(creation_date)s</a> von <a href=\"%(creator_url)s\">%(creator)s</a>\n"
 #~ "\t\t\t\t\t\t\t"
 
 #~ msgid ""
 #~ "\n"
-#~ "\t\t\t\t\t\t\tCreated on <a href=\"%(url)s\">%(creation_date)s</a> by <a "
-#~ "href=\"%(creator_url)s\">%(creator)s</a>\n"
+#~ "\t\t\t\t\t\t\tCreated on <a href=\"%(url)s\">%(creation_date)s</a> by <a href=\"%(creator_url)s\">%(creator)s</a>\n"
 #~ "\t\t\t\t\t\t"
 #~ msgstr ""
 #~ "\n"
-#~ "\t\t\t\t\t\t\tErstellt am <a href=\"%(url)s\">%(creation_date)s</a> von "
-#~ "<a href=\"%(creator_url)s\">%(creator)s</a>\n"
+#~ "\t\t\t\t\t\t\tErstellt am <a href=\"%(url)s\">%(creation_date)s</a> von <a href=\"%(creator_url)s\">%(creator)s</a>\n"
 #~ "\t\t\t\t\t\t"
 
 #~ msgid ""
 #~ "\n"
-#~ "\t        \t\t\tCreated on %(creation_date)s<br/> by <a href=\"%(url)s\">"
-#~ "%(creator)s</a>\n"
+#~ "\t        \t\t\tCreated on %(creation_date)s<br/> by <a href=\"%(url)s\">%(creator)s</a>\n"
 #~ "\t        \t\t"
 #~ msgstr ""
 #~ "\n"
-#~ "\t        \t\t\tErstellt am %(creation_date)s<br/> von <a href=\"%(url)s"
-#~ "\">%(creator)s</a>\n"
+#~ "\t        \t\t\tErstellt am %(creation_date)s<br/> von <a href=\"%(url)s\">%(creator)s</a>\n"
 #~ "\t        \t\t"
 
 #~ msgid ""
 #~ "\n"
-#~ "\t\t\t\t\t\t\t\t\tCreated on <a href=\"%(url)s\">%(creation_date)s</a> by "
-#~ "<a href=\"%(creator_url)s\">%(creator)s</a>\n"
+#~ "\t\t\t\t\t\t\t\t\tCreated on <a href=\"%(url)s\">%(creation_date)s</a> by <a href=\"%(creator_url)s\">%(creator)s</a>\n"
 #~ "\t\t\t\t\t\t\t\t"
 #~ msgstr ""
 #~ "\n"
-#~ "\t\t\t\t\t\t\t\t\tErstellt am <a href=\"%(url)s\">%(creation_date)s</a> "
-#~ "von <a href=\"%(creator_url)s\">%(creator)s</a>\n"
+#~ "\t\t\t\t\t\t\t\t\tErstellt am <a href=\"%(url)s\">%(creation_date)s</a> von <a href=\"%(creator_url)s\">%(creator)s</a>\n"
 #~ "\t\t\t\t\t\t\t\t"
 
 #~ msgid "Accept membership request"
@@ -11942,8 +11926,8 @@ msgstr ""
 
 #~ msgid "Find individuals, companies, contacts, information, and more."
 #~ msgstr ""
-#~ "Finden Sie Einzelpersonen, Unternehmen, Ansprechpartner, Informationen "
-#~ "und mehr."
+#~ "Finden Sie Einzelpersonen, Unternehmen, Ansprechpartner, Informationen und "
+#~ "mehr."
 
 #~ msgid ""
 #~ "Search our database for institutions, companies, individuals, events and "
@@ -11968,11 +11952,10 @@ msgstr ""
 #~ msgstr "Newsletter"
 
 #~ msgid ""
-#~ "You can log in at: http://www.interactive-city-berlin.de/login/?"
-#~ "goto_next=/"
+#~ "You can log in at: http://www.interactive-city-berlin.de/login/?goto_next=/"
 #~ msgstr ""
-#~ "Sie können sich nun anmelden unter: http://www.interactive-city-berlin.de/"
-#~ "login/?goto_next=/"
+#~ "Sie können sich nun anmelden unter: http://www.interactive-city-"
+#~ "berlin.de/login/?goto_next=/"
 
 #~ msgid "New Members"
 #~ msgstr "Neue Mitglieder"
@@ -12001,11 +11984,10 @@ msgstr ""
 #~ msgid "Additional info (German)"
 #~ msgstr "Zusatzinformation (Deutsch)"
 
-#~ msgid ""
-#~ "Hold down \"Control\", or \"Command\" on a Mac, to select more than one."
+#~ msgid "Hold down \"Control\", or \"Command\" on a Mac, to select more than one."
 #~ msgstr ""
-#~ "Um mehr als eine Auswahl zu treffen, \"Strg\", oder auf dem Mac \"Command"
-#~ "\", beim Klicken gedrückt halten."
+#~ "Um mehr als eine Auswahl zu treffen, \"Strg\", oder auf dem Mac \"Command\","
+#~ " beim Klicken gedrückt halten."
 
 #~ msgid "Add to recommendations"
 #~ msgstr "Zu Empfehlungen hinzufügen"
@@ -12249,18 +12231,18 @@ msgstr ""
 #~ "Check this box if the comment is inappropriate. A \"This comment has been "
 #~ "removed\" message will be displayed instead."
 #~ msgstr ""
-#~ "Hier einen Haken setzen, wenn der Kommentar unpassend ist. Es wird dann "
-#~ "eine \"Dieser Kommentar wurde entfernt\" Meldung statt dessen angezeigt."
+#~ "Hier einen Haken setzen, wenn der Kommentar unpassend ist. Es wird dann eine"
+#~ " \"Dieser Kommentar wurde entfernt\" Meldung statt dessen angezeigt."
 
 #~ msgid "is_spam"
 #~ msgstr "ist_werbung"
 
 #~ msgid ""
-#~ "Check this box if the comment should be marked as spam. The comment will "
-#~ "not be displayed in this case."
+#~ "Check this box if the comment should be marked as spam. The comment will not"
+#~ " be displayed in this case."
 #~ msgstr ""
-#~ "Hier einen Haken setzen, wenn der Kommentar unpassend ist. Es wird dann "
-#~ "eine \"Dieser Kommentar wurde entfernt\" Meldung statt dessen angezeigt."
+#~ "Hier einen Haken setzen, wenn der Kommentar unpassend ist. Es wird dann eine"
+#~ " \"Dieser Kommentar wurde entfernt\" Meldung statt dessen angezeigt."
 
 #~ msgid ""
 #~ "Posted by %(user)s at %(date)s\n"
@@ -12381,23 +12363,19 @@ msgstr ""
 #~ msgstr "Bewertung8"
 
 #~ msgid ""
-#~ "This comment was posted by a user who has posted fewer than %(count)s "
-#~ "comment:\n"
+#~ "This comment was posted by a user who has posted fewer than %(count)s comment:\n"
 #~ "\n"
 #~ "%(text)s"
 #~ msgid_plural ""
-#~ "This comment was posted by a user who has posted fewer than %(count)s "
-#~ "comments:\n"
+#~ "This comment was posted by a user who has posted fewer than %(count)s comments:\n"
 #~ "\n"
 #~ "%(text)s"
 #~ msgstr[0] ""
-#~ "Dieser Kommentar ist von einem Benutzer mit weniger als %(count)s "
-#~ "Kommentar:\n"
+#~ "Dieser Kommentar ist von einem Benutzer mit weniger als %(count)s Kommentar:\n"
 #~ "\n"
 #~ "%(text)s"
 #~ msgstr[1] ""
-#~ "Dieser Kommentar ist von einem Benutzer mit weniger als %(count)s "
-#~ "Kommentaren:\n"
+#~ "Dieser Kommentar ist von einem Benutzer mit weniger als %(count)s Kommentaren:\n"
 #~ "\n"
 #~ "%(text)s"
 
@@ -12587,15 +12565,13 @@ msgstr ""
 #~ msgid "Extra head"
 #~ msgstr "Extra Head"
 
-#~ msgid ""
-#~ "Third-party code snippets to be added to the end of the HEAD section."
+#~ msgid "Third-party code snippets to be added to the end of the HEAD section."
 #~ msgstr "HTML-Code, der am Ende des HEAD-Abschnitts eingefügt wird."
 
 #~ msgid "Extra body"
 #~ msgstr "Extra Body"
 
-#~ msgid ""
-#~ "Third-party code snippets to be added to the end of the BODY section."
+#~ msgid "Third-party code snippets to be added to the end of the BODY section."
 #~ msgstr "HTML-Code, der am Ende des BODY-Abschnitts eingefügt wird."
 
 #~ msgid "Contact Form"
@@ -12615,8 +12591,8 @@ msgstr ""
 
 #~ msgid "Either subscriber or subscriber email should be filled in."
 #~ msgstr ""
-#~ "Entweder der Empfänger oder eine Empfänger-Email-Adresse sollten "
-#~ "angegeben werden."
+#~ "Entweder der Empfänger oder eine Empfänger-Email-Adresse sollten angegeben "
+#~ "werden."
 
 #~ msgid "Save and send"
 #~ msgstr "Speichern und Versand"
@@ -12626,8 +12602,7 @@ msgstr ""
 
 #~ msgid "Mailing was sent out to %(count)s recipients (real transmission)"
 #~ msgstr ""
-#~ "Das Mailing wurde an %(count)s empfänger verschickt (Tatsächlicher "
-#~ "Versand)"
+#~ "Das Mailing wurde an %(count)s empfänger verschickt (Tatsächlicher Versand)"
 
 #~ msgid "Send mailing: %s"
 #~ msgstr "Mailing versenden: %s"
@@ -12691,12 +12666,12 @@ msgstr ""
 
 #~ msgid "Your old password was entered incorrectly. Please enter it again."
 #~ msgstr ""
-#~ "Sie haben Ihr altes Passwort nicht korrekt eingegeben. Bitte versuchen "
-#~ "Sie es erneut."
+#~ "Sie haben Ihr altes Passwort nicht korrekt eingegeben. Bitte versuchen Sie "
+#~ "es erneut."
 
 #~ msgid ""
-#~ "For security reasons your must enter the old password in order to change "
-#~ "it to the new one."
+#~ "For security reasons your must enter the old password in order to change it "
+#~ "to the new one."
 #~ msgstr ""
 #~ "Aus Sicherheitsgründen müssen Sie das alte Passwort eingeben, um es zu "
 #~ "ändern."
@@ -12788,8 +12763,7 @@ msgstr ""
 
 #~ msgid ""
 #~ "If this is checked, only logged-in users will be able to view the page."
-#~ msgstr ""
-#~ "Wenn ausgewählt, können nur eingeloggte Benutzer die Seite aufrufen."
+#~ msgstr "Wenn ausgewählt, können nur eingeloggte Benutzer die Seite aufrufen."
 
 #~ msgid "flat page"
 #~ msgstr "Statische Seite"
@@ -13212,18 +13186,18 @@ msgstr ""
 #~ msgstr "Absender (Name)"
 
 #~ msgid ""
-#~ "Please select one or more recipients from the list and/or enter "
-#~ "recipients in the text field below."
+#~ "Please select one or more recipients from the list and/or enter recipients "
+#~ "in the text field below."
 #~ msgstr ""
-#~ "Bitte wählen Sie einen oder mehrere Emfpänger aus der liste aus oder "
-#~ "geben Sie Empfängeradressen in das untere Feld ein."
+#~ "Bitte wählen Sie einen oder mehrere Emfpänger aus der liste aus oder geben "
+#~ "Sie Empfängeradressen in das untere Feld ein."
 
 #~ msgid "Recipients (Emails)"
 #~ msgstr "Empfänger (Emails)"
 
 #~ msgid ""
-#~ "Email addresses must have the form 'John Doe (john.doe@domain.com)' or "
-#~ "just 'john.doe@domain.com'."
+#~ "Email addresses must have the form 'John Doe (john.doe@domain.com)' or just "
+#~ "'john.doe@domain.com'."
 #~ msgstr ""
 #~ "Email-Adressen müssen das Format 'Peter Müller (peter.mueller@domain.de)' "
 #~ "oder einfach 'peter.mueller@domain.de' haben."
@@ -13403,8 +13377,8 @@ msgstr ""
 #~ msgstr "Nachrichtenvorlage"
 
 #~ msgid ""
-#~ "This message will be shown in the website. Accepted template variables: "
-#~ "{{ notified_user }}, {{ object }}, and specific extra context."
+#~ "This message will be shown in the website. Accepted template variables: {{ "
+#~ "notified_user }}, {{ object }}, and specific extra context."
 #~ msgstr ""
 #~ "Diese Nachricht wird auf der Website angezeigt werden. Erlaubte Template-"
 #~ "Variablen: {{ notified_user }}, {{ object }}, und spezifischer extra "
@@ -13948,12 +13922,12 @@ msgstr ""
 #~ msgstr "Kennwort ändern"
 
 #~ msgid ""
-#~ "Please enter your old password, for securitys sake, and then enter your "
-#~ "new password twice so we can verify you typed it in correctly."
+#~ "Please enter your old password, for securitys sake, and then enter your new "
+#~ "password twice so we can verify you typed it in correctly."
 #~ msgstr ""
-#~ "Bitte geben Sie aus Sicherheitsgründen erst Ihr altes Kennwort und "
-#~ "darunter dann zweimal (um sicherzustellen, dass Sie es korrekt eingegeben "
-#~ "haben) das neue Kennwort ein."
+#~ "Bitte geben Sie aus Sicherheitsgründen erst Ihr altes Kennwort und darunter "
+#~ "dann zweimal (um sicherzustellen, dass Sie es korrekt eingegeben haben) das "
+#~ "neue Kennwort ein."
 
 #~ msgid "Your password has been set.  You may go ahead and log in now."
 #~ msgstr "Ihr Kennwort wurde geändert. Sie können sich jetzt einloggen."
@@ -13968,13 +13942,13 @@ msgstr ""
 #~ "We've e-mailed a new password to the e-mail address you submitted. You "
 #~ "should be receiving it shortly."
 #~ msgstr ""
-#~ "Wir haben Ihnen soeben per E-Mail einen Link zugeschickt, über den Sie "
-#~ "ein neues Kennwort einrichten können."
+#~ "Wir haben Ihnen soeben per E-Mail einen Link zugeschickt, über den Sie ein "
+#~ "neues Kennwort einrichten können."
 
 #~ msgid "You're receiving this e-mail because you requested a password reset"
 #~ msgstr ""
-#~ "Sie erhalten diese Mail, weil Sie ein neues Kennwort für ihr "
-#~ "Benutzerkonto bei %(site_name)s angefordert haben."
+#~ "Sie erhalten diese Mail, weil Sie ein neues Kennwort für ihr Benutzerkonto "
+#~ "bei %(site_name)s angefordert haben."
 
 #~ msgid "for your user account at %(site_name)s"
 #~ msgstr "Ihr Benutzername ist: %(username)s"
@@ -13986,8 +13960,8 @@ msgstr ""
 #~ "Forgotten your password? Enter your e-mail address below, and we'll reset "
 #~ "your password and e-mail the new one to you."
 #~ msgstr ""
-#~ "Haben Sie Ihr Kennwort vergessen? Geben Sie einfach Ihre hinterlegte E-"
-#~ "Mail-Adresse ein und wir senden Ihnen ein neues Kennwort per E-Mail zu."
+#~ "Haben Sie Ihr Kennwort vergessen? Geben Sie einfach Ihre hinterlegte E-Mail-"
+#~ "Adresse ein und wir senden Ihnen ein neues Kennwort per E-Mail zu."
 
 #~ msgid "Add Permissions"
 #~ msgstr "Zugriffsrechte"
