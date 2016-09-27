@@ -6,19 +6,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Django 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-16 15:40+0200\n"
+"POT-Creation-Date: 2016-09-27 17:01+0200\n"
 "PO-Revision-Date: 2016-09-27 12:44+0053\n"
 "Last-Translator: Laura Casadevall <casadeluxe@web.de>\n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "X-Poedit-Bookmarks: 415,61,1810,230,1014,1069,-1,-1,-1,-1\n"
 "X-Translated-Using: django-rosetta 0.7.6\n"
 
 #: apps/accounts/forms.py:54 apps/accounts/forms.py:339
-#: apps/bulletin_board/models.py:146 apps/events/forms.py:217
+#: apps/bulletin_board/models.py:146 apps/events/forms.py:221
 #: apps/site_specific/forms/misc.py:146 apps/site_specific/models.py:557
 #: apps/tracker/forms.py:52
 #: templates/ccb/bulletin_board/bulletin_detail.html:88
@@ -111,8 +111,8 @@ msgstr "Jetzt kostenlos Profil erstellen"
 #: apps/accounts/forms.py:154
 #, python-format
 msgid ""
-"This username is already used for another account. But you can use \"%s\" as"
-" your username."
+"This username is already used for another account. But you can use \"%s\" as "
+"your username."
 msgstr ""
 "Dieser Benutzername wird bereits für ein anderes Konto verwendet. Aber Du "
 "kannst \"%s\" als Benutzername verwenden."
@@ -133,24 +133,24 @@ msgstr "Passwörter müssen mindestens 3 Zeichen lang sein"
 #: apps/articles/models.py:152 apps/bulletin_board/admin.py:35
 #: apps/bulletin_board/forms.py:136 apps/bulletin_board/forms.py:203
 #: apps/bulletin_board/forms.py:205 apps/bulletin_board/models.py:163
-#: apps/editorial/models.py:39 apps/events/forms.py:1501
-#: apps/events/forms.py:1525 apps/external_services/models.py:42
-#: apps/external_services/models.py:79 apps/institutions/forms.py:1205
-#: apps/institutions/forms.py:1227 apps/marketplace/forms.py:403
-#: apps/marketplace/forms.py:419 apps/marketplace/forms.py:426
+#: apps/editorial/models.py:39 apps/events/forms.py:1505
+#: apps/events/forms.py:1529 apps/external_services/models.py:42
+#: apps/external_services/models.py:79 apps/institutions/forms.py:1211
+#: apps/institutions/forms.py:1233 apps/marketplace/forms.py:408
+#: apps/marketplace/forms.py:424 apps/marketplace/forms.py:431
 #: apps/marketplace/models.py:23 apps/media_gallery/admin.py:28
 #: apps/media_gallery/forms.py:339 apps/media_gallery/forms.py:370
 #: apps/media_gallery/models.py:149 apps/site_specific/admin.py:37
-#: apps/site_specific/forms/events.py:1967
-#: apps/site_specific/forms/events.py:1995
-#: apps/site_specific/forms/institutions.py:1648
-#: apps/site_specific/forms/institutions.py:1674
-#: apps/site_specific/forms/institutions.py:1676
-#: apps/site_specific/forms/marketplace.py:750
-#: apps/site_specific/forms/marketplace.py:770
-#: apps/site_specific/forms/marketplace.py:774
-#: apps/site_specific/forms/people.py:1017
-#: apps/site_specific/forms/people.py:1035 apps/site_specific/models.py:286
+#: apps/site_specific/forms/events.py:1973
+#: apps/site_specific/forms/events.py:2001
+#: apps/site_specific/forms/institutions.py:1654
+#: apps/site_specific/forms/institutions.py:1680
+#: apps/site_specific/forms/institutions.py:1682
+#: apps/site_specific/forms/marketplace.py:757
+#: apps/site_specific/forms/marketplace.py:777
+#: apps/site_specific/forms/marketplace.py:781
+#: apps/site_specific/forms/people.py:1023
+#: apps/site_specific/forms/people.py:1041 apps/site_specific/models.py:286
 #: templates/admin/extendedadmin/includes/fieldset_categories.html:7
 #: templates/admin/extendedadmin/includes/fieldset_categories.html:101
 #: templates/ccb/bulletin_board/bulletin_detail.html:94
@@ -209,8 +209,8 @@ msgstr "E-Mail oder Benutzername"
 
 #: apps/accounts/forms.py:437
 msgid ""
-"Please enter a correct email or username and password. Note that both fields"
-" are case-sensitive."
+"Please enter a correct email or username and password. Note that both fields "
+"are case-sensitive."
 msgstr ""
 "Bitte gib eine korrekte E-Mail oder einen korrekten Benutzernamen und ein "
 "korrektes Passwort ein. Achte dabei auf Groß- und Kleinschreibung."
@@ -279,8 +279,8 @@ msgstr "Instant Messenger veröffentlichen"
 
 #: apps/accounts/forms.py:539
 msgid ""
-"Please enter your old password, for security's sake, and then enter your new"
-" password twice so we can verify you typed it in correctly."
+"Please enter your old password, for security's sake, and then enter your new "
+"password twice so we can verify you typed it in correctly."
 msgstr ""
 "Bitte gib aus Sicherheitsgründen erst Dein altes Kennwort und darunter dann "
 "zwei Mal (um sicherzustellen, dass Du es korrekt eingegeben hast) das neue "
@@ -288,8 +288,8 @@ msgstr ""
 
 #: apps/accounts/forms.py:540
 msgid ""
-"Forgot your password? Enter your e-mail address below, and we’ll send you an"
-" e-mail with a link which allows you to set up a new password."
+"Forgot your password? Enter your e-mail address below, and we’ll send you an "
+"e-mail with a link which allows you to set up a new password."
 msgstr ""
 "Hast Du Dein Kennwort vergessen? Gib einfach Deine hinterlegte E-Mail-"
 "Adresse ein und wir senden Dir ein neues Kennwort per E-Mail zu."
@@ -353,8 +353,8 @@ msgstr "Zusätzliche Inhalte"
 #: apps/articles/admin.py:90 apps/bulletin_board/models.py:139
 #: apps/cms_extensions/models.py:45 apps/curated_lists/forms.py:16
 #: apps/curated_lists/models.py:40 apps/editorial/models.py:29
-#: apps/events/base.py:222 apps/events/forms.py:906
-#: apps/institutions/forms.py:493 apps/marketplace/forms.py:83
+#: apps/events/base.py:222 apps/events/forms.py:910
+#: apps/institutions/forms.py:499 apps/marketplace/forms.py:83
 #: apps/media_gallery/forms.py:88 apps/media_gallery/forms.py:170
 #: apps/media_gallery/forms.py:252 apps/metro/models.py:18
 #: apps/navigation/admin.py:38 apps/site_specific/forms/events.py:197
@@ -362,9 +362,6 @@ msgstr "Zusätzliche Inhalte"
 #: apps/site_specific/forms/marketplace.py:79
 #: apps/site_specific/forms/people.py:156 apps/site_specific/models.py:275
 #: apps/slideshows/models.py:31 apps/tracker/forms.py:65
-#: subtrees/base_libs/base_libs/models/admin.py:556
-#: subtrees/base_libs/base_libs/models/admin.py:565
-#: subtrees/base_libs/base_libs/models/models.py:1056
 #: templates/ccb/bulletin_board/bulletin_detail.html:59
 #: templates/ccb/bulletin_board/change_bulletin_confirm.html:23
 #: templates/ccb/counselling_events/profile/description.html:6
@@ -508,19 +505,16 @@ msgstr "Neueste(r) %(article_type)s"
 #: apps/articles/forms.py:17 apps/bulletin_board/forms.py:130
 #: apps/bulletin_board/forms.py:596 apps/bulletin_board/forms.py:603
 #: apps/bulletin_board/forms.py:612 apps/bulletin_board/forms.py:616
-#: apps/bulletin_board/forms.py:625 apps/events/forms.py:1834
-#: apps/events/forms.py:1840 apps/events/forms.py:1846
-#: apps/institutions/forms.py:1437 apps/institutions/forms.py:1443
-#: apps/institutions/forms.py:1449 apps/institutions/forms.py:1455
-#: apps/marketplace/forms.py:666 apps/marketplace/forms.py:672
-#: apps/marketplace/forms.py:678 apps/marketplace/forms.py:684
+#: apps/bulletin_board/forms.py:625 apps/events/forms.py:1838
+#: apps/events/forms.py:1844 apps/events/forms.py:1850
+#: apps/institutions/forms.py:1443 apps/institutions/forms.py:1449
+#: apps/institutions/forms.py:1455 apps/institutions/forms.py:1461
+#: apps/marketplace/forms.py:671 apps/marketplace/forms.py:677
+#: apps/marketplace/forms.py:683 apps/marketplace/forms.py:689
 #: apps/media_gallery/forms.py:384 apps/network/forms.py:20
 #: apps/network/forms.py:27 apps/network/forms.py:33 apps/people/forms.py:20
 #: apps/people/forms.py:26 apps/people/forms.py:32 apps/people/forms.py:38
 #: apps/resources/forms.py:18 apps/resources/forms.py:24
-#: subtrees/base_libs/base_libs/admin/filters.py:67
-#: subtrees/base_libs/base_libs/models/models.py:466
-#: subtrees/base_libs/base_libs/models/models.py:612
 #: templates/ccb/blog/blog.html:82 templates/ccb/blog/blog.html.py:114
 #: templates/ccb/bulletin_board/change_bulletin_confirm.html:62
 #: templates/ccb/bulletin_board/my_bulletin_list.html:20
@@ -531,7 +525,7 @@ msgid "All"
 msgstr "Alle"
 
 #: apps/articles/forms.py:18 apps/bulletin_board/forms.py:597
-#: apps/events/forms.py:1835 apps/marketplace/forms.py:673
+#: apps/events/forms.py:1839 apps/marketplace/forms.py:678
 #: apps/media_gallery/forms.py:385 apps/network/forms.py:28
 #: apps/resources/forms.py:19 templates/ccb/articles/articles_detail.html:98
 #: templates/ccb/counselling_events/profile/categories.html:14
@@ -545,8 +539,8 @@ msgid "Category"
 msgstr "Kategorie"
 
 #: apps/articles/forms.py:31 apps/bulletin_board/forms.py:636
-#: apps/events/forms.py:1869 apps/institutions/forms.py:1470
-#: apps/marketplace/forms.py:699 apps/media_gallery/forms.py:398
+#: apps/events/forms.py:1873 apps/institutions/forms.py:1476
+#: apps/marketplace/forms.py:704 apps/media_gallery/forms.py:398
 #: apps/network/forms.py:56 apps/people/forms.py:53 apps/resources/forms.py:39
 #: templates/ccb/bulletin_board/my_bulletin_list.html:18
 #: templates/ccb/site_specific/browsing.html:36
@@ -557,8 +551,8 @@ msgid "Filter"
 msgstr "Filter"
 
 #: apps/articles/forms.py:36 apps/bulletin_board/forms.py:644
-#: apps/events/forms.py:1878 apps/institutions/forms.py:1478
-#: apps/marketplace/forms.py:707 apps/media_gallery/forms.py:403
+#: apps/events/forms.py:1882 apps/institutions/forms.py:1484
+#: apps/marketplace/forms.py:712 apps/media_gallery/forms.py:403
 #: apps/network/forms.py:63 apps/people/forms.py:61 apps/resources/forms.py:45
 #: apps/search/cms_apps.py:10 apps/search/forms.py:22
 #: templates/ccb/articles/articles_archive.html:8
@@ -613,7 +607,7 @@ msgstr "Übersicht"
 #: apps/cms_extensions/plugins/headline/models.py:9
 #: apps/curated_lists/forms.py:12 apps/curated_lists/models.py:39
 #: apps/editorial/models.py:28 apps/events/admin.py:36 apps/events/admin.py:67
-#: apps/events/base.py:216 apps/events/base.py:461 apps/events/forms.py:312
+#: apps/events/base.py:216 apps/events/base.py:461 apps/events/forms.py:316
 #: apps/faqs/admin.py:29 apps/groups_networks/admin.py:21
 #: apps/institutions/admin.py:38 apps/institutions/admin.py:365
 #: apps/media_gallery/models.py:86 apps/metro/models.py:17
@@ -633,20 +627,20 @@ msgstr "Titel"
 
 #: apps/articles/models.py:19 apps/bulletin_board/models.py:50
 #: apps/events/base.py:550 apps/events/base.py:555 apps/events/base.py:560
-#: apps/events/forms.py:74 apps/institutions/forms.py:211
-#: apps/institutions/forms.py:220 apps/institutions/forms.py:229
-#: apps/site_specific/forms/events.py:413
-#: apps/site_specific/forms/events.py:422
-#: apps/site_specific/forms/events.py:431
-#: apps/site_specific/forms/institutions.py:336
-#: apps/site_specific/forms/institutions.py:345
-#: apps/site_specific/forms/institutions.py:354
-#: apps/site_specific/forms/marketplace.py:340
-#: apps/site_specific/forms/marketplace.py:349
-#: apps/site_specific/forms/marketplace.py:358
-#: apps/site_specific/forms/people.py:407
-#: apps/site_specific/forms/people.py:416
-#: apps/site_specific/forms/people.py:425
+#: apps/events/forms.py:74 apps/institutions/forms.py:217
+#: apps/institutions/forms.py:226 apps/institutions/forms.py:235
+#: apps/site_specific/forms/events.py:419
+#: apps/site_specific/forms/events.py:428
+#: apps/site_specific/forms/events.py:437
+#: apps/site_specific/forms/institutions.py:342
+#: apps/site_specific/forms/institutions.py:351
+#: apps/site_specific/forms/institutions.py:360
+#: apps/site_specific/forms/marketplace.py:347
+#: apps/site_specific/forms/marketplace.py:356
+#: apps/site_specific/forms/marketplace.py:365
+#: apps/site_specific/forms/people.py:413
+#: apps/site_specific/forms/people.py:422
+#: apps/site_specific/forms/people.py:431
 #: apps/site_specific/forms/resources.py:98
 #: templates/ccb/resources/lists/document.html:29
 msgid "URL"
@@ -657,7 +651,7 @@ msgstr "URL"
 #: apps/cms_extensions/plugins/filebrowser_image/cms_plugins.py:14
 #: apps/cms_extensions/plugins/filebrowser_image/models.py:14
 #: apps/curated_lists/models.py:41 apps/editorial/models.py:36
-#: apps/events/base.py:223 apps/events/forms.py:914 apps/events/forms.py:916
+#: apps/events/base.py:223 apps/events/forms.py:918 apps/events/forms.py:920
 #: apps/site_specific/forms/events.py:245
 #: apps/site_specific/forms/events.py:247
 #: apps/site_specific/forms/institutions.py:186
@@ -699,8 +693,8 @@ msgstr "Auszug"
 
 #: apps/articles/models.py:127
 msgid ""
-"If this article is an excerpt, the link in the list of articles will lead to"
-" the external URL."
+"If this article is an excerpt, the link in the list of articles will lead to "
+"the external URL."
 msgstr ""
 "Wenn dieser Artikel ein Auszug ist, wird der Link in der Liste der Artikel "
 "auf die externe URL führen."
@@ -842,10 +836,10 @@ msgstr "Feeds durchblättern @ %(site)s"
 msgid "Latest posts"
 msgstr "Letzte Posts"
 
-#: apps/blog/forms.py:25 apps/events/forms.py:1507 apps/events/forms.py:1530
-#: apps/marketplace/forms.py:395 apps/site_specific/forms/events.py:1973
-#: apps/site_specific/forms/events.py:1997
-#: apps/site_specific/forms/marketplace.py:742
+#: apps/blog/forms.py:25 apps/events/forms.py:1511 apps/events/forms.py:1534
+#: apps/marketplace/forms.py:400 apps/site_specific/forms/events.py:1979
+#: apps/site_specific/forms/events.py:2003
+#: apps/site_specific/forms/marketplace.py:749
 #: templates/ccb/blog/blog.html:112
 #: templates/ccb/blog/forms/post_embedded.html:12
 #: templates/ccb/blog/post_detail.html:11
@@ -863,12 +857,11 @@ msgstr "Stichworte"
 
 #: apps/blog/forms.py:28
 msgid ""
-"Use commas to separate your tags. Tags can have multiple words. For example:"
-" 'one, two, three apples' would define three tags."
+"Use commas to separate your tags. Tags can have multiple words. For example: "
+"'one, two, three apples' would define three tags."
 msgstr ""
 "Nutze Kommas, um Deine Stichworte zu trennen. Stichworte können mehrere "
-"Worte enthalen. Für \"eins, zwei, drei Äpfel\" würde drei Stichworte "
-"ergeben."
+"Worte enthalen. Für \"eins, zwei, drei Äpfel\" würde drei Stichworte ergeben."
 
 #: apps/blog/forms.py:32
 msgid "Body"
@@ -878,7 +871,7 @@ msgstr "Von"
 #: apps/bulletin_board/models.py:191 apps/events/base.py:229
 #: apps/partners/admin.py:28 apps/partners/admin.py:65
 #: apps/partners/models.py:27 apps/partners/models.py:47
-#: apps/site_specific/admin.py:38 apps/site_specific/forms/people.py:905
+#: apps/site_specific/admin.py:38 apps/site_specific/forms/people.py:911
 #: apps/site_specific/models.py:571
 #: templates/admin/extendedadmin/includes/fieldset_status.html:6
 #: templates/ccb/facebook_app/gallery_linking.html:37
@@ -888,7 +881,6 @@ msgid "Status"
 msgstr "Status"
 
 #: apps/blog/forms.py:43 apps/bulletin_board/models.py:179
-#: subtrees/base_libs/base_libs/models/models.py:227
 msgid "publishing date"
 msgstr "Veröffentlichungsdatum"
 
@@ -923,29 +915,29 @@ msgstr "Vorschau"
 #: apps/blog/forms.py:95 apps/site_specific/forms/events.py:149
 #: apps/site_specific/forms/events.py:201
 #: apps/site_specific/forms/events.py:252
-#: apps/site_specific/forms/events.py:708
-#: apps/site_specific/forms/events.py:893
-#: apps/site_specific/forms/events.py:952
-#: apps/site_specific/forms/events.py:1011
-#: apps/site_specific/forms/events.py:1882
-#: apps/site_specific/forms/events.py:2000
+#: apps/site_specific/forms/events.py:714
+#: apps/site_specific/forms/events.py:899
+#: apps/site_specific/forms/events.py:958
+#: apps/site_specific/forms/events.py:1017
+#: apps/site_specific/forms/events.py:1888
+#: apps/site_specific/forms/events.py:2006
 #: apps/site_specific/forms/institutions.py:87
 #: apps/site_specific/forms/institutions.py:140
 #: apps/site_specific/forms/institutions.py:193
-#: apps/site_specific/forms/institutions.py:627
-#: apps/site_specific/forms/institutions.py:814
-#: apps/site_specific/forms/institutions.py:996
-#: apps/site_specific/forms/institutions.py:1550
-#: apps/site_specific/forms/institutions.py:1685
+#: apps/site_specific/forms/institutions.py:633
+#: apps/site_specific/forms/institutions.py:820
+#: apps/site_specific/forms/institutions.py:1002
+#: apps/site_specific/forms/institutions.py:1556
+#: apps/site_specific/forms/institutions.py:1691
 #: apps/site_specific/forms/marketplace.py:147
-#: apps/site_specific/forms/marketplace.py:655
-#: apps/site_specific/forms/marketplace.py:777
+#: apps/site_specific/forms/marketplace.py:662
+#: apps/site_specific/forms/marketplace.py:784
 #: apps/site_specific/forms/people.py:104
 #: apps/site_specific/forms/people.py:160
 #: apps/site_specific/forms/people.py:213
-#: apps/site_specific/forms/people.py:727
-#: apps/site_specific/forms/people.py:988
-#: apps/site_specific/forms/people.py:1040
+#: apps/site_specific/forms/people.py:733
+#: apps/site_specific/forms/people.py:994
+#: apps/site_specific/forms/people.py:1046
 #: templates/admin/admin/institutions/institution/mailchimp_subscribe_selected.html:65
 #: templates/admin/admin/institutions/institution/merge_selected.html:63
 #: templates/admin/admin/people/person/mailchimp_subscribe_selected.html:57
@@ -1040,8 +1032,6 @@ msgstr "Blog"
 #: apps/blog/models.py:29 apps/blog/models.py:88 apps/events/base.py:100
 #: apps/events/base.py:429 apps/faqs/models.py:28 apps/faqs/models.py:89
 #: apps/navigation/models.py:63 apps/tracker/models.py:38
-#: subtrees/base_libs/base_libs/admin/tree_editor.py:222
-#: subtrees/base_libs/base_libs/models/models.py:1029
 msgid "title"
 msgstr "Titel"
 
@@ -1062,7 +1052,6 @@ msgid "blogs"
 msgstr "Blog"
 
 #: apps/blog/models.py:89 apps/events/base.py:605
-#: subtrees/tagging/tagging/models.py:480
 msgid "tags"
 msgstr "Stichworte"
 
@@ -1089,46 +1078,36 @@ msgid "blog posts"
 msgstr "Blogbeiträge"
 
 #: apps/blog/templatetags/blog.py:73
-#: subtrees/tagging/tagging/templatetags/tagging_tags.py:141
 #, python-format
 msgid "%s tag requires either three or between five and seven arguments"
 msgstr ""
 
 #: apps/blog/templatetags/blog.py:75
-#: subtrees/tagging/tagging/templatetags/tagging_tags.py:91
-#: subtrees/tagging/tagging/templatetags/tagging_tags.py:143
-#: subtrees/tagging/tagging/templatetags/tagging_tags.py:198
 #, python-format
 msgid "second argument to %s tag must be 'as'"
 msgstr ""
 
 #: apps/blog/templatetags/blog.py:79
-#: subtrees/tagging/tagging/templatetags/tagging_tags.py:94
-#: subtrees/tagging/tagging/templatetags/tagging_tags.py:147
 #, python-format
 msgid "if given, fourth argument to %s tag must be 'with'"
 msgstr ""
 
 #: apps/blog/templatetags/blog.py:87
-#: subtrees/tagging/tagging/templatetags/tagging_tags.py:155
 #, python-format
 msgid "%(tag)s tag's '%(option)s' option was not a valid integer: '%(value)s'"
 msgstr ""
 
 #: apps/blog/templatetags/blog.py:96
-#: subtrees/tagging/tagging/templatetags/tagging_tags.py:164
 #, python-format
 msgid "%(tag)s tag's '%(option)s' option was not a valid choice: '%(value)s'"
 msgstr ""
 
 #: apps/blog/templatetags/blog.py:102
-#: subtrees/tagging/tagging/templatetags/tagging_tags.py:170
 #, python-format
 msgid "%(tag)s tag was given an invalid option: '%(option)s'"
 msgstr ""
 
 #: apps/blog/templatetags/blog.py:107
-#: subtrees/tagging/tagging/templatetags/tagging_tags.py:175
 #, python-format
 msgid "%(tag)s tag was given a badly formatted option: '%(option)s'"
 msgstr ""
@@ -1146,7 +1125,7 @@ msgid "Region"
 msgstr "Beziehung"
 
 #: apps/bulletin_board/admin.py:39 apps/curated_lists/admin.py:34
-#: apps/marketplace/forms.py:336
+#: apps/marketplace/forms.py:341
 msgid "Publishing"
 msgstr "Veröffentlichen"
 
@@ -1204,16 +1183,16 @@ msgid "Advertising & PR - Bulletin Board"
 msgstr "Werbung & PR - Projektbörse"
 
 #: apps/bulletin_board/forms.py:31 apps/bulletin_board/forms.py:291
-#: apps/events/forms.py:44 apps/events/forms.py:709 apps/events/forms.py:760
+#: apps/events/forms.py:44 apps/events/forms.py:713 apps/events/forms.py:764
 #: apps/institutions/forms.py:48 apps/marketplace/forms.py:41
 #: apps/site_specific/forms/events.py:35
-#: apps/site_specific/forms/events.py:1142
-#: apps/site_specific/forms/events.py:1193
+#: apps/site_specific/forms/events.py:1148
+#: apps/site_specific/forms/events.py:1199
 #: apps/site_specific/forms/institutions.py:43
-#: apps/site_specific/forms/institutions.py:809
+#: apps/site_specific/forms/institutions.py:815
 #: apps/site_specific/forms/marketplace.py:30
 #: apps/site_specific/forms/misc.py:54 apps/site_specific/forms/misc.py:124
-#: apps/site_specific/forms/people.py:983
+#: apps/site_specific/forms/people.py:989
 #: templates/ccb/styleguide/form.html:559
 #: templates/ccb/uni_form/includes/birthday.html:22
 #: templates/ccb/uni_form/includes/establishment.html:15
@@ -1224,16 +1203,16 @@ msgid "Year"
 msgstr "Jahr"
 
 #: apps/bulletin_board/forms.py:32 apps/bulletin_board/forms.py:285
-#: apps/events/forms.py:45 apps/events/forms.py:703 apps/events/forms.py:754
+#: apps/events/forms.py:45 apps/events/forms.py:707 apps/events/forms.py:758
 #: apps/institutions/forms.py:50 apps/marketplace/forms.py:42
 #: apps/site_specific/forms/events.py:36
-#: apps/site_specific/forms/events.py:1136
-#: apps/site_specific/forms/events.py:1187
+#: apps/site_specific/forms/events.py:1142
+#: apps/site_specific/forms/events.py:1193
 #: apps/site_specific/forms/institutions.py:45
-#: apps/site_specific/forms/institutions.py:803
+#: apps/site_specific/forms/institutions.py:809
 #: apps/site_specific/forms/marketplace.py:31
 #: apps/site_specific/forms/misc.py:55 apps/site_specific/forms/misc.py:126
-#: apps/site_specific/forms/people.py:977
+#: apps/site_specific/forms/people.py:983
 #: templates/ccb/styleguide/form.html:540
 #: templates/ccb/uni_form/includes/birthday.html:16
 #: templates/ccb/uni_form/includes/establishment.html:9
@@ -1244,12 +1223,12 @@ msgid "Month"
 msgstr "Monat"
 
 #: apps/bulletin_board/forms.py:33 apps/bulletin_board/forms.py:279
-#: apps/events/forms.py:46 apps/events/forms.py:697 apps/events/forms.py:748
+#: apps/events/forms.py:46 apps/events/forms.py:701 apps/events/forms.py:752
 #: apps/marketplace/forms.py:43 apps/site_specific/forms/events.py:37
-#: apps/site_specific/forms/events.py:1130
-#: apps/site_specific/forms/events.py:1181
+#: apps/site_specific/forms/events.py:1136
+#: apps/site_specific/forms/events.py:1187
 #: apps/site_specific/forms/marketplace.py:32
-#: apps/site_specific/forms/misc.py:56 apps/site_specific/forms/people.py:971
+#: apps/site_specific/forms/misc.py:56 apps/site_specific/forms/people.py:977
 #: templates/ccb/styleguide/form.html:502
 #: templates/ccb/uni_form/includes/birthday.html:10
 #: templates/ccb/uni_form/includes/event_time.html:12
@@ -1281,35 +1260,35 @@ msgid "Available formats are JPG, GIF, and PNG. Minimal size is 290 × 290 px."
 msgstr ""
 
 #: apps/bulletin_board/forms.py:63 apps/events/base.py:822
-#: apps/events/forms.py:618 apps/site_specific/forms/events.py:1044
+#: apps/events/forms.py:622 apps/site_specific/forms/events.py:1050
 msgid "Start Year"
 msgstr "Beginn Jahr"
 
 #: apps/bulletin_board/forms.py:69 apps/events/base.py:823
-#: apps/events/forms.py:624 apps/site_specific/forms/events.py:1050
+#: apps/events/forms.py:628 apps/site_specific/forms/events.py:1056
 msgid "Start Month"
 msgstr "Beginn Monat"
 
 #: apps/bulletin_board/forms.py:75 apps/events/base.py:824
-#: apps/events/forms.py:630 apps/site_specific/forms/events.py:1056
+#: apps/events/forms.py:634 apps/site_specific/forms/events.py:1062
 msgid "Start Day"
 msgstr "Start Datum"
 
-#: apps/bulletin_board/forms.py:81 apps/events/forms.py:636
-#: apps/site_specific/forms/events.py:1062
+#: apps/bulletin_board/forms.py:81 apps/events/forms.py:640
+#: apps/site_specific/forms/events.py:1068
 msgid "Start Hours"
 msgstr "Beginn Stunden"
 
-#: apps/bulletin_board/forms.py:87 apps/events/forms.py:642
-#: apps/site_specific/forms/events.py:1068
+#: apps/bulletin_board/forms.py:87 apps/events/forms.py:646
+#: apps/site_specific/forms/events.py:1074
 msgid "Start Minutes"
 msgstr "Beginn Minuten"
 
-#: apps/bulletin_board/forms.py:124 apps/institutions/forms.py:273
-#: apps/institutions/forms.py:279 apps/marketplace/forms.py:248
-#: apps/site_specific/forms/institutions.py:453
+#: apps/bulletin_board/forms.py:124 apps/institutions/forms.py:279
+#: apps/institutions/forms.py:285 apps/marketplace/forms.py:253
+#: apps/site_specific/forms/institutions.py:459
 #: apps/site_specific/forms/people.py:281
-#: apps/site_specific/forms/people.py:539
+#: apps/site_specific/forms/people.py:545
 #: templates/ccb/bulletin_board/change_bulletin_confirm.html:76
 #: templates/ccb/facebook_app/manage_pages.html:55
 #: templates/ccb/groups_networks/persongroups/add_group_confirm.html:13
@@ -1325,8 +1304,8 @@ msgid "Institution"
 msgstr "Institution"
 
 #: apps/bulletin_board/forms.py:125 apps/events/admin.py:106
-#: apps/events/forms.py:250 apps/marketplace/forms.py:108
-#: apps/site_specific/forms/events.py:823
+#: apps/events/forms.py:254 apps/marketplace/forms.py:108
+#: apps/site_specific/forms/events.py:829
 #: apps/site_specific/forms/marketplace.py:208
 #: apps/site_specific/forms/people.py:282
 msgid "Please enter a letter to display a list of available institutions"
@@ -1334,33 +1313,36 @@ msgstr ""
 "Bitte gib einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der "
 "verfügbaren Institutionen angezeigt zu bekommen."
 
-#: apps/bulletin_board/forms.py:131 apps/events/forms.py:1847
-#: apps/institutions/forms.py:1456 apps/people/forms.py:39
+#: apps/bulletin_board/forms.py:131 apps/events/forms.py:1851
+#: apps/institutions/forms.py:1462 apps/people/forms.py:39
 msgid "Location Type"
 msgstr "Standort"
 
 #: apps/bulletin_board/forms.py:272
-#, fuzzy
-#| msgid "Publishing date and time"
 msgid "Publish until date and time"
-msgstr "Veröffentlichungsdatum und -uhrzeit"
+msgstr "Veröffentlich bis Datum und Uhrzeit"
 
 #: apps/bulletin_board/forms.py:274
 #: templates/ccb/events/lists/event_icons.html:55
 msgid "Date"
 msgstr "Datum"
 
-#: apps/bulletin_board/forms.py:300 apps/events/forms.py:718
-#: apps/events/forms.py:769 apps/site_specific/forms/events.py:1151
-#: apps/site_specific/forms/events.py:1202
+#: apps/bulletin_board/forms.py:295 apps/events/admin.py:223
+#: templates/ccb/styleguide/elements.html:622
+msgid "Time"
+msgstr "Zeit"
+
+#: apps/bulletin_board/forms.py:300 apps/events/forms.py:722
+#: apps/events/forms.py:773 apps/site_specific/forms/events.py:1157
+#: apps/site_specific/forms/events.py:1208
 #: templates/ccb/uni_form/includes/event_time.html:34
 #: templates/ccb/uni_form/includes/event_time.html:94
 msgid "Hour"
 msgstr "Stunde"
 
-#: apps/bulletin_board/forms.py:306 apps/events/forms.py:724
-#: apps/events/forms.py:775 apps/site_specific/forms/events.py:1157
-#: apps/site_specific/forms/events.py:1208
+#: apps/bulletin_board/forms.py:306 apps/events/forms.py:728
+#: apps/events/forms.py:779 apps/site_specific/forms/events.py:1163
+#: apps/site_specific/forms/events.py:1214
 #: templates/ccb/uni_form/includes/event_time.html:40
 #: templates/ccb/uni_form/includes/event_time.html:100
 msgid "Minute"
@@ -1370,9 +1352,9 @@ msgstr "Minute"
 msgid "Please enter either email or phone."
 msgstr "Bitte gib eine E-Mail oder Telefonnummer an."
 
-#: apps/bulletin_board/forms.py:369 apps/events/forms.py:819
-#: apps/site_specific/forms/events.py:1253
-#: apps/site_specific/forms/events.py:1255
+#: apps/bulletin_board/forms.py:369 apps/events/forms.py:823
+#: apps/site_specific/forms/events.py:1259
+#: apps/site_specific/forms/events.py:1261
 msgid "Please enter a valid date."
 msgstr "Bitte ein gültiges Datum eingeben."
 
@@ -1383,12 +1365,11 @@ msgstr ""
 
 #: apps/bulletin_board/forms.py:378
 msgid "Please enter a valid time using format 'HH:MM'"
-msgstr ""
-"Bitte mache Deine Zeitangabe im Format 'HH:MM' oder wähle 'Ganztägig'."
+msgstr "Bitte mache Deine Zeitangabe im Format 'HH:MM' oder wähle 'Ganztägig'."
 
-#: apps/bulletin_board/forms.py:383 apps/events/forms.py:837
-#: apps/events/forms.py:867 apps/site_specific/forms/events.py:1273
-#: apps/site_specific/forms/events.py:1303
+#: apps/bulletin_board/forms.py:383 apps/events/forms.py:841
+#: apps/events/forms.py:871 apps/site_specific/forms/events.py:1279
+#: apps/site_specific/forms/events.py:1309
 msgid "If you choose a time, please enter a valid day, month and year."
 msgstr ""
 "Wenn Due eine Zeit auswählst, ergänze bitte auch die entsprechenden Angaben "
@@ -1402,8 +1383,8 @@ msgstr "Bitte gib ein gültiges Datum ein."
 msgid "bulletin data"
 msgstr "Inseratdaten"
 
-#: apps/bulletin_board/forms.py:580 apps/events/forms.py:1814
-#: apps/institutions/forms.py:1422 apps/marketplace/forms.py:648
+#: apps/bulletin_board/forms.py:580 apps/events/forms.py:1818
+#: apps/institutions/forms.py:1428 apps/marketplace/forms.py:653
 msgid "confirm data"
 msgstr "Eingaben überprüfen"
 
@@ -1433,8 +1414,6 @@ msgstr "Biete"
 #: apps/events/base.py:55 apps/external_services/models.py:13
 #: apps/external_services/models.py:72 apps/partners/models.py:13
 #: apps/partners/models.py:19
-#: subtrees/base_libs/base_libs/models/models.py:212
-#: subtrees/base_libs/base_libs/models/models.py:272
 #: templates/ccb/bulletin_board/change_bulletin.html:27
 #: templates/ccb/media_gallery/portfolio_overview.html:40
 msgid "Draft"
@@ -1444,8 +1423,6 @@ msgstr "Entwurf"
 #: apps/events/base.py:56 apps/external_services/models.py:14
 #: apps/external_services/models.py:73 apps/media_gallery/forms.py:328
 #: apps/partners/models.py:14 apps/partners/models.py:20
-#: subtrees/base_libs/base_libs/models/models.py:213
-#: subtrees/base_libs/base_libs/models/models.py:267
 #: templates/admin/extendedadmin/document_change.html:311
 #: templates/ccb/bulletin_board/change_bulletin.html:27
 #: templates/ccb/media_gallery/manage_galleries.html:7
@@ -1482,55 +1459,55 @@ msgid "Bulletin Categories"
 msgstr "Projektbörse Kategorien"
 
 #: apps/bulletin_board/models.py:135 apps/cms_extensions/models.py:47
-#: apps/institutions/forms.py:207 apps/institutions/forms.py:216
-#: apps/institutions/forms.py:225 apps/institutions/forms.py:234
-#: apps/institutions/forms.py:244 apps/institutions/forms.py:254
-#: apps/institutions/forms.py:376 apps/institutions/forms.py:389
-#: apps/institutions/forms.py:402 apps/institutions/forms.py:418
-#: apps/institutions/forms.py:431 apps/institutions/forms.py:444
-#: apps/institutions/forms.py:1450 apps/people/forms.py:33
-#: apps/resources/forms.py:25 apps/site_specific/forms/events.py:409
-#: apps/site_specific/forms/events.py:418
-#: apps/site_specific/forms/events.py:427
-#: apps/site_specific/forms/events.py:436
-#: apps/site_specific/forms/events.py:446
-#: apps/site_specific/forms/events.py:456
-#: apps/site_specific/forms/events.py:628
-#: apps/site_specific/forms/events.py:641
-#: apps/site_specific/forms/events.py:654
-#: apps/site_specific/forms/events.py:669
-#: apps/site_specific/forms/events.py:682
-#: apps/site_specific/forms/events.py:695
-#: apps/site_specific/forms/institutions.py:332
-#: apps/site_specific/forms/institutions.py:341
-#: apps/site_specific/forms/institutions.py:350
-#: apps/site_specific/forms/institutions.py:359
-#: apps/site_specific/forms/institutions.py:369
-#: apps/site_specific/forms/institutions.py:379
-#: apps/site_specific/forms/institutions.py:546
-#: apps/site_specific/forms/institutions.py:559
-#: apps/site_specific/forms/institutions.py:572
-#: apps/site_specific/forms/institutions.py:587
-#: apps/site_specific/forms/institutions.py:600
-#: apps/site_specific/forms/institutions.py:613
-#: apps/site_specific/forms/marketplace.py:336
-#: apps/site_specific/forms/marketplace.py:345
-#: apps/site_specific/forms/marketplace.py:354
-#: apps/site_specific/forms/marketplace.py:363
-#: apps/site_specific/forms/marketplace.py:373
-#: apps/site_specific/forms/marketplace.py:383
-#: apps/site_specific/forms/people.py:403
-#: apps/site_specific/forms/people.py:412
-#: apps/site_specific/forms/people.py:421
-#: apps/site_specific/forms/people.py:430
-#: apps/site_specific/forms/people.py:440
-#: apps/site_specific/forms/people.py:450
-#: apps/site_specific/forms/people.py:645
-#: apps/site_specific/forms/people.py:658
-#: apps/site_specific/forms/people.py:671
-#: apps/site_specific/forms/people.py:687
-#: apps/site_specific/forms/people.py:700
-#: apps/site_specific/forms/people.py:713
+#: apps/institutions/forms.py:213 apps/institutions/forms.py:222
+#: apps/institutions/forms.py:231 apps/institutions/forms.py:240
+#: apps/institutions/forms.py:250 apps/institutions/forms.py:260
+#: apps/institutions/forms.py:382 apps/institutions/forms.py:395
+#: apps/institutions/forms.py:408 apps/institutions/forms.py:424
+#: apps/institutions/forms.py:437 apps/institutions/forms.py:450
+#: apps/institutions/forms.py:1456 apps/people/forms.py:33
+#: apps/resources/forms.py:25 apps/site_specific/forms/events.py:415
+#: apps/site_specific/forms/events.py:424
+#: apps/site_specific/forms/events.py:433
+#: apps/site_specific/forms/events.py:442
+#: apps/site_specific/forms/events.py:452
+#: apps/site_specific/forms/events.py:462
+#: apps/site_specific/forms/events.py:634
+#: apps/site_specific/forms/events.py:647
+#: apps/site_specific/forms/events.py:660
+#: apps/site_specific/forms/events.py:675
+#: apps/site_specific/forms/events.py:688
+#: apps/site_specific/forms/events.py:701
+#: apps/site_specific/forms/institutions.py:338
+#: apps/site_specific/forms/institutions.py:347
+#: apps/site_specific/forms/institutions.py:356
+#: apps/site_specific/forms/institutions.py:365
+#: apps/site_specific/forms/institutions.py:375
+#: apps/site_specific/forms/institutions.py:385
+#: apps/site_specific/forms/institutions.py:552
+#: apps/site_specific/forms/institutions.py:565
+#: apps/site_specific/forms/institutions.py:578
+#: apps/site_specific/forms/institutions.py:593
+#: apps/site_specific/forms/institutions.py:606
+#: apps/site_specific/forms/institutions.py:619
+#: apps/site_specific/forms/marketplace.py:343
+#: apps/site_specific/forms/marketplace.py:352
+#: apps/site_specific/forms/marketplace.py:361
+#: apps/site_specific/forms/marketplace.py:370
+#: apps/site_specific/forms/marketplace.py:380
+#: apps/site_specific/forms/marketplace.py:390
+#: apps/site_specific/forms/people.py:409
+#: apps/site_specific/forms/people.py:418
+#: apps/site_specific/forms/people.py:427
+#: apps/site_specific/forms/people.py:436
+#: apps/site_specific/forms/people.py:446
+#: apps/site_specific/forms/people.py:456
+#: apps/site_specific/forms/people.py:651
+#: apps/site_specific/forms/people.py:664
+#: apps/site_specific/forms/people.py:677
+#: apps/site_specific/forms/people.py:693
+#: apps/site_specific/forms/people.py:706
+#: apps/site_specific/forms/people.py:719
 #: templates/ccb/marketplace/feeds/feed_description.html:3
 #: templates/ccb/resources/documents/profile/details.html:27
 #: templates/ccb/site_specific/object_categories.html:46
@@ -1550,23 +1527,18 @@ msgstr "Institution"
 msgid "Institution URL"
 msgstr "Institution URL"
 
-#: apps/bulletin_board/models.py:144 apps/marketplace/forms.py:287
-#: apps/site_specific/forms/marketplace.py:487
+#: apps/bulletin_board/models.py:144 apps/marketplace/forms.py:292
+#: apps/site_specific/forms/marketplace.py:494
 msgid "Contact person"
 msgstr "Kontaktperson"
 
 #: apps/bulletin_board/models.py:145 apps/events/forms.py:72
-#: apps/events/forms.py:198 apps/events/forms.py:417
-#: apps/institutions/forms.py:162 apps/institutions/forms.py:310
-#: apps/marketplace/forms.py:162 apps/marketplace/forms.py:294
-#: apps/site_specific/admin.py:77 apps/site_specific/forms/events.py:364
-#: apps/site_specific/forms/events.py:566
-#: apps/site_specific/forms/institutions.py:287
-#: apps/site_specific/forms/institutions.py:482
-#: apps/site_specific/forms/marketplace.py:285
-#: apps/site_specific/forms/marketplace.py:513
-#: apps/site_specific/forms/misc.py:229 apps/site_specific/forms/people.py:358
-#: apps/site_specific/forms/people.py:581
+#: apps/events/forms.py:421 apps/institutions/forms.py:316
+#: apps/marketplace/forms.py:299 apps/site_specific/admin.py:77
+#: apps/site_specific/forms/events.py:572
+#: apps/site_specific/forms/institutions.py:488
+#: apps/site_specific/forms/marketplace.py:520
+#: apps/site_specific/forms/misc.py:229 apps/site_specific/forms/people.py:587
 #: templates/ccb/bulletin_board/bulletin_detail.html:84
 #: templates/ccb/bulletin_board/change_bulletin_confirm.html:96
 #: templates/ccb/counselling_events/profile/contact.html:56
@@ -1600,19 +1572,16 @@ msgid "Locality type"
 msgstr "Standort"
 
 #: apps/bulletin_board/models.py:182
-#: subtrees/base_libs/base_libs/models/models.py:230
 msgid ""
 "If not provided and the status is set to 'published', the entry will be "
 "published immediately."
 msgstr ""
 
 #: apps/bulletin_board/models.py:185
-#: subtrees/base_libs/base_libs/models/models.py:233
 msgid "published until"
 msgstr "veröffentlicht bis"
 
 #: apps/bulletin_board/models.py:188
-#: subtrees/base_libs/base_libs/models/models.py:236
 msgid ""
 "If not provided and the status is set to 'published', the entry will be "
 "published forever."
@@ -1760,7 +1729,6 @@ msgid "Tab title"
 msgstr "Seitentitel"
 
 #: apps/cms_extensions/plugins/jquery_ui_tab/models.py:16
-#: subtrees/base_libs/base_libs/models/models.py:1032
 msgid "content"
 msgstr "Content"
 
@@ -1828,30 +1796,29 @@ msgstr "Titel und Beschreibung"
 #: apps/media_gallery/forms.py:377 apps/site_specific/forms/events.py:150
 #: apps/site_specific/forms/events.py:202
 #: apps/site_specific/forms/events.py:253
-#: apps/site_specific/forms/events.py:709
-#: apps/site_specific/forms/events.py:894
-#: apps/site_specific/forms/events.py:953
-#: apps/site_specific/forms/events.py:1012
-#: apps/site_specific/forms/events.py:1883
-#: apps/site_specific/forms/events.py:2001
+#: apps/site_specific/forms/events.py:715
+#: apps/site_specific/forms/events.py:900
+#: apps/site_specific/forms/events.py:959
+#: apps/site_specific/forms/events.py:1018
+#: apps/site_specific/forms/events.py:1889
+#: apps/site_specific/forms/events.py:2007
 #: apps/site_specific/forms/institutions.py:88
 #: apps/site_specific/forms/institutions.py:141
 #: apps/site_specific/forms/institutions.py:194
-#: apps/site_specific/forms/institutions.py:629
-#: apps/site_specific/forms/institutions.py:815
-#: apps/site_specific/forms/institutions.py:997
-#: apps/site_specific/forms/institutions.py:1551
-#: apps/site_specific/forms/institutions.py:1686
+#: apps/site_specific/forms/institutions.py:635
+#: apps/site_specific/forms/institutions.py:821
+#: apps/site_specific/forms/institutions.py:1003
+#: apps/site_specific/forms/institutions.py:1557
+#: apps/site_specific/forms/institutions.py:1692
 #: apps/site_specific/forms/marketplace.py:148
-#: apps/site_specific/forms/marketplace.py:656
-#: apps/site_specific/forms/marketplace.py:778
+#: apps/site_specific/forms/marketplace.py:663
+#: apps/site_specific/forms/marketplace.py:785
 #: apps/site_specific/forms/people.py:105
 #: apps/site_specific/forms/people.py:161
 #: apps/site_specific/forms/people.py:214
-#: apps/site_specific/forms/people.py:729
-#: apps/site_specific/forms/people.py:989
-#: apps/site_specific/forms/people.py:1041
-#: subtrees/base_libs/base_libs/models/admin.py:27
+#: apps/site_specific/forms/people.py:735
+#: apps/site_specific/forms/people.py:995
+#: apps/site_specific/forms/people.py:1047
 #: templates/admin/extendedadmin/document_change.html:432
 #: templates/ccb/blog/forms/post_embedded.html:19
 #: templates/ccb/counselling_blog/forms/post_embedded.html:19
@@ -1973,7 +1940,7 @@ msgid "Documents"
 msgstr "Dokumente"
 
 #: apps/events/admin.py:84 apps/events/admin.py:262 apps/events/base.py:465
-#: apps/events/forms.py:138 apps/events/forms.py:338
+#: apps/events/forms.py:138 apps/events/forms.py:342
 #: apps/site_specific/forms/events.py:297
 #: templates/ccb/counselling_events/profile/contact.html:11
 #: templates/ccb/events/add_event_confirm.html:70
@@ -1988,8 +1955,8 @@ msgstr ""
 "Bitte gib einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der "
 "verfügbaren Veranstaltungsorte angezeigt zu bekommen."
 
-#: apps/events/admin.py:105 apps/events/base.py:485 apps/events/forms.py:249
-#: apps/events/forms.py:461 apps/site_specific/forms/events.py:822
+#: apps/events/admin.py:105 apps/events/base.py:485 apps/events/forms.py:253
+#: apps/events/forms.py:465 apps/site_specific/forms/events.py:828
 #: templates/ccb/events/add_event_confirm.html:154
 msgid "Organizing institution"
 msgstr "Veranstalter (Institution)"
@@ -2015,10 +1982,10 @@ msgstr ""
 "verfügbaren Veranstaltungen angezeigt zu bekommen."
 
 #: apps/events/admin.py:172 apps/events/forms.py:167
-#: apps/institutions/forms.py:132 apps/marketplace/forms.py:147
+#: apps/institutions/forms.py:132 apps/marketplace/forms.py:148
 #: apps/site_specific/forms/events.py:326
 #: apps/site_specific/forms/institutions.py:249
-#: apps/site_specific/forms/marketplace.py:247
+#: apps/site_specific/forms/marketplace.py:248
 #: apps/site_specific/forms/people.py:320
 #: templates/ccb/institutions/profile/contact.html:37
 #: templates/ccb/people/profile/contact.html:50
@@ -2031,10 +1998,6 @@ msgstr ""
 "Bitte gib einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der "
 "verfügbaren Länder angezeigt zu bekommen."
 
-#: apps/events/admin.py:223 templates/ccb/styleguide/elements.html:622
-msgid "Time"
-msgstr "Zeit"
-
 #: apps/events/admin.py:224
 msgid "Times"
 msgstr "Zeiten"
@@ -2043,13 +2006,12 @@ msgstr "Zeiten"
 msgid "Publish selected events"
 msgstr "Ausgewählte Veranstaltungen veröffentlichen"
 
-#: apps/events/admin.py:336 subtrees/base_libs/base_libs/admin/options.py:583
+#: apps/events/admin.py:336
 #, python-format
 msgid "Add %s"
 msgstr "%s hinzufügen"
 
 #: apps/events/admin.py:370
-#: subtrees/base_libs/base_libs/admin/tree_editor.py:161
 #, python-format
 msgid "%(name)s object with primary key %(key)r does not exist."
 msgstr ""
@@ -2102,20 +2064,19 @@ msgstr "Erstellungsdatum"
 msgid "Alphabetical"
 msgstr "Alphabetisch"
 
-#: apps/events/base.py:218 subtrees/base_libs/base_libs/models/models.py:815
-#: subtrees/base_libs/base_libs/models/models.py:913
+#: apps/events/base.py:218
 msgid "Slug for URIs"
 msgstr "URL-Pfadname"
 
 #: apps/events/base.py:226 apps/events/base.py:827 apps/events/base.py:834
-#: apps/events/forms.py:692 apps/resources/models.py:15
-#: apps/site_specific/forms/events.py:1125
+#: apps/events/forms.py:696 apps/resources/models.py:15
+#: apps/site_specific/forms/events.py:1131
 #: templates/ccb/uni_form/includes/event_time.html:8
 msgid "Start"
 msgstr "Beginn"
 
-#: apps/events/base.py:227 apps/events/forms.py:743
-#: apps/resources/models.py:16 apps/site_specific/forms/events.py:1176
+#: apps/events/base.py:227 apps/events/forms.py:747
+#: apps/resources/models.py:16 apps/site_specific/forms/events.py:1182
 #: templates/ccb/uni_form/includes/event_time.html:68
 msgid "End"
 msgstr "Ende"
@@ -2146,7 +2107,6 @@ msgstr "Ende Minute"
 
 #: apps/events/base.py:417 apps/faqs/models.py:77 apps/faqs/models.py:234
 #: apps/navigation/models.py:50
-#: subtrees/base_libs/base_libs/models/models.py:695
 msgid "sort order"
 msgstr "Sortierreihenfolge"
 
@@ -2166,8 +2126,8 @@ msgstr "Art der Veranstaltung"
 msgid "Postal Address"
 msgstr "Postanschrift"
 
-#: apps/events/base.py:514 apps/events/forms.py:457
-#: apps/site_specific/forms/events.py:873
+#: apps/events/base.py:514 apps/events/forms.py:461
+#: apps/site_specific/forms/events.py:879
 #: templates/ccb/counselling_events/profile/organizer.html:7
 #: templates/ccb/counselling_events/profile/organizer.html:11
 #: templates/ccb/events/profile/organizer.html:9
@@ -2179,7 +2139,7 @@ msgstr "Veranstalter"
 msgid "Organizer URL"
 msgstr "Website des Veranstalters"
 
-#: apps/events/base.py:517 apps/site_specific/forms/events.py:948
+#: apps/events/base.py:517 apps/site_specific/forms/events.py:954
 #: templates/admin/extendedadmin/document_change.html:258
 #: templates/admin/extendedadmin/job_offer_change.html:146
 #: templates/ccb/counselling_events/profile/additional_info.html:6
@@ -2282,20 +2242,20 @@ msgstr "Beginn Stunde"
 msgid "Start Minute"
 msgstr "Beginn Minute"
 
-#: apps/events/base.py:829 apps/events/forms.py:648
-#: apps/marketplace/forms.py:198 apps/site_specific/forms/events.py:1074
+#: apps/events/base.py:829 apps/events/forms.py:652
+#: apps/marketplace/forms.py:203 apps/site_specific/forms/events.py:1080
 #: apps/site_specific/forms/marketplace.py:86
 msgid "End Year"
 msgstr "Ende Jahr"
 
-#: apps/events/base.py:830 apps/events/forms.py:654
-#: apps/marketplace/forms.py:204 apps/site_specific/forms/events.py:1080
+#: apps/events/base.py:830 apps/events/forms.py:658
+#: apps/marketplace/forms.py:209 apps/site_specific/forms/events.py:1086
 #: apps/site_specific/forms/marketplace.py:92
 msgid "End Month"
 msgstr "Ende Monat"
 
-#: apps/events/base.py:831 apps/events/forms.py:660
-#: apps/marketplace/forms.py:210 apps/site_specific/forms/events.py:1086
+#: apps/events/base.py:831 apps/events/forms.py:664
+#: apps/marketplace/forms.py:215 apps/site_specific/forms/events.py:1092
 #: apps/site_specific/forms/marketplace.py:98
 msgid "End Day"
 msgstr "Ende Tag"
@@ -2414,38 +2374,38 @@ msgstr "Ich selbst bin Veranstalter"
 msgid "Not listed? Enter manually"
 msgstr "Nicht aufgelistet? Trage Dein(e) Institution/Unternehmen selbst ein."
 
-#: apps/events/forms.py:69 apps/events/forms.py:393
-#: apps/institutions/forms.py:239 apps/institutions/forms.py:249
-#: apps/institutions/forms.py:259 apps/institutions/forms.py:279
-#: apps/institutions/forms.py:284 apps/institutions/forms.py:418
-#: apps/institutions/forms.py:431 apps/institutions/forms.py:444
-#: apps/marketplace/forms.py:268 apps/site_specific/forms/events.py:441
-#: apps/site_specific/forms/events.py:451
-#: apps/site_specific/forms/events.py:461
-#: apps/site_specific/forms/events.py:543
-#: apps/site_specific/forms/events.py:669
-#: apps/site_specific/forms/events.py:682
-#: apps/site_specific/forms/events.py:695
-#: apps/site_specific/forms/institutions.py:364
-#: apps/site_specific/forms/institutions.py:374
-#: apps/site_specific/forms/institutions.py:384
-#: apps/site_specific/forms/institutions.py:453
-#: apps/site_specific/forms/institutions.py:457
-#: apps/site_specific/forms/institutions.py:458
-#: apps/site_specific/forms/institutions.py:587
-#: apps/site_specific/forms/institutions.py:600
-#: apps/site_specific/forms/institutions.py:613
-#: apps/site_specific/forms/marketplace.py:368
-#: apps/site_specific/forms/marketplace.py:378
-#: apps/site_specific/forms/marketplace.py:388
-#: apps/site_specific/forms/marketplace.py:490
-#: apps/site_specific/forms/people.py:435
-#: apps/site_specific/forms/people.py:445
-#: apps/site_specific/forms/people.py:455
-#: apps/site_specific/forms/people.py:557
-#: apps/site_specific/forms/people.py:687
-#: apps/site_specific/forms/people.py:700
-#: apps/site_specific/forms/people.py:713
+#: apps/events/forms.py:69 apps/events/forms.py:397
+#: apps/institutions/forms.py:245 apps/institutions/forms.py:255
+#: apps/institutions/forms.py:265 apps/institutions/forms.py:285
+#: apps/institutions/forms.py:290 apps/institutions/forms.py:424
+#: apps/institutions/forms.py:437 apps/institutions/forms.py:450
+#: apps/marketplace/forms.py:273 apps/site_specific/forms/events.py:447
+#: apps/site_specific/forms/events.py:457
+#: apps/site_specific/forms/events.py:467
+#: apps/site_specific/forms/events.py:549
+#: apps/site_specific/forms/events.py:675
+#: apps/site_specific/forms/events.py:688
+#: apps/site_specific/forms/events.py:701
+#: apps/site_specific/forms/institutions.py:370
+#: apps/site_specific/forms/institutions.py:380
+#: apps/site_specific/forms/institutions.py:390
+#: apps/site_specific/forms/institutions.py:459
+#: apps/site_specific/forms/institutions.py:463
+#: apps/site_specific/forms/institutions.py:464
+#: apps/site_specific/forms/institutions.py:593
+#: apps/site_specific/forms/institutions.py:606
+#: apps/site_specific/forms/institutions.py:619
+#: apps/site_specific/forms/marketplace.py:375
+#: apps/site_specific/forms/marketplace.py:385
+#: apps/site_specific/forms/marketplace.py:395
+#: apps/site_specific/forms/marketplace.py:497
+#: apps/site_specific/forms/people.py:441
+#: apps/site_specific/forms/people.py:451
+#: apps/site_specific/forms/people.py:461
+#: apps/site_specific/forms/people.py:563
+#: apps/site_specific/forms/people.py:693
+#: apps/site_specific/forms/people.py:706
+#: apps/site_specific/forms/people.py:719
 #: templates/ccb/counselling_events/profile/contact.html:28
 #: templates/ccb/events/add_event_confirm.html:83
 #: templates/ccb/events/profile/contact.html:30
@@ -2481,17 +2441,12 @@ msgstr "Auswahl ändern"
 msgid "Back to selection"
 msgstr "Zurück zur Auswahl"
 
-#: apps/events/forms.py:73 apps/events/forms.py:212 apps/events/forms.py:436
-#: apps/institutions/forms.py:176 apps/institutions/forms.py:329
-#: apps/marketplace/forms.py:176 apps/marketplace/forms.py:313
-#: apps/site_specific/forms/events.py:378
-#: apps/site_specific/forms/events.py:585
-#: apps/site_specific/forms/institutions.py:301
-#: apps/site_specific/forms/institutions.py:501
-#: apps/site_specific/forms/marketplace.py:299
-#: apps/site_specific/forms/marketplace.py:532
-#: apps/site_specific/forms/people.py:372
-#: apps/site_specific/forms/people.py:600
+#: apps/events/forms.py:73 apps/events/forms.py:440
+#: apps/institutions/forms.py:335 apps/marketplace/forms.py:318
+#: apps/site_specific/forms/events.py:591
+#: apps/site_specific/forms/institutions.py:507
+#: apps/site_specific/forms/marketplace.py:539
+#: apps/site_specific/forms/people.py:606
 #: templates/ccb/events/add_event_confirm.html:122
 #: templates/ccb/groups_networks/institution_invitation.html:87
 #: templates/ccb/groups_networks/institution_invitation.html:160
@@ -2526,7 +2481,7 @@ msgstr "Titel (Deutsch)"
 msgid "Title (English)"
 msgstr "Titel (Englisch)"
 
-#: apps/events/forms.py:95 apps/events/forms.py:1841
+#: apps/events/forms.py:95 apps/events/forms.py:1845
 #: apps/site_specific/forms/events.py:124
 #: templates/ccb/events/add_event_confirm.html:48
 msgid "Event Type"
@@ -2534,7 +2489,6 @@ msgstr "Veranstaltungsformat"
 
 #: apps/events/forms.py:145 apps/site_specific/forms/misc.py:140
 #: apps/site_specific/models.py:556 apps/tracker/forms.py:45
-#: subtrees/tagging/tagging/admin.py:20
 #: templates/ccb/groups_networks/persongroups/profile/identity_form.html:6
 #: templates/ccb/institutions/profile/identity.html:7
 #: templates/ccb/people/profile/identity.html:9
@@ -2542,45 +2496,94 @@ msgid "Name"
 msgstr "Name"
 
 #: apps/events/forms.py:150 apps/institutions/forms.py:101
-#: apps/marketplace/forms.py:130 apps/site_specific/forms/events.py:309
+#: apps/marketplace/forms.py:131 apps/site_specific/forms/events.py:309
 #: apps/site_specific/forms/institutions.py:232
-#: apps/site_specific/forms/marketplace.py:230
+#: apps/site_specific/forms/marketplace.py:231
 #: apps/site_specific/forms/people.py:303
 msgid "Street Address"
 msgstr "Straße/Hausnummer"
 
 #: apps/events/forms.py:154 apps/institutions/forms.py:105
-#: apps/marketplace/forms.py:134 apps/site_specific/forms/events.py:313
+#: apps/marketplace/forms.py:135 apps/site_specific/forms/events.py:313
 #: apps/site_specific/forms/institutions.py:236
-#: apps/site_specific/forms/marketplace.py:234
+#: apps/site_specific/forms/marketplace.py:235
 #: apps/site_specific/forms/people.py:307
 msgid "Street Address (2nd line)"
 msgstr "Adresse (zweite Zeile)"
 
-#: apps/events/forms.py:158 apps/events/forms.py:397
-#: apps/institutions/forms.py:109 apps/institutions/forms.py:291
-#: apps/marketplace/forms.py:138 apps/marketplace/forms.py:272
+#: apps/events/forms.py:158 apps/events/forms.py:401
+#: apps/institutions/forms.py:109 apps/institutions/forms.py:297
+#: apps/marketplace/forms.py:139 apps/marketplace/forms.py:277
 #: apps/site_specific/forms/events.py:317
-#: apps/site_specific/forms/events.py:550
+#: apps/site_specific/forms/events.py:556
 #: apps/site_specific/forms/institutions.py:240
-#: apps/site_specific/forms/institutions.py:465
-#: apps/site_specific/forms/marketplace.py:238
-#: apps/site_specific/forms/marketplace.py:497
+#: apps/site_specific/forms/institutions.py:471
+#: apps/site_specific/forms/marketplace.py:239
+#: apps/site_specific/forms/marketplace.py:504
 #: apps/site_specific/forms/people.py:311
-#: apps/site_specific/forms/people.py:564
+#: apps/site_specific/forms/people.py:570
 msgid "City"
 msgstr "Ort"
 
 #: apps/events/forms.py:162 apps/institutions/forms.py:116
-#: apps/marketplace/forms.py:142 apps/site_specific/forms/events.py:321
+#: apps/marketplace/forms.py:143 apps/site_specific/forms/events.py:321
 #: apps/site_specific/forms/institutions.py:244
-#: apps/site_specific/forms/marketplace.py:242
+#: apps/site_specific/forms/marketplace.py:243
+#: apps/site_specific/forms/marketplace.py:504
 #: apps/site_specific/forms/people.py:315
 msgid "Postal Code"
 msgstr "PLZ"
 
-#: apps/events/forms.py:222 apps/events/forms.py:261
-#: apps/marketplace/forms.py:186 apps/site_specific/forms/events.py:834
+#: apps/events/forms.py:187 apps/institutions/forms.py:151
+#: apps/marketplace/forms.py:152 apps/site_specific/forms/events.py:353
+#: apps/site_specific/forms/institutions.py:276
+#: apps/site_specific/forms/marketplace.py:275
+#: apps/site_specific/forms/people.py:347
+msgid "Phone Country Code"
+msgstr "Ländervorwahl"
+
+#: apps/events/forms.py:193 apps/institutions/forms.py:157
+#: apps/marketplace/forms.py:158 apps/site_specific/forms/events.py:359
+#: apps/site_specific/forms/institutions.py:282
+#: apps/site_specific/forms/marketplace.py:281
+#: apps/site_specific/forms/people.py:353
+msgid "Phone Area Code"
+msgstr "Ortsvorwahl"
+
+#: apps/events/forms.py:198 apps/marketplace/forms.py:163
+#: apps/site_specific/forms/events.py:364
+#: apps/site_specific/forms/institutions.py:287
+#: apps/site_specific/forms/marketplace.py:286
+#: apps/site_specific/forms/people.py:358 apps/site_specific/models.py:560
+msgid "Phone Number"
+msgstr "Telefonnummer"
+
+#: apps/events/forms.py:203 apps/institutions/forms.py:167
+#: apps/marketplace/forms.py:168 apps/site_specific/forms/events.py:369
+#: apps/site_specific/forms/institutions.py:292
+#: apps/site_specific/forms/marketplace.py:291
+#: apps/site_specific/forms/people.py:363
+msgid "Fax Country Code"
+msgstr "Ländervorwahl"
+
+#: apps/events/forms.py:209 apps/institutions/forms.py:173
+#: apps/marketplace/forms.py:174 apps/site_specific/forms/events.py:375
+#: apps/site_specific/forms/institutions.py:298
+#: apps/site_specific/forms/marketplace.py:297
+#: apps/site_specific/forms/people.py:369
+msgid "Fax Area Code"
+msgstr "Ortsvorwahl"
+
+#: apps/events/forms.py:214 apps/institutions/forms.py:178
+#: apps/marketplace/forms.py:179 apps/site_specific/forms/events.py:380
+#: apps/site_specific/forms/institutions.py:303
+#: apps/site_specific/forms/marketplace.py:302
+#: apps/site_specific/forms/people.py:374
+msgid "Fax Number"
+msgstr "Faxnummer"
+
+#: apps/events/forms.py:226 apps/events/forms.py:265
+#: apps/marketplace/forms.py:191 apps/site_specific/forms/events.py:840
 #: templates/ccb/counselling_events/profile/contact.html:71
 #: templates/ccb/events/add_event_confirm.html:145
 #: templates/ccb/events/profile/contact.html:73
@@ -2594,60 +2597,58 @@ msgstr "PLZ"
 msgid "Website"
 msgstr "Website"
 
-#: apps/events/forms.py:256 apps/site_specific/forms/events.py:829
+#: apps/events/forms.py:260 apps/site_specific/forms/events.py:835
 msgid "Name of Institution"
 msgstr "Name der Institution"
 
-#: apps/events/forms.py:318
+#: apps/events/forms.py:322
 msgid "Period"
 msgstr "Zeitraum"
 
-#: apps/events/forms.py:397 apps/institutions/forms.py:291
-#: apps/marketplace/forms.py:272 apps/site_specific/forms/events.py:550
-#: apps/site_specific/forms/institutions.py:465
-#: apps/site_specific/forms/marketplace.py:497
-#: apps/site_specific/forms/people.py:564
+#: apps/events/forms.py:401 apps/institutions/forms.py:297
+#: apps/marketplace/forms.py:277 apps/site_specific/forms/events.py:556
+#: apps/site_specific/forms/institutions.py:471
+#: apps/site_specific/forms/people.py:570
 msgid "ZIP"
 msgstr ""
 
-#: apps/events/forms.py:415
+#: apps/events/forms.py:419
 msgid "Information about this Event"
 msgstr "Information zu diesem Termin"
 
-#: apps/events/forms.py:666 apps/site_specific/forms/events.py:1092
+#: apps/events/forms.py:670 apps/site_specific/forms/events.py:1098
 msgid "End Hours"
 msgstr "Ende Stunden"
 
-#: apps/events/forms.py:672 apps/site_specific/forms/events.py:1098
+#: apps/events/forms.py:676 apps/site_specific/forms/events.py:1104
 msgid "End Minutes"
 msgstr "Ende Minuten"
 
-#: apps/events/forms.py:677 apps/site_specific/forms/events.py:1103
+#: apps/events/forms.py:681 apps/site_specific/forms/events.py:1109
 msgid "All Day"
 msgstr "Ganztägig"
 
-#: apps/events/forms.py:815 apps/events/forms.py:854
-#: apps/marketplace/forms.py:371 apps/site_specific/forms/events.py:1249
-#: apps/site_specific/forms/events.py:1290
+#: apps/events/forms.py:819 apps/events/forms.py:858
+#: apps/marketplace/forms.py:376 apps/site_specific/forms/events.py:1255
+#: apps/site_specific/forms/events.py:1296
 msgid "Please enter a valid month."
 msgstr "Bitte einen gültigen Monat eingeben."
 
-#: apps/events/forms.py:823 apps/site_specific/forms/events.py:1259
+#: apps/events/forms.py:827 apps/site_specific/forms/events.py:1265
 msgid "Please enter a valid time using format 'HH:MM' or choose 'All Day'"
-msgstr ""
-"Bitte mache Deine Zeitangabe im Format 'HH:MM' oder wähle 'Ganztägig'."
+msgstr "Bitte mache Deine Zeitangabe im Format 'HH:MM' oder wähle 'Ganztägig'."
 
-#: apps/events/forms.py:858 apps/marketplace/forms.py:375
-#: apps/site_specific/forms/events.py:1294
+#: apps/events/forms.py:862 apps/marketplace/forms.py:380
+#: apps/site_specific/forms/events.py:1300
 msgid "If you want to specify an end date, please enter a valid one."
 msgstr ""
 "Wenn Due einen Endzeitpunkt auswählen, muss er ein gültiges Format haben."
 
-#: apps/events/forms.py:862 apps/site_specific/forms/events.py:1298
+#: apps/events/forms.py:866 apps/site_specific/forms/events.py:1304
 msgid "End date must be after start date."
 msgstr "Das Enddatum muss nach dem Startdatum liegen."
 
-#: apps/events/forms.py:877 apps/institutions/forms.py:466
+#: apps/events/forms.py:881 apps/institutions/forms.py:472
 #: apps/site_specific/forms/events.py:171
 #: apps/site_specific/forms/groups_networks.py:60
 #: apps/site_specific/forms/institutions.py:110
@@ -2658,7 +2659,7 @@ msgstr "Das Enddatum muss nach dem Startdatum liegen."
 msgid "Description (English)"
 msgstr "Beschreibung (Englisch)"
 
-#: apps/events/forms.py:882 apps/institutions/forms.py:471
+#: apps/events/forms.py:886 apps/institutions/forms.py:477
 #: apps/site_specific/forms/events.py:176
 #: apps/site_specific/forms/groups_networks.py:65
 #: apps/site_specific/forms/institutions.py:115
@@ -2669,15 +2670,15 @@ msgstr "Beschreibung (Englisch)"
 msgid "Description (German)"
 msgstr "Beschreibung (Deutsch)"
 
-#: apps/events/forms.py:888 apps/institutions/forms.py:501
-#: apps/institutions/forms.py:503
+#: apps/events/forms.py:892 apps/institutions/forms.py:507
+#: apps/institutions/forms.py:509
 #: templates/ccb/events/add_event_confirm.html:214
 #: templates/ccb/institutions/add_institution_confirm.html:173
 #: templates/ccb/institutions/add_institution_confirm.html:180
 msgid "Profile photo"
 msgstr "Profilphoto"
 
-#: apps/events/forms.py:890 apps/institutions/forms.py:477
+#: apps/events/forms.py:894 apps/institutions/forms.py:483
 #: apps/media_gallery/forms.py:46 apps/media_gallery/forms.py:283
 #: apps/site_specific/forms/events.py:224
 #: apps/site_specific/forms/groups_networks.py:92
@@ -2691,7 +2692,7 @@ msgid ""
 msgstr ""
 "Erlaubt sind Daten im Format JPG, GIF, PNG TIFF. Minimale Größe: %s px."
 
-#: apps/events/forms.py:911 apps/institutions/forms.py:498
+#: apps/events/forms.py:915 apps/institutions/forms.py:504
 #: apps/site_specific/forms/events.py:222
 #: apps/site_specific/forms/groups_networks.py:90
 #: apps/site_specific/forms/institutions.py:163
@@ -2701,50 +2702,49 @@ msgstr ""
 msgid "Photo"
 msgstr "Foto"
 
-#: apps/events/forms.py:934 apps/site_specific/forms/events.py:1348
+#: apps/events/forms.py:938 apps/site_specific/forms/events.py:1354
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:7
 #: templates/ccb/events/add_event_confirm.html:249
 msgid "Fees (English)"
 msgstr "Gebühr (Englisch)"
 
-#: apps/events/forms.py:939 apps/site_specific/forms/events.py:1353
+#: apps/events/forms.py:943 apps/site_specific/forms/events.py:1359
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:33
 #: templates/ccb/events/add_event_confirm.html:239
 msgid "Fees (German)"
 msgstr "Gebühr (Deutsch)"
 
-#: apps/events/forms.py:946 apps/institutions/forms.py:521
-#: apps/site_specific/forms/events.py:1360
-#: apps/site_specific/forms/institutions.py:1028
+#: apps/events/forms.py:950 apps/institutions/forms.py:527
+#: apps/site_specific/forms/events.py:1366
+#: apps/site_specific/forms/institutions.py:1034
 msgid "Morning/Afternoon"
 msgstr "Erweiterte Öffnungszeiten"
 
-#: apps/events/forms.py:951 apps/institutions/forms.py:526
-#: subtrees/base_libs/base_libs/models/models.py:1110
+#: apps/events/forms.py:955 apps/institutions/forms.py:532
 #: templates/ccb/institutions/add_institution_confirm.html:388
 msgid "Visiting by Appointment"
 msgstr "Termin nach Vereinbarung"
 
-#: apps/events/forms.py:957 apps/events/forms.py:983 apps/events/forms.py:1009
-#: apps/events/forms.py:1035 apps/events/forms.py:1061
-#: apps/events/forms.py:1087 apps/events/forms.py:1113
-#: apps/institutions/forms.py:532 apps/institutions/forms.py:558
-#: apps/institutions/forms.py:584 apps/institutions/forms.py:610
-#: apps/institutions/forms.py:636 apps/institutions/forms.py:662
-#: apps/institutions/forms.py:688 apps/site_specific/forms/events.py:1365
-#: apps/site_specific/forms/events.py:1391
-#: apps/site_specific/forms/events.py:1417
-#: apps/site_specific/forms/events.py:1443
-#: apps/site_specific/forms/events.py:1469
-#: apps/site_specific/forms/events.py:1495
-#: apps/site_specific/forms/events.py:1521
-#: apps/site_specific/forms/institutions.py:1039
-#: apps/site_specific/forms/institutions.py:1065
-#: apps/site_specific/forms/institutions.py:1091
-#: apps/site_specific/forms/institutions.py:1117
-#: apps/site_specific/forms/institutions.py:1143
-#: apps/site_specific/forms/institutions.py:1169
-#: apps/site_specific/forms/institutions.py:1195
+#: apps/events/forms.py:961 apps/events/forms.py:987 apps/events/forms.py:1013
+#: apps/events/forms.py:1039 apps/events/forms.py:1065
+#: apps/events/forms.py:1091 apps/events/forms.py:1117
+#: apps/institutions/forms.py:538 apps/institutions/forms.py:564
+#: apps/institutions/forms.py:590 apps/institutions/forms.py:616
+#: apps/institutions/forms.py:642 apps/institutions/forms.py:668
+#: apps/institutions/forms.py:694 apps/site_specific/forms/events.py:1371
+#: apps/site_specific/forms/events.py:1397
+#: apps/site_specific/forms/events.py:1423
+#: apps/site_specific/forms/events.py:1449
+#: apps/site_specific/forms/events.py:1475
+#: apps/site_specific/forms/events.py:1501
+#: apps/site_specific/forms/events.py:1527
+#: apps/site_specific/forms/institutions.py:1045
+#: apps/site_specific/forms/institutions.py:1071
+#: apps/site_specific/forms/institutions.py:1097
+#: apps/site_specific/forms/institutions.py:1123
+#: apps/site_specific/forms/institutions.py:1149
+#: apps/site_specific/forms/institutions.py:1175
+#: apps/site_specific/forms/institutions.py:1201
 #: templates/ccb/uni_form/includes/opening_hours.html:10
 #: templates/ccb/uni_form/includes/opening_hours.html:63
 #: templates/ccb/uni_form/includes/opening_hours.html:108
@@ -2755,47 +2755,47 @@ msgstr "Termin nach Vereinbarung"
 msgid "opens"
 msgstr "Offen ab"
 
-#: apps/events/forms.py:962 apps/events/forms.py:972 apps/events/forms.py:988
-#: apps/events/forms.py:998 apps/events/forms.py:1014
-#: apps/events/forms.py:1024 apps/events/forms.py:1040
-#: apps/events/forms.py:1050 apps/events/forms.py:1066
-#: apps/events/forms.py:1076 apps/events/forms.py:1092
-#: apps/events/forms.py:1102 apps/events/forms.py:1118
-#: apps/events/forms.py:1128 apps/institutions/forms.py:537
-#: apps/institutions/forms.py:547 apps/institutions/forms.py:563
-#: apps/institutions/forms.py:573 apps/institutions/forms.py:589
-#: apps/institutions/forms.py:599 apps/institutions/forms.py:615
-#: apps/institutions/forms.py:625 apps/institutions/forms.py:641
-#: apps/institutions/forms.py:651 apps/institutions/forms.py:667
-#: apps/institutions/forms.py:677 apps/institutions/forms.py:693
-#: apps/institutions/forms.py:703 apps/site_specific/forms/events.py:1370
-#: apps/site_specific/forms/events.py:1380
-#: apps/site_specific/forms/events.py:1396
-#: apps/site_specific/forms/events.py:1406
-#: apps/site_specific/forms/events.py:1422
-#: apps/site_specific/forms/events.py:1432
-#: apps/site_specific/forms/events.py:1448
-#: apps/site_specific/forms/events.py:1458
-#: apps/site_specific/forms/events.py:1474
-#: apps/site_specific/forms/events.py:1484
-#: apps/site_specific/forms/events.py:1500
-#: apps/site_specific/forms/events.py:1510
-#: apps/site_specific/forms/events.py:1526
-#: apps/site_specific/forms/events.py:1536
-#: apps/site_specific/forms/institutions.py:1044
-#: apps/site_specific/forms/institutions.py:1054
-#: apps/site_specific/forms/institutions.py:1070
-#: apps/site_specific/forms/institutions.py:1080
-#: apps/site_specific/forms/institutions.py:1096
-#: apps/site_specific/forms/institutions.py:1106
-#: apps/site_specific/forms/institutions.py:1122
-#: apps/site_specific/forms/institutions.py:1132
-#: apps/site_specific/forms/institutions.py:1148
-#: apps/site_specific/forms/institutions.py:1158
-#: apps/site_specific/forms/institutions.py:1174
-#: apps/site_specific/forms/institutions.py:1184
-#: apps/site_specific/forms/institutions.py:1200
-#: apps/site_specific/forms/institutions.py:1210
+#: apps/events/forms.py:966 apps/events/forms.py:976 apps/events/forms.py:992
+#: apps/events/forms.py:1002 apps/events/forms.py:1018
+#: apps/events/forms.py:1028 apps/events/forms.py:1044
+#: apps/events/forms.py:1054 apps/events/forms.py:1070
+#: apps/events/forms.py:1080 apps/events/forms.py:1096
+#: apps/events/forms.py:1106 apps/events/forms.py:1122
+#: apps/events/forms.py:1132 apps/institutions/forms.py:543
+#: apps/institutions/forms.py:553 apps/institutions/forms.py:569
+#: apps/institutions/forms.py:579 apps/institutions/forms.py:595
+#: apps/institutions/forms.py:605 apps/institutions/forms.py:621
+#: apps/institutions/forms.py:631 apps/institutions/forms.py:647
+#: apps/institutions/forms.py:657 apps/institutions/forms.py:673
+#: apps/institutions/forms.py:683 apps/institutions/forms.py:699
+#: apps/institutions/forms.py:709 apps/site_specific/forms/events.py:1376
+#: apps/site_specific/forms/events.py:1386
+#: apps/site_specific/forms/events.py:1402
+#: apps/site_specific/forms/events.py:1412
+#: apps/site_specific/forms/events.py:1428
+#: apps/site_specific/forms/events.py:1438
+#: apps/site_specific/forms/events.py:1454
+#: apps/site_specific/forms/events.py:1464
+#: apps/site_specific/forms/events.py:1480
+#: apps/site_specific/forms/events.py:1490
+#: apps/site_specific/forms/events.py:1506
+#: apps/site_specific/forms/events.py:1516
+#: apps/site_specific/forms/events.py:1532
+#: apps/site_specific/forms/events.py:1542
+#: apps/site_specific/forms/institutions.py:1050
+#: apps/site_specific/forms/institutions.py:1060
+#: apps/site_specific/forms/institutions.py:1076
+#: apps/site_specific/forms/institutions.py:1086
+#: apps/site_specific/forms/institutions.py:1102
+#: apps/site_specific/forms/institutions.py:1112
+#: apps/site_specific/forms/institutions.py:1128
+#: apps/site_specific/forms/institutions.py:1138
+#: apps/site_specific/forms/institutions.py:1154
+#: apps/site_specific/forms/institutions.py:1164
+#: apps/site_specific/forms/institutions.py:1180
+#: apps/site_specific/forms/institutions.py:1190
+#: apps/site_specific/forms/institutions.py:1206
+#: apps/site_specific/forms/institutions.py:1216
 #: templates/ccb/uni_form/includes/opening_hours.html:16
 #: templates/ccb/uni_form/includes/opening_hours.html:49
 #: templates/ccb/uni_form/includes/opening_hours.html:69
@@ -2813,26 +2813,26 @@ msgstr "Offen ab"
 msgid "closes"
 msgstr "Geschlossen ab"
 
-#: apps/events/forms.py:967 apps/events/forms.py:993 apps/events/forms.py:1019
-#: apps/events/forms.py:1045 apps/events/forms.py:1071
-#: apps/events/forms.py:1097 apps/events/forms.py:1123
-#: apps/institutions/forms.py:542 apps/institutions/forms.py:568
-#: apps/institutions/forms.py:594 apps/institutions/forms.py:620
-#: apps/institutions/forms.py:646 apps/institutions/forms.py:672
-#: apps/institutions/forms.py:698 apps/site_specific/forms/events.py:1375
-#: apps/site_specific/forms/events.py:1401
-#: apps/site_specific/forms/events.py:1427
-#: apps/site_specific/forms/events.py:1453
-#: apps/site_specific/forms/events.py:1479
-#: apps/site_specific/forms/events.py:1505
-#: apps/site_specific/forms/events.py:1531
-#: apps/site_specific/forms/institutions.py:1049
-#: apps/site_specific/forms/institutions.py:1075
-#: apps/site_specific/forms/institutions.py:1101
-#: apps/site_specific/forms/institutions.py:1127
-#: apps/site_specific/forms/institutions.py:1153
-#: apps/site_specific/forms/institutions.py:1179
-#: apps/site_specific/forms/institutions.py:1205
+#: apps/events/forms.py:971 apps/events/forms.py:997 apps/events/forms.py:1023
+#: apps/events/forms.py:1049 apps/events/forms.py:1075
+#: apps/events/forms.py:1101 apps/events/forms.py:1127
+#: apps/institutions/forms.py:548 apps/institutions/forms.py:574
+#: apps/institutions/forms.py:600 apps/institutions/forms.py:626
+#: apps/institutions/forms.py:652 apps/institutions/forms.py:678
+#: apps/institutions/forms.py:704 apps/site_specific/forms/events.py:1381
+#: apps/site_specific/forms/events.py:1407
+#: apps/site_specific/forms/events.py:1433
+#: apps/site_specific/forms/events.py:1459
+#: apps/site_specific/forms/events.py:1485
+#: apps/site_specific/forms/events.py:1511
+#: apps/site_specific/forms/events.py:1537
+#: apps/site_specific/forms/institutions.py:1055
+#: apps/site_specific/forms/institutions.py:1081
+#: apps/site_specific/forms/institutions.py:1107
+#: apps/site_specific/forms/institutions.py:1133
+#: apps/site_specific/forms/institutions.py:1159
+#: apps/site_specific/forms/institutions.py:1185
+#: apps/site_specific/forms/institutions.py:1211
 #: templates/ccb/uni_form/includes/opening_hours.html:43
 #: templates/ccb/uni_form/includes/opening_hours.html:88
 #: templates/ccb/uni_form/includes/opening_hours.html:133
@@ -2843,27 +2843,27 @@ msgstr "Geschlossen ab"
 msgid "opens again"
 msgstr "Öffnet wieder"
 
-#: apps/events/forms.py:977 apps/events/forms.py:1003
-#: apps/events/forms.py:1029 apps/events/forms.py:1055
-#: apps/events/forms.py:1081 apps/events/forms.py:1107
-#: apps/events/forms.py:1133 apps/institutions/forms.py:552
-#: apps/institutions/forms.py:578 apps/institutions/forms.py:604
-#: apps/institutions/forms.py:630 apps/institutions/forms.py:656
-#: apps/institutions/forms.py:682 apps/institutions/forms.py:708
-#: apps/site_specific/forms/events.py:1385
-#: apps/site_specific/forms/events.py:1411
-#: apps/site_specific/forms/events.py:1437
-#: apps/site_specific/forms/events.py:1463
-#: apps/site_specific/forms/events.py:1489
-#: apps/site_specific/forms/events.py:1515
-#: apps/site_specific/forms/events.py:1541
-#: apps/site_specific/forms/institutions.py:1059
-#: apps/site_specific/forms/institutions.py:1085
-#: apps/site_specific/forms/institutions.py:1111
-#: apps/site_specific/forms/institutions.py:1137
-#: apps/site_specific/forms/institutions.py:1163
-#: apps/site_specific/forms/institutions.py:1189
-#: apps/site_specific/forms/institutions.py:1215 apps/tracker/models.py:24
+#: apps/events/forms.py:981 apps/events/forms.py:1007
+#: apps/events/forms.py:1033 apps/events/forms.py:1059
+#: apps/events/forms.py:1085 apps/events/forms.py:1111
+#: apps/events/forms.py:1137 apps/institutions/forms.py:558
+#: apps/institutions/forms.py:584 apps/institutions/forms.py:610
+#: apps/institutions/forms.py:636 apps/institutions/forms.py:662
+#: apps/institutions/forms.py:688 apps/institutions/forms.py:714
+#: apps/site_specific/forms/events.py:1391
+#: apps/site_specific/forms/events.py:1417
+#: apps/site_specific/forms/events.py:1443
+#: apps/site_specific/forms/events.py:1469
+#: apps/site_specific/forms/events.py:1495
+#: apps/site_specific/forms/events.py:1521
+#: apps/site_specific/forms/events.py:1547
+#: apps/site_specific/forms/institutions.py:1065
+#: apps/site_specific/forms/institutions.py:1091
+#: apps/site_specific/forms/institutions.py:1117
+#: apps/site_specific/forms/institutions.py:1143
+#: apps/site_specific/forms/institutions.py:1169
+#: apps/site_specific/forms/institutions.py:1195
+#: apps/site_specific/forms/institutions.py:1221 apps/tracker/models.py:24
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:198
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:205
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:212
@@ -2874,40 +2874,39 @@ msgstr "Öffnet wieder"
 msgid "Closed"
 msgstr "Geschlossen"
 
-#: apps/events/forms.py:1139 apps/institutions/forms.py:714
-#: apps/site_specific/forms/events.py:1547
-#: apps/site_specific/forms/institutions.py:1221
+#: apps/events/forms.py:1143 apps/institutions/forms.py:720
+#: apps/site_specific/forms/events.py:1553
+#: apps/site_specific/forms/institutions.py:1227
 #: templates/ccb/institutions/add_institution_confirm.html:380
 msgid "Exceptions for working hours (English)"
 msgstr "Sonstige Öffnungszeiten (Englisch)"
 
-#: apps/events/forms.py:1144 apps/institutions/forms.py:719
-#: apps/site_specific/forms/events.py:1552
-#: apps/site_specific/forms/institutions.py:1226
+#: apps/events/forms.py:1148 apps/institutions/forms.py:725
+#: apps/site_specific/forms/events.py:1558
+#: apps/site_specific/forms/institutions.py:1232
 #: templates/ccb/institutions/add_institution_confirm.html:372
 msgid "Exceptions for working hours (German)"
 msgstr "Sonstige Öffnungszeiten (Deutsch)"
 
-#: apps/events/forms.py:1160 apps/events/models.py:26
+#: apps/events/forms.py:1164 apps/events/models.py:26
 #: templates/ccb/counselling_events/profile/fees_opening_hours.html:10
 #: templates/ccb/events/profile/fees_opening_hours.html:12
 msgid "Fees"
 msgstr "Eintrittskosten"
 
-#: apps/events/forms.py:1165 apps/institutions/forms.py:802
-#: apps/site_specific/forms/events.py:1613
+#: apps/events/forms.py:1169 apps/institutions/forms.py:808
+#: apps/site_specific/forms/events.py:1619
 msgid "Opening Time"
 msgstr "Geöffnet von"
 
-#: apps/events/forms.py:1165 apps/institutions/forms.py:802
-#: apps/site_specific/forms/events.py:1614
+#: apps/events/forms.py:1169 apps/institutions/forms.py:808
+#: apps/site_specific/forms/events.py:1620
 msgid "Closing Time"
 msgstr "Geschlossen ab"
 
-#: apps/events/forms.py:1167 apps/institutions/forms.py:804
-#: apps/site_specific/forms/events.py:1617
-#: apps/site_specific/forms/institutions.py:1283
-#: subtrees/base_libs/base_libs/models/models.py:1169
+#: apps/events/forms.py:1171 apps/institutions/forms.py:810
+#: apps/site_specific/forms/events.py:1623
+#: apps/site_specific/forms/institutions.py:1289
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:100
 #: templates/ccb/events/add_event_confirm.html:262
 #: templates/ccb/institutions/add_institution_confirm.html:197
@@ -2915,10 +2914,9 @@ msgstr "Geschlossen ab"
 msgid "Monday"
 msgstr "Montag"
 
-#: apps/events/forms.py:1208 apps/institutions/forms.py:845
-#: apps/site_specific/forms/events.py:1658
-#: apps/site_specific/forms/institutions.py:1324
-#: subtrees/base_libs/base_libs/models/models.py:1170
+#: apps/events/forms.py:1212 apps/institutions/forms.py:851
+#: apps/site_specific/forms/events.py:1664
+#: apps/site_specific/forms/institutions.py:1330
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:101
 #: templates/ccb/events/add_event_confirm.html:282
 #: templates/ccb/institutions/add_institution_confirm.html:222
@@ -2926,10 +2924,9 @@ msgstr "Montag"
 msgid "Tuesday"
 msgstr "Dienstag"
 
-#: apps/events/forms.py:1245 apps/institutions/forms.py:882
-#: apps/site_specific/forms/events.py:1695
-#: apps/site_specific/forms/institutions.py:1361
-#: subtrees/base_libs/base_libs/models/models.py:1171
+#: apps/events/forms.py:1249 apps/institutions/forms.py:888
+#: apps/site_specific/forms/events.py:1701
+#: apps/site_specific/forms/institutions.py:1367
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:102
 #: templates/ccb/events/add_event_confirm.html:303
 #: templates/ccb/institutions/add_institution_confirm.html:247
@@ -2937,10 +2934,9 @@ msgstr "Dienstag"
 msgid "Wednesday"
 msgstr "Mittwoch"
 
-#: apps/events/forms.py:1282 apps/institutions/forms.py:919
-#: apps/site_specific/forms/events.py:1732
-#: apps/site_specific/forms/institutions.py:1398
-#: subtrees/base_libs/base_libs/models/models.py:1172
+#: apps/events/forms.py:1286 apps/institutions/forms.py:925
+#: apps/site_specific/forms/events.py:1738
+#: apps/site_specific/forms/institutions.py:1404
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:103
 #: templates/ccb/events/add_event_confirm.html:324
 #: templates/ccb/institutions/add_institution_confirm.html:272
@@ -2948,10 +2944,9 @@ msgstr "Mittwoch"
 msgid "Thursday"
 msgstr "Donnerstag"
 
-#: apps/events/forms.py:1319 apps/institutions/forms.py:956
-#: apps/site_specific/forms/events.py:1769
-#: apps/site_specific/forms/institutions.py:1435
-#: subtrees/base_libs/base_libs/models/models.py:1173
+#: apps/events/forms.py:1323 apps/institutions/forms.py:962
+#: apps/site_specific/forms/events.py:1775
+#: apps/site_specific/forms/institutions.py:1441
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:104
 #: templates/ccb/events/add_event_confirm.html:345
 #: templates/ccb/institutions/add_institution_confirm.html:297
@@ -2959,10 +2954,9 @@ msgstr "Donnerstag"
 msgid "Friday"
 msgstr "Freitag"
 
-#: apps/events/forms.py:1356 apps/institutions/forms.py:993
-#: apps/site_specific/forms/events.py:1806
-#: apps/site_specific/forms/institutions.py:1472
-#: subtrees/base_libs/base_libs/models/models.py:1174
+#: apps/events/forms.py:1360 apps/institutions/forms.py:999
+#: apps/site_specific/forms/events.py:1812
+#: apps/site_specific/forms/institutions.py:1478
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:105
 #: templates/ccb/events/add_event_confirm.html:366
 #: templates/ccb/institutions/add_institution_confirm.html:322
@@ -2970,10 +2964,9 @@ msgstr "Freitag"
 msgid "Saturday"
 msgstr "Samstag"
 
-#: apps/events/forms.py:1393 apps/institutions/forms.py:1030
-#: apps/site_specific/forms/events.py:1843
-#: apps/site_specific/forms/institutions.py:1509
-#: subtrees/base_libs/base_libs/models/models.py:1175
+#: apps/events/forms.py:1397 apps/institutions/forms.py:1036
+#: apps/site_specific/forms/events.py:1849
+#: apps/site_specific/forms/institutions.py:1515
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:106
 #: templates/ccb/events/add_event_confirm.html:387
 #: templates/ccb/institutions/add_institution_confirm.html:347
@@ -2981,75 +2974,75 @@ msgstr "Samstag"
 msgid "Sunday"
 msgstr "Sonntag"
 
-#: apps/events/forms.py:1455 apps/events/forms.py:1466
-#: apps/institutions/forms.py:1162 apps/institutions/forms.py:1172
-#: apps/site_specific/forms/events.py:1917
-#: apps/site_specific/forms/events.py:1927
-#: apps/site_specific/forms/institutions.py:1574
-#: apps/site_specific/forms/institutions.py:1585
-msgid "Please enter a closing time."
-msgstr "Bitte gib die Schließzeit an."
-
-#: apps/events/forms.py:1458 apps/events/forms.py:1469
-#: apps/institutions/forms.py:1164 apps/institutions/forms.py:1175
-#: apps/site_specific/forms/events.py:1919
-#: apps/site_specific/forms/events.py:1929
-#: apps/site_specific/forms/institutions.py:1577
-#: apps/site_specific/forms/institutions.py:1588
-msgid "A closing time must not be before an opening time."
-msgstr "Die Schließzeit darf nicht vor der Öffnungszeit liegen."
-
-#: apps/events/forms.py:1461 apps/events/forms.py:1472
-#: apps/institutions/forms.py:1167 apps/institutions/forms.py:1178
+#: apps/events/forms.py:1459 apps/events/forms.py:1470
+#: apps/institutions/forms.py:1168 apps/institutions/forms.py:1178
 #: apps/site_specific/forms/events.py:1923
 #: apps/site_specific/forms/events.py:1933
 #: apps/site_specific/forms/institutions.py:1580
 #: apps/site_specific/forms/institutions.py:1591
+msgid "Please enter a closing time."
+msgstr "Bitte gib die Schließzeit an."
+
+#: apps/events/forms.py:1462 apps/events/forms.py:1473
+#: apps/institutions/forms.py:1170 apps/institutions/forms.py:1181
+#: apps/site_specific/forms/events.py:1925
+#: apps/site_specific/forms/events.py:1935
+#: apps/site_specific/forms/institutions.py:1583
+#: apps/site_specific/forms/institutions.py:1594
+msgid "A closing time must not be before an opening time."
+msgstr "Die Schließzeit darf nicht vor der Öffnungszeit liegen."
+
+#: apps/events/forms.py:1465 apps/events/forms.py:1476
+#: apps/institutions/forms.py:1173 apps/institutions/forms.py:1184
+#: apps/site_specific/forms/events.py:1929
+#: apps/site_specific/forms/events.py:1939
+#: apps/site_specific/forms/institutions.py:1586
+#: apps/site_specific/forms/institutions.py:1597
 msgid "Please enter an opening time."
 msgstr "Bitte angeben, ab wann geöffnet ist."
 
-#: apps/events/forms.py:1477 apps/institutions/forms.py:1182
-#: apps/site_specific/forms/institutions.py:1596
+#: apps/events/forms.py:1481 apps/institutions/forms.py:1188
+#: apps/site_specific/forms/institutions.py:1602
 msgid "When specifying breaks, you must enter all data."
 msgstr "Wenn Du Pausen angeben willst, müssen alle Felder ausgefüllt sein."
 
-#: apps/events/forms.py:1481 apps/institutions/forms.py:1186
-#: apps/site_specific/forms/events.py:1901
-#: apps/site_specific/forms/institutions.py:1600
+#: apps/events/forms.py:1485 apps/institutions/forms.py:1192
+#: apps/site_specific/forms/events.py:1907
+#: apps/site_specific/forms/institutions.py:1606
 msgid ""
 "An opening time after break must not be before the closing time to break."
 msgstr ""
-"Die Öffnungszeit nach der Pause darf nicht vor der Schließzeit vor der Pause"
-" liegen."
+"Die Öffnungszeit nach der Pause darf nicht vor der Schließzeit vor der Pause "
+"liegen."
 
-#: apps/events/forms.py:1508
+#: apps/events/forms.py:1512
 msgid "Separate tags with commas."
 msgstr "Stichwort durch Kommas trennen."
 
-#: apps/events/forms.py:1785 apps/institutions/forms.py:1396
-#: apps/marketplace/forms.py:637
+#: apps/events/forms.py:1789 apps/institutions/forms.py:1402
+#: apps/marketplace/forms.py:642
 #: templates/ccb/events/add_event_confirm.html:28
 #: templates/ccb/groups_networks/persongroups/add_group_confirm.html:56
 msgid "main data"
 msgstr "Hauptinformation"
 
-#: apps/events/forms.py:1799 templates/ccb/events/add_event_confirm.html:192
+#: apps/events/forms.py:1803 templates/ccb/events/add_event_confirm.html:192
 msgid "event profile"
 msgstr "Profildaten"
 
-#: apps/events/forms.py:1804 templates/ccb/events/add_event_confirm.html:236
+#: apps/events/forms.py:1808 templates/ccb/events/add_event_confirm.html:236
 msgid "fees and opening hours"
 msgstr "Eintritt und Öffnungszeiten"
 
-#: apps/events/forms.py:1809 apps/events/models.py:40
-#: apps/groups_networks/models.py:19 apps/institutions/forms.py:1416
-#: apps/institutions/models.py:32 apps/marketplace/forms.py:643
+#: apps/events/forms.py:1813 apps/events/models.py:40
+#: apps/groups_networks/models.py:19 apps/institutions/forms.py:1422
+#: apps/institutions/models.py:32 apps/marketplace/forms.py:648
 #: apps/people/models.py:44 apps/resources/models.py:26
 #: templates/ccb/events/add_event_confirm.html:416
 msgid "categories"
 msgstr "Kategorien"
 
-#: apps/events/forms.py:1856
+#: apps/events/forms.py:1860
 msgid "Featured events only"
 msgstr "Nur gefeaturte Events"
 
@@ -3073,20 +3066,20 @@ msgid "CCB Events"
 msgstr "CCB Veranstaltungen"
 
 #: apps/external_services/export_to_creativeset.py:60
-#: apps/institutions/forms.py:194 apps/institutions/forms.py:198
-#: apps/institutions/forms.py:202 apps/marketplace/forms.py:181
-#: apps/site_specific/forms/events.py:396
-#: apps/site_specific/forms/events.py:400
-#: apps/site_specific/forms/events.py:404
-#: apps/site_specific/forms/institutions.py:319
-#: apps/site_specific/forms/institutions.py:323
-#: apps/site_specific/forms/institutions.py:327
-#: apps/site_specific/forms/marketplace.py:317
-#: apps/site_specific/forms/marketplace.py:321
-#: apps/site_specific/forms/marketplace.py:325
-#: apps/site_specific/forms/people.py:390
-#: apps/site_specific/forms/people.py:394
-#: apps/site_specific/forms/people.py:398
+#: apps/institutions/forms.py:200 apps/institutions/forms.py:204
+#: apps/institutions/forms.py:208 apps/marketplace/forms.py:186
+#: apps/site_specific/forms/events.py:402
+#: apps/site_specific/forms/events.py:406
+#: apps/site_specific/forms/events.py:410
+#: apps/site_specific/forms/institutions.py:325
+#: apps/site_specific/forms/institutions.py:329
+#: apps/site_specific/forms/institutions.py:333
+#: apps/site_specific/forms/marketplace.py:324
+#: apps/site_specific/forms/marketplace.py:328
+#: apps/site_specific/forms/marketplace.py:332
+#: apps/site_specific/forms/people.py:396
+#: apps/site_specific/forms/people.py:400
+#: apps/site_specific/forms/people.py:404
 #: templates/ccb/marketplace/emails/new_job_offer.html:104
 #: templates/ccb/marketplace/profile/contact.html:65
 msgid "E-mail"
@@ -3105,9 +3098,6 @@ msgstr ""
 "dann führt der Link in der Liste der Artikel auf die externe URL ."
 
 #: apps/external_services/models.py:22 settings.py:390
-#: subtrees/base_libs/base_libs/models/admin.py:517
-#: subtrees/base_libs/base_libs/models/models.py:594
-#: subtrees/base_libs/base_libs/models/models.py:617
 msgid "Sites"
 msgstr "Websites"
 
@@ -3119,8 +3109,8 @@ msgstr ""
 #: apps/external_services/models.py:32
 msgid "Creative sectors to apply to the imported articles by default."
 msgstr ""
-"Kreativbereiche, die standardmäßig auf importierte Artikel angewendet werden"
-" sollen."
+"Kreativbereiche, die standardmäßig auf importierte Artikel angewendet werden "
+"sollen."
 
 #: apps/external_services/models.py:44
 #, fuzzy
@@ -3131,7 +3121,6 @@ msgstr ""
 
 #: apps/external_services/models.py:50 apps/external_services/models.py:94
 #: apps/tracker/models.py:74 apps/tracker/models.py:126
-#: subtrees/base_libs/base_libs/models/models.py:240
 #: templates/ccb/groups_networks/persongroups/profile/details.html:44
 msgid "status"
 msgstr "Status"
@@ -3239,7 +3228,7 @@ msgstr ""
 msgid "container"
 msgstr ""
 
-#: apps/faqs/models.py:91 subtrees/base_libs/base_libs/models/models.py:1031
+#: apps/faqs/models.py:91
 msgid "short title"
 msgstr "Kurztitel"
 
@@ -3326,9 +3315,9 @@ msgstr "Hauptinformation"
 #: apps/media_gallery/admin.py:49 apps/media_gallery/admin.py:68
 #: apps/partners/admin.py:27 apps/partners/admin.py:64
 #: apps/site_specific/admin.py:36 apps/site_specific/forms/events.py:144
-#: apps/site_specific/forms/institutions.py:795
+#: apps/site_specific/forms/institutions.py:801
 #: apps/site_specific/forms/marketplace.py:123
-#: apps/site_specific/forms/people.py:959
+#: apps/site_specific/forms/people.py:965
 #: templates/ccb/groups_networks/persongroups/group_details.html:29
 #: templates/ccb/groups_networks/persongroups/profile/details_form.html:10
 #: templates/ccb/institutions/profile/details.html:6
@@ -3404,7 +3393,7 @@ msgstr "Institutionsname"
 msgid "Institution Name 2nd line"
 msgstr "Institutionsname (zweite Zeile)"
 
-#: apps/institutions/forms.py:86 apps/site_specific/forms/institutions.py:753
+#: apps/institutions/forms.py:86 apps/site_specific/forms/institutions.py:759
 #: templates/ccb/institutions/add_institution_confirm.html:23
 #: templates/ccb/institutions/profile/details.html:10
 msgid "Legal Form"
@@ -3431,15 +3420,42 @@ msgstr "Registrierung erforderlich"
 msgid "Postal code is required"
 msgstr "Schreibe eine Bewertung."
 
-#: apps/institutions/forms.py:190 apps/institutions/forms.py:348
-#: apps/site_specific/forms/events.py:392
-#: apps/site_specific/forms/events.py:604
-#: apps/site_specific/forms/institutions.py:315
-#: apps/site_specific/forms/institutions.py:520
+#: apps/institutions/forms.py:162
+msgid "Phone number"
+msgstr "Telefonnummer"
+
+#: apps/institutions/forms.py:183 apps/site_specific/forms/events.py:385
+#: apps/site_specific/forms/institutions.py:308
+#: apps/site_specific/forms/marketplace.py:307
+#: apps/site_specific/forms/people.py:379
+msgid "Mobile Country Code"
+msgstr "Ländervorwahl"
+
+#: apps/institutions/forms.py:189 apps/site_specific/forms/events.py:391
+#: apps/site_specific/forms/institutions.py:314
 #: apps/site_specific/forms/marketplace.py:313
-#: apps/site_specific/forms/marketplace.py:551
-#: apps/site_specific/forms/people.py:386
-#: apps/site_specific/forms/people.py:619
+#: apps/site_specific/forms/people.py:385
+msgid "Mobile Area Code"
+msgstr "Mobilvorwahl"
+
+#: apps/institutions/forms.py:194 apps/site_specific/forms/events.py:396
+#: apps/site_specific/forms/institutions.py:319
+#: apps/site_specific/forms/marketplace.py:318
+#: apps/site_specific/forms/people.py:390
+msgid "Mobile Number"
+msgstr "Mobilnummer"
+
+#: apps/institutions/forms.py:314 apps/site_specific/forms/events.py:570
+#: apps/site_specific/forms/institutions.py:486
+#: apps/site_specific/forms/marketplace.py:518
+#: apps/site_specific/forms/people.py:585
+msgid "Phones"
+msgstr "Telefonnummern"
+
+#: apps/institutions/forms.py:354 apps/site_specific/forms/events.py:610
+#: apps/site_specific/forms/institutions.py:526
+#: apps/site_specific/forms/marketplace.py:558
+#: apps/site_specific/forms/people.py:625
 #: templates/ccb/groups_networks/institution_invitation.html:96
 #: templates/ccb/groups_networks/institution_invitation.html:169
 #: templates/ccb/groups_networks/institution_invitation.html:242
@@ -3455,138 +3471,131 @@ msgstr "Schreibe eine Bewertung."
 msgid "Mobile"
 msgstr "Mobiltelefon"
 
-#: apps/institutions/forms.py:308 apps/site_specific/forms/events.py:564
-#: apps/site_specific/forms/institutions.py:480
-#: apps/site_specific/forms/marketplace.py:511
-#: apps/site_specific/forms/people.py:579
-msgid "Phones"
-msgstr "Telefone"
-
-#: apps/institutions/forms.py:368 apps/site_specific/forms/events.py:622
-#: apps/site_specific/forms/institutions.py:539
-#: apps/site_specific/forms/marketplace.py:569
-#: apps/site_specific/forms/people.py:638
+#: apps/institutions/forms.py:374 apps/site_specific/forms/events.py:628
+#: apps/site_specific/forms/institutions.py:545
+#: apps/site_specific/forms/marketplace.py:576
+#: apps/site_specific/forms/people.py:644
 #: templates/ccb/institutions/add_institution_confirm.html:84
 #: templates/ccb/uni_form/includes/emails.html:2
 msgid "Emails"
-msgstr "E-Mails"
+msgstr "E-mailadressen"
 
-#: apps/institutions/forms.py:374 apps/site_specific/forms/events.py:626
-#: apps/site_specific/forms/institutions.py:544
-#: apps/site_specific/forms/marketplace.py:573
-#: apps/site_specific/forms/people.py:643
+#: apps/institutions/forms.py:380 apps/site_specific/forms/events.py:632
+#: apps/site_specific/forms/institutions.py:550
+#: apps/site_specific/forms/marketplace.py:580
+#: apps/site_specific/forms/people.py:649
 #: templates/ccb/institutions/add_institution_confirm.html:102
 #: templates/ccb/uni_form/includes/websites.html:2
 msgid "Websites"
 msgstr "Websites"
 
-#: apps/institutions/forms.py:376 apps/institutions/forms.py:389
-#: apps/institutions/forms.py:402 apps/site_specific/forms/events.py:628
-#: apps/site_specific/forms/events.py:641
-#: apps/site_specific/forms/events.py:654
-#: apps/site_specific/forms/institutions.py:546
-#: apps/site_specific/forms/institutions.py:559
-#: apps/site_specific/forms/institutions.py:572
-#: apps/site_specific/forms/people.py:645
-#: apps/site_specific/forms/people.py:658
-#: apps/site_specific/forms/people.py:671
+#: apps/institutions/forms.py:382 apps/institutions/forms.py:395
+#: apps/institutions/forms.py:408 apps/site_specific/forms/events.py:634
+#: apps/site_specific/forms/events.py:647
+#: apps/site_specific/forms/events.py:660
+#: apps/site_specific/forms/institutions.py:552
+#: apps/site_specific/forms/institutions.py:565
+#: apps/site_specific/forms/institutions.py:578
+#: apps/site_specific/forms/people.py:651
+#: apps/site_specific/forms/people.py:664
+#: apps/site_specific/forms/people.py:677
 msgid "Url"
 msgstr "URL"
 
-#: apps/institutions/forms.py:416 apps/site_specific/forms/events.py:667
-#: apps/site_specific/forms/institutions.py:585
-#: apps/site_specific/forms/marketplace.py:614
-#: apps/site_specific/forms/people.py:685
+#: apps/institutions/forms.py:422 apps/site_specific/forms/events.py:673
+#: apps/site_specific/forms/institutions.py:591
+#: apps/site_specific/forms/marketplace.py:621
+#: apps/site_specific/forms/people.py:691
 #: templates/ccb/institutions/add_institution_confirm.html:126
 msgid "Instant Messengers"
 msgstr "Instant Messengers"
 
-#: apps/institutions/forms.py:726 apps/site_specific/forms/institutions.py:839
+#: apps/institutions/forms.py:732 apps/site_specific/forms/institutions.py:845
 #: templates/ccb/institutions/add_institution_confirm.html:400
 msgid "Visa"
 msgstr "Visa"
 
-#: apps/institutions/forms.py:732 apps/site_specific/forms/institutions.py:845
+#: apps/institutions/forms.py:738 apps/site_specific/forms/institutions.py:851
 #: templates/ccb/institutions/add_institution_confirm.html:403
 msgid "MasterCard"
 msgstr "MasterCard"
 
-#: apps/institutions/forms.py:738 apps/site_specific/forms/institutions.py:851
+#: apps/institutions/forms.py:744 apps/site_specific/forms/institutions.py:857
 #: templates/ccb/institutions/add_institution_confirm.html:406
 msgid "American Express"
 msgstr "American Express"
 
-#: apps/institutions/forms.py:744 apps/site_specific/forms/institutions.py:857
+#: apps/institutions/forms.py:750 apps/site_specific/forms/institutions.py:863
 #: templates/ccb/institutions/add_institution_confirm.html:409
 msgid "PayPal"
 msgstr "PayPal"
 
-#: apps/institutions/forms.py:750 apps/site_specific/forms/institutions.py:863
+#: apps/institutions/forms.py:756 apps/site_specific/forms/institutions.py:869
 #: templates/ccb/institutions/add_institution_confirm.html:412
 msgid "Cash"
 msgstr "Bar"
 
-#: apps/institutions/forms.py:756 apps/site_specific/forms/institutions.py:869
+#: apps/institutions/forms.py:762 apps/site_specific/forms/institutions.py:875
 #: templates/ccb/institutions/add_institution_confirm.html:415
 msgid "Bank transfer"
 msgstr "Überweisung"
 
-#: apps/institutions/forms.py:762 apps/site_specific/forms/institutions.py:875
+#: apps/institutions/forms.py:768 apps/site_specific/forms/institutions.py:881
 #: templates/ccb/institutions/add_institution_confirm.html:418
 msgid "Prepayment"
 msgstr "Vorkasse"
 
-#: apps/institutions/forms.py:768 apps/site_specific/forms/institutions.py:881
+#: apps/institutions/forms.py:774 apps/site_specific/forms/institutions.py:887
 #: templates/ccb/institutions/add_institution_confirm.html:421
 msgid "Payment on delivery"
 msgstr "Nachnahme"
 
-#: apps/institutions/forms.py:774 apps/site_specific/forms/institutions.py:887
+#: apps/institutions/forms.py:780 apps/site_specific/forms/institutions.py:893
 #: templates/ccb/institutions/add_institution_confirm.html:424
 msgid "Invoice"
 msgstr "Rechnung"
 
-#: apps/institutions/forms.py:780 apps/site_specific/forms/institutions.py:893
+#: apps/institutions/forms.py:786 apps/site_specific/forms/institutions.py:899
 #: templates/ccb/institutions/add_institution_confirm.html:427
 msgid "EC Maestro"
 msgstr "EC Maestro"
 
-#: apps/institutions/forms.py:786 apps/site_specific/forms/institutions.py:899
+#: apps/institutions/forms.py:792 apps/site_specific/forms/institutions.py:905
 #: templates/ccb/institutions/add_institution_confirm.html:430
 msgid "Giropay"
 msgstr "Giropay"
 
-#: apps/institutions/forms.py:1074
+#: apps/institutions/forms.py:1080
 msgid "Payment Options"
 msgstr "Zahlungsarten"
 
-#: apps/institutions/forms.py:1211
-#: apps/site_specific/forms/institutions.py:1654
+#: apps/institutions/forms.py:1217
+#: apps/site_specific/forms/institutions.py:1660
 msgid "Types"
 msgstr "Typen"
 
-#: apps/institutions/forms.py:1232
-#: apps/site_specific/forms/institutions.py:1681
+#: apps/institutions/forms.py:1238
+#: apps/site_specific/forms/institutions.py:1687
 #: templates/ccb/institutions/add_institution_confirm.html:455
 msgid "Institution Types"
 msgstr "Institutionsarten"
 
-#: apps/institutions/forms.py:1406
+#: apps/institutions/forms.py:1412
 msgid "profile data"
 msgstr "Profildaten"
 
-#: apps/institutions/forms.py:1411
+#: apps/institutions/forms.py:1417
 msgid "opening hours and payment"
 msgstr "Öffnungszeiten bearbeiten"
 
-#: apps/institutions/forms.py:1438 apps/people/forms.py:21
+#: apps/institutions/forms.py:1444 apps/people/forms.py:21
 #: templates/ccb/base.html:195
 #: templates/ccb/groups_networks/persongroups/add_group_confirm.html:95
 #: templates/ccb/groups_networks/persongroups/profile/categories.html:8
 msgid "Creative Sector"
 msgstr "Kreativbereich"
 
-#: apps/institutions/forms.py:1444 apps/people/forms.py:27
+#: apps/institutions/forms.py:1450 apps/people/forms.py:27
 msgid "Business Category"
 msgstr ""
 
@@ -3681,13 +3690,13 @@ msgid ""
 "Is some category missing? You can <a href=\"/ticket/new-category/\">suggest "
 "it here</a>."
 msgstr ""
-"Fehlt Dir eine Kategorie? Du kannst sie uns <a href=\"/ticket/new-"
-"category/\">hier</a> zur Aufnahme vorschlagen."
+"Fehlt Dir eine Kategorie? Du kannst sie uns <a href=\"/ticket/new-category/"
+"\">hier</a> zur Aufnahme vorschlagen."
 
 #: apps/marketplace/forms.py:57
 msgid ""
-"Please activate the checkboxes if you want to send your jobposting to one of"
-" our partners."
+"Please activate the checkboxes if you want to send your jobposting to one of "
+"our partners."
 msgstr ""
 "Wenn Du Dein Stellenangebot an unsere Partner weiterleiten möchten, "
 "aktiviere bitte die Kästchen."
@@ -3699,14 +3708,14 @@ msgstr ""
 msgid "Position"
 msgstr "Position/Tätigkeit"
 
-#: apps/marketplace/forms.py:70 apps/marketplace/forms.py:679
+#: apps/marketplace/forms.py:70 apps/marketplace/forms.py:684
 #: apps/site_specific/forms/marketplace.py:70
 #: templates/ccb/marketplace/emails/new_job_offer.html:8
 #: templates/ccb/marketplace/profile/details.html:18
 msgid "Job Type"
 msgstr "Tätigkeitsart"
 
-#: apps/marketplace/forms.py:79 apps/marketplace/forms.py:685
+#: apps/marketplace/forms.py:79 apps/marketplace/forms.py:690
 #: apps/site_specific/forms/marketplace.py:76
 #: templates/ccb/marketplace/add_job_offer_confirm.html:42
 #: templates/ccb/marketplace/emails/new_job_offer.html:12
@@ -3723,59 +3732,59 @@ msgstr "Jobanbieter"
 msgid "Institution/Company Title"
 msgstr "Titel Institution/Unternehmen"
 
-#: apps/marketplace/forms.py:125 apps/site_specific/forms/marketplace.py:225
+#: apps/marketplace/forms.py:126 apps/site_specific/forms/marketplace.py:226
 msgid "Contact Person Name"
 msgstr "Kontaktperson"
 
-#: apps/marketplace/forms.py:190
+#: apps/marketplace/forms.py:195
 msgid "Publish email to unregistered visitors"
 msgstr "E-Mail für nicht registrierte Besucher veröffentlichen"
 
-#: apps/marketplace/forms.py:241
+#: apps/marketplace/forms.py:246
 msgid "Job"
 msgstr "Job"
 
-#: apps/marketplace/forms.py:292
+#: apps/marketplace/forms.py:297
 msgid "Contact info"
 msgstr "Kontaktinformation"
 
-#: apps/marketplace/forms.py:338 apps/site_specific/forms/marketplace.py:129
+#: apps/marketplace/forms.py:343 apps/site_specific/forms/marketplace.py:129
 #: templates/ccb/uni_form/includes/publish_until.html:8
 msgid "Publish until"
 msgstr "Veröffentlichen bis"
 
-#: apps/marketplace/forms.py:396 apps/site_specific/forms/events.py:1974
-#: apps/site_specific/forms/marketplace.py:743
+#: apps/marketplace/forms.py:401 apps/site_specific/forms/events.py:1980
+#: apps/site_specific/forms/marketplace.py:750
 msgid "Separate tags with commas"
 msgstr "Stichwort durch Kommas trennen."
 
-#: apps/marketplace/forms.py:420 apps/site_specific/forms/marketplace.py:771
+#: apps/marketplace/forms.py:425 apps/site_specific/forms/marketplace.py:778
 #: templates/ccb/marketplace/emails/new_job_offer.html:146
 #: templates/ccb/marketplace/profile/categories.html:17
 msgid "Job Sectors"
 msgstr "Jobbereiche"
 
-#: apps/marketplace/forms.py:440
+#: apps/marketplace/forms.py:445
 msgid ""
-"Report to <a href=\"http://kulturmanagement.net\" "
-"target=\"_blank\">Kulturmanagement.net</a>"
+"Report to <a href=\"http://kulturmanagement.net\" target=\"_blank"
+"\">Kulturmanagement.net</a>"
 msgstr ""
-"Auch bei <a href=\"http://www.kulturmanagement.net/\" "
-"onclick=\"open_new_window(event)\">Kulturmanagement.net</a> veröffentlichen."
+"Auch bei <a href=\"http://www.kulturmanagement.net/\" onclick="
+"\"open_new_window(event)\">Kulturmanagement.net</a> veröffentlichen."
 
-#: apps/marketplace/forms.py:450
+#: apps/marketplace/forms.py:455
 msgid ""
 "Report to <a href=\"http://www.talent-in-berlin.de\" target=\"_blank"
 "\">talent-in-berlin.de</a>"
 msgstr ""
-"Auch bei <a href=\"http://www.talent-in-berlin.de\" "
-"onclick=\"open_new_window(event)\">talent-in-berlin.de</a> veröffentlichen."
+"Auch bei <a href=\"http://www.talent-in-berlin.de\" onclick="
+"\"open_new_window(event)\">talent-in-berlin.de</a> veröffentlichen."
 
-#: apps/marketplace/forms.py:462
+#: apps/marketplace/forms.py:467
 msgid "Report job offer"
 msgstr "Stellenangebot weiterleiten"
 
-#: apps/marketplace/forms.py:667
+#: apps/marketplace/forms.py:672
 #: templates/ccb/marketplace/add_job_offer_confirm.html:179
 #: templates/ccb/marketplace/emails/new_job_offer.html:144
 #: templates/ccb/marketplace/profile/categories.html:15
@@ -3929,12 +3938,12 @@ msgstr "Du kannst nur FLV-Dateien hochladen."
 
 #: apps/media_gallery/forms.py:121
 msgid ""
-"You can link to a FLV file, Youtube video (e.g. "
-"http://www.youtube.com/watch?v=rd2izv5JBcE or http://youtu.be/rd2izv5JBcE) "
-"or Vimeo video (e.g. http://vimeo.com/17853047)."
+"You can link to a FLV file, Youtube video (e.g. http://www.youtube.com/watch?"
+"v=rd2izv5JBcE or http://youtu.be/rd2izv5JBcE) or Vimeo video (e.g. http://"
+"vimeo.com/17853047)."
 msgstr ""
-"Du kannst nur eine FLV-Datei oder ein YouTube-Video (z.B. "
-"http://www.youtube.com/watch?v=rd2izv5JBcE) verlinken."
+"Du kannst nur eine FLV-Datei oder ein YouTube-Video (z.B. http://www.youtube."
+"com/watch?v=rd2izv5JBcE) verlinken."
 
 #: apps/media_gallery/forms.py:125 apps/media_gallery/forms.py:207
 msgid "Illustration File"
@@ -4450,13 +4459,11 @@ msgstr "Suche in"
 
 #: apps/search/forms.py:36
 msgid "Inquiry"
-msgstr ""
+msgstr "Suchanfrage"
 
 #: apps/search/forms.py:38
-#, fuzzy
-#| msgid "Enter your search term ..."
 msgid "Narrow down your search ..."
-msgstr "Gib Deinen Suchbegriff ein"
+msgstr "Suche einschränken"
 
 #: apps/search/forms.py:40 templates/ccb/base_counselling.html:227
 #: templates/ccb/base_redesign.html:255 templates/ccb/styleguide/base.html:257
@@ -4517,8 +4524,6 @@ msgid "Editorial Content"
 msgstr "Redaktioneller Inhalt"
 
 #: apps/site_specific/admin.py:29
-#: subtrees/base_libs/base_libs/models/admin.py:133
-#: subtrees/base_libs/base_libs/models/models.py:422
 msgid "Related object"
 msgstr ""
 
@@ -4577,10 +4582,10 @@ msgstr "Profilbild"
 msgid "Venue/Institution Title"
 msgstr "Titel Veranstaltungsort/Institution"
 
-#: apps/site_specific/forms/events.py:526
-#: apps/site_specific/forms/institutions.py:451
-#: apps/site_specific/forms/marketplace.py:466
-#: apps/site_specific/forms/people.py:533
+#: apps/site_specific/forms/events.py:532
+#: apps/site_specific/forms/institutions.py:457
+#: apps/site_specific/forms/marketplace.py:473
+#: apps/site_specific/forms/people.py:539
 #: templates/ccb/counselling_events/profile/contact.html:7
 #: templates/ccb/events/profile/contact.html:9
 #: templates/ccb/institutions/profile/contact.html:7
@@ -4589,37 +4594,37 @@ msgstr "Titel Veranstaltungsort/Institution"
 msgid "Contact Data"
 msgstr "Kontaktdaten"
 
-#: apps/site_specific/forms/events.py:527
-#: apps/site_specific/forms/marketplace.py:468
+#: apps/site_specific/forms/events.py:533
+#: apps/site_specific/forms/marketplace.py:475
 #: templates/ccb/marketplace/emails/new_job_offer.html:33
 msgid "Institution/Company"
 msgstr "Institution / Unternehmen"
 
-#: apps/site_specific/forms/events.py:839
+#: apps/site_specific/forms/events.py:845
 msgid "Organized by myself"
 msgstr "Ich selbst bin Veranstalter"
 
-#: apps/site_specific/forms/events.py:853
+#: apps/site_specific/forms/events.py:859
 #, python-format
 msgid "Organized by %s"
 msgstr "Organisiert von %s"
 
-#: apps/site_specific/forms/events.py:921
+#: apps/site_specific/forms/events.py:927
 msgid "Additional Info English (Max 500 Characters)"
 msgstr "Weitere Informationen Englisch (max. 500 Zeichen)"
 
-#: apps/site_specific/forms/events.py:927
+#: apps/site_specific/forms/events.py:933
 msgid "Additional Info German (Max 500 Characters)"
 msgstr "Weitere Informationen Deutsch (max. 500 Zeichen)"
 
-#: apps/site_specific/forms/events.py:993
+#: apps/site_specific/forms/events.py:999
 #: templates/ccb/counselling_events/profile/event_times.html:6
 #: templates/ccb/events/add_event_confirm.html:56
 #: templates/ccb/events/profile/event_times.html:8
 msgid "Event Times"
 msgstr "Event Zeiten"
 
-#: apps/site_specific/forms/events.py:1609
+#: apps/site_specific/forms/events.py:1615
 #: templates/ccb/counselling_events/profile/fees_opening_hours.html:6
 #: templates/ccb/events/profile/fees_opening_hours.html:8
 msgid "Fees &amp; Opening Hours"
@@ -4703,57 +4708,57 @@ msgstr "Bitte wähle mindestens eine Objektart."
 msgid "Identity"
 msgstr "Identität"
 
-#: apps/site_specific/forms/institutions.py:628
-#: apps/site_specific/forms/people.py:728
+#: apps/site_specific/forms/institutions.py:634
+#: apps/site_specific/forms/people.py:734
 #: templates/ccb/groups_networks/persongroups/profile/contact_form.html:80
 msgid "Save as Primary"
 msgstr "Als Hauptkontakt speichern"
 
-#: apps/site_specific/forms/institutions.py:759
-#: apps/site_specific/forms/institutions.py:767
-#: apps/site_specific/forms/institutions.py:798
+#: apps/site_specific/forms/institutions.py:765
+#: apps/site_specific/forms/institutions.py:773
+#: apps/site_specific/forms/institutions.py:804
 msgid "Establishment"
 msgstr "Gründungsdatum"
 
-#: apps/site_specific/forms/institutions.py:761
+#: apps/site_specific/forms/institutions.py:767
 msgid "Year of establishment is required"
 msgstr "Gründungsjahr wird benötigt"
 
-#: apps/site_specific/forms/institutions.py:769
+#: apps/site_specific/forms/institutions.py:775
 msgid "Month of establishment is required"
 msgstr "Gründungsjahr wird benötigt"
 
-#: apps/site_specific/forms/institutions.py:774
+#: apps/site_specific/forms/institutions.py:780
 #: templates/ccb/institutions/profile/details.html:26
 msgid "Number of Employees"
 msgstr "Anzahl Angestellte"
 
-#: apps/site_specific/forms/institutions.py:929
+#: apps/site_specific/forms/institutions.py:935
 #: templates/ccb/institutions/add_institution_confirm.html:396
 #: templates/ccb/institutions/profile/payment.html:7
 msgid "Payment"
 msgstr "Akzeptierte Zahlungsmethoden"
 
-#: apps/site_specific/forms/institutions.py:1033
+#: apps/site_specific/forms/institutions.py:1039
 msgid "Visiting by appointment"
 msgstr "Termin nach Vereinbarung"
 
-#: apps/site_specific/forms/institutions.py:1281
+#: apps/site_specific/forms/institutions.py:1287
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:96
 #: templates/ccb/institutions/profile/opening_hours.html:7
 msgid "Opening hours"
 msgstr "Öffnungszeiten"
 
-#: apps/site_specific/forms/marketplace.py:328
+#: apps/site_specific/forms/marketplace.py:335
 msgid "Publish emails to unregistered visitors"
 msgstr "E-Mails für nicht registrierte Besucher anzeigen"
 
-#: apps/site_specific/forms/marketplace.py:400
+#: apps/site_specific/forms/marketplace.py:407
 #, python-format
 msgid "%s is the contact person"
 msgstr "%s ist Ansprechpartner"
 
-#: apps/site_specific/forms/marketplace.py:401
+#: apps/site_specific/forms/marketplace.py:408
 #, python-format
 msgid "%s is not the contact person"
 msgstr "%s ist nicht der Ansprechpartner"
@@ -4964,7 +4969,7 @@ msgstr "Titel Veranstaltungsort/Institution"
 msgid "Institution Website"
 msgstr "Institutions-Website"
 
-#: apps/site_specific/forms/people.py:535
+#: apps/site_specific/forms/people.py:541
 #: templates/ccb/groups_networks/persongroups/profile/categories.html:43
 #: templates/ccb/groups_networks/persongroups/profile/contact_form.html:12
 #: templates/ccb/marketplace/emails/new_job_offer.html:166
@@ -4974,25 +4979,25 @@ msgstr "Institutions-Website"
 msgid "Location"
 msgstr "Standort"
 
-#: apps/site_specific/forms/people.py:910
+#: apps/site_specific/forms/people.py:916
 msgid "Salutation"
 msgstr "Begrüßung"
 
-#: apps/site_specific/forms/people.py:915
-#: apps/site_specific/forms/people.py:920
-#: apps/site_specific/forms/people.py:925
-#: apps/site_specific/forms/people.py:966
+#: apps/site_specific/forms/people.py:921
+#: apps/site_specific/forms/people.py:926
+#: apps/site_specific/forms/people.py:931
+#: apps/site_specific/forms/people.py:972
 #: templates/ccb/people/profile/details.html:17
 #: templates/ccb/uni_form/includes/birthday.html:6
 msgid "Birthday"
 msgstr "Geburtstag"
 
-#: apps/site_specific/forms/people.py:929
+#: apps/site_specific/forms/people.py:935
 #: templates/ccb/people/profile/details.html:24
 msgid "Nationality"
 msgstr "Nationalität"
 
-#: apps/site_specific/forms/people.py:934
+#: apps/site_specific/forms/people.py:940
 #: templates/ccb/people/profile/details.html:65
 msgid "Preferred Language"
 msgstr "Bevorzugte Sprache"
@@ -5047,8 +5052,8 @@ msgstr "Längengrad"
 msgid ""
 "Longitude (Long.) is the angle east or west of an arbitrary point on Earth "
 "from Greenwich (UK), which is the international zero-longitude point "
-"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction"
-" to east) and -180 (direction to west)."
+"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction "
+"to east) and -180 (direction to west)."
 msgstr ""
 "Längengrad (längs) ist der Winkel nach Osten oder Westen von einem "
 "beliebigen Punkt auf der Erde aus Greenwich (Vereinigtes Königreich), die "
@@ -5117,11 +5122,9 @@ msgstr "Angenommen"
 msgid "Denied"
 msgstr "Abgewiesen"
 
-#: apps/site_specific/models.py:560
-msgid "Phone Number"
-msgstr "Telefonnummer"
-
 #: apps/site_specific/models.py:566
+#: templates/ccb/media_gallery/manage_galleries.html:51
+#: templates/ccb/media_gallery/manage_gallery.html:12
 msgid "Created"
 msgstr "Erstellt"
 
@@ -5296,7 +5299,6 @@ msgid "submitter email"
 msgstr "Email des Einreichers"
 
 #: apps/tracker/models.py:68 apps/tracker/models.py:122
-#: subtrees/base_libs/base_libs/models/models.py:137
 msgid "modifier"
 msgstr "Zuletzt bearbeitet von"
 
@@ -5345,9 +5347,7 @@ msgstr "Englisch"
 msgid "German"
 msgstr "Deutsch"
 
-#: settings.py:258 subtrees/base_libs/base_libs/models/admin.py:513
-#: subtrees/base_libs/base_libs/models/models.py:1049
-#: templates/ccb/media_gallery/manage_galleries.html:93
+#: settings.py:258 templates/ccb/media_gallery/manage_galleries.html:93
 msgid "Content"
 msgstr "Content"
 
@@ -5423,623 +5423,6 @@ msgstr ""
 msgid "en"
 msgstr ""
 
-#: subtrees/base_libs/base_libs/admin/tree_editor.py:172
-#: subtrees/base_libs/base_libs/admin/tree_editor.py:282
-#, python-format
-msgid "%s has been moved to a new position."
-msgstr ""
-
-#: subtrees/base_libs/base_libs/admin/tree_editor.py:181
-#, python-format
-msgid "Move: %s"
-msgstr ""
-
-#: subtrees/base_libs/base_libs/admin/tree_editor.py:286
-msgid "Did not understand moving instruction."
-msgstr ""
-
-#: subtrees/base_libs/base_libs/forms/fields.py:172
-msgid ""
-"The data transfer didn't pass the security test. You are considered as a "
-"spambot."
-msgstr ""
-"Dieser Datentransfer hat unseren Sicherheitscheck nicht bestanden und wird "
-"als spam bewertet."
-
-#: subtrees/base_libs/base_libs/forms/fields.py:203
-msgid "Please enter a valid e-mail address"
-msgstr "Bitte ein gültiges Datum eingeben."
-
-#: subtrees/base_libs/base_libs/forms/fields.py:210
-#: subtrees/base_libs/base_libs/forms/fields.py:235
-#, fuzzy, python-format
-#| msgid "Please enter a valid e-mail address"
-msgid "\"%(email)s\" is not a valid e-mail address"
-msgstr "Bitte ein gültiges Datum eingeben."
-
-#: subtrees/base_libs/base_libs/forms/fields.py:220
-msgid "Please enter at least one valid e-mail address"
-msgstr "Bitte ein gültiges Datum eingeben."
-
-#: subtrees/base_libs/base_libs/forms/fields.py:361
-msgid ""
-"Select a valid choice. That choice is not one of the available choices."
-msgstr ""
-
-#: subtrees/base_libs/base_libs/forms/fields.py:445
-msgid ""
-"The file you uploaded was either not an image, was corrupted, or contained "
-"unsupported properties. Please save it for web without interlacing and try "
-"again."
-msgstr ""
-
-#: subtrees/base_libs/base_libs/forms/fields.py:446
-#: subtrees/base_libs/base_libs/forms/fields.py:536
-#: subtrees/base_libs/base_libs/forms/fields.py:578
-msgid "File type of the uploaded file is invalid."
-msgstr ""
-
-#: subtrees/base_libs/base_libs/forms/fields.py:456
-#, python-format
-msgid ""
-"The media file is too small. The minimal dimensions are "
-"%(width)dx%(height)d."
-msgstr ""
-
-#: subtrees/base_libs/base_libs/forms/fields.py:460
-#, python-format
-msgid ""
-"The ratio of the dimensions is too large. The maximal allowed ratio is %d:1."
-msgstr ""
-
-#: subtrees/base_libs/base_libs/forms/fields.py:461
-#: subtrees/base_libs/base_libs/forms/fields.py:544
-#: subtrees/base_libs/base_libs/forms/fields.py:586
-#, python-format
-msgid "The media file is too large. The maximal allowed file size is %s."
-msgstr ""
-
-#: subtrees/base_libs/base_libs/forms/fields.py:535
-msgid ""
-"Upload a valid video. The file you uploaded was either not a video or a "
-"corrupted video."
-msgstr ""
-
-#: subtrees/base_libs/base_libs/forms/fields.py:577
-msgid ""
-"Upload a valid audio file. The file you uploaded was either not an audio or "
-"a corrupted audio."
-msgstr ""
-
-#: subtrees/base_libs/base_libs/forms/formprocessing.py:330
-msgid ""
-"Security check failed. Maybe your form has been tampered. Please try again."
-msgstr ""
-
-#: subtrees/base_libs/base_libs/models/admin.py:28
-msgid "Save and Add Another"
-msgstr "Sichern und weiteres hinzufügen"
-
-#: subtrees/base_libs/base_libs/models/admin.py:29
-msgid "Hello"
-msgstr "Gelb"
-
-#: subtrees/base_libs/base_libs/models/admin.py:91
-msgid "Publish Status"
-msgstr "Veröffentlichungsdatum"
-
-#: subtrees/base_libs/base_libs/models/admin.py:177
-#: subtrees/base_libs/base_libs/models/models.py:394
-#: subtrees/base_libs/base_libs/models/models.py:397
-#, fuzzy
-#| msgid "Content object ID combo"
-msgid "Content Object"
-msgstr "Content-Objekt-ID-Combo"
-
-#: subtrees/base_libs/base_libs/models/admin.py:226
-msgid "If you provide an object ID, you must specify a content type."
-msgstr ""
-
-#: subtrees/base_libs/base_libs/models/admin.py:232
-msgid "For a given content type, you must specify an object id."
-msgstr ""
-
-#: subtrees/base_libs/base_libs/models/admin.py:239
-msgid "No object with the given content type, object id exists."
-msgstr ""
-
-#: subtrees/base_libs/base_libs/models/admin.py:259
-msgid "If you provide an object ID, you must choose a content type."
-msgstr ""
-
-#: subtrees/base_libs/base_libs/models/admin.py:275
-#: subtrees/base_libs/base_libs/models/admin.py:339
-msgid "Related Object, Sites and URL Identifier"
-msgstr ""
-
-#: subtrees/base_libs/base_libs/models/admin.py:328
-#: subtrees/base_libs/base_libs/models/admin.py:394
-msgid "There already exists a container with these properties."
-msgstr ""
-
-#: subtrees/base_libs/base_libs/models/admin.py:445
-msgid "Database error"
-msgstr "Datenbank-Suche"
-
-#: subtrees/base_libs/base_libs/models/admin.py:500
-msgid ""
-"This parent is not allowed, as it creates a cyclical reference. Please "
-"select a different parent."
-msgstr ""
-
-#: subtrees/base_libs/base_libs/models/admin.py:537
-#: templates/ccb/styleguide/form.html:650
-msgid "Publish"
-msgstr "Veröffentlicht"
-
-#: subtrees/base_libs/base_libs/models/admin.py:554
-msgid "Meta tags"
-msgstr "Meine Einstellungen"
-
-#: subtrees/base_libs/base_libs/models/admin.py:556
-#: subtrees/base_libs/base_libs/models/admin.py:565
-#: subtrees/base_libs/base_libs/models/models.py:1055
-msgid "Keywords"
-msgstr "Stichworte"
-
-#: subtrees/base_libs/base_libs/models/admin.py:556
-#: subtrees/base_libs/base_libs/models/admin.py:565
-#: subtrees/base_libs/base_libs/models/models.py:1057
-#: templates/ccb/forum/forum_list_level_1.html:90
-#: templates/ccb/resources/documents/profile/details.html:51
-msgid "Author"
-msgstr "Autor"
-
-#: subtrees/base_libs/base_libs/models/admin.py:556
-#: subtrees/base_libs/base_libs/models/admin.py:565
-#: subtrees/base_libs/base_libs/models/models.py:1058
-msgid "Copyright"
-msgstr ""
-
-#: subtrees/base_libs/base_libs/models/admin.py:563
-msgid "SEO"
-msgstr ""
-
-#: subtrees/base_libs/base_libs/models/admin.py:565
-msgid "Page title"
-msgstr "Seitentitel"
-
-#: subtrees/base_libs/base_libs/models/base_libs_settings.py:13
-msgid "HTML WYSIWYG"
-msgstr "HTML WYSIWYG"
-
-#: subtrees/base_libs/base_libs/models/base_libs_settings.py:14
-msgid "Plain Text"
-msgstr "Nur Text"
-
-#: subtrees/base_libs/base_libs/models/base_libs_settings.py:15
-msgid "Raw HTML"
-msgstr "HTML"
-
-#: subtrees/base_libs/base_libs/models/base_libs_settings.py:16
-msgid "Markdown"
-msgstr "Markdown"
-
-#: subtrees/base_libs/base_libs/models/fields.py:34
-msgid "Text field with additional capabilities for editing."
-msgstr ""
-
-#: subtrees/base_libs/base_libs/models/fields.py:74
-msgid "Markup type"
-msgstr "Gruppenart"
-
-#: subtrees/base_libs/base_libs/models/fields.py:79
-msgid "You can select an appropriate markup type here"
-msgstr ""
-
-#: subtrees/base_libs/base_libs/models/fields.py:140
-msgid "Model field for Textarea which won't be converted to RTE"
-msgstr ""
-
-#: subtrees/base_libs/base_libs/models/fields.py:188
-#, python-format
-msgid "Multilingual string (up to %(max_length)s)"
-msgstr ""
-
-#: subtrees/base_libs/base_libs/models/fields.py:285
-msgid "Multilingual Text"
-msgstr ""
-
-#: subtrees/base_libs/base_libs/models/fields.py:447
-msgid "Plain text Multilingual text fields"
-msgstr ""
-
-#: subtrees/base_libs/base_libs/models/models.py:59
-msgid "creation date"
-msgstr "Erstellungsdatum"
-
-#: subtrees/base_libs/base_libs/models/models.py:86
-msgid "modified date"
-msgstr "Bearbeitet am"
-
-#: subtrees/base_libs/base_libs/models/models.py:114
-msgid "creator"
-msgstr "Wiederherstellen"
-
-#: subtrees/base_libs/base_libs/models/models.py:220
-msgid "author"
-msgstr "Autoren"
-
-#: subtrees/base_libs/base_libs/models/models.py:222
-msgid "If you do not select an author, you will be the author!"
-msgstr ""
-
-#: subtrees/base_libs/base_libs/models/models.py:279
-msgid "views"
-msgstr "Ansichten"
-
-#: subtrees/base_libs/base_libs/models/models.py:351
-msgid "allow comments"
-msgstr "Kommentare erlauben"
-
-#: subtrees/base_libs/base_libs/models/models.py:352
-msgid "close comments"
-msgstr "Kommentare schließen"
-
-#: subtrees/base_libs/base_libs/models/models.py:395
-msgid "Related object's type (model)"
-msgstr "Typ des bezugnehmenden Objekts (Model)"
-
-#: subtrees/base_libs/base_libs/models/models.py:398
-msgid "'s type (model)"
-msgstr " Typ (Model)"
-
-#: subtrees/base_libs/base_libs/models/models.py:417
-msgid "Please select the type (model) for the relation, you want to build."
-msgstr ""
-
-#: subtrees/base_libs/base_libs/models/models.py:425
-msgid "Please select the related object."
-msgstr "Bitte wähle mindestens eine Objektart."
-
-#: subtrees/base_libs/base_libs/models/models.py:454
-#: subtrees/base_libs/base_libs/models/models.py:468
-#: subtrees/base_libs/base_libs/models/models.py:483
-msgid "Site"
-msgstr "Website"
-
-#: subtrees/base_libs/base_libs/models/models.py:457
-#: subtrees/base_libs/base_libs/models/models.py:484
-msgid "Restrict this object only for the selected site"
-msgstr ""
-
-#: subtrees/base_libs/base_libs/models/models.py:499
-msgid "URL identifier"
-msgstr "Identifikator"
-
-#: subtrees/base_libs/base_libs/models/models.py:501
-#: subtrees/base_libs/base_libs/models/models.py:603
-msgid ""
-"Please specify an additional URL identifier for the container here. The "
-"provided name must be the last part of the calling url, which wants to "
-"access the container. For example, if you have a FAQ-Container and you want "
-"to use the url 'http://www.example.com/gettinghelp/faqs/', the URL "
-"identifier must be 'faqs'. For different URL identifiers, you can create "
-"multiple containers for the same related object and site. Note, that the "
-"site, the related object and the URL identifier must be unique together."
-msgstr ""
-
-#: subtrees/base_libs/base_libs/models/models.py:597
-msgid ""
-"Please select some sites, this container relates to. If you do not select "
-"any site, the container applies to all sites."
-msgstr ""
-
-#: subtrees/base_libs/base_libs/models/models.py:601
-msgid "URL Identifier"
-msgstr "URL-Identifikator"
-
-#: subtrees/base_libs/base_libs/models/models.py:660
-msgid "Roots Node does not exist. Please create one."
-msgstr ""
-
-#: subtrees/base_libs/base_libs/models/models.py:708
-msgid "path"
-msgstr "Pfad"
-
-#: subtrees/base_libs/base_libs/models/models.py:899
-msgid "Sysname"
-msgstr "Name"
-
-#: subtrees/base_libs/base_libs/models/models.py:900
-msgid "Do not change this value!"
-msgstr ""
-
-#: subtrees/base_libs/base_libs/models/models.py:1030
-msgid "subtitle"
-msgstr "Untertitel"
-
-#: subtrees/base_libs/base_libs/models/models.py:1055
-msgid "Separate keywords by comma."
-msgstr "Stichwort durch Kommas trennen."
-
-#: subtrees/base_libs/base_libs/models/models.py:1103
-msgid "page title"
-msgstr "Seitentitel"
-
-#: subtrees/base_libs/base_libs/models/models.py:1112
-msgid "Opens on Monday"
-msgstr "Montags geöffnet von"
-
-#: subtrees/base_libs/base_libs/models/models.py:1113
-msgid "Break Starts on Monday"
-msgstr "Montags Pause von"
-
-#: subtrees/base_libs/base_libs/models/models.py:1114
-msgid "Break Ends on Monday"
-msgstr "Montags Pause bis"
-
-#: subtrees/base_libs/base_libs/models/models.py:1115
-msgid "Closes on Monday"
-msgstr "Montags geöffnet bis"
-
-#: subtrees/base_libs/base_libs/models/models.py:1117
-msgid "Opens on Tuesday"
-msgstr "Montags geöffnet von"
-
-#: subtrees/base_libs/base_libs/models/models.py:1118
-msgid "Break Starts on Tuesday"
-msgstr "Dienstags Pause ab"
-
-#: subtrees/base_libs/base_libs/models/models.py:1119
-msgid "Break Ends on Tuesday"
-msgstr "Dienstags Pause bis"
-
-#: subtrees/base_libs/base_libs/models/models.py:1120
-msgid "Closes on Tuesday"
-msgstr "Dienstag geöffnet bis"
-
-#: subtrees/base_libs/base_libs/models/models.py:1122
-msgid "Opens on Wednesday"
-msgstr "Mittwochs geöffnet ab"
-
-#: subtrees/base_libs/base_libs/models/models.py:1123
-msgid "Break Starts on Wednesday"
-msgstr "Mittwochs Pause ab"
-
-#: subtrees/base_libs/base_libs/models/models.py:1124
-msgid "Break Ends on Wednesday"
-msgstr "Mittwochs Pause bis"
-
-#: subtrees/base_libs/base_libs/models/models.py:1125
-msgid "Closes on Wednesday"
-msgstr "Mittwochs geöffnet bis"
-
-#: subtrees/base_libs/base_libs/models/models.py:1127
-msgid "Opens on Thursday"
-msgstr "Donnerstags geöffnet ab"
-
-#: subtrees/base_libs/base_libs/models/models.py:1128
-msgid "Break Starts on Thursday"
-msgstr "Donnerstags Pause ab"
-
-#: subtrees/base_libs/base_libs/models/models.py:1129
-msgid "Break Ends on Thursday"
-msgstr "Donnerstags Pause bis"
-
-#: subtrees/base_libs/base_libs/models/models.py:1130
-msgid "Closes on Thursday"
-msgstr "Donnerstags geöffnet bis"
-
-#: subtrees/base_libs/base_libs/models/models.py:1132
-msgid "Opens on Friday"
-msgstr "Freitags geöffnet ab"
-
-#: subtrees/base_libs/base_libs/models/models.py:1133
-msgid "Break Starts on Friday"
-msgstr "Freitags Pause ab"
-
-#: subtrees/base_libs/base_libs/models/models.py:1134
-msgid "Break Ends on Friday"
-msgstr "Freitags Pause bis"
-
-#: subtrees/base_libs/base_libs/models/models.py:1135
-msgid "Closes on Friday"
-msgstr "Freitags geöffnet bis"
-
-#: subtrees/base_libs/base_libs/models/models.py:1137
-msgid "Opens on Saturday"
-msgstr "Samstags geöffnet ab"
-
-#: subtrees/base_libs/base_libs/models/models.py:1138
-msgid "Break Starts on Saturday"
-msgstr "Samstags Pause ab"
-
-#: subtrees/base_libs/base_libs/models/models.py:1139
-msgid "Break Ends on Saturday"
-msgstr "Samstags Pause bis"
-
-#: subtrees/base_libs/base_libs/models/models.py:1140
-msgid "Closes on Saturday"
-msgstr "Samstags geöffnet bis"
-
-#: subtrees/base_libs/base_libs/models/models.py:1142
-msgid "Opens on Sunday"
-msgstr "Sonntags geöffnet ab"
-
-#: subtrees/base_libs/base_libs/models/models.py:1143
-msgid "Break Starts on Sunday"
-msgstr "Sonntags Pause ab"
-
-#: subtrees/base_libs/base_libs/models/models.py:1144
-msgid "Break Ends on Sunday"
-msgstr "Sonntags Pause bis"
-
-#: subtrees/base_libs/base_libs/models/models.py:1145
-msgid "Closes on Sunday"
-msgstr "Sonntags geöffnet bis"
-
-#: subtrees/base_libs/base_libs/models/models.py:1147
-#: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:249
-#: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:275
-msgid "Exceptions for working hours"
-msgstr "Sonstige Öffnungszeiten (Deutsch)"
-
-#: subtrees/base_libs/base_libs/models/models.py:1237
-#, fuzzy
-#| msgid "Fee Label (German)"
-msgid "Fee Label"
-msgstr "Kosten Label (Deutsch)"
-
-#: subtrees/base_libs/base_libs/models/models.py:1243
-msgid "Fee Amount"
-msgstr "Eintritt"
-
-#: subtrees/base_libs/base_libs/models/models.py:1252
-msgid "Registration Required"
-msgstr "Registrierung erforderlich"
-
-#: subtrees/tagging/tagging/admin.py:11
-#, python-format
-msgid "Name (%s)"
-msgstr "Name (%s)"
-
-#: subtrees/tagging/tagging/fields.py:22
-msgid "Separate different tags by comma"
-msgstr "Stichwort durch Kommas trennen."
-
-#: subtrees/tagging/tagging/fields.py:67
-#, python-format
-msgid "%s can only be set on instances."
-msgstr ""
-
-#: subtrees/tagging/tagging/forms.py:20
-msgid "Multiple tags were given."
-msgstr ""
-
-#: subtrees/tagging/tagging/forms.py:23
-#, fuzzy, python-format
-#| msgid "Passwords must be at least 3 characters long"
-msgid "A tag may be no more than %s characters long."
-msgstr "Passwörter müssen mindestens 3 Zeichen lang sein"
-
-#: subtrees/tagging/tagging/forms.py:39
-#, python-format
-msgid "Each tag may be no more than %s characters long."
-msgstr ""
-
-#: subtrees/tagging/tagging/models.py:58
-#, python-format
-msgid "No tags were given: \"%s\"."
-msgstr ""
-
-#: subtrees/tagging/tagging/models.py:60
-#, python-format
-msgid "Multiple tags were given: \"%s\"."
-msgstr ""
-
-#: subtrees/tagging/tagging/models.py:473
-msgid "name"
-msgstr "Name"
-
-#: subtrees/tagging/tagging/models.py:479
-#: subtrees/tagging/tagging/models.py:494
-msgid "tag"
-msgstr "Stichworte"
-
-#: subtrees/tagging/tagging/models.py:495
-msgid "content type"
-msgstr "Kontext Objekt"
-
-#: subtrees/tagging/tagging/models.py:496
-msgid "object id"
-msgstr "Betreff"
-
-#: subtrees/tagging/tagging/models.py:504
-#, fuzzy
-#| msgid "mapped item"
-msgid "tagged item"
-msgstr "Kontext Objekt"
-
-#: subtrees/tagging/tagging/models.py:505
-#, fuzzy
-#| msgid "mapped items"
-msgid "tagged items"
-msgstr "Kontext Objekte"
-
-#: subtrees/tagging/tagging/templatetags/tagging_tags.py:19
-#, python-format
-msgid "tags_for_model tag was given an invalid model: %s"
-msgstr ""
-
-#: subtrees/tagging/tagging/templatetags/tagging_tags.py:32
-#, python-format
-msgid "tag_cloud_for_model tag was given an invalid model: %s"
-msgstr ""
-
-#: subtrees/tagging/tagging/templatetags/tagging_tags.py:56
-#, python-format
-msgid "tagged_objects tag was given an invalid model: %s"
-msgstr ""
-
-#: subtrees/tagging/tagging/templatetags/tagging_tags.py:89
-#, python-format
-msgid "%s tag requires either three or five arguments"
-msgstr ""
-
-#: subtrees/tagging/tagging/templatetags/tagging_tags.py:96
-#, python-format
-msgid "if given, fifth argument to %s tag must be 'counts'"
-msgstr ""
-
-#: subtrees/tagging/tagging/templatetags/tagging_tags.py:196
-#, python-format
-msgid "%s tag requires exactly three arguments"
-msgstr ""
-
-#: subtrees/tagging/tagging/templatetags/tagging_tags.py:221
-#, python-format
-msgid "%s tag requires exactly five arguments"
-msgstr ""
-
-#: subtrees/tagging/tagging/templatetags/tagging_tags.py:223
-#, python-format
-msgid "second argument to %s tag must be 'in'"
-msgstr ""
-
-#: subtrees/tagging/tagging/templatetags/tagging_tags.py:225
-#, python-format
-msgid "fourth argument to %s tag must be 'as'"
-msgstr ""
-
-#: subtrees/tagging/tagging/utils.py:185
-msgid ""
-"If a list or tuple of tags is provided, they must all be tag names, Tag "
-"objects or Tag ids."
-msgstr ""
-
-#: subtrees/tagging/tagging/utils.py:187
-msgid "The tag input given was invalid."
-msgstr ""
-
-#: subtrees/tagging/tagging/utils.py:232
-#, python-format
-msgid "Invalid distribution algorithm specified: %s."
-msgstr ""
-
-#: subtrees/tagging/tagging/views.py:33
-msgid "tagged_object_list must be called with a queryset or a model."
-msgstr ""
-
-#: subtrees/tagging/tagging/views.py:39
-msgid "tagged_object_list must be called with a tag."
-msgstr ""
-
-#: subtrees/tagging/tagging/views.py:43
-#, python-format
-msgid "No Tag found matching \"%s\"."
-msgstr ""
-
 #: templates/admin/admin/includes/navigation.html:9
 msgid "File Browser"
 msgstr "Datei Browser"
@@ -6085,8 +5468,10 @@ msgstr "Mehrere Veranstaltungen löschen"
 #: templates/admin/admin/people/person/mailchimp_subscribe_selected.html:21
 #, python-format
 msgid ""
-"Deleting the %(object_name)s would result in deleting related objects, but your\n"
-"                    account doesn't have permission to delete the following types of objects:"
+"Deleting the %(object_name)s would result in deleting related objects, but "
+"your\n"
+"                    account doesn't have permission to delete the following "
+"types of objects:"
 msgstr ""
 
 #: templates/admin/admin/institutions/institution/mailchimp_subscribe_selected.html:35
@@ -6198,6 +5583,11 @@ msgstr "Pause endet"
 msgid "Closes"
 msgstr "Geschlossen ab"
 
+#: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:249
+#: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:275
+msgid "Exceptions for working hours"
+msgstr "Sonstige Öffnungszeiten (Deutsch)"
+
 #: templates/admin/extendedadmin/includes/fieldset_status.html:4
 msgid "Status & Featured"
 msgstr "Status & Featured"
@@ -6276,7 +5666,8 @@ msgstr "Zurück"
 #: templates/ccb/accounts/account_creation_email.html:2
 #, python-format
 msgid ""
-"Welcome to %(site_name)s, the premier online destination for first hand information about the Creative\n"
+"Welcome to %(site_name)s, the premier online destination for first hand "
+"information about the Creative\n"
 "    Sector in Berlin."
 msgstr ""
 "Willkommen bei %(site_name)s, dem umfassenden Informationsportal für die "
@@ -6291,12 +5682,13 @@ msgstr "Ihr Benutzername ist: %(username)s"
 msgid ""
 "You can log in at: http://www.creative-city-berlin.de/login/?goto_next=/"
 msgstr ""
-"Du kannst Dich nun einloggen unter: http://www.creative-city-"
-"berlin.de/login/?goto_next=/"
+"Du kannst Dich nun einloggen unter: http://www.creative-city-berlin.de/"
+"login/?goto_next=/"
 
 #: templates/ccb/accounts/account_creation_email.html:8
 msgid ""
-"Enjoy the site, and do let us know if you have comments, concerns, suggestions, or other\n"
+"Enjoy the site, and do let us know if you have comments, concerns, "
+"suggestions, or other\n"
 "    feedback!"
 msgstr ""
 "Wir freuen uns über Deinen Besuch der Seite und über Deine Kommentare, "
@@ -6321,12 +5713,13 @@ msgid ""
 "To verify your e-mail address and continue the registration process, please "
 "click the link below:"
 msgstr ""
-"Um Deine E-Mail-Adresse zu bestätigen und Deine Registrierung abschließen zu"
-" können, klicke bitte auf den folgenden Link:"
+"Um Deine E-Mail-Adresse zu bestätigen und Deine Registrierung abschließen zu "
+"können, klicke bitte auf den folgenden Link:"
 
 #: templates/ccb/accounts/account_verification_email.html:8
 msgid ""
-"If you have no idea what this e-mail is referring to, simply ignore it and no account will be created\n"
+"If you have no idea what this e-mail is referring to, simply ignore it and "
+"no account will be created\n"
 "    with your e-mail address."
 msgstr ""
 "Wenn Du nicht weißt, worauf sich diese E-Mail bezieht, ignoriere sie "
@@ -6490,8 +5883,7 @@ msgstr "Ihr institutionelles Profil \"%(title)s\" wurde erfolgreich gelöscht"
 #: templates/ccb/accounts/my_profile/delete_profile.html:35
 msgid "Attention! This action is permanent and you can't undo it."
 msgstr ""
-"Achtung! Diese Aktion ist dauerhaft und kann nicht rückgängig gemacht "
-"werden."
+"Achtung! Diese Aktion ist dauerhaft und kann nicht rückgängig gemacht werden."
 
 #: templates/ccb/accounts/my_profile/delete_profile_done.html:20
 msgid "Profile deleted"
@@ -6580,7 +5972,8 @@ msgstr ""
 #: templates/ccb/accounts/password_reset_email.html:3
 #, python-format
 msgid ""
-"You're receiving this e-mail because you requested a password reset for your user account at\n"
+"You're receiving this e-mail because you requested a password reset for your "
+"user account at\n"
 "        %(site_name)s."
 msgstr ""
 "Du erhältst diese Mail, weil Du ein neues Kennwort für Dein Benutzerkonto "
@@ -6615,9 +6008,9 @@ msgstr "Du hast es fast geschafft."
 
 #: templates/ccb/accounts/register_verify_required.html:12
 msgid ""
-"In order to complete registration, we need to confirm you entered a valid "
-"e-mail address. You should be getting a confirmation e-mail very shortly. It"
-" will contain instructions on how to finalize your registration."
+"In order to complete registration, we need to confirm you entered a valid e-"
+"mail address. You should be getting a confirmation e-mail very shortly. It "
+"will contain instructions on how to finalize your registration."
 msgstr ""
 "Willkommen bei Creative City Berlin! Du erhältst in Kürze eine "
 "Bestätigungsnachricht mit weiteren Informationen an Deine angegebene E-Mail-"
@@ -6678,7 +6071,6 @@ msgid "Creative City Berlin News"
 msgstr "Creative City Berlin News"
 
 #: templates/ccb/articles/articles_brief.html:37
-#: templates/ccb/bulletin_board/lists/bulletin_list_item.html:15
 #: templates/ccb/styleguide/elements.html:532
 #: templates/ccb/styleguide/elements.html:545
 #: templates/ccb/styleguide/elements.html:558
@@ -6692,7 +6084,7 @@ msgstr "weiter"
 #: templates/ccb/base_counselling.html:75 templates/ccb/base_redesign.html:93
 #: templates/ccb/blog/post_brief.html:14
 #: templates/ccb/blog/post_detail.html:28
-#: templates/ccb/bulletin_board/lists/bulletin_list_item.html:22
+#: templates/ccb/bulletin_board/lists/bulletin_list_item.html:21
 #: templates/ccb/counselling_blog/post_brief.html:14
 #: templates/ccb/events/controls.html:20 templates/ccb/events/controls.html:21
 #: templates/ccb/events/lists/event_icons.html:72
@@ -7551,8 +6943,7 @@ msgstr "Vielen Dank"
 #: templates/ccb/contact_form/contact_form_done.html:11
 #: templates/ccb/site_specific/kreativarbeiten_contact_form_done.html:14
 msgid "Thank you for your message - we will contact you soon!"
-msgstr ""
-"Vielen Dank für Ihre Nachricht! Wir werden schnellstmöglich antworten!"
+msgstr "Vielen Dank für Ihre Nachricht! Wir werden schnellstmöglich antworten!"
 
 #: templates/ccb/counselling_events/event_list.html:7
 #: templates/ccb/institutions/institution_events.html:7
@@ -8100,7 +7491,8 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                                        <a href=\"%(person_url)sportfolio/fb-sync/\">Synchronize personal portfolio</a>\n"
+"                                        <a href=\"%(person_url)sportfolio/fb-"
+"sync/\">Synchronize personal portfolio</a>\n"
 "                                        ."
 msgstr ""
 "\n"
@@ -8125,19 +7517,24 @@ msgstr "Verbundene Institution"
 msgid ""
 "\n"
 "                                    Institution\n"
-"                                    <a href=\"%(institution_url)s\">\"%(institution_title)s\"</a> is linked\n"
+"                                    <a href=\"%(institution_url)s\">"
+"\"%(institution_title)s\"</a> is linked\n"
 "                                    to facebook page\n"
-"                                    <a href=\"%(fb_page_url)s\">\"%(fb_page_name)s\"</a>\n"
+"                                    <a href=\"%(fb_page_url)s\">"
+"\"%(fb_page_name)s\"</a>\n"
 "                                    ."
 msgstr ""
 "\n"
-"Ihre Institution <a href=\"%(institution_url)s\">\"%(institution_title)s\"</a> ist verknüpft mit der Facebook-Seite <a href=\"%(fb_page_url)s\">\"%(fb_page_name)s\"</a>."
+"Ihre Institution <a href=\"%(institution_url)s\">\"%(institution_title)s\"</"
+"a> ist verknüpft mit der Facebook-Seite <a href=\"%(fb_page_url)s\">"
+"\"%(fb_page_name)s\"</a>."
 
 #: templates/ccb/facebook_app/manage_pages.html:30
 #, python-format
 msgid ""
 "\n"
-"                                        <a href=\"%(institution_url)sportfolio/fb-sync/\">Synchronize institution's\n"
+"                                        <a href="
+"\"%(institution_url)sportfolio/fb-sync/\">Synchronize institution's\n"
 "                                            portfolio\n"
 "                                        </a>."
 msgstr ""
@@ -8306,7 +7703,8 @@ msgstr "Letzte Posts"
 msgid ""
 "\n"
 "                                Created on\n"
-"                                <a href=\"%(url)s\">%(creation_date)s</a> by\n"
+"                                <a href=\"%(url)s\">%(creation_date)s</a> "
+"by\n"
 "                                <a href=\"%(creator_url)s\">%(creator)s</a>\n"
 "                            "
 msgstr ""
@@ -8317,6 +7715,11 @@ msgstr ""
 #: templates/ccb/forum/forum_list_level_1.html:80
 msgid "Recent threads"
 msgstr "Letzte Themen"
+
+#: templates/ccb/forum/forum_list_level_1.html:90
+#: templates/ccb/resources/documents/profile/details.html:51
+msgid "Author"
+msgstr "Autor"
 
 #: templates/ccb/forum/forum_list_level_1.html:92
 #: templates/ccb/site_specific/creative_sectors/creative_sector_details.html:101
@@ -8412,8 +7815,10 @@ msgstr ""
 msgid ""
 "\n"
 "                                    Created on\n"
-"                                    <a href=\"%(url)s\">%(creation_date)s</a> by\n"
-"                                    <a href=\"%(creator_url)s\">%(creator)s</a>\n"
+"                                    <a href=\"%(url)s\">%(creation_date)s</"
+"a> by\n"
+"                                    <a href=\"%(creator_url)s\">%(creator)s</"
+"a>\n"
 "                                "
 msgstr ""
 "\n"
@@ -8547,7 +7952,8 @@ msgstr "Einladung annehmen"
 #, python-format
 msgid ""
 "You\n"
-"                    have been invited to %(institution_title)s by %(inviter_title)s."
+"                    have been invited to %(institution_title)s by "
+"%(inviter_title)s."
 msgstr ""
 "Du bist von %(inviter_title)s zu %(institution_title)s eingeladen worden."
 
@@ -8573,20 +7979,22 @@ msgstr "Anmeldedaten"
 #: templates/ccb/groups_networks/confirm_invitation_to_institution.html:80
 msgid ""
 "I accept\n"
-"                            <a href=\"/privacy/\" onclick=\"open_new_window(event)\">the privacy policy</a>\n"
+"                            <a href=\"/privacy/\" onclick="
+"\"open_new_window(event)\">the privacy policy</a>\n"
 "                            ."
 msgstr ""
-"Ja, ich bin mit den <a href=\"/privacy/\" "
-"onclick=\"open_new_window(event)\">Datenschutzrichtlinien</a> einverstanden"
+"Ja, ich bin mit den <a href=\"/privacy/\" onclick="
+"\"open_new_window(event)\">Datenschutzrichtlinien</a> einverstanden"
 
 #: templates/ccb/groups_networks/confirm_invitation_to_institution.html:91
 msgid ""
 "I accept\n"
-"                            <a href=\"/terms-of-use/\" onclick=\"open_new_window(event)\">the terms of use</a>\n"
+"                            <a href=\"/terms-of-use/\" onclick="
+"\"open_new_window(event)\">the terms of use</a>\n"
 "                            ."
 msgstr ""
-"Ja, ich bin mit den <a href=\"/terms-of-use/\" "
-"onclick=\"open_new_window(event)\">Nutzungsbedingungen</a> einverstanden"
+"Ja, ich bin mit den <a href=\"/terms-of-use/\" onclick="
+"\"open_new_window(event)\">Nutzungsbedingungen</a> einverstanden"
 
 #: templates/ccb/groups_networks/group_membership.html:4
 msgid "Join Group"
@@ -8668,7 +8076,8 @@ msgstr ""
 #, python-format
 msgid ""
 "Do\n"
-"            you really want to cancel the invitation of %(person_name)s to join %(group_name)s\n"
+"            you really want to cancel the invitation of %(person_name)s to "
+"join %(group_name)s\n"
 "            ?"
 msgstr ""
 "Willst Du die Einladung an %(person_name)s für %(group_name)s wirklich "
@@ -8679,8 +8088,7 @@ msgstr ""
 msgid ""
 "Do you really want to cancel the\n"
 "            request for joining %(group_name)s?"
-msgstr ""
-"Willst Du die Einladung für %(group_name)s wirklich rückgängig machen?"
+msgstr "Willst Du die Einladung für %(group_name)s wirklich rückgängig machen?"
 
 #: templates/ccb/groups_networks/group_membership_deny-group.html:4
 #, python-format
@@ -8710,7 +8118,8 @@ msgstr "Teilnehmen"
 #, python-format
 msgid ""
 "Do\n"
-"            you really want to remove %(person_name)s from the members of %(group_name)s?"
+"            you really want to remove %(person_name)s from the members of "
+"%(group_name)s?"
 msgstr "Willst Du wirklich %(person_name)s aus %(group_name)s entfernen?"
 
 #: templates/ccb/groups_networks/group_membership_remove-user.html:9
@@ -9071,8 +8480,8 @@ msgid ""
 "Is some      category missing? You can\n"
 "                    <a href=\"/ticket/new-category/\">suggest it here</a>."
 msgstr ""
-"Fehlt Dir eine Kategorie? Du kannst sie uns <a href=\"/ticket/new-"
-"category/\">hier</a> zur Aufnahme vorschlagen."
+"Fehlt Dir eine Kategorie? Du kannst sie uns <a href=\"/ticket/new-category/"
+"\">hier</a> zur Aufnahme vorschlagen."
 
 #: templates/ccb/groups_networks/persongroups/profile/contact.html:33
 msgid "Show on the map"
@@ -9695,7 +9104,8 @@ msgstr ""
 #, python-format
 msgid ""
 "Do you really want to delete the\n"
-"            custom cover for the album \"%(gallery_title)s\" and to use the first image of the album as a cover\n"
+"            custom cover for the album \"%(gallery_title)s\" and to use the "
+"first image of the album as a cover\n"
 "            instead?"
 msgstr ""
 "Willst Du wirklich das ausgewählte Titelbild für das Album "
@@ -9835,6 +9245,11 @@ msgstr "(Titel veröffentlichen)"
 #: templates/ccb/media_gallery/manage_galleries.html:50
 msgid "Title not shown in public"
 msgstr "(Titel nicht veröffentlichen)"
+
+#: templates/ccb/media_gallery/manage_galleries.html:52
+#: templates/ccb/media_gallery/manage_gallery.html:13
+msgid "Last Edited"
+msgstr "Zuletzt bearbeitet"
 
 #: templates/ccb/media_gallery/manage_galleries.html:59
 msgid "Add album"
@@ -10017,7 +9432,8 @@ msgid ""
 "\n"
 "%(message)s\n"
 "\n"
-"To see other notices or change how you receive notifications, please go to %(notices_url)s.\n"
+"To see other notices or change how you receive notifications, please go to "
+"%(notices_url)s.\n"
 msgstr ""
 
 #: templates/ccb/notification/email_subject.txt:1
@@ -10242,7 +9658,7 @@ msgstr "Neue Infolinks"
 msgid "There are no public infolinks."
 msgstr "Keine veröffentlichten Infolinks vorhanden."
 
-#: templates/ccb/search/search.html:5 templates/ccb/search/search.html.py:11
+#: templates/ccb/search/search.html:5 templates/ccb/search/search.html:11
 msgid "SEARCH"
 msgstr "SUCHE"
 
@@ -10366,7 +9782,8 @@ msgid ""
 "                        "
 msgid_plural ""
 "\n"
-"                            %(unregistered_visitors_count)s unregistered visitors"
+"                            %(unregistered_visitors_count)s unregistered "
+"visitors"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -10454,6 +9871,8 @@ msgid ""
 "Created:\n"
 "                            %(created)s"
 msgstr ""
+"Estellt:\n"
+"                            %(created)s"
 
 #: templates/ccb/site_specific/invitation.html:34
 msgid "Send Invitation"
@@ -10684,6 +10103,10 @@ msgstr "Bitte auswählen"
 msgid "Please start typing"
 msgstr ""
 
+#: templates/ccb/styleguide/form.html:650
+msgid "Publish"
+msgstr "Veröffentlicht"
+
 #: templates/ccb/styleguide/layout.html:303
 msgid "Projects"
 msgstr "Projekte"
@@ -10702,8 +10125,7 @@ msgstr "Nachricht"
 
 #: templates/ccb/tracker/postticket.html:13
 msgid "Thank you for informing us - we will work on it immediately!"
-msgstr ""
-"Vielen Dank für Ihren Hinweis! Wir kümmern uns schnellstmöglich darum!"
+msgstr "Vielen Dank für Ihren Hinweis! Wir kümmern uns schnellstmöglich darum!"
 
 #: templates/ccb/uni_form/includes/event_time.html:58
 msgid "Event has an end date"
@@ -10736,6 +10158,247 @@ msgstr "Bestätigung"
 msgid "Steps"
 msgstr ""
 
+#~ msgid ""
+#~ "The data transfer didn't pass the security test. You are considered as a "
+#~ "spambot."
+#~ msgstr ""
+#~ "Dieser Datentransfer hat unseren Sicherheitscheck nicht bestanden und "
+#~ "wird als spam bewertet."
+
+#~ msgid "Please enter a valid e-mail address"
+#~ msgstr "Bitte ein gültiges Datum eingeben."
+
+#, fuzzy
+#~| msgid "Please enter a valid e-mail address"
+#~ msgid "\"%(email)s\" is not a valid e-mail address"
+#~ msgstr "Bitte ein gültiges Datum eingeben."
+
+#~ msgid "Please enter at least one valid e-mail address"
+#~ msgstr "Bitte ein gültiges Datum eingeben."
+
+#~ msgid "Save and Add Another"
+#~ msgstr "Sichern und weiteres hinzufügen"
+
+#~ msgid "Hello"
+#~ msgstr "Gelb"
+
+#~ msgid "Publish Status"
+#~ msgstr "Veröffentlichungsdatum"
+
+#, fuzzy
+#~| msgid "Content object ID combo"
+#~ msgid "Content Object"
+#~ msgstr "Content-Objekt-ID-Combo"
+
+#~ msgid "Database error"
+#~ msgstr "Datenbank-Suche"
+
+#~ msgid "Meta tags"
+#~ msgstr "Meine Einstellungen"
+
+#~ msgid "Keywords"
+#~ msgstr "Stichworte"
+
+#~ msgid "Page title"
+#~ msgstr "Seitentitel"
+
+#~ msgid "HTML WYSIWYG"
+#~ msgstr "HTML WYSIWYG"
+
+#~ msgid "Plain Text"
+#~ msgstr "Nur Text"
+
+#~ msgid "Raw HTML"
+#~ msgstr "HTML"
+
+#~ msgid "Markdown"
+#~ msgstr "Markdown"
+
+#~ msgid "Markup type"
+#~ msgstr "Gruppenart"
+
+#~ msgid "creation date"
+#~ msgstr "Erstellungsdatum"
+
+#~ msgid "modified date"
+#~ msgstr "Bearbeitet am"
+
+#~ msgid "creator"
+#~ msgstr "Wiederherstellen"
+
+#~ msgid "author"
+#~ msgstr "Autoren"
+
+#~ msgid "views"
+#~ msgstr "Ansichten"
+
+#~ msgid "allow comments"
+#~ msgstr "Kommentare erlauben"
+
+#~ msgid "close comments"
+#~ msgstr "Kommentare schließen"
+
+#~ msgid "Related object's type (model)"
+#~ msgstr "Typ des bezugnehmenden Objekts (Model)"
+
+#~ msgid "'s type (model)"
+#~ msgstr " Typ (Model)"
+
+#~ msgid "Please select the related object."
+#~ msgstr "Bitte wähle mindestens eine Objektart."
+
+#~ msgid "Site"
+#~ msgstr "Website"
+
+#~ msgid "URL identifier"
+#~ msgstr "Identifikator"
+
+#~ msgid "URL Identifier"
+#~ msgstr "URL-Identifikator"
+
+#~ msgid "path"
+#~ msgstr "Pfad"
+
+#~ msgid "Sysname"
+#~ msgstr "Name"
+
+#~ msgid "subtitle"
+#~ msgstr "Untertitel"
+
+#~ msgid "Separate keywords by comma."
+#~ msgstr "Stichwort durch Kommas trennen."
+
+#~ msgid "page title"
+#~ msgstr "Seitentitel"
+
+#~ msgid "Opens on Monday"
+#~ msgstr "Montags geöffnet von"
+
+#~ msgid "Break Starts on Monday"
+#~ msgstr "Montags Pause von"
+
+#~ msgid "Break Ends on Monday"
+#~ msgstr "Montags Pause bis"
+
+#~ msgid "Closes on Monday"
+#~ msgstr "Montags geöffnet bis"
+
+#~ msgid "Opens on Tuesday"
+#~ msgstr "Montags geöffnet von"
+
+#~ msgid "Break Starts on Tuesday"
+#~ msgstr "Dienstags Pause ab"
+
+#~ msgid "Break Ends on Tuesday"
+#~ msgstr "Dienstags Pause bis"
+
+#~ msgid "Closes on Tuesday"
+#~ msgstr "Dienstag geöffnet bis"
+
+#~ msgid "Opens on Wednesday"
+#~ msgstr "Mittwochs geöffnet ab"
+
+#~ msgid "Break Starts on Wednesday"
+#~ msgstr "Mittwochs Pause ab"
+
+#~ msgid "Break Ends on Wednesday"
+#~ msgstr "Mittwochs Pause bis"
+
+#~ msgid "Closes on Wednesday"
+#~ msgstr "Mittwochs geöffnet bis"
+
+#~ msgid "Opens on Thursday"
+#~ msgstr "Donnerstags geöffnet ab"
+
+#~ msgid "Break Starts on Thursday"
+#~ msgstr "Donnerstags Pause ab"
+
+#~ msgid "Break Ends on Thursday"
+#~ msgstr "Donnerstags Pause bis"
+
+#~ msgid "Closes on Thursday"
+#~ msgstr "Donnerstags geöffnet bis"
+
+#~ msgid "Opens on Friday"
+#~ msgstr "Freitags geöffnet ab"
+
+#~ msgid "Break Starts on Friday"
+#~ msgstr "Freitags Pause ab"
+
+#~ msgid "Break Ends on Friday"
+#~ msgstr "Freitags Pause bis"
+
+#~ msgid "Closes on Friday"
+#~ msgstr "Freitags geöffnet bis"
+
+#~ msgid "Opens on Saturday"
+#~ msgstr "Samstags geöffnet ab"
+
+#~ msgid "Break Starts on Saturday"
+#~ msgstr "Samstags Pause ab"
+
+#~ msgid "Break Ends on Saturday"
+#~ msgstr "Samstags Pause bis"
+
+#~ msgid "Closes on Saturday"
+#~ msgstr "Samstags geöffnet bis"
+
+#~ msgid "Opens on Sunday"
+#~ msgstr "Sonntags geöffnet ab"
+
+#~ msgid "Break Starts on Sunday"
+#~ msgstr "Sonntags Pause ab"
+
+#~ msgid "Break Ends on Sunday"
+#~ msgstr "Sonntags Pause bis"
+
+#~ msgid "Closes on Sunday"
+#~ msgstr "Sonntags geöffnet bis"
+
+#, fuzzy
+#~| msgid "Fee Label (German)"
+#~ msgid "Fee Label"
+#~ msgstr "Kosten Label (Deutsch)"
+
+#~ msgid "Fee Amount"
+#~ msgstr "Eintritt"
+
+#~ msgid "Registration Required"
+#~ msgstr "Registrierung erforderlich"
+
+#~ msgid "Name (%s)"
+#~ msgstr "Name (%s)"
+
+#~ msgid "Separate different tags by comma"
+#~ msgstr "Stichwort durch Kommas trennen."
+
+#, fuzzy
+#~| msgid "Passwords must be at least 3 characters long"
+#~ msgid "A tag may be no more than %s characters long."
+#~ msgstr "Passwörter müssen mindestens 3 Zeichen lang sein"
+
+#~ msgid "name"
+#~ msgstr "Name"
+
+#~ msgid "tag"
+#~ msgstr "Stichworte"
+
+#~ msgid "content type"
+#~ msgstr "Kontext Objekt"
+
+#~ msgid "object id"
+#~ msgstr "Betreff"
+
+#, fuzzy
+#~| msgid "mapped item"
+#~ msgid "tagged item"
+#~ msgstr "Kontext Objekt"
+
+#, fuzzy
+#~| msgid "mapped items"
+#~ msgid "tagged items"
+#~ msgstr "Kontext Objekte"
+
 #~ msgid "Media Gallery"
 #~ msgstr "Mediengalerie"
 
@@ -10749,8 +10412,8 @@ msgstr ""
 #~ "There were no jobs offered by\n"
 #~ "            %(person_title)s found within the selected conditions."
 #~ msgstr ""
-#~ "Es wurden keine Jobangebote von %(person_title)s gefunden mit den gewählten "
-#~ "Kriterien."
+#~ "Es wurden keine Jobangebote von %(person_title)s gefunden mit den "
+#~ "gewählten Kriterien."
 
 #~ msgid "New Blog Entry"
 #~ msgstr "Log-Eintrag"
@@ -10780,7 +10443,8 @@ msgstr ""
 #~ "<h2 class=\"sub\">%(user)s</h2>"
 
 #~ msgid ""
-#~ "Create a Creative City Berlin account to link with your %(backend)s account."
+#~ "Create a Creative City Berlin account to link with your %(backend)s "
+#~ "account."
 #~ msgstr ""
 #~ "Erstelle ein Profil auf Creative City Berlin mit Deinem %(backend)s Konto."
 
@@ -10929,7 +10593,8 @@ msgstr ""
 
 #~ msgid ""
 #~ "Is some category missing? You can\n"
-#~ "                            <a href=\"/ticket/new-category/\">suggest it here</a>."
+#~ "                            <a href=\"/ticket/new-category/\">suggest it "
+#~ "here</a>."
 #~ msgstr ""
 #~ "Fehlt Ihnen eine Kategorie? Sie können sie uns <a href=\"/ticket/new-"
 #~ "category/\">hier</a> zur Aufnahme vorschlagen."
@@ -11008,11 +10673,12 @@ msgstr ""
 #~ msgstr "Altes Kennwort:"
 
 #~ msgid ""
-#~ "Forgot your Password? Enter your E-Mail address below, and we’ll send you an E-Mail with\n"
+#~ "Forgot your Password? Enter your E-Mail address below, and we’ll send you "
+#~ "an E-Mail with\n"
 #~ "                    a link which allows you to set up a new password."
 #~ msgstr ""
-#~ "Haben Sie Ihr Kennwort vergessen? Geben Sie einfach Ihre hinterlegte E-Mail-"
-#~ "Adresse ein und wir senden Ihnen ein neues Kennwort per E-Mail zu."
+#~ "Haben Sie Ihr Kennwort vergessen? Geben Sie einfach Ihre hinterlegte E-"
+#~ "Mail-Adresse ein und wir senden Ihnen ein neues Kennwort per E-Mail zu."
 
 #~ msgid "Additional News"
 #~ msgstr "Weitere News"
@@ -11062,7 +10728,8 @@ msgstr ""
 
 #~ msgid ""
 #~ "Is some category missing? You can\n"
-#~ "                    <a href=\"/ticket/new-category/\">suggest it here</a>\n"
+#~ "                    <a href=\"/ticket/new-category/\">suggest it here</"
+#~ "a>\n"
 #~ "                    ."
 #~ msgstr ""
 #~ "Fehlt Ihnen eine Kategorie? Sie können sie uns <a href=\"/ticket/new-"
@@ -11162,9 +10829,9 @@ msgstr ""
 #~ msgstr "Geben Sie ein Wort zur Suche ein"
 
 #~ msgid ""
-#~ "We are constantly working to improve and expand this website with regard to "
-#~ "both usability and content. If you have a suggestion, we are happy to hear "
-#~ "about it."
+#~ "We are constantly working to improve and expand this website with regard "
+#~ "to both usability and content. If you have a suggestion, we are happy to "
+#~ "hear about it."
 #~ msgstr ""
 #~ "Wir arbeiten permanent an Erweiterungen und Verbesserungen dieser Site in "
 #~ "Bezug auf Inhalte und Anwenderfreundlichkeit. Wir freuen uns auf Ihre "
@@ -11204,7 +10871,8 @@ msgstr ""
 #~ msgstr "Pfad"
 
 #~ msgid ""
-#~ "All that goes after '/', for example: 'about/contact/'. Make sure to have trailing slash.\n"
+#~ "All that goes after '/', for example: 'about/contact/'. Make sure to have "
+#~ "trailing slash.\n"
 #~ "            Use '*' for all pages."
 #~ msgstr ""
 #~ "Alles nach '/', Beispiel: 'about/contact/'. Wichtig: vor und nach dem "
@@ -11235,8 +10903,8 @@ msgstr ""
 #~ msgstr "Bestätigung"
 
 #~ msgid ""
-#~ "IMPORTANT: The provided email address must be valid! You will receive your "
-#~ "account data via this address."
+#~ "IMPORTANT: The provided email address must be valid! You will receive "
+#~ "your account data via this address."
 #~ msgstr ""
 #~ "WICHTIG: Die angegebene Email-Adresse muss gültig sein! Sie erhalten Ihre "
 #~ "Kontodaten über diese Adresse zugesandt."
@@ -11308,8 +10976,8 @@ msgstr ""
 #~ "activate your acount at Creative City Berlin."
 #~ msgstr ""
 #~ "Herzlichen Dank für Ihre Anmeldung. Soeben wurde eine E-Mail an die von "
-#~ "Ihnen angegebene Adresse geschickt. Benutzen Sie den Link in dieser Mail, um"
-#~ " Ihr Konto zu aktivieren."
+#~ "Ihnen angegebene Adresse geschickt. Benutzen Sie den Link in dieser Mail, "
+#~ "um Ihr Konto zu aktivieren."
 
 #~ msgid ""
 #~ "Is some category missing? You can\n"
@@ -11323,15 +10991,15 @@ msgstr ""
 #~ msgstr "Kontoart auswählen"
 
 #~ msgid ""
-#~ "Please select a suitable account type. You can either register yourself just"
-#~ " as a single person or you can also register as an owner of a group, "
+#~ "Please select a suitable account type. You can either register yourself "
+#~ "just as a single person or you can also register as an owner of a group, "
 #~ "organization or other institution. Your personal account can also be "
 #~ "enhanced at a later point."
 #~ msgstr ""
-#~ "Bitte wählen Sie unter den angegebenen Kontoarten die für Sie passende aus. "
-#~ "Sie können sich als Einzelperson ebenso registrieren lassen wie auch als "
-#~ "Gruppe, Organisation oder sonstige Institution. Diese können Sie Ihrem "
-#~ "persönlichen Konto auch zu einem späteren Zeitpunkt noch hinzufügen."
+#~ "Bitte wählen Sie unter den angegebenen Kontoarten die für Sie passende "
+#~ "aus. Sie können sich als Einzelperson ebenso registrieren lassen wie auch "
+#~ "als Gruppe, Organisation oder sonstige Institution. Diese können Sie "
+#~ "Ihrem persönlichen Konto auch zu einem späteren Zeitpunkt noch hinzufügen."
 
 #~ msgid "Create Individual Account"
 #~ msgstr "Personenkonto anlegen"
@@ -11353,7 +11021,8 @@ msgstr ""
 
 #~ msgid ""
 #~ "I accept\n"
-#~ "                        <a href=\"/privacy/\" onclick=\"open_new_window(event)\">the privacy policy</a>\n"
+#~ "                        <a href=\"/privacy/\" onclick="
+#~ "\"open_new_window(event)\">the privacy policy</a>\n"
 #~ "                        ."
 #~ msgstr ""
 #~ "Ja, ich bin mit den <a href=\"/privacy/\">Datenschutzrichtlinien</a> "
@@ -11361,7 +11030,8 @@ msgstr ""
 
 #~ msgid ""
 #~ "I accept\n"
-#~ "                        <a href=\"/terms-of-use/\" onclick=\"open_new_window(event)\">the terms of use</a>\n"
+#~ "                        <a href=\"/terms-of-use/\" onclick="
+#~ "\"open_new_window(event)\">the terms of use</a>\n"
 #~ "                        ."
 #~ msgstr ""
 #~ "Ja, ich bin mit den <a href=\"/terms-of-use/\">Nutzungsbedingungen</a> "
@@ -11384,7 +11054,8 @@ msgstr ""
 
 #~ msgid ""
 #~ "I accept\n"
-#~ "                    <a href=\"/privacy/\" onclick=\"open_new_window(event)\">the privacy policy</a>\n"
+#~ "                    <a href=\"/privacy/\" onclick="
+#~ "\"open_new_window(event)\">the privacy policy</a>\n"
 #~ "                    ."
 #~ msgstr ""
 #~ "Ja, ich bin mit den <a href=\"/privacy/\">Datenschutzrichtlinien</a> "
@@ -11392,7 +11063,8 @@ msgstr ""
 
 #~ msgid ""
 #~ "I accept\n"
-#~ "                    <a href=\"/terms-of-use/\" onclick=\"open_new_window(event)\">the terms of use</a>\n"
+#~ "                    <a href=\"/terms-of-use/\" onclick="
+#~ "\"open_new_window(event)\">the terms of use</a>\n"
 #~ "                    ."
 #~ msgstr ""
 #~ "Ja, ich bin mit den <a href=\"/terms-of-use/\">Nutzungsbedingungen</a> "
@@ -11499,38 +11171,46 @@ msgstr ""
 
 #~ msgid ""
 #~ "\n"
-#~ "\t\t\t\t\t\t\t\tCreated on <a href=\"%(url)s\">%(creation_date)s</a> by <a href=\"%(creator_url)s\">%(creator)s</a>\n"
+#~ "\t\t\t\t\t\t\t\tCreated on <a href=\"%(url)s\">%(creation_date)s</a> by "
+#~ "<a href=\"%(creator_url)s\">%(creator)s</a>\n"
 #~ "\t\t\t\t\t\t\t"
 #~ msgstr ""
 #~ "\n"
-#~ "\t\t\t\t\t\t\t\tErstellt am <a href=\"%(url)s\">%(creation_date)s</a> von <a href=\"%(creator_url)s\">%(creator)s</a>\n"
+#~ "\t\t\t\t\t\t\t\tErstellt am <a href=\"%(url)s\">%(creation_date)s</a> von "
+#~ "<a href=\"%(creator_url)s\">%(creator)s</a>\n"
 #~ "\t\t\t\t\t\t\t"
 
 #~ msgid ""
 #~ "\n"
-#~ "\t\t\t\t\t\t\tCreated on <a href=\"%(url)s\">%(creation_date)s</a> by <a href=\"%(creator_url)s\">%(creator)s</a>\n"
+#~ "\t\t\t\t\t\t\tCreated on <a href=\"%(url)s\">%(creation_date)s</a> by <a "
+#~ "href=\"%(creator_url)s\">%(creator)s</a>\n"
 #~ "\t\t\t\t\t\t"
 #~ msgstr ""
 #~ "\n"
-#~ "\t\t\t\t\t\t\tErstellt am <a href=\"%(url)s\">%(creation_date)s</a> von <a href=\"%(creator_url)s\">%(creator)s</a>\n"
+#~ "\t\t\t\t\t\t\tErstellt am <a href=\"%(url)s\">%(creation_date)s</a> von "
+#~ "<a href=\"%(creator_url)s\">%(creator)s</a>\n"
 #~ "\t\t\t\t\t\t"
 
 #~ msgid ""
 #~ "\n"
-#~ "\t        \t\t\tCreated on %(creation_date)s<br/> by <a href=\"%(url)s\">%(creator)s</a>\n"
+#~ "\t        \t\t\tCreated on %(creation_date)s<br/> by <a href=\"%(url)s\">"
+#~ "%(creator)s</a>\n"
 #~ "\t        \t\t"
 #~ msgstr ""
 #~ "\n"
-#~ "\t        \t\t\tErstellt am %(creation_date)s<br/> von <a href=\"%(url)s\">%(creator)s</a>\n"
+#~ "\t        \t\t\tErstellt am %(creation_date)s<br/> von <a href=\"%(url)s"
+#~ "\">%(creator)s</a>\n"
 #~ "\t        \t\t"
 
 #~ msgid ""
 #~ "\n"
-#~ "\t\t\t\t\t\t\t\t\tCreated on <a href=\"%(url)s\">%(creation_date)s</a> by <a href=\"%(creator_url)s\">%(creator)s</a>\n"
+#~ "\t\t\t\t\t\t\t\t\tCreated on <a href=\"%(url)s\">%(creation_date)s</a> by "
+#~ "<a href=\"%(creator_url)s\">%(creator)s</a>\n"
 #~ "\t\t\t\t\t\t\t\t"
 #~ msgstr ""
 #~ "\n"
-#~ "\t\t\t\t\t\t\t\t\tErstellt am <a href=\"%(url)s\">%(creation_date)s</a> von <a href=\"%(creator_url)s\">%(creator)s</a>\n"
+#~ "\t\t\t\t\t\t\t\t\tErstellt am <a href=\"%(url)s\">%(creation_date)s</a> "
+#~ "von <a href=\"%(creator_url)s\">%(creator)s</a>\n"
 #~ "\t\t\t\t\t\t\t\t"
 
 #~ msgid "Accept membership request"
@@ -11926,8 +11606,8 @@ msgstr ""
 
 #~ msgid "Find individuals, companies, contacts, information, and more."
 #~ msgstr ""
-#~ "Finden Sie Einzelpersonen, Unternehmen, Ansprechpartner, Informationen und "
-#~ "mehr."
+#~ "Finden Sie Einzelpersonen, Unternehmen, Ansprechpartner, Informationen "
+#~ "und mehr."
 
 #~ msgid ""
 #~ "Search our database for institutions, companies, individuals, events and "
@@ -11952,10 +11632,11 @@ msgstr ""
 #~ msgstr "Newsletter"
 
 #~ msgid ""
-#~ "You can log in at: http://www.interactive-city-berlin.de/login/?goto_next=/"
+#~ "You can log in at: http://www.interactive-city-berlin.de/login/?"
+#~ "goto_next=/"
 #~ msgstr ""
-#~ "Sie können sich nun anmelden unter: http://www.interactive-city-"
-#~ "berlin.de/login/?goto_next=/"
+#~ "Sie können sich nun anmelden unter: http://www.interactive-city-berlin.de/"
+#~ "login/?goto_next=/"
 
 #~ msgid "New Members"
 #~ msgstr "Neue Mitglieder"
@@ -11984,10 +11665,11 @@ msgstr ""
 #~ msgid "Additional info (German)"
 #~ msgstr "Zusatzinformation (Deutsch)"
 
-#~ msgid "Hold down \"Control\", or \"Command\" on a Mac, to select more than one."
+#~ msgid ""
+#~ "Hold down \"Control\", or \"Command\" on a Mac, to select more than one."
 #~ msgstr ""
-#~ "Um mehr als eine Auswahl zu treffen, \"Strg\", oder auf dem Mac \"Command\","
-#~ " beim Klicken gedrückt halten."
+#~ "Um mehr als eine Auswahl zu treffen, \"Strg\", oder auf dem Mac \"Command"
+#~ "\", beim Klicken gedrückt halten."
 
 #~ msgid "Add to recommendations"
 #~ msgstr "Zu Empfehlungen hinzufügen"
@@ -12231,18 +11913,18 @@ msgstr ""
 #~ "Check this box if the comment is inappropriate. A \"This comment has been "
 #~ "removed\" message will be displayed instead."
 #~ msgstr ""
-#~ "Hier einen Haken setzen, wenn der Kommentar unpassend ist. Es wird dann eine"
-#~ " \"Dieser Kommentar wurde entfernt\" Meldung statt dessen angezeigt."
+#~ "Hier einen Haken setzen, wenn der Kommentar unpassend ist. Es wird dann "
+#~ "eine \"Dieser Kommentar wurde entfernt\" Meldung statt dessen angezeigt."
 
 #~ msgid "is_spam"
 #~ msgstr "ist_werbung"
 
 #~ msgid ""
-#~ "Check this box if the comment should be marked as spam. The comment will not"
-#~ " be displayed in this case."
+#~ "Check this box if the comment should be marked as spam. The comment will "
+#~ "not be displayed in this case."
 #~ msgstr ""
-#~ "Hier einen Haken setzen, wenn der Kommentar unpassend ist. Es wird dann eine"
-#~ " \"Dieser Kommentar wurde entfernt\" Meldung statt dessen angezeigt."
+#~ "Hier einen Haken setzen, wenn der Kommentar unpassend ist. Es wird dann "
+#~ "eine \"Dieser Kommentar wurde entfernt\" Meldung statt dessen angezeigt."
 
 #~ msgid ""
 #~ "Posted by %(user)s at %(date)s\n"
@@ -12363,19 +12045,23 @@ msgstr ""
 #~ msgstr "Bewertung8"
 
 #~ msgid ""
-#~ "This comment was posted by a user who has posted fewer than %(count)s comment:\n"
+#~ "This comment was posted by a user who has posted fewer than %(count)s "
+#~ "comment:\n"
 #~ "\n"
 #~ "%(text)s"
 #~ msgid_plural ""
-#~ "This comment was posted by a user who has posted fewer than %(count)s comments:\n"
+#~ "This comment was posted by a user who has posted fewer than %(count)s "
+#~ "comments:\n"
 #~ "\n"
 #~ "%(text)s"
 #~ msgstr[0] ""
-#~ "Dieser Kommentar ist von einem Benutzer mit weniger als %(count)s Kommentar:\n"
+#~ "Dieser Kommentar ist von einem Benutzer mit weniger als %(count)s "
+#~ "Kommentar:\n"
 #~ "\n"
 #~ "%(text)s"
 #~ msgstr[1] ""
-#~ "Dieser Kommentar ist von einem Benutzer mit weniger als %(count)s Kommentaren:\n"
+#~ "Dieser Kommentar ist von einem Benutzer mit weniger als %(count)s "
+#~ "Kommentaren:\n"
 #~ "\n"
 #~ "%(text)s"
 
@@ -12565,13 +12251,15 @@ msgstr ""
 #~ msgid "Extra head"
 #~ msgstr "Extra Head"
 
-#~ msgid "Third-party code snippets to be added to the end of the HEAD section."
+#~ msgid ""
+#~ "Third-party code snippets to be added to the end of the HEAD section."
 #~ msgstr "HTML-Code, der am Ende des HEAD-Abschnitts eingefügt wird."
 
 #~ msgid "Extra body"
 #~ msgstr "Extra Body"
 
-#~ msgid "Third-party code snippets to be added to the end of the BODY section."
+#~ msgid ""
+#~ "Third-party code snippets to be added to the end of the BODY section."
 #~ msgstr "HTML-Code, der am Ende des BODY-Abschnitts eingefügt wird."
 
 #~ msgid "Contact Form"
@@ -12591,8 +12279,8 @@ msgstr ""
 
 #~ msgid "Either subscriber or subscriber email should be filled in."
 #~ msgstr ""
-#~ "Entweder der Empfänger oder eine Empfänger-Email-Adresse sollten angegeben "
-#~ "werden."
+#~ "Entweder der Empfänger oder eine Empfänger-Email-Adresse sollten "
+#~ "angegeben werden."
 
 #~ msgid "Save and send"
 #~ msgstr "Speichern und Versand"
@@ -12602,7 +12290,8 @@ msgstr ""
 
 #~ msgid "Mailing was sent out to %(count)s recipients (real transmission)"
 #~ msgstr ""
-#~ "Das Mailing wurde an %(count)s empfänger verschickt (Tatsächlicher Versand)"
+#~ "Das Mailing wurde an %(count)s empfänger verschickt (Tatsächlicher "
+#~ "Versand)"
 
 #~ msgid "Send mailing: %s"
 #~ msgstr "Mailing versenden: %s"
@@ -12666,12 +12355,12 @@ msgstr ""
 
 #~ msgid "Your old password was entered incorrectly. Please enter it again."
 #~ msgstr ""
-#~ "Sie haben Ihr altes Passwort nicht korrekt eingegeben. Bitte versuchen Sie "
-#~ "es erneut."
+#~ "Sie haben Ihr altes Passwort nicht korrekt eingegeben. Bitte versuchen "
+#~ "Sie es erneut."
 
 #~ msgid ""
-#~ "For security reasons your must enter the old password in order to change it "
-#~ "to the new one."
+#~ "For security reasons your must enter the old password in order to change "
+#~ "it to the new one."
 #~ msgstr ""
 #~ "Aus Sicherheitsgründen müssen Sie das alte Passwort eingeben, um es zu "
 #~ "ändern."
@@ -12763,7 +12452,8 @@ msgstr ""
 
 #~ msgid ""
 #~ "If this is checked, only logged-in users will be able to view the page."
-#~ msgstr "Wenn ausgewählt, können nur eingeloggte Benutzer die Seite aufrufen."
+#~ msgstr ""
+#~ "Wenn ausgewählt, können nur eingeloggte Benutzer die Seite aufrufen."
 
 #~ msgid "flat page"
 #~ msgstr "Statische Seite"
@@ -13186,18 +12876,18 @@ msgstr ""
 #~ msgstr "Absender (Name)"
 
 #~ msgid ""
-#~ "Please select one or more recipients from the list and/or enter recipients "
-#~ "in the text field below."
+#~ "Please select one or more recipients from the list and/or enter "
+#~ "recipients in the text field below."
 #~ msgstr ""
-#~ "Bitte wählen Sie einen oder mehrere Emfpänger aus der liste aus oder geben "
-#~ "Sie Empfängeradressen in das untere Feld ein."
+#~ "Bitte wählen Sie einen oder mehrere Emfpänger aus der liste aus oder "
+#~ "geben Sie Empfängeradressen in das untere Feld ein."
 
 #~ msgid "Recipients (Emails)"
 #~ msgstr "Empfänger (Emails)"
 
 #~ msgid ""
-#~ "Email addresses must have the form 'John Doe (john.doe@domain.com)' or just "
-#~ "'john.doe@domain.com'."
+#~ "Email addresses must have the form 'John Doe (john.doe@domain.com)' or "
+#~ "just 'john.doe@domain.com'."
 #~ msgstr ""
 #~ "Email-Adressen müssen das Format 'Peter Müller (peter.mueller@domain.de)' "
 #~ "oder einfach 'peter.mueller@domain.de' haben."
@@ -13304,9 +12994,6 @@ msgstr ""
 #~ msgid "Newest Galleries"
 #~ msgstr "Neueste Galerien"
 
-#~ msgid "Lastly Updated"
-#~ msgstr "Zuletzt verändert"
-
 #~ msgid "Most Discussed"
 #~ msgstr "Meistdiskutierte"
 
@@ -13377,8 +13064,8 @@ msgstr ""
 #~ msgstr "Nachrichtenvorlage"
 
 #~ msgid ""
-#~ "This message will be shown in the website. Accepted template variables: {{ "
-#~ "notified_user }}, {{ object }}, and specific extra context."
+#~ "This message will be shown in the website. Accepted template variables: "
+#~ "{{ notified_user }}, {{ object }}, and specific extra context."
 #~ msgstr ""
 #~ "Diese Nachricht wird auf der Website angezeigt werden. Erlaubte Template-"
 #~ "Variablen: {{ notified_user }}, {{ object }}, und spezifischer extra "
@@ -13922,12 +13609,12 @@ msgstr ""
 #~ msgstr "Kennwort ändern"
 
 #~ msgid ""
-#~ "Please enter your old password, for securitys sake, and then enter your new "
-#~ "password twice so we can verify you typed it in correctly."
+#~ "Please enter your old password, for securitys sake, and then enter your "
+#~ "new password twice so we can verify you typed it in correctly."
 #~ msgstr ""
-#~ "Bitte geben Sie aus Sicherheitsgründen erst Ihr altes Kennwort und darunter "
-#~ "dann zweimal (um sicherzustellen, dass Sie es korrekt eingegeben haben) das "
-#~ "neue Kennwort ein."
+#~ "Bitte geben Sie aus Sicherheitsgründen erst Ihr altes Kennwort und "
+#~ "darunter dann zweimal (um sicherzustellen, dass Sie es korrekt eingegeben "
+#~ "haben) das neue Kennwort ein."
 
 #~ msgid "Your password has been set.  You may go ahead and log in now."
 #~ msgstr "Ihr Kennwort wurde geändert. Sie können sich jetzt einloggen."
@@ -13942,13 +13629,13 @@ msgstr ""
 #~ "We've e-mailed a new password to the e-mail address you submitted. You "
 #~ "should be receiving it shortly."
 #~ msgstr ""
-#~ "Wir haben Ihnen soeben per E-Mail einen Link zugeschickt, über den Sie ein "
-#~ "neues Kennwort einrichten können."
+#~ "Wir haben Ihnen soeben per E-Mail einen Link zugeschickt, über den Sie "
+#~ "ein neues Kennwort einrichten können."
 
 #~ msgid "You're receiving this e-mail because you requested a password reset"
 #~ msgstr ""
-#~ "Sie erhalten diese Mail, weil Sie ein neues Kennwort für ihr Benutzerkonto "
-#~ "bei %(site_name)s angefordert haben."
+#~ "Sie erhalten diese Mail, weil Sie ein neues Kennwort für ihr "
+#~ "Benutzerkonto bei %(site_name)s angefordert haben."
 
 #~ msgid "for your user account at %(site_name)s"
 #~ msgstr "Ihr Benutzername ist: %(username)s"
@@ -13960,8 +13647,8 @@ msgstr ""
 #~ "Forgotten your password? Enter your e-mail address below, and we'll reset "
 #~ "your password and e-mail the new one to you."
 #~ msgstr ""
-#~ "Haben Sie Ihr Kennwort vergessen? Geben Sie einfach Ihre hinterlegte E-Mail-"
-#~ "Adresse ein und wir senden Ihnen ein neues Kennwort per E-Mail zu."
+#~ "Haben Sie Ihr Kennwort vergessen? Geben Sie einfach Ihre hinterlegte E-"
+#~ "Mail-Adresse ein und wir senden Ihnen ein neues Kennwort per E-Mail zu."
 
 #~ msgid "Add Permissions"
 #~ msgstr "Zugriffsrechte"

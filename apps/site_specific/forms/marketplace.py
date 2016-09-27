@@ -215,6 +215,7 @@ class ContactForm(dynamicforms.Form):
     )
 
     contact_person_ind = forms.ChoiceField(
+        label="",
         initial=0,
         choices=CONTACT_PERSON_CHOICES,
         widget=forms.RadioSelect()
@@ -271,46 +272,52 @@ class ContactForm(dynamicforms.Form):
         ),
     )
     phone_country = forms.CharField(
+        label=_("Phone Country Code"),
         required=False,
         max_length=4,
         initial="49",
     )
     phone_area = forms.CharField(
+        label=_("Phone Area Code"),
         required=False,
         max_length=5,
     )
     phone_number = forms.CharField(
+        label=_("Phone Number"),
         required=False,
         max_length=15,
-        label=_("Phone"),
     )
     fax_country = forms.CharField(
+        label=_("Fax Country Code"),
         required=False,
         max_length=4,
         initial="49",
     )
     fax_area = forms.CharField(
+        label=_("Fax Area Code"),
         required=False,
         max_length=5,
     )
     fax_number = forms.CharField(
+        label=_("Fax Number"),
         required=False,
         max_length=15,
-        label=_("Fax"),
     )
     mobile_country = forms.CharField(
+        label=_("Mobile Country Code"),
         required=False,
         max_length=4,
         initial="49",
     )
     mobile_area = forms.CharField(
+        label=_("Mobile Area Code"),
         required=False,
         max_length=5,
     )
     mobile_number = forms.CharField(
+        label=_("Mobile Number"),
         required=False,
         max_length=15,
-        label=_("Mobile"),
     )
     email0 = forms.EmailField(
         required=False,
@@ -494,7 +501,7 @@ class ContactForm(dynamicforms.Form):
                 "street_address",
                 "street_address2",
                 layout.MultiField(
-                    string_concat(_('ZIP'), "*, ", _('City'), "*"),
+                    string_concat(_('Postal Code'), "*, ", _('City'), "*"),
                     layout.Field(
                         "postal_code",
                         wrapper_class="col-xs-4 col-sm-5 col-md-3 col-lg-3",

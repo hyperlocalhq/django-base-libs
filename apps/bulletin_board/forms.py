@@ -292,7 +292,7 @@ class BulletinForm(forms.ModelForm):
                     ),
                 ),
                 layout.MultiField(
-                    "Time",
+                    _("Time"),
                     layout.Field(
                         "end_hh",
                         wrapper_class="col-xs-4 col-sm-4 col-md-4 col-lg-4",

@@ -350,46 +350,52 @@ class ContactForm(dynamicforms.Form):
         ),
     )
     phone_country = forms.CharField(
+        label=_("Phone Country Code"),
         required=False,
         max_length=4,
         initial="49",
     )
     phone_area = forms.CharField(
+        label=_("Phone Area Code"),
         required=False,
         max_length=5,
     )
     phone_number = forms.CharField(
+        label=_("Phone Number"),
         required=False,
         max_length=15,
-        label=_("Phone"),
     )
     fax_country = forms.CharField(
+        label=_("Fax Country Code"),
         required=False,
         max_length=4,
         initial="49",
     )
     fax_area = forms.CharField(
+        label=_("Fax Area Code"),
         required=False,
         max_length=5,
     )
     fax_number = forms.CharField(
+        label=_("Fax Number"),
         required=False,
         max_length=15,
-        label=_("Fax"),
     )
     mobile_country = forms.CharField(
+        label=_("Mobile Country Code"),
         required=False,
         max_length=4,
         initial="49",
     )
     mobile_area = forms.CharField(
+        label=_("Mobile Area Code"),
         required=False,
         max_length=5,
     )
     mobile_number = forms.CharField(
+        label=_("Mobile Number"),
         required=False,
         max_length=15,
-        label=_("Mobile"),
     )
     email0 = forms.EmailField(
         required=False,

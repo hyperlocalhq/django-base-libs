@@ -9,8 +9,8 @@
 
     <p>
         <b>{{ gallery.get_status_display }}</b><br/>
-        Created: {{ gallery.creation_date|datefmt:"medium" }}<br/>
-        Last Edited: {{ gallery.modified_date|datefmt:"medium" }}<br/>
+        {% trans "Created" %}: {{ gallery.creation_date|datefmt:"medium" }}<br/>
+        {% trans "Last Edited" %}: {{ gallery.modified_date|datefmt:"medium" }}<br/>
     </p>
 
 

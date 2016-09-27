@@ -48,8 +48,8 @@
                     <div class="meta_informations">
                         <span class="">{% if section.show_title %}{% trans "Title shown in public" %}{% else %}
                             {% trans "Title not shown in public" %}{% endif %}</span><br/>
-                        <span class="">Created: {{ section.creation_date|datefmt:"medium" }}</span><br/>
-                        <span class="">Last Edited: {{ section.modified_date|datefmt:"medium" }}</span><br/>
+                        <span class="">{% trans "Created" %}: {{ section.creation_date|datefmt:"medium" }}</span><br/>
+                        <span class="">{% trans "Last Edited" %}: {{ section.modified_date|datefmt:"medium" }}</span><br/>
                     </div>
 
                     <div class="meta_tools">
