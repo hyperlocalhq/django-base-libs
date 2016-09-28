@@ -333,6 +333,11 @@ class Command(NoArgsCommand):
         # if there are more than 2 lines, the 2nd line will be connected to the rest for the subtitle
         return lines[0], u" ".join(lines[1:])
 
+    def cleanup_html(self, text):
+        text = text.replace("<br />", " / ")
+        text = text.replace("&ndash;", "-")
+        return text
+
     def import_events_and_workshops(self, **options):
         verbosity = int(options.get('verbosity', NORMAL))
         skip_images = options.get('skip_images')
@@ -458,8 +463,8 @@ class Command(NoArgsCommand):
                     workshop_stats['skipped'] += 1
                     continue
 
-                workshop.title_de, workshop.subtitle_de = data_dict['title_de'], data_dict['title_sub_de']
-                workshop.title_en, workshop.subtitle_en = data_dict['title_en'], data_dict['title_sub_en']
+                workshop.title_de, workshop.subtitle_de = self.cleanup_html(data_dict['title_de']), self.cleanup_html(data_dict['title_sub_de'])
+                workshop.title_en, workshop.subtitle_en = self.cleanup_html(data_dict['title_en']), self.cleanup_html(data_dict['title_sub_en'])
                 if not workshop.title_en:
                     workshop.title_en = workshop.title_de
                 if not workshop.subtitle_en:
@@ -704,8 +709,8 @@ class Command(NoArgsCommand):
                     event_stats['skipped'] += 1
                     continue
 
-                event.title_de, event.subtitle_de = data_dict['title_de'], data_dict['title_sub_de']
-                event.title_en, event.subtitle_en = data_dict['title_en'], data_dict['title_sub_en']
+                event.title_de, event.subtitle_de = self.cleanup_html(data_dict['title_de']), self.cleanup_html(data_dict['title_sub_de'])
+                event.title_en, event.subtitle_en = self.cleanup_html(data_dict['title_en']), self.cleanup_html(data_dict['title_sub_en'])
                 if not event.title_en:
                     event.title_en = event.title_de
                 if not event.subtitle_en:
