@@ -14,7 +14,13 @@
                             <li class="col-xs-12 col-md-6 slider-item">
                                 <a href="{{ event.get_url_path }}">
                                     {% if im %}
-                                        <img src="{{ MEDIA_URL }}{{ im.path|modified_path:"detail_image" }}" alt="{{ prod.title|escape }}" />
+                                        {% with image_path=im.path|modified_path:"detail_image" %}
+                                            {% if image_path %}
+                                                <img src="{{ MEDIA_URL }}{{ im.path|modified_path:"detail_image" }}" alt="{{ prod.title|escape }}" />
+                                            {% else %}
+                                                <img src="{{ STATIC_URL }}site/img/placeholder_slider.png" alt="{{ prod.title|escape }}" />
+                                            {% endif %}
+                                        {% endwith %}
                                     {% else %}
                                         <img src="{{ STATIC_URL }}site/img/placeholder_slider.png" alt="{{ prod.title|escape }}" />
                                     {% endif %}
