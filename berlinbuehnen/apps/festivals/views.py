@@ -115,31 +115,27 @@ def festival_detail(request, slug):
 def festival_events(request, slug):
 
     if "preview" in request.REQUEST:
-        qs = Festival.objects.all()
-        obj = get_object_or_404(qs, slug=slug)
+        obj = get_object_or_404(Festival, slug=slug)
         if not obj.is_editable():
             return access_denied(request)
     else:
-        qs = Festival.objects.filter(status="published")
-        obj = get_object_or_404(qs, slug=slug)
+        obj = get_object_or_404(Festival, slug=slug, status="published")
         
-        
-    qs = Event.objects.filter(production__status="published")
-
-    # exclude the parts of multipart productions
-    qs = qs.filter(production__part=None)
-    
     # show only events that belong to the festival
-    qs = qs.filter(
+    qs = Event.objects.filter(
+        production__status="published",
         production__festivals=obj,
         start_date__gte=obj.start,
         start_date__lte=obj.end,
     )
 
+    # exclude the parts of multipart productions
+    # qs = qs.filter(production__part=None)
+
     # show only upcoming events
-    qs = qs.filter(
-        start_date__gte=datetime.now(),
-    )
+    # qs = qs.filter(
+    #    start_date__gte=datetime.now(),
+    # )
 
     qs = qs.order_by('start_date', 'start_time', 'production__title_%s' % request.LANGUAGE_CODE)
     

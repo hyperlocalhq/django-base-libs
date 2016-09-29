@@ -24,7 +24,7 @@
 {% block js %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/accordion.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/gallery.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/slider.js"></script>
+    {# <script type="text/javascript" src="{{ STATIC_URL }}site/js/slider.js"></script> #}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/list.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/add_to_calender_1.5_atc.min.js" defer="defer"></script>
     {% include "utils/favorites_scripts.html" %}
@@ -187,7 +187,7 @@
                         </article>
                         
                         <!-- event slider -->
-                        {% festival_productions current_festival=festival amount=200 %}
+                        {#% festival_productions current_festival=festival amount=200 %#}
                     </div>
                 </div>
             </div>
