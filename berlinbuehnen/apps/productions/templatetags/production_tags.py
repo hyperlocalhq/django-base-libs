@@ -41,6 +41,25 @@ def other_productions(context, current_event=False, current_location=False, amou
     }
 
 
+@register.inclusion_tag('productions/includes/festival_productions.html', takes_context=True)
+def festival_productions(context, current_festival=False, amount=24):
+    from berlinbuehnen.apps.productions.models import Production
+
+    productions = Production.objects.filter(
+        festivals=current_festival,
+        status="published",
+    ).order_by('start_date', 'start_time').distinct()
+
+    productions = productions[:amount]
+
+    return {
+        'current_festival': current_festival,
+        'productions': productions,
+        'MEDIA_URL': context['MEDIA_URL'],
+        'STATIC_URL': context['STATIC_URL'],
+    }
+
+
 @register.inclusion_tag('productions/includes/date_slider.html', takes_context=True)
 def date_slider(context, page, active=0, id=''):
 

@@ -1053,13 +1053,7 @@ class Event(CreationModificationMixin, UrlMixin):
         return self.event_status == 'canceled'
 
     def get_festivals(self):
-        festivals = []
-        for festival in self.production.festivals.all().filter(status="published"):
-            if self.start_date >= festival.start and self.start_date <= festival.end:
-                festivals.append(festival)
-        if len(festivals):
-            return festivals
-        return False
+        return self.production.festivals.filter(status="published")
 
     def get_previous_item(self):
         return self.production.get_previous_item()
