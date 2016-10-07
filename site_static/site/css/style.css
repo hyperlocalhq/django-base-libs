@@ -2300,6 +2300,16 @@ dl.interview dd:last-child:after {
   border-color: #c70202;
 }
 
+.button.default, .button.btn-default, .btn.default, .btn.btn-default {
+  background: #afaeae;
+  border: 1px solid #999999;
+}
+
+.button.default:hover, .button.default:focus, .button.default.focus, .button.btn-default:hover, .button.btn-default:focus, .button.btn-default.focus, .btn.default:hover, .btn.default:focus, .btn.default.focus, .btn.btn-default:hover, .btn.btn-default:focus, .btn.btn-default.focus {
+  background: #888888;
+  border-color: #999999;
+}
+
 span.button, span.btn {
   font-size: 18px;
 }
@@ -4261,7 +4271,7 @@ input:focus {
 }
 
 .is-sm .fieldset.editable .form-buttons, .is-md .fieldset.editable .form-buttons, .is-sm .fieldset.not-editable .form-buttons, .is-md .fieldset.not-editable .form-buttons {
-  margin-right: 0;
+  margin-right: 0 !important;
 }
 
 .is-xs .fieldset.editable .form-buttons, .is-xs .fieldset.not-editable .form-buttons {

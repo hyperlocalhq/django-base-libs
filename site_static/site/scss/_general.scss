@@ -741,6 +741,15 @@ dl {
             border-color: $button-danger-active-border;
         }
     }
+
+    &.default, &.btn-default {
+        background: $button-default;
+        border: 1px solid $button-default-border;
+        &:hover, &:focus, &.focus {
+            background: $button-default-active;
+            border-color: $button-default-border-actvie;
+        }
+    }
 }
 
 span.button, span.btn {

@@ -1,10 +1,12 @@
+// main:style.scss
+
 @charset "UTF-8";
 
 
 .error {
     color: $form-error;
     font-weight: $font-bold;
-    
+
     h4 {
         color: $form-error;
         font-family: $font-2, $font-family-1;
@@ -13,13 +15,13 @@
         font-size: 1.2em;
         line-height: 140%;
         margin-bottom: 5px;
-        
+
         .is-xs {
             font-size: 1.07em;
             line-height: 138%;
         }
     }
-    
+
     ul {
         list-style: none;
         li {
@@ -30,35 +32,35 @@
 }
 
 .help {
-    
+
 }
-    
+
 input {
     &:focus {
         outline: 0;
     }
 }
-    
+
 .text-field {
     font-size: 1.2em;
     padding: 4px 2px 10px 0px;
-    
+
     p {
         font-size: 1em;
         line-height: 140%;
         margin: 0;
         padding: 0;
     }
-    
+
     a {
         word-break: break-word;
         word-wrap: break-word;
     }
-    
+
     .is-xs & {
         padding: 4px 2px 10px 0px;
         font-size: 1.07em;
-    
+
         p {
             font-size: 1em;
             line-height: 138%;
@@ -69,38 +71,38 @@ input {
 }
 
 .input-field {
-    
+
     &.text {
         padding: 5px 2px 10px 0px;
         .is-xs & {
             padding: 5px 2px 10px 0px;
         }
     }
-    
+
     &.file {
         padding: 0 2px 5px 0;
         .is-xs & {
             padding: 0 2px 5px 0;
         }
     }
-    
+
     &.box {
         height: 58px;
         margin-bottom: -10px;
         position: relative;
     }
-    
+
     &.select {
         padding: 5px 2px 10px 0px;
         .is-xs & {
             padding: 5px 2px 10px 0px;
         }
     }
-    
+
     #sorting_form & {
         padding: 0 0 20px;
         max-width: 300px;
-        
+
         .is-xs & {
             max-width: 100%;
         }
@@ -109,7 +111,7 @@ input {
     &.error {
         input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="number"], input[type="range"], input[type="color"] {
             background: $form-error-background;
-            
+
             &::-webkit-input-placeholder {
                 color: $form-error-placeholder;
                 opacity: 1;
@@ -125,10 +127,10 @@ input {
             &:-ms-input-placeholder {
                 color: $form-error-placeholder;
                 opacity: 1;
-            }            
+            }
         }
     }
-    
+
     input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="number"], input[type="range"], input[type="color"] {
         width: 100%;
         font-family: $font-2, $font-family-1;
@@ -142,21 +144,21 @@ input {
         padding: 0 1em;
         margin: 0;
         box-sizing: border-box;
-        
+
         .is-xs & {
             font-size: 1.07em;
             line-height: 260%;
         }
-        
+
         #filter_form & {
             border-radius: 0;
             font-size: 1.07em;
             line-height: 200%;
         }
-        
+
         &.error {
             background: $form-error-background;
-            
+
             &::-webkit-input-placeholder {
                 color: $form-error-placeholder;
                 opacity: 1;
@@ -174,12 +176,12 @@ input {
                 opacity: 1;
             }
         }
-        
+
         &:focus {
             border: 1px solid $grey-dark;
             box-shadow: $form-glow;
         }
-        
+
         &[readonly] {
             border: 1px solid $grey-bright;
             color: $grey-light;
@@ -188,14 +190,14 @@ input {
                 box-shadow: $form-glow-readonly;
             }
         }
-        
+
         &[disabled], fieldset[disabled] & {
             line-height: 133%;
             background: transparent;
             border: none;
             cursor: text;
             padding: 0;
-        
+
             &::-webkit-input-placeholder {
                 color: $grey-light;
                 opacity: 1;
@@ -213,7 +215,7 @@ input {
                 opacity: 1;
             }
         }
-        
+
         &::-webkit-input-placeholder {
             color: $grey-bright;
             opacity: 1;
@@ -231,14 +233,14 @@ input {
             opacity: 1;
         }
     }
-    
+
     input[type="number"] {
         padding-right: 0;
     }
-    
+
     input[type="range"] {
         padding: 1em 0;
-        
+
         &:focus {
             border: 1px solid white;
             border: 1px solid rgba(255, 255, 255, 0);
@@ -246,16 +248,16 @@ input {
             background: black;
         }
     }
-    
+
     input[type="color"] {
         padding: 0 1px;
     }
-    
-    
-    
+
+
+
     /////////////////////////////
     // start file input style
-    
+
     // the actuale file input gets hidden
     input[type="file"].input-file-hide {
         opacity: 0;
@@ -263,7 +265,7 @@ input {
         z-index: -1;
         width: 1px;
         height: 1px;
-        
+
         &[disabled], fieldset[disabled] & {
             display: none;
             option {
@@ -271,12 +273,12 @@ input {
             }
         }
     }
-    
+
     &.error {
         input[type="text"].input-file-display {
             &[disabled], fieldset[disabled] & {
                 background: $form-error-background;
-                
+
                 &::-webkit-input-placeholder {
                     color: $form-error-placeholder;
                     opacity: 1;
@@ -292,28 +294,28 @@ input {
                 &:-ms-input-placeholder {
                     color: $form-error-placeholder;
                     opacity: 1;
-                } 
+                }
             }
         }
     }
-    
+
     // the text input which displays the selected file
     input[type="text"].input-file-display {
         &[disabled], fieldset[disabled] & {
-            
+
             line-height: 300%;
             background: $white;
             border: 1px solid $grey;
             padding: 0 1em;
             cursor: pointer;
-            
+
             display: block;
             overflow: hidden;
-            
+
             .is-xs & {
                 line-height: 260%;
             }
-        
+
             &::-webkit-input-placeholder {
                 color: $grey-bright;
                 opacity: 1;
@@ -330,10 +332,10 @@ input {
                 color: $grey-bright;
                 opacity: 1;
             }
-        
+
             &.error {
                 background: $form-error-background;
-                
+
                 &::-webkit-input-placeholder {
                     color: $form-error-placeholder;
                     opacity: 1;
@@ -349,14 +351,14 @@ input {
                 &:-ms-input-placeholder {
                     color: $form-error-placeholder;
                     opacity: 1;
-                }            
+                }
             }
-            
+
             &.focus {
                 border: 1px solid $grey-dark;
                 box-shadow: $form-glow;
             }
-            
+
             &.readonly {
                 border: 1px solid $grey-bright;
                 color: $grey-light;
@@ -365,14 +367,14 @@ input {
                     box-shadow: $form-glow-readonly;
                 }
             }
-            
+
             &.disabled {
                 line-height: 133%;
                 background: transparent;
                 border: none;
                 cursor: text;
                 padding: 0;
-            
+
                 &::-webkit-input-placeholder {
                     color: $grey-light;
                     opacity: 1;
@@ -392,47 +394,47 @@ input {
             }
         }
     }
-    
+
     // a wrapper for the text input
     .input-file-display-wrapper {
         display: block;
         width: auto;
         overflow: hidden;
         padding: 5px 2px;
-        
+
         &.disabled {
             padding: 5px 0;
         }
     }
-    
+
     // the upload button
     .button.input-file-button {
         display: block;
         float: right;
         margin: 9px 0 4px 23px;
-        
+
         .is-xs & {
             margin: 5px 0 4px 5px;
         }
-        
+
         &.only-button {
             display: inline-block;
             float: none;
             margin: 9px 0 4px 0;
-            
+
             .is-xs & {
                 margin: 5px 0 4px 0;
             }
         }
     }
-    
+
     // end file input style
     /////////////////////////////
-    
+
     &.error {
         textarea {
             background: $form-error-background;
-            
+
             &::-webkit-input-placeholder {
                 color: $form-error-placeholder;
                 opacity: 1;
@@ -448,10 +450,10 @@ input {
             &:-ms-input-placeholder {
                 color: $form-error-placeholder;
                 opacity: 1;
-            }            
+            }
         }
     }
-    
+
     textarea {
         width: 100%;
         height: auto;
@@ -467,15 +469,15 @@ input {
         padding: 15px 1em;
         margin: 0;
         overflow: hidden;
-        resize: none;  
-        
+        resize: none;
+
         .is-xs & {
             font-size: 1.07em;
         }
-        
+
         &.error {
             background: $form-error-background;
-            
+
             &::-webkit-input-placeholder {
                 color: $form-error-placeholder;
                 opacity: 1;
@@ -493,13 +495,13 @@ input {
                 opacity: 1;
             }
         }
-        
+
         &:focus {
             outline: 0;
             border: 1px solid $grey-dark;
             box-shadow: $form-glow;
         }
-        
+
         &[readonly] {
             border: 1px solid $grey-bright;
             color: $grey-light;
@@ -508,7 +510,7 @@ input {
                 box-shadow: $form-glow-readonly;
             }
         }
-        
+
         &[disabled], fieldset[disabled] & {
             min-height: 0;
             line-height: 133%;
@@ -516,7 +518,7 @@ input {
             border: none;
             cursor: text;
             padding: 0;
-        
+
             &::-webkit-input-placeholder {
                 color: $grey-light;
                 opacity: 1;
@@ -534,7 +536,7 @@ input {
                 opacity: 1;
             }
         }
-        
+
         &::-webkit-input-placeholder {
             color: $grey-bright;
             opacity: 1;
@@ -552,51 +554,51 @@ input {
             opacity: 1;
         }
     }
-    
+
     input[type="checkbox"] {
         width: 48px;
         height: 48px;
         display: inline-block;
         opacity: 0;
-        
+
         -webkit-touch-callout: none;
         -webkit-user-select: none;
         -khtml-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
-            
+
         + label {
             position: absolute;
             left: 0;
             top: 0;
             display: inline-block;
-            vertical-align: top;            
-        
+            vertical-align: top;
+
             font-family: $font-2, $font-family-1;
             font-weight: $font-regular;
             font-size: 1.2em;
             line-height: 133%;
             padding-top: 12px;
-            
+
             -webkit-touch-callout: none;
             -webkit-user-select: none;
             -khtml-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
-            
+
             .is-xs & {
                 font-size: 1.07em;
             }
-            
+
             #filter_form & {
                 font-size: 1em;
-                
+
                 .is-xs & {
                     font-size: 1em;
                 }
-                
+
                 &:before {
                     margin-top: -14px;
                     margin-right: 5px;
@@ -610,20 +612,20 @@ input {
                 background-repeat: no-repeat;
                 margin-top: -12px;
                 margin-right: 10px;
-                
+
                 float: left;
                 content: '';
                 display: inline-block;
                 cursor: pointer;
                 vertical-align: middle;
             }
-        
+
             &:before {
                 background-position: 14px -80px;
             }
-            
+
         }
-        
+
         &:hover, &:active, &:focus {
             + label {
                 &:before {
@@ -631,15 +633,15 @@ input {
                 }
             }
         }
-        
-        
+
+
         &:checked {
             + label {
                 &:before {
                     background-position: 14px -1px;
                 }
             }
-            
+
             &:hover, &:active, &:focus {
                 + label {
                     &:before {
@@ -648,14 +650,14 @@ input {
                 }
             }
         }
-        
+
         &[disabled], fieldset[disabled] & {
             + label {
                 &:before {
                     background-position: -282px -79px;
                 }
             }
-            
+
             &:hover, &:active, &:focus {
                 + label {
                     &:before {
@@ -665,14 +667,14 @@ input {
                 }
             }
         }
-        
+
         &[disabled]:checked, fieldset[disabled] &:checked {
             + label {
                 &:before {
                     background-position: -281px -1px;
                 }
             }
-            
+
             &:hover, &:active, &:focus {
                 + label {
                     &:before {
@@ -683,40 +685,40 @@ input {
             }
         }
     }
-    
+
     input[type="radio"] {
         width: 48px;
         height: 48px;
         display: inline-block;
         opacity: 0;
-        
+
         -webkit-touch-callout: none;
         -webkit-user-select: none;
         -khtml-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
-            
+
         + label {
             position: absolute;
             left: 0;
             top: 0;
             display: inline-block;
-            vertical-align: top;            
-        
+            vertical-align: top;
+
             font-family: $font-2, $font-family-1;
             font-weight: $font-regular;
             font-size: 1.2em;
             line-height: 133%;
             padding-top: 12px;
-            
+
             -webkit-touch-callout: none;
             -webkit-user-select: none;
             -khtml-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
-            
+
             .is-xs & {
                 font-size: 1.07em;
             }
@@ -728,20 +730,20 @@ input {
                 background-repeat: no-repeat;
                 margin-top: -12px;
                 margin-right: 10px;
-                
+
                 float: left;
                 content: '';
                 display: inline-block;
                 cursor: pointer;
                 vertical-align: middle;
             }
-        
+
             &:before {
                 background-position: 12px -80px;
             }
-            
+
         }
-        
+
         &:hover, &:active, &:focus {
             + label {
                 &:before {
@@ -749,15 +751,15 @@ input {
                 }
             }
         }
-        
-        
+
+
         &:checked {
             + label {
                 &:before {
                     background-position: 12px 3px;
                 }
             }
-            
+
             &:hover, &:active, &:focus {
                 + label {
                     &:before {
@@ -766,14 +768,14 @@ input {
                 }
             }
         }
-        
+
         &[disabled], fieldset[disabled] & {
             + label {
                 &:before {
                     background-position: -284px -75px;
                 }
             }
-            
+
             &:hover, &:active, &:focus {
                 + label {
                     &:before {
@@ -783,14 +785,14 @@ input {
                 }
             }
         }
-        
+
         &[disabled]:checked, fieldset[disabled] &:checked {
             + label {
                 &:before {
                     background-position: -283px 0px;
                 }
             }
-            
+
             &:hover, &:active, &:focus {
                 + label {
                     &:before {
@@ -801,40 +803,40 @@ input {
             }
         }
     }
-    
+
     input[type="checkbox"].switch, input[type="radio"].switch {
         width: 75px;
         height: 48px;
         display: inline-block;
         opacity: 0;
-        
+
         -webkit-touch-callout: none;
         -webkit-user-select: none;
         -khtml-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
-            
+
         + label {
             position: absolute;
             left: 0;
             top: 0;
             display: inline-block;
-            vertical-align: top;            
-        
+            vertical-align: top;
+
             font-family: $font-2, $font-family-1;
             font-weight: $font-regular;
             font-size: 1.2em;
             line-height: 133%;
             padding-top: 12px;
-            
+
             -webkit-touch-callout: none;
             -webkit-user-select: none;
             -khtml-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
-            
+
             .is-xs & {
                 font-size: 1.07em;
             }
@@ -846,20 +848,20 @@ input {
                 background-repeat: no-repeat;
                 margin-top: -12px;
                 margin-right: 10px;
-                
+
                 float: left;
                 content: '';
                 display: inline-block;
                 cursor: pointer;
                 vertical-align: middle;
             }
-        
+
             &:before {
                 background-position: 6px -79px;
             }
-            
+
         }
-        
+
         &:hover, &:active, &:focus {
             + label {
                 &:before {
@@ -867,15 +869,15 @@ input {
                 }
             }
         }
-        
-        
+
+
         &:checked {
             + label {
                 &:before {
                     background-position: 6px -2px;
                 }
             }
-            
+
             &:hover, &:active, &:focus {
                 + label {
                     &:before {
@@ -884,14 +886,14 @@ input {
                 }
             }
         }
-        
+
         &[disabled], fieldset[disabled] & {
             + label {
                 &:before {
                     background-position: -295px -79px;
                 }
             }
-            
+
             &:hover, &:active, &:focus {
                 + label {
                     &:before {
@@ -901,14 +903,14 @@ input {
                 }
             }
         }
-        
+
         &[disabled]:checked, fieldset[disabled] &:checked {
             + label {
                 &:before {
                     background-position: -286px -2px;
                 }
             }
-            
+
             &:hover, &:active, &:focus {
                 + label {
                     &:before {
@@ -919,12 +921,12 @@ input {
             }
         }
     }
-    
-    
-    
+
+
+
     ///////////////////////////////
     // start select box styling
-    
+
     // the actual select box gets hidden
     select.select-hide {
         opacity: 0;
@@ -932,17 +934,17 @@ input {
         z-index: -1;
         width: 1px;
         height: 1px;
-        
+
         &:disabled {
             display: none;
         }
     }
-    
+
     &.error {
         input[type="text"].select-display {
             &[disabled], fieldset[disabled] & {
                 background: $form-error-background;
-                
+
                 &::-webkit-input-placeholder {
                     color: $form-error-placeholder;
                     opacity: 1;
@@ -958,37 +960,37 @@ input {
                 &:-ms-input-placeholder {
                     color: $form-error-placeholder;
                     opacity: 1;
-                }                  
+                }
             }
         }
     }
-    
+
     // the text input which displays the selected options
     input[type="text"].select-display {
-        
+
         &.autoload {
             padding: 0 50px 0 1em;
             .is-xs & {
                 padding-right: 40px;
             }
         }
-        
+
         &[disabled], fieldset[disabled] & {
-            
+
             line-height: 300%;
             background: $white;
             border: 1px solid $grey;
             padding: 0 50px 0 1em;
             cursor: pointer;
-            
+
             display: block;
             overflow: hidden;
-            
+
             .is-xs & {
                 line-height: 260%;
                 padding-right: 40px;
             }
-        
+
             &::-webkit-input-placeholder {
                 color: $grey-bright;
                 opacity: 1;
@@ -1005,10 +1007,10 @@ input {
                 color: $grey-bright;
                 opacity: 1;
             }
-        
+
             &.error {
                 background: $form-error-background;
-                
+
                 &::-webkit-input-placeholder {
                     color: $form-error-placeholder;
                     opacity: 1;
@@ -1024,14 +1026,14 @@ input {
                 &:-ms-input-placeholder {
                     color: $form-error-placeholder;
                     opacity: 1;
-                }            
+                }
             }
-            
+
             &.focus {
                 border: 1px solid $grey-dark;
                 box-shadow: $form-glow;
             }
-            
+
             &.readonly {
                 border: 1px solid $grey-bright;
                 color: $grey-light;
@@ -1041,7 +1043,7 @@ input {
                     box-shadow: $form-glow-readonly;
                 }
             }
-            
+
             &.disabled {
                 line-height: 133%;
                 background: transparent;
@@ -1049,7 +1051,7 @@ input {
                 cursor: text;
                 padding: 0;
                 margin-left: 0px;
-            
+
                 &::-webkit-input-placeholder {
                     color: $grey-light;
                     opacity: 1;
@@ -1068,7 +1070,7 @@ input {
                 }
             }
         }
-        
+
         #sorting_form & {
             height: 2.25em;
             font-size: 1.07em;
@@ -1079,27 +1081,27 @@ input {
             border-radius: 0;
         }
     }
-    
+
     // the options
     .select-option {
         width: 100%;
         padding: 7px 5px 7px 1em;
         cursor: pointer;
-        
+
         -webkit-touch-callout: none;
         -webkit-user-select: none;
         -khtml-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
-        
+
         &:hover, &.focus {
             background: $cyan;
         }
-        
+
         &.multiple {
             padding-left: 10px;
-            
+
             &:before {
                 content: "";
                 display: block;
@@ -1109,7 +1111,7 @@ input {
                 background: url(../img/default/checkbox.png) no-repeat 0 -94px;
                 margin: 2px 10px 0 0;
             }
-            
+
             &.selected {
                 &:before {
                     background-position: 0 -15px;
@@ -1117,7 +1119,7 @@ input {
             }
         }
     }
-    
+
     // the dropdown
     .select-dropdown {
         //min-height: 113px;
@@ -1136,32 +1138,32 @@ input {
         z-index: 2;
         overflow: auto;
         display: none;
-        
+
         .is-xs &, #sorting_form & {
             font-size: 1.07em;
         }
     }
-    
+
     // a wrapper for the dropdown
     .select-dropdown-wrapper {
         display: block;
         width: 100%;
         position: relative;
         padding-right: 10px;
-        
+
         &.autoload {
             .select-index-0 {
                 display: none;
             }
         }
     }
-    
+
     // a wrapper for the text input
     .select-display-wrapper {
         display: block;
         width: 100%;
         position: relative;
-        
+
         &:after {
             position: absolute;
             right: 0;
@@ -1182,19 +1184,19 @@ input {
             width: 100%;
             height: 100%;
             text-align: right;
-            
+
             .is-xs & {
                 padding: 7px 12px 0 0;
                 font-size: 2em;
             }
         }
-        
+
         #sorting_form & {
-            
+
             input {
                 padding: 0 30px 0 1em;
             }
-            
+
             &:after {
                 display: inline-block;
                 font-size: 1.8em;
@@ -1202,13 +1204,13 @@ input {
                 padding: 5px 10px 0 0;
             }
         }
-        
+
         &.readonly, &.disabled, &.autoload {
             &:after {
                 content: none;
             }
         }
-        
+
         &.autoload.loading {
             &:after {
                 content: "\f110";
@@ -1217,17 +1219,17 @@ input {
                 width: auto;
                 height: auto;
                 padding: 0;
-                
+
                 .is-xs & {
                     right: 8px;
                     top: 7px;
                 }
-                
+
                 -webkit-transition: -webkit-transform 1000s;
                 -moz-transition: -moz-transform 1000s;
                 transition: -ms-transform 1000s;
                 transition: transform 1000s;
-                
+
                 -ms-transform: rotate(0deg);
                 -moz-transform: rotate(0deg);
                 transform: rotate(0deg);
@@ -1240,8 +1242,8 @@ input {
                 }
             }
         }
-    }    
-    
+    }
+
     // styling of the selected items of a multiple autoload select box
     .autoload-multiple {
         a {
@@ -1252,12 +1254,12 @@ input {
             line-height: 130%;
             background: $grey-bright;
             color:$grey-dark;
-            
+
             &:hover, &:active, &:focus {
                 background: $cyan;
                 color:$grey-dark;
             }
-            
+
             &:after {
                 content: "\f00d";
                 font-size: 1.3em;
@@ -1265,10 +1267,10 @@ input {
             }
         }
     }
-    
+
     // end select box styling
     ///////////////////////////////
-    
+
 }
 
 
@@ -1289,32 +1291,32 @@ input {
     padding: 0 1em;
     margin: 5px 0 10px 0;
     cursor: default;
-    
+
     .is-xs & {
         font-size: 1.07em;
         line-height: 260%;
     }
-    
+
     &.focus {
         box-shadow: $form-glow;
         border-left-color: $grey-dark;
         border-top-color: $grey-dark;
         border-bottom-color: $grey-dark;
     }
-    
+
     &.focus-readonly {
         box-shadow: $form-glow-readonly;
         border-left-color: $grey-bright;
         border-top-color: $grey-bright;
         border-bottom-color: $grey-bright;
     }
-    
+
     &.readonly {
         border: 1px solid $grey-bright;
         border-right: none;
         color: $grey-light;
     }
-    
+
     &.disabled, fieldset[disabled] & {
         line-height: 133%;
         color: $black;
@@ -1323,26 +1325,26 @@ input {
         padding: 0;
         cursor: text;
     }
-    
+
     & + div.input-field {
         display: block;
         width: auto;
         overflow: hidden;
         padding-left: 0;
         border-left-color: $grey;
-        
+
         input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="number"], .input-file-display {
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;
             border-left-color: $grey-bright !important;
         }
-        
+
         .input-file-display-wrapper {
             padding-left: 0;
         }
-        
+
         .input-file-display.disabled {
-          margin-left: 5px !important;  
+          margin-left: 5px !important;
         }
     }
 }
@@ -1350,13 +1352,13 @@ input {
 .fieldset {
 
     fieldset {
-        
+
         padding: 0;
         margin: 0;
         border:none;
-        
+
         &[disabled] {
-            
+
             .row.collapse {
                 margin: 0;
                 > * {
@@ -1365,29 +1367,29 @@ input {
                 }
             }
         }
-    }    
-        
+    }
+
     &.editable, &.not-editable {
-            
+
         position: relative;
         border-radius: 4px;
         background: $cyan-light;
         box-shadow: $form-box-shadow;
-    
+
         padding: 10px 20px;
         margin: 0 0 70px 0;
-        
-        
+
+
         .is-xs & {
             padding: 10px 10px;
         }
-        
+
         h2 {
             width: 100%;
             padding: 10px 0 20px;
             margin: 0 0 25px;
             border-bottom: 2px solid $grey-light;
-            
+
             font-family: $font-2, $font-family-1;
             font-weight: $font-black;
             font-size: 1.07em;
@@ -1396,49 +1398,49 @@ input {
             text-transform: uppercase;
             color: $black;
         }
-        
+
         h3 {
             color: $grey-darker;
             letter-spacing: 0.07em;
             font-weight: $font-black;
-            
+
             .is-xs & {
                 font-size: 1.07em;
                 margin-bottom: 20px;
             }
-            
+
             &.section {
                 margin-top: 80px;
             }
         }
-        
+
         dl.input-fields {
-            
+
             margin:0;
             padding:0;
-            
+
             .row {
                 margin: 0 -10px;
-                
+
                 > * {
                     padding: 0 10px;
                 }
-                
+
                 .is-xs & {
                     margin: 0 -5px;
-                    
+
                     > * {
                         padding: 0 5px;
                     }
                 }
             }
-            
+
             dt {
-            
+
                 width: 30%;
                 display: inline-block;
                 float: left;
-                
+
                 font-family: $font-2, $font-family-1;
                 font-weight: $font-black;
                 font-size: 1.07em;
@@ -1446,19 +1448,19 @@ input {
                 line-height: 118.75%;
                 color: $grey-light;
                 text-transform: uppercase;
-                
+
                 padding: 24px 20px 10px 0;
                 margin: 0 0px 10px 0;
-                
+
                 word-break: break-word;
                 word-wrap: break-word;
-                
+
                 .is-xs & {
                     width: 100%;
                     padding: 0;
                     margin: 0 0 5px 0;
                 }
-                
+
                 &.multifield {
                     &.show-labels {
                         .is-xs & {
@@ -1467,33 +1469,33 @@ input {
                     }
                 }
             }
-            
+
             dd {
                 width: 70%;
                 display: inline-block;
                 float: left;
                 margin: 0 0 10px 0;
                 padding: 0 10% 0 0;
-                
+
                 .is-xs & {
                     width: 100%;
                 }
-            
+
                 .is-xs &, .is-sm &, .is-md & {
                     padding-right: 0;
                 }
-                
+
                 .multifield {
                     .label {
                         display: none;
                     }
-                    
+
                     &.show-labels {
                         .label {
                             display: block;
                             position: absolute;
                             top: -15px;
-                            color: $grey; 
+                            color: $grey;
                             word-break: break-word;
                             word-wrap: break-word;
                             overflow: hidden;
@@ -1501,12 +1503,12 @@ input {
                         }
                     }
                 }
-                
+
                 img.avatar {
                     width: 270px;
                     margin-top: 20px;
                 }
-                
+
                 &.clearfix {
                     display: block;
                     width: 100%;
@@ -1514,275 +1516,275 @@ input {
                     margin: 0;
                     padding: 0;
                 }
-                
+
                 &.no-label {
                     width: 100%;
                 }
             }
         }
-        
+
         .edit-button {
             position: absolute;
             top: 20px;
             right: 20px;
-            
+
             &:focus, &:active {
                 outline: 0;
                 opacity: 1 !important;
             }
-            
+
             .is-xs & {
                 right: 10px;
             }
         }
-        
+
         .form-buttons {
             margin: 40px 10% 0 0 !important;
             float: right;
             text-align: right;
-            
+
             .is-sm &, .is-md & {
-                    margin-right: 0;
+                    margin-right: 0 !important;
             }
-                
+
             .is-xs & {
                 margin: 30px 0 0;
                 float: left;
                 text-align: left;
             }
         }
-        
+
         .hide {
             display: block !important;
         }
-        
+
         .input-field.box {
             margin: 10px 0 0 -7px;
-            
+
             .is-xs & {
                 margin-top: 0;
             }
         }
-        
+
         .accordion {
             margin: 10px 0 0 -30px;
-                
+
             .is-xs & {
                 margin: 0;
             }
-            
+
             .accordion {
                 margin: 0;
             }
-            
+
             .input-field.box {
                 margin: 0;
             }
         }
-        
-        
+
+
         .group, .edit-group {
             position: relative;
             border-top: 1px solid $grey-bright;
             margin-bottom: 20px;
             padding-top: 20px;
             min-height: 70px;
-            
+
             dl.input-fields {
                 dt {
                     padding-top: 7px;
                 }
-                
+
                 dd {
                     padding-top: 0;
                 }
             }
-            
+
             .edit-link {
                 display: inline-block;
                 position: absolute;
                 top: 10px;
                 right: 20px;
-                
+
                 &.fa-minus {
-                    top: 45px;  
+                    top: 45px;
                 }
             }
-            
+
             &:first-of-type {
                 border-top: none;
                 padding-top: 0;
-                
+
                 .edit-link {
                     top: -10px;
-                    
+
                     &.fa-minus {
                         top: 25px;
                     }
                 }
             }
         }
-        
-        
+
+
         &.disabled {
-            
+
             background: none;
             box-shadow: none;
-            
+
             h2 {
                 color: $grey-dark;
             }
-            
+
             dl.input-fields {
                 dt {
                     padding-top: 7px;
                 }
-                
+
                 dd {
                     padding-top: 0;
                 }
             }
-                    
+
             .edit-button {
                 opacity: 0;
-            } 
-            
+            }
+
             .hide {
                 display: none !important;
             }
-        
+
             .input-field.box {
                 margin: -7px 0 0 -7px;
-                
+
                 .is-xs & {
                     margin-top: 0;
                 }
             }
-            
+
             .accordion {
                 margin: -7px 0 0 -30px;
-                
+
                 .is-xs & {
                     margin: 0;
                 }
-                
+
                 .accordion {
                     margin: 0;
                 }
-                
+
                 .input-field.box {
                     margin: 0;
                 }
             }
-            
+
             &.switch {
                 &:hover {
                     background: $white-dirty;
-                
+
                     h2 {
                         color: $black;
                     }
-                        
+
                     .edit-button {
                         opacity: 1;
                     }
                 }
             }
-        
-        
+
+
             .group {
                 position: relative;
                 margin-bottom: 0;
                 min-height: 0;
-                
+
                 .edit-link {
                     display: none;
                 }
             }
-            
+
             .edit-group {
                 display: none;
             }
         }
     }
-    
+
     &.not-editable {
-            
+
         background: none;
         box-shadow: none;
-        
+
         padding: 10px 0;
-        
+
         .is-xs & {
             padding: 10px 0;
         }
-        
+
         h2 {
             color: $grey-dark;
         }
-        
+
         dl.input-fields {
             dt {
                 padding-top: 7px;
             }
-            
+
             dd {
                 padding-top: 0;
-                
+
                 img.avatar {
                     margin-top: 10px;
                 }
             }
         }
-                
+
         .edit-button {
             opacity: 0;
-        } 
-        
+        }
+
         .hide {
             display: none !important;
         }
-    
+
         .input-field.box {
             margin: -7px 0 0 -7px;
-            
+
             .is-xs & {
                 margin-top: 0;
             }
         }
-        
+
         .accordion {
             margin: -7px 0 0 -30px;
-            
+
             .is-xs & {
                 margin: 0;
             }
-            
+
             .accordion {
                 margin: 0;
             }
-            
+
             .input-field.box {
                 margin: 0;
             }
         }
-        
+
         &.switch {
             &:hover {
                 background: $white-dirty;
-            
+
                 h2 {
                     color: $black;
                 }
-                    
+
                 .edit-button {
                     opacity: 1;
                 }
             }
         }
     }
-        
-    
+
+
     &.no-label {
         fieldset {
             > dl.input-fields {
@@ -1791,7 +1793,7 @@ input {
                 }
                 dd {
                     width: 100%;
-                    
+
                     > ul.accordion {
                         margin-left: 10px;
                     }
@@ -1812,7 +1814,7 @@ input {
 
 // autocomplete plugin
 .ac_results {
-    
+
     font-family: $font-2, $font-family-1;
     font-weight: $font-regular;
     font-size: 1.2em;
@@ -1821,38 +1823,38 @@ input {
     border-radius: 4px;
     box-shadow: $form-box-shadow;
     background: $white;
-        
+
     .is-xs & {
         font-size: 1.07em;
     }
-    
+
     ul {
-        
+
         li {
             width: 100%;
             padding: 7px 5px 7px 1em;
             cursor: pointer;
-            
+
             -webkit-touch-callout: none;
             -webkit-user-select: none;
             -khtml-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
-            
+
             &:hover, &.focus {
                 background: $cyan;
             }
-            
+
         }
     }
 }
 
 dd.autocomplete {
-    
+
     .input-field {
         position: relative;
-        
+
         &:after {
             display: inline-block;
             visibility: hidden;
@@ -1871,25 +1873,25 @@ dd.autocomplete {
             content: "\f0d7";
             cursor: pointer;
             color: $grey-darker;
-            
+
             content: "\f110";
-            
+
             -webkit-transition: -webkit-transform 1000s;
             -moz-transition: -moz-transform 1000s;
             transition: -ms-transform 1000s;
             transition: transform 1000s;
-            
+
             -ms-transform: rotate(0deg);
             -moz-transform: rotate(0deg);
             transform: rotate(0deg);
-            
+
             .is-xs & {
                 right: 8px;
                 top: 13px;
                 font-size: 2em;
             }
         }
-        
+
         &.ac_loading {
             &:after {
                 visibility: visible;
@@ -1898,35 +1900,35 @@ dd.autocomplete {
                 transform: rotate(999999deg);
             }
         }
-        
+
     }
 }
 
 .dynamic-entries {
     .entry {
-        
+
         position: relative;
         display: inline-block;
-        
+
         margin-bottom: 20px;
         padding-bottom: 20px;
         border-bottom: 1px solid $grey;
-        
+
         .dynamic-button {
             position: absolute;
             top: 0px;
             right: 20px;
         }
-        
+
         .delete-entry {
             display: none !important;
         }
-        
+
         &.deleted {
             display: none;
         }
     }
-    
+
     .add-button-wrapper {
         text-align: right;
         padding-right: 20px;
@@ -1934,7 +1936,7 @@ dd.autocomplete {
 }
 
 #sorting_form {
-    
+
     button {
         display: none;
     }
