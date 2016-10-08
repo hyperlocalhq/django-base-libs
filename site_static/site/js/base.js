@@ -84,6 +84,38 @@ $(document).ready(function() {
 
 
     /**
+     * TinyMCE responsive bug fix.
+     */
+    var mceEditorResponsiveFix = function() {
+
+        var got_all = true;
+        $('.tiny_mce_responsive').each(function() {
+
+            var $textarea = $(this);
+            var $editor = $textarea.next('#form_body_parent.mceEditor');
+
+            if ($editor.length) {
+
+                var $layout = $('#form_body_tbl.mceLayout', $editor);
+                var width = $layout.width();
+                $layout.css('max-width', width+'px').css('width', '100%');
+
+                var $toolbar = $('#form_body_toolbar1');
+                $('td', $toolbar).css('float', 'left').css('padding-bottom', '5px');
+
+                $textarea.removeClass('tiny_mce_responsive');
+
+            } else got_all = false;
+        });
+
+        if (!got_all) {
+            window.setTimeout(mceEditorResponsiveFix, 100);
+        }
+    };
+    mceEditorResponsiveFix();
+
+
+    /**
      * Simulates a hover state if you tap on a link the first time.
      * The default click action triggers only at the second tap on the link.
      *
@@ -831,6 +863,7 @@ $(document).ready(function() {
             me.$main.css('height', '');
             me.$main.css('min-height', '');
             me.$content.css('height', '');
+            me.$content.css('min-height', '');
             me.$navi.css('height', 0);
             me.$overlay.css('display', '');
             me.$body.trigger('navigation-closed');
@@ -885,8 +918,11 @@ $(document).ready(function() {
 
         if (navi_height > content_height) {
             me.$content.css('min-height', (navi_height + 21) + 'px');
+            console.log("yo");
         } else {
             me.$main.height(content_height);
+            me.$content.css('min-height', content_height + 'px');
+            console.log("ya");
         }
 
         me.$main.css('min-height', content_height + 'px');

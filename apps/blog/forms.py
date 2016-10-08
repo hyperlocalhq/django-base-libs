@@ -73,7 +73,7 @@ class BlogPostForm(dynamicforms.Form):
                     {% endif %}
                 ''',
                 "title",
-                "body",
+                layout.Field("body", css_class="tiny_mce_responsive"),
                 "tags",
                 "status",
                 # "enable_comment_form",
