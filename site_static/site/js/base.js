@@ -172,6 +172,7 @@ $(document).ready(function() {
         me.$parents = me.$main.add(me.$main.parents('.accordion'));
         me.$window = $(window);
         me.is_animating = false;
+        me.is_resizing = false;
 
         me.$children.each(function() {
 
@@ -262,28 +263,39 @@ $(document).ready(function() {
         });
 
         if (!children_initialised) {
-            setTimeout(function() {me.init();}, 0);
+            setTimeout(function() {me.init();}, 10);
             return;
         }
 
 
-        me.$main.data('accordion-initialised', true);
-
 
         var offset = 0;
+        var is_height_0 = false;
         me.$children.each(function() {
 
             var $child = $(this);
             $child.data('Accordion', me);
 
             var $accordion = $('> .accordion', $child);
-            if (!$child.hasClass('opened')) offset += $accordion.data('height');
-            //else alert('yo');
+            var height = $accordion.data('height');
+            if (!height) is_height_0 = true;
+            if (!$child.hasClass('opened')) offset += height;
         });
 
-        var height = me.$main.height() - offset;
+        var height = me.$main.height();
+
+        if (is_height_0 || height < offset) {
+            setTimeout(function() {me.init();}, 10);
+            return;
+        }
+
+        height -= offset;
+
         me.$main.data('height', height);
         me.$main.height(height);
+
+
+        me.$main.data('accordion-initialised', true);
 
 
 
@@ -316,7 +328,34 @@ $(document).ready(function() {
         me.$main.addClass('initialised');
         me.$main.off('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(e) {me.onAnimationDone(e);});
 
-        me.$main.trigger('initialised');
+
+        var check = true;
+        var $all_children = $('.accordion-inside', me.$main);
+        $all_children.each(function() {
+
+            var $child = $(this);
+
+            var $accordion = $('> .accordion', $child);
+            var height = $accordion.data('height');
+            $accordion.height('');
+            if (height != $accordion.height()) check = false;
+            if (!$child.hasClass('opened')) $accordion.height(0);
+            else $accordion.height(height);
+
+        });
+
+
+        me.is_resizing = false;
+
+
+        if (!check) {
+            me.width = 0;
+            me.onResize();
+        } else {
+            me.$main.trigger('initialised');
+        }
+
+
     }
 
     Accordion.prototype.animating = function($child, value) {
@@ -441,11 +480,13 @@ $(document).ready(function() {
         if (me.$window.width() == me.width) return;
         me.width = me.$window.width();
 
-        me.$main.removeClass('initialised');
-        me.$main.data('accordion-initialised', false);
-        me.$main.css('height', '');
+        if (me.is_resizing) return;
+        me.is_resizing = true;
 
         if (me.$parents.length == 1) {
+
+            me.$main.closest('.accordion').removeClass('initialised').height('').data('accordion-initialised', false).data('height', 0);
+            $('.accordion', me.$main).removeClass('initialised').height('').data('accordion-initialised', false).data('height', 0);
 
             var $all_children = $('.accordion-inside', me.$main);
 
@@ -453,14 +494,14 @@ $(document).ready(function() {
 
                 var $child = $(this);
                 var $accordion = $('> .accordion', $child);
-                $accordion.css('height', '');
 
-                setTimeout(function() {$accordion.data('AccordionChild').onResize();}, 0);
+                setTimeout(function() {$accordion.data('AccordionChild').init();}, 10);
             });
+
+            setTimeout(function() {me.init();}, 50);
 
         }
 
-        setTimeout(function() {me.init();}, 10);
     }
 
     $('.accordion').each(function() {
