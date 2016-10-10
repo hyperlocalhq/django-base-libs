@@ -815,6 +815,8 @@ $(document).ready(function() {
         me.$language.on('closed', function() {me.onLanguageChange();});
         me.$accordion.on('initialised animationDone', function() {me.setHeight();});
 
+        $('.accordion').on('initialised', function() {me.setHeight();});
+
         me.$main.data('Navigation', me);
     }
 
@@ -830,9 +832,9 @@ $(document).ready(function() {
         me.$overlay.css('display', 'block');
         setTimeout(function() {me.$overlay.css('opacity', '1');}, 0);
 
-        me.setHeight();
-
         me.$body.addClass('navigation-open');
+
+        me.setHeight();
     }
 
     Navigation.prototype.close = function() {
@@ -918,11 +920,9 @@ $(document).ready(function() {
 
         if (navi_height > content_height) {
             me.$content.css('min-height', (navi_height + 21) + 'px');
-            console.log("yo");
         } else {
             me.$main.height(content_height);
             me.$content.css('min-height', content_height + 'px');
-            console.log("ya");
         }
 
         me.$main.css('min-height', content_height + 'px');
@@ -932,6 +932,12 @@ $(document).ready(function() {
             me.$main.css('margin-bottom', breadcrumbs_height + me.$footer.height() + 'px');
         } else {
             me.$main.css('margin-bottom', me.$footer.height() + 'px');
+        }
+
+        if (!me.$body.hasClass('navigation-open')) {
+            var navigation_min_height = parseInt(me.$main.css('min-height'));
+            var content_min_height = parseInt(me.$content.css('min-height'));
+            if (navigation_min_height && navigation_min_height != content_min_height) me.$content.css("min-height", navigation_min_height+"px");
         }
     }
 
