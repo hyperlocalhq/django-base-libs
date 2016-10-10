@@ -10,7 +10,7 @@
 {% block details %}
 
     {% crispy form "ccb_form" %}
-    
+
     <form>
         <div class="fieldset editable">
             <fieldset>
@@ -21,7 +21,7 @@
 
                 <div class="button-group form-buttons">
                     <input class="button primary" type="button" onclick="window.redirect('/register/')"
-                        value="{% filter upper %}{% trans 'Create Account' %}{% endfilter %}"/>
+                        value="{% trans 'Create account' %}"/>
                 </div>
             </fieldset>
         </div>
@@ -34,4 +34,3 @@
 {% block breadcrumbs %}
     <li>{% trans "Login" %}</li>
 {% endblock %}
-

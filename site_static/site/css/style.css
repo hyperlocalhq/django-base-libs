@@ -2357,6 +2357,10 @@ span.button, span.btn {
   margin-right: 0 !important;
 }
 
+.button-group .button:first-child, .button-group .btn:first-child {
+  margin-left: 0 !important;
+}
+
 .button-group-left-navi .button, .button-group-left-navi .btn {
   margin-bottom: 10px;
 }
@@ -4270,6 +4274,11 @@ input:focus {
   text-align: right;
 }
 
+.fieldset.editable .form-buttons.button-group .button, .fieldset.editable .form-buttons.button-group .btn, .fieldset.not-editable .form-buttons.button-group .button, .fieldset.not-editable .form-buttons.button-group .btn {
+  margin-right: -3px;
+  margin-left: 0.5em;
+}
+
 .is-sm .fieldset.editable .form-buttons, .is-md .fieldset.editable .form-buttons, .is-sm .fieldset.not-editable .form-buttons, .is-md .fieldset.not-editable .form-buttons {
   margin-right: 0 !important;
 }
@@ -4278,6 +4287,11 @@ input:focus {
   margin: 30px 0 0;
   float: left;
   text-align: left;
+}
+
+.is-xs .fieldset.editable .form-buttons.button-group .button, .is-xs .fieldset.editable .form-buttons.button-group .btn, .is-xs .fieldset.not-editable .form-buttons.button-group .button, .is-xs .fieldset.not-editable .form-buttons.button-group .btn {
+  margin-right: 0.5em;
+  margin-left: 0px;
 }
 
 .fieldset.editable .hide, .fieldset.not-editable .hide {

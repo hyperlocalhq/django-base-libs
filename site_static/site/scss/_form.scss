@@ -1543,6 +1543,13 @@ input {
             float: right;
             text-align: right;
 
+            &.button-group {
+                .button, .btn {
+                    margin-right: -3px;
+                    margin-left: 0.5em;
+                }
+            }
+
             .is-sm &, .is-md & {
                     margin-right: 0 !important;
             }
@@ -1551,6 +1558,13 @@ input {
                 margin: 30px 0 0;
                 float: left;
                 text-align: left;
+
+                &.button-group {
+                    .button, .btn {
+                        margin-right: 0.5em;
+                        margin-left: 0px;                        
+                    }
+                }
             }
         }
 

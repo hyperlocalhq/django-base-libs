@@ -793,6 +793,9 @@ span.button, span.btn {
         &:last-child {
             margin-right: 0 !important;
         }
+        &:first-child {
+            margin-left: 0 !important;
+        }
     }
 }
 
