@@ -1,3 +1,5 @@
+// main:style.scss
+
 @charset "UTF-8";
 
 
@@ -8,15 +10,15 @@
     background: $header-bg;
 }
 
-#header, #navigation {    
+#header, #navigation {
     .languages {
         width: 75px;
         text-align: left;
         position: absolute;
-    
+
         -webkit-transition: top 0.4s;
         transition: top 0.4s;
-        
+
         .select-display-wrapper {
             &:after {
                 content: "\f107";
@@ -32,7 +34,7 @@
             border-radius: 0;
             padding-right: 25px;
             line-height: 200%;
-            
+
             &:focus, &:hover, &.focus {
                 border: none;
                 box-shadow: none;
@@ -44,7 +46,7 @@
             border: 1px solid $header-border;
             border-radius: 0;
             box-shadow: none;
-            
+
         }
     }
 }
@@ -59,11 +61,11 @@
     width: 100%;
     height: $header-height;
     position: relative;
-    
+
     .is-xs & {
         height: $header-height-xs;
     }
-    
+
     .wrapper {
         width: 100%;
         height: $header-height;
@@ -74,23 +76,23 @@
         top: -$header-height;
         left: 0;
         margin-top: $header-height;
-    
+
         -webkit-transition: top 0.4s, left 0.4s, margin-top 0.4s;
         transition: top 0.4s, left 0.4s, margin-top 0.4s;
-        
+
         .is-xs & {
             height: $header-height-xs;
             top: -$header-height-xs;
             margin-top: $header-height-xs;
         }
-    
+
         .navigation-open & {
             left: $navi-space-width;
         }
         .is-xs.navigation-open & {
             left: 0;
         }
-        
+
         .navigation-bg {
             height: 100%;
             width: $navi-space-width;
@@ -100,71 +102,71 @@
             left: -$navi-space-width;
         }
     }
-    
+
     img.logo {
         display: inline-block;
         width: auto;
         height: 100%;
         margin: 0;
         padding: $header-logo-padding 0;
-    
+
             -webkit-transition: width 0.4s, height 0.4s, padding 0.4s;
             transition: width 0.4s, height 0.4s, padding 0.4s;
-        
+
         .is-xs & {
             padding: $header-logo-padding-top-xs 0 $header-logo-padding-bottom-xs;
         }
     }
-    
+
     .languages {
         top: $header-language-button-top;
-        right: 40px;        
-        
+        right: 40px;
+
         .is-xs & {
             display: none;
         }
     }
-    
+
     .button {
         color: $header-font;
         position: absolute;
         top: $header-navi-button-top;
-    
+
         -webkit-transition: top 0.4s, left 0.4s;
         transition: top 0.4s, left 0.4s;
-        
+
         .is-xs & {
             top: $header-navi-button-top-xs;
-            
+
             &:before {
                 -webkit-transition: font-size 0.4s;
                 transition: font-size 0.4s;
             }
         }
-        
+
         &.navigation {
             left: 40px;
-            
+
             .is-xs & {
                 left: 20px !important;
             }
-            
+
             .navigation-open & {
                 left: $navi-close-button;
             }
         }
-        
+
         &.fa-search {
             left: 110px;
-            
+
             .is-xs & {
                 display: none;
             }
         }
-        
+
         &.fa-man {
             right: 130px;
-            
+
             .is-xs & {
                 right: 20px;
             }
@@ -179,22 +181,22 @@
             }
         }
     }
-    
+
     &.fixed {
-        
+
         .wrapper {
             position: fixed;
             top: $header-fixed-top;
             left: 0;
             margin: 0;
-    
+
             -webkit-transition: top 0.4s, left 0.4s;
             transition: top 0.4s, left 0.4s;
-            
+
             .is-xs & {
                 top: $header-fixed-top-xs;
             }
-            
+
             .navigation-open & {
                 left: $navi-space-width;
             }
@@ -202,33 +204,33 @@
                 left: 0;
             }
         }
-        
+
         img.logo {
             padding: $header-fixed-logo-padding 0 5px;
-    
+
                 -webkit-transition: none;
                 transition: none;
-            
+
             .is-xs & {
                 padding: $header-fixed-logo-padding-xs 0 5px;
             }
         }
-        
+
         .button {
             top: $header-fixed-navi-button-top;
-            
+
             .is-xs & {
                 top: $header-fixed-navi-button-top-xs;
-                
+
                 &:before {
-                    font-size: 1.33em;    
-    
+                    font-size: 1.33em;
+
                     -webkit-transition: none;
                     transition: none;
                 }
             }
         }
-        
+
         .languages {
             top: $header-fixed-language-button-top;
         }
@@ -241,40 +243,40 @@
 /////////////////////////////////////////////////////////
 // sub header (the big ones beneath the black part)
 .header {
-    
+
     margin-bottom: 60px;
     overflow: hidden;
     position: relative;
     left: 0;
-    
+
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    
+
     //-webkit-transition: left 0.4s;
     //transition: left 0.4s;
-    
+
     .is-xs &.has-menu, &.has-tabs {
         border-bottom: 1px solid $grey-bright;
     }
-    
+
     .is-xs & {
-        
+
         margin-bottom: 30px;
-        
+
         .container {
             padding-left: $window-margin-xs;
             padding-right: $window-margin-xs;
         }
     }
-    
+
     .navigation-open & {
         //left: $navi-slide-width;
     }
-    
+
     .sticky {
         width: 100%;
         height: 100%;
@@ -283,31 +285,31 @@
         left: 0;
         top: 0;
         max-height: 450px;
-        
+
         .is-xs & {
             position: static;
             height: auto !important;
         }
     }
-    
+
     &.large-image .sticky {
         max-height: 590px;
     }
-    
+
     &.beneath {
         margin-top: -60px;
-        
+
         .is-xs & {
             margin-top: -30px;
         }
-        
+
         h1 {
             margin-bottom: 0;
             .is-xs & {
                 margin-bottom: 0;
             }
         }
-        
+
         &.has-menu {
             h1 {
                 margin-bottom: 50px;
@@ -317,32 +319,32 @@
             }
         }
     }
-    
+
     > .container {
         height: 100%;
     }
-    
+
     h1 {
         margin: 50px 0;
         text-transform: uppercase;
         word-break: break-word;
         word-wrap: break-word;
-        
+
         .is-xs & {
             margin: 36px 0;
         }
     }
-    
+
     .profile {
         width: 100%;
         height: 115px;
         margin: 80px 0 0;
-        
+
         .is-sm & {
             height: 80px;
             margin: 60px 0 0;
         }
-        
+
         .is-xs & {
             height: auto;
             margin: 50px 0 0;
@@ -350,34 +352,34 @@
             padding-bottom: 3.5%;
             position: relative;
         }
-        
+
         .edit-avatar {
             display: none;
             width: 30%;
             float: left;
             margin: 0 3.5% 0 0;
-            
+
             .is-xs & {
                 display: block;
-                
+
                 img {
                     margin-bottom: 0;
                 }
             }
         }
-        
+
         h2 {
             margin: 0;
-            
+
             .is-xs & {
                 font-size: 1.47em;
                 font-size: 6vw;
-                margin-top: -2px;
+                margin-top: 0px;
                 line-height: 90%;
                 padding-bottom: 5px;
             }
         }
-        
+
         h3 {
             font-family: $font-2, $font-family-1;
             font-weight: $font-regular;
@@ -386,50 +388,50 @@
             color: $black;
             text-transform: none;
             margin: 0;
-            
+
             .is-xs & {
                 font-size: 1em;
                 font-size: 4vw;
                 line-height: 120%;
             }
         }
-        
+
         .buttons {
             bottom: 0;
             margin-left: 30%;
             padding: 10px 29.5% 0px 3.5%;
             width: 100%;
             display: none;
-            
+
             .is-xs & {
                 display: block;
             }
-            
+
             > * {
                 display: inline-block;
                 margin-right: 3%;
                 margin-bottom: 10px;
-                
+
                 &:last-child {
                     margin-right: 0;
                 }
             }
         }
-        
+
     }
-    
+
     > img, .sticky img {
         width: 100%;
         position: absolute;
         left: 0;
         top: 50%;
         margin: 0;
-        
+
         .is-xs & {
             display: none;
         }
     }
-    
+
     &.has-menu .info {
         margin-bottom: 0;
         .is-xs & {
@@ -441,24 +443,24 @@
             }
         }
     }
-    
+
     .info {
         background: $cyan-light;
         position: relative;
         margin-bottom: 56px;
-        
+
         .is-xs & {
             margin-bottom: 0;
             padding-bottom: 40px;
         }
-        
+
         &.closed {
-            
+
             .is-xs & {
                 padding-bottom: 0;
                 margin-bottom: 40px;
             }
-            
+
             .info-menu-space {
                 visibility: visible;
                 .is-xs & {
@@ -474,7 +476,7 @@
                 }
             }
         }
-        
+
         .info-menu-space {
             height: 56px;
             background: $white;
@@ -483,7 +485,7 @@
                 height: 40px;
             }
         }
-        
+
         .toggle {
             width: 56px;
             height: 56px;
@@ -500,7 +502,7 @@
                 font-size: 1.87em;
                 line-height: 52px;
             }
-            
+
             .is-xs & {
                 width: 40px;
                 height: 40px;
@@ -514,28 +516,28 @@
                 }
             }
         }
-        
+
         a {
             color: $black;
         }
-        
+
         .container > .portfolio {
             display: block;
             margin-top: 20px;
             margin-bottom: 20px;
             height: 320px;
-            
+
             .is-xs & {
                 position: relative;
                 margin-top: 0;
                 margin-bottom: 0;
                 height: auto;
             }
-            
+
             > div {
                 height: 100%;
                 position: relative;
-                
+
                 &:first-child {
                     z-index: 1;
                     .is-xs & {
@@ -568,7 +570,7 @@
                         text-transform: none;
                         margin: 0;
                     }
-                    
+
                     .is-xs & {
                         .bubble {
                             position: absolute;
@@ -577,12 +579,12 @@
                         }
                     }
                 }
-                
+
                 .is-xs & {
                     position: static;
                 }
             }
-            
+
             .slider {
                 .is-xs & {
                     .slide {
@@ -594,19 +596,19 @@
                 }
             }
         }
-        
+
         .bubble {
             cursor: pointer;
         }
-        
+
         .is-xs & {
             .prev, .next {
                 display: none !important;
             }
         }
-        
+
     }
-    
+
     .menu {
         width: 100%;
         height: 56px;
@@ -615,7 +617,7 @@
         overflow: hidden;
         -webkit-transition: background 0.3s, left 0.4s;
         transition: background 0.3s, left 0.4s;
-        
+
         > .container {
             > .row {
                 margin-left: -$grid-padding;
@@ -631,13 +633,13 @@
                 }
             }
         }
-        
+
         .is-xs & {
             height: 40px;
             background: transparent;
             bottom: 40px;
         }
-        
+
         h2 {
             font-family: $font-1, $font-family-1;
             font-weight: $font-semi;
@@ -653,18 +655,18 @@
                 padding-right: 0;
             }
         }
-        
+
         nav {
             overflow: hidden;
             height: 56px;
             position: relative;
             width: 100%;
-            
+
             .is-xs & {
                 height: 40px;
             }
         }
-        
+
         ul {
             list-style: none;
             margin: 0;
@@ -673,13 +675,13 @@
             position: relative;
             -webkit-transition: left 0.6s;
             transition: left 0.6s;
-            
+
             li {
                 display: inline-block;
                 position: absolute;
                 left: 0;
                 top: 0;
-                    
+
                 a {
                     display: inline-block;
                     font-family: $font-1, $font-family-1;
@@ -688,18 +690,18 @@
                     line-height: 44px;
                     color: $grey-bright;
                     padding: 6px 0;
-                    
+
                     .is-xs & {
                         font-size: 1.07em;
                         line-height: 32px;
                         padding: 4px 0;
                     }
-                    
+
                     &:hover, &.active {
                         color: $white;
                         border-bottom: 6px solid $cyan;
                         padding-bottom: 0;
-                        
+
                         .is-xs & {
                             color: $black;
                             border-bottom: 4px solid $cyan;
@@ -708,11 +710,11 @@
                 }
             }
         }
-        
+
         .row {
             position: relative;
         }
-            
+
         .prev, .next {
             position: absolute;
             top: 0;
@@ -729,28 +731,28 @@
             &.disabled {
                 display: none;
             }
-            
+
             .is-xs & {
                 display: none;
             }
         }
-        
+
         .prev {
             left: -10px;
         }
-        
+
         .next {
             right: -10px;
         }
-        
+
         &.tabs {
             background: transparent;
             color: $grey-light;
-            
+
             h2 {
                 padding-right: 0;
             }
-            
+
             ul {
                 li {
                     a {
@@ -761,7 +763,7 @@
                     }
                 }
             }
-            
+
             .prev, .next {
                 &:hover {
                     color: $black;
@@ -769,38 +771,38 @@
             }
         }
     }
-    
+
     &.has-image {
         max-height: 450px;
         &.large-image {
             max-height: 590px;
         }
     }
-    
+
     &.has-content {
-        
+
         .menu {
             position: absolute;
             bottom: 0;
             left: 0;
-    
+
             -webkit-transition: left 0.4s;
             transition: left 0.4s;
-            
+
             .is-xs & {
                 position: static;
             }
         }
-        
+
         &.fixed {
             padding-bottom: 0;
-            
+
             .is-xs & {
                 padding-bottom: 40px;
             }
         }
     }
-    
+
     &.has-sticky {
         h1 {
             -webkit-transition: top 0.4s;
@@ -808,36 +810,36 @@
             top: 0px;
         }
     }
-    
+
     &.fixed-headline {
         h1 {
             position: fixed;
             top: 60px;
         }
     }
-    
+
     &.fixed {
         padding-bottom: 56px;
-        
+
         .is-xs & {
             padding-bottom: 40px;
         }
-        
+
         .sticky {
             position: fixed;
             z-index: 90;
             -webkit-transition: left 0.4s;
             transition: left 0.4s;
-            
+
             .is-xs & {
                 position: static;
             }
-            
+
             .navigation-open & {
                 left: $navi-slide-width;
             }
         }
-        
+
         .menu {
             position: fixed;
             top: $navi-height;
@@ -845,29 +847,29 @@
             bottom: inherit;
             background: $black;
             z-index: 90;
-            
-            
+
+
             .navigation-open & {
                 left: $navi-slide-width;
             }
-            
-            
+
+
             .is-xs & {
                 top: $navi-height-xs;
                 background: $black;
                 position: fixed;
             }
-            
+
             h2 {
                 opacity: 1;
             }
-            
+
             ul li a {
                 &:hover, &.active {
                     color: $white;
                 }
             }
-            
+
             &.tabs {
                 color: $grey-bright;
                 ul {
@@ -877,7 +879,7 @@
                         }
                     }
                 }
-                
+
                 .prev, .next {
                     &:hover {
                         color: $white;
@@ -885,7 +887,7 @@
                 }
             }
         }
-        
+
         &.has-sticky {
             .menu {
                 background: rgba(0,0,0,0.5);
