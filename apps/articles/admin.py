@@ -109,11 +109,11 @@ class ArticleOptions(ExtendedModelAdmin):
     def imported_from(self, obj):
         ContentType = models.get_model("contenttypes", "ContentType")
         Service = models.get_model("external_services", "Service")
-        s = Service.objects.get(
+        services = Service.objects.filter(
             objectmapper__content_type=ContentType.objects.get_for_model(obj),
             objectmapper__object_id=obj.pk,
         )
-        return unicode(s)
+        return ', '.join(unicode(s) for s in services)
 
     imported_from.short_description = _("Imported from")
 
