@@ -2,11 +2,14 @@
 
 @charset "UTF-8";
 
-body {
+html, body {
     font-family: $font-2, $font-family-1;
     font-size: 15px;
     font-weight: $font-regular;
     color: $black;
+}
+
+body {
     &.show-layer {
         height: 100%;
         min-height: 100%;

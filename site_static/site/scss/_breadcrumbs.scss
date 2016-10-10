@@ -1,3 +1,5 @@
+// main:style.scss
+
 @charset "UTF-8";
 
 #breadcrumbs {
@@ -7,7 +9,7 @@
     position: relative;
     z-index: 80;
     overflow: hidden;
-    
+
     ul {
         list-style: none;
         width: 10000px;
@@ -17,7 +19,7 @@
             line-height: 50px;
             color: $grey-darker;
             display: inline-block;
-            
+
             &:before {
                 display: inline-block;
                 font: normal normal normal 14px/1 FontAwesome;
@@ -30,11 +32,11 @@
                 font-weight: 400;
                 font-size: 1.9em;
                 line-height: 50px;
-                
+
                 content: "\f105";
                 padding: 0 20px;
             }
-            
+
             a {
                 display: inline-block;
                 color: $grey-darker;
@@ -42,14 +44,14 @@
                     color: $grey-darker;
                 }
             }
-            
+
             &:first-child {
                 &:before {
                     content: none;
                 }
                 a {
                     &:before {
-                        font-size: 1.6em;
+                        font-size: 1.6rem;
                         line-height: 36px;
                     }
                 }

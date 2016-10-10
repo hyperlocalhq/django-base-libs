@@ -58,7 +58,7 @@
 }
 
 .is-xs .fawesome:before, .is-xs .fawesome:after {
-  font-size: 1.73em;
+  font-size: 1.73rem;
 }
 
 .fawesome.active {
@@ -184,7 +184,7 @@
   line-height: 261%;
   display: inline-block;
   font-weight: 700;
-  font-size: 1.2em;
+  font-size: 1.2rem;
   color: #444444;
   background: #efefef;
   padding: 0;
@@ -193,7 +193,7 @@
 }
 
 .is-sm .fawesome.button.text, .is-md .fawesome.button.text, .is-sm .fawesome.btn.text, .is-md .fawesome.btn.text {
-  font-size: 1em;
+  font-size: 1rem;
 }
 
 .is-xs .fawesome.button.text, .is-xs .fawesome.btn.text {
@@ -215,7 +215,7 @@
 }
 
 .fawesome.button.text:before, .fawesome.btn.text:before {
-  font-size: 1.22em;
+  font-size: 1.464rem;
   line-height: 205%;
   text-align: center;
   width: 2.05em;
@@ -230,12 +230,13 @@
 
 .is-md .fawesome.button.text:before, .is-sm .fawesome.button.text:before, .is-md .fawesome.btn.text:before, .is-sm .fawesome.btn.text:before {
   margin-right: 4%;
+  font-size: 1.22rem;
 }
 
 .is-xs .fawesome.button.text:before, .is-xs .fawesome.btn.text:before {
   width: 1.9em;
   height: 1.9em;
-  font-size: 1.1em;
+  font-size: 1.32rem;
   line-height: 200%;
   margin: 0;
   z-index: 1;
@@ -253,10 +254,10 @@
 .is-xs .fawesome.button.text:hover:after, .is-xs .fawesome.button.text:focus:after, .is-xs .fawesome.btn.text:hover:after, .is-xs .fawesome.btn.text:focus:after {
   content: "";
   position: absolute;
-  top: -0.33em;
-  left: -0.3em;
-  width: 1.8em;
-  height: 1.8em;
+  top: -0.64rem;
+  left: -0.64rem;
+  width: 3.75rem;
+  height: 3.75rem;
   border-radius: 50%;
   background: #afaeae;
   opacity: 0.3;
@@ -273,10 +274,10 @@
 .is-xs .fawesome.button.text:active:after, .is-xs .fawesome.btn.text:active:after {
   content: "";
   position: absolute;
-  top: -0.33em;
-  left: -0.3em;
-  width: 1.8em;
-  height: 1.8em;
+  top: -0.64rem;
+  left: -0.64rem;
+  width: 3.75rem;
+  height: 3.75rem;
   border-radius: 50%;
   background: #00cdff;
   opacity: 0.1;
@@ -289,10 +290,10 @@
 .is-xs .fawesome.button.text.switch:active:after, .is-xs .fawesome.btn.text.switch:active:after {
   content: "";
   position: absolute;
-  top: -0.33em;
-  left: -0.3em;
-  width: 1.8em;
-  height: 1.8em;
+  top: -0.64rem;
+  left: -0.64rem;
+  width: 3.75rem;
+  height: 3.75rem;
   border-radius: 50%;
   background: #00cdff;
   opacity: 0.1;
@@ -335,10 +336,10 @@
 .is-xs .fawesome.button.text.switch.on:hover:after, .is-xs .fawesome.button.text.switch.on:focus:after, .is-xs .fawesome.button.text.switch.on:active:after, .is-xs .fawesome.button.text.switch.active:hover:after, .is-xs .fawesome.button.text.switch.active:focus:after, .is-xs .fawesome.button.text.switch.active:active:after, .is-xs .fawesome.btn.text.switch.on:hover:after, .is-xs .fawesome.btn.text.switch.on:focus:after, .is-xs .fawesome.btn.text.switch.on:active:after, .is-xs .fawesome.btn.text.switch.active:hover:after, .is-xs .fawesome.btn.text.switch.active:focus:after, .is-xs .fawesome.btn.text.switch.active:active:after {
   content: "";
   position: absolute;
-  top: -0.33em;
-  left: -0.3em;
-  width: 1.8em;
-  height: 1.8em;
+  top: -0.64rem;
+  left: -0.64rem;
+  width: 3.75rem;
+  height: 3.75rem;
   border-radius: 50%;
   background: #00cdff;
   opacity: 0.15;
@@ -387,7 +388,7 @@
 }
 
 .is-xs .fawesome.button.round:before, .is-xs .fawesome.button.round:after, .is-xs .fawesome.btn.round:before, .is-xs .fawesome.btn.round:after {
-  font-size: 1.27em;
+  font-size: 1.27rem;
 }
 
 .fawesome.button.round.fa-facebook:before, .fawesome.button.round.fa-facebookafter, .fawesome.button.round.fa-googleplus:before, .fawesome.button.round.fa-googleplusafter, .fawesome.button.round.fa-pinterest:before, .fawesome.button.round.fa-pinterestafter, .fawesome.btn.round.fa-facebook:before, .fawesome.btn.round.fa-facebookafter, .fawesome.btn.round.fa-googleplus:before, .fawesome.btn.round.fa-googleplusafter, .fawesome.btn.round.fa-pinterest:before, .fawesome.btn.round.fa-pinterestafter {
@@ -541,11 +542,11 @@
 }
 
 .fawesome.big:before, .fawesome.big:after {
-  font-size: 3.07em;
+  font-size: 3.07rem;
 }
 
 .is-xs .fawesome.big:before, .is-xs .fawesome.big:after {
-  font-size: 2.13em;
+  font-size: 2.13rem;
 }
 
 .fawesome.big.button .text, .fawesome.big.btn .text {
@@ -570,11 +571,11 @@
 }
 
 .fawesome.smaller:before, .fawesome.smaller:after {
-  font-size: 1.8em;
+  font-size: 1.8rem;
 }
 
 .is-xs .fawesome.smaller:before, .is-xs .fawesome.smaller:after {
-  font-size: 1.73em;
+  font-size: 1.73rem;
 }
 
 .fawesome.smaller.button.round, .fawesome.smaller.btn.round {
@@ -612,11 +613,11 @@
 }
 
 .fawesome.small:before, .fawesome.small:after {
-  font-size: 1.33em;
+  font-size: 1.33rem;
 }
 
 .is-xs .fawesome.small:before, .is-xs .fawesome.small:after {
-  font-size: 1.27em;
+  font-size: 1.27rem;
 }
 
 .fawesome.small.button.round, .fawesome.small.btn.round {
@@ -1536,7 +1537,7 @@ canvas.fawesome.big {
   content: "\f05a";
 }
 
-body {
+html, body {
   font-family: "Lato", "sans-serif";
   font-size: 15px;
   font-weight: 400;
@@ -2613,7 +2614,7 @@ body.show-layer.image-layer .layer#image-layer {
 }
 
 #navigation .buttons .fa-search:before {
-  font-size: 1.6em;
+  font-size: 1.6rem;
 }
 
 #navigation .buttons .languages {
@@ -2799,7 +2800,7 @@ body.show-layer.image-layer .layer#image-layer {
 }
 
 #breadcrumbs ul li:first-child a:before {
-  font-size: 1.6em;
+  font-size: 1.6rem;
   line-height: 36px;
 }
 
@@ -3005,7 +3006,7 @@ input:focus {
   width: 100%;
   font-family: "Lato", "sans-serif";
   font-weight: 400;
-  font-size: 1.2em;
+  font-size: 1.2rem;
   line-height: 300%;
   background: #fff;
   color: #000;
@@ -8360,11 +8361,15 @@ img[data-popup-image-src] {
   transition: top 0.4s;
 }
 
+#header .languages .select-display-wrapper, #navigation .languages .select-display-wrapper {
+  cursor: pointer;
+}
+
 #header .languages .select-display-wrapper:after, #navigation .languages .select-display-wrapper:after {
   content: "\f107";
   color: #fff;
-  font-size: 1.33em;
-  padding: 9px 5px 0 0;
+  font-size: 1.33rem;
+  padding: 6px 5px 0 0;
 }
 
 #header .languages .select-display, #navigation .languages .select-display {
@@ -8374,6 +8379,7 @@ img[data-popup-image-src] {
   border-radius: 0;
   padding-right: 25px;
   line-height: 200%;
+  height: 2rem;
 }
 
 #header .languages .select-display:focus, #header .languages .select-display:hover, #header .languages .select-display.focus, #navigation .languages .select-display:focus, #navigation .languages .select-display:hover, #navigation .languages .select-display.focus {
@@ -8555,7 +8561,7 @@ img[data-popup-image-src] {
 }
 
 .is-xs #header.fixed .button:before {
-  font-size: 1.33em;
+  font-size: 1.33rem;
   -webkit-transition: none;
   transition: none;
 }
@@ -9039,7 +9045,7 @@ img[data-popup-image-src] {
 
 .header .menu .prev:before, .header .menu .next:before {
   line-height: 56px;
-  font-size: 1.6em;
+  font-size: 1.6rem;
 }
 
 .header .menu .prev.disabled, .header .menu .next.disabled {
@@ -9261,7 +9267,7 @@ img[data-popup-image-src] {
 }
 
 .pagination ul.button-list .fawesome:before {
-  font-size: 1.8em;
+  font-size: 1.8rem;
   line-height: 120%;
   vertical-align: top;
   padding: 0 5px;
