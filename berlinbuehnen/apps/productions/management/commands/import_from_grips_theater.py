@@ -39,7 +39,7 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
 
         if not self.should_reimport(self.service):
             if self.verbosity >= NORMAL:
-                print u"=== Nothing to update ==="
+                self.stdout.write(u"=== Nothing to update ===")
             return
 
         # self.delete_existing_productions_and_events(self.service)
@@ -58,11 +58,11 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
 
         r = requests.get(self.service.url, params={})
         if r.status_code != 200:
-            print(u"Error status: %s" % r.status_code)
+            self.stdout.write(u"Error status: %s" % r.status_code)
             return
 
         if self.verbosity >= NORMAL:
-            print u"=== Importing Productions ==="
+            self.stdout.write(u"=== Importing Productions ===")
 
         self.stats = {
             'prods_added': 0,
@@ -81,12 +81,11 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
         self.delete_outdated_productions_and_events(self.service)
 
         if self.verbosity >= NORMAL:
-            print u"Productions added: %d" % self.stats['prods_added']
-            print u"Productions updated: %d" % self.stats['prods_updated']
-            print u"Productions skipped: %d" % self.stats['prods_skipped']
-            print u"Productions deleted: %d" % self.stats['prods_deleted']
-            print u"Events added: %d" % self.stats['events_added']
-            print u"Events updated: %d" % self.stats['events_updated']
-            print u"Events skipped: %d" % self.stats['events_skipped']
-            print u"Events deleted: %d" % self.stats['events_deleted']
-            print
+            self.stdout.write(u"Productions added: %d" % self.stats['prods_added'])
+            self.stdout.write(u"Productions updated: %d" % self.stats['prods_updated'])
+            self.stdout.write(u"Productions skipped: %d" % self.stats['prods_skipped'])
+            self.stdout.write(u"Productions deleted: %d" % self.stats['prods_deleted'])
+            self.stdout.write(u"Events added: %d" % self.stats['events_added'])
+            self.stdout.write(u"Events updated: %d" % self.stats['events_updated'])
+            self.stdout.write(u"Events skipped: %d" % self.stats['events_skipped'])
+            self.stdout.write(u"Events deleted: %d" % self.stats['events_deleted'])
