@@ -993,6 +993,9 @@ $(document).ready(function() {
 
 
         me.$main.data('MainHeader', me);
+
+        me.$window.resize(function() {me.onResize();});
+        me.onResize();
     }
 
     MainHeader.prototype.onNavigation = function() {
