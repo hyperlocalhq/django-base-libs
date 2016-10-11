@@ -25,8 +25,8 @@ class ExtendedEventManager(EventManager):
 class Event(ComplexEventBase):
     fees = MultilingualTextField(_("Fees"), blank=True)
 
-    is_featured = models.BooleanField(_("Featured"), default=False)
-    importance = models.IntegerField(_("Importance"), default=0)
+    is_featured = models.BooleanField(_("Featured in newsletter"), default=False)
+    importance = models.IntegerField(_("Importance in newsletter"), default=0, help_text=_("The bigger the number, the more up-front it will be shown in the newsletter"))
 
     creative_sectors = TreeManyToManyField(
         Term,
