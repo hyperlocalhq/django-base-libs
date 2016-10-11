@@ -6,6 +6,7 @@ from _import_to_berlinbuehnen_base_xml import *
 
 class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
     """Base command to extend to import productions and events to Berlin Buehnen in JSON format"""
+    AUTH = ()
 
     def import_productions(self):
 
@@ -24,7 +25,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
             'events_skipped': 0,
         }
 
-        r = requests_session.get(self.service.url)
+        r = requests_session.get(self.service.url, auth=self.AUTH)
         if r.status_code != 200:
             self.stderr.write(u"Error status: %s" % r.status_code)
             return
@@ -34,7 +35,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
         self.save_page(productions_dict)
 
         while (next_page):
-            r = requests_session.get(next_page)
+            r = requests_session.get(next_page, auth=self.AUTH)
             if r.status_code != 200:
                 self.stderr.write(u"Error status: %s" % r.status_code)
                 break  # we want to show summary even if at some point the import breaks
@@ -106,7 +107,6 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
         ObjectMapper = models.get_model("external_services", "ObjectMapper")
         image_mods = models.get_app("image_mods")
 
-        prod_dicts = productions_dict.values()
         prods_count = len(productions_dict.keys())
 
         for prod_index, prod_dict in enumerate(productions_dict.values(), 1):
@@ -321,10 +321,11 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                         mf = image_mapper.content_object
                         if mf:
                             image_ids_to_keep.append(mf.pk)
-                        continue
+                        if not self.update_images:
+                            continue
 
                     filename = image_url.split("/")[-1]
-                    image_response = requests.get(image_url)
+                    image_response = requests.get(image_url, auth=self.AUTH)
                     if image_response.status_code == 200:
                         image_mods.FileManager.save_file_for_object(
                             mf,
@@ -348,7 +349,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                         file_description.description_de = image_dict.get('description_de', "")
                         file_description.description_en = image_dict.get('description_en', "")
                         file_description.author = image_dict.get('author', "")
-                        file_description.copyright_limitations = image_dict.get('copyright', "")
+                        file_description.copyright_limitations = image_dict.get('copyright', "").replace("&copy;", "©")
                         file_description.save()
 
                         if not image_mapper:
@@ -397,7 +398,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                     continue
 
                 filename = pdf_url.split("/")[-1]
-                pdf_response = requests.get(pdf_url)
+                pdf_response = requests.get(pdf_url, auth=self.AUTH)
                 if pdf_response.status_code == 200:
                     image_mods.FileManager.save_file_for_object(
                         mf,
@@ -420,7 +421,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                     file_description.description_de = pdf_dict.get('description_de', "")
                     file_description.description_en = pdf_dict.get('description_en', "")
                     file_description.author = pdf_dict.get('author', "")
-                    file_description.copyright_limitations = pdf_dict.get('copyright', "")
+                    file_description.copyright_limitations = pdf_dict.get('copyright', "").replace("&copy;", "©")
                     file_description.save()
 
                     if not pdf_mapper:
@@ -557,7 +558,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                 image_url = sponsor_dict.get('image_url', "")
                 if image_url:
                     filename = image_url.split("/")[-1]
-                    image_response = requests.get(image_url)
+                    image_response = requests.get(image_url, auth=self.AUTH)
                     if image_response.status_code == 200:
                         image_mods.FileManager.save_file_for_object(
                             sponsor,
@@ -697,7 +698,6 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                 for stage_id in event_dict.get('play_stages', {}).values():
                     try:
                         stage = Stage.objects.get(pk=stage_id)
-                        stage = Stage.objects.get(pk=stage_id)
                     except Stage.DoesNotExist:
                         pass
                     else:
@@ -763,10 +763,11 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                             mf = image_mapper.content_object
                             if mf:
                                 image_ids_to_keep.append(mf.pk)
-                            continue
+                            if not self.update_images:
+                                continue
 
                         filename = image_url.split("/")[-1]
-                        image_response = requests.get(image_url)
+                        image_response = requests.get(image_url, auth=self.AUTH)
                         if image_response.status_code == 200:
                             image_mods.FileManager.save_file_for_object(
                                 mf,
@@ -790,7 +791,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                             file_description.description_de = image_dict.get('description_de', "")
                             file_description.description_en = image_dict.get('description_en', "")
                             file_description.author = image_dict.get('author', "")
-                            file_description.copyright_limitations = image_dict.get('copyright', "")
+                            file_description.copyright_limitations = image_dict.get('copyright', "").replace("&copy;", "©")
                             file_description.save()
 
                             if not image_mapper:
@@ -839,7 +840,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                         continue
 
                     filename = pdf_url.split("/")[-1]
-                    pdf_response = requests.get(pdf_url)
+                    pdf_response = requests.get(pdf_url, auth=self.AUTH)
                     if pdf_response.status_code == 200:
                         image_mods.FileManager.save_file_for_object(
                             mf,
@@ -862,7 +863,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                         file_description.description_de = pdf_dict.get('description_de', "")
                         file_description.description_en = pdf_dict.get('description_en', "")
                         file_description.author = pdf_dict.get('author', "")
-                        file_description.copyright_limitations = pdf_dict.get('copyright', "")
+                        file_description.copyright_limitations = pdf_dict.get('copyright', "").replace("&copy;", "©")
                         file_description.save()
 
                         if not pdf_mapper:
@@ -999,7 +1000,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                     image_url = sponsor_dict.get('image_url', "")
                     if image_url:
                         filename = image_url.split("/")[-1]
-                        image_response = requests.get(image_url)
+                        image_response = requests.get(image_url, auth=self.AUTH)
                         if image_response.status_code == 200:
                             image_mods.FileManager.save_file_for_object(
                                 sponsor,
@@ -1019,4 +1020,3 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                     self.stats['events_added'] += 1
                 else:
                     self.stats['events_updated'] += 1
-

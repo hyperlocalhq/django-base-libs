@@ -21,8 +21,10 @@ def other_productions(context, current_event=False, current_location=False, amou
         locations = []
 
     timestamp = tz_now()
-    other_production_set = Production.objects.filter(
+    # Other productions should have at least one event
+    other_production_set = Production.objects.annotate(num_events=models.Count("event")).filter(
         models.Q(in_program_of__in=locations) | models.Q(play_locations__in=locations),
+        num_events__gt=0,
         show_among_others=True,
         status="published",
     ).exclude(start_date__lt=timestamp.date()).order_by('start_date', 'start_time').distinct()
@@ -45,7 +47,9 @@ def other_productions(context, current_event=False, current_location=False, amou
 def festival_productions(context, current_festival=False, amount=24):
     from berlinbuehnen.apps.productions.models import Production
 
-    productions = Production.objects.filter(
+    # Festival productions should have at least one event
+    productions = Production.objects.annotate(num_events=models.Count("event")).filter(
+        num_events__gt=0,
         festivals=current_festival,
         status="published",
     ).order_by('start_date', 'start_time').distinct()

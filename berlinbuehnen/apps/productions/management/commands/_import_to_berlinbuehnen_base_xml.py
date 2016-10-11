@@ -5,6 +5,7 @@ from datetime import timedelta
 from dateutil.parser import parse as parse_datetime
 import os
 from urllib import url2pathname
+from optparse import make_option
 
 from django.core.management.base import NoArgsCommand
 from django.utils.encoding import force_unicode
@@ -81,9 +82,15 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand):
     event_ids_to_keep = set()
     service = None
 
+    option_list = NoArgsCommand.option_list + (
+        make_option('--skip_images', action='store_true', help='Skips image downloads'),
+        make_option('--update_images', action='store_true', help='Forces image-download updates'),
+    )
+
     def handle_noargs(self, *args, **options):
         self.verbosity = int(options.get("verbosity", NORMAL))
         self.skip_images = options.get('skip_images')
+        self.update_images = options.get('update_images')
         self.define_service()
         self.import_productions()
 
@@ -425,7 +432,8 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand):
                         mf = image_mapper.content_object
                         if mf:
                             image_ids_to_keep.append(mf.pk)
-                        continue
+                        if not self.update_images:
+                            continue
 
                     filename = image_url.split("/")[-1]
                     image_response = requests.get(image_url)
@@ -864,7 +872,8 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand):
                             mf = image_mapper.content_object
                             if mf:
                                 image_ids_to_keep.append(mf.pk)
-                            continue
+                            if not self.update_images:
+                                continue
     
                         filename = image_url.split("/")[-1]
                         image_response = requests.get(image_url)

@@ -17,7 +17,7 @@
             <ul class="slider-body row">
                 {% for prod in other_productions %}
                     {% with event=prod.get_nearest_occurrence %}
-                        {% with im=event.ev_or_prod_images.0 %}
+                        {% with im=event.first_image %}
                             <li class="col-xs-12 col-md-6 slider-item">
                                 <a href="{{ event.get_url_path }}">
                                     {% if im %}
