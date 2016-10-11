@@ -69,13 +69,13 @@
         }
 
         &.form {
-            line-height: 1.6em;
-            font-size: 24px;
+            line-height: 1.6rem;
+            font-size: 1.6rem;
             display: inline-block;
             &:before, &:after {
                 width: 1.2em;
                 height: 1.2em;
-                font-size: 1em;
+                font-size: 1.6rem;
                 line-height: 1.25em;
                 color: $white;
                 border: 1px solid black;

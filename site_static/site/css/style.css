@@ -93,15 +93,15 @@
 }
 
 .fawesome.button.form, .fawesome.btn.form {
-  line-height: 1.6em;
-  font-size: 24px;
+  line-height: 1.6rem;
+  font-size: 1.6rem;
   display: inline-block;
 }
 
 .fawesome.button.form:before, .fawesome.button.form:after, .fawesome.btn.form:before, .fawesome.btn.form:after {
   width: 1.2em;
   height: 1.2em;
-  font-size: 1em;
+  font-size: 1.6rem;
   line-height: 1.25em;
   color: #fff;
   border: 1px solid black;
@@ -3004,6 +3004,7 @@ input:focus {
 
 .input-field input[type="text"], .input-field input[type="password"], .input-field input[type="email"], .input-field input[type="url"], .input-field input[type="search"], .input-field input[type="tel"], .input-field input[type="number"], .input-field input[type="range"], .input-field input[type="color"] {
   width: 100%;
+  height: 3.5rem;
   font-family: "Lato", "sans-serif";
   font-weight: 400;
   font-size: 1.2rem;
@@ -3012,19 +3013,20 @@ input:focus {
   color: #000;
   border: 1px solid #979797;
   border-radius: 4px;
-  padding: 0 1em;
+  padding: 0 1rem;
   margin: 0;
   box-sizing: border-box;
 }
 
 .is-xs .input-field input[type="text"], .is-xs .input-field input[type="password"], .is-xs .input-field input[type="email"], .is-xs .input-field input[type="url"], .is-xs .input-field input[type="search"], .is-xs .input-field input[type="tel"], .is-xs .input-field input[type="number"], .is-xs .input-field input[type="range"], .is-xs .input-field input[type="color"] {
-  font-size: 1.07em;
+  height: 3rem;
+  font-size: 1.07rem;
   line-height: 260%;
 }
 
 #filter_form .input-field input[type="text"], #filter_form .input-field input[type="password"], #filter_form .input-field input[type="email"], #filter_form .input-field input[type="url"], #filter_form .input-field input[type="search"], #filter_form .input-field input[type="tel"], #filter_form .input-field input[type="number"], #filter_form .input-field input[type="range"], #filter_form .input-field input[type="color"] {
   border-radius: 0;
-  font-size: 1.07em;
+  font-size: 1.07rem;
   line-height: 200%;
 }
 
@@ -3935,6 +3937,7 @@ input:focus {
   display: block;
   width: 100%;
   position: relative;
+  cursor: pointer;
 }
 
 .input-field .select-display-wrapper:after {
@@ -3950,7 +3953,7 @@ input:focus {
   margin: 0px;
   vertical-align: bottom;
   font-weight: 400;
-  font-size: 2.4em;
+  font-size: 2.4rem;
   content: "\f0d7";
   cursor: pointer;
   color: #777777;
@@ -3961,7 +3964,7 @@ input:focus {
 
 .is-xs .input-field .select-display-wrapper:after {
   padding: 7px 12px 0 0;
-  font-size: 2em;
+  font-size: 2rem;
 }
 
 #sorting_form .input-field .select-display-wrapper input {
@@ -3970,7 +3973,7 @@ input:focus {
 
 #sorting_form .input-field .select-display-wrapper:after {
   display: inline-block;
-  font-size: 1.8em;
+  font-size: 1.8rem;
   content: "\f107";
   padding: 5px 10px 0 0;
 }
@@ -6026,7 +6029,7 @@ ul.info-box li.accordion-inside:before {
   right: inherit;
   left: 0;
   content: "\f05a";
-  font-size: 1.24em;
+  font-size: 1.24rem;
   padding: 12px 20px;
 }
 
@@ -6374,16 +6377,16 @@ ul.info-box li ul.content .line + * a:hover, ul.info-box li ul.content .line + *
 }
 
 .row.job-list > div .button-group .button:before {
-  font-size: 2em;
+  font-size: 2rem;
   line-height: 100%;
 }
 
 .is-sm .row.job-list > div .button-group .button:before {
-  font-size: 1.67em;
+  font-size: 1.67rem;
 }
 
 .is-xs .row.job-list > div .button-group .button:before {
-  font-size: 1.67em;
+  font-size: 1.67rem;
 }
 
 .row.job-list > div .button-group .button.active {
@@ -6740,16 +6743,16 @@ ul.info-box li ul.content .line + * a:hover, ul.info-box li ul.content .line + *
 }
 
 .row.article-list > div .button-group .button:before {
-  font-size: 2em;
+  font-size: 2rem;
   line-height: 100%;
 }
 
 .is-sm .row.article-list > div .button-group .button:before {
-  font-size: 1.67em;
+  font-size: 1.67rem;
 }
 
 .is-xs .row.article-list > div .button-group .button:before {
-  font-size: 1.67em;
+  font-size: 1.67rem;
 }
 
 .row.article-list > div .button-group .button.active {
@@ -8133,7 +8136,7 @@ img[data-popup-image-src] {
 }
 
 .header-search > div.fawesome {
-  line-height: 1.73em;
+  line-height: 1.73rem;
   cursor: pointer;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -8144,15 +8147,15 @@ img[data-popup-image-src] {
 }
 
 .is-xs .header-search > div.fawesome {
-  line-height: 1.33em;
+  line-height: 1.33rem;
 }
 
 .header-search > div.fawesome:before {
-  font-size: 1.73em;
+  font-size: 1.73rem;
 }
 
 .is-xs .header-search > div.fawesome:before {
-  font-size: 1.33em;
+  font-size: 1.33rem;
 }
 
 .header-search > div.fawesome .text {
@@ -8162,7 +8165,7 @@ img[data-popup-image-src] {
 
 .header-search > div.result {
   float: right;
-  font-size: 1.73em;
+  font-size: 1.73rem;
   line-height: 100%;
   vertical-align: middle;
   font-weight: 900;
@@ -8171,7 +8174,7 @@ img[data-popup-image-src] {
 }
 
 .is-xs .header-search > div.result {
-  font-size: 1.33em;
+  font-size: 1.33rem;
   top: 3px;
 }
 
@@ -8204,7 +8207,7 @@ img[data-popup-image-src] {
 }
 
 .is-xs .header-search > div.button-group .button {
-  line-height: 1.33em;
+  line-height: 1.33rem;
   margin: 0 0 0 15px;
 }
 
@@ -8213,12 +8216,12 @@ img[data-popup-image-src] {
 }
 
 .header-search > div.button-group .button:before {
-  font-size: 1.73em;
+  font-size: 1.73rem;
   line-height: 100%;
 }
 
 .is-xs .header-search > div.button-group .button:before {
-  font-size: 1.33em;
+  font-size: 1.33rem;
 }
 
 #search-layer .wrapper {
@@ -8242,9 +8245,11 @@ img[data-popup-image-src] {
   font-size: 2em;
   line-height: 240%;
   width: 580px;
+  height: 5rem;
   padding: 0 15px;
   text-align: center;
   border: 0;
+  margin-right: 20px;
 }
 
 .is-xs #search-layer input {
@@ -8252,6 +8257,8 @@ img[data-popup-image-src] {
   float: none;
   width: 100%;
   font-size: 1.27em;
+  margin-right: 0;
+  height: 3rem;
 }
 
 #search-layer input:focus {
