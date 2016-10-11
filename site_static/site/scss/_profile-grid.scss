@@ -1,3 +1,5 @@
+// main:style.scss
+
 @charset "UTF-8";
 
 #body {
@@ -14,23 +16,23 @@
 }
 
 .row.profile-grid {
-    
+
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-        
+
     margin-bottom: 60px;
-    
+
     .is-xs & {
         margin-bottom: 30px;
     }
-    
+
     > div {
         padding-bottom: 20px;
-        
+
         a.content {
             display: block;
             background: $grey-dark;
@@ -85,7 +87,7 @@
                 }
             }
         }
-        
+
         .button-group {
             position: absolute;
             top: 10px;
@@ -95,17 +97,17 @@
                 background: none;
                 border-radius: 0;
                 color: $grey-light;
-                font-size: 1em;
+                font-size: 1rem;
                 margin-left: 20px;
                 margin-right: 0;
                 margin-bottom: 0;
                 width: auto;
                 display: none;
-                
+
                 .is-xs & {
                     display: inline-block;
                 }
-                
+
                 &:hover, &:focus {
                     color: $white;
                 }
@@ -120,7 +122,7 @@
                 }
             }
         }
-            
+
         .wrapper:hover {
             .button-group {
                 .button {
@@ -129,7 +131,7 @@
             }
         }
     }
-    
+
     .is-sm &, .is-md & {
         > div {
             a.content {
@@ -154,7 +156,7 @@
             }
         }
     }
-    
+
     .list &.profile-list {
         > div {
             width: 100%;
@@ -223,7 +225,7 @@
                                     content: none;
                                 }
                             }
-                            
+
                             .feature {
                                 display: inline;
                                 font-weight: $font-light;
@@ -234,14 +236,14 @@
                                 }
                             }
                         }
-                        
+
                         .is-sm & {
                             font-size: 1em;
                         }
                     }
                 }
             }
-            
+
             .button-group {
                 .button {
                     font-size: inherit;
@@ -255,7 +257,7 @@
             }
         }
     }
-    
+
     .is-sm.list &.profile-list {
         > div {
             a.content {
@@ -276,24 +278,24 @@
                     }
                 }
             }
-            
+
             .button-group {
                 top: 5px;
                 .button {
                     font-size: inherit;
                     margin-left: 15px;
                     &:before {
-                        font-size: 1.67em;
+                        font-size: 1.67rem;
                     }
                 }
             }
         }
     }
-    
+
     .is-xs &, .is-xs.list &.profile-list {
         > div {
             padding-bottom: 0px;
-            
+
             a.content {
                 width: 100%;
                 display: block;
@@ -301,7 +303,7 @@
                 overflow: hidden;
                 border-bottom: 1px solid $grey;
                 padding-top: 20px;
-                
+
                 &:hover {
                     background: $white;
                 }
@@ -340,7 +342,7 @@
                     }
                 }
             }
-            
+
             .button-group {
                 top: inherit;
                 right: inherit;
@@ -352,13 +354,13 @@
                         color: $black;
                     }
                     &:before {
-                        font-size: 1.67em;
+                        font-size: 1.67rem;
                     }
                 }
             }
         }
     }
-    
+
     .is-xs &.profile-list, .is-xs.list &.profile-list {
         > div {
             a.content {
@@ -385,69 +387,69 @@
             }
         }
     }
-    
+
     &.profile-list.dashboard {
-    
+
         > div {
             a.content {
-                
+
                 .is-xs & {
                     padding-bottom: 15px;
                 }
-                
+
                 .text, .name {
-        
+
                     h3 {
                         color: $grey;
                         padding: 9px 5px 9px 0;
                         text-transform: uppercase;
                         font-weight: $font-regular;
-                        
+
                         .is-xs & {
                             margin-bottom: 10px;
                         }
                     }
-                    
+
                     .dashboard-details {
-                        
+
                         h3 {
                             color: $black;
                             padding: 0 5px 9px 0;
                             text-transform: none;
                             font-weight: $font-bold;
-                            
+
                             .is-xs & {
                                 padding-bottom: 0;
                                 margin-bottom: 5px;
                             }
                         }
-                        
+
                         .event-times {
                             margin: 5px 0;
-                            
+
                             .is-xs & {
                                 margin-top: 0;
                             }
                             .event-time {
                                 color: $black;
                                 font-size: 1.2em;
-                                
+
                                 .is-xs & {
                                     font-size: 1em;
                                 }
                             }
                         }
                     }
-                    
+
                 }
-                
+
                 .dashboard-time {
                     color: $grey;
                     font-size: 1em;
                     position: absolute;
                     top: 15px;
                     right: 5px;
-                    
+
                     .is-xs & {
                         top: inherit;
                         bottom: 0;
