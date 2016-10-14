@@ -97,15 +97,15 @@
                     .fawesome {
                         color: $grey;
                         padding-bottom: 15px;
-                        line-height: 3.07em;
+                        line-height: 3.07rem;
                         &:before {
-                            font-size: 3.07em;
+                            font-size: 3.07rem;
                         }
 
                         .is-xs &, .is-sm & {
-                            line-height: 2.7em;
+                            line-height: 2.7rem;
                             &:before {
-                                font-size: 2.7em;
+                                font-size: 2.7rem;
                             }
                         }
                     }

@@ -267,10 +267,10 @@
 
                 .is-xs & {
                     &:active {
-                            &:before {
-                                background: $grey-dark;
-                            }
-                            &:after {
+                        &:before {
+                            background: $grey-dark;
+                        }
+                        &:after {
                             content: "";
                             position: absolute;
                             top: -0.64rem;
@@ -290,7 +290,7 @@
                     color: $grey-dark !important;
 
                     &:after {
-                        font-size: 2em;
+                        font-size: 2.4rem;
                         content: "\f057";
                         color: $cyan !important;
                         position: absolute;
@@ -298,8 +298,13 @@
                         right: 8px;
                         opacity: 0.3;
 
+                        .is-sm &, .is-md & {
+                            top: 5px;
+                            font-size: 2rem;
+                        }
+
                         .is-xs & {
-                            font-size: 1.73em;
+                            font-size: 1.73rem;
                             content: none;
                         }
                     }
@@ -605,20 +610,20 @@
 
     .button-group.top-right &.button, .button-group.bottom-right &.button, .button-group.top-right &.btn, .button-group.bottom-right &.btn {
 
-        line-height: 1.8em;
+        line-height: 1.8rem;
         margin-right: 1.5em;
 
         &:before, &:after {
-            font-size: 1.8em;
+            font-size: 1.8rem;
         }
 
         .is-xs & {
 
-            line-height: 1.27em;
+            line-height: 1.27rem;
             margin-right: 0.5em;
 
             &:before, &:after {
-                font-size: 1.27em;
+                font-size: 1.27rem;
             }
         }
     }

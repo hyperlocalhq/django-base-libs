@@ -306,7 +306,7 @@
 }
 
 .fawesome.button.text.switch.on:after, .fawesome.button.text.switch.active:after, .fawesome.btn.text.switch.on:after, .fawesome.btn.text.switch.active:after {
-  font-size: 2em;
+  font-size: 2.4rem;
   content: "\f057";
   color: #00cdff !important;
   position: absolute;
@@ -315,8 +315,13 @@
   opacity: 0.3;
 }
 
+.is-sm .fawesome.button.text.switch.on:after, .is-md .fawesome.button.text.switch.on:after, .is-sm .fawesome.button.text.switch.active:after, .is-md .fawesome.button.text.switch.active:after, .is-sm .fawesome.btn.text.switch.on:after, .is-md .fawesome.btn.text.switch.on:after, .is-sm .fawesome.btn.text.switch.active:after, .is-md .fawesome.btn.text.switch.active:after {
+  top: 5px;
+  font-size: 2rem;
+}
+
 .is-xs .fawesome.button.text.switch.on:after, .is-xs .fawesome.button.text.switch.active:after, .is-xs .fawesome.btn.text.switch.on:after, .is-xs .fawesome.btn.text.switch.active:after {
-  font-size: 1.73em;
+  font-size: 1.73rem;
   content: none;
 }
 
@@ -638,21 +643,21 @@
 }
 
 .button-group.top-right .fawesome.button, .button-group.bottom-right .fawesome.button, .button-group.top-right .fawesome.btn, .button-group.bottom-right .fawesome.btn {
-  line-height: 1.8em;
+  line-height: 1.8rem;
   margin-right: 1.5em;
 }
 
 .button-group.top-right .fawesome.button:before, .button-group.top-right .fawesome.button:after, .button-group.bottom-right .fawesome.button:before, .button-group.bottom-right .fawesome.button:after, .button-group.top-right .fawesome.btn:before, .button-group.top-right .fawesome.btn:after, .button-group.bottom-right .fawesome.btn:before, .button-group.bottom-right .fawesome.btn:after {
-  font-size: 1.8em;
+  font-size: 1.8rem;
 }
 
 .is-xs .button-group.top-right .fawesome.button, .is-xs .button-group.bottom-right .fawesome.button, .is-xs .button-group.top-right .fawesome.btn, .is-xs .button-group.bottom-right .fawesome.btn {
-  line-height: 1.27em;
+  line-height: 1.27rem;
   margin-right: 0.5em;
 }
 
 .is-xs .button-group.top-right .fawesome.button:before, .is-xs .button-group.top-right .fawesome.button:after, .is-xs .button-group.bottom-right .fawesome.button:before, .is-xs .button-group.bottom-right .fawesome.button:after, .is-xs .button-group.top-right .fawesome.btn:before, .is-xs .button-group.top-right .fawesome.btn:after, .is-xs .button-group.bottom-right .fawesome.btn:before, .is-xs .button-group.bottom-right .fawesome.btn:after {
-  font-size: 1.27em;
+  font-size: 1.27rem;
 }
 
 .button-group .fawesome.button, .button-group .fawesome.btn {
@@ -1771,10 +1776,6 @@ blockquote:before {
   position: absolute;
   top: 0.56em;
   left: 0;
-}
-
-.is-xs blockquote:before {
-  font-size: 2.2em;
 }
 
 blockquote p, blockquote p.intro, blockquote p.interview, blockquote h2, blockquote h4, blockquote h5 {
@@ -4945,7 +4946,7 @@ dd.autocomplete .input-field.ac_loading:after {
 }
 
 .list .row.profile-grid.profile-list > div .button-group .button:before {
-  font-size: 2em;
+  font-size: 2rem;
 }
 
 .is-sm.list .row.profile-grid.profile-list > div a.content .text h2, .is-sm.list .row.profile-grid.profile-list > div a.content .name h2 {
@@ -5490,19 +5491,19 @@ div.edit-avatar.editable:hover a.edit-image-link {
 .row.projects-grid > div .wrapper a.content .upload-project .fawesome {
   color: #979797;
   padding-bottom: 15px;
-  line-height: 3.07em;
+  line-height: 3.07rem;
 }
 
 .row.projects-grid > div .wrapper a.content .upload-project .fawesome:before {
-  font-size: 3.07em;
+  font-size: 3.07rem;
 }
 
 .is-xs .row.projects-grid > div .wrapper a.content .upload-project .fawesome, .is-sm .row.projects-grid > div .wrapper a.content .upload-project .fawesome {
-  line-height: 2.7em;
+  line-height: 2.7rem;
 }
 
 .is-xs .row.projects-grid > div .wrapper a.content .upload-project .fawesome:before, .is-sm .row.projects-grid > div .wrapper a.content .upload-project .fawesome:before {
-  font-size: 2.7em;
+  font-size: 2.7rem;
 }
 
 .row.projects-grid > div .wrapper a.content .upload-project h3 {
@@ -7430,7 +7431,7 @@ ul.info-box li ul.content .line + * a:hover, ul.info-box li ul.content .line + *
 }
 
 .row.magazine-grid > div a.content h2:before {
-  font-size: 1.2em;
+  font-size: 1.5rem;
   position: absolute;
   top: 0;
   left: -35px;
@@ -8826,7 +8827,7 @@ img[data-popup-image-src] {
 
 .header .info .toggle:before {
   content: "\f078";
-  font-size: 1.87em;
+  font-size: 1.87rem;
   line-height: 52px;
 }
 
@@ -8840,7 +8841,7 @@ img[data-popup-image-src] {
 }
 
 .is-xs .header .info .toggle:before {
-  font-size: 1.6em;
+  font-size: 1.6rem;
   line-height: 38px;
 }
 
