@@ -201,7 +201,6 @@ class BasicInfoForm(autocomplete_light.ModelForm):
         initial='',
         choices=PAUSES_CHOICES,
     )
-
     class Meta:
         model = Event
         autocomplete_fields = ('play_locations', 'play_stages',)
@@ -242,6 +241,13 @@ class BasicInfoForm(autocomplete_light.ModelForm):
 
         self.fields['characteristics'].widget = forms.CheckboxSelectMultiple()
         self.fields['characteristics'].help_text = u""
+
+        in_program_of = self.instance.production.in_program_of.all()
+        self.fields['in_program_of'] = forms.CharField(
+            required=False,
+            widget=forms.HiddenInput(),
+            initial=",".join(["%d" % location_id for location_id in in_program_of.values_list("id", flat=True)]),
+        )
 
         self.fields['play_locations'].label += ' (' + ugettext('or') + ' <a href="" class="enter_location">' + ugettext('enter a new location below') + '</a>)'
 
@@ -301,6 +307,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
             _("Location"),
             layout.Row(
                 layout.Div(
+                    "in_program_of",
                     "play_locations",
                     "play_stages",
                     "organizers",
