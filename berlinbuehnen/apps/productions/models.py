@@ -291,7 +291,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
             now = tz_now()
             if self.status != "expired" and ((event.end_date is None and event.start_date < now.date()) or (event.end_date is not None and event.end_date < now.date())):
                 make_expired = True
-        else:
+        elif self.status == "published":
             make_expired = True
         if make_expired:
             Production.objects.filter(pk=self.pk).update(
