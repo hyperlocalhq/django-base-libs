@@ -282,6 +282,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
 
     def update_actual_date_and_time(self):
         event = self.get_nearest_occurrence()
+        make_expired = False
         if event:
             Production.objects.filter(pk=self.pk).update(
                 start_date=event.start_date,
@@ -289,9 +290,13 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
             )
             now = tz_now()
             if self.status != "expired" and ((event.end_date is None and event.start_date < now.date()) or (event.end_date is not None and event.end_date < now.date())):
-                Production.objects.filter(pk=self.pk).update(
-                    status="expired",
-                )
+                make_expired = True
+        else:
+            make_expired = True
+        if make_expired:
+            Production.objects.filter(pk=self.pk).update(
+                status="expired",
+            )
     update_actual_date_and_time.alters_data = True
 
     def get_nearest_occurrence(self, timestamp=tz_now):
