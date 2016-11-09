@@ -26,8 +26,8 @@
             </tr>
           </thead>
           <tbody>
-            {% if production.event_set.count %}
-            {% for event in production.event_set.all %}
+            {% if events.count %}
+            {% for event in events %}
             <tr>
               <td class="item">
                 <a href="{% url "change_event_basic_info" slug=production.slug event_id=event.pk %}"> <b>{{ event.start_date|date:"j. F Y" }}, {{ event.start_time|time:"H:i" }}</b> </a>

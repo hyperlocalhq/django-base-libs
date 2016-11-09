@@ -302,7 +302,10 @@ def events_overview(request, slug):
     if not production.is_editable():
         return access_denied(request)
 
-    return render(request, "productions/events/overview.html", {'production': production})
+    return render(request, "productions/events/overview.html", {
+        'production': production,
+        'events': production.event_set.order_by("-start_date", "-start_time"),
+    })
 
 
 @never_cache

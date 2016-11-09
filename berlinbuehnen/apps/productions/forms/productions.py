@@ -1492,7 +1492,11 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
 
 def set_extra_context(current_step, form_steps, form_step_data, instance=None):
     if "_pk" in form_step_data:
-        return {'production': Production.objects.get(pk=form_step_data['_pk'])}
+        production = Production.objects.get(pk=form_step_data['_pk'])
+        return {
+            'production': production,
+            'events': production.event_set.order_by("-start_date", "-start_time"),
+        }
     return {}
 
 

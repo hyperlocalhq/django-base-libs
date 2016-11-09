@@ -354,9 +354,10 @@ class EventSponsorInline(ExtendedStackedInline):
 
 
 class EventAdmin(ExtendedModelAdmin):
-    list_display = ['title', 'start_date', 'start_time']
+    list_display = ['title', 'start_date', 'start_time', 'creation_date', 'modified_date']
     search_fields = ['production__title']
     date_hierarchy = 'start_date'
+    ordering = ('-creation_date', )
 
     fieldsets = [(_("Main Data"), {'fields': ('production', 'start_date', 'start_time', 'end_date', 'end_time', 'duration', 'pauses')}),]
     fieldsets += [(_("Location"), {'fields': ['play_locations', 'play_stages', 'organizers']}),]
