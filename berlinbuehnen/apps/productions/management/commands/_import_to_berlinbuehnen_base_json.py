@@ -250,6 +250,8 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
 
             prod.categories.clear()
             for category_id in prod_dict.get('categories', {}).values():
+                if isinstance(category_id, dict):  # Exception for Gorki Theater: category_id is a dictionary with 'category_id' key
+                    category_id = category_id['category_id']
                 try:
                     cat = ProductionCategory.objects.get(pk=category_id)
                 except ProductionCategory.DoesNotExist:
