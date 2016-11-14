@@ -444,7 +444,7 @@ $(document).ready(function() {
             if (value && !value.match(/^https?:\/\//)) {
                 me.$main.val('http://' + value);
             }
-        })
+        });
 
         me.$main.data('URLField', me);
     }
