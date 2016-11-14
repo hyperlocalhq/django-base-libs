@@ -809,6 +809,12 @@ class ComplexEventBase(EventBase, OpeningHoursMixin):
         for url in self.get_urls():
             search_data.append(url["link"])
         search_data.append(self.tags)
+        if self.organizing_institution:
+            search_data.append(force_unicode(self.organizing_institution))
+        if self.venue:
+            search_data.append(force_unicode(self.venue))
+        if self.organizing_person:
+            search_data.append(force_unicode(self.organizing_person))
         return search_data
 
 

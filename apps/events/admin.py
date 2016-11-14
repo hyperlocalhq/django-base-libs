@@ -233,7 +233,7 @@ class EventAdmin(ExtendedModelAdmin):
                     'status', 'is_featured', 'importance', 'creation_date']
     list_editable = ['status', 'is_featured', 'importance']
     list_filter = ('creation_date', 'event_type', 'status', 'is_featured')
-    search_fields = ['title', 'venue__title', 'venue_title']
+    search_fields = ['title', 'venue__title', 'venue_title', 'organizing_institution__title']
     ordering = ('-creation_date',)
     actions = ["publish"]
 
