@@ -53,7 +53,7 @@ PREFIX_JS = 'JS_'  # Job Sector
 # Collect translatable strings
 _("Not listed? Enter manually")
 _("Back to selection")
-_('Is some category missing? You can <a href="/ticket/new-category/">suggest it here</a>.')
+_('Is some category missing? You can <a href="/ticket/new-category/" target="_blank">suggest it here</a>.')
 _("Please activate the checkboxes if you want to send your jobposting to one of our partners.")
 
 
