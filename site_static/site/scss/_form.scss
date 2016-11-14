@@ -133,6 +133,7 @@ input {
 
     input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="number"], input[type="range"], input[type="color"] {
         width: 100%;
+        height: 3.5rem;
         font-family: $font-2, $font-family-1;
         font-weight: $font-regular;
         font-size: 1.2rem;
@@ -141,18 +142,19 @@ input {
         color: $black;
         border: 1px solid $grey;
         border-radius: 4px;
-        padding: 0 1em;
+        padding: 0 1rem;
         margin: 0;
         box-sizing: border-box;
 
         .is-xs & {
-            font-size: 1.07em;
+            height: 3rem;
+            font-size: 1.07rem;
             line-height: 260%;
         }
 
         #filter_form & {
             border-radius: 0;
-            font-size: 1.07em;
+            font-size: 1.07rem;
             line-height: 200%;
         }
 
@@ -1163,6 +1165,7 @@ input {
         display: block;
         width: 100%;
         position: relative;
+        cursor: pointer;
 
         &:after {
             position: absolute;
@@ -1177,7 +1180,7 @@ input {
             margin: 0px;
             vertical-align: bottom;
             font-weight: 400;
-            font-size: 2.4em;
+            font-size: 2.4rem;
             content: "\f0d7";
             cursor: pointer;
             color: $grey-darker;
@@ -1187,7 +1190,7 @@ input {
 
             .is-xs & {
                 padding: 7px 12px 0 0;
-                font-size: 2em;
+                font-size: 2rem;
             }
         }
 
@@ -1199,7 +1202,7 @@ input {
 
             &:after {
                 display: inline-block;
-                font-size: 1.8em;
+                font-size: 1.8rem;
                 content: "\f107";
                 padding: 5px 10px 0 0;
             }

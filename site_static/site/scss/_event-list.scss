@@ -1,3 +1,5 @@
+// main:style.scss
+
 @charset "UTF-8";
 
 
@@ -17,16 +19,16 @@
 
 
 .row.event-list {
-    
+
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    
+
     h2.date {
-        
+
         font-family: $font-1, $font-family-1;
         font-weight: $font-black;
         font-size: 2em;
@@ -34,22 +36,22 @@
         color: $black;
         padding: 20px 10px 10px;
         margin: 0;
-        
+
         &:first-child {
             padding-top: 0;
         }
-        
+
         .is-sm & {
             font-size: 1.9em;
         }
-        
+
         .is-xs & {
             font-size: 1.8em;
         }
     }
-    
+
     > div {
-        
+
         a.content {
             display: block;
             background: $white;
@@ -58,32 +60,32 @@
             padding-top: 20px;
             padding-bottom: 20px;
             position: relative;
-            
+
             &:hover, &:focus {
                 background: $white-dirty;
                 .is-xs & {
                     background: transparent;
                 }
             }
-            
+
             img {
                 width: 100px;
                 float: left;
                 margin-bottom: 0px;
-                
+
                 .is-xs & {
                     width: 80px;
                 }
             }
-            
+
             .text {
                 margin-left: 120px;
                 margin-bottom: 0px;
-                
+
                 .is-xs & {
                     margin-left: 100px;
                 }
-            
+
                 h2 {
                     font-family: $font-1, $font-family-1;
                     font-weight: $font-black;
@@ -92,17 +94,17 @@
                     color: $black;
                     padding: 0 20px 5px 0;
                     margin: 0;
-                    
+
                     .is-sm & {
                         font-size: 1.4em;
                     }
-                    
+
                     .is-xs & {
                         font-size: 1.27em;
                         padding: 0 0 5px;
                     }
                 }
-                
+
                 h3 {
                     font-family: $font-2, $font-family-1;
                     font-weight: $font-bold;
@@ -112,12 +114,12 @@
                     text-transform: uppercase;
                     padding: 0 165px 20px 0px;
                     margin: -5px 0 0 0;
-                    
+
                     .is-sm & {
                         font-size: 1em;
                         padding: 0 135px 15px 0px;
                     }
-                    
+
                     .is-xs & {
                         font-size: 0.73em;
                         padding: 0 0 20px 0;
@@ -125,18 +127,18 @@
                         margin-top: -2px;
                     }
                 }
-                
+
                 p {
                     font-size: 1.2em;
                     line-height: 140%;
                     padding: 0 20px 0px 0;
                     margin: 0;
                     color: $black;
-                    
+
                     .is-sm & {
                         font-size: 1em;
                     }
-                    
+
                     .is-xs & {
                         font-size: 1.07em;
                         padding: 0 0 40px;
@@ -145,7 +147,7 @@
                 }
             }
         }
-            
+
         a.website {
             font-size: 1.2em;
             line-height: 140%;
@@ -156,27 +158,27 @@
             left: 100px;
             word-break: break-word;
             word-wrap: break-word;
-            
+
             .is-sm & {
                 font-size: 1.07em;
             }
-            
+
             .is-xs & {
                 font-size: 1.07em;
                 margin-left: 0;
                 margin-right: 0;
             }
         }
-        
+
         .button-group {
             position: absolute;
             top: 9px;
             right: 20px;
-            
+
             .is-sm & {
-                top: 5px;    
+                top: 5px;
             }
-            
+
             .is-xs & {
                 position: absolute;
                 top: inherit;
@@ -184,40 +186,40 @@
                 left: 100px;
                 bottom: 20px;
             }
-            
+
             .button {
                 padding: 0;
                 background: none;
                 border-radius: 0;
                 color: $grey-light;
                 font-size: inherit;
-                display: none; 
+                display: none;
                 margin-left: 20px;
                 margin-right: 0;
                 margin-bottom: 0;
                 width: auto;
-                
+
                 .is-sm & {
                     margin-left: 15px;
                 }
-                
+
                 .is-xs & {
                     display: inline-block;
                 }
-                
+
                 &:hover, &:focus {
                     color: $black;
                 }
                 &:before {
-                    font-size: 2em;
+                    font-size: 2rem;
                     line-height: 100%;
-                    
+
                     .is-sm & {
-                        font-size: 1.67em;
+                        font-size: 1.67rem;
                     }
-                    
+
                     .is-xs & {
-                        font-size: 1.67em;
+                        font-size: 1.67rem;
                     }
                 }
                 &.active {
@@ -228,7 +230,7 @@
                 }
             }
         }
-            
+
         .wrapper {
             position: relative;
             &:hover {
