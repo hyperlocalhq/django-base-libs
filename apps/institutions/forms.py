@@ -383,12 +383,13 @@ class MainDataForm(dynamicforms.Form):
                     layout.Field(
                         "url0_type",
                         wrapper_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-                        template = "ccb_form/multifield.html"
+                        template="ccb_form/multifield.html",
                     ),
                     layout.Field(
                         "url0_link",
                         wrapper_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-                        template = "ccb_form/multifield.html"
+                        template="ccb_form/multifield.html",
+                        placeholder="http://",
                     ),
                 ),
                 layout.MultiField(
@@ -396,12 +397,13 @@ class MainDataForm(dynamicforms.Form):
                     layout.Field(
                         "url1_type",
                         wrapper_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-                        template = "ccb_form/multifield.html"
+                        template="ccb_form/multifield.html",
                     ),
                     layout.Field(
                         "url1_link",
                         wrapper_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-                        template = "ccb_form/multifield.html"
+                        template="ccb_form/multifield.html",
+                        placeholder="http://",
                     ),
                 ),
                 layout.MultiField(
@@ -409,12 +411,13 @@ class MainDataForm(dynamicforms.Form):
                     layout.Field(
                         "url2_type",
                         wrapper_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-                        template = "ccb_form/multifield.html"
+                        template="ccb_form/multifield.html",
                     ),
                     layout.Field(
                         "url2_link",
                         wrapper_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-                        template = "ccb_form/multifield.html"
+                        template="ccb_form/multifield.html",
+                        placeholder="http://",
                     ),
                 ),
             ),
@@ -1402,11 +1405,6 @@ ADD_INSTITUTION_FORM_STEPS = {
         'title': _("main data"),
         'template': "institutions/add_institution_main_data.html",
         'form': MainDataForm,
-        'initial_data': {
-            'url0_link': 'http://',
-            'url1_link': 'http://',
-            'url2_link': 'http://',
-        },
     },
     1: {
         'title': _("profile data"),

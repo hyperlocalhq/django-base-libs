@@ -197,7 +197,7 @@ class BulletinForm(forms.ModelForm):
                 layout.Field("title"),
                 layout.Field("description"),
                 layout.Field("bulletin_type"),
-                layout.Field("external_url"),
+                layout.Field("external_url", placeholder="http://"),
             ),
             layout.Fieldset(
                 _("Categories"),

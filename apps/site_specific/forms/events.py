@@ -640,7 +640,8 @@ class ContactForm(dynamicforms.Form):
                     layout.Field(
                         "url0_link",
                         wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
+                        template="ccb_form/multifield.html",
+                        placeholder="http://",
                     ),
                 ),
                 layout.MultiField(
@@ -653,7 +654,8 @@ class ContactForm(dynamicforms.Form):
                     layout.Field(
                         "url1_link",
                         wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
+                        template="ccb_form/multifield.html",
+                        placeholder="http://",
                     ),
                 ),
                 layout.MultiField(
@@ -666,7 +668,8 @@ class ContactForm(dynamicforms.Form):
                     layout.Field(
                         "url2_link",
                         wrapper_class="col-xs-6 col-sm-6 col-md-3 col-lg-3",
-                        template="ccb_form/multifield.html"
+                        template="ccb_form/multifield.html",
+                        placeholder="http://",
                     ),
                 ),
                 layout.HTML(

@@ -555,7 +555,7 @@ class ContactForm(dynamicforms.Form):
                     <dt class="institution-select"> </dt><dd class="institution-select"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-input" data-toggle-hide=".institution-select">{% trans "Not listed? Enter manually" %}</a></dd>
                 """),
                 layout.Field("institution_title", wrapper_class="institution-input hidden", css_class="toggle-check"),
-                layout.Field("institution_website", wrapper_class="institution-input hidden"),
+                layout.Field("institution_website", wrapper_class="institution-input hidden", placeholder="http://"),
                 layout.HTML("""{% load i18n %}
                     <dt class="institution-input hidden"> </dt><dd class="institution-input hidden"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-select" data-toggle-hide=".institution-input">{% trans "Back to selection" %}</a></dd>
                 """),
@@ -657,7 +657,8 @@ class ContactForm(dynamicforms.Form):
                     layout.Field(
                         "url0_link",
                         wrapper_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-                        template="ccb_form/multifield.html"
+                        template="ccb_form/multifield.html",
+                        placeholder="http://",
                     ),
                 ),
                 layout.MultiField(
@@ -670,7 +671,8 @@ class ContactForm(dynamicforms.Form):
                     layout.Field(
                         "url1_link",
                         wrapper_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-                        template="ccb_form/multifield.html"
+                        template="ccb_form/multifield.html",
+                        placeholder="http://",
                     ),
                 ),
                 layout.MultiField(
@@ -683,7 +685,8 @@ class ContactForm(dynamicforms.Form):
                     layout.Field(
                         "url2_link",
                         wrapper_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-                        template="ccb_form/multifield.html"
+                        template="ccb_form/multifield.html",
+                        placeholder="http://",
                     ),
                 ),
 

@@ -82,7 +82,16 @@ $(document).ready(function() {
             
             if (!dont) new InputFile($element); 
         });
-        
+
+        $('.input-field input[placeholder="http://"]', $scope).each(function() {
+
+            var $element = $(this);
+            var dont = $element.hasClass('dont-add-form-functionality');
+            if (!dont) dont = ($element.closest('.dont-add-form-functionality').length);
+
+            if (!dont) new URLField($element);
+        });
+
         $('.input-field select', $scope).each(function() {
             
             var $element = $(this);
@@ -424,6 +433,22 @@ $(document).ready(function() {
         me.$main.data('InputBox', me);
     }
     
+    function URLField($main) {
+
+        var me = this;
+        this.me = me;
+        me.$main = $main;
+
+        me.$main.on('change', function() {
+            var value = me.$main.val();
+            if (value && !value.match(/^https?:\/\//)) {
+                me.$main.val('http://' + value);
+            }
+        })
+
+        me.$main.data('URLField', me);
+    }
+
     InputBox.prototype.checkHeight = function() {
      
         var me = this.me;
