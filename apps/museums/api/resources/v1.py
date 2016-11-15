@@ -8,7 +8,7 @@ from tastypie import fields
 from tastypie.authentication import ApiKeyAuthentication
 from tastypie.authorization import ReadOnlyAuthorization
 from tastypie.serializers import Serializer
-from tastypie.cache import SimpleCache
+from tastypie.cache import NoCache
 
 from base_libs.utils.misc import get_website_url
 from base_libs.utils.misc import strip_html
@@ -25,7 +25,7 @@ class MuseumCategoryResource(ModelResource):
         authentication = ApiKeyAuthentication()
         authorization = ReadOnlyAuthorization()
         serializer = Serializer(formats=['json', 'xml'])
-        cache = SimpleCache(timeout=10)
+        cache = NoCache()
 
 class MuseumResource(ModelResource):
     categories = fields.ToManyField(MuseumCategoryResource, "categories", full=True)
@@ -55,7 +55,7 @@ class MuseumResource(ModelResource):
         authentication = ApiKeyAuthentication()
         authorization = ReadOnlyAuthorization()
         serializer = Serializer(formats=['json', 'xml'])
-        cache = SimpleCache(timeout=10)
+        cache = NoCache()
         
     def dehydrate(self, bundle):
         if bundle.obj.image:

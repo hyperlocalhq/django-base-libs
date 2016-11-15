@@ -644,6 +644,16 @@ CMS_CACHE_PREFIX = "cms-"
 CMS_SITE_CHOICES_CACHE_KEY = 'CMS:site_choices'
 CMS_PAGE_CHOICES_CACHE_KEY = 'CMS:page_choices'
 
+### CACHING ###
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+        'KEY_PREFIX': 'museumsportal',
+    },
+}
+
 ### FILEBROWSER ###
 
 execfile(os.path.join(JETSON_PATH, "jetson/settings/filebrowser.py"), globals(), locals())
