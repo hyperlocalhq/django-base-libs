@@ -250,7 +250,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
 
             prod.categories.clear()
             for category_id in prod_dict.get('categories', {}).values():
-                if isinstance(category_id, dict):  # Exception for Gorki Theater: category_id is a dictionary with 'category_id' key
+                if isinstance(category_id, dict):  # category_id might be either an id or a dictionary with 'category_id' key
                     category_id = category_id['category_id']
                 try:
                     cat = ProductionCategory.objects.get(pk=category_id)
@@ -262,6 +262,8 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
 
             prod.characteristics.clear()
             for ch_id in prod_dict.get('characteristics', {}).values():
+                if isinstance(ch_id, dict):  # ch_id might be either an id or a dictionary with 'characteristic_id' key
+                    ch_id = ch_id['characteristic_id']
                 try:
                     ch = ProductionCharacteristics.objects.get(slug=ch_id)
                 except ProductionCharacteristics.DoesNotExist:
