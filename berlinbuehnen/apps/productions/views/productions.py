@@ -95,23 +95,20 @@ def event_list(request, year=None, month=None, day=None):
             'event_characteristics': EventCharacteristics.objects.all(),
         },
     }
-    
+    # exclude all events in the past
+    now = datetime.now()
+    qs = qs.exclude(
+        start_date__lte=now,
+        start_time__lt=now,
+    ).distinct()
+
     if form.is_valid():
         cat = form.cleaned_data['date'] or datetime.today()
         facets['selected']['date'] = cat
-        
         qs = qs.filter(
             start_date__gte=cat,
         ).distinct()
     
-        # excluding all events in the past
-        today = datetime.today()
-        qs = qs.exclude(
-            start_date__exact=today,
-            start_time__lt=today,
-        ).distinct()
-
-        
         cat = form.cleaned_data['starttime']
         if cat:
             facets['selected']['starttime'] = cat
