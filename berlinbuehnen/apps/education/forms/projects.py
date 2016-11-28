@@ -23,6 +23,8 @@ from base_libs.middleware.threadlocals import get_current_user
 from base_libs.utils.misc import get_unique_value
 from base_libs.utils.betterslugify import better_slugify
 
+from berlinbuehnen.apps.locations.models import Location
+from berlinbuehnen.apps.education.models import Department
 from berlinbuehnen.apps.education.models import Project
 from berlinbuehnen.apps.education.models import ProjectTime
 from berlinbuehnen.apps.education.models import ProjectMember
@@ -903,6 +905,14 @@ def load_data(instance=None):
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 sponsor_dict['title_%s' % lang_code] = getattr(sponsor, 'title_%s' % lang_code)
             form_step_data['description']['sets']['sponsors'].append(sponsor_dict)
+    else:
+        form_step_data = {
+            'basic': {'_filled': False, 'sets': {}},
+        }
+        own_locations = Location.objects.owned_by(get_current_user())
+        own_departments = Department.objects.filter(location__in=own_locations)
+        if own_locations:
+            form_step_data['basic']['departments'] = own_departments
 
             
     return form_step_data

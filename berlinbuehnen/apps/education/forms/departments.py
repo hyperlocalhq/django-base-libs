@@ -574,6 +574,13 @@ def load_data(instance=None):
             social_media_channel_dict['channel_type'] = social_media_channel.channel_type
             social_media_channel_dict['url'] = social_media_channel.url
             form_step_data['description']['sets']['social'].append(social_media_channel_dict)
+    else:
+        form_step_data = {
+            'basic': {'_filled': False, 'sets': {}},
+        }
+        own_locations = Location.objects.owned_by(get_current_user())
+        if own_locations:
+            form_step_data['basic']['location'] = own_locations[0]
 
     return form_step_data
 
