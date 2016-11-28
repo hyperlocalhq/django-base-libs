@@ -74,7 +74,7 @@ class EventFilterForm(forms.Form):
         required=False,
     )
 
-
+@never_cache
 def event_list(request, year=None, month=None, day=None):
     qs = Event.objects.filter(production__status="published")
 
