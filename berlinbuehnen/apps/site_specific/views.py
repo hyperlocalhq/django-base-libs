@@ -771,6 +771,12 @@ def culturebase_export_productions(request, location_slug):
 
 API_CHANGELOG = [
     {
+        'date': datetime(2016, 11, 29, 12, 0),
+        'changes': [
+            u"For unpublished productions only ID, status, and creation and modification dates are shown.",
+        ],
+    },
+    {
         'date': datetime(2016, 8, 1, 12, 0),
         'changes': [
             u"Documentation introduction added.",
