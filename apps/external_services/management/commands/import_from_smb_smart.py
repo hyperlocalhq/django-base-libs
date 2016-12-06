@@ -334,8 +334,10 @@ class Command(NoArgsCommand):
         return lines[0], u" ".join(lines[1:])
 
     def cleanup_html(self, text):
-        text = text.replace("<br />", " / ")
+        text = text.replace("<br />", ". ")
         text = text.replace("&ndash;", "-")
+        text = text.replace("&bdquo;", '"')
+        text = text.replace("&ldquo;", '"')
         return text
 
     def import_events_and_workshops(self, **options):
