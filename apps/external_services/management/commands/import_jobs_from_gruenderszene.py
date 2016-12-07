@@ -64,6 +64,15 @@ class Command(BaseCommand):
             s.url = URL
             s.save()
 
+        def textify(html):
+            html = re.sub(r'<a [^>]*?href="mailto:([^"]+)"[^>]*>\1</a>', r'\1', html)  # replace mailto links with just email
+            html = re.sub(r'<a [^>]*?href="(https?://)([^"]+)"[^>]*>\2</a>', r'\1\2', html)  # replace website links with just URL
+            html = html.replace('<li>', u'<li> • ')  # add bullets to lines wrapped with <li>
+            text = html_to_plain_text(html)
+            text = re.sub(r'( • .+)\n\n', r'\1\n', text)  # replace double new-line with single new-line for bulleted items
+            text = re.sub(r'\n\s+\n', '\n\n', text)  # replace multiple newlines with maximal 2 newlines
+            return text
+
         default_job_type, created = JobType.objects.get_or_create(
             slug="full-time",
             defaults={
@@ -101,8 +110,8 @@ class Command(BaseCommand):
                     content_type__model="joboffer",
                 )
                 job_offer = mapper.content_object
-                if job_offer.modified_date > change_date:
-                    continue
+                #if job_offer.modified_date > change_date:
+                #    continue
             except ObjectMapper.MultipleObjectsReturned:
                 # delete duplicates
                 for mapper in s.objectmapper_set.filter(
@@ -121,7 +130,7 @@ class Command(BaseCommand):
             job_offer.modified_date = change_date
 
             job_offer.position = get_value(node_job, "title")
-            job_offer.description = re.sub(r'\n\s*\n', '\n\n', html_to_plain_text(get_value(node_job, "description").replace('<li>', '<li> - ')))
+            job_offer.description = textify(get_value(node_job, "description"))
             job_offer.job_type = default_job_type
             job_offer.offering_institution_title = get_value(node_job, "company")
 
