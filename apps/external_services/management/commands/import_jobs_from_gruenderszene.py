@@ -110,8 +110,8 @@ class Command(BaseCommand):
                     content_type__model="joboffer",
                 )
                 job_offer = mapper.content_object
-                #if job_offer.modified_date > change_date:
-                #    continue
+                if job_offer.modified_date > change_date:
+                    continue
             except ObjectMapper.MultipleObjectsReturned:
                 # delete duplicates
                 for mapper in s.objectmapper_set.filter(
