@@ -12,6 +12,7 @@ SHELL=/usr/local/bin/bash
 35 02 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/import_from_musicjob.bsh
 40 02 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/import_from_theaterjobs.bsh
 45 02 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/import_from_museumsbund.bsh
+50 02 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/import_jobs_from_gruenderszene.bsh
 00 05 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/rebuild_index.bsh
 15 06 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/backup_db.bsh
 */5 * * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/send_mails.bsh
