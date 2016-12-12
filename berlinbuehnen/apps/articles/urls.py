@@ -16,7 +16,7 @@ urlpatterns = patterns(path_in_installed_app('articles.views'),
     # articles aggregated overview
     url(r'^$', 
         'article_archive_index',
-        dict(paginate_by=5,
+        dict(paginate_by=50,
             type_sysname='all',
             template_name="articles/articles_overview.html"),
         name="article_archive",
