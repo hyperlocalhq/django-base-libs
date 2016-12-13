@@ -747,6 +747,8 @@ class ImportFromCulturebaseBase(object):
                     else:
                         mf = image_mapper.content_object
                         image_ids_to_keep.append(mf.pk)
+                        # update description
+                        file_description = self.save_file_description(mf.path, picture_node)
                         continue
 
                     filename = image_url.split("/")[-1]
@@ -983,6 +985,7 @@ class ImportFromCulturebaseBase(object):
                         else:
                             mf = image_mapper.content_object
                             image_ids_to_keep.append(mf.pk)
+                            file_description = self.save_file_description(mf.path, picture_node)
                             continue
 
                         filename = image_url.split("/")[-1]

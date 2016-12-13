@@ -356,6 +356,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                         mf = image_mapper.content_object
                         if mf:
                             image_ids_to_keep.append(mf.pk)
+                            file_description = self.save_file_description(mf.path, image_dict)
                         if not self.update_images:
                             continue
 
@@ -418,6 +419,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                     mf = pdf_mapper.content_object
                     if mf:
                         pdf_ids_to_keep.append(mf.pk)
+                        file_description = self.save_file_description(mf.path, pdf_dict)
                     continue
 
                 filename = pdf_url.split("/")[-1]
@@ -773,6 +775,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                             mf = image_mapper.content_object
                             if mf:
                                 image_ids_to_keep.append(mf.pk)
+                                file_description = self.save_file_description(mf.path, image_dict)
                             if not self.update_images:
                                 continue
 
@@ -834,6 +837,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                         mf = pdf_mapper.content_object
                         if mf:
                             pdf_ids_to_keep.append(mf.pk)
+                            file_description = self.save_file_description(mf.path, pdf_dict)
                         continue
 
                     filename = pdf_url.split("/")[-1]

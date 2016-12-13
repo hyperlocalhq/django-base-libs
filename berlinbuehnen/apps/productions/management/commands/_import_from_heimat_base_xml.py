@@ -868,6 +868,7 @@ class ImportFromHeimatBase(object):
                         mf = image_mapper.content_object
                         if mf:
                             image_ids_to_keep.append(mf.pk)
+                            file_description = self.save_file_description(mf.path, picture_node)
                         continue
 
                     filename = image_url.split("/")[-1]
@@ -1098,6 +1099,7 @@ class ImportFromHeimatBase(object):
                             mf = image_mapper.content_object
                             if mf:
                                 image_ids_to_keep.append(mf.pk)
+                                file_description = self.save_file_description(mf.path, picture_node)
                             continue
 
                         filename = image_url.split("/")[-1]
