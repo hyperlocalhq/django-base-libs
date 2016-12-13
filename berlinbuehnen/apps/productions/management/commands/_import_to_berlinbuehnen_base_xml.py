@@ -165,6 +165,37 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand):
                 return force_unicode(u''.join([t for t in child_node.itertext()]))
         return u''
 
+    def save_file_description(self, path, xml_node):
+        from filebrowser.models import FileDescription
+        try:
+            file_description = FileDescription.objects.filter(
+                file_path=path,
+            ).order_by("pk")[0]
+        except:
+            file_description = FileDescription(file_path=path)
+        file_description.title_de = self.get_child_text(xml_node, 'title_de')
+        file_description.title_en = self.get_child_text(xml_node, 'title_en')
+        # description and author go to the description field
+        description_de_components = []
+        description_en_components = []
+        text = self.get_child_text(xml_node, 'description_de')
+        if text:
+            description_de_components.append(text)
+        text = self.get_child_text(xml_node, 'description_en')
+        if text:
+            description_en_components.append(text)
+        text = self.get_child_text(xml_node, 'author')
+        if text:
+            description_de_components.append(text)
+            description_en_components.append(text)
+        file_description.description_de = "\n".join(description_de_components)
+        file_description.description_en = "\n".join(description_en_components)
+        # copyright goes to the author field
+        file_description.author = self.get_child_text(xml_node, 'copyright')
+        file_description.copyright_limitations = ""
+        file_description.save()
+        return file_description
+
     def parse_and_use_texts(self, xml_node, instance):
         instance.description_de = self.get_child_text(xml_node, 'description_de')
         instance.description_en = self.get_child_text(xml_node, 'description_en')
@@ -215,7 +246,6 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand):
         from berlinbuehnen.apps.productions.models import EventImage
         from berlinbuehnen.apps.productions.models import EventSponsor
         from berlinbuehnen.apps.productions.models import LanguageAndSubtitles
-        from filebrowser.models import FileDescription
 
         ObjectMapper = models.get_model("external_services", "ObjectMapper")
         image_mods = models.get_app("image_mods")
@@ -448,20 +478,8 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand):
                         mf.copyright_restrictions = self.get_child_text(image_node, 'copyright_restrictions') or "general_use"
                         mf.save()
                         image_ids_to_keep.append(mf.pk)
-                        try:
-                            file_description = FileDescription.objects.filter(
-                                file_path=mf.path,
-                            ).order_by("pk")[0]
-                        except:
-                            file_description = FileDescription(file_path=mf.path)
 
-                        file_description.title_de = self.get_child_text(image_node, 'title_de')
-                        file_description.title_en = self.get_child_text(image_node, 'title_en')
-                        file_description.description_de = self.get_child_text(image_node, 'description_de')
-                        file_description.description_en = self.get_child_text(image_node, 'description_en')
-                        file_description.author = self.get_child_text(image_node, 'author')
-                        file_description.copyright_limitations = self.get_child_text(image_node, 'copyright')
-                        file_description.save()
+                        file_description = self.save_file_description(mf.path, image_node)
 
                         if not image_mapper:
                             image_mapper = ObjectMapper(
@@ -520,20 +538,7 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand):
                     )
                     mf.save()
                     pdf_ids_to_keep.append(mf.pk)
-                    try:
-                        file_description = FileDescription.objects.filter(
-                            file_path=mf.path,
-                        ).order_by("pk")[0]
-                    except:
-                        file_description = FileDescription(file_path=mf.path)
-
-                    file_description.title_de = self.get_child_text(pdf_node, 'title_de')
-                    file_description.title_en = self.get_child_text(pdf_node, 'title_en')
-                    file_description.description_de = self.get_child_text(pdf_node, 'description_de')
-                    file_description.description_en = self.get_child_text(pdf_node, 'description_en')
-                    file_description.author = self.get_child_text(pdf_node, 'author')
-                    file_description.copyright_limitations = self.get_child_text(pdf_node, 'copyright')
-                    file_description.save()
+                    file_description = self.save_file_description(mf.path, pdf_node)
 
                     if not pdf_mapper:
                         pdf_mapper = ObjectMapper(
@@ -888,21 +893,8 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand):
                             mf.copyright_restrictions = self.get_child_text(image_node, 'copyright_restrictions') or "general_use"
                             mf.save()
                             image_ids_to_keep.append(mf.pk)
-                            try:
-                                file_description = FileDescription.objects.filter(
-                                    file_path=mf.path,
-                                ).order_by("pk")[0]
-                            except:
-                                file_description = FileDescription(file_path=mf.path)
-    
-                            file_description.title_de = self.get_child_text(image_node, 'title_de')
-                            file_description.title_en = self.get_child_text(image_node, 'title_en')
-                            file_description.description_de = self.get_child_text(image_node, 'description_de')
-                            file_description.description_en = self.get_child_text(image_node, 'description_en')
-                            file_description.author = self.get_child_text(image_node, 'author')
-                            file_description.copyright_limitations = self.get_child_text(image_node, 'copyright')
-                            file_description.save()
-    
+                            file_description = self.save_file_description(mf.path, image_node)
+
                             if not image_mapper:
                                 image_mapper = ObjectMapper(
                                     service=self.service,
@@ -960,21 +952,8 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand):
                         )
                         mf.save()
                         pdf_ids_to_keep.append(mf.pk)
-                        try:
-                            file_description = FileDescription.objects.filter(
-                                file_path=mf.path,
-                            ).order_by("pk")[0]
-                        except:
-                            file_description = FileDescription(file_path=mf.path)
-    
-                        file_description.title_de = self.get_child_text(pdf_node, 'title_de')
-                        file_description.title_en = self.get_child_text(pdf_node, 'title_en')
-                        file_description.description_de = self.get_child_text(pdf_node, 'description_de')
-                        file_description.description_en = self.get_child_text(pdf_node, 'description_en')
-                        file_description.author = self.get_child_text(pdf_node, 'author')
-                        file_description.copyright_limitations = self.get_child_text(pdf_node, 'copyright')
-                        file_description.save()
-    
+                        file_description = self.save_file_description(mf.path, pdf_node)
+
                         if not pdf_mapper:
                             pdf_mapper = ObjectMapper(
                                 service=self.service,

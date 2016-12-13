@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended fb_tags infoblocks production_tags favorites_tags cms_tags %}
+{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended fb_tags infoblocks production_tags favorites_tags cms_tags site_specific_tags %}
 
 {% block title %}{% trans "Event" %} – {{ object.production.title }} – {% endblock %}
 
@@ -861,12 +861,9 @@
                                                                                 {% if file_desc.description %}
                                                                                     <span class="gallery-image-text-description-copy">{{ file_desc.description }}</span>
                                                                                 {% endif %}
-                                                                                {% if file_desc.author %}
-                                                                                    <span class="gallery-image-text-description-author">{% trans "Photo" %}: {{ file_desc.author }}</span>
-                                                                                {% endif %}
                                                                             </div>
-                                                                            {% if file_desc.copyright_limitations %}
-                                                                                <div class="gallery-image-text-copyright">{% trans "Copyright" %}: {{ file_desc.copyright_limitations }}</div>
+                                                                            {% if file_desc.author %}
+                                                                                <div class="gallery-image-text-copyright">{% trans "Copyright" %}: {{ file_desc.author|remove_copyright_label }}</div>
                                                                             {% endif %}
                                                                         </div>
                                                                     {% endwith %}
@@ -887,12 +884,9 @@
                                                                                     {% if file_desc.description %}
                                                                                         <span class="gallery-image-text-description-copy">{{ file_desc.description }}</span>
                                                                                     {% endif %}
-                                                                                    {% if file_desc.author %}
-                                                                                        <span class="gallery-image-text-description-author">{% trans "Photo" %}: {{ file_desc.author }}</span>
-                                                                                    {% endif %}
                                                                                 </div>
-                                                                                {% if file_desc.copyright_limitations %}
-                                                                                    <div class="gallery-image-text-copyright">{% trans "Copyright" %}: {{ file_desc.copyright_limitations }}</div>
+                                                                                {% if file_desc.author %}
+                                                                                    <div class="gallery-image-text-copyright">{% trans "Copyright" %}: {{ file_desc.author|remove_copyright_label }}</div>
                                                                                 {% endif %}
                                                                             </div>
                                                                         {% endwith %}

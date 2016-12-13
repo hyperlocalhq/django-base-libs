@@ -4,6 +4,15 @@ from django import template
 
 register = template.Library()
 
+### FILTERS ###
+
+@register.filter()
+def remove_copyright_label(text):
+    from ..functions import remove_copyright_label as _remove_copyright_label
+    return _remove_copyright_label(text)
+
+### TAGS ###
+
 class EncryptEmail(template.Node):
     def __init__(self, context_var, letter_count=254):
         self.context_var = template.Variable(context_var)

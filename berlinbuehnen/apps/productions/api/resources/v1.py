@@ -48,6 +48,7 @@ from berlinbuehnen.apps.productions.models import EventAuthorship
 from berlinbuehnen.apps.productions.models import EventInvolvement
 from berlinbuehnen.apps.productions.models import EventSponsor
 
+from berlinbuehnen.apps.site_specific.functions import remove_copyright_label
 
 def valid_XML_char_ordinal(i):
     """
@@ -171,9 +172,10 @@ class ProductionImageResource(ModelResource):
                 bundle.data['title_en'] = strip_invalid_chars(file_description.title_en)
                 bundle.data['description_de'] = strip_invalid_chars(file_description.description_de)
                 bundle.data['description_en'] = strip_invalid_chars(file_description.description_en)
-                bundle.data['author'] = strip_invalid_chars(file_description.author)
-                bundle.data['photographer'] = strip_invalid_chars(file_description.author)
-                bundle.data['copyright'] = strip_invalid_chars(file_description.copyright_limitations)
+                copyright = remove_copyright_label(strip_invalid_chars(file_description.author))
+                bundle.data['author'] = copyright
+                bundle.data['photographer'] = copyright
+                bundle.data['copyright'] = copyright
         if not bundle.data.get('copyright', None):
             bundle.data['copyright'] = "Promo"
         return bundle
@@ -207,8 +209,9 @@ class ProductionPDFResource(ModelResource):
                 bundle.data['title_en'] = strip_invalid_chars(file_description.title_en)
                 bundle.data['description_de'] = strip_invalid_chars(file_description.description_de)
                 bundle.data['description_en'] = strip_invalid_chars(file_description.description_en)
-                bundle.data['author'] = strip_invalid_chars(file_description.author)
-                bundle.data['copyright'] = strip_invalid_chars(file_description.copyright_limitations)
+                copyright = remove_copyright_label(strip_invalid_chars(file_description.author))
+                bundle.data['author'] = copyright
+                bundle.data['copyright'] = copyright
         if not bundle.data.get('copyright', None):
             bundle.data['copyright'] = "Promo"
         return bundle
@@ -374,9 +377,10 @@ class EventImageResource(ModelResource):
                 bundle.data['title_en'] = strip_invalid_chars(file_description.title_en)
                 bundle.data['description_de'] = strip_invalid_chars(file_description.description_de)
                 bundle.data['description_en'] = strip_invalid_chars(file_description.description_en)
-                bundle.data['author'] = strip_invalid_chars(file_description.author)
-                bundle.data['photographer'] = strip_invalid_chars(file_description.author)
-                bundle.data['copyright'] = strip_invalid_chars(file_description.copyright_limitations)
+                copyright = remove_copyright_label(strip_invalid_chars(file_description.author))
+                bundle.data['author'] = copyright
+                bundle.data['photographer'] = copyright
+                bundle.data['copyright'] = copyright
         if not bundle.data.get('copyright', None):
             bundle.data['copyright'] = "Promo"
         return bundle
@@ -410,8 +414,9 @@ class EventPDFResource(ModelResource):
                 bundle.data['title_en'] = strip_invalid_chars(file_description.title_en)
                 bundle.data['description_de'] = strip_invalid_chars(file_description.description_de)
                 bundle.data['description_en'] = strip_invalid_chars(file_description.description_en)
-                bundle.data['author'] = strip_invalid_chars(file_description.author)
-                bundle.data['copyright'] = strip_invalid_chars(file_description.copyright_limitations)
+                copyright = remove_copyright_label(strip_invalid_chars(file_description.author))
+                bundle.data['author'] = copyright
+                bundle.data['copyright'] = copyright
         if not bundle.data.get('copyright', None):
             bundle.data['copyright'] = "Promo"
         return bundle

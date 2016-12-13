@@ -535,6 +535,28 @@ class ImportFromHeimatBase(object):
         text = unicode(BeautifulStoneSoup(text, convertEntities=BeautifulStoneSoup.ALL_ENTITIES))
         return text
 
+    def save_file_description(self, path, xml_node):
+        from filebrowser.models import FileDescription
+        try:
+            file_description = FileDescription.objects.filter(
+                file_path=path,
+            ).order_by("pk")[0]
+        except:
+            file_description = FileDescription(file_path=path)
+
+        file_description.title_de = self.get_child_text(xml_node, 'title', languageId="1") or self.get_child_text(
+            xml_node, 'text', languageId="1")
+        file_description.title_en = self.get_child_text(xml_node, 'title', languageId="2") or self.get_child_text(
+            xml_node, 'text', languageId="2")
+        text = (xml_node.get('photographer') or u"").replace("Foto: ", "")
+        if text:
+            file_description.description_de = text
+            file_description.description_en = text
+        file_description.author = xml_node.get('copyright')
+        file_description.copyright_limitations = ""
+        file_description.save()
+        return file_description
+
     def parse_and_use_texts(self, xml_node, instance):
         description_de = description_en = u""
         teaser_de = teaser_en = u""
@@ -726,10 +748,7 @@ class ImportFromHeimatBase(object):
         if not instance.subtitles_text_en:
             instance.subtitles_text_en = self.get_child_text(xml_node, 'language_and_subtitles')
 
-
-
     def save_page(self, root_node):
-        from filebrowser.models import FileDescription
         ObjectMapper = models.get_model("external_services", "ObjectMapper")
         image_mods = models.get_app("image_mods")
 
@@ -867,18 +886,8 @@ class ImportFromHeimatBase(object):
                             mf.copyright_restrictions = "protected"
                         mf.save()
                         image_ids_to_keep.append(mf.pk)
-                        try:
-                            file_description = FileDescription.objects.filter(
-                                file_path=mf.path,
-                            ).order_by("pk")[0]
-                        except:
-                            file_description = FileDescription(file_path=mf.path)
 
-                        file_description.title_de = self.get_child_text(picture_node, 'title', languageId="1") or self.get_child_text(picture_node, 'text', languageId="1")
-                        file_description.title_en = self.get_child_text(picture_node, 'title', languageId="2") or self.get_child_text(picture_node, 'text', languageId="2")
-                        file_description.author = (picture_node.get('photographer') or u"").replace("Foto: ", "")
-                        file_description.copyright_limitations = picture_node.get('copyright')
-                        file_description.save()
+                        file_description = self.save_file_description(mf.path, picture_node)
 
                         if not image_mapper:
                             image_mapper = ObjectMapper(
@@ -1107,18 +1116,8 @@ class ImportFromHeimatBase(object):
                                 mf.copyright_restrictions = "protected"
                             mf.save()
                             image_ids_to_keep.append(mf.pk)
-                            try:
-                                file_description = FileDescription.objects.filter(
-                                    file_path=mf.path,
-                                ).order_by("pk")[0]
-                            except:
-                                file_description = FileDescription(file_path=mf.path)
 
-                            file_description.title_de = self.get_child_text(picture_node, 'title', languageId="1") or self.get_child_text(picture_node, 'text', languageId="1")
-                            file_description.title_en = self.get_child_text(picture_node, 'title', languageId="2") or self.get_child_text(picture_node, 'text', languageId="2")
-                            file_description.author = (picture_node.get('photographer') or u"").replace("Foto: ", "")
-                            file_description.copyright_limitations = picture_node.get('copyright')
-                            file_description.save()
+                            file_description = self.save_file_description(mf.path, picture_node)
 
                             if not image_mapper:
                                 image_mapper = ObjectMapper(

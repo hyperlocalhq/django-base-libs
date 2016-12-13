@@ -389,6 +389,37 @@ class ImportFromCulturebaseBase(object):
         text = text.replace('</div>', '\n')
         return strip_tags(text)
 
+    def save_file_description(self, path, xml_node):
+        from filebrowser.models import FileDescription
+        try:
+            file_description = FileDescription.objects.filter(
+                file_path=path,
+            ).order_by("pk")[0]
+        except:
+            file_description = FileDescription(file_path=path)
+
+        file_description.title_de = self.get_child_text(xml_node, 'Title', Language="de")
+        file_description.title_en = self.get_child_text(xml_node, 'Title', Language="en")
+        # Description and Photographer go to the description field
+        description_de_components = []
+        description_en_components = []
+        text = self.get_child_text(xml_node, 'Description', Language="de")
+        if text:
+            description_de_components.append(text)
+        text = self.get_child_text(xml_node, 'Description', Language="en")
+        if text:
+            description_en_components.append(text)
+        text = self.get_child_text(xml_node, 'Photographer')
+        if text:
+            description_de_components.append(text)
+            description_en_components.append(text)
+        file_description.description_de = "\n".join(description_de_components)
+        file_description.description_en = "\n".join(description_en_components)
+        # Copyright goes to the author field
+        file_description.author = self.get_child_text(xml_node, 'Copyright')
+        file_description.save()
+        return file_description
+
     def parse_and_use_texts(self, xml_node, instance):
         description_de = description_en = u""
         teaser_de = teaser_en = u""
@@ -584,7 +615,6 @@ class ImportFromCulturebaseBase(object):
 
     def save_page(self, root_node):
         import time
-        from filebrowser.models import FileDescription
         ObjectMapper = models.get_model("external_services", "ObjectMapper")
         image_mods = models.get_app("image_mods")
 
@@ -736,19 +766,7 @@ class ImportFromCulturebaseBase(object):
                         mf.save()
                         image_ids_to_keep.append(mf.pk)
 
-                        try:
-                            file_description = FileDescription.objects.filter(
-                                file_path=mf.path,
-                            ).order_by("pk")[0]
-                        except:
-                            file_description = FileDescription(file_path=mf.path)
-
-                        file_description.title_de = self.get_child_text(picture_node, 'Title', Language="de")
-                        file_description.title_en = self.get_child_text(picture_node, 'Title', Language="en")
-                        file_description.description_de = self.get_child_text(picture_node, 'Description', Language="de")
-                        file_description.description_en = self.get_child_text(picture_node, 'Description', Language="en")
-                        file_description.author = self.get_child_text(picture_node, 'Photographer')
-                        file_description.save()
+                        file_description = self.save_file_description(mf.path, picture_node)
 
                         if not image_mapper:
                             image_mapper = ObjectMapper(
@@ -983,19 +1001,8 @@ class ImportFromCulturebaseBase(object):
                                 mf.copyright_restrictions = "protected"
                             mf.save()
                             image_ids_to_keep.append(mf.pk)
-                            try:
-                                file_description = FileDescription.objects.filter(
-                                    file_path=mf.path,
-                                ).order_by("pk")[0]
-                            except:
-                                file_description = FileDescription(file_path=mf.path)
 
-                            file_description.title_de = self.get_child_text(picture_node, 'Title', Language="de")
-                            file_description.title_en = self.get_child_text(picture_node, 'Title', Language="en")
-                            file_description.description_de = self.get_child_text(picture_node, 'Description', Language="de")
-                            file_description.description_en = self.get_child_text(picture_node, 'Description', Language="en")
-                            file_description.author = self.get_child_text(picture_node, 'Photographer')
-                            file_description.save()
+                            file_description = self.save_file_description(mf.path, picture_node)
 
                             if not image_mapper:
                                 image_mapper = ObjectMapper(

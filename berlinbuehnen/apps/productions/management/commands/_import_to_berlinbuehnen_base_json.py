@@ -52,6 +52,37 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
             self.stdout.write(u"Events updated: %d" % self.stats['events_updated'])
             self.stdout.write(u"Events skipped: %d" % self.stats['events_skipped'])
 
+    def save_file_description(self, path, d):
+        from filebrowser.models import FileDescription
+        try:
+            file_description = FileDescription.objects.filter(
+                file_path=path,
+            ).order_by("pk")[0]
+        except:
+            file_description = FileDescription(file_path=path)
+        file_description.title_de = d.get('title_de', "")
+        file_description.title_en = d.get('title_en', "")
+        # description and author go to the description field
+        description_de_components = []
+        description_en_components = []
+        text = d.get('description_de', "")
+        if text:
+            description_de_components.append(text)
+        text = d.get('description_en', "")
+        if text:
+            description_en_components.append(text)
+        text = d.get('author', "")
+        if text:
+            description_de_components.append(text)
+            description_en_components.append(text)
+        file_description.description_de = "\n".join(description_de_components)
+        file_description.description_en = "\n".join(description_en_components)
+        # copyright goes to the author field
+        file_description.author = d.get('copyright', "").replace("&copy;", "©")
+        file_description.copyright_limitations = ""
+        file_description.save()
+        return file_description
+
     def parse_and_use_texts(self, d, instance):
         instance.description_de = d.get('description_de', "").replace("&nbsp;", " ")
         instance.description_en = d.get('description_en', "").replace("&nbsp;", " ")
@@ -341,20 +372,8 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                         mf.copyright_restrictions = image_dict.get('copyright_restrictions', "") or "general_use"
                         mf.save()
                         image_ids_to_keep.append(mf.pk)
-                        try:
-                            file_description = FileDescription.objects.filter(
-                                file_path=mf.path,
-                            ).order_by("pk")[0]
-                        except:
-                            file_description = FileDescription(file_path=mf.path)
 
-                        file_description.title_de = image_dict.get('title_de', "")
-                        file_description.title_en = image_dict.get('title_en', "")
-                        file_description.description_de = image_dict.get('description_de', "")
-                        file_description.description_en = image_dict.get('description_en', "")
-                        file_description.author = image_dict.get('author', "")
-                        file_description.copyright_limitations = image_dict.get('copyright', "").replace("&copy;", "©")
-                        file_description.save()
+                        file_description = self.save_file_description(mf.path, image_dict)
 
                         if not image_mapper:
                             image_mapper = ObjectMapper(
@@ -413,20 +432,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                     )
                     mf.save()
                     pdf_ids_to_keep.append(mf.pk)
-                    try:
-                        file_description = FileDescription.objects.filter(
-                            file_path=mf.path,
-                        ).order_by("pk")[0]
-                    except:
-                        file_description = FileDescription(file_path=mf.path)
-
-                    file_description.title_de = pdf_dict.get('title_de', "")
-                    file_description.title_en = pdf_dict.get('title_en', "")
-                    file_description.description_de = pdf_dict.get('description_de', "")
-                    file_description.description_en = pdf_dict.get('description_en', "")
-                    file_description.author = pdf_dict.get('author', "")
-                    file_description.copyright_limitations = pdf_dict.get('copyright', "").replace("&copy;", "©")
-                    file_description.save()
+                    file_description = self.save_file_description(mf.path, pdf_dict)
 
                     if not pdf_mapper:
                         pdf_mapper = ObjectMapper(
@@ -783,20 +789,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                             mf.copyright_restrictions = image_dict.get('copyright_restrictions', "") or "general_use"
                             mf.save()
                             image_ids_to_keep.append(mf.pk)
-                            try:
-                                file_description = FileDescription.objects.filter(
-                                    file_path=mf.path,
-                                ).order_by("pk")[0]
-                            except:
-                                file_description = FileDescription(file_path=mf.path)
-
-                            file_description.title_de = image_dict.get('title_de', "")
-                            file_description.title_en = image_dict.get('title_en', "")
-                            file_description.description_de = image_dict.get('description_de', "")
-                            file_description.description_en = image_dict.get('description_en', "")
-                            file_description.author = image_dict.get('author', "")
-                            file_description.copyright_limitations = image_dict.get('copyright', "").replace("&copy;", "©")
-                            file_description.save()
+                            file_description = self.save_file_description(mf.path, image_dict)
 
                             if not image_mapper:
                                 image_mapper = ObjectMapper(
@@ -855,20 +848,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                         )
                         mf.save()
                         pdf_ids_to_keep.append(mf.pk)
-                        try:
-                            file_description = FileDescription.objects.filter(
-                                file_path=mf.path,
-                            ).order_by("pk")[0]
-                        except:
-                            file_description = FileDescription(file_path=mf.path)
-
-                        file_description.title_de = pdf_dict.get('title_de', "")
-                        file_description.title_en = pdf_dict.get('title_en', "")
-                        file_description.description_de = pdf_dict.get('description_de', "")
-                        file_description.description_en = pdf_dict.get('description_en', "")
-                        file_description.author = pdf_dict.get('author', "")
-                        file_description.copyright_limitations = pdf_dict.get('copyright', "").replace("&copy;", "©")
-                        file_description.save()
+                        file_description = self.save_file_description(mf.path, pdf_dict)
 
                         if not pdf_mapper:
                             pdf_mapper = ObjectMapper(
