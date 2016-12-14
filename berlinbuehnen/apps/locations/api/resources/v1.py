@@ -24,6 +24,8 @@ from berlinbuehnen.apps.locations.models import Stage
 from berlinbuehnen.apps.locations.models import Image as LocationImage
 from berlinbuehnen.apps.locations.models import SocialMediaChannel
 
+from berlinbuehnen.apps.site_specific.functions import remove_copyright_label
+
 
 def valid_XML_char_ordinal(i):
     """
@@ -62,6 +64,8 @@ class ServiceResource(ModelResource):
         excludes = ['title', 'slug', 'sort_order', 'image']
 
     def dehydrate(self, bundle):
+        bundle.data['title_de'] = strip_invalid_chars(bundle.obj.title_de)
+        bundle.data['title_en'] = strip_invalid_chars(bundle.obj.title_en)
         if bundle.obj.image:
             bundle.data['image_url'] = "".join((
                 get_website_url(),
@@ -78,6 +82,8 @@ class AccessibilityOptionResource(ModelResource):
         excludes = ['title', 'slug', 'sort_order', 'image']
 
     def dehydrate(self, bundle):
+        bundle.data['title_de'] = strip_invalid_chars(bundle.obj.title_de)
+        bundle.data['title_en'] = strip_invalid_chars(bundle.obj.title_en)
         if bundle.obj.image:
             bundle.data['image_url'] = "".join((
                 get_website_url(),
@@ -100,8 +106,14 @@ class StageResource(ModelResource):
         ]
 
     def dehydrate(self, bundle):
+        bundle.data['title_de'] = strip_invalid_chars(bundle.obj.title_de)
+        bundle.data['title_en'] = strip_invalid_chars(bundle.obj.title_en)
         bundle.data['description_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_description_de()))
         bundle.data['description_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_description_en()))
+        bundle.data['street_address'] = strip_invalid_chars(bundle.obj.street_address)
+        bundle.data['street_address2'] = strip_invalid_chars(bundle.obj.street_address2)
+        bundle.data['postal_code'] = strip_invalid_chars(bundle.obj.postal_code)
+        bundle.data['city'] = strip_invalid_chars(bundle.obj.city)
         return bundle
 
 
@@ -139,9 +151,10 @@ class ImageResource(ModelResource):
                 bundle.data['title_en'] = strip_invalid_chars(file_description.title_en)
                 bundle.data['description_de'] = strip_invalid_chars(file_description.description_de)
                 bundle.data['description_en'] = strip_invalid_chars(file_description.description_en)
-                bundle.data['author'] = strip_invalid_chars(file_description.author)
-                bundle.data['photographer'] = strip_invalid_chars(file_description.author)
-                bundle.data['copyright'] = strip_invalid_chars(file_description.copyright_limitations)
+                copyright = remove_copyright_label(strip_invalid_chars(file_description.author))
+                bundle.data['author'] = copyright
+                bundle.data['photographer'] = copyright
+                bundle.data['copyright'] = copyright
         if not bundle.data.get('copyright', None):
             bundle.data['copyright'] = "Promo"
         return bundle
@@ -190,28 +203,32 @@ class LocationResource(ModelResource):
                 pass
         activate(current_language)
 
+        bundle.data['title_de'] = strip_invalid_chars(bundle.obj.title_de)
+        bundle.data['title_en'] = strip_invalid_chars(bundle.obj.title_en)
+        bundle.data['subtitle_de'] = strip_invalid_chars(bundle.obj.subtitle_de)
+        bundle.data['subtitle_en'] = strip_invalid_chars(bundle.obj.subtitle_en)
         bundle.data['description_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_description_de()))
         bundle.data['description_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_description_en()))
 
         if bundle.obj.phone_number:
-            bundle.data['phone'] = [bundle.obj.phone_country, bundle.obj.phone_area, bundle.obj.phone_number]
+            bundle.data['phone'] = [strip_invalid_chars(bundle.obj.phone_country), strip_invalid_chars(bundle.obj.phone_area), strip_invalid_chars(bundle.obj.phone_number)]
         if bundle.obj.fax_number:
-            bundle.data['fax'] = [bundle.obj.fax_country, bundle.obj.fax_area, bundle.obj.fax_number]
+            bundle.data['fax'] = [strip_invalid_chars(bundle.obj.fax_country), strip_invalid_chars(bundle.obj.fax_area), strip_invalid_chars(bundle.obj.fax_number)]
 
         bundle.data['tickets'] = {}
         if bundle.obj.tickets_street_address:
-            bundle.data['tickets']['street_address'] = bundle.obj.tickets_street_address
-            bundle.data['tickets']['street_address2'] = bundle.obj.tickets_street_address2
-            bundle.data['tickets']['postal_code'] = bundle.obj.tickets_postal_code
-            bundle.data['tickets']['city'] = bundle.obj.tickets_city
+            bundle.data['tickets']['street_address'] = strip_invalid_chars(bundle.obj.tickets_street_address)
+            bundle.data['tickets']['street_address2'] = strip_invalid_chars(bundle.obj.tickets_street_address2)
+            bundle.data['tickets']['postal_code'] = strip_invalid_chars(bundle.obj.tickets_postal_code)
+            bundle.data['tickets']['city'] = strip_invalid_chars(bundle.obj.tickets_city)
         if bundle.obj.tickets_email:
-            bundle.data['tickets']['email'] = bundle.obj.tickets_email
+            bundle.data['tickets']['email'] = strip_invalid_chars(bundle.obj.tickets_email)
         if bundle.obj.tickets_website:
-            bundle.data['tickets']['website'] = bundle.obj.tickets_website
+            bundle.data['tickets']['website'] = strip_invalid_chars(bundle.obj.tickets_website)
         if bundle.obj.tickets_phone_number:
-            bundle.data['tickets']['phone'] = [bundle.obj.tickets_phone_country, bundle.obj.tickets_phone_area, bundle.obj.tickets_phone_number]
+            bundle.data['tickets']['phone'] = [strip_invalid_chars(bundle.obj.tickets_phone_country), strip_invalid_chars(bundle.obj.tickets_phone_area), strip_invalid_chars(bundle.obj.tickets_phone_number)]
         if bundle.obj.tickets_fax_number:
-            bundle.data['tickets']['fax'] = [bundle.obj.tickets_fax_country, bundle.obj.tickets_fax_area, bundle.obj.tickets_fax_number]
+            bundle.data['tickets']['fax'] = [strip_invalid_chars(bundle.obj.tickets_fax_country), strip_invalid_chars(bundle.obj.tickets_fax_area), strip_invalid_chars(bundle.obj.tickets_fax_number)]
 
         current_language = get_language()
         activate('en')
@@ -224,15 +241,15 @@ class LocationResource(ModelResource):
 
         bundle.data['press'] = {}
         if bundle.obj.press_contact_name:
-            bundle.data['press']['contact_name'] = bundle.obj.press_contact_name
+            bundle.data['press']['contact_name'] = strip_invalid_chars(bundle.obj.press_contact_name)
         if bundle.obj.press_email:
-            bundle.data['press']['email'] = bundle.obj.press_email
+            bundle.data['press']['email'] = strip_invalid_chars(bundle.obj.press_email)
         if bundle.obj.press_website:
-            bundle.data['press']['website'] = bundle.obj.press_website
+            bundle.data['press']['website'] = strip_invalid_chars(bundle.obj.press_website)
         if bundle.obj.press_phone_number:
-            bundle.data['press']['phone'] = [bundle.obj.press_phone_country, bundle.obj.press_phone_area, bundle.obj.press_phone_number]
+            bundle.data['press']['phone'] = [strip_invalid_chars(bundle.obj.press_phone_country), strip_invalid_chars(bundle.obj.press_phone_area), strip_invalid_chars(bundle.obj.press_phone_number)]
         if bundle.obj.press_fax_number:
-            bundle.data['press']['fax'] = [bundle.obj.press_fax_country, bundle.obj.press_fax_area, bundle.obj.press_fax_number]
+            bundle.data['press']['fax'] = [strip_invalid_chars(bundle.obj.press_fax_country), strip_invalid_chars(bundle.obj.press_fax_area), strip_invalid_chars(bundle.obj.press_fax_number)]
 
         return bundle
 
