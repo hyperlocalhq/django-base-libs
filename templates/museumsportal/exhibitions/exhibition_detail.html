@@ -245,7 +245,7 @@
                           {% if organizer.organizing_museum.website %}
                             <dl>
                               <dt>{% trans "Website" %} </dt>
-                              <dd><a href="{{ exhibition.organizing_museum.website }}">{{ organizer.organizing_museum.website|humanize_url:"20" }}</a></dd>
+                              <dd><a href="{{ organizer.organizing_museum.website }}">{{ organizer.organizing_museum.website|humanize_url:"20" }}</a></dd>
                             </dl>
                           {% endif %}
 
