@@ -2811,9 +2811,9 @@ body.show-layer.image-layer .layer#image-layer {
   overflow: hidden;
 }
 
-#footer > .container {
-  padding-top: 70px;
-  padding-bottom: 70px;
+#footer img {
+  margin: 0;
+  padding: 0;
 }
 
 #footer > .container > .row {
@@ -2823,18 +2823,106 @@ body.show-layer.image-layer .layer#image-layer {
 #footer > .container > .row > div {
   padding-left: 10px;
   padding-right: 10px;
-  margin-bottom: 30px;
+}
+
+#footer .projectlogos {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+#footer .projectlogos .row > div {
+  padding-top: 20px;
+}
+
+#footer .projectlogos .second {
+  margin: 0;
+  padding: 0 0 20px;
+}
+
+.is-xs #footer .projectlogos .second {
+  width: auto;
+  float: left;
+  margin-right: 40px;
+}
+
+.is-xs #footer .projectlogos .second:last-child {
+  margin-right: 0;
+}
+
+#footer .projectlogos img {
+  width: auto;
+  height: 60px;
+}
+
+#footer .sharelogos {
+  padding-top: 10px;
+}
+
+#footer .sharelogos .row > div {
+  padding-top: 20px;
+}
+
+.is-xs #footer .sharelogos .row > div {
+  width: auto;
+  float: left;
+  margin-right: 20px;
+}
+
+.is-xs #footer .sharelogos .row > div:last-child {
+  margin-right: 0;
+}
+
+#footer .partnerlogos {
+  padding-top: 70px;
+  padding-bottom: 20px;
+}
+
+#footer .partnerlogos .row > div {
+  padding-top: 10px;
+}
+
+#footer .partnerlogos a {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.is-md #footer .partnerlogos a {
+  margin-right: 15px;
+}
+
+#footer .partnerlogos a:last-child {
+  margin-right: 0;
+}
+
+#footer .partnerlogos a:hover {
+  opacity: 0.7;
+}
+
+#footer .partnerlogos a img {
+  width: auto;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.is-sm #footer .partnerlogos a img, .is-md #footer .partnerlogos a img {
+  height: 45px;
+}
+
+#footer .line {
+  margin: 0;
+  padding: 0;
+  background: #000;
+  border-bottom: 2px solid #fff;
 }
 
 #footer h3 {
   font-family: "Lato", "sans-serif";
   font-weight: 700;
-  text-transform: uppercase;
   font-size: 1em;
   line-height: 180%;
   color: #fff;
-  border-bottom: 2px solid #979797;
   margin: 0 0 20px 0;
+  text-transform: none;
 }
 
 #footer a.textlink {
@@ -2851,25 +2939,12 @@ body.show-layer.image-layer .layer#image-layer {
 }
 
 #footer .fawesome.button {
-  background: #00cdff;
+  background: #fff;
+  color: #000;
 }
 
 #footer .fawesome.button:hover, #footer .fawesome.button:focus, #footer .fawesome.button:active {
   background: #afaeae;
-}
-
-#footer .footer-logo {
-  height: 80px;
-  width: auto;
-  margin: 0;
-  display: inline-block;
-  float: left;
-}
-
-.is-xs #footer .footer-logo {
-  height: auto;
-  max-height: 80px;
-  max-width: 100%;
 }
 
 #footer .white-bg {

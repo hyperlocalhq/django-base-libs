@@ -1,36 +1,131 @@
+// main:style.scss
+
 @charset "UTF-8";
 
 #footer {
+
     background: $footer-bg;
     color: $footer-font;
     overflow: hidden;
-    
+
+    img {
+        margin: 0;
+        padding: 0;
+    }
+
     > .container {
-        padding-top: 70px;
-        padding-bottom: 70px;
-        
+
         > .row {
             margin: 0 -10px;
-            
+
             > div {
                 padding-left: 10px;
                 padding-right: 10px;
-                margin-bottom: 30px;
             }
         }
     }
-    
+
+    .projectlogos {
+        padding-top: 40px;
+        padding-bottom: 40px;
+
+        .row > div {
+            padding-top: 20px;
+        }
+
+        .second {
+            margin: 0;
+            padding: 0 0 20px;
+
+            .is-xs & {
+                width: auto;
+                float: left;
+                margin-right: 40px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+
+        img {
+            width: auto;
+            height: 60px;
+        }
+    }
+
+    .sharelogos {
+        padding-top: 10px;
+
+        .row > div {
+            padding-top: 20px;
+
+            .is-xs & {
+                width: auto;
+                float: left;
+                margin-right: 20px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+
+    }
+
+    .partnerlogos {
+        padding-top: 70px;
+        padding-bottom: 20px;
+
+        .row > div {
+            padding-top: 10px;
+        }
+
+        a {
+            display: inline-block;
+            margin-right: 20px;
+
+            .is-md & {
+                margin-right: 15px;
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            &:hover {
+                opacity: 0.7;
+            }
+
+            img {
+                width: auto;
+                height: 50px;
+                margin-bottom: 10px;
+
+                .is-sm &, .is-md & {
+                    height: 45px;
+                }
+            }
+        }
+    }
+
+    .line {
+        margin: 0;
+        padding: 0;
+        background: $black;
+        border-bottom: 2px solid $white;
+    }
+
     h3 {
         font-family: $font-2, $font-family-1;
         font-weight: $font-bold;
-        text-transform: uppercase;
         font-size: 1em;
         line-height: 180%;
         color: $footer-font;
-        border-bottom: 2px solid $grey;
         margin: 0 0 20px 0;
+        text-transform: none;
     }
-    
+
     a.textlink {
         display: block;
         font-family: $font-2, $font-family-1;
@@ -42,29 +137,16 @@
             color: $footer-font-hover;
         }
     }
-    
+
     .fawesome.button {
         background: $footer-icon;
-        
+        color: $footer-icon-color;
+
         &:hover, &:focus, &:active {
             background:$footer-icon-hover;
         }
     }
-    
-    .footer-logo {
-        height: 80px;
-        width: auto;
-        margin: 0;
-        display: inline-block;
-        float: left;
-        
-        .is-xs & {
-            height: auto;
-            max-height: 80px;
-            max-width: 100%;
-        }
-    }
-    
+
     .white-bg {
         background: $white;
         overflow: hidden;
