@@ -228,8 +228,10 @@ p + h2, p + h4, p + h5 {
 
     &.fixed {
         img.logo {
+            margin-top: 13px;
             .is-xs & {
                 padding-left: 40px;
+                margin-top: 5px;
             }
         }
     }

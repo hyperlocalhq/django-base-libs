@@ -893,8 +893,8 @@ $(document).ready(function() {
 
         var me = this.me;
 
-        var header_height = (me.$body.hasClass('is-xs')) ? 70 : (me.$body.hasClass('counselling') ? 78 : 114);
-        var scroll_offset = (me.$body.hasClass('is-xs')) ? 25 : (me.$body.hasClass('counselling') ? 18 : 54);
+        var header_height = (me.$body.hasClass('is-xs')) ? 70 : (me.$body.hasClass('counselling') ? 110 : 114);
+        var scroll_offset = (me.$body.hasClass('is-xs')) ? 25 : (me.$body.hasClass('counselling') ? 50 : 54);
         var scroll_top = me.$window.scrollTop();
 
         scroll_top -= scroll_offset;
