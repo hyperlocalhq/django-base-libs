@@ -2849,6 +2849,10 @@ body.show-layer.image-layer .layer#image-layer {
   margin-right: 0;
 }
 
+#footer .projectlogos a img:hover {
+  opacity: 0.7;
+}
+
 #footer .projectlogos img {
   width: auto;
   height: 60px;
@@ -2898,13 +2902,13 @@ body.show-layer.image-layer .layer#image-layer {
   opacity: 0.7;
 }
 
-#footer .partnerlogos a img {
+#footer .partnerlogos img {
   width: auto;
   height: 50px;
   margin-bottom: 10px;
 }
 
-.is-sm #footer .partnerlogos a img, .is-md #footer .partnerlogos a img {
+.is-sm #footer .partnerlogos img, .is-md #footer .partnerlogos img {
   height: 45px;
 }
 
