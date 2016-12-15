@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-14 13:09+0100\n"
+"POT-Creation-Date: 2016-12-15 09:03+0100\n"
 "PO-Revision-Date: 2016-03-10 17:20+0053\n"
 "Last-Translator: Josephine Natalie Weisflog <j.weisflog@kulturprojekte-"
 "berlin.de>\n"
@@ -129,22 +129,22 @@ msgstr ""
 #: apps/bulletin_board/forms.py:205 apps/bulletin_board/models.py:163
 #: apps/editorial/models.py:39 apps/events/forms.py:1505
 #: apps/events/forms.py:1529 apps/external_services/models.py:42
-#: apps/external_services/models.py:79 apps/institutions/forms.py:1211
-#: apps/institutions/forms.py:1233 apps/marketplace/forms.py:408
+#: apps/external_services/models.py:79 apps/institutions/forms.py:1214
+#: apps/institutions/forms.py:1236 apps/marketplace/forms.py:408
 #: apps/marketplace/forms.py:424 apps/marketplace/forms.py:431
 #: apps/marketplace/models.py:23 apps/media_gallery/admin.py:28
 #: apps/media_gallery/forms.py:339 apps/media_gallery/forms.py:370
 #: apps/media_gallery/models.py:149 apps/site_specific/admin.py:37
-#: apps/site_specific/forms/events.py:1973
-#: apps/site_specific/forms/events.py:2001
-#: apps/site_specific/forms/institutions.py:1654
-#: apps/site_specific/forms/institutions.py:1680
-#: apps/site_specific/forms/institutions.py:1682
-#: apps/site_specific/forms/marketplace.py:757
-#: apps/site_specific/forms/marketplace.py:777
-#: apps/site_specific/forms/marketplace.py:781
-#: apps/site_specific/forms/people.py:1023
-#: apps/site_specific/forms/people.py:1041 apps/site_specific/models.py:286
+#: apps/site_specific/forms/events.py:1976
+#: apps/site_specific/forms/events.py:2004
+#: apps/site_specific/forms/institutions.py:1657
+#: apps/site_specific/forms/institutions.py:1683
+#: apps/site_specific/forms/institutions.py:1685
+#: apps/site_specific/forms/marketplace.py:760
+#: apps/site_specific/forms/marketplace.py:780
+#: apps/site_specific/forms/marketplace.py:784
+#: apps/site_specific/forms/people.py:1026
+#: apps/site_specific/forms/people.py:1044 apps/site_specific/models.py:286
 #: templates/admin/extendedadmin/includes/fieldset_categories.html:7
 #: templates/admin/extendedadmin/includes/fieldset_categories.html:101
 #: templates/ccb/bulletin_board/bulletin_detail.html:94
@@ -335,7 +335,7 @@ msgstr ""
 #: apps/cms_extensions/models.py:45 apps/curated_lists/forms.py:16
 #: apps/curated_lists/models.py:40 apps/editorial/models.py:29
 #: apps/events/base.py:222 apps/events/forms.py:910
-#: apps/institutions/forms.py:499 apps/marketplace/forms.py:83
+#: apps/institutions/forms.py:502 apps/marketplace/forms.py:83
 #: apps/media_gallery/forms.py:88 apps/media_gallery/forms.py:170
 #: apps/media_gallery/forms.py:252 apps/metro/models.py:18
 #: apps/navigation/admin.py:38 apps/site_specific/forms/events.py:197
@@ -464,8 +464,8 @@ msgstr ""
 #: apps/bulletin_board/forms.py:612 apps/bulletin_board/forms.py:616
 #: apps/bulletin_board/forms.py:625 apps/events/forms.py:1838
 #: apps/events/forms.py:1844 apps/events/forms.py:1850
-#: apps/institutions/forms.py:1443 apps/institutions/forms.py:1449
-#: apps/institutions/forms.py:1455 apps/institutions/forms.py:1461
+#: apps/institutions/forms.py:1441 apps/institutions/forms.py:1447
+#: apps/institutions/forms.py:1453 apps/institutions/forms.py:1459
 #: apps/marketplace/forms.py:671 apps/marketplace/forms.py:677
 #: apps/marketplace/forms.py:683 apps/marketplace/forms.py:689
 #: apps/media_gallery/forms.py:384 apps/network/forms.py:20
@@ -499,7 +499,7 @@ msgid "Category"
 msgstr ""
 
 #: apps/articles/forms.py:31 apps/bulletin_board/forms.py:636
-#: apps/events/forms.py:1873 apps/institutions/forms.py:1476
+#: apps/events/forms.py:1873 apps/institutions/forms.py:1474
 #: apps/marketplace/forms.py:704 apps/media_gallery/forms.py:398
 #: apps/network/forms.py:56 apps/people/forms.py:53 apps/resources/forms.py:39
 #: templates/ccb/bulletin_board/my_bulletin_list.html:18
@@ -511,7 +511,7 @@ msgid "Filter"
 msgstr ""
 
 #: apps/articles/forms.py:36 apps/bulletin_board/forms.py:644
-#: apps/events/forms.py:1882 apps/institutions/forms.py:1484
+#: apps/events/forms.py:1882 apps/institutions/forms.py:1482
 #: apps/marketplace/forms.py:712 apps/media_gallery/forms.py:403
 #: apps/network/forms.py:63 apps/people/forms.py:61 apps/resources/forms.py:45
 #: apps/search/cms_apps.py:10 apps/search/forms.py:22
@@ -782,10 +782,9 @@ msgid "Latest posts"
 msgstr ""
 
 #: apps/blog/forms.py:25 apps/events/forms.py:1511 apps/events/forms.py:1534
-#: apps/marketplace/forms.py:400 apps/site_specific/forms/events.py:1979
-#: apps/site_specific/forms/events.py:2003
-#: apps/site_specific/forms/marketplace.py:749
-#: templates/ccb/blog/blog.html:112
+#: apps/marketplace/forms.py:400 apps/site_specific/forms/events.py:1982
+#: apps/site_specific/forms/events.py:2006
+#: apps/site_specific/forms/marketplace.py:752 templates/ccb/blog/blog.html:112
 #: templates/ccb/blog/forms/post_embedded.html:12
 #: templates/ccb/blog/post_detail.html:11
 #: templates/ccb/counselling_blog/blog.html:65
@@ -814,7 +813,7 @@ msgstr ""
 #: apps/bulletin_board/models.py:191 apps/events/base.py:229
 #: apps/partners/admin.py:28 apps/partners/admin.py:65
 #: apps/partners/models.py:27 apps/partners/models.py:47
-#: apps/site_specific/admin.py:38 apps/site_specific/forms/people.py:911
+#: apps/site_specific/admin.py:38 apps/site_specific/forms/people.py:914
 #: apps/site_specific/models.py:571
 #: templates/admin/extendedadmin/includes/fieldset_status.html:6
 #: templates/ccb/facebook_app/gallery_linking.html:37
@@ -857,29 +856,29 @@ msgstr ""
 #: apps/blog/forms.py:95 apps/site_specific/forms/events.py:149
 #: apps/site_specific/forms/events.py:201
 #: apps/site_specific/forms/events.py:252
-#: apps/site_specific/forms/events.py:714
-#: apps/site_specific/forms/events.py:899
-#: apps/site_specific/forms/events.py:958
-#: apps/site_specific/forms/events.py:1017
-#: apps/site_specific/forms/events.py:1888
-#: apps/site_specific/forms/events.py:2006
+#: apps/site_specific/forms/events.py:717
+#: apps/site_specific/forms/events.py:902
+#: apps/site_specific/forms/events.py:961
+#: apps/site_specific/forms/events.py:1020
+#: apps/site_specific/forms/events.py:1891
+#: apps/site_specific/forms/events.py:2009
 #: apps/site_specific/forms/institutions.py:87
 #: apps/site_specific/forms/institutions.py:140
 #: apps/site_specific/forms/institutions.py:193
-#: apps/site_specific/forms/institutions.py:633
-#: apps/site_specific/forms/institutions.py:820
-#: apps/site_specific/forms/institutions.py:1002
-#: apps/site_specific/forms/institutions.py:1556
-#: apps/site_specific/forms/institutions.py:1691
+#: apps/site_specific/forms/institutions.py:636
+#: apps/site_specific/forms/institutions.py:823
+#: apps/site_specific/forms/institutions.py:1005
+#: apps/site_specific/forms/institutions.py:1559
+#: apps/site_specific/forms/institutions.py:1694
 #: apps/site_specific/forms/marketplace.py:147
-#: apps/site_specific/forms/marketplace.py:662
-#: apps/site_specific/forms/marketplace.py:784
+#: apps/site_specific/forms/marketplace.py:665
+#: apps/site_specific/forms/marketplace.py:787
 #: apps/site_specific/forms/people.py:104
 #: apps/site_specific/forms/people.py:160
 #: apps/site_specific/forms/people.py:213
-#: apps/site_specific/forms/people.py:733
-#: apps/site_specific/forms/people.py:994
-#: apps/site_specific/forms/people.py:1046
+#: apps/site_specific/forms/people.py:736
+#: apps/site_specific/forms/people.py:997
+#: apps/site_specific/forms/people.py:1049
 #: templates/admin/admin/institutions/institution/mailchimp_subscribe_selected.html:65
 #: templates/admin/admin/institutions/institution/merge_selected.html:63
 #: templates/admin/admin/people/person/mailchimp_subscribe_selected.html:57
@@ -892,8 +891,7 @@ msgstr ""
 #: templates/ccb/blog/forms/confirm_delete_embedded.html:13
 #: templates/ccb/blog/post_delete.html:18
 #: templates/ccb/bulletin_board/delete_bulletin.html:16
-#: templates/ccb/comments/preview.html:117
-#: templates/ccb/confirm_delete.html:17
+#: templates/ccb/comments/preview.html:117 templates/ccb/confirm_delete.html:17
 #: templates/ccb/counselling_blog/comments/accept_embedded.html:12
 #: templates/ccb/counselling_blog/comments/form_embedded.html:66
 #: templates/ccb/counselling_blog/comments/mark_as_spam_embedded.html:15
@@ -956,8 +954,7 @@ msgstr ""
 #: templates/ccb/site_specific/popups/delete_avatar.html:10
 #: templates/ccb/site_specific/popups/delete_contact.html:17
 #: templates/ccb/site_specific/review_delete.html:22
-#: templates/ccb/styleguide/base.html:33
-#: templates/ccb/styleguide/form.html:649
+#: templates/ccb/styleguide/base.html:33 templates/ccb/styleguide/form.html:649
 msgid "Cancel"
 msgstr ""
 
@@ -1132,13 +1129,13 @@ msgstr ""
 #: apps/events/forms.py:44 apps/events/forms.py:713 apps/events/forms.py:764
 #: apps/institutions/forms.py:48 apps/marketplace/forms.py:41
 #: apps/site_specific/forms/events.py:35
-#: apps/site_specific/forms/events.py:1148
-#: apps/site_specific/forms/events.py:1199
+#: apps/site_specific/forms/events.py:1151
+#: apps/site_specific/forms/events.py:1202
 #: apps/site_specific/forms/institutions.py:43
-#: apps/site_specific/forms/institutions.py:815
+#: apps/site_specific/forms/institutions.py:818
 #: apps/site_specific/forms/marketplace.py:30
 #: apps/site_specific/forms/misc.py:54 apps/site_specific/forms/misc.py:124
-#: apps/site_specific/forms/people.py:989
+#: apps/site_specific/forms/people.py:992
 #: templates/ccb/styleguide/form.html:559
 #: templates/ccb/uni_form/includes/birthday.html:22
 #: templates/ccb/uni_form/includes/establishment.html:15
@@ -1152,13 +1149,13 @@ msgstr ""
 #: apps/events/forms.py:45 apps/events/forms.py:707 apps/events/forms.py:758
 #: apps/institutions/forms.py:50 apps/marketplace/forms.py:42
 #: apps/site_specific/forms/events.py:36
-#: apps/site_specific/forms/events.py:1142
-#: apps/site_specific/forms/events.py:1193
+#: apps/site_specific/forms/events.py:1145
+#: apps/site_specific/forms/events.py:1196
 #: apps/site_specific/forms/institutions.py:45
-#: apps/site_specific/forms/institutions.py:809
+#: apps/site_specific/forms/institutions.py:812
 #: apps/site_specific/forms/marketplace.py:31
 #: apps/site_specific/forms/misc.py:55 apps/site_specific/forms/misc.py:126
-#: apps/site_specific/forms/people.py:983
+#: apps/site_specific/forms/people.py:986
 #: templates/ccb/styleguide/form.html:540
 #: templates/ccb/uni_form/includes/birthday.html:16
 #: templates/ccb/uni_form/includes/establishment.html:9
@@ -1171,10 +1168,10 @@ msgstr ""
 #: apps/bulletin_board/forms.py:33 apps/bulletin_board/forms.py:279
 #: apps/events/forms.py:46 apps/events/forms.py:701 apps/events/forms.py:752
 #: apps/marketplace/forms.py:43 apps/site_specific/forms/events.py:37
-#: apps/site_specific/forms/events.py:1136
-#: apps/site_specific/forms/events.py:1187
+#: apps/site_specific/forms/events.py:1139
+#: apps/site_specific/forms/events.py:1190
 #: apps/site_specific/forms/marketplace.py:32
-#: apps/site_specific/forms/misc.py:56 apps/site_specific/forms/people.py:977
+#: apps/site_specific/forms/misc.py:56 apps/site_specific/forms/people.py:980
 #: templates/ccb/styleguide/form.html:502
 #: templates/ccb/uni_form/includes/birthday.html:10
 #: templates/ccb/uni_form/includes/event_time.html:12
@@ -1206,27 +1203,27 @@ msgid "Available formats are JPG, GIF, and PNG. Minimal size is 290 × 290 px."
 msgstr ""
 
 #: apps/bulletin_board/forms.py:63 apps/events/base.py:828
-#: apps/events/forms.py:622 apps/site_specific/forms/events.py:1050
+#: apps/events/forms.py:622 apps/site_specific/forms/events.py:1053
 msgid "Start Year"
 msgstr ""
 
 #: apps/bulletin_board/forms.py:69 apps/events/base.py:829
-#: apps/events/forms.py:628 apps/site_specific/forms/events.py:1056
+#: apps/events/forms.py:628 apps/site_specific/forms/events.py:1059
 msgid "Start Month"
 msgstr ""
 
 #: apps/bulletin_board/forms.py:75 apps/events/base.py:830
-#: apps/events/forms.py:634 apps/site_specific/forms/events.py:1062
+#: apps/events/forms.py:634 apps/site_specific/forms/events.py:1065
 msgid "Start Day"
 msgstr ""
 
 #: apps/bulletin_board/forms.py:81 apps/events/forms.py:640
-#: apps/site_specific/forms/events.py:1068
+#: apps/site_specific/forms/events.py:1071
 msgid "Start Hours"
 msgstr ""
 
 #: apps/bulletin_board/forms.py:87 apps/events/forms.py:646
-#: apps/site_specific/forms/events.py:1074
+#: apps/site_specific/forms/events.py:1077
 msgid "Start Minutes"
 msgstr ""
 
@@ -1251,14 +1248,14 @@ msgstr ""
 
 #: apps/bulletin_board/forms.py:125 apps/events/admin.py:106
 #: apps/events/forms.py:254 apps/marketplace/forms.py:108
-#: apps/site_specific/forms/events.py:829
+#: apps/site_specific/forms/events.py:832
 #: apps/site_specific/forms/marketplace.py:208
 #: apps/site_specific/forms/people.py:282
 msgid "Please enter a letter to display a list of available institutions"
 msgstr ""
 
 #: apps/bulletin_board/forms.py:131 apps/events/forms.py:1851
-#: apps/institutions/forms.py:1462 apps/people/forms.py:39
+#: apps/institutions/forms.py:1460 apps/people/forms.py:39
 msgid "Location Type"
 msgstr ""
 
@@ -1277,16 +1274,16 @@ msgid "Time"
 msgstr ""
 
 #: apps/bulletin_board/forms.py:300 apps/events/forms.py:722
-#: apps/events/forms.py:773 apps/site_specific/forms/events.py:1157
-#: apps/site_specific/forms/events.py:1208
+#: apps/events/forms.py:773 apps/site_specific/forms/events.py:1160
+#: apps/site_specific/forms/events.py:1211
 #: templates/ccb/uni_form/includes/event_time.html:34
 #: templates/ccb/uni_form/includes/event_time.html:94
 msgid "Hour"
 msgstr ""
 
 #: apps/bulletin_board/forms.py:306 apps/events/forms.py:728
-#: apps/events/forms.py:779 apps/site_specific/forms/events.py:1163
-#: apps/site_specific/forms/events.py:1214
+#: apps/events/forms.py:779 apps/site_specific/forms/events.py:1166
+#: apps/site_specific/forms/events.py:1217
 #: templates/ccb/uni_form/includes/event_time.html:40
 #: templates/ccb/uni_form/includes/event_time.html:100
 msgid "Minute"
@@ -1297,8 +1294,8 @@ msgid "Please enter either email or phone."
 msgstr ""
 
 #: apps/bulletin_board/forms.py:369 apps/events/forms.py:823
-#: apps/site_specific/forms/events.py:1259
-#: apps/site_specific/forms/events.py:1261
+#: apps/site_specific/forms/events.py:1262
+#: apps/site_specific/forms/events.py:1264
 msgid "Please enter a valid date."
 msgstr ""
 
@@ -1312,8 +1309,8 @@ msgid "Please enter a valid time using format 'HH:MM'"
 msgstr ""
 
 #: apps/bulletin_board/forms.py:383 apps/events/forms.py:841
-#: apps/events/forms.py:871 apps/site_specific/forms/events.py:1279
-#: apps/site_specific/forms/events.py:1309
+#: apps/events/forms.py:871 apps/site_specific/forms/events.py:1282
+#: apps/site_specific/forms/events.py:1312
 msgid "If you choose a time, please enter a valid day, month and year."
 msgstr ""
 
@@ -1326,7 +1323,7 @@ msgid "bulletin data"
 msgstr ""
 
 #: apps/bulletin_board/forms.py:580 apps/events/forms.py:1818
-#: apps/institutions/forms.py:1428 apps/marketplace/forms.py:653
+#: apps/institutions/forms.py:1426 apps/marketplace/forms.py:653
 msgid "confirm data"
 msgstr ""
 
@@ -1355,8 +1352,7 @@ msgstr ""
 #: apps/bulletin_board/models.py:39 apps/bulletin_board/views.py:354
 #: apps/events/base.py:55 apps/external_services/models.py:13
 #: apps/external_services/models.py:72 apps/partners/models.py:13
-#: apps/partners/models.py:19
-#: subtrees/base_libs/base_libs/models/models.py:212
+#: apps/partners/models.py:19 subtrees/base_libs/base_libs/models/models.py:212
 #: subtrees/base_libs/base_libs/models/models.py:272
 #: templates/ccb/bulletin_board/change_bulletin.html:27
 #: templates/ccb/media_gallery/portfolio_overview.html:40
@@ -1408,10 +1404,10 @@ msgstr ""
 #: apps/institutions/forms.py:213 apps/institutions/forms.py:222
 #: apps/institutions/forms.py:231 apps/institutions/forms.py:240
 #: apps/institutions/forms.py:250 apps/institutions/forms.py:260
-#: apps/institutions/forms.py:382 apps/institutions/forms.py:395
-#: apps/institutions/forms.py:408 apps/institutions/forms.py:424
-#: apps/institutions/forms.py:437 apps/institutions/forms.py:450
-#: apps/institutions/forms.py:1456 apps/people/forms.py:33
+#: apps/institutions/forms.py:382 apps/institutions/forms.py:396
+#: apps/institutions/forms.py:410 apps/institutions/forms.py:427
+#: apps/institutions/forms.py:440 apps/institutions/forms.py:453
+#: apps/institutions/forms.py:1454 apps/people/forms.py:33
 #: apps/resources/forms.py:25 apps/site_specific/forms/events.py:415
 #: apps/site_specific/forms/events.py:424
 #: apps/site_specific/forms/events.py:433
@@ -1419,11 +1415,11 @@ msgstr ""
 #: apps/site_specific/forms/events.py:452
 #: apps/site_specific/forms/events.py:462
 #: apps/site_specific/forms/events.py:634
-#: apps/site_specific/forms/events.py:647
-#: apps/site_specific/forms/events.py:660
-#: apps/site_specific/forms/events.py:675
-#: apps/site_specific/forms/events.py:688
-#: apps/site_specific/forms/events.py:701
+#: apps/site_specific/forms/events.py:648
+#: apps/site_specific/forms/events.py:662
+#: apps/site_specific/forms/events.py:678
+#: apps/site_specific/forms/events.py:691
+#: apps/site_specific/forms/events.py:704
 #: apps/site_specific/forms/institutions.py:338
 #: apps/site_specific/forms/institutions.py:347
 #: apps/site_specific/forms/institutions.py:356
@@ -1431,11 +1427,11 @@ msgstr ""
 #: apps/site_specific/forms/institutions.py:375
 #: apps/site_specific/forms/institutions.py:385
 #: apps/site_specific/forms/institutions.py:552
-#: apps/site_specific/forms/institutions.py:565
-#: apps/site_specific/forms/institutions.py:578
-#: apps/site_specific/forms/institutions.py:593
-#: apps/site_specific/forms/institutions.py:606
-#: apps/site_specific/forms/institutions.py:619
+#: apps/site_specific/forms/institutions.py:566
+#: apps/site_specific/forms/institutions.py:580
+#: apps/site_specific/forms/institutions.py:596
+#: apps/site_specific/forms/institutions.py:609
+#: apps/site_specific/forms/institutions.py:622
 #: apps/site_specific/forms/marketplace.py:343
 #: apps/site_specific/forms/marketplace.py:352
 #: apps/site_specific/forms/marketplace.py:361
@@ -1449,11 +1445,11 @@ msgstr ""
 #: apps/site_specific/forms/people.py:446
 #: apps/site_specific/forms/people.py:456
 #: apps/site_specific/forms/people.py:651
-#: apps/site_specific/forms/people.py:664
-#: apps/site_specific/forms/people.py:677
-#: apps/site_specific/forms/people.py:693
-#: apps/site_specific/forms/people.py:706
-#: apps/site_specific/forms/people.py:719
+#: apps/site_specific/forms/people.py:665
+#: apps/site_specific/forms/people.py:679
+#: apps/site_specific/forms/people.py:696
+#: apps/site_specific/forms/people.py:709
+#: apps/site_specific/forms/people.py:722
 #: templates/ccb/marketplace/feeds/feed_description.html:3
 #: templates/ccb/resources/documents/profile/details.html:27
 #: templates/ccb/site_specific/object_categories.html:46
@@ -1714,29 +1710,29 @@ msgstr ""
 #: apps/media_gallery/forms.py:377 apps/site_specific/forms/events.py:150
 #: apps/site_specific/forms/events.py:202
 #: apps/site_specific/forms/events.py:253
-#: apps/site_specific/forms/events.py:715
-#: apps/site_specific/forms/events.py:900
-#: apps/site_specific/forms/events.py:959
-#: apps/site_specific/forms/events.py:1018
-#: apps/site_specific/forms/events.py:1889
-#: apps/site_specific/forms/events.py:2007
+#: apps/site_specific/forms/events.py:718
+#: apps/site_specific/forms/events.py:903
+#: apps/site_specific/forms/events.py:962
+#: apps/site_specific/forms/events.py:1021
+#: apps/site_specific/forms/events.py:1892
+#: apps/site_specific/forms/events.py:2010
 #: apps/site_specific/forms/institutions.py:88
 #: apps/site_specific/forms/institutions.py:141
 #: apps/site_specific/forms/institutions.py:194
-#: apps/site_specific/forms/institutions.py:635
-#: apps/site_specific/forms/institutions.py:821
-#: apps/site_specific/forms/institutions.py:1003
-#: apps/site_specific/forms/institutions.py:1557
-#: apps/site_specific/forms/institutions.py:1692
+#: apps/site_specific/forms/institutions.py:638
+#: apps/site_specific/forms/institutions.py:824
+#: apps/site_specific/forms/institutions.py:1006
+#: apps/site_specific/forms/institutions.py:1560
+#: apps/site_specific/forms/institutions.py:1695
 #: apps/site_specific/forms/marketplace.py:148
-#: apps/site_specific/forms/marketplace.py:663
-#: apps/site_specific/forms/marketplace.py:785
+#: apps/site_specific/forms/marketplace.py:666
+#: apps/site_specific/forms/marketplace.py:788
 #: apps/site_specific/forms/people.py:105
 #: apps/site_specific/forms/people.py:161
 #: apps/site_specific/forms/people.py:214
-#: apps/site_specific/forms/people.py:735
-#: apps/site_specific/forms/people.py:995
-#: apps/site_specific/forms/people.py:1047
+#: apps/site_specific/forms/people.py:738
+#: apps/site_specific/forms/people.py:998
+#: apps/site_specific/forms/people.py:1050
 #: subtrees/base_libs/base_libs/models/admin.py:27
 #: templates/admin/extendedadmin/document_change.html:432
 #: templates/ccb/blog/forms/post_embedded.html:19
@@ -1864,7 +1860,7 @@ msgid "Please enter a letter to display a list of available venues"
 msgstr ""
 
 #: apps/events/admin.py:105 apps/events/base.py:485 apps/events/forms.py:253
-#: apps/events/forms.py:465 apps/site_specific/forms/events.py:828
+#: apps/events/forms.py:465 apps/site_specific/forms/events.py:831
 #: templates/ccb/events/add_event_confirm.html:154
 msgid "Organizing institution"
 msgstr ""
@@ -1974,13 +1970,13 @@ msgstr ""
 
 #: apps/events/base.py:226 apps/events/base.py:833 apps/events/base.py:840
 #: apps/events/forms.py:696 apps/resources/models.py:15
-#: apps/site_specific/forms/events.py:1131
+#: apps/site_specific/forms/events.py:1134
 #: templates/ccb/uni_form/includes/event_time.html:8
 msgid "Start"
 msgstr ""
 
-#: apps/events/base.py:227 apps/events/forms.py:747
-#: apps/resources/models.py:16 apps/site_specific/forms/events.py:1182
+#: apps/events/base.py:227 apps/events/forms.py:747 apps/resources/models.py:16
+#: apps/site_specific/forms/events.py:1185
 #: templates/ccb/uni_form/includes/event_time.html:68
 msgid "End"
 msgstr ""
@@ -2032,7 +2028,7 @@ msgid "Postal Address"
 msgstr ""
 
 #: apps/events/base.py:514 apps/events/forms.py:461
-#: apps/site_specific/forms/events.py:879
+#: apps/site_specific/forms/events.py:882
 #: templates/ccb/counselling_events/profile/organizer.html:7
 #: templates/ccb/counselling_events/profile/organizer.html:11
 #: templates/ccb/events/profile/organizer.html:9
@@ -2044,7 +2040,7 @@ msgstr ""
 msgid "Organizer URL"
 msgstr ""
 
-#: apps/events/base.py:517 apps/site_specific/forms/events.py:954
+#: apps/events/base.py:517 apps/site_specific/forms/events.py:957
 #: templates/admin/extendedadmin/document_change.html:258
 #: templates/admin/extendedadmin/job_offer_change.html:146
 #: templates/ccb/counselling_events/profile/additional_info.html:6
@@ -2148,19 +2144,19 @@ msgid "Start Minute"
 msgstr ""
 
 #: apps/events/base.py:835 apps/events/forms.py:652
-#: apps/marketplace/forms.py:203 apps/site_specific/forms/events.py:1080
+#: apps/marketplace/forms.py:203 apps/site_specific/forms/events.py:1083
 #: apps/site_specific/forms/marketplace.py:86
 msgid "End Year"
 msgstr ""
 
 #: apps/events/base.py:836 apps/events/forms.py:658
-#: apps/marketplace/forms.py:209 apps/site_specific/forms/events.py:1086
+#: apps/marketplace/forms.py:209 apps/site_specific/forms/events.py:1089
 #: apps/site_specific/forms/marketplace.py:92
 msgid "End Month"
 msgstr ""
 
 #: apps/events/base.py:837 apps/events/forms.py:664
-#: apps/marketplace/forms.py:215 apps/site_specific/forms/events.py:1092
+#: apps/marketplace/forms.py:215 apps/site_specific/forms/events.py:1095
 #: apps/site_specific/forms/marketplace.py:98
 msgid "End Day"
 msgstr ""
@@ -2258,24 +2254,24 @@ msgstr ""
 #: apps/events/forms.py:69 apps/events/forms.py:397
 #: apps/institutions/forms.py:245 apps/institutions/forms.py:255
 #: apps/institutions/forms.py:265 apps/institutions/forms.py:285
-#: apps/institutions/forms.py:290 apps/institutions/forms.py:424
-#: apps/institutions/forms.py:437 apps/institutions/forms.py:450
+#: apps/institutions/forms.py:290 apps/institutions/forms.py:427
+#: apps/institutions/forms.py:440 apps/institutions/forms.py:453
 #: apps/marketplace/forms.py:273 apps/site_specific/forms/events.py:447
 #: apps/site_specific/forms/events.py:457
 #: apps/site_specific/forms/events.py:467
 #: apps/site_specific/forms/events.py:549
-#: apps/site_specific/forms/events.py:675
-#: apps/site_specific/forms/events.py:688
-#: apps/site_specific/forms/events.py:701
+#: apps/site_specific/forms/events.py:678
+#: apps/site_specific/forms/events.py:691
+#: apps/site_specific/forms/events.py:704
 #: apps/site_specific/forms/institutions.py:370
 #: apps/site_specific/forms/institutions.py:380
 #: apps/site_specific/forms/institutions.py:390
 #: apps/site_specific/forms/institutions.py:459
 #: apps/site_specific/forms/institutions.py:463
 #: apps/site_specific/forms/institutions.py:464
-#: apps/site_specific/forms/institutions.py:593
-#: apps/site_specific/forms/institutions.py:606
-#: apps/site_specific/forms/institutions.py:619
+#: apps/site_specific/forms/institutions.py:596
+#: apps/site_specific/forms/institutions.py:609
+#: apps/site_specific/forms/institutions.py:622
 #: apps/site_specific/forms/marketplace.py:375
 #: apps/site_specific/forms/marketplace.py:385
 #: apps/site_specific/forms/marketplace.py:395
@@ -2284,9 +2280,9 @@ msgstr ""
 #: apps/site_specific/forms/people.py:451
 #: apps/site_specific/forms/people.py:461
 #: apps/site_specific/forms/people.py:563
-#: apps/site_specific/forms/people.py:693
-#: apps/site_specific/forms/people.py:706
-#: apps/site_specific/forms/people.py:719
+#: apps/site_specific/forms/people.py:696
+#: apps/site_specific/forms/people.py:709
+#: apps/site_specific/forms/people.py:722
 #: templates/ccb/counselling_events/profile/contact.html:28
 #: templates/ccb/events/add_event_confirm.html:83
 #: templates/ccb/events/profile/contact.html:30
@@ -2465,7 +2461,7 @@ msgid "Fax Number"
 msgstr ""
 
 #: apps/events/forms.py:226 apps/events/forms.py:265
-#: apps/marketplace/forms.py:191 apps/site_specific/forms/events.py:840
+#: apps/marketplace/forms.py:191 apps/site_specific/forms/events.py:843
 #: templates/ccb/counselling_events/profile/contact.html:71
 #: templates/ccb/events/add_event_confirm.html:145
 #: templates/ccb/events/profile/contact.html:73
@@ -2479,7 +2475,7 @@ msgstr ""
 msgid "Website"
 msgstr ""
 
-#: apps/events/forms.py:260 apps/site_specific/forms/events.py:835
+#: apps/events/forms.py:260 apps/site_specific/forms/events.py:838
 msgid "Name of Institution"
 msgstr ""
 
@@ -2498,38 +2494,38 @@ msgstr ""
 msgid "Information about this Event"
 msgstr ""
 
-#: apps/events/forms.py:670 apps/site_specific/forms/events.py:1098
+#: apps/events/forms.py:670 apps/site_specific/forms/events.py:1101
 msgid "End Hours"
 msgstr ""
 
-#: apps/events/forms.py:676 apps/site_specific/forms/events.py:1104
+#: apps/events/forms.py:676 apps/site_specific/forms/events.py:1107
 msgid "End Minutes"
 msgstr ""
 
-#: apps/events/forms.py:681 apps/site_specific/forms/events.py:1109
+#: apps/events/forms.py:681 apps/site_specific/forms/events.py:1112
 msgid "All Day"
 msgstr ""
 
 #: apps/events/forms.py:819 apps/events/forms.py:858
-#: apps/marketplace/forms.py:376 apps/site_specific/forms/events.py:1255
-#: apps/site_specific/forms/events.py:1296
+#: apps/marketplace/forms.py:376 apps/site_specific/forms/events.py:1258
+#: apps/site_specific/forms/events.py:1299
 msgid "Please enter a valid month."
 msgstr ""
 
-#: apps/events/forms.py:827 apps/site_specific/forms/events.py:1265
+#: apps/events/forms.py:827 apps/site_specific/forms/events.py:1268
 msgid "Please enter a valid time using format 'HH:MM' or choose 'All Day'"
 msgstr ""
 
 #: apps/events/forms.py:862 apps/marketplace/forms.py:380
-#: apps/site_specific/forms/events.py:1300
+#: apps/site_specific/forms/events.py:1303
 msgid "If you want to specify an end date, please enter a valid one."
 msgstr ""
 
-#: apps/events/forms.py:866 apps/site_specific/forms/events.py:1304
+#: apps/events/forms.py:866 apps/site_specific/forms/events.py:1307
 msgid "End date must be after start date."
 msgstr ""
 
-#: apps/events/forms.py:881 apps/institutions/forms.py:472
+#: apps/events/forms.py:881 apps/institutions/forms.py:475
 #: apps/site_specific/forms/events.py:171
 #: apps/site_specific/forms/groups_networks.py:60
 #: apps/site_specific/forms/institutions.py:110
@@ -2540,7 +2536,7 @@ msgstr ""
 msgid "Description (English)"
 msgstr ""
 
-#: apps/events/forms.py:886 apps/institutions/forms.py:477
+#: apps/events/forms.py:886 apps/institutions/forms.py:480
 #: apps/site_specific/forms/events.py:176
 #: apps/site_specific/forms/groups_networks.py:65
 #: apps/site_specific/forms/institutions.py:115
@@ -2551,15 +2547,15 @@ msgstr ""
 msgid "Description (German)"
 msgstr ""
 
-#: apps/events/forms.py:892 apps/institutions/forms.py:507
-#: apps/institutions/forms.py:509
+#: apps/events/forms.py:892 apps/institutions/forms.py:510
+#: apps/institutions/forms.py:512
 #: templates/ccb/events/add_event_confirm.html:214
 #: templates/ccb/institutions/add_institution_confirm.html:173
 #: templates/ccb/institutions/add_institution_confirm.html:180
 msgid "Profile photo"
 msgstr ""
 
-#: apps/events/forms.py:894 apps/institutions/forms.py:483
+#: apps/events/forms.py:894 apps/institutions/forms.py:486
 #: apps/media_gallery/forms.py:46 apps/media_gallery/forms.py:283
 #: apps/site_specific/forms/events.py:224
 #: apps/site_specific/forms/groups_networks.py:92
@@ -2572,7 +2568,7 @@ msgid ""
 "are %s px."
 msgstr ""
 
-#: apps/events/forms.py:915 apps/institutions/forms.py:504
+#: apps/events/forms.py:915 apps/institutions/forms.py:507
 #: apps/site_specific/forms/events.py:222
 #: apps/site_specific/forms/groups_networks.py:90
 #: apps/site_specific/forms/institutions.py:163
@@ -2582,25 +2578,25 @@ msgstr ""
 msgid "Photo"
 msgstr ""
 
-#: apps/events/forms.py:938 apps/site_specific/forms/events.py:1354
+#: apps/events/forms.py:938 apps/site_specific/forms/events.py:1357
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:7
 #: templates/ccb/events/add_event_confirm.html:249
 msgid "Fees (English)"
 msgstr ""
 
-#: apps/events/forms.py:943 apps/site_specific/forms/events.py:1359
+#: apps/events/forms.py:943 apps/site_specific/forms/events.py:1362
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:33
 #: templates/ccb/events/add_event_confirm.html:239
 msgid "Fees (German)"
 msgstr ""
 
-#: apps/events/forms.py:950 apps/institutions/forms.py:527
-#: apps/site_specific/forms/events.py:1366
-#: apps/site_specific/forms/institutions.py:1034
+#: apps/events/forms.py:950 apps/institutions/forms.py:530
+#: apps/site_specific/forms/events.py:1369
+#: apps/site_specific/forms/institutions.py:1037
 msgid "Morning/Afternoon"
 msgstr ""
 
-#: apps/events/forms.py:955 apps/institutions/forms.py:532
+#: apps/events/forms.py:955 apps/institutions/forms.py:535
 #: subtrees/base_libs/base_libs/models/models.py:1110
 #: templates/ccb/institutions/add_institution_confirm.html:388
 msgid "Visiting by Appointment"
@@ -2609,23 +2605,23 @@ msgstr ""
 #: apps/events/forms.py:961 apps/events/forms.py:987 apps/events/forms.py:1013
 #: apps/events/forms.py:1039 apps/events/forms.py:1065
 #: apps/events/forms.py:1091 apps/events/forms.py:1117
-#: apps/institutions/forms.py:538 apps/institutions/forms.py:564
-#: apps/institutions/forms.py:590 apps/institutions/forms.py:616
-#: apps/institutions/forms.py:642 apps/institutions/forms.py:668
-#: apps/institutions/forms.py:694 apps/site_specific/forms/events.py:1371
-#: apps/site_specific/forms/events.py:1397
-#: apps/site_specific/forms/events.py:1423
-#: apps/site_specific/forms/events.py:1449
-#: apps/site_specific/forms/events.py:1475
-#: apps/site_specific/forms/events.py:1501
-#: apps/site_specific/forms/events.py:1527
-#: apps/site_specific/forms/institutions.py:1045
-#: apps/site_specific/forms/institutions.py:1071
-#: apps/site_specific/forms/institutions.py:1097
-#: apps/site_specific/forms/institutions.py:1123
-#: apps/site_specific/forms/institutions.py:1149
-#: apps/site_specific/forms/institutions.py:1175
-#: apps/site_specific/forms/institutions.py:1201
+#: apps/institutions/forms.py:541 apps/institutions/forms.py:567
+#: apps/institutions/forms.py:593 apps/institutions/forms.py:619
+#: apps/institutions/forms.py:645 apps/institutions/forms.py:671
+#: apps/institutions/forms.py:697 apps/site_specific/forms/events.py:1374
+#: apps/site_specific/forms/events.py:1400
+#: apps/site_specific/forms/events.py:1426
+#: apps/site_specific/forms/events.py:1452
+#: apps/site_specific/forms/events.py:1478
+#: apps/site_specific/forms/events.py:1504
+#: apps/site_specific/forms/events.py:1530
+#: apps/site_specific/forms/institutions.py:1048
+#: apps/site_specific/forms/institutions.py:1074
+#: apps/site_specific/forms/institutions.py:1100
+#: apps/site_specific/forms/institutions.py:1126
+#: apps/site_specific/forms/institutions.py:1152
+#: apps/site_specific/forms/institutions.py:1178
+#: apps/site_specific/forms/institutions.py:1204
 #: templates/ccb/uni_form/includes/opening_hours.html:10
 #: templates/ccb/uni_form/includes/opening_hours.html:63
 #: templates/ccb/uni_form/includes/opening_hours.html:108
@@ -2642,41 +2638,41 @@ msgstr ""
 #: apps/events/forms.py:1054 apps/events/forms.py:1070
 #: apps/events/forms.py:1080 apps/events/forms.py:1096
 #: apps/events/forms.py:1106 apps/events/forms.py:1122
-#: apps/events/forms.py:1132 apps/institutions/forms.py:543
-#: apps/institutions/forms.py:553 apps/institutions/forms.py:569
-#: apps/institutions/forms.py:579 apps/institutions/forms.py:595
-#: apps/institutions/forms.py:605 apps/institutions/forms.py:621
-#: apps/institutions/forms.py:631 apps/institutions/forms.py:647
-#: apps/institutions/forms.py:657 apps/institutions/forms.py:673
-#: apps/institutions/forms.py:683 apps/institutions/forms.py:699
-#: apps/institutions/forms.py:709 apps/site_specific/forms/events.py:1376
-#: apps/site_specific/forms/events.py:1386
-#: apps/site_specific/forms/events.py:1402
-#: apps/site_specific/forms/events.py:1412
-#: apps/site_specific/forms/events.py:1428
-#: apps/site_specific/forms/events.py:1438
-#: apps/site_specific/forms/events.py:1454
-#: apps/site_specific/forms/events.py:1464
-#: apps/site_specific/forms/events.py:1480
-#: apps/site_specific/forms/events.py:1490
-#: apps/site_specific/forms/events.py:1506
-#: apps/site_specific/forms/events.py:1516
-#: apps/site_specific/forms/events.py:1532
-#: apps/site_specific/forms/events.py:1542
-#: apps/site_specific/forms/institutions.py:1050
-#: apps/site_specific/forms/institutions.py:1060
-#: apps/site_specific/forms/institutions.py:1076
-#: apps/site_specific/forms/institutions.py:1086
-#: apps/site_specific/forms/institutions.py:1102
-#: apps/site_specific/forms/institutions.py:1112
-#: apps/site_specific/forms/institutions.py:1128
-#: apps/site_specific/forms/institutions.py:1138
-#: apps/site_specific/forms/institutions.py:1154
-#: apps/site_specific/forms/institutions.py:1164
-#: apps/site_specific/forms/institutions.py:1180
-#: apps/site_specific/forms/institutions.py:1190
-#: apps/site_specific/forms/institutions.py:1206
-#: apps/site_specific/forms/institutions.py:1216
+#: apps/events/forms.py:1132 apps/institutions/forms.py:546
+#: apps/institutions/forms.py:556 apps/institutions/forms.py:572
+#: apps/institutions/forms.py:582 apps/institutions/forms.py:598
+#: apps/institutions/forms.py:608 apps/institutions/forms.py:624
+#: apps/institutions/forms.py:634 apps/institutions/forms.py:650
+#: apps/institutions/forms.py:660 apps/institutions/forms.py:676
+#: apps/institutions/forms.py:686 apps/institutions/forms.py:702
+#: apps/institutions/forms.py:712 apps/site_specific/forms/events.py:1379
+#: apps/site_specific/forms/events.py:1389
+#: apps/site_specific/forms/events.py:1405
+#: apps/site_specific/forms/events.py:1415
+#: apps/site_specific/forms/events.py:1431
+#: apps/site_specific/forms/events.py:1441
+#: apps/site_specific/forms/events.py:1457
+#: apps/site_specific/forms/events.py:1467
+#: apps/site_specific/forms/events.py:1483
+#: apps/site_specific/forms/events.py:1493
+#: apps/site_specific/forms/events.py:1509
+#: apps/site_specific/forms/events.py:1519
+#: apps/site_specific/forms/events.py:1535
+#: apps/site_specific/forms/events.py:1545
+#: apps/site_specific/forms/institutions.py:1053
+#: apps/site_specific/forms/institutions.py:1063
+#: apps/site_specific/forms/institutions.py:1079
+#: apps/site_specific/forms/institutions.py:1089
+#: apps/site_specific/forms/institutions.py:1105
+#: apps/site_specific/forms/institutions.py:1115
+#: apps/site_specific/forms/institutions.py:1131
+#: apps/site_specific/forms/institutions.py:1141
+#: apps/site_specific/forms/institutions.py:1157
+#: apps/site_specific/forms/institutions.py:1167
+#: apps/site_specific/forms/institutions.py:1183
+#: apps/site_specific/forms/institutions.py:1193
+#: apps/site_specific/forms/institutions.py:1209
+#: apps/site_specific/forms/institutions.py:1219
 #: templates/ccb/uni_form/includes/opening_hours.html:16
 #: templates/ccb/uni_form/includes/opening_hours.html:49
 #: templates/ccb/uni_form/includes/opening_hours.html:69
@@ -2697,23 +2693,23 @@ msgstr ""
 #: apps/events/forms.py:971 apps/events/forms.py:997 apps/events/forms.py:1023
 #: apps/events/forms.py:1049 apps/events/forms.py:1075
 #: apps/events/forms.py:1101 apps/events/forms.py:1127
-#: apps/institutions/forms.py:548 apps/institutions/forms.py:574
-#: apps/institutions/forms.py:600 apps/institutions/forms.py:626
-#: apps/institutions/forms.py:652 apps/institutions/forms.py:678
-#: apps/institutions/forms.py:704 apps/site_specific/forms/events.py:1381
-#: apps/site_specific/forms/events.py:1407
-#: apps/site_specific/forms/events.py:1433
-#: apps/site_specific/forms/events.py:1459
-#: apps/site_specific/forms/events.py:1485
-#: apps/site_specific/forms/events.py:1511
-#: apps/site_specific/forms/events.py:1537
-#: apps/site_specific/forms/institutions.py:1055
-#: apps/site_specific/forms/institutions.py:1081
-#: apps/site_specific/forms/institutions.py:1107
-#: apps/site_specific/forms/institutions.py:1133
-#: apps/site_specific/forms/institutions.py:1159
-#: apps/site_specific/forms/institutions.py:1185
-#: apps/site_specific/forms/institutions.py:1211
+#: apps/institutions/forms.py:551 apps/institutions/forms.py:577
+#: apps/institutions/forms.py:603 apps/institutions/forms.py:629
+#: apps/institutions/forms.py:655 apps/institutions/forms.py:681
+#: apps/institutions/forms.py:707 apps/site_specific/forms/events.py:1384
+#: apps/site_specific/forms/events.py:1410
+#: apps/site_specific/forms/events.py:1436
+#: apps/site_specific/forms/events.py:1462
+#: apps/site_specific/forms/events.py:1488
+#: apps/site_specific/forms/events.py:1514
+#: apps/site_specific/forms/events.py:1540
+#: apps/site_specific/forms/institutions.py:1058
+#: apps/site_specific/forms/institutions.py:1084
+#: apps/site_specific/forms/institutions.py:1110
+#: apps/site_specific/forms/institutions.py:1136
+#: apps/site_specific/forms/institutions.py:1162
+#: apps/site_specific/forms/institutions.py:1188
+#: apps/site_specific/forms/institutions.py:1214
 #: templates/ccb/uni_form/includes/opening_hours.html:43
 #: templates/ccb/uni_form/includes/opening_hours.html:88
 #: templates/ccb/uni_form/includes/opening_hours.html:133
@@ -2724,27 +2720,26 @@ msgstr ""
 msgid "opens again"
 msgstr ""
 
-#: apps/events/forms.py:981 apps/events/forms.py:1007
-#: apps/events/forms.py:1033 apps/events/forms.py:1059
-#: apps/events/forms.py:1085 apps/events/forms.py:1111
-#: apps/events/forms.py:1137 apps/institutions/forms.py:558
-#: apps/institutions/forms.py:584 apps/institutions/forms.py:610
-#: apps/institutions/forms.py:636 apps/institutions/forms.py:662
-#: apps/institutions/forms.py:688 apps/institutions/forms.py:714
-#: apps/site_specific/forms/events.py:1391
-#: apps/site_specific/forms/events.py:1417
-#: apps/site_specific/forms/events.py:1443
-#: apps/site_specific/forms/events.py:1469
-#: apps/site_specific/forms/events.py:1495
-#: apps/site_specific/forms/events.py:1521
-#: apps/site_specific/forms/events.py:1547
-#: apps/site_specific/forms/institutions.py:1065
-#: apps/site_specific/forms/institutions.py:1091
-#: apps/site_specific/forms/institutions.py:1117
-#: apps/site_specific/forms/institutions.py:1143
-#: apps/site_specific/forms/institutions.py:1169
-#: apps/site_specific/forms/institutions.py:1195
-#: apps/site_specific/forms/institutions.py:1221 apps/tracker/models.py:24
+#: apps/events/forms.py:981 apps/events/forms.py:1007 apps/events/forms.py:1033
+#: apps/events/forms.py:1059 apps/events/forms.py:1085
+#: apps/events/forms.py:1111 apps/events/forms.py:1137
+#: apps/institutions/forms.py:561 apps/institutions/forms.py:587
+#: apps/institutions/forms.py:613 apps/institutions/forms.py:639
+#: apps/institutions/forms.py:665 apps/institutions/forms.py:691
+#: apps/institutions/forms.py:717 apps/site_specific/forms/events.py:1394
+#: apps/site_specific/forms/events.py:1420
+#: apps/site_specific/forms/events.py:1446
+#: apps/site_specific/forms/events.py:1472
+#: apps/site_specific/forms/events.py:1498
+#: apps/site_specific/forms/events.py:1524
+#: apps/site_specific/forms/events.py:1550
+#: apps/site_specific/forms/institutions.py:1068
+#: apps/site_specific/forms/institutions.py:1094
+#: apps/site_specific/forms/institutions.py:1120
+#: apps/site_specific/forms/institutions.py:1146
+#: apps/site_specific/forms/institutions.py:1172
+#: apps/site_specific/forms/institutions.py:1198
+#: apps/site_specific/forms/institutions.py:1224 apps/tracker/models.py:24
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:198
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:205
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:212
@@ -2755,16 +2750,16 @@ msgstr ""
 msgid "Closed"
 msgstr ""
 
-#: apps/events/forms.py:1143 apps/institutions/forms.py:720
-#: apps/site_specific/forms/events.py:1553
-#: apps/site_specific/forms/institutions.py:1227
+#: apps/events/forms.py:1143 apps/institutions/forms.py:723
+#: apps/site_specific/forms/events.py:1556
+#: apps/site_specific/forms/institutions.py:1230
 #: templates/ccb/institutions/add_institution_confirm.html:380
 msgid "Exceptions for working hours (English)"
 msgstr ""
 
-#: apps/events/forms.py:1148 apps/institutions/forms.py:725
-#: apps/site_specific/forms/events.py:1558
-#: apps/site_specific/forms/institutions.py:1232
+#: apps/events/forms.py:1148 apps/institutions/forms.py:728
+#: apps/site_specific/forms/events.py:1561
+#: apps/site_specific/forms/institutions.py:1235
 #: templates/ccb/institutions/add_institution_confirm.html:372
 msgid "Exceptions for working hours (German)"
 msgstr ""
@@ -2775,19 +2770,19 @@ msgstr ""
 msgid "Fees"
 msgstr ""
 
-#: apps/events/forms.py:1169 apps/institutions/forms.py:808
-#: apps/site_specific/forms/events.py:1619
+#: apps/events/forms.py:1169 apps/institutions/forms.py:811
+#: apps/site_specific/forms/events.py:1622
 msgid "Opening Time"
 msgstr ""
 
-#: apps/events/forms.py:1169 apps/institutions/forms.py:808
-#: apps/site_specific/forms/events.py:1620
+#: apps/events/forms.py:1169 apps/institutions/forms.py:811
+#: apps/site_specific/forms/events.py:1623
 msgid "Closing Time"
 msgstr ""
 
-#: apps/events/forms.py:1171 apps/institutions/forms.py:810
-#: apps/site_specific/forms/events.py:1623
-#: apps/site_specific/forms/institutions.py:1289
+#: apps/events/forms.py:1171 apps/institutions/forms.py:813
+#: apps/site_specific/forms/events.py:1626
+#: apps/site_specific/forms/institutions.py:1292
 #: subtrees/base_libs/base_libs/models/models.py:1169
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:100
 #: templates/ccb/events/add_event_confirm.html:262
@@ -2796,9 +2791,9 @@ msgstr ""
 msgid "Monday"
 msgstr ""
 
-#: apps/events/forms.py:1212 apps/institutions/forms.py:851
-#: apps/site_specific/forms/events.py:1664
-#: apps/site_specific/forms/institutions.py:1330
+#: apps/events/forms.py:1212 apps/institutions/forms.py:854
+#: apps/site_specific/forms/events.py:1667
+#: apps/site_specific/forms/institutions.py:1333
 #: subtrees/base_libs/base_libs/models/models.py:1170
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:101
 #: templates/ccb/events/add_event_confirm.html:282
@@ -2807,9 +2802,9 @@ msgstr ""
 msgid "Tuesday"
 msgstr ""
 
-#: apps/events/forms.py:1249 apps/institutions/forms.py:888
-#: apps/site_specific/forms/events.py:1701
-#: apps/site_specific/forms/institutions.py:1367
+#: apps/events/forms.py:1249 apps/institutions/forms.py:891
+#: apps/site_specific/forms/events.py:1704
+#: apps/site_specific/forms/institutions.py:1370
 #: subtrees/base_libs/base_libs/models/models.py:1171
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:102
 #: templates/ccb/events/add_event_confirm.html:303
@@ -2818,9 +2813,9 @@ msgstr ""
 msgid "Wednesday"
 msgstr ""
 
-#: apps/events/forms.py:1286 apps/institutions/forms.py:925
-#: apps/site_specific/forms/events.py:1738
-#: apps/site_specific/forms/institutions.py:1404
+#: apps/events/forms.py:1286 apps/institutions/forms.py:928
+#: apps/site_specific/forms/events.py:1741
+#: apps/site_specific/forms/institutions.py:1407
 #: subtrees/base_libs/base_libs/models/models.py:1172
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:103
 #: templates/ccb/events/add_event_confirm.html:324
@@ -2829,9 +2824,9 @@ msgstr ""
 msgid "Thursday"
 msgstr ""
 
-#: apps/events/forms.py:1323 apps/institutions/forms.py:962
-#: apps/site_specific/forms/events.py:1775
-#: apps/site_specific/forms/institutions.py:1441
+#: apps/events/forms.py:1323 apps/institutions/forms.py:965
+#: apps/site_specific/forms/events.py:1778
+#: apps/site_specific/forms/institutions.py:1444
 #: subtrees/base_libs/base_libs/models/models.py:1173
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:104
 #: templates/ccb/events/add_event_confirm.html:345
@@ -2840,9 +2835,9 @@ msgstr ""
 msgid "Friday"
 msgstr ""
 
-#: apps/events/forms.py:1360 apps/institutions/forms.py:999
-#: apps/site_specific/forms/events.py:1812
-#: apps/site_specific/forms/institutions.py:1478
+#: apps/events/forms.py:1360 apps/institutions/forms.py:1002
+#: apps/site_specific/forms/events.py:1815
+#: apps/site_specific/forms/institutions.py:1481
 #: subtrees/base_libs/base_libs/models/models.py:1174
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:105
 #: templates/ccb/events/add_event_confirm.html:366
@@ -2851,9 +2846,9 @@ msgstr ""
 msgid "Saturday"
 msgstr ""
 
-#: apps/events/forms.py:1397 apps/institutions/forms.py:1036
-#: apps/site_specific/forms/events.py:1849
-#: apps/site_specific/forms/institutions.py:1515
+#: apps/events/forms.py:1397 apps/institutions/forms.py:1039
+#: apps/site_specific/forms/events.py:1852
+#: apps/site_specific/forms/institutions.py:1518
 #: subtrees/base_libs/base_libs/models/models.py:1175
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:106
 #: templates/ccb/events/add_event_confirm.html:387
@@ -2863,40 +2858,40 @@ msgid "Sunday"
 msgstr ""
 
 #: apps/events/forms.py:1459 apps/events/forms.py:1470
-#: apps/institutions/forms.py:1168 apps/institutions/forms.py:1178
-#: apps/site_specific/forms/events.py:1923
-#: apps/site_specific/forms/events.py:1933
-#: apps/site_specific/forms/institutions.py:1580
-#: apps/site_specific/forms/institutions.py:1591
+#: apps/institutions/forms.py:1171 apps/institutions/forms.py:1181
+#: apps/site_specific/forms/events.py:1926
+#: apps/site_specific/forms/events.py:1936
+#: apps/site_specific/forms/institutions.py:1583
+#: apps/site_specific/forms/institutions.py:1594
 msgid "Please enter a closing time."
 msgstr ""
 
 #: apps/events/forms.py:1462 apps/events/forms.py:1473
-#: apps/institutions/forms.py:1170 apps/institutions/forms.py:1181
-#: apps/site_specific/forms/events.py:1925
-#: apps/site_specific/forms/events.py:1935
-#: apps/site_specific/forms/institutions.py:1583
-#: apps/site_specific/forms/institutions.py:1594
+#: apps/institutions/forms.py:1173 apps/institutions/forms.py:1184
+#: apps/site_specific/forms/events.py:1928
+#: apps/site_specific/forms/events.py:1938
+#: apps/site_specific/forms/institutions.py:1586
+#: apps/site_specific/forms/institutions.py:1597
 msgid "A closing time must not be before an opening time."
 msgstr ""
 
 #: apps/events/forms.py:1465 apps/events/forms.py:1476
-#: apps/institutions/forms.py:1173 apps/institutions/forms.py:1184
-#: apps/site_specific/forms/events.py:1929
-#: apps/site_specific/forms/events.py:1939
-#: apps/site_specific/forms/institutions.py:1586
-#: apps/site_specific/forms/institutions.py:1597
+#: apps/institutions/forms.py:1176 apps/institutions/forms.py:1187
+#: apps/site_specific/forms/events.py:1932
+#: apps/site_specific/forms/events.py:1942
+#: apps/site_specific/forms/institutions.py:1589
+#: apps/site_specific/forms/institutions.py:1600
 msgid "Please enter an opening time."
 msgstr ""
 
-#: apps/events/forms.py:1481 apps/institutions/forms.py:1188
-#: apps/site_specific/forms/institutions.py:1602
+#: apps/events/forms.py:1481 apps/institutions/forms.py:1191
+#: apps/site_specific/forms/institutions.py:1605
 msgid "When specifying breaks, you must enter all data."
 msgstr ""
 
-#: apps/events/forms.py:1485 apps/institutions/forms.py:1192
-#: apps/site_specific/forms/events.py:1907
-#: apps/site_specific/forms/institutions.py:1606
+#: apps/events/forms.py:1485 apps/institutions/forms.py:1195
+#: apps/site_specific/forms/events.py:1910
+#: apps/site_specific/forms/institutions.py:1609
 msgid ""
 "An opening time after break must not be before the closing time to break."
 msgstr ""
@@ -2905,9 +2900,8 @@ msgstr ""
 msgid "Separate tags with commas."
 msgstr ""
 
-#: apps/events/forms.py:1789 apps/institutions/forms.py:1402
-#: apps/marketplace/forms.py:642
-#: templates/ccb/events/add_event_confirm.html:28
+#: apps/events/forms.py:1789 apps/institutions/forms.py:1405
+#: apps/marketplace/forms.py:642 templates/ccb/events/add_event_confirm.html:28
 #: templates/ccb/groups_networks/persongroups/add_group_confirm.html:56
 msgid "main data"
 msgstr ""
@@ -2921,7 +2915,7 @@ msgid "fees and opening hours"
 msgstr ""
 
 #: apps/events/forms.py:1813 apps/events/models.py:40
-#: apps/groups_networks/models.py:19 apps/institutions/forms.py:1422
+#: apps/groups_networks/models.py:19 apps/institutions/forms.py:1420
 #: apps/institutions/models.py:32 apps/marketplace/forms.py:648
 #: apps/people/models.py:44 apps/resources/models.py:26
 #: templates/ccb/events/add_event_confirm.html:416
@@ -3189,9 +3183,9 @@ msgstr ""
 #: apps/media_gallery/admin.py:49 apps/media_gallery/admin.py:68
 #: apps/partners/admin.py:27 apps/partners/admin.py:64
 #: apps/site_specific/admin.py:36 apps/site_specific/forms/events.py:144
-#: apps/site_specific/forms/institutions.py:801
+#: apps/site_specific/forms/institutions.py:804
 #: apps/site_specific/forms/marketplace.py:123
-#: apps/site_specific/forms/people.py:965
+#: apps/site_specific/forms/people.py:968
 #: templates/ccb/groups_networks/persongroups/group_details.html:29
 #: templates/ccb/groups_networks/persongroups/profile/details_form.html:10
 #: templates/ccb/institutions/profile/details.html:6
@@ -3267,7 +3261,7 @@ msgstr ""
 msgid "Institution Name 2nd line"
 msgstr ""
 
-#: apps/institutions/forms.py:86 apps/site_specific/forms/institutions.py:759
+#: apps/institutions/forms.py:86 apps/site_specific/forms/institutions.py:762
 #: templates/ccb/institutions/add_institution_confirm.html:23
 #: templates/ccb/institutions/profile/details.html:10
 msgid "Legal Form"
@@ -3363,113 +3357,113 @@ msgstr ""
 msgid "Websites"
 msgstr ""
 
-#: apps/institutions/forms.py:382 apps/institutions/forms.py:395
-#: apps/institutions/forms.py:408 apps/site_specific/forms/events.py:634
-#: apps/site_specific/forms/events.py:647
-#: apps/site_specific/forms/events.py:660
+#: apps/institutions/forms.py:382 apps/institutions/forms.py:396
+#: apps/institutions/forms.py:410 apps/site_specific/forms/events.py:634
+#: apps/site_specific/forms/events.py:648
+#: apps/site_specific/forms/events.py:662
 #: apps/site_specific/forms/institutions.py:552
-#: apps/site_specific/forms/institutions.py:565
-#: apps/site_specific/forms/institutions.py:578
+#: apps/site_specific/forms/institutions.py:566
+#: apps/site_specific/forms/institutions.py:580
 #: apps/site_specific/forms/people.py:651
-#: apps/site_specific/forms/people.py:664
-#: apps/site_specific/forms/people.py:677
+#: apps/site_specific/forms/people.py:665
+#: apps/site_specific/forms/people.py:679
 msgid "Url"
 msgstr ""
 
-#: apps/institutions/forms.py:422 apps/site_specific/forms/events.py:673
-#: apps/site_specific/forms/institutions.py:591
-#: apps/site_specific/forms/marketplace.py:621
-#: apps/site_specific/forms/people.py:691
+#: apps/institutions/forms.py:425 apps/site_specific/forms/events.py:676
+#: apps/site_specific/forms/institutions.py:594
+#: apps/site_specific/forms/marketplace.py:624
+#: apps/site_specific/forms/people.py:694
 #: templates/ccb/institutions/add_institution_confirm.html:126
 msgid "Instant Messengers"
 msgstr ""
 
-#: apps/institutions/forms.py:732 apps/site_specific/forms/institutions.py:845
+#: apps/institutions/forms.py:735 apps/site_specific/forms/institutions.py:848
 #: templates/ccb/institutions/add_institution_confirm.html:400
 msgid "Visa"
 msgstr ""
 
-#: apps/institutions/forms.py:738 apps/site_specific/forms/institutions.py:851
+#: apps/institutions/forms.py:741 apps/site_specific/forms/institutions.py:854
 #: templates/ccb/institutions/add_institution_confirm.html:403
 msgid "MasterCard"
 msgstr ""
 
-#: apps/institutions/forms.py:744 apps/site_specific/forms/institutions.py:857
+#: apps/institutions/forms.py:747 apps/site_specific/forms/institutions.py:860
 #: templates/ccb/institutions/add_institution_confirm.html:406
 msgid "American Express"
 msgstr ""
 
-#: apps/institutions/forms.py:750 apps/site_specific/forms/institutions.py:863
+#: apps/institutions/forms.py:753 apps/site_specific/forms/institutions.py:866
 #: templates/ccb/institutions/add_institution_confirm.html:409
 msgid "PayPal"
 msgstr ""
 
-#: apps/institutions/forms.py:756 apps/site_specific/forms/institutions.py:869
+#: apps/institutions/forms.py:759 apps/site_specific/forms/institutions.py:872
 #: templates/ccb/institutions/add_institution_confirm.html:412
 msgid "Cash"
 msgstr ""
 
-#: apps/institutions/forms.py:762 apps/site_specific/forms/institutions.py:875
+#: apps/institutions/forms.py:765 apps/site_specific/forms/institutions.py:878
 #: templates/ccb/institutions/add_institution_confirm.html:415
 msgid "Bank transfer"
 msgstr ""
 
-#: apps/institutions/forms.py:768 apps/site_specific/forms/institutions.py:881
+#: apps/institutions/forms.py:771 apps/site_specific/forms/institutions.py:884
 #: templates/ccb/institutions/add_institution_confirm.html:418
 msgid "Prepayment"
 msgstr ""
 
-#: apps/institutions/forms.py:774 apps/site_specific/forms/institutions.py:887
+#: apps/institutions/forms.py:777 apps/site_specific/forms/institutions.py:890
 #: templates/ccb/institutions/add_institution_confirm.html:421
 msgid "Payment on delivery"
 msgstr ""
 
-#: apps/institutions/forms.py:780 apps/site_specific/forms/institutions.py:893
+#: apps/institutions/forms.py:783 apps/site_specific/forms/institutions.py:896
 #: templates/ccb/institutions/add_institution_confirm.html:424
 msgid "Invoice"
 msgstr ""
 
-#: apps/institutions/forms.py:786 apps/site_specific/forms/institutions.py:899
+#: apps/institutions/forms.py:789 apps/site_specific/forms/institutions.py:902
 #: templates/ccb/institutions/add_institution_confirm.html:427
 msgid "EC Maestro"
 msgstr ""
 
-#: apps/institutions/forms.py:792 apps/site_specific/forms/institutions.py:905
+#: apps/institutions/forms.py:795 apps/site_specific/forms/institutions.py:908
 #: templates/ccb/institutions/add_institution_confirm.html:430
 msgid "Giropay"
 msgstr ""
 
-#: apps/institutions/forms.py:1080
+#: apps/institutions/forms.py:1083
 msgid "Payment Options"
 msgstr ""
 
-#: apps/institutions/forms.py:1217
-#: apps/site_specific/forms/institutions.py:1660
+#: apps/institutions/forms.py:1220
+#: apps/site_specific/forms/institutions.py:1663
 msgid "Types"
 msgstr ""
 
-#: apps/institutions/forms.py:1238
-#: apps/site_specific/forms/institutions.py:1687
+#: apps/institutions/forms.py:1241
+#: apps/site_specific/forms/institutions.py:1690
 #: templates/ccb/institutions/add_institution_confirm.html:455
 msgid "Institution Types"
 msgstr ""
 
-#: apps/institutions/forms.py:1412
+#: apps/institutions/forms.py:1410
 msgid "profile data"
 msgstr ""
 
-#: apps/institutions/forms.py:1417
+#: apps/institutions/forms.py:1415
 msgid "opening hours and payment"
 msgstr ""
 
-#: apps/institutions/forms.py:1444 apps/people/forms.py:21
+#: apps/institutions/forms.py:1442 apps/people/forms.py:21
 #: templates/ccb/base.html:195
 #: templates/ccb/groups_networks/persongroups/add_group_confirm.html:95
 #: templates/ccb/groups_networks/persongroups/profile/categories.html:8
 msgid "Creative Sector"
 msgstr ""
 
-#: apps/institutions/forms.py:1450 apps/people/forms.py:27
+#: apps/institutions/forms.py:1448 apps/people/forms.py:27
 msgid "Business Category"
 msgstr ""
 
@@ -3621,12 +3615,12 @@ msgstr ""
 msgid "Publish until"
 msgstr ""
 
-#: apps/marketplace/forms.py:401 apps/site_specific/forms/events.py:1980
-#: apps/site_specific/forms/marketplace.py:750
+#: apps/marketplace/forms.py:401 apps/site_specific/forms/events.py:1983
+#: apps/site_specific/forms/marketplace.py:753
 msgid "Separate tags with commas"
 msgstr ""
 
-#: apps/marketplace/forms.py:425 apps/site_specific/forms/marketplace.py:778
+#: apps/marketplace/forms.py:425 apps/site_specific/forms/marketplace.py:781
 #: templates/ccb/marketplace/emails/new_job_offer.html:146
 #: templates/ccb/marketplace/profile/categories.html:17
 msgid "Job Sectors"
@@ -4292,8 +4286,8 @@ msgstr ""
 msgid "Narrow down your search ..."
 msgstr ""
 
-#: apps/search/forms.py:40 templates/ccb/base_counselling.html:227
-#: templates/ccb/base_redesign.html:255 templates/ccb/styleguide/base.html:257
+#: apps/search/forms.py:40 templates/ccb/base_counselling.html:250
+#: templates/ccb/base_redesign.html:281 templates/ccb/styleguide/base.html:257
 msgid "search"
 msgstr ""
 
@@ -4429,31 +4423,31 @@ msgstr ""
 msgid "Institution/Company"
 msgstr ""
 
-#: apps/site_specific/forms/events.py:845
+#: apps/site_specific/forms/events.py:848
 msgid "Organized by myself"
 msgstr ""
 
-#: apps/site_specific/forms/events.py:859
+#: apps/site_specific/forms/events.py:862
 #, python-format
 msgid "Organized by %s"
 msgstr ""
 
-#: apps/site_specific/forms/events.py:927
+#: apps/site_specific/forms/events.py:930
 msgid "Additional Info English (Max 500 Characters)"
 msgstr ""
 
-#: apps/site_specific/forms/events.py:933
+#: apps/site_specific/forms/events.py:936
 msgid "Additional Info German (Max 500 Characters)"
 msgstr ""
 
-#: apps/site_specific/forms/events.py:999
+#: apps/site_specific/forms/events.py:1002
 #: templates/ccb/counselling_events/profile/event_times.html:6
 #: templates/ccb/events/add_event_confirm.html:56
 #: templates/ccb/events/profile/event_times.html:8
 msgid "Event Times"
 msgstr ""
 
-#: apps/site_specific/forms/events.py:1615
+#: apps/site_specific/forms/events.py:1618
 #: templates/ccb/counselling_events/profile/fees_opening_hours.html:6
 #: templates/ccb/events/profile/fees_opening_hours.html:8
 msgid "Fees &amp; Opening Hours"
@@ -4537,42 +4531,42 @@ msgstr ""
 msgid "Identity"
 msgstr ""
 
-#: apps/site_specific/forms/institutions.py:634
-#: apps/site_specific/forms/people.py:734
+#: apps/site_specific/forms/institutions.py:637
+#: apps/site_specific/forms/people.py:737
 #: templates/ccb/groups_networks/persongroups/profile/contact_form.html:80
 msgid "Save as Primary"
 msgstr ""
 
-#: apps/site_specific/forms/institutions.py:765
-#: apps/site_specific/forms/institutions.py:773
-#: apps/site_specific/forms/institutions.py:804
+#: apps/site_specific/forms/institutions.py:768
+#: apps/site_specific/forms/institutions.py:776
+#: apps/site_specific/forms/institutions.py:807
 msgid "Establishment"
 msgstr ""
 
-#: apps/site_specific/forms/institutions.py:767
+#: apps/site_specific/forms/institutions.py:770
 msgid "Year of establishment is required"
 msgstr ""
 
-#: apps/site_specific/forms/institutions.py:775
+#: apps/site_specific/forms/institutions.py:778
 msgid "Month of establishment is required"
 msgstr ""
 
-#: apps/site_specific/forms/institutions.py:780
+#: apps/site_specific/forms/institutions.py:783
 #: templates/ccb/institutions/profile/details.html:26
 msgid "Number of Employees"
 msgstr ""
 
-#: apps/site_specific/forms/institutions.py:935
+#: apps/site_specific/forms/institutions.py:938
 #: templates/ccb/institutions/add_institution_confirm.html:396
 #: templates/ccb/institutions/profile/payment.html:7
 msgid "Payment"
 msgstr ""
 
-#: apps/site_specific/forms/institutions.py:1039
+#: apps/site_specific/forms/institutions.py:1042
 msgid "Visiting by appointment"
 msgstr ""
 
-#: apps/site_specific/forms/institutions.py:1287
+#: apps/site_specific/forms/institutions.py:1290
 #: templates/admin/extendedadmin/includes/fieldset_opening_hours.html:96
 #: templates/ccb/institutions/profile/opening_hours.html:7
 msgid "Opening hours"
@@ -4806,25 +4800,25 @@ msgstr ""
 msgid "Location"
 msgstr ""
 
-#: apps/site_specific/forms/people.py:916
+#: apps/site_specific/forms/people.py:919
 msgid "Salutation"
 msgstr ""
 
-#: apps/site_specific/forms/people.py:921
-#: apps/site_specific/forms/people.py:926
-#: apps/site_specific/forms/people.py:931
-#: apps/site_specific/forms/people.py:972
+#: apps/site_specific/forms/people.py:924
+#: apps/site_specific/forms/people.py:929
+#: apps/site_specific/forms/people.py:934
+#: apps/site_specific/forms/people.py:975
 #: templates/ccb/people/profile/details.html:17
 #: templates/ccb/uni_form/includes/birthday.html:6
 msgid "Birthday"
 msgstr ""
 
-#: apps/site_specific/forms/people.py:935
+#: apps/site_specific/forms/people.py:938
 #: templates/ccb/people/profile/details.html:24
 msgid "Nationality"
 msgstr ""
 
-#: apps/site_specific/forms/people.py:940
+#: apps/site_specific/forms/people.py:943
 #: templates/ccb/people/profile/details.html:65
 msgid "Preferred Language"
 msgstr ""
@@ -6460,8 +6454,7 @@ msgstr ""
 
 #: templates/ccb/articles/articles_brief.html:44
 #: templates/ccb/base_counselling.html:75 templates/ccb/base_redesign.html:93
-#: templates/ccb/blog/post_brief.html:14
-#: templates/ccb/blog/post_detail.html:28
+#: templates/ccb/blog/post_brief.html:14 templates/ccb/blog/post_detail.html:28
 #: templates/ccb/bulletin_board/lists/bulletin_list_item.html:21
 #: templates/ccb/counselling_blog/post_brief.html:14
 #: templates/ccb/events/controls.html:20 templates/ccb/events/controls.html:21
@@ -6500,9 +6493,7 @@ msgid "Favorite"
 msgstr ""
 
 #: templates/ccb/articles/articles_detail.html:44
-#: templates/ccb/base_counselling.html:179
-#: templates/ccb/base_counselling.html:180
-#: templates/ccb/base_redesign.html:197 templates/ccb/base_redesign.html:198
+#: templates/ccb/base_redesign.html:224 templates/ccb/base_redesign.html:225
 #: templates/ccb/bulletin_board/bulletin_detail.html:23
 #: templates/ccb/events/details_base.html:101
 #: templates/ccb/marketplace/details_base.html:61
@@ -6663,23 +6654,20 @@ msgstr ""
 msgid "Follow us on"
 msgstr ""
 
-#: templates/ccb/base.html:414 templates/ccb/base_counselling.html:176
-#: templates/ccb/base_redesign.html:194
+#: templates/ccb/base.html:414 templates/ccb/base_redesign.html:221
 msgid "Bookmark / Share"
 msgstr ""
 
-#: templates/ccb/base.html:429 templates/ccb/base_counselling.html:190
-#: templates/ccb/base_redesign.html:208
+#: templates/ccb/base.html:429
 msgid "Presented by"
 msgstr ""
 
-#: templates/ccb/base.html:442 templates/ccb/base_counselling.html:198
-#: templates/ccb/base_redesign.html:216
+#: templates/ccb/base.html:442 templates/ccb/base_counselling.html:211
+#: templates/ccb/base_redesign.html:234
 msgid "Sponsored by"
 msgstr ""
 
-#: templates/ccb/base.html:473 templates/ccb/base_counselling.html:184
-#: templates/ccb/base_redesign.html:202
+#: templates/ccb/base.html:473
 msgid "Links"
 msgstr ""
 
@@ -6712,15 +6700,14 @@ msgid "edit"
 msgstr ""
 
 #: templates/ccb/base_counselling.html:72
-#: templates/ccb/base_counselling.html:228
-#: templates/ccb/base_counselling.html:238 templates/ccb/base_iframe.html:29
-#: templates/ccb/base_redesign.html:90 templates/ccb/base_redesign.html:256
-#: templates/ccb/base_redesign.html:266
+#: templates/ccb/base_counselling.html:251
+#: templates/ccb/base_counselling.html:261 templates/ccb/base_iframe.html:29
+#: templates/ccb/base_redesign.html:90 templates/ccb/base_redesign.html:282
+#: templates/ccb/base_redesign.html:292
 #: templates/ccb/curated_lists/curated_list_detail.html:111
 #: templates/ccb/curated_lists/curated_list_detail.html:129
 #: templates/ccb/curated_lists/curated_list_detail.html:177
-#: templates/ccb/styleguide/base.html:36
-#: templates/ccb/styleguide/base.html:258
+#: templates/ccb/styleguide/base.html:36 templates/ccb/styleguide/base.html:258
 #: templates/ccb/styleguide/base.html:268
 msgid "close"
 msgstr ""
@@ -6766,53 +6753,60 @@ msgid "Remove Memo"
 msgstr ""
 
 #: templates/ccb/base_counselling.html:109
-#: templates/ccb/base_counselling.html:126
-#: templates/ccb/base_redesign.html:126 templates/ccb/base_redesign.html:143
-#: templates/ccb/styleguide/base.html:55 templates/ccb/styleguide/base.html:76
+#: templates/ccb/base_counselling.html:126 templates/ccb/base_redesign.html:126
+#: templates/ccb/base_redesign.html:143 templates/ccb/styleguide/base.html:55
+#: templates/ccb/styleguide/base.html:76
 msgid "search entire website"
 msgstr ""
 
-#: templates/ccb/base_counselling.html:125
-#: templates/ccb/base_redesign.html:142 templates/ccb/styleguide/base.html:75
+#: templates/ccb/base_counselling.html:125 templates/ccb/base_redesign.html:142
+#: templates/ccb/styleguide/base.html:75
 msgid "toggle menu"
 msgstr ""
 
-#: templates/ccb/base_counselling.html:128
-#: templates/ccb/base_redesign.html:146 templates/ccb/base_redesign.html:148
+#: templates/ccb/base_counselling.html:128 templates/ccb/base_redesign.html:146
+#: templates/ccb/base_redesign.html:148
 msgid "dashboard"
 msgstr ""
 
-#: templates/ccb/base_counselling.html:130
-#: templates/ccb/base_redesign.html:151
+#: templates/ccb/base_counselling.html:130 templates/ccb/base_redesign.html:151
 #: templates/ccb/facebook_app/login.html:5
 #: templates/ccb/facebook_app/login.html:8
 #: templates/ccb/styleguide/base.html:77
 msgid "login"
 msgstr ""
 
-#: templates/ccb/base_counselling.html:169
-#: templates/ccb/base_redesign.html:187
+#: templates/ccb/base_counselling.html:172 templates/ccb/base_redesign.html:188
+msgid "A part of"
+msgstr ""
+
+#: templates/ccb/base_counselling.html:176 templates/ccb/base_redesign.html:192
+msgid "More offers"
+msgstr ""
+
+#: templates/ccb/base_counselling.html:198 templates/ccb/base_redesign.html:214
 msgid "Follow Us"
 msgstr ""
 
-#: templates/ccb/base_counselling.html:171
-#: templates/ccb/base_redesign.html:189
+#: templates/ccb/base_counselling.html:200 templates/ccb/base_redesign.html:216
 msgid "Follow us on Twitter"
 msgstr ""
 
-#: templates/ccb/base_counselling.html:172
-#: templates/ccb/base_redesign.html:190
+#: templates/ccb/base_counselling.html:201 templates/ccb/base_redesign.html:217
 msgid "Follow us on Facebook"
 msgstr ""
 
-#: templates/ccb/base_counselling.html:178
-#: templates/ccb/base_redesign.html:196
-msgid "Share on Twitter"
+#: templates/ccb/base_counselling.html:231 templates/ccb/base_redesign.html:264
+msgid "An offer of"
 msgstr ""
 
-#: templates/ccb/base_counselling.html:224
-#: templates/ccb/base_redesign.html:252 templates/ccb/styleguide/base.html:255
+#: templates/ccb/base_counselling.html:247 templates/ccb/base_redesign.html:278
+#: templates/ccb/styleguide/base.html:255
 msgid "Enter your search term ..."
+msgstr ""
+
+#: templates/ccb/base_redesign.html:223
+msgid "Share on Twitter"
 msgstr ""
 
 #: templates/ccb/blocks/infobox.html:4
@@ -9922,7 +9916,7 @@ msgstr ""
 msgid "There are no public infolinks."
 msgstr ""
 
-#: templates/ccb/search/search.html:5 templates/ccb/search/search.html:11
+#: templates/ccb/search/search.html:5 templates/ccb/search/search.html.py:11
 msgid "SEARCH"
 msgstr ""
 
