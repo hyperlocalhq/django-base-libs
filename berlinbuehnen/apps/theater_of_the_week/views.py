@@ -64,7 +64,6 @@ def get_most_read_articles(
     else:
         queryset = queryset.order_by('-views')
     return queryset
-    
 
     
 def theater_of_the_week_archive_index(
@@ -145,8 +144,7 @@ def theater_of_the_week_archive_index(
        template_name=template_name, template_loader=template_loader,
        extra_context=extra_context, context_processors=context_processors,
        template_object_name=template_object_name, mimetype=mimetype)  
-       
-    
+
     
 def theater_of_the_week_object_detail(
     request,
@@ -181,7 +179,7 @@ def theater_of_the_week_object_detail(
     # get the requested article
     fail = False
     try:
-        article = queryset.get(slug=theater_of_the_week_slug)
+        theater = queryset.get(slug=theater_of_the_week_slug)
     except:
         fail = True
         #raise Http404
@@ -192,11 +190,10 @@ def theater_of_the_week_object_detail(
     if fail:
         queryset = get_theaters(type_sysname, STATUS_CODE_DRAFT)
         try:
-            article = queryset.get(slug=theater_of_the_week_slug)
+            theater = queryset.get(slug=theater_of_the_week_slug)
         except:
             raise Http404
-    
-		
+
     context_dict = extra_context
 
     try:
@@ -211,26 +208,27 @@ def theater_of_the_week_object_detail(
     if template_name is None:
         template_name = 'theater_of_the_week/theater_of_the_week_object_detail.html' 
 
-    context_dict[template_object_name] = article
+    context_dict[template_object_name] = theater
 
     return render(request, template_name, context_dict)
-    
     
     
 def theater_of_the_week(request, template_name=None, template_object_name='article', type_sysname=None, status=STATUS_CODE_PUBLISHED, extra_context={}):    
 
     queryset = get_theaters(type_sysname, status)
-    article = queryset.order_by('-published_from')[0]
+    try:
+        theater = queryset.order_by('-published_from')[0]
+    except IndexError:
+        raise Http404
     
     context_dict = extra_context
     
     if template_name is None:
         template_name = 'theater_of_the_week/theater_of_the_week_object_detail.html' 
 
-    context_dict[template_object_name] = article
+    context_dict[template_object_name] = theater
 
     return render(request, template_name, context_dict)
-    
     
 
 def theater_of_the_week_feed(
