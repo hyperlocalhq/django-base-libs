@@ -11,10 +11,12 @@
     <xs:element name="meta">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="next"/>
-                <xs:element ref="previous"/>
-                <xs:element ref="total_count"/>
-                <xs:element ref="items_per_page"/>
+                <xs:choice maxOccurs="unbounded" minOccurs="1"><!-- The order of elements doesn't matter -->
+                    <xs:element ref="next"/>
+                    <xs:element ref="previous"/>
+                    <xs:element ref="total_count"/>
+                    <xs:element ref="items_per_page"/>
+                </xs:choice>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -32,79 +34,82 @@
     <xs:element name="production">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="id"/>
-                <xs:element ref="creation_date"/>
-                <xs:element ref="modified_date" minOccurs="0"/>
-                <xs:element ref="status"/>
-                <xs:element ref="prefix_de" minOccurs="0"/>
-                <xs:element ref="prefix_en" minOccurs="0"/>
-                <xs:element ref="title_de"/>
-                <xs:element ref="title_en"/>
-                <xs:element ref="subtitle_de" minOccurs="0"/>
-                <xs:element ref="subtitle_en" minOccurs="0"/>
-                <xs:element ref="original_de" minOccurs="0"/>
-                <xs:element ref="original_en" minOccurs="0"/>
-                <xs:element ref="website_de" minOccurs="0"/>
-                <xs:element ref="website_en" minOccurs="0"/>
-                <xs:element ref="description_de" minOccurs="0"/>
-                <xs:element ref="description_en" minOccurs="0"/>
-                <xs:element ref="teaser_de" minOccurs="0"/>
-                <xs:element ref="teaser_en" minOccurs="0"/>
-                <xs:element ref="work_info_de" minOccurs="0"/>
-                <xs:element ref="work_info_en" minOccurs="0"/>
-                <xs:element ref="contents_de" minOccurs="0"/>
-                <xs:element ref="contents_en" minOccurs="0"/>
-                <xs:element ref="press_text_de" minOccurs="0"/>
-                <xs:element ref="press_text_en" minOccurs="0"/>
-                <xs:element ref="credits_de" minOccurs="0"/>
-                <xs:element ref="credits_en" minOccurs="0"/>
-                <xs:element ref="concert_program_de" minOccurs="0"/>
-                <xs:element ref="concert_program_en" minOccurs="0"/>
-                <xs:element ref="supporting_program_de" minOccurs="0"/>
-                <xs:element ref="supporting_program_en" minOccurs="0"/>
-                <xs:element ref="remarks_de" minOccurs="0"/>
-                <xs:element ref="remarks_en" minOccurs="0"/>
-                <xs:element ref="duration_text_de" minOccurs="0"/>
-                <xs:element ref="duration_text_en" minOccurs="0"/>
-                <xs:element ref="subtitles_text_de" minOccurs="0"/>
-                <xs:element ref="subtitles_text_en" minOccurs="0"/>
-                <xs:element ref="age_text_de" minOccurs="0"/>
-                <xs:element ref="age_text_en" minOccurs="0"/>
-                <xs:element ref="ensembles" minOccurs="0"/>
-                <xs:element ref="organizers" minOccurs="0"/>
-                <xs:element ref="in_cooperation_with" minOccurs="0"/>
-                <xs:element ref="free_entrance" minOccurs="0"/>
-                <xs:element ref="price_from" minOccurs="0"/>
-                <xs:element ref="price_till" minOccurs="0"/>
-                <xs:element ref="tickets_website" minOccurs="0"/>
-                <xs:element ref="price_information_de" minOccurs="0"/>
-                <xs:element ref="price_information_en" minOccurs="0"/>
-                <xs:element ref="age_from" minOccurs="0"/>
-                <xs:element ref="age_till" minOccurs="0"/>
-                <xs:element ref="edu_offer_website" minOccurs="0"/>
-                <xs:element ref="in_program_of" minOccurs="0"/>
-                <xs:element ref="play_locations" minOccurs="0"/>
-                <xs:element ref="play_stages" minOccurs="0"/>
-                <xs:element ref="location_title" minOccurs="0"/>
-                <xs:element ref="street_address" minOccurs="0"/>
-                <xs:element ref="street_address2" minOccurs="0"/>
-                <xs:element ref="postal_code" minOccurs="0"/>
-                <xs:element ref="city" minOccurs="0"/>
-                <xs:element ref="latitude" minOccurs="0"/>
-                <xs:element ref="longitude" minOccurs="0"/>
-                <xs:element ref="categories" minOccurs="0"/>
-                <xs:element ref="characteristics" minOccurs="0"/>
-                <xs:element ref="leaders" minOccurs="0"/>
-                <xs:element ref="authors" minOccurs="0"/>
-                <xs:element ref="participants" minOccurs="0"/>
-                <xs:element ref="videos" minOccurs="0"/>
-                <xs:element ref="live_streams" minOccurs="0"/>
-                <xs:element ref="images" minOccurs="0"/>
-                <xs:element ref="pdfs" minOccurs="0"/>
-                <xs:element ref="social_media" minOccurs="0"/>
-                <xs:element ref="language_and_subtitles_id" minOccurs="0"/>
-                <xs:element ref="sponsors" minOccurs="0"/>
-                <xs:element ref="events" minOccurs="0"/>
+                <xs:choice maxOccurs="unbounded" minOccurs="1"><!-- The order of elements doesn't matter -->
+                    <xs:element ref="id"/>
+                    <xs:element ref="creation_date"/>
+                    <xs:element ref="modified_date" minOccurs="0"/>
+                    <xs:element ref="status"/>
+                    <xs:element ref="prefix_de" minOccurs="0"/>
+                    <xs:element ref="prefix_en" minOccurs="0"/>
+                    <xs:element ref="title_de"/>
+                    <xs:element ref="title_en"/>
+                    <xs:element ref="subtitle_de" minOccurs="0"/>
+                    <xs:element ref="subtitle_en" minOccurs="0"/>
+                    <xs:element ref="original_de" minOccurs="0"/>
+                    <xs:element ref="original_en" minOccurs="0"/>
+                    <xs:element ref="website_de" minOccurs="0"/>
+                    <xs:element ref="website_en" minOccurs="0"/>
+                    <xs:element ref="description_de" minOccurs="0"/>
+                    <xs:element ref="description_en" minOccurs="0"/>
+                    <xs:element ref="teaser_de" minOccurs="0"/>
+                    <xs:element ref="teaser_en" minOccurs="0"/>
+                    <xs:element ref="work_info_de" minOccurs="0"/>
+                    <xs:element ref="work_info_en" minOccurs="0"/>
+                    <xs:element ref="contents_de" minOccurs="0"/>
+                    <xs:element ref="contents_en" minOccurs="0"/>
+                    <xs:element ref="press_text_de" minOccurs="0"/>
+                    <xs:element ref="press_text_en" minOccurs="0"/>
+                    <xs:element ref="credits_de" minOccurs="0"/>
+                    <xs:element ref="credits_en" minOccurs="0"/>
+                    <xs:element ref="concert_program_de" minOccurs="0"/>
+                    <xs:element ref="concert_program_en" minOccurs="0"/>
+                    <xs:element ref="supporting_program_de" minOccurs="0"/>
+                    <xs:element ref="supporting_program_en" minOccurs="0"/>
+                    <xs:element ref="remarks_de" minOccurs="0"/>
+                    <xs:element ref="remarks_en" minOccurs="0"/>
+                    <xs:element ref="duration_text_de" minOccurs="0"/>
+                    <xs:element ref="duration_text_en" minOccurs="0"/>
+                    <xs:element ref="subtitles_text_de" minOccurs="0"/>
+                    <xs:element ref="subtitles_text_en" minOccurs="0"/>
+                    <xs:element ref="age_text_de" minOccurs="0"/>
+                    <xs:element ref="age_text_en" minOccurs="0"/>
+                    <xs:element ref="ensembles" minOccurs="0"/>
+                    <xs:element ref="organizers" minOccurs="0"/>
+                    <xs:element ref="in_cooperation_with" minOccurs="0"/>
+                    <xs:element ref="free_entrance" minOccurs="0"/>
+                    <xs:element ref="price_from" minOccurs="0"/>
+                    <xs:element ref="price_till" minOccurs="0"/>
+                    <xs:element ref="tickets_website" minOccurs="0"/>
+                    <xs:element ref="price_information_de" minOccurs="0"/>
+                    <xs:element ref="price_information_en" minOccurs="0"/>
+                    <xs:element ref="age_from" minOccurs="0"/>
+                    <xs:element ref="age_till" minOccurs="0"/>
+                    <xs:element ref="edu_offer_website" minOccurs="0"/>
+                    <xs:element ref="in_program_of" minOccurs="0" maxOccurs="1"/>
+                    <xs:element ref="play_locations" minOccurs="0"/>
+                    <xs:element ref="play_stages" minOccurs="0"/>
+                    <xs:element ref="location_title" minOccurs="0"/>
+                    <xs:element ref="street_address" minOccurs="0"/>
+                    <xs:element ref="street_address2" minOccurs="0"/>
+                    <xs:element ref="postal_code" minOccurs="0"/>
+                    <xs:element ref="city" minOccurs="0"/>
+                    <xs:element ref="latitude" minOccurs="0"/>
+                    <xs:element ref="longitude" minOccurs="0"/>
+                    <xs:element ref="categories" minOccurs="0"/>
+                    <xs:element ref="characteristics" minOccurs="0" maxOccurs="1"/>
+                    <xs:element ref="leaders" minOccurs="0"/>
+                    <xs:element ref="authors" minOccurs="0"/>
+                    <xs:element ref="participants" minOccurs="0"/>
+                    <xs:element ref="videos" minOccurs="0"/>
+                    <xs:element ref="live_streams" minOccurs="0"/>
+                    <xs:element ref="images" minOccurs="0"/>
+                    <xs:element ref="pdfs" minOccurs="0"/>
+                    <xs:element ref="social_media" minOccurs="0"/>
+                    <xs:element ref="language_and_subtitles_id" minOccurs="0"/>
+                    <xs:element ref="sponsors" minOccurs="0"/>
+                    <xs:element ref="events" minOccurs="0"/>
+                    <xs:element ref="classiccard" minOccurs="0"/>
+                </xs:choice>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -163,14 +168,14 @@
     <xs:element name="in_program_of">
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" ref="location_id"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="location_id"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
     <xs:element name="categories">
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" ref="category_id"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="category_id"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -291,67 +296,70 @@
     <xs:element name="event">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="id"/>
-                <xs:element ref="creation_date"/>
-                <xs:element ref="modified_date" minOccurs="0"/>
-                <xs:element ref="start_date"/>
-                <xs:element ref="end_date" minOccurs="0"/>
-                <xs:element ref="start_time"/>
-                <xs:element ref="end_time" minOccurs="0"/>
-                <xs:element ref="duration" minOccurs="0"/>
-                <xs:element ref="pauses" minOccurs="0"/>
-                <xs:element ref="play_locations" minOccurs="0"/>
-                <xs:element ref="play_stages" minOccurs="0"/>
-                <xs:element ref="location_title" minOccurs="0"/>
-                <xs:element ref="street_address" minOccurs="0"/>
-                <xs:element ref="street_address2" minOccurs="0"/>
-                <xs:element ref="postal_code" minOccurs="0"/>
-                <xs:element ref="city" minOccurs="0"/>
-                <xs:element ref="latitude" minOccurs="0"/>
-                <xs:element ref="longitude" minOccurs="0"/>
-                <xs:element ref="organizers" minOccurs="0"/>
-                <xs:element ref="description_de" minOccurs="0"/>
-                <xs:element ref="description_en" minOccurs="0"/>
-                <xs:element ref="teaser_de" minOccurs="0"/>
-                <xs:element ref="teaser_en" minOccurs="0"/>
-                <xs:element ref="work_info_de" minOccurs="0"/>
-                <xs:element ref="work_info_en" minOccurs="0"/>
-                <xs:element ref="contents_de" minOccurs="0"/>
-                <xs:element ref="contents_en" minOccurs="0"/>
-                <xs:element ref="press_text_de" minOccurs="0"/>
-                <xs:element ref="press_text_en" minOccurs="0"/>
-                <xs:element ref="credits_de" minOccurs="0"/>
-                <xs:element ref="credits_en" minOccurs="0"/>
-                <xs:element ref="concert_program_de" minOccurs="0"/>
-                <xs:element ref="concert_program_en" minOccurs="0"/>
-                <xs:element ref="supporting_program_de" minOccurs="0"/>
-                <xs:element ref="supporting_program_en" minOccurs="0"/>
-                <xs:element ref="remarks_de" minOccurs="0"/>
-                <xs:element ref="remarks_en" minOccurs="0"/>
-                <xs:element ref="duration_text_de" minOccurs="0"/>
-                <xs:element ref="duration_text_en" minOccurs="0"/>
-                <xs:element ref="subtitles_text_de" minOccurs="0"/>
-                <xs:element ref="subtitles_text_en" minOccurs="0"/>
-                <xs:element ref="age_text_de" minOccurs="0"/>
-                <xs:element ref="age_text_en" minOccurs="0"/>
-                <xs:element ref="free_entrance" minOccurs="0"/>
-                <xs:element ref="price_from" minOccurs="0"/>
-                <xs:element ref="price_till" minOccurs="0"/>
-                <xs:element ref="tickets_website" minOccurs="0"/>
-                <xs:element ref="price_information_de" minOccurs="0"/>
-                <xs:element ref="price_information_en" minOccurs="0"/>
-                <xs:element ref="event_status"/>
-                <xs:element ref="ticket_status" minOccurs="0"/>
-                <xs:element ref="characteristics" minOccurs="0"/>
-                <xs:element ref="leaders" minOccurs="0"/>
-                <xs:element ref="authors" minOccurs="0"/>
-                <xs:element ref="participants" minOccurs="0"/>
-                <xs:element ref="videos" minOccurs="0"/>
-                <xs:element ref="live_streams" minOccurs="0"/>
-                <xs:element ref="images" minOccurs="0"/>
-                <xs:element ref="pdfs" minOccurs="0"/>
-                <xs:element ref="language_and_subtitles_id" minOccurs="0"/>
-                <xs:element ref="sponsors" minOccurs="0"/>
+                <xs:choice maxOccurs="unbounded" minOccurs="1"><!-- The order of elements doesn't matter -->
+                    <xs:element ref="id"/>
+                    <xs:element ref="creation_date"/>
+                    <xs:element ref="modified_date" minOccurs="0"/>
+                    <xs:element ref="start_date"/>
+                    <xs:element ref="end_date" minOccurs="0"/>
+                    <xs:element ref="start_time"/>
+                    <xs:element ref="end_time" minOccurs="0"/>
+                    <xs:element ref="duration" minOccurs="0"/>
+                    <xs:element ref="pauses" minOccurs="0"/>
+                    <xs:element ref="play_locations" minOccurs="0"/>
+                    <xs:element ref="play_stages" minOccurs="0"/>
+                    <xs:element ref="location_title" minOccurs="0"/>
+                    <xs:element ref="street_address" minOccurs="0"/>
+                    <xs:element ref="street_address2" minOccurs="0"/>
+                    <xs:element ref="postal_code" minOccurs="0"/>
+                    <xs:element ref="city" minOccurs="0"/>
+                    <xs:element ref="latitude" minOccurs="0"/>
+                    <xs:element ref="longitude" minOccurs="0"/>
+                    <xs:element ref="organizers" minOccurs="0"/>
+                    <xs:element ref="description_de" minOccurs="0"/>
+                    <xs:element ref="description_en" minOccurs="0"/>
+                    <xs:element ref="teaser_de" minOccurs="0"/>
+                    <xs:element ref="teaser_en" minOccurs="0"/>
+                    <xs:element ref="work_info_de" minOccurs="0"/>
+                    <xs:element ref="work_info_en" minOccurs="0"/>
+                    <xs:element ref="contents_de" minOccurs="0"/>
+                    <xs:element ref="contents_en" minOccurs="0"/>
+                    <xs:element ref="press_text_de" minOccurs="0"/>
+                    <xs:element ref="press_text_en" minOccurs="0"/>
+                    <xs:element ref="credits_de" minOccurs="0"/>
+                    <xs:element ref="credits_en" minOccurs="0"/>
+                    <xs:element ref="concert_program_de" minOccurs="0"/>
+                    <xs:element ref="concert_program_en" minOccurs="0"/>
+                    <xs:element ref="supporting_program_de" minOccurs="0"/>
+                    <xs:element ref="supporting_program_en" minOccurs="0"/>
+                    <xs:element ref="remarks_de" minOccurs="0"/>
+                    <xs:element ref="remarks_en" minOccurs="0"/>
+                    <xs:element ref="duration_text_de" minOccurs="0"/>
+                    <xs:element ref="duration_text_en" minOccurs="0"/>
+                    <xs:element ref="subtitles_text_de" minOccurs="0"/>
+                    <xs:element ref="subtitles_text_en" minOccurs="0"/>
+                    <xs:element ref="age_text_de" minOccurs="0"/>
+                    <xs:element ref="age_text_en" minOccurs="0"/>
+                    <xs:element ref="free_entrance" minOccurs="0"/>
+                    <xs:element ref="price_from" minOccurs="0"/>
+                    <xs:element ref="price_till" minOccurs="0"/>
+                    <xs:element ref="tickets_website" minOccurs="0"/>
+                    <xs:element ref="price_information_de" minOccurs="0"/>
+                    <xs:element ref="price_information_en" minOccurs="0"/>
+                    <xs:element ref="event_status"/>
+                    <xs:element ref="ticket_status" minOccurs="0"/>
+                    <xs:element ref="characteristics" minOccurs="0" maxOccurs="1"/>
+                    <xs:element ref="leaders" minOccurs="0"/>
+                    <xs:element ref="authors" minOccurs="0"/>
+                    <xs:element ref="participants" minOccurs="0"/>
+                    <xs:element ref="videos" minOccurs="0"/>
+                    <xs:element ref="live_streams" minOccurs="0"/>
+                    <xs:element ref="images" minOccurs="0"/>
+                    <xs:element ref="pdfs" minOccurs="0"/>
+                    <xs:element ref="language_and_subtitles_id" minOccurs="0"/>
+                    <xs:element ref="sponsors" minOccurs="0"/>
+                    <xs:element ref="classiccard" minOccurs="0"/>
+                </xs:choice>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -1005,4 +1013,5 @@
     <xs:element name="embed" type="xs:string"/>
     <xs:element name="sort_order" type="xs:integer"/>
     <xs:element name="copyright" type="xs:string"/>
+    <xs:element name="classiccard" type="xs:boolean"/>
 </xs:schema>

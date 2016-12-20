@@ -197,6 +197,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
 
     show_among_others = models.BooleanField(_("Show among others"), default=True, help_text=_("Should this production be shown in event details among other productions at the same venue?"))
     no_overwriting = models.BooleanField(_("Do not overwrite by the next import"))
+    classiccard = models.BooleanField(_("Intended for ClassicCard holders"), default=False)
     newsletter = models.BooleanField(_("Show in newsletter"))
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 
@@ -859,6 +860,8 @@ class Event(CreationModificationMixin, UrlMixin):
     other_characteristics = MultilingualTextField(_("Other characteristics"), blank=True)
 
     sponsors = models.ManyToManyField("sponsors.Sponsor", verbose_name=_("Sponsors"), blank=True)
+
+    classiccard = models.BooleanField(_("Intended for ClassicCard holders"), default=False)
 
     objects = EventManager()
 

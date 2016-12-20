@@ -27,7 +27,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
 
         r = requests_session.get(self.service.url, auth=self.AUTH)
         if r.status_code != 200:
-            self.stderr.write(u"Error status: %s" % r.status_code)
+            self.stderr.write(u"Error status {} when trying to access {}".format(r.status_code, self.service.url))
             return
         root_dict = r.json()
         next_page = root_dict.get('meta', {}).get('next', "")
@@ -37,7 +37,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
         while (next_page):
             r = requests_session.get(next_page, auth=self.AUTH)
             if r.status_code != 200:
-                self.stderr.write(u"Error status: %s" % r.status_code)
+                self.stderr.write(u"Error status {} when trying to access {}".format(r.status_code, next_page))
                 break  # we want to show summary even if at some point the import breaks
             root_dict = r.json()
             next_page = root_dict.get('meta', {}).get('next', "")
@@ -240,6 +240,8 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                     slug=prod_dict.get('language_and_subtitles_id', ""))
             except:
                 prod.language_and_subtitles = None
+
+            prod.classiccard = (prod_dict.get('classiccard', "") == "true")
 
             prod.save()
             self.production_ids_to_keep.add(prod.pk)
@@ -692,6 +694,8 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
 
                 event.event_status = event_dict.get('event_status', "")
                 event.ticket_status = event_dict.get('ticket_status', "")
+
+                event.classiccard = (event_dict.get('classiccard', "") == "true")
 
                 event.save()
                 self.event_ids_to_keep.add(event.pk)

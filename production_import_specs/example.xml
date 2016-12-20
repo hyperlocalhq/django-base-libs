@@ -538,6 +538,9 @@
                     <!-- Tickets' status. One of: "tickets_@_box_office" or "sold_out" -->
                     <ticket_status>tickets_@_box_office</ticket_status>
 
+                    <!-- Intended for ClassicCard holders? One of "true" or "false" -->
+                    <classiccard>false</classiccard>
+
                     <!-- Characteristics. Check the list of available IDs at the specification -->
                     <characteristics>
                         <characteristic_id>premiere</characteristic_id>
@@ -817,6 +820,8 @@
                             <creation_date>2016-04-14T16:27:38</creation_date>
                         </sponsor>
                     </sponsors>
+                    <!-- Intended for ClassicCard holders? One of "true" or "false" -->
+                    <classiccard>true</classiccard>
                 </event>
                 <event>
                     <!-- Unique event ID on your website -->

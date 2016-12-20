@@ -152,14 +152,14 @@ class OwnersForm(forms.Form):
 
 
 class ProductionAdmin(ExtendedModelAdmin):
-    list_display = ('title_de', 'get_locations', 'get_import_source', 'get_external_id', 'get_owners_list', 'get_editors_list', 'creation_date', 'modified_date', 'show_among_others', 'no_overwriting', 'newsletter', 'status')
-    list_editable = ('show_among_others', 'no_overwriting', 'newsletter', 'status')
+    list_display = ('title_de', 'get_locations', 'get_import_source', 'get_external_id', 'get_owners_list', 'get_editors_list', 'creation_date', 'modified_date', 'show_among_others', 'no_overwriting', 'classiccard', 'newsletter', 'status')
+    list_editable = ('show_among_others', 'no_overwriting', 'newsletter', 'classiccard', 'status')
     search_fields = ('title_de', 'title_en')
-    list_filter = ['show_among_others', 'no_overwriting', "creation_date", "modified_date", 'import_source', 'newsletter', 'status']
+    list_filter = ['show_among_others', 'no_overwriting', 'classiccard', "creation_date", "modified_date", 'import_source', 'newsletter', 'status']
     date_hierarchy = "modified_date"
 
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'prefix', 'subtitle', 'original', 'website'])
-    fieldsets += [(None, {'fields': ('slug', )}),]
+    fieldsets += [(None, {'fields': ('slug', 'classiccard', )}),]
     fieldsets += [(_("Location"), {'fields': ['in_program_of', 'ensembles', 'play_locations', 'play_stages', 'organizers', 'in_cooperation_with']}),]
     fieldsets += [(_("Free Location"), {'fields': ['location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude']}),]
     fieldsets += [(_("Relations"), {'fields': ['categories', 'festivals', 'related_productions']}),]
@@ -354,12 +354,14 @@ class EventSponsorInline(ExtendedStackedInline):
 
 
 class EventAdmin(ExtendedModelAdmin):
-    list_display = ['title', 'start_date', 'start_time', 'creation_date', 'modified_date']
+    list_display = ['title', 'start_date', 'start_time', 'creation_date', 'modified_date', 'classiccard']
+    list_filter = ['classiccard', 'creation_date', 'modified_date']
+    list_editable = ['classiccard']
     search_fields = ['production__title']
     date_hierarchy = 'start_date'
     ordering = ('-creation_date', )
 
-    fieldsets = [(_("Main Data"), {'fields': ('production', 'start_date', 'start_time', 'end_date', 'end_time', 'duration', 'pauses')}),]
+    fieldsets = [(_("Main Data"), {'fields': ('production', 'start_date', 'start_time', 'end_date', 'end_time', 'duration', 'pauses', 'classiccard')}),]
     fieldsets += [(_("Location"), {'fields': ['play_locations', 'play_stages', 'organizers']}),]
     fieldsets += [(_("Free Location"), {'fields': ['location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude']}),]
     fieldsets += get_admin_lang_section(_("Description"), ['description', 'teaser', 'work_info', 'contents', 'press_text', 'credits'])

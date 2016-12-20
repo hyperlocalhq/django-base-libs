@@ -117,7 +117,7 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand):
 
         r = requests_session.get(self.service.url)
         if r.status_code != 200:
-            self.stderr.write(u"Error status: %s" % r.status_code)
+            self.stderr.write(u"Error status {} when trying to access {}".format(r.status_code, self.service.url))
             return
         root_node = ElementTree.fromstring(r.content)
         next_page = self.get_child_text(root_node.find('./meta'), "next")
@@ -127,7 +127,7 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand):
         while(next_page):
             r = requests_session.get(next_page)
             if r.status_code != 200:
-                self.stderr.write(u"Error status: %s" % r.status_code)
+                self.stderr.write(u"Error status {} when trying to access {}".format(r.status_code, next_page))
                 break # we want to show summary even if at some point the import breaks
             root_node = ElementTree.fromstring(r.content)
             next_page = self.get_child_text(root_node.find('./meta'), "next")
@@ -350,6 +350,8 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand):
                 prod.language_and_subtitles = LanguageAndSubtitles.objects.get(slug=self.get_child_text(prod_node, 'language_and_subtitles_id'))
             except:
                 prod.language_and_subtitles = None
+
+            prod.classiccard = (self.get_child_text(prod_node, 'classiccard') == "true")
 
             prod.save()
             self.production_ids_to_keep.add(prod.pk)
@@ -794,6 +796,8 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand):
 
                 event.event_status = self.get_child_text(event_node, 'event_status')
                 event.ticket_status = self.get_child_text(event_node, 'ticket_status')
+
+                event.classiccard = (self.get_child_text(event_node, 'classiccard') == "true")
 
                 event.save()
                 self.event_ids_to_keep.add(event.pk)

@@ -771,6 +771,12 @@ def culturebase_export_productions(request, location_slug):
 
 API_CHANGELOG = [
     {
+        'date': datetime(2016, 12, 20, 12, 0),
+        'changes': [
+            u"The <strong>classiccard</strong> fields added to productions and events.",
+        ],
+    },
+    {
         'date': datetime(2016, 12, 13, 12, 0),
         'changes': [
             u"The <strong>author</strong>, <strong>photographer</strong>, and <strong>copyright</strong> fields return the author/copyright text. If the value is empty, \"Promo\" is set at the <strong>copyright</strong> field.",

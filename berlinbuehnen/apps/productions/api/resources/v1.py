@@ -539,7 +539,7 @@ class EventResource(ModelResource):
             'subtitles_text_de', 'subtitles_text_en',
             'age_text_de', 'age_text_en',
             'free_entrance', 'price_from', 'price_till', 'tickets_website',
-            'event_status', 'ticket_status',
+            'event_status', 'ticket_status', 'classiccard',
         ]
 
     def dehydrate(self, bundle):
@@ -634,7 +634,7 @@ class ProductionResource(ModelResource):
             'location_title',
             'street_address', 'street_address2', 'postal_code', 'city', 'country',
             'latitude', 'longitude',
-            'status',
+            'status', 'classiccard',
         ]
         filtering = {
             'creation_date': ALL,
