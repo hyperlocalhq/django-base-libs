@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+from optparse import make_option
 from django.core.management.base import BaseCommand
 
 SILENT, NORMAL, VERBOSE = 0, 1, 2
@@ -6,6 +7,13 @@ SILENT, NORMAL, VERBOSE = 0, 1, 2
 
 class Command(BaseCommand):
     help = """Imports job offers from www.music-job.com"""
+    option_list = BaseCommand.option_list + (
+        make_option('--update_all',
+                    action='store_true',
+                    dest='update_all',
+                    default=False,
+                    help='Update all jobs no matter what'),
+    )
 
     JOB_SECTOR_MAPPER = {
         1: 7,  # IT -> Online & IT
@@ -30,6 +38,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         verbosity = int(options.get('verbosity', NORMAL))
+        update_all = options.get('update_all')
 
         import re
         import requests
@@ -110,7 +119,7 @@ class Command(BaseCommand):
                     content_type__model="joboffer",
                 )
                 job_offer = mapper.content_object
-                if job_offer.modified_date > change_date:
+                if not update_all and job_offer.modified_date > change_date:
                     continue
             except ObjectMapper.MultipleObjectsReturned:
                 # delete duplicates
@@ -130,7 +139,9 @@ class Command(BaseCommand):
             job_offer.modified_date = change_date
 
             job_offer.position = get_value(node_job, "title")
-            job_offer.description = textify(get_value(node_job, "description"))
+            desc = textify(get_value(node_job, "description"))
+            desc = " ".join(desc.split()[:40]) + "..."  # show only the first 40 words
+            job_offer.description = desc
             job_offer.job_type = default_job_type
             job_offer.offering_institution_title = get_value(node_job, "company")
 
