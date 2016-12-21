@@ -145,7 +145,7 @@ class Command(BaseCommand):
             job_offer.job_type = default_job_type
             job_offer.offering_institution_title = get_value(node_job, "company")
 
-            job_offer.url0_link = get_value(node_job, "url")
+            job_offer.url0_link = get_value(node_job, "url").replace("?utm_source=rssfeed&utm_medium=metasearch&utm_campaign=gehalt.de", "")
             job_offer.is_commercial = False
 
             if change_date:
