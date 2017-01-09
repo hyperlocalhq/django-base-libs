@@ -134,7 +134,7 @@ The `<production>` node has the following elements:
 | `<language_and_subtitles_id>` | xs:string | no | Language and subtitles | in-deutscher-sprache |
 | `<sponsors>` | list of `<sponsor>` nodes | no | Sponsors | |
 | `<events>` | list of `<event>` nodes | no | Events | |
-| `<classiccard>` | xs:boolean | no | Intended for ClassicCard holders | |
+| `<classiccard>` | xs:boolean | no | Intended for ClassicCard holders. One of “true” or “false” | false |
 
 ### The Locations and Stages for Productions or Events ###
 
@@ -908,7 +908,7 @@ These elements are available for the `<event>` node:
 | `<pdfs>` | list of `<pdf>` nodes | no | PDF documents | |
 | `<language_and_subtitles_id>` | xs:string | no | Language and subtitles | in-deutscher-sprache |
 | `<sponsors>` | list of `<sponsor>` nodes | no | Sponsors | |
-| `<classiccard>` | xs:boolean | no | Intended for ClassicCard holders | |
+| `<classiccard>` | xs:boolean | no | Intended for ClassicCard holders. One of “true” or “false” | false |
 
 ### The Event Characteristics ###
 
