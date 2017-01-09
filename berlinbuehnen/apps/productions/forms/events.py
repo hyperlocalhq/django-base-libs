@@ -215,7 +215,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
             'location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
             'free_entrance', 'price_from', 'price_till', 'tickets_website',
             'characteristics',
-            'event_status', 'ticket_status',
+            'classiccard', 'event_status', 'ticket_status',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -401,6 +401,17 @@ class BasicInfoForm(autocomplete_light.ModelForm):
                 ) for lang_code, lang_name in FRONTEND_LANGUAGES]
             ),
             css_class="fieldset-characteristics",
+        ))
+
+        layout_blocks.append(layout.Fieldset(
+            _('ClassicCard'),
+            layout.Row(
+                layout.Div(
+                    "classiccard",
+                    css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+                ),
+            ),
+            css_class="fieldset-classiccard",
         ))
 
         layout_blocks.append(layout.Fieldset(

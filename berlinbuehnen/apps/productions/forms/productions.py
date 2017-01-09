@@ -52,7 +52,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
         fields = [
             'festivals', 'in_program_of', 'ensembles', 'play_locations', 'play_stages', 'organizers', 'in_cooperation_with',
             'location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
-            'categories', 'show_among_others', 'no_overwriting',
+            'categories', 'classiccard', 'show_among_others', 'no_overwriting',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -212,6 +212,16 @@ class BasicInfoForm(autocomplete_light.ModelForm):
             css_class="fieldset-categories",
         ))
 
+        layout_blocks.append(layout.Fieldset(
+            _('ClassicCard'),
+            layout.Row(
+                layout.Div(
+                    "classiccard",
+                    css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+                ),
+            ),
+            css_class="fieldset-classiccard",
+        ))
         layout_blocks.append(layout.Fieldset(
             _('Visibility'),
             layout.Row(
@@ -1085,7 +1095,7 @@ def load_data(instance=None):
         fields = [
             'ensembles', 'organizers', 'in_cooperation_with',
             'location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
-            'show_among_others', 'no_overwriting',
+            'classiccard', 'show_among_others', 'no_overwriting',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -1199,7 +1209,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         fields = [
             'ensembles', 'organizers', 'in_cooperation_with',
             'location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
-            'show_among_others', 'no_overwriting'
+            'classiccard', 'show_among_others', 'no_overwriting'
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
