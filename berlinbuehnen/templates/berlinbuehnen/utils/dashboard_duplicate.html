@@ -36,6 +36,8 @@ $(function() {
             })
         });
         $('#button-id-confirm-duplication').click(function(e) {
+            var $button = $(this);
+            $button.attr('disabled', true);
             e.preventDefault();
             $.post(duplicate_url, {
                 title_de: $('.modal-form [name="title_de"]', $modal).val(),
@@ -51,6 +53,7 @@ $(function() {
                     var $form = $(data);
                     if ($form.is('form')) { // validation error, so update form
                         $('.modal-form', $modal).html('').append($form);
+                        $button.attr('disabled', null);
                     }
                 }
             });
