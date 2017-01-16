@@ -6,5 +6,5 @@ date >> ${CRON_LOG_FILE}
 
 cd ${PROJECT_PATH}
 . bin/activate
-cd project/ccb
+cd project/museumsportal
 python manage.py send_mails --traceback >> ${CRON_LOG_FILE}  2>&1
