@@ -1,5 +1,4 @@
 # -*- coding: UTF-8 -*-
-
 import requests
 from xml.etree import ElementTree
 from optparse import make_option

@@ -162,7 +162,7 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand):
                     break
             if all_attributes_match:
                 # return force_unicode(child_node.text or u''.join([t for t in child_node.itertext()]))
-                return force_unicode(u''.join([t for t in child_node.itertext()]))
+                return force_unicode(u''.join([t for t in child_node.itertext()])).replace(r'\n', '\n')
         return u''
 
     def save_file_description(self, path, xml_node):
