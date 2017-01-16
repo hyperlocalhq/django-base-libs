@@ -1,1 +1,13 @@
-. /usr/local/www/apache24/data/museumsportal-berlin.de/bin/activate && cd /usr/local/www/apache24/data/museumsportal-berlin.de/project/museumsportal/ && python manage.py update_expired_exhibitions && python manage.py update_expired_events && python manage.py update_expired_workshops && python manage.py update_expired_seasons
+PROJECT_PATH=/usr/local/www/apache24/data/museumsportal-berlin.de
+CRON_LOG_FILE=${PROJECT_PATH}/logs/update_expired.log
+
+echo "Updating expired objects" > ${CRON_LOG_FILE}
+date >> ${CRON_LOG_FILE}
+
+cd ${PROJECT_PATH}
+. bin/activate
+cd project/ccb
+python manage.py update_expired_exhibitions --traceback >> ${CRON_LOG_FILE}  2>&1
+python manage.py update_expired_events --traceback >> ${CRON_LOG_FILE}  2>&1
+python manage.py update_expired_workshops --traceback >> ${CRON_LOG_FILE}  2>&1
+python manage.py update_expired_seasons --traceback >> ${CRON_LOG_FILE}  2>&1
