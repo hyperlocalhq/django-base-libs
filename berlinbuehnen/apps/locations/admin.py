@@ -124,6 +124,7 @@ class LocationAdmin(ExtendedModelAdmin):
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
         )
 
+    search_fields = ['title_{}'.format(lang_code) for lang_code, lang_name in settings.LANGUAGES]
     list_display = ('title', 'creation_date', 'modified_date', 'get_owners_list', 'newsletter', 'status')
     list_editable = ('newsletter', 'status', )
     list_filter = ('newsletter', 'status', )
