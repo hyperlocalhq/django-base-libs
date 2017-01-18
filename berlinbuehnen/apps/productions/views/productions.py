@@ -214,8 +214,13 @@ def event_detail(request, slug, event_id=None):
             return access_denied(request)
     else:
         production = get_object_or_404(Production, slug=slug)
-        now = datetime.now()
-        obj = Event(production=production, start_date=now.date())
+        obj = production.get_nearest_occurrence()
+        if not obj:  # events are not yet created or already deleted
+            if production.is_editable() and "preview" in request.REQUEST:
+                now = datetime.now()
+                obj = Event(production=production, start_date=now.date())  # dummy event for a preview
+            else:
+                raise Http404()
         return render(
             request,
             "events/event_detail.html",
