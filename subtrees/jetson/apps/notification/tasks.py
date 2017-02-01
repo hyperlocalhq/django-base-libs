@@ -49,22 +49,19 @@ def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct
     
     Called by notification.send()
     """
-    print('{} - invoked send_to_user'.format(
-        datetime.now(),
-    ))
-
     if not extra_context:
         extra_context = {}
 
-    with open('send_to_user.log', 'a') as f:
-        f.write(
-            'sending notification {sysname} for user {user_id} with sender {sender_id} for instance {instance_id}\n'.format(
-                sysname=sysname,
-                user_id=user_id,
-                sender_id=sender_id,
-                instance_id=instance_id,
-            )
-        )
+    # DEBUG
+    # with open('send_to_user.log', 'a') as f:
+    #     f.write(
+    #         'sending notification {sysname} for user {user_id} with sender {sender_id} for instance {instance_id}\n'.format(
+    #             sysname=sysname,
+    #             user_id=user_id,
+    #             sender_id=sender_id,
+    #             instance_id=instance_id,
+    #         )
+    #     )
 
     ContentType = models.get_model("contenttypes", "ContentType")
     Site = models.get_model("sites", "Site")
