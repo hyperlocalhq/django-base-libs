@@ -25,9 +25,6 @@ PORT = ":8000"
 ALLOWED_HOSTS = [
     "www.creative-city-berlin.de",
     "creative-city-berlin.de",
-    # "ccb.jetsonproject.org",
-    # 'localhost',
-    # '127.0.0.1',
 ]
 
 HTTPS_PROTOCOL = "http"
