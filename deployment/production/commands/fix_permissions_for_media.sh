@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 PROJECT_PATH=/usr/local/www/apache24/data/museumsportal-berlin.de
 CRON_LOG_FILE=${PROJECT_PATH}/logs/fix_permissions_for_media.log
 
