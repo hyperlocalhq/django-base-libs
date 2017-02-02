@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+#!/usr/bin/env bash
 PROJECT_PATH=/usr/local/www/apache24/data/creative-city-berlin.de
 CRON_LOG_FILE=${PROJECT_PATH}/logs/backup_db_now.log
 DATE_TIMESTAMP=$(LC_ALL=en_US.UTF-8 date +"%Y%m%d-%H%M")
