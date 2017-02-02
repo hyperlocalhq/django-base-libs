@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 PROJECT_PATH=/usr/local/www/apache24/data/berlin-buehnen.de
 CRON_LOG_FILE=${PROJECT_PATH}/logs/import_from_individual_sources.log
 
@@ -90,4 +91,4 @@ date >> ${CRON_LOG_FILE}
 python manage.py import_from_boulezsaal --traceback >> ${CRON_LOG_FILE}  2>&1
 
 cd ${PROJECT_PATH}/commands/
-./fix_permissions_for_media.bsh
+./fix_permissions_for_media.sh

@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 PROJECT_PATH=/usr/local/www/apache24/data/berlin-buehnen.de
 CRON_LOG_FILE=${PROJECT_PATH}/logs/export_productions_to_excel.log
 
