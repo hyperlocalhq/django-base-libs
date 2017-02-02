@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+SECONDS=0
 PROJECT_PATH=/usr/local/www/apache24/data/creative-city-berlin.de
 CRON_LOG_FILE=${PROJECT_PATH}/logs/backup_db.log
 WEEK_DATE=$(LC_ALL=en_US.UTF-8 date +"%w-%A")
@@ -29,3 +30,7 @@ mysqldump -u ${USER} -p${PASS} --single-transaction --no-data ${DATABASE} > ${BA
 
 echo "Dump content" >> ${CRON_LOG_FILE}
 mysqldump -u ${USER} -p${PASS} ${DATABASE} ${IGNORED_TABLES_STRING} >> ${BACKUP_PATH} 2>> ${CRON_LOG_FILE}
+
+echo "Finished." >> ${CRON_LOG_FILE}
+duration=$SECONDS
+echo "$(($duration / 60)) minutes and $(($duration % 60)) seconds elapsed." >> ${CRON_LOG_FILE}
