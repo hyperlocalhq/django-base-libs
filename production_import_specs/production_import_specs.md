@@ -306,6 +306,7 @@ This is a list of all available locations and stages with location IDs and stage
   - Deutsche Oper Berlin (Stage ID = 75)
   - Komische Oper Berlin (Stage ID = 77)
   - Staatsoper im Schiller Theater (Stage ID = 76)
+- Staatskapelle Berlin (Location ID = 197)
 - Staatsoper im Schiller Theater (Location ID = 9)
   - Bebelplatz (Stage ID = 56)
   - Bode Museum (Stage ID = 44)
