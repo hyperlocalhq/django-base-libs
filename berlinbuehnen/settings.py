@@ -631,6 +631,7 @@ GALLERY_IMAGE_MIN_DIMENSIONS = (100, 100)
 CRISPY_TEMPLATE_PACK = "bootstrap3"
 
 MAILING_CONTENT_TYPE_CHOICES = (
+    ('authorship', _("Image authorship")),
     ('locations', _("Theaters")),
     ('productions', _("Productions")),
     ('festivals', _("Festivals")),

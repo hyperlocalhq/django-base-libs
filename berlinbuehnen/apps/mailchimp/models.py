@@ -193,7 +193,7 @@ class Campaign(CreationModificationMixin):
     sender_email = models.EmailField(_("Sender email"), default=getattr(settings, 'MAILING_DEFAULT_FROM_EMAIL', ''))
     subject = models.CharField(_("Subject"), max_length=255)
     body_html = ExtendedTextField(_("Message"), blank=True)
-    image = FileBrowseField(_('Image'), max_length=255, directory="uploads/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image."))
+    image = FileBrowseField(_('Image'), max_length=255, directory="newsletter-headers/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image."))
     mailinglist = models.ForeignKey('MList', verbose_name=_("Mailing list"))
     template = TemplatePathField(_("Template"), path="mailchimp/campaign/", match="\.html$", max_length=150)
     status = models.PositiveIntegerField(_("Status"), choices=MAILING_STATUS_CHOICES, default=MAILING_STATUS_DRAFT)
