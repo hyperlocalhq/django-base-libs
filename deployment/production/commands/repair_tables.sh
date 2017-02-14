@@ -8,7 +8,7 @@ date >> ${CRON_LOG_FILE}
 
 cd ${PROJECT_PATH}
 . bin/activate
-cd project/kubinaut
+cd project/museumsportal
 echo "REPAIR TABLE httpstate_httpstate;" | python manage.py dbshell --traceback >> ${CRON_LOG_FILE} 2>&1
 echo "REPAIR TABLE django_session;" | python manage.py dbshell --traceback >> ${CRON_LOG_FILE} 2>&1
 
