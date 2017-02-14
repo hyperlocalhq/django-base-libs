@@ -10,3 +10,4 @@ SHELL=/usr/local/bin/bash
 00 06 * * 0 /usr/local/www/apache24/data/museumsportal-berlin.de/commands/check_links.sh
 00 05 * * * /usr/local/www/apache24/data/museumsportal-berlin.de/commands/collect_advertising_stats.sh
 30 06 * * * /usr/local/www/apache24/data/museumsportal-berlin.de/commands/backup_db.sh
+30 * * * * /usr/local/www/apache24/data/museumsportal-berlin.de/commands/repair_tables.sh
