@@ -207,7 +207,7 @@
                                                     <div class="accordion-item">
                                                         <h4 class="accordion-item-head">{% trans "Presented by" %}</h4>
                                                         <div class="accordion-item-content sponsor-content">
-                                                            {% for sponsor in project.sponsors.all %}
+                                                            {% for sponsor in project.projectsponsor_set.all %}
                                                                 <div class="sponsor">
                                                                     {% if sponsor.website %}
                                                                         <a href="{{ sponsor.website }}" target="_blank">
