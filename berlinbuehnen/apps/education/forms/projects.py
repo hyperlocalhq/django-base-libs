@@ -514,7 +514,7 @@ class DescriptionForm(autocomplete_light.ModelForm):
         ))
 
         layout_blocks.append(layout.Fieldset(
-            _("Sponsors"),
+            _("Supported by"),
             layout.HTML("""{% load crispy_forms_tags i18n %}
             {{ formsets.sponsors.management_form }}
             <div id="sponsors">
