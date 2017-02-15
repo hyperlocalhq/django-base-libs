@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-15 19:22+0100\n"
+"POT-Creation-Date: 2017-02-15 20:03+0100\n"
 "PO-Revision-Date: 2016-09-05 16:46+0053\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1937,7 +1937,6 @@ msgstr "Unterstützer"
 
 #: berlinbuehnen/apps/education/models.py:420
 #: berlinbuehnen/apps/education/models.py:813
-#: berlinbuehnen/apps/education/forms/projects.py:517
 #: berlinbuehnen/apps/productions/models.py:196
 #: berlinbuehnen/apps/productions/models.py:862
 #: berlinbuehnen/apps/productions/models.py:1285
@@ -2647,6 +2646,11 @@ msgstr "End(e) / Enddatum"
 #: berlinbuehnen/apps/productions/forms/events.py:78
 msgid "End time"
 msgstr "Ende"
+
+#: berlinbuehnen/apps/education/forms/projects.py:517
+#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:209
+msgid "Supported by"
+msgstr "Unterstützt von"
 
 #: berlinbuehnen/apps/education/forms/projects.py:1148
 #: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:4
@@ -4790,10 +4794,6 @@ msgstr ""
 msgid "Mail"
 msgstr ""
 
-#: berlinbuehnen/templates/berlinbuehnen/education/project_detail.html:209
-msgid "Supported by"
-msgstr "Unterstützt von"
-
 #: berlinbuehnen/templates/berlinbuehnen/education/department_gallery/image_overview.html:24
 #: berlinbuehnen/templates/berlinbuehnen/education/project_gallery/image_overview.html:24
 #: berlinbuehnen/templates/berlinbuehnen/festivals/gallery/overview.html:24
@@ -5081,6 +5081,10 @@ msgstr "Alter von %(age_from)s bis %(age_till)s Jahre"
 #, python-format
 msgid "Age from %(age_from)s years"
 msgstr "Alter ab %(age_from)s Jahre"
+
+#: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:226
+msgid "Number of participants"
+msgstr "Anzahl Teilnehmer/innen"
 
 #: berlinbuehnen/templates/berlinbuehnen/education/includes/project_sidebar.html:229
 msgid "Workshop needs teachers"

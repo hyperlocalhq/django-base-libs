@@ -223,7 +223,7 @@
                         </p>
                     {% endif %}
                     {% if project.participant_count %}
-                        <p>{{ project.get_rendered_participant_count }}</p>
+                        <p>{% trans "Number of participants" %}: {{ project.get_rendered_participant_count }}</p>
                     {% endif %}
                     {% if project.needs_teachers %}
                         <p>{% trans "Workshop needs teachers" %}</p>
