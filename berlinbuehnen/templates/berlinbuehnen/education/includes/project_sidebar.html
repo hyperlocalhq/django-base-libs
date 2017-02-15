@@ -223,8 +223,15 @@
                         </p>
                     {% endif %}
                     {% if project.participant_count %}
-                        <p>{% trans "Number of participants" %}:</p>
-                        {{ project.get_rendered_participant_count }}
+                        {% with project.get_rendered_participant_count|striptags as participant_count %}
+                            {% if participant_count.is_digit %}
+                                {# if the participant count is a number, prefix it with "Number of participants" #}
+                                <p>{% trans "Number of participants" %}: {{ project.get_rendered_participant_count|striptags }}</p>
+                            {% else %}
+                                {# if the participant count is a longer description, show it rendered #}
+                                {{ project.get_rendered_participant_count }}
+                            {% endif %}
+                        {% endwith %}
                     {% endif %}
                     {% if project.needs_teachers %}
                         <p>{% trans "Workshop needs teachers" %}</p>
