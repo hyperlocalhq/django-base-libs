@@ -80,6 +80,6 @@
 
 {% block facebook_scripts %}
     <script type="text/javascript"
-        src="http://connect.facebook.net/{% if LANGUAGE_CODE == "en" %}en_US{% else %}de_DE{% endif %}/all.js"></script>
+        src="//connect.facebook.net/{% if LANGUAGE_CODE == "en" %}en_US{% else %}de_DE{% endif %}/all.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/facebook_manage_pages.js"></script>
 {% endblock %}

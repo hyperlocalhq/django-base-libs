@@ -260,7 +260,7 @@
         <script type="text/javascript">
             (function ($, undefined) {
                 $(document).ready(function () {
-                    $('a[href^="http://"]').each(function () {
+                    $('a[href^="http"]').each(function () {
                         if ($(this).attr("href").indexOf(settings.website_url) == -1) {
                             if (!$(this).attr('target')) {
                                 $(this).attr('target', '_blank');
