@@ -25,6 +25,7 @@ from berlinbuehnen.apps.productions.models import Event
 from berlinbuehnen.apps.productions.models import EventCharacteristics
 from berlinbuehnen.apps.productions.models import EventImage
 from berlinbuehnen.apps.productions.models import EventSponsor
+from berlinbuehnen.apps.productions.models import LanguageAndSubtitles
 from berlinbuehnen.apps.people.models import Person
 
 SILENT, NORMAL, VERBOSE, VERY_VERBOSE = 0, 1, 2, 3
@@ -742,11 +743,19 @@ class ImportFromHeimatBase(object):
         instance.work_info_en = u"\n".join([text for text in (werkinfo_kurz_en, werkinfo_gesamt_en, hintergrundinformation_en) if text])
         instance.work_info_en_markup_type = 'pt'
 
-        # exception for the Schaubuehne and alike
-        if not instance.subtitles_text_de:
-            instance.subtitles_text_de = self.get_child_text(xml_node, 'language_and_subtitles')
-        if not instance.subtitles_text_en:
-            instance.subtitles_text_en = self.get_child_text(xml_node, 'language_and_subtitles')
+        # Handle language and subtitles
+        language_and_subtitles_node = xml_node.find("./language_and_subtitles")
+        if language_and_subtitles_node is not None:
+            language_and_subtitles_id = language_and_subtitles_node.get("id")
+            try:
+                instance.language_and_subtitles = LanguageAndSubtitles.objects.filter(pk=language_and_subtitles_id)[0]
+                instance.subtitles_text_de = ""
+                instance.subtitles_text_en = ""
+            except IndexError:
+                if not instance.subtitles_text_de:
+                    instance.subtitles_text_de = self.get_child_text(xml_node, 'language_and_subtitles')
+                if not instance.subtitles_text_en:
+                    instance.subtitles_text_en = self.get_child_text(xml_node, 'language_and_subtitles')
 
     def save_page(self, root_node):
         ObjectMapper = models.get_model("external_services", "ObjectMapper")
