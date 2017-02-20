@@ -9,6 +9,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         verbosity = int(options.get('verbosity', NORMAL))
+        # TODO: when verbose, print some information for each imported article
 
         import re
         import requests
