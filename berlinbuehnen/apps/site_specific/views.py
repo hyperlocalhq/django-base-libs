@@ -771,6 +771,12 @@ def culturebase_export_productions(request, location_slug):
 
 API_CHANGELOG = [
     {
+        'date': datetime(2017, 2, 21, 12, 0),
+        'changes': [
+            u"The website now uses HTTPS protocol.",
+        ],
+    },
+    {
         'date': datetime(2016, 12, 20, 12, 0),
         'changes': [
             u"The <strong>classiccard</strong> fields added to productions and events.",
