@@ -28,7 +28,7 @@
     </script>
 
     <script type="text/javascript" src="/jssettings/"></script>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.ba-bbq.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.isotope.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.scrollstop.js"></script>
@@ -61,7 +61,7 @@
 {{ site_settings.extra_body|safe }}
 <script type="text/javascript">
 $(function() {
-    $("a[href^='http://']").attr("target","_blank");	        
+    $("a[href^='http']").attr("target","_blank");
         
     if ($('#cms_toolbar').length) { // cms toolbar fix
         if ($('body').css('margin-top') == "-43px") {
