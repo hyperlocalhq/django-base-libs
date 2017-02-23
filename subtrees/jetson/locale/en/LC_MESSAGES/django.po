@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-23 19:54+0100\n"
+"POT-Creation-Date: 2017-02-23 20:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -390,7 +390,7 @@ msgstr ""
 #: subtrees/jetson/apps/structure/models.py:83
 #: subtrees/jetson/apps/structure/models.py:141
 #: subtrees/jetson/apps/structure/models.py:219
-#: subtrees/jetson/apps/tracker/models.py:35
+#: subtrees/jetson/apps/tracker/models.py:32
 msgid "title"
 msgstr ""
 
@@ -2841,7 +2841,7 @@ msgstr ""
 #: subtrees/jetson/apps/institutions/forms.py:608
 #: subtrees/jetson/apps/institutions/forms.py:630
 #: subtrees/jetson/apps/institutions/forms.py:652
-#: subtrees/jetson/apps/tracker/models.py:22
+#: subtrees/jetson/apps/tracker/models.py:19
 #: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_opening_hours.html:104
 #: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_opening_hours.html:105
 #: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_opening_hours.html:106
@@ -3201,7 +3201,7 @@ msgstr ""
 #: subtrees/jetson/apps/notification/models.py:63
 #: subtrees/jetson/apps/notification/south_migrations/0001_initial.py:52
 #: subtrees/jetson/apps/notification/south_migrations/0005_digest_added.py:148
-#: subtrees/jetson/apps/tracker/models.py:59
+#: subtrees/jetson/apps/tracker/models.py:56
 msgid "description"
 msgstr ""
 
@@ -3430,8 +3430,8 @@ msgstr ""
 #: subtrees/jetson/apps/forum/south_migrations/0001_initial.py:80
 #: subtrees/jetson/apps/forum/south_migrations/0002_add_mptt.py:172
 #: subtrees/jetson/apps/forum/south_migrations/0002_add_mptt.py:268
-#: subtrees/jetson/apps/tracker/models.py:60
-#: subtrees/jetson/apps/tracker/models.py:108
+#: subtrees/jetson/apps/tracker/models.py:57
+#: subtrees/jetson/apps/tracker/models.py:105
 #: subtrees/jetson/templates/default/groups_networks/persongroups/profile/details.html:43
 #: subtrees/jetson/templates/default/people/profile/details.html:42
 msgid "status"
@@ -7425,8 +7425,8 @@ msgid "Priority"
 msgstr ""
 
 #: subtrees/jetson/apps/priorities/models.py:23
-#: subtrees/jetson/apps/tracker/models.py:61
-#: subtrees/jetson/apps/tracker/models.py:109
+#: subtrees/jetson/apps/tracker/models.py:58
+#: subtrees/jetson/apps/tracker/models.py:106
 msgid "priority"
 msgstr ""
 
@@ -7828,80 +7828,80 @@ msgstr ""
 msgid "Write Feedback"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:17
+#: subtrees/jetson/apps/tracker/models.py:14
 msgid "Tracker"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:20
+#: subtrees/jetson/apps/tracker/models.py:17
 msgid "Open"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:21
+#: subtrees/jetson/apps/tracker/models.py:18
 msgid "Working"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:23
+#: subtrees/jetson/apps/tracker/models.py:20
 msgid "Rejected"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:27
+#: subtrees/jetson/apps/tracker/models.py:24
 msgid "Now"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:28
+#: subtrees/jetson/apps/tracker/models.py:25
 msgid "Soon"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:29
+#: subtrees/jetson/apps/tracker/models.py:26
 msgid "Someday"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:38
-#: subtrees/jetson/apps/tracker/models.py:65
+#: subtrees/jetson/apps/tracker/models.py:35
+#: subtrees/jetson/apps/tracker/models.py:62
 msgid "concern"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:39
+#: subtrees/jetson/apps/tracker/models.py:36
 msgid "concerns"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:47
+#: subtrees/jetson/apps/tracker/models.py:44
 msgid "submitted Date"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:48
-#: subtrees/jetson/apps/tracker/models.py:104
+#: subtrees/jetson/apps/tracker/models.py:45
+#: subtrees/jetson/apps/tracker/models.py:101
 msgid "modified Date"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:53
+#: subtrees/jetson/apps/tracker/models.py:50
 msgid "submitter"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:57
-#: subtrees/jetson/apps/tracker/models.py:105
+#: subtrees/jetson/apps/tracker/models.py:54
+#: subtrees/jetson/apps/tracker/models.py:102
 msgid "modifier"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:63
+#: subtrees/jetson/apps/tracker/models.py:60
 msgid "related object's URL"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:68
-#: subtrees/jetson/apps/tracker/models.py:103
+#: subtrees/jetson/apps/tracker/models.py:65
+#: subtrees/jetson/apps/tracker/models.py:100
 msgid "ticket"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:69
+#: subtrees/jetson/apps/tracker/models.py:66
 msgid "tickets"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:107
+#: subtrees/jetson/apps/tracker/models.py:104
 msgid "modification"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:112
-#: subtrees/jetson/apps/tracker/models.py:113
+#: subtrees/jetson/apps/tracker/models.py:109
+#: subtrees/jetson/apps/tracker/models.py:110
 msgid "ticket history"
 msgstr ""
 

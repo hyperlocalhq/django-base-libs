@@ -1,14 +1,11 @@
 # -*- coding: UTF-8 -*-
 from django.utils.translation import ugettext_lazy as _
-from django.db.models.loading import load_app
-from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.template.defaultfilters import urlize
 from django.utils.timezone import now as tz_now
 
-from base_libs.models.models import ObjectRelationMixin
 from base_libs.utils.user import get_user_title
 from base_libs.models.models import SlugMixin
 from base_libs.middleware import get_current_user
