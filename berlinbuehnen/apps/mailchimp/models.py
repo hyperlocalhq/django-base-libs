@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 import re
-from mailsnake import MailSnake
+from mailsnake import MailSnake, CampaignInvalidStatusException
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -180,13 +180,6 @@ class MList(SingleSiteMixin):
         
     mailchimp_id = property(_get_mailchimp_id, _set_mailchimp_id)
 
-MAILING_STATUS_DRAFT = 1
-MAILING_STATUS_SENT = 2
-
-MAILING_STATUS_CHOICES = (
-    (MAILING_STATUS_DRAFT, _("Draft")),
-    (MAILING_STATUS_SENT, _("Sent")),
-)
 
 class Campaign(CreationModificationMixin):
     sender_name = models.CharField(_("Sender name"), max_length=255, default=getattr(settings, 'MAILING_DEFAULT_FROM_NAME', ''))
@@ -196,8 +189,7 @@ class Campaign(CreationModificationMixin):
     image = FileBrowseField(_('Image'), max_length=255, directory="newsletter-headers/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image."))
     mailinglist = models.ForeignKey('MList', verbose_name=_("Mailing list"))
     template = TemplatePathField(_("Template"), path="mailchimp/campaign/", match="\.html$", max_length=150)
-    status = models.PositiveIntegerField(_("Status"), choices=MAILING_STATUS_CHOICES, default=MAILING_STATUS_DRAFT)
-    
+
     class Meta:
         verbose_name = _("Campaign")
         verbose_name_plural = _("Campaigns")
@@ -207,8 +199,17 @@ class Campaign(CreationModificationMixin):
         return self.subject
     
     def is_sent(self):
-        return self.status == MAILING_STATUS_SENT
-    
+        if not self.mailchimp_id:
+            return False
+
+        try:
+            st = Settings.objects.get()
+        except:
+            return False
+        ms = MailSnake(st.api_key)
+        response_dict = ms.campaigns(filters={'campaign_id': self.mailchimp_id})
+        return response_dict['data'][0]['status'] == "sent"
+
     def get_mailinglist(self):
         return self.mailinglist.title
     get_mailinglist.short_description = _("Mailing List")
@@ -321,39 +322,42 @@ def save_mailchimp_campaign(sender, **kwargs):
             html = campaign.get_rendered_html()
 
             if campaign.mailchimp_id:
-                ms.campaignUpdate(
-                    cid=campaign.mailchimp_id,
-                    name="list_id",
-                    value=campaign.mailinglist.mailchimp_id,
-                    )
-                ms.campaignUpdate(
-                    cid=campaign.mailchimp_id,
-                    name="subject",
-                    value=campaign.subject,
-                    )
-                ms.campaignUpdate(
-                    cid=campaign.mailchimp_id,
-                    name="title",
-                    value=campaign.subject,
-                    )
-                ms.campaignUpdate(
-                    cid=campaign.mailchimp_id,
-                    name="from_email",
-                    value=campaign.sender_email,
-                    )
-                ms.campaignUpdate(
-                    cid=campaign.mailchimp_id,
-                    name="from_name",
-                    value=campaign.sender_name,
-                    )
-                ms.campaignUpdate(
-                    cid=campaign.mailchimp_id,
-                    name="content",
-                    value={
-                        'html': html,
-                        'text': ms.generateText(type="html", content=html),
-                        },
-                    )
+                try:
+                    ms.campaignUpdate(
+                        cid=campaign.mailchimp_id,
+                        name="list_id",
+                        value=campaign.mailinglist.mailchimp_id,
+                        )
+                    ms.campaignUpdate(
+                        cid=campaign.mailchimp_id,
+                        name="subject",
+                        value=campaign.subject,
+                        )
+                    ms.campaignUpdate(
+                        cid=campaign.mailchimp_id,
+                        name="title",
+                        value=campaign.subject,
+                        )
+                    ms.campaignUpdate(
+                        cid=campaign.mailchimp_id,
+                        name="from_email",
+                        value=campaign.sender_email,
+                        )
+                    ms.campaignUpdate(
+                        cid=campaign.mailchimp_id,
+                        name="from_name",
+                        value=campaign.sender_name,
+                        )
+                    ms.campaignUpdate(
+                        cid=campaign.mailchimp_id,
+                        name="content",
+                        value={
+                            'html': html,
+                            'text': ms.generateText(type="html", content=html),
+                            },
+                        )
+                except CampaignInvalidStatusException:
+                    pass
             else:
                 campaign.mailchimp_id = ms.campaignCreate(
                     type="regular",
