@@ -188,6 +188,7 @@ class Campaign(CreationModificationMixin):
     body_html = ExtendedTextField(_("Message"), blank=True)
     mailinglist = models.ForeignKey('MList', verbose_name=_("Mailing list"))
     template = TemplatePathField(_("Template"), path="mailchimp/campaign/", match="\.html$")
+    sent = models.BooleanField(_("Sent"), default=False, editable=False)
 
     class Meta:
         verbose_name = _("Campaign")
@@ -198,15 +199,22 @@ class Campaign(CreationModificationMixin):
         return self.subject
     
     def is_sent(self):
+        if self.sent:
+            return True
         if not self.mailchimp_id:
             return False
+
         try:
             st = Settings.objects.get()
         except:
             return False
         ms = MailSnake(st.api_key)
         response_dict = ms.campaigns(filters={'campaign_id': self.mailchimp_id})
-        return response_dict['data'][0]['status'] == "sent"
+        sent = response_dict['data'][0]['status'] == "sent"
+        if sent:
+            Campaign.objects.filter(pk=self.pk).update(sent=True)
+        return sent
+
 
     def get_mailinglist(self):
         return self.mailinglist.title
