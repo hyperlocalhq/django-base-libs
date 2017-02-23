@@ -3,11 +3,11 @@ import os
 import re
 import calendar
 from datetime import datetime
+from urlparse import urlparse
 
 from django.db import models
 from django.db.models.base import ModelBase
 from django.db.models.fields import FieldDoesNotExist
-from django.template.defaultfilters import slugify
 from django.conf import settings
 from django.utils import dateformat
 from django.utils.translation import ugettext_lazy as _, ugettext
@@ -352,6 +352,7 @@ class JobOfferBase(CreationModificationMixin, PublishingMixin, UrlMixin):
             self._urls_cache = [{
                 "type": getattr(self, "url%d_type" % pos),
                 "link": getattr(self, "url%d_link" % pos),
+                "domain": urlparse(getattr(self, "url%d_link" % pos)).netloc,
                 "is_default": getattr(self, "is_url%d_default" % pos),
                 "is_on_hold": getattr(self, "is_url%d_on_hold" % pos),
             } for pos in range(3) if getattr(self, "url%d_link" % pos) and not getattr(self, "is_url%d_on_hold" % pos)]

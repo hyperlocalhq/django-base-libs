@@ -6,20 +6,15 @@ import os
 _ = lambda s:s
 
 ### MODE ###
-DEVELOPMENT_MODE = False
-try:
-    DEVELOPMENT_MODE = (platform.node() not in (
-        "h1313100",
-        "h903976",
-        "h1407380",
-        ))
-except:
-    pass
-TEMPLATE_DEBUG = DEBUG = DEVELOPMENT_MODE
 
-INTERNAL_IPS = ("127.0.0.1", "213.160.11.225")
+TEMPLATE_DEBUG = DEBUG
 
-HTTPS_PROTOCOL = DEVELOPMENT_MODE and "http" or "https"
+INTERNAL_IPS = (
+    "127.0.0.1",
+    "217.92.175.81"
+)
+
+HTTPS_PROTOCOL = 'http' if DEBUG else "https"
 
 ### EMAILS ###
 
@@ -34,7 +29,6 @@ TAGGING_PATH = os.path.join(JETSON_PATH, "tagging")
 TAGGING_AUTOCOMPLETE_PATH = os.path.join(JETSON_PATH, "tagging_autocomplete")
 FILEBROWSER_PATH = os.path.join(JETSON_PATH, "filebrowser")
 sys.path = [
-    "",
     EXTERNAL_LIBS_PATH,
     EXTERNAL_APPS_PATH,
     BASE_LIBS_PATH,
@@ -101,7 +95,7 @@ TIME_ZONE = "Europe/Berlin"
 
 SITE_ID = 1
 
-PREPEND_WWW = not DEVELOPMENT_MODE
+PREPEND_WWW = not DEBUG
 
 REDIRECT_FIELD_NAME = "goto_next"
 
@@ -109,7 +103,8 @@ FILE_UPLOAD_PERMISSIONS = 0664
 
 ### CACHING ###
 
-CACHE_BACKEND = "locmem://?timeout=30&max_entries=400" # passes cache-session test only
+# CACHE_BACKEND = "locmem://?timeout=30&max_entries=400" # passes cache-session test only
+CACHE_BACKEND = "dummy://" # doesn't pass cache-session test
 
 ### SESSION ###
 

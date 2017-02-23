@@ -50,49 +50,51 @@ class BlogPostForm(dynamicforms.Form):
                 help_text=_("Please use the format 'yyyy-mm-dd hh:mi:ss'. If not provided and the status is set to 'published', the post will be published forever."),
         required=False,
         )
-    enable_comment_form = forms.BooleanField(
-        label=_("Enable comment form"),
-        required=False,
-        )
+    # enable_comment_form = forms.BooleanField(
+    #     label=_("Enable comment form"),
+    #     required=False,
+    #     )
     
     def __init__(self, *args, **kwargs):
         self.helper = FormHelper()
         self.helper.form_tag = False
+        self.helper.action = ''
+        self.helper.method = 'POST'
+        self.helper.form_tag = False
         self.helper.layout = layout.Layout(
-            layout.HTML(
-                """
-                {% load i18n %}
-                <fieldset>
-                    <legend>
-                        {% if form_handler_action == "new" %}
-                            {% trans "Post To the Blog" %}
-                        {% else %}
-                            {% if form_handler_action == "edit" %}
-                                {% trans "Edit Post" %}
-                            {% endif %}
+            layout.Fieldset(
+                '''{% load i18n %}
+                    {% if form_handler_action == "new" %}
+                        {% trans "Post To the Blog" %}
+                    {% else %}
+                        {% if form_handler_action == "edit" %}
+                            {% trans "Edit Post" %}
                         {% endif %}
-                    </legend>
-                """,
-                ),
-            layout.Div(
+                    {% endif %}
+                ''',
                 "title",
                 "body",
                 "tags",
-                "enable_comment_form",
                 "status",
-                "published_from",
-                "published_till",
-                ),
-            layout.HTML("</fieldset>"),
+                # "enable_comment_form",
+            ),
+            layout.HTML('''
+                <input
+                    type="hidden"
+                    name="{{ hash_field }}"
+                    value="{{ hash_value }}"
+                />
+                <input
+                    type="hidden"
+                    name="goto_next"
+                    value="{% if goto_next %}{{ goto_next }}{% else %}/blog/{% endif %}"
+                />
+            '''),
             bootstrap.FormActions(
-                layout.HTML("""
-                    {% load i18n %}
-                    <input id="id_preview" class="btn btn-primary" type="submit" name="{{ preview_stage_field }}" value="{% filter upper %}{% trans 'Preview' %}{% endfilter %}" />&zwnj;
-                    <input id="id_cancel" type="submit" class="btn btn-warning" name="{{ cancel_stage_field }}" value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}" />&zwnj;
-                    <input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}" />
-                    <input type="hidden" name="goto_next" value="{% if goto_next %}{{ goto_next }}{% else %}/blog/{% endif %}" />
-                    """),
-                )
-            )
-        
+                layout.Submit('submit_preview', _('Preview')),
+                layout.Submit('submit_cancel', _('Cancel')),
+                css_class="button-group form-buttons"
+            ),
+        )
+
         super(BlogPostForm, self).__init__(*args, **kwargs)

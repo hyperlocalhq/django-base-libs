@@ -1,5 +1,5 @@
 {% extends "site_specific/lists/details_base.html" %}
-{% load i18n base_tags nav_menu memos %}
+{% load i18n base_tags navigation_tags memos %}
 
 {% block extrahead %}
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
@@ -11,23 +11,6 @@
 {% block headline %}
 	<h2 class="main">{% trans "Lists" %}</h2>
 {% endblock %}			
-
-{% comment %}<!-- 
-{% block sidebar-b %}
-	<div id="add_box" class="categories">
-		<h3><b>{% trans "tools" %}</b></h3>
-		<ul>
-			<li class="note_sidebar"><a href="/my-profile/memos/"><span class="pic"></span>{% trans "memos" %} <em>(<span id="memo_count">{{ request|get_memo_count }}</span>)</em></a></li>
-			{% if request.user.is_authenticated %}
-				<li class="add_sidebar"><a href="/my-profile/favorites/"><span class="pic"></span>{% trans "favorites" %}</a></li>
-			{% endif %}
-			<li class="rss"><a href="/browse/feeds/rss/{{ LANGUAGE_CODE }}/?{{ query|escape }}"><span class="pic"></span>{% trans "RSS feed" %}</a></li>
-			<li class="rss"><a href="/browse/feeds/atom/{{ LANGUAGE_CODE }}/?{{ query|escape }}"><span class="pic"></span>{% trans "ATOM feed" %}</a></li>
-			<li class="print"><a href="#" onclick="window.print(); return false;">{% trans "print" %}</a></li>
-		</ul>
-	</div>
-{% endblock %}
--->{% endcomment %}
 
 {% block content %}
 

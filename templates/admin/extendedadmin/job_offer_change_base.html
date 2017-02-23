@@ -174,6 +174,22 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="grp-row grp-cells-1{% if form.categories.errors %} grp-errors{% endif %}">
+                        <div class="l-2c-fluid l-d-4">
+                            <div class="c-1">
+                                <label{% if form.categories.field.required %} class="required"{% endif %}>{{ form.categories.label }}</label>
+                            </div>
+                            <div class="c-2">
+                                {{ form.categories }}
+                                {% if form.categories.errors %}
+                                    <ul class="errorlist"><li>{{ form.categories.errors|join:", "}}</li></ul>
+                                {% endif %}
+
+                                {% if form.categories.help_text %}<p class="grp-help">{{ form.categories.help_text }}</p>{% endif %}
+                            </div>
+                        </div>
+                    </div>
                     <script type="text/javascript">
                         addEvent(window, "load", function(e) { SelectFilter.init("id_job_sectors", "{% trans "Job sectors" %}", 0, "{{ STATIC_URL }}admin/"); });
                     </script>

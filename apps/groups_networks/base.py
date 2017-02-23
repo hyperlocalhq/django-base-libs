@@ -13,7 +13,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import force_unicode
 from django.utils.safestring import mark_safe
 from django.utils.functional import lazy
-from django.template.defaultfilters import slugify
 from django.conf import settings
 from django.utils.timezone import now as tz_now
 from django.apps import AppConfig
@@ -22,6 +21,7 @@ from base_libs.middleware import get_current_language
 from base_libs.middleware import get_current_user
 from base_libs.utils.misc import get_website_url
 from base_libs.utils.misc import get_translation
+from base_libs.utils.betterslugify import better_slugify
 from base_libs.models.query import ExtendedQuerySet
 from base_libs.models.models import UrlMixin
 from base_libs.models.models import ObjectRelationMixin
@@ -344,27 +344,25 @@ class PersonGroupBase(CreationModificationDateMixin, PersonGroupObjectRelation, 
     def get_context_categories(self):
         return self.context_categories.all()
         
-    def get_location_type(self):
+    def get_locality_type(self):
+        from jetson.apps.location.models import LocalityType
         if self.content_type and  self.content_type.model == "address":
             postal_address = self.content_object
             if postal_address.country != "DE":
-                return Term.objects.get(
-                    vocabulary__sysname="basics_locality",
-                    sysname="international",
-                    )
+                return LocalityType.objects.get(
+                    slug="international",
+                )
             elif postal_address.city.lower() != "berlin":
-                return Term.objects.get(
-                    vocabulary__sysname="basics_locality",
-                    sysname="national",
-                    )
+                return LocalityType.objects.get(
+                    slug="national",
+                )
             else:
                 import re
                 from jetson.apps.location.data import POSTAL_CODE_2_DISTRICT
                 locality = postal_address.get_locality()
-                regional = Term.objects.get(
-                    vocabulary__sysname="basics_locality",
-                    sysname="regional",
-                    )
+                regional = LocalityType.objects.get(
+                    slug="regional",
+                )
                 p = re.compile('[^\d]*') # remove non numbers
                 postal_code = p.sub("", postal_address.postal_code)
                 
@@ -377,12 +375,11 @@ class PersonGroupBase(CreationModificationDateMixin, PersonGroupObjectRelation, 
                     d = {}
                     for lang_code, lang_verbose in settings.LANGUAGES:
                         d["title_%s" % lang_code] = district
-                    term, created = Term.objects.get_or_create(
-                        vocabulary=regional.vocabulary,
-                        slug=slugify(district),
+                    term, created = LocalityType.objects.get_or_create(
+                        slug=better_slugify(district),
                         parent=regional,
                         defaults=d,
-                        )
+                    )
                     return term
                 else:
                     return regional

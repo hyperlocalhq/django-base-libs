@@ -99,7 +99,11 @@ def filter_swear_words(sender, instance, *args, **kwargs):
                         ExtendedTextField,
                         ) and "object_id" not in f.name):
                         value = getattr(instance, f.name) or ""
-                        matches = swear_words_regex.findall(value)
+                        try:
+                            matches = swear_words_regex.findall(value)
+                        except TypeError as e:
+                            value = force_unicode(value)
+                            matches = swear_words_regex.findall(value)
                         for m in matches:
                             found_words.append(m)
                         if matches and DO_REPLACE:

@@ -79,11 +79,6 @@
     {% endif %}	
     
     {% if event.get_contacts %}
-        {% comment %}<!--
-        {% for phone in event.get_contacts.0.get_phones %}
-            <p>{% if phone.type %}<span>{{ phone.type }}:</span> {% endif %}+{{ phone.country }}-{{ phone.area }}-{{ phone.number }}</p>
-        {% endfor %}
-        -->{% endcomment %}
         {% for url in event.get_contacts.0.get_urls %}
             <span>
                 {% if url.type %}{{ url.type }}: {% endif %}<a  class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">

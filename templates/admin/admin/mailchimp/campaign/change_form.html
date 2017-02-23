@@ -3,14 +3,6 @@
 <!-- LOADING -->
 {% load i18n admin_modify grp_tags extended_admin_buttons auth_extended static %}
 
-{% comment %}
-<!-- STYLES -->
-{% block extrastyle %}
-    {{ block.super }}
-    <link rel="stylesheet" href="{{ jetson_media_url }}css/admin/MultilingualFieldHelper.css" type="text/css" media="screen" />
-{% endblock %}
-{% endcomment %}
-
 <!-- JAVASCRIPTS -->
 {% block javascripts %}
     <script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static "grappelli/" %}{% endfilter %}";</script>
@@ -62,6 +54,7 @@
         if (CKEDITOR) {
             // Added by Roger Hu 02/27/2010
             CKEDITOR.config.filebrowserBrowseUrl = '/admin/filebrowser/browse?pop=3';
+            CKEDITOR.config.allowedContent = true;
         }
     </script>
 
@@ -69,9 +62,6 @@
     <script type="text/javascript" src="{{ jetson_media_url }}js/admin/MarkupHelper.js"></script>
 
     {% block tinymce_setup %}
-        {% comment %}
-    	<script type="text/javascript" src="{{ STATIC_URL }}site/tinymce_setup/tinymce_setup_e-mail.js"></script>
-    	{% endcomment %}
     {% endblock %}
 	  <script type="text/javascript" src="{{ jetson_media_url }}js/admin/change_form.js"></script>
 
@@ -172,24 +162,23 @@
 
                     function update_content(responseText) {
                         $oContent.val(responseText);
-                        $oContentMarkupType.val("hw");
-                        $oContentMarkupType.change();
-                        //var oEditor = tinyMCE.getInstanceById($oContent.attr("id"));
-                        //if (oEditor) {
-                        //    oEditor.setContent(responseText);
-                        //}
+                        if ($oContentMarkupType.val() != "hw") {
+                            $oContentMarkupType.val("hw");
+                            $oContentMarkupType.change();
+                        }
+                        CKEDITOR.instances[$oContent.attr("id")].setData(responseText);
                     }
                     if ($oContentType.val()) {
                         if ($oContent.val()) {
                             if (confirm(gettext("Do you really want to replace the content of this block?"))) {
                                 $.get(
-                                    "/admin/mailchimp/campaign/template-content/" + $oContentType.val() + "/",
+                                    "/" + window.settings.lang + "/admin/mailchimp/campaign/template-content/" + $oContentType.val() + "/",
                                     update_content
                                 );
                             }
                         } else {
                             $.get(
-                                "/admin/mailchimp/campaign/template-content/" + $oContentType.val() + "/",
+                                "/" + window.settings.lang + "/admin/mailchimp/campaign/template-content/" + $oContentType.val() + "/",
                                 update_content
                             );
                         }
@@ -204,238 +193,4 @@
         {{ media }}
     {% endblock %}
 
-    {% comment %}
-    <script type="text/javascript">
-        // GLOBALS
-        var grappelli = {},
-            // TODO: klemens: drop ADMIN_URL
-            ADMIN_URL = "{% url "admin:index" %}",
-            MODEL_URL_ARRAY = {% get_content_types %},
-            DATE_FORMAT = "{% get_date_format %}",
-            TIME_FORMAT = "{% get_time_format %}",
-            DATETIME_FORMAT = "{% get_datetime_format %}";
-    </script>
-    <!-- jQuery, jQuery-UI -->
-    <script type="text/javascript" src="{{ STATIC_URL }}grappelli/jquery/jquery-1.4.2.min.js"></script>
-    <script src="{{ STATIC_URL }}grappelli/jquery/ui/js/jquery-ui-1.8.5.custom.min.js" type="text/javascript"></script>
-    <!-- Grappelli Main JS -->
-    <script src="{{ STATIC_URL }}grappelli/js/grappelli/grappelli.js" type="text/javascript"></script>
-    
-    <!-- Grappelli jQuery Plugins, Widgets -->
-    <script src="{{ STATIC_URL }}grappelli/js/grappelli/jquery.grp_collapsible.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}grappelli/js/grappelli/jquery.grp_collapsible_group.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}grappelli/js/grappelli/jquery.grp_timepicker.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}grappelli/js/grappelli/jquery.grp_related_fk.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}grappelli/js/grappelli/jquery.grp_related_m2m.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}grappelli/js/grappelli/jquery.grp_related_generic.js" type="text/javascript"></script>
-    
-    
-	<script type="text/javascript" src="{{ STATIC_URL }}grappelli/js/core.js"></script>
-	<script type="text/javascript" src="/jssettings/"></script>
-        
-    <script type="text/javascript" src="{% url "admin:jsi18n" %}"></script>
-    
-    {{ media|cut:'<script type="text/javascript" src="/admin-media/js/prepopulate.min.js"></script>'|cut:'<script type="text/javascript" src="/admin-media/js/grappelli.RelatedObjectLookups.js"></script>' }}
-
-	<script type="text/javascript" src="{{ jetson_media_url }}js/admin/MarkupHelper.js"></script>
-
-    <script type="text/javascript" src="{{ JQUERY_URL }}"></script>
-    <script type="text/javascript" src="{{ JQUERY_UI_URL }}"></script>
-	
-    <script src="{{ STATIC_URL }}grappelli/js/grappelli/jquery.grp_inline.js" type="text/javascript"></script>
-    
-	<script type="text/javascript" src="{{ STATIC_URL }}grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
-    <script type="text/javascript" src="{{ jetson_media_url }}tinymce_setup/tinymce_setup_base.js"></script>
-    {% block tinymce_setup %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/tinymce_setup/tinymce_setup_e-mail.js"></script>
-    {% endblock %}
-	<script type="text/javascript" src="{{ jetson_media_url }}js/admin/change_form.js"></script>
-    
-	{% if adminform %}
-        <script type="text/javascript" charset="utf-8">
-            (function($) {
-                $(document).ready(function() {
-                    $("div.container-flexible div.group").grp_collapsible_group();
-                    $("div#content .collapse").grp_collapsible({
-                        on_init: function(elem, options) {
-                            // open collapse (and all collapse parents) in case of errors
-                            if (elem.find("ul.errorlist").length > 0) {
-                                elem.removeClass("closed")
-                                    .addClass("open");
-                                elem.parents(".collapse")
-                                    .removeClass("closed")
-                                    .addClass("open");
-                            }
-                        }
-                    });
-                    var related_lookup_fields_fk = {% get_related_lookup_fields_fk adminform.model_admin %};
-                    var related_lookup_fields_m2m = {% get_related_lookup_fields_m2m adminform.model_admin %};
-                    var related_lookup_fields_generic = {% get_related_lookup_fields_generic adminform.model_admin %};
-                    $.each(related_lookup_fields_fk, function() {
-                        $("#id_" + this).grp_related_fk({lookup_url:"{% url "grp_related_lookup" %}"});
-                    });
-                    $.each(related_lookup_fields_m2m, function() {
-                        $("#id_" + this).grp_related_m2m({lookup_url:"{% url "grp_m2m_lookup" %}"});
-                    });
-                    $.each(related_lookup_fields_generic, function() {
-                        var content_type = "#id_" + this[0],
-                            object_id = "#id_" + this[1];
-                        $(object_id).grp_related_generic({content_type:content_type, object_id:object_id, lookup_url:"{% url "grp_related_lookup" %}"});
-                    });
-                });
-            })(django.jQuery);
-        </script>
-    {% endif %}
-    {% if inline_admin_formsets %}
-        <script type="text/javascript">
-        (function($, undefined) {
-            $(document).ready(function() {
-                var $oContent = $('#id_body_html');
-                var $oContentMarkupType = $('#id_body_html_markup_type');
-                if (!$oContent.val()) {
-                    $.get(
-                        "/admin/mailchimp/campaign/template-content/body_html/",
-                        function (responseText) {
-                            $oContent.val(responseText);
-                            $oContentMarkupType.val("hw");
-                            $oContentMarkupType.change();
-                            var oEditor = tinyMCE.getInstanceById($oContent.attr("id"));
-                            if (oEditor) {
-                                oEditor.setContent(responseText);
-                            }
-                        }
-                    );
-                }
-                
-                $('[id$="content_type"]').live("change", function() {
-                    var $oContentType = $(this);
-                    var $oContent = $(this).parents("fieldset").find('[id$="content"]');
-                    var $oContentMarkupType = $(this).parents("fieldset").find('[id$="content_markup_type"]');
-                    
-                    function update_content(responseText) {
-                        $oContent.val(responseText);
-                        $oContentMarkupType.val("hw");
-                        $oContentMarkupType.change();
-                        var oEditor = tinyMCE.getInstanceById($oContent.attr("id"));
-                        if (oEditor) {
-                            oEditor.setContent(responseText);
-                        }                    }
-                    if ($oContentType.val()) {
-                        if ($oContent.val()) {
-                            if (confirm(gettext("Do you really want to replace the content of this block?"))) {
-                                $.get(
-                                    "/admin/mailchimp/campaign/template-content/" + $oContentType.val() + "/",
-                                    update_content
-                                );
-                            }
-                        } else {
-                            $.get(
-                                "/admin/mailchimp/campaign/template-content/" + $oContentType.val() + "/",
-                                update_content
-                            );
-                        }
-                    }
-                });
-            });
-            
-        }(django.jQuery));
-        </script>
-    {% endif %}
-    {% endcomment %}
 {% endblock %}
-
-{% comment %}
-<!-- COLTYPE/BODYCLASS -->
-{% block bodyclass %}{{ opts.app_label }}-{{ opts.object_name.lower }} change-form{% endblock %}
-{% block content-class %}content-flexible{% endblock %}
-
-<!-- BREADCRUMBS -->
-{% block breadcrumbs %}
-    {% if not is_popup %}
-        <div id="breadcrumbs">
-             <a href="{% if request.session.grappelli.home %}{{ request.session.grappelli.home }}{% else %}{% get_admin_url %}{% endif %}">{% trans "Home" %}</a> &rsaquo;
-             <a href="../../">{{ app_label|capfirst|escape }}</a> &rsaquo;
-             {% if has_change_permission %}<a href="../">{{ opts.verbose_name_plural|capfirst }}</a>{% else %}{{ opts.verbose_name_plural|capfirst }}{% endif %} &rsaquo; 
-             {% if add %}{% trans "Add" %} {{ opts.verbose_name }}{% else %}{{ original|truncatewords:"18" }}{% endif %}
-        </div>
-    {% endif %}
-{% endblock %}
-
-<!-- OBJECT TOOLS -->
-{% block object-tools %}
-    {% if change %}
-        {% if not is_popup %}
-            <ul class="tools">
-                <li><a href="preview/" class="viewsitelink">{% trans "Preview" %}</a></li>
-                <li><a href="history/">{% trans "History" %}</a></li>
-                {% if original.row_level_permissions %}
-                    {% if_has_perm "auth.change_rowlevelpermission" original %}
-                        <li><a href="permissions/" class="rowlevelpermissions">{% trans "Permissions" %}</a></li>
-                    {% end_if_has_perm %}
-                {% endif %}
-                {% if has_absolute_url %}<li><a href="../../../r/{{ content_type_id }}/{{ object_id }}/" class="focus" target="_blank">{% trans "View on site" %}</a></li>{% endif%}
-            </ul>
-        {% endif %}
-    {% endif %}
-{% endblock %}
-
-<!-- CONTENT -->
-{% block content %}
-    <div class="container-flexible">
-        <div class="form-container">
-            <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">{% csrf_token %}{% block form_top %}{% endblock %} 
-                <div>
-                    <!-- Popup Hidden Field -->
-                    {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
-                    
-                    <!-- Submit-Row -->
-                    {% if save_on_top %}{% extended_submit_row %}{% endif %}
-                    
-                    <!-- Errors -->
-                    {% if errors %}
-                        <p class="errornote">{% blocktrans count errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}</p>
-                        <ul class="errorlist">{% for error in adminform.form.non_field_errors %}<li>{{ error }}</li>{% endfor %}</ul>
-                    {% endif %}
-                    
-                    <!-- Fieldsets -->
-                    {% for fieldset in adminform %}
-                        {% include "admin/includes/fieldset.html" %}
-                    {% endfor %}
-                    
-                    {% block after_field_sets %}{% endblock %}
-                    
-                    <!-- Inlines -->
-                    {% for inline_admin_formset in inline_admin_formsets %}
-                        {% include inline_admin_formset.opts.template %}
-                    {% endfor %}
-                    
-                    {% block after_related_objects %}{% endblock %}
-                    
-                    <!-- Submit-Row -->
-                    {% extended_submit_row %}
-                    
-                    {% if adminform and add %}
-                        {% block extrahead %}
-                            {% if adminform %}
-                                <script type="text/javascript">
-                                    (function($){
-                                        $(function(){ 
-                                            {# Focus on first FormField #}
-                                          $("#{{ adminform.first_field.auto_id }}, #{{ adminform.first_field.auto_id }}_0")
-                                            .eq(0).focus(); 
-                                        });
-                                    }(jQuery));
-                                </script>
-                            {% endif %}
-                        {% endblock %}
-                    {% endif %}
-                    
-                    <!-- JS for prepopulated fields -->
-                    {% prepopulated_fields_js %}
-                    
-                </div>
-            </form>
-        </div>
-    </div>
-{% endblock %}
-{% endcomment %}

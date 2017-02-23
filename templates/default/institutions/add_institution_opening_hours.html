@@ -23,7 +23,7 @@
 {% block content %}
 <div class="reg">
     <div class="field_layout">
-        <form action="" method="post">
+        <form action="" method="post">{% csrf_token %}
             <fieldset>
                 <legend>
                     {% trans "Opening Hours (Optional)" %}
@@ -273,12 +273,6 @@
                             {{ form.is_paypal_ok }}
                             {{ form.is_paypal_ok.label_tag }}
                         </li>
-                    {% comment %}<!--
-                        <li class="mentions">
-                            {{ form.is_transaction_ok }}
-                            {{ form.is_transaction_ok.label_tag }}
-                        </li>
-                    -->{% endcomment %}
                     </ul>
                 </fieldset>
             </div>

@@ -4,6 +4,7 @@ import re
 from django import forms
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from actstream import action
 
 from base_libs.forms import dynamicforms
 from base_libs.forms.fields import SecurityField, SingleEmailTextField, MultiEmailTextField
@@ -90,4 +91,3 @@ def message_received(sender, instance, **kwargs):
                 },
             instance=instance,
             )
-

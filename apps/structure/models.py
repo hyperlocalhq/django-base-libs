@@ -159,7 +159,11 @@ class ContextCategory(MPTTModel,  SlugMixin(), SysnameMixin()):
         order_insertion_by = ['sort_order']
         
     def __unicode__(self):
-        return self.title
+        level = self.get_level()
+        return u'{} {}'.format(
+            '-'*level,
+            self.title.title(),
+        )
 
     def get_title(self, prefix="", postfix=""):
         return self.title
@@ -203,4 +207,24 @@ class ContextCategory(MPTTModel,  SlugMixin(), SysnameMixin()):
             for ci in self.creative_sectors.all():
                 t.creative_sectors.add(ci)
     save.alters_data = True
+
+
+class Category(MPTTModel,  SlugMixin(), SysnameMixin()):
+    parent = TreeForeignKey(
+       'self',
+       related_name="child_set",
+       blank=True,
+       null=True,
+    )
+    title = MultilingualCharField(_('title'), max_length=255)
+
+    objects = TreeManager()
+
+    class Meta:
+        verbose_name = _("category")
+        verbose_name_plural = _("categories")
+        ordering = ["tree_id", "lft"]
+
+    def __unicode__(self):
+        return self.title
 

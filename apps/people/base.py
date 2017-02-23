@@ -8,7 +8,6 @@ from django.db import models
 from django.db.models.base import ModelBase
 from django.db.models.fields import FieldDoesNotExist
 from django.template import Context, Template
-from django.template.defaultfilters import slugify
 from django.utils.safestring import mark_safe
 from django.utils.encoding import force_unicode
 from django.utils.translation import ugettext_lazy as _, ugettext
@@ -24,6 +23,7 @@ from base_libs.middleware import get_current_language
 from base_libs.middleware import get_current_user
 from base_libs.models.query import ExtendedQuerySet
 from base_libs.utils.misc import get_website_url
+from base_libs.utils.betterslugify import better_slugify
 from base_libs.models.fields import URLField
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
@@ -33,6 +33,7 @@ from filebrowser.fields import FileBrowseField
 
 from jetson.apps.structure.models import Term
 from jetson.apps.structure.models import ContextCategory
+from jetson.apps.structure.models import Category
 from jetson.apps.location.models import Address
 from jetson.apps.optionset.models import Prefix
 from jetson.apps.optionset.models import Salutation
@@ -369,27 +370,26 @@ class PersonBase(CreationModificationDateMixin, UrlMixin):
             ],
         )
         
-    def get_location_type(self):
-        try:
-            postal_address = self.get_contacts()[0].postal_address
+    def get_locality_type(self):
+        from jetson.apps.location.models import LocalityType
+        contacts = self.get_contacts(cache=False)
+        if contacts and contacts[0].postal_address:
+            postal_address = contacts[0].postal_address
             if postal_address.country_id != "DE":
-                return Term.objects.get(
-                    vocabulary__sysname="basics_locality",
-                    sysname="international",
-                    )
+                return LocalityType.objects.get(
+                    slug="international",
+                )
             elif postal_address.city.lower() != "berlin":
-                return Term.objects.get(
-                    vocabulary__sysname="basics_locality",
-                    sysname="national",
-                    )
+                return LocalityType.objects.get(
+                    slug="national",
+                )
             else:
                 import re
                 from jetson.apps.location.data import POSTAL_CODE_2_DISTRICT
                 locality = postal_address.get_locality()
-                regional = Term.objects.get(
-                    vocabulary__sysname="basics_locality",
-                    sysname="regional",
-                    )
+                regional = LocalityType.objects.get(
+                    slug="regional",
+                )
                 p = re.compile('[^\d]*') # remove non numbers
                 postal_code = p.sub("", postal_address.postal_code)
                 
@@ -402,16 +402,15 @@ class PersonBase(CreationModificationDateMixin, UrlMixin):
                     d = {}
                     for lang_code, lang_verbose in settings.LANGUAGES:
                         d["title_%s" % lang_code] = district
-                    term, created = Term.objects.get_or_create(
-                        vocabulary=regional.vocabulary,
-                        slug=slugify(district),
+                    term, created = LocalityType.objects.get_or_create(
+                        slug=better_slugify(district),
                         parent=regional,
                         defaults=d,
-                        )
+                    )
                     return term
                 else:
                     return regional
-        except:
+        else:
             return None
         
     def get_object_types(self):
@@ -490,8 +489,8 @@ class PersonBase(CreationModificationDateMixin, UrlMixin):
         return self.user.email
     get_email.short_description = _('E-mail address')
     
-    def get_contacts(self):
-        if not hasattr(self, "_contacts_cache"):
+    def get_contacts(self, cache=True):
+        if not hasattr(self, "_contacts_cache") or not cache:
             self._contacts_cache = self.individualcontact_set.order_by('-is_primary', 'id')
         return self._contacts_cache
     
@@ -544,7 +543,7 @@ class PersonBase(CreationModificationDateMixin, UrlMixin):
         return ", ".join(address_components)
         
     def has_multiple_contacts(self):
-        return self.get_contacts().count()>1
+        return self.get_contacts(cache=False).count() > 1
         
     def get_neighborhoods(self):
         if not hasattr(self, '_neighborhoods_cache'):
@@ -680,7 +679,7 @@ class PersonBase(CreationModificationDateMixin, UrlMixin):
     def get_additional_search_data(self):
         """ used by ContextItemManager """
         search_data = []
-        contacts = self.get_contacts()
+        contacts = self.get_contacts(cache=False)
         if contacts:
             for contact in contacts:
                 # add urls

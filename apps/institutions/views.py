@@ -1,13 +1,12 @@
 # -*- coding: UTF-8 -*-
-from django.views.decorators.cache import never_cache
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext, loader, Context
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.contrib.sites.models import Site
 from django.contrib.contenttypes.models import ContentType
-from django.template.defaultfilters import slugify
 from django.db import models
+from django.db import transaction
 from django.contrib.auth import authenticate, login
 from django.views.decorators.cache import never_cache
 from django.conf import settings
@@ -27,11 +26,13 @@ PersonGroup = apps.get_model("groups_networks", "PersonGroup")
 
 ADD_INSTITUTION_FORM_STEPS = get_installed("institutions.forms.ADD_INSTITUTION_FORM_STEPS")
 
+
+@never_cache
+@transaction.atomic
+@login_required
 def add_institution(request):
     return show_form_step(request, ADD_INSTITUTION_FORM_STEPS, extra_context={})
 
-
-add_institution = login_required(add_institution)
 
 def _institution_list_filter(request, queryset, show):
     return queryset.filter(

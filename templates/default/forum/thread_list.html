@@ -1,4 +1,4 @@
-{% load base_tags i18n auth_extended forum babel image_modifications %}
+{% load base_tags i18n auth_extended forum babel image_mods_tags %}
 
 {% include_selected "forum_actions.html" for object under "forum" %}
 
@@ -12,7 +12,7 @@
         {% trans "Threads" %}:  {{ current_forum.get_nof_threads }} | 
         {% trans "Replies" %}:  {{ current_forum.get_nof_replies }}
         
-     	<ul  {% comment %}<!--class="toolbar"-->{% endcomment %}>
+     	<ul>
             <li id="newThread_{{ current_forum.slug }}" class="new_link">
                 <a href="{{ current_forum.get_url }}start_thread/" title="{% trans "Start a Thread" %}">
                     <span>{% trans "Start a Thread" %}</span>
@@ -59,25 +59,7 @@
                     {{ thread.message|safe|truncatewords:25 }}
                     <a href="{{ thread.get_url }}">{% trans "more" %}</a>
                 </p>
-                
-                {% comment %}<!--
-                    I think, we do not need those buttons at the list level!
-                -->{% endcomment %}
-                
-                {% comment %}<!--
-                <ul class="toolbar">
-                    <li id="editThread_{{ thread.id }}" class="editThread">
-                        <a class="edit" href="{{ thread.get_url }}edit/">
-                            <span>{% trans "edit" %}</span>
-                        </a>
-                    </li>
-                    <li id="deleteThread_{{ thread.id }}" class="deleteThread">
-                        <a class="edit" href="{{ thread.get_url }}delete/">
-                            <span>{% trans "delete" %}</span>
-                        </a>
-                    </li>
-                </ul>
-                -->{% endcomment %}
+
             </div>
         	{% if not thread.is_sticky %}
                 <div class="statistics txt">

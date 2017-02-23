@@ -96,7 +96,7 @@ class RowLevelPermissionsBackend(ModelBackend):
                 content_type=object_ct.id,
                 permission=permission.id,
                 )
-        except RowLevelPermission.DoesNotExist:
+        except (RowLevelPermission.DoesNotExist, RowLevelPermission.MultipleObjectsReturned):
             perms = self.check_per_object_group_permissions(user_obj, permission, obj)
             if perms is not None:
                 return perms

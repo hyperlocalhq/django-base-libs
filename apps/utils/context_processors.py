@@ -46,10 +46,9 @@ def prev_next_processor(request):
     adds some template vars used for prev-next navigation
     """
     object_id = request.httpstate.get('current_object_id', None)
-    queryset_model_str = request.httpstate.get('current_queryset_model', None)
-    queryset_model = None
-    if queryset_model_str:
-        queryset_model = models.get_model(*queryset_model_str.split("."))
+    queryset_model = request.httpstate.get('current_queryset_model', None)
+    if isinstance(queryset_model, basestring):
+        queryset_model = models.get_model(*queryset_model.split("."))
 
     queryset_pk_list = request.httpstate.get('current_queryset_pk_list', None)
     queryset_index_dict = request.httpstate.get('current_queryset_index_dict', {})
@@ -69,13 +68,19 @@ def prev_next_processor(request):
         index = queryset_index_dict.get('%s_%s' % (ct.id, object_id), 0)
             
         if index > 0:
-            prev = queryset_model._default_manager.get(
-                pk=queryset_pk_list[index-1],
-                )
+            try: # try in case if the previous item is deleted in the meantime
+                prev = queryset_model._default_manager.get(
+                    pk=queryset_pk_list[index-1],
+                    )
+            except:
+                pass
         if index < count-1:
-            next = queryset_model._default_manager.get(
-                pk=queryset_pk_list[index+1],
-                )
+            try: # try in case if the next item is deleted in the meantime
+                next = queryset_model._default_manager.get(
+                    pk=queryset_pk_list[index+1],
+                    )
+            except:
+                pass
         
         # now make the link to the list...
         current_list = source_list

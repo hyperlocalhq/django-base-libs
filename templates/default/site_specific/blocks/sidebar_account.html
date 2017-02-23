@@ -1,4 +1,4 @@
-{% load i18n nav_menu base_tags %}
+{% load i18n navigation_tags base_tags %}
 <div class="categories nav_collapsed" id="my_account_{{ LANGUAGE_CODE }}">
     <h3><a href="#" class="open_but"><b>{% trans "My Account" %}</b></a></h3>
     <div class="hidable">	
@@ -12,16 +12,6 @@
                         {% endfor %}
                         <li><a href="/{{ URL_ID_INSTITUTIONS }}/add/">({% trans "Add an institutional profile" %})</a></li>
                     </ul></li>
-                    {% comment %}<!--
-                    <li>{% trans "My Settings" %}<ul>
-                        <li><a href="/password_change/">{% trans "Change password" %}</a></li>
-                        <li><a href="/my-profile/">{% trans "Profile settings" %}</a></li>
-                        <li><a href="/my-profile/">{% trans "Notifications" %}</a></li>
-                        <li><a href="/my-profile/">{% trans "Newsletter" %}</a></li>
-                        <li><a href="/my-profile/privacy/">{% trans "Privacy" %}</a></li>
-                        <li><a href="/my-profile/">{% trans "Language settings" %}</a></li>
-                    </ul></li>
-                    -->{% endcomment %}
                 {% endif %}
                 {% children_of "my_account" using "navigation/my_account.html" %}
             </ul>

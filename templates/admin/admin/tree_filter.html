@@ -5,21 +5,3 @@
         {% for choice in choices %}<option value="{{ choice.query_string|iriencode }}"{% if choice.selected %} selected='selected'{% endif %}>{{ choice.display.val|safe }}</option>{% endfor %}
     </select>
 </div>
-{% comment %}<!--
-{% if choices.0.selected %}
-<div class="filterset collapse-closed">
-{% else %}
-<div class="filterset collapse-open">
-{% endif %}
-    <h3>{% blocktrans with title as filter_title %} By {{ filter_title }} {% endblocktrans %}</h3>
-    <ul id="filter_{{ ct.id }}_{{ title|slugify }}" class="tree_filter">
-	    {% for choice in choices %}
-		    <li id="filter_{{ ct.id }}_{{ title|slugify }}-node-{{ choice.display.pk }}"{% if choice.selected or choice.display.parent_pk or choice.filtered_out %} class="{% if choice.selected %}selected{% endif %}{% if choice.display.parent_pk %}{% if choice.selected %} {% endif %}child-of-filter_{{ ct.id }}_{{ title|slugify }}-node-{{ choice.display.parent_pk }}{% endif %}{% if choice.filtered_out %}{% if choice.selected or choice.display.parent_pk %} {% endif %}filtered_out{% endif %}"{% endif %}>
-	        	<div><a {% if choice.filtered_out %}{% else %}href="{{ choice.query_string|iriencode }}"{% endif %} style="padding-left: 0px !important;">{{ choice.display.val }}</a></div>
-	        	
-			</li>        
-	    {% endfor %}
-    </ul>
-</div>
--->{% endcomment %}
-

@@ -1,9 +1,8 @@
 {% extends "articles/articles_base.html" %}
-{% load base_tags babel i18n auth_extended articles infoblocks image_modifications %}
+{% load base_tags babel i18n auth_extended articles infoblocks image_mods_tags %}
 
 {% block details %}
     {% if not article_list %}
-        {% comment %}<!-- <span class="nothing">{% trans "No articles are available" %}</span> -->{% endcomment %}
     {% else %}
     <div class="overview">
         {% for article in article_list %}

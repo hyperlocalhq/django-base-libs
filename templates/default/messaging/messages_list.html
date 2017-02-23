@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n base_tags nav_menu image_modifications %}
+{% load i18n base_tags navigation_tags image_mods_tags %}
 
 {% block extrahead %}
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
@@ -163,11 +163,7 @@
                             </a>
                         {% endifequal %}
                     </div>
-                    {% comment %}<!--{% endifequal %}-->{% endcomment %}
-                    
-                    {% comment %}<!--<a href="/my-messages/message/{{ message.id }}/delete/">{% trans "Delete" %}</a>-->{% endcomment %}
-                    
-                    
+
                     {% if contact.institution %}
                         {% ifequal contact.institution.status.sysname "draft" %}
                             {{ contact.institution.get_title|escape }}

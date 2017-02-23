@@ -13,7 +13,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.utils.functional import lazy
 from django.utils.encoding import force_unicode
-from django.template.defaultfilters import slugify
 from django.conf import settings
 from django.utils.timezone import now as tz_now
 from django.apps import apps
@@ -24,6 +23,7 @@ from base_libs.models.models import OpeningHoursMixin
 from base_libs.models import SlugMixin
 from base_libs.utils.misc import get_unique_value
 from base_libs.utils.misc import get_website_url
+from base_libs.utils.betterslugify import better_slugify
 from base_libs.middleware import get_current_language
 from base_libs.middleware import get_current_user
 from base_libs.models.query import ExtendedQuerySet
@@ -36,6 +36,7 @@ from filebrowser.fields import FileBrowseField
 
 from jetson.apps.structure.models import Term
 from jetson.apps.structure.models import ContextCategory
+from jetson.apps.structure.models import Category
 from jetson.apps.location.models import Address
 from jetson.apps.optionset.models import InstitutionalLocationType
 from jetson.apps.optionset.models import PhoneType
@@ -336,27 +337,26 @@ class InstitutionBase(CreationModificationDateMixin, UrlMixin, OpeningHoursMixin
     def get_institution_types(self):
         return self.institution_types.all()
         
-    def get_location_type(self):
-        try:
-            postal_address = self.get_contacts()[0].postal_address
+    def get_locality_type(self):
+        from jetson.apps.location.models import LocalityType
+        contacts = self.get_contacts(cache=False)
+        if contacts and contacts[0].postal_address:
+            postal_address = contacts[0].postal_address
             if postal_address.country_id != "DE":
-                return Term.objects.get(
-                    vocabulary__sysname="basics_locality",
-                    sysname="international",
-                    )
+                return LocalityType.objects.get(
+                    slug="international",
+                )
             elif postal_address.city.lower() != "berlin":
-                return Term.objects.get(
-                    vocabulary__sysname="basics_locality",
-                    sysname="national",
-                    )
+                return LocalityType.objects.get(
+                    slug="national",
+                )
             else:
                 import re
                 from jetson.apps.location.data import POSTAL_CODE_2_DISTRICT
                 locality = postal_address.get_locality()
-                regional = Term.objects.get(
-                    vocabulary__sysname="basics_locality",
-                    sysname="regional",
-                    )
+                regional = LocalityType.objects.get(
+                    slug="regional",
+                )
                 p = re.compile('[^\d]*') # remove non numbers
                 postal_code = p.sub("", postal_address.postal_code)
                 
@@ -369,16 +369,15 @@ class InstitutionBase(CreationModificationDateMixin, UrlMixin, OpeningHoursMixin
                     d = {}
                     for lang_code, lang_verbose in settings.LANGUAGES:
                         d["title_%s" % lang_code] = district
-                    term, created = Term.objects.get_or_create(
-                        vocabulary=regional.vocabulary,
-                        slug=slugify(district),
+                    term, created = LocalityType.objects.get_or_create(
+                        slug=better_slugify(district),
                         parent=regional,
                         defaults=d,
-                        )
+                    )
                     return term
                 else:
                     return regional
-        except:
+        else:
             return None
         
     def get_object_types(self):
@@ -417,8 +416,8 @@ class InstitutionBase(CreationModificationDateMixin, UrlMixin, OpeningHoursMixin
                 contact_dict.pop('_phones_cache', '')
         return contact_dict
     
-    def get_contacts(self):
-        if not hasattr(self, "_contacts_cache"):
+    def get_contacts(self, cache=True):
+        if not hasattr(self, "_contacts_cache") or not cache:
             self._contacts_cache = self.institutionalcontact_set.order_by('-is_primary', 'id')
         return self._contacts_cache
         
@@ -448,7 +447,7 @@ class InstitutionBase(CreationModificationDateMixin, UrlMixin, OpeningHoursMixin
             self.slug = title
         self.slug = get_unique_value(
             self.__class__,
-            slugify(self.slug),
+            better_slugify(self.slug),
             separator="_",
             instance_pk=self.id,
             )
@@ -488,7 +487,7 @@ class InstitutionBase(CreationModificationDateMixin, UrlMixin, OpeningHoursMixin
         """ used by ContextItemManager """
         search_data = []
         # add urls
-        contacts = self.get_contacts()
+        contacts = self.get_contacts(cache=False)
         if contacts:
             for contact in contacts:
                 for url in contact.get_urls():

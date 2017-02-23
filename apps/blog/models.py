@@ -80,7 +80,7 @@ class Post(CreationModificationMixin, PublishingMixin, ViewsMixin, UrlMixin, Slu
     title = models.CharField(_("title"), max_length=255)
     tags = TagAutocompleteField(verbose_name=_("tags"))
     body = ExtendedTextField(_("body"))
-    blog = models.ForeignKey(Blog, related_name="blog")
+    blog = models.ForeignKey(Blog, related_name="blog")  # TODO: change or remove the related_name. It should be something like "posts" or "post_set", not "blog"
     enable_comment_form = models.BooleanField(_('enable comment form'), default=True)
   
     def __unicode__(self):

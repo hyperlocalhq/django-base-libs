@@ -1,4 +1,4 @@
-{% load i18n base_tags nav_menu memos groups_networks favorites %}
+{% load i18n base_tags navigation_tags memos groups_networks favorites %}
 {% with forloop.counter|default:0 as counter %}
     <ul class="toolbar">
         {% if user.is_authenticated %}

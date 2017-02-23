@@ -1,4 +1,4 @@
-{% load i18n base_tags nav_menu memos favorites %}
+{% load i18n base_tags navigation_tags memos favorites %}
 <div class="categories nav_collapsed" id="add_box">
     <h3><a href="#" class="open_but"><b>{% trans "Tools" %}</b></a></h3>
     <div class="hidable">
@@ -32,7 +32,6 @@
                         <li class="website"><a href="{{ object.content_object.url_link|escape }}" onclick="open_new_window(event)"><span class="pic"></span>{% trans "open website" %}</a></li>
                     {% endif %}
                 {% endif %}
-                {% comment %} <li class="rss"><a href="#"><span class="pic"></span>{% trans "subscribe to feed" %}</a></li> {% endcomment %}
                 {% comment %}
                     TODO: fix vcards
                     {% if object.is_institution or object.is_person %}

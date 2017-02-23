@@ -5,7 +5,6 @@ from django import forms
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
-
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
@@ -128,8 +127,8 @@ class ContactForm(dynamicforms.Form):
                 recipient_emails.append(recipient)
         if not recipient_emails:
             recipient_emails = ["%s <%s>" % (
-                settings.ADMIN[0][0], 
-                settings.ADMIN[0][1],
+                '',
+                settings.DEFAULT_FROM_EMAIL,
             )]
         message = EmailMessage.objects.create(
             sender=sender,
@@ -150,7 +149,7 @@ class ContactForm(dynamicforms.Form):
                     )],
                 email_template_slug=contact_form_category.auto_answer_template.slug,
                 obj=message,
-                sender_name=settings.ADMINS[0][0],
-                sender_email=settings.ADMINS[0][1],
+                sender_name='',
+                sender_email=settings.DEFAULT_FROM_EMAIL,
                 send_immediately=True,
             )

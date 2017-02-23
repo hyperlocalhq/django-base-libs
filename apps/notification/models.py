@@ -143,8 +143,8 @@ class Digest(CreationDateMixin):
         from jetson.apps.mailing.recipient import Recipient
         from jetson.apps.mailing.views import send_email_using_template
         # setting default values
-        sender_name = settings.ADMINS[0][0]
-        sender_email = settings.ADMINS[0][1]
+        sender_name = ''
+        sender_email = settings.DEFAULT_FROM_EMAIL
             
         notices_html = ""
         for notice in self.digestnotice_set.all():

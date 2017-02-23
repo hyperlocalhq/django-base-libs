@@ -5,7 +5,6 @@ from django.db import models
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import force_unicode, smart_str
-from django.template.defaultfilters import slugify
 from django.http import Http404
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
@@ -21,6 +20,7 @@ image_mods = models.get_app("image_mods")
 from base_libs.middleware import get_current_user
 from base_libs.utils.misc import get_related_queryset,get_unique_value, XChoiceList
 from base_libs.utils.crypt import cryptString
+from base_libs.utils.betterslugify import better_slugify
 from jetson.apps.mailing.views import Recipient, send_email_using_template
 from jetson.apps.location.models import Address
 from jetson.apps.optionset.models import IndividualLocationType, InstitutionalLocationType, PhoneType
@@ -258,7 +258,7 @@ class GroupAddingForm: # Namespace
             title2 = form_step_data[0].get('title2', ''),
             slug = get_unique_value(
                 PersonGroup,
-                slugify(
+                better_slugify(
                     form_step_data[0].get('title', '')
                     ).replace("-","_"),
                 separator="_"
@@ -780,7 +780,7 @@ class Invitation: # Namespace
                     # create user
                     username = get_unique_value(
                         User,
-                        slugify("_".join((
+                        better_slugify("_".join((
                             form_step_data[0]['p%d_first_name' % i],
                             form_step_data[0]['p%d_last_name' % i]
                             ))).replace("-", "_"),
@@ -870,7 +870,8 @@ class Invitation: # Namespace
         
         for p in new_additional_contacts:
             encrypted_email = cryptString(p.user.email)
-            sender_name, sender_email = settings.ADMINS[0]
+            sender_name = ''
+            sender_email = settings.DEFAULT_FROM_EMAIL
             send_email_using_template(
                 [Recipient(user=p.user)],
                 "invite_external_people_to_group",
@@ -889,7 +890,8 @@ class Invitation: # Namespace
             for p in existing_additional_contacts
             ]
         if recipients:
-            sender_name, sender_email = settings.ADMINS[0]
+            sender_name = ''
+            sender_email = settings.DEFAULT_FROM_EMAIL
             send_email_using_template(
                 recipients,
                 "invite_internal_people_to_group",

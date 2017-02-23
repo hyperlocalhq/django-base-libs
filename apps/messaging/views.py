@@ -306,6 +306,9 @@ def contact(request, **kwargs):
         kwargs['queryset'],
         **{kwargs['slug_field']: kwargs['slug']}
         )
+    if hasattr(obj, "content_object"): # if the obj is ContextItem or alike, then use its related object
+        obj = obj.content_object
+
     if not obj.is_contactable(): # checking the permissions or blocking
         raise Http404
 
@@ -335,7 +338,9 @@ def contact_done(request, **kwargs):
         kwargs['queryset'],
         **{kwargs['slug_field']: kwargs['slug']}
         )
-    
+    if hasattr(obj, "content_object"): # if the obj is ContextItem or alike, then use its related object
+        obj = obj.content_object
+
     kwargs['extra_context'] = kwargs.get("extra_context", {})
     kwargs['extra_context']['object'] = obj
     

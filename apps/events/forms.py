@@ -26,9 +26,9 @@ image_mods = models.get_app("image_mods")
 from tagging.forms import TagField
 from tagging_autocomplete.widgets import TagAutocomplete
 
-from jetson.apps.location.models import Address
-from jetson.apps.structure.models import Term, ContextCategory
+from jetson.apps.location.models import Address, LocalityType
 from jetson.apps.optionset.models import PhoneType, EmailType, URLType
+from jetson.apps.utils.forms import ModelChoiceTreeField
 
 from mptt.forms import TreeNodeChoiceField
 
@@ -815,7 +815,7 @@ class EventForm: # namespace
             f.close()
 
         # save again without triggering any signals
-        event.save_base(raw=True, cls=type(event))
+        event.save_base(raw=True)
         
         for ev in step_main_data.get('related_events', ()):
             event.related_events.add(ev)
@@ -896,13 +896,11 @@ class EventSearchForm(dynamicforms.Form):
         required=False,
         queryset=get_related_queryset(Event, "event_type"),
         )
-    location_type = TreeNodeChoiceField(
+    locality_type = ModelChoiceTreeField(
         empty_label=_("All"),
         label=_("Location Type"),
         required=False,
-        queryset=Term.objects.filter(
-            vocabulary__sysname='basics_locality',
-            ).order_by("path"),
+        queryset=LocalityType.objects.order_by("tree_id", "lft"),
         )
     keywords = forms.CharField(
         label=_("Keyword(s)"),
@@ -912,13 +910,3 @@ class EventSearchForm(dynamicforms.Form):
         label=_("Featured events only"),
         required=False,
         )
-    
-    def get_query(self):
-        from django.template.defaultfilters import urlencode
-        cleaned = self.cleaned_data
-        return "&".join([
-            ("%s=%s" % (k, urlencode(isinstance(v, models.Model) and v.pk or v)))
-            for (k, v) in cleaned.items()
-            if v
-            ])
-

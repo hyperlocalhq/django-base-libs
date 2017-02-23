@@ -1,5 +1,5 @@
 {% extends "admin/base.html" %}
-{% load i18n grp_tags %}
+{% load i18n grp_tags static %}
 
 {% block title %}{{ title }} | {% trans 'Django site admin' %}{% endblock %}
 
@@ -17,6 +17,10 @@
 {% block javascripts %}
     {{ block.super }}
 	<script type="text/javascript" src="/{{ LANGUAGE_CODE }}/jssettings/"></script>
+    <script type="text/javascript">
+if (window.self!==window.top) { document.write('<link rel="stylesheet" type="text/css" href="{% static 'djangocms_admin_style/css/djangocms-admin-frontend.css' %}" />'); }
+    </script>
+
 {% endblock %}
 
 {% block userlinks %}

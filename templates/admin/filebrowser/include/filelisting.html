@@ -1,4 +1,4 @@
-{% load i18n fb_tags fb_versions image_modifications %}
+{% load i18n fb_tags fb_versions image_mods_tags %}
 {% load url from future %}
 
 {% for fileobject in page.object_list %}
@@ -118,8 +118,7 @@
 
             <!-- FOLDER -->
             {% if query.q and settings_var.SEARCH_TRAVERSE %}
-                <td><a href="
-                    {% url 'filebrowser:fb_browse' %}{% query_string "" "dir,p" %}&amp;dir={{ fileobject.folder|urlencode }}"><strong>{{ fileobject.folder }}</strong></a>
+                <td><a href="{% url 'filebrowser:fb_browse' %}{% query_string "" "dir,p" %}&amp;dir={{ fileobject.folder|urlencode }}"><strong>{{ fileobject.folder }}</strong></a>
                 </td>
             {% endif %}
 

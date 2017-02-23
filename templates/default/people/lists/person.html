@@ -1,5 +1,5 @@
 {% extends "utils/lists/base_context_item.html" %}
-{% load i18n base_tags image_modifications %}
+{% load i18n base_tags image_mods_tags %}
 {% block object_image %}
     <a href="{{ person.get_url_path }}">
         {% if person.image %}
@@ -26,9 +26,6 @@
             {% if contact %}
                 {% if person.is_address_displayed %}
                     {% with contact.postal_address as postal_address %}
-                        {% comment %}<!--
-                        <a href="/vcard/{{ person|content_type_id }}/{{ person.id }}">vcard</a>
-                        -->{% endcomment %}
                         {% if postal_address.street_address or postal_address.country_name %}
                         <address class="adr">
                             {% if contact.institution %}

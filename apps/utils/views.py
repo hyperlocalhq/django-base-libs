@@ -16,7 +16,6 @@ from django.core.paginator import Paginator, Page, InvalidPage
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render_to_response
 from django.template import loader, RequestContext, Template, Context
-from django.template.defaultfilters import slugify
 from django.contrib.auth.views import redirect_to_login
 from django.contrib.syndication.views import FeedDoesNotExist
 from django.contrib.contenttypes.models import ContentType
@@ -30,7 +29,10 @@ from django.utils.timezone import now as tz_now
 from django.shortcuts import redirect
 from django import forms
 
+from ccb.apps.events.utils import create_ics
 from base_libs.utils.misc import ExtendedJSONEncoder
+from base_libs.utils.betterslugify import better_slugify
+
 
 class JsonResponse(HttpResponse):
     def __init__(self, obj):
@@ -142,13 +144,12 @@ def feed(request, feed_type, language="de", **kwargs):
         raise Http404("Feed Slug %r isn't registered." % feed_slug)
 
     try:
-        feedgen = f(feed_slug, request, **kwargs).get_feed(param)
+        feedgen = f(request, **kwargs)
     except FeedDoesNotExist:
         raise Http404("Invalid feed parameters. Slug %r is valid, but other parameters, or lack thereof, are not." % feed_slug)
 
-    response = HttpResponse(content_type=feedgen.mime_type)
-    feedgen.write(response, 'utf-8')
-    return response
+    feedgen.content_type = 'application/rss+xml'
+    return feedgen
 
 feed = never_cache(feed)
 
@@ -178,7 +179,7 @@ def object_list(request, queryset,
     paginate_by=None, order_by=None, view_type="icons", page=None,
     allow_empty=False, template_name=None, template_loader=loader,
     extra_context=None, context_processors=None, template_object_name="object",
-    content_type=None, pages_to_display=10, query="", httpstate_prefix="", paginate=True, first_page_delta=0):
+    content_type=None, pages_to_display=10, query="", httpstate_prefix="", paginate=True, first_page_delta=0, **kwargs):
     """
     Generic list of objects.
 
@@ -209,6 +210,13 @@ def object_list(request, queryset,
         first_page_delta
             how many items less to show on the first page
     """
+
+    if kwargs.has_key('ical') and kwargs['ical'] == True:
+        icalstream = create_ics(queryset)
+        response = HttpResponse(icalstream, content_type="text/calendar")
+        response['Filename'] = "CCB-events.ics"  # IE needs this
+        response['Content-Disposition'] = "attachment; filename=CCB-events.ics"
+        return response
 
     if extra_context is None: extra_context = {}
     
@@ -290,6 +298,7 @@ def object_list(request, queryset,
     for any reason, we get a "PicklingError" here, when assigning 
     the queryset directly to the httpstate. So we take a list (current_queryset_list)
     """
+
     if context_processors:
         queryset_index_dict = {}
         index = 0
@@ -350,6 +359,7 @@ def object_list(request, queryset,
             'results_per_page': paginate_by,
             'has_next': current_page.has_next(),
             'has_previous': current_page.has_previous(),
+            'current_page': current_page,
             'page': page,
             'next': next_page_number,
             'previous': previous_page_number,
@@ -464,8 +474,8 @@ FORM_STEPS = {
     'step_0': {
         'title': _("Some Title"),                           # default: ""
         'template': "path/to/some/template.html",           # required
-        'form': FormClass,                                  # required
-        'formsets': {
+        'form': FormClass,                                  # optional
+        'formsets': {                                       # optional
             'formset_name1': FormsetClass1,
             'formset_name2': FormsetClass2,
         },
@@ -476,21 +486,35 @@ FORM_STEPS = {
         ..
     },
     ..
+    'name': "form_name",                                    # required
+
     'oninit': init_func,                                    # optional;
-                                                            # passed args: instance=None;
+                                                            # passed args: instance=None, request;
                                                             # returns form_step_data
+
     'onsubmit': submit_func,                                # optional; 
                                                             # passed args: current_step, request, form_steps, instance=None;
                                                             # returns form_step_data
+
     'on_set_extra_context': set_extra_context,              # optional,
-                                                            # passed args: current_step, request, form_steps, instance=None;
-                                                            # returns exztra context dictionary
+                                                            # passed args: current_step, form_steps, form_step_data, request, instance=None;
+                                                            # returns extra context dictionary
+
+    'onreset': return_func,                                 # optional;
+                                                            # passed args: request, instance=None;
+                                                            # returns HttpResponse object
+
     'onsave': save_func,                                    # required;
                                                             # passed args: form_steps, form_step_data, instance=None;
                                                             # returns form_step_data
-    'name': "form_name",                                    # required
+
+    'onsuccess': success_func,                              # optional
+                                                            # passed args: request, instance=None;
+                                                            # returns HttpResponse object
+
     'success_url': "/path/to/redirect/to/",                 # optional
-    'success_template': "path/to/template_of_success.html", # required if 'success_url' is not set
+    'success_template': "path/to/template_of_success.html", # required if neither 'onsuccess' nor 'success_url' is not set
+
     'default_path': ["step_0", "step_1",..]
 }
 
@@ -553,9 +577,9 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
 
     if not form_step_data and 'oninit' in form_steps:
         if instance:
-            form_step_data = form_steps['oninit'](instance)
+            form_step_data = form_steps['oninit'](instance=instance, request=request)
         else:
-            form_step_data = form_steps['oninit']()
+            form_step_data = form_steps['oninit'](request=request)
 
         # change all model instances to primary keys
         for step in form_step_data:
@@ -640,11 +664,11 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
     else:
         return redirect(u'%s?step=1' % request.path)
 
-
-    
     initial_data = form_steps[current_step].get('initial_data', {})
+    if callable(initial_data):
+        initial_data = initial_data(request=request)
     
-    form_class = form_steps[current_step]['form']
+    form_class = form_steps[current_step].get('form', None)
     formset_classes = form_steps[current_step].setdefault("formsets", {})
     formsets = {}
     
@@ -656,21 +680,28 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
             if multistep_forms_name in request.httpstate:
                 del(request.httpstate[multistep_forms_name])
             if 'onreset' in form_steps:
-                return form_steps['onreset'](request)
+                if instance:
+                    return form_steps['onreset'](request, instance)
+                else:
+                    return form_steps['onreset'](request)
             return HttpResponseRedirect(request.path)
 
         # TODO: decide if it's still necessary to do this initial_data check
         # why can't request.POST be used instead for the form?
-        fields = form_class().fields
+        #fields = form_class().fields
         #data = dict([
         #    (item[0], item[1])
         #    for item in data.items()
         #    if item[0] in fields
         #        and (item[0] not in initial_data or item[1]!=initial_data[item[0]])
         #    ])
-        if instance:
-            f = form_class(data, request.FILES, instance=instance)
+        if form_class:
+            if instance:
+                f = form_class(data, request.FILES, instance=instance)
+            else:
+                f = form_class(data, request.FILES)
         else:
+            form_class = forms.Form
             f = form_class(data, request.FILES)
         
         formsets_are_valid = True
@@ -688,6 +719,10 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
             form_step_data[current_step] = dict(f.cleaned_data)
             for field in f:
                 # create get_XXX_display for all selection fields
+                try:
+                    field_value = form_step_data[current_step][field.name]
+                except KeyError:
+                    field_value = None
                 if hasattr(field.field, 'choices') and field.field.choices:
                     d = dict([
                         (str(k), unicode(v))
@@ -699,13 +734,13 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
                             'get_%s_display' % field.name
                         ] = d.get(k, "")
                         if k == "":
-                            form_step_data[current_step][field.name] = None
-                if isinstance(form_step_data[current_step][field.name], models.Model):
+                            field_value = None
+                if isinstance(field_value, models.Model):
                     # if ModelChoiceField is used, save primary key
-                    form_step_data[current_step][field.name] = form_step_data[current_step][field.name].pk
-                elif isinstance(form_step_data[current_step][field.name], QuerySet):
+                    field_value = field_value.pk
+                elif isinstance(field_value, QuerySet):
                     # if ModelMultipleChoiceField is used, save list of primary keys
-                    form_step_data[current_step][field.name] = [obj.pk for obj in form_step_data[current_step][field.name]]
+                    field_value = [obj.pk for obj in field_value]
                 # elif isinstance(form_step_data[current_step][field.name], (datetime.datetime, datetime.date, datetime.time, Decimal)):
                 #     # convert dates, times, and decimals to string
                 #     form_step_data[current_step][field.name] = unicode(form_step_data[current_step][field.name])
@@ -754,7 +789,7 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
                 except:
                     filename = ""
                     ext = ""
-                tmp_filename = tz_now().strftime("%d%H%I%S_") + slugify(filename) + "." + ext
+                tmp_filename = tz_now().strftime("%d%H%I%S_") + better_slugify(filename) + "." + ext
                 tmp_path = os.path.join(settings.PATH_TMP, tmp_filename)
                 fd = open(tmp_path, 'wb')
                 for chunk in file_data.chunks():
@@ -789,8 +824,15 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
                         form_step_data = form_steps['onsave'](form_steps, form_step_data)
                 if multistep_forms_name in request.httpstate:
                     del(request.httpstate[multistep_forms_name])
-                if form_steps.get('success_url', False): 
-                    return HttpResponseRedirect(form_steps['success_url'])
+
+                # return the user to onsuccess response, success_url or render a success_template
+                if 'onsuccess' in form_steps:
+                    if instance:
+                        return form_steps['onsuccess'](request, instance)
+                    else:
+                        return form_steps['onsuccess'](request)
+                elif form_steps.get('success_url', False):
+                    return redirect(form_steps['success_url'])
                 else:
                     form_step_data['current_step'] = None
                     current_step = None
@@ -807,14 +849,14 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
             return HttpResponseRedirect("%s?step=%s" % (request.path, new_step_counter + 1))
         else:
             messages.error(request, form_steps.get('general_error_message', GENERAL_ERROR_MESSAGE))
-        for field_name in fields:
+        for field_name in f.fields:
             if not f.data.get(field_name, False):
                 f.data[field_name] = f.fields[field_name].initial
         
     else:
         data = deepcopy(form_step_data.get(
             current_step,
-            initial_data.get(current_step, {}),
+            initial_data,
         ))
         # redefine initial data for model choice fields
         for k, v in data.items():
@@ -824,9 +866,13 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
                 new_v = [(not isinstance(item, models.Model) and [item] or [item.pk])[0] for item in v]
                 data[k] = new_v
 
-        if instance:
-            f = form_class(initial=data, instance=instance)
+        if form_class:
+            if instance:
+                f = form_class(initial=data, instance=instance)
+            else:
+                f = form_class(initial=data)
         else:
+            form_class = forms.Form
             f = form_class(initial=data)
         
         for formset_name, formset_class in formset_classes.items():
@@ -870,9 +916,20 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
     context.update(extra_context)
     if 'on_set_extra_context' in form_steps:
         if instance:
-            extra_context = form_steps['on_set_extra_context'](current_step, form_steps, form_step_data, instance)
+            extra_context = form_steps['on_set_extra_context'](
+                current_step=current_step,
+                form_steps=form_steps,
+                form_step_data=form_step_data,
+                instance=instance,
+                request=request,
+            )
         else:
-            extra_context = form_steps['on_set_extra_context'](current_step, form_steps, form_step_data)
+            extra_context = form_steps['on_set_extra_context'](
+                current_step=current_step,
+                form_steps=form_steps,
+                form_step_data=form_step_data,
+                request=request,
+            )
         context.update(extra_context)
     
     template_file = [form_steps[current_step].setdefault("template", "utils/newform_step.html")]

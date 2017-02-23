@@ -23,14 +23,9 @@
 <div class="reg">
     <div class="details">
         <div class="search">
-            <form action="" class="search_form" method="post">
+            <form action="" class="search_form" method="post">{% csrf_token %}
                 <div class="field_layout">
                     {% include "site_specific/categories/categories.html" %}
-                    <div id="message_suggest">    
-                        <div class="message_suggest_category">
-                            {% blocktrans %}Is some category missing? You can <a href="/ticket/new-category/">suggest it here</a>.{% endblocktrans %}
-                        </div>
-                    </div>
                     <div  class="space_correction_more">
                         {% include "utils/step_buttons_reg.html" %}
                     </div>

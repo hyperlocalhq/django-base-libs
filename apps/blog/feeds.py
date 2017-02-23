@@ -14,13 +14,13 @@ class RssFeed(Feed):
     # title and description templates for displaying the feeds
     title_template = "blog/feeds/feed_title.html"
     description_template = "blog/feeds/feed_description.html"
-    
+
     def __init__(self, **kwargs):
         Feed.__init__(self)
         self.kwargs = kwargs
-        
+
     def title(self):
-        obj = self.kwargs['object']
+        obj = self.kwargs.get('object', None)
         if obj:
             result = _(u"Feeds for '%(obj)s' @ %(site)s") % {
                 'obj': obj,
@@ -36,7 +36,7 @@ class RssFeed(Feed):
         return force_unicode(_("Latest posts"))
 
     def items(self, obj):
-        container = self.kwargs['container']
+        container = self.kwargs.get('container', None)
         return Post.published_objects.filter(blog=container).order_by('-published_from')[:5]
                  
     def item_link(self, obj):

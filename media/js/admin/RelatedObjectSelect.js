@@ -38,9 +38,10 @@ self.RelatedObjectSelectManager = {
 		// now the ajax stuff!   
 		if (sValue) { 	
 	    	$oSelect.addClass("in_progress");
-            // location.href.match(/\/[^\/]+\/[^\/]+\/\d+\/$/)
+            var object_path = location.href.match(/(\/[^\/]+\/[^\/]+\/[^\/]+\/)($|\?)/);
+            var url = "/helper/objects_to_select" + object_path[1] + $oSelect.attr("name") + "/of/" + $j(this).val() + "/";
 	        $j.get(
-	            "/helper/objects_to_select" + location.href.match(/\/[^\/]+\/[^\/]+\/[^\/]+\/$/)[0] + $oSelect.attr("name") + "/of/" + $j(this).val() + "/",
+                url,
 	            new Function("sData", "self.RelatedObjectSelectManager.updateObjectIdOptions(sData, '" + $oSelect.attr("id") + "', '" + sValue + "' )")
 	        );
 	    }
@@ -70,9 +71,10 @@ self.RelatedObjectSelectManager = {
 		// now the ajax stuff!
 		if ($j(this).val()) {
             $oSelect = $j("#" + sObjectIdId).addClass("in_progress").css({cursor: "wait"});
-            // location.href.match(/\/[^\/]+\/[^\/]+\/\d+\/$/)
+            var object_path = location.href.match(/(\/[^\/]+\/[^\/]+\/[^\/]+\/)($|\?)/);
+            var url = "/helper/objects_to_select" + object_path[1] + $oSelect.attr("name") + "/of/" + $j(this).val() + "/";
 	        $j.get(
-	            "/helper/objects_to_select" + location.href.match(/\/[^\/]+\/[^\/]+\/[^\/]+\/$/)[0] + $oSelect.attr("name") + "/of/" + $j(this).val() + "/",
+	            url,
 	            new Function("sData", "self.RelatedObjectSelectManager.updateObjectIdOptions(sData, '" + sObjectIdId + "', '' )")
 	        );
 	    }

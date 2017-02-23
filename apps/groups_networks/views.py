@@ -4,6 +4,7 @@ import json
 
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.db import transaction
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render_to_response
 from django.template import RequestContext, loader, Context
@@ -13,6 +14,7 @@ from django.contrib.sites.models import Site
 from django.views.decorators.cache import never_cache
 from django.contrib.auth import authenticate, login
 from django.conf import settings
+from django.shortcuts import get_object_or_404
 
 from base_libs.utils.misc import ExtendedJSONEncoder, get_related_queryset
 from base_libs.utils.crypt import decryptString
@@ -222,7 +224,8 @@ def confirm_invitation(request, slug, encrypted_email):
                 membership = user.groupmembership_set.delete()
             
             current_site = Site.objects.get_current()
-            sender_name, sender_email = settings.ADMINS[0]
+            sender_name = ''
+            sender_email = settings.DEFAULT_FROM_EMAIL
             send_email_using_template(
                 [Recipient(user=user)],
                 "account_created",
@@ -585,14 +588,11 @@ def invite_persongroup_members(request, slug, **kwargs):
         return object_list(request, **kwargs)
 
 def invite_institution_members(request, slug, **kwargs):
-    institution = Institution.objects.get(slug=slug)
-    try:
-        group = PersonGroup.objects.get(
-            object_id=institution.id,
-            content_type=ContentType.objects.get_for_model(institution),
-            )
-    except:
-        return access_denied(request)
+    institution = get_object_or_404(Institution, slug=slug)
+    group = get_object_or_404(PersonGroup,
+        object_id=institution.id,
+        content_type=ContentType.objects.get_for_model(institution),
+    )
     #check privileges
     if not group.are_members_invitable(request.user):
         return access_denied(request)
@@ -666,8 +666,8 @@ def edit_group_member(request, slug, user_id):
         RequestContext(request),
         )
 
+@never_cache
+@transaction.atomic
+@login_required
 def add_group(request):
     return show_form_step(request, ADD_GROUP_FORM_STEPS, extra_context={})
-
-
-add_group = login_required(never_cache(add_group))

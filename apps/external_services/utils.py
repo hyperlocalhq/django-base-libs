@@ -5,6 +5,7 @@ Utility functions for parsing XML content in combination with xml.dom.minidom
 """
 
 from xml.dom.minidom import Node
+from django.utils.encoding import force_text
 
 def get_first(parent_node, descendant_tagname):
     """
@@ -39,12 +40,15 @@ def get_value(parent_node, descendant_tagname=None):
         node = parent_node
     val = u""
     try:
-        if node.firstChild.nodeType in (
-            Node.TEXT_NODE,
-            Node.CDATA_SECTION_NODE,
-            ):
-            val = node.firstChild.data.strip()
-    except: 
+        val = u"".join([
+            force_text(n.data.strip())
+            for n in node.childNodes
+            if n.nodeType in (
+                Node.TEXT_NODE,
+                Node.CDATA_SECTION_NODE,
+            )
+        ])
+    except:
         pass
     # convert quotes to more usual format
     val = val.replace(u"", u"„")

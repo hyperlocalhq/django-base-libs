@@ -1,4 +1,4 @@
-{% load base_tags i18n auth_extended forum base image_modifications babel %}
+{% load base_tags i18n auth_extended forum base image_mods_tags babel %}
 
 {% block breadcrumbs %}
 	{{ block.super }}
@@ -11,7 +11,7 @@
     	PERMISSIONS ARE CURRENTLY DISABLED!!! TODO: ADD AN APPROPRIATE MECHANISM TO CHECK FOR PERMISSIONS
     -->{% endcomment %}
 	<div class="breadcrumbs">	   
-		<ul  {% comment %}<!--class="toolbar"-->{% endcomment %}>
+		<ul>
             <li id="editThread_{{ current_thread.id }}" class="editThread">
                 <a class="edit" href="{{ current_thread.get_url }}edit/">
                     <span>{% trans "edit" %}</span>
@@ -39,7 +39,7 @@
         {{ current_thread.message|striptags|safe }}
     </p>
     {% if not current_thread.is_sticky %}
-        <ul  {% comment %}<!--class="toolbar"-->{% endcomment %}>
+        <ul>
             <li id="newReply_{{ current_thread.slug }}" class="reply_link">
                 <a href="{{ current_thread.get_url }}new/" title="{% trans "Reply" %}">
                     <span>{% trans "Reply" %}</span>
@@ -65,9 +65,7 @@
 	{% include "utils/pagination_footer.html" %}
 	{% for reply in reply_list %}
         <div class="forum-block  {% cycle even,odd %}">
-    		{% comment %}<!--<a href="{{ reply.get_url }}">{{ reply.subject }}</a>-->{% endcomment %}
-		
-			{% comment %}<!--
+    		{% comment %}<!--
 				Permission checking TODO!!!!
 			-->{% endcomment %}
 	    
@@ -91,7 +89,7 @@
 		
 		    <div class="reply-message">
                 <p>{{ reply.message|safe }}</p>
-                <ul  {% comment %}<!--class="toolbar"-->{% endcomment %}>
+                <ul>
                     <li id="newReply_{{ reply.slug }}" class="reply_link">
                         <a href="{{ reply.get_url }}new/" title="{% trans "Reply" %}">
                             <span>{% trans "Reply" %}</span>

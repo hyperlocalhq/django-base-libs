@@ -7,6 +7,9 @@ from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.contrib.auth.models import User
 
+from crispy_forms.helper import FormHelper
+from crispy_forms import layout, bootstrap
+
 from base_libs.forms import dynamicforms
 from base_libs.utils.misc import get_related_queryset, XChoiceList
 
@@ -103,6 +106,30 @@ class IndividualRelationForm(dynamicforms.Form):
                 el.id
                 for el in rel.relation_types.all()
                 ]
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _('Relation'),
+                'message',
+                'relation_types',
+            ),
+            layout.Fieldset(
+                _('Permissions'),
+                'display_phone',
+                'display_fax',
+                'display_mobile',
+                'display_birthday',
+                'display_address',
+                'display_im',
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _(self.relation_action.title()).upper()),
+                layout.Button('button', _('Cancel').upper()),
+            )
+        )
+
     
     def save(self):
         cleaned = self.cleaned_data

@@ -8,6 +8,7 @@ from django.utils.encoding import force_unicode
 from django.utils.functional import lazy
 from django.conf import settings
 from django.utils.timezone import now as tz_now
+from actstream import action
 
 from base_libs.models import HierarchyMixin
 from base_libs.models import SlugMixin
@@ -428,6 +429,7 @@ def individual_relation_requested(sender, instance, **kwargs):
             "object_url": "%speople/requested/?by-status=pending" % get_website_url()
             },
         )
+    action.send(instance.user, verb="invited", action_object=instance)
 
 # Notify appropriate users about relation confirmations
 def individual_relation_confirmed(sender, instance, **kwargs):
@@ -442,4 +444,4 @@ def individual_relation_confirmed(sender, instance, **kwargs):
             "object_description": instance.message,
             },
         )
-
+    action.send(instance.user, verb="was confirmed by", action_object=instance)
