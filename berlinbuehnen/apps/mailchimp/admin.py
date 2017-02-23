@@ -175,7 +175,7 @@ class CampaignAdmin(ExtendedModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.save()
         if obj.is_sent():
-            messages.warning(request, _("""Campaign "%s" was not updated at MailChimp, because its status is "sent".""") % unicode(obj))
+            messages.warning(request, _("""Campaign "%s" was not updated at MailChimp, because it has been sent.""") % unicode(obj))
 
 
 admin.site.register(Campaign, CampaignAdmin)

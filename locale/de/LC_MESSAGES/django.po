@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-23 15:10+0100\n"
+"POT-Creation-Date: 2017-02-23 15:43+0100\n"
 "PO-Revision-Date: 2016-09-05 16:46+0053\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3060,9 +3060,8 @@ msgid "Sent"
 msgstr "Gesendet"
 
 #: berlinbuehnen/apps/mailchimp/admin.py:178
-msgid ""
-"This campaign could not be updated at MailChimp, because its status is \"sent"
-"\"."
+#, python-format
+msgid "Campaign \"%s\" was not updated at MailChimp, because it has been sent."
 msgstr ""
 
 #: berlinbuehnen/apps/mailchimp/forms.py:20
