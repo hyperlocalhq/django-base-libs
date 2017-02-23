@@ -11,7 +11,7 @@ from base_libs.middleware.threadlocals import get_current_language
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
-from jetson.apps.mailchimp.models import MList
+from museumsportal.apps.mailchimp.models import MList
 
 from .models import PrivacySettings
 

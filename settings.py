@@ -919,6 +919,9 @@ RAVEN_CONFIG = {
     'release': raven.fetch_git_sha(os.path.dirname(__file__)),
 }
 
+MAILING_DEFAULT_FROM_NAME = "Museumsportal Berlin"
+MAILING_DEFAULT_FROM_EMAIL = "museumsportal@kulturprojekte-berlin.de"
+
 ### LOCAL SETTINGS ###
 
 try:

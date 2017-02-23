@@ -8,6 +8,7 @@ from django.template import RequestContext
 from django.forms.util import ErrorList
 from django.conf.urls import *
 from django.contrib.admin.util import unquote
+from django.contrib import messages
 
 from filebrowser.settings import URL_FILEBROWSER_MEDIA
 
@@ -129,14 +130,11 @@ class MailingContentBlockInline(ExtendedStackedInline):
     inline_classes = ('grp-collapse grp-open',)
 
 class CampaignAdmin(ExtendedModelAdmin):
-    list_display = ('subject', 'get_mailinglist_with_link', 'status',)
+    list_display = ('subject', 'get_mailinglist_with_link', 'get_status',)
     list_filter = ('mailinglist',)
-    fieldsets = [(None, {'fields': ('sender_name', 'sender_email', 'mailinglist', 'template', 'status',)}),]
+    fieldsets = [(None, {'fields': ('sender_name', 'sender_email', 'mailinglist', 'template')}),]
     fieldsets += [(_("Content"), {'fields': ['subject', 'body_html']})]
     inlines = (MailingContentBlockInline,)
-    radio_fields = {
-        'status': admin.HORIZONTAL,
-    }
     class Media:
         js = (
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
@@ -163,5 +161,17 @@ class CampaignAdmin(ExtendedModelAdmin):
         obj = self.get_object(request, unquote(object_id))
         html = obj.get_rendered_html()
         return HttpResponse(html)
+
+    def get_status(self, obj):
+        try:
+            return _("Sent") if obj.is_sent() else _("Draft")
+        except:
+            return _("Unknown")
+    get_status.short_description = _("Status")
+
+    def save_model(self, request, obj, form, change):
+        obj.save()
+        if obj.is_sent():
+            messages.warning(request, _("""Campaign "%s" was not updated at MailChimp, because it has been sent.""") % unicode(obj))
 
 admin.site.register(Campaign, CampaignAdmin)

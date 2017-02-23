@@ -90,9 +90,9 @@ def login(request, template_name='registration/login.html', redirect_field_name=
 @never_cache
 def register(request):
     from mailsnake import MailSnake, EmailAlreadySubscribedException
-    from jetson.apps.mailchimp.models import MList
-    from jetson.apps.mailchimp.models import Subscription
-    from jetson.apps.mailchimp.models import Settings
+    from museumsportal.apps.mailchimp.models import MList
+    from museumsportal.apps.mailchimp.models import Subscription
+    from museumsportal.apps.mailchimp.models import Settings
 
     if request.method == "POST":
         form = RegistrationForm(request.POST)
