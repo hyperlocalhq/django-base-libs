@@ -242,7 +242,8 @@ class Festival(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
         source_media_dir = "festivals/%s" % source_festival.slug
         target_media_dir = "festivals/%s" % target_festival.slug
 
-        target_festival.logo = source_festival.logo.path.replace(source_media_dir, target_media_dir)
+        if source_festival.logo:
+            target_festival.logo = source_festival.logo.path.replace(source_media_dir, target_media_dir)
         target_festival.save()
         # add m2m relationships
         target_festival.organizers = source_festival.organizers.all()
