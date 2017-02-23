@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-15 09:04+0100\n"
+"POT-Creation-Date: 2017-02-23 19:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -114,7 +114,7 @@ msgstr ""
 #: subtrees/jetson/apps/institutions/admin.py:31
 #: subtrees/jetson/apps/institutions/base.py:214
 #: subtrees/jetson/apps/location/admin.py:36
-#: subtrees/jetson/apps/mailchimp/admin.py:84
+#: subtrees/jetson/apps/mailchimp/admin.py:85
 #: subtrees/jetson/apps/mailchimp/models.py:92
 #: subtrees/jetson/apps/marketplace/admin.py:40
 #: subtrees/jetson/apps/marketplace/admin.py:48
@@ -260,9 +260,9 @@ msgstr ""
 #: subtrees/jetson/apps/email_campaigns/admin.py:76
 #: subtrees/jetson/apps/email_campaigns/admin.py:83
 #: subtrees/jetson/apps/flatpages/admin.py:31
-#: subtrees/jetson/apps/mailchimp/admin.py:127
-#: subtrees/jetson/apps/mailchimp/admin.py:138
-#: subtrees/jetson/apps/mailchimp/models.py:382
+#: subtrees/jetson/apps/mailchimp/admin.py:128
+#: subtrees/jetson/apps/mailchimp/admin.py:139
+#: subtrees/jetson/apps/mailchimp/models.py:392
 msgid "Content"
 msgstr ""
 
@@ -551,8 +551,8 @@ msgstr ""
 #: subtrees/jetson/apps/groups_networks/admin.py:62
 #: subtrees/jetson/apps/groups_networks/base.py:238
 #: subtrees/jetson/apps/institutions/base.py:223
+#: subtrees/jetson/apps/mailchimp/admin.py:175
 #: subtrees/jetson/apps/mailchimp/models.py:58
-#: subtrees/jetson/apps/mailchimp/models.py:199
 #: subtrees/jetson/apps/people/base.py:299
 #: subtrees/jetson/apps/resources/base.py:190
 #: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_status.html:3
@@ -586,8 +586,8 @@ msgid ""
 msgstr ""
 
 #: subtrees/jetson/apps/blog/forms.py:94
-#: subtrees/jetson/apps/mailchimp/admin.py:168
-#: subtrees/jetson/apps/mailchimp/admin.py:169
+#: subtrees/jetson/apps/mailchimp/admin.py:166
+#: subtrees/jetson/apps/mailchimp/admin.py:167
 #: subtrees/jetson/templates/admin/admin/email_campaigns/mailing_send_prepare.html:40
 #: subtrees/jetson/templates/default/comments/form.html:25
 #: subtrees/jetson/templates/default/forum/forms/forum_embedded.html:82
@@ -1554,7 +1554,7 @@ msgstr ""
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:185
 #: subtrees/jetson/apps/forum/forms.py:111
 #: subtrees/jetson/apps/i18n/models.py:74
-#: subtrees/jetson/apps/mailchimp/models.py:195
+#: subtrees/jetson/apps/mailchimp/models.py:188
 #: subtrees/jetson/apps/mailing/models.py:45
 #: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:52
 #: subtrees/jetson/apps/messaging/forms.py:19
@@ -1573,7 +1573,7 @@ msgstr ""
 #: subtrees/jetson/apps/forum/forms.py:117
 #: subtrees/jetson/apps/forum/forms.py:150
 #: subtrees/jetson/apps/individual_relations/forms.py:43
-#: subtrees/jetson/apps/mailchimp/models.py:196
+#: subtrees/jetson/apps/mailchimp/models.py:189
 #: subtrees/jetson/apps/mailing/admin.py:52
 #: subtrees/jetson/apps/messaging/admin.py:20
 #: subtrees/jetson/apps/messaging/forms.py:26
@@ -1637,7 +1637,7 @@ msgstr ""
 #: subtrees/jetson/apps/i18n/models.py:127
 #: subtrees/jetson/apps/i18n/south_migrations/0001_initial.py:69
 #: subtrees/jetson/apps/i18n/south_migrations/0001_initial.py:87
-#: subtrees/jetson/apps/mailchimp/models.py:383
+#: subtrees/jetson/apps/mailchimp/models.py:393
 #: subtrees/jetson/apps/marketplace/base.py:72
 #: subtrees/jetson/apps/marketplace/base.py:85
 #: subtrees/jetson/apps/marketplace/base.py:97
@@ -1669,7 +1669,7 @@ msgid "contact form categories"
 msgstr ""
 
 #: subtrees/jetson/apps/email_campaigns/admin.py:38
-#: subtrees/jetson/apps/mailchimp/admin.py:36
+#: subtrees/jetson/apps/mailchimp/admin.py:37
 msgid "Either subscriber or subscriber email should be filled in."
 msgstr ""
 
@@ -1739,8 +1739,8 @@ msgstr ""
 #: subtrees/jetson/apps/mailchimp/forms.py:22
 #: subtrees/jetson/apps/mailchimp/models.py:57
 #: subtrees/jetson/apps/mailchimp/models.py:76
-#: subtrees/jetson/apps/mailchimp/models.py:197
-#: subtrees/jetson/apps/mailchimp/models.py:230
+#: subtrees/jetson/apps/mailchimp/models.py:190
+#: subtrees/jetson/apps/mailchimp/models.py:237
 msgid "Mailing list"
 msgstr ""
 
@@ -1767,7 +1767,7 @@ msgstr ""
 
 #: subtrees/jetson/apps/email_campaigns/models.py:89
 #: subtrees/jetson/apps/email_campaigns/models.py:126
-#: subtrees/jetson/apps/mailchimp/models.py:202
+#: subtrees/jetson/apps/mailchimp/models.py:195
 msgid "Campaign"
 msgstr ""
 
@@ -1796,7 +1796,7 @@ msgstr ""
 #: subtrees/jetson/apps/forum/models.py:29
 #: subtrees/jetson/apps/groups_networks/base.py:58
 #: subtrees/jetson/apps/institutions/base.py:68
-#: subtrees/jetson/apps/mailchimp/models.py:188
+#: subtrees/jetson/apps/mailchimp/admin.py:172
 #: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:62
 #: subtrees/jetson/apps/mailing/south_migrations/0002_removed_internal_message_specifics.py:78
 #: subtrees/jetson/apps/messaging/models.py:23
@@ -1807,7 +1807,8 @@ msgid "Draft"
 msgstr ""
 
 #: subtrees/jetson/apps/email_campaigns/models.py:150
-#: subtrees/jetson/apps/mailchimp/models.py:189
+#: subtrees/jetson/apps/mailchimp/admin.py:172
+#: subtrees/jetson/apps/mailchimp/models.py:192
 #: subtrees/jetson/apps/mailing/models.py:48
 #: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:60
 msgid "Sent"
@@ -1816,7 +1817,7 @@ msgstr ""
 #: subtrees/jetson/apps/email_campaigns/models.py:154
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0002_add_campaign_mailinglist_mailing_mailingcontentblock.py:50
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:164
-#: subtrees/jetson/apps/mailchimp/models.py:193
+#: subtrees/jetson/apps/mailchimp/models.py:186
 #: subtrees/jetson/apps/mailing/models.py:42
 #: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:49
 msgid "Sender name"
@@ -1825,7 +1826,7 @@ msgstr ""
 #: subtrees/jetson/apps/email_campaigns/models.py:155
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0002_add_campaign_mailinglist_mailing_mailingcontentblock.py:51
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:173
-#: subtrees/jetson/apps/mailchimp/models.py:194
+#: subtrees/jetson/apps/mailchimp/models.py:187
 #: subtrees/jetson/apps/mailing/models.py:43
 #: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:50
 msgid "Sender email"
@@ -1839,7 +1840,7 @@ msgstr ""
 #: subtrees/jetson/apps/email_campaigns/models.py:159
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0008_add_mailing_status.py:17
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:176
-#: subtrees/jetson/apps/mailchimp/models.py:198
+#: subtrees/jetson/apps/mailchimp/models.py:191
 #: subtrees/jetson/apps/optionset/admin.py:73
 msgid "Template"
 msgstr ""
@@ -1868,12 +1869,12 @@ msgid "Link"
 msgstr ""
 
 #: subtrees/jetson/apps/email_campaigns/models.py:216
-#: subtrees/jetson/apps/mailchimp/models.py:390
+#: subtrees/jetson/apps/mailchimp/models.py:400
 msgid "Content Block"
 msgstr ""
 
 #: subtrees/jetson/apps/email_campaigns/models.py:217
-#: subtrees/jetson/apps/mailchimp/models.py:391
+#: subtrees/jetson/apps/mailchimp/models.py:401
 msgid "Content Blocks"
 msgstr ""
 
@@ -2974,6 +2975,7 @@ msgid "CCB Events"
 msgstr ""
 
 #: subtrees/jetson/apps/extendedadmin/forms.py:167
+#: subtrees/jetson/apps/mailchimp/admin.py:174
 #: subtrees/jetson/apps/media_gallery/base.py:88
 msgid "Unknown"
 msgstr ""
@@ -5903,12 +5905,17 @@ msgstr ""
 msgid "locality types"
 msgstr ""
 
-#: subtrees/jetson/apps/mailchimp/admin.py:110
+#: subtrees/jetson/apps/mailchimp/admin.py:111
 msgid "MailChimp List"
 msgstr ""
 
-#: subtrees/jetson/apps/mailchimp/admin.py:117
+#: subtrees/jetson/apps/mailchimp/admin.py:118
 msgid "Synchronize list"
+msgstr ""
+
+#: subtrees/jetson/apps/mailchimp/admin.py:180
+#, python-format
+msgid "Campaign \"%s\" was not updated at MailChimp, because it has been sent."
 msgstr ""
 
 #: subtrees/jetson/apps/mailchimp/forms.py:27
@@ -6016,19 +6023,19 @@ msgid "Last sync"
 msgstr ""
 
 #: subtrees/jetson/apps/mailchimp/models.py:97
-#: subtrees/jetson/apps/mailchimp/models.py:214
+#: subtrees/jetson/apps/mailchimp/models.py:221
 msgid "Mailing List"
 msgstr ""
 
-#: subtrees/jetson/apps/mailchimp/models.py:203
+#: subtrees/jetson/apps/mailchimp/models.py:196
 msgid "Campaigns"
 msgstr ""
 
-#: subtrees/jetson/apps/mailchimp/models.py:375
+#: subtrees/jetson/apps/mailchimp/models.py:385
 msgid "Image and text"
 msgstr ""
 
-#: subtrees/jetson/apps/mailchimp/models.py:376
+#: subtrees/jetson/apps/mailchimp/models.py:386
 msgid "Text only"
 msgstr ""
 
