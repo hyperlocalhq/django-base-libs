@@ -299,7 +299,7 @@ class ViewsMixin(BaseModel):
     class Meta:
         abstract = True
         
-class UrlMixin(object):
+class UrlMixin(models.Model):
     """
     A replacement for get_absolute_url()
     Models extending this mixin should have either get_url or get_url_path implemented.
@@ -333,7 +333,11 @@ class UrlMixin(object):
 
     def get_absolute_url(self):
         return self.get_url_path()
-        
+
+    class Meta:
+        abstract = True
+
+
 class CommentsMixin(BaseModel):
     """
     Abstract base class for comment handling
