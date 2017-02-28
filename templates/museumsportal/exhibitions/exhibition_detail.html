@@ -377,9 +377,7 @@
                   </div>
                   <div id="collapse-catalog" class="panel-collapse collapse">
                     {% if exhibition.get_rendered_catalog %}
-                      <div class="panel-body">
-                        <p>{{ exhibition.get_rendered_catalog|striptags|urlize }}</p>
-                      </div>
+                      <div class="panel-body">{{ exhibition.get_rendered_catalog }}</div>
                     {% endif %}
 
                     {% if exhibition.catalog_ordering %}
