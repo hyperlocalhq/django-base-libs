@@ -131,24 +131,23 @@
                                                 {% for t in workshop.types.all %}
                                                     {{ t.title }}{% if not forloop.last %}, {% else %}:{% endif %}
                                                 {% endfor %}
-                                                {% if facets.selected.selected_date %}
-                                                    {% with workshop|get_selected_date:facets.selected.selected_date as workshop_time %}
-                                                        {{ workshop_time.workshop_date|date:"j. F Y" }}
-                                                        {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %}
+                                                {% with particularities=workshop.get_particularities|join:'. ' %}
+                                                    {% if facets.selected.selected_date %}
+                                                        {% with workshop|get_selected_date:facets.selected.selected_date as workshop_time %}
+                                                            {{ workshop_time.workshop_date|date:"j. F Y" }}
+                                                            {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %}
+                                                                {% trans "till" %}
+                                                            {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}{% if particularities %}. {{ particularities }}{% endif %}
+                                                        {% endwith %}
+                                                    {% else %}
+                                                        {% with workshop.get_closest_workshop_time as workshop_time %}
+                                                            {{ workshop_time.workshop_date|date:"j. F Y" }}
+                                                            {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %}
                                                             {% trans "till" %}
-                                                            {{ workshop_time.end|time:"H:i" }}{% endif %}
-                                                        {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}.
-                                                    {% endwith %}
-                                                {% else %}
-                                                    {% with workshop.get_closest_workshop_time as workshop_time %}
-                                                        {{ workshop_time.workshop_date|date:"j. F Y" }}
-                                                        {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %}
-                                                            {% trans "till" %}
-                                                            {{ workshop_time.end|time:"H:i" }}{% endif %}
-                                                        {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}.
-                                                    {% endwith %}
-                                                {% endif %}
-                                                {{ workshop.get_particularities|join:'. ' }}
+                                                            {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}{% if particularities %}. {{ particularities }}{% endif %}
+                                                        {% endwith %}
+                                                    {% endif %}
+                                                {% endwith %}
                                             </h4>
                                         {% endif %}
 
