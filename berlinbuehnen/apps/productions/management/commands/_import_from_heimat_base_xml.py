@@ -235,10 +235,10 @@ class ImportFromHeimatBase(object):
         17: '',  # Deutsche Erstauffuhrung
         21: 'repertoire',  # Repertoire
         22: '',  # zum letzten Mal
-        23: 'urauffuehrung',  # Urauffuhrung
+        23: 'urauffuehrung',  # Uraufführung
         24: '',  # Familienvorstellung
         25: '',  # Kindervorstellung
-        27: '',  # Einfuhrung
+        27: '',  # Einführung
         28: '',  # zum letzten Mal in dieser Spielzeit
         30: '',  # Deutschsprachige Erstauffuhrung
         31: 'on-tour',  # On Tour
@@ -257,10 +257,10 @@ class ImportFromHeimatBase(object):
         17: 'deutsche-erstauffuehrung',  # Deutsche Erstauffuhrung
         21: '',  # Repertoire
         22: 'zum-letzten-mal',  # zum letzten Mal
-        23: '',  # Urauffuhrung
+        23: '',  # Uraufführung
         24: 'familienpreise',  # Familienvorstellung
         25: '',  # Kindervorstellung
-        27: '',  # Einfuhrung
+        27: '',  # Einführung
         28: 'zum-letzten-mal-dieser-spielzeit',  # zum letzten Mal in dieser Spielzeit
         30: 'deutschsprachige-erstauffuehrung',  # Deutschsprachige Erstauffuhrung
         31: '',  # On Tour
