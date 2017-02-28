@@ -698,7 +698,11 @@
                   <h4>{% with event.get_closest_event_time as event_time %}{{ event_time.event_date|date:"j. F Y" }} {{ event_time.start|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}{% endwith %}</h4>
                   <h3>{{ event.title }}</h3>
                   <h4>{{ event.subtitle }}</h4>
-                  <h5>{{ event.museum.title }}</h5>
+                  {% if event.location_name %}
+                    <h5>{{ event.location_name }}</h5>
+                  {% elif event.museum %}
+                    <h5>{{ event.museum.title|default:event.museum.title_de }}</h5>
+                  {% endif %}
                 </a>
               </div>
               {% endfor %}

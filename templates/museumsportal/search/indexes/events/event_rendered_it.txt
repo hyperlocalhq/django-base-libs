@@ -7,10 +7,11 @@
             </h4>
             <h3>{{ event.title_it|default:event.title_de }}</h3>
             <h4>{{ event.subtitle_it|default:event.subtitle_de }}</h4>
-            {% if event.museum %}
+            {% if event.location_name %}
+                <h5>{{ event.location_name }}</h5>
+            {% elif event.museum %}
                 <h5>{{ event.museum.title_it|default:event.museum.title_de }}</h5>
             {% endif %}
-            
         </a>
     </div>
 {% endwith %}
