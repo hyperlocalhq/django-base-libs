@@ -12,7 +12,6 @@ class LinkGroupAdmin(ExtendedModelAdmin):
     list_display = ['__unicode__', 'creation_date', 'link_1_text', 'get_links_str', 'get_placement_str']
     list_filter = ['creation_date', 'language']
     search_fields = ['group_title', 'link_1_text', 'link_2_text', 'link_3_text']
-    filter_horizontal = ['museums', 'exhibitions', 'events', 'workshops']
 
     fieldsets = (
         (_("Main data"), {'fields': ['group_title', 'language']}),
@@ -23,6 +22,8 @@ class LinkGroupAdmin(ExtendedModelAdmin):
         ]}),
         (_("Placement"), {'fields': ['museums', 'exhibitions', 'events', 'workshops']}),
     )
+
+    raw_id_fields = ['museums', 'exhibitions', 'events', 'workshops']
 
     def get_links_str(self, obj):
         return u"<br />".join(['<a href="%(url)s" target="_blank">%(text)s</a>' % link for link in obj.get_links()])
