@@ -3,7 +3,7 @@
     <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
         <a href="/de/veranstaltungen/{{ event.slug }}/">
             <h4>
-                <span>{% with event.get_closest_event_time as event_time %}{{ event_time.get_humanized_date_de }} {{ event_time.start|time:"H:i" }}{% endwith %}</span>
+                <span>{% with event.get_closest_event_time as event_time %}{{ event_time.get_humanized_date_de }} {{ event_time.start|time:"H:i" }} Uhr{% endwith %}</span>
             </h4>
             <h3>{{ event.title_de }}</h3>
             <h4>{{ event.subtitle_de }}</h4>

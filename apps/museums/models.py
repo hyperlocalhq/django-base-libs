@@ -259,11 +259,18 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         return Tag.objects.get_for_object(self)
 
     def get_address(self):
-        return ", ".join([
-            getattr(self, fn)
-            for fn in ["street_address", "street_address2", "postal_code", "city"]
-            if getattr(self, fn)
-        ])
+        # Return museum's address. All components separated by comma, all subcomponents separated by space.
+        components = []
+        for j in ["street_address", "street_address2", ["postal_code", "city"]]:
+            if isinstance(j, list):
+                subcomponents = []
+                for k in j:
+                    if getattr(self, k):
+                        subcomponents.append(getattr(self, k))
+                components.append(" ".join(subcomponents))
+            elif getattr(self, j):
+                components.append(getattr(self, j))
+        return ", ".join(components)
     get_address.short_description = _("Address")
 
     def is_open_until(self, weekday, closing_time):

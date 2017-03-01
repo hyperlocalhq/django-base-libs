@@ -6,7 +6,7 @@
                 {% if exhibition.permanent %}
                     Dauerausstellung{% if exhibition.start %}: <span>{{ exhibition.start|date:"d.m.Y" }} bis auf Weiteres</span>{% endif %}
                 {% else %}
-                    <span>{{ exhibition.start|date:"d.m" }} – {{ exhibition.end|date:"d.m.Y" }}</span>
+                    <span>{{ exhibition.start|date:"d.m.Y" }} – {{ exhibition.end|date:"d.m.Y" }}</span>
                 {% endif %}
             </h4>
             <h3>{{ exhibition.title_de|safe }}</h3>
