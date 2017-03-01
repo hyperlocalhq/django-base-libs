@@ -258,8 +258,7 @@
                                                 <dd>
                                                     {% for social in museum.socialmediachannel_set.all %}
                                                         <a target="_blank"
-                                                           href="{{ social.url }}">{{ social.channel_type }}</a>
-                                                        {% if not forloop.last %}, {% endif %}
+                                                           href="{{ social.url }}">{{ social.channel_type }}</a>{% if not forloop.last %}, {% endif %}
                                                     {% endfor %}
                                                 </dd>
                                             </dl>
