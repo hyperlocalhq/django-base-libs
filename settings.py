@@ -922,6 +922,10 @@ RAVEN_CONFIG = {
 MAILING_DEFAULT_FROM_NAME = "Museumsportal Berlin"
 MAILING_DEFAULT_FROM_EMAIL = "museumsportal@kulturprojekte-berlin.de"
 
+### API KEYS ###
+
+GOOGLE_API_KEY = "AIzaSyBJmnLWWXCHCL_f8-iCNFcg_M12yGMW5QQ"
+
 ### LOCAL SETTINGS ###
 
 try:
