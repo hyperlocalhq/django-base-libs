@@ -244,7 +244,7 @@
 
     {% if facets.selected.latitude and facets.selected.longitude %}
         {% addtoblock "js" %}
-            <script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>
+            <script type="text/javascript" src="//maps.google.com/maps/api/js?libraries=geometry&amp;key={{ GOOGLE_API_KEY }}"></script>
             <script>
                 $(function() {
                     var visitor_position = new google.maps.LatLng({{ facets.selected.latitude|stringformat:"f" }}, {{ facets.selected.longitude|stringformat:"f" }});
