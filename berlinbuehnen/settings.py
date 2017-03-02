@@ -739,6 +739,10 @@ RAVEN_CONFIG = {
 import os, certifi
 os.environ['REQUESTS_CA_BUNDLE'] = certifi.where()
 
+### API KEYS ###
+
+GOOGLE_API_KEY = "AIzaSyBROQ-O1BUohIIXD5ROs2lscp_aCOTK1K0"
+
 ### LOCAL SETTINGS ###
 
 try:

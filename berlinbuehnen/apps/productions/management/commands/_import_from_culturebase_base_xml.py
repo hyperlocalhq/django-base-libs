@@ -415,8 +415,8 @@ class ImportFromCulturebaseBase(object):
             description_en_components.append(text)
         file_description.description_de = "\n".join(description_de_components)
         file_description.description_en = "\n".join(description_en_components)
-        # Copyright goes to the author field
-        file_description.author = self.get_child_text(xml_node, 'Copyright')
+        # Copyright or Photographer goes to the author field
+        file_description.author = self.get_child_text(xml_node, 'Copyright') or text or ""
         file_description.save()
         return file_description
 

@@ -191,7 +191,7 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand):
         file_description.description_de = "\n".join(description_de_components)
         file_description.description_en = "\n".join(description_en_components)
         # copyright goes to the author field
-        file_description.author = self.get_child_text(xml_node, 'copyright')
+        file_description.author = self.get_child_text(xml_node, 'copyright') or text
         file_description.copyright_limitations = ""
         file_description.save()
         return file_description

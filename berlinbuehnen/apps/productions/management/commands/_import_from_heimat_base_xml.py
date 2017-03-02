@@ -553,7 +553,7 @@ class ImportFromHeimatBase(object):
         if text:
             file_description.description_de = text
             file_description.description_en = text
-        file_description.author = xml_node.get('copyright')
+        file_description.author = xml_node.get('copyright') or text
         file_description.copyright_limitations = ""
         file_description.save()
         return file_description
