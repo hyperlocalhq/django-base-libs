@@ -4,7 +4,7 @@
 {% block extrahead %}
     {{ block.super }}
     {% if view_type == "map" %}
-        <script type="text/javascript" src="//maps.google.com/maps/api/js?language={{ LANGUAGE_CODE }}&amp;region=DE"></script>
+        <script type="text/javascript" src="//maps.google.com/maps/api/js?language={{ LANGUAGE_CODE }}&amp;region=DE&amp;key={{ GOOGLE_API_KEY }}"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/styledinfowindow.js"></script>
         <script type="text/javascript">
             //<![CDATA[

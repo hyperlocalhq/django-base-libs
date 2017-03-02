@@ -1066,6 +1066,10 @@ RAVEN_CONFIG = {
     'release': raven.fetch_git_sha(os.path.dirname(__file__)),
 }
 
+### API KEYS ###
+
+GOOGLE_API_KEY = "AIzaSyDWz29t8VlkHoR6e5rYg8So98_SfPhMfCc"
+
 ### LOCAL SETTINGS ###
 
 try:
