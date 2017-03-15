@@ -175,7 +175,11 @@
                             </div>
                             <div class="clearfix visible-xs"></div>
                             <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                                <p>Ein Service von Kulturprojekte Berlin GmbH <br class="hidden-xs hidden-md" />gemeinsam mit den Berliner Bühnen</p>
+                                {% if LANGUAGE_CODE == "de" %}
+                                    <p>Ein Gemeinschaftsprojekt der <br class="hidden-xs hidden-md" />Berliner Bühnen mit</p>
+                                {% else %}
+                                    <p>A joint project by <br class="hidden-xs hidden-md" />the Berlin stages with</p>
+                                {% endif %}
                                 <a href="http://www.kulturprojekte-berlin.de/" target="_blank" class="no-print full-white"><img src="{{ STATIC_URL }}site/img/logos/kpb_logo.gif" height="70"/></a>
                                 <img class="print" src="{{ STATIC_URL }}site/img/logos/kpb_black.gif" height="70"/>
                             </div>
