@@ -133,9 +133,9 @@ def festival_events(request, slug):
     # qs = qs.filter(production__part=None)
 
     # show only upcoming events
-    # qs = qs.filter(
-    #    start_date__gte=datetime.now(),
-    # )
+    qs = qs.filter(
+       start_date__gte=datetime.now(),
+    )
 
     qs = qs.order_by('start_date', 'start_time', 'production__title_%s' % request.LANGUAGE_CODE)
     
