@@ -858,9 +858,11 @@
                                                                                 {% if file_desc.title %}
                                                                                     <span class="gallery-image-text-description-title">{{ file_desc.title }}</span>
                                                                                 {% endif %}
-                                                                                {% if file_desc.description %}
-                                                                                    <span class="gallery-image-text-description-copy">{{ file_desc.description }}</span>
-                                                                                {% endif %}
+                                                                                {% comment %}
+                                                                                    {% if file_desc.description %}
+                                                                                        <span class="gallery-image-text-description-copy">{{ file_desc.description }}</span>
+                                                                                    {% endif %}
+                                                                                {% endcomment %}
                                                                             </div>
                                                                             {% if file_desc.author %}
                                                                                 <div class="gallery-image-text-copyright">{% trans "Copyright" %}: {{ file_desc.author|remove_copyright_label }}</div>
@@ -881,9 +883,11 @@
                                                                                     {% if file_desc.title %}
                                                                                         <span class="gallery-image-text-description-title">{{ file_desc.title }}</span>
                                                                                     {% endif %}
-                                                                                    {% if file_desc.description %}
-                                                                                        <span class="gallery-image-text-description-copy">{{ file_desc.description }}</span>
-                                                                                    {% endif %}
+                                                                                    {% comment %}
+                                                                                        {% if file_desc.description %}
+                                                                                            <span class="gallery-image-text-description-copy">{{ file_desc.description }}</span>
+                                                                                        {% endif %}
+                                                                                    {% endcomment %}
                                                                                 </div>
                                                                                 {% if file_desc.author %}
                                                                                     <div class="gallery-image-text-copyright">{% trans "Copyright" %}: {{ file_desc.author|remove_copyright_label }}</div>
