@@ -49,10 +49,16 @@ def project_detail(request, slug, event_id=None):
     extra_context['event'] = None
     
     if obj.departments.filter(status="published").count():
-        extra_context['department'] = obj.departments.filter(status="published")[0]
+        try:
+            extra_context['department'] = obj.departments.filter(status="published")[0]
+        except IndexError:
+            pass
         
     if event_id:
-        extra_context['event'] = ProjectTime.objects.filter(pk=event_id)[0]
+        try:
+            extra_context['event'] = ProjectTime.objects.filter(pk=event_id)[0]
+        except IndexError:
+            pass
         
     return object_detail(
         request,
