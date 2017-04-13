@@ -244,6 +244,7 @@ INSTALLED_APPS = (
     "berlinbuehnen.apps.accounts",
     "berlinbuehnen.apps.favorites",
     "berlinbuehnen.apps.site_specific",
+    "berlinbuehnen.apps.services",
     "berlinbuehnen.apps.cms_extensions",
     "berlinbuehnen.apps.cms_extensions.plugins.richtext",
     "berlinbuehnen.apps.cms_extensions.plugins.filebrowser_image",
@@ -303,6 +304,9 @@ ADMIN_APP_INDEX = (
             }),
             ('marketplace', {
                 'models': ("JobType", "JobCategory", "JobOffer",),
+            }),
+            ('services', {
+                'models': ("ServicesOverviewPage", "LinksPage", "ArticlesPage",),
             }),
         )
     },
