@@ -86,7 +86,7 @@ class ServicesCategory(CreationModificationDateMixin, SlugMixin()):
         return self.title
 
     class Meta:
-        ordering = ["title_{}".format(settings.LANGUAGE_CODE)]
+        ordering = ["sort_order"]
         verbose_name = _("Service Category")
         verbose_name_plural = _("Service Categories")
 
@@ -95,7 +95,7 @@ class Service(CreationModificationDateMixin):
     category = models.ForeignKey(ServicesCategory, on_delete=models.CASCADE)
     title = MultilingualCharField(_("Title"), max_length=200)
     subtitle = MultilingualCharField(_("Subtitle"), max_length=200, blank=True)
-    location = models.ForeignKey("locations.Location", verbose_name=_("Location"), help_text=_("Theater linked to this service"))
+    location = models.ForeignKey("locations.Location", verbose_name=_("Location"), help_text=_("Theater linked to this service"), blank=True, null=True)
     short_description = MultilingualTextField(_("Short Description"), blank=True)
     external_link = MultilingualURLField(_("External Link"), max_length=255)
     image = FileBrowseField(_("Header Icon"), max_length=255, directory="services/", extensions=IMAGE_EXTENSIONS, help_text=_("A path to a locally stored image."))
@@ -105,7 +105,7 @@ class Service(CreationModificationDateMixin):
         return self.title
 
     class Meta:
-        ordering = ["sort_order", "title_{}".format(settings.LANGUAGE_CODE)]
+        ordering = ["sort_order"]
         verbose_name = _("Service")
         verbose_name_plural = _("Services")
 
@@ -142,7 +142,7 @@ class Link(CreationModificationDateMixin):
         return self.title
 
     class Meta:
-        ordering = ["sort_order", "title"]
+        ordering = ["sort_order"]
         verbose_name = _("Link")
         verbose_name_plural = _("Links")
 

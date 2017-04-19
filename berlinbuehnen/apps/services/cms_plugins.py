@@ -63,6 +63,7 @@ plugin_pool.register_plugin(ImageAndTextPlugin)
 
 
 class LinkInline(admin.StackedInline):
+    classes = ('grp-collapse grp-open',)
     model = Link
     extra = 0
 
@@ -72,5 +73,6 @@ class LinkCategoryPlugin(PluginBase):
     name = _("Link Category")
     render_template = "services/plugins/link_category.html"
     inlines = [LinkInline]
+    sortable_field_name = "sort_order"
 
 plugin_pool.register_plugin(LinkCategoryPlugin)

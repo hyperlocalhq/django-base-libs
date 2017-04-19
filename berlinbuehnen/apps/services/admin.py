@@ -22,6 +22,7 @@ from .models import (
 
 
 class ServicesCategoryInline(ExtendedStackedInline):
+    classes = ('grp-collapse grp-open',)
     model = ServicesCategory
     extra = 0
     fieldsets = get_admin_lang_section(_("Title"), ["title", "subtitle", "short_description"])
@@ -29,6 +30,8 @@ class ServicesCategoryInline(ExtendedStackedInline):
         (_("Details"), {'fields': ("slug", "image", "sort_order", "get_edit_link")}),
     ]
     readonly_fields = ["get_edit_link"]
+    prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
+    sortable_field_name = "sort_order"
 
     def get_edit_link(self, obj=None):
         if obj.pk:  # if object has already been saved and has a primary key, show link to it
@@ -58,12 +61,14 @@ admin.site.register(ServicesOverviewPage, ServicesOverviewPageAdmin)
 
 
 class ServiceInline(ExtendedStackedInline):
+    classes = ('grp-collapse grp-open',)
     model = Service
     extra = 0
     fieldsets = get_admin_lang_section(_("Title"), ["title", "subtitle", "short_description", "external_link"])
     fieldsets += [
         (_("Details"), {'fields': ("location", "image", "sort_order")}),
     ]
+    sortable_field_name = "sort_order"
 
 
 class ServicesCategoryAdmin(ExtendedModelAdmin):
@@ -77,6 +82,7 @@ class ServicesCategoryAdmin(ExtendedModelAdmin):
     fieldsets += [
         (_("Details"), {'fields': ("slug", "page", "image", "sort_order")}),
     ]
+    prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
     inlines = [ServiceInline]
 
 admin.site.register(ServicesCategory, ServicesCategoryAdmin)
