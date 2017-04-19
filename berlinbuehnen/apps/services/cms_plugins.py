@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 import re
 
 from django.utils.translation import ugettext_lazy as _
-from django.cotrib import admin
+from django.contrib import admin
 
 from cms.plugin_pool import plugin_pool
 from cms.plugin_base import CMSPluginBase
@@ -24,8 +24,8 @@ class PluginBase(CMSPluginBase):
 
 class IndexItemPlugin(PluginBase):
     model = IndexItem
-    name = _("Index Item")
-    render_template = "cms/plugins/index_item.html"
+    name = _("Service Index Item")
+    render_template = "services/plugins/index_item.html"
 
 plugin_pool.register_plugin(IndexItemPlugin)
 
@@ -33,7 +33,8 @@ plugin_pool.register_plugin(IndexItemPlugin)
 class TitleAndTextPlugin(PluginBase):
     model = TitleAndText
     name = _("Title and text")
-    render_template = "cms/plugins/title_and_text.html"
+    render_template = "services/plugins/title_and_text.html"
+    change_form_template = "cms/plugins/richtext_plugin_change_form.html"
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         # add .markupType to body_markup_type
@@ -48,7 +49,8 @@ plugin_pool.register_plugin(TitleAndTextPlugin)
 class ImageAndTextPlugin(PluginBase):
     model = ImageAndText
     name = _("Image and text")
-    render_template = "cms/plugins/image_and_text.html"
+    render_template = "services/plugins/image_and_text.html"
+    change_form_template = "cms/plugins/richtext_plugin_change_form.html"
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         # add .markupType to body_markup_type
@@ -68,7 +70,7 @@ class LinkInline(admin.StackedInline):
 class LinkCategoryPlugin(PluginBase):
     model = LinkCategory
     name = _("Link Category")
-    render_template = "cms/plugins/link_category.html"
+    render_template = "services/plugins/link_category.html"
     inlines = [LinkInline]
 
 plugin_pool.register_plugin(LinkCategoryPlugin)

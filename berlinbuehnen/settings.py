@@ -412,32 +412,32 @@ CMS_LANGUAGES = {
 CMS_PLACEHOLDER_CONF = {
     'typehead': {
         'plugins': ("RichTextPlugin", "HeadlinePlugin"),
-        'name': _("Typehead")
+        'name': _("Typehead"),
     },
 
     'top_image': {
         'plugins': ("FilebrowserImagePlugin",),
-        'name': _("Top Image")
+        'name': _("Top Image"),
     },
 
     'intro': {
         'plugins': ("IntroPlugin","FilebrowserImagePlugin"),
-        'name': _("Intro")
+        'name': _("Intro"),
     },
 
     'main_content': {
-        'plugins': ("EditorialContentPlugin","RichTextPlugin", "FilebrowserImagePlugin", "GMapPlugin", "ArticleSelectionPlugin", "TheaterOfTheWeekSelectionPlugin", "FootnotePlugin"),
-        'name': _("Main Content")
+        'plugins': ("EditorialContentPlugin","RichTextPlugin", "FilebrowserImagePlugin", "GMapPlugin", "ArticleSelectionPlugin", "TheaterOfTheWeekSelectionPlugin", "FootnotePlugin", "IndexItemPlugin"),
+        'name': _("Main Content"),
     },
 
     'footnotes': {
         'plugins': ("RichTextPlugin",),
-        'name': _("Footnotes")
+        'name': _("Footnotes"),
     },
 
     'editorial_notices': {
         'plugins': ("EditorialContentPlugin",),
-        'name': _("editorial notices")
+        'name': _("editorial notices"),
     },
 
     'plan_organize_first': {
@@ -447,60 +447,68 @@ CMS_PLACEHOLDER_CONF = {
 
     'series_items_featured': {
         'plugins': ("EditorialContentPlugin", "AdZonePlugin"),
-        'name': _("Series Items Featured")
+        'name': _("Series Items Featured"),
     },
 
     'series_items': {
         'plugins': ("EditorialContentPlugin",),
-        'name': _("Series Items")
+        'name': _("Series Items"),
     },
 
     'series_exhibitions': {
         'plugins': ("EditorialContentPlugin",),
-        'name': _("Series Exhibitions")
+        'name': _("Series Exhibitions"),
     },
 
     'series_images': {
         'plugins': ("RichTextPlugin",),
-        'name': _("Series Images")
+        'name': _("Series Images"),
     },
 
     'start_page_content': {
         'plugins': ("EditorialContentPlugin",),
-        'name': _("Start Page Content")
+        'name': _("Start Page Content"),
     },
 
     'left_column': {
         'plugins': ("EditorialContentPlugin","NewlyOpenedExhibitionPlugin","NewlyOpenedExhibitionExtPlugin",),
-        'name': _("Left Column")
+        'name': _("Left Column"),
     },
 
     'center_column': {
         'plugins': ("EditorialContentPlugin",),
-        'name': _("Center Column")
+        'name': _("Center Column"),
     },
 
     'right_column': {
         'plugins': ("EditorialContentPlugin",),
-        'name': _("Right Column")
+        'name': _("Right Column"),
     },
 
     'featured_magazin': {
         'plugins': ("EditorialContentPlugin",),
-        'name': _("Featured Magazin")
+        'name': _("Featured Magazin"),
     },
 
     'start_page_left': {
         'plugins': ("EditorialContentPlugin", "FrontpageTeaserPlugin",),
-        'name': _("Start page left")
+        'name': _("Start page left"),
     },
     'start_page_center': {
         'plugins': ("EditorialContentPlugin", "FrontpageTeaserPlugin",),
-        'name': _("Start page center")
+        'name': _("Start page center"),
     },
     'start_page_right': {
         'plugins': ("EditorialContentPlugin", "FrontpageTeaserPlugin",),
-        'name': _("Start page right")
+        'name': _("Start page right"),
+    },
+    'links_page_content': {
+        'plugins': ("LinkCategoryPlugin",),
+        'name': _("Links Page Content"),
+    },
+    'articles_page_content': {
+        'plugins': ("TitleAndTextPlugin", "ImageAndTextPlugin",),
+        'name': _("Articles Page Content"),
     },
 }
 

@@ -1,0 +1,117 @@
+{% extends 'admin/change_form.html' %}
+{% load cms_admin %}
+
+{% block media %}
+    <!--
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.8.0/jquery-ui.min.js"></script>
+    -->
+    <script>
+        var jQuery = grp.jQuery;
+    </script>
+    <link href="{{ STATIC_URL }}cms/css/rte.css" type="text/css" media="all" rel="stylesheet" />
+    <link href="{{ STATIC_URL }}cms/css/pages.css" type="text/css" media="all" rel="stylesheet" />
+    <link href="{{ STATIC_URL }}cms/css/change_form.css" type="text/css" media="all" rel="stylesheet" />
+    <link href="{{ STATIC_URL }}cms/css/jquery.dialog.css" type="text/css" media="all" rel="stylesheet" />
+    <link href="{{ STATIC_URL }}cms/css/plugin_editor.css" type="text/css" media="all" rel="stylesheet" />
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/core.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/admin/RelatedObjectLookups.js"></script>
+    <!--
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/jquery.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/jquery.init.js"></script>
+    -->
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/actions.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}cms/js/plugins/admincompat.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}cms/js/csrf.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}cms/js/libs/jquery.query.js"></script>
+    <!--
+    <script type="text/javascript" src="{{ STATIC_URL }}cms/js/libs/jquery.ui.core.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}cms/js/libs/jquery.ui.dialog.js"></script>
+    -->
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/calendar.js"></script>
+    <!--
+    <script type="text/javascript" src="{{ STATIC_URL }}cms/js/libs/jquery.ui.sortable.js"></script>
+    -->
+    <script type="text/javascript" src="{{ STATIC_URL }}cms/js/plugin_editor.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/inlines.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}filebrowser/js/AddFileBrowser.js"></script>
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<script type="text/javascript">
+(function($) {
+    $(document).ready(function() {
+        $("#id_name").focus();
+        $("#id_name").change(function() { this._changed = true; });
+        $('#id_code').change(function() { this._changed = true; });
+    });
+    // global functions
+    trigger_lang_button = function(e, url) {
+        var changed = false;
+        var question = '';
+        var answer = '';
+
+        if($('iframe').length){
+            changed = true;
+        }
+
+        if (changed) {
+            question = gettext("Are you sure you want to change tabs without saving the page first?");
+            answer = confirm(question);
+        }else{
+            answer = true;
+        }
+
+        if (!answer) {
+            return false;
+        } else {
+            window.location = url;
+        }
+    }
+})(django.jQuery);
+</script>
+<style type="text/css">
+    <!--
+    .notfilled {
+        color: #808080 !important;
+    }
+    fieldset.grp-module.plugin-holder .grp-row {
+        padding: 0;
+    }
+    fieldset.grp-module.plugin-holder .grp-row .c-1 {
+        display: none;
+    }
+    .plugin-editor p {
+        margin: 1em;
+    }
+    -->
+</style>
+{% endblock %}
+
+{% block field_sets %}
+    <div style="display: none;"><input type="hidden" name="language" value="{{ language }}" id="id_language"/></div>
+
+    {% if show_language_tabs %}
+        {% comment %}
+        <div id="page_form_lang_tabs">
+            {% for lang_code, lang_name in language_tabs %}
+                <input type="button" onclick="trigger_lang_button(this,'./?language={{lang_code}}');"
+                       class="language_button {% ifequal lang_code language %}selected{% else %}{% if not lang_code in filled_languages %} notfilled{% endif %}{% endifequal %}"
+                       id="debutton" name="{{lang_code}}" value="{{lang_name}}" />
+            {% endfor %}
+        </div>
+        {% endcomment %}
+    {% endif %}
+
+    <div id="lang_tab_content">
+        {% if show_language_tabs %}
+            {% comment %}
+            <h2 class="header"></h2>
+            {% endcomment %}
+        {% endif %}
+
+        {{ block.super }}
+
+    </div>
+{% endblock %}

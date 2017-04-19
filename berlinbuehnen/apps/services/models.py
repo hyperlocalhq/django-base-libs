@@ -48,6 +48,9 @@ class ServicePage(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         verbose_name = _("Service Page")
         verbose_name_plural = _("Service Pages")
 
+    def get_url_path(self):
+        return ""
+
 
 class IndexItem(CMSPlugin):
     WIDTH_CHOICES = (
@@ -59,7 +62,7 @@ class IndexItem(CMSPlugin):
 
     search_fields = ('title', 'body',)
 
-    def __str__(self):
+    def __unicode__(self):
         return self.service_page.title
 
 
@@ -133,7 +136,7 @@ class Link(CreationModificationDateMixin):
     title = models.CharField(_("Title"), max_length=200)
     url = models.URLField(_("URL"))
     short_description = models.TextField(_("Short Description"), blank=True)
-    sort_order = PositionField(_("Sort order"), collection="page")
+    sort_order = PositionField(_("Sort order"), collection="category")
 
     def __unicode__(self):
         return self.title
