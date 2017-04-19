@@ -178,6 +178,8 @@ class ImageAndText(CMSPlugin):
     LAYOUT_CHOICES = (
         ("image-left", _("Image on the left")),
         ("image-right", _("Image on the right")),
+        ("image-top", _("Image at the top")),
+        ("image-bottom", _("Image at the bottom")),
     )
     title = models.CharField(_("Title"), max_length=200, blank=True)
     subtitle = models.CharField(_("Subtitle"), max_length=200, blank=True)
