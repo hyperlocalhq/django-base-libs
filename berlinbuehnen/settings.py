@@ -306,7 +306,7 @@ ADMIN_APP_INDEX = (
                 'models': ("JobType", "JobCategory", "JobOffer",),
             }),
             ('services', {
-                'models': ("ServicesOverviewPage", "LinksPage", "ArticlesPage",),
+                'models': ("Banner",),
             }),
         )
     },
