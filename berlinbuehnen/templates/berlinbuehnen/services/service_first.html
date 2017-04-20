@@ -1,0 +1,18 @@
+{% extends "cms/default.html" %}
+{% load cms_tags %}
+{# The plugin limitations of this template are defined in settings.CMS_PLACEHOLDER_CONF #}
+
+{% block content %}
+    <div class="content default">
+        <div class="container main-container">
+            <div class="row">
+                <div class="col-xs-12 col-md-12 default-intro">
+                    <h1>{% page_attribute "title" as title %}{% page_attribute "page_title" as page_title %}{{ page_title|default:title|escape }}</h1>
+                </div>
+            </div>
+            <div class="row">
+                {% placeholder "main_content" %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

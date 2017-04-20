@@ -1,0 +1,16 @@
+{% extends "cms/default.html" %}
+{% load cms_tags %}
+{# The plugin limitations of this template are defined in settings.CMS_PLACEHOLDER_CONF #}
+
+{% block content %}
+    <div class="content default">
+        <div class="container main-container">
+            <div class="row">
+                {% placeholder "intro" %}
+            </div>
+            <div class="row">
+                {% placeholder "main_content" %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

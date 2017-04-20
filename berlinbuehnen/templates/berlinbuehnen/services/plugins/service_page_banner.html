@@ -1,0 +1,13 @@
+{% load image_modifications %}
+<div class="col-md-12">
+    <div class="banner" style="background: {{ instance.banner.header_bg_color }};">
+        <a href="{% if instance.internal_link %}{{ instance.internal_link.get_absolute_url }}{% else %}{{ instance.external_link }}{% endif %}">
+            <img src="{{ MEDIA_URL }}{{ instance.banner.header_icon|modified_path:'some_modification' }}" alt="{{ instance.banner.title|escape }}" />
+        </a>
+        <h1>{{ instance.banner.title }}</h1>
+        <h1>{{ instance.banner.subtitle }}</h1>
+    </div>
+    <div class="text">
+        {{ instance.banner.get_rendered_short_description }}
+    </div>
+</div>

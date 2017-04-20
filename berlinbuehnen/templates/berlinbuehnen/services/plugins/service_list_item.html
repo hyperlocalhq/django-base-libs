@@ -1,0 +1,12 @@
+{% load image_modifications i18n %}
+<div class="col-md-4">
+    <a href="{{ instance.external_link }}">
+        <img src="{{ MEDIA_URL }}{{ instance.image|modified_path:'some_modification' }}" alt="{{ instance.title|escape }}" />
+    </a>
+    <h1>{{ instance.title }}</h1>
+    <h1>{{ instance.subtitle }}</h1>
+    <div class="text">
+        {{ instance.get_rendered_short_description }}
+    </div>
+    <a class="btn btn-primary" href="{{ instance.external_link }}" target="_blank">{% trans "Yes, I want" %}</a>
+</div>

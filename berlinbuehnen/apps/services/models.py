@@ -7,49 +7,36 @@ from django.conf import settings
 from django.utils.html import strip_tags
 from django.template.defaultfilters import truncatewords
 
-from base_libs.models.models import UrlMixin
-from base_libs.models.models import SlugMixin
 from base_libs.models.models import CreationModificationDateMixin
 from base_libs.models.fields import MultilingualCharField
-from base_libs.models.fields import MultilingualURLField
 from base_libs.models.fields import MultilingualTextField
 from base_libs.models.fields import PositionField
 from base_libs.models.fields import ExtendedTextField  # for south
 
 from filebrowser.fields import FileBrowseField
 
-from cms.models.fields import PlaceholderField
 from cms.models import CMSPlugin
 
 
 IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.gif', '.png']
 
 
-### BASE PAGE CLASS ###
+### BANNERS ###
 
-class ServicePage(CreationModificationDateMixin, SlugMixin(), UrlMixin):
-    STATUS_CHOICES = (
-        ("draft", _("Draft")),
-        ("published", _("Published")),
-        ("trashed", _("Trashed")),
-    )
+class Banner(CreationModificationDateMixin):
     title = MultilingualCharField(_("Title"), max_length=200)
+    subtitle = MultilingualCharField(_("Subtitle"), max_length=200, blank=True)
     short_description = MultilingualTextField(_("Short Description"), blank=True)
     header_bg_color = models.CharField(_("Header Background Color"), max_length=20, help_text=_("""Use RGB or HTML format, like "rgb(0, 0, 255)" or "#0000ff"."""))
-    header_icon = FileBrowseField(_("Header Icon"), max_length=255, directory="services/", extensions=IMAGE_EXTENSIONS, help_text=_("A path to a locally stored image."))
-
-    status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
+    header_icon = FileBrowseField(_("Header Icon"), max_length=255, directory="services/", extensions=IMAGE_EXTENSIONS, help_text=_("A path to a locally stored image."), blank=True)
 
     def __unicode__(self):
         return self.title
 
     class Meta:
         ordering = ["title_{}".format(settings.LANGUAGE_CODE)]
-        verbose_name = _("Service Page")
-        verbose_name_plural = _("Service Pages")
-
-    def get_url_path(self):
-        return ""
+        verbose_name = _("Service Page Banner")
+        verbose_name_plural = _("Service Page Banners")
 
 
 class IndexItem(CMSPlugin):
@@ -57,68 +44,78 @@ class IndexItem(CMSPlugin):
         ('single', _("Single")),
         ('double', _("Double")),
     )
-    service_page = models.ForeignKey(ServicePage, verbose_name=_("Service Page"))
-    width = models.CharField(_("Width"), max_length=20, default="sigle", choices=WIDTH_CHOICES)
-
-    search_fields = ('title', 'body',)
+    banner = models.ForeignKey(Banner, verbose_name=_("Banner"))
+    width = models.CharField(_("Width"), max_length=20, default="single", choices=WIDTH_CHOICES)
+    internal_link = models.ForeignKey(
+        "cms.Page",
+        verbose_name=_("Internal link"),
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+    external_link = models.URLField(_("External Link"), max_length=255, blank=True)
 
     def __unicode__(self):
-        return self.service_page.title
-
-
-### SERVICES OVERVIEW ###
-
-class ServicesOverviewPage(ServicePage):
+        return self.banner.title
+    
     class Meta:
-        verbose_name = _("Services Overview Page")
-        verbose_name_plural = _("Services Overview Pages")
+        verbose_name = _("Index Page Item")
+        verbose_name_plural = _("Index Page Items")
 
 
-class ServicesCategory(CreationModificationDateMixin, SlugMixin()):
-    page = models.ForeignKey(ServicesOverviewPage, on_delete=models.CASCADE)
-    title = MultilingualCharField(_("Title"), max_length=200)
-    subtitle = MultilingualCharField(_("Subtitle"), max_length=200, blank=True)
-    short_description = MultilingualTextField(_("Short Description"), blank=True)
-    image = FileBrowseField(_("Header Icon"), max_length=255, directory="services/", extensions=IMAGE_EXTENSIONS, help_text=_("A path to a locally stored image."))
-    sort_order = PositionField(_("Sort order"), collection="page")
+class ServicePageBanner(CMSPlugin):
+    banner = models.ForeignKey(Banner, verbose_name=_("Banner"))
+
+    def __unicode__(self):
+        return self.banner.title
+
+    class Meta:
+        verbose_name = _("Service Page Banner")
+        verbose_name_plural = _("Service Page Banners")
+
+
+### SERVICE LISTS ###
+
+class ServiceGridItem(CMSPlugin):
+    title = models.CharField(_("Title"), max_length=200)
+    subtitle = models.CharField(_("Subtitle"), max_length=200, blank=True)
+    short_description = ExtendedTextField(_("Short Description"), blank=True)
+    image = FileBrowseField(_("Header Icon"), max_length=255, directory="services/", extensions=IMAGE_EXTENSIONS, help_text=_("A path to a locally stored image."), blank=True)
+
+    internal_link = models.ForeignKey(
+        "cms.Page",
+        verbose_name=_("Internal link"),
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+    external_link = models.URLField(_("External Link"), max_length=255, blank=True)
 
     def __unicode__(self):
         return self.title
 
     class Meta:
-        ordering = ["sort_order"]
-        verbose_name = _("Service Category")
-        verbose_name_plural = _("Service Categories")
+        verbose_name = _("Grid Item")
+        verbose_name_plural = _("Grid Items")
 
 
-class Service(CreationModificationDateMixin):
-    category = models.ForeignKey(ServicesCategory, on_delete=models.CASCADE)
-    title = MultilingualCharField(_("Title"), max_length=200)
-    subtitle = MultilingualCharField(_("Subtitle"), max_length=200, blank=True)
+class ServiceListItem(CMSPlugin):
+    title = models.CharField(_("Title"), max_length=200)
+    subtitle = models.CharField(_("Subtitle"), max_length=200, blank=True)
     location = models.ForeignKey("locations.Location", verbose_name=_("Location"), help_text=_("Theater linked to this service"), blank=True, null=True)
-    short_description = MultilingualTextField(_("Short Description"), blank=True)
-    external_link = MultilingualURLField(_("External Link"), max_length=255)
-    image = FileBrowseField(_("Header Icon"), max_length=255, directory="services/", extensions=IMAGE_EXTENSIONS, help_text=_("A path to a locally stored image."))
-    sort_order = PositionField(_("Sort order"), collection="category")
+    short_description = ExtendedTextField(_("Short Description"), blank=True)
+    external_link = models.URLField(_("External Link"), max_length=255, blank=True)
+    image = FileBrowseField(_("Header Icon"), max_length=255, directory="services/", extensions=IMAGE_EXTENSIONS, help_text=_("A path to a locally stored image."), blank=True)
 
     def __unicode__(self):
         return self.title
 
     class Meta:
-        ordering = ["sort_order"]
-        verbose_name = _("Service")
-        verbose_name_plural = _("Services")
+        verbose_name = _("List Item")
+        verbose_name_plural = _("List Items")
 
 
 ### LINKS ###
-
-class LinksPage(ServicePage):
-    content = PlaceholderField(slotname="links_page_content")
-
-    class Meta:
-        verbose_name = _("Links Page")
-        verbose_name_plural = _("Links Pages")
-
 
 class LinkCategory(CMSPlugin):
     title = models.CharField(_("Title"), max_length=200)
@@ -148,14 +145,6 @@ class Link(CreationModificationDateMixin):
 
 
 ### ARTICLES ###
-
-class ArticlesPage(ServicePage):
-    content = PlaceholderField(slotname="articles_page_content")
-
-    class Meta:
-        verbose_name = _("Articles Page")
-        verbose_name_plural = _("Articles Pages")
-
 
 class TitleAndText(CMSPlugin):
     WIDTH_CHOICES = (
