@@ -17,5 +17,3 @@ SHELL=/usr/local/bin/bash
 00 05 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/rebuild_index.sh
 15 06 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/backup_db.sh
 */5 * * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/send_mails.sh
-00 21 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/send_notification_digests.sh
-@reboot /usr/local/www/apache24/data/creative-city-berlin.de/commands/start_celeryd.sh
