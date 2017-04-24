@@ -231,7 +231,7 @@ def member_detail(request, slug, creative_sector_slug="", **kwargs):
         kwargs['slug_field'] = 'user__username'
         kwargs['slug'] = slug
     else:
-        if not request.user.has_perm("institutions.change_institution", item.content_object) and item.status not in ("published", "published_commercial"):
+        if not request.user.has_perm("institutions.change_institution", item.content_object) and item.status not in ("published", "published_commercial", "event_location"):
             return access_denied(request)
         kwargs['queryset'] = Institution.objects.all()
         kwargs['template_name'] = 'institutions/institution_details.html'
@@ -265,7 +265,7 @@ def member_events_list(request, slug, **kwargs):
         ).order_by('start')
         kwargs['template_name'] = 'people/person_events.html'
     else:
-        if not request.user.has_perm("institutions.change_institution", item.content_object) and item.status not in ("published", "published_commercial"):
+        if not request.user.has_perm("institutions.change_institution", item.content_object) and item.status not in ("published", "published_commercial", "event_location"):
             return access_denied(request)
         institution = item.content_object
         kwargs['queryset'] = kwargs['queryset'].filter(
