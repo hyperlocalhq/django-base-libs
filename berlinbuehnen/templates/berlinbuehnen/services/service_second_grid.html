@@ -1,15 +1,22 @@
 {% extends "cms/default.html" %}
-{% load cms_tags %}
+{% load cms_tags i18n %}
 {# The plugin limitations of this template are defined in settings.CMS_PLACEHOLDER_CONF #}
 
+{% block bodyclass %}service-grid no-transition{% endblock %}
+
 {% block content %}
-    <div class="content default">
-        <div class="container main-container">
-            <div class="row">
+    <div class="content overview">
+        <div class="container">
+            <div class="row header">
+                <h1 class="bottom-line">{% trans "Service" %}</h1>
                 {% placeholder "intro" %}
             </div>
             <div class="row">
-                {% placeholder "main_content" %}
+                <div class="col-xs-12 print-padding">
+                    <div id="main_list" class="grid location-grid grid-autoload row">
+                        {% placeholder "main_content" %}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

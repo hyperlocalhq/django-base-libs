@@ -1,11 +1,14 @@
 {% extends "cms/default.html" %}
-{% load cms_tags %}
+{% load cms_tags i18n %}
 {# The plugin limitations of this template are defined in settings.CMS_PLACEHOLDER_CONF #}
 
+{% block bodyclass %}service-page no-transition{% endblock %}
+
 {% block content %}
-    <div class="content default">
-        <div class="container main-container">
-            <div class="row">
+    <div class="content">
+        <div class="container">
+            <div class="row header">
+                <h1 class="bottom-line">{% trans "Service" %}</h1>
                 {% placeholder "intro" %}
             </div>
             <div class="row">

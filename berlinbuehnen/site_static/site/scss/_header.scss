@@ -1,3 +1,5 @@
+// main:style.scss
+
 @charset "utf-8";
 
 // ================= HEADER =================
@@ -5,12 +7,12 @@
 
 .navbar-wrapper {
     height: 180px;
-    
+
     .navbar {
         border-bottom: none;
         width:100%;
         position:fixed;
-        
+
         .background {
             width: 100%;
             height: 190px;
@@ -19,9 +21,9 @@
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.07);
             visibility:hidden;
         }
-        
-        
-        
+
+
+
         ul.social_links {
             position: absolute;
             right: -13px;
@@ -40,21 +42,21 @@
             }
         }
     }
-    
+
     .navbar-header {
         min-height: 140px;
-      
+
         .navbar-brand {
             position: relative;
             left: 0px;
             max-width: 400px;
             padding: 0;
             margin: 50px 10px 0 0;
-            
+
             img {
                 width: 100%;
             }
-            
+
             &.hidden-xs {
                 width: 400px;
             }
@@ -66,10 +68,10 @@
             }
         }
     }
-    
+
     .top_nav {
         position: relative;
-        
+
         .nav {
             font-weight: $bold;
             text-transform: uppercase;
@@ -77,10 +79,15 @@
             float: none;
             & > li {
                 margin-right: 2.2%;
+
                 &.active {
                     a {
                         color: $blue;
                     }
+                }
+
+                &:last-child {
+                    margin-right: 0 !important;
                 }
             }
             a {
@@ -92,7 +99,7 @@
                 }
             }
         }
-        
+
         &.collapse-navbar {
             position: fixed;
             width: 100%;
@@ -142,10 +149,10 @@
 
     box-sizing: border-box;
     -moz-box-sizing: border-box;
-    padding-right: 10px; 
-    padding-left: 10px; 
-    width: auto; 
-    
+    padding-right: 10px;
+    padding-left: 10px;
+    width: auto;
+
     span { display: none;}
     &:hover {
       background-color: black !important;
@@ -159,16 +166,16 @@
     padding: 0 60px 0 0;
     position: fixed;
     top: 12px;
-    
+
     #meta {
-        list-style: none;    
+        list-style: none;
         margin: 0;
         font-weight: $regular;
         font-size: 0.875em;
         color: black;
         float: right;
         z-index: 999999;
-        
+
         a {
             color: black;
             text-transform: uppercase;
@@ -176,7 +183,7 @@
                 color: black;
             }
         }
-        
+
         li.meta-item {
             float: left;
             margin-right: 20px;
@@ -198,13 +205,13 @@
                 margin: 3px -9px 0 0;
             }
         }
-            
+
         #language-menu {
             margin-right: 0;
-        
+
             .languages {
                 list-style: none;
-                
+
                 li {
                     float: left;
                     text-transform: uppercase;
@@ -226,11 +233,11 @@
                             margin-left: 0px;
                         }
                     }
-                    
+
                 }
             }
         }
-    
+
         #nav-toggle-button {
             position: relative;
             right: -30px;
@@ -266,16 +273,16 @@
 
 .is-sm {
     .navbar-wrapper {
-        
+
         height: 155px;
-        
+
         .navbar-header {
-            min-height: 130px;    
+            min-height: 130px;
             .navbar-brand {
                 margin-top: 45px;
             }
         }
-        
+
         ul.social_links li {
             margin-right: 0;
             a {
@@ -291,11 +298,11 @@
                 }
             }
         }
-        
+
         .background {
             height: 165px;
         }
-        
+
         .top_nav {
             .nav {
                 & > li {
@@ -305,7 +312,7 @@
                         line-height: 30px;
                     }
                 }
-                
+
                 a {
                     font-size: 0.9em;
                 }
@@ -323,7 +330,7 @@
             visibility: visible;
         }
         .navbar-header {
-            min-height: 110px;    
+            min-height: 110px;
         }
     }
 }
@@ -332,5 +339,83 @@
     margin-right: 10px !important;
     ul.social_links {
         position: static !important;
+    }
+}
+
+.header {
+    .banner {
+        color: white;
+        overflow: hidden;
+        padding: 0 0 20px;
+        margin-bottom: 10px;
+        cursor: default;
+        position: relative;
+
+        .image {
+            margin: 30px 40px 0 0;
+            text-align: right;
+
+            .fawesome:before {
+                vertical-align: middle;
+                padding: 0;
+                font-size: 3.7rem;
+            }
+
+            .arrow-right:before {
+                padding-right: 30px;
+            }
+            .arrow-left:before {
+                padding-left: 30px;
+            }
+
+            .is-xs & {
+                margin-bottom: 20px;
+            }
+        }
+
+        .text {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            -ms-transform: translateY(-45%);
+            -webkit-transform: translateY(-45%);
+            transform: translateY(-45%);
+
+            .is-xs & {
+                position: static;
+                -ms-transform: translateY(0);
+                -webkit-transform: translateY(0);
+                transform: translateY(0);
+            }
+        }
+
+        img {
+            width: auto;
+            max-width: 100%;
+            height: auto;
+            max-height: 150px;
+            margin: 0;
+            padding: 0;
+            display: inline;
+
+            .is-sm & {
+                max-height: 100px;
+            }
+        }
+
+        h2 {
+            font-size: 1.85em;
+            font-weight: $regular;
+            margin: 0;
+            padding: 0 20px;
+            text-transform: uppercase;
+        }
+
+        h3 {
+            margin: 0;
+            padding: 0 20px;
+            font-weight: $regular;
+        }
+
     }
 }

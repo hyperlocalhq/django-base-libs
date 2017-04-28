@@ -2,16 +2,23 @@
 {% load cms_tags %}
 {# The plugin limitations of this template are defined in settings.CMS_PLACEHOLDER_CONF #}
 
+{% block bodyclass %}service-list no-transition{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/grid.js" defer="defer"></script>
+{% endblock %}
+
 {% block content %}
-    <div class="content default">
-        <div class="container main-container">
+    <div class="content overview">
+        <div class="container">
             <div class="row">
-                <div class="col-xs-12 col-md-12 default-intro">
-                    <h1>{% page_attribute "title" as title %}{% page_attribute "page_title" as page_title %}{{ page_title|default:title|escape }}</h1>
+                <h1 class="bottom-line">{% page_attribute "title" as title %}{% page_attribute "page_title" as page_title %}{{ page_title|default:title|escape }}</h1>
+
+                <div class="col-xs-12 print-padding">
+                    <div id="main_list" class="grid festival-grid mazery-grid row">
+                        {% placeholder "main_content" %}
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                {% placeholder "main_content" %}
             </div>
         </div>
     </div>
