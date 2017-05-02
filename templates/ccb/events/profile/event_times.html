@@ -8,19 +8,21 @@
             <h2>{% trans "Event Times" %}</h2>
 
             <dl class="input-fields">
-                <dt>{% trans "When" %}</dt>
+                <dt>
+                    {% trans "When" %}
+                </dt>
                 <dd>
                     <div class="text-field">
                         {% if event_time %}
                             {% with event_time as time %}
-                                <div>{% include "events/includes/event_time.html" %}</div>
+                                <div>{% if time.label  %}{{ time.label }}: {% endif %}{% include "events/includes/event_time.html" %}</div>
                             {% endwith %}
                             <div>
                                 <a href="{{ event_time.event.get_absolute_url }}#event-occurrences">{% trans "See all occurrences" %}</a>
                             </div>
                         {% else %}
                             {% for time in object.eventtime_set.all %}
-                                <div>{% include "events/includes/event_time.html" %}</div>
+                                <div>{% if time.label  %}{{ time.label }}: {% endif %}{% include "events/includes/event_time.html" %}</div>
                             {% endfor %}
                         {% endif %}
                     </div>
