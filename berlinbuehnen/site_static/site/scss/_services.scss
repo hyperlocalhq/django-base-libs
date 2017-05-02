@@ -24,6 +24,19 @@
     }
 }
 
+
+
+.grid {
+    &.edit-adjustment {
+        .cms-edit & {
+            height: auto !important;
+            .grid-item {
+                position: static !important;
+            }
+        }
+    }
+}
+
 .service-grid, .service-list, .service-page {
 
     .grid-item {
@@ -113,5 +126,5 @@
 }
 
 .link-category {
-    
+
 }

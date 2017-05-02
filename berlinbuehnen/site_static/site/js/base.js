@@ -95,17 +95,17 @@ $(document).ready(function() {
     });
 
     $("select").not('[name*="__prefix__"]').not('[sb]').not('[multiple]').selectbox();
-    
-    
+
+
     var current_width_sniffer = 'is-nothing';
     var widthSniffer = function() {
-       
+
         var new_width_sniffer = false;
         $('.width-sniffer').each(function() {
-            
+
             var $this = $(this);
             if ($this.css('display') == 'block') {
-                
+
                 if ($this.hasClass('visible-xs')) {
                     new_width_sniffer = 'is-xs';
                 } else if ($this.hasClass('visible-sm')) {
@@ -115,19 +115,33 @@ $(document).ready(function() {
                 } else if ($this.hasClass('visible-lg')) {
                     new_width_sniffer = 'is-lg';
                 }
-                
+
                 return false;
             }
-        }); 
-        
+        });
+
         if (new_width_sniffer && new_width_sniffer != current_width_sniffer) {
             var $body = $('body').removeClass(current_width_sniffer);
-            current_width_sniffer = new_width_sniffer; 
+            current_width_sniffer = new_width_sniffer;
             $body.addClass(new_width_sniffer);
-        }        
+        }
     }
     $(window).resize(widthSniffer);
     widthSniffer();
+
+
+    var cmsSniffer = function() {
+
+        var search = location.search.substr(1);
+        console.log(search);
+        search = search.split("&");
+        for (var i=0; i<search.length; i++) {
+            var item = search[i].split("=");
+            if (item[0] == "edit") break;
+        }
+        if (i != search.length) $('body').addClass('cms-edit');
+    }
+    cmsSniffer();
 });
 
 // ADD crsftoken TO AJAX CALLS
@@ -154,58 +168,58 @@ if ($.browser.msie) {
 
 
 window.tooltipAdjustments = function() {
-    
+
     var tooltipFix = function(event) {
-        
+
         var $element = $(event.target);
         var $tooltip = $element.next('.tooltip');
-        
+
         var getValue = function(data) {
-            
+
             if (typeof data == "undefined") return 0;
-            
+
             var default_value = 0;
             var values = data.split(';');
             for (var i=0, length=values.length; i<length; i++) {
-                values[i] = values[i].split(',');   
+                values[i] = values[i].split(',');
                 if (values[i].length == 1 && default_value == 0) default_value = parseInt(values[i][0]);
             }
-            
+
             if (length == 0) return 0;
-            
+
             for (var i=0, length=values.length; i<length; i++) {
                 if (values[i].length == 2) {
                     if ($element.parents(values[i][1]).length) return parseInt(values[i][0]);
                 }
             }
-            
+
             return default_value;
         }
-        
+
         var clear = function(event) {
-        
+
             var $element = $(event.target);
             var $tooltip = $element.next('.tooltip');
-            
+
             $element.off('hidden.bs.tooltip');
-            
-            $tooltip.css("min-width", "");  
+
+            $tooltip.css("min-width", "");
         }
-        
+
         if ($tooltip.length) {
-            
-            var top_offset = getValue($element.attr('data-tooltip-top'));  
+
+            var top_offset = getValue($element.attr('data-tooltip-top'));
             var left_offset = getValue($element.attr('data-tooltip-left'));
             var top_absolute = getValue($element.attr('data-tooltip-top-abs'));
             var bottom_absolute = getValue($element.attr('data-tooltip-bottom-abs'));
             var left_absolute = getValue($element.attr('data-tooltip-left-abs'));
             var right_absolute = getValue($element.attr('data-tooltip-right-abs'));
-            
+
             var min_width = getValue($element.attr('data-tooltip-width'));
             if (min_width < 0) min_width = 0;
-            
+
             var height = $tooltip.height();
-            
+
             if (top_offset != 0) {
                 var top = parseInt($tooltip.css("top"));
                 $tooltip.css("top", (top + top_offset) + "px");
@@ -215,7 +229,7 @@ window.tooltipAdjustments = function() {
                 $tooltip.css("top", "");
                 $tooltip.css("bottom", bottom_absolute + "px");
             }
-            
+
             if (left_offset != 0) {
                 var left = parseInt($tooltip.css("left"));
                 $tooltip.css("left", (left + left_offset) + "px");
@@ -225,29 +239,28 @@ window.tooltipAdjustments = function() {
                 $tooltip.css("left", "");
                 $tooltip.css("right", right_absolute + "px");
             }
-            
-            
+
+
             if ($tooltip.width() < min_width) {
                 var width_offset = Math.round(($tooltip.width() - min_width) / 2);
-                $tooltip.css("min-width", min_width + "px");    
+                $tooltip.css("min-width", min_width + "px");
                 var left = parseInt($tooltip.css("left"));
                 $tooltip.css("left", (left + width_offset) + "px");
             }
-            
+
             var height_offset = height - $tooltip.height();
             if (height_offset != 0 && (top_offset != 0 || left_offset != 0) ) {
                 var top = parseInt($tooltip.css("top"));
                 $tooltip.css("top", (top + height_offset) + "px");
             }
-            
+
             $element.on('hidden.bs.tooltip',  clear);
         }
     }
-    
+
     $('[data-toggle="tooltip"]').off('shown.bs.tooltip').on('shown.bs.tooltip', tooltipFix);
 }
 
 $(document).ready(function() {
     window.tooltipAdjustments();
 });
-

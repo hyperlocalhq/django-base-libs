@@ -8021,6 +8021,10 @@ body.is-xs.safari .list-item-head-date .list-item-head-date-icons {
   color: black;
 }
 
+.grid.mazery-grid .cms_placeholder-bar a {
+  border-bottom: 1px;
+}
+
 .grid.mazery-grid h2 {
   margin-bottom: 10px;
 }
@@ -9189,6 +9193,14 @@ span.pin a {
 .services-container .row hr {
   margin-left: 10px;
   margin-right: 10px;
+}
+
+.cms-edit .grid.edit-adjustment {
+  height: auto !important;
+}
+
+.cms-edit .grid.edit-adjustment .grid-item {
+  position: static !important;
 }
 
 .service-grid .grid-item h2, .service-list .grid-item h2, .service-page .grid-item h2 {
