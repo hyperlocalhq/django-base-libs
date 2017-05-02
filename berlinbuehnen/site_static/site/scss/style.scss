@@ -32,6 +32,7 @@
 @import 'account';
 @import 'map';
 @import 'education_info';
+@import "services";
 //@import 'isotope';
 //@import 'tooltip';
 //@import 'maps';
@@ -546,4 +547,12 @@ em { color: black; font-style: italic; }
     ul {
         margin-left: 25px;
     }
+}
+
+hr.big {
+    padding-bottom: 30px;
+    margin: 0 30px 35px 30px;
+    border: 0;
+    border-bottom: 4px solid black;
+    height: 0;
 }

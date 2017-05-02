@@ -1,0 +1,117 @@
+// main:style.scss
+
+// @Author: Daniel Lehmann
+// @Date:   2017/05/01
+// @Email:  code@dreammedia.info
+// @Last modified by:   Daniel Lehmann
+// @Last modified time: 2017/05/02
+// @copyright Daniel Lehmann (code@dreammedia.info)
+
+.services-container {
+    .row {
+        margin-left: -10px;
+        margin-right: -10px;
+
+        .col-md-6, .col-xs-12 {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        hr {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+    }
+}
+
+.service-grid, .service-list, .service-page {
+
+    .grid-item {
+        h2 {
+            font-weight: $bold;
+            font-size: 1.125em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        h3 {
+            font-weight: $regular;
+            font-size: 1.05em;
+            margin-top: 0px;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 0.9em;
+        }
+        .grid-item-image {
+            &:hover {
+                img {
+                    opacity: 1 !important;
+                }
+            }
+        }
+        .button {
+            color: white;
+            background: black;
+            font-size: 0.9em;
+            text-align: center;
+            display: inline-block;
+            padding: 1px 10px;
+            min-width: 150px;
+            text-transform: uppercase;
+            font-weight: $bold;
+            margin-top: 15px;
+
+            &:hover {
+                background: $blue;
+            }
+        }
+    }
+
+    .horizontal, .top-bottom, .bottom-top, .title-text {
+
+        h2 {
+            font-weight: $bold;
+            font-size: 1.125em;
+            text-transform: uppercase;
+            margin-top: -5px;
+            margin-bottom: 10px;
+        }
+        h3 {
+            font-weight: $regular;
+            font-size: 1.05em;
+            margin-top: 0px;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 0.9em;
+        }
+        img {
+            width: 100%;
+        }
+    }
+
+    .top-bottom {
+        h2 {
+            margin-top: 20px;
+        }
+    }
+
+    .bottom-top {
+        img {
+            margin-top: 20px;
+        }
+    }
+
+    .title-text {
+        overflow: hidden;
+
+        hr {
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+}
+
+.link-category {
+    
+}

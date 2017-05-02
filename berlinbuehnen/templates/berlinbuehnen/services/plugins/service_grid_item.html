@@ -4,9 +4,9 @@
         <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ instance.image|modified_path:'detail_image' }}" alt="{{ instance.title|escape }}" />
     </span>
     <h2>{{ instance.title }}</h2>
-    <h3>{{ instance.subtitle }}</h3>
+    {% if instance.subtitle %}<h3>{{ instance.subtitle }}</h3>{% endif %}
     <div class="text">
         {{ instance.get_rendered_short_description }}
     </div>
-    <div class="button">{% trans "More" %}</div>
+    <div class="button">{% trans "more" %}</div>
 </a>

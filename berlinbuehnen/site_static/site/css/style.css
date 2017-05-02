@@ -2863,6 +2863,16 @@ strong {
   font-weight: 400;
 }
 
+.is-xs .header .col-xs-12 {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.is-xs .header hr {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 #wrapper {
   min-height: 100%;
   position: relative;
@@ -9166,6 +9176,100 @@ span.pin a {
   color: #4583c8;
 }
 
+.services-container .row {
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+.services-container .row .col-md-6, .services-container .row .col-xs-12 {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.services-container .row hr {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.service-grid .grid-item h2, .service-list .grid-item h2, .service-page .grid-item h2 {
+  font-weight: 700;
+  font-size: 1.125em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.service-grid .grid-item h3, .service-list .grid-item h3, .service-page .grid-item h3 {
+  font-weight: 400;
+  font-size: 1.05em;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+.service-grid .grid-item p, .service-list .grid-item p, .service-page .grid-item p {
+  font-size: 0.9em;
+}
+
+.service-grid .grid-item .grid-item-image:hover img, .service-list .grid-item .grid-item-image:hover img, .service-page .grid-item .grid-item-image:hover img {
+  opacity: 1 !important;
+}
+
+.service-grid .grid-item .button, .service-list .grid-item .button, .service-page .grid-item .button {
+  color: white;
+  background: black;
+  font-size: 0.9em;
+  text-align: center;
+  display: inline-block;
+  padding: 1px 10px;
+  min-width: 150px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-top: 15px;
+}
+
+.service-grid .grid-item .button:hover, .service-list .grid-item .button:hover, .service-page .grid-item .button:hover {
+  background: #4583c8;
+}
+
+.service-grid .horizontal h2, .service-grid .top-bottom h2, .service-grid .bottom-top h2, .service-grid .title-text h2, .service-list .horizontal h2, .service-list .top-bottom h2, .service-list .bottom-top h2, .service-list .title-text h2, .service-page .horizontal h2, .service-page .top-bottom h2, .service-page .bottom-top h2, .service-page .title-text h2 {
+  font-weight: 700;
+  font-size: 1.125em;
+  text-transform: uppercase;
+  margin-top: -5px;
+  margin-bottom: 10px;
+}
+
+.service-grid .horizontal h3, .service-grid .top-bottom h3, .service-grid .bottom-top h3, .service-grid .title-text h3, .service-list .horizontal h3, .service-list .top-bottom h3, .service-list .bottom-top h3, .service-list .title-text h3, .service-page .horizontal h3, .service-page .top-bottom h3, .service-page .bottom-top h3, .service-page .title-text h3 {
+  font-weight: 400;
+  font-size: 1.05em;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+.service-grid .horizontal p, .service-grid .top-bottom p, .service-grid .bottom-top p, .service-grid .title-text p, .service-list .horizontal p, .service-list .top-bottom p, .service-list .bottom-top p, .service-list .title-text p, .service-page .horizontal p, .service-page .top-bottom p, .service-page .bottom-top p, .service-page .title-text p {
+  font-size: 0.9em;
+}
+
+.service-grid .horizontal img, .service-grid .top-bottom img, .service-grid .bottom-top img, .service-grid .title-text img, .service-list .horizontal img, .service-list .top-bottom img, .service-list .bottom-top img, .service-list .title-text img, .service-page .horizontal img, .service-page .top-bottom img, .service-page .bottom-top img, .service-page .title-text img {
+  width: 100%;
+}
+
+.service-grid .top-bottom h2, .service-list .top-bottom h2, .service-page .top-bottom h2 {
+  margin-top: 20px;
+}
+
+.service-grid .bottom-top img, .service-list .bottom-top img, .service-page .bottom-top img {
+  margin-top: 20px;
+}
+
+.service-grid .title-text, .service-list .title-text, .service-page .title-text {
+  overflow: hidden;
+}
+
+.service-grid .title-text hr, .service-list .title-text hr, .service-page .title-text hr {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 html {
   height: 100%;
 }
@@ -9749,4 +9853,12 @@ em {
 
 .cms-plugin-richtext ul {
   margin-left: 25px;
+}
+
+hr.big {
+  padding-bottom: 30px;
+  margin: 0 30px 35px 30px;
+  border: 0;
+  border-bottom: 4px solid black;
+  height: 0;
 }

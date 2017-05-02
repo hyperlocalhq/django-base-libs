@@ -1,42 +1,93 @@
 {% load image_modifications %}
+
+<div class="col-xs-12 print-padding">
 {% if instance.layout == "image-left" %}
-    <div class="col-md-6">
-        <img src="{{ MEDIA_URL }}{{ instance.image|modified_path:'some_modification' }}" alt="{{ instance.alt|escape }}" class="img-responsive" />
-    </div>
-    <div class="col-md-6">
-        <h3>{{ instance.title }}</h3>
-        <h4>{{ instance.subtitle }}</h4>
-        <div class="text">
-            {{ instance.get_rendered_body }}
+    <div class="row hidden-xs hidden-sm horizontal">
+        <div class="col-md-6">
+            <img src="{{ MEDIA_URL }}{{ instance.image|modified_path:'some_modification' }}" alt="{{ instance.alt|escape }}" class="img-responsive" />
         </div>
+        <div class="col-md-6">
+            <h2>{{ instance.title }}</h2>
+            <h3>{{ instance.subtitle }}</h3>
+            <div class="text">
+                {{ instance.get_rendered_body }}
+            </div>
+        </div>
+    </div>
+    <div class="row visible-xs visible-sm top-bottom">
+        <div class="col-xs-12">
+            <img src="{{ MEDIA_URL }}{{ instance.image|modified_path:'some_modification' }}" alt="{{ instance.alt|escape }}" class="img-responsive" />
+        </div>
+        <div class="col-xs-12">
+            <h2>{{ instance.title }}</h2>
+            <h3>{{ instance.subtitle }}</h3>
+            <div class="text">
+                {{ instance.get_rendered_body }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <hr class="big"/>
     </div>
 {% elif instance.layout == "image-right" %}
-    <div class="col-md-6">
-        <h3>{{ instance.title }}</h3>
-        <h4>{{ instance.subtitle }}</h4>
-        <div class="text">
-            {{ instance.get_rendered_body }}
+    <div class="row hidden-xs hidden-sm horizontal">
+        <div class="col-md-6">
+            <h2>{{ instance.title }}</h2>
+            <h3>{{ instance.subtitle }}</h3>
+            <div class="text">
+                {{ instance.get_rendered_body }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <img src="{{ MEDIA_URL }}{{ instance.image|modified_path:'some_modification' }}" alt="{{ instance.alt|escape }}" class="img-responsive" />
         </div>
     </div>
-    <div class="col-md-6">
-        <img src="{{ MEDIA_URL }}{{ instance.image|modified_path:'some_modification' }}" alt="{{ instance.alt|escape }}" class="img-responsive" />
+    <div class="row visible-xs visible-sm top-bottom">
+        <div class="col-xs-12">
+            <img src="{{ MEDIA_URL }}{{ instance.image|modified_path:'some_modification' }}" alt="{{ instance.alt|escape }}" class="img-responsive" />
+        </div>
+        <div class="col-xs-12">
+            <h2>{{ instance.title }}</h2>
+            <h3>{{ instance.subtitle }}</h3>
+            <div class="text">
+                {{ instance.get_rendered_body }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <hr class="big"/>
     </div>
 {% elif instance.layout == "image-top" %}
-    <div class="col-md-12">
-        <img src="{{ MEDIA_URL }}{{ instance.image|modified_path:'some_modification' }}" alt="{{ instance.alt|escape }}" class="img-responsive" />
-        <h3>{{ instance.title }}</h3>
-        <h4>{{ instance.subtitle }}</h4>
-        <div class="text">
-            {{ instance.get_rendered_body }}
+    <div class="row top-bottom">
+        <div class="col-xs-12">
+            <img src="{{ MEDIA_URL }}{{ instance.image|modified_path:'some_modification' }}" alt="{{ instance.alt|escape }}" class="img-responsive" />
         </div>
+        <div class="col-xs-12">
+            <h2>{{ instance.title }}</h2>
+            <h3>{{ instance.subtitle }}</h3>
+            <div class="text">
+                {{ instance.get_rendered_body }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <hr class="big"/>
     </div>
 {% elif instance.layout == "image-bottom" %}
-    <div class="col-md-12">
-        <h3>{{ instance.title }}</h3>
-        <h4>{{ instance.subtitle }}</h4>
-        <div class="text">
-            {{ instance.get_rendered_body }}
+    <div class="row bottom-top">
+        <div class="col-xs-12">
+            <h2>{{ instance.title }}</h2>
+            <h3>{{ instance.subtitle }}</h3>
+            <div class="text">
+                {{ instance.get_rendered_body }}
+            </div>
         </div>
-        <img src="{{ MEDIA_URL }}{{ instance.image|modified_path:'some_modification' }}" alt="{{ instance.alt|escape }}" class="img-responsive" />
+        <div class="col-xs-12">
+            <img src="{{ MEDIA_URL }}{{ instance.image|modified_path:'some_modification' }}" alt="{{ instance.alt|escape }}" class="img-responsive" />
+        </div>
+    </div>
+    <div class="row">
+        <hr class="big"/>
     </div>
 {% endif %}
+</div>

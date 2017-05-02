@@ -343,6 +343,7 @@
 }
 
 .header {
+
     .banner {
         color: white;
         overflow: hidden;
@@ -417,5 +418,16 @@
             font-weight: $regular;
         }
 
+    }
+
+    .is-xs & {
+        .col-xs-12 {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        hr {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
     }
 }
