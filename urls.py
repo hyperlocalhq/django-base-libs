@@ -336,8 +336,6 @@ urlpatterns += i18n_patterns(
         name="json_country_lookup"),
     url(r'^helper/%s_lookup/$' % URL_ID_INSTITUTION, 'jetson.apps.utils.views.jquery_autocomplete_lookup',
         institution_lookup, name="institution_lookup"),
-    url(r'^helper/%s_lookup/$' % URL_ID_PERSON, 'jetson.apps.utils.views.jquery_autocomplete_lookup', person_lookup,
-        name="person_lookup"),
 
     # helper for getting related objects from given contenttype
     url(
@@ -431,6 +429,9 @@ urlpatterns += i18n_patterns(
         _project_name + '.apps.marketplace.ajax.json_get_institution_attrs'),
 
     url(r'^helper/site-visitors/$', "ccb.apps.site_specific.views.site_visitors"),
+
+    # iframely wrapper
+    url(r'^helper/iframely/$', 'jetson.apps.iframely.views.iframely_wrapper', name="iframely_wrapper"),
 )
 
 if 'rosetta' in settings.INSTALLED_APPS:

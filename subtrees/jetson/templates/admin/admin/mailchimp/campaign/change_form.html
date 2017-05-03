@@ -52,8 +52,8 @@
     <script type="text/javascript" src="{{ STATIC_URL }}filebrowser/js/FB_CKEditor.js"></script>
     <script type="text/javascript">
         if (CKEDITOR) {
-            // Added by Roger Hu 02/27/2010
             CKEDITOR.config.filebrowserBrowseUrl = '/admin/filebrowser/browse?pop=3';
+            CKEDITOR.config.embed_provider = '{% url "iframely_wrapper" %}?url={url}&callback={callback}';
             CKEDITOR.config.allowedContent = true;
         }
     </script>
