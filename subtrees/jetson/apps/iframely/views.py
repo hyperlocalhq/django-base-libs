@@ -8,7 +8,7 @@ from django.http import HttpResponse
 def iframely_wrapper(request):
     headers = {
         'user-agent': request.META['HTTP_USER_AGENT'],
-        'referer': request.META['HTTP_REFERER'],
+        'referer': "http://127.0.0.1/",
     }
     target_response = requests.get(
         "http://ckeditor.iframe.ly/api/oembed",
