@@ -16,6 +16,7 @@ from base_libs.models.fields import ExtendedTextField  # for south
 from filebrowser.fields import FileBrowseField
 
 from cms.models import CMSPlugin
+from cms.models.fields import PageField
 
 
 IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.gif', '.png']
@@ -32,9 +33,8 @@ class Banner(CreationModificationDateMixin):
 
     def __unicode__(self):
         if (self.subtitle):
-            return self.title+" - "+self.subtitle
-        else:
-            return self.title
+            return u"{title} - {subtitle}".format(title=self.title, subtitle=self.subtitle)
+        return self.title
 
     class Meta:
         ordering = ["title_{}".format(settings.LANGUAGE_CODE)]
@@ -49,8 +49,7 @@ class IndexItem(CMSPlugin):
     )
     banner = models.ForeignKey(Banner, verbose_name=_("Banner"))
     width = models.CharField(_("Width"), max_length=20, default="single", choices=WIDTH_CHOICES)
-    internal_link = models.ForeignKey(
-        "cms.Page",
+    internal_link = PageField(
         verbose_name=_("Internal link"),
         blank=True,
         null=True,
@@ -85,8 +84,7 @@ class ServiceGridItem(CMSPlugin):
     short_description = ExtendedTextField(_("Short Description"), blank=True)
     image = FileBrowseField(_("Header Icon"), max_length=255, directory="services/", extensions=IMAGE_EXTENSIONS, help_text=_("A path to a locally stored image."), blank=True)
 
-    internal_link = models.ForeignKey(
-        "cms.Page",
+    internal_link = PageField(
         verbose_name=_("Internal link"),
         blank=True,
         null=True,
