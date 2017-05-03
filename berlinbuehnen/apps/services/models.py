@@ -31,7 +31,10 @@ class Banner(CreationModificationDateMixin):
     header_icon = FileBrowseField(_("Header Icon"), max_length=255, directory="services/", extensions=IMAGE_EXTENSIONS, help_text=_("A path to a locally stored image."), blank=True)
 
     def __unicode__(self):
-        return self.title
+        if (self.subtitle):
+            return self.title+" - "+self.subtitle
+        else:
+            return self.title
 
     class Meta:
         ordering = ["title_{}".format(settings.LANGUAGE_CODE)]
@@ -57,7 +60,7 @@ class IndexItem(CMSPlugin):
 
     def __unicode__(self):
         return self.banner.title
-    
+
     class Meta:
         verbose_name = _("Index Page Item")
         verbose_name_plural = _("Index Page Items")
@@ -100,12 +103,17 @@ class ServiceGridItem(CMSPlugin):
 
 
 class ServiceListItem(CMSPlugin):
+    LINK_TEXT_CHOICES = (
+        ("Yes, please", _("Yes, please")),
+        ("more", _("more")),
+    )
     title = models.CharField(_("Title"), max_length=200)
     subtitle = models.CharField(_("Subtitle"), max_length=200, blank=True)
     location = models.ForeignKey("locations.Location", verbose_name=_("Location"), help_text=_("Theater linked to this service"), blank=True, null=True)
     short_description = ExtendedTextField(_("Short Description"), blank=True)
     external_link = models.URLField(_("External Link"), max_length=255, blank=True)
-    image = FileBrowseField(_("Header Icon"), max_length=255, directory="services/", extensions=IMAGE_EXTENSIONS, help_text=_("A path to a locally stored image."), blank=True)
+    image = FileBrowseField(_("Image"), max_length=255, directory="services/", extensions=IMAGE_EXTENSIONS, help_text=_("A path to a locally stored image."), blank=True)
+    link_text = models.CharField(_("Link Text"), max_length=20, default="Yes, please", choices=LINK_TEXT_CHOICES)
 
     def __unicode__(self):
         return self.title

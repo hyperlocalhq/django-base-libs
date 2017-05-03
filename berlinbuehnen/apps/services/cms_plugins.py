@@ -61,7 +61,7 @@ class ServiceListItemPlugin(PluginBase):
     model = ServiceListItem
     name = _("Service List Item")
     render_template = "services/plugins/service_list_item.html"
-    fields = ("title", "subtitle", "location", "short_description", "short_description_markup_type", "image", "external_link")
+    fields = ("title", "subtitle", "short_description", "short_description_markup_type", "image", "external_link", "link_text")
 
 plugin_pool.register_plugin(ServiceListItemPlugin)
 

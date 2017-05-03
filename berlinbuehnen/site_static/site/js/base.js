@@ -264,3 +264,17 @@ window.tooltipAdjustments = function() {
 $(document).ready(function() {
     window.tooltipAdjustments();
 });
+
+
+function goToParent() {
+
+    var href=location.pathname;
+    href=href.split("/");
+    
+    if (href[href.length-1] == "") href.pop();
+    href.pop();
+
+    location.href = href.join("/");
+
+    return false;
+}

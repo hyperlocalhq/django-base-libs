@@ -10,7 +10,7 @@ from .models import Banner
 
 class BannerAdmin(ExtendedModelAdmin):
     save_on_top = True
-    list_display = ["title", "creation_date", "modified_date", "header_bg_color"]
+    list_display = ["title", "subtitle", "creation_date", "modified_date", "header_bg_color"]
     list_filter = ["creation_date", "modified_date"]
 
     fieldsets = get_admin_lang_section(_("Title"), ["title", "subtitle", "short_description"])
