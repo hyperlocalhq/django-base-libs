@@ -135,6 +135,18 @@ class LinkCategory(CMSPlugin):
         verbose_name = _("Link Category")
         verbose_name_plural = _("Link Categories")
 
+    def copy_relations(self, old_instance):
+        self.link_set.all().delete()
+        for old_link in old_instance.link_set.all():
+            new_link = Link(
+                category=self,
+                title=old_link.title,
+                url=old_link.url,
+                short_description=old_link.short_description,
+                sort_order=old_link.sort_order,
+            )
+            new_link.save()
+
 
 class Link(CreationModificationDateMixin):
     category = models.ForeignKey(LinkCategory, on_delete=models.CASCADE)
