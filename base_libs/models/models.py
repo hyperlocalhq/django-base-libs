@@ -856,7 +856,7 @@ def SlugMixin(
                         for fname in prepopulate_from
                         ]) or slug_field.default
                 if isinstance(slug_proposal, six.string_types):
-                    slug_proposal = better_slugify(slug_proposal).replace(
+                    slug_proposal = better_slugify(slug_proposal, remove_stopwords=False).replace(
                         "-",
                         separator,
                         )[:slug_field.max_length-5]
@@ -953,7 +953,7 @@ def MultilingualSlugMixin(
                             ])
                         if slug_field.default != NOT_PROVIDED:
                             slug_proposal = slug_proposal or slug_field.default
-                    slug_proposal = better_slugify(slug_proposal).replace(
+                    slug_proposal = better_slugify(slug_proposal, remove_stopwords=False).replace(
                         "-",
                         separator,
                         )[:slug_field.max_length-5]
