@@ -14,9 +14,13 @@ class CCBMediaGalleryOptions(MediaGalleryOptions):
     list_display = (
         'id', '__unicode__', 'content_type', 'get_content_object_display', 'creation_date', 'file_count', 'views',
         'status',
-        'is_featured')
+        'is_featured'
+    )
+    list_editable = ('is_featured',)
 
-    fieldsets = ObjectRelationMixinAdminOptions().fieldsets
+    fieldsets = [
+        (_("Related Object"), {'fields': ("content_type", "object_id")}),
+    ]
     fieldsets += get_admin_lang_section(None, ['title', 'description'])
     fieldsets += [
         (_("Cover"), {'fields': ("cover_image",), 'classes': ["collapse closed"]}),

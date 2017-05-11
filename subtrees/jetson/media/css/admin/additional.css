@@ -937,3 +937,11 @@ body#tinymce {
 .contact_fieldset .grp-submit-row {
     width:916px;
 }
+
+.grp-placeholder-related-fk, .grp-placeholder-related-m2m, .grp-placeholder-related-generic {
+    display: block;
+    width: 600px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
