@@ -1,17 +1,15 @@
 # -*- coding: UTF-8 -*-
-
-import os
-import shutil
 import re
 from dateutil.parser import parse as parse_datetime
 import requests
 import csv
-from collections import namedtuple
 from decimal import Decimal, InvalidOperation
+from optparse import make_option
 
 from django.db import models
 from django.conf import settings
 from django.utils.encoding import smart_str, force_unicode
+from django.core.management.base import NoArgsCommand
 
 from base_libs.utils.misc import get_unique_value
 from base_libs.utils.betterslugify import better_slugify
@@ -28,158 +26,23 @@ from berlinbuehnen.apps.productions.models import EventSponsor
 from berlinbuehnen.apps.productions.models import LanguageAndSubtitles
 from berlinbuehnen.apps.people.models import Person
 
-SILENT, NORMAL, VERBOSE, VERY_VERBOSE = 0, 1, 2, 3
+from ._import_base import LOCATIONS_TO_SKIP, STAGE_TO_LOCATION_MAPPER, PRODUCTION_VENUES, convert_location_title, CultureBaseLocation, ImportCommandMixin
 
 
-StageSettings = namedtuple('StageSettings', ['location_title', 'internal_stage_title', 'should_create_stage_object'])
-
-LOCATION_TITLE_MAPPER = dict((k.lower(), v) for k, v in {
-    u"English Theatre Berlin | International Performing Arts Center": u"English Theatre Berlin",
-    u"Wühlmäuse": u"Die Wühlmäuse",  # where does it happen?
-    u"SCHAUBUDE BERLIN - Theater.PuppenFigurenObjekte": u"SCHAUBUDE BERLIN",
-    u"Staatsoper im Schillertheater": u"Staatsoper im Schiller Theater",  # where does it happen?
-    u"ATZE  Musiktheater": u"ATZE Musiktheater",
-    u"Astrid Lindgren Bühne im FEZ Berlin": u"Astrid Lindgren Bühne im FEZ-Berlin",
-    u"FEZ-Berlin und Landesmusikakademie Berlin": u"Landesmusikakademie Berlin im FEZ",
-    u"UdK - Universität der Künste Berlin": u"UNI.T - Theater der UdK Berlin",
-    u"Sophiensaele": u"Sophiensæle",
-}.iteritems())
-
-
-def convert_location_title(title):
-    return LOCATION_TITLE_MAPPER.get(title.lower(), title)
-
-LOCATIONS_TO_SKIP = [el.lower() for el in [
-    u"-",
-]]
-
-
-PRODUCTION_VENUES = dict((k.lower(), v) for k, v in {
-    u"Rotes Rathaus": u"Rotes Rathaus",
-    u"Babylon Berlin-Mitte": u"Babylon Berlin-Mitte",
-    u"Delphi Filmpalast": u"Delphi Filmpalast",
-    u"Waldbühne Berlin": u"Waldbühne Berlin",
-}.iteritems())
-
-
-STAGE_TO_LOCATION_MAPPER = dict((k.lower(), v) for k, v in {
-    u"Große Orangerie Schloss Charlottenburg": StageSettings(u"Berliner Residenz Konzerte", u"Große Orangerie Schloss Charlottenburg", True),
-    u"Große Orangerie Charlottenburg": StageSettings(u"Berliner Residenz Konzerte", u"Große Orangerie Schloss Charlottenburg", True),
-
-    u"Deutsches Theater - Box und Bar": StageSettings(u"Deutsches Theater Berlin", u"Box und Bar", True),
-    u"Deutsches Theater - Saal": StageSettings(u"Deutsches Theater Berlin", u"Saal", True),
-    u"Deutsches Theater Berlin - Kammerspiele": StageSettings(u"Deutsches Theater Berlin", u"Kammerspiele", True),
-
-    u"DISTEL-Studio": StageSettings(u"Distel Kabarett-Theater", u"DISTEL-Studio", True),
-
-    u"Foyer Deutschen Oper Berlin": StageSettings(u"Deutsche Oper Berlin", u"Foyer", True),
-    u"Restaurant Deutsche Oper": StageSettings(u"Deutsche Oper Berlin", u"Restaurant", True),
-    u"Tischlerei Deutsche Oper Berlin": StageSettings(u"Deutsche Oper Berlin", u"Tischlerei Deutsche Oper Berlin", True),
-
-    u"Freilichtbühne an der Zitadelle Spandau": StageSettings(u"Berliner Kindertheater", u"Freilichtbühne an der Zitadelle Spandau", False),
-
-    u"GRIPS Hansaplatz": StageSettings(u"GRIPS Theater", u"GRIPS Hansaplatz", True),
-    u"GRIPS Podewil": StageSettings(u"GRIPS Theater", u"GRIPS Podewil", True),
-
-    u"Hebbel am Ufer - HAU1": StageSettings(u"HAU Hebbel am Ufer", u"HAU1", True),
-    u"Hebbel am Ufer - HAU2": StageSettings(u"HAU Hebbel am Ufer", u"HAU2", True),
-    u"Hebbel am Ufer - HAU3": StageSettings(u"HAU Hebbel am Ufer", u"HAU3", True),
-    u"WAU im HAU2":  StageSettings(u"HAU Hebbel am Ufer", u"WAU im HAU2", True),
-    u"HAU2 Installation":  StageSettings(u"HAU Hebbel am Ufer", u"HAU2 Installation", True),
-    u"HAU1+2":  StageSettings(u"HAU Hebbel am Ufer", u"HAU1+2", True),
-    u"HAU 1 in the Upper Foyer":  StageSettings(u"HAU Hebbel am Ufer", u"HAU 1 in the Upper Foyer", True),
-    u"HAU2 Foyer":  StageSettings(u"HAU Hebbel am Ufer", u"HAU2 Foyer", True),
-    u"HAU1 Installation":  StageSettings(u"HAU Hebbel am Ufer", u"HAU1 Installation", True),
-    u"HAU3 Houseclub":  StageSettings(u"HAU Hebbel am Ufer", u"HAU3 Houseclub", True),
-    u"HAU2 Outdoors":  StageSettings(u"HAU Hebbel am Ufer", u"HAU2 Outdoors", True),
-    u"Privatwohnungen in Berlin":  StageSettings(u"HAU Hebbel am Ufer", u"Privatwohnungen in Berlin", True),
-    u"Relexa Hotel":  StageSettings(u"HAU Hebbel am Ufer", u"Relexa Hotel", True),
-
-    u"Haus der Berliner Festspiele": StageSettings(u"Berliner Festspiele", u"Haus der Berliner Festspiele", True),
-    u"Martin-Gropius-Bau": StageSettings(u"Berliner Festspiele", u"Martin-Gropius-Bau", True),
-
-    u"Volksbühne am Rosa-Luxemburg-Platz / 3. Stock": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"3. Stock", True),
-    u"Volksbühne am Rosa-Luxemburg-Platz / Books": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"Books", True),
-    u"Volksbühne am Rosa-Luxemburg-Platz / Grüner Salon": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"Grüner Salon", True),
-    u"Volksbühne am Rosa-Luxemburg-Platz / Roter Salon": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"Roter Salon", True),
-    u"Volksbühne am Rosa-Luxemburg-Platz / Sternfoyer": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"Sternfoyer", True),
-
-    u"Admiralspalast 101": StageSettings(u"Admiralspalast", u"F101", True),
-    u"Admiralspalast Studio": StageSettings(u"Admiralspalast", u"Studio", True),
-    u"Admiralspalast Theater": StageSettings(u"Admiralspalast", u"Theater", True),
-
-    u"Berliner Ensemble/ Foyer": StageSettings(u"Berliner Ensemble", u"Foyer", True),
-    u"Berliner Ensemble/ Pavillon": StageSettings(u"Berliner Ensemble", u"Pavillon", True),
-    u"Berliner Ensemble/ Probebühne": StageSettings(u"Berliner Ensemble", u"Probebühne", True),
-    u"Berliner Ensemble/ Treffpunkt Kassenhalle": StageSettings(u"Berliner Ensemble", u"Treffpunkt Kassenhalle", True),
-
-    u"Berliner Philharmonie – Kammermusiksaal": StageSettings(u"Berliner Philharmonie", u"Kammermusiksaal", True),
-    u"Foyer im Kammermusiksaal der Berliner Philharmoniker": StageSettings(u"Berliner Philharmonie", u"Foyer im Kammermusiksaal", True),
-    u"Philharmonie Berlin - Großer Saal": StageSettings(u"Berliner Philharmonie", u"Großer Saal", True),
-    u"München, Philharmonie im Gasteig": StageSettings(u"Berliner Philharmonie", u"München, Philharmonie im Gasteig", True),
-    u"Philharmonie – Karl-Schuke-Orgel": StageSettings(u"Berliner Philharmonie", u"Philharmonie – Karl-Schuke-Orgel", True),
-    u"Hermann-Wolff-Saal": StageSettings(u"Berliner Philharmonie", u"Hermann-Wolff-Saal", True),
-    u"Mailand, Expo - La Scala": StageSettings(u"Berliner Philharmonie", u"Mailand, Expo - La Scala", True),
-    u"Wien, Musikverein": StageSettings(u"Berliner Philharmonie", u"Wien, Musikverein", True),
-    u"Philharmonie und Kammermusiksaal": StageSettings(u"Berliner Philharmonie", u"Philharmonie und Kammermusiksaal", True),
-
-	u"Konzerthaus Berlin - Großer Saal": StageSettings(u"Konzerthaus Berlin", u"Großer Saal", True),
-	u"Konzerthaus Berlin - Kleiner Saal": StageSettings(u"Konzerthaus Berlin", u"Kleiner Saal", True),
-	u"Konzerthaus Berlin - Ludwig-van-Beethoven-Saal": StageSettings(u"Konzerthaus Berlin", u"Ludwig-van-Beethoven-Saal", True),
-	u"Konzerthaus Berlin - Musikclub": StageSettings(u"Konzerthaus Berlin", u"Musikclub", True),
-	u"Konzerthaus Berlin - Werner-Otto-Saal": StageSettings(u"Konzerthaus Berlin", u"Werner-Otto-Saal", True),
-
-    u"Renaissance-Theater Berlin - Bruckner-Foyer": StageSettings(u"Renaissance-Theater Berlin", u"Bruckner-Foyer", True),
-
-    u"Sophiensaele - Festsaal": StageSettings(u"Sophiensæle", u"Festsaal", True),
-	u"Sophiensaele - Hochzeitssaal": StageSettings(u"Sophiensæle", u"Hochzeitssaal", True),
-	u"Kantine": StageSettings(u"Sophiensæle", u"Kantine", True),
-	u"gesamtes Haus": StageSettings(u"Sophiensæle", u"gesamtes Haus", True),
-	u"Sophiensaele - Kantine": StageSettings(u"Sophiensæle", u"Kantine", True),
-
-    u"Bode-Museum": StageSettings(u"Staatsoper im Schiller Theater", u"Bode Museum", True),
-	u"Staatsoper im Schiller Theater - Gläsernes Foyer": StageSettings(u"Staatsoper im Schiller Theater", u"Gläsernes Foyer", True),
-	u"Staatsoper im Schiller Theater - Werkstatt": StageSettings(u"Staatsoper im Schiller Theater", u"Werkstatt", True),
-	u"Staatsoper Unter den Linden": StageSettings(u"Staatsoper im Schiller Theater", u"Staatsoper Unter den Linden", True),
-    u"Staatsoper im Schiller Theater - Probebühne I": StageSettings(u"Staatsoper im Schiller Theater", u"Probebühne I", True),
-    u"Bebelplatz": StageSettings(u"Staatsoper im Schiller Theater", u"Bebelplatz", True),
-
-    u"Theater an der Parkaue - Bühne 2": StageSettings(u"Theater an der Parkaue", u"Bühne 2", True),
-
-    u"Alten Feuerwache Eichwalde": StageSettings(u"Neuköllner Oper", u"Alten Feuerwache Eichwalde", True),
-
-    u"Gorki Foyer Berlin": StageSettings(u"Maxim Gorki Theater", u"Foyer", True),
-	u"Gorki Studio R": StageSettings(u"Maxim Gorki Theater", u"Studio Я", True),
-	u"Studio Я": StageSettings(u"Maxim Gorki Theater", u"Studio Я", True),
-	u"Vorplatz GORKI": StageSettings(u"Maxim Gorki Theater", u"Vorplatz GORKI", True),
-	u"Maxim Gorki Theater": StageSettings(u"Maxim Gorki Theater", u"Gorki Theater", True),
-
-    u"Tempodrom": StageSettings(u"Die Wühlmäuse", u"Tempodrom", False),
-}.iteritems())
-
-
-class CultureBaseLocation(object):
-    def __init__(self, id, title, street_address, postal_code, city, *args, **kwargs):
-        self.id = id
-        self.title = force_unicode(title)
-        self.street_address = force_unicode(street_address)
-        self.postal_code = force_unicode(postal_code)
-        self.city = force_unicode(city)
-
-    def __unicode__(self):
-        return self.title
-
-    def __repr__(self):
-        return smart_str(u"<CultureBaseLocation: %s>" % self.title)
-
-
-class ImportFromHeimatBase(object):
-    """ Base interface for importing productions and events from different websites
+class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
+    """ 
+    Base command to extend for importing productions and events from different websites
     according to this XML schema: http://cb.heimat.de/interface/schema/interfaceformat.xsd
     """
+    option_list = NoArgsCommand.option_list + (
+        make_option('--skip_images', action='store_true', help='Skips image downloads'),
+    )
+    help = "Imports productions and events from Culturebase"
+
+    SILENT, NORMAL, VERBOSE, VERY_VERBOSE = 0, 1, 2, 3
+
     LOCATIONS_BY_EXTERNAL_ID = {}
     LOCATIONS_BY_TITLE = {}
-    service = None
     CATEGORY_MAPPER = {
         7002: 74,  # Ausstellung
         6999: 25,  # Ballett
@@ -307,8 +170,39 @@ class ImportFromHeimatBase(object):
     owners = []
     IMPORT_URL = None
     DEFAULT_PUBLISHING_STATUS = "published"  # "import"
-    production_ids_to_keep = set()
-    event_ids_to_keep = set()
+
+    service = None
+
+    def handle_noargs(self, *args, **options):
+        self.verbosity = int(options.get("verbosity", self.NORMAL))
+        self.skip_images = options.get("skip_images")
+        self.prepare()
+        self.main()
+        self.finalize()
+
+    def prepare(self):
+        raise NotImplementedError("Implement the prepare() method")
+
+    def main(self):
+        import requests
+        from xml.etree import ElementTree
+        r = requests.get(self.service.url, params={})
+        if r.status_code != 200:
+            self.all_feeds_alright = False
+            self.stderr.write(u"Error status: %s" % r.status_code)
+            return
+
+        if self.verbosity >= self.NORMAL:
+            self.stdout.write(u"=== Importing Productions ===\n")
+
+        try:
+            root_node = ElementTree.fromstring(r.content)
+        except ElementTree.ParseError as err:
+            self.all_feeds_alright = False
+            self.stderr.write(u"Parsing error: %s" % unicode(err))
+            return
+
+        self.save_page(root_node)
 
     def load_and_parse_locations(self):
         response = requests.get("http://web2.heimat.de/cb-out/exports/address/address_id.php?city=berlin")
@@ -526,7 +420,6 @@ class ImportFromHeimatBase(object):
         return LocationAndStage(location, stage)
 
     def cleanup_text(self, text):
-        import re
         from BeautifulSoup import BeautifulStoneSoup
         from django.utils.html import strip_tags
         text = text.replace('<![CDATA[', '')
@@ -770,7 +663,7 @@ class ImportFromHeimatBase(object):
             title_de = self.get_child_text(prod_node, 'title', languageId="1").replace('\n', ' ').strip()
             title_en = self.get_child_text(prod_node, 'title', languageId="2").replace('\n', ' ').strip()
 
-            if self.verbosity >= NORMAL:
+            if self.verbosity >= self.NORMAL:
                 self.stdout.write(u"%d/%d %s | %s" % (prod_index, prods_count, title_de, title_en))
 
             mapper = None
@@ -1247,7 +1140,7 @@ class ImportFromHeimatBase(object):
                 else:
                     self.stats['events_updated'] += 1
 
-    def should_reimport(self, service):
+    def should_reimport(self):
         from dateutil.parser import parse
 
         # read the last-modified header from the feed
@@ -1258,110 +1151,8 @@ class ImportFromHeimatBase(object):
         feed_last_modified = parse(last_modified_str)
 
         # compare feed_last_modified with the last updated production creation date
-        mappers = service.objectmapper_set.filter(content_type__model__iexact="production").order_by('-pk')
+        mappers = self.service.objectmapper_set.filter(content_type__model__iexact="production").order_by('-pk')
         if mappers:
             productions_last_modified = mappers[0].content_object.creation_date
             return feed_last_modified > productions_last_modified
         return True
-
-    def delete_existing_productions_and_events(self, service):
-        if self.verbosity >= NORMAL:
-            self.stdout.write(u"=== Deleting existing productions ===")
-
-        # deleting productions and their mappers
-        prods_count = service.objectmapper_set.filter(content_type__model__iexact="production").count()
-        for prod_index, mapper in enumerate(service.objectmapper_set.filter(content_type__model__iexact="production"), 1):
-            if mapper.content_object:
-                if self.verbosity >= NORMAL:
-                    self.stdout.write(u"%d/%d %s | %s" % (prod_index, prods_count, mapper.content_object.title_de, mapper.content_object.title_en))
-                if mapper.content_object.no_overwriting:  # don't delete items with no_overwriting == True
-                    continue
-
-                # delete media files
-                try:
-                    shutil.rmtree(os.path.join(settings.MEDIA_ROOT, "productions", mapper.content_object.slug))
-                except OSError as err:
-                    pass
-
-                mapper.content_object.delete()
-            mapper.delete()
-
-        # deleting events and their mappers
-        for mapper in service.objectmapper_set.filter(content_type__model__iexact="event"):
-            if mapper.content_object:
-                if mapper.content_object.production.no_overwriting:  # don't delete items with no_overwriting == True
-                    continue
-
-                mapper.content_object.delete()
-            mapper.delete()
-
-        # deleting production images and their mappers if a production was deleted
-        for mapper in service.objectmapper_set.filter(content_type__model__iexact="productionimage"):
-            if mapper.content_object:
-                continue
-            mapper.delete()
-
-        # deleting event images and their mappers if an event was deleted
-        for mapper in service.objectmapper_set.filter(content_type__model__iexact="eventimage"):
-            if mapper.content_object:
-                continue
-            mapper.delete()
-
-
-    def delete_outdated_productions_and_events(self, service):
-        if self.verbosity >= NORMAL:
-            self.stdout.write(u"=== Deleting outdated productions ===")
-
-        # deleting productions and their mappers
-        prods_count = service.objectmapper_set.filter(
-            content_type__model__iexact="production"
-        ).exclude(
-            object_id__in=self.production_ids_to_keep
-        ).count()
-
-        for prod_index, mapper in enumerate(service.objectmapper_set.filter(
-            content_type__model__iexact="production"
-        ).exclude(
-            object_id__in=self.production_ids_to_keep
-        ), 1):
-            if mapper.content_object:
-                if self.verbosity >= NORMAL:
-                    self.stdout.write(u"%d/%d %s | %s" % (prod_index, prods_count, mapper.content_object.title_de, mapper.content_object.title_en))
-                if mapper.content_object.no_overwriting:  # don't delete items with no_overwriting == True
-                    continue
-
-                # delete media files
-                try:
-                    shutil.rmtree(os.path.join(settings.MEDIA_ROOT, "productions", mapper.content_object.slug))
-                except OSError as err:
-                    pass
-
-                mapper.content_object.delete()
-            mapper.delete()
-            self.stats.setdefault('prods_deleted', 0)
-            self.stats['prods_deleted'] += 1
-
-        # deleting events and their mappers
-        for mapper in service.objectmapper_set.filter(content_type__model__iexact="event").exclude(
-            object_id__in=self.event_ids_to_keep
-        ):
-            if mapper.content_object:
-                if mapper.content_object.production.no_overwriting:  # don't delete items with no_overwriting == True
-                    continue
-
-                mapper.content_object.delete()
-            mapper.delete()
-            self.stats.setdefault('events_deleted', 0)
-            self.stats['events_deleted'] += 1
-
-        # deleting production image mappers if a production was deleted
-        for mapper in service.objectmapper_set.filter(content_type__model__iexact="productionimage"):
-            if mapper.content_object:
-                continue
-            mapper.delete()
-
-        # deleting event image mappers if an event was deleted
-        for mapper in service.objectmapper_set.filter(content_type__model__iexact="eventimage"):
-            if mapper.content_object:
-                continue
-            mapper.delete()

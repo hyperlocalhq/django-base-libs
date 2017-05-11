@@ -1,10 +1,7 @@
 # -*- coding: UTF-8 -*-
 import requests
-from xml.etree import ElementTree
 from datetime import timedelta
 from dateutil.parser import parse as parse_datetime
-import os
-from urllib import url2pathname
 from optparse import make_option
 
 from django.core.management.base import NoArgsCommand
@@ -15,71 +12,18 @@ from django.db import models
 from base_libs.utils.misc import get_unique_value
 from base_libs.utils.betterslugify import better_slugify
 
-SILENT, NORMAL, VERBOSE, VERY_VERBOSE = 0, 1, 2, 3
+from ._import_base import ImportCommandMixin, LocalFileAdapter
 
 
-class LocalFileAdapter(requests.adapters.BaseAdapter):
-    """Protocol Adapter to allow Requests to GET file:// URLs
-
-    @todo: Properly handle non-empty hostname portions.
+class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
     """
-
-    @staticmethod
-    def _chkpath(method, path):
-        """Return an HTTP status for the given filesystem path."""
-        if method.lower() in ('put', 'delete'):
-            return 501, "Not Implemented"  # TODO
-        elif method.lower() not in ('get', 'head'):
-            return 405, "Method Not Allowed"
-        elif os.path.isdir(path):
-            return 400, "Path Not A File"
-        elif not os.path.isfile(path):
-            return 404, "File Not Found"
-        elif not os.access(path, os.R_OK):
-            return 403, "Access Denied"
-        else:
-            return 200, "OK"
-
-    def send(self, req, **kwargs):  # pylint: disable=unused-argument
-        """Return the file specified by the given request
-
-        @type req: C{PreparedRequest}
-        @todo: Should I bother filling `response.headers` and processing
-               If-Modified-Since and friends using `os.stat`?
-        """
-        path = os.path.normcase(os.path.normpath(url2pathname(req.path_url)))
-        response = requests.Response()
-
-        response.status_code, response.reason = self._chkpath(req.method, path)
-        if response.status_code == 200 and req.method.lower() != 'head':
-            try:
-                response.raw = open(path, 'rb')
-            except (OSError, IOError), err:
-                response.status_code = 500
-                response.reason = str(err)
-
-        if isinstance(req.url, bytes):
-            response.url = req.url.decode('utf-8')
-        else:
-            response.url = req.url
-
-        response.request = req
-        response.connection = self
-
-        return response
-
-    def close(self):
-        pass
-
-
-class ImportToBerlinBuehnenBaseXML(NoArgsCommand):
-    """Base command to extend to import productions and events to Berlin Buehnen in XML format"""
+    Base command to extend to import productions and events to Berlin Buehnen in XML format
+    """
     help = "Import based on http://www.berlin-buehnen.de/media/docs/import-specification/production_import_specs.html"
+    SILENT, NORMAL, VERBOSE, VERY_VERBOSE = 0, 1, 2, 3
 
     DEFAULT_PUBLISHING_STATUS = "import"
     DEFAULT_IN_PROGRAM_OF_LOCATION_ID = None
-    production_ids_to_keep = set()
-    event_ids_to_keep = set()
     service = None
 
     option_list = NoArgsCommand.option_list + (
@@ -88,59 +32,65 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand):
     )
 
     def handle_noargs(self, *args, **options):
-        self.verbosity = int(options.get("verbosity", NORMAL))
-        self.skip_images = options.get('skip_images')
-        self.update_images = options.get('update_images')
-        self.define_service()
-        self.import_productions()
+        self.verbosity = int(options.get("verbosity", self.NORMAL))
+        self.skip_images = options.get("skip_images")
+        self.update_images = options.get("update_images")
+        self.prepare()
+        self.main()
+        self.finalize()
 
-    def define_service(self):
+    def prepare(self):
         """Override this method to define self.service as an instance of external_services.Service model."""
         raise NotImplementedError("The define_service() method should be implemented.")
 
-    def import_productions(self):
+    def main(self):
+        from xml.etree import ElementTree
 
         requests_session = requests.session()
         requests_session.mount('file://', LocalFileAdapter())
 
-        if self.verbosity >= NORMAL:
+        if self.verbosity >= self.NORMAL:
             self.stdout.write(u"=== Importing Productions ===")
-
-        self.stats = {
-            'prods_added': 0,
-            'prods_updated': 0,
-            'prods_skipped': 0,
-            'events_added': 0,
-            'events_updated': 0,
-            'events_skipped': 0,
-        }
+            self.stdout.write(u"Processing page {}\n".format(self.service.url))
 
         r = requests_session.get(self.service.url)
         if r.status_code != 200:
+            self.all_feeds_alright = False
             self.stderr.write(u"Error status {} when trying to access {}".format(r.status_code, self.service.url))
             return
-        root_node = ElementTree.fromstring(r.content)
-        next_page = self.get_child_text(root_node.find('./meta'), "next")
+
+        try:
+            root_node = ElementTree.fromstring(r.content)
+        except ElementTree.ParseError as err:
+            self.all_feeds_alright = False
+            self.stderr.write(u"Parsing error: %s" % unicode(err))
+            return
+
+        next_page = self.get_child_text(root_node.find("./meta"), "next")
+        self._production_counter = 0
+        self._total_production_count = int(self.get_child_text(root_node.find("./meta"), "total_count"))
         productions_node = root_node.find('./productions')
         self.save_page(productions_node)
 
         while(next_page):
+            if self.verbosity >= self.NORMAL:
+                self.stdout.write(u"Processing page {}\n".format(next_page))
             r = requests_session.get(next_page)
             if r.status_code != 200:
+                self.all_feeds_alright = False
                 self.stderr.write(u"Error status {} when trying to access {}".format(r.status_code, next_page))
                 break # we want to show summary even if at some point the import breaks
-            root_node = ElementTree.fromstring(r.content)
+
+            try:
+                root_node = ElementTree.fromstring(r.content)
+            except ElementTree.ParseError as err:
+                self.all_feeds_alright = False
+                self.stderr.write(u"Parsing error: %s" % unicode(err))
+                return
+
             next_page = self.get_child_text(root_node.find('./meta'), "next")
             productions_node = root_node.find('./productions')
             self.save_page(productions_node)
-
-        if self.verbosity >= NORMAL:
-            self.stdout.write(u"Productions added: %d" % self.stats['prods_added'])
-            self.stdout.write(u"Productions updated: %d" % self.stats['prods_updated'])
-            self.stdout.write(u"Productions skipped: %d" % self.stats['prods_skipped'])
-            self.stdout.write(u"Events added: %d" % self.stats['events_added'])
-            self.stdout.write(u"Events updated: %d" % self.stats['events_updated'])
-            self.stdout.write(u"Events skipped: %d" % self.stats['events_skipped'])
 
     def get_child_text(self, node, tag, **attrs):
         """
@@ -191,7 +141,7 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand):
         file_description.description_de = "\n".join(description_de_components)
         file_description.description_en = "\n".join(description_en_components)
         # copyright goes to the author field
-        file_description.author = self.get_child_text(xml_node, 'copyright') or text
+        file_description.author = (self.get_child_text(xml_node, 'copyright') or text).replace("&copy;", "©")
         file_description.copyright_limitations = ""
         file_description.save()
         return file_description
@@ -251,16 +201,16 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand):
         image_mods = models.get_app("image_mods")
 
         prod_nodes = productions_node.findall('./production')
-        prods_count = len(prod_nodes)
 
         for prod_index, prod_node in enumerate(prod_nodes, 1):
+            self._production_counter += 1
             external_prod_id = self.get_child_text(prod_node, 'id')
 
             title_de = self.get_child_text(prod_node, 'title_de').replace('\n', ' ').strip()
             title_en = self.get_child_text(prod_node, 'title_en').replace('\n', ' ').strip()
 
-            if self.verbosity >= NORMAL:
-                self.stdout.write(u"%d/%d %s | %s" % (prod_index, prods_count, title_de, title_en))
+            if self.verbosity >= self.NORMAL:
+                self.stdout.write(u"%d/%d %s | %s" % (self._production_counter, self._total_production_count, title_de, title_en))
 
             mapper = None
             try:
@@ -1111,4 +1061,3 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand):
                     self.stats['events_added'] += 1
                 else:
                     self.stats['events_updated'] += 1
-

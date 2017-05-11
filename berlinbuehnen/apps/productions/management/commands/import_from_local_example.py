@@ -1,12 +1,13 @@
 # -*- coding: UTF-8 -*-
-from django.db import models
-from django.conf import settings
 from ._import_to_berlinbuehnen_base_xml import ImportToBerlinBuehnenBaseXML
 
 
 class Command(ImportToBerlinBuehnenBaseXML):
+    help = "Imports productions and events from a local example file"
 
-    def define_service(self):
+    def prepare(self):
+        from django.db import models
+        from django.conf import settings
         Service = models.get_model("external_services", "Service")
 
         self.service, created = Service.objects.get_or_create(

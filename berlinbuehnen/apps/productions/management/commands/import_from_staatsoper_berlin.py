@@ -1,13 +1,14 @@
 # -*- coding: UTF-8 -*-
-from django.db import models
 from ._import_to_berlinbuehnen_base_xml import ImportToBerlinBuehnenBaseXML
 
 
 class Command(ImportToBerlinBuehnenBaseXML):
+    help = "Imports productions and events from Staatsoper Berlin"
     DEFAULT_PUBLISHING_STATUS = "published"
     DEFAULT_IN_PROGRAM_OF_LOCATION_ID = 9
 
-    def define_service(self):
+    def prepare(self):
+        from django.db import models
         Service = models.get_model("external_services", "Service")
 
         URL = "http://webfactory:test@staatsoper-berlin.test.webfactory.de/export.xml"

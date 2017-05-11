@@ -27,7 +27,7 @@ date >> ${CRON_LOG_FILE}
 python manage.py import_from_komische_oper_berlin --traceback >> ${CRON_LOG_FILE}  2>&1
 
 echo "------------" >> ${CRON_LOG_FILE}
-echo "Importing from Maxim Gorki Theater" >> ${CRON_LOG_FILE}
+echo "Importing from Maxim Gorki Theater (New)" >> ${CRON_LOG_FILE}
 date >> ${CRON_LOG_FILE}
 python manage.py import_from_maxim_gorki_theater --traceback >> ${CRON_LOG_FILE}  2>&1
 
@@ -87,7 +87,7 @@ date >> ${CRON_LOG_FILE}
 python manage.py import_from_culturebase_sob --traceback >> ${CRON_LOG_FILE}  2>&1
 
 echo "------------" >> ${CRON_LOG_FILE}
-echo "Importing from Pierre Boulez Saal" >> ${CRON_LOG_FILE}
+echo "Importing from Pierre Boulez Saal (New)" >> ${CRON_LOG_FILE}
 date >> ${CRON_LOG_FILE}
 python manage.py import_from_boulezsaal --traceback >> ${CRON_LOG_FILE}  2>&1
 

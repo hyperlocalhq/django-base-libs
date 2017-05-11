@@ -1,8 +1,6 @@
 # -*- coding: UTF-8 -*-
-
 import re
 import requests
-from xml.etree import ElementTree
 from dateutil.parser import parse as parse_datetime
 from optparse import make_option
 import csv
@@ -22,20 +20,21 @@ from berlinbuehnen.apps.productions.models import ProductionSponsor
 from berlinbuehnen.apps.productions.models import Event
 from berlinbuehnen.apps.productions.models import EventCharacteristics
 from berlinbuehnen.apps.productions.models import EventImage
-from berlinbuehnen.apps.productions.models import EventSponsor
 from berlinbuehnen.apps.people.models import Person, AuthorshipType
 
-from _import_from_heimat_base_xml import LOCATIONS_TO_SKIP, STAGE_TO_LOCATION_MAPPER, PRODUCTION_VENUES, convert_location_title, CultureBaseLocation
-
-SILENT, NORMAL, VERBOSE, VERY_VERBOSE = 0, 1, 2, 3
+from ._import_base import LOCATIONS_TO_SKIP, STAGE_TO_LOCATION_MAPPER, PRODUCTION_VENUES, convert_location_title, CultureBaseLocation, ImportCommandMixin
 
 
-class ImportFromCulturebaseBase(object):
+class ImportFromCulturebaseBase(NoArgsCommand, ImportCommandMixin):
+    """ 
+    Base command to extend for importing productions and events from different CultureBase websites
+    """
     option_list = NoArgsCommand.option_list + (
-        make_option('--skip-images', action='store_true', dest='skip_images', default=False,
-            help='Tells Django to NOT download images.'),
+        make_option('--skip_images', action='store_true', help='Skips image downloads'),
     )
     help = "Imports productions and events from Culturebase"
+
+    SILENT, NORMAL, VERBOSE, VERY_VERBOSE = 0, 1, 2, 3
 
     LOCATIONS_BY_TITLE = {}
 
@@ -168,6 +167,42 @@ class ImportFromCulturebaseBase(object):
     in_program_of = None
     owners = []
     DEFAULT_PUBLISHING_STATUS = "published"  # "import"
+
+    helper_dict = {'prefix': ''}
+
+    service = None
+    authorship_types_de = []
+
+    def handle_noargs(self, *args, **options):
+        self.verbosity = int(options.get("verbosity", self.NORMAL))
+        self.skip_images = options.get("skip_images")
+        self.prepare()
+        self.main()
+        self.finalize()
+
+    def prepare(self):
+        raise NotImplementedError("Implement the prepare() method")
+
+    def main(self):
+        import requests
+        from xml.etree import ElementTree
+        r = requests.get(self.service.url, params={})
+        if r.status_code != 200:
+            self.all_feeds_alright = False
+            self.stderr.write(u"Error status: %s" % r.status_code)
+            return
+
+        if self.verbosity >= self.NORMAL:
+            self.stdout.write(u"=== Importing Productions ===\n")
+
+        try:
+            root_node = ElementTree.fromstring(r.content)
+        except ElementTree.ParseError as err:
+            self.all_feeds_alright = False
+            self.stderr.write(u"Parsing error: %s" % unicode(err))
+            return
+
+        self.save_page(root_node)
 
     def load_and_parse_locations(self):
         response = requests.get("http://web2.heimat.de/cb-out/exports/address/address_id.php?city=berlin")
@@ -614,7 +649,6 @@ class ImportFromCulturebaseBase(object):
             instance.press_text_en = u""
 
     def save_page(self, root_node):
-        import time
         ObjectMapper = models.get_model("external_services", "ObjectMapper")
         image_mods = models.get_app("image_mods")
 
@@ -626,7 +660,7 @@ class ImportFromCulturebaseBase(object):
 
             title_de = self.get_child_text(prod_node, 'Title', Language="de").replace('\n', ' ').strip()
             title_en = self.get_child_text(prod_node, 'Title', Language="en").replace('\n', ' ').strip()
-            if self.verbosity >= NORMAL:
+            if self.verbosity >= self.NORMAL:
                 self.stdout.write(u"%d/%d %s | %s" % (prod_index, prods_count, title_de, title_en))
 
             mapper = None
@@ -674,6 +708,7 @@ class ImportFromCulturebaseBase(object):
             self.parse_and_use_texts(prod_node, prod)
             
             prod.save()
+            self.production_ids_to_keep.add(prod.pk)
 
             venue_node = prod_node.find('./%(prefix)sVenue' % self.helper_dict)
             if venue_node is not None:
@@ -964,6 +999,7 @@ class ImportFromCulturebaseBase(object):
                     event.organizers = self.get_child_text(organisation_node, 'Name')
 
                 event.save()
+                self.event_ids_to_keep.add(event.pk)
 
                 if not self.skip_images:
                     image_ids_to_keep = []
@@ -1141,3 +1177,4 @@ class ImportFromCulturebaseBase(object):
                     self.stats['events_added'] += 1
                 else:
                     self.stats['events_updated'] += 1
+

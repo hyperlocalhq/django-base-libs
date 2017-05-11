@@ -1,56 +1,57 @@
 # -*- coding: UTF-8 -*-
 from __future__ import unicode_literals
 
-from _import_to_berlinbuehnen_base_xml import *
+from ._import_to_berlinbuehnen_base_xml import *
 
 
 class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
-    """Base command to extend to import productions and events to Berlin Buehnen in JSON format"""
+    """
+    Base command to extend to import productions and events to Berlin Buehnen in JSON format
+    """
     AUTH = ()
 
-    def import_productions(self):
-
+    def main(self):
         requests_session = requests.session()
         requests_session.mount('file://', LocalFileAdapter())
 
-        if self.verbosity >= NORMAL:
-            self.stdout.write(u"=== Importing Productions ===")
-
-        self.stats = {
-            'prods_added': 0,
-            'prods_updated': 0,
-            'prods_skipped': 0,
-            'events_added': 0,
-            'events_updated': 0,
-            'events_skipped': 0,
-        }
+        if self.verbosity >= self.NORMAL:
+            self.stdout.write(u"=== Importing Productions ===\n")
+            self.stdout.write(u"Processing page {}\n".format(self.service.url))
 
         r = requests_session.get(self.service.url, auth=self.AUTH)
         if r.status_code != 200:
-            self.stderr.write(u"Error status {} when trying to access {}".format(r.status_code, self.service.url))
+            self.all_feeds_alright = False
+            self.stderr.write(u"Error status {} when trying to access {}\n".format(r.status_code, self.service.url))
             return
-        root_dict = r.json()
+        try:
+            root_dict = r.json()
+        except ValueError as err:
+            self.all_feeds_alright = False
+            self.stderr.write(u"Parsing error: %s" % unicode(err))
+            return
         next_page = root_dict.get('meta', {}).get('next', "")
+        self._production_counter = 0
+        self._total_production_count = root_dict.get('meta', {}).get('total_count', "")
         productions_dict = root_dict.get('productions', {})
         self.save_page(productions_dict)
 
         while (next_page):
+            if self.verbosity >= self.NORMAL:
+                self.stdout.write(u"Processing page {}\n".format(next_page))
             r = requests_session.get(next_page, auth=self.AUTH)
             if r.status_code != 200:
-                self.stderr.write(u"Error status {} when trying to access {}".format(r.status_code, next_page))
+                self.all_feeds_alright = False
+                self.stderr.write(u"Error status {} when trying to access {}\n".format(r.status_code, next_page))
                 break  # we want to show summary even if at some point the import breaks
-            root_dict = r.json()
+            try:
+                root_dict = r.json()
+            except ValueError as err:
+                self.all_feeds_alright = False
+                self.stderr.write(u"Parsing error: %s" % unicode(err))
+                return
             next_page = root_dict.get('meta', {}).get('next', "")
             productions_dict = root_dict.get('productions', {})
             self.save_page(productions_dict)
-
-        if self.verbosity >= NORMAL:
-            self.stdout.write(u"Productions added: %d" % self.stats['prods_added'])
-            self.stdout.write(u"Productions updated: %d" % self.stats['prods_updated'])
-            self.stdout.write(u"Productions skipped: %d" % self.stats['prods_skipped'])
-            self.stdout.write(u"Events added: %d" % self.stats['events_added'])
-            self.stdout.write(u"Events updated: %d" % self.stats['events_updated'])
-            self.stdout.write(u"Events skipped: %d" % self.stats['events_skipped'])
 
     def save_file_description(self, path, d):
         from filebrowser.models import FileDescription
@@ -78,7 +79,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
         file_description.description_de = "\n".join(description_de_components)
         file_description.description_en = "\n".join(description_en_components)
         # copyright goes to the author field
-        file_description.author = d.get('copyright', "").replace("&copy;", "©")
+        file_description.author = (d.get('copyright', "") or text).replace("&copy;", "©")
         file_description.copyright_limitations = ""
         file_description.save()
         return file_description
@@ -141,14 +142,15 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
         prods_count = len(productions_dict.keys())
 
         for prod_index, prod_dict in enumerate(productions_dict.values(), 1):
-            
+            self._production_counter += 1
+
             external_prod_id = prod_dict.get('id', "")
 
             title_de = prod_dict.get('title_de', "").replace('\n', ' ').strip()
             title_en = prod_dict.get('title_en', "").replace('\n', ' ').strip()
 
-            if self.verbosity >= NORMAL:
-                self.stdout.write(u"%d/%d %s | %s" % (prod_index, prods_count, title_de, title_en))
+            if self.verbosity >= self.NORMAL:
+                self.stdout.write(u"%d/%d %s | %s" % (self._production_counter, self._total_production_count, title_de, title_en))
 
             mapper = None
             try:
