@@ -771,6 +771,18 @@ def culturebase_export_productions(request, location_slug):
 
 API_CHANGELOG = [
     {
+        'date': datetime(2017, 5, 11, 12, 0),
+        'changes': [
+            u"""
+            <p>These changes probably won't require any new action, but will affect lot's of production and event entries:</p>
+            <ul>
+                <li>Future productions which were imported before, but don't exist in the feeds anymore, get the <strong>status</strong> "trashed" .</li>
+                <li>Future events which were imported before, but don't exist in the feeds anymore, get the <strong>event_status</strong> "canceled".</li>
+            </ul>
+            """,
+        ],
+    },
+    {
         'date': datetime(2017, 2, 21, 12, 0),
         'changes': [
             u"The website now uses HTTPS protocol.",
