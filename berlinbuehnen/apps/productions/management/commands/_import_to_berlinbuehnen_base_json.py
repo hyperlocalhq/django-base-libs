@@ -372,7 +372,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                             filename,
                             image_response.content,
                             field_name="path",
-                            subpath="productions/%s/gallery/" % prod.slug,
+                            subpath="productions/{}/gallery/".format(prod.slug),
                         )
                         mf.copyright_restrictions = image_dict.get('copyright_restrictions', "") or "general_use"
                         mf.save()
@@ -434,7 +434,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                         filename,
                         pdf_response.content,
                         field_name="path",
-                        subpath="productions/%s/pdfs/" % prod.slug,
+                        subpath="productions/{}/pdfs/".format(prod.slug),
                     )
                     mf.save()
                     pdf_ids_to_keep.append(mf.pk)
@@ -793,7 +793,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                                 filename,
                                 image_response.content,
                                 field_name="path",
-                                subpath="events/%s/gallery/" % event.slug,
+                                subpath="productions/{}/events/gallery/".format(event.production.slug),
                             )
                             mf.copyright_restrictions = image_dict.get('copyright_restrictions', "") or "general_use"
                             mf.save()
@@ -854,7 +854,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                             filename,
                             pdf_response.content,
                             field_name="path",
-                            subpath="events/%s/pdfs/" % event.slug,
+                            subpath="productions/{}/events/pdf/".format(event.production.slug),
                         )
                         mf.save()
                         pdf_ids_to_keep.append(mf.pk)
