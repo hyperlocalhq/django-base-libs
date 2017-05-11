@@ -10,126 +10,158 @@ from django.utils.encoding import smart_str, force_unicode
 StageSettings = namedtuple('StageSettings', ['location_title', 'internal_stage_title', 'should_create_stage_object'])
 
 
+class LazyDictionary(object):
+    def __init__(self, callback=dict):
+        self.data = None
+        self.callback = callback
+
+    def evaluate_callback(self):
+        self.data = self.callback()
+
+    def __getitem__(self, name):
+        if(self.data is None):
+            self.evaluate_callback()
+        return self.data.__getitem__(name)
+
+    def __setitem__(self, name, value):
+        if(self.data is None):
+            self.evaluate_callback()
+        return self.data.__setitem__(name, value)
+
+    def __getattr__(self, name):
+        if(self.data is None):
+            self.evaluate_callback()
+        return getattr(self.data, name)
+
+
 LOCATIONS_TO_SKIP = [el.lower() for el in [
     u"-",
 ]]
 
+def load_stage_to_location_mapper():
+    return dict((k.lower(), v) for k, v in {
+        u"Große Orangerie Schloss Charlottenburg": StageSettings(u"Berliner Residenz Konzerte", u"Große Orangerie Schloss Charlottenburg", True),
+        u"Große Orangerie Charlottenburg": StageSettings(u"Berliner Residenz Konzerte", u"Große Orangerie Schloss Charlottenburg", True),
 
-STAGE_TO_LOCATION_MAPPER = dict((k.lower(), v) for k, v in {
-    u"Große Orangerie Schloss Charlottenburg": StageSettings(u"Berliner Residenz Konzerte", u"Große Orangerie Schloss Charlottenburg", True),
-    u"Große Orangerie Charlottenburg": StageSettings(u"Berliner Residenz Konzerte", u"Große Orangerie Schloss Charlottenburg", True),
+        u"Deutsches Theater - Box und Bar": StageSettings(u"Deutsches Theater Berlin", u"Box und Bar", True),
+        u"Deutsches Theater - Saal": StageSettings(u"Deutsches Theater Berlin", u"Saal", True),
+        u"Deutsches Theater Berlin - Kammerspiele": StageSettings(u"Deutsches Theater Berlin", u"Kammerspiele", True),
 
-    u"Deutsches Theater - Box und Bar": StageSettings(u"Deutsches Theater Berlin", u"Box und Bar", True),
-    u"Deutsches Theater - Saal": StageSettings(u"Deutsches Theater Berlin", u"Saal", True),
-    u"Deutsches Theater Berlin - Kammerspiele": StageSettings(u"Deutsches Theater Berlin", u"Kammerspiele", True),
+        u"DISTEL-Studio": StageSettings(u"Distel Kabarett-Theater", u"DISTEL-Studio", True),
 
-    u"DISTEL-Studio": StageSettings(u"Distel Kabarett-Theater", u"DISTEL-Studio", True),
+        u"Foyer Deutschen Oper Berlin": StageSettings(u"Deutsche Oper Berlin", u"Foyer", True),
+        u"Restaurant Deutsche Oper": StageSettings(u"Deutsche Oper Berlin", u"Restaurant", True),
+        u"Tischlerei Deutsche Oper Berlin": StageSettings(u"Deutsche Oper Berlin", u"Tischlerei Deutsche Oper Berlin", True),
 
-    u"Foyer Deutschen Oper Berlin": StageSettings(u"Deutsche Oper Berlin", u"Foyer", True),
-    u"Restaurant Deutsche Oper": StageSettings(u"Deutsche Oper Berlin", u"Restaurant", True),
-    u"Tischlerei Deutsche Oper Berlin": StageSettings(u"Deutsche Oper Berlin", u"Tischlerei Deutsche Oper Berlin", True),
+        u"Freilichtbühne an der Zitadelle Spandau": StageSettings(u"Berliner Kindertheater", u"Freilichtbühne an der Zitadelle Spandau", False),
 
-    u"Freilichtbühne an der Zitadelle Spandau": StageSettings(u"Berliner Kindertheater", u"Freilichtbühne an der Zitadelle Spandau", False),
+        u"GRIPS Hansaplatz": StageSettings(u"GRIPS Theater", u"GRIPS Hansaplatz", True),
+        u"GRIPS Podewil": StageSettings(u"GRIPS Theater", u"GRIPS Podewil", True),
 
-    u"GRIPS Hansaplatz": StageSettings(u"GRIPS Theater", u"GRIPS Hansaplatz", True),
-    u"GRIPS Podewil": StageSettings(u"GRIPS Theater", u"GRIPS Podewil", True),
+        u"Hebbel am Ufer - HAU1": StageSettings(u"HAU Hebbel am Ufer", u"HAU1", True),
+        u"Hebbel am Ufer - HAU2": StageSettings(u"HAU Hebbel am Ufer", u"HAU2", True),
+        u"Hebbel am Ufer - HAU3": StageSettings(u"HAU Hebbel am Ufer", u"HAU3", True),
+        u"WAU im HAU2":  StageSettings(u"HAU Hebbel am Ufer", u"WAU im HAU2", True),
+        u"HAU2 Installation":  StageSettings(u"HAU Hebbel am Ufer", u"HAU2 Installation", True),
+        u"HAU1+2":  StageSettings(u"HAU Hebbel am Ufer", u"HAU1+2", True),
+        u"HAU 1 in the Upper Foyer":  StageSettings(u"HAU Hebbel am Ufer", u"HAU 1 in the Upper Foyer", True),
+        u"HAU2 Foyer":  StageSettings(u"HAU Hebbel am Ufer", u"HAU2 Foyer", True),
+        u"HAU1 Installation":  StageSettings(u"HAU Hebbel am Ufer", u"HAU1 Installation", True),
+        u"HAU3 Houseclub":  StageSettings(u"HAU Hebbel am Ufer", u"HAU3 Houseclub", True),
+        u"HAU2 Outdoors":  StageSettings(u"HAU Hebbel am Ufer", u"HAU2 Outdoors", True),
+        u"Privatwohnungen in Berlin":  StageSettings(u"HAU Hebbel am Ufer", u"Privatwohnungen in Berlin", True),
+        u"Relexa Hotel":  StageSettings(u"HAU Hebbel am Ufer", u"Relexa Hotel", True),
 
-    u"Hebbel am Ufer - HAU1": StageSettings(u"HAU Hebbel am Ufer", u"HAU1", True),
-    u"Hebbel am Ufer - HAU2": StageSettings(u"HAU Hebbel am Ufer", u"HAU2", True),
-    u"Hebbel am Ufer - HAU3": StageSettings(u"HAU Hebbel am Ufer", u"HAU3", True),
-    u"WAU im HAU2":  StageSettings(u"HAU Hebbel am Ufer", u"WAU im HAU2", True),
-    u"HAU2 Installation":  StageSettings(u"HAU Hebbel am Ufer", u"HAU2 Installation", True),
-    u"HAU1+2":  StageSettings(u"HAU Hebbel am Ufer", u"HAU1+2", True),
-    u"HAU 1 in the Upper Foyer":  StageSettings(u"HAU Hebbel am Ufer", u"HAU 1 in the Upper Foyer", True),
-    u"HAU2 Foyer":  StageSettings(u"HAU Hebbel am Ufer", u"HAU2 Foyer", True),
-    u"HAU1 Installation":  StageSettings(u"HAU Hebbel am Ufer", u"HAU1 Installation", True),
-    u"HAU3 Houseclub":  StageSettings(u"HAU Hebbel am Ufer", u"HAU3 Houseclub", True),
-    u"HAU2 Outdoors":  StageSettings(u"HAU Hebbel am Ufer", u"HAU2 Outdoors", True),
-    u"Privatwohnungen in Berlin":  StageSettings(u"HAU Hebbel am Ufer", u"Privatwohnungen in Berlin", True),
-    u"Relexa Hotel":  StageSettings(u"HAU Hebbel am Ufer", u"Relexa Hotel", True),
+        u"Haus der Berliner Festspiele": StageSettings(u"Berliner Festspiele", u"Haus der Berliner Festspiele", True),
+        u"Martin-Gropius-Bau": StageSettings(u"Berliner Festspiele", u"Martin-Gropius-Bau", True),
 
-    u"Haus der Berliner Festspiele": StageSettings(u"Berliner Festspiele", u"Haus der Berliner Festspiele", True),
-    u"Martin-Gropius-Bau": StageSettings(u"Berliner Festspiele", u"Martin-Gropius-Bau", True),
+        u"Volksbühne am Rosa-Luxemburg-Platz / 3. Stock": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"3. Stock", True),
+        u"Volksbühne am Rosa-Luxemburg-Platz / Books": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"Books", True),
+        u"Volksbühne am Rosa-Luxemburg-Platz / Grüner Salon": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"Grüner Salon", True),
+        u"Volksbühne am Rosa-Luxemburg-Platz / Roter Salon": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"Roter Salon", True),
+        u"Volksbühne am Rosa-Luxemburg-Platz / Sternfoyer": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"Sternfoyer", True),
 
-    u"Volksbühne am Rosa-Luxemburg-Platz / 3. Stock": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"3. Stock", True),
-    u"Volksbühne am Rosa-Luxemburg-Platz / Books": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"Books", True),
-    u"Volksbühne am Rosa-Luxemburg-Platz / Grüner Salon": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"Grüner Salon", True),
-    u"Volksbühne am Rosa-Luxemburg-Platz / Roter Salon": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"Roter Salon", True),
-    u"Volksbühne am Rosa-Luxemburg-Platz / Sternfoyer": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"Sternfoyer", True),
+        u"Admiralspalast 101": StageSettings(u"Admiralspalast", u"F101", True),
+        u"Admiralspalast Studio": StageSettings(u"Admiralspalast", u"Studio", True),
+        u"Admiralspalast Theater": StageSettings(u"Admiralspalast", u"Theater", True),
 
-    u"Admiralspalast 101": StageSettings(u"Admiralspalast", u"F101", True),
-    u"Admiralspalast Studio": StageSettings(u"Admiralspalast", u"Studio", True),
-    u"Admiralspalast Theater": StageSettings(u"Admiralspalast", u"Theater", True),
+        u"Berliner Ensemble/ Foyer": StageSettings(u"Berliner Ensemble", u"Foyer", True),
+        u"Berliner Ensemble/ Pavillon": StageSettings(u"Berliner Ensemble", u"Pavillon", True),
+        u"Berliner Ensemble/ Probebühne": StageSettings(u"Berliner Ensemble", u"Probebühne", True),
+        u"Berliner Ensemble/ Treffpunkt Kassenhalle": StageSettings(u"Berliner Ensemble", u"Treffpunkt Kassenhalle", True),
 
-    u"Berliner Ensemble/ Foyer": StageSettings(u"Berliner Ensemble", u"Foyer", True),
-    u"Berliner Ensemble/ Pavillon": StageSettings(u"Berliner Ensemble", u"Pavillon", True),
-    u"Berliner Ensemble/ Probebühne": StageSettings(u"Berliner Ensemble", u"Probebühne", True),
-    u"Berliner Ensemble/ Treffpunkt Kassenhalle": StageSettings(u"Berliner Ensemble", u"Treffpunkt Kassenhalle", True),
+        u"Berliner Philharmonie – Kammermusiksaal": StageSettings(u"Berliner Philharmonie", u"Kammermusiksaal", True),
+        u"Foyer im Kammermusiksaal der Berliner Philharmoniker": StageSettings(u"Berliner Philharmonie", u"Foyer im Kammermusiksaal", True),
+        u"Philharmonie Berlin - Großer Saal": StageSettings(u"Berliner Philharmonie", u"Großer Saal", True),
+        u"München, Philharmonie im Gasteig": StageSettings(u"Berliner Philharmonie", u"München, Philharmonie im Gasteig", True),
+        u"Philharmonie – Karl-Schuke-Orgel": StageSettings(u"Berliner Philharmonie", u"Philharmonie – Karl-Schuke-Orgel", True),
+        u"Hermann-Wolff-Saal": StageSettings(u"Berliner Philharmonie", u"Hermann-Wolff-Saal", True),
+        u"Mailand, Expo - La Scala": StageSettings(u"Berliner Philharmonie", u"Mailand, Expo - La Scala", True),
+        u"Wien, Musikverein": StageSettings(u"Berliner Philharmonie", u"Wien, Musikverein", True),
+        u"Philharmonie und Kammermusiksaal": StageSettings(u"Berliner Philharmonie", u"Philharmonie und Kammermusiksaal", True),
 
-    u"Berliner Philharmonie – Kammermusiksaal": StageSettings(u"Berliner Philharmonie", u"Kammermusiksaal", True),
-    u"Foyer im Kammermusiksaal der Berliner Philharmoniker": StageSettings(u"Berliner Philharmonie", u"Foyer im Kammermusiksaal", True),
-    u"Philharmonie Berlin - Großer Saal": StageSettings(u"Berliner Philharmonie", u"Großer Saal", True),
-    u"München, Philharmonie im Gasteig": StageSettings(u"Berliner Philharmonie", u"München, Philharmonie im Gasteig", True),
-    u"Philharmonie – Karl-Schuke-Orgel": StageSettings(u"Berliner Philharmonie", u"Philharmonie – Karl-Schuke-Orgel", True),
-    u"Hermann-Wolff-Saal": StageSettings(u"Berliner Philharmonie", u"Hermann-Wolff-Saal", True),
-    u"Mailand, Expo - La Scala": StageSettings(u"Berliner Philharmonie", u"Mailand, Expo - La Scala", True),
-    u"Wien, Musikverein": StageSettings(u"Berliner Philharmonie", u"Wien, Musikverein", True),
-    u"Philharmonie und Kammermusiksaal": StageSettings(u"Berliner Philharmonie", u"Philharmonie und Kammermusiksaal", True),
+        u"Konzerthaus Berlin - Großer Saal": StageSettings(u"Konzerthaus Berlin", u"Großer Saal", True),
+        u"Konzerthaus Berlin - Kleiner Saal": StageSettings(u"Konzerthaus Berlin", u"Kleiner Saal", True),
+        u"Konzerthaus Berlin - Ludwig-van-Beethoven-Saal": StageSettings(u"Konzerthaus Berlin", u"Ludwig-van-Beethoven-Saal", True),
+        u"Konzerthaus Berlin - Musikclub": StageSettings(u"Konzerthaus Berlin", u"Musikclub", True),
+        u"Konzerthaus Berlin - Werner-Otto-Saal": StageSettings(u"Konzerthaus Berlin", u"Werner-Otto-Saal", True),
 
-	u"Konzerthaus Berlin - Großer Saal": StageSettings(u"Konzerthaus Berlin", u"Großer Saal", True),
-	u"Konzerthaus Berlin - Kleiner Saal": StageSettings(u"Konzerthaus Berlin", u"Kleiner Saal", True),
-	u"Konzerthaus Berlin - Ludwig-van-Beethoven-Saal": StageSettings(u"Konzerthaus Berlin", u"Ludwig-van-Beethoven-Saal", True),
-	u"Konzerthaus Berlin - Musikclub": StageSettings(u"Konzerthaus Berlin", u"Musikclub", True),
-	u"Konzerthaus Berlin - Werner-Otto-Saal": StageSettings(u"Konzerthaus Berlin", u"Werner-Otto-Saal", True),
+        u"Renaissance-Theater Berlin - Bruckner-Foyer": StageSettings(u"Renaissance-Theater Berlin", u"Bruckner-Foyer", True),
 
-    u"Renaissance-Theater Berlin - Bruckner-Foyer": StageSettings(u"Renaissance-Theater Berlin", u"Bruckner-Foyer", True),
+        u"Sophiensaele - Festsaal": StageSettings(u"Sophiensæle", u"Festsaal", True),
+        u"Sophiensaele - Hochzeitssaal": StageSettings(u"Sophiensæle", u"Hochzeitssaal", True),
+        u"Kantine": StageSettings(u"Sophiensæle", u"Kantine", True),
+        u"gesamtes Haus": StageSettings(u"Sophiensæle", u"gesamtes Haus", True),
+        u"Sophiensaele - Kantine": StageSettings(u"Sophiensæle", u"Kantine", True),
 
-    u"Sophiensaele - Festsaal": StageSettings(u"Sophiensæle", u"Festsaal", True),
-	u"Sophiensaele - Hochzeitssaal": StageSettings(u"Sophiensæle", u"Hochzeitssaal", True),
-	u"Kantine": StageSettings(u"Sophiensæle", u"Kantine", True),
-	u"gesamtes Haus": StageSettings(u"Sophiensæle", u"gesamtes Haus", True),
-	u"Sophiensaele - Kantine": StageSettings(u"Sophiensæle", u"Kantine", True),
+        u"Bode-Museum": StageSettings(u"Staatsoper im Schiller Theater", u"Bode Museum", True),
+        u"Staatsoper im Schiller Theater - Gläsernes Foyer": StageSettings(u"Staatsoper im Schiller Theater", u"Gläsernes Foyer", True),
+        u"Staatsoper im Schiller Theater - Werkstatt": StageSettings(u"Staatsoper im Schiller Theater", u"Werkstatt", True),
+        u"Staatsoper Unter den Linden": StageSettings(u"Staatsoper im Schiller Theater", u"Staatsoper Unter den Linden", True),
+        u"Staatsoper im Schiller Theater - Probebühne I": StageSettings(u"Staatsoper im Schiller Theater", u"Probebühne I", True),
+        u"Bebelplatz": StageSettings(u"Staatsoper im Schiller Theater", u"Bebelplatz", True),
 
-    u"Bode-Museum": StageSettings(u"Staatsoper im Schiller Theater", u"Bode Museum", True),
-	u"Staatsoper im Schiller Theater - Gläsernes Foyer": StageSettings(u"Staatsoper im Schiller Theater", u"Gläsernes Foyer", True),
-	u"Staatsoper im Schiller Theater - Werkstatt": StageSettings(u"Staatsoper im Schiller Theater", u"Werkstatt", True),
-	u"Staatsoper Unter den Linden": StageSettings(u"Staatsoper im Schiller Theater", u"Staatsoper Unter den Linden", True),
-    u"Staatsoper im Schiller Theater - Probebühne I": StageSettings(u"Staatsoper im Schiller Theater", u"Probebühne I", True),
-    u"Bebelplatz": StageSettings(u"Staatsoper im Schiller Theater", u"Bebelplatz", True),
+        u"Theater an der Parkaue - Bühne 2": StageSettings(u"Theater an der Parkaue", u"Bühne 2", True),
 
-    u"Theater an der Parkaue - Bühne 2": StageSettings(u"Theater an der Parkaue", u"Bühne 2", True),
+        u"Alten Feuerwache Eichwalde": StageSettings(u"Neuköllner Oper", u"Alten Feuerwache Eichwalde", True),
 
-    u"Alten Feuerwache Eichwalde": StageSettings(u"Neuköllner Oper", u"Alten Feuerwache Eichwalde", True),
+        u"Gorki Foyer Berlin": StageSettings(u"Maxim Gorki Theater", u"Foyer", True),
+        u"Gorki Studio R": StageSettings(u"Maxim Gorki Theater", u"Studio Я", True),
+        u"Studio Я": StageSettings(u"Maxim Gorki Theater", u"Studio Я", True),
+        u"Vorplatz GORKI": StageSettings(u"Maxim Gorki Theater", u"Vorplatz GORKI", True),
+        u"Maxim Gorki Theater": StageSettings(u"Maxim Gorki Theater", u"Gorki Theater", True),
 
-    u"Gorki Foyer Berlin": StageSettings(u"Maxim Gorki Theater", u"Foyer", True),
-	u"Gorki Studio R": StageSettings(u"Maxim Gorki Theater", u"Studio Я", True),
-	u"Studio Я": StageSettings(u"Maxim Gorki Theater", u"Studio Я", True),
-	u"Vorplatz GORKI": StageSettings(u"Maxim Gorki Theater", u"Vorplatz GORKI", True),
-	u"Maxim Gorki Theater": StageSettings(u"Maxim Gorki Theater", u"Gorki Theater", True),
+        u"Tempodrom": StageSettings(u"Die Wühlmäuse", u"Tempodrom", False),
+    }.iteritems())
 
-    u"Tempodrom": StageSettings(u"Die Wühlmäuse", u"Tempodrom", False),
-}.iteritems())
-
-
-PRODUCTION_VENUES = dict((k.lower(), v) for k, v in {
-    u"Rotes Rathaus": u"Rotes Rathaus",
-    u"Babylon Berlin-Mitte": u"Babylon Berlin-Mitte",
-    u"Delphi Filmpalast": u"Delphi Filmpalast",
-    u"Waldbühne Berlin": u"Waldbühne Berlin",
-}.iteritems())
+STAGE_TO_LOCATION_MAPPER = LazyDictionary(load_stage_to_location_mapper)
 
 
-LOCATION_TITLE_MAPPER = dict((k.lower(), v) for k, v in {
-    u"English Theatre Berlin | International Performing Arts Center": u"English Theatre Berlin",
-    u"Wühlmäuse": u"Die Wühlmäuse",  # where does it happen?
-    u"SCHAUBUDE BERLIN - Theater.PuppenFigurenObjekte": u"SCHAUBUDE BERLIN",
-    u"Staatsoper im Schillertheater": u"Staatsoper im Schiller Theater",  # where does it happen?
-    u"ATZE  Musiktheater": u"ATZE Musiktheater",
-    u"Astrid Lindgren Bühne im FEZ Berlin": u"Astrid Lindgren Bühne im FEZ-Berlin",
-    u"FEZ-Berlin und Landesmusikakademie Berlin": u"Landesmusikakademie Berlin im FEZ",
-    u"UdK - Universität der Künste Berlin": u"UNI.T - Theater der UdK Berlin",
-    u"Sophiensaele": u"Sophiensæle",
-}.iteritems())
+def load_production_venues():
+    return dict((k.lower(), v) for k, v in {
+        u"Rotes Rathaus": u"Rotes Rathaus",
+        u"Babylon Berlin-Mitte": u"Babylon Berlin-Mitte",
+        u"Delphi Filmpalast": u"Delphi Filmpalast",
+        u"Waldbühne Berlin": u"Waldbühne Berlin",
+    }.iteritems())
+
+PRODUCTION_VENUES = LazyDictionary(load_production_venues)
+
+
+def load_location_title_mapper():
+    return dict((k.lower(), v) for k, v in {
+        u"English Theatre Berlin | International Performing Arts Center": u"English Theatre Berlin",
+        u"Wühlmäuse": u"Die Wühlmäuse",  # where does it happen?
+        u"SCHAUBUDE BERLIN - Theater.PuppenFigurenObjekte": u"SCHAUBUDE BERLIN",
+        u"Staatsoper im Schillertheater": u"Staatsoper im Schiller Theater",  # where does it happen?
+        u"ATZE  Musiktheater": u"ATZE Musiktheater",
+        u"Astrid Lindgren Bühne im FEZ Berlin": u"Astrid Lindgren Bühne im FEZ-Berlin",
+        u"FEZ-Berlin und Landesmusikakademie Berlin": u"Landesmusikakademie Berlin im FEZ",
+        u"UdK - Universität der Künste Berlin": u"UNI.T - Theater der UdK Berlin",
+        u"Sophiensaele": u"Sophiensæle",
+    }.iteritems())
+
+LOCATION_TITLE_MAPPER = LazyDictionary(load_location_title_mapper)
 
 
 def convert_location_title(title):

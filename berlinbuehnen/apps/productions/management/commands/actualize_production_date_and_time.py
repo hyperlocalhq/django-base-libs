@@ -1,20 +1,12 @@
 # -*- coding: UTF-8 -*-
-
-import os
-import shutil
-from optparse import make_option
-
-from django.conf import settings
 from django.utils.encoding import smart_str
 from django.core.management.base import NoArgsCommand
 from django.db import models
 
-from _import_from_heimat_base_xml import ImportFromHeimatBase
-
 SILENT, NORMAL, VERBOSE, VERY_VERBOSE = 0, 1, 2, 3
 
 
-class Command(NoArgsCommand, ImportFromHeimatBase):
+class Command(NoArgsCommand):
     option_list = NoArgsCommand.option_list
     help = "Updates actual production start date and time."
 
