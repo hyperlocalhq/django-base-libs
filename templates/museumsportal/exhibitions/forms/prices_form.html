@@ -5,17 +5,15 @@
     {% crispy form %}
     <script>
     $(function() {
-        var $details = $('.fieldset-details:first');
-        $('input:checkbox', $details).change(function() {
-            var $checkbox = $(this);
-            var detail = $checkbox.attr('id').replace(/^id_show_/, '');
-            var $detail = $('.div-' + detail + '-details', $details);
-            if ($checkbox.attr('checked')) {
-                $detail.show();
+        function toggle_price_info() {
+            if ($('#id_museum_prices').attr('checked')) {
+                $('.price-info').addClass('hidden');
             } else {
-                $detail.hide();
+                $('.price-info').removeClass('hidden');
             }
-        }).change();
-    });    
+        }
+        $('#id_museum_prices').change(toggle_price_info);
+        toggle_price_info();
+    });
     </script>
 {% endblock %}

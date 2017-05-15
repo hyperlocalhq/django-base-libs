@@ -199,13 +199,40 @@ class ExhibitionResource(ModelResource):
         
         bundle.data['other_locations_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_other_locations_en()))
         bundle.data['other_locations_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_other_locations_de()))
-        
-        bundle.data['admission_price_info_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_admission_price_info_en()))
-        bundle.data['admission_price_info_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_admission_price_info_de()))
-        
-        bundle.data['reduced_price_info_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_reduced_price_info_en()))
-        bundle.data['reduced_price_info_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_reduced_price_info_de()))
-        
+
+        if bundle.obj.museum_prices:
+            bundle.data['free_entrance'] = bundle.obj.museum.free_entrance
+            bundle.data['admission_price'] = bundle.obj.museum.admission_price
+            bundle.data['reduced_price'] = bundle.obj.museum.reduced_price
+
+            bundle.data['admission_price_info_en'] = strip_invalid_chars(
+                strip_html(bundle.obj.museum.get_rendered_admission_price_info_en())
+            )
+            bundle.data['admission_price_info_de'] = strip_invalid_chars(
+                strip_html(bundle.obj.museum.get_rendered_admission_price_info_de())
+            )
+
+            bundle.data['reduced_price_info_en'] = strip_invalid_chars(
+                strip_html(bundle.obj.museum.get_rendered_reduced_price_info_en())
+            )
+            bundle.data['reduced_price_info_de'] = strip_invalid_chars(
+                strip_html(bundle.obj.museum.get_rendered_reduced_price_info_de())
+            )
+        else:
+            bundle.data['admission_price_info_en'] = strip_invalid_chars(
+                strip_html(bundle.obj.get_rendered_admission_price_info_en())
+            )
+            bundle.data['admission_price_info_de'] = strip_invalid_chars(
+                strip_html(bundle.obj.get_rendered_admission_price_info_de())
+            )
+
+            bundle.data['reduced_price_info_en'] = strip_invalid_chars(
+                strip_html(bundle.obj.get_rendered_reduced_price_info_en())
+            )
+            bundle.data['reduced_price_info_de'] = strip_invalid_chars(
+                strip_html(bundle.obj.get_rendered_reduced_price_info_de())
+            )
+
         bundle.data['suitable_for_disabled_info_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_suitable_for_disabled_info_en()))
         bundle.data['suitable_for_disabled_info_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_suitable_for_disabled_info_de()))
         

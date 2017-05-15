@@ -758,23 +758,27 @@ class PricesForm(ModelForm):
 
         fieldset_content = []  # collect multilingual divs into one list...
         fieldset_content.append(
-            layout.Div('museum_prices', 'free_entrance', css_class="inline")
+            layout.Div('museum_prices', layout.Div('free_entrance', css_class="price-info"), css_class="inline")
         )
         fieldset_content.append(
-            layout.Field('admission_price', placeholder=decimalfmt(0, "#,##0.00"))
+            layout.Div(
+                layout.Field('admission_price', placeholder=decimalfmt(0, "#,##0.00")), css_class="price-info"
+            )
         )
         fieldset_content.append(layout.Row(
-            css_class="row-md",
+            css_class="row-md price-info",
             *[layout.Div(
                 layout.Field('admission_price_info_%s' % lang_code),
                 css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
             ) for lang_code, lang_name in FRONTEND_LANGUAGES]
         ))
         fieldset_content.append(
-            layout.Field('reduced_price', placeholder=decimalfmt(0, "#,##0.00"))
+            layout.Div(
+                layout.Field('reduced_price', placeholder=decimalfmt(0, "#,##0.00")), css_class="price-info"
+            )
         )
         fieldset_content.append(layout.Row(
-            css_class="row-md",
+            css_class="row-md price-info",
             *[layout.Div(
                 layout.Field('reduced_price_info_%s' % lang_code),
                 css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
