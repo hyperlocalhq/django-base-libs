@@ -136,6 +136,9 @@ def ObjectRelationMixinAdminOptions(
                 }
             ),
         ]
+        related_lookup_fields = {
+            'generic': [[content_type_field, object_id_field]],
+        }
         
         def formfield_for_dbfield(self, db_field, **kwargs):
             """ applying custom widgets here! """
