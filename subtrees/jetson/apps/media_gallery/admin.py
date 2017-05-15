@@ -1,4 +1,6 @@
 # -*- coding: UTF-8 -*-
+from copy import deepcopy
+
 from django.db import models
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
@@ -196,7 +198,10 @@ class MediaFile_Inline(ExtendedStackedInline):
     fieldsets += [(None, {'fields': ("sort_order", )}),]
 
 
-class MediaGalleryOptions(ObjectRelationMixinAdminOptions(admin_order_field="content_object_repr")):
+ObjectRelationAdminMixin = ObjectRelationMixinAdminOptions(admin_order_field="content_object_repr")
+
+
+class MediaGalleryOptions(ObjectRelationAdminMixin):
     save_on_top = True
     inlines = [MediaFile_Inline]
     list_display = ('id', '__unicode__', 'content_type', 'get_content_object_display', 'creation_date', 'file_count', 'views', 'is_featured')
@@ -205,9 +210,7 @@ class MediaGalleryOptions(ObjectRelationMixinAdminOptions(admin_order_field="con
     list_filter = ['creation_date', 'content_type', 'is_featured']
     search_fields = ["title", "content_object_repr"]
     date_hierarchy = 'creation_date'
-    fieldsets = [
-        (_("Related Object"), {'fields': ("content_type", "object_id")}),
-    ]
+    fieldsets = deepcopy(ObjectRelationAdminMixin.fieldsets)
     fieldsets += get_admin_lang_section(None, ['title', 'description'])
     fieldsets += [
         (_("Cover"), {'fields': ("cover_image",), 'classes': ["grp-collapse grp-closed"]}),
@@ -215,10 +218,6 @@ class MediaGalleryOptions(ObjectRelationMixinAdminOptions(admin_order_field="con
     fieldsets += [
         (_("Details"), {'fields': ("is_featured", "sort_order"), 'classes': ["grp-collapse grp-closed"]}),
     ]
-
-    related_lookup_fields = {
-        'generic': [['content_type', 'object_id'], ],
-    }
 
 admin.site.register(MediaGallery, MediaGalleryOptions)
 

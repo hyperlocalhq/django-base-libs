@@ -5,8 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from jetson.apps.media_gallery.admin import *
 from base_libs.models.admin import PublishingMixinAdminOptions
 
-PortfolioSettings = models.get_model("media_gallery", "PortfolioSettings")
-Section = models.get_model("media_gallery", "Section")
+from .models import PortfolioSettings, Section
 
 
 class CCBMediaGalleryOptions(MediaGalleryOptions):
@@ -16,8 +15,6 @@ class CCBMediaGalleryOptions(MediaGalleryOptions):
         'status',
         'is_featured'
     )
-    list_editable = ('is_featured',)
-
     fieldsets = [
         (_("Related Object"), {'fields': ("content_type", "object_id")}),
     ]
@@ -35,39 +32,34 @@ class CCBMediaGalleryOptions(MediaGalleryOptions):
     ]
     fieldsets += PublishingMixinAdminOptions.fieldsets
 
+    raw_id_fields = ("section", 'author',)
+    related_lookup_fields = deepcopy(MediaGalleryOptions.related_lookup_fields)
+    related_lookup_fields.setdefault('fk', [])
+    related_lookup_fields['fk'] += ["section", "author"]
 
-class PortfolioSettingsAdminForm(ObjectRelationMixinAdminForm()):
-    pass
 
-
-class PortfolioSettingsOptions(ObjectRelationMixinAdminOptions(admin_order_field="content_object_repr")):
-    form = PortfolioSettingsAdminForm
+class PortfolioSettingsOptions(ObjectRelationAdminMixin):
     save_on_top = True
     list_display = ('id', '__unicode__', 'content_type', 'get_content_object_display', 'creation_date', 'landing_page')
     list_display_links = ('id', '__unicode__',)
     list_filter = ['creation_date', 'content_type', 'landing_page']
     search_fields = ["content_object_repr"]
     date_hierarchy = 'creation_date'
-    fieldsets = ObjectRelationMixinAdminOptions().fieldsets
+    fieldsets = deepcopy(ObjectRelationAdminMixin.fieldsets)
     fieldsets += [
         (_("Details"), {'fields': ("landing_page", "landing_page_image"), 'classes': ["collapse closed"]}),
     ]
 
 
-class SectionAdminForm(ObjectRelationMixinAdminForm()):
-    pass
-
-
-class SectionOptions(ObjectRelationMixinAdminOptions(admin_order_field="content_object_repr")):
-    form = SectionAdminForm
+class SectionOptions(ObjectRelationAdminMixin):
     save_on_top = True
     list_display = ('id', '__unicode__', 'content_type', 'get_content_object_display', 'creation_date')
     list_display_links = ('id', '__unicode__',)
     list_filter = ['creation_date', 'content_type', 'show_title']
     search_fields = ["title", "content_object_repr"]
     date_hierarchy = 'creation_date'
-    fieldsets = ObjectRelationMixinAdminOptions().fieldsets
-    fieldsets += get_admin_lang_section(None, ['title'])
+    fieldsets = deepcopy(ObjectRelationAdminMixin.fieldsets)
+    fieldsets += get_admin_lang_section(_("Title"), ['title'])
     fieldsets += [
         (_("Details"), {'fields': ("show_title", "sort_order"), 'classes': ["collapse closed"]}),
     ]
