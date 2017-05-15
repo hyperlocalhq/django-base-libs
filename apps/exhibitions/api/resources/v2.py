@@ -200,7 +200,7 @@ class ExhibitionResource(ModelResource):
         bundle.data['other_locations_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_other_locations_en()))
         bundle.data['other_locations_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_other_locations_de()))
 
-        if bundle.obj.museum_prices:
+        if bundle.obj.museum_prices and bundle.obj.museum:
             bundle.data['free_entrance'] = bundle.obj.museum.free_entrance
             bundle.data['admission_price'] = bundle.obj.museum.admission_price
             bundle.data['reduced_price'] = bundle.obj.museum.reduced_price
