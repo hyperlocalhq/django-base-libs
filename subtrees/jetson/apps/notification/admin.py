@@ -3,7 +3,6 @@ from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
 from base_libs.models.admin import ObjectRelationMixinAdminOptions
-from base_libs.models.admin import ObjectRelationMixinAdminForm
 from base_libs.models.admin import get_admin_lang_section
 
 from jetson.apps.notification.models import NoticeTypeCategory
@@ -15,12 +14,14 @@ from jetson.apps.notification.models import ObservedItem
 from jetson.apps.notification.models import Digest
 from jetson.apps.notification.models import DigestNotice
 
+
 class NoticeTypeCategoryAdmin(admin.ModelAdmin):
     save_on_top = True
     list_display = ('title', 'is_public')
     list_filter = ('is_public',)
     fieldsets = get_admin_lang_section(_("Title"), ['title'])
     fieldsets += [(None, {'fields': ('is_public',)}),]
+
 
 class NoticeTypeAdmin(admin.ModelAdmin):
     save_on_top = True
@@ -33,24 +34,29 @@ class NoticeTypeAdmin(admin.ModelAdmin):
         (_('Additional'), {'fields': ('default', 'is_public'), 'classes': ("grp-collapse grp-closed",),}),
     ]
 
+
 class NoticeEmailTemplateAdmin(admin.ModelAdmin):
     list_display = ['name', 'owner', 'subject', 'get_site']
     search_fields = ('name', 'subject', 'subject_de', 'body', 'body_de', 'body_html', 'body_html_de',)
     save_on_top = True
     filter_horizontal = ('allowed_placeholders',)
 
+
 class NoticeSettingAdmin(admin.ModelAdmin):
     save_on_top = True
     list_filter = ('notice_type', 'medium', 'frequency')
     list_display = ('id', 'user', 'notice_type', 'medium', 'frequency')
 
+
 class NoticeAdmin(admin.ModelAdmin):
     save_on_top = True
     list_display = ('message', 'user', 'notice_type', 'added', 'unseen', 'archived')
 
+
 class DigestNotice_Inline(admin.StackedInline):
     model = DigestNotice
     extra = 0
+
 
 class DigestAdmin(admin.ModelAdmin):
     save_on_top = True
@@ -58,14 +64,12 @@ class DigestAdmin(admin.ModelAdmin):
     list_filter = ("frequency", "is_sent")
     inlines = (DigestNotice_Inline,)
 
-class ObservedItemAdminForm(ObjectRelationMixinAdminForm()):
-    pass
 
 class ObservedItemOptions(ObjectRelationMixinAdminOptions()):
-    form = ObservedItemAdminForm
     save_on_top = True
     list_display = ('__unicode__', 'get_content_object_display')
     fieldsets = []
+
 
 admin.site.register(NoticeTypeCategory, NoticeTypeCategoryAdmin)
 admin.site.register(NoticeType, NoticeTypeAdmin)

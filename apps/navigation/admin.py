@@ -1,11 +1,9 @@
 # -*- coding: UTF-8 -*-
 
 from django.contrib import admin
-from django.contrib.contenttypes.generic import GenericStackedInline
 from django.utils.translation import ugettext_lazy as _
 
 from base_libs.models.admin import ObjectRelationMixinAdminOptions
-from base_libs.models.admin import ObjectRelationMixinAdminForm
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin.tree_editor import TreeEditor
 
@@ -13,11 +11,8 @@ from ccb.apps.navigation.models import NavigationLink
 
 ### Normal Navigation Admin Settings ###
 
-class NavigationAdminForm(ObjectRelationMixinAdminForm()):
-    pass
 
 class NavigationLinkOptions(TreeEditor, ObjectRelationMixinAdminOptions(prefix_verbose=_("Linked Object"))):
-    form = NavigationAdminForm
     description = _("Each item can be either a link or a group of links.")
     save_on_top = True
     list_display = ['actions_column', 'indented_short_title', 'get_link_display', 'is_shown_for_visitors', 'is_shown_for_users', 'sysname',]

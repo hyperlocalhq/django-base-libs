@@ -4,7 +4,6 @@ from copy import deepcopy
 from django.db import models
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
-from django.utils.encoding import force_unicode
 from django.forms.models import ModelForm
 from django.forms.models import BaseModelFormSet
 from django.forms.models import BaseInlineFormSet
@@ -12,14 +11,9 @@ from django.forms.models import modelformset_factory
 from django.forms.models import save_instance
 from django.forms.formsets import DELETION_FIELD_NAME
 from django.contrib.admin.util import flatten_fieldsets
-from django.conf import settings
 
-from base_libs.admin.options import ExtendedStackedInline
 from base_libs.models.admin import ObjectRelationMixinAdminOptions
-from base_libs.models.admin import ObjectRelationMixinAdminForm
 from base_libs.models.admin import get_admin_lang_section
-from base_libs.middleware import get_current_language
-from base_libs.admin import ExtendedModelAdmin
 from base_libs.admin import ExtendedStackedInline
 
 import filebrowser.settings as filebrowser_settings

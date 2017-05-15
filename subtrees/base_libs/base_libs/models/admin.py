@@ -281,7 +281,6 @@ class SingleSiteContainerMixinAdminOptions(ObjectRelationMixinAdminOptions()):
               }
           ),
     ]
-    pass
 
 
 class SingleSiteContainerMixinAdminForm(ObjectRelationMixinAdminForm()):
@@ -345,7 +344,6 @@ class MultiSiteContainerMixinAdminOptions(ObjectRelationMixinAdminOptions()):
               }
           ),
     ]
-    pass
 
 
 class MultiSiteContainerMixinAdminForm(ObjectRelationMixinAdminForm()):

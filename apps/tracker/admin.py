@@ -1,4 +1,6 @@
 # -*- coding: UTF-8 -*-
+from copy import deepcopy
+
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
@@ -19,28 +21,32 @@ class ConcernOptions(ExtendedModelAdmin):
 
 class TicketModifications_Inline(admin.StackedInline):
     model = TicketModifications
-    extra = 2
+    extra = 0
 
 
-class TicketAdminForm(ObjectRelationMixinAdminForm()):
-    pass
+ObjectRelationAdminMixin = ObjectRelationMixinAdminOptions()
 
 
-class TicketOptions(ObjectRelationMixinAdminOptions()):
-    form = TicketAdminForm
+class TicketOptions(ObjectRelationAdminMixin):
     save_on_top = True
     inlines = [TicketModifications_Inline]
     list_display = (
-        'concern', 'submitted_date', 'priority', 'get_submitter', 'get_content_object_display', 'status', 'modifier')
+        'concern', 'submitted_date', 'priority', 'get_submitter', 'get_content_object_display', 'status', 'modifier',
+    )
     list_filter = ('status', 'concern', 'submitted_date')
     search_fields = ('description', 'concern__title', 'status',)
-    fieldsets = (
-        (None,
-         {'fields': (
+
+    fieldsets = deepcopy(ObjectRelationAdminMixin.fieldsets)
+    fieldsets += [
+        (None, {'fields': (
              'concern', 'description', 'client_info', 'status', 'priority', 'url', 'submitter_name', 'submitter_email',
-             'modifier')}
-         ),
-    )
+             'modifier',
+        )}),
+    ]
+    raw_id_fields = ["modifier"]
+    related_lookup_fields = deepcopy(ObjectRelationAdminMixin.related_lookup_fields)
+    related_lookup_fields.setdefault('fk', [])
+    related_lookup_fields['fk'] += ["modifier"]
 
     def get_submitter(self, obj):
         if obj.submitter:

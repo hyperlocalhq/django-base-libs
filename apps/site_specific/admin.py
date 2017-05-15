@@ -1,9 +1,10 @@
 # -*- coding: UTF-8 -*-
+from copy import deepcopy
+
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
 from base_libs.models.admin import ObjectRelationMixinAdminOptions
-from base_libs.models.admin import ObjectRelationMixinAdminForm
 from base_libs.models.admin import get_admin_lang_section
 
 from ccb.apps.site_specific.models import ContextItem, ClaimRequest, Visit
@@ -17,8 +18,10 @@ class VisitAdmin(admin.ModelAdmin):
     ]
 
 
+ObjectRelationAdminMixin = ObjectRelationMixinAdminOptions()
 
-class ContextItemOptions(ObjectRelationMixinAdminOptions()):
+
+class ContextItemOptions(ObjectRelationAdminMixin):
     list_display = ['get_title', 'content_type', 'slug', 'creation_date', 'status']
     list_filter = ('creation_date', 'status', 'content_type')
     save_on_top = True
@@ -48,12 +51,7 @@ class ContextItemOptions(ObjectRelationMixinAdminOptions()):
     ]
 
 
-class ClaimRequestAdminForm(ObjectRelationMixinAdminForm()):
-    pass
-
-
-class ClaimRequestOptions(ObjectRelationMixinAdminOptions()):
-    form = ClaimRequestAdminForm
+class ClaimRequestOptions(ObjectRelationAdminMixin):
     save_on_top = True
     list_display = (
         'created_date',
@@ -73,17 +71,24 @@ class ClaimRequestOptions(ObjectRelationMixinAdminOptions()):
             'role',
             'comments',
         ),
-    }
-                  ), ] + ObjectRelationMixinAdminOptions().fieldsets + [(_('Phone'), {'classes': ('one-line',),
-                                                                                      'fields': (
-                                                                                          (
-                                                                                              'phone_country',
-                                                                                              'phone_area',
-                                                                                              'phone_number'),
-                                                                                          'best_time_to_call',
-                                                                                      ),
-                                                                                      }
-                                                                         ), ]
+    })]
+    fieldsets += ObjectRelationAdminMixin.fieldsets
+    fieldsets += [(_('Phone'), {'classes': ('one-line',),
+        'fields': (
+            (
+                'phone_country',
+                'phone_area',
+                'phone_number'
+            ),
+            'best_time_to_call',
+        ),
+    })]
+    raw_id_fields = ["user"]
+    related_lookup_fields = deepcopy(ObjectRelationAdminMixin.related_lookup_fields)
+    related_lookup_fields.setdefault('fk', [])
+    related_lookup_fields['fk'] += ["user"]
+
+
 
 
 admin.site.register(ContextItem, ContextItemOptions)
