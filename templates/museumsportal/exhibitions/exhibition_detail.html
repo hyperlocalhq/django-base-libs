@@ -201,7 +201,7 @@
                         <b>{{ exhibition.location_name }}</b><br/>
                         {{ exhibition.street_address }}<br/>
                         {% if exhibition.street_address2 %}
-                          <dd>{{ exhibition.street_address2 }}<br/>
+                          {{ exhibition.street_address2 }}<br/>
                         {% endif %}
                         {{ exhibition.postal_code }} {{ exhibition.city }}<br/>
                       </p>
@@ -451,9 +451,8 @@
 
                                 {% if season.last_entry %}
                                   <dl>
-                                    <dt>{% trans "Last entry" %}
-                                      <dd>{{ season.last_entry }}</dd>
-                                    </dt>
+                                    <dt>{% trans "Last entry" %}</dt>
+                                    <dd>{{ season.last_entry }}</dd>
                                   </dl>
                                 {% endif %}
 
@@ -509,9 +508,8 @@
 
                               {% if season.last_entry %}
                                 <dl>
-                                  <dt>{% trans "Last entry" %}
-                                    <dd>{{ season.last_entry }}</dd>
-                                  </dt>
+                                  <dt>{% trans "Last entry" %}</dt>
+                                  <dd>{{ season.last_entry }}</dd>
                                 </dl>
                               {% endif %}
 
@@ -527,6 +525,7 @@
                               <dl{% comment %}{% if forloop.counter > 5 %} class="hidden"{% endif %}{% endcomment %}>
                                 <dt>
                                   {{ special_opening.dd }}. {{ special_opening.get_mm_display }} {{ special_opening.yyyy|default:"" }}
+                                </dt>
 
                                   {% if special_opening.is_closed %}
                                     <dd>{% trans "Closed" %}</dd>
@@ -538,12 +537,11 @@
                                       <dd>{{ special_opening.opening|time:"H:i" }} - {{ special_opening.closing|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</dd>
                                       {% if season.sun_break_close %}
                                         <dt>{% trans "Break:" %}
-                                        <dd>{{ special_opening.break_close|time:"H:i" }} - {{ special_opening.break_open|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</dd></dt>
+                                        <dd>{{ special_opening.break_close|time:"H:i" }} - {{ special_opening.break_open|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</dd>
                                       {% endif %}
                                     {% endif %}
 
                                   {% endif %}
-                                </dt>
                               </dl>
                             {% endfor %}
                             <script>
@@ -630,9 +628,8 @@
 
                             {% if season.last_entry %}
                               <dl>
-                                <dt>{% trans "Last entry" %}
-                                  <dd>{{ season.last_entry }}</dd>
-                                </dt>
+                                <dt>{% trans "Last entry" %}</dt>
+                                <dd>{{ season.last_entry }}</dd>
                               </dl>
                             {% endif %}
 
@@ -692,9 +689,8 @@
 
                             {% if season.last_entry %}
                               <dl>
-                                <dt>{% trans "Last entry" %}
-                                  <dd>{{ season.last_entry }}</dd>
-                                </dt>
+                                <dt>{% trans "Last entry" %}</dt>
+                                <dd>{{ season.last_entry }}</dd>
                               </dl>
                             {% endif %}
 
@@ -722,7 +718,7 @@
                         </a>
                       </div>
 
-                      <div id="collapse-prices" class="panel-collapse collapse" style="height: 0px; ">
+                      <div id="collapse-prices" class="panel-collapse collapse" style="height: 0;">
                         <div class="panel-body">
                           {% if museum.free_entrance %}
                             {% trans "Free entrance" %}
@@ -759,7 +755,7 @@
                             {% endif %}
 
                             {% if museum.free_entrance_for %}
-                              <b>
+                              <p>
                                 <b>{% trans "Free entrance for" %}</b><br/>
                                 {{ museum.get_rendered_free_entrance_for|striptags|urlize }}
                               </p>
@@ -811,9 +807,8 @@
                         {% if museum.group_bookings_phone_number %}
                           <div class="panel-body">
                             <dl>
-                              <dt>{% trans "Booking Telephone" %}
-                                <dd>+{{ museum.group_bookings_phone_country }} ({{ museum.group_bookings_phone_area }}) {{ museum.group_bookings_phone_number }}</dd>
-                              </dt>
+                              <dt>{% trans "Booking Telephone" %}</dt>
+                              <dd>+{{ museum.group_bookings_phone_country }} ({{ museum.group_bookings_phone_area }}) {{ museum.group_bookings_phone_number }}</dd>
                             </dl>
                           </div>
                         {% endif %}
@@ -840,7 +835,7 @@
                           {% if exhibition.admission_price %}
                             <dl>
                               <dt>{% trans "Admission price" %}</dt>
-                              <dd> {{ exhibition.admission_price|currencyfmt:"EUR" }}</dt>
+                              <dd> {{ exhibition.admission_price|currencyfmt:"EUR" }}</dd>
                             </dl>
                             {% if exhibition.admission_price_info %}
                               <p>{{ exhibition.get_rendered_admission_price_info|striptags|urlize }}</p>
@@ -850,7 +845,7 @@
                           {% if exhibition.reduced_price %}
                             <dl>
                               <dt>{% trans "Reduced price" %}</dt>
-                              <dd> {{ exhibition.reduced_price|currencyfmt:"EUR" }}</dt>
+                              <dd> {{ exhibition.reduced_price|currencyfmt:"EUR" }}</dd>
                             </dl>
                             {% if exhibition.reduced_price_info %}
                               <p>{{ exhibition.get_rendered_reduced_price_info|striptags|urlize }}</p>
