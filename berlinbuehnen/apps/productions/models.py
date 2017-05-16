@@ -53,6 +53,7 @@ TICKET_STATUS_CHOICES = (
 EVENT_STATUS_CHOICES = (
     ('takes_place', _("Takes place")),
     ('canceled', _("Canceled")),
+    ('trashed', _("Trashed")),
 )
 
 TOKENIZATION_SUMMAND = 56436  # used to hide the ids of media files
@@ -219,9 +220,9 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
         verbose_name_plural = _("Productions")
 
     def get_url_path(self):
-        events = self.event_set.all()
+        events = self.event_set.exclude(event_status="trashed")
         if events:
-            return self.event_set.all()[0].get_url_path()
+            return events[0].get_url_path()
         return reverse('production_detail', kwargs={'slug': self.slug})
 
     def set_owner(self, user):
@@ -305,12 +306,12 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
         if callable(timestamp):
             timestamp = timestamp()
 
-        event_times = self.event_set.filter(
+        event_times = self.event_set.exclude(event_status="trashed").filter(
             models.Q(end_date__gte=timestamp.date()) | models.Q(end_date=None, start_date__gte=timestamp.date()),
         )
 
         if not event_times:
-            event_times = self.event_set.order_by("-end_date")
+            event_times = self.event_set.exclude(event_status="trashed").order_by("-end_date")
 
         if event_times:
             return event_times[0]
@@ -322,7 +323,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
         if callable(timestamp):
             timestamp = timestamp()
 
-        event_times = self.event_set.filter(
+        event_times = self.event_set.exclude(event_status="trashed").filter(
             models.Q(end_date__gte=timestamp.date()) | models.Q(end_date=None, start_date__gte=timestamp.date()),
         )
 
@@ -331,7 +332,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     def get_past_occurrences(self, timestamp=tz_now):
         if callable(timestamp):
             timestamp = timestamp()
-        return self.event_set.filter(end_date__lt=timestamp.date())
+        return self.event_set.exclude(event_status="trashed").filter(end_date__lt=timestamp.date())
 
     def get_future_occurrences(self, timestamp=tz_now):
         if callable(timestamp):
@@ -339,7 +340,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
 
         now_date = timestamp.date()
         now_time = timestamp.time()
-        events = list(self.event_set.filter(start_date__gte=now_date).order_by('start_date'))
+        events = list(self.event_set.exclude(event_status="trashed").filter(start_date__gte=now_date).order_by('start_date'))
 
         while len(events) and events[0].start_date == now_date and events[0].start_time < now_time:
             del events[0]

@@ -496,7 +496,7 @@ def register_and_claim_location(request, invitation_code):
                         pass
                 for p in location.located_productions.all():
                     p.set_owner(u)
-                for event in location.event_set.all():
+                for event in location.event_set.exclude(event_status="trashed"):
                     event.production.set_owner(u)
 
                 # login the current user
@@ -518,7 +518,7 @@ def register_and_claim_location(request, invitation_code):
                         pass
                 for p in location.located_productions.all():
                     p.set_owner(u)
-                for event in location.event_set.all():
+                for event in location.event_set.exclude(event_status="trashed"):
                     event.production.set_owner(u)
                 auth_login(request, u)
                 return redirect("dashboard")
@@ -535,7 +535,7 @@ def register_and_claim_location(request, invitation_code):
                     pass
                 for p in location.located_productions.all():
                     p.set_owner(u)
-                for event in location.event_set.all():
+                for event in location.event_set.exclude(event_status="trashed"):
                     event.production.set_owner(u)
             auth_login(request, u)
             return redirect("dashboard")
@@ -661,7 +661,7 @@ def culturebase_export_productions(request, location_slug):
                 )
 
         event_nodes = []
-        for event in prod.event_set.all():
+        for event in prod.event_set.exclude(event_status="trashed"):
             persons = '\n'.join([
                 u'%s - %s' % (involvement.person, involvement.get_function()) for involvement in event.eventinvolvement_set.all()
             ])
@@ -693,11 +693,11 @@ def culturebase_export_productions(request, location_slug):
                 E.erUntertitelEn(CDATA(event.subtitles_text_en)),
             ))
         try:
-            first_date = prod.event_set.order_by("start_date")[0].start_date.strftime('%Y-%m-%d')
+            first_date = prod.event_set.exclude(event_status="trashed").order_by("start_date")[0].start_date.strftime('%Y-%m-%d')
         except:
             first_date = ""
         try:
-            last_date = prod.event_set.order_by("-start_date")[0].start_date.strftime('%Y-%m-%d')
+            last_date = prod.event_set.exclude(event_status="trashed").order_by("-start_date")[0].start_date.strftime('%Y-%m-%d')
         except:
             last_date = ""
         persons = '\n'.join([
@@ -770,6 +770,14 @@ def culturebase_export_productions(request, location_slug):
     )
 
 API_CHANGELOG = [
+    {
+        'date': datetime(2017, 5, 16, 12, 0),
+        'changes': [
+            u"""New <strong>event_status</strong> "trashed" added to events.""",
+            u"""Future events which were imported before, but don't exist in the feeds anymore, get the <strong>event_status</strong> "trashed" instead of "canceled". <br /><em>Note that "canceled" events are shown in the Berlin Bühnen website with a special label, whereas "trashed" events are hidden.</em>""",
+            u"For trashed events only ID, event status, and creation and modification dates are provided in the export API.",
+        ],
+    },
     {
         'date': datetime(2017, 5, 11, 12, 0),
         'changes': [

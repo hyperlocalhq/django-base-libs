@@ -1505,7 +1505,7 @@ def set_extra_context(current_step, form_steps, form_step_data, instance=None):
         production = Production.objects.get(pk=form_step_data['_pk'])
         return {
             'production': production,
-            'events': production.event_set.order_by("-start_date", "-start_time"),
+            'events': production.event_set.exclude(event_status="trashed").order_by("-start_date", "-start_time"),
         }
     return {}
 

@@ -34,7 +34,7 @@ class Command(NoArgsCommand):
                 # for location in prod.play_locations.all():
                 #     for owner in location.get_owners():
                 #         prod.set_owner(owner)
-                # for event in prod.event_set.all():
+                # for event in prod.event_set.exclude(event_status="trashed"):
                 #     for location in event.play_locations.all():
                 #         for owner in location.get_owners():
                 #             prod.set_owner(owner)

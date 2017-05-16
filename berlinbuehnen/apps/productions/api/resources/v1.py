@@ -543,6 +543,14 @@ class EventResource(ModelResource):
         ]
 
     def dehydrate(self, bundle):
+        if bundle.obj.event_status == "trashed":
+            bundle.data = {
+                'id':  bundle.obj.id,
+                'event_status': bundle.obj.event_status,
+                'creation_date': bundle.obj.creation_date,
+                'modified_date': bundle.obj.modified_date,
+            }
+            return bundle
         current_language = get_language()
         for lang_code, lang_name in settings.FRONTEND_LANGUAGES:
             try:

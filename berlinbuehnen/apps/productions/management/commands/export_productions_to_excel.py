@@ -96,7 +96,7 @@ class Command(NoArgsCommand):
                 u','.join([u'%s-%s' % (author.person, author.get_function()) for author in prod.productionauthorship_set.all()]),
                 u','.join([u'%s-%s' % (participant.person, participant.get_function()) for participant in prod.productioninvolvement_set.all()]),
                 u','.join([str(im.pk) for im in prod.productionimage_set.all()]),
-                u','.join([str(ev.pk) for ev in prod.event_set.all()]),
+                u','.join([str(ev.pk) for ev in prod.event_set.exclude(event_status="trashed")]),
             ])
 
         if self.verbosity >= NORMAL:

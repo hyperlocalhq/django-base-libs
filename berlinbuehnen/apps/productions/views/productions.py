@@ -306,7 +306,7 @@ def events_overview(request, slug):
 
     return render(request, "productions/events/overview.html", {
         'production': production,
-        'events': production.event_set.order_by("-start_date", "-start_time"),
+        'events': production.event_set.exclude(event_status="trashed").order_by("-start_date", "-start_time"),
     })
 
 
@@ -710,7 +710,8 @@ def delete_event(request, slug, event_id):
     if not event.production.is_deletable():
         return access_denied(request)
     if request.method == "POST" and request.is_ajax():
-        event.delete()
+        event.event_status = "trashed"
+        event.save()
         return HttpResponse("OK")
         
     if request.REQUEST.get('new_production'):

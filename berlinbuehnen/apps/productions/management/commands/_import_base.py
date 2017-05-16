@@ -252,7 +252,7 @@ class ImportCommandMixin(object):
         'events_added': 0,
         'events_updated': 0,
         'events_skipped': 0,
-        'events_canceled': 0,
+        'events_trashed': 0,
     }
     all_feeds_alright = True
 
@@ -297,7 +297,7 @@ class ImportCommandMixin(object):
                 self.stats['prods_trashed'] += 1
 
         if self.verbosity >= self.NORMAL:
-            self.stdout.write(u"=== Canceling non actual events ===\n")
+            self.stdout.write(u"=== Trashing non actual events ===\n")
 
         for mapper in self.service.objectmapper_set.filter(
             content_type__model__iexact="event",
@@ -310,8 +310,8 @@ class ImportCommandMixin(object):
                 if event.production.no_overwriting:
                     continue
 
-                # skip already canceled events
-                if event.event_status == "canceled":
+                # skip already trashed events
+                if event.event_status == "trashed":
                     continue
 
                 # only care about the events that will happen in the future
@@ -320,9 +320,9 @@ class ImportCommandMixin(object):
                 else:
                     event_start = datetime.combine(event.start_date, time(0, 0))
                 if event_start > datetime.now():
-                    event.event_status = "canceled"
+                    event.event_status = "trashed"
                     event.save()
-                    self.stats['events_canceled'] += 1
+                    self.stats['events_trashed'] += 1
 
     def delete_existing_productions_and_events(self):
         from django.conf import settings
@@ -437,7 +437,7 @@ class ImportCommandMixin(object):
             self.stdout.write(u"Events added: {}\n".format(self.stats['events_added']))
             self.stdout.write(u"Events updated: {}\n".format(self.stats['events_updated']))
             self.stdout.write(u"Events skipped: {}\n".format(self.stats['events_skipped']))
-            self.stdout.write(u"Events canceled: {}\n".format(self.stats['events_canceled']))
+            self.stdout.write(u"Events trashed: {}\n".format(self.stats['events_trashed']))
 
     def finalize(self):
         self.deactivate_nonactual_productions_and_events()
