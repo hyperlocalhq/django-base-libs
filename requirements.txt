@@ -1,16 +1,15 @@
 aldryn-search==0.2.0
 BabelDjango~=0.2.2
-beautifulsoup4~=4.0.5
+beautifulsoup4==4.6.0
 cmsplugin-filer~=0.10.1
 dicttoxml~=1.5.6
 Django~=1.7.11
 django-activity-stream~=0.6.0
 django-bootstrap-pagination~=1.5.1
-django-chronograph~=0.3.1
 django-cms~=3.2.0
 #django-compress~=1.0.1
 django-crispy-forms~=1.5.2
-django-debug-toolbar~=1.4
+django-debug-toolbar==1.4
 django-grappelli~=2.6.5
 django-haystack~=2.4.1
 django-jsonfield~=0.9.15
@@ -42,17 +41,17 @@ memcache-toolbar~=0.5.2
 MySQL-python~=1.2.5
 newrelic~=2.54.0
 poster~=0.8.1
---allow-external pyDes
---allow-unverified pyDes
-pyDes~=1.2
+pyDes
 pyExcelerator~=0.6.4.1
-python-social-auth
+python-social-auth[django]==0.2.21
 recaptcha-client~=1.0.6
 redis~=2.10.3
 selenium~=2.46.0
 twython~=2.10.1
-vobject~=0.8.1rc0
+vobject
 Whoosh~=2.5.7
 wsgiref~=0.1.2
 raven
 pytz
+django-mptt==0.6.1
+psycopg2==2.7.1
