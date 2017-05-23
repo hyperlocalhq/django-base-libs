@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 from django.shortcuts import render_to_response, get_object_or_404, redirect
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect, Http404, HttpResponseNotAllowed
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
@@ -158,6 +158,9 @@ def delete(request, noticeid=None, next_page=None):
 
 @login_required
 def mark_all_seen(request):
+    if request.method != "POST":
+        return HttpResponseNotAllowed(["POST"])
+
     for notice in Notice.objects.notices_for(request.user, unseen=True):
         notice.unseen = False
         notice.save()

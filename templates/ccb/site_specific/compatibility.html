@@ -1,13 +1,16 @@
-{% extends "base.html" %}
-{% load infoblocks i18n %}
+{% extends "base_sidebar.html" %}
+{% load i18n infoblocks %}
+
+{% block title %}{% trans "Upgrade your browser" %}{% endblock %}
 
 {% block headline %}
     <h1>{% trans "Upgrade your browser" %}</h1>
 {% endblock %}
 
-{% block sidebar-a %}&nbsp;{% endblock %}
-{% block sidebar-b %}&nbsp;{% endblock %}
-
-{% block content %}
+{% block details %}
     {% infoblock "browser_compatibility" %}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <li>{% trans "Upgrade your browser" %}</li>
 {% endblock %}

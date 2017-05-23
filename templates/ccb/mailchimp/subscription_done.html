@@ -1,16 +1,13 @@
-{% extends "base.html" %}
+{% extends "base_sidebar.html" %}
 {% load i18n base_tags navigation_tags %}
 
-{% block title %}{% trans "thanks" %}{% endblock %}
-
+{% block title %}{% trans "Thanks" %}{% endblock %}
 
 {% block headline %}
-    <h1>{% trans "thanks" %}</h1>
+    <h1>{% trans "Thanks" %}</h1>
 {% endblock %}
 
-{% block sidebar-a %}&nbsp;{% endblock %}
-
-{% block content %}
+{% block details %}
     <div class="thanks">
         <p>Vielen Dank.</p>
     </div>

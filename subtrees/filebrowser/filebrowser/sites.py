@@ -11,7 +11,7 @@ from time import time
 # DJANGO IMPORTS
 from django.shortcuts import render_to_response, HttpResponse
 from django.template import RequestContext as Context
-from django.http import HttpResponseRedirect, HttpResponseBadRequest
+from django.http import HttpResponseRedirect, HttpResponseBadRequest, HttpResponseNotAllowed
 from django.contrib.admin.views.decorators import staff_member_required
 from django.views.decorators.cache import never_cache
 from django.utils.translation import ugettext as _
@@ -600,6 +600,7 @@ class FileBrowserSite(object):
             # let Ajax Upload know whether we saved it or not
             ret_json = {'success': True, 'filename': f.filename}
             return HttpResponse(json.dumps(ret_json), content_type="application/json")
+        return HttpResponseNotAllowed(["POST"])
 
 storage = DefaultStorage()
 # Default FileBrowser site

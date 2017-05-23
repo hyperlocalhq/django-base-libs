@@ -494,10 +494,13 @@ def delete_contextitem(sender, instance, signal, *args, **kwargs):
 models.signals.post_save.connect(update_contextitem)
 models.signals.pre_delete.connect(delete_contextitem)
 
+
 ### Visits
+
 
 class VisitManager(models.Manager):
     def current(self):
+        from datetime import timedelta
         return self.filter(
             last_activity__gt=datetime.now() - timedelta(minutes=2),
         ).distinct()

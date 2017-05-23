@@ -33,7 +33,7 @@ class BaseNoticeFeed(Feed):
     def item_content(self, notification):
         return {"type" : "html", }, linebreaks(escape(notification.message))
     
-    def item_links(self, notification):
+    def item_link(self, notification):
         return [{"href" : self.item_id(notification)}]
     
     def item_authors(self, notification):

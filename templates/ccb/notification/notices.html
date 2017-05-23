@@ -1,4 +1,4 @@
-{% extends "messaging/details_base.html" %}
+{% extends "base_sidebar.html" %}
 
 {% load i18n babel %}
 
@@ -18,8 +18,9 @@
 {% block details %}
     {% if notices %}
         <div>
-            <a class="mark_all right"
-                href="{% url 'notification_mark_all_seen' %}">{% trans "Mark all unseen notices seen" %}</a>
+            <form action="{% url 'notification_mark_all_seen' %}" method="post">{% csrf_token %}
+                <button type="submit" class="btn btn-link">{% trans "Mark all unseen notices seen" %}</button>
+            </form>
         </div>
         {% regroup notices by added.date as notices_by_date %}
 

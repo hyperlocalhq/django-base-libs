@@ -1,6 +1,8 @@
 # -*- coding: UTF-8 -*-
 from django.conf.urls import *
+from django.conf import settings
 from django.views.generic import TemplateView
+
 from jetson.apps.utils.decorators import login_required
 
 from ccb.apps.accounts.forms import password_change_form_helper
@@ -10,7 +12,6 @@ from ccb.apps.accounts.forms import password_reset_change_form_helper
 from . import views
 
 urlpatterns = [
-    url(r'^account/$', TemplateView.as_view(template_name='accounts/index.html')),
     url(
         r'^login/$',
         'ccb.apps.accounts.views.login',
@@ -119,12 +120,16 @@ urlpatterns = [
     ),
     # activity stream
     url(r'^dashboard/$', views.dashboard, name='dashboard'),
-    url(r'^user-stream/$', views.user_stream, name='user_stream'),
-    url(r'^actor-stream/$', views.actor_stream, name='actor_stream'),
-    url(r'^action-object-stream/$', views.action_object_stream, name='action_object_stream'),
-    url(r'^target-stream/$', views.target_stream, name='target_stream'),
-    url(r'^model-stream/$', views.model_stream, name='model_stream'),
-    url(r'^any-stream/$', views.any_stream, name='any_stream'),
 
     url(r'', include('social.apps.django_app.urls', namespace='social')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += [
+        url(r'^user-stream/$', views.user_stream, name='user_stream'),
+        url(r'^actor-stream/$', views.actor_stream, name='actor_stream'),
+        url(r'^action-object-stream/$', views.action_object_stream, name='action_object_stream'),
+        url(r'^target-stream/$', views.target_stream, name='target_stream'),
+        url(r'^model-stream/$', views.model_stream, name='model_stream'),
+        url(r'^any-stream/$', views.any_stream, name='any_stream'),
+    ]
