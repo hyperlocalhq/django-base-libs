@@ -168,7 +168,6 @@ class Urls(object):
             '/de/password-reset/',
             '/de/password-reset/complete/',
             '/de/password-reset/done/',
-
             '/de/portfolios/',
             '/de/privacy/',
             '/de/register/',
@@ -192,7 +191,29 @@ class Urls(object):
             '/de/tweets/',
             '/de/helper/country_lookup/',
             '/de/helper/site-visitors/',
+            '/de/creative-sectors/architektur/ubersicht/',
+            '/de/creative-sectors/architektur/network/',
+            '/de/creative-sectors/architektur/zahlen-fakten/',
+            '/de/creative-sectors/architektur/fragen-antworten/',
+            '/de/creative-sectors/architektur/ansprechpartner-netzwerke/',
+            '/de/creative-sectors/architektur/portfolios/',
+            '/de/creative-sectors/architektur/events/',
+            '/de/creative-sectors/architektur/news/',
         ]
+
+        querysets = [
+            JobOffer.published_objects.order_by("?"),
+            Bulletin.published_objects.order_by("?"),
+            MediaGallery.published_objects.order_by("?"),
+            Event.objects.nearest_published().order_by("?"),
+            Article.published_objects.order_by("?"),
+            ContextItem.objects.filter(content_type__model__in=("person", "institution"), status="published").order_by("?"),
+        ]
+        for qs in querysets:
+            if limit_detail_pages_to:
+                qs = qs[:3]
+            for obj in qs:
+                self.urls_which_should_return_200.append(obj.get_url_path())
 
         # Redirect (to language-specific or other page)
         self.urls_which_should_return_302 = [
