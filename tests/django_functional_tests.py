@@ -206,7 +206,7 @@ class Urls(object):
             Bulletin.published_objects.order_by("?"),
             MediaGallery.published_objects.order_by("?"),
             Event.objects.nearest_published().order_by("?"),
-            Article.published_objects.order_by("?"),
+            Article.site_published_objects.order_by("?"),
             ContextItem.objects.filter(content_type__model__in=("person", "institution"), status="published").order_by("?"),
         ]
         for qs in querysets:
