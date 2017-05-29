@@ -1,14 +1,11 @@
 # -*- coding: utf-8 -*-
 import re
-from django import forms
+
 from django.template import loader
 from django.template.context import RequestContext
-from django.http import HttpResponse, Http404, HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 
-from django.conf import settings
-from django.shortcuts import render_to_response
-
-from django.contrib.formtools.utils import form_hmac
+from formtools.utils import form_hmac
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -20,8 +17,10 @@ ALLOWED_ACTIONS = [ID_ACTION_NEW, ID_ACTION_EDIT, ID_ACTION_DELETE]
 
 AUTO_ID = 'form_%s' # Each form here uses this as its auto_id parameter.
 
+
 def methodNotImplementedError(method, instance):
     raise NotImplementedError, 'You must define a %s method on your %s subclass.' % (method, instance.__class__.__name__)
+
 
 class FormHandler(object):
     """
@@ -159,9 +158,6 @@ class FormHandler(object):
         if form.is_valid():
             # encode cleaned data
             cleaned = form.cleaned_data
-            #for key, value in cleaned.items():
-            #    if type(value).__name__ == "unicode":
-            #        cleaned[key] = value.encode(settings.DEFAULT_CHARSET)
             if action == ID_ACTION_NEW:
                 return self.save_new(cleaned)
             else: #ID_ACTION_EDIT:
@@ -260,6 +256,7 @@ class FormHandler(object):
     def get_object(self):
         """ gets the object to be edited or deleted. """
         return methodNotImplementedError('get_object()', self)
+
 
 class FormPreviewHandler(FormHandler):
     """

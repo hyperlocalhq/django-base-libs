@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 from django.template.loader import select_template
-    
+
+
 def get_template_dir_from_object(obj):
     """
     gets the relative template dir from an object.
@@ -8,6 +9,7 @@ def get_template_dir_from_object(obj):
     if obj:
         return "%s/" % obj._meta.app_label
     return ""
+
 
 def select_template_for_object(template_name, obj, app_dir):
     """
@@ -19,7 +21,8 @@ def select_template_for_object(template_name, obj, app_dir):
         obj_template_name = "%s%s/%s" % \
             (get_template_dir_from_object(obj), app_dir, template_name)
     return select_template([obj_template_name, "%s/%s" % (app_dir, template_name)])
-    
+
+
 def select_template_name(template_name_prefix, obj, app_dir, use_embedded=False):
     """
     tries to get a atemplate with a given prefix and an optional 
@@ -30,7 +33,5 @@ def select_template_name(template_name_prefix, obj, app_dir, use_embedded=False)
         template_name = "%s_embedded" % template_name_prefix
     t = select_template_for_object("%s.html" % template_name, obj, app_dir)
     if t:
-        return t.name
+        return t.origin.loadname
     return ""
-
-    
