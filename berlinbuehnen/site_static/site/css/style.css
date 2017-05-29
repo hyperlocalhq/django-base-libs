@@ -9300,6 +9300,35 @@ span.pin a {
   margin-right: 0;
 }
 
+.link-category h2 {
+  background: black;
+  color: white;
+  text-transform: uppercase;
+  border: 6px solid black;
+  border-top-width: 2px;
+  margin-bottom: 20px;
+}
+
+.link-category h2:last-child {
+  margin-bottom: 20px !important;
+}
+
+.link-category ul {
+  list-style: none;
+}
+
+.link-category ul li {
+  margin-bottom: 20px;
+}
+
+.link-category ul li:last-child {
+  margin-bottom: 0;
+}
+
+.link-category ul li a {
+  font-weight: 700;
+}
+
 html {
   height: 100%;
 }
