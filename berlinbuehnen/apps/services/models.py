@@ -21,6 +21,11 @@ from cms.models.fields import PageField
 
 IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.gif', '.png']
 
+LINK_TEXT_CHOICES = (
+    ("Yes, please", _("Yes, please")),
+    ("more", _("more")),
+)
+
 
 ### BANNERS ###
 
@@ -101,10 +106,6 @@ class ServiceGridItem(CMSPlugin):
 
 
 class ServiceListItem(CMSPlugin):
-    LINK_TEXT_CHOICES = (
-        ("Yes, please", _("Yes, please")),
-        ("more", _("more")),
-    )
     title = models.CharField(_("Title"), max_length=200)
     subtitle = models.CharField(_("Subtitle"), max_length=200, blank=True)
     location = models.ForeignKey("locations.Location", verbose_name=_("Location"), help_text=_("Theater linked to this service"), blank=True, null=True)
@@ -173,6 +174,15 @@ class TitleAndText(CMSPlugin):
     subtitle = models.CharField(_("Subtitle"), max_length=200, blank=True)
     body = ExtendedTextField(_("Body"))
 
+    internal_link = PageField(
+        verbose_name=_("Internal link"),
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+    external_link = models.URLField(_("External Link"), max_length=255, blank=True)
+    link_text = models.CharField(_("Link Text"), max_length=20, default="Yes, please", choices=LINK_TEXT_CHOICES)
+
     width = models.CharField(_("Width"), max_length=20, default="full", choices=WIDTH_CHOICES)
 
     search_fields = ("title", "subtitle", "body")
@@ -191,6 +201,15 @@ class ImageAndText(CMSPlugin):
     title = models.CharField(_("Title"), max_length=200, blank=True)
     subtitle = models.CharField(_("Subtitle"), max_length=200, blank=True)
     body = ExtendedTextField(_("Body"))
+
+    internal_link = PageField(
+        verbose_name=_("Internal link"),
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+    external_link = models.URLField(_("External Link"), max_length=255, blank=True)
+    link_text = models.CharField(_("Link Text"), max_length=20, default="Yes, please", choices=LINK_TEXT_CHOICES)
 
     image = FileBrowseField(_("Image"), max_length=255, extensions=IMAGE_EXTENSIONS)
     alt = models.CharField(_("Alternative text"), max_length=200, blank=True)

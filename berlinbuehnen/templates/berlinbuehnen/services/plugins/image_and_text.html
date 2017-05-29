@@ -1,6 +1,6 @@
-{% load image_modifications %}
+{% load image_modifications i18n %}
 
-<div class="col-xs-12 print-padding">
+<div class="col-xs-12 print-padding image-text">
 {% if instance.layout == "image-left" %}
     <div class="row hidden-xs hidden-sm horizontal">
         <div class="col-md-6">
@@ -12,6 +12,9 @@
             <div class="text">
                 {{ instance.get_rendered_body }}
             </div>
+            {% if instance.internal_link or instance.external_link %}
+                <a class="button" href="{% if instance.internal_link %}{{ instance.internal_link.get_absolute_url }}{% else %}{{instance.external_link}}" target="_blank{% endif %}">{% trans instance.link_text %}</a>
+            {% endif %}
         </div>
     </div>
     <div class="row visible-xs visible-sm top-bottom">
@@ -24,6 +27,9 @@
             <div class="text">
                 {{ instance.get_rendered_body }}
             </div>
+            {% if instance.internal_link or instance.external_link %}
+                <a class="button" href="{% if instance.internal_link %}{{ instance.internal_link.get_absolute_url }}{% else %}{{instance.external_link}}" target="_blank{% endif %}">{% trans instance.link_text %}</a>
+            {% endif %}
         </div>
     </div>
     <div class="row">
@@ -37,6 +43,9 @@
             <div class="text">
                 {{ instance.get_rendered_body }}
             </div>
+            {% if instance.internal_link or instance.external_link %}
+                <a class="button" href="{% if instance.internal_link %}{{ instance.internal_link.get_absolute_url }}{% else %}{{instance.external_link}}" target="_blank{% endif %}">{% trans instance.link_text %}</a>
+            {% endif %}
         </div>
         <div class="col-md-6">
             <img src="{{ MEDIA_URL }}{{ instance.image|modified_path:'some_modification' }}" alt="{{ instance.alt|escape }}" class="img-responsive" />
@@ -52,6 +61,9 @@
             <div class="text">
                 {{ instance.get_rendered_body }}
             </div>
+            {% if instance.internal_link or instance.external_link %}
+                <a class="button" href="{% if instance.internal_link %}{{ instance.internal_link.get_absolute_url }}{% else %}{{instance.external_link}}" target="_blank{% endif %}">{% trans instance.link_text %}</a>
+            {% endif %}
         </div>
     </div>
     <div class="row">
@@ -68,6 +80,9 @@
             <div class="text">
                 {{ instance.get_rendered_body }}
             </div>
+            {% if instance.internal_link or instance.external_link %}
+                <a class="button" href="{% if instance.internal_link %}{{ instance.internal_link.get_absolute_url }}{% else %}{{instance.external_link}}" target="_blank{% endif %}">{% trans instance.link_text %}</a>
+            {% endif %}
         </div>
     </div>
     <div class="row">
@@ -81,6 +96,9 @@
             <div class="text">
                 {{ instance.get_rendered_body }}
             </div>
+            {% if instance.internal_link or instance.external_link %}
+                <a class="button" href="{% if instance.internal_link %}{{ instance.internal_link.get_absolute_url }}{% else %}{{instance.external_link}}" target="_blank{% endif %}">{% trans instance.link_text %}</a>
+            {% endif %}
         </div>
         <div class="col-xs-12">
             <img src="{{ MEDIA_URL }}{{ instance.image|modified_path:'some_modification' }}" alt="{{ instance.alt|escape }}" class="img-responsive" />

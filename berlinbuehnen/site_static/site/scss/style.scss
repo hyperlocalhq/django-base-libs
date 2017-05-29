@@ -556,3 +556,28 @@ hr.big {
     border-bottom: 4px solid black;
     height: 0;
 }
+
+.row-adjust {
+    display: box;
+    display: flexbox;
+    display: flex;
+    align-items: stretch;
+
+    .is-xs &, .is-sm & {
+        display: block;
+    }
+
+    .adjust-row {
+        position: relative;
+        padding-bottom: 69px;
+
+        .hr-wrapper {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    }
+}

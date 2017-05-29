@@ -9195,6 +9195,24 @@ span.pin a {
   margin-right: 10px;
 }
 
+.services-container .title-text .button, .services-container .image-text .button {
+  color: white;
+  background: black;
+  font-size: 0.9em;
+  text-align: center;
+  display: inline-block;
+  padding: 1px 10px;
+  min-width: 150px;
+  height: auto;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-top: 15px;
+}
+
+.services-container .title-text .button:hover, .services-container .image-text .button:hover {
+  background: #4583c8;
+}
+
 .cms-edit .grid.edit-adjustment {
   height: auto !important;
 }
@@ -9873,4 +9891,29 @@ hr.big {
   border: 0;
   border-bottom: 4px solid black;
   height: 0;
+}
+
+.row-adjust {
+  display: box;
+  display: flexbox;
+  display: flex;
+  align-items: stretch;
+}
+
+.is-xs .row-adjust, .is-sm .row-adjust {
+  display: block;
+}
+
+.row-adjust .adjust-row {
+  position: relative;
+  padding-bottom: 69px;
+}
+
+.row-adjust .adjust-row .hr-wrapper {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
 }

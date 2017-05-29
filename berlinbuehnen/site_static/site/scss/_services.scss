@@ -4,7 +4,7 @@
 // @Date:   2017/05/01
 // @Email:  code@dreammedia.info
 // @Last modified by:   Daniel Lehmann
-// @Last modified time: 2017/05/02
+// @Last modified time: 2017/05/29
 // @copyright Daniel Lehmann (code@dreammedia.info)
 
 .services-container {
@@ -20,6 +20,26 @@
         hr {
             margin-left: 10px;
             margin-right: 10px;
+        }
+    }
+
+    .title-text, .image-text {
+        .button {
+            color: white;
+            background: black;
+            font-size: 0.9em;
+            text-align: center;
+            display: inline-block;
+            padding: 1px 10px;
+            min-width: 150px;
+            height: auto;
+            text-transform: uppercase;
+            font-weight: $bold;
+            margin-top: 15px;
+
+            &:hover {
+                background: $blue;
+            }
         }
     }
 }
