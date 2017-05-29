@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 # inspired by http://stackoverflow.com/a/3772008
+from __future__ import unicode_literals
 import os
 import sys
 import unittest
@@ -72,7 +73,7 @@ class PageTest(unittest.TestCase):
         )
 
     def runTest(self):
-        assert isinstance(self.url_path, str)
+        assert isinstance(self.url_path, unicode)
         response = self.client.get(
             self.url_path,
             **{'HTTP_USER_AGENT': 'silly-human', 'REMOTE_ADDR': '127.0.0.1'}

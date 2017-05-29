@@ -2,11 +2,16 @@
 from __future__ import unicode_literals
 from django.apps import AppConfig, apps
 
-class InstitutionsConfig(AppConfig):
-    name = 'jetson.apps.institutions'
 
-    def ready(self):
-        extend_people_app()
+def create_notice_types(app, created_models, verbosity, **kwargs):
+    from jetson.apps.notification import models as notification
+    notification.create_notice_type(
+        "institution_added",
+        "New Institution Added",
+        "someone has added a new institution/company",
+        default=0,
+    )
+
 
 def extend_people_app():
     """
@@ -57,3 +62,14 @@ def extend_people_app():
 
         # modification should be done just once, so disconnecting
         models.signals.class_prepared.disconnect(extend_people_app)
+
+
+class InstitutionsConfig(AppConfig):
+    name = 'jetson.apps.institutions'
+
+    def ready(self):
+        from django.db.models import signals
+        from jetson.apps.notification import models as notification
+
+        extend_people_app()
+        signals.post_migrate.connect(create_notice_types, sender=notification)

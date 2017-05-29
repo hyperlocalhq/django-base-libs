@@ -23,7 +23,6 @@ class ArticleImportSource(Service):
         help_text=_("Sites to apply to the imported articles by default."),
         related_name="site_article_import_sources",
         blank=True,
-        null=True,
     )
 
     default_creative_sectors = TreeManyToManyField(
@@ -34,7 +33,6 @@ class ArticleImportSource(Service):
         related_name="cs_ais",
         db_column="default_cs",
         blank=True,
-        null=True,
     )
 
     default_categories = TreeManyToManyField(
@@ -43,7 +41,6 @@ class ArticleImportSource(Service):
         limit_choices_to={'level': 0},
         help_text=_("Categories to apply to the imported articles by default."),
         blank=True,
-        null=True,
     )
 
     default_status = models.SmallIntegerField(
@@ -80,7 +77,6 @@ class BulletinImportSource(Service):
         limit_choices_to={'level': 0},
         help_text=_("Categories to apply to the imported bulletins by default."),
         blank=True,
-        null=True,
     )
 
     default_bulletin_category = models.ForeignKey(

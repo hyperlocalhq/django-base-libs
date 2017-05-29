@@ -4,7 +4,7 @@ from django.core.management.base import NoArgsCommand
 from optparse import make_option
 
 class Command(NoArgsCommand):
-    option_list = NoArgsCommand.option_list + (
+    option_list = (
         make_option('--force', action='store_true', default=False, help='Force update of all files, even if the source files are older than the current compressed file.'),
     )
     help = 'Updates and compresses CSS and JavsScript on-demand, without restarting Django'

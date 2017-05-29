@@ -590,17 +590,16 @@ class MultiSiteContainerMixin(ObjectRelationMixin(), UrlMixin):
     These are Containers, where you can specify 0..n sites.
     """
     sites = models.ManyToManyField(
-         Site, 
-         verbose_name=_("Sites"),
-         blank=True, 
-         null=True,
-         help_text=_("Please select some sites, this container relates to. If you do not select any site, the container applies to all sites."),
-         )
+        Site,
+        verbose_name=_("Sites"),
+        blank=True,
+        help_text=_("Please select some sites, this container relates to. If you do not select any site, the container applies to all sites."),
+    )
     
     sysname = models.CharField(
-       _("URL Identifier"), 
-       max_length=255, 
-       help_text=_("Please specify an additional URL identifier for the container here. The provided name must be the last part of the calling url, which wants to access the container. For example, if you have a FAQ-Container and you want to use the url 'http://www.example.com/gettinghelp/faqs/', the URL identifier must be 'faqs'. For different URL identifiers, you can create multiple containers for the same related object and site. Note, that the site, the related object and the URL identifier must be unique together."),       
+        _("URL Identifier"),
+        max_length=255,
+        help_text=_("Please specify an additional URL identifier for the container here. The provided name must be the last part of the calling url, which wants to access the container. For example, if you have a FAQ-Container and you want to use the url 'http://www.example.com/gettinghelp/faqs/', the URL identifier must be 'faqs'. For different URL identifiers, you can create multiple containers for the same related object and site. Note, that the site, the related object and the URL identifier must be unique together."),
     )
     
     objects = models.Manager()

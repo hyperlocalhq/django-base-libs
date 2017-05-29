@@ -12,8 +12,6 @@ from mptt.fields import TreeForeignKey, TreeManyToManyField
 from base_libs.models.models import SlugMixin
 from base_libs.models.fields import MultilingualCharField
 
-from jetson.apps.i18n.models import Country
-
 verbose_name = _("Location")
 
 def _is_numeric(obj):
@@ -78,6 +76,7 @@ class AddressManager(models.Manager):
                 longitude="13.402728",
                 )
         """
+        from jetson.apps.i18n.models import Country
         old_address=getattr(address_owner, address_field, None)
         delete_the_old = False
         # if old address exists
@@ -98,7 +97,7 @@ class AddressManager(models.Manager):
             'geoposition__altitude': altitude or None,
             }
             
-        if country and isinstance(country, basestring):
+        if country and isinstance(country, unicode):
             country = Country.objects.get(pk=country)
             
         as_necessary = self.filter(
@@ -171,7 +170,7 @@ class AddressManager(models.Manager):
     
 class Address(models.Model):
     #country = models.CharField(_("Country"), max_length=255, default="DE", choices=CountryChoices())
-    country = models.ForeignKey(Country, verbose_name=_("Country"), default="DE", null=True, blank=True)
+    country = models.ForeignKey("i18n.Country", verbose_name=_("Country"), default="DE", null=True, blank=True)
     state = models.CharField(_("State"), max_length=255, blank=True)
     city = models.CharField(_("City"), max_length=255, blank=True)
     street_address = models.CharField(_("Street Address"), max_length=255, blank=True)

@@ -22,7 +22,7 @@ class SiteSettingsManager(models.Manager):
         return site_settings
         
 class SiteSettingsBase(MetaTagsMixin):
-    site = models.ForeignKey(Site, verbose_name=_("Site"), unique=True)
+    site = models.OneToOneField(Site, verbose_name=_("Site"))
     login_by_email = models.BooleanField(_("Login by email"), default=False)
     
     extra_head = PlainTextModelField(_("Extra head"), help_text=_("Third-party code snippets to be added to the end of the HEAD section."), blank=True)
@@ -58,7 +58,7 @@ class PageSettingsBase(models.Model):
     1. Individual users have personalized blocks for /my-profile/
     2. Different sections have own blocks for section pages 
     """
-    site = models.ForeignKey(Site, verbose_name=_("Site"), unique=True)
+    site = models.ForeignKey(Site, verbose_name=_("Site"))
     user = models.ForeignKey(User, verbose_name=_("Viewer"), null=True)
     path = models.CharField(_('Path'), max_length=100, help_text=_("All that goes after '/', for example: 'about/contact/'. Make sure to have trailing slash. Use '*' for all pages."), blank=True)
     pickled_settings = models.TextField(_('Settings'), editable=False)

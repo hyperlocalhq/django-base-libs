@@ -7,8 +7,6 @@ _ = lambda s:s
 
 ### MODE ###
 
-TEMPLATE_DEBUG = DEBUG
-
 INTERNAL_IPS = (
     "127.0.0.1",
     "217.92.175.81"
@@ -41,13 +39,13 @@ sys.path = [
 
 from jetson.apps.utils.utils import get_git_changeset
 
-TEMPLATESADMIN_TEMPLATE_DIRS = TEMPLATE_DIRS = [
-    os.path.join(JETSON_PATH, "jetson", "templates", "default"),
-    os.path.join(JETSON_PATH, "jetson", "templates", "admin"),
-    # http://code.djangoproject.com/wiki/ExtendingTemplates
-    os.path.join(JETSON_PATH, "jetson", "externals", "apps", "grappelli", "templates", "grappelli"),
-    os.path.join(JETSON_PATH, "jetson", "externals", "apps", "grappelli", "templates"),
-    ]
+# TEMPLATE_DIRS = [
+#     os.path.join(JETSON_PATH, "jetson", "templates", "default"),
+#     os.path.join(JETSON_PATH, "jetson", "templates", "admin"),
+#     # http://code.djangoproject.com/wiki/ExtendingTemplates
+#     os.path.join(JETSON_PATH, "jetson", "externals", "apps", "grappelli", "templates", "grappelli"),
+#     os.path.join(JETSON_PATH, "jetson", "externals", "apps", "grappelli", "templates"),
+# ]
 
 JETSON_MEDIA_ROOT = os.path.join(JETSON_PATH, "jetson", "media")
 JETSON_MEDIA_URL = "/jetson-media/%s/" % get_git_changeset(JETSON_MEDIA_ROOT)
@@ -64,16 +62,16 @@ TAGGING_AUTOCOMPLETE_JS_BASE_URL = "%sjs/jquery/autocomplete_1.0" % JETSON_MEDIA
 
 ### MAIN ###
 
-TEMPLATE_CONTEXT_PROCESSORS = [
-    "django.contrib.auth.context_processors.auth",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.request",
-    "django.core.context_processors.static",
-    'django.core.context_processors.media',
-    "jetson.apps.utils.context_processors.general",
-    "django.contrib.messages.context_processors.messages",
-]
+# TEMPLATE_CONTEXT_PROCESSORS = [
+#     "django.contrib.auth.context_processors.auth",
+#     "django.core.context_processors.debug",
+#     "django.core.context_processors.i18n",
+#     "django.core.context_processors.request",
+#     "django.core.context_processors.static",
+#     'django.core.context_processors.media',
+#     "jetson.apps.utils.context_processors.general",
+#     "django.contrib.messages.context_processors.messages",
+# ]
 
 AUTHENTICATION_BACKENDS = (
     "jetson.apps.permissions.backends.RowLevelPermissionsBackend",
@@ -81,11 +79,11 @@ AUTHENTICATION_BACKENDS = (
     #"django.contrib.auth.backends.ModelBackend",
 )
 
-TEMPLATE_LOADERS = (
-    "base_libs.template.loaders.cached.Loader",
-    "django.template.loaders.filesystem.Loader",
-    "django.template.loaders.app_directories.Loader",
-)
+# TEMPLATE_LOADERS = (
+#     "base_libs.template.loaders.cached.Loader",
+#     "django.template.loaders.filesystem.Loader",
+#     "django.template.loaders.app_directories.Loader",
+# )
 
 DEFAULT_CHARSET = "UTF-8"
 TEST_DATABASE_CHARSET = "utf8"

@@ -1,5 +1,4 @@
 # -*- coding: UTF-8 -*-
-
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.sites.models import Site
 from mptt.fields import TreeManyToManyField
@@ -118,7 +117,6 @@ class Article(ArticleBase, MultiSiteMixin):
         limit_choices_to={'vocabulary__sysname': 'categories_creativesectors'},
         related_name="creative_sector_articles",
         blank=True,
-        null=True,
     )
 
     external_url = URLField(_("External URL"), blank=True,

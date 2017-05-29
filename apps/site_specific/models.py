@@ -509,7 +509,7 @@ class VisitManager(models.Manager):
 class Visit(CreationModificationDateMixin):
     user = models.ForeignKey(User, verbose_name=_("User"), null=True, blank=True)
     last_activity = models.DateTimeField(default=datetime.now)
-    ip_address = models.IPAddressField(_("IP Address"))
+    ip_address = models.GenericIPAddressField(_("IP Address"))
     user_agent = models.CharField(_("User Agent"), max_length=255)
     session_key = models.CharField(_("Session ID"), max_length=255)
 

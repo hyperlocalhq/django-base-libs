@@ -15,6 +15,7 @@ from django.contrib.sites.models import Site
 from django.db.models.fields import DateTimeField
 from django.utils.timezone import now as tz_now
 from django.shortcuts import get_object_or_404, render, redirect
+from django.contrib.auth import get_permission_codename
 from tagging.models import TaggedItem
 from base_libs.views import get_object_from_url
 from base_libs.views import get_container
@@ -236,7 +237,7 @@ def get_blog_params(object_url_part, url_identifier, post_slug=None, **kwargs):
     if obj:
         extra_context['object_change_permission'] = u"%s.%s" % (
             obj._meta.app_label,
-            obj._meta.get_change_permission(),
+            get_permission_codename("change", obj._meta),
         )
     else:
         extra_context['object_change_permission'] = ""

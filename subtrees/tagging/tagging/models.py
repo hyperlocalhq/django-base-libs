@@ -95,9 +95,9 @@ class TagManager(models.Manager):
             %%s
         WHERE %(tagged_item)s.content_type_id = %(content_type_id)s
             %%s
-        GROUP BY %(tag)s.id, %(tag)s.name
+        GROUP BY %(tag)s.id, %(tag)s.name_%(lang_code)s
         %%s
-        ORDER BY %(tag)s.name ASC""" % {
+        ORDER BY %(tag)s.name_%(lang_code)s ASC""" % {
             'tag': qn(self.model._meta.db_table),
             'count_sql': counts and (', COUNT(%s)' % model_pk) or '',
             'tagged_item': qn(TaggedItem._meta.db_table),
@@ -220,9 +220,9 @@ class TagManager(models.Manager):
               HAVING COUNT(%(tagged_item)s.object_id) = %(tag_count)s
           )
           AND %(tag)s.id NOT IN (%(tag_id_placeholders)s)
-        GROUP BY %(tag)s.id, %(tag)s.name
+        GROUP BY %(tag)s.id, %(tag)s.name_%(lang_code)s
         %(min_count_sql)s
-        ORDER BY %(tag)s.name ASC""" % {
+        ORDER BY %(tag)s.name_%(lang_code)s ASC""" % {
             'tag': qn(self.model._meta.db_table),
             'count_sql': counts and ', COUNT(%s.object_id)' % tagged_item_table or '',
             'tagged_item': tagged_item_table,
@@ -230,6 +230,7 @@ class TagManager(models.Manager):
             'tag_id_placeholders': ','.join(['%s'] * tag_count),
             'tag_count': tag_count,
             'min_count_sql': min_count is not None and ('HAVING COUNT(%s.object_id) >= %%s' % tagged_item_table) or '',
+            'lang_code': "de",
         }
 
         params = [tag.pk for tag in tags] * 2

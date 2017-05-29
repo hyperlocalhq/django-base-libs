@@ -139,7 +139,7 @@ class ContextCategory(MPTTModel,  SlugMixin(), SysnameMixin()):
        null=True,
     )
     title = MultilingualCharField(_('title'), max_length=255)
-    creative_sectors = TreeManyToManyField(Term, verbose_name=_("Available creative sectors"), blank=True, null=True, limit_choices_to={'vocabulary__sysname': 'categories_creativesectors'})
+    creative_sectors = TreeManyToManyField(Term, verbose_name=_("Available creative sectors"), blank=True, limit_choices_to={'vocabulary__sysname': 'categories_creativesectors'})
     body = MultilingualTextField(_('body'), blank=True)
     image = FileBrowseField(_('Image'), max_length=255, extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True)
     is_applied4person = models.BooleanField(_("for people"), default=True)

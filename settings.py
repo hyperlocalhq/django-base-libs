@@ -6,7 +6,7 @@ import os
 
 gettext = lambda s: s
 
-DEBUG = TEMPLATE_DEBUG = False
+DEBUG = False
 
 SITE_ID = 1
 
@@ -41,13 +41,6 @@ DEFAULT_FROM_EMAIL = "ccb-contact@kulturprojekte-berlin.de"
 
 
 ### DIRS AND URLS ###
-
-TEMPLATE_DIRS = (
-    os.path.join(PROJECT_PATH, "ccb", "templates", "ccb"),
-    os.path.join(PROJECT_PATH, "ccb", "templates", "admin"),
-) + tuple(TEMPLATE_DIRS)
-
-TEMPLATESADMIN_TEMPLATE_DIRS = TEMPLATE_DIRS
 
 MEDIA_ROOT = os.path.join(PROJECT_PATH, "ccb", "media")
 STATIC_ROOT = os.path.join(PROJECT_PATH, "ccb", "static")
@@ -124,14 +117,14 @@ INSTALLED_APPS = [
     "aldryn_search",
 
     ### django-cms plug-ins ###
-    "djangocms_column",
-    "djangocms_file",
+    #"djangocms_column",
+    #"djangocms_file",
     "djangocms_flash",
-    "djangocms_inherit",
+    #"djangocms_inherit",
     "djangocms_link",
-    "djangocms_style",
-    "djangocms_teaser",
-    "djangocms_video",
+    #"djangocms_style",
+    #"djangocms_teaser",
+    #"djangocms_video",
 
     ### plug-ins for django-cms ###
     "ccb.apps.cms_extensions.plugins.richtext",
@@ -223,28 +216,49 @@ MIDDLEWARE_CLASSES = [
 ]
 
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.contrib.auth.context_processors.auth",
-    "django.contrib.messages.context_processors.messages",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.request",
-    "django.core.context_processors.media",
-    "django.core.context_processors.static",
-    "sekizai.context_processors.sekizai",
-    "cms.context_processors.cms_settings",
-    "jetson.apps.configuration.context_processors.configuration",
-    "jetson.apps.utils.context_processors.general",
-    "ccb.apps.media_gallery.context_processors.media_gallery",
-    "ccb.apps.people.context_processors.people",
-    "ccb.apps.institutions.context_processors.institutions",
-    "ccb.apps.events.context_processors.events",
-    "ccb.apps.resources.context_processors.resources",
-    "ccb.apps.groups_networks.context_processors.groups_networks",
-    "ccb.apps.marketplace.context_processors.marketplace",
-    "ccb.apps.site_specific.context_processors.site_specific",
-    "social.apps.django_app.context_processors.backends",
-    "social.apps.django_app.context_processors.login_redirect",
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(PROJECT_PATH, "ccb", "templates", "ccb"),
+            os.path.join(PROJECT_PATH, "ccb", "templates", "admin"),
+            os.path.join(JETSON_PATH, "jetson", "templates", "default"),
+            os.path.join(JETSON_PATH, "jetson", "templates", "admin"),
+            os.path.join(JETSON_PATH, "jetson", "externals", "apps", "grappelli", "templates", "grappelli"),
+            os.path.join(JETSON_PATH, "jetson", "externals", "apps", "grappelli", "templates"),
+        ],
+        'OPTIONS': {
+            'context_processors': (
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+                "django.core.context_processors.i18n",
+                "django.core.context_processors.request",
+                "django.core.context_processors.media",
+                "django.core.context_processors.static",
+                "sekizai.context_processors.sekizai",
+                "cms.context_processors.cms_settings",
+                "jetson.apps.configuration.context_processors.configuration",
+                "jetson.apps.utils.context_processors.general",
+                "ccb.apps.media_gallery.context_processors.media_gallery",
+                "ccb.apps.people.context_processors.people",
+                "ccb.apps.institutions.context_processors.institutions",
+                "ccb.apps.events.context_processors.events",
+                "ccb.apps.resources.context_processors.resources",
+                "ccb.apps.groups_networks.context_processors.groups_networks",
+                "ccb.apps.marketplace.context_processors.marketplace",
+                "ccb.apps.site_specific.context_processors.site_specific",
+                "social.apps.django_app.context_processors.backends",
+                "social.apps.django_app.context_processors.login_redirect",
+            ),
+            'loaders': [
+                #"base_libs.template.loaders.cached.Loader", # TODO: Do we still need this one? Delete from the base_libs if not.
+                "django.template.loaders.filesystem.Loader",
+                "django.template.loaders.app_directories.Loader",
+            ],
+        }
+    },
+]
+
 
 SECRET_KEY = "*z-g$creativeberlinio@_qt9efb5dge+(64aeq4$!gk+62nsyqlgqpf8l6"
 
@@ -919,17 +933,17 @@ MIGRATION_MODULES = {
     "menus": "menus.migrations",
 
     # Add also the following modules if you"re using these plugins:
-    "djangocms_file": "djangocms_file.migrations_django",
+    #"djangocms_file": "djangocms_file.migrations_django",
     "djangocms_flash": "djangocms_flash.migrations_django",
     "djangocms_googlemap": "djangocms_googlemap.migrations_django",
-    "djangocms_inherit": "djangocms_inherit.migrations_django",
+    #"djangocms_inherit": "djangocms_inherit.migrations_django",
     "djangocms_link": "djangocms_link.migrations_django",
     "djangocms_picture": "djangocms_picture.migrations_django",
     "djangocms_snippet": "djangocms_snippet.migrations_django",
-    "djangocms_teaser": "djangocms_teaser.migrations_django",
-    "djangocms_video": "djangocms_video.migrations_django",
-    "djangocms_style": "djangocms_style.migrations_django",
-    "djangocms_column": "djangocms_column.migrations_django",
+    #"djangocms_teaser": "djangocms_teaser.migrations_django",
+    #"djangocms_video": "djangocms_video.migrations_django",
+    #"djangocms_style": "djangocms_style.migrations_django",
+    #"djangocms_column": "djangocms_column.migrations_django",
 }
 
 ### PERSISTENT DATABASE CONNECTIONS ###
