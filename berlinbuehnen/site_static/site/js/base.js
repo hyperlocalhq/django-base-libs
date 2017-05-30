@@ -142,6 +142,32 @@ $(document).ready(function() {
         if (i != search.length) $('body').addClass('cms-edit');
     }
     cmsSniffer();
+
+    var adjustRows = function() {
+
+        var $elements = $('.adjust-row');
+
+        var counter = 0;
+        var $clearfix = null;
+        for (var i=0, length=$elements.length; i<length; i++) {
+            var $element = $($elements[i]);
+            var threshold = $element.attr('data-adjust-row');
+            if (!threshold || threshold<1) threshold = 2;
+
+            var $next = $element.next('.adjust-row');
+
+            if (counter == 0) {
+                $clearfix = $('<div class="clearfix row-adjust"></div>');
+                $element.before($clearfix);
+                console.log("yo");
+            }
+            $clearfix.append($element);
+
+            counter++;
+            if (counter == threshold || !$next.length) counter = 0;
+        }
+    }
+    adjustRows();
 });
 
 // ADD crsftoken TO AJAX CALLS
@@ -270,7 +296,7 @@ function goToParent() {
 
     var href=location.pathname;
     href=href.split("/");
-    
+
     if (href[href.length-1] == "") href.pop();
     href.pop();
 
