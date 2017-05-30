@@ -169,7 +169,12 @@ class ProductionAdmin(ExtendedModelAdmin):
     fieldsets += [(_("Additional details"), {'fields': ['language_and_subtitles', 'characteristics', get_admin_lang_section(_("Other characteristics"), ['other_characteristics',]), 'age_from', 'age_till', 'edu_offer_website']}),]
     fieldsets += [(_("Status"), {'fields': ['show_among_others', 'no_overwriting', 'newsletter', 'status',]}),]
 
-    filter_horizontal = ['in_program_of', 'play_locations', 'play_stages', 'categories', 'festivals', 'related_productions', 'characteristics']
+    filter_horizontal = ['in_program_of', 'play_locations', 'play_stages', 'categories', 'characteristics']
+    raw_id_fields = ["festivals", "related_productions"]
+    related_lookup_fields = {
+        "m2m": ["festivals", "related_productions"],
+    }
+
     inlines = [
         ProductionSocialMediaChannelInline,
         ProductionVideoInline, ProductionLiveStreamInline, ProductionImageInline, ProductionPDFInline,
