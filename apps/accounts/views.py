@@ -29,7 +29,7 @@ from jetson.apps.utils.context_processors import prev_next_processor
 from social.backends.oauth import BaseOAuth1, BaseOAuth2
 from social.backends.google import GooglePlusAuth
 from social.backends.utils import load_backends
-from social.apps.django_app.utils import psa
+from social_django.utils import psa
 from ccb.apps.accounts.forms import EmailOrUsernameAuthentication
 from ccb.apps.accounts.forms import SimpleRegistrationForm
 from ccb.apps.accounts.forms import PrivacySettingsForm
