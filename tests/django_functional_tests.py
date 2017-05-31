@@ -542,6 +542,7 @@ class Urls(object):
             '/de/helper/institution_lookup/',  # login required
             '/de/rosetta/',  # login required
             '/de/rosetta/pick/',  # login required
+            '/de/admin/',  # login required
             '/de/admin/cms/page/',  # login required
             '/de/admin/logout/',  # keep the logout last, because it changes the request user
         ]

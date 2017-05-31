@@ -121,7 +121,7 @@ urlpatterns = [
     # activity stream
     url(r'^dashboard/$', views.dashboard, name='dashboard'),
 
-    url(r'', include('social.apps.django_app.urls', namespace='social')),
+    url(r'', include('social_django.urls', namespace='social')),
 ]
 
 if settings.DEBUG:

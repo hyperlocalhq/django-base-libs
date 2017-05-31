@@ -1,0 +1,8 @@
+python manage.py migrate contenttypes
+
+# echo "UPDATE django_migrations SET app='social_django' WHERE app='default';"> python manage.py dbshell
+
+python manage.py migrate social_django zero
+# python manage.py migrate social_django 0003_alter_email_max_length --fake
+python manage.py migrate
+python manage.py cms fix-tree
