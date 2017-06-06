@@ -452,6 +452,8 @@ if is_installed("institutions.models"):
         )
 
 if is_installed("resources.models"):
+    from django.contrib import admin
+    from django.contrib.admin.widgets import ForeignKeyRawIdWidget, ManyToManyRawIdWidget
     Document = models.get_model("resources", "Document")
     Person = models.get_model("people", "Person")
     Institution = models.get_model("institutions", "Institution")
@@ -463,13 +465,15 @@ if is_installed("resources.models"):
         authors = forms.ModelMultipleChoiceField(
             label=_("Authors"),
             required=False,
-            queryset=Person.objects.all().only("id", "person_repr")
-            )
+            queryset=Person.objects.all().only("id", "person_repr"),
+            widget=ManyToManyRawIdWidget(Document._meta.get_field('authors').rel, admin.site)
+        )
         publisher = forms.ModelChoiceField(
             label=_("Publisher"),
             required=False,
-            queryset=Institution.objects.all().only("id", "title", "title2")
-            )
+            queryset=Institution.objects.all().only("id", "title", "title2"),
+            widget=ForeignKeyRawIdWidget(Document._meta.get_field('publisher').rel, admin.site)
+        )
         formfield_callback=formfield_for_dbfield
         
         class Meta:

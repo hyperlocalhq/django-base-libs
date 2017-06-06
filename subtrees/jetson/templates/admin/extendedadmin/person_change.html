@@ -1,7 +1,7 @@
 {% extends "admin/change_form.html" %}
 
 <!-- LOADING -->
-{% load base_tags i18n auth_extended extended_admin compressed_jetson %}
+{% load base_tags i18n auth_extended extended_admin %}
 {% load admin_modify grp_tags %}
 
 <!-- JAVASCRIPTS -->
@@ -17,7 +17,7 @@
     <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.autocomplete.js"></script>
     <script type="text/javascript" src="{{ jetson_media_url }}js/admin/autocomplete.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}filebrowser/js/AddFileBrowser.js"></script>
-    {% compressed_jetson_js "admin_person_change" %}
+    <script type="text/javascript" src="{{ jetson_media_url }}js/admin/person_change.js"></script>
     <script type="text/javascript" src="{{ jetson_media_url }}js/admin/URLField.js"></script>
     
     <script type="text/javascript" charset="utf-8">

@@ -1,6 +1,6 @@
 {% block doctype %}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">{% endblock %}
-{% load i18n base_tags navigation_tags account_specific bookmarks messaging infoblocks cache compressed compressed_jetson %}
+{% load i18n base_tags navigation_tags account_specific bookmarks messaging infoblocks cache compressed %}
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{{ LANGUAGE_CODE }}" lang="{{ LANGUAGE_CODE }}"
     xmlns:og="http://ogp.me/ns#">
     <head>
@@ -49,7 +49,10 @@
 
         <script type="text/javascript" src="{{ JQUERY_URL }}"></script>
         <script type="text/javascript" src="{{ JQUERY_UI_URL }}"></script>
-        {% compressed_jetson_js "jquery_plugins" %}
+        <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/jquery.ba-hashchange.min.js"></script>
+        <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/jquery.cookie.js"></script>
+        <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/jquery.popup.js"></script>
+        <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/uni-form.jquery.min.js"></script>
         <script type="text/javascript" src="/{{ LANGUAGE_CODE }}/jssettings/"></script>
         <script type="text/javascript" src="/{{ LANGUAGE_CODE }}/jsi18n/"></script>
         <script type="text/javascript">

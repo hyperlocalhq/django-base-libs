@@ -1,7 +1,7 @@
 {% extends "admin/change_form.html" %}
 
 <!-- LOADING -->
-{% load base_tags i18n auth_extended extended_admin compressed_jetson %}
+{% load base_tags i18n auth_extended extended_admin %}
 
 <!-- STYLES -->
 {% block extrastyle %}
@@ -29,8 +29,7 @@
     
     <script type="text/javascript" src="{{ STATIC_URL }}admin/js/urlify.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}filebrowser/js/AddFileBrowser.js"></script>
-    {% compressed_jetson_js "admin_job_offer_change" %}
-    
+    <script type="text/javascript" src="{{ jetson_media_url }}js/admin/job_offer_change.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}admin/js/collapse.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}admin/js/inlines.min.js"></script>
     <!--
