@@ -1,6 +1,6 @@
 {% block doctype %}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">{% endblock %}
-{% load i18n base_tags navigation_tags account_specific bookmarks messaging infoblocks cache compressed %}
+{% load i18n base_tags navigation_tags account_specific bookmarks messaging infoblocks cache %}
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{{ LANGUAGE_CODE }}" lang="{{ LANGUAGE_CODE }}"
     xmlns:og="http://ogp.me/ns#">
     <head>
@@ -40,12 +40,23 @@
         <title>{{ site_settings.site.name }} - {% block title %}KREATIV ARBEITEN - MIT ERFOLG{% endblock %}</title>
 
         {% block stylesheet %}
-            {% compressed_css "kreativarbeiten" %}
+            <link rel="stylesheet" media="all" href="{{ STATIC_URL }}site/yaml/core/base.css" />
+            <link rel="stylesheet" media="all" href="{{ STATIC_URL }}site/css/screen/basemod.css" />
+            <link rel="stylesheet" media="all" href="{{ STATIC_URL }}site/css/screen/uni-form.css" />
+            <link rel="stylesheet" media="all" href="{{ STATIC_URL }}site/css/screen/default.uni-form.css" />
+            <link rel="stylesheet" media="all" href="{{ STATIC_URL }}site/css/screen/forms.css" />
+            <link rel="stylesheet" media="all" href="{{ STATIC_URL }}site/css/screen/navigation.css" />
+            <link rel="stylesheet" media="all" href="{{ STATIC_URL }}site/css/screen/layout.css" />
+            <link rel="stylesheet" media="all" href="{{ STATIC_URL }}site/css/screen/content.css" />
+            <link rel="stylesheet" media="all" href="{{ STATIC_URL }}site/css/screen/icons.css" />
+            <link rel="stylesheet" media="all" href="{{ STATIC_URL }}site/css/screen/portfolio.css" />
+            <link rel="stylesheet" media="all" href="{{ STATIC_URL }}site/css/exceptions/kreativarbeiten.css" />
         {% endblock %}
         {% if "MSIE"|in_list:request.META.HTTP_USER_AGENT %}
-            {% compressed_css "screen_ie" %}
+            <link rel="stylesheet" media="all" href="{{ STATIC_URL }}site/yaml/core/iehacks.css" />
+            <link rel="stylesheet" media="all" href="{{ STATIC_URL }}site/css/patches/patch_layout.css" />
         {% endif %}
-        {% compressed_css "print" %}
+        <link rel="stylesheet" media="print" href="{{ STATIC_URL }}site/css/print/print.css" />
 
         <script type="text/javascript" src="{{ JQUERY_URL }}"></script>
         <script type="text/javascript" src="{{ JQUERY_UI_URL }}"></script>
@@ -74,7 +85,8 @@
                 {% endif %}
             }(jQuery));
         </script>
-        {% compressed_js "common" %}
+        <script src="{{ STATIC_URL }}site/js/collapse.js"></script>
+        <script src="{{ STATIC_URL }}site/js/website/common.js"></script>
 
         {{ site_settings.extra_head|safe }}
         {% block extrahead %}{% endblock %}

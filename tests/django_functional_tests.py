@@ -544,6 +544,7 @@ class Urls(object):
             '/de/rosetta/pick/',  # login required
             '/de/admin/',  # login required
             '/de/admin/cms/page/',  # login required
+            '/de/admin/people/person/add/',  # login required
             '/de/admin/logout/',  # keep the logout last, because it changes the request user
         ]
 
