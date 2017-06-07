@@ -7,7 +7,7 @@
 <!-- STYLESHEETS -->
 {% block stylesheets %}
     {{ block.super }}
-    <link rel="stylesheet" type="text/css" href="{{ jetson_media_url }}css/admin/MultilingualFieldHelper.css" />
+    <link rel="stylesheet" type="text/css" href="{% url 'jetson_media_url' path='css/admin/MultilingualFieldHelper.css' %}" />
     <style type="text/css">
     #id_target {
         height: 300px;
@@ -20,8 +20,8 @@
     {{ block.super }}
     {% url "admin:jsi18n" as jsi18nurl %}
     
-    <script type="text/javascript" src="{{ JQUERY_URL }}"></script>
-    <script type="text/javascript" src="{{ JQUERY_UI_URL }}"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
 
     <script type="text/javascript" src="{{ jsi18nurl|default:'../../../jsi18n/' }}"></script>
 

@@ -1,4 +1,4 @@
-{% load i18n staticfiles %}
+{% load i18n staticfiles static %}
 <fieldset class="grp-module grp-aligned cats grp-collapse grp-closed">
     <h2 class="grp-collapse-handler">
         {% if form.tags %}
@@ -18,7 +18,7 @@
                     {{ form.creative_sectors }}
                     <a href="../../../structure/term/add/?vocabulary__id__exact=14&amp;_popup=1&amp;"
                         class="add-another" id="add_id_creative_sectors" onclick="return showAddAnotherPopup(this);">
-                        <img src="{{ jetson_media_url }}img/admin/icon_addlink.gif" width="10" height="10"
+                        <img src="{% url 'jetson_media_url' path='img/admin/icon_addlink.gif' %}" width="10" height="10"
                             alt="{% trans "Add Another" %}"/>
                     </a>
                     {% if form.creative_sectors.errors %}
@@ -34,7 +34,7 @@
         </div>
         <script type="text/javascript">
             addEvent(window, "load", function (e) {
-                SelectFilter.init("id_creative_sectors", "{% trans "Creative sectors" %}", 0, "{{ STATIC_URL }}admin/");
+                SelectFilter.init("id_creative_sectors", "{% trans "Creative sectors" %}", 0, "{% static 'admin/' %}");
             });
         </script>
     {% endif %}
@@ -50,7 +50,7 @@
                     <a href="../../../structure/contextcategory/add/" class="add-another" id="add_id_context_categories"
                         onclick="return showAddAnotherPopup(this);">
                         <img
-                            src="{{ jetson_media_url }}img/admin/icon_addlink.gif" width="10" height="10"
+                            src="{% url 'jetson_media_url' path='img/admin/icon_addlink.gif' %}" width="10" height="10"
                             alt="{% trans "Add Another" %}"/>
                     </a>
                     {% if form.context_categories.errors %}
@@ -66,7 +66,7 @@
         </div>
         <script type="text/javascript">
             addEvent(window, "load", function (e) {
-                SelectFilter.init("id_context_categories", "{% trans "Context categories" %}", 0, "{{ STATIC_URL }}admin/");
+                SelectFilter.init("id_context_categories", "{% trans "Context categories" %}", 0, "{% static 'admin/' %}");
             });
         </script>
     {% endif %}
@@ -82,7 +82,7 @@
                     <a href="../../../structure/category/add/" class="add-another" id="add_id_categories"
                         onclick="return showAddAnotherPopup(this);">
                         <img
-                            src="{{ jetson_media_url }}img/admin/icon_addlink.gif" width="10" height="10"
+                            src="{% url 'jetson_media_url' path='img/admin/icon_addlink.gif' %}" width="10" height="10"
                             alt="{% trans "Add Another" %}"/>
                     </a>
                     {% if form.categories.errors %}
@@ -98,7 +98,7 @@
         </div>
         <script type="text/javascript">
             addEvent(window, "load", function (e) {
-                SelectFilter.init("id_categories", "{% trans "Categories" %}", 0, "{{ STATIC_URL }}admin/");
+                SelectFilter.init("id_categories", "{% trans "Categories" %}", 0, "{% static 'admin/' %}");
             });
         </script>
     {% endif %}

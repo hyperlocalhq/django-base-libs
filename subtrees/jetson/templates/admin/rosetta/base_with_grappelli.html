@@ -1,4 +1,4 @@
-<!DOCTYPE html>{% load url from future %}{% load admin_static %}{% load i18n grp_tags %}
+<!DOCTYPE html>{% load url from future %}{% load admin_static static i18n grp_tags %}
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <title>{% block pagetitle %}Rosetta{% endblock %}</title>
@@ -9,7 +9,7 @@
     <style type="text/css" media="screen">
         {% include 'rosetta/css/rosetta.css' %}
     </style>
-    <link href="{{ jetson_media_url }}css/admin/additional.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="{% url 'jetson_media_url' path='css/admin/additional.css' %}" rel="stylesheet" type="text/css" media="screen" />
 
     <!-- JAVASCRIPTS -->
     {% block javascripts %}

@@ -11,22 +11,18 @@
 <!-- STYLES & SCRIPTS -->
 {% block stylesheets %}
     {{ block.super }}
-    <link rel="stylesheet" href="{{ jetson_media_url }}css/admin/additional.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{% url 'jetson_media_url' path='css/admin/additional.css' %}" type="text/css" media="screen" />
 {% endblock %}
 
 {% block javascripts %}
     {{ block.super }}
-	<script type="text/javascript" src="/{{ LANGUAGE_CODE }}/jssettings/"></script>
-    <script type="text/javascript">
-if (window.self!==window.top) { document.write('<link rel="stylesheet" type="text/css" href="{% static 'djangocms_admin_style/css/djangocms-admin-frontend.css' %}" />'); }
-    </script>
-
+    <script type="text/javascript" src="{% url 'jssettings' %}"></script>
 {% endblock %}
 
 {% block userlinks %}
     {% for lang in LANGUAGES %}
         <li>
-            <a title="{{ lang.1 }}" class="lang_{{ lang.0 }}" href="/{{ lang.0 }}{{ request.path|slice:"3:" }}">{% ifequal LANGUAGE_CODE lang.0 %}<span class="active">{% endifequal %}<img src="{{ jetson_media_url }}img/icons/lang-{{ lang.0 }}{% ifnotequal LANGUAGE_CODE lang.0 %}-inactive{% endifnotequal %}.png" alt="{{ lang.0 }}" />{% ifequal LANGUAGE_CODE lang.0 %}</span>{% endifequal %}</a>
+            <a title="{{ lang.1 }}" class="lang_{{ lang.0 }}" href="/{{ lang.0 }}{{ request.path|slice:"3:" }}">{% ifequal LANGUAGE_CODE lang.0 %}<span class="active">{% endifequal %}<img src="{% url 'jetson_media_url' path='' %}img/icons/lang-{{ lang.0 }}{% ifnotequal LANGUAGE_CODE lang.0 %}-inactive{% endifnotequal %}.png" alt="{{ lang.0 }}" />{% ifequal LANGUAGE_CODE lang.0 %}</span>{% endifequal %}</a>
         </li>
     {% endfor %}
     <!-- Username -->

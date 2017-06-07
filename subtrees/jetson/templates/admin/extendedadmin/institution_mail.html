@@ -1,5 +1,5 @@
 {% extends "admin/change_form.html" %}
-{% load base_tags i18n %}
+{% load base_tags i18n static %}
 
 {% block extrahead %}{{ block.super.super }}
 <style type="text/css">
@@ -10,14 +10,14 @@
 /*]]>*/
 </style>
 <script type="text/javascript" src="/jsi18n/"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript" src="{% static 'grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js' %}"></script>
 {{ media }}
-<script type="text/javascript" src="{{ STATIC_URL }}admin/js/core.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}admin/js/admin/RelatedObjectLookups.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}admin/js/SelectBox.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}admin/js/SelectFilter2.js"></script>
-<script type="text/javascript" src="{{ jetson_media_url }}tinymce_setup/tinymce_setup_base.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}site/tinymce_setup/tinymce_setup_e-mail.js"></script>
+<script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/admin/RelatedObjectLookups.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/SelectBox.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/SelectFilter2.js' %}"></script>
+<script type="text/javascript" src="{% url 'jetson_media_url' path='tinymce_setup/tinymce_setup_base.js' %}"></script>
+<script type="text/javascript" src="{% static 'site/tinymce_setup/tinymce_setup_e-mail.js' %}"></script>
 {% endblock %}
 
 {% block coltype %}colMS{% endblock %}

@@ -6,7 +6,7 @@
 <!-- JAVASCRIPTS -->
 {% block javascripts %}
     {{ block.super }}
-    <script type="text/javascript" src="{{ jetson_media_url }}js/admin/DashboardHelper.js"></script>
+    <script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/DashboardHelper.js' %}"></script>
 {% endblock %}
 
 <!-- COLTYPE/BODYCLASS-- >

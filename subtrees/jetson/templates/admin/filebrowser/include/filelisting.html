@@ -83,7 +83,7 @@
                                 <img src="{{ MEDIA_URL }}{{ thumbnail_path }}?now={% now "YmdHis" %}"
                                      title="{% trans 'View Image' %}" alt=""/>
                             {% else %}
-                                <img src="{{ JETSON_MEDIA_URL }}img/filebrowser/filebrowser_Image.gif"
+                                <img src="{% url 'jetson_media_url' path='img/filebrowser/filebrowser_Image.gif' %}"
                                      title="{% trans 'View Image' %}" alt="" width="60"/>
                             {% endif %}
                         {% endwith %}

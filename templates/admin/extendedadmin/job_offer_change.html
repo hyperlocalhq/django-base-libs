@@ -1,6 +1,6 @@
 {% extends "extendedadmin/job_offer_change_base.html" %}
 
-{% load i18n %}
+{% load i18n static %}
 
 {% block fieldset_job_offer %}
     <fieldset class="grp-module grp-aligned grp-collapse grp-open">
@@ -65,7 +65,7 @@
         </div>
         <script type="text/javascript">
             addEvent(window, "load", function (e) {
-                SelectFilter.init("id_qualifications", "{% trans "Qualifications" %}", 0, "{{ STATIC_URL }}admin/");
+                SelectFilter.init("id_qualifications", "{% trans "Qualifications" %}", 0, "{% static 'admin/' %}");
             });
         </script>
 
@@ -110,7 +110,7 @@
         </div>
         <script type="text/javascript">
             addEvent(window, "load", function (e) {
-                SelectFilter.init("id_job_sectors", "{% trans "Job sectors" %}", 0, "{{ STATIC_URL }}admin/");
+                SelectFilter.init("id_job_sectors", "{% trans "Job sectors" %}", 0, "{% static 'admin/' %}");
             });
         </script>
 

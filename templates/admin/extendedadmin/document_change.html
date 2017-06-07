@@ -1,32 +1,32 @@
 {% extends "admin/change_form.html" %}
 
 <!-- LOADING -->
-{% load base_tags i18n auth_extended extended_admin %}
+{% load base_tags i18n auth_extended extended_admin static %}
 
 <!-- STYLES -->
 {% block extrastyle %}
     {{ block.super }}
-    <link rel="stylesheet" type="text/css" href="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.autocomplete.css" />
+    <link rel="stylesheet" type="text/css" href="{% url 'jetson_media_url' path='js/jquery/autocomplete_1.0/jquery.autocomplete.css' %}" />
 {% endblock %}
 
 <!-- JAVASCRIPTS -->
 {% block javascripts %}
     {{ block.super }}
-    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/core.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/admin/RelatedObjectLookups.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/SelectBox.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/SelectFilter2.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/admin/DateTimeShortcuts.js"></script>
+    <script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/admin/RelatedObjectLookups.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/SelectBox.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/SelectFilter2.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/admin/DateTimeShortcuts.js' %}"></script>
 
 
-    <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.autocomplete.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/urlify.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}filebrowser/js/AddFileBrowser.js"></script>
-    <script type="text/javascript" src="{{ jetson_media_url }}js/admin/document_change.js"></script>
-    <script type="text/javascript" src="{{ jetson_media_url }}js/admin/URLField.js"></script>
-    <script type="text/javascript" src="{{ jetson_media_url }}js/admin/change_form.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/collapse.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/inlines.min.js"></script>
+    <script type="text/javascript" src="{% url 'jetson_media_url' path='js/jquery/autocomplete_1.0/jquery.autocomplete.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/urlify.js' %}"></script>
+    <script type="text/javascript" src="{% static 'filebrowser/js/AddFileBrowser.js' %}"></script>
+    <script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/document_change.js' %}"></script>
+    <script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/URLField.js' %}"></script>
+    <script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/change_form.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/collapse.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/inlines.min.js' %}"></script>
     <script type="text/javascript" charset="utf-8">
     (function($) {
         $(document).ready(function() {
@@ -285,7 +285,7 @@
                         </div>
                         <div class="c-2">
                             {{ form.authors }}
-                            <a href="../../../people/person/add/" class="add-another" id="add_id_authors" onclick="return showAddAnotherPopup(this);"> <img src="{{ jetson_media_url }}img/admin/icon_addlink.gif" width="10" height="10" alt="{% trans "Add Another" %}"/></a>
+                            <a href="../../../people/person/add/" class="add-another" id="add_id_authors" onclick="return showAddAnotherPopup(this);"> <img src="{% url 'jetson_media_url' path='img/admin/icon_addlink.gif' %}" width="10" height="10" alt="{% trans "Add Another" %}"/></a>
                             {% if form.authors.errors %}
                                 <ul class="errorlist"><li>{{ form.authors.errors|join:", "}}</li></ul>
                             {% endif %}
@@ -436,7 +436,7 @@
                     </div>
                 </div>
                 <script type="text/javascript">
-                    addEvent(window, "load", function(e) { SelectFilter.init("id_languages", "{% trans "Authors" %}", 0, "{{ STATIC_URL }}admin/"); });
+                    addEvent(window, "load", function(e) { SelectFilter.init("id_languages", "{% trans "Authors" %}", 0, "{% static 'admin/' %}"); });
                 </script>
             </fieldset>
             {% include "extendedadmin/includes/fieldset_categories.html" %}

@@ -1,7 +1,7 @@
 {% extends "admin/base_site.html" %}
 
 <!-- LOADING -->
-{% load admin_static i18n fb_tags fb_pagination %}
+{% load admin_static i18n fb_tags fb_pagination static %}
 {% load url from future %}
 
 <!-- STYLESHEETS -->
@@ -19,7 +19,7 @@
     {% ifequal query.pop '2' %} <!-- TinyMCE -->
         <script language="javascript" type="text/javascript" src="{% static "grappelli/tinymce/jscripts/tiny_mce/tiny_mce_popup.js" %}"></script>
         <script language="javascript" type="text/javascript" src="{% static "filebrowser/js/FB_TinyMCE.js" %}"></script>
-        <script language="javascript" type="text/javascript" src="{{ JETSON_MEDIA_URL }}js/admin/FB_TinyMCE_ext.js"></script>
+        <script language="javascript" type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/FB_TinyMCE_ext.js' %}"></script>
         {% if query.mce_rdomain %}<script language="javascript">document.domain = "{{ query.mce_rdomain }}"</script>{% endif %}
     {% endifequal %}
     {% ifequal query.pop '3' %} <!-- CKeditor (former "FCKeditor") -->
