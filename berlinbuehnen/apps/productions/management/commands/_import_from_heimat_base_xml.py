@@ -467,135 +467,100 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
             text_de = self.cleanup_text(self.get_child_text(text_node, 'text', languageId="1"))
             text_en = self.cleanup_text(self.get_child_text(text_node, 'text', languageId="2"))
             if text_cat_id == 14:  # Beschreibungstext kurz
-                if text_de:
-                    teaser_de = text_de
-                if text_en:
-                    teaser_en = text_en
+                teaser_de = text_de
+                teaser_en = text_en
             elif text_cat_id == 15:  # Beschreibungstext lang
-                if text_de:
-                    description_de = text_de
-                if text_en:
-                    description_en = text_en
+                description_de = text_de
+                description_en = text_en
             elif text_cat_id == 16:  # Inhaltsangabe
-                if text_de:
-                    inhaltsangabe_de = text_de
-                if text_en:
-                    inhaltsangabe_en = text_en
+                inhaltsangabe_de = text_de
+                inhaltsangabe_en = text_en
             elif text_cat_id == 17:  # Konzertprogramm
-                if text_de:
-                    instance.concert_program_de = text_de
-                    instance.concert_program_de_markup_type = 'pt'
-                if text_en:
-                    instance.concert_program_en = text_en
-                    instance.concert_program_en_markup_type = 'pt'
+                instance.concert_program_de = text_de
+                instance.concert_program_de_markup_type = 'pt'
+                instance.concert_program_en = text_en
+                instance.concert_program_en_markup_type = 'pt'
             elif text_cat_id == 18:  # Koproduktion
-                if text_de:
-                    instance.credits_de = text_de
-                    instance.credits_de_markup_type = 'pt'
-                if text_en:
-                    instance.credits_en = text_en
-                    instance.credits_en_markup_type = 'pt'
+                instance.credits_de = text_de
+                instance.credits_de_markup_type = 'pt'
+                instance.credits_en = text_en
+                instance.credits_en_markup_type = 'pt'
             elif text_cat_id == 19:  # Kritik
-                if text_de:
-                    kritik_de = text_de
-                if text_en:
-                    kritik_en = text_en
+                kritik_de = text_de
+                kritik_en = text_en
             elif text_cat_id == 20:  # Originaltitel
-                if text_de:
-                    instance.original_de = text_de
-                if text_en:
-                    instance.original_en = text_en
+                instance.original_de = text_de
+                instance.original_en = text_en
             elif text_cat_id == 21:  # Pressetext
-                if text_de:
-                    pressetext_de = text_de
-                if text_en:
-                    pressetext_de = text_en
+                pressetext_de = text_de
+                pressetext_de = text_en
             elif text_cat_id == 22:  # Rahmenprogramm zur Veranstaltung
-                if text_de:
-                    instance.supporting_program_de = text_de
-                    instance.supporting_program_de_markup_type = 'pt'
-                if text_en:
-                    instance.supporting_program_en = text_en
-                    instance.supporting_program_en_markup_type = 'pt'
+                instance.supporting_program_de = text_de
+                instance.supporting_program_de_markup_type = 'pt'
+                instance.supporting_program_en = text_en
+                instance.supporting_program_en_markup_type = 'pt'
             elif text_cat_id == 23:  # Sondermerkmal
-                if text_de:
-                    instance.remarks_de = text_de
-                    instance.remarks_de_markup_type = 'pt'
-                if text_en:
-                    instance.remarks_en = text_en
-                    instance.remarks_en_markup_type = 'pt'
+                instance.remarks_de = text_de
+                instance.remarks_de_markup_type = 'pt'
+                instance.remarks_en = text_en
+                instance.remarks_en_markup_type = 'pt'
             elif text_cat_id == 24:  # Spieldauer
-                if text_de:
-                    instance.duration_text_de = text_de
-                if text_en:
-                    instance.duration_text_en = text_en
+                instance.duration_text_de = text_de
+                instance.duration_text_en = text_en
             elif text_cat_id == 25:  # Übertitel - this is a subtitle, not subtitles
-                if text_de:
-                    instance.subtitles_text_de = ""
-                    instance.subtitle_de = text_de
-                if text_en:
-                    instance.subtitles_text_en = ""
-                    instance.subtitle_en = text_en
+                instance.subtitles_text_de = ""
+                instance.subtitle_de = text_de
+                instance.subtitles_text_en = ""
+                instance.subtitle_en = text_en
             elif text_cat_id == 26:  # Werbezeile
-                if text_de:
-                    werbezeile_de = text_de
-                if text_en:
-                    werbezeile_en = text_en
+                werbezeile_de = text_de
+                werbezeile_en = text_en
             elif text_cat_id == 27:  # Werkinfo gesamt
-                if text_de:
-                    werkinfo_gesamt_de = text_de
-                if text_en:
-                    werkinfo_gesamt_en = text_en
+                werkinfo_gesamt_de = text_de
+                werkinfo_gesamt_en = text_en
             elif text_cat_id == 28:  # Werkinfo kurz
-                if text_de:
-                    werkinfo_kurz_de = text_de
-                if text_en:
-                    werkinfo_kurz_en = text_en
+                werkinfo_kurz_de = text_de
+                werkinfo_kurz_en = text_en
             elif text_cat_id == 29:  # zusätzliche Preisinformationen
-                if text_de:
-                    instance.price_information_de = text_de
-                    instance.price_information_de_markup_type = 'pt'
-                if text_en:
-                    instance.price_information_en = text_en
-                    instance.price_information_en_markup_type = 'pt'
+                instance.price_information_de = text_de
+                instance.price_information_de_markup_type = 'pt'
+                instance.price_information_en = text_en
+                instance.price_information_en_markup_type = 'pt'
             elif text_cat_id == 30:  # Titelprefix
-                if text_de:
-                    instance.prefix_de = text_de
-                if text_en:
-                    instance.prefix_en = text_en
+                instance.prefix_de = text_de
+                instance.prefix_en = text_en
             elif text_cat_id == 35:  # Programmbuch
-                if text_de:
-                    programbuch_de = text_de
-                if text_en:
-                    programbuch_en = text_en
+                programbuch_de = text_de
+                programbuch_en = text_en
             elif text_cat_id == 36:  # Hintergrundinformation
-                if text_de:
-                    hintergrundinformation_de = text_de
-                if text_en:
-                    hintergrundinformation_en = text_en
+                hintergrundinformation_de = text_de
+                hintergrundinformation_en = text_en
             elif text_cat_id == 39:  # Altersangabe
-                if text_de:
-                    instance.age_text_de = text_de
-                if text_en:
-                    instance.age_text_en = text_en
+                instance.age_text_de = text_de
+                instance.age_text_en = text_en
             elif text_cat_id == 40:  # Audio & Video
                 pass
 
+        instance.press_text_de = u""
         if pressetext_de or kritik_de:
             instance.press_text_de = u"\n".join([text for text in (pressetext_de, kritik_de) if text])
             instance.press_text_de_markup_type = 'pt'
+        instance.press_text_en = u""
         if pressetext_en or kritik_en:
             instance.press_text_en = u"\n".join([text for text in (pressetext_en, kritik_en) if text])
             instance.press_text_en_markup_type = 'pt'
 
+        instance.contents_de = u""
         if inhaltsangabe_de or programbuch_de:
             instance.contents_de = u"\n".join([text for text in (inhaltsangabe_de, programbuch_de) if text])
             instance.contents_de_markup_type = 'pt'
+        instance.contents_en = u""
         if inhaltsangabe_en or programbuch_en:
             instance.contents_en = u"\n".join([text for text in (inhaltsangabe_en, programbuch_en) if text])
             instance.contents_en_markup_type = 'pt'
 
         # according to Bjorn's request:
+        instance.teaser_de = u""
         if werbezeile_de:
             instance.teaser_de = werbezeile_de
         elif werkinfo_kurz_de:
@@ -603,6 +568,7 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
             werkinfo_kurz_de = u""
         instance.teaser_de_markup_type = 'pt'
 
+        instance.teaser_en = u""
         if werbezeile_en:
             instance.teaser_en = werbezeile_en
         elif werkinfo_kurz_en:
@@ -610,6 +576,7 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
             werkinfo_kurz_en = u""
         instance.teaser_en_markup_type = 'pt'
 
+        instance.description_de = u""
         if teaser_de or description_de:
             instance.description_de = u"\n".join([text for text in (teaser_de, description_de) if text])
         elif werkinfo_kurz_de:
@@ -620,6 +587,7 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
             werkinfo_gesamt_de = u""
         instance.description_de_markup_type = 'pt'
 
+        instance.description_en = u""
         if teaser_en or description_en:
             instance.description_en = u"\n".join([text for text in (teaser_en, description_en) if text])
         elif werkinfo_kurz_en:
