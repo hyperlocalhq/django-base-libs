@@ -270,20 +270,18 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     remove_owner.alters_data = True
 
     def get_owners(self):
-        if not hasattr(self, "_owners"):
-            ContentType = models.get_model("contenttypes", "ContentType")
-            PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
-            try:
-                role = PerObjectGroup.objects.get(
-                    sysname__startswith="owners",
-                    object_id=self.pk,
-                    content_type=ContentType.objects.get_for_model(Production),
-                )
-            except:
-                self._owners = []
-            else:
-                self._owners = role.users.all()
-        return self._owners
+        ContentType = models.get_model("contenttypes", "ContentType")
+        PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
+        try:
+            role = PerObjectGroup.objects.get(
+                sysname__startswith="owners",
+                object_id=self.pk,
+                content_type=ContentType.objects.get_for_model(Production),
+            )
+        except:
+            return []
+        else:
+            return role.users.all()
 
     def update_actual_date_and_time(self):
         event = self.get_nearest_occurrence()
