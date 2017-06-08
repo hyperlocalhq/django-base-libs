@@ -152,7 +152,7 @@ class OwnersForm(forms.Form):
 
 
 class ProductionAdmin(ExtendedModelAdmin):
-    list_display = ('title_de', 'get_locations', 'get_import_source', 'get_external_id', 'get_owners_list', 'get_editors_list', 'creation_date', 'modified_date', 'show_among_others', 'no_overwriting', 'classiccard', 'newsletter', 'status')
+    list_display = ('title_de', 'get_locations', 'get_import_source', 'get_owners_list', 'creation_date', 'modified_date', 'show_among_others', 'no_overwriting', 'classiccard', 'newsletter', 'status')
     list_editable = ('show_among_others', 'no_overwriting', 'newsletter', 'classiccard', 'status')
     search_fields = ('title_de', 'title_en')
     list_filter = ['show_among_others', 'no_overwriting', 'classiccard', "creation_date", "modified_date", 'import_source', 'newsletter', 'status']
@@ -168,12 +168,19 @@ class ProductionAdmin(ExtendedModelAdmin):
     fieldsets += [(_("Prices"), {'fields': ['price_from', 'price_till', 'free_entrance', 'tickets_website', get_admin_lang_section(_("Price information"), ['price_information'])]}),]
     fieldsets += [(_("Additional details"), {'fields': ['language_and_subtitles', 'characteristics', get_admin_lang_section(_("Other characteristics"), ['other_characteristics',]), 'age_from', 'age_till', 'edu_offer_website']}),]
     fieldsets += [(_("Status"), {'fields': ['show_among_others', 'no_overwriting', 'newsletter', 'status',]}),]
+    fieldsets += [(_("Additional Information"), {
+        'fields': ['get_owners_list', 'get_editors_list', 'get_external_id'],
+        'description': _("Owners are users who have permissions to modify this production directly. Editors are owners of this production or of the related theaters.")
+    }),]
+    readonly_fields = ['get_owners_list', 'get_editors_list', 'get_external_id']
 
     filter_horizontal = ['in_program_of', 'play_locations', 'play_stages', 'categories', 'characteristics']
     raw_id_fields = ["festivals", "related_productions"]
     related_lookup_fields = {
         "m2m": ["festivals", "related_productions"],
     }
+
+    list_per_page = 50
 
     inlines = [
         ProductionSocialMediaChannelInline,
@@ -182,14 +189,28 @@ class ProductionAdmin(ExtendedModelAdmin):
         ProductionSponsorInline,
     ]
 
+    def queryset(self, request):
+        qs = super(ProductionAdmin, self).queryset(request=request)
+        qs = qs.prefetch_related("in_program_of", "play_locations", "play_stages")
+        return qs
+
     def get_locations(self, obj):
         html = []
-        if obj.in_program_of.count():
-            html.append(ugettext('In program of') + ': ' + ', '.join(('<a href="' + loc.get_url_path() + '" tagret="_blank">' + unicode(loc) + '</a>' for loc in obj.in_program_of.all())))
-        if obj.play_locations.count():
-            html.append(ugettext('Theaters') + ': ' + ', '.join(('<a href="' + loc.get_url_path() + '" tagret="_blank">' + unicode(loc) + '</a>' for loc in obj.play_locations.all())))
-        if obj.play_stages.count():
-            html.append(ugettext('Stages') + ': ' + ', '.join(('<a href="' + stage.location.get_url_path() + '" tagret="_blank">' + unicode(stage) + '</a>' for stage in obj.play_stages.all())))
+        if obj.in_program_of.exists():
+            html.append(ugettext('In program of') + ': ' + ', '.join((
+                u'<a href="/admin/locations/location/{}/" target="_blank">{}</a>'.format(loc.pk, loc)
+                for loc in obj.in_program_of.all())
+            ))
+        if obj.play_locations.exists():
+            html.append(ugettext('Theaters') + ': ' + ', '.join((
+                u'<a href="/admin/locations/location/{}/" target="_blank">{}</a>'.format(loc.pk, loc)
+                for loc in obj.play_locations.all())
+            ))
+        if obj.play_stages.exists():
+            html.append(ugettext('Stages') + ': ' + ', '.join((
+                u'<a href="/admin/locations/location/{}/" target="_blank">{}</a>'.format(stage.location.pk, stage.location)
+                for stage in obj.play_stages.all())
+            ))
         if obj.location_title:
             html.append(ugettext('Free text venue') + ': ' + obj.location_title)
         return '<br />'.join(html)
@@ -210,7 +231,7 @@ class ProductionAdmin(ExtendedModelAdmin):
 
     def get_owners_list(self, obj):
         owners_list = set()
-        manage_owners_link = '<a href="%s/owners/"><span>%s</span></a>' % (obj.pk, ugettext('Manage owners'))
+        manage_owners_link = '<a href="/admin/productions/production/%s/owners/"><span>%s</span></a>' % (obj.pk, ugettext('Manage owners'))
         for o in obj.get_owners():
             owners_list.add('<a href="/admin/auth/user/%s/">%s</a>' % (o.pk, o.username))
         if owners_list:

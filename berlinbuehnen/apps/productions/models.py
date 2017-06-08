@@ -270,17 +270,20 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     remove_owner.alters_data = True
 
     def get_owners(self):
-        ContentType = models.get_model("contenttypes", "ContentType")
-        PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
-        try:
-            role = PerObjectGroup.objects.get(
-                sysname__startswith="owners",
-                object_id=self.pk,
-                content_type=ContentType.objects.get_for_model(Production),
-            )
-        except:
-            return []
-        return role.users.all()
+        if not hasattr(self, "_owners"):
+            ContentType = models.get_model("contenttypes", "ContentType")
+            PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
+            try:
+                role = PerObjectGroup.objects.get(
+                    sysname__startswith="owners",
+                    object_id=self.pk,
+                    content_type=ContentType.objects.get_for_model(Production),
+                )
+            except:
+                self._owners = []
+            else:
+                self._owners = role.users.all()
+        return self._owners
 
     def update_actual_date_and_time(self):
         event = self.get_nearest_occurrence()
@@ -361,15 +364,17 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
         return categories
 
     def get_import_source(self):
-        ObjectMapper = models.get_model("external_services", "ObjectMapper")
-        ContentType = models.get_model("contenttypes", "ContentType")
-        mappers = ObjectMapper.objects.filter(
-            content_type=ContentType.objects.get_for_model(self),
-            object_id=self.pk,
-        )
-        if mappers:
-            return mappers[0].service.title.replace(' Productions', '')
-        return ""
+        if not hasattr(self, "_import_source"):
+            ObjectMapper = models.get_model("external_services", "ObjectMapper")
+            ContentType = models.get_model("contenttypes", "ContentType")
+            mappers = ObjectMapper.objects.filter(
+                content_type=ContentType.objects.get_for_model(self),
+                object_id=self.pk,
+            )
+            self._import_source = ""
+            if mappers:
+                self._import_source = mappers[0].service.title.replace(' Productions', '')
+        return self._import_source
     get_import_source.short_description = _("Import Source")
 
     def _get_first_image(self):
