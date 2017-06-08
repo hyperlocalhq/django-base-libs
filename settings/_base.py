@@ -1,8 +1,10 @@
-# -*- coding: utf-8 -*-
-# Django settings for the Creative-City-Berlin project.
+# -*- coding: UTF-8 -*-
+from __future__ import unicode_literals
 from datetime import timedelta
 
 import os
+import json
+from django.core.exceptions import ImproperlyConfigured
 
 gettext = lambda s: s
 
@@ -10,9 +12,20 @@ DEBUG = False
 
 SITE_ID = 1
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-JETSON_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "subtrees"))
-PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+with open(os.path.join(os.path.dirname(__file__), 'secrets.json')) as f:
+    secrets = json.loads(f.read())
+
+def get_secret(setting, secrets=secrets):
+    '''Get the secret variable or return explicit exception.'''
+    try:
+        return secrets[setting]
+    except KeyError:
+        error_msg = 'Set the {0} environment variable'.format(setting)
+        raise ImproperlyConfigured(error_msg)
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+JETSON_PATH = os.path.abspath(os.path.join(BASE_DIR, "ccb", "subtrees"))
+PROJECT_PATH = BASE_DIR
 
 execfile(os.path.join(JETSON_PATH, "jetson/settings/base.py"), globals(), locals())
 
@@ -192,7 +205,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE_CLASSES = [
     "django.middleware.common.CommonMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "jetson.apps.httpstate.middleware.HttpStateMiddleware",
@@ -258,7 +270,7 @@ TEMPLATES = [
 ]
 
 
-SECRET_KEY = "*z-g$creativeberlinio@_qt9efb5dge+(64aeq4$!gk+62nsyqlgqpf8l6"
+SECRET_KEY = get_secret("SECRET_KEY")
 
 # ROOT_URLCONF = "urls" # TODO: figure out if this would work
 ROOT_URLCONF = "ccb.urls"
@@ -764,8 +776,9 @@ SOCIAL_AUTH_GOOGLE_OAUTH_SCOPE = [
 ]
 SOCIAL_AUTH_USERNAME_FORM_HTML = "username_signup.html"
 
-SOCIAL_AUTH_FACEBOOK_KEY = "217188838296370"
-SOCIAL_AUTH_FACEBOOK_SECRET = "66548a2c23317f70ff1e20bd982a5f68"
+
+SOCIAL_AUTH_FACEBOOK_KEY = FACEBOOK_APP_ID = get_secret("FACEBOOK_APP_ID")
+SOCIAL_AUTH_FACEBOOK_SECRET = FACEBOOK_APP_SECRET = get_secret("FACEBOOK_APP_SECRET")
 SOCIAL_AUTH_FACEBOOK_SCOPE = ["email"]
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
   "fields": "id, name, email, first_name, last_name",
@@ -868,32 +881,15 @@ RAVEN_CONFIG = {
     'dsn': 'http://ffc5ae7c26dd49ed8f14ca113cb0f7de:29e74466fdaa4af7a245f7a3eae16543@46.101.101.159/2',
     # If you are using git, you can also automatically configure the
     # release based on the git info.
-    'release': raven.fetch_git_sha(os.path.dirname(__file__)),
+    'release': raven.fetch_git_sha(os.path.dirname(os.path.dirname(__file__))),
 }
 
 ### API KEYS ###
 
 GOOGLE_API_KEY = "AIzaSyDWz29t8VlkHoR6e5rYg8So98_SfPhMfCc"
 
-### LOCAL SETTINGS ###
-
-try:
-    execfile(os.path.join(os.path.dirname(__file__), "local_settings.py"))
-except IOError:
-    pass
-
-### DEBUG TOOLBAR ###
-
-if DEBUG:
-    import debug_toolbar
-
-    INSTALLED_APPS += [
-        "debug_toolbar",
-    ]
-    execfile(os.path.join(JETSON_PATH, "jetson/settings/debug_toolbar.py"))
-
 HUEY = {
-    'name': DATABASES['default']['NAME'],  # Use db name for huey.
+    'name': "ccb",  # Use db name for huey.
     'result_store': True,  # Store return values of tasks.
     'events': True,  # Consumer emits events allowing real-time monitoring.
     'store_none': False,  # If a task returns None, do not save to results.

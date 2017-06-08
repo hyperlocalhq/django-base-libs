@@ -639,8 +639,10 @@ def suite():
 if __name__ == "__main__":
     PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
     sys.path = ["", PROJECT_PATH] + sys.path
-    os.environ["DJANGO_SETTINGS_MODULE"] = "settings"
-    import django
+    os.chdir(os.path.dirname(__file__))
+    os.environ["DJANGO_SETTINGS_MODULE"] = "settings.test"
 
+    import django
     django.setup()
+
     unittest.TextTestRunner(verbosity=1).run(suite())
