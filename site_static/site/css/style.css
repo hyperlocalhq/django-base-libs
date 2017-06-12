@@ -2670,6 +2670,11 @@ body.show-layer.image-layer .layer#image-layer {
   outline: none;
 }
 
+#navigation ul li.opened.level-1 a, #navigation ul li.opened.level-1 span {
+  color: #fff;
+  outline: none;
+}
+
 #navigation ul li:last-child {
   border-bottom: 1px solid #444444;
 }
