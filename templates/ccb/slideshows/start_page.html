@@ -12,7 +12,15 @@
                         </div>
                     </div>
                 </div>
+                {% if slide.button %}
+                    <div class="slider-button">{{ slide.button|escape }}</div>
+                {% endif %}
             {% if slide.link %}</a>{% endif %}
         </div>
     {% endfor %}
+    <ul class="slider-menu">
+        {% for slide in slides %}
+            <li></li>
+        {% endfor %}
+    </ul>
 </div>

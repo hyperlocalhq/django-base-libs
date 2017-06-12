@@ -433,6 +433,80 @@
                 }
             }
         }
+
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            margin-top: -25px;
+            color: $white;
+            cursor: pointer;
+            line-height: 3.2rem;
+            &:hover, &:focus {
+                color: $white;
+                opacity: 0.7;
+            }
+            &:before {
+                line-height: 100%;
+                font-size: 3.2rem;
+            }
+            &.disabled {
+                opacity: 0.2;
+                cursor: default;
+                &:hover, &:focus {
+                    color: $grey-light;
+                }
+            }
+        }
+
+        .prev {
+            left: 10px;
+        }
+        .next {
+            right: 10px;
+        }
+
+        .slider-button {
+            position: absolute;
+            padding: 10px 30px;
+            background: $blue;
+            color: $white;
+            font-weight: $font-bold;
+            bottom: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+
+            &:hover {
+                background: $blue-light;
+            }
+        }
+    }
+
+    .slider-menu {
+        list-style: none;
+        overflow: hidden;
+        position: absolute;
+        bottom:20px;
+        left:50%;
+        transform: translateX(-50%);
+
+        .is-xs & {
+            bottom: 10px;
+        }
+
+        li {
+            display: block;
+            float: left;
+            width: 20px;
+            height: 20px;
+            background: $grey-light;
+            border-radius: 50%;
+            margin: 0 1px;
+            cursor: pointer;
+
+            &.active, &:hover {
+                background: $white;
+            }
+        }
     }
 
 }
