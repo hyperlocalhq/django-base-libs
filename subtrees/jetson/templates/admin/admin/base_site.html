@@ -45,3 +45,15 @@
         <li><a href="{{ docsroot }}">{% trans 'Documentation' %}</a></li>
     {% endif %}
 {% endblock %}
+
+<!-- MESSAGES -->
+{% block messages %}
+    {% if messages %}
+        <ul class="grp-messagelist messagelist">
+            <!-- NOTE: no message|capfirst by purpose, because it does not work in some languages -->
+            {% for message in messages %}
+                <li{% if message.tags %} class="grp-{{ message.tags }} {{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
