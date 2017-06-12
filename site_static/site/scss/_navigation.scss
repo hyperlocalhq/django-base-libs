@@ -83,6 +83,13 @@
                 }
             }
 
+            &.opened.level-1 {
+                a, span {
+                    color: $navi-font-hover;
+                    outline: none;
+                }
+            }
+
             &:last-child {
                 border-bottom: 1px solid $navi-border;
             }

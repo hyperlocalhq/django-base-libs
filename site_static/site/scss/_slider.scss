@@ -424,13 +424,102 @@
                     text-shadow: 0 1px 1px rgba(0,0,0,0.75);
                     text-align: center;
                     text-transform: uppercase;
-                    margin: 0;
+                    margin: 0 40px;
+                    .is-sm & {
+                        font-size: 3rem;
+                    }
                     .is-xs & {
                         text-shadow: 0 4px 4px rgba(0,0,0,0.75);
                         font-size: 2.4em;
                         line-height: 97%;
+                        margin: 0;
                     }
                 }
+            }
+        }
+
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            margin-top: -25px;
+            color: $white;
+            cursor: pointer;
+            line-height: 3.2rem;
+            &:hover, &:focus {
+                color: $white;
+                opacity: 0.7;
+            }
+            &:before {
+                line-height: 100%;
+                font-size: 3.2rem;
+            }
+            &.disabled {
+                opacity: 0.2;
+                cursor: default;
+                &:hover, &:focus {
+                    color: $grey-light;
+                }
+            }
+
+            .is-xs & {
+                display: none;
+            }
+        }
+
+        .prev {
+            left: 10px;
+        }
+        .next {
+            right: 10px;
+        }
+
+        .slider-button {
+            position: absolute;
+            padding: 10px 30px;
+            background: $blue;
+            color: $white;
+            font-weight: $font-bold;
+            bottom: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+
+            &:hover {
+                background: $blue-light;
+            }
+
+            .is-sm & {
+                bottom: 55px;
+            }
+            .is-xs & {
+                bottom: 40px;
+            }
+        }
+    }
+
+    .slider-menu {
+        list-style: none;
+        overflow: hidden;
+        position: absolute;
+        bottom:20px;
+        left:50%;
+        transform: translateX(-50%);
+
+        .is-xs & {
+            bottom: 10px;
+        }
+
+        li {
+            display: block;
+            float: left;
+            width: 20px;
+            height: 20px;
+            background: $grey-light;
+            border-radius: 50%;
+            margin: 0 1px;
+            cursor: pointer;
+
+            &.active, &:hover {
+                background: $white;
             }
         }
     }

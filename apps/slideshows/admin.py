@@ -17,7 +17,7 @@ class Slide_Inline(ExtendedStackedInline):
     sortable = True
     allow_add = True
     extra = 1
-    fieldsets = get_admin_lang_section(None, ['title', 'description', 'alt'])
+    fieldsets = get_admin_lang_section(None, ['title', 'description', 'alt', 'button'])
     fieldsets += [
         (None, {'fields': ["path", "link"]}),
     ]

@@ -29,6 +29,7 @@ class Slide(models.Model):
     link = models.CharField(_('Link'), max_length=255, blank=True)
     title = MultilingualCharField(_("Title"), max_length=200, blank=True)
     description = MultilingualPlainTextField(_("Description"), blank=True)
+    button = MultilingualCharField(_("Button Text"), max_length=200, blank=True)
     alt = MultilingualCharField(_("Alternative text"), max_length=100, blank=True)
     sort_order = PositionField(_("Sort order"), collection="slideshow")
 
