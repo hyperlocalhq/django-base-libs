@@ -424,11 +424,15 @@
                     text-shadow: 0 1px 1px rgba(0,0,0,0.75);
                     text-align: center;
                     text-transform: uppercase;
-                    margin: 0;
+                    margin: 0 40px;
+                    .is-sm & {
+                        font-size: 3rem;
+                    }
                     .is-xs & {
                         text-shadow: 0 4px 4px rgba(0,0,0,0.75);
                         font-size: 2.4em;
                         line-height: 97%;
+                        margin: 0;
                     }
                 }
             }
@@ -456,6 +460,10 @@
                     color: $grey-light;
                 }
             }
+
+            .is-xs & {
+                display: none;
+            }
         }
 
         .prev {
@@ -477,6 +485,13 @@
 
             &:hover {
                 background: $blue-light;
+            }
+
+            .is-sm & {
+                bottom: 55px;
+            }
+            .is-xs & {
+                bottom: 40px;
             }
         }
     }
