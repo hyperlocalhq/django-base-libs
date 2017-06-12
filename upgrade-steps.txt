@@ -1,8 +1,6 @@
-python manage.py migrate contenttypes
-
-# echo "UPDATE django_migrations SET app='social_django' WHERE app='default';" | python manage.py dbshell
-
-python manage.py migrate social_django zero
-# python manage.py migrate social_django 0003_alter_email_max_length --fake
-python manage.py migrate
-python manage.py cms fix-tree
+echo "UPDATE django_migrations SET app='social_django' WHERE app='default';" | python manage.py dbshell --settings=settings.production
+python manage.py migrate contenttypes --settings=settings.production
+# python manage.py migrate social_django zero
+python manage.py migrate social_django 0003_alter_email_max_length --fake --settings=settings.production
+python manage.py migrate --settings=settings.production
+python manage.py cms fix-tree --settings=settings.production
