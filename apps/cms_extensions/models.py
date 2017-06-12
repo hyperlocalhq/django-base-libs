@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, ugettext
 from django.conf import settings
 
 from cms.extensions import TitleExtension
@@ -50,7 +50,7 @@ class OpenGraph(TitleExtension):
         verbose_name = verbose_name_plural = _("Open Graph for Social Sharing")
 
     def __unicode__(self):
-        return self.og_title or _("(untitled)")
+        return self.og_title or ugettext("(untitled)")
 
 
 extension_pool.register(OpenGraph)

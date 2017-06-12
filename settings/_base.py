@@ -492,6 +492,8 @@ CACHES = {
     }
 }
 
+CACHE_MIDDLEWARE_KEY_PREFIX = "ccb_production_"
+
 ### FILEBROWSER ###
 
 execfile(os.path.join(JETSON_PATH, "jetson/settings/filebrowser.py"))
@@ -919,3 +921,22 @@ HUEY = {
         'periodic': True,  # Enable crontab feature.
     },
 }
+
+### PLACEHOLDER PATHS ###
+# TODO: eliminate as they are probably outdated
+
+DEFAULT_LOGO_4_PERSON = "%ssite/img/website/placeholder/person.png" % STATIC_URL
+DEFAULT_FORM_LOGO_4_PERSON = "%ssite/img/website/placeholder/person_f.png" % STATIC_URL
+DEFAULT_SMALL_LOGO_4_PERSON = "%ssite/img/website/placeholder/person_s.png" % STATIC_URL
+
+DEFAULT_LOGO_4_INSTITUTION = "%ssite/img/website/placeholder/institution.png" % STATIC_URL
+DEFAULT_FORM_LOGO_4_INSTITUTION = "%ssite/img/website/placeholder/institution_f.png" % STATIC_URL
+DEFAULT_SMALL_LOGO_4_INSTITUTION = "%ssite/img/website/placeholder/institution_s.png" % STATIC_URL
+
+DEFAULT_LOGO_4_EVENT = "%ssite/img/website/placeholder/event.png" % STATIC_URL
+DEFAULT_FORM_LOGO_4_EVENT = "%ssite/img/website/placeholder/event_f.png" % STATIC_URL
+DEFAULT_SMALL_LOGO_4_EVENT = "%ssite/img/website/placeholder/event_s.png" % STATIC_URL
+
+DEFAULT_LOGO_4_DOCUMENT = "%ssite/img/website/placeholder/document.png" % STATIC_URL
+DEFAULT_FORM_LOGO_4_DOCUMENT = "%ssite/img/website/placeholder/document_f.png" % STATIC_URL
+DEFAULT_SMALL_LOGO_4_DOCUMENT = "%ssite/img/website/placeholder/document_s.png" % STATIC_URL
