@@ -938,35 +938,25 @@ def remove_empty_lists(html):
 
 
 @register.filter(is_safe=True, needs_autoescape=False)
-@stringfilter
 def disarm_user_input(html):
     """ 
     Returns html without posible harm
-    In addition
-    - urlizes text if no links are used
-    - breaks lines if no paragraphs are used
-    # TODO: move the additional functionality to different filters
-    # TODO: create a wrapping filter which combines different functionalities into one (for simpler template code)
     """
-    html = defaultfilters.removetags(html, "script style comment")
-    # remove javascript events and style attributes from tags
-    re_comments = re.compile(r'<!--[\s\S]*?(-->|$)')
-    re_tags = re.compile(r'(<[^>\s]+)([^>]+)(>)')
-    re_attrs = re.compile(
-        r"""\s+(on[^=]+|style)=([^"'\s]+|"[^"]*"|'[^']*')""",
-        )
-    def remove_js_events(match):
-        return "".join((
-            match.group(1),
-            re_attrs.sub('', match.group(2)),
-            match.group(3),
-            ))
-    html = re_comments.sub("", html)
-    html = re_tags.sub(remove_js_events, html)
-    if "</a>" not in html:
-        html = defaultfilters.urlizetrunc(html, "30", autoescape=False)
+    import bleach
     if "</p>" not in html:
         html = defaultfilters.linebreaks(html)
+    html = bleach.clean(
+        html,
+        tags=[u'a', u'abbr', u'acronym', u'b', u'blockquote', u'br', u'code', u'em', u'i', u'img', u'li', u'ol', u'p', u'strong', u'ul'],
+        attributes={
+            u'a': [u'href', u'title'], u'acronym': [u'title'], u'abbr': [u'title'], u'img': [u'src', 'alt'],
+        },
+        styles=[],
+        protocols=[u'http', u'https', u'mailto', u'data'],
+        strip=True,
+        strip_comments=True,
+    )
+    html = bleach.linkify(html)
     html = mark_safe(html)
     return html
 
