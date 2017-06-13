@@ -21,7 +21,7 @@ from tagging.models import TaggedItem
 from base_libs.views import get_container
 from base_libs.views import access_denied
 from base_libs.utils.misc import get_or_404
-from base_libs.utils.loader import select_template_name
+from base_libs.utils.loader import get_template_name_list_for_object
 from base_libs.forms.formprocessing import FormPreviewHandler
 from base_libs.forms.formprocessing import ID_ACTION_NEW
 from base_libs.forms.formprocessing import ID_ACTION_EDIT
@@ -305,7 +305,7 @@ def handle_request(request, year=None, month=None, day=None, post_slug=None, tag
         if not request.user.has_perm("blog.change_blog_posts", container):
             return access_denied(request)
 
-    template_name = select_template_name("blog", extra_context['object'], "blog")
+    template_name_list = get_template_name_list_for_object("blog", extra_context['object'], "blog")
 
     if status == STATUS_CODE_PUBLISHED:
         queryset = Post.published_objects.filter(blog=container)
@@ -333,7 +333,7 @@ def handle_request(request, year=None, month=None, day=None, post_slug=None, tag
         post.increase_views()
         extra_context['post'] = post
 
-        return render(request, template_name, extra_context)
+        return render(request, template_name_list, extra_context)
 
     # the list archives
     if tag:
@@ -361,7 +361,7 @@ def handle_request(request, year=None, month=None, day=None, post_slug=None, tag
 
     return object_list(request, queryset,
                        paginate_by=paginate_by, page=page, allow_empty=True,
-                       template_name=template_name, template_loader=loader,
+                       template_name=template_name_list, template_loader=loader,
                        extra_context=extra_context, context_processors=context_processors,
                        template_object_name=template_object_name, content_type=None)
 
@@ -435,10 +435,10 @@ class BlogPostFormPreviewHandler(FormPreviewHandler):
         return extra_context
 
     def get_form_template(self, use_ajax):
-        return select_template_name("post", self.container, "blog/forms", use_ajax)
+        return get_template_name_list_for_object("post", self.container, "blog/forms", use_ajax)
 
     def get_confirm_delete_template(self, use_ajax):
-        return select_template_name("confirm_delete", self.container, "blog/forms", use_ajax)
+        return get_template_name_list_for_object("confirm_delete", self.container, "blog/forms", use_ajax)
 
     def check_allowed(self, request, action):
         # check privileges
@@ -552,7 +552,7 @@ def blog_post_comment(request,
     container = extra_context['container']
     obj = extra_context['object']
     post = extra_context['current_post']
-    template_name = select_template_name("form", container, "blog/comments", use_ajax)
+    template_name_list = get_template_name_list_for_object("form", container, "blog/comments", use_ajax)
     redirect_to = request.REQUEST.get(settings.REDIRECT_FIELD_NAME, '')
 
     if not post.enable_comment_form:
@@ -561,7 +561,7 @@ def blog_post_comment(request,
     if request.method == 'POST':
         if request.POST.has_key('post'):
 
-            post_comment(request, template_name=template_name, use_ajax=use_ajax)
+            post_comment(request, template_name=template_name_list, use_ajax=use_ajax)
             if not use_ajax:
                 redirect_to += "#comments"
                 return HttpResponseRedirect(redirect_to)
@@ -570,7 +570,7 @@ def blog_post_comment(request,
 
         # the normal preview is done ...
         elif request.POST.has_key('preview'):
-            return post_comment(request, template_name=template_name, use_ajax=use_ajax, extra_context=extra_context)
+            return post_comment(request, template_name=template_name_list, use_ajax=use_ajax, extra_context=extra_context)
         # cancel
         else:
             if not use_ajax:
@@ -598,7 +598,7 @@ def blog_modify_comment(request, comment_id,
     container = extra_context['container']
     obj = extra_context['object']
 
-    template_name = select_template_name(action, container, "blog/comments", use_popup or use_ajax)
+    template_name_list = get_template_name_list_for_object(action, container, "blog/comments", use_popup or use_ajax)
     redirect_to = request.REQUEST.get(settings.REDIRECT_FIELD_NAME, '')
 
     # check permissions
@@ -615,4 +615,4 @@ def blog_modify_comment(request, comment_id,
     else:
         return
 
-    return f(request, comment_id, template_name, redirect_to, extra_context, use_popup)
+    return f(request, comment_id, template_name_list, redirect_to, extra_context, use_popup)

@@ -4,7 +4,7 @@ from django.contrib.sites.models import Site
 
 from base_libs.views import get_object_from_url
 from base_libs.views import get_container
-from base_libs.utils.loader import select_template_name
+from base_libs.utils.loader import get_template_name_list_for_object
 from base_libs.utils.misc import get_or_404
 from jetson.apps.utils.views import object_list
 from ccb.apps.faqs.models import FaqContainer, FaqCategory
@@ -72,10 +72,10 @@ def handle_request(request, object_url_part, url_identifier,
         queryset = FaqCategory.objects.get_roots(container)
 
     obj = extra_context['object']
-    template_name = select_template_name("faqs", obj, "faqs")
+    template_name_list = get_template_name_list_for_object("faqs", obj, "faqs")
 
     return object_list(request, queryset,
                        paginate_by=paginate_by, page=page, allow_empty=True,
-                       template_name=template_name, template_loader=loader,
+                       template_name=template_name_list, template_loader=loader,
                        extra_context=extra_context, context_processors=context_processors,
                        template_object_name=template_object_name, content_type=None)
