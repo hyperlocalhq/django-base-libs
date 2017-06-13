@@ -33,5 +33,5 @@ def select_template_name(template_name_prefix, obj, app_dir, use_embedded=False)
         template_name = "%s_embedded" % template_name_prefix
     t = select_template_for_object("%s.html" % template_name, obj, app_dir)
     if t and t.origin:
-        return t.origin.loadname
+        return t.origin.name
     return ""
