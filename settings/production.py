@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from ._base import *
 
 DEBUG = False
-TEMPLATES[0]['OPTIONS']['debug'] = True
+TEMPLATES[0]['OPTIONS']['debug'] = False
 
 DATABASES = {
     'mysql': {
