@@ -135,7 +135,10 @@ class FormHandler(object):
             self.extra_context['delete_object'] = self.get_object()
         
         context = {}
-        t = loader.get_template(template)
+        if isinstance(template, (tuple, list)):
+            t = loader.select_template(template)
+        else:
+            t = loader.get_template(template)
 
         context['form'] = form
         context.update(self.context)
@@ -163,7 +166,11 @@ class FormHandler(object):
             else: #ID_ACTION_EDIT:
                 return self.save_edit(self.get_object(), cleaned)
         else:
-            t = loader.get_template(self.get_form_template(self.use_ajax))
+            template_name = self.get_form_template(self.use_ajax)
+            if isinstance(template_name, (tuple, list)):
+                t = loader.select_template(template_name)
+            else:
+                t = loader.get_template()
             context.update(self.context)
             context.update(self.extra_context)
             return HttpResponse(t.render(RequestContext(request, context)))   
@@ -294,9 +301,14 @@ class FormPreviewHandler(FormHandler):
             context['hash_field'] = self._check_name('hash')
             context['hash_value'] = self.security_hash(request, form)
             context['form_preview'] = True
-            t = loader.get_template(self.get_preview_template(self.use_ajax))
+            template_name = self.get_preview_template(self.use_ajax)
         else:
-            t = loader.get_template(self.get_form_template(self.use_ajax))
+            template_name = self.get_form_template(self.use_ajax)
+
+        if isinstance(template_name, (tuple, list)):
+            t = loader.select_template(template_name)
+        else:
+            t = loader.get_template(template_name)
 
         context.update(self.context)
         context.update(self.extra_context)
