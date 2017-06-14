@@ -1,4 +1,5 @@
 .alert-dark {
+    // color specific style
     background: black;
     color: #fff;
     a {
@@ -8,8 +9,6 @@
         color: black;
         background: $yellow;
         font-weight: $bold;
-        margin-left: 1em;
-        margin-right: 1em;
     }
     .close {
         color: white;
@@ -22,5 +21,9 @@
 
 }
 .infobanner {
-
+    // layout specific style
+    .btn {
+        margin-left: 1em;
+        margin-right: 1em;
+    }
 }

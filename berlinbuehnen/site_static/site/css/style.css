@@ -6661,15 +6661,17 @@ span.pin a {
   .alert-dark .btn {
     color: black;
     background: #ffe345;
-    font-weight: 700;
-    margin-left: 1em;
-    margin-right: 1em; }
+    font-weight: 700; }
   .alert-dark .close {
     color: white;
     opacity: 0.4; }
     .alert-dark .close:hover, .alert-dark .close:focus {
       color: white;
       opacity: 0.8; }
+
+.infobanner .btn {
+  margin-left: 1em;
+  margin-right: 1em; }
 
 html {
   height: 100%; }
