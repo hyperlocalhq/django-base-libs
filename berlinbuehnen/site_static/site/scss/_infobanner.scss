@@ -1,0 +1,26 @@
+.alert-dark {
+    background: black;
+    color: #fff;
+    a {
+        color: $blue_hover;
+    }
+    .btn {
+        color: black;
+        background: $yellow;
+        font-weight: $bold;
+        margin-left: 1em;
+        margin-right: 1em;
+    }
+    .close {
+        color: white;
+        opacity: 0.4;
+        &:hover, &:focus {
+            color: white;
+            opacity: 0.8;
+        }
+    }
+
+}
+.infobanner {
+
+}

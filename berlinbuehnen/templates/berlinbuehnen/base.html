@@ -1,5 +1,5 @@
 {% block doctype %}<!DOCTYPE html>{% endblock %}
-{% load cms_tags menu_tags sekizai_tags i18n image_modifications base_tags %}
+{% load cms_tags menu_tags sekizai_tags i18n image_modifications base_tags infobanners_tags %}
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -72,6 +72,7 @@
 {% endblock %}
 
 {% render_block "css" %}
+
 <script type="text/javascript">
     <!--//--><![CDATA[//><!--
         var images = [];
@@ -124,8 +125,8 @@
         // forcing django CMS to use the already included version of jQuery
         var django = {jQuery: jQuery};
 </script>
-
 {{ site_settings.extra_head|safe }}
+{% render_block "head_js" %}
 {% block js %}{% endblock %}
 </head>
 
@@ -140,12 +141,16 @@
     -->
     {% block map %}{% endblock %}
     {% block toolbar %}{% cms_toolbar %}{% endblock %}
+
     <div id="wrapper">
         {% block header %}
             {% include "utils/header.html" %}
         {% endblock %}
 
         <div id="body">
+            {% block top_alert %}
+                {% infobanner "top" %}
+            {% endblock %}
             {% block content %}
             {% endblock %}
         </div>

@@ -15,7 +15,6 @@ TEMPLATE_DEBUG = DEBUG
 ADMINS = (
     ("Berlin Bühnen Webmaster", "bendoraitis@studio38.de"),
     ("Reinhard Knobelspies", "knobelspies@studio38.de"),
-    ("Tiago Henriques", "henriques@studio38.de"),
 )
 
 DEFAULT_FROM_EMAIL = 'berlin-buehnen@kulturprojekte-berlin.de'
@@ -245,6 +244,7 @@ INSTALLED_APPS = (
     "berlinbuehnen.apps.favorites",
     "berlinbuehnen.apps.site_specific",
     "berlinbuehnen.apps.services",
+    "berlinbuehnen.apps.infobanners",
     "berlinbuehnen.apps.cms_extensions",
     "berlinbuehnen.apps.cms_extensions.plugins.richtext",
     "berlinbuehnen.apps.cms_extensions.plugins.filebrowser_image",
@@ -264,6 +264,9 @@ ADMIN_APP_INDEX = (
             }),
             ('blocks', {
                 'models': ('InfoBlock',),
+            }),
+            ('infobanners', {
+                'models': ('InfoBanner',),
             }),
             ('locations', {
                 'models': ('Service', 'AccessibilityOption', 'LocationCategory', 'District', 'Location',),
