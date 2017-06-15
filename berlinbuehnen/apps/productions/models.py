@@ -801,6 +801,8 @@ class EventManager(models.Manager):
             models.Q(end_date__gte=timestamp.date()) |
             models.Q(end_date=None, start_date__gte=timestamp.date()),
             production__status="published",
+        ).exclude(
+            event_status="trashed",
         )
 
         today = datetime.today()
