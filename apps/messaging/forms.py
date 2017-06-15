@@ -2,7 +2,6 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.conf import settings
-from actstream import action
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
@@ -212,4 +211,4 @@ def message_received(sender, instance, **kwargs):
             },
         instance=instance,
         )
-    action.send(instance.sender, verb="received message", action_object=instance)
+    # action.send(instance.recipient, verb="received internal message", action_object=instance)

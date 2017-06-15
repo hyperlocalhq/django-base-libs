@@ -281,17 +281,18 @@ class InstitutionBase(CreationModificationDateMixin, UrlMixin, OpeningHoursMixin
         
     def get_absolute_url(self):
         from django.conf import settings
-        return "%s%s/%s/" % (get_website_url(), URL_ID_INSTITUTION, self.slug)        
+        return "%snetwork/member/%s/" % (get_website_url(), self.slug)
     
     def get_url_path(self):
         from django.conf import settings
-        return "/%s/%s/" % (URL_ID_INSTITUTION, self.slug)        
+        return "/network/member/%s/" % (self.slug, )
     
     def get_title(self):
-        return ("%s %s" % (
-            force_unicode(self.title),
-            force_unicode(self.title2),
-            )).strip()
+        return u", ".join([force_unicode(item) for item in (self.title, self.title2) if item]).strip()
+        #return ("%s %s" % (
+        #    force_unicode(self.title),
+        #    force_unicode(self.title2),
+        #    )).strip()
 
     def get_slug(self):
         return self.slug
@@ -559,17 +560,17 @@ class InstitutionalContactBase(models.Model):
 
     # WEBSITES
     
-    url0_type = models.ForeignKey(URLType, verbose_name=_("URL Type"), blank=True, null=True, related_name='institutional_contacts0')
+    url0_type = models.ForeignKey(URLType, verbose_name=_("URL Type"), blank=True, null=True, related_name='institutional_contacts0', on_delete=models.SET_NULL)
     url0_link = URLField(_("URL"), blank=True)
     is_url0_default = models.BooleanField(_("Default?"), default=True)
     is_url0_on_hold = models.BooleanField(_("On Hold?"), default=False)
     
-    url1_type = models.ForeignKey(URLType, verbose_name=_("URL Type"), blank=True, null=True, related_name='institutional_contacts1')
+    url1_type = models.ForeignKey(URLType, verbose_name=_("URL Type"), blank=True, null=True, related_name='institutional_contacts1', on_delete=models.SET_NULL)
     url1_link = URLField(_("URL"), blank=True)
     is_url1_default = models.BooleanField(_("Default?"), default=False)
     is_url1_on_hold = models.BooleanField(_("On Hold?"), default=False)
     
-    url2_type = models.ForeignKey(URLType, verbose_name=_("URL Type"), blank=True, null=True, related_name='institutional_contacts2')
+    url2_type = models.ForeignKey(URLType, verbose_name=_("URL Type"), blank=True, null=True, related_name='institutional_contacts2', on_delete=models.SET_NULL)
     url2_link = URLField(_("URL"), blank=True)
     is_url2_default = models.BooleanField(_("Default?"), default=False)
     is_url2_on_hold = models.BooleanField(_("On Hold?"), default=False)
@@ -577,17 +578,17 @@ class InstitutionalContactBase(models.Model):
 
     # INSTANT MESSENGERS
     
-    im0_type = models.ForeignKey(IMType, verbose_name=_("IM Type"), blank=True, null=True, related_name='institutional_contacts0')
+    im0_type = models.ForeignKey(IMType, verbose_name=_("IM Type"), blank=True, null=True, related_name='institutional_contacts0', on_delete=models.SET_NULL)
     im0_address = models.CharField(_("Instant Messenger"), blank=True, max_length=255)
     is_im0_default = models.BooleanField(_("Default?"), default=True)
     is_im0_on_hold = models.BooleanField(_("On Hold?"), default=False)
 
-    im1_type = models.ForeignKey(IMType, verbose_name=_("IM Type"), blank=True, null=True, related_name='institutional_contacts1')
+    im1_type = models.ForeignKey(IMType, verbose_name=_("IM Type"), blank=True, null=True, related_name='institutional_contacts1', on_delete=models.SET_NULL)
     im1_address = models.CharField(_("Instant Messenger"), blank=True, max_length=255)
     is_im1_default = models.BooleanField(_("Default?"), default=False)
     is_im1_on_hold = models.BooleanField(_("On Hold?"), default=False)
 
-    im2_type = models.ForeignKey(IMType, verbose_name=_("IM Type"), blank=True, null=True, related_name='institutional_contacts2')
+    im2_type = models.ForeignKey(IMType, verbose_name=_("IM Type"), blank=True, null=True, related_name='institutional_contacts2', on_delete=models.SET_NULL)
     im2_address = models.CharField(_("Instant Messenger"), blank=True, max_length=255)
     is_im2_default = models.BooleanField(_("Default?"), default=False)
     is_im2_on_hold = models.BooleanField(_("On Hold?"), default=False)
@@ -595,17 +596,17 @@ class InstitutionalContactBase(models.Model):
 
     # EMAILS
     
-    email0_type = models.ForeignKey(EmailType, verbose_name=_("Email Type"), blank=True, null=True, related_name='institutional_contacts0')
+    email0_type = models.ForeignKey(EmailType, verbose_name=_("Email Type"), blank=True, null=True, related_name='institutional_contacts0', on_delete=models.SET_NULL)
     email0_address = models.CharField(_("Email Address"), blank=True, max_length=255)
     is_email0_default = models.BooleanField(_("Default?"), default=True)
     is_email0_on_hold = models.BooleanField(_("On Hold?"), default=False)
 
-    email1_type = models.ForeignKey(EmailType, verbose_name=_("Email Type"), blank=True, null=True, related_name='institutional_contacts1')
+    email1_type = models.ForeignKey(EmailType, verbose_name=_("Email Type"), blank=True, null=True, related_name='institutional_contacts1', on_delete=models.SET_NULL)
     email1_address = models.CharField(_("Email Address"), blank=True, max_length=255)
     is_email1_default = models.BooleanField(_("Default?"), default=False)
     is_email1_on_hold = models.BooleanField(_("On Hold?"), default=False)
 
-    email2_type = models.ForeignKey(EmailType, verbose_name=_("Email Type"), blank=True, null=True, related_name='institutional_contacts2')
+    email2_type = models.ForeignKey(EmailType, verbose_name=_("Email Type"), blank=True, null=True, related_name='institutional_contacts2', on_delete=models.SET_NULL)
     email2_address = models.CharField(_("Email Address"), blank=True, max_length=255)
     is_email2_default = models.BooleanField(_("Default?"), default=False)
     is_email2_on_hold = models.BooleanField(_("On Hold?"), default=False)

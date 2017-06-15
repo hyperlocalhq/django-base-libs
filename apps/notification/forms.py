@@ -16,9 +16,17 @@ class NoticeSettingsForm(forms.Form):
         self.user = user
 
         if self.user.is_staff:
-            queryset = NoticeType.objects.all().order_by("category__title_%s" % get_current_language(), "display")
+            queryset = NoticeType.objects.all().order_by(
+                "sort_order",
+                "category__title_%s" % get_current_language(),
+                "display",
+            )
         else:
-            queryset = NoticeType.objects.filter(is_public=True).order_by("category__title_%s" % get_current_language(), "display")
+            queryset = NoticeType.objects.filter(is_public=True).order_by(
+                "sort_order",
+                "category__title_%s" % get_current_language(),
+                "display",
+            )
 
         fields_for_fieldsets = OrderedDict()
 

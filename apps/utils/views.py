@@ -125,7 +125,7 @@ def feed(request, feed_type, language="de", **kwargs):
         getting the appropriate Feeds from the <<Feedclass>>
     """
     if not kwargs:
-        raise Http404, "No feeds are registered."
+        raise Http404("No feeds are registered.")
     
     try:
         feed_slug, param = feed_type.split('/', 1)
@@ -299,7 +299,7 @@ def object_list(request, queryset,
     the queryset directly to the httpstate. So we take a list (current_queryset_list)
     """
 
-    if context_processors:
+    if context_processors and not getattr(settings, "DISABLE_CONTEXT_PROCESSORS", False):
         queryset_index_dict = {}
         index = 0
         prev_next_use_content_object = extra_context.get('prev_next_use_content_object', False)
@@ -325,10 +325,10 @@ def object_list(request, queryset,
         request.httpstate['current_queryset_index_dict'] = queryset_index_dict
         request.httpstate['last_query_string'] = request.META['QUERY_STRING']
 
-    fields_to_select = [queryset.model._meta.pk.name] + queryset.query.extra_select.keys() + queryset.query.aggregate_select.keys()
-    request.httpstate['current_queryset_pk_list'] = [d[queryset.model._meta.pk.name] for d in queryset.values(*fields_to_select)]
-    request.httpstate['current_queryset_model'] = u"%s.%s" % (queryset.model._meta.app_label, queryset.model.__name__)
-    
+        fields_to_select = [queryset.model._meta.pk.name] + queryset.query.extra_select.keys() + queryset.query.aggregate_select.keys()
+        request.httpstate['current_queryset_pk_list'] = [d[queryset.model._meta.pk.name] for d in queryset.values(*fields_to_select)]
+        request.httpstate['current_queryset_model'] = u"%s.%s" % (queryset.model._meta.app_label, queryset.model.__name__)
+
     if paginate and paginate_by:
         paginator = CustomPaginator(queryset, paginate_by, first_page_delta=first_page_delta)
         if not page:
@@ -723,7 +723,8 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
                     field_value = form_step_data[current_step][field.name]
                 except KeyError:
                     field_value = None
-                if hasattr(field.field, 'choices') and field.field.choices:
+                # create get_XXX_display for all selection fields except model-choice fields and alike
+                if hasattr(field.field, 'choices') and not hasattr(field.field, 'queryset') and field.field.choices:
                     d = dict([
                         (str(k), unicode(v))
                         for k, v in field.field.choices
@@ -757,8 +758,8 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
                     ):
                         cleaned_data = dict(form.cleaned_data)
                         for field in form:
-                            # create get_XXX_display for all selection fields
-                            if hasattr(field.field, 'choices') and field.field.choices:
+                            # create get_XXX_display for all selection fields except model-choice fields and alike
+                            if hasattr(field.field, 'choices') and not hasattr(field.field, 'queryset') and field.field.choices:
                                 k = cleaned_data.get(field.name, '') or ''
                                 if not isinstance(k, (list, models.Model)):
                                     d = dict([

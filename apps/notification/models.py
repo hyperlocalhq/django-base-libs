@@ -58,6 +58,7 @@ NOTICE_MEDIA_DEFAULTS_CHOICES = (
 
 class NoticeType(SysnameMixin(help_text=_("should match the slug of an associated EmailTemplate object"))): #TODO max_length 40 -> 255
     category = models.ForeignKey(NoticeTypeCategory, verbose_name=_("Category"), null=True, blank=True)
+    sort_order = models.IntegerField(_("Sort Order"), default=0)
     display = MultilingualCharField(_('display'), max_length=50)
     description = MultilingualCharField(_('description'), max_length=100)
     message_template = MultilingualPlainTextField(_("Message Template"), help_text=_("This message will be shown in the website. Accepted template variables: {{ notified_user }}, {{ object }}, and specific extra context."))
@@ -83,7 +84,7 @@ class NoticeType(SysnameMixin(help_text=_("should match the slug of an associate
     class Meta:
         verbose_name = _("notice type")
         verbose_name_plural = _("notice types")
-        ordering=("category__title", "display",)
+        ordering=("sort_order", "category__title", "display",)
 
 
 class NoticeEmailTemplate(EmailTemplate):
@@ -305,10 +306,13 @@ def send(recipients, sysname, extra_context=None, on_site=True, instance=None, s
         sender_id = sender.pk
         
     for user_id in user_ids:
-        send_to_user.delay(user_id, sysname, extra_context, on_site,
-            instance_ct, instance_id, sender_id, sender_name, sender_email)
-        
-        
+        print('{} - queueing send_to_user'.format(
+            datetime.datetime.now(),
+        ))
+        send_to_user(
+            user_id, sysname, extra_context, on_site,
+            instance_ct, instance_id, sender_id, sender_name, sender_email
+        )
 
 
 class ObservedItemManager(models.Manager):

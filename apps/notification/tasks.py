@@ -1,4 +1,4 @@
-from celery import task
+from datetime import datetime
 
 from django.db import models
 from django.template import Context
@@ -7,10 +7,13 @@ from django.utils.encoding import force_unicode
 from django.template import Template
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 
 from jetson.apps.people.functions import get_user_language
 
 from base_libs.utils.misc import get_installed
+
+from huey.contrib.djhuey import db_task, task, crontab, periodic_task
 
 send_email_using_template = get_installed("mailing.views.send_email_using_template")
 Recipient = get_installed("mailing.recipient.Recipient")
@@ -22,18 +25,22 @@ def get_notification_setting(user, notice_type, medium):
     notification = models.get_app("notification")
     NoticeSetting = notification.NoticeSetting
     NOTICE_MEDIA_DEFAULTS = notification.NOTICE_MEDIA_DEFAULTS
-    try:
-        return NoticeSetting.objects.get(user=user, notice_type=notice_type, medium=medium)
-    except NoticeSetting.DoesNotExist:
+    settings = NoticeSetting.objects.filter(user=user, notice_type=notice_type, medium=medium)
+    if len(settings) == 0:
         if NOTICE_MEDIA_DEFAULTS[medium] <= notice_type.default:
             frequency = "immediately"
         else:
             frequency = "never"
         setting = NoticeSetting(user=user, notice_type=notice_type, medium=medium, frequency=frequency)
         setting.save()
-        return setting
+    else:
+        setting = settings[0]
+        if len(settings) > 1:
+            for repeated_setting in settings[1:]:
+                repeated_setting.delete()
+    return setting
 
-@task
+@db_task()
 def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct=None, instance_id=None, sender_id=None,
                  sender_name="", sender_email=""):
     """
@@ -45,6 +52,17 @@ def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct
     if not extra_context:
         extra_context = {}
 
+    # DEBUG
+    # with open('send_to_user.log', 'a') as f:
+    #     f.write(
+    #         'sending notification {sysname} for user {user_id} with sender {sender_id} for instance {instance_id}\n'.format(
+    #             sysname=sysname,
+    #             user_id=user_id,
+    #             sender_id=sender_id,
+    #             instance_id=instance_id,
+    #         )
+    #     )
+
     ContentType = models.get_model("contenttypes", "ContentType")
     Site = models.get_model("sites", "Site")
     User = models.get_model("auth", "User")
@@ -54,9 +72,12 @@ def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct
     
     instance = None
     if instance_ct and instance_id:
-        instance = ContentType.objects.get(
-            pk=instance_ct,
+        try:
+            instance = ContentType.objects.get(
+                pk=instance_ct,
             ).get_object_for_this_type(pk=instance_id)
+        except ObjectDoesNotExist:
+            return  # Object does not exist anymore. Skip the notification
         
     sender = None
     if sender_id:
@@ -111,11 +132,12 @@ def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct
                 email_template_slug=sysname,
                 obj=instance,
                 obj_placeholders=extra_context,
-                sender = sender,
-                sender_name = sender_name,
-                sender_email = sender_email,
-                delete_after_sending = True,
-                )
+                sender=sender,
+                sender_name=sender_name,
+                sender_email=sender_email,
+                delete_after_sending=True,
+                send_immediately=True,
+            )
         elif notification_setting.frequency in ("daily", "weekly"):
             digest, _created = Digest.objects.get_or_create(
                 user=user,

@@ -25,7 +25,7 @@ class EmailTemplatePlaceholderOptions(admin.ModelAdmin):
 
 
 class EmailTemplateOptions(admin.ModelAdmin):
-    list_display = ['name', 'owner', 'subject', 'get_site']
+    list_display = ['name', 'slug', 'owner', 'subject', 'get_site']
     search_fields = ('name', 'subject', 'subject_de', 'body', 'body_de', 'body_html', 'body_html_de',)
     save_on_top = True
     filter_horizontal = ('allowed_placeholders',)

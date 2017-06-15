@@ -35,6 +35,7 @@ class ObjectMapper(ObjectRelationMixin(is_required=True)):
         verbose_name = _("object mapper")
         verbose_name_plural = _("object mappers")
         ordering = ('external_id',)
+        unique_together = (('object_id', 'content_type', 'service'),)
 
     def __unicode__(self):
         try:

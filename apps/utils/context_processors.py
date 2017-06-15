@@ -33,7 +33,8 @@ def general(request=None):
         'JQUERY_URL': JQUERY_URL,
         'JQUERY_UI_URL': JQUERY_UI_URL,
         'languages': settings.LANGUAGES,
-        }
+        'GOOGLE_API_KEY': getattr(settings, "GOOGLE_API_KEY", ""),
+    }
     settings_to_add = (
         "LOGO_PREVIEW_SIZE",
         )

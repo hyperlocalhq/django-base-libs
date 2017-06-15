@@ -1,15 +1,11 @@
 # -*- coding: UTF-8 -*-
 from django.utils.translation import ugettext_lazy as _
-from django.db.models.loading import load_app
-from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.template.defaultfilters import urlize
 from django.utils.timezone import now as tz_now
-from actstream import action
 
-from base_libs.models.models import ObjectRelationMixin
 from base_libs.utils.user import get_user_title
 from base_libs.models.models import SlugMixin
 from base_libs.middleware import get_current_user
@@ -51,11 +47,11 @@ class Ticket(models.Model):
     # one of the fields, submitter_name and submitter is mandatory. If a user is logged in,
     # submitter is filled in as the logged in user, otherwise, the "submitter" must provide a 
     # name (see the save method below).  
-    submitter = models.ForeignKey(User, blank=True, null=True,  verbose_name=_("submitter"), related_name="ticket_submitter")
+    submitter = models.ForeignKey(User, blank=True, null=True, verbose_name=_("submitter"), related_name="ticket_submitter", on_delete=models.SET_NULL)
     submitter_name = models.CharField('name',  max_length=80) 
     submitter_email = models.EmailField('email') 
     
-    modifier = models.ForeignKey(User, blank=True, null=True,  verbose_name=_("modifier"), related_name="ticket_modifier")
+    modifier = models.ForeignKey(User, blank=True, null=True, verbose_name=_("modifier"), related_name="ticket_modifier", on_delete=models.SET_NULL)
     
     description = models.TextField(_("description"))
     status = models.IntegerField(_("status"), default=1, choices=STATUS_CODES)
@@ -157,7 +153,7 @@ def ticket_reported(sender, instance, **kwargs):
                         Site.objects.get_current().domain,
                         instance.id,
                         )
-                recipients = User.objects.all()
+                recipients = User.objects.filter(is_staff=True, is_active=True)
                 notification.send(
                     recipients,
                     "ticket_reported",

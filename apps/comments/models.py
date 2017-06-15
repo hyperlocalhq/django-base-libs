@@ -411,4 +411,4 @@ def comment_added(sender, instance, **kwargs):
             )
         action.send(instance.user, verb="added comment", action_object=instance)
             
-models.signals.post_save.connect(comment_added, sender=Comment)
+#models.signals.post_save.connect(comment_added, sender=Comment)

@@ -639,9 +639,15 @@ def send_email_using_template(
     if not (sender_name and sender_email or sender):
         sender = get_current_user()
     if not sender_name:
-        sender_name = get_user_title(sender)
+        if sender:
+            sender_name = get_user_title(sender)
+        else:
+            sender_name = settings.MANAGERS[0][0]
     if not sender_email:
-        sender_email = sender.email
+        if sender:
+            sender_email = sender.email
+        else:
+            sender_email = settings.MANAGERS[0][1]
     
     # recipients is a list of Recipient instances
     recipients = []

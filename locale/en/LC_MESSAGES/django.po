@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-22 15:12+0100\n"
+"POT-Creation-Date: 2017-02-23 20:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,8 +22,7 @@ msgstr ""
 #: subtrees/jetson/apps/articles/admin.py:28
 #: subtrees/jetson/apps/blocks/admin.py:20
 #: subtrees/jetson/apps/faqs/admin.py:40 subtrees/jetson/apps/faqs/admin.py:63
-#: subtrees/jetson/apps/faqs/admin.py:94
-#: subtrees/jetson/apps/forum/admin.py:39
+#: subtrees/jetson/apps/faqs/admin.py:94 subtrees/jetson/apps/forum/admin.py:39
 #: subtrees/jetson/apps/forum/admin.py:57
 #: subtrees/jetson/apps/forum/admin.py:69
 #: subtrees/jetson/apps/forum/admin.py:82
@@ -102,8 +101,7 @@ msgstr ""
 #: subtrees/jetson/apps/events/base.py:222
 #: subtrees/jetson/apps/events/base.py:440
 #: subtrees/jetson/apps/external_services/models.py:15
-#: subtrees/jetson/apps/faqs/admin.py:26
-#: subtrees/jetson/apps/forum/admin.py:24
+#: subtrees/jetson/apps/faqs/admin.py:26 subtrees/jetson/apps/forum/admin.py:24
 #: subtrees/jetson/apps/forum/forms.py:19
 #: subtrees/jetson/apps/forum/forms.py:57
 #: subtrees/jetson/apps/groups_networks/admin.py:23
@@ -116,7 +114,7 @@ msgstr ""
 #: subtrees/jetson/apps/institutions/admin.py:31
 #: subtrees/jetson/apps/institutions/base.py:214
 #: subtrees/jetson/apps/location/admin.py:36
-#: subtrees/jetson/apps/mailchimp/admin.py:84
+#: subtrees/jetson/apps/mailchimp/admin.py:85
 #: subtrees/jetson/apps/mailchimp/models.py:92
 #: subtrees/jetson/apps/marketplace/admin.py:40
 #: subtrees/jetson/apps/marketplace/admin.py:48
@@ -171,7 +169,7 @@ msgstr ""
 #: subtrees/jetson/apps/media_gallery/forms.py:254
 #: subtrees/jetson/apps/media_gallery/forms.py:394
 #: subtrees/jetson/apps/navigation/admin.py:38
-#: subtrees/jetson/apps/notification/models.py:75
+#: subtrees/jetson/apps/notification/models.py:76
 #: subtrees/jetson/apps/people/base.py:294
 #: subtrees/jetson/apps/resources/base.py:168
 #: subtrees/jetson/apps/tracker/forms.py:50
@@ -262,9 +260,9 @@ msgstr ""
 #: subtrees/jetson/apps/email_campaigns/admin.py:76
 #: subtrees/jetson/apps/email_campaigns/admin.py:83
 #: subtrees/jetson/apps/flatpages/admin.py:31
-#: subtrees/jetson/apps/mailchimp/admin.py:127
-#: subtrees/jetson/apps/mailchimp/admin.py:138
-#: subtrees/jetson/apps/mailchimp/models.py:382
+#: subtrees/jetson/apps/mailchimp/admin.py:128
+#: subtrees/jetson/apps/mailchimp/admin.py:139
+#: subtrees/jetson/apps/mailchimp/models.py:392
 msgid "Content"
 msgstr ""
 
@@ -392,7 +390,7 @@ msgstr ""
 #: subtrees/jetson/apps/structure/models.py:83
 #: subtrees/jetson/apps/structure/models.py:141
 #: subtrees/jetson/apps/structure/models.py:219
-#: subtrees/jetson/apps/tracker/models.py:36
+#: subtrees/jetson/apps/tracker/models.py:32
 msgid "title"
 msgstr ""
 
@@ -553,8 +551,8 @@ msgstr ""
 #: subtrees/jetson/apps/groups_networks/admin.py:62
 #: subtrees/jetson/apps/groups_networks/base.py:238
 #: subtrees/jetson/apps/institutions/base.py:223
+#: subtrees/jetson/apps/mailchimp/admin.py:175
 #: subtrees/jetson/apps/mailchimp/models.py:58
-#: subtrees/jetson/apps/mailchimp/models.py:199
 #: subtrees/jetson/apps/people/base.py:299
 #: subtrees/jetson/apps/resources/base.py:190
 #: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_status.html:3
@@ -588,8 +586,8 @@ msgid ""
 msgstr ""
 
 #: subtrees/jetson/apps/blog/forms.py:94
-#: subtrees/jetson/apps/mailchimp/admin.py:168
-#: subtrees/jetson/apps/mailchimp/admin.py:169
+#: subtrees/jetson/apps/mailchimp/admin.py:166
+#: subtrees/jetson/apps/mailchimp/admin.py:167
 #: subtrees/jetson/templates/admin/admin/email_campaigns/mailing_send_prepare.html:40
 #: subtrees/jetson/templates/default/comments/form.html:25
 #: subtrees/jetson/templates/default/forum/forms/forum_embedded.html:82
@@ -843,9 +841,9 @@ msgstr ""
 #: subtrees/jetson/apps/flatpages/base.py:18
 #: subtrees/jetson/apps/flatpages/south_migrations/0001_initial.py:28
 #: subtrees/jetson/apps/flatpages/south_migrations/0002_auto__del_field_flatpage_content_markup_type__del_field_flatpage_image.py:152
-#: subtrees/jetson/apps/institutions/base.py:563
-#: subtrees/jetson/apps/institutions/base.py:568
-#: subtrees/jetson/apps/institutions/base.py:573
+#: subtrees/jetson/apps/institutions/base.py:564
+#: subtrees/jetson/apps/institutions/base.py:569
+#: subtrees/jetson/apps/institutions/base.py:574
 #: subtrees/jetson/apps/institutions/forms.py:205
 #: subtrees/jetson/apps/institutions/forms.py:214
 #: subtrees/jetson/apps/institutions/forms.py:223
@@ -1419,8 +1417,8 @@ msgstr ""
 #: subtrees/jetson/apps/comments/views/comments.py:519
 #: subtrees/jetson/apps/events/forms.py:894
 #: subtrees/jetson/apps/events/forms.py:900
-#: subtrees/jetson/apps/utils/views.py:944
-#: subtrees/jetson/apps/utils/views.py:1004
+#: subtrees/jetson/apps/utils/views.py:945
+#: subtrees/jetson/apps/utils/views.py:1005
 #: subtrees/jetson/templates/admin/admin/cms/page/permissions.html:46
 #: subtrees/jetson/templates/admin/rosetta/languages_with_grappelli.html:33
 #: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:50
@@ -1556,10 +1554,10 @@ msgstr ""
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:185
 #: subtrees/jetson/apps/forum/forms.py:111
 #: subtrees/jetson/apps/i18n/models.py:74
-#: subtrees/jetson/apps/mailchimp/models.py:195
+#: subtrees/jetson/apps/mailchimp/models.py:188
 #: subtrees/jetson/apps/mailing/models.py:45
 #: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:52
-#: subtrees/jetson/apps/messaging/forms.py:20
+#: subtrees/jetson/apps/messaging/forms.py:19
 #: subtrees/jetson/apps/messaging/models.py:17
 #: subtrees/jetson/apps/messaging/south_migrations/0001_initial.py:22
 #: subtrees/jetson/apps/messaging/south_migrations/0004_auto__chg_field_internalmessage_body__chg_field_internalmessage_modifi.py:77
@@ -1575,10 +1573,10 @@ msgstr ""
 #: subtrees/jetson/apps/forum/forms.py:117
 #: subtrees/jetson/apps/forum/forms.py:150
 #: subtrees/jetson/apps/individual_relations/forms.py:43
-#: subtrees/jetson/apps/mailchimp/models.py:196
+#: subtrees/jetson/apps/mailchimp/models.py:189
 #: subtrees/jetson/apps/mailing/admin.py:52
 #: subtrees/jetson/apps/messaging/admin.py:20
-#: subtrees/jetson/apps/messaging/forms.py:27
+#: subtrees/jetson/apps/messaging/forms.py:26
 #: subtrees/jetson/apps/messaging/models.py:18
 #: subtrees/jetson/apps/messaging/south_migrations/0001_initial.py:23
 #: subtrees/jetson/apps/messaging/south_migrations/0004_auto__chg_field_internalmessage_body__chg_field_internalmessage_modifi.py:56
@@ -1591,14 +1589,14 @@ msgstr ""
 
 #: subtrees/jetson/apps/contact_form/forms.py:39
 #: subtrees/jetson/apps/email_campaigns/forms.py:17
-#: subtrees/jetson/apps/messaging/forms.py:53
+#: subtrees/jetson/apps/messaging/forms.py:52
 #: subtrees/jetson/templates/default/institutions/institution_message.html:34
 #: subtrees/jetson/templates/default/people/person_message.html:34
 msgid "Your name"
 msgstr ""
 
 #: subtrees/jetson/apps/contact_form/forms.py:45
-#: subtrees/jetson/apps/messaging/forms.py:59
+#: subtrees/jetson/apps/messaging/forms.py:58
 #: subtrees/jetson/templates/default/institutions/institution_message.html:43
 #: subtrees/jetson/templates/default/people/person_message.html:43
 msgid "Your e-mail address"
@@ -1639,7 +1637,7 @@ msgstr ""
 #: subtrees/jetson/apps/i18n/models.py:127
 #: subtrees/jetson/apps/i18n/south_migrations/0001_initial.py:69
 #: subtrees/jetson/apps/i18n/south_migrations/0001_initial.py:87
-#: subtrees/jetson/apps/mailchimp/models.py:383
+#: subtrees/jetson/apps/mailchimp/models.py:393
 #: subtrees/jetson/apps/marketplace/base.py:72
 #: subtrees/jetson/apps/marketplace/base.py:85
 #: subtrees/jetson/apps/marketplace/base.py:97
@@ -1671,7 +1669,7 @@ msgid "contact form categories"
 msgstr ""
 
 #: subtrees/jetson/apps/email_campaigns/admin.py:38
-#: subtrees/jetson/apps/mailchimp/admin.py:36
+#: subtrees/jetson/apps/mailchimp/admin.py:37
 msgid "Either subscriber or subscriber email should be filled in."
 msgstr ""
 
@@ -1741,8 +1739,8 @@ msgstr ""
 #: subtrees/jetson/apps/mailchimp/forms.py:22
 #: subtrees/jetson/apps/mailchimp/models.py:57
 #: subtrees/jetson/apps/mailchimp/models.py:76
-#: subtrees/jetson/apps/mailchimp/models.py:197
-#: subtrees/jetson/apps/mailchimp/models.py:230
+#: subtrees/jetson/apps/mailchimp/models.py:190
+#: subtrees/jetson/apps/mailchimp/models.py:237
 msgid "Mailing list"
 msgstr ""
 
@@ -1769,7 +1767,7 @@ msgstr ""
 
 #: subtrees/jetson/apps/email_campaigns/models.py:89
 #: subtrees/jetson/apps/email_campaigns/models.py:126
-#: subtrees/jetson/apps/mailchimp/models.py:202
+#: subtrees/jetson/apps/mailchimp/models.py:195
 msgid "Campaign"
 msgstr ""
 
@@ -1798,7 +1796,7 @@ msgstr ""
 #: subtrees/jetson/apps/forum/models.py:29
 #: subtrees/jetson/apps/groups_networks/base.py:58
 #: subtrees/jetson/apps/institutions/base.py:68
-#: subtrees/jetson/apps/mailchimp/models.py:188
+#: subtrees/jetson/apps/mailchimp/admin.py:172
 #: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:62
 #: subtrees/jetson/apps/mailing/south_migrations/0002_removed_internal_message_specifics.py:78
 #: subtrees/jetson/apps/messaging/models.py:23
@@ -1809,7 +1807,8 @@ msgid "Draft"
 msgstr ""
 
 #: subtrees/jetson/apps/email_campaigns/models.py:150
-#: subtrees/jetson/apps/mailchimp/models.py:189
+#: subtrees/jetson/apps/mailchimp/admin.py:172
+#: subtrees/jetson/apps/mailchimp/models.py:192
 #: subtrees/jetson/apps/mailing/models.py:48
 #: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:60
 msgid "Sent"
@@ -1818,7 +1817,7 @@ msgstr ""
 #: subtrees/jetson/apps/email_campaigns/models.py:154
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0002_add_campaign_mailinglist_mailing_mailingcontentblock.py:50
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:164
-#: subtrees/jetson/apps/mailchimp/models.py:193
+#: subtrees/jetson/apps/mailchimp/models.py:186
 #: subtrees/jetson/apps/mailing/models.py:42
 #: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:49
 msgid "Sender name"
@@ -1827,7 +1826,7 @@ msgstr ""
 #: subtrees/jetson/apps/email_campaigns/models.py:155
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0002_add_campaign_mailinglist_mailing_mailingcontentblock.py:51
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:173
-#: subtrees/jetson/apps/mailchimp/models.py:194
+#: subtrees/jetson/apps/mailchimp/models.py:187
 #: subtrees/jetson/apps/mailing/models.py:43
 #: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:50
 msgid "Sender email"
@@ -1841,7 +1840,7 @@ msgstr ""
 #: subtrees/jetson/apps/email_campaigns/models.py:159
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0008_add_mailing_status.py:17
 #: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:176
-#: subtrees/jetson/apps/mailchimp/models.py:198
+#: subtrees/jetson/apps/mailchimp/models.py:191
 #: subtrees/jetson/apps/optionset/admin.py:73
 msgid "Template"
 msgstr ""
@@ -1870,12 +1869,12 @@ msgid "Link"
 msgstr ""
 
 #: subtrees/jetson/apps/email_campaigns/models.py:216
-#: subtrees/jetson/apps/mailchimp/models.py:390
+#: subtrees/jetson/apps/mailchimp/models.py:400
 msgid "Content Block"
 msgstr ""
 
 #: subtrees/jetson/apps/email_campaigns/models.py:217
-#: subtrees/jetson/apps/mailchimp/models.py:391
+#: subtrees/jetson/apps/mailchimp/models.py:401
 msgid "Content Blocks"
 msgstr ""
 
@@ -2033,6 +2032,7 @@ msgstr ""
 #: subtrees/jetson/apps/i18n/models.py:161
 #: subtrees/jetson/apps/i18n/south_migrations/0001_initial.py:56
 #: subtrees/jetson/apps/institutions/base.py:129
+#: subtrees/jetson/apps/notification/models.py:61
 #: subtrees/jetson/apps/optionset/models.py:35
 #: subtrees/jetson/apps/optionset/south_migrations/0001_initial.py:98
 #: subtrees/jetson/apps/resources/base.py:80
@@ -2137,7 +2137,7 @@ msgid "Event type"
 msgstr ""
 
 #: subtrees/jetson/apps/events/base.py:458
-#: subtrees/jetson/apps/institutions/base.py:526
+#: subtrees/jetson/apps/institutions/base.py:527
 #: subtrees/jetson/apps/marketplace/base.py:205
 #: subtrees/jetson/apps/people/base.py:718
 msgid "Postal Address"
@@ -2173,9 +2173,9 @@ msgstr ""
 #: subtrees/jetson/apps/events/base.py:500
 #: subtrees/jetson/apps/events/base.py:507
 #: subtrees/jetson/apps/events/base.py:514
-#: subtrees/jetson/apps/institutions/base.py:532
-#: subtrees/jetson/apps/institutions/base.py:541
-#: subtrees/jetson/apps/institutions/base.py:550
+#: subtrees/jetson/apps/institutions/base.py:533
+#: subtrees/jetson/apps/institutions/base.py:542
+#: subtrees/jetson/apps/institutions/base.py:551
 #: subtrees/jetson/apps/marketplace/base.py:212
 #: subtrees/jetson/apps/marketplace/base.py:221
 #: subtrees/jetson/apps/marketplace/base.py:230
@@ -2188,9 +2188,9 @@ msgstr ""
 #: subtrees/jetson/apps/events/base.py:501
 #: subtrees/jetson/apps/events/base.py:508
 #: subtrees/jetson/apps/events/base.py:515
-#: subtrees/jetson/apps/institutions/base.py:535
-#: subtrees/jetson/apps/institutions/base.py:544
-#: subtrees/jetson/apps/institutions/base.py:553
+#: subtrees/jetson/apps/institutions/base.py:536
+#: subtrees/jetson/apps/institutions/base.py:545
+#: subtrees/jetson/apps/institutions/base.py:554
 #: subtrees/jetson/apps/marketplace/base.py:215
 #: subtrees/jetson/apps/marketplace/base.py:224
 #: subtrees/jetson/apps/marketplace/base.py:233
@@ -2220,9 +2220,9 @@ msgstr ""
 #: subtrees/jetson/apps/events/base.py:502
 #: subtrees/jetson/apps/events/base.py:509
 #: subtrees/jetson/apps/events/base.py:516
-#: subtrees/jetson/apps/institutions/base.py:536
-#: subtrees/jetson/apps/institutions/base.py:545
-#: subtrees/jetson/apps/institutions/base.py:554
+#: subtrees/jetson/apps/institutions/base.py:537
+#: subtrees/jetson/apps/institutions/base.py:546
+#: subtrees/jetson/apps/institutions/base.py:555
 #: subtrees/jetson/apps/marketplace/base.py:216
 #: subtrees/jetson/apps/marketplace/base.py:225
 #: subtrees/jetson/apps/marketplace/base.py:234
@@ -2252,9 +2252,9 @@ msgstr ""
 #: subtrees/jetson/apps/events/base.py:503
 #: subtrees/jetson/apps/events/base.py:510
 #: subtrees/jetson/apps/events/base.py:517
-#: subtrees/jetson/apps/institutions/base.py:537
-#: subtrees/jetson/apps/institutions/base.py:546
-#: subtrees/jetson/apps/institutions/base.py:555
+#: subtrees/jetson/apps/institutions/base.py:538
+#: subtrees/jetson/apps/institutions/base.py:547
+#: subtrees/jetson/apps/institutions/base.py:556
 #: subtrees/jetson/apps/marketplace/base.py:217
 #: subtrees/jetson/apps/marketplace/base.py:226
 #: subtrees/jetson/apps/marketplace/base.py:235
@@ -2276,18 +2276,18 @@ msgstr ""
 #: subtrees/jetson/apps/events/base.py:562
 #: subtrees/jetson/apps/events/base.py:567
 #: subtrees/jetson/apps/events/base.py:572
-#: subtrees/jetson/apps/institutions/base.py:538
-#: subtrees/jetson/apps/institutions/base.py:547
-#: subtrees/jetson/apps/institutions/base.py:556
-#: subtrees/jetson/apps/institutions/base.py:564
-#: subtrees/jetson/apps/institutions/base.py:569
-#: subtrees/jetson/apps/institutions/base.py:574
-#: subtrees/jetson/apps/institutions/base.py:582
-#: subtrees/jetson/apps/institutions/base.py:587
-#: subtrees/jetson/apps/institutions/base.py:592
-#: subtrees/jetson/apps/institutions/base.py:600
-#: subtrees/jetson/apps/institutions/base.py:605
-#: subtrees/jetson/apps/institutions/base.py:610
+#: subtrees/jetson/apps/institutions/base.py:539
+#: subtrees/jetson/apps/institutions/base.py:548
+#: subtrees/jetson/apps/institutions/base.py:557
+#: subtrees/jetson/apps/institutions/base.py:565
+#: subtrees/jetson/apps/institutions/base.py:570
+#: subtrees/jetson/apps/institutions/base.py:575
+#: subtrees/jetson/apps/institutions/base.py:583
+#: subtrees/jetson/apps/institutions/base.py:588
+#: subtrees/jetson/apps/institutions/base.py:593
+#: subtrees/jetson/apps/institutions/base.py:601
+#: subtrees/jetson/apps/institutions/base.py:606
+#: subtrees/jetson/apps/institutions/base.py:611
 #: subtrees/jetson/apps/marketplace/base.py:218
 #: subtrees/jetson/apps/marketplace/base.py:227
 #: subtrees/jetson/apps/marketplace/base.py:236
@@ -2329,18 +2329,18 @@ msgstr ""
 #: subtrees/jetson/apps/events/base.py:563
 #: subtrees/jetson/apps/events/base.py:568
 #: subtrees/jetson/apps/events/base.py:573
-#: subtrees/jetson/apps/institutions/base.py:539
-#: subtrees/jetson/apps/institutions/base.py:548
-#: subtrees/jetson/apps/institutions/base.py:557
-#: subtrees/jetson/apps/institutions/base.py:565
-#: subtrees/jetson/apps/institutions/base.py:570
-#: subtrees/jetson/apps/institutions/base.py:575
-#: subtrees/jetson/apps/institutions/base.py:583
-#: subtrees/jetson/apps/institutions/base.py:588
-#: subtrees/jetson/apps/institutions/base.py:593
-#: subtrees/jetson/apps/institutions/base.py:601
-#: subtrees/jetson/apps/institutions/base.py:606
-#: subtrees/jetson/apps/institutions/base.py:611
+#: subtrees/jetson/apps/institutions/base.py:540
+#: subtrees/jetson/apps/institutions/base.py:549
+#: subtrees/jetson/apps/institutions/base.py:558
+#: subtrees/jetson/apps/institutions/base.py:566
+#: subtrees/jetson/apps/institutions/base.py:571
+#: subtrees/jetson/apps/institutions/base.py:576
+#: subtrees/jetson/apps/institutions/base.py:584
+#: subtrees/jetson/apps/institutions/base.py:589
+#: subtrees/jetson/apps/institutions/base.py:594
+#: subtrees/jetson/apps/institutions/base.py:602
+#: subtrees/jetson/apps/institutions/base.py:607
+#: subtrees/jetson/apps/institutions/base.py:612
 #: subtrees/jetson/apps/marketplace/base.py:219
 #: subtrees/jetson/apps/marketplace/base.py:228
 #: subtrees/jetson/apps/marketplace/base.py:237
@@ -2369,9 +2369,9 @@ msgstr ""
 #: subtrees/jetson/apps/events/base.py:524
 #: subtrees/jetson/apps/events/base.py:529
 #: subtrees/jetson/apps/events/base.py:534
-#: subtrees/jetson/apps/institutions/base.py:562
-#: subtrees/jetson/apps/institutions/base.py:567
-#: subtrees/jetson/apps/institutions/base.py:572
+#: subtrees/jetson/apps/institutions/base.py:563
+#: subtrees/jetson/apps/institutions/base.py:568
+#: subtrees/jetson/apps/institutions/base.py:573
 #: subtrees/jetson/apps/marketplace/base.py:242
 #: subtrees/jetson/apps/marketplace/base.py:247
 #: subtrees/jetson/apps/marketplace/base.py:252
@@ -2384,9 +2384,9 @@ msgstr ""
 #: subtrees/jetson/apps/events/base.py:542
 #: subtrees/jetson/apps/events/base.py:547
 #: subtrees/jetson/apps/events/base.py:552
-#: subtrees/jetson/apps/institutions/base.py:580
-#: subtrees/jetson/apps/institutions/base.py:585
-#: subtrees/jetson/apps/institutions/base.py:590
+#: subtrees/jetson/apps/institutions/base.py:581
+#: subtrees/jetson/apps/institutions/base.py:586
+#: subtrees/jetson/apps/institutions/base.py:591
 #: subtrees/jetson/apps/marketplace/base.py:260
 #: subtrees/jetson/apps/marketplace/base.py:265
 #: subtrees/jetson/apps/marketplace/base.py:270
@@ -2399,9 +2399,9 @@ msgstr ""
 #: subtrees/jetson/apps/events/base.py:543
 #: subtrees/jetson/apps/events/base.py:548
 #: subtrees/jetson/apps/events/base.py:553
-#: subtrees/jetson/apps/institutions/base.py:581
-#: subtrees/jetson/apps/institutions/base.py:586
-#: subtrees/jetson/apps/institutions/base.py:591
+#: subtrees/jetson/apps/institutions/base.py:582
+#: subtrees/jetson/apps/institutions/base.py:587
+#: subtrees/jetson/apps/institutions/base.py:592
 #: subtrees/jetson/apps/marketplace/base.py:261
 #: subtrees/jetson/apps/marketplace/base.py:266
 #: subtrees/jetson/apps/marketplace/base.py:271
@@ -2415,9 +2415,9 @@ msgstr ""
 #: subtrees/jetson/apps/events/base.py:560
 #: subtrees/jetson/apps/events/base.py:565
 #: subtrees/jetson/apps/events/base.py:570
-#: subtrees/jetson/apps/institutions/base.py:598
-#: subtrees/jetson/apps/institutions/base.py:603
-#: subtrees/jetson/apps/institutions/base.py:608
+#: subtrees/jetson/apps/institutions/base.py:599
+#: subtrees/jetson/apps/institutions/base.py:604
+#: subtrees/jetson/apps/institutions/base.py:609
 #: subtrees/jetson/apps/marketplace/base.py:278
 #: subtrees/jetson/apps/marketplace/base.py:283
 #: subtrees/jetson/apps/marketplace/base.py:288
@@ -2430,9 +2430,9 @@ msgstr ""
 #: subtrees/jetson/apps/events/base.py:561
 #: subtrees/jetson/apps/events/base.py:566
 #: subtrees/jetson/apps/events/base.py:571
-#: subtrees/jetson/apps/institutions/base.py:599
-#: subtrees/jetson/apps/institutions/base.py:604
-#: subtrees/jetson/apps/institutions/base.py:609
+#: subtrees/jetson/apps/institutions/base.py:600
+#: subtrees/jetson/apps/institutions/base.py:605
+#: subtrees/jetson/apps/institutions/base.py:610
 #: subtrees/jetson/apps/marketplace/base.py:279
 #: subtrees/jetson/apps/marketplace/base.py:284
 #: subtrees/jetson/apps/marketplace/base.py:289
@@ -2841,7 +2841,7 @@ msgstr ""
 #: subtrees/jetson/apps/institutions/forms.py:608
 #: subtrees/jetson/apps/institutions/forms.py:630
 #: subtrees/jetson/apps/institutions/forms.py:652
-#: subtrees/jetson/apps/tracker/models.py:23
+#: subtrees/jetson/apps/tracker/models.py:19
 #: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_opening_hours.html:104
 #: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_opening_hours.html:105
 #: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_opening_hours.html:106
@@ -2975,6 +2975,7 @@ msgid "CCB Events"
 msgstr ""
 
 #: subtrees/jetson/apps/extendedadmin/forms.py:167
+#: subtrees/jetson/apps/mailchimp/admin.py:174
 #: subtrees/jetson/apps/media_gallery/base.py:88
 msgid "Unknown"
 msgstr ""
@@ -3110,7 +3111,7 @@ msgid "services"
 msgstr ""
 
 #: subtrees/jetson/apps/external_services/models.py:31
-#: subtrees/jetson/apps/external_services/models.py:50
+#: subtrees/jetson/apps/external_services/models.py:51
 msgid "Service"
 msgstr ""
 
@@ -3126,23 +3127,23 @@ msgstr ""
 msgid "object mappers"
 msgstr ""
 
-#: subtrees/jetson/apps/external_services/models.py:51
+#: subtrees/jetson/apps/external_services/models.py:52
 msgid "Request"
 msgstr ""
 
-#: subtrees/jetson/apps/external_services/models.py:52
+#: subtrees/jetson/apps/external_services/models.py:53
 msgid "Response"
 msgstr ""
 
-#: subtrees/jetson/apps/external_services/models.py:53
+#: subtrees/jetson/apps/external_services/models.py:54
 msgid "Response Code"
 msgstr ""
 
-#: subtrees/jetson/apps/external_services/models.py:56
+#: subtrees/jetson/apps/external_services/models.py:57
 msgid "service-action log"
 msgstr ""
 
-#: subtrees/jetson/apps/external_services/models.py:57
+#: subtrees/jetson/apps/external_services/models.py:58
 msgid "service-action logs"
 msgstr ""
 
@@ -3197,10 +3198,10 @@ msgstr ""
 #: subtrees/jetson/apps/forum/south_migrations/0002_add_mptt.py:181
 #: subtrees/jetson/apps/navigation/models.py:72
 #: subtrees/jetson/apps/navigation/south_migrations/0001_initial.py:32
-#: subtrees/jetson/apps/notification/models.py:62
+#: subtrees/jetson/apps/notification/models.py:63
 #: subtrees/jetson/apps/notification/south_migrations/0001_initial.py:52
 #: subtrees/jetson/apps/notification/south_migrations/0005_digest_added.py:148
-#: subtrees/jetson/apps/tracker/models.py:60
+#: subtrees/jetson/apps/tracker/models.py:56
 msgid "description"
 msgstr ""
 
@@ -3429,8 +3430,8 @@ msgstr ""
 #: subtrees/jetson/apps/forum/south_migrations/0001_initial.py:80
 #: subtrees/jetson/apps/forum/south_migrations/0002_add_mptt.py:172
 #: subtrees/jetson/apps/forum/south_migrations/0002_add_mptt.py:268
-#: subtrees/jetson/apps/tracker/models.py:61
-#: subtrees/jetson/apps/tracker/models.py:109
+#: subtrees/jetson/apps/tracker/models.py:57
+#: subtrees/jetson/apps/tracker/models.py:105
 #: subtrees/jetson/templates/default/groups_networks/persongroups/profile/details.html:43
 #: subtrees/jetson/templates/default/people/profile/details.html:42
 msgid "status"
@@ -3561,8 +3562,8 @@ msgstr ""
 #: subtrees/jetson/apps/forum/south_migrations/0001_initial.py:78
 #: subtrees/jetson/apps/forum/south_migrations/0002_add_mptt.py:259
 #: subtrees/jetson/apps/forum/south_migrations/0002_add_mptt.py:286
-#: subtrees/jetson/apps/notification/models.py:170
-#: subtrees/jetson/apps/notification/models.py:213
+#: subtrees/jetson/apps/notification/models.py:171
+#: subtrees/jetson/apps/notification/models.py:214
 #: subtrees/jetson/apps/notification/south_migrations/0001_initial.py:27
 #: subtrees/jetson/apps/notification/south_migrations/0005_digest_added.py:184
 msgid "message"
@@ -4431,7 +4432,7 @@ msgstr ""
 #: subtrees/jetson/apps/i18n/south_migrations/0001_initial.py:55
 #: subtrees/jetson/apps/i18n/south_migrations/0001_initial.py:68
 #: subtrees/jetson/apps/i18n/south_migrations/0001_initial.py:86
-#: subtrees/jetson/apps/notification/models.py:71
+#: subtrees/jetson/apps/notification/models.py:72
 msgid "Display"
 msgstr ""
 
@@ -5253,7 +5254,7 @@ msgid "Publish selected institutions"
 msgstr ""
 
 #: subtrees/jetson/apps/institutions/apps.py:30
-#: subtrees/jetson/apps/institutions/base.py:511
+#: subtrees/jetson/apps/institutions/base.py:512
 #: subtrees/jetson/apps/institutions/forms.py:267
 #: subtrees/jetson/apps/institutions/forms.py:273
 #: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:67
@@ -5464,81 +5465,81 @@ msgstr ""
 msgid "institutions (places)"
 msgstr ""
 
-#: subtrees/jetson/apps/institutions/base.py:514
+#: subtrees/jetson/apps/institutions/base.py:515
 #: subtrees/jetson/apps/institutions/forms.py:85
 #: subtrees/jetson/apps/people/base.py:703
 msgid "Location type"
 msgstr ""
 
-#: subtrees/jetson/apps/institutions/base.py:515
+#: subtrees/jetson/apps/institutions/base.py:516
 #: subtrees/jetson/apps/institutions/forms.py:90
 #: subtrees/jetson/apps/people/base.py:704
 msgid "Location title"
 msgstr ""
 
-#: subtrees/jetson/apps/institutions/base.py:516
+#: subtrees/jetson/apps/institutions/base.py:517
 #: subtrees/jetson/apps/people/base.py:705
 msgid "Primary contact"
 msgstr ""
 
-#: subtrees/jetson/apps/institutions/base.py:518
+#: subtrees/jetson/apps/institutions/base.py:519
 msgid "Temporary"
 msgstr ""
 
-#: subtrees/jetson/apps/institutions/base.py:519
+#: subtrees/jetson/apps/institutions/base.py:520
 #: subtrees/jetson/apps/people/base.py:707
 msgid "From Year"
 msgstr ""
 
-#: subtrees/jetson/apps/institutions/base.py:520
+#: subtrees/jetson/apps/institutions/base.py:521
 #: subtrees/jetson/apps/people/base.py:708
 msgid "From Month"
 msgstr ""
 
-#: subtrees/jetson/apps/institutions/base.py:521
+#: subtrees/jetson/apps/institutions/base.py:522
 #: subtrees/jetson/apps/people/base.py:709
 msgid "From Day"
 msgstr ""
 
-#: subtrees/jetson/apps/institutions/base.py:522
+#: subtrees/jetson/apps/institutions/base.py:523
 #: subtrees/jetson/apps/people/base.py:710
 msgid "Till Year"
 msgstr ""
 
-#: subtrees/jetson/apps/institutions/base.py:523
+#: subtrees/jetson/apps/institutions/base.py:524
 #: subtrees/jetson/apps/people/base.py:711
 msgid "Till Month"
 msgstr ""
 
-#: subtrees/jetson/apps/institutions/base.py:524
+#: subtrees/jetson/apps/institutions/base.py:525
 #: subtrees/jetson/apps/people/base.py:712
 msgid "Till Day"
 msgstr ""
 
-#: subtrees/jetson/apps/institutions/base.py:527
+#: subtrees/jetson/apps/institutions/base.py:528
 #: subtrees/jetson/apps/people/base.py:719
 msgid "Use this address for billing"
 msgstr ""
 
-#: subtrees/jetson/apps/institutions/base.py:528
+#: subtrees/jetson/apps/institutions/base.py:529
 #: subtrees/jetson/apps/people/base.py:720
 msgid "Use this address for shipping"
 msgstr ""
 
-#: subtrees/jetson/apps/institutions/base.py:614
+#: subtrees/jetson/apps/institutions/base.py:615
 msgid "institutional contact"
 msgstr ""
 
-#: subtrees/jetson/apps/institutions/base.py:615
+#: subtrees/jetson/apps/institutions/base.py:616
 msgid "institutional contacts"
 msgstr ""
 
-#: subtrees/jetson/apps/institutions/base.py:690
+#: subtrees/jetson/apps/institutions/base.py:691
 #: subtrees/jetson/apps/people/base.py:888
 msgid "(at)"
 msgstr ""
 
-#: subtrees/jetson/apps/institutions/base.py:690
+#: subtrees/jetson/apps/institutions/base.py:691
 #: subtrees/jetson/apps/people/base.py:888
 msgid "(dot)"
 msgstr ""
@@ -5904,12 +5905,17 @@ msgstr ""
 msgid "locality types"
 msgstr ""
 
-#: subtrees/jetson/apps/mailchimp/admin.py:110
+#: subtrees/jetson/apps/mailchimp/admin.py:111
 msgid "MailChimp List"
 msgstr ""
 
-#: subtrees/jetson/apps/mailchimp/admin.py:117
+#: subtrees/jetson/apps/mailchimp/admin.py:118
 msgid "Synchronize list"
+msgstr ""
+
+#: subtrees/jetson/apps/mailchimp/admin.py:180
+#, python-format
+msgid "Campaign \"%s\" was not updated at MailChimp, because it has been sent."
 msgstr ""
 
 #: subtrees/jetson/apps/mailchimp/forms.py:27
@@ -6017,19 +6023,19 @@ msgid "Last sync"
 msgstr ""
 
 #: subtrees/jetson/apps/mailchimp/models.py:97
-#: subtrees/jetson/apps/mailchimp/models.py:214
+#: subtrees/jetson/apps/mailchimp/models.py:221
 msgid "Mailing List"
 msgstr ""
 
-#: subtrees/jetson/apps/mailchimp/models.py:203
+#: subtrees/jetson/apps/mailchimp/models.py:196
 msgid "Campaigns"
 msgstr ""
 
-#: subtrees/jetson/apps/mailchimp/models.py:375
+#: subtrees/jetson/apps/mailchimp/models.py:385
 msgid "Image and text"
 msgstr ""
 
-#: subtrees/jetson/apps/mailchimp/models.py:376
+#: subtrees/jetson/apps/mailchimp/models.py:386
 msgid "Text only"
 msgstr ""
 
@@ -6084,8 +6090,8 @@ msgstr ""
 
 #: subtrees/jetson/apps/mailing/admin.py:51
 #: subtrees/jetson/apps/mailing/admin.py:82
-#: subtrees/jetson/apps/mailing/forms.py:35
-#: subtrees/jetson/apps/messaging/forms.py:143
+#: subtrees/jetson/apps/mailing/forms.py:34
+#: subtrees/jetson/apps/messaging/forms.py:142
 #: subtrees/jetson/templates/default/messaging/new_message.html:16
 msgid "Recipients"
 msgstr ""
@@ -6095,51 +6101,51 @@ msgstr ""
 msgid "Flags"
 msgstr ""
 
-#: subtrees/jetson/apps/mailing/forms.py:17
+#: subtrees/jetson/apps/mailing/forms.py:16
 msgid "Sender Name"
 msgstr ""
 
-#: subtrees/jetson/apps/mailing/forms.py:23
+#: subtrees/jetson/apps/mailing/forms.py:22
 msgid "Sender Email"
 msgstr ""
 
-#: subtrees/jetson/apps/mailing/forms.py:29
+#: subtrees/jetson/apps/mailing/forms.py:28
 msgid "Tester Email"
 msgstr ""
 
-#: subtrees/jetson/apps/mailing/forms.py:37
+#: subtrees/jetson/apps/mailing/forms.py:36
 msgid ""
 "Please select one or more recipients from the list and/or enter recipients "
 "in the text field below."
 msgstr ""
 
-#: subtrees/jetson/apps/mailing/forms.py:40
+#: subtrees/jetson/apps/mailing/forms.py:39
 msgid "Recipients (Emails)"
 msgstr ""
 
-#: subtrees/jetson/apps/mailing/forms.py:43
+#: subtrees/jetson/apps/mailing/forms.py:42
 msgid ""
 "Email addresses must have the form 'John Doe (john.doe@domain.com)' or just "
 "'john.doe@domain.com'."
 msgstr ""
 
-#: subtrees/jetson/apps/mailing/forms.py:46
+#: subtrees/jetson/apps/mailing/forms.py:45
 #: subtrees/jetson/apps/mailing/models.py:140
 #: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:20
 msgid "Subject (English)"
 msgstr ""
 
-#: subtrees/jetson/apps/mailing/forms.py:52
+#: subtrees/jetson/apps/mailing/forms.py:51
 msgid "Message (English)"
 msgstr ""
 
-#: subtrees/jetson/apps/mailing/forms.py:57
+#: subtrees/jetson/apps/mailing/forms.py:56
 #: subtrees/jetson/apps/mailing/models.py:141
 #: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:21
 msgid "Subject (German)"
 msgstr ""
 
-#: subtrees/jetson/apps/mailing/forms.py:63
+#: subtrees/jetson/apps/mailing/forms.py:62
 msgid "Message (German)"
 msgstr ""
 
@@ -6536,7 +6542,7 @@ msgstr ""
 #: subtrees/jetson/apps/media_gallery/forms.py:120
 #: subtrees/jetson/apps/media_gallery/forms.py:260
 #: subtrees/jetson/apps/media_gallery/forms.py:400
-#: subtrees/jetson/apps/notification/forms.py:59
+#: subtrees/jetson/apps/notification/forms.py:67
 #: subtrees/jetson/templates/admin/admin/change_list.html:247
 #: subtrees/jetson/templates/admin/admin/cms/page/change_form.html:96
 #: subtrees/jetson/templates/admin/admin/cms/page/plugin_change_form.html:197
@@ -6708,20 +6714,20 @@ msgstr ""
 msgid "memos"
 msgstr ""
 
-#: subtrees/jetson/apps/messaging/forms.py:66
-#: subtrees/jetson/apps/messaging/forms.py:81
+#: subtrees/jetson/apps/messaging/forms.py:65
+#: subtrees/jetson/apps/messaging/forms.py:80
 #, python-format
 msgid "Write a message to %s"
 msgstr ""
 
-#: subtrees/jetson/apps/messaging/forms.py:75
-#: subtrees/jetson/apps/messaging/forms.py:88
+#: subtrees/jetson/apps/messaging/forms.py:74
+#: subtrees/jetson/apps/messaging/forms.py:87
 #: subtrees/jetson/templates/default/institutions/institution_message.html:63
 #: subtrees/jetson/templates/default/people/person_message.html:63
 msgid "Send message"
 msgstr ""
 
-#: subtrees/jetson/apps/messaging/forms.py:145
+#: subtrees/jetson/apps/messaging/forms.py:144
 msgid "Please select one or more recipients from the list."
 msgstr ""
 
@@ -6883,12 +6889,12 @@ msgstr ""
 msgid "Notices Feed"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/forms.py:32
+#: subtrees/jetson/apps/notification/forms.py:40
 #: subtrees/jetson/templates/default/institutions/institution_staff.html:15
 msgid "Staff"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/forms.py:41
+#: subtrees/jetson/apps/notification/forms.py:49
 #: subtrees/jetson/templates/default/notification/settings.html:23
 msgid "Unspecified"
 msgstr ""
@@ -6898,7 +6904,7 @@ msgid "Notification"
 msgstr ""
 
 #: subtrees/jetson/apps/notification/models.py:42
-#: subtrees/jetson/apps/notification/models.py:61
+#: subtrees/jetson/apps/notification/models.py:62
 #: subtrees/jetson/apps/notification/south_migrations/0001_initial.py:51
 #: subtrees/jetson/apps/notification/south_migrations/0005_digest_added.py:139
 #: subtrees/jetson/apps/notification/south_migrations/0005_digest_added.py:163
@@ -6906,7 +6912,7 @@ msgid "display"
 msgstr ""
 
 #: subtrees/jetson/apps/notification/models.py:43
-#: subtrees/jetson/apps/notification/models.py:67
+#: subtrees/jetson/apps/notification/models.py:68
 msgid "public"
 msgstr ""
 
@@ -6939,134 +6945,134 @@ msgstr ""
 msgid "should match the slug of an associated EmailTemplate object"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:63
+#: subtrees/jetson/apps/notification/models.py:64
 #: subtrees/jetson/apps/notification/south_migrations/0001_initial.py:53
 #: subtrees/jetson/apps/notification/south_migrations/0005_digest_added.py:154
 msgid "Message Template"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:63
+#: subtrees/jetson/apps/notification/models.py:64
 msgid ""
 "This message will be shown in the website. Accepted template variables: "
 "{{ notified_user }}, {{ object }}, and specific extra context."
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:66
+#: subtrees/jetson/apps/notification/models.py:67
 msgid "default media"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:66
+#: subtrees/jetson/apps/notification/models.py:67
 msgid "How will the notices be reported to users by default?"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:67
+#: subtrees/jetson/apps/notification/models.py:68
 #: subtrees/jetson/apps/notification/south_migrations/0001_initial.py:55
 #: subtrees/jetson/apps/notification/south_migrations/0002_adding_notice_type_category.py:16
 #: subtrees/jetson/apps/notification/south_migrations/0005_digest_added.py:157
 msgid "is this notice type displayed in the public notification settings?"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:84
-#: subtrees/jetson/apps/notification/models.py:116
-#: subtrees/jetson/apps/notification/models.py:171
-#: subtrees/jetson/apps/notification/models.py:214
-#: subtrees/jetson/apps/notification/models.py:335
+#: subtrees/jetson/apps/notification/models.py:85
+#: subtrees/jetson/apps/notification/models.py:117
+#: subtrees/jetson/apps/notification/models.py:172
+#: subtrees/jetson/apps/notification/models.py:215
+#: subtrees/jetson/apps/notification/models.py:339
 msgid "notice type"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:85
+#: subtrees/jetson/apps/notification/models.py:86
 msgid "notice types"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:94
+#: subtrees/jetson/apps/notification/models.py:95
 #: subtrees/jetson/apps/tracker/forms.py:37
 #: subtrees/jetson/templates/default/events/add_event_confirm.html:89
 msgid "Email"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:103
+#: subtrees/jetson/apps/notification/models.py:104
 msgid "Don't send notifications"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:104
+#: subtrees/jetson/apps/notification/models.py:105
 msgid "Send immediately"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:105
+#: subtrees/jetson/apps/notification/models.py:106
 msgid "Send in a daily digest"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:106
+#: subtrees/jetson/apps/notification/models.py:107
 msgid "Send in a weekly digest"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:115
-#: subtrees/jetson/apps/notification/models.py:131
-#: subtrees/jetson/apps/notification/models.py:212
-#: subtrees/jetson/apps/notification/models.py:333
+#: subtrees/jetson/apps/notification/models.py:116
+#: subtrees/jetson/apps/notification/models.py:132
+#: subtrees/jetson/apps/notification/models.py:213
+#: subtrees/jetson/apps/notification/models.py:337
 #: subtrees/jetson/apps/profanity_filter/models.py:70
 msgid "user"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:117
+#: subtrees/jetson/apps/notification/models.py:118
 #: subtrees/jetson/apps/notification/south_migrations/0001_initial.py:18
 #: subtrees/jetson/apps/notification/south_migrations/0005_digest_added.py:127
 #: subtrees/jetson/templates/default/resources/documents/profile/details.html:11
 msgid "medium"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:118
+#: subtrees/jetson/apps/notification/models.py:119
 msgid "sending frequency"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:121
+#: subtrees/jetson/apps/notification/models.py:122
 msgid "notice setting"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:122
+#: subtrees/jetson/apps/notification/models.py:123
 msgid "notice settings"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:126
+#: subtrees/jetson/apps/notification/models.py:127
 msgid "Daily"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:127
+#: subtrees/jetson/apps/notification/models.py:128
 msgid "Weekly"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:132
+#: subtrees/jetson/apps/notification/models.py:133
 msgid "frequency"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:133
+#: subtrees/jetson/apps/notification/models.py:134
 msgid "sent?"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:136
-#: subtrees/jetson/apps/notification/models.py:169
+#: subtrees/jetson/apps/notification/models.py:137
+#: subtrees/jetson/apps/notification/models.py:170
 msgid "digest"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:137
+#: subtrees/jetson/apps/notification/models.py:138
 msgid "digests"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:140
+#: subtrees/jetson/apps/notification/models.py:141
 #, python-format
 msgid "Notification digest to %s"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:177
+#: subtrees/jetson/apps/notification/models.py:178
 msgid "notice of a digest"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:178
+#: subtrees/jetson/apps/notification/models.py:179
 msgid "notices of digests"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:215
-#: subtrees/jetson/apps/notification/models.py:337
+#: subtrees/jetson/apps/notification/models.py:216
+#: subtrees/jetson/apps/notification/models.py:341
 #: subtrees/jetson/apps/notification/south_migrations/0001_initial.py:29
 #: subtrees/jetson/apps/notification/south_migrations/0001_initial.py:42
 #: subtrees/jetson/apps/notification/south_migrations/0005_digest_added.py:172
@@ -7074,35 +7080,35 @@ msgstr ""
 msgid "added"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:216
+#: subtrees/jetson/apps/notification/models.py:217
 #: subtrees/jetson/apps/notification/south_migrations/0001_initial.py:30
 #: subtrees/jetson/apps/notification/south_migrations/0005_digest_added.py:181
 msgid "unseen"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:217
+#: subtrees/jetson/apps/notification/models.py:218
 #: subtrees/jetson/apps/notification/south_migrations/0001_initial.py:31
 #: subtrees/jetson/apps/notification/south_migrations/0005_digest_added.py:169
 msgid "archived"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:243
+#: subtrees/jetson/apps/notification/models.py:244
 msgid "notice"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:244
+#: subtrees/jetson/apps/notification/models.py:245
 msgid "notices"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:340
+#: subtrees/jetson/apps/notification/models.py:344
 msgid "signal"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:346
+#: subtrees/jetson/apps/notification/models.py:350
 msgid "observed item"
 msgstr ""
 
-#: subtrees/jetson/apps/notification/models.py:347
+#: subtrees/jetson/apps/notification/models.py:351
 msgid "observed items"
 msgstr ""
 
@@ -7419,8 +7425,8 @@ msgid "Priority"
 msgstr ""
 
 #: subtrees/jetson/apps/priorities/models.py:23
-#: subtrees/jetson/apps/tracker/models.py:62
-#: subtrees/jetson/apps/tracker/models.py:110
+#: subtrees/jetson/apps/tracker/models.py:58
+#: subtrees/jetson/apps/tracker/models.py:106
 msgid "priority"
 msgstr ""
 
@@ -7822,80 +7828,80 @@ msgstr ""
 msgid "Write Feedback"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:18
+#: subtrees/jetson/apps/tracker/models.py:14
 msgid "Tracker"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:21
+#: subtrees/jetson/apps/tracker/models.py:17
 msgid "Open"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:22
+#: subtrees/jetson/apps/tracker/models.py:18
 msgid "Working"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:24
+#: subtrees/jetson/apps/tracker/models.py:20
 msgid "Rejected"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:28
+#: subtrees/jetson/apps/tracker/models.py:24
 msgid "Now"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:29
+#: subtrees/jetson/apps/tracker/models.py:25
 msgid "Soon"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:30
+#: subtrees/jetson/apps/tracker/models.py:26
 msgid "Someday"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:39
-#: subtrees/jetson/apps/tracker/models.py:66
+#: subtrees/jetson/apps/tracker/models.py:35
+#: subtrees/jetson/apps/tracker/models.py:62
 msgid "concern"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:40
+#: subtrees/jetson/apps/tracker/models.py:36
 msgid "concerns"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:48
+#: subtrees/jetson/apps/tracker/models.py:44
 msgid "submitted Date"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:49
-#: subtrees/jetson/apps/tracker/models.py:105
+#: subtrees/jetson/apps/tracker/models.py:45
+#: subtrees/jetson/apps/tracker/models.py:101
 msgid "modified Date"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:54
+#: subtrees/jetson/apps/tracker/models.py:50
 msgid "submitter"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:58
-#: subtrees/jetson/apps/tracker/models.py:106
+#: subtrees/jetson/apps/tracker/models.py:54
+#: subtrees/jetson/apps/tracker/models.py:102
 msgid "modifier"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:64
+#: subtrees/jetson/apps/tracker/models.py:60
 msgid "related object's URL"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:69
-#: subtrees/jetson/apps/tracker/models.py:104
+#: subtrees/jetson/apps/tracker/models.py:65
+#: subtrees/jetson/apps/tracker/models.py:100
 msgid "ticket"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:70
+#: subtrees/jetson/apps/tracker/models.py:66
 msgid "tickets"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:108
+#: subtrees/jetson/apps/tracker/models.py:104
 msgid "modification"
 msgstr ""
 
-#: subtrees/jetson/apps/tracker/models.py:113
-#: subtrees/jetson/apps/tracker/models.py:114
+#: subtrees/jetson/apps/tracker/models.py:109
+#: subtrees/jetson/apps/tracker/models.py:110
 msgid "ticket history"
 msgstr ""
 
@@ -7993,11 +7999,11 @@ msgid ""
 "There are errors in this form. Please correct them and try to save again."
 msgstr ""
 
-#: subtrees/jetson/apps/utils/views.py:970
+#: subtrees/jetson/apps/utils/views.py:971
 msgid "0-9"
 msgstr ""
 
-#: subtrees/jetson/apps/utils/views.py:1005
+#: subtrees/jetson/apps/utils/views.py:1006
 msgid "Topical"
 msgstr ""
 
