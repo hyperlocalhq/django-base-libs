@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 SECONDS=0
 PROJECT_PATH=/usr/local/www/apache24/data/creative-city-berlin.de
-CRON_LOG_FILE=${PROJECT_PATH}/logs/import_jobs_from_gruenderszene.log
+CRON_LOG_FILE=${PROJECT_PATH}/logs/import_jobs_from_dasauge.log
 
 echo "Importing from DasAuge" > ${CRON_LOG_FILE}
 date >> ${CRON_LOG_FILE}
