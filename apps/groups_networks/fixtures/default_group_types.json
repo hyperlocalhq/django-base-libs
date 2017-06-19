@@ -1,0 +1,50 @@
+[
+    {
+        "pk": 381, 
+        "model": "groups_networks.grouptype", 
+        "fields": {
+            "title_de": "Institutional", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Institutional", 
+            "level": 0, 
+            "title_en": "Institutional", 
+            "lft": 1, 
+            "sort_order": 257, 
+            "tree_id": 1, 
+            "slug": "institutional"
+        }
+    }, 
+    {
+        "pk": 382, 
+        "model": "groups_networks.grouptype", 
+        "fields": {
+            "title_de": "Locational", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Locational", 
+            "level": 0, 
+            "title_en": "Locational", 
+            "lft": 1, 
+            "sort_order": 258, 
+            "tree_id": 2, 
+            "slug": "locational"
+        }
+    }, 
+    {
+        "pk": 383, 
+        "model": "groups_networks.grouptype", 
+        "fields": {
+            "title_de": "Special-interest", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Special-Interest", 
+            "level": 0, 
+            "title_en": "Special-Interest", 
+            "lft": 1, 
+            "sort_order": 259, 
+            "tree_id": 3, 
+            "slug": "special-interest"
+        }
+    }
+]

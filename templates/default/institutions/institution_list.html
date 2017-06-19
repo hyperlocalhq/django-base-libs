@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load i18n base_tags auth_extended navigation_tags %}
+
+{% block extrahead %}
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/groups_networks.js"></script>
+{% endblock %}
+
+
+{% block title %}{% trans "Institutions" %}{% endblock %}
+
+{% block headline %}
+	<h2 class="main">{% trans "Institutions" %}</h2>
+{% endblock %}			
+
+{% block content %}
+    {% block tabs %}
+        <div id="tabs">
+            {% children_of "institutions" using "navigation/children_in_tabs.html" %}
+        </div>
+    {% endblock %}
+    {% if object_list %}
+        {% include "utils/sorting_view_pagination_header.html" %}
+
+        {% block breadcrumbs %}
+            <div class="breadcrumbs">
+                <div>
+                    {% include "utils/abc_filters.html" %}
+                </div>
+            </div>
+        {% endblock %}
+        {% for institution in object_list %}
+            <div class="vcard">
+                <div class="list-item {% cycle odd,even %} expanded" onclick="redirect('{{ institution.get_url_path }}');">
+                    <div class="info-group-a">
+                        <h5>
+                            <a class="org fn"  href="{{ institution.get_url_path }}">
+                                {{ institution.title|escape }} 
+                            </a><br/>
+                            {% if institution.title2|escape %}
+                                <span class="sub_titel">
+                                    {{ institution.title2|escape }}
+                                </span>
+                            {% endif %}
+                        </h5> 
+                        {% with institution.get_primary_contact as contact %}
+                            {% if contact %}
+                                {% if contact.street_address or contact.country_name %}
+                                <address class="adr">
+                                    {% if contact.street_address %}
+                                        <span class="street-address">
+                                        {{ contact.street_address|escape }}
+                                        </span><br />
+                                    {% endif %}								
+                                    {% if contact.street_address2 %}
+                                        <span class="street-address">
+                                        {{ contact.street_address2|escape }}
+                                        </span><br />
+                                    {% endif %}								
+                                    {% if contact.street_address3 %}
+                                        <span class="street-address">
+                                        {{ contact.street_address3|escape }}
+                                        </span><br />
+                                    {% endif %}								
+                                    {% if contact.postal_code %}	
+                                         <span class="postal-code">
+                                         {{ contact.postal_code|escape }} {{ contact.city|escape }}
+                                         </span><br />
+                                    {% endif %}
+                                    {% if contact.country_name %}
+                                        <span class="country-name">
+                                        {{ contact.country_name }}
+                                        </span><br />
+                                    {% endif %}
+                                </address>
+                                {% endif %}
+                            {% endif %}
+                        {% endwith %}
+                    {% include "institutions/controls.html" %}
+                    </div>
+                    <div class="info-group-b">
+                        {% if institution.get_institution_types %}
+                            <div class="object-type">{% for institution_type in institution.get_institution_types %}{% if not forloop.first %}, {% endif %}{{ institution_type.get_title|escape }}{% endfor %}</div>
+                        {% endif %}
+                        
+                        {% if institution.get_contacts %}
+                            {% for phone in institution.get_contacts.0.get_phones %}
+                                <span class="tel">
+                                        {% if phone.type %}
+                                        <abbr title="{{ phone.type.vcard_name }}" class="type">
+                                        {{ phone.type }}
+                                        </abbr>: {% endif %}
+                                        <span class="value">+{{ phone.country }}-{{ phone.area }}-{{ phone.number }}</span><br />
+                                </span>
+                            {% endfor %}
+                            {% for url in institution.get_contacts.0.get_urls %}
+                                <span class="url">{% if url.type %}{{ url.type }}: {% endif %}<a href="{{ url.link|escape }}" onclick="open_new_window(event)">{% with url.link|slice:"0:27"|escape as sliced %}{{ sliced }}{% with url.link|escape as not_sliced %}{% ifnotequal sliced url.link|escape %}...{% endifnotequal %}{% endwith %}{% endwith %}</a><br /></span>
+                           {% endfor %}
+                        {% endif %}	
+                            
+                        {% if institution.get_description %}
+                            {% with institution.get_description|striptags|truncatewords:"60" as filtered_desc %}{% with filtered_desc|truncatewords:"40" as shortened_desc %}
+                            <span class="hidable description">{{ shortened_desc }}
+                                {% ifnotequal shortened_desc filtered_desc %}
+                                <a href="{{ institution.get_url_path }}">{% trans "read more" %}</a>
+                                {% endifnotequal %}
+                            </span>
+                            {% endwith %}{% endwith %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="cleaner"></div>
+            {% endfor %}
+  		{% include "utils/pagination_footer.html" %}
+     {% else %}
+        <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>
+     {% endif %}
+{% endblock %}
+

@@ -1,0 +1,416 @@
+[
+    {
+        "pk": 978, 
+        "model": "events.eventtype", 
+        "fields": {
+            "title_de": "Pressekonferenz", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Press Conference", 
+            "level": 0, 
+            "title_en": "Press Conference", 
+            "lft": 1, 
+            "sort_order": 0, 
+            "tree_id": 1, 
+            "slug": "press-conference"
+        }
+    }, 
+    {
+        "pk": 981, 
+        "model": "events.eventtype", 
+        "fields": {
+            "title_de": "Podiumsdiskussion", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Panel Discussion", 
+            "level": 0, 
+            "title_en": "Panel Discussion", 
+            "lft": 1, 
+            "sort_order": 0, 
+            "tree_id": 2, 
+            "slug": "panel-discussion"
+        }
+    }, 
+    {
+        "pk": 965, 
+        "model": "events.eventtype", 
+        "fields": {
+            "title_de": "Auff\u00fchrung", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Show", 
+            "level": 0, 
+            "title_en": "Show", 
+            "lft": 1, 
+            "sort_order": 165, 
+            "tree_id": 3, 
+            "slug": "show"
+        }
+    }, 
+    {
+        "pk": 118, 
+        "model": "events.eventtype", 
+        "fields": {
+            "title_de": "Ausstellung", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Exhibition", 
+            "level": 0, 
+            "title_en": "Exhibition", 
+            "lft": 1, 
+            "sort_order": 166, 
+            "tree_id": 4, 
+            "slug": "exhibition"
+        }
+    }, 
+    {
+        "pk": 115, 
+        "model": "events.eventtype", 
+        "fields": {
+            "title_de": "Biennale", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Biennial", 
+            "level": 0, 
+            "title_en": "Biennial", 
+            "lft": 1, 
+            "sort_order": 167, 
+            "tree_id": 5, 
+            "slug": "biennial"
+        }
+    }, 
+    {
+        "pk": 155, 
+        "model": "events.eventtype", 
+        "fields": {
+            "title_de": "Empfang", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Reception", 
+            "level": 0, 
+            "title_en": "Reception", 
+            "lft": 1, 
+            "sort_order": 168, 
+            "tree_id": 6, 
+            "slug": "reception"
+        }
+    }, 
+    {
+        "pk": 123, 
+        "model": "events.eventtype", 
+        "fields": {
+            "title_de": "Er\u00f6ffnung", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Opening", 
+            "level": 0, 
+            "title_en": "Opening", 
+            "lft": 1, 
+            "sort_order": 169, 
+            "tree_id": 7, 
+            "slug": "opening"
+        }
+    }, 
+    {
+        "pk": 966, 
+        "model": "events.eventtype", 
+        "fields": {
+            "title_de": "F\u00fchrung", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Guided-Tour", 
+            "level": 0, 
+            "title_en": "Guided-Tour", 
+            "lft": 1, 
+            "sort_order": 171, 
+            "tree_id": 8, 
+            "slug": "guided-tour"
+        }
+    }, 
+    {
+        "pk": 360, 
+        "model": "events.eventtype", 
+        "fields": {
+            "title_de": "Festival", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Festival", 
+            "level": 0, 
+            "title_en": "Festival", 
+            "lft": 1, 
+            "sort_order": 172, 
+            "tree_id": 9, 
+            "slug": "festival"
+        }
+    }, 
+    {
+        "pk": 124, 
+        "model": "events.eventtype", 
+        "fields": {
+            "title_de": "Finissage", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Closing-Event", 
+            "level": 0, 
+            "title_en": "Closing-Event", 
+            "lft": 1, 
+            "sort_order": 174, 
+            "tree_id": 10, 
+            "slug": "closing-event"
+        }
+    }, 
+    {
+        "pk": 114, 
+        "model": "events.eventtype", 
+        "fields": {
+            "title_de": "Kongress/Fachtagung/Konferenz", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Convention", 
+            "level": 0, 
+            "title_en": "Convention", 
+            "lft": 1, 
+            "sort_order": 176, 
+            "tree_id": 11, 
+            "slug": "convention"
+        }
+    }, 
+    {
+        "pk": 120, 
+        "model": "events.eventtype", 
+        "fields": {
+            "title_de": "Konzert", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Concert", 
+            "level": 0, 
+            "title_en": "Concert", 
+            "lft": 1, 
+            "sort_order": 177, 
+            "tree_id": 12, 
+            "slug": "concert"
+        }
+    }, 
+    {
+        "pk": 121, 
+        "model": "events.eventtype", 
+        "fields": {
+            "title_de": "Lesung", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Reading", 
+            "level": 0, 
+            "title_en": "Reading", 
+            "lft": 1, 
+            "sort_order": 178, 
+            "tree_id": 13, 
+            "slug": "reading"
+        }
+    }, 
+    {
+        "pk": 154, 
+        "model": "events.eventtype", 
+        "fields": {
+            "title_de": "Meeting", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Meeting", 
+            "level": 0, 
+            "title_en": "Meeting", 
+            "lft": 1, 
+            "sort_order": 179, 
+            "tree_id": 14, 
+            "slug": "meeting"
+        }
+    }, 
+    {
+        "pk": 113, 
+        "model": "events.eventtype", 
+        "fields": {
+            "title_de": "Messe", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Trade-Show", 
+            "level": 0, 
+            "title_en": "Trade-Show", 
+            "lft": 1, 
+            "sort_order": 180, 
+            "tree_id": 15, 
+            "slug": "trade-show"
+        }
+    }, 
+    {
+        "pk": 153, 
+        "model": "events.eventtype", 
+        "fields": {
+            "title_de": "Performance", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Performance", 
+            "level": 0, 
+            "title_en": "Performance", 
+            "lft": 1, 
+            "sort_order": 182, 
+            "tree_id": 16, 
+            "slug": "performance"
+        }
+    }, 
+    {
+        "pk": 152, 
+        "model": "events.eventtype", 
+        "fields": {
+            "title_de": "Seminar/Workshop/Kurs", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Workshop", 
+            "level": 0, 
+            "title_en": "Workshop", 
+            "lft": 1, 
+            "sort_order": 183, 
+            "tree_id": 17, 
+            "slug": "workshop"
+        }
+    }, 
+    {
+        "pk": 122, 
+        "model": "events.eventtype", 
+        "fields": {
+            "title_de": "Vernissage", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Vernissage", 
+            "level": 0, 
+            "title_en": "Vernissage", 
+            "lft": 1, 
+            "sort_order": 184, 
+            "tree_id": 18, 
+            "slug": "vernissage"
+        }
+    }, 
+    {
+        "pk": 151, 
+        "model": "events.eventtype", 
+        "fields": {
+            "title_de": "Vortrag/Diskussion", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Lecture", 
+            "level": 0, 
+            "title_en": "Lecture", 
+            "lft": 1, 
+            "sort_order": 185, 
+            "tree_id": 19, 
+            "slug": "lecture"
+        }
+    }, 
+    {
+        "pk": 119, 
+        "model": "events.eventtype", 
+        "fields": {
+            "title_de": "Wettbewerb/Ausschreibung", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Competition", 
+            "level": 0, 
+            "title_en": "Competition", 
+            "lft": 1, 
+            "sort_order": 186, 
+            "tree_id": 20, 
+            "slug": "competition"
+        }
+    }, 
+    {
+        "pk": 977, 
+        "model": "events.eventtype", 
+        "fields": {
+            "title_de": "Tag der offenen T\u00fcr", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Open-Day", 
+            "level": 0, 
+            "title_en": "Open-Day", 
+            "lft": 1, 
+            "sort_order": 269, 
+            "tree_id": 21, 
+            "slug": "open-day"
+        }
+    }, 
+    {
+        "pk": 951, 
+        "model": "events.eventtimelabel", 
+        "fields": {
+            "title_de": "Einreichungsfrist", 
+            "modified_date": null, 
+            "title": "Einreichungsfrist", 
+            "title_en": "Einreichungsfrist", 
+            "creation_date": "2012-01-10 21:50:13", 
+            "sort_order": 0, 
+            "slug": "submission-deadline"
+        }
+    }, 
+    {
+        "pk": 952, 
+        "model": "events.eventtimelabel", 
+        "fields": {
+            "title_de": "Bewerbungsfrist", 
+            "modified_date": null, 
+            "title": "Bewerbungsfrist", 
+            "title_en": "Bewerbungsfrist", 
+            "creation_date": "2012-01-10 21:50:13", 
+            "sort_order": 1, 
+            "slug": "application-deadline"
+        }
+    }, 
+    {
+        "pk": 953, 
+        "model": "events.eventtimelabel", 
+        "fields": {
+            "title_de": "Vernissage", 
+            "modified_date": null, 
+            "title": "Vernissage", 
+            "title_en": "Vernissage", 
+            "creation_date": "2012-01-10 21:50:13", 
+            "sort_order": 2, 
+            "slug": "vernissage-2"
+        }
+    }, 
+    {
+        "pk": 954, 
+        "model": "events.eventtimelabel", 
+        "fields": {
+            "title_de": "Finissage", 
+            "modified_date": null, 
+            "title": "Finissage", 
+            "title_en": "Finissage", 
+            "creation_date": "2012-01-10 21:50:13", 
+            "sort_order": 3, 
+            "slug": "finissage"
+        }
+    }, 
+    {
+        "pk": 962, 
+        "model": "events.eventtimelabel", 
+        "fields": {
+            "title_de": "Premiere", 
+            "modified_date": null, 
+            "title": "Premiere", 
+            "title_en": "Premiere", 
+            "creation_date": "2012-01-10 21:50:13", 
+            "sort_order": 4, 
+            "slug": "premiere"
+        }
+    }, 
+    {
+        "pk": 970, 
+        "model": "events.eventtimelabel", 
+        "fields": {
+            "title_de": "Veranstaltung", 
+            "modified_date": null, 
+            "title": "Veranstaltung", 
+            "title_en": "Veranstaltung", 
+            "creation_date": "2012-01-10 21:50:13", 
+            "sort_order": 5, 
+            "slug": "labelevent"
+        }
+    }
+]

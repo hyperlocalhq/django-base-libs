@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n base_tags navigation_tags %}
+
+{% block extrahead %}
+    <link rel="alternate" type="application/rss+xml" title="{% trans "Subscribe to the news" %}" href="{{ rel_root_dir }}{% if type %}{{ type.slug }}/{% endif %}feeds/rss/" />
+{% endblock %}
+
+{% block title %}
+	{% if type %}
+		{{ type.title|escape }}
+	{% else %}
+        {% trans "Welcome" %}
+	{% endif %}
+{% endblock %}
+
+{% block headline %}
+    <h2 class="main">
+        {% if type %}
+            {{ type.title|escape }}
+        {% else %}
+            {% trans "Welcome" %}
+        {% endif %}
+    </h2>
+{% endblock %}			
+
+{% block content %}
+    {% block details %}
+    {% endblock %}
+{% endblock %}
