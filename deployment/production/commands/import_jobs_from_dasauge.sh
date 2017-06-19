@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 SECONDS=0
 PROJECT_PATH=/usr/local/www/apache24/data/creative-city-berlin.de
-CRON_LOG_FILE=${PROJECT_PATH}/logs/check_links.log
+CRON_LOG_FILE=${PROJECT_PATH}/logs/import_jobs_from_gruenderszene.log
 
-echo "Searching for broken links" > ${CRON_LOG_FILE}
+echo "Importing from DasAuge" > ${CRON_LOG_FILE}
 date >> ${CRON_LOG_FILE}
 
 cd ${PROJECT_PATH}
 . bin/activate
-cd project/ccb
-python manage.py check_links --settings=settings_check_links --traceback --settings=settings.production >> ${CRON_LOG_FILE}  2>&1
+cd project/ccb    
+python manage.py import_jobs_from_dasauge --verbosity=2 --traceback --settings=settings.production >> ${CRON_LOG_FILE} 2>&1
 
 echo "Finished." >> ${CRON_LOG_FILE}
 duration=$SECONDS

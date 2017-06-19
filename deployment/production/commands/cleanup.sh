@@ -9,8 +9,8 @@ date >> ${CRON_LOG_FILE}
 cd ${PROJECT_PATH}
 . bin/activate
 cd project/ccb    
-python manage.py clearsessions --traceback >> ${CRON_LOG_FILE}  2>&1
-python manage.py cleanup_httpstate --traceback >> ${CRON_LOG_FILE}  2>&1
+python manage.py clearsessions --traceback --settings=settings.production >> ${CRON_LOG_FILE}  2>&1
+python manage.py cleanup_httpstate --traceback --settings=settings.production >> ${CRON_LOG_FILE}  2>&1
 
 echo "Finished." >> ${CRON_LOG_FILE}
 duration=$SECONDS
