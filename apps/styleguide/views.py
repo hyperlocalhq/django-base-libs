@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
-
 from django.shortcuts import render
 
-from forms import DummyForm
+from .forms import DummyForm
+
 
 def page(request, page=None):
 
-    if not page:
+    if not page or "/" in page:
         page = "base"
-        
-    return render(request, "styleguide/"+page+".html")
+
+    # if template for page doesn't exist, fallback to styleguide/base.html
+    return render(request, ["styleguide/{}.html".format(page), "styleguide/base.html"])
 
 
 def dummy_form(request):

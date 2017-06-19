@@ -10,10 +10,6 @@ from django.template.defaultfilters import striptags
 from base_libs.templatetags.base_tags import decode_entities
 
 from base_libs.utils.misc import get_website_url
-from jetson.apps.events.base import EventBase
-
-Event = models.get_model("events", "Event")
-EventTime = models.get_model("events", "EventTime")
 
 def add_vevent(cal, event_time):
     """
@@ -92,7 +88,11 @@ def create_ics(events, vevent_function=add_vevent):
         * list of Event instances
         * list of EventTime instances
     """
-    
+    from jetson.apps.events.base import EventBase
+
+    Event = models.get_model("events", "Event")
+    EventTime = models.get_model("events", "EventTime")
+
     cal = vobject.iCalendar()
     cal.add('method').value = 'PUBLISH' # IE/Outlook needs this
     

@@ -3,17 +3,13 @@ from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
 from base_libs.models.admin import ObjectRelationMixinAdminOptions
-from base_libs.models.admin import ObjectRelationMixinAdminForm
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin import ExtendedModelAdmin
 
 from jetson.apps.comments.models import Comment, ModeratorDeletionReason, ModeratorDeletion
 
-class CommentAdminForm(ObjectRelationMixinAdminForm()):
-    pass
 
 class CommentOptions(ObjectRelationMixinAdminOptions()):
-    form = CommentAdminForm
     save_on_top = True
     fieldsets = (
         ('Related', {'fields': ('content_type', 'object_id', 'site')}),
@@ -26,6 +22,7 @@ class CommentOptions(ObjectRelationMixinAdminOptions()):
     list_filter = ('submit_date',)
     date_hierarchy = 'submit_date'
     search_fieldsets = ('comment',)
+    raw_id_fields = ["user"]
 
 class ModeratorDeletionReasonOptions(ExtendedModelAdmin):
     save_on_top = True

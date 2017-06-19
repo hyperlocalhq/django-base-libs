@@ -160,7 +160,7 @@ class EventForm(forms.ModelForm):
                 "highlight" : False,
             }
         )
-            
+
     class Meta:
         model = Event
     

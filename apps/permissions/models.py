@@ -1,19 +1,16 @@
 # -*- coding: UTF-8 -*-
-from django.db import backend, connection, models
+from django.db import connection, models
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User, AnonymousUser, Group, Permission
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import force_unicode, smart_str
-from django.utils.functional import lazy
 from django.db.models import signals
-from django.conf import settings
 
 from base_libs.models.models import SysnameMixin
 from base_libs.models.models import ObjectRelationMixin
 from base_libs.models.fields import MultilingualCharField
 
-from base_libs.middleware import get_current_language
 
 verbose_name = _("Permissions")
 

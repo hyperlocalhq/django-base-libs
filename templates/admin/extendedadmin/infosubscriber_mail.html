@@ -1,5 +1,5 @@
 {% extends "admin/change_form.html" %}
-{% load base_tags i18n %}
+{% load base_tags i18n static %}
 
 {% block extrahead %}
 <style type="text/css">
@@ -9,13 +9,13 @@
     }
 /*]]>*/
 </style>
-<script type="text/javascript" src="{{ JQUERY_URL }}"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
 <script type="text/javascript" src="/jsi18n/"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}admin/js/core.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}admin/js/admin/RelatedObjectLookups.js"></script>
-<script type="text/javascript" src="{{ jetson_media_url }}js/admin/CollapsedFieldsets2.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}admin/js/SelectBox.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}admin/js/SelectFilter2.js"></script>
+<script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/admin/RelatedObjectLookups.js' %}"></script>
+<script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/CollapsedFieldsets2.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/SelectBox.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/SelectFilter2.js' %}"></script>
 {% endblock %}
 
 {% block coltype %}colMS{% endblock %}

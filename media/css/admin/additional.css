@@ -810,7 +810,9 @@ a.open-link:hover, a.open-link:active {
 
 /* django cms */
 
-#lang_tab_content h2.header {
+#lang_tab_content h2.header,
+#page_form_lang_tabs .lang_tabs_line
+{
     background: #267C99;
     position: relative;
     top: 0px;
@@ -936,4 +938,12 @@ body#tinymce {
 
 .contact_fieldset .grp-submit-row {
     width:916px;
+}
+
+.grp-placeholder-related-fk, .grp-placeholder-related-m2m, .grp-placeholder-related-generic {
+    display: block;
+    width: 600px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

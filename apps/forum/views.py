@@ -15,7 +15,7 @@ from django.utils.translation import force_unicode, ugettext_lazy as _
 
 from base_libs.views import get_object_from_url
 from base_libs.views import get_container
-from base_libs.utils.loader import select_template_name
+from base_libs.utils.loader import get_template_name_list_for_object
 from base_libs.utils.misc import get_or_404
 from base_libs.forms.formprocessing import FormHandler, FormPreviewHandler
 from base_libs.forms.formprocessing import ID_ACTION_NEW
@@ -147,11 +147,11 @@ def handle_request(request, object_url_part, url_identifier,
                 queryset = current_forum.get_children_latest_threads()   
         
     obj = extra_context['object']
-    template_name = select_template_name("forum", obj, "forum")
+    template_name_list = get_template_name_list_for_object("forum", obj, "forum")
     
     return object_list(request, queryset, 
         paginate_by=paginate_by, page=page, allow_empty=True, 
-        template_name=template_name, template_loader=loader,
+        template_name=template_name_list, template_loader=loader,
         extra_context=extra_context, context_processors=context_processors,
         template_object_name=template_object_name, content_type=None)
 
@@ -168,7 +168,7 @@ class ForumOptionsFormHandler(FormHandler):
         return {'container' : self.container}
     
     def get_form_template(self, use_ajax):
-        return select_template_name("forum_options", self.container, "forum/forms", use_ajax)
+        return get_template_name_list_for_object("forum_options", self.container, "forum/forms", use_ajax)
         
     def check_allowed(self, request, action):
         pass
@@ -212,10 +212,10 @@ class ForumFormPreviewHandler(FormPreviewHandler):
             }
     
     def get_form_template(self, use_ajax):
-        return select_template_name("forum", self.container, "forum/forms", use_ajax)    
+        return get_template_name_list_for_object("forum", self.container, "forum/forms", use_ajax)
         
     def get_confirm_delete_template(self, use_ajax):
-        return select_template_name("confirm_delete", self.container, "forum/forms", use_ajax)
+        return get_template_name_list_for_object("confirm_delete", self.container, "forum/forms", use_ajax)
     
     def check_allowed(self, request, action):
         # TODO privilege checks go here!
@@ -312,10 +312,10 @@ class ThreadFormPreviewHandler(FormPreviewHandler):
        return {'container' : self.container}
 
     def get_form_template(self, use_ajax):
-        return select_template_name("thread", self.container, "forum/forms", use_ajax)    
+        return get_template_name_list_for_object("thread", self.container, "forum/forms", use_ajax)
         
     def get_confirm_delete_template(self, use_ajax):
-        return select_template_name("confirm_delete", self.container, "forum/forms", use_ajax)
+        return get_template_name_list_for_object("confirm_delete", self.container, "forum/forms", use_ajax)
         
     def check_allowed(self, request, action):
         # TODO privilege checks go here!
@@ -388,10 +388,10 @@ class ReplyFormPreviewHandler(FormPreviewHandler):
         return extra_context
 
     def get_form_template(self, use_ajax):
-        return select_template_name("reply", self.container, "forum/forms", use_ajax)    
+        return get_template_name_list_for_object("reply", self.container, "forum/forms", use_ajax)
         
     def get_confirm_delete_template(self, use_ajax):
-        return select_template_name("confirm_delete", self.container, "forum/forms", use_ajax)
+        return get_template_name_list_for_object("confirm_delete", self.container, "forum/forms", use_ajax)
 
     def check_allowed(self, request, action):
         pass

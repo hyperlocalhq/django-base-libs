@@ -252,14 +252,15 @@ class Notice(UrlMixin):
     def get_url_path(self):
         return ("notification_notice", [str(self.pk)])
 
+
 def create_notice_type(sysname, display, description, default=2, display_de="", description_de="", is_public=True):
     """
     Creates a new NoticeType.
 
-    This is intended to be used by other apps as a post_syncdb manangement step.
+    This is intended to be used by other apps by a post_migrate signal handler.
     """
     try:
-        notice_type = NoticeType.objects.get(sysname=sysname)
+        NoticeType.objects.get(sysname=sysname)
     except NoticeType.DoesNotExist:
         nt = NoticeType(
             sysname=sysname,
@@ -271,6 +272,7 @@ def create_notice_type(sysname, display, description, default=2, display_de="", 
         nt.description_en=description
         nt.description_de=description_de
         nt.save()
+
 
 def send(recipients, sysname, extra_context=None, on_site=True, instance=None, sender=None, sender_name="",
          sender_email=""):

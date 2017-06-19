@@ -1,17 +1,10 @@
 # -*- coding: UTF-8 -*-
-from django.conf.urls import *
-from django.conf import settings
+from django.conf.urls import url
 
-
+from . import views
     
-urlpatterns = patterns("jetson.apps.styleguide.views",
-    url(r'^/?$', "page", name="styleguide"),
-    url(r'^(?P<page>[^/]+)/$', "page", name="styleguide"),
-)
-
-urlpatterns += patterns("jetson.apps.styleguide.views", 
-    (
-        r'^forms/$',
-        "dummy_form",
-        ),
-    )
+urlpatterns = [
+    url(r'^/?$', views.page, name="styleguide"),
+    url(r'^forms/$', views.dummy_form),
+    url(r'^(?P<page>[^/]+)/$', views.page, name="styleguide"),
+]

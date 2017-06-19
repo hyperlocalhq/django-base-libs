@@ -1,7 +1,7 @@
 {% extends "admin/base_site.html" %}
 
 <!-- LOADING -->
-{% load admin_static i18n fb_tags image_mods_tags base_tags %}
+{% load admin_static i18n fb_tags image_mods_tags base_tags static %}
 {% load url from future %}
 
 <!-- STYLESHEETS -->
@@ -44,19 +44,19 @@
             display: block;
             width: 15px;
             height: 15px;
-            background: url("{{ jetson_media_url }}filebrowser/img/filebrowser_icon_rename.gif") no-repeat center center;
+            background: url("{% url 'jetson_media_url' path='filebrowser/img/filebrowser_icon_rename.gif' %}") no-repeat center center;
         }
         a.fb_adjustlink:hover {
-            background: url("{{ jetson_media_url }}filebrowser/img/filebrowser_icon_rename_hover.gif") no-repeat center center;
+            background: url("{% url 'jetson_media_url' path='filebrowser/img/filebrowser_icon_rename_hover.gif' %}") no-repeat center center;
         }
         a.fb_deletelink {
             display: block;
             width: 15px;
             height: 15px;
-            background: url("{{ jetson_media_url }}filebrowser/img/filebrowser_icon_delete.gif") no-repeat center center;
+            background: url("{% url 'jetson_media_url' path='filebrowser/img/filebrowser_icon_delete.gif' %}") no-repeat center center;
         }
         a.fb_deletelink:hover {
-            background: url("{{ jetson_media_url }}filebrowser/img/filebrowser_icon_delete_hover.gif") no-repeat center center;
+            background: url("{% url 'jetson_media_url' path='filebrowser/img/filebrowser_icon_delete_hover.gif' %}") no-repeat center center;
         }
         .hidden {
             display: none;
@@ -71,13 +71,13 @@
 {% block javascripts %}
     {{ block.super }}
 
-    <script type="text/javascript" src="{{ JQUERY_URL }}"></script>
-    <script type="text/javascript" src="{{ JQUERY_UI_URL }}"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
     
     {% ifequal query.pop '2' %} <!-- TinyMCE -->
         <script language="javascript" type="text/javascript" src="{% static "grappelli/tinymce/jscripts/tiny_mce/tiny_mce_popup.js" %}"></script>
         <script language="javascript" type="text/javascript" src="{% static "filebrowser/js/FB_TinyMCE.js" %}"></script>
-        <script language="javascript" type="text/javascript" src="{{ JETSON_MEDIA_URL }}js/admin/FB_TinyMCE_ext.js"></script>
+        <script language="javascript" type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/FB_TinyMCE_ext.js' %}"></script>
         {% if query.mce_rdomain %}<script language="javascript">document.domain = "{{ query.mce_rdomain }}"</script>{% endif %}
     {% endifequal %}
     {% ifequal query.pop '3' %} <!-- CKeditor (former "FCKeditor") -->

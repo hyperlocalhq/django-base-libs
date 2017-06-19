@@ -32,6 +32,7 @@ INFOSUBSCRIPTION_STATUS_CHOICES = (
     ("unsubscribed", _("Unsubscribed")),
     )
 
+
 class Settings(models.Model):
     api_key = models.CharField(_("API key"), max_length=200, blank=True)
     double_optin = models.BooleanField(_("Double Optin"), default=True, help_text=_("Flag to control whether a double opt-in confirmation message is sent. ABUSING THIS MAY CAUSE YOUR ACCOUNT TO BE SUSPENDED."))
@@ -48,12 +49,13 @@ class Settings(models.Model):
     def __unicode__(self):
         return force_unicode(self.api_key)
 
+
 class Subscription(CreationModificationDateMixin):
     subscriber = models.ForeignKey(User, verbose_name=_("Subscriber"), null=True, blank=True)
     first_name = models.CharField(_("First name"), max_length=200, blank=True)
     last_name = models.CharField(_("Last name"), max_length=200, blank=True)
     email = models.EmailField(_("Email address"), blank=True)
-    ip = models.IPAddressField(_("IP Address"), blank=True)
+    ip = models.GenericIPAddressField(_("IP Address"), blank=True, null=True)
     mailinglist = models.ForeignKey('MList', verbose_name=_("Mailing list"))
     status = models.CharField(_("Status"), max_length=200, blank=True, choices=INFOSUBSCRIPTION_STATUS_CHOICES)
     

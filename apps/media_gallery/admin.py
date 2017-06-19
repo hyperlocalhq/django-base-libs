@@ -1,8 +1,9 @@
 # -*- coding: UTF-8 -*-
+from copy import deepcopy
+
 from django.db import models
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
-from django.utils.encoding import force_unicode
 from django.forms.models import ModelForm
 from django.forms.models import BaseModelFormSet
 from django.forms.models import BaseInlineFormSet
@@ -10,14 +11,9 @@ from django.forms.models import modelformset_factory
 from django.forms.models import save_instance
 from django.forms.formsets import DELETION_FIELD_NAME
 from django.contrib.admin.util import flatten_fieldsets
-from django.conf import settings
 
-from base_libs.admin.options import ExtendedStackedInline
 from base_libs.models.admin import ObjectRelationMixinAdminOptions
-from base_libs.models.admin import ObjectRelationMixinAdminForm
 from base_libs.models.admin import get_admin_lang_section
-from base_libs.middleware import get_current_language
-from base_libs.admin import ExtendedModelAdmin
 from base_libs.admin import ExtendedStackedInline
 
 import filebrowser.settings as filebrowser_settings
@@ -196,20 +192,19 @@ class MediaFile_Inline(ExtendedStackedInline):
     fieldsets += [(None, {'fields': ("sort_order", )}),]
 
 
-class MediaGalleryAdminForm(ObjectRelationMixinAdminForm()):
-    pass
+ObjectRelationAdminMixin = ObjectRelationMixinAdminOptions(admin_order_field="content_object_repr")
 
 
-class MediaGalleryOptions(ObjectRelationMixinAdminOptions(admin_order_field="content_object_repr")):
-    form = MediaGalleryAdminForm
+class MediaGalleryOptions(ObjectRelationAdminMixin):
     save_on_top = True
     inlines = [MediaFile_Inline]
     list_display = ('id', '__unicode__', 'content_type', 'get_content_object_display', 'creation_date', 'file_count', 'views', 'is_featured')
+    list_editable = ('is_featured',)
     list_display_links = ('id', '__unicode__',)
     list_filter = ['creation_date', 'content_type', 'is_featured']
     search_fields = ["title", "content_object_repr"]
     date_hierarchy = 'creation_date'
-    fieldsets = ObjectRelationMixinAdminOptions().fieldsets
+    fieldsets = deepcopy(ObjectRelationAdminMixin.fieldsets)
     fieldsets += get_admin_lang_section(None, ['title', 'description'])
     fieldsets += [
         (_("Cover"), {'fields': ("cover_image",), 'classes': ["grp-collapse grp-closed"]}),

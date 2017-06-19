@@ -29,9 +29,10 @@ from django.utils.timezone import now as tz_now
 from django.shortcuts import redirect
 from django import forms
 
-from ccb.apps.events.utils import create_ics
 from base_libs.utils.misc import ExtendedJSONEncoder
 from base_libs.utils.betterslugify import better_slugify
+
+from jetson.apps.events.utils import create_ics
 
 
 class JsonResponse(HttpResponse):
@@ -177,7 +178,7 @@ class CustomPaginator(Paginator):
 
 def object_list(request, queryset,
     paginate_by=None, order_by=None, view_type="icons", page=None,
-    allow_empty=False, template_name=None, template_loader=loader,
+    allow_empty=False, template=None, template_name=None, template_loader=loader,
     extra_context=None, context_processors=None, template_object_name="object",
     content_type=None, pages_to_display=10, query="", httpstate_prefix="", paginate=True, first_page_delta=0, **kwargs):
     """
@@ -394,15 +395,21 @@ def object_list(request, queryset,
     c['query'] = query or urlencode(the_query)
     
     c['path_without_page'] = re.sub('/page[0-9]+', '', request.path)
-    
-    if not template_name:
-        model = queryset.model
-        template_name = "%s/%s_list.html" % (model._meta.app_label, model._meta.object_name.lower())
-    t = template_loader.get_template(template_name)
+
+    if template:
+        t = template
+    else:
+        if not template_name:
+            model = queryset.model
+            template_name = "%s/%s_list.html" % (model._meta.app_label, model._meta.object_name.lower())
+        if isinstance(template_name, (tuple, list)):
+            t = template_loader.select_template(template_name)
+        else:
+            t = template_loader.get_template(template_name)
     return HttpResponse(t.render(c), content_type=content_type)
 
 def object_detail(request, queryset, year=0, month=0, day=0, object_id=None, slug=None,
-        slug_field=None, template_name=None, template_name_field=None,
+        slug_field=None, template=None, template_name=None, template_name_field=None,
         template_loader=loader, extra_context=None,
         context_processors=None, template_object_name='object',
         content_type=None, **kwargs):
@@ -414,26 +421,36 @@ def object_detail(request, queryset, year=0, month=0, day=0, object_id=None, slu
         object
             the object
     """
-    if extra_context is None: extra_context = {}
+    if extra_context is None:
+        extra_context = {}
+
     model = queryset.model
+
     if object_id:
         queryset = queryset.filter(pk=object_id)
     elif slug and slug_field:
         queryset = queryset.filter(**{slug_field: slug})
     else:
         raise AttributeError, "Generic detail view must be called with either an object_id or a slug/slug_field."
+
     try:
         obj = queryset.get()
     except ObjectDoesNotExist:
         raise Http404, "%s does not exist." % force_unicode(model._meta.verbose_name).capitalize()
-    if not template_name:
-        template_name = "%s/%s_detail.html" % (model._meta.app_label, model._meta.object_name.lower())
-    if template_name_field:
-        template_name_list = [getattr(obj, template_name_field), template_name]
-        t = template_loader.select_template(template_name_list)
+
+    if template:
+        t = template
     else:
-        t = template_loader.get_template(template_name)
-        
+        if not template_name:
+            template_name = "%s/%s_detail.html" % (model._meta.app_label, model._meta.object_name.lower())
+        if template_name_field:
+            template_name = [getattr(obj, template_name_field), template_name]
+
+        if isinstance(template_name, (tuple, list)):
+            t = template_loader.select_template(template_name)
+        else:
+            t = template_loader.get_template(template_name)
+
     if request.httpstate.get('current_queryset_model', None) == u"%s.%s" % (queryset.model._meta.app_label, queryset.model.__name__):
         request.httpstate['current_object_id'] = obj.pk
     elif 'current_object_id' in request.httpstate:

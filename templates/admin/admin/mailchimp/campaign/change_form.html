@@ -16,8 +16,8 @@
             DATETIME_FORMAT = "{% get_datetime_format %}";
     </script>
     <!-- jQuery, jQuery-UI -->
-    <script type="text/javascript" src="{{ JQUERY_URL }}"></script>
-    <script type="text/javascript" src="{{ JQUERY_UI_URL }}"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
     {% if debug %}
         <!-- Grappelli Main JS -->
         <script src="{% static "grappelli/js/grappelli.js" %}" type="text/javascript"></script>
@@ -36,34 +36,33 @@
         <!-- Grappelli Minified -->
         <script src="{% static "grappelli/js/grappelli.min.js" %}" type="text/javascript"></script>
     {% endif %}
-  	<script type="text/javascript" src="/{{ LANGUAGE_CODE }}/jssettings/"></script>
+    <script type="text/javascript" src="{% url 'jssettings' %}"></script>
     {% url 'admin:jsi18n' as jsi18nurl %}
     <script type="text/javascript" src="{{ jsi18nurl|default:'../../../jsi18n/' }}"></script>
 
-    <script type="text/javascript" src="{{ JQUERY_URL }}"></script>
-    <script type="text/javascript" src="{{ JQUERY_UI_URL }}"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
 
-    <script src="{{ STATIC_URL }}grappelli/js/jquery.grp_inline.js" type="text/javascript"></script>
+    <script src="{% static 'grappelli/js/jquery.grp_inline.js' %}" type="text/javascript"></script>
 
-    <script type="text/javascript" src="{{ jetson_media_url }}js/admin/MultilingualFieldHelper.js"></script>
+    <script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/MultilingualFieldHelper.js' %}"></script>
 
     <!-- CKEDITOR -->
-    <script type="text/javascript" src="{{ STATIC_URL }}bower_components/ckeditor/ckeditor.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}filebrowser/js/FB_CKEditor.js"></script>
+    <script type="text/javascript" src="{% static 'bower_components/ckeditor/ckeditor.js' %}"></script>
+    <script type="text/javascript" src="{% static 'filebrowser/js/FB_CKEditor.js' %}"></script>
     <script type="text/javascript">
         if (CKEDITOR) {
-            // Added by Roger Hu 02/27/2010
             CKEDITOR.config.filebrowserBrowseUrl = '/admin/filebrowser/browse?pop=3';
             CKEDITOR.config.allowedContent = true;
         }
     </script>
 
     <!-- MARKUP HELPER -->
-    <script type="text/javascript" src="{{ jetson_media_url }}js/admin/MarkupHelper.js"></script>
+    <script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/MarkupHelper.js' %}"></script>
 
     {% block tinymce_setup %}
     {% endblock %}
-	  <script type="text/javascript" src="{{ jetson_media_url }}js/admin/change_form.js"></script>
+	  <script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/change_form.js' %}"></script>
 
     <script type="text/javascript" charset="utf-8">
         (function($) {

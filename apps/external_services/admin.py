@@ -6,7 +6,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.models.admin import ObjectRelationMixinAdminOptions
-from base_libs.models.admin import ObjectRelationMixinAdminForm
 
 Service = models.get_model("external_services", "Service")
 ObjectMapper = models.get_model("external_services", "ObjectMapper")
@@ -27,21 +26,19 @@ class ServiceOptions(ExtendedModelAdmin):
             }),
         )
 
+
 class ObjectMapperOptions(ObjectRelationMixinAdminOptions()):
-    form = ObjectRelationMixinAdminForm()
     save_on_top = True
     list_display = ('id', 'external_id', 'get_content_object_display', 'service')
     list_display_links = ('id', 'external_id')
-        
-    list_filter =  ('service', 'content_type',)
-    
+    list_filter = ('service', 'content_type',)
     search_fields = ('service__title', 'external_id',)
-    
     fieldsets = [
         (None, {
-            'fields':  ('service', 'content_type', 'object_id', 'external_id',)
+            'fields': ('service', 'content_type', 'object_id', 'external_id',)
         }),
     ]
+
 
 class ServiceActionLogOptions(ExtendedModelAdmin):
     save_on_top = True

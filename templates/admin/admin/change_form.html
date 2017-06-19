@@ -2,12 +2,12 @@
 
 <!-- LOADING -->
 {% load url from future %}
-{% load admin_static i18n admin_modify grp_tags %}
+{% load admin_static i18n admin_modify grp_tags static %}
 
 <!-- STYLESHEETS -->
 {% block stylesheets %}
     {{ block.super }}
-    <link rel="stylesheet" type="text/css" href="{{ jetson_media_url }}css/admin/MultilingualFieldHelper.css" />
+    <link rel="stylesheet" type="text/css" href="{% url 'jetson_media_url' path='css/admin/MultilingualFieldHelper.css' %}" />
 {% endblock %}
 
 <!-- JAVASCRIPTS -->
@@ -16,29 +16,28 @@
     {% url 'admin:jsi18n' as jsi18nurl %}
     <script type="text/javascript" src="{{ jsi18nurl|default:'../../../jsi18n/' }}"></script>
 
-    <script type="text/javascript" src="{{ JQUERY_URL }}"></script>
-    <script type="text/javascript" src="{{ JQUERY_UI_URL }}"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
 
-    <script src="{{ STATIC_URL }}grappelli/js/jquery.grp_inline.js" type="text/javascript"></script>
+    <script src="{% static 'grappelli/js/jquery.grp_inline.js' %}" type="text/javascript"></script>
 
-    <script type="text/javascript" src="{{ jetson_media_url }}js/admin/MultilingualFieldHelper.js"></script>
+    <script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/MultilingualFieldHelper.js' %}"></script>
 
     <!-- CKEDITOR -->
-    <script type="text/javascript" src="{{ STATIC_URL }}bower_components/ckeditor/ckeditor.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}filebrowser/js/FB_CKEditor.js"></script>
+    <script type="text/javascript" src="{% static 'bower_components/ckeditor/ckeditor.js' %}"></script>
+    <script type="text/javascript" src="{% static 'filebrowser/js/FB_CKEditor.js' %}"></script>
     <script type="text/javascript">
         if (CKEDITOR) {
-            // Added by Roger Hu 02/27/2010
             CKEDITOR.config.filebrowserBrowseUrl = '/admin/filebrowser/browse?pop=3';
         }
     </script>
 
     <!-- MARKUP HELPER -->
-    <script type="text/javascript" src="{{ jetson_media_url }}js/admin/MarkupHelper.js"></script>
+    <script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/MarkupHelper.js' %}"></script>
 
     {% block tinymce_setup %}
     {% endblock %}
-	<script type="text/javascript" src="{{ jetson_media_url }}js/admin/change_form.js"></script>
+	<script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/change_form.js' %}"></script>
 
     <script type="text/javascript" charset="utf-8">
         (function($) {

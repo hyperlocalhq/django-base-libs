@@ -68,6 +68,7 @@ def date_de_to_en(date_string):
     date_string = date_string.replace("Sa,", "Sat,")
     date_string = date_string.replace("So,", "Sun,")
     date_string = date_string.replace("Mrz", "Mar")
+    date_string = date_string.replace(u"Mär", "Mar")
     date_string = date_string.replace("Mai", "May")
     date_string = date_string.replace("Okt", "Oct")
     date_string = date_string.replace("Dez", "Dec")

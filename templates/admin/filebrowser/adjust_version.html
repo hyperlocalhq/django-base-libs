@@ -8,8 +8,8 @@
 {% block stylesheets %}
     {{ block.super }}
     <link rel="stylesheet" type="text/css" href="{{ settings_var.URL_FILEBROWSER_MEDIA }}css/filebrowser.css" />
-    <link rel="stylesheet" href="{{ jetson_media_url }}Jcrop/css/jquery.Jcrop.css" type="text/css" />
-    <link rel="stylesheet" media="screen" type="text/css" href="{{ jetson_media_url }}colorpicker/css/colorpicker.css" />
+    <link rel="stylesheet" href="{% url 'jetson_media_url' path='Jcrop/css/jquery.Jcrop.css' %}" type="text/css" />
+    <link rel="stylesheet" media="screen" type="text/css" href="{% url 'jetson_media_url' path='colorpicker/css/colorpicker.css' %}" />
 
     {% if query.pop %}
     <style type="text/css">
@@ -58,15 +58,15 @@
     {{ media }}
     
     <!--
-    <script type="text/javascript" src="{{ JQUERY_URL }}"></script>
-    <script type="text/javascript" src="{{ JQUERY_UI_URL }}"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
     -->
     <script>
         var jQuery = grp.jQuery;
     </script>
     
-    <script type="text/javascript" src="{{ jetson_media_url }}Jcrop/js/jquery.Jcrop.min.js"></script>
-    <script type="text/javascript" src="{{ jetson_media_url }}colorpicker/js/colorpicker.js"></script>    
+    <script type="text/javascript" src="{% url 'jetson_media_url' path='Jcrop/js/jquery.Jcrop.min.js' %}"></script>
+    <script type="text/javascript" src="{% url 'jetson_media_url' path='colorpicker/js/colorpicker.js' %}"></script>
     <script type="text/javascript">
     if (!window.nothing) {
         nothing = function(){};

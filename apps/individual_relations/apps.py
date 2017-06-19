@@ -2,11 +2,14 @@
 from __future__ import unicode_literals
 from django.apps import AppConfig, apps
 
-class IndividualRelationsConfig(AppConfig):
-    name = 'jetson.apps.individual_relations'
 
-    def ready(self):
-        add_methods_to_person()
+def create_notice_types(app, created_models, verbosity, **kwargs):
+    from jetson.apps.notification import models as notification
+    notification.create_notice_type("individual_relation_requested", "Individual Relation Requested",
+                                    "someone has invited you to be his friend", default=1)
+    notification.create_notice_type("individual_relation_confirmed", "Individual Relation Confirmed",
+                                    "someone has confirmed you as his friend", default=1)
+
 
 def add_methods_to_person():
     """Additional methods to Person model"""
@@ -185,3 +188,13 @@ def add_methods_to_person():
     Person.get_all_person_invitations = get_all_person_invitations
     Person.get_person_invitation_requests = get_person_invitation_requests
     Person.get_person_invitation_requested = get_person_invitation_requested
+
+
+class IndividualRelationsConfig(AppConfig):
+    name = 'jetson.apps.individual_relations'
+
+    def ready(self):
+        from django.db.models import signals
+        from jetson.apps.notification import models as notification
+        add_methods_to_person()
+        signals.post_migrate.connect(create_notice_types, sender=notification)

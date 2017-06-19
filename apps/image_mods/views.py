@@ -11,6 +11,7 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.http import Http404
+from django.http import HttpResponseBadRequest
 from django.shortcuts import render_to_response, get_object_or_404
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.core.urlresolvers import reverse
@@ -441,13 +442,19 @@ def recrop(request):
     sysname = request.GET.get('sysname', '')
     token = request.GET.get('token', '')
     goto_next = request.GET.get('goto_next', '/')
-    
+
+    if not orig_path:
+        return HttpResponseBadRequest(ugettext("Path is not defined"))
+
+    if not sysname:
+        return HttpResponseBadRequest(ugettext("Modification sysname is not defined"))
+
+    if not token:
+        return HttpResponseBadRequest(ugettext("Token is not defined"))
+
     mod = get_object_or_404(image_mods.ImageModification, sysname=sysname)
     cp_mod = get_object_or_404(image_mods.ImageModification, sysname="cropping_preview")
-    
-    if not orig_path:
-        raise Http404, ugettext("Path is not defined")
-        
+
     if image_mods.FileManager.tokenize(request.user.username, orig_path) != token:
         return access_denied(request)
         
@@ -469,7 +476,7 @@ def recrop(request):
     try:
         orig_im = Image.open(abs_orig_path)
     except:
-        raise Http404, ugettext("Image does not exist")
+        return HttpResponseBadRequest(ugettext("Image does not exist"))
     orig_size=orig_im.size
     del orig_im
     

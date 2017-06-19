@@ -13,7 +13,7 @@ from jetson.apps.people.functions import get_user_language
 
 from base_libs.utils.misc import get_installed
 
-from huey.contrib.djhuey import db_task, task, crontab, periodic_task
+from huey.contrib.djhuey import db_task
 
 send_email_using_template = get_installed("mailing.views.send_email_using_template")
 Recipient = get_installed("mailing.recipient.Recipient")
