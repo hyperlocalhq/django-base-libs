@@ -1,6 +1,8 @@
 # coding: utf-8
 
 # DJANGO IMPORTS
+import json
+
 from django import template
 from django.utils.http import urlquote
 
@@ -160,6 +162,6 @@ def get_file_extensions(qs):
         for k, v in EXTENSIONS.items():
             for item in v:
                 if item: extensions.append(item)
-    return extensions
+    return json.dumps(extensions)
 
 register.simple_tag(get_file_extensions)
