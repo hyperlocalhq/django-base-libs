@@ -29,9 +29,10 @@ from django.utils.timezone import now as tz_now
 from django.shortcuts import redirect
 from django import forms
 
-from ccb.apps.events.utils import create_ics
 from base_libs.utils.misc import ExtendedJSONEncoder
 from base_libs.utils.betterslugify import better_slugify
+
+from jetson.apps.events.utils import create_ics
 
 
 class JsonResponse(HttpResponse):
