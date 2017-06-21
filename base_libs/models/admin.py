@@ -86,7 +86,7 @@ class PublishingMixinAdminOptions(ExtendedModelAdmin):
     """
     admin options for PublishingMixin
     """
-    list_filter = ('author', 'status', 'published_from', 'published_till')   
+    list_filter = ('status', 'published_from', 'published_till')
     
     fieldsets = [(_('Publish Status'), {
         'fields': ('author', 'status', 'published_from', 'published_till',),
