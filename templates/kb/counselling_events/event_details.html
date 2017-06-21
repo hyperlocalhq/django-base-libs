@@ -1,0 +1,56 @@
+{% extends "base_sidebar_counselling.html" %}
+{% load i18n base_tags auth_extended events cms_tags image_mods_tags %}
+
+{% block title %}{{ object.get_title|escape }}{% endblock %}
+
+{% block meta_tags %}
+    {{ block.super }}
+    <meta name="description" content="{{ object.get_description|striptags|truncatewords:100 }}..."/>
+{% endblock %}
+
+{% block headline %}
+    <h1>{{ object.title }}</h1>
+    <p>
+        {% if event_time %}
+            {% with event_time as time %}
+                {% include "counselling_events/includes/event_time.html" %}
+            {% endwith %}
+        {% else %}
+            {% with object.get_nearest_occurrence as time %}
+                {% include "counselling_events/includes/event_time.html" %}
+            {% endwith %}
+        {% endif %}
+    </p>
+{% endblock %}
+
+{% block sidebar %}
+
+    {% if object.image %}
+        <img id="profile-image-sidebar" src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if object.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ object.title|escape }}"/>
+    {% else %}
+        <!-- <img id="profile-image-sidebar" src="{{ STATIC_URL }}site/img/placeholder/event.png" alt="{{ object.title|escape }}"/> -->
+    {% endif %}
+                        
+{% endblock %}
+
+{% block details %}
+
+    {% if object.is_editable %}
+        <div id="avatar-edit-frame" class="edit-iframe"></div>
+    {% endif %}
+
+    {% include "counselling_events/profile/contact.html" %}
+    
+    {% include "counselling_events/profile/description.html" %}
+    
+    {% include "counselling_events/profile/event_times.html" %}
+    
+    {% include "counselling_events/profile/fees_opening_hours.html" %}
+    
+    {% include "counselling_events/profile/organizer.html" %}
+    
+    {% include "counselling_events/profile/additional_info.html" %}
+    
+    {% include "counselling_events/profile/categories.html" %}
+
+{% endblock %}

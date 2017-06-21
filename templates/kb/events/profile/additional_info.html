@@ -1,0 +1,40 @@
+{% load i18n base_tags auth_extended babel %}
+
+{% if object.get_additional_info or object.related_events.count or object.is_editable %}
+        <div
+            class="fieldset {% if object.is_editable %}editable switch{% else %}not-editable{% endif %}"
+            data-edit-url="{% url 'edit_profile' object_type='event' slug=object.slug %}additional_info/">
+            <fieldset disabled>
+                <h2>{% trans "Additional Info" %}</h2>
+
+                {% if object.get_additional_info %}
+                    <dl class="input-fields">
+                        <dt>{% trans "Additional Info" %}</dt>
+                        <dd>
+                            <div class="text-field">{{ object.get_additional_info|safe }}</div>
+                        </dd>
+                        <dd class="clearfix"></dd>
+                    </dl>
+                {% endif %}
+
+                {% comment %}
+                {% if object.related_events.count %}
+                    <dl class="input-fields">
+                        <dt>{% trans "Related Events" %}</dt>
+                        <dd>
+                            <div class="text-field">
+                                {% for ev in object.related_events.all %}
+                                    <div>
+                                        <a href="{{ ev.get_url_path }}">{{ ev.get_title }}</a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </dd>
+                        <dd class="clearfix"></dd>
+                    </dl>
+                {% endif %}
+                {% endcomment %}
+            </fieldset>
+        </div>
+{% endif %}
+

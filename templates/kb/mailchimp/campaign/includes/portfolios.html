@@ -1,0 +1,98 @@
+{% load image_mods_tags babel base_tags i18n %}
+            
+<!-- Chapter -->
+
+<table width="600" height="80" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" style="mso-table-lspace:0pt;mso-table-rspace:0pt;padding:0px;margin:0px; border-collapse:collapse;">
+  <tr>
+    <td height="20"><span style="font-size:2px;">&nbsp;</span></td>
+  </tr>
+  <tr>
+    <td height="40" align="center" style="border-collapse:collapse;border-bottom:1px solid #AAAAAA; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#000000; text-transform:uppercase;">{% trans 'Featured <b>Portfolios</b>' %}</td>
+  </tr>
+  <tr>
+    <td height="20"><span style="font-size:2px;">&nbsp;</span></td>
+  </tr>
+</table>
+
+
+<!--3 Column Images & Text -->
+<table width="600" height="260" bgcolor="#FFFFFF" cellspacing="0" cellpadding="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;padding:0px;margin:0px; border-collapse:collapse;">
+    
+    {% get_objects newest_featured media_gallery.MediaGallery 6 as newest_objects %}
+    {% for gallery in newest_objects %}
+        {% with gallery.content_object as content_object %}
+    
+            {% if forloop.counter0|divisibleby:3 %}
+                <tr>
+            {% endif %}
+            
+                <!-- Column -->
+                <td>
+                    <table width="186" height="260" cellspacing="0" cellpadding="0" bgcolor="#666666" style="mso-table-lspace:0pt;mso-table-rspace:0pt;padding:0px;margin:0px; border-collapse:collapse;">
+                        <tr>
+                            <td width="186" height="200"><a href="{{ content_object.get_url }}portfolio/" target="_blank"><img width="186" height="200" style="border: 0;" src="{% if gallery.cover_image %}http://www.creative-city-berlin.de/media/{{ gallery.cover_image|modified_path:"newsletter_portfolio" }}{% else %}http://www.creative-city-berlin.de/media/newsletter-static/portfolio.png{% endif %}" alt=""/></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="186" height="60">
+                                <!-- Title goes here -->
+                                    <table width="186" height="60" cellspacing="0" cellpadding="0" bgcolor="#666666" style="mso-table-lspace:0pt;mso-table-rspace:0pt;padding:0px;margin:0px; border-collapse:collapse;">
+                                        <tr>
+                                            <td width="20" height="10"><span style="font-size:2px; line-height:2px;">&nbsp;</span>
+                                            </td>
+                                            <td width="146" height="10"><span style="font-size:2px; line-height:2px;">&nbsp;</span>
+                                            </td>
+                                            <td width="20" height="10"><span style="font-size:2px; line-height:2px;">&nbsp;</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="20" height="40"><span style="font-size:2px; line-height:2px;">&nbsp;</span>
+                                            </td>
+                                            <td width="146" height="40" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; font-weight:bold; line-height:18px;">
+                                                <a href="{{ content_object.get_url }}portfolio/" style="color:#FFFFFF; color:#FFFFFF !important; text-decoration:none;" target="_blank"><span style="color: #ffffff;">{{ content_object.get_title }}</span></a>
+                                            </td>
+                                            <td width="20" height="40"><span style="font-size:2px; line-height:2px;">&nbsp;</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="20" height="10"><span style="font-size:2px; line-height:2px;">&nbsp;</span>
+                                            </td>
+                                            <td width="146" height="10"><span style="font-size:2px; line-height:2px;">&nbsp;</span>
+                                            </td>
+                                            <td width="20" height="10"><span style="font-size:2px; line-height:2px;">&nbsp;</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            
+                {% if forloop.counter == 1 or forloop.counter == 2 or forloop.counter == 4 or forloop.counter == 5 %}
+                    <!--Spacer -->
+                    <td width="21" height="260"><span style="font-size:2px;">&nbsp;</span></td>
+                {% endif %}
+            
+            {% if forloop.counter|divisibleby:3 or forloop.last %}
+                </tr>
+                
+                {% if not forloop.last %}
+                    <tr>
+                        <td height="10" colspan="5"><span style="font-size:2px; line-height:2px;">&nbsp;</span></td>
+                    </tr>
+                {% endif %}
+            {% endif %}
+        
+        {% endwith %}
+    {% endfor %}
+</table>
+
+
+<!-- Link more -->
+<table width="600" height="30" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" style="mso-table-lspace:0pt;mso-table-rspace:0pt;padding:0px;margin:0px; border-collapse:collapse;">
+  <tr>
+    <td style="font-family:Arial, Helvetica, sans-serif;font-size:12px; line-height:20px; text-align:right;"><a href="http://www.creative-city-berlin.de/{{ LANGUAGE_CODE }}/portfolios/" style="color:#00bcee; text-decoration:none" target="_blank">{% trans 'all portfolios' %}...</a>
+    </td>
+  </tr>
+</table>
+

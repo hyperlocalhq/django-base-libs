@@ -1,0 +1,2 @@
+{% load image_mods_tags %}
+<img src="{{ UPLOADS_URL }}{{ media_file.path|modified_path:"article" }}" alt="{{ media_file.get_title|escape }}" data-popup-image-src="{{ UPLOADS_URL }}{{ media_file.path }}" data-popup-image-gallery="gallery" />

@@ -1,0 +1,21 @@
+{% extends "media_gallery/portfolio_base.html" %}
+{% load i18n %}
+
+{% block details %}
+    <div id="delete_mediafile">
+        <form action="" method="post" class="uniForm">{% csrf_token %}
+            <div class="fieldset editable">
+                <fieldset>
+                    <h2>{% trans "Delete media file?" %}</h2>
+                    <p>{% blocktrans %}Do you really want to delete this media file?{% endblocktrans %}</p>
+                </fieldset>
+            </div>
+            <div>
+                <a href="{{ request.META.HTTP_REFERER }}" class="btn">{% trans "Cancel" %}</a>
+                <button type="submit" class="btn btn-danger">{% trans "Delete" %}</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+

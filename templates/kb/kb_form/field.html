@@ -1,0 +1,29 @@
+{% load crispy_forms_field %}
+
+
+{% if field.is_hidden %}
+    {{ field }}
+{% else %}
+    {% if field.label and not field|is_checkbox and form_show_labels %}
+        <dt class="{{ wrapper_class }}">{{ field.label|safe }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}</dt>
+    {% endif %}
+    {% if field|is_checkbox %}
+        <dt class="{{ wrapper_class }}"> </dt>
+    {% endif %}
+    <dd class="{{ wrapper_class }}">
+        {% if field|is_checkboxselectmultiple %}
+            {% include 'kb_form/layout/checkboxselectmultiple.html' %}
+        {% elif field|is_radioselect %}
+            {% include 'kb_form/layout/radioselect.html' %}
+        {% else %}
+            <div class="input-field {% if field|is_select %}select{% elif field|is_file %}file{% elif field|is_checkbox %}box{% else %}text{% endif %} {% if not field|is_checkbox and form_show_errors and field.errors %}error{% endif %}">
+                {% crispy_field field %}
+                {% if field|is_checkbox %}
+                    <label for="{{ field.id_for_label }}">{{ field.label|safe }}</label>
+                {% endif %}
+            </div>
+            {% include 'kb_form/layout/help_text_and_errors.html' %}
+        {% endif %}
+    </dd>
+    <dd class="clearfix"></dd>
+{% endif %}

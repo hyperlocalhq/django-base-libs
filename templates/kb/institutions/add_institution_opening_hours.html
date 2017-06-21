@@ -1,0 +1,7 @@
+{% extends "kb/institutions/add_base.html" %}
+{% load base_tags i18n %}
+
+{% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/opening_hours.js"></script>
+{% endblock %}

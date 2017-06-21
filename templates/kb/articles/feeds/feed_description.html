@@ -1,0 +1,8 @@
+{% load base_tags %}
+{% if obj.description %}
+    {% parse obj.get_rendered_description as description %}
+{% else %}
+    {% parse obj.get_rendered_content as description %}
+{% endif %}
+{{ description }}
+

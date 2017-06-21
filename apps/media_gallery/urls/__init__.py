@@ -1,14 +1,46 @@
-# -*- coding: utf-8 -*-
-from django.conf.urls import *
+# -*- coding: UTF-8 -*-
+from django.conf.urls import patterns, url
 
-from base_libs.utils.misc import path_in_installed_app
+from kb.apps.media_gallery.feeds import MediaGalleryRssFeed, MediaGalleryAtomFeed
+from kb.apps.media_gallery.models import MediaGallery
 
-urlpatterns = patterns(path_in_installed_app("media_gallery.views"),
-    url(r'^$', 'gallery_detail', ),
-    url(r'^add/((?P<media_file_type>[^/]+)/)?$', 'create_update_mediafile', ),
-    url(r'^file_(?P<token>[^/]+)/$', 'create_update_mediafile', ),
-    url(r'^file_(?P<token>[^/]+)/delete/$', 'delete_mediafile', ),
-    url(r'^file_(?P<token>[^/]+)/popup_delete/$', 'delete_mediafile_popup', ),
-    url(r'^file_(?P<token>[^/]+)/json/$', 'json_show_file',),
+gallery_list_info = {
+    'queryset': MediaGallery.objects.all(),
+    'template_name': 'media_gallery/gallery_list.html',
+    'paginate_by': 24,
+    'allow_empty': True,
+}
+
+latest_media_galleries = {
+    'rss': MediaGalleryRssFeed(),
+    'atom': MediaGalleryAtomFeed(),
+    'queryset': MediaGallery.objects.order_by("-creation_date")[:50],
+}
+
+urlpatterns = (
+    url(
+        r'^$',
+        'kb.apps.media_gallery.views.gallery_list',
+        gallery_list_info,
+    ),
+    url(
+        r'^(?P<show>favorites)/$',
+        'kb.apps.media_gallery.views.gallery_list',
+        gallery_list_info,
+    ),
+    url(
+        r'^(?P<show>memos)/$',
+        'kb.apps.media_gallery.views.gallery_list',
+        gallery_list_info,
+    ),
+    url(
+        r'^(?P<show>all)/$',
+        'kb.apps.media_gallery.views.gallery_list',
+        gallery_list_info,
+    ),
+    url(
+        r'^feeds/(?P<feed_type>.*)/$',
+        'jetson.apps.utils.views.feed',
+        latest_media_galleries,
+    ),
 )
-

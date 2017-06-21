@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
+import re
 from django.conf import settings
-from django.db.models.loading import get_model, load_app
 from django.template import loader, Template, Context
 from django import template
+from django.template import Context, Template
 
-from jetson.apps.navigation.models import NavigationLink
 from base_libs.utils.misc import get_website_url
+from kb.apps.navigation.models import NavigationLink
+from kb.apps.navigation.navigation_links import navigation_links
 
 register = template.Library()
 
@@ -101,6 +103,70 @@ class ChildrenOfNavLink(template.Node):
 
 register.tag('children_of', do_children_of)
 
+
+def do_navigation_links(parser, token):
+    """
+    This will output the children of NavigationLink with the specified sysname. By default it uses the template navigation/children.html, but optionally you can set some custom template.
+
+    Usage::
+
+        {% navigation_links <sysname> [using <template_path>] %}
+
+    Examples::
+
+        {% navigation_links "public_info" %}
+        {% navigation_links "profiles" using "navigation/includes/navigation_links_in_tabs.html" %}
+
+    """
+    try:
+        tag_name, sysname, str_using, template_path = token.split_contents()
+    except ValueError:
+        template_path = ""
+        try:
+            tag_name, sysname = token.split_contents()
+        except ValueError:
+            raise template.TemplateSyntaxError, "%r tag requires a following syntax: {%% %r <sysname> [using <template_path>] %%}" % token.contents[0]
+    return NavigationLinks(sysname, template_path)
+
+class NavigationLinks(template.Node):
+    def __init__(self, sysname, template_path):
+        self.sysname = sysname
+        self.template_path = template_path
+    def render(self, context):
+        sysname = template.resolve_variable(self.sysname, context)
+        try:
+            template_path = template.resolve_variable(self.template_path, context)
+        except:
+            template_path = ""
+
+        request = context['request']
+        links = []
+        links_config = navigation_links.get(sysname, [])
+        for config in links_config:
+            if config['should_be_shown'](context):
+                url_template = Template(config['url_{}'.format(context['LANGUAGE_CODE'])])
+                text_template = Template(config['text_{}'.format(context['LANGUAGE_CODE'])])
+                highlight_pattern_template = Template(config['highlight_pattern'])
+                is_highlighted = bool(re.compile(highlight_pattern_template.render(context)).search(request.path))
+                link = {
+                    'url': url_template.render(context),
+                    'text': text_template.render(context),
+                    'sysname': sysname,
+                    'is_highlighted': is_highlighted,
+                    'is_promoted': config.get('is_promoted', False),
+                    'is_login_required': config.get('is_login_required', False),
+                    'icon': config.get('icon', ''),
+                }
+                links.append(link)
+
+        context_vars = context
+        context_vars.push()
+        context_vars['links'] = links
+        output = loader.render_to_string(template_path or "navigation/includes/navigation_links.html", context_vars)
+        context_vars.pop()
+        return output
+
+register.tag('navigation_links', do_navigation_links)
 
 
 def do_parse_link(parser, token):

@@ -1,0 +1,57 @@
+{% load base_tags i18n uni_form_field %}
+
+<h3>{% trans "Confirmation" %}</h3>
+<div class="ctrlHolder{% if form.privacy_policy.errors %} error{% endif %} noLabel">
+    {% for error in form.privacy_policy.errors %}
+        <p id="error_{{ forloop.counter }}_{{ field.auto_id }}" class="errorField">
+            {{ error|safe }}
+        </p>
+    {% endfor %}
+    <ul>
+        <li>
+            <label for="id_privacy_policy">
+                {{ form.privacy_policy|with_class }}
+                {% if form.privacy_policy.required %}<strong>{% endif %}
+                {{ form.privacy_policy.label|safe }}
+                {% if form.privacy_policy.required %}*</strong>{% endif %}
+            </label>
+        </li>
+    </ul>
+</div>
+<div class="ctrlHolder{% if form.terms_of_use.errors %} error{% endif %} noLabel">
+    {% for error in form.terms_of_use.errors %}
+        <p id="error_{{ forloop.counter }}_{{ field.auto_id }}" class="errorField">
+            {{ error|safe }}
+        </p>
+    {% endfor %}
+    <ul>
+        <li>
+            <label for="id_terms_of_use">
+                {{ form.terms_of_use|with_class }}
+                {% if form.terms_of_use.required %}<strong>{% endif %}
+                {{ form.terms_of_use.label|safe }}
+                {% if form.terms_of_use.required %}*</strong>{% endif %}
+            </label>
+        </li>
+    </ul>
+</div>
+<script>
+    $(function(){
+        $('label a').each(function() {
+            $(this).attr('target', '_blank');
+        });
+    });
+</script>
+{% for f in form.newsletter_fields %}
+    <div class="ctrlHolder noLabel">
+        <ul>
+            <li>
+                <label>
+                    {{ form|dict_value:f.0|with_class }}
+                    {{ f.1.label }}
+                </label>
+            </li>
+        </ul>
+    </div>
+{% endfor %}
+

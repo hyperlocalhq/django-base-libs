@@ -1,0 +1,31 @@
+{% load i18n image_mods_tags %}
+<div class="draggable_block">
+    <h3 class="dragging_handle">{% trans "New Groups" %}</h3>
+    {% if info.get_new_groups %}
+        <ul>
+            {% for group in info.get_new_groups %}
+                <li>
+                    <a href="{{ group.get_url_path }}">
+                        {% if group.image %}
+                            <img alt="{{ group.get_title|escape }}"
+                                src="{{ UPLOADS_URL }}{{ group.image|modified_path:"at" }}"/>
+                        {% else %}
+                            <img alt="{{ group.get_title|escape }}" src="{{ DEFAULT_SMALL_LOGO_4_PERSONGROUP }}"/>
+                        {% endif %}
+                        <strong>{{ group.get_title|escape }}</strong>
+                    </a>
+
+                    <p>{% for cat in group.get_object_types %}
+                        {{ cat.get_title|escape }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                    </p>
+                </li>
+            {% endfor %}
+        </ul>
+        <p class="more">
+            <a href="/{{ URL_ID_PERSONGROUPS }}/?order_by=creation_date_desc">{% trans "more..." %}</a>
+        </p>
+    {% else %}
+        <p class="nothing">{% trans "There are no public groups." %}</p>
+    {% endif %}
+</div>

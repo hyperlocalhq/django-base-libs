@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
@@ -6,7 +7,7 @@ from base_libs.models.admin import ObjectRelationMixinAdminOptions
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin.tree_editor import TreeEditor
 
-from jetson.apps.navigation.models import NavigationLink
+from kb.apps.navigation.models import NavigationLink
 
 ### Normal Navigation Admin Settings ###
 
@@ -24,17 +25,17 @@ class NavigationLinkOptions(TreeEditor, ObjectRelationMixinAdminOptions(prefix_v
     fieldsets += [(_("Link"), {
         'fields': ('content_type', 'object_id', 'link_url'),
         'description': _("If this item is a link, choose a target object or enter a URL."),
-    })]
+        })]
     fieldsets += [(_("Group"), {
         'fields': ('is_group', 'is_group_name_shown',),
         'description': _("If this item is a group of links, check 'Group of links' below."),
-    })]
+        })]
     fieldsets += get_admin_lang_section(_("Description"), ['description'], False)
     fieldsets += [(_("Availability"), {'fields': ('is_shown_for_visitors', 'is_shown_for_users','is_login_required','is_promoted',)})]
     fieldsets += [(_("Advanced"), {
         'fields': ('sysname', 'related_urls'),
         'classes': ('grp-collapse grp-closed',),
-    })]
+        })]
     
     def get_link_display(self, obj):
         if obj.content_object:

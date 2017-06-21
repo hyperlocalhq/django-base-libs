@@ -1,0 +1,65 @@
+@charset "UTF-8";
+
+.profile-image {
+    
+    margin-bottom: 40px;
+    
+    img {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    
+    .button {
+        margin-bottom: 10px;
+    }
+    
+    .is-xs & {
+        display: none;
+    }
+}
+    
+div.edit-avatar {
+    background: $black;
+    position: relative;
+    
+    a {
+        display: none;
+        position: absolute;
+        z-index: 1;
+        color: $cyan;
+        &:hover {
+            color: $cyan-dark;
+        }
+    }
+    
+    &.editable {
+    
+        &:hover {
+            img {
+                opacity: 0.6;
+            }
+            
+            a.recrop-link {
+                display: block;
+                top: 50%;
+                left: 50%;
+                margin: -20px 0 0 -13px;
+                
+                .is-xs & {
+                    margin: -10px 0 0 -7px;
+                }
+            }
+            
+            a.edit-image-link {
+                display: block;
+                top: 10px;
+                right: 10px;
+                
+                .is-xs & {
+                    top: 5px;
+                    right: 5px;
+                }
+            }
+        }
+    }
+}

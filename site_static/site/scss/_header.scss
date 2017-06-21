@@ -1,0 +1,899 @@
+// main:style.scss
+
+@charset "UTF-8";
+
+
+///////////////////////////////////////////////////////////////
+// the languages dropdown
+
+#header {
+    background: $header-bg;
+}
+
+#header, #navigation {
+    .languages {
+        width: 75px;
+        text-align: left;
+        position: absolute;
+
+        -webkit-transition: top 0.4s;
+        transition: top 0.4s;
+
+        .select-display-wrapper {
+            cursor: pointer;
+            &:after {
+                content: "\f107";
+                color: $header-font;
+                font-size: 1.33rem;
+                padding: 6px 5px 0 0;
+            }
+        }
+        .select-display {
+            color: $header-font;
+            background: $header-bg;
+            border: none;
+            border-radius: 0;
+            padding-right: 25px;
+            line-height: 200%;
+            height: 2rem;
+
+            &:focus, &:hover, &.focus {
+                border: none;
+                box-shadow: none;
+            }
+        }
+        .select-dropdown {
+            background: $header-bg;
+            color: $header-font;
+            border: 1px solid $header-border;
+            border-radius: 0;
+            box-shadow: none;
+
+        }
+    }
+}
+
+
+
+
+/////////////////////////////////////////////////////////
+// page header (the top black part with the logo)
+
+#header {
+    width: 100%;
+    height: $header-height;
+    position: relative;
+
+    .is-xs & {
+        height: $header-height-xs;
+    }
+
+    .wrapper {
+        width: 100%;
+        height: $header-height;
+        background: $header-bg;
+        text-align: center;
+        z-index: 100;
+        position: absolute;
+        top: -$header-height;
+        left: 0;
+        margin-top: $header-height;
+
+        -webkit-transition: top 0.4s, left 0.4s, margin-top 0.4s;
+        transition: top 0.4s, left 0.4s, margin-top 0.4s;
+
+        .is-xs & {
+            height: $header-height-xs;
+            top: -$header-height-xs;
+            margin-top: $header-height-xs;
+        }
+
+        .navigation-open & {
+            left: $navi-space-width;
+        }
+        .is-xs.navigation-open & {
+            left: 0;
+        }
+
+        .navigation-bg {
+            height: 100%;
+            width: $navi-space-width;
+            background: $header-bg;
+            position: absolute;
+            top: 0;
+            left: -$navi-space-width;
+        }
+    }
+
+    img.logo {
+        display: inline-block;
+        width: auto;
+        height: 100%;
+        margin: 0;
+        padding: $header-logo-padding 0;
+
+            -webkit-transition: width 0.4s, height 0.4s, padding 0.4s;
+            transition: width 0.4s, height 0.4s, padding 0.4s;
+
+        .is-xs & {
+            padding: $header-logo-padding-top-xs 0 $header-logo-padding-bottom-xs;
+        }
+    }
+
+    .languages {
+        top: $header-language-button-top;
+        right: 40px;
+
+        .is-xs & {
+            display: none;
+        }
+    }
+
+    .button {
+        color: $header-font;
+        position: absolute;
+        top: $header-navi-button-top;
+
+        -webkit-transition: top 0.4s, left 0.4s;
+        transition: top 0.4s, left 0.4s;
+
+        .is-xs & {
+            top: $header-navi-button-top-xs;
+
+            &:before {
+                -webkit-transition: font-size 0.4s;
+                transition: font-size 0.4s;
+            }
+        }
+
+        &.navigation {
+            left: 40px;
+
+            .is-xs & {
+                left: 20px !important;
+            }
+
+            .navigation-open & {
+                left: $navi-close-button;
+            }
+        }
+
+        &.fa-search {
+            left: 110px;
+
+            .is-xs & {
+                display: none;
+            }
+        }
+
+        &.fa-man {
+            right: 130px;
+
+            .is-xs & {
+                right: 20px;
+            }
+        }
+        &.user-avatar {
+            right: 130px;
+            width: 39px;
+            height: 39px;
+            display:inline-block;
+            .is-xs & {
+                right: 20px;
+            }
+        }
+    }
+
+    &.fixed {
+
+        .wrapper {
+            position: fixed;
+            top: $header-fixed-top;
+            left: 0;
+            margin: 0;
+
+            -webkit-transition: top 0.4s, left 0.4s;
+            transition: top 0.4s, left 0.4s;
+
+            .is-xs & {
+                top: $header-fixed-top-xs;
+            }
+
+            .navigation-open & {
+                left: $navi-space-width;
+            }
+            .is-xs.navigation-open & {
+                left: 0;
+            }
+        }
+
+        img.logo {
+            padding: $header-fixed-logo-padding 0 5px;
+
+                -webkit-transition: none;
+                transition: none;
+
+            .is-xs & {
+                padding: $header-fixed-logo-padding-xs 0 5px;
+            }
+        }
+
+        .button {
+            top: $header-fixed-navi-button-top;
+
+            .is-xs & {
+                top: $header-fixed-navi-button-top-xs;
+
+                &:before {
+                    font-size: 1.33rem;
+
+                    -webkit-transition: none;
+                    transition: none;
+                }
+            }
+        }
+
+        .languages {
+            top: $header-fixed-language-button-top;
+        }
+    }
+}
+
+
+
+
+/////////////////////////////////////////////////////////
+// sub header (the big ones beneath the black part)
+.header {
+
+    margin-bottom: 60px;
+    overflow: hidden;
+    position: relative;
+    left: 0;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    //-webkit-transition: left 0.4s;
+    //transition: left 0.4s;
+
+    .is-xs &.has-menu, &.has-tabs {
+        border-bottom: 1px solid $grey-bright;
+    }
+
+    .is-xs & {
+
+        margin-bottom: 30px;
+
+        .container {
+            padding-left: $window-margin-xs;
+            padding-right: $window-margin-xs;
+        }
+    }
+
+    .navigation-open & {
+        //left: $navi-slide-width;
+    }
+
+    .sticky {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        position: absolute;
+        left: 0;
+        top: 0;
+        max-height: 450px;
+
+        .is-xs & {
+            position: static;
+            height: auto !important;
+        }
+    }
+
+    &.large-image .sticky {
+        max-height: 590px;
+    }
+
+    &.beneath {
+        margin-top: -60px;
+
+        .is-xs & {
+            margin-top: -30px;
+        }
+
+        h1 {
+            margin-bottom: 0;
+            .is-xs & {
+                margin-bottom: 0;
+            }
+        }
+
+        &.has-menu {
+            h1 {
+                margin-bottom: 50px;
+                .is-xs & {
+                    margin-bottom: 36px;
+                }
+            }
+        }
+    }
+
+    > .container {
+        height: 100%;
+    }
+
+    h1 {
+        margin: 50px 0;
+        text-transform: uppercase;
+        word-break: break-word;
+        word-wrap: break-word;
+
+        .is-xs & {
+            margin: 36px 0;
+        }
+    }
+
+    .profile {
+        width: 100%;
+        height: 115px;
+        margin: 80px 0 0;
+
+        .is-sm & {
+            height: 80px;
+            margin: 60px 0 0;
+        }
+
+        .is-xs & {
+            height: auto;
+            margin: 50px 0 0;
+            overflow: hidden;
+            padding-bottom: 3.5%;
+            position: relative;
+        }
+
+        .edit-avatar {
+            display: none;
+            width: 30%;
+            float: left;
+            margin: 0 3.5% 0 0;
+
+            .is-xs & {
+                display: block;
+
+                img {
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        h2 {
+            margin: 0;
+
+            .is-xs & {
+                font-size: 1.47em;
+                font-size: 6vw;
+                margin-top: 1px;
+                line-height: 90%;
+                padding-bottom: 5px;
+            }
+        }
+
+        h3 {
+            font-family: $font-2, $font-family-1;
+            font-weight: $font-regular;
+            font-size: 1.2em;
+            line-height: 167%;
+            color: $black;
+            text-transform: none;
+            margin: 0;
+
+            .is-xs & {
+                font-size: 1em;
+                font-size: 4vw;
+                line-height: 120%;
+            }
+        }
+
+        .buttons {
+            bottom: 0;
+            margin-left: 30%;
+            padding: 10px 29.5% 0px 3.5%;
+            width: 100%;
+            display: none;
+
+            .is-xs & {
+                display: block;
+            }
+
+            > * {
+                display: inline-block;
+                margin-right: 3%;
+                margin-bottom: 10px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+
+    }
+
+    > img, .sticky img {
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        margin: 0;
+
+        .is-xs & {
+            display: none;
+        }
+    }
+
+    &.has-menu .info {
+        margin-bottom: 0;
+        .is-xs & {
+            padding-bottom: 0;
+        }
+        &.closed {
+            .is-xs & {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .info {
+        background: $cyan-light;
+        position: relative;
+        margin-bottom: 56px;
+
+        .is-xs & {
+            margin-bottom: 0;
+            padding-bottom: 40px;
+        }
+
+        &.closed {
+
+            .is-xs & {
+                padding-bottom: 0;
+                margin-bottom: 40px;
+            }
+
+            .info-menu-space {
+                visibility: visible;
+                .is-xs & {
+                    display: none;
+                }
+            }
+            .toggle {
+                &:before {
+                    content: "\f077";
+                }
+                .is-xs & {
+                    bottom: -40px;
+                }
+            }
+        }
+
+        .info-menu-space {
+            height: 56px;
+            background: $white;
+            visibility: hidden;
+            .is-xs & {
+                height: 40px;
+            }
+        }
+
+        .toggle {
+            width: 56px;
+            height: 56px;
+            background: $black;
+            position: absolute;
+            top: 0;
+            right: 0;
+            cursor: pointer;
+            z-index: 2;
+            color: $cyan;
+            text-align: center;
+            &:before {
+                content: "\f078";
+                font-size: 1.87rem;
+                line-height: 52px;
+            }
+
+            .is-xs & {
+                width: 40px;
+                height: 40px;
+                top: inherit;
+                bottom: 0;
+                -webkit-transition: bottom 0.4s;
+                transition: bottom 0.4s;
+                &:before {
+                    font-size: 1.6rem;
+                    line-height: 38px;
+                }
+            }
+        }
+
+        a {
+            color: $black;
+        }
+
+        .container > .portfolio {
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            height: 320px;
+
+            .is-xs & {
+                position: relative;
+                margin-top: 0;
+                margin-bottom: 0;
+                height: auto;
+            }
+
+            > div {
+                height: 100%;
+                position: relative;
+
+                &:first-child {
+                    z-index: 1;
+                    .is-xs & {
+                        padding: 0;
+                        z-index: inherit;
+                    }
+                }
+                &:last-child {
+                    .text {
+                        position: absolute;
+                        left: 15px;
+                        bottom: 20px;
+                        .is-xs & {
+                            position: static;
+                        }
+                    }
+                    h2 {
+                        font-family: $font-1, $font-family-1;
+                        font-size: 1.47em;
+                        line-height: 127%;
+                        font-weight: $font-black;
+                        margin: 0;
+                    }
+                    h3 {
+                        font-family: $font-2, $font-family-1;
+                        font-size: 1.2em;
+                        line-height: 156%;
+                        font-weight: $font-regular;
+                        color: $black;
+                        text-transform: none;
+                        margin: 0;
+                    }
+
+                    .is-xs & {
+                        .bubble {
+                            position: absolute;
+                            top: 10px;
+                            right: 15px;
+                        }
+                    }
+                }
+
+                .is-xs & {
+                    position: static;
+                }
+            }
+
+            .slider {
+                .is-xs & {
+                    .slide {
+                        display: none;
+                        &:first-child {
+                            display: block;
+                        }
+                    }
+                }
+            }
+        }
+
+        .bubble {
+            cursor: pointer;
+        }
+
+        .is-xs & {
+            .prev, .next {
+                display: none !important;
+            }
+        }
+
+    }
+
+    .menu {
+        width: 100%;
+        height: 56px;
+        background: rgba(0,0,0,0.5);
+        color: $grey-bright;
+        overflow: hidden;
+        -webkit-transition: background 0.3s, left 0.4s;
+        transition: background 0.3s, left 0.4s;
+
+        > .container {
+            > .row {
+                margin-left: -$grid-padding;
+                margin-right: -$grid-padding;
+                > div {
+                    padding-left: $grid-padding;
+                    padding-right: $grid-padding;
+                    &.navi {
+                        position: absolute;
+                        top: 0;
+                        width: auto;
+                    }
+                }
+            }
+        }
+
+        .is-xs & {
+            height: 40px;
+            background: transparent;
+            bottom: 40px;
+        }
+
+        h2 {
+            font-family: $font-1, $font-family-1;
+            font-weight: $font-semi;
+            font-size: 1.47em;
+            line-height: 56px;
+            cursor: default;
+            padding-right: 15px;
+            margin: 0;
+            opacity: 0;
+            -webkit-transition: opacity 0.3s;
+            transition: opacity 0.3s;
+            .is-xs &, .is-sm & {
+                padding-right: 0;
+            }
+        }
+
+        nav {
+            overflow: hidden;
+            height: 56px;
+            position: relative;
+            width: 100%;
+
+            .is-xs & {
+                height: 40px;
+            }
+        }
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            cursor: default;
+            position: relative;
+            -webkit-transition: left 0.6s;
+            transition: left 0.6s;
+
+            li {
+                display: inline-block;
+                position: absolute;
+                left: 0;
+                top: 0;
+
+                a {
+                    display: inline-block;
+                    font-family: $font-1, $font-family-1;
+                    font-weight: $font-semi;
+                    font-size: 1.47em;
+                    line-height: 44px;
+                    color: $grey-bright;
+                    padding: 6px 0;
+
+                    .is-xs & {
+                        font-size: 1.07em;
+                        line-height: 32px;
+                        padding: 4px 0;
+                    }
+
+                    &:hover, &.active {
+                        color: $white;
+                        border-bottom: 6px solid $cyan;
+                        padding-bottom: 0;
+
+                        .is-xs & {
+                            color: $black;
+                            border-bottom: 4px solid $cyan;
+                        }
+                    }
+                }
+            }
+        }
+
+        .row {
+            position: relative;
+        }
+
+        .prev, .next {
+            position: absolute;
+            top: 0;
+            color: $grey-bright;
+            cursor: pointer;
+            line-height: 56px;
+            &:hover {
+                color: $white;
+            }
+            &:before {
+                line-height: 56px;
+                font-size: 1.6rem;
+            }
+            &.disabled {
+                display: none;
+            }
+
+            .is-xs & {
+                display: none;
+            }
+        }
+
+        .prev {
+            left: -10px;
+        }
+
+        .next {
+            right: -10px;
+        }
+
+        &.tabs {
+            background: transparent;
+            color: $grey-light;
+
+            h2 {
+                padding-right: 0;
+            }
+
+            ul {
+                li {
+                    a {
+                        color: $grey-light;
+                        &:hover, &.active {
+                            color: $black;
+                        }
+                    }
+                }
+            }
+
+            .prev, .next {
+                &:hover {
+                    color: $black;
+                }
+            }
+        }
+    }
+
+    &.has-image {
+        max-height: 450px;
+        &.large-image {
+            max-height: 590px;
+        }
+    }
+
+    &.has-content {
+
+        .menu {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+
+            -webkit-transition: left 0.4s;
+            transition: left 0.4s;
+
+            .is-xs & {
+                position: static;
+            }
+        }
+
+        &.fixed {
+            padding-bottom: 0;
+
+            .is-xs & {
+                padding-bottom: 40px;
+            }
+        }
+    }
+
+    &.has-sticky {
+        h1 {
+            -webkit-transition: top 0.4s;
+            transition: top 0.4s;
+            top: 0px;
+        }
+    }
+
+    &.fixed-headline {
+        h1 {
+            position: fixed;
+            top: 60px;
+        }
+    }
+
+    &.fixed {
+        padding-bottom: 56px;
+
+        .is-xs & {
+            padding-bottom: 40px;
+        }
+
+        .sticky {
+            position: fixed;
+            z-index: 90;
+            -webkit-transition: left 0.4s;
+            transition: left 0.4s;
+
+            .is-xs & {
+                position: static;
+            }
+
+            .navigation-open & {
+                left: $navi-slide-width;
+            }
+        }
+
+        .menu {
+            position: fixed;
+            top: $navi-height;
+            left: 0;
+            bottom: inherit;
+            background: $black;
+            z-index: 90;
+
+
+            .navigation-open & {
+                left: $navi-slide-width;
+            }
+
+
+            .is-xs & {
+                top: $navi-height-xs;
+                background: $black;
+                position: fixed;
+            }
+
+            h2 {
+                opacity: 1;
+            }
+
+            ul li a {
+                &:hover, &.active {
+                    color: $white;
+                }
+            }
+
+            &.tabs {
+                color: $grey-bright;
+                ul {
+                    li {
+                        a {
+                            color: $grey-bright;
+                        }
+                    }
+                }
+
+                .prev, .next {
+                    &:hover {
+                        color: $white;
+                    }
+                }
+            }
+        }
+
+        &.has-sticky {
+            .menu {
+                background: rgba(0,0,0,0.5);
+            }
+        }
+    }
+}

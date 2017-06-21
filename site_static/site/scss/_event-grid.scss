@@ -1,0 +1,117 @@
+@charset "UTF-8";
+
+#body {
+    .container {
+        .row.event-grid {
+            margin-left: -10px;
+            margin-right: -10px;
+            > div {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+        }
+    }
+}
+
+.row.event-grid {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+        
+    margin-bottom: 60px;
+    
+    .is-xs & {
+        margin-bottom: 30px; 
+    }
+    
+    a.content {
+        width: 100%;
+        display: block;
+        position: relative;
+        margin: 0 0 20px;
+        background: $cyan;
+        
+        img {
+            width: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        
+        h2 {
+            width: 100%;
+            padding: 0 20px;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            font-family: $font-1, $font-family-1;
+            font-weight: $font-bold;
+            font-size: 1.87em;
+            line-height: 110%;
+            word-break: break-word;
+            word-wrap: break-word;
+            color: $white;
+            visibility: hidden;
+            
+            .is-sm & {
+                font-size: 1.6em;
+                line-height: 100%;
+                padding: 0 10px;
+            }
+        }
+        
+        p {
+            width: 100%;
+            padding: 0 20px;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            font-family: $font-2, $font-family-1;
+            font-size: 1.07em;
+            line-height: 125%;
+            color: $white;
+            visibility: hidden;
+            
+            .is-sm & {
+                padding: 0 10px;
+            }
+            
+            time {
+                display: block;
+                margin-bottom: 5px;
+            }
+        }
+        
+        &:hover, &:focus, &.hover {
+            img {
+                opacity: 0.33;
+            }
+            h2 {
+                visibility: visible;
+            }
+            p {
+                visibility: visible;
+            }
+        }
+    }
+    
+    &.magazine {
+        margin-bottom: 80px;
+        
+        a.content {
+            h2 {
+                .is-md & {
+                    font-size: 1.5em;
+                }
+            }
+            p {
+                font-size: 1.2em;
+                .is-md & {
+                    font-size: 1.07em;
+                }
+            }
+        }
+    }
+}

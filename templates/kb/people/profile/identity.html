@@ -1,0 +1,20 @@
+{% load i18n base_tags auth_extended %}
+
+
+{% if object.is_editable %}
+    <div class="fieldset {% if object.is_editable %}editable switch{% else %}not-editable{% endif %}" data-edit-url="{% url 'edit_profile' object_type='person' slug=object.slug %}identity/">
+        <fieldset disabled>
+            <h2>{% trans "Identity" %}</h2>
+            <dl class="input-fields">
+                <dt>{% trans "Name" %}</dt>
+                <dd><div class="text-field">{{ object.get_title|escape }}</div></dd>
+            </dl>
+            {% if object.occupation %}
+                <dl class="input-fields">
+                    <dt>{% trans "Occupation" %}</dt>
+                    <dd><div class="text-field">{{ object.occupation|escape }}</div></dd>
+                </dl>
+            {% endif %}
+        </fieldset>
+    </div>
+{% endif %}

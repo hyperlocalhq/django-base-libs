@@ -1,0 +1,11 @@
+{% load crispy_forms_utils %}
+
+{% specialspaceless %}
+    {{ form.media }}
+    {% if form_show_errors %}
+        {% include "kb_form/errors.html" %}
+    {% endif %}
+    {% for field in form %}
+        {% include "kb_form/field.html" %}
+    {% endfor %}
+{% endspecialspaceless %}

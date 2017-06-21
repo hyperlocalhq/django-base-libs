@@ -1,0 +1,22 @@
+{% extends "people/details_base.html" %}
+{% load i18n base_tags uni_form_tags crispy_forms_tags %}
+
+
+{% block details %}
+    <div class="first-item">
+        {% if form %}
+            {% crispy form "kb_form" %}
+        {% else %}
+            <form action="{{ object.get_url_path }}" method="get" class="uniForm">
+                <div id="okMsg">
+                    <p>{% trans "Your message has been sent." %}</p>
+                </div>
+                <div class="buttonHolder">
+                    <input class="primaryAction" type="submit"
+                        value="{% filter upper %}{% trans "back" %}{% endfilter %}"/>
+                </div>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}
+

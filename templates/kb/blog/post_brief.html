@@ -1,0 +1,66 @@
+{% load blog babel comments base_tags i18n auth_extended favorites %}
+
+<div class="col-xs-12 {% if not forloop.first %}col-sm-6{% endif %}">
+    <a class="content" href="{{ post.get_url_path }}">
+        {% with image_html=post.get_rendered_body|disarm_user_input|get_first_image %}
+            {% if image_html %}
+                {{ image_html }}
+            {% endif %}
+        {% endwith %}
+        <div class="subline">
+            <h3>{% if forloop.first %}<time class="hidden-xs" datetime="{{ post.published_from|date:"Y-m-d H:i" }}">{{ post.published_from|date:"d. F Y, H:i" }}</time><time class="visible-xs" datetime="{{ post.published_from|date:"Y-m-d H:i" }}">{{ post.published_from|date:"d. M. Y, H:i" }}</time>{% else %}<time datetime="{{ post.published_from|date:"Y-m-d H:i" }}">{{ post.published_from|date:"d. M. Y, H:i" }}</time>{% endif %}</h3>
+            <div class="statistics">
+                {% if request.user.is_authenticated %}
+                    {% adding2favorites for post using "generic/favorite_icon_number.html" %}
+                {% else %}
+                    <div class="fawesome fa-favorite button smaller" onclick="location.href='{% url 'login' %}?goto_next={{ request.path }}'; return false;"><span class="text">{{ post|get_favorites_count }}</span><span class="sr-only">{% trans "Add to favorites" %}</span></div>
+                {% endif %}
+            </div>
+        </div>
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.get_rendered_body|striptags|safe|truncatewords:"40" }}</p>
+    </a>
+</div>
+
+{% comment %}
+<div class="list-item clearfix{% if forloop.first %} first-item{% endif %}{% if forloop.last %} last-item{% endif %}"
+    onclick="redirect('{{ post.get_url_path }}')">
+    <div class="blog-info">
+        <span class="date">{{ post.published_from|datefmt:"long" }}</span>
+    </div>
+    <h3>
+        <a class="hl" id="{{ post.slug }}" href="{{ post.get_url_path }}">{{ post.title }}</a>
+    </h3>
+    <p>
+        {{ post.body|disarm_user_input|wordwrap:30|striptags|safe|truncatewords:"40" }}
+        <a href="{{ post.get_url_path }}">
+            {% trans "Read more" %}
+        </a>
+    </p>
+
+    {% if post.get_tags %}
+        <div class="post-meta">
+            <span>{% trans "Tags" %}: </span>
+            {% for tag in post.get_tags %}
+                {% if not forloop.first %} | {% endif %}
+                <a href="{{ container.get_url_path }}tag/{{ tag.slug }}/">{{ tag.name }} </a>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <ul class="toolbar">
+        {% if_has_perm "blog.change_blog_posts" post.blog %}
+            <li id="editPost_{{ post.slug }}" class="editPost">
+                <a title="{% trans "edit" %}"
+                    href="{{ post.get_url_path }}edit/"><span><span>{% trans "edit" %}</span></span></a>
+            </li>
+        {% end_if_has_perm %}
+
+        {% if_has_perm "blog.delete_blog_posts" post.blog %}
+            <li id="deletePost_{{ post.slug }}" class="deletePost">
+                <a title="{% trans "delete" %}"
+                    href="{{ post.get_url_path }}delete/"><span><span>{% trans "delete" %}</span></span></a>
+            </li>
+        {% end_if_has_perm %}
+    </ul>
+</div>
+{% endcomment %}

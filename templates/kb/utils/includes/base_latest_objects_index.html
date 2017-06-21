@@ -1,0 +1,15 @@
+{% load i18n base_tags auth_extended %}
+<div class="latest_published_index list-block content-box clearfix">
+    <div class="list-block-header">
+        <h3>{% block block_title %}TITLE{% endblock %}
+            <a href="{% block link_to_more %}{% endblock %}" class="{% block more_class %}{% endblock %}"></a>
+        </h3>
+
+        <div class="cleaner"></div>
+    </div>
+    <div class="list-block-content">
+        {% block block_content %}
+            CONTENT
+        {% endblock %}
+    </div>
+</div>

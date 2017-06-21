@@ -1,0 +1,21 @@
+{% extends "flatpages/flatpage.html" %}
+{% load i18n base_tags navigation_tags %}
+
+{% block extrahead %}
+    <style type="text/css">
+        .flatpage_space table td img {
+            margin: 0 2em 2em 0;
+        }
+
+        .flatpage_space table td {
+            padding: 1em 0;
+        }
+    </style>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="/">{% trans "Home" %}</a>
+        <span class="b-sep"><span>::</span></span> <span>{{ flatpage.get_title|escape }}</span>
+    </div>
+{% endblock %}

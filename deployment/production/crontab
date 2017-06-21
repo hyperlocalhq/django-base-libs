@@ -1,0 +1,19 @@
+MAILTO=""
+HOME=/usr/local/www/apache24/data/creative-city-berlin.de
+PATH=/usr/local/www/apache24/data/creative-city-berlin.de/bin:/usr/local/sbin:/usr/local/bin:/usr/iports/bin:/usr/iports/sbin:/sbin:/bin:/usr/sbin:/usr/bin
+SHELL=/usr/local/bin/bash
+00 00 * * 0 /usr/local/www/apache24/data/creative-city-berlin.de/commands/check_links.sh
+00 01 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/cleanup.sh
+30 01 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/daily_tasks.sh
+15 * * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/import_articles.sh
+20 * * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/import_bulletins.sh
+15 02 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/import_from_berlinstartupjobs.sh
+20 02 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/import_from_creativeset.sh
+25 02 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/import_from_kulturmanagement.sh
+35 02 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/import_from_musicjob.sh
+40 02 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/import_from_theaterjobs.sh
+45 02 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/import_from_museumsbund.sh
+50 02 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/import_jobs_from_gruenderszene.sh
+00 05 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/rebuild_index.sh
+15 06 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/backup_db.sh
+*/5 * * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/send_mails.sh

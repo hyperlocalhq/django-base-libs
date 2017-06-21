@@ -1,0 +1,208 @@
+{% extends "articles/articles_base.html" %}
+{% load i18n base_tags navigation_tags %}
+
+{% block extrahead %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+{% endblock %}
+
+{% block title %}{{ flatpage.get_title|escape }}{% endblock %}
+
+{% block headline %}
+    <h1>{{ creative_sector.get_title|escape }}</h1>
+    <h2 class="sub">{% trans "FAQ" %} - allgemeine fragen</h2>
+{% endblock %}
+
+{% block content %}
+    <div class="faq">
+        <div class="list-item collapsed">
+            <div>
+                <div class="visibility_toggler">
+                    <a class="txt no-img" href="#">
+                        <span class="block block left">01.</span>
+                        <span class="quest">Wo muss ich den Antrag auf Befreiung von der Umsatzsteuer stellen?</span>
+                    </a>
+                    <a href="#"><span>Expand</span></a>
+                </div>
+                <div class="txt hidable">
+                    Über die Befreiung von der Umsatzsteuer entscheidet das jeweils zuständige Finanzamt, dort ist auch
+                    der Antrag einzureichen. Für diesen Antrag beim Finanzamt werden von der Kulturverwaltung
+                    Bescheinigungen ausgestellt. Das für Sie zuständige Finanzamt finden Sie unter:
+                    <a href="//www.berlin.de/sen/finanzen/steuern/finanzaemter/">
+                        www.berlin.de/sen/finanzen/steuern/finanzaemter/
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="list-item collapsed">
+            <div>
+                <div class="visibility_toggler">
+                    <a class="txt no-img" href="#">
+                        <span class="block left">03.</span>
+                        <span class="quest">Was kostet eine solche Bescheinigung?</span>
+                    </a>
+                    <a href="#"><span>Expand</span></a>
+                </div>
+                <div class="txt hidable">
+                    Für die Ausstellung der o. a. Bescheinigungen sind laut Verwaltungsgebührenordnung (VGebO), Anlage
+                    zu §
+                    1 Abs. 1 "Gebührenverzeichnis" folgende Verwaltungsgebühren zu erheben: Bescheinigung für
+                    Steuerbefreiung nach § 4 Nr. 20 des Umsatzsteuergesetzes 3,07 bis 292,46 EUR. (Tarifstelle 4201) Die
+                    Festsetzung einer Gebühr im Einzelfall ist grundsätzlich eine Ermessensentscheidung. In die
+                    Bemessung
+                    der Gebühr fliessen u. a. ein: Bekanntheitsgrad des Künstlers/ der Künstlerin; Dessen/ deren
+                    wirtschaftliche Verhältnisse; Bedeutung des Gegenstandes und der zu erwartende wirtschaftliche
+                    Nutzen
+                    für die Beteiligten; Verwaltungsaufwand.
+                </div>
+            </div>
+        </div>
+        <div class="list-item collapsed">
+            <div>
+                <div class="visibility_toggler">
+                    <a class="txt no-img" href="#">
+                        <span class="block left">04.</span>
+                        <span class="quest">Lohnen sich für mich die Gebühren zur Befreiung zu bezahlen oder wäre zu zahlende Unsatzsteuer geringer?</span>
+                    </a>
+                    <a href="#"><span>Expand</span></a>
+                </div>
+                <div class="txt hidable">
+                    Es empfiehlt sich, Fragen zu steuerlichen Auswirkungen mit den zuständigen Steuerbehörden sowie
+                    mithilfe
+                    von Steuerberatern zu klären.
+                </div>
+            </div>
+        </div>
+        <div class="list-item collapsed">
+            <div>
+                <div class="visibility_toggler">
+                    <a class="txt no-img" href="#">
+                        <span class="block left">05.</span>
+                        <span class="quest">Wo kann man Fragen zur Ausländersteuer stellen?</span>
+                    </a>
+                    <a href="#"><span>Expand</span></a>
+                </div>
+                <div class="txt hidable">
+                    Das für den Fragesteller zuständige Finanzamt ist auch für Fragen der Ausländersteuer zuständig. Es
+                    kann
+                    auch beim Bundeszentralamt für Steuern (BZSt),
+                    <a href="http://www.bzst.bund.de">www.bzst.bund.de</a>
+                    , nachgefragt werden. Dort werden unter den
+                    Stichworten "Steuerabzugspflicht und Entlastungsverfahren" Hinweise zum Einkommensteuergesetz, zum
+                    Doppelbesteuerungsabkommen sowie zahlreiche andere Auskünfte gegeben und Formulare zur Verfügung
+                    gestellt.  Dienstsitz Berlin:<br/>
+                     Bundeszentralamt für Steuern<br/>
+                     DGZ-Ring 12 13086 Berlin <br/>
+                    Tel.: (01888) 406 - 0 <br/>
+                     Fax: (01888) 406 - 3710  <br/>
+                    <a href="mailto:poststelle-berlin@bzst.bund.de">poststelle-berlin@bzst.bund.de</a>
+                    <br/>
+                     Postanschrift:
+                    Bundeszentralamt für Steuern, 11055 Berlin.
+                </div>
+            </div>
+        </div>
+        <div class="list-item collapsed">
+            <div>
+                <div class="visibility_toggler">
+                    <a class="txt no-img" href="#">
+                        <span class="block left">06.</span>
+                        <span class="quest">Gibt es speziell für künstlerische Projekte von Migrantinnen/ Migranten Förderungen?</span>
+                    </a>
+                    <a href="#"><span>Expand</span></a>
+                </div>
+                <div class="txt hidable">
+                    Ja es gibt seitens der Kulturverwaltung eine Projektförderung im Bereich der Interkulturellen
+                    Projektarbeit. Nähere Informationen finden Sie unter:
+                    <a
+                        href="http://www.berlin.de/sen/kultur/programme/interkultur/index.html">
+                        www.berlin.de/sen/kultur/programme/interkultur/index.html
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="list-item collapsed">
+            <div>
+                <div class="visibility_toggler">
+                    <a class="txt no-img" href="#">
+                        <span class="block left">07.</span>
+                        <span class="quest">Wo kann ich eine Aufenthaltsgenehmigung bekommen?</span>
+                    </a>
+                    <a href="#"><span>Expand</span></a>
+                </div>
+                <div class="txt hidable">
+                    Der/ die Künstler/in muss sich beim Landeseinwohneramt unter
+                    <a href="http://www.berlin.de/labo/">www.berlin.de/labo/</a>
+                    melden.
+                </div>
+            </div>
+        </div>
+        <div class="list-item collapsed">
+            <div>
+                <div class="visibility_toggler">
+                    <a class="txt no-img" href="#">
+                        <span class="block left">08.</span>
+                        <span class="quest">Lohnen sich für mich die Gebühren zur Befreiung zu bezahlen oder wäre zu zahlende Unsatzsteuer geringer?</span>
+                    </a>
+                    <a href="#"><span>Expand</span></a>
+                </div>
+                <div class="txt hidable">
+                    Es empfiehlt sich, Fragen zu steuerlichen Auswirkungen mit den zuständigen Steuerbehörden sowie
+                    mithilfe
+                    von Steuerberatern zu klären.
+                </div>
+            </div>
+        </div>
+        <div class="list-item collapsed">
+            <div>
+                <div class="visibility_toggler">
+                    <a class="txt no-img" href="#">
+                        <span class="block left">09.</span>
+                        <span class="quest">Ich bin ein/e ausländische/r Künstler/in. Wo muss ich einen Antrag auf Genehmigung selbstständiger Arbeit stellen?</span>
+                    </a>
+                    <a href="#"><span>Expand</span></a>
+                </div>
+                <div class="txt hidable">
+                    Der/ die Künstler/ in muss zunächst seinen/ ihren entsprechenden Antrag beim Landesamt für Bürger-
+                    und
+                    Ordnungsangelegenheiten (LABO)-Abt IV/ Ausländerbehörde:
+                    <a href="http://www.berlin.de/labo/">www.berlin.de/labo/</a>
+                    einreichen. . Es ist ratsam, der
+                    Antragstellung beim LABO eine Auflistung der künstlerischen Aktivitäten und Vorhaben beizufügen.
+                </div>
+            </div>
+        </div>
+        <div class="list-item collapsed">
+            <div>
+                <div class="visibility_toggler">
+                    <a class="txt no-img" href="#">
+                        <span class="block left">10.</span>
+                        <span class="quest">Ich bin Künstlerin/Künstler aus dem Ausland und möchte gern nach Berlin kommen. Gibt es Aufenthaltsstipendien für Berlin?</span>
+                    </a>
+                    <a href="#"><span>Expand</span></a>
+                </div>
+                <div class="txt hidable">
+                    Der Deutsche Akademische Austauschdienst (DAAD) lädt regelmäßig ausländische Künstlerinnen und
+                    Künstler
+                    aus den verschiedenen Sparten nach Berlin ein ("Berliner Künstlerprogramm"). Ziel ist es, durch den
+                    längeren Aufenthalt (ein Jahr, Filmemacher 6 Monate) und die aktive Mitwirkung wesentlicher
+                    ausländischer Künstler die Berliner Szene zu beleben, den Kulturaustausch zu ermöglichen und
+                    künstlerische Maßstäbe zu hinterfragen. Nähere Informationen unter:
+                    <a
+                        href="http://www.daad-berlin.de">www.daad-berlin.de
+                    </a>
+                    .
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="/">{% trans "Home" %}</a>
+        <span class="b-sep"><span>::</span></span>
+        <a href="/creative-sector/games-and-interactive/faq/general-questions/">{% trans "Overview" %}</a>
+        <span class="b-sep"><span>::</span></span><span>{{ flatpage.get_title|escape }}</span>
+    </div>
+{% endblock %}
+

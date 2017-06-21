@@ -1,0 +1,28 @@
+{% extends "base_sidebar.html" %}
+{% load i18n base_tags babel %}
+{% block title %}{{ flatpage.get_title|escape }}{% endblock %}
+{% block headline %}
+    <h1>
+        {% if creative_sector %}
+            {{ creative_sector.get_title|escape }}
+        {% else %}
+            Kreatives Brandenburg
+        {% endif %}
+    </h1>
+    <h2>
+        {% if "/knowledge/"|in_list:request.path %}
+            {% trans "Knowledge" %}
+        {% else %}
+            {{ flatpage.get_title|escape }}
+        {% endif %}
+    </h2>
+{% endblock %}
+
+{% block details %}
+    {{ flatpage.get_content }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{{ rel_root_dir }}">{% trans "Overview" %}</a></li>
+{% endblock %}
+

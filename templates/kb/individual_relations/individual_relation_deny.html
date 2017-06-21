@@ -1,0 +1,14 @@
+{% load i18n uni_form_tags %}
+<div id="popup_content">
+    <form action="" method="post" class="uniForm">{% csrf_token %}
+        <fieldset class="inlineLabels">
+            {{ form.message|as_uni_field }}
+            <div class="buttonHolder">
+                <input class="primaryAction" type="submit" id="post" name="post"
+                    value='{% filter upper %}{% trans "Deny" %}{% endfilter %}'/>
+                <input class="secondaryAction" type="button" name="cancel"
+                    value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
+            </div>
+        </fieldset>
+    </form>
+</div>

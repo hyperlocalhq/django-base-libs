@@ -1,0 +1,33 @@
+{% load base_tags i18n auth_extended blog uni_form_tags crispy_forms_tags %}
+
+<form action="" method="post">{% csrf_token %}
+    {% if form_preview %}
+        <h2>{{ form.title.data }}</h2>
+        <div class="tiny-mce">
+            {{ form.body.data|disarm_user_input }}
+        </div>
+
+        {% if form.tags.data %}
+            <div>
+                {% trans "Tags" %}: {{ form.tags.data }}
+            </div>
+            <br/><br/>
+        {% endif %}
+            
+        <div class="button-group">
+            {% trans "Save as Draft" as draft %}
+            {% trans "Save" as non_draft %}
+            {% with yesno_args=''|add:draft|add:','|add:non_draft|upper %}
+                <input
+                    type="submit" class="btn btn-primary" id="post" name="{{ post_stage_field }}"
+                    value='{{ post.is_draft|yesno:yesno_args }}'
+                    />
+            {% endwith %}
+        </div>
+        
+        <br/><br/><br/>
+
+    {% endif %}
+    {% crispy form "kb_form" %}
+</form>
+

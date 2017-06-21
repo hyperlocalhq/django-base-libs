@@ -1,0 +1,30 @@
+{% load i18n base_tags image_mods_tags %}
+
+{% with amount|default:4 as amount %}
+    {% get_objects published_objects.all bulletin_board.bulletin amount as featured_objects %}
+    {% if featured_objects %}
+        <div class="row">
+        {% for bulletin in featured_objects %}
+            <div class="item span3 clickable">
+                <a class="image" href="{{ bulletin.get_url_path }}">
+                    {% if bulletin.image %}
+                        <img height="260" width="260" alt="{{ bulletin.title }}" src="{{ MEDIA_URL }}{{ bulletin.image|modified_path:"square-list" }}" />
+                    {% else %}
+                        <img height="260" width="260" alt="{{ bulletin.title }}" src="{{ STATIC_URL }}site/img/square.png" />
+                    {% endif %}
+                </a>
+                <div class="body">
+                    <h6>{{ bulletin.title }}</h6>
+                </div>
+                <p>
+                    {{ bulletin.description|striptags|truncatewords:"30"  }}
+                </p>
+                <a class="btn btn-mini" href="{{ bulletin.get_url_path }}">Mehr… </a>
+            </div>
+            {% if forloop.counter|divisibleby:"4" %}
+                </div><div class="row">
+            {% endif %}
+        {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load i18n base_tags navigation_tags %}
+
+{% block title %}{{ flatpage.get_title }}{% endblock %}
+
+{% block headline %}
+    <h1>{{ flatpage.get_title }}</h1>
+{% endblock %}
+
+{% block extrahead %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.pack.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/flashembed.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/flow.embed.js"></script>
+    <script type="text/javascript">
+        // this simple call does the magic
+        $j(document).ready(function () {
+            var params = "{{ STATIC_URL }}site/flash/FlowPlayerDark.swf";
+            var config = {
+                autoPlay: true,
+                autoBuffering: false,
+                controlBarBackgroundColor: '#fff',
+                initialScale: 'scale',
+                videoFile: '{{ UPLOADS_URL }}screencasts/kb_screencast.flv',
+                showVolumeSlider: true,
+                controlsOverVideo: 'ease',
+                controlBarGloss: 'high',
+                showWatermark: "always"
+            };
+            var opts = {};
+            jQuery("a.flowplayer").flowembed(params, config, opts);
+        });
+    </script>
+{% endblock %}
+{% block content %}
+    <hr/>
+    <div>
+        <h3>the first CCB Screencast</h3>
+
+        <p>
+            <a class="flowplayer" href="{{ UPLOADS_URL }}screencasts/kb_screencast.flv">
+                <img alt="start" src="{{ STATIC_URL }}site/img/player/start_1.png"/>
+            </a>
+        </p>
+    </div>
+    <hr/>
+    <div>
+        <h3>Sound of fortune</h3>
+
+        <p>
+            <a class="flowplayer" href="{{ UPLOADS_URL }}screencasts/testvideo_dieterlutsch_jarmuschek.flv">
+                <img alt="start" src="{{ STATIC_URL }}site/img/player/start_2.png"/>
+            </a>
+        </p>
+    </div>
+    <hr/>
+    <div>
+        <h3>Nick als Mozart</h3>
+
+        <p>
+            <a class="flowplayer" href="{{ UPLOADS_URL }}screencasts/baby.flv">
+                <img alt="start" src="{{ STATIC_URL }}site/img/player/start_3.png"/>
+            </a>
+        </p>
+    </div>
+
+{% endblock %}

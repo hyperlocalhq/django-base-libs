@@ -1,0 +1,31 @@
+{% load i18n image_mods_tags %}
+<div class="draggable_block">
+    <h3 class="dragging_handle">{% trans "New Lists" %}</h3>
+    {% if info.get_new_lists %}
+        <ul>
+            {% for list in info.get_new_lists %}
+                <li>
+                    <a href="/list/{{ list.slug }}/">
+                        {% if list.image %}
+                            <img alt="{{ list.get_title|escape }}"
+                                src="{{ UPLOADS_URL }}{{ list.image|modified_path:"at" }}"/>
+                        {% else %}
+                            <img alt="{{ list.get_title|escape }}" src="{{ DEFAULT_SMALL_LOGO_4_LIST }}"/>
+                        {% endif %}
+                    </a>
+                    <strong>{{ list.get_title|escape }}</strong>
+
+                    <p>{% for cat in list.get_object_types %}
+                        {{ cat.get_title|escape }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                    </p>
+                </li>
+            {% endfor %}
+        </ul>
+        <p class="more">
+            <a href="/lists/?order_by=creation_date_desc">{% trans "more..." %}</a>
+        </p>
+    {% else %}
+        <p class="nothing">{% trans "There are no public lists." %}</p>
+    {% endif %}
+</div>

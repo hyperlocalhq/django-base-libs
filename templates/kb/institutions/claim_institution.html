@@ -1,0 +1,10 @@
+{% extends "institutions/details_base.html" %}
+{% load i18n base_tags auth_extended crispy_forms_tags %}
+
+{% block doctype %}
+    <!DOCTYPE html SYSTEM "{{ website_url }}{{ jetson_media_url|slice:"1:" }}dtd/xhtml1-iframe.dtd">
+{% endblock %}
+
+{% block details %}
+    {% crispy form "kb_form" %}
+{% endblock %}
