@@ -79,6 +79,7 @@ class PostOptions(ExtendedModelAdmin):
     autocomplete_lookup_fields = {
         'fk': ["blog", ],
     }
+    list_per_page = 25
 
 
 admin.site.register(Blog, BlogOptions)

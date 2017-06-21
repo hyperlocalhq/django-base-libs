@@ -60,7 +60,7 @@ class Command(BaseCommand):
                 services_failed.append(s)
                 self.stdout.write(u" - failed\n")
                 continue
-            data = response.content  # string, not necessarily utf-8
+            data = response.content  # bytestring, not necessarily utf-8
 
             # quick fix of broken feeds
             data = data.replace("& ", "&amp; ")
