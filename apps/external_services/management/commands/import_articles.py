@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 from django.core.management.base import BaseCommand
+from django.utils.encoding import force_text
 
 SILENT, NORMAL, VERBOSE = 0, 1, 2
 
@@ -9,8 +10,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         verbosity = int(options.get('verbosity', NORMAL))
-        # TODO: when verbose, print some information for each imported article
-
         import re
         import requests
         from requests.exceptions import ConnectionError, ReadTimeout
@@ -42,6 +41,7 @@ class Command(BaseCommand):
         articles_failed = []
 
         for s in ArticleImportSource.objects.all():
+            self.stdout.write(u"Importing from {}\n".format(s.url))
             try:
                 response = requests.get(
                     s.url,
@@ -53,12 +53,14 @@ class Command(BaseCommand):
                 )
             except (ConnectionError, ReadTimeout):
                 services_failed.append(s)
+                self.stdout.write(u" - failed\n")
                 continue
 
             if response.status_code != 200:
                 services_failed.append(s)
+                self.stdout.write(u" - failed\n")
                 continue
-            data = response.content
+            data = response.content  # string, not necessarily utf-8
 
             # quick fix of broken feeds
             data = data.replace("& ", "&amp; ")
@@ -75,8 +77,12 @@ class Command(BaseCommand):
                     get_value(node_article, "guid")  # if guid is not provided
                     or get_value(node_article, "link")  # use link as external_id
                 )
+                publishing_date = get_value(node_article, "pubDate")
+                if not publishing_date:
+                    self.stderr.write(u"No publishing date provided for article with external id {}\n".format(external_id))
+                    continue
                 change_date = parse_datetime(
-                    date_de_to_en(get_value(node_article, "pubDate")),
+                    date_de_to_en(publishing_date),
                     ignoretz=True,
                 )
 
@@ -93,7 +99,7 @@ class Command(BaseCommand):
                     # or create a new article and then create a mapper
                     article = Article()
                 except MultipleObjectsReturned:
-                    print u"Database integrity error with article which external_id is %s." % external_id
+                    self.stderr.write(u"Database integrity error with article which external_id is {}.\n".format(external_id))
                     continue
                 else:
                     article = mapper.content_object
@@ -109,7 +115,6 @@ class Command(BaseCommand):
                 article.published_from = change_date
 
                 article.title = get_value(node_article, "title")
-
                 article.slug = better_slugify(article.title)
 
                 content = get_value(node_article, "content:encoded") or get_value(node_article, "description")
@@ -139,6 +144,8 @@ class Command(BaseCommand):
                     articles_failed.append(article)
                     continue
 
+                self.stdout.write(u" - {} (id={}, external_id={})\n".format(article.title, article.pk, external_id))
+
                 # set sites
                 article.sites.clear()
                 for site in s.default_sites.all():
@@ -163,9 +170,6 @@ class Command(BaseCommand):
                     except IntegrityError:  # let's ignore the mysterious database integrity error
                         pass
 
-                if verbosity > NORMAL:
-                    print article.__dict__
-
                 if not mapper:
                     mapper = ObjectMapper(
                         service=s,
@@ -174,12 +178,10 @@ class Command(BaseCommand):
                     mapper.content_object = article
                     mapper.save()
 
-                    if verbosity > NORMAL:
-                        print mapper.__dict__
         if verbosity > NORMAL:
-            print "Services failed: %d" % len(services_failed)
+            self.stdout.write(u"Services failed: {}\n".format(len(services_failed)))
             for s in services_failed:
-                print "    %s" % s.url
-            print "Articles failed: %d" % len(articles_failed)
+                self.stdout.write(u"    {}\n".format(s.url))
+            self.stdout.write(u"Articles failed: {}\n".format(len(articles_failed)))
             for a in articles_failed:
-                print "    %s" % a.external_url
+                self.stdout.write(u"    {}\n".format(a.external_url))
