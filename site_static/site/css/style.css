@@ -8295,16 +8295,16 @@ img[data-popup-image-src] {
 .slider .slider-menu li {
   display: block;
   float: left;
-  width: 20px;
-  height: 20px;
-  background: #afaeae;
+  width: 15px;
+  height: 15px;
+  background: #000;
   border-radius: 50%;
-  margin: 0 1px;
+  margin: 0 2px;
   cursor: pointer;
 }
 
 .slider .slider-menu li.active, .slider .slider-menu li:hover {
-  background: #fff;
+  background: #00cdff;
 }
 
 .header-search {

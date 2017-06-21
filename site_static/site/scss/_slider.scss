@@ -511,15 +511,15 @@
         li {
             display: block;
             float: left;
-            width: 20px;
-            height: 20px;
-            background: $grey-light;
+            width: 15px;
+            height: 15px;
+            background: $black;
             border-radius: 50%;
-            margin: 0 1px;
+            margin: 0 2px;
             cursor: pointer;
 
             &.active, &:hover {
-                background: $white;
+                background: $cyan;
             }
         }
     }
