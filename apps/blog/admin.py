@@ -61,7 +61,7 @@ class PostOptions(ExtendedModelAdmin):
         'featured_in_magazine', 'importance_in_magazine',
     ]
 
-    list_filter = ('blog', 'creation_date', 'modified_date',) + PublishingMixinAdminOptions.list_filter
+    list_filter = ('blog', 'creation_date', 'modified_date', 'status', 'published_from', 'published_till')
     search_fields = ('blog__title', 'title', 'body', 'author__username')
 
     fieldsets = [
@@ -79,7 +79,6 @@ class PostOptions(ExtendedModelAdmin):
     autocomplete_lookup_fields = {
         'fk': ["blog", ],
     }
-    list_per_page = 25
 
 
 admin.site.register(Blog, BlogOptions)
