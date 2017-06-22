@@ -947,7 +947,7 @@ def disarm_user_input(html):
         html = defaultfilters.linebreaks(html)
     html = bleach.clean(
         html,
-        tags=[u'a', u'abbr', u'acronym', u'b', u'blockquote', u'br', u'code', u'em', u'i', u'iframe' u'img', u'li', u'ol', u'p', u'strong', u'ul'],
+        tags=[u'a', u'abbr', u'acronym', u'b', u'blockquote', u'br', u'code', u'em', u'i', u'iframe', u'img', u'li', u'ol', u'p', u'strong', u'ul'],
         attributes={
             u'*': [u'class'],
             u'a': [u'href', u'title'],
