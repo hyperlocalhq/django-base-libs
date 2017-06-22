@@ -20,14 +20,14 @@
                 {% endif %}
             </li>
         {% endif %}
-        {% for pagenum, url in page_urls %}
+        {% for pagenum, index_range, url in page_urls %}
             {% if page.number == pagenum %}
                 <li class="active page">
                     <a title="{% trans 'Current Page' %}" href="#">{{ pagenum }}</a>
                 </li>
             {% else %}
                 <li class="page">
-                    <a title="{% blocktrans with pagenum=pagenum num_pages=page.paginator.num_pages %}Page {{ pagenum }} of {{ num_pages }}{% endblocktrans %}" href="{{ url }}">{{ pagenum }}</a>
+                    <a title="{% blocktrans with pagenum=pagenum num_pages=page.paginator.num_pages %}Page {{ pagenum }} of {{ num_pages }}{% endblocktrans %}" href="{{ url }}">{% if show_index_range %} {{ index_range }} {% else %} {{ pagenum }} {% endif %}</a>
                 </li>
             {% endif %}
         {% endfor %}
