@@ -947,11 +947,44 @@ def disarm_user_input(html):
         html = defaultfilters.linebreaks(html)
     html = bleach.clean(
         html,
-        tags=[u'a', u'abbr', u'acronym', u'b', u'blockquote', u'br', u'code', u'em', u'i', u'img', u'li', u'ol', u'p', u'strong', u'ul'],
+        tags=[u'a', u'abbr', u'acronym', u'b', u'blockquote', u'br', u'code', u'em', u'i', u'iframe', u'img', u'li', u'ol', u'p', u'strong', u'ul'],
         attributes={
-            u'a': [u'href', u'title'], u'acronym': [u'title'], u'abbr': [u'title'], u'img': [u'src', 'alt'],
+            u'*': [u'class'],
+            u'a': [u'href', u'title'],
+            u'acronym': [u'title'],
+            u'abbr': [u'title'],
+            u'img': [u'src', u'alt'],
+            u'iframe': [u'src', u'width', u'height'],
         },
         styles=[],
+        protocols=[u'http', u'https', u'mailto', u'data'],
+        strip=True,
+        strip_comments=True,
+    )
+    html = bleach.linkify(html)
+    html = mark_safe(html)
+    return html
+
+
+@register.filter(is_safe=True, needs_autoescape=False)
+def disarm_admin_input(html):
+    """
+    Returns html without posible harm
+    """
+    import bleach
+    if "</p>" not in html:
+        html = defaultfilters.linebreaks(html)
+    html = bleach.clean(
+        html,
+        tags=[u'a', u'abbr', u'acronym', u'b', u'blockquote', u'br', u'code', u'em', u'i', u'iframe', u'img', u'li', u'ol', u'p', u'strong', u'ul'],
+        attributes={
+            u'*': [u'class', u'style'],
+            u'a': [u'href', u'title'],
+            u'acronym': [u'title'],
+            u'abbr': [u'title'],
+            u'img': [u'src', 'alt'],
+        },
+        styles=[u'color', u'font-family', u'font-size'],
         protocols=[u'http', u'https', u'mailto', u'data'],
         strip=True,
         strip_comments=True,
