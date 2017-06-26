@@ -11,7 +11,7 @@ class Command(ImportToBerlinBuehnenBaseXML):
         from django.db import models
         Service = models.get_model("external_services", "Service")
 
-        URL = "http://webfactory:test@staatsoper-berlin.test.webfactory.de/export.xml"
+        URL = "https://www.staatsoper-berlin.de/export/berlin-buehnen/feed.xml"
         self.service, created = Service.objects.get_or_create(
             sysname="bb_staatsoper_berlin_prods",
             defaults={
