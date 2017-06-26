@@ -8717,6 +8717,101 @@ img[data-popup-image-src] {
   right: 20px;
 }
 
+#header #avatar_navi {
+  position: absolute;
+  top: 40px;
+  right: 130px;
+  display: inline-block;
+  list-style: none;
+  text-align: left;
+}
+
+.is-xs #header #avatar_navi {
+  right: 15px;
+  top: 21px;
+}
+
+#header #avatar_navi li {
+  background: #000;
+  color: #afaeae;
+  position: relative;
+  right: 30px;
+  height: 46px;
+  overflow: hidden;
+  -webkit-transition: height 0.3s ease-in-out;
+  -moz-transition: height 0.3s ease-in-out;
+  -o-transition: height 0.3s ease-in-out;
+  transition: height 0.3s ease-in-out;
+}
+
+#header #avatar_navi li a {
+  display: block;
+  color: #afaeae;
+  text-decoration: none;
+  font-family: "Lato", "sans-serif";
+  font-weight: 700;
+  line-height: 160%;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-top: 1px solid #444444;
+  padding: 10px 60px 10px 40px;
+}
+
+#header #avatar_navi li a:hover {
+  color: #fff;
+}
+
+.is-xs #header #avatar_navi li a {
+  padding: 7px 60px 7px 20px;
+}
+
+#header #avatar_navi li:last-child a {
+  border-bottom: 1px solid #444444;
+}
+
+#header #avatar_navi li.toggle {
+  height: auto;
+  background: transparent;
+  text-align: right;
+  padding-bottom: 30px;
+  position: static;
+}
+
+.is-xs #header #avatar_navi li.toggle {
+  padding-bottom: 5px;
+}
+
+#header #avatar_navi .user-avatar {
+  position: static;
+  margin-right: 30px;
+}
+
+#header #avatar_navi .user-avatar:after {
+  content: "\f107";
+  color: #fff;
+  font-size: 1.33rem;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  padding: 8px 0px 12px 20px;
+}
+
+#header #avatar_navi.closed .user-avatar:after {
+  content: "\f107";
+}
+
+#header #avatar_navi.closed li {
+  height: 0px;
+}
+
+#header #avatar_navi.closed li.toggle {
+  height: auto;
+}
+
+#header #avatar_navi.closed li a {
+  border: 0px;
+}
+
 #header.fixed .wrapper {
   position: fixed;
   top: -54px;
@@ -8764,6 +8859,24 @@ img[data-popup-image-src] {
 
 #header.fixed .languages {
   top: 59px;
+}
+
+#header.fixed #avatar_navi {
+  top: 62px;
+}
+
+.is-xs #header.fixed #avatar_navi {
+  top: 31px;
+}
+
+#header.fixed #avatar_navi li.toggle {
+  padding-bottom: 8px;
+}
+
+.is-xs #header.fixed #avatar_navi li.toggle {
+  padding-bottom: 0px;
+  margin-top: -3px;
+  margin-bottom: -2px;
 }
 
 .header {

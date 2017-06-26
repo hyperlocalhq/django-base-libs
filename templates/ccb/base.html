@@ -1,5 +1,5 @@
 {% block doctype %}<!DOCTYPE html>{% endblock %}
-{% load i18n base_tags cms_tags menu_tags sekizai_tags image_mods_tags %}
+{% load i18n base_tags cms_tags menu_tags sekizai_tags image_mods_tags navigation_tags %}
 <html lang="{{ LANGUAGE_CODE }}">
     <head>
 
@@ -142,11 +142,17 @@
                     <button class="fawesome fa-menu button navigation"><span class="sr-only">{% trans 'toggle menu' %}</span></button>
                     <button class="fawesome fa-search button header-search"><span class="sr-only">{% trans 'search entire website' %}</span></button>
                     {% if user.is_authenticated %}
-                        {% if user.profile.image %}
-                            <a href="{% url 'dashboard' %}" class="fawesome user-avatar button" style="background: url({{ MEDIA_URL }}{{ user.profile.image|modified_path:"at" }})"><span class="sr-only">{% trans 'dashboard' %}</span></a>
-                        {% else %}
-                            <a href="{% url 'dashboard' %}" class="fawesome fa-man button"><span class="sr-only">{% trans 'dashboard' %}</span></a>
-                        {% endif %}
+                        <ul id="avatar_navi" class="closed">
+                            <li class="toggle">
+                                {% if user.profile.image %}
+                                    <button class="fawesome user-avatar button" style="background: url({{ MEDIA_URL }}{{ user.profile.image|modified_path:"at" }})"><span class="sr-only">{% trans 'toggle menu' %}</span></button>
+                                {% else %}
+                                    <button class="fawesome fa-man button"><span class="sr-only">{% trans 'toggle menu' %}</span></button>
+                                {% endif %}
+                            </li>
+                            <li><a href="{% url 'dashboard' %}"><span class="text">{% trans 'Dashboard' %}</span></a></li>
+                            {% navigation_links "menu_settings" using "navigation/includes/navigation_links_in_avatar.html" %}
+                        </ul>
                     {% else %}
                         <a href="{% url 'login' %}" class="fawesome fa-man button"><span class="sr-only">{% trans 'login' %}</span></a>
                     {% endif %}
