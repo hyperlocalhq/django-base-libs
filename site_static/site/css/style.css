@@ -8717,6 +8717,18 @@ img[data-popup-image-src] {
   right: 20px;
 }
 
+#header .button.user-avatar.fa-man {
+  width: 35px;
+  height: 37px;
+  margin-bottom: 7px;
+}
+
+.is-xs #header .button.user-avatar.fa-man {
+  width: 25px;
+  height: 35px;
+  margin-bottom: 9px;
+}
+
 #header #avatar_navi {
   position: absolute;
   top: 40px;

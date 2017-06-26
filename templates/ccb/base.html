@@ -147,7 +147,7 @@
                                 {% if user.profile.image %}
                                     <button class="fawesome user-avatar button" style="background: url({{ MEDIA_URL }}{{ user.profile.image|modified_path:"at" }})"><span class="sr-only">{% trans 'toggle menu' %}</span></button>
                                 {% else %}
-                                    <button class="fawesome fa-man button"><span class="sr-only">{% trans 'toggle menu' %}</span></button>
+                                    <button class="fawesome fa-man user-avatar button"><span class="sr-only">{% trans 'toggle menu' %}</span></button>
                                 {% endif %}
                             </li>
                             <li><a href="{% url 'dashboard' %}"><span class="text">{% trans 'Dashboard' %}</span></a></li>

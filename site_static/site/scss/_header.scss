@@ -181,6 +181,18 @@
             .is-xs & {
                 right: 20px;
             }
+
+            &.fa-man {
+                width: 35px;
+                height: 37px;
+                margin-bottom: 7px;
+
+                .is-xs & {
+                    width: 25px;
+                    height: 35px;
+                    margin-bottom: 9px;
+                }
+            }
         }
     }
 
