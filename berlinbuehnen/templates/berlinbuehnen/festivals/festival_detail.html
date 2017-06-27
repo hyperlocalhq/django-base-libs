@@ -86,7 +86,7 @@
                                             {% if festival.first_image %}
                                                 {% with festival.first_image.path|file_description as file_desc %}
                                                     <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"detail_image" }}" alt="{{ festival.title|escape }}"  />{% pin image=festival.first_image description=festival.title %}
-                                                    {% if file_desc.author %}<span class="photo-credits-beneath">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}</div>
+                                                    {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}</div>
                                                 {% endwith %}
                                             {% endif %}
                                             <div class="description">

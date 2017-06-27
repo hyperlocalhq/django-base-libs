@@ -150,7 +150,7 @@
                                                 {% if event.first_image %}
                                                     {% with event.first_image.path|file_description as file_desc %}
                                                         <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ event.first_image.path|modified_path:"detail_image" }}" alt="{{ event.production.title|escape }}"  />{% pin image=event.first_image description=event.production.title %}
-                                                        {% if file_desc.author %}<span class="photo-credits-beneath">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}</div>
+                                                        {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}</div>
                                                     {% endwith %}
                                                 {% elif event.ev_or_prod_images %}
                                                     {% with event.ev_or_prod_images|first as first %}
