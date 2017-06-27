@@ -28,37 +28,37 @@
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/add_to_calender_1.5_atc.min.js" defer="defer"></script>
     {% include "utils/favorites_scripts.html" %}
     <script type="text/javascript">
-    
+
         $(document).ready(function() {
-        
+
             $('a.more-dates').click(function() {
-            
+
                 var $this = $(this);
-            
+
                 $('li.more-dates').css('display', 'block');
                 $this.css('display', 'none');
                 $('a.less-dates').css('display', 'inline-block');
-                
+
                 var $accordion = $this.closest('.accordion');
                 $accordion.data('accordion').initHeights();
             });
-        
+
             $('a.less-dates').click(function() {
-            
+
                 var $this = $(this);
-                
+
                 $('li.more-dates').css('display', 'none');
                 $this.css('display', 'none');
                 $('a.more-dates').css('display', 'inline-block');
-                
+
                 var $accordion = $this.closest('.accordion');
                 $accordion.data('accordion').initHeights();
             });
-        
+
         });
-        
+
     </script>
-    
+
     <script type="text/javascript">
         /*(function(d){
             var f = d.getElementsByTagName('SCRIPT')[0], p = d.createElement('SCRIPT');
@@ -80,7 +80,7 @@
                         <div class="col-xs-12 print-padding">
                             <a class="fawesome back uc no-print" href="{% url 'event_list' %}{% remove_from_query "page" %}">{% trans "back to overview" %}</a>
                             <article>
-                                
+
                                 <!-- headlines -->
                                 <header>
                                     <ul class="header-top icons-space">
@@ -139,19 +139,25 @@
                                     {% endif %}
                                     {% if event.production.original %}<h2>{{ event.production.original }}</h2>{% endif %}
                                 </header>
-                                
+
                                 <!-- main  part (including sidebar) -->
                                 <div class="main">
                                     <div class="container">
                                         <div class="row">
-                                            
+
                                             <!-- main content -->
                                             <div class="col-xs-12 col-md-8 left">
                                                 {% if event.first_image %}
-                                                    <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ event.first_image.path|modified_path:"detail_image" }}" alt="{{ event.production.title|escape }}"  />{% pin image=event.first_image description=event.production.title %}</div>
+                                                    {% with event.first_image.path|file_description as file_desc %}
+                                                        <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ event.first_image.path|modified_path:"detail_image" }}" alt="{{ event.production.title|escape }}"  />{% pin image=event.first_image description=event.production.title %}
+                                                        {% if file_desc.author %}<span class="photo-credits-beneath">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}</div>
+                                                    {% endwith %}
                                                 {% elif event.ev_or_prod_images %}
                                                     {% with event.ev_or_prod_images|first as first %}
-                                                        <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ first.path|modified_path:"detail_image" }}" alt="{{ event.production.title|escape }}"  />{% pin image=first description=event.production.title %}</div> 
+                                                        {% with first.path|file_description as file_desc %}
+                                                            <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ first.path|modified_path:"detail_image" }}" alt="{{ event.production.title|escape }}"  />{% pin image=first description=event.production.title %}
+                                                            {% if file_desc.author %}<span class="photo-credits-beneath">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}</div>
+                                                        {% endwith %}
                                                     {% endwith %}
                                                 {% endif %}
                                                 <div class="description">
@@ -184,7 +190,7 @@
                                                         {% endif %}
                                                     </dl>
                                                 {% endif %}
-                                                
+
                                                 {% if parts %}
                                                     <div class="multiparts">
                                                         {% for part in parts %}
@@ -228,7 +234,7 @@
                                                     </div>
                                                 {% endif %}
                                             </div>
-                                            
+
                                             <!-- main sidebar -->
                                             <div class="col-xs-12 col-md-4 right">
                                                 <div class="accordion sidebar-accordion">
@@ -566,11 +572,11 @@
                                                     {% endif %}
                                                 </div>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
-                                        
+
                                 <!-- additional content (accordion) -->
                                 <div class="additional">
                                     <div class="container">
@@ -633,7 +639,7 @@
                                                             </div>
                                                         {% endif %}
                                                     {% endif %}
-                                                    
+
                                                     {% if not parts %}
                                                         {% if event.ev_or_prod_involvements %}
                                                             <div class="accordion-item">
@@ -694,7 +700,7 @@
                                                             </div>
                                                         {% endif %}
                                                     {% endif %}
-                                                        
+
                                                     {% if not parts %}
                                                         {% if event.ev_or_prod_authorships %}
                                                             <div class="accordion-item">
@@ -751,7 +757,7 @@
                                                             </div>
                                                         {% endif %}
                                                     {% endif %}
-                                                    
+
                                                     {% if event.ev_or_prod_sponsors %}
                                                         <div class="accordion-item">
                                                             <h4 class="accordion-item-head">{% trans "Presented by" %}</h4>
@@ -831,7 +837,7 @@
                                                         </div>
                                                     {% endif %}
                                                 </div>
-                                                
+
                                                 <!-- Gallery -->
                                                 {% if event.ev_or_prod_videos or event.ev_or_prod_images or event.production.has_parts_videos or event.production.has_parts_images %}
                                                     <div class="gallery row">
@@ -853,6 +859,7 @@
                                                                 <div class="col-xs-12 col-sm-6 col-md-4 image gallery-item img chevron">
                                                                     {% with image.path|file_description as file_desc %}
                                                                         <img class="gallery-image" src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"gallery_image" }}" alt="{% if file_desc.description %}{{ file_desc.description|escape }}{% endif %}" width="100%" data-image-big="{{ MEDIA_URL }}{{ image.path }}" />{% pin image=image description=event.production.title %}
+                                                                        {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
                                                                         <div class="gallery-image-text">
                                                                             <div class="gallery-image-text-description">
                                                                                 {% if file_desc.title %}
@@ -878,6 +885,7 @@
                                                                     <div class="col-xs-12 col-sm-6 col-md-4 image gallery-item img chevron">
                                                                         {% with image.path|file_description as file_desc %}
                                                                             <img class="gallery-image" src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"gallery_image" }}" alt="{% if file_desc.description %}{{ file_desc.description|escape }}{% endif %}" width="100%" data-image-big="{{ MEDIA_URL }}{{ image.path }}" />{% pin image=image description=event.production.title %}
+                                                                            {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
                                                                             <div class="gallery-image-text">
                                                                                 <div class="gallery-image-text-description">
                                                                                     {% if file_desc.title %}
@@ -905,7 +913,7 @@
                                     </div>
                                 </div>
                             </article>
-                            
+
                             <!-- event slider -->
                             {% other_productions current_event=event %}
                         </div>

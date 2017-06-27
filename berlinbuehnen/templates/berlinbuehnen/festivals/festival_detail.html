@@ -39,7 +39,7 @@
                     <div class="col-xs-12 print-padding">
                         <a class="fawesome back uc no-print" href="{% url 'festival_list' %}">{% trans "back to overview" %}</a>
                         <article>
-                            
+
                             <!-- headlines -->
                             <header>
                                 <ul class="header-top icons-space">
@@ -75,16 +75,19 @@
                                     <h2>{{ festival.subtitle }}</h2>
                                 {% endif %}
                             </header>
-                            
+
                             <!-- main  part (including sidebar) -->
                             <div class="main">
                                 <div class="container">
                                     <div class="row">
-                                        
+
                                         <!-- main content -->
                                         <div class="col-xs-12 col-md-8 left">
                                             {% if festival.first_image %}
-                                                <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"detail_image" }}" alt="{{ festival.title|escape }}"  />{% pin image=festival.first_image description=festival.title %}</div>
+                                                {% with festival.first_image.path|file_description as file_desc %}
+                                                    <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"detail_image" }}" alt="{{ festival.title|escape }}"  />{% pin image=festival.first_image description=festival.title %}
+                                                    {% if file_desc.author %}<span class="photo-credits-beneath">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}</div>
+                                                {% endwith %}
                                             {% endif %}
                                             <div class="description">
                                                 {{ festival.get_rendered_description }}
@@ -100,17 +103,17 @@
                                             {% endif %}
                                             {% endcomment %}
                                         </div>
-                                        
+
                                         <!-- main sidebar -->
                                         <div class="col-xs-12 col-md-4 right">
                                             {% include "festivals/includes/sidebar.html" %}
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
-                                    
-                            
+
+
                             <!-- additional content (accordion) -->
                             <div class="additional">
                                 <div class="container">
@@ -142,13 +145,13 @@
                                                     </div>
                                                 {% endif %}
                                             </div>
-                                            
+
                                             <!-- Program -->
                                             <div class="additional-list list row">
                                                 <h4 class="additional-list-head">{% trans "Festival Programme" %}</h4>
                                                 <a class="additional-list-more fawesome down after" href="javascript:void(0);">{% trans 'more' %}</a>
                                             </div>
-                                            
+
                                             <!-- Gallery -->
                                             {% if festival.image_set.exists %}
                                                 <div class="gallery row">
@@ -157,6 +160,7 @@
                                                         <div class="col-xs-12 col-sm-6 col-md-4 image gallery-item img chevron">
                                                             {% with image.path|file_description as file_desc %}
                                                                 <img class="gallery-image" src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"gallery_image" }}" alt="{% if file_desc.description %}{{ file_desc.description|escape }}{% endif %}" width="100%" data-image-big="{{ MEDIA_URL }}{{ image.path }}" />{% pin image=image description=festival.title %}
+                                                                {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
                                                                 <div class="gallery-image-text">
                                                                     <div class="gallery-image-text-description">
                                                                         {% if file_desc.title %}
@@ -178,14 +182,14 @@
                                                     {% endfor %}
                                                 </div>
                                             {% endif %}
-                                            
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </article>
-                        
+
                         <!-- event slider -->
                         {#% festival_productions current_festival=festival amount=200 %#}
                     </div>
