@@ -148,9 +148,6 @@
         {% endblock %}
 
         <div id="body">
-            {% block top_alert %}
-                {% infobanner "top" %}
-            {% endblock %}
             {% block content %}
             {% endblock %}
         </div>
@@ -203,6 +200,11 @@
         {% render_block "js" %}
         {{ site_settings.extra_body|safe }}
     </div>
+
+    {% block top_alert %}
+        {% infobanner "top" %}
+    {% endblock %}
+
     <span class="width-sniffer visible-xs"></span><span class="width-sniffer visible-sm"></span><span class="width-sniffer visible-md"></span><span class="width-sniffer visible-lg"></span>
 </body>
 </html>

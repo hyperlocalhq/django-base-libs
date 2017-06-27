@@ -1,3 +1,5 @@
+// main:style.scss
+
 .alert-dark {
     // color specific style
     background: black;
@@ -12,15 +14,31 @@
     }
     .close {
         color: white;
-        opacity: 0.4;
+        opacity: 1;
+        font-size: 30px;
+        margin-right: -5px;
         &:hover, &:focus {
             color: white;
-            opacity: 0.8;
+            opacity: 1;
         }
     }
 
 }
 .infobanner {
+
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    z-index: 950;
+    padding: 10px 20px 20px;
+    margin: 0;
+    border-radius: 0;
+
+    .container {
+        text-align: center;
+    }
+
     // layout specific style
     .btn {
         margin-left: 1em;
