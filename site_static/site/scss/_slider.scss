@@ -444,14 +444,14 @@
             margin-top: -25px;
             color: $white;
             cursor: pointer;
-            line-height: 3.2rem;
+            line-height: 3rem;
             &:hover, &:focus {
                 color: $white;
                 opacity: 0.7;
             }
             &:before {
                 line-height: 100%;
-                font-size: 3.2rem;
+                font-size: 3rem;
             }
             &.disabled {
                 opacity: 0.2;
@@ -475,16 +475,16 @@
 
         .slider-button {
             position: absolute;
-            padding: 10px 30px;
-            background: $blue;
-            color: $white;
-            font-weight: $font-bold;
-            bottom: 70px;
+            //padding: 10px 30px;
+            //background: $blue;
+            //color: $white;
+            //font-weight: $font-bold;
+            bottom: 60px;
             left: 50%;
             transform: translateX(-50%);
 
             &:hover {
-                background: $blue-light;
+                //background: $blue-light;
             }
 
             .is-sm & {

@@ -644,8 +644,8 @@
 
         if (!me.$prev) {
 
-            me.$prev = $('<div class="fawesome fa-left-inverted prev"><span class="sr-only">previous</span></div>');
-            me.$next = $('<div class="fawesome fa-right-inverted next"><span class="sr-only">next</span></div>');
+            me.$prev = $('<div class="fawesome fa-left-bold prev"><span class="sr-only">previous</span></div>');
+            me.$next = $('<div class="fawesome fa-right-bold next"><span class="sr-only">next</span></div>');
 
             me.$main.append(me.$prev);
             me.$main.append(me.$next);
