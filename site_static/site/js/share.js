@@ -1,4 +1,5 @@
 function init_share(){
+
   $('.share-twitter').sharrre({
     share: {
       twitter: true
@@ -20,6 +21,7 @@ function init_share(){
     template: '<span class="icon icon-social-facebook"></span> <span class="sr-only">{% trans "Share on Facebook" %}</span>',
     enableHover: false,
     enableTracking: true,
+    buttons: { facebook: {}},
     click: function(api, options){
       api.simulateClick();
       api.openPopup('facebook');

@@ -20,6 +20,7 @@ $('.share-facebook').sharrre({
   template: 'Share on Facebook',
   enableHover: false,
   enableTracking: true,
+  buttons: { facebook: {}},
   click: function(api, options){
     api.simulateClick();
     api.openPopup('facebook');
@@ -47,6 +48,7 @@ $('.share-image-facebook').sharrre({
   template: '<span class="icon icon-social-facebook"></span> <span class="sr-only">{% trans "Share on Facebook" %}</span>',
   enableHover: false,
   enableTracking: true,
+  buttons: { facebook: {}},
   click: function(api, options){
     api.simulateClick();
     api.openPopup('facebook');
