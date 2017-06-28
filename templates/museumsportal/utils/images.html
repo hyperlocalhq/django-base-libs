@@ -10,6 +10,7 @@
               <div class="img-detail">
                 <a href="{{ object.get_url_path }}slideshow/#{{ forloop.counter0 }}">
                   <img src="{{ STATIC_URL }}site/img/placeholder_detail.gif" data-original="{{ MEDIA_URL }}{{ mf.path|modified_path:"max" }}" alt="" title="{{ file_desc.description|remove_newlines|escape }}" />
+                  {% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}
                 </a>
               </div>
               <!--
@@ -57,7 +58,7 @@
                 resizable: false, // disable normal resizing
                 itemSelector : '.item',
             });
-        }); 
+        });
     }
 
     function lazyload_detail_images() {

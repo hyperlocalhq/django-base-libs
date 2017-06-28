@@ -39,6 +39,7 @@
           {% end_if_has_perm %}
         {% endif %}
       {% endif %}
+      {% if fd.author %}<span class="photo-credits-over">{{ fd.author }}</span>{% endif %}
     {% endwith %}
   </div>
 {% endif %}
