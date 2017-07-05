@@ -1,10 +1,15 @@
-{% load image_modifications i18n %}
+{% load image_modifications i18n fb_tags %}
 
 <div class="col-xs-12 print-padding image-text">
 {% if instance.layout == "image-left" %}
     <div class="row hidden-xs hidden-sm horizontal">
         <div class="col-md-6">
-            <img src="{{ MEDIA_URL }}{{ instance.image|modified_path:'some_modification' }}" alt="{{ instance.alt|escape }}" class="img-responsive" />
+            {% with instance.image|file_description as file_desc %}
+                <div class="img chevron">
+                    <img src="{{ MEDIA_URL }}{{ instance.image|modified_path:'some_modification' }}" alt="{{ instance.alt|escape }}" class="img-responsive" />
+                    {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                </div>
+            {% endwith %}
         </div>
         <div class="col-md-6">
             <h2>{{ instance.title }}</h2>
@@ -19,7 +24,12 @@
     </div>
     <div class="row visible-xs visible-sm top-bottom">
         <div class="col-xs-12">
-            <img src="{{ MEDIA_URL }}{{ instance.image|modified_path:'some_modification' }}" alt="{{ instance.alt|escape }}" class="img-responsive" />
+            {% with instance.image|file_description as file_desc %}
+                <div class="img chevron">
+                    <img src="{{ MEDIA_URL }}{{ instance.image|modified_path:'some_modification' }}" alt="{{ instance.alt|escape }}" class="img-responsive" />
+                    {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                </div>
+            {% endwith %}
         </div>
         <div class="col-xs-12">
             <h2>{{ instance.title }}</h2>
@@ -48,12 +58,22 @@
             {% endif %}
         </div>
         <div class="col-md-6">
-            <img src="{{ MEDIA_URL }}{{ instance.image|modified_path:'some_modification' }}" alt="{{ instance.alt|escape }}" class="img-responsive" />
+            {% with instance.image|file_description as file_desc %}
+                <div class="img chevron">
+                    <img src="{{ MEDIA_URL }}{{ instance.image|modified_path:'some_modification' }}" alt="{{ instance.alt|escape }}" class="img-responsive" />
+                    {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                </div>
+            {% endwith %}
         </div>
     </div>
     <div class="row visible-xs visible-sm top-bottom">
         <div class="col-xs-12">
-            <img src="{{ MEDIA_URL }}{{ instance.image|modified_path:'some_modification' }}" alt="{{ instance.alt|escape }}" class="img-responsive" />
+            {% with instance.image|file_description as file_desc %}
+                <div class="img chevron">
+                    <img src="{{ MEDIA_URL }}{{ instance.image|modified_path:'some_modification' }}" alt="{{ instance.alt|escape }}" class="img-responsive" />
+                    {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                </div>
+            {% endwith %}
         </div>
         <div class="col-xs-12">
             <h2>{{ instance.title }}</h2>
@@ -72,7 +92,12 @@
 {% elif instance.layout == "image-top" %}
     <div class="row top-bottom">
         <div class="col-xs-12">
-            <img src="{{ MEDIA_URL }}{{ instance.image|modified_path:'some_modification' }}" alt="{{ instance.alt|escape }}" class="img-responsive" />
+            {% with instance.image|file_description as file_desc %}
+                <div class="img chevron">
+                    <img src="{{ MEDIA_URL }}{{ instance.image|modified_path:'some_modification' }}" alt="{{ instance.alt|escape }}" class="img-responsive" />
+                    {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                </div>
+            {% endwith %}
         </div>
         <div class="col-xs-12">
             <h2>{{ instance.title }}</h2>
@@ -101,7 +126,12 @@
             {% endif %}
         </div>
         <div class="col-xs-12">
-            <img src="{{ MEDIA_URL }}{{ instance.image|modified_path:'some_modification' }}" alt="{{ instance.alt|escape }}" class="img-responsive" />
+            {% with instance.image|file_description as file_desc %}
+                <div class="img chevron">
+                    <img src="{{ MEDIA_URL }}{{ instance.image|modified_path:'some_modification' }}" alt="{{ instance.alt|escape }}" class="img-responsive" />
+                    {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                </div>
+            {% endwith %}
         </div>
     </div>
     <div class="row">
