@@ -16,7 +16,7 @@ from base_libs.models.models import ViewsMixin
 from base_libs.models.models import CreationModificationDateMixin
 from base_libs.models.models import CreationModificationMixin
 from base_libs.models.models import MultiSiteContainerMixin
-from base_libs.models.models import PublishingMixin, PublishingMixinPublishedManager
+from base_libs.models.models import PublishingMixin
 from base_libs.models import ExtendedTextField
 
 
@@ -76,27 +76,13 @@ class Blog(MultiSiteContainerMixin, CreationModificationDateMixin):
 # QUICK HACK: Without the following the Blog.objects.model will be MultiSiteContainerMixin and won't work correctly
 Blog.objects.model = Blog
 
-
-class PublishedPostManager(PublishingMixinPublishedManager):
-    def featured_in_magazine(self):
-        return self.filter(
-            featured_in_magazine=True,
-        ).order_by("-importance_in_magazine")
-
-
 class Post(CreationModificationMixin, PublishingMixin, ViewsMixin, UrlMixin, SlugMixin()):
     title = models.CharField(_("title"), max_length=255)
     tags = TagAutocompleteField(verbose_name=_("tags"))
     body = ExtendedTextField(_("body"))
-    blog = models.ForeignKey(Blog, verbose_name=_("blog"))
+    blog = models.ForeignKey(Blog, related_name="blog")  # TODO: change or remove the related_name. It should be something like "posts" or "post_set", not "blog"
     enable_comment_form = models.BooleanField(_('enable comment form'), default=True)
-
-    featured_in_magazine = models.BooleanField(_("Featured in magazine"), default=False)
-    importance_in_magazine = models.PositiveIntegerField(_("Importance in magazine"), default=0, help_text=_("The bigger the number, the more up-front it will be shown in the magazine overview"))
-
-    objects = models.Manager()
-    published_objects = PublishedPostManager()
-
+  
     def __unicode__(self):
         return force_unicode(self.title)
         
@@ -171,6 +157,3 @@ class Post(CreationModificationMixin, PublishingMixin, ViewsMixin, UrlMixin, Slu
         except:
             return None
             
-    @staticmethod
-    def autocomplete_search_fields():
-        return ("id__iexact", "title__icontains",)

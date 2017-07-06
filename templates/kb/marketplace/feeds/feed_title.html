@@ -1,5 +1,0 @@
-{% with obj as job_offer %}
-    {{ job_offer.position }}{% if job_offer.offering_institution or job_offer.offering_institution_title %} @
-        {% if job_offer.offering_institution %}{{ job_offer.offering_institution.get_title }}{% else %}
-            {{ job_offer.offering_institution_title }}{% endif %}{% endif %}
-{% endwith %}

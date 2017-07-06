@@ -5,9 +5,9 @@ from base_libs.forms.formprocessing import ID_ACTION_EDIT
 from base_libs.forms.formprocessing import ID_ACTION_DELETE
 from base_libs.models.base_libs_settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
 
-from kb.apps.blog.forms import BlogPostForm
-from kb.apps.blog.views import BlogPostFormPreviewHandler
-from kb.apps.blog.feeds import RssFeed, AtomFeed
+from jetson.apps.blog.forms import BlogPostForm
+from jetson.apps.blog.views import BlogPostFormPreviewHandler
+from jetson.apps.blog.feeds import RssFeed, AtomFeed
 
 all_dict = dict(
     status=STATUS_CODE_PUBLISHED,
@@ -23,7 +23,7 @@ feed_dict = dict(
 )
 
 urlpatterns = patterns(
-    'kb.apps.blog.views',
+    'jetson.apps.blog.views',
 
     # mind the order of the url-patterns!!!!!
 

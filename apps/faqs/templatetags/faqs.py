@@ -1,23 +1,22 @@
 from django import template
 
-from kb.apps.faqs.models import FaqCategory
+from jetson.apps.faqs.models import FaqCategory
 
 register = template.Library()
 
-
 class FaqCategoryListNode(template.Node):
     def __init__(
-        self,
-        container_id_lookup_var,
-        container_id,
-        category_id_lookup_var,
-        category_id,
-        template_path
-    ):
+         self, 
+         container_id_lookup_var,
+         container_id,
+         category_id_lookup_var, 
+         category_id,
+         template_path
+     ):
         self.container_id_lookup_var = container_id_lookup_var
         self.container_id = container_id
         self.category_id_lookup_var = category_id_lookup_var
-        self.category_id = category_id
+        self.category_id = category_id 
         self.template_path = template_path
 
     def render(self, context):
@@ -25,8 +24,8 @@ class FaqCategoryListNode(template.Node):
         if self.container_id_lookup_var is not None:
             try:
                 self.container_id = template.resolve_variable(
-                    self.container_id_lookup_var,
-                    context
+                     self.container_id_lookup_var, 
+                     context
                 )
             except template.VariableDoesNotExist:
                 return ''
@@ -34,8 +33,8 @@ class FaqCategoryListNode(template.Node):
         if self.category_id_lookup_var is not None:
             try:
                 self.category_id = template.resolve_variable(
-                    self.category_id_lookup_var,
-                    context
+                     self.category_id_lookup_var, 
+                     context
                 )
             except template.VariableDoesNotExist:
                 return ''
@@ -44,45 +43,44 @@ class FaqCategoryListNode(template.Node):
         if self.category_id:
             try:
                 category = FaqCategory.objects.get(id=self.category_id)
-            except Exception:
+            except:
                 return ''
             category_list = category.get_children()
         # no category id given, so get the roots of the container
         else:
             try:
                 category_list = FaqCategory.objects.get_roots(self.container_id)
-            except Exception:
+            except:
                 return ''
 
-        # if self.category_id == 14:
+        #if self.category_id == 14:
         #    ccc=nnnn
         try:
             template_path = template.resolve_variable(
-                self.template_path,
-                context
+              self.template_path, 
+              context
             )
-        except Exception:
+        except:
             template_path = ""
-
+        
         context_vars = context
         context_vars.push()
         context_vars['categories'] = category_list
         output = template.loader.render_to_string(
             template_path or "faqs/category_children.html",
             context_vars
-        )
+            )
         context_vars.pop()
         return output
 
-
 class FaqListNode(template.Node):
     def __init__(
-        self,
-        category_id_lookup_var,
-        category_id, var_name
-    ):
+         self, 
+         category_id_lookup_var, 
+         category_id, var_name
+     ):
         self.category_id_lookup_var = category_id_lookup_var
-        self.category_id = category_id
+        self.category_id = category_id 
         self.var_name = var_name
 
     def render(self, context):
@@ -90,21 +88,20 @@ class FaqListNode(template.Node):
         if self.category_id_lookup_var is not None:
             try:
                 self.category_id = template.resolve_variable(
-                    self.category_id_lookup_var,
-                    context
+                     self.category_id_lookup_var, 
+                     context
                 )
             except template.VariableDoesNotExist:
                 return ''
 
         try:
             category = FaqCategory.objects.get(id=self.category_id)
-        except Exception:
+        except:
             return ''
-
+        
         faq_list = getattr(category, 'get_faqs')()
         context[self.var_name] = faq_list
         return ''
-
 
 class DoGetFaqCategoryList:
     """
@@ -136,17 +133,17 @@ class DoGetFaqCategoryList:
 
         tokens = token.contents.split()
         if not len(tokens) in (3, 5, 7,):
-            raise template.TemplateSyntaxError, \
+            raise template.TemplateSyntaxError,\
                 "%r tag requires 2, 4 or 6 arguments" % tokens[0]
-
+        
         if tokens[1] != 'in':
-            raise template.TemplateSyntaxError, \
-                "first argument in %r tag must be 'in'" % tokens[0]
-
+            raise template.TemplateSyntaxError,\
+                 "first argument in %r tag must be 'in'" % tokens[0]
+        
         container_var_name, container_id = None, None
         category_var_name, category_id = None, None
-        template_path = None
-
+        template_path = None            
+            
         if tokens[2].isdigit():
             container_id = tokens[2]
         else:
@@ -158,27 +155,26 @@ class DoGetFaqCategoryList:
                     category_id = tokens[4]
                 else:
                     category_var_name = tokens[4]
-
+                
                 if len(tokens) > 5:
                     if tokens[5] == 'using':
                         template_path = tokens[6]
                     else:
-                        raise template.TemplateSyntaxError, \
+                        raise template.TemplateSyntaxError,\
                             "fifth argument in %r tag must be 'for or 'using'" % tokens[0]
-
+                
             elif tokens[3] == 'using':
                 template_path = tokens[4]
             else:
-                raise template.TemplateSyntaxError, \
-                    "third argument in %r tag must be 'for or 'using'" % tokens[0]
+                raise template.TemplateSyntaxError,\
+                     "third argument in %r tag must be 'for or 'using'" % tokens[0]
 
         return FaqCategoryListNode(
-            container_var_name,
-            container_id,
-            category_var_name,
-            category_id,
-            template_path)
-
+           container_var_name,
+           container_id,
+           category_var_name, 
+           category_id,
+           template_path)
 
 class DoGetFaqList:
     """
@@ -207,24 +203,24 @@ class DoGetFaqList:
             raise template.TemplateSyntaxError, "%r tag requires 4 arguments" % tokens[0]
         if tokens[1] != 'for':
             raise template.TemplateSyntaxError, "Second argument in %r tag must be 'for'" % tokens[0]
-
+        
         if tokens[1] == 'for':
             category_var_name, category_id = None, None
-
+            
             if tokens[2].isdigit():
                 category_id = tokens[2]
             else:
                 category_var_name = tokens[2]
-
+                    
             if tokens[3] != 'as':
                 raise template.TemplateSyntaxError, "Third argument in %r must be 'as'" % tokens[0]
-
+                
             return FaqListNode(
-                category_var_name,
-                category_id,
-                tokens[4]
-            )
-
-
+                     category_var_name, 
+                     category_id, 
+                     tokens[4]
+             )
+            
+            
 register.tag('get_faq_category_children', DoGetFaqCategoryList())
 register.tag('get_faqs', DoGetFaqList())

@@ -1,9 +1,0 @@
-{% load base_tags i18n favorites %}
-{% with forloop.counter|default:0 as counter %}
-    {% if is_not_favorite_for_user %}
-        <div class="fawesome fa-favorite button smaller adding_to_favorites_{{ counter|default:0 }}" onclick="FavoriteManager.toggle({{ counter|default:0 }}, {{ content_type_id }}, {{ object.id }}, '/'); this.blur(); window.cancelEvent(event);" id="adding_to_favorites_{{ counter|default:0 }}"><span class="text counter dont-toggle-text">{{ object|get_favorites_count }}</span><span class="sr-only dont-toggle-text">{% trans "favorites" %}. </span><span class="sr-only">{% trans "Add to favorites" %}</span></div>
-    {% else %}
-        <div class="fawesome fa-favorite button smaller active adding_to_favorites_{{ counter|default:0 }}" onclick="FavoriteManager.toggle({{ counter|default:0 }}, {{ content_type_id }}, {{ object.id }}, '/'); this.blur(); window.cancelEvent(event);" id="adding_to_favorites_{{ counter|default:0 }}"><span class="text counter dont-toggle-text">{{ object|get_favorites_count }}</span><span class="sr-only dont-toggle-text">{% trans "favorites" %}. </span><span class="sr-only">{% trans "Remove from favorites" %}</span></div>
-    {% endif %}
-{% endwith %}
-

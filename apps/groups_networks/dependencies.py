@@ -7,10 +7,12 @@ required_apps = [
     "location",
     "institutions",
     "people",
+    "institutions",
     "auth",
     "mailing",
     "memos",
     "image_mods",
-]
-
+    "site_specific",
+    ]
+    
 optional_apps = []

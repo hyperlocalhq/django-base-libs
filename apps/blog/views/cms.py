@@ -2,7 +2,6 @@
 import re
 import datetime
 import time
-from datetime import timedelta
 
 from django.template import loader
 from django.template import RequestContext
@@ -16,7 +15,6 @@ from django.contrib.sites.models import Site
 from django.db.models.fields import DateTimeField
 from django.utils.timezone import now as tz_now
 from django.shortcuts import get_object_or_404, render, redirect
-from django.contrib.auth import get_permission_codename
 from tagging.models import TaggedItem
 from base_libs.views import get_container
 from base_libs.views import access_denied
@@ -29,10 +27,9 @@ from base_libs.forms.formprocessing import ID_ACTION_DELETE
 from base_libs.models.base_libs_settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
 from base_libs.models.base_libs_settings import MARKUP_HTML_WYSIWYG
 from jetson.apps.utils.views import object_list
+from jetson.apps.blog.models import Blog, Post
 from jetson.apps.comments.views.comments import post_comment, refuse_comment
 from jetson.apps.comments.views.comments import accept_comment, mark_as_spam_comment
-
-from kb.apps.blog.models import Blog, Post
 
 
 # PRIVATE FUNCTIONS
@@ -72,7 +69,7 @@ def _get_year_archive(year, container, queryset, extra_context, allow_future, al
     year:          This year
     """
     date_field = 'published_from'
-    now = tz_now().replace(microsecond=0)
+    now = tz_now()
 
     lookup_kwargs = {'%s__year' % date_field: year}
 
@@ -125,7 +122,7 @@ def _get_month_archive(year, month, container, queryset, extra_context, allow_fu
     """ Only bother to check current date if the month isn't in
      the past and future objects are requested."""
     if last_day >= tz_now().date() and not allow_future:
-        lookup_kwargs['%s__lte' % date_field] = tz_now().replace(microsecond=0)
+        lookup_kwargs['%s__lte' % date_field] = tz_now()
     queryset = queryset.filter(**lookup_kwargs)
     if not queryset and not allow_empty:
         raise Http404
@@ -164,7 +161,7 @@ def _get_day_archive(year, month, day, container, queryset, extra_context, allow
         raise Http404
 
     model = queryset.model
-    now = tz_now().replace(microsecond=0)
+    now = tz_now()
 
     if isinstance(model._meta.get_field(date_field), DateTimeField):
         lookup_kwargs = {'%s__range' % date_field: (
@@ -237,7 +234,7 @@ def get_blog_params(request, post_slug=None, **kwargs):
     if obj:
         extra_context['object_change_permission'] = u"%s.%s" % (
             obj._meta.app_label,
-            get_permission_codename("change", obj._meta),
+            obj._meta.get_change_permission(),
         )
     else:
         extra_context['object_change_permission'] = ""

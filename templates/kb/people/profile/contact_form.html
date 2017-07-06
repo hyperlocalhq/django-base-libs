@@ -1,7 +1,0 @@
-{% load i18n base_tags auth_extended uni_form_tags uni_form_field crispy_forms_tags %}
-{% crispy form "kb_form" %}
-
-{% block javascript %}
-    <script type="text/javascript" src="//maps.google.com/maps/api/js?language=de&amp;region=DE&amp;key={{ GOOGLE_API_KEY }}"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/locating.js"></script>
-{% endblock %}

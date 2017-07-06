@@ -1,9 +1,0 @@
-{% if form.form_html %}
-    {{ form.media }}
-    {% if form_show_errors %}
-        {% include "kb_form/errors.html" %}
-    {% endif %}
-    {{ form.form_html }}
-{% else %}
-    {% include "kb_form/uni_form.html" %}
-{% endif %}

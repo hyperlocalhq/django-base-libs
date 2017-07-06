@@ -1,7 +1,0 @@
-{% extends "kb/events/add_event_base.html" %}
-{% load base_tags i18n uni_form_tags uni_form_field crispy_forms_tags %}
-
-{% block javascript %}
-    {{ block.super }}
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/opening_hours.js"></script>
-{% endblock %}
