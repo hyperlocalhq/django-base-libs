@@ -344,19 +344,33 @@ class InstitutionBase(CreationModificationDateMixin, UrlMixin, OpeningHoursMixin
         if contacts and contacts[0].postal_address:
             postal_address = contacts[0].postal_address
             if postal_address.country_id != "DE":
-                return LocalityType.objects.get(
+                international, _created = LocalityType.objects.get_or_create(
                     slug="international",
+                    defaults=dict(
+                        title_de="International",
+                        title_en="International",
+                    )
                 )
+                return international
             elif postal_address.city.lower() != "berlin":
-                return LocalityType.objects.get(
+                national, _created = LocalityType.objects.get_or_create(
                     slug="national",
+                    defaults=dict(
+                        title_de="National",
+                        title_en="National",
+                    )
                 )
+                return national
             else:
                 import re
                 from jetson.apps.location.data import POSTAL_CODE_2_DISTRICT
                 locality = postal_address.get_locality()
-                regional = LocalityType.objects.get(
+                regional, _created = LocalityType.objects.get_or_create(
                     slug="regional",
+                    defaults=dict(
+                        title_de="Regional",
+                        title_en="Regional",
+                    )
                 )
                 p = re.compile('[^\d]*') # remove non numbers
                 postal_code = p.sub("", postal_address.postal_code)

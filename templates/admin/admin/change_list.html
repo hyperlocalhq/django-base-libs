@@ -169,28 +169,26 @@
                                     {% endblock %}
                                 {% endif %}
                                 <!-- FILTERS -->
-                                {% cache 300 admin_filters request.GET.items request.path request.user.username %}
-                                    {% if cl.has_filters %}
-                                        {% block filters %}
-                                            <div id="grp-filters" class="g-d-6 g-d-l">
-                                                <div class="grp-filter">
-                                                    <div class="grp-pulldown-container">
-                                                        <a href="javascript://" class="grp-button grp-pulldown-handler">{% trans 'Filter' %}</a>
-                                                        <div class="grp-pulldown-content" style="display: none;">
-                                                            {% for spec in cl.filter_specs %}
-                                                                {% if spec.is_hierarchical %}
-                                                                    {% tree_admin_list_filter cl spec %}
-                                                                {% else %}
-                                                                    {% admin_list_filter cl spec %}
-                                                                {% endif %}
-                                                            {% endfor %}
-                                                        </div>
+                                {% if cl.has_filters %}
+                                    {% block filters %}
+                                        <div id="grp-filters" class="g-d-6 g-d-l">
+                                            <div class="grp-filter">
+                                                <div class="grp-pulldown-container">
+                                                    <a href="javascript://" class="grp-button grp-pulldown-handler">{% trans 'Filter' %}</a>
+                                                    <div class="grp-pulldown-content" style="display: none;">
+                                                        {% for spec in cl.filter_specs %}
+                                                            {% if spec.is_hierarchical %}
+                                                                {% tree_admin_list_filter cl spec %}
+                                                            {% else %}
+                                                                {% admin_list_filter cl spec %}
+                                                            {% endif %}
+                                                        {% endfor %}
                                                     </div>
                                                 </div>
                                             </div>
-                                        {% endblock %}
-                                    {% endif %}
-                                {% endcache %}
+                                        </div>
+                                    {% endblock %}
+                                {% endif %}
                             </aside>
                         {% endblock %}
                     {% endif %}

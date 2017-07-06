@@ -97,7 +97,7 @@ class AddressManager(models.Manager):
             'geoposition__altitude': altitude or None,
             }
             
-        if country and isinstance(country, unicode):
+        if country and not isinstance(country, Country):
             country = Country.objects.get(pk=country)
             
         as_necessary = self.filter(

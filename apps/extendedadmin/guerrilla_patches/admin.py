@@ -340,4 +340,4 @@ def patch_admin():
     
     main.ChangeList = ExtendedChangeList
     
-patch_admin()    
+patch_admin()
