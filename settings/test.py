@@ -85,3 +85,13 @@ CACHES = {
 RAVEN_CONFIG = {
     'dsn': None,
 }
+
+
+class DisabledMigrations(object):
+    def __contains__(self, item):
+        return True
+    def __getitem__(self, item):
+        return "{}.migrations_not_used_in_tests".format(item)
+
+
+MIGRATION_MODULES = DisabledMigrations()
