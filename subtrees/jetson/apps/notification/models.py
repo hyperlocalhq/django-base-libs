@@ -284,6 +284,9 @@ def send(recipients, sysname, extra_context=None, on_site=True, instance=None, s
         'foo': 'bar',
     )
     """
+    if not getattr(settings, "SEND_NOTIFICATIONS", True):
+        return
+
     if not extra_context:
         extra_context = {}
     from tasks import send_to_user
